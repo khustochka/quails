@@ -29,14 +29,8 @@
 
     -# scripts
 
-    %title= yield :page_title || @page_title || "!!! Set content_for @page_title !!!"
+    %title Hello!
 
   %body
 
-    = render :partial => "partials/header"
-
-    = (yield :main_content) || content_tag( :div, yield, :id => "main" )
-
-    = render :partial => "partials/footer"
-
-    = render :partial => "partials/ga"
+    = yield

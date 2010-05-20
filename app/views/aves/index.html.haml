@@ -1,0 +1,10 @@
+%table
+  - @ordines.each do |ordo|
+    %tr
+      %td= ordo[:name]
+    - ordo[:familiae].each do |familia|
+      %tr
+        %td= familia[:name]
+      - familia[:species].each do |sp|
+        %tr
+          %td= sp[:name]

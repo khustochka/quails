@@ -6,6 +6,8 @@ Quails3::Application.routes.draw do |map|
   #   match 'products/:id' => 'catalog#view'
   # Keep in mind you can assign values other than :controller and :action
 
+  match 'aves' => 'aves#index'
+
   # Sample of named route:
   #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
   # This route can be invoked with purchase_url(:id => product.id)
@@ -48,7 +50,7 @@ Quails3::Application.routes.draw do |map|
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => "welcome#index"
+  root :to => redirect('/aves')
 
   # See how all your routes lay out with "rake routes"
 
