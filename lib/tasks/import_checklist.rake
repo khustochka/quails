@@ -20,7 +20,7 @@ namespace :import do
 
       doc.xpath('/html/body/table[2]/tr/td/table[2]/tr/td/table/tr[td[not(@colspan)]]').each do |row|
         sp_data = row.children
-        list[Fixtures.identify(sp_data[0])] = sp_data[3].content.strip
+        list[Fixtures.identify(sp_data[1].content)] = sp_data[3].content.strip
       end
 
       out = File.new('lib/import/output/ukraine.yaml', 'w')
@@ -41,7 +41,7 @@ namespace :import do
 
       doc.xpath('/html/body/table[2]/tr/td/table[2]/tr/td/table/tr[td[not(@colspan)]]').each do |row|
         sp_data = row.children
-        list[Fixtures.identify(sp_data[0])] = sp_data[3].content.strip
+        list[Fixtures.identify(sp_data[1].content)] = sp_data[3].content.strip
       end
 
       out = File.new('lib/import/output/usa.yaml', 'w')
