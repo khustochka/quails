@@ -16,6 +16,8 @@ gem 'pg'
 # Bundle the extra gems:
 gem 'haml'
 
+gem 'nokogiri', :group => :development
+
 # Bundle gems for certain environments:
 # gem 'rspec', :group => :test
 # group :test do
