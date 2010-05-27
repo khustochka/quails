@@ -29,8 +29,15 @@
 
     -# scripts
 
-    %title Hello!
+    %title= @page_title || '!! Set the page title !!'
 
   %body
 
-    = yield
+    = render :partial => "partials/header"
+
+    #main
+      =yield
+
+    = render :partial => "partials/footer"
+
+    = render :partial => "partials/ga"

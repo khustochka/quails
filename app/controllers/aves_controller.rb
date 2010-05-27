@@ -1,4 +1,4 @@
-class AvesController < ApplicationController
+class AvesController < PublicController
 
   def index
     @ordines = [
