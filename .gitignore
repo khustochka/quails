@@ -1,5 +1,6 @@
 .*
 !.gitignore
+!.gitkeep
 .bundle
 db/*.sqlite3
 config/database.yml
