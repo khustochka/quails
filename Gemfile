@@ -15,13 +15,16 @@ gem 'pg'
 
 # Bundle the extra gems:
 gem 'haml'
+gem 'formtastic'
 
 group :development do
   gem 'nokogiri'
+  gem 'rails3-generators'
 end
 
 # Bundle gems for certain environments:
 # gem 'rspec', :group => :test
-# group :test do
-#   gem 'webrat'
-# end
+group :test do
+  gem 'shoulda'
+  gem 'factory_girl'
+end
