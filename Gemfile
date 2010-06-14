@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.0.beta3'
+gem 'rails', '3.0.0.beta4'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -16,7 +16,9 @@ gem 'pg'
 # Bundle the extra gems:
 gem 'haml'
 
-gem 'nokogiri', :group => :development
+group :development do
+  gem 'nokogiri'
+end
 
 # Bundle gems for certain environments:
 # gem 'rspec', :group => :test
