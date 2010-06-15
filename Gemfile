@@ -20,6 +20,7 @@ gem 'formtastic'
 group :development do
   gem 'nokogiri'
   gem 'rails3-generators'
+  gem 'yaml_db'
 end
 
 # Bundle gems for certain environments:

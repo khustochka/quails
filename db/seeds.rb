@@ -5,3 +5,6 @@
 #
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Daley', :city => cities.first)
+
+
+SerializationHelper::Base.new(YamlDb::Helper).load('db/data.yml', YamlDb::Helper.extension)
