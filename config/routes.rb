@@ -1,4 +1,5 @@
 Quails3::Application.routes.draw do |map|
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -6,7 +7,7 @@ Quails3::Application.routes.draw do |map|
   #   match 'products/:id' => 'catalog#view'
   # Keep in mind you can assign values other than :controller and :action
 
-  match 'aves' => 'aves#index'
+  #match 'aves' => 'aves#index'
 
   # Sample of named route:
   #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
@@ -15,7 +16,7 @@ Quails3::Application.routes.draw do |map|
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
   scope '/(:locale)', :locale => /[a-z]{2}/ do
-    resources :checklists, :only => :index
+    resources :species, :except => [:new, :create, :destroy]
   end
 
   # Sample resource route with options:
@@ -53,7 +54,7 @@ Quails3::Application.routes.draw do |map|
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => redirect('/aves')
+  root :to => redirect('/species')
 
   # See how all your routes lay out with "rake routes"
 

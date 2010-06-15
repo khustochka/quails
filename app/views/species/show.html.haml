@@ -1,0 +1,34 @@
+%p
+  %b Code:
+  = @species.code
+%p
+  %b Name sci:
+  = @species.name_sci
+%p
+  %b Authority:
+  = @species.authority
+%p
+  %b Name en:
+  = @species.name_en
+%p
+  %b Name ru:
+  = @species.name_ru
+%p
+  %b Name uk:
+  = @species.name_uk
+%p
+  %b Index num:
+  = @species.index_num
+%p
+  %b Order:
+  = @species.order
+%p
+  %b Family:
+  = @species.family
+%p
+  %b Avibase_id:
+  = @species.avibase_id
+
+= link_to 'Edit', edit_species_path(@species)
+\|
+= link_to 'Back', species_path
