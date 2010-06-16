@@ -1,5 +1,3 @@
-require 'active_record/fixtures'
-
 module Import
   module Book
     class Clements

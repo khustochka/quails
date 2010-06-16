@@ -1,34 +1,39 @@
 require 'lib/import/species'
+#require 'app/helpers/checklists_helper'
 
 desc 'Importing data'
 namespace :import do
 
   desc 'Import the species from Avibase site'
-  task :species => :environment do
+  namespace :species do
 
-    puts "Importing species"
-    full_list = 'http://avibase.bsc-eoc.org/checklist.jsp?region=hol&list=clements&lang=EN'
+    desc 'Import basic species data from Avibase site'
+    task :basics => :environment do
 
-    regions = %w(  ua usny usnj  )
+      include ChecklistsHelper
 
-    holarctic = Import::Species.list(full_list)
+      puts 'Importing species'
 
-    desired = regions.inject([]) do |memo, reg|
-      memo + Import::Species.list(full_list.sub('hol', reg))
+      regions = %w(  ua usny usnj  )
+
+      holarctic = Import::AvibaseSpecies.parse_list(avibase_list_url('hol'))
+
+      desired = regions.inject([]) do |memo, reg|
+        memo + Import::AvibaseSpecies.parse_list(avibase_list_url(reg))
+      end
+
+      desired = holarctic & desired
+
+      puts 'DB filling started'
+
+      Import::AvibaseSpecies.fill_db(desired)
+
     end
 
-    desired = holarctic & desired
-
-    desired.inject(1) do |index_num, sp|
-      Species.create(
-              :name_sci => sp[:name_sci],
-              :name_en => sp[:name_en],
-              :avibase_id => sp[:avibase_id],
-              :index_num => index_num
-      )
-      index_num + 1
+    desc 'Import species details from Avibase site'
+    task :details => :environment do
+      Import::AvibaseSpecies.fetch_details(desired)
     end
-
   end
 
 end

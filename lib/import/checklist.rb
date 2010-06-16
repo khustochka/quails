@@ -1,5 +1,3 @@
-require 'active_record/fixtures'
-
 module Import
   class Checklist
     def self.parse(io, output_file)
