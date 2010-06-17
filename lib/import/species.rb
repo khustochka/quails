@@ -1,5 +1,5 @@
 require 'open-uri'
-require 'app/models/species'
+#require 'app/models/species'
 
 module Import
   class AvibaseSpecies
