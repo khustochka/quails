@@ -34,7 +34,7 @@ module Import
 
     def self.fill_db(hash)
       hash.inject(1) do |index_num, sp|
-        Species.create(
+        Species.create!(
                 :name_sci => sp[:name_sci],
                 :authority => '',
                 :name_en => sp[:name_en],
