@@ -1,4 +1,4 @@
-class SpeciesController < PublicController
+class SpeciesController < ApplicationController
 
   before_filter :find_species, :except => :index
 
