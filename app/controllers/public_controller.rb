@@ -11,7 +11,7 @@ class PublicController < ApplicationController
   end
 
   def default_url_options(options={})
-    { :locale => I18n.locale } if non_default_locales.include?(I18n.locale)
+    options.merge non_default_locales.include?(I18n.locale) ? { :locale => I18n.locale } : {}
   end
 
   def non_default_locales
