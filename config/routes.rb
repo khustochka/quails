@@ -15,9 +15,12 @@ Quails3::Application.routes.draw do |map|
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
-  scope '/(:locale)', :locale => /[a-z]{2}/ do
+
+
     resources :species, :except => [:new, :create, :destroy]
-  end
+#  scope '/(:locale)', :locale => /[a-z]{2}/ do
+#    resources :species, :except => [:new, :create, :destroy]
+#  end
 
   # Sample resource route with options:
   #   resources :products do
