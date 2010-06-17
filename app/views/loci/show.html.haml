@@ -1,0 +1,28 @@
+%p
+  %b Code:
+  = @locus.code
+%p
+  %b Parent:
+  = @locus.parent_id
+%p
+  %b Type:
+  = @locus.type
+%p
+  %b English name:
+  = @locus.name_en
+%p
+  %b Russian name:
+  = @locus.name_ru
+%p
+  %b Ukrainian name:
+  = @locus.name_uk
+%p
+  %b Lat:
+  = @locus.lat
+%p
+  %b Lon:
+  = @locus.lon
+
+= link_to 'Edit', edit_locus_path(@locus)
+\|
+= link_to 'Index', loci_path

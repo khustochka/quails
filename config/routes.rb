@@ -17,10 +17,11 @@ Quails3::Application.routes.draw do |map|
   #   resources :products
 
 
-    resources :species, :except => [:new, :create, :destroy]
+  resources :species, :except => [:new, :create, :destroy]
 #  scope '/(:locale)', :locale => /[a-z]{2}/ do
 #    resources :species, :except => [:new, :create, :destroy]
 #  end
+  resources :loci
 
   # Sample resource route with options:
   #   resources :products do
