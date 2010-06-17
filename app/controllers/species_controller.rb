@@ -1,7 +1,13 @@
 class SpeciesController < PublicController
+
+  before_filter :find_species, :except => :index
+
+#  helper_method :latin_url_humanize
+
   # GET /species
   # GET /species.xml
   def index
+    @page_title = 'Listing species'
     @species = Species.all
 
     respond_to do |format|
@@ -13,8 +19,7 @@ class SpeciesController < PublicController
   # GET /species/1
   # GET /species/1.xml
   def show
-    @species = Species.find(params[:id])
-
+    @page_title = "#{@species.name_sci} / #{@species.name_en}"
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @species }
@@ -23,13 +28,12 @@ class SpeciesController < PublicController
 
   # GET /species/1/edit
   def edit
-    @species = Species.find(params[:id])
+    @page_title = "Editing #{@species.name_sci} / #{@species.name_en}"
   end
 
   # PUT /species/1
   # PUT /species/1.xml
   def update
-    @species = Species.find(params[:id])
 
     respond_to do |format|
       if @species.update_attributes(params[:species])
@@ -40,5 +44,14 @@ class SpeciesController < PublicController
         format.xml  { render :xml => @species.errors, :status => :unprocessable_entity }
       end
     end
+  end
+
+  private
+  def find_species
+    @species = Species.find_by_name_sci(latin_url_humanize(params[:id]))
+  end
+
+  def latin_url_humanize(sp_url)
+    sp_url.gsub(/_|\+/, ' ').gsub(/ +/, ' ').capitalize
   end
 end

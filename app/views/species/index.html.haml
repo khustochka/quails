@@ -1,34 +1,34 @@
-%h1 Listing species
+%h2 Listing species
 
 %table
   %tr
+    %th No.
     %th Code
-    %th Name sci
+    %th Scientific name
     %th Authority
-    %th Name en
-    %th Name ru
-    %th Name uk
-    %th Index num
+    %th English
+    %th Russian
+    %th Ukrainian
     %th Order
     %th Family
-    %th Avibase id
-    %th
+    %th Avb
     %th
 
   - @species.each do |species|
     %tr
+      %td= species.index_num
       %td= species.code
-      %td= species.name_sci
+      %td= link_to species.name_sci, species
       %td= species.authority
       %td= species.name_en
       %td= species.name_ru
       %td= species.name_uk
-      %td= species.index_num
       %td= species.order
       %td= species.family
-      %td= species.avibase_id
-      %td= link_to 'Show', species
-      %td= link_to 'Edit', edit_species_path(species)
+      %td
+        %small= link_to species.avibase_id[0..3] + '…', avibase_species_url(species.avibase_id)
+      %td
+        %small= link_to '[edit]', edit_species_path(species)
 
 %br
 

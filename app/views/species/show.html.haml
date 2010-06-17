@@ -1,23 +1,22 @@
+%h2= @species.name_sci
+
 %p
   %b Code:
   = @species.code
 %p
-  %b Name sci:
-  = @species.name_sci
-%p
   %b Authority:
   = @species.authority
 %p
-  %b Name en:
+  %b English name:
   = @species.name_en
 %p
-  %b Name ru:
+  %b Russian name:
   = @species.name_ru
 %p
-  %b Name uk:
+  %b Ukrainian name:
   = @species.name_uk
 %p
-  %b Index num:
+  %b Index number:
   = @species.index_num
 %p
   %b Order:
@@ -26,9 +25,9 @@
   %b Family:
   = @species.family
 %p
-  %b Avibase_id:
-  = @species.avibase_id
+  %b Avibase ID:
+  = link_to @species.avibase_id, avibase_species_url(@species.avibase_id)
 
 = link_to 'Edit', edit_species_path(@species)
 \|
-= link_to 'Back', species_path
+= link_to 'Index', species_index_path
