@@ -2,7 +2,7 @@
 
 %table
   %tr
-    %th No.
+    %th view
     %th Code
     %th Scientific name
     %th Authority
@@ -12,23 +12,19 @@
     %th Order
     %th Family
     %th Avb
-    %th
 
   - @species.each do |species|
     %tr
-      %td= species.index_num
+      %td= link_to species.index_num, species
       %td= species.code
-      %td= link_to species.name_sci, species
+      %td= link_to species.name_sci, edit_species_path(species)
       %td= species.authority
       %td= species.name_en
       %td= species.name_ru
       %td= species.name_uk
       %td= species.order
       %td= species.family
-      %td
-        %small= link_to species.avibase_id[0..3] + '…', avibase_species_url(species.avibase_id)
-      %td
-        %small= link_to '[edit]', edit_species_path(species)
+      %td= link_to species.avibase_id[0..3] + '…', avibase_species_url(species.avibase_id)
 
 %br
 

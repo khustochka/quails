@@ -1,7 +1,7 @@
-- semantic_form_for @species do |form|
-  - form.inputs do
+= semantic_form_for @species do |form|
+  = form.inputs do
     = form.input :code, :label => 'Code'
-    = form.input :name_sci, :label => 'Scientific name'
+    = form.input :name_sci, :label => 'Scientific name', :input_html => {:disabled => true}
     = form.input :authority, :label => 'Authority'
     = form.input :name_en, :label => 'English name'
     = form.input :name_ru, :label => 'Russian name'

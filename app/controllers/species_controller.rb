@@ -12,7 +12,7 @@ class SpeciesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @species }
+      format.xml { render :xml => @species }
     end
   end
 
@@ -22,7 +22,7 @@ class SpeciesController < ApplicationController
     @page_title = "#{@species.name_sci} / #{@species.name_en}"
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @species }
+      format.xml { render :xml => @species }
     end
   end
 
@@ -38,17 +38,18 @@ class SpeciesController < ApplicationController
     respond_to do |format|
       if @species.update_attributes(params[:species])
         format.html { redirect_to(@species, :notice => 'Species was successfully updated.') }
-        format.xml  { head :ok }
+        format.xml { head :ok }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @species.errors, :status => :unprocessable_entity }
+        format.xml { render :xml => @species.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   private
+  # TODO: investigate why problems in update when trying to save invalid name_sci
   def find_species
-    @species = Species.find_by_name_sci(latin_url_humanize(params[:id]))
+    @species = Species.find_by_name_sci!(latin_url_humanize(params[:id]))
   end
 
   def latin_url_humanize(sp_url)
