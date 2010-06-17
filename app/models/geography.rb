@@ -1,5 +1,4 @@
-class Country < Locus
-end
+
 
 class Region < Locus
 end
