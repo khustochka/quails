@@ -7,4 +7,4 @@
 #   Mayor.create(:name => 'Daley', :city => cities.first)
 
 
-SerializationHelper::Base.new(YamlDb::Helper).load('db/data.yml', YamlDb::Helper.extension)
+SerializationHelper::Base.new(YamlDb::Helper).load_from_dir 'db/seed'
