@@ -6,7 +6,7 @@ namespace :import do
   desc 'Importing geographical data from legacy DB'
   task(:locations_legacy => :environment) do
 
-    Import::Location.get_legacy
+    Import::LocationImport.get_legacy
 
   end
 end
