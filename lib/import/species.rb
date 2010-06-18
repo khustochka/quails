@@ -1,5 +1,4 @@
 require 'open-uri'
-#require 'app/models/species'
 
 module Import
   class SpeciesImport
@@ -33,6 +32,7 @@ module Import
     end
 
     def self.fill_db(hash)
+      require 'app/models/species'
       hash.inject(1) do |index_num, sp|
         Species.create!(
                 :name_sci => sp[:name_sci],
@@ -50,6 +50,7 @@ module Import
     end
 
     def self.fetch_details(hash)
+      require 'app/models/species'
       hash.each do |sp|
         avibase_id = sp[:avibase_id]
 
