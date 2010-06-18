@@ -21,6 +21,8 @@ Quails3::Application.routes.draw do |map|
 #  scope '/(:locale)', :locale => /[a-z]{2}/ do
 #    resources :species, :except => [:new, :create, :destroy]
 #  end
+
+  resources :observations
   resources :loci
 
   # Sample resource route with options:

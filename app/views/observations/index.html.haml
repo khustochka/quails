@@ -1,0 +1,33 @@
+%h2 Listing observations
+
+%table
+  %tr
+    %th ID
+    %th Species
+    %th Location
+    %th Date
+    %th Quantity
+    %th Biotope
+    %th Place
+    %th Notes
+    %th Mine
+    %th
+    %th
+
+  - @observations.each do |observation|
+    %tr
+      %td= link_to observation.id, observation
+      %td= link_to observation.species.name_sci, observation.species
+      %td= link_to observation.locus.code, observation.locus
+      %td= observation.observ_date
+      %td= observation.quantity
+      %td= observation.biotope
+      %td= observation.place
+      %td= observation.notes
+      %td= observation.mine
+      %td= link_to 'Edit', edit_observation_path(observation)
+      %td= link_to 'Destroy', observation, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New observation', new_observation_path

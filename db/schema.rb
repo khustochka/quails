@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100618093410) do
+ActiveRecord::Schema.define(:version => 20100618191016) do
 
   create_table "loci", :force => true do |t|
     t.string  "code",      :null => false
@@ -20,6 +20,17 @@ ActiveRecord::Schema.define(:version => 20100618093410) do
     t.string  "name_uk"
     t.float   "lat"
     t.float   "lon"
+  end
+
+  create_table "observations", :force => true do |t|
+    t.integer "species_id"
+    t.integer "locus_id"
+    t.date    "observ_date",                   :null => false
+    t.string  "quantity"
+    t.string  "biotope"
+    t.string  "place"
+    t.string  "notes"
+    t.boolean "mine",        :default => true
   end
 
   create_table "species", :force => true do |t|

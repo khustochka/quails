@@ -1,7 +1,7 @@
 = semantic_form_for @locus do |form|
   = form.inputs do
     = form.input :code, :label => 'Code'
-    = form.input :parent, :label => 'Parent', :label_method => :code, :value_method => :id, :collection => (Locus.all_ordered - [@locus])
+    = form.input :parent, :label => 'Parent', :label_method => :code, :collection => (Locus.all_ordered - [@locus])
     = form.input :loc_type, :label => 'Type',  :collection => ['Country', 'Region', 'Location'], :include_blank => false
     = form.input :name_en, :label => 'English name'
     = form.input :name_ru, :label => 'Russian name'

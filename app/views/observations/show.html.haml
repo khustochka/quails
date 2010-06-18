@@ -1,0 +1,30 @@
+%h2= @observation.id
+
+%p
+  %b Species:
+  = link_to @observation.species.name_sci, @observation.species
+%p
+  %b Location:
+  = link_to @observation.locus.code, @observation.locus
+%p
+  %b Date:
+  = @observation.observ_date
+%p
+  %b Quantity:
+  = @observation.quantity
+%p
+  %b Biotope:
+  = @observation.biotope
+%p
+  %b Place:
+  = @observation.place
+%p
+  %b Notes:
+  = @observation.notes
+%p
+  %b Mine:
+  = @observation.mine
+
+= link_to 'Edit', edit_observation_path(@observation)
+\|
+= link_to 'Index', observations_path
