@@ -1,7 +1,5 @@
 require 'lib/import/legacy/models/geography'
-require 'app/models/country'
-require 'app/models/region'
-require 'app/models/location'
+require 'app/models/locus'
 
 module Import
   class LocationImport
@@ -12,16 +10,18 @@ module Import
 	  init_legacy
 
       Legacy::Country.all.each do |country|
-        Country.create!({
+        Locus.create!({
                 :code => country[:country_id],
+                :type => 'Country',
                 :name_ru => enconv(country[:country_name]),
                 :parent_id => nil
         })
       end
 
       Legacy::Region.all.each do |region|
-        Region.create!({
+        Locus.create!({
                 :code => region[:reg_id],
+                :type => 'Region',
                 :name_ru => enconv(region[:reg_name]),
                 :parent_id => Country.find_by_code!(region[:country_id]).id
         })
@@ -29,8 +29,9 @@ module Import
 
       Legacy::Location.all.each do |loc|
         (lat, lon) = loc[:latlon].split(',')
-        Location.create!({
+        Locus.create!({
                 :code => loc[:loc_id].gsub('-','_'),
+                :type => 'Location',
                 :name_ru => enconv(loc[:loc_name]),
                 :parent_id => Region.find_by_code!(loc[:reg_id]).id,
                 :lat => (lat.to_f rescue nil),

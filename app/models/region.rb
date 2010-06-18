@@ -1,2 +1,0 @@
-class Region < Locus
-end

@@ -8,22 +8,4 @@ class Locus < ActiveRecord::Base
     code
   end
 
-  def self.model_name
-    name = 'locus'
-    name.instance_eval do
-      def plural;
-        pluralize;
-      end
-
-      def singular;
-        singularize;
-      end
-
-      def human;
-        humanize;
-      end
-    end
-    return name
-  end
-
 end
