@@ -1,12 +1,11 @@
-%p
-  %b Code:
-  = @locus.code
-%p
-  %b Parent:
-  = @locus.parent_id
+%h2= @locus.code
+
 %p
   %b Type:
   = @locus.loc_type
+%p
+  %b Parent:
+  = (link_to @locus.parent.code, @locus.parent) rescue '-'
 %p
   %b English name:
   = @locus.name_en
@@ -17,11 +16,8 @@
   %b Ukrainian name:
   = @locus.name_uk
 %p
-  %b Lat:
-  = @locus.lat
-%p
-  %b Lon:
-  = @locus.lon
+  %b LatLon:
+  = latlon(@locus.lat, @locus.lon)
 
 = link_to 'Edit', edit_locus_path(@locus)
 \|

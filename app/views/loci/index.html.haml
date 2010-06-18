@@ -1,4 +1,4 @@
-%h1 Listing loci
+%h2 Listing locations
 
 %table
   %tr
@@ -14,12 +14,12 @@
   - @loci.each do |locus|
     %tr
       %td= link_to locus.code,edit_locus_path(locus)
-      %td= locus.parent_id
+      %td= locus.parent.code rescue '-'
       %td= locus.loc_type
       %td= locus.name_en
       %td= locus.name_ru
       %td= locus.name_uk
-      %td= "#{locus.lat};#{locus.lon}"
+      %td= latlon(locus.lat, locus.lon)
       %td= link_to '[x]', locus, :confirm => 'Are you sure?', :method => :delete
 
 %br

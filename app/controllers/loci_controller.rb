@@ -5,7 +5,8 @@ class LociController < ApplicationController
   # GET /loci
   # GET /loci.xml
   def index
-    @loci = Locus.all
+    @page_title = 'Listing locations'
+    @loci = Locus.all_ordered
 
     respond_to do |format|
       format.html # index.html.erb
@@ -16,6 +17,7 @@ class LociController < ApplicationController
   # GET /loci/1
   # GET /loci/1.xml
   def show
+    @page_title = @locus.code
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @locus }
@@ -25,6 +27,7 @@ class LociController < ApplicationController
   # GET /loci/new
   # GET /loci/new.xml
   def new
+    @page_title = 'Creating location'
     @locus = Locus.new
 
     respond_to do |format|
@@ -35,6 +38,7 @@ class LociController < ApplicationController
 
   # GET /loci/1/edit
   def edit
+    @page_title = "Editing #{@locus.code}"
   end
 
   # POST /loci
