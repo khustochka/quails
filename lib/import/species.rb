@@ -2,7 +2,7 @@ require 'open-uri'
 #require 'app/models/species'
 
 module Import
-  class AvibaseSpecies
+  class SpeciesImport
 
     def self.parse_list(url)
       doc = Nokogiri::HTML(open(url), nil, 'utf-8')

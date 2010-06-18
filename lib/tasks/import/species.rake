@@ -16,23 +16,23 @@ namespace :import do
 
       regions = %w(  ua usny usnj  )
 
-      holarctic = Import::AvibaseSpecies.parse_list(avibase_list_url('hol'))
+      holarctic = Import::SpeciesImport.parse_list(avibase_list_url('hol'))
 
       desired = regions.inject([]) do |memo, reg|
-        memo + Import::AvibaseSpecies.parse_list(avibase_list_url(reg))
+        memo + Import::SpeciesImport.parse_list(avibase_list_url(reg))
       end
 
       desired = holarctic & desired
 
       puts 'DB filling started'
 
-      Import::AvibaseSpecies.fill_db(desired)
+      Import::SpeciesImport.fill_db(desired)
 
     end
 
     desc 'Import species details from Avibase site'
     task :details => :environment do
-      Import::AvibaseSpecies.fetch_details(desired)
+      Import::SpeciesImport.fetch_details(desired)
     end
   end
 
