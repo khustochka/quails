@@ -15,7 +15,7 @@ gem 'pg'
 
 # Bundle the extra gems:
 gem 'haml'
-gem 'will_paginate'
+gem 'will_paginate', :git => 'http://github.com/mislav/will_paginate.git', :branch => 'rails3'
 gem 'formtastic', :git => 'git://github.com/justinfrench/formtastic.git', :branch => 'rails3' 
 
 group :development do

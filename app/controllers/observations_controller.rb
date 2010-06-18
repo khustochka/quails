@@ -2,7 +2,7 @@ class ObservationsController < ApplicationController
   # GET /observations
   # GET /observations.xml
   def index
-    @observations = Observation.all
+    @observations = Observation.paginate(:page => params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
