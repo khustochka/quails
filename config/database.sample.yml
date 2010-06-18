@@ -11,7 +11,7 @@
 
 DEFAULT: &DEFAULT
   adapter: postgresql
-  encoding: unicode
+  encoding: utf-8
   pool: 5
   username: quails
   password: 
