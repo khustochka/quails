@@ -1,0 +1,458 @@
+
+--- 
+loci: 
+  columns: 
+  - id
+  - code
+  - parent_id
+  - type
+  - name_en
+  - name_ru
+  - name_uk
+  - lat
+  - lon
+  records: 
+  - - "1"
+    - UA
+    - 
+    - Country
+    - 
+    - !binary |
+      0KPQutGA0LDQuNC90LA=
+
+    - 
+    - 
+    - 
+  - - "2"
+    - kiev_obl
+    - "1"
+    - Region
+    - 
+    - !binary |
+      0JrQuNC10LLRgdC60LDRjyDQvtCx0Lsu
+
+    - 
+    - 
+    - 
+  - - "3"
+    - krym
+    - "1"
+    - Region
+    - 
+    - !binary |
+      0JrRgNGL0Lw=
+
+    - 
+    - 
+    - 
+  - - "4"
+    - kherson_obl
+    - "1"
+    - Region
+    - 
+    - !binary |
+      0KXQtdGA0YHQvtC90YHQutCw0Y8g0L7QsdC7Lg==
+
+    - 
+    - 
+    - 
+  - - "5"
+    - zaporizh_obl
+    - "1"
+    - Region
+    - 
+    - !binary |
+      0JfQsNC/0L7RgNC+0LbRgdC60LDRjyDQvtCx0Lsu
+
+    - 
+    - 
+    - 
+  - - "6"
+    - nikolaev_obl
+    - "1"
+    - Region
+    - 
+    - !binary |
+      0J3QuNC60L7Qu9Cw0LXQstGB0LrQsNGPINC+0LHQuy4=
+
+    - 
+    - 
+    - 
+  - - "7"
+    - chernihiv_obl
+    - "1"
+    - Region
+    - 
+    - !binary |
+      0KfQtdGA0L3QuNCz0L7QstGB0LrQsNGPINC+0LHQuy4=
+
+    - 
+    - 
+    - 
+  - - "8"
+    - zhytomyr_obl
+    - "1"
+    - Region
+    - 
+    - !binary |
+      0JbQuNGC0L7QvNC40YDRgdC60LDRjyDQvtCx0Lsu
+
+    - 
+    - 
+    - 
+  - - "9"
+    - khmelnytskyi_obl
+    - "1"
+    - Region
+    - 
+    - !binary |
+      0KXQvNC10LvRjNC90LjRhtC60LDRjyDQvtCx0Lsu
+
+    - 
+    - 
+    - 
+  - - "10"
+    - dnipropetrovsk_obl
+    - "1"
+    - Region
+    - 
+    - !binary |
+      0JTQvdC10L/RgNC+0L/QtdGC0YDQvtCy0YHQutCw0Y8g0L7QsdC7Lg==
+
+    - 
+    - 
+    - 
+  - - "11"
+    - kiev
+    - "2"
+    - Location
+    - 
+    - !binary |
+      0LMuINCa0LjQtdCy
+
+    - 
+    - "50.44"
+    - "30.51"
+  - - "12"
+    - brovary
+    - "2"
+    - Location
+    - 
+    - !binary |
+      0LMuINCR0YDQvtCy0LDRgNGL
+
+    - 
+    - "50.51"
+    - "30.79"
+  - - "13"
+    - koncha_zaspa
+    - "2"
+    - Location
+    - 
+    - !binary |
+      0JrQvtC90YfQsC3Ql9Cw0YHQv9Cw
+
+    - 
+    - "50.28"
+    - "30.57"
+  - - "14"
+    - kherson
+    - "4"
+    - Location
+    - 
+    - !binary |
+      0LMuINCl0LXRgNGB0L7QvQ==
+
+    - 
+    - "46.64"
+    - "32.6"
+  - - "15"
+    - east_of_alushta
+    - "3"
+    - Location
+    - 
+    - !binary |
+      0L3QsCDQstC+0YHRgtC+0Log0L7RgiDQkNC70YPRiNGC0Ys=
+
+    - 
+    - "44.74"
+    - "34.52"
+  - - "16"
+    - zaporizhya
+    - "5"
+    - Location
+    - 
+    - !binary |
+      0LMuINCX0LDQv9C+0YDQvtC20YzQtQ==
+
+    - 
+    - "47.85"
+    - "35.17"
+  - - "17"
+    - semypolky
+    - "2"
+    - Location
+    - 
+    - !binary |
+      0YEuJm5ic3A70KHQtdC80LjQv9C+0LvQutC4ICjQkdGA0L7Qsi4mbmJzcDvR
+      gC3QvSk=
+
+    - 
+    - "50.72"
+    - "30.93"
+  - - "18"
+    - pohreby
+    - "2"
+    - Location
+    - 
+    - !binary |
+      0YEuJm5ic3A70J/QvtCz0YDQtdCx0YsgKNCR0YDQvtCyLiZuYnNwO9GALdC9
+      KQ==
+
+    - 
+    - "50.55"
+    - "30.63"
+  - - "19"
+    - zazymya
+    - "2"
+    - Location
+    - 
+    - !binary |
+      0YEuJm5ic3A70JfQsNC30LjQvNGM0LUgKNCR0YDQvtCyLiZuYnNwO9GALdC9
+      KQ==
+
+    - 
+    - "50.56"
+    - "30.68"
+  - - "20"
+    - east_nik_obl
+    - "6"
+    - Location
+    - 
+    - !binary |
+      0JLQvtGB0YLQvtC6INCd0LjQutC+0LvQsNC10LLRgdC60L7QuSDQvtCx0Lsu
+
+    - 
+    - "47.2"
+    - "32.88"
+  - - "21"
+    - belozer_rn
+    - "4"
+    - Location
+    - 
+    - !binary |
+      0JHQtdC70L7Qt9C10YDRgdC60LjQuSDRgC3QvQ==
+
+    - 
+    - "46.74"
+    - "32.73"
+  - - "22"
+    - oleshya
+    - "4"
+    - Location
+    - 
+    - !binary |
+      0KbRjtGA0YPQv9C40L3RgdC60LjQuSDRgC3QvQ==
+
+    - 
+    - "46.54"
+    - "32.98"
+  - - "23"
+    - rybne
+    - "2"
+    - Location
+    - 
+    - !binary |
+      0KDRi9Cx0L3QvtC1ICjQmtC40LXQsik=
+
+    - 
+    - "50.47"
+    - "30.71"
+  - - "24"
+    - matveyevka
+    - "5"
+    - Location
+    - 
+    - !binary |
+      0YEuJm5ic3A70JzQsNGC0LLQtdC10LLQutCw
+
+    - 
+    - "47.89"
+    - "35.25"
+  - - "25"
+    - mokrets
+    - "2"
+    - Location
+    - 
+    - !binary |
+      0YEuJm5ic3A70JzQvtC60YDQtdGG
+
+    - 
+    - "50.69"
+    - "31.16"
+  - - "26"
+    - khotsky_kanivske
+    - "2"
+    - Location
+    - 
+    - !binary |
+      0JrQsNC90LXQstGB0LrQvtC1INCy0LTRhdGALiDigJQg0YEuINCl0L7RhtGM
+      0LrQuA==
+
+    - 
+    - "49.91"
+    - "31.58"
+  - - "27"
+    - desna_chernihivska
+    - "7"
+    - Location
+    - 
+    - !binary |
+      0YAuINCU0LXRgdC90LAsINCn0LXRgNC90LjQs9C+0LLigJTQntGB0YLRkdGA
+
+    - 
+    - "51.22"
+    - "31.03"
+  - - "28"
+    - arabatska_strilka
+    - "4"
+    - Location
+    - 
+    - !binary |
+      0JDRgNCw0LHQsNGC0YHQutCw0Y8g0YHRgtGA0LXQu9C60LA=
+
+    - 
+    - "45.83"
+    - "34.92"
+  - - "29"
+    - south_kherson_obl
+    - "4"
+    - Location
+    - 
+    - !binary |
+      0Y7QsyDQpdC10YDRgdC+0L3RgdC60L7QuSDQvtCx0LvQsNGB0YLQuA==
+
+    - 
+    - "46.15"
+    - "33.44"
+  - - "30"
+    - demirci
+    - "3"
+    - Location
+    - 
+    - !binary |
+      0JTQtdC80LXRgNC00LbQuA==
+
+    - 
+    - "44.78"
+    - "34.4"
+  - - "31"
+    - steppe_krym
+    - "3"
+    - Location
+    - 
+    - !binary |
+      0YDQsNCy0L3QuNC90L3Ri9C5INCa0YDRi9C8
+
+    - 
+    - "45.47"
+    - "34.15"
+  - - "32"
+    - teteriv
+    - "8"
+    - Location
+    - 
+    - !binary |
+      0YAuJm5ic3A70KLQtdGC0LXRgNC10LI=
+
+    - 
+    - "50.74"
+    - "29.58"
+  - - "33"
+    - vitachev
+    - "2"
+    - Location
+    - 
+    - !binary |
+      0YEuJm5ic3A70JLQuNGC0LDRh9C10LI=
+
+    - 
+    - "50.09"
+    - "30.89"
+  - - "34"
+    - vinkivtsi
+    - "9"
+    - Location
+    - 
+    - !binary |
+      0L/Qs9GCINCS0LjQvdGM0LrQvtCy0YbRiw==
+
+    - 
+    - "49.03"
+    - "27.23"
+  - - "35"
+    - bortnychi
+    - "2"
+    - Location
+    - 
+    - !binary |
+      0JHQvtGA0YLQvdC40YfQuA==
+
+    - 
+    - "50.37"
+    - "30.67"
+  - - "36"
+    - zaliznyi_port
+    - "4"
+    - Location
+    - 
+    - !binary |
+      0JbQtdC70LXQt9C90YvQuSDQn9C+0YDRgg==
+
+    - 
+    - "46.1394"
+    - "32.2977"
+  - - "37"
+    - oster
+    - "7"
+    - Location
+    - 
+    - !binary |
+      0LMuINCe0YHRgtC10YA=
+
+    - 
+    - "50.95"
+    - "30.88"
+  - - "38"
+    - vyshgorod_rn
+    - "2"
+    - Location
+    - 
+    - !binary |
+      0JLRi9GI0LPQvtGA0L7QtNGB0LrQuNC5INGALdC9
+
+    - 
+    - "50.85"
+    - "30.11"
+  - - "39"
+    - dnipropetrovsk
+    - "10"
+    - Location
+    - 
+    - !binary |
+      0LMuINCU0L3QtdC/0YDQvtC/0LXRgtGA0L7QstGB0Lo=
+
+    - 
+    - "48.4757"
+    - "35.0159"
+  - - "40"
+    - novooleksiivka
+    - "4"
+    - Location
+    - 
+    - !binary |
+      0J3QvtCy0L7QsNC70LXQutGB0LXQtdCy0LrQsA==
+
+    - 
+    - "46.2306"
+    - "34.6504"
