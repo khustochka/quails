@@ -14,7 +14,7 @@ ActiveRecord::Schema.define(:version => 20100618093410) do
   create_table "loci", :force => true do |t|
     t.string  "code",      :null => false
     t.integer "parent_id"
-    t.string  "loc_type"
+    t.string  "loc_type",  :null => false
     t.string  "name_en"
     t.string  "name_ru"
     t.string  "name_uk"

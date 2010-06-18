@@ -3,7 +3,7 @@ class CreateLoci < ActiveRecord::Migration
     create_table :loci do |t|
       t.string :code,   :null => false
       t.integer :parent_id
-      t.string :type
+      t.string :type,   :null => false
       t.string :name_en
       t.string :name_ru
       t.string :name_uk
