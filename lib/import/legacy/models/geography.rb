@@ -1,4 +1,4 @@
-require 'lib/import/legacy/models/legacy_model'
+require 'lib/import/legacy/legacy_model'
 
 module Legacy
 

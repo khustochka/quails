@@ -8,6 +8,8 @@ module Import
     extend LegacyInit
 
     def self.get_legacy
+	
+	  init_legacy
 
       Legacy::Country.all.each do |country|
         Country.create!({
