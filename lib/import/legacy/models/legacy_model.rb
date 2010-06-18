@@ -1,12 +1,12 @@
+require 'lib/import/legacy/legacy_init'
+
 module Legacy
 
   class LegacyModel < ActiveRecord::Base
+    include LegacyInit
 
-    @@legacy_db_spec = YAML.load_file('config/database.yml')['legacy']
+    establish_connection(@@legacy_db_spec)
 
-    def self.establish_legacy_connection
-      establish_connection(@@legacy_db_spec)
-    end
   end
-  
+
 end
