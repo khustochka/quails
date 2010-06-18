@@ -2,6 +2,7 @@ require 'open-uri'
 
 module Import
   class SpeciesImport
+    extend LegacyInit
 
     def self.parse_list(url)
       doc = Nokogiri::HTML(open(url), nil, 'utf-8')
@@ -68,6 +69,30 @@ module Import
                 :name_uk => name_uk
         })
       end
+    end
+
+    def self.create_mapping(file)
+      require 'import/legacy/models/species'
+      require 'app/models/species'
+
+      init_legacy
+
+      species_map = Legacy::Species.where("sp_id <> 'mulspp'").inject({}) do |memo, sp|
+        if newsp = (Species.find_by_name_sci(sp[:sp_la]) || Species.find_by_name_en(sp[:sp_en]))
+          memo.merge({sp[:sp_id] => {:id => newsp.id}})
+        else
+          puts "\n\n\n#{sp[:sp_la]} not found"
+          (gen, spnym) = sp[:sp_la].split(' ')
+          puts "Possible matches"
+          Species.where("name_sci LIKE '#{gen}%' OR name_sci LIKE '%#{spnym}'").each do |ss|
+            puts ss.name_sci, ss.id
+          end
+
+          memo.merge({sp[:sp_id] => {:id => nil}})
+        end
+      end
+
+      File.new(file, 'w').write(species_map.to_yaml)
     end
 
   end

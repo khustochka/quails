@@ -34,6 +34,11 @@ namespace :import do
     task :details => :environment do
       Import::SpeciesImport.fetch_details(desired)
     end
+
+    desc 'Create mapping of legacy DB species to the new ones'
+    task :map => :environment do
+      Import::SpeciesImport.create_mapping('lib/import/legacy/species_map.yml')
+    end
   end
 
 end
