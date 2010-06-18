@@ -12,7 +12,7 @@ module Import
       Legacy::Country.all.each do |country|
         Locus.create!({
                 :code => country[:country_id],
-                :type => 'Country',
+                :loc_type => 'Country',
                 :name_ru => enconv(country[:country_name]),
                 :parent_id => nil
         })
@@ -21,7 +21,7 @@ module Import
       Legacy::Region.all.each do |region|
         Locus.create!({
                 :code => region[:reg_id],
-                :type => 'Region',
+                :loc_type => 'Region',
                 :name_ru => enconv(region[:reg_name]),
                 :parent_id => Country.find_by_code!(region[:country_id]).id
         })
@@ -31,7 +31,7 @@ module Import
         (lat, lon) = loc[:latlon].split(',')
         Locus.create!({
                 :code => loc[:loc_id].gsub('-','_'),
-                :type => 'Location',
+                :loc_type => 'Location',
                 :name_ru => enconv(loc[:loc_name]),
                 :parent_id => Region.find_by_code!(loc[:reg_id]).id,
                 :lat => (lat.to_f rescue nil),

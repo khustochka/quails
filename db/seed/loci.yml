@@ -5,7 +5,7 @@ loci:
   - id
   - code
   - parent_id
-  - type
+  - loc_type
   - name_en
   - name_ru
   - name_uk
