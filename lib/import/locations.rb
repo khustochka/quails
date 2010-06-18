@@ -1,13 +1,14 @@
 require 'lib/import/legacy/models/geography'
-require 'app/models/locus'
 
 module Import
   class LocationImport
     extend LegacyInit
 
     def self.get_legacy
-	
-	  init_legacy
+      
+      require 'app/models/locus'
+
+      init_legacy
 
       Legacy::Country.all.each do |country|
         Locus.create!({
@@ -30,7 +31,7 @@ module Import
       Legacy::Location.all.each do |loc|
         (lat, lon) = loc[:latlon].split(',')
         Locus.create!({
-                :code => loc[:loc_id].gsub('-','_'),
+                :code => loc[:loc_id].gsub('-', '_'),
                 :loc_type => 'Location',
                 :name_ru => enconv(loc[:loc_name]),
                 :parent_id => Region.find_by_code!(loc[:reg_id]).id,
