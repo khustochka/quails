@@ -15,8 +15,8 @@ gem 'pg'
 
 # Bundle the extra gems:
 gem 'haml'
-#gem 'formtastic'
-gem "formtastic", :git => "git://github.com/justinfrench/formtastic.git", :branch => "rails3" 
+gem 'will_paginate'
+gem 'formtastic', :git => 'git://github.com/justinfrench/formtastic.git', :branch => 'rails3' 
 
 group :development do
   gem 'nokogiri'
