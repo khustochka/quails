@@ -2,7 +2,7 @@
   = form.inputs do
     = form.input :species, :label => 'Species', :label_method => :name_sci, :collection => Species.alphabetic
     = form.input :locus, :label => 'Location', :label_method => :code, :collection => Locus.all_ordered
-    = form.input :observ_date, :label => 'Date'
+    = form.input :observ_date, :as => :string, :label => 'Date'
     = form.input :quantity, :label => 'Quantity'
     = form.input :biotope, :label => 'Biotope'
     = form.input :place, :label => 'Place'
