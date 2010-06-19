@@ -2,7 +2,7 @@
 
 %p
   %b Species:
-  = link_to @observation.species.name_sci, @observation.species
+  = species_link(@observation.species)
 %p
   %b Location:
   = link_to @observation.locus.code, @observation.locus

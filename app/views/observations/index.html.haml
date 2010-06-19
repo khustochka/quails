@@ -17,7 +17,7 @@
   - @observations.each do |observation|
     %tr
       %td= link_to observation.id, observation
-      %td= link_to observation.species.name_sci, observation.species
+      %td= species_link(observation.species)
       %td= link_to observation.locus.code, observation.locus
       %td= observation.observ_date
       %td= observation.quantity
