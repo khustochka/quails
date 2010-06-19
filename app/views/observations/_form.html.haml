@@ -1,6 +1,6 @@
 = semantic_form_for @observation do |form|
   = form.inputs do
-    = form.input :species, :label => 'Species', :label_method => :name_sci #, :collection => Species.select.order(:name_sci)
+    = form.input :species, :label => 'Species', :label_method => :name_sci, :collection => Species.alphabetic
     = form.input :locus, :label => 'Location', :label_method => :code, :collection => Locus.all_ordered
     = form.input :observ_date, :label => 'Date'
     = form.input :quantity, :label => 'Quantity'
