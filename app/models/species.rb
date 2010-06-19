@@ -2,7 +2,7 @@ class Species < ActiveRecord::Base
 
   validates :order, :presence => true
   validates :family, :presence => true
-  validates :name_sci, :format => /^[A-Z][a-z]+ [a-z]+$/
+  validates :name_sci, :format => /^[A-Z][a-z]+( [a-z]+)+$/
   validates :code, :format => /^[a-z]{6}$/, :allow_blank => true
 
   default_scope order(:index_num)
