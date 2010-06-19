@@ -78,18 +78,19 @@ module Import
       init_legacy
 
       species_map = Legacy::Species.where("sp_id <> 'mulspp'").inject({}) do |memo, sp|
-        if newsp = (Species.find_by_name_sci(sp[:sp_la]) || Species.find_by_name_en(sp[:sp_en]))
-          memo.merge({sp[:sp_id] => {:id => newsp.id}})
-        else
+        unless newsp = (Species.find_by_name_sci(sp[:sp_la]) || Species.find_by_name_en(sp[:sp_en]))
           puts "\n\n\n#{sp[:sp_la]} not found"
           (gen, spnym) = sp[:sp_la].split(' ')
-          puts "Possible matches"
-          Species.where("name_sci LIKE '#{gen}%' OR name_sci LIKE '%#{spnym}'").each do |ss|
-            puts ss.name_sci, ss.id
+          puts "Possible matches:"
+          matches = Species.where("name_sci LIKE '#{gen}%' OR name_sci LIKE '%#{spnym}'")
+          (1..matches.size).each do |i|
+            puts "#{i}) #{matches[i-1].name_sci}"
           end
-
-          memo.merge({sp[:sp_id] => {:id => nil}})
+          puts "Select option (0 to discard): "
+          inpt = $stdin.gets
+          newsp = inpt == 0 ? {:id => nil} : matches[inpt.to_i-1] 
         end
+        memo.merge({sp[:sp_id] => {:id => newsp.id}})
       end
 
       File.new(file, 'w').write(species_map.to_yaml)
