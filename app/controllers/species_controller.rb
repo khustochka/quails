@@ -2,12 +2,9 @@ class SpeciesController < ApplicationController
 
   before_filter :find_species, :except => :index
 
-#  helper_method :latin_url_humanize
-
   # GET /species
   # GET /species.xml
   def index
-    @page_title = 'Listing species'
     @species = Species.all
 
     respond_to do |format|
@@ -19,7 +16,6 @@ class SpeciesController < ApplicationController
   # GET /species/1
   # GET /species/1.xml
   def show
-    @page_title = "#{@species.name_sci} / #{@species.name_en}"
     respond_to do |format|
       format.html # show.html.erb
       format.xml { render :xml => @species }
@@ -28,7 +24,6 @@ class SpeciesController < ApplicationController
 
   # GET /species/1/edit
   def edit
-    @page_title = "Editing #{@species.name_sci} / #{@species.name_en}"
   end
 
   # PUT /species/1
@@ -54,5 +49,16 @@ class SpeciesController < ApplicationController
 
   def latin_url_humanize(sp_url)
     sp_url.gsub(/_|\+/, ' ').gsub(/ +/, ' ').capitalize
+  end
+
+  def window_caption
+    case action_name
+      when 'index'
+        'Listing species'
+      when 'show'
+        "#{@species.name_sci} / #{@species.name_en}"
+      when 'edit', 'update'
+        "Editing #{@species.name_sci} / #{@species.name_en}"
+    end
   end
 end

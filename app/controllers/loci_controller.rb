@@ -87,4 +87,16 @@ class LociController < ApplicationController
     @locus = Locus.find_by_code!(params[:id])
   end
 
+  def window_caption
+    case action_name
+      when 'index'
+        'Listing locations'
+      when 'show'
+        @locus.code
+      when 'new', 'create'
+        "Editing #{@locus.code}"
+      when 'edit', 'update'
+        "Editing #{@locus.code}"
+    end
+  end
 end
