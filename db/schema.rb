@@ -9,9 +9,9 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100618191016) do
+ActiveRecord::Schema.define(:version => 20100620071117) do
 
-  create_table "loci", :force => true do |t|
+  create_table "locus", :force => true do |t|
     t.string  "code",      :null => false
     t.integer "parent_id"
     t.string  "loc_type",  :null => false

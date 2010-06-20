@@ -7,6 +7,5 @@ ActiveSupport::Inflector.inflections do |inflect|
 #   inflect.singular /^(ox)en/i, '\1'
 #   inflect.irregular 'person', 'people'
 #   inflect.uncountable %w( fish sheep )
-  inflect.uncountable %w( species )
-  inflect.irregular 'locus', 'loci'
+  inflect.uncountable %w( species locus ) # locus: grammatically incorrect but convenient
 end

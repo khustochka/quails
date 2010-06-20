@@ -1,14 +1,14 @@
 require 'test_helper'
 
-class LociControllerTest < ActionController::TestCase
+class LocusControllerTest < ActionController::TestCase
   setup do
-    @locus = loci(:one)
+    @locus = locus(:one)
   end
 
   test "should get index" do
     get :index
     assert_response :success
-    assert_not_nil assigns(:loci)
+    assert_not_nil assigns(:locus)
   end
 
   test "should get new" do
@@ -44,6 +44,6 @@ class LociControllerTest < ActionController::TestCase
       delete :destroy, :id => @locus.to_param
     end
 
-    assert_redirected_to loci_path
+    assert_redirected_to locus_index_path
   end
 end

@@ -1,21 +1,21 @@
-class LociController < ApplicationController
+class LocusController < ApplicationController
 
   before_filter :find_locus, :except => [:index, :new, :create]
 
-  # GET /loci
-  # GET /loci.xml
+  # GET /locus
+  # GET /locus.xml
   def index
     @page_title = 'Listing locations'
-    @loci = Locus.all_ordered
+    @locus = Locus.all_ordered
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @loci }
+      format.xml  { render :xml => @locus }
     end
   end
 
-  # GET /loci/1
-  # GET /loci/1.xml
+  # GET /locus/1
+  # GET /locus/1.xml
   def show
     @page_title = @locus.code
     respond_to do |format|
@@ -24,8 +24,8 @@ class LociController < ApplicationController
     end
   end
 
-  # GET /loci/new
-  # GET /loci/new.xml
+  # GET /locus/new
+  # GET /locus/new.xml
   def new
     @page_title = 'Creating location'
     @locus = Locus.new
@@ -36,13 +36,13 @@ class LociController < ApplicationController
     end
   end
 
-  # GET /loci/1/edit
+  # GET /locus/1/edit
   def edit
     @page_title = "Editing #{@locus.code}"
   end
 
-  # POST /loci
-  # POST /loci.xml
+  # POST /locus
+  # POST /locus.xml
   def create
     @locus = Locus.new(params[:locus])
 
@@ -57,8 +57,8 @@ class LociController < ApplicationController
     end
   end
 
-  # PUT /loci/1
-  # PUT /loci/1.xml
+  # PUT /locus/1
+  # PUT /locus/1.xml
   def update
     respond_to do |format|
       if @locus.update_attributes(params[:locus])
@@ -71,13 +71,13 @@ class LociController < ApplicationController
     end
   end
 
-  # DELETE /loci/1
-  # DELETE /loci/1.xml
+  # DELETE /locus/1
+  # DELETE /locus/1.xml
   def destroy
     @locus.destroy
 
     respond_to do |format|
-      format.html { redirect_to(loci_url) }
+      format.html { redirect_to(locus_url) }
       format.xml  { head :ok }
     end
   end

@@ -11,7 +11,7 @@
     %th LatLon
     %th
 
-  - @loci.each do |locus|
+  - @locus.each do |locus|
     %tr
       %td= link_to locus.code,edit_locus_path(locus)
       %td= locus.parent.code rescue '-'

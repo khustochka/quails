@@ -23,7 +23,7 @@ Quails3::Application.routes.draw do |map|
 #  end
 
   resources :observations
-  resources :loci
+  resources :locus
 
   # Sample resource route with options:
   #   resources :products do
