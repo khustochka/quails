@@ -5,8 +5,12 @@ class LocusController < ApplicationController
   # GET /locus
   # GET /locus.xml
   def index
-    @page_title = 'Listing locations'
     @locus = Locus.all_ordered
+    @types = @locus.map { |loc|
+      {:name => loc.loc_type}
+    }.uniq.map { |type|
+      type.merge(:locs => @locus.select { |s| s.loc_type == type[:name] })
+    }
 
     respond_to do |format|
       format.html # index.html.erb
@@ -17,7 +21,6 @@ class LocusController < ApplicationController
   # GET /locus/1
   # GET /locus/1.xml
   def show
-    @page_title = @locus.code
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @locus }
@@ -27,7 +30,6 @@ class LocusController < ApplicationController
   # GET /locus/new
   # GET /locus/new.xml
   def new
-    @page_title = 'Creating location'
     @locus = Locus.new
 
     respond_to do |format|
@@ -38,14 +40,11 @@ class LocusController < ApplicationController
 
   # GET /locus/1/edit
   def edit
-    @page_title = "Editing #{@locus.code}"
   end
 
   # POST /locus
   # POST /locus.xml
   def create
-    @locus = Locus.new(params[:locus])
-
     respond_to do |format|
       if @locus.save
         format.html { redirect_to(@locus, :notice => 'Locus was successfully created.') }
@@ -94,7 +93,7 @@ class LocusController < ApplicationController
       when 'show'
         @locus.code
       when 'new', 'create'
-        "Editing #{@locus.code}"
+        "Creating location  "
       when 'edit', 'update'
         "Editing #{@locus.code}"
     end

@@ -1,30 +1,28 @@
 %h2 Listing species
 
-%table
+%table.neat_table
   %tr
-    %th view
-    %th Code
+    %th.align-right No
+    %th.align-center Code
     %th Scientific name
     %th Authority
-    %th English
-    %th Russian
-    %th Ukrainian
-    %th Order
-    %th Family
-    %th Avb
-
-  - @species.each do |species|
+    %th Names
+    %th.align-right Avibase id
+    
+  - @families.each do |fam|
     %tr
-      %td= link_to species.index_num, species
-      %td= species.code
-      %td= link_to species.name_sci, edit_species_path(species)
-      %td= species.authority
-      %td= species.name_en
-      %td= species.name_ru
-      %td= species.name_uk
-      %td= species.order
-      %td= species.family
-      %td= link_to species.avibase_id[0..3] + '…', avibase_species_url(species.avibase_id)
+      %td
+      %td
+      %td{:colspan => 4}
+        %h3= "#{fam[:order].upcase}: #{fam[:name]}"
+    - fam[:species].each do |species|
+      %tr
+        %td.align-right= link_to species.index_num, species
+        %td.align-center= species.code
+        %td= link_to species.name_sci, edit_species_path(species)
+        %td= species.authority
+        %td= %w(en ru uk).map{|lang| "#{lang}: #{species.send('name_'+lang)}"}.join('<br />').html_safe
+        %td.align-right= link_to species.avibase_id, avibase_species_url(species.avibase_id)
 
 %br
 

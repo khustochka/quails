@@ -6,6 +6,11 @@ class SpeciesController < ApplicationController
   # GET /species.xml
   def index
     @species = Species.all
+    @families = @species.map { |sp|
+      {:name => sp.family, :order => sp.order}
+    }.uniq.map { |fam|
+      fam.merge(:species => @species.select { |s| s.family == fam[:name] })
+    }
 
     respond_to do |format|
       format.html # index.html.erb

@@ -1,26 +1,24 @@
 %h2 Listing locations
 
-%table
+%table.neat_table
   %tr
     %th Code
     %th Parent
-    %th Type
-    %th English
-    %th Russian
-    %th Ukrainian
-    %th LatLon
+    %th Names
+    %th.align-center LatLon
     %th
-
-  - @locus.each do |locus|
+      
+  - @types.each do |type|
     %tr
-      %td= link_to locus.code,edit_locus_path(locus)
-      %td= locus.parent.code rescue '-'
-      %td= locus.loc_type
-      %td= locus.name_en
-      %td= locus.name_ru
-      %td= locus.name_uk
-      %td= latlon(locus.lat, locus.lon)
-      %td= link_to '[x]', locus, :confirm => 'Are you sure?', :method => :delete
+      %td{:colspan => 4}
+        %h3= type[:name].pluralize.upcase
+    - type[:locs].each do |locus|
+      %tr
+        %td= link_to locus.code,edit_locus_path(locus)
+        %td= locus.parent.code rescue '-'
+        %td= %w(en ru uk).map{|lang| "#{lang}: #{locus.send('name_'+lang)}"}.join('<br />').html_safe
+        %td.align-center= latlon(locus.lat, locus.lon)
+        %td= link_to '[x]', locus, :confirm => 'Are you sure?', :method => :delete
 
 %br
 
