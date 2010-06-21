@@ -14,7 +14,7 @@ class LocusController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @locus }
+      # format.xml  { render :xml => @locus }
     end
   end
 
@@ -23,7 +23,7 @@ class LocusController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @locus }
+      # format.xml  { render :xml => @locus }
     end
   end
 
@@ -34,7 +34,7 @@ class LocusController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @locus }
+      # format.xml  { render :xml => @locus }
     end
   end
 
@@ -48,10 +48,10 @@ class LocusController < ApplicationController
     respond_to do |format|
       if @locus.save
         format.html { redirect_to(@locus, :notice => 'Locus was successfully created.') }
-        format.xml  { render :xml => @locus, :status => :created, :location => @locus }
+        # format.xml  { render :xml => @locus, :status => :created, :location => @locus }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @locus.errors, :status => :unprocessable_entity }
+        # format.xml  { render :xml => @locus.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -62,10 +62,10 @@ class LocusController < ApplicationController
     respond_to do |format|
       if @locus.update_attributes(params[:locus])
         format.html { redirect_to(@locus, :notice => 'Locus was successfully updated.') }
-        format.xml  { head :ok }
+        # format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @locus.errors, :status => :unprocessable_entity }
+        # format.xml  { render :xml => @locus.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -77,7 +77,7 @@ class LocusController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to(locus_url) }
-      format.xml  { head :ok }
+      # format.xml  { head :ok }
     end
   end
 

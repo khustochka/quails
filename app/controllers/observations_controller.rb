@@ -6,7 +6,7 @@ class ObservationsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @observations }
+      # format.xml  { render :xml => @observations }
     end
   end
 
@@ -17,7 +17,7 @@ class ObservationsController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @observation }
+      # format.xml  { render :xml => @observation }
     end
   end
 
@@ -28,7 +28,7 @@ class ObservationsController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @observation }
+      # format.xml  { render :xml => @observation }
     end
   end
 
@@ -45,10 +45,10 @@ class ObservationsController < ApplicationController
     respond_to do |format|
       if @observation.save
         format.html { redirect_to(@observation, :notice => 'Observation was successfully created.') }
-        format.xml  { render :xml => @observation, :status => :created, :location => @observation }
+        # format.xml  { render :xml => @observation, :status => :created, :location => @observation }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @observation.errors, :status => :unprocessable_entity }
+        # format.xml  { render :xml => @observation.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -61,10 +61,10 @@ class ObservationsController < ApplicationController
     respond_to do |format|
       if @observation.update_attributes(params[:observation])
         format.html { redirect_to(@observation, :notice => 'Observation was successfully updated.') }
-        format.xml  { head :ok }
+        # format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @observation.errors, :status => :unprocessable_entity }
+        # format.xml  { render :xml => @observation.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -77,7 +77,7 @@ class ObservationsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to(observations_url) }
-      format.xml  { head :ok }
+      # format.xml  { head :ok }
     end
   end
 

@@ -14,7 +14,7 @@ class SpeciesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml { render :xml => @species }
+      # format.xml { render :xml => @species }
     end
   end
 
@@ -23,7 +23,7 @@ class SpeciesController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.xml { render :xml => @species }
+      # format.xml { render :xml => @species }
     end
   end
 
@@ -38,10 +38,10 @@ class SpeciesController < ApplicationController
     respond_to do |format|
       if @species.update_attributes(params[:species])
         format.html { redirect_to(@species, :notice => 'Species was successfully updated.') }
-        format.xml { head :ok }
+        # format.xml { head :ok }
       else
         format.html { render :action => "edit" }
-        format.xml { render :xml => @species.errors, :status => :unprocessable_entity }
+        # format.xml { render :xml => @species.errors, :status => :unprocessable_entity }
       end
     end
   end
