@@ -1,0 +1,10 @@
+%table.admin_panel
+  %tr
+    %td
+      &nbsp;
+    %td
+      = link_to_unless_current 'Species', species_index_path
+      = link_to_unless_current 'Locations', locus_index_path
+      = link_to_unless_current 'Observations', observations_path
+    %td
+      &nbsp;

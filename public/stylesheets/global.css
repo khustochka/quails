@@ -22,3 +22,10 @@ table.neat_table {
   table.neat_table th {
     background-color: #f5f5f5;
     text-align: left; }
+
+table.admin_panel {
+  border-collapse: collapse;
+  width: 100%; }
+  table.admin_panel td {
+    border: 1px solid #dddddd;
+    padding: 2px 5px; }
