@@ -3,8 +3,11 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
 #  include LocaleController
+  include AssetsController
 
   layout 'public'
+
+  stylesheet 'global', 'public', 'formtastic'
 
   helper_method :window_caption
 

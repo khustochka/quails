@@ -16,9 +16,10 @@
 
     -# link tags
     -# stylesheets
-    = stylesheet_link_tag 'global'
-    = stylesheet_link_tag 'public'
-    = formtastic_stylesheet_link_tag
+    = include_stylesheets
+
+    -# scripts
+    = include_scripts
 
     -# rss feeds
 
@@ -27,8 +28,6 @@
     -# sitemap (index only)
 
     -# favicon (index only?)
-
-    -# scripts
 
     %title= window_caption || default_window_caption
 
