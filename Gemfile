@@ -1,9 +1,10 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.0.beta4'
+# gem 'rails', '3.0.0.beta4'
 
 # Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
+gem 'rails', :git => 'git://github.com/rails/rails.git'
+gem 'arel',  :git => 'git://github.com/rails/arel.git'
 
 gem 'pg'
 

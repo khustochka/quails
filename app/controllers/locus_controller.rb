@@ -76,7 +76,7 @@ class LocusController < ApplicationController
     @locus.destroy
 
     respond_to do |format|
-      format.html { redirect_to(locus_url) }
+      format.html { redirect_to(locus_index_url) }
       # format.xml  { head :ok }
     end
   end
