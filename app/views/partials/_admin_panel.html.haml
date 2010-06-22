@@ -1,12 +1,15 @@
 %table.admin_panel
   %tr
     %td
-      = link_to_unless_current 'home', root_path
+      %h5= link_to_unless_current 'home', root_path
     %td
-      &nbsp;
+      %h6= link_to_unless_current 'Index', index_path_helper
+      -# %h6= link_to_unless_current 'new', new_path_helper
+      -# %h6= link_to_unless_current 'show', index_path_helper
+      -# %h6= link_to_unless_current 'edit', index_path_helper
     %td
-      = link_to_unless_current 'Species', species_index_path
-      = link_to_unless_current 'Locations', locus_index_path
-      = link_to_unless_current 'Observations', observations_path
+      %h6= link_to_unless_current 'Species', species_index_path
+      %h6= link_to_unless_current 'Locations', locus_index_path
+      %h6= link_to_unless_current 'Observations', observations_path
     %td
       &nbsp;

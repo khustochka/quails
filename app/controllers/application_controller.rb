@@ -6,12 +6,12 @@ class ApplicationController < ActionController::Base
   include AssetsController
   include LayoutController
 
+  helper_method :window_caption
+
   layout 'public'
 
   stylesheet 'global', 'public'
   stylesheet 'formtastic', :only => [:new, :edit, :create, :update]
-
-  helper_method :window_caption
 
   private
   def window_caption

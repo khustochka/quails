@@ -17,9 +17,9 @@
         %h3= "#{fam[:order].upcase}: #{fam[:name]}"
     - fam[:species].each do |species|
       %tr
-        %td.align-right= link_to species.index_num, species
+        %td.align-right= species.index_num
         %td.align-center= species.code
-        %td= link_to species.name_sci, edit_species_path(species)
+        %td= link_to species.name_sci, show_path_helper(species)
         %td= species.authority
         %td= %w(en ru uk).map{|lang| "#{lang}: #{species.send('name_'+lang)}"}.join('<br />').html_safe
         %td.align-right= link_to species.avibase_id, avibase_species_url(species.avibase_id)
