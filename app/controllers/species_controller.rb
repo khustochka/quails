@@ -1,5 +1,8 @@
 class SpeciesController < ApplicationController
 
+  layout 'admin', :except => [:index, :show]
+  layout 'public', :only => [:index, :show]
+
   before_filter :find_species, :except => :index
 
   # GET /species

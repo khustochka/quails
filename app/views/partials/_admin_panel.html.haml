@@ -1,6 +1,8 @@
 %table.admin_panel
   %tr
     %td
+      = link_to_unless_current 'home', root_path
+    %td
       &nbsp;
     %td
       = link_to_unless_current 'Species', species_index_path

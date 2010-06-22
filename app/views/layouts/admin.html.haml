@@ -1,0 +1,31 @@
+!!!
+
+%html{ :xmlns => "http://www.w3.org/1999/xhtml", "xml:lang" => I18n.locale, :lang => I18n.locale }
+
+  %head
+
+    -# meta tags
+    -# encoding
+    %meta{ :content => "text/html; charset=UTF-8", "http-equiv" => "content-type" }
+
+    -# robots
+
+    -# link tags
+    -# stylesheets
+    = include_stylesheets
+
+    -# scripts
+    = include_scripts
+
+    -# rss feeds - do I need them for admin layout?
+
+    %title= window_caption || default_window_caption
+
+  %body
+
+    = render :partial => "partials/admin_panel"
+
+    #main
+      =yield
+   
+    = render :partial => "partials/admin_panel"

@@ -9,13 +9,15 @@ module AssetsController
 
   module ClassMethods
     def stylesheet(*args)
-      before_filter do
+      options = args.extract_options!
+      before_filter options do
         @stylesheets += args
       end
     end
 
     def javascript(*args)
-      before_filter do
+      options = args.extract_options!
+      before_filter options do
         @scripts += args
       end
     end

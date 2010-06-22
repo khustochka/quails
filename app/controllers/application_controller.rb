@@ -4,10 +4,12 @@ class ApplicationController < ActionController::Base
 
 #  include LocaleController
   include AssetsController
+  include LayoutController
 
   layout 'public'
 
-  stylesheet 'global', 'public', 'formtastic'
+  stylesheet 'global', 'public'
+  stylesheet 'formtastic', :only => [:new, :edit, :create, :update]
 
   helper_method :window_caption
 

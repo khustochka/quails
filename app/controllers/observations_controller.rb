@@ -1,4 +1,7 @@
 class ObservationsController < ApplicationController
+
+  layout 'admin'
+  
   # GET /observations
   # GET /observations.xml
   def index

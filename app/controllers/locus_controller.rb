@@ -1,5 +1,7 @@
 class LocusController < ApplicationController
 
+  layout 'admin'
+
   before_filter :find_locus, :except => [:index, :new, :create]
 
   # GET /locus
