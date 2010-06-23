@@ -2,6 +2,8 @@ class LocusController < ApplicationController
 
   layout 'admin'
 
+  use_jquery :only => :index
+
   before_filter :find_locus, :except => [:index, :new, :create]
 
   # GET /locus

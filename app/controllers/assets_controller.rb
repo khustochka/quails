@@ -21,5 +21,12 @@ module AssetsController
         @scripts += args
       end
     end
+
+    def use_jquery(*args)
+      options = args.extract_options!
+      before_filter options do
+        @jquery = true
+      end
+    end
   end
 end

@@ -4,10 +4,11 @@ module ApplicationHelper
   end
 
   def include_stylesheets
-      stylesheet_link_tag @stylesheets.uniq
+    stylesheet_link_tag @stylesheets.uniq
   end
 
   def include_scripts
-      javascript_include_tag @scripts.uniq
+    @scripts = ['jquery', 'rails'] + @scripts if @jquery
+    javascript_include_tag @scripts.uniq
   end
 end

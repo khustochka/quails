@@ -1,6 +1,8 @@
 class ObservationsController < ApplicationController
 
   layout 'admin'
+
+  use_jquery :only => :index
   
   # GET /observations
   # GET /observations.xml
