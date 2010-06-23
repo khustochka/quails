@@ -26,11 +26,11 @@ Quails3::Application.routes.draw do |map|
 
   # ADMINISTRATIVE PAGES
 
-  scope 'admin' do
+#  scope 'admin' do
     resources :observations
     resources :locus
     resources :species, :only => [:edit, :update]
-  end
+ # end
 
 # Sample resource route with options:
 #   resources :products do
