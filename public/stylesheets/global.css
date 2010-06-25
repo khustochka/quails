@@ -25,7 +25,15 @@ table.neat_table {
 
 table.admin_panel {
   border-collapse: collapse;
-  width: 100%; }
+  width: 100%;
+  background-color: #ffcc88; }
   table.admin_panel td {
-    border: 1px solid #dddddd;
-    padding: 2px 5px; }
+    border: 2px dotted #bb8855;
+    padding: 5px 5px; }
+  table.admin_panel h5, table.admin_panel h6 {
+    display: inline;
+    padding: 0 3px; }
+  table.admin_panel h5 {
+    font-size: 100%; }
+  table.admin_panel h6 {
+    font-size: 90%; }
