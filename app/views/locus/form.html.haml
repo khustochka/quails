@@ -1,3 +1,5 @@
+%h2= (['new', 'create'].include?(action_name) ? 'New' : 'Editing') + ' location'
+
 = semantic_form_for @locus do |form|
   = form.inputs do
     = form.input :code, :label => 'Code'

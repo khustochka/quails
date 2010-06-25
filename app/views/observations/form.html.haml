@@ -1,3 +1,5 @@
+%h2= (['new', 'create'].include?(action_name) ? 'New' : 'Editing') + ' observation'
+
 = semantic_form_for @observation do |form|
   = form.inputs do
     = form.input :species, :label => 'Species', :label_method => :name_sci, :collection => Species.alphabetic

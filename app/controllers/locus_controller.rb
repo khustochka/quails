@@ -37,13 +37,16 @@ class LocusController < ApplicationController
     @locus = Locus.new
 
     respond_to do |format|
-      format.html # new.html.erb
+      format.html { render :form }
       # format.xml  { render :xml => @locus }
     end
   end
 
   # GET /locus/1/edit
   def edit
+    respond_to do |format|
+      format.html { render :form }
+    end
   end
 
   # POST /locus

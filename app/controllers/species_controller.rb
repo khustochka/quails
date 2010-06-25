@@ -32,6 +32,9 @@ class SpeciesController < ApplicationController
 
   # GET /species/1/edit
   def edit
+    respond_to do |format|
+      format.html { render :form }
+    end
   end
 
   # PUT /species/1

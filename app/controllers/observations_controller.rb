@@ -3,7 +3,7 @@ class ObservationsController < ApplicationController
   layout 'admin'
 
   use_jquery :only => :index
-  
+
   # GET /observations
   # GET /observations.xml
   def index
@@ -32,7 +32,7 @@ class ObservationsController < ApplicationController
     @observation = Observation.new
 
     respond_to do |format|
-      format.html # new.html.erb
+      format.html { render :form }
       # format.xml  { render :xml => @observation }
     end
   end
@@ -40,6 +40,9 @@ class ObservationsController < ApplicationController
   # GET /observations/1/edit
   def edit
     @observation = Observation.find(params[:id])
+    respond_to do |format|
+      format.html { render :form }
+    end
   end
 
   # POST /observations
