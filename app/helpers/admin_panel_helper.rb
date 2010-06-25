@@ -3,16 +3,16 @@ module AdminPanelHelper
     url_for({:action => :new})
   end
 
-  def show_path_helper(obj)
-    url_for({:action => :show, :id => obj})
+  def show_path_helper(obj = nil)
+    url_for({:action => :show, :id => obj || instance_variable_get("@#{controller_name}".to_sym)})
   end
 
-  def edit_path_helper(obj)
-    url_for({:action => :edit, :id => obj})
+  def edit_path_helper(obj = nil)
+    url_for({:action => :edit, :id => obj || instance_variable_get("@#{controller_name}".to_sym)})
   end
 
-  def destroy_path_helper(obj)
-    url_for({:action => :destroy, :id => obj})
+  def destroy_path_helper(obj = nil)
+    url_for({:action => :destroy, :id => obj || instance_variable_get("@#{controller_name}".to_sym)})
   end
 
   def index_path_helper

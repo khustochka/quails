@@ -1,12 +1,12 @@
 %table.admin_panel
   %tr
     %td
-      %h5= link_to_unless_current 'home', root_path
+      %h6= link_to_unless_current 'home', root_path
     %td
-      %h6= link_to_unless_current 'Index', index_path_helper
-      -# %h6= link_to_unless_current 'new', new_path_helper
-      -# %h6= link_to_unless_current 'show', index_path_helper
-      -# %h6= link_to_unless_current 'edit', index_path_helper
+      = header(5, link_to('Show this one', show_path_helper)) if ['edit', 'update'].include?(action_name) rescue nil
+      = header(5, link_to('Edit this one', edit_path_helper)) if action_name == 'show' rescue nil
+      = header(6, link_to('Create new', new_path_helper)) rescue nil
+      = header(6, link_to('Index', index_path_helper)) unless action_name == 'index' rescue nil
     %td
       %h6= link_to_unless_current 'Species', species_index_path
       %h6= link_to_unless_current 'Locations', locus_index_path
