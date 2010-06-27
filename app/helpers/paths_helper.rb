@@ -1,4 +1,4 @@
-module AdminPanelHelper
+module PathsHelper
   def new_path_helper
     url_for({:action => :new})
   end
@@ -15,7 +15,7 @@ module AdminPanelHelper
     url_for({:action => :destroy, :id => obj || instance_variable_get("@#{controller_name.singularize}".to_sym)})
   end
 
-  def index_path_helper
-    url_for({:action => :index})
+  def index_path_helper(options = {})
+    url_for(options.merge(:action => :index))
   end
 end

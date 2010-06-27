@@ -12,8 +12,8 @@
       - if action_name != 'index' && controller.respond_to?(:index)
         %h6= link_to 'Index', index_path_helper
     %td
-      %h6= link_to_unless_current 'Species', species_index_path
-      %h6= link_to_unless_current 'Locations', locus_index_path
-      %h6= link_to_unless_current 'Observations', observations_path
+      %h6= link_to_unless_current 'Species', index_path_helper(:controller => :species)
+      %h6= link_to_unless_current 'Locations', index_path_helper(:controller => :locus)
+      %h6= link_to_unless_current 'Observations', index_path_helper(:controller => :observations)
     %td
       &nbsp;
