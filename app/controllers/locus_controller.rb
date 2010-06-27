@@ -52,6 +52,8 @@ class LocusController < ApplicationController
   # POST /locus
   # POST /locus.xml
   def create
+    @locus = Locus.new(params[:locus])
+
     respond_to do |format|
       if @locus.save
         format.html { redirect_to(@locus, :notice => 'Locus was successfully created.') }
