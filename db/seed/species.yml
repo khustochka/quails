@@ -15,7 +15,7 @@ species:
   - avibase_id
   records: 
   - - "1"
-    -
+    - 
     - Dendrocygna autumnalis
     - ""
     - Black-bellied Whistling-Duck
@@ -37,7 +37,7 @@ species:
     - Anatidae
     - 9A60617EE376ABE9
   - - "3"
-    - 
+    - ansfab
     - Anser fabalis
     - ""
     - Taiga Bean-Goose
@@ -169,7 +169,7 @@ species:
     - Anatidae
     - 0D280B3F11B099B2
   - - "15"
-    - 
+    - cygolo
     - Cygnus olor
     - ""
     - Mute Swan
@@ -202,7 +202,7 @@ species:
     - Anatidae
     - 0BCBA6B9CC19E7BA
   - - "18"
-    - 
+    - cygnus
     - Cygnus cygnus
     - ""
     - Whooper Swan
@@ -224,7 +224,7 @@ species:
     - Anatidae
     - 1F9D883EB44DEFD6
   - - "20"
-    - 
+    - tadrna
     - Tadorna tadorna
     - ""
     - Common Shelduck
@@ -257,7 +257,7 @@ species:
     - Anatidae
     - C235A4D712BB8855
   - - "23"
-    - 
+    - anapen
     - Anas penelope
     - ""
     - Eurasian Wigeon
@@ -290,7 +290,7 @@ species:
     - Anatidae
     - C732CB106EE8BAE8
   - - "26"
-    - 
+    - anapla
     - Anas platyrhynchos
     - ""
     - Mallard
@@ -323,7 +323,7 @@ species:
     - Anatidae
     - 0E599E6CC209AFAD
   - - "29"
-    - 
+    - anacly
     - Anas clypeata
     - ""
     - Northern Shoveler
@@ -367,7 +367,7 @@ species:
     - Anatidae
     - 63EABB42903040B4
   - - "33"
-    - 
+    - anacre
     - Anas crecca
     - ""
     - Green-winged Teal
@@ -378,7 +378,7 @@ species:
     - Anatidae
     - BC6C3CCE5C1B5D9B
   - - "34"
-    - 
+    - netruf
     - Netta rufina
     - ""
     - Red-crested Pochard
@@ -411,7 +411,7 @@ species:
     - Anatidae
     - 3072CC168280168B
   - - "37"
-    - 
+    - aytfer
     - Aythya ferina
     - ""
     - Common Pochard
@@ -444,7 +444,7 @@ species:
     - Anatidae
     - 7CF91527F5832F30
   - - "40"
-    - 
+    - aytful
     - Aythya fuligula
     - ""
     - Tufted Duck
@@ -576,7 +576,7 @@ species:
     - Anatidae
     - FB7383856D0DB2EA
   - - "52"
-    - 
+    - buccla
     - Bucephala clangula
     - ""
     - Common Goldeneye
@@ -620,7 +620,7 @@ species:
     - Anatidae
     - 60E6081E3DF8CFA4
   - - "56"
-    - 
+    - mermer
     - Mergus merganser
     - ""
     - Common Merganser
@@ -631,7 +631,7 @@ species:
     - Anatidae
     - 407E2CA886367DBB
   - - "57"
-    - 
+    - merser
     - Mergus serrator
     - ""
     - Red-breasted Merganser
@@ -697,7 +697,7 @@ species:
     - Phasianidae
     - 87CBEBF7C53AF64C
   - - "63"
-    - 
+    - perdix
     - Perdix perdix
     - ""
     - Gray Partridge
@@ -719,7 +719,7 @@ species:
     - Phasianidae
     - 0923A272116E8D4E
   - - "65"
-    - 
+    - cotnix
     - Coturnix coturnix
     - ""
     - Common Quail
@@ -730,7 +730,7 @@ species:
     - Phasianidae
     - CAFE345DCABD8BF8
   - - "66"
-    - 
+    - phacol
     - Phasianus colchicus
     - ""
     - Ring-necked Pheasant
@@ -928,7 +928,7 @@ species:
     - Podicipedidae
     - 1CBD2CED48B674A4
   - - "84"
-    - 
+    - podcri
     - Podiceps cristatus
     - ""
     - Great Crested Grebe
@@ -939,7 +939,7 @@ species:
     - Podicipedidae
     - 8F269702DC208010
   - - "85"
-    - 
+    - podnig
     - Podiceps nigricollis
     - ""
     - Eared Grebe
@@ -1203,7 +1203,7 @@ species:
     - Sulidae
     - 534FB490884C6D33
   - - "109"
-    - 
+    - pelono
     - Pelecanus onocrotalus
     - ""
     - Great White Pelican
@@ -1258,7 +1258,7 @@ species:
     - Phalacrocoracidae
     - 3AC46C54EE4A6251
   - - "114"
-    - 
+    - phacar
     - Phalacrocorax carbo
     - ""
     - Great Cormorant
@@ -1280,7 +1280,7 @@ species:
     - Phalacrocoracidae
     - CECC7B264A61BD22
   - - "116"
-    - 
+    - phapyg
     - Phalacrocorax pygmaeus
     - ""
     - Pygmy Cormorant
@@ -1324,7 +1324,7 @@ species:
     - Ardeidae
     - 13E9F9B48CD5A08A
   - - "120"
-    - 
+    - botste
     - Botaurus stellaris
     - ""
     - Great Bittern
@@ -1335,7 +1335,7 @@ species:
     - Ardeidae
     - 0F42F11AC607C758
   - - "121"
-    - 
+    - ixomin
     - Ixobrychus minutus
     - ""
     - Little Bittern
@@ -1368,7 +1368,7 @@ species:
     - Ardeidae
     - 93694BB5492F7012
   - - "124"
-    - 
+    - ardcin
     - Ardea cinerea
     - ""
     - Gray Heron
@@ -1379,7 +1379,7 @@ species:
     - Ardeidae
     - 6429024DBA7AB672
   - - "125"
-    - 
+    - ardpur
     - Ardea purpurea
     - ""
     - Purple Heron
@@ -1390,7 +1390,7 @@ species:
     - Ardeidae
     - 3395DCF1CE3A8C91
   - - "126"
-    - 
+    - egralb
     - Ardea alba
     - ""
     - Great Egret
@@ -1401,7 +1401,7 @@ species:
     - Ardeidae
     - 49D9148A171E7F2E
   - - "127"
-    - 
+    - egrgar
     - Egretta garzetta
     - ""
     - Little Egret
@@ -1500,7 +1500,7 @@ species:
     - Ardeidae
     - 86D45B8F04F61F0E
   - - "136"
-    - 
+    - nycrax
     - Nycticorax nycticorax
     - ""
     - Black-crowned Night-Heron
@@ -1566,7 +1566,7 @@ species:
     - Threskiornithidae
     - A0A584C1E7D786FE
   - - "142"
-    - 
+    - cicnig
     - Ciconia nigra
     - ""
     - Black Stork
@@ -1577,7 +1577,7 @@ species:
     - Ciconiidae
     - E2817DAE1B24B31E
   - - "143"
-    - 
+    - cicnia
     - Ciconia ciconia
     - ""
     - White Stork
@@ -1687,7 +1687,7 @@ species:
     - Accipitridae
     - 451D6FC8A169D726
   - - "153"
-    - 
+    - milmig
     - Milvus migrans
     - ""
     - Black Kite
@@ -1720,7 +1720,7 @@ species:
     - Accipitridae
     - FED3756C12CF67FA
   - - "156"
-    - 
+    - halalb
     - Haliaeetus albicilla
     - ""
     - White-tailed Eagle
@@ -1753,7 +1753,7 @@ species:
     - Accipitridae
     - 6D3480A64B4953CE
   - - "159"
-    - 
+    - gypful
     - Gyps fulvus
     - ""
     - Eurasian Griffon
@@ -1764,7 +1764,7 @@ species:
     - Accipitridae
     - 5D1987CEE4005AA2
   - - "160"
-    - 
+    - aegmon
     - Aegypius monachus
     - ""
     - Cinereous Vulture
@@ -1775,7 +1775,7 @@ species:
     - Accipitridae
     - 158BDC90F07DF1D2
   - - "161"
-    - 
+    - cirgal
     - Circaetus gallicus
     - ""
     - Short-toed Eagle
@@ -1786,7 +1786,7 @@ species:
     - Accipitridae
     - 8372FFBAA4080FBB
   - - "162"
-    - 
+    - ciraer
     - Circus aeruginosus
     - ""
     - Eurasian Marsh-Harrier
@@ -1797,7 +1797,7 @@ species:
     - Accipitridae
     - E2A19474E62F83E1
   - - "163"
-    - 
+    - circya
     - Circus cyaneus
     - ""
     - Northern Harrier
@@ -1841,7 +1841,7 @@ species:
     - Accipitridae
     - 8492E4B70A95DC74
   - - "167"
-    - 
+    - accnis
     - Accipiter nisus
     - ""
     - Eurasian Sparrowhawk
@@ -1863,7 +1863,7 @@ species:
     - Accipitridae
     - EB98812F50A648A1
   - - "169"
-    - 
+    - accgen
     - Accipiter gentilis
     - ""
     - Northern Goshawk
@@ -1929,7 +1929,7 @@ species:
     - Accipitridae
     - 536A5157A50E1F3C
   - - "175"
-    - 
+    - butbut
     - Buteo buteo
     - ""
     - Eurasian Buzzard
@@ -1962,7 +1962,7 @@ species:
     - Accipitridae
     - BA9191BCB7CA7ACD
   - - "178"
-    - 
+    - butlag
     - Buteo lagopus
     - ""
     - Rough-legged Hawk
@@ -1973,7 +1973,7 @@ species:
     - Accipitridae
     - 90B13ACF984D0DDF
   - - "179"
-    - 
+    - aqupom
     - Aquila pomarina
     - ""
     - Lesser Spotted Eagle
@@ -2061,7 +2061,7 @@ species:
     - Falconidae
     - BECA271F14F77BEE
   - - "187"
-    - 
+    - faltin
     - Falco tinnunculus
     - ""
     - Eurasian Kestrel
@@ -2083,7 +2083,7 @@ species:
     - Falconidae
     - 20C2214E655A79AB
   - - "189"
-    - 
+    - falves
     - Falco vespertinus
     - ""
     - Red-footed Falcon
@@ -2105,7 +2105,7 @@ species:
     - Falconidae
     - F3DA111CC8A6841B
   - - "191"
-    - 
+    - falsub
     - Falco subbuteo
     - ""
     - Eurasian Hobby
@@ -2171,7 +2171,7 @@ species:
     - Rallidae
     - 5C7D70A482321CAB
   - - "197"
-    - 
+    - crecre
     - Crex crex
     - ""
     - Corn Crake
@@ -2292,7 +2292,7 @@ species:
     - Rallidae
     - 72A4F8EBF168E80D
   - - "208"
-    - 
+    - galchl
     - Gallinula chloropus
     - ""
     - Common Moorhen
@@ -2303,7 +2303,7 @@ species:
     - Rallidae
     - 0D8E92914F92C8D5
   - - "209"
-    - 
+    - fulatr
     - Fulica atra
     - ""
     - Eurasian Coot
@@ -2391,7 +2391,7 @@ species:
     - Gruidae
     - E196D6F9AB1DFF7E
   - - "217"
-    - 
+    - grugru
     - Grus grus
     - ""
     - Common Crane
@@ -2413,7 +2413,7 @@ species:
     - Burhinidae
     - 8C87D50F7516E905
   - - "219"
-    - 
+    - vanlus
     - Vanellus vanellus
     - ""
     - Northern Lapwing
@@ -2457,7 +2457,7 @@ species:
     - Charadriidae
     - A480FDDF8BBC5443
   - - "223"
-    - 
+    - plusqu
     - Pluvialis squatarola
     - ""
     - Black-bellied Plover
@@ -2534,7 +2534,7 @@ species:
     - Charadriidae
     - 264D03516760D706
   - - "230"
-    - 
+    - chaale
     - Charadrius alexandrinus
     - ""
     - Snowy Plover
@@ -2556,7 +2556,7 @@ species:
     - Charadriidae
     - 654D660CF51DB8B1
   - - "232"
-    - 
+    - chahia
     - Charadrius hiaticula
     - ""
     - Common Ringed Plover
@@ -2589,7 +2589,7 @@ species:
     - Charadriidae
     - 671B69FE824DC9FF
   - - "235"
-    - 
+    - chadub
     - Charadrius dubius
     - ""
     - Little Ringed Plover
@@ -2622,7 +2622,7 @@ species:
     - Charadriidae
     - 20BE9DF14579BD4A
   - - "238"
-    - 
+    - haeost
     - Haematopus ostralegus
     - ""
     - Eurasian Oystercatcher
@@ -2644,7 +2644,7 @@ species:
     - Haematopodidae
     - 981CE782575DD8E7
   - - "240"
-    - 
+    - himpus
     - Himantopus himantopus
     - ""
     - Black-winged Stilt
@@ -2666,7 +2666,7 @@ species:
     - Recurvirostridae
     - 62DAF6CC29ADBF9A
   - - "242"
-    - 
+    - recavo
     - Recurvirostra avosetta
     - ""
     - Pied Avocet
@@ -2688,7 +2688,7 @@ species:
     - Recurvirostridae
     - 8EB0C1FABC1D725A
   - - "244"
-    - 
+    - xencin
     - Xenus cinereus
     - ""
     - Terek Sandpiper
@@ -2699,7 +2699,7 @@ species:
     - Scolopacidae
     - 6D5992EEE12070E8
   - - "245"
-    - 
+    - acthyp
     - Actitis hypoleucos
     - ""
     - Common Sandpiper
@@ -2721,7 +2721,7 @@ species:
     - Scolopacidae
     - 0D88C072E71FE4B8
   - - "247"
-    - 
+    - trioch
     - Tringa ochropus
     - ""
     - Green Sandpiper
@@ -2765,7 +2765,7 @@ species:
     - Scolopacidae
     - 6EB81C98A8FD9CE6
   - - "251"
-    - 
+    - trineb
     - Tringa nebularia
     - ""
     - Common Greenshank
@@ -2809,7 +2809,7 @@ species:
     - Scolopacidae
     - 15CF9352AD0E92DF
   - - "255"
-    - 
+    - trigla
     - Tringa glareola
     - ""
     - Wood Sandpiper
@@ -2820,7 +2820,7 @@ species:
     - Scolopacidae
     - 8E67DC5F68BDF62C
   - - "256"
-    - 
+    - tritot
     - Tringa totanus
     - ""
     - Common Redshank
@@ -2941,7 +2941,7 @@ species:
     - Scolopacidae
     - 249AE8DFD7F51354
   - - "267"
-    - 
+    - areint
     - Arenaria interpres
     - ""
     - Ruddy Turnstone
@@ -2963,7 +2963,7 @@ species:
     - Scolopacidae
     - B5CE8FAD18923A94
   - - "269"
-    - 
+    - calalb
     - Calidris alba
     - ""
     - Sanderling
@@ -3095,7 +3095,7 @@ species:
     - Scolopacidae
     - 0A0B84313ACFFB2F
   - - "281"
-    - 
+    - calalp
     - Calidris alpina
     - ""
     - Dunlin
@@ -3106,7 +3106,7 @@ species:
     - Scolopacidae
     - 15369E8EB4CBD064
   - - "282"
-    - 
+    - calfer
     - Calidris ferruginea
     - ""
     - Curlew Sandpiper
@@ -3161,7 +3161,7 @@ species:
     - Scolopacidae
     - 3A3C62BC935BDA72
   - - "287"
-    - 
+    - phipug
     - Philomachus pugnax
     - ""
     - Ruff
@@ -3227,7 +3227,7 @@ species:
     - Scolopacidae
     - F5C8516D3B9C7686
   - - "293"
-    - 
+    - galago
     - Gallinago gallinago
     - ""
     - Common Snipe
@@ -3238,7 +3238,7 @@ species:
     - Scolopacidae
     - 9151E0BA75761647
   - - "294"
-    - 
+    - scorus
     - Scolopax rusticola
     - ""
     - Eurasian Woodcock
@@ -3359,7 +3359,7 @@ species:
     - Laridae
     - 86182656472B476B
   - - "305"
-    - 
+    - largen
     - Chroicocephalus genei
     - ""
     - Slender-billed Gull
@@ -3381,7 +3381,7 @@ species:
     - Laridae
     - 0337440E2A88E638
   - - "307"
-    - 
+    - larrid
     - Chroicocephalus ridibundus
     - ""
     - Black-headed Gull
@@ -3392,7 +3392,7 @@ species:
     - Laridae
     - FB02DD9658CC1EC6
   - - "308"
-    - 
+    - larmin
     - Hydrocoloeus minutus
     - ""
     - Little Gull
@@ -3436,7 +3436,7 @@ species:
     - Laridae
     - 57C93A74CBC9863F
   - - "312"
-    - 
+    - larmel
     - Ichthyaetus melanocephalus
     - ""
     - Mediterranean Gull
@@ -3469,7 +3469,7 @@ species:
     - Laridae
     - 8C4CE60F3DA7955C
   - - "315"
-    - 
+    - larcan
     - Larus canus
     - ""
     - Mew Gull
@@ -3535,7 +3535,7 @@ species:
     - Laridae
     - E074D7069AE1303C
   - - "321"
-    - 
+    - larcac
     - Larus cachinnans
     - ""
     - Caspian Gull
@@ -3656,7 +3656,7 @@ species:
     - Laridae
     - E6518B9D5C802F2A
   - - "332"
-    - 
+    - stealb
     - Sternula albifrons
     - ""
     - Little Tern
@@ -3678,7 +3678,7 @@ species:
     - Laridae
     - BE78E765F1DA8123
   - - "334"
-    - 
+    - gelnil
     - Gelochelidon nilotica
     - ""
     - Gull-billed Tern
@@ -3689,7 +3689,7 @@ species:
     - Laridae
     - 441918B5AE353C3B
   - - "335"
-    - 
+    - hydcas
     - Hydroprogne caspia
     - ""
     - Caspian Tern
@@ -3700,7 +3700,7 @@ species:
     - Laridae
     - BC06BC0D1056BC7B
   - - "336"
-    - 
+    - chlnig
     - Chlidonias niger
     - ""
     - Black Tern
@@ -3711,7 +3711,7 @@ species:
     - Laridae
     - 115AF02DD58018FB
   - - "337"
-    - 
+    - chlleu
     - Chlidonias leucopterus
     - ""
     - White-winged Tern
@@ -3722,7 +3722,7 @@ species:
     - Laridae
     - 43CAAEE3B0D305D9
   - - "338"
-    - 
+    - chlhyb
     - Chlidonias hybrida
     - ""
     - Whiskered Tern
@@ -3744,7 +3744,7 @@ species:
     - Laridae
     - 74236837A4AFD042
   - - "340"
-    - 
+    - stehir
     - Sterna hirundo
     - ""
     - Common Tern
@@ -3788,7 +3788,7 @@ species:
     - Laridae
     - 68EDCC23F8128FA8
   - - "344"
-    - 
+    - thasan
     - Thalasseus sandvicensis
     - ""
     - Sandwich Tern
@@ -3964,7 +3964,7 @@ species:
     - Alcidae
     - 2771624B64AD7F2C
   - - "360"
-    - 
+    - syrpar
     - Syrrhaptes paradoxus
     - ""
     - Pallas's Sandgrouse
@@ -3997,7 +3997,7 @@ species:
     - Pteroclidae
     - 06B41945B9E57EC4
   - - "363"
-    - 
+    - colliv
     - Columba livia
     - ""
     - Rock Pigeon
@@ -4008,7 +4008,7 @@ species:
     - Columbidae
     - BBA263C235B15B88
   - - "364"
-    - 
+    - coloen
     - Columba oenas
     - ""
     - Stock Dove
@@ -4019,7 +4019,7 @@ species:
     - Columbidae
     - 68E4C0D1404A46D8
   - - "365"
-    - 
+    - colpal
     - Columba palumbus
     - ""
     - Common Wood-Pigeon
@@ -4041,7 +4041,7 @@ species:
     - Columbidae
     - 31ACA9981952B4C4
   - - "367"
-    - 
+    - strtur
     - Streptopelia turtur
     - ""
     - European Turtle-Dove
@@ -4063,7 +4063,7 @@ species:
     - Columbidae
     - 6658BAC574088183
   - - "369"
-    - 
+    - strdec
     - Streptopelia decaocto
     - ""
     - Eurasian Collared-Dove
@@ -4162,7 +4162,7 @@ species:
     - Cuculidae
     - 3D67C56A490A60AE
   - - "378"
-    - 
+    - cuccan
     - Cuculus canorus
     - ""
     - Common Cuckoo
@@ -4437,7 +4437,7 @@ species:
     - Caprimulgidae
     - 36F729765CCA79B4
   - - "403"
-    - 
+    - capeur
     - Caprimulgus europaeus
     - ""
     - Eurasian Nightjar
@@ -4459,7 +4459,7 @@ species:
     - Apodidae
     - C3AD1AFF63D26461
   - - "405"
-    - 
+    - apuapu
     - Apus apus
     - ""
     - Common Swift
@@ -4569,7 +4569,7 @@ species:
     - Trochilidae
     - C25794D595D7B943
   - - "415"
-    - 
+    - alcatt
     - Alcedo atthis
     - ""
     - Common Kingfisher
@@ -4624,7 +4624,7 @@ species:
     - Meropidae
     - AC89B8FF845CAECF
   - - "420"
-    - 
+    - merapi
     - Merops apiaster
     - ""
     - European Bee-eater
@@ -4635,7 +4635,7 @@ species:
     - Meropidae
     - 66AA3934DBAD18BC
   - - "421"
-    - 
+    - corgar
     - Coracias garrulus
     - ""
     - European Roller
@@ -4646,7 +4646,7 @@ species:
     - Coraciidae
     - 7451A628C39538C5
   - - "422"
-    - 
+    - upuepo
     - Upupa epops
     - ""
     - Eurasian Hoopoe
@@ -4657,7 +4657,7 @@ species:
     - Upupidae
     - 9DAE9D1F8A3FD287
   - - "423"
-    - 
+    - jyntor
     - Jynx torquilla
     - ""
     - Eurasian Wryneck
@@ -4723,7 +4723,7 @@ species:
     - Picidae
     - 9BE68BD390E0D2FF
   - - "429"
-    - 
+    - denmin
     - Dendrocopos minor
     - ""
     - Lesser Spotted Woodpecker
@@ -4734,7 +4734,7 @@ species:
     - Picidae
     - AB2F4BC0659B6630
   - - "430"
-    - 
+    - denmed
     - Dendrocopos medius
     - ""
     - Middle Spotted Woodpecker
@@ -4756,7 +4756,7 @@ species:
     - Picidae
     - 4507ACD713D16392
   - - "432"
-    - 
+    - denmaj
     - Dendrocopos major
     - ""
     - Great Spotted Woodpecker
@@ -4767,7 +4767,7 @@ species:
     - Picidae
     - D754DB8552A7AA42
   - - "433"
-    - 
+    - densyr
     - Dendrocopos syriacus
     - ""
     - Syrian Woodpecker
@@ -4855,7 +4855,7 @@ species:
     - Picidae
     - 00635FF9DB14C765
   - - "441"
-    - 
+    - drymar
     - Dryocopus martius
     - ""
     - Black Woodpecker
@@ -4877,7 +4877,7 @@ species:
     - Picidae
     - A01014FF0A909DD8
   - - "443"
-    - 
+    - piccan
     - Picus canus
     - ""
     - Gray-faced Woodpecker
@@ -5108,7 +5108,7 @@ species:
     - Tyrannidae
     - A2510EF44C67DD52
   - - "464"
-    - 
+    - lancol
     - Lanius collurio
     - ""
     - Red-backed Shrike
@@ -5130,7 +5130,7 @@ species:
     - Laniidae
     - 36171C2B964AD4D0
   - - "466"
-    - 
+    - lanexc
     - Lanius excubitor
     - ""
     - Northern Shrike
@@ -5141,7 +5141,7 @@ species:
     - Laniidae
     - B215F75A482EBDE1
   - - "467"
-    - 
+    - lanmin
     - Lanius minor
     - ""
     - Lesser Gray Shrike
@@ -5251,7 +5251,7 @@ species:
     - Vireonidae
     - 7254F08DB80D349C
   - - "477"
-    - 
+    - orilus
     - Oriolus oriolus
     - ""
     - Eurasian Golden Oriole
@@ -5295,7 +5295,7 @@ species:
     - Corvidae
     - 1DA430B8663CD4BE
   - - "481"
-    - 
+    - gargla
     - Garrulus glandarius
     - ""
     - Eurasian Jay
@@ -5306,7 +5306,7 @@ species:
     - Corvidae
     - D8D10F2C5A9AA49F
   - - "482"
-    - 
+    - picpic
     - Pica pica
     - ""
     - Eurasian Magpie
@@ -5317,7 +5317,7 @@ species:
     - Corvidae
     - 1EB2E3C72A6B688A
   - - "483"
-    - 
+    - nuccar
     - Nucifraga caryocatactes
     - ""
     - Eurasian Nutcracker
@@ -5339,7 +5339,7 @@ species:
     - Corvidae
     - 45B512E2ECC3DB1D
   - - "485"
-    - 
+    - cormon
     - Corvus monedula
     - ""
     - Eurasian Jackdaw
@@ -5350,7 +5350,7 @@ species:
     - Corvidae
     - D4C32F8E792B65BA
   - - "486"
-    - 
+    - corfru
     - Corvus frugilegus
     - ""
     - Rook
@@ -5394,7 +5394,7 @@ species:
     - Corvidae
     - 26FB62DAE4262583
   - - "490"
-    - 
+    - cornix
     - Corvus cornix
     - ""
     - Hooded Crow
@@ -5405,7 +5405,7 @@ species:
     - Corvidae
     - F13D8350405F3C10
   - - "491"
-    - 
+    - corrax
     - Corvus corax
     - ""
     - Common Raven
@@ -5416,7 +5416,7 @@ species:
     - Corvidae
     - B9B272F40EE1570F
   - - "492"
-    - 
+    - panbia
     - Panurus biarmicus
     - ""
     - Bearded Reedling
@@ -5427,7 +5427,7 @@ species:
     - Panuridae
     - 7D59F91D9548DCE7
   - - "493"
-    - 
+    - melcal
     - Melanocorypha calandra
     - ""
     - Calandra Lark
@@ -5482,7 +5482,7 @@ species:
     - Alaudidae
     - 29ADFACD1BEC9C2A
   - - "498"
-    - 
+    - galcri
     - Galerida cristata
     - ""
     - Crested Lark
@@ -5493,7 +5493,7 @@ species:
     - Alaudidae
     - 21ADC3ED8E24C1C9
   - - "499"
-    - 
+    - alaarv
     - Alauda arvensis
     - ""
     - Sky Lark
@@ -5504,7 +5504,7 @@ species:
     - Alaudidae
     - ED2AC04E888EF9CF
   - - "500"
-    - 
+    - lularb
     - Lullula arborea
     - ""
     - Wood Lark
@@ -5570,7 +5570,7 @@ species:
     - Hirundinidae
     - 75DC49ADA7DBE82B
   - - "506"
-    - 
+    - ripria
     - Riparia riparia
     - ""
     - Bank Swallow
@@ -5592,7 +5592,7 @@ species:
     - Hirundinidae
     - 6F2AF9D09463566F
   - - "508"
-    - 
+    - hirrus
     - Hirundo rustica
     - ""
     - Barn Swallow
@@ -5636,7 +5636,7 @@ species:
     - Hirundinidae
     - 79A1EDEC9657AA3C
   - - "512"
-    - 
+    - delurb
     - Delichon urbicum
     - ""
     - Common House-Martin
@@ -5647,7 +5647,7 @@ species:
     - Hirundinidae
     - E4BB82F50C488B8B
   - - "513"
-    - 
+    - parpal
     - Poecile palustris
     - ""
     - Marsh Tit
@@ -5658,7 +5658,7 @@ species:
     - Paridae
     - 523763E55D4A8153
   - - "514"
-    - 
+    - parmon
     - Poecile montanus
     - ""
     - Willow Tit
@@ -5702,7 +5702,7 @@ species:
     - Paridae
     - 68887DE7576B711C
   - - "518"
-    - 
+    - parate
     - Periparus ater
     - ""
     - Coal Tit
@@ -5713,7 +5713,7 @@ species:
     - Paridae
     - A4EBA919FCAFED5E
   - - "519"
-    - 
+    - parcri
     - Lophophanes cristatus
     - ""
     - Crested Tit
@@ -5724,7 +5724,7 @@ species:
     - Paridae
     - E553193354C74B21
   - - "520"
-    - 
+    - parmaj
     - Parus major
     - ""
     - Great Tit
@@ -5735,7 +5735,7 @@ species:
     - Paridae
     - D4E4FED3D83A7AE2
   - - "521"
-    - 
+    - parcae
     - Cyanistes caeruleus
     - ""
     - Eurasian Blue Tit
@@ -5768,7 +5768,7 @@ species:
     - Paridae
     - B488AB7003F21AE7
   - - "524"
-    - 
+    - rempen
     - Remiz pendulinus
     - ""
     - Eurasian Penduline-Tit
@@ -5790,7 +5790,7 @@ species:
     - Cettiidae
     - F3E9CE954FAF5EF5
   - - "526"
-    - 
+    - aegcau
     - Aegithalos caudatus
     - ""
     - Long-tailed Tit
@@ -5801,7 +5801,7 @@ species:
     - Aegithalidae
     - B783E98B7E960D4E
   - - "527"
-    - 
+    - siteur
     - Sitta europaea
     - ""
     - Eurasian Nuthatch
@@ -5856,7 +5856,7 @@ species:
     - Tichodromidae
     - 89C425901C5B5343
   - - "532"
-    - 
+    - cerfam
     - Certhia familiaris
     - ""
     - Eurasian Treecreeper
@@ -5933,7 +5933,7 @@ species:
     - Troglodytidae
     - 1181E29791E92A94
   - - "539"
-    - 
+    - trotes
     - Troglodytes troglodytes
     - ""
     - Winter Wren
@@ -6010,7 +6010,7 @@ species:
     - Regulidae
     - B60B1166CE5DDFA7
   - - "546"
-    - 
+    - reglus
     - Regulus regulus
     - ""
     - Goldcrest
@@ -6032,7 +6032,7 @@ species:
     - Regulidae
     - 85B03849153146D8
   - - "548"
-    - 
+    - phytro
     - Phylloscopus trochilus
     - ""
     - Willow Warbler
@@ -6043,7 +6043,7 @@ species:
     - Phylloscopidae
     - 88F4B969622B8268
   - - "549"
-    - 
+    - phycol
     - Phylloscopus collybita
     - ""
     - Common Chiffchaff
@@ -6076,7 +6076,7 @@ species:
     - Phylloscopidae
     - 666F9FC9350991FD
   - - "552"
-    - 
+    - physib
     - Phylloscopus sibilatrix
     - ""
     - Wood Warbler
@@ -6175,7 +6175,7 @@ species:
     - Acrocephalidae
     - 791DED180041E350
   - - "561"
-    - 
+    - hipict
     - Hippolais icterina
     - ""
     - Icterine Warbler
@@ -6208,7 +6208,7 @@ species:
     - Acrocephalidae
     - C15141A60961F8BC
   - - "564"
-    - 
+    - acrsch
     - Acrocephalus schoenobaenus
     - ""
     - Sedge Warbler
@@ -6219,7 +6219,7 @@ species:
     - Acrocephalidae
     - FED5AED5C59A00B6
   - - "565"
-    - 
+    - acragr
     - Acrocephalus agricola
     - ""
     - Paddyfield Warbler
@@ -6252,7 +6252,7 @@ species:
     - Acrocephalidae
     - B22EAFC877C38967
   - - "568"
-    - 
+    - acrpal
     - Acrocephalus palustris
     - ""
     - Marsh Warbler
@@ -6263,7 +6263,7 @@ species:
     - Acrocephalidae
     - B675E006C3745A12
   - - "569"
-    - 
+    - acraru
     - Acrocephalus arundinaceus
     - ""
     - Great Reed-Warbler
@@ -6307,7 +6307,7 @@ species:
     - Megaluridae
     - 2D46BB9888C846D0
   - - "573"
-    - 
+    - sylatr
     - Sylvia atricapilla
     - ""
     - Blackcap
@@ -6318,7 +6318,7 @@ species:
     - Sylviidae
     - 61F9065BE0965E1A
   - - "574"
-    - 
+    - sylbor
     - Sylvia borin
     - ""
     - Garden Warbler
@@ -6362,7 +6362,7 @@ species:
     - Sylviidae
     - 58F3D3E544D9755B
   - - "578"
-    - 
+    - sylcom
     - Sylvia communis
     - ""
     - Greater Whitethroat
@@ -6373,7 +6373,7 @@ species:
     - Sylviidae
     - 14AFBA82D556918C
   - - "579"
-    - 
+    - sylcur
     - Sylvia curruca
     - ""
     - Lesser Whitethroat
@@ -6428,7 +6428,7 @@ species:
     - Sylviidae
     - B0D094830E71F76A
   - - "584"
-    - 
+    - musstr
     - Muscicapa striata
     - ""
     - Spotted Flycatcher
@@ -6439,7 +6439,7 @@ species:
     - Muscicapidae
     - EE8206E703914D22
   - - "585"
-    - 
+    - fichyp
     - Ficedula hypoleuca
     - ""
     - European Pied Flycatcher
@@ -6450,7 +6450,7 @@ species:
     - Muscicapidae
     - 6E352E1870A195B7
   - - "586"
-    - 
+    - ficalb
     - Ficedula albicollis
     - ""
     - Collared Flycatcher
@@ -6461,7 +6461,7 @@ species:
     - Muscicapidae
     - 0B2F80584ED0F07E
   - - "587"
-    - 
+    - ficpar
     - Ficedula parva
     - ""
     - Red-breasted Flycatcher
@@ -6472,7 +6472,7 @@ species:
     - Muscicapidae
     - 6A3CA06B2496B003
   - - "588"
-    - 
+    - erirub
     - Erithacus rubecula
     - ""
     - European Robin
@@ -6483,7 +6483,7 @@ species:
     - Muscicapidae
     - E68C3C704DDFF00C
   - - "589"
-    - 
+    - lusnia
     - Luscinia luscinia
     - ""
     - Thrush Nightingale
@@ -6505,7 +6505,7 @@ species:
     - Muscicapidae
     - 7C7F0DEE5B364038
   - - "591"
-    - 
+    - lussve
     - Luscinia svecica
     - ""
     - Bluethroat
@@ -6527,7 +6527,7 @@ species:
     - Muscicapidae
     - E4672C85DEAD098A
   - - "593"
-    - 
+    - phooch
     - Phoenicurus ochruros
     - ""
     - Black Redstart
@@ -6538,7 +6538,7 @@ species:
     - Muscicapidae
     - 612B5C244E272075
   - - "594"
-    - 
+    - phorus
     - Phoenicurus phoenicurus
     - ""
     - Common Redstart
@@ -6560,7 +6560,7 @@ species:
     - Muscicapidae
     - 1C98EA2F8CD4DD15
   - - "596"
-    - 
+    - oenthe
     - Oenanthe oenanthe
     - ""
     - Northern Wheatear
@@ -6571,7 +6571,7 @@ species:
     - Muscicapidae
     - DF526047637004DD
   - - "597"
-    - 
+    - oenple
     - Oenanthe pleschanka
     - ""
     - Pied Wheatear
@@ -6593,7 +6593,7 @@ species:
     - Muscicapidae
     - 9611335C2442B3DD
   - - "599"
-    - 
+    - oenisa
     - Oenanthe isabellina
     - ""
     - Isabelline Wheatear
@@ -6604,7 +6604,7 @@ species:
     - Muscicapidae
     - E6C6F74630B2257B
   - - "600"
-    - 
+    - saxrub
     - Saxicola rubetra
     - ""
     - Whinchat
@@ -6615,7 +6615,7 @@ species:
     - Muscicapidae
     - A0EDAEA2E89A9A96
   - - "601"
-    - 
+    - saxtor
     - Saxicola torquatus
     - ""
     - Stonechat
@@ -6758,7 +6758,7 @@ species:
     - Turdidae
     - CE71B4FF837F276A
   - - "614"
-    - 
+    - turmer
     - Turdus merula
     - ""
     - Eurasian Blackbird
@@ -6802,7 +6802,7 @@ species:
     - Turdidae
     - 22761AD4A981E2F6
   - - "618"
-    - 
+    - turpil
     - Turdus pilaris
     - ""
     - Fieldfare
@@ -6824,7 +6824,7 @@ species:
     - Turdidae
     - A8A85BCF1AFB7BBD
   - - "620"
-    - 
+    - turphi
     - Turdus philomelos
     - ""
     - Song Thrush
@@ -6835,7 +6835,7 @@ species:
     - Turdidae
     - D929EB214A698282
   - - "621"
-    - 
+    - turvis
     - Turdus viscivorus
     - ""
     - Mistle Thrush
@@ -6912,7 +6912,7 @@ species:
     - Mimidae
     - C8F9F2D013E9D057
   - - "628"
-    - 
+    - sturos
     - Pastor roseus
     - ""
     - Rosy Starling
@@ -6923,7 +6923,7 @@ species:
     - Sturnidae
     - 24208346AD77666E
   - - "629"
-    - 
+    - stuvul
     - Sturnus vulgaris
     - ""
     - European Starling
@@ -6956,7 +6956,7 @@ species:
     - Prunellidae
     - D32200407D81F285
   - - "632"
-    - 
+    - prumod
     - Prunella modularis
     - ""
     - Dunnock
@@ -6967,7 +6967,7 @@ species:
     - Prunellidae
     - 26530C865C4A655C
   - - "633"
-    - 
+    - motfla
     - Motacilla flava
     - ""
     - Western Yellow Wagtail
@@ -7000,7 +7000,7 @@ species:
     - Motacillidae
     - AE073221679039C2
   - - "636"
-    - 
+    - motalb
     - Motacilla alba
     - ""
     - White Wagtail
@@ -7022,7 +7022,7 @@ species:
     - Motacillidae
     - 41ECD10E24E8772D
   - - "638"
-    - 
+    - antcam
     - Anthus campestris
     - ""
     - Tawny Pipit
@@ -7044,7 +7044,7 @@ species:
     - Motacillidae
     - 14873249B607CEB1
   - - "640"
-    - 
+    - anttri
     - Anthus trivialis
     - ""
     - Tree Pipit
@@ -7099,7 +7099,7 @@ species:
     - Motacillidae
     - BF380B5D0EB23BB9
   - - "645"
-    - 
+    - bomgar
     - Bombycilla garrulus
     - ""
     - Bohemian Waxwing
@@ -7946,7 +7946,7 @@ species:
     - Emberizidae
     - B64C1B1DE240735A
   - - "722"
-    - 
+    - embcit
     - Emberiza citrinella
     - ""
     - Yellowhammer
@@ -8001,7 +8001,7 @@ species:
     - Emberizidae
     - CF70007E92F2A30B
   - - "727"
-    - 
+    - embhor
     - Emberiza hortulana
     - ""
     - Ortolan Bunting
@@ -8078,7 +8078,7 @@ species:
     - Emberizidae
     - E2D2CB88A9D95E42
   - - "734"
-    - 
+    - embsch
     - Emberiza schoeniclus
     - ""
     - Reed Bunting
@@ -8089,7 +8089,7 @@ species:
     - Emberizidae
     - C0B9787440316E20
   - - "735"
-    - 
+    - embcal
     - Emberiza calandra
     - ""
     - Corn Bunting
@@ -8100,7 +8100,7 @@ species:
     - Emberizidae
     - 9A87EBB0B75C410B
   - - "736"
-    - 
+    - pleniv
     - Plectrophenax nivalis
     - ""
     - Snow Bunting
@@ -8375,7 +8375,7 @@ species:
     - Icteridae
     - 5110842FA06DD11C
   - - "761"
-    - 
+    - fricoe
     - Fringilla coelebs
     - ""
     - Common Chaffinch
@@ -8386,7 +8386,7 @@ species:
     - Fringillidae
     - 37F522810CADE42A
   - - "762"
-    - 
+    - frimon
     - Fringilla montifringilla
     - ""
     - Brambling
@@ -8463,7 +8463,7 @@ species:
     - Fringillidae
     - 7621E1A6BFDF4D92
   - - "769"
-    - 
+    - chlris
     - Chloris chloris
     - ""
     - European Greenfinch
@@ -8507,7 +8507,7 @@ species:
     - Fringillidae
     - 80C297E6B82452E7
   - - "773"
-    - 
+    - acaflm
     - Acanthis flammea
     - ""
     - Common Redpoll
@@ -8529,7 +8529,7 @@ species:
     - Fringillidae
     - D23A3F75CCD56E6B
   - - "775"
-    - 
+    - spinus
     - Spinus spinus
     - ""
     - Eurasian Siskin
@@ -8562,7 +8562,7 @@ species:
     - Fringillidae
     - C9ABA616B963B563
   - - "778"
-    - 
+    - carlis
     - Carduelis carduelis
     - ""
     - European Goldfinch
@@ -8584,7 +8584,7 @@ species:
     - Fringillidae
     - 6CD4E38EB75CA3A0
   - - "780"
-    - 
+    - acacan
     - Carduelis cannabina
     - ""
     - Eurasian Linnet
@@ -8595,7 +8595,7 @@ species:
     - Fringillidae
     - 32635892A4EB874F
   - - "781"
-    - 
+    - sernus
     - Serinus serinus
     - ""
     - European Serin
@@ -8606,7 +8606,7 @@ species:
     - Fringillidae
     - C3227709455B9AFF
   - - "782"
-    - 
+    - pyrula
     - Pyrrhula pyrrhula
     - ""
     - Eurasian Bullfinch
@@ -8628,7 +8628,7 @@ species:
     - Fringillidae
     - C6B5497C9DB6796A
   - - "784"
-    - 
+    - coctes
     - Coccothraustes coccothraustes
     - ""
     - Hawfinch
@@ -8639,7 +8639,7 @@ species:
     - Fringillidae
     - 84E1F1149261F19E
   - - "785"
-    - 
+    - pasdom
     - Passer domesticus
     - ""
     - House Sparrow
@@ -8661,7 +8661,7 @@ species:
     - Passeridae
     - 5A8E09A18B86D140
   - - "787"
-    - 
+    - pasmon
     - Passer montanus
     - ""
     - Eurasian Tree Sparrow
@@ -8694,7 +8694,7 @@ species:
     - Passeridae
     - 3E389D037AA10A4C
   - - "792"
-    - 
+    - motfel
     - Motacilla flava feldegg
     - ""
     - Black-headed Wagtail

@@ -90,9 +90,12 @@ module Import
           inpt = $stdin.gets
           newsp = inpt == 0 ? {:id => nil} : matches[inpt.to_i-1] 
         end
+        newsp.update_attribute(:code, sp[:sp_id])
         memo.merge({sp[:sp_id] => {:id => newsp.id}})
       end
 
+      species_map.merge!('incogt' => {:id => nil})
+      
       File.new(file, 'w').write(species_map.to_yaml)
     end
 
