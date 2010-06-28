@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100620071117) do
+ActiveRecord::Schema.define(:version => 20100628151208) do
 
   create_table "locus", :force => true do |t|
     t.string  "code",      :null => false
@@ -23,6 +23,10 @@ ActiveRecord::Schema.define(:version => 20100620071117) do
     t.float   "lon"
   end
 
+  add_index "locus", ["code"], :name => "index_locus_on_code"
+  add_index "locus", ["loc_type"], :name => "index_locus_on_loc_type"
+  add_index "locus", ["parent_id"], :name => "index_locus_on_parent_id"
+
   create_table "observations", :force => true do |t|
     t.integer "species_id"
     t.integer "locus_id"
@@ -33,6 +37,11 @@ ActiveRecord::Schema.define(:version => 20100620071117) do
     t.string  "notes"
     t.boolean "mine",        :default => true
   end
+
+  add_index "observations", ["locus_id"], :name => "index_observations_on_locus_id"
+  add_index "observations", ["mine"], :name => "index_observations_on_mine"
+  add_index "observations", ["observ_date"], :name => "index_observations_on_observ_date"
+  add_index "observations", ["species_id"], :name => "index_observations_on_species_id"
 
   create_table "species", :force => true do |t|
     t.string  "code",       :limit => 6
@@ -46,5 +55,9 @@ ActiveRecord::Schema.define(:version => 20100620071117) do
     t.string  "family",                  :null => false
     t.string  "avibase_id",              :null => false
   end
+
+  add_index "species", ["code"], :name => "index_species_on_code"
+  add_index "species", ["index_num"], :name => "index_species_on_index_num"
+  add_index "species", ["name_sci"], :name => "index_species_on_name_sci"
 
 end
