@@ -1,8 +1,11 @@
 require 'open-uri'
+require 'app/helpers/species_helper'
 
 module Import
   class SpeciesImport
     extend LegacyInit
+
+    extend SpeciesHelper
 
     def self.parse_list(url)
       doc = Nokogiri::HTML(open(url), nil, 'utf-8')
@@ -50,24 +53,45 @@ module Import
       end
     end
 
-    def self.fetch_details(hash)
+    def self.fetch_details
       require 'app/models/species'
-      hash.each do |sp|
+      Species.where(:protonym => nil).each do |sp|
+        puts "Fetching details for #{sp.index_num}: #{sp.name_sci}"
+
         avibase_id = sp[:avibase_id]
 
         doc_ru = Nokogiri::HTML(open(avibase_species_url(avibase_id, 'RU')), nil, 'utf-8')
         doc_uk = Nokogiri::HTML(open(avibase_species_url(avibase_id, 'UK')), nil, 'utf-8')
 
-        # TODO: fetch the name_ru, name_uk, authority from the pages
+        begin
+          data_ru = doc_ru.at("//td[@class='AVBHeader']").content.match(/^([^(]+) (\([^)]+\)) (\(?([^()]+)\)?)$/)
 
-        name_ru = '' if name_ru == sp[:name_en]
-        name_uk = '' if name_uk == sp[:name_en]
+          name_ru = data_ru[1].strip
 
-        Species.first(:avibase_id => avibase_id).update!({
-                :authority => authority,
-                :name_ru => name_ru,
-                :name_uk => name_uk
-        })
+          protonym = doc_ru.at("//p[b[text()='Протоним:']]/i").content.strip
+
+          authority = if sp.name_sci == data_ru[2].strip
+            data_ru[3].strip
+          else
+            proto_parts = protonym.split(' ')
+            sp.name_sci != "#{proto_parts.first} #{proto_parts.last}".downcase.capitalize ?
+                    "(#{data_ru[4]})" :
+                    "#{data_ru[4]}"
+          end
+          name_uk = doc_uk.at("//td[@class='AVBHeader']").content.match(/^(.+) \([A-Za-z ]+\) \(?([^()]+)\)?$/)[1].strip
+
+          name_ru = '' if name_ru.downcase.eql?(sp.name_en.downcase)
+          name_uk = '' if name_uk.downcase.eql?(sp.name_en.downcase)
+
+          sp.update_attributes!({
+                  :authority => authority,
+                  :protonym => protonym,
+                  :name_ru => name_ru,
+                  :name_uk => name_uk
+          })
+        rescue
+          puts "FAILED"
+        end
       end
     end
 
@@ -95,7 +119,7 @@ module Import
       end
 
       species_map.merge!('incogt' => {:id => nil})
-      
+
       File.new(file, 'w').write(species_map.to_yaml)
     end
 

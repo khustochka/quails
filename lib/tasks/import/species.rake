@@ -32,7 +32,7 @@ namespace :import do
 
     desc 'Import species details from Avibase site'
     task :details => :environment do
-      Import::SpeciesImport.fetch_details(desired)
+      Import::SpeciesImport.fetch_details
     end
 
     desc 'Create mapping of legacy DB species to the new ones'
