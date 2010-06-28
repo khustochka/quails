@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100628151208) do
+ActiveRecord::Schema.define(:version => 20100628161410) do
 
   create_table "locus", :force => true do |t|
     t.string  "code",      :null => false
@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(:version => 20100628151208) do
     t.string  "order",                   :null => false
     t.string  "family",                  :null => false
     t.string  "avibase_id",              :null => false
+    t.string  "protonym"
   end
 
   add_index "species", ["code"], :name => "index_species_on_code"
