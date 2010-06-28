@@ -24,6 +24,7 @@ gem 'yaml_db'
 group :development do
   gem 'nokogiri'
   gem 'rails3-generators'
+  gem 'mysql'
 end
 
 # Bundle gems for certain environments:

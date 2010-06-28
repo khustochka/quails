@@ -88,10 +88,10 @@ module Import
           end
           puts "Select option (0 to discard): "
           inpt = $stdin.gets
-          newsp = inpt == 0 ? {:id => nil} : matches[inpt.to_i-1] 
+          newsp = inpt == 0 ? nil : matches[inpt.to_i-1]
         end
         newsp.update_attribute(:code, sp[:sp_id])
-        memo.merge({sp[:sp_id] => {:id => newsp.id}})
+        memo.merge({sp[:sp_id] => {:id => newsp[:id], :name_sci => sp[:sp_la]}})
       end
 
       species_map.merge!('incogt' => {:id => nil})
