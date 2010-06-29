@@ -13,15 +13,16 @@ module Import
       order = family = nil
 
       doc.xpath('/html/body/table[2]/tr/td/table[2]/tr/td/table/tr').inject([]) do |list, row|
-        unless row.content.match(/([A-Z]+FORMES): ([A-Z]+dae)$/i).nil?
-          order = $1.downcase.capitalize
-          family = $2.downcase.capitalize
+        unless row.content.match(/(?:([A-Z]+FORMES): )?((?:[A-Z]+dae)|(?:Genera Incertae Sedis))\s*$/i).nil?
+          order, family = $1, $2
+          order = order.nil? ? '' : order.strip.downcase.capitalize
+          family = family.strip.downcase.capitalize unless family == 'Genera Incertae Sedis'
         else
           unless family.nil?
             sp_data = row.children
+            name_en = sp_data[0].content
             name_sci = sp_data[1].content
             avb_id = sp_data[1].at('a')['href'].match(/^species\.jsp\?avibaseid=([\dA-F]+)$/)[1]
-            name_en = sp_data[0].content
             list.push({
                     :name_sci => name_sci,
                     :name_en => name_en,
