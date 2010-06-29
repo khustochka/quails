@@ -30,12 +30,12 @@ species:
     - 91CCBC719C97AE19
     - Tetrao virginianus
   - - "2"
-    - 
+    - ""
     - Meleagris gallopavo
     - Linnaeus, 1758
     - Wild Turkey
     - !binary |
-      0LTQuNC60LDRjyDQuNC90LTQtdC50LrQsA==
+      0JjQvdC00LXQudC60LAg0L7QsdGL0LrQvdC+0LLQtdC90L3QsNGP
 
     - ""
     - "2"
@@ -385,7 +385,7 @@ species:
     - C600B65C997827CD
     - Anas canadensis
   - - "25"
-    - 
+    - ""
     - Branta bernicla
     - (Linnaeus, 1758)
     - Brent Goose/Brant
@@ -7333,7 +7333,7 @@ species:
     - !binary |
       0JrRgNGD0Lo=
 
-    - "490"
+    - "491"
     - Passeriformes
     - Corvidae
     - B9B272F40EE1570F
@@ -7349,7 +7349,7 @@ species:
     - !binary |
       0J7QvNC10LvRjtGF
 
-    - "491"
+    - "492"
     - Passeriformes
     - Bombycillidae
     - AEF821EC4625150E
@@ -7363,7 +7363,7 @@ species:
       0JrQtdC00YDQvtCy0YvQuSDRgdCy0LjRgNC40YHRgtC10LvRjA==
 
     - ""
-    - "492"
+    - "493"
     - Passeriformes
     - Bombycillidae
     - 9437D635FF4E2607
@@ -7379,7 +7379,7 @@ species:
     - !binary |
       0JLQtdC70LjQutCwINGB0LjQvdC40YbRjw==
 
-    - "493"
+    - "494"
     - Passeriformes
     - Paridae
     - D4E4FED3D83A7AE2
@@ -7395,7 +7395,7 @@ species:
     - !binary |
       0KHQuNC90LjRhtGPINCx0LvQsNC60LjRgtC90LA=
 
-    - "494"
+    - "495"
     - Passeriformes
     - Paridae
     - 14CA6F72858B8F9D
@@ -7411,7 +7411,7 @@ species:
     - !binary |
       0KHQuNC90LjRhtGPINCx0ZbQu9Cw
 
-    - "495"
+    - "496"
     - Passeriformes
     - Paridae
     - 5AE72E2455477176
@@ -7427,7 +7427,7 @@ species:
     - !binary |
       0KHQuNC90LjRhtGPINGH0L7RgNC90LA=
 
-    - "496"
+    - "497"
     - Passeriformes
     - Paridae
     - A4EBA919FCAFED5E
@@ -7443,7 +7443,7 @@ species:
     - !binary |
       0JPQsNGX0YfQutCwINCx0L7Qu9C+0YLRj9C90LA=
 
-    - "497"
+    - "498"
     - Passeriformes
     - Paridae
     - 523763E55D4A8153
@@ -7459,7 +7459,7 @@ species:
     - !binary |
       0JPQsNGX0YfQutCwLdC/0YPRhdC70Y/Qug==
 
-    - "498"
+    - "499"
     - Passeriformes
     - Paridae
     - 01D4B731BF3D081F
@@ -7471,7 +7471,7 @@ species:
     - Carolina Chickadee
     - ""
     - ""
-    - "499"
+    - "500"
     - Passeriformes
     - Paridae
     - F941AAD38D7BA54D
@@ -7485,7 +7485,7 @@ species:
       0JHRg9GA0L7Qs9C+0LvQvtCy0LDRjyDQs9Cw0LjRh9C60LA=
 
     - ""
-    - "500"
+    - "501"
     - Passeriformes
     - Paridae
     - B1F0CC82E34E4541
@@ -7497,7 +7497,7 @@ species:
     - Boreal Chickadee
     - ""
     - ""
-    - "501"
+    - "502"
     - Passeriformes
     - Paridae
     - 68887DE7576B711C
@@ -7513,7 +7513,7 @@ species:
     - !binary |
       0KHQuNC90LjRhtGPINGH0YPQsdCw0YLQsA==
 
-    - "502"
+    - "503"
     - Passeriformes
     - Paridae
     - E553193354C74B21
@@ -7527,7 +7527,7 @@ species:
       0J7RgdGC0YDQvtGF0L7RhdC70LDRjyDRgdC40L3QuNGG0LA=
 
     - ""
-    - "503"
+    - "504"
     - Passeriformes
     - Paridae
     - 1803B9B4DCD19AFD
@@ -7543,7 +7543,7 @@ species:
     - !binary |
       0KDQtdC80LXQtw==
 
-    - "504"
+    - "505"
     - Passeriformes
     - Remizidae
     - 8E62C352B7C69D6F
@@ -7559,7 +7559,7 @@ species:
     - !binary |
       0JvQsNGB0YLRltCy0LrQsCDQsdC10YDQtdCz0L7QstCw
 
-    - "505"
+    - "506"
     - Passeriformes
     - Hirundinidae
     - 94A1C447583CB6D2
@@ -7573,7 +7573,7 @@ species:
       0JTRgNC10LLQtdGB0L3QsNGPINC70LDRgdGC0L7Rh9C60LA=
 
     - ""
-    - "506"
+    - "507"
     - Passeriformes
     - Hirundinidae
     - BBA2F9DF60AE60BF
@@ -7585,7 +7585,7 @@ species:
     - Violet-green Swallow
     - ""
     - ""
-    - "507"
+    - "508"
     - Passeriformes
     - Hirundinidae
     - 75DC49ADA7DBE82B
@@ -7600,7 +7600,7 @@ species:
       utCw
 
     - ""
-    - "508"
+    - "509"
     - Passeriformes
     - Hirundinidae
     - ACB9D1C6AB7F3371
@@ -7612,7 +7612,7 @@ species:
     - Northern Rough-winged Swallow
     - ""
     - ""
-    - "509"
+    - "510"
     - Passeriformes
     - Hirundinidae
     - 188707A5E73A4BCC
@@ -7628,7 +7628,7 @@ species:
     - !binary |
       0JvQsNGB0YLRltCy0LrQsCDRgdGW0LvRjNGB0YzQutCw
 
-    - "510"
+    - "511"
     - Passeriformes
     - Hirundinidae
     - 58C502EA7AF3E023
@@ -7644,7 +7644,7 @@ species:
     - !binary |
       0JvQsNGB0YLRltCy0LrQsCDRgdC60LXQu9GM0L3QsA==
 
-    - "511"
+    - "512"
     - Passeriformes
     - Hirundinidae
     - 6F2AF9D09463566F
@@ -7660,7 +7660,7 @@ species:
     - !binary |
       0JvQsNGB0YLRltCy0LrQsCDQvNGW0YHRjNC60LA=
 
-    - "512"
+    - "513"
     - Passeriformes
     - Hirundinidae
     - E4BB82F50C488B8B
@@ -7676,7 +7676,7 @@ species:
     - !binary |
       0JTQsNGD0YDRgdGM0LrQsCDQu9Cw0YHRgtGW0LLQutCw
 
-    - "513"
+    - "514"
     - Passeriformes
     - Hirundinidae
     - AA41EDCEB7A8EA6E
@@ -7690,7 +7690,7 @@ species:
       0JHQtdC70L7Qu9C+0LHQsNGPINC70LDRgdGC0L7Rh9C60LA=
 
     - ""
-    - "514"
+    - "515"
     - Passeriformes
     - Hirundinidae
     - F5C181CA4478FD86
@@ -7702,7 +7702,7 @@ species:
     - Cave Swallow
     - ""
     - ""
-    - "515"
+    - "516"
     - Passeriformes
     - Hirundinidae
     - 79A1EDEC9657AA3C
@@ -7718,7 +7718,7 @@ species:
     - !binary |
       0JTQvtCy0LPQvtGF0LLQvtGB0YLQsCDRgdC40L3QuNGG0Y8=
 
-    - "516"
+    - "517"
     - Passeriformes
     - Aegithalidae
     - B783E98B7E960D4E
@@ -7734,7 +7734,7 @@ species:
     - !binary |
       0JbQsNC50LLQvtGA0L7QvdC+0Log0YHRgtC10L/QvtCy0LjQuQ==
 
-    - "517"
+    - "518"
     - Passeriformes
     - Alaudidae
     - BDC24A8AA8A51BF9
@@ -7750,7 +7750,7 @@ species:
     - !binary |
       0JbQsNC50LLQvtGA0L7QvdC+0Log0LHRltC70L7QutGA0LjQu9C40Lk=
 
-    - "518"
+    - "519"
     - Passeriformes
     - Alaudidae
     - 400B3679BCB80EDB
@@ -7766,7 +7766,7 @@ species:
     - !binary |
       0JbQsNC50LLQvtGA0L7QvdC+0Log0YfQvtGA0L3QuNC5
 
-    - "519"
+    - "520"
     - Passeriformes
     - Alaudidae
     - 811FC71929CD3B00
@@ -7780,7 +7780,7 @@ species:
       0JzQsNC70YvQuSDQttCw0LLQvtGA0L7QvdC+0Lo=
 
     - ""
-    - "520"
+    - "521"
     - Passeriformes
     - Alaudidae
     - 34DD099CCBC8DCD7
@@ -7796,7 +7796,7 @@ species:
     - !binary |
       0KHRltGA0LjQuSDQttCw0LnQstC+0YDQvtC90L7Qug==
 
-    - "521"
+    - "522"
     - Passeriformes
     - Alaudidae
     - F8736B1065D2A130
@@ -7812,7 +7812,7 @@ species:
     - !binary |
       0J/QvtGB0LzRltGC0Y7RhdCw
 
-    - "522"
+    - "523"
     - Passeriformes
     - Alaudidae
     - 21ADC3ED8E24C1C9
@@ -7828,7 +7828,7 @@ species:
     - !binary |
       0JbQsNC50LLQvtGA0L7QvdC+0Log0LvRltGB0L7QstC40Lk=
 
-    - "523"
+    - "524"
     - Passeriformes
     - Alaudidae
     - 742EC2F1CA97F56C
@@ -7844,7 +7844,7 @@ species:
     - !binary |
       0J/QvtC70YzQvtCy0LjQuSDQttCw0LnQstC+0YDQvtC90L7Qug==
 
-    - "524"
+    - "525"
     - Passeriformes
     - Alaudidae
     - ED2AC04E888EF9CF
@@ -7860,7 +7860,7 @@ species:
     - !binary |
       0JbQsNC50LLQvtGA0L7QvdC+0Log0YDQvtCz0LDRgtC40Lk=
 
-    - "525"
+    - "526"
     - Passeriformes
     - Alaudidae
     - FC0A1D951186B019
@@ -7877,7 +7877,7 @@ species:
       0J7Rh9C10YDQtdGC0Y/QvdC60LAg0YHQtdGA0LXQtNC30LXQvNC90L7QvNC+
       0YDRgdGM0LrQsA==
 
-    - "526"
+    - "527"
     - Passeriformes
     - Sylviidae
     - F3E9CE954FAF5EF5
@@ -7893,7 +7893,7 @@ species:
     - !binary |
       0JrQvtCx0LjQu9C+0YfQutCwLdGG0LLRltGA0LrRg9C9
 
-    - "527"
+    - "528"
     - Passeriformes
     - Sylviidae
     - BC0E4C9F87721B1A
@@ -7909,7 +7909,7 @@ species:
     - !binary |
       0JrQvtCx0LjQu9C+0YfQutCwINGA0ZbRh9C60L7QstCw
 
-    - "528"
+    - "529"
     - Passeriformes
     - Sylviidae
     - 2B020CA0ACF13B19
@@ -7925,7 +7925,7 @@ species:
     - !binary |
       0JrQvtCx0LjQu9C+0YfQutCwINGB0L7Qu9C+0LIn0ZfQvdCw
 
-    - "529"
+    - "530"
     - Passeriformes
     - Sylviidae
     - 2D46BB9888C846D0
@@ -7941,7 +7941,7 @@ species:
     - !binary |
       0J7Rh9C10YDQtdGC0Y/QvdC60LAg0LLQtdC70LjQutCw
 
-    - "530"
+    - "531"
     - Passeriformes
     - Sylviidae
     - B283E33243C17D97
@@ -7957,7 +7957,7 @@ species:
     - !binary |
       0J7Rh9C10YDQtdGC0Y/QvdC60LAg0YLQvtC90LrQvtC00LfRjNC+0LHQsA==
 
-    - "531"
+    - "532"
     - Passeriformes
     - Sylviidae
     - E1559C49B1A6C31F
@@ -7973,7 +7973,7 @@ species:
     - !binary |
       0J7Rh9C10YDQtdGC0Y/QvdC60LAg0L/RgNGD0LTQutCw
 
-    - "532"
+    - "533"
     - Passeriformes
     - Sylviidae
     - C15141A60961F8BC
@@ -7989,7 +7989,7 @@ species:
     - !binary |
       0J7Rh9C10YDQtdGC0Y/QvdC60LAg0LvRg9GH0L3QsA==
 
-    - "533"
+    - "534"
     - Passeriformes
     - Sylviidae
     - FED5AED5C59A00B6
@@ -8005,7 +8005,7 @@ species:
     - !binary |
       0J7Rh9C10YDQtdGC0Y/QvdC60LAg0ZbQvdC00ZbQudGB0YzQutCw
 
-    - "534"
+    - "535"
     - Passeriformes
     - Sylviidae
     - 781FE53F2425B4C1
@@ -8021,7 +8021,7 @@ species:
     - !binary |
       0J7Rh9C10YDQtdGC0Y/QvdC60LAg0YHQsNC00L7QstCw
 
-    - "535"
+    - "536"
     - Passeriformes
     - Sylviidae
     - B22EAFC877C38967
@@ -8037,7 +8037,7 @@ species:
     - !binary |
       0KHRgtCw0LLQutC+0LLQsCDQvtGH0LXRgNC10YLRj9C90LrQsA==
 
-    - "536"
+    - "537"
     - Passeriformes
     - Sylviidae
     - 5C17300BC4B0B134
@@ -8053,7 +8053,7 @@ species:
     - !binary |
       0J7Rh9C10YDQtdGC0Y/QvdC60LAg0YfQsNCz0LDRgNC90LjQutC+0LLQsA==
 
-    - "537"
+    - "538"
     - Passeriformes
     - Sylviidae
     - B675E006C3745A12
@@ -8069,7 +8069,7 @@ species:
     - !binary |
       0JHQtdGA0LXRgdGC0Y/QvdC60LAg0LzQsNC70LA=
 
-    - "538"
+    - "539"
     - Passeriformes
     - Sylviidae
     - 1A6C6F1718FEDB5D
@@ -8085,7 +8085,7 @@ species:
     - !binary |
       0JHQtdGA0LXRgdGC0Y/QvdC60LAg0LHQu9GW0LTQsA==
 
-    - "539"
+    - "540"
     - Passeriformes
     - Sylviidae
     - AD64B07F84CFE0AC
@@ -8102,7 +8102,7 @@ species:
     - !binary |
       0J7Qu9C40LLQutC+0LLQsCDQsdC10YDQtdGB0YLRj9C90LrQsA==
 
-    - "540"
+    - "541"
     - Passeriformes
     - Sylviidae
     - 791DED180041E350
@@ -8118,7 +8118,7 @@ species:
     - !binary |
       0JHQtdGA0LXRgdGC0Y/QvdC60LA=
 
-    - "541"
+    - "542"
     - Passeriformes
     - Sylviidae
     - B02A7A3D8006828D
@@ -8134,7 +8134,7 @@ species:
     - !binary |
       0JLRltCy0YfQsNGA0LjQuiDQstC10YHQvdGP0L3QuNC5
 
-    - "542"
+    - "543"
     - Passeriformes
     - Sylviidae
     - 88F4B969622B8268
@@ -8150,7 +8150,7 @@ species:
     - !binary |
       0JLRltCy0YfQsNGA0LjQui3QutC+0LLQsNC70LjQug==
 
-    - "543"
+    - "544"
     - Passeriformes
     - Sylviidae
     - F9F4B04D08108B41
@@ -8166,7 +8166,7 @@ species:
     - !binary |
       0JLRltCy0YfQsNGA0LjQuiDRgdCy0ZbRgtC70L7Rh9C10YDQtdCy0LjQuQ==
 
-    - "544"
+    - "545"
     - Passeriformes
     - Sylviidae
     - C00674ED5FC9DB8A
@@ -8180,7 +8180,7 @@ species:
     - !binary |
       0KHQstGW0YLQu9C+0YfQtdGA0LXQstC40Lkg0LLRltCy0YfQsNGA0LjQug==
 
-    - "545"
+    - "546"
     - Passeriformes
     - Sylviidae
     - 666F9FC9350991FD
@@ -8196,7 +8196,7 @@ species:
     - !binary |
       0JLRltCy0YfQsNGA0LjQuiDQttC+0LLRgtC+0LHRgNC+0LLQuNC5
 
-    - "546"
+    - "547"
     - Passeriformes
     - Sylviidae
     - 572C4C7FD4322D14
@@ -8212,7 +8212,7 @@ species:
     - !binary |
       0JLRltCy0YfQsNGA0LjQuiDRgtC+0LLRgdGC0L7QtNC30YzQvtCx0LjQuQ==
 
-    - "547"
+    - "548"
     - Passeriformes
     - Sylviidae
     - 9A536399807238AF
@@ -8228,7 +8228,7 @@ species:
     - !binary |
       0JLRltCy0YfQsNGA0LjQuiDQt9C+0LvQvtGC0L7QvNGD0YjQutC+0LLQuNC5
 
-    - "548"
+    - "549"
     - Passeriformes
     - Sylviidae
     - 943E36CADFE7551B
@@ -8244,7 +8244,7 @@ species:
     - !binary |
       0JLRltCy0YfQsNGA0LjQuiDQu9GW0YHQvtCy0LjQuQ==
 
-    - "549"
+    - "550"
     - Passeriformes
     - Sylviidae
     - 0C120038E5CA37D7
@@ -8260,7 +8260,7 @@ species:
     - !binary |
       0JLRltCy0YfQsNGA0LjQuiDQttC+0LLRgtC+0YfQtdGA0LXQstC40Lk=
 
-    - "550"
+    - "551"
     - Passeriformes
     - Sylviidae
     - 3542C46BC98FB367
@@ -8276,7 +8276,7 @@ species:
     - !binary |
       0JfQtdC70LXQvdC40Lkg0LLRltCy0YfQsNGA0LjQug==
 
-    - "551"
+    - "552"
     - Passeriformes
     - Sylviidae
     - 23EF1BD9DE02E680
@@ -8292,7 +8292,7 @@ species:
     - !binary |
       0JrRgNC+0L/QuNCyJ9GP0L3QutCwINGH0L7RgNC90L7Qs9C+0LvQvtCy0LA=
 
-    - "552"
+    - "553"
     - Passeriformes
     - Sylviidae
     - 61F9065BE0965E1A
@@ -8308,7 +8308,7 @@ species:
     - !binary |
       0JrRgNC+0L/QuNCyJ9GP0L3QutCwINGB0LDQtNC+0LLQsA==
 
-    - "553"
+    - "554"
     - Passeriformes
     - Sylviidae
     - A6A4FC63261EA8CD
@@ -8324,7 +8324,7 @@ species:
     - !binary |
       0JrRgNC+0L/QuNCyJ9GP0L3QutCwINGA0Y/QsdC+0LPRgNGD0LTQsA==
 
-    - "554"
+    - "555"
     - Passeriformes
     - Sylviidae
     - 1EA60B94FAFE0C5C
@@ -8340,7 +8340,7 @@ species:
     - !binary |
       0JrRgNC+0L/QuNCyJ9GP0L3QutCwINC/0YDRg9C00LrQsA==
 
-    - "555"
+    - "556"
     - Passeriformes
     - Sylviidae
     - 0DCD05BE8EE35C8D
@@ -8356,7 +8356,7 @@ species:
     - !binary |
       0JrRgNC+0L/QuNCyJ9GP0L3QutCwINGB0L/RltCy0L7Rh9Cw
 
-    - "556"
+    - "557"
     - Passeriformes
     - Sylviidae
     - E9BF88BF10DB8F10
@@ -8372,7 +8372,7 @@ species:
     - !binary |
       0JrRgNC+0L/QuNCyJ9GP0L3QutCwINC/0YPRgdGC0LXQu9GM0L3QsA==
 
-    - "557"
+    - "558"
     - Passeriformes
     - Sylviidae
     - DE4E75A5A75CEDD4
@@ -8388,7 +8388,7 @@ species:
     - !binary |
       0JrRgNC+0L/QuNCyJ9GP0L3QutCwINGB0ZbRgNCw
 
-    - "558"
+    - "559"
     - Passeriformes
     - Sylviidae
     - 14AFBA82D556918C
@@ -8404,7 +8404,7 @@ species:
     - !binary |
       0JrRgNC+0L/QuNCyJ9GP0L3QutCwINGH0LXRgNCy0L7QvdC+0LLQvtC70LA=
 
-    - "559"
+    - "560"
     - Passeriformes
     - Sylviidae
     - 905A5016906F8A9F
@@ -8422,7 +8422,7 @@ species:
       0JrRgNC+0L/QuNCy4oCZ0Y/QvdC60LAg0YHQtdGA0LXQtNC30LXQvNC90L7Q
       vNC+0YDRgdGM0LrQsA==
 
-    - "560"
+    - "561"
     - Passeriformes
     - Sylviidae
     - B0D094830E71F76A
@@ -8438,7 +8438,7 @@ species:
     - !binary |
       0JHRltC70L7QstGD0YHQsCDQutGA0L7Qv9C40LLigJnRj9C90LrQsA==
 
-    - "561"
+    - "562"
     - Passeriformes
     - Sylviidae
     - AA027706CFDB4C9A
@@ -8454,7 +8454,7 @@ species:
     - !binary |
       0JrRgNC+0L/QuNCyJ9GP0L3QutCwINCg0Y7Qv9C/0LXQu9GP
 
-    - "562"
+    - "563"
     - Passeriformes
     - Sylviidae
     - A1B09A861B190E01
@@ -8470,7 +8470,7 @@ species:
     - !binary |
       0KHQuNC90LjRhtGPINCy0YPRgdCw0YLQsA==
 
-    - "563"
+    - "564"
     - Passeriformes
     - Timaliidae
     - 7D59F91D9548DCE7
@@ -8486,7 +8486,7 @@ species:
     - !binary |
       0JfQvtC70L7RgtC+0LzRg9GI0LrQsCDRh9C10YDQstC+0L3QvtGH0YPQsdCw
 
-    - "564"
+    - "565"
     - Passeriformes
     - Regulidae
     - 5466D2C60C58C6CA
@@ -8502,7 +8502,7 @@ species:
     - !binary |
       0JfQvtC70L7RgtC+0LzRg9GI0LrQsCDQttC+0LLRgtC+0YfRg9Cx0LA=
 
-    - "565"
+    - "566"
     - Passeriformes
     - Regulidae
     - 1C51C1095E427BB8
@@ -8516,7 +8516,7 @@ species:
       0JfQvtC70L7RgtC+0LPQvtC70L7QstGL0Lkg0LrQvtGA0L7Qu9GR0Lo=
 
     - ""
-    - "566"
+    - "567"
     - Passeriformes
     - Regulidae
     - 154BCCAE37AE70E9
@@ -8530,7 +8530,7 @@ species:
       0KDRg9Cx0LjQvdC+0LLQvtCz0L7Qu9C+0LLRi9C5INC60L7RgNC+0LvRkdC6
 
     - ""
-    - "567"
+    - "568"
     - Passeriformes
     - Regulidae
     - B60B1166CE5DDFA7
@@ -8544,7 +8544,7 @@ species:
       0KHQutCw0LvRjNC90YvQuSDQutGA0LDQv9C40LLQvdC40Lo=
 
     - ""
-    - "568"
+    - "569"
     - Passeriformes
     - Troglodytidae
     - 76DF73A9F213E90A
@@ -8558,7 +8558,7 @@ species:
       0KLRgNCw0LLRj9C90L7QuSDQutGA0LDQv9C40LLQvdC40Lo=
 
     - ""
-    - "569"
+    - "570"
     - Passeriformes
     - Troglodytidae
     - ACCC4E9B737755DA
@@ -8572,7 +8572,7 @@ species:
       0JHQvtC70L7RgtC90YvQuSDQutGA0LDQv9C40LLQvdC40Lo=
 
     - ""
-    - "570"
+    - "571"
     - Passeriformes
     - Troglodytidae
     - 787E05366752B844
@@ -8584,7 +8584,7 @@ species:
     - Bewick's Wren
     - ""
     - ""
-    - "571"
+    - "572"
     - Passeriformes
     - Troglodytidae
     - 603194D371801AC0
@@ -8598,7 +8598,7 @@ species:
       0JrQsNGA0L7Qu9C40L3RgdC60LjQuSDQutGA0LDQv9C40LLQvdC40Lo=
 
     - ""
-    - "572"
+    - "573"
     - Passeriformes
     - Troglodytidae
     - CB5469E1211E7EFF
@@ -8614,7 +8614,7 @@ species:
     - !binary |
       0JLQvtC70L7QstC1INC+0YfQutC+
 
-    - "573"
+    - "574"
     - Passeriformes
     - Troglodytidae
     - 11A4055E89689538
@@ -8628,7 +8628,7 @@ species:
       0JTQvtC80L7QstGL0Lkg0LrRgNCw0L/QuNCy0L3QuNC6
 
     - ""
-    - "574"
+    - "575"
     - Passeriformes
     - Troglodytidae
     - 1181E29791E92A94
@@ -8642,7 +8642,7 @@ species:
       0JPQvtC70YPQsdCw0Y8g0LrQvtC80LDRgNC+0LvQvtCy0LrQsA==
 
     - ""
-    - "575"
+    - "576"
     - Passeriformes
     - Polioptilidae
     - A15C5071DDEDC552
@@ -8658,7 +8658,7 @@ species:
     - !binary |
       0J/QvtCy0LfQuNC6
 
-    - "576"
+    - "577"
     - Passeriformes
     - Sittidae
     - 3C468678E0958FC6
@@ -8672,7 +8672,7 @@ species:
       0JHRg9GA0L7Qs9C+0LvQvtCy0YvQuSDQv9C+0L/QvtC70LfQtdC90Yw=
 
     - ""
-    - "577"
+    - "578"
     - Passeriformes
     - Sittidae
     - 85729C75FED7B59E
@@ -8686,7 +8686,7 @@ species:
       0J/QvtC/0L7Qu9C30LXQvdGMINGH0LXRgNC90L7Qs9C+0LvQvtCy0YvQuQ==
 
     - ""
-    - "578"
+    - "579"
     - Passeriformes
     - Sittidae
     - 0716A71C439DC09E
@@ -8700,7 +8700,7 @@ species:
       0JHQtdC70L7Qs9GA0YPQtNGL0Lkg0L/QvtC/0L7Qu9C30LXQvdGM
 
     - ""
-    - "579"
+    - "580"
     - Passeriformes
     - Sittidae
     - 19CCBBD220E533AD
@@ -8716,7 +8716,7 @@ species:
     - !binary |
       0KHRgtGW0L3QvtC70LDQtw==
 
-    - "580"
+    - "581"
     - Passeriformes
     - Sittidae
     - 89C425901C5B5343
@@ -8732,7 +8732,7 @@ species:
     - !binary |
       0JfQstC40YfQsNC50L3QsCDQv9C40YnRg9GF0LA=
 
-    - "581"
+    - "582"
     - Passeriformes
     - Certhiidae
     - B10DCAC5CB1ECBE9
@@ -8744,7 +8744,7 @@ species:
     - Brown Creeper/American Treecreeper
     - ""
     - ""
-    - "582"
+    - "583"
     - Passeriformes
     - Certhiidae
     - BAC33609C5F48A91
@@ -8761,7 +8761,7 @@ species:
       0J/RltC00LrQvtGA0LjRiNC90LjQuiDQutC+0YDQvtGC0LrQvtC/0LDQu9C4
       0Lk=
 
-    - "583"
+    - "584"
     - Passeriformes
     - Certhiidae
     - 552E2BA9FE43A2EE
@@ -8775,7 +8775,7 @@ species:
       0JrQvtGI0LDRh9C40Lkg0L/QtdGA0LXRgdC80LXRiNC90LjQug==
 
     - ""
-    - "584"
+    - "585"
     - Passeriformes
     - Mimidae
     - 95B77F083F49835F
@@ -8790,7 +8790,7 @@ species:
       0Lo=
 
     - ""
-    - "585"
+    - "586"
     - Passeriformes
     - Mimidae
     - 7EFF698DC564CF69
@@ -8802,7 +8802,7 @@ species:
     - Sage Thrasher
     - ""
     - ""
-    - "586"
+    - "587"
     - Passeriformes
     - Mimidae
     - F6DF700B33402E74
@@ -8817,7 +8817,7 @@ species:
       v9C10YDQtdGB0LzQtdGI0L3QuNC6
 
     - ""
-    - "587"
+    - "588"
     - Passeriformes
     - Mimidae
     - C8F9F2D013E9D057
@@ -8833,7 +8833,7 @@ species:
     - !binary |
       0KjQv9Cw0Log0YDQvtC20LXQstC40Lk=
 
-    - "588"
+    - "589"
     - Passeriformes
     - Sturnidae
     - 24208346AD77666E
@@ -8849,7 +8849,7 @@ species:
     - !binary |
       0KjQv9Cw0Log0LfQstC40YfQsNC50L3QuNC5
 
-    - "589"
+    - "590"
     - Passeriformes
     - Sturnidae
     - 94A4403295E2D9BE
@@ -8863,7 +8863,7 @@ species:
       0JjQt9C80LXQvdGH0LjQstGL0Lkg0LTRgNC+0LfQtA==
 
     - ""
-    - "590"
+    - "591"
     - Passeriformes
     - Turdidae
     - 583128734B0F566A
@@ -8877,7 +8877,7 @@ species:
       0JLQvtGB0YLQvtGH0L3QsNGPINGB0LjQsNC70LjRjw==
 
     - ""
-    - "591"
+    - "592"
     - Passeriformes
     - Turdidae
     - A8347C7DF99F44B5
@@ -8889,7 +8889,7 @@ species:
     - Mountain Bluebird
     - ""
     - ""
-    - "592"
+    - "593"
     - Passeriformes
     - Turdidae
     - 97B870B4D154F7DB
@@ -8903,7 +8903,7 @@ species:
       0JPQvtGA0L3Ri9C5INC00YDQvtC30LQt0L7RgtGI0LXQu9GM0L3QuNC6
 
     - ""
-    - "593"
+    - "594"
     - Passeriformes
     - Turdidae
     - 5459228D7CD8E8CB
@@ -8915,7 +8915,7 @@ species:
     - Veery
     - ""
     - ""
-    - "594"
+    - "595"
     - Passeriformes
     - Turdidae
     - 0B8F4EE60AFF4B25
@@ -8929,7 +8929,7 @@ species:
       0JTRgNC+0LfQtCDQvNCw0LvRi9C5
 
     - ""
-    - "595"
+    - "596"
     - Passeriformes
     - Turdidae
     - B904BB227C07317E
@@ -8941,7 +8941,7 @@ species:
     - Bicknell's Thrush
     - ""
     - ""
-    - "596"
+    - "597"
     - Passeriformes
     - Turdidae
     - 5E1BED9DF111DB7D
@@ -8957,7 +8957,7 @@ species:
     - !binary |
       0JTRgNGW0LfQtCDQodCy0LXQvdGB0L7QvdCw
 
-    - "597"
+    - "598"
     - Passeriformes
     - Turdidae
     - E53FC25C090A6AD8
@@ -8971,7 +8971,7 @@ species:
       0JTRgNC+0LfQtC3QvtGC0YjQtdC70YzQvdC40Lo=
 
     - ""
-    - "598"
+    - "599"
     - Passeriformes
     - Turdidae
     - B01E8BD42E1785F2
@@ -8985,7 +8985,7 @@ species:
       0JvQtdGB0L3QvtC5INC00YDQvtC30LQ=
 
     - ""
-    - "599"
+    - "600"
     - Passeriformes
     - Turdidae
     - 8E1D9327B8DAFD54
@@ -9001,7 +9001,7 @@ species:
     - !binary |
       0JTRgNGW0LfQtCDQs9GW0YDRgdGM0LrQuNC5
 
-    - "600"
+    - "601"
     - Passeriformes
     - Turdidae
     - CE71B4FF837F276A
@@ -9017,7 +9017,7 @@ species:
     - !binary |
       0KfQvtGA0L3QuNC5INC00YDRltC30LQ=
 
-    - "601"
+    - "602"
     - Passeriformes
     - Turdidae
     - 1BB50DE8362A4963
@@ -9033,7 +9033,7 @@ species:
     - !binary |
       0JTRgNGW0LfQtCDRh9C+0YDQvdC+0LLQvtC70LjQuQ==
 
-    - "602"
+    - "603"
     - Passeriformes
     - Turdidae
     - AECDBFFA55C87E24
@@ -9049,7 +9049,7 @@ species:
     - !binary |
       0JTRgNGW0LfQtCDQndCw0YPQvNCw0L3QsA==
 
-    - "603"
+    - "604"
     - Passeriformes
     - Turdidae
     - 22761AD4A981E2F6
@@ -9065,7 +9065,7 @@ species:
     - !binary |
       0JTRgNGW0LfQtCDQndCw0YPQvNCw0L3QsA==
 
-    - "604"
+    - "605"
     - Passeriformes
     - Turdidae
     - E3B6927817B7ABB4
@@ -9081,7 +9081,7 @@ species:
     - !binary |
       0KfQuNC60L7RgtC10L3RjA==
 
-    - "605"
+    - "606"
     - Passeriformes
     - Turdidae
     - D120D5A070E8123C
@@ -9097,7 +9097,7 @@ species:
     - !binary |
       0JTRgNGW0LfQtCDQsdGW0LvQvtCx0YDQvtCy0LjQuQ==
 
-    - "606"
+    - "607"
     - Passeriformes
     - Turdidae
     - A8A85BCF1AFB7BBD
@@ -9113,7 +9113,7 @@ species:
     - !binary |
       0JTRgNGW0LfQtCDRgdC/0ZbQstC+0YfQuNC5
 
-    - "607"
+    - "608"
     - Passeriformes
     - Turdidae
     - D929EB214A698282
@@ -9129,7 +9129,7 @@ species:
     - !binary |
       0JTRgNGW0LfQtC3QvtC80LXQu9GO0YU=
 
-    - "608"
+    - "609"
     - Passeriformes
     - Turdidae
     - A95B43F1E9D10296
@@ -9143,7 +9143,7 @@ species:
       0KHRgtGA0LDQvdGB0YLQstGD0Y7RidC40Lkg0LTRgNC+0LfQtA==
 
     - ""
-    - "609"
+    - "610"
     - Passeriformes
     - Turdidae
     - 075C161020D1E5D2
@@ -9159,7 +9159,7 @@ species:
     - !binary |
       0JLRltC70YzRiNCw0L3QutCw
 
-    - "610"
+    - "611"
     - Passeriformes
     - Muscicapidae
     - C809B2B90399A43D
@@ -9175,7 +9175,7 @@ species:
     - !binary |
       0KHQuNC90YzQvtGI0LjQudC60LA=
 
-    - "611"
+    - "612"
     - Passeriformes
     - Muscicapidae
     - AFD6FD811AA7D6A7
@@ -9191,7 +9191,7 @@ species:
     - !binary |
       0KHQvtC70L7QstC10LnQutC+INGB0YXRltC00L3QuNC5
 
-    - "612"
+    - "613"
     - Passeriformes
     - Muscicapidae
     - 6EC667529FB53E43
@@ -9207,7 +9207,7 @@ species:
     - !binary |
       0KHQvtC70L7QstC10LnQutC+INC30LDRhdGW0LTQvdC40Lk=
 
-    - "613"
+    - "614"
     - Passeriformes
     - Muscicapidae
     - 7C7F0DEE5B364038
@@ -9223,7 +9223,7 @@ species:
     - !binary |
       0KHQvtC70L7QstC10LnQutC+INGA0YPQtNC+0YXQstC+0YHRgtC40Lk=
 
-    - "614"
+    - "615"
     - Passeriformes
     - Muscicapidae
     - B68BD0D25647A5D2
@@ -9239,7 +9239,7 @@ species:
     - !binary |
       0JPQvtGA0LjRhdCy0ZbRgdGC0LrQsCDRh9C+0YDQvdCw
 
-    - "615"
+    - "616"
     - Passeriformes
     - Muscicapidae
     - 612B5C244E272075
@@ -9256,7 +9256,7 @@ species:
     - !binary |
       0JPQvtGA0LjRhdCy0ZbRgdGC0LrQsCDQt9Cy0LjRh9Cw0LnQvdCw
 
-    - "616"
+    - "617"
     - Passeriformes
     - Muscicapidae
     - 06DD9D954313582E
@@ -9272,7 +9272,7 @@ species:
     - !binary |
       0KLRgNCw0LIn0Y/QvdC60LAg0LvRg9GH0L3QsA==
 
-    - "617"
+    - "618"
     - Passeriformes
     - Muscicapidae
     - A0EDAEA2E89A9A96
@@ -9288,7 +9288,7 @@ species:
     - !binary |
       0KLRgNCw0LIn0Y/QvdC60LAg0YfQvtGA0L3QvtCz0L7Qu9C+0LLQsA==
 
-    - "618"
+    - "619"
     - Passeriformes
     - Muscicapidae
     - B8D0FE8AF8D7BCFF
@@ -9304,7 +9304,7 @@ species:
     - !binary |
       0JrQsNC8J9GP0L3QutCwINC/0L7Qv9C10LvRj9GB0YLQsA==
 
-    - "619"
+    - "620"
     - Passeriformes
     - Muscicapidae
     - E6C6F74630B2257B
@@ -9320,7 +9320,7 @@ species:
     - !binary |
       0JrQsNC8J9GP0L3QutCwINC30LLQuNGH0LDQudC90LA=
 
-    - "620"
+    - "621"
     - Passeriformes
     - Muscicapidae
     - AB031597691D999C
@@ -9336,7 +9336,7 @@ species:
     - !binary |
       0JrQsNC8J9GP0L3QutCwINC70LjRgdCw
 
-    - "621"
+    - "622"
     - Passeriformes
     - Muscicapidae
     - 2FB34D83F74FCEAB
@@ -9352,7 +9352,7 @@ species:
     - !binary |
       0JrQsNC8J9GP0L3QutCwINGW0YHQv9Cw0L3RgdGM0LrQsA==
 
-    - "622"
+    - "623"
     - Passeriformes
     - Muscicapidae
     - 9611335C2442B3DD
@@ -9368,7 +9368,7 @@ species:
     - !binary |
       0JrQsNC8J9GP0L3QutCwINCx0ZbQu9C+0LPRg9C30LA=
 
-    - "623"
+    - "624"
     - Passeriformes
     - Muscicapidae
     - 1C98EA2F8CD4DD15
@@ -9384,7 +9384,7 @@ species:
     - !binary |
       0KHQutC10LvRj9GAINGB0YLRgNC+0LrQsNGC0LjQuQ==
 
-    - "624"
+    - "625"
     - Passeriformes
     - Muscicapidae
     - 736D38E7F9967842
@@ -9400,7 +9400,7 @@ species:
     - !binary |
       0KHQutC10LvRj9GAINGB0LjQvdGW0Lk=
 
-    - "625"
+    - "626"
     - Passeriformes
     - Muscicapidae
     - 41D76F4B19ACB4BD
@@ -9416,7 +9416,7 @@ species:
     - !binary |
       0JzRg9GF0L7Qu9C+0LLQutCwINGB0ZbRgNCw
 
-    - "626"
+    - "627"
     - Passeriformes
     - Muscicapidae
     - EE8206E703914D22
@@ -9432,7 +9432,7 @@ species:
     - !binary |
       0JzRg9GF0L7Qu9C+0LLQutCwINGB0YLRgNC+0LrQsNGC0LA=
 
-    - "627"
+    - "628"
     - Passeriformes
     - Muscicapidae
     - 66F7EC4B09F42223
@@ -9448,7 +9448,7 @@ species:
     - !binary |
       0JzRg9GF0L7Qu9C+0LLQutCwINCx0ZbQu9C+0YjQuNGP
 
-    - "628"
+    - "629"
     - Passeriformes
     - Muscicapidae
     - 0B2F80584ED0F07E
@@ -9464,7 +9464,7 @@ species:
     - !binary |
       0JzRg9GF0L7Qu9C+0LLQutCwINC80LDQu9Cw
 
-    - "629"
+    - "630"
     - Passeriformes
     - Muscicapidae
     - 612EA610E59DB6FD
@@ -9480,7 +9480,7 @@ species:
     - !binary |
       0J/RgNC+0L3Rg9GA0L7Qug==
 
-    - "630"
+    - "631"
     - Passeriformes
     - Cinclidae
     - FDECE3B9278A17EC
@@ -9496,7 +9496,7 @@ species:
     - !binary |
       0JPQvtGA0L7QsdC10YbRjCDRhdCw0YLQvdGW0Lk=
 
-    - "631"
+    - "632"
     - Passeriformes
     - Passeridae
     - 6D3BD126D55F8B69
@@ -9512,7 +9512,7 @@ species:
     - !binary |
       0JPQvtGA0L7QsdC10YbRjCDRh9C+0YDQvdC+0LPRgNGD0LTQuNC5
 
-    - "632"
+    - "633"
     - Passeriformes
     - Passeridae
     - 5A8E09A18B86D140
@@ -9528,7 +9528,7 @@ species:
     - !binary |
       0JPQvtGA0L7QsdC10YbRjCDQv9C+0LvRjNC+0LLQuNC5
 
-    - "633"
+    - "634"
     - Passeriformes
     - Passeridae
     - C22FBF8D36F91BCA
@@ -9544,7 +9544,7 @@ species:
     - !binary |
       0JPQvtGA0L7QsdC10YbRjCDRgdC60LXQu9GM0L3QuNC5
 
-    - "634"
+    - "635"
     - Passeriformes
     - Passeridae
     - F8748F12A35515B1
@@ -9560,7 +9560,7 @@ species:
     - !binary |
       0JIn0Y7RgNC+0Log0YHQvdGW0LPQvtCy0LjQuQ==
 
-    - "635"
+    - "636"
     - Passeriformes
     - Passeridae
     - 3E389D037AA10A4C
@@ -9576,7 +9576,7 @@ species:
     - !binary |
       0KLQuNC90ZbQstC60LAg0LDQu9GM0L/RltC50YHRjNC60LA=
 
-    - "636"
+    - "637"
     - Passeriformes
     - Prunellidae
     - A783468FC167312E
@@ -9592,7 +9592,7 @@ species:
     - !binary |
       0KLQuNC90ZbQstC60LAg0YHQuNCx0ZbRgNGB0YzQutCw
 
-    - "637"
+    - "638"
     - Passeriformes
     - Prunellidae
     - D32200407D81F285
@@ -9608,7 +9608,7 @@ species:
     - !binary |
       0KLQuNC90ZbQstC60LAg0LvRltGB0L7QstCw
 
-    - "638"
+    - "639"
     - Passeriformes
     - Prunellidae
     - 26530C865C4A655C
@@ -9624,7 +9624,7 @@ species:
     - !binary |
       0JbQvtCy0YLQsCDQv9C70LjRgdC60LA=
 
-    - "639"
+    - "640"
     - Passeriformes
     - Motacillidae
     - 1F56DC34CAC3901F
@@ -9640,7 +9640,7 @@ species:
     - !binary |
       0J/Qu9C40YHQutCwINC20L7QstGC0L7Qs9C+0LvQvtCy0LA=
 
-    - "641"
+    - "642"
     - Passeriformes
     - Motacillidae
     - 5B0295C122B63ED3
@@ -9656,7 +9656,7 @@ species:
     - !binary |
       0J/Qu9C40YHQutCwINCz0ZbRgNGB0YzQutCw
 
-    - "642"
+    - "643"
     - Passeriformes
     - Motacillidae
     - AE073221679039C2
@@ -9672,7 +9672,7 @@ species:
     - !binary |
       0JHRltC70LAg0L/Qu9C40YHQutCw
 
-    - "643"
+    - "644"
     - Passeriformes
     - Motacillidae
     - FBE02965F955440D
@@ -9684,7 +9684,7 @@ species:
     - Richard's Pipit
     - ""
     - ""
-    - "644"
+    - "645"
     - Passeriformes
     - Motacillidae
     - 306D93825F2F8A88
@@ -9700,7 +9700,7 @@ species:
     - !binary |
       0KnQtdCy0YDQuNC6INC/0L7Qu9GM0L7QstC40Lk=
 
-    - "645"
+    - "646"
     - Passeriformes
     - Motacillidae
     - 250CDA5828B68D0A
@@ -9716,7 +9716,7 @@ species:
     - !binary |
       0KnQtdCy0YDQuNC6INC70YPRh9C90LjQuQ==
 
-    - "646"
+    - "647"
     - Passeriformes
     - Motacillidae
     - 14873249B607CEB1
@@ -9732,7 +9732,7 @@ species:
     - !binary |
       0KnQtdCy0YDQuNC6INC70ZbRgdC+0LLQuNC5
 
-    - "647"
+    - "648"
     - Passeriformes
     - Motacillidae
     - 365F5E975B414FE6
@@ -9748,7 +9748,7 @@ species:
     - !binary |
       0KnQtdCy0YDQuNC6INGH0LXRgNCy0L7QvdC+0LPRgNGD0LTQuNC5
 
-    - "648"
+    - "649"
     - Passeriformes
     - Motacillidae
     - 319D044A667563CD
@@ -9762,7 +9762,7 @@ species:
       0JDQvNC10YDQuNC60LDQvdGB0LrQuNC5INC60L7QvdC10Lo=
 
     - ""
-    - "649"
+    - "650"
     - Passeriformes
     - Motacillidae
     - 8F26868274C1EE0A
@@ -9778,7 +9778,7 @@ species:
     - !binary |
       0KnQtdCy0YDQuNC6INCz0ZbRgNGB0YzQutC40Lk=
 
-    - "650"
+    - "651"
     - Passeriformes
     - Motacillidae
     - 0A3FA18502F4FC70
@@ -9790,7 +9790,7 @@ species:
     - Sprague's Pipit
     - ""
     - ""
-    - "651"
+    - "652"
     - Passeriformes
     - Motacillidae
     - BF380B5D0EB23BB9
@@ -9806,7 +9806,7 @@ species:
     - !binary |
       0JfRj9Cx0LvQuNC6
 
-    - "652"
+    - "653"
     - Passeriformes
     - Fringillidae
     - 37F522810CADE42A
@@ -9822,7 +9822,7 @@ species:
     - !binary |
       0JIn0Y7RgNC+0Lo=
 
-    - "653"
+    - "654"
     - Passeriformes
     - Fringillidae
     - E16B2C0328E05DC5
@@ -9838,7 +9838,7 @@ species:
     - !binary |
       0KnQtdC00YDQuNC6
 
-    - "654"
+    - "655"
     - Passeriformes
     - Fringillidae
     - C3227709455B9AFF
@@ -9854,7 +9854,7 @@ species:
     - !binary |
       0JfQtdC70LXQvdGP0Lo=
 
-    - "655"
+    - "656"
     - Passeriformes
     - Fringillidae
     - 65BD2033E2A722C8
@@ -9870,7 +9870,7 @@ species:
     - !binary |
       0KfQuNC2
 
-    - "656"
+    - "657"
     - Passeriformes
     - Fringillidae
     - 9820CECA12EC737D
@@ -9882,7 +9882,7 @@ species:
     - Pine Siskin
     - ""
     - ""
-    - "657"
+    - "658"
     - Passeriformes
     - Fringillidae
     - B48335B1DF4EF710
@@ -9896,7 +9896,7 @@ species:
       0JDQvNC10YDQuNC60LDQvdGB0LrQuNC5INGH0LjQtg==
 
     - ""
-    - "658"
+    - "659"
     - Passeriformes
     - Fringillidae
     - C9ABA616B963B563
@@ -9912,7 +9912,7 @@ species:
     - !binary |
       0KnQuNCz0LvQuNC6
 
-    - "659"
+    - "660"
     - Passeriformes
     - Fringillidae
     - 1B235E0052ACC519
@@ -9928,7 +9928,7 @@ species:
     - !binary |
       0JfQstC40YfQsNC50L3QsCDRh9C10YfRltGC0LrQsA==
 
-    - "660"
+    - "661"
     - Passeriformes
     - Fringillidae
     - 3D1C0668E99B7AC1
@@ -9944,7 +9944,7 @@ species:
     - !binary |
       0KfQtdGH0ZbRgtC60LAg0LHRltC70LA=
 
-    - "661"
+    - "662"
     - Passeriformes
     - Fringillidae
     - D23A3F75CCD56E6B
@@ -9960,7 +9960,7 @@ species:
     - !binary |
       0KfQtdGH0ZbRgtC60LAg0LPRltGA0YHRjNC60LA=
 
-    - "662"
+    - "663"
     - Passeriformes
     - Fringillidae
     - 6CD4E38EB75CA3A0
@@ -9976,7 +9976,7 @@ species:
     - !binary |
       0JrQvtC90L7Qv9C70Y/QvdC60LA=
 
-    - "663"
+    - "664"
     - Passeriformes
     - Fringillidae
     - 32635892A4EB874F
@@ -9992,7 +9992,7 @@ species:
     - !binary |
       0KfQtdGH0LXQstC40YbRjw==
 
-    - "664"
+    - "665"
     - Passeriformes
     - Fringillidae
     - 3A713345F43AFFA6
@@ -10004,7 +10004,7 @@ species:
     - Purple Finch
     - ""
     - ""
-    - "665"
+    - "666"
     - Passeriformes
     - Fringillidae
     - B4EE123DE4241449
@@ -10016,7 +10016,7 @@ species:
     - House Finch
     - ""
     - ""
-    - "666"
+    - "667"
     - Passeriformes
     - Fringillidae
     - 89431E9F1CEDC995
@@ -10032,7 +10032,7 @@ species:
     - !binary |
       0KfQtdGH0LXQstC40YbRjyDRgdC40LHRltGA0YHRjNC60LA=
 
-    - "667"
+    - "668"
     - Passeriformes
     - Fringillidae
     - 68DF5AB792401570
@@ -10048,7 +10048,7 @@ species:
     - !binary |
       0KfQtdGH0LXQstC40YbRjyDQstC10LvQuNC60LA=
 
-    - "668"
+    - "669"
     - Passeriformes
     - Fringillidae
     - 7621E1A6BFDF4D92
@@ -10064,7 +10064,7 @@ species:
     - !binary |
       0KHQvNC10YDQtdGH0L3QuNC6
 
-    - "669"
+    - "670"
     - Passeriformes
     - Fringillidae
     - 83AC4DAD94AFC411
@@ -10080,7 +10080,7 @@ species:
     - !binary |
       0KjQuNGI0LrQsNGAINGB0L7RgdC90L7QstC40Lk=
 
-    - "670"
+    - "671"
     - Passeriformes
     - Fringillidae
     - CAAD3E23531C26C5
@@ -10096,7 +10096,7 @@ species:
     - !binary |
       0KjQuNGI0LrQsNGAINGP0LvQuNC90L7QstC40Lk=
 
-    - "671"
+    - "672"
     - Passeriformes
     - Fringillidae
     - 135564AAF6B01DA2
@@ -10112,7 +10112,7 @@ species:
     - !binary |
       0KjQuNGI0LrQsNGAINCx0ZbQu9C+0LrRgNC40LvQuNC5
 
-    - "672"
+    - "673"
     - Passeriformes
     - Fringillidae
     - ECA931C1016DBED6
@@ -10128,7 +10128,7 @@ species:
     - !binary |
       0KHQvdGW0LPRg9GA
 
-    - "673"
+    - "674"
     - Passeriformes
     - Fringillidae
     - 7009BC13FFFB94E7
@@ -10144,7 +10144,7 @@ species:
     - !binary |
       0JrQvtGB0YLQvtCz0YDQuNC3
 
-    - "674"
+    - "675"
     - Passeriformes
     - Fringillidae
     - 84E1F1149261F19E
@@ -10156,7 +10156,7 @@ species:
     - Evening Grosbeak
     - ""
     - ""
-    - "675"
+    - "676"
     - Passeriformes
     - Fringillidae
     - C6B5497C9DB6796A
@@ -10171,7 +10171,7 @@ species:
       0LrQsA==
 
     - ""
-    - "676"
+    - "677"
     - Passeriformes
     - Parulidae
     - 83F326C81E3F2955
@@ -10185,7 +10185,7 @@ species:
       0KHQvtGB0L3QvtCy0LDRjyDRh9C10YDQstC10LXQtNC60LA=
 
     - ""
-    - "677"
+    - "678"
     - Passeriformes
     - Parulidae
     - B617FE7DF96090DD
@@ -10197,7 +10197,7 @@ species:
     - Tennessee Warbler
     - ""
     - ""
-    - "678"
+    - "679"
     - Passeriformes
     - Parulidae
     - D204A9309E8CCC3A
@@ -10209,7 +10209,7 @@ species:
     - Orange-crowned Warbler
     - ""
     - ""
-    - "679"
+    - "680"
     - Passeriformes
     - Parulidae
     - FFF6108042E63910
@@ -10221,7 +10221,7 @@ species:
     - Nashville Warbler
     - ""
     - ""
-    - "680"
+    - "681"
     - Passeriformes
     - Parulidae
     - 183E5F909449A603
@@ -10233,7 +10233,7 @@ species:
     - Virginia's Warbler
     - ""
     - ""
-    - "681"
+    - "682"
     - Passeriformes
     - Parulidae
     - A97F14D0EE2CEBCD
@@ -10245,7 +10245,7 @@ species:
     - Northern Parula
     - ""
     - ""
-    - "682"
+    - "683"
     - Passeriformes
     - Parulidae
     - 41062654293EB4E1
@@ -10260,7 +10260,7 @@ species:
       stGD0L0=
 
     - ""
-    - "683"
+    - "684"
     - Passeriformes
     - Parulidae
     - 7AB1229BD3F33F46
@@ -10274,7 +10274,7 @@ species:
       0JbRkdC70YLQsNGPINC00YDQtdCy0LXRgdC90LjRhtCw
 
     - ""
-    - "684"
+    - "685"
     - Passeriformes
     - Parulidae
     - A6C0C4A9DCB84453
@@ -10286,7 +10286,7 @@ species:
     - Blackpoll Warbler
     - ""
     - ""
-    - "685"
+    - "686"
     - Passeriformes
     - Parulidae
     - 544A5E6BC69CEAAC
@@ -10298,7 +10298,7 @@ species:
     - Bay-breasted Warbler
     - ""
     - ""
-    - "686"
+    - "687"
     - Passeriformes
     - Parulidae
     - 10C601D3BCC5A85C
@@ -10310,7 +10310,7 @@ species:
     - Blackburnian Warbler
     - ""
     - ""
-    - "687"
+    - "688"
     - Passeriformes
     - Parulidae
     - 4168AF09C7BCB40B
@@ -10324,7 +10324,7 @@ species:
       0JzQsNCz0L3QvtC70LjQtdCy0LDRjyDQtNGA0LXQstC10YHQvdC40YbQsA==
 
     - ""
-    - "688"
+    - "689"
     - Passeriformes
     - Parulidae
     - 1E82CE1ECC54F928
@@ -10338,7 +10338,7 @@ species:
       0JPQvtC70YPQsdC+0Lkg0LvQtdGB0L3QvtC5INC/0LXQstGD0L0=
 
     - ""
-    - "689"
+    - "690"
     - Passeriformes
     - Parulidae
     - D00EC2C974F1B880
@@ -10352,7 +10352,7 @@ species:
       0KLQuNCz0YDQvtCy0YvQuSDQu9C10YHQvdC+0Lkg0L/QtdCy0YPQvQ==
 
     - ""
-    - "690"
+    - "691"
     - Passeriformes
     - Parulidae
     - DB20CB6B0A720B90
@@ -10367,7 +10367,7 @@ species:
       vQ==
 
     - ""
-    - "691"
+    - "692"
     - Passeriformes
     - Parulidae
     - 67B455A71B1C2506
@@ -10381,7 +10381,7 @@ species:
       0JzQuNGA0YLQvtCy0YvQuSDQv9C10LLRg9C9
 
     - ""
-    - "692"
+    - "693"
     - Passeriformes
     - Parulidae
     - BC5A949807108302
@@ -10393,7 +10393,7 @@ species:
     - Black-throated Gray Warbler
     - ""
     - ""
-    - "693"
+    - "694"
     - Passeriformes
     - Parulidae
     - 6B7A93C56A110723
@@ -10405,7 +10405,7 @@ species:
     - Black-throated Green Warbler
     - ""
     - ""
-    - "694"
+    - "695"
     - Passeriformes
     - Parulidae
     - 9FFEDE99DC82DD92
@@ -10419,7 +10419,7 @@ species:
       0J/Rg9Cz0LvQuNCy0YvQuSDQu9C10YHQvdC+0Lkg0L/QtdCy0YPQvQ==
 
     - ""
-    - "695"
+    - "696"
     - Passeriformes
     - Parulidae
     - F6C6C3F7E27ED557
@@ -10431,7 +10431,7 @@ species:
     - Yellow-throated Warbler
     - ""
     - ""
-    - "696"
+    - "697"
     - Passeriformes
     - Parulidae
     - 4A8D1A19B9685441
@@ -10443,7 +10443,7 @@ species:
     - Prairie Warbler
     - ""
     - ""
-    - "697"
+    - "698"
     - Passeriformes
     - Parulidae
     - E36325FA08B46EEF
@@ -10455,7 +10455,7 @@ species:
     - Pine Warbler
     - ""
     - ""
-    - "698"
+    - "699"
     - Passeriformes
     - Parulidae
     - 6283E61EEF174882
@@ -10467,7 +10467,7 @@ species:
     - Palm Warbler
     - ""
     - ""
-    - "699"
+    - "700"
     - Passeriformes
     - Parulidae
     - 4AAEF54973E5453C
@@ -10481,7 +10481,7 @@ species:
       0KfQtdGA0L3Qvi3QsdC10LvQsNGPINC00YDQtdCy0LXRgdC90LjRhtCw
 
     - ""
-    - "700"
+    - "701"
     - Passeriformes
     - Parulidae
     - 4D207AF69A79DDCF
@@ -10496,7 +10496,7 @@ species:
       0LA=
 
     - ""
-    - "701"
+    - "702"
     - Passeriformes
     - Parulidae
     - BED38F505F0B8509
@@ -10510,7 +10510,7 @@ species:
       0JvQuNC80L7QvdC90YvQuSDQv9C10LLRg9C9
 
     - ""
-    - "702"
+    - "703"
     - Passeriformes
     - Parulidae
     - 4D08EE7E80D2E275
@@ -10524,7 +10524,7 @@ species:
       0J3QsNGB0YLQvtGP0YnQsNGPINGH0LXRgNCy0LXQtdC00LrQsA==
 
     - ""
-    - "703"
+    - "704"
     - Passeriformes
     - Parulidae
     - 295C4CD62A12ADEF
@@ -10536,7 +10536,7 @@ species:
     - Swainson's Warbler
     - ""
     - ""
-    - "704"
+    - "705"
     - Passeriformes
     - Parulidae
     - D3624203E6C65D28
@@ -10551,7 +10551,7 @@ species:
       INC/0LXQstGD0L0=
 
     - ""
-    - "705"
+    - "706"
     - Passeriformes
     - Parulidae
     - CEA5B6AA48218C8A
@@ -10565,7 +10565,7 @@ species:
       0KDQtdGH0L3QvtC5INC/0LXQstGD0L0=
 
     - ""
-    - "706"
+    - "707"
     - Passeriformes
     - Parulidae
     - 709AF716468341F7
@@ -10577,7 +10577,7 @@ species:
     - Louisiana Waterthrush
     - ""
     - ""
-    - "707"
+    - "708"
     - Passeriformes
     - Parulidae
     - 7AB0F3A4A62BD4BF
@@ -10592,7 +10592,7 @@ species:
       stGD0L0=
 
     - ""
-    - "708"
+    - "709"
     - Passeriformes
     - Parulidae
     - 8C105C3C647C7E36
@@ -10604,7 +10604,7 @@ species:
     - Connecticut Warbler
     - ""
     - ""
-    - "709"
+    - "710"
     - Passeriformes
     - Parulidae
     - 0B23929DF27B0963
@@ -10616,7 +10616,7 @@ species:
     - Mourning Warbler
     - ""
     - ""
-    - "710"
+    - "711"
     - Passeriformes
     - Parulidae
     - 1A0096F2F929CEA2
@@ -10628,7 +10628,7 @@ species:
     - MacGillivray's Warbler
     - ""
     - ""
-    - "711"
+    - "712"
     - Passeriformes
     - Parulidae
     - 85106518F57F4B09
@@ -10643,7 +10643,7 @@ species:
       stGD0L0=
 
     - ""
-    - "712"
+    - "713"
     - Passeriformes
     - Parulidae
     - BA4C8A02839564AC
@@ -10657,7 +10657,7 @@ species:
       0JrQsNC/0Y7RiNC+0L3QvdCw0Y8g0LLQuNC70YzRgdC+0L3QuNGP
 
     - ""
-    - "713"
+    - "714"
     - Passeriformes
     - Parulidae
     - 15EB30007E1908FD
@@ -10671,7 +10671,7 @@ species:
       0JzQsNC70LDRjyDQstC40LvRjNGB0L7QvdC40Y8=
 
     - ""
-    - "714"
+    - "715"
     - Passeriformes
     - Parulidae
     - 1F09CCCCBD97B861
@@ -10683,7 +10683,7 @@ species:
     - Canada Warbler
     - ""
     - ""
-    - "715"
+    - "716"
     - Passeriformes
     - Parulidae
     - F2D675AFB11EEEFF
@@ -10698,7 +10698,7 @@ species:
       0L7QstGL0Lkg0L/QtdCy0YPQvQ==
 
     - ""
-    - "716"
+    - "717"
     - Passeriformes
     - Parulidae
     - 3255D987DF235968
@@ -10712,7 +10712,7 @@ species:
       0JbQtdC70YLQvtCz0YDRg9C00YvQuSDQv9C10LLRg9C9
 
     - ""
-    - "717"
+    - "718"
     - Passeriformes
     - Parulidae
     - 734C73A933F3108B
@@ -10724,7 +10724,7 @@ species:
     - Orchard Oriole
     - ""
     - ""
-    - "718"
+    - "719"
     - Passeriformes
     - Icteridae
     - 000482C9FC0553CD
@@ -10738,7 +10738,7 @@ species:
       0JHQsNC70YLQuNC80L7RgNGB0LrQsNGPINC40LLQvtC70LPQsA==
 
     - ""
-    - "719"
+    - "720"
     - Passeriformes
     - Icteridae
     - 5110842FA06DD11C
@@ -10750,7 +10750,7 @@ species:
     - Bullock's Oriole
     - ""
     - ""
-    - "720"
+    - "721"
     - Passeriformes
     - Icteridae
     - 7E65A952009BFD5F
@@ -10765,7 +10765,7 @@ species:
       htCw
 
     - ""
-    - "721"
+    - "722"
     - Passeriformes
     - Icteridae
     - 1E1AB415D083AAD4
@@ -10780,7 +10780,7 @@ species:
       v9C40LDQuw==
 
     - ""
-    - "722"
+    - "723"
     - Passeriformes
     - Icteridae
     - C86D078E641FCE6D
@@ -10794,7 +10794,7 @@ species:
       0KDQttCw0LLRh9Cw0YLRi9C5INGC0YDRg9C/0LjQsNC7
 
     - ""
-    - "723"
+    - "724"
     - Passeriformes
     - Icteridae
     - 5F77FED530C9B69D
@@ -10808,7 +10808,7 @@ species:
       0JHQu9C10YHRgtGP0YnQuNC5INC80LDQu9GL0Lkg0YLRgNGD0L/QuNCw0Ls=
 
     - ""
-    - "724"
+    - "725"
     - Passeriformes
     - Icteridae
     - EA5E858AEF777A34
@@ -10822,7 +10822,7 @@ species:
       0J7QsdGL0LrQvdC+0LLQtdC90L3Ri9C5INCz0YDQsNC60Ls=
 
     - ""
-    - "725"
+    - "726"
     - Passeriformes
     - Icteridae
     - 8BBB3255C6B7EE91
@@ -10834,7 +10834,7 @@ species:
     - Boat-tailed Grackle
     - ""
     - ""
-    - "726"
+    - "727"
     - Passeriformes
     - Icteridae
     - EF47E15D002D3191
@@ -10849,7 +10849,7 @@ species:
       sNC7
 
     - ""
-    - "727"
+    - "728"
     - Passeriformes
     - Icteridae
     - 27410227323B07A1
@@ -10861,7 +10861,7 @@ species:
     - Western Meadowlark
     - ""
     - ""
-    - "728"
+    - "729"
     - Passeriformes
     - Icteridae
     - 4A5B488366FC0784
@@ -10875,7 +10875,7 @@ species:
       0JbQtdC70YLQvtCz0L7Qu9C+0LLRi9C5INGC0YDRg9C/0LjQsNC7
 
     - ""
-    - "729"
+    - "730"
     - Passeriformes
     - Icteridae
     - 3E2D0C9BADB782DB
@@ -10889,7 +10889,7 @@ species:
       0KDQuNGB0L7QstCw0Y8g0L/RgtC40YbQsA==
 
     - ""
-    - "730"
+    - "731"
     - Passeriformes
     - Icteridae
     - F845062FC976B85B
@@ -10905,7 +10905,7 @@ species:
     - !binary |
       0J/RgNC+0YHRj9C90LrQsA==
 
-    - "731"
+    - "732"
     - Passeriformes
     - Emberizidae
     - 9A87EBB0B75C410B
@@ -10921,7 +10921,7 @@ species:
     - !binary |
       0JLRltCy0YHRj9C90LrQsCDQt9Cy0LjRh9Cw0LnQvdCw
 
-    - "732"
+    - "733"
     - Passeriformes
     - Emberizidae
     - 56FB47C05CB7275F
@@ -10937,7 +10937,7 @@ species:
     - !binary |
       0JLRltCy0YHRj9C90LrQsCDQsdGW0LvQvtCz0L7Qu9C+0LLQsA==
 
-    - "733"
+    - "734"
     - Passeriformes
     - Emberizidae
     - 43EF3EA79A531279
@@ -10953,7 +10953,7 @@ species:
     - !binary |
       0JLRltCy0YHRj9C90LrQsCDQs9GW0YDRgdGM0LrQsA==
 
-    - "734"
+    - "735"
     - Passeriformes
     - Emberizidae
     - 4836E64E80D5A372
@@ -10969,7 +10969,7 @@ species:
     - !binary |
       0JLRltCy0YHRj9C90LrQsCDRgdC60LXQu9GM0L3QsA==
 
-    - "735"
+    - "736"
     - Passeriformes
     - Emberizidae
     - CF70007E92F2A30B
@@ -10985,7 +10985,7 @@ species:
     - !binary |
       0JLRltCy0YHRj9C90LrQsCDRgdCw0LTQvtCy0LA=
 
-    - "736"
+    - "737"
     - Passeriformes
     - Emberizidae
     - 4721056132879EB7
@@ -11001,7 +11001,7 @@ species:
     - !binary |
       0JLRltCy0YHRj9C90LrQsCDRgdC40LLQvtCz0L7Qu9C+0LLQsA==
 
-    - "737"
+    - "738"
     - Passeriformes
     - Emberizidae
     - A7F3E6AE9A1929F9
@@ -11017,7 +11017,7 @@ species:
     - !binary |
       0JLRltCy0YHRj9C90LrQsCDQs9C+0YDQvtC00L3Rjw==
 
-    - "738"
+    - "739"
     - Passeriformes
     - Emberizidae
     - 9AAB8C2174EFDF60
@@ -11033,7 +11033,7 @@ species:
     - !binary |
       0JLRltCy0YHRj9C90LrQsC3QutGA0LjRhdGW0YLQutCw
 
-    - "739"
+    - "740"
     - Passeriformes
     - Emberizidae
     - 1866F80E52F4075F
@@ -11049,7 +11049,7 @@ species:
     - !binary |
       0JLRltCy0YHRj9C90LrQsCDQttC+0LLRgtC+0LHRgNC+0LLQsA==
 
-    - "740"
+    - "741"
     - Passeriformes
     - Emberizidae
     - 4A50E26530277C6D
@@ -11065,7 +11065,7 @@ species:
     - !binary |
       0JLRltCy0YHRj9C90LrQsC3RgNC10LzQtdC3
 
-    - "741"
+    - "742"
     - Passeriformes
     - Emberizidae
     - DA9746CEC82D30A3
@@ -11081,7 +11081,7 @@ species:
     - !binary |
       0JLRltCy0YHRj9C90LrQsCDQu9GD0YfQvdCw
 
-    - "742"
+    - "743"
     - Passeriformes
     - Emberizidae
     - 7574C0E53A34CCFD
@@ -11097,7 +11097,7 @@ species:
     - !binary |
       0JLRltCy0YHRj9C90LrQsCDRh9C+0YDQvdC+0LPQvtC70L7QstCw
 
-    - "743"
+    - "744"
     - Passeriformes
     - Emberizidae
     - E2D2CB88A9D95E42
@@ -11113,7 +11113,7 @@ species:
     - !binary |
       0JLRltCy0YHRj9C90LrQsCDQvtGH0LXRgNC10YLRj9C90LA=
 
-    - "744"
+    - "745"
     - Passeriformes
     - Emberizidae
     - C0B9787440316E20
@@ -11129,7 +11129,7 @@ species:
     - !binary |
       0J/QvtC00L7RgNC+0LbQvdC40Log0LvQsNC/0LvQsNC90LTRgdGM0LrQuNC5
 
-    - "745"
+    - "746"
     - Passeriformes
     - Emberizidae
     - 3534E4CEBACCB166
@@ -11141,7 +11141,7 @@ species:
     - Smith's Longspur
     - ""
     - ""
-    - "746"
+    - "747"
     - Passeriformes
     - Emberizidae
     - D307C9A04517D3A2
@@ -11153,7 +11153,7 @@ species:
     - Chestnut-collared Longspur
     - ""
     - ""
-    - "747"
+    - "748"
     - Passeriformes
     - Emberizidae
     - B64C1B1DE240735A
@@ -11169,7 +11169,7 @@ species:
     - !binary |
       0J/Rg9C90L7Rh9C60LA=
 
-    - "748"
+    - "749"
     - Passeriformes
     - Emberizidae
     - 9BEBC02505B416EE
@@ -11181,7 +11181,7 @@ species:
     - Lark-Bunting
     - ""
     - ""
-    - "749"
+    - "750"
     - Passeriformes
     - Emberizidae
     - 938C5572D8E74782
@@ -11195,7 +11195,7 @@ species:
       0J/QtdGB0YLRgNC+0LPRgNGD0LTQsNGPINC+0LLRgdGP0L3QutCw
 
     - ""
-    - "750"
+    - "751"
     - Passeriformes
     - Emberizidae
     - 3A7B1F59DE8F597D
@@ -11209,7 +11209,7 @@ species:
       0J/QtdCy0YfQsNGPINC30L7QvdC+0YLRgNC40YXQuNGP
 
     - ""
-    - "751"
+    - "752"
     - Passeriformes
     - Emberizidae
     - A5F09E0521019564
@@ -11221,7 +11221,7 @@ species:
     - Lincoln's Sparrow
     - ""
     - ""
-    - "752"
+    - "753"
     - Passeriformes
     - Emberizidae
     - AF49F8903B6DC7A5
@@ -11235,7 +11235,7 @@ species:
       0JHQvtC70L7RgtC90LDRjyDQt9C+0L3QvtGC0YDQuNGF0LjRjw==
 
     - ""
-    - "753"
+    - "754"
     - Passeriformes
     - Emberizidae
     - 4E192262D429400C
@@ -11247,7 +11247,7 @@ species:
     - Harris's Sparrow
     - ""
     - ""
-    - "754"
+    - "755"
     - Passeriformes
     - Emberizidae
     - DDAF0666B28C1354
@@ -11261,7 +11261,7 @@ species:
       0JHQtdC70L7QsdGA0L7QstCw0Y8g0L7QstGB0Y/QvdC60LA=
 
     - ""
-    - "755"
+    - "756"
     - Passeriformes
     - Emberizidae
     - 8601A4678CABA542
@@ -11273,7 +11273,7 @@ species:
     - White-throated Sparrow
     - ""
     - ""
-    - "756"
+    - "757"
     - Passeriformes
     - Emberizidae
     - 39BD9FF20A9613C4
@@ -11287,7 +11287,7 @@ species:
       0KfQtdGA0L3QvtCx0YDQvtCy0LDRjyDQvtCy0YHRj9C90LrQsA==
 
     - ""
-    - "757"
+    - "758"
     - Passeriformes
     - Emberizidae
     - BD61BDEC7D0A1633
@@ -11301,7 +11301,7 @@ species:
       0KHQtdGA0YvQuSDRjtC90LrQvg==
 
     - ""
-    - "758"
+    - "759"
     - Passeriformes
     - Emberizidae
     - F8AFCAC715964EEB
@@ -11315,7 +11315,7 @@ species:
       0KHQsNCy0LDQvdC90LDRjyDQvtCy0YHRj9C90LrQsA==
 
     - ""
-    - "759"
+    - "760"
     - Passeriformes
     - Emberizidae
     - 31CE00C71528322F
@@ -11329,7 +11329,7 @@ species:
       0J/RgNC40LzQvtGA0YHQutCw0Y8g0L7QstGB0Y/QvdC60LA=
 
     - ""
-    - "760"
+    - "761"
     - Passeriformes
     - Emberizidae
     - 0F81304F8BBF1EC5
@@ -11341,7 +11341,7 @@ species:
     - Nelson's Sharp-tailed Sparrow
     - ""
     - ""
-    - "761"
+    - "762"
     - Passeriformes
     - Emberizidae
     - 727D994FD915AB09
@@ -11353,7 +11353,7 @@ species:
     - Saltmarsh Sharp-tailed Sparrow
     - ""
     - ""
-    - "762"
+    - "763"
     - Passeriformes
     - Emberizidae
     - 79C9C8C455E6936B
@@ -11365,7 +11365,7 @@ species:
     - Le Conte's Sparrow
     - ""
     - ""
-    - "763"
+    - "764"
     - Passeriformes
     - Emberizidae
     - B656B15D2F2ADF96
@@ -11377,7 +11377,7 @@ species:
     - Baird's Sparrow
     - ""
     - ""
-    - "764"
+    - "765"
     - Passeriformes
     - Emberizidae
     - 67EFC0619A89B656
@@ -11389,7 +11389,7 @@ species:
     - Henslow's Sparrow
     - ""
     - ""
-    - "765"
+    - "766"
     - Passeriformes
     - Emberizidae
     - CDA2F827192CF0B3
@@ -11404,7 +11404,7 @@ species:
       stGB0Y/QvdC60LA=
 
     - ""
-    - "766"
+    - "767"
     - Passeriformes
     - Emberizidae
     - 5BFFE091FBA75EA2
@@ -11418,7 +11418,7 @@ species:
       0JLQvtGA0L7QsdGM0LjQvdCw0Y8g0L7QstGB0Y/QvdC60LA=
 
     - ""
-    - "767"
+    - "768"
     - Passeriformes
     - Emberizidae
     - 2A86F9C93636CDA3
@@ -11432,7 +11432,7 @@ species:
       0JLQvtGA0L7QsdGM0LjQvdCw0Y8g0YHQv9C40LfQtdC70LvQsA==
 
     - ""
-    - "768"
+    - "769"
     - Passeriformes
     - Emberizidae
     - 37E9CCDA7A4B06ED
@@ -11444,7 +11444,7 @@ species:
     - Field Sparrow
     - ""
     - ""
-    - "769"
+    - "770"
     - Passeriformes
     - Emberizidae
     - E23F6DE0B4829658
@@ -11459,7 +11459,7 @@ species:
       vdC60LA=
 
     - ""
-    - "770"
+    - "771"
     - Passeriformes
     - Emberizidae
     - 486265CF44FC17F2
@@ -11473,7 +11473,7 @@ species:
       0JLQtdGH0LXRgNC90Y/RjyDQvtCy0YHRj9C90LrQsA==
 
     - ""
-    - "771"
+    - "772"
     - Passeriformes
     - Emberizidae
     - 3647E146F88AE943
@@ -11487,7 +11487,7 @@ species:
       0JbQsNCy0L7RgNC+0L3QutC+0LLQsNGPINC+0LLRgdGP0L3QutCw
 
     - ""
-    - "772"
+    - "773"
     - Passeriformes
     - Emberizidae
     - 78509A5D6015C509
@@ -11502,7 +11502,7 @@ species:
       stGB0Y/QvdC60LA=
 
     - ""
-    - "773"
+    - "774"
     - Passeriformes
     - Emberizidae
     - A0F29F1EED67CBCE
@@ -11514,7 +11514,7 @@ species:
     - Cassin's Sparrow
     - ""
     - ""
-    - "774"
+    - "775"
     - Passeriformes
     - Emberizidae
     - B58AFD6EE6337146
@@ -11526,7 +11526,7 @@ species:
     - Bachman's Sparrow
     - ""
     - ""
-    - "775"
+    - "776"
     - Passeriformes
     - Emberizidae
     - DAD22BB68CF2206A
@@ -11540,7 +11540,7 @@ species:
       0JfQtdC70LXQvdC+0YXQstC+0YHRgtGL0Lkg0YLQsNGD0Lg=
 
     - ""
-    - "776"
+    - "777"
     - Passeriformes
     - Emberizidae
     - 45D829B3C45C2BC5
@@ -11552,7 +11552,7 @@ species:
     - Spotted Towhee
     - ""
     - ""
-    - "777"
+    - "778"
     - Passeriformes
     - Emberizidae
     - 58E25701D3F9FA0E
@@ -11566,7 +11566,7 @@ species:
       0JrRgNCw0YHQvdC+0LPQu9Cw0LfRi9C5INGC0LDRg9C4
 
     - ""
-    - "778"
+    - "779"
     - Passeriformes
     - Emberizidae
     - 6090278A61F63C13
@@ -11580,7 +11580,7 @@ species:
       0JvQtdGC0L3Rj9GPINGC0LDQvdCw0LPRgNCw
 
     - ""
-    - "779"
+    - "780"
     - Passeriformes
     - Genera Incertae Sedis
     - 891798D9EFFE1F8D
@@ -11594,7 +11594,7 @@ species:
       0JrRgNCw0YHQvdC+LdGH0ZHRgNC90LDRjyDRgtCw0L3QsNCz0YDQsA==
 
     - ""
-    - "780"
+    - "781"
     - Passeriformes
     - Genera Incertae Sedis
     - 4210163221C2E458
@@ -11608,7 +11608,7 @@ species:
       0JfQsNC/0LDQtNC90LDRjyDRgtCw0L3QsNCz0YDQsA==
 
     - ""
-    - "781"
+    - "782"
     - Passeriformes
     - Genera Incertae Sedis
     - 0ADA5F17E6C7CA54
@@ -11620,7 +11620,7 @@ species:
     - Dickcissel
     - ""
     - ""
-    - "782"
+    - "783"
     - Passeriformes
     - Cardinalidae
     - 592E58CE67D092DA
@@ -11635,7 +11635,7 @@ species:
       0Lkg0LrQsNGA0LTQuNC90LDQuw==
 
     - ""
-    - "783"
+    - "784"
     - Passeriformes
     - Cardinalidae
     - 7C2FCB13BAA660EE
@@ -11647,7 +11647,7 @@ species:
     - Black-headed Grosbeak
     - ""
     - ""
-    - "784"
+    - "785"
     - Passeriformes
     - Cardinalidae
     - 824361E5ACCA64DB
@@ -11661,7 +11661,7 @@ species:
       0JrRgNCw0YHQvdGL0Lkg0LrQsNGA0LTQuNC90LDQuw==
 
     - ""
-    - "785"
+    - "786"
     - Passeriformes
     - Cardinalidae
     - 4E74AE2276258520
@@ -11675,7 +11675,7 @@ species:
       0JPQvtC70YPQsdCw0Y8g0LPRg9C40YDQsNC60LA=
 
     - ""
-    - "786"
+    - "787"
     - Passeriformes
     - Cardinalidae
     - A7A75EA1A9A57185
@@ -11687,7 +11687,7 @@ species:
     - Indigo Bunting
     - ""
     - ""
-    - "787"
+    - "788"
     - Passeriformes
     - Cardinalidae
     - 043F337AA25E7D97
@@ -11702,7 +11702,7 @@ species:
       tNC40L3QsNC7
 
     - ""
-    - "788"
+    - "789"
     - Passeriformes
     - Cardinalidae
     - 9F67F3AFBF17ECFF
@@ -11717,7 +11717,7 @@ species:
       gNC00LjQvdCw0Ls=
 
     - ""
-    - "789"
+    - "790"
     - Passeriformes
     - Cardinalidae
     - 0BDB87DE301150B2
@@ -11733,8 +11733,24 @@ species:
     - !binary |
       0J/Qu9C40YHQutCwINGH0L7RgNC90L7Qs9C+0LvQvtCy0LA=
 
-    - "640"
+    - "641"
     - Passeriformes
     - Motacillidae
     - 8995B8DE4C179D43
     - Motacilla Feldegg
+  - - "790"
+    - ""
+    - Corvus corone cornix
+    - (Linnaeus, 1758)
+    - Hooded Crow
+    - !binary |
+      0JLQvtGA0L7QvdCwINGB0LXRgNCw0Y8=
+
+    - !binary |
+      0JLQvtGA0L7QvdCwINGB0ZbRgNCw
+
+    - "490"
+    - Passeriformes
+    - Corvidae
+    - F13D8350405F3C10
+    - Corvus Cornix
