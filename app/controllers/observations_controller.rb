@@ -18,12 +18,7 @@ class ObservationsController < ApplicationController
   # GET /observations/1
   # GET /observations/1.xml
   def show
-    @observation = Observation.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      # format.xml  { render :xml => @observation }
-    end
+    redirect_to :action => :edit, :id => params[:id]
   end
 
   # GET /observations/new
