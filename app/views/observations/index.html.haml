@@ -12,20 +12,19 @@
     %th Notes
     %th.align-center Mine
     %th
-    %th
 
   - @observations.each do |observation|
     %tr
-      %td.align-right= link_to observation.id, observation
-      %td= species_link(observation.species)
-      %td= link_to observation.locus.code, observation.locus
+      %td.align-right= link_to observation.id, edit_observation_path(observation)
+      %td
+        %i= (sp = observation.species).nil? ? 'Avis incognita' : sp.name_sci
+      %td= observation.locus.name_en || observation.locus.code
       %td.align-center= observation.observ_date
       %td= observation.quantity
       %td= observation.biotope
       %td= observation.place
       %td= observation.notes
       %td.align-center= observation.mine ? '+' : '-'
-      %td= link_to 'Edit', edit_observation_path(observation)
       %td= link_to 'Destroy', observation, :confirm => 'Are you sure?', :method => :delete
 
 %br
