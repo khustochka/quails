@@ -115,13 +115,8 @@ module Import
           inpt = $stdin.gets
           newsp = inpt == 0 ? nil : matches[inpt.to_i-1]
         end
-        newsp.update_attribute(:code, sp[:sp_id])
-        memo.merge({sp[:sp_id] => {:id => newsp[:id], :name_sci => sp[:sp_la]}})
+        newsp.update_attributes({:code => sp[:sp_id], :name_ru => enconv(sp[:sp_ru]), :name_uk => enconv(sp[:sp_uk])})
       end
-
-      species_map.merge!('incogt' => {:id => nil})
-
-      File.new(file, 'w').write(species_map.to_yaml)
     end
 
   end
