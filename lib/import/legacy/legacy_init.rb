@@ -14,9 +14,15 @@ module LegacyInit
     Legacy::LegacyModel.establish_connection(@@legacy_db_spec)
   end
 
-  def enconv(str)
+  def conv_to_new(str)
     @@legacy_db_spec["encoding"] != @@rails_db_spec["encoding"] ?
             Iconv.iconv(@@rails_db_spec["encoding"], @@legacy_db_spec["encoding"], str).to_s :
+            str
+  end
+
+  def conv_to_old(str)
+    @@legacy_db_spec["encoding"] != @@rails_db_spec["encoding"] ?
+            Iconv.iconv(@@legacy_db_spec["encoding"], @@rails_db_spec["encoding"], str).to_s :
             str
   end
 

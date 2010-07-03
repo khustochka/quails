@@ -17,9 +17,9 @@ module Import
                 :locus_id => Locus.find_by_code(ob[:loc_id].gsub('-', '_')).id,
                 :observ_date => ob[:ob_date],
                 :biotope => ob[:bt_id],
-                :quantity => enconv(ob[:quantity]),
-                :place => enconv(ob[:place]),
-                :notes => enconv(ob[:notes]),
+                :quantity => conv_to_new(ob[:quantity]),
+                :place => conv_to_new(ob[:place]),
+                :notes => conv_to_new(ob[:notes]),
                 :mine => ob[:mine]
         })
         new_ob.id = ob[:observ_id]

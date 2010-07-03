@@ -14,7 +14,7 @@ module Import
         Locus.create!({
                 :code => country[:country_id],
                 :loc_type => 'Country',
-                :name_ru => enconv(country[:country_name]),
+                :name_ru => conv_to_new(country[:country_name]),
                 :parent_id => nil
         })
       end
@@ -23,7 +23,7 @@ module Import
         Locus.create!({
                 :code => region[:reg_id],
                 :loc_type => 'Region',
-                :name_ru => enconv(region[:reg_name]),
+                :name_ru => conv_to_new(region[:reg_name]),
                 :parent_id => Country.find_by_code!(region[:country_id]).id
         })
       end
@@ -33,7 +33,7 @@ module Import
         Locus.create!({
                 :code => loc[:loc_id].gsub('-', '_'),
                 :loc_type => 'Location',
-                :name_ru => enconv(loc[:loc_name]),
+                :name_ru => conv_to_new(loc[:loc_name]),
                 :parent_id => Region.find_by_code!(loc[:reg_id]).id,
                 :lat => (lat.to_f rescue nil),
                 :lon => (lon.to_f rescue nil)

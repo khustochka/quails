@@ -1,5 +1,4 @@
 require 'lib/import/species'
-#require 'app/helpers/checklists_helper'
 
 desc 'Importing data'
 namespace :import do
