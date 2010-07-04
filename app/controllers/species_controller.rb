@@ -24,9 +24,13 @@ class SpeciesController < ApplicationController
   # GET /species/1
   # GET /species/1.xml
   def show
-    respond_to do |format|
-      format.html # show.html.erb
-      # format.xml { render :xml => @species }
+    if params[:id] != @species.to_param
+      redirect_to @species
+    else
+      respond_to do |format|
+        format.html # show.html.erb
+        # format.xml { render :xml => @species }
+      end
     end
   end
 
