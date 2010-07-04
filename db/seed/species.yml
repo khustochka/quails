@@ -2567,7 +2567,7 @@ species:
       0KHRgtC10YDQstGP0YLQvdC40Lo=
 
     - !binary |
-      0KHRgtC10YDQsifRj9GC0L3QuNC6
+      0KHRgtC10YDQsuKAmdGP0YLQvdC40Lo=
 
     - "169"
     - Falconiformes
@@ -7772,14 +7772,16 @@ species:
     - 811FC71929CD3B00
     - Alauda yeltoniensis
   - - "520"
-    - 
+    - ""
     - Calandrella brachydactyla
     - (Leisler, 1814)
     - Greater Short-toed Lark
     - !binary |
       0JzQsNC70YvQuSDQttCw0LLQvtGA0L7QvdC+0Lo=
 
-    - ""
+    - !binary |
+      0JbQsNC50LLQvtGA0L7QvdC+0Log0LzQsNC70LjQuQ==
+
     - "521"
     - Passeriformes
     - Alaudidae
@@ -7923,7 +7925,7 @@ species:
       0KHQvtC70L7QstGM0LjQvdGL0Lkg0YHQstC10YDRh9C+0Lo=
 
     - !binary |
-      0JrQvtCx0LjQu9C+0YfQutCwINGB0L7Qu9C+0LIn0ZfQvdCw
+      0JrQvtCx0LjQu9C+0YfQutCwINGB0L7Qu9C+0LLigJnRl9C90LA=
 
     - "530"
     - Passeriformes
@@ -8323,7 +8325,7 @@ species:
       0K/RgdGC0YDQtdCx0LjQvdCw0Y8g0YHQu9Cw0LLQutCw
 
     - !binary |
-      0JrRgNC+0L/QuNCyJ9GP0L3QutCwINGA0Y/QsdC+0LPRgNGD0LTQsA==
+      0JrRgNC+0L/QuNCy4oCZ0Y/QvdC60LAg0YDRj9Cx0L7Qs9GA0YPQtNCw
 
     - "555"
     - Passeriformes
@@ -8355,7 +8357,7 @@ species:
       0J/QtdCy0YfQsNGPINGB0LvQsNCy0LrQsA==
 
     - !binary |
-      0JrRgNC+0L/QuNCyJ9GP0L3QutCwINGB0L/RltCy0L7Rh9Cw
+      0JrRgNC+0L/QuNCy4oCZ0Y/QvdC60LAg0YHQv9GW0LLQvtGH0LA=
 
     - "557"
     - Passeriformes
@@ -8371,7 +8373,7 @@ species:
       0J/Rg9GB0YLRi9C90L3QsNGPINGB0LvQsNCy0LrQsA==
 
     - !binary |
-      0JrRgNC+0L/QuNCyJ9GP0L3QutCwINC/0YPRgdGC0LXQu9GM0L3QsA==
+      0JrRgNC+0L/QuNCy4oCZ0Y/QvdC60LAg0L/Rg9GB0YLQtdC70YzQvdCw
 
     - "558"
     - Passeriformes
@@ -8403,7 +8405,8 @@ species:
       0KDRi9C20LXQs9GA0YPQtNCw0Y8g0YHQu9Cw0LLQutCw
 
     - !binary |
-      0JrRgNC+0L/QuNCyJ9GP0L3QutCwINGH0LXRgNCy0L7QvdC+0LLQvtC70LA=
+      0JrRgNC+0L/QuNCy4oCZ0Y/QvdC60LAg0YfQtdGA0LLQvtC90L7QstC+0LvQ
+      sA==
 
     - "560"
     - Passeriformes
@@ -8453,7 +8456,7 @@ species:
       0KHQu9Cw0LLQutCwINCg0Y7Qv9C/0LXQu9GP
 
     - !binary |
-      0JrRgNC+0L/QuNCyJ9GP0L3QutCwINCg0Y7Qv9C/0LXQu9GP
+      0JrRgNC+0L/QuNCy4oCZ0Y/QvdC60LAg0KDRjtC/0L/QtdC70Y8=
 
     - "563"
     - Passeriformes
@@ -9056,16 +9059,14 @@ species:
     - 22761AD4A981E2F6
     - Turdus naumanni
   - - "604"
-    - 
+    - ""
     - Turdus eunomus
     - Temminck, 1831
     - Dusky Thrush
     - !binary |
-      0JTRgNC+0LfQtCDQndCw0YPQvNCw0L3QvdCw
+      0JHRg9GA0YvQuSDQtNGA0L7Qt9C0
 
-    - !binary |
-      0JTRgNGW0LfQtCDQndCw0YPQvNCw0L3QsA==
-
+    - ""
     - "605"
     - Passeriformes
     - Turdidae
@@ -9351,7 +9352,7 @@ species:
       0KfQtdGA0L3Qvi3Qv9C10LPQsNGPINC60LDQvNC10L3QutCw
 
     - !binary |
-      0JrQsNC8J9GP0L3QutCwINGW0YHQv9Cw0L3RgdGM0LrQsA==
+      0JrQsNC84oCZ0Y/QvdC60LAg0ZbRgdC/0LDQvdGB0YzQutCw
 
     - "623"
     - Passeriformes
@@ -9367,7 +9368,7 @@ species:
       0JHQtdC70L7RhdCy0L7RgdGC0LDRjyDQutCw0LzQtdC90LrQsA==
 
     - !binary |
-      0JrQsNC8J9GP0L3QutCwINCx0ZbQu9C+0LPRg9C30LA=
+      0JrQsNC84oCZ0Y/QvdC60LAg0LHRltC70L7Qs9GD0LfQsA==
 
     - "624"
     - Passeriformes
@@ -9559,7 +9560,7 @@ species:
       0KHQvdC10LbQvdGL0Lkg0LLRjNGO0YDQvtC6
 
     - !binary |
-      0JIn0Y7RgNC+0Log0YHQvdGW0LPQvtCy0LjQuQ==
+      0JLigJnRjtGA0L7QuiDRgdC90ZbQs9C+0LLQuNC5
 
     - "636"
     - Passeriformes
@@ -11202,12 +11203,12 @@ species:
     - 3A7B1F59DE8F597D
     - Fringilla iliaca
   - - "750"
-    - 
+    - ""
     - Melospiza melodia
     - (Wilson, A, 1810)
     - Song Sparrow
     - !binary |
-      0J/QtdCy0YfQsNGPINC30L7QvdC+0YLRgNC40YXQuNGP
+      0J/QtdCy0YfQsNGPINC+0LLRgdGP0L3QutCw
 
     - ""
     - "752"
@@ -11411,12 +11412,13 @@ species:
     - 5BFFE091FBA75EA2
     - Fringilla Savannarum
   - - "766"
-    - 
+    - ""
     - Spizella arborea
     - (Wilson,A, 1810)
     - American Tree Sparrow
     - !binary |
-      0JLQvtGA0L7QsdGM0LjQvdCw0Y8g0L7QstGB0Y/QvdC60LA=
+      0JTRgNC10LLQtdGB0L3QsNGPINCy0L7RgNC+0LHRjNC40L3QsNGPINC+0LLR
+      gdGP0L3QutCw
 
     - ""
     - "768"
@@ -11425,12 +11427,13 @@ species:
     - 2A86F9C93636CDA3
     - Fringilla arborea
   - - "767"
-    - 
+    - ""
     - Spizella passerina
     - (Bechstein, 1798)
     - Chipping Sparrow
     - !binary |
-      0JLQvtGA0L7QsdGM0LjQvdCw0Y8g0YHQv9C40LfQtdC70LvQsA==
+      0JzQsNC70LDRjyDQstC+0YDQvtCx0YzQuNC90LDRjyDQvtCy0YHRj9C90LrQ
+      sA==
 
     - ""
     - "769"
@@ -11682,11 +11685,14 @@ species:
     - A7A75EA1A9A57185
     - Loxia caerulea
   - - "786"
-    - 
+    - ""
     - Passerina cyanea
     - (Linnaeus, 1766)
     - Indigo Bunting
-    - ""
+    - !binary |
+      0JjQvdC00LjQs9C+0LLRi9C5INC+0LLRgdGP0L3QutC+0LLRi9C5INC60LDR
+      gNC00LjQvdCw0Ls=
+
     - ""
     - "788"
     - Passeriformes
