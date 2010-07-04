@@ -50,7 +50,7 @@ class ObservationsController < ApplicationController
         format.html { redirect_to(@observation, :notice => 'Observation was successfully created.') }
         # format.xml  { render :xml => @observation, :status => :created, :location => @observation }
       else
-        format.html { render :action => "new" }
+        format.html { render :form }
         # format.xml  { render :xml => @observation.errors, :status => :unprocessable_entity }
       end
     end
@@ -66,7 +66,7 @@ class ObservationsController < ApplicationController
         format.html { redirect_to(@observation, :notice => 'Observation was successfully updated.') }
         # format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
+        format.html { render :form }
         # format.xml  { render :xml => @observation.errors, :status => :unprocessable_entity }
       end
     end

@@ -46,7 +46,7 @@ class SpeciesController < ApplicationController
         format.html { redirect_to(@species, :notice => 'Species was successfully updated.') }
         # format.xml { head :ok }
       else
-        format.html { render :action => "edit" }
+        format.html { render :form }
         # format.xml { render :xml => @species.errors, :status => :unprocessable_entity }
       end
     end

@@ -59,7 +59,7 @@ class LocusController < ApplicationController
         format.html { redirect_to(@locus, :notice => 'Locus was successfully created.') }
         # format.xml  { render :xml => @locus, :status => :created, :location => @locus }
       else
-        format.html { render :action => "new" }
+        format.html { render :form }
         # format.xml  { render :xml => @locus.errors, :status => :unprocessable_entity }
       end
     end
@@ -73,7 +73,7 @@ class LocusController < ApplicationController
         format.html { redirect_to(@locus, :notice => 'Locus was successfully updated.') }
         # format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
+        format.html { render :form }
         # format.xml  { render :xml => @locus.errors, :status => :unprocessable_entity }
       end
     end
