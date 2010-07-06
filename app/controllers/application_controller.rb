@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   layout 'public'
 
   stylesheet 'global', 'public'
-  stylesheet 'formtastic', :only => [:new, :edit, :create, :update]
+  stylesheet 'formtastic', 'forms', :only => [:new, :edit, :create, :update]
 
   private
   def window_caption
