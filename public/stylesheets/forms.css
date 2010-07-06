@@ -1,2 +1,8 @@
 form.formtastic fieldset > ol > li {
   margin-bottom: 0.5em; }
+
+#locus_lat_input, #locus_lon_input {
+  display: inline-block; }
+
+#locus_lat_input {
+  margin-left: 25%; }

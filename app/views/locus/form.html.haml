@@ -8,6 +8,6 @@
     = form.input :name_en, :label => 'English name'
     = form.input :name_ru, :label => 'Russian name'
     = form.input :name_uk, :label => 'Ukrainian name'
-    = form.input :lat, :label => 'Lat'
-    = form.input :lon, :label => 'Lon'
+    = form.input :lat, :label => 'Lat', :input_html => { :size => 10 }
+    = form.input :lon, :label => 'Lon', :input_html => { :size => 10 }
   = form.buttons
