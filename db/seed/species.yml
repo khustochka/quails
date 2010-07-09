@@ -16,7 +16,7 @@ species:
   - protonym
   records: 
   - - "1"
-    - 
+    - colvir
     - Colinus virginianus
     - (Linnaeus, 1758)
     - Northern Bobwhite
@@ -30,7 +30,7 @@ species:
     - 91CCBC719C97AE19
     - Tetrao virginianus
   - - "2"
-    - ""
+    - melgal
     - Meleagris gallopavo
     - Linnaeus, 1758
     - Wild Turkey
@@ -44,7 +44,7 @@ species:
     - 9C5ED06A51A9FFEE
     - Meleagris gallopavo
   - - "3"
-    - 
+    - bonumb
     - Bonasa umbellus
     - (Linnaeus, 1766)
     - Ruffed Grouse
@@ -58,7 +58,7 @@ species:
     - 6D2B5CDA60316986
     - Tetrao umbellus
   - - "4"
-    - 
+    - tetbon
     - Tetrastes bonasia
     - (Linnaeus, 1758)
     - Hazel Grouse
@@ -74,7 +74,7 @@ species:
     - B8CA2EEB4E7E0CA3
     - Tetrao bonasia
   - - "5"
-    - 
+    - falcan
     - Falcipennis canadensis
     - (Linnaeus, 1758)
     - Spruce Grouse
@@ -88,7 +88,7 @@ species:
     - 4BCA4FFF85E6B1E2
     - Tetrao canadensis
   - - "6"
-    - 
+    - teturo
     - Tetrao urogallus
     - Linnaeus, 1758
     - Western Capercaillie
@@ -104,7 +104,7 @@ species:
     - C3221EE24B948F50
     - Tetrao Urogallus
   - - "7"
-    - 
+    - lyrtet
     - Lyrurus tetrix
     - (Linnaeus, 1758)
     - Eurasian Black Grouse
@@ -120,7 +120,7 @@ species:
     - D4441CD6E9C993EF
     - Tetrao Tetrix
   - - "8"
-    - 
+    - tymcup
     - Tympanuchus cupido
     - (Linnaeus, 1758)
     - Greater Prairie Chicken
@@ -134,7 +134,7 @@ species:
     - F59448B7465F5CB5
     - Tetrao Cupido
   - - "9"
-    - 
+    - lagpus
     - Lagopus lagopus
     - (Linnaeus, 1758)
     - Willow Grouse/Red Grouse
@@ -150,7 +150,7 @@ species:
     - FC3D07C64FF2C915
     - Tetrao lagopus
   - - "10"
-    - 
+    - alechu
     - Alectoris chukar
     - (Gray,JE, 1830)
     - Chukar Partridge
@@ -182,7 +182,7 @@ species:
     - C013A20E7F91419D
     - Tetrao Perdix
   - - "12"
-    - 
+    - perdau
     - Perdix dauurica
     - (Pallas, 1811)
     - Daurian Partridge
@@ -230,7 +230,7 @@ species:
     - 2FA39DCD42F80BC9
     - Phasianus colchicus
   - - "15"
-    - 
+    - denaut
     - Dendrocygna autumnalis
     - (Linnaeus, 1758)
     - Black-bellied Whistling Duck
@@ -245,7 +245,7 @@ species:
     - C01A22D6C148AC65
     - Anas autumnalis
   - - "16"
-    - 
+    - denbic
     - Dendrocygna bicolor
     - (Vieillot, 1816)
     - Fulvous Whistling Duck
@@ -275,7 +275,7 @@ species:
     - 2FEEA78C42198120
     - Anas Fabalis
   - - "18"
-    - 
+    - ansbra
     - Anser brachyrhynchus
     - Baillon, 1834
     - Pink-footed Goose
@@ -291,7 +291,7 @@ species:
     - AFA7EE7470F000E9
     - Anser Brachyrhynchus
   - - "19"
-    - 
+    - ansans
     - Anser anser
     - (Linnaeus, 1758)
     - Greylag Goose
@@ -307,7 +307,7 @@ species:
     - 4AED44E819A43204
     - Anas Anser
   - - "20"
-    - 
+    - ansalb
     - Anser albifrons
     - (Scopoli, 1769)
     - Greater White-fronted Goose
@@ -323,7 +323,7 @@ species:
     - 466E9077BE220EBE
     - Branta albifrons
   - - "21"
-    - 
+    - ansery
     - Anser erythropus
     - (Linnaeus, 1758)
     - Lesser White-fronted Goose
@@ -339,7 +339,7 @@ species:
     - 184D232983E7AD10
     - Anas erythropus
   - - "22"
-    - 
+    - anscae
     - Anser caerulescens
     - (Linnaeus, 1758)
     - Snow Goose
@@ -355,7 +355,7 @@ species:
     - D3A260BCA65503C6
     - Anas caerulescens
   - - "23"
-    - 
+    - ansros
     - Anser rossii
     - Cassin, 1861
     - Ross's Goose
@@ -369,7 +369,7 @@ species:
     - 7A24F57F87F66E97
     - Anser Rossii
   - - "24"
-    - 
+    - bracan
     - Branta canadensis
     - (Linnaeus, 1758)
     - Canada Goose
@@ -385,7 +385,7 @@ species:
     - C600B65C997827CD
     - Anas canadensis
   - - "25"
-    - ""
+    - braber
     - Branta bernicla
     - (Linnaeus, 1758)
     - Brent Goose/Brant
@@ -401,7 +401,7 @@ species:
     - 3E04020B54C14FCC
     - Anas Bernicla
   - - "26"
-    - 
+    - braleu
     - Branta leucopsis
     - (Bechstein, 1803)
     - Barnacle Goose
@@ -417,7 +417,7 @@ species:
     - 3163ED86A508BB83
     - Anas leucopsis
   - - "27"
-    - 
+    - braruf
     - Branta ruficollis
     - (Pallas, 1769)
     - Red-breasted Goose
@@ -449,7 +449,7 @@ species:
     - 694C127A5D849FFE
     - Anas Olor
   - - "29"
-    - 
+    - cygbuc
     - Cygnus buccinator
     - Richardson, 1831
     - Trumpeter Swan
@@ -463,7 +463,7 @@ species:
     - B86C504C5B960813
     - Cygnus buccinator
   - - "30"
-    - 
+    - cygcol
     - Cygnus columbianus
     - (Ord, 1815)
     - Tundra Swan
@@ -511,7 +511,7 @@ species:
     - 5EAB32D3007896F3
     - Anas Tadorna
   - - "33"
-    - 
+    - tadfer
     - Tadorna ferruginea
     - (Pallas, 1764)
     - Ruddy Shelduck
@@ -527,7 +527,7 @@ species:
     - 1F9D883EB44DEFD6
     - Anas ferruginea
   - - "34"
-    - 
+    - aixspo
     - Aix sponsa
     - (Linnaeus, 1758)
     - Wood Duck
@@ -541,7 +541,7 @@ species:
     - 27B2749A88E3E2C8
     - Anas Sponsa
   - - "35"
-    - 
+    - anastr
     - Anas strepera
     - Linnaeus, 1758
     - Gadwall
@@ -573,7 +573,7 @@ species:
     - 15EE0D3685082E13
     - Anas Penelope
   - - "37"
-    - 
+    - anaame
     - Anas americana
     - Gmelin, 1789
     - American Wigeon
@@ -587,7 +587,7 @@ species:
     - D201EB7230F20770
     - Anas americana
   - - "38"
-    - 
+    - anarub
     - Anas rubripes
     - Brewster, 1902
     - American Black Duck
@@ -618,7 +618,7 @@ species:
     - D6F5A788399B36E7
     - Anas platyrhynchos
   - - "40"
-    - 
+    - anadis
     - Anas discors
     - Linnaeus, 1766
     - Blue-winged Teal
@@ -632,7 +632,7 @@ species:
     - 90E2543E9A4ABA0A
     - Anas discors
   - - "41"
-    - 
+    - anacya
     - Anas cyanoptera
     - Vieillot, 1816
     - Cinnamon Teal
@@ -662,7 +662,7 @@ species:
     - ED4CE8E7CFF43696
     - Anas clypeata
   - - "43"
-    - 
+    - anaacu
     - Anas acuta
     - Linnaeus, 1758
     - Northern Pintail
@@ -678,7 +678,7 @@ species:
     - 56CCA7179C9FA71D
     - Anas acuta
   - - "44"
-    - 
+    - anaque
     - Anas querquedula
     - Linnaeus, 1758
     - Garganey
@@ -694,7 +694,7 @@ species:
     - F577BA0F5BB7BD3F
     - Anas Querquedula
   - - "45"
-    - 
+    - anafor
     - Anas formosa
     - Georgi, 1775
     - Baikal Teal
@@ -742,7 +742,7 @@ species:
     - 3EC2CDA952B4A18C
     - Anas rufina
   - - "48"
-    - 
+    - aytval
     - Aythya valisineria
     - (Wilson,A, 1814)
     - Canvasback
@@ -756,7 +756,7 @@ species:
     - 1929E1E16E073570
     - Anas valisineria
   - - "49"
-    - 
+    - aytame
     - Aythya americana
     - (Eyton, 1838)
     - Redhead
@@ -786,7 +786,7 @@ species:
     - A96692E0C9F7508B
     - Anas ferina
   - - "51"
-    - 
+    - aytnyr
     - Aythya nyroca
     - (Guldenstadt, 1770)
     - Ferruginous Duck
@@ -802,7 +802,7 @@ species:
     - 7CF91527F5832F30
     - Anas nyroca
   - - "52"
-    - 
+    - aytcol
     - Aythya collaris
     - (Donovan, 1809)
     - Ring-necked Duck
@@ -832,7 +832,7 @@ species:
     - 67CEA1C1FC88F1DB
     - Anas Fuligula
   - - "54"
-    - 
+    - aytmar
     - Aythya marila
     - (Linnaeus, 1761)
     - Greater Scaup
@@ -848,7 +848,7 @@ species:
     - 25C94A8F90A829F7
     - Anas Marila
   - - "55"
-    - 
+    - aytaff
     - Aythya affinis
     - (Eyton, 1838)
     - Lesser Scaup
@@ -863,7 +863,7 @@ species:
     - 50566E50C91B8686
     - Fuligula affinis
   - - "56"
-    - 
+    - somspe
     - Somateria spectabilis
     - (Linnaeus, 1758)
     - King Eider
@@ -877,7 +877,7 @@ species:
     - F3D7491432CC59E7
     - Anas spectabilis
   - - "57"
-    - 
+    - sommol
     - Somateria mollissima
     - (Linnaeus, 1758)
     - Common Eider
@@ -893,7 +893,7 @@ species:
     - B77377EEB852D0AF
     - Anas mollissima
   - - "58"
-    - 
+    - hiscus
     - Histrionicus histrionicus
     - (Linnaeus, 1758)
     - Harlequin Duck
@@ -909,7 +909,7 @@ species:
     - BCBD2EAECA774B19
     - Anas histrionicus
   - - "59"
-    - 
+    - camlab
     - Camptorhynchus labradorius
     - (Gmelin, 1789)
     - Labrador Duck
@@ -923,7 +923,7 @@ species:
     - 80897D192B0FD8A7
     - Anas labradoria
   - - "60"
-    - 
+    - melper
     - Melanitta perspicillata
     - (Linnaeus, 1758)
     - Surf Scoter
@@ -937,7 +937,7 @@ species:
     - 624078BAC17F8111
     - Anas perspicillata
   - - "61"
-    - 
+    - melfus
     - Melanitta fusca
     - (Linnaeus, 1758)
     - White-winged Scoter
@@ -953,7 +953,7 @@ species:
     - 8C602FD9D2A0A234
     - Anas fusca
   - - "62"
-    - 
+    - melnig
     - Melanitta nigra
     - (Linnaeus, 1758)
     - Black Scoter
@@ -969,7 +969,7 @@ species:
     - 655DC3C0ADECD340
     - Anas nigra
   - - "63"
-    - 
+    - clahye
     - Clangula hyemalis
     - (Linnaeus, 1758)
     - Long-tailed Duck/Oldsquaw
@@ -985,7 +985,7 @@ species:
     - AF0C7BDEC7CEBAAC
     - Anas hyemalis
   - - "64"
-    - 
+    - bucalb
     - Bucephala albeola
     - (Linnaeus, 1758)
     - Bufflehead
@@ -1015,7 +1015,7 @@ species:
     - 68EA281AF74846D2
     - Anas Clangula
   - - "66"
-    - 
+    - bucisl
     - Bucephala islandica
     - (Gmelin, 1789)
     - Barrow's Goldeneye
@@ -1029,7 +1029,7 @@ species:
     - 9456DEDF7E1AADF3
     - Anas islandica
   - - "67"
-    - 
+    - meralb
     - Mergellus albellus
     - (Linnaeus, 1758)
     - Smew
@@ -1045,7 +1045,7 @@ species:
     - F1F520368CC95F88
     - Mergus Albellus
   - - "68"
-    - 
+    - lopcuc
     - Lophodytes cucullatus
     - (Linnaeus, 1758)
     - Hooded Merganser
@@ -1091,7 +1091,7 @@ species:
     - 8DB64266A42FC19B
     - Mergus Serrator
   - - "71"
-    - 
+    - nomdom
     - Nomonyx dominicus
     - (Linnaeus, 1766)
     - Masked Duck
@@ -1103,7 +1103,7 @@ species:
     - 98C6F8857AF96C4D
     - Anas dominica
   - - "72"
-    - 
+    - oxyjam
     - Oxyura jamaicensis
     - (Gmelin, 1789)
     - Ruddy Duck
@@ -1117,7 +1117,7 @@ species:
     - CD7DC84B28AE24C8
     - Anas jamaicensis
   - - "73"
-    - 
+    - oxyleu
     - Oxyura leucocephala
     - (Scopoli, 1769)
     - White-headed Duck
@@ -1133,7 +1133,7 @@ species:
     - 2E40EF2C53646E30
     - Anas leucocephala
   - - "74"
-    - 
+    - gavste
     - Gavia stellata
     - (Pontoppidan, 1763)
     - Red-throated Diver or Loon
@@ -1149,7 +1149,7 @@ species:
     - 6C50988A5445ED76
     - Colymbus Stellatus
   - - "75"
-    - 
+    - gavarc
     - Gavia arctica
     - (Linnaeus, 1758)
     - Black-throated Diver/Arctic Loon
@@ -1165,7 +1165,7 @@ species:
     - CA5852BE6E617DBD
     - Colymbus arcticus
   - - "76"
-    - 
+    - gavpac
     - Gavia pacifica
     - (Lawrence, 1858)
     - Pacific Loon or Diver
@@ -1179,7 +1179,7 @@ species:
     - B7D7EF2398F42295
     - Colymbus pacificus
   - - "77"
-    - 
+    - gavimm
     - Gavia immer
     - (Brunnich, 1764)
     - Common Loon/Great Northern Diver
@@ -1195,7 +1195,7 @@ species:
     - 7E02237895784E9A
     - Colymbus Immer
   - - "78"
-    - 
+    - gavada
     - Gavia adamsii
     - (Gray,GR, 1859)
     - White-billed Diver/Yellow-billed Loon
@@ -1211,7 +1211,7 @@ species:
     - 5349255DB4579713
     - Colymbus adamsii
   - - "79"
-    - 
+    - thachl
     - Thalassarche chlororhynchos
     - (Gmelin, 1789)
     - Yellow-nosed Albatross
@@ -1225,7 +1225,7 @@ species:
     - 7709CE5CE199D5BF
     - Diomedea chlororhynchos
   - - "80"
-    - 
+    - thamel
     - Thalassarche melanophrys
     - (Temminck, 1828)
     - Black-browed Albatross
@@ -1239,7 +1239,7 @@ species:
     - F9FCB9FF95FD3440
     - Diomedea melanophris
   - - "81"
-    - 
+    - fulgla
     - Fulmarus glacialis
     - (Linnaeus, 1761)
     - Northern Fulmar
@@ -1255,7 +1255,7 @@ species:
     - 049D9AEA4AFBFDFA
     - Procellaria glacialis
   - - "82"
-    - 
+    - ptefea
     - Pterodroma feae
     - (Salvadori, 1899)
     - Cape Verde Petrel
@@ -1269,7 +1269,7 @@ species:
     - 26B5280F0A46A17E
     - Oestrelata feae
   - - "83"
-    - 
+    - ptehas
     - Pterodroma hasitata
     - (Kuhl, 1820)
     - Black-capped Petrel
@@ -1281,7 +1281,7 @@ species:
     - A01D9D21E8DB7F7F
     - Procellaria hasitata
   - - "84"
-    - 
+    - ptearm
     - Pterodroma arminjoniana
     - (Giglioli & Salvadori, 1869)
     - Herald Petrel
@@ -1293,7 +1293,7 @@ species:
     - A26C9D6B5C859E5E
     - Aestrelata Arminjoniana
   - - "85"
-    - 
+    - pteine
     - Pterodroma inexpectata
     - (Forster,JR, 1844)
     - Mottled Petrel
@@ -1307,7 +1307,7 @@ species:
     - B829AC032A70F251
     - Procellaria inexpectata
   - - "86"
-    - 
+    - caldio
     - Calonectris diomedea
     - (Scopoli, 1769)
     - Cory's Shearwater
@@ -1325,7 +1325,7 @@ species:
     - 090A5FFA5877A6A8
     - Procellaria diomedea
   - - "87"
-    - 
+    - pufbul
     - Puffinus bulleri
     - Salvin, 1888
     - Buller's Shearwater
@@ -1339,7 +1339,7 @@ species:
     - 83F9C0586496AA33
     - Puffinus bulleri
   - - "88"
-    - 
+    - pufnus
     - Puffinus puffinus
     - (Brunnich, 1764)
     - Manx Shearwater
@@ -1356,7 +1356,7 @@ species:
     - 5AEDC00231A5201C
     - Procellaria puffinus
   - - "89"
-    - 
+    - pufyel
     - Puffinus yelkouan
     - (Acerbi, 1827)
     - Yelkouan Shearwater
@@ -1373,7 +1373,7 @@ species:
     - FD97EC1E6EB57033
     - Procellaria Yelkouan
   - - "90"
-    - 
+    - puflhe
     - Puffinus lherminieri
     - Lesson, 1839
     - Audubon's Shearwater
@@ -1385,7 +1385,7 @@ species:
     - FFABB0DF113D740E
     - Puffinus Lherminieri
   - - "91"
-    - 
+    - pufgri
     - Puffinus griseus
     - (Gmelin, 1789)
     - Sooty Shearwater
@@ -1399,7 +1399,7 @@ species:
     - 1725B07D51A40D6A
     - Procellaria grisea
   - - "92"
-    - 
+    - pufgra
     - Puffinus gravis
     - (O'Reilly, 1818)
     - Great Shearwater
@@ -1414,7 +1414,7 @@ species:
     - 8B879DFA2AFB1481
     - Procellaria Gravis
   - - "93"
-    - 
+    - oceoce
     - Oceanites oceanicus
     - (Kuhl, 1820)
     - Wilson's Storm Petrel
@@ -1428,7 +1428,7 @@ species:
     - D295D249BDB7E046
     - Procellaria oceanica
   - - "94"
-    - 
+    - pelmar
     - Pelagodroma marina
     - (Latham, 1790)
     - White-faced Storm Petrel
@@ -1442,7 +1442,7 @@ species:
     - E9DF118ED56564A9
     - Procellaria marina
   - - "95"
-    - 
+    - hydpel
     - Hydrobates pelagicus
     - (Linnaeus, 1758)
     - European Storm Petrel
@@ -1458,7 +1458,7 @@ species:
     - E1638A370D09095C
     - Procellaria pelagica
   - - "96"
-    - 
+    - ocecas
     - Oceanodroma castro
     - (Harcourt, 1851)
     - Band-rumped Storm Petrel
@@ -1472,7 +1472,7 @@ species:
     - D0BDB12CC1F189E6
     - Thalassidroma castro
   - - "97"
-    - 
+    - oceleu
     - Oceanodroma leucorhoa
     - (Vieillot, 1818)
     - Leach's Storm Petrel
@@ -1486,7 +1486,7 @@ species:
     - 05E98392444BE5C7
     - Procellaria leucorhoa
   - - "98"
-    - 
+    - tacruf
     - Tachybaptus ruficollis
     - (Pallas, 1764)
     - Little Grebe
@@ -1502,7 +1502,7 @@ species:
     - 215FEA89A0F19F5C
     - Colymbus ruficollis
   - - "99"
-    - 
+    - podpod
     - Podilymbus podiceps
     - (Linnaeus, 1758)
     - Pied-billed Grebe
@@ -1517,7 +1517,7 @@ species:
     - 9A8E55D00554A088
     - Colymbus podiceps
   - - "100"
-    - 
+    - podgri
     - Podiceps grisegena
     - (Boddaert, 1783)
     - Red-necked Grebe
@@ -1549,7 +1549,7 @@ species:
     - 8F269702DC208010
     - Colymbus cristatus
   - - "102"
-    - 
+    - podaur
     - Podiceps auritus
     - (Linnaeus, 1758)
     - Slavonian or Horned Grebe
@@ -1581,7 +1581,7 @@ species:
     - 32DCEC14D7AE129B
     - Podiceps nigricollis
   - - "104"
-    - 
+    - aecocc
     - Aechmophorus occidentalis
     - (Lawrence, 1858)
     - Western Grebe
@@ -1595,7 +1595,7 @@ species:
     - C6E1197BE78E2E17
     - Podiceps occidentalis
   - - "105"
-    - 
+    - phorub
     - Phoenicopterus ruber
     - Linnaeus, 1758
     - Greater Flamingo
@@ -1611,7 +1611,7 @@ species:
     - F6504898D84426F5
     - Phoenicopterus ruber
   - - "106"
-    - 
+    - mycame
     - Mycteria americana
     - Linnaeus, 1758
     - Wood Stork
@@ -1657,7 +1657,7 @@ species:
     - 28825494A08AFE5A
     - Ardea Ciconia
   - - "109"
-    - 
+    - eudalb
     - Eudocimus albus
     - (Linnaeus, 1758)
     - White Ibis
@@ -1671,7 +1671,7 @@ species:
     - 74EDE3CA4FD29DC6
     - Scolopax alba
   - - "110"
-    - 
+    - plefal
     - Plegadis falcinellus
     - (Linnaeus, 1766)
     - Glossy Ibis
@@ -1687,7 +1687,7 @@ species:
     - D4540F880A3EC3BB
     - Tantalus Falcinellus
   - - "111"
-    - 
+    - plechi
     - Plegadis chihi
     - (Vieillot, 1817)
     - White-faced Ibis
@@ -1701,7 +1701,7 @@ species:
     - FD2B030969BC4DBC
     - Numenius chihi
   - - "112"
-    - 
+    - plaleu
     - Platalea leucorodia
     - Linnaeus, 1758
     - Eurasian Spoonbill
@@ -1733,7 +1733,7 @@ species:
     - 0F42F11AC607C758
     - Ardea stellaris
   - - "114"
-    - 
+    - botlen
     - Botaurus lentiginosus
     - (Rackett, 1813)
     - American Bittern
@@ -1747,7 +1747,7 @@ species:
     - 13E9F9B48CD5A08A
     - Ardea lentiginosa
   - - "115"
-    - 
+    - ixoexi
     - Ixobrychus exilis
     - (Gmelin, JF, 1789)
     - Least Bittern
@@ -1793,7 +1793,7 @@ species:
     - 6BB94D7EA4D041A8
     - Ardea Nycticorax
   - - "118"
-    - 
+    - nycvio
     - Nyctanassa violacea
     - (Linnaeus, 1758)
     - Yellow-crowned Night Heron
@@ -1807,7 +1807,7 @@ species:
     - C677249004161A94
     - Ardea violacea
   - - "119"
-    - 
+    - butvir
     - Butorides virescens
     - (Linnaeus, 1758)
     - Green Heron
@@ -1821,7 +1821,7 @@ species:
     - 86D45B8F04F61F0E
     - Ardea virescens
   - - "120"
-    - 
+    - ardral
     - Ardeola ralloides
     - (Scopoli, 1769)
     - Squacco Heron
@@ -1837,7 +1837,7 @@ species:
     - CE73EBD7A90E9FCF
     - Ardea ralloides
   - - "121"
-    - 
+    - bubibi
     - Bubulcus ibis
     - (Linnaeus, 1758)
     - Cattle Egret
@@ -1869,7 +1869,7 @@ species:
     - 6429024DBA7AB672
     - Ardea cinerea
   - - "123"
-    - 
+    - ardher
     - Ardea herodias
     - Linnaeus, 1758
     - Great Blue Heron
@@ -1915,7 +1915,7 @@ species:
     - 49D9148A171E7F2E
     - Ardea alba
   - - "126"
-    - 
+    - egrruf
     - Egretta rufescens
     - (Gmelin, JF, 1789)
     - Reddish Egret
@@ -1929,7 +1929,7 @@ species:
     - D8A24A3EDDC19AA4
     - Ardea rufescens
   - - "127"
-    - 
+    - egrtri
     - Egretta tricolor
     - "(Statius M\xC3\xBCller, PL, 1776)"
     - Tricolored or Louisiana Heron
@@ -1943,7 +1943,7 @@ species:
     - 031409C72898108C
     - Ardea tricolor
   - - "128"
-    - 
+    - egrcae
     - Egretta caerulea
     - (Linnaeus, 1758)
     - Little Blue Heron
@@ -1957,7 +1957,7 @@ species:
     - 11512CF46992C660
     - Ardea caerulea
   - - "129"
-    - 
+    - egrthu
     - Egretta thula
     - (Molina, 1782)
     - Snowy Egret
@@ -1987,7 +1987,7 @@ species:
     - A6E9EDE55D229ED9
     - Ardea Garzetta
   - - "131"
-    - 
+    - egrgul
     - Egretta gularis
     - (Bosc, 1792)
     - Western Reef Egret
@@ -2001,7 +2001,7 @@ species:
     - DF32B1F9C576957F
     - Ardea gularis
   - - "132"
-    - 
+    - phaaet
     - Phaethon aethereus
     - (Linnaeus, 1758)
     - Red-billed Tropicbird
@@ -2015,7 +2015,7 @@ species:
     - 7EE005BD2701D129
     - "Pha\xC3\xABthon aethereus"
   - - "133"
-    - 
+    - phalep
     - Phaethon lepturus
     - (Daudin, 1802)
     - White-tailed Tropicbird
@@ -2029,7 +2029,7 @@ species:
     - 1D07B501FEAF0840
     - "Pha\xC3\xABton lepturus"
   - - "134"
-    - 
+    - fremag
     - Fregata magnificens
     - Mathews, 1914
     - Magnificent Frigatebird
@@ -2059,7 +2059,7 @@ species:
     - 8BAFB01E85D7AF4B
     - Pelecanus Onocrotalus
   - - "136"
-    - 
+    - pelcri
     - Pelecanus crispus
     - Bruch, 1832
     - Dalmatian Pelican
@@ -2075,7 +2075,7 @@ species:
     - 7C6D8BA2AC91D368
     - Pelecanus crispus
   - - "137"
-    - 
+    - pelery
     - Pelecanus erythrorhynchos
     - Gmelin, 1789
     - American White Pelican
@@ -2089,7 +2089,7 @@ species:
     - 866903B93D70056B
     - Pelecanus erythrorhynchos
   - - "138"
-    - 
+    - pelocc
     - Pelecanus occidentalis
     - Linnaeus, 1766
     - Brown Pelican
@@ -2103,7 +2103,7 @@ species:
     - 9AB5CF9C0F76CCEB
     - Pelecanus occidentalis
   - - "139"
-    - 
+    - morbas
     - Morus bassanus
     - (Linnaeus, 1758)
     - Northern Gannet
@@ -2117,7 +2117,7 @@ species:
     - 534FB490884C6D33
     - Pelecanus Bassanus
   - - "140"
-    - 
+    - suldac
     - Sula dactylatra
     - Lesson, 1831
     - Masked Booby
@@ -2131,7 +2131,7 @@ species:
     - 502B43361E8D3E15
     - Sula dactylatra
   - - "141"
-    - 
+    - sulleu
     - Sula leucogaster
     - (Boddaert, 1783)
     - Brown Booby
@@ -2161,7 +2161,7 @@ species:
     - AFF49475BDB69B4E
     - Pelecanus pygmeus
   - - "143"
-    - 
+    - phaaur
     - Phalacrocorax auritus
     - (Lesson, 1831)
     - Double-crested Cormorant
@@ -2191,7 +2191,7 @@ species:
     - 3DF5C587CE3CF1E1
     - Pelecanus Carbo
   - - "145"
-    - 
+    - phaari
     - Phalacrocorax aristotelis
     - (Linnaeus, 1761)
     - European Shag
@@ -2207,7 +2207,7 @@ species:
     - CECC7B264A61BD22
     - Pelecanus aristotelis
   - - "146"
-    - 
+    - anhnga
     - Anhinga anhinga
     - (Linnaeus, 1766)
     - Anhinga
@@ -2221,7 +2221,7 @@ species:
     - FBDAE86A5CF7B698
     - Plotus Anhinga
   - - "147"
-    - 
+    - cataur
     - Cathartes aura
     - (Linnaeus, 1758)
     - Turkey-Vulture
@@ -2235,7 +2235,7 @@ species:
     - 36B3872DAFE1EC1C
     - Vultur aura
   - - "148"
-    - 
+    - coratr
     - Coragyps atratus
     - (Bechstein, 1793)
     - Black Vulture
@@ -2249,7 +2249,7 @@ species:
     - 4FF7DE80F4192276
     - Vultur atratus
   - - "149"
-    - 
+    - falnau
     - Falco naumanni
     - Fleischer, 1818
     - Lesser Kestrel
@@ -2281,7 +2281,7 @@ species:
     - D99158DF0C977827
     - Falco Tinnunculus
   - - "151"
-    - 
+    - falspa
     - Falco sparverius
     - Linnaeus, 1758
     - American Kestrel
@@ -2311,7 +2311,7 @@ species:
     - 997A9437E564FCFE
     - Falco vespertinus
   - - "153"
-    - 
+    - falcol
     - Falco columbarius
     - Linnaeus, 1758
     - Merlin
@@ -2343,7 +2343,7 @@ species:
     - E91E287A2946B0C9
     - Falco Subbuteo
   - - "155"
-    - 
+    - falche
     - Falco cherrug
     - Gray, JE, 1834
     - Saker Falcon
@@ -2359,7 +2359,7 @@ species:
     - A9F5149411AE52AD
     - Falco cherrug
   - - "156"
-    - 
+    - falrus
     - Falco rusticolus
     - Linnaeus, 1758
     - Gyrfalcon
@@ -2375,7 +2375,7 @@ species:
     - E19252A76FC7845B
     - Falco rusticolus
   - - "157"
-    - 
+    - falper
     - Falco peregrinus
     - Tunstall, 1771
     - Peregrine Falcon
@@ -2391,7 +2391,7 @@ species:
     - 5A9A42C1DF7154B8
     - Falco Peregrinus
   - - "158"
-    - 
+    - panhal
     - Pandion haliaetus
     - (Linnaeus, 1758)
     - Osprey
@@ -2407,7 +2407,7 @@ species:
     - 1327AC55AA9D579B
     - Falco Haliaetus
   - - "159"
-    - 
+    - perapi
     - Pernis apivorus
     - (Linnaeus, 1758)
     - European Honey Buzzard
@@ -2423,7 +2423,7 @@ species:
     - ED5A7E8F6EDBB78E
     - Falco apivorus
   - - "160"
-    - 
+    - elafor
     - Elanoides forficatus
     - (Linnaeus, 1758)
     - Swallow-tailed Kite
@@ -2437,7 +2437,7 @@ species:
     - 1BAC66452DCC9AC9
     - Falco forficatus
   - - "161"
-    - 
+    - elaleu
     - Elanus leucurus
     - (Vieillot, 1818)
     - White-tailed Kite
@@ -2451,7 +2451,7 @@ species:
     - CAA5E106BE76C1D0
     - Milvus leucurus
   - - "162"
-    - 
+    - ictmis
     - Ictinia mississippiensis
     - (Wilson,A, 1811)
     - Mississippi Kite
@@ -2465,7 +2465,7 @@ species:
     - ACFC8EB619367A2B
     - Falco misisippiensis
   - - "163"
-    - 
+    - milvus
     - Milvus milvus
     - (Linnaeus, 1758)
     - Red Kite
@@ -2497,7 +2497,7 @@ species:
     - 06D9A2C8D1E3678A
     - Falco migrans
   - - "165"
-    - 
+    - haller
     - Haliaeetus leucoryphus
     - (Pallas, 1771)
     - Pallas's Fish Eagle
@@ -2529,7 +2529,7 @@ species:
     - 5A3D91D3254A568D
     - Falco Albicilla
   - - "167"
-    - 
+    - hallec
     - Haliaeetus leucocephalus
     - (Linnaeus, 1766)
     - Bald Eagle
@@ -2543,7 +2543,7 @@ species:
     - FED3756C12CF67FA
     - Falco leucocephalus
   - - "168"
-    - 
+    - gypbar
     - Gypaetus barbatus
     - (Linnaeus, 1758)
     - Bearded Vulture/Lammergeier
@@ -2559,7 +2559,7 @@ species:
     - 81DB7410BE70406B
     - Vultur barbatus
   - - "169"
-    - 
+    - neoper
     - Neophron percnopterus
     - (Linnaeus, 1758)
     - Egyptian Vulture
@@ -2655,7 +2655,7 @@ species:
     - 82745BAA8BE0E1BE
     - Falco cyaneus
   - - "175"
-    - 
+    - cirmac
     - Circus macrourus
     - (Gmelin,SG, 1770)
     - Pallid Harrier
@@ -2671,7 +2671,7 @@ species:
     - 22647E26E5C80F2E
     - Falco macrourus
   - - "176"
-    - 
+    - cirpyg
     - Circus pygargus
     - (Linnaeus, 1758)
     - Montagu's Harrier
@@ -2687,7 +2687,7 @@ species:
     - 63B6412E23CC0D93
     - Falco Pygargus
   - - "177"
-    - 
+    - accbre
     - Accipiter brevipes
     - (Severtzov, 1850)
     - Levant Sparrowhawk
@@ -2719,7 +2719,7 @@ species:
     - DB376A66278ED21E
     - Falco Nisus
   - - "179"
-    - 
+    - acccoo
     - Accipiter cooperii
     - (Bonaparte, 1828)
     - Cooper's Hawk
@@ -2749,7 +2749,7 @@ species:
     - 420850D62E855E4D
     - Falco gentilis
   - - "181"
-    - 
+    - paruni
     - Parabuteo unicinctus
     - (Temminck, 1824)
     - Harris's Hawk
@@ -2763,7 +2763,7 @@ species:
     - FBED1927FAA44D27
     - Falco unicinctus
   - - "182"
-    - 
+    - butlin
     - Buteo lineatus
     - (Gmelin, JF, 1788)
     - Red-shouldered Hawk
@@ -2777,7 +2777,7 @@ species:
     - EA4D6C0B76852200
     - Falco lineatus
   - - "183"
-    - 
+    - butpla
     - Buteo platypterus
     - (Vieillot, 1823)
     - Broad-winged Hawk
@@ -2791,7 +2791,7 @@ species:
     - 79F3C681417F2056
     - Sparvius platypterus
   - - "184"
-    - 
+    - butswa
     - Buteo swainsoni
     - Bonaparte, 1838
     - Swainson's Hawk
@@ -2805,7 +2805,7 @@ species:
     - DE473F42C06227F0
     - Buteo Swainsoni
   - - "185"
-    - 
+    - butjam
     - Buteo jamaicensis
     - (Gmelin, JF, 1788)
     - Red-tailed Hawk
@@ -2836,7 +2836,7 @@ species:
     - 25D78AE7FB4B012A
     - Falco Buteo
   - - "187"
-    - 
+    - butruf
     - Buteo rufinus
     - (Cretzschmar, 1829)
     - Long-legged Buzzard
@@ -2852,7 +2852,7 @@ species:
     - CC65921FEBE1BB96
     - Falco rufinus
   - - "188"
-    - 
+    - butreg
     - Buteo regalis
     - (Gray,GR, 1844)
     - Ferruginous Hawk
@@ -2898,7 +2898,7 @@ species:
     - 31DE007C2CC44B41
     - Aquila Pomarina
   - - "191"
-    - 
+    - aqucla
     - Aquila clanga
     - Pallas, 1811
     - Greater Spotted Eagle
@@ -2914,7 +2914,7 @@ species:
     - BAC4CA22EDCC74E7
     - Aquila Clanga
   - - "192"
-    - 
+    - aqurap
     - Aquila rapax
     - (Temminck, 1828)
     - Tawny Eagle
@@ -2930,7 +2930,7 @@ species:
     - F6D547B28875698E
     - Falco rapax
   - - "193"
-    - 
+    - aqunip
     - Aquila nipalensis
     - Hodgson, 1833
     - Steppe Eagle
@@ -2946,7 +2946,7 @@ species:
     - A635F56542EE0C16
     - Aquila nipalensis
   - - "194"
-    - 
+    - aquhel
     - Aquila heliaca
     - Savigny, 1809
     - Eastern Imperial Eagle
@@ -2962,7 +2962,7 @@ species:
     - 469DCF57248A1C69
     - Aquila heliaca
   - - "195"
-    - 
+    - aquchr
     - Aquila chrysaetos
     - (Linnaeus, 1758)
     - Golden Eagle
@@ -2978,7 +2978,7 @@ species:
     - 5F8E7CA845BD413F
     - "Falco Chrysa\xC3\xABtos"
   - - "196"
-    - 
+    - hiepen
     - Hieraaetus pennatus
     - (Gmelin, 1788)
     - Booted Eagle
@@ -2994,7 +2994,7 @@ species:
     - 4B8CC2853542FFED
     - Falco pennatus
   - - "197"
-    - 
+    - otitar
     - Otis tarda
     - Linnaeus, 1758
     - Great Bustard
@@ -3010,7 +3010,7 @@ species:
     - C6F33176724AC933
     - Otis tarda
   - - "198"
-    - 
+    - chlund
     - Chlamydotis undulata
     - (Jacquin, 1784)
     - Houbara Bustard
@@ -3026,7 +3026,7 @@ species:
     - 5714C710ACE4DA8B
     - Psophia undulata
   - - "199"
-    - 
+    - tetrax
     - Tetrax tetrax
     - (Linnaeus, 1758)
     - Little Bustard
@@ -3042,7 +3042,7 @@ species:
     - 56E3016D3370A6D5
     - Otis Tetrax
   - - "200"
-    - 
+    - cotnov
     - Coturnicops noveboracensis
     - (Gmelin, JF, 1789)
     - Yellow Rail
@@ -3058,7 +3058,7 @@ species:
     - 2B100B36647125D7
     - Fulica noveboracensis
   - - "201"
-    - 
+    - latjam
     - Laterallus jamaicensis
     - (Gmelin, JF, 1789)
     - Black Rail
@@ -3070,7 +3070,7 @@ species:
     - C5DF08E75E27B2B5
     - Rallus jamaicensis
   - - "202"
-    - 
+    - rallon
     - Rallus longirostris
     - Boddaert, 1783
     - Clapper Rail
@@ -3084,7 +3084,7 @@ species:
     - 1D70C38024EA66B0
     - Rallus longirostris
   - - "203"
-    - 
+    - ralele
     - Rallus elegans
     - Audubon, 1834
     - King Rail
@@ -3096,7 +3096,7 @@ species:
     - 224F75A84BA0937C
     - Rallus elegans
   - - "204"
-    - 
+    - rallim
     - Rallus limicola
     - Vieillot, 1819
     - Virginia Rail
@@ -3110,7 +3110,7 @@ species:
     - 4880DC5532DFCFA4
     - Rallus limicola
   - - "205"
-    - 
+    - ralaqu
     - Rallus aquaticus
     - Linnaeus, 1758
     - Water Rail
@@ -3142,7 +3142,7 @@ species:
     - 7E2572426E200D08
     - Rallus Crex
   - - "207"
-    - 
+    - porpar
     - Porzana parva
     - (Scopoli, 1769)
     - Little Crake
@@ -3158,7 +3158,7 @@ species:
     - 9106EBE6C0914933
     - Rallus parvus
   - - "208"
-    - 
+    - porpus
     - Porzana pusilla
     - (Pallas, 1776)
     - Baillon's Crake
@@ -3174,7 +3174,7 @@ species:
     - 34D5B04DE53894FF
     - Rallus pusillus
   - - "209"
-    - 
+    - porana
     - Porzana porzana
     - (Linnaeus, 1766)
     - Spotted Crake
@@ -3190,7 +3190,7 @@ species:
     - 460708F99737A6A2
     - Rallus Porzana
   - - "210"
-    - 
+    - porcar
     - Porzana carolina
     - (Linnaeus, 1758)
     - Sora Rail
@@ -3204,7 +3204,7 @@ species:
     - 2CC21529B5674AEB
     - Rallus carolinus
   - - "211"
-    - 
+    - porrio
     - Porphyrio porphyrio
     - (Linnaeus, 1758)
     - Purple Swamphen
@@ -3220,7 +3220,7 @@ species:
     - AC1E791EF6C92723
     - Fulica Porphyrio
   - - "212"
-    - 
+    - pormar
     - Porphyrio martinica
     - (Linnaeus, 1766)
     - Purple Gallinule
@@ -3266,7 +3266,7 @@ species:
     - B682B2A9C922D4C4
     - Fulica atra
   - - "215"
-    - 
+    - fulame
     - Fulica americana
     - Gmelin, JF, 1789
     - American Coot
@@ -3280,7 +3280,7 @@ species:
     - E6411DF4E53734BE
     - Fulica americana
   - - "216"
-    - 
+    - antvir
     - Anthropoides virgo
     - (Linnaeus, 1758)
     - Demoiselle Crane
@@ -3296,7 +3296,7 @@ species:
     - 64DDD14DF2EB9B39
     - Ardea Virgo
   - - "217"
-    - 
+    - gruleu
     - Grus leucogeranus
     - Pallas, 1773
     - Siberian Crane
@@ -3312,7 +3312,7 @@ species:
     - 77845DAD1C49E8F1
     - Grus Leucogeranus
   - - "218"
-    - 
+    - grucan
     - Grus canadensis
     - (Linnaeus, 1758)
     - Sandhill Crane
@@ -3342,7 +3342,7 @@ species:
     - 99B8841E764117B1
     - Ardea Grus
   - - "220"
-    - 
+    - buroed
     - Burhinus oedicnemus
     - (Linnaeus, 1758)
     - Eurasian Stone Curlew
@@ -3358,7 +3358,7 @@ species:
     - 8C87D50F7516E905
     - Charadrius Oedicnemus
   - - "221"
-    - 
+    - haepal
     - Haematopus palliatus
     - Temminck, 1820
     - American Oystercatcher
@@ -3418,7 +3418,7 @@ species:
     - C73ED2F5D88625BA
     - Recurvirostra Avosetta
   - - "225"
-    - 
+    - recame
     - Recurvirostra americana
     - Gmelin, 1789
     - American Avocet
@@ -3446,7 +3446,7 @@ species:
     - F029489ABD9D1334
     - Tringa Vanellus
   - - "227"
-    - 
+    - vanspi
     - Vanellus spinosus
     - (Linnaeus, 1758)
     - Spur-winged Plover
@@ -3462,7 +3462,7 @@ species:
     - F5E92B225F648330
     - Charadrius spinosus
   - - "228"
-    - 
+    - vangre
     - Vanellus gregarius
     - (Pallas, 1771)
     - Sociable Plover
@@ -3478,7 +3478,7 @@ species:
     - D348C2D65FA2DF83
     - Charadrius gregarius
   - - "229"
-    - 
+    - vanleu
     - Vanellus leucurus
     - (Lichtenstein, 1823)
     - White-tailed Plover
@@ -3494,7 +3494,7 @@ species:
     - A480FDDF8BBC5443
     - Charadrius leucurus
   - - "230"
-    - 
+    - pluapr
     - Pluvialis apricaria
     - (Linnaeus, 1758)
     - Eurasian Golden Plover
@@ -3510,7 +3510,7 @@ species:
     - 25A20BA6F7EA9D9A
     - Charadrius apricarius
   - - "231"
-    - 
+    - pluful
     - Pluvialis fulva
     - (Gmelin, 1789)
     - Pacific Golden Plover
@@ -3526,7 +3526,7 @@ species:
     - 07C11CF340D2017A
     - Charadrius fulvus
   - - "232"
-    - 
+    - pludom
     - Pluvialis dominica
     - "(Statius M\xC3\xBCller, 1776)"
     - American Golden Plover
@@ -3574,7 +3574,7 @@ species:
     - EDA37B7C5D4A25ED
     - Charadrius Hiaticula
   - - "235"
-    - 
+    - chasem
     - Charadrius semipalmatus
     - Bonaparte, 1825
     - Semipalmated Plover
@@ -3605,7 +3605,7 @@ species:
     - 35EC3BBF166AB032
     - Charadrius dubius
   - - "237"
-    - 
+    - chawil
     - Charadrius wilsonia
     - Ord, 1814
     - Wilson's Plover
@@ -3617,7 +3617,7 @@ species:
     - 654D660CF51DB8B1
     - Charadrius wilsonia
   - - "238"
-    - 
+    - chavoc
     - Charadrius vociferus
     - Linnaeus, 1758
     - Killdeer
@@ -3631,7 +3631,7 @@ species:
     - BCF9A19AFE372627
     - Charadrius vociferus
   - - "239"
-    - 
+    - chamel
     - Charadrius melodus
     - Ord, 1824
     - Piping Plover
@@ -3659,7 +3659,7 @@ species:
     - E2A5A30C7C428DE7
     - Charadrius alexandrinus
   - - "241"
-    - 
+    - chamon
     - Charadrius mongolus
     - Pallas, 1776
     - Lesser Sand Plover
@@ -3673,7 +3673,7 @@ species:
     - 8A4C4629887B0FE7
     - Charadrius mongolus
   - - "242"
-    - 
+    - chales
     - Charadrius leschenaultii
     - Lesson, 1826
     - Greater Sand Plover
@@ -3689,7 +3689,7 @@ species:
     - 98B9C10B606A4FF1
     - Charadrius Leschenaultii
   - - "243"
-    - 
+    - chaasi
     - Charadrius asiaticus
     - Pallas, 1773
     - Caspian Plover
@@ -3705,7 +3705,7 @@ species:
     - 264D03516760D706
     - Charadrius asiaticus
   - - "244"
-    - 
+    - chamor
     - Charadrius morinellus
     - Linnaeus, 1758
     - Eurasian Dotterel
@@ -3737,7 +3737,7 @@ species:
     - BFE14290EA4326FA
     - Scolopax Rusticola
   - - "246"
-    - 
+    - scomin
     - Scolopax minor
     - Gmelin, 1789
     - American Woodcock
@@ -3749,7 +3749,7 @@ species:
     - F4829920F1710E56
     - Scolopax minor
   - - "247"
-    - 
+    - lymmin
     - Lymnocryptes minimus
     - (Brunnich, 1764)
     - Jack Snipe
@@ -3765,7 +3765,7 @@ species:
     - 1A15F0C6B4948C52
     - Scolopax minima
   - - "248"
-    - 
+    - galmed
     - Gallinago media
     - (Latham, 1787)
     - Great Snipe
@@ -3797,7 +3797,7 @@ species:
     - 20CF9548B69643E5
     - Scolopax Gallinago
   - - "250"
-    - 
+    - limgri
     - Limnodromus griseus
     - (Gmelin, JF, 1789)
     - Short-billed Dowitcher
@@ -3809,7 +3809,7 @@ species:
     - 4A3B2CFF53868550
     - Scolopax grisea
   - - "251"
-    - 
+    - limsco
     - Limnodromus scolopaceus
     - (Say, 1823)
     - Long-billed Dowitcher
@@ -3824,7 +3824,7 @@ species:
     - CB343E43E8CAF303
     - Limosa scolopacea
   - - "252"
-    - 
+    - limosa
     - Limosa limosa
     - (Linnaeus, 1758)
     - Black-tailed Godwit
@@ -3840,7 +3840,7 @@ species:
     - 454B5CD5F5285B77
     - Scolopax Limosa
   - - "253"
-    - 
+    - limhae
     - Limosa haemastica
     - (Linnaeus, 1758)
     - Hudsonian Godwit
@@ -3852,7 +3852,7 @@ species:
     - 930139644308C7B7
     - Scolopax Haemastica
   - - "254"
-    - 
+    - limlap
     - Limosa lapponica
     - (Linnaeus, 1758)
     - Bar-tailed Godwit
@@ -3868,7 +3868,7 @@ species:
     - 9A684C997C1AF1BA
     - Scolopax lapponica
   - - "255"
-    - 
+    - limfed
     - Limosa fedoa
     - (Linnaeus, 1758)
     - Marbled Godwit
@@ -3880,7 +3880,7 @@ species:
     - 249AE8DFD7F51354
     - Scolopax Fedoa
   - - "256"
-    - 
+    - numbor
     - Numenius borealis
     - (Forster,JR, 1772)
     - Eskimo Curlew
@@ -3894,7 +3894,7 @@ species:
     - FB9305DB788ED649
     - Scolopax borealis
   - - "257"
-    - 
+    - numpha
     - Numenius phaeopus
     - (Linnaeus, 1758)
     - Whimbrel
@@ -3910,7 +3910,7 @@ species:
     - F9305BAA638BAEFC
     - Scolopax phaeopus
   - - "258"
-    - 
+    - numten
     - Numenius tenuirostris
     - Vieillot, 1817
     - Slender-billed Curlew
@@ -3926,7 +3926,7 @@ species:
     - 7A35DE8186E4DF43
     - Numenius tenuirostris
   - - "259"
-    - 
+    - numarq
     - Numenius arquata
     - (Linnaeus, 1758)
     - Eurasian Curlew
@@ -3942,7 +3942,7 @@ species:
     - 3BB5CBA66CF48884
     - Scolopax Arquata
   - - "260"
-    - 
+    - numame
     - Numenius americanus
     - Bechstein, 1812
     - Long-billed Curlew
@@ -3954,7 +3954,7 @@ species:
     - 5284C27B1DE872F2
     - Numenius americanus
   - - "261"
-    - 
+    - barlon
     - Bartramia longicauda
     - (Bechstein, 1812)
     - Upland Sandpiper
@@ -3966,7 +3966,7 @@ species:
     - BF1DA86E0714FD01
     - Tringa longicauda
   - - "262"
-    - 
+    - triery
     - Tringa erythropus
     - (Pallas, 1764)
     - Spotted Redshank
@@ -3998,7 +3998,7 @@ species:
     - D6BFC73A3E067711
     - Scolopax Totanus
   - - "264"
-    - 
+    - trista
     - Tringa stagnatilis
     - (Bechstein, 1803)
     - Marsh Sandpiper
@@ -4030,7 +4030,7 @@ species:
     - 18B415D28BBF934C
     - Scolopax nebularia
   - - "266"
-    - 
+    - trimel
     - Tringa melanoleuca
     - (Gmelin, 1789)
     - Greater Yellowlegs
@@ -4044,7 +4044,7 @@ species:
     - 6EB81C98A8FD9CE6
     - Scolopax melanoleuca
   - - "267"
-    - 
+    - trifla
     - Tringa flavipes
     - (Gmelin, 1789)
     - Lesser Yellowlegs
@@ -4074,7 +4074,7 @@ species:
     - A7B17EFC92B53D29
     - Tringa Ochrophus
   - - "269"
-    - 
+    - trisol
     - Tringa solitaria
     - Wilson, A, 1813
     - Solitary Sandpiper
@@ -4136,7 +4136,7 @@ species:
     - 8548B07ECA48773F
     - Tringa Hypoleucos
   - - "273"
-    - 
+    - actmac
     - Actitis macularius
     - (Linnaeus, 1766)
     - Spotted Sandpiper
@@ -4150,7 +4150,7 @@ species:
     - 0D88C072E71FE4B8
     - Tringa macularia
   - - "274"
-    - 
+    - catsem
     - Catoptrophorus semipalmatus
     - (Gmelin, JF, 1789)
     - Willet
@@ -4178,7 +4178,7 @@ species:
     - DC3050A9771F2CE9
     - Tringa Interpres
   - - "276"
-    - 
+    - calcan
     - Calidris canutus
     - (Linnaeus, 1758)
     - Red Knot
@@ -4210,7 +4210,7 @@ species:
     - 06B9BD243A756B28
     - Tringa alba
   - - "278"
-    - 
+    - calpus
     - Calidris pusilla
     - (Linnaeus, 1766)
     - Semipalmated Sandpiper
@@ -4224,7 +4224,7 @@ species:
     - F35821AAC21FFF20
     - Tringa pusilla
   - - "279"
-    - 
+    - calmau
     - Calidris mauri
     - (Cabanis, 1857)
     - Western Sandpiper
@@ -4239,7 +4239,7 @@ species:
     - 01060BFDFF0D9D28
     - Ereunetes Mauri
   - - "280"
-    - 
+    - calrfc
     - Calidris ruficollis
     - (Pallas, 1776)
     - Red-necked Stint
@@ -4253,7 +4253,7 @@ species:
     - BBDF2F1BAC640E4D
     - Trynga ruficollis
   - - "281"
-    - 
+    - calmta
     - Calidris minuta
     - (Leisler, 1812)
     - Little Stint
@@ -4269,7 +4269,7 @@ species:
     - 9936FF4AFB430504
     - Tringa minuta
   - - "282"
-    - 
+    - caltem
     - Calidris temminckii
     - (Leisler, 1812)
     - Temminck's Stint
@@ -4285,7 +4285,7 @@ species:
     - 5ACF7FB313BEF9EA
     - Tringa Temminckii
   - - "283"
-    - 
+    - calmla
     - Calidris minutilla
     - (Vieillot, 1819)
     - Least Sandpiper
@@ -4299,7 +4299,7 @@ species:
     - A47B0BD448AA34E0
     - Tringa minutilla
   - - "284"
-    - 
+    - calfus
     - Calidris fuscicollis
     - (Vieillot, 1819)
     - White-rumped Sandpiper
@@ -4313,7 +4313,7 @@ species:
     - 153BA3069DFCDDCA
     - Tringa fuscicollis
   - - "285"
-    - 
+    - calbai
     - Calidris bairdii
     - (Coues, 1861)
     - Baird's Sandpiper
@@ -4327,7 +4327,7 @@ species:
     - 1F1AD154DAE2E070
     - Actodromus Bairdii
   - - "286"
-    - 
+    - calmlt
     - Calidris melanotos
     - (Vieillot, 1819)
     - Pectoral Sandpiper
@@ -4341,7 +4341,7 @@ species:
     - ACC99F35F0E8F7EB
     - Tringa melanotos
   - - "287"
-    - 
+    - calacu
     - Calidris acuminata
     - (Horsfield, 1821)
     - Sharp-tailed Sandpiper
@@ -4372,7 +4372,7 @@ species:
     - 143A681C9BCE9A20
     - Tringa Ferrugineus
   - - "289"
-    - 
+    - calmar
     - Calidris maritima
     - "(Br\xC3\xBCnnich, 1764)"
     - Purple Sandpiper
@@ -4404,7 +4404,7 @@ species:
     - 15369E8EB4CBD064
     - Tringa alpina
   - - "291"
-    - 
+    - calhim
     - Calidris himantopus
     - (Bonaparte, 1826)
     - Stilt-Sandpiper
@@ -4418,7 +4418,7 @@ species:
     - ECDE73F2E6E6E622
     - Tringa himantopus
   - - "292"
-    - 
+    - eurpyg
     - Eurynorhynchus pygmeus
     - (Linnaeus, 1758)
     - Spoon-billed Sandpiper
@@ -4434,7 +4434,7 @@ species:
     - 3FC8CA50CC50BAAD
     - Platalea pygmea
   - - "293"
-    - 
+    - limfal
     - Limicola falcinellus
     - (Pontoppidan, 1763)
     - Broad-billed Sandpiper
@@ -4450,7 +4450,7 @@ species:
     - 0A14882F5F9F64E6
     - Scolopax Falcinellus
   - - "294"
-    - 
+    - trysub
     - Tryngites subruficollis
     - (Vieillot, 1819)
     - Buff-breasted Sandpiper
@@ -4482,7 +4482,7 @@ species:
     - 2DABF98FBEEAB7BB
     - Tringa Pugnax
   - - "296"
-    - 
+    - phatri
     - Phalaropus tricolor
     - (Vieillot, 1819)
     - Wilson's Phalarope
@@ -4496,7 +4496,7 @@ species:
     - 667C6969D7874433
     - Steganopus tricolor
   - - "297"
-    - 
+    - phalob
     - Phalaropus lobatus
     - (Linnaeus, 1758)
     - Red-necked Phalarope
@@ -4512,7 +4512,7 @@ species:
     - E6F3BA54577746FB
     - Tringa tobata
   - - "298"
-    - 
+    - phaful
     - Phalaropus fulicarius
     - (Linnaeus, 1758)
     - Grey Phalarope/Red Phalarope
@@ -4528,7 +4528,7 @@ species:
     - 18A1938091EEEA73
     - Tringa Fulicaria
   - - "299"
-    - 
+    - curcur
     - Cursorius cursor
     - (Latham, 1787)
     - Cream-coloured Courser
@@ -4544,7 +4544,7 @@ species:
     - DE0A72A7FA1E6DB7
     - Charadrius cursor
   - - "300"
-    - 
+    - glapra
     - Glareola pratincola
     - (Linnaeus, 1766)
     - Collared Pratincole
@@ -4560,7 +4560,7 @@ species:
     - D56ABB4EE468E9EF
     - Hirundo Pratincola
   - - "301"
-    - 
+    - glanor
     - Glareola nordmanni
     - Fischer von Waldheim, 1842
     - Black-winged Pratincole
@@ -4576,7 +4576,7 @@ species:
     - E1F6A875C32C042D
     - Glareola Nordmanni
   - - "302"
-    - 
+    - larcra
     - Larus crassirostris
     - Vieillot, 1818
     - Black-tailed Gull
@@ -4606,7 +4606,7 @@ species:
     - 0C290EA653CA6A56
     - Larus canus
   - - "304"
-    - 
+    - lardel
     - Larus delawarensis
     - Ord, 1815
     - Ring-billed Gull
@@ -4618,7 +4618,7 @@ species:
     - 23863F65441680FA
     - Larus Delawarensis
   - - "305"
-    - 
+    - larcal
     - Larus californicus
     - Lawrence, 1854
     - Californian Gull
@@ -4630,7 +4630,7 @@ species:
     - 7FCE8A431E5E5ECB
     - Larus Californicus
   - - "306"
-    - 
+    - larmar
     - Larus marinus
     - Linnaeus, 1758
     - Great Black-backed Gull
@@ -4646,7 +4646,7 @@ species:
     - E826E9F3FBAED223
     - Larus marinus
   - - "307"
-    - 
+    - larocc
     - Larus occidentalis
     - Audubon, 1839
     - Western Gull
@@ -4658,7 +4658,7 @@ species:
     - 575A3E3BE9C9F93B
     - Larus occidentalis
   - - "308"
-    - 
+    - larhyp
     - Larus hyperboreus
     - Gunnerus, 1767
     - Glaucous Gull
@@ -4674,7 +4674,7 @@ species:
     - A59FA446D6B40057
     - Larus hyperboreus
   - - "309"
-    - 
+    - largla
     - Larus glaucoides
     - Meyer, B, 1822
     - Iceland Gull
@@ -4688,7 +4688,7 @@ species:
     - 12D5BA6CB1F71DCD
     - Larus glaucoides
   - - "310"
-    - 
+    - lartha
     - Larus thayeri
     - Brooks,WS, 1915
     - Thayer's Gull
@@ -4700,7 +4700,7 @@ species:
     - 69E839448750A39A
     - Larus thayeri
   - - "311"
-    - 
+    - lararg
     - Larus argentatus
     - Pontoppidan, 1763
     - Herring Gull
@@ -4732,7 +4732,7 @@ species:
     - 736EC78176CC717B
     - Larus cachinnans
   - - "313"
-    - 
+    - lararm
     - Larus armenicus
     - Buturlin, 1934
     - Armenian Gull
@@ -4746,7 +4746,7 @@ species:
     - F6951FF7E28D37AC
     - Larus armenicus
   - - "314"
-    - 
+    - larsch
     - Larus schistisagus
     - Stejneger, 1884
     - Slaty-backed Gull
@@ -4760,7 +4760,7 @@ species:
     - 456C7FAEF6E50426
     - Larus schistisagus
   - - "315"
-    - 
+    - larfus
     - Larus fuscus
     - Linnaeus, 1758
     - Lesser Black-backed Gull
@@ -4776,7 +4776,7 @@ species:
     - D40E8FE849D498AF
     - Larus fuscus
   - - "316"
-    - 
+    - larich
     - Larus ichthyaetus
     - Pallas, 1773
     - Great Black-headed Gull
@@ -4824,7 +4824,7 @@ species:
     - 27CE7132A1848BCD
     - "Larus Gene\xC3\xAF"
   - - "319"
-    - 
+    - larphi
     - Larus philadelphia
     - (Ord, 1815)
     - Bonaparte's Gull
@@ -4855,7 +4855,7 @@ species:
     - 052BFA8A77EED5AF
     - Larus melanocephalus
   - - "321"
-    - 
+    - laratr
     - Larus atricilla
     - Linnaeus, 1758
     - Laughing Gull
@@ -4867,7 +4867,7 @@ species:
     - 6CDC3C9C8B50EA71
     - Larus Atricilla
   - - "322"
-    - 
+    - larpip
     - Larus pipixcan
     - Wagler, 1831
     - Franklin's Gull
@@ -4895,7 +4895,7 @@ species:
     - F89FD6E3A367C008
     - Larus minutus
   - - "324"
-    - 
+    - pagebu
     - Pagophila eburnea
     - (Phipps, 1774)
     - Ivory Gull
@@ -4909,7 +4909,7 @@ species:
     - FED91A1F00C4E67C
     - Larus Eburneus
   - - "325"
-    - 
+    - rhoros
     - Rhodostethia rosea
     - (MacGillivray, 1824)
     - Ross's Gull
@@ -4923,7 +4923,7 @@ species:
     - 4CD353D243C27F86
     - Larus roseus
   - - "326"
-    - 
+    - xemsab
     - Xema sabini
     - (Sabine, 1819)
     - Sabine's Gull
@@ -4937,7 +4937,7 @@ species:
     - 86182656472B476B
     - Larus Sabini
   - - "327"
-    - 
+    - ristri
     - Rissa tridactyla
     - (Linnaeus, 1758)
     - Black-legged Kittiwake
@@ -5001,7 +5001,7 @@ species:
     - F7504353640C1055
     - Sterna Sandvicensis
   - - "331"
-    - 
+    - stemax
     - Sterna maxima
     - Boddaert, 1783
     - Royal Tern
@@ -5015,7 +5015,7 @@ species:
     - 68EDCC23F8128FA8
     - Sterna maxima
   - - "332"
-    - 
+    - stedou
     - Sterna dougallii
     - Montagu, 1813
     - Roseate Tern
@@ -5045,7 +5045,7 @@ species:
     - 4D2FF6F13790ED7E
     - Sterna Hirundo
   - - "334"
-    - 
+    - steprd
     - Sterna paradisaea
     - Pontoppidan, 1763
     - Arctic Tern
@@ -5061,7 +5061,7 @@ species:
     - BDC5CF80BE6CFC21
     - Sterna Paradisaea
   - - "335"
-    - 
+    - stefor
     - Sterna forsteri
     - Nuttall, 1834
     - Forster's Tern
@@ -5089,7 +5089,7 @@ species:
     - 17310BF0FE9BAC8A
     - Sterna albifrons
   - - "337"
-    - 
+    - steant
     - Sterna antillarum
     - (Lesson, 1847)
     - Least Tern
@@ -5103,7 +5103,7 @@ species:
     - BE78E765F1DA8123
     - Sternula antillarum
   - - "338"
-    - 
+    - steana
     - Sterna anaethetus
     - Scopoli, 1786
     - Bridled Tern
@@ -5117,7 +5117,7 @@ species:
     - E6518B9D5C802F2A
     - Sterna Anaethetus
   - - "339"
-    - 
+    - stefus
     - Sterna fuscata
     - Linnaeus, 1766
     - Sooty Tern
@@ -5179,7 +5179,7 @@ species:
     - 115AF02DD58018FB
     - Sterna nigra
   - - "343"
-    - 
+    - anosto
     - Anous stolidus
     - (Linnaeus, 1758)
     - Brown Noddy
@@ -5191,7 +5191,7 @@ species:
     - A070171E774B95B5
     - Sterna stolida
   - - "344"
-    - 
+    - rynnig
     - Rynchops niger
     - (Linnaeus, 1758)
     - Black Skimmer
@@ -5203,7 +5203,7 @@ species:
     - 88AB027C4DF06D93
     - Rynchops nigra
   - - "345"
-    - 
+    - stemac
     - Stercorarius maccormicki
     - Saunders, H, 1893
     - South Polar Skua
@@ -5217,7 +5217,7 @@ species:
     - 7D1A9D5CCCDC597C
     - Stercorarius maccormicki
   - - "346"
-    - 
+    - stesku
     - Stercorarius skua
     - (Brunnich, 1764)
     - Great Skua
@@ -5233,7 +5233,7 @@ species:
     - BB041C6E5DB73FC7
     - Catharacta Skua
   - - "347"
-    - 
+    - stepom
     - Stercorarius pomarinus
     - (Temminck, 1815)
     - Pomarine Skua
@@ -5249,7 +5249,7 @@ species:
     - 7CB8F5B711DE64D0
     - Lestris pomarinus
   - - "348"
-    - 
+    - steprs
     - Stercorarius parasiticus
     - (Linnaeus, 1758)
     - Parasitic Jaeger/Arctic Skua
@@ -5265,7 +5265,7 @@ species:
     - 39086887E9EAFEB3
     - Larus parasiticus
   - - "349"
-    - 
+    - stelon
     - Stercorarius longicaudus
     - Vieillot, 1819
     - Long-tailed Jaeger
@@ -5281,7 +5281,7 @@ species:
     - 1D4464402EC9FD21
     - Stercorarius longicaudus
   - - "350"
-    - 
+    - allall
     - Alle alle
     - (Linnaeus, 1758)
     - Little Auk/Dovekie
@@ -5297,7 +5297,7 @@ species:
     - B0932D89F1F74318
     - Alca Alle
   - - "351"
-    - 
+    - urilom
     - Uria lomvia
     - (Linnaeus, 1758)
     - Thick-billed Murre/Brunnich's Guillemot
@@ -5311,7 +5311,7 @@ species:
     - B70B5840ABCD5CFC
     - Alca Lomvia
   - - "352"
-    - 
+    - uriaal
     - Uria aalge
     - (Pontoppidan, 1763)
     - Guillemot/Common Murre
@@ -5325,7 +5325,7 @@ species:
     - 39F29B55EF9A542F
     - Colymbus aalge
   - - "353"
-    - 
+    - alctor
     - Alca torda
     - Linnaeus, 1758
     - Razorbill
@@ -5339,7 +5339,7 @@ species:
     - 64F4DD81371B269F
     - Alca Torda
   - - "354"
-    - 
+    - pinimp
     - Pinguinus impennis
     - (Linnaeus, 1758)
     - Great Auk
@@ -5353,7 +5353,7 @@ species:
     - 57D2F32E062CB366
     - Alca impennis
   - - "355"
-    - 
+    - cepgry
     - Cepphus grylle
     - (Linnaeus, 1758)
     - Black Guillemot
@@ -5367,7 +5367,7 @@ species:
     - B5AA5952E13FE5F3
     - Alca Grylle
   - - "356"
-    - 
+    - braper
     - Brachyramphus perdix
     - (Pallas, 1811)
     - Long-billed Murrelet
@@ -5381,7 +5381,7 @@ species:
     - 0518820F7A915A80
     - Cepphus Perdix
   - - "357"
-    - 
+    - synant
     - Synthliboramphus antiquus
     - (Gmelin, JF, 1789)
     - Ancient Murrelet
@@ -5395,7 +5395,7 @@ species:
     - ACA4FEFE451B4BD8
     - Alca antiqua
   - - "358"
-    - 
+    - fraarc
     - Fratercula arctica
     - (Linnaeus, 1758)
     - Atlantic Puffin
@@ -5425,7 +5425,7 @@ species:
     - BDCB55F1196CAC6A
     - Tetrao paradoxa
   - - "360"
-    - 
+    - ptealc
     - Pterocles alchata
     - (Linnaeus, 1766)
     - Pin-tailed Sandgrouse
@@ -5441,7 +5441,7 @@ species:
     - 493C4CF8D0200AB4
     - Tetrao Alchata
   - - "361"
-    - 
+    - pteori
     - Pterocles orientalis
     - (Linnaeus, 1758)
     - Black-bellied Sandgrouse
@@ -5505,7 +5505,7 @@ species:
     - 760F307A30689D66
     - Columba Palumbus
   - - "365"
-    - 
+    - colfas
     - Columba fasciata
     - Say, 1823
     - Band-tailed Pigeon
@@ -5533,7 +5533,7 @@ species:
     - 5788552B694ED7B5
     - Columba Turtur
   - - "367"
-    - 
+    - strori
     - Streptopelia orientalis
     - (Latham, 1790)
     - Oriental Turtle Dove
@@ -5565,7 +5565,7 @@ species:
     - 41FACE6330A2F073
     - Columba risoria decaocto
   - - "369"
-    - 
+    - ectmig
     - Ectopistes migratorius
     - (Linnaeus, 1766)
     - Passenger Pigeon
@@ -5579,7 +5579,7 @@ species:
     - D397FE255A606DE8
     - Columba migratoria
   - - "370"
-    - 
+    - zenmac
     - Zenaida macroura
     - (Linnaeus, 1758)
     - Mourning Dove
@@ -5593,7 +5593,7 @@ species:
     - 00124D987C95811B
     - Columba macroura
   - - "371"
-    - 
+    - zenasi
     - Zenaida asiatica
     - (Linnaeus, 1758)
     - White-winged Dove
@@ -5607,7 +5607,7 @@ species:
     - BFBC73AFB3FA5203
     - Columba asiatica
   - - "372"
-    - 
+    - colpas
     - Columbina passerina
     - (Linnaeus, 1758)
     - Common Ground Dove
@@ -5619,7 +5619,7 @@ species:
     - F9AED5486FD85258
     - Columba passerina
   - - "373"
-    - 
+    - psikra
     - Psittacula krameri
     - (Scopoli, 1769)
     - Rose-ringed Parakeet
@@ -5635,7 +5635,7 @@ species:
     - 6B1CFC3CFA400D78
     - Psittacus krameri
   - - "374"
-    - 
+    - concar
     - Conuropsis carolinensis
     - (Linnaeus, 1758)
     - Carolina Parakeet
@@ -5649,7 +5649,7 @@ species:
     - 90002523402DE0BF
     - Psittacus carolinensis
   - - "375"
-    - 
+    - myimon
     - Myiopsitta monachus
     - (Boddaert, 1783)
     - Monk Parakeet
@@ -5663,7 +5663,7 @@ species:
     - 117830752D8204BC
     - Psittacus monachus
   - - "376"
-    - 
+    - clagla
     - Clamator glandarius
     - (Linnaeus, 1758)
     - Great Spotted Cuckoo
@@ -5695,7 +5695,7 @@ species:
     - B3D2C3C5B73EC8E8
     - Cuculus canorus
   - - "378"
-    - 
+    - cucsat
     - Cuculus saturatus
     - Blyth, 1843
     - Himalayan Cuckoo
@@ -5711,7 +5711,7 @@ species:
     - 5195E456712738C2
     - Cuculus saturatus
   - - "379"
-    - 
+    - cocery
     - Coccyzus erythropthalmus
     - (Wilson,A, 1811)
     - Black-billed Cuckoo
@@ -5726,7 +5726,7 @@ species:
     - 41E9F54BDA04ACBA
     - Cuculus erythropthalma
   - - "380"
-    - 
+    - cocame
     - Coccyzus americanus
     - (Linnaeus, 1758)
     - Yellow-billed Cuckoo
@@ -5740,7 +5740,7 @@ species:
     - 0CF12F8155708DC8
     - Cuculus americanus
   - - "381"
-    - 
+    - croani
     - Crotophaga ani
     - Linnaeus, 1758
     - Smooth-billed Ani
@@ -5754,7 +5754,7 @@ species:
     - 469BC7B8CAF14C59
     - Crotophaga Ani
   - - "382"
-    - 
+    - crosul
     - Crotophaga sulcirostris
     - Swainson, 1827
     - Groove-billed Ani
@@ -5766,7 +5766,7 @@ species:
     - C5B34740987E450C
     - Crotophaga sulcirostris
   - - "383"
-    - 
+    - tytalb
     - Tyto alba
     - (Scopoli, 1769)
     - Barn Owl
@@ -5782,7 +5782,7 @@ species:
     - 4FF37BF48BB00C3B
     - Strix alba
   - - "384"
-    - 
+    - otusco
     - Otus scops
     - (Linnaeus, 1758)
     - Eurasian Scops Owl
@@ -5798,7 +5798,7 @@ species:
     - 8B9017E833633F09
     - Strix Scops
   - - "385"
-    - 
+    - otuasi
     - Otus asio
     - (Linnaeus, 1758)
     - Eastern Screech Owl
@@ -5812,7 +5812,7 @@ species:
     - A69062C895C0CCDA
     - Strix Asio
   - - "386"
-    - 
+    - nycsca
     - Nyctea scandiaca
     - (Linnaeus, 1758)
     - Snowy Owl
@@ -5828,7 +5828,7 @@ species:
     - 5B23B360E7DEC4A9
     - Strix scandiaca
   - - "387"
-    - 
+    - bubvir
     - Bubo virginianus
     - (Gmelin, 1788)
     - Great Horned Owl
@@ -5842,7 +5842,7 @@ species:
     - 34D6EE78CA7AE050
     - Strix virginiana
   - - "388"
-    - 
+    - bubbub
     - Bubo bubo
     - (Linnaeus, 1758)
     - Eurasian Eagle-Owl
@@ -5858,7 +5858,7 @@ species:
     - FB9B4A4FAB7F5FDF
     - Strix Bubo
   - - "389"
-    - 
+    - stralu
     - Strix aluco
     - Linnaeus, 1758
     - Tawny Owl
@@ -5875,7 +5875,7 @@ species:
     - 2CD9FB4AE9C1214A
     - Strix Aluco
   - - "390"
-    - 
+    - strura
     - Strix uralensis
     - (Pallas, 1771)
     - Ural Owl
@@ -5891,7 +5891,7 @@ species:
     - 93486A5625828721
     - Stryx uralensis
   - - "391"
-    - 
+    - strneb
     - Strix nebulosa
     - Forster,JR, 1772
     - Great Grey Owl
@@ -5907,7 +5907,7 @@ species:
     - FA36ABE544B38D79
     - Strix nebulosa
   - - "392"
-    - 
+    - surulu
     - Surnia ulula
     - (Linnaeus, 1758)
     - Northern Hawk-Owl
@@ -5923,7 +5923,7 @@ species:
     - C2018A5DD8CDB5F5
     - Strix Ulula
   - - "393"
-    - 
+    - glapas
     - Glaucidium passerinum
     - (Linnaeus, 1758)
     - Eurasian Pygmy Owl
@@ -5939,7 +5939,7 @@ species:
     - 79E2AC7C3122B93F
     - Strix passerina
   - - "394"
-    - 
+    - athnoc
     - Athene noctua
     - (Scopoli, 1769)
     - Little Owl
@@ -5955,7 +5955,7 @@ species:
     - 9A7B268C4EF6F803
     - Strix noctua
   - - "395"
-    - 
+    - athcun
     - Athene cunicularia
     - (Molina, 1782)
     - Burrowing Owl
@@ -5969,7 +5969,7 @@ species:
     - B9EE9676FFEC8B11
     - Strix Cunicularia
   - - "396"
-    - 
+    - aegfun
     - Aegolius funereus
     - (Linnaeus, 1758)
     - Tengmalm's Owl/Boreal Owl
@@ -5985,7 +5985,7 @@ species:
     - 8AB4EAF6DBFA02CE
     - Strix funerea
   - - "397"
-    - 
+    - aegaca
     - Aegolius acadicus
     - (Gmelin, 1788)
     - Northern Saw-whet Owl
@@ -5999,7 +5999,7 @@ species:
     - 26BA25EFD0F06DF7
     - Strix acadica
   - - "398"
-    - 
+    - asiotu
     - Asio otus
     - (Linnaeus, 1758)
     - Long-eared Owl
@@ -6015,7 +6015,7 @@ species:
     - FC4D40D2D5CEA6BE
     - Strix Otus
   - - "399"
-    - 
+    - asifla
     - Asio flammeus
     - (Pontoppidan, 1763)
     - Short-eared Owl
@@ -6031,7 +6031,7 @@ species:
     - 8F123A11E5DADFDD
     - Strix Flammea
   - - "400"
-    - 
+    - chomin
     - Chordeiles minor
     - (Forster,JR, 1771)
     - Common Nighthawk
@@ -6045,7 +6045,7 @@ species:
     - 24E39ACD5692DA4A
     - Caprimulgus minor
   - - "401"
-    - 
+    - capcar
     - Caprimulgus carolinensis
     - Gmelin, 1789
     - Chuck-will's Widow
@@ -6057,7 +6057,7 @@ species:
     - 8D3E887123F5C670
     - Caprimulgus carolinensis
   - - "402"
-    - 
+    - capvoc
     - Caprimulgus vociferus
     - Wilson,A, 1812
     - Whip-poor-will
@@ -6087,7 +6087,7 @@ species:
     - D648523706523437
     - Caprimulgus europaeus
   - - "404"
-    - 
+    - chapel
     - Chaetura pelagica
     - (Linnaeus, 1758)
     - Chimney Swift
@@ -6101,7 +6101,7 @@ species:
     - C3AD1AFF63D26461
     - Hirundo Pelagica
   - - "405"
-    - 
+    - tacmel
     - Tachymarptis melba
     - (Linnaeus, 1758)
     - Alpine Swift
@@ -6134,7 +6134,7 @@ species:
     - 4E6EF3F983079D73
     - Hirundo Apus
   - - "407"
-    - 
+    - coltha
     - Colibri thalassinus
     - (Swainson, 1827)
     - Green Violetear
@@ -6146,7 +6146,7 @@ species:
     - 526931C99923A2A0
     - Trochilus thalassinus
   - - "408"
-    - 
+    - cynlat
     - Cynanthus latirostris
     - Swainson, 1827
     - Broad-billed Hummingbird
@@ -6161,7 +6161,7 @@ species:
     - 760F8CC4C6969F16
     - Cynanthus latirostris
   - - "409"
-    - 
+    - arccol
     - Archilochus colubris
     - (Linnaeus, 1758)
     - Ruby-throated Hummingbird
@@ -6175,7 +6175,7 @@ species:
     - DEC3D8D0C74C598B
     - Trochilus Colubris
   - - "410"
-    - 
+    - arcale
     - Archilochus alexandri
     - (Bourcier & Mulsant, 1846)
     - Black-chinned Hummingbird
@@ -6187,7 +6187,7 @@ species:
     - 4BB4F25726A8B123
     - Trochilus Alexandri
   - - "411"
-    - 
+    - calann
     - Calypte anna
     - (Lesson, 1829)
     - Anna's Hummingbird
@@ -6201,7 +6201,7 @@ species:
     - 423937213450C257
     - Ornismya Anna
   - - "412"
-    - 
+    - selruf
     - Selasphorus rufus
     - (Gmelin, 1788)
     - Rufous Hummingbird
@@ -6215,7 +6215,7 @@ species:
     - 1E1B6D193325DFB6
     - Trochilus rufus
   - - "413"
-    - 
+    - selsas
     - Selasphorus sasin
     - (Lesson, 1829)
     - Allen's Hummingbird
@@ -6229,7 +6229,7 @@ species:
     - C25794D595D7B943
     - Ornismya Sasin
   - - "414"
-    - 
+    - stecal
     - Stellula calliope
     - (Gould, 1847)
     - Calliope Hummingbird
@@ -6273,7 +6273,7 @@ species:
     - 9505E03D7416B365
     - Gracula Atthis
   - - "417"
-    - 
+    - megalc
     - Megaceryle alcyon
     - (Linnaeus, 1758)
     - Belted Kingfisher
@@ -6288,7 +6288,7 @@ species:
     - 3558066B4F7EEB8E
     - Alcedo Alcyon
   - - "418"
-    - 
+    - cerrud
     - Ceryle rudis
     - (Linnaeus, 1758)
     - Pied Kingfisher
@@ -6304,7 +6304,7 @@ species:
     - 8205077FA2E98715
     - Alcedo rudis
   - - "419"
-    - 
+    - merper
     - Merops persicus
     - (Pallas, 1773)
     - Blue-cheeked Bee-eater
@@ -6320,7 +6320,7 @@ species:
     - 6EE4511347F342C4
     - Merops persica
   - - "420"
-    - 
+    - mersup
     - Merops superciliosus
     - Linnaeus, 1766
     - Olive Bee-eater
@@ -6384,7 +6384,7 @@ species:
     - B2E6AB9FC2608DFA
     - Jynx Torquilla
   - - "424"
-    - 
+    - mellew
     - Melanerpes lewis
     - (Gray,GR, 1849)
     - Lewis's Woodpecker
@@ -6398,7 +6398,7 @@ species:
     - E7C9A1F5BDE23849
     - Picus Lewis
   - - "425"
-    - 
+    - melery
     - Melanerpes erythrocephalus
     - (Linnaeus, 1758)
     - Red-headed Woodpecker
@@ -6412,7 +6412,7 @@ species:
     - 448D91B74CBC772E
     - Picus erythrocephalus
   - - "426"
-    - 
+    - melcar
     - Melanerpes carolinus
     - (Linnaeus, 1758)
     - Red-bellied Woodpecker
@@ -6426,7 +6426,7 @@ species:
     - 078557F2A5FB88C8
     - Picus carolinus
   - - "427"
-    - 
+    - sphthy
     - Sphyrapicus thyroideus
     - (Cassin, 1852)
     - Williamson's Sapsucker
@@ -6440,7 +6440,7 @@ species:
     - 28A4DA7638EE5D5D
     - Picus thyroideus
   - - "428"
-    - 
+    - sphvar
     - Sphyrapicus varius
     - (Linnaeus, 1766)
     - Yellow-bellied Sapsucker
@@ -6486,7 +6486,7 @@ species:
     - 504B2FD466B8E1D8
     - Picus medius
   - - "431"
-    - 
+    - denleu
     - Dendrocopos leucotos
     - (Bechstein, 1802)
     - White-backed Woodpecker
@@ -6534,7 +6534,7 @@ species:
     - D754DB8552A7AA42
     - Picus major
   - - "434"
-    - 
+    - picpub
     - Picoides pubescens
     - (Linnaeus, 1766)
     - Downy Woodpecker
@@ -6546,7 +6546,7 @@ species:
     - 1B2A6386D509137D
     - Picus pubescens
   - - "435"
-    - 
+    - picvil
     - Picoides villosus
     - (Linnaeus, 1766)
     - Hairy Woodpecker
@@ -6558,7 +6558,7 @@ species:
     - 9D06AF89CDBCF27B
     - Picus villosus
   - - "436"
-    - 
+    - picbor
     - Picoides borealis
     - (Vieillot, 1809)
     - Red-cockaded Woodpecker
@@ -6570,7 +6570,7 @@ species:
     - 0BFCAE7944494A64
     - Picus borealis
   - - "437"
-    - 
+    - pictri
     - Picoides tridactylus
     - (Linnaeus, 1758)
     - Three-toed Woodpecker
@@ -6586,7 +6586,7 @@ species:
     - 412AEE80074AC417
     - Picus tridactylus
   - - "438"
-    - 
+    - picarc
     - Picoides arcticus
     - (Swainson, 1832)
     - Black-backed Woodpecker
@@ -6601,7 +6601,7 @@ species:
     - 6BDADC9C8CD3FD0C
     - Picus (Apternus) arcticus
   - - "439"
-    - 
+    - colaur
     - Colaptes auratus
     - (Linnaeus, 1758)
     - Northern Flicker
@@ -6615,7 +6615,7 @@ species:
     - 756009696D15E8A0
     - Cuculus auratus
   - - "440"
-    - 
+    - drypil
     - Dryocopus pileatus
     - (Linnaeus, 1758)
     - Pileated Woodpecker
@@ -6645,7 +6645,7 @@ species:
     - EDB4BBA6E765E593
     - Picus martius
   - - "442"
-    - 
+    - picvir
     - Picus viridis
     - Linnaeus, 1758
     - Green Woodpecker
@@ -6677,7 +6677,7 @@ species:
     - BC863B3AC0DB9AAA
     - Picus canus
   - - "444"
-    - 
+    - saypho
     - Sayornis phoebe
     - (Latham, 1790)
     - Eastern Phoebe
@@ -6691,7 +6691,7 @@ species:
     - 62CA2AF81AF5B68D
     - Muscicapa Phoebe
   - - "445"
-    - 
+    - saysay
     - Sayornis saya
     - (Bonaparte, 1825)
     - Say's Phoebe
@@ -6703,7 +6703,7 @@ species:
     - 28669A3DB1A28C69
     - Muscicapa saya
   - - "446"
-    - 
+    - concoo
     - Contopus cooperi
     - (Nuttall, 1831)
     - Olive-sided Flycatcher
@@ -6715,7 +6715,7 @@ species:
     - 951C150C10C1B0BA
     - Muscicapa cooperi
   - - "447"
-    - 
+    - consor
     - Contopus sordidulus
     - Sclater, PL, 1859
     - Western Wood Pewee
@@ -6727,7 +6727,7 @@ species:
     - F6CA75F0A391294D
     - Contopus sordidulus
   - - "448"
-    - 
+    - convir
     - Contopus virens
     - (Linnaeus, 1766)
     - Eastern Wood Pewee
@@ -6741,7 +6741,7 @@ species:
     - 9891BF73279CAB69
     - Muscicapa virens
   - - "449"
-    - 
+    - empfla
     - Empidonax flaviventris
     - (Baird,WM & Baird,SF, 1843)
     - Yellow-bellied Flycatcher
@@ -6753,7 +6753,7 @@ species:
     - 7B0669CBD8FC7A17
     - Tyrannula flaviventris
   - - "450"
-    - 
+    - empvir
     - Empidonax virescens
     - (Vieillot, 1818)
     - Acadian Flycatcher
@@ -6765,7 +6765,7 @@ species:
     - 2778A3F42BBFEBD5
     - Platyrhynchos virescens
   - - "451"
-    - 
+    - emptra
     - Empidonax traillii
     - (Audubon, 1828)
     - Willow Flycatcher
@@ -6780,7 +6780,7 @@ species:
     - 5BC4E0EFAB129B9D
     - Muscicapa traillii
   - - "452"
-    - 
+    - empaln
     - Empidonax alnorum
     - Brewster, 1895
     - Alder Flycatcher
@@ -6792,7 +6792,7 @@ species:
     - 338088120A17D3EA
     - Empidonax traillii alnorum
   - - "453"
-    - 
+    - empmin
     - Empidonax minimus
     - (Baird,WM & Baird,SF, 1843)
     - Least Flycatcher
@@ -6804,7 +6804,7 @@ species:
     - F5837054F30BA49D
     - Tyrannula minima
   - - "454"
-    - 
+    - empham
     - Empidonax hammondii
     - (Xantus de Vesey, 1858)
     - Hammond's Flycatcher
@@ -6816,7 +6816,7 @@ species:
     - 1EB2595EE95F774B
     - Tyrannula hammondii
   - - "455"
-    - 
+    - pyrrub
     - Pyrocephalus rubinus
     - (Boddaert, 1783)
     - Vermilion Flycatcher
@@ -6830,7 +6830,7 @@ species:
     - A80DB9891A5CACF6
     - Muscicapa rubinus
   - - "456"
-    - 
+    - pitsul
     - Pitangus sulphuratus
     - (Linnaeus, 1766)
     - Great Kiskadee
@@ -6844,7 +6844,7 @@ species:
     - 9C883C7BCFAEB70D
     - Lanius sulphuratus
   - - "457"
-    - 
+    - tyrver
     - Tyrannus verticalis
     - Say, 1823
     - Western Kingbird
@@ -6856,7 +6856,7 @@ species:
     - 2281F1C77260C0AB
     - Tyrannus verticalis
   - - "458"
-    - 
+    - tyrfor
     - Tyrannus forficatus
     - (Gmelin, 1789)
     - Scissor-tailed Flycatcher
@@ -6870,7 +6870,7 @@ species:
     - 6F65F82B4A1BA7F2
     - Muscicapa forficata
   - - "459"
-    - 
+    - tyrsav
     - Tyrannus savana
     - Vieillot, 1808
     - Fork-tailed Flycatcher
@@ -6884,7 +6884,7 @@ species:
     - A2510EF44C67DD52
     - Tyrannus savana
   - - "460"
-    - 
+    - tyrnus
     - Tyrannus tyrannus
     - (Linnaeus, 1758)
     - Eastern Kingbird
@@ -6896,7 +6896,7 @@ species:
     - 082D833CF61D6360
     - Lanius tyrannus
   - - "461"
-    - 
+    - tyrdom
     - Tyrannus dominicensis
     - (Gmelin, JF, 1788)
     - Gray Kingbird
@@ -6908,7 +6908,7 @@ species:
     - F5388B5EF2C0D783
     - Lanius Tyrannus dominicensis
   - - "462"
-    - 
+    - myicin
     - Myiarchus cinerascens
     - (Lawrence, 1851)
     - Ash-throated Flycatcher
@@ -6923,7 +6923,7 @@ species:
     - E0A049851AD70991
     - Tyrannula cinerascens
   - - "463"
-    - 
+    - myicri
     - Myiarchus crinitus
     - (Linnaeus, 1758)
     - Great Crested Flycatcher
@@ -6967,7 +6967,7 @@ species:
     - 8852337B06E8A14E
     - Lanius minor
   - - "466"
-    - 
+    - lanlud
     - Lanius ludovicianus
     - Linnaeus, 1766
     - Loggerhead Shrike
@@ -6997,7 +6997,7 @@ species:
     - B215F75A482EBDE1
     - Lanius Excubitor
   - - "468"
-    - 
+    - lansen
     - Lanius senator
     - Linnaeus, 1758
     - Woodchat Shrike
@@ -7014,7 +7014,7 @@ species:
     - 7E70D490A6476D16
     - Lanius Senator
   - - "469"
-    - 
+    - lannub
     - Lanius nubicus
     - Lichtenstein, 1823
     - Masked Shrike
@@ -7030,7 +7030,7 @@ species:
     - E90CC64A3A32FE26
     - Lanius nubicus
   - - "470"
-    - 
+    - virgri
     - Vireo griseus
     - (Boddaert, 1783)
     - White-eyed Vireo
@@ -7044,7 +7044,7 @@ species:
     - D97F93CC29E30108
     - Tanagra grisea
   - - "471"
-    - 
+    - virbel
     - Vireo bellii
     - Audubon, 1844
     - Bell's Vireo
@@ -7056,7 +7056,7 @@ species:
     - C3168495CAA783E4
     - Vireo Bellii
   - - "472"
-    - 
+    - virfla
     - Vireo flavifrons
     - Vieillot, 1808
     - Yellow-throated Vireo
@@ -7070,7 +7070,7 @@ species:
     - F8DDF6A6429E64D0
     - Vireo flavifrons
   - - "473"
-    - 
+    - virsol
     - Vireo solitarius
     - (Wilson, A, 1810)
     - Blue-headed Vireo
@@ -7084,7 +7084,7 @@ species:
     - 95DB0943652956D1
     - Muscicapa solitaria
   - - "474"
-    - 
+    - virgil
     - Vireo gilvus
     - (Vieillot, 1808)
     - Warbling Vireo
@@ -7096,7 +7096,7 @@ species:
     - B87A9B661C2159AF
     - Muscicapa gilva
   - - "475"
-    - 
+    - virphi
     - Vireo philadelphicus
     - (Cassin, 1851)
     - Philadelphia Vireo
@@ -7108,7 +7108,7 @@ species:
     - 447A1BA516A43F9A
     - Vireosylvia philadelphica
   - - "476"
-    - 
+    - viroli
     - Vireo olivaceus
     - (Linnaeus, 1766)
     - Red-eyed Vireo
@@ -7138,7 +7138,7 @@ species:
     - EBDD410629FE11AC
     - Coracias Oriolus
   - - "478"
-    - 
+    - perinf
     - Perisoreus infaustus
     - (Linnaeus, 1758)
     - Siberian Jay
@@ -7154,7 +7154,7 @@ species:
     - 43E6246776E789EC
     - Corvus infaustus
   - - "479"
-    - 
+    - percan
     - Perisoreus canadensis
     - (Linnaeus, 1766)
     - Gray Jay
@@ -7168,7 +7168,7 @@ species:
     - 69A6E32F323B9088
     - Corvus canadensis
   - - "480"
-    - 
+    - cyacri
     - Cyanocitta cristata
     - (Linnaeus, 1758)
     - Blue Jay
@@ -7231,7 +7231,7 @@ species:
     - ED2F7596EE41105F
     - Corvus Caryocatactes
   - - "484"
-    - 
+    - pyrgra
     - Pyrrhocorax graculus
     - (Linnaeus, 1766)
     - Alpine Chough/Yellow-billed Chough
@@ -7279,7 +7279,7 @@ species:
     - 1078FFEA23D9DD25
     - Corvus frugilegus
   - - "487"
-    - 
+    - corbra
     - Corvus brachyrhynchos
     - Brehm, CL, 1822
     - American Crow
@@ -7293,7 +7293,7 @@ species:
     - 9E9F24769B6ACBE3
     - Corvus brachyrhynchos
   - - "488"
-    - 
+    - coross
     - Corvus ossifragus
     - Wilson,A, 1812
     - Fish Crow
@@ -7307,7 +7307,7 @@ species:
     - 43E56D2CAA66A6CA
     - Corvus ossifragus
   - - "489"
-    - 
+    - corcor
     - Corvus corone
     - Linnaeus, 1758
     - Carrion Crow
@@ -7355,7 +7355,7 @@ species:
     - AEF821EC4625150E
     - Lanius Garrulus
   - - "492"
-    - 
+    - bomced
     - Bombycilla cedrorum
     - Vieillot, 1808
     - Cedar Waxwing
@@ -7401,7 +7401,7 @@ species:
     - 14CA6F72858B8F9D
     - Parus caeruleus
   - - "495"
-    - 
+    - parcya
     - Parus cyanus
     - Pallas, 1770
     - Azure Tit
@@ -7465,7 +7465,7 @@ species:
     - 01D4B731BF3D081F
     - Parus cinereus montanus
   - - "499"
-    - 
+    - parcar
     - Parus carolinensis
     - Audubon, 1834
     - Carolina Chickadee
@@ -7477,7 +7477,7 @@ species:
     - F941AAD38D7BA54D
     - Parus carolinensis
   - - "500"
-    - 
+    - paratr
     - Parus atricapillus
     - Linnaeus, 1766
     - Black-capped Chickadee
@@ -7491,7 +7491,7 @@ species:
     - B1F0CC82E34E4541
     - Parus atricapillus
   - - "501"
-    - 
+    - parhud
     - Parus hudsonicus
     - Forster, JR, 1772
     - Boreal Chickadee
@@ -7519,7 +7519,7 @@ species:
     - E553193354C74B21
     - Parus cristatus
   - - "503"
-    - 
+    - parbic
     - Parus bicolor
     - Linnaeus, 1766
     - Tufted Titmouse
@@ -7565,7 +7565,7 @@ species:
     - 94A1C447583CB6D2
     - Hirundo riparia
   - - "506"
-    - 
+    - tacbic
     - Tachycineta bicolor
     - (Vieillot, 1808)
     - Tree Swallow
@@ -7579,7 +7579,7 @@ species:
     - BBA2F9DF60AE60BF
     - Hirundo bicolor
   - - "507"
-    - 
+    - tactha
     - Tachycineta thalassina
     - (Swainson, 1827)
     - Violet-green Swallow
@@ -7591,7 +7591,7 @@ species:
     - 75DC49ADA7DBE82B
     - Hirundo thalassinus
   - - "508"
-    - 
+    - prosub
     - Progne subis
     - (Linnaeus, 1758)
     - Purple Martin
@@ -7606,7 +7606,7 @@ species:
     - ACB9D1C6AB7F3371
     - Hirundo subis
   - - "509"
-    - 
+    - steser
     - Stelgidopteryx serripennis
     - (Audubon, 1838)
     - Northern Rough-winged Swallow
@@ -7634,7 +7634,7 @@ species:
     - 58C502EA7AF3E023
     - Hirundo rustica
   - - "511"
-    - 
+    - ptyrup
     - Ptyonoprogne rupestris
     - (Scopoli, 1769)
     - Eurasian Crag Martin
@@ -7666,7 +7666,7 @@ species:
     - E4BB82F50C488B8B
     - Hirundo urbica
   - - "513"
-    - 
+    - cecdau
     - Cecropis daurica
     - (Laxmann, 1769)
     - Red-rumped Swallow
@@ -7682,7 +7682,7 @@ species:
     - AA41EDCEB7A8EA6E
     - Hirundo daurica
   - - "514"
-    - 
+    - petpyr
     - Petrochelidon pyrrhonota
     - (Vieillot , 1817)
     - Cliff Swallow
@@ -7696,7 +7696,7 @@ species:
     - F5C181CA4478FD86
     - Hirundo pyrrhonota
   - - "515"
-    - 
+    - petful
     - Petrochelidon fulva
     - (Vieillot, 1808)
     - Cave Swallow
@@ -7740,7 +7740,7 @@ species:
     - BDC24A8AA8A51BF9
     - Alauda calandra
   - - "518"
-    - 
+    - melleu
     - Melanocorypha leucoptera
     - (Pallas, 1811)
     - White-winged Lark
@@ -7756,7 +7756,7 @@ species:
     - 400B3679BCB80EDB
     - Alauda leucoptera
   - - "519"
-    - 
+    - melyel
     - Melanocorypha yeltoniensis
     - (Forster,JR, 1768)
     - Black Lark
@@ -7772,7 +7772,7 @@ species:
     - 811FC71929CD3B00
     - Alauda yeltoniensis
   - - "520"
-    - ""
+    - calbra
     - Calandrella brachydactyla
     - (Leisler, 1814)
     - Greater Short-toed Lark
@@ -7788,7 +7788,7 @@ species:
     - 34DD099CCBC8DCD7
     - Alauda brachydactila
   - - "521"
-    - 
+    - calrfs
     - Calandrella rufescens
     - (Vieillot, 1819)
     - Lesser Short-toed Lark
@@ -7852,7 +7852,7 @@ species:
     - ED2AC04E888EF9CF
     - Alauda arvensis
   - - "525"
-    - 
+    - erealp
     - Eremophila alpestris
     - (Linnaeus, 1758)
     - Horned Lark/Shorelark
@@ -7868,7 +7868,7 @@ species:
     - FC0A1D951186B019
     - Alauda alpestris
   - - "526"
-    - 
+    - cetcet
     - Cettia cetti
     - (Temminck, 1820)
     - Cetti's Warbler
@@ -7885,7 +7885,7 @@ species:
     - F3E9CE954FAF5EF5
     - Sylvia cetti
   - - "527"
-    - 
+    - locnae
     - Locustella naevia
     - (Boddaert, 1783)
     - Grasshopper Warbler
@@ -7901,7 +7901,7 @@ species:
     - BC0E4C9F87721B1A
     - Motacilla naevia
   - - "528"
-    - 
+    - locflu
     - Locustella fluviatilis
     - (Wolf, 1810)
     - River Warbler
@@ -7917,7 +7917,7 @@ species:
     - 2B020CA0ACF13B19
     - Sylvia fluviatilis
   - - "529"
-    - 
+    - loclus
     - Locustella luscinioides
     - (Savi, 1824)
     - Savi's Warbler
@@ -7949,7 +7949,7 @@ species:
     - B283E33243C17D97
     - Turdus arundinaceus
   - - "531"
-    - 
+    - acrmel
     - Acrocephalus melanopogon
     - (Temminck, 1823)
     - Moustached Warbler
@@ -7965,7 +7965,7 @@ species:
     - E1559C49B1A6C31F
     - Sylvia melanopogon
   - - "532"
-    - 
+    - acrpld
     - Acrocephalus paludicola
     - (Vieillot, 1817)
     - Aquatic Warbler
@@ -8013,7 +8013,7 @@ species:
     - 781FE53F2425B4C1
     - Sylvia (Acrocephalus) agricola
   - - "535"
-    - 
+    - acrdum
     - Acrocephalus dumetorum
     - Blyth, 1849
     - Blyth's Reed Warbler
@@ -8029,7 +8029,7 @@ species:
     - B22EAFC877C38967
     - Acrocephalus dumetorum
   - - "536"
-    - 
+    - acrsci
     - Acrocephalus scirpaceus
     - (Hermann, 1804)
     - Eurasian Reed Warbler
@@ -8061,7 +8061,7 @@ species:
     - B675E006C3745A12
     - Motacilla s. Sylvia palustris
   - - "538"
-    - 
+    - iducal
     - Iduna caligata
     - (Lichtenstein, 1823)
     - Booted Warbler
@@ -8077,7 +8077,7 @@ species:
     - 1A6C6F1718FEDB5D
     - Sylvia caligata
   - - "539"
-    - 
+    - idupal
     - Iduna pallida
     - (Hemprich & Ehrenberg, 1833)
     - Olivaceous Warbler
@@ -8093,7 +8093,7 @@ species:
     - AD64B07F84CFE0AC
     - Curruca pallida
   - - "540"
-    - 
+    - hipoli
     - Hippolais olivetorum
     - (Strickland, 1837)
     - Olive-tree Warbler
@@ -8158,7 +8158,7 @@ species:
     - F9F4B04D08108B41
     - Sylvia collybita
   - - "544"
-    - 
+    - phybon
     - Phylloscopus bonelli
     - (Vieillot, 1819)
     - Western Bonelli's Warbler
@@ -8174,7 +8174,7 @@ species:
     - C00674ED5FC9DB8A
     - Sylvia Bonelli
   - - "545"
-    - 
+    - phyori
     - Phylloscopus orientalis
     - (Brehm,CL, 1855)
     - Eastern Bonelli's Warbler
@@ -8204,7 +8204,7 @@ species:
     - 572C4C7FD4322D14
     - Motacilla Sibilatrix
   - - "547"
-    - 
+    - physch
     - Phylloscopus schwarzi
     - (Radde, 1863)
     - Radde's Warbler
@@ -8220,7 +8220,7 @@ species:
     - 9A536399807238AF
     - Sylvia (Phyllopneuste) Schwarzi
   - - "548"
-    - 
+    - phypro
     - Phylloscopus proregulus
     - (Pallas, 1811)
     - Pallas's Leaf Warbler
@@ -8236,7 +8236,7 @@ species:
     - 943E36CADFE7551B
     - Motacilla Proregulus
   - - "549"
-    - 
+    - phyino
     - Phylloscopus inornatus
     - (Blyth, 1842)
     - Yellow-browed Warbler
@@ -8252,7 +8252,7 @@ species:
     - 0C120038E5CA37D7
     - Regulus inornatus
   - - "550"
-    - 
+    - phynit
     - Phylloscopus nitidus
     - Blyth, 1843
     - Green Leaf Warbler
@@ -8268,7 +8268,7 @@ species:
     - 3542C46BC98FB367
     - Phylloscopus nitidus
   - - "551"
-    - 
+    - phytrd
     - Phylloscopus trochiloides
     - (Sundevall, 1837)
     - Greenish Warbler
@@ -8317,7 +8317,7 @@ species:
     - A6A4FC63261EA8CD
     - Motacilla Borin
   - - "554"
-    - 
+    - sylnis
     - Sylvia nisoria
     - (Bechstein, 1792)
     - Barred Warbler
@@ -8349,7 +8349,7 @@ species:
     - 0DCD05BE8EE35C8D
     - Motacilla Curruca
   - - "556"
-    - 
+    - sylhor
     - Sylvia hortensis
     - (Gmelin, JF, 1789)
     - Orphean Warbler
@@ -8365,7 +8365,7 @@ species:
     - E9BF88BF10DB8F10
     - Motacilla hortensis
   - - "557"
-    - 
+    - sylnan
     - Sylvia nana
     - (Hemprich & Ehrenberg, 1833)
     - Desert Warbler
@@ -8397,7 +8397,7 @@ species:
     - 14AFBA82D556918C
     - Sylvia communis
   - - "559"
-    - 
+    - sylcan
     - Sylvia cantillans
     - (Pallas, 1764)
     - Subalpine Warbler
@@ -8414,7 +8414,7 @@ species:
     - 905A5016906F8A9F
     - Motacilla (cantillans)
   - - "560"
-    - 
+    - sylmel
     - Sylvia melanocephala
     - (Gmelin, JF, 1789)
     - Sardinian Warbler
@@ -8432,7 +8432,7 @@ species:
     - B0D094830E71F76A
     - Motacilla melanocephala
   - - "561"
-    - 
+    - sylmys
     - Sylvia mystacea
     - Menetries, 1832
     - "M\xC3\xA9n\xC3\xA9tri\xC3\xA9s's Warbler"
@@ -8448,7 +8448,7 @@ species:
     - AA027706CFDB4C9A
     - Sylvia mystacea
   - - "562"
-    - 
+    - sylrup
     - Sylvia ruppeli
     - (Temminck, 1823)
     - "R\xC3\xBCppell's Warbler"
@@ -8480,7 +8480,7 @@ species:
     - 7D59F91D9548DCE7
     - Parus biarmicus
   - - "564"
-    - 
+    - regign
     - Regulus ignicapilla
     - (Temminck, 1820)
     - Firecrest
@@ -8512,7 +8512,7 @@ species:
     - 1C51C1095E427BB8
     - Motacilla Regulus
   - - "566"
-    - 
+    - regsat
     - Regulus satrapa
     - Lichtenstein, MHK, 1823
     - Golden-crowned Kinglet
@@ -8526,7 +8526,7 @@ species:
     - 154BCCAE37AE70E9
     - Regulus satrapa
   - - "567"
-    - 
+    - regcal
     - Regulus calendula
     - (Linnaeus, 1766)
     - Ruby-crowned Kinglet
@@ -8540,7 +8540,7 @@ species:
     - B60B1166CE5DDFA7
     - Motacilla Calendula
   - - "568"
-    - 
+    - salobs
     - Salpinctes obsoletus
     - (Say, 1823)
     - Rock Wren
@@ -8554,7 +8554,7 @@ species:
     - 76DF73A9F213E90A
     - Troglodytes obsoleta
   - - "569"
-    - 
+    - cispla
     - Cistothorus platensis
     - (Latham, 1790)
     - Sedge Wren
@@ -8568,7 +8568,7 @@ species:
     - ACCC4E9B737755DA
     - Sylvia platensis
   - - "570"
-    - 
+    - cispal
     - Cistothorus palustris
     - (Wilson, A, 1810)
     - Marsh Wren
@@ -8582,7 +8582,7 @@ species:
     - 787E05366752B844
     - Certhia palustris
   - - "571"
-    - 
+    - thrbew
     - Thryomanes bewickii
     - (Audubon, 1827)
     - Bewick's Wren
@@ -8594,7 +8594,7 @@ species:
     - 603194D371801AC0
     - Troglodytes bewickii
   - - "572"
-    - 
+    - thrlud
     - Thryothorus ludovicianus
     - (Latham, 1790)
     - Carolina Wren
@@ -8624,7 +8624,7 @@ species:
     - 11A4055E89689538
     - Motacilla Troglodytes
   - - "574"
-    - 
+    - troaed
     - Troglodytes aedon
     - (Vieillot, 1809)
     - House Wren
@@ -8638,7 +8638,7 @@ species:
     - 1181E29791E92A94
     - "Troglodytes a\xC3\xABdon"
   - - "575"
-    - 
+    - polcae
     - Polioptila caerulea
     - (Linnaeus, 1766)
     - Blue-gray Gnatcatcher
@@ -8668,7 +8668,7 @@ species:
     - 3C468678E0958FC6
     - Sitta europaea
   - - "577"
-    - 
+    - sitpus
     - Sitta pusilla
     - Latham, 1790
     - Brown-headed Nuthatch
@@ -8682,7 +8682,7 @@ species:
     - 85729C75FED7B59E
     - Sitta pusilla
   - - "578"
-    - 
+    - sitcan
     - Sitta canadensis
     - Linnaeus, 1766
     - Red-breasted Nuthatch
@@ -8696,7 +8696,7 @@ species:
     - 0716A71C439DC09E
     - Sitta canadensis
   - - "579"
-    - 
+    - sitcar
     - Sitta carolinensis
     - Latham, 1790
     - White-breasted Nuthatch
@@ -8710,7 +8710,7 @@ species:
     - 19CCBBD220E533AD
     - Sitta carolinensis
   - - "580"
-    - 
+    - ticmur
     - Tichodroma muraria
     - (Linnaeus, 1766)
     - Wallcreeper
@@ -8742,7 +8742,7 @@ species:
     - B10DCAC5CB1ECBE9
     - Certhia familiaris
   - - "582"
-    - 
+    - cerame
     - Certhia americana
     - Bonaparte, 1838
     - Brown Creeper/American Treecreeper
@@ -8754,7 +8754,7 @@ species:
     - BAC33609C5F48A91
     - Certhia americana
   - - "583"
-    - 
+    - cerbra
     - Certhia brachydactyla
     - Brehm, CL, 1820
     - Short-toed Treecreeper
@@ -8771,7 +8771,7 @@ species:
     - 552E2BA9FE43A2EE
     - Certhia brachydactyla
   - - "584"
-    - 
+    - dumcar
     - Dumetella carolinensis
     - (Linnaeus, 1766)
     - Gray Catbird
@@ -8785,7 +8785,7 @@ species:
     - 95B77F083F49835F
     - Muscicapa carolinensis
   - - "585"
-    - 
+    - mimpol
     - Mimus polyglottos
     - (Linnaeus, 1758)
     - Northern Mockingbird
@@ -8800,7 +8800,7 @@ species:
     - 7EFF698DC564CF69
     - Turdus polyglottos
   - - "586"
-    - 
+    - oremon
     - Oreoscoptes montanus
     - (Townsend,JK, 1837)
     - Sage Thrasher
@@ -8812,7 +8812,7 @@ species:
     - F6DF700B33402E74
     - Orpheus montanus
   - - "587"
-    - 
+    - toxruf
     - Toxostoma rufum
     - (Linnaeus, 1758)
     - Brown Thrasher
@@ -8859,7 +8859,7 @@ species:
     - 94A4403295E2D9BE
     - Sturnus vulgaris
   - - "590"
-    - 
+    - ixonae
     - Ixoreus naevius
     - (Gmelin, JF, 1789)
     - Varied Thrush
@@ -8873,7 +8873,7 @@ species:
     - 583128734B0F566A
     - Turdus naevius
   - - "591"
-    - 
+    - siasia
     - Sialia sialis
     - (Linnaeus, 1758)
     - Eastern Bluebird
@@ -8887,7 +8887,7 @@ species:
     - A8347C7DF99F44B5
     - Motacilla Sialis
   - - "592"
-    - 
+    - siacur
     - Sialia currucoides
     - (Bechstein, 1798)
     - Mountain Bluebird
@@ -8899,7 +8899,7 @@ species:
     - 97B870B4D154F7DB
     - Motacilla s. Sylvia Currucoides
   - - "593"
-    - 
+    - myatow
     - Myadestes townsendi
     - (Audubon, 1838)
     - Townsend's Solitaire
@@ -8913,7 +8913,7 @@ species:
     - 5459228D7CD8E8CB
     - Ptiliogonys (sic) Townsendi
   - - "594"
-    - 
+    - catfus
     - Catharus fuscescens
     - (Stephens, 1817)
     - Veery
@@ -8925,7 +8925,7 @@ species:
     - 0B8F4EE60AFF4B25
     - Turdus Fuscescens
   - - "595"
-    - 
+    - catmin
     - Catharus minimus
     - (Lafresnaye, 1848)
     - Gray-cheeked Thrush
@@ -8939,7 +8939,7 @@ species:
     - B904BB227C07317E
     - Turdus minimus
   - - "596"
-    - 
+    - catbic
     - Catharus bicknelli
     - (Ridgway, 1882)
     - Bicknell's Thrush
@@ -8951,7 +8951,7 @@ species:
     - 5E1BED9DF111DB7D
     - Hylocichla aliciae bicknelli
   - - "597"
-    - 
+    - catust
     - Catharus ustulatus
     - (Nuttall, 1840)
     - Swainson's Thrush
@@ -8967,7 +8967,7 @@ species:
     - E53FC25C090A6AD8
     - Turdus ustulatus
   - - "598"
-    - 
+    - catgut
     - Catharus guttatus
     - (Pallas, 1811)
     - Hermit Thrush
@@ -8981,7 +8981,7 @@ species:
     - B01E8BD42E1785F2
     - Muscicapa guttata
   - - "599"
-    - 
+    - hylmus
     - Hylocichla mustelina
     - (Gmelin, 1789)
     - Wood Thrush
@@ -8995,7 +8995,7 @@ species:
     - 8E1D9327B8DAFD54
     - Turdus mustelinus
   - - "600"
-    - 
+    - turtor
     - Turdus torquatus
     - Linnaeus, 1758
     - Ring Ouzel
@@ -9027,7 +9027,7 @@ species:
     - 1BB50DE8362A4963
     - Turdus Merula
   - - "602"
-    - 
+    - turatr
     - Turdus atrogularis
     - Jarocki, 1819
     - Black-throated Thrush
@@ -9043,7 +9043,7 @@ species:
     - AECDBFFA55C87E24
     - Turdus atrogularis
   - - "603"
-    - 
+    - turnau
     - Turdus naumanni
     - Temminck, 1820
     - Naumann's Thrush
@@ -9059,7 +9059,7 @@ species:
     - 22761AD4A981E2F6
     - Turdus naumanni
   - - "604"
-    - ""
+    - tureun
     - Turdus eunomus
     - Temminck, 1831
     - Dusky Thrush
@@ -9089,7 +9089,7 @@ species:
     - D120D5A070E8123C
     - Turdus pilaris
   - - "606"
-    - 
+    - turili
     - Turdus iliacus
     - Linnaeus, 1758
     - Redwing
@@ -9137,14 +9137,16 @@ species:
     - A95B43F1E9D10296
     - Turdus viscivorus
   - - "609"
-    - 
+    - turmig
     - Turdus migratorius
     - Linnaeus, 1766
     - American Robin
     - !binary |
       0KHRgtGA0LDQvdGB0YLQstGD0Y7RidC40Lkg0LTRgNC+0LfQtA==
 
-    - ""
+    - !binary |
+      0JzQsNC90LTRgNGW0LLQvdC40Lkg0LTRgNGW0LfQtA==
+
     - "610"
     - Passeriformes
     - Turdidae
@@ -9199,7 +9201,7 @@ species:
     - 6EC667529FB53E43
     - Motacilla Luscinia
   - - "613"
-    - 
+    - lusmeg
     - Luscinia megarhynchos
     - Brehm, CL, 1831
     - Common Nightingale
@@ -9215,7 +9217,7 @@ species:
     - 7C7F0DEE5B364038
     - Luscinia megarhynchos
   - - "614"
-    - 
+    - cergal
     - Cercotrichas galactotes
     - (Temminck, 1820)
     - Rufous Scrub Robin
@@ -9344,7 +9346,7 @@ species:
     - 2FB34D83F74FCEAB
     - Motacilla pleschanka
   - - "622"
-    - 
+    - oenhis
     - Oenanthe hispanica
     - (Linnaeus, 1758)
     - Black-eared Wheatear
@@ -9360,7 +9362,7 @@ species:
     - 9611335C2442B3DD
     - Motacilla hispanica
   - - "623"
-    - 
+    - oenleu
     - Oenanthe leucura
     - (Gmelin, JF, 1789)
     - Black Wheatear
@@ -9376,7 +9378,7 @@ species:
     - 1C98EA2F8CD4DD15
     - Turdus leucurus
   - - "624"
-    - 
+    - monsax
     - Monticola saxatilis
     - (Linnaeus, 1766)
     - Common Rock Thrush
@@ -9392,7 +9394,7 @@ species:
     - 736D38E7F9967842
     - Turdus saxatilis
   - - "625"
-    - 
+    - monsol
     - Monticola solitarius
     - (Linnaeus, 1758)
     - Blue Rock Thrush
@@ -9472,7 +9474,7 @@ species:
     - 612EA610E59DB6FD
     - Muscicapa parva
   - - "630"
-    - 
+    - cinlus
     - Cinclus cinclus
     - (Linnaeus, 1758)
     - White-throated Dipper
@@ -9504,7 +9506,7 @@ species:
     - 6D3BD126D55F8B69
     - Fringilla domestica
   - - "632"
-    - 
+    - pashis
     - Passer hispaniolensis
     - (Temminck, 1820)
     - Spanish Sparrow
@@ -9536,7 +9538,7 @@ species:
     - C22FBF8D36F91BCA
     - Fringilla montana
   - - "634"
-    - 
+    - petnia
     - Petronia petronia
     - (Linnaeus, 1766)
     - Rock Sparrow
@@ -9552,7 +9554,7 @@ species:
     - F8748F12A35515B1
     - Fringilla Petronia
   - - "635"
-    - 
+    - monniv
     - Montifringilla nivalis
     - (Linnaeus, 1766)
     - White-winged Snowfinch
@@ -9568,7 +9570,7 @@ species:
     - 3E389D037AA10A4C
     - Fringilla nivalis
   - - "636"
-    - 
+    - prucol
     - Prunella collaris
     - (Scopoli, 1769)
     - Alpine Accentor
@@ -9584,7 +9586,7 @@ species:
     - A783468FC167312E
     - Sturnus collaris
   - - "637"
-    - 
+    - prumon
     - Prunella montanella
     - (Pallas, 1776)
     - Siberian Accentor
@@ -9632,7 +9634,7 @@ species:
     - 1F56DC34CAC3901F
     - Motacilla flava
   - - "640"
-    - 
+    - motcit
     - Motacilla citreola
     - Pallas, 1776
     - Citrine Wagtail
@@ -9648,7 +9650,7 @@ species:
     - 5B0295C122B63ED3
     - Motacilla citreola
   - - "641"
-    - 
+    - motcin
     - Motacilla cinerea
     - Tunstall, 1771
     - Grey Wagtail
@@ -9680,7 +9682,7 @@ species:
     - FBE02965F955440D
     - Motacilla alba
   - - "643"
-    - 
+    - antric
     - Anthus richardi
     - Vieillot, 1818
     - Richard's Pipit
@@ -9708,7 +9710,7 @@ species:
     - 250CDA5828B68D0A
     - Alauda campestris
   - - "645"
-    - 
+    - antpra
     - Anthus pratensis
     - (Linnaeus, 1758)
     - Meadow Pipit
@@ -9740,7 +9742,7 @@ species:
     - 365F5E975B414FE6
     - Alauda trivialis
   - - "647"
-    - 
+    - antcer
     - Anthus cervinus
     - (Pallas, 1811)
     - Red-throated Pipit
@@ -9756,7 +9758,7 @@ species:
     - 319D044A667563CD
     - Motacilla cervina
   - - "648"
-    - 
+    - antrub
     - Anthus rubescens
     - (Tunstall, 1771)
     - Buff-bellied Pipit
@@ -9770,7 +9772,7 @@ species:
     - 8F26868274C1EE0A
     - Alauda Rubescens
   - - "649"
-    - 
+    - antspi
     - Anthus spinoletta
     - (Linnaeus, 1758)
     - Water Pipit
@@ -9786,7 +9788,7 @@ species:
     - 0A3FA18502F4FC70
     - Alauda Spinoletta
   - - "650"
-    - 
+    - antspr
     - Anthus spragueii
     - (Audubon, 1844)
     - Sprague's Pipit
@@ -9878,7 +9880,7 @@ species:
     - 9820CECA12EC737D
     - Fringilla Spinus
   - - "656"
-    - 
+    - carpin
     - Carduelis pinus
     - (Wilson, A, 1810)
     - Pine Siskin
@@ -9890,7 +9892,7 @@ species:
     - B48335B1DF4EF710
     - Fringilla pinus
   - - "657"
-    - 
+    - cartri
     - Carduelis tristis
     - (Linnaeus, 1758)
     - American Goldfinch
@@ -9936,7 +9938,7 @@ species:
     - 3D1C0668E99B7AC1
     - Fringilla flammea
   - - "660"
-    - 
+    - carhor
     - Carduelis hornemanni
     - (Holboell, 1843)
     - Hoary Redpoll
@@ -9952,7 +9954,7 @@ species:
     - D23A3F75CCD56E6B
     - Linota hornemanni
   - - "661"
-    - 
+    - carfla
     - Carduelis flavirostris
     - (Linnaeus, 1758)
     - Twite
@@ -9984,7 +9986,7 @@ species:
     - 32635892A4EB874F
     - Fringilla cannabina
   - - "663"
-    - 
+    - carery
     - Carpodacus erythrinus
     - (Pallas, 1770)
     - Common Rosefinch
@@ -10000,7 +10002,7 @@ species:
     - 3A713345F43AFFA6
     - Loxia erythrina
   - - "664"
-    - 
+    - carpur
     - Carpodacus purpureus
     - (Gmelin, JF, 1789)
     - Purple Finch
@@ -10012,7 +10014,7 @@ species:
     - B4EE123DE4241449
     - Fringilla purpurea
   - - "665"
-    - 
+    - carmex
     - Carpodacus mexicanus
     - "(Statius M\xC3\xBCller, PL, 1776)"
     - House Finch
@@ -10024,7 +10026,7 @@ species:
     - 89431E9F1CEDC995
     - Fringilla mexicana
   - - "666"
-    - 
+    - carros
     - Carpodacus roseus
     - (Pallas, 1776)
     - Pallas's Rosefinch
@@ -10040,7 +10042,7 @@ species:
     - 68DF5AB792401570
     - Fringilla rosea
   - - "667"
-    - 
+    - carrub
     - Carpodacus rubicilla
     - "(G\xC3\xBCldenst\xC3\xA4dt, 1775)"
     - Great Rosefinch
@@ -10056,7 +10058,7 @@ species:
     - 7621E1A6BFDF4D92
     - Loxia rubicilla
   - - "668"
-    - 
+    - pinenu
     - Pinicola enucleator
     - (Linnaeus, 1758)
     - Pine Grosbeak
@@ -10072,7 +10074,7 @@ species:
     - 83AC4DAD94AFC411
     - Loxia Enucleator
   - - "669"
-    - 
+    - loxpyt
     - Loxia pytyopsittacus
     - Borkhausen, 1793
     - Parrot Crossbill
@@ -10088,7 +10090,7 @@ species:
     - CAAD3E23531C26C5
     - Loxia pytyopsittacus
   - - "670"
-    - 
+    - loxcur
     - Loxia curvirostra
     - Linnaeus, 1758
     - Red Crossbill
@@ -10104,7 +10106,7 @@ species:
     - 135564AAF6B01DA2
     - Loxia Curvirostra
   - - "671"
-    - 
+    - loxleu
     - Loxia leucoptera
     - Gmelin, JF, 1789
     - White-winged Crossbill
@@ -10152,7 +10154,7 @@ species:
     - 84E1F1149261F19E
     - Loxia Coccothraustes
   - - "674"
-    - 
+    - hesves
     - Hesperiphona vespertina
     - (Cooper, W, 1825)
     - Evening Grosbeak
@@ -10164,7 +10166,7 @@ species:
     - C6B5497C9DB6796A
     - Fringilla vespertina
   - - "675"
-    - 
+    - verchr
     - Vermivora chrysoptera
     - (Linnaeus, 1766)
     - Golden-winged Warbler
@@ -10179,7 +10181,7 @@ species:
     - 83F326C81E3F2955
     - Motacilla chrysoptera
   - - "676"
-    - 
+    - verpin
     - Vermivora pinus
     - (Linnaeus, 1766)
     - Blue-winged Warbler
@@ -10193,7 +10195,7 @@ species:
     - B617FE7DF96090DD
     - Certhia Pinus
   - - "677"
-    - 
+    - verper
     - Vermivora peregrina
     - (Wilson,A, 1811)
     - Tennessee Warbler
@@ -10205,7 +10207,7 @@ species:
     - D204A9309E8CCC3A
     - Sylvia peregrina
   - - "678"
-    - 
+    - vercel
     - Vermivora celata
     - (Say, 1823)
     - Orange-crowned Warbler
@@ -10217,7 +10219,7 @@ species:
     - FFF6108042E63910
     - Sylvia celatus
   - - "679"
-    - 
+    - verruf
     - Vermivora ruficapilla
     - (Wilson, A, 1811)
     - Nashville Warbler
@@ -10229,7 +10231,7 @@ species:
     - 183E5F909449A603
     - Sylvia ruficapilla
   - - "680"
-    - 
+    - vervir
     - Vermivora virginiae
     - (Baird,SF, 1860)
     - Virginia's Warbler
@@ -10241,7 +10243,7 @@ species:
     - A97F14D0EE2CEBCD
     - Helminthophaga virginiae
   - - "681"
-    - 
+    - parame
     - Parula americana
     - (Linnaeus, 1758)
     - Northern Parula
@@ -10253,7 +10255,7 @@ species:
     - 41062654293EB4E1
     - Parus americanus
   - - "682"
-    - 
+    - denpen
     - Dendroica pensylvanica
     - (Linnaeus, 1766)
     - Chestnut-sided Warbler
@@ -10268,7 +10270,7 @@ species:
     - 7AB1229BD3F33F46
     - Motacilla pensylvanica
   - - "683"
-    - 
+    - denpet
     - Dendroica petechia
     - (Linnaeus, 1766)
     - Yellow Warbler
@@ -10282,7 +10284,7 @@ species:
     - A6C0C4A9DCB84453
     - Motacilla petechia
   - - "684"
-    - 
+    - denstr
     - Dendroica striata
     - (Forster,JR, 1772)
     - Blackpoll Warbler
@@ -10294,7 +10296,7 @@ species:
     - 544A5E6BC69CEAAC
     - Muscicapa striata
   - - "685"
-    - 
+    - dencas
     - Dendroica castanea
     - (Wilson,A, 1810)
     - Bay-breasted Warbler
@@ -10306,7 +10308,7 @@ species:
     - 10C601D3BCC5A85C
     - Sylvia castanea
   - - "686"
-    - 
+    - denfus
     - Dendroica fusca
     - "(Statius M\xC3\xBCller, 1776)"
     - Blackburnian Warbler
@@ -10318,7 +10320,7 @@ species:
     - 4168AF09C7BCB40B
     - Motacilla fusca
   - - "687"
-    - 
+    - denmag
     - Dendroica magnolia
     - (Wilson,A, 1811)
     - Magnolia Warbler
@@ -10332,7 +10334,7 @@ species:
     - 1E82CE1ECC54F928
     - Sylvia magnolia
   - - "688"
-    - 
+    - dencer
     - Dendroica cerulea
     - (Wilson,A, 1810)
     - Cerulean Warbler
@@ -10346,7 +10348,7 @@ species:
     - D00EC2C974F1B880
     - Sylvia cerulea
   - - "689"
-    - 
+    - dentig
     - Dendroica tigrina
     - (Gmelin, 1789)
     - Cape May Warbler
@@ -10360,7 +10362,7 @@ species:
     - DB20CB6B0A720B90
     - Motacilla tigrina
   - - "690"
-    - 
+    - dencae
     - Dendroica caerulescens
     - (Gmelin, JF, 1789)
     - Black-throated Blue Warbler
@@ -10375,7 +10377,7 @@ species:
     - 67B455A71B1C2506
     - Motacilla caerulescens
   - - "691"
-    - 
+    - dencor
     - Dendroica coronata
     - (Linnaeus, 1766)
     - Yellow-rumped Warbler
@@ -10389,7 +10391,7 @@ species:
     - BC5A949807108302
     - Motacilla coronata
   - - "692"
-    - 
+    - dennig
     - Dendroica nigrescens
     - (Townsend, JK, 1837)
     - Black-throated Gray Warbler
@@ -10401,7 +10403,7 @@ species:
     - 6B7A93C56A110723
     - Sylvia nigrescens
   - - "693"
-    - 
+    - denvir
     - Dendroica virens
     - (Gmelin, 1789)
     - Black-throated Green Warbler
@@ -10413,7 +10415,7 @@ species:
     - 9FFEDE99DC82DD92
     - Motacilla virens
   - - "694"
-    - 
+    - dentow
     - Dendroica townsendi
     - (Townsend,JK, 1837)
     - Townsend's Warbler
@@ -10427,7 +10429,7 @@ species:
     - F6C6C3F7E27ED557
     - Sylvia Townsendi
   - - "695"
-    - 
+    - dendom
     - Dendroica dominica
     - (Linnaeus, 1766)
     - Yellow-throated Warbler
@@ -10439,7 +10441,7 @@ species:
     - 4A8D1A19B9685441
     - Motacilla dominica
   - - "696"
-    - 
+    - dendis
     - Dendroica discolor
     - (Vieillot, 1809)
     - Prairie Warbler
@@ -10451,7 +10453,7 @@ species:
     - E36325FA08B46EEF
     - Sylvia discolor
   - - "697"
-    - 
+    - denpin
     - Dendroica pinus
     - (Wilson, A, 1811)
     - Pine Warbler
@@ -10463,7 +10465,7 @@ species:
     - 6283E61EEF174882
     - Sylvia pinus
   - - "698"
-    - 
+    - denpal
     - Dendroica palmarum
     - (Gmelin, JF, 1789)
     - Palm Warbler
@@ -10475,7 +10477,7 @@ species:
     - 4AAEF54973E5453C
     - Motacilla palmarum
   - - "699"
-    - 
+    - mnivar
     - Mniotilta varia
     - (Linnaeus, 1766)
     - Black-and-white Warbler
@@ -10489,7 +10491,7 @@ species:
     - 4D207AF69A79DDCF
     - Motacilla varia
   - - "700"
-    - 
+    - setrut
     - Setophaga ruticilla
     - (Linnaeus, 1758)
     - American Redstart
@@ -10504,7 +10506,7 @@ species:
     - BED38F505F0B8509
     - Motacilla Ruticilla
   - - "701"
-    - 
+    - procit
     - Protonotaria citrea
     - (Boddaert, 1783)
     - Prothonotary Warbler
@@ -10518,7 +10520,7 @@ species:
     - 4D08EE7E80D2E275
     - Motacilla citrea
   - - "702"
-    - 
+    - helver
     - Helmitheros vermivorum
     - (Gmelin, 1789)
     - Worm-eating Warbler
@@ -10532,7 +10534,7 @@ species:
     - 295C4CD62A12ADEF
     - Motacilla vermivora
   - - "703"
-    - 
+    - limswa
     - Limnothlypis swainsonii
     - (Audubon, 1834)
     - Swainson's Warbler
@@ -10544,7 +10546,7 @@ species:
     - D3624203E6C65D28
     - Sylvia Swainsonii
   - - "704"
-    - 
+    - seiaur
     - Seiurus aurocapilla
     - (Linnaeus, 1766)
     - Ovenbird
@@ -10559,7 +10561,7 @@ species:
     - CEA5B6AA48218C8A
     - Motacilla aurocapilla
   - - "705"
-    - 
+    - seinov
     - Seiurus noveboracensis
     - (Gmelin, 1789)
     - Northern Waterthrush
@@ -10573,7 +10575,7 @@ species:
     - 709AF716468341F7
     - Motacilla noveboracensis
   - - "706"
-    - 
+    - seimot
     - Seiurus motacilla
     - (Vieillot, 1809)
     - Louisiana Waterthrush
@@ -10585,7 +10587,7 @@ species:
     - 7AB0F3A4A62BD4BF
     - Turdus motacilla
   - - "707"
-    - 
+    - opofor
     - Oporornis formosus
     - (Wilson,A, 1811)
     - Kentucky Warbler
@@ -10600,7 +10602,7 @@ species:
     - 8C105C3C647C7E36
     - Sylvia formosa
   - - "708"
-    - 
+    - opoagi
     - Oporornis agilis
     - (Wilson,A, 1812)
     - Connecticut Warbler
@@ -10612,7 +10614,7 @@ species:
     - 0B23929DF27B0963
     - Sylvia agilis
   - - "709"
-    - 
+    - opophi
     - Oporornis philadelphia
     - (Wilson,A, 1810)
     - Mourning Warbler
@@ -10624,7 +10626,7 @@ species:
     - 1A0096F2F929CEA2
     - Sylvia Philadelphia
   - - "710"
-    - 
+    - opotol
     - Oporornis tolmiei
     - (Townsend, JK, 1839)
     - MacGillivray's Warbler
@@ -10636,7 +10638,7 @@ species:
     - 85106518F57F4B09
     - Sylvia Tolmiei
   - - "711"
-    - 
+    - geotri
     - Geothlypis trichas
     - (Linnaeus, 1766)
     - Common Yellowthroat
@@ -10651,7 +10653,7 @@ species:
     - BA4C8A02839564AC
     - Turdus Trichas
   - - "712"
-    - 
+    - wilcit
     - Wilsonia citrina
     - (Boddaert, 1783)
     - Hooded Warbler
@@ -10665,7 +10667,7 @@ species:
     - 15EB30007E1908FD
     - Muscicapa citrina
   - - "713"
-    - 
+    - wilpus
     - Wilsonia pusilla
     - (Wilson, A, 1811)
     - Wilson's Warbler
@@ -10679,7 +10681,7 @@ species:
     - 1F09CCCCBD97B861
     - Muscicapa pusilla
   - - "714"
-    - 
+    - wilcan
     - Wilsonia canadensis
     - (Linnaeus, 1766)
     - Canada Warbler
@@ -10691,7 +10693,7 @@ species:
     - F2D675AFB11EEEFF
     - Muscicapa canadensis
   - - "715"
-    - 
+    - myipic
     - Myioborus pictus
     - (Swainson, 1829)
     - Painted Redstart
@@ -10706,7 +10708,7 @@ species:
     - 3255D987DF235968
     - Setophaga picta
   - - "716"
-    - 
+    - ictvir
     - Icteria virens
     - (Linnaeus, 1758)
     - Yellow-breasted Chat
@@ -10720,7 +10722,7 @@ species:
     - 734C73A933F3108B
     - Turdus virens
   - - "717"
-    - 
+    - ictspu
     - Icterus spurius
     - (Linnaeus, 1766)
     - Orchard Oriole
@@ -10732,7 +10734,7 @@ species:
     - 000482C9FC0553CD
     - Oriolus spurius
   - - "718"
-    - 
+    - ictgal
     - Icterus galbula
     - (Linnaeus, 1758)
     - Baltimore Oriole
@@ -10746,7 +10748,7 @@ species:
     - 5110842FA06DD11C
     - ""
   - - "719"
-    - 
+    - ictbul
     - Icterus bullockii
     - (Swainson, 1827)
     - Bullock's Oriole
@@ -10758,7 +10760,7 @@ species:
     - 7E65A952009BFD5F
     - Xanthornus Bullockii
   - - "720"
-    - 
+    - molate
     - Molothrus ater
     - (Boddaert, 1783)
     - Brown-headed Cowbird
@@ -10773,7 +10775,7 @@ species:
     - 1E1AB415D083AAD4
     - Oriolus ater
   - - "721"
-    - 
+    - agepho
     - Agelaius phoeniceus
     - (Linnaeus, 1766)
     - Red-winged Blackbird
@@ -10788,7 +10790,7 @@ species:
     - C86D078E641FCE6D
     - Oriolus phoeniceus
   - - "722"
-    - 
+    - eupcar
     - Euphagus carolinus
     - "(Statius M\xC3\xBCller, PL, 1776)"
     - Rusty Blackbird
@@ -10802,7 +10804,7 @@ species:
     - 5F77FED530C9B69D
     - Turdus Carolinus
   - - "723"
-    - 
+    - eupcya
     - Euphagus cyanocephalus
     - (Wagler, 1829)
     - Brewer's Blackbird
@@ -10816,7 +10818,7 @@ species:
     - EA5E858AEF777A34
     - Psarocolius cyanocephalus
   - - "724"
-    - 
+    - quiqui
     - Quiscalus quiscula
     - (Linnaeus, 1758)
     - Common Grackle
@@ -10830,7 +10832,7 @@ species:
     - 8BBB3255C6B7EE91
     - Gracula Quiscula
   - - "725"
-    - 
+    - quimaj
     - Quiscalus major
     - Vieillot, 1819
     - Boat-tailed Grackle
@@ -10842,7 +10844,7 @@ species:
     - EF47E15D002D3191
     - Quiscalus major
   - - "726"
-    - 
+    - stumag
     - Sturnella magna
     - (Linnaeus, 1758)
     - Eastern Meadowlark
@@ -10857,7 +10859,7 @@ species:
     - 27410227323B07A1
     - Alauda magna
   - - "727"
-    - 
+    - stuneg
     - Sturnella neglecta
     - Audubon, 1844
     - Western Meadowlark
@@ -10869,7 +10871,7 @@ species:
     - 4A5B488366FC0784
     - Sturnella neglecta
   - - "728"
-    - 
+    - xanlus
     - Xanthocephalus xanthocephalus
     - (Bonaparte, 1826)
     - Yellow-headed Blackbird
@@ -10883,7 +10885,7 @@ species:
     - 3E2D0C9BADB782DB
     - Icterus xanthocephalus
   - - "729"
-    - 
+    - dolory
     - Dolichonyx oryzivorus
     - (Linnaeus, 1758)
     - Bobolink
@@ -10929,7 +10931,7 @@ species:
     - 56FB47C05CB7275F
     - Emberiza Citrinella
   - - "732"
-    - 
+    - embleu
     - Emberiza leucocephalos
     - Gmelin, SG, 1771
     - Pine Bunting
@@ -10945,7 +10947,7 @@ species:
     - 43EF3EA79A531279
     - Emberiza leucocephalos
   - - "733"
-    - 
+    - embcia
     - Emberiza cia
     - Linnaeus, 1766
     - Western Rock Bunting
@@ -10961,7 +10963,7 @@ species:
     - 4836E64E80D5A372
     - Emberiza Cia
   - - "734"
-    - 
+    - embbuc
     - Emberiza buchanani
     - Blyth, 1845
     - Grey-necked Bunting
@@ -10993,7 +10995,7 @@ species:
     - 4721056132879EB7
     - Emberiza Hortulana
   - - "736"
-    - 
+    - embcae
     - Emberiza caesia
     - Cretzschmar, 1828
     - Cretzschmar's Bunting
@@ -11009,7 +11011,7 @@ species:
     - A7F3E6AE9A1929F9
     - Emberiza caesia
   - - "737"
-    - 
+    - embcir
     - Emberiza cirlus
     - Linnaeus, 1766
     - Cirl Bunting
@@ -11025,7 +11027,7 @@ species:
     - 9AAB8C2174EFDF60
     - Emberiza Cirlus
   - - "738"
-    - 
+    - embpus
     - Emberiza pusilla
     - Pallas, 1776
     - Little Bunting
@@ -11041,7 +11043,7 @@ species:
     - 1866F80E52F4075F
     - Emberiza pusilla
   - - "739"
-    - 
+    - embchr
     - Emberiza chrysophrys
     - Pallas, 1776
     - Yellow-browed Bunting
@@ -11057,7 +11059,7 @@ species:
     - 4A50E26530277C6D
     - Emberiza chrysophrys
   - - "740"
-    - 
+    - embrus
     - Emberiza rustica
     - Pallas, 1776
     - Rustic Bunting
@@ -11073,7 +11075,7 @@ species:
     - DA9746CEC82D30A3
     - Emberiza rustica
   - - "741"
-    - 
+    - embaur
     - Emberiza aureola
     - Pallas, 1773
     - Yellow-breasted Bunting
@@ -11089,7 +11091,7 @@ species:
     - 7574C0E53A34CCFD
     - Emberiza aureola
   - - "742"
-    - 
+    - embmel
     - Emberiza melanocephala
     - Scopoli, 1769
     - Black-headed Bunting
@@ -11121,7 +11123,7 @@ species:
     - C0B9787440316E20
     - Fringilla Schoeniclus
   - - "744"
-    - 
+    - callap
     - Calcarius lapponicus
     - (Linnaeus, 1758)
     - Lapland Longspur
@@ -11137,7 +11139,7 @@ species:
     - 3534E4CEBACCB166
     - Fringilla lapponica
   - - "745"
-    - 
+    - calpic
     - Calcarius pictus
     - (Swainson, 1832)
     - Smith's Longspur
@@ -11149,7 +11151,7 @@ species:
     - D307C9A04517D3A2
     - Emberiza picta
   - - "746"
-    - 
+    - calorn
     - Calcarius ornatus
     - (Townsend,JK, 1837)
     - Chestnut-collared Longspur
@@ -11177,7 +11179,7 @@ species:
     - 9BEBC02505B416EE
     - Emberiza nivalis
   - - "748"
-    - 
+    - calmlc
     - Calamospiza melanocorys
     - Stejneger, 1885
     - Lark-Bunting
@@ -11189,7 +11191,7 @@ species:
     - 938C5572D8E74782
     - Calamospiza melanocorys
   - - "749"
-    - 
+    - pasili
     - Passerella iliaca
     - (Merrem, 1786)
     - Fox Sparrow
@@ -11203,7 +11205,7 @@ species:
     - 3A7B1F59DE8F597D
     - Fringilla iliaca
   - - "750"
-    - ""
+    - melmel
     - Melospiza melodia
     - (Wilson, A, 1810)
     - Song Sparrow
@@ -11217,7 +11219,7 @@ species:
     - A5F09E0521019564
     - Fringilla melodia
   - - "751"
-    - 
+    - mellin
     - Melospiza lincolnii
     - (Audubon, 1834)
     - Lincoln's Sparrow
@@ -11229,7 +11231,7 @@ species:
     - AF49F8903B6DC7A5
     - Fringilla Lincolnii
   - - "752"
-    - 
+    - melgeo
     - Melospiza georgiana
     - (Latham, 1790)
     - Swamp Sparrow
@@ -11243,7 +11245,7 @@ species:
     - 4E192262D429400C
     - Fringilla georgiana
   - - "753"
-    - 
+    - zonque
     - Zonotrichia querula
     - (Nuttall, 1840)
     - Harris's Sparrow
@@ -11255,7 +11257,7 @@ species:
     - DDAF0666B28C1354
     - Fringilla querula
   - - "754"
-    - 
+    - zonleu
     - Zonotrichia leucophrys
     - (Forster, JR, 1772)
     - White-crowned Sparrow
@@ -11269,7 +11271,7 @@ species:
     - 8601A4678CABA542
     - Emberiza leucophrys
   - - "755"
-    - 
+    - zonalb
     - Zonotrichia albicollis
     - (Gmelin, 1789)
     - White-throated Sparrow
@@ -11281,7 +11283,7 @@ species:
     - 39BD9FF20A9613C4
     - Fringilla albicollis
   - - "756"
-    - 
+    - zonatr
     - Zonotrichia atricapilla
     - (Gmelin, 1789)
     - Golden-crowned Sparrow
@@ -11295,7 +11297,7 @@ species:
     - BD61BDEC7D0A1633
     - Emberiza atricapilla
   - - "757"
-    - 
+    - junhye
     - Junco hyemalis
     - (Linnaeus, 1758)
     - Dark-eyed Junco
@@ -11309,7 +11311,7 @@ species:
     - F8AFCAC715964EEB
     - Fringilla hyemalis
   - - "758"
-    - 
+    - passan
     - Passerculus sandwichensis
     - (Gmelin, JF, 1789)
     - Savannah Sparrow
@@ -11323,7 +11325,7 @@ species:
     - 31CE00C71528322F
     - Emberiza Sandwichensis
   - - "759"
-    - 
+    - ammmar
     - Ammodramus maritimus
     - (Wilson, A, 1811)
     - Seaside Sparrow
@@ -11337,7 +11339,7 @@ species:
     - 0F81304F8BBF1EC5
     - Fringilla maritima
   - - "760"
-    - ""
+    - ammnel
     - Ammodramus nelsoni
     - Allen, JA, 1875
     - Nelson's Sharp-tailed Sparrow
@@ -11349,7 +11351,7 @@ species:
     - 727D994FD915AB09
     - Ammodramus nelsoni
   - - "761"
-    - 
+    - ammcau
     - Ammodramus caudacutus
     - (Gmelin, JF, 1788)
     - Saltmarsh Sharp-tailed Sparrow
@@ -11361,7 +11363,7 @@ species:
     - 79C9C8C455E6936B
     - Oriolus caudacutus
   - - "762"
-    - 
+    - ammlec
     - Ammodramus leconteii
     - (Audubon, 1844)
     - Le Conte's Sparrow
@@ -11373,7 +11375,7 @@ species:
     - B656B15D2F2ADF96
     - Emberiza le conteii
   - - "763"
-    - 
+    - ammbai
     - Ammodramus bairdii
     - (Audubon, 1844)
     - Baird's Sparrow
@@ -11385,7 +11387,7 @@ species:
     - 67EFC0619A89B656
     - Emberiza bairdii
   - - "764"
-    - 
+    - ammhen
     - Ammodramus henslowii
     - (Audubon, 1829)
     - Henslow's Sparrow
@@ -11397,7 +11399,7 @@ species:
     - CDA2F827192CF0B3
     - Emberiza henslowii
   - - "765"
-    - 
+    - ammsav
     - Ammodramus savannarum
     - (Gmelin, JF, 1789)
     - Grasshopper Sparrow
@@ -11412,7 +11414,7 @@ species:
     - 5BFFE091FBA75EA2
     - Fringilla Savannarum
   - - "766"
-    - ""
+    - spiarb
     - Spizella arborea
     - (Wilson,A, 1810)
     - American Tree Sparrow
@@ -11427,7 +11429,7 @@ species:
     - 2A86F9C93636CDA3
     - Fringilla arborea
   - - "767"
-    - ""
+    - spipas
     - Spizella passerina
     - (Bechstein, 1798)
     - Chipping Sparrow
@@ -11442,7 +11444,7 @@ species:
     - 37E9CCDA7A4B06ED
     - Fringilla passerina
   - - "768"
-    - 
+    - spipus
     - Spizella pusilla
     - (Wilson,A, 1810)
     - Field Sparrow
@@ -11454,7 +11456,7 @@ species:
     - E23F6DE0B4829658
     - Fringilla pusilla
   - - "769"
-    - 
+    - spipal
     - Spizella pallida
     - (Swainson, 1832)
     - Clay-colored Sparrow
@@ -11469,7 +11471,7 @@ species:
     - 486265CF44FC17F2
     - Emberiza pallida
   - - "770"
-    - 
+    - poogra
     - Pooecetes gramineus
     - (Gmelin, 1789)
     - Vesper Sparrow
@@ -11483,7 +11485,7 @@ species:
     - 3647E146F88AE943
     - Fringilla graminea
   - - "771"
-    - 
+    - chogra
     - Chondestes grammacus
     - (Say, 1823)
     - Lark-Sparrow
@@ -11497,7 +11499,7 @@ species:
     - 78509A5D6015C509
     - Fringilla grammaca
   - - "772"
-    - 
+    - ampbil
     - Amphispiza bilineata
     - (Cassin, 1850)
     - Black-throated Sparrow
@@ -11512,7 +11514,7 @@ species:
     - A0F29F1EED67CBCE
     - Emberiza bilineata
   - - "773"
-    - 
+    - aimcas
     - Aimophila cassinii
     - (Woodhouse, 1852)
     - Cassin's Sparrow
@@ -11524,7 +11526,7 @@ species:
     - B58AFD6EE6337146
     - Zonotrichia cassinii
   - - "774"
-    - 
+    - aimaes
     - Aimophila aestivalis
     - (Lichtenstein, MHK, 1823)
     - Bachman's Sparrow
@@ -11536,7 +11538,7 @@ species:
     - DAD22BB68CF2206A
     - Fringilla aestivalis
   - - "775"
-    - 
+    - pipchl
     - Pipilo chlorurus
     - (Audubon, 1839)
     - Green-tailed Towhee
@@ -11550,7 +11552,7 @@ species:
     - 45D829B3C45C2BC5
     - Fringilla chlorura
   - - "776"
-    - 
+    - pipmac
     - Pipilo maculatus
     - (Swainson, 1827)
     - Spotted Towhee
@@ -11562,7 +11564,7 @@ species:
     - 58E25701D3F9FA0E
     - Pipilo maculata
   - - "777"
-    - 
+    - pipery
     - Pipilo erythrophthalmus
     - (Linnaeus, 1758)
     - Eastern Towhee
@@ -11576,7 +11578,7 @@ species:
     - 6090278A61F63C13
     - Fringilla erythrophthalma
   - - "778"
-    - 
+    - pirrub
     - Piranga rubra
     - (Linnaeus, 1758)
     - Summer Tanager
@@ -11590,7 +11592,7 @@ species:
     - 891798D9EFFE1F8D
     - Fringilla rubra
   - - "779"
-    - 
+    - piroli
     - Piranga olivacea
     - (Gmelin, 1789)
     - Scarlet Tanager
@@ -11604,7 +11606,7 @@ species:
     - 4210163221C2E458
     - Tanagra olivacea
   - - "780"
-    - 
+    - pirlud
     - Piranga ludoviciana
     - (Wilson,A, 1811)
     - Western Tanager
@@ -11618,7 +11620,7 @@ species:
     - 0ADA5F17E6C7CA54
     - Tanagra ludoviciana
   - - "781"
-    - 
+    - spiame
     - Spiza americana
     - (Gmelin, 1789)
     - Dickcissel
@@ -11630,7 +11632,7 @@ species:
     - 592E58CE67D092DA
     - Emberiza americana
   - - "782"
-    - 
+    - phelud
     - Pheucticus ludovicianus
     - (Linnaeus, 1766)
     - Rose-breasted Grosbeak
@@ -11645,7 +11647,7 @@ species:
     - 7C2FCB13BAA660EE
     - Loxia ludoviciana
   - - "783"
-    - 
+    - phemel
     - Pheucticus melanocephalus
     - (Swainson, 1827)
     - Black-headed Grosbeak
@@ -11657,7 +11659,7 @@ species:
     - 824361E5ACCA64DB
     - Guiraca melanocephala
   - - "784"
-    - 
+    - cardis
     - Cardinalis cardinalis
     - (Linnaeus, 1758)
     - Northern Cardinal
@@ -11671,7 +11673,7 @@ species:
     - 4E74AE2276258520
     - Loxia Cardinalis
   - - "785"
-    - 
+    - pascae
     - Passerina caerulea
     - (Linnaeus, 1758)
     - Blue Grosbeak
@@ -11685,7 +11687,7 @@ species:
     - A7A75EA1A9A57185
     - Loxia caerulea
   - - "786"
-    - ""
+    - pascya
     - Passerina cyanea
     - (Linnaeus, 1766)
     - Indigo Bunting
@@ -11700,7 +11702,7 @@ species:
     - 043F337AA25E7D97
     - Tanagra cyanea
   - - "787"
-    - 
+    - pasamo
     - Passerina amoena
     - (Say, 1823)
     - Lazuli Bunting
@@ -11715,7 +11717,7 @@ species:
     - 9F67F3AFBF17ECFF
     - Emberiza amoena
   - - "788"
-    - 
+    - pascir
     - Passerina ciris
     - (Linnaeus, 1758)
     - Painted Bunting

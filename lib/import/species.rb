@@ -25,12 +25,12 @@ module Import
             name_sci = sp_data[1].content
             avb_id = sp_data[1].at('a')['href'].match(/^species\.jsp\?avibaseid=([\dA-F]+)$/)[1]
             list.push({
-                    :name_sci => name_sci,
-                    :name_en => name_en,
-                    :order => order,
-                    :family => family,
-                    :avibase_id => avb_id
-            })
+                              :name_sci => name_sci,
+                              :name_en => name_en,
+                              :order => order,
+                              :family => family,
+                              :avibase_id => avb_id
+                      })
           end
         end
         list
@@ -73,37 +73,37 @@ module Import
           protonym = doc_ru.at("//p[b[text()='Протоним:']]/i").content.strip
 
           authority = if sp.name_sci == data_ru[2].strip
-            data_ru[3].strip
-          else
-            proto_parts = protonym.split(' ')
-            sp.name_sci != "#{proto_parts.first} #{proto_parts.last}".downcase.capitalize ?
-                    "(#{data_ru[4]})" :
-                    "#{data_ru[4]}"
-          end
+                        data_ru[3].strip
+                      else
+                        proto_parts = protonym.split(' ')
+                        sp.name_sci != "#{proto_parts.first} #{proto_parts.last}".downcase.capitalize ?
+                                "(#{data_ru[4]})" :
+                                "#{data_ru[4]}"
+                      end
           name_uk = doc_uk.at("//td[@class='AVBHeader']").content.match(/^(.+) \([A-Za-z ]+\) \(?([^()]+)\)?$/)[1].strip
 
           name_ru = '' if name_ru.downcase.eql?(sp.name_en.downcase)
           name_uk = '' if name_uk.downcase.eql?(sp.name_en.downcase)
 
           sp.update_attributes!({
-                  :authority => authority,
-                  :protonym => protonym,
-                  :name_ru => name_ru,
-                  :name_uk => name_uk
-          })
+                                        :authority => authority,
+                                        :protonym => protonym,
+                                        :name_ru => name_ru,
+                                        :name_uk => name_uk
+                                })
         rescue
           puts "FAILED"
         end
       end
     end
 
-    def self.create_mapping(file)
+    def self.create_mapping
       require 'import/legacy/models/taxonomy'
       require 'app/models/species'
 
       init_legacy
 
-      species_map = Legacy::Species.where("sp_id <> 'mulspp'").inject({}) do |memo, sp|
+      Legacy::Species.where("sp_id <> 'mulspp'").each do |sp|
         unless newsp = (Species.find_by_name_sci(sp[:sp_la]) || Species.find_by_name_en(sp[:sp_en]))
           puts "\n\n\n#{sp[:sp_la]} not found"
           (gen, spnym) = sp[:sp_la].split(' ')
@@ -139,12 +139,12 @@ module Import
           arr.select { |s| s.family == fam }.each do |sp|
             puts "*** " + sp.name_sci
             sp_new = Legacy::Species.find_by_sp_id(sp.code) ||
-                    Legacy::Species.new(
-                            :sp_la => sp.name_sci,
-                            :sp_ru => conv_to_old(sp.name_ru),
-                            :sp_uk => conv_to_old(sp.name_uk),
-                            :sp_prim => sp.authority
-                    )
+                             Legacy::Species.new(
+                                     :sp_la => sp.name_sci,
+                                     :sp_ru => conv_to_old(sp.name_ru),
+                                     :sp_uk => conv_to_old(sp.name_uk),
+                                     :sp_prim => sp.authority
+                             )
             sp_new.fam_id = j
             sp_new.sort_num = sp.index_num
             sp_new.sp_en = sp.name_en
@@ -170,6 +170,32 @@ module Import
         end
 
         i + 1
+      end
+    end
+
+    def self.import_codes
+      require 'import/legacy/models/taxonomy'
+      require 'app/models/species'
+
+      init_legacy
+
+      Species.where("code = '' OR code is NULL").each do |sp|
+        sp2 = Legacy::Species.find_by_sp_la(sp.name_sci)
+
+        if sp2.nil?
+          puts "\n\n\n#{sp.name_sci} not found"
+          (gen, spnym) = sp.name_sci.split(' ')
+          puts "Possible matches:"
+          matches = Legacy::Species.where("sp_la LIKE '#{gen}%' OR sp_la LIKE '%#{spnym}'")
+          (1..matches.size).each do |i|
+            puts "#{i}) #{matches[i-1].sp_la}"
+          end
+          puts "Select option (0 to discard): "
+          inpt = $stdin.gets
+          sp2 = inpt == 0 ? nil : matches[inpt.to_i-1]
+        end
+
+        sp.update_attribute(:code, sp2.sp_id)
       end
     end
 
