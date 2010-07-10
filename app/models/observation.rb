@@ -4,4 +4,6 @@ class Observation < ActiveRecord::Base
 
   validates :observ_date, :presence => true
 
+  scope :mine, where(:mine => true)
+
 end

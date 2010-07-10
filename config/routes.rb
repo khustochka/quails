@@ -19,6 +19,7 @@ Quails3::Application.routes.draw do |map|
   # PUBLIC PAGES
 
   resources :species, :only => [:index, :show]
+  resource :lifelist, :only => :show, :controller => :lifelist
 #  scope '/(:locale)', :locale => /[a-z]{2}/ do
 #    resources :species, :except => [:new, :create, :destroy]
 #  end
