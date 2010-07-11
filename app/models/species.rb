@@ -27,8 +27,9 @@ class Species < ActiveRecord::Base
 
   def name
     fb = %w(en ru uk)
-    k = fb.pop until k == I18n.locale.to_s
-    fb.push(k)
+    until fb.last == I18n.locale.to_s
+      fb.pop
+    end
     nm = send("name_#{fb.pop}".to_sym) while nm.blank?
     nm
   end

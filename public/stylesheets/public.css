@@ -6,8 +6,3 @@ body {
 
 #footer {
   border-top: 1px solid #555555; }
-
-ol.lifelist a.sp_link, ol.lifelist i.lat {
-  display: block;
-  float: left;
-  width: 30%; }

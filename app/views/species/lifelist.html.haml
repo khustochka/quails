@@ -1,6 +1,10 @@
 %h2 Lifelist
 
-%ol{:class => :lifelist}
+%table#lifelist.neat_table
   - @species.inject(@species.size) do |i, sp|
-    %li{:value => i}= species_link(sp) << ' ' << name_sci(sp)  << ' ' << l(Date.parse(sp.mind), :format => :long)
+    %tr
+      %td.align-right= "#{i}."
+      %td= species_link(sp)
+      %td= name_sci(sp)
+      %td.align-right= l(Date.parse(sp.mind), :format => :long)
     - i -= 1
