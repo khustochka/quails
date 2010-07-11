@@ -1,9 +1,9 @@
 class SpeciesController < ApplicationController
 
-  layout 'admin', :except => [:index, :show]
-  layout 'public', :only => [:index, :show]
+  layout 'admin', :except => [:index, :show, :lifelist]
+  layout 'public', :only => [:index, :show, :lifelist]
 
-  before_filter :find_species, :except => :index
+  before_filter :find_species, :except => [:index, :lifelist]
 
   # GET /species
   # GET /species.xml
@@ -53,6 +53,19 @@ class SpeciesController < ApplicationController
         format.html { render :form }
         # format.xml { render :xml => @species.errors, :status => :unprocessable_entity }
       end
+    end
+  end
+  
+  # GET /lifelist
+  # GET /lifelist.xml
+  def lifelist
+    obs = Observation.mine.select(:species_id, 'MIN(observ_date) AS mind').group(:species_id)
+    @species = Species.select('*').joins("INNER JOIN (#{obs.to_sql}) AS obs ON species.id=obs.species_id").reorder('mind DESC, index_num DESC').all
+#     @species = Species.select('DISTINCT species.*, observ_date').joins(:first_observation).reorder('observ_date DESC').all
+
+    respond_to do |format|
+      format.html
+      format.xml { render :xml => @species }
     end
   end
 

@@ -25,4 +25,12 @@ class Species < ActiveRecord::Base
     name_sci.gsub(' ', '_')
   end
 
+  def name
+    fb = %w(en ru uk)
+    k = fb.pop until k == I18n.locale.to_s
+    fb.push(k)
+    nm = send("name_#{fb.pop}".to_sym) while nm.blank?
+    nm
+  end
+
 end

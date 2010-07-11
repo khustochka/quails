@@ -1,4 +1,4 @@
-Quails3::Application.routes.draw do |map|
+Quails3::Application.routes.draw do
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -19,7 +19,7 @@ Quails3::Application.routes.draw do |map|
   # PUBLIC PAGES
 
   resources :species, :only => [:index, :show]
-  resource :lifelist, :only => :show, :controller => :lifelist
+  match 'lifelist' => 'species#lifelist'
 #  scope '/(:locale)', :locale => /[a-z]{2}/ do
 #    resources :species, :except => [:new, :create, :destroy]
 #  end

@@ -1,6 +1,0 @@
-%h2 Lifelist
-
-%ol
-  - @species.inject(@species.size) do |i, sp|
-    %li{:value => i}= species_link(sp) << " #{sp.mind}"
-    - i -= 1

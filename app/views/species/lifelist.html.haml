@@ -1,0 +1,6 @@
+%h2 Lifelist
+
+%ol{:class => :lifelist}
+  - @species.inject(@species.size) do |i, sp|
+    %li{:value => i}= species_link(sp) << ' ' << name_sci(sp)  << ' ' << l(Date.parse(sp.mind), :format => :long)
+    - i -= 1
