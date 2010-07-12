@@ -4,6 +4,11 @@ class ObservationsController < ApplicationController
 
   use_jquery :only => :index
 
+  # TODO: create helper to remove stylesheet
+  before_filter do
+    @stylesheets.delete('formtastic')
+  end  
+
   # GET /observations
   # GET /observations.xml
   def index

@@ -18,6 +18,7 @@ gem 'pg'
 gem 'haml'
 gem 'will_paginate', :git => 'http://github.com/mislav/will_paginate.git', :branch => 'rails3'
 gem 'formtastic', :git => 'git://github.com/justinfrench/formtastic.git', :branch => 'rails3'
+gem 'simple_form'
 
 gem 'yaml_db'
 

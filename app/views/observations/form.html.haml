@@ -2,14 +2,13 @@
 
 %h2= @page_title
 
-= semantic_form_for @observation do |form|
-  = form.inputs do
-    = form.input :species, :label => 'Species', :label_method => :name_sci, :collection => Species.alphabetic
-    = form.input :locus, :label => 'Location', :label_method => :code, :collection => Locus.all_ordered
-    = form.input :observ_date, :as => :string, :label => 'Date'
-    = form.input :quantity, :label => 'Quantity'
-    = form.input :biotope, :label => 'Biotope'
-    = form.input :place, :label => 'Place'
-    = form.input :notes, :label => 'Notes'
-    = form.input :mine, :label => 'Mine'
-  = form.buttons
+= simple_form_for @observation do |form|
+  = form.association :species, :label => 'Species:', :label_method => :name_sci, :collection => Species.alphabetic
+  = form.association :locus, :label => 'Location:', :label_method => :code, :collection => Locus.all_ordered
+  = form.input :observ_date, :as => :string, :label => 'Date:', :required => false, :input_html => {:size => 8, :maxlength => 10}
+  = form.input :quantity, :label => 'Quantity:', :input_html => {:size => 15}
+  = form.input :biotope, :label => 'Biotope:', :input_html => {:size => 15}
+  = form.input :place, :label => 'Place:', :input_html => {:size => 25}
+  = form.input :notes, :label => 'Notes:', :input_html => {:size => 25}
+  = form.input :mine, :label => 'Mine'
+  %p= form.button :submit, :value => 'Save'

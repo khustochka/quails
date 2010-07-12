@@ -6,3 +6,17 @@ form.formtastic fieldset > ol > li {
 
 #locus_lat_input {
   margin-left: 25%; }
+
+form.simple_form.observation div {
+  display: inline-block;
+  vertical-align: top;
+  margin-right: 13px; }
+  form.simple_form.observation div label, form.simple_form.observation div div, form.simple_form.observation div span {
+    display: block; }
+  form.simple_form.observation div label {
+    color: #5555aa;
+    font-family: rArial, rTahoma, Verdana;
+    font-size: 90%;
+    margin-bottom: 3px; }
+  form.simple_form.observation div span.error {
+    color: #aa0000; }
