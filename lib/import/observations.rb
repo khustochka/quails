@@ -25,7 +25,7 @@ module Import
         new_ob.id = ob[:observ_id]
         new_ob.save!
       end
-
+      ActiveRecord::Base.connection.execute("ALTER SEQUENCE observations_id_seq RESTART #{Observation.maximum(:id)+1}")
     end
 
   end
