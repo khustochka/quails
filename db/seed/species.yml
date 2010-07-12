@@ -393,7 +393,7 @@ species:
       0JrQsNC30LDRgNC60LAg0YfQtdGA0L3QsNGP
 
     - !binary |
-      0KfQtdGA0L3QsCDQutCw0LfQsNGA0LrQsA==
+      0JrQsNC30LDRgNC60LAg0YfQvtGA0L3QsA==
 
     - "25"
     - Anseriformes
@@ -11733,7 +11733,7 @@ species:
     - Emberiza Ciris
   - - "789"
     - motfel
-    - Motacilla (flava) feldegg
+    - Motacilla feldegg
     - Michahelles, 1830
     - Black-headed Wagtail
     - !binary |
@@ -11749,7 +11749,7 @@ species:
     - Motacilla Feldegg
   - - "790"
     - cornix
-    - Corvus (corone) cornix
+    - Corvus cornix
     - (Linnaeus, 1758)
     - Hooded Crow
     - !binary |
