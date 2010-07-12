@@ -1,10 +1,13 @@
 %h2 Lifelist
 
-%table#lifelist.neat_table
-  - @species.inject(@species.size) do |i, sp|
-    %tr
-      %td.align-right= "#{i}."
-      %td= species_link(sp)
-      %td= name_sci(sp)
-      %td.align-right= l(Date.parse(sp.mind), :format => :long)
-    - i -= 1
+- if @species.blank?
+  %p No species observed.
+- else
+  %table#lifelist.neat_table
+    - @species.inject(@species.size) do |i, sp|
+      %tr
+        %td.align-right= "#{i}."
+        %td= species_link(sp)
+        %td= name_sci(sp)
+        %td.align-right= l(Date.parse(sp.mind), :format => :long)
+      - i -= 1
