@@ -16,7 +16,7 @@ module Import
                 :loc_type => 'Country',
                 :name_ru => conv_to_new(country[:country_name]),
                 :parent_id => nil
-        })
+        }) if Locus.find_by_code(country[:country_id]).nil?
       end
 
       Legacy::Region.all.each do |region|
@@ -24,8 +24,8 @@ module Import
                 :code => region[:reg_id],
                 :loc_type => 'Region',
                 :name_ru => conv_to_new(region[:reg_name]),
-                :parent_id => Country.find_by_code!(region[:country_id]).id
-        })
+                :parent_id => Locus.find_by_code!(region[:country_id]).id
+        }) if Locus.find_by_code(region[:reg_id]).nil?
       end
 
       Legacy::Location.all.each do |loc|
@@ -34,10 +34,10 @@ module Import
                 :code => loc[:loc_id].gsub('-', '_'),
                 :loc_type => 'Location',
                 :name_ru => conv_to_new(loc[:loc_name]),
-                :parent_id => Region.find_by_code!(loc[:reg_id]).id,
+                :parent_id => Locus.find_by_code!(loc[:reg_id]).id,
                 :lat => (lat.to_f rescue nil),
                 :lon => (lon.to_f rescue nil)
-        })
+        }) if Locus.find_by_code(loc[:loc_id].gsub('-', '_')).nil?
       end
 
     end

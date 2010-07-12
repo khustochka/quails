@@ -548,3 +548,55 @@ locus:
 
     - 
     - 
+  - - "42"
+    - usa
+    - 
+    - Country
+    - USA
+    - !binary |
+      0KHQqNCQ
+
+    - !binary |
+      0KHQqNCQ
+
+    - 
+    - 
+  - - "43"
+    - new_york
+    - "42"
+    - Region
+    - New York
+    - !binary |
+      0YjRgi4g0J3RjNGOLdCZ0L7RgNC6
+
+    - !binary |
+      0YjRgi4g0J3RjNGOLdCZ0L7RgNC6
+
+    - 
+    - 
+  - - "44"
+    - new_jersey
+    - "42"
+    - Region
+    - New Jersey
+    - !binary |
+      0YjRgi4g0J3RjNGOLdCU0LbQtdGA0YHQuA==
+
+    - !binary |
+      0YjRgi4g0J3RjNGOLdCU0LbQtdGA0YHRlg==
+
+    - 
+    - 
+  - - "45"
+    - brooklyn
+    - "43"
+    - Location
+    - Brooklyn
+    - !binary |
+      0JHRgNGD0LrQu9C40L0=
+
+    - !binary |
+      0JHRgNGD0LrQu9GW0L0=
+
+    - "40.6374"
+    - "73.9685"
