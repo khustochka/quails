@@ -1,5 +1,5 @@
 module ApplicationHelper
-  def default_window_caption
+  def default_page_title
     Rails.env == 'development' ? '!!! - Set the window caption / quails3' : request.host
   end
 

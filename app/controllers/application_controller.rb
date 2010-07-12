@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   include AssetsController
   include LayoutController
 
-  helper_method :window_caption
+  helper_method :page_title
 
   layout 'public'
 
@@ -14,8 +14,9 @@ class ApplicationController < ActionController::Base
   stylesheet 'formtastic', 'forms', :only => [:new, :edit, :create, :update]
 
   private
-  def window_caption
-    # returning nil will evoke ApplicationHelper::default_window_helper
+  def page_title
+    @page_title
+    # returning nil will evoke ApplicationHelper::default_page_title
   end
 
 end

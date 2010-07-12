@@ -83,19 +83,4 @@ class ObservationsController < ApplicationController
       # format.xml  { head :ok }
     end
   end
-
-  private
-
-  def window_caption
-    case action_name
-      when 'index'
-        'Listing observations'
-      when 'show'
-        "#{@observation.id}: #{@observation.observ_date}, #{@observation.species.name_sci}"
-      when 'new', 'create'
-        "Creating observation"
-      when 'edit', 'update'
-        "Editing observation"
-    end
-  end
 end

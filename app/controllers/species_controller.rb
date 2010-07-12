@@ -77,15 +77,4 @@ class SpeciesController < ApplicationController
   def latin_url_humanize(sp_url)
     sp_url.gsub(/_|\+/, ' ').gsub(/ +/, ' ').capitalize
   end
-
-  def window_caption
-    case action_name
-      when 'index'
-        'Listing species'
-      when 'show'
-        "#{@species.name_sci} / #{@species.name_en}"
-      when 'edit', 'update'
-        "Editing #{@species.name_sci} / #{@species.name_en}"
-    end
-  end
 end

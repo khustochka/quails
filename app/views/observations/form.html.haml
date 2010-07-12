@@ -1,4 +1,6 @@
-%h2= (['new', 'create'].include?(action_name) ? 'New' : 'Editing') + ' observation'
+- @page_title = (['new', 'create'].include?(action_name) ? 'New' : 'Editing') + ' observation'
+
+%h2= @page_title
 
 = semantic_form_for @observation do |form|
   = form.inputs do
