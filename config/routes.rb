@@ -19,7 +19,7 @@ Quails3::Application.routes.draw do
   # PUBLIC PAGES
 
   resources :species, :only => [:index, :show]
-  match 'lifelist' => 'species#lifelist'
+  match 'lifelist(/:year)(/:locus)' => 'species#lifelist', :constraints => {:year => /\d{4}/, :locus => /[a-z_]+/}
 #  scope '/(:locale)', :locale => /[a-z]{2}/ do
 #    resources :species, :except => [:new, :create, :destroy]
 #  end

@@ -59,7 +59,7 @@ class SpeciesController < ApplicationController
   # GET /lifelist
   # GET /lifelist.xml
   def lifelist
-    @species = Species.lifelist.all
+    @species = Species.lifelist(params).all
 #     @species = Species.select('DISTINCT species.*, observ_date').joins(:first_observation).reorder('observ_date DESC').all
 
     respond_to do |format|

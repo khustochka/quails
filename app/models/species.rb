@@ -8,7 +8,10 @@ class Species < ActiveRecord::Base
   default_scope order(:index_num)
   scope :alphabetic, :order => :name_sci # TODO: change to reorder when my patch accepted
   
-  scope :lifelist, lambda {|lim| select('*').joins("INNER JOIN (#{Observation.species_first_met_dates.to_sql}) AS obs ON species.id=obs.species_id").reorder('mind DESC, index_num DESC').limit(lim) }
+  scope :lifelist, lambda {|*args|
+    options = args.extract_options!
+    select('*').joins("INNER JOIN (#{Observation.species_first_met_dates(options).to_sql}) AS obs ON species.id=obs.species_id").reorder('mind DESC, index_num DESC').limit(options[:limit])
+  }
 
   has_many :observations
 
