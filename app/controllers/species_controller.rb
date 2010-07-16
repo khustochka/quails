@@ -60,8 +60,8 @@ class SpeciesController < ApplicationController
   # GET /lifelist.xml
   def lifelist
     @species = Species.lifelist(params).all
-#     @species = Species.select('DISTINCT species.*, observ_date').joins(:first_observation).reorder('observ_date DESC').all
-
+    @years = ([{:year => nil}] + Observation.years(params)).map {|ob| ob[:year]}
+    
     respond_to do |format|
       format.html
       format.xml { render :xml => @species }

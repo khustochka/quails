@@ -14,4 +14,12 @@ class Observation < ActiveRecord::Base
     rel
   }
 
+  scope :years, lambda {|*args|
+    options = args.extract_options!
+    rel = mine.select('DISTINCT EXTRACT(year from observ_date) AS year').order(:year)
+    rel = rel.where('EXTRACT(month from observ_date) = ?', options[:month]) unless options[:month].nil?
+    rel = rel.joins(:locus).where('locus.code' => options[:locus]) unless options[:locus].nil?
+    rel
+  }
+
 end
