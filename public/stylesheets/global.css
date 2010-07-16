@@ -37,3 +37,16 @@ table.admin_panel {
     font-size: 110%; }
   table.admin_panel h6 {
     font-size: 90%; }
+
+.horiz-list li {
+  display: inline;
+  list-style-type: none; }
+
+.filter-list li {
+  padding: 0 2px;
+  background-color: #ebebcf; }
+
+#years-filter {
+  padding-left: 0; }
+  #years-filter li {
+    margin: 0 5px; }
