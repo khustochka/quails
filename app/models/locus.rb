@@ -20,4 +20,10 @@ class Locus < ActiveRecord::Base
             all.select { |loc| loc.loc_type == 'Location' }
   end
 
+  def self.get_subregions(loc)
+    loc2 = loc.is_a?(Array) ? loc : [loc]
+    subregs = joins(:parent).where('parents_locus.code' => loc2).map {|loc| loc.code }
+    loc2 + (subregs.blank? ? [] : get_subregions(subregs))
+  end
+
 end
