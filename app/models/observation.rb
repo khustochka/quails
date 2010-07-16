@@ -13,7 +13,7 @@ class Observation < ActiveRecord::Base
     rel = mine.select(:species_id, 'MIN(observ_date) AS mind').group(:species_id)
     rel = rel.where('EXTRACT(year from observ_date) = ?', options[:year]) unless options[:year].nil?
     rel = rel.where('EXTRACT(month from observ_date) = ?', options[:month]) unless options[:month].nil?
-    rel = rel.joins(:locus).where('locus.code' => Locus.get_subregions(options[:locus])) unless options[:locus].nil?
+    rel = rel.where('locus_id' => options[:loc_ids]) unless options[:locus].nil?
     rel
   }
 
@@ -21,7 +21,7 @@ class Observation < ActiveRecord::Base
     options = args.extract_options!
     rel = mine.identified.select('DISTINCT EXTRACT(year from observ_date) AS year').order(:year)
     rel = rel.where('EXTRACT(month from observ_date) = ?', options[:month]) unless options[:month].nil?
-    rel = rel.joins(:locus).where('locus.code' => Locus.get_subregions(options[:locus])) unless options[:locus].nil?
+    rel = rel.where('locus_id' => options[:loc_ids]) unless options[:locus].nil?
     rel
   }
 

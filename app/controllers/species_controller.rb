@@ -59,8 +59,9 @@ class SpeciesController < ApplicationController
   # GET /lifelist
   # GET /lifelist.xml
   def lifelist
-    @species = Species.lifelist(params).all
-    @years = ([{:year => nil}] + Observation.years(params)).map {|ob| ob[:year]}
+    new_params = params.merge(:loc_ids => Locus.get_subregions(Locus.find_by_code(params[:locus])))
+    @species = Species.lifelist(new_params).all
+    @years = ([{:year => nil}] + Observation.years(new_params)).map {|ob| ob[:year]}
     
     respond_to do |format|
       format.html
