@@ -1,0 +1,11 @@
+- @page_title = @post.title
+
+%h2= @post.title
+
+%small= @post.topic
+
+%p
+  = @post.text.gsub(/(\r?\n){2}/,"\n</p>\n<p>\n").html_safe
+
+- unless @post.lj_url_id.zero?
+  = link_to 'This post on Livejournal', "http://stonechat.livejournal.com/#{@post.lj_url_id}.html"

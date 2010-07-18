@@ -19,7 +19,10 @@ Quails3::Application.routes.draw do
   # PUBLIC PAGES
 
   resources :species, :only => [:index, :show]
+  resources :posts
+
   match 'lifelist(/:year)(/:locus)' => 'species#lifelist', :constraints => {:year => /\d{4}/, :locus => /[a-z_]+/}
+
 #  scope '/(:locale)', :locale => /[a-z]{2}/ do
 #    resources :species, :except => [:new, :create, :destroy]
 #  end
@@ -68,7 +71,7 @@ Quails3::Application.routes.draw do
 
 # You can have the root of your site routed with "root"
 # just remember to delete public/index.html.
-  root :to => 'species#index'
+  root :to => 'posts#index'
 
 # See how all your routes lay out with "rake routes"
 

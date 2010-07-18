@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100628161410) do
+ActiveRecord::Schema.define(:version => 20100718133210) do
 
   create_table "locus", :force => true do |t|
     t.string  "code",      :null => false
@@ -42,6 +42,23 @@ ActiveRecord::Schema.define(:version => 20100628161410) do
   add_index "observations", ["mine"], :name => "index_observations_on_mine"
   add_index "observations", ["observ_date"], :name => "index_observations_on_observ_date"
   add_index "observations", ["species_id"], :name => "index_observations_on_species_id"
+
+  create_table "posts", :force => true do |t|
+    t.string   "code"
+    t.string   "title"
+    t.text     "text"
+    t.string   "topic"
+    t.string   "status"
+    t.integer  "lj_post_id"
+    t.integer  "lj_url_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "posts", ["code"], :name => "index_posts_on_code"
+  add_index "posts", ["created_at"], :name => "index_posts_on_created_at"
+  add_index "posts", ["status"], :name => "index_posts_on_status"
+  add_index "posts", ["topic"], :name => "index_posts_on_topic"
 
   create_table "species", :force => true do |t|
     t.string  "code",       :limit => 6
