@@ -600,3 +600,69 @@ locus:
 
     - "40.6374"
     - "73.9685"
+  - - "46"
+    - manhattan
+    - "43"
+    - Location
+    - 
+    - !binary |
+      0JzQsNC90YXRjdGC0YLQtdC9
+
+    - 
+    - "40.716"
+    - "-74"
+  - - "47"
+    - hoboken
+    - "44"
+    - Location
+    - 
+    - !binary |
+      0KXQvtCx0L7QutC10L0=
+
+    - 
+    - "40.74"
+    - "-74.03"
+  - - "48"
+    - boryspil
+    - "2"
+    - Location
+    - 
+    - !binary |
+      0JHQvtGA0LjRgdC/0L7Qu9GM
+
+    - 
+    - "50.35"
+    - "30.93"
+  - - "49"
+    - jersey_city
+    - "44"
+    - Location
+    - 
+    - !binary |
+      0JTQttC10YDRgdC4LdCh0LjRgtC4
+
+    - 
+    - "40.71"
+    - "-74.06"
+  - - "50"
+    - weehawken
+    - "44"
+    - Location
+    - 
+    - !binary |
+      0JLQuNGF0L7QutC10L0=
+
+    - 
+    - "40.77"
+    - "-74.02"
+  - - "51"
+    - queens
+    - "43"
+    - Location
+    - 
+    - !binary |
+      0JrQstC40L3RgQ==
+
+    - 
+    - "40.7677"
+    - "-73.92"
