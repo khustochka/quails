@@ -1,10 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.0.rc'
-
-# Bundle edge Rails instead:
-#gem 'rails', :git => 'git://github.com/rails/rails.git', :ref => '53b34e84762b7f2d6b64'
-gem 'arel',  :git => 'git://github.com/rails/arel.git'
+gem 'rails', '3.0.0.rc2'
 
 gem 'pg'
 
