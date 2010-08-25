@@ -8,6 +8,7 @@ module Import
       
       require 'app/models/observation'
       require 'app/models/species'
+      require 'app/models/post'
 
       init_legacy
 
@@ -20,6 +21,7 @@ module Import
                 :quantity => conv_to_new(ob[:quantity]),
                 :place => conv_to_new(ob[:place]),
                 :notes => conv_to_new(ob[:notes]),
+                :post_id => ob[:post_id].blank? ? nil : Post.find_by_code(ob[:post_id]).id,
                 :mine => ob[:mine]
         })
         new_ob.id = ob[:observ_id]

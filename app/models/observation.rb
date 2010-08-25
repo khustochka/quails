@@ -1,6 +1,7 @@
 class Observation < ActiveRecord::Base
   belongs_to :species
   belongs_to :locus
+  belongs_to :post
 
   validates :observ_date, :presence => true
 
