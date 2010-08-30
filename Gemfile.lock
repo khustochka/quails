@@ -1,16 +1,16 @@
 GIT
   remote: git://github.com/justinfrench/formtastic.git
-  revision: d4e5326
+  revision: eeba8d402721a3b3ae3c6e0d8f1b123fcae96b65
   branch: rails3
   specs:
-    formtastic (1.0.1)
+    formtastic (1.1.0.beta)
       actionpack (>= 2.3.0)
       activesupport (>= 2.3.0)
       i18n (>= 0.4.0)
 
 GIT
   remote: http://github.com/mislav/will_paginate.git
-  revision: 3615938
+  revision: 36159385c8a5837fc63fe901ebe0a88205b5ce8d
   branch: rails3
   specs:
     will_paginate (3.0.pre2)
@@ -19,12 +19,12 @@ GEM
   remote: http://rubygems.org/
   specs:
     abstract (1.0.0)
-    actionmailer (3.0.0.rc2)
-      actionpack (= 3.0.0.rc2)
+    actionmailer (3.0.0)
+      actionpack (= 3.0.0)
       mail (~> 2.2.5)
-    actionpack (3.0.0.rc2)
-      activemodel (= 3.0.0.rc2)
-      activesupport (= 3.0.0.rc2)
+    actionpack (3.0.0)
+      activemodel (= 3.0.0)
+      activesupport (= 3.0.0)
       builder (~> 2.1.2)
       erubis (~> 2.6.6)
       i18n (~> 0.4.1)
@@ -32,21 +32,21 @@ GEM
       rack-mount (~> 0.6.12)
       rack-test (~> 0.5.4)
       tzinfo (~> 0.3.23)
-    activemodel (3.0.0.rc2)
-      activesupport (= 3.0.0.rc2)
+    activemodel (3.0.0)
+      activesupport (= 3.0.0)
       builder (~> 2.1.2)
       i18n (~> 0.4.1)
-    activerecord (3.0.0.rc2)
-      activemodel (= 3.0.0.rc2)
-      activesupport (= 3.0.0.rc2)
-      arel (~> 1.0.0.rc1)
+    activerecord (3.0.0)
+      activemodel (= 3.0.0)
+      activesupport (= 3.0.0)
+      arel (~> 1.0.0)
       tzinfo (~> 0.3.23)
-    activeresource (3.0.0.rc2)
-      activemodel (= 3.0.0.rc2)
-      activesupport (= 3.0.0.rc2)
-    activesupport (3.0.0.rc2)
-    arel (1.0.0.rc1)
-      activesupport (>= 3.0.0.beta)
+    activeresource (3.0.0)
+      activemodel (= 3.0.0)
+      activesupport (= 3.0.0)
+    activesupport (3.0.0)
+    arel (1.0.1)
+      activesupport (~> 3.0.0)
     builder (2.1.2)
     erubis (2.6.6)
       abstract (>= 1.0.0)
@@ -67,19 +67,19 @@ GEM
       rack (>= 1.0.0)
     rack-test (0.5.4)
       rack (>= 1.0)
-    rails (3.0.0.rc2)
-      actionmailer (= 3.0.0.rc2)
-      actionpack (= 3.0.0.rc2)
-      activerecord (= 3.0.0.rc2)
-      activeresource (= 3.0.0.rc2)
-      activesupport (= 3.0.0.rc2)
-      bundler (>= 1.0.0.rc.6)
-      railties (= 3.0.0.rc2)
-    rails3-generators (0.12.1)
-    railties (3.0.0.rc2)
-      actionpack (= 3.0.0.rc2)
-      activesupport (= 3.0.0.rc2)
-      rake (>= 0.8.3)
+    rails (3.0.0)
+      actionmailer (= 3.0.0)
+      actionpack (= 3.0.0)
+      activerecord (= 3.0.0)
+      activeresource (= 3.0.0)
+      activesupport (= 3.0.0)
+      bundler (~> 1.0.0)
+      railties (= 3.0.0)
+    rails3-generators (0.13.0)
+    railties (3.0.0)
+      actionpack (= 3.0.0)
+      activesupport (= 3.0.0)
+      rake (>= 0.8.4)
       thor (~> 0.14.0)
     rake (0.8.7)
     shoulda (2.11.3)
@@ -100,7 +100,7 @@ DEPENDENCIES
   mysql
   nokogiri
   pg
-  rails (= 3.0.0.rc2)
+  rails (= 3.0.0)
   rails3-generators
   shoulda
   simple_form
