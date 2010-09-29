@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.0'
+gem 'rails', '~>3.0.0'
 
 gem 'pg'
 
@@ -12,7 +12,7 @@ gem 'pg'
 
 # Bundle the extra gems:
 gem 'haml', '~> 3.0.18'
-gem 'will_paginate', :git => 'http://github.com/mislav/will_paginate.git', :branch => 'rails3'
+gem "will_paginate", "~> 3.0.pre2"
 gem 'formtastic'
 gem 'simple_form'
 
