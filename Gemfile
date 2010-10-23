@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '~>3.0.0'
+gem 'rails', '~>3.0.1'
 
 gem 'pg'
 
@@ -36,4 +36,5 @@ group :test do
   gem 'rspec-rails'
   gem 'spork'
   gem 'launchy'    # So you can do Then show me the page
+  gem 'pickle'
 end
