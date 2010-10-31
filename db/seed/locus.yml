@@ -604,65 +604,77 @@ locus:
     - manhattan
     - "43"
     - Location
-    - 
+    - Manhattan
     - !binary |
       0JzQsNC90YXRjdGC0YLQtdC9
 
-    - 
+    - !binary |
+      0JzQsNC90YXQtdGC0YLQtdC9
+
     - "40.716"
     - "-74"
   - - "47"
     - hoboken
     - "44"
     - Location
-    - 
+    - Hoboken
     - !binary |
       0KXQvtCx0L7QutC10L0=
 
-    - 
+    - !binary |
+      0KXQvtCx0L7QutC10L0=
+
     - "40.74"
     - "-74.03"
   - - "48"
     - boryspil
     - "2"
     - Location
-    - 
+    - Boryspil
     - !binary |
       0JHQvtGA0LjRgdC/0L7Qu9GM
 
-    - 
+    - !binary |
+      0JHQvtGA0LjRgdC/0ZbQu9GM
+
     - "50.35"
     - "30.93"
   - - "49"
     - jersey_city
     - "44"
     - Location
-    - 
+    - Jersey City
     - !binary |
       0JTQttC10YDRgdC4LdCh0LjRgtC4
 
-    - 
+    - !binary |
+      0JTQttC10YDRgdGWLdCh0ZbRgtGW
+
     - "40.71"
     - "-74.06"
   - - "50"
     - weehawken
     - "44"
     - Location
-    - 
+    - Weehawken
     - !binary |
       0JLQuNGF0L7QutC10L0=
 
-    - 
+    - !binary |
+      0JLRltGF0L7QutC10L0=
+
     - "40.77"
     - "-74.02"
   - - "51"
     - queens
     - "43"
     - Location
-    - 
+    - Queens
     - !binary |
       0JrQstC40L3RgQ==
 
-    - 
+    - !binary |
+      0JrQstGW0L3RgQ==
+
     - "40.7677"
     - "-73.92"
