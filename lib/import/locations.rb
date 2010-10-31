@@ -35,8 +35,8 @@ module Import
                 :loc_type => 'Location',
                 :name_ru => conv_to_new(loc[:loc_name]),
                 :parent_id => Locus.find_by_code!(loc[:reg_id]).id,
-                :lat => (lat.to_f rescue nil),
-                :lon => (lon.to_f rescue nil)
+                :lat => (lat.try(:to_f)),
+                :lon => (lon.try(:to_f))
         }) if Locus.find_by_code(loc[:loc_id].gsub('-', '_')).nil?
       end
 

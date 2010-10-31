@@ -17,7 +17,7 @@
     - type[:locs].each do |locus|
       %tr
         %td= link_to locus.code, edit_locus_path(locus)
-        %td= locus.parent.code rescue '-'
+        %td= locus.parent.try(:code) || '-'
         %td= %w(en ru uk).map{|lang| "#{lang}: #{locus.send('name_'+lang)}"}.join('<br />').html_safe
         %td.align-center= latlon(locus.lat, locus.lon)
         %td= link_to '[x]', locus, :confirm => 'Are you sure?', :method => :delete

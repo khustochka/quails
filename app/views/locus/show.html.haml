@@ -7,7 +7,7 @@
   = @locus.loc_type
 %p
   %b Parent:
-  = (link_to @locus.parent.code, @locus.parent) rescue '-'
+  = @locus.parent.nil? ? '-' : (link_to @locus.parent.code, @locus.parent)
 %p
   %b English name:
   = @locus.name_en
