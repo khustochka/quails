@@ -6,6 +6,8 @@ class ApplicationController < ActionController::Base
   include AssetsController
   include LayoutController
 
+  extend ModelFinderForController
+
   helper_method :page_title
 
   layout 'public'

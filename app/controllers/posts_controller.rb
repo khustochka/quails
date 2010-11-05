@@ -3,7 +3,7 @@ class PostsController < ApplicationController
   layout 'admin', :except => [:index, :show]
   layout 'public', :only => [:index, :show]
 
-  before_filter :find_post, :except => [:index, :new, :create]
+  add_finder_by :code, :except => [:index, :new, :create]
 
   # GET /posts
   # GET /posts.xml
@@ -79,10 +79,5 @@ class PostsController < ApplicationController
       format.html { redirect_to(posts_url) }
       format.xml { head :ok }
     end
-  end
-
-  private
-  def find_post
-    @post = Post.find_by_code(params[:id])
   end
 end

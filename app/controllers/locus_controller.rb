@@ -4,7 +4,7 @@ class LocusController < ApplicationController
 
   use_jquery :only => :index
 
-  before_filter :find_locus, :except => [:index, :new, :create]
+  add_finder_by :code, :except => [:index, :new, :create]
 
   # GET /locus
   # GET /locus.xml
@@ -88,10 +88,5 @@ class LocusController < ApplicationController
       format.html { redirect_to(locus_index_url) }
       # format.xml  { head :ok }
     end
-  end
-
-  private
-  def find_locus
-    @locus = Locus.find_by_code!(params[:id])
   end
 end
