@@ -1,3 +1,7 @@
+['assets', 'layout', 'locale', 'model_finder_for'].each do |file|
+  require "app/controllers/mixins/#{file}_controller"
+end
+
 class ApplicationController < ActionController::Base
 
   protect_from_forgery
