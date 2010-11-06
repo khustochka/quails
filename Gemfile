@@ -15,12 +15,12 @@ gem 'haml', '~> 3.0.18'
 gem "will_paginate", "~> 3.0.pre2"
 gem 'formtastic'
 gem 'simple_form'
+gem 'yaml_db'
 
 group :development do
   gem 'nokogiri'
   gem 'rails3-generators'
   gem 'mysql'
-  gem 'yaml_db'
   gem 'unicorn'
 end
 
@@ -35,6 +35,6 @@ group :test do
   gem 'cucumber'
   gem 'rspec-rails'
   gem 'spork'
-  gem 'launchy'    # So you can do Then show me the page
+  gem 'launchy' # So you can do Then show me the page
   gem 'pickle'
 end
