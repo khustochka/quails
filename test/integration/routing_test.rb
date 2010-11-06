@@ -15,7 +15,7 @@ class RoutingTest < ActionDispatch::IntegrationTest
   end
 
   should 'route species correctly' do
-    assert_routing '/aves/Aquilla_pomarina', {:controller => 'species', :action => 'show', :id => 'Aquilla_pomarina'}
+    assert_routing '/species/Aquilla_pomarina', {:controller => 'species', :action => 'show', :id => 'Aquilla_pomarina'}
   end
 
   should 'route lifelist correctly' do
