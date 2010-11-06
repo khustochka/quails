@@ -2,7 +2,7 @@ require 'test_helper'
 
 class LocusControllerTest < ActionController::TestCase
   setup do
-    @locus = locus(:one)
+    @locus = Locus.find_by_code!('krym')
   end
 
   test "should get index" do

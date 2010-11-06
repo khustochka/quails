@@ -2,7 +2,7 @@ require 'test_helper'
 
 class SpeciesControllerTest < ActionController::TestCase
   setup do
-    @species = species(:one)
+    @species = Species.find_by_code!('melgal')
   end
 
   test "should get index" do
