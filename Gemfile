@@ -4,9 +4,6 @@ gem 'rails', '~>3.0.1'
 
 gem 'pg'
 
-# Use unicorn as the web server
-# gem 'unicorn'
-
 # Deploy with Capistrano
 # gem 'capistrano'
 
@@ -24,11 +21,10 @@ group :development do
   gem 'unicorn'
 end
 
-# Bundle gems for certain environments:
-# gem 'rspec', :group => :test
 group :test do
   gem 'shoulda'
-  gem 'factory_girl'
+  #gem 'factory_girl'
+  gem 'factory_girl_rails'
   gem 'capybara'
   gem 'database_cleaner'
   gem 'cucumber-rails'

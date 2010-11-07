@@ -2,7 +2,6 @@ require 'test_helper'
 
 class SpeciesControllerTest < ActionController::TestCase
   setup do
-    @species = Species.find_by_code!('melgal')
   end
 
   test "should get index" do
@@ -12,17 +11,22 @@ class SpeciesControllerTest < ActionController::TestCase
   end
 
   test "should show species" do
-    get :show, :id => @species.to_param
+    species = Species.find_by_code!('melgal')
+    get :show, :id => species.to_param
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, :id => @species.to_param
+    species = Species.find_by_code!('melgal')
+    get :edit, :id => species.to_param
     assert_response :success
   end
 
   test "should update species" do
-    put :update, :id => @species.to_param, :species => @species.attributes
+    species = Species.find_by_code!('corbra')
+    species.name_ru = 'Американская ворона'
+
+    put :update, :id => species.to_param, :species => species.attributes
     assert_redirected_to species_path(assigns(:species))
   end
 end

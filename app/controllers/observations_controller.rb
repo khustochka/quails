@@ -68,7 +68,7 @@ class ObservationsController < ApplicationController
 
     respond_to do |format|
       if @observation.update_attributes(params[:observation])
-        format.html { redirect_to(@observation, :notice => 'Observation was successfully updated.') }
+        format.html { redirect_to(edit_observation_path(@observation), :notice => 'Observation was successfully updated.') }
         # format.xml  { head :ok }
       else
         format.html { render :form }
