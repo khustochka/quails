@@ -3,7 +3,7 @@ class PostsController < ApplicationController
   layout 'admin', :except => [:index, :show]
   layout 'public', :only => [:index, :show]
 
-  add_finder_by :code, :except => [:index, :new, :create]
+  add_finder_by :code, :only => [:show, :edit, :update, :destroy]
 
   # GET /posts
   # GET /posts.xml

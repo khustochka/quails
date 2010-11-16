@@ -4,7 +4,7 @@ class LocusController < ApplicationController
 
   use_jquery :only => :index
 
-  add_finder_by :code, :except => [:index, :new, :create]
+  add_finder_by :code, :only => [:show, :edit, :update, :destroy]
 
   # GET /locus
   # GET /locus.xml

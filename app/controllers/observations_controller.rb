@@ -7,7 +7,9 @@ class ObservationsController < ApplicationController
   # TODO: create helper to remove stylesheet
   before_filter do
     @stylesheets.delete('formtastic')
-  end  
+  end
+
+  add_finder_by :id, :only => [:edit, :update, :destroy]
 
   # GET /observations
   # GET /observations.xml
@@ -39,7 +41,6 @@ class ObservationsController < ApplicationController
 
   # GET /observations/1/edit
   def edit
-    @observation = Observation.find(params[:id])
     respond_to do |format|
       format.html { render :form }
     end
@@ -64,8 +65,6 @@ class ObservationsController < ApplicationController
   # PUT /observations/1
   # PUT /observations/1.xml
   def update
-    @observation = Observation.find(params[:id])
-
     respond_to do |format|
       if @observation.update_attributes(params[:observation])
         format.html { redirect_to(edit_observation_path(@observation), :notice => 'Observation was successfully updated.') }
@@ -80,7 +79,6 @@ class ObservationsController < ApplicationController
   # DELETE /observations/1
   # DELETE /observations/1.xml
   def destroy
-    @observation = Observation.find(params[:id])
     @observation.destroy
 
     respond_to do |format|
