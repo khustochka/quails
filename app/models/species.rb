@@ -6,7 +6,7 @@ class Species < ActiveRecord::Base
   validates :code, :format => /^[a-z]{6}$/, :allow_blank => true
 
   default_scope order(:index_num)
-  scope :alphabetic, :order => :name_sci # TODO: change to reorder when my patch accepted
+  scope :alphabetic, reorder(:name_sci)
   
   scope :lifelist, lambda {|*args|
     options = args.extract_options!
