@@ -39,7 +39,8 @@ class SpeciesController < ApplicationController
   # GET /lifelist
   # GET /lifelist.xml
   def lifelist
-    extended_params = params.merge(:loc_ids => Locus.get_subregions(Locus.find_by_code(params[:locus])))
+    extended_params = params.dup
+    extended_params.merge!(:loc_ids => Locus.get_subregions(Locus.select(:id).find_by_code!(params[:locus]))) if params[:locus]
     @species        = Species.lifelist(extended_params).all
     @years          = ([{:year => nil}] + Observation.years(extended_params)).map { |ob| ob[:year] }
 
