@@ -12,78 +12,49 @@ class ObservationsController < ApplicationController
   add_finder_by :id, :only => [:edit, :update, :destroy]
 
   # GET /observations
-  # GET /observations.xml
   def index
     @observations = Observation.paginate(:page => params[:page], :order => params[:sort])
-
-    respond_to do |format|
-      format.html # index.html.erb
-      # format.xml  { render :xml => @observations }
-    end
   end
 
   # GET /observations/1
-  # GET /observations/1.xml
   def show
     redirect_to :action => :edit, :id => params[:id]
   end
 
   # GET /observations/new
-  # GET /observations/new.xml
   def new
     @observation = Observation.new
-
-    respond_to do |format|
-      format.html { render :form }
-      # format.xml  { render :xml => @observation }
-    end
+    render :form
   end
 
   # GET /observations/1/edit
   def edit
-    respond_to do |format|
-      format.html { render :form }
-    end
+    render :form
   end
 
   # POST /observations
-  # POST /observations.xml
   def create
     @observation = Observation.new(params[:observation])
 
-    respond_to do |format|
-      if @observation.save
-        format.html { redirect_to(@observation, :notice => 'Observation was successfully created.') }
-        # format.xml  { render :xml => @observation, :status => :created, :location => @observation }
-      else
-        format.html { render :form }
-        # format.xml  { render :xml => @observation.errors, :status => :unprocessable_entity }
-      end
+    if @observation.save
+      redirect_to(@observation, :notice => 'Observation was successfully created.')
+    else
+      render :form
     end
   end
 
   # PUT /observations/1
-  # PUT /observations/1.xml
   def update
-    respond_to do |format|
-      if @observation.update_attributes(params[:observation])
-        format.html { redirect_to(edit_observation_path(@observation), :notice => 'Observation was successfully updated.') }
-        # format.xml  { head :ok }
-      else
-        format.html { render :form }
-        # format.xml  { render :xml => @observation.errors, :status => :unprocessable_entity }
-      end
+    if @observation.update_attributes(params[:observation])
+      redirect_to(edit_observation_path(@observation), :notice => 'Observation was successfully updated.')
+    else
+      render :form
     end
   end
 
   # DELETE /observations/1
-  # DELETE /observations/1.xml
   def destroy
     @observation.destroy
-
-    respond_to do |format|
-      format.html { redirect_to(observations_url) }
-      # format.xml  { head :ok }
-    end
+    redirect_to(observations_url)
   end
 end
