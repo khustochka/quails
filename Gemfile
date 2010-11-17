@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '~>3.0.1'
+gem 'rails', '3.0.1'
 
 gem 'pg'
 
@@ -8,7 +8,7 @@ gem 'pg'
 # gem 'capistrano'
 
 # Bundle the extra gems:
-gem 'haml', '~> 3.0.18'
+gem 'haml', '~> 3.0'
 gem "will_paginate", "~> 3.0.pre2"
 gem 'formtastic'
 gem 'simple_form'
