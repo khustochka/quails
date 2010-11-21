@@ -8,10 +8,12 @@ class RoutingTest < ActionDispatch::IntegrationTest
   end
 
   should 'route posts correctly' do
-    assert_routing '/2008', {:controller => 'posts', :action => 'year', :year => '2008'}
-    assert_routing '/2010/04', {:controller => 'posts', :action => 'index', :year => '2010', :month => '04'}
-    assert_routing '/2009/07/some-post', {:controller => 'posts', :action => 'show',
-                                          :year => '2010', :month => '04', id => 'some-post'}
+#    assert_routing '/2008', {:controller => 'posts', :action => 'year', :year => '2008'}
+#    assert_routing '/2010/04', {:controller => 'posts', :action => 'index', :year => '2010', :month => '04'}
+#    assert_routing '/2009/07/some-post', {:controller => 'posts', :action => 'show',
+#                                          :year => '2010', :month => '04', :id => 'some-post'}
+    assert_routing '/posts/some-post', {:controller => 'posts', :action => 'show',
+                                           :id => 'some-post'}
   end
 
   should 'route species correctly' do
