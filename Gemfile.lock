@@ -171,6 +171,3 @@ DEPENDENCIES
   unicorn
   will_paginate (~> 3.0.pre2)
   yaml_db
-
-METADATA
-  version: 1.0.6
