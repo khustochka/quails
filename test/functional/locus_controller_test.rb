@@ -16,7 +16,7 @@ class LocusControllerTest < ActionController::TestCase
   end
 
   test "should create locus" do
-    locus = Factory.create(:locus)
+    locus = Factory.build(:locus, :code => 'loccode', :loc_type => 'Country')
     assert_difference('Locus.count') do
       post :create, :locus => locus.attributes
     end
