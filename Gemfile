@@ -2,7 +2,9 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.0.1'
 
-gem 'pg'
+gem 'pg', :platform => [:ruby, :mswin]
+
+gem "activerecord-jdbcpostgresql-adapter", :platform => :jruby
 
 # Deploy with Capistrano
 # gem 'capistrano'
@@ -15,10 +17,12 @@ gem 'simple_form'
 gem 'yaml_db'
 
 group :development do
-  gem 'nokogiri'
   gem 'rails3-generators'
-  gem 'mysql'
-  gem 'unicorn'
+  platform :ruby, :mswin do
+    gem 'mysql'
+    gem 'nokogiri'
+    gem 'unicorn'
+  end
 end
 
 group :test do
