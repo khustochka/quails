@@ -2,9 +2,9 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.0.1'
 
-gem 'pg', :platform => [:ruby, :mswin]
+gem 'pg', :platforms => [:ruby, :mswin, :mingw]
 
-gem "activerecord-jdbcpostgresql-adapter", :platform => :jruby
+gem "activerecord-jdbcpostgresql-adapter", :platforms => :jruby
 
 # Deploy with Capistrano
 # gem 'capistrano'
@@ -18,10 +18,9 @@ gem 'yaml_db'
 
 group :development do
   gem 'rails3-generators'
-  platform :ruby, :mswin do
+  platforms :ruby, :mswin, :mingw do
     gem 'mysql'
-    gem 'nokogiri'
-    gem 'unicorn'
+    gem 'nokogiri', :require => nil
   end
 end
 
@@ -34,7 +33,9 @@ group :test do
   gem 'cucumber-rails'
   gem 'cucumber'
   gem 'rspec-rails'
-  gem 'spork'
   gem 'launchy' # So you can do Then show me the page
   gem 'pickle'
+  platforms :ruby, :mswin, :mingw do
+    gem 'spork'
+  end
 end
