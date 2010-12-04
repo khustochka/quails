@@ -6,11 +6,11 @@ class Species < ActiveRecord::Base
   validates :code, :format => /^[a-z]{6}$/, :uniqueness => true
 
   default_scope order(:index_num)
-  scope :alphabetic, reorder(:name_sci)
+  scope :alphabetic, except(:order).order(:name_sci)
   
   scope :lifelist, lambda {|*args|
     options = args.extract_options!
-    select('*').joins("INNER JOIN (#{Observation.species_first_met_dates(options).to_sql}) AS obs ON species.id=obs.species_id").reorder('mind DESC, index_num DESC').limit(options[:limit])
+    select('*').joins("INNER JOIN (#{Observation.species_first_met_dates(options).to_sql}) AS obs ON species.id=obs.species_id").except(:order).order('mind DESC, index_num DESC').limit(options[:limit])
   }
 
   has_many :observations
