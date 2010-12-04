@@ -25,6 +25,7 @@ group :development do
 end
 
 group :test do
+  gem 'ruby-prof', :platforms => :ruby, :require => nil
   gem 'shoulda'
   #gem 'factory_girl'
   gem 'factory_girl_rails'

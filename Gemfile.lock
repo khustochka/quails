@@ -125,6 +125,7 @@ GEM
       activesupport (~> 3.0)
       railties (~> 3.0)
       rspec (~> 2.2.0)
+    ruby-prof (0.9.2)
     rubyzip (0.9.4)
     selenium-webdriver (0.1.1)
       childprocess (= 0.1.4)
@@ -165,6 +166,7 @@ DEPENDENCIES
   rails (= 3.0.1)
   rails3-generators
   rspec-rails
+  ruby-prof
   shoulda
   simple_form
   spork
