@@ -12,7 +12,7 @@ class Locus < ActiveRecord::Base
   end
 
   def self.all_ordered
-    all = order(:loc_type, :parent_id, :code)
+    all = order(:loc_type, :parent_id, :code).includes(:parent)
     all.select { |loc| loc.loc_type == 'Country' } +
         all.select { |loc| loc.loc_type == 'Region' } +
         all.select { |loc| loc.loc_type == 'Location' }

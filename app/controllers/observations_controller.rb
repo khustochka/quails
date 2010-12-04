@@ -13,7 +13,7 @@ class ObservationsController < ApplicationController
 
   # GET /observations
   def index
-    @observations = Observation.paginate(:page => params[:page], :order => params[:sort])
+    @observations = Observation.paginate(:page => params[:page], :order => params[:sort], :include => [:species, :locus])
   end
 
   # GET /observations/1
