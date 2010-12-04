@@ -6,12 +6,6 @@ class Species < ActiveRecord::Base
   validates :code, :format => /^[a-z]{6}$/, :uniqueness => true
 
   default_scope order(:index_num)
-  scope :alphabetic, except(:order).order(:name_sci)
-  
-  scope :lifelist, lambda {|*args|
-    options = args.extract_options!
-    select('*').joins("INNER JOIN (#{Observation.species_first_met_dates(options).to_sql}) AS obs ON species.id=obs.species_id").except(:order).order('mind DESC, index_num DESC').limit(options[:limit])
-  }
 
   has_many :observations
 
@@ -25,6 +19,15 @@ class Species < ActiveRecord::Base
 #      AND ob1.observ_date < observations.observ_date
 #      )
 #    "
+
+  def self.alphabetic
+    except(:order).order(:name_sci)
+  end
+
+  def self.lifelist(*args)
+    options = args.extract_options!
+    select('*').joins("INNER JOIN (#{Observation.species_first_met_dates(options).to_sql}) AS obs ON species.id=obs.species_id").except(:order).order('mind DESC, index_num DESC').limit(options[:limit])
+  end
 
   def to_param
     name_sci.gsub(' ', '_')
