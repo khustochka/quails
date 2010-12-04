@@ -21,7 +21,9 @@ Quails3::Application.routes.draw do
   resources :species, :only => [:index, :show]
   resources :posts, :except => [:index]
 
-  match 'lifelist(/:year)(/:locus)' => 'species#lifelist', :constraints => {:year => /\d{4}/, :locus => /[a-z_]+/}
+  match 'lifelist(/:year)(/:locus)' => 'species#lifelist',
+        :constraints                => {:year => /\d{4}/, :locus => /[a-z_]+/},
+        :as                         => 'lifelist'
 
 #  scope '/(:locale)', :locale => /[a-z]{2}/ do
 #    resources :species, :except => [:new, :create, :destroy]
@@ -31,10 +33,10 @@ Quails3::Application.routes.draw do
   # ADMINISTRATIVE PAGES
 
 #  scope 'admin' do
-    resources :observations
-    resources :locus
-    resources :species, :only => [:edit, :update]
- # end
+  resources :observations
+  resources :locus
+  resources :species, :only => [:edit, :update]
+  # end
 
   # Sample resource route with options:
   #   resources :products do

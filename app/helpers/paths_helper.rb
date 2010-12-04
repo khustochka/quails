@@ -18,4 +18,8 @@ module PathsHelper
   def index_path_helper(options = {})
     url_for(options.merge(:action => :index))
   end
+
+  def blog_path
+    root_path
+  end
 end

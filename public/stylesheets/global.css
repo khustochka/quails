@@ -38,9 +38,12 @@ table.admin_panel {
   table.admin_panel h6 {
     font-size: 90%; }
 
-.horiz-list li {
-  display: inline;
-  list-style-type: none; }
+.horiz-list {
+  padding: 0; }
+  .horiz-list li {
+    display: inline;
+    list-style-type: none;
+    padding: 0 1em; }
 
 .filter-list li {
   padding: 0 2px;

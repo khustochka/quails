@@ -1,2 +1,6 @@
 #header
   %p#site_cap= link_to_unless_current request.host, root_path
+
+  %ul#site_menu.horiz-list
+    %li= link_to_unless_current 'Blog', blog_path
+    %li= link_to_unless_current 'Lifelist', lifelist_path
