@@ -1,9 +1,6 @@
 require 'test_helper'
 
 class SpeciesTest < ActiveSupport::TestCase
-#  should "be valid" do
-#    assert Species.new.valid?
-#  end
 
   should 'not be saved with empty Latin name' do
     sp          = Species.find_by_code!('parcae')

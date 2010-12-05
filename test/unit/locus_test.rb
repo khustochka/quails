@@ -1,9 +1,6 @@
 require 'test_helper'
 
 class LocusTest < ActiveSupport::TestCase
-#  should "be valid" do
-#    assert Locus.new.valid?
-#  end
 
   should 'not be saved with empty code' do
     loc          = Factory.build(:locus, :loc_type => 'Country')

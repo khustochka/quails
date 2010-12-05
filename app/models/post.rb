@@ -1,5 +1,6 @@
 class Post < ActiveRecord::Base
-  validates_presence_of :code, :title, :topic, :status
+  validates :code, :uniqueness => true, :presence => true
+  validates :title, :topic, :status, :presence => true
 
   has_many :observations
   has_many :species, :through => :observations
