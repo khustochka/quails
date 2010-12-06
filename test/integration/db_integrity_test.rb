@@ -4,9 +4,8 @@ class DBIntegrityTest < ActionDispatch::IntegrationTest
 
   test 'all records in the db are valid' do
     [Species, Locus, Observation, Post].each do |model|
-      puts model.to_s
+#      puts "-- [INFO] Checking #{model.to_s} records in the DB for validity"
       model.all.each do |record|
-#        puts record.id
         assert record.valid?
       end
     end
