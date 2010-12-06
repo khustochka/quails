@@ -4,17 +4,17 @@
       %h6= link_to_unless_current 'home', root_path
     %td
       - if ['edit', 'update'].include?(action_name) && controller.respond_to?(:show)
-        %h5= link_to 'Show this one', show_path_helper
+        %h5= link_to 'Show this one', params.merge({:action => :show})
       - elsif action_name == 'show' && controller.respond_to?(:edit)
-        %h5= link_to 'Edit this one', edit_path_helper
+        %h5= link_to 'Edit this one', params.merge({:action => :edit})
       - if controller.respond_to?(:new)
-        %h6= link_to 'Create new', new_path_helper
+        %h6= link_to 'Create new', :action => :new
       - if action_name != 'index' && controller.respond_to?(:index)
-        %h6= link_to 'Index', index_path_helper
+        %h6= link_to 'Index', :action => :index
     %td
       %h6= link_to_unless_current 'Add post', new_post_path
       %h6= link_to_unless_current 'Add observation', new_observation_path
     %td
-      %h6= link_to_unless_current 'Species', index_path_helper(:controller => :species)
-      %h6= link_to_unless_current 'Locations', index_path_helper(:controller => :locus)
-      %h6= link_to_unless_current 'Observations', index_path_helper(:controller => :observations)
+      %h6= link_to_unless_current 'Species', species_index_path
+      %h6= link_to_unless_current 'Locations', locus_index_path
+      %h6= link_to_unless_current 'Observations', observations_path
