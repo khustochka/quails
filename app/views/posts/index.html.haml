@@ -1,12 +1,8 @@
 - @page_title = 'Birdwatching diary'
 
 - @posts.each do |post|
-  .post
-    %h2= link_to_unless_current post.title, post
-    %small= post.topic
-
-    %p= post.text.gsub(/(\r?\n){2}/,"\n</p>\n<p>\n").html_safe
+  = render 'post', :post => post
 
 %br
 
-= will_paginate @observations
+= will_paginate
