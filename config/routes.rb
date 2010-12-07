@@ -24,7 +24,7 @@ Quails3::Application.routes.draw do
   constraints :year => /\d{4}/ do
     get '/:year' => 'posts#year'
     constraints :month => /(0[1-9])|(1[0-2])/ do
-      get '/:year/:month' => 'posts#index'
+      get '/:year/:month' => 'posts#index', :as => 'month'
       #get '/:year/:month/:id' => 'posts#show'
     end
   end
