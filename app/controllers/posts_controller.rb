@@ -1,19 +1,36 @@
 class PostsController < ApplicationController
 
-  layout 'admin', :except => [:index, :show]
-  layout 'public', :only => [:index, :show]
+  layout 'admin', :except => [:index, :year, :show]
+  layout 'public', :only => [:index, :year, :show]
 
   add_finder_by :code, :only => [:show, :edit, :update, :destroy]
 
   # GET /posts
   # GET /posts.xml
   def index
-    @posts = Post.paginate(:page => params[:page], :order => 'created_at DESC', :per_page => 10)
+    @posts =
+        if (@month = params[:month])
+          @year = params[:year]
+          Post.month(@year, @month)
+        else
+          Post.paginate(:page => params[:page], :order => 'created_at DESC', :per_page => 10)
+        end
 
     respond_to do |format|
       format.html # index.html.erb
       format.xml { render :xml => @posts }
     end
+  end
+
+  def year
+    @posts = Post.year(@year = params[:year])
+    @months = @posts.map { |post|
+      # TODO: there is problem with timezone
+      post.created_at.month
+    }.uniq.inject({}) { |memo, month|
+      memo.merge(month => @posts.select { |p| p.created_at.month == month })
+    }
+    @years = Post.years
   end
 
   # GET /posts/1
@@ -54,4 +71,5 @@ class PostsController < ApplicationController
     @post.destroy
     redirect_to(posts_url)
   end
+
 end

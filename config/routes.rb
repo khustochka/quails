@@ -21,9 +21,17 @@ Quails3::Application.routes.draw do
   resources :species, :only => [:index, :show]
   resources :posts, :except => [:index]
 
-  match 'lifelist(/:year)(/:locus)' => 'species#lifelist',
-        :constraints                => {:year => /\d{4}/, :locus => /[a-z_]+/},
-        :as                         => 'lifelist'
+  constraints :year => /\d{4}/ do
+    get '/:year' => 'posts#year'
+    constraints :month => /(0[1-9])|(1[0-2])/ do
+      get '/:year/:month' => 'posts#index'
+      #get '/:year/:month/:id' => 'posts#show'
+    end
+  end
+
+  get 'lifelist(/:year)(/:locus)' => 'species#lifelist',
+      :constraints                => {:year => /\d{4}/, :locus => /[a-z_]+/},
+      :as                         => 'lifelist'
 
 #  scope '/(:locale)', :locale => /[a-z]{2}/ do
 #    resources :species, :except => [:new, :create, :destroy]

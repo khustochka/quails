@@ -2,11 +2,7 @@
 
 %h2 Lifelist
 
-- unless @years.blank?
-  %ul#years-filter.horiz-list.filter-list
-    %strong Years:
-    - @years.each do |year|
-      %li= link_to_unless_current(year || 'All', params.merge(:year => year))
+= render 'partials/years'
 
 - if @species.blank?
   %p No species observed.

@@ -1,0 +1,11 @@
+- @page_title = "Year #{@year}"
+
+%h2= "Year #{@year}"
+
+= render 'partials/years'
+
+- @months.keys.sort.each do |num|
+  %h3= "Month #{link_to(num, posts_path({:year => @year, :month => num}))}".html_safe
+  %ul
+    - @months[num].each do |post|
+      %li= "#{post.created_at.day}: #{link_to(post.title, post)}".html_safe

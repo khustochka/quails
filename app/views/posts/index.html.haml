@@ -1,8 +1,10 @@
 - @page_title = 'Birdwatching diary'
+-# TODO: implement month view
 
 - @posts.each do |post|
   = render 'post', :post => post
 
 %br
 
-= will_paginate
+-# TODO: remove pagination, implement Back/Forward
+= will_paginate unless @month

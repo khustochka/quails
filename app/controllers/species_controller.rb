@@ -42,7 +42,7 @@ class SpeciesController < ApplicationController
     extended_params = params.dup
     extended_params.merge!(:loc_ids => Locus.select(:id).find_by_code!(params[:locus]).get_subregions) if params[:locus]
     @species        = Species.lifelist(extended_params).all
-    @years          = ([{:year => nil}] + Observation.years(extended_params)).map { |ob| ob[:year] }
+    @years          = Observation.years(extended_params)
 
     respond_to do |format|
       format.html
