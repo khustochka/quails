@@ -22,7 +22,7 @@ class PostsController < ApplicationController
 
   # GET /posts/new
   def new
-    @post = Post.new
+    @post = Post.new(:lj_url_id => 0, :lj_post_id => 0)
   end
 
   # GET /posts/1/edit

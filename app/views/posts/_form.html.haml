@@ -8,6 +8,9 @@
   - if %w(edit update).include? action_name
     = form.input :lj_post_id, :label => 'Lj Post'
     = form.input :lj_url_id, :label => 'Lj Url'
+  - else
+    = form.input :lj_post_id, :as => :hidden
+    = form.input :lj_url_id, :as => :hidden
 
   .actions
     = form.button :submit
