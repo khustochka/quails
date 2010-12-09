@@ -1,8 +1,10 @@
 source 'http://rubygems.org'
 
+mingw = (Bundler::VERSION < '1.0.5') ? [] : [:mingw]
+
 gem 'rails', '3.0.3'
 
-gem 'pg', :platforms => [:ruby, :mswin, :mingw]
+gem 'pg', :platforms => [:ruby, :mswin] + mingw
 
 gem "activerecord-jdbcpostgresql-adapter", :platforms => :jruby
 
@@ -18,7 +20,7 @@ gem 'yaml_db'
 
 group :development do
   gem 'rails3-generators'
-  platforms :ruby, :mswin, :mingw do
+  platforms *([:ruby, :mswin] + mingw) do
     gem 'mysql', :require => nil
     gem 'nokogiri', :require => nil
   end
@@ -36,7 +38,7 @@ group :test do
   gem 'rspec-rails'
   gem 'launchy' # So you can do Then show me the page
   gem 'pickle'
-  platforms :ruby, :mswin, :mingw do
+  platforms *([:ruby, :mswin] + mingw) do
     gem 'spork'
   end
 end
