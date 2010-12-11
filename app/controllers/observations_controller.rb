@@ -5,9 +5,7 @@ class ObservationsController < ApplicationController
   use_jquery :only => :index
 
   # TODO: create helper to remove stylesheet
-  before_filter do
-    @stylesheets.delete('formtastic')
-  end
+  before_filter { @stylesheets.delete('formtastic') }
 
   add_finder_by :id, :only => [:edit, :update, :destroy]
 

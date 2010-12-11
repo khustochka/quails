@@ -13,9 +13,7 @@ class Locus < ActiveRecord::Base
 
   def self.all_ordered
     all = order(:loc_type, :parent_id, :code).includes(:parent)
-    all.select { |loc| loc.loc_type == 'Country' } +
-        all.select { |loc| loc.loc_type == 'Region' } +
-        all.select { |loc| loc.loc_type == 'Location' }
+    all.partition { |loc| loc.loc_type != 'Location' }.flatten
   end
 
   def get_subregions
@@ -24,7 +22,7 @@ class Locus < ActiveRecord::Base
 
   private
   def self.bulk_subregions_finder(loc_ids)
-    parent_locs = loc_ids.is_a?(Array) ? loc_ids : [loc_ids]
+    parent_locs = Array.wrap(loc_ids)
     subregs     = select(:id).where(:parent_id => parent_locs).all
     parent_locs + (subregs.blank? ? [] : bulk_subregions_finder(subregs))
   end
