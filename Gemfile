@@ -24,6 +24,12 @@ group :development do
     gem 'mysql', :require => nil
     gem 'nokogiri', :require => nil
   end
+
+# Other gems that may be useful but are not really dependencies:
+# gem 'ruby-debug-ide' # for debugging in RubyMine
+# gem 'unicorn' # web server
+# gem 'heroku'  # for Heroku
+# gem 'taps'    # for pushing DB to Heroku
 end
 
 group :test do
