@@ -19,13 +19,13 @@ Quails3::Application.routes.draw do
   # PUBLIC PAGES
 
   resources :species, :only => [:index, :show]
-  resources :posts, :except => [:index]
+  resources :posts, :except => [:index, :show]
 
   constraints :year => /\d{4}/ do
     get '/:year' => 'posts#year'
     constraints :month => /(0[1-9])|(1[0-2])/ do
       get '/:year/:month' => 'posts#index', :as => 'month'
-      get '/:year/:month/:id' => 'posts#public_show', :as => 'show_post'
+      get '/:year/:month/:id' => 'posts#show', :as => 'show_post'
     end
   end
 

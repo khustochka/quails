@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
 
-  layout 'admin', :except => [:index, :year, :public_show, :show]
-  layout 'public', :only => [:index, :year, :public_show]
+  layout 'admin', :except => [:index, :year, :show]
+  layout 'public', :only => [:index, :year]
 
   add_finder_by :code, :only => [:public_show, :edit, :update, :destroy, :show]
 
@@ -34,12 +34,7 @@ class PostsController < ApplicationController
   end
 
   # GET /posts/1
-  def public_show
-  end
-
-  # GET /posts/1
   def show
-    redirect_to(public_post_path(@post))
   end
 
   # GET /posts/new

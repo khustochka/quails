@@ -23,7 +23,7 @@ class Post < ActiveRecord::Base
   end
 
   def to_url_params
-    {:id => code, :year => created_at.year, :month => created_at.month}
+    {:id => code, :year => created_at.year, :month => '%02d' % created_at.month}
   end
 
 end

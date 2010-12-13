@@ -10,7 +10,7 @@ class RoutingTest < ActionDispatch::IntegrationTest
   should 'route posts correctly' do
     assert_routing '/2008', {:controller => 'posts', :action => 'year', :year => '2008'}
     assert_routing '/2010/04', {:controller => 'posts', :action => 'index', :year => '2010', :month => '04'}
-    assert_routing '/2009/07/some-post', {:controller => 'posts', :action => 'public_show',
+    assert_routing '/2009/07/some-post', {:controller => 'posts', :action => 'show',
                                           :year => '2009', :month => '07', :id => 'some-post'}
   end
 

@@ -9,5 +9,6 @@ class ActiveSupport::TestCase
   # -- they do not yet inherit this setting
   fixtures :all
 
-  # Add more helper methods to be used by all tests here...
+  delegate :public_post_path, :to => :@controller
+
 end
