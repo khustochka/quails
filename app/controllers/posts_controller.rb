@@ -1,9 +1,9 @@
 class PostsController < ApplicationController
 
-  layout 'admin', :except => [:index, :year, :show]
-  layout 'public', :only => [:index, :year, :show]
+  layout 'admin', :except => [:index, :year, :public_show, :show]
+  layout 'public', :only => [:index, :year, :public_show]
 
-  add_finder_by :code, :only => [:show, :edit, :update, :destroy]
+  add_finder_by :code, :only => [:public_show, :edit, :update, :destroy, :show]
 
   # GET /posts
   # GET /posts.xml
@@ -23,18 +23,23 @@ class PostsController < ApplicationController
   end
 
   def year
-    @posts = Post.year(@year = params[:year])
+    @posts  = Post.year(@year = params[:year])
     @months = @posts.map { |post|
-      # TODO: there is problem with timezone
+    # TODO: there is problem with timezone
       '%02d' % post.created_at.month
     }.uniq.inject({}) { |memo, month|
       memo.merge(month => @posts.select { |p| p.created_at.month == month.to_i })
     }
-    @years = Post.years
+    @years  = Post.years
+  end
+
+  # GET /posts/1
+  def public_show
   end
 
   # GET /posts/1
   def show
+    redirect_to(public_post_path(@post))
   end
 
   # GET /posts/new
@@ -51,7 +56,7 @@ class PostsController < ApplicationController
     @post = Post.new(params[:post])
 
     if @post.save
-      redirect_to(@post, :notice => 'Post was successfully created.')
+      redirect_to(public_post_path(@post), :notice => 'Post was successfully created.')
     else
       render :action => "new"
     end
@@ -60,7 +65,7 @@ class PostsController < ApplicationController
   # PUT /posts/1
   def update
     if @post.update_attributes(params[:post])
-      redirect_to(@post, :notice => 'Post was successfully updated.')
+      redirect_to(public_post_path(@post), :notice => 'Post was successfully updated.')
     else
       render :action => "edit"
     end
@@ -71,5 +76,12 @@ class PostsController < ApplicationController
     @post.destroy
     redirect_to(posts_url)
   end
+
+  private
+  def public_post_path(post)
+    show_post_path(post.to_url_params)
+  end
+
+  helper_method :public_post_path
 
 end

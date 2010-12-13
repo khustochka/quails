@@ -22,4 +22,8 @@ class Post < ActiveRecord::Base
     code
   end
 
+  def to_url_params
+    {:id => code, :year => created_at.year, :month => created_at.month}
+  end
+
 end

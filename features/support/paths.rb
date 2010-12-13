@@ -15,7 +15,7 @@ module NavigationHelpers
         $1
 
       when /^"([^"]*)" post page$/i
-        post_path($1)
+        show_post_path(Post.find_by_code!($1).to_url_params)
 
       # Add more mappings here.
       # Here is an example that pulls values out of the Regexp:
