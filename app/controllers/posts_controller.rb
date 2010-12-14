@@ -23,7 +23,7 @@ class PostsController < ApplicationController
     @posts  = Post.year(@year = params[:year])
     @months = @posts.map { |post|
     # TODO: there is problem with timezone
-      '%02d' % post.created_at.month
+      post.month_str
     }.uniq.inject({}) { |memo, month|
       memo.merge(month => @posts.select { |p| p.created_at.month == month.to_i })
     }

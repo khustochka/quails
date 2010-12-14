@@ -7,11 +7,11 @@ class Post < ActiveRecord::Base
   has_many :species, :through => :observations
 
   scope :year, lambda { |year|
-    where('EXTRACT(year from created_at) = ?', year).order('created_at ASC')
+    select('id, code, title, created_at').where('EXTRACT(year from created_at) = ?', year).order('created_at ASC')
   }
 
   scope :month, lambda { |year, month|
-    year(year).where('EXTRACT(month from created_at) = ?', month)
+    year(year).except(:select).where('EXTRACT(month from created_at) = ?', month)
   }
 
   def self.years
@@ -22,8 +22,20 @@ class Post < ActiveRecord::Base
     code
   end
 
+  def year
+    created_at.year
+  end
+
+  def month_str
+    '%02d' % created_at.month
+  end
+
+  def day
+    created_at.day
+  end
+
   def to_url_params
-    {:id => code, :year => created_at.year, :month => '%02d' % created_at.month}
+    {:id => code, :year => year, :month => month_str}
   end
 
 end
