@@ -22,6 +22,10 @@ class Post < ActiveRecord::Base
     code
   end
 
+  def date
+    created_at.strftime('%Y-%m-%d')
+  end
+
   def year
     created_at.year
   end
