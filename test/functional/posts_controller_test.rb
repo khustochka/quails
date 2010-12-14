@@ -25,7 +25,7 @@ class PostsControllerTest < ActionController::TestCase
   test "should get posts list for a month" do
     blogpost1 = Factory.create(:post, :created_at => '2007-12-06 13:14:15', :code => 'post-one')
     blogpost2 = Factory.create(:post, :created_at => '2007-11-06 13:14:15', :code => 'post-two')
-    get :index, :year => 2007, :month => 12
+    get :month, :year => 2007, :month => 12
     assert_response :success
     assert_select "h2 a[href=#{public_post_path(blogpost1)}]", true
     assert_select "h2 a[href=#{public_post_path(blogpost2)}]", false

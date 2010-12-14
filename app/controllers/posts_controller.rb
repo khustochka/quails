@@ -5,21 +5,18 @@ class PostsController < ApplicationController
 
   add_finder_by :code, :only => [:public_show, :edit, :update, :destroy, :show]
 
-  # GET /posts
-  # GET /posts.xml
+  # GET /
   def index
-    @posts =
-        if (@month = params[:month])
-          @year = params[:year]
-          Post.month(@year, @month)
-        else
-          Post.paginate(:page => params[:page], :order => 'created_at DESC', :per_page => 10)
-        end
+    @posts = Post.paginate(:page => params[:page], :order => 'created_at DESC', :per_page => 10)
 
     respond_to do |format|
       format.html # index.html.erb
       format.xml { render :xml => @posts }
     end
+  end
+
+  def month
+    @posts = Post.month(@year = params[:year], @month = params[:month])
   end
 
   def year
