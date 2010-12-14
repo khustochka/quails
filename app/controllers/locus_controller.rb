@@ -8,11 +8,9 @@ class LocusController < ApplicationController
 
   # GET /locus
   def index
-    @locus = Locus.all_ordered
-    @types = @locus.map { |loc|
-      {:name => loc.loc_type}
-    }.uniq.map { |type|
-      type.merge(:locs => @locus.select { |s| s.loc_type == type[:name] })
+    @locus = Locus.list_order.includes(:parent)
+    @types = %w(Country Region Location).map { |type|
+      {type => @locus.select { |s| s.loc_type == type }}
     }
   end
 

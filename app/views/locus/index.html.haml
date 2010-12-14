@@ -13,8 +13,8 @@
   - @types.each do |type|
     %tr
       %td{:colspan => 5}
-        %h3= type[:name].pluralize.upcase
-    - type[:locs].each do |locus|
+        %h3= type.keys.first.pluralize.upcase
+    - type.values.first.each do |locus|
       %tr
         %td= link_to locus.code, edit_locus_path(locus)
         %td= locus.parent.try(:code) || '-'

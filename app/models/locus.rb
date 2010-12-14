@@ -7,13 +7,14 @@ class Locus < ActiveRecord::Base
 
   belongs_to :parent, :class_name => 'Locus'
 
+  scope :list_order, order(:loc_type, :parent_id, :code)
+
   def to_param
     code
   end
 
   def self.all_ordered
-    all = order(:loc_type, :parent_id, :code).includes(:parent)
-    all.partition { |loc| loc.loc_type != 'Location' }.flatten
+    list_order.partition { |loc| loc.loc_type != 'Location' }.flatten
   end
 
   def get_subregions
