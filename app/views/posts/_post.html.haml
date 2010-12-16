@@ -1,7 +1,7 @@
-.post{:id => "post-#{post.code}"}
-  %h2= link_to_unless_current post.title, public_post_path(post)
-  -#%small= post.topic
-  %small
-    %i= l(Date.parse(post.date), :format => :long)
+.post-box{:id => "post-#{post.code}"}
+  %h2.post-title= link_to_unless_current post.title, public_post_path(post)
 
-  %p= post.text.gsub(/(\r?\n){2}/,"\n</p>\n<p>\n").html_safe
+  %em.post-date= l(Date.parse(post.date), :format => :long)
+  -#%small= post.topic
+
+  = post_body(post)
