@@ -32,6 +32,9 @@ class PostsController < ApplicationController
 
   # GET /posts/1
   def show
+    if @post.month_str != params[:month].to_s || @post.year.to_s != params[:year].to_s
+      redirect_to public_post_path(@post)
+    end
   end
 
   # GET /posts/new
