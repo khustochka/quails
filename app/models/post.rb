@@ -14,6 +14,18 @@ class Post < ActiveRecord::Base
     year(year).except(:select).where('EXTRACT(month from created_at) = ?', month)
   }
 
+  def self.prev_month(year, month)
+    date = Time.parse("#{year}-#{month}-01")
+    rec = select('created_at').where('created_at < ?', date).order('created_at DESC').limit(1).find(:first)
+    rec.nil? ? nil : {:month => rec.month, :year => rec.year}
+  end
+
+  def self.next_month(year, month)
+    date = Time.parse("#{year}-#{month}-01").end_of_month
+    rec = select('created_at').where('created_at > ?', date).order('created_at ASC').limit(1).find(:first)
+    rec.nil? ? nil : {:month => rec.month, :year => rec.year}
+  end
+
   def self.years
     select('DISTINCT EXTRACT(year from created_at) AS year').order(:year).map { |p| p[:year] }
   end
@@ -27,10 +39,10 @@ class Post < ActiveRecord::Base
   end
 
   def year
-    created_at.year
+    created_at.year.to_s
   end
 
-  def month_str
+  def month
     '%02d' % created_at.month
   end
 
@@ -39,7 +51,7 @@ class Post < ActiveRecord::Base
   end
 
   def to_url_params
-    {:id => code, :year => year, :month => month_str}
+    {:id => code, :year => year, :month => month}
   end
 
 end

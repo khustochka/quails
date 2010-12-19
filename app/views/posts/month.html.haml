@@ -1,9 +1,10 @@
-- @page_title = 'Birdwatching diary'
--# TODO: implement month view
+- @page_title = [t('date.month_names')[@month.to_i], @year].join(' ')
+
+%h3= [t('date.month_names')[@month.to_i], link_to(@year, year_path(@year))].join(' ').html_safe
 
 - @posts.each do |post|
   = render 'post', :post => post
 
-%br
-
--# TODO: implement Back/Forward
+%p.month-navigation
+  = link_to '<< Previous month', month_path(@prev_month) unless @prev_month.nil?
+  = link_to 'Next month >>', month_path(@next_month) unless @next_month.nil?

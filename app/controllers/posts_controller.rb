@@ -17,13 +17,15 @@ class PostsController < ApplicationController
 
   def month
     @posts = Post.month(@year = params[:year], @month = params[:month])
+    @prev_month = Post.prev_month(@year, @month)
+    @next_month = Post.next_month(@year, @month)
   end
 
   def year
     @posts  = Post.year(@year = params[:year])
     @months = @posts.map { |post|
     # TODO: there is problem with timezone
-      post.month_str
+      post.month
     }.uniq.inject({}) { |memo, month|
       memo.merge(month => @posts.select { |p| p.created_at.month == month.to_i })
     }
@@ -32,7 +34,7 @@ class PostsController < ApplicationController
 
   # GET /posts/1
   def show
-    if @post.month_str != params[:month].to_s || @post.year.to_s != params[:year].to_s
+    if @post.month != params[:month].to_s || @post.year != params[:year].to_s
       redirect_to public_post_path(@post)
     end
   end
