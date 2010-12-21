@@ -49,14 +49,14 @@ class PostsControllerTest < ActionController::TestCase
     blogpost = Factory.create(:post)
     get :show, blogpost.to_url_params
     assert_response :success
-#    assert_select "a[href=#{edit_post_path(blogpost)}]", true
+#    assert_select "a[href=#{edit_post_path(blogpost)}]", true # TODO: remove month+year params?
   end
 
   test "should get edit" do
     blogpost = Factory.create(:post)
     get :edit, :id => blogpost.to_param
     assert_response :success
-#    assert_select "a[href=#{public_post_path(blogpost)}]", true
+    assert_select "a[href=#{public_post_path(blogpost)}]", true
   end
 
   test "should update post" do

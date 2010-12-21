@@ -4,7 +4,7 @@
       %h6= link_to_unless_current 'home', root_path
     %td
       - if ['edit', 'update'].include?(action_name) && controller.respond_to?(:show)
-        %h5= link_to 'Show this one', params.merge({:action => :show}) rescue nil #TODO: FIXME or not?
+        %h5= link_to 'Show this one', params.merge({:action => :show}).merge(@extra_params || {})
       - elsif action_name == 'show' && controller.respond_to?(:edit)
         %h5= link_to 'Edit this one', params.merge({:action => :edit})
       - if controller.respond_to?(:new)

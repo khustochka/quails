@@ -46,6 +46,7 @@ class PostsController < ApplicationController
 
   # GET /posts/1/edit
   def edit
+    @extra_params = @post.to_url_params
   end
 
   # POST /posts
