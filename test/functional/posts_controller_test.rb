@@ -41,7 +41,6 @@ class PostsControllerTest < ActionController::TestCase
     assert_difference('Post.count') do
       post :create, :post => blogpost.attributes
     end
-
     assert_redirected_to public_post_path(assigns(:post))
   end
 
@@ -49,7 +48,7 @@ class PostsControllerTest < ActionController::TestCase
     blogpost = Factory.create(:post)
     get :show, blogpost.to_url_params
     assert_response :success
-#    assert_select "a[href=#{edit_post_path(blogpost)}]", true # TODO: remove month+year params?
+    assert_select "a[href=#{edit_post_path(blogpost)}]", true
   end
 
   test "should get edit" do
@@ -71,7 +70,6 @@ class PostsControllerTest < ActionController::TestCase
     assert_difference('Post.count', -1) do
       delete :destroy, :id => blogpost.to_param
     end
-
     assert_redirected_to posts_path
   end
 
