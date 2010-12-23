@@ -21,7 +21,7 @@ gem 'yaml_db'
 group :development do
   gem 'rails3-generators'
   platforms *([:ruby, :mswin] + mingw) do
-    gem 'mysql', :require => nil
+    gem 'mysql2', :require => nil
     gem 'nokogiri', :require => nil
   end
 

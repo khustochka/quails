@@ -51,7 +51,7 @@ production:
 #  <<: *TEST
 #
 #legacy:
-#  adapter: mysql
+#  adapter: mysql2
 #  encoding: cp1251
 #  pool: 5
 #  database:
