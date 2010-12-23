@@ -46,10 +46,6 @@ production:
   <<: *DEFAULT
   database: quails_production
 
-#
-#cucumber:
-#  <<: *TEST
-#
 #legacy:
 #  adapter: mysql2
 #  encoding: cp1251
