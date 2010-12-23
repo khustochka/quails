@@ -1,17 +1,17 @@
 = simple_form_for @post do |form|
 
-  = form.input :code, :label => 'Code'
-  = form.input :title, :label => 'Title'
-  = form.input :text, :label => 'Text'
-  = form.input :topic, :label => 'Topic'
-  = form.input :status, :label => 'Status'
+  = form.input :code
+  = form.input :created_at, :label => 'Post date' unless @post.new_record?
+  = form.input :title
+  = form.input :text
+  = form.input :topic, :collection => PostsHelper::POST_TOPICS, :input_html => {:size => '3'}, :include_blank => false
+  = form.input :status, :collection => PostsHelper::POST_STATES, :input_html => {:size => '3'}, :include_blank => false
   - if @post.new_record?
     = form.input :lj_post_id, :as => :hidden
     = form.input :lj_url_id, :as => :hidden
   - else
     = form.input :lj_post_id, :label => 'Lj Post', :input_html => {:disabled => true}
     = form.input :lj_url_id, :label => 'Lj Url', :input_html => {:disabled => true}
-    = form.input :created_at, :label => 'Post date'
 
   .actions
     = form.button :submit

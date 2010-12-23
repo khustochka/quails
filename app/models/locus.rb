@@ -2,8 +2,8 @@ class Locus < ActiveRecord::Base
 
   # TYPES_ORDER = {'Company' => 1, 'Region' => 2, 'Location' => 3}
 
-  validates :code, :format => /^[a-z_]+$/i, :uniqueness => true
-  validates :loc_type, :inclusion => ['Country', 'Region', 'Location']
+  validates :code, :format => /^[a-z_]+$/i, :uniqueness => true, :presence => true
+  validates :loc_type, :inclusion => ['Country', 'Region', 'Location'], :presence => true
 
   belongs_to :parent, :class_name => 'Locus'
 
