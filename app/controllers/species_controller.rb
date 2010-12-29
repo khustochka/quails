@@ -1,7 +1,6 @@
 class SpeciesController < ApplicationController
 
   layout 'admin', :except => [:index, :show, :lifelist]
-  layout 'public', :only => [:index, :show, :lifelist]
 
   before_filter :find_species, :only => [:show, :edit, :update]
 
