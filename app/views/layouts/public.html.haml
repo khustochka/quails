@@ -36,13 +36,13 @@
 
   %body
 
-    = render :partial => "partials/header"
+    = render 'partials/header'
 
-    = render :partial => "partials/admin_panel"
+    = render 'partials/admin_panel'
 
     #main
       =yield
 
-    = render :partial => "partials/footer"
+    = render 'partials/footer'
 
-    = render :partial => "partials/ga"
+    = render 'partials/ga'
