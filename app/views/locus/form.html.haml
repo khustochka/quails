@@ -5,7 +5,7 @@
 = simple_form_for @locus do |form|
   = form.input :code, :label => 'Code'
   = form.association :parent, :label => 'Parent', :label_method => :name_en, :collection => (Locus.all_ordered - [@locus])
-  = form.input :loc_type, :label => 'Type',  :collection => LocusHelper::LOC_TYPES, :input_html => {:size => '3'}, :include_blank => false
+  = form.input :loc_type, :label => 'Type',  :collection => Locus::TYPES, :input_html => {:size => '3'}, :include_blank => false
   = form.input :name_en, :label => 'English name'
   = form.input :name_ru, :label => 'Russian name'
   = form.input :name_uk, :label => 'Ukrainian name'

@@ -1,6 +1,11 @@
 class Post < ActiveRecord::Base
+  TOPICS = %w(OBSR NEWS SITE)
+  STATES = %w(OPEN PRIV)
+
   validates :code, :uniqueness => true, :presence => true
-  validates :title, :topic, :status, :presence => true
+  validates :title, :presence => true
+  validates :topic, :inclusion => TOPICS, :presence => true
+  validates :status, :inclusion => STATES, :presence => true
   validates :lj_url_id, :lj_post_id, :numericality => true
 
   has_many :observations
