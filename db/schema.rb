@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100825013936) do
+ActiveRecord::Schema.define(:version => 20101229214758) do
 
   create_table "locus", :force => true do |t|
     t.string  "code",      :null => false
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(:version => 20100825013936) do
   add_index "observations", ["locus_id"], :name => "index_observations_on_locus_id"
   add_index "observations", ["mine"], :name => "index_observations_on_mine"
   add_index "observations", ["observ_date"], :name => "index_observations_on_observ_date"
+  add_index "observations", ["post_id"], :name => "index_observations_on_post_id"
   add_index "observations", ["species_id"], :name => "index_observations_on_species_id"
 
   create_table "posts", :force => true do |t|
