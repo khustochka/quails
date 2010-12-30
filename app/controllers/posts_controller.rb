@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
 
-  layout 'admin', :only => [:index, :year, :month, :show]
+  layout 'admin', :except => [:index, :year, :month, :show]
 
   add_finder_by :code, :only => [:public_show, :edit, :update, :destroy, :show]
 
