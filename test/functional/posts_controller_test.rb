@@ -6,10 +6,12 @@ class PostsControllerTest < ActionController::TestCase
   end
 
   test "should get index" do
-    blogpost = Factory.create(:post)
+    blogpost1 = Factory.create(:post, :created_at => '2007-12-06 13:14:15', :code => 'post-one')
+    blogpost2 = Factory.create(:post, :created_at => '2008-11-06 13:14:15', :code => 'post-two')
     get :index
     assert_response :success
-    assert_select "h2 a[href=#{public_post_path(blogpost)}]"
+    assert_select "h2 a[href=#{public_post_path(blogpost1)}]"
+    assert_select "h2 a[href=#{public_post_path(blogpost2)}]"
   end
 
   test "should get posts list for a year" do
@@ -78,5 +80,14 @@ class PostsControllerTest < ActionController::TestCase
     get :show, {:id => blogpost.code, :year => 2010, :month => '01'}
 #    assert_response 301
     assert_redirected_to public_post_path(blogpost)
+  end
+
+  should 'render properly if there is no previous or next month' do
+    blogpost1 = Factory.create(:post, :created_at => '2007-12-06 13:14:15', :code => 'post-one')
+    blogpost2 = Factory.create(:post, :created_at => '2008-11-06 13:14:15', :code => 'post-two')
+    get :month, :year => 2007, :month => 12
+    assert_response :success
+    get :month, :year => 2007, :month => 11
+    assert_response :success
   end
 end
