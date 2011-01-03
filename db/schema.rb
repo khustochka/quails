@@ -10,12 +10,12 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101229214758) do
+ActiveRecord::Schema.define(:version => 20110103032534) do
 
   create_table "locus", :force => true do |t|
-    t.string  "code",      :null => false
+    t.string  "code",      :limit => 32, :null => false
     t.integer "parent_id"
-    t.string  "loc_type",  :null => false
+    t.string  "loc_type",  :limit => 8,  :null => false
     t.string  "name_en"
     t.string  "name_ru"
     t.string  "name_uk"
@@ -46,11 +46,11 @@ ActiveRecord::Schema.define(:version => 20101229214758) do
   add_index "observations", ["species_id"], :name => "index_observations_on_species_id"
 
   create_table "posts", :force => true do |t|
-    t.string   "code"
+    t.string   "code",       :limit => 64
     t.string   "title"
     t.text     "text"
-    t.string   "topic"
-    t.string   "status"
+    t.string   "topic",      :limit => 4
+    t.string   "status",     :limit => 4
     t.integer  "lj_post_id"
     t.integer  "lj_url_id"
     t.datetime "created_at"
@@ -64,15 +64,15 @@ ActiveRecord::Schema.define(:version => 20101229214758) do
 
   create_table "species", :force => true do |t|
     t.string  "code",       :limit => 6
-    t.string  "name_sci",                :null => false
-    t.string  "authority",               :null => false
-    t.string  "name_en",                 :null => false
-    t.string  "name_ru",                 :null => false
-    t.string  "name_uk",                 :null => false
-    t.integer "index_num",               :null => false
-    t.string  "order",                   :null => false
-    t.string  "family",                  :null => false
-    t.string  "avibase_id",              :null => false
+    t.string  "name_sci",                 :null => false
+    t.string  "authority",                :null => false
+    t.string  "name_en",                  :null => false
+    t.string  "name_ru",                  :null => false
+    t.string  "name_uk",                  :null => false
+    t.integer "index_num",                :null => false
+    t.string  "order",                    :null => false
+    t.string  "family",                   :null => false
+    t.string  "avibase_id", :limit => 16, :null => false
     t.string  "protonym"
   end
 

@@ -4,6 +4,7 @@ class Species < ActiveRecord::Base
   validates :family, :presence => true
   validates :name_sci, :format => /^[A-Z][a-z]+( \(?[a-z]+\)?)+$/, :uniqueness => true
   validates :code, :format => /^[a-z]{6}$/, :uniqueness => true
+  validates :avibase_id, :format => /^[\dA-F]{16}$/
 
   default_scope order(:index_num)
 

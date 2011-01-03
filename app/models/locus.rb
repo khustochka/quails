@@ -2,8 +2,8 @@ class Locus < ActiveRecord::Base
 
   TYPES = %w(Country Region Location)
 
-  validates :code, :format => /^[a-z_]+$/i, :uniqueness => true, :presence => true
-  validates :loc_type, :inclusion => TYPES, :presence => true
+  validates :code, :format => /^[a-z_]+$/i, :uniqueness => true, :presence => true, :length => { :maximum => 32 }
+  validates :loc_type, :inclusion => TYPES, :presence => true, :length => { :maximum => 8 }
 
   belongs_to :parent, :class_name => 'Locus'
 

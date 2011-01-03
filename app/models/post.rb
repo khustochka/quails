@@ -2,10 +2,10 @@ class Post < ActiveRecord::Base
   TOPICS = %w(OBSR NEWS SITE)
   STATES = %w(OPEN PRIV)
 
-  validates :code, :uniqueness => true, :presence => true
+  validates :code, :uniqueness => true, :presence => true, :length => { :maximum => 64 }
   validates :title, :presence => true
-  validates :topic, :inclusion => TOPICS, :presence => true
-  validates :status, :inclusion => STATES, :presence => true
+  validates :topic, :inclusion => TOPICS, :presence => true, :length => { :maximum => 4 }
+  validates :status, :inclusion => STATES, :presence => true, :length => { :maximum => 4 }
   validates :lj_url_id, :lj_post_id, :numericality => true
 
   has_many :observations
