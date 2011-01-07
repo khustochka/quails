@@ -1,5 +1,7 @@
 class SpeciesController < ApplicationController
 
+  require_http_auth :except => [:index, :show, :lifelist]
+
   layout 'admin', :except => [:index, :show, :lifelist]
 
   before_filter :find_species, :only => [:show, :edit, :update]

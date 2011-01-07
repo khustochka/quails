@@ -34,6 +34,7 @@ class PostsControllerTest < ActionController::TestCase
   end
 
   test "should get new" do
+    authenticate_with_http_basic
     get :new
     assert_response :success
   end
@@ -41,6 +42,7 @@ class PostsControllerTest < ActionController::TestCase
   test "should create post" do
     blogpost = Factory.build(:post)
     assert_difference('Post.count') do
+      authenticate_with_http_basic
       post :create, :post => blogpost.attributes
     end
     assert_redirected_to public_post_path(assigns(:post))
@@ -55,6 +57,7 @@ class PostsControllerTest < ActionController::TestCase
 
   test "should get edit" do
     blogpost = Factory.create(:post)
+    authenticate_with_http_basic
     get :edit, :id => blogpost.to_param
     assert_response :success
     assert_select "a[href=#{public_post_path(blogpost)}]", true
@@ -63,6 +66,7 @@ class PostsControllerTest < ActionController::TestCase
   test "should update post" do
     blogpost = Factory.create(:post)
     blogpost.title = 'Changed title'
+    authenticate_with_http_basic
     put :update, :id => blogpost.to_param, :post => blogpost.attributes
     assert_redirected_to public_post_path(assigns(:post))
   end
@@ -70,6 +74,7 @@ class PostsControllerTest < ActionController::TestCase
   test "should destroy post" do
     blogpost = Factory.create(:post)
     assert_difference('Post.count', -1) do
+      authenticate_with_http_basic
       delete :destroy, :id => blogpost.to_param
     end
     assert_redirected_to posts_path
@@ -89,5 +94,37 @@ class PostsControllerTest < ActionController::TestCase
     assert_response :success
     get :month, :year => 2007, :month => 11
     assert_response :success
+  end
+
+  # HTTP auth tests
+
+  should 'protect new with HTTP authentication' do
+    get :new
+    assert_response 401
+  end
+
+  should 'protect edit with HTTP authentication' do
+    blogpost = Factory.create(:post)
+    get :edit, :id => blogpost.to_param
+    assert_response 401
+  end
+
+  should 'protect create with HTTP authentication' do
+    observation = Factory.build(:observation)
+    post :create, :observation => observation.attributes
+    assert_response 401
+  end
+
+  should 'protect update with HTTP authentication' do
+    blogpost = Factory.create(:post)
+    blogpost.title = 'Changed title'
+    put :update, :id => blogpost.to_param, :post => blogpost.attributes
+    assert_response 401
+  end
+
+  should 'protect destroy with HTTP authentication' do
+    blogpost = Factory.create(:post)
+    delete :destroy, :id => blogpost.to_param
+    assert_response 401
   end
 end

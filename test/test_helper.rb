@@ -11,4 +11,8 @@ class ActiveSupport::TestCase
 
   delegate :public_post_path, :to => :@controller
 
+  def authenticate_with_http_basic
+    @request.env['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Basic.encode_credentials('user', 'passwd')
+  end
+
 end

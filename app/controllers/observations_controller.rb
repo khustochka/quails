@@ -1,5 +1,7 @@
 class ObservationsController < ApplicationController
 
+  require_http_auth
+
   layout 'admin'
 
   use_jquery :only => :index

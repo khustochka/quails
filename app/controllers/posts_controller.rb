@@ -1,5 +1,7 @@
 class PostsController < ApplicationController
 
+  require_http_auth :except => [:index, :year, :month, :show]
+
   layout 'admin', :except => [:index, :year, :month, :show]
 
   add_finder_by :code, :only => [:public_show, :edit, :update, :destroy, :show]
