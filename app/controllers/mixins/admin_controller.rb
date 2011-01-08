@@ -1,3 +1,5 @@
+require 'lib/credentials_verifier'
+
 module AdminController
   def self.included(klass)
     klass.extend ClassMethods
@@ -6,15 +8,9 @@ module AdminController
   module ClassMethods
     def require_http_auth(*args)
       options = args.extract_options!
-      before_filter :check_http_auth, options
+      before_filter options do
+        instance_eval &CredentialsVerifier::AUTH_PROC
+      end
     end
   end
-
-  private
-  def check_http_auth
-    authenticate_or_request_with_http_basic do |user_name, password|
-      user_name == 'user' && password == 'passwd'
-    end
-  end
-
 end
