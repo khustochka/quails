@@ -39,7 +39,7 @@ GEM
       rack-test (>= 0.5.4)
       selenium-webdriver (>= 0.0.27)
       xpath (~> 0.1.2)
-    celerity (0.8.6)
+    celerity (0.8.7)
     childprocess (0.1.6)
       ffi (~> 0.6.3)
     configuration (1.2.0)
@@ -62,13 +62,10 @@ GEM
       railties (>= 3.0.0)
     ffi (0.6.3)
       rake (>= 0.8.7)
-    formtastic (1.2.3)
-      actionpack (>= 2.3.7)
-      activesupport (>= 2.3.7)
-      i18n (~> 0.4)
     gherkin (2.3.3)
       json (~> 1.4.6)
     haml (3.0.25)
+    hashie (0.4.0)
     i18n (0.5.0)
     json (1.4.6)
     json_pure (1.4.6)
@@ -156,8 +153,8 @@ DEPENDENCIES
   cucumber-rails
   database_cleaner
   factory_girl_rails
-  formtastic
   haml (~> 3.0)
+  hashie
   launchy
   mysql2
   nokogiri

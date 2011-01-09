@@ -1,22 +1,27 @@
-form.formtastic fieldset > ol > li {
-  margin-bottom: 0.5em; }
+label {
+  display: block;
+  color: #5555aa;
+  font-family: Verdana;
+  font-size: 90%;
+  margin-bottom: 3px; }
 
-#locus_lat_input, #locus_lon_input {
-  display: inline-block; }
-
-#locus_lat_input {
-  margin-left: 25%; }
-
-form.simple_form.observation div {
-  display: inline-block;
+form.simple_form div.input {
+  width: 300px;
   vertical-align: top;
-  margin-right: 13px; }
-  form.simple_form.observation div label, form.simple_form.observation div div, form.simple_form.observation div span {
+  margin: 10px; }
+  form.simple_form div.input span.error {
+    color: #aa0000;
     display: block; }
-  form.simple_form.observation div label {
-    color: #5555aa;
-    font-family: rArial, rTahoma, Verdana;
-    font-size: 90%;
-    margin-bottom: 3px; }
-  form.simple_form.observation div span.error {
-    color: #aa0000; }
+form.simple_form input.button {
+  margin: 10px;
+  width: 140px; }
+form.simple_form input.string {
+  width: 300px; }
+form.simple_form textarea {
+  width: 620px; }
+
+form.observation div.bunch div.input {
+  display: inline-block;
+  width: auto; }
+  form.observation div.bunch div.input input.string, form.observation div.bunch div.input select {
+    width: 220px; }

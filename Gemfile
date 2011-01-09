@@ -14,9 +14,9 @@ gem "activerecord-jdbcpostgresql-adapter", :platforms => :jruby
 # Bundle the extra gems:
 gem 'haml', '~> 3.0'
 gem "will_paginate", "~> 3.0.pre2"
-gem 'formtastic'
 gem 'simple_form'
 gem 'yaml_db'
+gem 'hashie'
 
 group :development do
   gem 'rails3-generators'

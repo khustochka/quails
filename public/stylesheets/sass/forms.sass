@@ -1,24 +1,29 @@
-form.formtastic fieldset > ol > li
-  margin-bottom: .5em
+label
+  display: block
+  color: #5555AA
+  font-family: Verdana
+  font-size: 90%
+  margin-bottom: 3px
 
-#locus_lat_input, #locus_lon_input
-  display: inline-block
-
-#locus_lat_input
-  margin-left: 25%
-
-form.simple_form.observation
-  div
-    display: inline-block
+form.simple_form
+  div.input
+    width: 300px
     vertical-align: top
-    margin-right: 13px
-    label, div, span
-      display: block
-    label
-      color: #5555AA
-      font-family: rArial,rTahoma,Verdana
-      font-size: 90%
-      margin-bottom: 3px
+    margin: 10px
     span.error
       color: #AA0000
+      display: block
+  input.button
+    margin: 10px
+    width: 140px
+  input.string
+    width: 300px
+  textarea
+    width: 620px
+
+form.observation div.bunch div.input
+  display: inline-block
+  width: auto
+  input.string, select
+    width: 220px
       

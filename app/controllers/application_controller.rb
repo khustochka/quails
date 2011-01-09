@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
   layout 'public'
 
   stylesheet 'global', 'public'
-  stylesheet 'formtastic', 'forms', :only => [:new, :edit, :create, :update]
+  stylesheet 'forms', :only => [:new, :edit, :create, :update]
 
 # TODO: Default redirect status should be 301 for public pages, 302 left for administrative
 #  def redirect_to(options = {}, response_status = {})
