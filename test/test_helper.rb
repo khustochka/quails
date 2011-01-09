@@ -11,8 +11,11 @@ class ActiveSupport::TestCase
 
   delegate :public_post_path, :to => :@controller
 
+  TEST_CREDENTIALS = Hashie::Mash.new YAML::load_file('config/security.yml')['test']
+
   def authenticate_with_http_basic
-    @request.env['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Basic.encode_credentials('user', 'passwd')
+    @request.env['HTTP_AUTHORIZATION'] =
+        ActionController::HttpAuthentication::Basic.encode_credentials(TEST_CREDENTIALS.username, TEST_CREDENTIALS.password)
   end
 
 end

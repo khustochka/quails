@@ -1,5 +1,3 @@
-require 'lib/credentials_verifier'
-
 module AdminController
   def self.included(klass)
     klass.extend ClassMethods

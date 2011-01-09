@@ -1,0 +1,11 @@
+production:
+  username:
+  password:
+
+development:
+  username:
+  password:
+
+test:
+  username: testuser
+  password: testpasswd
