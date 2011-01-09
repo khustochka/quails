@@ -9,12 +9,24 @@ require 'uri'
 require 'cgi'
 require File.expand_path(File.join(File.dirname(__FILE__), "..", "support", "paths"))
 
+TEST_CREDENTIALS = Hashie::Mash.new YAML::load_file('config/security.yml')['test']
+
 module WithinHelpers
   def with_scope(locator)
     locator ? within(locator) { yield } : yield
   end
 end
 World(WithinHelpers)
+
+Given /^logged as administrator$/ do
+  if page.driver.respond_to?(:basic_authorize)
+    page.driver.basic_authorize(TEST_CREDENTIALS.username, TEST_CREDENTIALS.password)
+#  else
+#    # FIXME for this to work you need to add pref("network.http.phishy-userpass-length", 255); to /Applications/Firefox.app/Contents/MacOS/defaults/pref/firefox.js
+#    page.driver.visit('/')
+#    page.driver.visit("http://admin:password@#{page.driver.current_url.gsub(/^http\:\/\//, '')}")
+  end
+end
 
 Given /^(?:|I )am on (.+)$/ do |page_name|
   visit path_to(page_name)
@@ -148,7 +160,7 @@ end
 
 Then /^the "([^"]*)" field(?: within "([^"]*)")? should contain "([^"]*)"$/ do |field, selector, value|
   with_scope(selector) do
-    field = find_field(field)
+    field       = find_field(field)
     field_value = (field.tag_name == 'textarea') ? field.text : field.value
     if field_value.respond_to? :should
       field_value.should =~ /#{value}/
@@ -160,7 +172,7 @@ end
 
 Then /^the "([^"]*)" field(?: within "([^"]*)")? should not contain "([^"]*)"$/ do |field, selector, value|
   with_scope(selector) do
-    field = find_field(field)
+    field       = find_field(field)
     field_value = (field.tag_name == 'textarea') ? field.text : field.value
     if field_value.respond_to? :should_not
       field_value.should_not =~ /#{value}/
@@ -191,7 +203,7 @@ Then /^the "([^"]*)" checkbox(?: within "([^"]*)")? should not be checked$/ do |
     end
   end
 end
- 
+
 Then /^(?:|I )should be on (.+)$/ do |page_name|
   current_path = URI.parse(current_url).path
   if current_path.respond_to? :should
@@ -202,11 +214,11 @@ Then /^(?:|I )should be on (.+)$/ do |page_name|
 end
 
 Then /^(?:|I )should have the following query string:$/ do |expected_pairs|
-  query = URI.parse(current_url).query
-  actual_params = query ? CGI.parse(query) : {}
+  query           = URI.parse(current_url).query
+  actual_params   = query ? CGI.parse(query) : {}
   expected_params = {}
-  expected_pairs.rows_hash.each_pair{|k,v| expected_params[k] = v.split(',')} 
-  
+  expected_pairs.rows_hash.each_pair { |k, v| expected_params[k] = v.split(',') }
+
   if actual_params.respond_to? :should
     actual_params.should == expected_params
   else
