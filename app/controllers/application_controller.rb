@@ -1,4 +1,4 @@
-['admin', 'assets', 'layout', 'locale', 'model_finder_for'].each do |file|
+%w(admin assets layout locale model_finder_for).each do |file|
   require "app/controllers/mixins/#{file}_controller"
 end
 
