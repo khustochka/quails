@@ -5,9 +5,9 @@ Feature: Species
     Given logged as administrator
     When I go to the new post page
     When I fill in the following:
-      | Code   | test-created-in-cucumber |
-      | Title  | Cucumber test post       |
-      | Text   | Post body                |
+      | Code  | test-created-in-cucumber |
+      | Title | Cucumber test post       |
+      | Text  | Post body                |
     And I select "OPEN" from "Status"
     And I select "OBSR" from "Topic"
     And I press "Save"
@@ -19,10 +19,10 @@ Feature: Species
     Given logged as administrator
     When I go to "another-test-post" edit post page
     When I fill in the following:
-      | Code      | test-edit-post      |
-      | Title     | Cucumber test post  |
-      | Text      | Post body           |
-    And I select "2009-07-27" as the "Post date" date
+      | Code      | test-edit-post     |
+      | Title     | Cucumber test post |
+      | Text      | Post body          |
+      | Post date | 2009-07-27         |
     And I press "Save"
     Then I should be on "test-edit-post" post page
 

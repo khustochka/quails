@@ -1,7 +1,7 @@
 = simple_form_for @post do |form|
 
   = form.input :code
-  = form.input :created_at, :label => 'Post date' unless @post.new_record?
+  = form.input :created_at, :as => :string, :label => 'Post date' unless @post.new_record?
   = form.input :title
   = form.input :text
   = form.input :topic, :collection => Post::TOPICS, :input_html => {:size => '3'}, :include_blank => false
