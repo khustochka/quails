@@ -1,3 +1,10 @@
+.block
+  display: block !important
+
+form
+  padding: 0
+  margin: 0
+
 label
   display: block
   color: #5555AA
@@ -6,24 +13,28 @@ label
   margin-bottom: 3px
 
 form.simple_form
+  //border: 1px solid green
+  width: 660px
   div.input
-    width: 300px
+    //border: 1px solid red
+    display: inline-block
+    //width: 300px
     vertical-align: top
     margin: 10px
     span.error
       color: #AA0000
       display: block
-  input.button
-    margin: 10px
-    width: 140px
   input.string
     width: 300px
   textarea
     width: 620px
+  input.button
+    display: block
+    margin: 10px
+    width: 140px
 
-form.observation div.bunch div.input
-  display: inline-block
+form.observation
   width: auto
-  input.string, select
-    width: 220px
-      
+  div.bunch div.input
+    input.string, select
+      width: 220px

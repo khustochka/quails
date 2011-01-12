@@ -1,3 +1,10 @@
+.block {
+  display: block !important; }
+
+form {
+  padding: 0;
+  margin: 0; }
+
 label {
   display: block;
   color: #5555aa;
@@ -5,23 +12,25 @@ label {
   font-size: 90%;
   margin-bottom: 3px; }
 
-form.simple_form div.input {
-  width: 300px;
-  vertical-align: top;
-  margin: 10px; }
-  form.simple_form div.input span.error {
-    color: #aa0000;
-    display: block; }
-form.simple_form input.button {
-  margin: 10px;
-  width: 140px; }
-form.simple_form input.string {
-  width: 300px; }
-form.simple_form textarea {
-  width: 620px; }
+form.simple_form {
+  width: 660px; }
+  form.simple_form div.input {
+    display: inline-block;
+    vertical-align: top;
+    margin: 10px; }
+    form.simple_form div.input span.error {
+      color: #aa0000;
+      display: block; }
+  form.simple_form input.string {
+    width: 300px; }
+  form.simple_form textarea {
+    width: 620px; }
+  form.simple_form input.button {
+    display: block;
+    margin: 10px;
+    width: 140px; }
 
-form.observation div.bunch div.input {
-  display: inline-block;
+form.observation {
   width: auto; }
   form.observation div.bunch div.input input.string, form.observation div.bunch div.input select {
     width: 220px; }
