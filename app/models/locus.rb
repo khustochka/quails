@@ -7,6 +7,8 @@ class Locus < ActiveRecord::Base
 
   belongs_to :parent, :class_name => 'Locus'
 
+  has_many :observations, :dependent => :restrict
+
   scope :list_order, order(:loc_type, :parent_id, :code)
 
   def to_param

@@ -34,7 +34,6 @@ class LocusController < ApplicationController
   # POST /locus
   def create
     @locus = Locus.new(params[:locus])
-
     if @locus.save
       redirect_to(@locus, :notice => 'Locus was successfully created.')
     else
@@ -54,7 +53,7 @@ class LocusController < ApplicationController
   # DELETE /locus/1
   def destroy
     @locus.destroy
-
+    #TODO: rescue ActiveRecord::DeleteRestrictionError showing a notice and later - options for substitution
     respond_to do |format|
       format.html { redirect_to(locus_index_url) }
     end

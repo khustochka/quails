@@ -52,4 +52,15 @@ class SpeciesTest < ActiveSupport::TestCase
     assert_equal expected, got
   end
 
+  should 'not be destroyed if having associated observations' do
+    sp          = Species.find_by_code!('parcae')
+    observation = Factory.create(:observation, :species => sp)
+    assert_raise(ActiveRecord::DeleteRestrictionError) do
+      sp.destroy
+    end
+    obs = Observation.find(observation.id)
+    assert obs
+    assert_equal sp, obs.species
+  end
+
 end

@@ -8,7 +8,7 @@ class Species < ActiveRecord::Base
 
   default_scope order(:index_num)
 
-  has_many :observations
+  has_many :observations, :dependent => :restrict
 
 #  has_one :first_observation, :class_name => 'Observation', :conditions =>
 #    "
