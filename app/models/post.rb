@@ -8,7 +8,7 @@ class Post < ActiveRecord::Base
   validates :status, :inclusion => STATES, :presence => true, :length => { :maximum => 4 }
   validates :lj_url_id, :lj_post_id, :numericality => true
 
-  has_many :observations
+  has_many :observations, :dependent => :nullify
   has_many :species, :through => :observations
 
   scope :year, lambda { |year|

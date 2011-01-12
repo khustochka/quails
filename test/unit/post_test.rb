@@ -47,4 +47,14 @@ class PostTest < ActiveSupport::TestCase
     assert_nil Post.next_month('2010', '03')
   end
 
+  should 'not delete associated observations on destroy' do
+    blogpost = Factory.create(:post, :created_at => '2010-02-06 13:14:15', :code => 'post-one')
+    observation = Factory.create(:observation, :post => blogpost)
+    blogpost.destroy
+    obs = Observation.find(observation.id)
+    assert obs
+    assert_nil obs.post_id
+    assert_nil obs.post
+  end
+
 end
