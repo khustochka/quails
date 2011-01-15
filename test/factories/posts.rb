@@ -10,6 +10,4 @@ It must be multiline.
 TEXT
   f.topic "OBSR"
   f.status "OPEN"
-  f.lj_post_id 0
-  f.lj_url_id 0
 end

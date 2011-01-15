@@ -6,5 +6,5 @@
 = @post.species.uniq.map { |sp| species_link(sp) }.join(", \n").html_safe
 
 %p
-  - unless @post.lj_url_id.zero?
-    = link_to 'This post on Livejournal', "http://stonechat.livejournal.com/#{@post.lj_url_id}.html"
+  - unless @post.lj_url_id.blank?
+    = link_to 'This post on Livejournal', lj_post_url

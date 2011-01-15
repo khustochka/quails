@@ -6,7 +6,7 @@ class Post < ActiveRecord::Base
   validates :title, :presence => true
   validates :topic, :inclusion => TOPICS, :presence => true, :length => { :maximum => 4 }
   validates :status, :inclusion => STATES, :presence => true, :length => { :maximum => 4 }
-  validates :lj_url_id, :lj_post_id, :numericality => true
+  validates :lj_url_id, :lj_post_id, :numericality => {:greater_than => 0}, :allow_nil => true
 
   has_many :observations, :dependent => :nullify
   has_many :species, :through => :observations
