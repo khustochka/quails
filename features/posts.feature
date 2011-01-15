@@ -5,11 +5,11 @@ Feature: Species
     Given logged as administrator
     When I go to the new post page
     When I fill in the following:
-      | Code  | test-created-in-cucumber |
-      | Title | Cucumber test post       |
-      | Text  | Post body                |
-    And I select "OPEN" from "Status"
-    And I select "OBSR" from "Topic"
+      | Code   | test-created-in-cucumber |
+      | Title  | Cucumber test post       |
+      | Text   | Post body                |
+      | Status | OPEN                     |
+      | Topic  | OBSR                     |
     And I press "Save"
     Then I should be on "test-created-in-cucumber" post page
 

@@ -50,13 +50,14 @@ end
 
 When /^(?:|I )fill in "([^"]*)" with "([^"]*)"(?: within "([^"]*)")?$/ do |field, value, selector|
   with_scope(selector) do
-    fill_in(field, :with => value)
-  end
-end
-
-When /^(?:|I )fill in "([^"]*)" for "([^"]*)"(?: within "([^"]*)")?$/ do |value, field, selector|
-  with_scope(selector) do
-    fill_in(field, :with => value)
+    field_element = find_field(field)
+    case field_element.tag_name
+      when 'select' then
+        select(value, :from => field)
+      # TODO: add checkbox
+      else
+        fill_in(field, :with => value)
+    end
   end
 end
 
@@ -67,9 +68,6 @@ end
 #     | Expiry date    | 2009-11-01 |
 #     | Note           | Nice guy   |
 #     | Wants Email?   |            |
-#
-# TODO: Add support for checkbox, select og option
-# based on naming conventions.
 #
 When /^(?:|I )fill in the following(?: within "([^"]*)")?:$/ do |selector, fields|
   with_scope(selector) do
