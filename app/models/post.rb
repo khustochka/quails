@@ -22,13 +22,13 @@ class Post < ActiveRecord::Base
   def self.prev_month(year, month)
     date = Time.parse("#{year}-#{month}-01")
     rec = select('created_at').where('created_at < ?', date).order('created_at DESC').limit(1).first
-    rec.nil? ? nil : {:month => rec.month, :year => rec.year}
+    rec.try(:to_month_url)
   end
 
   def self.next_month(year, month)
     date = Time.parse("#{year}-#{month}-01").end_of_month
     rec = select('created_at').where('created_at > ?', date).order('created_at ASC').limit(1).first
-    rec.nil? ? nil : {:month => rec.month, :year => rec.year}
+    rec.try(:to_month_url)
   end
 
   def self.years
@@ -49,6 +49,10 @@ class Post < ActiveRecord::Base
 
   def month
     '%02d' % created_at.month
+  end
+
+  def to_month_url
+    {:month => month, :year => year}
   end
 
   def day

@@ -2,7 +2,7 @@
 
 = render @posts
 
-%br
-
--# TODO: remove pagination, implement Back/Forward
-= will_paginate
+- unless @prev_month.nil?
+  %p.month-navigation
+    = link_to '<< Previous posts', month_path(@prev_month)
+    = "(#{[t('date.month_names')[@prev_month[:month].to_i], @prev_month[:year]].join(' ')})"

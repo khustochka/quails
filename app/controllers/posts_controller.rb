@@ -6,10 +6,27 @@ class PostsController < ApplicationController
 
   add_finder_by :code, :only => [:public_show, :edit, :update, :destroy, :show]
 
+  POSTS_ON_FRONT_PAGE = 10
+
   # GET /
   def index
-    @posts = Post.paginate(:page => params[:page], :order => 'created_at DESC', :per_page => 10)
+    @posts = Post.order('created_at DESC').limit(POSTS_ON_FRONT_PAGE + 1).all
+    if @posts.size > POSTS_ON_FRONT_PAGE
+      post_1 = @posts[0].to_month_url
+      post_last = @posts[-1].to_month_url
 
+
+      if post_1 != post_last
+        @prev_month = post_last
+        @posts.pop
+      else
+        @posts += Post.order('created_at DESC').where(
+            'EXTRACT(year from created_at) = ? AND EXTRACT(month from created_at) = ?', post_last[:year], post_last[:month]
+        ).offset(POSTS_ON_FRONT_PAGE + 1)
+        @prev_month = Post.prev_month(post_last[:year], post_last[:month])
+      end
+
+    end
     respond_to do |format|
       format.html # index.html.erb
       format.xml { render :xml => @posts }
@@ -17,7 +34,7 @@ class PostsController < ApplicationController
   end
 
   def month
-    @posts = Post.month(@year = params[:year], @month = params[:month])
+    @posts      = Post.month(@year = params[:year], @month = params[:month])
     @prev_month = Post.prev_month(@year, @month)
     @next_month = Post.next_month(@year, @month)
   end
@@ -71,6 +88,7 @@ class PostsController < ApplicationController
   end
 
   # DELETE /posts/1
+  #TODO: link for post deletion doesn't exist. And more: is it possible to delete anything without JS?
   def destroy
     @post.destroy
     redirect_to(posts_url)
