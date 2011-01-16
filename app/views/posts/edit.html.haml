@@ -3,3 +3,5 @@
 %h1 Editing post
 
 = render 'form'
+
+%p= link_to 'DELETE', @post, :confirm => 'Are you sure?', :method => :delete

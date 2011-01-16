@@ -54,8 +54,6 @@ class LocusController < ApplicationController
   def destroy
     @locus.destroy
     #TODO: rescue ActiveRecord::DeleteRestrictionError showing a notice and later - options for substitution
-    respond_to do |format|
-      format.html { redirect_to(locus_index_url) }
-    end
+    redirect_to(locus_index_url)
   end
 end

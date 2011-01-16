@@ -4,6 +4,8 @@ class PostsController < ApplicationController
 
   layout 'admin', :except => [:index, :year, :month, :show]
 
+  use_jquery :only => :edit
+
   add_finder_by :code, :only => [:public_show, :edit, :update, :destroy, :show]
 
   POSTS_ON_FRONT_PAGE = 10
@@ -91,7 +93,7 @@ class PostsController < ApplicationController
   #TODO: link for post deletion doesn't exist. And more: is it possible to delete anything without JS?
   def destroy
     @post.destroy
-    redirect_to(posts_url)
+    redirect_to(root_url)
   end
 
   private
