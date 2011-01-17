@@ -1,4 +1,4 @@
-%w(admin assets layout locale model_finder_for).each do |file|
+%w(assets layout locale security model_finder_for).each do |file|
   require "app/controllers/mixins/#{file}_controller"
 end
 
@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
 #  include LocaleController
-  include AdminController
+  include SecurityController
   include AssetsController
   include LayoutController
 

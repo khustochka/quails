@@ -1,4 +1,4 @@
-module AdminController
+module SecurityController
   def self.included(klass)
     klass.extend ClassMethods
   end
