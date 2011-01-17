@@ -46,7 +46,7 @@ class PostsControllerTest < ActionController::TestCase
       authenticate_with_http_basic
       delete :destroy, :id => blogpost.to_param
     end
-    assert_redirected_to posts_path
+    assert_redirected_to root_path
   end
 
   should "redirect to correct URL if year and month are incorrect" do
