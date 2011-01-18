@@ -51,10 +51,9 @@ class PostTest < ActiveSupport::TestCase
     blogpost = Factory.create(:post, :created_at => '2010-02-06 13:14:15', :code => 'post-one')
     observation = Factory.create(:observation, :post => blogpost)
     blogpost.destroy
-    obs = Observation.find(observation.id)
-    assert obs
-    assert_nil obs.post_id
-    assert_nil obs.post
+    assert observation.reload
+    assert_nil observation.post_id
+    assert_nil observation.post
   end
 
 end

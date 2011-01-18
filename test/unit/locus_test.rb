@@ -33,8 +33,7 @@ class LocusTest < ActiveSupport::TestCase
     assert_raise(ActiveRecord::DeleteRestrictionError) do
       loc.destroy
     end
-    obs = Observation.find(observation.id)
-    assert obs
-    assert_equal loc, obs.locus
+    assert observation.reload
+    assert_equal loc, observation.locus
   end
 end

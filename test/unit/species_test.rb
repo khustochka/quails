@@ -58,9 +58,8 @@ class SpeciesTest < ActiveSupport::TestCase
     assert_raise(ActiveRecord::DeleteRestrictionError) do
       sp.destroy
     end
-    obs = Observation.find(observation.id)
-    assert obs
-    assert_equal sp, obs.species
+    assert observation.reload
+    assert_equal sp, observation.species
   end
 
 end
