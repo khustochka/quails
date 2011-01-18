@@ -19,7 +19,7 @@ module Import
                               :status => post.post_status,
                               :lj_post_id => post.lj_post_id.zero? ? nil : post.lj_post_id,
                               :lj_url_id => post.lj_url_id.zero? ? nil : post.lj_url_id,
-                              :created_at => post.post_date,
+                              :face_date => post.post_date,
                               :updated_at => post.post_update
                               })
       end

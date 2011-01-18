@@ -12,7 +12,7 @@ class PostsController < ApplicationController
 
   # GET /
   def index
-    @posts = Post.order('created_at DESC').limit(POSTS_ON_FRONT_PAGE + 1).all
+    @posts = Post.order('face_date DESC').limit(POSTS_ON_FRONT_PAGE + 1).all
     if @posts.size > POSTS_ON_FRONT_PAGE
       post_1 = @posts[0].to_month_url
       post_last = @posts[-1].to_month_url
@@ -22,8 +22,8 @@ class PostsController < ApplicationController
         @prev_month = post_last
         @posts.pop
       else
-        @posts += Post.order('created_at DESC').where(
-            'EXTRACT(year from created_at) = ? AND EXTRACT(month from created_at) = ?', post_last[:year], post_last[:month]
+        @posts += Post.order('face_date DESC').where(
+            'EXTRACT(year from face_date) = ? AND EXTRACT(month from face_date) = ?', post_last[:year], post_last[:month]
         ).offset(POSTS_ON_FRONT_PAGE + 1)
         @prev_month = Post.prev_month(post_last[:year], post_last[:month])
       end
@@ -47,7 +47,7 @@ class PostsController < ApplicationController
     # TODO: there is problem with timezone
       post.month
     }.uniq.inject({}) { |memo, month|
-      memo.merge(month => @posts.select { |p| p.created_at.month == month.to_i })
+      memo.merge(month => @posts.select { |p| p.face_date.month == month.to_i })
     }
     @years  = Post.years
   end

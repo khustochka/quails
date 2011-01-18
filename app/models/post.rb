@@ -2,37 +2,37 @@ class Post < ActiveRecord::Base
   TOPICS = %w(OBSR NEWS SITE)
   STATES = %w(OPEN PRIV)
 
-  validates :code, :uniqueness => true, :presence => true, :length => { :maximum => 64 }
+  validates :code, :uniqueness => true, :presence => true, :length => {:maximum => 64}
   validates :title, :presence => true
-  validates :topic, :inclusion => TOPICS, :presence => true, :length => { :maximum => 4 }
-  validates :status, :inclusion => STATES, :presence => true, :length => { :maximum => 4 }
+  validates :topic, :inclusion => TOPICS, :presence => true, :length => {:maximum => 4}
+  validates :status, :inclusion => STATES, :presence => true, :length => {:maximum => 4}
   validates :lj_url_id, :lj_post_id, :numericality => {:greater_than => 0}, :allow_nil => true
 
   has_many :observations, :dependent => :nullify
   has_many :species, :through => :observations
 
   scope :year, lambda { |year|
-    select('id, code, title, created_at').where('EXTRACT(year from created_at) = ?', year).order('created_at ASC')
+    select('id, code, title, face_date').where('EXTRACT(year from face_date) = ?', year).order('face_date ASC')
   }
 
   scope :month, lambda { |year, month|
-    year(year).except(:select).where('EXTRACT(month from created_at) = ?', month)
+    year(year).except(:select).where('EXTRACT(month from face_date) = ?', month)
   }
 
   def self.prev_month(year, month)
     date = Time.parse("#{year}-#{month}-01")
-    rec = select('created_at').where('created_at < ?', date).order('created_at DESC').limit(1).first
+    rec  = select('face_date').where('face_date < ?', date).order('face_date DESC').limit(1).first
     rec.try(:to_month_url)
   end
 
   def self.next_month(year, month)
     date = Time.parse("#{year}-#{month}-01").end_of_month
-    rec = select('created_at').where('created_at > ?', date).order('created_at ASC').limit(1).first
+    rec  = select('face_date').where('face_date > ?', date).order('face_date ASC').limit(1).first
     rec.try(:to_month_url)
   end
 
   def self.years
-    select('DISTINCT EXTRACT(year from created_at) AS year').order(:year).map { |p| p[:year] }
+    select('DISTINCT EXTRACT(year from face_date) AS year').order(:year).map { |p| p[:year] }
   end
 
   def to_param
@@ -40,15 +40,15 @@ class Post < ActiveRecord::Base
   end
 
   def date
-    created_at.strftime('%Y-%m-%d')
+    face_date.strftime('%Y-%m-%d')
   end
 
   def year
-    created_at.year.to_s
+    face_date.year.to_s
   end
 
   def month
-    '%02d' % created_at.month
+    '%02d' % face_date.month
   end
 
   def to_month_url
@@ -56,11 +56,21 @@ class Post < ActiveRecord::Base
   end
 
   def day
-    created_at.day
+    face_date.day
   end
 
   def to_url_params
     {:id => code, :year => year, :month => month}
+  end
+
+  private
+  def timestamp_attributes_for_update
+    upd = [:updated_at]
+    if face_date.blank?
+      changed_attributes.delete('face_date')
+      upd.push(:face_date)
+    end
+    upd
   end
 
 end

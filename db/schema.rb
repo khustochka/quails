@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110118031015) do
+ActiveRecord::Schema.define(:version => 20110118221317) do
 
   create_table "locus", :force => true do |t|
     t.string  "code",      :limit => 32, :null => false
@@ -53,12 +53,12 @@ ActiveRecord::Schema.define(:version => 20110118031015) do
     t.string   "status",     :limit => 4
     t.integer  "lj_post_id"
     t.integer  "lj_url_id"
-    t.datetime "created_at",               :null => false
+    t.datetime "face_date",                :null => false
     t.datetime "updated_at",               :null => false
   end
 
   add_index "posts", ["code"], :name => "index_posts_on_code"
-  add_index "posts", ["created_at"], :name => "index_posts_on_created_at"
+  add_index "posts", ["face_date"], :name => "index_posts_on_created_at"
   add_index "posts", ["status"], :name => "index_posts_on_status"
   add_index "posts", ["topic"], :name => "index_posts_on_topic"
 
