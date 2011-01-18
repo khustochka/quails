@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110103032534) do
+ActiveRecord::Schema.define(:version => 20110118031015) do
 
   create_table "locus", :force => true do |t|
     t.string  "code",      :limit => 32, :null => false
@@ -47,14 +47,14 @@ ActiveRecord::Schema.define(:version => 20110103032534) do
 
   create_table "posts", :force => true do |t|
     t.string   "code",       :limit => 64
-    t.string   "title"
-    t.text     "text"
+    t.string   "title",                    :null => false
+    t.text     "text",                     :null => false
     t.string   "topic",      :limit => 4
     t.string   "status",     :limit => 4
     t.integer  "lj_post_id"
     t.integer  "lj_url_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
   end
 
   add_index "posts", ["code"], :name => "index_posts_on_code"
