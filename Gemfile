@@ -20,6 +20,7 @@ gem 'hashie'
 
 group :development do
   gem 'rails3-generators'
+  gem 'heroku'  # for pushing configuration to Heroku
   platforms *([:ruby, :mswin] + mingw) do
     gem 'mysql2', :require => nil
     gem 'nokogiri', :require => nil
@@ -28,7 +29,6 @@ group :development do
 # Other gems that may be useful but are not really dependencies:
 # gem 'ruby-debug-ide' # for debugging in RubyMine
 # gem 'unicorn' # web server
-# gem 'heroku'  # for Heroku
 # gem 'taps'    # for pushing DB to Heroku
 end
 
