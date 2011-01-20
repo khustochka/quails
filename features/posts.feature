@@ -1,5 +1,6 @@
 Feature: Species
 
+  @admin
   Scenario: Add post
 
     Given logged as administrator
@@ -13,6 +14,7 @@ Feature: Species
     And I press "Save"
     Then I should be on "test-created-in-cucumber" post page
 
+  @admin
   Scenario: Edit post
 
     Given a post exists with code: "another-test-post", title: "New title"
@@ -26,6 +28,7 @@ Feature: Species
     And I press "Save"
     Then I should be on "test-edit-post" post page
 
+  @admin
   Scenario: Navigation via Edit this / Show this
 
     Given a post exists with code: "another-test-post", title: "New title"
