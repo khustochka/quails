@@ -64,6 +64,8 @@ class Post < ActiveRecord::Base
   end
 
   private
+  # TODO: this possibly could be done using default value for column LOCALTIMESTAMP(0) if switching to SQL schema
+  # though not trivial
   def timestamp_attributes_for_update
     upd = [:updated_at]
     if face_date.blank?
