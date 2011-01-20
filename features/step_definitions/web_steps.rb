@@ -158,7 +158,7 @@ end
 
 Then /^the "([^"]*)" field(?: within "([^"]*)")? should contain "([^"]*)"$/ do |field, selector, value|
   with_scope(selector) do
-    field       = find_field(field)
+    field = find_field(field)
     field_value = (field.tag_name == 'textarea') ? field.text : field.value
     if field_value.respond_to? :should
       field_value.should =~ /#{value}/
@@ -170,7 +170,7 @@ end
 
 Then /^the "([^"]*)" field(?: within "([^"]*)")? should not contain "([^"]*)"$/ do |field, selector, value|
   with_scope(selector) do
-    field       = find_field(field)
+    field = find_field(field)
     field_value = (field.tag_name == 'textarea') ? field.text : field.value
     if field_value.respond_to? :should_not
       field_value.should_not =~ /#{value}/
@@ -212,8 +212,8 @@ Then /^(?:|I )should be on (.+)$/ do |page_name|
 end
 
 Then /^(?:|I )should have the following query string:$/ do |expected_pairs|
-  query           = URI.parse(current_url).query
-  actual_params   = query ? CGI.parse(query) : {}
+  query = URI.parse(current_url).query
+  actual_params = query ? CGI.parse(query) : {}
   expected_params = {}
   expected_pairs.rows_hash.each_pair { |k, v| expected_params[k] = v.split(',') }
 
