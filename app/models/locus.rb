@@ -9,15 +9,21 @@ class Locus < ActiveRecord::Base
 
   has_many :observations, :dependent => :restrict
 
-  scope :list_order, order(:loc_type, :parent_id, :code)
+  # Parameters
 
   def to_param
     code
   end
 
+  # Scopes
+
+  scope :list_order, order(:loc_type, :parent_id, :code)
+
   def self.all_ordered
     list_order.partition { |loc| loc.loc_type != 'Location' }.flatten
   end
+
+  # Instance methods
 
   def get_subregions
     Locus.bulk_subregions_finder(self)

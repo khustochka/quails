@@ -11,13 +11,21 @@ class Post < ActiveRecord::Base
   has_many :observations, :dependent => :nullify
   has_many :species, :through => :observations
 
-  scope :year, lambda { |year|
-    select('id, code, title, face_date').where('EXTRACT(year from face_date) = ?', year).order('face_date ASC')
-  }
+  # Parameters
 
-  scope :month, lambda { |year, month|
+  def to_param
+    code
+  end
+
+  # Scopes
+
+  def self.year(year)
+    select('id, code, title, face_date').where('EXTRACT(year from face_date) = ?', year).order('face_date ASC')
+  end
+
+  def self.month(year, month)
     year(year).except(:select).where('EXTRACT(month from face_date) = ?', month)
-  }
+  end
 
   def self.prev_month(year, month)
     date = Time.parse("#{year}-#{month}-01")
@@ -35,9 +43,7 @@ class Post < ActiveRecord::Base
     select('DISTINCT EXTRACT(year from face_date) AS year').order(:year).map { |p| p[:year] }
   end
 
-  def to_param
-    code
-  end
+  # Instance methods
 
   def date
     face_date.strftime('%Y-%m-%d')

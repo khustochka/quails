@@ -6,8 +6,6 @@ class Species < ActiveRecord::Base
   validates :code, :format => /^[a-z]{6}$/, :uniqueness => true
   validates :avibase_id, :format => /^[\dA-F]{16}$/
 
-  default_scope order(:index_num)
-
   has_many :observations, :dependent => :restrict
 
 #  has_one :first_observation, :class_name => 'Observation', :conditions =>
@@ -21,6 +19,16 @@ class Species < ActiveRecord::Base
 #      )
 #    "
 
+  # Parameters
+
+  def to_param
+    name_sci.gsub(' ', '_')
+  end
+
+  # Scopes
+
+  default_scope order(:index_num)
+
   def self.alphabetic
     except(:order).order(:name_sci)
   end
@@ -30,9 +38,7 @@ class Species < ActiveRecord::Base
     select('*').joins("INNER JOIN (#{Observation.species_first_met_dates(options).to_sql}) AS obs ON species.id=obs.species_id").except(:order).order('mind DESC, index_num DESC').limit(options[:limit])
   end
 
-  def to_param
-    name_sci.gsub(' ', '_')
-  end
+  # Instance methods
 
   def name
     fb = %w(en ru uk)
