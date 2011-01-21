@@ -2,12 +2,18 @@
 production:
   username: <%= ENV['username'] %>
   password: <%= ENV['password'] %>
+  admin_session_ask: <%= ENV['admin_session_ask'] %>
+  admin_session_reply: <%= ENV['admin_session_reply'] %>
 
 development:
   username: dev
   password: d28b882c7ed2084e13093cae902554f57a4982b3 # parole
+  admin_session_ask: dontask
+  admin_session_reply: dontell
 
 # use plain text password for test environment
 test:
   username: testuser
   password_plain: testpasswd
+  admin_session_ask: testask
+  admin_session_reply: testreply

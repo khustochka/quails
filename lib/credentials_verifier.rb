@@ -11,12 +11,12 @@ module CredentialsVerifier
 
     const_set(:CHECK_COOKIE_PROC,
               lambda {
-                session[:donttell] == 'dontask'
+                session[options.admin_session_ask] == options.admin_session_reply
               })
 
     const_set(:SET_COOKIE_PROC,
               lambda {
-                session[:donttell] = 'dontask'
+                session[options.admin_session_ask] = options.admin_session_reply
               })
 
   end
