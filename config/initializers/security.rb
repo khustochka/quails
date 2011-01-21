@@ -1,13 +1,7 @@
 require 'lib/credentials_verifier'
 
-ALLOWED_KEYS = ['username', 'password']
-
 file = 'config/security.yml'
 
-options = if File.exist?('config/security.yml')
-            YAML::load_file('config/security.yml')[Rails.env]
-          else
-            ALLOWED_KEYS.inject({}) {|memo, key| memo.merge!({key => ENV[key]})}
-          end
+options = YAML.load(ERB.new(File.read('config/security.yml')).result)[Rails.env]
 
 CredentialsVerifier.init Hashie::Mash.new(options)

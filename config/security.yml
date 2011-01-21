@@ -1,11 +1,11 @@
 # use SHA1 encoded password for development and production
 production:
-  username:
-  password:
+  username: <%= ENV['username'] %>
+  password: <%= ENV['password'] %>
 
 development:
-  username:
-  password:
+  username: dev
+  password: d28b882c7ed2084e13093cae902554f57a4982b3 # parole
 
 # use plain text password for test environment
 test:
