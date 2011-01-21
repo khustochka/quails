@@ -20,7 +20,7 @@ World(WithinHelpers)
 
 Given /^logged as administrator$/ do
   if page.driver.respond_to?(:basic_authorize)
-    page.driver.basic_authorize(TEST_CREDENTIALS.username, TEST_CREDENTIALS.password)
+    page.driver.basic_authorize(TEST_CREDENTIALS.username, TEST_CREDENTIALS.password_plain)
 #  else
 #    # FIXME for this to work you need to add pref("network.http.phishy-userpass-length", 255); to /Applications/Firefox.app/Contents/MacOS/defaults/pref/firefox.js
 #    page.driver.visit('/')

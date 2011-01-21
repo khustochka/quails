@@ -1,10 +1,10 @@
 module CredentialsVerifier
 
   def self.init(options)
+    options.password ||= Digest::SHA1.hexdigest(options.password_plain)
     const_set(:AUTH_PROC,
               lambda { authenticate_or_request_with_http_basic do |user_name, password|
-                expected_passwd = Rails.env.test? ? password : Digest::SHA1.hexdigest(password)
-                user_name == options.username && expected_passwd == options.password
+                user_name == options.username && Digest::SHA1.hexdigest(password) == options.password
               end
               })
   end

@@ -10,4 +10,4 @@ development:
 # use plain text password for test environment
 test:
   username: testuser
-  password: testpasswd
+  password_plain: testpasswd

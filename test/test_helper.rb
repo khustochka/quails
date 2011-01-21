@@ -15,7 +15,7 @@ class ActiveSupport::TestCase
 
   def authenticate_with_http_basic
     @request.env['HTTP_AUTHORIZATION'] =
-        ActionController::HttpAuthentication::Basic.encode_credentials(TEST_CREDENTIALS.username, TEST_CREDENTIALS.password)
+        ActionController::HttpAuthentication::Basic.encode_credentials(TEST_CREDENTIALS.username, TEST_CREDENTIALS.password_plain)
   end
 
 end
