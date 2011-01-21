@@ -1,9 +1,7 @@
 module SecurityController
   def self.included(klass)
     klass.extend ClassMethods
-    klass.before_filter do
-      @is_admin = instance_eval &CredentialsVerifier::CHECK_COOKIE_PROC
-    end
+    klass.helper_method :admin_session?
   end
 
   module ClassMethods
@@ -14,5 +12,11 @@ module SecurityController
         instance_eval &CredentialsVerifier::SET_COOKIE_PROC
       end
     end
+  end
+
+  private
+  def admin_session?
+    return @is_admin unless @is_admin.nil?
+    @is_admin = instance_eval &CredentialsVerifier::CHECK_COOKIE_PROC
   end
 end

@@ -4,8 +4,9 @@ class SecureAccessTest < ActionController::TestCase
 
   tests PostsController
 
-  should 'show administrative panel to admin' do
+  should 'show administrative panel to admin after he logged in' do
     authenticate_with_http_basic
+    get :new # log in should happen here
     get :index
     assert_select '.admin_panel', true
   end

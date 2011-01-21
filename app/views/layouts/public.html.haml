@@ -38,11 +38,11 @@
 
     = render 'partials/header'
 
-    = render 'partials/admin_panel' if @is_admin
+    = render 'partials/admin_panel' if admin_session?
 
     #main
       =yield
 
     = render 'partials/footer'
 
-    = render 'partials/ga' unless @is_admin
+    = render 'partials/ga' unless admin_session?

@@ -21,7 +21,6 @@ class PostsControllerTest < ActionController::TestCase
     blogpost = Factory.create(:post)
     get :show, blogpost.to_url_params
     assert_response :success
-    assert_select "a[href=#{edit_post_path(blogpost)}]", true
   end
 
   test "should get edit" do

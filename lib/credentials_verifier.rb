@@ -10,11 +10,13 @@ module CredentialsVerifier
               })
 
     const_set(:CHECK_COOKIE_PROC,
-              lambda { instance_variable_get(:@verified)
+              lambda {
+                session[:donttell] == 'dontask'
               })
 
     const_set(:SET_COOKIE_PROC,
-              lambda { instance_variable_set(:@verified, true)
+              lambda {
+                session[:donttell] = 'dontask'
               })
 
   end
