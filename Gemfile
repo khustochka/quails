@@ -20,7 +20,6 @@ gem 'hashie'
 
 group :development do
   gem 'rails3-generators'
-  gem 'heroku'  # for pushing configuration to Heroku
   platforms *([:ruby, :mswin] + mingw) do
     gem 'mysql2', :require => nil
     gem 'nokogiri', :require => nil
@@ -29,6 +28,7 @@ group :development do
 # Other gems that may be useful but are not really dependencies:
 # gem 'ruby-debug-ide' # for debugging in RubyMine
 # gem 'unicorn' # web server
+# gem 'heroku'  # for Heroku deployment
 # gem 'taps'    # for pushing DB to Heroku
 end
 
@@ -39,7 +39,7 @@ group :test do
   gem 'factory_girl_rails'
   gem 'capybara'
   gem 'database_cleaner'
-  gem 'cucumber-rails'
+  gem 'cucumber-rails', :git => 'git://github.com/aslakhellesoy/cucumber-rails.git'
   gem 'cucumber'
   gem 'rspec-rails'
   gem 'launchy' # So you can do Then show me the page
