@@ -50,7 +50,7 @@ class LocusControllerTest < ActionController::TestCase
   test "should destroy locus" do
     assert_difference('Locus.count', -1) do
       authenticate_with_http_basic
-      delete :destroy, :id => 'krym'
+      delete :destroy, :id => 'mokrets'
     end
 
     assert_redirected_to locus_index_path

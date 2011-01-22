@@ -6,6 +6,7 @@ class Locus < ActiveRecord::Base
   validates :loc_type, :inclusion => TYPES, :presence => true, :length => { :maximum => 8 }
 
   belongs_to :parent, :class_name => 'Locus'
+  has_many :children, :class_name => 'Locus', :foreign_key => 'parent_id', :dependent => :restrict
 
   has_many :observations, :dependent => :restrict
 

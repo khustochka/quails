@@ -27,6 +27,14 @@ class LocusTest < ActiveSupport::TestCase
     assert_equal [], not_expected & actual, 'Some unexpected values are included'
   end
 
+  should 'not be destroyed if having child locations' do
+    loc         = Locus.find_by_code!('ukraine')
+    assert_raise(ActiveRecord::DeleteRestrictionError) do
+      loc.destroy
+    end
+    assert loc
+  end
+
   should 'not be destroyed if having associated observations' do
     loc         = Locus.find_by_code!('kiev')
     observation = Factory.create(:observation, :locus => loc)
