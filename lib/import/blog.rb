@@ -1,4 +1,4 @@
-require 'lib/import/legacy/models/blog'
+require 'import/legacy/models/blog'
 
 module Import
   class BlogImport

@@ -1,4 +1,4 @@
-require 'lib/import/species'
+require 'import/species'
 
 desc 'Exporting data to legacy db'
 namespace :export do

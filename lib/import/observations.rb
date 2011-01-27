@@ -1,4 +1,4 @@
-require 'lib/import/legacy/models/observation'
+require 'import/legacy/models/observation'
 
 module Import
   class ObservationImport

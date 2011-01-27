@@ -1,4 +1,4 @@
-require 'lib/import/book'
+require 'import/book'
 
 desc 'Importing data'
 namespace :import do

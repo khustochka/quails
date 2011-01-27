@@ -1,4 +1,4 @@
-require 'lib/import/legacy/models/geography'
+require 'import/legacy/models/geography'
 
 module Import
   class LocationImport

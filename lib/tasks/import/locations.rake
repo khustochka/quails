@@ -1,4 +1,4 @@
-require File.join(Rails.root, 'lib/import/locations')
+require 'import/locations'
 
 desc 'Tasks for importing locations'
 namespace :import do

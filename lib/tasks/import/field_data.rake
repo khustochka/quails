@@ -1,5 +1,5 @@
-require File.join(Rails.root, 'lib/import/blog')
-require File.join(Rails.root, 'lib/import/observations')
+require 'import/blog'
+require 'import/observations'
 
 desc 'Tasks for importing field data: blog posts, observations'
 namespace :import do

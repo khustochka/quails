@@ -1,4 +1,4 @@
-require 'lib/credentials_verifier'
+require 'credentials_verifier'
 
 file = 'config/security.yml'
 

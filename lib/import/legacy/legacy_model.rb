@@ -1,4 +1,4 @@
-require 'lib/import/legacy/legacy_init'
+require 'import/legacy/legacy_init'
 
 module Legacy
 

@@ -1,6 +1,6 @@
 require 'open-uri'
 require 'app/helpers/species_helper'
-require 'lib/import/legacy/legacy_init'
+require 'import/legacy/legacy_init'
 
 module Import
   class SpeciesImport
