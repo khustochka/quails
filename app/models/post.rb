@@ -72,12 +72,12 @@ class Post < ActiveRecord::Base
   private
   # TODO: updated_at should stay zone-dependent, but face_date should be not, so no need to rely on autoupdate timestamps
   def timestamp_attributes_for_update
-    upd = [:updated_at]
-    if face_date.blank?
-      changed_attributes.delete('face_date')
-      upd.push(:face_date)
+    [:updated_at].tap do |attrs|
+      if face_date.blank?
+        changed_attributes.delete('face_date')
+        attrs.push :face_date
+      end
     end
-    upd
   end
 
 end
