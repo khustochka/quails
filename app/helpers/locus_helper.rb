@@ -1,7 +1,7 @@
 module LocusHelper
 
-  def latlon(lat, lon)
-    (lat.nil? || lon.nil?) ? '' : "#{lat};#{lon}"
+  def latlon(loc)
+    (loc.lat.nil? || loc.lon.nil?) ? '' : "#{loc.lat};#{loc.lon}"
   end
 
 end
