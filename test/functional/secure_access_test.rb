@@ -16,4 +16,36 @@ class SecureAccessTest < ActionController::TestCase
     assert_select '.admin_panel', false
   end
 
+  should 'show hidden posts to admin after he logged in' do
+    blogpost1 = Factory.create(:post, :face_date => '2007-12-06 13:14:15', :code => 'post-one', :status => 'PRIV')
+    blogpost2 = Factory.create(:post, :face_date => '2008-11-06 13:14:15', :code => 'post-two')
+    authenticate_with_http_basic
+    get :new # log in should happen here
+    get :index
+    assert_select "h2 a[href=#{public_post_path(blogpost1)}]"
+    assert_select "h2 a[href=#{public_post_path(blogpost2)}]"
+
+    get :show, blogpost1.to_url_params
+    assert_response :success
+
+    get :show, blogpost2.to_url_params
+    assert_response :success
+  end
+
+  should 'not show hidden posts to user' do
+    blogpost1 = Factory.create(:post, :face_date => '2007-12-06 13:14:15', :code => 'post-one', :status => 'PRIV')
+    blogpost2 = Factory.create(:post, :face_date => '2008-11-06 13:14:15', :code => 'post-two')
+    get :index
+    assert_select "h2 a[href=#{public_post_path(blogpost1)}]", false
+    assert_select "h2 a[href=#{public_post_path(blogpost2)}]"
+
+    assert_raises ActiveRecord::RecordNotFound do
+      get :show, blogpost1.to_url_params
+    end
+#    TODO: assert_response :not_found
+
+    get :show, blogpost2.to_url_params
+    assert_response :success
+  end
+
 end
