@@ -94,6 +94,10 @@ class PostsController < ApplicationController
   end
 
   private
+  def Post
+
+  end
+
   def public_post_path(post)
     show_post_path(post.to_url_params)
   end

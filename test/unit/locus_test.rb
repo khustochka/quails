@@ -5,7 +5,7 @@ class LocusTest < ActiveSupport::TestCase
   should 'not be saved with empty code' do
     loc      = Factory.build(:locus, :loc_type => 'Country')
     loc.code = ''
-    assert_raise(ActiveRecord::RecordInvalid) do
+    assert_raises(ActiveRecord::RecordInvalid) do
       loc.save!
     end
   end
@@ -13,7 +13,7 @@ class LocusTest < ActiveSupport::TestCase
   should 'not be saved with existing code' do
     loc      = Factory.build(:locus, :loc_type => 'Country')
     loc.code = 'kiev'
-    assert_raise(ActiveRecord::RecordInvalid) do
+    assert_raises(ActiveRecord::RecordInvalid) do
       loc.save!
     end
   end
@@ -29,7 +29,7 @@ class LocusTest < ActiveSupport::TestCase
 
   should 'not be destroyed if having child locations' do
     loc         = Locus.find_by_code!('ukraine')
-    assert_raise(ActiveRecord::DeleteRestrictionError) do
+    assert_raises(ActiveRecord::DeleteRestrictionError) do
       loc.destroy
     end
     assert loc
@@ -38,7 +38,7 @@ class LocusTest < ActiveSupport::TestCase
   should 'not be destroyed if having associated observations' do
     loc         = Locus.find_by_code!('kiev')
     observation = Factory.create(:observation, :locus => loc)
-    assert_raise(ActiveRecord::DeleteRestrictionError) do
+    assert_raises(ActiveRecord::DeleteRestrictionError) do
       loc.destroy
     end
     assert observation.reload
