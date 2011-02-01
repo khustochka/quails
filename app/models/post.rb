@@ -19,6 +19,12 @@ class Post < ActiveRecord::Base
 
   # Scopes
 
+  default_scope where("status <> 'PRIV'")
+
+  def self.unrestricted
+    except(:where)
+  end
+
   def self.year(year)
     select('id, code, title, face_date').where('EXTRACT(year from face_date) = ?', year).order('face_date ASC')
   end
