@@ -32,4 +32,7 @@ Quails3::Application.configure do
 
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
+
+  # Add test to autoload path
+  config.autoload_paths += %W(#{Rails.root}/test)
 end

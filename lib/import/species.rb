@@ -1,5 +1,6 @@
+# encoding: utf-8
 require 'open-uri'
-require 'app/helpers/species_helper'
+require File.expand_path('app/helpers/species_helper', Rails.root)
 require 'import/legacy/legacy_init'
 
 module Import
