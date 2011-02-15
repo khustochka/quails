@@ -8,8 +8,8 @@ module SecurityController
     def require_http_auth(*args)
       options = args.extract_options!
       before_filter options do
-        instance_eval &CredentialsVerifier::AUTH_PROC
-        instance_eval &CredentialsVerifier::SET_COOKIE_PROC
+        CredentialsVerifier.authenticate(self)
+        CredentialsVerifier.set_cookie(self)
       end
     end
   end
@@ -17,6 +17,6 @@ module SecurityController
   private
   def admin_session?
     return @is_admin unless @is_admin.nil?
-    @is_admin = instance_eval &CredentialsVerifier::CHECK_COOKIE_PROC
+    @is_admin = CredentialsVerifier.check_cookie(self)
   end
 end
