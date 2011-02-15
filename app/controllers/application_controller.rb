@@ -35,4 +35,8 @@ class ApplicationController < ActionController::Base
     # returning nil will evoke ApplicationHelper::default_page_title
   end
 
+  def SessionAwarePost
+    @post_rel ||= admin_session? ? Post.unrestricted : Post
+  end
+
 end
