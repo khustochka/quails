@@ -19,7 +19,6 @@ class Observation < ActiveRecord::Base
     [nil] + rel.map { |ob| ob[:year] }
   end
 
-  # Not used
   def self.species_first_met_dates(*args)
     options = args.extract_options!
     rel     = mine.identified.select('species_id, MIN(observ_date) AS mind').group(:species_id)
