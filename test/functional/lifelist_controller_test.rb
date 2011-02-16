@@ -1,7 +1,6 @@
 require 'test_helper'
 
-class SpeciesControllerLifelistTest < ActionController::TestCase
-  tests SpeciesController
+class LifelistControllerTest < ActionController::TestCase
 
   test "should show full lifelist" do
     get :lifelist

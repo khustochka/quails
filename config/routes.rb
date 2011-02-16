@@ -33,7 +33,7 @@ Quails3::Application.routes.draw do
     end
   end
 
-  get 'lifelist(/:year)(/:locus)' => 'species#lifelist',
+  get 'lifelist(/:year)(/:locus)' => 'lifelist#lifelist',
       :constraints                => {:year => /\d{4}/, :locus => /[a-z_]+/},
       :as                         => 'lifelist'
 

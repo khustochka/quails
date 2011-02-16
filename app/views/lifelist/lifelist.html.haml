@@ -4,14 +4,15 @@
 
 = render 'partials/years'
 
-- if @species.blank?
+- if @lifelist.blank?
   %p No species observed.
 - else
   %table#lifelist.neat_table
-    - @species.inject(@species.size) do |i, sp|
+    - @lifelist.inject(@lifelist.size) do |i, row|
+      - sp = row.species
       %tr
         %td.align-right= "#{i}."
         %td= species_link(sp)
         %td= name_sci(sp)
-        %td.align-right= l(Date.parse(sp.mind), :format => :long)
+        %td.align-right= l(row.observ_date, :format => :long)
       - i -= 1

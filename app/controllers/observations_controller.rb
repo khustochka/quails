@@ -54,4 +54,5 @@ class ObservationsController < ApplicationController
     @observation.destroy
     redirect_to(observations_url)
   end
+
 end

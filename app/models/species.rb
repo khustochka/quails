@@ -8,17 +8,6 @@ class Species < ActiveRecord::Base
 
   has_many :observations, :dependent => :restrict
 
-#  has_one :first_observation, :class_name => 'Observation', :conditions =>
-#    "
-#      mine = 't'
-#      AND
-#      NOT EXISTS (SELECT * FROM observations ob1
-#      WHERE ob1.mine = 't'
-#      AND ob1.species_id = observations.species_id
-#      AND ob1.observ_date < observations.observ_date
-#      )
-#    "
-
   # Parameters
 
   def to_param
@@ -31,11 +20,6 @@ class Species < ActiveRecord::Base
 
   def self.alphabetic
     except(:order).order(:name_sci)
-  end
-
-  def self.lifelist(*args)
-    options = args.extract_options!
-    select('*').joins("INNER JOIN (#{Observation.species_first_met_dates(options).to_sql}) AS obs ON species.id=obs.species_id").except(:order).order('mind DESC, index_num DESC').limit(options[:limit])
   end
 
   # Instance methods

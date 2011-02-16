@@ -1,8 +1,8 @@
 class SpeciesController < ApplicationController
 
-  require_http_auth :except => [:index, :show, :lifelist]
+  require_http_auth :except => [:index, :show]
 
-  layout 'admin', :except => [:index, :show, :lifelist]
+  layout 'admin', :except => [:index, :show]
 
   before_filter :find_species, :only => [:show, :edit, :update]
 
@@ -34,20 +34,6 @@ class SpeciesController < ApplicationController
       redirect_to(@species, :notice => 'Species was successfully updated.')
     else
       render :form
-    end
-  end
-
-  # GET /lifelist
-  # GET /lifelist.xml
-  def lifelist
-    extended_params = params.dup
-    extended_params.merge!(:loc_ids => Locus.select(:id).find_by_code!(params[:locus]).get_subregions) if params[:locus]
-    @species        = Species.lifelist(extended_params).all
-    @years          = Observation.years(extended_params)
-
-    respond_to do |format|
-      format.html
-      format.xml { render :xml => @species }
     end
   end
 

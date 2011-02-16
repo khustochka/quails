@@ -19,10 +19,10 @@ class RoutingTest < ActionDispatch::IntegrationTest
   end
 
   should 'route lifelist correctly' do
-    assert_routing '/lifelist', {:controller => 'species', :action => 'lifelist'}
-    assert_routing '/lifelist', {:controller => 'species', :action => 'lifelist'}
-    assert_routing '/lifelist/2008', {:controller => 'species', :action => 'lifelist', :year => '2008'}
-    assert_routing '/lifelist/2010/kiev', {:controller => 'species', :action => 'lifelist', :year => '2010', :locus => 'kiev'}
-    assert_routing '/lifelist/kherson_obl', {:controller => 'species', :action => 'lifelist', :locus => 'kherson_obl'}
+    assert_routing '/lifelist', {:controller => 'lifelist', :action => 'lifelist'}
+    assert_routing '/lifelist', {:controller => 'lifelist', :action => 'lifelist'}
+    assert_routing '/lifelist/2008', {:controller => 'lifelist', :action => 'lifelist', :year => '2008'}
+    assert_routing '/lifelist/2010/kiev', {:controller => 'lifelist', :action => 'lifelist', :year => '2010', :locus => 'kiev'}
+    assert_routing '/lifelist/kherson_obl', {:controller => 'lifelist', :action => 'lifelist', :locus => 'kherson_obl'}
   end
 end
