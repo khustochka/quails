@@ -2,8 +2,9 @@
 
 = render @post
 
-%b Список видов:
-= @post.species.uniq.map { |sp| species_link(sp) }.join(", \n").html_safe
+- unless @post.species.blank?
+  %b Список видов:
+  = @post.species.uniq.map { |sp| species_link(sp) }.join(", \n").html_safe
 
 %p
   - unless @post.lj_url_id.blank?
