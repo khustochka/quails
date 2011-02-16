@@ -18,6 +18,10 @@ Quails3::Application.routes.draw do
 
   # PUBLIC PAGES
 
+  # You can have the root of your site routed with "root"
+  # just remember to delete public/index.html.
+  root :to => 'posts#index'
+
   resources :species, :only => [:index, :show]
   resources :posts, :except => [:index, :show]
 
@@ -45,6 +49,8 @@ Quails3::Application.routes.draw do
   resources :locus
   resources :species, :only => [:edit, :update]
   # end
+
+  get 'dashboard' => 'admin#dashboard'
 
   # Sample resource route with options:
   #   resources :products do
@@ -78,10 +84,6 @@ Quails3::Application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
-
-  # You can have the root of your site routed with "root"
-  # just remember to delete public/index.html.
-  root :to => 'posts#index'
 
   # See how all your routes lay out with "rake routes"
 

@@ -20,6 +20,8 @@ Given /^logged as administrator$/ do
 #    page.driver.visit('/')
 #    page.driver.visit("http://admin:password@#{page.driver.current_url.gsub(/^http\:\/\//, '')}")
   end
+    # To set cookie:
+    When 'I go to the dashboard'
 end
 
 module WithinHelpers

@@ -33,9 +33,7 @@ Feature: Species
 
     Given a post exists with code: "another-test-post", title: "New title"
     Given logged as administrator
-    # To set cookie:
-    When I go to the new post page
-    When I go to "another-test-post" post page
+    And I go to "another-test-post" post page
     And I follow "Edit this one"
     Then I should be on "another-test-post" edit post page
     When I follow "Show this one"
