@@ -28,7 +28,7 @@ class ObservationTest < ActiveSupport::TestCase
     Factory.create(:observation, :species => Species.find_by_code!('melgal'), :observ_date => "2009-06-18", :locus => Locus.find_by_code!('kiev'))
     got = Observation.lifers_observations.all
     assert_equal 2, got.size
-    got2 = Observation.lifelist.all
+    got2 = Observation.lifelist
     assert_equal 2, got2.size
   end
 
