@@ -23,8 +23,8 @@ class ObservationTest < ActiveSupport::TestCase
   end
 
   should 'not duplicate species in lifelist if it was seen twice on its first date' do
-    Factory.create(:observation, :species => Species.find_by_code!('pasdom'), :observ_date => "2009-06-18")
     Factory.create(:observation, :species => Species.find_by_code!('melgal'), :observ_date => "2009-06-18", :locus => Locus.find_by_code!('brovary'))
+    Factory.create(:observation, :species => Species.find_by_code!('pasdom'), :observ_date => "2009-06-18")
     Factory.create(:observation, :species => Species.find_by_code!('melgal'), :observ_date => "2009-06-18", :locus => Locus.find_by_code!('kiev'))
     got = Observation.lifers_observations.all
     assert_equal 2, got.size

@@ -39,7 +39,7 @@ class Observation < ActiveRecord::Base
 
   def self.lifelist(*args)
     # have to exclude duplicates explicitly because Arel fails to build complex query
-    list = lifers_observations(*args).includes(:species, :post).order('observations.observ_date DESC').all
+    list = lifers_observations(*args).includes(:species, :post).order('observations.observ_date DESC, species.index_num').all
     list.inject([]) { |memo, el| el.species_id == memo[-1].try(:species_id) ? memo : memo.push(el) }
   end
 
