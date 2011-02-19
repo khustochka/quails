@@ -6,7 +6,7 @@ class LifelistController < ApplicationController
     extended_params = params.dup
     extended_params.merge!(:loc_ids => Locus.select(:id).find_by_code!(params[:locus]).get_subregions) if params[:locus]
 
-    @lifelist = Observation.lifelist(extended_params)
+    @lifelist = Observation.lifelist(extended_params).all
     @years    = Observation.years(extended_params)
 
     respond_to do |format|

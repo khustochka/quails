@@ -7,7 +7,7 @@ class Observation < ActiveRecord::Base
 
   # Scopes
 
-  scope :mine, where('mine = TRUE')
+  scope :mine, where(:mine => true)
 
   scope :identified, where('species_id IS NOT NULL')
 
@@ -30,17 +30,13 @@ class Observation < ActiveRecord::Base
 
   def self.lifers_observations(*args)
     options = args.extract_options!
-
-    # Using join on earliest date is the fastest
-    select('DISTINCT ON (observations.species_id, observ_date) observations.*').\
-        joins("INNER JOIN (#{lifers_dates(options).to_sql}) AS dts
-          ON observations.species_id=dts.species_id AND observations.observ_date=dts.first_date")
+    raw_ids = select('MIN(id)').group(:species_id, :observ_date). \
+        where("(species_id, observ_date) IN (#{lifers_dates(options).to_sql})")
+    where("observations.id IN (#{raw_ids.to_sql})")
   end
 
   def self.lifelist(*args)
-    # have to exclude duplicates explicitly because Arel fails to build complex query
-    list = lifers_observations(*args).includes(:species, :post).order('observations.observ_date DESC, species.index_num').all
-    list.inject([]) { |memo, el| el.species_id == memo[-1].try(:species_id) ? memo : memo.push(el) }
+    lifers_observations(*args).includes(:species, :post).order('observations.observ_date DESC, species.index_num')
   end
 
 end
