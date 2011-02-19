@@ -42,4 +42,11 @@ class ObservationTest < ActiveSupport::TestCase
     assert_contains got, expected
   end
 
+  should 'not place into lifelist an observation with lower id instead of an earlier date' do
+    Factory.create(:observation, :species => Species.find_by_code!('pasdom'), :observ_date => "2010-06-20")
+    obs = Factory.create(:observation, :species => Species.find_by_code!('pasdom'), :observ_date => "2010-06-18")
+    got = Observation.lifers_observations.all
+    assert_equal obs.observ_date, got.first.observ_date
+  end
+
 end
