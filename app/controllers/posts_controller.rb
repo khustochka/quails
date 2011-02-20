@@ -95,12 +95,6 @@ class PostsController < ApplicationController
 
   private
 
-  def public_post_path(post)
-    show_post_path(post.to_url_params)
-  end
-
-  helper_method :public_post_path
-
   def find_post
     @post = SessionAwarePost().find_by_code!(params[:id])
   end

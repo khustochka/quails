@@ -39,4 +39,10 @@ class ApplicationController < ActionController::Base
     @post_rel ||= admin_session? ? Post.unrestricted : Post
   end
 
+  def public_post_path(post)
+    show_post_path(post.to_url_params)
+  end
+
+  helper_method :public_post_path
+
 end
