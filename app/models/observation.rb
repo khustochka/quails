@@ -36,7 +36,7 @@ class Observation < ActiveRecord::Base
   end
 
   def self.lifelist(*args)
-    lifers_observations(*args).includes(:species, :post).order('observations.observ_date DESC, species.index_num')
+    lifers_observations(*args).includes(:species).order('observ_date DESC, species.index_num')
   end
 
 end

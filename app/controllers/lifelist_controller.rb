@@ -7,6 +7,7 @@ class LifelistController < ApplicationController
     extended_params.merge!(:loc_ids => Locus.select(:id).find_by_code!(params[:locus]).get_subregions) if params[:locus]
 
     @lifelist = Observation.lifelist(extended_params).all
+    @posts    = SessionAwarePost().where(:id => @lifelist.map(&:post_id)).inject({}) { |memo, el| memo.merge({el.id => el}) }
     @years    = Observation.years(extended_params)
 
     respond_to do |format|

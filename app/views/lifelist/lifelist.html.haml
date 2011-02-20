@@ -11,10 +11,10 @@
     - @lifelist.inject(@lifelist.size) do |i, row|
       - sp = row.species
       - date = l(row.observ_date, :format => :long)
-      - post = row.post
+      - post = @posts[row.post_id]
       %tr
         %td.align-right= "#{i}."
         %td= species_link(sp)
         %td= name_sci(sp)
-        %td.align-right= post ? link_to(date, public_post_path(row.post)) : date
+        %td.align-right= post ? link_to(date, public_post_path(post)) : date
       - i -= 1
