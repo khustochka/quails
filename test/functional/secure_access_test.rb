@@ -4,9 +4,8 @@ class SecureAccessTest < ActionController::TestCase
 
   tests PostsController
 
-  should 'show administrative panel to admin after he logged in' do
-    authenticate_with_http_basic
-    get :new # log in should happen here
+  should 'show administrative panel to admin when he is logged in' do
+    login_as_admin
     get :index
     assert_select '.admin_panel', true
   end
@@ -16,11 +15,10 @@ class SecureAccessTest < ActionController::TestCase
     assert_select '.admin_panel', false
   end
 
-  should 'show hidden posts to admin after he logged in' do
+  should 'show hidden posts to admin when he is logged in' do
     blogpost1 = Factory.create(:post, :face_date => '2007-12-06 13:14:15', :code => 'post-one', :status => 'PRIV')
     blogpost2 = Factory.create(:post, :face_date => '2008-11-06 13:14:15', :code => 'post-two')
-    authenticate_with_http_basic
-    get :new # log in should happen here
+    login_as_admin
     get :index
     assert_select "h2 a[href=#{public_post_path(blogpost1)}]"
     assert_select "h2 a[href=#{public_post_path(blogpost2)}]"

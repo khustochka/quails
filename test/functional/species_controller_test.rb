@@ -19,7 +19,7 @@ class SpeciesControllerTest < ActionController::TestCase
 
   test "should get edit" do
     species = Species.find_by_code!('melgal')
-    authenticate_with_http_basic
+    login_as_admin
     get :edit, :id => species.to_param
     assert_response :success
   end
@@ -27,7 +27,7 @@ class SpeciesControllerTest < ActionController::TestCase
   test "should update species" do
     species = Species.find_by_code!('corbra')
     species.name_ru = 'Американская ворона'
-    authenticate_with_http_basic
+    login_as_admin
     put :update, :id => species.to_param, :species => species.attributes
     assert_redirected_to species_path(assigns(:species))
   end
