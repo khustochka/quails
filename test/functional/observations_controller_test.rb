@@ -5,6 +5,11 @@ class ObservationsControllerTest < ActionController::TestCase
   end
 
   test "should get index" do
+    Factory.create(:observation, :species => Species.find_by_code!('pasdom'), :observ_date => "2010-06-20", :locus => Locus.find_by_code!('new_york'))
+    Factory.create(:observation, :species => Species.find_by_code!('melgal'), :observ_date => "2010-06-18")
+    Factory.create(:observation, :species => Species.find_by_code!('anapla'), :observ_date => "2009-06-18")
+    Factory.create(:observation, :species => Species.find_by_code!('anacly'), :observ_date => "2007-07-18", :locus => Locus.find_by_code!('brovary'))
+    Factory.create(:observation, :species => Species.find_by_code!('embcit'), :observ_date => "2009-08-09", :locus => Locus.find_by_code!('kherson'))
     login_as_admin
     get :index
     assert_response :success
@@ -41,7 +46,7 @@ class ObservationsControllerTest < ActionController::TestCase
   end
 
   test "should update observation" do
-    observation = Factory.create(:observation)
+    observation             = Factory.create(:observation)
     observation.observ_date = '2010-11-07'
     login_as_admin
     put :update, :id => observation.to_param, :observation => observation.attributes
