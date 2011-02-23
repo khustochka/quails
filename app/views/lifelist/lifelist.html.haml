@@ -7,14 +7,36 @@
 - if @lifelist.blank?
   %p No species observed.
 - else
+  - start_count, increment = params[:sort].nil? ? [@lifelist.size, -1] : [1, 1]
   %table#lifelist.neat_table
-    - @lifelist.inject(@lifelist.size) do |i, row|
-      - sp = row.species
-      - date = l(row.observ_date, :format => :long)
-      - post = @posts[row.post_id]
+    %tr
+      %th &nbsp;
+      %th Sort by:
+      %th= link_to_unless_current('Classification ⇓', params.merge(:sort => 'class'))
+      %th.align-right= params[:sort].nil? ? 'First seen ⇓' : link_to('First seen ⇓', params.merge(:sort => nil))
+      %th.align-right= link_to_unless_current('Last seen ⇓', params.merge(:sort => 'last'))
+      %th.align-right= link_to_unless_current('Count ⇓', params.merge(:sort => 'count'))
+
+    - sp_row = Proc.new do |i, sp|
+      - first_date = l(Date.parse(sp.first_date), :format => :long)
+      - last_date = l(Date.parse(sp.last_date), :format => :long)
+      - first_post = nil #@posts[row.post_id]
+      - last_post = nil #@posts[row.post_id]
       %tr
         %td.align-right= "#{i}."
         %td= species_link(sp)
         %td= name_sci(sp)
-        %td.align-right= post ? link_to(date, public_post_path(post)) : date
-      - i -= 1
+        %td.lifer_date= first_post ? link_to(first_date, public_post_path(first_post)) : first_date
+        %td.lifer_date= last_post ? link_to(last_date, public_post_path(last_post)) : last_date
+        %td.lifer_date= sp.view_count
+      - i += increment
+      
+    - if params[:sort] == 'class'
+      - @families.each do |fam|
+        %tr
+          %td
+          %td{:colspan => 5}
+            %h3= "#{fam[:order].upcase}: #{fam[:name]}"
+          - start_count = fam[:species].inject(start_count, &sp_row)
+    - else
+      - @lifelist.inject(start_count, &sp_row)

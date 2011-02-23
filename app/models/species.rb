@@ -22,6 +22,25 @@ class Species < ActiveRecord::Base
     except(:order).order(:name_sci)
   end
 
+  def self.lifelist(*args)
+    options     = args.extract_options!
+    sort_option =
+        case options.delete(:sort)
+          when nil
+            'first_date DESC, index_num DESC'
+          when 'last' then
+            'last_date DESC, index_num DESC'
+          when 'count' then
+            'view_count DESC, index_num ASC'
+          when 'class'
+            'index_num ASC'
+          else
+            raise 'Incorrect option'
+        end
+    select('*').joins("INNER JOIN (#{Observation.lifers_dates(options).to_sql}) AS obs ON species.id=obs.species_id").\
+    except(:order).order(sort_option)
+  end
+
   # Instance methods
 
   def name

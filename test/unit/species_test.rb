@@ -51,4 +51,15 @@ class SpeciesTest < ActiveSupport::TestCase
     assert_equal sp, observation.species
   end
 
+  should 'order lifelist correctly' do
+    Factory.create(:observation, :species => Species.find_by_code!('pasdom'), :observ_date => "2010-06-20")
+    Factory.create(:observation, :species => Species.find_by_code!('melgal'), :observ_date => "2010-06-18")
+    Factory.create(:observation, :species => Species.find_by_code!('anapla'), :observ_date => "2009-06-18")
+    Factory.create(:observation, :species => Species.find_by_code!('anacly'), :observ_date => "2007-07-18")
+    Factory.create(:observation, :species => Species.find_by_code!('embcit'), :observ_date => "2009-08-09")
+    got      = Species.lifelist.map { |ob| ob.first_date }
+    expected = got.sort.reverse
+    assert_equal expected, got
+  end
+
 end

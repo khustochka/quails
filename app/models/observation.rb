@@ -21,7 +21,10 @@ class Observation < ActiveRecord::Base
 
   def self.lifers_dates(*args)
     options = args.extract_options!
-    rel = mine.identified.select('species_id, MIN(observ_date) AS first_date').group(:species_id)
+    rel = mine.identified.select('species_id,
+        MIN(observ_date) AS first_date,
+        MAX(observ_date) AS last_date,
+        COUNT(id) AS view_count').group(:species_id)
     rel = rel.where('EXTRACT(year from observ_date) = ?', options[:year]) unless options[:year].blank?
     rel = rel.where('EXTRACT(month from observ_date) = ?', options[:month]) unless options[:month].blank?
     rel = rel.where('locus_id' => options[:loc_ids]) unless options[:locus].blank?
@@ -36,7 +39,7 @@ class Observation < ActiveRecord::Base
   end
 
   def self.lifelist(*args)
-    lifers_observations(*args).includes(:species).order('observ_date DESC, species.index_num')
+    lifers_dates(*args).includes(:species).order('observ_date DESC, species.index_num')
   end
 
 end
