@@ -31,15 +31,23 @@ class Observation < ActiveRecord::Base
     rel
   end
 
-  def self.lifers_observations(*args)
-    options = args.extract_options!
-    raw_ids = select('MIN(id)').group(:species_id, :observ_date). \
-        where("(species_id, observ_date) IN (#{lifers_dates(options).to_sql})")
-    where("observations.id IN (#{raw_ids.to_sql})")
+  def self.lifers_posts(lifelist)
+    species_with_dates = lifelist.inject([]) do |memo, sp|
+      memo.push([sp.id, "'#{sp.first_date}'"], [sp.id, "'#{sp.last_date}'"])
+    end.uniq.map {|rec| "(#{rec.join(',')})"}.join(',')
+    mine.identified.select('species_id, observ_date, post_id').\
+        where("post_id IS NOT NULL AND (species_id, observ_date) IN (#{species_with_dates})")
   end
 
-  def self.lifelist(*args)
-    lifers_dates(*args).includes(:species).order('observ_date DESC, species.index_num')
-  end
+#  def self.lifers_observations(*args)
+#    options = args.extract_options!
+#    raw_ids = select('MIN(id)').group(:species_id, :observ_date). \
+#        where("(species_id, observ_date) IN (#{lifers_dates(options).to_sql})")
+#    where("observations.id IN (#{raw_ids.to_sql})")
+#  end
+#
+#  def self.lifelist(*args)
+#    lifers_dates(*args).includes(:species).order('observ_date DESC, species.index_num')
+#  end
 
 end

@@ -20,8 +20,8 @@
     - sp_row = Proc.new do |i, sp|
       - first_date = l(Date.parse(sp.first_date), :format => :long)
       - last_date = l(Date.parse(sp.last_date), :format => :long)
-      - first_post = nil #@posts[row.post_id]
-      - last_post = nil #@posts[row.post_id]
+      - first_post = @posts[sp.id][sp.first_date] rescue nil
+      - last_post = @posts[sp.id][sp.last_date] rescue nil
       %tr
         %td.align-right= "#{i}."
         %td= species_link(sp)
