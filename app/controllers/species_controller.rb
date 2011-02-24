@@ -9,11 +9,6 @@ class SpeciesController < ApplicationController
   # GET /species
   def index
     @species  = Species.all
-    @families = @species.map { |sp|
-      {:name => sp.family, :order => sp.order}
-    }.uniq.map { |fam|
-      fam.merge(:species => @species.select { |s| s.family == fam[:name] })
-    }
   end
 
   # GET /species/1

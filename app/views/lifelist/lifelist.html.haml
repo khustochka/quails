@@ -32,7 +32,7 @@
       - i += increment
       
     - if params[:sort] == 'class'
-      - @families.each do |fam|
+      - extract_families(@lifelist).each do |fam|
         %tr
           %td
           %td{:colspan => 5}

@@ -12,4 +12,16 @@ module SpeciesHelper
     content_tag(:i, sp_obj.nil? ? 'Avis incognita' : sp_obj.name_sci, :class => 'lat')
   end
 
+  def extract_families(species)
+    species.inject([]) do |memo, sp|
+      last = memo.last
+      if last.nil? || last[:name] != sp.family
+        memo.push({:name => sp.family, :order => sp.order, :species => [sp]})
+      else
+        last[:species].push(sp)
+      end
+      memo
+    end
+  end
+
 end
