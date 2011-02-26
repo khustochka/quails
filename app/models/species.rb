@@ -37,8 +37,16 @@ class Species < ActiveRecord::Base
           else
             raise 'Incorrect option'
         end
-    select('*').joins("INNER JOIN (#{Observation.lifers_dates(options).to_sql}) AS obs ON species.id=obs.species_id").\
-    except(:order).order(sort_option)
+    select('obs.*, name_sci, name_ru, name_en, name_uk, index_num, family, "order"').except(:order).order(sort_option).\
+        joins("INNER JOIN (#{Observation.lifers_observations(options).to_sql}) AS obs ON species.id=obs.main_species").\
+        all.inject([]) do |memo, sp|
+          last = memo.last
+          if last.nil? || last.main_species != sp.main_species
+            memo.push(sp)
+          else
+            memo
+          end
+    end
   end
 
   # Instance methods

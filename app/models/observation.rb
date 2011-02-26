@@ -9,11 +9,11 @@ class Observation < ActiveRecord::Base
 
   scope :mine, where(:mine => true)
 
-  scope :identified, where('species_id IS NOT NULL')
+  scope :identified, where('observations.species_id IS NOT NULL')
 
   def self.years(*args)
     options = args.extract_options!
-    rel = mine.identified.select('DISTINCT EXTRACT(year from observ_date) AS year').order(:year)
+    rel     = mine.identified.select('DISTINCT EXTRACT(year from observ_date) AS year').order(:year)
     rel = rel.where('EXTRACT(month from observ_date) = ?', options[:month]) unless options[:month].blank?
     rel = rel.where('locus_id' => options[:loc_ids]) unless options[:locus].blank?
     [nil] + rel.map { |ob| ob[:year] }
@@ -21,7 +21,7 @@ class Observation < ActiveRecord::Base
 
   def self.lifers_dates(*args)
     options = args.extract_options!
-    rel = mine.identified.select('species_id,
+    rel     = mine.identified.select('species_id AS main_species,
         MIN(observ_date) AS first_date,
         MAX(observ_date) AS last_date,
         COUNT(id) AS view_count').group(:species_id)
@@ -31,23 +31,11 @@ class Observation < ActiveRecord::Base
     rel
   end
 
-  def self.lifers_posts(lifelist)
-    species_with_dates = lifelist.inject([]) do |memo, sp|
-      memo.push([sp.id, "'#{sp.first_date}'"], [sp.id, "'#{sp.last_date}'"])
-    end.uniq.map {|rec| "(#{rec.join(',')})"}.join(',')
-    mine.identified.select('species_id, observ_date, post_id').\
-        where("post_id IS NOT NULL AND (species_id, observ_date) IN (#{species_with_dates})")
+  def self.lifers_observations(*args)
+    select('dates.*, ob1.post_id AS first_post, ob2.post_id AS last_post').\
+      from("(#{lifers_dates(*args).to_sql}) AS dates").\
+      joins("INNER JOIN (#{Observation.mine.to_sql}) AS ob1 ON main_species=ob1.species_id AND first_date=ob1.observ_date").\
+      joins("INNER JOIN (#{Observation.mine.to_sql}) AS ob2 ON main_species=ob2.species_id AND last_date=ob2.observ_date")
   end
-
-#  def self.lifers_observations(*args)
-#    options = args.extract_options!
-#    raw_ids = select('MIN(id)').group(:species_id, :observ_date). \
-#        where("(species_id, observ_date) IN (#{lifers_dates(options).to_sql})")
-#    where("observations.id IN (#{raw_ids.to_sql})")
-#  end
-#
-#  def self.lifelist(*args)
-#    lifers_dates(*args).includes(:species).order('observ_date DESC, species.index_num')
-#  end
 
 end

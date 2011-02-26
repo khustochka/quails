@@ -6,7 +6,7 @@ class ObservationTest < ActiveSupport::TestCase
     Factory.create(:observation, :species => Species.find_by_code!('pasdom'), :observ_date => "2008-06-20")
     Factory.create(:observation, :species => Species.find_by_code!('melgal'), :observ_date => "2009-06-18", :mine => false)
     observ   = Factory.create(:observation, :species => Species.find_by_code!('melgal'), :observ_date => "2010-06-18")
-    got      = Observation.lifers_observations.map { |ob| [ob.species_id, ob.observ_date] }
+    got      = Observation.lifers_observations.map { |ob| [ob.main_species.to_i, Date.parse(ob.first_date)] }
     expected = [observ.species_id, observ.observ_date]
     assert_contains got, expected
   end
@@ -17,25 +17,13 @@ class ObservationTest < ActiveSupport::TestCase
     Factory.create(:observation, :species => Species.find_by_code!('melgal'), :observ_date => "2009-06-18", :locus => Locus.find_by_code!('kiev'))
     got = Observation.lifers_observations.all
     assert_equal 2, got.size
-    got2 = Observation.lifelist
-    assert_equal 2, got2.size
-  end
-
-  should 'not miss species from lifelist if its first observation has no post' do
-    blogpost = Factory.create(:post)
-    Factory.create(:observation, :species => Species.find_by_code!('anapla'), :observ_date => "2009-08-09", :post => blogpost)
-    observ = Factory.create(:observation, :species => Species.find_by_code!('anacly'), :observ_date => "2007-07-18")
-    Factory.create(:observation, :species => Species.find_by_code!('anacly'), :observ_date => "2009-08-09", :post => blogpost)
-    got      = Observation.lifelist.map { |ob| [ob.species_id, ob.observ_date] }
-    expected = [observ.species_id, observ.observ_date]
-    assert_contains got, expected
   end
 
   should 'not place into lifelist an observation with lower id instead of an earlier date' do
     Factory.create(:observation, :species => Species.find_by_code!('pasdom'), :observ_date => "2010-06-20")
     obs = Factory.create(:observation, :species => Species.find_by_code!('pasdom'), :observ_date => "2010-06-18")
     got = Observation.lifers_observations.all
-    assert_equal obs.observ_date, got.first.observ_date
+    assert_equal obs.observ_date, Date.parse(got.first.first_date)
   end
 
 end
