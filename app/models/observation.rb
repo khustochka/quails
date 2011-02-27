@@ -13,7 +13,7 @@ class Observation < ActiveRecord::Base
 
   def self.years(*args)
     options = args.extract_options!
-    rel     = mine.identified.select('DISTINCT EXTRACT(year from observ_date) AS year').order(:year)
+    rel = mine.identified.select('DISTINCT EXTRACT(year from observ_date) AS year').order(:year)
     rel = rel.where('EXTRACT(month from observ_date) = ?', options[:month]) unless options[:month].blank?
     rel = rel.where('locus_id' => options[:loc_ids]) unless options[:locus].blank?
     [nil] + rel.map { |ob| ob[:year] }
@@ -21,10 +21,14 @@ class Observation < ActiveRecord::Base
 
   def self.lifers_dates(*args)
     options = args.extract_options!
-    rel     = mine.identified.select('species_id AS main_species,
+    rel = mine.identified.select(
+<<SQL
+        species_id AS main_species,
         MIN(observ_date) AS first_date,
         MAX(observ_date) AS last_date,
-        COUNT(id) AS view_count').group(:species_id)
+        COUNT(id) AS view_count
+SQL
+    ).group(:species_id)
     rel = rel.where('EXTRACT(year from observ_date) = ?', options[:year]) unless options[:year].blank?
     rel = rel.where('EXTRACT(month from observ_date) = ?', options[:month]) unless options[:month].blank?
     rel = rel.where('locus_id' => options[:loc_ids]) unless options[:locus].blank?

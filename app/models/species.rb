@@ -35,7 +35,9 @@ class Species < ActiveRecord::Base
           when 'class'
             'index_num ASC'
           else
-            raise 'Incorrect option'
+            'first_date DESC, index_num DESC'
+            #TODO: implement correct processing of incorrect query parameters
+            # raise 'Incorrect option'
         end
     select('obs.*, name_sci, name_ru, name_en, name_uk, index_num, family, "order"').except(:order).order(sort_option).\
         joins("INNER JOIN (#{Observation.lifers_observations(options).to_sql}) AS obs ON species.id=obs.main_species").\
