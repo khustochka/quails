@@ -10,7 +10,7 @@ class ObservationsController < ApplicationController
 
   # GET /observations
   def index
-    @observations = Observation.order(params[:sort]).includes(:species, :locus).page(params[:page])
+    @observations = Observation.order(params[:sort]).includes(:species, :locus, :post).page(params[:page])
   end
 
   # GET /observations/1

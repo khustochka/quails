@@ -1,7 +1,7 @@
 class Observation < ActiveRecord::Base
   belongs_to :species
   belongs_to :locus
-  belongs_to :post
+  belongs_to :post, :select => [:id, :code, :face_date, :title]
 
   validates :observ_date, :presence => true
 

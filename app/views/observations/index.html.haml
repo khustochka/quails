@@ -5,14 +5,15 @@
 %table.neat_table
   %tr
     %th.align-right ID
-    %th Species
+    %th= link_to_unless_current('Species ⇓', params.merge({:sort => 'species.index_num', :page => nil}))
     %th Location
-    %th.align-center Date
+    %th.align-center= link_to_unless_current('Date ⇓', params.merge({:sort => :observ_date, :page => nil}))
     %th Quantity
     %th Biotope
     %th Place
     %th Notes
-    %th.align-center Mine
+    %th Post
+    %th.align-center= link_to_unless_current('Mine ⇓', params.merge({:sort => 'mine DESC', :page => nil}))
     %th
 
   - @observations.each do |observation|
@@ -26,6 +27,7 @@
       %td= observation.biotope
       %td= observation.place
       %td= observation.notes
+      %td= observation.post.nil? ? nil : link_to('>>', public_post_path(observation.post))
       %td.align-center= observation.mine ? '+' : '-'
       %td= link_to 'Destroy', observation, :confirm => 'Are you sure?', :method => :delete
 
