@@ -6,8 +6,7 @@ production:
   admin_session_reply: <%= ENV['admin_session_reply'] %>
 
 development:
-  username: dev
-  password: d28b882c7ed2084e13093cae902554f57a4982b3 # parole
+  free_access: true # works only in dev mode
   admin_session_ask: dontask
   admin_session_reply: dontell
 
