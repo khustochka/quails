@@ -11,13 +11,14 @@ class ObservationTest < ActiveSupport::TestCase
     assert_contains got, expected
   end
 
-  should 'not duplicate species in lifelist if it was seen twice on its first date' do
-    Factory.create(:observation, :species => Species.find_by_code!('melgal'), :observ_date => "2009-06-18", :locus => Locus.find_by_code!('brovary'))
-    Factory.create(:observation, :species => Species.find_by_code!('pasdom'), :observ_date => "2009-06-18")
-    Factory.create(:observation, :species => Species.find_by_code!('melgal'), :observ_date => "2009-06-18", :locus => Locus.find_by_code!('kiev'))
-    got = Observation.lifers_observations.all
-    assert_equal 2, got.size
-  end
+# Now we remove duplicates from the array, not in the query
+#  should 'not duplicate species in lifelist if it was seen twice on its first date' do
+#    Factory.create(:observation, :species => Species.find_by_code!('melgal'), :observ_date => "2009-06-18", :locus => Locus.find_by_code!('brovary'))
+#    Factory.create(:observation, :species => Species.find_by_code!('pasdom'), :observ_date => "2009-06-18")
+#    Factory.create(:observation, :species => Species.find_by_code!('melgal'), :observ_date => "2009-06-18", :locus => Locus.find_by_code!('kiev'))
+#    got = Observation.lifers_observations.all
+#    assert_equal 2, got.size
+#  end
 
   should 'not place into lifelist an observation with lower id instead of an earlier date' do
     Factory.create(:observation, :species => Species.find_by_code!('pasdom'), :observ_date => "2010-06-20")
