@@ -51,10 +51,6 @@ class Post < ActiveRecord::Base
 
   # Instance methods
 
-  def date
-    face_date.strftime('%Y-%m-%d')
-  end
-
   def year
     face_date.year.to_s
   end
