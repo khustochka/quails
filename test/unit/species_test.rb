@@ -57,7 +57,7 @@ class SpeciesTest < ActiveSupport::TestCase
     Factory.create(:observation, :species => Species.find_by_code!('anapla'), :observ_date => "2009-06-18")
     Factory.create(:observation, :species => Species.find_by_code!('anacly'), :observ_date => "2007-07-18")
     Factory.create(:observation, :species => Species.find_by_code!('embcit'), :observ_date => "2009-08-09")
-    got      = Species.lifelist.map { |ob| ob.first_date }
+    got      = Species.lifelist.map { |sp| sp.first_date }
     expected = got.sort.reverse
     assert_equal expected, got
   end
@@ -75,7 +75,7 @@ class SpeciesTest < ActiveSupport::TestCase
     Factory.create(:observation, :species => Species.find_by_code!('anapla'), :observ_date => "2009-08-09", :post => blogpost)
     observ = Factory.create(:observation, :species => Species.find_by_code!('anacly'), :observ_date => "2007-07-18")
     Factory.create(:observation, :species => Species.find_by_code!('anacly'), :observ_date => "2009-08-09", :post => blogpost)
-    got      = Species.lifelist.map { |ob| [ob.main_species.to_i, Date.parse(ob.first_date)] }
+    got      = Species.lifelist.map { |sp| [sp.main_species.to_i, sp.first_date] }
     expected = [observ.species_id, observ.observ_date]
     assert_contains got, expected
   end

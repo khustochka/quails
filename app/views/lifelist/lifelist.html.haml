@@ -18,8 +18,8 @@
       %th.align-right= link_to_unless_current('Count ⇓', params.merge(:sort => 'count'))
 
     - sp_row = Proc.new do |i, sp|
-      - first_date = l(Date.parse(sp.first_date), :format => :long)
-      - last_date = l(Date.parse(sp.last_date), :format => :long)
+      - first_date = l(sp.first_date, :format => :long)
+      - last_date = l(sp.last_date, :format => :long)
       - first_post = @posts[sp.first_post]
       - last_post = @posts[sp.last_post]
       %tr

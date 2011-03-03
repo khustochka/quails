@@ -1,5 +1,4 @@
 class Species < ActiveRecord::Base
-
 #  validates :order, :presence => true, :allow_blank => true
   validates :family, :presence => true
   validates :name_sci, :format => /^[A-Z][a-z]+( \(?[a-z]+\)?)+$/, :uniqueness => true
@@ -60,6 +59,14 @@ class Species < ActiveRecord::Base
     end
     nm = send("name_#{fb.pop}".to_sym) while nm.blank?
     nm
+  end
+
+  def first_date
+    Date.parse(read_attribute(:first_date))
+  end
+
+  def last_date
+    Date.parse(read_attribute(:last_date))
   end
 
 end

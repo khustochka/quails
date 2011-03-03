@@ -6,8 +6,8 @@ class ObservationTest < ActiveSupport::TestCase
     Factory.create(:observation, :species => Species.find_by_code!('pasdom'), :observ_date => "2008-06-20")
     Factory.create(:observation, :species => Species.find_by_code!('melgal'), :observ_date => "2009-06-18", :mine => false)
     observ   = Factory.create(:observation, :species => Species.find_by_code!('melgal'), :observ_date => "2010-06-18")
-    got      = Observation.lifers_observations.map { |ob| [ob.main_species.to_i, Date.parse(ob.first_date)] }
-    expected = [observ.species_id, observ.observ_date]
+    got      = Observation.lifers_observations.map { |ob| [ob.main_species.to_i, ob.first_date] }
+    expected = [observ.species_id, observ.observ_date.to_s]
     assert_contains got, expected
   end
 
@@ -24,7 +24,7 @@ class ObservationTest < ActiveSupport::TestCase
     Factory.create(:observation, :species => Species.find_by_code!('pasdom'), :observ_date => "2010-06-20")
     obs = Factory.create(:observation, :species => Species.find_by_code!('pasdom'), :observ_date => "2010-06-18")
     got = Observation.lifers_observations.all
-    assert_equal obs.observ_date, Date.parse(got.first.first_date)
+    assert_equal obs.observ_date.to_s, got.first.first_date
   end
 
 end
