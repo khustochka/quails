@@ -32,5 +32,7 @@ form.simple_form {
 
 form.observation {
   width: auto; }
+  form.observation input, form.observation select {
+    font-size: 105%; }
   form.observation div.bunch div.input input.string, form.observation div.bunch div.input select {
     width: 220px; }
