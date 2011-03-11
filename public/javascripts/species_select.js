@@ -10,7 +10,7 @@
                 .val( value )
                 .autocomplete({
                     delay: 0,
-                    minLength: 0,
+                    minLength: 3,
 				    selectFirst: true,
                     source: function( request, response ) {
                         var matcher = new RegExp( $.ui.autocomplete.escapeRegex(request.term), "i" );
