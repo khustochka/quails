@@ -4,7 +4,7 @@
             var self = this,
                 select = this.element.hide(),
                 selected = select.children( ":selected" ),
-                value = selected.val() ? selected.text() : "";
+                value = ( selected.val() != null ) ? selected.text() : "";
             var input = this.input = $( "<input>" )
                 .insertAfter( select )
                 .val( value )
@@ -16,9 +16,9 @@
                         var matcher = new RegExp( $.ui.autocomplete.escapeRegex(request.term), "i" );
                         response( select.children( "option" ).map(function() {
                             var text = $( this ).text();
-                            if ( this.value && ( !request.term || matcher.test(text) ) )
+                            if ( ( this.value != null ) && ( !request.term || matcher.test(text) ) )
                                 return {
-                                    label: text.replace(
+                                    label: text.replace('Avis incognita', '<i>Avis incognita</i>').replace(
                                         new RegExp(
                                             "(?![^&;]+;)(?!<[^<>]*)(" +
                                             $.ui.autocomplete.escapeRegex(request.term) +
