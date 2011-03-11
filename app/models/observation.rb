@@ -3,7 +3,7 @@ class Observation < ActiveRecord::Base
   belongs_to :locus
   belongs_to :post, :select => [:id, :code, :face_date, :title]
 
-  validates :observ_date, :presence => true
+  validates :observ_date, :locus_id, :presence => true
 
   # Scopes
 

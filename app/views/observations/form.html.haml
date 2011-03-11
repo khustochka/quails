@@ -4,11 +4,12 @@
 
 = simple_form_for @observation do |form|
   .bunch
-    = form.association :locus, :label => 'Location:', :label_method => :name_en, :collection => Locus.all_ordered
-    = form.input :observ_date, :as => :string, :label => 'Date:', :required => false, :input_html => {:maxlength => 10}
+    = form.association :locus, :label => 'Location:', :collection => Locus.all_ordered, :label_method => :name_en
+    = form.input :observ_date, :as => :string, :label => 'Date:', :input_html => {:maxlength => 10}
     = form.input :mine, :label => 'Mine'
   .bunch
-    = form.association :species, :label => 'Species:', :label_method => :name_sci, :collection => Species.alphabetic
+    = form.association :species, :label => 'Species:', :collection => [Species.incognita] + Species.alphabetic,
+        :label_method => :name_sci, :include_blank => false
     = form.input :quantity, :label => 'Quantity:'
     = form.input :biotope, :label => 'Biotope:'
     = form.input :place, :label => 'Place:'

@@ -7,6 +7,12 @@ class Species < ActiveRecord::Base
 
   has_many :observations, :dependent => :restrict
 
+  # Dummy unidentified species
+  @incognita = new({:name_sci => 'Avis incognita'})
+  class << self
+    attr_reader :incognita
+  end
+
   # Parameters
 
   def to_param
