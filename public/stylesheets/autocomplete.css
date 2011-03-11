@@ -8,6 +8,7 @@
   display: block;
   float: left; }
   .ui-menu .ui-menu-item {
+    cursor: default;
     margin: 0;
     padding: 0;
     float: left;
