@@ -12,7 +12,8 @@ class ObservationsController < ApplicationController
 
   # GET /observations
   def index
-    @observations = Observation.order(params[:sort]).preload(:species, :locus, :post).page(params[:page])
+    @observations = Observation.order(params[:sort]).preload(:locus, :post).page(params[:page]).\
+    send((params[:sort] == 'species.index_num') ? :includes : :preload, :species)
   end
 
   # GET /observations/1
