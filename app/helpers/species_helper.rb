@@ -5,11 +5,11 @@ module SpeciesHelper
   end
 
   def species_link(sp_obj)
-    sp_obj.nil? ? 'Avis incognita' : link_to(sp_obj.name, sp_obj, :class => 'sp_link')
+    link_to(sp_obj.name, sp_obj, :class => 'sp_link')
   end
 
   def name_sci(sp_obj)
-    content_tag(:i, sp_obj.nil? ? 'Avis incognita' : sp_obj.name_sci, :class => 'lat')
+    content_tag(:i, sp_obj.name_sci, :class => 'lat')
   end
 
   def extract_families(species)

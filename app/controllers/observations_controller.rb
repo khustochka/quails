@@ -14,13 +14,7 @@ class ObservationsController < ApplicationController
   # GET /observations
   def index
     @search       = Observation.search(params[:search])
-    search_params = params[:search].try(:dup)
-    if search_params && search_params[:species_id_eq] == '0'
-      search_params.delete(:species_id_eq)
-      search_params[:species_id_is_null] = 'true'
-    end
-    real_search   = Observation.search(search_params)
-    @observations = real_search.relation.order(params[:sort]).preload(:locus, :post).page(params[:page]).\
+    @observations = @search.relation.order(params[:sort]).preload(:locus, :post).page(params[:page]).\
     send((params[:sort] == 'species.index_num') ? :includes : :preload, :species)
   end
 
