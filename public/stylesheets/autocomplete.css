@@ -26,7 +26,8 @@
       color: #c77405; }
 
 .ui-autocomplete-input {
-  border: 2px solid #cccccc; }
+  border: 2px solid #cccccc;
+  width: 220px; }
 
 .ui-autocomplete {
   max-height: 200px;
