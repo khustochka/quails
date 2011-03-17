@@ -2,6 +2,10 @@
 
 %h2 Listing observations
 
+= simple_form_for @search, :url => observations_path, :html => {:method => :get} do |form|
+  = form.input :observ_date_eq, :label => 'Date:', :required => false
+  = form.button :submit, :value => 'Search'
+
 %table.neat_table
   %tr
     %th.align-right ID

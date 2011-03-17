@@ -7,12 +7,14 @@ class ObservationsController < ApplicationController
   use_jquery :except => [:show, :destroy]
   javascript 'jquery-ui-1.8.10.custom.min', 'species_select', :only => [:new, :create, :edit, :update]
   stylesheet 'autocomplete', :only => [:new, :create, :edit, :update]
+  stylesheet 'forms', :except => [:show, :destroy]
 
   add_finder_by :id, :only => [:edit, :update, :destroy]
 
   # GET /observations
   def index
-    @observations = Observation.order(params[:sort]).preload(:locus, :post).page(params[:page]).\
+    @search = Observation.search(params[:search])
+    @observations = @search.relation.order(params[:sort]).preload(:locus, :post).page(params[:page]).\
     send((params[:sort] == 'species.index_num') ? :includes : :preload, :species)
   end
 

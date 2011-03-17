@@ -12,6 +12,7 @@ gem "activerecord-jdbcpostgresql-adapter", :platforms => :jruby
 # Bundle the extra gems:
 gem 'haml', '~> 3.0'
 gem 'kaminari', '0.10.4'
+gem 'meta_search'
 gem 'simple_form'
 gem 'yaml_db'
 gem 'hashie'
