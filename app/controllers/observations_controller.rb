@@ -25,7 +25,7 @@ class ObservationsController < ApplicationController
 
   # GET /observations/new
   def new
-    @observation = Observation.new
+    @observation = Observation.new({:post_id => params[:post_id]})
     render :form
   end
 

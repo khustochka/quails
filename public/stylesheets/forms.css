@@ -36,6 +36,11 @@ form.observation {
     font-size: 105%; }
   form.observation div.bunch div.input input.string, form.observation div.bunch div.input select {
     width: 220px; }
+  form.observation label.obs_post_label {
+    display: inline-block;
+    margin-top: 10px;
+    margin-left: -10px;
+    font-size: 110%; }
 
 form.search {
   display: inline-block;
