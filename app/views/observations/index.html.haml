@@ -1,10 +1,15 @@
 - @page_title = 'Listing observations'
 
-%h2 Listing observations
+%h2 Search observations
 
 = simple_form_for @search, :url => observations_path, :html => {:method => :get} do |form|
+  = form.input :species_id_eq, :label => 'Species:', :collection => [Species.incognita.dup.tap{|obj| obj.id = 0}] + Species.alphabetic,
+        :label_method => :name_sci, :required => false
   = form.input :observ_date_eq, :label => 'Date:', :required => false
-  = form.button :submit, :value => 'Search'
+  = form.input :locus_id_eq, :label => 'Location:', :collection => Locus.all_ordered, :label_method => :name_en, :required => false
+  %div.input.optional
+    = form.collection_radio :mine_eq, [['', 'All'], [true, 'Mine'], [false, 'Not mine']], :first, :last, :required => false
+  = form.button :submit, :value => 'Search', :name => nil
 
 %table.neat_table
   %tr

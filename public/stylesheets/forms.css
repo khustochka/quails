@@ -36,3 +36,12 @@ form.observation {
     font-size: 105%; }
   form.observation div.bunch div.input input.string, form.observation div.bunch div.input select {
     width: 220px; }
+
+form.search {
+  display: inline-block;
+  width: auto;
+  margin-bottom: 10px;
+  border: 1px solid #4444aa;
+  background-color: #dde4ff; }
+  form.search input#search_observ_date_eq {
+    width: 100px; }
