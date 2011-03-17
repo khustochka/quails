@@ -27,6 +27,7 @@
     %th
 
   - @observations.each do |observation|
+    - blogpost = observation.post
     %tr
       %td.align-right= link_to observation.id, edit_observation_path(observation)
       %td.nowrap= name_sci(observation.species)
@@ -36,10 +37,9 @@
       %td= observation.biotope
       %td= observation.place
       %td= observation.notes
-      %td= observation.post.nil? ? nil : link_to('>>', public_post_path(observation.post))
+      %td= blogpost.nil? ? nil : link_to('>>', public_post_path(blogpost), :class => blogpost.status != 'OPEN' ? 'grayout' : nil)
       %td.align-center= observation.mine ? '+' : '-'
       %td= link_to 'Destroy', observation, :confirm => 'Are you sure?', :method => :delete
 
-%br
-
-= paginate @observations
+%p
+  = paginate @observations

@@ -26,8 +26,8 @@
         %td.align-right= "#{i}."
         %td= species_link(sp)
         %td= name_sci(sp)
-        %td.lifer_date= first_post ? link_to(first_date, public_post_path(first_post)) : first_date
-        %td.lifer_date= last_post ? link_to(last_date, public_post_path(last_post)) : last_date
+        %td.lifer_date= first_post ? link_to(first_date, public_post_path(first_post), :class => first_post.status != 'OPEN' ? 'grayout' : nil) : first_date
+        %td.lifer_date= last_post ? link_to(last_date, public_post_path(last_post), :class => last_post.status != 'OPEN' ? 'grayout' : nil) : last_date
         %td.lifer_date= sp.view_count
       - i += increment
       
