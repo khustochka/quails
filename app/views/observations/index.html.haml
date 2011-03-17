@@ -4,9 +4,10 @@
 
 = simple_form_for @search, :url => observations_path, :html => {:method => :get} do |form|
   = form.input :species_id_eq, :label => 'Species:', :collection => [Species.incognita.dup.tap{|obj| obj.id = 0}] + Species.alphabetic,
-        :label_method => :name_sci, :required => false
+      :label_method => :name_sci, :required => false, :input_html => {:class => 'suggest-combo'}
   = form.input :observ_date_eq, :label => 'Date:', :required => false
-  = form.input :locus_id_eq, :label => 'Location:', :collection => Locus.all_ordered, :label_method => :name_en, :required => false
+  = form.input :locus_id_eq, :label => 'Location:', :collection => Locus.all_ordered, :label_method => :name_en,
+      :required => false, :input_html => {:class => 'suggest-combo'}
   %div.input.optional
     = form.collection_radio :mine_eq, [['', 'All'], [true, 'Mine'], [false, 'Not mine']], :first, :last, :required => false
   = form.button :submit, :value => 'Search', :name => nil

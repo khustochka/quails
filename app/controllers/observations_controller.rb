@@ -5,8 +5,8 @@ class ObservationsController < ApplicationController
   layout 'admin'
 
   use_jquery :except => [:show, :destroy]
-  javascript 'jquery-ui-1.8.10.custom.min', 'species_select', :only => [:new, :create, :edit, :update]
-  stylesheet 'autocomplete', :only => [:new, :create, :edit, :update]
+  javascript 'jquery-ui-1.8.10.custom.min', 'suggest_over_combo', :except => [:show, :destroy]
+  stylesheet 'autocomplete', :except => [:show, :destroy]
   stylesheet 'forms', :except => [:show, :destroy]
 
   add_finder_by :id, :only => [:edit, :update, :destroy]

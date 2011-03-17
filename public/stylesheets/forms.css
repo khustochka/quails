@@ -43,5 +43,7 @@ form.search {
   margin-bottom: 10px;
   border: 1px solid #4444aa;
   background-color: #dde4ff; }
+  form.search input, form.search select {
+    font-size: 105%; }
   form.search input#search_observ_date_eq {
     width: 100px; }

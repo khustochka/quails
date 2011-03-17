@@ -10,7 +10,7 @@
                 .val( value )
                 .autocomplete({
                     delay: 0,
-                    minLength: 3,
+                    minLength: (select.children( "option" ).size() > 100) ? 3 : 1,
 				    selectFirst: true,
                     source: function( request, response ) {
                         var matcher = new RegExp( $.ui.autocomplete.escapeRegex(request.term), "i" );
@@ -99,7 +99,7 @@
 })( jQuery );
 
 $(function() {
-    $( "#observation_species_id" ).combobox();
+    $( ".suggest-combo" ).combobox();
 });
 
 // Autoselect first element:
