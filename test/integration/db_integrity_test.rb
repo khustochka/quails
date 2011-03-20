@@ -15,7 +15,7 @@ class DBIntegrityTest < ActionDispatch::IntegrationTest
   test 'DB collation is correct for sorting' do
     sps = Species.alphabetic.where("name_sci LIKE 'Passer%'").all
     assert sps.index{|s| s.name_sci == 'Passer montanus'} < sps.index{|s| s.name_sci == 'Passerina caerulea'},
-      'Incorrect sorting order (set LC_COLLATE)'
+      'Incorrect sorting order (set LC_COLLATE = "C" to fix)'
   end
 
 end
