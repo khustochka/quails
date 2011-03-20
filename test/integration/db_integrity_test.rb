@@ -3,7 +3,7 @@ require 'test_helper'
 class DBIntegrityTest < ActionDispatch::IntegrationTest
 
   test 'all records in the db are valid' do
-    incogt = Species.find(0)
+    incogt = Species.find(9999)
     [Species, Locus, Observation, Post].each do |model|
 #      puts "-- [INFO] Checking #{model.to_s} records in the DB for validity"
       model.all.each do |record|

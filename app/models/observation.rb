@@ -9,7 +9,7 @@ class Observation < ActiveRecord::Base
 
   scope :mine, where(:mine => true)
 
-  scope :identified, where('observations.species_id != 0')
+  scope :identified, where('observations.species_id != 9999')
 
   def self.years(*args)
     options = args.extract_options!
