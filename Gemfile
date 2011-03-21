@@ -34,11 +34,10 @@ end
 group :test do
   gem 'ruby-prof', :platforms => :ruby, :require => nil
   gem 'shoulda'
-  #gem 'factory_girl'
   gem 'factory_girl_rails'
   gem 'capybara'
   gem 'database_cleaner'
-  gem 'cucumber-rails', :git => 'git://github.com/aslakhellesoy/cucumber-rails.git'
+  gem 'cucumber-rails'
   gem 'cucumber'
   gem 'rspec-rails'
   gem 'launchy' # So you can do Then show me the page
