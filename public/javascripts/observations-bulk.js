@@ -1,5 +1,5 @@
 $(function() {
     sample_row = $('.obs-row').detach();
-
-    $('#add-row').click( function() { $(':submit').before(sample_row.clone()); } );
-})(jQuery);
+    // TODO: autosuggest is not working in the new fields
+    $('#add-row').click( function() { $(':submit').before(sample_row.clone(true, true)); } );
+});
