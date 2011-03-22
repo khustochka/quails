@@ -31,8 +31,8 @@ Given /^logged as administrator$/ do
     page.driver.basic_authorize(TEST_CREDENTIALS.username, TEST_CREDENTIALS.password_plain)
   else
     # FIXME for this to work you need to add pref("network.http.phishy-userpass-length", 255); to /Applications/Firefox.app/Contents/MacOS/defaults/pref/firefox.js
-    page.driver.visit('/dashboard')
-    page.driver.visit("http://#{TEST_CREDENTIALS.username}:#{TEST_CREDENTIALS.password_plain}@#{page.driver.current_url.gsub(/^http\:\/\//, '')}")
+    page.driver.visit('/')
+    page.driver.visit("http://#{TEST_CREDENTIALS.username}:#{TEST_CREDENTIALS.password_plain}@#{page.driver.current_url.gsub(/^http\:\/\//, '')}/dashboard")
   end
     # To set cookie:
     When 'I go to the dashboard'
