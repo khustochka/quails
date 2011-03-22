@@ -12,7 +12,7 @@
     - unless blogpost.nil?
       = form.association(:post, :as => :boolean, :label => false)
       %label.obs_post_label= link_to(blogpost.title, public_post_path(blogpost))
-  %a#add-row(href='#') Add new row
+  %span.pseudolink#add-row Add new row
   .bunch.obs-row
     = form.association :species, :label => 'Species:', :collection => Species.alphabetic,
         :label_method => :name_sci, :include_blank => false, :input_html => {:class => 'suggest-combo'}
@@ -20,4 +20,5 @@
     = form.input :biotope, :label => 'Biotope:'
     = form.input :place, :label => 'Place:'
     = form.input :notes, :label => 'Notes:'
+    %span.pseudolink.remove X
   = form.button :submit, :value => 'Save'

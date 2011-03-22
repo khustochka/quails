@@ -69,9 +69,15 @@ When /^(?:|I )press "([^"]*)"(?: within "([^"]*)")?$/ do |button, selector|
   end
 end
 
-When /^(?:|I )(?:click|follow) "([^"]*)"(?: within "([^"]*)")?$/ do |link, selector|
+When /^(?:|I )follow "([^"]*)"(?: within "([^"]*)")?$/ do |link, selector|
   with_scope(selector) do
     click_link(link)
+  end
+end
+
+When /^(?:|I )click "([^"]*)"(?: within "([^"]*)")?$/ do |link, selector|
+  with_scope(selector) do
+    find(:xpath, "//span[text()='#{link}']").click
   end
 end
 

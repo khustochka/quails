@@ -59,3 +59,10 @@ table.admin_panel {
   padding-left: 0; }
   #years-filter li {
     margin: 0 5px; }
+
+span.pseudolink {
+  text-decoration: underline;
+  color: blue; }
+
+span.pseudolink:hover {
+  cursor: pointer; }
