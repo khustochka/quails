@@ -29,10 +29,10 @@ TEST_CREDENTIALS = Hashie::Mash.new YAML::load_file('config/security.yml')['test
 Given /^logged as administrator$/ do
   if page.driver.respond_to?(:basic_authorize)
     page.driver.basic_authorize(TEST_CREDENTIALS.username, TEST_CREDENTIALS.password_plain)
-#  else
-#    # FIXME for this to work you need to add pref("network.http.phishy-userpass-length", 255); to /Applications/Firefox.app/Contents/MacOS/defaults/pref/firefox.js
-#    page.driver.visit('/')
-#    page.driver.visit("http://admin:password@#{page.driver.current_url.gsub(/^http\:\/\//, '')}")
+  else
+    # FIXME for this to work you need to add pref("network.http.phishy-userpass-length", 255); to /Applications/Firefox.app/Contents/MacOS/defaults/pref/firefox.js
+    page.driver.visit('/dashboard')
+    page.driver.visit("http://#{TEST_CREDENTIALS.username}:#{TEST_CREDENTIALS.password_plain}@#{page.driver.current_url.gsub(/^http\:\/\//, '')}")
   end
     # To set cookie:
     When 'I go to the dashboard'
@@ -69,7 +69,7 @@ When /^(?:|I )press "([^"]*)"(?: within "([^"]*)")?$/ do |button, selector|
   end
 end
 
-When /^(?:|I )follow "([^"]*)"(?: within "([^"]*)")?$/ do |link, selector|
+When /^(?:|I )(?:click|follow) "([^"]*)"(?: within "([^"]*)")?$/ do |link, selector|
   with_scope(selector) do
     click_link(link)
   end

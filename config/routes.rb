@@ -46,6 +46,7 @@ Quails3::Application.routes.draw do
 
 #  scope 'admin' do
   resources :observations do
+    get 'bulkadd', :on => :collection
     post 'bulksave', :on => :collection
   end
   resources :locus
