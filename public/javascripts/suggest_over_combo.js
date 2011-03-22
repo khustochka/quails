@@ -11,7 +11,7 @@
                 .autocomplete({
                     delay: 0,
                     minLength: (select.children( "option" ).size() > 100) ? 3 : 1,
-				    selectFirst: true,
+                    autoFocus: true,
                     source: function( request, response ) {
                         var matcher = new RegExp( $.ui.autocomplete.escapeRegex(request.term), "i" );
                         response( select.children( "option" ).map(function() {
@@ -101,18 +101,3 @@
 $(function() {
     $( ".suggest-combo" ).combobox();
 });
-
-// Autoselect first element:
-// https://github.com/scottgonzalez/jquery-ui-extensions/blob/master/autocomplete/jquery.ui.autocomplete.selectFirst.js
-(function( $ ) {
-    $( ".ui-autocomplete-input" ).live( "autocompleteopen", function() {
-        var autocomplete = $( this ).data( "autocomplete" ),
-            menu = autocomplete.menu;
-
-        if ( !autocomplete.options.selectFirst ) {
-            return;
-        }
-
-        menu.activate( $.Event({ type: "mouseenter" }), menu.element.children().first() );
-    });
-}( jQuery ));

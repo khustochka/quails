@@ -1,4 +1,7 @@
 module ApplicationHelper
+
+  JQUERY_VERSION = '1.5.1'
+
   def default_page_title
     Rails.env.development? ? '!!! - Set the window caption / quails3' : request.host
   end
@@ -8,7 +11,7 @@ module ApplicationHelper
   end
 
   def include_scripts
-    @scripts = ['jquery', 'rails'] + @scripts if @jquery
+    @scripts = ["http://ajax.googleapis.com/ajax/libs/jquery/#{JQUERY_VERSION}/jquery.min.js", 'rails'] + @scripts if @jquery
     javascript_include_tag @scripts.uniq
   end
 end
