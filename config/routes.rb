@@ -45,7 +45,9 @@ Quails3::Application.routes.draw do
   # ADMINISTRATIVE PAGES
 
 #  scope 'admin' do
-  resources :observations
+  resources :observations do
+    post 'bulksave', :on => :collection
+  end
   resources :locus
   resources :species, :only => [:edit, :update]
   # end
