@@ -1,13 +1,14 @@
 $(function() {
     var sample_row = $('.obs-row').detach();
-    // TODO: autosuggest is not working in the new fields
-    $('#add-row').click( function() {
-        $(':submit').before( sample_row.clone(true) );
+    
+    $('#add-row').click(function() {
+        var row = sample_row.clone(true);
+        $(':submit').before(row);
+        row.find('.sp-suggest').combobox();
         return false;
-    } );
-
-    $(".remove").click(function() {
-        $(this).parent().remove();
     });
 
+    $('.remove').live('click', function() {
+        $(this).parent().remove();
+    });
 });

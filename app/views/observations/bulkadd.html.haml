@@ -15,7 +15,7 @@
   %span.pseudolink#add-row Add new row
   .bunch.obs-row
     = form.association :species, :label => 'Species:', :collection => Species.alphabetic,
-        :label_method => :name_sci, :include_blank => false, :input_html => {:class => 'suggest-combo'}
+        :label_method => :name_sci, :include_blank => false, :input_html => {:class => 'sp-suggest'}
     = form.input :quantity, :label => 'Quantity:'
     = form.input :biotope, :label => 'Biotope:'
     = form.input :place, :label => 'Place:'
