@@ -87,7 +87,6 @@ class PostsController < ApplicationController
   end
 
   # DELETE /posts/1
-  #TODO: link for post deletion doesn't exist. And more: is it possible to delete anything without JS?
   def destroy
     @post.destroy
     redirect_to(root_url)

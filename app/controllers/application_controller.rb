@@ -36,7 +36,7 @@ class ApplicationController < ActionController::Base
   end
 
   def SessionAwarePost
-    @post_rel ||= admin_session? ? Post.unrestricted : Post
+    @post_rel ||= admin_session? ? Post : Post.public
   end
 
   def public_post_path(post)

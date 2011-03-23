@@ -37,7 +37,7 @@
       %td= observation.biotope
       %td= observation.place
       %td= observation.notes
-      %td= blogpost.nil? ? nil : link_to('>>', public_post_path(blogpost), :class => blogpost.status != 'OPEN' ? 'grayout' : nil)
+      %td= post_link('>>', blogpost)
       %td.align-center= observation.mine ? '+' : '-'
       %td= link_to 'Destroy', observation, :confirm => 'Are you sure?', :method => :delete
 

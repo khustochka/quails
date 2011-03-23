@@ -19,14 +19,10 @@ class Post < ActiveRecord::Base
 
   # Scopes
 
-  default_scope where("status <> 'PRIV'")
-
-  def self.unrestricted
-    except(:where)
-  end
+  scope :public, where("status <> 'PRIV'")
 
   def self.year(year)
-    select('id, code, title, face_date').where('EXTRACT(year from face_date) = ?', year).order('face_date ASC')
+    select('id, code, title, face_date, status').where('EXTRACT(year from face_date) = ?', year).order('face_date ASC')
   end
 
   def self.month(year, month)

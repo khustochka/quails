@@ -8,4 +8,4 @@
   %h3= "Month #{link_to(num.to_i, month_path({:year => @year, :month => num}))}".html_safe
   %ul
     - @months[num].each do |post|
-      %li= "#{post.day}: #{link_to(post.title, public_post_path(post))}".html_safe
+      %li= "#{post.day}: #{post_link(post.title, post)}".html_safe

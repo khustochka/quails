@@ -11,7 +11,7 @@
     = form.input :mine, :label => 'Mine'
     - unless blogpost.nil?
       = form.association(:post, :as => :boolean, :label => false)
-      %label.obs_post_label= link_to(blogpost.title, public_post_path(blogpost))
+      %label.obs_post_label= post_link(blogpost.title, blogpost)
   .bunch
     = form.association :species, :label => 'Species:', :collection => Species.alphabetic,
         :label_method => :name_sci, :include_blank => false, :input_html => {:class => 'suggest-combo'}
