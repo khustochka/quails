@@ -19,13 +19,18 @@ namespace :import do
 
       desired = regions.inject([]) do |memo, reg|
         memo + Import::SpeciesImport.parse_list(avibase_list_url(reg, ENV['list'] || 'clements'))
-      end
+      end.uniq
 
-      desired = holarctic & desired
+      desired2 = holarctic & desired
+
+      puts 'Missing:'
+      (desired.uniq - holarctic).each do |sp|
+        puts sp.inspect
+      end
 
       puts 'DB filling started'
 
-      Import::SpeciesImport.fill_db(desired)
+      Import::SpeciesImport.fill_db(desired2)
 
     end
 
