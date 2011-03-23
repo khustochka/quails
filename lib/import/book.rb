@@ -1,3 +1,5 @@
+require 'nokogiri'
+
 module Import
   module Book
     class Clements

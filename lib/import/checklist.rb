@@ -1,3 +1,5 @@
+require 'nokogiri'
+
 module Import
   class Checklist
     def self.parse(io, output_file)

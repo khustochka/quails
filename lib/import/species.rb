@@ -1,4 +1,5 @@
 # encoding: utf-8
+require 'nokogiri'
 require 'open-uri'
 require File.expand_path('app/helpers/species_helper', Rails.root)
 require 'import/legacy/legacy_init'
