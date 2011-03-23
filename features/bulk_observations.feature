@@ -1,4 +1,4 @@
-@javascript
+@javascript @admin
 Feature: Bulk add and edit observations
 
   Scenario: Bulk add observations form
