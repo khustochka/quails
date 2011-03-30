@@ -682,10 +682,77 @@ locus:
     - bayonne
     - "44"
     - Location
-    - 
+    - Bayonne
     - !binary |
       0JHQsNC50L7QvdC90LA=
 
-    - 
+    - !binary |
+      0JHQsNC50L7QvdC90LA=
+
     - "40.6787"
     - "-74.1069"
+  - - "53"
+    - district_columbia
+    - "42"
+    - Region
+    - District of Columbia
+    - !binary |
+      0L7QutGA0YPQsyDQmtC+0LvRg9C80LHQuNGP
+
+    - !binary |
+      0L7QutGA0YPQsyDQmtC+0LvRg9C80LHRltGP
+
+    - 
+    - 
+  - - "54"
+    - virginia
+    - "42"
+    - Region
+    - Virginia
+    - !binary |
+      0YjRgi4g0JLQuNGA0LPQuNC90LjRjw==
+
+    - !binary |
+      0JLRltGA0LPRltC90ZbRjw==
+
+    - 
+    - 
+  - - "55"
+    - some_nj
+    - "44"
+    - Location
+    - some NJ
+    - !binary |
+      0LPQtNC1LdGC0L4g0J3RjNGOLdCU0LbQtdGA0YHQuA==
+
+    - !binary |
+      0LTQtdGB0Ywg0J3RjNGOLdCU0LbQtdGA0YHRlg==
+
+    - 
+    - 
+  - - "56"
+    - washington
+    - "53"
+    - Location
+    - Washington
+    - !binary |
+      0JLQsNGI0LjQvdCz0YLQvtC9
+
+    - !binary |
+      0JLQsNGI0LjQvdCz0YLQvtC9
+
+    - "38.91"
+    - "-77.02"
+  - - "57"
+    - arlington
+    - "54"
+    - Location
+    - Arlington
+    - !binary |
+      0JDRgNC70LjQvdCz0YLQvtC9
+
+    - !binary |
+      0JDRgNC70ZbQvdCz0YLQvtC9
+
+    - "38.88"
+    - "-77.1"

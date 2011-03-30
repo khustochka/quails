@@ -15,22 +15,6 @@ species:
   - avibase_id
   - protonym
   records: 
-  - - "9999"
-    - incogt
-    - "- Avis incognita"
-    - ""
-    - (Unidentified bird)
-    - !binary |
-      KNCd0LXQvtC/0L7Qt9C90LDQvdC90LDRjyDQv9GC0LjRhtCwKQ==
-
-    - !binary |
-      KNCd0LXQstC40LfQvdCw0YfQtdC90LjQuSDQv9GC0LDRhSk=
-
-    - "9999"
-    - ""
-    - ""
-    - ""
-    - 
   - - "1"
     - colvir
     - Colinus virginianus
@@ -11779,3 +11763,19 @@ species:
     - Corvidae
     - F13D8350405F3C10
     - Corvus Cornix
+  - - "9999"
+    - incogt
+    - "- Avis incognita"
+    - ""
+    - (Unidentified bird)
+    - !binary |
+      KNCd0LXQvtC/0L7Qt9C90LDQvdC90LDRjyDQv9GC0LjRhtCwKQ==
+
+    - !binary |
+      KNCd0LXQstC40LfQvdCw0YfQtdC90LjQuSDQv9GC0LDRhSk=
+
+    - "9999"
+    - ""
+    - ""
+    - ""
+    - 
