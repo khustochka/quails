@@ -19,10 +19,8 @@ gem 'hashie'
 
 group :development do
   gem 'rails3-generators'
-  platforms :ruby, :mswin, :mingw do
-    gem 'mysql2', :require => nil
-    gem 'nokogiri', :require => nil
-  end
+  gem 'nokogiri', :platforms => [:ruby, :mswin, :mingw], :require => nil
+  gem 'mysql2', :platforms => :ruby, :require => nil
 
 # Other gems that may be useful but are not really dependencies:
 # gem 'ruby-debug-ide' # for debugging in RubyMine
