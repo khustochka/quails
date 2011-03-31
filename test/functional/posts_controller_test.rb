@@ -2,13 +2,13 @@ require 'test_helper'
 
 class PostsControllerTest < ActionController::TestCase
 
-  test "should get new" do
+  should "get new" do
     login_as_admin
     get :new
     assert_response :success
   end
 
-  test "should create post" do
+  should "create post" do
     blogpost = Factory.build(:post)
     assert_difference('Post.count') do
       login_as_admin
@@ -17,13 +17,13 @@ class PostsControllerTest < ActionController::TestCase
     assert_redirected_to public_post_path(assigns(:post))
   end
 
-  test "should show post" do
+  should "show post" do
     blogpost = Factory.create(:post)
     get :show, blogpost.to_url_params
     assert_response :success
   end
 
-  test "should get edit" do
+  should "get edit" do
     blogpost = Factory.create(:post)
     login_as_admin
     get :edit, :id => blogpost.to_param
@@ -31,7 +31,7 @@ class PostsControllerTest < ActionController::TestCase
     assert_select "a[href=#{public_post_path(blogpost)}]", true
   end
 
-  test "should update post" do
+  should "update post" do
     blogpost = Factory.create(:post)
     blogpost.title = 'Changed title'
     login_as_admin
@@ -39,7 +39,7 @@ class PostsControllerTest < ActionController::TestCase
     assert_redirected_to public_post_path(assigns(:post))
   end
 
-  test "should destroy post" do
+  should "destroy post" do
     blogpost = Factory.create(:post)
     assert_difference('Post.count', -1) do
       login_as_admin

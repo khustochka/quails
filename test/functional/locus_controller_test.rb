@@ -5,20 +5,20 @@ class LocusControllerTest < ActionController::TestCase
   setup do
   end
 
-  test "should get index" do
+  should "get index" do
     login_as_admin
     get :index
     assert_response :success
     assert_not_nil assigns(:locus)
   end
 
-  test "should get new" do
+  should "get new" do
     login_as_admin
     get :new
     assert_response :success
   end
 
-  test "should create locus" do
+  should "create locus" do
     locus = Factory.build(:locus, :code => 'loccode', :loc_type => 'Country')
     assert_difference('Locus.count') do
       login_as_admin
@@ -28,19 +28,19 @@ class LocusControllerTest < ActionController::TestCase
     assert_redirected_to locus_path(assigns(:locus))
   end
 
-  test "should show locus" do
+  should "show locus" do
     login_as_admin
     get :show, :id => 'krym'
     assert_response :success
   end
 
-  test "should get edit" do
+  should "get edit" do
     login_as_admin
     get :edit, :id => 'mokrets'
     assert_response :success
   end
 
-  test "should update locus" do
+  should "update locus" do
     locus         = Locus.find_by_code!('krym')
     locus.name_ru = 'Крымъ'
     login_as_admin
@@ -48,7 +48,7 @@ class LocusControllerTest < ActionController::TestCase
     assert_redirected_to locus_path(assigns(:locus))
   end
 
-  test "should destroy locus" do
+  should "destroy locus" do
     assert_difference('Locus.count', -1) do
       login_as_admin
       delete :destroy, :id => 'mokrets'

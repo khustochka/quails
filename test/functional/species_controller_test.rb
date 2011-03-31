@@ -5,26 +5,26 @@ class SpeciesControllerTest < ActionController::TestCase
   setup do
   end
 
-  test "should get index" do
+  should "get index" do
     get :index
     assert_response :success
     assert_not_nil assigns(:species)
   end
 
-  test "should show species" do
+  should "show species" do
     species = Species.find_by_code!('melgal')
     get :show, :id => species.to_param
     assert_response :success
   end
 
-  test "should get edit" do
+  should "get edit" do
     species = Species.find_by_code!('melgal')
     login_as_admin
     get :edit, :id => species.to_param
     assert_response :success
   end
 
-  test "should update species" do
+  should "update species" do
     species = Species.find_by_code!('corbra')
     species.name_ru = 'Американская ворона'
     login_as_admin
