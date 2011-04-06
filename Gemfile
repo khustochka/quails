@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.5'
+gem 'rails', '3.0.6'
 
 gem 'pg', :platforms => [:ruby, :mswin, :mingw]
 
@@ -11,7 +11,7 @@ gem "activerecord-jdbcpostgresql-adapter", :platforms => :jruby
 
 # Bundle the extra gems:
 gem 'haml', '~> 3.0'
-gem 'kaminari', '0.10.4'
+gem 'kaminari'
 gem 'meta_search'
 gem 'simple_form'
 gem 'yaml_db'
