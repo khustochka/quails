@@ -15,6 +15,7 @@ class BulkObservationsTest < ActionController::TestCase
         }
       end
       assert_response :success
+      assert_equal Mime::JSON, response.content_type
       assert_not_nil Observation.find_by_species_id(2)
       assert_not_nil Observation.find_by_species_id(4)
       assert_not_nil Observation.find_by_species_id(6)

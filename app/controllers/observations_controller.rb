@@ -75,6 +75,6 @@ class ObservationsController < ApplicationController
     params[:o].each do |obs|
       Observation.new(obs.merge(common)).save!
     end
-    render :text => "OK"
+    render :json => ["OK"]
   end
 end
