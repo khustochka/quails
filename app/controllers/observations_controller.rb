@@ -14,7 +14,7 @@ class ObservationsController < ApplicationController
 
   # GET /observations
   def index
-    @search       = Observation.search(params[:search])
+    @search = Observation.search(params[:search])
     @observations = @search.relation.order(params[:sort]).preload(:locus, :post).page(params[:page]).\
     send((params[:sort] == 'species.index_num') ? :includes : :preload, :species)
   end
@@ -72,9 +72,14 @@ class ObservationsController < ApplicationController
   # o: array of hashes each having species_id, quantity, biotope, place, notes
   def bulksave
     common = params[:c]
-    params[:o].each do |obs|
-      Observation.new(obs.merge(common)).save!
+    test_obs = Observation.new({:species_id => 9999}.merge(common))
+    if test_obs.valid?
+      params[:o].each do |obs|
+        Observation.new(obs.merge(common)).save!
+      end
+      render :json => {:result => "OK"}
+    else
+      render :json => {:result => "Error", :data => test_obs.errors}
     end
-    render :json => ["OK"]
   end
 end
