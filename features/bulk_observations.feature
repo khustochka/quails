@@ -13,7 +13,8 @@ Feature: Bulk add and edit observations
   @admin @no-js
   Scenario: Bulk add form should be able to add one observation if JS is off
     Given logged as administrator
-    And observation should not exist with observ_date: "2011-04-08"
+    And locus exists with name_en: "Brovary"
+    And species exists with name_sci: "Parus caeruleus", family: "Paridae", code: "parcae"
     When I go to observations bulk add page
     Then I should see 1 observation rows
     When I fill in the following:
