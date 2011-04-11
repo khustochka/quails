@@ -11,6 +11,9 @@ module HtmlSelectorsHelpers
     when /the page/
       "html > body"
 
+    when /observation row (\d+)/
+      [:xpath, "//div[contains(@class,'obs-row')][#{$1}]"]
+
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #

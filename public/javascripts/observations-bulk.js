@@ -1,10 +1,13 @@
 $(function() {
     var sample_row = $('.obs-row').detach();
+    var cnt = 1;
     
     $('#add-row').click(function() {
         var row = sample_row.clone(true);
         $(':submit').before(row);
-        row.find('.sp-suggest').combobox();
+        row.find('label:contains("Species:")').attr('for', 'observation_species_id' + cnt);
+        row.find('.sp-suggest').attr('id', 'observation_species_id' + cnt).combobox();
+        cnt++;
         return false;
     });
 

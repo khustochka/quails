@@ -8,6 +8,7 @@
             var input = this.input = $( "<input>" )
                 .insertAfter( select )
                 .val( value )
+                .attr('id', select.attr('id'))
                 .autocomplete({
                     delay: 0,
                     minLength: (select.children( "option" ).size() > 100) ? 3 : 1,

@@ -34,8 +34,8 @@ Given /^logged as administrator$/ do
     page.driver.visit('/')
     page.driver.visit("http://#{TEST_CREDENTIALS.username}:#{TEST_CREDENTIALS.password_plain}@#{page.driver.current_url.gsub(/^http\:\/\//, '')}/dashboard")
   end
-    # To set cookie:
-    When 'I go to the dashboard'
+  # To set cookie:
+  When 'I go to the dashboard'
 end
 
 module WithinHelpers
@@ -92,6 +92,13 @@ When /^(?:|I )fill in "([^"]*)" (?:with|for) "([^"]*)"(?: within "([^"]*)")?$/ d
         fill_in(field, :with => value)
     end
   end
+end
+
+When /^I select "([^"]*)" from "([^"]*)" suggestion$/ do |value, field|
+  selector = ".ui-menu-item a:contains(\"#{value}\")"
+  fill_in field, :with => value
+  sleep(2)
+  page.execute_script " $('#{selector}').trigger(\"mouseenter\").click();"
 end
 
 # Use this to fill in an entire form with data from a table. Example:
@@ -212,7 +219,7 @@ Then /^the "([^"]*)" checkbox(?: within (.*))? should not be checked$/ do |label
     end
   end
 end
- 
+
 Then /^(?:|I )should be on (.+)$/ do |page_name|
   current_path = URI.parse(current_url).path
   if current_path.respond_to? :should
@@ -226,8 +233,8 @@ Then /^(?:|I )should have the following query string:$/ do |expected_pairs|
   query = URI.parse(current_url).query
   actual_params = query ? CGI.parse(query) : {}
   expected_params = {}
-  expected_pairs.rows_hash.each_pair{|k,v| expected_params[k] = v.split(',')} 
-  
+  expected_pairs.rows_hash.each_pair { |k, v| expected_params[k] = v.split(',') }
+
   if actual_params.respond_to? :should
     actual_params.should == expected_params
   else
