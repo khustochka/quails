@@ -33,12 +33,11 @@ Feature: Bulk add and edit observations
     When I go to observations bulk add page
     And I select "Brovary" from "Location" suggestion
     And I fill in the following:
-      | Date     | 2011-04-08      |
-    And I click "Add new row"
+      | Date     | 2011-04-09      |
     And I click "Add new row"
     And I click "Add new row"
     And I select "Crex crex" from "Species" suggestion within observation row 1
     And I select "Falco tinnunculus" from "Species" suggestion within observation row 2
-    And I select "Falco tinnunculus" from "Species" suggestion within observation row 2
     And I press "Save"
-    Then 2 observations should exist with observ_date: "2010-04-08"
+    And I wait for 2 seconds
+    Then 2 observations should exist with observ_date: "2011-04-09"

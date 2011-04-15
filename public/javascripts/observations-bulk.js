@@ -1,4 +1,7 @@
 $(function() {
+    var form = $('form#new_observation[data-remote]');
+    form.attr('action', form.data('action'));
+    
     var sample_row = $('.obs-row').detach();
     var cnt = 1;
     
