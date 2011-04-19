@@ -75,7 +75,6 @@ class ObservationsController < ApplicationController
   # c: hash of common options - locus_id, observ_date,mine, post_id
   # o: array of hashes each having species_id, quantity, biotope, place, notes
   def bulksave
-    logger.debug params.inspect
     common = params[:c]
     test_obs = Observation.new({:species_id => 9999}.merge(common))
     if test_obs.valid?
