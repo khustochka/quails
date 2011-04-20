@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110411191300) do
+ActiveRecord::Schema.define(:version => 20110420220803) do
 
   create_table "locus", :force => true do |t|
     t.string  "code",      :limit => 32, :null => false
@@ -28,8 +28,8 @@ ActiveRecord::Schema.define(:version => 20110411191300) do
   add_index "locus", ["parent_id"], :name => "index_locus_on_parent_id"
 
   create_table "observations", :force => true do |t|
-    t.integer "species_id"
-    t.integer "locus_id"
+    t.integer "species_id",                    :null => false
+    t.integer "locus_id",                      :null => false
     t.date    "observ_date",                   :null => false
     t.string  "quantity"
     t.string  "biotope"
