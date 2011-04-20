@@ -44,8 +44,8 @@ class ObservationsController < ApplicationController
   def create
     @observation = Observation.new(
         params[:c] && params[:o] ?
-        params[:c].merge(params[:o].first) :
-        params[:observation]
+            params[:c].merge(params[:o].first) :
+            params[:observation]
     )
 
     if @observation.save
@@ -78,10 +78,14 @@ class ObservationsController < ApplicationController
     common = params[:c]
     test_obs = Observation.new({:species_id => 9999}.merge(common))
     if test_obs.valid?
-      params[:o].each do |obs|
-        Observation.new(obs.merge(common)).save!
+      saved_obs = params[:o].inject([]) do |memo, obs|
+        obs = Observation.new(obs.merge(common))
+        obs.save
+        memo.push(
+            obs.save ? {:id => obs.id} : {:msg => obs.errors}
+        )
       end
-      render :json => {:result => "OK"}
+      render :json => {:result => "OK", :data => saved_obs}
     else
       render :json => {:result => "Error", :data => test_obs.errors}
     end
