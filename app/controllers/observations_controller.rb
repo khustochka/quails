@@ -79,10 +79,12 @@ class ObservationsController < ApplicationController
     test_obs = Observation.new({:species_id => 9999}.merge(common))
     if test_obs.valid?
       saved_obs = params[:o].inject([]) do |memo, obs|
-        obs = Observation.new(obs.merge(common))
-        obs.save
+        obs_data = obs.merge(common)
+        observation = obs[:id] ?
+            Observation.update(obs[:id], obs_data) :
+            Observation.create(obs_data)
         memo.push(
-            obs.save ? {:id => obs.id} : {:msg => obs.errors}
+            observation.errors.empty? ? {:id => observation.id} : {:msg => observation.errors}
         )
       end
       render :json => {:result => "OK", :data => saved_obs}

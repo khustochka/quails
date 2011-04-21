@@ -72,6 +72,22 @@ class BulkObservationsTest < ActionController::TestCase
       assert_equal({"species_id"=>["can't be blank"]}, result['data'][0]['msg'])
     end
 
+    should 'successfully update existing and save new observations' do
+      obs = Factory.create(:observation, :species_id => 2)
+      login_as_admin
+      assert_difference('Observation.count', 1) do
+        post :bulksave, {:c => {:locus_id => Locus.find_by_code('brovary').id,
+                                :observ_date => '2010-05-05', :mine => true},
+                         :o => [{:id => obs.id, :species_id => 4},
+                                {:species_id => 6}]
+        }
+      end
+      assert_response :success
+      assert_nil Observation.find_by_species_id(2)
+      assert_not_nil Observation.find_by_species_id(4)
+      assert_not_nil Observation.find_by_species_id(6)
+    end
+
   end
 
 end
