@@ -10,7 +10,8 @@ gem "activerecord-jdbcpostgresql-adapter", :platforms => :jruby
 # gem 'capistrano'
 
 # Bundle the extra gems:
-gem 'haml', '~> 3.0'
+gem 'haml', '~>3.0.25'
+gem 'sass'
 gem 'kaminari'
 gem 'meta_search'
 gem 'simple_form'
