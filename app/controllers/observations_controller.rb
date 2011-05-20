@@ -77,7 +77,10 @@ class ObservationsController < ApplicationController
   def bulksave
     common = params[:c]
     test_obs = Observation.new({:species_id => 9999}.merge(common))
-    if test_obs.valid?
+    test_obs.valid?
+    errors_collection = test_obs.errors
+    errors_collection.add('observations', 'should be at least one') if params[:o].blank?
+    if errors_collection.empty?
       saved_obs = params[:o].inject([]) do |memo, obs|
         obs_data = obs.merge(common)
         observation = obs[:id] ?
@@ -87,9 +90,9 @@ class ObservationsController < ApplicationController
             observation.errors.empty? ? {:id => observation.id} : {:msg => observation.errors}
         )
       end
-      render :json => {:result => "OK", :data => saved_obs}
+      render :json => {:result => 'OK', :data => saved_obs}
     else
-      render :json => {:result => "Error", :data => test_obs.errors}
+      render :json => {:result => 'Error', :data => errors_collection}
     end
   end
 end
