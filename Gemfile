@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.0.7'
 
-gem 'pg', :platforms => [:ruby, :mswin, :mingw]
+gem 'pg', :platforms => [:ruby, :mingw]
 
 gem "activerecord-jdbcpostgresql-adapter", :platforms => :jruby
 
@@ -20,7 +20,7 @@ gem 'hashie'
 
 group :development do
   gem 'rails3-generators'
-  gem 'nokogiri', :platforms => [:ruby, :mswin, :mingw], :require => nil
+  gem 'nokogiri', :platforms => [:ruby, :mingw], :require => nil
   gem 'mysql2', '~>0.2.7', :platforms => :ruby, :require => nil
 
 # Other gems that may be useful but are not really dependencies:
@@ -36,12 +36,12 @@ group :test do
   gem 'factory_girl_rails'
   gem 'capybara'
   gem 'database_cleaner'
-  gem 'cucumber-rails'
+  gem 'cucumber-rails', '~>0.4.1'
   gem 'cucumber'
   gem 'rspec-rails'
   gem 'launchy' # So you can do Then show me the page
   gem 'pickle'
-  platforms :ruby, :mswin, :mingw do
+  platforms :ruby, :mingw do
     gem 'spork'
   end
 end
