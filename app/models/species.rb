@@ -18,7 +18,7 @@ class Species < ActiveRecord::Base
   default_scope order(:index_num)
 
   def self.alphabetic
-    except(:order).order(:name_sci)
+    reorder(:name_sci)
   end
 
   def self.lifelist(*args)
@@ -38,7 +38,7 @@ class Species < ActiveRecord::Base
             #TODO: implement correct processing of incorrect query parameters
             # raise 'Incorrect option'
         end
-    select('obs.*, name_sci, name_ru, name_en, name_uk, index_num, family, "order"').except(:order).order(sort_option).\
+    select('obs.*, name_sci, name_ru, name_en, name_uk, index_num, family, "order"').reorder(sort_option).\
         joins("INNER JOIN (#{Observation.lifers_observations(options).to_sql}) AS obs ON species.id=obs.main_species").\
         all.inject([]) do |memo, sp|
           last = memo.last
