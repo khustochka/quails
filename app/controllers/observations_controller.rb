@@ -79,7 +79,7 @@ class ObservationsController < ApplicationController
     test_obs = Observation.new({:species_id => 9999}.merge(common))
     test_obs.valid?
     errors_collection = test_obs.errors
-    errors_collection.add('observations', 'should be at least one') if params[:o].blank?
+    errors_collection.add_to_base('provide at least one observation') if params[:o].blank?
     if errors_collection.empty?
       saved_obs = params[:o].inject([]) do |memo, obs|
         obs_data = obs.merge(common)

@@ -68,7 +68,7 @@ class BulkObservationsTest < ActionController::TestCase
       assert_equal Mime::JSON, response.content_type
       result = JSON.parse(response.body)
       assert_equal 'Error', result['result']
-      assert_equal({"observations"=>["should be at least one"]}, result['data'])
+      assert_equal({"base"=>["provide at least one observation"]}, result['data'])
     end
 
     should 'combine errors for incorrect common parameters and zero observations' do
@@ -84,7 +84,7 @@ class BulkObservationsTest < ActionController::TestCase
       assert_equal 'Error', result['result']
       assert_equal({"observ_date"=>["can't be blank"],
                     "locus_id"=>["can't be blank"],
-                    "observations"=>["should be at least one"]}, result['data'])
+                    "base"=>["provide at least one observation"]}, result['data'])
     end
 
     should 'return error for incorrect observation parameter (species_id)' do
