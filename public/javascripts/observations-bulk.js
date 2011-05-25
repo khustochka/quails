@@ -1,15 +1,20 @@
 $(function() {
     var form = $('form#new_observation[data-remote]');
-    var check_img = $( "<img>" ).attr('src', '/images/check_alt_16x16.png');
+    var check_img = $( "<img class='check-or-cross'>" ).attr('src', '/images/check_alt_16x16.png');
 
     form.attr('action', form.data('action'));
     form.bind('ajax:success', function(e, data) {
+        $("img.check-or-cross").remove();
         if (data.result == "OK") {
            $(".obs-row").each( function(index) {
                var val = data.data[index];
-               if (val.id) $(this).prepend(
-                       check_img.clone(), $("<input type='hidden' name='o[][id]'>").attr('value', val.id)
-                       );
+               if (val.id) {
+                    if (! $(this).data("db-id")) {
+                        $(this).data("db-id", val.id)
+                                .prepend($("<input type='hidden' name='o[][id]'>").attr('value', val.id));
+                    }
+                    $(this).prepend(check_img.clone());
+               }
            })
         }
     });
