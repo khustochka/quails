@@ -48,6 +48,8 @@ form.observation {
     background: transparent url("/images/check_alt_16x16.png") no-repeat scroll 5px center; }
   form.observation div.obs-row.save-success {
     background-color: #ccffcc; }
+  form.observation div.obs-row.save-fail {
+    background-color: #cc6666; }
 
 form.search {
   display: inline-block;

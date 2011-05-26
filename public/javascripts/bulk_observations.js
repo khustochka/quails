@@ -12,8 +12,9 @@ $(function() {
                                 .addClass('has-id')
                                 .prepend($("<input type='hidden' name='o[][id]'>").attr('value', val.id));
                     }
-                    $(this).removeClass('save-fail').addClass('save-success')
+                    $(this).removeClass('save-fail').addClass('save-success');
                 }
+                else $(this).removeClass('save-success').addClass('save-fail');
             })
         }
     });
