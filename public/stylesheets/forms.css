@@ -49,7 +49,11 @@ form.observation {
   form.observation div.obs-row.save-success {
     background-color: #ccffcc; }
   form.observation div.obs-row.save-fail {
-    background-color: #cc6666; }
+    background-color: #ffcccc; }
+  form.observation .error_list {
+    background-color: #ffcccc;
+    border: 1px solid #aa0000;
+    color: #aa0000; }
 
 form.search {
   display: inline-block;
