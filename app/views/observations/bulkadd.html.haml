@@ -3,6 +3,9 @@
 
 %h2= @page_title
 
+= select(:species, :species_id, Species.alphabetic.map(&:name_sci),
+    {:include_blank => true}, {:class => 'species-quick-add'})
+
 = simple_form_for @observation, :remote => true, :html => {:'data-action' => bulksave_observations_path} do |form|
   .bunch
     = form.association :locus, :label => 'Location:', :collection => Locus.all_ordered, :label_method => :name_en,

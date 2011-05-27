@@ -27,6 +27,11 @@ $(function() {
         }
     });
 
+    $('.species-quick-add').combobox();
+    $('input#species_species_id').bind( "autocompleteselect", function(event, ui) {
+        alert('xx')
+    });
+
     var sample_row = $('.obs-row').detach();
     var cnt = 1;
 
