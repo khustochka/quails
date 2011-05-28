@@ -756,3 +756,32 @@ locus:
 
     - "38.88"
     - "-77.1"
+  - - "58"
+    - bronx
+    - "43"
+    - Location
+    - 
+    - !binary |
+      0JHRgNC+0L3QutGB
+
+    - 
+    - "40.8491"
+    - "-73.8666"
+  - - "59"
+    - schroon
+    - "43"
+    - Location
+    - 
+    - Schroon Lake
+    - 
+    - 
+    - 
+  - - "60"
+    - ticonderoga
+    - "43"
+    - Location
+    - 
+    - Ticonderoga and lake
+    - 
+    - 
+    - 
