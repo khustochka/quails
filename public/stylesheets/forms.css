@@ -41,6 +41,13 @@ form.observation {
     margin-top: 10px;
     margin-left: -10px;
     font-size: 110%; }
+  form.observation div.to-add-row {
+    padding-left: 8px; }
+    form.observation div.to-add-row label {
+      display: inline-block;
+      color: green; }
+    form.observation div.to-add-row input {
+      border-color: green; }
   form.observation div.obs-row {
     margin: 4px 0;
     padding-left: 16px; }

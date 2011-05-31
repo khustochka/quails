@@ -3,9 +3,6 @@
 
 %h2= @page_title
 
-%label{:for => 'species-quick-add'} Quick add species
-%input{:id => 'species-quick-add'}
-
 = simple_form_for @observation, :remote => true, :html => {:'data-action' => bulksave_observations_path} do |form|
   .bunch
     = form.association :locus, :label => 'Location:', :collection => Locus.all_ordered, :label_method => :name_en,
@@ -15,7 +12,11 @@
     - unless blogpost.nil?
       = form.association(:post, :as => :boolean, :label => false)
       %label.obs_post_label= post_link(blogpost.title, blogpost)
-  %span.pseudolink#add-row Add new row
+  .bunch.to-add-row
+    %label{:for => 'species-quick-add'} Quick add species:
+    %input{:id => 'species-quick-add', :class => 'string'}
+    %span.pseudolink#add-row Add new row
+
   .bunch.obs-row
     = form.association :species, :label => 'Species:', :collection => Species.alphabetic,
         :label_method => :name_sci, :include_blank => false, :input_html => {:class => 'sp-suggest', :name => 'o[][species_id]'}
