@@ -50,6 +50,13 @@ class Species < ActiveRecord::Base
     end
   end
 
+  # Associations
+
+  def images
+    #TODO: force eager loading # seems include not working here
+    observations(:include => :images).map(&:images).flatten
+  end
+
   # Instance methods
 
   def name
