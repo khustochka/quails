@@ -51,6 +51,7 @@ Quails3::Application.routes.draw do
   end
   resources :locus
   resources :species, :only => [:edit, :update]
+  resources :images #TODO: make specific URL for show
   # end
 
   get 'dashboard' => 'admin#dashboard'

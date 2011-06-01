@@ -10,7 +10,21 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110420220803) do
+ActiveRecord::Schema.define(:version => 20110601113005) do
+
+  create_table "images", :force => true do |t|
+    t.string  "code",        :limit => 64, :null => false
+    t.string  "title"
+    t.text    "description"
+    t.integer "index_num"
+  end
+
+  create_table "images_observations", :id => false, :force => true do |t|
+    t.integer "image_id",       :null => false
+    t.integer "observation_id", :null => false
+  end
+
+  add_index "images_observations", ["image_id", "observation_id"], :name => "index_images_observations_on_image_id_and_observation_id", :unique => true
 
   create_table "locus", :force => true do |t|
     t.string  "code",      :limit => 32, :null => false

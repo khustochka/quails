@@ -2,6 +2,7 @@ class Observation < ActiveRecord::Base
   belongs_to :species
   belongs_to :locus
   belongs_to :post, :select => [:id, :code, :face_date, :title, :status]
+  has_and_belongs_to_many :images
 
   validates :observ_date, :locus_id, :species_id, :presence => true
 

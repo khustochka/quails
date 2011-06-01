@@ -1,0 +1,15 @@
+= simple_form_for @image do |form|
+
+  -if @image.errors.any?
+    #errorExplanation
+      %h2= "#{pluralize(@image.errors.count, "error")} prohibited this #{Image.name.titleize} from being saved:"
+      %ul
+        - @image.errors.full_messages.each do |msg|
+          %li= msg  
+
+  = form.input :code
+  = form.input :title
+  = form.input :description
+  = form.input :index_num
+
+  = form.button :submit, :value => 'Save'

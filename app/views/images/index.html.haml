@@ -1,0 +1,20 @@
+- @page_title = 'Listing images'
+
+%h2= @page_title
+
+%table.neat_table
+  %tr
+    %th Code
+    %th Title
+    %th Index
+    %th
+    %th
+    %th
+
+  - @images.each do |image|
+    %tr
+      %td= link_to image.code, edit_image_path(image)
+      %td= image.title
+      %td.align-right= image.index_num
+      %td= link_to 'Show', image
+      %td= link_to '[x]', image, :confirm => 'Are you sure?', :method => :delete

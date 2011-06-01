@@ -21,6 +21,7 @@ gem 'hashie'
 
 group :development do
   gem 'rails3-generators'
+  gem 'haml-rails'
   gem 'nokogiri', :platforms => [:ruby, :mingw], :require => nil
   gem 'mysql2', '~>0.2.7', :platforms => :ruby, :require => nil
 
