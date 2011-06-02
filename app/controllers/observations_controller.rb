@@ -5,7 +5,7 @@ class ObservationsController < ApplicationController
   layout 'admin'
 
   use_jquery :except => [:show, :destroy]
-  javascript 'jquery-ui-1.8.11.custom.min', 'suggest_over_combo', :except => [:show, :destroy]
+  javascript JQ_UI_FILE, 'suggest_over_combo', :except => [:show, :destroy]
   javascript 'bulk_observations', :only => :bulkadd
   stylesheet 'autocomplete', :except => [:show, :destroy]
   stylesheet 'forms', :except => [:show, :destroy]

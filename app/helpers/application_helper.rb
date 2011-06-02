@@ -1,7 +1,5 @@
 module ApplicationHelper
 
-  JQUERY_VERSION = '1.6.1'
-
   def default_page_title
     Rails.env.development? ? '!!! - Set the window caption / quails3' : request.host
   end
