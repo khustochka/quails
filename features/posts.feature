@@ -1,4 +1,4 @@
-Feature: Species
+Feature: Posts
 
   @admin
   Scenario: Add post
