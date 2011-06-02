@@ -53,8 +53,7 @@ class Species < ActiveRecord::Base
   # Associations
 
   def images
-    #TODO: force eager loading # seems include not working here
-    observations(:include => :images).map(&:images).flatten
+    Observation.where(:species_id => id).includes(:images).map(&:images).flatten
   end
 
   # Instance methods

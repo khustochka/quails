@@ -1,5 +1,5 @@
 desc 'Test benchmark'
-task :test_bm => :environment do
+task :test_bm => [:environment, 'db:setup'] do
   require 'benchmark'
   require 'test/unit'
 
@@ -11,7 +11,7 @@ task :test_bm => :environment do
 
   n = 100
   Benchmark.bm do |x|
-    x.report('1st') { sp.observations.map(&:images).flatten }
-    x.report('2nd') { sp.observations.map(&:images).flatten }
+    x.report('1st') { sp.observations(true).map(&:images).flatten }
+    x.report('2nd') { Observation.where(:species_id => sp.id).includes(:images).map(&:images).flatten }
   end
 end

@@ -1,5 +1,5 @@
 class Image < ActiveRecord::Base
-  has_and_belongs_to_many :observations #, :include => :species # works but I don't need it always
+  has_and_belongs_to_many :observations, :include => [:species, :post]
 
   # Parameters
 
@@ -10,7 +10,10 @@ class Image < ActiveRecord::Base
   # Associations
 
   def species
-    #TODO: force eager loading # seems include not working here
-    observations(:include => :species).map(&:species).flatten
+    observations.map(&:species).flatten
+  end
+
+  def post
+    observations.map(&:post).uniq.compact.first
   end
 end
