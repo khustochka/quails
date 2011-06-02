@@ -16,4 +16,10 @@ class Image < ActiveRecord::Base
   def post
     observations.map(&:post).uniq.compact.first
   end
+
+  # Instance methods
+
+  def to_url_params
+    {:id => code, :species => species.first.to_param}
+  end
 end

@@ -25,6 +25,8 @@ Quails3::Application.routes.draw do
   resources :species, :only => [:index, :show]
   resources :posts, :except => [:index, :show]
 
+  get 'species/:species/:id' => 'images#show', :as => 'show_image'
+
   constraints :year => /\d{4}/ do
     get '/:year' => 'posts#year', :as => 'year'
     constraints :month => /(0[1-9])|(1[0-2])/ do
@@ -51,7 +53,7 @@ Quails3::Application.routes.draw do
   end
   resources :locus
   resources :species, :only => [:edit, :update]
-  resources :images #TODO: make specific URL for show
+  resources :images, :except => :show
   # end
 
   get 'dashboard' => 'admin#dashboard'

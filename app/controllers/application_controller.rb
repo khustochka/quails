@@ -43,6 +43,10 @@ class ApplicationController < ActionController::Base
     show_post_path(post.to_url_params)
   end
 
-  helper_method :public_post_path
+  def public_image_path(img)
+    show_image_path(img.to_url_params)
+  end
+
+  helper_method :public_post_path, :public_image_path
 
 end

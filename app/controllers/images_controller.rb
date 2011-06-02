@@ -37,15 +37,17 @@ class ImagesController < ApplicationController
 
   # GET /images/1/edit
   def edit
+    @extra_params = @image.to_url_params
   end
 
   # POST /images
+  #TODO: FIXME: should be saved only if observations provided
   def create
     @image = Image.new(params[:image])
 
     respond_to do |format|
       if @image.save
-        format.html { redirect_to(@image, :notice => 'Image was successfully created.') }
+        format.html { redirect_to(public_image_path(@image), :notice => 'Image was successfully created.') }
       else
         format.html { render :action => "new" }
       end
@@ -56,7 +58,7 @@ class ImagesController < ApplicationController
   def update
     respond_to do |format|
       if @image.update_attributes(params[:image])
-        format.html { redirect_to(@image, :notice => 'Image was successfully updated.') }
+        format.html { redirect_to(public_image_path(@image), :notice => 'Image was successfully updated.') }
       else
         format.html { render :action => "edit" }
       end

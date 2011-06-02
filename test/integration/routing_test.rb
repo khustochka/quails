@@ -16,6 +16,7 @@ class RoutingTest < ActionDispatch::IntegrationTest
 
   should 'route species correctly' do
     assert_routing '/species/Aquilla_pomarina', {:controller => 'species', :action => 'show', :id => 'Aquilla_pomarina'}
+    assert_routing '/species/Aquilla_pomarina/edit', {:controller => 'species', :action => 'edit', :id => 'Aquilla_pomarina'}
   end
 
   should 'route lifelist correctly' do
@@ -24,5 +25,10 @@ class RoutingTest < ActionDispatch::IntegrationTest
     assert_routing '/lifelist/2008', {:controller => 'lifelist', :action => 'lifelist', :year => '2008'}
     assert_routing '/lifelist/2010/kiev', {:controller => 'lifelist', :action => 'lifelist', :year => '2010', :locus => 'kiev'}
     assert_routing '/lifelist/kherson_obl', {:controller => 'lifelist', :action => 'lifelist', :locus => 'kherson_obl'}
+  end
+
+  should 'route images correctly' do
+    assert_routing '/species/Aquilla_pomarina/lesser_spotted_eagle',
+                   {:controller => 'images', :action => 'show', :species => 'Aquilla_pomarina', :id => 'lesser_spotted_eagle'}
   end
 end

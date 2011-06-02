@@ -9,7 +9,7 @@ class ActiveSupport::TestCase
   # -- they do not yet inherit this setting
   fixtures :all
 
-  delegate :public_post_path, :to => :@controller
+  delegate :public_post_path, :public_image_path, :to => :@controller
 
   TEST_CREDENTIALS = Hashie::Mash.new YAML::load_file('config/security.yml')['test']
 

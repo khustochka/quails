@@ -2,7 +2,9 @@ require 'test_helper'
 
 class ImagesControllerTest < ActionController::TestCase
   setup do
+    obs = Factory.create(:observation)
     @image = Factory.create(:image)
+    @image.observations << obs
   end
 
   test "should get index" do
@@ -19,17 +21,18 @@ class ImagesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  #TODO: FIXME: should be saved only if observations provided
   test "should create image" do
     login_as_admin
     assert_difference('Image.count') do
       post :create, :image => @image.attributes
     end
 
-    assert_redirected_to image_path(assigns(:image))
+    assert_redirected_to public_image_path(assigns(:image))
   end
 
   test "should show image" do
-    get :show, :id => @image.to_param
+    get :show, @image.to_url_params
     assert_response :success
   end
 
@@ -42,7 +45,7 @@ class ImagesControllerTest < ActionController::TestCase
   test "should update image" do
     login_as_admin
     put :update, :id => @image.to_param, :image => @image.attributes
-    assert_redirected_to image_path(assigns(:image))
+    assert_redirected_to public_image_path(assigns(:image))
   end
 
   test "should destroy image" do
