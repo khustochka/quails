@@ -35,8 +35,8 @@ Feature: Bulk add and edit observations
     And I fill in the following:
       | Date     | 2011-04-09      |
     And I click "Add new row"
-    And I click "Add new row"
     And I select "Crex crex" from "Species" suggestion within observation row 1
+    And I click "Add new row"
     And I select "Falco tinnunculus" from "Species" suggestion within observation row 2
     And I press "Save"
     And I wait for 2 seconds

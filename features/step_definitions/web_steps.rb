@@ -97,7 +97,7 @@ end
 When /^I select "([^"]*)" from "([^"]*)" suggestion$/ do |value, field|
   selector = ".ui-menu-item a:contains(\"#{value}\")"
   fill_in field, :with => value
-  sleep(2)
+  sleep(0.5)
   page.execute_script " $('#{selector}').trigger(\"mouseenter\").click();"
 end
 
