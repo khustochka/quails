@@ -44,13 +44,12 @@ class ImagesController < ApplicationController
   #TODO: FIXME: should be saved only if observations provided
   def create
     @image = Image.new(params[:image])
-    observs = Observation.where(:id => params[:o])
+    @image.observation_ids = params[:o]
 
-    @image.errors.add(:base, 'provide at least one observation') if observs.empty?
+    @image.errors.add(:base, 'provide at least one observation') if params[:o].empty?
 
     if @image.errors.empty?
       if @image.save
-        @image.observations << observs
         redirect_to(public_image_path(@image), :notice => 'Image was successfully created.')
       end
     end
