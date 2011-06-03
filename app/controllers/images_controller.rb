@@ -47,6 +47,7 @@ class ImagesController < ApplicationController
 
     respond_to do |format|
       if @image.save
+        @image.observations << Observation.where(:id => params[:o])
         format.html { redirect_to(public_image_path(@image), :notice => 'Image was successfully created.') }
       else
         format.html { render :action => "new" }
