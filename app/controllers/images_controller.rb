@@ -15,7 +15,7 @@ class ImagesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @images }
+      format.xml { render :xml => @images }
     end
   end
 
@@ -44,15 +44,17 @@ class ImagesController < ApplicationController
   #TODO: FIXME: should be saved only if observations provided
   def create
     @image = Image.new(params[:image])
+    observs = Observation.where(:id => params[:o])
 
-    respond_to do |format|
+    @image.errors.add(:base, 'provide at least one observation') if observs.empty?
+
+    if @image.errors.empty?
       if @image.save
-        @image.observations << Observation.where(:id => params[:o])
-        format.html { redirect_to(public_image_path(@image), :notice => 'Image was successfully created.') }
-      else
-        format.html { render :action => "new" }
+        @image.observations << observs
+        redirect_to(public_image_path(@image), :notice => 'Image was successfully created.')
       end
     end
+    render :action => "new" unless @image.errors.empty?
   end
 
   # PUT /images/1
