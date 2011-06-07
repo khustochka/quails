@@ -41,29 +41,25 @@ class ImagesController < ApplicationController
   end
 
   # POST /images
-  #TODO: FIXME: should be saved only if observations provided
   def create
     @image = Image.new(params[:image])
     @image.observation_ids = params[:o]
 
-    @image.errors.add(:base, 'provide at least one observation') if params[:o].empty?
-
-    if @image.errors.empty?
-      if @image.save
-        redirect_to(public_image_path(@image), :notice => 'Image was successfully created.')
-      end
+    if @image.save
+      redirect_to(public_image_path(@image), :notice => 'Image was successfully created.')
+    else
+      render :action => "new" #unless @image.errors.empty?
     end
-    render :action => "new" unless @image.errors.empty?
   end
 
   # PUT /images/1
   def update
-    respond_to do |format|
-      if @image.update_attributes(params[:image])
-        format.html { redirect_to(public_image_path(@image), :notice => 'Image was successfully updated.') }
-      else
-        format.html { render :action => "edit" }
-      end
+    @extra_params = @image.to_url_params
+    @image.observation_ids = params[:o]
+    if @image.update_attributes(params[:image])
+      redirect_to(public_image_path(@image), :notice => 'Image was successfully updated.')
+    else
+      render :action => "edit"
     end
   end
 

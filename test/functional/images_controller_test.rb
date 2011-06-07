@@ -3,12 +3,12 @@ require 'test_helper'
 class ImagesControllerTest < ActionController::TestCase
   setup do
     @obs = Factory.create(:observation)
-    @image = Factory.create(:image)
+    @image = Factory.build(:image)
     @image.observations << @obs
+    @image.save
   end
 
   should "get index" do
-    Factory.create(:image)
     login_as_admin
     get :index
     assert_response :success
@@ -46,6 +46,7 @@ class ImagesControllerTest < ActionController::TestCase
     assert_difference('Image.count', 0) do
       post :create, :image => @image.attributes, :o => []
     end
+    assert_equal ['provide at least one observation'], assigns(:image).errors[:base]
     assert_template :new
   end
 
@@ -62,8 +63,15 @@ class ImagesControllerTest < ActionController::TestCase
 
   should "update image" do
     login_as_admin
-    put :update, :id => @image.to_param, :image => @image.attributes
+    put :update, :id => @image.to_param, :image => @image.attributes, :o => @image.observation_ids
     assert_redirected_to public_image_path(assigns(:image))
+  end
+
+  should "not update image with no observations" do
+    login_as_admin
+    put :update, :id => @image.to_param, :image => @image.attributes, :o => []
+    assert_equal ['provide at least one observation'], assigns(:image).errors[:base]
+    assert_template :edit
   end
 
   should "destroy image" do

@@ -1,4 +1,6 @@
 class Image < ActiveRecord::Base
+  before_save :observations_provided?
+
   has_and_belongs_to_many :observations, :include => [:species, :post]
 
   # Parameters
@@ -21,5 +23,13 @@ class Image < ActiveRecord::Base
 
   def to_url_params
     {:id => code, :species => species.first.to_param}
+  end
+
+  private
+  def observations_provided?
+    if observation_ids.empty?
+      errors.add(:base, 'provide at least one observation')
+      false
+    end
   end
 end
