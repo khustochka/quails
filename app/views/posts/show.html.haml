@@ -7,7 +7,7 @@
   = @post.species.uniq.map { |sp| species_link(sp) }.join(", \n").html_safe
 
 %p
-  = link_to('Add more observations', new_observation_path(:post_id => @post.id)) if admin_session?
+  = link_to('Add more observations', bulkadd_observations_path(:post_id => @post.id)) if admin_session?
 
 %p
   - unless @post.lj_url_id.blank?
