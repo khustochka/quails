@@ -10,7 +10,7 @@ class Species < ActiveRecord::Base
   # Parameters
 
   def to_param
-    name_sci.gsub(' ', '_')
+    name_sci_was.gsub(' ', '_')
   end
 
   # Scopes

@@ -6,7 +6,7 @@ class Image < ActiveRecord::Base
   # Parameters
 
   def to_param
-    code
+    code_was
   end
 
   # Associations

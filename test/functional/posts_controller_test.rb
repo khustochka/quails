@@ -39,6 +39,24 @@ class PostsControllerTest < ActionController::TestCase
     assert_redirected_to public_post_path(assigns(:post))
   end
 
+  should "not update post with invalid attribute" do
+    blogpost = Factory.create(:post)
+    blogpost.title = ''
+    login_as_admin
+    put :update, :id => blogpost.to_param, :post => blogpost.attributes
+    assert_template :edit
+  end
+
+  should "not update post with invalid code" do
+    blogpost = Factory.create(:post)
+    blogpost2 = blogpost.dup
+    blogpost2.code = ''
+    login_as_admin
+    put :update, :id => blogpost.code, :post => blogpost2.attributes
+    assert_template :edit
+    assert_select "form[action=#{post_path(blogpost)}]"
+  end
+
   should "destroy post" do
     blogpost = Factory.create(:post)
     assert_difference('Post.count', -1) do

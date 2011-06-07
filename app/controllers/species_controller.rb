@@ -33,7 +33,6 @@ class SpeciesController < ApplicationController
   end
 
   private
-  # TODO: investigate why problems in update when trying to save invalid name_sci
   def find_species
     @species = Species.find_by_name_sci!(latin_url_humanize(params[:id]))
   end

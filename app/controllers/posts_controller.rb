@@ -79,6 +79,7 @@ class PostsController < ApplicationController
 
   # PUT /posts/1
   def update
+    @extra_params = @post.to_url_params
     if @post.update_attributes(params[:post])
       redirect_to(public_post_path(@post), :notice => 'Post was successfully updated.')
     else
