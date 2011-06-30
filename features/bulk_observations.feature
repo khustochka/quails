@@ -16,7 +16,7 @@ Feature: Bulk add and edit observations
     And locus exists with name_en: "Brovary"
     And species exists with name_sci: "Parus caeruleus", family: "Paridae", code: "parcae"
     When I go to observations bulk add page
-    Then I should see 1 observation rows
+    Then I should see 1 observation row
     When I fill in the following:
       | Location | Brovary         |
       | Date     | 2011-04-08      |
