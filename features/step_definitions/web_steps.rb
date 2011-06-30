@@ -15,7 +15,7 @@
 #
 # * http://benmabey.com/2008/05/19/imperative-vs-declarative-scenarios-in-user-stories.html
 # * http://dannorth.net/2011/01/31/whose-domain-is-it-anyway/
-# * http://elabs.se/blog/15-you-re-cuking-it-wrong 
+# * http://elabs.se/blog/15-you-re-cuking-it-wrong
 #
 
 
@@ -27,14 +27,18 @@ require File.expand_path(File.join(File.dirname(__FILE__), "..", "support", "sel
 TEST_CREDENTIALS = Hashie::Mash.new YAML::load_file('config/security.yml')['test']
 
 Given /^logged as administrator$/ do
-  if page.driver.respond_to?(:basic_authorize)
+  if page.driver.respond_to?(:basic_auth)
+    page.driver.basic_auth(TEST_CREDENTIALS.username, TEST_CREDENTIALS.password_plain)
+  elsif page.driver.respond_to?(:basic_authorize)
     page.driver.basic_authorize(TEST_CREDENTIALS.username, TEST_CREDENTIALS.password_plain)
+  elsif page.driver.respond_to?(:browser) && page.driver.browser.respond_to?(:basic_authorize)
+    page.driver.browser.basic_authorize(TEST_CREDENTIALS.username, TEST_CREDENTIALS.password_plain)
   else
     # FIXME for this to work you need to add pref("network.http.phishy-userpass-length", 255); to /Applications/Firefox.app/Contents/MacOS/defaults/pref/firefox.js
     page.driver.visit('/')
     page.driver.visit("http://#{TEST_CREDENTIALS.username}:#{TEST_CREDENTIALS.password_plain}@#{page.driver.current_url.gsub(/^http\:\/\//, '')}/dashboard")
   end
-  # To set cookie:
+    # To set cookie:
   When 'I go to the dashboard'
 end
 
@@ -46,12 +50,12 @@ end
 World(WithinHelpers)
 
 # Single-line step scoper
-When /^(.*) within ([^:]+)$/ do |step, parent|
+When /^(.*) within (.*[^:])$/ do |step, parent|
   with_scope(parent) { When step }
 end
 
 # Multi-line step scoper
-When /^(.*) within ([^:]+):$/ do |step, parent, table_or_string|
+When /^(.*) within (.*[^:]):$/ do |step, parent, table_or_string|
   with_scope(parent) { When "#{step}:", table_or_string }
 end
 
@@ -63,34 +67,26 @@ When /^(?:|I )go to (.+)$/ do |page_name|
   visit path_to(page_name)
 end
 
-When /^(?:|I )press "([^"]*)"(?: within "([^"]*)")?$/ do |button, selector|
-  with_scope(selector) do
-    click_button(button)
-  end
+When /^(?:|I )press "([^"]*)"$/ do |button|
+  click_button(button)
 end
 
-When /^(?:|I )follow "([^"]*)"(?: within "([^"]*)")?$/ do |link, selector|
-  with_scope(selector) do
-    click_link(link)
-  end
+When /^(?:|I )follow "([^"]*)"$/ do |link|
+  click_link(link)
 end
 
-When /^(?:|I )click "([^"]*)"(?: within "([^"]*)")?$/ do |link, selector|
-  with_scope(selector) do
-    find(:xpath, "//span[text()='#{link}']").click
-  end
+When /^(?:|I )click "([^"]*)"$/ do |link|
+  find(:xpath, "//span[text()='#{link}']").click
 end
 
-When /^(?:|I )fill in "([^"]*)" (?:with|for) "([^"]*)"(?: within "([^"]*)")?$/ do |field, value, selector|
-  with_scope(selector) do
-    field_element = find_field(field)
-    case field_element.tag_name
-      when 'select' then
-        select(value, :from => field)
-      # TODO: add checkbox
-      else
-        fill_in(field, :with => value)
-    end
+When /^(?:|I )fill in "([^"]*)" with "([^"]*)"$/ do |field, value|
+  field_element = find_field(field)
+  case field_element.tag_name
+    when 'select' then
+      select(value, :from => field)
+    # TODO: add checkbox
+    else
+      fill_in(field, :with => value)
   end
 end
 

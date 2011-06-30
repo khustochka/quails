@@ -37,9 +37,9 @@ group :test do
   gem 'ruby-prof', :platforms => :ruby, :require => nil
   gem 'shoulda'
   gem 'factory_girl_rails'
-  gem 'capybara', '~>0.4.1'
+  gem 'capybara'
   gem 'database_cleaner'
-  gem 'cucumber-rails', '~>0.4.1'
+  gem 'cucumber-rails'
   gem 'cucumber'
   gem 'rspec-rails'
   gem 'launchy' # So you can do Then show me the page
