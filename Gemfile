@@ -1,6 +1,6 @@
 source :rubygems
 
-gem 'rails', '3.0.7'
+gem 'rails', '3.0.9'
 
 gem 'pg', :platforms => [:ruby, :mingw]
 
@@ -10,7 +10,7 @@ gem "activerecord-jdbcpostgresql-adapter", :platforms => :jruby
 # gem 'capistrano'
 
 # Bundle the extra gems:
-gem 'rake', '~>0.8.7'
+gem 'rake', '~>0.9.2'
 gem 'haml'
 gem 'sass'
 gem 'kaminari'
@@ -18,6 +18,7 @@ gem 'meta_search'
 gem 'simple_form'
 gem 'yaml_db'
 gem 'hashie'
+gem 'json', '1.5.1', :platforms => :mingw
 
 group :development do
   gem 'rails3-generators'
@@ -36,7 +37,7 @@ group :test do
   gem 'ruby-prof', :platforms => :ruby, :require => nil
   gem 'shoulda'
   gem 'factory_girl_rails'
-  gem 'capybara'
+  gem 'capybara', '~>0.4.1'
   gem 'database_cleaner'
   gem 'cucumber-rails', '~>0.4.1'
   gem 'cucumber'
