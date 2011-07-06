@@ -9,7 +9,7 @@ module ApplicationHelper
   end
 
   def include_scripts
-    @scripts = ["http://ajax.googleapis.com/ajax/libs/jquery/#{JQUERY_VERSION}/jquery.min.js", 'rails'] + @scripts if @jquery
+    @scripts = [JQUERY_URL, 'rails'] + @scripts if @jquery
     javascript_include_tag @scripts.uniq
   end
 end
