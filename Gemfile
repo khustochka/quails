@@ -18,7 +18,6 @@ gem 'meta_search'
 gem 'simple_form'
 gem 'yaml_db'
 gem 'hashie'
-gem 'json', '1.5.1', :platforms => :mingw
 
 group :development do
   gem 'rails3-generators'
