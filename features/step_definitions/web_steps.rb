@@ -94,7 +94,7 @@ When /^I select "([^"]*)" from "([^"]*)" suggestion$/ do |value, field|
   selector = ".ui-menu-item a:contains(\"#{value}\")"
   fill_in field, :with => value
   sleep(0.5)
-  page.execute_script " $('#{selector}').trigger(\"mouseenter\").click();"
+  page.execute_script " $('#{selector}').trigger('mouseenter').click();"
 end
 
 # Use this to fill in an entire form with data from a table. Example:
