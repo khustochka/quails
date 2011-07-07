@@ -1,7 +1,7 @@
 require 'import/blog'
 require 'import/observations'
 
-desc 'Tasks for importing field data: blog posts, observations'
+desc 'Importing data'
 namespace :import do
 
   desc 'Importing blog posts from legacy DB'

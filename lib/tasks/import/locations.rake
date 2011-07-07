@@ -1,6 +1,6 @@
 require 'import/locations'
 
-desc 'Tasks for importing locations'
+desc 'Importing data'
 namespace :import do
 
   desc 'Importing geographical data from legacy DB'
