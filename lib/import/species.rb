@@ -2,11 +2,11 @@
 require 'nokogiri'
 require 'open-uri'
 require File.expand_path('app/helpers/species_helper', Rails.root)
-require 'import/legacy/legacy_init'
+#require 'import/legacy/legacy_init'
 
 module Import
   class SpeciesImport
-    extend LegacyInit
+    #extend LegacyInit
 
     extend SpeciesHelper
 
