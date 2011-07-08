@@ -40,12 +40,8 @@ class PostsController < ApplicationController
 
   def year
     @posts  = SessionAwarePost().year(@year = params[:year])
-    @months = @posts.map { |post|
     # TODO: there is problem with timezone
-      post.month
-    }.uniq.inject({}) { |memo, month|
-      memo.merge(month => @posts.select { |p| p.face_date.month == month.to_i })
-    }
+    @months = @posts.group_by {|post| post.month }
     @years  = SessionAwarePost().years
   end
 

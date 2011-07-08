@@ -81,14 +81,12 @@ class ObservationsController < ApplicationController
     errors_collection = test_obs.errors
     errors_collection.add(:base, 'provide at least one observation') if params[:o].blank?
     if errors_collection.empty?
-      saved_obs = params[:o].inject([]) do |memo, obs|
+      saved_obs = params[:o].map do |obs|
         obs_data = obs.merge(common)
         observation = obs[:id] ?
             Observation.update(obs[:id], obs_data) :
             Observation.create(obs_data)
-        memo.push(
-            observation.errors.empty? ? {:id => observation.id} : {:msg => observation.errors}
-        )
+        observation.errors.empty? ? {:id => observation.id} : {:msg => observation.errors}
       end
       render :json => {:result => 'OK', :data => saved_obs}
     else

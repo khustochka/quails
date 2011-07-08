@@ -17,8 +17,8 @@ namespace :import do
 
       holarctic = Import::SpeciesImport.parse_list(avibase_list_url('hol', ENV['list'] || 'clements'))
 
-      desired = regions.inject([]) do |memo, reg|
-        memo + Import::SpeciesImport.parse_list(avibase_list_url(reg, ENV['list'] || 'clements'))
+      desired = regions.map do |reg|
+        Import::SpeciesImport.parse_list(avibase_list_url(reg, ENV['list'] || 'clements'))
       end.uniq
 
       desired2 = holarctic & desired

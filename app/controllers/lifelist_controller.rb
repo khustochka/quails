@@ -8,9 +8,7 @@ class LifelistController < ApplicationController
 
     @lifelist = Species.lifelist(extended_params)
     raw_posts = @lifelist.map {|ob| [ob.first_post, ob.last_post]}.flatten.uniq.compact
-    @posts = SessionAwarePost().where(:id => raw_posts).inject({}) do |memo, rec|
-      memo.merge({rec.id.to_s => rec})
-    end
+    @posts = Hash[SessionAwarePost().where(:id => raw_posts).map {|rec| [rec.id.to_s, rec] }]
     @years = Observation.years(extended_params)
 
     respond_to do |format|
