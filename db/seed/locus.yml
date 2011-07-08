@@ -760,28 +760,51 @@ locus:
     - bronx
     - "43"
     - Location
-    - 
+    - The Bronx
     - !binary |
       0JHRgNC+0L3QutGB
 
-    - 
+    - !binary |
+      0JHRgNC+0L3QutGB
+
     - "40.8491"
     - "-73.8666"
   - - "59"
     - schroon
     - "43"
     - Location
-    - 
     - Schroon Lake
-    - 
-    - 
-    - 
+    - !binary |
+      0KHQutGA0YPQvQ==
+
+    - !binary |
+      0KHQutGA0YPQvQ==
+
+    - "43.867"
+    - "-73.7476"
   - - "60"
     - ticonderoga
     - "43"
     - Location
-    - 
     - Ticonderoga and lake
-    - 
-    - 
-    - 
+    - !binary |
+      0KLQuNC60L7QvdC00LXRgNC+0LPQsA==
+
+    - !binary |
+      0KLRltC60L7QvdC00LXRgNC+0LPQsA==
+
+    - "43.8533"
+    - "-73.3893"
+  - - "61"
+    - pukhivka
+    - "41"
+    - Location
+    - Pukhivka village
+    - !binary |
+      0YEuJm5ic3A70J/Rg9GF0L7QstC60LA=
+
+    - !binary |
+      0YEuJm5ic3A70J/Rg9GF0ZbQstC60LA=
+
+    - "50.6"
+    - "30.71"
