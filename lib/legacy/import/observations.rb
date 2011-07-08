@@ -12,7 +12,7 @@ module Legacy
 
         puts 'Importing observations...'
 
-        observations.delete_if {|el| el[:sp_id] == 'mulspp'}.each do |ob|
+        observations.reject {|el| el[:sp_id] == 'mulspp'}.each do |ob|
           new_ob = Observation.new({
                                        :species_id => Legacy::Mapping.species[ob[:sp_id]],
                                        :locus_id => Legacy::Mapping.locations[ob[:loc_id].gsub('-', '_')],
