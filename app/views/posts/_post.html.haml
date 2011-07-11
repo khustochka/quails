@@ -9,5 +9,4 @@
   %b Images:
 %p
   - post.images.each do |img|
-    - sp_url = img.observations.size > 1 ? 'Spp' : img.species.first.to_param
-    = link_to image_tag("http://birdwatch.org.ua/aves/#{sp_url}/tn_#{img.code}.jpg"), public_image_path(img)
+    = image_thumbnail(img)

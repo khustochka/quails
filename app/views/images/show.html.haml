@@ -1,10 +1,8 @@
 - @page_title = @image.title.present? ? @image.title : @image.code
 
-- spcs = @image.species
-
 %p#notice= notice
 
 %h2= @page_title
 
 %p
-  = image_tag("http://birdwatch.org.ua/aves/#{spcs.size > 1 ? 'Spp' : @image.species.first.to_param}/#{@image.code}.jpg")
+  = image_tag(jpg_url(@image, false))
