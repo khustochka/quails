@@ -43,7 +43,6 @@ class ImagesController < ApplicationController
   # POST /images
   def create
     @image = Image.new(params[:image])
-    @image.observation_ids = params[:o]
 
     if @image.save
       redirect_to(public_image_path(@image), :notice => 'Image was successfully created.')
@@ -55,7 +54,6 @@ class ImagesController < ApplicationController
   # PUT /images/1
   def update
     @extra_params = @image.to_url_params
-    @image.observation_ids = params[:o]
     if @image.update_attributes(params[:image])
       redirect_to(public_image_path(@image), :notice => 'Image was successfully updated.')
     else

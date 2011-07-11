@@ -76,3 +76,13 @@ form.search {
     display: block; }
   form.search div.mine_eq_select label {
     display: inline; }
+
+div.observations_list {
+  width: 620px;
+  padding: 5px;
+  margin: 10px;
+  border: 1px solid #999999; }
+  div.observations_list label {
+    display: inline; }
+  div.observations_list div.check_boxes span {
+    display: block; }

@@ -9,7 +9,19 @@
 
   = form.input :code
   = form.input :title
+
+  %div.observations_list
+    %div
+      %label Observations:
+      %span.pseudolink (add/edit)
+    - if @image.observations.empty?
+      %p None.
+    - else
+      -# Using SimpleForm's collection_check_boxes will require some hack
+      = form.association :observations, :collection => @image.observations, :as => :check_boxes, :label => false, :disabled => true,
+        :label_method => lambda {|ob| [ob.species.name_sci, ob.observ_date, ob.locus.name_en].join(', ')}, :value_method => :id
+
   = form.input :description
-  = form.input :index_num
+  = form.input :index_num, :as => :string
 
   = form.button :submit, :value => 'Save'
