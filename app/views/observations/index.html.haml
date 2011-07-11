@@ -8,7 +8,7 @@
   = form.input :observ_date_eq, :label => 'Date:', :required => false
   = form.input :locus_id_eq, :label => 'Location:', :collection => Locus.all_ordered, :label_method => :name_en,
       :required => false, :input_html => {:class => 'suggest-combo'}
-  %div.input.optional
+  %div.input.optional.mine_eq_select
     = form.collection_radio :mine_eq, [['', 'All'], [true, 'Mine'], [false, 'Not mine']], :first, :last, :required => false
   = form.button :submit, :value => 'Search', :name => nil
 

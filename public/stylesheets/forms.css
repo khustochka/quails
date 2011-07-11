@@ -72,3 +72,7 @@ form.search {
     font-size: 105%; }
   form.search input#search_observ_date_eq {
     width: 100px; }
+  form.search div.mine_eq_select span {
+    display: block; }
+  form.search div.mine_eq_select label {
+    display: inline; }
