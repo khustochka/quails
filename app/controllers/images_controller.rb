@@ -4,7 +4,8 @@ class ImagesController < ApplicationController
 
   layout 'admin', :except => :show
 
-  use_jquery :only => :index
+  use_jquery :only => [:index, :new, :edit, :create, :update]
+  javascript JQ_UI_FILE, 'images', :only => [:new, :edit, :create, :update]
 
   add_finder_by :code, :only => [:show, :edit, :update, :destroy]
 

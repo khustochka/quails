@@ -10,6 +10,8 @@
   = form.input :code
   = form.input :title
 
+  %p= image_tag(jpg_url(@image, true), :class => 'image_pic')
+
   %div.observations_list
     %div
       %label Observations:

@@ -1,4 +1,6 @@
 class Image < ActiveRecord::Base
+  validates :code, :uniqueness => true, :presence => true, :length => { :maximum => 64 }
+
   before_save :observations_provided?
 
   has_and_belongs_to_many :observations, :include => [:species, :post]
