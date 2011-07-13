@@ -11,21 +11,37 @@ namespace :legacy do
   desc 'Importing data from legacy DB dump'
   task(:import => [:environment, 'db:setup']) do
 
-    # TODO: should be possible to specify file, or search for it in the predictable location, or fetch URL
-    dump = YAML::load_file('tmp/db_dump.yml')
+    source = ENV['SOURCE']
 
-    countries = Legacy::Utils.prepare_table(dump['country'])
-    regions = Legacy::Utils.prepare_table(dump['region'])
-    locs = Legacy::Utils.prepare_table(dump['location'])
+    if source.nil? || source == 'db'
+      require 'legacy/models/blog'
+      require 'legacy/models/geography'
+      require 'legacy/models/observation'
+      require 'legacy/models/image'
+      Legacy::Utils.db_connect
+
+      countries = Legacy::Models::Country.all
+      regions = Legacy::Models::Region.all
+      locs = Legacy::Models::Location.all
+      posts = Legacy::Models::Post.all
+      observations = Legacy::Models::Observation.all
+      images = Legacy::Models::Image.all
+    else
+      dump = YAML::load_file(source)
+      countries = Legacy::Utils.prepare_table(dump['country'])
+      regions = Legacy::Utils.prepare_table(dump['region'])
+      locs = Legacy::Utils.prepare_table(dump['location'])
+      posts = Legacy::Utils.prepare_table(dump['blog'])
+      observations = Legacy::Utils.prepare_table(dump['observation'])
+      images = Legacy::Utils.prepare_table(dump['images'])
+    end
+
     Legacy::Import::Locations.update_all(countries, regions, locs)
 
-    posts = Legacy::Utils.prepare_table(dump['blog'])
     Legacy::Import::Posts.import_posts(posts)
 
-    observations = Legacy::Utils.prepare_table(dump['observation'])
     Legacy::Import::Observations.import_observations(observations)
 
-    images = Legacy::Utils.prepare_table(dump['images'])
     Legacy::Import::Images.import_images(images, observations)
 
   end
