@@ -25,6 +25,7 @@ class ImagesControllerTest < ActionController::TestCase
     login_as_admin
     new_attr = @image.attributes.dup
     new_attr[:observation_ids] = [@obs.id]
+    new_attr['code'] = 'new_img_code'
     assert_difference('Image.count') do
       post :create, :image => new_attr
     end
@@ -38,6 +39,7 @@ class ImagesControllerTest < ActionController::TestCase
     obs3 = Factory.create(:observation, :species => Species.find_by_code('jyntor'))
     new_attr = @image.attributes.dup
     new_attr[:observation_ids] = [@obs.id, obs2.id, obs3.id]
+    new_attr['code'] = 'new_img_code'
     assert_difference('Image.count') do
       post :create, :image => new_attr
     end
@@ -48,6 +50,7 @@ class ImagesControllerTest < ActionController::TestCase
   should "not create image with no observations" do
     login_as_admin
     new_attr = @image.attributes.dup
+    new_attr['code'] = 'new_img_code'
     new_attr[:observation_ids] = []
     assert_difference('Image.count', 0) do
       post :create, :image => new_attr
@@ -70,7 +73,7 @@ class ImagesControllerTest < ActionController::TestCase
   should "update image" do
     login_as_admin
     new_attr = @image.attributes.dup
-    new_attr[:code] = 'new_code'
+    new_attr['code'] = 'new_code'
     put :update, :id => @image.to_param, :image => new_attr
     assert_redirected_to public_image_path(assigns(:image))
   end
@@ -78,6 +81,7 @@ class ImagesControllerTest < ActionController::TestCase
   should "not update image with no observations" do
     login_as_admin
     new_attr = @image.attributes.dup
+    new_attr['code'] = 'new_img_code'
     new_attr[:observation_ids] = []
     put :update, :id => @image.to_param, :image => new_attr
     assert_equal ['provide at least one observation'], assigns(:image).errors[:base]
