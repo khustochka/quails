@@ -4,11 +4,13 @@ production:
   password: <%= ENV['password'] %>
   admin_session_ask: <%= ENV['admin_session_ask'] %>
   admin_session_reply: <%= ENV['admin_session_reply'] %>
+  images_host: <%= ENV['images_host'] %>
 
 development:
   free_access: true # works only in dev mode
   admin_session_ask: dontask
   admin_session_reply: dontell
+  images_host: http://birdwatch
 
 # use plain text password for test environment
 test:
@@ -16,3 +18,4 @@ test:
   password_plain: testpasswd
   admin_session_ask: testask
   admin_session_reply: testreply
+  images_host: http://birdwatch

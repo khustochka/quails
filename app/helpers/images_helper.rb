@@ -1,7 +1,7 @@
 module ImagesHelper
 
   def jpg_url(img, thumbnail = false)
-    "http://birdwatch.org.ua/photos/#{'tn_' if thumbnail}#{img.code}.jpg"
+    "#{IMAGES_HOST}/photos/#{'tn_' if thumbnail}#{img.code}.jpg"
   end
 
   def image_thumbnail(img)
