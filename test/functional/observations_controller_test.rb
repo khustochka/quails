@@ -46,7 +46,7 @@ class ObservationsControllerTest < ActionController::TestCase
   end
 
   should "update observation" do
-    observation             = Factory.create(:observation)
+    observation = Factory.create(:observation)
     observation.observ_date = '2010-11-07'
     login_as_admin
     put :update, :id => observation.to_param, :observation => observation.attributes
@@ -62,7 +62,7 @@ class ObservationsControllerTest < ActionController::TestCase
     assert_redirected_to observations_path
   end
 
-  # HTTP auth tests
+    # HTTP auth tests
 
   should 'protect index with HTTP authentication' do
     get :index
@@ -93,7 +93,7 @@ class ObservationsControllerTest < ActionController::TestCase
   end
 
   should 'protect update with HTTP authentication' do
-    observation             = Factory.create(:observation)
+    observation = Factory.create(:observation)
     observation.observ_date = '2010-11-07'
     put :update, :id => observation.to_param, :observation => observation.attributes
     assert_response 401
@@ -103,5 +103,15 @@ class ObservationsControllerTest < ActionController::TestCase
     observation = Factory.create(:observation)
     delete :destroy, :id => observation.to_param
     assert_response 401
+  end
+
+  should 'return search results in json' do
+    login_as_admin
+    observation = Factory.create(:observation)
+    get :search, :search => {}
+    assert_response :success
+    assert_equal Mime::JSON, response.content_type
+    result = JSON.parse(response.body)
+    assert_equal ["date", "id", "loc", "sp"], result.first.keys.sort
   end
 end

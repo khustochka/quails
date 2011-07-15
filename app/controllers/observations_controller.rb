@@ -19,6 +19,13 @@ class ObservationsController < ApplicationController
     send((params[:sort] == 'species.index_num') ? :includes : :preload, :species)
   end
 
+  # GET /search
+  def search
+    render :json => (Observation.search(params[:search]).relation.preload(:locus, :species).map  do |ob|
+      {:id => ob.id, :loc => ob.locus.name_en, :sp => ob.species.name_sci, :date => ob.observ_date}
+    end)
+  end
+
   # GET /observations/1
   def show
     redirect_to :action => :edit, :id => params[:id]
@@ -70,7 +77,7 @@ class ObservationsController < ApplicationController
     redirect_to(observations_url)
   end
 
-  # POST /observations.bulksave
+  # POST /observations/bulksave
   # API: parameters are a hash with two keys:
   # c: hash of common options - locus_id, observ_date,mine, post_id
   # o: array of hashes each having species_id, quantity, biotope, place, notes
