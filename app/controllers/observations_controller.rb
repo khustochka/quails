@@ -19,9 +19,9 @@ class ObservationsController < ApplicationController
     send((params[:sort] == 'species.index_num') ? :includes : :preload, :species)
   end
 
-  # GET /search
+  # GET /observations/search
   def search
-    render :json => (Observation.search(params[:search]).relation.preload(:locus, :species).map  do |ob|
+    render :json => (Observation.search(params[:search]).relation.preload(:locus, :species).limit(10).map  do |ob|
       {:id => ob.id, :loc => ob.locus.name_en, :sp => ob.species.name_sci, :date => ob.observ_date}
     end)
   end
