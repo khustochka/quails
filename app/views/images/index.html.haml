@@ -16,5 +16,5 @@
       %td= link_to image.code, edit_image_path(image)
       %td= image.title
       %td.align-right= image.index_num
-      %td= link_to 'Show', image
+      %td= link_to 'Show', public_image_path(image)
       %td= link_to '[x]', image, :confirm => 'Are you sure?', :method => :delete
