@@ -35,6 +35,5 @@
 %p
   %b Images:
 %p
-  - @species.images.each do |img|
-    = image_thumbnail(img)
+  = render :partial => 'images/thumbnail', :collection => @species.images
 

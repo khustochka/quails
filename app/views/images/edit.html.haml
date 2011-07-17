@@ -3,3 +3,5 @@
 %h2= @page_title
 
 = render 'form'
+
+%p= link_to 'DELETE', @image, :confirm => 'Are you sure?', :method => :delete

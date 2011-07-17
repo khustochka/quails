@@ -8,5 +8,4 @@
 %p
   %b Images:
 %p
-  - post.images.each do |img|
-    = image_thumbnail(img)
+  = render :partial => 'images/thumbnail', :collection => post.images

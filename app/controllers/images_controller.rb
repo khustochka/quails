@@ -1,8 +1,8 @@
 class ImagesController < ApplicationController
 
-  require_http_auth :except => :show
+  require_http_auth :except => [:index, :show]
 
-  layout 'admin', :except => :show
+  layout 'admin', :except => [:index, :show]
 
   use_jquery :only => [:index, :new, :edit, :create, :update]
   javascript JQ_UI_FILE, 'images', :only => [:new, :edit, :create, :update]
@@ -12,7 +12,7 @@ class ImagesController < ApplicationController
   # GET /images
   # GET /images.xml
   def index
-    @images = Image.all
+    @images = Image.order('created_at DESC').page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
