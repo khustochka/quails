@@ -4,7 +4,7 @@ class DBIntegrityTest < ActionDispatch::IntegrationTest
 
   test 'all records in the db are valid' do
     incogt = Species.find(9999)
-    [Species, Locus, Observation, Post].each do |model|
+    [Species, Locus, Observation, Post, Image].each do |model|
 #      puts "-- [INFO] Checking #{model.to_s} records in the DB for validity"
       model.all.each do |record|
         assert(record.valid?, "Invalid record: #{record.inspect}") unless record == incogt
