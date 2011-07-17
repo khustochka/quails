@@ -1,4 +1,4 @@
-%w(assets layout locale security model_finder_for).each do |file|
+%w(assets layout locale security model_finder_for public_path).each do |file|
   require "mixins/#{file}_controller"
 end
 
@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
   include SecurityController
   include AssetsController
   include LayoutController
+  include PublicPathController
 
   extend ModelFinderForController
 
@@ -38,15 +39,5 @@ class ApplicationController < ActionController::Base
   def SessionAwarePost
     @post_rel ||= admin_session? ? Post : Post.public
   end
-
-  def public_post_path(post)
-    show_post_path(post.to_url_params)
-  end
-
-  def public_image_path(img)
-    show_image_path(img.to_url_params)
-  end
-
-  helper_method :public_post_path, :public_image_path
 
 end
