@@ -18,10 +18,11 @@ class Locus < ActiveRecord::Base
 
   # Scopes
 
-  scope :list_order, order(:loc_type, :parent_id, :code)
+  scope :list_order, order(:parent_id, :code)
 
   def self.all_ordered
-    list_order.partition { |loc| loc.loc_type != 'Location' }.flatten
+    list = list_order.group_by(&:loc_type)
+    TYPES.reverse.map {|type| list[type]}.flatten
   end
 
   # Instance methods

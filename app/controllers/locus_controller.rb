@@ -10,10 +10,7 @@ class LocusController < ApplicationController
 
   # GET /locus
   def index
-    @locus = Locus.list_order.includes(:parent)
-    @types = %w(Country Region Location).map { |type|
-      {type => @locus.select { |s| s.loc_type == type }}
-    }
+    @locus_by_type = Locus.list_order.includes(:parent).group_by(&:loc_type)
   end
 
   # GET /locus/1

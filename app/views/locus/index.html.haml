@@ -10,11 +10,11 @@
     %th.align-center LatLon
     %th
       
-  - @types.each do |type|
+  - Locus::TYPES.each do |type|
     %tr
       %td{:colspan => 5}
-        %h3= type.keys.first.pluralize.upcase
-    - type.values.first.each do |locus|
+        %h3= type.pluralize.upcase
+    - @locus_by_type[type].each do |locus|
       %tr
         %td= link_to locus.code, edit_locus_path(locus)
         %td= locus.parent.try(:code) || '-'

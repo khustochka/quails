@@ -9,7 +9,7 @@ class LocusControllerTest < ActionController::TestCase
     login_as_admin
     get :index
     assert_response :success
-    assert_not_nil assigns(:locus)
+    assert_not_nil assigns(:locus_by_type)
   end
 
   should "get new" do
