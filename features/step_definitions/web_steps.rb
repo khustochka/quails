@@ -80,7 +80,11 @@ When /^(?:|I )click "([^"]*)"$/ do |link|
 end
 
 When /^(?:|I )fill in "([^"]*)" with "([^"]*)"$/ do |field, value|
-  field_element = find_field(field)
+  begin
+    field_element = find_field(field)
+  rescue Capybara::ElementNotFound
+    raise Capybara::ElementNotFound, "Unable to find field '#{field}'"
+  end
   case field_element.tag_name
     when 'select' then
       select(value, :from => field)
@@ -91,7 +95,7 @@ When /^(?:|I )fill in "([^"]*)" with "([^"]*)"$/ do |field, value|
 end
 
 When /^I select "([^"]*)" from "([^"]*)" suggestion$/ do |value, field|
-  selector = ".ui-menu-item a:contains(\"#{value}\")"
+  selector = ".ui-menu-item a:contains(\"#{value}\"):last"
   fill_in field, :with => value
   sleep(0.5)
   page.execute_script " $('#{selector}').trigger('mouseenter').click();"
