@@ -27,6 +27,10 @@ class Image < ActiveRecord::Base
     {:id => code, :species => species.first.to_param}
   end
 
+  def search_applicable_observations
+    Observation.search(observations.present? && {:observ_date_eq => observations.first.observ_date, :locus_id_eq => observations.first.locus.id})
+  end
+
   private
   def observations_provided?
     if observation_ids.empty?

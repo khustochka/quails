@@ -14,6 +14,9 @@ module HtmlSelectorsHelpers
     when /observation row (\d+)/
       [:xpath, "//div[contains(@class,'obs-row')][#{$1}]"]
 
+    when 'Observations search'
+      '.observations_search'
+
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #

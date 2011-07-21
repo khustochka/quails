@@ -20,6 +20,9 @@ module NavigationHelpers
       when /^"([^"]*)" post page$/i
         show_post_path(Post.find_by_code!($1).to_url_params)
 
+      when /^"([^"]*)" image page$/i
+        show_image_path(Image.find_by_code!($1).to_url_params)
+
       when /^"([^"]*)" edit post page$/i
         edit_post_path(Post.find_by_code!($1))
 

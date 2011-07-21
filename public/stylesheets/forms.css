@@ -77,12 +77,23 @@ form.search {
   form.search div.mine_eq_select label {
     display: inline; }
 
-div.observations_list {
-  width: 620px;
-  padding: 5px;
-  margin: 10px;
-  border: 1px solid #999999; }
-  div.observations_list label {
+form.image {
+  width: auto; }
+
+table.observations_block {
+  border-collapse: collapse;
+  margin: 10px; }
+  table.observations_block td {
+    padding: 5px;
+    vertical-align: top;
+    border: 1px solid #999999; }
+    table.observations_block td div.input {
+      display: block; }
+      table.observations_block td div.input input, table.observations_block td div.input select {
+        font-size: 105%; }
+  table.observations_block td.observations_list label {
     display: inline; }
-  div.observations_list div.check_boxes span {
+  table.observations_block td.observations_list div.check_boxes {
     display: block; }
+    table.observations_block td.observations_list div.check_boxes span {
+      display: block; }

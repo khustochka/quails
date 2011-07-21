@@ -1,3 +1,5 @@
+- observ_search = @image.search_applicable_observations
+
 = simple_form_for @image do |form|
 
   -if @image.errors.any?
@@ -12,16 +14,21 @@
 
   %p= image_tag(jpg_url(@image, true), :class => 'image_pic')
 
-  %div.observations_list
-    %div
-      %label Observations:
-      %span.pseudolink (add/edit)
-    - if @image.observations.empty?
-      %p None.
-    - else
-      -# Using SimpleForm's collection_check_boxes will require some hack
-      = form.association :observations, :collection => @image.observations, :as => :check_boxes, :label => false, :disabled => true,
-        :label_method => lambda {|ob| [ob.species.name_sci, ob.observ_date, ob.locus.name_en].join(', ')}, :value_method => :id
+  %table.observations_block
+    %tr
+      %td.observations_list
+        Observations:
+        - if @image.observations.empty?
+          %p None.
+        - else
+          = form.association :observations, :collection => @image.observations, :as => :check_boxes, :label => false, :disabled => true,
+            :label_method => lambda {|ob| [ob.species.name_sci, ob.observ_date, ob.locus.name_en].join(', ')}, :value_method => :id
+      %td.observations_search
+        = simple_form_for observ_search, :url => observations_path, :html => {:method => :get} do |form2|
+          = form2.input :observ_date_eq, :label => 'Date:', :required => false
+          = form2.input :locus_id_eq, :label => 'Location:', :collection => Locus.all_ordered, :label_method => :name_en,
+              :required => false, :input_html => {:class => 'suggest-combo'}
+
 
   = form.input :description
   = form.input :index_num, :as => :string

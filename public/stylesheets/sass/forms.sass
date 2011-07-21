@@ -82,14 +82,25 @@ form.search
     label
       display: inline
 
-div.observations_list
-  width: 620px
-  padding: 5px
+form.image
+  width: auto
+
+table.observations_block
+  border-collapse: collapse
   margin: 10px
-  border: 1px solid #999999
-  label
-    display: inline
-  div.check_boxes
-    span
+  td
+    padding: 5px
+    vertical-align: top
+    border: 1px solid #999999
+    div.input
       display: block
+      input, select
+        font-size: 105%
+  td.observations_list
+    label
+      display: inline
+    div.check_boxes
+      display: block
+      span
+        display: block
 
