@@ -41,7 +41,7 @@ class PostsController < ApplicationController
   def year
     @posts  = SessionAwarePost().year(@year = params[:year])
     # TODO: there is problem with timezone
-    @months = @posts.group_by {|post| post.month }
+    @months = @posts.group_by(&:month)
     @years  = SessionAwarePost().years
   end
 

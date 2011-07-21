@@ -4,8 +4,8 @@
 
 = render 'partials/years'
 
-- @months.keys.sort.each do |num|
-  %h3= "Month #{link_to(num.to_i, month_path({:year => @year, :month => num}))}".html_safe
+- @months.each do |month, posts|
+  %h3= "#{link_to(t('date.month_names')[month.to_i], month_path({:year => @year, :month => month}))}".html_safe
   %ul
-    - @months[num].each do |post|
+    - posts.each do |post|
       %li= "#{post.day}: #{post_link(post.title, post)}".html_safe
