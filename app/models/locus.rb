@@ -22,7 +22,7 @@ class Locus < ActiveRecord::Base
 
   def self.all_ordered
     list = list_order.group_by(&:loc_type)
-    TYPES.reverse.map {|type| list[type]}.flatten
+    TYPES.reverse.map {|type| list[type]}.compact.flatten
   end
 
   # Instance methods
