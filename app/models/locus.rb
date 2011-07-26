@@ -22,7 +22,7 @@ class Locus < ActiveRecord::Base
 
   def self.all_ordered
     list = list_order.group_by(&:loc_type)
-    TYPES.reverse.map {|type| list[type]}.compact.flatten
+    TYPES.reverse.inject([]) {|memo, type| memo.concat(list[type] || []) }
   end
 
   # Instance methods
