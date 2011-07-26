@@ -3,6 +3,7 @@ class DiscoverController < ApplicationController
   end
 
   def more_than_year
+    sort_col = params[:sort].try(:to_sym) || :date2
     @list = Species.includes(:observations).inject([]) do |collection, sp|
       prev = nil
       obs = sp.observations.inject([]) do |memo, ob|
@@ -21,6 +22,6 @@ class DiscoverController < ApplicationController
         )
       end
       collection
-    end.sort { |a, b| b[:date2] <=> a[:date2] }
+    end.sort { |a, b| b[sort_col] <=> a[sort_col] }
   end
 end
