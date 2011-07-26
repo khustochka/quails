@@ -1,0 +1,7 @@
+- @page_title = 'Species seen after more than a year'
+
+%h2= @page_title
+
+%ol
+  - @list.each do |el|
+    %li= el[:text]

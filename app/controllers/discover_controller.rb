@@ -1,9 +1,9 @@
-desc 'Tasks to find out something interesting'
-namespace :discover do
+class DiscoverController < ApplicationController
+  def index
+  end
 
-  desc 'Show species with more than a year between observations'
-  task :more_than_year => :environment do
-    list = Species.includes(:observations).inject([]) do |collection, sp|
+  def more_than_year
+    @list = Species.includes(:observations).inject([]) do |collection, sp|
       prev = nil
       obs = sp.observations.inject([]) do |memo, ob|
         unless prev.nil?
@@ -17,8 +17,6 @@ namespace :discover do
         obs.each { |el| collection.push({:date => el[1], :text => "#{label}:  #{el[0]} - #{el[1]} (#{el[1] - el[0]})"}) }
       end
       collection
-    end
-    list.sort { |a, b| a[:date] <=> b[:date] }.each { |el| puts el[:text] }
+    end.sort { |a, b| a[:date] <=> b[:date] }
   end
-
 end
