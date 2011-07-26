@@ -2,6 +2,15 @@
 
 %h2= @page_title
 
-%ol
+%table.neat_table
+  %th Species
+  %th Last seen
+  %th Seen again
+  %th Days
+
   - @list.each do |el|
-    %li= el[:text]
+    %tr
+      %td= species_link(el[:sp])
+      %td= el[:date1]
+      %td= el[:date2]
+      %td.align-right= el[:days]

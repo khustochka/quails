@@ -12,11 +12,15 @@ class DiscoverController < ApplicationController
         prev = ob
         memo
       end
-      unless obs.empty?
-        label = "#{sp.name_sci} / #{sp.name_ru}"
-        obs.each { |el| collection.push({:date => el[1], :text => "#{label}:  #{el[0]} - #{el[1]} (#{el[1] - el[0]})"}) }
+      obs.each do |el|
+        collection.push(
+                {:sp => sp,
+                 :date1 => el[0],
+                 :date2 => el[1],
+                 :days => el[1] - el[0]}
+        )
       end
       collection
-    end.sort { |a, b| a[:date] <=> b[:date] }
+    end.sort { |a, b| b[:date2] <=> a[:date2] }
   end
 end
