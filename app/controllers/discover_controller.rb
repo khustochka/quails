@@ -9,7 +9,7 @@ class DiscoverController < ApplicationController
 
   def more_than_year
     sort_col = params[:sort].try(:to_sym) || :date2
-    period = params[:period].to_i || 365
+    period = params[:period].try(:to_i) || 365
     @list = Species.includes(:observations).inject([]) do |collection, sp|
       prev = nil
       obs = sp.observations.inject([]) do |memo, ob|
