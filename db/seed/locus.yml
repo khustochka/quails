@@ -808,3 +808,29 @@ locus:
 
     - "50.6"
     - "30.71"
+  - - "62"
+    - borodyanka
+    - "2"
+    - Location
+    - Borodyanka
+    - !binary |
+      0JHQvtGA0L7QtNGP0L3QutCw
+
+    - !binary |
+      0JHQvtGA0L7QtNGP0L3QutCw
+
+    - "50.632"
+    - "29.9"
+  - - "63"
+    - nova_buda
+    - "2"
+    - Location
+    - Nova Buda
+    - !binary |
+      0J3QvtCy0LAg0JHRg9C00LA=
+
+    - !binary |
+      0J3QvtCy0LAg0JHRg9C00LA=
+
+    - "50.67"
+    - "29.748"
