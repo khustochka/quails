@@ -1,9 +1,5 @@
 Quails3::Application.routes.draw do
 
-  get "discover/index"
-
-  get "discover/more_than_year"
-
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -49,9 +45,9 @@ Quails3::Application.routes.draw do
 #  end
 
 
-  # ADMINISTRATIVE PAGES
+# ADMINISTRATIVE PAGES
 
-#  scope 'admin' do
+# scope 'admin' do
   resources :observations do
     collection do
       get 'bulkadd'
@@ -62,12 +58,12 @@ Quails3::Application.routes.draw do
   resources :locus
   resources :species, :only => [:edit, :update]
   resources :images, :except => :show
-  # end
+# end
 
   get 'dashboard' => 'admin#dashboard'
 
   get 'discover' => 'discover#index'
-  get 'discover/more_than_year' => 'discover#more_than_year'
+  get 'discover/more_than_year'
 
   # Sample resource route with options:
   #   resources :products do

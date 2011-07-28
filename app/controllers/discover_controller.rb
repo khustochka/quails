@@ -1,4 +1,9 @@
 class DiscoverController < ApplicationController
+
+  require_http_auth
+
+  layout 'admin'
+
   def index
   end
 
