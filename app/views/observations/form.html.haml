@@ -7,7 +7,7 @@
   .bunch
     = form.association :locus, :label => 'Location:', :collection => Locus.all_ordered, :label_method => :name_en,
         :input_html => {:class => 'suggest-combo'}
-    = form.input :observ_date, :as => :string, :label => 'Date:', :input_html => {:maxlength => 10}
+    = form.input :observ_date, :as => :string, :label => 'Date:', :input_html => {:maxlength => 10, :type => 'date'}
     = form.input :mine, :label => 'Mine'
     - unless blogpost.nil?
       = form.association(:post, :as => :boolean, :label => false)
