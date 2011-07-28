@@ -9,9 +9,9 @@
   = form.input :authority, :label => 'Authority'
   = form.input :name_en, :label => 'English name'
   = form.input :name_ru, :label => 'Russian name'
-  = form.input :name_uk, :label => 'Ukrainian name'
+  = form.input :name_uk, :label => 'Ukrainian name', :wrapper_html => {:class => 'block'}
   = form.input :order, :label => 'Order', :input_html => {:disabled => true}
   = form.input :family, :label => 'Family', :input_html => {:disabled => true}
   = form.input :avibase_id, :label => 'Avibase ID', :input_html => {:disabled => true}
-  = form.input :index_num, :as => :string, :label => 'Index number', :input_html => {:disabled => true}
+  = form.input :index_num, :label => 'Index number', :input_html => {:disabled => true, :size => 10, :type => :text }
   = form.button :submit, :value => 'Save'

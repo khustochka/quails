@@ -53,7 +53,7 @@ SimpleForm.setup do |config|
   config.label_text = lambda { |label, required| "#{label}#{required}" }
 
   # Whether attributes are required by default (or not). Default is true.
-  # config.required_by_default = true
+  config.required_by_default = false
 
   # Custom mappings for input types. This should be a hash containing a regexp
   # to match as key, and the input type that will be used when the field name

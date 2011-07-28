@@ -25,12 +25,12 @@
             :label_method => lambda {|ob| [ob.species.name_sci, ob.observ_date, ob.locus.name_en].join(', ')}, :value_method => :id
       %td.observations_search
         = simple_form_for observ_search, :url => observations_path, :html => {:method => :get} do |form2|
-          = form2.input :observ_date_eq, :label => 'Date:', :required => false, :input_html => {:type => 'date'}
+          = form2.input :observ_date_eq, :label => 'Date:', :input_html => {:type => 'date'}
           = form2.input :locus_id_eq, :label => 'Location:', :collection => Locus.all_ordered, :label_method => :name_en,
-              :required => false, :input_html => {:class => 'suggest-combo'}
+              :input_html => {:class => 'suggest-combo'}
 
 
   = form.input :description
-  = form.input :index_num, :as => :string
+  = form.input :index_num, :input_html => { :size => 10, :type => :text }
 
   = form.button :submit, :value => 'Save'

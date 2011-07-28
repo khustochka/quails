@@ -10,6 +10,6 @@
   = form.input :name_ru, :label => 'Russian name'
   = form.input :name_uk, :label => 'Ukrainian name'
   %br
-  = form.input :lat, :label => 'Lat', :as => :string, :input_html => { :size => 10 }
-  = form.input :lon, :label => 'Lon', :as => :string, :input_html => { :size => 10 }
+  = form.input :lat, :label => 'Lat', :input_html => { :size => 10, :type => :text }
+  = form.input :lon, :label => 'Lon', :input_html => { :size => 10, :type => :text }
   = form.button :submit, :value => 'Save'
