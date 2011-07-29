@@ -5,7 +5,7 @@
   -#%small= post.topic
 
   = post_body(post)
-%p
-  %b Images:
-%p
+- unless post.images.empty?
+  %p
+    %b Images:
   = render :partial => 'images/thumbnail', :collection => post.images
