@@ -1,11 +1,9 @@
-.post-box{:id => "post-#{post.code}", :class => post.status != 'OPEN' ? 'grayout' : nil}
-  %h2.post-title= link_to_unless_current post.title, public_post_path(post)
-
-  %em.post-date= l(post.face_date, :format => :long)
-  -#%small= post.topic
+%article.post-box{:id => "post-#{post.code}", :class => post.status != 'OPEN' ? 'grayout' : nil}
+  %header
+    %h2.post-title= link_to_unless_current post.title, public_post_path(post)
+    %time{:pubdate => 'pubdate'}= l(post.face_date, :format => :long)
+    -#%small= post.topic
 
   = post_body(post)
-- unless post.images.empty?
-  %p
-    %b Images:
-  = render :partial => 'images/thumbnail', :collection => post.images
+  - unless post.images.empty?
+    %section= render :partial => 'images/thumbnail', :collection => post.images
