@@ -1,0 +1,7 @@
+- @page_title = 'Photostream'
+
+%h2= @page_title
+
+= render :partial => 'thumbnail', :collection => @images
+
+= paginate @images

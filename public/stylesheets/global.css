@@ -66,3 +66,6 @@ span.pseudolink {
 
 span.pseudolink:hover {
   cursor: pointer; }
+
+td.thumbnail a img {
+  border: 2px solid #007700; }

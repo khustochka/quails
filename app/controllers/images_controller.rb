@@ -1,8 +1,8 @@
 class ImagesController < ApplicationController
 
-  require_http_auth :except => [:index, :show]
+  require_http_auth :except => [:photostream, :show]
 
-  layout 'admin', :except => [:index, :show]
+  layout 'admin', :except => [:photostream, :show]
 
   use_jquery :only => [:index, :new, :edit, :create, :update]
   javascript JQ_UI_FILE, 'tmpl', 'suggest_over_combo', 'images', :only => [:new, :edit, :create, :update]
@@ -11,14 +11,13 @@ class ImagesController < ApplicationController
   add_finder_by :code, :only => [:show, :edit, :update, :destroy]
 
   # GET /images
-  # GET /images.xml
   def index
-    @images = Image.order('created_at DESC').page(params[:page])
+    @images = Image.page(params[:page])
+  end
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml { render :xml => @images }
-    end
+  # GET /photostream
+  def photostream
+    @images = Image.order('created_at DESC').page(params[:page])
   end
 
   # GET /images/1

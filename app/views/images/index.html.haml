@@ -1,7 +1,21 @@
-- @page_title = 'Photostream'
+- @page_title = 'Listing images'
 
 %h2= @page_title
 
-= render :partial => 'thumbnail', :collection => @images
+%table.neat_table
+  %tr
+    %th
+    %th Code
+    %th Title
+    %th Index
+    %th
+
+  - @images.each do |image|
+    %tr
+      %td.thumbnail= link_to image_tag(jpg_url(image, true)), public_image_path(image)
+      %td= link_to image.code, edit_image_path(image)
+      %td= image.title
+      %td.align-right= image.index_num
+      %td= link_to '[x]', image, :confirm => 'Are you sure?', :method => :delete
 
 = paginate @images
