@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class DiscoverControllerTest < ActionController::TestCase
+class ResearchControllerTest < ActionController::TestCase
     
   context "index action" do
     should "render index template for admin" do

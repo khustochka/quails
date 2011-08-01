@@ -1,4 +1,4 @@
-class DiscoverController < ApplicationController
+class ResearchController < ApplicationController
 
   require_http_auth
 
