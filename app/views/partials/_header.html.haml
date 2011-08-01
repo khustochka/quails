@@ -2,6 +2,6 @@
   %p#site_cap= link_to_unless_current request.host, root_path
 
   %ul#site_menu.horiz-list
-    %li= link_to_unless_current 'Blog', blog_path
-    %li= link_to_unless_current 'Photos', photostream_path
-    %li= link_to_unless_current 'Lifelist', lifelist_path
+    %li= link_to_or_span 'Blog', blog_path
+    %li= link_to_or_span 'Photos', photostream_path {content_tag(:span, 'Blog')}
+    %li= link_to_or_span 'Lifelist', lifelist_path {content_tag(:span, 'Blog')}
