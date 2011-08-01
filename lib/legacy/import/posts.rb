@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 module Legacy
   module Import
     class Posts
@@ -7,8 +9,8 @@ module Legacy
         posts.each do |post|
           Post.create!({
                            :code => post[:post_id],
-                           :title => Legacy::Utils.conv_to_new(post[:post_title]),
-                           :text => Legacy::Utils.conv_to_new(post[:post_text]),
+                           :title => Legacy::Utils.conv_to_new(post[:post_title]).gsub(' - ', ' — '),
+                           :text => Legacy::Utils.conv_to_new(post[:post_text]).gsub(' - ', ' — '),
                            :topic => post[:post_type],
                            :status => post[:post_status],
                            :lj_post_id => post[:lj_post_id].to_i.zero? ? nil :  post[:lj_post_id],

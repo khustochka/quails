@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require 'legacy/mapping'
 
 module Legacy
@@ -16,8 +18,8 @@ module Legacy
         images.each do |im|
           img = Image.new({
                               :code => im[:img_id],
-                              :title => Legacy::Utils.conv_to_new(im[:img_title]),
-                              :description => Legacy::Utils.conv_to_new(im[:img_descr]),
+                              :title => Legacy::Utils.conv_to_new(im[:img_title]).gsub(' - ', ' — '),
+                              :description => Legacy::Utils.conv_to_new(im[:img_descr]).gsub(' - ', ' — '),
                               :created_at => im[:add_date],
                               :index_num => im[:img_sort]
                           })

@@ -46,9 +46,9 @@ production:
   <<: *DEFAULT
   database: quails_production
 
-#legacy:
+legacy:
+  encoding: cp1251
 #  adapter: mysql2
-#  encoding: cp1251
 #  pool: 5
 #  database:
 #  username:
