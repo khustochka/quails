@@ -25,5 +25,3 @@
         %td= %w(en ru uk).map{|lang| "#{lang}: #{locus.send('name_'+lang)}"}.join('<br />').html_safe
         %td.align-center= latlon(locus)
         %td= link_to '[x]', locus, :confirm => 'Are you sure?', :method => :delete
-
-%br

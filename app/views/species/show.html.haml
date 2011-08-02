@@ -36,7 +36,5 @@
   = link_to @species.avibase_id, avibase_species_url(@species.avibase_id)
 
 - unless @species.images.empty?
-  %p
-    %b Images:
+  %h5 Images:
   = render :partial => 'images/thumbnail', :collection => @species.images
-
