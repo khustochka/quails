@@ -28,17 +28,10 @@ class ObservationsController < ApplicationController
   # GET /observations/new
   def new
     @observation = Observation.new({:post_id => params[:post_id]})
-    render :form
-  end
-
-  # GET /observations/bulkadd
-  def bulkadd
-    @observation = Observation.new({:post_id => params[:post_id]})
   end
 
   # GET /observations/1/edit
   def edit
-    render :form
   end
 
   # POST /observations
@@ -52,7 +45,7 @@ class ObservationsController < ApplicationController
     if @observation.save
       redirect_to(@observation, :notice => 'Observation was successfully created.')
     else
-      render :form
+      render :edit
     end
   end
 
@@ -61,7 +54,7 @@ class ObservationsController < ApplicationController
     if @observation.update_attributes(params[:observation])
       redirect_to(edit_observation_path(@observation), :notice => 'Observation was successfully updated.')
     else
-      render :form
+      render :edit
     end
   end
 

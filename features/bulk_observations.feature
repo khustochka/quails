@@ -3,7 +3,7 @@ Feature: Bulk add and edit observations
   @admin @javascript
   Scenario: Bulk add observations form
     Given logged as administrator
-    When I go to observations bulk add page
+    When I go to the new observation page
     Then I should see 0 observation rows
     When I click "Add new row"
     Then I should see 1 observation row
@@ -15,7 +15,7 @@ Feature: Bulk add and edit observations
     Given logged as administrator
     And locus exists with name_en: "Brovary"
     And species exists with name_sci: "Parus caeruleus", family: "Paridae", code: "parcae"
-    When I go to observations bulk add page
+    When I go to the new observation page
     Then I should see 1 observation row
     When I fill in the following:
       | Location | Brovary         |
@@ -30,7 +30,7 @@ Feature: Bulk add and edit observations
     And locus exists with name_en: "Brovary"
     And species exists with name_sci: "Crex crex", family: "Rallidae", code: "crecre"
     And species exists with name_sci: "Falco tinnunculus", family: "Falconidae", code: "faltin"
-    When I go to observations bulk add page
+    When I go to the new observation page
     And I select "Brovary" from "Location" suggestion
     And I fill in the following:
       | Date     | 2011-04-09      |

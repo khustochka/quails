@@ -26,9 +26,6 @@ module NavigationHelpers
       when /^"([^"]*)" edit post page$/i
         edit_post_path(Post.find_by_code!($1))
 
-      when /^observations bulk add page$/i
-        bulkadd_observations_path
-
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #

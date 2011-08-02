@@ -89,4 +89,6 @@ $(function() {
     $('.remove').live('click', function() {
         $(this).parent().remove();
     });
+
+    $('.to-add-row').toggle(true);
 });
