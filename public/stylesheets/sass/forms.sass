@@ -3,24 +3,14 @@
 .block
   display: block !important
 
-form
-  padding: 0
-  margin: 0
-
 label
   display: block
   color: #5555AA
-  font-family: Verdana
-  font-size: 90%
-  margin-bottom: 3px
 
 form.simple_form
-  //border: 1px solid green
   width: 660px
   div.input
-    //border: 1px solid red
     display: inline-block
-    //width: 300px
     vertical-align: top
     margin: 10px
     span.error
@@ -37,8 +27,6 @@ form.simple_form
 
 form.observation
   width: auto
-  input, select
-    font-size: 105%
   div.bunch div.input
     input.string, select
       width: 150px
@@ -56,7 +44,7 @@ form.observation
       border-color: green
   div.obs-row
     margin: 4px 0
-    padding-left: 16px
+    padding-left: 16px // needed for success icon
   div.obs-row.has-id
     background: transparent url('/images/check_alt_16x16.png') no-repeat scroll 5px center
   div.obs-row.save-success
@@ -74,8 +62,6 @@ form.search
   margin-bottom: 10px
   border: 1px solid #4444aa
   background-color: #dde4ff
-  input, select
-    font-size: 105%
   input#search_observ_date_eq
     width: 100px
   div.mine_eq_select
@@ -88,7 +74,6 @@ form.image
   width: auto
 
 table.observations_block
-  border-collapse: collapse
   margin: 10px
   td
     padding: 5px

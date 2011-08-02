@@ -1,168 +1,88 @@
 @import url(formalize.css);
-/* line 3, sass/forms.sass */
 .block {
-  display: block !important;
-}
+  display: block !important; }
 
-/* line 6, sass/forms.sass */
-form {
-  padding: 0;
-  margin: 0;
-}
-
-/* line 10, sass/forms.sass */
 label {
   display: block;
-  color: #5555aa;
-  font-family: Verdana;
-  font-size: 90%;
-  margin-bottom: 3px;
-}
+  color: #5555aa; }
 
-/* line 17, sass/forms.sass */
 form.simple_form {
-  width: 660px;
-}
-/* line 20, sass/forms.sass */
-form.simple_form div.input {
-  display: inline-block;
-  vertical-align: top;
-  margin: 10px;
-}
-/* line 26, sass/forms.sass */
-form.simple_form div.input span.error {
-  color: #aa0000;
-  display: block;
-}
-/* line 29, sass/forms.sass */
-form.simple_form input.string {
-  width: 300px;
-}
-/* line 31, sass/forms.sass */
-form.simple_form textarea {
-  width: 620px;
-}
-/* line 33, sass/forms.sass */
-form.simple_form input.button {
-  display: block;
-  margin: 10px;
-  width: 140px;
-}
+  width: 660px; }
+  form.simple_form div.input {
+    display: inline-block;
+    vertical-align: top;
+    margin: 10px; }
+    form.simple_form div.input span.error {
+      color: #aa0000;
+      display: block; }
+  form.simple_form input.string {
+    width: 300px; }
+  form.simple_form textarea {
+    width: 620px; }
+  form.simple_form input.button {
+    display: block;
+    margin: 10px;
+    width: 140px; }
 
-/* line 38, sass/forms.sass */
 form.observation {
-  width: auto;
-}
-/* line 40, sass/forms.sass */
-form.observation input, form.observation select {
-  font-size: 105%;
-}
-/* line 43, sass/forms.sass */
-form.observation div.bunch div.input input.string, form.observation div.bunch div.input select {
-  width: 150px;
-}
-/* line 45, sass/forms.sass */
-form.observation label.obs_post_label {
-  display: inline-block;
-  margin-top: 10px;
-  margin-left: -10px;
-  font-size: 110%;
-}
-/* line 50, sass/forms.sass */
-form.observation div.to-add-row {
-  padding-left: 8px;
-}
-/* line 52, sass/forms.sass */
-form.observation div.to-add-row label {
-  display: inline-block;
-  color: green;
-}
-/* line 55, sass/forms.sass */
-form.observation div.to-add-row input {
-  border-color: green;
-}
-/* line 57, sass/forms.sass */
-form.observation div.obs-row {
-  margin: 4px 0;
-  padding-left: 16px;
-}
-/* line 60, sass/forms.sass */
-form.observation div.obs-row.has-id {
-  background: transparent url("/images/check_alt_16x16.png") no-repeat scroll 5px center;
-}
-/* line 62, sass/forms.sass */
-form.observation div.obs-row.save-success {
-  background-color: #ccffcc;
-}
-/* line 64, sass/forms.sass */
-form.observation div.obs-row.save-fail {
-  background-color: #ffcccc;
-}
-/* line 66, sass/forms.sass */
-form.observation .error_list {
-  background-color: #ffcccc;
-  border: 1px solid #aa0000;
-  color: #aa0000;
-}
+  width: auto; }
+  form.observation div.bunch div.input input.string, form.observation div.bunch div.input select {
+    width: 150px; }
+  form.observation label.obs_post_label {
+    display: inline-block;
+    margin-top: 10px;
+    margin-left: -10px;
+    font-size: 110%; }
+  form.observation div.to-add-row {
+    padding-left: 8px; }
+    form.observation div.to-add-row label {
+      display: inline-block;
+      color: green; }
+    form.observation div.to-add-row input {
+      border-color: green; }
+  form.observation div.obs-row {
+    margin: 4px 0;
+    padding-left: 16px; }
+  form.observation div.obs-row.has-id {
+    background: transparent url("/images/check_alt_16x16.png") no-repeat scroll 5px center; }
+  form.observation div.obs-row.save-success {
+    background-color: #ccffcc; }
+  form.observation div.obs-row.save-fail {
+    background-color: #ffcccc; }
+  form.observation .error_list {
+    background-color: #ffcccc;
+    border: 1px solid #aa0000;
+    color: #aa0000; }
 
-/* line 71, sass/forms.sass */
 form.search {
   display: inline-block;
   width: auto;
   margin-bottom: 10px;
   border: 1px solid #4444aa;
-  background-color: #dde4ff;
-}
-/* line 77, sass/forms.sass */
-form.search input, form.search select {
-  font-size: 105%;
-}
-/* line 79, sass/forms.sass */
-form.search input#search_observ_date_eq {
-  width: 100px;
-}
-/* line 82, sass/forms.sass */
-form.search div.mine_eq_select span {
-  display: block;
-}
-/* line 84, sass/forms.sass */
-form.search div.mine_eq_select label {
-  display: inline;
-}
+  background-color: #dde4ff; }
+  form.search input#search_observ_date_eq {
+    width: 100px; }
+  form.search div.mine_eq_select span {
+    display: block; }
+  form.search div.mine_eq_select label {
+    display: inline; }
 
-/* line 87, sass/forms.sass */
 form.image {
-  width: auto;
-}
+  width: auto; }
 
-/* line 90, sass/forms.sass */
 table.observations_block {
-  border-collapse: collapse;
-  margin: 10px;
-}
-/* line 93, sass/forms.sass */
-table.observations_block td {
-  padding: 5px;
-  vertical-align: top;
-  border: 1px solid #999999;
-}
-/* line 97, sass/forms.sass */
-table.observations_block td div.input {
-  display: block;
-}
-/* line 99, sass/forms.sass */
-table.observations_block td div.input input, table.observations_block td div.input select {
-  font-size: 105%;
-}
-/* line 102, sass/forms.sass */
-table.observations_block td.observations_list label {
-  display: inline;
-}
-/* line 104, sass/forms.sass */
-table.observations_block td.observations_list div.check_boxes {
-  display: block;
-}
-/* line 106, sass/forms.sass */
-table.observations_block td.observations_list div.check_boxes span {
-  display: block;
-}
+  margin: 10px; }
+  table.observations_block td {
+    padding: 5px;
+    vertical-align: top;
+    border: 1px solid #999999; }
+    table.observations_block td div.input {
+      display: block; }
+      table.observations_block td div.input input, table.observations_block td div.input select {
+        font-size: 105%; }
+  table.observations_block td.observations_list label {
+    display: inline; }
+  table.observations_block td.observations_list div.check_boxes {
+    display: block; }
+    table.observations_block td.observations_list div.check_boxes span {
+      display: block; }
