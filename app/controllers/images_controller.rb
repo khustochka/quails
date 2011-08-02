@@ -4,10 +4,6 @@ class ImagesController < ApplicationController
 
   layout 'admin', :except => [:photostream, :show]
 
-  use_jquery :only => [:index, :new, :edit, :create, :update]
-  javascript JQ_UI_FILE, 'tmpl', 'suggest_over_combo', 'images', :only => [:new, :edit, :create, :update]
-  stylesheet 'autocomplete', :only => [:new, :edit, :create, :update]
-
   add_finder_by :code, :only => [:show, :edit, :update, :destroy]
 
   # GET /images

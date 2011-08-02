@@ -4,8 +4,6 @@ class PostsController < ApplicationController
 
   layout 'admin', :except => [:index, :year, :month, :show]
 
-  use_jquery :only => :edit
-
   before_filter :find_post, :only => [:edit, :update, :destroy, :show]
 
   POSTS_ON_FRONT_PAGE = 10

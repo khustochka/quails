@@ -9,13 +9,4 @@ module ApplicationHelper
       content_tag(:span, name, html_options)
     end
   end
-
-  def include_stylesheets
-    stylesheet_link_tag @stylesheets.uniq
-  end
-
-  def include_scripts
-    @scripts = [JQUERY_URL, 'rails'] + @scripts if @jquery
-    javascript_include_tag @scripts.uniq
-  end
 end

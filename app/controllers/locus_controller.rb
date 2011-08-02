@@ -4,8 +4,6 @@ class LocusController < ApplicationController
 
   layout 'admin'
 
-  use_jquery :only => :index
-
   add_finder_by :code, :only => [:show, :edit, :update, :destroy]
 
   # GET /locus

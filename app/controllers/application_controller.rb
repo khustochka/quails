@@ -1,4 +1,4 @@
-%w(assets layout locale security model_finder_for public_path).each do |file|
+%w( layout locale security model_finder_for public_path ).each do |file|
   require "mixins/#{file}_controller"
 end
 
@@ -8,7 +8,6 @@ class ApplicationController < ActionController::Base
 
 #  include LocaleController
   include SecurityController
-  include AssetsController
   include LayoutController
   include PublicPathController
 
@@ -17,9 +16,6 @@ class ApplicationController < ActionController::Base
   helper_method :page_title
 
   layout 'public'
-
-  stylesheet 'global', 'public'
-  stylesheet 'forms', :only => [:new, :edit, :create, :update]
 
 # TODO: Default redirect status should be 301 for public pages, 302 left for administrative
 #  def redirect_to(options = {}, response_status = {})
