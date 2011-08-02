@@ -1,12 +1,46 @@
 body
-  background-color: #fff
-  color: #333
-  font-size: 90%
-  font-family: verdana, arial, helvetica, sans-serif
+  background-color: #ffffff
+  color: #333333
 
+// Reusable
 
-#header
-  background-color: #D0E0FF
+@mixin default-margin
+  margin-left: 10px
+  margin-right: 10px
+
+.default-container
+  @include default-margin
+
+ul.horiz-list
+  list-style-type: none
+  li
+    display: inline-block
+
+.grayout
+  background-color: #dddddd
+
+span.pseudolink
+  text-decoration: underline
+  color: blue
+span.pseudolink:hover
+  cursor: pointer
+
+// Neat table
+
+table.neat_table
+  border-top: 1px solid #ddd
+
+  td, th
+    padding: 2px 12px
+
+  tr
+    border-bottom: 1px solid #ddd
+
+  th
+    background-color: #f5f5f5
+    text-align: left
+
+// TODO: refactor?
 
 .align-right
   text-align: right !important
@@ -21,66 +55,36 @@ td.nowrap
   white-space: nowrap
 
 
-table.neat_table
-  border-collapse: collapse
-  border-top: 1px solid #ddd
+// Specific
 
-  td, th
-    padding: 2px 12px
+#main
+  margin-left: 50px !important
+  padding-bottom: 20px
 
-  tr
-    border-bottom: 1px solid #ddd
+#header
+  margin-bottom: 20px
+  padding: 10px
+  background-color: #D0E0FF
 
-  th
-    background-color: #f5f5f5
-    text-align: left
+#header ul
+  margin-left: 40px
+  margin-bottom: 0
+  display: inline-block
 
-table.obs_list
-  font-size: 85%
-
-table.admin_panel
-  border-collapse: collapse
-  width: 100%
-  background-color: #ffcc88
-  
-  td
-    border: 2px dotted #bb8855
-    padding: 5px 5px
-
-  h5, h6
-    display: inline
-    padding: 0 3px
-
-  h5
-    font-size: 110%
-
-  h6
-    font-size: 90%
-
-.horiz-list
-  padding: 0
-
+#admin_menu, #site_menu
   li
-    display: inline
-    list-style-type: none
-    padding: 0 1em
+    margin: 0
+    margin-right: 5px
+    span, a
+      border: 1px solid #cacaca
+      padding: 5px 10px
 
-.filter-list
-  li
-    padding: 0 2px
-    background-color: #EBEBCF
+#site_menu li
+  font-size: 14px
 
-#years-filter
-  padding-left: 0
-  li
-    margin: 0 5px
-
-span.pseudolink
-  text-decoration: underline
-  color: blue
-span.pseudolink:hover
-  cursor: pointer
-
-// consider moving to separate admin.css
-td.thumbnail a img
-  border: 2px solid #007700
+#footer
+  @include default-margin
+  border-top: 1px solid #555555
+  padding: 10px 2px
+  p
+    margin-bottom: 5px
