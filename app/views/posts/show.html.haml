@@ -1,5 +1,7 @@
 - @page_title = @post.title
 
+= render 'admin/shortcuts' if admin_session?
+
 = render @post
 
 - unless @post.species.blank?

@@ -2,6 +2,8 @@
 
 %h2= @species.name_sci
 
+= render 'admin/shortcuts' if admin_session?
+
 %p
   %b Code:
   = @species.code

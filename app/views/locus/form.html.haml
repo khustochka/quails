@@ -4,6 +4,8 @@
 
 %h2= @page_title
 
+= render 'admin/shortcuts' if admin_session?
+
 = simple_form_for @locus do |form|
   = form.input :code, :label => 'Code'
   = form.association :parent, :label => 'Parent', :label_method => :name_en, :collection => (Locus.all_ordered - [@locus])

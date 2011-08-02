@@ -4,6 +4,8 @@
 
 - observ_search = @image.search_applicable_observations
 
+= render 'admin/shortcuts' if admin_session?
+
 = simple_form_for @image do |form|
 
   -if @image.errors.any?

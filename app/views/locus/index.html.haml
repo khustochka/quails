@@ -4,6 +4,8 @@
 
 %h2 Listing locations
 
+= render 'admin/shortcuts' if admin_session?
+
 %table.neat_table
   %tr
     %th Code

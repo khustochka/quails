@@ -4,4 +4,6 @@
 
 %h2= @page_title
 
+= render 'admin/shortcuts' if admin_session?
+
 %p= image_tag(jpg_url(@image, false))

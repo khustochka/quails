@@ -1,3 +1,5 @@
+- @admin_menu = render 'admin/menu' if admin_session?
+
 #header
   %p#site_cap= link_to_unless_current request.host, root_path
 
@@ -5,3 +7,5 @@
     %li= link_to_or_span 'Blog', blog_path
     %li= link_to_or_span 'Photos', photostream_path {content_tag(:span, 'Blog')}
     %li= link_to_or_span 'Lifelist', lifelist_path {content_tag(:span, 'Blog')}
+
+  = @admin_menu if admin_session?

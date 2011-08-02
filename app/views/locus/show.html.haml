@@ -2,6 +2,8 @@
 
 %h2= @locus.code
 
+= render 'admin/shortcuts' if admin_session?
+
 %p
   %b Type:
   = @locus.loc_type
