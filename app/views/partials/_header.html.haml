@@ -5,7 +5,7 @@
 
   %ul#site_menu.horiz-list
     %li= link_to_or_span 'Blog', blog_path
-    %li= link_to_or_span 'Photos', photostream_path {content_tag(:span, 'Blog')}
-    %li= link_to_or_span 'Lifelist', lifelist_path {content_tag(:span, 'Blog')}
+    %li= link_to_or_span 'Photos', photostream_path
+    %li= link_to_or_span 'Lifelist', lifelist_path
 
   = @admin_menu if admin_session?
