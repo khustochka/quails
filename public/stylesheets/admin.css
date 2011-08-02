@@ -1,7 +1,11 @@
 body {
   background-color: white;
   color: #333333;
-  font-size: 90%; }
+  font-size: 90%;
+  font-family: verdana, arial, helvetica, sans-serif; }
+
+#header {
+  background-color: #d0e0ff; }
 
 .align-right {
   text-align: right !important; }
