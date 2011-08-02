@@ -20,6 +20,7 @@
     -# link tags
     -# stylesheets
     - stylesheet 'public'
+    - stylesheet 'admin_addon' if admin_session?
     = include_stylesheets
 
     -# enable HTML5 in IE

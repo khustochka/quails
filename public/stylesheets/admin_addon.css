@@ -1,0 +1,6 @@
+#admin_menu li {
+  margin: 0;
+  margin-right: 5px; }
+  #admin_menu li span, #admin_menu li a {
+    border: 1px solid #cacaca;
+    padding: 5px 10px; }

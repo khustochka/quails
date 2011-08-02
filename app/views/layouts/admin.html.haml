@@ -18,6 +18,11 @@
     - stylesheet 'admin'
     = include_stylesheets
 
+    -# enable HTML5 in IE
+    <!--[if lt IE 9]>
+    = javascript_include_tag 'html5'
+    <![endif]-->
+
     -# scripts
     = include_scripts
 

@@ -179,10 +179,10 @@ td.nowrap {
   margin-bottom: 0;
   display: inline-block; }
 
-#admin_menu li, #site_menu li {
+#site_menu li {
   margin: 0;
   margin-right: 5px; }
-  #admin_menu li span, #admin_menu li a, #site_menu li span, #site_menu li a {
+  #site_menu li span, #site_menu li a {
     border: 1px solid #cacaca;
     padding: 5px 10px; }
 
@@ -196,6 +196,13 @@ td.nowrap {
   padding: 10px 2px; }
   #footer p {
     margin-bottom: 5px; }
+
+#admin_menu li {
+  margin: 0;
+  margin-right: 5px; }
+  #admin_menu li span, #admin_menu li a {
+    border: 1px solid #cacaca;
+    padding: 5px 10px; }
 
 td.thumbnail a img {
   border: 2px solid #007700; }
