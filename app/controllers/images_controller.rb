@@ -13,7 +13,7 @@ class ImagesController < ApplicationController
 
   # GET /photostream
   def photostream
-    @images = Image.order('created_at DESC').page(params[:page])
+    @images = Image.order('created_at DESC').page(params[:page]).per(20)
   end
 
   # GET /images/1

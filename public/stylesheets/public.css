@@ -197,6 +197,13 @@ td.nowrap {
   #footer p {
     margin-bottom: 5px; }
 
+.pagination span {
+  display: inline-block;
+  font-size: 14px;
+  border: 1px solid #cccccc;
+  padding: 3px 8px;
+  margin-right: 3px; }
+
 #main {
   margin-left: 10px;
   margin-right: 10px; }
