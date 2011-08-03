@@ -4,6 +4,8 @@ class Locus < ActiveRecord::Base
 
   validates :code, :format => /^[a-z_]+$/i, :uniqueness => true, :presence => true, :length => { :maximum => 32 }
   validates :loc_type, :inclusion => TYPES, :presence => true, :length => { :maximum => 8 }
+  validates :name_en, :name_ru, :name_uk, :uniqueness => true
+
 
   belongs_to :parent, :class_name => 'Locus'
   has_many :children, :class_name => 'Locus', :foreign_key => 'parent_id', :dependent => :restrict
