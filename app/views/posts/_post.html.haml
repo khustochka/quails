@@ -4,6 +4,6 @@
     %time{:pubdate => 'pubdate'}= l(post.face_date, :format => :long)
     -#%small= post.topic
 
-  = post_body(post)
+  = wiki_filter(post)
   - unless post.images.empty?
     %section= render :partial => 'images/thumbnail', :collection => post.images

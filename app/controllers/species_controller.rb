@@ -34,10 +34,6 @@ class SpeciesController < ApplicationController
 
   private
   def find_species
-    @species = Species.find_by_name_sci!(latin_url_humanize(params[:id]))
-  end
-
-  def latin_url_humanize(sp_url)
-    sp_url.gsub(/_|\+/, ' ').gsub(/ +/, ' ').capitalize
+    @species = Species.find_by_name_sci!(helpers.latin_url_humanize(params[:id]))
   end
 end
