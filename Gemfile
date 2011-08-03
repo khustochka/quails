@@ -36,7 +36,7 @@ group :test do
   gem 'ruby-prof', :platforms => :ruby, :require => nil
   gem 'shoulda'
   gem 'factory_girl_rails'
-  gem 'capybara'
+  gem 'capybara', :git => 'https://github.com/jnicklas/capybara.git', :ref => 'e9efc8042bd1f9e414df'
   gem 'database_cleaner'
   gem 'cucumber-rails'
   gem 'cucumber'
