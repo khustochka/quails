@@ -12,13 +12,13 @@
     %th Names
     %th.align-right Avibase id
     
-  - extract_families(@species).each do |fam|
+  - extract_families(@species).each do |fam, species_list|
     %tr
       %td
       %td
       %td{:colspan => 5}
-        %h3= "#{fam[:order].upcase}: #{fam[:name]}"
-    - fam[:species].each do |species|
+        %h3= "#{fam[:order].upcase}: #{fam[:family]}"
+    - species_list.each do |species|
       %tr
         %td.align-right= species.index_num
         %td.align-center= species.code

@@ -20,9 +20,9 @@ class LocusTest < ActiveSupport::TestCase
 
   should 'properly find all subregions' do
     loc          = Locus.find_by_code!('ukraine')
-    actual       = loc.get_subregions.map { |l| l.id }.sort
-    expected     = Locus.where(:code => ['ukraine', 'kiev_obl', 'kherson_obl', 'kherson', 'chernihiv']).map { |l| l.id }.sort
-    not_expected = Locus.where(:code => ['usa', 'new_york', 'brooklyn', 'hoboken']).map { |l| l.id }.sort
+    actual       = loc.get_subregions.map(&:id).sort
+    expected     = Locus.where(:code => ['ukraine', 'kiev_obl', 'kherson_obl', 'kherson', 'chernihiv']).map(&:id).sort
+    not_expected = Locus.where(:code => ['usa', 'new_york', 'brooklyn', 'hoboken']).map(&:id).sort
     assert_equal [], expected - actual, 'Some expected values are not included'
     assert_equal [], not_expected & actual, 'Some unexpected values are included'
   end

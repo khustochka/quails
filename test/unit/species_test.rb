@@ -35,8 +35,8 @@ class SpeciesTest < ActiveSupport::TestCase
   end
 
   should 'be reordered alphabetically' do
-    expected = Species.all.map { |sp| sp.name_sci }.sort
-    got      = Species.alphabetic.map { |sp| sp.name_sci }
+    expected = Species.all.map(&:name_sci).sort
+    got      = Species.alphabetic.map(&:name_sci)
     assert_equal expected, got
   end
 
@@ -56,7 +56,7 @@ class SpeciesTest < ActiveSupport::TestCase
     Factory.create(:observation, :species => Species.find_by_code!('anapla'), :observ_date => "2009-06-18")
     Factory.create(:observation, :species => Species.find_by_code!('anacly'), :observ_date => "2007-07-18")
     Factory.create(:observation, :species => Species.find_by_code!('embcit'), :observ_date => "2009-08-09")
-    got      = Species.lifelist.map { |sp| sp.first_date }
+    got      = Species.lifelist.map(&:first_date)
     expected = got.sort.reverse
     assert_equal expected, got
   end

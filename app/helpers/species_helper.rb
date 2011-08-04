@@ -17,15 +17,7 @@ module SpeciesHelper
   end
 
   def extract_families(species)
-    species.inject([]) do |memo, sp|
-      last = memo.last
-      if last.nil? || last[:name] != sp.family
-        memo.push({:name => sp.family, :order => sp.order, :species => [sp]})
-      else
-        last[:species].push(sp)
-      end
-      memo
-    end
+    species.group_by {|sp| {:order => sp.order, :family => sp.family} }
   end
 
 end

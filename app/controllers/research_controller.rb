@@ -19,12 +19,12 @@ class ResearchController < ApplicationController
         prev = ob
         memo
       end
-      obs.each do |el|
+      obs.each do |date1, date2|
         collection.push(
                 {:sp => sp,
-                 :date1 => el[0],
-                 :date2 => el[1],
-                 :days => el[1] - el[0]}
+                 :date1 => date1,
+                 :date2 => date2,
+                 :days => date2 - date1}
         )
       end
       collection
