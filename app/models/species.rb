@@ -38,16 +38,9 @@ class Species < ActiveRecord::Base
             #TODO: implement correct processing of incorrect query parameters
             # raise 'Incorrect option'
         end
-    select('obs.*, name_sci, name_ru, name_en, name_uk, index_num, family, "order"').reorder(sort_option).\
-        joins("INNER JOIN (#{Observation.lifers_observations(options).to_sql}) AS obs ON species.id=obs.main_species").\
-        all.inject([]) do |memo, sp|
-          last = memo.last
-          if last.nil? || last.main_species != sp.main_species
-            memo.push(sp)
-          else
-            memo
-          end
-    end
+    select('obs.*, name_sci, name_ru, name_en, name_uk, index_num, family, "order"').reorder(sort_option).
+        joins("INNER JOIN (#{Observation.lifers_observations(options).to_sql}) AS obs ON species.id=obs.main_species").
+        all.group_by(&:main_species).map {|k, v| v.first }
   end
 
   # Associations

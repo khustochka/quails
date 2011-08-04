@@ -3,17 +3,24 @@ task :test_bm => :environment do
   require 'benchmark'
   require 'test/unit'
 
-  list = Locus.list_order.group_by(&:loc_type)
+  list = Species.lifelist
 
-  n = 1000
+  n = 500
   Benchmark.bmbm do |x|
 
     x.report('1st') { n.times {
-      Locus::TYPES.reverse.map { |type| list[type] }.compact.flatten
+      list.inject([]) do |memo, sp|
+          last = memo.last
+          if last.nil? || last.main_species != sp.main_species
+            memo.push(sp)
+          else
+            memo
+          end
+      end
     } }
 
     x.report('2nd') { n.times {
-      Locus::TYPES.reverse.inject([]) {|memo, type| memo.concat(list[type] || []) }
+      list.group_by(&:main_species).map {|k, v| v.first }
     } }
   end
 end
