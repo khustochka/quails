@@ -65,7 +65,10 @@ GEM
       factory_girl (~> 2.0.0)
       railties (>= 3.0.0)
     ffi (1.0.9)
+    ffi (1.0.9-x86-mingw32)
     gherkin (2.4.5)
+      json (>= 1.4.6)
+    gherkin (2.4.5-x86-mingw32)
       json (>= 1.4.6)
     haml (3.1.2)
     haml-rails (0.3.4)
@@ -94,7 +97,9 @@ GEM
     mime-types (1.16)
     mysql2 (0.2.11)
     nokogiri (1.5.0)
+    nokogiri (1.5.0-x86-mingw32)
     pg (0.11.0)
+    pg (0.11.0-x86-mingw32)
     pickle (0.4.8)
       cucumber (>= 0.8)
       rake
@@ -160,6 +165,7 @@ GEM
 
 PLATFORMS
   ruby
+  x86-mingw32
 
 DEPENDENCIES
   activerecord-jdbcpostgresql-adapter
