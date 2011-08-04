@@ -63,7 +63,7 @@ Quails3::Application.routes.draw do
   get 'dashboard' => 'admin#dashboard'
 
   get 'research' => 'research#index'
-  get 'research/more_than_year'
+  get 'research/:action', :controller => :research
 
   # Sample resource route with options:
   #   resources :products do
