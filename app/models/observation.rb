@@ -37,10 +37,10 @@ SQL
   end
 
   def self.lifers_observations(*args)
-    select('dates.*, ob1.post_id AS first_post, ob2.post_id AS last_post').\
-      from("(#{lifers_dates(*args).to_sql}) AS dates").\
-      joins("INNER JOIN (#{Observation.mine.to_sql}) AS ob1 ON main_species=ob1.species_id AND first_date=ob1.observ_date").\
-      joins("INNER JOIN (#{Observation.mine.to_sql}) AS ob2 ON main_species=ob2.species_id AND last_date=ob2.observ_date")
+    select('dates.*, ob1.post_id AS first_post, ob2.post_id AS last_post').
+        from("(#{lifers_dates(*args).to_sql}) AS dates").
+        joins("INNER JOIN (#{Observation.mine.to_sql}) AS ob1 ON main_species=ob1.species_id AND first_date=ob1.observ_date").
+        joins("INNER JOIN (#{Observation.mine.to_sql}) AS ob2 ON main_species=ob2.species_id AND last_date=ob2.observ_date")
   end
 
 end
