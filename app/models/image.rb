@@ -21,6 +21,10 @@ class Image < ActiveRecord::Base
     observations.map(&:post).uniq.compact.first
   end
 
+  def observ_date
+    observations.first.observ_date
+  end
+
   # Instance methods
 
   def to_url_params

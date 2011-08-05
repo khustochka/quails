@@ -18,6 +18,7 @@ gem 'meta_search'
 gem 'simple_form'
 gem 'yaml_db'
 gem 'hashie'
+gem 'flickraw'
 
 group :development do
   gem 'rails3-generators'

@@ -62,6 +62,8 @@ Quails3::Application.routes.draw do
 
   get 'dashboard' => 'admin#dashboard'
 
+  get 'flickr' => 'flickr#search'
+
   get 'research' => 'research#index'
   get 'research/:action', :controller => :research
 

@@ -1,0 +1,24 @@
+- @page_title = 'Flickr tasks'
+
+%h2= @page_title
+
+%table.neat_table
+  %tr
+    %th
+    %th Code
+    %th Title
+    %th Date
+    %th Flickr
+
+  - @images.each do |image|
+    %tr
+      %td.thumbnail= link_to image_tag(jpg_url(image, true)), public_image_path(image)
+      %td= link_to image.code, edit_image_path(image)
+      %td= image.title
+      %td= image.observ_date
+      %td
+        - @flickr_imgs[image.id].each do |img|
+          %a{:href => FlickRaw.url_photopage(img)}
+            %img{:src => FlickRaw.url_t(img) }
+
+= paginate @images
