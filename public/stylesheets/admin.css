@@ -165,6 +165,18 @@ table.neat_table {
 td.nowrap {
   white-space: nowrap; }
 
+.filter-list li {
+  padding: 0 2px;
+  background-color: #ebebcf; }
+
+#years-filter {
+  padding-left: 0; }
+  #years-filter li {
+    margin: 0 5px; }
+
+.lifer_date {
+  text-align: right; }
+
 #main {
   margin-left: 50px !important;
   padding-bottom: 20px; }
