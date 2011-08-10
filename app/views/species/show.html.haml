@@ -1,6 +1,6 @@
 - @page_title = "#{@species.name_sci} / #{@species.name_en}"
 
-%h2= @species.name_sci
+%h2= name_sci(@species)
 
 = render 'admin/shortcuts' if admin_session?
 
