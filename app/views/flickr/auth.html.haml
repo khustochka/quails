@@ -1,0 +1,12 @@
+- @page_title = 'Flickr auth'
+
+%h2= @page_title
+
+- if @auth_token.present?
+  %p Your auth token is the following:
+  %h4= @auth_token
+
+-if @auth_url
+  %p To authenticate please follow the auth URL:
+  %h4= link_to('Authenticate', @auth_url)
+  %p And then go back to this page.
