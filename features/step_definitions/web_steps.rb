@@ -24,22 +24,19 @@ require 'cgi'
 require File.expand_path(File.join(File.dirname(__FILE__), "..", "support", "paths"))
 require File.expand_path(File.join(File.dirname(__FILE__), "..", "support", "selectors"))
 
-TEST_CREDENTIALS = Hashie::Mash.new YAML::load_file('config/security.yml')['test']
+TEST_CREDENTIALS = Hashie::Mash.new YAML::load_file('config/security_devtest.yml')['test']
 
 Given /^logged as administrator$/ do
-  if page.driver.respond_to?(:basic_auth)
-    page.driver.basic_auth(TEST_CREDENTIALS.username, TEST_CREDENTIALS.password_plain)
-  elsif page.driver.respond_to?(:basic_authorize)
-    page.driver.basic_authorize(TEST_CREDENTIALS.username, TEST_CREDENTIALS.password_plain)
-  elsif page.driver.respond_to?(:browser) && page.driver.browser.respond_to?(:basic_authorize)
+  if page.driver.try(:browser).respond_to?(:basic_authorize)
     page.driver.browser.basic_authorize(TEST_CREDENTIALS.username, TEST_CREDENTIALS.password_plain)
+    # To set cookies
+    visit '/dashboard'
   else
+    visit '/'
     # FIXME for this to work you need to add pref("network.http.phishy-userpass-length", 255); to /Applications/Firefox.app/Contents/MacOS/defaults/pref/firefox.js
     page.driver.visit('/')
     page.driver.visit("http://#{TEST_CREDENTIALS.username}:#{TEST_CREDENTIALS.password_plain}@#{page.driver.current_url.gsub(/^http\:\/\//, '')}/dashboard")
   end
-    # To set cookie:
-  When 'I go to the dashboard'
 end
 
 module WithinHelpers
