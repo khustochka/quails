@@ -1,0 +1,11 @@
+# use SHA1 encoded password for development and production
+production:
+  username: <%= ENV['username'] %>
+  password: <%= ENV['password'] %>
+  admin_session_ask: <%= ENV['admin_session_ask'] %>
+  admin_session_reply: <%= ENV['admin_session_reply'] %>
+  images_host: <%= ENV['images_host'] %>
+  flickr:
+    api_key: <%= ENV['flickr_api_key'] %>
+    shared_secret: <%= ENV['flickr_secret'] %>
+    auth_token: <%= ENV['flickr_token'] %>

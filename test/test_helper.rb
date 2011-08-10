@@ -11,7 +11,7 @@ class ActiveSupport::TestCase
 
   delegate :public_post_path, :public_image_path, :to => :@controller
 
-  TEST_CREDENTIALS = Hashie::Mash.new YAML::load_file('config/security.yml')['test']
+  TEST_CREDENTIALS = Hashie::Mash.new YAML::load_file('config/security_devtest.yml')['test']
 
   def login_as_admin
     CredentialsVerifier.set_cookie(@controller)
