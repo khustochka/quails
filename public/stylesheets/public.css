@@ -166,13 +166,9 @@ td.nowrap {
   white-space: nowrap; }
 
 .filter-list li {
-  padding: 0 2px;
+  margin: 0 5px;
+  padding: 0 4px;
   background-color: #ebebcf; }
-
-#years-filter {
-  padding-left: 0; }
-  #years-filter li {
-    margin: 0 5px; }
 
 .lifer_date {
   text-align: right; }
@@ -240,3 +236,7 @@ div.imageholder {
   div.imageholder a img {
     vertical-align: text-top;
     border: 2px solid #007700; }
+
+.lifer_row span {
+  display: inline-block;
+  width: 400px; }

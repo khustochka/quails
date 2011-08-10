@@ -17,7 +17,7 @@ class Species < ActiveRecord::Base
 
   default_scope order(:index_num)
 
-  scope :identified, where('id != 9999')
+  scope :identified, where('species.id != 9999')
 
   def self.alphabetic
     reorder(:name_sci)
