@@ -27,4 +27,16 @@ class ObservationTest < ActiveSupport::TestCase
     assert_equal obs.observ_date.to_s, got.first.first_date
   end
 
+  should 'not be destroyed if having associated images' do
+    observation = Factory.create(:observation)
+    img = Factory.build(:image, :code => 'picture-of-the-shrike')
+    img.observations << observation
+    img.save
+    assert_raises(ActiveRecord::DeleteRestrictionError) do
+      observation.destroy
+    end
+    assert observation.reload
+    assert_equal [img], observation.images
+  end
+
 end
