@@ -60,7 +60,7 @@ Quails3::Application.routes.draw do
   resources :images, :except => :show
 # end
 
-  get 'dashboard' => 'admin#dashboard'
+  get 'login' => 'admin#login'
 
   get 'flickr' => 'flickr#search'
   get 'flickr/auth' => 'flickr#auth'

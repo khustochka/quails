@@ -4,7 +4,8 @@ class AdminController < ApplicationController
 
   layout 'admin'
 
-  def dashboard
+  def login
+    redirect_to root_path
   end
 
 end

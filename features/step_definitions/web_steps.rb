@@ -30,10 +30,10 @@ Given /^logged as administrator$/ do
   if page.driver.try(:browser).respond_to?(:basic_authorize)
     page.driver.browser.basic_authorize(TEST_CREDENTIALS.username, TEST_CREDENTIALS.password_plain)
     # To set cookies
-    visit '/dashboard'
+    visit '/login'
   else
     # FIXME for this to work you need to add pref("network.http.phishy-userpass-length", 255); to /Applications/Firefox.app/Contents/MacOS/defaults/pref/firefox.js
-    str = "http://%s:%s@%s:%s/dashboard"
+    str = "http://%s:%s@%s:%s/login"
     visit str % [TEST_CREDENTIALS.username, TEST_CREDENTIALS.password_plain, page.driver.rack_server.host, page.driver.rack_server.port]
   end
 end
