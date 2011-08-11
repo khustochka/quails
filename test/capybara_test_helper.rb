@@ -10,9 +10,9 @@ class CapybaraTestCase < ActionDispatch::IntegrationTest
       # To set cookies
       visit '/dashboard'
     else
-      # FIXME for this to work you need to add pref("network.http.phishy-userpass-length", 255); to /Applications/Firefox.app/Contents/MacOS/defaults/pref/firefox.js
-      page.driver.visit('/')
-      page.driver.visit("http://#{TEST_CREDENTIALS.username}:#{TEST_CREDENTIALS.password_plain}@#{page.driver.current_url.gsub(/^http\:\/\//, '')}/dashboard")
+    # FIXME for this to work you need to add pref("network.http.phishy-userpass-length", 255); to /Applications/Firefox.app/Contents/MacOS/defaults/pref/firefox.js
+    str = "http://%s:%s@%s:%s/dashboard"
+    visit str % [TEST_CREDENTIALS.username, TEST_CREDENTIALS.password_plain, page.driver.rack_server.host, page.driver.rack_server.port]
     end
   end
 end
