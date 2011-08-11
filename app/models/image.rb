@@ -5,6 +5,8 @@ class Image < ActiveRecord::Base
 
   has_and_belongs_to_many :observations, :include => [:species, :post]
 
+  delegate :observ_date, :post, :locus, :to => :first_observation
+
   # Parameters
 
   def to_param
@@ -15,14 +17,6 @@ class Image < ActiveRecord::Base
 
   def species
     observations.map(&:species).flatten
-  end
-
-  def post
-    observations.map(&:post).uniq.compact.first
-  end
-
-  def observ_date
-    observations.first.observ_date
   end
 
   # Instance methods
@@ -42,4 +36,9 @@ class Image < ActiveRecord::Base
       false
     end
   end
+
+  def first_observation
+    observations[0]
+  end
+
 end
