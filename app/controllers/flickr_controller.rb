@@ -4,26 +4,23 @@ class FlickrController < ApplicationController
 
   layout 'admin'
 
+  before_filter :except => :auth do
+    redirect_to :action => :auth if FlickRawOptions['auth_token'].blank?
+  end
+
   def search
 
-    if FlickRawOptions['auth_token'].blank?
-      redirect_to :action => :auth
+    @images = Image.preload(:observations).page(params[:page]).per(10)
 
-    else
-
-      @images = Image.preload(:observations).page(params[:page]).per(10)
-
-      @flickr_imgs = @images.inject({}) do |memo, img|
-        memo.merge(
-            img.id => flickr.photos.search(:user_id => '8289389@N04',
-                                           :extras => 'original_format,date_taken',
-                                           :text => img.species[0].name_sci,
-                                           :min_taken_date => img.observ_date - 1,
-                                           :max_taken_date => img.observ_date + 1
-            )
-        )
-      end
-
+    @flickr_imgs = @images.inject({}) do |memo, img|
+      memo.merge(
+          img.id => flickr.photos.search(:user_id => '8289389@N04',
+                                         :extras => 'original_format,date_taken',
+                                         :text => img.species[0].name_sci,
+                                         :min_taken_date => img.observ_date - 1,
+                                         :max_taken_date => img.observ_date + 1
+          )
+      )
     end
 
   end
