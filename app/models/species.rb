@@ -23,7 +23,7 @@ class Species < ActiveRecord::Base
     reorder(:name_sci)
   end
 
-  def self.lifelist(*args)
+  def self.old_lifelist(*args)
     options     = args.extract_options!
     sort_option =
         case options.delete(:sort)
@@ -41,7 +41,7 @@ class Species < ActiveRecord::Base
             # raise 'Incorrect option'
         end
     select('obs.*, name_sci, name_ru, name_en, name_uk, index_num, family, "order"').reorder(sort_option).
-        joins("INNER JOIN (#{Observation.lifers_observations(options).to_sql}) AS obs ON species.id=obs.main_species").
+        joins("INNER JOIN (#{Observation.old_lifers_observations(options).to_sql}) AS obs ON species.id=obs.main_species").
         all.group_by(&:main_species).map {|k, v| v.first }
   end
 

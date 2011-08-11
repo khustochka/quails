@@ -15,8 +15,9 @@
     %li= link_to_unless_current('Count', params.merge(:sort => 'count'))
     %li= link_to_unless_current('Classification', params.merge(:sort => 'class'))
 
-  - sp_row = Proc.new do |i, sp|
-    - date = l(Date.parse(sp.aggr_value), :format => :long)
+  - sp_row = Proc.new do |i, ob|
+    - sp = ob.species
+    - date = l(Date.parse(ob.aggr_value), :format => :long)
     -#- first_post = @posts[sp.first_post]
     -#- last_post = @posts[sp.last_post]
     %li.lifer_row{:value => i}
