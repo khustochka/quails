@@ -237,6 +237,12 @@ div.imageholder {
     vertical-align: text-top;
     border: 2px solid #007700; }
 
+.lifer_row span, .lifer_row time {
+  margin: 0 5px;
+  display: inline-block; }
 .lifer_row span {
-  display: inline-block;
-  width: 400px; }
+  width: 380px; }
+.lifer_row time {
+  width: 140px;
+  text-align: right;
+  font-style: italic; }

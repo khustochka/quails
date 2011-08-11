@@ -23,7 +23,7 @@
       %span
         = species_link(sp)
         = name_sci(sp)
-      = date
+      %time= date
     - i += increment
       
   - if params[:sort] == 'class'
