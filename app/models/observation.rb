@@ -27,8 +27,22 @@ class Observation < ActiveRecord::Base
   end
 
   def self.lifelist(*args)
-    identified.mine.select('species_id, MIN(observ_date) as aggr_value').
-        group('species_id').reorder('aggr_value DESC').includes(:species)
+      find_by_sql("
+          SELECT obs.species_id, aggr_value, name_sci, name_en, name_ru, name_uk, p.code, face_date
+          FROM observations AS obs
+            JOIN (
+              SELECT species_id, MIN(observ_date) as aggr_value
+              FROM observations
+              WHERE mine = true AND species_id != 9999
+              GROUP BY species_id
+            ) AS mins
+            ON (obs.species_id = mins.species_id AND obs.observ_date = mins.aggr_value)
+            JOIN species ON (mins.species_id = species.id)
+            LEFT JOIN (SELECT * FROM posts WHERE status = 'OPEN') AS p ON (obs.post_id = p.id)
+          WHERE mine = true
+          ORDER BY observ_date DESC
+          "
+      ).group_by(&:species_id).map { |k, v| v.first }
   end
 
   def self.old_lifers_dates(*args)

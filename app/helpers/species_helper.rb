@@ -13,7 +13,7 @@ module SpeciesHelper
   end
 
   def name_sci(sp_obj)
-    content_tag(:i, sp_obj.name_sci, :class => 'lat')
+    content_tag(:i, sp_obj.is_a?(String) ? sp_obj : sp_obj.name_sci, :class => 'lat')
   end
 
   def extract_families(species)

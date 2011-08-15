@@ -16,15 +16,16 @@
     %li= link_to_unless_current('Classification', params.merge(:sort => 'class'))
 
   - sp_row = Proc.new do |i, ob|
-    - sp = ob.species
-    - date = l(Date.parse(ob.aggr_value), :format => :long)
+    - sp = ob[:name_sci]
+    - pst = ob[:code].nil? ? nil : PostsHelper::PseudoPost.new(:code => ob[:code], :face_date => Date.parse(ob[:face_date]), :status => "OPEN")
+    - date = l(Date.parse(ob[:aggr_value]), :format => :long)
     -#- first_post = @posts[sp.first_post]
     -#- last_post = @posts[sp.last_post]
     %li.lifer_row{:value => i}
       %span
-        = species_link(sp)
+        = species_link(sp.gsub(' ', '_'), ob[:name_en])
         = name_sci(sp)
-      %time= date
+      %time= post_link(date, pst, true)
     - i += increment
       
   - if params[:sort] == 'class'
