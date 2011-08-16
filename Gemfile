@@ -10,19 +10,17 @@ gem "activerecord-jdbcpostgresql-adapter", :platforms => :jruby
 # gem 'capistrano'
 
 # Bundle the extra gems:
-gem 'rake', '~>0.9.2'
-gem 'haml'
+gem 'haml-rails'
 gem 'sass'
 gem 'kaminari'
 gem 'meta_search'
 gem 'simple_form'
-gem 'yaml_db'
+gem 'yaml_db', :require => false
 gem 'hashie'
 gem 'flickraw'
 
 group :development do
   gem 'rails3-generators'
-  gem 'haml-rails'
   gem 'nokogiri', :platforms => [:ruby, :mingw], :require => nil
   gem 'mysql2', '~>0.2.7', :platforms => :ruby, :require => nil
 
@@ -40,7 +38,6 @@ group :test do
   gem 'capybara'
   gem 'database_cleaner'
   gem 'cucumber-rails'
-  gem 'cucumber'
   gem 'rspec-rails'
   gem 'launchy' # So you can do Then show me the page
   gem 'pickle'
