@@ -23,7 +23,7 @@
     -#- last_post = @posts[sp.last_post]
     %li.lifer_row{:value => i}
       %span
-        = species_link(sp.gsub(' ', '_'), ob[:name_en])
+        = species_link(sp.sp_parameterize, ob[:name_en])
         = name_sci(sp)
       %time= post_link(date, pst, true)
     - i += increment

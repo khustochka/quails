@@ -1,9 +1,5 @@
 module SpeciesHelper
 
-  def latin_url_humanize(sp_url)
-    sp_url.gsub(/_|\+/, ' ').gsub(/ +/, ' ').capitalize
-  end
-
   def avibase_species_url(avibase_id, lang = 'EN')
     "http://avibase.bsc-eoc.org/species.jsp?avibaseid=#{avibase_id}&lang=#{lang}"
   end

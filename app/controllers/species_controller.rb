@@ -34,6 +34,6 @@ class SpeciesController < ApplicationController
 
   private
   def find_species
-    @species = Species.find_by_name_sci!(helpers.latin_url_humanize(params[:id]))
+    @species = Species.find_by_name_sci!(params[:id].sp_humanize)
   end
 end

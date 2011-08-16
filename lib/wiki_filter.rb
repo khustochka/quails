@@ -7,7 +7,7 @@ module WikiFilter
     species = Hash.new do |hash, term|
       hash[term] = term.size == 6 ?
           Species.find_by_code(term.downcase) :
-          Species.find_by_name_sci(latin_url_humanize(term))
+          Species.find_by_name_sci(term.sp_humanize)
     end
 
     text.gsub(/\[(@|#|)(?:(.*?)\|)?(.*?[^\\])\]/) do |full|

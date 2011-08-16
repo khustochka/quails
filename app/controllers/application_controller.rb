@@ -36,8 +36,4 @@ class ApplicationController < ActionController::Base
     @post_rel ||= admin_session? ? Post : Post.public
   end
 
-  def helpers
-    self.class.helpers
-  end
-
 end
