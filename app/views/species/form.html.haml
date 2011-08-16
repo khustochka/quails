@@ -7,15 +7,21 @@
 = render 'admin/shortcuts' if admin_session?
 
 = simple_form_for @species do |form|
-  = form.input :code, :label => 'Code'
-  = form.input :name_sci, :label => 'Scientific name', :input_html => {:disabled => true}
-  = form.input :protonym, :label => 'Protonym'
-  = form.input :authority, :label => 'Authority'
-  = form.input :name_en, :label => 'English name'
-  = form.input :name_ru, :label => 'Russian name'
-  = form.input :name_uk, :label => 'Ukrainian name', :wrapper_html => {:class => 'block'}
-  = form.input :order, :label => 'Order', :input_html => {:disabled => true}
-  = form.input :family, :label => 'Family', :input_html => {:disabled => true}
-  = form.input :avibase_id, :label => 'Avibase ID', :input_html => {:disabled => true}
-  = form.input :index_num, :label => 'Index number', :input_html => {:disabled => true, :size => 10, :type => :text }
-  = form.button :submit, :value => 'Save'
+  %div
+    = form.input :name_sci, :label => 'Scientific name', :input_html => {:disabled => true}, :input_html => {:class => 'larger'}
+    = form.input :code, :input_html => {:class => 'short larger'}
+  %div
+    = form.input :protonym
+    = form.input :authority
+  %div
+    = form.input :name_en, :label => 'English name'
+    = form.input :name_ru, :label => 'Russian name'
+    = form.input :name_uk, :label => 'Ukrainian name'
+  %div
+    = form.input :order, :input_html => {:disabled => true}
+    = form.input :family, :input_html => {:disabled => true}
+  %div
+    = form.input :avibase_id, :label => 'Avibase ID', :input_html => {:disabled => true}
+    = form.input :index_num, :label => 'Index number', :input_html => {:disabled => true, :size => 10, :type => :text }
+  .buttons
+    = form.button :submit, :value => 'Save'

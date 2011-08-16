@@ -14,9 +14,9 @@
       %ul
         - @image.errors.full_messages.each do |msg|
           %li= msg  
-
-  = form.input :code
-  = form.input :title
+  %div
+    = form.input :code
+    = form.input :title
 
   %p= image_tag(jpg_url(@image, true), :class => 'image_pic')
 
@@ -35,8 +35,8 @@
           = form2.input :locus_id_eq, :label => 'Location:', :collection => Locus.all_ordered, :label_method => :name_en,
               :input_html => {:class => 'suggest-combo'}
 
-
-  = form.input :description
-  = form.input :index_num, :input_html => { :size => 10, :type => :text }
-
-  = form.button :submit, :value => 'Save'
+  %div
+    = form.input :description
+    = form.input :index_num, :input_html => { :size => 10, :type => :text }
+  .buttons
+    = form.button :submit, :value => 'Save'

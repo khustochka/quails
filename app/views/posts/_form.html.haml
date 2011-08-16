@@ -4,13 +4,17 @@
 
 = simple_form_for @post do |form|
 
-  = form.input :code
-  = form.input :face_date, :as => :string, :label => 'Post date' unless @post.new_record?
-  = form.input :title, :wrapper_html => {:class => 'block'}
+  %div
+    = form.input :code
+    = form.input :face_date, :as => :string, :label => 'Post date' unless @post.new_record?
+  %div
+    = form.input :title, :input_html => {:class => 'long'}
   = form.input :text
-  = form.input :topic, :collection => Post::TOPICS, :input_html => {:size => '3'}, :include_blank => false
-  = form.input :status, :collection => Post::STATES, :input_html => {:size => '3'}, :include_blank => false
+  %div
+    = form.input :topic, :collection => Post::TOPICS, :input_html => {:size => '3'}, :include_blank => false
+    = form.input :status, :collection => Post::STATES, :input_html => {:size => '3'}, :include_blank => false
   - unless @post.lj_url_id.blank?
     %b LJ:
     = link_to(lj_post_url)
-  = form.button :submit, :value => 'Save'
+  .buttons
+    = form.button :submit, :value => 'Save'

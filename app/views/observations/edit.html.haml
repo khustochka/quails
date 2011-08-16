@@ -10,7 +10,7 @@
 = render 'admin/shortcuts' if admin_session?
 
 = simple_form_for @observation do |form|
-  .bunch
+  %div
     = form.association :locus, :label => 'Location:', :collection => Locus.all_ordered, :label_method => :name_en,
         :input_html => {:class => 'suggest-combo'}
     = form.input :observ_date, :as => :string, :label => 'Date:', :input_html => {:maxlength => 10, :type => 'date'}
@@ -18,11 +18,12 @@
     - unless blogpost.nil?
       = form.association(:post, :as => :boolean, :label => false)
       %label.obs_post_label= post_link(blogpost.title, blogpost)
-  .bunch
+  %div
     = form.association :species, :label => 'Species:', :collection => Species.alphabetic,
         :label_method => :name_sci, :include_blank => false, :input_html => {:class => 'suggest-combo'}
     = form.input :quantity, :label => 'Quantity:'
     = form.input :biotope, :label => 'Biotope:'
     = form.input :place, :label => 'Place:'
     = form.input :notes, :label => 'Notes:'
-  = form.button :submit, :value => 'Save'
+  .buttons
+    = form.button :submit, :value => 'Save'

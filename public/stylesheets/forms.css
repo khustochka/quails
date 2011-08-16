@@ -1,91 +1,35 @@
 @import url(formalize.css);
-.block {
-  display: block !important; }
-
 label {
   display: block;
   color: #5555aa; }
 
 form.simple_form {
-  width: 660px; }
-  form.simple_form div.input {
-    display: inline-block;
-    vertical-align: top;
-    margin: 10px; }
-    form.simple_form div.input span.error {
-      color: #aa0000;
-      display: block; }
-  form.simple_form input.string {
-    width: 300px; }
-  form.simple_form textarea {
-    width: 620px; }
-  form.simple_form input.button {
-    display: block;
-    margin: 10px;
-    width: 140px; }
+  margin-left: -10px; }
 
-form.observation {
-  width: auto; }
-  form.observation div.bunch div.input input.string, form.observation div.bunch div.input select {
-    width: 150px; }
-  form.observation label.obs_post_label {
-    display: inline-block;
-    margin-top: 10px;
-    margin-left: -10px;
-    font-size: 110%; }
-  form.observation div.to-add-row {
-    margin: 8px 10px 10px 10px; }
-    form.observation div.to-add-row label {
-      display: inline-block;
-      color: green; }
-    form.observation div.to-add-row input {
-      border-color: green; }
-  form.observation div.obs-row {
-    margin: 4px 0;
-    margin-left: -16px;
-    padding-left: 16px; }
-    form.observation div.obs-row .remove {
-      display: inline; }
-  form.observation div.obs-row.has-id {
-    background: transparent url("/images/check_alt_16x16.png") no-repeat scroll 5px center; }
-  form.observation div.obs-row.save-success {
-    background-color: #ccffcc; }
-  form.observation div.obs-row.save-fail {
-    background-color: #ffcccc; }
-  form.observation .error_list {
-    background-color: #ffcccc;
-    border: 1px solid #aa0000;
-    color: #aa0000; }
-
-form.search {
+div.input {
   display: inline-block;
-  width: auto;
-  margin-bottom: 10px;
-  border: 1px solid #4444aa;
-  background-color: #dde4ff; }
-  form.search input#search_observ_date_eq {
-    width: 100px; }
-  form.search div.mine_eq_select span {
-    display: block; }
-  form.search div.mine_eq_select label {
-    display: inline; }
+  vertical-align: top;
+  margin-left: 10px;
+  margin-bottom: 10px; }
 
-form.image {
-  width: auto; }
+input.string {
+  width: 300px; }
 
-table.observations_block {
+input.string.short {
+  width: 100px; }
+
+input.string.long {
+  width: 620px; }
+
+input.string.larger {
+  font-size: 16px;
+  font-weight: bold; }
+
+textarea {
+  width: 620px; }
+
+div.buttons {
   margin: 10px; }
-  table.observations_block td {
-    padding: 5px;
-    vertical-align: top;
-    border: 1px solid #999999; }
-    table.observations_block td div.input {
-      display: block; }
-      table.observations_block td div.input input, table.observations_block td div.input select {
-        font-size: 105%; }
-  table.observations_block td.observations_list label {
-    display: inline; }
-  table.observations_block td.observations_list div.check_boxes {
-    display: block; }
-    table.observations_block td.observations_list div.check_boxes span {
-      display: block; }
+
+input.button {
+  width: 140px; }

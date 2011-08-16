@@ -14,7 +14,8 @@
       :input_html => {:class => 'suggest-combo'}
   %div.input.optional.mine_eq_select
     = form.collection_radio :mine_eq, [['', 'All'], [true, 'Mine'], [false, 'Not mine']], :first, :last
-  = form.button :submit, :value => 'Search', :name => nil
+  .buttons
+    = form.button :submit, :value => 'Search', :name => nil
 
 %table.neat_table.obs_list
   %tr
