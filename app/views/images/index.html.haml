@@ -18,6 +18,6 @@
       %td= link_to image.code, edit_image_path(image)
       %td= image.title
       %td.align-right= image.index_num
-      %td= link_to '[x]', image, :confirm => 'Are you sure?', :method => :delete
+      %td= link_to image_tag('x_alt_16x16.png', :title => 'Destroy'), image, :confirm => 'Are you sure?', :method => :delete
 
 = paginate @images

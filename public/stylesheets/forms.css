@@ -44,6 +44,8 @@ form.observation {
     margin: 4px 0;
     margin-left: -16px;
     padding-left: 16px; }
+    form.observation div.obs-row .remove {
+      display: inline; }
   form.observation div.obs-row.has-id {
     background: transparent url("/images/check_alt_16x16.png") no-repeat scroll 5px center; }
   form.observation div.obs-row.save-success {

@@ -30,5 +30,6 @@
     = form.input :biotope, :label => 'Biotope:', :input_html => {:name => 'o[][biotope]'}
     = form.input :place, :label => 'Place:', :input_html => {:name => 'o[][place]'}
     = form.input :notes, :label => 'Notes:', :input_html => {:name => 'o[][notes]'}
-    %span.pseudolink.remove X
+    %div.pseudolink.remove
+      %img{:title => 'Remove', :src => '/images/x_alt_16x16.png'}
   = form.button :submit, :value => 'Save'
