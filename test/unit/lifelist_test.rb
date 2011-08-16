@@ -40,7 +40,7 @@ class LifelistTest < ActiveSupport::TestCase
   should '(NEW) not place into lifelist an observation with lower id instead of an earlier date' do
     Factory.create(:observation, :species => Species.find_by_code!('pasdom'), :observ_date => "2010-06-20")
     obs = Factory.create(:observation, :species => Species.find_by_code!('pasdom'), :observ_date => "2010-06-18")
-    got = Observation.lifelist.all
+    got = Observation.lifelist
     assert_equal obs.observ_date.to_s, got.first.aggr_value
   end
 
@@ -78,7 +78,7 @@ class LifelistTest < ActiveSupport::TestCase
     Factory.create(:observation, :species => Species.find_by_code!('melgal'), :observ_date => "2009-06-18", :locus => Locus.find_by_code!('brovary'))
     Factory.create(:observation, :species => Species.find_by_code!('pasdom'), :observ_date => "2009-06-18")
     Factory.create(:observation, :species => Species.find_by_code!('melgal'), :observ_date => "2009-06-18", :locus => Locus.find_by_code!('kiev'))
-    got = Observation.lifelist.all
+    got = Observation.lifelist
     assert_equal 2, got.size
   end
 
@@ -92,7 +92,7 @@ class LifelistTest < ActiveSupport::TestCase
     assert_contains got, expected
   end
 
-  should '(OLD) not miss species from lifelist if its first observation has no post' do
+  should '(NEW) not miss species from lifelist if its first observation has no post' do
     blogpost = Factory.create(:post)
     Factory.create(:observation, :species => Species.find_by_code!('anapla'), :observ_date => "2009-08-09", :post => blogpost)
     observ = Factory.create(:observation, :species => Species.find_by_code!('anacly'), :observ_date => "2007-07-18")
