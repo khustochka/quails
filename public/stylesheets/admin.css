@@ -187,12 +187,10 @@ td.nowrap {
   margin-bottom: 0;
   display: inline-block; }
 
-#site_menu li {
-  margin: 0;
-  margin-right: 5px; }
-  #site_menu li span, #site_menu li a {
-    border: 1px solid #cacaca;
-    padding: 5px 10px; }
+#site_menu li, #admin_menu li {
+  margin: 2px 5px 2px 0;
+  border: 1px solid #cacaca;
+  padding: 5px 10px; }
 
 #site_menu li {
   font-size: 14px; }
@@ -211,13 +209,6 @@ td.nowrap {
   border: 1px solid #cccccc;
   padding: 3px 8px;
   margin-right: 3px; }
-
-#admin_menu li {
-  margin: 0;
-  margin-right: 5px; }
-  #admin_menu li span, #admin_menu li a {
-    border: 1px solid #cacaca;
-    padding: 5px 10px; }
 
 td.thumbnail a img {
   border: 2px solid #007700; }
