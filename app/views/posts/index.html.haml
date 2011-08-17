@@ -3,6 +3,6 @@
 = render @posts
 
 - unless @prev_month.nil?
-  %p.month-navigation
+  %nav.month-navigation
     = link_to '<< Previous posts', month_path(@prev_month)
     = "(#{[t('date.month_names')[@prev_month[:month].to_i], @prev_month[:year]].join(' ')})"

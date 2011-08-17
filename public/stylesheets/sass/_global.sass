@@ -71,9 +71,11 @@ td.nowrap
 
 // Specific
 
+#above-footer
+  min-height: 100%
+
 #main
   margin-left: 50px !important
-  padding-bottom: 20px
 
 #header
   margin-bottom: 20px
@@ -85,7 +87,7 @@ td.nowrap
   margin-bottom: 0
   display: inline-block
 
-#site_menu, #admin_menu
+#site_menu, .admin_menu
   li
     margin: 2px 5px 2px 0
     border: 1px solid #cacaca
@@ -94,12 +96,10 @@ td.nowrap
 #site_menu li
   font-size: 14px
 
-#footer
+footer
   @include default-margin
   border-top: 1px solid #555555
-  padding: 10px 2px
-  p
-    margin-bottom: 5px
+  padding: 10px 2px 0 2px
 
 .pagination span
   display: inline-block

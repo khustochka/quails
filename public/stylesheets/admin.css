@@ -176,9 +176,11 @@ td.nowrap {
 .lifer_date {
   text-align: right; }
 
+#above-footer {
+  min-height: 100%; }
+
 #main {
-  margin-left: 50px !important;
-  padding-bottom: 20px; }
+  margin-left: 50px !important; }
 
 #header {
   margin-bottom: 20px;
@@ -190,7 +192,7 @@ td.nowrap {
   margin-bottom: 0;
   display: inline-block; }
 
-#site_menu li, #admin_menu li {
+#site_menu li, .admin_menu li {
   margin: 2px 5px 2px 0;
   border: 1px solid #cacaca;
   padding: 5px 10px; }
@@ -198,13 +200,11 @@ td.nowrap {
 #site_menu li {
   font-size: 14px; }
 
-#footer {
+footer {
   margin-left: 10px;
   margin-right: 10px;
   border-top: 1px solid #555555;
-  padding: 10px 2px; }
-  #footer p {
-    margin-bottom: 5px; }
+  padding: 10px 2px 0 2px; }
 
 .pagination span {
   display: inline-block;
@@ -213,5 +213,14 @@ td.nowrap {
   padding: 3px 8px;
   margin-right: 3px; }
 
+ul.admin_menu {
+  margin-bottom: 0; }
+
+#main {
+  padding-bottom: 70px; }
+
 td.thumbnail a img {
   border: 2px solid #007700; }
+
+footer {
+  margin-top: -55px; }

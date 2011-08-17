@@ -31,10 +31,12 @@
 
   %body
 
-    = render 'partials/header'
+    #above-footer
 
-    #main
-      =yield
+      = render 'partials/header'
 
-    #footer
+      #main
+        =yield
+
+    %footer
       = @admin_menu if admin_session?

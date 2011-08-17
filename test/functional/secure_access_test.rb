@@ -7,7 +7,7 @@ class SecureAccessTest < ActionController::TestCase
   should 'show administrative panel to admin when he is logged in' do
     login_as_admin
     get :index
-    assert_select '#admin_menu', true
+    assert_select '.admin_menu', true
   end
 
   should 'not show administrative panel to user' do
