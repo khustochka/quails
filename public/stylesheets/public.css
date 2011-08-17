@@ -152,6 +152,8 @@ table.neat_table {
   table.neat_table th {
     background-color: #f5f5f5;
     text-align: left; }
+  table.neat_table td h2, table.neat_table td h3, table.neat_table td h4 {
+    margin: 10px 0; }
 
 .align-right {
   text-align: right !important; }
@@ -161,9 +163,6 @@ table.neat_table {
 
 .align-center {
   text-align: center !important; }
-
-.valign-middle {
-  vertical-align: middle; }
 
 td.nowrap {
   white-space: nowrap; }
