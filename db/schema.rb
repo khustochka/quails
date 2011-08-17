@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110708124818) do
+ActiveRecord::Schema.define(:version => 20110817074127) do
 
   create_table "images", :force => true do |t|
     t.string   "code",        :limit => 64, :null => false
@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(:version => 20110708124818) do
 
   add_index "images_observations", ["image_id", "observation_id"], :name => "index_images_observations_on_image_id_and_observation_id", :unique => true
 
-  create_table "locus", :force => true do |t|
+  create_table "loci", :force => true do |t|
     t.string  "code",      :limit => 32, :null => false
     t.integer "parent_id"
     t.string  "loc_type",  :limit => 8,  :null => false
@@ -41,9 +41,9 @@ ActiveRecord::Schema.define(:version => 20110708124818) do
     t.float   "lon"
   end
 
-  add_index "locus", ["code"], :name => "index_locus_on_code"
-  add_index "locus", ["loc_type"], :name => "index_locus_on_loc_type"
-  add_index "locus", ["parent_id"], :name => "index_locus_on_parent_id"
+  add_index "loci", ["code"], :name => "index_locus_on_code"
+  add_index "loci", ["loc_type"], :name => "index_locus_on_loc_type"
+  add_index "loci", ["parent_id"], :name => "index_locus_on_parent_id"
 
   create_table "observations", :force => true do |t|
     t.integer "species_id",                    :null => false

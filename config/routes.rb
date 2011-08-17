@@ -55,7 +55,7 @@ Quails3::Application.routes.draw do
       post 'bulksave'
     end
   end
-  resources :locus
+  resources :loci
   resources :species, :only => [:edit, :update]
   resources :images, :except => :show
 # end

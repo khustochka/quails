@@ -1,7 +1,7 @@
 # encoding: utf-8
 require 'test_helper'
 
-class LocusControllerTest < ActionController::TestCase
+class LociControllerTest < ActionController::TestCase
   setup do
   end
 
@@ -54,7 +54,7 @@ class LocusControllerTest < ActionController::TestCase
       delete :destroy, :id => 'mokrets'
     end
 
-    assert_redirected_to locus_index_path
+    assert_redirected_to loci_path
   end
 
   # HTTP auth tests

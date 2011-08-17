@@ -1,4 +1,4 @@
-class LocusController < ApplicationController
+class LociController < ApplicationController
 
   require_http_auth
 
@@ -49,6 +49,6 @@ class LocusController < ApplicationController
   def destroy
     @locus.destroy
     #TODO: rescue ActiveRecord::DeleteRestrictionError showing a notice and later - options for substitution
-    redirect_to(locus_index_url)
+    redirect_to(loci_url)
   end
 end
