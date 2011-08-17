@@ -8,4 +8,6 @@ IMAGES_HOST = options['images_host']
 
 FlickRawOptions = options['flickr'].merge({"lazyload" => true})
 
+require 'flickraw'
+
 CredentialsVerifier.init Hashie::Mash.new(options)
