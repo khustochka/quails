@@ -5,13 +5,13 @@ module Legacy
     class Locations
 
       def self.update_all(countries, regions, locs)
-        Legacy::Mapping.refresh_locations
         update_countries(countries)
         update_regions(regions)
         update_locations(locs)
       end
 
       def self.update_countries(arr)
+        Legacy::Mapping.refresh_locations
         puts "Updating countries..."
         arr.each do |country|
           Locus.create!({
@@ -25,6 +25,7 @@ module Legacy
       end
 
       def self.update_regions(arr)
+        Legacy::Mapping.refresh_locations
         puts "Updating regions..."
         arr.each do |region|
           Locus.create!({
@@ -38,6 +39,7 @@ module Legacy
       end
 
       def self.update_locations(arr)
+        Legacy::Mapping.refresh_locations
         puts "Updating locations..."
         arr.each do |loc|
           (lat, lon) = loc[:latlon].split(',')
