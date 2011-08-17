@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class LifelistControllerTest < ActionController::TestCase
+class LifelistPostsTest < ActionController::TestCase
   tests LifelistController
 
   setup do
