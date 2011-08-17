@@ -4,7 +4,8 @@ class Locus < ActiveRecord::Base
 
   validates :code, :format => /^[a-z_]+$/i, :uniqueness => true, :presence => true, :length => { :maximum => 32 }
   validates :loc_type, :inclusion => TYPES, :presence => true, :length => { :maximum => 8 }
-  validates :name_en, :name_ru, :name_uk, :uniqueness => true
+  # FIXME: allow blank because imported locations do not have eng, ukr names
+  validates :name_en, :name_ru, :name_uk, :uniqueness => true, :allow_blank => true
 
 
   belongs_to :parent, :class_name => 'Locus'
