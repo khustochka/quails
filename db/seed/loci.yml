@@ -834,3 +834,81 @@ loci:
 
     - "50.67"
     - "29.748"
+  - - "64"
+    - sumy_obl
+    - "1"
+    - Region
+    - Sumy oblast
+    - !binary |
+      0KHRg9C80YHQutCw0Y8g0L7QsdC7Lg==
+
+    - !binary |
+      0KHRg9C80YHRjNC60LAg0L7QsdC7Lg==
+
+    - 
+    - 
+  - - "65"
+    - kharkiv_obl
+    - "1"
+    - Region
+    - Kharkiv oblast
+    - !binary |
+      0KXQsNGA0YzQutC+0LLRgdC60LDRjyDQvtCx0Lsu
+
+    - !binary |
+      0KXQsNGA0LrRltCy0YHRjNC60LAg0L7QsdC7Lg==
+
+    - 
+    - 
+  - - "66"
+    - sumy
+    - "64"
+    - Location
+    - Sumy
+    - !binary |
+      0LMuINCh0YPQvNGL
+
+    - !binary |
+      0LwuINCh0YPQvNC4
+
+    - 
+    - 
+  - - "67"
+    - sumy_rn
+    - "64"
+    - Location
+    - Sumy district
+    - !binary |
+      0KHRg9C80YHQutC+0Lkg0YAt0L0=
+
+    - !binary |
+      0KHRg9C80YHRjNC60LjQuSDRgC3QvQ==
+
+    - 
+    - 
+  - - "68"
+    - valky_rn
+    - "65"
+    - Location
+    - Valky district
+    - !binary |
+      0JLQsNC70LrQvtCy0YHQutC40Lkg0YAt0L0=
+
+    - !binary |
+      0JLQsNC70LrRltCy0YHRjNC60LjQuSDRgC3QvQ==
+
+    - 
+    - 
+  - - "69"
+    - some_zaporizh_obl
+    - "5"
+    - Location
+    - somewhere in Zaporizhzhia oblast
+    - !binary |
+      0LPQtNC1LdGC0L4g0LIg0JfQsNC/0L7RgNC+0LbRgdC60L7QuSDQvtCx0Lsu
+
+    - !binary |
+      0LTQtdGB0Ywg0LIg0JfQsNC/0L7RgNGW0LfRjNC60ZbQuSDQvtCx0Lsu
+
+    - 
+    - 
