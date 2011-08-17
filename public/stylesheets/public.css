@@ -136,11 +136,11 @@ ul.horiz-list {
 .grayout {
   background-color: #dddddd; }
 
-span.pseudolink {
+.pseudolink {
   text-decoration: underline;
   color: blue; }
 
-span.pseudolink:hover {
+.pseudolink:hover {
   cursor: pointer; }
 
 table.neat_table {

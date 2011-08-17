@@ -6,7 +6,18 @@ label
 
 form.simple_form
   margin-left: -10px
+  margin-bottom: 20px
 //  width: 660px
+
+form.search
+  display: inline-block
+  margin-left: 0
+  padding: 10px 10px 10px 0
+  width: auto
+  border: 1px solid #4444aa
+  background-color: #dde4ff
+  .buttons
+    text-align: right
 
 div.input
   display: inline-block
@@ -14,6 +25,30 @@ div.input
   margin-left: 10px
   margin-bottom: 10px
 //  width: 339px
+
+div.input.block
+  display: block
+  margin-bottom: 20px
+
+div.input.block.flat
+  margin-top: 10px
+
+div.input.flat label
+  display: inline
+
+div.boolean.flat label
+  margin-left: 4px
+
+// Radios
+div.input span
+  display: block
+  label
+    display: inline
+    margin-left: 4px
+
+div.input span.pseudolink
+  display: inline
+  margin: 0 5px
 
 input.string
   width: 300px
@@ -32,79 +67,58 @@ textarea
   width: 620px
 
 div.buttons
-  margin: 10px
+  margin: 10px 0 0 10px
 
 input.button
   width: 140px
 
-//.block
-//  display: block !important
-//
+// Specific
+
+.to-add-row
+  display: none
+
+form.observation
+  div.to-add-row
+    label
+      color: green
+    input
+      border-color: green
+
+  div.obs-row
+    //display: table-row
+    div
+      display: table-cell
+      padding-left: 10px
+      padding-bottom: 10px
+      background-image: none
+
+  // Refactor?
+  div.obs-row
+    margin-left: -16px
+    padding-left: 16px // needed for success icon
+    margin-bottom: 3px
+    display: inline-block
+    .for-remove
+      padding-top: 17px
+  div.obs-row.has-id
+    background: transparent url('/images/check_alt_16x16.png') no-repeat scroll 5px 20px
+  div.obs-row.save-success
+    background-color: #ccffcc
+  div.obs-row.save-fail
+    background-color: #ffcccc
+  .error_list
+    background-color: #ffcccc
+    border: 1px solid #AA0000
+    color: #AA0000
+
+
 //form.simple_form
 //  width: 660px
 //  div.input
 //    span.error
 //      color: #AA0000
 //      display: block
-//  input.string
-//    width: 300px
-//  textarea
-//    width: 620px
-//  input.button
-//    display: block
-//    margin: 10px
-//    width: 140px
 //
-//form.observation
-//  width: auto
-//  div.bunch div.input
-//    input.string, select
-//      width: 150px
-//  label.obs_post_label
-//    display: inline-block
-//    margin-top: 10px
-//    margin-left: -10px
-//    font-size: 110%
-//  div.to-add-row
-//    margin: 8px 10px 10px 10px
-//    label
-//      display: inline-block
-//      color: green
-//    input
-//      border-color: green
-//  div.obs-row
-//    margin: 4px 0
-//    margin-left: -16px
-//    padding-left: 16px // needed for success icon
-//    .remove
-//      display: inline
-//  div.obs-row.has-id
-//    background: transparent url('/images/check_alt_16x16.png') no-repeat scroll 5px center
-//  div.obs-row.save-success
-//    background-color: #ccffcc
-//  div.obs-row.save-fail
-//    background-color: #ffcccc
-//  .error_list
-//    background-color: #ffcccc
-//    border: 1px solid #AA0000
-//    color: #AA0000
-//
-//form.search
-//  display: inline-block
-//  width: auto
-//  margin-bottom: 10px
-//  border: 1px solid #4444aa
-//  background-color: #dde4ff
-//  input#search_observ_date_eq
-//    width: 100px
-//  div.mine_eq_select
-//    span
-//      display: block
-//    label
-//      display: inline
-//
-//form.image
-//  width: auto
 //
 //table.observations_block
 //  margin: 10px

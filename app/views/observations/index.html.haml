@@ -9,7 +9,7 @@
 = simple_form_for @search, :url => observations_path, :html => {:method => :get} do |form|
   = form.input :species_id_eq, :label => 'Species:', :collection => Species.alphabetic,
       :label_method => :name_sci, :input_html => {:class => 'suggest-combo'}
-  = form.input :observ_date_eq, :label => 'Date:'
+  = form.input :observ_date_eq, :label => 'Date:', :input_html => {:class => 'short', :maxlength => 10}
   = form.input :locus_id_eq, :label => 'Location:', :collection => Locus.all_ordered, :label_method => :name_en,
       :input_html => {:class => 'suggest-combo'}
   %div.input.optional.mine_eq_select

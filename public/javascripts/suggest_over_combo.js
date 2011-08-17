@@ -5,7 +5,7 @@
                 select = this.element.hide(),
                 selected = select.children( ":selected" ),
                 value = ( selected.val() != null ) ? selected.text() : "";
-            var input = this.input = $( "<input>" )
+            var input = this.input = $( "<input type=\"text\">" )
                 .insertAfter( select )
                 .val( value )
                 .attr('id', select.attr('id'))

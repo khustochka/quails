@@ -5,7 +5,7 @@ $(function() {
 
     function addNewRow(event, ui) {
         var row = sample_row.clone(true);
-        $(':submit').before(row);
+        $('.buttons').before(row);
         row.find('label:contains("Species:")').attr('for', 'observation_species_id' + cnt);
         row.find('.sp-suggest').attr('id', 'observation_species_id' + cnt).combobox();
         if (arguments.length > 2) {
@@ -81,13 +81,15 @@ $(function() {
                 .appendTo(ul);
     };
 
+    $('.obs-row div:last').
+        append($("<span class='pseudolink remove'><img src='/images/x_alt_16x16.png' title='Remove'></span>"));
     var sample_row = $('.obs-row').detach();
     var cnt = 1;
 
     $('#add-row').click(addNewRow);
 
     $('.remove').live('click', function() {
-        $(this).parent().remove();
+        $(this).closest('.obs-row').remove();
     });
 
     $('.to-add-row').toggle(true);

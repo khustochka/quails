@@ -16,13 +16,12 @@
     = form.input :observ_date, :as => :string, :label => 'Date:', :input_html => {:maxlength => 10, :type => 'date'}
     = form.input :mine, :label => 'Mine'
     - unless blogpost.nil?
-      = form.association(:post, :as => :boolean, :label => false)
-      %label.obs_post_label= post_link(blogpost.title, blogpost)
+      = form.association(:post, :as => :boolean, :label => post_link(blogpost.title, blogpost), :wrapper_html => {:class => 'flat'})
   %div
     = form.association :species, :label => 'Species:', :collection => Species.alphabetic,
         :label_method => :name_sci, :include_blank => false, :input_html => {:class => 'suggest-combo'}
-    = form.input :quantity, :label => 'Quantity:'
-    = form.input :biotope, :label => 'Biotope:'
+    = form.input :quantity, :label => 'Quantity:', :input_html => {:class => :short}
+    = form.input :biotope, :label => 'Biotope:', :input_html => {:class => :short}
     = form.input :place, :label => 'Place:'
     = form.input :notes, :label => 'Notes:'
   .buttons
