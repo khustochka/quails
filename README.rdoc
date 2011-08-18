@@ -1,0 +1,13 @@
+== What is Quails
+
+This is an application for keeping track of birdwatching activities and presenting them to the world. It allows to
+store, analyze, review, and filter observation records, place them on the map, attach images, generate life-, year-,
+month- and other checklists, and of course blog about birds and birding.
+
+== Why Quails
+
+Quails is a collective name for several groups of mid-sized hen-like birds. The reference species is Old World
+Common Quail <i>Coturnix coturnix</i>. In addition 'quails' sounds very close to 'rails'.
+
+Actually 'rails' are birds as well - members of the _Rallidae_ family associated mostly with wetlands. So I could have
+named my application Rails but decided it could inspire confusion in the Ruby open source world.
