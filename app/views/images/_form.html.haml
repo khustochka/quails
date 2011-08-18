@@ -10,7 +10,7 @@
 
   -if @image.errors.any?
     #errorExplanation
-      %h2= "#{pluralize(@image.errors.count, "error")} prohibited this #{Image.name.titleize} from being saved:"
+      %h5= "#{pluralize(@image.errors.count, "error")} prohibited this #{Image.name.titleize} from being saved:"
       %ul
         - @image.errors.full_messages.each do |msg|
           %li= msg  

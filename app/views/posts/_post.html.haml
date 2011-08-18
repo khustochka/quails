@@ -1,6 +1,6 @@
 %article.post-box{:id => "post-#{post.code}", :class => post.status != 'OPEN' ? 'grayout' : nil}
   %header
-    %h2.post-title= link_to_unless_current post.title, public_post_path(post)
+    = content_tag(action_name == 'show' ? :h1 : :h2, link_to_unless_current(post.title, public_post_path(post)), :class => 'post-title')
     %time{:pubdate => 'pubdate'}= l(post.face_date, :format => :long)
     -#%small= post.topic
 

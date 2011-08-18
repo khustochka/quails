@@ -1,11 +1,11 @@
 - @page_title = "Year #{@year}"
 
-%h2= @page_title
+%h1= @page_title
 
 = render 'partials/years'
 
 - @months.each do |month, posts|
-  %h3= "#{link_to(t('date.month_names')[month.to_i], month_path({:year => @year, :month => month}))}".html_safe
+  %h2= "#{link_to(t('date.month_names')[month.to_i], month_path({:year => @year, :month => month}))}".html_safe
   %ul
     - posts.each do |post|
       %li= "#{post.day}: #{post_link(post.title, post)}".html_safe

@@ -2,9 +2,9 @@
 - javascript JQ_UI_FILE, 'suggest_over_combo'
 - stylesheet 'autocomplete', 'forms'
 
-- @page_title = 'Listing observations'
+- @page_title = 'Observations'
 
-%h2 Search observations
+%h1 Search observations
 
 = simple_form_for @search, :url => observations_path, :html => {:method => :get} do |form|
   = form.input :species_id_eq, :label => 'Species:', :collection => Species.alphabetic,
