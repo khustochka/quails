@@ -88,10 +88,7 @@ hr {
 
 /* `Headings
  *---------------------------------------------------------------------------------------------------- */
-h1 {
-  font-size: 25px; }
-
-h2 {
+h1, h2 {
   font-size: 23px; }
 
 h3 {
@@ -199,11 +196,13 @@ td.nowrap {
 #site_menu li {
   font-size: 14px; }
 
-footer {
-  margin-left: 10px;
-  margin-right: 10px;
-  border-top: 1px solid #555555;
-  padding: 10px 2px 0 2px; }
+.over-header {
+  margin-top: -10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #aaaaaa;
+  font-size: 18px;
+  font-weight: normal;
+  color: #555555; }
 
 .pagination span {
   display: inline-block;
@@ -211,6 +210,12 @@ footer {
   border: 1px solid #cccccc;
   padding: 3px 8px;
   margin-right: 3px; }
+
+footer {
+  margin-left: 10px;
+  margin-right: 10px;
+  border-top: 1px solid #555555;
+  padding: 10px 2px 0 2px; }
 
 #main {
   margin-left: 10px;
