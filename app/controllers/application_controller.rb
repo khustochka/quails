@@ -13,8 +13,6 @@ class ApplicationController < ActionController::Base
 
   extend ModelFinderForController
 
-  helper_method :page_title
-
   layout 'public'
 
 # TODO: Default redirect status should be 301 for public pages, 302 left for administrative
@@ -27,11 +25,6 @@ class ApplicationController < ActionController::Base
 #  end
 
   private
-  def page_title
-    @page_title
-    # returning nil will evoke ApplicationHelper::default_page_title
-  end
-
   def SessionAwarePost
     @post_rel ||= admin_session? ? Post : Post.public
   end
