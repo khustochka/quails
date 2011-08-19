@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 module Legacy
   module Import
     class Posts
