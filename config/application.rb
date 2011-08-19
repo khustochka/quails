@@ -36,9 +36,7 @@ module Quails3
     # Configure generators values. Many other options are available, be sure to check the documentation.
     config.generators do |g|
       g.template_engine :haml, :form_builder => :simple_form
-      g.test_framework :shoulda
       g.fixture_replacement :factory_girl
-      g.fallbacks[:shoulda] = :test_unit
     end
 
     # Configure the default encoding used in templates for Ruby 1.9.

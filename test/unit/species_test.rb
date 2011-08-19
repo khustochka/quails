@@ -2,7 +2,7 @@ require 'test_helper'
 
 class SpeciesTest < ActiveSupport::TestCase
 
-  should 'not be saved with empty Latin name' do
+  test 'not be saved with empty Latin name' do
     sp          = Species.find_by_code!('parcae')
     sp.name_sci = ''
     assert_raises(ActiveRecord::RecordInvalid) do
@@ -10,7 +10,7 @@ class SpeciesTest < ActiveSupport::TestCase
     end
   end
 
-  should 'not be saved with empty code' do
+  test 'not be saved with empty code' do
     sp          = Species.find_by_code!('parcae')
     sp.code     = ''
     assert_raises(ActiveRecord::RecordInvalid) do
@@ -18,7 +18,7 @@ class SpeciesTest < ActiveSupport::TestCase
     end
   end
 
-  should 'not be saved with existing Latin name' do
+  test 'not be saved with existing Latin name' do
     sp          = Species.find_by_code!('parcae')
     sp.name_sci = 'Parus major'
     assert_raises(ActiveRecord::RecordInvalid) do
@@ -26,7 +26,7 @@ class SpeciesTest < ActiveSupport::TestCase
     end
   end
 
-  should 'not be saved with existing code' do
+  test 'not be saved with existing code' do
     sp          = Species.find_by_code!('parcae')
     sp.code     = 'parmaj'
     assert_raises(ActiveRecord::RecordInvalid) do
@@ -34,13 +34,13 @@ class SpeciesTest < ActiveSupport::TestCase
     end
   end
 
-  should 'be reordered alphabetically' do
+  test 'be reordered alphabetically' do
     expected = Species.all.map(&:name_sci).sort
     got      = Species.alphabetic.map(&:name_sci)
     assert_equal expected, got
   end
 
-  should 'not be destroyed if having associated observations' do
+  test 'not be destroyed if having associated observations' do
     sp          = Species.find_by_code!('parcae')
     observation = Factory.create(:observation, :species => sp)
     assert_raises(ActiveRecord::DeleteRestrictionError) do

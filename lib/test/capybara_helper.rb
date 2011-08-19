@@ -1,5 +1,4 @@
 require 'capybara/rails'
-require 'rspec-expectations'
 
 module CapybaraTestCase
   include Capybara::DSL

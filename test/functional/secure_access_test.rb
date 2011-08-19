@@ -4,18 +4,18 @@ class SecureAccessTest < ActionController::TestCase
 
   tests PostsController
 
-  should 'show administrative panel to admin when he is logged in' do
+  test 'show administrative panel to admin when he is logged in' do
     login_as_admin
     get :index
     assert_select '.admin_menu', true
   end
 
-  should 'not show administrative panel to user' do
+  test 'not show administrative panel to user' do
     get :index
     assert_select '.admin_panel', false
   end
 
-  should 'show hidden posts to admin when he is logged in' do
+  test 'show hidden posts to admin when he is logged in' do
     blogpost1 = Factory.create(:post, :face_date => '2007-12-06 13:14:15', :code => 'post-one', :status => 'PRIV')
     blogpost2 = Factory.create(:post, :face_date => '2008-11-06 13:14:15', :code => 'post-two')
     login_as_admin
@@ -30,7 +30,7 @@ class SecureAccessTest < ActionController::TestCase
     assert_response :success
   end
 
-  should 'not show hidden posts to user' do
+  test 'not show hidden posts to user' do
     blogpost1 = Factory.create(:post, :face_date => '2007-12-06 13:14:15', :code => 'post-one', :status => 'PRIV')
     blogpost2 = Factory.create(:post, :face_date => '2008-11-06 13:14:15', :code => 'post-two')
     get :index

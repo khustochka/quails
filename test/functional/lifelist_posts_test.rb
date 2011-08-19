@@ -13,7 +13,7 @@ class LifelistPostsTest < ActionController::TestCase
     ]
   end
 
-  should 'show post link if post is associated' do
+  test 'show post link if post is associated' do
     @obs[1].post = Factory.create(:post)
     @obs[1].save!
     get :lifelist
@@ -21,7 +21,7 @@ class LifelistPostsTest < ActionController::TestCase
     assert_select "a[href=#{public_post_path(@obs[1].post)}]", I18n::l(@obs[1].observ_date, :format => :long)
   end
 
-  should 'not show post link if no post is associated' do
+  test 'not show post link if no post is associated' do
     @obs[1].post = Factory.create(:post)
     @obs[1].save!
     get :lifelist
@@ -31,7 +31,7 @@ class LifelistPostsTest < ActionController::TestCase
     end
   end
 
-  should 'not show hidden post link to common visitor' do
+  test 'not show hidden post link to common visitor' do
     @obs[1].post = Factory.create(:post, :status => 'PRIV')
     @obs[1].save!
     get :lifelist
@@ -41,7 +41,7 @@ class LifelistPostsTest < ActionController::TestCase
     end
   end
 
-  should 'show hidden post link to administrator' do
+  test 'show hidden post link to administrator' do
     @obs[1].post = Factory.create(:post, :status => 'PRIV')
     @obs[1].save!
     login_as_admin

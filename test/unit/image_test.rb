@@ -2,7 +2,7 @@ require 'test_helper'
 
 class ImageTest < ActiveSupport::TestCase
 
-  should 'properly unlink observations when image destroyed' do
+  test 'properly unlink observations when image destroyed' do
     observation = Factory.create(:observation)
     img = Factory.build(:image, :code => 'picture-of-the-shrike')
     img.observations << observation

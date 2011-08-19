@@ -33,12 +33,11 @@ end
 
 group :test do
   gem 'ruby-prof', :platforms => :ruby, :require => nil
-  gem 'shoulda'
   gem 'factory_girl_rails'
   gem 'capybara'
   gem 'database_cleaner'
   gem 'cucumber-rails'
-  gem 'rspec-rails'
+  gem 'rspec-expectations', :require => false # No need to require on startup b/c TestUnitTestCase doesn't exist then
   gem 'launchy' # So you can do Then show me the page
   gem 'pickle'
   platforms :ruby, :mingw do

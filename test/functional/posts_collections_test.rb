@@ -7,7 +7,7 @@ class PostsCollectionsTest < ActionController::TestCase
 
   # Front page
 
-  should 'get index' do
+  test 'get index' do
     blogpost1 = Factory.create(:post, :face_date => '2007-12-06 13:14:15', :code => 'post-one')
     blogpost2 = Factory.create(:post, :face_date => '2008-11-06 13:14:15', :code => 'post-two')
     get :index
@@ -16,7 +16,7 @@ class PostsCollectionsTest < ActionController::TestCase
     assert_select "h2 a[href=#{public_post_path(blogpost2)}]"
   end
 
-  should 'show correct Earlier Posts link if limit is on the month border' do
+  test 'show correct Earlier Posts link if limit is on the month border' do
     blogpost1 = Factory.create(:post, :face_date => '2007-12-06 13:14:15', :code => 'post-one')
     blogpost2 = Factory.create(:post, :face_date => '2007-11-06 13:14:15', :code => 'post-three')
     blogpost3 = Factory.create(:post, :face_date => '2007-12-05 13:14:15', :code => 'post-two')
@@ -33,7 +33,7 @@ class PostsCollectionsTest < ActionController::TestCase
     assert_select "a[href=#{month_path(blogpost4.to_month_url)}]"
   end
 
-  should 'show correct Earlier Posts link if limit is inside the month' do
+  test 'show correct Earlier Posts link if limit is inside the month' do
     blogpost1 = Factory.create(:post, :face_date => '2007-12-06 13:14:15', :code => 'post-one')
     blogpost2 = Factory.create(:post, :face_date => '2007-11-06 13:14:15', :code => 'post-three')
     blogpost3 = Factory.create(:post, :face_date => '2007-12-05 13:14:15', :code => 'post-two')
@@ -50,7 +50,7 @@ class PostsCollectionsTest < ActionController::TestCase
     assert_select "a[href=#{month_path(blogpost4.to_month_url)}]"
   end
 
-  should 'show full month and correct Earlier Posts link if the last month exceeds the limit' do
+  test 'show full month and correct Earlier Posts link if the last month exceeds the limit' do
     blogpost1 = Factory.create(:post, :face_date => '2007-11-30 13:14:15', :code => 'post-one')
     blogpost2 = Factory.create(:post, :face_date => '2007-11-06 13:14:15', :code => 'post-three')
     blogpost3 = Factory.create(:post, :face_date => '2007-11-25 13:14:15', :code => 'post-two')
@@ -71,7 +71,7 @@ class PostsCollectionsTest < ActionController::TestCase
 
   # Year view
 
-  should 'get posts list for a year' do
+  test 'get posts list for a year' do
     blogpost1 = Factory.create(:post, :face_date => '2007-12-06 13:14:15', :code => 'post-one')
     blogpost2 = Factory.create(:post, :face_date => '2008-11-06 13:14:15', :code => 'post-two')
     get :year, :year => 2007
@@ -83,7 +83,7 @@ class PostsCollectionsTest < ActionController::TestCase
 
   # Month view
 
-  should 'get posts list for a month' do
+  test 'get posts list for a month' do
     blogpost1 = Factory.create(:post, :face_date => '2007-12-06 13:14:15', :code => 'post-one')
     blogpost2 = Factory.create(:post, :face_date => '2007-11-06 13:14:15', :code => 'post-two')
     get :month, :year => 2007, :month => 12
@@ -92,7 +92,7 @@ class PostsCollectionsTest < ActionController::TestCase
     assert_select "h2 a[href=#{public_post_path(blogpost2)}]", false
   end
 
-  should 'render properly if there is no previous or next month' do
+  test 'render properly if there is no previous or next month' do
     blogpost1 = Factory.create(:post, :face_date => '2007-12-06 13:14:15', :code => 'post-one')
     blogpost2 = Factory.create(:post, :face_date => '2008-11-06 13:14:15', :code => 'post-two')
     get :month, :year => 2007, :month => 12

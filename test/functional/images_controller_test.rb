@@ -8,20 +8,20 @@ class ImagesControllerTest < ActionController::TestCase
     @image.save
   end
 
-  should "get index" do
+  test "get index" do
     login_as_admin
     get :index
     assert_response :success
     assert_not_nil assigns(:images)
   end
 
-  should "get new" do
+  test "get new" do
     login_as_admin
     get :new
     assert_response :success
   end
 
-  should "create image with one observation" do
+  test "create image with one observation" do
     login_as_admin
     new_attr = @image.attributes.dup
     new_attr[:observation_ids] = [@obs.id]
@@ -33,7 +33,7 @@ class ImagesControllerTest < ActionController::TestCase
     assert_redirected_to public_image_path(assigns(:image))
   end
 
-  should "create image with several observations" do
+  test "create image with several observations" do
     login_as_admin
     obs2 = Factory.create(:observation, :species => Species.find_by_code('lancol'))
     obs3 = Factory.create(:observation, :species => Species.find_by_code('jyntor'))
@@ -47,7 +47,7 @@ class ImagesControllerTest < ActionController::TestCase
     assert_redirected_to public_image_path(assigns(:image))
   end
 
-  should "not create image with no observations" do
+  test "not create image with no observations" do
     login_as_admin
     new_attr = @image.attributes.dup
     new_attr['code'] = 'new_img_code'
@@ -59,18 +59,18 @@ class ImagesControllerTest < ActionController::TestCase
     assert_template :new
   end
 
-  should "show image" do
+  test "show image" do
     get :show, @image.to_url_params
     assert_response :success
   end
 
-  should "get edit" do
+  test "get edit" do
     login_as_admin
     get :edit, :id => @image.to_param
     assert_response :success
   end
 
-  should "update image" do
+  test "update image" do
     login_as_admin
     new_attr = @image.attributes.dup
     new_attr['code'] = 'new_code'
@@ -78,7 +78,7 @@ class ImagesControllerTest < ActionController::TestCase
     assert_redirected_to public_image_path(assigns(:image))
   end
 
-  should "not update image with no observations" do
+  test "not update image with no observations" do
     login_as_admin
     new_attr = @image.attributes.dup
     new_attr['code'] = 'new_img_code'
@@ -88,7 +88,7 @@ class ImagesControllerTest < ActionController::TestCase
     assert_template :edit
   end
 
-  should "destroy image" do
+  test "destroy image" do
     login_as_admin
     assert_difference('Image.count', -1) do
       delete :destroy, :id => @image.to_param
