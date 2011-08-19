@@ -10,7 +10,7 @@ class SecureAccessTest < ActionController::TestCase
     assert_select '.admin_menu', true
   end
 
-  test 'not show administrative panel to user' do
+  test 'do not show administrative panel to user' do
     get :index
     assert_select '.admin_panel', false
   end
@@ -30,7 +30,7 @@ class SecureAccessTest < ActionController::TestCase
     assert_response :success
   end
 
-  test 'not show hidden posts to user' do
+  test 'do not show hidden posts to user' do
     blogpost1 = Factory.create(:post, :face_date => '2007-12-06 13:14:15', :code => 'post-one', :status => 'PRIV')
     blogpost2 = Factory.create(:post, :face_date => '2008-11-06 13:14:15', :code => 'post-two')
     get :index

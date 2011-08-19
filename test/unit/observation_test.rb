@@ -2,7 +2,7 @@ require 'test_helper'
 
 class ObservationTest < ActiveSupport::TestCase
 
-  test 'not be destroyed if having associated images' do
+  test 'do not destroy observation if having associated images' do
     observation = Factory.create(:observation)
     img = Factory.build(:image, :code => 'picture-of-the-shrike')
     img.observations << observation

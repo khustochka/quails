@@ -32,7 +32,7 @@ class SpeciesControllerTest < ActionController::TestCase
     assert_redirected_to species_path(assigns(:species))
   end
 
-  test "not update species with invalid name_sci" do
+  test "do not update species with invalid name_sci" do
     species = Species.find_by_code!('corbra')
     species2 = species.dup
     old_id = species.to_param

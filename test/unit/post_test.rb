@@ -2,7 +2,7 @@ require 'test_helper'
 
 class PostTest < ActiveSupport::TestCase
 
-  test 'not be saved with empty code' do
+  test 'do not save post with empty code' do
     blogpost      = Factory.build(:post)
     blogpost.code = ''
     assert_raises(ActiveRecord::RecordInvalid) do
@@ -10,7 +10,7 @@ class PostTest < ActiveSupport::TestCase
     end
   end
 
-  test 'not be saved with existing code' do
+  test 'do not save post with existing code' do
     Factory.create(:post, :code => 'kiev-observations')
     blogpost      = Factory.build(:post)
     blogpost.code = 'kiev-observations'
@@ -19,7 +19,7 @@ class PostTest < ActiveSupport::TestCase
     end
   end
 
-  test 'not be saved with empty title' do
+  test 'do not save post with empty title' do
     blogpost       = Factory.build(:post)
     blogpost.title = ''
     assert_raises(ActiveRecord::RecordInvalid) do
@@ -27,12 +27,12 @@ class PostTest < ActiveSupport::TestCase
     end
   end
 
-  test 'set face_date to current (equal to updated_at) when creating' do
+  test "set post's face_date to current (equal to updated_at) when creating" do
     blogpost       = Factory.create(:post)
     assert_equal blogpost.updated_at, blogpost.face_date
   end
 
-  test 'set face_date to current (equal to updated_at) when saving with empty value' do
+  test "set post's face_date to current (equal to updated_at) when saving with empty value" do
     blogpost       = Factory.create(:post, :updated_at => '2008-01-01 02:02:02')
     blogpost.face_date = ''
     blogpost.save!
@@ -60,7 +60,7 @@ class PostTest < ActiveSupport::TestCase
     assert_nil Post.next_month('2010', '03')
   end
 
-  test 'not delete associated observations on destroy' do
+  test 'do not delete associated observations on post destroy' do
     blogpost = Factory.create(:post, :face_date => '2010-02-06 13:14:15', :code => 'post-one')
     observation = Factory.create(:observation, :post => blogpost)
     blogpost.destroy

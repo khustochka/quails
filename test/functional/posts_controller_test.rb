@@ -39,7 +39,7 @@ class PostsControllerTest < ActionController::TestCase
     assert_redirected_to public_post_path(assigns(:post))
   end
 
-  test "not update post with invalid attribute" do
+  test "do not update post with invalid attribute" do
     blogpost = Factory.create(:post)
     blogpost.title = ''
     login_as_admin
@@ -47,7 +47,7 @@ class PostsControllerTest < ActionController::TestCase
     assert_template :edit
   end
 
-  test "not update post with invalid code" do
+  test "do not update post with invalid code" do
     blogpost = Factory.create(:post)
     blogpost2 = blogpost.dup
     blogpost2.code = ''
@@ -66,7 +66,7 @@ class PostsControllerTest < ActionController::TestCase
     assert_redirected_to root_path
   end
 
-  test "redirect to correct URL if year and month are incorrect" do
+  test "redirect post to correct URL if year and month are incorrect" do
     blogpost = Factory.create(:post, :face_date => '2007-12-06 13:14:15')
     get :show, {:id => blogpost.code, :year => 2010, :month => '01'}
 #    assert_response 301

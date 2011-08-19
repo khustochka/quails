@@ -92,7 +92,7 @@ class PostsCollectionsTest < ActionController::TestCase
     assert_select "h2 a[href=#{public_post_path(blogpost2)}]", false
   end
 
-  test 'render properly if there is no previous or next month' do
+  test 'render month properly if there is no previous or next month' do
     blogpost1 = Factory.create(:post, :face_date => '2007-12-06 13:14:15', :code => 'post-one')
     blogpost2 = Factory.create(:post, :face_date => '2008-11-06 13:14:15', :code => 'post-two')
     get :month, :year => 2007, :month => 12

@@ -105,7 +105,7 @@ class ObservationsControllerTest < ActionController::TestCase
     assert_response 401
   end
 
-  test 'return search results in json' do
+  test 'return observation search results in json' do
     login_as_admin
     observation = Factory.create(:observation)
     get :search, :search => {}

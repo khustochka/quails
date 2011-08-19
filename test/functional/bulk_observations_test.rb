@@ -3,7 +3,7 @@ require 'test_helper'
 class BulkObservationsTest < ActionController::TestCase
   tests ObservationsController
 
-  test 'successfully save several observations' do
+  test 'successful Observations/bulksave' do
     login_as_admin
     assert_difference('Observation.count', 3) do
       post :bulksave, {:c => {:locus_id => Locus.find_by_code('brovary').id,
@@ -19,7 +19,7 @@ class BulkObservationsTest < ActionController::TestCase
     assert_not_nil Observation.find_by_species_id(6)
   end
 
-  test 'return proper ids after saving several observations' do
+  test 'Observations/bulksave should return proper ids' do
     login_as_admin
     post :bulksave, {:c => {:locus_id => Locus.find_by_code('brovary').id,
                             :observ_date => '2010-05-05', :mine => true},
@@ -35,7 +35,7 @@ class BulkObservationsTest < ActionController::TestCase
     assert_equal expected, result['data'].map { |el| el['id'] }
   end
 
-  test 'return error for incorrect common parameters (date, locus)' do
+  test 'Observations/bulksave should return error for incorrect common parameters (date, locus)' do
     login_as_admin
     assert_difference('Observation.count', 0) do
       post :bulksave, {:c => {:locus_id => '',
@@ -55,7 +55,7 @@ class BulkObservationsTest < ActionController::TestCase
     assert_nil Observation.find_by_species_id(6)
   end
 
-  test 'return error if no observations provided' do
+  test 'Observations/bulksave should return error if no observations provided' do
     login_as_admin
     assert_difference('Observation.count', 0) do
       post :bulksave, {:c => {:locus_id => Locus.find_by_code('brovary').id,
@@ -69,7 +69,7 @@ class BulkObservationsTest < ActionController::TestCase
     assert_equal({"base"=>["provide at least one observation"]}, result['data'])
   end
 
-  test 'combine errors for incorrect common parameters and zero observations' do
+  test 'Observations/bulksave should combine errors for incorrect common parameters and zero observations' do
     login_as_admin
     assert_difference('Observation.count', 0) do
       post :bulksave, {:c => {:locus_id => '',
@@ -85,7 +85,7 @@ class BulkObservationsTest < ActionController::TestCase
                   "base"=>["provide at least one observation"]}, result['data'])
   end
 
-  test 'return error for incorrect observation parameter (species_id)' do
+  test 'Observations/bulksave should return error for incorrect observation parameter (species_id)' do
     login_as_admin
     assert_difference('Observation.count', 0) do
       post :bulksave, {:c => {:locus_id => Locus.find_by_code('brovary').id,
@@ -100,7 +100,7 @@ class BulkObservationsTest < ActionController::TestCase
     assert_equal({"species_id"=>["can't be blank"]}, result['data'][0]['msg'])
   end
 
-  test 'successfully update existing and save new observations' do
+  test 'successful updating existing and saving new observations' do
     obs = Factory.create(:observation, :species_id => 2)
     login_as_admin
     assert_difference('Observation.count', 1) do

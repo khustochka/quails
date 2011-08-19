@@ -11,7 +11,7 @@ class WikiFilterTest < ActionDispatch::IntegrationTest
 
   # Screening
 
-  test 'not parse screened square brackets as tag' do
+  test 'do not parse screened square brackets as tag' do
     assert_equal '[Quail|cotnix]', transform('\[Quail|cotnix\]')
   end
 

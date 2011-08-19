@@ -47,7 +47,7 @@ class ImagesControllerTest < ActionController::TestCase
     assert_redirected_to public_image_path(assigns(:image))
   end
 
-  test "not create image with no observations" do
+  test "should not create image with no observations" do
     login_as_admin
     new_attr = @image.attributes.dup
     new_attr['code'] = 'new_img_code'
@@ -78,7 +78,7 @@ class ImagesControllerTest < ActionController::TestCase
     assert_redirected_to public_image_path(assigns(:image))
   end
 
-  test "not update image with no observations" do
+  test "should not update image with no observations" do
     login_as_admin
     new_attr = @image.attributes.dup
     new_attr['code'] = 'new_img_code'
