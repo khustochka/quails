@@ -39,7 +39,6 @@ class UIPostsTest < ActionDispatch::IntegrationTest
     current_path.should == edit_post_path(blogpost)
     click_link('Show this one')
     current_path.should == show_post_path(blogpost.to_url_params)
-
   end
 
 end
