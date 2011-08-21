@@ -62,9 +62,9 @@ GEM
     ffi (1.0.9-x86-mingw32)
     flickraw (0.8.4)
       json (>= 1.1.1)
-    gherkin (2.4.11)
+    gherkin (2.4.14)
       json (>= 1.4.6)
-    gherkin (2.4.11-x86-mingw32)
+    gherkin (2.4.14-x86-mingw32)
       json (>= 1.4.6)
     haml (3.1.2)
     haml-rails (0.3.4)
@@ -138,6 +138,7 @@ GEM
       activemodel (~> 3.0)
     spork (0.8.5)
     term-ansicolor (1.0.6)
+    test-unit (2.3.2)
     thor (0.14.6)
     treetop (1.4.10)
       polyglot
@@ -174,4 +175,5 @@ DEPENDENCIES
   sass
   simple_form
   spork
+  test-unit
   yaml_db

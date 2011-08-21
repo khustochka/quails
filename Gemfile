@@ -32,6 +32,7 @@ group :development do
 end
 
 group :test do
+  gem 'test-unit'
   gem 'ruby-prof', :platforms => :ruby, :require => nil
   gem 'factory_girl_rails'
   gem 'capybara'
