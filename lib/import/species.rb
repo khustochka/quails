@@ -1,5 +1,4 @@
 # encoding: utf-8
-require 'nokogiri'
 require 'open-uri'
 require File.expand_path('app/helpers/species_helper', Rails.root)
 #require 'import/legacy/legacy_init'
@@ -11,6 +10,8 @@ module Import
     extend SpeciesHelper
 
     def self.parse_list(url)
+      require 'nokogiri'
+
       doc = Nokogiri::HTML(open(url), nil, 'utf-8')
 
       order = family = nil
@@ -58,6 +59,7 @@ module Import
     end
 
     def self.fetch_details
+      require 'nokogiri'
       require 'app/models/species'
       Species.where(:protonym => nil).each do |sp|
         puts "Fetching details for #{sp.index_num}: #{sp.name_sci}"
@@ -75,13 +77,13 @@ module Import
           protonym = doc_ru.at("//p[b[text()='Протоним:']]/i").content.strip
 
           authority = if sp.name_sci == data_ru[2].strip
-                        data_ru[3].strip
-                      else
-                        proto_parts = protonym.split(' ')
-                        sp.name_sci != "#{proto_parts.first} #{proto_parts.last}".downcase.capitalize ?
-                                "(#{data_ru[4]})" :
-                                "#{data_ru[4]}"
-                      end
+            data_ru[3].strip
+          else
+            proto_parts = protonym.split(' ')
+            sp.name_sci != "#{proto_parts.first} #{proto_parts.last}".downcase.capitalize ?
+                    "(#{data_ru[4]})" :
+                    "#{data_ru[4]}"
+          end
           name_uk = doc_uk.at("//td[@class='AVBHeader']").content.match(/^(.+) \([A-Za-z ]+\) \(?([^()]+)\)?$/)[1].strip
 
           name_ru = '' if name_ru.downcase.eql?(sp.name_en.downcase)
@@ -141,12 +143,12 @@ module Import
           arr.select { |s| s.family == fam }.each do |sp|
             puts "*** " + sp.name_sci
             sp_new = Legacy::Species.find_by_sp_id(sp.code) ||
-                             Legacy::Species.new(
-                                     :sp_la => sp.name_sci,
-                                     :sp_ru => conv_to_old(sp.name_ru),
-                                     :sp_uk => conv_to_old(sp.name_uk),
-                                     :sp_prim => sp.authority
-                             )
+                    Legacy::Species.new(
+                            :sp_la => sp.name_sci,
+                            :sp_ru => conv_to_old(sp.name_ru),
+                            :sp_uk => conv_to_old(sp.name_uk),
+                            :sp_prim => sp.authority
+                    )
             sp_new.fam_id = j
             sp_new.sort_num = sp.index_num
             sp_new.sp_en = sp.name_en

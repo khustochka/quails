@@ -1,9 +1,9 @@
-require 'nokogiri'
-
 module Import
   module Book
     class Clements
       def self.parse(output_file)
+        require 'nokogiri'
+
 #        ukr_list = YAML.load_file('lib/import/output/ukraine.yaml').keys
 #        usa_list = YAML.load_file('lib/import/output/usa.yaml').keys
 #        species = (ukr_list + usa_list).uniq
@@ -32,15 +32,15 @@ module Import
               sp_ru = sp_data[2].content
               sp_uk = doc_ua.xpath("tr[td[a[i[text()='#{sp_la}']]]]").children[2].content rescue ''
               list.push({
-                      :id => id,
-                      :name_sci => sp_la,
-                      :name_en => sp_en,
-                      :name_ru => sp_ru,
-                      :name_uk => sp_uk,
-                      :avb_id => avb_id,
-                      :order => order,
-                      :family => family
-              })
+                                :id => id,
+                                :name_sci => sp_la,
+                                :name_en => sp_en,
+                                :name_ru => sp_ru,
+                                :name_uk => sp_uk,
+                                :avb_id => avb_id,
+                                :order => order,
+                                :family => family
+                        })
             end
           end
         end

@@ -1,8 +1,8 @@
-require 'nokogiri'
-
 module Import
   class Checklist
     def self.parse(io, output_file)
+      require 'nokogiri'
+
       doc = Nokogiri::HTML(io, nil, 'utf-8')
 
       full = YAML.load_file('lib/import/output/clements.yaml')
