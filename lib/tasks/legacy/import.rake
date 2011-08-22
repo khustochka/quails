@@ -27,7 +27,9 @@ namespace :legacy do
       observations = Legacy::Models::Observation.all
       images = Legacy::Models::Image.all
     else
-      dump = YAML::load_file(source)
+      YAML::ENGINE.yamler = 'syck'
+      f = File.open(source, encoding: 'windows-1251:utf-8')
+      dump = YAML.load(f.read)
       countries = Legacy::Utils.prepare_table(dump['country'])
       regions = Legacy::Utils.prepare_table(dump['region'])
       locs = Legacy::Utils.prepare_table(dump['location'])
