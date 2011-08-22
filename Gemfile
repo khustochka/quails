@@ -6,6 +6,8 @@ gem 'pg', :platforms => [:ruby, :mingw]
 
 gem "activerecord-jdbcpostgresql-adapter", :platforms => :jruby
 
+gem 'thin', :group => :production, :require => false # for heroku
+
 # Deploy with Capistrano
 # gem 'capistrano'
 

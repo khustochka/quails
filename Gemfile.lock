@@ -50,10 +50,12 @@ GEM
       capybara (>= 1.0.0)
       cucumber (~> 1.0.0)
       nokogiri (>= 1.4.6)
+    daemons (1.1.4)
     database_cleaner (0.6.7)
     diff-lcs (1.1.2)
     erubis (2.6.6)
       abstract (>= 1.0.0)
+    eventmachine (0.12.10)
     factory_girl (2.0.4)
     factory_girl_rails (1.1.0)
       factory_girl (~> 2.0.0)
@@ -139,6 +141,14 @@ GEM
     spork (0.8.5)
     term-ansicolor (1.0.6)
     test-unit (2.3.2)
+    thin (1.2.11)
+      daemons (>= 1.0.9)
+      eventmachine (>= 0.12.6)
+      rack (>= 1.0.0)
+    thin (1.2.11-x86-mingw32)
+      daemons (>= 1.0.9)
+      eventmachine (>= 0.12.6)
+      rack (>= 1.0.0)
     thor (0.14.6)
     treetop (1.4.10)
       polyglot
@@ -176,4 +186,5 @@ DEPENDENCIES
   simple_form
   spork
   test-unit
+  thin
   yaml_db
