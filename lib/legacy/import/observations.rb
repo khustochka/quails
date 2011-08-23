@@ -18,9 +18,9 @@ module Legacy
                                        :locus_id => Legacy::Mapping.locations[ob[:loc_id].gsub('-', '_')],
                                        :observ_date => ob[:ob_date],
                                        :biotope => ob[:bt_id],
-                                       :quantity => Legacy::Utils.conv_to_new(ob[:quantity]),
-                                       :place => Legacy::Utils.conv_to_new(ob[:place]),
-                                       :notes => Legacy::Utils.conv_to_new(ob[:notes]),
+                                       :quantity => ob[:quantity],
+                                       :place => ob[:place],
+                                       :notes => ob[:notes],
                                        :post_id => ob[:post_id].blank? ? nil : Legacy::Mapping.posts[ob[:post_id]],
                                        :mine => ob[:mine]
                                    })

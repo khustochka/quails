@@ -9,8 +9,8 @@ module Legacy
         posts.each do |post|
           Post.create!({
                            :code => post[:post_id],
-                           :title => Legacy::Utils.conv_to_new(post[:post_title]).gsub(' - ', '&nbsp;— '),
-                           :text => Legacy::Utils.conv_to_new(post[:post_text]).gsub(' - ', '&nbsp;— '),
+                           :title => post[:post_title].gsub(' - ', '&nbsp;— '),
+                           :text => post[:post_text].gsub(' - ', '&nbsp;— '),
                            :topic => post[:post_type],
                            :status => post[:post_status],
                            :lj_post_id => post[:lj_post_id].to_i.zero? ? nil :  post[:lj_post_id],

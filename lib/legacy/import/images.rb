@@ -18,8 +18,8 @@ module Legacy
         images.each do |im|
           img = Image.new({
                               :code => im[:img_id],
-                              :title => Legacy::Utils.conv_to_new(im[:img_title]).gsub(' - ', '&nbsp;— '),
-                              :description => Legacy::Utils.conv_to_new(im[:img_descr]).gsub(' - ', '&nbsp;— '),
+                              :title => im[:img_title].gsub(' - ', '&nbsp;— '),
+                              :description => im[:img_descr].gsub(' - ', '&nbsp;— '),
                               :created_at => im[:add_date],
                               :index_num => im[:img_sort]
                           })
