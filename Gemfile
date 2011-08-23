@@ -17,14 +17,17 @@ gem 'sass'
 gem 'kaminari'
 gem 'meta_search'
 gem 'simple_form'
-gem 'yaml_db'
+# using specific yaml_db, because the canonic gem works bad with new psych format
+# see https://github.com/ludicast/yaml_db/pull/24
+gem 'yaml_db', :git => 'git://github.com/bseanvt/yaml_db.git', :ref => '14ebdb79805d71501fbd', :require => false
 gem 'hashie'
 gem 'flickraw', :require => false
 
 group :development do
   gem 'rails3-generators'
-  gem 'nokogiri', :platforms => [:ruby, :mingw], :require => nil
-  gem 'mysql2', '~>0.2.7', :platforms => :ruby, :require => nil
+  gem 'nokogiri', :platforms => [:ruby, :mingw], :require => false
+  gem 'mysql2', '~>0.2.7', :platforms => :ruby, :require => false
+  gem 'grit', :require => false
 
 # Other gems that may be useful but are not really dependencies:
 # gem 'ruby-debug-ide' # for debugging in RubyMine
@@ -35,7 +38,7 @@ end
 
 group :test do
   gem 'test-unit'
-  gem 'ruby-prof', :platforms => :ruby, :require => nil
+  gem 'ruby-prof', :platforms => :ruby, :require => false
   gem 'factory_girl_rails'
   gem 'capybara'
   gem 'database_cleaner'

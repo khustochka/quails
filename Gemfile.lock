@@ -1,3 +1,10 @@
+GIT
+  remote: git://github.com/bseanvt/yaml_db.git
+  revision: 14ebdb79805d71501fbd742e52ad7887765138dc
+  ref: 14ebdb79805d71501fbd
+  specs:
+    yaml_db (0.2.0)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -51,9 +58,11 @@ GEM
       factory_girl (~> 2.0.0)
       railties (>= 3.0.0)
     ffi (1.0.9)
-    ffi (1.0.9-x86-mingw32)
     flickraw (0.8.4)
       json (>= 1.1.1)
+    grit (2.4.1)
+      diff-lcs (~> 1.1)
+      mime-types (~> 1.15)
     haml (3.1.2)
     haml-rails (0.3.4)
       actionpack (~> 3.0)
@@ -81,9 +90,7 @@ GEM
     mime-types (1.16)
     mysql2 (0.2.13)
     nokogiri (1.5.0)
-    nokogiri (1.5.0-x86-mingw32)
     pg (0.11.0)
-    pg (0.11.0-x86-mingw32)
     polyglot (0.3.2)
     rack (1.2.3)
     rack-mount (0.6.14)
@@ -113,7 +120,7 @@ GEM
     ruby-prof (0.10.8)
     rubyzip (0.9.4)
     sass (3.1.7)
-    selenium-webdriver (2.4.0)
+    selenium-webdriver (2.5.0)
       childprocess (>= 0.2.1)
       ffi (>= 1.0.7)
       json_pure
@@ -133,11 +140,9 @@ GEM
     tzinfo (0.3.29)
     xpath (0.1.4)
       nokogiri (~> 1.3)
-    yaml_db (0.2.1)
 
 PLATFORMS
   ruby
-  x86-mingw32
 
 DEPENDENCIES
   activerecord-jdbcpostgresql-adapter
@@ -145,6 +150,7 @@ DEPENDENCIES
   database_cleaner
   factory_girl_rails
   flickraw
+  grit
   haml-rails
   hashie
   kaminari
@@ -161,4 +167,4 @@ DEPENDENCIES
   simple_form
   test-unit
   thin
-  yaml_db
+  yaml_db!

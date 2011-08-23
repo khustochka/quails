@@ -6,4 +6,8 @@
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Daley', :city => cities.first)
 
-SerializationHelper::Base.new(YamlDb::Helper).load_from_dir 'db/seed'
+require 'yaml_db'
+
+local_opts = YAML.load_file('config/local.yml')
+
+SerializationHelper::Base.new(YamlDb::Helper).load_from_dir File.join(local_opts['repo'], 'seed')
