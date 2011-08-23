@@ -9,3 +9,5 @@ log/*.log
 tmp/*
 tmp/**/*
 *~
+public/stylesheets/*.css
+!public/stylesheets/formalize.css
