@@ -7,7 +7,6 @@ require 'legacy/utils'
 desc 'Legacy data tasks'
 namespace :legacy do
 
-  # TODO: expand the task to work with Legacy DB directly (extract common code)
   desc 'Importing data from legacy DB dump'
   task(:import => [:environment, 'db:setup']) do
 
