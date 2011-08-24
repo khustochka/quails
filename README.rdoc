@@ -11,3 +11,8 @@ Common Quail <i>Coturnix coturnix</i>. In addition 'quails' sounds very close to
 
 Actually 'rails' are birds as well - members of the _Rallidae_ family associated mostly with wetlands. So I could have
 named my application Rails but decided it could inspire confusion in the Ruby open source world.
+
+== Dependencies
+
+[Ruby 1.9] I switched to 1.9.2 for development. Some Rake tasks contain 1.9-specific syntax and encoding management.
+[PostgreSQL] Some queries are postgres-specific.
