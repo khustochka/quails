@@ -4,6 +4,7 @@
 .bundle
 db/*.sqlite3
 config/database.yml
+config/local.yml
 config/security_devtest.yml
 log/*.log
 tmp/*
