@@ -39,4 +39,20 @@ namespace :seed do
 
   end
 
+  desc 'Update the repo and load the seed (removing other data)'
+  task :load => :environment do
+
+    require 'grit'
+
+    local_opts = YAML.load_file('config/local.yml')
+    folder = local_opts['repo']
+
+    repo = Grit::Repo.new(folder)
+
+    puts 'Pulling from remote'
+    repo.remote_fetch('origin')
+
+    Rake::Task['db:setup'].invoke
+  end
+
 end
