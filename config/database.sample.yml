@@ -45,11 +45,3 @@ test: &TEST
 production:
   <<: *DEFAULT
   database: quails_production
-
-legacy:
-  encoding: cp1251
-#  adapter: mysql2
-#  pool: 5
-#  database:
-#  username:
-#  password:

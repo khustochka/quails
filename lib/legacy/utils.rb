@@ -10,11 +10,8 @@ module Legacy
       end
     end
 
-    def self.db_connect
-      @@legacy_db_spec = YAML.load_file('config/database.yml')['legacy'] || {}
-      #@@rails_db_spec = YAML.load_file('config/database.yml')[Rails.env || 'development']
-
-      Legacy::Models::Base.establish_connection(@@legacy_db_spec)
+    def self.db_connect(spec)
+      Legacy::Models::Base.establish_connection(spec)
     end
 
   end
