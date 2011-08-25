@@ -19,7 +19,7 @@ module Import
         id = 0
 
         doc.xpath('/html/body/table[2]/tr/td/table[2]/tr/td/table/tr').each do |row|
-          unless row.content.match(/([A-Z]+FORMES): ([A-Z]+dae)$/i).nil?
+          if  row.content =~ /([A-Z]+FORMES): ([A-Z]+dae)$/i
             order = $1.downcase.capitalize
             family = $2.downcase.capitalize
           else

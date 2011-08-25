@@ -26,7 +26,7 @@ Quails3::Application.routes.draw do
   resources :posts, :except => [:index, :show]
 
   # Constraint below is to differ paths like /species/Crex_crex/edit from /species/Crex_crex/photo-of-the-corncrake
-  get 'species/:species/:id' => 'images#show', :as => 'show_image', :constraints => lambda {|r| !(r.url =~ /edit$/)}
+  get 'species/:species/:id' => 'images#show', :as => 'show_image', :constraints => lambda {|r| r.url !~ /edit$/}
   get 'photostream' => 'images#photostream'
 
   constraints :year => /\d{4}/ do

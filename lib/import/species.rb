@@ -17,7 +17,7 @@ module Import
       order = family = nil
 
       doc.xpath('/html/body/table[2]/tr/td/table[2]/tr/td/table/tr').inject([]) do |list, row|
-        unless row.content.match(/(?:([A-Z]+FORMES): )?((?:[A-Z]+dae)|(?:Genera Incertae Sedis))\s*$/i).nil?
+        if  row.content =~ /(?:([A-Z]+FORMES): )?((?:[A-Z]+dae)|(?:Genera Incertae Sedis))\s*$/i
           order, family = $1, $2
           order = order.nil? ? '' : order.strip.downcase.capitalize
           family = family.strip.downcase.capitalize unless family == 'Genera Incertae Sedis'

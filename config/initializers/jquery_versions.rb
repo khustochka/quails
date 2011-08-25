@@ -5,7 +5,7 @@ JQUERY_URL = Rails.env.production? ?
     "jquery-#{JQUERY_VERSION}.min"
 
 Dir['public/javascripts/*.js'].each do |path|
-  if File.basename(path).match(/jquery-ui*/)
+  if File.basename(path) =~ /jquery-ui*/
     JQ_UI_FILE = File.basename(path, '.js')
     break
   end
