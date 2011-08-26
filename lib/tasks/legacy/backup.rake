@@ -1,8 +1,11 @@
 desc 'Legacy data tasks'
 namespace :legacy do
 
-  desc 'Download and backup legacy DB dump'
-  task :backup => :environment do
+  desc 'Download legacy DB dump, and restore it locally'
+  task :backup => [:fetch, :restore]
+
+  desc 'Download legacy DB dump, and push it to remote repo'
+  task :fetch => :environment do
 
     require 'grit'
 
