@@ -1,6 +1,6 @@
 source :rubygems
 
-gem 'rails', '3.0.10'
+gem 'rails', '3.1.0'
 
 gem 'pg', :platforms => [:ruby, :mingw]
 
@@ -16,6 +16,7 @@ gem 'haml-rails'
 gem 'sass'
 gem 'kaminari'
 gem 'meta_search'
+gem 'rails_autolink'
 gem 'simple_form'
 # using specific yaml_db, because the canonic gem works bad with new psych format
 # see https://github.com/ludicast/yaml_db/pull/24
