@@ -4,6 +4,7 @@ class Image < ActiveRecord::Base
   before_save :observations_provided?
 
   has_and_belongs_to_many :observations, :include => [:species, :post]
+  has_many :species, :through => :observations
 
   delegate :observ_date, :post, :locus, :to => :first_observation
 
@@ -11,12 +12,6 @@ class Image < ActiveRecord::Base
 
   def to_param
     code_was
-  end
-
-  # Associations
-
-  def species
-    observations.map(&:species).flatten
   end
 
   # Instance methods

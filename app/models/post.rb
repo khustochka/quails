@@ -10,6 +10,7 @@ class Post < ActiveRecord::Base
 
   has_many :observations, :dependent => :nullify
   has_many :species, :through => :observations
+  has_many :images, :through => :observations, :include => :species
 
   # Parameters
 
@@ -43,12 +44,6 @@ class Post < ActiveRecord::Base
 
   def self.years
     select('DISTINCT EXTRACT(year from face_date) AS year').order(:year).map { |p| p[:year] }
-  end
-
-  # Associations
-
-  def images
-    Observation.where(:post_id => id).includes(:images).map(&:images).flatten
   end
 
   # Instance methods

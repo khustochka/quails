@@ -5,5 +5,6 @@
     -#%small= post.topic
 
   = wiki_filter(post)
-  - unless post.images.empty?
-    %section= render :partial => 'images/thumbnail', :collection => post.images
+  - images = post.images.all
+  - unless images.empty?
+    %section= render :partial => 'images/thumbnail', :collection => images
