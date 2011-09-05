@@ -47,7 +47,7 @@ class UIObservationsTest < ActionDispatch::IntegrationTest
       select_suggestion('Falco tinnunculus', :from => 'Species')
     end
 
-    lambda { click_button('Save') }.should change(Observation, :count).by(2)
+    lambda { click_button('Save'); sleep 0.5 }.should change(Observation, :count).by(2)
   end
 
 end
