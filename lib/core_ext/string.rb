@@ -4,6 +4,8 @@ class String
   end
 
   def sp_humanize
-    gsub(/[ _+]+/, ' ').capitalize
+    gsub(/[ _+]+/, ' ').tap do |s|
+      return s.capitalize unless s[0] == '-'
+    end
   end
 end
