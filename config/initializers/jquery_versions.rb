@@ -1,4 +1,4 @@
-JQUERY_VERSION = '1.6.2'
+JQUERY_VERSION = '1.6.3'
 
 JQUERY_URL = Rails.env.production? ?
     "http://ajax.googleapis.com/ajax/libs/jquery/#{JQUERY_VERSION}/jquery.min.js" :
