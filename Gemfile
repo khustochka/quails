@@ -27,7 +27,7 @@ gem 'flickraw', :require => false
 group :development do
   gem 'rails3-generators'
   gem 'nokogiri', :platforms => [:ruby, :mingw], :require => false
-  gem 'mysql2', '~>0.2.7', :platforms => :ruby, :require => false
+  gem 'mysql2', '~>0.3.7', :platforms => :ruby, :require => false
   gem 'grit', :require => false
 
 # Other gems that may be useful but are not really dependencies:
