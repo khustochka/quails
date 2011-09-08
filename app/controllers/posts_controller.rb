@@ -18,7 +18,7 @@ class PostsController < ApplicationController
         @prev_month = post_last
         @posts.pop
       else
-        @posts += SessionAwarePost().order('face_date DESC').where(
+        @posts.concat SessionAwarePost().order('face_date DESC').where(
             'EXTRACT(year from face_date) = ? AND EXTRACT(month from face_date) = ?', post_last[:year], post_last[:month]
         ).offset(POSTS_ON_FRONT_PAGE + 1)
         @prev_month = SessionAwarePost().prev_month(post_last[:year], post_last[:month])

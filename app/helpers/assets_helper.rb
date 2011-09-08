@@ -1,12 +1,12 @@
 module AssetsHelper
   def stylesheet(*args)
     @stylesheets ||= []
-    @stylesheets += args
+    @stylesheets.concat args
   end
 
   def javascript(*args)
     @scripts ||= []
-    @scripts += args
+    @scripts.concat args
   end
 
   def use_jquery
