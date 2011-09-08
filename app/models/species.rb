@@ -42,7 +42,7 @@ class Species < ActiveRecord::Base
         end
     select('obs.*, name_sci, name_ru, name_en, name_uk, index_num, family, "order"').reorder(sort_option).
         joins("INNER JOIN (#{Observation.old_lifers_observations(options).to_sql}) AS obs ON species.id=obs.main_species").
-        all.group_by(&:main_species).map {|k, v| v.first }
+        all.group_by(&:main_species).map {|_, v| v.first }
   end
 
   # Associations

@@ -42,7 +42,7 @@ class Observation < ActiveRecord::Base
           WHERE mine = true
           ORDER BY observ_date DESC
           "
-      ).group_by(&:species_id).map { |k, v| v.first }
+      ).group_by(&:species_id).map { |_, v| v.first }
   end
 
   def self.old_lifers_dates(*args)

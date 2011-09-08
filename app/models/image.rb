@@ -21,7 +21,7 @@ class Image < ActiveRecord::Base
   end
 
   def search_applicable_observations
-    Observation.search(observations.present? && {:observ_date_eq => observations.first.observ_date, :locus_id_eq => observations.first.locus.id})
+    Observation.search(observations.present? && {:observ_date_eq => first_observation.observ_date, :locus_id_eq => first_observation.locus.id})
   end
 
   private
