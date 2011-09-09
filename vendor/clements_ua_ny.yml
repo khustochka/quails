@@ -1,0 +1,3886 @@
+---
+- :name_sci: Dendrocygna autumnalis
+  :name_en: Black-bellied Whistling-Duck
+  :order: Anseriformes
+  :family: Anatidae
+  :avibase_id: C01A22D6C148AC65
+- :name_sci: Dendrocygna bicolor
+  :name_en: Fulvous Whistling-Duck
+  :order: Anseriformes
+  :family: Anatidae
+  :avibase_id: 9A60617EE376ABE9
+- :name_sci: Anser fabalis
+  :name_en: Taiga Bean-Goose
+  :order: Anseriformes
+  :family: Anatidae
+  :avibase_id: 96084FB465276484
+- :name_sci: Anser brachyrhynchus
+  :name_en: Pink-footed Goose
+  :order: Anseriformes
+  :family: Anatidae
+  :avibase_id: AFA7EE7470F000E9
+- :name_sci: Anser albifrons
+  :name_en: Greater White-fronted Goose
+  :order: Anseriformes
+  :family: Anatidae
+  :avibase_id: 466E9077BE220EBE
+- :name_sci: Anser erythropus
+  :name_en: Lesser White-fronted Goose
+  :order: Anseriformes
+  :family: Anatidae
+  :avibase_id: 184D232983E7AD10
+- :name_sci: Anser anser
+  :name_en: Graylag Goose
+  :order: Anseriformes
+  :family: Anatidae
+  :avibase_id: 4AED44E819A43204
+- :name_sci: Chen caerulescens
+  :name_en: Snow Goose
+  :order: Anseriformes
+  :family: Anatidae
+  :avibase_id: D3A260BCA65503C6
+- :name_sci: Chen rossii
+  :name_en: Ross's Goose
+  :order: Anseriformes
+  :family: Anatidae
+  :avibase_id: 7A24F57F87F66E97
+- :name_sci: Branta bernicla
+  :name_en: Brant
+  :order: Anseriformes
+  :family: Anatidae
+  :avibase_id: 3E04020B54C14FCC
+- :name_sci: Branta leucopsis
+  :name_en: Barnacle Goose
+  :order: Anseriformes
+  :family: Anatidae
+  :avibase_id: 3163ED86A508BB83
+- :name_sci: Branta hutchinsii
+  :name_en: Cackling Goose
+  :order: Anseriformes
+  :family: Anatidae
+  :avibase_id: 60214D4970BA4158
+- :name_sci: Branta canadensis
+  :name_en: Canada Goose
+  :order: Anseriformes
+  :family: Anatidae
+  :avibase_id: B59E18633E2EFD25
+- :name_sci: Branta ruficollis
+  :name_en: Red-breasted Goose
+  :order: Anseriformes
+  :family: Anatidae
+  :avibase_id: 0D280B3F11B099B2
+- :name_sci: Cygnus olor
+  :name_en: Mute Swan
+  :order: Anseriformes
+  :family: Anatidae
+  :avibase_id: 694C127A5D849FFE
+- :name_sci: Cygnus columbianus
+  :name_en: Tundra Swan
+  :order: Anseriformes
+  :family: Anatidae
+  :avibase_id: 0BCBA6B9CC19E7BA
+- :name_sci: Cygnus cygnus
+  :name_en: Whooper Swan
+  :order: Anseriformes
+  :family: Anatidae
+  :avibase_id: BDDB5670D2D20A55
+- :name_sci: Tadorna ferruginea
+  :name_en: Ruddy Shelduck
+  :order: Anseriformes
+  :family: Anatidae
+  :avibase_id: 1F9D883EB44DEFD6
+- :name_sci: Tadorna tadorna
+  :name_en: Common Shelduck
+  :order: Anseriformes
+  :family: Anatidae
+  :avibase_id: 5EAB32D3007896F3
+- :name_sci: Aix sponsa
+  :name_en: Wood Duck
+  :order: Anseriformes
+  :family: Anatidae
+  :avibase_id: 27B2749A88E3E2C8
+- :name_sci: Anas strepera
+  :name_en: Gadwall
+  :order: Anseriformes
+  :family: Anatidae
+  :avibase_id: C235A4D712BB8855
+- :name_sci: Anas penelope
+  :name_en: Eurasian Wigeon
+  :order: Anseriformes
+  :family: Anatidae
+  :avibase_id: 15EE0D3685082E13
+- :name_sci: Anas americana
+  :name_en: American Wigeon
+  :order: Anseriformes
+  :family: Anatidae
+  :avibase_id: D201EB7230F20770
+- :name_sci: Anas rubripes
+  :name_en: American Black Duck
+  :order: Anseriformes
+  :family: Anatidae
+  :avibase_id: C732CB106EE8BAE8
+- :name_sci: Anas platyrhynchos
+  :name_en: Mallard
+  :order: Anseriformes
+  :family: Anatidae
+  :avibase_id: D6F5A788399B36E7
+- :name_sci: Anas discors
+  :name_en: Blue-winged Teal
+  :order: Anseriformes
+  :family: Anatidae
+  :avibase_id: 90E2543E9A4ABA0A
+- :name_sci: Anas cyanoptera
+  :name_en: Cinnamon Teal
+  :order: Anseriformes
+  :family: Anatidae
+  :avibase_id: 0E599E6CC209AFAD
+- :name_sci: Anas clypeata
+  :name_en: Northern Shoveler
+  :order: Anseriformes
+  :family: Anatidae
+  :avibase_id: ED4CE8E7CFF43696
+- :name_sci: Anas acuta
+  :name_en: Northern Pintail
+  :order: Anseriformes
+  :family: Anatidae
+  :avibase_id: 56CCA7179C9FA71D
+- :name_sci: Anas querquedula
+  :name_en: Garganey
+  :order: Anseriformes
+  :family: Anatidae
+  :avibase_id: F577BA0F5BB7BD3F
+- :name_sci: Anas formosa
+  :name_en: Baikal Teal
+  :order: Anseriformes
+  :family: Anatidae
+  :avibase_id: 63EABB42903040B4
+- :name_sci: Anas crecca
+  :name_en: Green-winged Teal
+  :order: Anseriformes
+  :family: Anatidae
+  :avibase_id: BC6C3CCE5C1B5D9B
+- :name_sci: Netta rufina
+  :name_en: Red-crested Pochard
+  :order: Anseriformes
+  :family: Anatidae
+  :avibase_id: 3EC2CDA952B4A18C
+- :name_sci: Aythya valisineria
+  :name_en: Canvasback
+  :order: Anseriformes
+  :family: Anatidae
+  :avibase_id: 1929E1E16E073570
+- :name_sci: Aythya americana
+  :name_en: Redhead
+  :order: Anseriformes
+  :family: Anatidae
+  :avibase_id: 3072CC168280168B
+- :name_sci: Aythya ferina
+  :name_en: Common Pochard
+  :order: Anseriformes
+  :family: Anatidae
+  :avibase_id: A96692E0C9F7508B
+- :name_sci: Aythya collaris
+  :name_en: Ring-necked Duck
+  :order: Anseriformes
+  :family: Anatidae
+  :avibase_id: 0783A7EA9C26947D
+- :name_sci: Aythya nyroca
+  :name_en: Ferruginous Duck
+  :order: Anseriformes
+  :family: Anatidae
+  :avibase_id: 7CF91527F5832F30
+- :name_sci: Aythya fuligula
+  :name_en: Tufted Duck
+  :order: Anseriformes
+  :family: Anatidae
+  :avibase_id: 67CEA1C1FC88F1DB
+- :name_sci: Aythya marila
+  :name_en: Greater Scaup
+  :order: Anseriformes
+  :family: Anatidae
+  :avibase_id: 25C94A8F90A829F7
+- :name_sci: Aythya affinis
+  :name_en: Lesser Scaup
+  :order: Anseriformes
+  :family: Anatidae
+  :avibase_id: 50566E50C91B8686
+- :name_sci: Somateria spectabilis
+  :name_en: King Eider
+  :order: Anseriformes
+  :family: Anatidae
+  :avibase_id: F3D7491432CC59E7
+- :name_sci: Somateria mollissima
+  :name_en: Common Eider
+  :order: Anseriformes
+  :family: Anatidae
+  :avibase_id: B77377EEB852D0AF
+- :name_sci: Histrionicus histrionicus
+  :name_en: Harlequin Duck
+  :order: Anseriformes
+  :family: Anatidae
+  :avibase_id: BCBD2EAECA774B19
+- :name_sci: Camptorhynchus labradorius
+  :name_en: Labrador Duck
+  :order: Anseriformes
+  :family: Anatidae
+  :avibase_id: 80897D192B0FD8A7
+- :name_sci: Melanitta perspicillata
+  :name_en: Surf Scoter
+  :order: Anseriformes
+  :family: Anatidae
+  :avibase_id: 624078BAC17F8111
+- :name_sci: Melanitta fusca
+  :name_en: White-winged Scoter
+  :order: Anseriformes
+  :family: Anatidae
+  :avibase_id: 8C602FD9D2A0A234
+- :name_sci: Melanitta nigra
+  :name_en: Common Scoter
+  :order: Anseriformes
+  :family: Anatidae
+  :avibase_id: 246981996A4998ED
+- :name_sci: Melanitta americana
+  :name_en: Black Scoter
+  :order: Anseriformes
+  :family: Anatidae
+  :avibase_id: B7B1A5DD94724A05
+- :name_sci: Clangula hyemalis
+  :name_en: Long-tailed Duck
+  :order: Anseriformes
+  :family: Anatidae
+  :avibase_id: AF0C7BDEC7CEBAAC
+- :name_sci: Bucephala albeola
+  :name_en: Bufflehead
+  :order: Anseriformes
+  :family: Anatidae
+  :avibase_id: FB7383856D0DB2EA
+- :name_sci: Bucephala clangula
+  :name_en: Common Goldeneye
+  :order: Anseriformes
+  :family: Anatidae
+  :avibase_id: 68EA281AF74846D2
+- :name_sci: Bucephala islandica
+  :name_en: Barrow's Goldeneye
+  :order: Anseriformes
+  :family: Anatidae
+  :avibase_id: 9456DEDF7E1AADF3
+- :name_sci: Mergellus albellus
+  :name_en: Smew
+  :order: Anseriformes
+  :family: Anatidae
+  :avibase_id: F1F520368CC95F88
+- :name_sci: Lophodytes cucullatus
+  :name_en: Hooded Merganser
+  :order: Anseriformes
+  :family: Anatidae
+  :avibase_id: 60E6081E3DF8CFA4
+- :name_sci: Mergus merganser
+  :name_en: Common Merganser
+  :order: Anseriformes
+  :family: Anatidae
+  :avibase_id: 407E2CA886367DBB
+- :name_sci: Mergus serrator
+  :name_en: Red-breasted Merganser
+  :order: Anseriformes
+  :family: Anatidae
+  :avibase_id: 8DB64266A42FC19B
+- :name_sci: Oxyura jamaicensis
+  :name_en: Ruddy Duck
+  :order: Anseriformes
+  :family: Anatidae
+  :avibase_id: DF1E2A1DCA7F6791
+- :name_sci: Oxyura leucocephala
+  :name_en: White-headed Duck
+  :order: Anseriformes
+  :family: Anatidae
+  :avibase_id: 2E40EF2C53646E30
+- :name_sci: Colinus virginianus
+  :name_en: Northern Bobwhite
+  :order: Galliformes
+  :family: Odontophoridae
+  :avibase_id: 91CCBC719C97AE19
+- :name_sci: Alectoris chukar
+  :name_en: Chukar
+  :order: Galliformes
+  :family: Phasianidae
+  :avibase_id: 87CBEBF7C53AF64C
+- :name_sci: Perdix perdix
+  :name_en: Gray Partridge
+  :order: Galliformes
+  :family: Phasianidae
+  :avibase_id: C013A20E7F91419D
+- :name_sci: Perdix dauurica
+  :name_en: Daurian Partridge
+  :order: Galliformes
+  :family: Phasianidae
+  :avibase_id: 0923A272116E8D4E
+- :name_sci: Coturnix coturnix
+  :name_en: Common Quail
+  :order: Galliformes
+  :family: Phasianidae
+  :avibase_id: CAFE345DCABD8BF8
+- :name_sci: Phasianus colchicus
+  :name_en: Ring-necked Pheasant
+  :order: Galliformes
+  :family: Phasianidae
+  :avibase_id: 4B9EEF568857FB51
+- :name_sci: Tetrao urogallus
+  :name_en: Eurasian Capercaillie
+  :order: Galliformes
+  :family: Phasianidae
+  :avibase_id: C3221EE24B948F50
+- :name_sci: Tetrao tetrix
+  :name_en: Black Grouse
+  :order: Galliformes
+  :family: Phasianidae
+  :avibase_id: D4441CD6E9C993EF
+- :name_sci: Bonasa bonasia
+  :name_en: Hazel Grouse
+  :order: Galliformes
+  :family: Phasianidae
+  :avibase_id: B8CA2EEB4E7E0CA3
+- :name_sci: Bonasa umbellus
+  :name_en: Ruffed Grouse
+  :order: Galliformes
+  :family: Phasianidae
+  :avibase_id: 6D2B5CDA60316986
+- :name_sci: Falcipennis canadensis
+  :name_en: Spruce Grouse
+  :order: Galliformes
+  :family: Phasianidae
+  :avibase_id: 4BCA4FFF85E6B1E2
+- :name_sci: Lagopus lagopus
+  :name_en: Willow Ptarmigan
+  :order: Galliformes
+  :family: Phasianidae
+  :avibase_id: FC3D07C64FF2C915
+- :name_sci: Tympanuchus cupido
+  :name_en: Greater Prairie-Chicken
+  :order: Galliformes
+  :family: Phasianidae
+  :avibase_id: F59448B7465F5CB5
+- :name_sci: Meleagris gallopavo
+  :name_en: Wild Turkey
+  :order: Galliformes
+  :family: Phasianidae
+  :avibase_id: 9C5ED06A51A9FFEE
+- :name_sci: Gavia stellata
+  :name_en: Red-throated Loon
+  :order: Gaviiformes
+  :family: Gaviidae
+  :avibase_id: 6C50988A5445ED76
+- :name_sci: Gavia arctica
+  :name_en: Arctic Loon
+  :order: Gaviiformes
+  :family: Gaviidae
+  :avibase_id: CA5852BE6E617DBD
+- :name_sci: Gavia pacifica
+  :name_en: Pacific Loon
+  :order: Gaviiformes
+  :family: Gaviidae
+  :avibase_id: B7D7EF2398F42295
+- :name_sci: Gavia immer
+  :name_en: Common Loon
+  :order: Gaviiformes
+  :family: Gaviidae
+  :avibase_id: 7E02237895784E9A
+- :name_sci: Gavia adamsii
+  :name_en: Yellow-billed Loon
+  :order: Gaviiformes
+  :family: Gaviidae
+  :avibase_id: 5349255DB4579713
+- :name_sci: Tachybaptus ruficollis
+  :name_en: Little Grebe
+  :order: Podicipediformes
+  :family: Podicipedidae
+  :avibase_id: 215FEA89A0F19F5C
+- :name_sci: Podilymbus podiceps
+  :name_en: Pied-billed Grebe
+  :order: Podicipediformes
+  :family: Podicipedidae
+  :avibase_id: 9A8E55D00554A088
+- :name_sci: Podiceps auritus
+  :name_en: Horned Grebe
+  :order: Podicipediformes
+  :family: Podicipedidae
+  :avibase_id: 018B316959E84738
+- :name_sci: Podiceps grisegena
+  :name_en: Red-necked Grebe
+  :order: Podicipediformes
+  :family: Podicipedidae
+  :avibase_id: 1CBD2CED48B674A4
+- :name_sci: Podiceps cristatus
+  :name_en: Great Crested Grebe
+  :order: Podicipediformes
+  :family: Podicipedidae
+  :avibase_id: 8F269702DC208010
+- :name_sci: Podiceps nigricollis
+  :name_en: Eared Grebe
+  :order: Podicipediformes
+  :family: Podicipedidae
+  :avibase_id: 32DCEC14D7AE129B
+- :name_sci: Aechmophorus occidentalis
+  :name_en: Western Grebe
+  :order: Podicipediformes
+  :family: Podicipedidae
+  :avibase_id: C6E1197BE78E2E17
+- :name_sci: Phoenicopterus roseus
+  :name_en: Greater Flamingo
+  :order: Phoenicopteriformes
+  :family: Phoenicopteridae
+  :avibase_id: 0F9B5174A8ACF737
+- :name_sci: Thalassarche chlororhynchos
+  :name_en: Yellow-nosed Albatross
+  :order: Procellariiformes
+  :family: Diomedeidae
+  :avibase_id: 7709CE5CE199D5BF
+- :name_sci: Fulmarus glacialis
+  :name_en: Northern Fulmar
+  :order: Procellariiformes
+  :family: Procellariidae
+  :avibase_id: 049D9AEA4AFBFDFA
+- :name_sci: Pterodroma arminjoniana
+  :name_en: Herald Petrel
+  :order: Procellariiformes
+  :family: Procellariidae
+  :avibase_id: A26C9D6B5C859E5E
+- :name_sci: Pterodroma inexpectata
+  :name_en: Mottled Petrel
+  :order: Procellariiformes
+  :family: Procellariidae
+  :avibase_id: B829AC032A70F251
+- :name_sci: Pterodroma hasitata
+  :name_en: Black-capped Petrel
+  :order: Procellariiformes
+  :family: Procellariidae
+  :avibase_id: A01D9D21E8DB7F7F
+- :name_sci: Calonectris diomedea
+  :name_en: Cory's Shearwater
+  :order: Procellariiformes
+  :family: Procellariidae
+  :avibase_id: FF3D837AAC50A0C9
+- :name_sci: Puffinus gravis
+  :name_en: Great Shearwater
+  :order: Procellariiformes
+  :family: Procellariidae
+  :avibase_id: 8B879DFA2AFB1481
+- :name_sci: Puffinus griseus
+  :name_en: Sooty Shearwater
+  :order: Procellariiformes
+  :family: Procellariidae
+  :avibase_id: 1725B07D51A40D6A
+- :name_sci: Puffinus puffinus
+  :name_en: Manx Shearwater
+  :order: Procellariiformes
+  :family: Procellariidae
+  :avibase_id: 5AEDC00231A5201C
+- :name_sci: Puffinus yelkouan
+  :name_en: Levantine Shearwater
+  :order: Procellariiformes
+  :family: Procellariidae
+  :avibase_id: FD97EC1E6EB57033
+- :name_sci: Puffinus lherminieri
+  :name_en: Audubon's Shearwater
+  :order: Procellariiformes
+  :family: Procellariidae
+  :avibase_id: 06C36D41443C29AF
+- :name_sci: Oceanites oceanicus
+  :name_en: Wilson's Storm-Petrel
+  :order: Procellariiformes
+  :family: Hydrobatidae
+  :avibase_id: D295D249BDB7E046
+- :name_sci: Pelagodroma marina
+  :name_en: White-faced Storm-Petrel
+  :order: Procellariiformes
+  :family: Hydrobatidae
+  :avibase_id: E9DF118ED56564A9
+- :name_sci: Hydrobates pelagicus
+  :name_en: European Storm-Petrel
+  :order: Procellariiformes
+  :family: Hydrobatidae
+  :avibase_id: E1638A370D09095C
+- :name_sci: Oceanodroma leucorhoa
+  :name_en: Leach's Storm-Petrel
+  :order: Procellariiformes
+  :family: Hydrobatidae
+  :avibase_id: 05E98392444BE5C7
+- :name_sci: Oceanodroma castro
+  :name_en: Band-rumped Storm-Petrel
+  :order: Procellariiformes
+  :family: Hydrobatidae
+  :avibase_id: D3FAE385D584B014
+- :name_sci: Phaethon lepturus
+  :name_en: White-tailed Tropicbird
+  :order: Phaethontiformes
+  :family: Phaethontidae
+  :avibase_id: 1D07B501FEAF0840
+- :name_sci: Phaethon aethereus
+  :name_en: Red-billed Tropicbird
+  :order: Phaethontiformes
+  :family: Phaethontidae
+  :avibase_id: 7EE005BD2701D129
+- :name_sci: Ciconia nigra
+  :name_en: Black Stork
+  :order: Ciconiiformes
+  :family: Ciconiidae
+  :avibase_id: E2817DAE1B24B31E
+- :name_sci: Ciconia ciconia
+  :name_en: White Stork
+  :order: Ciconiiformes
+  :family: Ciconiidae
+  :avibase_id: 28825494A08AFE5A
+- :name_sci: Mycteria americana
+  :name_en: Wood Stork
+  :order: Ciconiiformes
+  :family: Ciconiidae
+  :avibase_id: 19196211B7630B88
+- :name_sci: Fregata magnificens
+  :name_en: Magnificent Frigatebird
+  :order: Suliformes
+  :family: Fregatidae
+  :avibase_id: 8AA3B42E976C7B2A
+- :name_sci: Sula leucogaster
+  :name_en: Brown Booby
+  :order: Suliformes
+  :family: Sulidae
+  :avibase_id: 5EC21767FC58DB7D
+- :name_sci: Morus bassanus
+  :name_en: Northern Gannet
+  :order: Suliformes
+  :family: Sulidae
+  :avibase_id: 534FB490884C6D33
+- :name_sci: Phalacrocorax auritus
+  :name_en: Double-crested Cormorant
+  :order: Suliformes
+  :family: Phalacrocoracidae
+  :avibase_id: 3AC46C54EE4A6251
+- :name_sci: Phalacrocorax carbo
+  :name_en: Great Cormorant
+  :order: Suliformes
+  :family: Phalacrocoracidae
+  :avibase_id: 3DF5C587CE3CF1E1
+- :name_sci: Phalacrocorax aristotelis
+  :name_en: European Shag
+  :order: Suliformes
+  :family: Phalacrocoracidae
+  :avibase_id: CECC7B264A61BD22
+- :name_sci: Phalacrocorax pygmaeus
+  :name_en: Pygmy Cormorant
+  :order: Suliformes
+  :family: Phalacrocoracidae
+  :avibase_id: AFF49475BDB69B4E
+- :name_sci: Anhinga anhinga
+  :name_en: Anhinga
+  :order: Suliformes
+  :family: Anhingidae
+  :avibase_id: FBDAE86A5CF7B698
+- :name_sci: Pelecanus onocrotalus
+  :name_en: Great White Pelican
+  :order: Pelecaniformes
+  :family: Pelecanidae
+  :avibase_id: 8BAFB01E85D7AF4B
+- :name_sci: Pelecanus crispus
+  :name_en: Dalmatian Pelican
+  :order: Pelecaniformes
+  :family: Pelecanidae
+  :avibase_id: 7C6D8BA2AC91D368
+- :name_sci: Pelecanus erythrorhynchos
+  :name_en: American White Pelican
+  :order: Pelecaniformes
+  :family: Pelecanidae
+  :avibase_id: 866903B93D70056B
+- :name_sci: Pelecanus occidentalis
+  :name_en: Brown Pelican
+  :order: Pelecaniformes
+  :family: Pelecanidae
+  :avibase_id: F59AB6B357BF97D8
+- :name_sci: Botaurus lentiginosus
+  :name_en: American Bittern
+  :order: Pelecaniformes
+  :family: Ardeidae
+  :avibase_id: 13E9F9B48CD5A08A
+- :name_sci: Botaurus stellaris
+  :name_en: Great Bittern
+  :order: Pelecaniformes
+  :family: Ardeidae
+  :avibase_id: 0F42F11AC607C758
+- :name_sci: Ixobrychus minutus
+  :name_en: Little Bittern
+  :order: Pelecaniformes
+  :family: Ardeidae
+  :avibase_id: 7AAD57ACA1C4ECA9
+- :name_sci: Ixobrychus exilis
+  :name_en: Least Bittern
+  :order: Pelecaniformes
+  :family: Ardeidae
+  :avibase_id: 0B361ED83051417E
+- :name_sci: Ardea herodias
+  :name_en: Great Blue Heron
+  :order: Pelecaniformes
+  :family: Ardeidae
+  :avibase_id: 93694BB5492F7012
+- :name_sci: Ardea cinerea
+  :name_en: Gray Heron
+  :order: Pelecaniformes
+  :family: Ardeidae
+  :avibase_id: 6429024DBA7AB672
+- :name_sci: Ardea purpurea
+  :name_en: Purple Heron
+  :order: Pelecaniformes
+  :family: Ardeidae
+  :avibase_id: 3395DCF1CE3A8C91
+- :name_sci: Ardea alba
+  :name_en: Great Egret
+  :order: Pelecaniformes
+  :family: Ardeidae
+  :avibase_id: 49D9148A171E7F2E
+- :name_sci: Egretta garzetta
+  :name_en: Little Egret
+  :order: Pelecaniformes
+  :family: Ardeidae
+  :avibase_id: F2858F9FFB9DFDCF
+- :name_sci: Egretta gularis
+  :name_en: Western Reef-Heron
+  :order: Pelecaniformes
+  :family: Ardeidae
+  :avibase_id: DF32B1F9C576957F
+- :name_sci: Egretta thula
+  :name_en: Snowy Egret
+  :order: Pelecaniformes
+  :family: Ardeidae
+  :avibase_id: AA7901D88E7203E5
+- :name_sci: Egretta caerulea
+  :name_en: Little Blue Heron
+  :order: Pelecaniformes
+  :family: Ardeidae
+  :avibase_id: 11512CF46992C660
+- :name_sci: Egretta tricolor
+  :name_en: Tricolored Heron
+  :order: Pelecaniformes
+  :family: Ardeidae
+  :avibase_id: 031409C72898108C
+- :name_sci: Egretta rufescens
+  :name_en: Reddish Egret
+  :order: Pelecaniformes
+  :family: Ardeidae
+  :avibase_id: D8A24A3EDDC19AA4
+- :name_sci: Bubulcus ibis
+  :name_en: Cattle Egret
+  :order: Pelecaniformes
+  :family: Ardeidae
+  :avibase_id: 6CCDAC53F56435B4
+- :name_sci: Ardeola ralloides
+  :name_en: Squacco Heron
+  :order: Pelecaniformes
+  :family: Ardeidae
+  :avibase_id: CE73EBD7A90E9FCF
+- :name_sci: Butorides virescens
+  :name_en: Green Heron
+  :order: Pelecaniformes
+  :family: Ardeidae
+  :avibase_id: 86D45B8F04F61F0E
+- :name_sci: Nycticorax nycticorax
+  :name_en: Black-crowned Night-Heron
+  :order: Pelecaniformes
+  :family: Ardeidae
+  :avibase_id: 6BB94D7EA4D041A8
+- :name_sci: Nyctanassa violacea
+  :name_en: Yellow-crowned Night-Heron
+  :order: Pelecaniformes
+  :family: Ardeidae
+  :avibase_id: C677249004161A94
+- :name_sci: Eudocimus albus
+  :name_en: White Ibis
+  :order: Pelecaniformes
+  :family: Threskiornithidae
+  :avibase_id: 74EDE3CA4FD29DC6
+- :name_sci: Plegadis falcinellus
+  :name_en: Glossy Ibis
+  :order: Pelecaniformes
+  :family: Threskiornithidae
+  :avibase_id: D4540F880A3EC3BB
+- :name_sci: Plegadis chihi
+  :name_en: White-faced Ibis
+  :order: Pelecaniformes
+  :family: Threskiornithidae
+  :avibase_id: FD2B030969BC4DBC
+- :name_sci: Platalea leucorodia
+  :name_en: Eurasian Spoonbill
+  :order: Pelecaniformes
+  :family: Threskiornithidae
+  :avibase_id: A0A584C1E7D786FE
+- :name_sci: Platalea ajaja
+  :name_en: Roseate Spoonbill
+  :order: Pelecaniformes
+  :family: Threskiornithidae
+  :avibase_id: 70924157EB774F64
+- :name_sci: Coragyps atratus
+  :name_en: Black Vulture
+  :order: Accipitriformes
+  :family: Cathartidae
+  :avibase_id: 4FF7DE80F4192276
+- :name_sci: Cathartes aura
+  :name_en: Turkey Vulture
+  :order: Accipitriformes
+  :family: Cathartidae
+  :avibase_id: 36B3872DAFE1EC1C
+- :name_sci: Pandion haliaetus
+  :name_en: Osprey
+  :order: Accipitriformes
+  :family: Pandionidae
+  :avibase_id: 1327AC55AA9D579B
+- :name_sci: Pernis apivorus
+  :name_en: European Honey-buzzard
+  :order: Accipitriformes
+  :family: Accipitridae
+  :avibase_id: ED5A7E8F6EDBB78E
+- :name_sci: Elanoides forficatus
+  :name_en: Swallow-tailed Kite
+  :order: Accipitriformes
+  :family: Accipitridae
+  :avibase_id: 1BAC66452DCC9AC9
+- :name_sci: Elanus leucurus
+  :name_en: White-tailed Kite
+  :order: Accipitriformes
+  :family: Accipitridae
+  :avibase_id: CAA5E106BE76C1D0
+- :name_sci: Ictinia mississippiensis
+  :name_en: Mississippi Kite
+  :order: Accipitriformes
+  :family: Accipitridae
+  :avibase_id: ACFC8EB619367A2B
+- :name_sci: Milvus milvus
+  :name_en: Red Kite
+  :order: Accipitriformes
+  :family: Accipitridae
+  :avibase_id: 451D6FC8A169D726
+- :name_sci: Milvus migrans
+  :name_en: Black Kite
+  :order: Accipitriformes
+  :family: Accipitridae
+  :avibase_id: 06D9A2C8D1E3678A
+- :name_sci: Haliaeetus leucoryphus
+  :name_en: Pallas's Fish-Eagle
+  :order: Accipitriformes
+  :family: Accipitridae
+  :avibase_id: F3CCFC1881D339F6
+- :name_sci: Haliaeetus leucocephalus
+  :name_en: Bald Eagle
+  :order: Accipitriformes
+  :family: Accipitridae
+  :avibase_id: FED3756C12CF67FA
+- :name_sci: Haliaeetus albicilla
+  :name_en: White-tailed Eagle
+  :order: Accipitriformes
+  :family: Accipitridae
+  :avibase_id: 5A3D91D3254A568D
+- :name_sci: Gypaetus barbatus
+  :name_en: Lammergeier
+  :order: Accipitriformes
+  :family: Accipitridae
+  :avibase_id: 81DB7410BE70406B
+- :name_sci: Neophron percnopterus
+  :name_en: Egyptian Vulture
+  :order: Accipitriformes
+  :family: Accipitridae
+  :avibase_id: 6D3480A64B4953CE
+- :name_sci: Gyps fulvus
+  :name_en: Eurasian Griffon
+  :order: Accipitriformes
+  :family: Accipitridae
+  :avibase_id: 5D1987CEE4005AA2
+- :name_sci: Aegypius monachus
+  :name_en: Cinereous Vulture
+  :order: Accipitriformes
+  :family: Accipitridae
+  :avibase_id: 158BDC90F07DF1D2
+- :name_sci: Circaetus gallicus
+  :name_en: Short-toed Eagle
+  :order: Accipitriformes
+  :family: Accipitridae
+  :avibase_id: 8372FFBAA4080FBB
+- :name_sci: Circus aeruginosus
+  :name_en: Eurasian Marsh-Harrier
+  :order: Accipitriformes
+  :family: Accipitridae
+  :avibase_id: E2A19474E62F83E1
+- :name_sci: Circus cyaneus
+  :name_en: Northern Harrier
+  :order: Accipitriformes
+  :family: Accipitridae
+  :avibase_id: 82745BAA8BE0E1BE
+- :name_sci: Circus macrourus
+  :name_en: Pallid Harrier
+  :order: Accipitriformes
+  :family: Accipitridae
+  :avibase_id: 22647E26E5C80F2E
+- :name_sci: Circus pygargus
+  :name_en: Montagu's Harrier
+  :order: Accipitriformes
+  :family: Accipitridae
+  :avibase_id: 63B6412E23CC0D93
+- :name_sci: Accipiter brevipes
+  :name_en: Levant Sparrowhawk
+  :order: Accipitriformes
+  :family: Accipitridae
+  :avibase_id: 8492E4B70A95DC74
+- :name_sci: Accipiter nisus
+  :name_en: Eurasian Sparrowhawk
+  :order: Accipitriformes
+  :family: Accipitridae
+  :avibase_id: DB376A66278ED21E
+- :name_sci: Accipiter striatus
+  :name_en: Sharp-shinned Hawk
+  :order: Accipitriformes
+  :family: Accipitridae
+  :avibase_id: 96684BA41AAB0EC5
+- :name_sci: Accipiter cooperii
+  :name_en: Cooper's Hawk
+  :order: Accipitriformes
+  :family: Accipitridae
+  :avibase_id: EB98812F50A648A1
+- :name_sci: Accipiter gentilis
+  :name_en: Northern Goshawk
+  :order: Accipitriformes
+  :family: Accipitridae
+  :avibase_id: 420850D62E855E4D
+- :name_sci: Buteo lineatus
+  :name_en: Red-shouldered Hawk
+  :order: Accipitriformes
+  :family: Accipitridae
+  :avibase_id: EA4D6C0B76852200
+- :name_sci: Buteo platypterus
+  :name_en: Broad-winged Hawk
+  :order: Accipitriformes
+  :family: Accipitridae
+  :avibase_id: 79F3C681417F2056
+- :name_sci: Buteo swainsoni
+  :name_en: Swainson's Hawk
+  :order: Accipitriformes
+  :family: Accipitridae
+  :avibase_id: DE473F42C06227F0
+- :name_sci: Buteo jamaicensis
+  :name_en: Red-tailed Hawk
+  :order: Accipitriformes
+  :family: Accipitridae
+  :avibase_id: 536A5157A50E1F3C
+- :name_sci: Buteo buteo
+  :name_en: Common Buzzard
+  :order: Accipitriformes
+  :family: Accipitridae
+  :avibase_id: 25D78AE7FB4B012A
+- :name_sci: Buteo rufinus
+  :name_en: Long-legged Buzzard
+  :order: Accipitriformes
+  :family: Accipitridae
+  :avibase_id: CC65921FEBE1BB96
+- :name_sci: Buteo lagopus
+  :name_en: Rough-legged Hawk
+  :order: Accipitriformes
+  :family: Accipitridae
+  :avibase_id: 90B13ACF984D0DDF
+- :name_sci: Aquila pomarina
+  :name_en: Lesser Spotted Eagle
+  :order: Accipitriformes
+  :family: Accipitridae
+  :avibase_id: C2565B6526591E9A
+- :name_sci: Aquila clanga
+  :name_en: Greater Spotted Eagle
+  :order: Accipitriformes
+  :family: Accipitridae
+  :avibase_id: BAC4CA22EDCC74E7
+- :name_sci: Aquila rapax
+  :name_en: Tawny Eagle
+  :order: Accipitriformes
+  :family: Accipitridae
+  :avibase_id: F6D547B28875698E
+- :name_sci: Aquila nipalensis
+  :name_en: Steppe Eagle
+  :order: Accipitriformes
+  :family: Accipitridae
+  :avibase_id: A635F56542EE0C16
+- :name_sci: Aquila heliaca
+  :name_en: Imperial Eagle
+  :order: Accipitriformes
+  :family: Accipitridae
+  :avibase_id: 469DCF57248A1C69
+- :name_sci: Aquila chrysaetos
+  :name_en: Golden Eagle
+  :order: Accipitriformes
+  :family: Accipitridae
+  :avibase_id: 5F8E7CA845BD413F
+- :name_sci: Hieraaetus pennatus
+  :name_en: Booted Eagle
+  :order: Accipitriformes
+  :family: Accipitridae
+  :avibase_id: 4B8CC2853542FFED
+- :name_sci: Falco naumanni
+  :name_en: Lesser Kestrel
+  :order: Falconiformes
+  :family: Falconidae
+  :avibase_id: BECA271F14F77BEE
+- :name_sci: Falco tinnunculus
+  :name_en: Eurasian Kestrel
+  :order: Falconiformes
+  :family: Falconidae
+  :avibase_id: D99158DF0C977827
+- :name_sci: Falco sparverius
+  :name_en: American Kestrel
+  :order: Falconiformes
+  :family: Falconidae
+  :avibase_id: 20C2214E655A79AB
+- :name_sci: Falco vespertinus
+  :name_en: Red-footed Falcon
+  :order: Falconiformes
+  :family: Falconidae
+  :avibase_id: 997A9437E564FCFE
+- :name_sci: Falco columbarius
+  :name_en: Merlin
+  :order: Falconiformes
+  :family: Falconidae
+  :avibase_id: F3DA111CC8A6841B
+- :name_sci: Falco subbuteo
+  :name_en: Eurasian Hobby
+  :order: Falconiformes
+  :family: Falconidae
+  :avibase_id: E91E287A2946B0C9
+- :name_sci: Falco cherrug
+  :name_en: Saker Falcon
+  :order: Falconiformes
+  :family: Falconidae
+  :avibase_id: 1F5F79C516C7BB61
+- :name_sci: Falco rusticolus
+  :name_en: Gyrfalcon
+  :order: Falconiformes
+  :family: Falconidae
+  :avibase_id: E19252A76FC7845B
+- :name_sci: Falco peregrinus
+  :name_en: Peregrine Falcon
+  :order: Falconiformes
+  :family: Falconidae
+  :avibase_id: 5A9A42C1DF7154B8
+- :name_sci: Otis tarda
+  :name_en: Great Bustard
+  :order: Otidiformes
+  :family: Otididae
+  :avibase_id: C6F33176724AC933
+- :name_sci: Chlamydotis undulata
+  :name_en: Houbara Bustard
+  :order: Otidiformes
+  :family: Otididae
+  :avibase_id: 5714C710ACE4DA8B
+- :name_sci: Tetrax tetrax
+  :name_en: Little Bustard
+  :order: Otidiformes
+  :family: Otididae
+  :avibase_id: 56E3016D3370A6D5
+- :name_sci: Coturnicops noveboracensis
+  :name_en: Yellow Rail
+  :order: Gruiformes
+  :family: Rallidae
+  :avibase_id: 2B100B36647125D7
+- :name_sci: Laterallus jamaicensis
+  :name_en: Black Rail
+  :order: Gruiformes
+  :family: Rallidae
+  :avibase_id: 5C7D70A482321CAB
+- :name_sci: Crex crex
+  :name_en: Corn Crake
+  :order: Gruiformes
+  :family: Rallidae
+  :avibase_id: 7E2572426E200D08
+- :name_sci: Rallus longirostris
+  :name_en: Clapper Rail
+  :order: Gruiformes
+  :family: Rallidae
+  :avibase_id: 1D70C38024EA66B0
+- :name_sci: Rallus elegans
+  :name_en: King Rail
+  :order: Gruiformes
+  :family: Rallidae
+  :avibase_id: 224F75A84BA0937C
+- :name_sci: Rallus limicola
+  :name_en: Virginia Rail
+  :order: Gruiformes
+  :family: Rallidae
+  :avibase_id: 4880DC5532DFCFA4
+- :name_sci: Rallus aquaticus
+  :name_en: Water Rail
+  :order: Gruiformes
+  :family: Rallidae
+  :avibase_id: DF916FE81A16D11B
+- :name_sci: Porzana parva
+  :name_en: Little Crake
+  :order: Gruiformes
+  :family: Rallidae
+  :avibase_id: 9106EBE6C0914933
+- :name_sci: Porzana pusilla
+  :name_en: Baillon's Crake
+  :order: Gruiformes
+  :family: Rallidae
+  :avibase_id: 34D5B04DE53894FF
+- :name_sci: Porzana porzana
+  :name_en: Spotted Crake
+  :order: Gruiformes
+  :family: Rallidae
+  :avibase_id: 460708F99737A6A2
+- :name_sci: Porzana carolina
+  :name_en: Sora
+  :order: Gruiformes
+  :family: Rallidae
+  :avibase_id: 2CC21529B5674AEB
+- :name_sci: Porphyrio porphyrio
+  :name_en: Purple Swamphen
+  :order: Gruiformes
+  :family: Rallidae
+  :avibase_id: AC1E791EF6C92723
+- :name_sci: Porphyrio martinica
+  :name_en: Purple Gallinule
+  :order: Gruiformes
+  :family: Rallidae
+  :avibase_id: 72A4F8EBF168E80D
+- :name_sci: Porphyrio flavirostris
+  :name_en: Azure Gallinule
+  :order: Gruiformes
+  :family: Rallidae
+  :avibase_id: 1CE84B66B28ECEC9
+- :name_sci: Gallinula chloropus
+  :name_en: Eurasian Moorhen
+  :order: Gruiformes
+  :family: Rallidae
+  :avibase_id: 8F82FF8C30667D90
+- :name_sci: Gallinula galeata
+  :name_en: Common Gallinule
+  :order: Gruiformes
+  :family: Rallidae
+  :avibase_id: 3EF081A8ED429A45
+- :name_sci: Fulica atra
+  :name_en: Eurasian Coot
+  :order: Gruiformes
+  :family: Rallidae
+  :avibase_id: B682B2A9C922D4C4
+- :name_sci: Fulica americana
+  :name_en: American Coot
+  :order: Gruiformes
+  :family: Rallidae
+  :avibase_id: E6411DF4E53734BE
+- :name_sci: Anthropoides virgo
+  :name_en: Demoiselle Crane
+  :order: Gruiformes
+  :family: Gruidae
+  :avibase_id: 64DDD14DF2EB9B39
+- :name_sci: Grus leucogeranus
+  :name_en: Siberian Crane
+  :order: Gruiformes
+  :family: Gruidae
+  :avibase_id: 77845DAD1C49E8F1
+- :name_sci: Grus canadensis
+  :name_en: Sandhill Crane
+  :order: Gruiformes
+  :family: Gruidae
+  :avibase_id: E196D6F9AB1DFF7E
+- :name_sci: Grus grus
+  :name_en: Common Crane
+  :order: Gruiformes
+  :family: Gruidae
+  :avibase_id: 99B8841E764117B1
+- :name_sci: Burhinus oedicnemus
+  :name_en: Eurasian Thick-knee
+  :order: Charadriiformes
+  :family: Burhinidae
+  :avibase_id: 8C87D50F7516E905
+- :name_sci: Vanellus vanellus
+  :name_en: Northern Lapwing
+  :order: Charadriiformes
+  :family: Charadriidae
+  :avibase_id: F029489ABD9D1334
+- :name_sci: Vanellus spinosus
+  :name_en: Spur-winged Plover
+  :order: Charadriiformes
+  :family: Charadriidae
+  :avibase_id: F5E92B225F648330
+- :name_sci: Vanellus gregarius
+  :name_en: Sociable Lapwing
+  :order: Charadriiformes
+  :family: Charadriidae
+  :avibase_id: D348C2D65FA2DF83
+- :name_sci: Vanellus leucurus
+  :name_en: White-tailed Lapwing
+  :order: Charadriiformes
+  :family: Charadriidae
+  :avibase_id: A480FDDF8BBC5443
+- :name_sci: Pluvialis squatarola
+  :name_en: Black-bellied Plover
+  :order: Charadriiformes
+  :family: Charadriidae
+  :avibase_id: 27903EF7E618A6A2
+- :name_sci: Pluvialis apricaria
+  :name_en: European Golden-Plover
+  :order: Charadriiformes
+  :family: Charadriidae
+  :avibase_id: 25A20BA6F7EA9D9A
+- :name_sci: Pluvialis dominica
+  :name_en: American Golden-Plover
+  :order: Charadriiformes
+  :family: Charadriidae
+  :avibase_id: 2143A8526CA7C809
+- :name_sci: Pluvialis fulva
+  :name_en: Pacific Golden-Plover
+  :order: Charadriiformes
+  :family: Charadriidae
+  :avibase_id: 07C11CF340D2017A
+- :name_sci: Charadrius leschenaultii
+  :name_en: Greater Sand-Plover
+  :order: Charadriiformes
+  :family: Charadriidae
+  :avibase_id: 98B9C10B606A4FF1
+- :name_sci: Charadrius asiaticus
+  :name_en: Caspian Plover
+  :order: Charadriiformes
+  :family: Charadriidae
+  :avibase_id: 264D03516760D706
+- :name_sci: Charadrius alexandrinus
+  :name_en: Kentish Plover
+  :order: Charadriiformes
+  :family: Charadriidae
+  :avibase_id: 0A787822FDD6B58C
+- :name_sci: Charadrius wilsonia
+  :name_en: Wilson's Plover
+  :order: Charadriiformes
+  :family: Charadriidae
+  :avibase_id: 654D660CF51DB8B1
+- :name_sci: Charadrius hiaticula
+  :name_en: Common Ringed Plover
+  :order: Charadriiformes
+  :family: Charadriidae
+  :avibase_id: EDA37B7C5D4A25ED
+- :name_sci: Charadrius semipalmatus
+  :name_en: Semipalmated Plover
+  :order: Charadriiformes
+  :family: Charadriidae
+  :avibase_id: 95E28A57CB50B0D7
+- :name_sci: Charadrius melodus
+  :name_en: Piping Plover
+  :order: Charadriiformes
+  :family: Charadriidae
+  :avibase_id: 671B69FE824DC9FF
+- :name_sci: Charadrius dubius
+  :name_en: Little Ringed Plover
+  :order: Charadriiformes
+  :family: Charadriidae
+  :avibase_id: 35EC3BBF166AB032
+- :name_sci: Charadrius vociferus
+  :name_en: Killdeer
+  :order: Charadriiformes
+  :family: Charadriidae
+  :avibase_id: BCF9A19AFE372627
+- :name_sci: Charadrius morinellus
+  :name_en: Eurasian Dotterel
+  :order: Charadriiformes
+  :family: Charadriidae
+  :avibase_id: 20BE9DF14579BD4A
+- :name_sci: Haematopus ostralegus
+  :name_en: Eurasian Oystercatcher
+  :order: Charadriiformes
+  :family: Haematopodidae
+  :avibase_id: ED66316522B99A30
+- :name_sci: Haematopus palliatus
+  :name_en: American Oystercatcher
+  :order: Charadriiformes
+  :family: Haematopodidae
+  :avibase_id: 981CE782575DD8E7
+- :name_sci: Himantopus himantopus
+  :name_en: Black-winged Stilt
+  :order: Charadriiformes
+  :family: Recurvirostridae
+  :avibase_id: 3CAEB7CEEC7FFF50
+- :name_sci: Himantopus mexicanus
+  :name_en: Black-necked Stilt
+  :order: Charadriiformes
+  :family: Recurvirostridae
+  :avibase_id: 62DAF6CC29ADBF9A
+- :name_sci: Recurvirostra avosetta
+  :name_en: Pied Avocet
+  :order: Charadriiformes
+  :family: Recurvirostridae
+  :avibase_id: C73ED2F5D88625BA
+- :name_sci: Recurvirostra americana
+  :name_en: American Avocet
+  :order: Charadriiformes
+  :family: Recurvirostridae
+  :avibase_id: 8EB0C1FABC1D725A
+- :name_sci: Xenus cinereus
+  :name_en: Terek Sandpiper
+  :order: Charadriiformes
+  :family: Scolopacidae
+  :avibase_id: 6D5992EEE12070E8
+- :name_sci: Actitis hypoleucos
+  :name_en: Common Sandpiper
+  :order: Charadriiformes
+  :family: Scolopacidae
+  :avibase_id: 8548B07ECA48773F
+- :name_sci: Actitis macularius
+  :name_en: Spotted Sandpiper
+  :order: Charadriiformes
+  :family: Scolopacidae
+  :avibase_id: 0D88C072E71FE4B8
+- :name_sci: Tringa ochropus
+  :name_en: Green Sandpiper
+  :order: Charadriiformes
+  :family: Scolopacidae
+  :avibase_id: A7B17EFC92B53D29
+- :name_sci: Tringa solitaria
+  :name_en: Solitary Sandpiper
+  :order: Charadriiformes
+  :family: Scolopacidae
+  :avibase_id: D4A73324DB24F142
+- :name_sci: Tringa erythropus
+  :name_en: Spotted Redshank
+  :order: Charadriiformes
+  :family: Scolopacidae
+  :avibase_id: 0895DD84DB3A45D1
+- :name_sci: Tringa melanoleuca
+  :name_en: Greater Yellowlegs
+  :order: Charadriiformes
+  :family: Scolopacidae
+  :avibase_id: 6EB81C98A8FD9CE6
+- :name_sci: Tringa nebularia
+  :name_en: Common Greenshank
+  :order: Charadriiformes
+  :family: Scolopacidae
+  :avibase_id: 18B415D28BBF934C
+- :name_sci: Tringa semipalmata
+  :name_en: Willet
+  :order: Charadriiformes
+  :family: Scolopacidae
+  :avibase_id: E7A14E91456CB432
+- :name_sci: Tringa flavipes
+  :name_en: Lesser Yellowlegs
+  :order: Charadriiformes
+  :family: Scolopacidae
+  :avibase_id: 2C7A2673444BECF0
+- :name_sci: Tringa stagnatilis
+  :name_en: Marsh Sandpiper
+  :order: Charadriiformes
+  :family: Scolopacidae
+  :avibase_id: 15CF9352AD0E92DF
+- :name_sci: Tringa glareola
+  :name_en: Wood Sandpiper
+  :order: Charadriiformes
+  :family: Scolopacidae
+  :avibase_id: 8E67DC5F68BDF62C
+- :name_sci: Tringa totanus
+  :name_en: Common Redshank
+  :order: Charadriiformes
+  :family: Scolopacidae
+  :avibase_id: D6BFC73A3E067711
+- :name_sci: Bartramia longicauda
+  :name_en: Upland Sandpiper
+  :order: Charadriiformes
+  :family: Scolopacidae
+  :avibase_id: BF1DA86E0714FD01
+- :name_sci: Numenius borealis
+  :name_en: Eskimo Curlew
+  :order: Charadriiformes
+  :family: Scolopacidae
+  :avibase_id: FB9305DB788ED649
+- :name_sci: Numenius phaeopus
+  :name_en: Whimbrel
+  :order: Charadriiformes
+  :family: Scolopacidae
+  :avibase_id: F9305BAA638BAEFC
+- :name_sci: Numenius tenuirostris
+  :name_en: Slender-billed Curlew
+  :order: Charadriiformes
+  :family: Scolopacidae
+  :avibase_id: 7A35DE8186E4DF43
+- :name_sci: Numenius arquata
+  :name_en: Eurasian Curlew
+  :order: Charadriiformes
+  :family: Scolopacidae
+  :avibase_id: 3BB5CBA66CF48884
+- :name_sci: Numenius americanus
+  :name_en: Long-billed Curlew
+  :order: Charadriiformes
+  :family: Scolopacidae
+  :avibase_id: 5284C27B1DE872F2
+- :name_sci: Limosa limosa
+  :name_en: Black-tailed Godwit
+  :order: Charadriiformes
+  :family: Scolopacidae
+  :avibase_id: 454B5CD5F5285B77
+- :name_sci: Limosa haemastica
+  :name_en: Hudsonian Godwit
+  :order: Charadriiformes
+  :family: Scolopacidae
+  :avibase_id: 930139644308C7B7
+- :name_sci: Limosa lapponica
+  :name_en: Bar-tailed Godwit
+  :order: Charadriiformes
+  :family: Scolopacidae
+  :avibase_id: 9A684C997C1AF1BA
+- :name_sci: Limosa fedoa
+  :name_en: Marbled Godwit
+  :order: Charadriiformes
+  :family: Scolopacidae
+  :avibase_id: 249AE8DFD7F51354
+- :name_sci: Arenaria interpres
+  :name_en: Ruddy Turnstone
+  :order: Charadriiformes
+  :family: Scolopacidae
+  :avibase_id: DC3050A9771F2CE9
+- :name_sci: Calidris canutus
+  :name_en: Red Knot
+  :order: Charadriiformes
+  :family: Scolopacidae
+  :avibase_id: B5CE8FAD18923A94
+- :name_sci: Calidris alba
+  :name_en: Sanderling
+  :order: Charadriiformes
+  :family: Scolopacidae
+  :avibase_id: 06B9BD243A756B28
+- :name_sci: Calidris pusilla
+  :name_en: Semipalmated Sandpiper
+  :order: Charadriiformes
+  :family: Scolopacidae
+  :avibase_id: F35821AAC21FFF20
+- :name_sci: Calidris mauri
+  :name_en: Western Sandpiper
+  :order: Charadriiformes
+  :family: Scolopacidae
+  :avibase_id: 01060BFDFF0D9D28
+- :name_sci: Calidris ruficollis
+  :name_en: Red-necked Stint
+  :order: Charadriiformes
+  :family: Scolopacidae
+  :avibase_id: BBDF2F1BAC640E4D
+- :name_sci: Calidris minuta
+  :name_en: Little Stint
+  :order: Charadriiformes
+  :family: Scolopacidae
+  :avibase_id: 9936FF4AFB430504
+- :name_sci: Calidris temminckii
+  :name_en: Temminck's Stint
+  :order: Charadriiformes
+  :family: Scolopacidae
+  :avibase_id: 5ACF7FB313BEF9EA
+- :name_sci: Calidris minutilla
+  :name_en: Least Sandpiper
+  :order: Charadriiformes
+  :family: Scolopacidae
+  :avibase_id: A47B0BD448AA34E0
+- :name_sci: Calidris fuscicollis
+  :name_en: White-rumped Sandpiper
+  :order: Charadriiformes
+  :family: Scolopacidae
+  :avibase_id: 153BA3069DFCDDCA
+- :name_sci: Calidris bairdii
+  :name_en: Baird's Sandpiper
+  :order: Charadriiformes
+  :family: Scolopacidae
+  :avibase_id: 1F1AD154DAE2E070
+- :name_sci: Calidris melanotos
+  :name_en: Pectoral Sandpiper
+  :order: Charadriiformes
+  :family: Scolopacidae
+  :avibase_id: ACC99F35F0E8F7EB
+- :name_sci: Calidris acuminata
+  :name_en: Sharp-tailed Sandpiper
+  :order: Charadriiformes
+  :family: Scolopacidae
+  :avibase_id: A0A67A811E53D89F
+- :name_sci: Calidris maritima
+  :name_en: Purple Sandpiper
+  :order: Charadriiformes
+  :family: Scolopacidae
+  :avibase_id: 0A0B84313ACFFB2F
+- :name_sci: Calidris alpina
+  :name_en: Dunlin
+  :order: Charadriiformes
+  :family: Scolopacidae
+  :avibase_id: 15369E8EB4CBD064
+- :name_sci: Calidris ferruginea
+  :name_en: Curlew Sandpiper
+  :order: Charadriiformes
+  :family: Scolopacidae
+  :avibase_id: 143A681C9BCE9A20
+- :name_sci: Calidris himantopus
+  :name_en: Stilt Sandpiper
+  :order: Charadriiformes
+  :family: Scolopacidae
+  :avibase_id: ECDE73F2E6E6E622
+- :name_sci: Eurynorhynchus pygmeus
+  :name_en: Spoon-billed Sandpiper
+  :order: Charadriiformes
+  :family: Scolopacidae
+  :avibase_id: 3FC8CA50CC50BAAD
+- :name_sci: Limicola falcinellus
+  :name_en: Broad-billed Sandpiper
+  :order: Charadriiformes
+  :family: Scolopacidae
+  :avibase_id: 0A14882F5F9F64E6
+- :name_sci: Tryngites subruficollis
+  :name_en: Buff-breasted Sandpiper
+  :order: Charadriiformes
+  :family: Scolopacidae
+  :avibase_id: 3A3C62BC935BDA72
+- :name_sci: Philomachus pugnax
+  :name_en: Ruff
+  :order: Charadriiformes
+  :family: Scolopacidae
+  :avibase_id: 2DABF98FBEEAB7BB
+- :name_sci: Limnodromus griseus
+  :name_en: Short-billed Dowitcher
+  :order: Charadriiformes
+  :family: Scolopacidae
+  :avibase_id: 4A3B2CFF53868550
+- :name_sci: Limnodromus scolopaceus
+  :name_en: Long-billed Dowitcher
+  :order: Charadriiformes
+  :family: Scolopacidae
+  :avibase_id: CB343E43E8CAF303
+- :name_sci: Lymnocryptes minimus
+  :name_en: Jack Snipe
+  :order: Charadriiformes
+  :family: Scolopacidae
+  :avibase_id: 1A15F0C6B4948C52
+- :name_sci: Gallinago media
+  :name_en: Great Snipe
+  :order: Charadriiformes
+  :family: Scolopacidae
+  :avibase_id: BCCD5840C7A6D538
+- :name_sci: Gallinago delicata
+  :name_en: Wilson's Snipe
+  :order: Charadriiformes
+  :family: Scolopacidae
+  :avibase_id: F5C8516D3B9C7686
+- :name_sci: Gallinago gallinago
+  :name_en: Common Snipe
+  :order: Charadriiformes
+  :family: Scolopacidae
+  :avibase_id: 9151E0BA75761647
+- :name_sci: Scolopax rusticola
+  :name_en: Eurasian Woodcock
+  :order: Charadriiformes
+  :family: Scolopacidae
+  :avibase_id: BFE14290EA4326FA
+- :name_sci: Scolopax minor
+  :name_en: American Woodcock
+  :order: Charadriiformes
+  :family: Scolopacidae
+  :avibase_id: F4829920F1710E56
+- :name_sci: Phalaropus tricolor
+  :name_en: Wilson's Phalarope
+  :order: Charadriiformes
+  :family: Scolopacidae
+  :avibase_id: 667C6969D7874433
+- :name_sci: Phalaropus lobatus
+  :name_en: Red-necked Phalarope
+  :order: Charadriiformes
+  :family: Scolopacidae
+  :avibase_id: E6F3BA54577746FB
+- :name_sci: Phalaropus fulicarius
+  :name_en: Red Phalarope
+  :order: Charadriiformes
+  :family: Scolopacidae
+  :avibase_id: 18A1938091EEEA73
+- :name_sci: Cursorius cursor
+  :name_en: Cream-colored Courser
+  :order: Charadriiformes
+  :family: Glareolidae
+  :avibase_id: DE0A72A7FA1E6DB7
+- :name_sci: Glareola pratincola
+  :name_en: Collared Pratincole
+  :order: Charadriiformes
+  :family: Glareolidae
+  :avibase_id: D56ABB4EE468E9EF
+- :name_sci: Glareola nordmanni
+  :name_en: Black-winged Pratincole
+  :order: Charadriiformes
+  :family: Glareolidae
+  :avibase_id: E1F6A875C32C042D
+- :name_sci: Rissa tridactyla
+  :name_en: Black-legged Kittiwake
+  :order: Charadriiformes
+  :family: Laridae
+  :avibase_id: FB4D08F0837D4683
+- :name_sci: Pagophila eburnea
+  :name_en: Ivory Gull
+  :order: Charadriiformes
+  :family: Laridae
+  :avibase_id: FED91A1F00C4E67C
+- :name_sci: Xema sabini
+  :name_en: Sabine's Gull
+  :order: Charadriiformes
+  :family: Laridae
+  :avibase_id: 86182656472B476B
+- :name_sci: Chroicocephalus genei
+  :name_en: Slender-billed Gull
+  :order: Charadriiformes
+  :family: Laridae
+  :avibase_id: 27CE7132A1848BCD
+- :name_sci: Chroicocephalus philadelphia
+  :name_en: Bonaparte's Gull
+  :order: Charadriiformes
+  :family: Laridae
+  :avibase_id: 0337440E2A88E638
+- :name_sci: Chroicocephalus ridibundus
+  :name_en: Black-headed Gull
+  :order: Charadriiformes
+  :family: Laridae
+  :avibase_id: FB02DD9658CC1EC6
+- :name_sci: Hydrocoloeus minutus
+  :name_en: Little Gull
+  :order: Charadriiformes
+  :family: Laridae
+  :avibase_id: F89FD6E3A367C008
+- :name_sci: Rhodostethia rosea
+  :name_en: Ross's Gull
+  :order: Charadriiformes
+  :family: Laridae
+  :avibase_id: 4CD353D243C27F86
+- :name_sci: Leucophaeus atricilla
+  :name_en: Laughing Gull
+  :order: Charadriiformes
+  :family: Laridae
+  :avibase_id: 6CDC3C9C8B50EA71
+- :name_sci: Leucophaeus pipixcan
+  :name_en: Franklin's Gull
+  :order: Charadriiformes
+  :family: Laridae
+  :avibase_id: 57C93A74CBC9863F
+- :name_sci: Ichthyaetus melanocephalus
+  :name_en: Mediterranean Gull
+  :order: Charadriiformes
+  :family: Laridae
+  :avibase_id: 052BFA8A77EED5AF
+- :name_sci: Ichthyaetus ichthyaetus
+  :name_en: Pallas's Gull
+  :order: Charadriiformes
+  :family: Laridae
+  :avibase_id: EF930CDC7CE618F7
+- :name_sci: Larus crassirostris
+  :name_en: Black-tailed Gull
+  :order: Charadriiformes
+  :family: Laridae
+  :avibase_id: 8C4CE60F3DA7955C
+- :name_sci: Larus canus
+  :name_en: Mew Gull
+  :order: Charadriiformes
+  :family: Laridae
+  :avibase_id: 0C290EA653CA6A56
+- :name_sci: Larus delawarensis
+  :name_en: Ring-billed Gull
+  :order: Charadriiformes
+  :family: Laridae
+  :avibase_id: 23863F65441680FA
+- :name_sci: Larus occidentalis
+  :name_en: Western Gull
+  :order: Charadriiformes
+  :family: Laridae
+  :avibase_id: 575A3E3BE9C9F93B
+- :name_sci: Larus californicus
+  :name_en: California Gull
+  :order: Charadriiformes
+  :family: Laridae
+  :avibase_id: 7FCE8A431E5E5ECB
+- :name_sci: Larus argentatus
+  :name_en: Herring Gull
+  :order: Charadriiformes
+  :family: Laridae
+  :avibase_id: C1DCCE4F8FA197AC
+- :name_sci: Larus michahellis
+  :name_en: Yellow-legged Gull
+  :order: Charadriiformes
+  :family: Laridae
+  :avibase_id: E074D7069AE1303C
+- :name_sci: Larus cachinnans
+  :name_en: Caspian Gull
+  :order: Charadriiformes
+  :family: Laridae
+  :avibase_id: 82D3FB4EEDB860F4
+- :name_sci: Larus armenicus
+  :name_en: Armenian Gull
+  :order: Charadriiformes
+  :family: Laridae
+  :avibase_id: F6951FF7E28D37AC
+- :name_sci: Larus thayeri
+  :name_en: Thayer's Gull
+  :order: Charadriiformes
+  :family: Laridae
+  :avibase_id: 69E839448750A39A
+- :name_sci: Larus glaucoides
+  :name_en: Iceland Gull
+  :order: Charadriiformes
+  :family: Laridae
+  :avibase_id: 12D5BA6CB1F71DCD
+- :name_sci: Larus fuscus
+  :name_en: Lesser Black-backed Gull
+  :order: Charadriiformes
+  :family: Laridae
+  :avibase_id: 49025D8B171EFAD7
+- :name_sci: Larus schistisagus
+  :name_en: Slaty-backed Gull
+  :order: Charadriiformes
+  :family: Laridae
+  :avibase_id: 456C7FAEF6E50426
+- :name_sci: Larus hyperboreus
+  :name_en: Glaucous Gull
+  :order: Charadriiformes
+  :family: Laridae
+  :avibase_id: A59FA446D6B40057
+- :name_sci: Larus marinus
+  :name_en: Great Black-backed Gull
+  :order: Charadriiformes
+  :family: Laridae
+  :avibase_id: E826E9F3FBAED223
+- :name_sci: Onychoprion fuscatus
+  :name_en: Sooty Tern
+  :order: Charadriiformes
+  :family: Laridae
+  :avibase_id: 3E7F825D03C0DC3E
+- :name_sci: Onychoprion anaethetus
+  :name_en: Bridled Tern
+  :order: Charadriiformes
+  :family: Laridae
+  :avibase_id: E6518B9D5C802F2A
+- :name_sci: Sternula albifrons
+  :name_en: Little Tern
+  :order: Charadriiformes
+  :family: Laridae
+  :avibase_id: 17310BF0FE9BAC8A
+- :name_sci: Sternula antillarum
+  :name_en: Least Tern
+  :order: Charadriiformes
+  :family: Laridae
+  :avibase_id: BE78E765F1DA8123
+- :name_sci: Gelochelidon nilotica
+  :name_en: Gull-billed Tern
+  :order: Charadriiformes
+  :family: Laridae
+  :avibase_id: 441918B5AE353C3B
+- :name_sci: Hydroprogne caspia
+  :name_en: Caspian Tern
+  :order: Charadriiformes
+  :family: Laridae
+  :avibase_id: BC06BC0D1056BC7B
+- :name_sci: Chlidonias niger
+  :name_en: Black Tern
+  :order: Charadriiformes
+  :family: Laridae
+  :avibase_id: 115AF02DD58018FB
+- :name_sci: Chlidonias leucopterus
+  :name_en: White-winged Tern
+  :order: Charadriiformes
+  :family: Laridae
+  :avibase_id: 43CAAEE3B0D305D9
+- :name_sci: Chlidonias hybrida
+  :name_en: Whiskered Tern
+  :order: Charadriiformes
+  :family: Laridae
+  :avibase_id: 7AB4E42B260B5954
+- :name_sci: Sterna dougallii
+  :name_en: Roseate Tern
+  :order: Charadriiformes
+  :family: Laridae
+  :avibase_id: 74236837A4AFD042
+- :name_sci: Sterna hirundo
+  :name_en: Common Tern
+  :order: Charadriiformes
+  :family: Laridae
+  :avibase_id: 4D2FF6F13790ED7E
+- :name_sci: Sterna paradisaea
+  :name_en: Arctic Tern
+  :order: Charadriiformes
+  :family: Laridae
+  :avibase_id: BDC5CF80BE6CFC21
+- :name_sci: Sterna forsteri
+  :name_en: Forster's Tern
+  :order: Charadriiformes
+  :family: Laridae
+  :avibase_id: D13B91229B2F157E
+- :name_sci: Thalasseus maximus
+  :name_en: Royal Tern
+  :order: Charadriiformes
+  :family: Laridae
+  :avibase_id: 68EDCC23F8128FA8
+- :name_sci: Thalasseus sandvicensis
+  :name_en: Sandwich Tern
+  :order: Charadriiformes
+  :family: Laridae
+  :avibase_id: F7504353640C1055
+- :name_sci: Rynchops niger
+  :name_en: Black Skimmer
+  :order: Charadriiformes
+  :family: Laridae
+  :avibase_id: 88AB027C4DF06D93
+- :name_sci: Stercorarius skua
+  :name_en: Great Skua
+  :order: Charadriiformes
+  :family: Stercorariidae
+  :avibase_id: BB041C6E5DB73FC7
+- :name_sci: Stercorarius maccormicki
+  :name_en: South Polar Skua
+  :order: Charadriiformes
+  :family: Stercorariidae
+  :avibase_id: 7D1A9D5CCCDC597C
+- :name_sci: Stercorarius pomarinus
+  :name_en: Pomarine Jaeger
+  :order: Charadriiformes
+  :family: Stercorariidae
+  :avibase_id: 7CB8F5B711DE64D0
+- :name_sci: Stercorarius parasiticus
+  :name_en: Parasitic Jaeger
+  :order: Charadriiformes
+  :family: Stercorariidae
+  :avibase_id: 39086887E9EAFEB3
+- :name_sci: Stercorarius longicaudus
+  :name_en: Long-tailed Jaeger
+  :order: Charadriiformes
+  :family: Stercorariidae
+  :avibase_id: 1D4464402EC9FD21
+- :name_sci: Alle alle
+  :name_en: Dovekie
+  :order: Charadriiformes
+  :family: Alcidae
+  :avibase_id: B0932D89F1F74318
+- :name_sci: Uria aalge
+  :name_en: Common Murre
+  :order: Charadriiformes
+  :family: Alcidae
+  :avibase_id: 39F29B55EF9A542F
+- :name_sci: Uria lomvia
+  :name_en: Thick-billed Murre
+  :order: Charadriiformes
+  :family: Alcidae
+  :avibase_id: B70B5840ABCD5CFC
+- :name_sci: Alca torda
+  :name_en: Razorbill
+  :order: Charadriiformes
+  :family: Alcidae
+  :avibase_id: 64F4DD81371B269F
+- :name_sci: Cepphus grylle
+  :name_en: Black Guillemot
+  :order: Charadriiformes
+  :family: Alcidae
+  :avibase_id: B5AA5952E13FE5F3
+- :name_sci: Brachyramphus perdix
+  :name_en: Long-billed Murrelet
+  :order: Charadriiformes
+  :family: Alcidae
+  :avibase_id: 0518820F7A915A80
+- :name_sci: Synthliboramphus antiquus
+  :name_en: Ancient Murrelet
+  :order: Charadriiformes
+  :family: Alcidae
+  :avibase_id: ACA4FEFE451B4BD8
+- :name_sci: Fratercula arctica
+  :name_en: Atlantic Puffin
+  :order: Charadriiformes
+  :family: Alcidae
+  :avibase_id: 2771624B64AD7F2C
+- :name_sci: Syrrhaptes paradoxus
+  :name_en: Pallas's Sandgrouse
+  :order: Pteroclidiformes
+  :family: Pteroclidae
+  :avibase_id: BDCB55F1196CAC6A
+- :name_sci: Pterocles alchata
+  :name_en: Pin-tailed Sandgrouse
+  :order: Pteroclidiformes
+  :family: Pteroclidae
+  :avibase_id: 493C4CF8D0200AB4
+- :name_sci: Pterocles orientalis
+  :name_en: Black-bellied Sandgrouse
+  :order: Pteroclidiformes
+  :family: Pteroclidae
+  :avibase_id: 06B41945B9E57EC4
+- :name_sci: Columba livia
+  :name_en: Rock Pigeon
+  :order: Columbiformes
+  :family: Columbidae
+  :avibase_id: BBA263C235B15B88
+- :name_sci: Columba oenas
+  :name_en: Stock Dove
+  :order: Columbiformes
+  :family: Columbidae
+  :avibase_id: 68E4C0D1404A46D8
+- :name_sci: Columba palumbus
+  :name_en: Common Wood-Pigeon
+  :order: Columbiformes
+  :family: Columbidae
+  :avibase_id: 760F307A30689D66
+- :name_sci: Streptopelia turtur
+  :name_en: European Turtle-Dove
+  :order: Columbiformes
+  :family: Columbidae
+  :avibase_id: 5788552B694ED7B5
+- :name_sci: Streptopelia orientalis
+  :name_en: Oriental Turtle-Dove
+  :order: Columbiformes
+  :family: Columbidae
+  :avibase_id: 6658BAC574088183
+- :name_sci: Streptopelia decaocto
+  :name_en: Eurasian Collared-Dove
+  :order: Columbiformes
+  :family: Columbidae
+  :avibase_id: 41FACE6330A2F073
+- :name_sci: Zenaida asiatica
+  :name_en: White-winged Dove
+  :order: Columbiformes
+  :family: Columbidae
+  :avibase_id: BFBC73AFB3FA5203
+- :name_sci: Zenaida macroura
+  :name_en: Mourning Dove
+  :order: Columbiformes
+  :family: Columbidae
+  :avibase_id: 00124D987C95811B
+- :name_sci: Ectopistes migratorius
+  :name_en: Passenger Pigeon
+  :order: Columbiformes
+  :family: Columbidae
+  :avibase_id: D397FE255A606DE8
+- :name_sci: Psittacula krameri
+  :name_en: Rose-ringed Parakeet
+  :order: Psittaciformes
+  :family: Psittacidae
+  :avibase_id: 6B1CFC3CFA400D78
+- :name_sci: Myiopsitta monachus
+  :name_en: Monk Parakeet
+  :order: Psittaciformes
+  :family: Psittacidae
+  :avibase_id: 117830752D8204BC
+- :name_sci: Clamator glandarius
+  :name_en: Great Spotted Cuckoo
+  :order: Cuculiformes
+  :family: Cuculidae
+  :avibase_id: 3D67C56A490A60AE
+- :name_sci: Cuculus canorus
+  :name_en: Common Cuckoo
+  :order: Cuculiformes
+  :family: Cuculidae
+  :avibase_id: B3D2C3C5B73EC8E8
+- :name_sci: Coccyzus americanus
+  :name_en: Yellow-billed Cuckoo
+  :order: Cuculiformes
+  :family: Cuculidae
+  :avibase_id: 0CF12F8155708DC8
+- :name_sci: Coccyzus erythropthalmus
+  :name_en: Black-billed Cuckoo
+  :order: Cuculiformes
+  :family: Cuculidae
+  :avibase_id: 41E9F54BDA04ACBA
+- :name_sci: Tyto alba
+  :name_en: Barn Owl
+  :order: Strigiformes
+  :family: Tytonidae
+  :avibase_id: 4FF37BF48BB00C3B
+- :name_sci: Otus scops
+  :name_en: European Scops-Owl
+  :order: Strigiformes
+  :family: Strigidae
+  :avibase_id: 8B9017E833633F09
+- :name_sci: Megascops asio
+  :name_en: Eastern Screech-Owl
+  :order: Strigiformes
+  :family: Strigidae
+  :avibase_id: A69062C895C0CCDA
+- :name_sci: Bubo virginianus
+  :name_en: Great Horned Owl
+  :order: Strigiformes
+  :family: Strigidae
+  :avibase_id: 34D6EE78CA7AE050
+- :name_sci: Bubo bubo
+  :name_en: Eurasian Eagle-Owl
+  :order: Strigiformes
+  :family: Strigidae
+  :avibase_id: 5516AEB347441B72
+- :name_sci: Bubo scandiacus
+  :name_en: Snowy Owl
+  :order: Strigiformes
+  :family: Strigidae
+  :avibase_id: 5B23B360E7DEC4A9
+- :name_sci: Surnia ulula
+  :name_en: Northern Hawk Owl
+  :order: Strigiformes
+  :family: Strigidae
+  :avibase_id: C2018A5DD8CDB5F5
+- :name_sci: Glaucidium passerinum
+  :name_en: Eurasian Pygmy-Owl
+  :order: Strigiformes
+  :family: Strigidae
+  :avibase_id: 79E2AC7C3122B93F
+- :name_sci: Athene cunicularia
+  :name_en: Burrowing Owl
+  :order: Strigiformes
+  :family: Strigidae
+  :avibase_id: B9EE9676FFEC8B11
+- :name_sci: Athene noctua
+  :name_en: Little Owl
+  :order: Strigiformes
+  :family: Strigidae
+  :avibase_id: 9A7B268C4EF6F803
+- :name_sci: Strix aluco
+  :name_en: Tawny Owl
+  :order: Strigiformes
+  :family: Strigidae
+  :avibase_id: 2CD9FB4AE9C1214A
+- :name_sci: Strix varia
+  :name_en: Barred Owl
+  :order: Strigiformes
+  :family: Strigidae
+  :avibase_id: 7AA076EFD28C9BB6
+- :name_sci: Strix uralensis
+  :name_en: Ural Owl
+  :order: Strigiformes
+  :family: Strigidae
+  :avibase_id: E162AEB825EEBCE3
+- :name_sci: Strix nebulosa
+  :name_en: Great Gray Owl
+  :order: Strigiformes
+  :family: Strigidae
+  :avibase_id: FA36ABE544B38D79
+- :name_sci: Asio otus
+  :name_en: Long-eared Owl
+  :order: Strigiformes
+  :family: Strigidae
+  :avibase_id: FC4D40D2D5CEA6BE
+- :name_sci: Asio flammeus
+  :name_en: Short-eared Owl
+  :order: Strigiformes
+  :family: Strigidae
+  :avibase_id: 8F123A11E5DADFDD
+- :name_sci: Aegolius funereus
+  :name_en: Boreal Owl
+  :order: Strigiformes
+  :family: Strigidae
+  :avibase_id: 8AB4EAF6DBFA02CE
+- :name_sci: Aegolius acadicus
+  :name_en: Northern Saw-whet Owl
+  :order: Strigiformes
+  :family: Strigidae
+  :avibase_id: 26BA25EFD0F06DF7
+- :name_sci: Chordeiles minor
+  :name_en: Common Nighthawk
+  :order: Caprimulgiformes
+  :family: Caprimulgidae
+  :avibase_id: 24E39ACD5692DA4A
+- :name_sci: Caprimulgus carolinensis
+  :name_en: Chuck-will's-widow
+  :order: Caprimulgiformes
+  :family: Caprimulgidae
+  :avibase_id: 8D3E887123F5C670
+- :name_sci: Caprimulgus vociferus
+  :name_en: Eastern Whip-poor-will
+  :order: Caprimulgiformes
+  :family: Caprimulgidae
+  :avibase_id: 1A09655B1DFED41F
+- :name_sci: Caprimulgus europaeus
+  :name_en: Eurasian Nightjar
+  :order: Caprimulgiformes
+  :family: Caprimulgidae
+  :avibase_id: D648523706523437
+- :name_sci: Chaetura pelagica
+  :name_en: Chimney Swift
+  :order: Apodiformes
+  :family: Apodidae
+  :avibase_id: C3AD1AFF63D26461
+- :name_sci: Apus melba
+  :name_en: Alpine Swift
+  :order: Apodiformes
+  :family: Apodidae
+  :avibase_id: FA1CAD2906F7C845
+- :name_sci: Apus apus
+  :name_en: Common Swift
+  :order: Apodiformes
+  :family: Apodidae
+  :avibase_id: 4E6EF3F983079D73
+- :name_sci: Archilochus colubris
+  :name_en: Ruby-throated Hummingbird
+  :order: Apodiformes
+  :family: Trochilidae
+  :avibase_id: DEC3D8D0C74C598B
+- :name_sci: Calypte anna
+  :name_en: Anna's Hummingbird
+  :order: Apodiformes
+  :family: Trochilidae
+  :avibase_id: 423937213450C257
+- :name_sci: Selasphorus rufus
+  :name_en: Rufous Hummingbird
+  :order: Apodiformes
+  :family: Trochilidae
+  :avibase_id: 1E1B6D193325DFB6
+- :name_sci: Stellula calliope
+  :name_en: Calliope Hummingbird
+  :order: Apodiformes
+  :family: Trochilidae
+  :avibase_id: 5816834EE9F3F70D
+- :name_sci: Cynanthus latirostris
+  :name_en: Broad-billed Hummingbird
+  :order: Apodiformes
+  :family: Trochilidae
+  :avibase_id: 760F8CC4C6969F16
+- :name_sci: Alcedo atthis
+  :name_en: Common Kingfisher
+  :order: Coraciiformes
+  :family: Alcedinidae
+  :avibase_id: 9505E03D7416B365
+- :name_sci: Megaceryle alcyon
+  :name_en: Belted Kingfisher
+  :order: Coraciiformes
+  :family: Alcedinidae
+  :avibase_id: 3558066B4F7EEB8E
+- :name_sci: Ceryle rudis
+  :name_en: Pied Kingfisher
+  :order: Coraciiformes
+  :family: Alcedinidae
+  :avibase_id: 8205077FA2E98715
+- :name_sci: Merops persicus
+  :name_en: Blue-cheeked Bee-eater
+  :order: Coraciiformes
+  :family: Meropidae
+  :avibase_id: 6EE4511347F342C4
+- :name_sci: Merops superciliosus
+  :name_en: Madagascar Bee-eater
+  :order: Coraciiformes
+  :family: Meropidae
+  :avibase_id: AC89B8FF845CAECF
+- :name_sci: Merops apiaster
+  :name_en: European Bee-eater
+  :order: Coraciiformes
+  :family: Meropidae
+  :avibase_id: 66AA3934DBAD18BC
+- :name_sci: Coracias garrulus
+  :name_en: European Roller
+  :order: Coraciiformes
+  :family: Coraciidae
+  :avibase_id: 7451A628C39538C5
+- :name_sci: Upupa epops
+  :name_en: Eurasian Hoopoe
+  :order: Coraciiformes
+  :family: Upupidae
+  :avibase_id: 9DAE9D1F8A3FD287
+- :name_sci: Jynx torquilla
+  :name_en: Eurasian Wryneck
+  :order: Piciformes
+  :family: Picidae
+  :avibase_id: B2E6AB9FC2608DFA
+- :name_sci: Melanerpes lewis
+  :name_en: Lewis's Woodpecker
+  :order: Piciformes
+  :family: Picidae
+  :avibase_id: E7C9A1F5BDE23849
+- :name_sci: Melanerpes erythrocephalus
+  :name_en: Red-headed Woodpecker
+  :order: Piciformes
+  :family: Picidae
+  :avibase_id: 448D91B74CBC772E
+- :name_sci: Melanerpes carolinus
+  :name_en: Red-bellied Woodpecker
+  :order: Piciformes
+  :family: Picidae
+  :avibase_id: 078557F2A5FB88C8
+- :name_sci: Sphyrapicus thyroideus
+  :name_en: Williamson's Sapsucker
+  :order: Piciformes
+  :family: Picidae
+  :avibase_id: 28A4DA7638EE5D5D
+- :name_sci: Sphyrapicus varius
+  :name_en: Yellow-bellied Sapsucker
+  :order: Piciformes
+  :family: Picidae
+  :avibase_id: 9BE68BD390E0D2FF
+- :name_sci: Dendrocopos minor
+  :name_en: Lesser Spotted Woodpecker
+  :order: Piciformes
+  :family: Picidae
+  :avibase_id: AB2F4BC0659B6630
+- :name_sci: Dendrocopos medius
+  :name_en: Middle Spotted Woodpecker
+  :order: Piciformes
+  :family: Picidae
+  :avibase_id: 504B2FD466B8E1D8
+- :name_sci: Dendrocopos leucotos
+  :name_en: White-backed Woodpecker
+  :order: Piciformes
+  :family: Picidae
+  :avibase_id: 4507ACD713D16392
+- :name_sci: Dendrocopos major
+  :name_en: Great Spotted Woodpecker
+  :order: Piciformes
+  :family: Picidae
+  :avibase_id: D754DB8552A7AA42
+- :name_sci: Dendrocopos syriacus
+  :name_en: Syrian Woodpecker
+  :order: Piciformes
+  :family: Picidae
+  :avibase_id: 3F54E5FDCF8CFA47
+- :name_sci: Picoides pubescens
+  :name_en: Downy Woodpecker
+  :order: Piciformes
+  :family: Picidae
+  :avibase_id: 1B2A6386D509137D
+- :name_sci: Picoides villosus
+  :name_en: Hairy Woodpecker
+  :order: Piciformes
+  :family: Picidae
+  :avibase_id: 9D06AF89CDBCF27B
+- :name_sci: Picoides tridactylus
+  :name_en: Eurasian Three-toed Woodpecker
+  :order: Piciformes
+  :family: Picidae
+  :avibase_id: 05B8A4F150564A49
+- :name_sci: Picoides dorsalis
+  :name_en: American Three-toed Woodpecker
+  :order: Piciformes
+  :family: Picidae
+  :avibase_id: 6D2680D04CEB17B9
+- :name_sci: Picoides arcticus
+  :name_en: Black-backed Woodpecker
+  :order: Piciformes
+  :family: Picidae
+  :avibase_id: 6BDADC9C8CD3FD0C
+- :name_sci: Colaptes auratus
+  :name_en: Northern Flicker
+  :order: Piciformes
+  :family: Picidae
+  :avibase_id: 756009696D15E8A0
+- :name_sci: Dryocopus pileatus
+  :name_en: Pileated Woodpecker
+  :order: Piciformes
+  :family: Picidae
+  :avibase_id: 00635FF9DB14C765
+- :name_sci: Dryocopus martius
+  :name_en: Black Woodpecker
+  :order: Piciformes
+  :family: Picidae
+  :avibase_id: EDB4BBA6E765E593
+- :name_sci: Picus viridis
+  :name_en: Green Woodpecker
+  :order: Piciformes
+  :family: Picidae
+  :avibase_id: 2CD77A29B88BB25C
+- :name_sci: Picus canus
+  :name_en: Gray-faced Woodpecker
+  :order: Piciformes
+  :family: Picidae
+  :avibase_id: BC863B3AC0DB9AAA
+- :name_sci: Contopus cooperi
+  :name_en: Olive-sided Flycatcher
+  :order: Passeriformes
+  :family: Tyrannidae
+  :avibase_id: 951C150C10C1B0BA
+- :name_sci: Contopus virens
+  :name_en: Eastern Wood-Pewee
+  :order: Passeriformes
+  :family: Tyrannidae
+  :avibase_id: 9891BF73279CAB69
+- :name_sci: Empidonax flaviventris
+  :name_en: Yellow-bellied Flycatcher
+  :order: Passeriformes
+  :family: Tyrannidae
+  :avibase_id: 7B0669CBD8FC7A17
+- :name_sci: Empidonax virescens
+  :name_en: Acadian Flycatcher
+  :order: Passeriformes
+  :family: Tyrannidae
+  :avibase_id: 2778A3F42BBFEBD5
+- :name_sci: Empidonax alnorum
+  :name_en: Alder Flycatcher
+  :order: Passeriformes
+  :family: Tyrannidae
+  :avibase_id: 338088120A17D3EA
+- :name_sci: Empidonax traillii
+  :name_en: Willow Flycatcher
+  :order: Passeriformes
+  :family: Tyrannidae
+  :avibase_id: 5BC4E0EFAB129B9D
+- :name_sci: Empidonax minimus
+  :name_en: Least Flycatcher
+  :order: Passeriformes
+  :family: Tyrannidae
+  :avibase_id: F5837054F30BA49D
+- :name_sci: Empidonax hammondii
+  :name_en: Hammond's Flycatcher
+  :order: Passeriformes
+  :family: Tyrannidae
+  :avibase_id: 1EB2595EE95F774B
+- :name_sci: Sayornis phoebe
+  :name_en: Eastern Phoebe
+  :order: Passeriformes
+  :family: Tyrannidae
+  :avibase_id: 62CA2AF81AF5B68D
+- :name_sci: Sayornis saya
+  :name_en: Say's Phoebe
+  :order: Passeriformes
+  :family: Tyrannidae
+  :avibase_id: 28669A3DB1A28C69
+- :name_sci: Pyrocephalus rubinus
+  :name_en: Vermilion Flycatcher
+  :order: Passeriformes
+  :family: Tyrannidae
+  :avibase_id: A80DB9891A5CACF6
+- :name_sci: Myiarchus cinerascens
+  :name_en: Ash-throated Flycatcher
+  :order: Passeriformes
+  :family: Tyrannidae
+  :avibase_id: E0A049851AD70991
+- :name_sci: Myiarchus crinitus
+  :name_en: Great Crested Flycatcher
+  :order: Passeriformes
+  :family: Tyrannidae
+  :avibase_id: 8D6D5F2BEA07A0CF
+- :name_sci: Tyrannus vociferans
+  :name_en: Cassin's Kingbird
+  :order: Passeriformes
+  :family: Tyrannidae
+  :avibase_id: 178B89552209EC05
+- :name_sci: Tyrannus verticalis
+  :name_en: Western Kingbird
+  :order: Passeriformes
+  :family: Tyrannidae
+  :avibase_id: 2281F1C77260C0AB
+- :name_sci: Tyrannus tyrannus
+  :name_en: Eastern Kingbird
+  :order: Passeriformes
+  :family: Tyrannidae
+  :avibase_id: 082D833CF61D6360
+- :name_sci: Tyrannus dominicensis
+  :name_en: Gray Kingbird
+  :order: Passeriformes
+  :family: Tyrannidae
+  :avibase_id: F5388B5EF2C0D783
+- :name_sci: Tyrannus forficatus
+  :name_en: Scissor-tailed Flycatcher
+  :order: Passeriformes
+  :family: Tyrannidae
+  :avibase_id: 6F65F82B4A1BA7F2
+- :name_sci: Tyrannus savana
+  :name_en: Fork-tailed Flycatcher
+  :order: Passeriformes
+  :family: Tyrannidae
+  :avibase_id: A2510EF44C67DD52
+- :name_sci: Lanius collurio
+  :name_en: Red-backed Shrike
+  :order: Passeriformes
+  :family: Laniidae
+  :avibase_id: F2CEFD1A4EA5F608
+- :name_sci: Lanius ludovicianus
+  :name_en: Loggerhead Shrike
+  :order: Passeriformes
+  :family: Laniidae
+  :avibase_id: 36171C2B964AD4D0
+- :name_sci: Lanius excubitor
+  :name_en: Northern Shrike
+  :order: Passeriformes
+  :family: Laniidae
+  :avibase_id: B215F75A482EBDE1
+- :name_sci: Lanius minor
+  :name_en: Lesser Gray Shrike
+  :order: Passeriformes
+  :family: Laniidae
+  :avibase_id: 8852337B06E8A14E
+- :name_sci: Lanius nubicus
+  :name_en: Masked Shrike
+  :order: Passeriformes
+  :family: Laniidae
+  :avibase_id: E90CC64A3A32FE26
+- :name_sci: Lanius senator
+  :name_en: Woodchat Shrike
+  :order: Passeriformes
+  :family: Laniidae
+  :avibase_id: 7E70D490A6476D16
+- :name_sci: Vireo griseus
+  :name_en: White-eyed Vireo
+  :order: Passeriformes
+  :family: Vireonidae
+  :avibase_id: D97F93CC29E30108
+- :name_sci: Vireo bellii
+  :name_en: Bell's Vireo
+  :order: Passeriformes
+  :family: Vireonidae
+  :avibase_id: C3168495CAA783E4
+- :name_sci: Vireo flavifrons
+  :name_en: Yellow-throated Vireo
+  :order: Passeriformes
+  :family: Vireonidae
+  :avibase_id: F8DDF6A6429E64D0
+- :name_sci: Vireo cassinii
+  :name_en: Cassin's Vireo
+  :order: Passeriformes
+  :family: Vireonidae
+  :avibase_id: EB0CD5DC7682DD8F
+- :name_sci: Vireo solitarius
+  :name_en: Blue-headed Vireo
+  :order: Passeriformes
+  :family: Vireonidae
+  :avibase_id: 95DB0943652956D1
+- :name_sci: Vireo gilvus
+  :name_en: Warbling Vireo
+  :order: Passeriformes
+  :family: Vireonidae
+  :avibase_id: 66AA469C8186BD23
+- :name_sci: Vireo philadelphicus
+  :name_en: Philadelphia Vireo
+  :order: Passeriformes
+  :family: Vireonidae
+  :avibase_id: 447A1BA516A43F9A
+- :name_sci: Vireo olivaceus
+  :name_en: Red-eyed Vireo
+  :order: Passeriformes
+  :family: Vireonidae
+  :avibase_id: 7254F08DB80D349C
+- :name_sci: Oriolus oriolus
+  :name_en: Eurasian Golden Oriole
+  :order: Passeriformes
+  :family: Oriolidae
+  :avibase_id: 92A772BBB88868CD
+- :name_sci: Perisoreus infaustus
+  :name_en: Siberian Jay
+  :order: Passeriformes
+  :family: Corvidae
+  :avibase_id: 43E6246776E789EC
+- :name_sci: Perisoreus canadensis
+  :name_en: Gray Jay
+  :order: Passeriformes
+  :family: Corvidae
+  :avibase_id: 69A6E32F323B9088
+- :name_sci: Cyanocitta cristata
+  :name_en: Blue Jay
+  :order: Passeriformes
+  :family: Corvidae
+  :avibase_id: 1DA430B8663CD4BE
+- :name_sci: Garrulus glandarius
+  :name_en: Eurasian Jay
+  :order: Passeriformes
+  :family: Corvidae
+  :avibase_id: D8D10F2C5A9AA49F
+- :name_sci: Pica pica
+  :name_en: Eurasian Magpie
+  :order: Passeriformes
+  :family: Corvidae
+  :avibase_id: 1EB2E3C72A6B688A
+- :name_sci: Pica hudsonia
+  :name_en: Black-billed Magpie
+  :order: Passeriformes
+  :family: Corvidae
+  :avibase_id: 640D71AA0686446D
+- :name_sci: Nucifraga caryocatactes
+  :name_en: Eurasian Nutcracker
+  :order: Passeriformes
+  :family: Corvidae
+  :avibase_id: 76C74B102E7F401F
+- :name_sci: Pyrrhocorax graculus
+  :name_en: Yellow-billed Chough
+  :order: Passeriformes
+  :family: Corvidae
+  :avibase_id: 45B512E2ECC3DB1D
+- :name_sci: Corvus monedula
+  :name_en: Eurasian Jackdaw
+  :order: Passeriformes
+  :family: Corvidae
+  :avibase_id: D4C32F8E792B65BA
+- :name_sci: Corvus frugilegus
+  :name_en: Rook
+  :order: Passeriformes
+  :family: Corvidae
+  :avibase_id: 1078FFEA23D9DD25
+- :name_sci: Corvus brachyrhynchos
+  :name_en: American Crow
+  :order: Passeriformes
+  :family: Corvidae
+  :avibase_id: 9E9F24769B6ACBE3
+- :name_sci: Corvus ossifragus
+  :name_en: Fish Crow
+  :order: Passeriformes
+  :family: Corvidae
+  :avibase_id: 43E56D2CAA66A6CA
+- :name_sci: Corvus corone
+  :name_en: Carrion Crow
+  :order: Passeriformes
+  :family: Corvidae
+  :avibase_id: 26FB62DAE4262583
+- :name_sci: Corvus cornix
+  :name_en: Hooded Crow
+  :order: Passeriformes
+  :family: Corvidae
+  :avibase_id: F13D8350405F3C10
+- :name_sci: Corvus corax
+  :name_en: Common Raven
+  :order: Passeriformes
+  :family: Corvidae
+  :avibase_id: B9B272F40EE1570F
+- :name_sci: Panurus biarmicus
+  :name_en: Bearded Reedling
+  :order: Passeriformes
+  :family: Panuridae
+  :avibase_id: 7D59F91D9548DCE7
+- :name_sci: Melanocorypha calandra
+  :name_en: Calandra Lark
+  :order: Passeriformes
+  :family: Alaudidae
+  :avibase_id: BDC24A8AA8A51BF9
+- :name_sci: Melanocorypha leucoptera
+  :name_en: White-winged Lark
+  :order: Passeriformes
+  :family: Alaudidae
+  :avibase_id: 400B3679BCB80EDB
+- :name_sci: Melanocorypha yeltoniensis
+  :name_en: Black Lark
+  :order: Passeriformes
+  :family: Alaudidae
+  :avibase_id: 811FC71929CD3B00
+- :name_sci: Calandrella brachydactyla
+  :name_en: Greater Short-toed Lark
+  :order: Passeriformes
+  :family: Alaudidae
+  :avibase_id: 34DD099CCBC8DCD7
+- :name_sci: Calandrella rufescens
+  :name_en: Lesser Short-toed Lark
+  :order: Passeriformes
+  :family: Alaudidae
+  :avibase_id: 29ADFACD1BEC9C2A
+- :name_sci: Galerida cristata
+  :name_en: Crested Lark
+  :order: Passeriformes
+  :family: Alaudidae
+  :avibase_id: 21ADC3ED8E24C1C9
+- :name_sci: Alauda arvensis
+  :name_en: Sky Lark
+  :order: Passeriformes
+  :family: Alaudidae
+  :avibase_id: ED2AC04E888EF9CF
+- :name_sci: Lullula arborea
+  :name_en: Wood Lark
+  :order: Passeriformes
+  :family: Alaudidae
+  :avibase_id: 742EC2F1CA97F56C
+- :name_sci: Eremophila alpestris
+  :name_en: Horned Lark
+  :order: Passeriformes
+  :family: Alaudidae
+  :avibase_id: FC0A1D951186B019
+- :name_sci: Stelgidopteryx serripennis
+  :name_en: Northern Rough-winged Swallow
+  :order: Passeriformes
+  :family: Hirundinidae
+  :avibase_id: 2C1981BBDAF51B2D
+- :name_sci: Progne subis
+  :name_en: Purple Martin
+  :order: Passeriformes
+  :family: Hirundinidae
+  :avibase_id: ACB9D1C6AB7F3371
+- :name_sci: Tachycineta bicolor
+  :name_en: Tree Swallow
+  :order: Passeriformes
+  :family: Hirundinidae
+  :avibase_id: BBA2F9DF60AE60BF
+- :name_sci: Riparia riparia
+  :name_en: Bank Swallow
+  :order: Passeriformes
+  :family: Hirundinidae
+  :avibase_id: 94A1C447583CB6D2
+- :name_sci: Ptyonoprogne rupestris
+  :name_en: Eurasian Crag-Martin
+  :order: Passeriformes
+  :family: Hirundinidae
+  :avibase_id: 6F2AF9D09463566F
+- :name_sci: Hirundo rustica
+  :name_en: Barn Swallow
+  :order: Passeriformes
+  :family: Hirundinidae
+  :avibase_id: 58C502EA7AF3E023
+- :name_sci: Cecropis daurica
+  :name_en: Red-rumped Swallow
+  :order: Passeriformes
+  :family: Hirundinidae
+  :avibase_id: 3EFE40188D428C02
+- :name_sci: Petrochelidon pyrrhonota
+  :name_en: Cliff Swallow
+  :order: Passeriformes
+  :family: Hirundinidae
+  :avibase_id: F5C181CA4478FD86
+- :name_sci: Petrochelidon fulva
+  :name_en: Cave Swallow
+  :order: Passeriformes
+  :family: Hirundinidae
+  :avibase_id: 79A1EDEC9657AA3C
+- :name_sci: Delichon urbicum
+  :name_en: Common House-Martin
+  :order: Passeriformes
+  :family: Hirundinidae
+  :avibase_id: E4BB82F50C488B8B
+- :name_sci: Poecile palustris
+  :name_en: Marsh Tit
+  :order: Passeriformes
+  :family: Paridae
+  :avibase_id: 523763E55D4A8153
+- :name_sci: Poecile montanus
+  :name_en: Willow Tit
+  :order: Passeriformes
+  :family: Paridae
+  :avibase_id: 01D4B731BF3D081F
+- :name_sci: Poecile atricapillus
+  :name_en: Black-capped Chickadee
+  :order: Passeriformes
+  :family: Paridae
+  :avibase_id: B1F0CC82E34E4541
+- :name_sci: Poecile hudsonicus
+  :name_en: Boreal Chickadee
+  :order: Passeriformes
+  :family: Paridae
+  :avibase_id: 68887DE7576B711C
+- :name_sci: Periparus ater
+  :name_en: Coal Tit
+  :order: Passeriformes
+  :family: Paridae
+  :avibase_id: A4EBA919FCAFED5E
+- :name_sci: Lophophanes cristatus
+  :name_en: Crested Tit
+  :order: Passeriformes
+  :family: Paridae
+  :avibase_id: E553193354C74B21
+- :name_sci: Parus major
+  :name_en: Great Tit
+  :order: Passeriformes
+  :family: Paridae
+  :avibase_id: D4E4FED3D83A7AE2
+- :name_sci: Cyanistes caeruleus
+  :name_en: Eurasian Blue Tit
+  :order: Passeriformes
+  :family: Paridae
+  :avibase_id: 9BE53D340F9A4305
+- :name_sci: Cyanistes cyanus
+  :name_en: Azure Tit
+  :order: Passeriformes
+  :family: Paridae
+  :avibase_id: 5AE72E2455477176
+- :name_sci: Baeolophus bicolor
+  :name_en: Tufted Titmouse
+  :order: Passeriformes
+  :family: Paridae
+  :avibase_id: B488AB7003F21AE7
+- :name_sci: Remiz pendulinus
+  :name_en: Eurasian Penduline-Tit
+  :order: Passeriformes
+  :family: Remizidae
+  :avibase_id: F81EB04951AA84BB
+- :name_sci: Aegithalos caudatus
+  :name_en: Long-tailed Tit
+  :order: Passeriformes
+  :family: Aegithalidae
+  :avibase_id: B783E98B7E960D4E
+- :name_sci: Sitta europaea
+  :name_en: Eurasian Nuthatch
+  :order: Passeriformes
+  :family: Sittidae
+  :avibase_id: 3C468678E0958FC6
+- :name_sci: Sitta canadensis
+  :name_en: Red-breasted Nuthatch
+  :order: Passeriformes
+  :family: Sittidae
+  :avibase_id: 0716A71C439DC09E
+- :name_sci: Sitta carolinensis
+  :name_en: White-breasted Nuthatch
+  :order: Passeriformes
+  :family: Sittidae
+  :avibase_id: 19CCBBD220E533AD
+- :name_sci: Sitta pusilla
+  :name_en: Brown-headed Nuthatch
+  :order: Passeriformes
+  :family: Sittidae
+  :avibase_id: 85729C75FED7B59E
+- :name_sci: Tichodroma muraria
+  :name_en: Wallcreeper
+  :order: Passeriformes
+  :family: Tichodromidae
+  :avibase_id: 89C425901C5B5343
+- :name_sci: Certhia familiaris
+  :name_en: Eurasian Treecreeper
+  :order: Passeriformes
+  :family: Certhiidae
+  :avibase_id: B10DCAC5CB1ECBE9
+- :name_sci: Certhia americana
+  :name_en: Brown Creeper
+  :order: Passeriformes
+  :family: Certhiidae
+  :avibase_id: BAC33609C5F48A91
+- :name_sci: Certhia brachydactyla
+  :name_en: Short-toed Treecreeper
+  :order: Passeriformes
+  :family: Certhiidae
+  :avibase_id: 552E2BA9FE43A2EE
+- :name_sci: Salpinctes obsoletus
+  :name_en: Rock Wren
+  :order: Passeriformes
+  :family: Troglodytidae
+  :avibase_id: 76DF73A9F213E90A
+- :name_sci: Thryothorus ludovicianus
+  :name_en: Carolina Wren
+  :order: Passeriformes
+  :family: Troglodytidae
+  :avibase_id: CB5469E1211E7EFF
+- :name_sci: Thryomanes bewickii
+  :name_en: Bewick's Wren
+  :order: Passeriformes
+  :family: Troglodytidae
+  :avibase_id: 603194D371801AC0
+- :name_sci: Troglodytes aedon
+  :name_en: House Wren
+  :order: Passeriformes
+  :family: Troglodytidae
+  :avibase_id: 46A74E575508923A
+- :name_sci: Troglodytes troglodytes
+  :name_en: Eurasian Wren
+  :order: Passeriformes
+  :family: Troglodytidae
+  :avibase_id: AF700208E4339572
+- :name_sci: Troglodytes hiemalis
+  :name_en: Winter Wren
+  :order: Passeriformes
+  :family: Troglodytidae
+  :avibase_id: C757BD95E71493FF
+- :name_sci: Cistothorus platensis
+  :name_en: Sedge Wren
+  :order: Passeriformes
+  :family: Troglodytidae
+  :avibase_id: ACCC4E9B737755DA
+- :name_sci: Cistothorus palustris
+  :name_en: Marsh Wren
+  :order: Passeriformes
+  :family: Troglodytidae
+  :avibase_id: 787E05366752B844
+- :name_sci: Polioptila caerulea
+  :name_en: Blue-gray Gnatcatcher
+  :order: Passeriformes
+  :family: Polioptilidae
+  :avibase_id: A15C5071DDEDC552
+- :name_sci: Cinclus cinclus
+  :name_en: White-throated Dipper
+  :order: Passeriformes
+  :family: Cinclidae
+  :avibase_id: FDECE3B9278A17EC
+- :name_sci: Regulus satrapa
+  :name_en: Golden-crowned Kinglet
+  :order: Passeriformes
+  :family: Regulidae
+  :avibase_id: 154BCCAE37AE70E9
+- :name_sci: Regulus calendula
+  :name_en: Ruby-crowned Kinglet
+  :order: Passeriformes
+  :family: Regulidae
+  :avibase_id: B60B1166CE5DDFA7
+- :name_sci: Regulus regulus
+  :name_en: Goldcrest
+  :order: Passeriformes
+  :family: Regulidae
+  :avibase_id: A7CC62D6BD333F25
+- :name_sci: Regulus ignicapilla
+  :name_en: Firecrest
+  :order: Passeriformes
+  :family: Regulidae
+  :avibase_id: 85B03849153146D8
+- :name_sci: Cettia cetti
+  :name_en: Cetti's Warbler
+  :order: Passeriformes
+  :family: Cettiidae
+  :avibase_id: F3E9CE954FAF5EF5
+- :name_sci: Phylloscopus trochilus
+  :name_en: Willow Warbler
+  :order: Passeriformes
+  :family: Phylloscopidae
+  :avibase_id: 88F4B969622B8268
+- :name_sci: Phylloscopus collybita
+  :name_en: Common Chiffchaff
+  :order: Passeriformes
+  :family: Phylloscopidae
+  :avibase_id: 458C8CBE3AABFD1E
+- :name_sci: Phylloscopus bonelli
+  :name_en: Western Bonelli's Warbler
+  :order: Passeriformes
+  :family: Phylloscopidae
+  :avibase_id: C00674ED5FC9DB8A
+- :name_sci: Phylloscopus orientalis
+  :name_en: Eastern Bonelli's Warbler
+  :order: Passeriformes
+  :family: Phylloscopidae
+  :avibase_id: 666F9FC9350991FD
+- :name_sci: Phylloscopus sibilatrix
+  :name_en: Wood Warbler
+  :order: Passeriformes
+  :family: Phylloscopidae
+  :avibase_id: 572C4C7FD4322D14
+- :name_sci: Phylloscopus schwarzi
+  :name_en: Radde's Warbler
+  :order: Passeriformes
+  :family: Phylloscopidae
+  :avibase_id: 9A536399807238AF
+- :name_sci: Phylloscopus proregulus
+  :name_en: Pallas's Leaf-Warbler
+  :order: Passeriformes
+  :family: Phylloscopidae
+  :avibase_id: 943E36CADFE7551B
+- :name_sci: Phylloscopus inornatus
+  :name_en: Yellow-browed Warbler
+  :order: Passeriformes
+  :family: Phylloscopidae
+  :avibase_id: 0C120038E5CA37D7
+- :name_sci: Phylloscopus nitidus
+  :name_en: Green Warbler
+  :order: Passeriformes
+  :family: Phylloscopidae
+  :avibase_id: 3542C46BC98FB367
+- :name_sci: Phylloscopus trochiloides
+  :name_en: Greenish Warbler
+  :order: Passeriformes
+  :family: Phylloscopidae
+  :avibase_id: 379FD7278209FBFF
+- :name_sci: Hippolais caligata
+  :name_en: Booted Warbler
+  :order: Passeriformes
+  :family: Acrocephalidae
+  :avibase_id: 1A6C6F1718FEDB5D
+- :name_sci: Hippolais pallida
+  :name_en: Eastern Olivaceous Warbler
+  :order: Passeriformes
+  :family: Acrocephalidae
+  :avibase_id: BAE527A2F70F6241
+- :name_sci: Hippolais olivetorum
+  :name_en: Olive-tree Warbler
+  :order: Passeriformes
+  :family: Acrocephalidae
+  :avibase_id: 791DED180041E350
+- :name_sci: Hippolais icterina
+  :name_en: Icterine Warbler
+  :order: Passeriformes
+  :family: Acrocephalidae
+  :avibase_id: B02A7A3D8006828D
+- :name_sci: Acrocephalus melanopogon
+  :name_en: Moustached Warbler
+  :order: Passeriformes
+  :family: Acrocephalidae
+  :avibase_id: E1559C49B1A6C31F
+- :name_sci: Acrocephalus paludicola
+  :name_en: Aquatic Warbler
+  :order: Passeriformes
+  :family: Acrocephalidae
+  :avibase_id: C15141A60961F8BC
+- :name_sci: Acrocephalus schoenobaenus
+  :name_en: Sedge Warbler
+  :order: Passeriformes
+  :family: Acrocephalidae
+  :avibase_id: FED5AED5C59A00B6
+- :name_sci: Acrocephalus agricola
+  :name_en: Paddyfield Warbler
+  :order: Passeriformes
+  :family: Acrocephalidae
+  :avibase_id: 781FE53F2425B4C1
+- :name_sci: Acrocephalus scirpaceus
+  :name_en: Eurasian Reed-Warbler
+  :order: Passeriformes
+  :family: Acrocephalidae
+  :avibase_id: 5C17300BC4B0B134
+- :name_sci: Acrocephalus dumetorum
+  :name_en: Blyth's Reed-Warbler
+  :order: Passeriformes
+  :family: Acrocephalidae
+  :avibase_id: B22EAFC877C38967
+- :name_sci: Acrocephalus palustris
+  :name_en: Marsh Warbler
+  :order: Passeriformes
+  :family: Acrocephalidae
+  :avibase_id: B675E006C3745A12
+- :name_sci: Acrocephalus arundinaceus
+  :name_en: Great Reed-Warbler
+  :order: Passeriformes
+  :family: Acrocephalidae
+  :avibase_id: B283E33243C17D97
+- :name_sci: Locustella naevia
+  :name_en: Common Grasshopper-Warbler
+  :order: Passeriformes
+  :family: Locustellidae
+  :avibase_id: BC0E4C9F87721B1A
+- :name_sci: Locustella fluviatilis
+  :name_en: Eurasian River Warbler
+  :order: Passeriformes
+  :family: Locustellidae
+  :avibase_id: 2B020CA0ACF13B19
+- :name_sci: Locustella luscinioides
+  :name_en: Savi's Warbler
+  :order: Passeriformes
+  :family: Locustellidae
+  :avibase_id: 2D46BB9888C846D0
+- :name_sci: Sylvia atricapilla
+  :name_en: Blackcap
+  :order: Passeriformes
+  :family: Sylviidae
+  :avibase_id: 61F9065BE0965E1A
+- :name_sci: Sylvia borin
+  :name_en: Garden Warbler
+  :order: Passeriformes
+  :family: Sylviidae
+  :avibase_id: A6A4FC63261EA8CD
+- :name_sci: Sylvia nisoria
+  :name_en: Barred Warbler
+  :order: Passeriformes
+  :family: Sylviidae
+  :avibase_id: 1EA60B94FAFE0C5C
+- :name_sci: Sylvia hortensis
+  :name_en: Western Orphean Warbler
+  :order: Passeriformes
+  :family: Sylviidae
+  :avibase_id: 95E7E0E5E3481A63
+- :name_sci: Sylvia nana
+  :name_en: Asian Desert Warbler
+  :order: Passeriformes
+  :family: Sylviidae
+  :avibase_id: 58F3D3E544D9755B
+- :name_sci: Sylvia communis
+  :name_en: Greater Whitethroat
+  :order: Passeriformes
+  :family: Sylviidae
+  :avibase_id: 14AFBA82D556918C
+- :name_sci: Sylvia curruca
+  :name_en: Lesser Whitethroat
+  :order: Passeriformes
+  :family: Sylviidae
+  :avibase_id: A99F93BCE984549A
+- :name_sci: Sylvia mystacea
+  :name_en: Menetries's Warbler
+  :order: Passeriformes
+  :family: Sylviidae
+  :avibase_id: AA027706CFDB4C9A
+- :name_sci: Sylvia rueppelli
+  :name_en: Rueppell's Warbler
+  :order: Passeriformes
+  :family: Sylviidae
+  :avibase_id: A1B09A861B190E01
+- :name_sci: Sylvia cantillans
+  :name_en: Subalpine Warbler
+  :order: Passeriformes
+  :family: Sylviidae
+  :avibase_id: 905A5016906F8A9F
+- :name_sci: Sylvia melanocephala
+  :name_en: Sardinian Warbler
+  :order: Passeriformes
+  :family: Sylviidae
+  :avibase_id: B0D094830E71F76A
+- :name_sci: Muscicapa striata
+  :name_en: Spotted Flycatcher
+  :order: Passeriformes
+  :family: Muscicapidae
+  :avibase_id: EE8206E703914D22
+- :name_sci: Cercotrichas galactotes
+  :name_en: Rufous-tailed Scrub-Robin
+  :order: Passeriformes
+  :family: Muscicapidae
+  :avibase_id: E4672C85DEAD098A
+- :name_sci: Erithacus rubecula
+  :name_en: European Robin
+  :order: Passeriformes
+  :family: Muscicapidae
+  :avibase_id: E68C3C704DDFF00C
+- :name_sci: Luscinia luscinia
+  :name_en: Thrush Nightingale
+  :order: Passeriformes
+  :family: Muscicapidae
+  :avibase_id: 6EC667529FB53E43
+- :name_sci: Luscinia megarhynchos
+  :name_en: Common Nightingale
+  :order: Passeriformes
+  :family: Muscicapidae
+  :avibase_id: 7C7F0DEE5B364038
+- :name_sci: Luscinia svecica
+  :name_en: Bluethroat
+  :order: Passeriformes
+  :family: Muscicapidae
+  :avibase_id: AFD6FD811AA7D6A7
+- :name_sci: Ficedula hypoleuca
+  :name_en: European Pied Flycatcher
+  :order: Passeriformes
+  :family: Muscicapidae
+  :avibase_id: 6E352E1870A195B7
+- :name_sci: Ficedula albicollis
+  :name_en: Collared Flycatcher
+  :order: Passeriformes
+  :family: Muscicapidae
+  :avibase_id: 0B2F80584ED0F07E
+- :name_sci: Ficedula parva
+  :name_en: Red-breasted Flycatcher
+  :order: Passeriformes
+  :family: Muscicapidae
+  :avibase_id: 6A3CA06B2496B003
+- :name_sci: Phoenicurus phoenicurus
+  :name_en: Common Redstart
+  :order: Passeriformes
+  :family: Muscicapidae
+  :avibase_id: 06DD9D954313582E
+- :name_sci: Phoenicurus ochruros
+  :name_en: Black Redstart
+  :order: Passeriformes
+  :family: Muscicapidae
+  :avibase_id: 612B5C244E272075
+- :name_sci: Monticola saxatilis
+  :name_en: Rufous-tailed Rock-Thrush
+  :order: Passeriformes
+  :family: Muscicapidae
+  :avibase_id: 736D38E7F9967842
+- :name_sci: Monticola solitarius
+  :name_en: Blue Rock-Thrush
+  :order: Passeriformes
+  :family: Muscicapidae
+  :avibase_id: 41D76F4B19ACB4BD
+- :name_sci: Saxicola rubetra
+  :name_en: Whinchat
+  :order: Passeriformes
+  :family: Muscicapidae
+  :avibase_id: A0EDAEA2E89A9A96
+- :name_sci: Saxicola torquatus
+  :name_en: Stonechat
+  :order: Passeriformes
+  :family: Muscicapidae
+  :avibase_id: 115C7D2B006272E3
+- :name_sci: Oenanthe leucura
+  :name_en: Black Wheatear
+  :order: Passeriformes
+  :family: Muscicapidae
+  :avibase_id: 1C98EA2F8CD4DD15
+- :name_sci: Oenanthe oenanthe
+  :name_en: Northern Wheatear
+  :order: Passeriformes
+  :family: Muscicapidae
+  :avibase_id: AB031597691D999C
+- :name_sci: Oenanthe pleschanka
+  :name_en: Pied Wheatear
+  :order: Passeriformes
+  :family: Muscicapidae
+  :avibase_id: 2FB34D83F74FCEAB
+- :name_sci: Oenanthe hispanica
+  :name_en: Black-eared Wheatear
+  :order: Passeriformes
+  :family: Muscicapidae
+  :avibase_id: 9611335C2442B3DD
+- :name_sci: Oenanthe isabellina
+  :name_en: Isabelline Wheatear
+  :order: Passeriformes
+  :family: Muscicapidae
+  :avibase_id: E6C6F74630B2257B
+- :name_sci: Sialia sialis
+  :name_en: Eastern Bluebird
+  :order: Passeriformes
+  :family: Turdidae
+  :avibase_id: A8347C7DF99F44B5
+- :name_sci: Sialia currucoides
+  :name_en: Mountain Bluebird
+  :order: Passeriformes
+  :family: Turdidae
+  :avibase_id: 97B870B4D154F7DB
+- :name_sci: Myadestes townsendi
+  :name_en: Townsend's Solitaire
+  :order: Passeriformes
+  :family: Turdidae
+  :avibase_id: 5459228D7CD8E8CB
+- :name_sci: Catharus fuscescens
+  :name_en: Veery
+  :order: Passeriformes
+  :family: Turdidae
+  :avibase_id: 0B8F4EE60AFF4B25
+- :name_sci: Catharus minimus
+  :name_en: Gray-cheeked Thrush
+  :order: Passeriformes
+  :family: Turdidae
+  :avibase_id: B904BB227C07317E
+- :name_sci: Catharus bicknelli
+  :name_en: Bicknell's Thrush
+  :order: Passeriformes
+  :family: Turdidae
+  :avibase_id: 5E1BED9DF111DB7D
+- :name_sci: Catharus ustulatus
+  :name_en: Swainson's Thrush
+  :order: Passeriformes
+  :family: Turdidae
+  :avibase_id: E53FC25C090A6AD8
+- :name_sci: Catharus guttatus
+  :name_en: Hermit Thrush
+  :order: Passeriformes
+  :family: Turdidae
+  :avibase_id: B01E8BD42E1785F2
+- :name_sci: Hylocichla mustelina
+  :name_en: Wood Thrush
+  :order: Passeriformes
+  :family: Turdidae
+  :avibase_id: 8E1D9327B8DAFD54
+- :name_sci: Turdus torquatus
+  :name_en: Ring Ouzel
+  :order: Passeriformes
+  :family: Turdidae
+  :avibase_id: CE71B4FF837F276A
+- :name_sci: Turdus merula
+  :name_en: Eurasian Blackbird
+  :order: Passeriformes
+  :family: Turdidae
+  :avibase_id: 1BB50DE8362A4963
+- :name_sci: Turdus atrogularis
+  :name_en: Black-throated Thrush
+  :order: Passeriformes
+  :family: Turdidae
+  :avibase_id: AECDBFFA55C87E24
+- :name_sci: Turdus eunomus
+  :name_en: Dusky Thrush
+  :order: Passeriformes
+  :family: Turdidae
+  :avibase_id: E3B6927817B7ABB4
+- :name_sci: Turdus naumanni
+  :name_en: Naumann's Thrush
+  :order: Passeriformes
+  :family: Turdidae
+  :avibase_id: 22761AD4A981E2F6
+- :name_sci: Turdus pilaris
+  :name_en: Fieldfare
+  :order: Passeriformes
+  :family: Turdidae
+  :avibase_id: D120D5A070E8123C
+- :name_sci: Turdus iliacus
+  :name_en: Redwing
+  :order: Passeriformes
+  :family: Turdidae
+  :avibase_id: A8A85BCF1AFB7BBD
+- :name_sci: Turdus philomelos
+  :name_en: Song Thrush
+  :order: Passeriformes
+  :family: Turdidae
+  :avibase_id: D929EB214A698282
+- :name_sci: Turdus viscivorus
+  :name_en: Mistle Thrush
+  :order: Passeriformes
+  :family: Turdidae
+  :avibase_id: A95B43F1E9D10296
+- :name_sci: Turdus migratorius
+  :name_en: American Robin
+  :order: Passeriformes
+  :family: Turdidae
+  :avibase_id: 075C161020D1E5D2
+- :name_sci: Ixoreus naevius
+  :name_en: Varied Thrush
+  :order: Passeriformes
+  :family: Turdidae
+  :avibase_id: 583128734B0F566A
+- :name_sci: Dumetella carolinensis
+  :name_en: Gray Catbird
+  :order: Passeriformes
+  :family: Mimidae
+  :avibase_id: 95B77F083F49835F
+- :name_sci: Mimus polyglottos
+  :name_en: Northern Mockingbird
+  :order: Passeriformes
+  :family: Mimidae
+  :avibase_id: 7EFF698DC564CF69
+- :name_sci: Oreoscoptes montanus
+  :name_en: Sage Thrasher
+  :order: Passeriformes
+  :family: Mimidae
+  :avibase_id: F6DF700B33402E74
+- :name_sci: Toxostoma rufum
+  :name_en: Brown Thrasher
+  :order: Passeriformes
+  :family: Mimidae
+  :avibase_id: C8F9F2D013E9D057
+- :name_sci: Pastor roseus
+  :name_en: Rosy Starling
+  :order: Passeriformes
+  :family: Sturnidae
+  :avibase_id: 24208346AD77666E
+- :name_sci: Sturnus vulgaris
+  :name_en: European Starling
+  :order: Passeriformes
+  :family: Sturnidae
+  :avibase_id: 94A4403295E2D9BE
+- :name_sci: Prunella collaris
+  :name_en: Alpine Accentor
+  :order: Passeriformes
+  :family: Prunellidae
+  :avibase_id: A783468FC167312E
+- :name_sci: Prunella montanella
+  :name_en: Siberian Accentor
+  :order: Passeriformes
+  :family: Prunellidae
+  :avibase_id: D32200407D81F285
+- :name_sci: Prunella modularis
+  :name_en: Dunnock
+  :order: Passeriformes
+  :family: Prunellidae
+  :avibase_id: 26530C865C4A655C
+- :name_sci: Motacilla flava
+  :name_en: Western Yellow Wagtail
+  :order: Passeriformes
+  :family: Motacillidae
+  :avibase_id: 5C0F67C3D4AFE801
+- :name_sci: Motacilla citreola
+  :name_en: Citrine Wagtail
+  :order: Passeriformes
+  :family: Motacillidae
+  :avibase_id: 5B0295C122B63ED3
+- :name_sci: Motacilla cinerea
+  :name_en: Gray Wagtail
+  :order: Passeriformes
+  :family: Motacillidae
+  :avibase_id: AE073221679039C2
+- :name_sci: Motacilla alba
+  :name_en: White Wagtail
+  :order: Passeriformes
+  :family: Motacillidae
+  :avibase_id: FBE02965F955440D
+- :name_sci: Anthus richardi
+  :name_en: Richard's Pipit
+  :order: Passeriformes
+  :family: Motacillidae
+  :avibase_id: 41ECD10E24E8772D
+- :name_sci: Anthus campestris
+  :name_en: Tawny Pipit
+  :order: Passeriformes
+  :family: Motacillidae
+  :avibase_id: 250CDA5828B68D0A
+- :name_sci: Anthus pratensis
+  :name_en: Meadow Pipit
+  :order: Passeriformes
+  :family: Motacillidae
+  :avibase_id: 14873249B607CEB1
+- :name_sci: Anthus trivialis
+  :name_en: Tree Pipit
+  :order: Passeriformes
+  :family: Motacillidae
+  :avibase_id: 365F5E975B414FE6
+- :name_sci: Anthus cervinus
+  :name_en: Red-throated Pipit
+  :order: Passeriformes
+  :family: Motacillidae
+  :avibase_id: 319D044A667563CD
+- :name_sci: Anthus spinoletta
+  :name_en: Water Pipit
+  :order: Passeriformes
+  :family: Motacillidae
+  :avibase_id: 0A3FA18502F4FC70
+- :name_sci: Anthus rubescens
+  :name_en: American Pipit
+  :order: Passeriformes
+  :family: Motacillidae
+  :avibase_id: 8F26868274C1EE0A
+- :name_sci: Bombycilla garrulus
+  :name_en: Bohemian Waxwing
+  :order: Passeriformes
+  :family: Bombycillidae
+  :avibase_id: AEF821EC4625150E
+- :name_sci: Bombycilla cedrorum
+  :name_en: Cedar Waxwing
+  :order: Passeriformes
+  :family: Bombycillidae
+  :avibase_id: 9437D635FF4E2607
+- :name_sci: Calcarius lapponicus
+  :name_en: Lapland Longspur
+  :order: Passeriformes
+  :family: Calcariidae
+  :avibase_id: 3534E4CEBACCB166
+- :name_sci: Calcarius ornatus
+  :name_en: Chestnut-collared Longspur
+  :order: Passeriformes
+  :family: Calcariidae
+  :avibase_id: B64C1B1DE240735A
+- :name_sci: Calcarius pictus
+  :name_en: Smith's Longspur
+  :order: Passeriformes
+  :family: Calcariidae
+  :avibase_id: D307C9A04517D3A2
+- :name_sci: Plectrophenax nivalis
+  :name_en: Snow Bunting
+  :order: Passeriformes
+  :family: Calcariidae
+  :avibase_id: 9BEBC02505B416EE
+- :name_sci: Seiurus aurocapilla
+  :name_en: Ovenbird
+  :order: Passeriformes
+  :family: Parulidae
+  :avibase_id: CEA5B6AA48218C8A
+- :name_sci: Helmitheros vermivorum
+  :name_en: Worm-eating Warbler
+  :order: Passeriformes
+  :family: Parulidae
+  :avibase_id: 295C4CD62A12ADEF
+- :name_sci: Parkesia motacilla
+  :name_en: Louisiana Waterthrush
+  :order: Passeriformes
+  :family: Parulidae
+  :avibase_id: 7AB0F3A4A62BD4BF
+- :name_sci: Parkesia noveboracensis
+  :name_en: Northern Waterthrush
+  :order: Passeriformes
+  :family: Parulidae
+  :avibase_id: 709AF716468341F7
+- :name_sci: Vermivora cyanoptera
+  :name_en: Blue-winged Warbler
+  :order: Passeriformes
+  :family: Parulidae
+  :avibase_id: B617FE7DF96090DD
+- :name_sci: Vermivora chrysoptera
+  :name_en: Golden-winged Warbler
+  :order: Passeriformes
+  :family: Parulidae
+  :avibase_id: 83F326C81E3F2955
+- :name_sci: Mniotilta varia
+  :name_en: Black-and-white Warbler
+  :order: Passeriformes
+  :family: Parulidae
+  :avibase_id: 4D207AF69A79DDCF
+- :name_sci: Protonotaria citrea
+  :name_en: Prothonotary Warbler
+  :order: Passeriformes
+  :family: Parulidae
+  :avibase_id: 4D08EE7E80D2E275
+- :name_sci: Limnothlypis swainsonii
+  :name_en: Swainson's Warbler
+  :order: Passeriformes
+  :family: Parulidae
+  :avibase_id: D3624203E6C65D28
+- :name_sci: Oreothlypis peregrina
+  :name_en: Tennessee Warbler
+  :order: Passeriformes
+  :family: Parulidae
+  :avibase_id: D204A9309E8CCC3A
+- :name_sci: Oreothlypis celata
+  :name_en: Orange-crowned Warbler
+  :order: Passeriformes
+  :family: Parulidae
+  :avibase_id: FFF6108042E63910
+- :name_sci: Oreothlypis ruficapilla
+  :name_en: Nashville Warbler
+  :order: Passeriformes
+  :family: Parulidae
+  :avibase_id: 183E5F909449A603
+- :name_sci: Oporornis agilis
+  :name_en: Connecticut Warbler
+  :order: Passeriformes
+  :family: Parulidae
+  :avibase_id: 0B23929DF27B0963
+- :name_sci: Geothlypis tolmiei
+  :name_en: MacGillivray's Warbler
+  :order: Passeriformes
+  :family: Parulidae
+  :avibase_id: 85106518F57F4B09
+- :name_sci: Geothlypis philadelphia
+  :name_en: Mourning Warbler
+  :order: Passeriformes
+  :family: Parulidae
+  :avibase_id: 1A0096F2F929CEA2
+- :name_sci: Geothlypis formosa
+  :name_en: Kentucky Warbler
+  :order: Passeriformes
+  :family: Parulidae
+  :avibase_id: 8C105C3C647C7E36
+- :name_sci: Geothlypis trichas
+  :name_en: Common Yellowthroat
+  :order: Passeriformes
+  :family: Parulidae
+  :avibase_id: BA4C8A02839564AC
+- :name_sci: Setophaga citrina
+  :name_en: Hooded Warbler
+  :order: Passeriformes
+  :family: Parulidae
+  :avibase_id: 15EB30007E1908FD
+- :name_sci: Setophaga ruticilla
+  :name_en: American Redstart
+  :order: Passeriformes
+  :family: Parulidae
+  :avibase_id: BED38F505F0B8509
+- :name_sci: Setophaga tigrina
+  :name_en: Cape May Warbler
+  :order: Passeriformes
+  :family: Parulidae
+  :avibase_id: DB20CB6B0A720B90
+- :name_sci: Setophaga cerulea
+  :name_en: Cerulean Warbler
+  :order: Passeriformes
+  :family: Parulidae
+  :avibase_id: D00EC2C974F1B880
+- :name_sci: Setophaga americana
+  :name_en: Northern Parula
+  :order: Passeriformes
+  :family: Parulidae
+  :avibase_id: 41062654293EB4E1
+- :name_sci: Setophaga magnolia
+  :name_en: Magnolia Warbler
+  :order: Passeriformes
+  :family: Parulidae
+  :avibase_id: 1E82CE1ECC54F928
+- :name_sci: Setophaga castanea
+  :name_en: Bay-breasted Warbler
+  :order: Passeriformes
+  :family: Parulidae
+  :avibase_id: 10C601D3BCC5A85C
+- :name_sci: Setophaga fusca
+  :name_en: Blackburnian Warbler
+  :order: Passeriformes
+  :family: Parulidae
+  :avibase_id: 4168AF09C7BCB40B
+- :name_sci: Setophaga petechia
+  :name_en: Yellow Warbler
+  :order: Passeriformes
+  :family: Parulidae
+  :avibase_id: A6C0C4A9DCB84453
+- :name_sci: Setophaga pensylvanica
+  :name_en: Chestnut-sided Warbler
+  :order: Passeriformes
+  :family: Parulidae
+  :avibase_id: 7AB1229BD3F33F46
+- :name_sci: Setophaga striata
+  :name_en: Blackpoll Warbler
+  :order: Passeriformes
+  :family: Parulidae
+  :avibase_id: 544A5E6BC69CEAAC
+- :name_sci: Setophaga caerulescens
+  :name_en: Black-throated Blue Warbler
+  :order: Passeriformes
+  :family: Parulidae
+  :avibase_id: 67B455A71B1C2506
+- :name_sci: Setophaga palmarum
+  :name_en: Palm Warbler
+  :order: Passeriformes
+  :family: Parulidae
+  :avibase_id: 4AAEF54973E5453C
+- :name_sci: Setophaga pinus
+  :name_en: Pine Warbler
+  :order: Passeriformes
+  :family: Parulidae
+  :avibase_id: 6283E61EEF174882
+- :name_sci: Setophaga coronata
+  :name_en: Yellow-rumped Warbler
+  :order: Passeriformes
+  :family: Parulidae
+  :avibase_id: BC5A949807108302
+- :name_sci: Setophaga dominica
+  :name_en: Yellow-throated Warbler
+  :order: Passeriformes
+  :family: Parulidae
+  :avibase_id: 4A8D1A19B9685441
+- :name_sci: Setophaga discolor
+  :name_en: Prairie Warbler
+  :order: Passeriformes
+  :family: Parulidae
+  :avibase_id: E36325FA08B46EEF
+- :name_sci: Setophaga nigrescens
+  :name_en: Black-throated Gray Warbler
+  :order: Passeriformes
+  :family: Parulidae
+  :avibase_id: 6B7A93C56A110723
+- :name_sci: Setophaga townsendi
+  :name_en: Townsend's Warbler
+  :order: Passeriformes
+  :family: Parulidae
+  :avibase_id: F6C6C3F7E27ED557
+- :name_sci: Setophaga virens
+  :name_en: Black-throated Green Warbler
+  :order: Passeriformes
+  :family: Parulidae
+  :avibase_id: 9FFEDE99DC82DD92
+- :name_sci: Cardellina canadensis
+  :name_en: Canada Warbler
+  :order: Passeriformes
+  :family: Parulidae
+  :avibase_id: F2D675AFB11EEEFF
+- :name_sci: Cardellina pusilla
+  :name_en: Wilson's Warbler
+  :order: Passeriformes
+  :family: Parulidae
+  :avibase_id: 1F09CCCCBD97B861
+- :name_sci: Myioborus pictus
+  :name_en: Painted Redstart
+  :order: Passeriformes
+  :family: Parulidae
+  :avibase_id: 3255D987DF235968
+- :name_sci: Icteria virens
+  :name_en: Yellow-breasted Chat
+  :order: Passeriformes
+  :family: Parulidae
+  :avibase_id: 734C73A933F3108B
+- :name_sci: Pipilo chlorurus
+  :name_en: Green-tailed Towhee
+  :order: Passeriformes
+  :family: Emberizidae
+  :avibase_id: 45D829B3C45C2BC5
+- :name_sci: Pipilo maculatus
+  :name_en: Spotted Towhee
+  :order: Passeriformes
+  :family: Emberizidae
+  :avibase_id: 58E25701D3F9FA0E
+- :name_sci: Pipilo erythrophthalmus
+  :name_en: Eastern Towhee
+  :order: Passeriformes
+  :family: Emberizidae
+  :avibase_id: 6090278A61F63C13
+- :name_sci: Peucaea cassinii
+  :name_en: Cassin's Sparrow
+  :order: Passeriformes
+  :family: Emberizidae
+  :avibase_id: B58AFD6EE6337146
+- :name_sci: Peucaea aestivalis
+  :name_en: Bachman's Sparrow
+  :order: Passeriformes
+  :family: Emberizidae
+  :avibase_id: DAD22BB68CF2206A
+- :name_sci: Spizella arborea
+  :name_en: American Tree Sparrow
+  :order: Passeriformes
+  :family: Emberizidae
+  :avibase_id: 2A86F9C93636CDA3
+- :name_sci: Spizella passerina
+  :name_en: Chipping Sparrow
+  :order: Passeriformes
+  :family: Emberizidae
+  :avibase_id: 37E9CCDA7A4B06ED
+- :name_sci: Spizella pallida
+  :name_en: Clay-colored Sparrow
+  :order: Passeriformes
+  :family: Emberizidae
+  :avibase_id: 486265CF44FC17F2
+- :name_sci: Spizella pusilla
+  :name_en: Field Sparrow
+  :order: Passeriformes
+  :family: Emberizidae
+  :avibase_id: E23F6DE0B4829658
+- :name_sci: Pooecetes gramineus
+  :name_en: Vesper Sparrow
+  :order: Passeriformes
+  :family: Emberizidae
+  :avibase_id: 3647E146F88AE943
+- :name_sci: Chondestes grammacus
+  :name_en: Lark Sparrow
+  :order: Passeriformes
+  :family: Emberizidae
+  :avibase_id: 78509A5D6015C509
+- :name_sci: Calamospiza melanocorys
+  :name_en: Lark Bunting
+  :order: Passeriformes
+  :family: Emberizidae
+  :avibase_id: 938C5572D8E74782
+- :name_sci: Passerculus sandwichensis
+  :name_en: Savannah Sparrow
+  :order: Passeriformes
+  :family: Emberizidae
+  :avibase_id: 31CE00C71528322F
+- :name_sci: Ammodramus savannarum
+  :name_en: Grasshopper Sparrow
+  :order: Passeriformes
+  :family: Emberizidae
+  :avibase_id: 5BFFE091FBA75EA2
+- :name_sci: Ammodramus bairdii
+  :name_en: Baird's Sparrow
+  :order: Passeriformes
+  :family: Emberizidae
+  :avibase_id: 67EFC0619A89B656
+- :name_sci: Ammodramus henslowii
+  :name_en: Henslow's Sparrow
+  :order: Passeriformes
+  :family: Emberizidae
+  :avibase_id: CDA2F827192CF0B3
+- :name_sci: Ammodramus leconteii
+  :name_en: Le Conte's Sparrow
+  :order: Passeriformes
+  :family: Emberizidae
+  :avibase_id: B656B15D2F2ADF96
+- :name_sci: Ammodramus nelsoni
+  :name_en: Nelson's Sparrow
+  :order: Passeriformes
+  :family: Emberizidae
+  :avibase_id: 727D994FD915AB09
+- :name_sci: Ammodramus caudacutus
+  :name_en: Saltmarsh Sparrow
+  :order: Passeriformes
+  :family: Emberizidae
+  :avibase_id: 79C9C8C455E6936B
+- :name_sci: Ammodramus maritimus
+  :name_en: Seaside Sparrow
+  :order: Passeriformes
+  :family: Emberizidae
+  :avibase_id: 0F81304F8BBF1EC5
+- :name_sci: Passerella iliaca
+  :name_en: Fox Sparrow
+  :order: Passeriformes
+  :family: Emberizidae
+  :avibase_id: 3A7B1F59DE8F597D
+- :name_sci: Melospiza melodia
+  :name_en: Song Sparrow
+  :order: Passeriformes
+  :family: Emberizidae
+  :avibase_id: A5F09E0521019564
+- :name_sci: Melospiza lincolnii
+  :name_en: Lincoln's Sparrow
+  :order: Passeriformes
+  :family: Emberizidae
+  :avibase_id: AF49F8903B6DC7A5
+- :name_sci: Melospiza georgiana
+  :name_en: Swamp Sparrow
+  :order: Passeriformes
+  :family: Emberizidae
+  :avibase_id: 4E192262D429400C
+- :name_sci: Zonotrichia albicollis
+  :name_en: White-throated Sparrow
+  :order: Passeriformes
+  :family: Emberizidae
+  :avibase_id: 39BD9FF20A9613C4
+- :name_sci: Zonotrichia querula
+  :name_en: Harris's Sparrow
+  :order: Passeriformes
+  :family: Emberizidae
+  :avibase_id: DDAF0666B28C1354
+- :name_sci: Zonotrichia leucophrys
+  :name_en: White-crowned Sparrow
+  :order: Passeriformes
+  :family: Emberizidae
+  :avibase_id: 8601A4678CABA542
+- :name_sci: Zonotrichia atricapilla
+  :name_en: Golden-crowned Sparrow
+  :order: Passeriformes
+  :family: Emberizidae
+  :avibase_id: BD61BDEC7D0A1633
+- :name_sci: Junco hyemalis
+  :name_en: Dark-eyed Junco
+  :order: Passeriformes
+  :family: Emberizidae
+  :avibase_id: F8AFCAC715964EEB
+- :name_sci: Emberiza citrinella
+  :name_en: Yellowhammer
+  :order: Passeriformes
+  :family: Emberizidae
+  :avibase_id: 56FB47C05CB7275F
+- :name_sci: Emberiza leucocephalos
+  :name_en: Pine Bunting
+  :order: Passeriformes
+  :family: Emberizidae
+  :avibase_id: 43EF3EA79A531279
+- :name_sci: Emberiza cirlus
+  :name_en: Cirl Bunting
+  :order: Passeriformes
+  :family: Emberizidae
+  :avibase_id: 9AAB8C2174EFDF60
+- :name_sci: Emberiza cia
+  :name_en: Rock Bunting
+  :order: Passeriformes
+  :family: Emberizidae
+  :avibase_id: 4836E64E80D5A372
+- :name_sci: Emberiza buchanani
+  :name_en: Gray-hooded Bunting
+  :order: Passeriformes
+  :family: Emberizidae
+  :avibase_id: CF70007E92F2A30B
+- :name_sci: Emberiza hortulana
+  :name_en: Ortolan Bunting
+  :order: Passeriformes
+  :family: Emberizidae
+  :avibase_id: 4721056132879EB7
+- :name_sci: Emberiza caesia
+  :name_en: Cretzschmar's Bunting
+  :order: Passeriformes
+  :family: Emberizidae
+  :avibase_id: A7F3E6AE9A1929F9
+- :name_sci: Emberiza chrysophrys
+  :name_en: Yellow-browed Bunting
+  :order: Passeriformes
+  :family: Emberizidae
+  :avibase_id: 4A50E26530277C6D
+- :name_sci: Emberiza pusilla
+  :name_en: Little Bunting
+  :order: Passeriformes
+  :family: Emberizidae
+  :avibase_id: 1866F80E52F4075F
+- :name_sci: Emberiza rustica
+  :name_en: Rustic Bunting
+  :order: Passeriformes
+  :family: Emberizidae
+  :avibase_id: DA9746CEC82D30A3
+- :name_sci: Emberiza aureola
+  :name_en: Yellow-breasted Bunting
+  :order: Passeriformes
+  :family: Emberizidae
+  :avibase_id: 7574C0E53A34CCFD
+- :name_sci: Emberiza melanocephala
+  :name_en: Black-headed Bunting
+  :order: Passeriformes
+  :family: Emberizidae
+  :avibase_id: E2D2CB88A9D95E42
+- :name_sci: Emberiza schoeniclus
+  :name_en: Reed Bunting
+  :order: Passeriformes
+  :family: Emberizidae
+  :avibase_id: C0B9787440316E20
+- :name_sci: Emberiza calandra
+  :name_en: Corn Bunting
+  :order: Passeriformes
+  :family: Emberizidae
+  :avibase_id: 9A87EBB0B75C410B
+- :name_sci: Piranga rubra
+  :name_en: Summer Tanager
+  :order: Passeriformes
+  :family: Cardinalidae
+  :avibase_id: 891798D9EFFE1F8D
+- :name_sci: Piranga olivacea
+  :name_en: Scarlet Tanager
+  :order: Passeriformes
+  :family: Cardinalidae
+  :avibase_id: 4210163221C2E458
+- :name_sci: Piranga ludoviciana
+  :name_en: Western Tanager
+  :order: Passeriformes
+  :family: Cardinalidae
+  :avibase_id: 0ADA5F17E6C7CA54
+- :name_sci: Cardinalis cardinalis
+  :name_en: Northern Cardinal
+  :order: Passeriformes
+  :family: Cardinalidae
+  :avibase_id: 4E74AE2276258520
+- :name_sci: Pheucticus ludovicianus
+  :name_en: Rose-breasted Grosbeak
+  :order: Passeriformes
+  :family: Cardinalidae
+  :avibase_id: 7C2FCB13BAA660EE
+- :name_sci: Pheucticus melanocephalus
+  :name_en: Black-headed Grosbeak
+  :order: Passeriformes
+  :family: Cardinalidae
+  :avibase_id: 824361E5ACCA64DB
+- :name_sci: Passerina caerulea
+  :name_en: Blue Grosbeak
+  :order: Passeriformes
+  :family: Cardinalidae
+  :avibase_id: A7A75EA1A9A57185
+- :name_sci: Passerina amoena
+  :name_en: Lazuli Bunting
+  :order: Passeriformes
+  :family: Cardinalidae
+  :avibase_id: 9F67F3AFBF17ECFF
+- :name_sci: Passerina cyanea
+  :name_en: Indigo Bunting
+  :order: Passeriformes
+  :family: Cardinalidae
+  :avibase_id: 043F337AA25E7D97
+- :name_sci: Passerina ciris
+  :name_en: Painted Bunting
+  :order: Passeriformes
+  :family: Cardinalidae
+  :avibase_id: 0BDB87DE301150B2
+- :name_sci: Spiza americana
+  :name_en: Dickcissel
+  :order: Passeriformes
+  :family: Cardinalidae
+  :avibase_id: 592E58CE67D092DA
+- :name_sci: Dolichonyx oryzivorus
+  :name_en: Bobolink
+  :order: Passeriformes
+  :family: Icteridae
+  :avibase_id: F845062FC976B85B
+- :name_sci: Agelaius phoeniceus
+  :name_en: Red-winged Blackbird
+  :order: Passeriformes
+  :family: Icteridae
+  :avibase_id: C86D078E641FCE6D
+- :name_sci: Sturnella magna
+  :name_en: Eastern Meadowlark
+  :order: Passeriformes
+  :family: Icteridae
+  :avibase_id: 27410227323B07A1
+- :name_sci: Sturnella neglecta
+  :name_en: Western Meadowlark
+  :order: Passeriformes
+  :family: Icteridae
+  :avibase_id: 4A5B488366FC0784
+- :name_sci: Xanthocephalus xanthocephalus
+  :name_en: Yellow-headed Blackbird
+  :order: Passeriformes
+  :family: Icteridae
+  :avibase_id: 3E2D0C9BADB782DB
+- :name_sci: Euphagus carolinus
+  :name_en: Rusty Blackbird
+  :order: Passeriformes
+  :family: Icteridae
+  :avibase_id: 5F77FED530C9B69D
+- :name_sci: Euphagus cyanocephalus
+  :name_en: Brewer's Blackbird
+  :order: Passeriformes
+  :family: Icteridae
+  :avibase_id: EA5E858AEF777A34
+- :name_sci: Quiscalus quiscula
+  :name_en: Common Grackle
+  :order: Passeriformes
+  :family: Icteridae
+  :avibase_id: 8BBB3255C6B7EE91
+- :name_sci: Quiscalus major
+  :name_en: Boat-tailed Grackle
+  :order: Passeriformes
+  :family: Icteridae
+  :avibase_id: EF47E15D002D3191
+- :name_sci: Molothrus ater
+  :name_en: Brown-headed Cowbird
+  :order: Passeriformes
+  :family: Icteridae
+  :avibase_id: 1E1AB415D083AAD4
+- :name_sci: Icterus spurius
+  :name_en: Orchard Oriole
+  :order: Passeriformes
+  :family: Icteridae
+  :avibase_id: 000482C9FC0553CD
+- :name_sci: Icterus bullockii
+  :name_en: Bullock's Oriole
+  :order: Passeriformes
+  :family: Icteridae
+  :avibase_id: 7E65A952009BFD5F
+- :name_sci: Icterus galbula
+  :name_en: Baltimore Oriole
+  :order: Passeriformes
+  :family: Icteridae
+  :avibase_id: 5110842FA06DD11C
+- :name_sci: Icterus parisorum
+  :name_en: Scott's Oriole
+  :order: Passeriformes
+  :family: Icteridae
+  :avibase_id: 9EE6D52416E94971
+- :name_sci: Fringilla coelebs
+  :name_en: Common Chaffinch
+  :order: Passeriformes
+  :family: Fringillidae
+  :avibase_id: 37F522810CADE42A
+- :name_sci: Fringilla montifringilla
+  :name_en: Brambling
+  :order: Passeriformes
+  :family: Fringillidae
+  :avibase_id: E16B2C0328E05DC5
+- :name_sci: Pinicola enucleator
+  :name_en: Pine Grosbeak
+  :order: Passeriformes
+  :family: Fringillidae
+  :avibase_id: 83AC4DAD94AFC411
+- :name_sci: Carpodacus erythrinus
+  :name_en: Common Rosefinch
+  :order: Passeriformes
+  :family: Fringillidae
+  :avibase_id: 3A713345F43AFFA6
+- :name_sci: Carpodacus purpureus
+  :name_en: Purple Finch
+  :order: Passeriformes
+  :family: Fringillidae
+  :avibase_id: B4EE123DE4241449
+- :name_sci: Carpodacus mexicanus
+  :name_en: House Finch
+  :order: Passeriformes
+  :family: Fringillidae
+  :avibase_id: 89431E9F1CEDC995
+- :name_sci: Carpodacus roseus
+  :name_en: Pallas's Rosefinch
+  :order: Passeriformes
+  :family: Fringillidae
+  :avibase_id: 68DF5AB792401570
+- :name_sci: Carpodacus rubicilla
+  :name_en: Great Rosefinch
+  :order: Passeriformes
+  :family: Fringillidae
+  :avibase_id: 7621E1A6BFDF4D92
+- :name_sci: Chloris chloris
+  :name_en: European Greenfinch
+  :order: Passeriformes
+  :family: Fringillidae
+  :avibase_id: 65BD2033E2A722C8
+- :name_sci: Loxia pytyopsittacus
+  :name_en: Parrot Crossbill
+  :order: Passeriformes
+  :family: Fringillidae
+  :avibase_id: CAAD3E23531C26C5
+- :name_sci: Loxia curvirostra
+  :name_en: Red Crossbill
+  :order: Passeriformes
+  :family: Fringillidae
+  :avibase_id: DF66078246D1E304
+- :name_sci: Loxia leucoptera
+  :name_en: White-winged Crossbill
+  :order: Passeriformes
+  :family: Fringillidae
+  :avibase_id: 80C297E6B82452E7
+- :name_sci: Acanthis flammea
+  :name_en: Common Redpoll
+  :order: Passeriformes
+  :family: Fringillidae
+  :avibase_id: A2BB98A9A61F777B
+- :name_sci: Acanthis hornemanni
+  :name_en: Hoary Redpoll
+  :order: Passeriformes
+  :family: Fringillidae
+  :avibase_id: D23A3F75CCD56E6B
+- :name_sci: Spinus spinus
+  :name_en: Eurasian Siskin
+  :order: Passeriformes
+  :family: Fringillidae
+  :avibase_id: 9820CECA12EC737D
+- :name_sci: Spinus pinus
+  :name_en: Pine Siskin
+  :order: Passeriformes
+  :family: Fringillidae
+  :avibase_id: B48335B1DF4EF710
+- :name_sci: Spinus tristis
+  :name_en: American Goldfinch
+  :order: Passeriformes
+  :family: Fringillidae
+  :avibase_id: C9ABA616B963B563
+- :name_sci: Carduelis carduelis
+  :name_en: European Goldfinch
+  :order: Passeriformes
+  :family: Fringillidae
+  :avibase_id: 1B235E0052ACC519
+- :name_sci: Carduelis flavirostris
+  :name_en: Twite
+  :order: Passeriformes
+  :family: Fringillidae
+  :avibase_id: 6CD4E38EB75CA3A0
+- :name_sci: Carduelis cannabina
+  :name_en: Eurasian Linnet
+  :order: Passeriformes
+  :family: Fringillidae
+  :avibase_id: 32635892A4EB874F
+- :name_sci: Serinus serinus
+  :name_en: European Serin
+  :order: Passeriformes
+  :family: Fringillidae
+  :avibase_id: C3227709455B9AFF
+- :name_sci: Pyrrhula pyrrhula
+  :name_en: Eurasian Bullfinch
+  :order: Passeriformes
+  :family: Fringillidae
+  :avibase_id: 7009BC13FFFB94E7
+- :name_sci: Coccothraustes vespertinus
+  :name_en: Evening Grosbeak
+  :order: Passeriformes
+  :family: Fringillidae
+  :avibase_id: C6B5497C9DB6796A
+- :name_sci: Coccothraustes coccothraustes
+  :name_en: Hawfinch
+  :order: Passeriformes
+  :family: Fringillidae
+  :avibase_id: 84E1F1149261F19E
+- :name_sci: Passer domesticus
+  :name_en: House Sparrow
+  :order: Passeriformes
+  :family: Passeridae
+  :avibase_id: 6D3BD126D55F8B69
+- :name_sci: Passer hispaniolensis
+  :name_en: Spanish Sparrow
+  :order: Passeriformes
+  :family: Passeridae
+  :avibase_id: 5A8E09A18B86D140
+- :name_sci: Passer montanus
+  :name_en: Eurasian Tree Sparrow
+  :order: Passeriformes
+  :family: Passeridae
+  :avibase_id: C22FBF8D36F91BCA
+- :name_sci: Petronia petronia
+  :name_en: Rock Petronia
+  :order: Passeriformes
+  :family: Passeridae
+  :avibase_id: F8748F12A35515B1
+- :name_sci: Montifringilla nivalis
+  :name_en: White-winged Snowfinch
+  :order: Passeriformes
+  :family: Passeridae
+  :avibase_id: 3E389D037AA10A4C
