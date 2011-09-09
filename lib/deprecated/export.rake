@@ -1,4 +1,4 @@
-require 'import/species'
+#require 'import/species'
 
 desc 'Legacy data tasks'
 namespace :legacy do

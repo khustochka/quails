@@ -1,4 +1,4 @@
-require 'import/checklist'
+#require 'import/checklist'
 
 desc 'Importing data'
 namespace :import do

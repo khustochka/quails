@@ -1,4 +1,4 @@
-require 'import/species'
+#require 'import/species'
 
 desc 'Importing data'
 namespace :import do
