@@ -25,7 +25,7 @@ class UIObservationsTest < ActionDispatch::IntegrationTest
     all('.obs-row').size.should == 1
     select('Brovary', :from => 'Location')
     fill_in('Date', :with => '2011-04-08')
-    select('Parus caeruleus', :from => 'Species')
+    select('Cyanistes caeruleus', :from => 'Species')
     lambda { click_button('Save') }.should change(Observation, :count).by(1)
   end
 
