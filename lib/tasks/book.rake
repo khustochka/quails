@@ -52,6 +52,44 @@ namespace :book do
 
   desc 'Import checklist from yaml to the database'
   task :load_to_db => :environment do
+    f = File.open('vendor/clements_ua_ny.yml')
+    records = YAML.load(f.read)
+    newlist = records.map do |rec|
+      sp = Species.find_by_name_sci(rec[:name_sci]) || Species.find_by_avibase_id(rec[:avibase_id])
+      unless sp
+        puts "No species '#{rec[:name_sci]}'"
+        if nsp = Species.find_by_name_en(rec[:name_en])
+          puts "  But there is '#{nsp.name_sci}' with the same name (#{nsp.name_en}). Code: #{nsp.code}"
+        end
+        _, nomen = rec[:name_sci].split(' ')
+        if sps = Species.where("name_sci LIKE '%#{nomen}'")
+          sps.each { |s| puts "  But there is '#{s.name_sci}' with different genus. Code: #{s.code}" }
+        end
+        puts "Enter the code to use (exisiting / new): "
+        code = $stdin.gets
+        if sp = Species.find_by_code(code.strip)
+          puts "  !! Will use #{sp.name_sci}"
+        else
+          puts "  !! Will create new"
+        end
+      end
+
+      if sp
+        rec.merge(
+            {
+                :code => sp.code,
+                :name_ru => sp.name_ru,
+                :name_uk => sp.name_uk,
+                :authority => sp.authority,
+                :protonym => sp.protonym
+            }
+        )
+      else
+        rec.merge({:code => code})
+      end
+    end
+
+    File.new('clements_ua_ny.yml', 'w').write(newlist.to_yaml)
 
   end
 end
