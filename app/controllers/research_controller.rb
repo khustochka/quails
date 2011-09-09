@@ -19,7 +19,7 @@ class ResearchController < ApplicationController
             {:sp => sp,
              :date1 => ob1.observ_date,
              :date2 => ob2.observ_date,
-             :days => ob2.observ_date - ob1.observ_date}
+             :days => (ob2.observ_date - ob1.observ_date).to_i}
           end
       )
     end.sort { |a, b| b[sort_col] <=> a[sort_col] }
