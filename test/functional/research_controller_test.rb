@@ -11,4 +11,16 @@ class ResearchControllerTest < ActionController::TestCase
     get :index
     assert_response 401
   end
+
+  test "admin should see Research/lifelist" do
+    login_as_admin
+    get :lifelist
+    assert_response :success
+  end
+
+  test "admin should see Research/more_than_year" do
+    login_as_admin
+    get :more_than_year
+    assert_response :success
+  end
 end
