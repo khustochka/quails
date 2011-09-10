@@ -16,7 +16,7 @@ class Observation < ActiveRecord::Base
 
   scope :mine, where(:mine => true)
 
-  scope :identified, where('observations.species_id != 9999')
+  scope :identified, where('observations.species_id != 0')
 
   def self.years(*args)
     options = args.extract_options!
@@ -27,13 +27,13 @@ class Observation < ActiveRecord::Base
   end
 
   def self.lifelist(*args)
-      find_by_sql("
+    find_by_sql("
           SELECT obs.species_id, aggr_value, name_sci, name_en, name_ru, name_uk, p.code, face_date
           FROM observations AS obs
             JOIN (
               SELECT species_id, MIN(observ_date) as aggr_value
               FROM observations
-              WHERE mine = true AND species_id != 9999
+              WHERE mine = true AND species_id != 0
               GROUP BY species_id
             ) AS mins
             ON (obs.species_id = mins.species_id AND obs.observ_date = mins.aggr_value)
@@ -42,13 +42,13 @@ class Observation < ActiveRecord::Base
           WHERE mine = true
           ORDER BY observ_date DESC
           "
-      ).group_by(&:species_id).map { |_, v| v.first }
+    ).group_by(&:species_id).map { |_, v| v.first }
   end
 
   def self.old_lifers_dates(*args)
     options = args.extract_options!
     rel = mine.identified.select(
-        <<SQL
+            <<SQL
         species_id AS main_species,
         MIN(observ_date) AS first_date,
         MAX(observ_date) AS last_date,
@@ -63,9 +63,19 @@ SQL
 
   def self.old_lifers_observations(*args)
     select('dates.*, ob1.post_id AS first_post, ob2.post_id AS last_post').
-        from("(#{old_lifers_dates(*args).to_sql}) AS dates").
-        joins("INNER JOIN (#{Observation.mine.to_sql}) AS ob1 ON main_species=ob1.species_id AND first_date=ob1.observ_date").
-        joins("INNER JOIN (#{Observation.mine.to_sql}) AS ob2 ON main_species=ob2.species_id AND last_date=ob2.observ_date")
+            from("(#{old_lifers_dates(*args).to_sql}) AS dates").
+            joins("INNER JOIN (#{Observation.mine.to_sql}) AS ob1 ON main_species=ob1.species_id AND first_date=ob1.observ_date").
+            joins("INNER JOIN (#{Observation.mine.to_sql}) AS ob2 ON main_species=ob2.species_id AND last_date=ob2.observ_date")
+  end
+
+  # Species
+
+  alias :real_species :species
+
+  def species
+    species_id == 0 ?
+            Species::AVIS_INCOGNITA :
+            real_species
   end
 
 end

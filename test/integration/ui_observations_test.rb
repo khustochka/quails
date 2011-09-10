@@ -3,51 +3,17 @@ require 'test/capybara_helper'
 
 class UIObservationsTest < ActionDispatch::IntegrationTest
 
-  include JavaScriptTestCase
+  include CapybaraTestCase
 
-  test "Adding new rows to observations bulk form" do
+  test 'Searching and showing Avis incognita observations' do
+    Factory.create(:observation, :species_id => 0, :observ_date => "2010-06-18")
+    Factory.create(:observation, :species_id => 0, :observ_date => "2009-06-19")
     login_as_admin
-    visit new_observation_path
-    all('.obs-row').size.should == 0
-
-    find(:xpath, "//span[text()='Add new row']").click
-    all('.obs-row').size.should == 1
-
-    find(:xpath, "//span[text()='Add new row']").click
-    all('.obs-row').size.should == 2
-  end
-
-  # NO JavaScript test
-  test 'Adding one observation if JavaScript is off' do
-    Capybara.use_default_driver
-    login_as_admin
-    visit new_observation_path
-    all('.obs-row').size.should == 1
-    select('Brovary', :from => 'Location')
-    fill_in('Date', :with => '2011-04-08')
-    select('Cyanistes caeruleus', :from => 'Species')
-    lambda { click_button('Save') }.should change(Observation, :count).by(1)
-  end
-
-  test "Adding several observations" do
-    login_as_admin
-    visit new_observation_path
-
-    select_suggestion('Brovary', :from => 'Location')
-    fill_in('Date', :with => '2011-04-09')
-
-    find(:xpath, "//span[text()='Add new row']").click
-    find(:xpath, "//span[text()='Add new row']").click
-
-    within(:xpath, "//div[contains(@class,'obs-row')][1]") do
-      select_suggestion('Crex crex', :from => 'Species')
-    end
-
-    within(:xpath, "//div[contains(@class,'obs-row')][2]") do
-      select_suggestion('Falco tinnunculus', :from => 'Species')
-    end
-
-    lambda { click_button('Save'); sleep 0.5 }.should change(Observation, :count).by(2)
+    visit observations_path
+    select('- Avis incognita', :from => 'Species')
+    click_button('Search')
+    page.driver.response.status.should == 200
+    find('table.obs_list').should have_content('- Avis incognita')
   end
 
 end

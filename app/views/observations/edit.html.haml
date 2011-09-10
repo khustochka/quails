@@ -18,7 +18,7 @@
     - unless blogpost.nil?
       = form.association(:post, :as => :boolean, :label => post_link(blogpost.title, blogpost), :wrapper_html => {:class => 'flat'})
   %div
-    = form.association :species, :label => 'Species:', :collection => Species.alphabetic,
+    = form.association :species, :label => 'Species:', :collection => species_for_select,
         :label_method => :name_sci, :include_blank => false, :input_html => {:class => 'suggest-combo'}
     = form.input :quantity, :label => 'Quantity:', :input_html => {:class => :short}
     = form.input :biotope, :label => 'Biotope:', :input_html => {:class => :short}

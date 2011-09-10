@@ -16,6 +16,16 @@ class ObservationsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:observations)
   end
 
+  test "Avis incognita properly rendered on index page" do
+    Factory.create(:observation, :species_id => 0, :observ_date => "2010-06-18")
+    Factory.create(:observation, :species_id => 0, :observ_date => "2009-06-19")
+    login_as_admin
+    get :index, :search => {:species_id_eq => 0}
+    assert_response :success
+    assert_not_nil assigns(:observations)
+    assert_select 'td', '- Avis incognita'
+  end
+
   test "get new" do
     login_as_admin
     get :new

@@ -23,7 +23,7 @@
     %span.pseudolink#add-row Add new row
 
   .obs-row
-    = form.association :species, :label => 'Species:', :collection => Species.alphabetic,
+    = form.association :species, :label => 'Species:', :collection => species_for_select,
         :label_method => :name_sci, :include_blank => false, :input_html => {:class => 'sp-suggest', :name => 'o[][species_id]'}
     = form.input :quantity, :label => 'Quantity:', :input_html => {:name => 'o[][quantity]', :class => :short}
     = form.input :biotope, :label => 'Biotope:', :input_html => {:name => 'o[][biotope]', :class => :short}

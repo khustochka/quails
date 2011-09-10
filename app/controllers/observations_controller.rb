@@ -70,7 +70,7 @@ class ObservationsController < ApplicationController
   # o: array of hashes each having species_id, quantity, biotope, place, notes
   def bulksave
     common = params[:c]
-    test_obs = Observation.new({:species_id => 9999}.merge(common))
+    test_obs = Observation.new({:species_id => 0}.merge(common))
     test_obs.valid?
     errors_collection = test_obs.errors
     errors_collection.add(:base, 'provide at least one observation') if params[:o].blank?

@@ -18,7 +18,7 @@ module Legacy
 
         observs.each_with_index do |ob, i|
           new_ob = Observation.new({
-                                           :species_id => Legacy::Mapping.species[ob[:sp_id]],
+                                           :species_id => ob[:sp_id] == 'incogt' ? 0 : Legacy::Mapping.species[ob[:sp_id]],
                                            :locus_id => Legacy::Mapping.locations[ob[:loc_id].gsub('-', '_')],
                                            :observ_date => ob[:ob_date],
                                            :biotope => ob[:bt_id],
@@ -39,7 +39,7 @@ module Legacy
         ActiveRecord::Base.connection.execute("ALTER SEQUENCE observations_id_seq RESTART #{Observation.maximum(:id)+1}")
 
 
-        $stderr.write(('=' * 50) + " 100%")
+        $stderr.write(('=' * 50) + " 100%\n")
         puts "Done."
       end
     end

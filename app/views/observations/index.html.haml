@@ -7,7 +7,7 @@
 %h1 Search observations
 
 = simple_form_for @search, :url => observations_path, :method => :get do |form|
-  = form.input :species_id_eq, :label => 'Species:', :collection => Species.alphabetic,
+  = form.input :species_id_eq, :label => 'Species:', :collection => species_for_select,
       :label_method => :name_sci, :input_html => {:class => 'suggest-combo'}
   = form.input :observ_date_eq, :label => 'Date:', :input_html => {:class => 'short', :maxlength => 10}
   = form.input :locus_id_eq, :label => 'Location:', :collection => Locus.all_ordered, :label_method => :name_en,

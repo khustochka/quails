@@ -4,6 +4,10 @@ module SpeciesHelper
     "http://avibase.bsc-eoc.org/species.jsp?avibaseid=#{avibase_id}&lang=#{lang}"
   end
 
+  def species_for_select
+    [Species::AVIS_INCOGNITA] + Species.alphabetic.all
+  end
+
   def species_link(sp_obj, string = nil)
     link_to(string || sp_obj.name_en, species_path(sp_obj), :class => 'sp_link')
   end
