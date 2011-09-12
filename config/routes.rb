@@ -34,9 +34,7 @@ Quails3::Application.routes.draw do
     end
   end
 
-  get 'lifelist(/:year)(/:locus)' => 'lifelist#lifelist',
-      :constraints                => {:year => /\d{4}/, :locus => /[a-z_]+/},
-      :as                         => 'lifelist'
+  get 'lifelist' => 'lifelist#lifelist'
 
 #  scope '/(:locale)', :locale => /[a-z]{2}/ do
 #    resources :species, :except => [:new, :create, :destroy]
