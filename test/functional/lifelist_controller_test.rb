@@ -17,6 +17,11 @@ class LifelistControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "show lifelist ordered by taxonomy" do
+    get :taxonomy
+    assert_response :success
+  end
+
   #test "show full lifelist" do
   #  get :lifelist
   #  assert_response :success

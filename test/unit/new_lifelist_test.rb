@@ -33,4 +33,23 @@ class NewLifelistTest < ActiveSupport::TestCase
     Species.lifelist_by_count.all.map { |s| [s.code, s.observ_count.to_i] }.should ==
         [["melgal", 3], ["anapla", 2], ["pasdom", 1], ["embcit", 1], ["anacly", 1]]
   end
+
+  test 'Species lifelist by taxonomy return proper number of species' do
+    Species.lifelist_by_taxonomy.all.size.should == @obs.map(&:species_id).uniq.size
+  end
+
+  test 'Species lifelist by taxonomy should not include Avis incognita' do
+    Factory.create(:observation, :species_id => 0, :observ_date => "2010-06-18")
+    Species.lifelist_by_taxonomy.all.size.should == @obs.map(&:species_id).uniq.size
+  end
+
+  test 'Species lifelist by taxonomy should not include species never seen by me' do
+    ob = Factory.create(:observation, :species => Species.find_by_code!('parcae'), :observ_date => "2010-06-18", :mine => false)
+    Species.lifelist_by_taxonomy.all.map(&:id).should_not include(ob.species_id)
+  end
+
+  test 'Species lifelist by taxonomy properly sorts the list' do
+    Species.lifelist_by_taxonomy.all.map { |s| [s.code, s.first_date.to_s] }.should ==
+        [["anapla", "2009-06-18"], ["anacly", "2007-07-18"], ["melgal", "2007-07-18"], ["embcit", "2009-08-09"], ["pasdom", "2010-06-20"]]
+  end
 end

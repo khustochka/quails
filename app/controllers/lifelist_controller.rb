@@ -26,4 +26,8 @@ class LifelistController < ApplicationController
   def count
     @species = Species.lifelist_by_count.all
   end
+
+  def taxonomy
+    @species = Species.lifelist_by_taxonomy.all
+  end
 end

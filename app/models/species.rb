@@ -54,6 +54,14 @@ class Species < ActiveRecord::Base
         reorder('observ_count DESC, index_num DESC')
   end
 
+  def self.lifelist_by_taxonomy
+    Species.select('species.*, first_date').
+        joins(
+          "INNER JOIN (%s) AS obs ON species.id=obs.species_id" %
+              Observation.mine.select('species_id, MIN(observ_date) AS first_date').group(:species_id).to_sql
+        )
+  end
+
   # Associations
 
   def images
