@@ -22,4 +22,8 @@ class LifelistController < ApplicationController
 
     render :inline => '<h2>Lifelist is work-in-progress</h2>', :layout => 'public'
   end
+
+  def count
+    @species = Species.lifelist_by_count.all
+  end
 end

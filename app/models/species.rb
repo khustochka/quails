@@ -24,7 +24,7 @@ class Species < ActiveRecord::Base
   end
 
   def self.old_lifelist(*args)
-    options     = args.extract_options!
+    options = args.extract_options!
     sort_option =
         case options.delete(:sort)
           when nil
@@ -37,12 +37,21 @@ class Species < ActiveRecord::Base
             'index_num ASC'
           else
             'first_date DESC, index_num DESC'
-            #TODO: implement correct processing of incorrect query parameters
-            # raise 'Incorrect option'
+          #TODO: implement correct processing of incorrect query parameters
+          # raise 'Incorrect option'
         end
     select('obs.*, name_sci, name_ru, name_en, name_uk, index_num, family, "order"').reorder(sort_option).
         joins("INNER JOIN (#{Observation.old_lifers_observations(options).to_sql}) AS obs ON species.id=obs.main_species").
-        all.group_by(&:main_species).map {|_, v| v.first }
+        all.group_by(&:main_species).map { |_, v| v.first }
+  end
+
+  def self.lifelist_by_count
+    Species.select('species.*, observ_count').
+        joins(
+          "INNER JOIN (%s) AS obs ON species.id=obs.species_id" %
+              Observation.mine.select('species_id, COUNT(id) AS observ_count').group(:species_id).to_sql
+        ).
+        reorder('observ_count DESC, index_num DESC')
   end
 
   # Associations
