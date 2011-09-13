@@ -15,4 +15,4 @@
             %span
               = species_link(sp)
               = name_sci(sp)
-            %time= l(sp.first_date, :format => :long)
+            %time= l(Date.parse(sp.aggregated_value), :format => :long)

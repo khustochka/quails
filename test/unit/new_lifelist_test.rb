@@ -16,40 +16,40 @@ class NewLifelistTest < ActiveSupport::TestCase
   end
 
   test 'Species lifelist by count return proper number of species' do
-    Species.lifelist_by_count.all.size.should == @obs.map(&:species_id).uniq.size
+    Species.lifelist(:sort => 'count').all.size.should == @obs.map(&:species_id).uniq.size
   end
 
   test 'Species lifelist by count should not include Avis incognita' do
     Factory.create(:observation, :species_id => 0, :observ_date => "2010-06-18")
-    Species.lifelist_by_count.all.size.should == @obs.map(&:species_id).uniq.size
+    Species.lifelist(:sort => 'count').all.size.should == @obs.map(&:species_id).uniq.size
   end
 
   test 'Species lifelist by count should not include species never seen by me' do
     ob = Factory.create(:observation, :species => Species.find_by_code!('parcae'), :observ_date => "2010-06-18", :mine => false)
-    Species.lifelist_by_count.all.map(&:id).should_not include(ob.species_id)
+    Species.lifelist(:sort => 'count').all.map(&:id).should_not include(ob.species_id)
   end
 
   test 'Species lifelist by count properly sorts the list' do
-    Species.lifelist_by_count.all.map { |s| [s.code, s.observ_count.to_i] }.should ==
+    Species.lifelist(:sort => 'count').all.map { |s| [s.code, s.aggregated_value.to_i] }.should ==
         [["melgal", 3], ["anapla", 2], ["pasdom", 1], ["embcit", 1], ["anacly", 1]]
   end
 
   test 'Species lifelist by taxonomy return proper number of species' do
-    Species.lifelist_by_taxonomy.all.size.should == @obs.map(&:species_id).uniq.size
+    Species.lifelist(:sort => 'class').all.size.should == @obs.map(&:species_id).uniq.size
   end
 
   test 'Species lifelist by taxonomy should not include Avis incognita' do
     Factory.create(:observation, :species_id => 0, :observ_date => "2010-06-18")
-    Species.lifelist_by_taxonomy.all.size.should == @obs.map(&:species_id).uniq.size
+    Species.lifelist(:sort => 'class').all.size.should == @obs.map(&:species_id).uniq.size
   end
 
   test 'Species lifelist by taxonomy should not include species never seen by me' do
     ob = Factory.create(:observation, :species => Species.find_by_code!('parcae'), :observ_date => "2010-06-18", :mine => false)
-    Species.lifelist_by_taxonomy.all.map(&:id).should_not include(ob.species_id)
+    Species.lifelist(:sort => 'class').all.map(&:id).should_not include(ob.species_id)
   end
 
   test 'Species lifelist by taxonomy properly sorts the list' do
-    Species.lifelist_by_taxonomy.all.map { |s| [s.code, s.first_date.to_s] }.should ==
+    Species.lifelist(:sort => 'class').all.map { |s| [s.code, s.aggregated_value] }.should ==
         [["anapla", "2009-06-18"], ["anacly", "2007-07-18"], ["melgal", "2007-07-18"], ["embcit", "2009-08-09"], ["pasdom", "2010-06-20"]]
   end
 end

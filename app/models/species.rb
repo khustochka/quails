@@ -45,21 +45,26 @@ class Species < ActiveRecord::Base
         all.group_by(&:main_species).map { |_, v| v.first }
   end
 
-  def self.lifelist_by_count
-    Species.select('species.*, observ_count').
+  def self.lifelist(*args)
+    options = args.extract_options!
+    aggregation, sort_columns =
+        case options.delete(:sort)
+          when 'count' then
+            ['COUNT(id)', 'aggregated_value DESC, index_num DESC']
+          when 'class'
+            ['MIN(observ_date)', 'index_num ASC']
+          else
+          #  'first_date DESC, index_num DESC'
+          #TODO: implement correct processing of incorrect query parameters
+           raise 'Incorrect option'
+        end
+    Species.select('species.*, aggregated_value').
         joins(
           "INNER JOIN (%s) AS obs ON species.id=obs.species_id" %
-              Observation.mine.select('species_id, COUNT(id) AS observ_count').group(:species_id).to_sql
+              Observation.mine.select("species_id, #{aggregation} AS aggregated_value").group(:species_id).to_sql
         ).
-        reorder('observ_count DESC, index_num DESC')
-  end
+        reorder(sort_columns)
 
-  def self.lifelist_by_taxonomy
-    Species.select('species.*, first_date').
-        joins(
-          "INNER JOIN (%s) AS obs ON species.id=obs.species_id" %
-              Observation.mine.select('species_id, MIN(observ_date) AS first_date').group(:species_id).to_sql
-        )
   end
 
   # Associations
