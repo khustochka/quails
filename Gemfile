@@ -22,7 +22,7 @@ gem 'simple_form'
 # see https://github.com/ludicast/yaml_db/pull/24
 gem 'yaml_db', :git => 'git://github.com/bseanvt/yaml_db.git', :ref => '14ebdb79805d71501fbd', :require => false
 gem 'hashie'
-gem 'flickraw', :require => false
+gem 'flickraw', '0.8.4', :require => false
 
 group :development do
   gem 'rails3-generators'
