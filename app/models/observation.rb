@@ -26,6 +26,20 @@ class Observation < ActiveRecord::Base
     [nil] + rel.map { |ob| ob[:year] }
   end
 
+  def self.lifers_aggregation(options)
+    aggregation =
+        case options[:sort]
+          when 'count' then
+            'COUNT(id)'
+          when nil, 'class'
+            'MIN(observ_date)'
+          else
+            #TODO: implement correct processing of incorrect query parameters
+            raise 'Incorrect option'
+        end
+    mine.select("species_id, #{aggregation} AS aggregated_value").group(:species_id)
+  end
+
   def self.old_lifers_dates(*args)
     options = args.extract_options!
     rel = mine.identified.select(

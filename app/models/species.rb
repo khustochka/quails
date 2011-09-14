@@ -47,21 +47,20 @@ class Species < ActiveRecord::Base
 
   def self.lifelist(*args)
     options = args.extract_options!
-    aggregation, sort_columns =
-        case options.delete(:sort)
-          when 'count' then
-            ['COUNT(id)', 'aggregated_value DESC, index_num DESC']
+    sort_columns =
+        case options[:sort]
+          when nil, 'count'
+            'aggregated_value DESC, index_num DESC'
           when 'class'
-            ['MIN(observ_date)', 'index_num ASC']
+            'index_num ASC'
           else
-          #  'first_date DESC, index_num DESC'
-          #TODO: implement correct processing of incorrect query parameters
-           raise 'Incorrect option'
+            #TODO: implement correct processing of incorrect query parameters
+            raise 'Incorrect option'
         end
-    Species.select('species.*, aggregated_value').
+    select('species.*, aggregated_value').
         joins(
           "INNER JOIN (%s) AS obs ON species.id=obs.species_id" %
-              Observation.mine.select("species_id, #{aggregation} AS aggregated_value").group(:species_id).to_sql
+              Observation.lifers_aggregation(options).to_sql
         ).
         reorder(sort_columns)
 

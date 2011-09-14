@@ -52,4 +52,23 @@ class NewLifelistTest < ActiveSupport::TestCase
     Species.lifelist(:sort => 'class').all.map { |s| [s.code, s.aggregated_value] }.should ==
         [["anapla", "2009-06-18"], ["anacly", "2007-07-18"], ["melgal", "2007-07-18"], ["embcit", "2009-08-09"], ["pasdom", "2010-06-20"]]
   end
+
+  test 'Species lifelist by date return proper number of species' do
+    Species.lifelist.all.size.should == @obs.map(&:species_id).uniq.size
+  end
+
+  test 'Species lifelist by date should not include Avis incognita' do
+    Factory.create(:observation, :species_id => 0, :observ_date => "2010-06-18")
+    Species.lifelist.all.size.should == @obs.map(&:species_id).uniq.size
+  end
+
+  test 'Species lifelist by date should not include species never seen by me' do
+    ob = Factory.create(:observation, :species => Species.find_by_code!('parcae'), :observ_date => "2010-06-18", :mine => false)
+    Species.lifelist.all.map(&:id).should_not include(ob.species_id)
+  end
+
+  test 'Species lifelist by date properly sorts the list' do
+    Species.lifelist.all.map { |s| [s.code, s.aggregated_value] }.should ==
+        [["pasdom", "2010-06-20"], ["embcit", "2009-08-09"], ["anapla", "2009-06-18"], ["melgal", "2007-07-18"], ["anacly", "2007-07-18"]]
+  end
 end

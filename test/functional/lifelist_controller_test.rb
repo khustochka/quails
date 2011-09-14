@@ -22,12 +22,11 @@ class LifelistControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  #test "show full lifelist" do
-  #  get :lifelist
-  #  assert_response :success
-  #  assert_select 'a.sp_link'
-  #end
-  #
+  test "show default lifelist" do
+    get :default
+    assert_response :success
+  end
+
   #test "show year list" do
   #  get :lifelist, :year => 2009
   #  assert_response :success

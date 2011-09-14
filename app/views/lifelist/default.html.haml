@@ -1,0 +1,18 @@
+- @page_title = 'Lifelist by date'
+
+%h1= @page_title
+
+- if @species.blank?
+  %p No species
+- else
+  %ol
+    - i = @species.size + 1
+    - @species.group_by {|s| Date.parse(s.aggregated_value).year}.each do |year, species_list|
+      %h5= "First seen in %d" % year
+      %ol
+        - species_list.each do |sp|
+          %li.lifer_row{:value => i -= 1}
+            %span
+              = species_link(sp)
+              = name_sci(sp)
+            %time= l(Date.parse(sp.aggregated_value), :format => :long)

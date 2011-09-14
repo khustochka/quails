@@ -34,7 +34,7 @@ Quails3::Application.routes.draw do
     end
   end
 
-  get 'lifelist' => 'lifelist#lifelist'
+  get 'lifelist' => 'lifelist#default'
   get 'lifelist/count' => 'lifelist#count'
   get 'lifelist/taxonomy' => 'lifelist#taxonomy'
 
