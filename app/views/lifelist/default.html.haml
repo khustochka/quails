@@ -5,6 +5,7 @@
 - if @species.blank?
   %p No species
 - else
+  = render 'sorter'
   %ol
     - i = @species.size + 1
     - @species.group_by {|s| Date.parse(s.aggregated_value).year}.each do |year, species_list|

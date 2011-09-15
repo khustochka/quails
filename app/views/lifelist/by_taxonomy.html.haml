@@ -5,6 +5,7 @@
 - if @species.blank?
   %p No species
 - else
+  = render 'sorter'
   %ol
     - i = 0
     - extract_families(@species).each do |fam, species_list|

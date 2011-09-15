@@ -13,18 +13,33 @@ class LifelistControllerTest < ActionController::TestCase
   end
 
   test "show lifelist ordered by count" do
-    get :count
+    get :by_count
     assert_response :success
+    assert_select '#main' do
+      assert_select "a[href=#{lifelist_path}]"
+      assert_select "a[href=#{lifelist_by_path(:action => :by_taxonomy)}]"
+      assert_select "a[href=#{lifelist_by_path(:action => :by_count)}]", false
+    end
   end
 
   test "show lifelist ordered by taxonomy" do
-    get :taxonomy
+    get :by_taxonomy
     assert_response :success
+    assert_select '#main' do
+      assert_select "a[href=#{lifelist_path}]"
+      assert_select "a[href=#{lifelist_by_path(:action => :by_taxonomy)}]", false
+      assert_select "a[href=#{lifelist_by_path(:action => :by_count)}]"
+    end
   end
 
   test "show default lifelist" do
     get :default
     assert_response :success
+    assert_select '#main' do
+      assert_select "a[href=#{lifelist_path}]", false
+      assert_select "a[href=#{lifelist_by_path(:action => :by_taxonomy)}]"
+      assert_select "a[href=#{lifelist_by_path(:action => :by_count)}]"
+    end
   end
 
   #test "show year list" do

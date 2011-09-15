@@ -5,6 +5,7 @@
 - if @species.blank?
   %p No species
 - else
+  = render 'sorter'
   %ol
     - @species.each do |sp|
       %li.lifer_row

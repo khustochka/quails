@@ -4,11 +4,11 @@ class LifelistController < ApplicationController
     @species = Species.lifelist.all
   end
 
-  def count
+  def by_count
     @species = Species.lifelist(:sort => 'count').all
   end
 
-  def taxonomy
+  def by_taxonomy
     @species = Species.lifelist(:sort => 'class').all
   end
 end

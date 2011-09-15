@@ -35,8 +35,7 @@ Quails3::Application.routes.draw do
   end
 
   get 'lifelist' => 'lifelist#default'
-  get 'lifelist/count' => 'lifelist#count'
-  get 'lifelist/taxonomy' => 'lifelist#taxonomy'
+  get 'lifelist/:action', :controller => :lifelist, :action => /by_(count|taxonomy)/, :as => :lifelist_by
 
 #  scope '/(:locale)', :locale => /[a-z]{2}/ do
 #    resources :species, :except => [:new, :create, :destroy]
