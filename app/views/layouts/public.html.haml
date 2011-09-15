@@ -17,7 +17,16 @@
     -# csfr meta
     = csrf_meta_tags if @jquery
 
-    -# link tags
+    -# rss feeds
+
+    -# OpenID (index only)
+
+    -# sitemap (index only)
+
+    -# favicon (index only?)
+
+    %title= page_title
+
     -# stylesheets
     - stylesheet 'public'
     - stylesheet 'admin_addon' if admin_session?
@@ -30,15 +39,7 @@
     -# scripts
     = include_scripts
 
-    -# rss feeds
-
-    -# OpenID (index only)
-
-    -# sitemap (index only)
-
-    -# favicon (index only?)
-
-    %title= page_title
+    -# google analytics
 
   %body
 
@@ -50,5 +51,3 @@
         =yield
 
     = render 'partials/footer'
-
-    = render 'partials/ga' unless admin_session?
