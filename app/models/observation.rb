@@ -65,7 +65,7 @@ SQL
 
   # Species
 
-  alias :real_species :species
+  alias_method :real_species, :species
 
   def species
     species_id == 0 ?

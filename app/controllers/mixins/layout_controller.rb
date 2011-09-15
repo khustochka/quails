@@ -2,7 +2,7 @@ module LayoutController
 
   def self.included(klass)
     class << klass
-      alias :__layout__ :layout
+      alias_method :__layout__, :layout
     end
 
     klass.extend ClassMethods
