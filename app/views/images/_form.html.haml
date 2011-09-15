@@ -13,7 +13,7 @@
       %h5= "#{pluralize(@image.errors.count, "error")} prohibited this #{Image.name.titleize} from being saved:"
       %ul
         - @image.errors.full_messages.each do |msg|
-          %li= msg  
+          %li= msg
   %div
     = form.input :code
     = form.input :title

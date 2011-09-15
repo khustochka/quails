@@ -1,6 +1,6 @@
 class LociToLocus < ActiveRecord::Migration
   def self.up
-    rename_table :loci, :locus 
+    rename_table :loci, :locus
   end
 
   def self.down

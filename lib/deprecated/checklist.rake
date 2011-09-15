@@ -2,7 +2,7 @@
 
 desc 'Importing data'
 namespace :import do
-  
+
   desc 'Import the checklists from avibase files to yaml'
   namespace :checklist do
 

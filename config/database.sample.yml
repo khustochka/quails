@@ -14,7 +14,7 @@ DEFAULT: &DEFAULT
   encoding: utf-8
   pool: 5
   username: quails
-  password: 
+  password:
 
 development:
   <<: *DEFAULT

@@ -30,7 +30,7 @@
         %td.lifer_date= post_link(last_date, last_post, true)
         %td.lifer_date= sp.view_count
       - i += increment
-      
+
     - if params[:sort] == 'class'
       - extract_families(@lifelist).each do |fam, species_list|
         %tr
