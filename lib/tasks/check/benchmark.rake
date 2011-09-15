@@ -5,33 +5,28 @@ namespace :check do
   task :benchmark => :environment do
     require 'benchmark'
 
-    n = 10
+    include ActionView::Helpers::UrlHelper
+
+    page_title = 'Species seen after more than a year'
+    research_path = "/reaserch"
+
+    n = 100000
     Benchmark.bmbm do |x|
 
-      x.report('DB') { n.times {
-        require 'legacy/models/blog'
-        require 'legacy/models/geography'
-        require 'legacy/models/observation'
-        require 'legacy/models/image'
-        Legacy::Utils.db_connect
-
-        countries = Legacy::Models::Country.all
-        regions = Legacy::Models::Region.all
-        locs = Legacy::Models::Location.all
-        posts = Legacy::Models::Post.all
-        observations = Legacy::Models::Observation.all
-        images = Legacy::Models::Image.all
+      x.report('template') { n.times {
+        '%s : %s' % [link_to('Research', research_path), page_title]
       } }
 
-      x.report('FILE') { n.times {
-        f = File.open('/home/vkhust/bwdata/legacy/db_dump.yml', encoding: 'windows-1251:utf-8')
-        dump = YAML.load(f.read)
-        countries = Legacy::Utils.prepare_table(dump['country'])
-        regions = Legacy::Utils.prepare_table(dump['region'])
-        locs = Legacy::Utils.prepare_table(dump['location'])
-        posts = Legacy::Utils.prepare_table(dump['blog'])
-        observations = Legacy::Utils.prepare_table(dump['observation'])
-        images = Legacy::Utils.prepare_table(dump['images'])
+      x.report('concat') { n.times {
+        link_to('Research', research_path) + ' : ' + page_title
+      } }
+
+      x.report('extrapol') { n.times {
+        "#{link_to('Research', research_path)} : #{page_title}"
+      } }
+
+      x.report('join') { n.times {
+        [link_to('Research', research_path), page_title].join(' : ')
       } }
 
     end

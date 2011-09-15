@@ -1,6 +1,6 @@
 - stylesheet 'forms'
 
-- @page_title = (['new', 'create'].include?(action_name) ? 'New' : 'Editing') + ' location'
+- @page_title = '%s location' % (['new', 'create'].include?(action_name) ? 'New' : 'Editing')
 
 %h1= @page_title
 

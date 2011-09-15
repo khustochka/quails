@@ -2,7 +2,7 @@
 - javascript JQ_UI_FILE, 'suggest_over_combo'
 - stylesheet 'autocomplete', 'forms'
 
-- @page_title = (['new', 'create'].include?(action_name) ? 'New' : 'Editing') + ' observation'
+- @page_title = '%s observation' % (['new', 'create'].include?(action_name) ? 'New' : 'Editing')
 - blogpost = @observation.post
 
 %h1= @page_title

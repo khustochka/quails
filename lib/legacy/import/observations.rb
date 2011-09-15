@@ -32,14 +32,14 @@ module Legacy
           new_ob.save!
           if (i + 1) % chunk == 0
             part = ((i + 1) / chunk)
-            $stderr.write(('=' * part) + " #{part*2}%\r")
+            $stderr.write("#{'=' * part} #{part*2}%\r")
           end
         end
 
         ActiveRecord::Base.connection.execute("ALTER SEQUENCE observations_id_seq RESTART #{Observation.maximum(:id)+1}")
 
 
-        $stderr.write(('=' * 50) + " 100%\n")
+        $stderr.write("#{'=' * 50} 100%\n")
         puts "Done."
       end
     end

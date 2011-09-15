@@ -25,5 +25,5 @@
         %td= link_to name_sci(species), species
         %td= species.authority
         %td= species.protonym
-        %td= %w(en ru uk).map{|lang| "#{lang}: #{species.send('name_'+lang)}"}.join('<br />').html_safe
+        %td= %w(en ru uk).map{|lang| "#{lang}: #{species.send("name_#{lang}")}"}.join('<br />').html_safe
         %td.align-right= link_to species.avibase_id, avibase_species_url(species.avibase_id)
