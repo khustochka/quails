@@ -17,8 +17,8 @@ class LifelistControllerTest < ActionController::TestCase
     assert_response :success
     assert_select '#main' do
       assert_select "a[href=#{lifelist_path}]"
-      assert_select "a[href=#{lifelist_by_path(:action => :by_taxonomy)}]"
-      assert_select "a[href=#{lifelist_by_path(:action => :by_count)}]", false
+      assert_select "a[href=#{url_for(:action => :by_taxonomy, :only_path => true)}]"
+      assert_select "a[href=#{url_for(:action => :by_count, :only_path => true)}]", false
     end
   end
 
@@ -27,8 +27,8 @@ class LifelistControllerTest < ActionController::TestCase
     assert_response :success
     assert_select '#main' do
       assert_select "a[href=#{lifelist_path}]"
-      assert_select "a[href=#{lifelist_by_path(:action => :by_taxonomy)}]", false
-      assert_select "a[href=#{lifelist_by_path(:action => :by_count)}]"
+      assert_select "a[href=#{url_for(:action => :by_taxonomy, :only_path => true)}]", false
+      assert_select "a[href=#{url_for(:action => :by_count, :only_path => true)}]"
     end
   end
 
@@ -37,8 +37,8 @@ class LifelistControllerTest < ActionController::TestCase
     assert_response :success
     assert_select '#main' do
       assert_select "a[href=#{lifelist_path}]", false
-      assert_select "a[href=#{lifelist_by_path(:action => :by_taxonomy)}]"
-      assert_select "a[href=#{lifelist_by_path(:action => :by_count)}]"
+      assert_select "a[href=#{url_for(:action => :by_taxonomy, :only_path => true)}]"
+      assert_select "a[href=#{url_for(:action => :by_count, :only_path => true)}]"
     end
   end
 
