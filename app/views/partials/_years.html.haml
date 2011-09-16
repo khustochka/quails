@@ -2,4 +2,4 @@
   %ul.horiz-list.filter-list
     %strong Years:
     - @years.each do |year|
-      %li= link_to_unless_current(year || 'All', params.merge(:year => year))
+      %li= link_to_unless_current(year || 'All', path_parameters.merge(:year => year))

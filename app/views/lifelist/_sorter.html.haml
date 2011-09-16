@@ -1,4 +1,4 @@
 %ul.horiz-list.filter-list
   %strong Sort by:
   - {:default => 'date', :by_count => 'count', :by_taxonomy => 'taxonomy'}.each do |action, label|
-    %li= link_to_unless_current(label, params.select{|k, _| k.in? %w( year )}.merge(:action => action))
+    %li= link_to_unless_current(label, path_parameters.merge(:action => action))

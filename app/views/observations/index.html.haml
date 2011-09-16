@@ -20,15 +20,15 @@
 %table.neat_table.obs_list
   %tr
     %th.align-right ID
-    %th= link_to_unless_current('Species ⇓', params.merge({:sort => 'species.index_num', :page => nil}))
+    %th= link_to_unless_current('Species ⇓', path_parameters.merge({:sort => 'species.index_num', :page => nil}))
     %th Location
-    %th.align-center= link_to_unless_current('Date ⇓', params.merge({:sort => :observ_date, :page => nil}))
+    %th.align-center= link_to_unless_current('Date ⇓', path_parameters.merge({:sort => :observ_date, :page => nil}))
     %th Quantity
     %th Biotope
     %th Place
     %th Notes
     %th Post
-    %th.align-center= link_to_unless_current('Mine ⇓', params.merge({:sort => 'mine DESC', :page => nil}))
+    %th.align-center= link_to_unless_current('Mine ⇓', path_parameters.merge({:sort => 'mine DESC', :page => nil}))
     %th
 
   - @observations.each do |observation|

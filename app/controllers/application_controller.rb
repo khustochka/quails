@@ -24,6 +24,11 @@ class ApplicationController < ActionController::Base
 #    super(options, new_status)
 #  end
 
+  def path_parameters
+    request.symbolized_path_parameters
+  end
+  helper_method :path_parameters
+
   private
   def SessionAwarePost
     @post_rel ||= admin_session? ? Post : Post.public
