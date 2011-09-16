@@ -42,12 +42,36 @@ class LifelistControllerTest < ActionController::TestCase
     end
   end
 
-  #test "show year list" do
-  #  get :lifelist, :year => 2009
-  #  assert_response :success
-  #  assert_select 'a.sp_link'
-  #end
-  #
+  test "show year list by date" do
+    get :default, :year => 2009
+    assert_response :success
+    assert_select '#main' do
+      assert_select "a[href=#{lifelist_path(:year => 2009)}]", false
+      assert_select "a[href=#{url_for(:action => :by_taxonomy, :year => 2009, :only_path => true)}]"
+      assert_select "a[href=#{url_for(:action => :by_count, :year => 2009, :only_path => true)}]"
+    end
+  end
+
+  test "show year list by count" do
+    get :by_count, :year => 2009
+    assert_response :success
+    assert_select '#main' do
+      assert_select "a[href=#{lifelist_path(:year => 2009)}]"
+      assert_select "a[href=#{url_for(:action => :by_taxonomy, :year => 2009, :only_path => true)}]"
+      assert_select "a[href=#{url_for(:action => :by_count, :year => 2009, :only_path => true)}]", false
+    end
+  end
+
+  test "show year list by taxonomy" do
+    get :by_taxonomy, :year => 2009
+    assert_response :success
+    assert_select '#main' do
+      assert_select "a[href=#{lifelist_path(:year => 2009)}]"
+      assert_select "a[href=#{url_for(:action => :by_taxonomy, :year => 2009, :only_path => true)}]", false
+      assert_select "a[href=#{url_for(:action => :by_count, :year => 2009, :only_path => true)}]"
+    end
+  end
+
   #test "show location list" do
   #  get :lifelist, :locus => 'new_york'
   #  assert_response :success

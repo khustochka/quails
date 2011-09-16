@@ -23,7 +23,7 @@ Quails3::Application.routes.draw do
   resources :posts, :except => [:index, :show]
 
   # Constraint below is to differ paths like /species/Crex_crex/edit from /species/Crex_crex/photo-of-the-corncrake
-  get 'species/:species/:id' => 'images#show', :as => 'show_image', :constraints => lambda {|r| r.url !~ /edit$/}
+  get 'species/:species/:id' => 'images#show', :as => 'show_image', :constraints => lambda { |r| r.url !~ /edit$/ }
   get 'photostream' => 'images#photostream'
 
   constraints :year => /\d{4}/ do
@@ -34,8 +34,10 @@ Quails3::Application.routes.draw do
     end
   end
 
-  get 'lifelist' => 'lifelist#default'
-  get 'lifelist/:action', :controller => :lifelist, :action => /by_(count|taxonomy)/
+  constraints :year => /\d{4}/ do
+    get 'lifelist(/:year)' => 'lifelist#default', :as => :lifelist
+    get 'lifelist(/:year)/:action', :controller => :lifelist, :action => /by_(count|taxonomy)/
+  end
 
 #  scope '/(:locale)', :locale => /[a-z]{2}/ do
 #    resources :species, :except => [:new, :create, :destroy]

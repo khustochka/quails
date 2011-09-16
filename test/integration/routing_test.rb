@@ -23,7 +23,9 @@ class RoutingTest < ActionDispatch::IntegrationTest
     assert_routing '/lifelist', {:controller => 'lifelist', :action => 'default'}
     assert_routing '/lifelist/by_count', {:controller => 'lifelist', :action => 'by_count'}
     assert_routing '/lifelist/by_taxonomy', {:controller => 'lifelist', :action => 'by_taxonomy'}
-    #assert_routing '/lifelist/2008', {:controller => 'lifelist', :action => 'lifelist', :year => '2008'}
+    assert_routing '/lifelist/2008', {:controller => 'lifelist', :action => 'default', :year => '2008'}
+    assert_routing '/lifelist/2008/by_count', {:controller => 'lifelist', :action => 'by_count', :year => '2008'}
+    assert_routing '/lifelist/2008/by_taxonomy', {:controller => 'lifelist', :action => 'by_taxonomy', :year => '2008'}
     #assert_routing '/lifelist/2010/kiev', {:controller => 'lifelist', :action => 'lifelist', :year => '2010', :locus => 'kiev'}
     #assert_routing '/lifelist/kherson_obl', {:controller => 'lifelist', :action => 'lifelist', :locus => 'kherson_obl'}
   end
