@@ -15,7 +15,7 @@ gem 'thin', :group => :production, :require => false, :platforms => :ruby # for 
 gem 'haml-rails'
 gem 'sass'
 gem 'kaminari'
-gem 'meta_search'
+gem 'ransack'
 gem 'rails_autolink'
 gem 'simple_form'
 # using specific yaml_db, because the canonic gem works bad with new psych format
