@@ -31,14 +31,12 @@ class Locus < ActiveRecord::Base
   # Instance methods
 
   def get_subregions
-    Locus.bulk_subregions_finder(self)
-  end
-
-  private
-  def self.bulk_subregions_finder(loc_ids)
-    parent_locs = Array.wrap(loc_ids)
-    subregs     = select(:id).where(:parent_id => parent_locs).all
-    parent_locs + (subregs.blank? ? [] : bulk_subregions_finder(subregs))
+    result = bunch = [self]
+    until bunch.empty?
+      bunch = Locus.select(:id).where(:parent_id => bunch).all
+      result.concat(bunch)
+    end
+    result
   end
 
 end
