@@ -16,8 +16,8 @@ class SecureAccessTest < ActionController::TestCase
   end
 
   test 'show hidden posts to admin when he is logged in' do
-    blogpost1 = Factory.create(:post, :face_date => '2007-12-06 13:14:15', :code => 'post-one', :status => 'PRIV')
-    blogpost2 = Factory.create(:post, :face_date => '2008-11-06 13:14:15', :code => 'post-two')
+    blogpost1 = FactoryGirl.create(:post, :face_date => '2007-12-06 13:14:15', :code => 'post-one', :status => 'PRIV')
+    blogpost2 = FactoryGirl.create(:post, :face_date => '2008-11-06 13:14:15', :code => 'post-two')
     login_as_admin
     get :index
     assert_select "h2 a[href=#{public_post_path(blogpost1)}]"
@@ -31,8 +31,8 @@ class SecureAccessTest < ActionController::TestCase
   end
 
   test 'do not show hidden posts to user' do
-    blogpost1 = Factory.create(:post, :face_date => '2007-12-06 13:14:15', :code => 'post-one', :status => 'PRIV')
-    blogpost2 = Factory.create(:post, :face_date => '2008-11-06 13:14:15', :code => 'post-two')
+    blogpost1 = FactoryGirl.create(:post, :face_date => '2007-12-06 13:14:15', :code => 'post-one', :status => 'PRIV')
+    blogpost2 = FactoryGirl.create(:post, :face_date => '2008-11-06 13:14:15', :code => 'post-two')
     get :index
     assert_select "h2 a[href=#{public_post_path(blogpost1)}]", false
     assert_select "h2 a[href=#{public_post_path(blogpost2)}]"

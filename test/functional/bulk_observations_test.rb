@@ -101,7 +101,7 @@ class BulkObservationsTest < ActionController::TestCase
   end
 
   test 'successful updating existing and saving new observations' do
-    obs = Factory.create(:observation, :species_id => 2)
+    obs = FactoryGirl.create(:observation, :species_id => 2)
     login_as_admin
     assert_difference('Observation.count', 1) do
       post :bulksave, {:c => {:locus_id => Locus.find_by_code('brovary').id,

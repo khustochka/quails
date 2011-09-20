@@ -1,13 +1,13 @@
-# Read about factories at http://github.com/thoughtbot/factory_girl
-
-Factory.define :post do |f|
-  f.code "test-post"
-  f.title "Test Post"
-  f.text <<TEXT
+FactoryGirl.define do
+  factory :post do |f|
+    f.code "test-post"
+    f.title "Test Post"
+    f.text <<TEXT
 This is a post text.
 
 It must be multiline.
 TEXT
-  f.topic "OBSR"
-  f.status "OPEN"
+    f.topic "OBSR"
+    f.status "OPEN"
+  end
 end

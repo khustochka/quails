@@ -4,14 +4,14 @@ class NewLifelistTest < ActiveSupport::TestCase
 
   setup do
     @obs = [
-        Factory.create(:observation, :species => Species.find_by_code!('pasdom'), :observ_date => "2010-06-20", :locus => Locus.find_by_code!('new_york')),
-        Factory.create(:observation, :species => Species.find_by_code!('melgal'), :observ_date => "2010-06-18"),
-        Factory.create(:observation, :species => Species.find_by_code!('melgal'), :observ_date => "2008-07-18"),
-        Factory.create(:observation, :species => Species.find_by_code!('anapla'), :observ_date => "2009-06-18"),
-        Factory.create(:observation, :species => Species.find_by_code!('melgal'), :observ_date => "2007-07-18"),
-        Factory.create(:observation, :species => Species.find_by_code!('anapla'), :observ_date => "2011-06-18"),
-        Factory.create(:observation, :species => Species.find_by_code!('anacly'), :observ_date => "2007-07-18", :locus => Locus.find_by_code!('brovary')),
-        Factory.create(:observation, :species => Species.find_by_code!('embcit'), :observ_date => "2009-08-09", :locus => Locus.find_by_code!('kherson'))
+        FactoryGirl.create(:observation, :species => Species.find_by_code!('pasdom'), :observ_date => "2010-06-20", :locus => Locus.find_by_code!('new_york')),
+        FactoryGirl.create(:observation, :species => Species.find_by_code!('melgal'), :observ_date => "2010-06-18"),
+        FactoryGirl.create(:observation, :species => Species.find_by_code!('melgal'), :observ_date => "2008-07-18"),
+        FactoryGirl.create(:observation, :species => Species.find_by_code!('anapla'), :observ_date => "2009-06-18"),
+        FactoryGirl.create(:observation, :species => Species.find_by_code!('melgal'), :observ_date => "2007-07-18"),
+        FactoryGirl.create(:observation, :species => Species.find_by_code!('anapla'), :observ_date => "2011-06-18"),
+        FactoryGirl.create(:observation, :species => Species.find_by_code!('anacly'), :observ_date => "2007-07-18", :locus => Locus.find_by_code!('brovary')),
+        FactoryGirl.create(:observation, :species => Species.find_by_code!('embcit'), :observ_date => "2009-08-09", :locus => Locus.find_by_code!('kherson'))
     ]
   end
 
@@ -20,12 +20,12 @@ class NewLifelistTest < ActiveSupport::TestCase
   end
 
   test 'Species lifelist by count should not include Avis incognita' do
-    Factory.create(:observation, :species_id => 0, :observ_date => "2010-06-18")
+    FactoryGirl.create(:observation, :species_id => 0, :observ_date => "2010-06-18")
     Species.lifelist(:sort => 'count').all.size.should == @obs.map(&:species_id).uniq.size
   end
 
   test 'Species lifelist by count should not include species never seen by me' do
-    ob = Factory.create(:observation, :species => Species.find_by_code!('parcae'), :observ_date => "2010-06-18", :mine => false)
+    ob = FactoryGirl.create(:observation, :species => Species.find_by_code!('parcae'), :observ_date => "2010-06-18", :mine => false)
     Species.lifelist(:sort => 'count').all.map(&:id).should_not include(ob.species_id)
   end
 
@@ -39,12 +39,12 @@ class NewLifelistTest < ActiveSupport::TestCase
   end
 
   test 'Species lifelist by taxonomy should not include Avis incognita' do
-    Factory.create(:observation, :species_id => 0, :observ_date => "2010-06-18")
+    FactoryGirl.create(:observation, :species_id => 0, :observ_date => "2010-06-18")
     Species.lifelist(:sort => 'class').all.size.should == @obs.map(&:species_id).uniq.size
   end
 
   test 'Species lifelist by taxonomy should not include species never seen by me' do
-    ob = Factory.create(:observation, :species => Species.find_by_code!('parcae'), :observ_date => "2010-06-18", :mine => false)
+    ob = FactoryGirl.create(:observation, :species => Species.find_by_code!('parcae'), :observ_date => "2010-06-18", :mine => false)
     Species.lifelist(:sort => 'class').all.map(&:id).should_not include(ob.species_id)
   end
 
@@ -58,12 +58,12 @@ class NewLifelistTest < ActiveSupport::TestCase
   end
 
   test 'Species lifelist by date should not include Avis incognita' do
-    Factory.create(:observation, :species_id => 0, :observ_date => "2010-06-18")
+    FactoryGirl.create(:observation, :species_id => 0, :observ_date => "2010-06-18")
     Species.lifelist.all.size.should == @obs.map(&:species_id).uniq.size
   end
 
   test 'Species lifelist by date should not include species never seen by me' do
-    ob = Factory.create(:observation, :species => Species.find_by_code!('parcae'), :observ_date => "2010-06-18", :mine => false)
+    ob = FactoryGirl.create(:observation, :species => Species.find_by_code!('parcae'), :observ_date => "2010-06-18", :mine => false)
     Species.lifelist.all.map(&:id).should_not include(ob.species_id)
   end
 

@@ -3,7 +3,7 @@ require 'test_helper'
 class LocusTest < ActiveSupport::TestCase
 
   test 'do not save locus with empty code' do
-    loc      = Factory.build(:locus, :loc_type => 'Country')
+    loc      = FactoryGirl.build(:locus, :loc_type => 'Country')
     loc.code = ''
     assert_raises(ActiveRecord::RecordInvalid) do
       loc.save!
@@ -11,7 +11,7 @@ class LocusTest < ActiveSupport::TestCase
   end
 
   test 'do not save locus with existing code' do
-    loc      = Factory.build(:locus, :loc_type => 'Country')
+    loc      = FactoryGirl.build(:locus, :loc_type => 'Country')
     loc.code = 'kiev'
     assert_raises(ActiveRecord::RecordInvalid) do
       loc.save!
@@ -37,7 +37,7 @@ class LocusTest < ActiveSupport::TestCase
 
   test 'do not destroy locus if it has associated observations' do
     loc         = Locus.find_by_code!('kiev')
-    observation = Factory.create(:observation, :locus => loc)
+    observation = FactoryGirl.create(:observation, :locus => loc)
     assert_raises(ActiveRecord::DeleteRestrictionError) do
       loc.destroy
     end

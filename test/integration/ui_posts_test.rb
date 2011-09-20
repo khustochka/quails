@@ -19,7 +19,7 @@ class UIPostsTest < ActionDispatch::IntegrationTest
   end
 
   test "Editing post" do
-    blogpost = Factory.create(:post)
+    blogpost = FactoryGirl.create(:post)
     login_as_admin
     visit edit_post_path(blogpost)
     fill_in('Code', :with => 'changed-post')
@@ -32,7 +32,7 @@ class UIPostsTest < ActionDispatch::IntegrationTest
   end
 
   test "Navigation via Edit this and Show this links" do
-    blogpost = Factory.create(:post)
+    blogpost = FactoryGirl.create(:post)
     login_as_admin
     visit show_post_path(blogpost.to_url_params)
     click_link('Edit this one')

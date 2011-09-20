@@ -2,8 +2,8 @@ require 'test_helper'
 
 class ImagesControllerTest < ActionController::TestCase
   setup do
-    @obs = Factory.create(:observation)
-    @image = Factory.build(:image)
+    @obs = FactoryGirl.create(:observation)
+    @image = FactoryGirl.build(:image)
     @image.observations << @obs
     @image.save
   end
@@ -35,8 +35,8 @@ class ImagesControllerTest < ActionController::TestCase
 
   test "create image with several observations" do
     login_as_admin
-    obs2 = Factory.create(:observation, :species => Species.find_by_code('lancol'))
-    obs3 = Factory.create(:observation, :species => Species.find_by_code('jyntor'))
+    obs2 = FactoryGirl.create(:observation, :species => Species.find_by_code('lancol'))
+    obs3 = FactoryGirl.create(:observation, :species => Species.find_by_code('jyntor'))
     new_attr = @image.attributes.dup
     new_attr[:observation_ids] = [@obs.id, obs2.id, obs3.id]
     new_attr['code'] = 'new_img_code'

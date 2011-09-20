@@ -8,8 +8,8 @@ class PostsCollectionsTest < ActionController::TestCase
   # Front page
 
   test 'get index' do
-    blogpost1 = Factory.create(:post, :face_date => '2007-12-06 13:14:15', :code => 'post-one')
-    blogpost2 = Factory.create(:post, :face_date => '2008-11-06 13:14:15', :code => 'post-two')
+    blogpost1 = FactoryGirl.create(:post, :face_date => '2007-12-06 13:14:15', :code => 'post-one')
+    blogpost2 = FactoryGirl.create(:post, :face_date => '2008-11-06 13:14:15', :code => 'post-two')
     get :index
     assert_response :success
     assert_select "h2 a[href=#{public_post_path(blogpost1)}]"
@@ -17,11 +17,11 @@ class PostsCollectionsTest < ActionController::TestCase
   end
 
   test 'show correct Earlier Posts link if limit is on the month border' do
-    blogpost1 = Factory.create(:post, :face_date => '2007-12-06 13:14:15', :code => 'post-one')
-    blogpost2 = Factory.create(:post, :face_date => '2007-11-06 13:14:15', :code => 'post-three')
-    blogpost3 = Factory.create(:post, :face_date => '2007-12-05 13:14:15', :code => 'post-two')
-    blogpost4 = Factory.create(:post, :face_date => '2007-10-06 13:14:15', :code => 'post-four')
-    blogpost5 = Factory.create(:post, :face_date => '2007-10-05 13:14:15', :code => 'post-five')
+    blogpost1 = FactoryGirl.create(:post, :face_date => '2007-12-06 13:14:15', :code => 'post-one')
+    blogpost2 = FactoryGirl.create(:post, :face_date => '2007-11-06 13:14:15', :code => 'post-three')
+    blogpost3 = FactoryGirl.create(:post, :face_date => '2007-12-05 13:14:15', :code => 'post-two')
+    blogpost4 = FactoryGirl.create(:post, :face_date => '2007-10-06 13:14:15', :code => 'post-four')
+    blogpost5 = FactoryGirl.create(:post, :face_date => '2007-10-05 13:14:15', :code => 'post-five')
     get :index
     assert_response :success
     assert_select 'h2.post-title', 3
@@ -34,11 +34,11 @@ class PostsCollectionsTest < ActionController::TestCase
   end
 
   test 'show correct Earlier Posts link if limit is inside the month' do
-    blogpost1 = Factory.create(:post, :face_date => '2007-12-06 13:14:15', :code => 'post-one')
-    blogpost2 = Factory.create(:post, :face_date => '2007-11-06 13:14:15', :code => 'post-three')
-    blogpost3 = Factory.create(:post, :face_date => '2007-12-05 13:14:15', :code => 'post-two')
-    blogpost4 = Factory.create(:post, :face_date => '2007-11-05 13:14:15', :code => 'post-four')
-    blogpost5 = Factory.create(:post, :face_date => '2007-11-04 13:14:15', :code => 'post-five')
+    blogpost1 = FactoryGirl.create(:post, :face_date => '2007-12-06 13:14:15', :code => 'post-one')
+    blogpost2 = FactoryGirl.create(:post, :face_date => '2007-11-06 13:14:15', :code => 'post-three')
+    blogpost3 = FactoryGirl.create(:post, :face_date => '2007-12-05 13:14:15', :code => 'post-two')
+    blogpost4 = FactoryGirl.create(:post, :face_date => '2007-11-05 13:14:15', :code => 'post-four')
+    blogpost5 = FactoryGirl.create(:post, :face_date => '2007-11-04 13:14:15', :code => 'post-five')
     get :index
     assert_response :success
     assert_select 'h2.post-title', 3
@@ -51,12 +51,12 @@ class PostsCollectionsTest < ActionController::TestCase
   end
 
   test 'show full month and correct Earlier Posts link if the last month exceeds the limit' do
-    blogpost1 = Factory.create(:post, :face_date => '2007-11-30 13:14:15', :code => 'post-one')
-    blogpost2 = Factory.create(:post, :face_date => '2007-11-06 13:14:15', :code => 'post-three')
-    blogpost3 = Factory.create(:post, :face_date => '2007-11-25 13:14:15', :code => 'post-two')
-    blogpost4 = Factory.create(:post, :face_date => '2007-10-05 13:14:15', :code => 'post-four')
-    blogpost5 = Factory.create(:post, :face_date => '2007-11-04 13:14:15', :code => 'post-five')
-    blogpost6 = Factory.create(:post, :face_date => '2007-11-02 13:14:15', :code => 'post-six')
+    blogpost1 = FactoryGirl.create(:post, :face_date => '2007-11-30 13:14:15', :code => 'post-one')
+    blogpost2 = FactoryGirl.create(:post, :face_date => '2007-11-06 13:14:15', :code => 'post-three')
+    blogpost3 = FactoryGirl.create(:post, :face_date => '2007-11-25 13:14:15', :code => 'post-two')
+    blogpost4 = FactoryGirl.create(:post, :face_date => '2007-10-05 13:14:15', :code => 'post-four')
+    blogpost5 = FactoryGirl.create(:post, :face_date => '2007-11-04 13:14:15', :code => 'post-five')
+    blogpost6 = FactoryGirl.create(:post, :face_date => '2007-11-02 13:14:15', :code => 'post-six')
     get :index
     assert_response :success
     assert_select 'h2.post-title', 5
@@ -72,8 +72,8 @@ class PostsCollectionsTest < ActionController::TestCase
   # Year view
 
   test 'get posts list for a year' do
-    blogpost1 = Factory.create(:post, :face_date => '2007-12-06 13:14:15', :code => 'post-one')
-    blogpost2 = Factory.create(:post, :face_date => '2008-11-06 13:14:15', :code => 'post-two')
+    blogpost1 = FactoryGirl.create(:post, :face_date => '2007-12-06 13:14:15', :code => 'post-one')
+    blogpost2 = FactoryGirl.create(:post, :face_date => '2008-11-06 13:14:15', :code => 'post-two')
     get :year, :year => 2007
     assert_response :success
     assert_select "li a[href=#{public_post_path(blogpost1)}]", true
@@ -84,8 +84,8 @@ class PostsCollectionsTest < ActionController::TestCase
   # Month view
 
   test 'get posts list for a month' do
-    blogpost1 = Factory.create(:post, :face_date => '2007-12-06 13:14:15', :code => 'post-one')
-    blogpost2 = Factory.create(:post, :face_date => '2007-11-06 13:14:15', :code => 'post-two')
+    blogpost1 = FactoryGirl.create(:post, :face_date => '2007-12-06 13:14:15', :code => 'post-one')
+    blogpost2 = FactoryGirl.create(:post, :face_date => '2007-11-06 13:14:15', :code => 'post-two')
     get :month, :year => 2007, :month => 12
     assert_response :success
     assert_select "h2 a[href=#{public_post_path(blogpost1)}]", true
@@ -93,8 +93,8 @@ class PostsCollectionsTest < ActionController::TestCase
   end
 
   test 'render month properly if there is no previous or next month' do
-    blogpost1 = Factory.create(:post, :face_date => '2007-12-06 13:14:15', :code => 'post-one')
-    blogpost2 = Factory.create(:post, :face_date => '2008-11-06 13:14:15', :code => 'post-two')
+    blogpost1 = FactoryGirl.create(:post, :face_date => '2007-12-06 13:14:15', :code => 'post-one')
+    blogpost2 = FactoryGirl.create(:post, :face_date => '2008-11-06 13:14:15', :code => 'post-two')
     get :month, :year => 2007, :month => 12
     assert_response :success
     get :month, :year => 2007, :month => 11

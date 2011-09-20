@@ -4,8 +4,8 @@ class ImagesAssociationsTest < ActiveSupport::TestCase
 
   test 'properly link images with one species' do
     sp = Species.find_by_code!('lancol')
-    obs = Factory.create(:observation, :species => sp, :observ_date => "2008-06-20")
-    img = Factory.build(:image, :code => 'picture-of-the-shrike')
+    obs = FactoryGirl.create(:observation, :species => sp, :observ_date => "2008-06-20")
+    img = FactoryGirl.build(:image, :code => 'picture-of-the-shrike')
     img.observations << obs
     img.save
 
@@ -16,9 +16,9 @@ class ImagesAssociationsTest < ActiveSupport::TestCase
   test 'properly link images with several species' do
     sp1 = Species.find_by_code!('lancol')
     sp2 = Species.find_by_code!('jyntor')
-    obs1 = Factory.create(:observation, :species => sp1, :observ_date => "2008-07-01")
-    obs2 = Factory.create(:observation, :species => sp2, :observ_date => "2008-07-01")
-    img = Factory.build(:image, :code => 'picture-of-the-shrike-and-the-wryneck')
+    obs1 = FactoryGirl.create(:observation, :species => sp1, :observ_date => "2008-07-01")
+    obs2 = FactoryGirl.create(:observation, :species => sp2, :observ_date => "2008-07-01")
+    img = FactoryGirl.build(:image, :code => 'picture-of-the-shrike-and-the-wryneck')
     img.observations << obs1 << obs2
     img.save
 
@@ -29,10 +29,10 @@ class ImagesAssociationsTest < ActiveSupport::TestCase
 
   test 'properly link image and post' do
     sp = Species.find_by_code!('lancol')
-    blogpost = Factory.create(:post)
-    obs = Factory.create(:observation, :species => sp, :observ_date => "2008-06-20")
+    blogpost = FactoryGirl.create(:post)
+    obs = FactoryGirl.create(:observation, :species => sp, :observ_date => "2008-06-20")
     blogpost.observations << obs
-    img = Factory.build(:image, :code => 'picture-of-the-shrike')
+    img = FactoryGirl.build(:image, :code => 'picture-of-the-shrike')
     img.observations << obs
     img.save
 
@@ -41,8 +41,8 @@ class ImagesAssociationsTest < ActiveSupport::TestCase
   end
 
   test 'properly unlink observations when image destroyed' do
-    observation = Factory.create(:observation)
-    img = Factory.build(:image, :code => 'picture-of-the-shrike')
+    observation = FactoryGirl.create(:observation)
+    img = FactoryGirl.build(:image, :code => 'picture-of-the-shrike')
     img.observations << observation
     img.save
     assert_nothing_raised do

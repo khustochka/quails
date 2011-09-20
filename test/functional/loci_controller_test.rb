@@ -19,7 +19,7 @@ class LociControllerTest < ActionController::TestCase
   end
 
   test "create locus" do
-    locus = Factory.build(:locus, :code => 'loccode', :loc_type => 'Country')
+    locus = FactoryGirl.build(:locus, :code => 'loccode', :loc_type => 'Country')
     assert_difference('Locus.count') do
       login_as_admin
       post :create, :locus => locus.attributes
@@ -80,7 +80,7 @@ class LociControllerTest < ActionController::TestCase
   end
 
   test 'protect create with HTTP authentication' do
-    locus = Factory.build(:locus, :code => 'loccode', :loc_type => 'Country')
+    locus = FactoryGirl.build(:locus, :code => 'loccode', :loc_type => 'Country')
     post :create, :locus => locus.attributes
     assert_response 401
   end

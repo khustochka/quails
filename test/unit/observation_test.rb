@@ -3,8 +3,8 @@ require 'test_helper'
 class ObservationTest < ActiveSupport::TestCase
 
   test 'do not destroy observation if having associated images' do
-    observation = Factory.create(:observation)
-    img = Factory.build(:image, :code => 'picture-of-the-shrike')
+    observation = FactoryGirl.create(:observation)
+    img = FactoryGirl.build(:image, :code => 'picture-of-the-shrike')
     img.observations << observation
     img.save
     assert_raises(ActiveRecord::DeleteRestrictionError) do
