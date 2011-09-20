@@ -18,9 +18,6 @@ gem 'kaminari'
 gem 'ransack'
 gem 'rails_autolink'
 gem 'simple_form'
-# using specific yaml_db, because the canonic gem works bad with new psych format
-# see https://github.com/ludicast/yaml_db/pull/24
-gem 'yaml_db', :git => 'git://github.com/bseanvt/yaml_db.git', :ref => '14ebdb79805d71501fbd', :require => false
 gem 'hashie'
 gem 'flickraw', '0.8.4', :require => false
 
@@ -29,6 +26,10 @@ group :development do
   gem 'nokogiri', :platforms => [:ruby, :mingw], :require => false
   gem 'mysql2', '~>0.3.7', :platforms => :ruby, :require => false
   gem 'grit', :require => false
+
+  # using specific yaml_db, because the canonic gem works bad with new psych format
+  # see https://github.com/ludicast/yaml_db/pull/24
+  gem 'yaml_db', :git => 'git://github.com/bseanvt/yaml_db.git', :ref => '14ebdb79805d71501fbd'
 
 # Other gems that may be useful but are not really dependencies:
 # gem 'ruby-debug-ide' # for debugging in RubyMine
@@ -44,7 +45,7 @@ group :test do
   gem 'capybara'
   gem 'rspec-expectations', :require => false # No need to require on startup b/c TestUnitTestCase doesn't exist then
   gem 'launchy' # So you can do Then show me the page
-  #platforms :ruby, :mingw do
-  #  gem 'spork'
-  #end
+                #platforms :ruby, :mingw do
+                #  gem 'spork'
+                #end
 end
