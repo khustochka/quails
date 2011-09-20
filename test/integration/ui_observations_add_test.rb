@@ -36,7 +36,7 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
     select_suggestion('Brovary', :from => 'Location')
     fill_in('Date', :with => '2011-04-08')
     select_suggestion('- Avis incognita', :from => 'Species')
-    lambda { click_button('Save'); sleep 0.5 }.should change(Observation, :count).by(1)
+    lambda { click_button('Save') }.should change(Observation, :count).by(1)
     Observation.order('id DESC').limit(1).last.species_id.should == 0
   end
 

@@ -32,10 +32,8 @@ module CapybaraTestCase
       visit '/login'
     else
       # FIXME for this to work you need to add pref("network.http.phishy-userpass-length", 255); to /Applications/Firefox.app/Contents/MacOS/defaults/pref/firefox.js
-#      str = "http://%s:%s@%s:%s/login"
-#      visit str % [test_credentials.username, test_credentials.password_plain, server.host, server.port]
-    page.driver.header('Authorization',
-        ActionController::HttpAuthentication::Basic.encode_credentials(test_credentials.username, test_credentials.password_plain))
+      str = "http://%s:%s@%s:%s/login"
+      visit str % [test_credentials.username, test_credentials.password_plain, page.driver.rack_server.host, page.driver.rack_server.port]
     end
   end
 end
@@ -47,7 +45,7 @@ module JavaScriptTestCase
       include CapybaraTestCase
 
       setup do
-        Capybara.current_driver = :webkit #Capybara.javascript_driver
+        Capybara.current_driver = Capybara.javascript_driver
       end
 
       teardown do

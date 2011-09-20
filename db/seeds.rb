@@ -8,8 +8,6 @@
 
 require 'yaml_db'
 
-YAML::ENGINE.yamler= 'psych' # required for parsing db dump yaml in debugging mode
-
 local_opts = YAML.load_file('config/local.yml')
 
 SerializationHelper::Base.new(YamlDb::Helper).load_from_dir File.join(local_opts['repo'], 'seed')
