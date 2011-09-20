@@ -40,6 +40,7 @@ GEM
     addressable (2.2.6)
     arel (2.2.1)
     bcrypt-ruby (3.0.1)
+    bcrypt-ruby (3.0.1-x86-mingw32)
     builder (3.0.0)
     capybara (1.1.1)
       mime-types (>= 1.16)
@@ -51,7 +52,6 @@ GEM
     childprocess (0.2.2)
       ffi (~> 1.0.6)
     daemons (1.1.4)
-    database_cleaner (0.6.7)
     diff-lcs (1.1.3)
     erubis (2.7.0)
     eventmachine (0.12.10)
@@ -60,6 +60,7 @@ GEM
       factory_girl (~> 2.1.0)
       railties (>= 3.0.0)
     ffi (1.0.9)
+    ffi (1.0.9-x86-mingw32)
     flickraw (0.8.4)
       json (>= 1.1.1)
     grit (2.4.1)
@@ -88,7 +89,9 @@ GEM
     multi_json (1.0.3)
     mysql2 (0.3.7)
     nokogiri (1.5.0)
+    nokogiri (1.5.0-x86-mingw32)
     pg (0.11.0)
+    pg (0.11.0-x86-mingw32)
     polyamorous (0.5.0)
       activerecord (~> 3.0)
     polyglot (0.3.2)
@@ -159,11 +162,11 @@ GEM
 
 PLATFORMS
   ruby
+  x86-mingw32
 
 DEPENDENCIES
   activerecord-jdbcpostgresql-adapter
   capybara
-  database_cleaner
   factory_girl_rails
   flickraw (= 0.8.4)
   grit
