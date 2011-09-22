@@ -2,18 +2,20 @@
 
 %h1= @page_title
 
+= render 'partials/years'
+
 - if @species.blank?
   %p No species
 - else
   = render 'sorter'
-  %ol
-    - i = @species.size + 1
-    - @species.group_by {|s| Date.parse(s.aggregated_value).year}.each do |year, species_list|
+  - i = @species.size + 1
+  - @species.group_by {|s| Date.parse(s.aggregated_value).year}.each do |year, species_list|
+    - if params[:year].blank?
       %h5= "First seen in %d" % year
-      %ol
-        - species_list.each do |sp|
-          %li.lifer_row{:value => i -= 1}
-            %span
-              = species_link(sp)
-              = name_sci(sp)
-            %time= l(Date.parse(sp.aggregated_value), :format => :long)
+    %ol
+      - species_list.each do |sp|
+        %li.lifer_row{:value => i -= 1}
+          %span
+            = species_link(sp)
+            = name_sci(sp)
+          %time= l(Date.parse(sp.aggregated_value), :format => :long)

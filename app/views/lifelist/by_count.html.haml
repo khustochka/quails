@@ -2,6 +2,8 @@
 
 %h1= @page_title
 
+= render 'partials/years'
+
 - if @species.blank?
   %p No species
 - else
