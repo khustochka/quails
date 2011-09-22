@@ -4,14 +4,20 @@ class NewLifelistTest < ActiveSupport::TestCase
 
   setup do
     @obs = [
-        FactoryGirl.create(:observation, :species => Species.find_by_code!('pasdom'), :observ_date => "2010-06-20", :locus => Locus.find_by_code!('new_york')),
-        FactoryGirl.create(:observation, :species => Species.find_by_code!('melgal'), :observ_date => "2010-06-18"),
-        FactoryGirl.create(:observation, :species => Species.find_by_code!('melgal'), :observ_date => "2008-07-18"),
-        FactoryGirl.create(:observation, :species => Species.find_by_code!('anapla'), :observ_date => "2009-06-18"),
-        FactoryGirl.create(:observation, :species => Species.find_by_code!('melgal'), :observ_date => "2007-07-18"),
-        FactoryGirl.create(:observation, :species => Species.find_by_code!('anapla'), :observ_date => "2011-06-18"),
-        FactoryGirl.create(:observation, :species => Species.find_by_code!('anacly'), :observ_date => "2007-07-18", :locus => Locus.find_by_code!('brovary')),
-        FactoryGirl.create(:observation, :species => Species.find_by_code!('embcit'), :observ_date => "2009-08-09", :locus => Locus.find_by_code!('kherson'))
+        FactoryGirl.create(:observation, :species => Species.find_by_code!('colliv'), :observ_date => "2008-05-22"),
+        FactoryGirl.create(:observation, :species => Species.find_by_code!('merser'), :observ_date => "2008-10-18"),
+        FactoryGirl.create(:observation, :species => Species.find_by_code!('colliv'), :observ_date => "2008-11-01"),
+        FactoryGirl.create(:observation, :species => Species.find_by_code!('parmaj'), :observ_date => "2009-01-01"),
+        FactoryGirl.create(:observation, :species => Species.find_by_code!('pasdom'), :observ_date => "2009-01-01"),
+        FactoryGirl.create(:observation, :species => Species.find_by_code!('colliv'), :observ_date => "2009-10-18"),
+        FactoryGirl.create(:observation, :species => Species.find_by_code!('parmaj'), :observ_date => "2009-11-01"),
+        FactoryGirl.create(:observation, :species => Species.find_by_code!('pasdom'), :observ_date => "2009-12-01"),
+        FactoryGirl.create(:observation, :species => Species.find_by_code!('parmaj'), :observ_date => "2009-12-31"),
+        FactoryGirl.create(:observation, :species => Species.find_by_code!('colliv'), :observ_date => "2010-03-10"),
+        FactoryGirl.create(:observation, :species => Species.find_by_code!('pasdom'), :observ_date => "2010-04-16"),
+        FactoryGirl.create(:observation, :species => Species.find_by_code!('colliv'), :observ_date => "2010-07-27"),
+        FactoryGirl.create(:observation, :species => Species.find_by_code!('pasdom'), :observ_date => "2010-09-10"),
+        FactoryGirl.create(:observation, :species => Species.find_by_code!('carlis'), :observ_date => "2010-10-13")
     ]
   end
 
@@ -31,7 +37,7 @@ class NewLifelistTest < ActiveSupport::TestCase
 
   test 'Species lifelist by count properly sorts the list' do
     Species.lifelist(:sort => 'count').all.map { |s| [s.code, s.aggregated_value.to_i] }.should ==
-        [["melgal", 3], ["anapla", 2], ["pasdom", 1], ["embcit", 1], ["anacly", 1]]
+        [["colliv", 5], ["pasdom", 4], ["parmaj", 3], ["carlis", 1], ["merser", 1]]
   end
 
   test 'Species lifelist by taxonomy return proper number of species' do
@@ -50,7 +56,7 @@ class NewLifelistTest < ActiveSupport::TestCase
 
   test 'Species lifelist by taxonomy properly sorts the list' do
     Species.lifelist(:sort => 'class').all.map { |s| [s.code, s.aggregated_value] }.should ==
-        [["anapla", "2009-06-18"], ["anacly", "2007-07-18"], ["melgal", "2007-07-18"], ["embcit", "2009-08-09"], ["pasdom", "2010-06-20"]]
+        [["merser", "2008-10-18"], ["colliv", "2008-05-22"], ["parmaj", "2009-01-01"], ["carlis", "2010-10-13"], ["pasdom", "2009-01-01"]]
   end
 
   test 'Species lifelist by date return proper number of species' do
@@ -69,6 +75,6 @@ class NewLifelistTest < ActiveSupport::TestCase
 
   test 'Species lifelist by date properly sorts the list' do
     Species.lifelist.all.map { |s| [s.code, s.aggregated_value] }.should ==
-        [["pasdom", "2010-06-20"], ["embcit", "2009-08-09"], ["anapla", "2009-06-18"], ["melgal", "2007-07-18"], ["anacly", "2007-07-18"]]
+        [["carlis", "2010-10-13"], ["pasdom", "2009-01-01"], ["parmaj", "2009-01-01"], ["merser", "2008-10-18"], ["colliv", "2008-05-22"]]
   end
 end
