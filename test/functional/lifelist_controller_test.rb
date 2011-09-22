@@ -4,11 +4,11 @@ class LifelistControllerTest < ActionController::TestCase
 
   setup do
     @obs = [
-        FactoryGirl.create(:observation, :species => Species.find_by_code!('pasdom'), :observ_date => "2010-06-20", :locus => Locus.find_by_code!('new_york')),
-        FactoryGirl.create(:observation, :species => Species.find_by_code!('melgal'), :observ_date => "2010-06-18"),
-        FactoryGirl.create(:observation, :species => Species.find_by_code!('anapla'), :observ_date => "2009-06-18"),
-        FactoryGirl.create(:observation, :species => Species.find_by_code!('anacly'), :observ_date => "2007-07-18", :locus => Locus.find_by_code!('brovary')),
-        FactoryGirl.create(:observation, :species => Species.find_by_code!('embcit'), :observ_date => "2009-08-09", :locus => Locus.find_by_code!('kherson'))
+            FactoryGirl.create(:observation, :species => Species.find_by_code!('pasdom'), :observ_date => "2010-06-20", :locus => Locus.find_by_code!('new_york')),
+            FactoryGirl.create(:observation, :species => Species.find_by_code!('melgal'), :observ_date => "2010-06-18"),
+            FactoryGirl.create(:observation, :species => Species.find_by_code!('anapla'), :observ_date => "2009-06-18"),
+            FactoryGirl.create(:observation, :species => Species.find_by_code!('anacly'), :observ_date => "2007-07-18", :locus => Locus.find_by_code!('brovary')),
+            FactoryGirl.create(:observation, :species => Species.find_by_code!('embcit'), :observ_date => "2009-08-09", :locus => Locus.find_by_code!('kherson'))
     ]
   end
 
@@ -50,8 +50,8 @@ class LifelistControllerTest < ActionController::TestCase
       assert_select "a[href=#{url_for(:action => :by_taxonomy, :year => 2009, :only_path => true)}]"
       assert_select "a[href=#{url_for(:action => :by_count, :year => 2009, :only_path => true)}]"
 
-      assert_select "li.lifer_row" do |el|
-        assert_select el, 'time', /2009/ # list only shows dates from 2009
+      assert_select "li.lifer_row" do |els|
+        els.each { |el| assert_select el, 'time', /2009/, 'Found items not matching the proper year' } # list only shows dates from 2009
       end
     end
   end
@@ -74,8 +74,8 @@ class LifelistControllerTest < ActionController::TestCase
       assert_select "a[href=#{url_for(:action => :by_taxonomy, :year => 2009, :only_path => true)}]", false
       assert_select "a[href=#{url_for(:action => :by_count, :year => 2009, :only_path => true)}]"
 
-      assert_select "li.lifer_row" do |el|
-        assert_select el, 'time', /2009/ # list only shows dates from 2009
+      assert_select "li.lifer_row" do |els|
+        els.each { |el| assert_select el, 'time', /2009/, 'Found items not matching the proper year' } # list only shows dates from 2009
       end
     end
   end
