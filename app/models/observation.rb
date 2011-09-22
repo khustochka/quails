@@ -37,7 +37,9 @@ class Observation < ActiveRecord::Base
             #TODO: implement correct processing of incorrect query parameters
             raise 'Incorrect option'
         end
-    mine.select("species_id, #{aggregation} AS aggregated_value").group(:species_id)
+    rel = mine.select("species_id, #{aggregation} AS aggregated_value").group(:species_id)
+    rel = rel.where('EXTRACT(year from observ_date) = ?', options[:year]) unless options[:year].blank?
+    rel
   end
 
   def self.old_lifers_dates(*args)

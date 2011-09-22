@@ -77,4 +77,19 @@ class NewLifelistTest < ActiveSupport::TestCase
     Species.lifelist.all.map { |s| [s.code, s.aggregated_value] }.should ==
         [["carlis", "2010-10-13"], ["pasdom", "2009-01-01"], ["parmaj", "2009-01-01"], ["merser", "2008-10-18"], ["colliv", "2008-05-22"]]
   end
+
+  test 'Year list by count properly sorts the list' do
+    Species.lifelist(:sort => 'count', :year => 2009).all.map { |s| [s.code, s.aggregated_value.to_i] }.should ==
+        [["parmaj", 3], ["pasdom", 2], ["colliv", 1]]
+  end
+
+  test 'Year list by taxonomy properly sorts the list' do
+    Species.lifelist(:sort => 'class', :year => 2009).all.map { |s| [s.code, s.aggregated_value] }.should ==
+        [["colliv", "2009-10-18"], ["parmaj", "2009-01-01"], ["pasdom", "2009-01-01"]]
+  end
+
+  test 'Year list by date properly sorts the list' do
+    Species.lifelist(:year => 2009).all.map { |s| [s.code, s.aggregated_value] }.should ==
+        [["colliv", "2009-10-18"], ["pasdom", "2009-01-01"], ["parmaj", "2009-01-01"]]
+  end
 end

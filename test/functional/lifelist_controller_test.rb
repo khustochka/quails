@@ -72,16 +72,6 @@ class LifelistControllerTest < ActionController::TestCase
     end
   end
 
-  test "lifelist links filter out invalid parameters" do
-    get :by_count, :year => 2009, :zzz => 'ooo'
-    assert_response :success
-    assert_select '#main' do
-      assert_select "a[href=#{lifelist_path(:year => 2009)}]"
-      assert_select "a[href=#{url_for(:action => :by_taxonomy, :year => 2009, :only_path => true)}]"
-      assert_select "a[href=#{url_for(:action => :by_count, :year => 2009, :only_path => true)}]", false
-    end
-  end
-
   #test "show location list" do
   #  get :lifelist, :locus => 'new_york'
   #  assert_response :success
@@ -99,5 +89,15 @@ class LifelistControllerTest < ActionController::TestCase
   #  assert_response :success
   #  assert_select 'a.sp_link'
   #end
+
+  test "lifelist links filter out invalid parameters" do
+    get :by_count, :year => 2009, :zzz => 'ooo'
+    assert_response :success
+    assert_select '#main' do
+      assert_select "a[href=#{lifelist_path(:year => 2009)}]"
+      assert_select "a[href=#{url_for(:action => :by_taxonomy, :year => 2009, :only_path => true)}]"
+      assert_select "a[href=#{url_for(:action => :by_count, :year => 2009, :only_path => true)}]", false
+    end
+  end
 
 end
