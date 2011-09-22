@@ -49,6 +49,10 @@ class LifelistControllerTest < ActionController::TestCase
       assert_select "a[href=#{lifelist_path(:year => 2009)}]", false
       assert_select "a[href=#{url_for(:action => :by_taxonomy, :year => 2009, :only_path => true)}]"
       assert_select "a[href=#{url_for(:action => :by_count, :year => 2009, :only_path => true)}]"
+
+      assert_select "li.lifer_row" do |el|
+        assert_select el, 'time', /2009/ # list only shows dates from 2009
+      end
     end
   end
 
@@ -69,6 +73,10 @@ class LifelistControllerTest < ActionController::TestCase
       assert_select "a[href=#{lifelist_path(:year => 2009)}]"
       assert_select "a[href=#{url_for(:action => :by_taxonomy, :year => 2009, :only_path => true)}]", false
       assert_select "a[href=#{url_for(:action => :by_count, :year => 2009, :only_path => true)}]"
+
+      assert_select "li.lifer_row" do |el|
+        assert_select el, 'time', /2009/ # list only shows dates from 2009
+      end
     end
   end
 
