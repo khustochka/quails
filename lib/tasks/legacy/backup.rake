@@ -38,6 +38,7 @@ namespace :legacy do
   task :restore => :environment do
 
     require 'grit'
+    require 'bunch_db/table'
 
     local_opts = YAML.load_file('config/local.yml')
     folder = local_opts['repo']
