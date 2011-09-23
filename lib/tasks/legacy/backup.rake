@@ -38,7 +38,6 @@ namespace :legacy do
   task :restore => :environment do
 
     require 'grit'
-    require 'yaml_db'
 
     local_opts = YAML.load_file('config/local.yml')
     folder = local_opts['repo']
@@ -53,12 +52,20 @@ namespace :legacy do
     ActiveRecord::Base.establish_connection(local_opts['database'])
     puts "Loading #{filename}..."
 
-    # NOTE: legacy DB connection encoding showuld be utf8 for this to work!
+    # NOTE: legacy DB connection encoding should be utf8 for this to work!
     file = File.open(filename, encoding: 'windows-1251')
     ydoc = YAML.load(file.read)
     ydoc.keys.each do |table_name|
-      next if ydoc[table_name].nil?
-      YamlDb::Load.load_table(table_name, ydoc[table_name], true)
+      data = ydoc[table_name]
+      next if data.nil?
+
+      table = BunchDB::Table.new(table_name)
+      table.cleanup
+
+      column_names = data['columns']
+      records = data['records']
+
+      table.fill(column_names, records)
     end
 
   end

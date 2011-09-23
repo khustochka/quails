@@ -21,7 +21,9 @@ module BunchDB
     end
 
     def reset_pk_sequence!
-      ActiveRecord::Base.connection.reset_pk_sequence!(@table_name)
+      if ActiveRecord::Base.connection.respond_to?(:reset_pk_sequence!)
+        ActiveRecord::Base.connection.reset_pk_sequence!(@table_name)
+      end
     end
   end
 end
