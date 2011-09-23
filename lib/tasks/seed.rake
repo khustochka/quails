@@ -5,7 +5,7 @@ namespace :seed do
   task :backup => :environment do
 
     require 'grit'
-    require 'yaml_db'
+    require 'bunch_db/table'
 
     tables = %w(species loci)
 
@@ -18,15 +18,13 @@ namespace :seed do
     repo.remote_fetch('origin')
 
     dirname = File.join(folder, 'seed')
-    dumper = YamlDb::Dump
 
     Dir.chdir(folder) do
-      tables.each do |table|
-        puts "Dumping '#{table}'..."
-        io = File.new "#{dirname}/#{table}.yml", "w"
-        dumper.before_table(io, table)
-        dumper.dump_table io, table
-        dumper.after_table(io, table)
+      tables.each do |table_name|
+        puts "Dumping '#{table_name}'..."
+        io = File.new "#{dirname}/#{table_name}.yml", "w"
+        table = BunchDB::Table.new(table_name)
+        table.dump(io)
         repo.add("seed/#{table}.yml")
       end
     end

@@ -21,11 +21,6 @@ gem 'simple_form'
 gem 'hashie'
 gem 'flickraw', '0.8.4', :require => false
 
-# using specific yaml_db, because the canonic gem works bad with new psych format
-# see https://github.com/ludicast/yaml_db/pull/24
-gem 'yaml_db', :git => 'git://github.com/bseanvt/yaml_db.git', :ref => '14ebdb79805d71501fbd', :require => false
-
-
 group :development do
   gem 'rails3-generators'
   gem 'nokogiri', :platforms => [:ruby, :mingw], :require => false

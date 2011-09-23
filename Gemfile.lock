@@ -1,10 +1,3 @@
-GIT
-  remote: git://github.com/bseanvt/yaml_db.git
-  revision: 14ebdb79805d71501fbd742e52ad7887765138dc
-  ref: 14ebdb79805d71501fbd
-  specs:
-    yaml_db (0.2.0)
-
 GEM
   remote: http://rubygems.org/
   specs:
@@ -55,7 +48,7 @@ GEM
     diff-lcs (1.1.3)
     erubis (2.7.0)
     eventmachine (0.12.10)
-    factory_girl (2.1.0)
+    factory_girl (2.1.1)
     factory_girl_rails (1.2.0)
       factory_girl (~> 2.1.0)
       railties (>= 3.0.0)
@@ -134,7 +127,7 @@ GEM
     ruby-prof (0.10.8)
     rubyzip (0.9.4)
     sass (3.1.7)
-    selenium-webdriver (2.6.0)
+    selenium-webdriver (2.7.0)
       childprocess (>= 0.2.1)
       ffi (>= 1.0.7)
       json_pure
@@ -187,4 +180,3 @@ DEPENDENCIES
   simple_form
   test-unit
   thin
-  yaml_db!

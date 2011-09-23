@@ -25,5 +25,23 @@ module BunchDB
         ActiveRecord::Base.connection.reset_pk_sequence!(@table_name)
       end
     end
+
+    def dump(io)
+      column_names = table_column_names
+
+      records = @table_name.singularize.capitalize.constantize.all
+
+      records.each_with_index do |record, index|
+        records[index] = column_names.map { |key| record[key] }
+      end
+
+      io.write("\n")
+      io.write({ @table_name => { 'columns' => column_names, 'records' => records } }.to_yaml)
+    end
+
+    private
+    def table_column_names
+      ActiveRecord::Base.connection.columns(@table_name).map { |c| c.name }
+    end
   end
 end
