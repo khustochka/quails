@@ -30,8 +30,8 @@ class ApplicationController < ActionController::Base
   helper_method :path_parameters
 
   private
-  def SessionAwarePost
-    @post_rel ||= admin_session? ? Post : Post.public
+  def current_user
+    @current_user ||= User.new(admin_session?)
   end
 
 end

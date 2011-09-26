@@ -31,7 +31,7 @@ class ResearchController < ApplicationController
 
     @lifelist = Species.old_lifelist(extended_params)
     raw_posts = @lifelist.map {|ob| [ob.first_post, ob.last_post]}.flatten.uniq.compact
-    @posts = Hash[SessionAwarePost().where(:id => raw_posts).map {|rec| [rec.id.to_s, rec] }]
+    @posts = Hash[current_user.available_posts.where(:id => raw_posts).map {|rec| [rec.id.to_s, rec] }]
     @years = Observation.years(extended_params)
   end
 end

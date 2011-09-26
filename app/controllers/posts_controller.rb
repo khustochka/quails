@@ -10,7 +10,7 @@ class PostsController < ApplicationController
 
   # GET /
   def index
-    @posts = SessionAwarePost().order('face_date DESC').limit(POSTS_ON_FRONT_PAGE + 1).all
+    @posts = current_user.available_posts.order('face_date DESC').limit(POSTS_ON_FRONT_PAGE + 1).all
     if @posts.size > POSTS_ON_FRONT_PAGE
       post_1 = @posts[0].to_month_url
       post_last = @posts[-1].to_month_url
@@ -18,10 +18,10 @@ class PostsController < ApplicationController
         @prev_month = post_last
         @posts.pop
       else
-        @posts.concat SessionAwarePost().order('face_date DESC').where(
+        @posts.concat current_user.available_posts.order('face_date DESC').where(
             'EXTRACT(year from face_date) = ? AND EXTRACT(month from face_date) = ?', post_last[:year], post_last[:month]
         ).offset(POSTS_ON_FRONT_PAGE + 1)
-        @prev_month = SessionAwarePost().prev_month(post_last[:year], post_last[:month])
+        @prev_month = current_user.available_posts.prev_month(post_last[:year], post_last[:month])
       end
     end
     respond_to do |format|
@@ -31,16 +31,16 @@ class PostsController < ApplicationController
   end
 
   def month
-    @posts      = SessionAwarePost().month(@year = params[:year], @month = params[:month])
-    @prev_month = SessionAwarePost().prev_month(@year, @month)
-    @next_month = SessionAwarePost().next_month(@year, @month)
+    @posts      = current_user.available_posts.month(@year = params[:year], @month = params[:month])
+    @prev_month = current_user.available_posts.prev_month(@year, @month)
+    @next_month = current_user.available_posts.next_month(@year, @month)
   end
 
   def year
-    @posts  = SessionAwarePost().year(@year = params[:year])
+    @posts  = current_user.available_posts.year(@year = params[:year])
     # TODO: there is problem with timezone
     @months = @posts.group_by(&:month)
-    @years  = SessionAwarePost().years
+    @years  = current_user.available_posts.years
   end
 
   # GET /posts/1
@@ -90,7 +90,7 @@ class PostsController < ApplicationController
   private
 
   def find_post
-    @post = SessionAwarePost().find_by_code!(params[:id])
+    @post = current_user.available_posts.find_by_code!(params[:id])
   end
 
 end
