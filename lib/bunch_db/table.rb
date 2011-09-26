@@ -20,12 +20,6 @@ module BunchDB
       end
     end
 
-    def reset_pk_sequence!
-      if ActiveRecord::Base.connection.respond_to?(:reset_pk_sequence!)
-        ActiveRecord::Base.connection.reset_pk_sequence!(@table_name)
-      end
-    end
-
     def dump(io)
       column_names = table_column_names
 
@@ -37,6 +31,12 @@ module BunchDB
 
       io.write("\n")
       io.write({ @table_name => { 'columns' => column_names, 'records' => records } }.to_yaml)
+    end
+
+    def reset_pk_sequence!
+      if ActiveRecord::Base.connection.respond_to?(:reset_pk_sequence!)
+        ActiveRecord::Base.connection.reset_pk_sequence!(@table_name)
+      end
     end
 
     private

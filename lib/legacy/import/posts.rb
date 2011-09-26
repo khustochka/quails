@@ -1,24 +1,30 @@
 # encoding: utf-8
 
+require 'bunch_db/table'
+
 module Legacy
   module Import
     class Posts
 
       def self.import_posts(posts)
         puts 'Importing blog posts...'
-        posts.each do |post|
-          Post.create!({
-                           :code => post[:post_id],
-                           :title => post[:post_title].gsub(' - ', '&nbsp;— '),
-                           :text => post[:post_text].gsub(' - ', '&nbsp;— '),
-                           :topic => post[:post_type],
-                           :status => post[:post_status],
-                           :lj_post_id => post[:lj_post_id].to_i.zero? ? nil :  post[:lj_post_id],
-                           :lj_url_id => post[:lj_url_id].to_i.zero? ? nil : post[:lj_url_id],
-                           :face_date => post[:post_date],
-                           :updated_at => post[:post_update]
-                       })
+        table = BunchDB::Table.new('posts')
+        column_names = Post.column_names.reject {|e| e == 'id' }
+        records = posts.map do |post|
+          rec = HashWithIndifferentAccess.new(
+              :code => post[:post_id],
+              :title => post[:post_title].gsub(' - ', '&nbsp;— '),
+              :text => post[:post_text].gsub(' - ', '&nbsp;— '),
+              :topic => post[:post_type],
+              :status => post[:post_status],
+              :lj_post_id => post[:lj_post_id].to_i.zero? ? nil : post[:lj_post_id],
+              :lj_url_id => post[:lj_url_id].to_i.zero? ? nil : post[:lj_url_id],
+              :face_date => post[:post_date],
+              :updated_at => post[:post_update]
+          )
+          column_names.map {|c| rec[c]}
         end
+        table.fill(column_names, records)
         puts 'Done.'
       end
 
