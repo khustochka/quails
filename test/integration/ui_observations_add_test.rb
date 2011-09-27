@@ -1,5 +1,5 @@
 require 'test_helper'
-require 'test/capybara_helper'
+require 'capybara_helper'
 
 class UIObservationsAddTest < ActionDispatch::IntegrationTest
 
