@@ -5,3 +5,11 @@ Rake::TestTask.new('test:flickr') do |t|
   t.pattern = 'test/flickr/**/*_test.rb'
 end
 Rake::Task['test:flickr'].comment = "Test flickr functionality"
+
+
+
+
+namespace :test do
+  desc 'Run only unit and functional tests'
+  task :fast => [:units, :functionals]
+end
