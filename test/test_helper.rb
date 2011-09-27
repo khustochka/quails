@@ -16,6 +16,14 @@ class ActiveSupport::TestCase
         ActionController::HttpAuthentication::Basic.encode_credentials(TEST_CREDENTIALS.username, TEST_CREDENTIALS.password_plain)
   end
 
+  @@seed = HashWithIndifferentAccess.new do |hash, code|
+      hash[code] = Locus.find_by_code(code) || Species.find_by_code!(code)
+  end
+
+  def seed(key)
+    @@seed[key]
+  end
+
   def self.test(name, &block)
     test_name = "test: #{name}. ".to_sym
     defined = instance_method(test_name) rescue false

@@ -41,7 +41,7 @@ class LociControllerTest < ActionController::TestCase
   end
 
   test "update locus" do
-    locus         = Locus.find_by_code!('krym')
+    locus         = seed(:krym)
     locus.name_ru = 'Крымъ'
     login_as_admin
     put :update, :id => locus.to_param, :locus => locus.attributes
@@ -86,7 +86,7 @@ class LociControllerTest < ActionController::TestCase
   end
 
   test 'protect update with HTTP authentication' do
-    locus = Locus.find_by_code!('krym')
+    locus = seed(:krym)
     put :update, :id => locus.to_param, :locus => locus.attributes
     assert_response 401
   end

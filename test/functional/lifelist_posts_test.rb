@@ -5,11 +5,11 @@ class LifelistPostsTest < ActionController::TestCase
 
   setup do
     @obs = [
-        FactoryGirl.create(:observation, :species => Species.find_by_code!('pasdom'), :observ_date => "2010-06-20", :locus => Locus.find_by_code!('new_york')),
-        FactoryGirl.create(:observation, :species => Species.find_by_code!('melgal'), :observ_date => "2010-06-18"),
-        FactoryGirl.create(:observation, :species => Species.find_by_code!('anapla'), :observ_date => "2009-06-18"),
-        FactoryGirl.create(:observation, :species => Species.find_by_code!('anacly'), :observ_date => "2007-07-18", :locus => Locus.find_by_code!('brovary')),
-        FactoryGirl.create(:observation, :species => Species.find_by_code!('embcit'), :observ_date => "2009-08-09", :locus => Locus.find_by_code!('kherson'))
+        FactoryGirl.create(:observation, :species => seed(:pasdom), :observ_date => "2010-06-20", :locus => seed(:new_york)),
+        FactoryGirl.create(:observation, :species => seed(:melgal), :observ_date => "2010-06-18"),
+        FactoryGirl.create(:observation, :species => seed(:anapla), :observ_date => "2009-06-18"),
+        FactoryGirl.create(:observation, :species => seed(:anacly), :observ_date => "2007-07-18", :locus => seed(:brovary)),
+        FactoryGirl.create(:observation, :species => seed(:embcit), :observ_date => "2009-08-09", :locus => seed(:kherson))
     ]
   end
 

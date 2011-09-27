@@ -18,32 +18,32 @@ class WikiFilterTest < ActionDispatch::IntegrationTest
   # Species
 
   test 'properly parse species by code [Quails|cotnix]' do
-    assert_equal species_link(Species.find_by_code('cotnix'), 'Quail'),
+    assert_equal species_link(seed(:cotnix), 'Quail'),
                  transform('[Quail|cotnix]')
   end
 
   test 'properly parse species by bare code [cotnix]' do
-    assert_equal species_link(Species.find_by_code('cotnix'), 'Common Quail'),
+    assert_equal species_link(seed(:cotnix), 'Common Quail'),
                  transform('[cotnix]')
   end
 
   test 'properly parse species by scientific name [Quails|Coturnix coturnix]' do
-    assert_equal species_link(Species.find_by_code('cotnix'), 'Quail'),
+    assert_equal species_link(seed(:cotnix), 'Quail'),
                  transform('[Quail|Coturnix coturnix]')
   end
 
   test 'properly parse species by bare scientific name [Coturnix coturnix]' do
-    assert_equal species_link(Species.find_by_code('cotnix'), 'Coturnix coturnix'),
+    assert_equal species_link(seed(:cotnix), 'Coturnix coturnix'),
                  transform('[Coturnix coturnix]')
   end
 
   test 'properly parse species name with undescore [Quails|Coturnix_coturnix]' do
-    assert_equal species_link(Species.find_by_code('cotnix'), 'Quail'),
+    assert_equal species_link(seed(:cotnix), 'Quail'),
                  transform('[Quail|Coturnix coturnix]')
   end
 
   test 'properly parse species in the string' do
-    assert_equal "Those were #{species_link(Species.find_by_code('cotnix'), 'quails')}!",
+    assert_equal "Those were #{species_link(seed(:cotnix), 'quails')}!",
                  transform('Those were [quails|cotnix]!')
   end
 
@@ -82,21 +82,21 @@ class WikiFilterTest < ActionDispatch::IntegrationTest
   # Combined
 
   test 'properly parse two species' do
-    assert_equal "#{species_link(Species.find_by_code('parmaj'), 'Great')} and #{species_link(Species.find_by_code('parcae'), 'Blue Tits')}",
+    assert_equal "#{species_link(seed(:parmaj), 'Great')} and #{species_link(seed(:parcae), 'Blue Tits')}",
                  transform('[Great|parmaj] and [Blue Tits|parcae]')
   end
 
   # Nested
 
   test 'properly parse nested square brackets' do
-    assert_equal species_link(Species.find_by_code('parmaj'), '[some bird]'),
+    assert_equal species_link(seed(:parmaj), '[some bird]'),
                  transform('[[some bird]|parmaj]')
   end
 
   # Erroneous
 
 #  test 'properly parse non closed tag' do
-#    assert_equal "[Great|parmaj or  #{species_link(Species.find_by_code('parcae'), 'Blue Tit')}",
+#    assert_equal "[Great|parmaj or  #{species_link(seed(:parcae), 'Blue Tit')}",
 #                 transform('[Great|parmaj or [Blue Tit|parcae]')
 #  end
 

@@ -6,7 +6,7 @@ class BulkObservationsTest < ActionController::TestCase
   test 'successful Observations/bulksave' do
     login_as_admin
     assert_difference('Observation.count', 3) do
-      post :bulksave, {:c => {:locus_id => Locus.find_by_code('brovary').id,
+      post :bulksave, {:c => {:locus_id => seed(:brovary).id,
                               :observ_date => '2010-05-05', :mine => true},
                        :o => [{:species_id => 2},
                               {:species_id => 4},
@@ -21,7 +21,7 @@ class BulkObservationsTest < ActionController::TestCase
 
   test 'Observations/bulksave should return proper ids' do
     login_as_admin
-    post :bulksave, {:c => {:locus_id => Locus.find_by_code('brovary').id,
+    post :bulksave, {:c => {:locus_id => seed(:brovary).id,
                             :observ_date => '2010-05-05', :mine => true},
                      :o => [{:species_id => 2},
                             {:species_id => 4},
@@ -58,7 +58,7 @@ class BulkObservationsTest < ActionController::TestCase
   test 'Observations/bulksave should return error if no observations provided' do
     login_as_admin
     assert_difference('Observation.count', 0) do
-      post :bulksave, {:c => {:locus_id => Locus.find_by_code('brovary').id,
+      post :bulksave, {:c => {:locus_id => seed(:brovary).id,
                               :observ_date => '2010-05-05', :mine => true}
       }
     end
@@ -88,7 +88,7 @@ class BulkObservationsTest < ActionController::TestCase
   test 'Observations/bulksave should return error for incorrect observation parameter (species_id)' do
     login_as_admin
     assert_difference('Observation.count', 0) do
-      post :bulksave, {:c => {:locus_id => Locus.find_by_code('brovary').id,
+      post :bulksave, {:c => {:locus_id => seed(:brovary).id,
                               :observ_date => '2010-05-05', :mine => true},
                        :o => [{:species_id => ''}]
       }
@@ -104,7 +104,7 @@ class BulkObservationsTest < ActionController::TestCase
     obs = FactoryGirl.create(:observation, :species_id => 2)
     login_as_admin
     assert_difference('Observation.count', 1) do
-      post :bulksave, {:c => {:locus_id => Locus.find_by_code('brovary').id,
+      post :bulksave, {:c => {:locus_id => seed(:brovary).id,
                               :observ_date => '2010-05-05', :mine => true},
                        :o => [{:id => obs.id, :species_id => 4},
                               {:species_id => 6}]

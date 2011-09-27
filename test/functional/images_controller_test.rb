@@ -35,8 +35,8 @@ class ImagesControllerTest < ActionController::TestCase
 
   test "create image with several observations" do
     login_as_admin
-    obs2 = FactoryGirl.create(:observation, :species => Species.find_by_code('lancol'))
-    obs3 = FactoryGirl.create(:observation, :species => Species.find_by_code('jyntor'))
+    obs2 = FactoryGirl.create(:observation, :species => seed(:lancol))
+    obs3 = FactoryGirl.create(:observation, :species => seed(:jyntor))
     new_attr = @image.attributes.dup
     new_attr[:observation_ids] = [@obs.id, obs2.id, obs3.id]
     new_attr['code'] = 'new_img_code'
