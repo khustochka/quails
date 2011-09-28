@@ -4,6 +4,6 @@
     - @years.each do |year|
       %li
         - if year.nil?
-          = params[:year].nil? ? 'All' : link_to('All', params.merge(:year => nil))
+          = params[:year].nil? ? 'All' : link_to('All', significant_params.merge(:year => nil))
         - else
-          = link_to_unless_current(year, params.merge(:year => year))
+          = link_to_unless_current(year, significant_params.merge(:year => year))

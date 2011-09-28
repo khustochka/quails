@@ -111,6 +111,7 @@ class LifelistControllerTest < ActionController::TestCase
       assert_select "a[href=#{lifelist_path(:year => 2009)}]"
       assert_select "a[href=#{url_for(:action => :by_taxonomy, :year => 2009, :only_path => true)}]"
       assert_select "a[href=#{url_for(:action => :by_count, :year => 2009, :only_path => true)}]", false
+      assert_select "a[href=#{url_for(:action => :by_count, :year => 2010, :only_path => true)}]"
     end
   end
 

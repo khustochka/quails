@@ -1,6 +1,6 @@
 %ul.horiz-list
   - if ['edit', 'update'].include?(action_name) && controller.respond_to?(:show)
-    %li= link_to 'Show this one', path_parameters.merge({:action => :show}).merge(@extra_params || {})
+    %li= link_to 'Show this one', significant_params.merge({:action => :show}).merge(@extra_params || {})
   - elsif action_name == 'show' && controller.respond_to?(:edit)
     %li= link_to 'Edit this one', ({:controller => controller_name, :action => :edit, :id => params[:id]})
   - if controller.respond_to?(:new)

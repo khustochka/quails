@@ -24,10 +24,15 @@ class ApplicationController < ActionController::Base
 #    super(options, new_status)
 #  end
 
-  def path_parameters
-    request.symbolized_path_parameters
+  def significant_params
+    if @allowed_params
+      params.slice(*@allowed_params)
+    else
+      params
+    end
   end
-  helper_method :path_parameters
+
+  helper_method :significant_params
 
   private
   def current_user
