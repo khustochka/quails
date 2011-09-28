@@ -19,3 +19,5 @@
             = species_link(sp)
             = name_sci(sp)
           %time= l(Date.parse(sp.aggregated_value), :format => :long)
+          - if @posts[sp.id]
+            = post_link('>>', @posts[sp.id])

@@ -32,18 +32,25 @@ class Post < ActiveRecord::Base
 
   def self.prev_month(year, month)
     date = Time.parse("#{year}-#{month}-01")
-    rec  = select('face_date').where('face_date < ?', date).order('face_date DESC').limit(1).first
+    rec = select('face_date').where('face_date < ?', date).order('face_date DESC').limit(1).first
     rec.try(:to_month_url)
   end
 
   def self.next_month(year, month)
     date = Time.parse("#{year}-#{month}-01").end_of_month
-    rec  = select('face_date').where('face_date > ?', date).order('face_date ASC').limit(1).first
+    rec = select('face_date').where('face_date > ?', date).order('face_date ASC').limit(1).first
     rec.try(:to_month_url)
   end
 
   def self.years
     select('DISTINCT EXTRACT(year from face_date) AS year').order(:year).map { |p| p[:year] }
+  end
+
+  def self.for_lifers
+    Hash[
+        select('posts.*, observations.species_id').joins(:observations).
+            group_by { |p| p.species_id.to_i }.map { |id, arr| [id, arr[0]] }
+    ]
   end
 
   # Instance methods

@@ -7,6 +7,7 @@ class LifelistController < ApplicationController
 
   def default
     @species = Species.lifelist(:year => params[:year]).all
+    @posts = current_user.available_posts.for_lifers
   end
 
   def by_count

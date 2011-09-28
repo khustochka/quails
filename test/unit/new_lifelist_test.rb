@@ -92,4 +92,10 @@ class NewLifelistTest < ActiveSupport::TestCase
     Species.lifelist(:year => 2009).all.map { |s| [s.code, s.aggregated_value] }.should ==
         [["colliv", "2009-10-18"], ["pasdom", "2009-01-01"], ["parmaj", "2009-01-01"]]
   end
+
+  test 'Proper posts are associated with lifers' do
+    @obs[2].post = FactoryGirl.create(:post) # must be attached to the same species but not the first observation
+    @obs[2].save!
+    Post.for_lifers[seed(:colliv).id].should be_nil
+  end
 end
