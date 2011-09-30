@@ -26,7 +26,7 @@ module Legacy
               :quantity => ob[:quantity],
               :place => ob[:place],
               :notes => ob[:notes],
-              :post_id => ob[:post_id].blank? ? nil : Legacy::Mapping.posts[ob[:post_id]],
+              :post_id => (Legacy::Mapping.posts[ob[:post_id]] unless ob[:post_id].blank?),
               :mine => ob[:mine]
           )
           column_names.map { |c| rec[c] }

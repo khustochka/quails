@@ -16,7 +16,7 @@ module SecurityController
 
   private
   def admin_session?
-    return @is_admin unless @is_admin.nil?
+    return @is_admin unless @is_admin.nil? # true or false
     @is_admin = CredentialsVerifier.check_cookie(self)
   end
 end
