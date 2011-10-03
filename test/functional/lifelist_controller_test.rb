@@ -5,9 +5,9 @@ class LifelistControllerTest < ActionController::TestCase
   setup do
     @obs = [
         FactoryGirl.create(:observation, :species => seed(:pasdom), :observ_date => "2010-06-20", :locus => seed(:new_york)),
-        FactoryGirl.create(:observation, :species => seed(:melgal), :observ_date => "2010-06-18"),
-        FactoryGirl.create(:observation, :species => seed(:anapla), :observ_date => "2009-06-18"),
-        FactoryGirl.create(:observation, :species => seed(:anacly), :observ_date => "2007-07-18", :locus => seed(:brovary)),
+        FactoryGirl.create(:observation, :species => seed(:melgal), :observ_date => "2010-06-18", :locus => seed(:new_york)),
+        FactoryGirl.create(:observation, :species => seed(:anapla), :observ_date => "2009-06-18", :locus => seed(:new_york)),
+        FactoryGirl.create(:observation, :species => seed(:anacly), :observ_date => "2007-07-18"),
         FactoryGirl.create(:observation, :species => seed(:embcit), :observ_date => "2009-08-09", :locus => seed(:kherson))
     ]
   end
@@ -86,23 +86,27 @@ class LifelistControllerTest < ActionController::TestCase
     end
   end
 
-  #test "show location list" do
-  #  get :lifelist, :locus => 'new_york'
-  #  assert_response :success
-  #  assert_select 'a.sp_link'
-  #end
-  #
-  #test "show lifelist filtered by year and location" do
-  #  get :lifelist, :locus => 'brovary', :year => 2007
-  #  assert_response :success
-  #  assert_select 'a.sp_link'
-  #end
-  #
-  #test "show lifelist filtered by year and super location" do
-  #  get :lifelist, :locus => 'ukraine', :year => 2009
-  #  assert_response :success
-  #  assert_select 'a.sp_link'
-  #end
+  test "show location list" do
+    get :default, :locus => 'new_york'
+    assert_response :success
+    assert_select "li.lifer_row", 3
+  end
+
+  test "show lifelist filtered by year and location" do
+    get :default, :locus => 'new_york', :year => 2009
+    assert_response :success
+    assert_select "li.lifer_row", 1
+  end
+
+  test "show lifelist filtered by super location" do
+    get :default, :locus => 'ukraine'
+    assert_select "li.lifer_row", 2
+  end
+
+  test "not allowed locus should fail" do
+    get :default, :locus => 'sumy_obl'
+    assert_response :not_found
+  end
 
   test "lifelist links filter out invalid parameters" do
     get :by_count, :year => 2009, :zzz => 'ooo'
