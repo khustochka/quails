@@ -13,10 +13,19 @@ class LifelistPostsTest < ActionController::TestCase
     ]
   end
 
-  test 'show post link if post is associated' do
+  test 'show post link on default lifelist if post is associated' do
     @obs[1].post = FactoryGirl.create(:post)
     @obs[1].save!
     get :default
+    assert_response :success
+    assert_select "a[href=#{public_post_path(@obs[1].post)}]"
+#    assert_select "a[href=#{public_post_path(@obs[1].post)}]", I18n::l(@obs[1].observ_date, :format => :long) , 'Invalid text'
+  end
+
+  test 'show post link on lifelist ordered by taxonomy if post is associated' do
+    @obs[1].post = FactoryGirl.create(:post)
+    @obs[1].save!
+    get :by_taxonomy
     assert_response :success
     assert_select "a[href=#{public_post_path(@obs[1].post)}]"
 #    assert_select "a[href=#{public_post_path(@obs[1].post)}]", I18n::l(@obs[1].observ_date, :format => :long) , 'Invalid text'

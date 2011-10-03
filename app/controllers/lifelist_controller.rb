@@ -16,5 +16,6 @@ class LifelistController < ApplicationController
 
   def by_taxonomy
     @species = Species.lifelist(:sort => 'class', :year => params[:year]).all
+    @posts = current_user.available_posts.for_lifers(:year => params[:year])
   end
 end
