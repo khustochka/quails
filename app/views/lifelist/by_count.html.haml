@@ -4,12 +4,12 @@
 
 = render 'partials/years'
 
-- if @species.blank?
+- if @lifers.blank?
   %p No species
 - else
   = render 'sorter'
   %ol
-    - @species.each do |sp|
+    - @lifers.each do |sp|
       %li.lifer_row
         %span
           = species_link(sp)

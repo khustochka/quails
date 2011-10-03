@@ -6,16 +6,14 @@ class LifelistController < ApplicationController
   end
 
   def default
-    @species = Species.lifelist(:year => params[:year]).all
-    @posts = current_user.available_posts.for_lifers(:year => params[:year])
+    @lifers = Lifelist.generate(:year => params[:year])
   end
 
   def by_count
-    @species = Species.lifelist(:sort => 'count', :year => params[:year]).all
+    @lifers = Lifelist.generate(:sort => 'count', :year => params[:year])
   end
 
   def by_taxonomy
-    @species = Species.lifelist(:sort => 'class', :year => params[:year]).all
-    @posts = current_user.available_posts.for_lifers(:year => params[:year])
+    @lifers = Lifelist.generate(:sort => 'class', :year => params[:year])
   end
 end

@@ -45,25 +45,6 @@ class Species < ActiveRecord::Base
         all.group_by(&:main_species).map { |_, v| v.first }
   end
 
-  SORT_COLUMNS = {
-      nil => 'aggregated_value DESC, index_num DESC',
-      'count' => 'aggregated_value DESC, index_num DESC',
-      'class' => 'index_num ASC'
-  }
-
-  def self.lifelist(*args)
-    options = args.extract_options!
-    #TODO: implement correct processing of incorrect query parameters
-    raise 'Incorrect option' unless sort_columns = SORT_COLUMNS[options[:sort]]
-    select('species.*, aggregated_value').
-        joins(
-        "INNER JOIN (%s) AS obs ON species.id=obs.species_id" %
-            Observation.lifers_aggregation(options).to_sql
-    ).
-        reorder(sort_columns)
-
-  end
-
   # Associations
 
   def images

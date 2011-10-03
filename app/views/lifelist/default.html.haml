@@ -4,12 +4,12 @@
 
 = render 'partials/years'
 
-- if @species.blank?
+- if @lifers.blank?
   %p No species
 - else
   = render 'sorter'
-  - i = @species.size + 1
-  - @species.group_by {|s| Date.parse(s.aggregated_value).year}.each do |year, species_list|
+  - i = @lifers.size + 1
+  - @lifers.group_by {|s| Date.parse(s.aggregated_value).year}.each do |year, species_list|
     - if params[:year].blank?
       %h5= "First seen in %d" % year
     %ol
@@ -19,4 +19,5 @@
             = species_link(sp)
             = name_sci(sp)
           %time= l(Date.parse(sp.aggregated_value), :format => :long)
-          = post_link('>>', @posts[sp.id])
+          -# TODO: there must be sp.post
+          = post_link('>>', sp.attributes[:post])
