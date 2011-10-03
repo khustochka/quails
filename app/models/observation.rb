@@ -18,14 +18,6 @@ class Observation < ActiveRecord::Base
 
   scope :identified, where('observations.species_id != 0')
 
-  def self.years(*args)
-    options = args.extract_options!
-    rel = mine.identified.select('DISTINCT EXTRACT(year from observ_date) AS year').order(:year)
-    rel = rel.where('EXTRACT(month from observ_date) = ?', options[:month]) unless options[:month].blank?
-    rel = rel.where('locus_id' => options[:loc_ids]) unless options[:locus].blank?
-    [nil] + rel.map { |ob| ob[:year] }
-  end
-
   def self.old_lifers_dates(*args)
     options = args.extract_options!
     rel = mine.identified.select(

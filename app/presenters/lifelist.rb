@@ -36,6 +36,14 @@ class Lifelist
       'count' => 'COUNT(id)'
   }
 
+  # Given observations filtered by month, locus returns array of years within these observations happened
+  def observation_years
+    rel = Observation.mine.identified.select('DISTINCT EXTRACT(year from observ_date) AS year').order(:year)
+    rel = rel.where('EXTRACT(month from observ_date) = ?', @options[:month]) unless @options[:month].blank?
+    rel = rel.where('locus_id' => @options[:loc_ids]) unless @options[:locus].blank?
+    [nil] + rel.map { |ob| ob[:year] }
+  end
+
   private
   def lifers_sql
     @lifers_sql ||= lifers_aggregation.to_sql

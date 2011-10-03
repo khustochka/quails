@@ -2,18 +2,23 @@ class LifelistController < ApplicationController
 
   before_filter do
     @allowed_params = [:controller, :action, :year]
-    @years = Observation.years
   end
 
   def default
-    @lifers = Lifelist.new(:user => current_user, :options => params).generate
+    lifelist = Lifelist.new(:user => current_user, :options => params)
+    @lifers = lifelist.generate
+    @years = lifelist.observation_years
   end
 
   def by_count
-    @lifers = Lifelist.new(:user => current_user, :options => params.merge(:sort => 'count')).generate
+    lifelist = Lifelist.new(:user => current_user, :options => params.merge(:sort => 'count'))
+    @lifers = lifelist.generate
+    @years = lifelist.observation_years
   end
 
   def by_taxonomy
-    @lifers = Lifelist.new(:user => current_user, :options => params.merge(:sort => 'class')).generate
+    lifelist = Lifelist.new(:user => current_user, :options => params.merge(:sort => 'class'))
+    @lifers = lifelist.generate
+    @years = lifelist.observation_years
   end
 end
