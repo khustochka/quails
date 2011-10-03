@@ -93,9 +93,17 @@ class NewLifelistTest < ActiveSupport::TestCase
         [["colliv", "2009-10-18"], ["pasdom", "2009-01-01"], ["parmaj", "2009-01-01"]]
   end
 
-  test 'Proper posts are associated with lifers' do
-    @obs[2].post = FactoryGirl.create(:post) # must be attached to the same species but not the first observation
+  test 'Do not associate arbitrary post with lifer' do
+    @obs[2].post = FactoryGirl.create(:post, :code => 'feraldoves_again') # must be attached to the same species but not the first observation
     @obs[2].save!
     Post.for_lifers[seed(:colliv).id].should be_nil
+  end
+
+  test 'Do not associate post of the wrong year' do
+    @obs[0].post = FactoryGirl.create(:post, :code => 'feraldoves_2008')
+    @obs[0].save!
+    @obs[5].post = FactoryGirl.create(:post, :code => 'feraldoves_2009')
+    @obs[5].save!
+    Post.for_lifers(:year => 2009)[seed(:colliv).id].code.should == @obs[5].post.code
   end
 end

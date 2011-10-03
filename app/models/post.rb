@@ -46,12 +46,13 @@ class Post < ActiveRecord::Base
     select('DISTINCT EXTRACT(year from face_date) AS year').order(:year).map { |p| p[:year] }
   end
 
-  def self.for_lifers
+  def self.for_lifers(*args)
+    options = args.extract_options!
     Hash[
         select('posts.*, observations.species_id').joins(:observations).
             joins(
             "INNER JOIN (%s) AS lifers ON observations.species_id = lifers.species_id AND observations.observ_date = lifers.aggregated_value" %
-                Observation.lifers_aggregation(:sort => nil).to_sql
+                Observation.lifers_aggregation(options).to_sql
         ).
             group_by { |p| p.species_id.to_i }.map { |id, arr| [id, arr[0]] }
     ]
