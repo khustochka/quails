@@ -26,8 +26,10 @@ class RoutingTest < ActionDispatch::IntegrationTest
     assert_routing '/lifelist/2008', {:controller => 'lifelist', :action => 'default', :year => '2008'}
     assert_routing '/lifelist/2008/by_count', {:controller => 'lifelist', :action => 'by_count', :year => '2008'}
     assert_routing '/lifelist/2008/by_taxonomy', {:controller => 'lifelist', :action => 'by_taxonomy', :year => '2008'}
-    #assert_routing '/lifelist/2010/kiev', {:controller => 'lifelist', :action => 'lifelist', :year => '2010', :locus => 'kiev'}
-    #assert_routing '/lifelist/kherson_obl', {:controller => 'lifelist', :action => 'lifelist', :locus => 'kherson_obl'}
+    assert_routing '/lifelist/2010/kiev', {:controller => 'lifelist', :action => 'default', :year => '2010', :locus => 'kiev'}
+    assert_routing '/lifelist/kherson_obl', {:controller => 'lifelist', :action => 'default', :locus => 'kherson_obl'}
+    assert_routing '/lifelist/kherson_obl/by_count', {:controller => 'lifelist', :action => 'by_count', :locus => 'kherson_obl'}
+    assert_routing '/lifelist/2010/kiev/by_count', {:controller => 'lifelist', :action => 'by_count', :year => '2010', :locus => 'kiev'}
   end
 
   test 'route images correctly' do

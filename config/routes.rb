@@ -34,9 +34,9 @@ Quails3::Application.routes.draw do
     end
   end
 
-  constraints :year => /\d{4}/ do
-    get 'lifelist(/:year)' => 'lifelist#default', :as => :lifelist
-    get 'lifelist(/:year)/:action', :controller => :lifelist, :action => /by_(count|taxonomy)/
+  constraints :year => /\d{4}/, :locus => /([^b][^\/]*)|(b(?!y)[^\/]*)|(by(?!_)[^\/]*)/ do # locus not starting with by_
+    get 'lifelist(/:year)(/:locus)' => 'lifelist#default', :as => :lifelist
+    get 'lifelist(/:year)(/:locus)/:action', :controller => :lifelist, :action => /by_(count|taxonomy)/
   end
 
 #  scope '/(:locale)', :locale => /[a-z]{2}/ do
