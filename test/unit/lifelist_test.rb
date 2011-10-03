@@ -2,102 +2,108 @@ require 'test_helper'
 
 class LifelistTest < ActiveSupport::TestCase
 
-  test '(OLD) not miss species from lifelist if it was first seen not by me' do
-    FactoryGirl.create(:observation, :species => seed(:pasdom), :observ_date => "2008-06-20")
-    FactoryGirl.create(:observation, :species => seed(:melgal), :observ_date => "2009-06-18", :mine => false)
-    observ = FactoryGirl.create(:observation, :species => seed(:melgal), :observ_date => "2010-06-18")
-    got = Observation.old_lifers_observations.map { |ob| [ob.main_species.to_i, ob.first_date] }
-    expected = [observ.species_id, observ.observ_date.to_s]
-    got.should include(expected)
+  setup do
+    @obs = [
+        FactoryGirl.create(:observation, :species => seed(:colliv), :observ_date => "2008-05-22"),
+        FactoryGirl.create(:observation, :species => seed(:merser), :observ_date => "2008-10-18"),
+        FactoryGirl.create(:observation, :species => seed(:colliv), :observ_date => "2008-11-01"),
+        FactoryGirl.create(:observation, :species => seed(:parmaj), :observ_date => "2009-01-01"),
+        FactoryGirl.create(:observation, :species => seed(:pasdom), :observ_date => "2009-01-01"),
+        FactoryGirl.create(:observation, :species => seed(:colliv), :observ_date => "2009-10-18"),
+        FactoryGirl.create(:observation, :species => seed(:parmaj), :observ_date => "2009-11-01"),
+        FactoryGirl.create(:observation, :species => seed(:pasdom), :observ_date => "2009-12-01"),
+        FactoryGirl.create(:observation, :species => seed(:parmaj), :observ_date => "2009-12-31"),
+        FactoryGirl.create(:observation, :species => seed(:colliv), :observ_date => "2010-03-10"),
+        FactoryGirl.create(:observation, :species => seed(:pasdom), :observ_date => "2010-04-16"),
+        FactoryGirl.create(:observation, :species => seed(:colliv), :observ_date => "2010-07-27"),
+        FactoryGirl.create(:observation, :species => seed(:pasdom), :observ_date => "2010-09-10"),
+        FactoryGirl.create(:observation, :species => seed(:carlis), :observ_date => "2010-10-13")
+    ]
   end
 
-  #test '(NEW) not miss species from lifelist if it was first seen not by me' do
-  #  FactoryGirl.create(:observation, :species => seed(:pasdom), :observ_date => "2008-06-20")
-  #  FactoryGirl.create(:observation, :species => seed(:melgal), :observ_date => "2009-06-18", :mine => false)
-  #  observ   = FactoryGirl.create(:observation, :species => seed(:melgal), :observ_date => "2010-06-18")
-  #  got      = Observation.lifelist.map { |ob| [ob.species_id, ob.aggr_value] }
-  #  expected = [observ.species_id, observ.observ_date.to_s]
-  #  got.should include(expected)
-  #end
-
-  # Now we remove duplicates from the array, not in the query
-  #  test 'not duplicate species in lifelist if it was seen twice on its first date' do
-  #    FactoryGirl.create(:observation, :species => seed(:melgal), :observ_date => "2009-06-18", :locus => seed(:brovary))
-  #    FactoryGirl.create(:observation, :species => seed(:pasdom), :observ_date => "2009-06-18")
-  #    FactoryGirl.create(:observation, :species => seed(:melgal), :observ_date => "2009-06-18", :locus => seed(:kiev))
-  #    got = Observation.lifers_observations.all
-  #    assert_equal 2, got.size
-  #  end
-
-  test '(OLD) not place into lifelist an observation with lower id instead of an earlier date' do
-    FactoryGirl.create(:observation, :species => seed(:pasdom), :observ_date => "2010-06-20")
-    obs = FactoryGirl.create(:observation, :species => seed(:pasdom), :observ_date => "2010-06-18")
-    got = Observation.old_lifers_observations.all
-    assert_equal obs.observ_date.to_s, got.first.first_date
+  test 'Species lifelist by count return proper number of species' do
+    Species.lifelist(:sort => 'count').all.size.should == @obs.map(&:species_id).uniq.size
   end
 
-  #test '(NEW) not place into lifelist an observation with lower id instead of an earlier date' do
-  #  FactoryGirl.create(:observation, :species => seed(:pasdom), :observ_date => "2010-06-20")
-  #  obs = FactoryGirl.create(:observation, :species => seed(:pasdom), :observ_date => "2010-06-18")
-  #  got = Observation.lifelist
-  #  assert_equal obs.observ_date.to_s, got.first.aggr_value
-  #end
-
-  test '(OLD) order lifelist correctly' do
-    FactoryGirl.create(:observation, :species => seed(:pasdom), :observ_date => "2010-06-20")
-    FactoryGirl.create(:observation, :species => seed(:melgal), :observ_date => "2010-06-18")
-    FactoryGirl.create(:observation, :species => seed(:anapla), :observ_date => "2009-06-18")
-    FactoryGirl.create(:observation, :species => seed(:anacly), :observ_date => "2007-07-18")
-    FactoryGirl.create(:observation, :species => seed(:embcit), :observ_date => "2009-08-09")
-    got = Species.old_lifelist.map(&:first_date)
-    expected = got.sort.reverse
-    assert_equal expected, got
+  test 'Species lifelist by count should not include Avis incognita' do
+    FactoryGirl.create(:observation, :species_id => 0, :observ_date => "2010-06-18")
+    Species.lifelist(:sort => 'count').all.size.should == @obs.map(&:species_id).uniq.size
   end
 
-  #test '(NEW) order lifelist correctly' do
-  #  FactoryGirl.create(:observation, :species => seed(:pasdom), :observ_date => "2010-06-20")
-  #  FactoryGirl.create(:observation, :species => seed(:melgal), :observ_date => "2010-06-18")
-  #  FactoryGirl.create(:observation, :species => seed(:anapla), :observ_date => "2009-06-18")
-  #  FactoryGirl.create(:observation, :species => seed(:anacly), :observ_date => "2007-07-18")
-  #  FactoryGirl.create(:observation, :species => seed(:embcit), :observ_date => "2009-08-09")
-  #  got      = Observation.lifelist.map(&:aggr_value)
-  #  expected = got.sort.reverse
-  #  assert_equal expected, got
-  #end
-
-  test '(OLD) not duplicate species in lifelist if it was seen twice on its first date' do
-    FactoryGirl.create(:observation, :species => seed(:melgal), :observ_date => "2009-06-18", :locus => seed(:brovary))
-    FactoryGirl.create(:observation, :species => seed(:pasdom), :observ_date => "2009-06-18")
-    FactoryGirl.create(:observation, :species => seed(:melgal), :observ_date => "2009-06-18", :locus => seed(:kiev))
-    got2 = Species.old_lifelist
-    assert_equal 2, got2.size
+  test 'Species lifelist by count should not include species never seen by me' do
+    ob = FactoryGirl.create(:observation, :species => seed(:parcae), :observ_date => "2010-06-18", :mine => false)
+    Species.lifelist(:sort => 'count').all.map(&:id).should_not include(ob.species_id)
   end
 
-  #test '(NEW) not duplicate species in lifelist if it was seen twice on its first date' do
-  #  FactoryGirl.create(:observation, :species => seed(:melgal), :observ_date => "2009-06-18", :locus => seed(:brovary))
-  #  FactoryGirl.create(:observation, :species => seed(:pasdom), :observ_date => "2009-06-18")
-  #  FactoryGirl.create(:observation, :species => seed(:melgal), :observ_date => "2009-06-18", :locus => seed(:kiev))
-  #  got = Observation.lifelist
-  #  assert_equal 2, got.size
-  #end
-
-  test '(OLD) not miss species from lifelist if its first observation has no post' do
-    blogpost = FactoryGirl.create(:post)
-    FactoryGirl.create(:observation, :species => seed(:anapla), :observ_date => "2009-08-09", :post => blogpost)
-    observ = FactoryGirl.create(:observation, :species => seed(:anacly), :observ_date => "2007-07-18")
-    FactoryGirl.create(:observation, :species => seed(:anacly), :observ_date => "2009-08-09", :post => blogpost)
-    got = Species.old_lifelist.map { |sp| [sp.main_species.to_i, sp.first_date] }
-    expected = [observ.species_id, observ.observ_date]
-    got.should include(expected)
+  test 'Species lifelist by count properly sorts the list' do
+    Species.lifelist(:sort => 'count').all.map { |s| [s.code, s.aggregated_value.to_i] }.should ==
+        [["colliv", 5], ["pasdom", 4], ["parmaj", 3], ["carlis", 1], ["merser", 1]]
   end
 
-  #test '(NEW) not miss species from lifelist if its first observation has no post' do
-  #  blogpost = FactoryGirl.create(:post)
-  #  FactoryGirl.create(:observation, :species => seed(:anapla), :observ_date => "2009-08-09", :post => blogpost)
-  #  observ = FactoryGirl.create(:observation, :species => seed(:anacly), :observ_date => "2007-07-18")
-  #  FactoryGirl.create(:observation, :species => seed(:anacly), :observ_date => "2009-08-09", :post => blogpost)
-  #  got      = Observation.lifelist.map { |sp| [sp.species_id, sp.aggr_value] }
-  #  expected = [observ.species_id, observ.observ_date.to_s]
-  #  got.should include(expected)
-  #end
+  test 'Species lifelist by taxonomy return proper number of species' do
+    Species.lifelist(:sort => 'class').all.size.should == @obs.map(&:species_id).uniq.size
+  end
+
+  test 'Species lifelist by taxonomy should not include Avis incognita' do
+    FactoryGirl.create(:observation, :species_id => 0, :observ_date => "2010-06-18")
+    Species.lifelist(:sort => 'class').all.size.should == @obs.map(&:species_id).uniq.size
+  end
+
+  test 'Species lifelist by taxonomy should not include species never seen by me' do
+    ob = FactoryGirl.create(:observation, :species => seed(:parcae), :observ_date => "2010-06-18", :mine => false)
+    Species.lifelist(:sort => 'class').all.map(&:id).should_not include(ob.species_id)
+  end
+
+  test 'Species lifelist by taxonomy properly sorts the list' do
+    Species.lifelist(:sort => 'class').all.map { |s| [s.code, s.aggregated_value] }.should ==
+        [["merser", "2008-10-18"], ["colliv", "2008-05-22"], ["parmaj", "2009-01-01"], ["carlis", "2010-10-13"], ["pasdom", "2009-01-01"]]
+  end
+
+  test 'Species lifelist by date return proper number of species' do
+    Species.lifelist.all.size.should == @obs.map(&:species_id).uniq.size
+  end
+
+  test 'Species lifelist by date should not include Avis incognita' do
+    FactoryGirl.create(:observation, :species_id => 0, :observ_date => "2010-06-18")
+    Species.lifelist.all.size.should == @obs.map(&:species_id).uniq.size
+  end
+
+  test 'Species lifelist by date should not include species never seen by me' do
+    ob = FactoryGirl.create(:observation, :species => seed(:parcae), :observ_date => "2010-06-18", :mine => false)
+    Species.lifelist.all.map(&:id).should_not include(ob.species_id)
+  end
+
+  test 'Species lifelist by date properly sorts the list' do
+    Species.lifelist.all.map { |s| [s.code, s.aggregated_value] }.should ==
+        [["carlis", "2010-10-13"], ["pasdom", "2009-01-01"], ["parmaj", "2009-01-01"], ["merser", "2008-10-18"], ["colliv", "2008-05-22"]]
+  end
+
+  test 'Year list by count properly sorts the list' do
+    Species.lifelist(:sort => 'count', :year => 2009).all.map { |s| [s.code, s.aggregated_value.to_i] }.should ==
+        [["parmaj", 3], ["pasdom", 2], ["colliv", 1]]
+  end
+
+  test 'Year list by taxonomy properly sorts the list' do
+    Species.lifelist(:sort => 'class', :year => 2009).all.map { |s| [s.code, s.aggregated_value] }.should ==
+        [["colliv", "2009-10-18"], ["parmaj", "2009-01-01"], ["pasdom", "2009-01-01"]]
+  end
+
+  test 'Year list by date properly sorts the list' do
+    Species.lifelist(:year => 2009).all.map { |s| [s.code, s.aggregated_value] }.should ==
+        [["colliv", "2009-10-18"], ["pasdom", "2009-01-01"], ["parmaj", "2009-01-01"]]
+  end
+
+  test 'Do not associate arbitrary post with lifer' do
+    @obs[2].post = FactoryGirl.create(:post, :code => 'feraldoves_again') # must be attached to the same species but not the first observation
+    @obs[2].save!
+    Post.for_lifers[seed(:colliv).id].should be_nil
+  end
+
+  test 'Do not associate post of the wrong year' do
+    @obs[0].post = FactoryGirl.create(:post, :code => 'feraldoves_2008')
+    @obs[0].save!
+    @obs[5].post = FactoryGirl.create(:post, :code => 'feraldoves_2009')
+    @obs[5].save!
+    Post.for_lifers(:year => 2009)[seed(:colliv).id].code.should == @obs[5].post.code
+  end
 end
