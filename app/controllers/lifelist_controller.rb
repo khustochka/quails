@@ -6,14 +6,14 @@ class LifelistController < ApplicationController
   end
 
   def default
-    @lifers = Lifelist.generate(:year => params[:year])
+    @lifers = Lifelist.new(:user => current_user, :options => params).generate
   end
 
   def by_count
-    @lifers = Lifelist.generate(:sort => 'count', :year => params[:year])
+    @lifers = Lifelist.new(:user => current_user, :options => params.merge(:sort => 'count')).generate
   end
 
   def by_taxonomy
-    @lifers = Lifelist.generate(:sort => 'class', :year => params[:year])
+    @lifers = Lifelist.new(:user => current_user, :options => params.merge(:sort => 'class')).generate
   end
 end
