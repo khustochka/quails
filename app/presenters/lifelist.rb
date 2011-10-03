@@ -23,8 +23,8 @@ class Lifelist
     unless @options[:sort] == 'count'
       posts_arr = posts
       result.each do |sp|
-        # TODO: there must be sp.post=
-        sp.attributes[:post] = posts_arr[sp.id]
+        sp.extend Lifer
+        sp.post = posts_arr[sp.id]
       end
     end
     result

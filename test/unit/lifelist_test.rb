@@ -99,7 +99,7 @@ class LifelistTest < ActiveSupport::TestCase
     @obs[2].save!
     lifelist = Lifelist.new({:user => @user, :options => {}})
     lifelist.send(:posts)[seed(:colliv).id].should be_nil
-    lifelist.generate.select {|sp| sp.code == 'colliv'}[0].attributes[:post].should be_nil
+    lifelist.generate.select {|sp| sp.code == 'colliv'}[0].post.should be_nil
   end
 
   test 'Do not associate post of the wrong year' do
@@ -109,6 +109,6 @@ class LifelistTest < ActiveSupport::TestCase
     @obs[5].save!
     lifelist = Lifelist.new({:user => @user, :options => {:year => 2009}})
     lifelist.send(:posts)[seed(:colliv).id].code.should == @obs[5].post.code
-    lifelist.generate.select {|sp| sp.code == 'colliv'}[0].attributes[:post].code.should  == @obs[5].post.code
+    lifelist.generate.select {|sp| sp.code == 'colliv'}[0].post.code.should  == @obs[5].post.code
   end
 end
