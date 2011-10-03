@@ -1,6 +1,7 @@
 source :rubygems
 
 gem 'rails', '3.1.0'
+gem 'rack', '~> 1.3.3', '!= 1.3.4' # temporary - to suppress warning
 
 gem 'pg', :platforms => [:ruby, :mingw]
 
