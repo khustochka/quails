@@ -32,6 +32,7 @@ class ResearchController < ApplicationController
     @lifelist = Species.old_lifelist(extended_params)
     raw_posts = @lifelist.map {|ob| [ob.first_post, ob.last_post]}.flatten.uniq.compact
     @posts = Hash[current_user.available_posts.where(:id => raw_posts).map {|rec| [rec.id.to_s, rec] }]
-    @years = Observation.years(extended_params)
+    # FIXME: Temporarily show all years
+    @years = [nil] + Observation.mine.identified.select('DISTINCT EXTRACT(year from observ_date) AS year').order(:year).map(&:year)
   end
 end
