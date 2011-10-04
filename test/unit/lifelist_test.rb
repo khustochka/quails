@@ -37,7 +37,7 @@ class LifelistTest < ActiveSupport::TestCase
   end
 
   test 'Species lifelist by count properly sorts the list' do
-    Lifelist.new({:user => @user, :options => {:sort => 'count'}}).generate.map { |s| [s.code, s.aggregated_value.to_i] }.should ==
+    Lifelist.new({:user => @user, :options => {:sort => 'count'}}).generate.map { |s| [s.code, s.count] }.should ==
         [["colliv", 5], ["pasdom", 4], ["parmaj", 3], ["carlis", 1], ["merser", 1]]
   end
 
@@ -56,7 +56,7 @@ class LifelistTest < ActiveSupport::TestCase
   end
 
   test 'Species lifelist by taxonomy properly sorts the list' do
-    Lifelist.new({:user => @user, :options => {:sort => 'class'}}).generate.map { |s| [s.code, s.aggregated_value] }.should ==
+    Lifelist.new({:user => @user, :options => {:sort => 'class'}}).generate.map { |s| [s.code, s.first_seen] }.should ==
         [["merser", "2008-10-18"], ["colliv", "2008-05-22"], ["parmaj", "2009-01-01"], ["carlis", "2010-10-13"], ["pasdom", "2009-01-01"]]
   end
 
@@ -75,22 +75,22 @@ class LifelistTest < ActiveSupport::TestCase
   end
 
   test 'Species lifelist by date properly sorts the list' do
-    Lifelist.new({:user => @user, :options => {}}).generate.map { |s| [s.code, s.aggregated_value] }.should ==
+    Lifelist.new({:user => @user, :options => {}}).generate.map { |s| [s.code, s.first_seen] }.should ==
         [["carlis", "2010-10-13"], ["pasdom", "2009-01-01"], ["parmaj", "2009-01-01"], ["merser", "2008-10-18"], ["colliv", "2008-05-22"]]
   end
 
   test 'Year list by count properly sorts the list' do
-    Lifelist.new({:user => @user, :options => {:sort => 'count', :year => 2009}}).generate.map { |s| [s.code, s.aggregated_value.to_i] }.should ==
+    Lifelist.new({:user => @user, :options => {:sort => 'count', :year => 2009}}).generate.map { |s| [s.code, s.count] }.should ==
         [["parmaj", 3], ["pasdom", 2], ["colliv", 1]]
   end
 
   test 'Year list by taxonomy properly sorts the list' do
-    Lifelist.new({:user => @user, :options => {:sort => 'class', :year => 2009}}).generate.map { |s| [s.code, s.aggregated_value] }.should ==
+    Lifelist.new({:user => @user, :options => {:sort => 'class', :year => 2009}}).generate.map { |s| [s.code, s.first_seen] }.should ==
         [["colliv", "2009-10-18"], ["parmaj", "2009-01-01"], ["pasdom", "2009-01-01"]]
   end
 
   test 'Year list by date properly sorts the list' do
-    Lifelist.new({:user => @user, :options => {:year => 2009}}).generate.map { |s| [s.code, s.aggregated_value] }.should ==
+    Lifelist.new({:user => @user, :options => {:year => 2009}}).generate.map { |s| [s.code, s.first_seen] }.should ==
         [["colliv", "2009-10-18"], ["pasdom", "2009-01-01"], ["parmaj", "2009-01-01"]]
   end
 

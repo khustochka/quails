@@ -9,7 +9,7 @@
 - else
   = render 'sorter'
   - i = @lifers.size + 1
-  - @lifers.group_by {|s| Date.parse(s.aggregated_value).year}.each do |year, species_list|
+  - @lifers.group_by {|s| s.date.year}.each do |year, species_list|
     - if params[:year].blank?
       %h5= "First seen in %d" % year
     %ol
@@ -18,5 +18,5 @@
           %span
             = species_link(sp)
             = name_sci(sp)
-          %time= l(Date.parse(sp.aggregated_value), :format => :long)
+          %time= l(sp.date, :format => :long)
           = post_link('>>', sp.post)
