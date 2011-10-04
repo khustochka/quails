@@ -11,11 +11,11 @@ class LifelistTest < ActiveSupport::TestCase
         FactoryGirl.create(:observation, :species => seed(:pasdom), :observ_date => "2009-01-01"),
         FactoryGirl.create(:observation, :species => seed(:colliv), :observ_date => "2009-10-18"),
         FactoryGirl.create(:observation, :species => seed(:parmaj), :observ_date => "2009-11-01"),
-        FactoryGirl.create(:observation, :species => seed(:pasdom), :observ_date => "2009-12-01"),
+        FactoryGirl.create(:observation, :species => seed(:pasdom), :observ_date => "2009-12-01", :locus => seed(:new_york)),
         FactoryGirl.create(:observation, :species => seed(:parmaj), :observ_date => "2009-12-31"),
-        FactoryGirl.create(:observation, :species => seed(:colliv), :observ_date => "2010-03-10"),
-        FactoryGirl.create(:observation, :species => seed(:pasdom), :observ_date => "2010-04-16"),
-        FactoryGirl.create(:observation, :species => seed(:colliv), :observ_date => "2010-07-27"),
+        FactoryGirl.create(:observation, :species => seed(:colliv), :observ_date => "2010-03-10", :locus => seed(:new_york)),
+        FactoryGirl.create(:observation, :species => seed(:pasdom), :observ_date => "2010-04-16", :locus => seed(:new_york)),
+        FactoryGirl.create(:observation, :species => seed(:colliv), :observ_date => "2010-07-27", :locus => seed(:new_york)),
         FactoryGirl.create(:observation, :species => seed(:pasdom), :observ_date => "2010-09-10"),
         FactoryGirl.create(:observation, :species => seed(:carlis), :observ_date => "2010-10-13")
     ]
@@ -92,6 +92,21 @@ class LifelistTest < ActiveSupport::TestCase
   test 'Year list by date properly sorts the list' do
     Lifelist.new({:user => @user, :options => {:year => 2009}}).generate.map { |s| [s.code, s.first_seen] }.should ==
         [["colliv", "2009-10-18"], ["pasdom", "2009-01-01"], ["parmaj", "2009-01-01"]]
+  end
+
+  test 'List by locus returns properly filtered list' do
+    Lifelist.new({:user => @user, :options => {:locus => 'new_york'}}).generate.map { |s| [s.code, s.first_seen] }.should ==
+        [["colliv", "2010-03-10"], ["pasdom", "2009-12-01"]]
+  end
+
+  test 'List by super locus returns properly filtered list' do
+    Lifelist.new({:user => @user, :options => {:locus => 'usa'}}).generate.map { |s| [s.code, s.first_seen] }.should ==
+        [["colliv", "2010-03-10"], ["pasdom", "2009-12-01"]]
+  end
+
+  test 'List by locus and year returns properly filtered list' do
+    Lifelist.new({:user => @user, :options => {:locus => 'usa', :year => 2010}}).generate.map { |s| [s.code, s.first_seen] }.should ==
+        [["pasdom", "2010-04-16"], ["colliv", "2010-03-10"]]
   end
 
   test 'Do not associate arbitrary post with lifer' do

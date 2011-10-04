@@ -1,9 +1,18 @@
 class Lifelist
 
+  ALLOWED_LOCUS = %w(ukraine kiev_obl kiev brovary kherson_obl krym usa new_york)
+
   def initialize(*args)
     input = args.extract_options!
     @current_user = input[:user]
-    @options = input[:options]
+    @options = input[:options].dup
+    if @options[:locus]
+      if @options[:locus].in? ALLOWED_LOCUS
+        @options[:loc_ids] = Locus.select(:id).find_by_code!(@options[:locus]).get_subregions
+      else
+        raise ActiveRecord::RecordNotFound
+      end
+    end
   end
 
   AGGREGATION = {
@@ -57,6 +66,7 @@ class Lifelist
     raise 'Incorrect option' unless aggregation = AGGREGATION[@options[:sort]]
     rel = Observation.mine.select("species_id, #{"%s AS %s" % aggregation}").group(:species_id)
     rel = rel.where('EXTRACT(year from observ_date) = ?', @options[:year]) unless @options[:year].blank?
+    rel = rel.where('locus_id' => @options[:loc_ids]) unless @options[:locus].blank?
     rel
   end
 

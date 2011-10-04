@@ -49,7 +49,7 @@ class LifelistControllerTest < ActionController::TestCase
     get :default, :year => 2009
     assert_response :success
     lifers = assigns(:lifers)
-    lifers.map {|s| s.date.year}.uniq.should == [2009]
+    lifers.map { |s| s.date.year }.uniq.should == [2009]
     assert_select '#main' do
       assert_select 'h5', false # should not show "First time seen in..."
       assert_select "a[href=#{lifelist_path(:year => 2009)}]", false
@@ -73,7 +73,7 @@ class LifelistControllerTest < ActionController::TestCase
     get :by_taxonomy, :year => 2009
     assert_response :success
     lifers = assigns(:lifers)
-    lifers.map {|s| s.date.year}.uniq.should == [2009]
+    lifers.map { |s| s.date.year }.uniq.should == [2009]
     assert_select '#main' do
       assert_select 'h5' # should show order/family headings
       assert_select "a[href=#{lifelist_path(:year => 2009)}]"
@@ -94,7 +94,7 @@ class LifelistControllerTest < ActionController::TestCase
     assert_response :success
     lifers = assigns(:lifers)
     lifers.size.should == 1
-    lifers.map {|s| s.date.year}.uniq.should == [2009]
+    lifers.map { |s| s.date.year }.uniq.should == [2009]
   end
 
   test "show lifelist filtered by super location" do
@@ -104,8 +104,10 @@ class LifelistControllerTest < ActionController::TestCase
   end
 
   test "not allowed locus should fail" do
-    get :default, :locus => 'sumy_obl'
-    assert_response :not_found
+    assert_raise ActiveRecord::RecordNotFound do
+      get :default, :locus => 'sumy_obl'
+    end
+    # assert_response :not_found
   end
 
   test "lifelist links filter out invalid parameters" do
