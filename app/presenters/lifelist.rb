@@ -16,17 +16,15 @@ class Lifelist
     #TODO: implement correct processing of incorrect query parameters
     raise 'Incorrect option' unless sort_columns = SORT_COLUMNS[@options[:sort]]
 
-    result = Species.select('species.*, aggregated_value').
+    result = Lifer.select('species.*, aggregated_value').
         joins("INNER JOIN (%s) AS obs ON species.id=obs.species_id" % lifers_sql).
         reorder(sort_columns).all
 
     unless @options[:sort] == 'count'
       posts_arr = posts
-      result.each do |sp|
-        sp.extend Lifer
-        sp.post = posts_arr[sp.id]
-      end
+      result.each { |sp| sp.post = posts_arr[sp.id] }
     end
+
     result
   end
 
