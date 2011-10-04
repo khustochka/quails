@@ -1,27 +1,23 @@
 class LifelistController < ApplicationController
 
-  before_filter do
-    @allowed_params = [:controller, :action, :year, :locus]
-  end
-
   def default
-    lifelist = Lifelist.new(:user => current_user, :options => params)
-    @lifers = lifelist.generate
-    @years = lifelist.observation_years
-    @locations = Lifelist::ALLOWED_LOCUS.zip Locus.where(:code => Lifelist::ALLOWED_LOCUS)
-  end
+    @allowed_params = [:controller, :action, :year, :locus, :sort]
 
-  def by_count
-    lifelist = Lifelist.new(:user => current_user, :options => params.merge(:sort => 'count'))
-    @lifers = lifelist.generate
-    @years = lifelist.observation_years
-    @locations = Lifelist::ALLOWED_LOCUS.zip Locus.where(:code => Lifelist::ALLOWED_LOCUS)
-  end
+    sort_override, template =
+        case params[:sort]
+          when nil
+            [nil, :default]
+          when 'by_count'
+            ['count', :by_count]
+          when 'by_taxonomy'
+            ['class', :by_taxonomy]
+        end
 
-  def by_taxonomy
-    lifelist = Lifelist.new(:user => current_user, :options => params.merge(:sort => 'class'))
+    lifelist = Lifelist.new(:user => current_user, :options => params.merge(:sort => sort_override))
     @lifers = lifelist.generate
     @years = lifelist.observation_years
     @locations = Lifelist::ALLOWED_LOCUS.zip Locus.where(:code => Lifelist::ALLOWED_LOCUS)
+
+    render template
   end
 end

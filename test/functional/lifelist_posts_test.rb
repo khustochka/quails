@@ -26,7 +26,7 @@ class LifelistPostsTest < ActionController::TestCase
   test 'show post link on lifelist ordered by taxonomy if post is associated' do
     @obs[1].post = FactoryGirl.create(:post)
     @obs[1].save!
-    get :by_taxonomy
+    get :default, :sort => :by_taxonomy
     assert_response :success
     lifers = assigns(:lifers)
     lifers.map(&:post).compact.size.should == 1

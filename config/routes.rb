@@ -34,10 +34,10 @@ Quails3::Application.routes.draw do
     end
   end
 
-  constraints :year => /\d{4}/, :locus => /([^b][^\/]*)|(b(?!y)[^\/]*)|(by(?!_)[^\/]*)/ do # locus not starting with by_
-    get 'lifelist(/:year)(/:locus)' => 'lifelist#default', :as => :lifelist
-    get 'lifelist(/:year)(/:locus)/:action', :controller => :lifelist, :action => /by_(count|taxonomy)/
-  end
+  get 'lifelist(/:year)(/:locus)(/:sort)' => 'lifelist#default', :as => :lifelist,
+      :year => /\d{4}/,
+      :locus => /([^b][^\/]*)|(b(?!y)[^\/]*)|(by(?!_)[^\/]*)/, # not starting with by_
+      :sort => /by_(count|taxonomy)/
 
 #  scope '/(:locale)', :locale => /[a-z]{2}/ do
 #    resources :species, :except => [:new, :create, :destroy]
