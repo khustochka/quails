@@ -6,6 +6,7 @@ class PostsCollectionsTest < ActionController::TestCase
   PostsController::POSTS_ON_FRONT_PAGE = 3
 
   # Front page
+  # TODO: consider testing controller assignments in func tests and html in integration
 
   test 'get index' do
     blogpost1 = FactoryGirl.create(:post, :face_date => '2007-12-06 13:14:15', :code => 'post-one')

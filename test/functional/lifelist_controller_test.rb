@@ -48,15 +48,13 @@ class LifelistControllerTest < ActionController::TestCase
   test "show year list by date" do
     get :default, :year => 2009
     assert_response :success
+    lifers = assigns(:lifers)
+    lifers.map {|s| s.date.year}.uniq.should == [2009]
     assert_select '#main' do
       assert_select 'h5', false # should not show "First time seen in..."
       assert_select "a[href=#{lifelist_path(:year => 2009)}]", false
       assert_select "a[href=#{url_for(:action => :by_taxonomy, :year => 2009, :only_path => true)}]"
       assert_select "a[href=#{url_for(:action => :by_count, :year => 2009, :only_path => true)}]"
-
-      assert_select "li.lifer_row" do |els|
-        els.each { |el| assert_select el, 'time', /2009/, 'Found items not matching the proper year' } # list only shows dates from 2009
-      end
     end
   end
 
@@ -74,33 +72,35 @@ class LifelistControllerTest < ActionController::TestCase
   test "show year list by taxonomy" do
     get :by_taxonomy, :year => 2009
     assert_response :success
+    lifers = assigns(:lifers)
+    lifers.map {|s| s.date.year}.uniq.should == [2009]
     assert_select '#main' do
       assert_select 'h5' # should show order/family headings
       assert_select "a[href=#{lifelist_path(:year => 2009)}]"
       assert_select "a[href=#{url_for(:action => :by_taxonomy, :year => 2009, :only_path => true)}]", false
       assert_select "a[href=#{url_for(:action => :by_count, :year => 2009, :only_path => true)}]"
-
-      assert_select "li.lifer_row" do |els|
-        els.each { |el| assert_select el, 'time', /2009/, 'Found items not matching the proper year' } # list only shows dates from 2009
-      end
     end
   end
 
   test "show location list" do
     get :default, :locus => 'new_york'
     assert_response :success
-    assert_select "li.lifer_row", 3
+    lifers = assigns(:lifers)
+    lifers.size.should == 3
   end
 
   test "show lifelist filtered by year and location" do
     get :default, :locus => 'new_york', :year => 2009
     assert_response :success
-    assert_select "li.lifer_row", 1
+    lifers = assigns(:lifers)
+    lifers.size.should == 1
+    lifers.map {|s| s.date.year}.uniq.should == [2009]
   end
 
   test "show lifelist filtered by super location" do
     get :default, :locus => 'ukraine'
-    assert_select "li.lifer_row", 2
+    lifers = assigns(:lifers)
+    lifers.size.should == 2
   end
 
   test "not allowed locus should fail" do
