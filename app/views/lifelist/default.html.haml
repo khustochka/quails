@@ -1,4 +1,5 @@
-- @page_title = 'Lifelist by date'
+- sort = params[:sort]
+- @page_title = "Lifelist #{sort.nil? ? "by date" : sort.sub('_', ' ')}"
 
 %h1= @page_title
 
@@ -7,15 +8,4 @@
 - if @lifelist.blank?
   %p No species
 - else
-  - i = @lifelist.size + 1
-  - @lifelist.group_by {|s| s.date.year}.each do |year, species_list|
-    - if params[:year].blank?
-      %h5= "First seen in %d" % year
-    %ol
-      - species_list.each do |sp|
-        %li.lifer_row{:value => i -= 1}
-          %span
-            = species_link(sp)
-            = name_sci(sp)
-          %time= l(sp.date, :format => :long)
-          = post_link('>>', sp.post)
+  = render sort.nil? ? 'by_date' : sort

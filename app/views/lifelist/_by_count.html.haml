@@ -1,0 +1,7 @@
+%ol
+  - @lifelist.each do |sp|
+    %li.lifer_row
+      %span
+        = species_link(sp)
+        = name_sci(sp)
+      %em= sp.count
