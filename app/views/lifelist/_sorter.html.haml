@@ -1,4 +1,0 @@
-%ul.horiz-list.filter-list
-  %strong Sort by:
-  - {nil => 'date', :by_count => 'count', :by_taxonomy => 'taxonomy'}.each do |sort, label|
-    %li= link_to_unless_current(label, significant_params.merge(:sort => sort))
