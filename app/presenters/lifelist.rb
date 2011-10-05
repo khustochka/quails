@@ -1,7 +1,7 @@
 class Lifelist
 
   include Enumerable
-  delegate :each, :size, :to => :@the_list
+  delegate :each, :size, :empty?, :to => :@the_list
 
   ALLOWED_LOCUS = %w(ukraine kiev_obl kiev brovary kherson_obl krym usa new_york)
 
