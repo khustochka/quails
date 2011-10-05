@@ -109,6 +109,16 @@ class LifelistTest < ActiveSupport::TestCase
         [["pasdom", "2010-04-16"], ["colliv", "2010-03-10"]]
   end
 
+  test 'Month list returns properly filtered list' do
+    Lifelist.new({:user => @user, :options => {:month => 10}}).map { |s| [s.code, s.first_seen] }.should ==
+        [["carlis", "2010-10-13"], ["colliv", "2009-10-18"], ["merser", "2008-10-18"]]
+  end
+
+  test 'List for month and year returns properly filtered list' do
+    Lifelist.new({:user => @user, :options => {:month => 10, :year => 2009}}).map { |s| [s.code, s.first_seen] }.should ==
+        [["colliv", "2009-10-18"]]
+  end
+
   test 'Do not associate arbitrary post with lifer' do
     @obs[2].post = FactoryGirl.create(:post, :code => 'feraldoves_again') # must be attached to the same species but not the first observation
     @obs[2].save!

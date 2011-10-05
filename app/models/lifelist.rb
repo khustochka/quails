@@ -66,7 +66,7 @@ class Lifelist
     except = Array.wrap(options[:except])
     rel = Observation.mine.identified
     rel = rel.where('EXTRACT(year from observ_date) = ?', @options[:year]) unless @options[:year].blank? || except.include?(:year)
-    #rel = rel.where('EXTRACT(month from observ_date) = ?', @options[:month]) unless @options[:month].blank? || except.include?(:month)
+    rel = rel.where('EXTRACT(month from observ_date) = ?', @options[:month]) unless @options[:month].blank? || except.include?(:month)
     rel = rel.where('locus_id' => @options[:loc_ids]) unless @options[:locus].blank? || except.include?(:locus)
     rel
   end
