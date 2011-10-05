@@ -1,11 +1,14 @@
-class Lifelist < Array
+class Lifelist
+
+  include Enumerable
+  delegate :each, :size, :to => :@the_list
 
   ALLOWED_LOCUS = %w(ukraine kiev_obl kiev brovary kherson_obl krym usa new_york)
 
   def initialize(*args)
     input = args.extract_options!
     @current_user = input[:user]
-    @options = input[:options].dup
+    @options = input[:options].try(:dup) || {}
     if @options[:locus]
       if @options[:locus].in? ALLOWED_LOCUS
         @options[:loc_ids] = Locus.select(:id).find_by_code!(@options[:locus]).get_subregions
@@ -17,16 +20,14 @@ class Lifelist < Array
     #TODO: implement correct processing of incorrect query parameters
     raise 'Incorrect option' unless sort_columns = SORT_COLUMNS[@options[:sort]]
 
-    result = Lifer.select("species.*, #{aggregation_column}").
+    @the_list = Lifer.select("species.*, #{aggregation_column}").
         joins("INNER JOIN (%s) AS obs ON species.id=obs.species_id" % lifers_sql).
         reorder(sort_columns).all
 
     unless @options[:sort] == 'count'
       posts_arr = posts
-      result.each { |sp| sp.post = posts_arr[sp.id] }
+      @the_list.each { |sp| sp.post = posts_arr[sp.id] }
     end
-
-    super(result)
   end
 
   AGGREGATION = {
