@@ -4,6 +4,6 @@ class User
   end
 
   def available_posts
-    @admin ? Post : Post.public
+    @admin ? Post.scoped : Post.public
   end
 end
