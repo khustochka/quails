@@ -13,10 +13,7 @@ class LifelistController < ApplicationController
             ['class', :by_taxonomy]
         end
 
-    lifelist = Lifelist.new(:user => current_user, :options => params.merge(:sort => sort_override))
-    @lifers = lifelist.generate
-    @years = lifelist.observation_years
-    @locations = Lifelist::ALLOWED_LOCUS.zip Locus.where(:code => Lifelist::ALLOWED_LOCUS)
+    @lifelist = Lifelist.new(:user => current_user, :options => params.merge(:sort => sort_override))
 
     render template
   end

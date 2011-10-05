@@ -18,7 +18,7 @@ class LifelistPostsTest < ActionController::TestCase
     @obs[1].save!
     get :default
     assert_response :success
-    lifers = assigns(:lifers)
+    lifers = assigns(:lifelist)
     lifers.map(&:post).compact.size.should == 1
     assert_select "a[href=#{public_post_path(@obs[1].post)}]"
   end
@@ -28,7 +28,7 @@ class LifelistPostsTest < ActionController::TestCase
     @obs[1].save!
     get :default, :sort => :by_taxonomy
     assert_response :success
-    lifers = assigns(:lifers)
+    lifers = assigns(:lifelist)
     lifers.map(&:post).compact.size.should == 1
     assert_select "a[href=#{public_post_path(@obs[1].post)}]"
   end
@@ -38,7 +38,7 @@ class LifelistPostsTest < ActionController::TestCase
     @obs[3].save!
     get :default
     assert_response :success
-    lifers = assigns(:lifers)
+    lifers = assigns(:lifelist)
     lifers.select {|s| s.code == 'anapla'}[0].post.should be_nil
   end
 
@@ -47,7 +47,7 @@ class LifelistPostsTest < ActionController::TestCase
     @obs[1].save!
     get :default
     assert_response :success
-    lifers = assigns(:lifers)
+    lifers = assigns(:lifelist)
     lifers.map(&:post).compact.should be_empty
   end
 
@@ -57,7 +57,7 @@ class LifelistPostsTest < ActionController::TestCase
     login_as_admin
     get :default
     assert_response :success
-    lifers = assigns(:lifers)
+    lifers = assigns(:lifelist)
     lifers.map(&:post).compact.size.should == 1
     assert_select "a[href=#{public_post_path(@obs[1].post)}]"
   end

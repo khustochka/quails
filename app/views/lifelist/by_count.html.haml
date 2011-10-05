@@ -2,20 +2,21 @@
 
 %h1= @page_title
 
+- @years = @lifelist.years
 = render 'partials/years'
 
 %ul.horiz-list.filter-list
   %strong Places:
   %li= params[:locus].nil? ? 'All' : link_to('All', significant_params.merge(:locus => nil))
-  - @locations.each do |_, loc|
+  - @lifelist.locations.each do |_, loc|
     %li= link_to_unless_current(loc.name_en, significant_params.merge(:locus => loc.code))
 
-- if @lifers.blank?
+- if @lifelist.blank?
   %p No species
 - else
   = render 'sorter'
   %ol
-    - @lifers.each do |sp|
+    - @lifelist.each do |sp|
       %li.lifer_row
         %span
           = species_link(sp)

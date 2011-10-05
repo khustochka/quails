@@ -1,4 +1,4 @@
-class Lifelist
+class Lifelist < Array
 
   ALLOWED_LOCUS = %w(ukraine kiev_obl kiev brovary kherson_obl krym usa new_york)
 
@@ -13,6 +13,20 @@ class Lifelist
         raise ActiveRecord::RecordNotFound
       end
     end
+
+    #TODO: implement correct processing of incorrect query parameters
+    raise 'Incorrect option' unless sort_columns = SORT_COLUMNS[@options[:sort]]
+
+    result = Lifer.select("species.*, #{aggregation_column}").
+        joins("INNER JOIN (%s) AS obs ON species.id=obs.species_id" % lifers_sql).
+        reorder(sort_columns).all
+
+    unless @options[:sort] == 'count'
+      posts_arr = posts
+      result.each { |sp| sp.post = posts_arr[sp.id] }
+    end
+
+    super(result)
   end
 
   AGGREGATION = {
@@ -27,28 +41,16 @@ class Lifelist
       'class' => 'index_num ASC'
   }
 
-  def generate
-    #TODO: implement correct processing of incorrect query parameters
-    raise 'Incorrect option' unless sort_columns = SORT_COLUMNS[@options[:sort]]
-
-    result = Lifer.select("species.*, #{aggregation_column}").
-        joins("INNER JOIN (%s) AS obs ON species.id=obs.species_id" % lifers_sql).
-        reorder(sort_columns).all
-
-    unless @options[:sort] == 'count'
-      posts_arr = posts
-      result.each { |sp| sp.post = posts_arr[sp.id] }
-    end
-
-    result
-  end
-
   # Given observations filtered by month, locus returns array of years within these observations happened
-  def observation_years
+  def years
     rel = Observation.mine.identified.select('DISTINCT EXTRACT(year from observ_date) AS year').order(:year)
     rel = rel.where('EXTRACT(month from observ_date) = ?', @options[:month]) unless @options[:month].blank?
     rel = rel.where('locus_id' => @options[:loc_ids]) unless @options[:locus].blank?
     [nil] + rel.map { |ob| ob[:year] }
+  end
+
+  def locations
+    Lifelist::ALLOWED_LOCUS.zip Locus.where(:code => Lifelist::ALLOWED_LOCUS)
   end
 
   private

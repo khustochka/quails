@@ -48,7 +48,7 @@ class LifelistControllerTest < ActionController::TestCase
   test "show year list by date" do
     get :default, :year => 2009
     assert_response :success
-    lifers = assigns(:lifers)
+    lifers = assigns(:lifelist)
     lifers.map { |s| s.date.year }.uniq.should == [2009]
     assert_select '#main' do
       assert_select 'h5', false # should not show "First time seen in..."
@@ -72,7 +72,7 @@ class LifelistControllerTest < ActionController::TestCase
   test "show year list by taxonomy" do
     get :default, :sort => 'by_taxonomy' , :year => 2009
     assert_response :success
-    lifers = assigns(:lifers)
+    lifers = assigns(:lifelist)
     lifers.map { |s| s.date.year }.uniq.should == [2009]
     assert_select '#main' do
       assert_select 'h5' # should show order/family headings
@@ -85,21 +85,21 @@ class LifelistControllerTest < ActionController::TestCase
   test "show location list" do
     get :default, :locus => 'new_york'
     assert_response :success
-    lifers = assigns(:lifers)
+    lifers = assigns(:lifelist)
     lifers.size.should == 3
   end
 
   test "show lifelist filtered by year and location" do
     get :default, :locus => 'new_york', :year => 2009
     assert_response :success
-    lifers = assigns(:lifers)
+    lifers = assigns(:lifelist)
     lifers.size.should == 1
     lifers.map { |s| s.date.year }.uniq.should == [2009]
   end
 
   test "show lifelist filtered by super location" do
     get :default, :locus => 'ukraine'
-    lifers = assigns(:lifers)
+    lifers = assigns(:lifelist)
     lifers.size.should == 2
   end
 
