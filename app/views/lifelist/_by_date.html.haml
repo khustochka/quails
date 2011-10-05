@@ -1,5 +1,5 @@
 - i = @lifelist.size + 1
-- @lifelist.group_by {|s| s.date.year}.each do |year, species_list|
+- @lifelist.group_by {|s| s.first_seen_date.year}.each do |year, species_list|
   - if params[:year].blank?
     %h5= "First seen in %d" % year
   %ol
@@ -8,5 +8,5 @@
         %span
           = species_link(sp)
           = name_sci(sp)
-        %time= l(sp.date, :format => :long)
+        %time= l(sp.first_seen_date, :format => :long)
         = post_link('>>', sp.post)

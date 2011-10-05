@@ -7,5 +7,5 @@
         %span
           = species_link(sp)
           = name_sci(sp)
-        %time= l(sp.date, :format => :long)
+        %time= l(sp.first_seen_date, :format => :long)
         = post_link('>>', sp.post)

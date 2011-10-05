@@ -2,10 +2,10 @@ class Lifer < Species
   attr_accessor :post
 
   def count
-    times_seen.to_i
+    attributes['times_seen'].to_i
   end
 
-  def date
-    Date.parse(first_seen)
+  def first_seen_date
+    @first_seen_date ||= Date.parse(attributes['first_seen'])
   end
 end
