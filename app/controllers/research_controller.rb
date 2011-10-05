@@ -26,13 +26,16 @@ class ResearchController < ApplicationController
   end
 
   def lifelist
-    extended_params = params.dup
-    extended_params.merge!(:loc_ids => Locus.select(:id).find_by_code!(params[:locus]).get_subregions) if params[:locus]
+    @allowed_params = [:controller, :action, :year, :locus, :sort, :month]
 
-    @lifelist = Species.old_lifelist(extended_params)
-    raw_posts = @lifelist.map {|ob| [ob.first_post, ob.last_post]}.flatten.uniq.compact
-    @posts = Hash[current_user.available_posts.where(:id => raw_posts).map {|rec| [rec.id.to_s, rec] }]
-    # FIXME: Temporarily show all years
-    @years = [nil] + Observation.mine.identified.select('DISTINCT EXTRACT(year from observ_date) AS year').order(:year).map(&:year)
+    @lifelist = Lifelist.new(
+        user: current_user,
+        options: {
+            sort: params[:sort],
+            year: params[:year],
+            month: params[:month],
+            locus: params[:locus]
+        }
+    )
   end
 end

@@ -1,17 +1,9 @@
-- @page_title = 'Lifelist'
+- sort = params[:sort]
+- @page_title = "Lifelist #{sort.nil? ? "by date" : sort.sub('_', ' ')}"
 
-%h1 Lifelist
+%h1= @page_title
 
-%ul.horiz-list.filter-list
-  %strong Locations:
-  - %w(ukraine kiev_obl kiev brovary kherson_obl krym usa).insert(0, nil).each do |loc|
-    %li
-      - if loc.nil?
-        = params[:locus].nil? ? 'All' : link_to('All', params.merge(:locus => nil))
-      - else
-        = link_to_unless_current(loc, params.merge(:locus => loc))
-
-= render 'partials/years'
+= render 'lifelist/menus'
 
 %ul.horiz-list.filter-list
   %strong Months:
@@ -23,38 +15,6 @@
         = link_to_unless_current(m, params.merge(:month => m))
 
 - if @lifelist.blank?
-  %p No species observed.
+  %p No species
 - else
-  - start_count, increment = params[:sort].nil? ? [@lifelist.size, -1] : [1, 1]
-  %table#lifelist.neat_table
-    %tr
-      %th &nbsp;
-      %th Sort by:
-      %th= link_to_unless_current('Classification ⇓', params.merge(:sort => 'class'))
-      %th.align-right= params[:sort].nil? ? 'First seen ⇓' : link_to('First seen ⇓', params.merge(:sort => nil))
-      %th.align-right= link_to_unless_current('Last seen ⇓', params.merge(:sort => 'last'))
-      %th.align-right= link_to_unless_current('Count ⇓', params.merge(:sort => 'count'))
-
-    - sp_row = Proc.new do |i, sp|
-      - first_date = l(sp.first_date, :format => :long)
-      - last_date = l(sp.last_date, :format => :long)
-      - first_post = @posts[sp.first_post]
-      - last_post = @posts[sp.last_post]
-      %tr
-        %td.align-right= "#{i}."
-        %td= species_link(sp)
-        %td= name_sci(sp)
-        %td.lifer_date= post_link(first_date, first_post, true)
-        %td.lifer_date= post_link(last_date, last_post, true)
-        %td.lifer_date= sp.view_count
-      - i += increment
-
-    - if params[:sort] == 'class'
-      - extract_families(@lifelist).each do |fam, species_list|
-        %tr
-          %td
-          %td{:colspan => 5}
-            %h3= "#{fam[:order].upcase}: #{fam[:family]}"
-          - start_count = species_list.inject(start_count, &sp_row)
-    - else
-      - @lifelist.inject(start_count, &sp_row)
+  = render sort.nil? ? 'by_date' : sort
