@@ -12,7 +12,7 @@
       - if m.nil?
         = params[:month].nil? ? 'All' : link_to('All', params.merge(:month => nil))
       - else
-        = link_to_unless_current(m, params.merge(:month => m))
+        = link_to_unless_current(t('date.abbr_month_names')[m], params.merge(:month => m))
 
 - if @lifelist.blank?
   %p No species
