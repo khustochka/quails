@@ -8,7 +8,7 @@ class Lifelist
   def initialize(*args)
     input = args.extract_options!
     @current_user = input[:user]
-    @format = input[:format]
+    @advanced = input[:format] == :advanced
     @options = input[:options].try(:dup) || {}
     if @options[:locus]
       if @options[:locus].in? ALLOWED_LOCUS
@@ -25,9 +25,13 @@ class Lifelist
         joins("INNER JOIN (#{lifers_sql}) AS obs ON species.id=obs.species_id").
         reorder(sort_columns).all
 
-    unless @options[:sort] == 'count'
-      posts_arr = posts
-      @the_list.each { |sp| sp.post = posts_arr[sp.id] }
+    if @options[:sort] != 'count' || @advanced
+      first_posts = posts('first')
+      @the_list.each { |sp| sp.post = first_posts[sp.id] }
+      if @advanced
+        last_posts = posts('last')
+        @the_list.each { |sp| sp.last_post = last_posts[sp.id] }
+      end
     end
   end
 
@@ -46,7 +50,7 @@ class Lifelist
   }
 
   def advanced?
-    @format == :advanced
+    @advanced
   end
 
   # Given observations filtered by month, locus returns array of years within these observations happened
@@ -62,8 +66,8 @@ class Lifelist
   private
 
   def aggregation_column
-    if @format == :advanced
-      [nil, 'last', 'count'].map {|o| AGGREGATION[o][1]}.join(',')
+    if @advanced
+      [nil, 'last', 'count'].map { |o| AGGREGATION[o][1] }.join(',')
     else
       AGGREGATION[@options[:sort]][1]
     end
@@ -71,8 +75,8 @@ class Lifelist
 
   def aggregation_query
     tmpl = "%s AS %s"
-    if @format == :advanced
-      [nil, 'last', 'count'].map {|o| tmpl % AGGREGATION[o]}.join(',')
+    if @advanced
+      [nil, 'last', 'count'].map { |o| tmpl % AGGREGATION[o] }.join(',')
     else
       tmpl % AGGREGATION[@options[:sort]]
     end
@@ -97,7 +101,7 @@ class Lifelist
     observations_filtered.select("species_id, #{aggregation_query}").group(:species_id)
   end
 
-  def posts
+  def posts(first_or_last = 'first')
     Hash[
         @current_user.available_posts.select('posts.*, lifers.species_id').
             joins(
@@ -106,7 +110,7 @@ class Lifelist
             joins(
             "INNER JOIN (#{lifers_sql}) AS lifers
               ON observs.species_id = lifers.species_id
-              AND observs.observ_date = lifers.first_seen"
+              AND observs.observ_date = lifers.#{first_or_last}_seen"
         ).
             group_by { |p| p.species_id.to_i }.map { |id, arr| [id, arr[0]] }
     ]
