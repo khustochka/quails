@@ -23,28 +23,6 @@ class Species < ActiveRecord::Base
     reorder(:name_sci)
   end
 
-  def self.old_lifelist(*args)
-    options = args.extract_options!
-    sort_option =
-        case options.delete(:sort)
-          when nil
-            'first_date DESC, index_num DESC'
-          when 'last' then
-            'last_date DESC, index_num DESC'
-          when 'count' then
-            'view_count DESC, index_num ASC'
-          when 'class'
-            'index_num ASC'
-          else
-            'first_date DESC, index_num DESC'
-          #TODO: implement correct processing of incorrect query parameters
-          # raise 'Incorrect option'
-        end
-    select('obs.*, name_sci, name_ru, name_en, name_uk, index_num, family, "order"').reorder(sort_option).
-        joins("INNER JOIN (#{Observation.old_lifers_observations(options).to_sql}) AS obs ON species.id=obs.main_species").
-        all.group_by(&:main_species).map { |_, v| v.first }
-  end
-
   # Associations
 
   def images
