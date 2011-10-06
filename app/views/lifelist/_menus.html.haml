@@ -1,11 +1,12 @@
 - @years = @lifelist.years
+- locs = @lifelist.locations
 = render 'partials/years'
 
 %ul.horiz-list.filter-list
   %strong Places:
   %li= params[:locus].nil? ? 'All' : link_to('All', significant_params.merge(:locus => nil))
-  - @lifelist.locations.each do |key, loc|
-    %li= link_to_unless_current(loc.name_en, significant_params.merge(:locus => key))
+  - Lifelist::ALLOWED_LOCUS.each do |code|
+    %li= link_to_unless_current(locs[code][0].name_en, significant_params.merge(:locus => code))
 
 - unless @lifelist.blank?
   %ul.horiz-list.filter-list

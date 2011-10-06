@@ -49,7 +49,7 @@ class Lifelist
   end
 
   def locations
-    Lifelist::ALLOWED_LOCUS.zip Locus.where(:code => Lifelist::ALLOWED_LOCUS)
+    Locus.where(:code => Lifelist::ALLOWED_LOCUS).group_by(&:code)
   end
 
   private
