@@ -3,7 +3,7 @@
 
 %h1= @page_title
 
-= render 'lifelist/menus', :sort_options => {'date' => nil, 'count' => 'count', 'taxonomy' => 'class'}
+= render 'lifelist/menus'
 
 %ul.horiz-list.filter-list
   %strong Months:
@@ -17,4 +17,13 @@
 - if @lifelist.blank?
   %p No species
 - else
-  = render sort.nil? ? 'by_date' : sort
+  %table#lifelist.neat_table
+    %tr
+      %th &nbsp;
+      %th
+        Sort by:
+        = link_to_unless_current('Classification ⇓', params.merge(:sort => 'class'))
+      %th.align-right= params[:sort].nil? ? 'First seen ⇓' : link_to('First seen ⇓', params.merge(:sort => nil))
+      %th.align-right= link_to_unless_current('Last seen ⇓', params.merge(:sort => 'last'))
+      %th.align-right= link_to_unless_current('Count ⇓', params.merge(:sort => 'count'))
+    = render sort.nil? || sort == 'last' ? 'by_date' : sort

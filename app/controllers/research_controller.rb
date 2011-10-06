@@ -30,6 +30,7 @@ class ResearchController < ApplicationController
 
     @lifelist = Lifelist.new(
         user: current_user,
+        format: :advanced,
         options: {
             sort: params[:sort],
             year: params[:year],

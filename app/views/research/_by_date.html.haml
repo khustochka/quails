@@ -1,30 +1,20 @@
-%table#lifelist.neat_table
-  %tr
-    %th &nbsp;
-    %th
-      Sort by:
-      = link_to_unless_current('Classification ⇓', params.merge(:sort => 'class'))
-    %th.align-right= params[:sort].nil? ? 'First seen ⇓' : link_to('First seen ⇓', params.merge(:sort => nil))
-    %th.align-right= link_to_unless_current('Last seen ⇓', params.merge(:sort => 'last'))
-    %th.align-right= link_to_unless_current('Count ⇓', params.merge(:sort => 'count'))
-
-  - i = @lifelist.size + 1
-  - @lifelist.group_by {|s| s.first_seen_date.year}.each do |year, species_list|
-    - if params[:year].blank?
+- i = @lifelist.size + 1
+- @lifelist.group_by {|s| s.first_seen_date.year}.each do |year, species_list|
+  - if params[:year].blank?
+    %tr
+      %td
+      %td{:colspan => 5}
+        %h3= "%s seen in %d" % [params[:sort].nil? ? 'First' : 'Last', year]
+    - species_list.each do |sp|
+      - first_date = l(sp.first_seen_date, :format => :long)
+      - last_date = l(sp.last_seen_date, :format => :long)
       %tr
+        %td.align-right= "#{i -= 1}."
         %td
-        %td{:colspan => 5}
-          %h3= "First seen in %d" % year
-      - species_list.each do |sp|
-        - first_date = l(sp.first_seen_date, :format => :long)
-        -# last_date = l(sp.last_date, :format => :long)
-        -# first_post = @posts[sp.first_post]
-        -# last_post = @posts[sp.last_post]
-        %tr
-          %td.align-right= "#{i -= 1}."
-          %td
-            = species_link(sp)
-            = name_sci(sp)
-          %td.lifer_date= post_link(first_date, sp.post, true)
-          %td.lifer_date= #post_link(last_date, last_post, true)
-          %td.lifer_date= #sp.view_count
+          = species_link(sp)
+          = name_sci(sp)
+        %td.lifer_date
+          %time= post_link(first_date, sp.post, true)
+        %td.lifer_date
+          %time= post_link(last_date, nil, true)
+        %td.lifer_date= sp.count
