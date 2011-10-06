@@ -3,7 +3,7 @@
 
 %h1= @page_title
 
-= render 'menus'
+= render 'menus', :sort_options => {'date' => nil, 'count' => 'by_count', 'taxonomy' => 'by_taxonomy'}
 
 - if @lifelist.blank?
   %p No species

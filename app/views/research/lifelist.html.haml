@@ -3,7 +3,7 @@
 
 %h1= @page_title
 
-= render 'lifelist/menus'
+= render 'lifelist/menus', :sort_options => {'date' => nil, 'count' => 'count', 'taxonomy' => 'class'}
 
 %ul.horiz-list.filter-list
   %strong Months:
