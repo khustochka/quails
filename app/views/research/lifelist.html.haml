@@ -26,4 +26,4 @@
       %th.align-right= params[:sort].nil? ? 'First seen ⇓' : link_to('First seen ⇓', params.merge(:sort => nil))
       %th.align-right= link_to_unless_current('Last seen ⇓', params.merge(:sort => 'last'))
       %th.align-right= link_to_unless_current('Count ⇓', params.merge(:sort => 'count'))
-    = render sort.nil? || sort == 'last' ? 'by_date' : sort
+    = render sort.nil? || sort == 'last' ? 'by_date' : "by_#{sort}"

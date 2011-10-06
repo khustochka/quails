@@ -1,0 +1,14 @@
+- i = 0
+- @lifelist.each do |sp|
+  - first_date = l(sp.first_seen_date, :format => :long)
+  - last_date = l(sp.last_seen_date, :format => :long)
+  %tr
+    %td.align-right= "#{i += 1}."
+    %td
+      = species_link(sp)
+      = name_sci(sp)
+    %td.lifer_date
+      %time= post_link(first_date, sp.post, true)
+    %td.lifer_date
+      %time= post_link(last_date, nil, true)
+    %td.lifer_date= sp.count
