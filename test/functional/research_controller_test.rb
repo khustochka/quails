@@ -8,8 +8,8 @@ class ResearchControllerTest < ActionController::TestCase
   end
 
   test "user should not see Research/index" do
-    get :index
-    assert_response 401
+    assert_raises(ActionController::RoutingError) { get :index }
+    #assert_response 404
   end
 
   test "admin should see Research/lifelist" do

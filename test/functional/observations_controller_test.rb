@@ -75,44 +75,44 @@ class ObservationsControllerTest < ActionController::TestCase
     # HTTP auth tests
 
   test 'protect index with HTTP authentication' do
-    get :index
-    assert_response 401
+    assert_raises(ActionController::RoutingError) { get :index }
+    #assert_response 404
   end
 
   test 'protect show with HTTP authentication' do
     observation = FactoryGirl.create(:observation)
-    get :show, :id => observation.to_param
-    assert_response 401
+    assert_raises(ActionController::RoutingError) { get :show, :id => observation.to_param }
+    #assert_response 404
   end
 
   test 'protect new with HTTP authentication' do
-    get :new
-    assert_response 401
+    assert_raises(ActionController::RoutingError) { get :new }
+    #assert_response 404
   end
 
   test 'protect edit with HTTP authentication' do
     observation = FactoryGirl.create(:observation)
-    get :edit, :id => observation.to_param
-    assert_response 401
+    assert_raises(ActionController::RoutingError) { get :edit, :id => observation.to_param }
+    #assert_response 404
   end
 
   test 'protect create with HTTP authentication' do
     observation = FactoryGirl.build(:observation)
-    post :create, :observation => observation.attributes
-    assert_response 401
+    assert_raises(ActionController::RoutingError) { post :create, :observation => observation.attributes }
+    #assert_response 404
   end
 
   test 'protect update with HTTP authentication' do
     observation = FactoryGirl.create(:observation)
     observation.observ_date = '2010-11-07'
-    put :update, :id => observation.to_param, :observation => observation.attributes
-    assert_response 401
+    assert_raises(ActionController::RoutingError) { put :update, :id => observation.to_param, :observation => observation.attributes }
+    #assert_response 404
   end
 
   test 'protect destroy with HTTP authentication' do
     observation = FactoryGirl.create(:observation)
-    delete :destroy, :id => observation.to_param
-    assert_response 401
+    assert_raises(ActionController::RoutingError) { delete :destroy, :id => observation.to_param }
+    #assert_response 404
   end
 
   test 'return observation search results in json' do

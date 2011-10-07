@@ -47,14 +47,14 @@ class SpeciesControllerTest < ActionController::TestCase
 
   test 'protect edit with HTTP authentication' do
     species = seed(:melgal)
-    get :edit, :id => species.to_param
-    assert_response 401
+    assert_raises(ActionController::RoutingError) { get :edit, :id => species.to_param }
+    #assert_response 404
   end
 
   test 'protect update with HTTP authentication' do
     species = seed(:corbra)
     species.name_ru = 'Американская ворона'
-    put :update, :id => species.to_param, :species => species.attributes
-    assert_response 401
+    assert_raises(ActionController::RoutingError) { put :update, :id => species.to_param, :species => species.attributes }
+    #assert_response 404
   end
 end

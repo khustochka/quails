@@ -60,39 +60,39 @@ class LociControllerTest < ActionController::TestCase
   # HTTP auth tests
 
   test 'protect index with HTTP authentication' do
-    get :index
-    assert_response 401
+    assert_raises(ActionController::RoutingError) { get :index }
+    #assert_response 404
   end
 
   test 'protect show with HTTP authentication' do
-    get :show, :id => 'krym'
-    assert_response 401
+    assert_raises(ActionController::RoutingError) { get :show, :id => 'krym' }
+    #assert_response 404
   end
 
   test 'protect new with HTTP authentication' do
-    get :new
-    assert_response 401
+    assert_raises(ActionController::RoutingError) { get :new }
+    #assert_response 404
   end
 
   test 'protect edit with HTTP authentication' do
-    get :edit, :id => 'krym'
-    assert_response 401
+    assert_raises(ActionController::RoutingError) { get :edit, :id => 'krym' }
+    #assert_response 404
   end
 
   test 'protect create with HTTP authentication' do
     locus = FactoryGirl.build(:locus, :code => 'loccode', :loc_type => 'Country')
-    post :create, :locus => locus.attributes
-    assert_response 401
+    assert_raises(ActionController::RoutingError) { post :create, :locus => locus.attributes }
+    #assert_response 404
   end
 
   test 'protect update with HTTP authentication' do
     locus = seed(:krym)
-    put :update, :id => locus.to_param, :locus => locus.attributes
-    assert_response 401
+    assert_raises(ActionController::RoutingError) { put :update, :id => locus.to_param, :locus => locus.attributes }
+    #assert_response 404
   end
 
   test 'protect destroy with HTTP authentication' do
-    delete :destroy, :id => 'krym'
-    assert_response 401
+    assert_raises(ActionController::RoutingError) { delete :destroy, :id => 'krym' }
+    #assert_response 404
   end
 end
