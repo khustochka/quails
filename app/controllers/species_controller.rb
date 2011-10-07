@@ -1,6 +1,6 @@
 class SpeciesController < ApplicationController
 
-  require_http_auth :except => [:index, :show]
+  check_http_auth :except => [:index, :show]
 
   layout 'admin', :except => [:index, :show]
 

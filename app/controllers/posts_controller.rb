@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
 
-  require_http_auth :except => [:index, :year, :month, :show]
+  check_http_auth :except => [:index, :year, :month, :show]
 
   layout 'admin', :except => [:index, :year, :month, :show]
 

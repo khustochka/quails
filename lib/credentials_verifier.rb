@@ -7,6 +7,14 @@ module CredentialsVerifier
 
   def self.authenticate(controller)
     unless Rails.env.development? && @options.free_access
+      controller.authenticate_with_http_basic do |user_name, password|
+        user_name == @options.username && Digest::SHA1.hexdigest(password) == @options.password
+      end
+    end
+  end
+
+  def self.require_auth(controller)
+    unless Rails.env.development? && @options.free_access
       controller.authenticate_or_request_with_http_basic do |user_name, password|
         user_name == @options.username && Digest::SHA1.hexdigest(password) == @options.password
       end

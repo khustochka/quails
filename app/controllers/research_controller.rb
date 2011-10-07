@@ -1,6 +1,6 @@
 class ResearchController < ApplicationController
 
-  require_http_auth
+  check_http_auth
 
   layout 'admin'
 

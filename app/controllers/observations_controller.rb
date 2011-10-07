@@ -1,6 +1,6 @@
 class ObservationsController < ApplicationController
 
-  require_http_auth
+  check_http_auth
 
   layout 'admin'
 
