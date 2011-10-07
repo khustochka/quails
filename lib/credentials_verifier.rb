@@ -4,24 +4,10 @@ module CredentialsVerifier
     @options = options
   end
 
-  def self.authenticate(controller)
-    unless Rails.env.development? && @options.free_access
-      controller.authenticate_with_http_basic do |user_name, password|
-        user_name == @options.username && 
-            (Digest::SHA1.hexdigest(password) == @options.password ||
-            password == @options.password)
-      end
-    end
-  end
-
-  def self.require_auth(controller)
-    unless Rails.env.development? && @options.free_access
-      controller.authenticate_or_request_with_http_basic do |user_name, password|
-        user_name == @options.username && 
-            (Digest::SHA1.hexdigest(password) == @options.password ||
-            password == @options.password)
-      end
-    end
+  def self.check_credentials(username, password)
+    (username == @options.username &&
+        (Digest::SHA1.hexdigest(password) == @options.password || password == @options.password)) ||
+        (Rails.env.development? && @options.free_access)
   end
 
   def self.check_cookie(controller)

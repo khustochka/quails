@@ -8,19 +8,19 @@ module SecurityController
     def check_http_auth(*args)
       options = args.extract_options!
       before_filter options do
-        if CredentialsVerifier.authenticate(self)
+        if authenticate_with_http_basic &CredentialsVerifier.method(:check_credentials)
           CredentialsVerifier.set_cookie(self)
         else
           raise ActionController::RoutingError, "No route matches #{request.path.inspect}"
         end
       end
     end
-	
-	
+
     def require_http_auth(*args)
       options = args.extract_options!
       before_filter options do
-        CredentialsVerifier.require_auth(self) && CredentialsVerifier.set_cookie(self)
+        authenticate_or_request_with_http_basic &CredentialsVerifier.method(:check_credentials)
+        CredentialsVerifier.set_cookie(self)
       end
     end
 	
