@@ -95,7 +95,9 @@ class PostsControllerTest < ActionController::TestCase
   test 'protect update with HTTP authentication' do
     blogpost = FactoryGirl.create(:post)
     blogpost.title = 'Changed title'
-    assert_raises(ActionController::RoutingError) { put :update, :id => blogpost.to_param, :post => blogpost.attributes }
+    assert_raises(ActionController::RoutingError) do
+      put :update, :id => blogpost.to_param, :post => blogpost.attributes
+    end
     #assert_response 404
   end
 

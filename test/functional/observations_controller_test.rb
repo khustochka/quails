@@ -105,7 +105,9 @@ class ObservationsControllerTest < ActionController::TestCase
   test 'protect update with HTTP authentication' do
     observation = FactoryGirl.create(:observation)
     observation.observ_date = '2010-11-07'
-    assert_raises(ActionController::RoutingError) { put :update, :id => observation.to_param, :observation => observation.attributes }
+    assert_raises(ActionController::RoutingError) do
+      put :update, :id => observation.to_param, :observation => observation.attributes
+    end
     #assert_response 404
   end
 
