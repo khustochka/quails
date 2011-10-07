@@ -13,7 +13,7 @@ class ActiveSupport::TestCase
   def login_as_admin
     CredentialsVerifier.set_cookie(@controller)
     @request.env['HTTP_AUTHORIZATION'] =
-        ActionController::HttpAuthentication::Basic.encode_credentials(TEST_CREDENTIALS.username, TEST_CREDENTIALS.password_plain)
+        ActionController::HttpAuthentication::Basic.encode_credentials(TEST_CREDENTIALS.username, TEST_CREDENTIALS.password)
   end
 
   @@seed = HashWithIndifferentAccess.new do |hash, code|

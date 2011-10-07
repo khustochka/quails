@@ -27,13 +27,13 @@ module CapybaraTestCase
   def login_as_admin
     test_credentials = ActiveSupport::TestCase::TEST_CREDENTIALS
     if page.driver.try(:browser).respond_to?(:basic_authorize)
-      page.driver.browser.basic_authorize(test_credentials.username, test_credentials.password_plain)
+      page.driver.browser.basic_authorize(test_credentials.username, test_credentials.password)
       # To set cookies
       visit '/login'
     else
       # FIXME for this to work you need to add pref("network.http.phishy-userpass-length", 255); to /Applications/Firefox.app/Contents/MacOS/defaults/pref/firefox.js
       str = "http://%s:%s@%s:%s/login"
-      visit str % [test_credentials.username, test_credentials.password_plain, page.driver.rack_server.host, page.driver.rack_server.port]
+      visit str % [test_credentials.username, test_credentials.password, page.driver.rack_server.host, page.driver.rack_server.port]
     end
   end
 end

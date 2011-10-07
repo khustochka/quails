@@ -1,4 +1,4 @@
-# use SHA1 encoded password for development and production
+# use plain or SHA1 encoded password for development and production
 development:
   free_access: true # works only in dev mode
   admin_session_ask: dontask
@@ -12,7 +12,7 @@ development:
 # use plain text password for test environment
 test:
   username: testuser
-  password_plain: testpasswd
+  password: testpasswd 
   admin_session_ask: testask
   admin_session_reply: testreply
   images_host:
