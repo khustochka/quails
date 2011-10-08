@@ -4,6 +4,7 @@ development:
   admin_session_ask: dontask
   admin_session_reply: dontell
   images_host:
+  secret_token: <%= SecureRandom.hex(30) %>
   flickr:
     api_key:
     shared_secret:
@@ -15,6 +16,7 @@ test:
   password: testpasswd 
   admin_session_ask: testask
   admin_session_reply: testreply
+  secret_token: <%= SecureRandom.hex(30) %>
   images_host:
   flickr:
     api_key:
