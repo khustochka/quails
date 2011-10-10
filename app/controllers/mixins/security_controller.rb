@@ -17,15 +17,17 @@ module SecurityController
     def ask_for_credentials(*args)
       options = args.extract_options!
       before_filter options do
-        authenticate_or_request_with_http_basic &CredentialsVerifier.method(:check_credentials)
+        unless CredentialsVerifier.free_access
+          authenticate_or_request_with_http_basic &CredentialsVerifier.method(:check_credentials)
+        end
       end
     end
-	
+
   end
 
   private
   def current_user
     @current_user ||= User.new(authenticate_with_http_basic &CredentialsVerifier.method(:check_credentials))
   end
-  
+
 end
