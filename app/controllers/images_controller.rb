@@ -1,6 +1,6 @@
 class ImagesController < ApplicationController
 
-  check_http_auth :except => [:photostream, :show]
+  requires_admin_authorized :except => [:photostream, :show]
 
   layout 'admin', :except => [:photostream, :show]
 

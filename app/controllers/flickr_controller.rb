@@ -1,6 +1,6 @@
 class FlickrController < ApplicationController
 
-  check_http_auth
+  requires_admin_authorized
 
   layout 'admin'
 

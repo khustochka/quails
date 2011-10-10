@@ -1,6 +1,6 @@
 class AdminController < ApplicationController
 
-  require_http_auth
+  ask_for_credentials :only => :login
 
   layout 'admin'
 

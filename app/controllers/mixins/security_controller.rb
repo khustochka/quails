@@ -5,7 +5,7 @@ module SecurityController
   end
 
   module ClassMethods
-    def check_http_auth(*args)
+    def requires_admin_authorized(*args)
       options = args.extract_options!
       before_filter options do
         if authenticate_with_http_basic &CredentialsVerifier.method(:check_credentials)
@@ -16,7 +16,7 @@ module SecurityController
       end
     end
 
-    def require_http_auth(*args)
+    def ask_for_credentials(*args)
       options = args.extract_options!
       before_filter options do
         authenticate_or_request_with_http_basic &CredentialsVerifier.method(:check_credentials)
