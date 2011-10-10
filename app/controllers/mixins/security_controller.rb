@@ -27,6 +27,10 @@ module SecurityController
   end
 
   private
+  def current_user
+    @current_user ||= User.new(admin_session?)
+  end
+  
   def admin_session?
     return @is_admin unless @is_admin.nil? # true or false
     @is_admin = CredentialsVerifier.check_cookie(self)

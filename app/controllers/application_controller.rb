@@ -24,6 +24,8 @@ class ApplicationController < ActionController::Base
 #    super(options, new_status)
 #  end
 
+  private
+
   def significant_params
     if @allowed_params
       params.slice(*@allowed_params)
@@ -33,10 +35,5 @@ class ApplicationController < ActionController::Base
   end
 
   helper_method :significant_params
-
-  private
-  def current_user
-    @current_user ||= User.new(admin_session?)
-  end
 
 end
