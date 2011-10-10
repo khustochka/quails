@@ -11,7 +11,6 @@ class ActiveSupport::TestCase
   TEST_CREDENTIALS = Hashie::Mash.new YAML::load_file('config/security_devtest.yml')['test']
 
   def login_as_admin
-    CredentialsVerifier.set_cookie(@controller)
     @request.env['HTTP_AUTHORIZATION'] =
         ActionController::HttpAuthentication::Basic.encode_credentials(TEST_CREDENTIALS.username, TEST_CREDENTIALS.password)
   end

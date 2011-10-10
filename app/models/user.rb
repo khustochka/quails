@@ -1,9 +1,13 @@
 class User
   def initialize(is_admin = false)
-    @admin = is_admin
+    @is_admin = is_admin
+  end
+  
+  def admin?
+    @is_admin
   end
 
   def available_posts
-    @admin ? Post.scoped : Post.public
+    @is_admin ? Post.scoped : Post.public
   end
 end

@@ -29,7 +29,7 @@ module CapybaraTestCase
     if page.driver.try(:browser).respond_to?(:basic_authorize)
       page.driver.browser.basic_authorize(test_credentials.username, test_credentials.password)
       # To set cookies
-      visit '/login'
+      # visit '/login'
     else
       # FIXME for this to work you need to add pref("network.http.phishy-userpass-length", 255); to /Applications/Firefox.app/Contents/MacOS/defaults/pref/firefox.js
       str = "http://%s:%s@%s:%s/login"

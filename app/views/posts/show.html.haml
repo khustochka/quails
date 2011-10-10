@@ -1,6 +1,6 @@
 - @page_title = @post.title
 
-= render 'admin/shortcuts' if admin_session?
+= render 'admin/shortcuts' if current_user.admin?
 
 = render @post
 
@@ -9,7 +9,7 @@
     %b Список видов:
     = @post.species.uniq.map { |sp| species_link(sp) }.join(",\n").html_safe
 
-%p= link_to('Add more observations', new_observation_path(:post_id => @post.id)) if admin_session?
+%p= link_to('Add more observations', new_observation_path(:post_id => @post.id)) if current_user.admin?
 
 - unless @post.lj_url_id.blank?
   %p= link_to 'This post on Livejournal', lj_post_url

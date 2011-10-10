@@ -1,16 +1,14 @@
 module SecurityController
   def self.included(klass)
     klass.extend ClassMethods
-    klass.helper_method :admin_session?
+    klass.helper_method :current_user
   end
 
   module ClassMethods
     def requires_admin_authorized(*args)
       options = args.extract_options!
       before_filter options do
-        if authenticate_with_http_basic &CredentialsVerifier.method(:check_credentials)
-          CredentialsVerifier.set_cookie(self)
-        else
+        unless current_user.admin?
           raise ActionController::RoutingError, "No route matches #{request.path.inspect}"
         end
       end
@@ -20,7 +18,6 @@ module SecurityController
       options = args.extract_options!
       before_filter options do
         authenticate_or_request_with_http_basic &CredentialsVerifier.method(:check_credentials)
-        CredentialsVerifier.set_cookie(self)
       end
     end
 	
@@ -28,11 +25,7 @@ module SecurityController
 
   private
   def current_user
-    @current_user ||= User.new(admin_session?)
+    @current_user ||= User.new(authenticate_with_http_basic &CredentialsVerifier.method(:check_credentials))
   end
   
-  def admin_session?
-    return @is_admin unless @is_admin.nil? # true or false
-    @is_admin = CredentialsVerifier.check_cookie(self)
-  end
 end

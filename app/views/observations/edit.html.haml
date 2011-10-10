@@ -7,7 +7,7 @@
 
 %h1= @page_title
 
-= render 'admin/shortcuts' if admin_session?
+= render 'admin/shortcuts' if current_user.admin?
 
 = simple_form_for @observation do |form|
   %div

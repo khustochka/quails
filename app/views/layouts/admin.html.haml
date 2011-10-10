@@ -39,4 +39,4 @@
         =yield
 
     %footer
-      = @admin_menu if admin_session?
+      = @admin_menu if current_user.admin?
