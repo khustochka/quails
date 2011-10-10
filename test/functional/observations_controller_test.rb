@@ -16,6 +16,18 @@ class ObservationsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:observations)
   end
 
+  test "get index sorted by species order" do
+    FactoryGirl.create(:observation, :species => seed(:pasdom), :observ_date => "2010-06-20", :locus => seed(:new_york))
+    FactoryGirl.create(:observation, :species => seed(:melgal), :observ_date => "2010-06-18")
+    FactoryGirl.create(:observation, :species => seed(:anapla), :observ_date => "2009-06-18")
+    FactoryGirl.create(:observation, :species => seed(:anacly), :observ_date => "2007-07-18", :locus => seed(:brovary))
+    FactoryGirl.create(:observation, :species => seed(:embcit), :observ_date => "2009-08-09", :locus => seed(:kherson))
+    login_as_admin
+    get :index, sort: 'species.index_num'
+    assert_response :success
+    assert_not_nil assigns(:observations)
+  end
+
   test "Avis incognita properly rendered on index page" do
     FactoryGirl.create(:observation, :species_id => 0, :observ_date => "2010-06-18")
     FactoryGirl.create(:observation, :species_id => 0, :observ_date => "2009-06-19")
