@@ -31,13 +31,13 @@ namespace :legacy do
       images = Legacy::Models::Image.all
     else
       if source.nil?
-        require 'grit'
+        #require 'grit'
         folder = local_opts['repo']
 
-        repo = Grit::Repo.new(folder)
+        #repo = Grit::Repo.new(folder)
 
-        puts 'Pulling from remote'
-        repo.remote_fetch('origin')
+        #puts 'Pulling from remote'
+        #repo.remote_fetch('origin')
 
         source = File.join(folder, 'legacy', 'db_dump.yml')
       end
