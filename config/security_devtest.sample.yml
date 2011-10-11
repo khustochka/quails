@@ -1,8 +1,7 @@
 # use plain or SHA1 encoded password for development and production
 development:
-  free_access: true # works only in dev mode
-  admin_session_ask: dontask
-  admin_session_reply: dontell
+  admin:
+    free_access: true # works only in dev mode
   images_host:
   secret_token: <%= SecureRandom.hex(30) %>
   flickr:
@@ -12,10 +11,9 @@ development:
 
 # use plain text password for test environment
 test:
-  username: testuser
-  password: testpasswd 
-  admin_session_ask: testask
-  admin_session_reply: testreply
+  admin:
+    username: testuser
+    password: testpasswd
   secret_token: <%= SecureRandom.hex(30) %>
   images_host:
   flickr:

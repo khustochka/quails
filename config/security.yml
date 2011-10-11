@@ -1,9 +1,8 @@
 # use SHA1 encoded password for development and production
 production:
-  username: <%= ENV['username'] %>
-  password: <%= ENV['password'] %>
-  admin_session_ask: <%= ENV['admin_session_ask'] %>
-  admin_session_reply: <%= ENV['admin_session_reply'] %>
+  admin:
+    username: <%= ENV['username'] %>
+    password: <%= ENV['password'] %>
   secret_token: <%= ENV['secret_token'] %>
   images_host: <%= ENV['images_host'] %>
   flickr:

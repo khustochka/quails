@@ -1,7 +1,7 @@
 module CredentialsVerifier
 
   def self.init(options)
-    @options = options
+    @options = Hashie::Mash.new(options)
     @free_access = Rails.env.development? && @options.free_access
   end
 
