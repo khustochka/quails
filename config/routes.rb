@@ -63,8 +63,7 @@ Quails3::Application.routes.draw do
   get 'flickr' => 'flickr#search'
   get 'flickr/auth' => 'flickr#auth'
 
-  get 'research' => 'research#index'
-  get 'research/:action', :controller => :research
+  get 'research(/:action)', :controller => :research, :as => :research
 
   # Sample resource route with options:
   #   resources :products do
