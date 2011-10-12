@@ -9,7 +9,7 @@
 
 = render 'admin/shortcuts' if current_user.admin?
 
-= simple_form_for @observation, :remote => true, :html => {:'data-action' => bulksave_observations_path} do |form|
+= simple_form_for @observation, :remote => true, :html => {'data-action' => bulksave_observations_path} do |form|
   %div
     = form.association :locus, :label => 'Location:', :collection => Locus.all_ordered, :label_method => :name_en,
         :input_html => {:class => 'suggest-combo', :name => 'c[locus_id]'}
