@@ -69,8 +69,8 @@ class PostsControllerTest < ActionController::TestCase
   test "redirect post to correct URL if year and month are incorrect" do
     blogpost = FactoryGirl.create(:post, :face_date => '2007-12-06 13:14:15')
     get :show, {:id => blogpost.code, :year => 2010, :month => '01'}
-#    assert_response 301
     assert_redirected_to public_post_path(blogpost)
+    assert_response 301
   end
 
   # HTTP auth tests

@@ -14,7 +14,7 @@ class SpeciesController < ApplicationController
   # GET /species/1
   def show
     if params[:id] != @species.to_param
-      redirect_to @species
+      redirect_to @species, :status => 301
     end
   end
 

@@ -15,15 +15,6 @@ class ApplicationController < ActionController::Base
 
   layout 'public'
 
-# TODO: Default redirect status should be 301 for public pages, 302 left for administrative
-#  def redirect_to(options = {}, response_status = {})
-#    new_status = response_status.dup
-#    unless (options.is_a?(Hash) && options.key?(:status)) || response_status.key?(:status)
-#      new_status.merge!(:status => :moved_permanently)
-#    end
-#    super(options, new_status)
-#  end
-
   private
 
   def significant_params

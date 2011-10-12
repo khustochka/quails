@@ -46,7 +46,7 @@ class PostsController < ApplicationController
   # GET /posts/1
   def show
     if @post.month != params[:month].to_s || @post.year != params[:year].to_s
-      redirect_to public_post_path(@post)
+      redirect_to public_post_path(@post), :status => 301
     end
   end
 
