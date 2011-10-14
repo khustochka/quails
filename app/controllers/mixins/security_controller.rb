@@ -27,7 +27,10 @@ module SecurityController
 
   private
   def current_user
-    @current_user ||= User.new(authenticate_with_http_basic &CredentialsVerifier.method(:check_credentials))
+    @current_user ||= User.new(
+        CredentialsVerifier.free_access ||
+            authenticate_with_http_basic(&CredentialsVerifier.method(:check_credentials))
+    )
   end
 
 end
