@@ -1,9 +1,9 @@
 module CredentialsVerifier
-
   def self.init(options)
     @options = Hashie::Mash.new(options)
     @free_access = Rails.env.development? && @options.free_access
-    raise "You have to specify admin username and password" unless @free_access || (@options.username && @options.password)
+    raise ArgumentError, "You have to specify admin username and password" unless
+        @free_access || (@options.username && @options.password)
   end
 
   def self.free_access
@@ -12,7 +12,7 @@ module CredentialsVerifier
 
   def self.check_credentials(username, password)
     (username == @options.username &&
-        (Digest::SHA1.hexdigest(password) == @options.password || password == @options.password)) ||
-        @free_access
+    (Digest::SHA1.hexdigest(password) == @options.password || password == @options.password)) ||
+    @free_access
   end
 end
