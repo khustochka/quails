@@ -37,8 +37,12 @@ img
 
 li
   /*
-   *For IE6 + IE7.
+   *  For IE6 + IE7:
+   *
+   *  "display: list-item" keeps bullets from
+   *  disappearing if hasLayout is triggered.
   display: list-item
+  list-style: none
 
 table
   border-collapse: collapse
@@ -71,5 +75,6 @@ sup
 
 svg
   /*
-   *For IE9.
+   *For IE9. Without, occasionally draws shapes
+   *outside the boundaries of <svg> rectangle.
   overflow: hidden

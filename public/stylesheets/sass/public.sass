@@ -27,6 +27,11 @@ div.imageholder
   padding: 10px 0
   background-color: #e6e6e6
   text-align: center
+  // vertical-align: top is necessary for IE7
+  vertical-align: top
+  // IE inline-block fix
+  zoom: 1
+  *display: inline
   a img
     vertical-align: text-top
     border: 2px solid #007700
