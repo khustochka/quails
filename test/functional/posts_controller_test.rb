@@ -87,8 +87,8 @@ class PostsControllerTest < ActionController::TestCase
   end
 
   test 'protect create with HTTP authentication' do
-    observation = FactoryGirl.build(:observation)
-    assert_raises(ActionController::RoutingError) { post :create, :observation => observation.attributes }
+    blogpost = FactoryGirl.create(:post)
+    assert_raises(ActionController::RoutingError) { post :create, :post => blogpost.attributes }
     #assert_response 404
   end
 

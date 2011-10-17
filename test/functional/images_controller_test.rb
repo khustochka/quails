@@ -3,9 +3,7 @@ require 'test_helper'
 class ImagesControllerTest < ActionController::TestCase
   setup do
     @obs = FactoryGirl.create(:observation)
-    @image = FactoryGirl.build(:image)
-    @image.observations << @obs
-    @image.save
+    @image = FactoryGirl.create(:image, :observations => [@obs])
   end
 
   test "get index" do
@@ -100,9 +98,7 @@ class ImagesControllerTest < ActionController::TestCase
   # TODO: all 'incognita' should be records in the DB (like Passer sp.)
   test 'Image page can be shown for Avis incognita photo as well' do
     observation = FactoryGirl.create(:observation, :species_id => 0)
-    img = FactoryGirl.build(:image, :code => 'picture-of-the-unknown')
-    img.observations << observation
-    img.save
+    img = FactoryGirl.create(:image, :code => 'picture-of-the-unknown', :observations => [observation])
     get :show, img.to_url_params
   end
 end

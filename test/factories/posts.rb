@@ -1,13 +1,13 @@
 FactoryGirl.define do
-  factory :post do |f|
-    f.code "test-post"
-    f.title "Test Post"
-    f.text <<TEXT
+  factory :post do
+    code "test-post"
+    title "Test Post"
+    text <<TEXT
 This is a post text.
 
 It must be multiline.
 TEXT
-    f.topic "OBSR"
-    f.status "OPEN"
+    topic "OBSR"
+    status "OPEN"
   end
 end
