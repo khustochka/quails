@@ -17,7 +17,7 @@ class Image < ActiveRecord::Base
   # Instance methods
 
   def to_url_params
-    {:id => code, :species => species.first.to_param}
+    {id: code, species: (species.first.to_param || 'Avis_incognita')}
   end
 
   def search_applicable_observations
