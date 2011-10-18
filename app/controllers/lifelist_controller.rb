@@ -14,11 +14,11 @@ class LifelistController < ApplicationController
         end
 
     @lifelist = Lifelist.new(
-        user: current_user,
-        options: {
-            sort: sort_override,
-            year: params[:year],
-            locus: params[:locus]
+        :user => current_user,
+        :options => {
+            :sort => sort_override,
+            :year => params[:year],
+            :locus => params[:locus]
         }
     )
   end

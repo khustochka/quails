@@ -54,7 +54,7 @@ namespace :legacy do
     puts "Loading #{filename}..."
 
     # NOTE: legacy DB connection encoding should be utf8 for this to work!
-    file = File.open(filename, encoding: 'windows-1251')
+    file = File.open(filename, encoding => 'windows-1251')
     ydoc = YAML.load(file.read)
     ydoc.keys.each do |table_name|
       data = ydoc[table_name]
