@@ -1,4 +1,3 @@
-# Taken from http://github.com/look/fixie
 namespace :db do
   namespace :test do
     desc 'Causes db:test:prepare to also run db:seed'
