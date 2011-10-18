@@ -41,7 +41,5 @@ group :test do
   gem 'capybara'
   gem 'rspec-expectations', :require => false # No need to require on startup b/c TestUnitTestCase doesn't exist then
   gem 'launchy' # So you can do Then show me the page
-                #platforms :ruby, :mingw do
-                #  gem 'spork'
-                #end
+#  gem 'spork-testunit'
 end
