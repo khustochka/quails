@@ -8,12 +8,14 @@ class UIObservationsTest < ActionDispatch::IntegrationTest
   test 'Searching and showing Avis incognita observations' do
     FactoryGirl.create(:observation, :species_id => 0, :observ_date => "2010-06-18")
     FactoryGirl.create(:observation, :species_id => 0, :observ_date => "2009-06-19")
+    FactoryGirl.create(:observation, :species => seed(:spinus), :observ_date => "2010-06-18")
     login_as_admin
     visit observations_path
     select('- Avis incognita', :from => 'Species')
     click_button('Search')
     page.driver.response.status.should == 200
     find('table.obs_list').should have_content('- Avis incognita')
+    find('table.obs_list').should_not have_content('Spinus spinus')
   end
 
   test 'Searching observations by species works properly' do
