@@ -11,7 +11,7 @@ class UIImagesTest < ActionDispatch::IntegrationTest
     login_as_admin
     visit edit_image_path(img)
 
-    lambda { click_button('Save'); sleep 0.5 }.should_not change(Image, :count)
+    lambda { click_button('Save') }.should_not change(Image, :count)
     current_path.should == show_image_path(img.to_url_params)
   end
 
@@ -27,7 +27,7 @@ class UIImagesTest < ActionDispatch::IntegrationTest
       select_suggestion('Brovary', :from => 'Location')
     end
 
-    lambda { click_button('Save'); sleep 0.5 }.should change(Image, :count).by(1)
+    lambda { click_button('Save') }.should change(Image, :count).by(1)
     img = Image.find_by_code('test-img-capybara')
     current_path.should == show_image_path(img.to_url_params)
   end
