@@ -45,10 +45,9 @@ class ObservationsControllerTest < ActionController::TestCase
   end
 
   test "create observation" do
-    observation = FactoryGirl.build(:observation)
     assert_difference('Observation.count') do
       login_as_admin
-      post :create, :observation => observation.attributes
+      post :create, :observation => FactoryGirl.attributes_for(:observation)
     end
     assert_redirected_to observation_path(assigns(:observation))
   end
@@ -109,8 +108,7 @@ class ObservationsControllerTest < ActionController::TestCase
   end
 
   test 'protect create with HTTP authentication' do
-    observation = FactoryGirl.build(:observation)
-    assert_raises(ActionController::RoutingError) { post :create, :observation => observation.attributes }
+    assert_raises(ActionController::RoutingError) { post :create, :observation => FactoryGirl.attributes_for(:observation) }
     #assert_response 404
   end
 

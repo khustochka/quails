@@ -3,16 +3,14 @@ require 'test_helper'
 class LocusTest < ActiveSupport::TestCase
 
   test 'do not save locus with empty code' do
-    loc = FactoryGirl.build(:locus, :loc_type => 'Country')
-    loc.code = ''
+    loc = FactoryGirl.build(:locus, :code => '')
     assert_raises(ActiveRecord::RecordInvalid) do
       loc.save!
     end
   end
 
   test 'do not save locus with existing code' do
-    loc = FactoryGirl.build(:locus, :loc_type => 'Country')
-    loc.code = 'kiev'
+    loc = FactoryGirl.build(:locus, :code => 'kiev')
     assert_raises(ActiveRecord::RecordInvalid) do
       loc.save!
     end

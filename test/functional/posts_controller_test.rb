@@ -9,10 +9,9 @@ class PostsControllerTest < ActionController::TestCase
   end
 
   test "create post" do
-    blogpost = FactoryGirl.build(:post)
     assert_difference('Post.count') do
       login_as_admin
-      post :create, :post => blogpost.attributes
+      post :create, :post => FactoryGirl.attributes_for(:post)
     end
     assert_redirected_to public_post_path(assigns(:post))
   end

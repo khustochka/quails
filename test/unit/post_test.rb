@@ -3,8 +3,7 @@ require 'test_helper'
 class PostTest < ActiveSupport::TestCase
 
   test 'do not save post with empty code' do
-    blogpost      = FactoryGirl.build(:post)
-    blogpost.code = ''
+    blogpost = FactoryGirl.build(:post, :code => '')
     assert_raises(ActiveRecord::RecordInvalid) do
       blogpost.save!
     end
@@ -12,28 +11,26 @@ class PostTest < ActiveSupport::TestCase
 
   test 'do not save post with existing code' do
     FactoryGirl.create(:post, :code => 'kiev-observations')
-    blogpost      = FactoryGirl.build(:post)
-    blogpost.code = 'kiev-observations'
+    blogpost = FactoryGirl.build(:post, :code => 'kiev-observations')
     assert_raises(ActiveRecord::RecordInvalid) do
       blogpost.save!
     end
   end
 
   test 'do not save post with empty title' do
-    blogpost       = FactoryGirl.build(:post)
-    blogpost.title = ''
+    blogpost = FactoryGirl.build(:post, :title => '')
     assert_raises(ActiveRecord::RecordInvalid) do
       blogpost.save!
     end
   end
 
   test "set post's face_date to current (equal to updated_at) when creating" do
-    blogpost       = FactoryGirl.create(:post)
+    blogpost = FactoryGirl.create(:post)
     assert_equal blogpost.updated_at, blogpost.face_date
   end
 
   test "set post's face_date to current (equal to updated_at) when saving with empty value" do
-    blogpost       = FactoryGirl.create(:post, :updated_at => '2008-01-01 02:02:02')
+    blogpost = FactoryGirl.create(:post, :updated_at => '2008-01-01 02:02:02')
     blogpost.face_date = ''
     blogpost.save!
     blogpost.reload

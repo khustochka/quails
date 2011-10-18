@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :observation do
-    species { Species.find_by_code!('pasdom') }
-    locus { Locus.find_by_code!('brovary') }
+    species_id { Species.find_by_code!('pasdom').id }
+    locus_id { Locus.find_by_code!('brovary').id }
     observ_date "2010-06-18"
     quantity "several"
     biotope "park"

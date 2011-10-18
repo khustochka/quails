@@ -19,12 +19,10 @@ class LociControllerTest < ActionController::TestCase
   end
 
   test "create locus" do
-    locus = FactoryGirl.build(:locus, :code => 'loccode', :loc_type => 'Country')
     assert_difference('Locus.count') do
       login_as_admin
-      post :create, :locus => locus.attributes
+      post :create, :locus => FactoryGirl.attributes_for(:locus)
     end
-
     assert_redirected_to locus_path(assigns(:locus))
   end
 
@@ -80,8 +78,9 @@ class LociControllerTest < ActionController::TestCase
   end
 
   test 'protect create with HTTP authentication' do
-    locus = FactoryGirl.build(:locus, :code => 'loccode', :loc_type => 'Country')
-    assert_raises(ActionController::RoutingError) { post :create, :locus => locus.attributes }
+    assert_raises(ActionController::RoutingError) do 
+      post :create, :locus => FactoryGirl.attributes_for(:locus)
+    end
     #assert_response 404
   end
 
