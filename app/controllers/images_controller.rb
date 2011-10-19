@@ -44,9 +44,14 @@ class ImagesController < ApplicationController
   # PUT /images/1
   def update
     @extra_params = @image.to_url_params
-    if @image.update_attributes(params[:image])
+    image = params[:image]
+    image[:observation_ids] = Array.wrap(image[:observation_ids])
+    
+    if @image.update_attributes(image)
       redirect_to(public_image_path(@image), :notice => 'Image was successfully updated.')
     else
+      # TODO: probably hits the DB. no observation_ids_was.
+      @image.observations.reload
       render :action => "edit"
     end
   end

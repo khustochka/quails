@@ -70,8 +70,9 @@ class ImagesControllerTest < ActionController::TestCase
 
   test "update image" do
     login_as_admin
-    new_attr = @image.attributes.dup
+    new_attr = @image.attributes
     new_attr['code'] = 'new_code'
+    new_attr[:observation_ids] = @image.observation_ids
     put :update, :id => @image.to_param, :image => new_attr
     assert_redirected_to public_image_path(assigns(:image))
   end

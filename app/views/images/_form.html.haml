@@ -8,12 +8,11 @@
 
 = simple_form_for @image do |form|
 
-  -if @image.errors.any?
-    #errorExplanation
-      %h5= "#{pluralize(@image.errors.count, "error")} prohibited this #{Image.name.titleize} from being saved:"
-      %ul
-        - @image.errors.full_messages.each do |msg|
-          %li= msg
+  - if @image.errors.any?
+    %ul.error_list
+      - @image.errors.full_messages.each do |msg|
+        %li= msg
+      
   %div
     = form.input :code
     = form.input :title
@@ -24,11 +23,15 @@
     %tr
       %td.observations_list
         Observations:
-        - if @image.observations.empty?
-          %p None.
-        - else
-          = form.association :observations, :collection => @image.observations, :as => :check_boxes, :label => false, :disabled => true,
-            :label_method => lambda {|ob| [ob.species.name_sci, ob.observ_date, ob.locus.name_en].join(', ')}, :value_method => :id
+        %ul.obs-list
+          - if @image.observations.empty?
+            %li None.
+          - else
+            - @image.observations.each do |ob|
+              %li
+                %input{:type => :hidden, :value => ob.id, :name => 'image[observation_ids][]'}
+                = [ob.species.name_sci, ob.observ_date, ob.locus.name_en].join(', ')
+                %span.pseudolink.remove= image_tag('/images/x_alt_12x12.png')
       %td.observations_search
         = simple_form_for observ_search, :url => observations_path, :method => :get do |form2|
           = form2.input :observ_date_eq, :label => 'Date:', :input_html => {:type => 'date'}
