@@ -23,15 +23,15 @@
     %tr
       %td.observations_list
         Observations:
+        - unless @image.observations.empty?
+          %b= @image.locus.name_en
+          %time= l(@image.observ_date, :format => :long)
         %ul.obs-list
-          - if @image.observations.empty?
-            %li None.
-          - else
-            - @image.observations.each do |ob|
-              %li
-                %input{:type => :hidden, :value => ob.id, :name => 'image[observation_ids][]'}
-                = [ob.species.name_sci, ob.observ_date, ob.locus.name_en].join(', ')
-                %span.pseudolink.remove= image_tag('/images/x_alt_12x12.png')
+          - @image.observations.each do |ob|
+            %li
+              %input{:type => :hidden, :value => ob.id, :name => 'image[observation_ids][]'}
+              %i= ob.species.name_sci
+              %span.pseudolink.remove= image_tag('/images/x_alt_12x12.png')
       %td.observations_search
         = simple_form_for observ_search, :url => observations_path, :method => :get do |form2|
           = form2.input :observ_date_eq, :label => 'Date:', :input_html => {:type => 'date'}
