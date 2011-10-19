@@ -83,7 +83,7 @@ class ObservationsControllerTest < ActionController::TestCase
     assert_redirected_to observations_path
   end
 
-    # HTTP auth tests
+  # HTTP auth tests
 
   test 'protect index with HTTP authentication' do
     assert_raises(ActionController::RoutingError) { get :index }

@@ -46,7 +46,7 @@ class ImagesController < ApplicationController
     @extra_params = @image.to_url_params
     image = params[:image]
     image[:observation_ids] = Array.wrap(image[:observation_ids])
-    
+
     if @image.update_attributes(image)
       redirect_to(public_image_path(@image), :notice => 'Image was successfully updated.')
     else

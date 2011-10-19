@@ -95,7 +95,7 @@ class ImagesControllerTest < ActionController::TestCase
 
     assert_redirected_to images_path
   end
-  
+
   # TODO: all 'incognita' should be records in the DB (like Passer sp.)
   test 'Image page can be shown for Avis incognita photo as well' do
     observation = FactoryGirl.create(:observation, :species_id => 0)

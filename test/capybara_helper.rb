@@ -5,6 +5,7 @@ require 'capybara/rails'
 class ActiveRecord::Base
   mattr_accessor :shared_connection
   @@shared_connection = nil
+
   def self.connection
     @@shared_connection || retrieve_connection
   end
@@ -16,7 +17,7 @@ ActiveRecord::Base.shared_connection = ActiveRecord::Base.connection
 
 module CapybaraTestCase
   include Capybara::DSL
-  
+
   def self.included(klass)
     klass.teardown do
       Capybara.reset_sessions!
@@ -56,8 +57,9 @@ module JavaScriptTestCase
         #sleep(0.5)
         page.execute_script " $('#{selector}').trigger('mouseenter').click();"
       end
-  
+
       alias_method :native_click_button, :click_button
+
       def click_button(button)
         native_click_button(button)
         sleep 0.5

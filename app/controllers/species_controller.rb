@@ -8,7 +8,7 @@ class SpeciesController < ApplicationController
 
   # GET /species
   def index
-    @species  = Species.all
+    @species = Species.all
   end
 
   # GET /species/1

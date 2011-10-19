@@ -39,7 +39,7 @@ class LociControllerTest < ActionController::TestCase
   end
 
   test "update locus" do
-    locus         = seed(:krym)
+    locus = seed(:krym)
     locus.name_ru = 'Крымъ'
     login_as_admin
     put :update, :id => locus.to_param, :locus => locus.attributes
@@ -78,7 +78,7 @@ class LociControllerTest < ActionController::TestCase
   end
 
   test 'protect create with HTTP authentication' do
-    assert_raises(ActionController::RoutingError) do 
+    assert_raises(ActionController::RoutingError) do
       post :create, :locus => FactoryGirl.attributes_for(:locus)
     end
     #assert_response 404

@@ -31,16 +31,16 @@ class PostsController < ApplicationController
   end
 
   def month
-    @posts      = current_user.available_posts.month(@year = params[:year], @month = params[:month])
+    @posts = current_user.available_posts.month(@year = params[:year], @month = params[:month])
     @prev_month = current_user.available_posts.prev_month(@year, @month)
     @next_month = current_user.available_posts.next_month(@year, @month)
   end
 
   def year
-    @posts  = current_user.available_posts.year(@year = params[:year])
+    @posts = current_user.available_posts.year(@year = params[:year])
     # TODO: there is problem with timezone
     @months = @posts.group_by(&:month)
-    @years  = current_user.available_posts.years
+    @years = current_user.available_posts.years
   end
 
   # GET /posts/1

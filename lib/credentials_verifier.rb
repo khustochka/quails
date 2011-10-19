@@ -12,7 +12,7 @@ module CredentialsVerifier
 
   def self.check_credentials(username, password)
     (username == @options.username &&
-    (Digest::SHA1.hexdigest(password) == @options.password || password == @options.password)) ||
-    @free_access
+        (Digest::SHA1.hexdigest(password) == @options.password || password == @options.password)) ||
+        @free_access
   end
 end

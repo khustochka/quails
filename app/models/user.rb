@@ -2,7 +2,7 @@ class User
   def initialize(is_admin = false)
     @is_admin = is_admin
   end
-  
+
   def admin?
     @is_admin
   end

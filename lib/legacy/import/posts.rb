@@ -9,7 +9,7 @@ module Legacy
       def self.import_posts(posts)
         puts 'Importing blog posts...'
         table = BunchDB::Table.new('posts')
-        column_names = Post.column_names.reject {|e| e == 'id' }
+        column_names = Post.column_names.reject { |e| e == 'id' }
         records = posts.map do |post|
           rec = HashWithIndifferentAccess.new(
               :code => post[:post_id],
@@ -22,7 +22,7 @@ module Legacy
               :face_date => post[:post_date],
               :updated_at => post[:post_update]
           )
-          column_names.map {|c| rec[c]}
+          column_names.map { |c| rec[c] }
         end
         table.fill(column_names, records)
         puts 'Done.'

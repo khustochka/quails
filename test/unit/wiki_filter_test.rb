@@ -49,11 +49,11 @@ class WikiFilterTest < ActionDispatch::IntegrationTest
 
   # Posts
 
-#  test 'properly parse post by code [#see this|some-post]' do
-#    blogpost = FactoryGirl.create(:post)
-#    assert_equal post_link('see this', blogpost),
-#                 transform('[#see this|some-post]')
-#  end
+  #  test 'properly parse post by code [#see this|some-post]' do
+  #    blogpost = FactoryGirl.create(:post)
+  #    assert_equal post_link('see this', blogpost),
+  #                 transform('[#see this|some-post]')
+  #  end
 
   # Links
 
@@ -78,7 +78,6 @@ class WikiFilterTest < ActionDispatch::IntegrationTest
   end
 
 
-
   # Combined
 
   test 'properly parse two species' do
@@ -95,18 +94,18 @@ class WikiFilterTest < ActionDispatch::IntegrationTest
 
   # Erroneous
 
-#  test 'properly parse non closed tag' do
-#    assert_equal "[Great|parmaj or  #{species_link(seed(:parcae), 'Blue Tit')}",
-#                 transform('[Great|parmaj or [Blue Tit|parcae]')
-#  end
+  #  test 'properly parse non closed tag' do
+  #    assert_equal "[Great|parmaj or  #{species_link(seed(:parcae), 'Blue Tit')}",
+  #                 transform('[Great|parmaj or [Blue Tit|parcae]')
+  #  end
 
-#  test 'properly handle almost empty tags' do
-#    assert_equal '[]', transform('[]')
-#    #assert_equal '', transform('[|]')
-#    assert_equal '', transform('[@]')
-#    assert_equal '', transform('[#]')
-#    assert_equal '', transform('[@|]')
-#    assert_equal '', transform('[#|]')
-#  end
+  #  test 'properly handle almost empty tags' do
+  #    assert_equal '[]', transform('[]')
+  #    #assert_equal '', transform('[|]')
+  #    assert_equal '', transform('[@]')
+  #    assert_equal '', transform('[#]')
+  #    assert_equal '', transform('[@|]')
+  #    assert_equal '', transform('[#|]')
+  #  end
 
 end

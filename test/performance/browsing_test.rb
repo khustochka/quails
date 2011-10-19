@@ -6,7 +6,7 @@ class BrowsingTest < ActionDispatch::PerformanceTest
   def test_homepage
     get '/'
   end
-  
+
   def test_lifelist
     get '/lifelist'
   end

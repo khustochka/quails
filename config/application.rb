@@ -48,7 +48,7 @@ module Quails3
     # Enable the asset pipeline
     config.assets.enabled = false
 
-    # Prevent running initializers on precompile 
+    # Prevent running initializers on precompile
     # (required for heroku, and works only in application.rb, not in production.rb)
     config.assets.initialize_on_precompile = false
 
