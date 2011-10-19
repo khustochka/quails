@@ -1,5 +1,5 @@
 class Image < ActiveRecord::Base
-  validates :code, :uniqueness => true, :presence => true, :length => { :maximum => 64 }
+  validates :code, :uniqueness => true, :presence => true, :length => {:maximum => 64}
 
   before_save :observations_provided?
 
@@ -21,7 +21,11 @@ class Image < ActiveRecord::Base
   end
 
   def search_applicable_observations
-    Observation.search(observations.present? && {:observ_date_eq => observ_date, :locus_id_eq => locus.id})
+    Observation.search(
+        new_record? ?
+            {:observ_date_eq => Date.yesterday} :
+            {:observ_date_eq => observ_date, :locus_id_eq => locus.id}
+    )
   end
 
   delegate :observ_date, :locus, :to => :first_observation

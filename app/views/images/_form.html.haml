@@ -19,9 +19,19 @@
 
   %p= image_tag(jpg_url(@image, true), :class => 'image_pic')
 
-  %table.observations_block
+  %table
     %tr
-      %td.observations_list
+      %td.observation_search{:colspan => 2}
+        = simple_form_for observ_search, :url => observations_path, :method => :get do |form2|
+          = form2.input :observ_date_eq, :label => 'Date:',
+              :input_html => {:class => 'short', :maxlength => 10, :type => 'date'}
+          = form2.input :locus_id_eq, :label => 'Location:', :collection => Locus.all_ordered,
+              :label_method => :name_en, :input_html => {:class => 'suggest-combo'}
+          = form2.input :species_id_eq, :label => 'Species:', :collection => species_for_select,
+              :label_method => :name_sci, :input_html => {:class => 'suggest-combo'}
+          %button(class='search_btn') Search
+    %tr
+      %td.observation_list
         Observations:
         - unless @image.observations.empty?
           %b= @image.locus.name_en
@@ -32,11 +42,7 @@
               %input{:type => :hidden, :value => ob.id, :name => 'image[observation_ids][]'}
               %i= ob.species.name_sci
               %span.pseudolink.remove= image_tag('/images/x_alt_12x12.png')
-      %td.observations_search
-        = simple_form_for observ_search, :url => observations_path, :method => :get do |form2|
-          = form2.input :observ_date_eq, :label => 'Date:', :input_html => {:type => 'date'}
-          = form2.input :locus_id_eq, :label => 'Location:', :collection => Locus.all_ordered, :label_method => :name_en,
-              :input_html => {:class => 'suggest-combo'}
+      %td.observation_options
 
   %div
     = form.input :description
