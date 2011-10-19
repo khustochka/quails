@@ -25,7 +25,7 @@ $(function() {
     /* On form submit */
     form.attr('action', form.data('action'));
     form.bind('ajax:success', function(e, data) {
-        $(".error_list").remove();
+        $(".errors").remove();
         if (data.result == "OK") {
             $(".obs-row").each(function(index) {
                 var val = data.data[index];
@@ -41,7 +41,7 @@ $(function() {
             })
         }
         else {
-            var err_list = $("<ul>", {'class': 'error_list'}).prependTo("form#new_observation");
+            var err_list = $("<ul>", {'class': 'errors'}).prependTo("form#new_observation");
             for (var i in data.data) {
                 var new_p = $("<li>").append(document.createTextNode(i + " " + data.data[i]));
                 err_list.append(new_p);

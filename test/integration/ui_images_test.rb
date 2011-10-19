@@ -34,21 +34,6 @@ class UIImagesTest < ActionDispatch::IntegrationTest
     img.observations.size.should == 2
   end
 
-  test "Removing all observations prevents from saving" do
-    img = FactoryGirl.create(:image)
-
-    login_as_admin
-    visit edit_image_path(img)
-    within(:xpath, "//ul[contains(@class,'obs-list')]/li[1]") do
-      find('.remove').click
-    end
-
-    click_button('Save')
-    current_path.should_not == show_image_path(img.to_url_params)
-
-    find('ul.obs-list li').should have_content(img.species[0].name_sci)
-  end
-
   # test "Adding new image" do
   # login_as_admin
   # visit new_image_path

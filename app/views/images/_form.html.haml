@@ -9,7 +9,7 @@
 = simple_form_for @image do |form|
 
   - if @image.errors.any?
-    %ul.error_list
+    %ul.errors
       - @image.errors.full_messages.each do |msg|
         %li= msg
 
