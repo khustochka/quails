@@ -1,9 +1,9 @@
 $(function() {
 	function refreshObservList() {
 		if($('ul.current-obs li').length == 0) {
-			$("<li>", {
+			$("<div>", {
 				'class' : 'errors'
-			}).html('None').prependTo("ul.current-obs");
+			}).text('None').prependTo("ul.current-obs");
 			$('.buttons input:submit').prop('disabled', true);
 		}
 	}
@@ -34,7 +34,7 @@ $(function() {
 			success : function(data) {
 				$('.found-obs li').remove();
 				$(data).each(function() {
-					$('<li>').append($('<div>').append($('<span>').html(this.sp_data), $('<span>').html(this.obs_data)))
+					$('<li>').data('ob_id', this.id).append($('<div>').append($('<span>').html(this.sp_data), $('<span>').html(this.obs_data)))
 						.appendTo($('.found-obs'));
 				});
 				$('.found-obs li').draggable({ revert: "invalid" });
@@ -44,7 +44,16 @@ $(function() {
 	});
 	
 	$('.observation_list').droppable({
-				
+		drop: function(event, ui) {
+			var el = ui.draggable;
+			el.draggable("disable");
+			$('.current-obs > div').remove();
+			var removeIcon = $("<span class='pseudolink remove'>").html($("<img>").attr('src', '/images/x_alt_16x16.png'));
+			var hiddenField = $("<input type='hidden' name='image[observation_ids][]' value='"+ el.data('ob_id') + "'>");
+			$("<li>").html(el.html()).prepend(hiddenField).append(removeIcon).appendTo('.current-obs');
+			el.remove();
+			$('.buttons input:submit').prop('disabled', false);
+		}
 	});
 	
 });
