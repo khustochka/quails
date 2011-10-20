@@ -21,6 +21,8 @@ $(function() {
 	
 	// Search button click
 	$('.search_btn').click(function(e) {
+		$('.found-obs li').remove();
+		$('.observation_options').addClass('loading');
 		var arr = new Array($("input#q_observ_date_eq"), $("select#q_locus_id_eq"), $("select#q_species_id_eq"));
 		var dataString = $.param($.map(arr, function(el) {
 			return {"name": el.attr('name'), 'value': el.val()};
@@ -30,7 +32,7 @@ $(function() {
 			url : "/observations/search",
 			data : dataString,
 			success : function(data) {
-				$('.found-obs li').remove();
+        		$('.observation_options').removeClass('loading');
 				$(data).each(function() {
 					$("<li class='new-obs'>").data('ob_id', this.id).append($('<div>').append($('<span>').html(this.sp_data), $('<span>').html(this.obs_data)))
 						.appendTo($('.found-obs'));
