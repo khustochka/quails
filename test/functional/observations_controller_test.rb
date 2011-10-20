@@ -134,6 +134,6 @@ class ObservationsControllerTest < ActionController::TestCase
     assert_response :success
     assert_equal Mime::JSON, response.content_type
     result = JSON.parse(response.body)
-    assert_equal ["date", "id", "loc", "sp"], result.first.keys.sort
+    assert_equal ["id", "obs_data", "sp_data"], result.first.keys.sort
   end
 end
