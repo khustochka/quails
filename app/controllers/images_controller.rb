@@ -51,7 +51,7 @@ class ImagesController < ApplicationController
       redirect_to(public_image_path(@image), :notice => 'Image was successfully updated.')
     else
       # TODO: probably hits the DB. no observation_ids_was.
-      @image.observations.reload
+      @image.observations.reload if @image.observation_ids.blank?
       render :action => "edit"
     end
   end

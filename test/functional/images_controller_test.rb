@@ -96,6 +96,24 @@ class ImagesControllerTest < ActionController::TestCase
     assert_template :edit
   end
 
+  test "should restore observation list if image was not saved due to its emptiness" do
+    login_as_admin
+    new_attr = @image.attributes.dup # observations_ids are not in here
+    new_attr['code'] = 'new_img_code'
+    new_attr[:observation_ids] = []
+    put :update, :id => @image.to_param, :image => new_attr
+    assigns(:image).observation_ids.should == @image.observation_ids
+  end
+
+  test "should not restore former observation list if image was not saved not due to their emptiness" do
+    login_as_admin
+    new_attr = @image.attributes.dup # observations_ids are not in here
+    new_attr['code'] = ''
+    new_attr[:observation_ids] = [new_obs = FactoryGirl.create(:observation)]
+    put :update, :id => @image.to_param, :image => new_attr
+    assigns(:image).observation_ids.should == [new_obs.id]
+  end
+
   test "destroy image" do
     login_as_admin
     assert_difference('Image.count', -1) do
