@@ -32,7 +32,9 @@ class ImagesController < ApplicationController
 
   # POST /images
   def create
-    @image = Image.new(params[:image])
+    image = params[:image]
+    image[:observation_ids] = cleanup_observation_ids(image[:observation_ids] || [])
+    @image = Image.new(image)
 
     if @image.save
       redirect_to(public_image_path(@image), :notice => 'Image was successfully created.')
@@ -45,13 +47,13 @@ class ImagesController < ApplicationController
   def update
     @extra_params = @image.to_url_params
     image = params[:image]
-    image[:observation_ids] ||= [] 
+    image[:observation_ids] = cleanup_observation_ids(image[:observation_ids] || [])
 
     if @image.update_attributes(image)
       redirect_to(public_image_path(@image), :notice => 'Image was successfully updated.')
     else
       # TODO: probably hits the DB. no observation_ids_was.
-      @image.observations.reload if @image.observation_ids.blank?
+      @image.observations.reload if image[:observation_ids].blank?
       render :action => "edit"
     end
   end
@@ -61,4 +63,10 @@ class ImagesController < ApplicationController
     @image.destroy
     redirect_to(images_url)
   end
+  
+  private
+  def cleanup_observation_ids(list)
+    list.uniq
+  end
+  
 end
