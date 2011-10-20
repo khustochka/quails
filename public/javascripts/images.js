@@ -1,8 +1,7 @@
 $(function() {
     function refreshObservList() {
-        if ($('ul.obs-list li').length == 0) {
-            $("<li>", {'class': 'errors'}).html('None').prependTo("ul.obs-list");
-            $('ul.obs-list').prevAll().html('&nbsp;');
+        if ($('ul.current-obs li').length == 0) {
+            $("<li>", {'class': 'errors'}).html('None').prependTo("ul.current-obs");
             $('.buttons input:submit').prop('disabled', 'disabled');
         }
     }

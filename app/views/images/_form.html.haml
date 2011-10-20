@@ -32,17 +32,18 @@
           %button(class='search_btn') Search
     %tr
       %td.observation_list
-        Observations:
-        - unless @image.observations.empty?
-          %b= @image.locus.name_en
-          %time= l(@image.observ_date, :format => :long)
-        %ul.obs-list
+        %h5 Current observations
+        %ul.obs-list.current-obs
           - @image.observations.each do |ob|
             %li
               %input{:type => :hidden, :value => ob.id, :name => 'image[observation_ids][]'}
-              %i= ob.species.name_sci
-              %span.pseudolink.remove= image_tag('/images/x_alt_12x12.png')
+              %div
+                %span= obs_species_span(ob)
+                %span= obs_when_where_span(ob)
+              %span.pseudolink.remove= image_tag('/images/x_alt_16x16.png')
       %td.observation_options
+        %h5 Found observations
+        %ul.obs-list
 
   %div
     = form.input :description

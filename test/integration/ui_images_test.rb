@@ -25,7 +25,7 @@ class UIImagesTest < ActionDispatch::IntegrationTest
 
     login_as_admin
     visit edit_image_path(img)
-    within(:xpath, "//ul[contains(@class,'obs-list')]/li[2]") do
+    within(:xpath, "//ul[contains(@class,'current-obs')]/li[2]") do
       find('.remove').click
     end
 
