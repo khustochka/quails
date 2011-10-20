@@ -1,7 +1,6 @@
 class Image < ActiveRecord::Base
   validates :code, :uniqueness => true, :presence => true, :length => {:maximum => 64}
-
-  before_save :observations_provided?
+  validates :observation_ids, :presence => true
 
   has_and_belongs_to_many :observations, :include => [:species, :post]
   has_many :species, :through => :observations
@@ -31,12 +30,6 @@ class Image < ActiveRecord::Base
   delegate :observ_date, :locus, :to => :first_observation
 
   private
-  def observations_provided?
-    if observation_ids.empty?
-      errors.add(:base, 'provide at least one observation')
-      false
-    end
-  end
 
   def first_observation
     observations[0]

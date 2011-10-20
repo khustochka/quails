@@ -53,7 +53,7 @@ class ImagesControllerTest < ActionController::TestCase
     assert_difference('Image.count', 0) do
       post :create, :image => new_attr
     end
-    assert_equal ['provide at least one observation'], assigns(:image).errors[:base]
+    assigns(:image).errors.should_not be_blank
     assert_template :new
   end
 
@@ -83,7 +83,7 @@ class ImagesControllerTest < ActionController::TestCase
     new_attr['code'] = 'new_img_code'
     new_attr[:observation_ids] = []
     put :update, :id => @image.to_param, :image => new_attr
-    assert_equal ['provide at least one observation'], assigns(:image).errors[:base]
+    assigns(:image).errors.should_not be_blank
     assert_template :edit
   end
 
@@ -92,7 +92,7 @@ class ImagesControllerTest < ActionController::TestCase
     new_attr = @image.attributes.dup # observations_ids are not in here
     new_attr['code'] = 'new_img_code'
     put :update, :id => @image.to_param, :image => new_attr
-    assert_equal ['provide at least one observation'], assigns(:image).errors[:base]
+    assigns(:image).errors.should_not be_blank
     assert_template :edit
   end
 
