@@ -21,12 +21,10 @@ $(function() {
 	
 	// Search button click
 	$('.search_btn').click(function(e) {
-		var date = $("input#q_observ_date_eq");  
-		var loc = $("select#q_locus_id_eq");  
-		var sp = $("select#q_species_id_eq");  
-		var dataString = 	date.attr('name') + '=' + date.val() + "&" +
-							loc.attr('name') + '=' + loc.val() + "&" +
-							sp.attr('name') + '=' + sp.val();
+		var arr = new Array($("input#q_observ_date_eq"), $("select#q_locus_id_eq"), $("select#q_species_id_eq"));
+		var dataString = $.param($.map(arr, function(el) {
+			return {"name": el.attr('name'), 'value': el.val()};
+		})); 
 		$.ajax({
 			type : "GET",
 			url : "/observations/search",
