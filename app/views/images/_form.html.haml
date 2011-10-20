@@ -33,6 +33,8 @@
     %tr
       %td.observation_list
         %h5 Current observations
+        = link_to('Restore original',
+            search_observations_path(:image_id => @image.id), :remote => true) unless @image.new_record?
         %ul.obs-list.current-obs
           - @image.observations.each do |ob|
             %li

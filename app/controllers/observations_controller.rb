@@ -14,10 +14,16 @@ class ObservationsController < ApplicationController
     @observations = @search.result.order(params[:sort]).preload(:locus, :post).page(params[:page]).
         send((params[:sort] == 'species.index_num') ? :includes : :preload, :species)
   end
-  
+
   # GET /observations/search
   def search
-    render :json => (Observation.search(params[:q]).result.preload(:locus, :species).limit(5).map do |ob|
+    observs =
+        if params[:image_id]
+          Image.find_by_id(params[:image_id]).observations.preload(:locus, :species)
+        else
+          Observation.search(params[:q]).result.preload(:locus, :species).limit(5)
+        end
+    render :json => (observs.map do |ob|
       {:id => ob.id, :sp_data => ob.obs_species_data, :obs_data => ob.obs_when_where_data}
     end)
   end
