@@ -29,7 +29,7 @@
               :label_method => :name_en, :input_html => {:class => 'suggest-combo'}
           = form2.input :species_id_eq, :label => 'Species:', :collection => species_for_select,
               :label_method => :name_sci, :input_html => {:class => 'suggest-combo'}
-          %button(class='search_btn') Search
+          %button{:class => 'search_btn', :type => 'button'} Search
     %tr
       %td.observation_list
         %h5 Current observations
@@ -43,7 +43,7 @@
               %span.pseudolink.remove= image_tag('/images/x_alt_16x16.png')
       %td.observation_options
         %h5 Found observations
-        %ul.obs-list
+        %ul.obs-list.found-obs
 
   %div
     = form.input :description
