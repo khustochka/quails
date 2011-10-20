@@ -83,7 +83,7 @@ input.button
   font-size: 16px
   font-weight: bold
 
-// Specific
+// Observations
 
 .to-add-row
   display: none
@@ -118,6 +118,7 @@ form.observation
   div.obs-row.save-fail
     background-color: #ffcccc
 
+// Images
 form.image
   table td
     padding: 0 10px
@@ -131,23 +132,27 @@ form.image
       vertical-align: -19px
       margin-left: 10px
       width: 100px
-  ul.obs-list li
-    list-style: none
-    margin-left: 0
-    margin-bottom: 5px
-    padding: 2px 5px
-    font-size: 11px
-    border: 1px dotted #777
-    display: inline-block
-    width: 350px
-    div
+  ul.obs-list
+    li
+      list-style: none
+      margin-left: 0
+      margin-bottom: 5px
+      padding: 2px 5px
+      font-size: 11px
+      border: 1px dotted #777
       display: inline-block
-      span
-        display: block
-    .remove
-      float: right
-      vertical-align: 5px
-    
+      width: 350px
+      li.new-obs
+      div
+        display: inline-block
+        span
+          display: block
+      .remove
+        float: right
+        vertical-align: 5px
+    li.new-obs
+      background-color: #eeffee
+      
 
 //form.simple_form
 //  width: 660px
