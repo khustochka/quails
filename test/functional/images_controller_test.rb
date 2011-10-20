@@ -77,11 +77,20 @@ class ImagesControllerTest < ActionController::TestCase
     assert_redirected_to public_image_path(assigns(:image))
   end
 
-  test "should not update image with no observations" do
+  test "should not update image with empty observation list" do
     login_as_admin
     new_attr = @image.attributes.dup
     new_attr['code'] = 'new_img_code'
     new_attr[:observation_ids] = []
+    put :update, :id => @image.to_param, :image => new_attr
+    assert_equal ['provide at least one observation'], assigns(:image).errors[:base]
+    assert_template :edit
+  end
+
+  test "should not update image if no observation list provided" do
+    login_as_admin
+    new_attr = @image.attributes.dup # observations_ids are not in here
+    new_attr['code'] = 'new_img_code'
     put :update, :id => @image.to_param, :image => new_attr
     assert_equal ['provide at least one observation'], assigns(:image).errors[:base]
     assert_template :edit
