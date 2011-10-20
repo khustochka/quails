@@ -18,7 +18,7 @@ class ObservationsController < ApplicationController
   # GET /observations/search
   def search
     render :json => (Observation.search(params[:q]).result.preload(:locus, :species).limit(5).map do |ob|
-      {:id => ob.id, :sp_data => ob.species.name_sci, :obs_data => [ob.observ_date, ob.locus.name_en].join(', ')}
+      {:id => ob.id, :sp_data => ob.obs_species_data, :obs_data => ob.obs_when_where_data}
     end)
   end
 
