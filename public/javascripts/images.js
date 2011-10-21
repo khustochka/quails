@@ -53,20 +53,14 @@ $(function() {
 	});
 	
 	// Search button click
-	$('.search_btn').click(function(e) {
+	$('.search_btn').click(function() {
 		$('.found-obs li').remove();
 		$('.observation_options').addClass('loading');
-		var arr = new Array($("input#q_observ_date_eq"), $("select#q_locus_id_eq"), $("select#q_species_id_eq"));
-		var dataString = $.param($.map(arr, function(el) {
-			return {
-				"name" : el.attr('name'),
-				'value' : el.val()
-			};
-		}));
+		var data = $("input#q_observ_date_eq, select#q_locus_id_eq, select#q_species_id_eq").serializeArray();
 		$.ajax({
 			type : "GET",
 			url : "/observations/search",
-			data : dataString,
+			data : data,
 			success : function(data) {
 				$('.observation_options').removeClass('loading');
 				buildObservations(data, '.found-obs', true);				
