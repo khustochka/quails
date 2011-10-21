@@ -36,8 +36,14 @@ $(function() {
 		refreshObservList();
 	});
 	
-	$('.restore').bind('ajax:success', function(xhr, data, status) {
+	$('.restore').click(function() {
 		$('.current-obs li').remove();
+		$('.observation_list').addClass('loading');
+		
+	});
+	
+	$('.restore').bind('ajax:success', function(xhr, data, status) {
+		$('.observation_list').removeClass('loading');
   		buildObservations(data, '.current-obs', false);
   		refreshObservList();
 	});
