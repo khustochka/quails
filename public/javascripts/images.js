@@ -76,10 +76,7 @@ $(function() {
 
 	$('.observation_list').droppable({
 		drop : function(event, ui) {
-			var el = ui.draggable;
-			el.draggable("disable");
-			$("<li class='new-obs'>").html(el.html()).appendTo('.current-obs');
-			el.remove();
+			ui.draggable.draggable("destroy").attr('style', '').appendTo('.current-obs');
 			refreshObservList();
 		}
 	});
