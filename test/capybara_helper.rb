@@ -15,6 +15,11 @@ end
 # Capybara because it starts the web server in a thread.
 ActiveRecord::Base.shared_connection = ActiveRecord::Base.connection
 
+# Turn on resynchronize option for selenium driver
+Capybara.register_driver :selenium do |app|
+  Capybara::Selenium::Driver.new(app, :resynchronize => true)
+end
+
 module CapybaraTestCase
   include Capybara::DSL
 

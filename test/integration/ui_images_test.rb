@@ -88,7 +88,7 @@ class UIImagesTest < ActionDispatch::IntegrationTest
     end
     all('.current-obs li').size.should == 1
     
-    click_link('Restore original'); sleep 0.5 # need time to work
+    click_link('Restore original')
     
     all('.current-obs li').size.should == 2
   end
