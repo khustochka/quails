@@ -6,6 +6,23 @@ $(function() {
 			}).text('None').prependTo("ul.current-obs");
 			$('.buttons input:submit').prop('disabled', true);
 		}
+		else {
+			$('.current-obs > div').remove();
+			$('.buttons input:submit').prop('disabled', false);
+		}
+	}
+	
+	function buildObservations(data, ulSelector, newObs) {
+		$(data).each(function() {
+			var hiddenField = $("<input type='hidden' name='image[observation_ids][]' value='" + this.id + "'>");
+			var removeIcon = $("<span class='pseudolink remove'>").html($("<img>").attr('src', '/images/x_alt_16x16.png'));
+			$("<li>", newObs ? { "class": 'new-obs'} : null)
+				.append(hiddenField)
+				.append($('<div>').append($('<span>').html(this.sp_data), 
+						$('<span>').html(this.obs_data)))
+				.append(removeIcon)
+				.appendTo($(ulSelector));
+				});	
 	}
 
 	refreshObservList();
@@ -18,6 +35,13 @@ $(function() {
 		$(this).closest('li').remove();
 		refreshObservList();
 	});
+	
+	$('.restore').bind('ajax:success', function(xhr, data, status) {
+		$('.current-obs li').remove();
+  		buildObservations(data, '.current-obs', false);
+  		refreshObservList();
+	});
+	
 	// Search button click
 	$('.search_btn').click(function(e) {
 		$('.found-obs li').remove();
@@ -35,18 +59,8 @@ $(function() {
 			data : dataString,
 			success : function(data) {
 				$('.observation_options').removeClass('loading');
-				$(data).each(function() {
-					var hiddenField = $("<input type='hidden' name='image[observation_ids][]' value='" + this.id + "'>");
-					var removeIcon = $("<span class='pseudolink remove'>").html($("<img>").attr('src', '/images/x_alt_16x16.png'));
-					$("<li class='new-obs'>")
-						.append(hiddenField)
-						.append($('<div>').append($('<span>').html(this.sp_data), 
-								$('<span>').html(this.obs_data)))
-						.append(removeIcon)
-						.appendTo($('.found-obs'))
-						.draggable({ "revert" : "invalid"	});
-				});
-
+				buildObservations(data, '.found-obs', true);				
+				$('.found-obs li').draggable({ "revert" : "invalid" });
 			}
 		});
 		return false;
@@ -56,10 +70,9 @@ $(function() {
 		drop : function(event, ui) {
 			var el = ui.draggable;
 			el.draggable("disable");
-			$('.current-obs > div').remove();
 			$("<li class='new-obs'>").html(el.html()).appendTo('.current-obs');
 			el.remove();
-			$('.buttons input:submit').prop('disabled', false);
+			refreshObservList();
 		}
 	});
 	

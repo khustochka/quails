@@ -77,4 +77,20 @@ class UIImagesTest < ActionDispatch::IntegrationTest
     img.observations.size.should == 2
   end
 
+  test "Restore original observations if deleted" do
+    img = FactoryGirl.create(:image)
+    FactoryGirl.create(:observation, :species => seed(:lancol), :images => [img])
+
+    login_as_admin
+    visit edit_image_path(img)
+    within(:xpath, "//ul[contains(@class,'current-obs')]/li[1]") do
+      find('.remove').click
+    end
+    all('.current-obs li').size.should == 1
+    
+    click_link('Restore original'); sleep 0.5 # need time to work
+    
+    all('.current-obs li').size.should == 2
+  end
+
 end
