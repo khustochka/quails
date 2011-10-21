@@ -3,15 +3,31 @@ $(function() {
 		if($('ul.current-obs li').length == 0) {
 			$("<div>", {
 				'class' : 'errors'
-			}).text('None').prependTo("ul.current-obs");
+			}).text('None').appendTo(".observation_list");
 			$('.buttons input:submit').prop('disabled', true);
 		}
 		else {
-			$('.current-obs > div').remove();
+			$('.observation_list > div').remove();
 			$('.buttons input:submit').prop('disabled', false);
 		}
 	}
 	
+	function searchForObservations() {
+		$('.found-obs').empty();
+		$('.observation_options').addClass('loading');
+		var data = $("input#q_observ_date_eq, select#q_locus_id_eq, select#q_species_id_eq").serializeArray();
+		$.ajax({
+			type : "GET",
+			url : "/observations/search",
+			data : data,
+			success : function(data) {
+				$('.observation_options').removeClass('loading');
+				buildObservations(data, '.found-obs', true);
+				$('.found-obs li').draggable({ "revert" : "invalid" });
+			}
+		});
+	}
+
 	function buildObservations(data, ulSelector, newObs) {
 		$(data).each(function() {
 			var hiddenField = $("<input type='hidden' name='image[observation_ids][]' value='" + this.id + "'>");
@@ -29,7 +45,7 @@ $(function() {
 		if ($('.restore').length == 0)
 			refreshObservList();
 		else
-			$('.restore').trigger('click');	
+			$('.restore').click();
 	}
 
 	$("#image_code").keyup(function() {
@@ -42,7 +58,7 @@ $(function() {
 	});
 	
 	$('.restore').click(function() {
-		$('.current-obs li').remove();
+		$('.current-obs').empty();
 		$('.observation_list').addClass('loading');
 	});
 	
@@ -53,22 +69,10 @@ $(function() {
 	});
 	
 	// Search button click
-	$('.search_btn').click(function() {
-		$('.found-obs li').remove();
-		$('.observation_options').addClass('loading');
-		var data = $("input#q_observ_date_eq, select#q_locus_id_eq, select#q_species_id_eq").serializeArray();
-		$.ajax({
-			type : "GET",
-			url : "/observations/search",
-			data : data,
-			success : function(data) {
-				$('.observation_options').removeClass('loading');
-				buildObservations(data, '.found-obs', true);				
-				$('.found-obs li').draggable({ "revert" : "invalid" });
-			}
-		});
-		return false;
-	});
+	$('.search_btn').click(searchForObservations);
+
+	// Onchange works bad on text input and doesn't work on autosuggest
+	// $("input#q_observ_date_eq, select#q_locus_id_eq, select#q_species_id_eq").bind('change', searchForObservations);
 
 	$('.observation_list').droppable({
 		drop : function(event, ui) {
@@ -81,7 +85,8 @@ $(function() {
 	});
 	
 	$('form.image').submit(function() {
-		$('.found-obs li').remove();
+		$('.observation_search').empty();
+		$('.found-obs').empty();
 	});
 	
 	getOriginalObservations();
