@@ -24,8 +24,13 @@ $(function() {
 				.appendTo($(ulSelector));
 				});	
 	}
-
-	refreshObservList();
+	
+	function getOriginalObservations() {
+		if ($('.restore').length == 0)
+			refreshObservList();
+		else
+			$('.restore').trigger('click');	
+	}
 
 	$("#image_code").keyup(function() {
 		$("img.image_pic").attr('src', $("img.image_pic").attr('src').replace(/\/tn_[^\.\/]*/, "/tn_" + $(this).val()));
@@ -39,7 +44,6 @@ $(function() {
 	$('.restore').click(function() {
 		$('.current-obs li').remove();
 		$('.observation_list').addClass('loading');
-		
 	});
 	
 	$('.restore').bind('ajax:success', function(xhr, data, status) {
@@ -85,5 +89,7 @@ $(function() {
 	$('form.image').submit(function() {
 		$('.found-obs li').remove();
 	});
+	
+	getOriginalObservations();
 
 });
