@@ -1,6 +1,6 @@
 - stylesheet 'forms', 'autocomplete'
 - use_jquery
-- javascript JQ_UI_FILE, 'tmpl', 'suggest_over_combo', 'images'
+- javascript JQ_UI_FILE, 'suggest_over_combo', 'images'
 
 - observ_search = @image.search_applicable_observations
 
@@ -52,4 +52,4 @@
     = form.input :description
     = form.input :index_num, :input_html => { :size => 10, :type => :text }
   .buttons
-    = form.button :submit, :value => 'Save'
+    = default_submit_button(form)

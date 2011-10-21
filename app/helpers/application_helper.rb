@@ -13,4 +13,9 @@ module ApplicationHelper
       content_tag(:span, name, html_options)
     end
   end
+  
+  def default_submit_button(form)
+    form.button :submit, :value => 'Save', 'data-disable-with' => "Saving..."
+  end
+  
 end
