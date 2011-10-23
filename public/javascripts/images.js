@@ -76,18 +76,21 @@ $(function() {
 
     $('.observation_list').droppable({
         drop : function(event, ui) {
-            ui.draggable.draggable("destroy").attr('style', '').appendTo('.current-obs');
-            refreshObservList();
-        },
-        accept : function(dropEl) {
-            var fdata = $('.current-obs li:first').find('span:eq(1)').text().split(', ', 2);
-            var newdata = dropEl.find('span:eq(1)').text().split(', ', 2);
-            if ($('.current-obs li:first').length == 0 || (newdata[0] == fdata[0] && newdata[1] == fdata[1])) {
-                return true;
+            var first = $('.current-obs li:first');
+            var fdata = first.find('span:eq(1)').text().split(', ', 2);
+            var newObs = ui.draggable;
+            var newdata = newObs.find('span:eq(1)').text().split(', ', 2);
+            if (first.length == 0 || (newdata[0] == fdata[0] && newdata[1] == fdata[1])) {
+                newObs.draggable("destroy").attr('style', '').appendTo('.current-obs');
+                refreshObservList();
             }
             else {
-                //alert('Inconsistent date or locus');
-                return false;
+                var originalDrag = ui.helper.data('draggable');
+                // Reverting takn from JQuery UI source
+                newObs.animate(originalDrag.originalPosition, parseInt(originalDrag.options.revertDuration, 10),
+                    function() {
+                        alert("This observation has inconsistent date and/or locus");
+                    });
             }
         }
     });
