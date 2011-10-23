@@ -82,36 +82,35 @@ class ImageObservValidationTest < ActionController::TestCase
     assigns(:image).observation_ids.count.should == 2
   end
 
-# test 'should not create image with inconsistent observations (different date)' do
-# login_as_admin
-# obs1 = FactoryGirl.create(:observation, :observ_date => '2011-01-01')
-# obs2 = FactoryGirl.create(:observation, :observ_date => '2010-01-01')
-# img = FactoryGirl.build(:image, :observation_ids => [obs1.id, obs2.id])
-# assert_raises ActiveRecord::RecordInvalid do
-# img.save!
-# end
-# img.errors.should_not be_empty
-# end
-#
-# test 'should not create image with inconsistent observations (different loc)' do
-# login_as_admin
-# obs1 = FactoryGirl.create(:observation, :locus => seed(:kiev))
-# obs2 = FactoryGirl.create(:observation, :locus => seed(:kherson))
-# img = FactoryGirl.build(:image, :observation_ids => [obs1.id, obs2.id])
-# assert_raises ActiveRecord::RecordInvalid do
-# img.save!
-# end
-# img.errors.should_not be_empty
-# end
-#
-# test 'should not update image with inconsistent observations' do
-# login_as_admin
-# img = FactoryGirl.create(:image)
-# obs = FactoryGirl.create(:observation, :observ_date => '2011-01-01')
-# assert_raises ActiveRecord::RecordInvalid do
-# img.update_attributes!(:observation_ids => [img.observations[0].id, obs.id])
-# end
-# img.errors.should_not be_empty
-# end
+  test 'should not create image with inconsistent observations (different date)' do
+    login_as_admin
+    obs1 = FactoryGirl.create(:observation, :observ_date => '2011-01-01')
+    obs2 = FactoryGirl.create(:observation, :observ_date => '2010-01-01')
+    new_attr = FactoryGirl.attributes_for(:image, :code => 'newimg', :observation_ids => [obs1.id, obs2.id])
+    assert_difference('Image.count', 0) do
+      post :create, :image => new_attr
+    end
+    assigns(:image).errors.should_not be_empty
+  end
+
+  test 'should not create image with inconsistent observations (different loc)' do
+    login_as_admin
+    obs1 = FactoryGirl.create(:observation, :locus => seed(:kiev))
+    obs2 = FactoryGirl.create(:observation, :locus => seed(:krym))
+    new_attr = FactoryGirl.attributes_for(:image, :code => 'newimg', :observation_ids => [obs1.id, obs2.id])
+    assert_difference('Image.count', 0) do
+      post :create, :image => new_attr
+    end
+    assigns(:image).errors.should_not be_empty
+  end
+
+  test 'should not update image with inconsistent observations' do
+    login_as_admin
+    obs1 = FactoryGirl.create(:observation, :observ_date => '2011-01-01')
+    obs2 = FactoryGirl.create(:observation, :observ_date => '2010-01-01')
+    new_attr = @image.attributes.merge(:observation_ids => [obs1.id, obs2.id])
+    put :update, :id => @image.to_param, :image => new_attr
+    assigns(:image).errors.should_not be_empty
+  end
 
 end

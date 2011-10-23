@@ -36,7 +36,9 @@ class ImagesController < ApplicationController
     image[:observation_ids] = cleanup_observation_ids(image[:observation_ids] || [])
     @image = Image.new(image)
 
-    if @image.save
+    @image.validate_observations(image[:observation_ids])
+
+    if @image.errors.blank? && @image.save
       redirect_to(public_image_path(@image), :notice => 'Image was successfully created.')
     else
       render :action => "new"
@@ -49,7 +51,9 @@ class ImagesController < ApplicationController
     image = params[:image]
     image[:observation_ids] = cleanup_observation_ids(image[:observation_ids] || [])
 
-    if @image.update_attributes(image)
+    @image.validate_observations(image[:observation_ids])
+
+    if @image.errors.blank? && @image.update_attributes(image)
       redirect_to(public_image_path(@image), :notice => 'Image was successfully updated.')
     else
       # TODO: probably hits the DB. no observation_ids_was.

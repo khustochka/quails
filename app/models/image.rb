@@ -27,6 +27,13 @@ class Image < ActiveRecord::Base
     )
   end
 
+  def validate_observations(observation_ids)
+    obs = Observation.where(:id => observation_ids).all
+    if obs.map(&:observ_date).uniq.size > 1 || obs.map(&:locus_id).uniq.size > 1
+      errors.add(:observation_ids, 'must be of the same date and location')
+    end
+  end
+
   delegate :observ_date, :locus, :to => :first_observation
 
   private
