@@ -18,6 +18,25 @@ class UIImagesTest < ActionDispatch::IntegrationTest
     img.observations.size.should == 2
   end
 
+  # NO JavaScript test
+  test 'Save changes to existing image if JavaScript is off' do
+    Capybara.use_default_driver
+    img = FactoryGirl.create(:image)
+    FactoryGirl.create(:observation, :species => seed(:lancol), :images => [img])
+
+    login_as_admin
+    visit edit_image_path(img)
+
+    fill_in('Code', :with => 'test-img-capybara')
+    fill_in('Title', :with => 'Capybara test image')
+
+    lambda { click_button('Save') }.should_not change(Image, :count)
+    img.reload
+    current_path.should == show_image_path(img.to_url_params)
+    img.observations.size.should == 2
+    img.code.should == 'test-img-capybara'
+  end
+
   test "Adding new image" do
     FactoryGirl.create(:observation, :observ_date => '2008-07-01')
     login_as_admin

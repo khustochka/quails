@@ -41,12 +41,12 @@ $(function() {
         });
     }
 
-    function getOriginalObservations() {
-        if ($('.restore').length == 0 || $('ul.errors li').length > 0)
-            refreshObservList();
-        else
-            $('.restore').click();
-    }
+//    function getOriginalObservations() {
+//        if ($('.restore').length == 0 || $('ul.errors li').length > 0)
+//            refreshObservList();
+//        else
+//            $('.restore').click();
+//    }
 
     $("#image_code").keyup(function() {
         $("img.image_pic").attr('src', $("img.image_pic").attr('src').replace(/\/tn_[^\.\/]*/, "/tn_" + $(this).val()));
@@ -86,7 +86,7 @@ $(function() {
             }
             else {
                 var originalDrag = ui.helper.data('draggable');
-                // Reverting takn from JQuery UI source
+                // Revert mechanism taken from JQuery UI source
                 newObs.animate(originalDrag.originalPosition, parseInt(originalDrag.options.revertDuration, 10),
                     function() {
                         alert("This observation has inconsistent date and/or locus");
@@ -100,6 +100,6 @@ $(function() {
         $('.found-obs').empty();
     });
 
-    getOriginalObservations();
+    refreshObservList();
 
 });
