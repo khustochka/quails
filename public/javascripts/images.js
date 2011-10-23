@@ -42,7 +42,7 @@ $(function() {
 	}
 	
 	function getOriginalObservations() {
-		if ($('.restore').length == 0)
+		if ($('.restore').length == 0 || $('ul.errors li').length > 0)
 			refreshObservList();
 		else
 			$('.restore').click();
