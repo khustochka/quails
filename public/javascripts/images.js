@@ -80,17 +80,22 @@ $(function() {
             var fdata = first.find('span:eq(1)').text().split(', ', 2);
             var newObs = ui.draggable;
             var newdata = newObs.find('span:eq(1)').text().split(', ', 2);
+            if (first.length > 0 && (newdata[0] != fdata[0] || newdata[1] != fdata[1])) {
+                if (confirm('You are trying to add an observation with different date/locus from existing. ' +
+                    'Do you want to clear old observations and add a new one?')) {
+                    $('.current-obs').empty();
+                    first = $('.current-obs li:first');
+                }
+                else {
+                    var originalDrag = ui.helper.data('draggable');
+                    // Revert mechanism taken from JQuery UI source
+                    newObs.animate(originalDrag.originalPosition, parseInt(originalDrag.options.revertDuration, 10));
+                    return;
+                }
+            }
             if (first.length == 0 || (newdata[0] == fdata[0] && newdata[1] == fdata[1])) {
                 newObs.draggable("destroy").attr('style', '').appendTo('.current-obs');
                 refreshObservList();
-            }
-            else {
-                var originalDrag = ui.helper.data('draggable');
-                // Revert mechanism taken from JQuery UI source
-                newObs.animate(originalDrag.originalPosition, parseInt(originalDrag.options.revertDuration, 10),
-                    function() {
-                        alert("This observation has inconsistent date and/or locus");
-                    });
             }
         }
     });
