@@ -113,4 +113,13 @@ class ImageObservValidationTest < ActionController::TestCase
     assigns(:image).errors.should_not be_empty
   end
 
+  test 'should preserve changed values if image failed to update with inconsistent observations' do
+    login_as_admin
+    obs1 = FactoryGirl.create(:observation, :observ_date => '2011-01-01')
+    obs2 = FactoryGirl.create(:observation, :observ_date => '2010-01-01')
+    new_attr = @image.attributes.merge(:observation_ids => [obs1.id, obs2.id], :code => 'newcode')
+    put :update, :id => @image.to_param, :image => new_attr
+    assigns(:image).code.should == new_attr[:code]
+  end
+
 end
