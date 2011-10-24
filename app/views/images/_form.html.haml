@@ -35,7 +35,7 @@
         %h5 Current observations
         = link_to('Restore original',
             search_observations_path(:image_id => @image.id),
-                :remote => true, :class => 'restore') unless @image.new_record?
+                :remote => true, :class => 'restore pseudolink') unless @image.new_record?
         %ul.obs-list.current-obs
           - @image.observations.each do |ob|
             %li
@@ -43,7 +43,7 @@
               %div
                 %span= ob.obs_species_data
                 %span= ob.obs_when_where_data
-              %span.pseudolink.remove= image_tag('/images/x_alt_16x16.png')
+              %span.remove= image_tag('/images/x_alt_16x16.png')
       %td.observation_options
         %h5 Found observations
         %ul.obs-list.found-obs

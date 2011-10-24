@@ -7,8 +7,8 @@
     %td
       = species_link(sp)
       = name_sci(sp)
-    %td.lifer_date
+    %td.align-right
       %time= post_link(first_date, sp.post, true)
-    %td.lifer_date
+    %td.align-right
       %time= post_link(last_date, sp.last_post, true)
-    %td.lifer_date= sp.count
+    %td.align-right= sp.count

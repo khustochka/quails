@@ -82,7 +82,7 @@ $(function() {
     };
 
     $('.obs-row div:last').
-        append($("<span class='pseudolink remove'><img src='/images/x_alt_16x16.png' title='Remove'></span>"));
+        append($("<span class='remove'><img src='/images/x_alt_16x16.png' title='Remove'></span>"));
     var sample_row = $('.obs-row').detach();
     var cnt = 1;
 

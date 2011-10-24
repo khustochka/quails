@@ -2,6 +2,18 @@ body
   background-color: #ffffff
   color: #333333
 
+// Links
+
+a
+  color: #070
+  background-color:  #eff4ef
+  padding: 0 1px
+
+a:hover
+  background-color:  #070
+  color: #fff
+  text-decoration: none
+
 // Reusable
 
 @mixin default-margin
@@ -19,17 +31,49 @@ ul.horiz-list
     zoom: 1
     *display: inline
 
+.filter-list
+  li
+    margin: 0 3px
+    padding: 0 3px
+    background-color: #EBEBCF
+    border-bottom: 1px dotted #777
+    a, a:hover
+      background-color: #EBEBCF
+      color: #070
+      text-decoration: none
+
 .grayout
   background-color: #dddddd
 
 .pseudolink
-  text-decoration: underline
-  color: blue
+  display: inline-block !important
+  margin: 5px 0
+  padding: 0 1px
+  background-color: #ffffcc
 .pseudolink:hover
+  background-color: #ffff66
+.pseudolink, .pseudolink:hover
   cursor: pointer
+  text-decoration: none
+  border-bottom: 1px dashed #444
+  color: #444
 
 .loading
   background: #ffffff url('/images/loading.gif') no-repeat center
+
+// TODO: refactor?
+
+.align-right
+  text-align: right !important
+
+.align-left
+  text-align: left !important
+
+.align-center
+  text-align: center !important
+
+td.nowrap
+  white-space: nowrap
 
 // Neat table
 
@@ -49,32 +93,6 @@ table.neat_table
   td
     h2, h3, h4
       margin: 10px 0
-
-// TODO: refactor?
-
-.align-right
-  text-align: right !important
-
-.align-left
-  text-align: left !important
-
-.align-center
-  text-align: center !important
-
-td.nowrap
-  white-space: nowrap
-
-// TODO: refactor?
-
-.filter-list
-  li
-    margin: 0 5px
-    padding: 0 4px
-    background-color: #EBEBCF
-
-.lifer_date
-  text-align: right
-
 
 // Specific
 
