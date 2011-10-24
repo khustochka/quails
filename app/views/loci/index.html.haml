@@ -24,4 +24,4 @@
         %td= locus.parent.try(:code) || '-'
         %td= %w(en ru uk).map{|lang| "#{lang}: #{locus.send("name_#{lang}")}"}.join('<br />').html_safe
         %td.align-center= latlon(locus)
-        %td= link_to image_tag('x_alt_16x16.png', :title => 'Destroy'), locus, :confirm => 'Are you sure?', :method => :delete
+        %td= default_destroy_link(locus)

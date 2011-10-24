@@ -45,6 +45,6 @@
       %td= observation.notes
       %td= post_link('>>', blogpost)
       %td.align-center= observation.mine ? '+' : '-'
-      %td= link_to image_tag('x_alt_16x16.png', :title => 'Destroy'), observation, :confirm => 'Are you sure?', :method => :delete
+      %td= default_destroy_link(observation)
 
 = paginate @observations

@@ -18,4 +18,8 @@ module ApplicationHelper
     form.button :submit, :value => 'Save', 'data-disable-with' => "Saving..."
   end
   
+  def default_destroy_link(rec)
+    link_to image_tag('x_alt_16x16.png', :title => 'Destroy'), rec, :confirm => 'Are you sure?', :method => :delete, :class => 'destroy'
+  end
+
 end
