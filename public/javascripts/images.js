@@ -80,6 +80,7 @@ $(function() {
     // $("input#q_observ_date_eq, select#q_locus_id_eq, select#q_species_id_eq").bind('change', searchForObservations);
 
     $('.observation_list').droppable({
+    	accept : '.found-obs li',
         drop : function(event, ui) {
             var first = $('.current-obs li:first');
             var fdata = $('span:eq(1)', first).text().split(', ', 2).join();
@@ -91,8 +92,7 @@ $(function() {
             else {
                 $('<div class="confirm" title="Overwrite observations?">')
                     .append($("<p>").text('You are trying to add an observation with different date/locus from ' +
-                    ' existing. Do you want to clear old observations and add a new one?'))
-                    .append($("<p>").append($('div', ui.draggable).clone().addClass('obs-holder')))
+                    			'existing. Do you want to remove old observations and add a new one?'))
                     .dialog({
                         modal: true,
 						closeOnEscape: false,
