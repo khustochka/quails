@@ -48,6 +48,11 @@ $(function() {
 //            $('.restore').click();
 //    }
 
+	function insertNewObservation(newObs) {
+        newObs.draggable("destroy").attr('style', '').appendTo('.current-obs');
+        refreshObservList();
+	}
+
     $("#image_code").keyup(function() {
         $("img.image_pic").attr('src', $("img.image_pic").attr('src').replace(/\/tn_[^\.\/]*/, "/tn_" + $(this).val()));
     });
@@ -77,25 +82,33 @@ $(function() {
     $('.observation_list').droppable({
         drop : function(event, ui) {
             var first = $('.current-obs li:first');
-            var fdata = first.find('span:eq(1)').text().split(', ', 2);
+            var fdata = $('span:eq(1)', first).text().split(', ', 2).join();
             var newObs = ui.draggable;
-            var newdata = newObs.find('span:eq(1)').text().split(', ', 2);
-            if (first.length > 0 && (newdata[0] != fdata[0] || newdata[1] != fdata[1])) {
-                if (confirm('You are trying to add an observation with different date/locus from existing. ' +
-                    'Do you want to clear old observations and add a new one?')) {
-                    $('.current-obs').empty();
-                    first = $('.current-obs li:first');
-                }
-                else {
-                    var originalDrag = ui.helper.data('draggable');
-                    // Revert mechanism taken from JQuery UI source
-                    newObs.animate(originalDrag.originalPosition, parseInt(originalDrag.options.revertDuration, 10));
-                    return;
-                }
+            var newdata = newObs.find('span:eq(1)').text().split(', ', 2).join();
+            if (first.length == 0 || newdata == fdata) {
+            	insertNewObservation(newObs);
             }
-            if (first.length == 0 || (newdata[0] == fdata[0] && newdata[1] == fdata[1])) {
-                newObs.draggable("destroy").attr('style', '').appendTo('.current-obs');
-                refreshObservList();
+            else {
+                $('<div class="confirm" title="Overwrite observations?">')
+                    .append($("<p>").text('You are trying to add an observation with different date/locus from ' +
+                    ' existing. Do you want to clear old observations and add a new one?'))
+                    .append($("<p>").append($('div', ui.draggable).clone().addClass('obs-holder')))
+                    .dialog({
+                        modal: true,
+						closeOnEscape: false,
+						open: function(event, ui) { $(".ui-dialog-titlebar-close", ui.dialog).hide(); },
+                        buttons: {
+                            "Overwrite": function() {
+                                $(this).dialog("close");
+                                $('.current-obs').empty();
+                                insertNewObservation(newObs);
+                            },
+                            "Cancel": function() {
+                                $(this).dialog("close");
+                                var originalDrag = ui.helper.data('draggable');
+                                // Revert mechanism taken from JQuery UI source
+                                newObs.animate(originalDrag.originalPosition, parseInt(originalDrag.options.revertDuration, 10));
+                            } }});
             }
         }
     });
