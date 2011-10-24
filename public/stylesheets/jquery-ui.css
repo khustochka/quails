@@ -59,26 +59,26 @@
 .ui-widget { font-family: Arial, sans-serif; font-size: 13px; }
 .ui-widget .ui-widget { font-size: 1em; }
 .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button { font-family: Arial, sans-serif; font-size: 1em; }
-.ui-widget-content { border: 1px solid #dfd9c3; background: #f5f3e5; color: #312e25; }
+.ui-widget-content { border: 1px solid #dfd9c3; background-color: #f5f3e5; color: #312e25; }
 .ui-widget-content a { color: #312e25; }
-.ui-widget-header { border: 1px solid #d4ccb0; background: #ece8da; color: #433f38; font-weight: bold; }
+.ui-widget-header { border: 1px solid #d4ccb0; background-color: #ece8da; color: #433f38; font-weight: bold; }
 .ui-widget-header a { color: #433f38; }
 
 /* Interaction states
 ----------------------------------*/
-.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default { border: 1px solid #327e04; background: #459e00; font-weight: normal; color: #ffffff; }
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default { border: 1px solid #327e04; background-color: #459e00; font-weight: normal; color: #ffffff; }
 .ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited { color: #ffffff; text-decoration: none; }
-.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus { border: 1px solid #327e04; background: #67b021; font-weight: normal; color: #ffffff; }
+.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus { border: 1px solid #327e04; background-color: #67b021; font-weight: normal; color: #ffffff; }
 .ui-state-hover a, .ui-state-hover a:hover { color: #ffffff; text-decoration: none; }
-.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active { border: 1px solid #d4ccb0; background: #fafaf4; font-weight: normal; color: #459e00; }
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active { border: 1px solid #d4ccb0; background-color: #fafaf4; font-weight: normal; color: #459e00; }
 .ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited { color: #459e00; text-decoration: none; }
 .ui-widget :active { outline: none; }
 
 /* Interaction Cues
 ----------------------------------*/
-.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight  {border: 1px solid #e8e1b5; background: #fcf0ba; color: #363636; }
+.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight  {border: 1px solid #e8e1b5; background-color: #fcf0ba; color: #363636; }
 .ui-state-highlight a, .ui-widget-content .ui-state-highlight a,.ui-widget-header .ui-state-highlight a { color: #363636; }
-.ui-state-error, .ui-widget-content .ui-state-error, .ui-widget-header .ui-state-error {border: 1px solid #e3a345; background: #ffedad; color: #cd5c0a; }
+.ui-state-error, .ui-widget-content .ui-state-error, .ui-widget-header .ui-state-error {border: 1px solid #e3a345; background-color: #ffedad; color: #cd5c0a; }
 .ui-state-error a, .ui-widget-content .ui-state-error a, .ui-widget-header .ui-state-error a { color: #cd5c0a; }
 .ui-state-error-text, .ui-widget-content .ui-state-error-text, .ui-widget-header .ui-state-error-text { color: #cd5c0a; }
 .ui-priority-primary, .ui-widget-content .ui-priority-primary, .ui-widget-header .ui-priority-primary { font-weight: bold; }
@@ -273,8 +273,8 @@
 .ui-corner-all, .ui-corner-bottom, .ui-corner-right, .ui-corner-br { -moz-border-radius-bottomright: 6px; -webkit-border-bottom-right-radius: 6px; -khtml-border-bottom-right-radius: 6px; border-bottom-right-radius: 6px; }
 
 /* Overlays */
-.ui-widget-overlay { background: #2b2922; opacity: .90;filter:Alpha(Opacity=90); }
-.ui-widget-shadow { margin: -12px 0 0 -12px; padding: 12px; background: #cccccc; opacity: .20;filter:Alpha(Opacity=20); -moz-border-radius: 10px; -khtml-border-radius: 10px; -webkit-border-radius: 10px; border-radius: 10px; }/*
+.ui-widget-overlay { background-color: #2b2922; opacity: .90;filter:Alpha(Opacity=90); }
+.ui-widget-shadow { margin: -12px 0 0 -12px; padding: 12px; background-color: #cccccc; opacity: .20;filter:Alpha(Opacity=20); -moz-border-radius: 10px; -khtml-border-radius: 10px; -webkit-border-radius: 10px; border-radius: 10px; }/*
  * jQuery UI Autocomplete 1.8.16
  *
  * Copyright 2011, AUTHORS.txt (http://jqueryui.com/about)
