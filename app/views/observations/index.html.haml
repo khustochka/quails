@@ -45,6 +45,10 @@
       %td= observation.notes
       %td= post_link('>>', blogpost)
       %td.align-center= observation.mine ? '+' : '-'
-      %td= default_destroy_link(observation)
+      %td
+        - if observation.images.count > 0
+          = image_tag('x_alt_16x16_tan.png', :title => 'Destroy disabled due to existing images')
+        - else
+          = default_destroy_link(observation)
 
 = paginate @observations
