@@ -34,8 +34,10 @@ $(function() {
             var removeIcon = $("<span class='remove'>").html($("<img>").attr('src', '/images/x_alt_16x16.png'));
             $("<li>", newObs ? { "class": 'new-obs'} : null)
                 .append(hiddenField)
-                .append($('<div>').append($('<span>').html(this.sp_data),
-                $('<span>').html(this.obs_data)))
+                .append($('<span>').append(
+                    $('<div>').html(this.sp_data),
+                    $('<div>').html(this.obs_data))
+                )
                 .append(removeIcon)
                 .appendTo($(ulSelector));
         });

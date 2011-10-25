@@ -17,10 +17,11 @@
     = form.input :mine, :label => 'Mine', :input_html => {:name => 'c[mine]'}
     - unless blogpost.nil?
       = form.association(:post, :as => :boolean, :label => post_link(blogpost.title, blogpost), :wrapper_html => {:class => 'flat'})
-  .input.flat.block.to-add-row
-    %label{:for => 'species-quick-add'} Quick add species:
-    %input{:id => 'species-quick-add', :class => 'string'}
-    %span.pseudolink#add-row Add new row
+    .to-add-row
+      .input.flat
+        %label{:for => 'species-quick-add'} Quick add species:
+        %input{:id => 'species-quick-add', :class => 'string'}
+      %span.pseudolink#add-row Add new row
 
   .obs-row
     = form.association :species, :label => 'Species:', :collection => species_for_select,

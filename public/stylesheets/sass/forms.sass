@@ -85,18 +85,18 @@ input.button
 
 // Observations
 
-.to-add-row
-  display: none
 
-#add-row
-  margin-left: 5px
 
 form.observation
-  div.to-add-row
+  .to-add-row
+    display: none // will be enabled by jquery
+    margin-top: 5px
     label
       color: green
     input
       border-color: green
+    #add-row
+      margin: 0 5px
 
   div.obs-row
     //display: table-row
@@ -136,6 +136,7 @@ form.image
         display: inline-block
       a.restore
         float: right
+        margin-top: 3px
     .observation_search
       text-align: right
       button
@@ -154,13 +155,10 @@ ul.obs-list
     border: 1px dotted #777
     display: inline-block
     width: 350px
-    div
+    span
       display: inline-block
-      span
-        display: block
     .remove
       float: right
-      vertical-align: 5px
   li.new-obs
     background-color: #eeffee
 

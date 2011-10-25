@@ -40,9 +40,9 @@
           - @image.observations.each do |ob|
             %li
               %input{:type => :hidden, :value => ob.id, :name => 'image[observation_ids][]'}
-              %div
-                %span= ob.obs_species_data
-                %span= ob.obs_when_where_data
+              %span
+                %div= ob.obs_species_data
+                %div= ob.obs_when_where_data
               %span.remove= image_tag('/images/x_alt_16x16.png')
       %td.observation_options
         %h5 Found observations
