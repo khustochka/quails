@@ -1,0 +1,14 @@
+- @page_title = 'Species with no photos'
+
+%h1= [link_to('Research', research_path), @page_title].join(' : ').html_safe
+
+%table.neat_table
+  %th &nbsp;
+  %th Species
+  %th Observations
+
+  - @list.each_with_index do |sp, i|
+    %tr
+      %td.align-right= "#{i+1}."
+      %td= species_link(sp)
+      %td.align-right= sp.cnt

@@ -25,6 +25,15 @@ class ResearchController < ApplicationController
     end.sort { |a, b| b[sort_col] <=> a[sort_col] }
   end
 
+  def unpictured
+    @list = Species.select('name_sci, name_en, COUNT(observations.id) AS cnt').joins(:observations).
+        where(
+              "species_id NOT IN (%s)" % 
+              Observation.select('DISTINCT species_id').
+                  joins('INNER JOIN images_observations as im on (observations.id = im.observation_id)').to_sql
+              ).group(:name_sci, :name_en).reorder('cnt DESC')
+  end
+
   def lifelist
     @allowed_params = [:controller, :action, :year, :locus, :sort, :month]
 
