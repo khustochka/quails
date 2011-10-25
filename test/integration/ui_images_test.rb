@@ -72,7 +72,7 @@ class UIImagesTest < ActionDispatch::IntegrationTest
       click_button 'Search'
     end
         
-    find(:xpath, "//ul[contains(@class,'found-obs')]/li[div/span[contains(text(),'Mergus serrator')]]").drag_to find('.observation_list')
+    find(:xpath, "//ul[contains(@class,'found-obs')]/li[span/div[contains(text(),'Mergus serrator')]]").drag_to find('.observation_list')
     
     lambda { click_button('Save') }.should change(Image, :count).by(1)
     img = Image.find_by_code('test-img-capybara')
