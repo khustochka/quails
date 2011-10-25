@@ -4,12 +4,12 @@
 
 %ul.horiz-list.filter-list
   %strong Places:
-  %li= params[:locus].nil? ? 'All' : link_to('All', significant_params.merge(:locus => nil))
+  %li= params[:locus].nil? ? content_tag(:span, 'All') : link_to('All', significant_params.merge(:locus => nil))
   - Lifelist::ALLOWED_LOCUS.each do |code|
-    %li= link_to_unless_current(locs[code][0].name_en, significant_params.merge(:locus => code))
+    %li= link_to_or_span(locs[code][0].name_en, significant_params.merge(:locus => code))
 
 - unless @lifelist.blank? || @lifelist.advanced?
   %ul.horiz-list.filter-list
     %strong Sort by:
     - {nil => 'date', :by_count => 'count', :by_taxonomy => 'taxonomy'}.each do |sort, label|
-      %li= link_to_unless_current(label, significant_params.merge(:sort => sort))
+      %li= link_to_or_span(label, significant_params.merge(:sort => sort))
