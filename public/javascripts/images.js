@@ -1,6 +1,10 @@
 $(function() {
+
+    var current_obs = $('.current-obs'),
+        found_obs = $('.found-obs');
+
     function refreshObservList() {
-        if ($('ul.current-obs li').length == 0) {
+        if ($('li', current_obs).length == 0) {
             $("<div>", {
                 'class' : 'errors'
             }).text('None').appendTo(".observation_list");
@@ -13,7 +17,7 @@ $(function() {
     }
 
     function searchForObservations() {
-        $('.found-obs').empty();
+        found_obs.empty();
         $('.observation_options').addClass('loading');
         var data = $("input#q_observ_date_eq, select#q_locus_id_eq, select#q_species_id_eq").serializeArray();
         $.ajax({
@@ -22,16 +26,16 @@ $(function() {
             data : data,
             success : function(data) {
                 $('.observation_options').removeClass('loading');
-                buildObservations(data, '.found-obs', true);
-                $('.found-obs li').draggable({ "revert" : "invalid" });
+                buildObservations(data, found_obs, true);
+                $('li', found_obs).draggable({ "revert" : "invalid" });
             }
         });
     }
 
     function buildObservations(data, ulSelector, newObs) {
         $(data).each(function() {
-            var hiddenField = $("<input type='hidden' name='image[observation_ids][]' value='" + this.id + "'>");
-            var removeIcon = $("<span class='remove'>").html($("<img>").attr('src', '/images/x_alt_16x16.png'));
+            var hiddenField = $("<input type='hidden' name='image[observation_ids][]' value='" + this.id + "'>"),
+                removeIcon = $("<span class='remove'>").html($("<img>").attr('src', '/images/x_alt_16x16.png'));
             $("<li>", newObs ? { "class": 'new-obs'} : null)
                 .append(hiddenField)
                 .append($('<span>').append(
@@ -51,7 +55,7 @@ $(function() {
 //    }
 
 	function insertNewObservation(newObs) {
-        newObs.draggable("destroy").attr('style', '').appendTo('.current-obs');
+        newObs.draggable("destroy").attr('style', '').appendTo(current_obs);
         refreshObservList();
 	}
 
@@ -65,13 +69,13 @@ $(function() {
     });
 
     $('.restore').click(function() {
-        $('.current-obs').empty();
+        current_obs.empty();
         $('.observation_list').addClass('loading');
     });
 
     $('.restore').bind('ajax:success', function(xhr, data, status) {
         $('.observation_list').removeClass('loading');
-        buildObservations(data, '.current-obs', false);
+        buildObservations(data, current_obs, false);
         refreshObservList();
     });
 
@@ -84,10 +88,10 @@ $(function() {
     $('.observation_list').droppable({
     	accept : '.found-obs li',
         drop : function(event, ui) {
-            var first = $('.current-obs li:first');
-            var fdata = $('span:eq(1)', first).text().split(', ', 2).join();
-            var newObs = ui.draggable;
-            var newdata = newObs.find('span:eq(1)').text().split(', ', 2).join();
+            var first = $('li:first', current_obs),
+                fdata = $('span:eq(1)', first).text().split(', ', 2).join(),
+                newObs = ui.draggable,
+                newdata = newObs.find('span:eq(1)').text().split(', ', 2).join();
             if (first.length == 0 || newdata == fdata) {
             	insertNewObservation(newObs);
             }
@@ -102,7 +106,7 @@ $(function() {
                         buttons: {
                             "Overwrite": function() {
                                 $(this).dialog("close");
-                                $('.current-obs').empty();
+                                current_obs.empty();
                                 insertNewObservation(newObs);
                             },
                             "Cancel": function() {
@@ -117,7 +121,7 @@ $(function() {
 
     $('form.image').submit(function() {
         $('.observation_search').empty();
-        $('.found-obs').empty();
+        found_obs.empty();
     });
 
     refreshObservList();
