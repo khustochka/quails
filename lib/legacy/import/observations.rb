@@ -32,6 +32,7 @@ module Legacy
           column_names.map { |c| rec[c] }
         end
         table.fill(column_names, records)
+        table.reset_pk_sequence!
         puts "Done."
       end
     end
