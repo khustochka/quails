@@ -22,7 +22,7 @@
   %table
     %tr
       %td.observation_search{:colspan => 2}
-        = simple_form_for observ_search, :url => observations_path, :method => :get do |form2|
+        = simple_form_for observ_search, :url => observations_path do |form2|
           = form2.input :observ_date_eq, :label => 'Date:',
               :input_html => {:class => 'short', :maxlength => 10, :type => 'date'}
           = form2.input :locus_id_eq, :label => 'Location:', :collection => Locus.all_ordered,
