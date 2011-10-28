@@ -8,7 +8,7 @@
 
 require 'bunch_db/table'
 
-# YAML::ENGINE.yamler= 'psych' # required for parsing db dump yaml in debugging mode
+YAML::ENGINE.yamler = 'psych' # required for parsing db dump yaml in debugging, or on heroku
 
 local_opts = YAML.load_file('config/local.yml')
 dirname = File.join(local_opts['repo'], 'seed')
