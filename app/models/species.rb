@@ -6,6 +6,7 @@ class Species < ActiveRecord::Base
   validates :avibase_id, :format => /^[\dA-F]{16}$/, :allow_blank => true
 
   has_many :observations, :dependent => :restrict, :order => [:observ_date]
+  has_many :images, :through => :observations
 
   AVIS_INCOGNITA = Hashie::Mash.new(:id => 0, :name_sci => '- Avis incognita')
 
@@ -21,12 +22,6 @@ class Species < ActiveRecord::Base
 
   def self.alphabetic
     reorder(:name_sci)
-  end
-
-  # Associations
-
-  def images
-    Observation.where(:species_id => id).includes(:images).map(&:images).flatten
   end
 
   # Instance methods
