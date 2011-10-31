@@ -18,8 +18,8 @@ class ImagesAssociationsTest < ActiveSupport::TestCase
     obs2 = FactoryGirl.create(:observation, :species => sp2, :observ_date => "2008-07-01")
     img = FactoryGirl.create(:image, :code => 'picture-of-the-shrike-and-the-wryneck', :observations => [obs1, obs2])
 
-    assert_equal [img.code], sp1.images.map(&:code)
-    assert_equal [img.code], sp2.images.map(&:code)
+    assert_equal [img.code], sp1.images.reload.map(&:code)
+    assert_equal [img.code], sp2.images.reload.map(&:code)
     ([sp1.code, sp2.code] - img.species.map(&:code)).should be_empty
   end
 
