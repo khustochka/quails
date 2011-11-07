@@ -35,7 +35,7 @@ class Image < ActiveRecord::Base
     validate_observations(obs_ids)
     with_transaction_returning_status do
       assign_attributes(attr)
-      self.observation_ids = obs_ids
+      self.observation_ids = obs_ids unless obs_ids.blank?
       run_validations! && save
     end
   end
@@ -46,11 +46,11 @@ class Image < ActiveRecord::Base
     observations[0]
   end
 
-  def validate_observations(observation_ids)
-    if observation_ids.blank?
+  def validate_observations(observ_ids)
+    if observ_ids.blank?
       errors.add(:observation_ids, 'must not be empty')
     else
-      obs = Observation.where(:id => observation_ids).all
+      obs = Observation.where(:id => observ_ids).all
       if obs.map(&:observ_date).uniq.size > 1 || obs.map(&:locus_id).uniq.size > 1
         errors.add(:observation_ids, 'must be of the same date and location')
       end
