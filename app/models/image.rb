@@ -2,7 +2,7 @@ class Image < ActiveRecord::Base
   validates :code, :uniqueness => true, :presence => true, :length => {:maximum => 64}
   validates :observation_ids, :presence => true
 
-  has_and_belongs_to_many :observations, :include => [:species, :post]
+  has_and_belongs_to_many :observations, :include => :species, :uniq => true
   has_many :species, :through => :observations
 
   delegate :observ_date, :post, :locus, :to => :first_observation
