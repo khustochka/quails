@@ -1,6 +1,5 @@
 class Image < ActiveRecord::Base
   validates :code, :uniqueness => true, :presence => true, :length => {:maximum => 64}
-  validates :observation_ids, :presence => true
 
   has_and_belongs_to_many :observations, :include => :species, :uniq => true
   has_many :species, :through => :observations
@@ -27,19 +26,35 @@ class Image < ActiveRecord::Base
     )
   end
 
-  def validate_observations(observation_ids)
-    obs = Observation.where(:id => observation_ids).all
-    if obs.map(&:observ_date).uniq.size > 1 || obs.map(&:locus_id).uniq.size > 1
-      errors.add(:observation_ids, 'must be of the same date and location')
+  delegate :observ_date, :locus, :to => :first_observation
+
+  # Saving with observation validation
+
+  def update_with_observations(attr)
+    obs_ids = attr.delete(:observation_ids)
+    validate_observations(obs_ids)
+    with_transaction_returning_status do
+      assign_attributes(attr)
+      self.observation_ids = obs_ids
+      run_validations! && save
     end
   end
-
-  delegate :observ_date, :locus, :to => :first_observation
 
   private
 
   def first_observation
     observations[0]
+  end
+
+  def validate_observations(observation_ids)
+    if observation_ids.blank?
+      errors.add(:observation_ids, 'must not be empty')
+    else
+      obs = Observation.where(:id => observation_ids).all
+      if obs.map(&:observ_date).uniq.size > 1 || obs.map(&:locus_id).uniq.size > 1
+        errors.add(:observation_ids, 'must be of the same date and location')
+      end
+    end
   end
 
 end

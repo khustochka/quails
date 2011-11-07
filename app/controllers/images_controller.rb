@@ -32,13 +32,9 @@ class ImagesController < ApplicationController
 
   # POST /images
   def create
-    image = params[:image]
-    image[:observation_ids] = cleanup_observation_ids(image[:observation_ids] || [])
-    @image = Image.new(image)
+    @image = Image.new
 
-    @image.validate_observations(image[:observation_ids])
-
-    if @image.errors.blank? && @image.save
+    if @image.update_with_observations(params[:image])
       redirect_to(public_image_path(@image), :notice => 'Image was successfully created.')
     else
       render :action => "new"
@@ -48,17 +44,10 @@ class ImagesController < ApplicationController
   # PUT /images/1
   def update
     @extra_params = @image.to_url_params
-    image = params[:image]
-    observation_ids = cleanup_observation_ids(image.delete(:observation_ids) || [])
-    # TODO: I need a smarter way to do all these validations
-    @image.validate_observations(observation_ids)
-
-    if @image.errors.blank? && @image.update_attributes(image.merge({:observation_ids => observation_ids}))
+    
+    if @image.update_with_observations(params[:image])
       redirect_to(public_image_path(@image), :notice => 'Image was successfully updated.')
     else
-      @image.assign_attributes(image)
-      # TODO: probably hits the DB. no observation_ids_was.
-      @image.observations.reload if observation_ids.blank?
       render :action => "edit"
     end
   end
@@ -67,11 +56,5 @@ class ImagesController < ApplicationController
   def destroy
     @image.destroy
     redirect_to(images_url)
-  end
-  
-  private
-  def cleanup_observation_ids(list)
-    list.uniq
-  end
-  
+  end  
 end

@@ -45,18 +45,6 @@ class ImagesControllerTest < ActionController::TestCase
     assert_redirected_to public_image_path(assigns(:image))
   end
 
-  test "should not create image with no observations" do
-    login_as_admin
-    new_attr = @image.attributes.dup
-    new_attr['code'] = 'new_img_code'
-    new_attr[:observation_ids] = []
-    assert_difference('Image.count', 0) do
-      post :create, :image => new_attr
-    end
-    assigns(:image).errors.should_not be_blank
-    assert_template :new
-  end
-
   test "show image" do
     get :show, @image.to_url_params
     assert_response :success
