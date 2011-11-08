@@ -42,10 +42,9 @@ $(function() {
         }
         else {
             var err_list = $("<ul>", {'class': 'errors'}).prependTo("form#new_observation");
-            for (var i in data.data) {
-                var new_p = $("<li>").append(document.createTextNode(i + " " + data.data[i]));
-                err_list.append(new_p);
-            }
+            $.each(data.errors, function(i, val) {
+                $("<li>").append(document.createTextNode(i + " " + val)).appendTo(err_list);
+            });
         }
     });
 
