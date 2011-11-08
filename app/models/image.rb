@@ -30,8 +30,7 @@ class Image < ActiveRecord::Base
 
   # Saving with observation validation
 
-  def update_with_observations(attr)
-    obs_ids = attr.delete(:observation_ids)
+  def update_with_observations(attr, obs_ids)
     validate_observations(obs_ids)
     with_transaction_returning_status do
       assign_attributes(attr)

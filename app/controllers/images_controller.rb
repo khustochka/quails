@@ -34,7 +34,7 @@ class ImagesController < ApplicationController
   def create
     @image = Image.new
 
-    if @image.update_with_observations(params[:image])
+    if @image.update_with_observations(params[:image], params[:obs])
       redirect_to(public_image_path(@image), :notice => 'Image was successfully created.')
     else
       render :action => "new"
@@ -45,7 +45,7 @@ class ImagesController < ApplicationController
   def update
     @extra_params = @image.to_url_params
     
-    if @image.update_with_observations(params[:image])
+    if @image.update_with_observations(params[:image], params[:obs])
       redirect_to(public_image_path(@image), :notice => 'Image was successfully updated.')
     else
       render :action => "edit"

@@ -22,10 +22,9 @@ class ImagesControllerTest < ActionController::TestCase
   test "create image with one observation" do
     login_as_admin
     new_attr = @image.attributes.dup
-    new_attr[:observation_ids] = [@obs.id]
     new_attr['code'] = 'new_img_code'
     assert_difference('Image.count') do
-      post :create, :image => new_attr
+      post :create, :image => new_attr, :obs => [@obs.id]
     end
 
     assert_redirected_to public_image_path(assigns(:image))
@@ -36,10 +35,9 @@ class ImagesControllerTest < ActionController::TestCase
     obs2 = FactoryGirl.create(:observation, :species => seed(:lancol))
     obs3 = FactoryGirl.create(:observation, :species => seed(:jyntor))
     new_attr = @image.attributes.dup
-    new_attr[:observation_ids] = [@obs.id, obs2.id, obs3.id]
     new_attr['code'] = 'new_img_code'
     assert_difference('Image.count') do
-      post :create, :image => new_attr
+      post :create, :image => new_attr, :obs => [@obs.id, obs2.id, obs3.id]
     end
 
     assert_redirected_to public_image_path(assigns(:image))
@@ -60,8 +58,7 @@ class ImagesControllerTest < ActionController::TestCase
     login_as_admin
     new_attr = @image.attributes
     new_attr['code'] = 'new_code'
-    new_attr[:observation_ids] = @image.observation_ids
-    put :update, :id => @image.to_param, :image => new_attr
+    put :update, :id => @image.to_param, :image => new_attr, :obs => @image.observation_ids
     assert_redirected_to public_image_path(assigns(:image))
   end
 

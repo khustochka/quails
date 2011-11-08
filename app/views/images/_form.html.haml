@@ -39,7 +39,7 @@
         %ul.obs-list.current-obs
           - @image.observations.each do |ob|
             %li
-              %input{:type => :hidden, :value => ob.id, :name => 'image[observation_ids][]'}
+              %input{:type => :hidden, :value => ob.id, :name => 'obs[]'}
               %span
                 %div= ob.obs_species_data
                 %div= ob.obs_when_where_data
