@@ -77,22 +77,8 @@ class ObservationsController < ApplicationController
   # c: hash of common options - locus_id, observ_date,mine, post_id
   # o: array of hashes each having species_id, quantity, biotope, place, notes
   def bulksave
-    common = params[:c]
-    test_obs = Observation.new({:species_id => 0}.merge(common))
-    test_obs.valid?
-    errors_collection = test_obs.errors
-    errors_collection.add(:base, 'provide at least one observation') if params[:o].blank?
-    if errors_collection.empty?
-      saved_obs = params[:o].map do |obs|
-        obs_data = obs.merge(common)
-        observation = obs[:id] ?
-            Observation.update(obs[:id], obs_data) :
-            Observation.create(obs_data)
-        observation.errors.empty? ? {:id => observation.id} : {:msg => observation.errors}
-      end
-      render :json => {:result => 'OK', :data => saved_obs}
-    else
-      render :json => {:result => 'Error', :data => errors_collection}
-    end
+    obs_bunch = ObservationBulk.new(params)
+    obs_bunch.save
+    render :json => obs_bunch
   end
 end
