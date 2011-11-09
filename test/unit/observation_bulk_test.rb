@@ -36,4 +36,15 @@ class ObservationBulkTest < ActiveSupport::TestCase
     err["base"].should == ["provide at least one observation"]
   end
 
+  test 'Observations bulk save should not save the bunch if any observation is wrong' do
+    bulk = ObservationBulk.new({:c => {:locus_id => seed(:brovary).id,
+                              :observ_date => '2010-05-05', :mine => true},
+                       :o => [{:species_id => ''}, {:species_id => 2}]
+      })
+    assert_difference('Observation.count', 0) do
+      bulk.save.should be_false 
+    end
+    bulk.errors.should_not be_blank
+  end
+
 end

@@ -17,11 +17,14 @@ class ObservationBulk
     test_obs = Observation.new({:species_id => 0}.merge(@common))
     test_obs.valid?
     test_obs.errors.each { |attr, err| errors.add(attr, err) }
-    @observations.map! do |obs|
-      Observation.create(obs)
+    Observation.new.with_transaction_returning_status do
+      @observations.map! do |obs|
+        Observation.create(obs)
+      end
+      errors.blank? && @observations.find {|o| o.errors.present? }.nil?
     end
     errors.add(:base, 'provide at least one observation') if @observations.blank?
-    errors.add(:base, 'not saved') if errors.blank? && @observations.find {|o| !o.errors.blank? }
+    errors.add(:base, 'not saved') if errors.blank? && @observations.find {|o| o.errors.present? }
     
     errors.blank?
   end

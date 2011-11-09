@@ -82,21 +82,20 @@ class BulkObservationsTest < ActionController::TestCase
     assert_equal({"species_id"=>["can't be blank"]}, result['data'][0])
   end
 
-  # test 'Observations bulk save should not save the bunch if any observation is wrong' do
-    # login_as_admin
-    # assert_difference('Observation.count', 0) do
-      # post :bulksave, {:c => {:locus_id => seed(:brovary).id,
-                              # :observ_date => '2010-05-05', :mine => true},
-                       # :o => [{:species_id => ''}, {:species_id => 2}]
-      # }
-    # end
-    # assert_response :success
-    # assert_equal Mime::JSON, response.content_type
-    # result = JSON.parse(response.body)
-    # assert_equal 'Error', result['result']
-    # assert_equal({"species_id"=>["can't be blank"]}, result['data'][0]['msg'])
-    # assert_equal({"base"=>["not saved"]}, result['data'][1]['msg'])
-  # end
+  test 'Observations bulk save should not save the bunch if any observation is wrong' do
+    login_as_admin
+    assert_difference('Observation.count', 0) do
+      post :bulksave, {:c => {:locus_id => seed(:brovary).id,
+                              :observ_date => '2010-05-05', :mine => true},
+                       :o => [{:species_id => ''}, {:species_id => 2}]
+      }
+    end
+    assert_response :success
+    assert_equal Mime::JSON, response.content_type
+    result = JSON.parse(response.body)
+    assert_equal 'Error', result['result']
+    assert_equal({"species_id"=>["can't be blank"]}, result['data'][0])
+  end
 
   # test 'successful updating existing and saving new observations' do
     # obs = FactoryGirl.create(:observation, :species_id => 2)
