@@ -43,7 +43,13 @@ $(function() {
         else {
             var err_list = $("<ul>", {'class': 'errors'}).prependTo("form#new_observation");
             $.each(data.errors, function(i, val) {
-                $("<li>").append(document.createTextNode(i + " " + val)).appendTo(err_list);
+                $("<li>").text(i + " " + val).appendTo(err_list);
+            });
+            $('.obs-row').each(function(i) {
+                var row = $(this);
+                $.each(data.data[i], function(ind, val) {
+                  $('input#observation_' + ind, row).after($('<span class="error">').text(val[0]));
+                });
             });
         }
     });
