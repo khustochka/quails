@@ -33,7 +33,7 @@ $(function() {
                     if (! $(this).data("db-id")) {
                         $(this).data("db-id", val.id)
                                 .addClass('has-id')
-                                .prepend($("<input type='hidden' name='o[][id]'>").attr('value', val.id));
+                                .prepend($("<input type='hidden' name='o[][id]'>").val(val.id));
                     }
                     $(this).removeClass('save-fail').addClass('save-success');
                 }
@@ -87,7 +87,7 @@ $(function() {
 
     $('#add-row').click(addNewRow);
 
-    $('.remove').live('click', function() {
+    $('form#new_observation').on('click', '.remove', function() {
         $(this).closest('.obs-row').remove();
     });
 
