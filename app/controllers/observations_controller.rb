@@ -81,6 +81,6 @@ class ObservationsController < ApplicationController
   def bulksave
     obs_bunch = ObservationBulk.new(params)
     obs_bunch.save
-    respond_with(obs_bunch, :location => observations_url)
+    respond_with(obs_bunch, :location => observations_url, :only => :id)
   end
 end
