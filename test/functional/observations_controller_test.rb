@@ -130,7 +130,7 @@ class ObservationsControllerTest < ActionController::TestCase
   test 'return observation search results in json' do
     login_as_admin
     observation = FactoryGirl.create(:observation)
-    get :search, :search => {}
+    get :search, :q => {}, :format => :json
     assert_response :success
     assert_equal Mime::JSON, response.content_type
     result = JSON.parse(response.body)

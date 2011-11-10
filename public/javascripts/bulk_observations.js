@@ -22,36 +22,36 @@ $(function() {
         return false;
     }
 
-    /* On form submit */
+    /* Form actions */
     form.attr('action', form.data('action'));
+    
     form.bind('ajax:success', function(e, data) {
-        $(".errors").remove();
-        if (data.result == "OK") {
-            $(".obs-row").each(function(index) {
-                var val = data.data[index];
-                if (val.id) {
-                    if (! $(this).data("db-id")) {
-                        $(this).data("db-id", val.id)
-                                .addClass('has-id')
-                                .prepend($("<input type='hidden' name='o[][id]'>").val(val.id));
-                    }
-                    $(this).removeClass('save-fail').addClass('save-success');
-                }
-                else $(this).removeClass('save-success').addClass('save-fail');
-            })
-        }
-        else {
-            var err_list = $("<ul>", {'class': 'errors'}).prependTo("form#new_observation");
-            $.each(data.errors, function(i, val) {
-                $("<li>").text(i + " " + val).appendTo(err_list);
+      $(".errors").remove();
+        $(".obs-row").each(function(index) {
+            var val = data[index];
+            if (! $(this).data("db-id")) {
+                $(this).data("db-id", val.id)
+                        .addClass('has-id')
+                        .prepend($("<input type='hidden' name='o[][id]'>").val(val.id));
+            };
+            $(this).removeClass('save-fail').addClass('save-success');
+        });
+    });
+    
+    form.bind('ajax:error', function(event, xhr, status) {
+      $(".errors").remove();
+        var errors = $.parseJSON(xhr.responseText),
+        err_list = $("<ul>", {'class': 'errors'}).prependTo("form#new_observation");
+        $.each(errors, function(i, val) {
+          if (i != "observs") $("<li>").text(i + " " + val[0]).appendTo(err_list);
+        });
+        $('.obs-row').each(function(i) {
+            var row = $(this);
+            if (errors.observs) $.each(errors.observs[i], function(ind, val) {
+              $('input#observation_' + ind, row).after($('<span class="error">').text(val[0]));
             });
-            $('.obs-row').each(function(i) {
-                var row = $(this);
-                $.each(data.data[i], function(ind, val) {
-                  $('input#observation_' + ind, row).after($('<span class="error">').text(val[0]));
-                });
-            });
-        }
+            row.removeClass('save-success').addClass('save-fail');
+        });
     });
 
     $('#species-quick-add').autocomplete({

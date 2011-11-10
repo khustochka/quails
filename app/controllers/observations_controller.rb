@@ -1,5 +1,7 @@
 class ObservationsController < ApplicationController
 
+  respond_to :json, :only => [:search, :bulksave]
+
   requires_admin_authorized
 
   layout 'admin'
@@ -23,7 +25,7 @@ class ObservationsController < ApplicationController
         else
           Observation.search(params[:q]).result.preload(:locus, :species).limit(5)
         end
-    render :json => (observs.map do |ob|
+    respond_with(observs.map do |ob|
       {:id => ob.id, :sp_data => ob.obs_species_data, :obs_data => ob.obs_when_where_data}
     end)
   end
@@ -79,6 +81,6 @@ class ObservationsController < ApplicationController
   def bulksave
     obs_bunch = ObservationBulk.new(params)
     obs_bunch.save
-    render :json => obs_bunch
+    respond_with(obs_bunch, :location => observations_url)
   end
 end

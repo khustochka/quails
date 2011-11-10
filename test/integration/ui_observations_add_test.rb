@@ -59,6 +59,8 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
     end
 
     lambda { click_button('Save') }.should change(Observation, :count).by(2)
+    page.should have_css('.obs-row.has-id.save-success')
+    
   end
 
 end
