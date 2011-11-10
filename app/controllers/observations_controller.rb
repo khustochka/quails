@@ -25,9 +25,7 @@ class ObservationsController < ApplicationController
         else
           Observation.search(params[:q]).result.preload(:locus, :species).limit(5)
         end
-    respond_with(observs.map do |ob|
-      {:id => ob.id, :sp_data => ob.obs_species_data, :obs_data => ob.obs_when_where_data}
-    end)
+    respond_with(observs, :only => :id, :methods => [:species_str, :when_where_str])
   end
 
   # GET /observations/1

@@ -39,8 +39,8 @@ $(function() {
             $("<li>", newObs ? { "class": 'new-obs'} : null)
                 .append(hiddenField)
                 .append($('<span>').append(
-                    $('<div>').html(this.sp_data),
-                    $('<div>').html(this.obs_data))
+                    $('<div>').html(this.species_str),
+                    $('<div>').html(this.when_where_str))
                 )
                 .append(removeIcon)
                 .appendTo($(ulSelector));

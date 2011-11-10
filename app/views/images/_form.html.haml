@@ -41,8 +41,8 @@
             %li
               %input{:type => :hidden, :value => ob.id, :name => 'obs[]'}
               %span
-                %div= ob.obs_species_data
-                %div= ob.obs_when_where_data
+                %div= ob.species_str
+                %div= ob.when_where_str
               %span.remove= image_tag('/images/x_alt_16x16.png')
       %td.observation_options
         %h5 Found observations

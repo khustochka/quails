@@ -30,12 +30,12 @@ class Observation < ActiveRecord::Base
 
   # Decorators
   
-  def obs_species_data
+  def species_str
     [["<b>#{species.name}</b>", species.name_sci].join(' '), quantity, notes].
         delete_if(&:'blank?').join(', ').html_safe
   end
   
-  def obs_when_where_data
+  def when_where_str
     [observ_date, "<b>#{locus.name_en}</b>", place].delete_if(&:'blank?').join(', ').html_safe
   end
 
