@@ -52,7 +52,7 @@ class ObservationsControllerTest < ActionController::TestCase
 
   test "get bulk" do
     login_as_admin
-    get :bulk
+    get :bulk, :o => [FactoryGirl.create(:observation).id]
     assert_response :success
   end
 

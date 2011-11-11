@@ -43,7 +43,7 @@ class ObservationsController < ApplicationController
   # GET /observations/add
   # Adding multiple observations
   def add
-    @observation = Observation.new
+    @observations = [Observation.new]
     @blogpost = Post.find_by_id(params[:post_id]) if params[:post_id]
     render :bulk
   end
@@ -56,7 +56,9 @@ class ObservationsController < ApplicationController
   # GET /observations/bulk
   # Bulk edit observations
   def bulk
-    @observation = Observation.new
+    @observations = params[:o] ? 
+        Observation.where(:id => params[:o]).all :
+        [Observation.new]
   end
 
   # POST /observations
