@@ -44,10 +44,24 @@ class ObservationsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "get add" do
+    login_as_admin
+    get :add
+    assert_response :success
+  end
+
+  test "get bulk" do
+    login_as_admin
+    get :bulk
+    assert_response :success
+  end
+
   test "create observation" do
+    common = FactoryGirl.attributes_for(:observation)
+    observ = common.slice!(:locus_id, :observ_date, :mine)
     assert_difference('Observation.count') do
       login_as_admin
-      post :create, :observation => FactoryGirl.attributes_for(:observation)
+      post :create, :c => common, :o => [observ]
     end
     assert_redirected_to observation_path(assigns(:observation))
   end
@@ -68,9 +82,10 @@ class ObservationsControllerTest < ActionController::TestCase
 
   test "update observation" do
     observation = FactoryGirl.create(:observation)
-    observation.observ_date = '2010-11-07'
+    common = FactoryGirl.attributes_for(:observation)
+    observ = common.slice!(:locus_id, :observ_date, :mine)
     login_as_admin
-    put :update, :id => observation.to_param, :observation => observation.attributes
+    put :update, :id => observation.to_param, :c => common, :o => [observ]
     assert_redirected_to edit_observation_path(assigns(:observation))
   end
 
@@ -98,6 +113,16 @@ class ObservationsControllerTest < ActionController::TestCase
 
   test 'protect new with HTTP authentication' do
     assert_raises(ActionController::RoutingError) { get :new }
+    #assert_response 404
+  end
+
+  test 'protect add with HTTP authentication' do
+    assert_raises(ActionController::RoutingError) { get :add }
+    #assert_response 404
+  end
+
+  test 'protect bulk with HTTP authentication' do
+    assert_raises(ActionController::RoutingError) { get :bulk }
     #assert_response 404
   end
 

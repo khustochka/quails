@@ -41,7 +41,7 @@ class RoutingTest < ActionDispatch::IntegrationTest
     assert_routing '/observations/11876', {:controller => 'observations', :action => 'show', :id => "11876"}
     assert_routing '/observations/new', {:controller => 'observations', :action => 'new'}
     assert_routing '/observations/11876/edit', {:controller => 'observations', :action => 'edit', :id => "11876"}
-#    assert_routing '/observations/add', {:controller => 'observations', :action => 'add'}
-#    assert_routing '/observations/bulk', {:controller => 'observations', :action => 'bulk'}
+    assert_routing '/observations/add', {:controller => 'observations', :action => 'add'}
+    assert_routing '/observations/bulk', {:controller => 'observations', :action => 'bulk'}
   end
 end

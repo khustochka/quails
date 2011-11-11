@@ -1,0 +1,19 @@
+- use_jquery
+- javascript JQ_UI_FILE, 'suggest_over_combo'
+- stylesheet 'forms'
+
+- @page_title = '%s observation' % (['new', 'create'].include?(action_name) ? 'New' : 'Edit')
+- @blogpost = @observation.post
+
+%h1= @page_title
+
+= render 'admin/shortcuts' if current_user.admin?
+
+= simple_form_for @observation do |form|
+  %div
+    = render :partial => 'common', :locals => { :form => form }
+  
+  = render :partial => @observation, :locals => {:form => form}
+  
+  .buttons
+    = default_submit_button(form)

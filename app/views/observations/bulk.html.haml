@@ -1,0 +1,23 @@
+- use_jquery
+- javascript JQ_UI_FILE, 'suggest_over_combo', 'bulk_observations'
+- stylesheet 'forms'
+
+- @page_title = 'Bulk add/edit observation'
+
+%h1= @page_title
+
+= render 'admin/shortcuts' if current_user.admin?
+
+= simple_form_for @observation, :remote => true, :html => {'data-action' => bulksave_observations_path} do |form|
+  %div
+    = render :partial => 'common', :locals => { :form => form }
+    .to-add-row
+      .input.flat
+        %label{:for => 'species-quick-add'} Quick add species:
+        %input{:id => 'species-quick-add', :class => 'string'}
+      %span.pseudolink#add-row Add new row
+  
+  = render :partial => @observation, :locals => {:form => form}
+
+  .buttons
+    = default_submit_button(form)

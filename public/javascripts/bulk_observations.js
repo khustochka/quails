@@ -7,13 +7,12 @@ $(function() {
     function addNewRow(event, ui) {
         var row = sample_row.clone(true);
         $('.buttons').before(row);
-        row.find('label:contains("Species:")').attr('for', 'observation_species_id_' + cnt);
-        row.find('.sp-suggest').attr('id', 'observation_species_id_' + cnt).combobox();
-        if (arguments.length > 2) {
-            var selectedValue = arguments[2];
-            row.find('input.ui-autocomplete-input').val(selectedValue);
-            row.find('select.sp-suggest:hidden').children("option").each(function() {
-                if ($(this).text() == selectedValue) {
+        $('label:contains("Species:")', row).attr('for', 'observation_species_id_' + cnt);
+        $('.sp-suggest', row).attr('id', 'observation_species_id_' + cnt).combobox();
+        if (arguments.length > 1) {
+            $('input.ui-autocomplete-input', row).val(ui.item.value);
+            $('select.sp-suggest:hidden', row).children("option").each(function() {
+                if ($(this).text() == ui.item.value) {
                     this.selected = true;
                     return false;
                 }
@@ -93,7 +92,7 @@ $(function() {
             }));
         },
         select: function(event, ui) {
-            addNewRow(event, ui, ui.item.value);
+            addNewRow(event, ui);
             $(this).val("");
             return false;
         }
@@ -116,6 +115,5 @@ $(function() {
         refreshSubmitAbility();
     });
 
-    $('.to-add-row').toggle(true);
     $('input#observation_locus_id').prop('required', true);
 });

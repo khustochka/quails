@@ -34,35 +34,48 @@ class ObservationsController < ApplicationController
   end
 
   # GET /observations/new
+  # Adding single observation
   def new
     @observation = Observation.new({:post_id => params[:post_id]})
+    render :form
+  end
+
+  # GET /observations/add
+  # Adding multiple observations
+  def add
+    @observation = Observation.new
+    @blogpost = Post.find_by_id(params[:post_id]) if params[:post_id]
+    render :bulk
   end
 
   # GET /observations/1/edit
   def edit
+    render :form
+  end
+
+  # GET /observations/bulk
+  # Bulk edit observations
+  def bulk
+    @observation = Observation.new
   end
 
   # POST /observations
   def create
-    @observation = Observation.new(
-        params[:c] && params[:o] ?
-            params[:c].merge(params[:o].first) :
-            params[:observation]
-    )
+    @observation = Observation.new(params[:c].merge(params[:o].first))
 
     if @observation.save
       redirect_to(@observation, :notice => 'Observation was successfully created.')
     else
-      render :edit
+      render :form
     end
   end
 
   # PUT /observations/1
   def update
-    if @observation.update_attributes(params[:observation])
+    if @observation.update_attributes(params[:c].merge(params[:o].first))
       redirect_to(edit_observation_path(@observation), :notice => 'Observation was successfully updated.')
     else
-      render :edit
+      render :form
     end
   end
 

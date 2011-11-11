@@ -50,6 +50,8 @@ Quails3::Application.routes.draw do
   resources :observations do
     collection do
       get 'search'
+      get 'add'
+      get 'bulk'
       post 'bulksave'
     end
   end

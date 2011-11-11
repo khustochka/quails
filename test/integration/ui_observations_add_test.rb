@@ -7,7 +7,7 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
 
   test "Adding new rows to observations bulk form" do
     login_as_admin
-    visit new_observation_path
+    visit add_observations_path
     all('.obs-row').size.should == 0
 
     find(:xpath, "//span[text()='Add new row']").click
@@ -21,7 +21,7 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
   test 'Adding one observation if JavaScript is off' do
     Capybara.use_default_driver
     login_as_admin
-    visit new_observation_path
+    visit add_observations_path
     all('.obs-row').size.should == 1
     select('Brovary', :from => 'Location')
     fill_in('Date', :with => '2011-04-08')
@@ -31,7 +31,7 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
 
   test 'Species autosuggest box should have Avis incognita and be able to add it' do
     login_as_admin
-    visit new_observation_path
+    visit add_observations_path
     find(:xpath, "//span[text()='Add new row']").click
     select_suggestion('Brovary', :from => 'Location')
     fill_in('Date', :with => '2011-04-08')
@@ -42,7 +42,7 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
 
   test "Adding several observations" do
     login_as_admin
-    visit new_observation_path
+    visit add_observations_path
 
     select_suggestion('Brovary', :from => 'Location')
     fill_in('Date', :with => '2011-04-09')
