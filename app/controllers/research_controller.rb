@@ -48,4 +48,10 @@ class ResearchController < ApplicationController
         }
     )
   end
+
+  def day
+    @month, @day = params[:day].try(:split, '-') || [Time.now.month, Time.now.day]
+    @images = Image.joins(:observations).where("mine").
+        where('EXTRACT(day from observ_date) = ? AND EXTRACT(month from observ_date) = ?', @day, @month)
+  end
 end
