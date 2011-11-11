@@ -1,13 +1,14 @@
 $(function() {
-    var form = $('form#new_observation[data-remote]');
+    var form = $('form#new_observation[data-remote]'),
+    
+    options_list = $('.obs-row select.sp-suggest').children("option");
 
-    var options_list = $('.obs-row select.sp-suggest').children("option");
-
+    var cnt = 1;
     function addNewRow(event, ui) {
         var row = sample_row.clone(true);
         $('.buttons').before(row);
-        row.find('label:contains("Species:")').attr('for', 'observation_species_id' + cnt);
-        row.find('.sp-suggest').attr('id', 'observation_species_id' + cnt).combobox();
+        row.find('label:contains("Species:")').attr('for', 'observation_species_id_' + cnt);
+        row.find('.sp-suggest').attr('id', 'observation_species_id_' + cnt).combobox();
         if (arguments.length > 2) {
             var selectedValue = arguments[2];
             row.find('input.ui-autocomplete-input').val(selectedValue);
@@ -19,14 +20,32 @@ $(function() {
             });
         }
         cnt++;
+        refreshSubmitAbility();
         return false;
     }
+
+    function refreshSubmitAbility() {
+        if ($('.obs-row').length == 0) {
+            $('.buttons input:submit').prop('disabled', true);
+        }
+        else {
+            $('.buttons input:submit').prop('disabled', false);
+        }
+    }
+    
+    $.rails.ajax = function(options) {
+      if (options.url == form.data('action')) options.async = false;
+      return $.ajax(options);
+    };
 
     /* Form actions */
     form.attr('action', form.data('action'));
     
-    form.bind('ajax:success', function(e, data) {
+    form.on('ajax:beforeSend', function(){
       $(".errors").remove();
+    });
+    
+    form.bind('ajax:success', function(e, data) {
         $(".obs-row").each(function(index) {
             var val = data[index];
             if (! $(this).data("db-id")) {
@@ -39,7 +58,6 @@ $(function() {
     });
     
     form.bind('ajax:error', function(event, xhr, status) {
-      $(".errors").remove();
         var errors = $.parseJSON(xhr.responseText),
         err_list = $("<ul>", {'class': 'errors'}).prependTo("form#new_observation");
         $.each(errors, function(i, val) {
@@ -89,13 +107,15 @@ $(function() {
     $('.obs-row div:last').
         append($("<span class='remove'><img src='/images/x_alt_16x16.png' title='Remove'></span>"));
     var sample_row = $('.obs-row').detach();
-    var cnt = 1;
+    refreshSubmitAbility();
 
     $('#add-row').click(addNewRow);
 
     $('form#new_observation').on('click', '.remove', function() {
         $(this).closest('.obs-row').remove();
+        refreshSubmitAbility();
     });
 
     $('.to-add-row').toggle(true);
+    $('input#observation_locus_id').prop('required', true);
 });
