@@ -4,4 +4,6 @@
       :input_html => {:class => 'short', :maxlength => 10, :name => 'c[observ_date]', :type => 'date'}
 = form.input :mine, :label => 'Mine', :input_html => {:name => 'c[mine]'}
 - unless @blogpost.nil?
-  = form.association(:post, :as => :boolean, :label => post_link(@blogpost.title, @blogpost), :wrapper_html => {:class => 'flat'})
+  %div.input.boolean.optional.flat
+    = check_box_tag("c[post_id]", @blogpost.id, true, :class => "boolean optional", :id => "observation_post_id")
+    %label.boolean.optional{:for => "observation_post_id"}= post_link(@blogpost.title, @blogpost)

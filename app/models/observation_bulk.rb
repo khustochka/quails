@@ -4,6 +4,7 @@ class ObservationBulk
   
   def initialize(params)
     @common = params[:c]
+    @common[:post_id] ||= nil # Explicitly unlink post if check box is unchecked
     @individs = Array.wrap(params[:o])
     @errors = HashWithIndifferentAccess.new
   end

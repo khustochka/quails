@@ -74,6 +74,7 @@ class ObservationsController < ApplicationController
 
   # PUT /observations/1
   def update
+    params[:c][:post_id] ||= nil
     if @observation.update_attributes(params[:c].merge(params[:o].first))
       redirect_to(edit_observation_path(@observation), :notice => 'Observation was successfully updated.')
     else

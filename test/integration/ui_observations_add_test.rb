@@ -63,4 +63,33 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
     
   end
 
+  test "Adding observations for the post" do
+    blogpost = FactoryGirl.create(:post)
+    login_as_admin
+
+    visit show_post_path(blogpost.to_url_params)
+    click_link 'Add more observations'
+
+    page.should have_css('label a', :text => blogpost.title)
+
+    select_suggestion('Brovary', :from => 'Location')
+    fill_in('Date', :with => '2011-04-09')
+
+    find(:xpath, "//span[text()='Add new row']").click
+    find(:xpath, "//span[text()='Add new row']").click
+
+    within(:xpath, "//div[contains(@class,'obs-row')][1]") do
+      select_suggestion('Crex crex', :from => 'Species')
+    end
+
+    within(:xpath, "//div[contains(@class,'obs-row')][2]") do
+      select_suggestion('Falco tinnunculus', :from => 'Species')
+    end
+
+    lambda { click_button('Save') }.should change(Observation, :count).by(2)
+    page.should have_css('.obs-row.has-id.save-success')
+
+    blogpost.observations.size.should == 2
+  end
+
 end
