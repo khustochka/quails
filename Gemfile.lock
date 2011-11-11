@@ -50,8 +50,8 @@ GEM
     factory_girl_rails (1.3.0)
       factory_girl (~> 2.2.0)
       railties (>= 3.0.0)
-    ffi (1.0.10)
-    ffi (1.0.10-x86-mingw32)
+    ffi (1.0.9)
+    ffi (1.0.9-x86-mingw32)
     flickraw (0.8.4)
       json (>= 1.1.1)
     grit (2.4.1)
@@ -164,6 +164,7 @@ DEPENDENCIES
   activerecord-jdbcpostgresql-adapter
   capybara
   factory_girl_rails
+  ffi (= 1.0.9)
   flickraw (= 0.8.4)
   grit
   haml-rails
