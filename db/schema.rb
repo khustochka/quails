@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110817074127) do
+ActiveRecord::Schema.define(:version => 20111114093020) do
 
   create_table "images", :force => true do |t|
     t.string   "code",        :limit => 64, :null => false
@@ -93,6 +93,7 @@ ActiveRecord::Schema.define(:version => 20110817074127) do
     t.string  "family",                   :null => false
     t.string  "avibase_id", :limit => 16
     t.string  "protonym"
+    t.string  "name_fr"
   end
 
   add_index "species", ["code"], :name => "index_species_on_code"
