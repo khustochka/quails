@@ -25,7 +25,7 @@
         = simple_form_for observ_search, :url => observations_path do |form2|
           = form2.input :observ_date_eq, :label => 'Date:',
               :input_html => {:class => 'short', :maxlength => 10, :type => 'date'}
-          = form2.input :locus_id_eq, :label => 'Location:', :collection => Locus.all_ordered,
+          = form2.input :locus_id_eq, :label => 'Location:', :collection => Locus.list_order,
               :label_method => :name_en, :input_html => {:class => 'suggest-combo'}
           = form2.input :species_id_eq, :label => 'Species:', :collection => species_for_select,
               :label_method => :name_sci, :input_html => {:class => 'suggest-combo'}

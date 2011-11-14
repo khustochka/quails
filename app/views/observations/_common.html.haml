@@ -1,4 +1,4 @@
-= form.association :locus, :label => 'Location:', :collection => Locus.all_ordered, :label_method => :name_en,
+= form.association :locus, :label => 'Location:', :collection => Locus.list_order, :label_method => :name_en,
     :input_html => {:class => 'suggest-combo', :name => 'c[locus_id]'}
 = form.input :observ_date, :as => :string, :label => 'Date:',
       :input_html => {:class => 'short', :maxlength => 10, :name => 'c[observ_date]', :type => 'date'}

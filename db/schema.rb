@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111114093020) do
+ActiveRecord::Schema.define(:version => 20111114150816) do
 
   create_table "images", :force => true do |t|
     t.string   "code",        :limit => 64, :null => false
@@ -34,16 +34,16 @@ ActiveRecord::Schema.define(:version => 20111114093020) do
   create_table "loci", :force => true do |t|
     t.string  "code",      :limit => 32, :null => false
     t.integer "parent_id"
-    t.string  "loc_type",  :limit => 8,  :null => false
     t.string  "name_en"
     t.string  "name_ru"
     t.string  "name_uk"
     t.float   "lat"
     t.float   "lon"
+    t.integer "loc_type",                :null => false
   end
 
   add_index "loci", ["code"], :name => "index_locus_on_code"
-  add_index "loci", ["loc_type"], :name => "index_locus_on_loc_type"
+  add_index "loci", ["loc_type"], :name => "index_loci_on_loc_type"
   add_index "loci", ["parent_id"], :name => "index_locus_on_parent_id"
 
   create_table "observations", :force => true do |t|

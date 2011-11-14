@@ -6,7 +6,7 @@
 
 %p
   %b Type:
-  = @locus.loc_type
+  = Locus::TYPES[@locus.loc_type]
 %p
   %b Parent:
   = @locus.parent.nil? ? '-' : (link_to @locus.parent.code, @locus.parent)

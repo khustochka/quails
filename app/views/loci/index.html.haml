@@ -14,18 +14,19 @@
     %th.align-center LatLon
     %th
 
-  - Locus::TYPES.each do |type|
-    %tr
-      %td{:colspan => 5}
-        %h3= type.pluralize.upcase
-    - @locus_by_type[type].each do |locus|
+  - Locus::TYPES.each_with_index do |type, i|
+    - if @locus_by_type[i].present?
       %tr
-        %td= link_to locus.code, edit_locus_path(locus)
-        %td= locus.parent.try(:code) || '-'
-        %td= %w(en ru uk).map{|lang| "#{lang}: #{locus.send("name_#{lang}")}"}.join('<br />').html_safe
-        %td.align-center= latlon(locus)
-        %td
-          - if locus.children.count > 0 || locus.observations.count > 0
-            = image_tag('x_alt_16x16_tan.png', :title => 'Destroy disabled due to existing associations')
-          - else
-            = default_destroy_link(locus)
+        %td{:colspan => 5}
+          %h3= type.pluralize.upcase
+        - @locus_by_type[i].each do |locus|
+          %tr
+            %td= link_to locus.code, edit_locus_path(locus)
+            %td= locus.parent.try(:code) || '-'
+            %td= %w(en ru uk).map{|lang| "#{lang}: #{locus.send("name_#{lang}")}"}.join('<br />').html_safe
+            %td.align-center= latlon(locus)
+            %td
+              - if locus.children.count > 0 || locus.observations.count > 0
+                = image_tag('x_alt_16x16_tan.png', :title => 'Destroy disabled due to existing associations')
+              - else
+                = default_destroy_link(locus)

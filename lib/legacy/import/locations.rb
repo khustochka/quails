@@ -16,7 +16,7 @@ module Legacy
         arr.each do |country|
           Locus.create!({
                             :code => country[:country_id],
-                            :loc_type => 'Country',
+                            :loc_type => 0,
                             :name_ru => country[:country_name],
                             :parent_id => nil
                         }) if Legacy::Mapping.locations[country[:country_id]].nil?
@@ -30,7 +30,7 @@ module Legacy
         arr.each do |region|
           Locus.create!({
                             :code => region[:reg_id],
-                            :loc_type => 'Region',
+                            :loc_type => 1,
                             :name_ru => region[:reg_name],
                             :parent_id => Legacy::Mapping.locations[region[:country_id]]
                         }) if Legacy::Mapping.locations[region[:reg_id]].nil?
@@ -45,7 +45,7 @@ module Legacy
           (lat, lon) = loc[:latlon].split(',')
           Locus.create!({
                             :code => loc[:loc_id].gsub('-', '_'),
-                            :loc_type => 'Location',
+                            :loc_type => 2,
                             :name_ru => loc[:loc_name],
                             :parent_id => Legacy::Mapping.locations[loc[:reg_id]],
                             :lat => (lat.try(:to_f)),
