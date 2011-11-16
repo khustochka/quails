@@ -5,19 +5,18 @@ $(function() {
 
     var cnt = 1;
     function addNewRow(event, ui) {
-        var row = sample_row.clone(true);
-        $('.buttons').before(row);
+        var row = sample_row.clone(true).insertBefore('.buttons');
         $('label:contains("Species:")', row).attr('for', 'observation_species_id_' + cnt);
-        $('.sp-suggest', row).attr('id', 'observation_species_id_' + cnt).combobox();
+        var suggest = $('.sp-suggest', row).attr('id', 'observation_species_id_' + cnt);
         if (arguments.length > 1) {
-            $('input.ui-autocomplete-input', row).val(ui.item.value);
-            $('select.sp-suggest:hidden', row).children("option").each(function() {
+            suggest.children("option").each(function() {
                 if ($(this).text() == ui.item.value) {
                     this.selected = true;
                     return false;
                 }
             });
         }
+        suggest.combobox();
         cnt++;
         refreshSubmitAbility();
         return false;
