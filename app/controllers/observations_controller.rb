@@ -56,9 +56,12 @@ class ObservationsController < ApplicationController
   # GET /observations/bulk
   # Bulk edit observations
   def bulk
-    @observations = params[:o] ? 
-        Observation.where(:id => params[:o]).all :
-        [Observation.new]
+    if (l = params[:locus_id]) && (d = params[:observ_date]) && (m = params[:mine])
+      @observations = Observation.where(:locus_id => l, :observ_date => d, :mine => m).all
+      render
+    else
+      redirect_to add_observations_url(:locus_id => l, :observ_date => d, :mine => m)
+    end
   end
 
   # POST /observations

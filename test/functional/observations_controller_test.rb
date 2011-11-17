@@ -50,10 +50,25 @@ class ObservationsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "get bulk" do
+  test "get bulk successful" do
+    FactoryGirl.create(:observation, :species => seed(:pasdom), :observ_date => "2010-06-20", :locus => seed(:new_york))
+    FactoryGirl.create(:observation, :species => seed(:pasdom), :observ_date => "2010-06-18", :locus => seed(:new_york))
+    FactoryGirl.create(:observation, :species => seed(:melgal), :observ_date => "2010-06-18")
+    FactoryGirl.create(:observation, :species => seed(:anapla), :observ_date => "2010-06-18")
     login_as_admin
-    get :bulk, :o => [FactoryGirl.create(:observation).id]
+    get :bulk, :observ_date => "2010-06-18", :locus_id => seed(:brovary).id, :mine => true
     assert_response :success
+    assigns(:observations).size.should == 2
+  end
+
+  test "get bulk missing parameters" do
+    FactoryGirl.create(:observation, :species => seed(:pasdom), :observ_date => "2010-06-20", :locus => seed(:new_york))
+    FactoryGirl.create(:observation, :species => seed(:pasdom), :observ_date => "2010-06-18", :locus => seed(:new_york))
+    FactoryGirl.create(:observation, :species => seed(:melgal), :observ_date => "2010-06-18")
+    FactoryGirl.create(:observation, :species => seed(:anapla), :observ_date => "2009-06-18")
+    login_as_admin
+    get :bulk, :locus_id => seed(:brovary).id
+    assert_redirected_to add_observations_path(:locus_id => seed(:brovary).id)
   end
 
   test "create observation" do
