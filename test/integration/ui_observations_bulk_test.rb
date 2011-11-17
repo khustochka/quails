@@ -126,4 +126,13 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
 
   end
 
+  test "Bulk edit page" do
+    FactoryGirl.create(:observation, :species => seed(:melgal), :observ_date => "2010-06-18")
+    FactoryGirl.create(:observation, :species => seed(:anapla), :observ_date => "2010-06-18")
+    login_as_admin
+    visit bulk_observations_path(:observ_date => "2010-06-18", :locus_id => seed(:brovary).id, :mine => true)
+
+    all('.obs-row').size.should == 2
+  end
+
 end
