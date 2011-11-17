@@ -60,7 +60,7 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
 
     lambda { click_button('Save') }.should change(Observation, :count).by(2)
     page.should have_css('.obs-row.has-id.save-success')
-    
+
   end
 
   test "Adding observations for the post" do
@@ -90,6 +90,40 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
     page.should have_css('.obs-row.has-id.save-success')
 
     blogpost.observations.size.should == 2
+  end
+
+  test "Add and update observations" do
+    login_as_admin
+    visit add_observations_path
+
+    select_suggestion('Brovary', :from => 'Location')
+    fill_in('Date', :with => '2011-04-09')
+
+    find(:xpath, "//span[text()='Add new row']").click
+
+    within(:xpath, "//div[contains(@class,'obs-row')][1]") do
+      select_suggestion('Crex crex', :from => 'Species')
+    end
+
+    lambda { click_button('Save') }.should change(Observation, :count).by(1)
+    page.should have_css('.obs-row.has-id.save-success')
+
+    find(:xpath, "//span[text()='Add new row']").click
+
+    within(:xpath, "//div[contains(@class,'obs-row')][1]") do
+      select_suggestion('Dryocopus martius', :from => 'Species')
+    end
+
+    within(:xpath, "//div[contains(@class,'obs-row')][2]") do
+      select_suggestion('Falco tinnunculus', :from => 'Species')
+    end
+
+    lambda { click_button('Save') }.should change(Observation, :count).by(1)
+
+    Species.find_by_code('drymar').observations.should_not be_empty
+    Species.find_by_code('faltin').observations.should_not be_empty
+    Species.find_by_code('crecre').observations.should be_empty
+
   end
 
 end

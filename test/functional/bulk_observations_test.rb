@@ -101,21 +101,21 @@ class BulkObservationsTest < ActionController::TestCase
     assert_equal({"species_id"=>["can't be blank"]}, result['observs'][0])
   end
 
-  # test 'successful updating existing and saving new observations' do
-    # obs = FactoryGirl.create(:observation, :species_id => 2)
-    # login_as_admin
-    # assert_difference('Observation.count', 1) do
-      # post :bulksave, {:format => :json,
-                       # :c => {:locus_id => seed(:brovary).id,
-                              # :observ_date => '2010-05-05', :mine => true},
-                       # :o => [{:id => obs.id, :species_id => 4},
-                              # {:species_id => 6}]
-      # }
-    # end
-    # assert_response :success
-    # assert_nil Observation.find_by_species_id(2)
-    # assert_not_nil Observation.find_by_species_id(4)
-    # assert_not_nil Observation.find_by_species_id(6)
-  # end
+  test 'successful updating existing and saving new observations' do
+    obs = FactoryGirl.create(:observation, :species_id => 2)
+    login_as_admin
+    assert_difference('Observation.count', 1) do
+      post :bulksave, {:format => :json,
+                       :c => {:locus_id => seed(:brovary).id,
+                              :observ_date => '2010-05-05', :mine => true},
+                       :o => [{:id => obs.id, :species_id => 4},
+                              {:species_id => 6}]
+      }
+    end
+    assert_response :success
+    assert_nil Observation.find_by_species_id(2)
+    assert_not_nil Observation.find_by_species_id(4)
+    assert_not_nil Observation.find_by_species_id(6)
+  end
 
 end
