@@ -1,21 +1,25 @@
-class ObservationBulk
-
-  delegate :to_json, :to => :@observations
+class ObservationBulk < Array
 
   def initialize(params)
-    @common = params[:c]
-    @common[:post_id] ||= nil # Explicitly unlink post if check box is unchecked
-    @individs = Array.wrap(params[:o])
     @errors = HashWithIndifferentAccess.new
+    common = params[:c]
+    @test_obs = Observation.new(common)
+    common[:post_id] ||= nil # Explicitly unlink post if check box is unchecked
+    super(
+        Array.wrap(params[:o]).map do |ind|
+          o = Observation.find_or_initialize_by_id(ind[:id])
+          o.assign_attributes(ind.merge(common))
+          o
+        end
+    )
   end
 
   attr_reader :errors
 
   def save
     # Validate dummy observation to collect errors in common params
-    test_obs = Observation.new(@common)
-    test_obs.send(:run_validations!)
-    test_obs.errors.to_hash.slice(:locus_id, :observ_date).each do |attr, msg|
+    @test_obs.send(:run_validations!)
+    @test_obs.errors.to_hash.slice(:locus_id, :observ_date).each do |attr, msg|
       @errors[attr] = [] unless @errors[attr]
       @errors[attr].concat(msg)
     end
@@ -23,18 +27,16 @@ class ObservationBulk
     # Save all observations and collect errors
     obs_errors = []
     Observation.new.with_transaction_returning_status do
-      @observations = @individs.map do |data|
-        obs = data[:id] ?
-            Observation.update(data[:id], data.merge(@common)) :
-            Observation.create(data.merge(@common))
+      self.map! do |obs|
+        obs.save
         obs_errors << obs.errors.to_hash.slice!(:locus_id, :observ_date)
         obs
       end
       obs_errors.clear if obs_errors.reject(&:empty?).empty?
     end
-    @errors[:base] = ['provide at least one observation'] if @observations.blank?
+    @errors[:base] = ['provide at least one observation'] if self.blank?
     @errors[:observs] = obs_errors
-    @errors.delete_if {|_, val| val.empty?}
+    @errors.delete_if { |_, val| val.empty? }
     @errors.blank?
   end
 

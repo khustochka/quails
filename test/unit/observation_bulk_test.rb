@@ -62,18 +62,48 @@ class ObservationBulkTest < ActiveSupport::TestCase
     obs2.reload.notes.should == 'Voices'
   end
 
-    test 'Observations bulk save should both save new and update existing' do
-      obs1 = FactoryGirl.create(:observation, :species => seed(:cormon))
-      bulk = ObservationBulk.new({:c => {:locus_id => seed(:kiev).id,
-                                         :observ_date => '2010-11-11', :mine => true},
-                                  :o => [{:species_id => seed(:cornix).id},
-                                         {:id => obs1.id, :notes => 'Voices'}]
-                                 })
-      assert_difference('Observation.count', 1) do
-        bulk.save.should be_true
-      end
-      #bulk.observations[0].species.code.should == 'cornix'
-      obs1.reload.notes.should == 'Voices'
+  test 'Observations bulk save should both save new and update existing' do
+    obs1 = FactoryGirl.create(:observation, :species => seed(:cormon))
+    bulk = ObservationBulk.new({:c => {:locus_id => seed(:kiev).id,
+                                       :observ_date => '2010-11-11', :mine => true},
+                                :o => [{:species_id => seed(:cornix).id},
+                                       {:id => obs1.id, :notes => 'Voices'}]
+                               })
+    assert_difference('Observation.count', 1) do
+      bulk.save.should be_true
     end
+    bulk[0].species.code.should == 'cornix'
+    bulk[1].notes.should == 'Voices'
+  end
+
+  test 'Observations bulk save should not save post for invalid bulk' do
+    blog = FactoryGirl.create(:post)
+    obs1 = FactoryGirl.create(:observation, :species => seed(:corfru))
+    obs2 = FactoryGirl.create(:observation, :species => seed(:cormon))
+    bulk = ObservationBulk.new({:c => {:locus_id => seed(:kiev).id,
+                                       :observ_date => '2010-11-11',
+                                       :mine => true,
+                                       :post_id => blog.id},
+                                :o => [{:id => obs1.id},
+                                       {:id => obs2.id, :species_id => nil}]
+                               })
+    bulk.save.should be_false
+    obs1.reload.post.should be_nil
+  end
+
+  test 'Observations bulk save should save post for valid bulk' do
+    blog = FactoryGirl.create(:post)
+    obs1 = FactoryGirl.create(:observation, :species => seed(:corfru))
+    obs2 = FactoryGirl.create(:observation, :species => seed(:cormon))
+    bulk = ObservationBulk.new({:c => {:locus_id => seed(:kiev).id,
+                                       :observ_date => '2010-11-11',
+                                       :mine => true,
+                                       :post_id => blog.id},
+                                :o => [{:id => obs1.id},
+                                       {:id => obs2.id}]
+                               })
+    bulk.save.should be_true
+    obs1.reload.post.should_not be_nil
+  end
 
 end
