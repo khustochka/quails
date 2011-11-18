@@ -8,7 +8,8 @@
 
 = render 'admin/shortcuts' if current_user.admin?
 
-= simple_form_for @observations.first, :remote => true, :html => {'data-action' => bulksave_observations_path} do |form|
+= simple_form_for @observations.first, :remote => true,
+        :html => {'data-action' => bulksave_observations_path, :id => 'bulk_observ_form'} do |form|
   %div
     = render :partial => 'common', :locals => { :form => form }
     .to-add-row
@@ -18,6 +19,10 @@
       %span.pseudolink#add-row Add new row
   
   = render :partial => @observations, :locals => {:form => form}
+
+  - if action_name == 'bulk'
+    %script#row_tmpl{:type => 'text/html'}
+      = render :partial => Observation.new, :locals => {:form => form}
 
   .buttons
     = default_submit_button(form)

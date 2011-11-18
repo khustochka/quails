@@ -133,6 +133,10 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
     visit bulk_observations_path(:observ_date => "2010-06-18", :locus_id => seed(:brovary).id, :mine => true)
 
     all('.obs-row').size.should == 2
+
+    [1, 2].map do |i|
+      find(:xpath, "//div[contains(@class,'obs-row')][1]//input[contains(@class, 'ui-autocomplete-input')]").value
+    end.sort.should == ['Anas platyrhynchos', 'Meleagris gallopavo']
   end
 
 end
