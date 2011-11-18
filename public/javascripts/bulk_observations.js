@@ -3,12 +3,12 @@ $(function () {
 
         options_list = $('.obs-row select.sp-suggest').children("option");
 
-    var cnt = 1;
+     // var cnt = 1;
 
     function addNewRow(event, ui) {
         var row = sample_row.clone(true).insertBefore('.buttons');
-        $('label:contains("Species:")', row).attr('for', 'observation_species_id_' + cnt);
-        var suggest = $('.sp-suggest', row).attr('id', 'observation_species_id_' + cnt);
+        //$('label:contains("Species:")', row).attr('for', 'observation_species_id_' + cnt);
+        var suggest = $('.sp-suggest', row) /*.attr('id', 'observation_species_id_' + cnt)*/ ;
         if (arguments.length > 1) {
             suggest.children("option").each(function () {
                 if ($(this).text() == ui.item.value) {
@@ -18,7 +18,7 @@ $(function () {
             });
         }
         suggest.combobox();
-        cnt++;
+        // cnt++;
         refreshSubmitAbility();
         return false;
     }
@@ -49,10 +49,9 @@ $(function () {
             var val = data[index];
             if (!$(this).data("db-id")) {
                 $(this).data("db-id", val.id)
-                    .addClass('has-id')
-                    .prepend($("<input type='hidden' name='o[][id]'>").val(val.id));
+                    .addClass('has-id');
+                $('input[type=hidden]', $(this)).val(val.id);
             }
-            ;
             $(this).removeClass('save-fail').addClass('save-success');
         });
     });

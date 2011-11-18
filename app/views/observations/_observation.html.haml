@@ -1,5 +1,6 @@
 .obs-row
   = simple_fields_for observation do |form2|
+    = form2.input :id, :as => :hidden, :input_html => {:name => 'o[][id]'}
     = form2.association :species, :label => 'Species:', :collection => species_for_select,
         :label_method => :name_sci, :include_blank => false, :input_html => {:class => 'sp-suggest', :name => 'o[][species_id]'}
     = form2.input :quantity, :label => 'Quantity:', :input_html => {:name => 'o[][quantity]', :class => :short}

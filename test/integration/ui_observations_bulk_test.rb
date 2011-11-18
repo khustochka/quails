@@ -139,4 +139,20 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
     end.sort.should == ['Anas platyrhynchos', 'Meleagris gallopavo']
   end
 
+  test "Bulk edit functionality" do
+    FactoryGirl.create(:observation, :species => seed(:melgal), :observ_date => "2010-06-18")
+    FactoryGirl.create(:observation, :species => seed(:anapla), :observ_date => "2010-06-18")
+    login_as_admin
+    visit bulk_observations_path(:observ_date => "2010-06-18", :locus_id => seed(:brovary).id, :mine => true)
+
+    within(:xpath, "//div[contains(@class,'obs-row')][1]") do
+      select_suggestion('Dryocopus martius', :from => 'Species')
+    end
+
+    lambda { click_button('Save') }.should change(Observation, :count).by(0)
+
+    Species.find_by_code('drymar').observations.should_not be_empty
+
+  end
+
 end
