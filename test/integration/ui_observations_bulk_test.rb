@@ -135,7 +135,7 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
     all('.obs-row').size.should == 2
 
     [1, 2].map do |i|
-      find(:xpath, "//div[contains(@class,'obs-row')][1]//input[contains(@class, 'ui-autocomplete-input')]").value
+      find(:xpath, "//div[contains(@class,'obs-row')][#{i}]//input[contains(@class, 'ui-autocomplete-input')]").value
     end.sort.should == ['Anas platyrhynchos', 'Meleagris gallopavo']
   end
 

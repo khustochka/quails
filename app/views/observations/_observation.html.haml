@@ -1,8 +1,9 @@
 .obs-row
-  = form.association :species, :label => 'Species:', :collection => species_for_select,
-      :label_method => :name_sci, :include_blank => false, :input_html => {:class => 'sp-suggest', :name => 'o[][species_id]'}
-  = form.input :quantity, :label => 'Quantity:', :input_html => {:name => 'o[][quantity]', :class => :short}
-  = form.input :biotope, :label => 'Biotope:', :input_html => {:name => 'o[][biotope]', :class => :short}
-  = form.input :place, :label => 'Place:', :input_html => {:name => 'o[][place]'}
-  = form.input :notes, :label => 'Notes:', :input_html => {:name => 'o[][notes]'}
-  %div.for-remove
+  = simple_fields_for observation do |form2|
+    = form2.association :species, :label => 'Species:', :collection => species_for_select,
+        :label_method => :name_sci, :include_blank => false, :input_html => {:class => 'sp-suggest', :name => 'o[][species_id]'}
+    = form2.input :quantity, :label => 'Quantity:', :input_html => {:name => 'o[][quantity]', :class => :short}
+    = form2.input :biotope, :label => 'Biotope:', :input_html => {:name => 'o[][biotope]', :class => :short}
+    = form2.input :place, :label => 'Place:', :input_html => {:name => 'o[][place]'}
+    = form2.input :notes, :label => 'Notes:', :input_html => {:name => 'o[][notes]'}
+    %div.for-remove

@@ -17,8 +17,8 @@
         %label{:for => 'species-quick-add'} Quick add species:
         %input{:id => 'species-quick-add', :class => 'string'}
       %span.pseudolink#add-row Add new row
-  
-  = render :partial => @observations, :locals => {:form => form}
+
+  = render :partial => @observations
 
   - if action_name == 'bulk'
     %script#row_tmpl{:type => 'text/html'}
