@@ -18,42 +18,37 @@
   .buttons
     = form.button :submit, :value => 'Search', :name => nil
 
-= form_tag(bulk_observations_path) do
-  %table.neat_table.obs_list
+%table.neat_table.obs_list
+  %tr
+    %th.align-right ID
+    %th= link_to_unless_current('Species ⇓', significant_params.merge({:sort => 'species.index_num', :page => nil}))
+    %th Location
+    %th.align-center= link_to_unless_current('Date ⇓', significant_params.merge({:sort => :observ_date, :page => nil}))
+    %th Quantity
+    %th Biotope
+    %th Place
+    %th Notes
+    %th Post
+    %th.align-center= link_to_unless_current('Mine ⇓', significant_params.merge({:sort => 'mine DESC', :page => nil}))
+    %th
+
+  - @observations.each do |observation|
+    - blogpost = observation.post
     %tr
-      %th.align-left ID
-      %th= link_to_unless_current('Species ⇓', significant_params.merge({:sort => 'species.index_num', :page => nil}))
-      %th Location
-      %th.align-center= link_to_unless_current('Date ⇓', significant_params.merge({:sort => :observ_date, :page => nil}))
-      %th Quantity
-      %th Biotope
-      %th Place
-      %th Notes
-      %th Post
-      %th.align-center= link_to_unless_current('Mine ⇓', significant_params.merge({:sort => 'mine DESC', :page => nil}))
-      %th
-  
-    - @observations.each do |observation|
-      - blogpost = observation.post
-      %tr
-        %td.align-right.nowrap
-          = link_to observation.id, edit_observation_path(observation)
-          %div.input.flat= check_box_tag('o[]', observation.id)
-        %td.nowrap= name_sci(observation.species)
-        %td= observation.locus.name_en || observation.locus.code
-        %td.align-center.nowrap= observation.observ_date
-        %td= observation.quantity
-        %td= observation.biotope
-        %td= observation.place
-        %td= observation.notes
-        %td= post_link('>>', blogpost)
-        %td.align-center= observation.mine ? '+' : '-'
-        %td
-          - if observation.images.count > 0
-            = image_tag('x_alt_16x16_tan.png', :title => 'Destroy disabled due to existing images')
-          - else
-            = default_destroy_link(observation)
-  %input{:type => :submit, :value => 'Edit selected', :name => nil}
-  
-%p    
-  = paginate @observations
+      %td.align-right= link_to observation.id, edit_observation_path(observation)
+      %td.nowrap= name_sci(observation.species)
+      %td= observation.locus.name_en || observation.locus.code
+      %td.align-center.nowrap= observation.observ_date
+      %td= observation.quantity
+      %td= observation.biotope
+      %td= observation.place
+      %td= observation.notes
+      %td= post_link('>>', blogpost)
+      %td.align-center= observation.mine ? '+' : '-'
+      %td
+        - if observation.images.count > 0
+          = image_tag('x_alt_16x16_tan.png', :title => 'Destroy disabled due to existing images')
+        - else
+          = default_destroy_link(observation)
+
+= paginate @observations
