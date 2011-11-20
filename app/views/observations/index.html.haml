@@ -18,6 +18,11 @@
   .buttons
     = form.button :submit, :value => 'Search', :name => nil
 
+%p
+  %b= link_to_if @observations.any? && @common_date && @common_loc && !@common_mine.nil?, 'Edit this bulk',
+        bulk_observations_path(:observ_date => @common_date, :locus_id => @common_loc, :mine => @common_mine)
+  \: Bulk should have the same date, place, and 'mine' value to be editable.
+
 %table.neat_table.obs_list
   %tr
     %th.align-right ID
