@@ -50,7 +50,7 @@ $(function () {
             if (!$(this).data("db-id")) {
                 $(this).data("db-id", val.id)
                     .addClass('has-id');
-                $('input[type=hidden]', $(this)).val(val.id);
+                $('input#observation_id', $(this)).val(val.id);
             }
             $(this).removeClass('save-fail').addClass('save-success');
         });

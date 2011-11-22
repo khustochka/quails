@@ -7,7 +7,7 @@ class ObservationBulk < Array
     common[:post_id] ||= nil # Explicitly unlink post if check box is unchecked
     super(
         Array.wrap(params[:o]).map do |ind|
-          o = Observation.find_or_initialize_by_id(ind[:id])
+          o = Observation.find_or_initialize_by_id(ind[:id].blank? ? nil : ind[:id])
           o.assign_attributes(ind.merge(common))
           o
         end
