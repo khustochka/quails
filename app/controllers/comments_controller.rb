@@ -56,7 +56,8 @@ class CommentsController < ApplicationController
   # PUT /comments/1
   # PUT /comments/1.json
   def update
-    @comment = Comment.find(params[:id])
+    # JOIN statement in default scope forces readonly
+    @comment = Comment.find(params[:id], :readonly => false)
 
     respond_to do |format|
       if @comment.update_attributes(params[:comment])

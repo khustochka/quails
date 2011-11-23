@@ -9,6 +9,10 @@
     %b List of species:
     = @post.species.uniq.map { |sp| species_link(sp) }.join(",\n").html_safe
 
+%h3 Comments:
+
+= render @post.comments
+
 %p= link_to('Add more observations', add_observations_path(:post_id => @post.id)) if current_user.admin?
 
 - unless @post.lj_url_id.blank?
