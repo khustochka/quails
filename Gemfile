@@ -39,7 +39,6 @@ group :test do
   gem 'ruby-prof', :require => false
   gem 'factory_girl_rails'
   gem 'capybara'
-  gem 'ffi', '1.0.9', :platforms => :mingw
   gem 'rspec-expectations', :require => false # No need to require on startup b/c TestUnitTestCase doesn't exist then
   gem 'launchy' # So you can do Then show me the page
   gem 'simplecov', :require => false
