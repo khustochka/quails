@@ -14,6 +14,10 @@ class Image < ActiveRecord::Base
 
   # Instance methods
 
+  def public_title
+    title.present? ? title : nil
+  end
+
   def to_url_params
     {:id => code, :species => (species.first.to_param || 'Avis_incognita')}
   end

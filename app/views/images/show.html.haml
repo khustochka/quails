@@ -1,4 +1,4 @@
-- @page_title = @image.title.present? ? @image.title : @image.code
+- @page_title = @image.public_title || @image.species[0].name_en
 
 %p#notice= notice
 
@@ -7,3 +7,12 @@
 = render 'admin/shortcuts' if current_user.admin?
 
 %p= image_tag(jpg_url(@image, false))
+%p
+  %i= @image.species.map(&:name_sci) * ', '
+
+%p= [l(@image.observ_date, :format => :long), @image.locus.name_en] * ', '
+
+- if p = @image.post
+  %p
+    Post:
+    = post_link(p.title, p, true)

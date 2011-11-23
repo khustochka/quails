@@ -5,4 +5,8 @@
 %h2= "%s %s" % [t("date.month_names")[@month.to_i], @day]
 
 - @images.each do |img|
+  %h3= link_to @image.public_title || img.species[0].name_ru, public_image_path(img)
+  %p
+    %i= img.species.map(&:name_sci) * ', '
   %p= image_tag(jpg_url(img, false))
+  %p= post_link([l(img.observ_date, :format => :long), img.locus.name_en] * ', ', img.post, true)
