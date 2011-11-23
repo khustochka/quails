@@ -10,7 +10,7 @@ module WikiFilter
           Species.find_by_name_sci(term.sp_humanize)
     end
 
-    text.gsub(/\[(@|#|)(?:(.*?)\|)?(.*?[^\\])\]/) do |full|
+    text.gsub(/\[(@|#|)(?:([^\]]*?)\|)?(.*?[^\\])\]/) do |full|
       tag, word, code = $1, $2, $3
       return full if $` =~ /(^|[^\\])\\$/
       case tag

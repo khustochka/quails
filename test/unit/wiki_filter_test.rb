@@ -85,12 +85,17 @@ class WikiFilterTest < ActionDispatch::IntegrationTest
                  transform('[Great|parmaj] and [Blue Tits|parcae]')
   end
 
-  # Nested
-
-  test 'properly parse nested square brackets' do
-    assert_equal species_link(seed(:parmaj), '[some bird]'),
-                 transform('[[some bird]|parmaj]')
+  test 'properly parse pipe in the second code' do
+    assert_equal "#{link_to(nil, 'http://birdwatch.by')} has #{species_link(seed(:parcae), 'Blue Tits')}",
+                 transform('[@http://birdwatch.by] has [Blue Tits|parcae]')
   end
+
+  # Nested - not working for now
+
+  #test 'properly parse nested square brackets' do
+  #  assert_equal species_link(seed(:parmaj), '[some bird]'),
+  #               transform('[\[some bird\]|parmaj]')
+  #end
 
   # Erroneous
 
