@@ -2,7 +2,7 @@ class CommentsController < ApplicationController
   # GET /comments
   # GET /comments.json
   def index
-    @comments = Comment.all
+    @comments = Comment.preload(:post).all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -56,8 +56,7 @@ class CommentsController < ApplicationController
   # PUT /comments/1
   # PUT /comments/1.json
   def update
-    # JOIN statement in default scope forces readonly
-    @comment = Comment.find(params[:id], :readonly => false)
+    @comment = Comment.find(params[:id])
 
     respond_to do |format|
       if @comment.update_attributes(params[:comment])

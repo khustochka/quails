@@ -1,26 +1,28 @@
+- use_jquery
+
 - @page_title = 'Listing comments'
 
 %h1= @page_title
 
 %table.neat_table
   %tr
-    %th Post
+    %th Id
     %th Parent
     %th Name
     %th Text
     %th
-    %th
-    %th
 
-  - @comments.each do |comment|
+  - @comments.group_by(&:post).each do |post, comments|
     %tr
-      %td= post_link('>>', comment.post)
-      %td= comment.parent_id
-      %td= comment.name
-      %td= comment.text
-      %td= link_to 'Show', comment
-      %td= link_to 'Edit', edit_comment_path(comment)
-      %td= link_to 'Destroy', comment, :confirm => 'Are you sure?', :method => :delete
+      %td{:colspan => 5}
+        %h4= post_link(post.title, post)
+    - comments.each do |comment|
+      %tr
+        %td= link_to comment.id, edit_comment_path(comment)
+        %td= comment.parent_id
+        %td= comment.name
+        %td= comment.text
+        %td= default_destroy_link(comment)
 
 %br
 
