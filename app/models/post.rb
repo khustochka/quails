@@ -8,6 +8,7 @@ class Post < ActiveRecord::Base
   validates :status, :inclusion => STATES, :presence => true, :length => {:maximum => 4}
   validates :lj_url_id, :lj_post_id, :numericality => {:greater_than => 0}, :allow_nil => true
 
+  has_many :comments
   has_many :observations, :dependent => :nullify
   has_many :species, :through => :observations
   has_many :images, :through => :observations, :include => :species, :uniq => true

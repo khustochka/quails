@@ -1,0 +1,24 @@
+%p#notice= notice
+
+%p
+  %b Parent:
+  = @comment.parent_id
+%p
+  %b Name:
+  = @comment.name
+%p
+  %b Email:
+  = @comment.email
+%p
+  %b Url:
+  = @comment.url
+%p
+  %b Text:
+  = @comment.text
+%p
+  %b Approved:
+  = @comment.approved
+
+= link_to 'Edit', edit_comment_path(@comment)
+\|
+= link_to 'Back', comments_path

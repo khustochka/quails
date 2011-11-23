@@ -1,5 +1,4 @@
-Quails3::Application.routes.draw do
-  # The priority is based upon order of creation:
+Quails3::Application.routes.draw do# The priority is based upon order of creation:
   # first created -> highest priority.
 
   # Sample of regular route:
@@ -58,6 +57,7 @@ Quails3::Application.routes.draw do
   resources :loci
   resources :species, :only => [:edit, :update]
   resources :images, :except => :show
+  resources :comments
 # end
 
   get 'login' => 'admin#login'

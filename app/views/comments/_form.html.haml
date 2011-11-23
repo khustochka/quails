@@ -1,0 +1,18 @@
+= simple_form_for @comment do |form|
+
+  -if @comment.errors.any?
+    #errorExplanation
+      %h2= "#{pluralize(@comment.errors.count, "error")} prohibited this #{Comment.name.titleize} from being saved:"
+      %ul
+        - @comment.errors.full_messages.each do |msg|
+          %li= msg  
+
+  = form.input :parent_id, :label => 'Parent'
+  = form.input :name, :label => 'Name'
+  = form.input :email, :label => 'Email'
+  = form.input :url, :label => 'Url'
+  = form.input :text, :label => 'Text'
+  = form.input :approved, :label => 'Approved'
+
+  .actions
+    = form.button :submit
