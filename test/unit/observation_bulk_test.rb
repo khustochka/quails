@@ -5,9 +5,9 @@ class ObservationBulkTest < ActiveSupport::TestCase
   test 'successful observation bulk save' do
     bulk = ObservationBulk.new({:c => {:locus_id => seed(:brovary).id,
                                        :observ_date => '2010-05-05', :mine => true},
-                                :o => [{:species_id => 2},
-                                       {:species_id => 4},
-                                       {:species_id => 6}]
+                                :o => [{:species_id => 2, :biotope => 'city'},
+                                       {:species_id => 4, :biotope => 'city'},
+                                       {:species_id => 6, :biotope => 'city'}]
                                })
     assert_difference('Observation.count', 3) do
       bulk.save
@@ -66,8 +66,8 @@ class ObservationBulkTest < ActiveSupport::TestCase
     obs1 = FactoryGirl.create(:observation, :species => seed(:cormon))
     bulk = ObservationBulk.new({:c => {:locus_id => seed(:kiev).id,
                                        :observ_date => '2010-11-11', :mine => true},
-                                :o => [{:species_id => seed(:cornix).id},
-                                       {:id => obs1.id, :notes => 'Voices'}]
+                                :o => [{:species_id => seed(:cornix).id, :biotope => 'city'},
+                                       {:id => obs1.id, :notes => 'Voices', :biotope => 'city'}]
                                })
     assert_difference('Observation.count', 1) do
       bulk.save.should be_true

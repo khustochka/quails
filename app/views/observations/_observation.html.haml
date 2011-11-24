@@ -5,7 +5,8 @@
     = form2.association :species, :label => 'Species:', :collection => species_for_select,
         :label_method => :name_sci, :include_blank => false, :input_html => {:class => 'sp-suggest', :name => 'o[][species_id]'}
     = form2.input :quantity, :label => 'Quantity:', :input_html => {:name => 'o[][quantity]', :class => :short}
-    = form2.input :biotope, :label => 'Biotope:', :input_html => {:name => 'o[][biotope]', :class => :short}
+    = form2.input :biotope, :as => :select, :label => 'Biotope:', :collection => Observation.biotopes,
+        :input_html => {:name => 'o[][biotope]', :class => :short, :required => true}
     = form2.input :place, :label => 'Place:', :input_html => {:name => 'o[][place]'}
     = form2.input :notes, :label => 'Notes:', :input_html => {:name => 'o[][notes]'}
     %div.for-remove

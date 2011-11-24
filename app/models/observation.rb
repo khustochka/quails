@@ -6,6 +6,8 @@ class Observation < ActiveRecord::Base
 
   attr_accessor :one_of_bulk
 
+  DEFAULT_BIOTOPES = %w(open building garden water park bush woods)
+
   before_destroy do
     if images.present?
       raise ActiveRecord::DeleteRestrictionError.new(self.class.reflections[:images])
@@ -16,7 +18,7 @@ class Observation < ActiveRecord::Base
     Observation.biotopes(true) # refresh the cached biotopes list
   end
 
-  validates :observ_date, :locus_id, :species_id, :presence => true
+  validates :observ_date, :locus_id, :species_id, :biotope, :presence => true
 
   # Scopes
 
@@ -30,7 +32,7 @@ class Observation < ActiveRecord::Base
     if @biotopes && !refresh
       @biotopes
     else
-      @biotopes = select("DISTINCT biotope").map(&:biotope)
+      @biotopes = (DEFAULT_BIOTOPES + select("DISTINCT biotope").map(&:biotope)).uniq
     end
   end
 

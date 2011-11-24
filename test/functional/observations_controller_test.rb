@@ -178,15 +178,15 @@ class ObservationsControllerTest < ActionController::TestCase
   end
 
   test 'biotopes web service should refresh' do
-    bts = %w(city field water woods)
+    bts = %w(city woods)
     bts.each { |bt| FactoryGirl.create(:observation, :biotope => bt) }
     login_as_admin
     get :biotopes, :format => :json
     assert_response :success
     assert_equal Mime::JSON, response.content_type
-    JSON.parse(response.body).should =~ bts
+    JSON.parse(response.body).should =~ Observation::DEFAULT_BIOTOPES + ['city']
     FactoryGirl.create(:observation, :biotope => 'desert')
     get :biotopes, :format => :json
-    JSON.parse(response.body).should =~ bts.push('desert')
+    JSON.parse(response.body).should =~ Observation::DEFAULT_BIOTOPES + ['city', 'desert']
   end
 end

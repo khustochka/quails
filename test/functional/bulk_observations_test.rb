@@ -9,9 +9,9 @@ class BulkObservationsTest < ActionController::TestCase
       post :bulksave, {:format => :json,
                         :c => {:locus_id => seed(:brovary).id,
                               :observ_date => '2010-05-05', :mine => true},
-                      :o => [{:species_id => 2},
-                              {:species_id => 4},
-                              {:species_id => 6}]
+                      :o => [{:species_id => 2, :biotope => 'city'},
+                              {:species_id => 4, :biotope => 'city'},
+                              {:species_id => 6, :biotope => 'city'}]
       }
     end
     assert_response :created
@@ -44,9 +44,9 @@ class BulkObservationsTest < ActionController::TestCase
       post :bulksave, {:format => :json,
                         :c => {:locus_id => '',
                               :observ_date => '', :mine => true},
-                       :o => [{:species_id => 2},
-                              {:species_id => 4},
-                              {:species_id => 6}]
+                       :o => [{:species_id => 2, :biotope => 'city'},
+                              {:species_id => 4, :biotope => 'city'},
+                              {:species_id => 6, :biotope => 'city'}]
       }
     end
     assert_response :unprocessable_entity
@@ -77,7 +77,7 @@ class BulkObservationsTest < ActionController::TestCase
       post :bulksave, {:format => :json,
                         :c => {:locus_id => seed(:brovary).id,
                               :observ_date => '2010-05-05', :mine => true},
-                       :o => [{:species_id => ''}]
+                       :o => [{:species_id => '', :biotope => 'city'}]
       }
     end
     assert_response :unprocessable_entity
@@ -92,7 +92,7 @@ class BulkObservationsTest < ActionController::TestCase
       post :bulksave, {:format => :json,
                         :c => {:locus_id => seed(:brovary).id,
                               :observ_date => '2010-05-05', :mine => true},
-                       :o => [{:species_id => ''}, {:species_id => 2}]
+                       :o => [{:species_id => '', :biotope => 'city'}, {:species_id => 2, :biotope => 'city'}]
       }
     end
     assert_response :unprocessable_entity
@@ -109,7 +109,7 @@ class BulkObservationsTest < ActionController::TestCase
                        :c => {:locus_id => seed(:brovary).id,
                               :observ_date => '2010-05-05', :mine => true},
                        :o => [{:id => obs.id, :species_id => 4},
-                              {:species_id => 6}]
+                              {:species_id => 6, :biotope => 'city'}]
       }
     end
     assert_response :success

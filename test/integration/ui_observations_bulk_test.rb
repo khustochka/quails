@@ -26,6 +26,7 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
     select('Brovary', :from => 'Location')
     fill_in('Date', :with => '2011-04-08')
     select('Cyanistes caeruleus', :from => 'Species')
+    select 'park', :from => 'Biotope'
     lambda { click_button('Save') }.should change(Observation, :count).by(1)
   end
 
@@ -36,6 +37,7 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
     select_suggestion('Brovary', :from => 'Location')
     fill_in('Date', :with => '2011-04-08')
     select_suggestion('- Avis incognita', :from => 'Species')
+    select 'park', :from => 'Biotope'
     lambda { click_button('Save') }.should change(Observation, :count).by(1)
     Observation.order('id DESC').limit(1).first.species_id.should == 0
   end
@@ -52,10 +54,12 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
 
     within(:xpath, "//div[contains(@class,'obs-row')][1]") do
       select_suggestion('Crex crex', :from => 'Species')
+      select 'park', :from => 'Biotope'
     end
 
     within(:xpath, "//div[contains(@class,'obs-row')][2]") do
       select_suggestion('Falco tinnunculus', :from => 'Species')
+      select 'park', :from => 'Biotope'
     end
 
     lambda { click_button('Save') }.should change(Observation, :count).by(2)
@@ -80,10 +84,12 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
 
     within(:xpath, "//div[contains(@class,'obs-row')][1]") do
       select_suggestion('Crex crex', :from => 'Species')
+      select 'park', :from => 'Biotope'
     end
 
     within(:xpath, "//div[contains(@class,'obs-row')][2]") do
       select_suggestion('Falco tinnunculus', :from => 'Species')
+      select 'park', :from => 'Biotope'
     end
 
     lambda { click_button('Save') }.should change(Observation, :count).by(2)
@@ -103,6 +109,7 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
 
     within(:xpath, "//div[contains(@class,'obs-row')][1]") do
       select_suggestion('Crex crex', :from => 'Species')
+      select 'park', :from => 'Biotope'
     end
 
     lambda { click_button('Save') }.should change(Observation, :count).by(1)
@@ -116,6 +123,7 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
 
     within(:xpath, "//div[contains(@class,'obs-row')][2]") do
       select_suggestion('Falco tinnunculus', :from => 'Species')
+      select 'park', :from => 'Biotope'
     end
 
     lambda { click_button('Save') }.should change(Observation, :count).by(1)
