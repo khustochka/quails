@@ -1,6 +1,6 @@
 class ObservationsController < ApplicationController
 
-  respond_to :json, :only => [:search, :bulksave]
+  respond_to :json, :only => [:search, :bulksave, :biotopes]
 
   requires_admin_authorized
 
@@ -122,5 +122,10 @@ class ObservationsController < ApplicationController
     obs_bunch = ObservationBulk.new(params)
     obs_bunch.save
     respond_with(obs_bunch, :location => observations_url, :only => :id)
+  end
+
+  # GET /observations/biotopes
+  def biotopes
+    respond_with(Observation.biotopes)
   end
 end

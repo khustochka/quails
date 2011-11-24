@@ -52,6 +52,7 @@ Quails3::Application.routes.draw do# The priority is based upon order of creatio
       get 'add'
       get 'bulk'
       post 'bulksave'
+      get 'biotopes'
     end
   end
   resources :loci

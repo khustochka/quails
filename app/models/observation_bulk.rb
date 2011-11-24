@@ -9,6 +9,7 @@ class ObservationBulk < Array
         Array.wrap(params[:o]).map do |ind|
           o = Observation.find_or_initialize_by_id(ind[:id].blank? ? nil : ind[:id])
           o.assign_attributes(ind.merge(common))
+          o.one_of_bulk = true
           o
         end
     )
@@ -34,6 +35,7 @@ class ObservationBulk < Array
       end
       obs_errors.clear if obs_errors.reject(&:empty?).empty?
     end
+    Observation.biotopes(true) # refresh the cached biotopes list
     @errors[:base] = ['provide at least one observation'] if self.blank?
     @errors[:observs] = obs_errors
     @errors.delete_if { |_, val| val.empty? }

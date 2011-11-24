@@ -176,4 +176,17 @@ class ObservationsControllerTest < ActionController::TestCase
     result = JSON.parse(response.body)
     assert_equal ["id", "species_str", "when_where_str"], result.first.keys.sort
   end
+
+  test 'biotopes web service should refresh' do
+    bts = %w(city field water woods)
+    bts.each { |bt| FactoryGirl.create(:observation, :biotope => bt) }
+    login_as_admin
+    get :biotopes, :format => :json
+    assert_response :success
+    assert_equal Mime::JSON, response.content_type
+    JSON.parse(response.body).should =~ bts
+    FactoryGirl.create(:observation, :biotope => 'desert')
+    get :biotopes, :format => :json
+    JSON.parse(response.body).should =~ bts.push('desert').sort
+  end
 end
