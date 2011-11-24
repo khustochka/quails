@@ -18,6 +18,7 @@ $(function () {
             });
         }
         suggest.combobox();
+        $("#observation_biotope", row).biotope();
         // cnt++;
         refreshSubmitAbility();
         return false;
