@@ -136,7 +136,7 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
 
     [1, 2].map do |i|
       find(:xpath, "//div[contains(@class,'obs-row')][#{i}]//input[contains(@class, 'ui-autocomplete-input')]").value
-    end.sort.should == ['Anas platyrhynchos', 'Meleagris gallopavo']
+    end.should =~ ['Anas platyrhynchos', 'Meleagris gallopavo']
   end
 
   test "Bulk edit functionality" do
