@@ -1,9 +1,9 @@
 $(function () {
 
-    var biotopes = $.makeArray( $('#observation_biotope').children( "option" )
-            .map( function() {
-                if ($(this).text() != "") return $( this ).val();
-        } ) );
+    var biotopes = $.makeArray($('#observation_biotope').children("option")
+        .map(function () {
+            if ($(this).text() != "") return $(this).val();
+        }));
 
     $.widget("ui.biotope", {
         _create: function () {
@@ -19,11 +19,20 @@ $(function () {
                 .attr('name', select.attr('name'))
                 .attr('required', select.attr('required'))
                 .autocomplete({
-                    source: biotopes
+                    //delay: 0,
+                    autoFocus: true,
+                    source: biotopes,
+                    change: function (event, ui) {
+                        if (!ui.item) {
+                            var val = $(this).val();
+                            if ($.inArray(val, biotopes) < 0) biotopes.push(val);
+                            $("#observation_biotope", '.obs-row').autocomplete( "option", "source", biotopes );
+                        }
+                    }
                 });
             select.detach();
         }
     });
 
-    $('#observation_biotope').biotope();
+    $('#observation_biotope', '.obs-row').biotope();
 });
