@@ -63,7 +63,7 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
     end
 
     lambda { submit_form_with('Save') }.should change(Observation, :count).by(2)
-    page.should have_css('.obs-row.has-id.save-success')
+    page.should have_css('.obs-row.save-success')
 
   end
 
@@ -93,7 +93,7 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
     end
 
     lambda { submit_form_with('Save') }.should change(Observation, :count).by(2)
-    page.should have_css('.obs-row.has-id.save-success')
+    page.should have_css('.obs-row.save-success')
 
     blogpost.observations.size.should == 2
   end
@@ -113,7 +113,7 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
     end
 
     lambda { submit_form_with('Save') }.should change(Observation, :count).by(1)
-    page.should have_css('.obs-row.has-id.save-success')
+    page.should have_css('.obs-row.save-success')
 
     find(:xpath, "//span[text()='Add new row']").click
 
