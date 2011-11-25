@@ -27,7 +27,7 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
     fill_in('Date', :with => '2011-04-08')
     select('Cyanistes caeruleus', :from => 'Species')
     select 'park', :from => 'Biotope'
-    lambda { click_button('Save') }.should change(Observation, :count).by(1)
+    lambda { submit_form_with('Save') }.should change(Observation, :count).by(1)
   end
 
   test 'Species autosuggest box should have Avis incognita and be able to add it' do
@@ -38,7 +38,7 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
     fill_in('Date', :with => '2011-04-08')
     select_suggestion('- Avis incognita', :from => 'Species')
     select_suggestion 'park', :from => 'Biotope'
-    lambda { click_button('Save') }.should change(Observation, :count).by(1)
+    lambda { submit_form_with('Save') }.should change(Observation, :count).by(1)
     Observation.order('id DESC').limit(1).first.species_id.should == 0
   end
 
@@ -62,7 +62,7 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
       select_suggestion 'park', :from => 'Biotope'
     end
 
-    lambda { click_button('Save') }.should change(Observation, :count).by(2)
+    lambda { submit_form_with('Save') }.should change(Observation, :count).by(2)
     page.should have_css('.obs-row.has-id.save-success')
 
   end
@@ -92,7 +92,7 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
       select_suggestion 'park', :from => 'Biotope'
     end
 
-    lambda { click_button('Save') }.should change(Observation, :count).by(2)
+    lambda { submit_form_with('Save') }.should change(Observation, :count).by(2)
     page.should have_css('.obs-row.has-id.save-success')
 
     blogpost.observations.size.should == 2
@@ -112,7 +112,7 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
       select_suggestion 'park', :from => 'Biotope'
     end
 
-    lambda { click_button('Save') }.should change(Observation, :count).by(1)
+    lambda { submit_form_with('Save') }.should change(Observation, :count).by(1)
     page.should have_css('.obs-row.has-id.save-success')
 
     find(:xpath, "//span[text()='Add new row']").click
@@ -126,7 +126,7 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
       select_suggestion 'park', :from => 'Biotope'
     end
 
-    lambda { click_button('Save') }.should change(Observation, :count).by(1)
+    lambda { submit_form_with('Save') }.should change(Observation, :count).by(1)
 
     Species.find_by_code('drymar').observations.should_not be_empty
     Species.find_by_code('faltin').observations.should_not be_empty
@@ -157,7 +157,7 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
       select_suggestion('Dryocopus martius', :from => 'Species')
     end
 
-    lambda { click_button('Save') }.should change(Observation, :count).by(0)
+    lambda { submit_form_with('Save') }.should change(Observation, :count).by(0)
 
     Species.find_by_code('drymar').observations.should_not be_empty
 

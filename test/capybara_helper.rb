@@ -63,11 +63,11 @@ module JavaScriptTestCase
         page.execute_script " $('#{selector}').trigger('mouseenter').click();"
       end
 
-      alias_method :native_click_button, :click_button
-
-      def click_button(button)
-        native_click_button(button)
-        sleep 0.5
+      def submit_form_with(name)
+        click_button(name)
+        if page.driver.respond_to? :resynchronize
+          page.driver.resynchronize {}
+        end
       end
     end
 
