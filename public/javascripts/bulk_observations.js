@@ -106,6 +106,7 @@ $(function () {
 
     var sample_row = $('.obs-row:last').detach();
     $('.sp-suggest').combobox();
+    $('#observation_biotope', '.obs-row').biotope();
     refreshSubmitAbility();
 
     $('#add-row').click(addNewRow);
