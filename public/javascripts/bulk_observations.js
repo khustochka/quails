@@ -101,8 +101,8 @@ $(function () {
     };
 
     if ($('#row_tmpl').length > 0) $($('#row_tmpl').text()).insertBefore('.buttons');
-    $('.obs-row div.for-remove').
-        append($("<span class='remove'><img src='/images/x_alt_16x16.png' title='Remove'></span>"));
+    $('.obs-row').
+        append($("<span class='remove'><img src='/images/x_14x14.png' title='Remove'></span>"));
 
     var sample_row = $('.obs-row:last').detach();
     $('.sp-suggest').combobox();

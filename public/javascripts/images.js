@@ -35,7 +35,7 @@ $(function() {
     function buildObservations(data, ulSelector, newObs) {
         $(data).each(function() {
             var hiddenField = $("<input type='hidden' name='obs[]'>").val(this.id),
-                removeIcon = $("<span class='remove'>").html($("<img>").attr('src', '/images/x_alt_16x16.png'));
+                removeIcon = $("<span class='remove'>").html($("<img>").attr('src', '/images/x_14x14.png'));
             $("<li>", newObs ? { "class": 'new-obs'} : null)
                 .append(hiddenField)
                 .append($('<span>').append(
