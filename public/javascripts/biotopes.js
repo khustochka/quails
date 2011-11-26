@@ -31,18 +31,9 @@ $(function () {
                     }
                 });
             select.detach();
-            this.button = $("<button type='button'>&nbsp;</button>")
+            this.button = $("<span class='select_arrow'>&nbsp;</span>")
                 .attr("tabIndex", -1)
-                .attr("title", "Show All Items")
                 .insertAfter(input)
-                .button({
-                    icons:{
-                        primary:"ui-icon-triangle-1-s"
-                    },
-                    text:false
-                })
-                .removeClass("ui-corner-all")
-                .addClass("ui-corner-right ui-button-icon")
                 .click(function () {
                     // close if already visible
                     if (input.autocomplete("widget").is(":visible")) {
