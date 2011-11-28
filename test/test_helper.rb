@@ -26,6 +26,11 @@ class ActiveSupport::TestCase
     @@seed[key]
   end
 
+  # current path that preserves arguments after ? and # (unlike current_path)
+  def current_path_info
+    current_url.sub(%r{.*?://},'')[%r{[/\?\#].*}] || '/'
+  end
+
   def self.test(name, &block)
     test_name = "test: #{name}. ".to_sym
     defined = instance_method(test_name) rescue false
