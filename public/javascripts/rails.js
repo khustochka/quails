@@ -52,8 +52,8 @@
     // Link elements bound by jquery-ujs
     linkClickSelector: 'a[data-confirm], a[data-method], a[data-remote], a[data-disable-with]',
 
-		// Select elements bound by jquery-ujs
-		inputChangeSelector: 'select[data-remote], input[data-remote], textarea[data-remote]',
+    // Select elements bound by jquery-ujs
+    inputChangeSelector: 'select[data-remote], input[data-remote], textarea[data-remote]',
 
     // Form elements bound by jquery-ujs
     formSubmitSelector: 'form',
@@ -151,7 +151,9 @@
         // Only pass url to `ajax` options if not blank
         if (url) { options.url = url; }
 
-        rails.ajax(options);
+        return rails.ajax(options);
+      } else {
+        return false;
       }
     },
 
@@ -299,15 +301,17 @@
 
     if (link.data('remote') !== undefined) {
       if ( (e.metaKey || e.ctrlKey) && (!method || method === 'GET') && !data ) { return true; }
-      rails.handleRemote(link);
+
+      if (rails.handleRemote(link) === false) { rails.enableElement(link); }
       return false;
+
     } else if (link.data('method')) {
       rails.handleMethod(link);
       return false;
     }
   });
 
-	$(document).delegate(rails.inputChangeSelector, 'change.rails', function(e) {
+  $(document).delegate(rails.inputChangeSelector, 'change.rails', function(e) {
     var link = $(this);
     if (!rails.allowAction(link)) return rails.stopEverything(e);
 
@@ -339,6 +343,7 @@
 
       rails.handleRemote(form);
       return false;
+
     } else {
       // slight timeout so that the submit button gets properly serialized
       setTimeout(function(){ rails.disableFormElements(form); }, 13);
