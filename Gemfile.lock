@@ -66,7 +66,6 @@ GEM
     hike (1.2.1)
     i18n (0.6.0)
     json (1.6.2)
-    json_pure (1.6.2)
     kaminari (0.12.4)
       rails (>= 3.0.0)
     launchy (2.0.5)
@@ -125,10 +124,10 @@ GEM
     ruby-prof (0.10.8)
     rubyzip (0.9.5)
     sass (3.1.11)
-    selenium-webdriver (2.13.0)
+    selenium-webdriver (2.14.0)
       childprocess (>= 0.2.1)
       ffi (~> 1.0.9)
-      json_pure
+      multi_json (~> 1.0.4)
       rubyzip
     simple_form (1.5.2)
       actionpack (~> 3.0)
