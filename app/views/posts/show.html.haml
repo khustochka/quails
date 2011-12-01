@@ -2,7 +2,18 @@
 
 = render 'admin/shortcuts' if current_user.admin?
 
-= render @post
+%article.post-box{:id => "post-#{@post.code}", :class => @post.status != 'OPEN' ? 'grayout' : nil}
+  %header
+    %h1.post-title= @post.title
+    %time{:pubdate => 'pubdate'}= l(@post.face_date, :format => :long)
+    -#%small= @post.topic
+
+  = wiki_filter(@post)
+  - images = @post.images.all
+  - unless images.empty?
+    %section
+      %h3 Images
+      = render :partial => 'images/thumbnail', :collection => images
 
 - unless @post.species.blank?
   %p

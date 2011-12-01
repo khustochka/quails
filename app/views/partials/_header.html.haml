@@ -1,7 +1,8 @@
 - @admin_menu = render 'admin/menu' if current_user.admin?
 
 #header
-  %p#site_cap= link_to_unless_current request.host, root_path
+  = link_to_unless_current(request.host, root_path, :id => 'site_cap') do
+    %h1#site_cap= request.host
 
   %ul#site_menu.horiz-list
     %li= link_to_or_span 'Blog', blog_path
