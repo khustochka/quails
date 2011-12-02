@@ -50,7 +50,15 @@ class ResearchController < ApplicationController
   end
 
   def day
-    @month, @day = params[:day].try(:split, '-') || [Time.now.month, Time.now.day]
+    @month, @day = (params[:day].try(:split, '-') || [Time.now.month, Time.now.day]).map {|n| "%02d" % n.to_i}
+    prev_day = Image.joins(:observations).select("to_char(observ_date, 'DD') as iday, to_char(observ_date, 'MM') as imon").
+        where("to_char(observ_date, 'MM-DD') < '#{@month}-#{@day}'").
+        where("mine").order("to_char(observ_date, 'MM-DD') DESC").limit(1).first
+    @prev_day = [prev_day[:imon], prev_day[:iday]].join('-') rescue nil
+    next_day = Image.joins(:observations).select("to_char(observ_date, 'DD') as iday, to_char(observ_date, 'MM') as imon").
+        where("to_char(observ_date, 'MM-DD') > '#{@month}-#{@day}'").
+        where("mine").order("to_char(observ_date, 'MM-DD') ASC").limit(1).first
+    @next_day = [next_day[:imon], next_day[:iday]].join('-') rescue nil
     @images = Image.joins(:observations).where("mine").
         where('EXTRACT(day from observ_date) = ? AND EXTRACT(month from observ_date) = ?', @day, @month)
   end

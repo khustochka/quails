@@ -4,6 +4,11 @@
 
 %h2= "%s %s" % [t("date.month_names")[@month.to_i], @day]
 
+%p
+  = link_to("<< previous #{@prev_day}", {:day => @prev_day}) if @prev_day
+  \|
+  = link_to("next #{@next_day} >>", {:day => @next_day}) if @next_day
+
 - @images.each do |img|
   %h3= link_to img.public_title || img.species[0].name_ru, public_image_path(img)
   %p
