@@ -15,7 +15,7 @@ class LifelistControllerTest < ActionController::TestCase
   test "show lifelist ordered by count" do
     get :default, :sort => 'by_count'
     assert_response :success
-    assert_select '#main' do
+    assert_select '.main' do
       assert_select 'h5', false # should not splice the list
       assert_select "a[href=#{lifelist_path}]"
       assert_select "a[href=#{url_for(:sort => :by_taxonomy, :only_path => true)}]"
@@ -26,7 +26,7 @@ class LifelistControllerTest < ActionController::TestCase
   test "show lifelist ordered by taxonomy" do
     get :default, :sort => 'by_taxonomy'
     assert_response :success
-    assert_select '#main' do
+    assert_select '.main' do
       assert_select 'h5' # should show order/family headings
       assert_select "a[href=#{lifelist_path}]"
       assert_select "a[href=#{url_for(:sort => :by_taxonomy, :only_path => true)}]", false
@@ -37,7 +37,7 @@ class LifelistControllerTest < ActionController::TestCase
   test "show default lifelist" do
     get :default
     assert_response :success
-    assert_select '#main' do
+    assert_select '.main' do
       assert_select 'h5' # should show "First time seen in..."
       assert_select "a[href=#{lifelist_path}]", false
       assert_select "a[href=#{url_for(:sort => :by_taxonomy, :only_path => true)}]"
@@ -50,7 +50,7 @@ class LifelistControllerTest < ActionController::TestCase
     assert_response :success
     lifers = assigns(:lifelist)
     lifers.map { |s| s.first_seen_date.year }.uniq.should == [2009]
-    assert_select '#main' do
+    assert_select '.main' do
       assert_select 'h5', false # should not show "First time seen in..."
       assert_select "a[href=#{lifelist_path(:year => 2009)}]", false
       assert_select "a[href=#{url_for(:sort => :by_taxonomy, :year => 2009, :only_path => true)}]"
@@ -61,7 +61,7 @@ class LifelistControllerTest < ActionController::TestCase
   test "show year list by count" do
     get :default, :sort => 'by_count', :year => 2009
     assert_response :success
-    assert_select '#main' do
+    assert_select '.main' do
       assert_select 'h5', false # should not splice the list
       assert_select "a[href=#{lifelist_path(:year => 2009)}]"
       assert_select "a[href=#{url_for(:sort => :by_taxonomy, :year => 2009, :only_path => true)}]"
@@ -74,7 +74,7 @@ class LifelistControllerTest < ActionController::TestCase
     assert_response :success
     lifers = assigns(:lifelist)
     lifers.map { |s| s.first_seen_date.year }.uniq.should == [2009]
-    assert_select '#main' do
+    assert_select '.main' do
       assert_select 'h5' # should show order/family headings
       assert_select "a[href=#{lifelist_path(:year => 2009)}]"
       assert_select "a[href=#{url_for(:sort => :by_taxonomy, :year => 2009, :only_path => true)}]", false
@@ -113,7 +113,7 @@ class LifelistControllerTest < ActionController::TestCase
   test "lifelist links filter out invalid parameters" do
     get :default, :sort => 'by_count', :year => 2009, :zzz => 'ooo'
     assert_response :success
-    assert_select '#main' do
+    assert_select '.main' do
       assert_select "a[href=#{lifelist_path(:year => 2009)}]"
       assert_select "a[href=#{url_for(:sort => :by_taxonomy, :year => 2009, :only_path => true)}]"
       assert_select "a[href=#{url_for(:sort => :by_count, :year => 2009, :only_path => true)}]", false
@@ -123,7 +123,7 @@ class LifelistControllerTest < ActionController::TestCase
 
   test 'empty lifelist shows no list' do
     get :default, :year => 1899
-    assert_select '#main' do
+    assert_select '.main' do
       assert_select 'ol', false
       assert_select 'p', 'No species', 'No proper message found (saying no species in the list)'
     end

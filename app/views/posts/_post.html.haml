@@ -1,4 +1,4 @@
-%article.post-box{:id => "post-#{post.code}", :class => post.status != 'OPEN' ? 'grayout' : nil}
+%section.post-box{:id => "post-#{post.code}", :class => post.status != 'OPEN' ? 'grayout' : nil}
   %header
     %h2.post-title= link_to(post.title, public_post_path(post))
     %time{:pubdate => 'pubdate'}= l(post.face_date, :format => :long)
@@ -8,3 +8,9 @@
   - images = post.images.all
   - unless images.empty?
     %section= render :partial => 'images/thumbnail', :collection => images
+  - cmt_count = post.comments.size
+  %p.comment_links
+    - if cmt_count > 0
+      = link_to [cmt_count, ' comments'].join, public_post_path(post)
+      \|
+    = link_to 'Add comment', public_post_path(post)

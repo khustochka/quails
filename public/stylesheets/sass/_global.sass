@@ -4,15 +4,16 @@ body
 
 // Links
 
-a
-  color: #070
-  background-color:  #eff4ef
-  padding: 0 1px
+.main, footer
+  a
+    color: #070
+    background-color:  #eff4ef
+    padding: 0 1px
 
-a:hover
-  background-color:  #070
-  color: #fff
-  text-decoration: none
+  a:hover
+    background-color:  #070
+    color: #fff
+    text-decoration: none
 
 div.imageholder
   a, a:hover
@@ -45,9 +46,10 @@ ul.horiz-list
     background-color: #EBEBCF
     border-bottom: 1px dotted #777
     a, a:hover
-      background-color: #EBEBCF
+      background-color: inherit
       color: #070
       text-decoration: none
+      padding: 0
 
 .grayout
   background-color: #dddddd
@@ -104,21 +106,25 @@ table.neat_table
 #above-footer
   min-height: 100%
 
-#main
+.main
   margin-left: 30px
   margin-right: 20px
 
 #site_cap
-  font-size: 23px
-  display: block
+  display: inline-block
+  width: 75px
+  height: 75px
   background-color: inherit
-  font-weight: bold
-  padding: 0
-  margin-bottom: 10px
+  border: 1px solid #CACACA
+  font-size: 17px
+  padding: 0 !important
+  text-align: center
+  vertical-align: bottom
 
 a#site_cap:hover
   background-color: inherit
   color: #070
+  padding: 0
   text-decoration: underline
 
 #header
@@ -127,7 +133,7 @@ a#site_cap:hover
   background-color: #D0E0FF
 
 #header ul
-  margin-left: 40px
+  margin-left: 10px
   margin-bottom: 0
   display: inline-block
   // IE inline-block fix
@@ -136,12 +142,9 @@ a#site_cap:hover
 
 #site_menu, .admin_menu
   li
+    background-color: #EBEBCF
     margin: 2px 5px 2px 0
-    border: 1px solid #cacaca
     padding: 5px 10px
-
-#site_menu li
-  font-size: 14px
 
 .over-header
   margin-top: -10px
