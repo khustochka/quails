@@ -7,7 +7,7 @@
   = wiki_filter(post)
   - images = post.images.all
   - unless images.empty?
-    %section= render :partial => 'images/thumbnail', :collection => images
+    %div= render :partial => 'images/thumbnail', :collection => images
   - cmt_count = post.comments.size
   %p.comment_links
     - if cmt_count > 0
