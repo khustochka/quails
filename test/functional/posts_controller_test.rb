@@ -105,4 +105,9 @@ class PostsControllerTest < ActionController::TestCase
     assert_raises(ActionController::RoutingError) { delete :destroy, :id => blogpost.to_param }
     #assert_response 404
   end
+
+  test 'proper link options' do
+    blogpost = FactoryGirl.create(:post)
+    public_post_path(blogpost, :anchor => 'comments').should == show_post_path(blogpost.to_url_params.merge({:anchor => 'comments'}))
+  end
 end

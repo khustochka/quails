@@ -20,7 +20,7 @@
     %b List of species:
     = @post.species.uniq.map { |sp| species_link(sp) }.join(",\n").html_safe
 
-%h3 Comments:
+%h3#comments Comments:
 
 = render @post.comments
 

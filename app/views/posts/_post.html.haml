@@ -11,6 +11,6 @@
   - cmt_count = post.comments.size
   %p.comment_links
     - if cmt_count > 0
-      = link_to [cmt_count, ' comments'].join, public_post_path(post)
+      = link_to [cmt_count, ' comments'].join, public_post_path(post, :anchor => 'comments')
       \|
-    = link_to 'Add comment', public_post_path(post)
+    = link_to 'Add comment', public_post_path(post, :anchor => 'add_comment')

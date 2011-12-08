@@ -5,8 +5,8 @@ module PublicPathController
 
   private
 
-  def public_post_path(post)
-    show_post_path(post.to_url_params)
+  def public_post_path(post, options = {})
+    show_post_path(post.to_url_params.merge(options))
   end
 
   def public_image_path(img)
