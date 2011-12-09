@@ -1,14 +1,16 @@
 %section.post-box{:id => "post-#{post.code}", :class => post.status != 'OPEN' ? 'grayout' : nil}
-  %header
-    %h2.post-title= link_to(post.title, public_post_path(post))
-    %time{:pubdate => 'pubdate'}= l(post.face_date, :format => :long)
-    -#%small= post.topic
+  %article.post
+    %header
+      %h2.post-title= link_to(post.title, public_post_path(post))
+      %time{:pubdate => 'pubdate', :datetime => post.face_date.strftime("%FT%T%:z")}= l(post.face_date, :format => :long)
+      -#%small= post.topic
 
-  = wiki_filter(post)
-  - images = post.images.all
-  - unless images.empty?
-    %div= render :partial => 'images/thumbnail', :collection => images
-  - cmt_count = post.comments.size
+    = wiki_filter(post)
+    - images = post.images.all
+    - unless images.empty?
+      %div= render :partial => 'images/thumbnail', :collection => images
+    - cmt_count = post.comments.size
+
   %p.comment_links
     - if cmt_count > 0
       = link_to [cmt_count, ' comments'].join, public_post_path(post, :anchor => 'comments')
