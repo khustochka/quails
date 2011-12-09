@@ -9,8 +9,8 @@ module PublicPathController
     show_post_path(post.to_url_params.merge(options))
   end
 
-  def public_image_path(img)
-    show_image_path(img.to_url_params)
+  def public_image_path(img, options = {})
+    show_image_path(img.to_url_params.merge(options))
   end
 
 end
