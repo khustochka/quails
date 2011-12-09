@@ -1,3 +1,9 @@
-%div.comment
+- subcomments = @comments[comment.id]
+
+.comment
   %b= comment.name
   %p= comment.text
+
+- if subcomments
+  .subcomments
+    = render :partial => 'comments/comment', :collection => subcomments

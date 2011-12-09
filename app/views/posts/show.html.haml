@@ -22,7 +22,7 @@
 
 %h3#comments Comments:
 
-= render @post.comments
+= render @comments[0] if @comments[0]
 
 %p= link_to('Add more observations', add_observations_path(:post_id => @post.id)) if current_user.admin?
 
