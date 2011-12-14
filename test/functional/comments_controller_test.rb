@@ -18,6 +18,7 @@ class CommentsControllerTest < ActionController::TestCase
     end
 
     assert_redirected_to public_post_path(assigns(:comment).post)
+    assert assigns(:comment).approved
   end
 
   test "should show comment" do

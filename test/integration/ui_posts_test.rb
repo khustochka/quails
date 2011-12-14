@@ -49,6 +49,9 @@ class UIPostsTest < ActionDispatch::IntegrationTest
       fill_in('Text', :with => 'Some text')
     end
     click_button("Save")
+
+    page.should have_content("Vasya")
+
   end
 
 end
