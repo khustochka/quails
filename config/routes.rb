@@ -57,7 +57,7 @@ Quails3::Application.routes.draw do# The priority is based upon order of creatio
   resources :loci
   resources :species, :only => [:edit, :update]
   resources :images, :except => :show
-  resources :comments
+  resources :comments, :except => :new
 # end
 
   get 'login' => 'admin#login'
