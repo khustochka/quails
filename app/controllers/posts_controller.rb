@@ -48,6 +48,7 @@ class PostsController < ApplicationController
     if @post.month != params[:month].to_s || @post.year != params[:year].to_s
       redirect_to public_post_path(@post), :status => 301
     end
+    @comment = @post.comments.new
     @comments = @post.comments.group_by(&:parent_id)
   end
 

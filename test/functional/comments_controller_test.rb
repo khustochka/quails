@@ -13,12 +13,11 @@ class CommentsControllerTest < ActionController::TestCase
   end
 
   test "should create comment" do
-    login_as_admin
     assert_difference('Comment.count') do
       post :create, :comment => @comment.attributes
     end
 
-    assert_redirected_to comment_path(assigns(:comment))
+    assert_redirected_to public_post_path(assigns(:comment).post)
   end
 
   test "should show comment" do

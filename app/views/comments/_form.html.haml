@@ -1,5 +1,3 @@
-- stylesheet 'forms'
-
 = simple_form_for @comment do |form|
 
   - if @comment.errors.any?
@@ -11,10 +9,11 @@
 
   = form.input :post_id, :as => :hidden
   = form.input :parent_id, :as => :hidden
-  = form.input :name, :label => 'Name'
-  = form.input :email, :label => 'Email'
-  = form.input :url, :label => 'Url'
-  = form.input :text, :label => 'Text'
-  = form.input :approved, :label => 'Approved'
+  = form.input :name, :label => 'Name:'
+  = form.input :email, :label => 'Email:'
+  = form.input :url, :label => 'Url:'
+  = form.input :text, :label => 'Text:'
+  - if controller_name == 'comments'
+    = form.input :approved, :label => 'Approved'
   .buttons
     = default_submit_button(form)

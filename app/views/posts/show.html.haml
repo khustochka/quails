@@ -1,3 +1,5 @@
+- stylesheet 'formalize'
+
 - @page_title = @post.title
 
 = render 'admin/shortcuts' if current_user.admin?
@@ -20,9 +22,13 @@
     %b List of species:
     = @post.species.uniq.map { |sp| species_link(sp) }.join(",\n").html_safe
 
-%h3#comments Comments:
+%h3#comments Comments
 
 = render @comments[0] if @comments[0]
+
+%h4#add_comment Add new
+
+= render "comments/form"
 
 %p= link_to('Add more observations', add_observations_path(:post_id => @post.id)) if current_user.admin?
 

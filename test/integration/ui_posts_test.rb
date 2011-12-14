@@ -41,4 +41,14 @@ class UIPostsTest < ActionDispatch::IntegrationTest
     current_path.should == show_post_path(blogpost.to_url_params)
   end
 
+  test "Add comment to post" do
+    blogpost = FactoryGirl.create(:post)
+    visit show_post_path(blogpost.to_url_params)
+    within("form.comment") do
+      fill_in('Name', :with => 'Vasya')
+      fill_in('Text', :with => 'Some text')
+    end
+    click_button("Save")
+  end
+
 end
