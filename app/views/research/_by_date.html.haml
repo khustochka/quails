@@ -1,5 +1,6 @@
 - i = @lifelist.size + 1
-- @lifelist.group_by {|s| s.first_seen_date.year}.each do |year, species_list|
+- sorter = params[:sort].nil? ? :first_seen_date : :last_seen_date
+- @lifelist.group_by {|s| s.send(sorter).year}.each do |year, species_list|
   - if params[:year].blank?
     %tr
       %td
