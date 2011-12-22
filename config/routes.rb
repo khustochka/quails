@@ -38,6 +38,8 @@ Quails3::Application.routes.draw do# The priority is based upon order of creatio
       :locus => /([^b][^\/]*)|(b(?!y)[^\/]*)|(by(?!_)[^\/]*)/, # not starting with by_
       :sort => /by_(count|taxonomy)/
 
+  get 'blog.:format' => 'feeds#blog', :constraints => {:format => 'xml'}
+
 #  scope '/(:locale)', :locale => /[a-z]{2}/ do
 #    resources :species, :except => [:new, :create, :destroy]
 #  end

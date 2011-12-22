@@ -6,6 +6,10 @@ class PostsController < ApplicationController
 
   before_filter :find_post, :only => [:edit, :update, :destroy, :show]
 
+  before_filter :only => [:index, :year, :month] do
+    @feed = 'blog'
+  end
+
   POSTS_ON_FRONT_PAGE = 10
 
   # GET /

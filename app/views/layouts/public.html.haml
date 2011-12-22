@@ -18,6 +18,8 @@
     = csrf_meta_tags if @jquery
 
     -# rss feeds
+    - if @feed
+      = auto_discovery_link_tag(:atom, {:controller => :feeds, :action => @feed, :format => :xml})
 
     -# OpenID (index only)
 
