@@ -1,11 +1,16 @@
-- subcomments = @comments[comment.id]
+- subcomments = @comments.try(:[], comment.id)
 
 .comment{:id => "comment#{comment.id}"}
   %span.name= link_to_if(comment.url.present?, comment.name, comment.url, :rel => 'nofollow')
   \--
-  %time= link_to(l(comment.created_at, :format => :long), :anchor => "comment#{comment.id}")
-  = default_destroy_link(comment) if current_user.admin?
+  %time= link_to(l(comment.created_at, :format => :long), public_post_path(@post, :anchor => "comment#{comment.id}"))
+  = default_destroy_link(comment) if current_user.admin? && action_name != 'reply'
   %p= comment.text
+
+  - if action_name != 'reply'
+    .reply
+      \--
+      = link_to('reply', reply_comment_path(comment), :class => 'reply')
 
 - if subcomments
   .subcomments

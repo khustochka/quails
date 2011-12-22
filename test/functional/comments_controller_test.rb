@@ -17,13 +17,19 @@ class CommentsControllerTest < ActionController::TestCase
       post :create, :comment => @comment.attributes
     end
 
-    assert_redirected_to public_post_path(assigns(:comment).post)
+    comment = assigns(:comment)
+    assert_redirected_to public_post_path(comment.post, :anchor => "comment#{comment.id}")
     assert assigns(:comment).approved
   end
 
   test "should show comment" do
     login_as_admin
     get :show, :id => @comment.to_param
+    assert_response :success
+  end
+
+  test "should get reply comment page" do
+    get :reply, :id => @comment.to_param
     assert_response :success
   end
 
@@ -45,6 +51,6 @@ class CommentsControllerTest < ActionController::TestCase
       delete :destroy, :id => @comment.to_param
     end
 
-    assert_redirected_to public_post_path(@comment.post)
+    assert_redirected_to public_post_path(@comment.post, :anchor => 'comments')
   end
 end

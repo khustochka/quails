@@ -1,10 +1,10 @@
 class CommentsController < ApplicationController
 
-  requires_admin_authorized :except => :create
+  requires_admin_authorized :except => [:create, :reply]
 
-  layout 'admin'
+  layout 'admin', :except => :reply
 
-  add_finder_by :id, :only => [:show, :edit, :update, :destroy]
+  add_finder_by :id, :only => [:show, :edit, :update, :destroy, :reply]
 
   # GET /comments
   # GET /comments.json
@@ -26,6 +26,13 @@ class CommentsController < ApplicationController
     end
   end
 
+  # GET /comments/1/reply
+  def reply
+    @parent_comment = @comment
+    @post = @parent_comment.post
+    @comment = @parent_comment.subcomments.new(:post => @post)
+  end
+
   # GET /comments/1/edit
   def edit
   end
@@ -37,7 +44,7 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.save
-        format.html { redirect_to public_post_path(@comment.post) }
+        format.html { redirect_to public_post_path(@comment.post, :anchor => "comment#{@comment.id}") }
         format.json { render :json => @comment, :status => :created, :location => @comment }
       else
         format.html { render :action => "new" }
@@ -66,7 +73,7 @@ class CommentsController < ApplicationController
     @comment.destroy
 
     respond_to do |format|
-      format.html { redirect_to public_post_path(@comment.post) }
+      format.html { redirect_to public_post_path(@comment.post, :anchor => "comments") }
       format.json { head :ok }
     end
   end

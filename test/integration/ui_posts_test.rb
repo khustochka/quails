@@ -46,12 +46,28 @@ class UIPostsTest < ActionDispatch::IntegrationTest
     visit show_post_path(blogpost.to_url_params)
     within("form.comment") do
       fill_in('Name', :with => 'Vasya')
-      fill_in('Text', :with => 'Some text')
+      fill_in('comment_text', :with => 'Some text')
     end
     click_button("Save")
 
     page.should have_content("Vasya")
 
+  end
+
+  test "Add reply to comment (no JS)" do
+    comment = FactoryGirl.create(:comment)
+    blogpost = comment.post
+    visit show_post_path(blogpost.to_url_params)
+    click_link('reply')
+    within("form.comment") do
+      fill_in('Name', :with => 'Vasya')
+      fill_in('comment_text', :with => 'Some text')
+    end
+    click_button("Save")
+
+    current_path.should == show_post_path(blogpost.to_url_params)
+    page.should have_content("Vasya")
+    comment.subcomments.size.should == 1
   end
 
 end
