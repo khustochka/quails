@@ -1,10 +1,9 @@
 - subcomments = @comments[comment.id]
 
 .comment{:id => "comment#{comment.id}"}
-  %b= link_to_if(comment.url.present?, comment.name, comment.url, :rel => 'nofollow')
+  %span.name= link_to_if(comment.url.present?, comment.name, comment.url, :rel => 'nofollow')
   \--
-  %i
-    %time= link_to(l(comment.created_at, :format => :long), :anchor => "comment#{comment.id}")
+  %time= link_to(l(comment.created_at, :format => :long), :anchor => "comment#{comment.id}")
   = default_destroy_link(comment) if current_user.admin?
   %p= comment.text
 
