@@ -1,7 +1,10 @@
 - subcomments = @comments[comment.id]
 
-.comment
-  %b= comment.name
+.comment{:id => "comment#{comment.id}"}
+  %b= link_to_if(comment.url.present?, comment.name, comment.url, :rel => 'nofollow')
+  \--
+  %i
+    %time= link_to(l(comment.created_at, :format => :long), :anchor => "comment#{comment.id}")
   %p= comment.text
 
 - if subcomments
