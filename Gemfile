@@ -4,7 +4,7 @@ gem 'rails', '3.1.3'
 
 gem 'pg', :platforms => [:ruby, :mingw]
 
-gem "activerecord-jdbcpostgresql-adapter", :platforms => :jruby
+# gem "activerecord-jdbcpostgresql-adapter", :platforms => :jruby
 
 gem 'thin', :group => :production, :require => false, :platforms => :ruby # for heroku
 
