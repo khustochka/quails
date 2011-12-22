@@ -10,7 +10,7 @@
   - if action_name != 'reply'
     .reply
       \--
-      = link_to('reply', reply_comment_path(comment), :class => 'reply')
+      = link_to('reply', reply_comment_path(comment), 'data-comment-id' => comment.id)
 
 - if subcomments
   .subcomments
