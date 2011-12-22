@@ -45,6 +45,6 @@ class CommentsControllerTest < ActionController::TestCase
       delete :destroy, :id => @comment.to_param
     end
 
-    assert_redirected_to comments_path
+    assert_redirected_to public_post_path(@comment.post)
   end
 end

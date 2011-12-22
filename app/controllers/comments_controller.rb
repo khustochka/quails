@@ -66,7 +66,7 @@ class CommentsController < ApplicationController
     @comment.destroy
 
     respond_to do |format|
-      format.html { redirect_to comments_url }
+      format.html { redirect_to public_post_path(@comment.post) }
       format.json { head :ok }
     end
   end

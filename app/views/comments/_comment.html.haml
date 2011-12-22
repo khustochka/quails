@@ -5,6 +5,7 @@
   \--
   %i
     %time= link_to(l(comment.created_at, :format => :long), :anchor => "comment#{comment.id}")
+  = default_destroy_link(comment) if current_user.admin?
   %p= comment.text
 
 - if subcomments
