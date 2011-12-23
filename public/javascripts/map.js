@@ -11,9 +11,9 @@ $(function () {
                 clusters:{
                     // This style will be used for clusters with more than 0 markers
                     0:{
-                        content:'<div class="cluster"">CLUSTER_COUNT</div>',
-                        width:0,
-                        height:0
+                        content:'<div class="cluster">CLUSTER_COUNT</div>',
+                        width:46,
+                        height:28
                     }
                 }
             }
@@ -23,7 +23,7 @@ $(function () {
     $('#googleMap').gmap3(
         { action:'init',
             options:{
-                center:[50.43, 30.52],
+                center:[48.2837, 31.62962],
                 zoom:6,
                 mapTypeId:google.maps.MapTypeId.HYBRID
             }
