@@ -15,27 +15,18 @@ class ObservationsController < ApplicationController
     # but #preload is faster, so use it for locus and post, and for species if possible
     @observations = @search.result.order(params[:sort]).preload(:locus, :post).page(params[:page]).
         send((params[:sort] == 'species.index_num') ? :includes : :preload, :species)
-    date = params[:q].try(:[], :observ_date_eq)
-    @common_date = if date.present?
-                     date
-                   else
-                     d = @observations.map(&:observ_date).uniq
-                     d.size == 1 ? d.first : nil
-                   end
-    loc = params[:q].try(:[], :locus_id_eq)
-    @common_loc = if loc.present?
-                    loc
-                  else
-                    l = @observations.map(&:locus_id).uniq
-                    l.size == 1 ? l.first : nil
-                  end
-    mine = params[:q].try(:[], :mine_eq)
-    @common_mine = if mine.nil? || mine == ''
-                     m = @observations.map(&:mine).uniq
-                     m.size == 1 ? m.first : nil
-                   else
-                     mine
-                   end
+
+    @observations.extend(CommonValueSelector)
+    query = params[:q] || {}
+    @common = Hash.new do |hash, key|
+      opt = query["#{key}_eq"]
+      hash[key] =
+          if opt.nil? || opt == '' # don't use opt.present? because mine=false is meaningful (not the same as mine=nil)
+            @observations.if_common_value(key)
+          else
+            opt
+          end
+    end
   end
 
   # GET /observations/search
