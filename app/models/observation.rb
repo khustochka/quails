@@ -3,6 +3,7 @@ class Observation < ActiveRecord::Base
   belongs_to :locus
   belongs_to :post, :select => [:id, :code, :face_date, :title, :status]
   has_and_belongs_to_many :images
+  has_many :spots
 
   attr_accessor :one_of_bulk
 

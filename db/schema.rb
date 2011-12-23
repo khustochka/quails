@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111123121730) do
+ActiveRecord::Schema.define(:version => 20111223133551) do
 
   create_table "comments", :force => true do |t|
     t.integer  "post_id"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(:version => 20111123121730) do
     t.text     "description"
     t.integer  "index_num"
     t.datetime "created_at"
+    t.integer  "spot_id"
   end
 
   add_index "images", ["code"], :name => "index_images_on_code"
@@ -114,5 +115,15 @@ ActiveRecord::Schema.define(:version => 20111123121730) do
   add_index "species", ["code"], :name => "index_species_on_code"
   add_index "species", ["index_num"], :name => "index_species_on_index_num"
   add_index "species", ["name_sci"], :name => "index_species_on_name_sci"
+
+  create_table "spots", :force => true do |t|
+    t.integer "observation_id"
+    t.float   "lat"
+    t.float   "lng"
+    t.integer "zoom"
+    t.integer "exactness"
+    t.boolean "public"
+    t.string  "memo"
+  end
 
 end
