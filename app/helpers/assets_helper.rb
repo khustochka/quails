@@ -10,6 +10,14 @@ module AssetsHelper
   end
 
   def use_jquery
+    javascript(
+        'http://maps.google.com/maps/api/js?sensor=false',
+        'gmap3.min',
+        'map'
+    )
+  end
+
+  def use_gmap
     @jquery = true
   end
 
