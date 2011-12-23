@@ -9,7 +9,8 @@ module AssetsHelper
     @scripts.concat args
   end
 
-  def use_jquery
+  def use_gmap
+    use_jquery
     javascript(
         'http://maps.google.com/maps/api/js?sensor=false',
         'gmap3.min',
@@ -17,7 +18,7 @@ module AssetsHelper
     )
   end
 
-  def use_gmap
+  def use_jquery
     @jquery = true
   end
 
