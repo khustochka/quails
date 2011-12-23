@@ -89,9 +89,9 @@ $(function() {
     	accept : '.found-obs li',
         drop : function(event, ui) {
             var first = $('li:first', current_obs),
-                fdata = $('span:eq(1)', first).text().split(', ', 2).join(),
+                fdata = $('div:eq(1)', first).text().split(', ', 2).join(),
                 newObs = ui.draggable,
-                newdata = newObs.find('span:eq(1)').text().split(', ', 2).join();
+                newdata = newObs.find('div:eq(1)').text().split(', ', 2).join();
             if (first.length == 0 || newdata == fdata) {
             	insertNewObservation(newObs);
             }
