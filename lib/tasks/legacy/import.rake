@@ -3,6 +3,7 @@ require 'legacy/import/posts'
 require 'legacy/import/observations'
 require 'legacy/import/images'
 require 'legacy/import/comments'
+require 'legacy/import/spots'
 require 'legacy/utils'
 
 desc 'Legacy data tasks'
@@ -23,6 +24,7 @@ namespace :legacy do
       require 'legacy/models/observation'
       require 'legacy/models/image'
       require 'legacy/models/comment'
+      require 'legacy/models/spot'
       Legacy::Utils.db_connect(local_opts['database'])
 
       countries = Legacy::Models::Country.all
@@ -32,6 +34,7 @@ namespace :legacy do
       observations = Legacy::Models::Observation.all
       images = Legacy::Models::Image.all
       comments = Legacy::Models::Comment.all
+      spots = Legacy::Models::Spot.all
     else
       if source.nil?
         #require 'grit'
@@ -56,6 +59,7 @@ namespace :legacy do
       observations = Legacy::Utils.prepare_table(dump['observation'])
       images = Legacy::Utils.prepare_table(dump['images'])
       comments = Legacy::Utils.prepare_table(dump['comments'])
+      spots = Legacy::Utils.prepare_table(dump['map'])
     end
 
     Legacy::Import::Locations.update_all(countries, regions, locs)
@@ -67,6 +71,8 @@ namespace :legacy do
     Legacy::Import::Observations.import_observations(observations)
 
     Legacy::Import::Images.import_images(images, observations)
+
+    Legacy::Import::Spots.import_spots(spots)
 
   end
 end
