@@ -18,7 +18,7 @@ class CommentsControllerTest < ActionController::TestCase
     end
 
     comment = assigns(:comment)
-    assert_redirected_to public_post_path(comment.post, :anchor => "comment#{comment.id}")
+    assert_redirected_to public_comment_path(comment)
     assert assigns(:comment).approved
   end
 
