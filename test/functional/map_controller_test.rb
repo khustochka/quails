@@ -10,6 +10,14 @@ class MapControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "admin should see edit map" do
+    login_as_admin
+    assert_nothing_raised do
+      get :edit
+    end
+    assert_response :success
+  end
+
   test "should return spots" do
     login_as_admin
     assert_nothing_raised do

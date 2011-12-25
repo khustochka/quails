@@ -30,7 +30,10 @@
     %title= page_title
 
     -# stylesheets
-    - stylesheet 'public'
+    - if @minimal_layout
+      - stylesheet 'minimal'
+    - else
+      - stylesheet 'public'
     - stylesheet 'admin_addon' if current_user.admin?
     = include_stylesheets
 

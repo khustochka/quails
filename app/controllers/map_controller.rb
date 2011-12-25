@@ -1,5 +1,5 @@
 class MapController < ApplicationController
-  respond_to :html, :only => [:index]
+  respond_to :html, :only => [:index, :edit]
   respond_to :json, :only => [:spots]
 
   requires_admin_authorized
@@ -8,6 +8,11 @@ class MapController < ApplicationController
 
   # GET "/map"
   def index
+
+  end
+
+  # GET "/map/edit"
+  def edit
 
   end
 
