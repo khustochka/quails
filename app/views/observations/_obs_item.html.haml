@@ -1,0 +1,6 @@
+%li
+  %input{:type => :hidden, :value => obs_item.id, :name => 'obs[]'}
+  %span
+    %div= obs_item.species_str
+    %div= obs_item.when_where_str
+  %span.remove= image_tag('/images/x_14x14.png')

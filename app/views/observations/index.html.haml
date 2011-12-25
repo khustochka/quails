@@ -6,17 +6,7 @@
 
 %h1 Search observations
 
-= simple_form_for @search, :url => observations_path, :method => :get do |form|
-  = form.input :species_id_eq, :label => 'Species:', :collection => species_for_select,
-      :label_method => :name_sci, :input_html => {:class => 'suggest-combo'}
-  = form.input :observ_date_eq, :label => 'Date:',
-      :input_html => {:class => 'short', :maxlength => 10, :type => 'date'}
-  = form.input :locus_id_eq, :label => 'Location:', :collection => Locus.list_order,
-      :label_method => :name_en, :input_html => {:class => 'suggest-combo'}
-  %div.input.optional.mine_eq_select
-    = form.collection_radio :mine_eq, [['', 'All'], [true, 'Mine'], [false, 'Not mine']], :first, :last
-  .buttons
-    = form.button :submit, :value => 'Search', :name => nil
+= render :partial => 'search', :locals => {:submit_url => observations_path}
 
 %p
   %b= link_to_if @observations.any? && @common[:observ_date] && @common[:locus_id] && !@common[:mine].nil?, 'Edit this bulk',

@@ -37,13 +37,7 @@
             search_observations_path(:image_id => @image.id),
                 :remote => true, :class => 'restore pseudolink') unless @image.new_record?
         %ul.obs-list.current-obs
-          - @image.observations.each do |ob|
-            %li
-              %input{:type => :hidden, :value => ob.id, :name => 'obs[]'}
-              %span
-                %div= ob.species_str
-                %div= ob.when_where_str
-              %span.remove= image_tag('/images/x_14x14.png')
+          = render :partial => 'observations/obs_item', :collection => @image.observations
       %td.observation_options
         %h5 Found observations
         %ul.obs-list.found-obs
