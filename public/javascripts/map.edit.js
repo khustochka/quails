@@ -1,6 +1,6 @@
 $(function () {
 
-    function reviseSizes() {
+    function adjustSizes() {
       var clientHeight = $(window).height(),
           upper = $('#header').outerHeight(true) + $('#new_search').outerHeight();
       $('ul.obs-list').height(clientHeight - upper - 1);
@@ -8,8 +8,8 @@ $(function () {
       $('div#googleMap').width($(window).width() - 381);
     }
 
-    reviseSizes();
+    adjustSizes();
 
-    $(window).resize(reviseSizes);
+    $(window).resize(adjustSizes);
 
 });
