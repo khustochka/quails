@@ -1,4 +1,4 @@
-= simple_form_for @search, :url => submit_url, :method => :get do |form|
+= simple_form_for @search, :url => request.path, :method => :get do |form|
   = form.input :species_id_eq, :label => 'Species:', :collection => species_for_select,
       :label_method => :name_sci, :input_html => {:class => 'suggest-combo'}
   = form.input :observ_date_eq, :label => 'Date:',

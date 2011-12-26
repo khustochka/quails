@@ -7,7 +7,7 @@
 
 -# %h1= @page_title
 
-= render :partial => 'observations/search', :locals => {:submit_url => map_edit_path}
+= render 'observations/search'
 
 %ul.obs-list
   = render :partial => 'observations/obs_item', :collection => @observations

@@ -6,7 +6,7 @@
 
 %h1 Search observations
 
-= render :partial => 'search', :locals => {:submit_url => observations_path}
+= render 'search'
 
 %p
   %b= link_to_if @observations.any? && @common[:observ_date] && @common[:locus_id] && !@common[:mine].nil?, 'Edit this bulk',
