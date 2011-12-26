@@ -14,7 +14,7 @@ module AssetsHelper
     javascript(
         'http://maps.google.com/maps/api/js?sensor=false',
         'gmap3.min',
-        'map'
+        'map.init'
     )
   end
 
