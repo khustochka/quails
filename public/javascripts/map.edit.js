@@ -1,9 +1,10 @@
 $(function () {
 
     function reviseSizes() {
-      var clientHeight = $(window).height();
-      $('ul.obs-list').height(clientHeight - 113);
-      $('div#googleMap').height(clientHeight - 112);
+      var clientHeight = $(window).height(),
+          upper = $('#header').outerHeight(true) + $('#new_search').outerHeight();
+      $('ul.obs-list').height(clientHeight - upper - 1);
+      $('div#googleMap').height(clientHeight - upper);
       $('div#googleMap').width($(window).width() - 381);
     }
 
