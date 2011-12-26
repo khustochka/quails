@@ -47,7 +47,7 @@ Quails3::Application.routes.draw do# The priority is based upon order of creatio
 
 # ADMINISTRATIVE PAGES
 
-  get 'map' => 'map#index'
+  get 'map' => 'map#show'
   get 'map/edit' => 'map#edit'
   get 'map/spots' => 'map#spots'
 

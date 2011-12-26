@@ -7,7 +7,7 @@ class MapController < ApplicationController
   layout 'public'
 
   # GET "/map"
-  def index
+  def show
 
   end
 

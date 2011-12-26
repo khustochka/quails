@@ -5,7 +5,7 @@ class MapControllerTest < ActionController::TestCase
   test "admin should see Map" do
     login_as_admin
     assert_nothing_raised do
-      get :index
+      get :show
     end
     assert_response :success
   end
