@@ -38,13 +38,13 @@ class ResearchController < ApplicationController
     @allowed_params = [:controller, :action, :year, :locus, :sort, :month]
 
     @lifelist = Lifelist.new(
-        :user => current_user,
-        :format => :advanced,
-        :options => {
-            :sort => params[:sort],
-            :year => params[:year],
-            :month => params[:month],
-            :locus => params[:locus]
+        user: current_user,
+        format: :advanced,
+        options: {
+            sort: params[:sort],
+            year: params[:year],
+            month: params[:month],
+            locus: params[:locus]
         }
     )
   end

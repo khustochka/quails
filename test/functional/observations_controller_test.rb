@@ -23,7 +23,7 @@ class ObservationsControllerTest < ActionController::TestCase
     FactoryGirl.create(:observation, :species => seed(:anacly), :observ_date => "2007-07-18", :locus => seed(:brovary))
     FactoryGirl.create(:observation, :species => seed(:embcit), :observ_date => "2009-08-09", :locus => seed(:kherson))
     login_as_admin
-    get :index, :sort => 'species.index_num'
+    get :index, sort: 'species.index_num'
     assert_response :success
     assert_not_nil assigns(:observations)
   end
