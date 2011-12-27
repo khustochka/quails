@@ -160,7 +160,19 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
     lambda { submit_form_with('Save') }.should change(Observation, :count).by(0)
 
     Species.find_by_code('drymar').observations.should_not be_empty
+  end
 
+  test "Bulk edit preserves post" do
+    blogpost = FactoryGirl.create(:post)
+    obs1 = FactoryGirl.create(:observation, :species => seed(:melgal), :observ_date => "2010-06-18", :post_id => blogpost.id)
+    obs2 = FactoryGirl.create(:observation, :species => seed(:anapla), :observ_date => "2010-06-18")
+    login_as_admin
+    visit bulk_observations_path(:observ_date => "2010-06-18", :locus_id => seed(:brovary).id, :mine => true)
+
+    lambda { submit_form_with('Save') }.should change(Observation, :count).by(0)
+
+    obs1.reload.post_id.should == blogpost.id
+    obs2.reload.post_id.should be_nil
   end
 
 end
