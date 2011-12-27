@@ -27,6 +27,7 @@ class ObservationsController < ApplicationController
             opt
           end
     end
+    @common[:species_id] = query[:species_id_eq] # need to initialize this value
   end
 
   # GET /observations/search
@@ -55,8 +56,9 @@ class ObservationsController < ApplicationController
   # GET /observations/add
   # Adding multiple observations
   def add
-    @observations = [Observation.new]
-    @blogpost = Post.find_by_id(params[:post_id]) if params[:post_id]
+    possible_keys = [:locus_id, :observ_date, :mine, :post_id]
+    @observations = [Observation.new(params.slice(*possible_keys))]
+    @blogpost = @observations.first.post
     render :bulk
   end
 
@@ -68,13 +70,12 @@ class ObservationsController < ApplicationController
   # GET /observations/bulk
   # Bulk edit observations
   def bulk
-    l = params[:locus_id]
-    d = params[:observ_date]
-    m = params[:mine]
-    if l && d && m && (@observations = Observation.where(:locus_id => l, :observ_date => d, :mine => m).all).present?
+    required_keys = [:locus_id, :observ_date, :mine]
+    meaningful_keys = required_keys + [:species_id, :post_id]
+    if params.values_at(*required_keys).map(&:present?).uniq == [true] && (@observations = Observation.where(params.slice(*meaningful_keys)).all).present?
       render
     else
-      redirect_to add_observations_url(:locus_id => l, :observ_date => d, :mine => m)
+      redirect_to add_observations_url(params.slice(*required_keys))
     end
   end
 
