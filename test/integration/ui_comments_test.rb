@@ -14,7 +14,7 @@ class UICommentsTest < ActionDispatch::IntegrationTest
       fill_in('Name', :with => 'Vasya')
       fill_in('comment_text', :with => 'Some text')
     end
-    click_button("Save")
+    submit_form_with('Save')
 
     current_path.should == show_post_path(blogpost.to_url_params)
     page.should have_content("Vasya")
