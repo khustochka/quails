@@ -15,10 +15,10 @@ module Legacy
         puts "Updating countries..."
         arr.each do |country|
           Locus.create!({
-                            :code => country[:country_id],
-                            :loc_type => 0,
-                            :name_ru => country[:country_name],
-                            :parent_id => nil
+                            code: country[:country_id],
+                            loc_type: 0,
+                            name_ru: country[:country_name],
+                            parent_id: nil
                         }) if Legacy::Mapping.locations[country[:country_id]].nil?
         end
         puts "Done."
@@ -29,10 +29,10 @@ module Legacy
         puts "Updating regions..."
         arr.each do |region|
           Locus.create!({
-                            :code => region[:reg_id],
-                            :loc_type => 1,
-                            :name_ru => region[:reg_name],
-                            :parent_id => Legacy::Mapping.locations[region[:country_id]]
+                            code: region[:reg_id],
+                            loc_type: 1,
+                            name_ru: region[:reg_name],
+                            parent_id: Legacy::Mapping.locations[region[:country_id]]
                         }) if Legacy::Mapping.locations[region[:reg_id]].nil?
         end
         puts "Done."
@@ -44,12 +44,12 @@ module Legacy
         arr.each do |loc|
           (lat, lon) = loc[:latlon].split(',')
           Locus.create!({
-                            :code => loc[:loc_id].gsub('-', '_'),
-                            :loc_type => 2,
-                            :name_ru => loc[:loc_name],
-                            :parent_id => Legacy::Mapping.locations[loc[:reg_id]],
-                            :lat => (lat.try(:to_f)),
-                            :lon => (lon.try(:to_f))
+                            code: loc[:loc_id].gsub('-', '_'),
+                            loc_type: 2,
+                            name_ru: loc[:loc_name],
+                            parent_id: Legacy::Mapping.locations[loc[:reg_id]],
+                            lat: (lat.try(:to_f)),
+                            lon: (lon.try(:to_f))
                         }) if Legacy::Mapping.locations[loc[:loc_id].gsub('-', '_')].nil?
         end
         puts "Done."

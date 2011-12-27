@@ -23,10 +23,10 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
     login_as_admin
     visit add_observations_path
     all('.obs-row').size.should == 1
-    select('Brovary', :from => 'Location')
-    fill_in('Date', :with => '2011-04-08')
-    select('Cyanistes caeruleus', :from => 'Species')
-    select 'park', :from => 'Biotope'
+    select('Brovary', from: 'Location')
+    fill_in('Date', with: '2011-04-08')
+    select('Cyanistes caeruleus', from: 'Species')
+    select 'park', from: 'Biotope'
     lambda { submit_form_with('Save') }.should change(Observation, :count).by(1)
   end
 
@@ -34,10 +34,10 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
     login_as_admin
     visit add_observations_path
     find(:xpath, "//span[text()='Add new row']").click
-    select_suggestion('Brovary', :from => 'Location')
-    fill_in('Date', :with => '2011-04-08')
-    select_suggestion('- Avis incognita', :from => 'Species')
-    select_suggestion 'park', :from => 'Biotope'
+    select_suggestion('Brovary', from: 'Location')
+    fill_in('Date', with: '2011-04-08')
+    select_suggestion('- Avis incognita', from: 'Species')
+    select_suggestion 'park', from: 'Biotope'
     lambda { submit_form_with('Save') }.should change(Observation, :count).by(1)
     Observation.order('id DESC').limit(1).first.species_id.should == 0
   end
@@ -46,20 +46,20 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
     login_as_admin
     visit add_observations_path
 
-    select_suggestion('Brovary', :from => 'Location')
-    fill_in('Date', :with => '2011-04-09')
+    select_suggestion('Brovary', from: 'Location')
+    fill_in('Date', with: '2011-04-09')
 
     find(:xpath, "//span[text()='Add new row']").click
     find(:xpath, "//span[text()='Add new row']").click
 
     within(:xpath, "//div[contains(@class,'obs-row')][1]") do
-      select_suggestion('Crex crex', :from => 'Species')
-      select_suggestion 'park', :from => 'Biotope'
+      select_suggestion('Crex crex', from: 'Species')
+      select_suggestion 'park', from: 'Biotope'
     end
 
     within(:xpath, "//div[contains(@class,'obs-row')][2]") do
-      select_suggestion('Falco tinnunculus', :from => 'Species')
-      select_suggestion 'park', :from => 'Biotope'
+      select_suggestion('Falco tinnunculus', from: 'Species')
+      select_suggestion 'park', from: 'Biotope'
     end
 
     lambda { submit_form_with('Save') }.should change(Observation, :count).by(2)
@@ -74,22 +74,22 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
     visit show_post_path(blogpost.to_url_params)
     click_link 'Add more observations'
 
-    page.should have_css('label a', :text => blogpost.title)
+    page.should have_css('label a', text: blogpost.title)
 
-    select_suggestion('Brovary', :from => 'Location')
-    fill_in('Date', :with => '2011-04-09')
+    select_suggestion('Brovary', from: 'Location')
+    fill_in('Date', with: '2011-04-09')
 
     find(:xpath, "//span[text()='Add new row']").click
     find(:xpath, "//span[text()='Add new row']").click
 
     within(:xpath, "//div[contains(@class,'obs-row')][1]") do
-      select_suggestion('Crex crex', :from => 'Species')
-      select_suggestion 'park', :from => 'Biotope'
+      select_suggestion('Crex crex', from: 'Species')
+      select_suggestion 'park', from: 'Biotope'
     end
 
     within(:xpath, "//div[contains(@class,'obs-row')][2]") do
-      select_suggestion('Falco tinnunculus', :from => 'Species')
-      select_suggestion 'park', :from => 'Biotope'
+      select_suggestion('Falco tinnunculus', from: 'Species')
+      select_suggestion 'park', from: 'Biotope'
     end
 
     lambda { submit_form_with('Save') }.should change(Observation, :count).by(2)
@@ -105,17 +105,17 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
     visit show_post_path(blogpost.to_url_params)
     click_link 'Add more observations'
 
-    page.should have_css('label a', :text => blogpost.title)
+    page.should have_css('label a', text: blogpost.title)
 
-    select_suggestion('Brovary', :from => 'Location')
-    fill_in('Date', :with => '2011-04-09')
+    select_suggestion('Brovary', from: 'Location')
+    fill_in('Date', with: '2011-04-09')
     uncheck('observation_post_id')
 
     find(:xpath, "//span[text()='Add new row']").click
 
     within(:xpath, "//div[contains(@class,'obs-row')][1]") do
-      select_suggestion('Crex crex', :from => 'Species')
-      select_suggestion 'park', :from => 'Biotope'
+      select_suggestion('Crex crex', from: 'Species')
+      select_suggestion 'park', from: 'Biotope'
     end
 
     submit_form_with('Save')
@@ -131,16 +131,16 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
     visit show_post_path(blogpost.to_url_params)
     click_link 'Add more observations'
 
-    page.should have_css('label a', :text => blogpost.title)
+    page.should have_css('label a', text: blogpost.title)
 
-    select_suggestion('Brovary', :from => 'Location')
-    fill_in('Date', :with => '2011-04-09')
+    select_suggestion('Brovary', from: 'Location')
+    fill_in('Date', with: '2011-04-09')
 
     find(:xpath, "//span[text()='Add new row']").click
 
     within(:xpath, "//div[contains(@class,'obs-row')][1]") do
-      select_suggestion('Crex crex', :from => 'Species')
-      select_suggestion 'park', :from => 'Biotope'
+      select_suggestion('Crex crex', from: 'Species')
+      select_suggestion 'park', from: 'Biotope'
     end
 
     submit_form_with('Save')
@@ -160,14 +160,14 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
     login_as_admin
     visit add_observations_path
 
-    select_suggestion('Brovary', :from => 'Location')
-    fill_in('Date', :with => '2011-04-09')
+    select_suggestion('Brovary', from: 'Location')
+    fill_in('Date', with: '2011-04-09')
 
     find(:xpath, "//span[text()='Add new row']").click
 
     within(:xpath, "//div[contains(@class,'obs-row')][1]") do
-      select_suggestion('Crex crex', :from => 'Species')
-      select_suggestion 'park', :from => 'Biotope'
+      select_suggestion('Crex crex', from: 'Species')
+      select_suggestion 'park', from: 'Biotope'
     end
 
     lambda { submit_form_with('Save') }.should change(Observation, :count).by(1)
@@ -176,12 +176,12 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
     find(:xpath, "//span[text()='Add new row']").click
 
     within(:xpath, "//div[contains(@class,'obs-row')][1]") do
-      select_suggestion('Dryocopus martius', :from => 'Species')
+      select_suggestion('Dryocopus martius', from: 'Species')
     end
 
     within(:xpath, "//div[contains(@class,'obs-row')][2]") do
-      select_suggestion('Falco tinnunculus', :from => 'Species')
-      select_suggestion 'park', :from => 'Biotope'
+      select_suggestion('Falco tinnunculus', from: 'Species')
+      select_suggestion 'park', from: 'Biotope'
     end
 
     lambda { submit_form_with('Save') }.should change(Observation, :count).by(1)
@@ -193,10 +193,10 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
   end
 
   test "Bulk edit page" do
-    FactoryGirl.create(:observation, :species => seed(:melgal), :observ_date => "2010-06-18")
-    FactoryGirl.create(:observation, :species => seed(:anapla), :observ_date => "2010-06-18")
+    FactoryGirl.create(:observation, species: seed(:melgal), observ_date: "2010-06-18")
+    FactoryGirl.create(:observation, species: seed(:anapla), observ_date: "2010-06-18")
     login_as_admin
-    visit bulk_observations_path(:observ_date => "2010-06-18", :locus_id => seed(:brovary).id, :mine => true)
+    visit bulk_observations_path(observ_date: "2010-06-18", locus_id: seed(:brovary).id, mine: true)
 
     all('.obs-row').size.should == 2
 
@@ -206,13 +206,13 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
   end
 
   test "Bulk edit functionality" do
-    FactoryGirl.create(:observation, :species => seed(:melgal), :observ_date => "2010-06-18")
-    FactoryGirl.create(:observation, :species => seed(:anapla), :observ_date => "2010-06-18")
+    FactoryGirl.create(:observation, species: seed(:melgal), observ_date: "2010-06-18")
+    FactoryGirl.create(:observation, species: seed(:anapla), observ_date: "2010-06-18")
     login_as_admin
-    visit bulk_observations_path(:observ_date => "2010-06-18", :locus_id => seed(:brovary).id, :mine => true)
+    visit bulk_observations_path(observ_date: "2010-06-18", locus_id: seed(:brovary).id, mine: true)
 
     within(:xpath, "//div[contains(@class,'obs-row')][1]") do
-      select_suggestion('Dryocopus martius', :from => 'Species')
+      select_suggestion('Dryocopus martius', from: 'Species')
     end
 
     lambda { submit_form_with('Save') }.should change(Observation, :count).by(0)
@@ -222,10 +222,10 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
 
   test "Bulk edit preserves post" do
     blogpost = FactoryGirl.create(:post)
-    obs1 = FactoryGirl.create(:observation, :species => seed(:melgal), :observ_date => "2010-06-18", :post_id => blogpost.id)
-    obs2 = FactoryGirl.create(:observation, :species => seed(:anapla), :observ_date => "2010-06-18")
+    obs1 = FactoryGirl.create(:observation, species: seed(:melgal), observ_date: "2010-06-18", post_id: blogpost.id)
+    obs2 = FactoryGirl.create(:observation, species: seed(:anapla), observ_date: "2010-06-18")
     login_as_admin
-    visit bulk_observations_path(:observ_date => "2010-06-18", :locus_id => seed(:brovary).id, :mine => true)
+    visit bulk_observations_path(observ_date: "2010-06-18", locus_id: seed(:brovary).id, mine: true)
 
     lambda { submit_form_with('Save') }.should change(Observation, :count).by(0)
 

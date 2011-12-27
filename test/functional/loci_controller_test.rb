@@ -21,20 +21,20 @@ class LociControllerTest < ActionController::TestCase
   test "create locus" do
     assert_difference('Locus.count') do
       login_as_admin
-      post :create, :locus => FactoryGirl.attributes_for(:locus)
+      post :create, locus: FactoryGirl.attributes_for(:locus)
     end
     assert_redirected_to locus_path(assigns(:locus))
   end
 
   test "show locus" do
     login_as_admin
-    get :show, :id => 'krym'
+    get :show, id: 'krym'
     assert_response :success
   end
 
   test "get edit" do
     login_as_admin
-    get :edit, :id => 'mokrets'
+    get :edit, id: 'mokrets'
     assert_response :success
   end
 
@@ -42,14 +42,14 @@ class LociControllerTest < ActionController::TestCase
     locus = seed(:krym)
     locus.name_ru = 'Крымъ'
     login_as_admin
-    put :update, :id => locus.to_param, :locus => locus.attributes
+    put :update, id: locus.to_param, locus: locus.attributes
     assert_redirected_to locus_path(assigns(:locus))
   end
 
   test "destroy locus" do
     assert_difference('Locus.count', -1) do
       login_as_admin
-      delete :destroy, :id => 'mokrets'
+      delete :destroy, id: 'mokrets'
     end
 
     assert_redirected_to loci_path
@@ -63,7 +63,7 @@ class LociControllerTest < ActionController::TestCase
   end
 
   test 'protect show with HTTP authentication' do
-    assert_raises(ActionController::RoutingError) { get :show, :id => 'krym' }
+    assert_raises(ActionController::RoutingError) { get :show, id: 'krym' }
     #assert_response 404
   end
 
@@ -73,25 +73,25 @@ class LociControllerTest < ActionController::TestCase
   end
 
   test 'protect edit with HTTP authentication' do
-    assert_raises(ActionController::RoutingError) { get :edit, :id => 'krym' }
+    assert_raises(ActionController::RoutingError) { get :edit, id: 'krym' }
     #assert_response 404
   end
 
   test 'protect create with HTTP authentication' do
     assert_raises(ActionController::RoutingError) do
-      post :create, :locus => FactoryGirl.attributes_for(:locus)
+      post :create, locus: FactoryGirl.attributes_for(:locus)
     end
     #assert_response 404
   end
 
   test 'protect update with HTTP authentication' do
     locus = seed(:krym)
-    assert_raises(ActionController::RoutingError) { put :update, :id => locus.to_param, :locus => locus.attributes }
+    assert_raises(ActionController::RoutingError) { put :update, id: locus.to_param, locus: locus.attributes }
     #assert_response 404
   end
 
   test 'protect destroy with HTTP authentication' do
-    assert_raises(ActionController::RoutingError) { delete :destroy, :id => 'krym' }
+    assert_raises(ActionController::RoutingError) { delete :destroy, id: 'krym' }
     #assert_response 404
   end
 end

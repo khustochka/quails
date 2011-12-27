@@ -4,7 +4,7 @@ require 'rails/all'
 
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
-  Bundler.require(*Rails.groups(:assets => %w(development test)))
+  Bundler.require(*Rails.groups(assets: %w(development test)))
   # If you want your assets lazily compiled in production, use this line
   # Bundler.require(:default, :assets, Rails.env)
 end
@@ -35,7 +35,7 @@ module Quails3
 
     # Configure generators values. Many other options are available, be sure to check the documentation.
     config.generators do |g|
-      g.template_engine :haml, :form_builder => :simple_form
+      g.template_engine :haml, form_builder: :simple_form
       g.fixture_replacement :factory_girl
     end
 

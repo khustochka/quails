@@ -11,8 +11,8 @@ class UICommentsTest < ActionDispatch::IntegrationTest
     visit show_post_path(blogpost.to_url_params)
     click_link('reply')
     within("form#reply#{comment.id}") do
-      fill_in('Name', :with => 'Vasya')
-      fill_in('comment_text', :with => 'Some text')
+      fill_in('Name', with: 'Vasya')
+      fill_in('comment_text', with: 'Some text')
     end
     submit_form_with('Save')
 

@@ -2,7 +2,7 @@ desc 'Service tasks'
 namespace :check do
 
   desc 'Check that all DB records are valid'
-  task :validity => :environment do
+  task validity: :environment do
 
     [Species, Locus, Observation, Post, Image].each do |model|
       puts "Checking #{model.to_s} records in the DB for validity..."

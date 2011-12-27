@@ -13,14 +13,14 @@ class SpeciesControllerTest < ActionController::TestCase
 
   test "show species" do
     species = seed(:melgal)
-    get :show, :id => species.to_param
+    get :show, id: species.to_param
     assert_response :success
   end
 
   test "get edit" do
     species = seed(:melgal)
     login_as_admin
-    get :edit, :id => species.to_param
+    get :edit, id: species.to_param
     assert_response :success
   end
 
@@ -28,7 +28,7 @@ class SpeciesControllerTest < ActionController::TestCase
     species = seed(:corbra)
     species.name_ru = 'Американская ворона'
     login_as_admin
-    put :update, :id => species.to_param, :species => species.attributes
+    put :update, id: species.to_param, species: species.attributes
     assert_redirected_to species_path(assigns(:species))
   end
 
@@ -38,14 +38,14 @@ class SpeciesControllerTest < ActionController::TestCase
     old_id = species.to_param
     species2.name_sci = '$!#@'
     login_as_admin
-    put :update, :id => old_id, :species => species2.attributes
+    put :update, id: old_id, species: species2.attributes
     assert_template :form
     assert_select "form[action=#{species_path(species)}]"
   end
 
   test "redirect species to correct URL " do
-    get :show, :id => 'Corvus cornix'
-    assert_redirected_to species_path(:id => 'Corvus_cornix')
+    get :show, id: 'Corvus cornix'
+    assert_redirected_to species_path(id: 'Corvus_cornix')
     assert_response 301
   end
 
@@ -53,14 +53,14 @@ class SpeciesControllerTest < ActionController::TestCase
 
   test 'protect edit with HTTP authentication' do
     species = seed(:melgal)
-    assert_raises(ActionController::RoutingError) { get :edit, :id => species.to_param }
+    assert_raises(ActionController::RoutingError) { get :edit, id: species.to_param }
     #assert_response 404
   end
 
   test 'protect update with HTTP authentication' do
     species = seed(:corbra)
     species.name_ru = 'Американская ворона'
-    assert_raises(ActionController::RoutingError) { put :update, :id => species.to_param, :species => species.attributes }
+    assert_raises(ActionController::RoutingError) { put :update, id: species.to_param, species: species.attributes }
     #assert_response 404
   end
 end

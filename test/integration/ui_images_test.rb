@@ -7,7 +7,7 @@ class UIImagesTest < ActionDispatch::IntegrationTest
 
   test "Save existing image with no changes" do
     img = FactoryGirl.create(:image)
-    FactoryGirl.create(:observation, :species => seed(:lancol), :images => [img])
+    FactoryGirl.create(:observation, species: seed(:lancol), images: [img])
 
     login_as_admin
     visit edit_image_path(img)
@@ -22,13 +22,13 @@ class UIImagesTest < ActionDispatch::IntegrationTest
   test 'Save changes to existing image if JavaScript is off' do
     Capybara.use_default_driver
     img = FactoryGirl.create(:image)
-    FactoryGirl.create(:observation, :species => seed(:lancol), :images => [img])
+    FactoryGirl.create(:observation, species: seed(:lancol), images: [img])
 
     login_as_admin
     visit edit_image_path(img)
 
-    fill_in('Code', :with => 'test-img-capybara')
-    fill_in('Title', :with => 'Capybara test image')
+    fill_in('Code', with: 'test-img-capybara')
+    fill_in('Title', with: 'Capybara test image')
 
     lambda { submit_form_with('Save') }.should_not change(Image, :count)
     img.reload
@@ -38,16 +38,16 @@ class UIImagesTest < ActionDispatch::IntegrationTest
   end
 
   test "Adding new image" do
-    FactoryGirl.create(:observation, :observ_date => '2008-07-01')
+    FactoryGirl.create(:observation, observ_date: '2008-07-01')
     login_as_admin
     visit new_image_path
     
-    fill_in('Code', :with => 'test-img-capybara')
-    fill_in('Title', :with => 'Capybara test image')
+    fill_in('Code', with: 'test-img-capybara')
+    fill_in('Title', with: 'Capybara test image')
     
     within('.observation_search') do
-      fill_in('Date', :with => '2008-07-01')
-      select_suggestion('Brovary', :from => 'Location')
+      fill_in('Date', with: '2008-07-01')
+      select_suggestion('Brovary', from: 'Location')
       click_button 'Search'
     end
         
@@ -59,16 +59,16 @@ class UIImagesTest < ActionDispatch::IntegrationTest
   end
 
   test "Image save should not use all found observations" do
-    FactoryGirl.create(:observation, :species => seed(:merser))
-    FactoryGirl.create(:observation, :species => seed(:anapla))
+    FactoryGirl.create(:observation, species: seed(:merser))
+    FactoryGirl.create(:observation, species: seed(:anapla))
     login_as_admin
     visit new_image_path
     
-    fill_in('Code', :with => 'test-img-capybara')
-    fill_in('Title', :with => 'Capybara test image')
+    fill_in('Code', with: 'test-img-capybara')
+    fill_in('Title', with: 'Capybara test image')
     
     within('.observation_search') do
-      fill_in('Date', :with => '')
+      fill_in('Date', with: '')
       click_button 'Search'
     end
         
@@ -82,8 +82,8 @@ class UIImagesTest < ActionDispatch::IntegrationTest
 
   test "Remove an observation from image" do
     img = FactoryGirl.create(:image)
-    FactoryGirl.create(:observation, :species => seed(:lancol), :images => [img])
-    FactoryGirl.create(:observation, :species => seed(:denmaj), :images => [img])
+    FactoryGirl.create(:observation, species: seed(:lancol), images: [img])
+    FactoryGirl.create(:observation, species: seed(:denmaj), images: [img])
 
     login_as_admin
     visit edit_image_path(img)
@@ -98,7 +98,7 @@ class UIImagesTest < ActionDispatch::IntegrationTest
 
   test "Restore original observations if deleted" do
     img = FactoryGirl.create(:image)
-    FactoryGirl.create(:observation, :species => seed(:lancol), :images => [img])
+    FactoryGirl.create(:observation, species: seed(:lancol), images: [img])
 
     login_as_admin
     visit edit_image_path(img)

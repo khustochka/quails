@@ -6,8 +6,8 @@ Quails3::Application.routes.draw do# The priority is based upon order of creatio
   # Keep in mind you can assign values other than :controller and :action
 
   # Sample of named route:
-  #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
-  # This route can be invoked with purchase_url(:id => product.id)
+  #   match 'products/:id/purchase' => 'catalog#purchase', as: :purchase
+  # This route can be invoked with purchase_url(id: product.id)
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
@@ -16,32 +16,32 @@ Quails3::Application.routes.draw do# The priority is based upon order of creatio
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'posts#index'
+  root to: 'posts#index'
 
-  resources :species, :only => [:index, :show]
-  resources :posts, :except => [:index, :show]
+  resources :species, only: [:index, :show]
+  resources :posts, except: [:index, :show]
 
   # Constraint below is to differ paths like /species/Crex_crex/edit from /species/Crex_crex/photo-of-the-corncrake
-  get 'species/:species/:id' => 'images#show', :as => 'show_image', :constraints => lambda { |r| r.url !~ /edit$/ }
+  get 'species/:species/:id' => 'images#show', as: 'show_image', constraints: lambda { |r| r.url !~ /edit$/ }
   get 'photostream' => 'images#photostream'
 
-  constraints :year => /\d{4}/ do
-    get '/:year' => 'posts#year', :as => 'year'
-    constraints :month => /(0[1-9])|(1[0-2])/ do
-      get '/:year/:month' => 'posts#month', :as => 'month'
-      get '/:year/:month/:id' => 'posts#show', :as => 'show_post'
+  constraints year: /\d{4}/ do
+    get '/:year' => 'posts#year', as: 'year'
+    constraints month: /(0[1-9])|(1[0-2])/ do
+      get '/:year/:month' => 'posts#month', as: 'month'
+      get '/:year/:month/:id' => 'posts#show', as: 'show_post'
     end
   end
 
-  get 'lifelist(/:year)(/:locus)(/:sort)' => 'lifelist#default', :as => :lifelist,
-      :year => /\d{4}/,
-      :locus => /([^b][^\/]*)|(b(?!y)[^\/]*)|(by(?!_)[^\/]*)/, # not starting with by_
-      :sort => /by_(count|taxonomy)/
+  get 'lifelist(/:year)(/:locus)(/:sort)' => 'lifelist#default', as: :lifelist,
+      year: /\d{4}/,
+      locus: /([^b][^\/]*)|(b(?!y)[^\/]*)|(by(?!_)[^\/]*)/, # not starting with by_
+      sort: /by_(count|taxonomy)/
 
-  get 'blog.:format' => 'feeds#blog', :constraints => {:format => 'xml'}
+  get 'blog.:format' => 'feeds#blog', constraints: {format: 'xml'}
 
-#  scope '/(:locale)', :locale => /[a-z]{2}/ do
-#    resources :species, :except => [:new, :create, :destroy]
+#  scope '/(:locale)', locale: /[a-z]{2}/ do
+#    resources :species, except: [:new, :create, :destroy]
 #  end
 
 
@@ -61,10 +61,10 @@ Quails3::Application.routes.draw do# The priority is based upon order of creatio
     end
   end
   resources :loci
-  resources :species, :only => [:edit, :update]
-  resources :images, :except => :show
-  resources :comments, :except => :new do
-    get :reply, :on => :member
+  resources :species, only: [:edit, :update]
+  resources :images, except: :show
+  resources :comments, except: :new do
+    get :reply, on: :member
   end
 # end
 
@@ -73,7 +73,7 @@ Quails3::Application.routes.draw do# The priority is based upon order of creatio
   get 'flickr' => 'flickr#search'
   get 'flickr/auth' => 'flickr#auth'
 
-  get 'research(/:action)', :controller => :research, :as => :research
+  get 'research(/:action)', controller: :research, as: :research
 
   # Sample resource route with options:
   #   resources :products do
@@ -97,7 +97,7 @@ Quails3::Application.routes.draw do# The priority is based upon order of creatio
   #   resources :products do
   #     resources :comments
   #     resources :sales do
-  #       get 'recent', :on => :collection
+  #       get 'recent', on: :collection
   #     end
   #   end
 

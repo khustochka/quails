@@ -3,7 +3,7 @@ require 'test_helper'
 class ImagesControllerTest < ActionController::TestCase
   setup do
     @obs = FactoryGirl.create(:observation)
-    @image = FactoryGirl.create(:image, :observations => [@obs])
+    @image = FactoryGirl.create(:image, observations: [@obs])
   end
 
   test "get index" do
@@ -24,7 +24,7 @@ class ImagesControllerTest < ActionController::TestCase
     new_attr = @image.attributes.dup
     new_attr['code'] = 'new_img_code'
     assert_difference('Image.count') do
-      post :create, :image => new_attr, :obs => [@obs.id]
+      post :create, image: new_attr, obs: [@obs.id]
     end
 
     assert_redirected_to public_image_path(assigns(:image))
@@ -32,12 +32,12 @@ class ImagesControllerTest < ActionController::TestCase
 
   test "create image with several observations" do
     login_as_admin
-    obs2 = FactoryGirl.create(:observation, :species => seed(:lancol))
-    obs3 = FactoryGirl.create(:observation, :species => seed(:jyntor))
+    obs2 = FactoryGirl.create(:observation, species: seed(:lancol))
+    obs3 = FactoryGirl.create(:observation, species: seed(:jyntor))
     new_attr = @image.attributes.dup
     new_attr['code'] = 'new_img_code'
     assert_difference('Image.count') do
-      post :create, :image => new_attr, :obs => [@obs.id, obs2.id, obs3.id]
+      post :create, image: new_attr, obs: [@obs.id, obs2.id, obs3.id]
     end
 
     assert_redirected_to public_image_path(assigns(:image))
@@ -50,7 +50,7 @@ class ImagesControllerTest < ActionController::TestCase
 
   test "get edit" do
     login_as_admin
-    get :edit, :id => @image.to_param
+    get :edit, id: @image.to_param
     assert_response :success
   end
 
@@ -58,14 +58,14 @@ class ImagesControllerTest < ActionController::TestCase
     login_as_admin
     new_attr = @image.attributes
     new_attr['code'] = 'new_code'
-    put :update, :id => @image.to_param, :image => new_attr, :obs => @image.observation_ids
+    put :update, id: @image.to_param, image: new_attr, obs: @image.observation_ids
     assert_redirected_to public_image_path(assigns(:image))
   end
 
   test "destroy image" do
     login_as_admin
     assert_difference('Image.count', -1) do
-      delete :destroy, :id => @image.to_param
+      delete :destroy, id: @image.to_param
     end
 
     assert_redirected_to images_path
@@ -73,8 +73,8 @@ class ImagesControllerTest < ActionController::TestCase
 
   # TODO: all 'incognita' should be records in the DB (like Passer sp.)
   test 'Image page can be shown for Avis incognita photo as well' do
-    observation = FactoryGirl.create(:observation, :species_id => 0)
-    img = FactoryGirl.create(:image, :code => 'picture-of-the-unknown', :observations => [observation])
+    observation = FactoryGirl.create(:observation, species_id: 0)
+    img = FactoryGirl.create(:image, code: 'picture-of-the-unknown', observations: [observation])
     get :show, img.to_url_params
   end
 end

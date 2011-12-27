@@ -14,7 +14,7 @@ class CommentsControllerTest < ActionController::TestCase
 
   test "should create comment" do
     assert_difference('Comment.count') do
-      post :create, :comment => @comment.attributes
+      post :create, comment: @comment.attributes
     end
 
     comment = assigns(:comment)
@@ -24,33 +24,33 @@ class CommentsControllerTest < ActionController::TestCase
 
   test "should show comment" do
     login_as_admin
-    get :show, :id => @comment.to_param
+    get :show, id: @comment.to_param
     assert_response :success
   end
 
   test "should get reply comment page" do
-    get :reply, :id => @comment.to_param
+    get :reply, id: @comment.to_param
     assert_response :success
   end
 
   test "should get edit" do
     login_as_admin
-    get :edit, :id => @comment.to_param
+    get :edit, id: @comment.to_param
     assert_response :success
   end
 
   test "should update comment" do
     login_as_admin
-    put :update, :id => @comment.to_param, :comment => @comment.attributes
+    put :update, id: @comment.to_param, comment: @comment.attributes
     assert_redirected_to comment_path(assigns(:comment))
   end
 
   test "should destroy comment" do
     login_as_admin
     assert_difference('Comment.count', -1) do
-      delete :destroy, :id => @comment.to_param
+      delete :destroy, id: @comment.to_param
     end
 
-    assert_redirected_to public_post_path(@comment.post, :anchor => 'comments')
+    assert_redirected_to public_post_path(@comment.post, anchor: 'comments')
   end
 end

@@ -5,7 +5,7 @@ desc 'Tasks for importing species lists'
 namespace :book do
 
   desc 'Fetch french names'
-  task :get_french => :environment do
+  task get_french: :environment do
 
     include ChecklistsHelper
 
@@ -28,7 +28,7 @@ namespace :book do
               name_sci = sp_data[1].content
               name_fr = sp_data[2].content
               #puts "#{name_sci} => #{name_fr}"
-              Species.find_by_name_sci(name_sci).update_attributes({:name_fr => name_fr})
+              Species.find_by_name_sci(name_sci).update_attributes({name_fr: name_fr})
             end
           end
         end

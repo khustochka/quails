@@ -51,7 +51,7 @@ namespace :book do
   end
 
   desc 'Import checklist from yaml to the database'
-  task :load_to_db => :environment do
+  task load_to_db: :environment do
     f = File.open('vendor/clements_ua_ny.yml')
     records = YAML.load(f.read)
     newlist = records.map do |rec|
@@ -77,15 +77,15 @@ namespace :book do
       if sp
         rec.merge(
             {
-                :code => sp.code,
-                :name_ru => sp.name_ru,
-                :name_uk => sp.name_uk,
-                :authority => sp.authority,
-                :protonym => sp.protonym
+                code: sp.code,
+                name_ru: sp.name_ru,
+                name_uk: sp.name_uk,
+                authority: sp.authority,
+                protonym: sp.protonym
             }
         )
       else
-        rec.merge({:code => code})
+        rec.merge({code: code})
       end
     end
 

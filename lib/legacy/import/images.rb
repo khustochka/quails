@@ -17,13 +17,13 @@ module Legacy
 
         images.each do |im|
           img = Image.new({
-                              :code => im[:img_id],
-                              :title => im[:img_title].gsub(' - ', '&nbsp;— '),
-                              :description => im[:img_descr].gsub(' - ', '&nbsp;— '),
-                              :created_at => im[:add_date],
-                              :index_num => im[:img_sort]
+                              code: im[:img_id],
+                              title: im[:img_title].gsub(' - ', '&nbsp;— '),
+                              description: im[:img_descr].gsub(' - ', '&nbsp;— '),
+                              created_at: im[:add_date],
+                              index_num: im[:img_sort]
                           })
-          obs = Observation.where(:id => im[:observ_id])
+          obs = Observation.where(id: im[:observ_id])
 
           if obs.empty?
             m_ob = multi_obs[im[:observ_id]]
@@ -32,9 +32,9 @@ module Legacy
             date = m_ob[:ob_date]
 
             obs = m_ob[:notes].split(',').map do |sp_code|
-              potential_ob = Observation.where(:species_id => Legacy::Mapping.species[sp_code],
-                                               :locus_id => loc_id,
-                                               :observ_date => date).all
+              potential_ob = Observation.where(species_id: Legacy::Mapping.species[sp_code],
+                                               locus_id: loc_id,
+                                               observ_date: date).all
               if potential_ob.size == 1
                 puts "  #{sp_code}: #{potential_ob.first.id}"
                 potential_ob.first

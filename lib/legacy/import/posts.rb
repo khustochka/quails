@@ -12,15 +12,15 @@ module Legacy
         column_names = Post.column_names.reject { |e| e == 'id' }
         records = posts.map do |post|
           rec = HashWithIndifferentAccess.new(
-              :code => post[:post_id],
-              :title => post[:post_title].gsub(' - ', '&nbsp;— '),
-              :text => post[:post_text].gsub(' - ', '&nbsp;— '),
-              :topic => post[:post_type],
-              :status => post[:post_status],
-              :lj_post_id => post[:lj_post_id].to_i.zero? ? nil : post[:lj_post_id],
-              :lj_url_id => post[:lj_url_id].to_i.zero? ? nil : post[:lj_url_id],
-              :face_date => post[:post_date],
-              :updated_at => post[:post_update]
+              code: post[:post_id],
+              title: post[:post_title].gsub(' - ', '&nbsp;— '),
+              text: post[:post_text].gsub(' - ', '&nbsp;— '),
+              topic: post[:post_type],
+              status: post[:post_status],
+              lj_post_id: post[:lj_post_id].to_i.zero? ? nil : post[:lj_post_id],
+              lj_url_id: post[:lj_url_id].to_i.zero? ? nil : post[:lj_url_id],
+              face_date: post[:post_date],
+              updated_at: post[:post_update]
           )
           column_names.map { |c| rec[c] }
         end

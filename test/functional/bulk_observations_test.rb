@@ -6,12 +6,12 @@ class BulkObservationsTest < ActionController::TestCase
   test 'successful Observations bulk save' do
     login_as_admin
     assert_difference('Observation.count', 3) do
-      post :bulksave, {:format => :json,
-                        :c => {:locus_id => seed(:brovary).id,
-                              :observ_date => '2010-05-05', :mine => true},
-                      :o => [{:species_id => 2, :biotope => 'city'},
-                              {:species_id => 4, :biotope => 'city'},
-                              {:species_id => 6, :biotope => 'city'}]
+      post :bulksave, {format: :json,
+                        c: {locus_id: seed(:brovary).id,
+                              observ_date: '2010-05-05', mine: true},
+                      o: [{species_id: 2, biotope: 'city'},
+                              {species_id: 4, biotope: 'city'},
+                              {species_id: 6, biotope: 'city'}]
       }
     end
     assert_response :created
@@ -27,9 +27,9 @@ class BulkObservationsTest < ActionController::TestCase
   test 'Observations bulk save should return error if no observations provided' do
     login_as_admin
     assert_difference('Observation.count', 0) do
-      post :bulksave, {:format => :json,
-                        :c => {:locus_id => seed(:brovary).id,
-                              :observ_date => '2010-05-05', :mine => true}
+      post :bulksave, {format: :json,
+                        c: {locus_id: seed(:brovary).id,
+                              observ_date: '2010-05-05', mine: true}
       }
     end
     assert_response :unprocessable_entity
@@ -41,12 +41,12 @@ class BulkObservationsTest < ActionController::TestCase
   test 'Observations bulk save should return error for incorrect common parameters (date, locus)' do
     login_as_admin
     assert_difference('Observation.count', 0) do
-      post :bulksave, {:format => :json,
-                        :c => {:locus_id => '',
-                              :observ_date => '', :mine => true},
-                       :o => [{:species_id => 2, :biotope => 'city'},
-                              {:species_id => 4, :biotope => 'city'},
-                              {:species_id => 6, :biotope => 'city'}]
+      post :bulksave, {format: :json,
+                        c: {locus_id: '',
+                              observ_date: '', mine: true},
+                       o: [{species_id: 2, biotope: 'city'},
+                              {species_id: 4, biotope: 'city'},
+                              {species_id: 6, biotope: 'city'}]
       }
     end
     assert_response :unprocessable_entity
@@ -58,9 +58,9 @@ class BulkObservationsTest < ActionController::TestCase
   test 'Observations bulk save should combine errors for incorrect common parameters and zero observations' do
     login_as_admin
     assert_difference('Observation.count', 0) do
-      post :bulksave, {:format => :json,
-                        :c => {:locus_id => '',
-                              :observ_date => '', :mine => true}
+      post :bulksave, {format: :json,
+                        c: {locus_id: '',
+                              observ_date: '', mine: true}
       }
     end
     assert_response :unprocessable_entity
@@ -74,10 +74,10 @@ class BulkObservationsTest < ActionController::TestCase
   test 'Observations bulk save should return error for incorrect observation parameter (species_id)' do
     login_as_admin
     assert_difference('Observation.count', 0) do
-      post :bulksave, {:format => :json,
-                        :c => {:locus_id => seed(:brovary).id,
-                              :observ_date => '2010-05-05', :mine => true},
-                       :o => [{:species_id => '', :biotope => 'city'}]
+      post :bulksave, {format: :json,
+                        c: {locus_id: seed(:brovary).id,
+                              observ_date: '2010-05-05', mine: true},
+                       o: [{species_id: '', biotope: 'city'}]
       }
     end
     assert_response :unprocessable_entity
@@ -89,10 +89,10 @@ class BulkObservationsTest < ActionController::TestCase
   test 'Observations bulk save should not save the bunch if any observation is wrong' do
     login_as_admin
     assert_difference('Observation.count', 0) do
-      post :bulksave, {:format => :json,
-                        :c => {:locus_id => seed(:brovary).id,
-                              :observ_date => '2010-05-05', :mine => true},
-                       :o => [{:species_id => '', :biotope => 'city'}, {:species_id => 2, :biotope => 'city'}]
+      post :bulksave, {format: :json,
+                        c: {locus_id: seed(:brovary).id,
+                              observ_date: '2010-05-05', mine: true},
+                       o: [{species_id: '', biotope: 'city'}, {species_id: 2, biotope: 'city'}]
       }
     end
     assert_response :unprocessable_entity
@@ -102,14 +102,14 @@ class BulkObservationsTest < ActionController::TestCase
   end
 
   test 'successful updating existing and saving new observations' do
-    obs = FactoryGirl.create(:observation, :species_id => 2)
+    obs = FactoryGirl.create(:observation, species_id: 2)
     login_as_admin
     assert_difference('Observation.count', 1) do
-      post :bulksave, {:format => :json,
-                       :c => {:locus_id => seed(:brovary).id,
-                              :observ_date => '2010-05-05', :mine => true},
-                       :o => [{:id => obs.id, :species_id => 4},
-                              {:species_id => 6, :biotope => 'city'}]
+      post :bulksave, {format: :json,
+                       c: {locus_id: seed(:brovary).id,
+                              observ_date: '2010-05-05', mine: true},
+                       o: [{id: obs.id, species_id: 4},
+                              {species_id: 6, biotope: 'city'}]
       }
     end
     assert_response :success

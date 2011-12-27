@@ -2,7 +2,7 @@ desc 'Tasks for managing DB seed'
 namespace :seed do
 
   desc 'Backup the seed'
-  task :backup => :environment do
+  task backup: :environment do
 
     require 'grit'
     require 'bunch_db/table'
@@ -38,7 +38,7 @@ namespace :seed do
   end
 
   desc 'Update the repo and load the seed (removing other data)'
-  task :load => :environment do
+  task load: :environment do
 
     require 'grit'
 

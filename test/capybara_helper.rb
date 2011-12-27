@@ -17,7 +17,7 @@ ActiveRecord::Base.shared_connection = ActiveRecord::Base.connection
 
 # Turn on resynchronize option for selenium driver
 Capybara.register_driver :selenium do |app|
-  Capybara::Selenium::Driver.new(app, :resynchronize => true)
+  Capybara::Selenium::Driver.new(app, resynchronize: true)
 end
 
 module CapybaraTestCase
@@ -58,7 +58,7 @@ module JavaScriptTestCase
 
       def select_suggestion(value, hash)
         selector = ".ui-menu-item a:contains(\"#{value}\"):first"
-        fill_in hash[:from], :with => value
+        fill_in hash[:from], with: value
         #sleep(0.5)
         page.execute_script " $('#{selector}').trigger('mouseenter').click();"
       end

@@ -4,7 +4,7 @@ class ImageObservValidationTest < ActiveSupport::TestCase
 
   setup do
     @obs = FactoryGirl.create(:observation)
-    @image = FactoryGirl.create(:image, :observations => [@obs])
+    @image = FactoryGirl.create(:image, observations: [@obs])
   end
 
   test "should not create image with no observations" do
@@ -74,9 +74,9 @@ test 'should exclude duplicated observation (new) on image update' do
   end
 
  test 'should not create image with inconsistent observations (different date)' do
-    obs1 = FactoryGirl.create(:observation, :observ_date => '2011-01-01')
-    obs2 = FactoryGirl.create(:observation, :observ_date => '2010-01-01')
-    new_attr = FactoryGirl.attributes_for(:image, :code => 'newimg')
+    obs1 = FactoryGirl.create(:observation, observ_date: '2011-01-01')
+    obs2 = FactoryGirl.create(:observation, observ_date: '2010-01-01')
+    new_attr = FactoryGirl.attributes_for(:image, code: 'newimg')
     img = Image.new
     assert_difference('Image.count', 0) do
       img.update_with_observations(new_attr, [obs1.id, obs2.id])
@@ -85,9 +85,9 @@ test 'should exclude duplicated observation (new) on image update' do
   end
 
 test 'should not create image with inconsistent observations (different loc)' do
-    obs1 = FactoryGirl.create(:observation, :locus => seed(:kiev))
-    obs2 = FactoryGirl.create(:observation, :locus => seed(:krym))
-    new_attr = FactoryGirl.attributes_for(:image, :code => 'newimg')
+    obs1 = FactoryGirl.create(:observation, locus: seed(:kiev))
+    obs2 = FactoryGirl.create(:observation, locus: seed(:krym))
+    new_attr = FactoryGirl.attributes_for(:image, code: 'newimg')
     img = Image.new
     assert_difference('Image.count', 0) do
       img.update_with_observations(new_attr, [obs1.id, obs2.id])
@@ -96,17 +96,17 @@ test 'should not create image with inconsistent observations (different loc)' do
   end
 
 test 'should not update image with inconsistent observations' do
-    obs1 = FactoryGirl.create(:observation, :observ_date => '2011-01-01')
-    obs2 = FactoryGirl.create(:observation, :observ_date => '2010-01-01')
+    obs1 = FactoryGirl.create(:observation, observ_date: '2011-01-01')
+    obs2 = FactoryGirl.create(:observation, observ_date: '2010-01-01')
     new_attr = @image.attributes
     @image.update_with_observations(new_attr, [obs1.id, obs2.id]).should be_false
     @image.errors.should_not be_blank
   end
 
 test 'should preserve changed values if image failed to update with inconsistent observations' do
-    obs1 = FactoryGirl.create(:observation, :observ_date => '2011-01-01')
-    obs2 = FactoryGirl.create(:observation, :observ_date => '2010-01-01')
-    new_attr = @image.attributes.merge(:code => 'newcode')
+    obs1 = FactoryGirl.create(:observation, observ_date: '2011-01-01')
+    obs2 = FactoryGirl.create(:observation, observ_date: '2010-01-01')
+    new_attr = @image.attributes.merge(code: 'newcode')
     @image.update_with_observations(new_attr, [obs1.id, obs2.id]).should be_false
     @image.errors.should_not be_blank
   end
