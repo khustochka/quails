@@ -98,6 +98,64 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
     blogpost.observations.size.should == 2
   end
 
+  test "Start adding observations for post but then uncheck it" do
+    blogpost = FactoryGirl.create(:post)
+    login_as_admin
+
+    visit show_post_path(blogpost.to_url_params)
+    click_link 'Add more observations'
+
+    page.should have_css('label a', :text => blogpost.title)
+
+    select_suggestion('Brovary', :from => 'Location')
+    fill_in('Date', :with => '2011-04-09')
+    uncheck('observation_post_id')
+
+    find(:xpath, "//span[text()='Add new row']").click
+
+    within(:xpath, "//div[contains(@class,'obs-row')][1]") do
+      select_suggestion('Crex crex', :from => 'Species')
+      select_suggestion 'park', :from => 'Biotope'
+    end
+
+    submit_form_with('Save')
+    page.should have_css('.obs-row.save-success')
+
+    blogpost.observations.size.should == 0
+  end
+
+  test "Add observations for post, then save unlinked" do
+    blogpost = FactoryGirl.create(:post)
+    login_as_admin
+
+    visit show_post_path(blogpost.to_url_params)
+    click_link 'Add more observations'
+
+    page.should have_css('label a', :text => blogpost.title)
+
+    select_suggestion('Brovary', :from => 'Location')
+    fill_in('Date', :with => '2011-04-09')
+
+    find(:xpath, "//span[text()='Add new row']").click
+
+    within(:xpath, "//div[contains(@class,'obs-row')][1]") do
+      select_suggestion('Crex crex', :from => 'Species')
+      select_suggestion 'park', :from => 'Biotope'
+    end
+
+    submit_form_with('Save')
+    page.should have_css('.obs-row.save-success')
+
+    blogpost.observations.size.should == 1
+    obs = blogpost.observations.first
+
+    uncheck('observation_post_id')
+    submit_form_with('Save')
+
+    blogpost.observations.reload.size.should == 0
+    obs.reload.post_id.should be_nil
+  end
+
   test "Add and update observations" do
     login_as_admin
     visit add_observations_path
