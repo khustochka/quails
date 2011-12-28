@@ -51,7 +51,7 @@ namespace :book do
   end
 
   desc 'Import checklist from yaml to the database'
-  task load_to_db: :environment do
+  task :load_to_db => :environment do
     f = File.open('vendor/clements_ua_ny.yml')
     records = YAML.load(f.read)
     newlist = records.map do |rec|

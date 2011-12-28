@@ -5,7 +5,7 @@ desc 'Tasks for importing species lists'
 namespace :book do
 
   desc 'Fetch french names'
-  task get_french: :environment do
+  task :get_french => :environment do
 
     include ChecklistsHelper
 

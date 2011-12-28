@@ -2,7 +2,7 @@ desc 'Service tasks'
 namespace :check do
 
   desc 'Quick benchmark'
-  task benchmark: :environment do
+  task :benchmark => :environment do
     require 'benchmark'
 
 

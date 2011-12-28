@@ -10,7 +10,7 @@ desc 'Legacy data tasks'
 namespace :legacy do
 
   desc 'Importing data from legacy DB dump'
-  task(import: [:environment, 'db:setup']) do
+  task(:import => [:environment, 'db:setup']) do
 
     local_opts = YAML.load_file('config/local.yml')
 
