@@ -14,6 +14,7 @@ gem 'thin', :group => :production, :require => false, :platforms => :ruby # for 
 # Bundle the extra gems:
 gem 'haml-rails'
 gem 'sass'
+gem 'RedCloth'
 gem 'kaminari'
 gem 'ransack'
 gem 'rails_autolink'

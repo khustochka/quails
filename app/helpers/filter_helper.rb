@@ -5,9 +5,9 @@ module FilterHelper
   include WikiFilter
 
   def wiki_filter(post)
-    simple_format(auto_link(
-                      transform(post.text)
-                  )).html_safe
+    auto_link(
+        RedCloth.new(transform(post.text)).to_html
+    ).html_safe
   end
 
 end
