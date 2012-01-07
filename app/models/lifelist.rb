@@ -27,10 +27,10 @@ class Lifelist
 
     if @options[:sort] != 'count' || @advanced
       first_posts = posts('first')
-      @the_list.each { |sp| sp.post = first_posts[sp.id] }
+      @the_list.each { |sp| sp.post = first_posts[sp.id].try(:first) }
       if @advanced
         last_posts = posts('last')
-        @the_list.each { |sp| sp.last_post = last_posts[sp.id] }
+        @the_list.each { |sp| sp.last_post = last_posts[sp.id].try(:first) }
       end
     end
   end
@@ -112,7 +112,7 @@ class Lifelist
               ON observs.species_id = lifers.species_id
               AND observs.observ_date = lifers.#{first_or_last}_seen"
         ).
-            group_by { |p| p.species_id.to_i }.map { |id, arr| [id, arr[0]] }
+            group_by { |p| p.species_id.to_i }
     ]
   end
 

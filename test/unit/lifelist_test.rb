@@ -133,7 +133,7 @@ class LifelistTest < ActiveSupport::TestCase
     @obs[5].post = FactoryGirl.create(:post, code: 'feraldoves_2009')
     @obs[5].save!
     lifelist = Lifelist.new(user: @user, options: {year: 2009})
-    lifelist.send(:posts)[seed(:colliv).id].code.should == @obs[5].post.code
+    lifelist.send(:posts)[seed(:colliv).id].first.code.should == @obs[5].post.code
     lifelist.select {|sp| sp.code == 'colliv'}[0].post.code.should == @obs[5].post.code
   end
 
