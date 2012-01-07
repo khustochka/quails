@@ -6,7 +6,7 @@ module FilterHelper
 
   def wiki_filter(post)
     auto_link(
-        RedCloth.new(transform(post.text)).to_html
+        transform(RedCloth.new(post.text, [:no_span_caps]).to_html)
     ).html_safe
   end
 
