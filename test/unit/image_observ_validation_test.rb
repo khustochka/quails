@@ -76,7 +76,7 @@ test 'should exclude duplicated observation (new) on image update' do
  test 'should not create image with inconsistent observations (different date)' do
     obs1 = FactoryGirl.create(:observation, observ_date: '2011-01-01')
     obs2 = FactoryGirl.create(:observation, observ_date: '2010-01-01')
-    new_attr = FactoryGirl.attributes_for(:image, code: 'newimg')
+    new_attr = FactoryGirl.build(:image, code: 'newimg').attributes
     img = Image.new
     assert_difference('Image.count', 0) do
       img.update_with_observations(new_attr, [obs1.id, obs2.id])
@@ -87,7 +87,7 @@ test 'should exclude duplicated observation (new) on image update' do
 test 'should not create image with inconsistent observations (different loc)' do
     obs1 = FactoryGirl.create(:observation, locus: seed(:kiev))
     obs2 = FactoryGirl.create(:observation, locus: seed(:krym))
-    new_attr = FactoryGirl.attributes_for(:image, code: 'newimg')
+    new_attr = FactoryGirl.build(:image, code: 'newimg').attributes
     img = Image.new
     assert_difference('Image.count', 0) do
       img.update_with_observations(new_attr, [obs1.id, obs2.id])
