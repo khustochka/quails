@@ -72,7 +72,7 @@ class ObservationsControllerTest < ActionController::TestCase
   end
 
   test "create observation" do
-    common = FactoryGirl.attributes_for(:observation)
+    common = FactoryGirl.build(:observation).attributes
     observ = common.slice!(:locus_id, :observ_date, :mine)
     assert_difference('Observation.count') do
       login_as_admin
@@ -97,7 +97,7 @@ class ObservationsControllerTest < ActionController::TestCase
 
   test "update observation" do
     observation = FactoryGirl.create(:observation)
-    common = FactoryGirl.attributes_for(:observation)
+    common = FactoryGirl.build(:observation).attributes
     observ = common.slice!(:locus_id, :observ_date, :mine)
     login_as_admin
     put :update, id: observation.to_param, c: common, o: [observ]
@@ -148,7 +148,7 @@ class ObservationsControllerTest < ActionController::TestCase
   end
 
   test 'protect create with HTTP authentication' do
-    assert_raises(ActionController::RoutingError) { post :create, observation: FactoryGirl.attributes_for(:observation) }
+    assert_raises(ActionController::RoutingError) { post :create, observation: FactoryGirl.build(:observation).attributes }
     #assert_response 404
   end
 
