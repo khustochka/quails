@@ -34,9 +34,7 @@ class ImagesAssociationsTest < ActiveSupport::TestCase
   end
 
   test 'properly unlink observations when image destroyed' do
-    assert_nothing_raised do
-      @image.destroy
-    end
+    @image.destroy
     assert @obs.reload
     assert_equal 0, @obs.images.size
   end

@@ -14,25 +14,19 @@ class ResearchControllerTest < ActionController::TestCase
 
   test "admin should see Research/lifelist" do
     login_as_admin
-    assert_nothing_raised do
-      get :lifelist
-    end
+    get :lifelist
     assert_response :success
   end
 
   test "admin should see Research/more_than_year" do
     login_as_admin
-    assert_nothing_raised do
-      get :more_than_year
-    end
+    get :more_than_year
     assert_response :success
   end
 
   test "admin should see Research/unpictured" do
     login_as_admin
-    assert_nothing_raised do
-      get :unpictured
-    end
+    get :unpictured
     assert_response :success
   end
 end
