@@ -1,7 +1,7 @@
 %section.post-box{:id => "post-#{post.code}", :class => post.status != 'OPEN' ? 'grayout' : nil}
   %article.post
     %header
-      %h2.post-title= link_to(post.title, public_post_path(post))
+      %h2.post-title= link_to(post_title(post), public_post_path(post))
       %time{:pubdate => 'pubdate', :datetime => post.face_date.strftime("%FT%T%:z")}= l(post.face_date, :format => :long)
       -#%small= post.topic
 

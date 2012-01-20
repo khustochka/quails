@@ -3,13 +3,13 @@
 
 - stylesheet 'formalize'
 
-- @page_title = @post.title
+- @page_title = post_title(@post)
 
 = render 'admin/shortcuts' if current_user.admin?
 
 %article.post{:id => "post-#{@post.code}", :class => @post.status != 'OPEN' ? 'grayout' : nil}
   %header
-    %h1.post-title= @post.title
+    %h1.post-title= post_title(@post)
     %time{:pubdate => 'pubdate', :datetime => @post.face_date.strftime("%FT%T%:z")}= l(@post.face_date, :format => :long)
     -#%small= @post.topic
 

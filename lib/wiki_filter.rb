@@ -20,7 +20,7 @@ module WikiFilter
           post = posts[code]
           post.nil? ?
               word :
-              post_link(word || post.title, post, true)
+              post_link(word || post_title(post), post, true)
         when '' then
           sp = species[code]
           sp.nil? ?

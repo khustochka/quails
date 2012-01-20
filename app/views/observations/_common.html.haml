@@ -7,4 +7,4 @@
   %div.input.boolean.optional.flat
     = hidden_field_tag("c[post_id]")
     = check_box_tag("c[post_id]", @blogpost.id, true, :class => "boolean optional", :id => "observation_post_id")
-    %label.boolean.optional{:for => "observation_post_id"}= post_link(@blogpost.title, @blogpost)
+    %label.boolean.optional{:for => "observation_post_id"}= post_link(post_title(@blogpost), @blogpost)

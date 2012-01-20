@@ -8,4 +8,4 @@
   %h2= "#{link_to(t('date.month_names')[month.to_i], month_path({:year => @year, :month => month}))}".html_safe
   %ul
     - posts.each do |post|
-      %li= "#{post.day}: #{post_link(post.title, post)}".html_safe
+      %li= "#{post.day}: #{post_link(post_title(post), post)}".html_safe
