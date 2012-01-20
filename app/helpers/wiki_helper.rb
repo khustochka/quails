@@ -1,6 +1,6 @@
 require "wiki_filter"
 
-module FilterHelper
+module WikiHelper
 
   include WikiFilter
 
