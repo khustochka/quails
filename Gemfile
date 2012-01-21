@@ -1,6 +1,6 @@
 source :rubygems
 
-gem 'rails', '3.1.3'
+gem 'rails', '3.2.0'
 
 gem 'pg', :platforms => [:ruby, :mingw]
 
@@ -16,7 +16,7 @@ gem 'haml-rails'
 gem 'sass'
 gem 'RedCloth'
 gem 'kaminari'
-gem 'ransack'
+gem 'ransack', '~> 0.6'
 gem 'rails_autolink'
 gem 'simple_form'
 gem 'hashie'

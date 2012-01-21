@@ -34,17 +34,17 @@ namespace :test do
       t.libs << "test"
     end
 
-    TestTaskWithoutDescription.new(:units) do |t|
+    Rails::SubTestTask.new(:units) do |t|
       t.libs << "test"
       t.pattern = 'test/unit/**/*_test.rb'
     end
 
-    TestTaskWithoutDescription.new(:functionals) do |t|
+    Rails::SubTestTask.new(:functionals) do |t|
       t.libs << "test"
       t.pattern = 'test/functional/**/*_test.rb'
     end
 
-    TestTaskWithoutDescription.new(:integration) do |t|
+    Rails::SubTestTask.new(:integration) do |t|
       t.libs << "test"
       t.pattern = 'test/integration/**/*_test.rb'
     end
