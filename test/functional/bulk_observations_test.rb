@@ -35,7 +35,7 @@ class BulkObservationsTest < ActionController::TestCase
     assert_response :unprocessable_entity
     assert_equal Mime::JSON, response.content_type
     result = JSON.parse(response.body)
-    assert_equal({"base"=>["provide at least one observation"]}, result)
+    assert_equal({"errors"=>{"base"=>["provide at least one observation"]}}, result)
   end
 
   test 'Observations bulk save should return error for incorrect common parameters (date, locus)' do
@@ -52,7 +52,7 @@ class BulkObservationsTest < ActionController::TestCase
     assert_response :unprocessable_entity
     assert_equal Mime::JSON, response.content_type
     result = JSON.parse(response.body)
-    assert_equal({"observ_date"=>["can't be blank"], "locus_id"=>["can't be blank"]}, result)
+    assert_equal({"errors"=>{"observ_date"=>["can't be blank"], "locus_id"=>["can't be blank"]}}, result)
   end
 
   test 'Observations bulk save should combine errors for incorrect common parameters and zero observations' do
@@ -66,9 +66,9 @@ class BulkObservationsTest < ActionController::TestCase
     assert_response :unprocessable_entity
     assert_equal Mime::JSON, response.content_type
     result = JSON.parse(response.body)
-    assert_equal({"observ_date"=>["can't be blank"],
+    assert_equal({"errors"=>{"observ_date"=>["can't be blank"],
                   "locus_id"=>["can't be blank"],
-                  "base"=>["provide at least one observation"]}, result)
+                  "base"=>["provide at least one observation"]}}, result)
   end
 
   test 'Observations bulk save should return error for incorrect observation parameter (species_id)' do
@@ -82,7 +82,7 @@ class BulkObservationsTest < ActionController::TestCase
     end
     assert_response :unprocessable_entity
     assert_equal Mime::JSON, response.content_type
-    result = JSON.parse(response.body)
+    result = JSON.parse(response.body)['errors']
     assert_equal({"species_id"=>["can't be blank"]}, result['observs'][0])
   end
 
@@ -97,7 +97,7 @@ class BulkObservationsTest < ActionController::TestCase
     end
     assert_response :unprocessable_entity
     assert_equal Mime::JSON, response.content_type
-    result = JSON.parse(response.body)
+    result = JSON.parse(response.body)['errors']
     assert_equal({"species_id"=>["can't be blank"]}, result['observs'][0])
   end
 

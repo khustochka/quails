@@ -54,7 +54,7 @@ $(function () {
     });
 
     form.bind('ajax:error', function (event, xhr, status) {
-        var errors = $.parseJSON(xhr.responseText),
+        var errors = $.parseJSON(xhr.responseText).errors,
             err_list = $("<ul>", {'class':'errors'}).prependTo("form#bulk_observ_form");
         $.each(errors, function (i, val) {
             if (i != "observs") $("<li>").text(i + " " + val[0]).appendTo(err_list);
