@@ -3,15 +3,15 @@ require 'legacy/models/base'
 module Legacy
   module Models
     class Species < Base
-      set_table_name 'species'
+      self.table_name = 'species'
     end
 
     class Order < Base
-      set_table_name 'ordines'
+      self.table_name = 'ordines'
     end
 
     class Family < Base
-      set_table_name 'familiae'
+      self.table_name = 'familiae'
     end
   end
 end
