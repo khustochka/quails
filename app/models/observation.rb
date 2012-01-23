@@ -33,7 +33,7 @@ class Observation < ActiveRecord::Base
     if @biotopes && !refresh
       @biotopes
     else
-      @biotopes = (DEFAULT_BIOTOPES + select("DISTINCT biotope").map(&:biotope)).uniq
+      @biotopes = (DEFAULT_BIOTOPES + uniq.pluck(:biotope)).uniq
     end
   end
 

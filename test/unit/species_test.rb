@@ -35,8 +35,8 @@ class SpeciesTest < ActiveSupport::TestCase
   end
 
   test 'species reordered alphabetically' do
-    expected = Species.all.map(&:name_sci).sort
-    got = Species.alphabetic.map(&:name_sci)
+    expected = Species.pluck(:name_sci).sort
+    got = Species.alphabetic.pluck(:name_sci)
     assert_equal expected, got
   end
 
