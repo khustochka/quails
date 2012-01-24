@@ -13,8 +13,8 @@ module Legacy
         records = posts.map do |post|
           rec = HashWithIndifferentAccess.new(
               code: post[:post_id],
-              title: post[:post_title].gsub(' - ', '&nbsp;— '),
-              text: post[:post_text].gsub(' - ', '&nbsp;— '),
+              title: post[:post_title],
+              text: post[:post_text],
               topic: post[:post_type],
               status: post[:post_status],
               lj_post_id: post[:lj_post_id].to_i.zero? ? nil : post[:lj_post_id],
