@@ -12,6 +12,8 @@
 
 %p= [l(@image.observ_date, :format => :long), @image.locus.name_en] * ', '
 
+= wiki_filter(@image.description)
+
 - if p = @image.post
   %p
     Post:
