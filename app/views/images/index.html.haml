@@ -16,7 +16,7 @@
     %tr
       %td.thumbnail= link_to image_tag(jpg_url(image, true)), public_image_path(image)
       %td= link_to image.code, edit_image_path(image)
-      %td= image.title
+      %td= image_title(image)
       %td.align-right= image.index_num
       %td= default_destroy_link(image)
 
