@@ -4,9 +4,9 @@ module WikiHelper
 
   include WikiFilter
 
-  def wiki_filter(post)
+  def wiki_filter(text)
     auto_link(
-        transform(RedCloth.new(post.text, [:no_span_caps]).to_html)
+        transform(RedCloth.new(text, [:no_span_caps]).to_html)
     ).html_safe
   end
 

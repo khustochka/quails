@@ -13,7 +13,7 @@
     %time{:pubdate => 'pubdate', :datetime => @post.face_date.strftime("%FT%T%:z")}= l(@post.face_date, :format => :long)
     -#%small= @post.topic
 
-  = wiki_filter(@post)
+  = wiki_filter(@post.text)
   - images = @post.images.all
   - unless images.empty?
     %section
