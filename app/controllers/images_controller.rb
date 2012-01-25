@@ -23,11 +23,13 @@ class ImagesController < ApplicationController
   # GET /images/new
   def new
     @image = Image.new
+    render 'form'
   end
 
   # GET /images/1/edit
   def edit
     @extra_params = @image.to_url_params
+    render 'form'
   end
 
   # POST /images
@@ -37,7 +39,7 @@ class ImagesController < ApplicationController
     if @image.update_with_observations(params[:image], params[:obs])
       redirect_to(public_image_path(@image), :notice => 'Image was successfully created.')
     else
-      render :action => "new"
+      render 'form'
     end
   end
 
@@ -48,7 +50,7 @@ class ImagesController < ApplicationController
     if @image.update_with_observations(params[:image], params[:obs])
       redirect_to(public_image_path(@image), :notice => 'Image was successfully updated.')
     else
-      render :action => "edit"
+      render 'form'
     end
   end
 

@@ -2,7 +2,10 @@
 - use_jquery
 - javascript JQ_UI_FILE, 'suggest_over_combo', 'images'
 
+- @page_title = '%s image' % (['new', 'create'].include?(action_name) ? 'New' : 'Editing')
 - observ_search = @image.search_applicable_observations
+
+%h1= @page_title
 
 = render 'admin/shortcuts' if current_user.admin?
 
@@ -47,3 +50,6 @@
     = form.input :index_num, :input_html => { :size => 10, :type => :text }
   .buttons
     = default_submit_button(form)
+
+- if @image.persisted?
+  %p= link_to 'DELETE', @image, :confirm => 'Are you sure?', :method => :delete
