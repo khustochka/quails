@@ -2,7 +2,7 @@
 - use_jquery
 - javascript JQ_UI_FILE, 'suggest_over_combo', 'images'
 
-- @page_title = '%s image' % (['new', 'create'].include?(action_name) ? 'New' : 'Editing')
+- @page_title = '%s image' % (@image.persisted? ? 'New' : 'Editing')
 - observ_search = @image.search_applicable_observations
 
 %h1= @page_title
