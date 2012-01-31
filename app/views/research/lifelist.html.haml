@@ -7,12 +7,10 @@
 
 %ul.horiz-list.filter-list
   %strong Months:
-  - (1..12).to_a.insert(0, nil).each do |m|
+  %li= params[:month].nil? ? content_tag(:span, 'All') : link_to('All', params.merge(:month => nil))
+  - 1.upto(12) do |m|
     %li
-      - if m.nil?
-        = params[:month].nil? ? content_tag(:span, 'All') : link_to('All', params.merge(:month => nil))
-      - else
-        = link_to_or_span(t('date.abbr_month_names')[m], params.merge(:month => m))
+      = link_to_or_span(t('date.abbr_month_names')[m], params.merge(:month => m))
 
 - if @lifelist.blank?
   %p No species
