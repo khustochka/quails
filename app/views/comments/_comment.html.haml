@@ -5,7 +5,7 @@
   \--
   %time= link_to(l(comment.created_at, :format => :long), public_comment_path(comment, @post))
   = default_destroy_link(comment) if current_user.admin? && action_name != 'reply'
-  %p= comment.text
+  = comment_filter(comment.text)
 
   - if action_name != 'reply'
     .reply

@@ -21,5 +21,5 @@
         %td= link_to comment.id, edit_comment_path(comment)
         %td= comment.parent_id
         %td= comment.name
-        %td= comment.text
+        %td= comment_filter(comment.text)
         %td= default_destroy_link(comment)

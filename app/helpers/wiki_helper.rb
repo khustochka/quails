@@ -10,4 +10,10 @@ module WikiHelper
     ).html_safe
   end
 
+  def comment_filter(text)
+    #auto_link(
+        simple_format(transform(text))
+    #).html_safe
+  end
+
 end

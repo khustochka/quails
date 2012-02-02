@@ -18,7 +18,8 @@
   = @comment.url
 %p
   %b Text:
-  = @comment.text
+= comment_filter(@comment.text)
+
 %p
   %b Approved:
   = @comment.approved
