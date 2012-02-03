@@ -18,6 +18,9 @@ class ImagesController < ApplicationController
 
   # GET /images/1
   def show
+    if params[:species] != @image.species_for_url
+      redirect_to @image.to_url_params, :status => 301
+    end
   end
 
   # GET /images/new
