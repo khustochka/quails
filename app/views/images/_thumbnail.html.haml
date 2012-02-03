@@ -1,2 +1,5 @@
+- img_title = image_title(thumbnail)
+
 %div.imageholder
-  = link_to image_tag(jpg_url(thumbnail, true)), public_image_path(thumbnail)
+  = link_to image_tag(jpg_url(thumbnail, true), :alt => img_title), public_image_path(thumbnail), :title => img_title
+  %div.imagetitle= link_to img_title, public_image_path(thumbnail), :title => img_title
