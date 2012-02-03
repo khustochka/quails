@@ -11,7 +11,12 @@ class Post < ActiveRecord::Base
   has_many :comments, :dependent => :destroy
   has_many :observations, :dependent => :nullify
   has_many :species, :through => :observations
-  has_many :images, :through => :observations, :include => :species, :uniq => true
+#  has_many :images, :through => :observations, :include => :species, :uniq => true
+
+  def images
+    Image.joins(:observations).where('observations.post_id' => id).includes(:species).
+        order('observations.observ_date, observations.locus_id, images.index_num, species.index_num')
+  end
 
   # Parameters
 
