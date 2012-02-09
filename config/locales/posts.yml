@@ -1,0 +1,6 @@
+'en':
+  posts:
+    post:
+      comments:
+        one: '1 comment'
+        other: '%{count} comments'
