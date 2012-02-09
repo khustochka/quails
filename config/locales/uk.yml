@@ -206,8 +206,8 @@ uk:
       # When no format has been given, it uses default.
       # You can provide other formats here if you like!
       default: "%d.%m.%Y"
-      short: "%d %b"
-      long: "%-d %B %Y"
+      short: "%e %b"
+      long: "%e %B %Y"
 
     day_names: [неділя, понеділок, вівторок, середа, четвер, "п'ятниця", субота]
     abbr_day_names: [нд., пн., вт., ср., чт., пт., сб.]
@@ -223,7 +223,7 @@ uk:
     formats:
       default: "%a, %d %b %Y, %H:%M:%S %z"
       short: "%d %b, %H:%M"
-      long: "%d %B %Y, %H:%M"
+      long: "%e %B %Y, %H:%M"
     am: "до полудня"
     pm: "по полудні"
 
