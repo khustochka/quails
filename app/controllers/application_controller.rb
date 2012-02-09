@@ -1,7 +1,3 @@
-%w( layout locale security model_finder_for public_path ).each do |file|
-  require "mixins/#{file}_controller"
-end
-
 class ApplicationController < ActionController::Base
 
   protect_from_forgery
