@@ -1,0 +1,7 @@
+'ru':
+  posts:
+    post:
+      comments:
+        one: '1 комментарий'
+        few: '%{count} комментария'
+        many: '%{count} комментариев'

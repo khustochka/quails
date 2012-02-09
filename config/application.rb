@@ -30,7 +30,7 @@ module Quails3
     # config.time_zone = 'Kyiv'
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
-    # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
+    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '{en,ru,uk}','*.{rb,yml}').to_s]
     # config.i18n.default_locale = :ru
 
     # Configure generators values. Many other options are available, be sure to check the documentation.

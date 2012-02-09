@@ -11,16 +11,12 @@ module LocaleController
 
   private
   def set_locale
-    @all_locales = %w(en ru uk)
-    @locale = I18n.locale = non_default_locales.include?(params[:locale]) ? params[:locale] : I18n.default_locale
+    I18n.locale = params[:hl] || DEFAULT_PUBLIC_LOCALE
+    #@locale = I18n.locale = non_default_locales.include?(params[:locale]) ? params[:locale] : I18n.default_locale
 #    I18n.reload!
   end
 
   def default_url_options(options={})
-    options.merge non_default_locales.include?(I18n.locale) ? {:locale => I18n.locale} : {}
-  end
-
-  def non_default_locales
-    @all_locales - [I18n.default_locale.to_s]
+    options.merge params[:hl] ? {:hl => params[:hl]} : {}
   end
 end

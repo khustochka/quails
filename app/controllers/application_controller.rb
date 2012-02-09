@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery
 
-#  include LocaleController
+  include LocaleController
   include SecurityController
   include LayoutController
   include PublicPathController
@@ -14,6 +14,8 @@ class ApplicationController < ActionController::Base
   extend ModelFinderForController
 
   layout 'public'
+
+  localized
 
   private
 
