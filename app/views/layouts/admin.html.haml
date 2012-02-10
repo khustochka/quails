@@ -15,7 +15,10 @@
 
     -# link tags
     -# stylesheets
-    - stylesheet 'admin'
+    - if @minimal_layout
+      - stylesheet 'minimal'
+    - else
+      - stylesheet 'admin'
     = include_stylesheets
 
     -# enable HTML5 in IE
