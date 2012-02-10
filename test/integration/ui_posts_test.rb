@@ -70,4 +70,32 @@ class UIPostsTest < ActionDispatch::IntegrationTest
     comment.subcomments.size.should == 1
   end
 
+  test "Try to post invalid comment (no JS)" do
+    blogpost = FactoryGirl.create(:post)
+    visit show_post_path(blogpost.to_url_params)
+    within("form#new_comment") do
+      #fill_in('comment_name', with: 'Vasya')
+      fill_in('comment_text', with: 'Some text')
+    end
+    click_button("save_button")
+
+    current_path.should == show_post_path(blogpost.to_url_params)
+    find('comment_text').text.should == 'Some text'
+  end
+
+  test "Try to post invalid reply to comment (no JS)" do
+    comment = FactoryGirl.create(:comment)
+    blogpost = comment.post
+    visit show_post_path(blogpost.to_url_params)
+    first('.reply a').click
+    within("form#new_comment") do
+      #fill_in('comment_name', with: 'Vasya')
+      fill_in('comment_text', with: 'Some text')
+    end
+    click_button("save_button")
+
+    current_path.should == reply_comment_path(comment)
+    find('comment_text').text.should == 'Some text'
+  end
+
 end
