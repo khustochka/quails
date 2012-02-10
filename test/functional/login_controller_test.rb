@@ -1,6 +1,6 @@
 require "test_helper"
 
-class AdminControllerTest < ActionController::TestCase
+class LoginControllerTest < ActionController::TestCase
 
   test 'Admin can login' do
     login_as_admin

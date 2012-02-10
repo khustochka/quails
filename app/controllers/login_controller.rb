@@ -1,4 +1,4 @@
-class AdminController < ApplicationController
+class LoginController < ApplicationController
 
   ask_for_credentials :only => :login
 

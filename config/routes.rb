@@ -69,7 +69,7 @@ Quails3::Application.routes.draw do
   end
 # end
 
-  get 'login' => 'admin#login'
+  get 'login' => 'login#login'
 
   get 'flickr' => 'flickr#search'
   get 'flickr/auth' => 'flickr#auth'
