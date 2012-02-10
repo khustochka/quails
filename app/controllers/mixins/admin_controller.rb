@@ -9,6 +9,7 @@ module AdminController
     def administrative(options={})
       requires_admin_authorized options
       layout 'admin', options
+      skip_before_filter :set_locale, options
     end
 
   end

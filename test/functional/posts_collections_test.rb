@@ -79,7 +79,7 @@ class PostsCollectionsTest < ActionController::TestCase
     assert_response :success
     assert_select "li a[href=#{public_post_path(blogpost1)}]", true
     assert_select "li a[href=#{public_post_path(blogpost2)}]", false
-    assert_select "a[href='/2007/12']", 'December'
+    assert_select "a[href='/2007/12']"
   end
 
   # Month view
