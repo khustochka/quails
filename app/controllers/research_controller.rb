@@ -1,8 +1,6 @@
 class ResearchController < ApplicationController
 
-  requires_admin_authorized
-
-  layout 'admin'
+  administrative
 
   def index
   end

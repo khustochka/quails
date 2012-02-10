@@ -1,8 +1,6 @@
 class CommentsController < ApplicationController
 
-  requires_admin_authorized :except => [:create, :reply]
-
-  layout 'admin', :except => :reply
+  administrative :except => [:create, :reply]
 
   add_finder_by :id, :only => [:show, :edit, :update, :destroy, :reply]
 

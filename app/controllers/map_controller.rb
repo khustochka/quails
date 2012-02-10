@@ -2,9 +2,7 @@ class MapController < ApplicationController
   respond_to :html, :only => [:index, :edit]
   respond_to :json, :only => [:spots]
 
-  requires_admin_authorized
-
-  layout 'public'
+  administrative :except => [:show]
 
   # GET "/map"
   def show

@@ -1,8 +1,6 @@
 class LociController < ApplicationController
 
-  requires_admin_authorized
-
-  layout 'admin'
+  administrative
 
   add_finder_by :code, :only => [:show, :edit, :update, :destroy]
 

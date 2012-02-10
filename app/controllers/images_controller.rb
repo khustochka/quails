@@ -1,8 +1,6 @@
 class ImagesController < ApplicationController
 
-  requires_admin_authorized :except => [:photostream, :show]
-
-  layout 'admin', :except => [:photostream, :show]
+  administrative :except => [:photostream, :show]
 
   add_finder_by :code, :only => [:show, :edit, :update, :destroy]
 

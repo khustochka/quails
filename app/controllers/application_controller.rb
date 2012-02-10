@@ -2,9 +2,10 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery
 
-  include LocaleController
   include SecurityController
   include LayoutController
+  include LocaleController
+  include AdminController
   include PublicPathController
 
   extend ModelFinderForController

@@ -2,9 +2,7 @@ class ObservationsController < ApplicationController
 
   respond_to :json, :only => [:search, :bulksave]
 
-  requires_admin_authorized
-
-  layout 'admin'
+  administrative
 
   add_finder_by :id, :only => [:edit, :update, :destroy]
 

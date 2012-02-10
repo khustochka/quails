@@ -1,8 +1,6 @@
 class PostsController < ApplicationController
 
-  requires_admin_authorized :except => [:index, :year, :month, :show]
-
-  layout 'admin', :except => [:index, :year, :month, :show]
+  administrative :except => [:index, :year, :month, :show]
 
   before_filter :find_post, :only => [:edit, :update, :destroy, :show]
 

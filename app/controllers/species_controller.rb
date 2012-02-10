@@ -1,8 +1,6 @@
 class SpeciesController < ApplicationController
 
-  requires_admin_authorized :except => [:index, :show]
-
-  layout 'admin', :except => [:index, :show]
+  administrative :except => [:index, :show]
 
   before_filter :find_species, :only => [:show, :edit, :update]
 

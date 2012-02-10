@@ -1,8 +1,6 @@
 class FlickrController < ApplicationController
 
-  requires_admin_authorized
-
-  layout 'admin'
+  administrative
 
   before_filter :except => :auth do
     redirect_to :action => :auth if FlickRawOptions['auth_token'].blank?
