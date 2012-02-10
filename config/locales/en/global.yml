@@ -1,0 +1,13 @@
+"en":
+  partials:
+    header:
+      menu:
+        blog: Blog
+        photos: Photos
+        lifelist: Lifelist
+
+    years:
+      years: 'Year:'
+
+  misc:
+    all: All

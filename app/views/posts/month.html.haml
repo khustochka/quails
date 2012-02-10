@@ -5,5 +5,5 @@
 = render @posts
 
 %nav.month-navigation
-  = link_to '<< Previous month', month_path(@prev_month) unless @prev_month.nil?
-  = link_to 'Next month >>', month_path(@next_month) unless @next_month.nil?
+  = link_to "<< #{t('.previous')}", month_path(@prev_month) unless @prev_month.nil?
+  = link_to "#{t('.next')} >>", month_path(@next_month) unless @next_month.nil?

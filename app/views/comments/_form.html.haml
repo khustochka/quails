@@ -9,9 +9,9 @@
 
   = form.input :post_id, :as => :hidden
   = form.input :parent_id, :as => :hidden
-  = form.input :name, :label => 'Name:'
-  = form.input :email, :label => 'Email:'
-  = form.input :url, :label => 'URL:'
+  = form.input :name
+  = form.input :email
+  = form.input :url
   = form.input :text, :label => false
   - if action_name.in? ['edit', 'update']
     = form.input :approved, :label => 'Approved'

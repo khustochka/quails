@@ -17,19 +17,19 @@
   - images = @post.images.all
   - unless images.empty?
     %section
-      %h3 Images
+      %h3= t('.sections.images')
       = render :partial => 'images/thumbnail', :collection => images
 
 - unless @post.species.blank?
   %p
-    %b List of species:
+    %b= t('.sections.species')
     = @post.species.uniq.map { |sp| species_link(sp) }.join(",\n").html_safe
 
-%h3#comments Comments
+%h3#comments= t('.sections.comments')
 
 = render @comments[0] if @comments[0]
 
-%h4#add_comment Add new
+%h4#add_comment= t('.add_comment')
 
 = render "comments/form"
 

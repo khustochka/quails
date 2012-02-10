@@ -15,4 +15,4 @@
     - if cmt_count > 0
       = link_to t('.comments', :count => cmt_count), public_post_path(post, :anchor => 'comments')
       \|
-    = link_to 'Add comment', public_post_path(post, :anchor => 'add_comment')
+    = link_to t('.add_comment'), public_post_path(post, :anchor => 'add_comment')

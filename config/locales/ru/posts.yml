@@ -1,7 +1,41 @@
 'ru':
   posts:
+    index:
+      title: Дневник наблюдений за птицами
+      previous_posts: Предыдущие посты
+
+    year:
+      year: Год
+
+    month:
+      previous: Предыдущий месяц
+      next: Следующий месяц
+
+    show:
+      sections:
+        images: Фотографии
+        species: 'Встреченные виды:'
+        comments: Комментарии
+      add_comment: Добавить
+
     post:
       comments:
         one: '1 комментарий'
         few: '%{count} комментария'
         many: '%{count} комментариев'
+      add_comment: Добавить комментарий
+
+  comments:
+    comment:
+      reply_link: ответить
+    form:
+      save_button: Отправить
+    reply:
+      title: Ответ на комментарий
+
+  simple_form:
+    labels:
+      comment:
+        name: 'Имя:'
+        email: 'Email:'
+        url: 'URL:'

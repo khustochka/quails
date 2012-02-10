@@ -9,12 +9,12 @@ class UICommentsTest < ActionDispatch::IntegrationTest
     comment = FactoryGirl.create(:comment)
     blogpost = comment.post
     visit show_post_path(blogpost.to_url_params)
-    click_link('reply')
+    first('.reply a').click
     within("form#reply#{comment.id}") do
-      fill_in('Name', with: 'Vasya')
+      fill_in('comment_name', with: 'Vasya')
       fill_in('comment_text', with: 'Some text')
+      click_button("save_button")
     end
-    submit_form_with('Save')
 
     current_path.should == show_post_path(blogpost.to_url_params)
     page.should have_content("Vasya")

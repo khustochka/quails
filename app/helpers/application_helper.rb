@@ -15,7 +15,7 @@ module ApplicationHelper
   end
   
   def default_submit_button(form)
-    form.button :submit, :value => 'Save', 'data-disable-with' => "Saving..."
+    form.button :submit, :value => t('.save_button', :default => 'Save'), 'data-disable-with' => "Saving...", :id => 'save_button'
   end
   
   def default_destroy_link(rec)

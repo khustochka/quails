@@ -1,6 +1,41 @@
 'en':
   posts:
+    index:
+      title: Birdwatching blog
+      previous_posts: Previous posts
+
+    year:
+      year: Year
+
+    month:
+      previous: Previous month
+      next: Next month
+
+    show:
+      sections:
+        images: Images
+        species: 'List of species:'
+        comments: Comments
+      add_comment: Add new
+      save_button: Save
+
     post:
       comments:
         one: '1 comment'
         other: '%{count} comments'
+      add_comment: Add comment
+
+  comments:
+    comment:
+      reply_link: reply
+    form:
+      save_button: Save
+    reply:
+      title: Replying to comment
+
+  simple_form:
+    labels:
+      comment:
+        name: 'Name:'
+        email: 'Email:'
+        url: 'URL:'

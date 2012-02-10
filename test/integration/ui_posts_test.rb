@@ -45,10 +45,10 @@ class UIPostsTest < ActionDispatch::IntegrationTest
     blogpost = FactoryGirl.create(:post)
     visit show_post_path(blogpost.to_url_params)
     within("form#new_comment") do
-      fill_in('Name', with: 'Vasya')
+      fill_in('comment_name', with: 'Vasya')
       fill_in('comment_text', with: 'Some text')
     end
-    click_button("Save")
+    click_button("save_button")
 
     page.should have_content("Vasya")
 
@@ -58,12 +58,12 @@ class UIPostsTest < ActionDispatch::IntegrationTest
     comment = FactoryGirl.create(:comment)
     blogpost = comment.post
     visit show_post_path(blogpost.to_url_params)
-    click_link('reply')
+    first('.reply a').click
     within("form#new_comment") do
-      fill_in('Name', with: 'Vasya')
+      fill_in('comment_name', with: 'Vasya')
       fill_in('comment_text', with: 'Some text')
     end
-    click_button("Save")
+    click_button("save_button")
 
     current_path.should == show_post_path(blogpost.to_url_params)
     page.should have_content("Vasya")

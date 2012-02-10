@@ -1,0 +1,13 @@
+"ru":
+  partials:
+    header:
+      menu:
+        blog: Дневник
+        photos: Фотографии
+        lifelist: Мой список
+
+    years:
+      years: 'Год:'
+
+  misc:
+    all: Все
