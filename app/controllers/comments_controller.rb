@@ -45,7 +45,10 @@ class CommentsController < ApplicationController
         format.html { redirect_to public_comment_path(@comment) }
         format.json { render :json => @comment, :status => :created, :location => @comment }
       else
-        format.html { render :action => "new" }
+        format.html {
+          @parent_comment = @comment.parent_comment
+          render :action => "reply"
+        }
         format.json { render :json => @comment.errors, :status => :unprocessable_entity }
       end
     end

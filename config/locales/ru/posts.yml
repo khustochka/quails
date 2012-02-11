@@ -31,7 +31,8 @@
     form:
       save_button: Отправить
     reply:
-      title: Ответ на комментарий
+      reply_title: Ответ на комментарий
+      comment_title: Ответ на запись
 
   simple_form:
     labels:

@@ -79,8 +79,8 @@ class UIPostsTest < ActionDispatch::IntegrationTest
     end
     click_button("save_button")
 
-    current_path.should == show_post_path(blogpost.to_url_params)
-    find('comment_text').text.should == 'Some text'
+    current_path.should == comments_path
+    find('#comment_text').text.should == 'Some text'
   end
 
   test "Try to post invalid reply to comment (no JS)" do
@@ -94,8 +94,8 @@ class UIPostsTest < ActionDispatch::IntegrationTest
     end
     click_button("save_button")
 
-    current_path.should == reply_comment_path(comment)
-    find('comment_text').text.should == 'Some text'
+    current_path.should == comments_path
+    find('#comment_text').text.should == 'Some text'
   end
 
 end

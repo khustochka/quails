@@ -1,9 +1,9 @@
 - stylesheet 'forms'
 
-- @page_title = t('.title')
+- @page_title = t( @parent_comment ? '.reply_title' : '.comment_title')
 
-%h1= @page_title
+%h1= raw "#{@page_title} #{post_link(post_title(@comment.post), @comment.post)}"
 
-= render @parent_comment
+= render @parent_comment if @parent_comment
 
 = render 'form'
