@@ -1,12 +1,6 @@
 module LocaleController
   def self.included(klass)
-    klass.extend ClassMethods
-  end
-
-  module ClassMethods
-    def localized(options = {})
-      before_filter :set_locale, options
-    end
+    klass.before_filter :set_locale
   end
 
   private

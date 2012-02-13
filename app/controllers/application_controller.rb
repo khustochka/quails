@@ -12,8 +12,6 @@ class ApplicationController < ActionController::Base
 
   layout 'public'
 
-  localized
-
   private
 
   def significant_params
