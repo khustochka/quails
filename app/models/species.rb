@@ -28,14 +28,4 @@ class Species < ActiveRecord::Base
     reorder(:name_sci)
   end
 
-  # Instance methods
-
-  def first_date
-    Date.parse(read_attribute(:first_date))
-  end
-
-  def last_date
-    Date.parse(read_attribute(:last_date))
-  end
-
 end
