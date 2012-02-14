@@ -13,7 +13,7 @@
 
     show:
       sections:
-        images: Фотографии
+        photos: Фотографии
         species: 'Встреченные виды:'
         comments: Комментарии
       add_comment: Добавить

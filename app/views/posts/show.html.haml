@@ -16,8 +16,8 @@
   = wiki_filter(@post.text)
   - images = @post.images.all
   - unless images.empty?
-    %section
-      %h3= t('.sections.images')
+    %section.photos
+      %h3= t('.sections.photos')
       = render :partial => 'images/thumbnail', :collection => images
 
 - unless @post.species.blank?

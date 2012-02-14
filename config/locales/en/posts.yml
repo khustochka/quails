@@ -13,7 +13,7 @@
 
     show:
       sections:
-        images: Images
+        photos: Images
         species: 'List of species:'
         comments: Comments
       add_comment: Add new
