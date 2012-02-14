@@ -9,11 +9,11 @@ class WikiFilterTest < ActionDispatch::IntegrationTest
   include SpeciesHelper
   include PostsHelper
 
-  # Screening
+  # Screening - no need
 
-  test 'do not parse screened square brackets as tag' do
-    assert_equal '[Quail|cotnix]', transform('\[Quail|cotnix\]')
-  end
+  #test 'do not parse screened square brackets as tag' do
+  #  assert_equal '[Quail|cotnix]', transform('\[Quail|cotnix\]')
+  #end
 
   # Species
 
