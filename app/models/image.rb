@@ -16,7 +16,7 @@ class Image < ActiveRecord::Base
   # Instance methods
 
   def public_title
-    title.present? ? title : species[0].name_en # Not using || because of empty string possibility
+    title.present? ? title : species[0].name # Not using || because of empty string possibility
   end
 
   def species_for_url

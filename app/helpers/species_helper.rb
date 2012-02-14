@@ -9,7 +9,7 @@ module SpeciesHelper
   end
 
   def species_link(sp_obj, string = nil)
-    link_to(string || sp_obj.name_en, species_path(sp_obj), :class => 'sp_link')
+    link_to(string || sp_obj.name, species_path(sp_obj), :class => 'sp_link')
   end
 
   def name_sci(sp_obj)

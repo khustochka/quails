@@ -1,4 +1,8 @@
 class Species < ActiveRecord::Base
+
+  include ActiveRecord::Localized
+  localize :name
+
 #  validates :order, :presence => true, :allow_blank => true
   validates :family, :presence => true
   validates :name_sci, :format => /^[A-Z][a-z]+ [a-z]+$/, :uniqueness => true
@@ -25,15 +29,6 @@ class Species < ActiveRecord::Base
   end
 
   # Instance methods
-
-  def name
-    fb = %w(en ru uk)
-    until fb.last == I18n.locale.to_s
-      fb.pop
-    end
-    nm = send("name_#{fb.pop}".to_sym) while nm.blank?
-    nm
-  end
 
   def first_date
     Date.parse(read_attribute(:first_date))
