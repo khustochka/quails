@@ -4,10 +4,18 @@ module WikiFilter
     posts = Hash.new do |hash, term|
       hash[term] = Post.find_by_code(term.downcase)
     end
+
+    sp_codes = text.gsub(/\[(@|#|)(?:([^\]]*?)\|)?(.*?)\]/).map do |full|
+      $1 != '' ? nil : ($3 || $2)
+    end.uniq.compact
+
+    # TODO: IDEA: use already calculated species of the post! the rest will be ok with separate requests?
+    spcs = Species.where("code IN (?) OR name_sci IN (?)", sp_codes, sp_codes)
+
     species = Hash.new do |hash, term|
       hash[term] = term.size == 6 ?
-          Species.find_by_code(term.downcase) :
-          Species.find_by_name_sci(term.sp_humanize)
+          spcs.find {|s| s.code == term} :
+          spcs.find {|s| s.name_sci == term.sp_humanize }
     end
 
     text.gsub(/\[(@|#|)(?:([^\]]*?)\|)?(.*?)\]/) do |full|
