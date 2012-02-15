@@ -19,7 +19,7 @@ module WikiFilter
     end
 
     text.gsub(/\[(@|#|)(?:([^\]]*?)\|)?(.*?)\]/) do |full|
-      tag, word, code = $1, $2, $3
+      tag, word, code = $1, $2.try(:html_safe), $3
       case tag
         when '@' then
           link_to(word || code, code)
@@ -32,9 +32,9 @@ module WikiFilter
           sp = species[code]
           sp.nil? ?
               word :
-              species_link(sp, word || (code.size == 6 ? nil : sp.name_sci))
+              species_link(sp, word || sp.name_sci)
       end
-    end.gsub /\\([\\\[\]])/, '\1' # Screened [, ] and \
+    end
   end
 
 end

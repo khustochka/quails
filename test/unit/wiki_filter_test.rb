@@ -23,7 +23,7 @@ class WikiFilterTest < ActionDispatch::IntegrationTest
   end
 
   test 'properly parse species by bare code [cotnix]' do
-    assert_equal species_link(seed(:cotnix), 'Common Quail'),
+    assert_equal species_link(seed(:cotnix), 'Coturnix coturnix'),
                  transform('[cotnix]')
   end
 
@@ -88,6 +88,13 @@ class WikiFilterTest < ActionDispatch::IntegrationTest
   test 'properly parse pipe in the second code' do
     assert_equal "#{link_to(nil, 'http://birdwatch.by')} has #{species_link(seed(:parcae), 'Blue Tits')}",
                  transform('[@http://birdwatch.by] has [Blue Tits|parcae]')
+  end
+
+  # HTML entities
+
+  test 'preserve HTML entities' do
+    assert_equal species_link(seed(:acacan), 'Linotte m&eacute;lodieuse'.html_safe),
+                 transform('[Linotte m&eacute;lodieuse|acacan]')
   end
 
   # Nested - not working for now
