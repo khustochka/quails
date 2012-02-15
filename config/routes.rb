@@ -76,6 +76,11 @@ Quails3::Application.routes.draw do
 
   get 'research(/:action)', controller: :research, as: :research
 
+  # LEGACY REDIRECTS
+
+  # The captured wildcard in a Rails 3 route can be used in the redirect method:
+  # match 'via/:source' => redirect('/?utm_source=%{source}')
+
   # Sample resource route with options:
   #   resources :products do
   #     member do
