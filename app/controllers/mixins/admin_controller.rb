@@ -10,7 +10,9 @@ module AdminController
       requires_admin_authorized options
       layout 'admin', options
       skip_before_filter :set_locale, options
-      I18n.locale = :en
+      before_filter options do
+        I18n.locale = :en
+      end
     end
 
   end
