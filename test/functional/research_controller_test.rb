@@ -24,9 +24,9 @@ class ResearchControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "admin should see Research/unpictured" do
+  test "admin should see Research/topicture" do
     login_as_admin
-    get :unpictured
+    get :topicture
     assert_response :success
   end
 end

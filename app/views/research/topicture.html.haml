@@ -1,0 +1,31 @@
+- @page_title = 'Species to take pictures of'
+
+%h1= [link_to('Research', research_path), @page_title].join(' : ').html_safe
+
+%div.column_layout
+  %h2 No pictures at all
+
+  %table.neat_table
+    %th &nbsp;
+    %th Species
+    %th Observations
+
+    - @no_photo.each_with_index do |sp, i|
+      %tr
+        %td.align-right= "#{i+1}."
+        %td= species_link(sp)
+        %td.align-right= sp.cnt
+
+%div.column_layout
+  %h2 Long time no photo
+
+  %table.neat_table
+    %th &nbsp;
+    %th Species
+    %th Last photo taken
+
+    - @long_time.each_with_index do |sp, i|
+      %tr
+        %td.align-right= "#{i+1}."
+        %td= species_link(sp)
+        %td.align-right= sp.lastphoto

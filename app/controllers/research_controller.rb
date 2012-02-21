@@ -24,13 +24,17 @@ class ResearchController < ApplicationController
     end.sort { |a, b| b[sort_col] <=> a[sort_col] }
   end
 
-  def unpictured
-    @list = Species.select('name_sci, name_en, COUNT(observations.id) AS cnt').joins(:observations).
+  def topicture
+    @no_photo = Species.select('name_sci, name_en, COUNT(observations.id) AS cnt').joins(:observations).
         where(
               "species_id NOT IN (%s)" % 
               Observation.select('DISTINCT species_id').
                   joins('INNER JOIN images_observations as im on (observations.id = im.observation_id)').to_sql
               ).group(:name_sci, :name_en).reorder('cnt DESC')
+
+    @long_time = Species.joins(:images).select("name_sci, name_en, MAX(observ_date) as lastphoto").
+        group(:name_sci, :name_en).having("MAX(observ_date) < (now() - interval '2 years')").
+        reorder('lastphoto')
   end
 
   def lifelist
