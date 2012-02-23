@@ -1,6 +1,6 @@
 source :rubygems
 
-gem 'rails', '3.2.1'
+gem 'rails', '3.2.2.rc1'
 
 gem 'pg', :platforms => [:ruby, :mingw]
 
@@ -18,7 +18,7 @@ gem 'RedCloth'
 gem 'kaminari'
 gem 'ransack', '~> 0.6'
 gem 'rails_autolink'
-gem 'simple_form'
+gem 'simple_form', '~> 1.5' # SimpleForm 2 changes the form CSS classes
 gem 'hashie'
 gem 'flickraw', '0.8.4', :require => false
 
