@@ -131,7 +131,7 @@ GEM
       ffi (~> 1.0.9)
       multi_json (~> 1.0.4)
       rubyzip
-    simple_form (1.5.2)
+    simple_form (2.0.0)
       actionpack (~> 3.0)
       activemodel (~> 3.0)
     simplecov (0.6.1)
@@ -181,7 +181,7 @@ DEPENDENCIES
   ruby-prof
   sass
   selenium-webdriver (~> 2.19)
-  simple_form (~> 1.5)
+  simple_form (~> 2.0)
   simplecov
   test-unit
   thin
