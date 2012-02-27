@@ -9,7 +9,7 @@
 
 = render 'admin/shortcuts' if current_user.admin?
 
-= simple_form_for @image do |form|
+= simple_form_for @image, html: {class: 'image'} do |form|
 
   - if @image.errors.any?
     %ul.errors
@@ -20,36 +20,36 @@
     = form.input :code
     = form.input :title
 
-  %p= image_tag(jpg_url(@image, true), :class => 'image_pic')
+  %p= image_tag(jpg_url(@image, true), class: 'image_pic')
 
   %table
     %tr
-      %td.observation_search{:colspan => 2}
-        = simple_form_for observ_search, :url => observations_path do |form2|
-          = form2.input :observ_date_eq, :label => 'Date:',
-              :input_html => {:class => 'short', :maxlength => 10, :type => 'date'}
-          = form2.input :locus_id_eq, :label => 'Location:', :collection => Locus.list_order,
-              :label_method => :name_en, :input_html => {:class => 'suggest-combo'}
-          = form2.input :species_id_eq, :label => 'Species:', :collection => species_for_select,
-              :label_method => :name_sci, :input_html => {:class => 'suggest-combo'}
-          %button{:class => 'search_btn', :type => 'button'} Search
+      %td.observation_search{colspan: 2}
+        = simple_form_for observ_search, url: observations_path do |form2|
+          = form2.input :observ_date_eq, label: 'Date:',
+              input_html: {class: 'short', maxlength: 10, type: 'date'}
+          = form2.input :locus_id_eq, label: 'Location:', collection: Locus.list_order,
+              label_method: :name_en, input_html: {class: 'suggest-combo'}
+          = form2.input :species_id_eq, label: 'Species:', collection: species_for_select,
+              label_method: :name_sci, input_html: {class: 'suggest-combo'}
+          %button{class: 'search_btn', type: 'button'} Search
     %tr
       %td.observation_list
         %h5 Current observations
         = link_to('Restore original',
-            search_observations_path(:image_id => @image.id),
-                :remote => true, :class => 'restore pseudolink') unless @image.new_record?
+            search_observations_path(image_id: @image.id),
+                remote: true, class: 'restore pseudolink') unless @image.new_record?
         %ul.obs-list.current-obs
-          = render :partial => 'observations/obs_item', :collection => @image.observations
+          = render partial: 'observations/obs_item', collection: @image.observations
       %td.observation_options
         %h5 Found observations
         %ul.obs-list.found-obs
 
   %div
     = form.input :description
-    = form.input :index_num, :input_html => { :size => 10, :type => :text }
+    = form.input :index_num, input_html: { size: 10, type: :text }
   .buttons
     = default_submit_button(form)
 
 - if @image.persisted?
-  %p= link_to 'DELETE', @image, :confirm => 'Are you sure?', :method => :delete
+  %p= link_to 'DELETE', @image, confirm: 'Are you sure?', method: :delete

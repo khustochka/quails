@@ -1,4 +1,4 @@
-= simple_form_for @comment do |form|
+= simple_form_for @comment, html: {class: 'comment'} do |form|
 
   - if @comment.errors.any?
     #errorExplanation
@@ -7,13 +7,13 @@
         - @comment.errors.full_messages.each do |msg|
           %li= msg  
 
-  = form.input :post_id, :as => :hidden
-  = form.input :parent_id, :as => :hidden
+  = form.input :post_id, as: :hidden
+  = form.input :parent_id, as: :hidden
   = form.input :name
   = form.input :email
   = form.input :url
-  = form.input :text, :label => false
+  = form.input :text, label: false
   - if action_name.in? ['edit', 'update']
-    = form.input :approved, :label => 'Approved'
+    = form.input :approved, label: 'Approved'
   .buttons
     = default_submit_button(form)

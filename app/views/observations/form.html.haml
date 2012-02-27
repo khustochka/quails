@@ -9,11 +9,11 @@
 
 = render 'admin/shortcuts' if current_user.admin?
 
-= simple_form_for @observation do |form|
+= simple_form_for @observation, html: {class: 'observation'} do |form|
   %div
-    = render :partial => 'common', :locals => { :form => form }
+    = render partial: 'common', locals: { form: form }
   
-  = render :partial => @observation
+  = render partial: @observation
   
   .buttons
     = default_submit_button(form)

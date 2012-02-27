@@ -8,21 +8,21 @@
 
 = render 'admin/shortcuts' if current_user.admin?
 
-= simple_form_for @observations.first, :remote => true, :method => :post,
-        :html => {'data-action' => bulksave_observations_path, :id => 'bulk_observ_form'} do |form|
+= simple_form_for @observations.first, remote: true, method: :post,
+        html: {'data-action' => bulksave_observations_path, id: 'bulk_observ_form', class: 'observation'} do |form|
   %div
-    = render :partial => 'common', :locals => { :form => form }
+    = render partial: 'common', locals: { form: form }
     .to-add-row
       .input.flat
-        %label{:for => 'species-quick-add'} Quick add species:
-        %input{:id => 'species-quick-add', :class => 'string'}
+        %label{for: 'species-quick-add'} Quick add species:
+        %input{id: 'species-quick-add', class: 'string'}
       %span.pseudolink#add-row Add new row
 
-  = render :partial => @observations
+  = render partial: @observations
 
   - if action_name == 'bulk'
-    %script#row_tmpl{:type => 'text/html'}
-      = render :partial => Observation.new, :locals => {:form => form}
+    %script#row_tmpl{type: 'text/html'}
+      = render partial: Observation.new, locals: {form: form}
 
   .buttons
     = default_submit_button(form)
