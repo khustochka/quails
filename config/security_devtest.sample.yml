@@ -8,7 +8,8 @@ development:
   flickr:
     api_key:
     shared_secret:
-    auth_token:
+    access_token:
+    access_secret:
 
 # use plain text password for test environment
 test:
@@ -21,4 +22,5 @@ test:
   flickr:
     api_key:
     shared_secret:
-    auth_token:
+    access_token:
+    access_secret:

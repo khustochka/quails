@@ -9,4 +9,5 @@ production:
   flickr:
     api_key: <%= ENV['flickr_api_key'] %>
     shared_secret: <%= ENV['flickr_secret'] %>
-    auth_token: <%= ENV['flickr_token'] %>
+    access_token: <%= ENV['flickr_token'] %>
+    access_secret: <%= ENV['flickr_auth_secret'] %>

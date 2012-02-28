@@ -3,7 +3,7 @@ class FlickrController < ApplicationController
   administrative
 
   before_filter :except => :auth do
-    redirect_to :action => :auth if FlickRawOptions['auth_token'].blank?
+    redirect_to :action => :auth if flickr.access_token.blank?
   end
 
   def search
@@ -24,15 +24,18 @@ class FlickrController < ApplicationController
   end
 
   def auth
-    @auth_token = FlickRawOptions['auth_token']
+    @auth_token = flickr.access_token
+    @auth_secret = flickr.access_secret
     if @auth_token.blank?
-      if $frob
-        @auth_token = flickr.auth.getToken(:frob => $frob).token
-        FlickRawOptions['auth_token'] = @auth_token
-        $frob = nil
-      else
-        $frob = flickr.auth.getFrob
-        @auth_url = FlickRaw.auth_url :frob => $frob, :perms => 'read'
+      if params[:oauth_verifier]
+        flickr.get_access_token($token['oauth_token'], $token['oauth_token_secret'], params[:oauth_verifier])
+        flickr.test.login
+        @auth_token = flickr.access_token
+        @auth_secret = flickr.access_secret
+        $token = nil
+      elsif !$token
+        $token = flickr.get_request_token
+        @auth_url = flickr.get_authorize_url($token['oauth_token'])
       end
     end
   end

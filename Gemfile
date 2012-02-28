@@ -20,7 +20,8 @@ gem 'ransack', '~> 0.6'
 gem 'rails_autolink'
 gem 'simple_form', '~> 2.0'
 gem 'hashie'
-gem 'flickraw', '0.8.4', :require => false
+gem 'flickraw', '~> 0.9.5', :require => false
+gem 'flickraw-cached'
 
 group :development do
   gem 'rails3-generators'

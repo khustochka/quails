@@ -52,8 +52,9 @@ GEM
       factory_girl (~> 2.6.0)
       railties (>= 3.0.0)
     ffi (1.0.11)
-    flickraw (0.8.4)
-      json (>= 1.1.1)
+    flickraw (0.9.5)
+    flickraw-cached (20110920)
+      flickraw (>= 0.9)
     grit (2.4.1)
       diff-lcs (~> 1.1)
       mime-types (~> 1.15)
@@ -164,7 +165,8 @@ DEPENDENCIES
   RedCloth
   capybara
   factory_girl_rails
-  flickraw (= 0.8.4)
+  flickraw (~> 0.9.5)
+  flickraw-cached
   grit
   haml-rails
   hashie
