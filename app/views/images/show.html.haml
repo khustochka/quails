@@ -6,7 +6,7 @@
 
 = render 'admin/shortcuts' if current_user.admin?
 
-%p= image_tag(jpg_url(@image, false))
+%p= image_tag(jpg_url(@image))
 %p
   %i= @image.species.map(&:name_sci) * ', '
 

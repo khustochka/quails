@@ -20,7 +20,7 @@
     = form.input :code
     = form.input :title
 
-  %p= image_tag(jpg_url(@image, true), class: 'image_pic')
+  %p= image_tag(thumbnail_url(@image), class: 'image_pic')
 
   %table
     %tr

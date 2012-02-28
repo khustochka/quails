@@ -13,5 +13,5 @@
   %h3= link_to image_title(img), public_image_path(img)
   %p
     %i= img.species.map(&:name_sci) * ', '
-  %p= image_tag(jpg_url(img, false))
+  %p= image_tag(jpg_url(img))
   %p= post_link([l(img.observ_date, :format => :long), img.locus.name_en] * ', ', img.post, true)

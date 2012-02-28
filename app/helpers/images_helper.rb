@@ -1,7 +1,11 @@
 module ImagesHelper
 
-  def jpg_url(img, thumbnail = false)
-    "#{IMAGES_HOST}/aves/photos/#{'tn_' if thumbnail}#{img.code}.jpg"
+  def jpg_url(img)
+    "#{IMAGES_HOST}/aves/photos/#{img.code}.jpg"
+  end
+
+  def thumbnail_url(img)
+    "#{IMAGES_HOST}/aves/photos/tn_#{img.code}.jpg"
   end
 
   def image_title(image)
