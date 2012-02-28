@@ -1,6 +1,6 @@
 - stylesheet 'forms', 'jquery-ui'
 - use_jquery
-- javascript JQ_UI_FILE, 'suggest_over_combo', 'images'
+- javascript JQ_UI_FILE, 'suggest_over_combo', 'images', 'flickr'
 
 - @page_title = '%s image' % (@image.persisted? ? 'Edit' : 'New')
 - observ_search = @image.search_applicable_observations
@@ -32,7 +32,7 @@
               label_method: :name_en, input_html: {class: 'suggest-combo'}
           = form2.input :species_id_eq, label: 'Species:', collection: species_for_select,
               label_method: :name_sci, input_html: {class: 'suggest-combo'}
-          %button{class: 'search_btn', type: 'button'} Search
+          %button.obs_search_btn{type: 'button'} Search
     %tr
       %td.observation_list
         %h5 Current observations
@@ -44,6 +44,22 @@
       %td.observation_options
         %h5 Found observations
         %ul.obs-list.found-obs
+
+  %h3 Flickr
+  %table
+    %tr
+      %td
+        = form.input :flickr_size, as: :select,
+              collection: ImagesHelper::FLICKR_SIZES, input_html: {size: '8'}, include_blank: false
+        = form.input :flickr_id, as: :hidden
+      %td.flickr_search
+        %div.input.string
+          %label.string Text:
+          %input.string#flickr_text{name: 'flickr_text', type: 'text'}
+        %div.input.string
+          %label.string Date:
+          %input.string.short#flickr_date{name: 'flickr_date', maxlength: '10', type: 'date'}
+        %button.flickr_search_btn{type: 'button'} Search
 
   %div
     = form.input :description

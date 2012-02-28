@@ -1,5 +1,7 @@
 class ImagesController < ApplicationController
 
+  respond_to :json, :only => [:flickr_search]
+
   administrative :except => [:photostream, :show]
 
   add_finder_by :code, :only => [:show, :edit, :update, :destroy]
@@ -47,7 +49,7 @@ class ImagesController < ApplicationController
   # PUT /images/1
   def update
     @extra_params = @image.to_url_params
-    
+
     if @image.update_with_observations(params[:image], params[:obs])
       redirect_to(public_image_path(@image), :notice => 'Image was successfully updated.')
     else
@@ -59,5 +61,23 @@ class ImagesController < ApplicationController
   def destroy
     @image.destroy
     redirect_to(images_url)
-  end  
+  end
+
+  # GET /flickr_search
+  def flickr_search
+    date_param = params[:flickr_date]
+    dates_params = date_param.present? ?
+        {min_taken_date: date_param - 1, max_taken_date: date_param + 1} :
+        {}
+    result =
+        params[:flickr_text].blank? ?
+            [] :
+            flickr.photos.search(
+                {user_id: '8289389@N04',
+                 extras: 'date_taken,url_s',
+                 text: params[:flickr_text]}.merge(dates_params)
+            ).map(&:to_hash)
+
+    respond_with( result, only: %w(title datetaken url_s) )
+  end
 end

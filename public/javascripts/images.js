@@ -80,7 +80,7 @@ $(function() {
     });
 
     // Search button click
-    $('.search_btn').click(searchForObservations);
+    $('.obs_search_btn').click(searchForObservations);
 
     // Onchange works bad on text input and doesn't work on autosuggest
     // $("input#q_observ_date_eq, select#q_locus_id_eq, select#q_species_id_eq").bind('change', searchForObservations);
@@ -121,6 +121,7 @@ $(function() {
 
     $('form.image').submit(function() {
         $('.observation_search').empty();
+        $('.flickr_search').empty();
         found_obs.empty();
     });
 
