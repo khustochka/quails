@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111223133551) do
+ActiveRecord::Schema.define(:version => 20120228132713) do
 
   create_table "comments", :force => true do |t|
     t.integer  "post_id"
@@ -35,6 +35,9 @@ ActiveRecord::Schema.define(:version => 20111223133551) do
     t.integer  "index_num"
     t.datetime "created_at"
     t.integer  "spot_id"
+    t.string   "flickr_id",   :limit => 64
+    t.text     "flickr_data"
+    t.string   "flickr_size", :limit => 1
   end
 
   add_index "images", ["code"], :name => "index_images_on_code"

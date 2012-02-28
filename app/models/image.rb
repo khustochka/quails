@@ -7,6 +7,8 @@ class Image < ActiveRecord::Base
 
   delegate :observ_date, :post, :locus, :to => :first_observation
 
+  serialize :flickr_data
+
   # Parameters
 
   def to_param
