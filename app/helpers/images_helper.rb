@@ -1,11 +1,13 @@
 module ImagesHelper
 
   def jpg_url(img)
-    "#{IMAGES_HOST}/aves/photos/#{img.code}.jpg"
+    (img.flickr_size && img.flickr_data[img.flickr_size]) ||
+        "#{IMAGES_HOST}/aves/photos/#{img.code}.jpg"
   end
 
   def thumbnail_url(img)
-    "#{IMAGES_HOST}/aves/photos/tn_#{img.code}.jpg"
+    (img.flickr_size && img.flickr_data['t']) ||
+        "#{IMAGES_HOST}/aves/photos/tn_#{img.code}.jpg"
   end
 
   def image_title(image)
