@@ -1,42 +1,20 @@
-- @page_title = "#{@species.name_sci} / #{@species.name}"
+- @page_title = "#{@species.name} (#{@species.name_sci})"
 
-%h1= name_sci(@species)
+%p
+  Order
+  %b= @species.order
+  \/ Family
+  %b= @species.family
+
+%h1= @species.name
+%h2= @species.name_sci
+
+%p= @species.authority
+
+%p
+  = %w(en fr ru uk).map {|lang| "<b>#{lang} name:</b> #{@species.send("name_#{lang}".intern)}"}.join('; ').html_safe
 
 = render 'admin/shortcuts' if current_user.admin?
-
-%p
-  %b Code:
-  = @species.code
-%p
-  %b Authority:
-  = @species.authority
-%p
-  %b Protonym:
-  = @species.protonym
-%p
-  %b English name:
-  = @species.name_en
-%p
-  %b French name:
-  = @species.name_fr
-%p
-  %b Russian name:
-  = @species.name_ru
-%p
-  %b Ukrainian name:
-  = @species.name_uk
-%p
-  %b Index number:
-  = @species.index_num
-%p
-  %b Order:
-  = @species.order
-%p
-  %b Family:
-  = @species.family
-%p
-  %b Avibase ID:
-  = link_to @species.avibase_id, avibase_species_url(@species.avibase_id)
 
 - images = @species.images.all
 - unless images.empty?
