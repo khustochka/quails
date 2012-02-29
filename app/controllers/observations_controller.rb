@@ -34,7 +34,9 @@ class ObservationsController < ApplicationController
         if params[:image_id]
           Image.find_by_id(params[:image_id]).observations.preload(:locus, :species)
         else
-          Observation.search(params[:q]).result.preload(:locus, :species).limit(5)
+          params[:q] && params[:q].values.uniq != [''] ?
+              Observation.search(params[:q]).result.preload(:locus, :species).limit(params[:limit]) :
+              []
         end
     respond_with(observs, :only => :id, :methods => [:species_str, :when_where_str])
   end

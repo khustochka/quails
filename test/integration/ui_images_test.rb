@@ -68,7 +68,6 @@ class UIImagesTest < ActionDispatch::IntegrationTest
     fill_in('Title', with: 'Capybara test image')
     
     within('.observation_search') do
-      fill_in('Date', with: '')
       click_button 'Search'
     end
         

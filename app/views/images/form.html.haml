@@ -32,6 +32,7 @@
               label_method: :name_en, input_html: {class: 'suggest-combo'}
           = form2.input :species_id_eq, label: 'Species:', collection: species_for_select,
               label_method: :name_sci, input_html: {class: 'suggest-combo'}
+          %input#obs_limit{type: 'hidden', name: 'limit', value: 5}
           %button.obs_search_btn{type: 'button'} Search
     %tr
       %td.observation_list

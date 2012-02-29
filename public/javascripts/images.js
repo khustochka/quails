@@ -19,7 +19,7 @@ $(function () {
     function searchForObservations() {
         found_obs.empty();
         $('.observation_options').addClass('loading');
-        var data = $("input#q_observ_date_eq, select#q_locus_id_eq, select#q_species_id_eq").serializeArray();
+        var data = $("input#q_observ_date_eq, select#q_locus_id_eq, select#q_species_id_eq, input#obs_limit").serializeArray();
         $.get("/observations/search", data, function (data) {
             $('.observation_options').removeClass('loading');
             buildObservations(data, found_obs, true);
