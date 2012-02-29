@@ -52,10 +52,10 @@ SimpleForm.setup do |config|
   # Defaults to :nested for bootstrap config.
   #   :inline => input + label
   #   :nested => label > input
-  config.boolean_style = :nested
+  # config.boolean_style = :nested
 
   # Default class for buttons
-  config.button_class = 'btn'
+  # config.button_class = 'btn'
 
   # Method used to tidy up errors.
   # config.error_method = :first
