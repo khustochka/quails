@@ -46,7 +46,8 @@ class BulkObservationsTest < ActionController::TestCase
                               observ_date: '', mine: true},
                        o: [{species_id: 2, biotope: 'city'},
                               {species_id: 4, biotope: 'city'},
-                              {species_id: 6, biotope: 'city'}]
+                              {species_id: 6, biotope: 'city'}],
+                       hl: 'en'
       }
     end
     assert_response :unprocessable_entity
@@ -60,7 +61,8 @@ class BulkObservationsTest < ActionController::TestCase
     assert_difference('Observation.count', 0) do
       post :bulksave, {format: :json,
                         c: {locus_id: '',
-                              observ_date: '', mine: true}
+                              observ_date: '', mine: true},
+          hl: 'en'
       }
     end
     assert_response :unprocessable_entity
@@ -77,7 +79,8 @@ class BulkObservationsTest < ActionController::TestCase
       post :bulksave, {format: :json,
                         c: {locus_id: seed(:brovary).id,
                               observ_date: '2010-05-05', mine: true},
-                       o: [{species_id: '', biotope: 'city'}]
+                       o: [{species_id: '', biotope: 'city'}],
+                       hl: 'en'
       }
     end
     assert_response :unprocessable_entity
@@ -92,7 +95,8 @@ class BulkObservationsTest < ActionController::TestCase
       post :bulksave, {format: :json,
                         c: {locus_id: seed(:brovary).id,
                               observ_date: '2010-05-05', mine: true},
-                       o: [{species_id: '', biotope: 'city'}, {species_id: 2, biotope: 'city'}]
+                       o: [{species_id: '', biotope: 'city'}, {species_id: 2, biotope: 'city'}],
+                       hl: 'en'
       }
     end
     assert_response :unprocessable_entity
