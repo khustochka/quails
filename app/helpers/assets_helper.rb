@@ -10,7 +10,6 @@ module AssetsHelper
   end
 
   def use_gmap
-    use_jquery
     javascript(
         'http://maps.google.com/maps/api/js?sensor=false',
         'gmap3.min',
