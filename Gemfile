@@ -41,7 +41,7 @@ group :test do
   gem 'ruby-prof', :require => false
   gem 'factory_girl_rails'
   gem 'capybara'
-  gem 'selenium-webdriver', '~> 2.19'
+  gem 'selenium-webdriver', '~> 2.20'
   gem 'rspec-expectations', :require => false # No need to require on startup b/c TestUnitTestCase doesn't exist then
   gem 'launchy' # So you can do Then show me the page
   gem 'simplecov', :require => false
