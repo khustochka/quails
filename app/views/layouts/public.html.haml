@@ -17,6 +17,8 @@
     -# csfr meta
     = csrf_meta_tags if @jquery
 
+    -# rel canonical, self, alternate etc
+
     -# rss feeds
     - if @feed
       = auto_discovery_link_tag(:atom, {:controller => :feeds, :action => @feed, :format => :xml})
