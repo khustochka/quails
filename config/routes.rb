@@ -64,9 +64,8 @@ Quails3::Application.routes.draw do
   resources :loci
   resources :species, only: [:edit, :update]
   resources :images, except: :show do
-    collection do
-      get 'flickr_search'
-    end
+    get 'observations', on: :member
+    get 'flickr_search', on: :collection
   end
   resources :comments, except: :new do
     get :reply, on: :member

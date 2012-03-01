@@ -38,7 +38,7 @@
       %td.observation_list
         %h5 Current observations
         = link_to('Restore original',
-            search_observations_path(image_id: @image.id),
+            observations_image_path(id: @image.id),
                 remote: true, class: 'restore pseudolink') unless @image.new_record?
         %ul.obs-list.current-obs
           = render partial: 'observations/obs_item', collection: @image.observations

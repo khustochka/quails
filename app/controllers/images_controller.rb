@@ -1,6 +1,6 @@
 class ImagesController < ApplicationController
 
-  respond_to :json, :only => [:flickr_search]
+  respond_to :json, :only => [:flickr_search, :observations]
 
   administrative :except => [:photostream, :show]
 
@@ -61,6 +61,12 @@ class ImagesController < ApplicationController
   def destroy
     @image.destroy
     redirect_to(images_url)
+  end
+
+  # GET /observations
+  def observations
+    observs = Image.find_by_id(params[:id]).observations.preload(:locus, :species)
+    respond_with(observs, :only => :id, :methods => [:species_str, :when_where_str])
   end
 
   # GET /flickr_search
