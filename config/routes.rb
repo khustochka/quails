@@ -51,6 +51,7 @@ Quails3::Application.routes.draw do
   get 'map' => 'map#show'
   get 'map/edit' => 'map#edit'
   get 'map/spots' => 'map#spots'
+  get 'map/search' => 'map#search'
 
 # scope 'admin' do
   resources :observations do

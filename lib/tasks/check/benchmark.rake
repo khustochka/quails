@@ -6,17 +6,19 @@ namespace :check do
     require 'benchmark'
 
 
-    @search = Observation.search(nil)
+    @query = {observ_date_eq: '2010-07-24'}
 
     n = 500
     Benchmark.bmbm do |x|
 
-      x.report('includes') { n.times {
-        @search.result.order('species.index_num').includes(:locus, :post, :species).page(10).all
+      x.report('preload+inject') { n.times {
+        Observation.search(@query).result.preload(:spots).inject([]) do |memo, ob|
+          memo + ob.spots
+        end
       } }
 
-      x.report('preload') { n.times {
-        @search.result.order('species.index_num').preload(:locus, :post).includes(:species).page(10).all
+      x.report('join+select') { n.times {
+        Observation.search(@query).result.joins(:spots).select('lat, lng').all
       } }
 
     end

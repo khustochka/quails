@@ -17,6 +17,17 @@ $(function () {
             //$('.observation_options').removeClass('loading');
             buildObservations(data);
         });
+        $.get("/map/search", data, function (data) {
+            marks = data;
+            $('#googleMap').gmap3(
+                { action:'clear'
+                },
+                { action:'addMarkers',
+                    markers:marks
+                }
+            );
+        });
+        return false; // Prevent submission
     }
 
     function buildObservations(data) {
@@ -33,9 +44,6 @@ $(function () {
 
     $(window).resize(adjustSizes);
 
-    $('form.search').submit(function () {
-        searchForObservations();
-        return false; // Prevent submission
-    });
+    $('form.search').submit(searchForObservations);
 
 });
