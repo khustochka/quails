@@ -21,12 +21,11 @@ $(function () {
 
     function buildObservations(data) {
         $(data).each(function () {
-            $("<li>")
-                .append($('<span>').append(
+            $("<li>").append(
                 $('<div>').html(this.species_str),
-                $('<div>').html(this.when_where_str))
+                $('<div>').html(this.when_where_str)
             )
-            .appendTo($('ul.obs-list'));
+                .appendTo($('ul.obs-list'));
         });
     }
 

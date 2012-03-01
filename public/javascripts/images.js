@@ -32,12 +32,10 @@ $(function () {
             var hiddenField = $("<input type='hidden' name='obs[]'>").val(this.id),
                 removeIcon = $("<span class='remove'>").html($("<img>").attr('src', '/images/x_14x14.png'));
             $("<li>", newObs ? { "class":'new-obs'} : null)
-                .append(hiddenField)
-                .append($('<span>').append(
+                .append(hiddenField, removeIcon,
                 $('<div>').html(this.species_str),
-                $('<div>').html(this.when_where_str))
+                $('<div>').html(this.when_where_str)
             )
-                .append(removeIcon)
                 .appendTo($(ulSelector));
         });
     }
