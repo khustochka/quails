@@ -12,11 +12,6 @@ class MapController < ApplicationController
   # GET "/map/edit"
   def edit
     @search = Observation.search(params[:q])
-    #@observations = if params[:q] && params[:q].values.uniq != ['']
-    #                  @search.result.preload(:locus, :species)
-    #                else
-    #                  []
-    #                end
   end
 
   # GET "/map/spots.json"

@@ -3,7 +3,7 @@ $(function () {
     function adjustSizes() {
         var clientHeight = $(window).height(),
             upper = $('#header').outerHeight(true) + $('#new_q').outerHeight();
-        $('ul.obs-list').height(clientHeight - upper - 1);
+        $('ul.obs-list').height(clientHeight - upper - 2);
         $('div#googleMap').height(clientHeight - upper);
         $('div#googleMap').width($(window).width() - 381);
     }
