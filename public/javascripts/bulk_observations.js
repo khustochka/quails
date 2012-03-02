@@ -45,7 +45,7 @@ $(function () {
         $(".errors").remove();
     });
 
-    form.bind('ajax:success', function (e, data) {
+    form.on('ajax:success', function (e, data) {
         $(".obs-row").each(function (index) {
             var val = data[index];
             $('input#observation_id', $(this)).val(val.id);
@@ -53,7 +53,7 @@ $(function () {
         });
     });
 
-    form.bind('ajax:error', function (event, xhr, status) {
+    form.on('ajax:error', function (event, xhr, status) {
         var errors = $.parseJSON(xhr.responseText).errors,
             err_list = $("<ul>", {'class':'errors'}).prependTo("form#bulk_observ_form");
         $.each(errors, function (i, val) {

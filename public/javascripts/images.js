@@ -61,12 +61,12 @@ $(function () {
         refreshObservList();
     });
 
-    $('.restore').click(function () {
+    $('.restore').on('ajax:beforeSend', function () {
         current_obs.empty();
         $('.observation_list').addClass('loading');
     });
 
-    $('.restore').bind('ajax:success', function (xhr, data, status) {
+    $('.restore').on('ajax:success', function (xhr, data, status) {
         $('.observation_list').removeClass('loading');
         buildObservations(data, current_obs, false);
         refreshObservList();

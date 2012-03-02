@@ -39,15 +39,15 @@ $(function () {
     var form = $('form.search');
 
     /* Make form remote */
-    form.data('remote', true);
     form.attr('action', "/observations/search");
+    form.data('remote', true);
 
     form.on('ajax:beforeSend', function () {
         $('ul.obs-list').empty();
         //$('.observation_options').addClass('loading');
     });
 
-    form.bind('ajax:success', function (e, data) {
+    form.on('ajax:success', function (e, data) {
         buildObservations(data);
         searchForSpots();
     });
