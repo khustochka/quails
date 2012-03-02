@@ -8,15 +8,8 @@ $(function () {
         $('div#googleMap').width($(window).width() - 381);
     }
 
-    function searchForObservations() {
-        $('ul.obs-list').empty();
-        //$('.observation_options').addClass('loading');
-        var data = $("input#q_observ_date_eq, select#q_locus_id_eq, select#q_species_id_eq," +
-            "input#q_mine_eq_, input#q_mine_eq_true, input#q_mine_eq_false").serializeArray();
-        $.get("/observations/search", data, function (data) {
-            //$('.observation_options').removeClass('loading');
-            buildObservations(data);
-        });
+    function searchForSpots() {
+        data = form.serializeArray();
         $.get("/map/search", data, function (data) {
             marks = data;
             $('#googleMap').gmap3(
@@ -27,7 +20,6 @@ $(function () {
                 }
             );
         });
-        return false; // Prevent submission
     }
 
     function buildObservations(data) {
@@ -36,7 +28,7 @@ $(function () {
                 $('<div>').html(this.species_str),
                 $('<div>').html(this.when_where_str)
             )
-                .appendTo($('ul.obs-list'));
+            .appendTo($('ul.obs-list'));
         });
     }
 
@@ -44,6 +36,20 @@ $(function () {
 
     $(window).resize(adjustSizes);
 
-    $('form.search').submit(searchForObservations);
+    var form = $('form.search');
+
+    /* Make form remote */
+    form.data('remote', true);
+    form.attr('action', "/observations/search");
+
+    form.on('ajax:beforeSend', function () {
+        $('ul.obs-list').empty();
+        //$('.observation_options').addClass('loading');
+    });
+
+    form.bind('ajax:success', function (e, data) {
+        buildObservations(data);
+        searchForSpots();
+    });
 
 });
