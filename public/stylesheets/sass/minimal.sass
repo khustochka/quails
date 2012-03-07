@@ -1,4 +1,4 @@
-@import '_reset', '_text'
+@import '_mixins', '_reset', '_text'
 
 #header
   background-color: #D0E0FF
@@ -8,10 +8,7 @@
 #header ul
   margin-left: 10px
   margin-bottom: 0
-  display: inline-block
-  // IE inline-block fix
-  zoom: 1
-  *display: inline
+  @include inline-block
 
 #site_cap
   display: inline-block
@@ -29,10 +26,7 @@
 ul.horiz-list
   list-style-type: none
   li
-    display: inline-block
-    // IE inline-block fix
-    zoom: 1
-    *display: inline
+    @include inline-block
 
 footer
   display: none

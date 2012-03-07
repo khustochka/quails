@@ -1,3 +1,5 @@
+@import '_mixins'
+
 body
   background-color: #ffffff
   color: #333333
@@ -24,20 +26,13 @@ a.remove, a.destroy, a.remove:hover, a.destroy:hover
 
 // Reusable
 
-@mixin default-margin
-  margin-left: 10px
-  margin-right: 10px
-
 .default-container
   @include default-margin
 
 ul.horiz-list
   list-style-type: none
   li
-    display: inline-block
-    // IE inline-block fix
-    zoom: 1
-    *display: inline
+    @include inline-block
 
 .filter-list
   li
@@ -135,10 +130,8 @@ a#site_cap:hover
 #header ul
   margin-left: 10px
   margin-bottom: 0
-  display: inline-block
-  // IE inline-block fix
-  zoom: 1
-  *display: inline
+  @include inline-block
+  vertical-align: bottom
 
 #site_menu, .admin_menu
   li

@@ -1,4 +1,4 @@
-@import 'formalize.css'
+@import '_mixins', 'formalize.css'
 
 label
   display: block
@@ -17,14 +17,14 @@ form.search
   border: 1px solid #4444aa
   background-color: #dde4ff
   .buttons
-    display: inline-block
+    @include inline-block
     margin-top: 15px
     .button
       width: 95px
       height: 30px
 
 div.input
-  display: inline-block
+  @include inline-block
   vertical-align: top
   margin-left: 10px
   margin-bottom: 10px
@@ -127,7 +127,7 @@ form.observation
   // Refactor?
   div.obs-row
     margin-bottom: 3px
-    display: inline-block
+    @include inline-block
   div.obs-row.save-success
     background-color: #ccffcc
   div.obs-row.save-fail
@@ -145,7 +145,7 @@ form.image
       height: 268px
       vertical-align: top
       h5, a.restore
-        display: inline-block
+        @include inline-block
       a.restore
         float: right
         margin-top: 3px
