@@ -48,7 +48,8 @@ $(function () {
 //    }
 
     function insertNewObservation(newObs) {
-        newObs.draggable("destroy").attr('style', '').appendTo(current_obs);
+        //newObs.draggable("destroy");
+        newObs.attr('style', '').appendTo(current_obs);
         refreshObservList();
     }
 
