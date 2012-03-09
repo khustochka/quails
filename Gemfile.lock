@@ -1,3 +1,12 @@
+GIT
+  remote: git://github.com/mojombo/grit.git
+  revision: 3fc864f3c637e06e2fa7a81f6b48a5df58a9bc5b
+  specs:
+    grit (2.4.1)
+      diff-lcs (~> 1.1)
+      mime-types (~> 1.15)
+      posix-spawn (~> 0.3.6)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -55,9 +64,6 @@ GEM
     flickraw (0.9.5)
     flickraw-cached (20110920)
       flickraw (>= 0.9)
-    grit (2.4.1)
-      diff-lcs (~> 1.1)
-      mime-types (~> 1.15)
     haml (3.1.4)
     haml-rails (0.3.4)
       actionpack (~> 3.0)
@@ -89,6 +95,7 @@ GEM
     polyamorous (0.5.0)
       activerecord (~> 3.0)
     polyglot (0.3.3)
+    posix-spawn (0.3.6)
     rack (1.4.1)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -167,7 +174,7 @@ DEPENDENCIES
   factory_girl_rails
   flickraw (~> 0.9.5)
   flickraw-cached
-  grit
+  grit!
   haml-rails
   hashie
   kaminari

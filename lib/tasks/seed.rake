@@ -4,7 +4,7 @@ namespace :seed do
   desc 'Backup the seed'
   task :backup => :environment do
 
-    require 'grit'
+    require 'tasks/grit_init'
     require 'bunch_db/table'
 
     tables = %w(species loci)
@@ -40,7 +40,7 @@ namespace :seed do
   desc 'Update the repo and load the seed (removing other data)'
   task :load => :environment do
 
-    require 'grit'
+    require 'tasks/grit_init'
 
     local_opts = YAML.load_file('config/local.yml')
     folder = local_opts['repo']

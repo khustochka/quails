@@ -7,7 +7,7 @@ namespace :legacy do
   desc 'Download legacy DB dump, and push it to remote repo'
   task :fetch => :environment do
 
-    require 'grit'
+    require 'tasks/grit_init'
 
     local_opts = YAML.load_file('config/local.yml')
     folder = local_opts['repo']
@@ -37,7 +37,7 @@ namespace :legacy do
   desc 'Restore legacy DB dump into local DB'
   task :restore => :environment do
 
-    require 'grit'
+    require 'tasks/grit_init'
     require 'bunch_db/table'
 
     local_opts = YAML.load_file('config/local.yml')

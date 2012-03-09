@@ -37,7 +37,7 @@ namespace :legacy do
       spots = Legacy::Models::Spot.all
     else
       if source.nil?
-        #require 'grit'
+        #require 'tasks/grit_init'
         folder = local_opts['repo']
 
         #repo = Grit::Repo.new(folder)
