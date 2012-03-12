@@ -48,11 +48,6 @@ Quails3::Application.routes.draw do
 
 # ADMINISTRATIVE PAGES
 
-  get 'map' => 'map#show'
-  get 'map/edit' => 'map#edit'
-  get 'map/spots' => 'map#spots'
-  get 'map/search' => 'map#search'
-
 # scope 'admin' do
   resources :observations do
     collection do
@@ -73,12 +68,18 @@ Quails3::Application.routes.draw do
   end
 # end
 
+  get 'map' => 'map#show'
+  get 'map/edit' => 'map#edit'
+  get 'map/spots' => 'map#spots'
+  get 'map/search' => 'map#search'
+  post 'map/savespot' => 'map#savespot'
+
+  get 'research(/:action)', controller: :research, as: :research
+
   get 'login' => 'login#login'
 
   get 'flickr' => 'flickr#search'
   get 'flickr/auth' => 'flickr#auth'
-
-  get 'research(/:action)', controller: :research, as: :research
 
   # LEGACY REDIRECTS
 

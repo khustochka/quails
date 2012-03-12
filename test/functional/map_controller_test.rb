@@ -34,4 +34,15 @@ class MapControllerTest < ActionController::TestCase
     result.size.should == 1
   end
 
+  test 'Create spot' do
+    login_as_admin
+    lambda { post :savespot, spot: {id: ''} }.should change(Spot, :count).by(1)
+  end
+
+  test 'Update spot' do
+    spot = create(:spot)
+    login_as_admin
+    lambda { post :savespot, spot: {id: spot.id} }.should_not change(Spot, :count)
+  end
+
 end

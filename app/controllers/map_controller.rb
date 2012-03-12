@@ -1,6 +1,6 @@
 class MapController < ApplicationController
   respond_to :html, :only => [:index, :edit]
-  respond_to :json, :only => [:spots, :search]
+  respond_to :json, :only => [:spots, :search, :savespot]
 
   administrative :except => [:show]
 
@@ -31,5 +31,12 @@ class MapController < ApplicationController
           []
         end
     respond_with(spots)
+  end
+
+  # POST "/map/spots.json"
+  def savespot
+    spot = Spot.find_or_initialize_by_id(params[:spot][:id])
+    spot.update_attributes!(params[:spot])
+    respond_with spot
   end
 end
