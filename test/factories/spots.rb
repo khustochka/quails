@@ -3,5 +3,8 @@ FactoryGirl.define do
     association :observation
     lat 50.5
     lng 30.6
+    zoom 12
+    exactness 'exact'
+    send(:public, true)
   end
 end

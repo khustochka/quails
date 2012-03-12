@@ -36,7 +36,7 @@ class MapControllerTest < ActionController::TestCase
 
   test 'Create spot' do
     login_as_admin
-    lambda { post :savespot, spot: {id: ''} }.should change(Spot, :count).by(1)
+    lambda { post :savespot, spot: build(:spot).attributes }.should change(Spot, :count).by(1)
   end
 
   test 'Update spot' do
