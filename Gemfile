@@ -39,7 +39,7 @@ end
 group :test do
   gem 'test-unit'
   gem 'ruby-prof', :require => false
-  gem 'factory_girl_rails'
+  gem 'factory_girl_rails', '~> 2.0.0.rc'
   gem 'capybara'
   gem 'selenium-webdriver', '~> 2.20'
   gem 'rspec-expectations', :require => false # No need to require on startup b/c TestUnitTestCase doesn't exist then
