@@ -6,7 +6,7 @@ class UICommentsTest < ActionDispatch::IntegrationTest
   include JavaScriptTestCase
 
   test "Reply to comment (JS form)" do
-    comment = FactoryGirl.create(:comment)
+    comment = create(:comment)
     blogpost = comment.post
     visit show_post_path(blogpost.to_url_params)
     first('.reply a').click

@@ -6,9 +6,9 @@ class UIObservationsTest < ActionDispatch::IntegrationTest
   include CapybaraTestCase
 
   test 'Searching and showing Avis incognita observations' do
-    FactoryGirl.create(:observation, species_id: 0, observ_date: "2010-06-18")
-    FactoryGirl.create(:observation, species_id: 0, observ_date: "2009-06-19")
-    FactoryGirl.create(:observation, species: seed(:spinus), observ_date: "2010-06-18")
+    create(:observation, species_id: 0, observ_date: "2010-06-18")
+    create(:observation, species_id: 0, observ_date: "2009-06-19")
+    create(:observation, species: seed(:spinus), observ_date: "2010-06-18")
     login_as_admin
     visit observations_path
     select('- Avis incognita', from: 'Species')
@@ -19,8 +19,8 @@ class UIObservationsTest < ActionDispatch::IntegrationTest
   end
 
   test 'Searching observations by species works properly' do
-    FactoryGirl.create(:observation, species: seed(:acaflm), observ_date: "2010-06-18")
-    FactoryGirl.create(:observation, species: seed(:spinus), observ_date: "2010-06-18")
+    create(:observation, species: seed(:acaflm), observ_date: "2010-06-18")
+    create(:observation, species: seed(:spinus), observ_date: "2010-06-18")
     login_as_admin
     visit observations_path
     select('Acanthis flammea', from: 'Species')
@@ -30,8 +30,8 @@ class UIObservationsTest < ActionDispatch::IntegrationTest
   end
 
   test 'Searching observations by mine/not mine works properly' do
-    FactoryGirl.create(:observation, species: seed(:acaflm), observ_date: "2010-06-18", mine: false)
-    FactoryGirl.create(:observation, species: seed(:spinus), observ_date: "2010-06-18")
+    create(:observation, species: seed(:acaflm), observ_date: "2010-06-18", mine: false)
+    create(:observation, species: seed(:spinus), observ_date: "2010-06-18")
     login_as_admin
     visit observations_path
     choose('Not mine')

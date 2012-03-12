@@ -16,8 +16,8 @@ class SecureAccessTest < ActionController::TestCase
   end
 
   test 'show hidden posts to admin when he is logged in' do
-    blogpost1 = FactoryGirl.create(:post, face_date: '2007-12-06 13:14:15', code: 'post-one', status: 'PRIV')
-    blogpost2 = FactoryGirl.create(:post, face_date: '2008-11-06 13:14:15', code: 'post-two')
+    blogpost1 = create(:post, face_date: '2007-12-06 13:14:15', code: 'post-one', status: 'PRIV')
+    blogpost2 = create(:post, face_date: '2008-11-06 13:14:15', code: 'post-two')
     login_as_admin
     get :index
     assigns(:posts).select {|p| p.status == 'PRIV'}.should_not be_nil
@@ -32,8 +32,8 @@ class SecureAccessTest < ActionController::TestCase
   end
 
   test 'do not show hidden posts to user' do
-    blogpost1 = FactoryGirl.create(:post, face_date: '2007-12-06 13:14:15', code: 'post-one', status: 'PRIV')
-    blogpost2 = FactoryGirl.create(:post, face_date: '2008-11-06 13:14:15', code: 'post-two')
+    blogpost1 = create(:post, face_date: '2007-12-06 13:14:15', code: 'post-one', status: 'PRIV')
+    blogpost2 = create(:post, face_date: '2008-11-06 13:14:15', code: 'post-two')
     get :index
     assigns(:posts).select {|p| p.status == 'PRIV'}.should be_empty
 

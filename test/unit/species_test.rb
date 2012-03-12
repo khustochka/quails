@@ -42,7 +42,7 @@ class SpeciesTest < ActiveSupport::TestCase
 
   test 'do not destroy species if it has associated observations' do
     sp = seed(:parcae)
-    observation = FactoryGirl.create(:observation, species: sp)
+    observation = create(:observation, species: sp)
     assert_raises(ActiveRecord::DeleteRestrictionError) do
       sp.destroy
     end

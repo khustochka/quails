@@ -3,8 +3,8 @@ require 'test_helper'
 class ImagesAssociationsTest < ActiveSupport::TestCase
 
   setup do
-    @obs = FactoryGirl.create(:observation)
-    @image = FactoryGirl.create(:image, observations: [@obs])
+    @obs = create(:observation)
+    @image = create(:image, observations: [@obs])
   end
 
   test 'properly link images with one species' do
@@ -17,9 +17,9 @@ class ImagesAssociationsTest < ActiveSupport::TestCase
   test 'properly link images with several species' do
     sp1 = seed(:lancol)
     sp2 = seed(:jyntor)
-    obs1 = FactoryGirl.create(:observation, species: sp1, observ_date: "2008-07-01")
-    obs2 = FactoryGirl.create(:observation, species: sp2, observ_date: "2008-07-01")
-    img = FactoryGirl.create(:image, code: 'picture-of-the-shrike-and-the-wryneck', observations: [obs1, obs2])
+    obs1 = create(:observation, species: sp1, observ_date: "2008-07-01")
+    obs2 = create(:observation, species: sp2, observ_date: "2008-07-01")
+    img = create(:image, code: 'picture-of-the-shrike-and-the-wryneck', observations: [obs1, obs2])
 
     assert_equal [img.code], sp1.images.map(&:code)
     assert_equal [img.code], sp2.images.map(&:code)
@@ -27,7 +27,7 @@ class ImagesAssociationsTest < ActiveSupport::TestCase
   end
 
   test 'properly link image and post' do
-    blogpost = FactoryGirl.create(:post, observations: [@obs])
+    blogpost = create(:post, observations: [@obs])
 
     assert_equal [@image.code], blogpost.images.map(&:code)
     assert_equal blogpost.code, @image.post.code

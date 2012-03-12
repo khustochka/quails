@@ -48,8 +48,8 @@ class ObservationBulkTest < ActiveSupport::TestCase
   end
 
   test 'Observations bulk save should update observations if id is specified' do
-    obs1 = FactoryGirl.create(:observation, species: seed(:corfru))
-    obs2 = FactoryGirl.create(:observation, species: seed(:cormon))
+    obs1 = create(:observation, species: seed(:corfru))
+    obs2 = create(:observation, species: seed(:cormon))
     bulk = ObservationBulk.new({c: {locus_id: seed(:kiev).id,
                                        observ_date: '2010-11-11', mine: true},
                                 o: [{id: obs1.id, species_id: seed(:cornix).id},
@@ -63,7 +63,7 @@ class ObservationBulkTest < ActiveSupport::TestCase
   end
 
   test 'Observations bulk save should both save new and update existing' do
-    obs1 = FactoryGirl.create(:observation, species: seed(:cormon))
+    obs1 = create(:observation, species: seed(:cormon))
     bulk = ObservationBulk.new({c: {locus_id: seed(:kiev).id,
                                        observ_date: '2010-11-11', mine: true},
                                 o: [{species_id: seed(:cornix).id, biotope: 'city'},
@@ -77,9 +77,9 @@ class ObservationBulkTest < ActiveSupport::TestCase
   end
 
   test 'Observations bulk save should not save post for invalid bulk' do
-    blog = FactoryGirl.create(:post)
-    obs1 = FactoryGirl.create(:observation, species: seed(:corfru))
-    obs2 = FactoryGirl.create(:observation, species: seed(:cormon))
+    blog = create(:post)
+    obs1 = create(:observation, species: seed(:corfru))
+    obs2 = create(:observation, species: seed(:cormon))
     bulk = ObservationBulk.new({c: {locus_id: seed(:kiev).id,
                                        observ_date: '2010-11-11',
                                        mine: true,
@@ -92,9 +92,9 @@ class ObservationBulkTest < ActiveSupport::TestCase
   end
 
   test 'Observations bulk save should save post for valid bulk' do
-    blog = FactoryGirl.create(:post)
-    obs1 = FactoryGirl.create(:observation, species: seed(:corfru))
-    obs2 = FactoryGirl.create(:observation, species: seed(:cormon))
+    blog = create(:post)
+    obs1 = create(:observation, species: seed(:corfru))
+    obs2 = create(:observation, species: seed(:cormon))
     bulk = ObservationBulk.new({c: {locus_id: seed(:kiev).id,
                                        observ_date: '2010-11-11',
                                        mine: true,

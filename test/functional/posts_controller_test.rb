@@ -11,19 +11,19 @@ class PostsControllerTest < ActionController::TestCase
   test "create post" do
     assert_difference('Post.count') do
       login_as_admin
-      post :create, post: FactoryGirl.build(:post).attributes
+      post :create, post: build(:post).attributes
     end
     assert_redirected_to public_post_path(assigns(:post))
   end
 
   test "show post" do
-    blogpost = FactoryGirl.create(:post)
+    blogpost = create(:post)
     get :show, blogpost.to_url_params
     assert_response :success
   end
 
   test "get edit" do
-    blogpost = FactoryGirl.create(:post)
+    blogpost = create(:post)
     login_as_admin
     get :edit, id: blogpost.to_param
     assert_response :success
@@ -31,7 +31,7 @@ class PostsControllerTest < ActionController::TestCase
   end
 
   test "update post" do
-    blogpost = FactoryGirl.create(:post)
+    blogpost = create(:post)
     blogpost.title = 'Changed title'
     login_as_admin
     put :update, id: blogpost.to_param, post: blogpost.attributes
@@ -39,7 +39,7 @@ class PostsControllerTest < ActionController::TestCase
   end
 
   test "do not update post with invalid attribute" do
-    blogpost = FactoryGirl.create(:post)
+    blogpost = create(:post)
     blogpost.title = ''
     login_as_admin
     put :update, id: blogpost.to_param, post: blogpost.attributes
@@ -47,7 +47,7 @@ class PostsControllerTest < ActionController::TestCase
   end
 
   test "do not update post with invalid code" do
-    blogpost = FactoryGirl.create(:post)
+    blogpost = create(:post)
     blogpost2 = blogpost.dup
     blogpost2.code = ''
     login_as_admin
@@ -57,7 +57,7 @@ class PostsControllerTest < ActionController::TestCase
   end
 
   test "destroy post" do
-    blogpost = FactoryGirl.create(:post)
+    blogpost = create(:post)
     assert_difference('Post.count', -1) do
       login_as_admin
       delete :destroy, id: blogpost.to_param
@@ -66,7 +66,7 @@ class PostsControllerTest < ActionController::TestCase
   end
 
   test "redirect post to correct URL if year and month are incorrect" do
-    blogpost = FactoryGirl.create(:post, face_date: '2007-12-06 13:14:15')
+    blogpost = create(:post, face_date: '2007-12-06 13:14:15')
     get :show, {id: blogpost.code, year: 2010, month: '01'}
     assert_redirected_to public_post_path(blogpost)
     assert_response 301
@@ -80,19 +80,19 @@ class PostsControllerTest < ActionController::TestCase
   end
 
   test 'protect edit with HTTP authentication' do
-    blogpost = FactoryGirl.create(:post)
+    blogpost = create(:post)
     assert_raises(ActionController::RoutingError) { get :edit, id: blogpost.to_param }
     #assert_response 404
   end
 
   test 'protect create with HTTP authentication' do
-    blogpost = FactoryGirl.create(:post)
+    blogpost = create(:post)
     assert_raises(ActionController::RoutingError) { post :create, post: blogpost.attributes }
     #assert_response 404
   end
 
   test 'protect update with HTTP authentication' do
-    blogpost = FactoryGirl.create(:post)
+    blogpost = create(:post)
     blogpost.title = 'Changed title'
     assert_raises(ActionController::RoutingError) do
       put :update, id: blogpost.to_param, post: blogpost.attributes
@@ -101,13 +101,13 @@ class PostsControllerTest < ActionController::TestCase
   end
 
   test 'protect destroy with HTTP authentication' do
-    blogpost = FactoryGirl.create(:post)
+    blogpost = create(:post)
     assert_raises(ActionController::RoutingError) { delete :destroy, id: blogpost.to_param }
     #assert_response 404
   end
 
   test 'proper link options' do
-    blogpost = FactoryGirl.create(:post)
+    blogpost = create(:post)
     public_post_path(blogpost, anchor: 'comments').should == show_post_path(blogpost.to_url_params.merge({anchor: 'comments'}))
   end
 end

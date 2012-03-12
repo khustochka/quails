@@ -2,8 +2,8 @@ require 'test_helper'
 
 class ImagesControllerTest < ActionController::TestCase
   setup do
-    @obs = FactoryGirl.create(:observation)
-    @image = FactoryGirl.create(:image, observations: [@obs])
+    @obs = create(:observation)
+    @image = create(:image, observations: [@obs])
   end
 
   test "get index" do
@@ -45,8 +45,8 @@ class ImagesControllerTest < ActionController::TestCase
 
   test "create image with several observations" do
     login_as_admin
-    obs2 = FactoryGirl.create(:observation, species: seed(:lancol))
-    obs3 = FactoryGirl.create(:observation, species: seed(:jyntor))
+    obs2 = create(:observation, species: seed(:lancol))
+    obs3 = create(:observation, species: seed(:jyntor))
     new_attr = @image.attributes.dup
     new_attr['code'] = 'new_img_code'
     assert_difference('Image.count') do
@@ -86,8 +86,8 @@ class ImagesControllerTest < ActionController::TestCase
 
   # TODO: all 'incognita' should be records in the DB (like Passer sp.)
   test 'Image page can be shown for Avis incognita photo as well' do
-    observation = FactoryGirl.create(:observation, species_id: 0)
-    img = FactoryGirl.create(:image, code: 'picture-of-the-unknown', observations: [observation])
+    observation = create(:observation, species_id: 0)
+    img = create(:image, code: 'picture-of-the-unknown', observations: [observation])
     get :show, img.to_url_params
   end
 end

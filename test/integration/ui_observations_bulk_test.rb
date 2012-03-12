@@ -68,7 +68,7 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
   end
 
   test "Adding observations for the post" do
-    blogpost = FactoryGirl.create(:post)
+    blogpost = create(:post)
     login_as_admin
 
     visit show_post_path(blogpost.to_url_params)
@@ -99,7 +99,7 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
   end
 
   test "Start adding observations for post but then uncheck it" do
-    blogpost = FactoryGirl.create(:post)
+    blogpost = create(:post)
     login_as_admin
 
     visit show_post_path(blogpost.to_url_params)
@@ -125,7 +125,7 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
   end
 
   test "Add observations for post, then save unlinked" do
-    blogpost = FactoryGirl.create(:post)
+    blogpost = create(:post)
     login_as_admin
 
     visit show_post_path(blogpost.to_url_params)
@@ -193,8 +193,8 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
   end
 
   test "Bulk edit page" do
-    FactoryGirl.create(:observation, species: seed(:melgal), observ_date: "2010-06-18")
-    FactoryGirl.create(:observation, species: seed(:anapla), observ_date: "2010-06-18")
+    create(:observation, species: seed(:melgal), observ_date: "2010-06-18")
+    create(:observation, species: seed(:anapla), observ_date: "2010-06-18")
     login_as_admin
     visit bulk_observations_path(observ_date: "2010-06-18", locus_id: seed(:brovary).id, mine: true)
 
@@ -206,8 +206,8 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
   end
 
   test "Bulk edit functionality" do
-    FactoryGirl.create(:observation, species: seed(:melgal), observ_date: "2010-06-18")
-    FactoryGirl.create(:observation, species: seed(:anapla), observ_date: "2010-06-18")
+    create(:observation, species: seed(:melgal), observ_date: "2010-06-18")
+    create(:observation, species: seed(:anapla), observ_date: "2010-06-18")
     login_as_admin
     visit bulk_observations_path(observ_date: "2010-06-18", locus_id: seed(:brovary).id, mine: true)
 
@@ -221,9 +221,9 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
   end
 
   test "Bulk edit preserves post" do
-    blogpost = FactoryGirl.create(:post)
-    obs1 = FactoryGirl.create(:observation, species: seed(:melgal), observ_date: "2010-06-18", post_id: blogpost.id)
-    obs2 = FactoryGirl.create(:observation, species: seed(:anapla), observ_date: "2010-06-18")
+    blogpost = create(:post)
+    obs1 = create(:observation, species: seed(:melgal), observ_date: "2010-06-18", post_id: blogpost.id)
+    obs2 = create(:observation, species: seed(:anapla), observ_date: "2010-06-18")
     login_as_admin
     visit bulk_observations_path(observ_date: "2010-06-18", locus_id: seed(:brovary).id, mine: true)
 

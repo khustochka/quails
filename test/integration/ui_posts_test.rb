@@ -19,7 +19,7 @@ class UIPostsTest < ActionDispatch::IntegrationTest
   end
 
   test "Editing post" do
-    blogpost = FactoryGirl.create(:post)
+    blogpost = create(:post)
     login_as_admin
     visit edit_post_path(blogpost)
     fill_in('Code', with: 'changed-post')
@@ -32,7 +32,7 @@ class UIPostsTest < ActionDispatch::IntegrationTest
   end
 
   test "Navigation via Edit this and Show this links" do
-    blogpost = FactoryGirl.create(:post)
+    blogpost = create(:post)
     login_as_admin
     visit show_post_path(blogpost.to_url_params)
     click_link('Edit this one')
@@ -42,7 +42,7 @@ class UIPostsTest < ActionDispatch::IntegrationTest
   end
 
   test "Add comment to post" do
-    blogpost = FactoryGirl.create(:post)
+    blogpost = create(:post)
     visit show_post_path(blogpost.to_url_params)
     within("form#new_comment") do
       fill_in('comment_name', with: 'Vasya')
@@ -55,7 +55,7 @@ class UIPostsTest < ActionDispatch::IntegrationTest
   end
 
   test "Add reply to comment (no JS)" do
-    comment = FactoryGirl.create(:comment)
+    comment = create(:comment)
     blogpost = comment.post
     visit show_post_path(blogpost.to_url_params)
     first('.reply a').click
@@ -71,7 +71,7 @@ class UIPostsTest < ActionDispatch::IntegrationTest
   end
 
   test "Try to post invalid comment (no JS)" do
-    blogpost = FactoryGirl.create(:post)
+    blogpost = create(:post)
     visit show_post_path(blogpost.to_url_params)
     within("form#new_comment") do
       #fill_in('comment_name', with: 'Vasya')
@@ -84,7 +84,7 @@ class UIPostsTest < ActionDispatch::IntegrationTest
   end
 
   test "Try to post invalid reply to comment (no JS)" do
-    comment = FactoryGirl.create(:comment)
+    comment = create(:comment)
     blogpost = comment.post
     visit show_post_path(blogpost.to_url_params)
     first('.reply a').click

@@ -5,11 +5,11 @@ class ObservationsControllerTest < ActionController::TestCase
   end
 
   test "get index" do
-    FactoryGirl.create(:observation, species: seed(:pasdom), observ_date: "2010-06-20", locus: seed(:new_york))
-    FactoryGirl.create(:observation, species: seed(:melgal), observ_date: "2010-06-18")
-    FactoryGirl.create(:observation, species: seed(:anapla), observ_date: "2009-06-18")
-    FactoryGirl.create(:observation, species: seed(:anacly), observ_date: "2007-07-18", locus: seed(:brovary))
-    FactoryGirl.create(:observation, species: seed(:embcit), observ_date: "2009-08-09", locus: seed(:kherson))
+    create(:observation, species: seed(:pasdom), observ_date: "2010-06-20", locus: seed(:new_york))
+    create(:observation, species: seed(:melgal), observ_date: "2010-06-18")
+    create(:observation, species: seed(:anapla), observ_date: "2009-06-18")
+    create(:observation, species: seed(:anacly), observ_date: "2007-07-18", locus: seed(:brovary))
+    create(:observation, species: seed(:embcit), observ_date: "2009-08-09", locus: seed(:kherson))
     login_as_admin
     get :index
     assert_response :success
@@ -17,11 +17,11 @@ class ObservationsControllerTest < ActionController::TestCase
   end
 
   test "get index sorted by species order" do
-    FactoryGirl.create(:observation, species: seed(:pasdom), observ_date: "2010-06-20", locus: seed(:new_york))
-    FactoryGirl.create(:observation, species: seed(:melgal), observ_date: "2010-06-18")
-    FactoryGirl.create(:observation, species: seed(:anapla), observ_date: "2009-06-18")
-    FactoryGirl.create(:observation, species: seed(:anacly), observ_date: "2007-07-18", locus: seed(:brovary))
-    FactoryGirl.create(:observation, species: seed(:embcit), observ_date: "2009-08-09", locus: seed(:kherson))
+    create(:observation, species: seed(:pasdom), observ_date: "2010-06-20", locus: seed(:new_york))
+    create(:observation, species: seed(:melgal), observ_date: "2010-06-18")
+    create(:observation, species: seed(:anapla), observ_date: "2009-06-18")
+    create(:observation, species: seed(:anacly), observ_date: "2007-07-18", locus: seed(:brovary))
+    create(:observation, species: seed(:embcit), observ_date: "2009-08-09", locus: seed(:kherson))
     login_as_admin
     get :index, sort: 'species.index_num'
     assert_response :success
@@ -29,8 +29,8 @@ class ObservationsControllerTest < ActionController::TestCase
   end
 
   test "Avis incognita properly rendered on index page" do
-    FactoryGirl.create(:observation, species_id: 0, observ_date: "2010-06-18")
-    FactoryGirl.create(:observation, species_id: 0, observ_date: "2009-06-19")
+    create(:observation, species_id: 0, observ_date: "2010-06-18")
+    create(:observation, species_id: 0, observ_date: "2009-06-19")
     login_as_admin
     get :index, search: {species_id_eq: 0}
     assert_response :success
@@ -51,10 +51,10 @@ class ObservationsControllerTest < ActionController::TestCase
   end
 
   test "get bulk successful" do
-    FactoryGirl.create(:observation, species: seed(:pasdom), observ_date: "2010-06-20", locus: seed(:new_york))
-    FactoryGirl.create(:observation, species: seed(:pasdom), observ_date: "2010-06-18", locus: seed(:new_york))
-    FactoryGirl.create(:observation, species: seed(:melgal), observ_date: "2010-06-18")
-    FactoryGirl.create(:observation, species: seed(:anapla), observ_date: "2010-06-18")
+    create(:observation, species: seed(:pasdom), observ_date: "2010-06-20", locus: seed(:new_york))
+    create(:observation, species: seed(:pasdom), observ_date: "2010-06-18", locus: seed(:new_york))
+    create(:observation, species: seed(:melgal), observ_date: "2010-06-18")
+    create(:observation, species: seed(:anapla), observ_date: "2010-06-18")
     login_as_admin
     get :bulk, observ_date: "2010-06-18", locus_id: seed(:brovary).id, mine: true
     assert_response :success
@@ -62,17 +62,17 @@ class ObservationsControllerTest < ActionController::TestCase
   end
 
   test "get bulk missing parameters" do
-    FactoryGirl.create(:observation, species: seed(:pasdom), observ_date: "2010-06-20", locus: seed(:new_york))
-    FactoryGirl.create(:observation, species: seed(:pasdom), observ_date: "2010-06-18", locus: seed(:new_york))
-    FactoryGirl.create(:observation, species: seed(:melgal), observ_date: "2010-06-18")
-    FactoryGirl.create(:observation, species: seed(:anapla), observ_date: "2009-06-18")
+    create(:observation, species: seed(:pasdom), observ_date: "2010-06-20", locus: seed(:new_york))
+    create(:observation, species: seed(:pasdom), observ_date: "2010-06-18", locus: seed(:new_york))
+    create(:observation, species: seed(:melgal), observ_date: "2010-06-18")
+    create(:observation, species: seed(:anapla), observ_date: "2009-06-18")
     login_as_admin
     get :bulk, locus_id: seed(:brovary).id
     assert_redirected_to add_observations_path(locus_id: seed(:brovary).id)
   end
 
   test "create observation" do
-    common = FactoryGirl.build(:observation).attributes
+    common = build(:observation).attributes
     observ = common.slice!(:locus_id, :observ_date, :mine)
     assert_difference('Observation.count') do
       login_as_admin
@@ -82,22 +82,22 @@ class ObservationsControllerTest < ActionController::TestCase
   end
 
   test "redirect show observation to edit" do
-    observation = FactoryGirl.create(:observation)
+    observation = create(:observation)
     login_as_admin
     get :show, id: observation.to_param
     assert_redirected_to edit_observation_path(assigns(:observation))
   end
 
   test "get edit" do
-    observation = FactoryGirl.create(:observation)
+    observation = create(:observation)
     login_as_admin
     get :edit, id: observation.to_param
     assert_response :success
   end
 
   test "update observation" do
-    observation = FactoryGirl.create(:observation)
-    common = FactoryGirl.build(:observation).attributes
+    observation = create(:observation)
+    common = build(:observation).attributes
     observ = common.slice!(:locus_id, :observ_date, :mine)
     login_as_admin
     put :update, id: observation.to_param, c: common, o: [observ]
@@ -105,7 +105,7 @@ class ObservationsControllerTest < ActionController::TestCase
   end
 
   test "destroy observation" do
-    observation = FactoryGirl.create(:observation)
+    observation = create(:observation)
     assert_difference('Observation.count', -1) do
       login_as_admin
       delete :destroy, id: observation.to_param
@@ -121,7 +121,7 @@ class ObservationsControllerTest < ActionController::TestCase
   end
 
   test 'protect show with HTTP authentication' do
-    observation = FactoryGirl.create(:observation)
+    observation = create(:observation)
     assert_raises(ActionController::RoutingError) { get :show, id: observation.to_param }
     #assert_response 404
   end
@@ -142,18 +142,18 @@ class ObservationsControllerTest < ActionController::TestCase
   end
 
   test 'protect edit with HTTP authentication' do
-    observation = FactoryGirl.create(:observation)
+    observation = create(:observation)
     assert_raises(ActionController::RoutingError) { get :edit, id: observation.to_param }
     #assert_response 404
   end
 
   test 'protect create with HTTP authentication' do
-    assert_raises(ActionController::RoutingError) { post :create, observation: FactoryGirl.build(:observation).attributes }
+    assert_raises(ActionController::RoutingError) { post :create, observation: build(:observation).attributes }
     #assert_response 404
   end
 
   test 'protect update with HTTP authentication' do
-    observation = FactoryGirl.create(:observation)
+    observation = create(:observation)
     observation.observ_date = '2010-11-07'
     assert_raises(ActionController::RoutingError) do
       put :update, id: observation.to_param, observation: observation.attributes
@@ -162,14 +162,14 @@ class ObservationsControllerTest < ActionController::TestCase
   end
 
   test 'protect destroy with HTTP authentication' do
-    observation = FactoryGirl.create(:observation)
+    observation = create(:observation)
     assert_raises(ActionController::RoutingError) { delete :destroy, id: observation.to_param }
     #assert_response 404
   end
 
   test 'return observation search results in json' do
     login_as_admin
-    observation = FactoryGirl.create(:observation)
+    observation = create(:observation)
     get :search, q: {}, format: :json
     assert_response :success
     assert_equal Mime::JSON, response.content_type

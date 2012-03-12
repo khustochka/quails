@@ -50,7 +50,7 @@ class WikiFilterTest < ActionDispatch::IntegrationTest
   # Posts
 
   #  test 'properly parse post by code [#see this|some-post]' do
-  #    blogpost = FactoryGirl.create(:post)
+  #    blogpost = create(:post)
   #    assert_equal post_link('see this', blogpost),
   #                 transform('[#see this|some-post]')
   #  end

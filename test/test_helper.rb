@@ -9,6 +9,8 @@ require 'rspec/expectations'
 
 class ActiveSupport::TestCase
 
+  include FactoryGirl::Syntax::Methods
+
   delegate :public_post_path, :public_image_path, :public_comment_path, :url_for, to: :@controller
 
   TEST_CREDENTIALS = Hashie::Mash.new(YAML::load_file('config/security_devtest.yml')['test']['admin'])

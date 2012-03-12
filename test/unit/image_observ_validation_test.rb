@@ -3,8 +3,8 @@ require 'test_helper'
 class ImageObservValidationTest < ActiveSupport::TestCase
 
   setup do
-    @obs = FactoryGirl.create(:observation)
-    @image = FactoryGirl.create(:image, observations: [@obs])
+    @obs = create(:observation)
+    @image = create(:image, observations: [@obs])
   end
 
   test "should not create image with no observations" do
@@ -41,7 +41,7 @@ class ImageObservValidationTest < ActiveSupport::TestCase
 test "should not restore former observation list if image was not saved not due to their emptiness" do
     new_attr = @image.attributes.dup # observations_ids are not in here
     new_attr['code'] = ''
-    new_obs = FactoryGirl.create(:observation)
+    new_obs = create(:observation)
     @image.update_with_observations(new_attr, [new_obs.id])
     @image.observation_ids.should == [new_obs.id]
   end
@@ -59,7 +59,7 @@ test "should not restore former observation list if image was not saved not due 
 
 test 'should exclude duplicated observation (existing) on image update' do
     new_attr = @image.attributes.dup
-    obs = FactoryGirl.create(:observation)
+    obs = create(:observation)
     @image.update_with_observations(new_attr, [@obs.id, @obs.id, obs.id]).should be_true
     @image.errors.should be_empty
     @image.observation_ids.count.should == 2
@@ -67,16 +67,16 @@ test 'should exclude duplicated observation (existing) on image update' do
 
 test 'should exclude duplicated observation (new) on image update' do
     new_attr = @image.attributes.dup
-    obs = FactoryGirl.create(:observation)
+    obs = create(:observation)
     @image.update_with_observations(new_attr, [@obs.id, obs.id, obs.id]).should be_true
     @image.errors.should be_empty
     @image.observation_ids.count.should == 2
   end
 
  test 'should not create image with inconsistent observations (different date)' do
-    obs1 = FactoryGirl.create(:observation, observ_date: '2011-01-01')
-    obs2 = FactoryGirl.create(:observation, observ_date: '2010-01-01')
-    new_attr = FactoryGirl.build(:image, code: 'newimg').attributes
+    obs1 = create(:observation, observ_date: '2011-01-01')
+    obs2 = create(:observation, observ_date: '2010-01-01')
+    new_attr = build(:image, code: 'newimg').attributes
     img = Image.new
     assert_difference('Image.count', 0) do
       img.update_with_observations(new_attr, [obs1.id, obs2.id])
@@ -85,9 +85,9 @@ test 'should exclude duplicated observation (new) on image update' do
   end
 
 test 'should not create image with inconsistent observations (different loc)' do
-    obs1 = FactoryGirl.create(:observation, locus: seed(:kiev))
-    obs2 = FactoryGirl.create(:observation, locus: seed(:krym))
-    new_attr = FactoryGirl.build(:image, code: 'newimg').attributes
+    obs1 = create(:observation, locus: seed(:kiev))
+    obs2 = create(:observation, locus: seed(:krym))
+    new_attr = build(:image, code: 'newimg').attributes
     img = Image.new
     assert_difference('Image.count', 0) do
       img.update_with_observations(new_attr, [obs1.id, obs2.id])
@@ -96,16 +96,16 @@ test 'should not create image with inconsistent observations (different loc)' do
   end
 
 test 'should not update image with inconsistent observations' do
-    obs1 = FactoryGirl.create(:observation, observ_date: '2011-01-01')
-    obs2 = FactoryGirl.create(:observation, observ_date: '2010-01-01')
+    obs1 = create(:observation, observ_date: '2011-01-01')
+    obs2 = create(:observation, observ_date: '2010-01-01')
     new_attr = @image.attributes
     @image.update_with_observations(new_attr, [obs1.id, obs2.id]).should be_false
     @image.errors.should_not be_blank
   end
 
 test 'should preserve changed values if image failed to update with inconsistent observations' do
-    obs1 = FactoryGirl.create(:observation, observ_date: '2011-01-01')
-    obs2 = FactoryGirl.create(:observation, observ_date: '2010-01-01')
+    obs1 = create(:observation, observ_date: '2011-01-01')
+    obs2 = create(:observation, observ_date: '2010-01-01')
     new_attr = @image.attributes.merge(code: 'newcode')
     @image.update_with_observations(new_attr, [obs1.id, obs2.id]).should be_false
     @image.errors.should_not be_blank

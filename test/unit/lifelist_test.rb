@@ -4,20 +4,20 @@ class LifelistTest < ActiveSupport::TestCase
 
   setup do
     @obs = [
-        FactoryGirl.create(:observation, species: seed(:colliv), observ_date: "2008-05-22"),
-        FactoryGirl.create(:observation, species: seed(:merser), observ_date: "2008-10-18"),
-        FactoryGirl.create(:observation, species: seed(:colliv), observ_date: "2008-11-01"),
-        FactoryGirl.create(:observation, species: seed(:parmaj), observ_date: "2009-01-01"),
-        FactoryGirl.create(:observation, species: seed(:pasdom), observ_date: "2009-01-01"),
-        FactoryGirl.create(:observation, species: seed(:colliv), observ_date: "2009-10-18"),
-        FactoryGirl.create(:observation, species: seed(:parmaj), observ_date: "2009-11-01"),
-        FactoryGirl.create(:observation, species: seed(:pasdom), observ_date: "2009-12-01", locus: seed(:new_york)),
-        FactoryGirl.create(:observation, species: seed(:parmaj), observ_date: "2009-12-31"),
-        FactoryGirl.create(:observation, species: seed(:colliv), observ_date: "2010-03-10", locus: seed(:new_york)),
-        FactoryGirl.create(:observation, species: seed(:pasdom), observ_date: "2010-04-16", locus: seed(:new_york)),
-        FactoryGirl.create(:observation, species: seed(:colliv), observ_date: "2010-07-27", locus: seed(:new_york)),
-        FactoryGirl.create(:observation, species: seed(:pasdom), observ_date: "2010-09-10"),
-        FactoryGirl.create(:observation, species: seed(:carlis), observ_date: "2010-10-13")
+        create(:observation, species: seed(:colliv), observ_date: "2008-05-22"),
+        create(:observation, species: seed(:merser), observ_date: "2008-10-18"),
+        create(:observation, species: seed(:colliv), observ_date: "2008-11-01"),
+        create(:observation, species: seed(:parmaj), observ_date: "2009-01-01"),
+        create(:observation, species: seed(:pasdom), observ_date: "2009-01-01"),
+        create(:observation, species: seed(:colliv), observ_date: "2009-10-18"),
+        create(:observation, species: seed(:parmaj), observ_date: "2009-11-01"),
+        create(:observation, species: seed(:pasdom), observ_date: "2009-12-01", locus: seed(:new_york)),
+        create(:observation, species: seed(:parmaj), observ_date: "2009-12-31"),
+        create(:observation, species: seed(:colliv), observ_date: "2010-03-10", locus: seed(:new_york)),
+        create(:observation, species: seed(:pasdom), observ_date: "2010-04-16", locus: seed(:new_york)),
+        create(:observation, species: seed(:colliv), observ_date: "2010-07-27", locus: seed(:new_york)),
+        create(:observation, species: seed(:pasdom), observ_date: "2010-09-10"),
+        create(:observation, species: seed(:carlis), observ_date: "2010-10-13")
     ]
     @user = User.new
   end
@@ -27,12 +27,12 @@ class LifelistTest < ActiveSupport::TestCase
   end
 
   test 'Species lifelist by count should not include Avis incognita' do
-    FactoryGirl.create(:observation, species_id: 0, observ_date: "2010-06-18")
+    create(:observation, species_id: 0, observ_date: "2010-06-18")
     Lifelist.new(user: @user, options: {sort: 'count'}).size.should == @obs.map(&:species_id).uniq.size
   end
 
   test 'Species lifelist by count should not include species never seen by me' do
-    ob = FactoryGirl.create(:observation, species: seed(:parcae), observ_date: "2010-06-18", mine: false)
+    ob = create(:observation, species: seed(:parcae), observ_date: "2010-06-18", mine: false)
     Lifelist.new(user: @user, options: {sort: 'count'}).map(&:id).should_not include(ob.species_id)
   end
 
@@ -46,12 +46,12 @@ class LifelistTest < ActiveSupport::TestCase
   end
 
   test 'Species lifelist by taxonomy should not include Avis incognita' do
-    FactoryGirl.create(:observation, species_id: 0, observ_date: "2010-06-18")
+    create(:observation, species_id: 0, observ_date: "2010-06-18")
     Lifelist.new(user: @user, options: {sort: 'class'}).size.should == @obs.map(&:species_id).uniq.size
   end
 
   test 'Species lifelist by taxonomy should not include species never seen by me' do
-    ob = FactoryGirl.create(:observation, species: seed(:parcae), observ_date: "2010-06-18", mine: false)
+    ob = create(:observation, species: seed(:parcae), observ_date: "2010-06-18", mine: false)
     Lifelist.new(user: @user, options: {sort: 'class'}).map(&:id).should_not include(ob.species_id)
   end
 
@@ -65,12 +65,12 @@ class LifelistTest < ActiveSupport::TestCase
   end
 
   test 'Species lifelist by date should not include Avis incognita' do
-    FactoryGirl.create(:observation, species_id: 0, observ_date: "2010-06-18")
+    create(:observation, species_id: 0, observ_date: "2010-06-18")
     Lifelist.new(user: @user, options: {}).size.should == @obs.map(&:species_id).uniq.size
   end
 
   test 'Species lifelist by date should not include species never seen by me' do
-    ob = FactoryGirl.create(:observation, species: seed(:parcae), observ_date: "2010-06-18", mine: false)
+    ob = create(:observation, species: seed(:parcae), observ_date: "2010-06-18", mine: false)
     Lifelist.new(user: @user, options: {}).map(&:id).should_not include(ob.species_id)
   end
 
@@ -120,7 +120,7 @@ class LifelistTest < ActiveSupport::TestCase
   end
 
   test 'Do not associate arbitrary post with lifer' do
-    @obs[2].post = FactoryGirl.create(:post, code: 'feraldoves_again') # must be attached to the same species but not the first observation
+    @obs[2].post = create(:post, code: 'feraldoves_again') # must be attached to the same species but not the first observation
     @obs[2].save!
     lifelist = Lifelist.new(user: @user, options: {})
     lifelist.send(:posts)[seed(:colliv).id].should be_nil
@@ -128,9 +128,9 @@ class LifelistTest < ActiveSupport::TestCase
   end
 
   test 'Do not associate post of the wrong year' do
-    @obs[0].post = FactoryGirl.create(:post, code: 'feraldoves_2008')
+    @obs[0].post = create(:post, code: 'feraldoves_2008')
     @obs[0].save!
-    @obs[5].post = FactoryGirl.create(:post, code: 'feraldoves_2009')
+    @obs[5].post = create(:post, code: 'feraldoves_2009')
     @obs[5].save!
     lifelist = Lifelist.new(user: @user, options: {year: 2009})
     lifelist.send(:posts)[seed(:colliv).id].first.code.should == @obs[5].post.code
@@ -138,8 +138,8 @@ class LifelistTest < ActiveSupport::TestCase
   end
 
   test 'Do not associate post of the wrong location' do
-    new_obs = FactoryGirl.create(:observation, species: seed(:colliv), observ_date: "2008-05-22", locus: seed(:kiev))
-    @obs[0].post = FactoryGirl.create(:post, code: 'feraldoves_brvr')
+    new_obs = create(:observation, species: seed(:colliv), observ_date: "2008-05-22", locus: seed(:kiev))
+    @obs[0].post = create(:post, code: 'feraldoves_brvr')
     @obs[0].save!
     lifelist = Lifelist.new(user: @user, options: {locus: 'kiev'})
     lifelist.send(:posts)[seed(:colliv).id].should be_nil

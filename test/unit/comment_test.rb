@@ -2,7 +2,7 @@ require 'test_helper'
 
 class CommentTest < ActiveSupport::TestCase
   setup do
-    @comment = FactoryGirl.create(:comment)
+    @comment = create(:comment)
   end
 
   test 'destroying comments when post is destroyed' do
@@ -14,7 +14,7 @@ class CommentTest < ActiveSupport::TestCase
 
   test 'destroying comments when parent comment is destroyed' do
     blogpost = @comment.post
-    FactoryGirl.create(:comment, post: blogpost, parent_id: @comment.id)
+    create(:comment, post: blogpost, parent_id: @comment.id)
     assert_difference('Comment.count', -2) do
       @comment.destroy
     end
