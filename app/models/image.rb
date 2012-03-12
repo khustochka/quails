@@ -68,8 +68,8 @@ class Image < ActiveRecord::Base
       errors.add(:observations, 'must not be empty')
     else
       obs = Observation.where(:id => observ_ids).all
-      if obs.map(&:observ_date).uniq.size > 1 || obs.map(&:locus_id).uniq.size > 1
-        errors.add(:observations, 'must be of the same date and location')
+      if obs.map(&:observ_date).uniq.size > 1 || obs.map(&:locus_id).uniq.size > 1 || obs.map(&:mine).uniq.size > 1
+        errors.add(:observations, 'must have the same date, location, and mine value')
       end
     end
   end

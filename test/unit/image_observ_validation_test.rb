@@ -95,6 +95,17 @@ test 'should not create image with inconsistent observations (different loc)' do
     img.errors.should_not be_blank
   end
 
+  test 'should not create image with inconsistent observations (mine-not mine)' do
+    obs1 = create(:observation, mine: true)
+    obs2 = create(:observation, mine: false)
+    new_attr = build(:image, code: 'newimg').attributes
+    img = Image.new
+    assert_difference('Image.count', 0) do
+      img.update_with_observations(new_attr, [obs1.id, obs2.id])
+    end
+    img.errors.should_not be_blank
+  end
+
 test 'should not update image with inconsistent observations' do
     obs1 = create(:observation, observ_date: '2011-01-01')
     obs2 = create(:observation, observ_date: '2010-01-01')
