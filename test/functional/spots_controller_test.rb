@@ -1,22 +1,10 @@
 require 'test_helper'
 
-class MapControllerTest < ActionController::TestCase
-
-  test "admin should see Map" do
-    login_as_admin
-    get :show
-    assert_response :success
-  end
-
-  test "admin should see edit map" do
-    login_as_admin
-    get :edit
-    assert_response :success
-  end
+class SpotsControllerTest < ActionController::TestCase
 
   test "should return spots" do
     login_as_admin
-    get :spots, format: :json
+    get :index, format: :json
     assert_response :success
     assert_equal Mime::JSON, response.content_type
   end
@@ -36,13 +24,13 @@ class MapControllerTest < ActionController::TestCase
 
   test 'Create spot' do
     login_as_admin
-    lambda { post :savespot, spot: build(:spot).attributes }.should change(Spot, :count).by(1)
+    lambda { post :save, spot: build(:spot).attributes }.should change(Spot, :count).by(1)
   end
 
   test 'Update spot' do
     spot = create(:spot)
     login_as_admin
-    lambda { post :savespot, spot: {id: spot.id} }.should_not change(Spot, :count)
+    lambda { post :save, spot: {id: spot.id} }.should_not change(Spot, :count)
   end
 
 end

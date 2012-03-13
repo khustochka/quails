@@ -1,25 +1,14 @@
-class MapController < ApplicationController
-  respond_to :html, :only => [:index, :edit]
-  respond_to :json, :only => [:spots, :search, :savespot]
+class SpotsController < ApplicationController
+  respond_to :json
 
-  administrative :except => [:show]
+  administrative
 
-  # GET "/map"
-  def show
-
-  end
-
-  # GET "/map/edit"
-  def edit
-    @search = Observation.search(params[:q])
-  end
-
-  # GET "/map/spots.json"
-  def spots
+    # GET "/map/spots.json"
+  def index
     respond_with(Spot.public, :only => [:lat, :lng])
   end
 
-  # GET "/map/search.json"
+  # GET "/map/spots/search.json"
   def search
     spots =
         if params[:q] && params[:q].values.uniq != ['']
@@ -33,8 +22,8 @@ class MapController < ApplicationController
     respond_with(spots)
   end
 
-  # POST "/map/spots.json"
-  def savespot
+  # POST "/map/spots/save.json"
+  def save
     spot = Spot.find_or_initialize_by_id(params[:spot][:id])
     spot.update_attributes!(params[:spot])
     respond_with spot

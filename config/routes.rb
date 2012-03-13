@@ -68,11 +68,14 @@ Quails3::Application.routes.draw do
   end
 # end
 
-  get 'map' => 'map#show'
-  get 'map/edit' => 'map#edit'
-  get 'map/spots' => 'map#spots'
-  get 'map/search' => 'map#search'
-  post 'map/savespot' => 'map#savespot'
+  resource :map, only: [:show, :edit] do
+    resources :spots, only: :index do
+      collection do
+        get :search
+        post :save
+      end
+    end
+  end
 
   get 'research(/:action)', controller: :research, as: :research
 

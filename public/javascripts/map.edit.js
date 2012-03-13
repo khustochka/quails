@@ -10,7 +10,7 @@ $(function () {
 
     function searchForSpots() {
         data = form.serializeArray();
-        $.get("/map/search", data, function (data) {
+        $.get("/map/spots/search", data, function (data) {
             marks = data;
             $('#googleMap').gmap3(
                 { action:'clear'
