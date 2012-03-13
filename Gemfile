@@ -2,7 +2,7 @@ source :rubygems
 
 gem 'rails', '3.2.2'
 
-gem 'pg', :platforms => [:ruby, :mingw]
+gem 'pg'#, :platforms => [:ruby, :mingw]
 
 # gem "activerecord-jdbcpostgresql-adapter", :platforms => :jruby
 
@@ -27,7 +27,7 @@ group :development do
   gem 'rails3-generators'
   gem 'nokogiri', :platforms => [:ruby, :mingw], :require => false
   gem 'mysql2', '~>0.3.7', :platforms => :ruby, :require => false
-  gem 'grit', :require => false, :git => 'git://github.com/mojombo/grit.git'
+  #gem 'grit', :require => false, :git => 'git://github.com/mojombo/grit.git'
 
 # Other gems that may be useful but are not really dependencies:
 # gem 'ruby-debug-ide' # for debugging in RubyMine
@@ -38,7 +38,7 @@ end
 
 group :test do
   gem 'test-unit'
-  gem 'ruby-prof', :require => false
+  gem 'ruby-prof', :require => false, :platforms => [:ruby, :mingw]
   gem 'factory_girl_rails', '~> 2.0.0.rc'
   gem 'capybara'
   gem 'selenium-webdriver', '~> 2.20'
