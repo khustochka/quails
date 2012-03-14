@@ -2,6 +2,7 @@ GEM
   remote: http://rubygems.org/
   specs:
     RedCloth (4.2.9)
+    RedCloth (4.2.9-x86-mingw32)
     actionmailer (3.2.2)
       actionpack (= 3.2.2)
       mail (~> 2.4.0)
@@ -54,6 +55,10 @@ GEM
     flickraw (0.9.5)
     flickraw-cached (20110920)
       flickraw (>= 0.9)
+    grit (2.4.1)
+      diff-lcs (~> 1.1)
+      mime-types (~> 1.15)
+      posix-spawn (~> 0.3.6)
     haml (3.1.4)
     haml-rails (0.3.4)
       actionpack (~> 3.0)
@@ -79,10 +84,13 @@ GEM
     multi_json (1.1.0)
     mysql2 (0.3.11)
     nokogiri (1.5.2)
+    nokogiri (1.5.2-x86-mingw32)
     pg (0.13.2)
+    pg (0.13.2-x86-mingw32)
     polyamorous (0.5.0)
       activerecord (~> 3.0)
     polyglot (0.3.3)
+    posix-spawn (0.3.6)
     rack (1.4.1)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -153,6 +161,7 @@ GEM
 
 PLATFORMS
   ruby
+  x86-mingw32
 
 DEPENDENCIES
   RedCloth
@@ -160,6 +169,7 @@ DEPENDENCIES
   factory_girl_rails (~> 2.0.0.rc)
   flickraw (~> 0.9.5)
   flickraw-cached
+  grit
   haml-rails
   hashie
   kaminari
@@ -167,6 +177,7 @@ DEPENDENCIES
   mysql2 (~> 0.3.7)
   nokogiri
   pg
+  posix-spawn
   rails (= 3.2.2)
   rails3-generators
   rails_autolink

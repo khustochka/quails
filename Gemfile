@@ -27,7 +27,9 @@ group :development do
   gem 'rails3-generators'
   gem 'nokogiri', :platforms => [:ruby, :mingw], :require => false
   gem 'mysql2', '~>0.3.7', :platforms => :ruby, :require => false
-  #gem 'grit', :require => false, :git => 'git://github.com/mojombo/grit.git'
+  gem 'grit', :require => false
+  # for windows - install from source https://github.com/mojombo/grit
+  gem 'posix-spawn', :require => false, :platforms => :mingw # for grit
 
 # Other gems that may be useful but are not really dependencies:
 # gem 'ruby-debug-ide' # for debugging in RubyMine
