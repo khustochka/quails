@@ -30,6 +30,8 @@ class RoutingTest < ActionDispatch::IntegrationTest
     assert_routing '/lifelist/kherson_obl', {controller: 'lifelist', action: 'default', locus: 'kherson_obl'}
     assert_routing '/lifelist/kherson_obl/by_count', {controller: 'lifelist', action: 'default', sort: 'by_count', locus: 'kherson_obl'}
     assert_routing '/lifelist/2010/kiev/by_count', {controller: 'lifelist', action: 'default', sort: 'by_count', year: '2010', locus: 'kiev'}
+    # have 'by_' inside locus
+    assert_routing '/lifelist/druzhby_obl/by_count', {controller: 'lifelist', action: 'default', sort: 'by_count', locus: 'druzhby_obl'}
   end
 
   test 'route images correctly' do

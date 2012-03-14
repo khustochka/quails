@@ -36,7 +36,7 @@ Quails3::Application.routes.draw do
 
   get 'lifelist(/:year)(/:locus)(/:sort)' => 'lifelist#default', as: :lifelist,
       year: /\d{4}/,
-      locus: /([^b][^\/]*)|(b(?!y)[^\/]*)|(by(?!_)[^\/]*)/, # not starting with by_
+      locus: /(?!by_)[^\/]+/, # negative look-ahead: not starting with 'by_'
       sort: /by_(count|taxonomy)/
 
   get 'blog.:format' => 'feeds#blog', constraints: {format: 'xml'}
