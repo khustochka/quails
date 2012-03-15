@@ -25,16 +25,21 @@ class ResearchController < ApplicationController
   end
 
   def topicture
-    @no_photo = Species.select('name_sci, name_en, COUNT(observations.id) AS cnt').joins(:observations).
-        where(
-              "species_id NOT IN (%s)" % 
-              Observation.select('DISTINCT species_id').
-                  joins('INNER JOIN images_observations as im on (observations.id = im.observation_id)').to_sql
-              ).group(:name_sci, :name_en).reorder('cnt DESC')
+    unpic_rel = Observation.select('species_id, COUNT(observations.id) AS cnt').where(
+        "species_id NOT IN (%s)" %
+            Observation.select('DISTINCT species_id').
+                joins('INNER JOIN images_observations as im on (observations.id = im.observation_id)').to_sql
+    ).group(:species_id)
 
-    @long_time = Species.joins(:images).select("name_sci, name_en, MAX(observ_date) as lastphoto").
-        group(:name_sci, :name_en).having("MAX(observ_date) < (now() - interval '2 years')").
-        reorder('lastphoto')
+    @no_photo = Species.select('*').
+        joins("INNER JOIN (#{unpic_rel.to_sql}) AS obs ON species.id=obs.species_id").reorder('cnt DESC')
+
+
+    long_rel = Observation.joins(:images).select("species_id, MAX(observ_date) as lastphoto").
+        group(:species_id).having("MAX(observ_date) < (now() - interval '2 years')")
+
+    @long_time = Species.select('*').
+        joins("INNER JOIN (#{long_rel.to_sql}) AS obs ON species.id=obs.species_id").reorder('lastphoto')
   end
 
   def lifelist
@@ -53,7 +58,7 @@ class ResearchController < ApplicationController
   end
 
   def day
-    @month, @day = (params[:day].try(:split, '-') || [Time.now.month, Time.now.day]).map {|n| "%02d" % n.to_i}
+    @month, @day = (params[:day].try(:split, '-') || [Time.now.month, Time.now.day]).map { |n| "%02d" % n.to_i }
     prev_day = Image.joins(:observations).select("to_char(observ_date, 'DD') as iday, to_char(observ_date, 'MM') as imon").
         where("to_char(observ_date, 'MM-DD') < '#{@month}-#{@day}'").
         where("mine").order("to_char(observ_date, 'MM-DD') DESC").limit(1).first
