@@ -33,10 +33,10 @@
 
     -# stylesheets
     - if @minimal_layout
-      - stylesheet 'minimal'
+      = stylesheet_link_tag 'minimal'
     - else
-      - stylesheet 'public'
-    - stylesheet 'admin_addon' if current_user.admin?
+      = stylesheet_link_tag 'public'
+    = stylesheet_link_tag 'admin_addon' if current_user.admin?
     = include_stylesheets
 
     = stylesheet_link_tag 'mobile', :media => :handheld

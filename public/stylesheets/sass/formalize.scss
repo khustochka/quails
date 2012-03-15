@@ -1,34 +1,44 @@
 .input_tiny {
-  width: 50px; }
+  width: 50px;
+}
 
 .input_small {
-  width: 100px; }
+  width: 100px;
+}
 
 .input_medium {
-  width: 150px; }
+  width: 150px;
+}
 
 .input_large {
-  width: 200px; }
+  width: 200px;
+}
 
 .input_xlarge {
-  width: 250px; }
+  width: 250px;
+}
 
 .input_xxlarge {
-  width: 300px; }
+  width: 300px;
+}
 
 .input_full {
-  width: 100%; }
+  width: 100%;
+}
 
 .input_full_wrap {
   display: block;
-  padding-right: 8px; }
+  padding-right: 8px;
+}
 
 ::-moz-focus-inner {
   border: 0;
-  padding: 0; }
+  padding: 0;
+}
 
 input[type="search"]::-webkit-search-decoration {
-  display: none; }
+  display: none;
+}
 
 input[type="radio"],
 input[type="checkbox"] {
@@ -36,29 +46,37 @@ input[type="checkbox"] {
   vertical-align: top;
   top: 3px;
   top: 0 \0;
-  *top: -3px; }
+  *top: -3px;
+}
 
 @media (-webkit-min-device-pixel-ratio: 1) and (max-device-width: 1024px) {
   input[type="radio"],
   input[type="checkbox"] {
     vertical-align: baseline;
-    top: 2px; } }
+    top: 2px;
+  }
+}
 @media (-webkit-min-device-pixel-ratio: 1) and (max-device-width: 480px) {
   input[type="radio"],
   input[type="checkbox"] {
     vertical-align: baseline;
-    top: 0; } }
+    top: 0;
+  }
+}
 @media (-webkit-min-device-pixel-ratio: 2) and (max-device-width: 480px) {
   input[type="radio"],
   input[type="checkbox"] {
     vertical-align: baseline;
-    top: 0; } }
+    top: 0;
+  }
+}
 input,
 button,
 select,
 textarea {
   margin: 0;
-  vertical-align: middle; }
+  vertical-align: middle;
+}
 
 button:focus,
 input:focus,
@@ -68,7 +86,8 @@ textarea:focus {
   -webkit-box-shadow: #0066ff 0 0 7px 0;
   -o-box-shadow: #0066ff 0 0 7px 0;
   box-shadow: #0066ff 0 0 7px 0;
-  z-index: 1; }
+  z-index: 1;
+}
 
 input[type="file"]:focus, input[type="file"]:active,
 input[type="radio"]:focus,
@@ -78,7 +97,8 @@ input[type="checkbox"]:active {
   -moz-box-shadow: none;
   -webkit-box-shadow: none;
   -o-box-shadow: none;
-  box-shadow: none; }
+  box-shadow: none;
+}
 
 button,
 input[type="reset"],
@@ -97,13 +117,13 @@ input[type="button"] {
   -ms-background-clip: padding-box;
   -khtml-background-clip: padding-box;
   background-clip: padding-box;
-  background: #dddddd url("../images/button.png") repeat-x;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, white), color-stop(100%, #dddddd));
-  background-image: -webkit-linear-gradient(white, #dddddd);
-  background-image: -moz-linear-gradient(white, #dddddd);
-  background-image: -o-linear-gradient(white, #dddddd);
-  background-image: -ms-linear-gradient(white, #dddddd);
-  background-image: linear-gradient(white, #dddddd);
+  background: #dddddd url('../images/button.png') repeat-x;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #dddddd));
+  background-image: -webkit-linear-gradient(#ffffff, #dddddd);
+  background-image: -moz-linear-gradient(#ffffff, #dddddd);
+  background-image: -o-linear-gradient(#ffffff, #dddddd);
+  background-image: -ms-linear-gradient(#ffffff, #dddddd);
+  background-image: linear-gradient(#ffffff, #dddddd);
   border: 1px solid;
   border-color: #dddddd #bbbbbb #999999;
   cursor: pointer;
@@ -115,38 +135,40 @@ input[type="button"] {
   text-shadow: white 0 1px 1px;
   width: auto;
   *padding-top: 2px;
-  *padding-bottom: 0; }
-
+  *padding-bottom: 0;
+}
 button:hover,
 input[type="reset"]:hover,
 input[type="submit"]:hover,
 input[type="button"]:hover {
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, white), color-stop(1px, #eeeeee), color-stop(100%, #cccccc));
-  background-image: -webkit-linear-gradient(white, #eeeeee 1px, #cccccc);
-  background-image: -moz-linear-gradient(white, #eeeeee 1px, #cccccc);
-  background-image: -o-linear-gradient(white, #eeeeee 1px, #cccccc);
-  background-image: -ms-linear-gradient(white, #eeeeee 1px, #cccccc);
-  background-image: linear-gradient(white, #eeeeee 1px, #cccccc); }
-
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(1px, #eeeeee), color-stop(100%, #cccccc));
+  background-image: -webkit-linear-gradient(#ffffff, #eeeeee 1px, #cccccc);
+  background-image: -moz-linear-gradient(#ffffff, #eeeeee 1px, #cccccc);
+  background-image: -o-linear-gradient(#ffffff, #eeeeee 1px, #cccccc);
+  background-image: -ms-linear-gradient(#ffffff, #eeeeee 1px, #cccccc);
+  background-image: linear-gradient(#ffffff, #eeeeee 1px, #cccccc);
+}
 button:active,
 input[type="reset"]:active,
 input[type="submit"]:active,
 input[type="button"]:active {
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, white), color-stop(1px, #dddddd), color-stop(100%, #eeeeee));
-  background-image: -webkit-linear-gradient(white, #dddddd 1px, #eeeeee);
-  background-image: -moz-linear-gradient(white, #dddddd 1px, #eeeeee);
-  background-image: -o-linear-gradient(white, #dddddd 1px, #eeeeee);
-  background-image: -ms-linear-gradient(white, #dddddd 1px, #eeeeee);
-  background-image: linear-gradient(white, #dddddd 1px, #eeeeee);
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(1px, #dddddd), color-stop(100%, #eeeeee));
+  background-image: -webkit-linear-gradient(#ffffff, #dddddd 1px, #eeeeee);
+  background-image: -moz-linear-gradient(#ffffff, #dddddd 1px, #eeeeee);
+  background-image: -o-linear-gradient(#ffffff, #dddddd 1px, #eeeeee);
+  background-image: -ms-linear-gradient(#ffffff, #dddddd 1px, #eeeeee);
+  background-image: linear-gradient(#ffffff, #dddddd 1px, #eeeeee);
   -moz-box-shadow: inset rgba(0, 0, 0, 0.25) 0 1px 2px 0;
   -webkit-box-shadow: inset rgba(0, 0, 0, 0.25) 0 1px 2px 0;
   -o-box-shadow: inset rgba(0, 0, 0, 0.25) 0 1px 2px 0;
   box-shadow: inset rgba(0, 0, 0, 0.25) 0 1px 2px 0;
-  border-color: #999999 #bbbbbb #dddddd; }
+  border-color: #999999 #bbbbbb #dddddd;
+}
 
 button {
   *padding-top: 1px;
-  *padding-bottom: 1px; }
+  *padding-bottom: 1px;
+}
 
 textarea,
 select,
@@ -191,8 +213,8 @@ input[type="week"] {
   height: 1.8em;
   *padding-top: 2px;
   *padding-bottom: 1px;
-  *height: auto; }
-
+  *height: auto;
+}
 textarea[disabled],
 select[disabled],
 input[type="date"][disabled],
@@ -208,7 +230,8 @@ input[type="text"][disabled],
 input[type="time"][disabled],
 input[type="url"][disabled],
 input[type="week"][disabled] {
-  background-color: #eeeeee; }
+  background-color: #eeeeee;
+}
 
 button[disabled],
 input[disabled],
@@ -225,41 +248,49 @@ textarea[disabled] {
   -khtml-user-select: none;
   user-select: none;
   color: #888888;
-  cursor: default; }
+  cursor: default;
+}
 
 ::-webkit-input-placeholder {
-  color: #888888; }
+  color: #888888;
+}
 
 input:-moz-placeholder,
 textarea:-moz-placeholder {
-  color: #888888; }
+  color: #888888;
+}
 
 input.placeholder_text,
 textarea.placeholder_text {
-  color: #888888; }
+  color: #888888;
+}
 
 :invalid {
   -moz-box-shadow: none;
   -webkit-box-shadow: none;
   -o-box-shadow: none;
-  box-shadow: none; }
+  box-shadow: none;
+}
 
 textarea,
 select[size],
 select[multiple] {
-  height: auto; }
+  height: auto;
+}
 
 @media (-webkit-min-device-pixel-ratio: 0) {
   select {
-    background-image: url("../images/select_arrow.gif");
+    background-image: url('../images/select_arrow.gif');
     background-repeat: no-repeat;
     background-position: right center;
-    padding-right: 20px; }
+    padding-right: 20px;
+  }
 
   select[size],
   select[multiple] {
     background-image: none;
-    padding: 0; }
+    padding: 0;
+  }
 
   ::-webkit-validation-bubble-message {
     -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0 0 5px 0;
@@ -272,7 +303,8 @@ select[multiple] {
     overflow: hidden;
     padding: 15px 15px 17px;
     text-shadow: black 0 0 1px;
-    height: 16px; }
+    height: 16px;
+  }
 
   ::-webkit-validation-bubble-arrow,
   ::-webkit-validation-bubble-top-outer-arrow,
@@ -280,21 +312,25 @@ select[multiple] {
     -webkit-box-shadow: none;
     box-shadow: none;
     background: #666666;
-    border: 0; } }
+    border: 0;
+  }
+}
 textarea {
   min-height: 40px;
   overflow: auto;
   resize: vertical;
-  width: 100%; }
+  width: 100%;
+}
 
 optgroup {
   color: black;
   font-style: normal;
-  font-weight: normal; }
+  font-weight: normal;
+}
 
 .ie6_button,
 * html button {
-  background: #dddddd url("../images/button.png") repeat-x;
+  background: #dddddd url('../images/button.png') repeat-x;
   border: 1px solid;
   border-color: #dddddd #bbbbbb #999999;
   cursor: pointer;
@@ -302,11 +338,13 @@ optgroup {
   font: bold 12px/1.2 Arial, sans-serif;
   padding: 2px 10px 0px;
   overflow: visible;
-  width: auto; }
+  width: auto;
+}
 
 * html button {
   padding-top: 1px;
-  padding-bottom: 1px; }
+  padding-bottom: 1px;
+}
 
 .ie6_input,
 * html textarea,
@@ -318,15 +356,19 @@ optgroup {
   padding: 2px 3px 1px;
   font-size: 13px;
   font-family: Arial, sans-serif;
-  vertical-align: top; }
+  vertical-align: top;
+}
 
 * html select {
-  margin-top: 1px; }
+  margin-top: 1px;
+}
 
 .placeholder_text,
 .ie6_input_disabled,
 .ie6_button_disabled {
-  color: #888888; }
+  color: #888888;
+}
 
 .ie6_input_disabled {
-  background: #eeeeee; }
+  background: #eeeeee;
+}

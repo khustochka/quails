@@ -16,9 +16,11 @@
     -# link tags
     -# stylesheets
     - if @minimal_layout
-      - stylesheet 'minimal'
+      = stylesheet_link_tag 'minimal'
     - else
-      - stylesheet 'admin'
+      = stylesheet_link_tag 'admin'
+    = stylesheet_link_tag 'admin_addon' if current_user.admin?
+
     = include_stylesheets
 
     -# enable HTML5 in IE
