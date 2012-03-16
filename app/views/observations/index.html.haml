@@ -42,7 +42,7 @@
       %td.align-center= observation.mine ? '+' : '-'
       %td
         - if observation.images.count > 0
-          = image_tag('x_alt_16x16_tan.png', :title => 'Destroy disabled due to existing images')
+          = image_tag('/img/x_alt_16x16_tan.png', :title => 'Destroy disabled due to existing images')
         - else
           = default_destroy_link(observation)
 

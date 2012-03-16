@@ -27,6 +27,6 @@
             %td.align-center= latlon(locus)
             %td
               - if locus.children.count > 0 || locus.observations.count > 0
-                = image_tag('x_alt_16x16_tan.png', :title => 'Destroy disabled due to existing associations')
+                = image_tag('/img/x_alt_16x16_tan.png', :title => 'Destroy disabled due to existing associations')
               - else
                 = default_destroy_link(locus)

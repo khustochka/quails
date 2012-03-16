@@ -10,7 +10,5 @@ log/*.log
 tmp/*
 tmp/**/*
 *~
-public/stylesheets/*.css
-!public/stylesheets/formalize.css
-!public/stylesheets/jquery-ui.css
+public/assets
 coverage/*

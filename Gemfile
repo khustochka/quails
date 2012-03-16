@@ -13,7 +13,6 @@ gem 'thin', :group => :production, :require => false, :platforms => :ruby # for 
 
 # Bundle the extra gems:
 gem 'haml-rails'
-gem 'sass'
 gem 'RedCloth'
 gem 'kaminari'
 gem 'ransack', '~> 0.6'
@@ -22,6 +21,19 @@ gem 'simple_form', '~> 2.0'
 gem 'hashie'
 gem 'flickraw', '~> 0.9.5', :require => false
 gem 'flickraw-cached'
+
+
+# Gems used only for assets and not required
+# in production environments by default.
+group :assets do
+  gem 'sass-rails',   '~> 3.2.3'
+  #gem 'coffee-rails', '~> 3.2.1'
+
+  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
+  # gem 'therubyracer'
+
+  gem 'uglifier', '>= 1.0.3'
+end
 
 group :development do
   gem 'rails3-generators'

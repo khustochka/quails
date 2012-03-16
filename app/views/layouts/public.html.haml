@@ -37,16 +37,9 @@
     - else
       = stylesheet_link_tag 'public'
     = stylesheet_link_tag 'admin_addon' if current_user.admin?
-    = include_stylesheets
-
     = stylesheet_link_tag 'mobile', :media => :handheld
 
-    -# enable HTML5 in IE
-    /[if lt IE 9]
-      = javascript_include_tag 'html5'
-
-    -# scripts
-    = include_scripts
+    = render 'partials/css_and_js'
 
     -# google analytics
 

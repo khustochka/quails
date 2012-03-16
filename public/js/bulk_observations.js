@@ -102,7 +102,7 @@ $(function () {
 
     if ($('#row_tmpl').length > 0) $($('#row_tmpl').text()).insertBefore('.buttons');
     $('.obs-row').
-        append($("<span class='remove'><img src='/images/x_14x14.png' title='Remove'></span>"));
+        append($("<span class='remove'><img src='/img/x_14x14.png' title='Remove'></span>"));
 
     var sample_row = $('.obs-row:last').detach();
     $('.sp-suggest').combobox();
