@@ -5,7 +5,7 @@
 db/*.sqlite3
 config/database.yml
 config/local.yml
-config/security_devtest.yml
+config/security.yml
 log/*.log
 tmp/*
 tmp/**/*

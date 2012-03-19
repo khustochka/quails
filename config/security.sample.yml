@@ -1,0 +1,40 @@
+# use SHA1 encoded password for production
+production:
+  admin:
+    username: <%= ENV['username'] %>
+    password: <%= ENV['password'] %>
+    cookie_value: <%= ENV['cookie_value'] %>
+  secret_token: <%= ENV['secret_token'] %>
+  images_host: <%= ENV['images_host'] %>
+  flickr:
+    api_key: <%= ENV['flickr_api_key'] %>
+    shared_secret: <%= ENV['flickr_secret'] %>
+    access_token: <%= ENV['flickr_token'] %>
+    access_secret: <%= ENV['flickr_auth_secret'] %>
+
+## use plain or SHA1 encoded password for development
+#development:
+#  admin:
+#    free_access: true # works only in dev mode
+#    cookie_value: admin
+#  images_host:
+#  secret_token: <%= SecureRandom.hex(30) %>
+#  flickr:
+#    api_key:
+#    shared_secret:
+#    access_token:
+#    access_secret:
+#
+## use plain text password for test environment
+#test:
+#  admin:
+#    username: testuser
+#    password: testpasswd
+#    cookie_value: test cookie
+#  secret_token: <%= SecureRandom.hex(30) %>
+#  images_host:
+#  flickr:
+#    api_key:
+#    shared_secret:
+#    access_token:
+#    access_secret:
