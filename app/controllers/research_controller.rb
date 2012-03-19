@@ -34,6 +34,10 @@ class ResearchController < ApplicationController
     @no_photo = Species.select('*').
         joins("INNER JOIN (#{unpic_rel.to_sql}) AS obs ON species.id=obs.species_id").reorder('cnt DESC')
 
+    new_pic = Observation.joins(:images).select("species_id, MIN(created_at) as add_date").
+        group(:species_id)
+    @new_pics = Species.select('*').joins("INNER JOIN (#{new_pic.to_sql}) AS obs ON species.id=obs.species_id").
+        limit(15).reorder('add_date DESC')
 
     long_rel = Observation.joins(:images).select("species_id, MAX(observ_date) as lastphoto").
         group(:species_id).having("MAX(observ_date) < (now() - interval '2 years')")

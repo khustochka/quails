@@ -29,3 +29,17 @@
         %td.align-right= "#{i+1}."
         %td= species_link(sp)
         %td.align-right= sp.lastphoto
+
+%div.column_layout
+  %h2 Latest new species pictured
+
+  %table.neat_table
+    %th &nbsp;
+    %th Species
+    %th Add date
+
+    - @new_pics.each_with_index do |sp, i|
+      %tr
+        %td.align-right= "#{i+1}."
+        %td= species_link(sp)
+        %td.align-right= Date.parse(sp.add_date)
