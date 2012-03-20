@@ -25,21 +25,21 @@ class ResearchController < ApplicationController
   end
 
   def topicture
-    unpic_rel = Observation.select('species_id, COUNT(observations.id) AS cnt').where(
+    unpic_rel = Observation.mine.identified.select('species_id, COUNT(observations.id) AS cnt').where(
         "species_id NOT IN (%s)" %
-            Observation.select('DISTINCT species_id').
+            Observation.mine.identified.select('DISTINCT species_id').
                 joins('INNER JOIN images_observations as im on (observations.id = im.observation_id)').to_sql
     ).group(:species_id)
 
     @no_photo = Species.select('*').
         joins("INNER JOIN (#{unpic_rel.to_sql}) AS obs ON species.id=obs.species_id").reorder('cnt DESC')
 
-    new_pic = Observation.joins(:images).select("species_id, MIN(created_at) as add_date").
+    new_pic = Observation.mine.identified.joins(:images).select("species_id, MIN(created_at) as add_date").
         group(:species_id)
     @new_pics = Species.select('*').joins("INNER JOIN (#{new_pic.to_sql}) AS obs ON species.id=obs.species_id").
         limit(15).reorder('add_date DESC')
 
-    long_rel = Observation.joins(:images).select("species_id, MAX(observ_date) as lastphoto").
+    long_rel = Observation.mine.identified.joins(:images).select("species_id, MAX(observ_date) as lastphoto").
         group(:species_id).having("MAX(observ_date) < (now() - interval '2 years')")
 
     @long_time = Species.select('*').
