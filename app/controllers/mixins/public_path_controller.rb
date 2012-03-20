@@ -1,6 +1,6 @@
 module PublicPathController
   def self.included(klass)
-    klass.helper_method :public_post_path, :public_image_path, :public_comment_path
+    klass.helper_method :root_path, :public_post_path, :public_image_path, :public_comment_path
   end
 
   private
@@ -16,6 +16,14 @@ module PublicPathController
 
   def public_image_path(img, options = {})
     show_image_path(img.to_url_params.merge(options))
+  end
+
+  def root_path
+    blog_path
+  end
+
+  def root_url
+    blog_url
   end
 
 end

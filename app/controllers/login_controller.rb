@@ -5,7 +5,7 @@ class LoginController < ApplicationController
   layout 'admin'
 
   def login
-    redirect_to root_path, :status => 303
+    redirect_to root_url, :status => 303
   end
 
 end

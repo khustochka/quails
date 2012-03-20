@@ -62,7 +62,7 @@ class PostsControllerTest < ActionController::TestCase
       login_as_admin
       delete :destroy, id: blogpost.to_param
     end
-    assert_redirected_to root_path
+    assert_redirected_to blog_url
   end
 
   test "redirect post to correct URL if year and month are incorrect" do

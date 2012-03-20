@@ -17,7 +17,7 @@ Quails3::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root to: 'blog#index'
+  root to: 'blog#index', as: 'blog'
 
   resources :species, only: [:index, :show]
   resources :posts, except: [:index, :show]

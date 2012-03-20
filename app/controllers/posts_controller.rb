@@ -47,7 +47,7 @@ class PostsController < ApplicationController
   # DELETE /posts/1
   def destroy
     @post.destroy
-    redirect_to(root_url)
+    redirect_to(blog_url)
   end
 
   private
