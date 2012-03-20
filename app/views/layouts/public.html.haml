@@ -36,7 +36,6 @@
       = stylesheet_link_tag 'minimal'
     - else
       = stylesheet_link_tag 'public'
-    = stylesheet_link_tag 'admin_addon' if current_user.admin?
     = stylesheet_link_tag 'mobile', :media => :handheld
 
     = render 'partials/css_and_js'
