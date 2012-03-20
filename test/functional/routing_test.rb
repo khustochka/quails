@@ -4,12 +4,12 @@ class RoutingTest < ActionDispatch::IntegrationTest
   fixtures :all
 
   test 'route index correctly' do
-    assert_routing '/', {controller: 'posts', action: 'index'}
+    assert_routing '/', {controller: 'blog', action: 'index'}
   end
 
   test 'route posts correctly' do
-    assert_routing '/2008', {controller: 'posts', action: 'year', year: '2008'}
-    assert_routing '/2010/04', {controller: 'posts', action: 'month', year: '2010', month: '04'}
+    assert_routing '/2008', {controller: 'blog', action: 'year', year: '2008'}
+    assert_routing '/2010/04', {controller: 'blog', action: 'month', year: '2010', month: '04'}
     assert_routing '/2009/07/some-post', {controller: 'posts', action: 'show',
                                           year: '2009', month: '07', id: 'some-post'}
   end

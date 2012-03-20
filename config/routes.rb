@@ -17,7 +17,7 @@ Quails3::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root to: 'posts#index'
+  root to: 'blog#index'
 
   resources :species, only: [:index, :show]
   resources :posts, except: [:index, :show]
@@ -26,10 +26,10 @@ Quails3::Application.routes.draw do
   get 'species/:species/:id' => 'images#show', as: 'show_image', constraints: lambda { |r| r.url !~ /edit$/ }
   get 'photostream' => 'images#photostream'
 
-  constraints year: /\d{4}/ do
-    get '/:year' => 'posts#year', as: 'year'
+  constraints year: /(19|20)\d\d/ do
+    get '/:year' => 'blog#year', as: 'year'
     constraints month: /(0[1-9])|(1[0-2])/ do
-      get '/:year/:month' => 'posts#month', as: 'month'
+      get '/:year/:month' => 'blog#month', as: 'month'
       get '/:year/:month/:id' => 'posts#show', as: 'show_post'
     end
   end

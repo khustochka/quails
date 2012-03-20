@@ -2,7 +2,7 @@ require 'test_helper'
 
 class SecureAccessTest < ActionController::TestCase
 
-  tests PostsController
+  tests BlogController
 
   test 'show administrative panel to admin when he is logged in' do
     login_as_admin
@@ -24,6 +24,8 @@ class SecureAccessTest < ActionController::TestCase
     #assert_select "h2 a[href=#{public_post_path(blogpost1)}]"
     #assert_select "h2 a[href=#{public_post_path(blogpost2)}]"
 
+    @controller = PostsController.new
+
     get :show, blogpost1.to_url_params
     assert_response :success
 
@@ -36,6 +38,8 @@ class SecureAccessTest < ActionController::TestCase
     blogpost2 = create(:post, face_date: '2008-11-06 13:14:15', code: 'post-two')
     get :index
     assigns(:posts).select {|p| p.status == 'PRIV'}.should be_empty
+
+    @controller = PostsController.new
 
     assert_raises ActiveRecord::RecordNotFound do
       get :show, blogpost1.to_url_params

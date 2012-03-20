@@ -1,9 +1,8 @@
 require 'test_helper'
 
-class PostsCollectionsTest < ActionController::TestCase
-  tests PostsController
+class BlogControllerTest < ActionController::TestCase
 
-  PostsController::POSTS_ON_FRONT_PAGE = 3
+  BlogController::POSTS_ON_FRONT_PAGE = 3
 
   # Front page
   # TODO: consider testing controller assignments in func tests and html in integration
