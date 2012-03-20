@@ -1,5 +1,5 @@
 'ru':
-  posts:
+  blog:
     index:
       title: Дневник наблюдений за птицами
       previous_posts: Предыдущие посты
@@ -11,6 +11,7 @@
       previous: Предыдущий месяц
       next: Следующий месяц
 
+  posts:
     show:
       sections:
         photos: Фотографии

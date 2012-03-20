@@ -1,5 +1,5 @@
 'en':
-  posts:
+  blog:
     index:
       title: Birdwatching blog
       previous_posts: Previous posts
@@ -11,6 +11,7 @@
       previous: Previous month
       next: Next month
 
+  posts:
     show:
       sections:
         photos: Images
