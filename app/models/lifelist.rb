@@ -1,7 +1,4 @@
-class Lifelist
-
-  include Enumerable
-  delegate :each, :size, :empty?, :to => :@the_list
+class Lifelist < Array
 
   ALLOWED_LOCUS = %w(ukraine kiev_obl kiev brovary kherson_obl krym usa new_york)
 
@@ -21,18 +18,20 @@ class Lifelist
     #TODO: implement correct processing of incorrect query parameters
     raise 'Incorrect option' unless sort_columns = SORT_COLUMNS[@options[:sort]]
 
-    @the_list = Lifer.select("species.*, #{aggregation_column}").
+    the_list = Lifer.select("species.*, #{aggregation_column}").
         joins("INNER JOIN (#{lifers_sql}) AS obs ON species.id=obs.species_id").
         reorder(sort_columns).all
 
     if @options[:sort] != 'count' || @advanced
       first_posts = posts('first')
-      @the_list.each { |sp| sp.post = first_posts[sp.id].try(:first) }
+      the_list.each { |sp| sp.post = first_posts[sp.id].try(:first) }
       if @advanced
         last_posts = posts('last')
-        @the_list.each { |sp| sp.last_post = last_posts[sp.id].try(:first) }
+        the_list.each { |sp| sp.last_post = last_posts[sp.id].try(:first) }
       end
     end
+
+    super(the_list)
   end
 
   AGGREGATION = {
