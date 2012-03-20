@@ -12,7 +12,7 @@ class Lifelist
     @options = input[:options].try(:dup) || {}
     if @options[:locus]
       if @options[:locus].in? ALLOWED_LOCUS
-        @options[:loc_ids] = Locus.select(:id).find_by_code!(@options[:locus]).get_subregions
+        @options[:locus] = Locus.select(:id).find_by_code!(@options[:locus]).get_subregions
       else
         raise ActiveRecord::RecordNotFound
       end
@@ -55,7 +55,7 @@ class Lifelist
 
   # Given observations filtered by month, locus returns array of years within these observations happened
   def years
-    rel = observations_filtered(:except => :year).select('DISTINCT EXTRACT(year from observ_date) AS year').order(:year)
+    rel = Observation.filter(@options.merge({year: nil})).select('DISTINCT EXTRACT(year from observ_date) AS year').order(:year)
     [nil] + rel.map { |ob| ob[:year] }
   end
 
@@ -86,26 +86,17 @@ class Lifelist
     @lifers_sql ||= lifers_aggregation.to_sql
   end
 
-  def observations_filtered(options = {})
-    except = Array.wrap(options[:except])
-    rel = Observation.mine.identified
-    rel = rel.where('EXTRACT(year from observ_date) = ?', @options[:year]) unless @options[:year].blank? || except.include?(:year)
-    rel = rel.where('EXTRACT(month from observ_date) = ?', @options[:month]) unless @options[:month].blank? || except.include?(:month)
-    rel = rel.where('locus_id' => @options[:loc_ids]) unless @options[:locus].blank? || except.include?(:locus)
-    rel
-  end
-
   def lifers_aggregation
     #TODO: implement correct processing of incorrect query parameters
     raise 'Incorrect option' unless aggregation = AGGREGATION[@options[:sort]]
-    observations_filtered.select("species_id, #{aggregation_query}").group(:species_id)
+    Observation.filter(@options).select("species_id, #{aggregation_query}").group(:species_id)
   end
 
   def posts(first_or_last = 'first')
     Hash[
         @current_user.available_posts.select('posts.*, lifers.species_id').
             joins(
-            "INNER JOIN (#{observations_filtered.to_sql}) AS observs
+            "INNER JOIN (#{Observation.filter(@options).to_sql}) AS observs
               ON posts.id = observs.post_id").
             joins(
             "INNER JOIN (#{lifers_sql}) AS lifers

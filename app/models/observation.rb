@@ -27,6 +27,16 @@ class Observation < ActiveRecord::Base
 
   scope :identified, where('observations.species_id != 0')
 
+  # TODO: improve and probably use universally
+  def self.filter(options = {})
+    rel = Observation.mine.identified
+    rel = rel.where('EXTRACT(year from observ_date) = ?', options[:year]) unless options[:year].blank?
+    rel = rel.where('EXTRACT(month from observ_date) = ?', options[:month]) unless options[:month].blank?
+    rel = rel.where('species_id' => options[:species]) unless options[:species].blank?
+    rel = rel.where('locus_id' => options[:locus]) unless options[:locus].blank?
+    rel
+  end
+
   # Get data
 
   def self.biotopes(refresh = false)
