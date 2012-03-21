@@ -62,7 +62,7 @@ class ResearchController < ApplicationController
   end
 
   def day
-    @month, @day = (params[:day].try(:split, '-') || [Time.now.month, Time.now.day]).map { |n| "%02d" % n.to_i }
+    @month, @day = (params[:day].try(:split, '-') || [Time.zone.now.month, Time.zone.now.day]).map { |n| "%02d" % n.to_i }
     prev_day = Image.joins(:observations).select("to_char(observ_date, 'DD') as iday, to_char(observ_date, 'MM') as imon").
         where("to_char(observ_date, 'MM-DD') < '#{@month}-#{@day}'").
         where("mine").order("to_char(observ_date, 'MM-DD') DESC").limit(1).first

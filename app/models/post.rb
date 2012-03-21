@@ -37,13 +37,13 @@ class Post < ActiveRecord::Base
   end
 
   def self.prev_month(year, month)
-    date = Time.parse("#{year}-#{month}-01")
+    date = Date.parse("#{year}-#{month}-01")
     rec = select('face_date').where('face_date < ?', date).order('face_date DESC').limit(1).first
     rec.try(:to_month_url)
   end
 
   def self.next_month(year, month)
-    date = Time.parse("#{year}-#{month}-01").end_of_month
+    date = Date.parse("#{year}-#{month}-01").end_of_month
     rec = select('face_date').where('face_date > ?', date).order('face_date ASC').limit(1).first
     rec.try(:to_month_url)
   end
