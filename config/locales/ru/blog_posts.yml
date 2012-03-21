@@ -1,6 +1,6 @@
 'ru':
   blog:
-    index:
+    front_page:
       title: Дневник наблюдений за птицами
       previous_posts: Предыдущие посты
 
