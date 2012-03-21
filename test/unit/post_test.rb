@@ -66,4 +66,10 @@ class PostTest < ActiveSupport::TestCase
     assert_nil observation.post
   end
 
+  test 'face date is treated as timezone-less' do
+    blogpost = create(:post, face_date: '2013-01-01 00:30:00')
+    Post.year(2013).pluck(:id).should include(blogpost.id)
+    Post.year(2012).pluck(:id).should_not include(blogpost.id)
+  end
+
 end
