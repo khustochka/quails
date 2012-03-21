@@ -6,13 +6,13 @@
 
   %div
     = form.input :code
-    = form.input :face_date, :as => :string, :label => 'Post date' unless @post.new_record?
+    = form.input :face_date, label: 'Post date', input_html: {value: @post.face_date.strftime("%F %T")}, as: :string unless @post.new_record?
   %div
-    = form.input :title, :input_html => {:class => 'long'}
+    = form.input :title, input_html: {class: 'long'}
   = form.input :text
   %div
-    = form.input :topic, :collection => Post::TOPICS, :input_html => {:size => '3'}, :include_blank => false
-    = form.input :status, :collection => Post::STATES, :input_html => {:size => '3'}, :include_blank => false
+    = form.input :topic, collection: Post::TOPICS, input_html: {size: '3'}, include_blank: false
+    = form.input :status, collection: Post::STATES, input_html: {size: '3'}, include_blank: false
   - unless @post.lj_url_id.blank?
     %b LJ:
     = link_to(lj_post_url)

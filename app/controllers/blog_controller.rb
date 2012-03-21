@@ -36,7 +36,6 @@ class BlogController < ApplicationController
 
   def year
     @posts = current_user.available_posts.year(@year = params[:year])
-    # TODO: there is problem with timezone
     @months = @posts.group_by(&:month)
     @years = current_user.available_posts.years
   end
