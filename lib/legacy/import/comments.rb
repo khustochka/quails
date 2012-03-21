@@ -20,7 +20,7 @@ module Legacy
               text: c[:ctext],
               name: c[:name],
               url: c[:url],
-              created_at: c[:cdate],
+              created_at: Time.zone.parse(c[:cdate]),
               approved: c[:approved]
           )
           column_names.map { |cn| rec[cn] }

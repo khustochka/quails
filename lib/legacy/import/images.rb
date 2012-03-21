@@ -20,7 +20,7 @@ module Legacy
                               code: im[:img_id],
                               title: im[:img_title],
                               description: im[:img_descr],
-                              created_at: im[:add_date],
+                              created_at: Time.zone.parse(im[:add_date]),
                               index_num: im[:img_sort]
                           })
           obs = Observation.where(id: im[:observ_id])
