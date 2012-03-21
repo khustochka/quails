@@ -1,6 +1,11 @@
 class Post < ActiveRecord::Base
+
+  self.skip_time_zone_conversion_for_attributes = [:face_date]
+
   TOPICS = %w(OBSR NEWS SITE)
   STATES = %w(OPEN PRIV)
+
+  before_save :update_face_date
 
   validates :code, :uniqueness => true, :presence => true, :length => {:maximum => 64}
   validates :title, :presence => true
@@ -75,13 +80,13 @@ class Post < ActiveRecord::Base
   end
 
   private
-  # TODO: updated_at should stay zone-dependent, but face_date should be not, so no need to rely on autoupdate timestamps
-  def timestamp_attributes_for_update
-    [:updated_at].tap do |attrs|
-      if face_date.blank?
-        changed_attributes.delete('face_date')
-        attrs.push :face_date
-      end
+  def update_face_date
+    if read_attribute(:face_date).blank?
+      old = changed_attributes['face_date']
+      # TODO: why doing just 'write_attribute :face_date, Time.zone.now' works for create but fails on update?
+      # Additionaly I have to manually preserve changed attribute value
+      write_attribute :face_date, Time.zone.now.strftime("%F %T")
+      changed_attributes['face_date'] = old if old
     end
   end
 

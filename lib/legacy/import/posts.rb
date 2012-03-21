@@ -19,7 +19,7 @@ module Legacy
               status: post[:post_status],
               lj_post_id: post[:lj_post_id].to_i.zero? ? nil : post[:lj_post_id],
               lj_url_id: post[:lj_url_id].to_i.zero? ? nil : post[:lj_url_id],
-              face_date: Time.zone.parse(post[:post_date]),
+              face_date: post[:post_date],
               updated_at: Time.zone.parse(post[:post_update])
           )
           column_names.map { |c| rec[c] }
