@@ -7,7 +7,7 @@ class BlogController < ApplicationController
   POSTS_ON_FRONT_PAGE = 10
 
   # GET /
-  def index
+  def front_page
     @posts = current_user.available_posts.order('face_date DESC').limit(POSTS_ON_FRONT_PAGE + 1).all
     if @posts.size > POSTS_ON_FRONT_PAGE
       post_1 = @posts[0].to_month_url

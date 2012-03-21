@@ -10,7 +10,7 @@ class BlogControllerTest < ActionController::TestCase
   test 'get index' do
     blogpost1 = create(:post, face_date: '2007-12-06 13:14:15', code: 'post-one')
     blogpost2 = create(:post, face_date: '2008-11-06 13:14:15', code: 'post-two')
-    get :index
+    get :front_page
     assert_response :success
     assert_select "h2 a[href=#{public_post_path(blogpost1)}]"
     assert_select "h2 a[href=#{public_post_path(blogpost2)}]"
@@ -22,7 +22,7 @@ class BlogControllerTest < ActionController::TestCase
     blogpost3 = create(:post, face_date: '2007-12-05 13:14:15', code: 'post-two')
     blogpost4 = create(:post, face_date: '2007-10-06 13:14:15', code: 'post-four')
     blogpost5 = create(:post, face_date: '2007-10-05 13:14:15', code: 'post-five')
-    get :index
+    get :front_page
     assert_response :success
     assert_select 'h2.post-title', 3
     assert_select "h2 a[href=#{public_post_path(blogpost1)}]"
@@ -39,7 +39,7 @@ class BlogControllerTest < ActionController::TestCase
     blogpost3 = create(:post, face_date: '2007-12-05 13:14:15', code: 'post-two')
     blogpost4 = create(:post, face_date: '2007-11-05 13:14:15', code: 'post-four')
     blogpost5 = create(:post, face_date: '2007-11-04 13:14:15', code: 'post-five')
-    get :index
+    get :front_page
     assert_response :success
     assert_select 'h2.post-title', 3
     assert_select "h2 a[href=#{public_post_path(blogpost1)}]"
@@ -57,7 +57,7 @@ class BlogControllerTest < ActionController::TestCase
     blogpost4 = create(:post, face_date: '2007-10-05 13:14:15', code: 'post-four')
     blogpost5 = create(:post, face_date: '2007-11-04 13:14:15', code: 'post-five')
     blogpost6 = create(:post, face_date: '2007-11-02 13:14:15', code: 'post-six')
-    get :index
+    get :front_page
     assert_response :success
     assert_select 'h2.post-title', 5
     assert_select "h2 a[href=#{public_post_path(blogpost1)}]"
