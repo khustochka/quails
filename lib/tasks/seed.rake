@@ -29,7 +29,7 @@ namespace :seed do
       end
     end
 
-    puts 'Committing: ', msg = "Data seed #{Time.now.strftime('%Y-%m-%d %H:%M:%S')}"
+    puts 'Committing: ', msg = "Data seed #{Time.zone.now.iso8601}"
     repo.commit_index(msg)
 
     puts 'Pushing to remote'
