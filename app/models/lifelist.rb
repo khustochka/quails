@@ -1,5 +1,7 @@
 class Lifelist < Array
 
+  include SpeciesArray
+
   ALLOWED_LOCUS = %w(ukraine kiev_obl kiev brovary kherson_obl krym usa new_york)
 
   def initialize(*args)

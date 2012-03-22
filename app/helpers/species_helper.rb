@@ -16,8 +16,4 @@ module SpeciesHelper
     content_tag(:i, sp_obj.is_a?(String) ? sp_obj : sp_obj.name_sci, :class => 'lat')
   end
 
-  def extract_families(species)
-    species.group_by {|sp| {:order => sp.order, :family => sp.family} }
-  end
-
 end

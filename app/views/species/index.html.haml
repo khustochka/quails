@@ -12,7 +12,7 @@
     %th Names
     %th.align-right Avibase id
 
-  - extract_families(@species).each do |fam, species_list|
+  - @species.group_by_family.each do |fam, species_list|
     %tr
       %td
       %td

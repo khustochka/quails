@@ -1,5 +1,5 @@
 - i = 0
-- extract_families(@lifelist).each do |fam, species_list|
+- @lifelist.group_by_family.each do |fam, species_list|
   %tr
     %td
     %td{:colspan => 5}

@@ -6,7 +6,7 @@ class SpeciesController < ApplicationController
 
   # GET /species
   def index
-    @species = Species.all
+    @species = Species.all.extend(SpeciesArray)
   end
 
   # GET /species/1
