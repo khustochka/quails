@@ -16,51 +16,28 @@ namespace :legacy do
 
     source = ENV['SOURCE']
 
-    if source.nil? && local_opts['database']
-      puts 'Importing from the legacy DB'
+    #require 'tasks/grit_init'
+    folder = local_opts['repo']
 
-      require 'legacy/models/blog'
-      require 'legacy/models/geography'
-      require 'legacy/models/observation'
-      require 'legacy/models/image'
-      require 'legacy/models/comment'
-      require 'legacy/models/spot'
-      Legacy::Utils.db_connect(local_opts['database'])
+    #repo = Grit::Repo.new(folder)
 
-      countries = Legacy::Models::Country.all
-      regions = Legacy::Models::Region.all
-      locs = Legacy::Models::Location.all
-      posts = Legacy::Models::Post.all
-      observations = Legacy::Models::Observation.all
-      images = Legacy::Models::Image.all
-      comments = Legacy::Models::Comment.all
-      spots = Legacy::Models::Spot.all
-    else
-      if source.nil?
-        #require 'tasks/grit_init'
-        folder = local_opts['repo']
+    #puts 'Pulling from remote'
+    #repo.remote_fetch('origin')
 
-        #repo = Grit::Repo.new(folder)
+    source = File.join(folder, 'legacy', 'db_dump.yml')
 
-        #puts 'Pulling from remote'
-        #repo.remote_fetch('origin')
+    puts "Importing from #{source}"
 
-        source = File.join(folder, 'legacy', 'db_dump.yml')
-      end
-
-      puts "Importing from #{source}"
-
-      f = File.open(source, encoding: 'windows-1251:utf-8')
-      dump = YAML.load(f.read)
-      countries = Legacy::Utils.prepare_table(dump['country'])
-      regions = Legacy::Utils.prepare_table(dump['region'])
-      locs = Legacy::Utils.prepare_table(dump['location'])
-      posts = Legacy::Utils.prepare_table(dump['blog'])
-      observations = Legacy::Utils.prepare_table(dump['observation'])
-      images = Legacy::Utils.prepare_table(dump['images'])
-      comments = Legacy::Utils.prepare_table(dump['comments'])
-      spots = Legacy::Utils.prepare_table(dump['map'])
-    end
+    f = File.open(source, encoding: 'windows-1251:utf-8')
+    dump = YAML.load(f.read)
+    countries = Legacy::Utils.prepare_table(dump['country'])
+    regions = Legacy::Utils.prepare_table(dump['region'])
+    locs = Legacy::Utils.prepare_table(dump['location'])
+    posts = Legacy::Utils.prepare_table(dump['blog'])
+    observations = Legacy::Utils.prepare_table(dump['observation'])
+    images = Legacy::Utils.prepare_table(dump['images'])
+    comments = Legacy::Utils.prepare_table(dump['comments'])
+    spots = Legacy::Utils.prepare_table(dump['map'])
 
     Legacy::Import::Locations.update_all(countries, regions, locs)
 
