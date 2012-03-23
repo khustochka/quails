@@ -22,7 +22,7 @@
       %tr
         %td.align-right= species.index_num
         %td.align-center= species.code
-        %td= link_to name_sci(species), species
+        %td= link_to content_tag(:i, species_link(species, species.name_sci)), species
         %td= species.authority
         %td= species.protonym
         %td= %w(en fr ru uk).map{|lang| "#{lang}: #{species.send("name_#{lang}")}"}.join('<br />').html_safe

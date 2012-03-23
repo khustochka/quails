@@ -9,11 +9,11 @@ module SpeciesHelper
   end
 
   def species_link(sp_obj, string = nil)
-    link_to(string || sp_obj.name, species_path(sp_obj), :class => 'sp_link')
+    link_to(string || sp_obj.name, species_path(sp_obj), class: 'sp_link')
   end
 
-  def name_sci(sp_obj)
-    content_tag(:i, sp_obj.is_a?(String) ? sp_obj : sp_obj.name_sci, :class => 'lat')
+  def name_sci(sp_obj, options = {})
+    content_tag(:i, sp_obj.is_a?(String) ? sp_obj : sp_obj.name_sci, class: 'sci_name')
   end
 
 end
