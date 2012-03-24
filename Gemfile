@@ -51,7 +51,7 @@ group :development do
 end
 
 # in dev group for generators
-gem 'factory_girl_rails', '~> 2.0.0.rc', :groups => [:development, :test]
+gem 'factory_girl_rails', '~> 3.0', :groups => [:development, :test]
 
 group :test do
   gem 'test-unit'
