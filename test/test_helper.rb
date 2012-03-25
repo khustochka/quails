@@ -1,5 +1,8 @@
-require 'simplecov'
-SimpleCov.start 'rails'
+begin
+  require 'simplecov'
+  SimpleCov.start 'rails'
+rescue LoadError, RuntimeError
+end
 
 ENV["RAILS_ENV"] = "test"
 require File.expand_path('../../config/environment', __FILE__)
@@ -30,7 +33,7 @@ class ActiveSupport::TestCase
 
   # current path that preserves arguments after ? and # (unlike current_path)
   def current_path_info
-    current_url.sub(%r{.*?://},'')[%r{[/\?\#].*}] || '/'
+    current_url.sub(%r{.*?://}, '')[%r{[/\?\#].*}] || '/'
   end
 
   def self.test(name, &block)
