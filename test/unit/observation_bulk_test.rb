@@ -15,7 +15,7 @@ class ObservationBulkTest < ActiveSupport::TestCase
     bulk.errors.should be_blank
   end
 
-  test 'observation bulk save should return error if no observations provided' do
+  test 'observation bulk save returns error if no observations provided' do
     bulk = ObservationBulk.new({c: {locus_id: seed(:brovary).id,
                                        observ_date: '2010-05-05', mine: true}
                                })
@@ -25,7 +25,7 @@ class ObservationBulkTest < ActiveSupport::TestCase
     bulk.errors.should_not be_blank
   end
 
-  test 'Observations bulk save should combine errors for incorrect common parameters and zero observations' do
+  test 'Observations bulk save combines errors for incorrect common parameters and zero observations' do
     bulk = ObservationBulk.new({c: {locus_id: '', observ_date: '', mine: true}})
     assert_difference('Observation.count', 0) do
       bulk.save
@@ -36,7 +36,7 @@ class ObservationBulkTest < ActiveSupport::TestCase
     err["base"].should == ["provide at least one observation"]
   end
 
-  test 'Observations bulk save should not save the bunch if any observation is wrong' do
+  test 'Observations bulk save does not save the bunch if any observation is wrong' do
     bulk = ObservationBulk.new({c: {locus_id: seed(:brovary).id,
                                        observ_date: '2010-05-05', mine: true},
                                 o: [{species_id: ''}, {species_id: 2}]
@@ -47,7 +47,7 @@ class ObservationBulkTest < ActiveSupport::TestCase
     bulk.errors.should_not be_blank
   end
 
-  test 'Observations bulk save should update observations if id is specified' do
+  test 'Observations bulk save updates observations if id is specified' do
     obs1 = create(:observation, species: seed(:corfru))
     obs2 = create(:observation, species: seed(:cormon))
     bulk = ObservationBulk.new({c: {locus_id: seed(:kiev).id,
@@ -62,7 +62,7 @@ class ObservationBulkTest < ActiveSupport::TestCase
     obs2.reload.notes.should == 'Voices'
   end
 
-  test 'Observations bulk save should both save new and update existing' do
+  test 'Observations bulk save both saves new and updates existing' do
     obs1 = create(:observation, species: seed(:cormon))
     bulk = ObservationBulk.new({c: {locus_id: seed(:kiev).id,
                                        observ_date: '2010-11-11', mine: true},
@@ -76,7 +76,7 @@ class ObservationBulkTest < ActiveSupport::TestCase
     bulk[1].notes.should == 'Voices'
   end
 
-  test 'Observations bulk save should not save post for invalid bulk' do
+  test 'Observations bulk save does not save post for invalid bulk' do
     blog = create(:post)
     obs1 = create(:observation, species: seed(:corfru))
     obs2 = create(:observation, species: seed(:cormon))
@@ -91,7 +91,7 @@ class ObservationBulkTest < ActiveSupport::TestCase
     obs1.reload.post.should be_nil
   end
 
-  test 'Observations bulk save should save post for valid bulk' do
+  test 'Observations bulk save saves post for valid bulk' do
     blog = create(:post)
     obs1 = create(:observation, species: seed(:corfru))
     obs2 = create(:observation, species: seed(:cormon))

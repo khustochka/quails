@@ -24,7 +24,7 @@ class BulkObservationsTest < ActionController::TestCase
     assert_not_nil Observation.find_by_species_id(6)
   end
   
-  test 'Observations bulk save should return error if no observations provided' do
+  test 'Observations bulk save returns error if no observations provided' do
     login_as_admin
     assert_difference('Observation.count', 0) do
       post :bulksave, {format: :json,
@@ -38,7 +38,7 @@ class BulkObservationsTest < ActionController::TestCase
     assert_equal({"errors"=>{"base"=>["provide at least one observation"]}}, result)
   end
 
-  test 'Observations bulk save should return error for incorrect common parameters (date, locus)' do
+  test 'Observations bulk save returns error for incorrect common parameters (date, locus)' do
     login_as_admin
     assert_difference('Observation.count', 0) do
       post :bulksave, {format: :json,
@@ -56,7 +56,7 @@ class BulkObservationsTest < ActionController::TestCase
     assert_equal({"errors"=>{"observ_date"=>["can't be blank"], "locus_id"=>["can't be blank"]}}, result)
   end
 
-  test 'Observations bulk save should combine errors for incorrect common parameters and zero observations' do
+  test 'Observations bulk save combines errors for incorrect common parameters and zero observations' do
     login_as_admin
     assert_difference('Observation.count', 0) do
       post :bulksave, {format: :json,
@@ -73,7 +73,7 @@ class BulkObservationsTest < ActionController::TestCase
                   "base"=>["provide at least one observation"]}}, result)
   end
 
-  test 'Observations bulk save should return error for incorrect observation parameter (species_id)' do
+  test 'Observations bulk save returns error for incorrect observation parameter (species_id)' do
     login_as_admin
     assert_difference('Observation.count', 0) do
       post :bulksave, {format: :json,
@@ -89,7 +89,7 @@ class BulkObservationsTest < ActionController::TestCase
     assert_equal({"species_id"=>["can't be blank"]}, result['observs'][0])
   end
 
-  test 'Observations bulk save should not save the bunch if any observation is wrong' do
+  test 'Observations bulk save does not save the bunch if any observation is wrong' do
     login_as_admin
     assert_difference('Observation.count', 0) do
       post :bulksave, {format: :json,

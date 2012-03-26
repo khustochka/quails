@@ -2,14 +2,14 @@ require 'test_helper'
 
 class SpotsControllerTest < ActionController::TestCase
 
-  test "should return spots" do
+  test "returns spots" do
     login_as_admin
     get :index, format: :json
     assert_response :success
     assert_equal Mime::JSON, response.content_type
   end
 
-  test "should properly search spots" do
+  test "properly finds spots" do
     obs1 = create(:observation, observ_date: '2010-07-24')
     obs2 = create(:observation, observ_date: '2011-07-24')
     create(:spot, observation: obs1)

@@ -26,12 +26,12 @@ class LifelistTest < ActiveSupport::TestCase
     Lifelist.new(user: @user, options: {sort: 'count'}).size.should == @obs.map(&:species_id).uniq.size
   end
 
-  test 'Species lifelist by count should not include Avis incognita' do
+  test 'Species lifelist by count does not include Avis incognita' do
     create(:observation, species_id: 0, observ_date: "2010-06-18")
     Lifelist.new(user: @user, options: {sort: 'count'}).size.should == @obs.map(&:species_id).uniq.size
   end
 
-  test 'Species lifelist by count should not include species never seen by me' do
+  test 'Species lifelist by count does not include species never seen by me' do
     ob = create(:observation, species: seed(:parcae), observ_date: "2010-06-18", mine: false)
     Lifelist.new(user: @user, options: {sort: 'count'}).map(&:id).should_not include(ob.species_id)
   end
@@ -45,12 +45,12 @@ class LifelistTest < ActiveSupport::TestCase
     Lifelist.new(user: @user, options: {sort: 'class'}).size.should == @obs.map(&:species_id).uniq.size
   end
 
-  test 'Species lifelist by taxonomy should not include Avis incognita' do
+  test 'Species lifelist by taxonomy does not include Avis incognita' do
     create(:observation, species_id: 0, observ_date: "2010-06-18")
     Lifelist.new(user: @user, options: {sort: 'class'}).size.should == @obs.map(&:species_id).uniq.size
   end
 
-  test 'Species lifelist by taxonomy should not include species never seen by me' do
+  test 'Species lifelist by taxonomy does not include species never seen by me' do
     ob = create(:observation, species: seed(:parcae), observ_date: "2010-06-18", mine: false)
     Lifelist.new(user: @user, options: {sort: 'class'}).map(&:id).should_not include(ob.species_id)
   end
@@ -64,12 +64,12 @@ class LifelistTest < ActiveSupport::TestCase
     Lifelist.new(user: @user, options: {}).size.should == @obs.map(&:species_id).uniq.size
   end
 
-  test 'Species lifelist by date should not include Avis incognita' do
+  test 'Species lifelist by date does not include Avis incognita' do
     create(:observation, species_id: 0, observ_date: "2010-06-18")
     Lifelist.new(user: @user, options: {}).size.should == @obs.map(&:species_id).uniq.size
   end
 
-  test 'Species lifelist by date should not include species never seen by me' do
+  test 'Species lifelist by date does not include species never seen by me' do
     ob = create(:observation, species: seed(:parcae), observ_date: "2010-06-18", mine: false)
     Lifelist.new(user: @user, options: {}).map(&:id).should_not include(ob.species_id)
   end

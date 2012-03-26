@@ -103,7 +103,7 @@ class LifelistControllerTest < ActionController::TestCase
     lifers.size.should == 2
   end
 
-  test "not allowed locus should fail" do
+  test "not allowed locus fails" do
     assert_raise ActiveRecord::RecordNotFound do
       get :default, locus: 'sumy_obl'
     end

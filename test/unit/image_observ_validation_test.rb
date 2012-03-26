@@ -7,7 +7,7 @@ class ImageObservValidationTest < ActiveSupport::TestCase
     @image = create(:image, observations: [@obs])
   end
 
-  test "should not create image with no observations" do
+  test "does not create image with no observations" do
     new_attr = @image.attributes.dup
     new_attr['code'] = 'new_img_code'
     img = Image.new
@@ -17,28 +17,28 @@ class ImageObservValidationTest < ActiveSupport::TestCase
     img.errors.should_not be_blank
   end
 
-  test "should not update image with empty observation list" do
+  test "does not update image with empty observation list" do
     new_attr = @image.attributes.dup
     new_attr['code'] = 'new_img_code'
     @image.update_with_observations(new_attr, []).should be_false
     @image.errors.should_not be_blank
   end
 
-  test "should not update image if no observation list provided" do
+  test "does not update image if no observation list provided" do
     new_attr = @image.attributes.dup
     new_attr['code'] = 'new_img_code'
     @image.update_with_observations(new_attr, nil).should be_false
     @image.errors.should_not be_blank
   end
 
- test "should restore observation list if image was not saved due to its emptiness" do
+ test "restores observation list if image was not saved due to its emptiness" do
     new_attr = @image.attributes.dup # observations_ids are not in here
     new_attr['code'] = 'new_img_code'
     @image.update_with_observations(new_attr, [])
     @image.observation_ids.should == @image.observation_ids
   end
 
-test "should not restore former observation list if image was not saved not due to their emptiness" do
+test "does not restore former observation list if image was not saved not due to their emptiness" do
     new_attr = @image.attributes.dup # observations_ids are not in here
     new_attr['code'] = ''
     new_obs = create(:observation)
@@ -46,7 +46,7 @@ test "should not restore former observation list if image was not saved not due 
     @image.observation_ids.should == [new_obs.id]
   end
 
- test 'should exclude duplicated observations on image create' do
+ test 'excludes duplicated observations on image create' do
     new_attr = @image.attributes.dup
     new_attr['code'] = 'new_img_code'
     img = Image.new
@@ -57,7 +57,7 @@ test "should not restore former observation list if image was not saved not due 
     img.observation_ids.should == [@obs.id]
   end
 
-test 'should exclude duplicated observation (existing) on image update' do
+test 'excludes duplicated observation (existing) on image update' do
     new_attr = @image.attributes.dup
     obs = create(:observation)
     @image.update_with_observations(new_attr, [@obs.id, @obs.id, obs.id]).should be_true
@@ -65,7 +65,7 @@ test 'should exclude duplicated observation (existing) on image update' do
     @image.observation_ids.count.should == 2
   end
 
-test 'should exclude duplicated observation (new) on image update' do
+test 'excludes duplicated observation (new) on image update' do
     new_attr = @image.attributes.dup
     obs = create(:observation)
     @image.update_with_observations(new_attr, [@obs.id, obs.id, obs.id]).should be_true
@@ -73,7 +73,7 @@ test 'should exclude duplicated observation (new) on image update' do
     @image.observation_ids.count.should == 2
   end
 
- test 'should not create image with inconsistent observations (different date)' do
+ test 'does not create image with inconsistent observations (different date)' do
     obs1 = create(:observation, observ_date: '2011-01-01')
     obs2 = create(:observation, observ_date: '2010-01-01')
     new_attr = build(:image, code: 'newimg').attributes
@@ -84,7 +84,7 @@ test 'should exclude duplicated observation (new) on image update' do
     img.errors.should_not be_blank
   end
 
-test 'should not create image with inconsistent observations (different loc)' do
+test 'does not create image with inconsistent observations (different loc)' do
     obs1 = create(:observation, locus: seed(:kiev))
     obs2 = create(:observation, locus: seed(:krym))
     new_attr = build(:image, code: 'newimg').attributes
@@ -95,7 +95,7 @@ test 'should not create image with inconsistent observations (different loc)' do
     img.errors.should_not be_blank
   end
 
-  test 'should not create image with inconsistent observations (mine-not mine)' do
+  test 'does not create image with inconsistent observations (mine-not mine)' do
     obs1 = create(:observation, mine: true)
     obs2 = create(:observation, mine: false)
     new_attr = build(:image, code: 'newimg').attributes
@@ -106,7 +106,7 @@ test 'should not create image with inconsistent observations (different loc)' do
     img.errors.should_not be_blank
   end
 
-test 'should not update image with inconsistent observations' do
+test 'does not update image with inconsistent observations' do
     obs1 = create(:observation, observ_date: '2011-01-01')
     obs2 = create(:observation, observ_date: '2010-01-01')
     new_attr = @image.attributes
@@ -114,7 +114,7 @@ test 'should not update image with inconsistent observations' do
     @image.errors.should_not be_blank
   end
 
-test 'should preserve changed values if image failed to update with inconsistent observations' do
+test 'preserves changed values if image failed to update with inconsistent observations' do
     obs1 = create(:observation, observ_date: '2011-01-01')
     obs2 = create(:observation, observ_date: '2010-01-01')
     new_attr = @image.attributes.merge(code: 'newcode')

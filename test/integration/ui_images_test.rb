@@ -58,7 +58,7 @@ class UIImagesTest < ActionDispatch::IntegrationTest
     current_path.should == show_image_path(img.to_url_params)
   end
 
-  test "Image save should not use all found observations" do
+  test "Image save does not use all found observations" do
     create(:observation, species: seed(:merser))
     create(:observation, species: seed(:anapla))
     login_as_admin
