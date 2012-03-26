@@ -263,7 +263,7 @@ select[size="1"] {
   select,
   select[size="0"],
   select[size="1"] {
-    background-image: url('../images/select_arrow.gif?1298351050');
+    background-image: url('../img/select_arrow.gif');
     background-repeat: no-repeat;
     background-position: right center;
     padding-right: 20px;
