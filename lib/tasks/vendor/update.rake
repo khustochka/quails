@@ -1,0 +1,15 @@
+desc 'Update vendor assets'
+namespace :vendor do
+  namespace :update do
+    desc 'Update Javascripts'
+    task :javascripts do
+      JQUERY_VERSION = '1.7.2'
+      puts "\n=== Getting JQuery #{JQUERY_VERSION} ==="
+      system "curl http://code.jquery.com/jquery-#{JQUERY_VERSION}.js > vendor/assets/javascripts/jquery.js"
+      puts "\n=== Getting latest JQuery-ujs ==="
+      system "curl https://raw.github.com/rails/jquery-ujs/master/src/rails.js > vendor/assets/javascripts/jquery_ujs.js"
+      puts "\n=== Getting latest HTML5shiv for IE ==="
+      system "curl http://html5shiv.googlecode.com/svn/trunk/html5.js > vendor/assets/javascripts/html5.js"
+    end
+  end
+end

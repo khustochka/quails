@@ -13,7 +13,6 @@ gem 'thin', :group => :production, :require => false, :platforms => :ruby # for 
 
 # Bundle the extra gems:
 gem 'haml-rails'
-gem 'jquery-rails'
 gem 'RedCloth'
 gem 'kaminari'
 gem 'ransack', '~> 0.6'
