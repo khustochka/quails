@@ -46,4 +46,9 @@ class RoutingTest < ActionDispatch::IntegrationTest
     assert_routing '/observations/add', {controller: 'observations', action: 'add'}
     assert_routing '/observations/bulk', {controller: 'observations', action: 'bulk'}
   end
+
+  test 'route feeds and sitemap correctly' do
+    assert_routing '/blog.xml', {controller: 'feeds', action: 'blog', format: 'xml'}
+    assert_routing '/sitemap.xml', {controller: 'feeds', action: 'sitemap', format: 'xml'}
+  end
 end

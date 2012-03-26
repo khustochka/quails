@@ -40,6 +40,7 @@ Quails3::Application.routes.draw do
       sort: /by_(count|taxonomy)/
 
   get 'blog.:format' => 'feeds#blog', constraints: {format: 'xml'}
+  get 'sitemap.:format' => 'feeds#sitemap', constraints: {format: 'xml'}
 
 #  scope '/(:locale)', locale: /[a-z]{2}/ do
 #    resources :species, except: [:new, :create, :destroy]
