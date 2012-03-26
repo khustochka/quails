@@ -2,7 +2,9 @@ class PostsController < ApplicationController
 
   administrative :except => [:show]
 
-  before_filter :find_post, :only => [:edit, :update, :destroy, :show]
+  before_filter :find_post, only: [:edit, :update, :destroy, :show]
+
+  after_filter :cache_expire, only: [:create, :update, :destroy]
 
   # GET /posts/1
   def show
@@ -54,6 +56,11 @@ class PostsController < ApplicationController
 
   def find_post
     @post = current_user.available_posts.find_by_code!(params[:id])
+  end
+
+  def cache_expire
+    expire_page controller: :feeds, action: :blog, format: 'xml'
+    expire_page controller: :feeds, action: :sitemap, format: 'xml'
   end
 
 end

@@ -6,6 +6,8 @@ class ImagesController < ApplicationController
 
   add_finder_by :code, :only => [:show, :edit, :update, :destroy]
 
+  after_filter :cache_expire, only: [:create, :update, :destroy]
+
   # GET /images
   def index
     @images = Image.page(params[:page])
@@ -85,5 +87,11 @@ class ImagesController < ApplicationController
             ).map(&:to_hash)
 
     respond_with( result, only: %w(title datetaken url_s) )
+  end
+
+  private
+
+  def cache_expire
+    expire_page controller: :feeds, action: :sitemap, format: 'xml'
   end
 end
