@@ -1,17 +1,8 @@
-- if @stylesheets.present?
-  - @stylesheets.uniq.each do |css|
-    = stylesheet_link_tag(css)
+= stylesheet_link_tag(*@stylesheets.uniq) if @stylesheets.present?
 
 -# enable HTML5 in IE
 /[if lt IE 9]
-  = javascript_include_tag '/js/html5'
+  = javascript_include_tag 'html5'
 
 -# scripts
-
-- if @jquery
-  = javascript_include_tag JQUERY_URL
-  = javascript_include_tag '/js/rails'
-
-- if @scripts.present?
-  - @scripts.uniq.each do |scr|
-    = javascript_include_tag(scr =~ /^http/ ? scr : "/js/#{scr}")
+= javascript_include_tag(*@scripts.uniq) if @scripts.present?
