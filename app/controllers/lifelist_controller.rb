@@ -1,5 +1,8 @@
 class LifelistController < ApplicationController
 
+  #caches_action :default,
+  #              :cache_path => ->(c){ params.slice(:sort, :year, :locus).merge(admin: current_user.admin?) }
+
   def default
     @allowed_params = [:controller, :action, :year, :locus, :sort]
 
