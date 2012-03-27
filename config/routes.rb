@@ -23,10 +23,10 @@ Quails3::Application.routes.draw do
   resources :posts, except: [:index, :show]
 
   # Constraint below is to differ paths like /species/Crex_crex/edit from /species/Crex_crex/photo-of-the-corncrake
-  get 'species/:species/:id' => 'images#show', as: 'show_image', constraints: lambda { |r| r.url !~ /edit$/ }
-  get 'photostream' => 'images#photostream'
+  get '/species/:species/:id' => 'images#show', as: 'show_image', constraints: lambda { |r| r.url !~ /edit$/ }
+  get '/photostream' => 'images#photostream'
 
-  constraints year: /(19|20)\d\d/ do
+  constraints year: /20\d\d/ do
     get '/:year' => 'blog#year', as: 'year'
     constraints month: /(0[1-9])|(1[0-2])/ do
       get '/:year/:month' => 'blog#month', as: 'month'
@@ -34,13 +34,13 @@ Quails3::Application.routes.draw do
     end
   end
 
-  get 'lifelist(/:year)(/:locus)(/:sort)' => 'lifelist#default', as: :lifelist,
+  get '/lifelist(/:year)(/:locus)(/:sort)' => 'lifelist#default', as: :lifelist,
       year: /\d{4}/,
       locus: /(?!by_)[^\/]+/, # negative look-ahead: not starting with 'by_'
       sort: /by_(count|taxonomy)/
 
-  get 'blog.:format' => 'feeds#blog', constraints: {format: 'xml'}
-  get 'sitemap.:format' => 'feeds#sitemap', constraints: {format: 'xml'}
+  get '/blog.:format' => 'feeds#blog', constraints: {format: 'xml'}
+  get '/sitemap(.:format)' => 'feeds#sitemap', constraints: {format: 'xml'}, defaults: {format: 'xml'}
 
 #  scope '/(:locale)', locale: /[a-z]{2}/ do
 #    resources :species, except: [:new, :create, :destroy]
@@ -52,17 +52,17 @@ Quails3::Application.routes.draw do
 # scope 'admin' do
   resources :observations do
     collection do
-      get 'search'
+      get 'search', defaults: {format: :json}
       get 'add'
       get 'bulk'
-      post 'bulksave'
+      post 'bulksave', defaults: {format: :json}
     end
   end
   resources :loci
   resources :species, only: [:edit, :update]
   resources :images, except: :show do
-    get 'observations', on: :member
-    get 'flickr_search', on: :collection
+    get 'observations', on: :member, defaults: {format: :json}
+    get 'flickr_search', on: :collection, defaults: {format: :json}
   end
   resources :comments, except: :new do
     get :reply, on: :member
@@ -70,7 +70,7 @@ Quails3::Application.routes.draw do
 # end
 
   resource :map, only: [:show, :edit] do
-    resources :spots, only: :index do
+    resources :spots, only: :index, defaults: {format: :json} do
       collection do
         get :search
         post :save
@@ -78,12 +78,12 @@ Quails3::Application.routes.draw do
     end
   end
 
-  get 'research(/:action)', controller: :research, as: :research
+  get '/research(/:action)', controller: :research, as: :research
 
-  get 'login' => 'login#login'
+  get '/login' => 'login#login'
 
-  get 'flickr' => 'flickr#search'
-  get 'flickr/auth' => 'flickr#auth'
+  get '/flickr' => 'flickr#search'
+  get '/flickr/auth' => 'flickr#auth'
 
   # LEGACY REDIRECTS
 
