@@ -1,5 +1,35 @@
 @import '_mixins'
 
+
+li
+  margin-left: 30px
+
+body
+
+  p, dl, hr, h1, h2, h3, h4, h5, h6, ol, ul, pre, table, address, fieldset, figure
+    margin: 0 0 20px 0
+    padding: 0
+
+  h1, h2
+    font-size: 23px
+
+  h3
+    font-size: 21px
+
+  h4
+    font-size: 19px
+
+  h5
+    font-size: 17px
+
+  h6
+    font-size: 15px
+
+
+// this is required for min-height
+html, body
+  height: 100%
+
 body
   background-color: #ffffff
   color: #333333
@@ -25,9 +55,6 @@ a.remove, a.destroy, a.remove:hover, a.destroy:hover
   background-color: inherit
 
 // Reusable
-
-.default-container
-  @include default-margin
 
 ul.horiz-list
   list-style-type: none

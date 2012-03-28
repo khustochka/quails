@@ -47,7 +47,7 @@ Quails3::Application.configure do
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   config.assets.precompile += %w( public.css admin.css forms.css map.css map_edit.css
-                                  jquery-ui.css formalize.css minimal.css mobile.css
+                                  jquery-ui.css minimal.css mobile.css
                                   comments.js images.js map.edit.js map.show.js suggest_over_combo.js
                                   observation_bulk.js observation_form.js ujs.js html5.js )
 
