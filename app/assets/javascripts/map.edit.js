@@ -20,10 +20,12 @@ $(function () {
 
     function adjustSizes() {
         var clientHeight = $(window).height(),
-            upper = $('#header').outerHeight(true) + $('#new_q').outerHeight();
+            clientWidth = $(window).width(),
+            upper = $('#header').outerHeight(true) + $('#new_q').outerHeight(),
+            leftmost = $('ul.obs-list').outerWidth(true);
         $('ul.obs-list').height(clientHeight - upper - 2);
-        $('div#googleMap').height(clientHeight - upper);
-        $('div#googleMap').width($(window).width() - 381);
+        $('div#googleMap').height(clientHeight - upper).width(clientWidth - leftmost)
+            .css('top', upper).css('left', leftmost);
     }
 
     function searchForSpots() {
