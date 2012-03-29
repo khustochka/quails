@@ -53,4 +53,26 @@ class CommentsControllerTest < ActionController::TestCase
 
     assert_redirected_to public_post_path(@comment.post, anchor: 'comments')
   end
+
+  test "user cannot create comment to hidden post" do
+    assert_raises ActiveRecord::RecordNotFound do
+      assert_difference('Comment.count', 0) do
+        post :create, comment: attributes_for(:comment, post_id: create(:post, status: 'PRIV').id)
+      end
+    end
+  end
+
+  test "admin can create comment to hidden post" do
+    login_as_admin
+    assert_difference('Comment.count', 1) do
+      post :create, comment: attributes_for(:comment, post_id: create(:post, status: 'PRIV').id)
+    end
+  end
+
+  test "user does not see reply page to hidden post" do
+    comment = create(:comment, post: create(:post, status: 'PRIV'))
+    assert_raises ActiveRecord::RecordNotFound do
+      get :reply, id: comment.to_param
+    end
+  end
 end

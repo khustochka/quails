@@ -27,7 +27,7 @@ class CommentsController < ApplicationController
   # GET /comments/1/reply
   def reply
     @parent_comment = @comment
-    @post = @parent_comment.post
+    @post = current_user.available_posts.find_by_id!(@parent_comment.post_id)
     @comment = @parent_comment.subcomments.new(:post => @post)
   end
 
@@ -38,7 +38,8 @@ class CommentsController < ApplicationController
   # POST /comments
   # POST /comments.json
   def create
-    @comment = Comment.new(params[:comment])
+    @post = current_user.available_posts.find_by_id!(params[:comment][:post_id])
+    @comment = @post.comments.create(params[:comment])
 
     respond_to do |format|
       if @comment.save
