@@ -9,9 +9,9 @@ class FeedsControllerTest < ActionController::TestCase
   end
 
   test 'get blog atom feed' do
-    create(:post, code: 'code1')
-    create(:post, code: 'code2')
-    create(:post, code: 'code3')
+    create(:post)
+    create(:post)
+    create(:post)
 
     get :blog, format: :xml
     assert_response :success
@@ -25,9 +25,9 @@ class FeedsControllerTest < ActionController::TestCase
   end
 
   test 'get sitemap' do
-    create(:post, code: 'code1')
-    create(:post, code: 'code2')
-    create(:post, code: 'code3', status: 'PRIV')
+    create(:post)
+    create(:post)
+    create(:post, status: 'PRIV')
 
     get :sitemap, format: :xml
     assert_response :success

@@ -1,11 +1,11 @@
 FactoryGirl.define do
   factory :locus do
-    code 'loccode'
+    sequence(:code) {|n| "locus_#{(n+65).chr}" }
     parent_id nil
     loc_type 0
-    name_en "Locus Anglais"
-    name_ru "Locus russe"
-    name_uk "Locus russe petite"
+    sequence(:name_en) {|n| "Locus Anglais #{(n+65).chr}" }
+    sequence(:name_ru) {|n| "Locus russe #{(n+65).chr}" }
+    sequence(:name_uk) {|n| "Locus russe petite #{(n+65).chr}" }
     lat 0
     lon 0
   end

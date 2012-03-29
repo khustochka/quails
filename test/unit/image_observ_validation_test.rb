@@ -76,7 +76,7 @@ test 'excludes duplicated observation (new) on image update' do
  test 'does not create image with inconsistent observations (different date)' do
     obs1 = create(:observation, observ_date: '2011-01-01')
     obs2 = create(:observation, observ_date: '2010-01-01')
-    new_attr = build(:image, code: 'newimg').attributes
+    new_attr = build(:image).attributes
     img = Image.new
     assert_difference('Image.count', 0) do
       img.update_with_observations(new_attr, [obs1.id, obs2.id])
@@ -87,7 +87,7 @@ test 'excludes duplicated observation (new) on image update' do
 test 'does not create image with inconsistent observations (different loc)' do
     obs1 = create(:observation, locus: seed(:kiev))
     obs2 = create(:observation, locus: seed(:krym))
-    new_attr = build(:image, code: 'newimg').attributes
+    new_attr = build(:image).attributes
     img = Image.new
     assert_difference('Image.count', 0) do
       img.update_with_observations(new_attr, [obs1.id, obs2.id])
@@ -98,7 +98,7 @@ test 'does not create image with inconsistent observations (different loc)' do
   test 'does not create image with inconsistent observations (mine-not mine)' do
     obs1 = create(:observation, mine: true)
     obs2 = create(:observation, mine: false)
-    new_attr = build(:image, code: 'newimg').attributes
+    new_attr = build(:image).attributes
     img = Image.new
     assert_difference('Image.count', 0) do
       img.update_with_observations(new_attr, [obs1.id, obs2.id])
@@ -117,7 +117,7 @@ test 'does not update image with inconsistent observations' do
 test 'preserves changed values if image failed to update with inconsistent observations' do
     obs1 = create(:observation, observ_date: '2011-01-01')
     obs2 = create(:observation, observ_date: '2010-01-01')
-    new_attr = @image.attributes.merge(code: 'newcode')
+    new_attr = build(:image).attributes
     @image.update_with_observations(new_attr, [obs1.id, obs2.id]).should be_false
     @image.errors.should_not be_blank
   end

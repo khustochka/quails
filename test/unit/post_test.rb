@@ -1,6 +1,10 @@
 require 'test_helper'
 
 class PostTest < ActiveSupport::TestCase
+  test "post factory is valid" do
+    create(:post)
+    create(:post)
+  end
 
   test 'do not save post with empty code' do
     blogpost = build(:post, code: '')
@@ -37,9 +41,9 @@ class PostTest < ActiveSupport::TestCase
   end
 
   test 'calculate previous month correctly (one having posts) even for month with no posts' do
-    blogpost1 = create(:post, face_date: '2010-02-06 13:14:15', code: 'post-one')
-    blogpost2 = create(:post, face_date: '2009-11-06 13:14:15', code: 'post-two')
-    blogpost3 = create(:post, face_date: '2009-10-06 13:14:15', code: 'post-tri')
+    blogpost1 = create(:post, face_date: '2010-02-06 13:14:15')
+    blogpost2 = create(:post, face_date: '2009-11-06 13:14:15')
+    blogpost3 = create(:post, face_date: '2009-10-06 13:14:15')
     assert_nil Post.prev_month('2009', '10')
     assert_equal({month: '11', year: '2009'}, Post.prev_month('2009', '12'))
     assert_equal({month: '11', year: '2009'}, Post.prev_month('2010', '01'))
@@ -47,9 +51,9 @@ class PostTest < ActiveSupport::TestCase
   end
 
   test 'calculate next month correctly (one having posts) even for month with no posts' do
-    blogpost1 = create(:post, face_date: '2010-02-06 13:14:15', code: 'post-one')
-    blogpost2 = create(:post, face_date: '2009-11-06 13:14:15', code: 'post-two')
-    blogpost1 = create(:post, face_date: '2010-03-06 13:14:15', code: 'post-tri')
+    blogpost1 = create(:post, face_date: '2010-02-06 13:14:15')
+    blogpost2 = create(:post, face_date: '2009-11-06 13:14:15')
+    blogpost1 = create(:post, face_date: '2010-03-06 13:14:15')
     assert_equal({month: '02', year: '2010'}, Post.next_month('2009', '11'))
     assert_equal({month: '02', year: '2010'}, Post.next_month('2009', '12'))
     assert_equal({month: '02', year: '2010'}, Post.next_month('2010', '01'))
@@ -57,7 +61,7 @@ class PostTest < ActiveSupport::TestCase
   end
 
   test 'do not delete associated observations on post destroy' do
-    blogpost = create(:post, face_date: '2010-02-06 13:14:15', code: 'post-one')
+    blogpost = create(:post, face_date: '2010-02-06 13:14:15')
     observation = create(:observation, post: blogpost)
     blogpost.destroy
     assert observation.reload

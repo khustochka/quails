@@ -1,6 +1,10 @@
 require 'test_helper'
 
 class LocusTest < ActiveSupport::TestCase
+  test "locus factory is valid" do
+    create(:locus)
+    create(:locus)
+  end
 
   test 'do not save locus with empty code' do
     loc = build(:locus, code: '')

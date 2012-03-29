@@ -120,7 +120,7 @@ class LifelistTest < ActiveSupport::TestCase
   end
 
   test 'Do not associate arbitrary post with lifer' do
-    @obs[2].post = create(:post, code: 'feraldoves_again') # must be attached to the same species but not the first observation
+    @obs[2].post = create(:post) # must be attached to the same species but not the first observation
     @obs[2].save!
     lifelist = Lifelist.new(user: @user, options: {})
     lifelist.send(:posts)[seed(:colliv).id].should be_nil
@@ -139,7 +139,7 @@ class LifelistTest < ActiveSupport::TestCase
 
   test 'Do not associate post of the wrong location' do
     new_obs = create(:observation, species: seed(:colliv), observ_date: "2008-05-22", locus: seed(:kiev))
-    @obs[0].post = create(:post, code: 'feraldoves_brvr')
+    @obs[0].post = create(:post)
     @obs[0].save!
     lifelist = Lifelist.new(user: @user, options: {locus: 'kiev'})
     lifelist.send(:posts)[seed(:colliv).id].should be_nil
