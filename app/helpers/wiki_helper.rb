@@ -13,9 +13,10 @@ module WikiHelper
   end
 
   def comment_filter(text)
-    #auto_link(
-        simple_format(transform(text))
-    #).html_safe
+    # TODO: reduce the number of allowed tags ("a" is there now)
+    # TODO: sanitize on save
+    # TODO: do not sanitize comments left by admin
+    RedCloth.new(transform(sanitize(text)), [:no_span_caps]).to_html.html_safe
   end
 
 end
