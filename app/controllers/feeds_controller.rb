@@ -14,6 +14,6 @@ class FeedsController < ApplicationController
         uniq.select('name_sci').reorder(nil)
 
     # TODO; take into account only the posts shown on home page
-    @root_lastmod = Post.order('updated_at DESC').limit(1).first.updated_at.iso8601 rescue nil
+    @root_lastmod = Post.public.order('updated_at DESC').limit(1).first.updated_at.iso8601 rescue nil
   end
 end
