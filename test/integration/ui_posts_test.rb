@@ -80,7 +80,8 @@ class UIPostsTest < ActionDispatch::IntegrationTest
     click_button("save_button")
 
     current_path.should == comments_path
-    find('#comment_text').text.should == 'Some text'
+    # TODO: remove strip when https://github.com/jnicklas/capybara/issues/677 is fixed
+    find('#comment_text').text.lstrip.should == 'Some text'
   end
 
   test "Try to post invalid reply to comment (no JS)" do
@@ -95,7 +96,8 @@ class UIPostsTest < ActionDispatch::IntegrationTest
     click_button("save_button")
 
     current_path.should == comments_path
-    find('#comment_text').text.should == 'Some text'
+    # TODO: remove strip when https://github.com/jnicklas/capybara/issues/677 is fixed
+    find('#comment_text').text.lstrip.should == 'Some text'
   end
 
 end

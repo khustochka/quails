@@ -1,6 +1,6 @@
 source :rubygems
 
-gem 'rails', '3.2.2'
+gem 'rails', '3.2.3.rc2'
 
 gem 'pg'#, :platforms => [:ruby, :mingw]
 
