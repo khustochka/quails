@@ -1,0 +1,1 @@
+Quails3::Application.config.middleware.delete('Sass::Plugin::Rack')
