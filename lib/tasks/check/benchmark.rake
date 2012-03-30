@@ -12,10 +12,10 @@ namespace :check do
     n = 500
     Benchmark.bmbm do |x|
 
-      x.report('preload+inject') { n.times {
-        Observation.search(@query).result.preload(:spots).inject([]) do |memo, ob|
-          memo + ob.spots
-        end
+      x.report('big join') { n.times {
+        Spot.
+            joins("JOIN (#{Observation.search(@query).result.to_sql}) as obs ON observation_id=obs.id").
+            select('lat, lng')
       } }
 
       x.report('join+select') { n.times {
@@ -23,7 +23,7 @@ namespace :check do
       } }
 
       x.report('proper join') { n.times {
-        Spot.joins(:observation).search(@query2).result.all
+        Spot.joins(:observation).search(@query2).result.select('lat, lng').all
       } }
 
     end
