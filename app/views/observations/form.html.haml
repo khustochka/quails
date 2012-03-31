@@ -11,8 +11,8 @@
 = simple_form_for @observation, html: {class: 'observation'} do |form|
   %div
     = render partial: 'common', locals: { form: form }
-  
+
   = render partial: @observation
-  
+
   .buttons
     = default_submit_button(form)

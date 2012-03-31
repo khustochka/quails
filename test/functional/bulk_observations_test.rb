@@ -23,7 +23,7 @@ class BulkObservationsTest < ActionController::TestCase
     assert_not_nil Observation.find_by_species_id(4)
     assert_not_nil Observation.find_by_species_id(6)
   end
-  
+
   test 'Observations bulk save returns error if no observations provided' do
     login_as_admin
     assert_difference('Observation.count', 0) do

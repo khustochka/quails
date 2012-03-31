@@ -41,18 +41,18 @@ class UIImagesTest < ActionDispatch::IntegrationTest
     create(:observation, observ_date: '2008-07-01')
     login_as_admin
     visit new_image_path
-    
+
     fill_in('Code', with: 'test-img-capybara')
     fill_in('Title', with: 'Capybara test image')
-    
+
     within('.observation_search') do
       fill_in('Date', with: '2008-07-01')
       select_suggestion('Brovary', from: 'Location')
       click_button 'Search'
     end
-        
+
     find(:xpath, "//ul[contains(@class,'found-obs')]/li[1]").drag_to find('.observation_list')
-    
+
     lambda { submit_form_with('Save') }.should change(Image, :count).by(1)
     img = Image.find_by_code('test-img-capybara')
     current_path.should == show_image_path(img.to_url_params)
@@ -63,19 +63,19 @@ class UIImagesTest < ActionDispatch::IntegrationTest
     create(:observation, species: seed(:anapla))
     login_as_admin
     visit new_image_path
-    
+
     fill_in('Code', with: 'test-img-capybara')
     fill_in('Title', with: 'Capybara test image')
-    
+
     within('.observation_search') do
       click_button 'Search'
     end
-        
+
     find(:xpath, "//ul[contains(@class,'found-obs')]/li[div[contains(text(),'Mergus serrator')]]").drag_to find('.observation_list')
-    
+
     lambda { submit_form_with('Save') }.should change(Image, :count).by(1)
     img = Image.find_by_code('test-img-capybara')
-    
+
     img.species.map(&:name_sci).should == ['Mergus serrator']
   end
 
@@ -105,9 +105,9 @@ class UIImagesTest < ActionDispatch::IntegrationTest
       find('.remove').click
     end
     all('.current-obs li').size.should == 1
-    
+
     click_link('Restore original')
-    
+
     all('.current-obs li').size.should == 2
   end
 

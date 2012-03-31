@@ -5,7 +5,7 @@
       %b= "#{pluralize(@comment.errors.count, "error")} prohibited this #{Comment.name.titleize} from being saved:"
       %ul
         - @comment.errors.full_messages.each do |msg|
-          %li= msg  
+          %li= msg
 
   = form.input :post_id, as: :hidden
   = form.input :parent_id, as: :hidden
