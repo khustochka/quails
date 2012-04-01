@@ -1,6 +1,11 @@
 desc 'Update vendor assets'
 namespace :vendor do
+
   namespace :update do
+
+    desc 'Update JS and CSS'
+    task :assets => [:javascripts, :css]
+
     desc 'Update Javascripts'
     task :javascripts do
       JQUERY_VERSION = '1.7.2'
@@ -11,5 +16,14 @@ namespace :vendor do
       puts "\n=== Getting latest HTML5shiv for IE ==="
       system "curl http://html5shiv.googlecode.com/svn/trunk/html5.js > vendor/assets/javascripts/html5.js"
     end
+
+
+    desc 'Update CSS'
+    task :css do
+      puts "\n=== Getting latest normalize.css ==="
+      system "curl https://raw.github.com/necolas/normalize.css/master/normalize.css > vendor/assets/stylesheets/normalize.css"
+    end
+
   end
+
 end
