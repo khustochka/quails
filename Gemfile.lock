@@ -108,6 +108,8 @@ GEM
       activesupport (= 3.2.3)
       bundler (~> 1.0)
       railties (= 3.2.3)
+    rails-i18n (0.6.2)
+      i18n (~> 0.5)
     rails3-generators (0.17.4)
       railties (>= 3.0.0)
     rails_autolink (1.0.6)
@@ -187,6 +189,7 @@ DEPENDENCIES
   nokogiri
   pg
   rails (= 3.2.3)
+  rails-i18n
   rails3-generators
   rails_autolink
   ransack (~> 0.6)

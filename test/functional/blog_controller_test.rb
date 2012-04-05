@@ -10,7 +10,18 @@ class BlogControllerTest < ActionController::TestCase
   test 'get index' do
     blogpost1 = create(:post, face_date: '2007-12-06 13:14:15')
     blogpost2 = create(:post, face_date: '2008-11-06 13:14:15')
+    create(:comment)
     get :front_page
+    assert_response :success
+    assert_select "h2 a[href=#{public_post_path(blogpost1)}]"
+    assert_select "h2 a[href=#{public_post_path(blogpost2)}]"
+  end
+
+  test 'get index in Eglish' do
+    blogpost1 = create(:post, face_date: '2007-12-06 13:14:15')
+    blogpost2 = create(:post, face_date: '2008-11-06 13:14:15')
+    create(:comment)
+    get :front_page, hl: 'en'
     assert_response :success
     assert_select "h2 a[href=#{public_post_path(blogpost1)}]"
     assert_select "h2 a[href=#{public_post_path(blogpost2)}]"

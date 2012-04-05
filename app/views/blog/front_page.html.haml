@@ -7,4 +7,4 @@
 - unless @prev_month.nil?
   %nav.month-navigation
     = link_to "<< #{t('.previous_posts')}", month_path(@prev_month)
-    = "(#{[t('date.standalone_month_names')[@prev_month[:month].to_i], @prev_month[:year]].join(' ')})"
+    = "(#{[t('date.month_names')[@prev_month[:month].to_i], @prev_month[:year]].join(' ')})"

@@ -12,6 +12,7 @@ gem 'thin', :group => :production, :require => false, :platforms => :ruby # for 
 # gem 'capistrano'
 
 # Bundle the extra gems:
+gem 'rails-i18n'
 gem 'haml-rails'
 gem 'RedCloth'
 gem 'kaminari'
