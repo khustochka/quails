@@ -22,10 +22,6 @@ class BlogController < ApplicationController
         @prev_month = current_user.available_posts.prev_month(post_last[:year], post_last[:month])
       end
     end
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml { render :xml => @posts }
-    end
   end
 
   def month
