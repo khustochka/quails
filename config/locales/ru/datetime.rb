@@ -5,8 +5,8 @@
 # Названия месяцев и дней недели в зависимости от контекста ("1 декабря", но "Декабрь 1985")
 
 # Regexp machers for context-based russian month names and day names translation
-LOCALIZE_ABBR_MONTH_NAMES_MATCH = /(%d|%e)(.*)(%b)/
-LOCALIZE_MONTH_NAMES_MATCH = /(%d|%e)(.*)(%B)/
+LOCALIZE_ABBR_MONTH_NAMES_MATCH = /(%\-?d|%e)(.*)(%b)/
+LOCALIZE_MONTH_NAMES_MATCH = /(%\-?d|%e)(.*)(%B)/
 LOCALIZE_STANDALONE_ABBR_DAY_NAMES_MATCH = /^%a/
 LOCALIZE_STANDALONE_DAY_NAMES_MATCH = /^%A/
 

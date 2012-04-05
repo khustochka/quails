@@ -1,0 +1,14 @@
+# Rewrite formats because of: https://github.com/svenfuchs/rails-i18n/issues/216
+
+en:
+  date:
+    formats:
+      default: ! '%Y-%m-%d'
+      long: ! '%B %-d, %Y'
+      short: ! '%b %-d'
+
+  time:
+    formats:
+      default: ! '%a, %d %b %Y %H:%M:%S %z'
+      long: ! '%B %-d, %Y %H:%M'
+      short: ! '%-d %b %H:%M'

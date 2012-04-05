@@ -19,10 +19,16 @@ class UIPostsTest < ActionDispatch::IntegrationTest
     find('h1').text.should == 'January 2011'
   end
 
-  test 'No leading zero in post pubdate' do
+  test 'Properly parse pubdate in English' do
     blogpost = create(:post, face_date: '2011-01-09')
     visit show_post_path(blogpost.to_url_params.merge(hl: :en))
-    find('time').text.should match(/January 9, 2011/)
+    find('time').text.should match(/^January 9, 2011/)
+  end
+
+  test 'Properly parse pubdate in Russian' do
+    blogpost = create(:post, face_date: '2011-01-09')
+    visit show_post_path(blogpost.to_url_params.merge(hl: :ru))
+    find('time').text.should match(/^9 января 2011/)
   end
 
 end
