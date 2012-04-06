@@ -1,6 +1,7 @@
 - @page_title = image_title(@image)
 
-%p#notice= notice
+- if notice
+  %p#notice= notice
 
 %h1= @page_title
 
