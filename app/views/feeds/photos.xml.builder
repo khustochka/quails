@@ -22,7 +22,7 @@ CONTENT
 
     feed.entry(img,
                :url => public_image_path(img),
-               :id => "tag:#{request.host},#{img.created_at.strftime("%F")}:/gallery/#{img.code}") do |entry|
+               :id => "tag:#{request.host},2008-03-24:#{public_image_path(img)}") do |entry|
       entry.title(img_title, :type => 'html')
       entry.content(content, :type => 'html')
     end
