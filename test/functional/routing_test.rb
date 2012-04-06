@@ -49,6 +49,7 @@ class RoutingTest < ActionDispatch::IntegrationTest
 
   test 'route feeds and sitemap correctly' do
     assert_routing '/blog.xml', {controller: 'feeds', action: 'blog', format: 'xml'}
+    assert_routing '/photos.xml', {controller: 'feeds', action: 'photos', format: 'xml'}
     assert_generates '/sitemap', {controller: 'feeds', action: 'sitemap', format: 'xml'}
     assert_recognizes({controller: 'feeds', action: 'sitemap', format: 'xml'}, '/sitemap.xml')
     assert_recognizes({controller: 'feeds', action: 'sitemap', format: 'xml'}, '/sitemap')
