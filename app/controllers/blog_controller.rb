@@ -8,17 +8,23 @@ class BlogController < ApplicationController
 
   # GET /
   def front_page
+    # Read the desired number of posts + 1
     @posts = current_user.available_posts.order('face_date DESC').limit(POSTS_ON_FRONT_PAGE + 1).all
     if @posts.size > POSTS_ON_FRONT_PAGE
-      post_1 = @posts[0].to_month_url
-      post_last = @posts[-1].to_month_url
+      post_1 = @posts.first.to_month_url
+      post_last = @posts.last.to_month_url
       if post_1 != post_last
+        # If the last post belong to the different month it is not shown
+        # but is used to generate the 'Previous month' link
         @prev_month = post_last
         @posts.pop
       else
-        @posts.concat current_user.available_posts.order('face_date DESC').where(
-                          'EXTRACT(year from face_date) = ? AND EXTRACT(month from face_date) = ?', post_last[:year], post_last[:month]
-                      ).offset(POSTS_ON_FRONT_PAGE + 1)
+        # If all posts belong to the same month we fetch and show all the rest of posts
+        @posts.concat(
+            current_user.available_posts.order('face_date DESC').where(
+                'EXTRACT(year from face_date) = ? AND EXTRACT(month from face_date) = ?', post_last[:year], post_last[:month]
+            ).offset(POSTS_ON_FRONT_PAGE + 1)
+        )
         @prev_month = current_user.available_posts.prev_month(post_last[:year], post_last[:month])
       end
     end
