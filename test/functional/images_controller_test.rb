@@ -2,8 +2,8 @@ require 'test_helper'
 
 class ImagesControllerTest < ActionController::TestCase
   setup do
-    @obs = create(:observation)
-    @image = create(:image, observations: [@obs])
+    @image = create(:image)
+    @obs = @image.observations.first
   end
 
   test "get index" do
