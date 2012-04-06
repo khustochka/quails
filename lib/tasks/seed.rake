@@ -15,7 +15,7 @@ namespace :seed do
     repo = Grit::Repo.new(folder)
 
     puts 'Pulling from remote'
-    repo.remote_fetch('origin')
+    repo.git.pull
 
     dirname = File.join(folder, 'seed')
 
@@ -25,7 +25,7 @@ namespace :seed do
         io = File.new "#{dirname}/#{table_name}.yml", "w"
         table = BunchDB::Table.new(table_name)
         table.dump(io)
-        repo.add("seed/#{table}.yml")
+        repo.add("seed/#{table_name}.yml")
       end
     end
 
@@ -48,7 +48,7 @@ namespace :seed do
     repo = Grit::Repo.new(folder)
 
     puts 'Pulling from remote'
-    repo.remote_fetch('origin')
+    repo.git.pull
 
     Rake::Task['db:setup'].invoke
   end

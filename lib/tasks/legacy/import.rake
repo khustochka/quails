@@ -22,7 +22,7 @@ namespace :legacy do
     #repo = Grit::Repo.new(folder)
 
     #puts 'Pulling from remote'
-    #repo.remote_fetch('origin')
+    #repo.git.pull
 
     source = File.join(folder, 'legacy', 'db_dump.yml')
 
