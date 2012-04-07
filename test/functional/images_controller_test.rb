@@ -94,14 +94,15 @@ class ImagesControllerTest < ActionController::TestCase
   test 'do not show link to private post to public user on image page' do
     blogpost = create(:post, status: 'PRIV')
     @obs.post = blogpost
+    @obs.save!
     get :show, @image.to_url_params
     assert_select "a[href=#{public_post_path(blogpost)}]", false
-    raise "This test should fail!"
   end
 
   test 'show link to public post to public user on image page' do
     blogpost = create(:post)
     @obs.post = blogpost
+    @obs.save!
     get :show, @image.to_url_params
     assert_select "a[href=#{public_post_path(blogpost)}]"
   end
