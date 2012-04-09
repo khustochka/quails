@@ -77,7 +77,7 @@ class Post < ActiveRecord::Base
   end
 
   def to_month_url
-    HashWithIndifferentAccess.new(:month => month, :year => year)
+    {month: month, year: year}
   end
 
   def day
