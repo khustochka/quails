@@ -6,6 +6,8 @@ class ObservationsController < ApplicationController
 
   add_finder_by :id, :only => [:edit, :update, :destroy]
 
+  after_filter :cache_expire, only: [:create, :update, :destroy, :bulksave]
+
   # GET /observations
   def index
     @search = Observation.search(params[:q])
@@ -110,5 +112,11 @@ class ObservationsController < ApplicationController
     obs_bunch = ObservationBulk.new(params)
     obs_bunch.save
     respond_with(obs_bunch, :location => observations_url, :only => :id)
+  end
+
+  private
+
+  def cache_expire
+    expire_page controller: :feeds, action: :photos, format: 'xml'
   end
 end
