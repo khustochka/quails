@@ -1,0 +1,14 @@
+- img_title = image_title(image)
+
+%p= link_to image_tag(jpg_url(image), :alt => img_title), public_image_path(image), :title => img_title
+%p
+  %i= image.species.map(&:name_sci) * ', '
+
+%p= [l(image.observ_date, :format => :long), image.locus.name_en] * ', '
+
+= wiki_filter(image.description)
+
+- if p = image.post
+  %p
+    Post:
+    = post_link(post_title(p), p, true)
