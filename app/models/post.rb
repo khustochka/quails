@@ -64,6 +64,10 @@ class Post < ActiveRecord::Base
 
   # Instance methods
 
+  def public?
+    status == 'OPEN'
+  end
+
   def year
     face_date.year.to_s
   end

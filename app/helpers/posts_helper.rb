@@ -4,7 +4,7 @@ module PostsHelper
     if blogpost.nil?
       show_text_if_no_post ? text : nil
     else
-      link_to(text, public_post_path(blogpost), :class => ('grayout' if blogpost.status != 'OPEN'))
+      link_to(text, public_post_path(blogpost), class: ('grayout' unless blogpost.public?))
     end
   end
 

@@ -4,10 +4,10 @@
 
 = render 'admin/shortcuts' if current_user.admin?
 
-%article.post{:id => "post-#{@post.code}", :class => @post.status != 'OPEN' ? 'grayout' : nil}
+%article.post{id: "post-#{@post.code}", class: ('grayout' unless @post.public?)}
   %header
     %h1.post-title= post_title(@post)
-    %time{:pubdate => 'pubdate', :datetime => @post.face_date.iso8601}= l(@post.face_date, :format => :long)
+    %time{pubdate: 'pubdate', datetime: @post.face_date.iso8601}= l(@post.face_date, format: :long)
     -#%small= @post.topic
 
   = wiki_filter(@post.text)
@@ -15,7 +15,7 @@
   - unless images.empty?
     %section.photos
       %h3= t('.sections.photos')
-      = render :partial => 'images/thumbnail', :collection => images
+      = render partial: 'images/thumbnail', collection: images
 
 - unless @post.species.blank?
   %p
@@ -30,7 +30,7 @@
 
 = render "comments/form"
 
-%p= link_to('Add more observations', add_observations_path(:post_id => @post.id)) if current_user.admin?
+%p= link_to('Add more observations', add_observations_path(post_id: @post.id)) if current_user.admin?
 
 - unless @post.lj_url_id.blank?
   %p= link_to 'This post on Livejournal', lj_post_url

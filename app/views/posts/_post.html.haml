@@ -1,18 +1,18 @@
-%section.post-box{:id => "post-#{post.code}", :class => post.status != 'OPEN' ? 'grayout' : nil}
+%section.post-box{id: "post-#{post.code}", class: ('grayout' unless post.public?)}
   %article.post
     %header
       %h2.post-title= link_to(post_title(post), public_post_path(post))
-      %time{:pubdate => 'pubdate', :datetime => post.face_date.iso8601}= l(post.face_date, :format => :long)
+      %time{pubdate: 'pubdate', datetime: post.face_date.iso8601}= l(post.face_date, format: :long)
       -#%small= post.topic
 
     = wiki_filter(post.text)
     - images = post.images.all
     - unless images.empty?
-      %section= render :partial => 'images/thumbnail', :collection => images
+      %section= render partial: 'images/thumbnail', collection: images
 
   %p.comment_links
     - cmt_count = post.comments.size
     - if cmt_count > 0
-      = link_to t('.comments', :count => cmt_count), public_post_path(post, :anchor => 'comments')
+      = link_to t('.comments', count: cmt_count), public_post_path(post, anchor: 'comments')
       \|
-    = link_to t('.add_comment'), public_post_path(post, :anchor => 'add_comment')
+    = link_to t('.add_comment'), public_post_path(post, anchor: 'add_comment')
