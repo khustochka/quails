@@ -106,6 +106,11 @@ class WikiFilterTest < ActionDispatch::IntegrationTest
 
   # Erroneous
 
+  test 'do not parse species with post or link modifier [#cotnix]' do
+    transform('[#cotnix]').should_not == species_link(seed(:cotnix), 'Coturnix coturnix')
+    transform('[@cotnix]').should_not == species_link(seed(:cotnix), 'Coturnix coturnix')
+  end
+
   #  test 'properly parse non closed tag' do
   #    assert_equal "[Great|parmaj or  #{species_link(seed(:parcae), 'Blue Tit')}",
   #                 transform('[Great|parmaj or [Blue Tit|parcae]')

@@ -5,8 +5,8 @@ module WikiFilter
       hash[term] = Post.find_by_code(term.downcase)
     end
 
-    sp_codes = text.gsub(/\[(@|#|)(?:([^\]]*?)\|)?(.*?)\]/).map do |full|
-      $1 != '' ? nil : ($3 || $2)
+    sp_codes = text.gsub(/\[(?!#|@)(?:([^\]]*?)\|)?(.*?)\]/).map do |full|
+      $2 || $1
     end.uniq.compact
 
     # TODO: IDEA: use already calculated species of the post! the rest will be ok with separate requests?
