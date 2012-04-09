@@ -4,7 +4,7 @@
 
 %h1= @page_title
 
-%p= link_to 'Grouped by post', action: :by_post
+%p= link_to 'By date added', action: :index
 
 %table.neat_table
   %tr
@@ -25,5 +25,3 @@
         %td= comment.name
         %td= comment_filter(comment.text)
         %td= default_destroy_link(comment)
-
-= paginate @comments

@@ -7,6 +7,17 @@ class CommentsController < ApplicationController
   # GET /comments
   # GET /comments.json
   def index
+    @comments = Comment.preload(:post).reorder('created_at DESC').page(params[:page])
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render :json => @comments }
+    end
+  end
+
+  # GET /comments/by_post
+  # GET /comments/by_post.json
+  def by_post
     @comments = Comment.preload(:post).all
 
     respond_to do |format|

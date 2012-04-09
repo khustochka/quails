@@ -67,6 +67,7 @@ Quails3::Application.routes.draw do
   end
   resources :comments, except: :new do
     get :reply, on: :member
+    get :by_post, on: :collection
   end
 # end
 
