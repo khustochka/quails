@@ -1,6 +1,6 @@
 class BlogController < ApplicationController
 
-  before_filter :only => [:index, :year, :month] do
+  before_filter :only => [:front_page, :year, :month] do
     @feed = 'blog'
   end
 

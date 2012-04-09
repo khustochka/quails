@@ -21,7 +21,7 @@
 
     -# rss feeds
     - if @feed
-      = auto_discovery_link_tag(:atom, {:controller => :feeds, :action => @feed, :format => :xml})
+      = auto_discovery_link_tag(:atom, {:controller => :feeds, :action => @feed, :format => :xml}, :title => @feed)
 
     -# OpenID (index only)
 
