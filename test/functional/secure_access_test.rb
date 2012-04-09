@@ -43,7 +43,6 @@ class SecureAccessTest < ActionController::TestCase
     assert_raises ActiveRecord::RecordNotFound do
       get :show, blogpost1.to_url_params
     end
-#    TODO: assert_response :not_found
 
     get :show, blogpost2.to_url_params
     assert_response :success
