@@ -4,7 +4,11 @@
 
 %h1= @page_title
 
-%p= link_to 'Grouped by post', action: :by_post
+%p
+  - if params[:sort] == 'by_post'
+    = link_to 'Show latest first', sort: nil
+  - else
+    = link_to 'Group by post', sort: 'by_post'
 
 %table.neat_table
   %tr
@@ -26,4 +30,4 @@
         %td= comment_filter(comment.text)
         %td= default_destroy_link(comment)
 
-= paginate @comments
+= paginate @comments unless params[:sort] == 'by_post'

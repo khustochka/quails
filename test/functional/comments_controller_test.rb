@@ -12,6 +12,13 @@ class CommentsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:comments)
   end
 
+  test "get index sorted by post" do
+    login_as_admin
+    get :index, sort: 'by_post'
+    assert_response :success
+    assert_not_nil assigns(:comments)
+  end
+
   test "create comment" do
     assert_difference('Comment.count') do
       post :create, comment: @comment.attributes
