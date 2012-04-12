@@ -30,7 +30,7 @@ class ImagesAssociationsTest < ActiveSupport::TestCase
     blogpost = create(:post, observations: [@obs])
 
     assert_equal [@image.code], blogpost.images.map(&:code)
-    assert_equal blogpost.code, @image.post.code
+    assert_equal blogpost.code, @image.post(User.new).code
   end
 
   test 'properly unlink observations when image destroyed' do

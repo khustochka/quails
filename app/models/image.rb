@@ -5,7 +5,7 @@ class Image < ActiveRecord::Base
   has_many :species, :through => :observations
   belongs_to :spot
 
-  delegate :observ_date, :post, :locus, :to => :first_observation
+  delegate :observ_date, :locus, :to => :first_observation
 
   serialize :flickr_data
 
@@ -13,6 +13,12 @@ class Image < ActiveRecord::Base
 
   def to_param
     code_was
+  end
+
+  # Associations
+
+  def post(user)
+    user.available_posts.find_by_id(first_observation.post_id)
   end
 
   # Instance methods
@@ -43,8 +49,6 @@ class Image < ActiveRecord::Base
             {:observ_date_eq => observ_date, :locus_id_eq => locus.id}
     )
   end
-
-  delegate :observ_date, :locus, :to => :first_observation
 
   # Saving with observation validation
 
