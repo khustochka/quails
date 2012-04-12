@@ -11,7 +11,7 @@ atom_feed(:id => "tag:#{request.host},2008-03-24:/blog") do |feed|
                :url => public_post_path(post),
                :id => "tag:#{request.host},2008-03-24:#{public_post_path(post)}") do |entry|
       entry.title(post_title(post), :type => 'html')
-      entry.content(wiki_filter(post.text), :type => 'html')
+      entry.content(render(partial: 'post', formats: :html, object: post), :type => 'html')
     end
   end
 end
