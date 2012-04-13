@@ -5,7 +5,7 @@
 %ul.horiz-list.filter-list
   %strong Places:
   %li= params[:locus].nil? ? content_tag(:span, 'All') : link_to('All', significant_params.merge(:locus => nil))
-  - Lifelist::ALLOWED_LOCUS.each do |code|
+  - Lifelist::PUBLIC_LOCI.each do |code|
     %li= link_to_or_span(locs[code][0].name_en, significant_params.merge(:locus => code))
 
 - unless @lifelist.blank? || @lifelist.advanced?

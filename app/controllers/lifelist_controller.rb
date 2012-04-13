@@ -17,12 +17,9 @@ class LifelistController < ApplicationController
         end
 
     @lifelist = Lifelist.new(
+        strategy: Lifelist::BasicStrategy.new(sort: sort_override),
         user: current_user,
-        options: {
-            sort: sort_override,
-            year: params[:year],
-            locus: params[:locus]
-        }
+        filter: params.slice(:year, :locus)
     )
   end
 end

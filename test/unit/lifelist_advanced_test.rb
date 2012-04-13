@@ -23,14 +23,14 @@ class LifelistAdvancedTest < ActiveSupport::TestCase
   end
 
   test 'Advanced lifelist results each have first, last seen date, and count' do
-    sp = Lifelist.new(user: @user, format: :advanced, options: {}).first
+    sp = Lifelist.new(strategy: Lifelist::AdvancedStrategy.new, user: @user).first
     sp.first_seen_date.should_not be_nil
     sp.last_seen_date.should_not be_nil
     sp.count.should_not be_nil
   end
 
   test 'Advanced lifelist by last date properly sorts the list' do
-    Lifelist.new(user: @user, format: :advanced, options: {sort: 'last'}).map { |s| [s.code, s.last_seen] }.should ==
+    Lifelist.new(strategy: Lifelist::AdvancedStrategy.new(sort: 'last'), user: @user).map { |s| [s.code, s.last_seen] }.should ==
         [["carlis", "2010-10-13"], ["pasdom", "2010-09-10"], ["colliv", "2010-07-27"], ["parmaj", "2009-12-31"], ["merser", "2008-10-18"]]
   end
 
