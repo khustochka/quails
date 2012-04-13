@@ -35,11 +35,6 @@ class Lifelist < Array
     super(the_list)
   end
 
-  # TODO: only needed here for presentation
-  def advanced?
-    @strategy.advanced?
-  end
-
   # Given observations filtered by (month, locus) returns array of years within these observations happened
   def years
     rel = Observation.filter(@filter.merge({year: nil})).select('DISTINCT EXTRACT(year from observ_date) AS year').order(:year)
@@ -61,7 +56,7 @@ class Lifelist < Array
   end
 
   def posts(first_or_last = 'first')
-    return {} unless first_or_last == 'first' || advanced?
+    return {} unless first_or_last == 'first' || @strategy.advanced?
     Hash[
         @current_user.available_posts.select('posts.*, lifers.species_id').
             joins(

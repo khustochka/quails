@@ -8,7 +8,7 @@
   - Lifelist::PUBLIC_LOCI.each do |code|
     %li= link_to_or_span(locs[code][0].name_en, significant_params.merge(:locus => code))
 
-- unless @lifelist.blank? || @lifelist.advanced?
+- unless @lifelist.blank? || controller_name == 'research'
   %ul.horiz-list.filter-list
     %strong Sort by:
     - {nil => 'date', :by_count => 'count', :by_taxonomy => 'taxonomy'}.each do |sort, label|
