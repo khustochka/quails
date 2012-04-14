@@ -6,6 +6,7 @@ db/*.sqlite3
 config/database.yml
 config/local.yml
 config/security.yml
+config/deploy.rb
 log/*.log
 tmp/*
 tmp/**/*
