@@ -17,8 +17,8 @@ class Image < ActiveRecord::Base
 
   # Associations
 
-  def post(user)
-    user.available_posts.find_by_id(first_observation.post_id)
+  def post(posts_source)
+    posts_source.find_by_id(first_observation.post_id)
   end
 
   # Instance methods
