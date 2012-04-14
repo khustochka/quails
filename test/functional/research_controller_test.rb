@@ -19,7 +19,10 @@ class ResearchControllerTest < ActionController::TestCase
   end
 
   test "admin sees Research/day" do
-    create(:image)
+    p = create(:post)
+    o = create(:observation, observ_date: Time.now, post: p)
+    create(:image, observations: [o])
+
     login_as_admin
     get :day
     assert_response :success
