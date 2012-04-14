@@ -18,8 +18,8 @@ class LifelistController < ApplicationController
 
     @lifelist = Lifelist.new(
         strategy: Lifelist::BasicStrategy.new(sort: sort_override),
-        user: current_user,
-        filter: params.slice(:year, :locus)
+        filter: params.slice(:year, :locus),
+        posts_source: current_user.available_posts
     )
   end
 end

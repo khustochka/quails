@@ -16,7 +16,7 @@ class Lifelist < Array
       end
     end
 
-    @current_user = input[:user]
+    @posts_source = input[:posts_source]
 
     the_list = Lifer.select("species.*, #{@strategy.aggregation_column}").
         joins("INNER JOIN (#{lifers_sql}) AS obs ON species.id=obs.species_id").
@@ -58,7 +58,7 @@ class Lifelist < Array
   def posts(first_or_last = 'first')
     return {} unless first_or_last == 'first' || @strategy.advanced?
     Hash[
-        @current_user.available_posts.select('posts.*, lifers.species_id').
+        @posts_source.select('posts.*, lifers.species_id').
             joins(
             "INNER JOIN (#{Observation.filter(@filter).to_sql}) AS observs
               ON posts.id = observs.post_id").

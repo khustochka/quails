@@ -5,6 +5,16 @@ class ResearchController < ApplicationController
   def index
   end
 
+  def lifelist
+    @allowed_params = [:controller, :action, :year, :locus, :sort, :month]
+
+    @lifelist = Lifelist.new(
+        strategy: Lifelist::AdvancedStrategy.new(sort: params[:sort]),
+        filter: params.slice(:year, :month, :locus),
+        posts_source: current_user.available_posts
+    )
+  end
+
   def more_than_year
     sort_col = params[:sort].try(:to_sym) || :date2
     period = params[:period].try(:to_i) || 365
@@ -44,16 +54,6 @@ class ResearchController < ApplicationController
 
     @long_time = Species.select('*').
         joins("INNER JOIN (#{long_rel.to_sql}) AS obs ON species.id=obs.species_id").reorder('lastphoto')
-  end
-
-  def lifelist
-    @allowed_params = [:controller, :action, :year, :locus, :sort, :month]
-
-    @lifelist = Lifelist.new(
-        strategy: Lifelist::AdvancedStrategy.new(sort: params[:sort]),
-        user: current_user,
-        filter: params.slice(:year, :month, :locus)
-    )
   end
 
   def day
