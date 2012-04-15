@@ -9,7 +9,7 @@ class ResearchController < ApplicationController
     @allowed_params = [:controller, :action, :year, :locus, :sort, :month]
 
     @lifelist = Lifelist.new(
-        strategy: Lifelist::AdvancedStrategy.new(sort: params[:sort]),
+        Lifelist::AdvancedStrategy.new(sort: params[:sort]),
         filter: params.slice(:year, :month, :locus),
         posts_source: current_user.available_posts
     )

@@ -3,9 +3,9 @@ class Lifelist < Array
   include SpeciesArray
   include LifelistStrategies
 
-  def initialize(*args)
+  def initialize(strategy, *args)
     input = args.extract_options!
-    @strategy = input[:strategy]
+    @strategy = strategy
     @advanced = input[:format] == :advanced
     @filter = input[:filter].try(:dup) || {}
     if @filter[:locus]
