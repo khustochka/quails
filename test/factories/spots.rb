@@ -4,7 +4,7 @@ FactoryGirl.define do
     lat 50.5
     lng 30.6
     zoom 12
-    exactness 'exact'
+    exactness 0
     send(:public, true)
   end
 end

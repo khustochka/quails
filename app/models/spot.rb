@@ -1,4 +1,7 @@
 class Spot < ActiveRecord::Base
+
+  EXACTNESS = %w(precise exact rough)
+
   belongs_to :observation
   has_many :images
 

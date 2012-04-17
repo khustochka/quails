@@ -19,7 +19,7 @@ module Legacy
               lng: c[:lng],
               zoom: c[:zoom],
               memo: c[:memo],
-              #exactness: c[:exact],
+              exactness: Spot::EXACTNESS.index(c[:exact]),
               public: (c[:access] == 'public')
           )
           column_names.map { |cn| rec[cn] }
