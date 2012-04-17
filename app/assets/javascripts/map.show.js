@@ -12,7 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require gmap3.min
 //= require map.init
 
 $(function () {

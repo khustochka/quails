@@ -15,6 +15,8 @@ namespace :vendor do
       system "curl https://raw.github.com/rails/jquery-ujs/master/src/rails.js > vendor/assets/javascripts/jquery_ujs.js"
       puts "\n=== Getting latest HTML5shiv for IE ==="
       system "curl http://html5shiv.googlecode.com/svn/trunk/html5.js > vendor/assets/javascripts/html5.js"
+      puts "\n=== Getting latest Gmap3 ==="
+      system "curl https://raw.github.com/jbdemonte/gmap3/master/gmap3.js > vendor/assets/javascripts/gmap3.js"
     end
 
 

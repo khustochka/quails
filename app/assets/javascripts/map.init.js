@@ -1,3 +1,5 @@
+//= require gmap3
+
 $(function () {
 
     $().gmap3(
