@@ -17,11 +17,14 @@
 
 $(function () {
 
-    var marks;
+    var marks,
+        theMap = $('#googleMap');
+
+    theMap.gmap3('init');
 
     $.get('/map/spots', function (data, textStatus, jqXHR) {
         marks = data;
-        $('#googleMap').gmap3(
+        theMap.gmap3(
             { action:'addMarkers',
                 markers:marks,
                 radius:40,

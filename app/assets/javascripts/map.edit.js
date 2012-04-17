@@ -72,4 +72,26 @@ $(function () {
         searchForSpots();
     });
 
+    // Starting hardcore map stuff
+
+    var theMap = $('#googleMap');
+
+    theMap.gmap3({
+        action:'init',
+        options:{
+            draggableCursor:'pointer'
+        },
+        events:{
+            click:function(map, event) {
+                theMap.gmap3({
+                    action:'addInfoWindow',
+                    latLng:event.latLng,
+                    options:{
+                        content:"<h2>Hello!</h2>"
+                    }
+                });
+            }
+        }
+    });
+
 });
