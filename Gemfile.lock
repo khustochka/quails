@@ -1,3 +1,11 @@
+PATH
+  remote: vendor/grit
+  specs:
+    grit (2.4.2.pre)
+      diff-lcs (~> 1.1)
+      mime-types (~> 1.15)
+      posix-spawn (~> 0.3.6)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -57,10 +65,6 @@ GEM
     flickraw (0.9.5)
     flickraw-cached (20120411)
       flickraw (>= 0.9)
-    grit (2.4.1)
-      diff-lcs (~> 1.1)
-      mime-types (~> 1.15)
-      posix-spawn (~> 0.3.6)
     haml (3.1.4)
     haml-rails (0.3.4)
       actionpack (~> 3.0)
@@ -183,7 +187,7 @@ DEPENDENCIES
   factory_girl_rails (~> 3.0)
   flickraw (~> 0.9.5)
   flickraw-cached
-  grit
+  grit!
   haml-rails
   hashie
   kaminari

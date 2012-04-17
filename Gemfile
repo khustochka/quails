@@ -41,8 +41,8 @@ group :development do
   gem 'nokogiri', :platforms => [:ruby, :mingw], :require => false
   gem 'mysql2', '~>0.3.7', :platforms => :ruby, :require => false
 
-  # for windows - install from source https://github.com/mojombo/grit
-  gem 'grit', :require => false
+  # use pre version for windows
+  gem 'grit', :path => 'vendor/grit', :require => false
 
 # Other gems that may be useful but are not really dependencies:
 # gem 'ruby-debug-ide' # for debugging in RubyMine
