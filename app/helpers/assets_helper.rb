@@ -1,4 +1,7 @@
 module AssetsHelper
+
+  GMAP_API_URL = 'http://maps.googleapis.com/maps/api/js?sensor=false'
+
   def stylesheet(*args)
     @stylesheets ||= []
     @stylesheets.concat args
