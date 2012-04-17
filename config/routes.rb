@@ -72,12 +72,11 @@ Quails3::Application.routes.draw do
 
   resource :map, only: [:show, :edit] do
     resources :spots, only: :index, defaults: {format: :json} do
-      collection do
-        get :search
-        post :save
-      end
+      get :search, on: :collection
     end
   end
+
+  resources :spots, only: [:create, :update, :destroy], defaults: {format: :json}
 
   get '/research(/:action)', controller: :research, as: :research
 

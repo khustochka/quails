@@ -3,7 +3,7 @@ class SpotsController < ApplicationController
 
   administrative
 
-    # GET "/map/spots.json"
+  # GET "/map/spots.json"
   def index
     respond_with(Spot.public, :only => [:lat, :lng])
   end
@@ -21,10 +21,27 @@ class SpotsController < ApplicationController
     respond_with(spots)
   end
 
-  # POST "/map/spots/save.json"
-  def save
-    spot = Spot.find_or_initialize_by_id(params[:spot][:id])
-    spot.update_attributes!(params[:spot])
-    respond_with spot
+  # POST /spots.json
+  def create
+    @spot = Spot.new(params[:spot])
+    @spot.save
+
+    respond_with @spot
+  end
+
+  # PUT /spots/1.json
+  def update
+    @spot = Spot.find(params[:id])
+    @spot.update_attributes(params[:spot])
+
+    respond_with @spot
+  end
+
+  # DELETE /spots/1.json
+  def destroy
+    @spot = Spot.find(params[:id])
+    @spot.destroy
+
+    respond_with @spot
   end
 end
