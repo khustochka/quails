@@ -11,6 +11,9 @@ gem 'thin', :group => :production, :require => false, :platforms => :ruby # for 
 # Deploy with Capistrano
 # gem 'capistrano'
 
+# temporary workaround
+gem 'multi_json', '1.2.0'
+
 # Bundle the extra gems:
 gem 'rails-i18n'
 gem 'haml-rails'
@@ -58,7 +61,7 @@ group :test do
   gem 'test-unit'
   gem 'ruby-prof', :require => false, :platforms => [:mri, :mingw]
   gem 'capybara'
-  gem 'selenium-webdriver', '2.21.0'
+  gem 'selenium-webdriver', '~> 2.21'
   gem 'rspec-expectations', :require => false # No need to require on startup b/c TestUnitTestCase doesn't exist then
   gem 'launchy' # So you can do Then show me the page
   gem 'simplecov', :require => false
