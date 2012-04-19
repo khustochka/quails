@@ -17,6 +17,7 @@ class Lifelist
   def initialize(strategy_class)
     @strategy = strategy_class.new
     @filter = {}
+    @observation_source = MyObservation
   end
 
   # Chainable methods
@@ -65,7 +66,7 @@ class Lifelist
 
   # Given observations filtered by (month, locus) returns array of years within these observations happened
   def years
-    rel = Observation.filter(@filter.merge({year: nil})).select('DISTINCT EXTRACT(year from observ_date) AS year').order(:year)
+    rel = @observation_source.filter(@filter.merge({year: nil})).select('DISTINCT EXTRACT(year from observ_date) AS year').order(:year)
     [nil] + rel.map { |ob| ob[:year] }
   end
 
@@ -80,7 +81,7 @@ class Lifelist
   end
 
   def lifers_aggregation
-    Observation.filter(@filter).select("species_id, #{@strategy.aggregation_query}").group(:species_id)
+    @observation_source.filter(@filter).select("species_id, #{@strategy.aggregation_query}").group(:species_id)
   end
 
   def posts(first_or_last = 'first')
@@ -88,7 +89,7 @@ class Lifelist
     Hash[
         @posts_source.select('posts.*, lifers.species_id').
             joins(
-            "INNER JOIN (#{Observation.filter(@filter).to_sql}) AS observs
+            "INNER JOIN (#{@observation_source.filter(@filter).to_sql}) AS observs
               ON posts.id = observs.post_id").
             joins(
             "INNER JOIN (#{lifers_sql}) AS lifers

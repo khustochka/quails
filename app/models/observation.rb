@@ -23,13 +23,11 @@ class Observation < ActiveRecord::Base
 
   # Scopes
 
-  scope :mine, where(:mine => true)
-
   scope :identified, where('observations.species_id != 0')
 
   # TODO: improve and probably use universally
   def self.filter(options = {})
-    rel = MyObservations.scoped
+    rel = self.scoped
     rel = rel.where('EXTRACT(year from observ_date) = ?', options[:year]) unless options[:year].blank?
     rel = rel.where('EXTRACT(month from observ_date) = ?', options[:month]) unless options[:month].blank?
     rel = rel.where('species_id' => options[:species]) unless options[:species].blank?
