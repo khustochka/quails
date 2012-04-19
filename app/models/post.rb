@@ -47,13 +47,13 @@ class Post < ActiveRecord::Base
   end
 
   def self.prev_month(year, month)
-    date = Time.parse("#{year}-#{month}-01").beginning_of_month # No Time.zone is OK!
+    date = Time.parse("#{year}-#{month}-01").beginning_of_month.strftime("%F %T") # No Time.zone is OK!
     rec = select('face_date').where('face_date < ?', date).order('face_date DESC').limit(1).first
     rec.try(:to_month_url)
   end
 
   def self.next_month(year, month)
-    date = Time.parse("#{year}-#{month}-01").end_of_month # No Time.zone is OK!
+    date = Time.parse("#{year}-#{month}-01").end_of_month.strftime("%F %T.%N") # No Time.zone is OK!
     rec = select('face_date').where('face_date > ?', date).order('face_date ASC').limit(1).first
     rec.try(:to_month_url)
   end
