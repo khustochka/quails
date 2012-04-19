@@ -31,9 +31,10 @@ Quails3::Application.config.secret_token = secret
 IMAGES_HOST = options.images_host
 
 if options.flickr
-  FlickRaw.api_key = options.flickr.api_key
-  FlickRaw.shared_secret = options.flickr.shared_secret
+  flickr_data = OpenStruct.new(options.flickr)
+  FlickRaw.api_key = flickr_data.api_key
+  FlickRaw.shared_secret = flickr_data.shared_secret
 
-  flickr.access_token = options.flickr.access_token
-  flickr.access_secret = options.flickr.access_key
+  flickr.access_token = flickr_data.access_token
+  flickr.access_secret = flickr_data.access_key
 end
