@@ -12,7 +12,7 @@ class Species < ActiveRecord::Base
   has_many :observations, :dependent => :restrict, :order => [:observ_date]
   has_many :images, :through => :observations, :order => [:observ_date, :locus_id, :index_num]
 
-  AVIS_INCOGNITA = Hashie::Mash.new(:id => 0, :name_sci => '- Avis incognita')
+  AVIS_INCOGNITA = OpenStruct.new(:id => 0, :name_sci => '- Avis incognita')
 
   # Parameters
 

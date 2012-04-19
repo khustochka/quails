@@ -1,7 +1,8 @@
+require "ostruct"
 filename = 'config/security.yml'
 
 begin
-  options = Hashie::Mash.new(YAML.load(ERB.new(File.read(filename)).result)[Rails.env])
+  options = OpenStruct.new(YAML.load(ERB.new(File.read(filename)).result)[Rails.env])
 rescue Errno::ENOENT
   require 'fileutils'
   FileUtils.cp 'config/security.sample.yml', filename
