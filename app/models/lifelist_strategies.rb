@@ -22,26 +22,46 @@ module LifelistStrategies
 
     AGGREGATION_TEMPLATE = "%s AS %s"
 
-    attr_reader :sort, :sort_columns, :aggregation_column, :aggregation_query
+    def initialize
+      @sorting = nil
+    end
 
-    def initialize(*args)
-      input = args.extract_options!
-      @sort = input[:sort]
-      raise 'Incorrect option' unless @sort.in?(ALLOWED_SORT)
-      @sort_columns = SORT_COLUMNS[input[:sort]]
+    # TODO: should accept either string or symbol
+    def sorting=(sort)
+      raise 'Incorrect option' unless sort.in?(ALLOWED_SORT)
+      @sorting = sort
+    end
+
+    def sort_columns
+      SORT_COLUMNS[@sorting]
+    end
+
+    def extend_filter(initial_filter)
+      initial_filter.dup.tap do |filter|
+        if filter[:locus]
+          if allowed_locus?(filter[:locus])
+            filter[:locus] = Locus.select(:id).find_by_code!(filter[:locus]).get_subregions
+          else
+            raise ActiveRecord::RecordNotFound
+          end
+        end
+      end
     end
 
   end
 
   class BasicStrategy < Strategy
-    def initialize(*args)
-      super(*args)
-      @aggregation_column = AGGREGATION[@sort][1]
-      @aggregation_query = AGGREGATION_TEMPLATE % AGGREGATION[@sort]
-    end
 
     def advanced?
       false
+    end
+
+    def aggregation_column
+      AGGREGATION[@sorting][1]
+    end
+
+    def aggregation_query
+      AGGREGATION_TEMPLATE % AGGREGATION[@sorting]
     end
 
     def allowed_locus?(locus)
@@ -50,14 +70,17 @@ module LifelistStrategies
   end
 
   class AdvancedStrategy < Strategy
-    def initialize(*args)
-      super(*args)
-      @aggregation_column = [nil, 'last', 'count'].map { |o| AGGREGATION[o][1] }.join(',')
-      @aggregation_query = [nil, 'last', 'count'].map { |o| AGGREGATION_TEMPLATE % AGGREGATION[o] }.join(',')
-    end
 
     def advanced?
       true
+    end
+
+    def aggregation_column
+      @aggregation_column ||= [nil, 'last', 'count'].map { |o| AGGREGATION[o][1] }.join(',')
+    end
+
+    def aggregation_query
+      @aggregation_query ||= [nil, 'last', 'count'].map { |o| AGGREGATION_TEMPLATE % AGGREGATION[o] }.join(',')
     end
 
     def allowed_locus?(locus)

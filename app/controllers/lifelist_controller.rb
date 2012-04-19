@@ -16,10 +16,10 @@ class LifelistController < ApplicationController
             'class'
         end
 
-    @lifelist = Lifelist.new(
-        Lifelist::BasicStrategy.new(sort: sort_override),
-        filter: params.slice(:year, :locus),
-        posts_source: current_user.available_posts
-    )
+    @lifelist = Lifelist.basic.
+        sort(sort_override).
+        filter(params.slice(:year, :locus))
+
+    @lifelist.preload(posts: current_user.available_posts) unless sort_override == 'count'
   end
 end

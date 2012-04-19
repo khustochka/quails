@@ -1,39 +1,67 @@
-class Lifelist < Array
+class Lifelist
 
-  include SpeciesArray
+  include Enumerable
+
   include LifelistStrategies
 
-  def initialize(strategy, *args)
-    input = args.extract_options!
-    @strategy = strategy
-    @advanced = input[:format] == :advanced
-    @filter = input[:filter].try(:dup) || {}
-    if @filter[:locus]
-      if @strategy.allowed_locus?(@filter[:locus])
-        @filter[:locus] = Locus.select(:id).find_by_code!(@filter[:locus]).get_subregions
-      else
-        raise ActiveRecord::RecordNotFound
-      end
-    end
+  # Initializers
 
-    @posts_source = input[:posts_source]
+  def self.advanced
+    new(AdvancedStrategy)
+  end
 
-    the_list = Lifer.select("species.*, #{@strategy.aggregation_column}").
+  def self.basic
+    new(BasicStrategy)
+  end
+
+  def initialize(strategy_class)
+    @strategy = strategy_class.new
+    @filter = {}
+  end
+
+  # Chainable methods
+
+  def sort(sorting)
+    @strategy.sorting = sorting
+    self
+  end
+
+  def filter(filter)
+    @filter = @strategy.extend_filter(filter)
+    self
+  end
+
+  def preload(options)
+    @posts_source = options[:posts]
+    self
+  end
+
+  # Enumerable methods
+  delegate :each, :size, :empty?, :group_by_family, to: :to_a
+
+  # TODO: is it possible to delegate to relation?
+  # main problem - preload posts
+  def to_a
+    return @records unless @records.nil?
+
+    @records = Lifer.select("species.*, #{@strategy.aggregation_column}").
         joins("INNER JOIN (#{lifers_sql}) AS obs ON species.id=obs.species_id").
         reorder(@strategy.sort_columns).all
 
     # TODO: somehow extract posts preload to depend on strategy
-    unless @strategy.sort == 'count'
+    if @posts_source
       first_posts = posts('first')
       last_posts = posts('last')
-      the_list.each do |sp|
+      @records.each do |sp|
         sp.post = first_posts[sp.id].try(:first)
         sp.last_post = last_posts[sp.id].try(:first)
       end
     end
 
-    super(the_list)
+    @records.extend(SpeciesArray)
+
   end
+  private :to_a
 
   # Given observations filtered by (month, locus) returns array of years within these observations happened
   def years

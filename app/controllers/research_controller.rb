@@ -8,11 +8,10 @@ class ResearchController < ApplicationController
   def lifelist
     @allowed_params = [:controller, :action, :year, :locus, :sort, :month]
 
-    @lifelist = Lifelist.new(
-        Lifelist::AdvancedStrategy.new(sort: params[:sort]),
-        filter: params.slice(:year, :month, :locus),
-        posts_source: current_user.available_posts
-    )
+    @lifelist = Lifelist.advanced.
+        sort(params[:sort]).
+        filter(params.slice(:year, :month, :locus)).
+        preload(posts: current_user.available_posts)
   end
 
   def more_than_year
