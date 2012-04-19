@@ -70,9 +70,18 @@ class PostTest < ActiveSupport::TestCase
   end
 
   test 'face date is treated as timezone-less' do
-    blogpost = create(:post, face_date: '2013-01-01 00:30:00')
+    blogpost = create(:post, face_date: '2013-01-01 00:30:00') # risky time (different days in GMT and EEST)
     Post.year(2013).pluck(:id).should include(blogpost.id)
     Post.year(2012).pluck(:id).should_not include(blogpost.id)
+  end
+
+  test 'calculate next and previous months correctly (last day in mind)' do
+    create(:post, face_date: '2011-01-20 12:30:00')
+    create(:post, face_date: '2011-01-31 23:53:00') # last day and risky time
+    create(:post, face_date: '2011-02-01 00:30:00') # risky time (different days in GMT and EEST)
+    create(:post, face_date: '2011-02-15 12:53:00')
+    Post.next_month('2011', '01').should == {month: '02', year: '2011'}
+    Post.prev_month('2011', '02').should == {month: '01', year: '2011'}
   end
 
 end
