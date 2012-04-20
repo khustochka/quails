@@ -8,6 +8,19 @@
 
 = render 'observations/search'
 
+.observ_form_container
+  = simple_form_for @spot, url: save_spots_path, remove: true do |form|
+    = form.input :id, as: :hidden
+    = form.input :lat, as: :hidden
+    = form.input :lng, as: :hidden
+    = form.input :zoom, as: :hidden
+    = form.input :observation_id, as: :hidden
+    = form.input :exactness
+    = form.input :public
+    = form.input :memo
+    = form.button :submit
+
+
 %ul.obs-list
   -#= render :partial => 'observations/obs_item', :collection => @observations
 

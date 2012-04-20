@@ -11,6 +11,7 @@ class MapsController < ApplicationController
   # GET "/map/edit"
   def edit
     @search = Observation.search(params[:q])
+    @spot = Spot.new(exactness: 0, public: true)
   end
 
 end

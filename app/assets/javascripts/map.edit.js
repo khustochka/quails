@@ -71,6 +71,10 @@ $(function () {
         searchForSpots();
     });
 
+    // Spot edit form
+
+    var spotForm = $('.observ_form_container').detach();
+
     // Starting hardcore map stuff
 
     var theMap = $('#googleMap');
@@ -86,7 +90,7 @@ $(function () {
                     action:'addInfoWindow',
                     latLng:event.latLng,
                     options:{
-                        content:"<h2>Hello!</h2>"
+                        content:spotForm.html()
                     }
                 });
             }
