@@ -1,6 +1,7 @@
 source :rubygems
 
 gem 'rails', '3.2.3'
+# gem 'rails', git: 'git://github.com/rails/rails.git'
 
 gem 'pg'#, :platforms => [:ruby, :mingw]
 
@@ -59,6 +60,6 @@ group :test do
   gem 'capybara'
   gem 'rspec-expectations', :require => false # No need to require on startup b/c TestUnitTestCase doesn't exist then
   gem 'launchy' # So you can do Then show me the page
-#  gem 'simplecov', :require => false
+  gem 'simplecov', :require => false
 #  gem 'spork-testunit'
 end
