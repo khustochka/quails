@@ -21,20 +21,11 @@ class SpotsController < ApplicationController
     respond_with(spots)
   end
 
-  # POST /spots.json
-  def create
-    @spot = Spot.new(params[:spot])
-    @spot.save
-
-    respond_with @spot
-  end
-
-  # PUT /spots/1.json
-  def update
-    @spot = Spot.find(params[:id])
-    @spot.update_attributes(params[:spot])
-
-    respond_with @spot
+  # POST "/spots/save.json"
+  def save
+    spot = Spot.find_or_initialize_by_id(params[:spot][:id])
+    spot.update_attributes!(params[:spot])
+    respond_with spot
   end
 
   # DELETE /spots/1.json
