@@ -15,7 +15,7 @@ class Post < ActiveRecord::Base
 
   has_many :comments, :dependent => :destroy
   has_many :observations, :dependent => :nullify
-  has_many :species, :through => :observations
+  has_many :species, :through => :observations, :order => [:index_num], :uniq => true
 #  has_many :images, :through => :observations, :include => :species, :uniq => true
 
   def images

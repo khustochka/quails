@@ -48,7 +48,7 @@ class Lifelist
 
     @records = Lifer.select("species.*, #{@strategy.aggregation_column}").
         joins("INNER JOIN (#{lifers_sql}) AS obs ON species.id=obs.species_id").
-        reorder(@strategy.sort_columns).all
+        order(@strategy.sort_columns).all
 
     # TODO: somehow extract posts preload to depend on strategy
     if @posts_source

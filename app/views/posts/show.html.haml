@@ -17,10 +17,11 @@
       %h3= t('.sections.photos')
       = render partial: 'images/thumbnail', collection: images
 
-- unless @post.species.blank?
+- spcs = @post.species
+- unless spcs.blank?
   %p
     %b= t('.sections.species')
-    = @post.species.uniq.map { |sp| species_link(sp) }.join(",\n").html_safe
+    = spcs.map { |sp| species_link(sp) }.join(",\n").html_safe
 
 %h3#comments= t('.sections.comments')
 

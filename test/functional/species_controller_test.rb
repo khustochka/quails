@@ -11,6 +11,19 @@ class SpeciesControllerTest < ActionController::TestCase
     assert_not_nil assigns(:species)
   end
 
+  test "species index properly ordered" do
+    # Dummy swap of two species
+    max_index = Species.maximum(:index_num)
+    sp1 = Species.find_by_index_num(10)
+    sp1.update_attributes(index_num: max_index + 1)
+    sp2 = Species.find_by_index_num(max_index)
+    sp2.update_attributes(index_num: 10)
+
+    get :index
+    assert_response :success
+    assigns(:species).last.should == sp1
+  end
+
   test "show species" do
     species = seed(:melgal)
     get :show, id: species.to_param

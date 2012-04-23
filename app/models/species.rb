@@ -22,10 +22,8 @@ class Species < ActiveRecord::Base
 
   # Scopes
 
-  default_scope order(:index_num)
+  scope :ordered_by_taxonomy, order(:index_num)
 
-  def self.alphabetic
-    reorder(:name_sci)
-  end
+  scope :alphabetic, order(:name_sci)
 
 end

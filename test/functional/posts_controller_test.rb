@@ -22,6 +22,23 @@ class PostsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  # TODO: Unreliable test?
+  test "species list in the post properly ordered" do
+    # Dummy swap of two species
+    max_index = Species.maximum(:index_num)
+    sp1 = Species.find_by_index_num(10)
+    sp1.update_attributes(index_num: max_index + 1)
+    sp2 = Species.find_by_index_num(max_index)
+    sp2.update_attributes(index_num: 10)
+
+    blogpost = create(:post)
+    create(:observation, species: sp2, post: blogpost)
+    create(:observation, species: sp1, post: blogpost)
+
+    get :show, blogpost.to_url_params
+    assigns(:post).species.should == [sp2, sp1]
+  end
+
   test "get edit" do
     blogpost = create(:post)
     login_as_admin
