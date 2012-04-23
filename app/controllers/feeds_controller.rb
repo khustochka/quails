@@ -14,7 +14,7 @@ class FeedsController < ApplicationController
   def sitemap
     @posts = Post.public.select("code, face_date, updated_at")
     @images = Image.preload(:species).select("id, code, created_at")
-    @species = Species.joins("RIGHT JOIN observations ON species.id = species_id").where('species.id != 0').
+    @species = Species.joins(:observations).where('species.id != 0').
         uniq.select('name_sci').reorder(nil)
 
     # TODO: take into account only the posts shown on home page

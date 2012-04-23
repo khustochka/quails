@@ -13,7 +13,8 @@ class SpotsController < ApplicationController
     spots =
         if params[:q] && params[:q].values.uniq != ['']
           Spot.
-              joins("JOIN (#{Observation.search(params[:q]).result.to_sql}) as obs ON observation_id=obs.id").
+              joins(:observation).
+              merge(Observation.search(params[:q]).result).
               select('lat, lng')
         else
           []

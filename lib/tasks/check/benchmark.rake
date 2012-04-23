@@ -12,18 +12,16 @@ namespace :check do
     n = 500
     Benchmark.bmbm do |x|
 
-      x.report('big join') { n.times {
+      x.report('manual join') { n.times {
         Spot.
             joins("JOIN (#{Observation.search(@query).result.to_sql}) as obs ON observation_id=obs.id").
             select('lat, lng')
       } }
 
-      x.report('join+select') { n.times {
-        Observation.search(@query).result.joins(:spots).select('lat, lng').all
-      } }
-
-      x.report('proper join') { n.times {
-        Spot.joins(:observation).search(@query2).result.select('lat, lng').all
+      x.report('join+merge') { n.times {
+        Spot.
+            joins(:observation).merge(Observation.search(@query).result).
+        select('lat, lng')
       } }
 
     end
