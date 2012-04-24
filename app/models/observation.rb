@@ -35,6 +35,10 @@ class Observation < ActiveRecord::Base
     rel
   end
 
+  def self.years
+    order(:year).pluck('DISTINCT EXTRACT(year from observ_date) AS year')
+  end
+
   # Get data
 
   def self.biotopes(refresh = false)

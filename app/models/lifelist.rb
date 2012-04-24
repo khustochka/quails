@@ -65,8 +65,7 @@ class Lifelist
 
   # Given observations filtered by (month, locus) returns array of years within these observations happened
   def years
-    rel = @observation_source.filter(@filter.merge({year: nil})).select('DISTINCT EXTRACT(year from observ_date) AS year').order(:year)
-    [nil] + rel.map { |ob| ob[:year] }
+    [nil] + @observation_source.filter(@filter.merge({year: nil})).years
   end
 
   def locations
