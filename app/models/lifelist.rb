@@ -44,7 +44,7 @@ class Lifelist
   # TODO: is it possible to delegate to relation?
   # main problem - preload posts
   def to_a
-    return @records unless @records.nil?
+    return @records if @records
 
     @records = Lifer.select("species.*, #{@strategy.aggregation_column}").
         joins("INNER JOIN (#{lifers_sql}) AS obs ON species.id=obs.species_id").

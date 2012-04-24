@@ -3,7 +3,7 @@
 = form.input :observ_date, :as => :string, :label => 'Date:',
       :input_html => {:class => 'short', :maxlength => 10, :name => 'c[observ_date]', :type => 'date'}
 = form.input :mine, :label => 'Mine', :input_html => {:name => 'c[mine]'}
-- unless @blogpost.nil?
+- if @blogpost
   %div.input.boolean.optional.flat
     = hidden_field_tag("c[post_id]")
     = check_box_tag("c[post_id]", @blogpost.id, true, :class => "boolean optional", :id => "observation_post_id")

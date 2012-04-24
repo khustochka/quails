@@ -13,7 +13,7 @@ class BookImport
         order = order.nil? ? '' : order.strip.downcase.capitalize
         family = family.strip.downcase.capitalize
       else
-        unless family.nil?
+        if family
           sp_data = row.children
           name_en = sp_data[0].content
           name_sci = sp_data[1].content

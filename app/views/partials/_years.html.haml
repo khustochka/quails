@@ -3,7 +3,7 @@
     %strong= t('.years')
     - @years.each do |year|
       %li
-        - if year.nil?
-          = params[:year].nil? ? content_tag(:span, t('misc.all')) : link_to(t('misc.all'), significant_params.merge(:year => nil))
-        - else
+        - if year
           = link_to_or_span(year, significant_params.merge(:year => year))
+        - else
+          = params[:year].nil? ? content_tag(:span, t('misc.all')) : link_to(t('misc.all'), significant_params.merge(:year => nil))

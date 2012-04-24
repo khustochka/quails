@@ -58,7 +58,7 @@ namespace :legacy do
     ydoc = YAML.load(file.read)
     ydoc.keys.each do |table_name|
       data = ydoc[table_name]
-      next if data.nil?
+      next unless data
 
       table = BunchDB::Table.new(table_name)
       table.cleanup
