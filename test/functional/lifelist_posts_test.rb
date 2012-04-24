@@ -39,7 +39,7 @@ class LifelistPostsTest < ActionController::TestCase
     get :default
     assert_response :success
     lifers = assigns(:lifelist)
-    lifers.select {|s| s.code == 'anapla'}[0].post.should be_nil
+    lifers.find {|s| s.code == 'anapla'}.post.should be_nil
   end
 
   test 'do not show hidden post link to common visitor' do

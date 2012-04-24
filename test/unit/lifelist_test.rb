@@ -122,7 +122,7 @@ class LifelistTest < ActiveSupport::TestCase
     @obs[2].post = create(:post) # must be attached to the same species but not the first observation
     @obs[2].save!
     lifelist = Lifelist.basic.preload(posts: Post.public)
-    lifelist.select {|sp| sp.code == 'colliv'}[0].post.should be_nil
+    lifelist.find {|sp| sp.code == 'colliv'}.post.should be_nil
   end
 
   test 'Do not associate post of the wrong year' do
@@ -131,7 +131,7 @@ class LifelistTest < ActiveSupport::TestCase
     @obs[5].post = create(:post, code: 'feraldoves_2009')
     @obs[5].save!
     lifelist = Lifelist.basic.filter(year: 2009).preload(posts: Post.public)
-    lifelist.select {|sp| sp.code == 'colliv'}[0].post.code.should == @obs[5].post.code
+    lifelist.find {|sp| sp.code == 'colliv'}.post.code.should == @obs[5].post.code
   end
 
   test 'Do not associate post of the wrong location' do
@@ -139,6 +139,6 @@ class LifelistTest < ActiveSupport::TestCase
     @obs[0].post = create(:post)
     @obs[0].save!
     lifelist = Lifelist.basic.filter(locus: 'kiev').preload(posts: Post.public)
-    lifelist.select {|sp| sp.code == 'colliv'}[0].post.should be_nil
+    lifelist.find {|sp| sp.code == 'colliv'}.post.should be_nil
   end
 end
