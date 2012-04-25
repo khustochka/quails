@@ -9,7 +9,7 @@
 = render 'observations/search'
 
 .observ_form_container
-  = simple_form_for @spot, url: save_spots_path, remove: true do |form|
+  = simple_form_for @spot, url: save_spots_path, remote: true do |form|
     = form.input :id, as: :hidden
     = form.input :lat, as: :hidden
     = form.input :lng, as: :hidden
@@ -18,7 +18,8 @@
     = form.input :exactness
     = form.input :public
     = form.input :memo
-    = form.button :submit
+    .buttons
+      = default_submit_button(form)
 
 
 %ul.obs-list

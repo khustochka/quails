@@ -43,11 +43,11 @@ $(function () {
 
     function buildObservations(data) {
         $(data).each(function () {
-            $("<li>").append(
+            $("<li>").data('obs_id', this.id).append(
                 $('<div>').html(this.species_str),
                 $('<div>').html(this.when_where_str)
             )
-            .appendTo($('ul.obs-list'));
+                .appendTo($('ul.obs-list'));
         });
     }
 
@@ -71,13 +71,25 @@ $(function () {
         searchForSpots();
     });
 
+    // the Map
+
+    var theMap = $('#googleMap');
+
     // Spot edit form
 
     var spotForm = $('.observ_form_container').detach();
 
-    // Starting hardcore map stuff
+    // Toggle selected observation
 
-    var theMap = $('#googleMap');
+    $('.obs-list').on('click', 'li', function() {
+        var infowindow = theMap.gmap3({action:'get', name:'infowindow'});
+        if (infowindow) infowindow.close();
+
+        $('li.selected_obs').removeClass('selected_obs');
+        $(this).addClass('selected_obs');
+    });
+
+    // Starting hardcore map stuff
 
     theMap.gmap3({
         action:'init',
@@ -85,16 +97,40 @@ $(function () {
             draggableCursor:'pointer'
         },
         events:{
-            click:function(map, event) {
+            click:function (map, event) {
+                var newForm = spotForm.clone(),
+                    wndContent,
+                    selectedObs = $('li.selected_obs'),
+                    infowindow = theMap.gmap3({action:'get', name:'infowindow'});
+
+                if (infowindow) infowindow.close();
+
+                if (selectedObs.length == 0) wndContent = "<p>No observation selected</p>";
+                else {
+                    $('#spot_lat', newForm).val(event.latLng.lat());
+                    $('#spot_lng', newForm).val(event.latLng.lng());
+                    $('#spot_zoom', newForm).val(map.zoom);
+                    $('#spot_observation_id', newForm).val(selectedObs.data('obs_id'));
+                    wndContent = newForm.html();
+                }
                 theMap.gmap3({
                     action:'addInfoWindow',
                     latLng:event.latLng,
                     options:{
-                        content:spotForm.html()
+                        content:wndContent
                     }
                 });
             }
         }
+    });
+
+    $(document).on('ajax:success', '#new_spot', function (e, data) {
+        var infowindow = theMap.gmap3({action:'get', name:'infowindow'});
+        theMap.gmap3({
+            action:'addMarker',
+            latLng:infowindow.getPosition()
+        });
+        infowindow.close();
     });
 
 });
