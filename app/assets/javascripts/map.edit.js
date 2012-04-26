@@ -27,14 +27,21 @@ $(function () {
             .css('top', upper).css('left', leftmost);
     }
 
+    function closeInfoWindows() {
+        var infowindow = theMap.gmap3({action:'get', name:'infowindow'});
+        if (infowindow) infowindow.close();
+    }
+
     function buildObservations(data) {
 
+        observCollection = {};
+
         var marks = $(data).map(function () {
-            $("<li>").data('obs_id', this.id).append(
-                $('<div>').html(this.species_str),
-                $('<div>').html(this.when_where_str)
-            )
-                .appendTo($('ul.obs-list'));
+            observCollection[this.id] =
+                $("<li>").data('obs_id', this.id).append(
+                    $('<div>').html(this.species_str),
+                    $('<div>').html(this.when_where_str)
+                ).appendTo($('ul.obs-list'));
 
             return($.map(this.spots, function (spot, i) {
                 return {
@@ -53,11 +60,31 @@ $(function () {
                 markers:marks,
                 marker:{
                     options:{
+                        draggable:true,
                         icon:GRAY_ICON
                     },
                     events:{
                         click:function (marker, event, data) {
                             alert(data);
+                        },
+                        dragstart:function (marker, event, data) {
+                            closeInfoWindows();
+                            var selected = $('li.selected_obs');
+                            if (selected.length == 0 || selected.data('obs_id') != data.observation_id) {
+                                observCollection[data.observation_id].click();
+                            }
+                        },
+                        dragend:function (marker, event, data) {
+                            $.post(
+                                $('form', spotForm).attr('action'),
+                                {spot:{
+                                    id:data.id,
+                                    lat:marker.getPosition().lat(),
+                                    lng:marker.getPosition().lng(),
+                                    // Change zoom only if it was increased
+                                    zoom:Math.max(data.zoom, marker.getMap().zoom)
+                                }}
+                            );
                         }
                     }
                 }
@@ -87,7 +114,8 @@ $(function () {
     // the Map
 
     var theMap = $('#googleMap'),
-        activeMarkers = [];
+        activeMarkers = [],
+        observCollection;
 
     var GRAY_ICON = "http://maps.google.com/mapfiles/marker_white.png",
         RED_ICON = "http://maps.google.com/mapfiles/marker.png";
@@ -100,8 +128,7 @@ $(function () {
     // Toggle selected observation
 
     $('.obs-list').on('click', 'li', function () {
-        var infowindow = theMap.gmap3({action:'get', name:'infowindow'});
-        if (infowindow) infowindow.close();
+        closeInfoWindows();
 
         $.each(activeMarkers, function (i, marker) {
             marker.setIcon(GRAY_ICON);
@@ -135,10 +162,9 @@ $(function () {
             click:function (map, event) {
                 var newForm = spotForm.clone(),
                     wndContent,
-                    selectedObs = $('li.selected_obs'),
-                    infowindow = theMap.gmap3({action:'get', name:'infowindow'});
+                    selectedObs = $('li.selected_obs');
 
-                if (infowindow) infowindow.close();
+                closeInfoWindows();
 
                 if (selectedObs.length == 0) wndContent = "<p>No observation selected</p>";
                 else {
