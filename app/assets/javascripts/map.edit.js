@@ -23,7 +23,7 @@ $(function () {
             upper = $('#header').outerHeight(true) + $('#new_q').outerHeight(),
             leftmost = $('ul.obs-list').outerWidth(true);
         $('ul.obs-list').height(clientHeight - upper - 2);
-        $('div#googleMap').height(clientHeight - upper).width(clientWidth - leftmost)
+        $('div.mapContainer').height(clientHeight - upper).width(clientWidth - leftmost)
             .css('top', upper).css('left', leftmost);
     }
 
@@ -53,7 +53,7 @@ $(function () {
                     lng:spot.lng,
                     tag:spot.observation_id,
                     data:spot,
-                    options:{title: hoverText}
+                    options:{title:hoverText}
                 }
             }));
         });
@@ -88,7 +88,6 @@ $(function () {
     });
 
     // the Map
-    // TODO: add crosshair
 
     var theMap = $('#googleMap'),
         activeMarkers = [],
@@ -96,7 +95,7 @@ $(function () {
 
     var GRAY_ICON = "http://maps.google.com/mapfiles/marker_white.png",
         RED_ICON = "http://maps.google.com/mapfiles/marker.png";
-        // TODO: add shadow?
+    // TODO: add shadow?
 
     var DEFAULT_MARKER_OPTIONS = {
         options:{
@@ -141,7 +140,7 @@ $(function () {
 
         $.each(activeMarkers, function (i, marker) {
             marker.setIcon(GRAY_ICON);
-            marker.setZIndex(google.maps.Marker.MAX_ZINDEX - 1);
+            marker.setZIndex($(marker).data['OrigZIndex']);
         });
 
         $('li.selected_obs').removeClass('selected_obs');
@@ -156,6 +155,7 @@ $(function () {
 
         $.each(activeMarkers, function (i, marker) {
             marker.setIcon(RED_ICON);
+            $(marker).data['OrigZIndex'] = marker.getZIndex();
             marker.setZIndex(google.maps.Marker.MAX_ZINDEX);
         });
     });
@@ -197,7 +197,7 @@ $(function () {
     $(document).on('ajax:success', '#new_spot', function (e, data) {
         var infowindow = theMap.gmap3({action:'get', name:'infowindow'}),
             selectedObs = $('li.selected_obs'),
-        markerOptions = DEFAULT_MARKER_OPTIONS;
+            markerOptions = DEFAULT_MARKER_OPTIONS;
         markerOptions['data'] = data;
         markerOptions.options.icon = RED_ICON;
         markerOptions.options.title = $('div:first', selectedObs).text();
