@@ -36,6 +36,8 @@ $(function () {
 
         observCollection = {};
 
+        var hoverText;
+
         var marks = $(data).map(function () {
             observCollection[this.id] =
                 $("<li>").data('obs_id', this.id).append(
@@ -43,12 +45,15 @@ $(function () {
                     $('<div>').html(this.when_where_str)
                 ).appendTo($('ul.obs-list'));
 
+            hoverText = $('div:first', observCollection[this.id]).text();
+
             return($.map(this.spots, function (spot, i) {
                 return {
                     lat:spot.lat,
                     lng:spot.lng,
                     tag:spot.observation_id,
-                    data:spot
+                    data:spot,
+                    options:{title: hoverText}
                 }
             }));
         });
@@ -189,9 +194,11 @@ $(function () {
 
     $(document).on('ajax:success', '#new_spot', function (e, data) {
         var infowindow = theMap.gmap3({action:'get', name:'infowindow'}),
+            selectedObs = $('li.selected_obs'),
         markerOptions = DEFAULT_MARKER_OPTIONS;
         markerOptions['data'] = data;
         markerOptions.options.icon = RED_ICON;
+        markerOptions.options.title = $('div:first', selectedObs).text();
         theMap.gmap3({
             action:'addMarker',
             latLng:infowindow.getPosition(),
