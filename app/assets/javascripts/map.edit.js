@@ -59,12 +59,12 @@ $(function () {
         });
 
         $('#googleMap').gmap3(
-            { action:'clear'
-            },
+            'clear',
             { action:'addMarkers',
                 markers:marks,
                 marker:DEFAULT_MARKER_OPTIONS
-            }
+            },
+            'autofit' // Zooms and moves to see all markers
         );
     }
 
@@ -88,6 +88,7 @@ $(function () {
     });
 
     // the Map
+    // TODO: add crosshair
 
     var theMap = $('#googleMap'),
         activeMarkers = [],
@@ -95,6 +96,7 @@ $(function () {
 
     var GRAY_ICON = "http://maps.google.com/mapfiles/marker_white.png",
         RED_ICON = "http://maps.google.com/mapfiles/marker.png";
+        // TODO: add shadow?
 
     var DEFAULT_MARKER_OPTIONS = {
         options:{
