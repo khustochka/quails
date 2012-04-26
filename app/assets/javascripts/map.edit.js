@@ -27,65 +27,61 @@ $(function () {
             .css('top', upper).css('left', leftmost);
     }
 
-    function searchForSpots() {
-        var data = form.serializeArray();
-        $.get("/map/spots/search", data, function (data) {
-            var marks = $.map(data, function(spot, i){
-                return {
-                    lat: spot.lat,
-                    lng: spot.lng,
-                    tag: spot.observation_id,
-                    data: spot
-                }
-            });
-            $('#googleMap').gmap3(
-                { action:'clear'
-                },
-                { action:'addMarkers',
-                    markers:marks,
-                    marker:{
-                        options:{
-                            icon: GRAY_ICON
-                        },
-                        events:{
-                            click: function(marker, event, data){
-                                alert(data);
-                            }
-                        }
-                    }
-                }
-            );
-        });
-    }
-
     function buildObservations(data) {
-        $(data).each(function () {
+
+        var marks = $(data).map(function () {
             $("<li>").data('obs_id', this.id).append(
                 $('<div>').html(this.species_str),
                 $('<div>').html(this.when_where_str)
             )
                 .appendTo($('ul.obs-list'));
+
+            return($.map(this.spots, function (spot, i) {
+                return {
+                    lat:spot.lat,
+                    lng:spot.lng,
+                    tag:spot.observation_id,
+                    data:spot
+                }
+            }));
         });
+
+        $('#googleMap').gmap3(
+            { action:'clear'
+            },
+            { action:'addMarkers',
+                markers:marks,
+                marker:{
+                    options:{
+                        icon:GRAY_ICON
+                    },
+                    events:{
+                        click:function (marker, event, data) {
+                            alert(data);
+                        }
+                    }
+                }
+            }
+        );
     }
 
     adjustSizes();
 
     $(window).resize(adjustSizes);
 
-    var form = $('form.search');
+    var searchForm = $('form.search');
 
-    /* Make form remote */
-    form.attr('action', "/observations/search");
-    form.data('remote', true);
+    /* Make search form remote */
+    searchForm.attr('action', "/observations/with_spots");
+    searchForm.data('remote', true);
 
-    form.on('ajax:beforeSend', function () {
+    searchForm.on('ajax:beforeSend', function () {
         $('ul.obs-list').empty();
         //$('.observation_options').addClass('loading');
     });
 
-    form.on('ajax:success', function (e, data) {
+    searchForm.on('ajax:success', function (e, data) {
         buildObservations(data);
-        searchForSpots();
     });
 
     // the Map
@@ -103,11 +99,11 @@ $(function () {
 
     // Toggle selected observation
 
-    $('.obs-list').on('click', 'li', function() {
+    $('.obs-list').on('click', 'li', function () {
         var infowindow = theMap.gmap3({action:'get', name:'infowindow'});
         if (infowindow) infowindow.close();
 
-        $.each(activeMarkers, function(i, marker){
+        $.each(activeMarkers, function (i, marker) {
             marker.setIcon(GRAY_ICON);
             marker.setZIndex(google.maps.Marker.MAX_ZINDEX - 1);
         });
@@ -118,11 +114,11 @@ $(function () {
         activeMarkers = $('#googleMap').gmap3({
             action:'get',
             name:'marker',
-            all: true,
+            all:true,
             tag:$(this).data('obs_id')
         });
 
-        $.each(activeMarkers, function(i, marker){
+        $.each(activeMarkers, function (i, marker) {
             marker.setIcon(RED_ICON);
             marker.setZIndex(google.maps.Marker.MAX_ZINDEX);
         });

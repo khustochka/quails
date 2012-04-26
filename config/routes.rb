@@ -57,6 +57,7 @@ Quails3::Application.routes.draw do
       get 'add'
       get 'bulk'
       post 'bulksave', defaults: {format: :json}
+      get 'with_spots', defaults: {format: :json}
     end
   end
   resources :loci
@@ -71,9 +72,7 @@ Quails3::Application.routes.draw do
 # end
 
   resource :map, only: [:show, :edit] do
-    resources :spots, only: :index, defaults: {format: :json} do
-      get :search, on: :collection
-    end
+    resources :spots, only: :index, defaults: {format: :json}
   end
 
   resources :spots, only: :destroy, defaults: {format: :json} do

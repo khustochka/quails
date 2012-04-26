@@ -176,4 +176,19 @@ class ObservationsControllerTest < ActionController::TestCase
     result = JSON.parse(response.body)
     result.first.keys.should =~ ["id", "species_str", "when_where_str"]
   end
+
+  test "properly find spots" do
+    obs1 = create(:observation, observ_date: '2010-07-24')
+    obs2 = create(:observation, observ_date: '2011-07-24')
+    create(:spot, observation: obs1)
+    create(:spot, observation: obs2)
+    login_as_admin
+    get :with_spots, format: :json, q: {observ_date_eq: '2010-07-24'}
+    assert_response :success
+    assert_equal Mime::JSON, response.content_type
+    result = JSON.parse(response.body)
+    result.size.should == 1
+    result[0].should include('id', 'species_str', 'when_where_str', 'spots')
+    result[0]['spots'].size.should == 1
+  end
 end

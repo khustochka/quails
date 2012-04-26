@@ -1,6 +1,6 @@
 class ObservationsController < ApplicationController
 
-  respond_to :json, :only => [:search, :bulksave]
+  respond_to :json, :only => [:search, :bulksave, :with_spots]
 
   administrative
 
@@ -112,6 +112,15 @@ class ObservationsController < ApplicationController
     obs_bunch = ObservationBulk.new(params)
     obs_bunch.save
     respond_with(obs_bunch, :location => observations_url, :only => :id)
+  end
+
+  # GET "/observations/with_spots.json"
+  def with_spots
+    observs =
+        params[:q] && params[:q].values.uniq != [''] ?
+            Observation.search(params[:q]).result.preload(:locus, :species, :spots) :
+            []
+    respond_with(observs, :only => :id, :methods => [:species_str, :when_where_str, :spots])
   end
 
   private
