@@ -28,14 +28,31 @@ $(function () {
     }
 
     function searchForSpots() {
-        data = form.serializeArray();
+        var data = form.serializeArray();
         $.get("/map/spots/search", data, function (data) {
-            marks = data;
+            var marks = $.map(data, function(spot, i){
+                return {
+                    lat: spot.lat,
+                    lng: spot.lng,
+                    tag: spot.observation_id,
+                    data: spot
+                }
+            });
             $('#googleMap').gmap3(
                 { action:'clear'
                 },
                 { action:'addMarkers',
-                    markers:marks
+                    markers:marks,
+                    marker:{
+                        options:{
+                            icon: GRAY_ICON
+                        },
+                        events:{
+                            click: function(marker, event, data){
+                                alert(data);
+                            }
+                        }
+                    }
                 }
             );
         });
@@ -73,7 +90,12 @@ $(function () {
 
     // the Map
 
-    var theMap = $('#googleMap');
+    var theMap = $('#googleMap'),
+        activeMarkers = [];
+
+    var GRAY_ICON = "http://maps.google.com/mapfiles/marker_white.png",
+        RED_ICON = "http://maps.google.com/mapfiles/marker.png";
+
 
     // Spot edit form
 
@@ -85,8 +107,25 @@ $(function () {
         var infowindow = theMap.gmap3({action:'get', name:'infowindow'});
         if (infowindow) infowindow.close();
 
+        $.each(activeMarkers, function(i, marker){
+            marker.setIcon(GRAY_ICON);
+            marker.setZIndex(google.maps.Marker.MAX_ZINDEX - 1);
+        });
+
         $('li.selected_obs').removeClass('selected_obs');
         $(this).addClass('selected_obs');
+
+        activeMarkers = $('#googleMap').gmap3({
+            action:'get',
+            name:'marker',
+            all: true,
+            tag:$(this).data('obs_id')
+        });
+
+        $.each(activeMarkers, function(i, marker){
+            marker.setIcon(RED_ICON);
+            marker.setZIndex(google.maps.Marker.MAX_ZINDEX);
+        });
     });
 
     // Starting hardcore map stuff

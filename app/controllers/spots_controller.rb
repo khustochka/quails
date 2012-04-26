@@ -14,12 +14,11 @@ class SpotsController < ApplicationController
         if params[:q] && params[:q].values.uniq != ['']
           Spot.
               joins(:observation).
-              merge(Observation.search(params[:q]).result).
-              select('lat, lng')
+              merge(Observation.search(params[:q]).result)
         else
           []
         end
-    respond_with(spots)
+    respond_with spots
   end
 
   # POST "/spots/save.json"
