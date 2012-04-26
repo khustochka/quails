@@ -58,36 +58,7 @@ $(function () {
             },
             { action:'addMarkers',
                 markers:marks,
-                marker:{
-                    options:{
-                        draggable:true,
-                        icon:GRAY_ICON
-                    },
-                    events:{
-                        click:function (marker, event, data) {
-                            alert(data);
-                        },
-                        dragstart:function (marker, event, data) {
-                            closeInfoWindows();
-                            var selected = $('li.selected_obs');
-                            if (selected.length == 0 || selected.data('obs_id') != data.observation_id) {
-                                observCollection[data.observation_id].click();
-                            }
-                        },
-                        dragend:function (marker, event, data) {
-                            $.post(
-                                $('form', spotForm).attr('action'),
-                                {spot:{
-                                    id:data.id,
-                                    lat:marker.getPosition().lat(),
-                                    lng:marker.getPosition().lng(),
-                                    // Change zoom only if it was increased
-                                    zoom:Math.max(data.zoom, marker.getMap().zoom)
-                                }}
-                            );
-                        }
-                    }
-                }
+                marker:DEFAULT_MARKER_OPTIONS
             }
         );
     }
@@ -119,6 +90,37 @@ $(function () {
 
     var GRAY_ICON = "http://maps.google.com/mapfiles/marker_white.png",
         RED_ICON = "http://maps.google.com/mapfiles/marker.png";
+
+    var DEFAULT_MARKER_OPTIONS = {
+        options:{
+            draggable:true,
+            icon:GRAY_ICON
+        },
+        events:{
+            click:function (marker, event, data) {
+                alert(data);
+            },
+            dragstart:function (marker, event, data) {
+                closeInfoWindows();
+                var selected = $('li.selected_obs');
+                if (selected.length == 0 || selected.data('obs_id') != data.observation_id) {
+                    observCollection[data.observation_id].click();
+                }
+            },
+            dragend:function (marker, event, data) {
+                $.post(
+                    $('form', spotForm).attr('action'),
+                    {spot:{
+                        id:data.id,
+                        lat:marker.getPosition().lat(),
+                        lng:marker.getPosition().lng(),
+                        // Change zoom only if it was increased
+                        zoom:Math.max(data.zoom, marker.getMap().zoom)
+                    }}
+                );
+            }
+        }
+    };
 
 
     // Spot edit form
@@ -186,10 +188,14 @@ $(function () {
     });
 
     $(document).on('ajax:success', '#new_spot', function (e, data) {
-        var infowindow = theMap.gmap3({action:'get', name:'infowindow'});
+        var infowindow = theMap.gmap3({action:'get', name:'infowindow'}),
+        markerOptions = DEFAULT_MARKER_OPTIONS;
+        markerOptions['data'] = data;
+        markerOptions.options.icon = RED_ICON;
         theMap.gmap3({
             action:'addMarker',
-            latLng:infowindow.getPosition()
+            latLng:infowindow.getPosition(),
+            marker:markerOptions
         });
         infowindow.close();
     });
