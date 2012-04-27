@@ -1,4 +1,4 @@
-require 'tmp_cache'
+require 'web_page_cache'
 require 'checklists_helper'
 
 desc 'Tasks for importing species lists'
@@ -11,9 +11,11 @@ namespace :book do
 
     regions = %w( ua usny )
 
+    @cache = WebPageCache.new("tmp/")
+
     regions.each do |reg|
       puts "Fetching #{reg} checklist"
-      list = TmpCache.fetch("list_fr_#{reg}.html", avibase_list_url(reg, 'clements', 'FR'))
+      list = @cache.fetch("list_fr_#{reg}.html", avibase_list_url(reg, 'clements', 'FR'))
 
       require 'nokogiri'
 

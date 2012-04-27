@@ -1,4 +1,3 @@
-require 'tmp_cache'
 require 'checklists_helper'
 require 'import/book_import'
 
@@ -12,12 +11,16 @@ namespace :book do
 
     regions = %w( ua usny )
 
+    @cache = WebPageCache.new("tmp/")
+
     puts 'Fetching Holarctic checklist'
-    holarctic = BookImport.parse_list(TmpCache.fetch('holarctic.html', avibase_list_url('hol', 'clements')))
+    source = @cache.fetch('holarctic.html', avibase_list_url('hol', 'clements'), verbose: true)
+    holarctic = BookImport.parse_list(source)
 
     desired = regions.map do |reg|
       puts "Fetching #{reg} checklist"
-      BookImport.parse_list(TmpCache.fetch("list_#{reg}.html", avibase_list_url(reg, 'clements')))
+      source = @cache.fetch("list_#{reg}.html", avibase_list_url(reg, 'clements'), verbose: true)
+      BookImport.parse_list(source)
     end.inject(&:+).uniq
 
     desired_ordered = holarctic & desired
