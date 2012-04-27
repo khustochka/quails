@@ -22,7 +22,7 @@ class ObservationsController < ApplicationController
       opt = query["#{key}_eq"]
       hash[key] =
           if opt.nil? || opt == '' # don't use opt.present? because mine=false is meaningful (not the same as mine=nil)
-            @observations.if_common_value(key)
+            @observations.common_value(key)
           else
             opt
           end

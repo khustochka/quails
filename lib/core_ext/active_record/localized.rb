@@ -26,6 +26,5 @@ module ActiveRecord
       nm
     end
 
-
   end
 end

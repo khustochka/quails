@@ -13,11 +13,11 @@ class CoreExtTest < ActiveSupport::TestCase
   test 'get single value over hash' do
     y = [{a: 1}, {a: 2}, {a: 1}]
     y.extend(CommonValueSelector)
-    y.if_common_value(:a).should be_nil
+    y.common_value(:a).should be_nil
 
     z = [{a: 1}, {a: 1}, {a: 1}]
     z.extend(CommonValueSelector)
-    z.if_common_value(:a).should == 1
+    z.common_value(:a).should == 1
   end
 
 end
