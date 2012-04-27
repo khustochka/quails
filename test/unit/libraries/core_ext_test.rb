@@ -10,14 +10,12 @@ class CoreExtTest < ActiveSupport::TestCase
     "crex crex".sp_humanize.should == "Crex crex"
   end
 
-  test 'get single value over hash' do
-    y = [{a: 1}, {a: 2}, {a: 1}]
-    y.extend(CommonValueSelector)
-    y.common_value(:a).should be_nil
+  test 'get common values of the hash' do
+    y = [{a: 1, b: 3}, {a: 2, b: 3}, {a: 1, b: 3}]
+    y.inject(&:&).should == {b: 3}
 
-    z = [{a: 1}, {a: 1}, {a: 1}]
-    z.extend(CommonValueSelector)
-    z.common_value(:a).should == 1
+    z = [{a: 1, b: 3}, {a: 1}, {a: 1, b: 3}]
+    z.inject(&:&).should == {a: 1}
   end
 
 end

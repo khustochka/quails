@@ -8,7 +8,7 @@
 = render 'search'
 
 %p
-  %b= link_to_if @observations.present? && @common[:observ_date] && @common[:locus_id] && !@common[:mine].nil?, 'Edit this bulk',
+  %b= link_to_if ObservationsController::BULK_REQUIRED_KEYS.find{|k| @common[k].nil?}.nil?, 'Edit this bulk',
         bulk_observations_path(@common)
   \: Bulk should have the same date, place, and 'mine' value to be editable.
 

@@ -1,5 +1,8 @@
 class ObservationsController < ApplicationController
 
+  BULK_REQUIRED_KEYS = [:locus_id, :observ_date, :mine]
+  BULK_MEANINGFUL_KEYS = BULK_REQUIRED_KEYS + [:species_id, :post_id]
+
   respond_to :json, :only => [:search, :bulksave, :with_spots]
 
   administrative
@@ -16,20 +19,9 @@ class ObservationsController < ApplicationController
     @observations = @search.result.order(params[:sort]).preload(:locus, :post).page(params[:page]).
         send((params[:sort] == 'species.index_num') ? :includes : :preload, :species)
 
-    @observations.extend(CommonValueSelector)
-    query = params[:q] || {}
-    @common = Hash.new do |hash, key|
-      opt = query["#{key}_eq"]
-      hash[key] =
-          if opt.nil? || opt == '' # don't use opt.present? because mine=false is meaningful (not the same as mine=nil)
-            @observations.common_value(key)
-          else
-            opt
-          end
-    end
-
-    # need to initialize this value to form proper url to bulk edit (for only the selected species)
-    @common[:species_id] = query[:species_id_eq] unless query[:species_id_eq].empty?
+    # TODO: extract to model; add tests
+    common = @observations.map(&:attributes).inject(&:&) || {}
+    @common = common.with_indifferent_access.slice(*BULK_MEANINGFUL_KEYS)
   end
 
   # GET /observations/search
@@ -70,12 +62,10 @@ class ObservationsController < ApplicationController
   # GET /observations/bulk
   # Bulk edit observations
   def bulk
-    required_keys = [:locus_id, :observ_date, :mine]
-    meaningful_keys = required_keys + [:species_id, :post_id]
-    if params.values_at(*required_keys).map(&:present?).uniq == [true] && (@observations = Observation.where(params.slice(*meaningful_keys)).all).present?
+    if params.values_at(*BULK_REQUIRED_KEYS).map(&:present?).uniq == [true] && (@observations = Observation.where(params.slice(*BULK_MEANINGFUL_KEYS)).all).present?
       render
     else
-      redirect_to add_observations_url(params.slice(*required_keys))
+      redirect_to add_observations_url(params.slice(*BULK_REQUIRED_KEYS))
     end
   end
 
