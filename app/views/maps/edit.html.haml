@@ -17,7 +17,8 @@
     = form.input :observation_id, as: :hidden
     = form.input :exactness
     = form.input :public
-    = form.input :memo
+    %div
+      = form.input :memo
     .buttons
       = default_submit_button(form)
 
