@@ -29,7 +29,7 @@ class ObservationBulk < Array
     Observation.new.with_transaction_returning_status do
       self.map! do |obs|
         obs.save
-        obs_errors << obs.errors.to_hash.slice!(:locus_id, :observ_date)
+        obs_errors << obs.errors.to_hash.except(:locus_id, :observ_date)
         obs
       end
       obs_errors.clear if obs_errors.reject(&:empty?).empty?

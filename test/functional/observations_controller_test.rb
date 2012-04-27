@@ -72,8 +72,8 @@ class ObservationsControllerTest < ActionController::TestCase
   end
 
   test "create observation" do
-    common = build(:observation).attributes
-    observ = common.slice!(:locus_id, :observ_date, :mine)
+    observ = build(:observation).attributes
+    common = observ.extract!(:locus_id, :observ_date, :mine)
     assert_difference('Observation.count') do
       login_as_admin
       post :create, c: common, o: [observ]
@@ -97,8 +97,8 @@ class ObservationsControllerTest < ActionController::TestCase
 
   test "update observation" do
     observation = create(:observation)
-    common = build(:observation).attributes
-    observ = common.slice!(:locus_id, :observ_date, :mine)
+    observ = build(:observation).attributes
+    common = observ.extract!(:locus_id, :observ_date, :mine)
     login_as_admin
     put :update, id: observation.to_param, c: common, o: [observ]
     assert_redirected_to edit_observation_path(assigns(:observation))
