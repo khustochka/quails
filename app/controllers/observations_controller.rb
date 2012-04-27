@@ -27,7 +27,9 @@ class ObservationsController < ApplicationController
             opt
           end
     end
-    @common[:species_id] = query[:species_id_eq] # need to initialize this value
+
+    # need to initialize this value to form proper url to bulk edit (for only the selected species)
+    @common[:species_id] = query[:species_id_eq] unless query[:species_id_eq].empty?
   end
 
   # GET /observations/search
