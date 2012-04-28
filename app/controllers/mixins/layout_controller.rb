@@ -20,7 +20,6 @@ module LayoutController
     end
   end
 
-
   private
   def get_layout
     @layout

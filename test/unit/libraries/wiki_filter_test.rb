@@ -77,7 +77,6 @@ class WikiFilterTest < ActionDispatch::IntegrationTest
     assert_equal 'Emu', transform('[Emu|Dromaius novaehollandiae]')
   end
 
-
   # Combined
 
   test 'properly parse two species' do

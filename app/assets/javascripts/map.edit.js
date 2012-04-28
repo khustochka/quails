@@ -128,7 +128,6 @@ $(function () {
         }
     };
 
-
     // Spot edit form
 
     var spotForm = $('.observ_form_container').detach();

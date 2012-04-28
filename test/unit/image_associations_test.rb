@@ -39,5 +39,4 @@ class ImagesAssociationsTest < ActiveSupport::TestCase
     assert_equal 0, @obs.images.size
   end
 
-
 end

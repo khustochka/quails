@@ -5,7 +5,6 @@ namespace :check do
   task :benchmark => :environment do
     require 'benchmark'
 
-
     @query = {observ_date_eq: '2010-07-24'}
     @query2 = {observation_observ_date_eq: '2010-07-24'}
 

@@ -47,7 +47,6 @@ Quails3::Application.routes.draw do
 #    resources :species, except: [:new, :create, :destroy]
 #  end
 
-
 # ADMINISTRATIVE PAGES
 
 # scope 'admin' do

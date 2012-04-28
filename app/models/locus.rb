@@ -7,7 +7,6 @@ class Locus < ActiveRecord::Base
   # FIXME: allow blank because imported locations do not have eng, ukr names
   validates :name_en, :name_ru, :name_uk, :uniqueness => true, :allow_blank => true
 
-
   belongs_to :parent, :class_name => 'Locus'
   has_many :children, :class_name => 'Locus', :foreign_key => 'parent_id', :dependent => :restrict
 
