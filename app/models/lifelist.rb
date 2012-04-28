@@ -55,8 +55,8 @@ class Lifelist
       first_posts = posts('first')
       last_posts = posts('last')
       @records.each do |sp|
-        sp.post = first_posts[sp.id].try(:first)
-        sp.last_post = last_posts[sp.id].try(:first)
+        sp.post = first_posts[sp.id]
+        sp.last_post = last_posts[sp.id]
       end
     end
 
@@ -84,18 +84,16 @@ class Lifelist
 
   def posts(first_or_last = 'first')
     return {} unless first_or_last == 'first' || @strategy.advanced?
-    Hash[
-        @posts_source.select('posts.*, lifers.species_id').
-            joins(
-            "INNER JOIN (#{@observation_source.filter(@filter).to_sql}) AS observs
+    @posts_source.select('posts.*, lifers.species_id').
+        joins(
+        "INNER JOIN (#{@observation_source.filter(@filter).to_sql}) AS observs
               ON posts.id = observs.post_id").
-            joins(
-            "INNER JOIN (#{lifers_sql}) AS lifers
+        joins(
+        "INNER JOIN (#{lifers_sql}) AS lifers
               ON observs.species_id = lifers.species_id
               AND observs.observ_date = lifers.#{first_or_last}_seen"
-        ).
-            group_by { |p| p.species_id.to_i }
-    ]
+    ).
+        index_by { |p| p.species_id.to_i }
   end
 
 end
