@@ -94,7 +94,6 @@ $(function () {
     // the Map
 
     var theMap = $('#googleMap'),
-        activeMarkers = [],
         observCollection;
 
     var GRAY_ICON = "http://maps.google.com/mapfiles/marker_white.png",
@@ -178,6 +177,13 @@ $(function () {
     $('.obs-list').on('click', 'li', function () {
         closeInfoWindows();
 
+        var activeMarkers = $('#googleMap').gmap3({
+            action:'get',
+            name:'marker',
+            all:true,
+            tag:$('.selected_obs').data('obs_id')
+        });
+
         $.each(activeMarkers, function (i, marker) {
             marker.setIcon(GRAY_ICON);
             marker.setZIndex($(marker).data['OrigZIndex']);
@@ -237,16 +243,18 @@ $(function () {
     $(document).on('ajax:success', '#new_spot', function (e, data) {
         var infowindow = theMap.gmap3({action:'get', name:'infowindow'}),
             selectedObs = $('li.selected_obs'),
-            markerOptions = DEFAULT_MARKER_OPTIONS;
+            markerOptions = jQuery.extend(true, {}, DEFAULT_MARKER_OPTIONS);
         // Add new marker only if spot_id was empty
 
         if ($('#spot_id', '#new_spot').val() == '') {
             markerOptions['data'] = {id:data.id};
+            markerOptions['tag'] = selectedObs.data('obs_id');
             markerOptions.options.icon = RED_ICON;
             markerOptions.options.title = $('div:first', selectedObs).text();
+            markerOptions.options.zIndex = google.maps.Marker.MAX_ZINDEX;
             theMap.gmap3({
                 action:'addMarker',
-                latLng:infowindow.getPosition(),
+                latLng:[data.lat, data.lng],
                 marker:markerOptions
             });
         }
