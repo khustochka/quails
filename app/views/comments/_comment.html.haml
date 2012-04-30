@@ -10,7 +10,6 @@
       \--
       = link_to(t('.reply_link'), reply_comment_path(comment), 'data-comment-id' => comment.id)
 
-- @comments.try(:[], comment.id).tap do |subcomments|
-  - if subcomments
-    .subcomments
-      = render :partial => 'comments/comment', :collection => subcomments
+- @comments.try(:[], comment.id).if_present do |subcomments|
+  .subcomments
+    = render :partial => 'comments/comment', :collection => subcomments

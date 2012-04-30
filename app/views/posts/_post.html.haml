@@ -6,9 +6,8 @@
       -#%small= post.topic
 
     = wiki_filter(post.text)
-    - post.images.all.tap do |images|
-      - unless images.empty?
-        %section= render partial: 'images/thumbnail', collection: images
+    - post.images.all.if_present do |images|
+      %section= render partial: 'images/thumbnail', collection: images
 
   %p.comment_links
     - post.comments.size.tap do |cmt_count|

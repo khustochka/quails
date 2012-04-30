@@ -11,17 +11,15 @@
     -#%small= @post.topic
 
   = wiki_filter(@post.text)
-  - @post.images.all.tap do |images|
-    - unless images.empty?
-      %section.photos
-        %h3= t('.sections.photos')
-        = render partial: 'images/thumbnail', collection: images
+  - @post.images.all.if_present do |images|
+    %section.photos
+      %h3= t('.sections.photos')
+      = render partial: 'images/thumbnail', collection: images
 
-- @post.species.tap do |spcs|
-  - unless spcs.blank?
-    %p
-      %b= t('.sections.species')
-      = spcs.map { |sp| species_link(sp) }.join(",\n").html_safe
+- @post.species.if_present do |spcs|
+  %p
+    %b= t('.sections.species')
+    = spcs.map { |sp| species_link(sp) }.join(",\n").html_safe
 
 %h3#comments= t('.sections.comments')
 

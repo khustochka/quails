@@ -16,8 +16,7 @@
 
 = render 'admin/shortcuts' if current_user.admin?
 
-- @species.images.all.tap do |images|
-  - unless images.empty?
-    %section.photos
-      %h3 Images
-      = render :partial => 'images/thumbnail', :collection => images
+- @species.images.all.if_present do |images|
+  %section.photos
+    %h3 Images
+    = render :partial => 'images/thumbnail', :collection => images
