@@ -91,6 +91,8 @@ $(function () {
         buildObservations(data);
     });
 
+    searchForm.submit();
+
     // the Map
 
     var theMap = $('#googleMap'),
