@@ -32,9 +32,12 @@ $(function () {
         if (infowindow) infowindow.close();
     }
 
+    var spotsStore;
+
     function buildObservations(data) {
 
         observCollection = {};
+        spotsStore = {};
 
         var hoverText;
 
@@ -48,11 +51,12 @@ $(function () {
             hoverText = $('div:first', observCollection[this.id]).text();
 
             return($.map(this.spots, function (spot, i) {
+                spotsStore[spot.id] = spot;
                 return {
                     lat:spot.lat,
                     lng:spot.lng,
                     tag:spot.observation_id,
-                    data:spot,
+                    data:{id:spot.id},
                     options:{title:hoverText}
                 }
             }));
@@ -104,16 +108,50 @@ $(function () {
         },
         events:{
             click:function (marker, event, data) {
-                alert(data);
+                var newForm = spotForm.clone(),
+                    wndContent,
+                    selectedObs = $('li.selected_obs'),
+                    spotData = spotsStore[data.id];
+
+                closeInfoWindows();
+
+                if (selectedObs.length == 0) {
+                    observCollection[spotData.observation_id].click();
+                    selectedObs = $('li.selected_obs');
+                }
+
+                if (selectedObs.data('obs_id') == spotData.observation_id)
+                    $('#spot_id', newForm).val(data.id);
+
+                // TODO: setting visible values is not working
+                $('#spot_exactness', newForm).val(spotData.exactness);
+                $('#spot_public', newForm).val(spotData.public);
+                $('#spot_memo', newForm).val(spotData.memo);
+
+                $('#spot_lat', newForm).val(marker.position.lat());
+                $('#spot_lng', newForm).val(marker.position.lng());
+                $('#spot_zoom', newForm).val(spotData.zoom);
+                $('#spot_observation_id', newForm).val(selectedObs.data('obs_id'));
+                wndContent = newForm.html();
+
+                theMap.gmap3({
+                    action:'addInfoWindow',
+                    anchor:marker,
+                    options:{
+                        content:wndContent
+                    }
+                });
             },
             dragstart:function (marker, event, data) {
                 closeInfoWindows();
-                var selected = $('li.selected_obs');
-                if (selected.length == 0 || selected.data('obs_id') != data.observation_id) {
-                    observCollection[data.observation_id].click();
+                var selected = $('li.selected_obs'),
+                    spotData = spotsStore[data.id];
+                if (selected.length == 0 || selected.data('obs_id') != spotData.observation_id) {
+                    observCollection[spotData.observation_id].click();
                 }
             },
             dragend:function (marker, event, data) {
+                var spotData = spotsStore[data.id];
                 $.post(
                     $('form', spotForm).attr('action'),
                     {spot:{
@@ -121,7 +159,7 @@ $(function () {
                         lat:marker.getPosition().lat(),
                         lng:marker.getPosition().lng(),
                         // Change zoom only if it was increased
-                        zoom:Math.max(data.zoom, marker.getMap().zoom)
+                        zoom:Math.max(spotData.zoom, marker.getMap().zoom)
                     }}
                 );
             }
@@ -197,14 +235,21 @@ $(function () {
         var infowindow = theMap.gmap3({action:'get', name:'infowindow'}),
             selectedObs = $('li.selected_obs'),
             markerOptions = DEFAULT_MARKER_OPTIONS;
-        markerOptions['data'] = data;
-        markerOptions.options.icon = RED_ICON;
-        markerOptions.options.title = $('div:first', selectedObs).text();
-        theMap.gmap3({
-            action:'addMarker',
-            latLng:infowindow.getPosition(),
-            marker:markerOptions
-        });
+        // Add new marker only if spot_id was empty
+
+        if ($('#spot_id', '#new_spot').val() == '') {
+            markerOptions['data'] = {id:data.id};
+            markerOptions.options.icon = RED_ICON;
+            markerOptions.options.title = $('div:first', selectedObs).text();
+            theMap.gmap3({
+                action:'addMarker',
+                latLng:infowindow.getPosition(),
+                marker:markerOptions
+            });
+        }
+
+        // Store updated spot data
+        spotsStore[data.id] = data;
         infowindow.close();
     });
 
