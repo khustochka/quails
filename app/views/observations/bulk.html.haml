@@ -16,6 +16,7 @@
         %label{for: 'species-quick-add'} Quick add species:
         %input{id: 'species-quick-add', class: 'string'}
       %span.pseudolink#add-row Add new row
+      %b.pseudolink#hide-saved Hide all saved
 
   = render partial: @observations
 
@@ -25,3 +26,4 @@
 
   .buttons
     = default_submit_button(form)
+    %a.pseudolink{href: '#top'} Top

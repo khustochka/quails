@@ -128,6 +128,10 @@ $(function () {
     refreshSubmitAbility();
 
     $('#add-row').click(addNewRow);
+    $('#hide-saved').click(function(){
+        $(".obs-row.save-success").remove();
+        refreshSubmitAbility();
+    });
 
     $('form#bulk_observ_form').on('click', '.remove', function () {
         $(this).closest('.obs-row').remove();
