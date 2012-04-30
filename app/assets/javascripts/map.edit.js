@@ -123,10 +123,13 @@ $(function () {
                 if (selectedObs.data('obs_id') == spotData.observation_id)
                     $('#spot_id', newForm).val(data.id);
 
-                // TODO: setting visible values is not working
-                $('#spot_exactness', newForm).val(spotData.exactness);
-                $('#spot_public', newForm).val(spotData.public);
-                $('#spot_memo', newForm).val(spotData.memo);
+                $('#spot_exactness', newForm).attr('value', spotData.exactness);
+                $('#spot_memo', newForm).attr('value', spotData.memo);
+                // It is public by default so I have to do something only in case it should be false
+                // by I may have to update this logic if the default is changed
+                if (!spotData.public) {
+                    $('#spot_public', newForm).attr('checked', null);
+                }
 
                 $('#spot_lat', newForm).val(marker.position.lat());
                 $('#spot_lng', newForm).val(marker.position.lng());
