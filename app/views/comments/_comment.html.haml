@@ -1,5 +1,3 @@
-- subcomments = @comments.try(:[], comment.id)
-
 .comment{:id => "comment#{comment.id}"}
   %span.name= link_to_if(comment.url.present?, comment.name, comment.url, :rel => 'nofollow')
   \--
@@ -12,6 +10,7 @@
       \--
       = link_to(t('.reply_link'), reply_comment_path(comment), 'data-comment-id' => comment.id)
 
-- if subcomments
-  .subcomments
-    = render :partial => 'comments/comment', :collection => subcomments
+- @comments.try(:[], comment.id).tap do |subcomments|
+  - if subcomments
+    .subcomments
+      = render :partial => 'comments/comment', :collection => subcomments

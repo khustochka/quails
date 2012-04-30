@@ -1,18 +1,19 @@
-- first_date = l(lifer.first_seen_date, :format => :long)
-- last_date = l(lifer.last_seen_date, :format => :long)
+
 %td
   = species_link(lifer)
   = name_sci(lifer)
 
-- if first_date == last_date
-  %td.align-center{colspan: 2}
-    &mdash;&ensp;
-    %time= post_link(first_date, lifer.post, true)
-    &ensp;&mdash;
-- else
-  %td.align-right
-    %time= post_link(first_date, lifer.post, true)
-  %td.align-right
-    %time= post_link(last_date, lifer.last_post, true)
+- [:first_seen_date, :last_seen_date].map {|d| l(lifer.send(d), :format => :long) }.tap do |first_date, last_date|
 
-%td.align-right= lifer.count
+  - if first_date == last_date
+    %td.align-center{colspan: 2}
+      &mdash;&ensp;
+      %time= post_link(first_date, lifer.post, true)
+      &ensp;&mdash;
+  - else
+    %td.align-right
+      %time= post_link(first_date, lifer.post, true)
+    %td.align-right
+      %time= post_link(last_date, lifer.last_post, true)
+
+  %td.align-right= lifer.count

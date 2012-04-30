@@ -2,7 +2,6 @@
 - javascript 'images'
 
 - @page_title = '%s image' % (@image.persisted? ? 'Edit' : 'New')
-- observ_search = @image.search_applicable_observations
 
 %h1= @page_title
 
@@ -24,7 +23,7 @@
   %table
     %tr
       %td.observation_search{colspan: 2}
-        = simple_fields_for observ_search do |form2|
+        = simple_fields_for @image.search_applicable_observations do |form2|
           = form2.input :observ_date_eq, label: 'Date:',
               input_html: {class: 'short', maxlength: 10, type: 'date'}
           = form2.input :locus_id_eq, label: 'Location:', collection: Locus.list_order,

@@ -27,7 +27,6 @@
     %th
 
   - @observations.each do |observation|
-    - blogpost = observation.post
     %tr
       %td.align-right= link_to observation.id, edit_observation_path(observation)
       %td.nowrap= name_sci(observation.species)
@@ -37,7 +36,7 @@
       %td= observation.biotope
       %td= observation.place
       %td= observation.notes
-      %td= post_link('>>', blogpost)
+      %td= post_link('>>', observation.post)
       %td.align-center= observation.mine ? '+' : '-'
       %td
         - if observation.images.count > 0

@@ -6,13 +6,13 @@
       -#%small= post.topic
 
     = wiki_filter(post.text)
-    - images = post.images.all
-    - unless images.empty?
-      %section= render partial: 'images/thumbnail', collection: images
+    - post.images.all.tap do |images|
+      - unless images.empty?
+        %section= render partial: 'images/thumbnail', collection: images
 
   %p.comment_links
-    - cmt_count = post.comments.size
-    - if cmt_count > 0
-      = link_to t('.comments', count: cmt_count), public_post_path(post, anchor: 'comments')
-      \|
+    - post.comments.size.tap do |cmt_count|
+      - if cmt_count > 0
+        = link_to t('.comments', count: cmt_count), public_post_path(post, anchor: 'comments')
+        \|
     = link_to t('.add_comment'), public_post_path(post, anchor: 'add_comment')

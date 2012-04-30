@@ -22,7 +22,12 @@ module ImagesHelper
   end
 
   def image_title(image)
-    RedCloth.new(image.public_title, [:no_span_caps, :lite_mode]).to_html.html_safe
+    img_title = RedCloth.new(image.public_title, [:no_span_caps, :lite_mode]).to_html.html_safe
+    if block_given?
+      yield img_title
+    else
+      img_title
+    end
   end
 
 end
