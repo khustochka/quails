@@ -53,6 +53,27 @@ class ResearchController < ApplicationController
 
     @long_time = Species.select('*').
         joins("INNER JOIN (#{long_rel.to_sql}) AS obs ON species.id=obs.species_id").order('lastphoto')
+
+
+    sort_col = :date2
+    period = 365 * 2 * 24 * 60 * 60
+    @recent_2yrs = Image.joins(:observations).order(:created_at).preload(:species).
+        group_by {|i| i.species.first}.inject([]) do |collection, imgdata|
+
+      sp, imgs = imgdata
+
+      img = imgs.each_cons(2).select do |im1, im2|
+        (im2.created_at - im1.created_at) >= period
+      end
+      collection.concat(
+          img.map do |im1, im2|
+            {:sp => sp,
+             :date1 => im1.created_at,
+             :date2 => im2.created_at}
+          end
+      )
+    end.sort { |a, b| b[sort_col] <=> a[sort_col] }
+    
   end
 
   def day

@@ -43,3 +43,18 @@
         %td.align-right= "#{i+1}."
         %td= species_link(sp)
         %td.align-right= Date.parse(sp.add_date)
+
+
+%div.column_layout
+  %h2 Latest pictured after > 2yrs
+
+  %table.neat_table
+    %th Species
+    %th Last photo
+    %th Photo again
+
+    - @recent_2yrs.each do |el|
+      %tr
+        %td= species_link(el[:sp])
+        %td= el[:date1]
+        %td= el[:date2]
