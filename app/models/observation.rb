@@ -15,7 +15,7 @@ class Observation < ActiveRecord::Base
     end
   end
 
-  after_save :unless => :one_of_bulk do
+  after_commit :unless => :one_of_bulk do
     Observation.biotopes(true) # refresh the cached biotopes list
   end
 
