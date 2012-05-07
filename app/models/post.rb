@@ -92,9 +92,9 @@ class Post < ActiveRecord::Base
   def update_face_date
     if read_attribute(:face_date).blank?
       old = changed_attributes['face_date']
-      # TODO: why doing just 'write_attribute :face_date, Time.zone.now' works for create but fails on update?
+      # TODO: why doing just 'write_attribute :face_date, Time.current' works for create but fails on update?
       # Additionaly I have to manually preserve changed attribute value
-      write_attribute :face_date, Time.zone.now.strftime("%F %T")
+      write_attribute :face_date, Time.current.strftime("%F %T")
       changed_attributes['face_date'] = old if old
     end
   end

@@ -27,7 +27,7 @@ namespace :legacy do
       repo.add("legacy/db_dump.yml")
     end
 
-    puts 'Committing: ', msg = "DB backup #{Time.zone.now.strftime('%F %T')}"
+    puts 'Committing: ', msg = "DB backup #{Time.current.strftime('%F %T')}"
     repo.commit_index(msg)
 
     puts 'Pushing to remote'
