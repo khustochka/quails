@@ -57,23 +57,23 @@ class ResearchController < ApplicationController
 
     sort_col = :date2
     period = 365 * 2 * 24 * 60 * 60
-    @recent_2yrs = Image.joins(:observations).order(:created_at).preload(:species).
-        group_by {|i| i.species.first}.inject([]) do |collection, imgdata|
+    @recent_2yrs = Image.joins(:observations).order(:created_at).preload(:species).merge(MyObservation.scoped).
+        group_by {|i| i.species.first}.each_with_object([]) do |imgdata, collection|
 
       sp, imgs = imgdata
 
       img = imgs.each_cons(2).select do |im1, im2|
-        (im2.created_at - im1.created_at) >= period
+        im2.created_at > Date.new(2012).beginning_of_year && (im2.created_at - im1.created_at) >= period
       end
       collection.concat(
           img.map do |im1, im2|
             {:sp => sp,
-             :date1 => im1.created_at,
-             :date2 => im2.created_at}
+             :date1 => im1.created_at.to_date,
+             :date2 => im2.created_at.to_date}
           end
       )
     end.sort { |a, b| b[sort_col] <=> a[sort_col] }
-    
+
   end
 
   def day

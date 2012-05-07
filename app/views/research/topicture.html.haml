@@ -2,59 +2,63 @@
 
 %h1= [link_to('Research', research_path), @page_title].join(' : ').html_safe
 
-%div.column_layout
-  %h2 No pictures at all
+%div
+  %div.column_layout
+    %h2 No pictures at all
 
-  %table.neat_table
-    %th &nbsp;
-    %th Species
-    %th Observations
+    %table.neat_table
+      %th &nbsp;
+      %th Species
+      %th Observations
 
-    - @no_photo.each_with_index do |sp, i|
-      %tr
-        %td.align-right= "#{i+1}."
-        %td= species_link(sp)
-        %td.align-right= sp.cnt
+      - @no_photo.each_with_index do |sp, i|
+        %tr
+          %td.align-right= "#{i+1}."
+          %td= species_link(sp)
+          %td.align-right= sp.cnt
 
-%div.column_layout
-  %h2 Long time no photo
+  %div.column_layout
+    %h2 Latest new species pictured
 
-  %table.neat_table
-    %th &nbsp;
-    %th Species
-    %th Last photo taken
+    %table.neat_table
+      %th &nbsp;
+      %th Species
+      %th Add date
 
-    - @long_time.each_with_index do |sp, i|
-      %tr
-        %td.align-right= "#{i+1}."
-        %td= species_link(sp)
-        %td.align-right= sp.lastphoto
+      - @new_pics.each_with_index do |sp, i|
+        %tr
+          %td.align-right= "#{i+1}."
+          %td= species_link(sp)
+          %td.align-right= Date.parse(sp.add_date)
 
-%div.column_layout
-  %h2 Latest new species pictured
+%div
+  %div.column_layout
+    %h2 Long time no photo
 
-  %table.neat_table
-    %th &nbsp;
-    %th Species
-    %th Add date
+    %table.neat_table
+      %th &nbsp;
+      %th Species
+      %th Last photo taken
 
-    - @new_pics.each_with_index do |sp, i|
-      %tr
-        %td.align-right= "#{i+1}."
-        %td= species_link(sp)
-        %td.align-right= Date.parse(sp.add_date)
+      - @long_time.each_with_index do |sp, i|
+        %tr
+          %td.align-right= "#{i+1}."
+          %td= species_link(sp)
+          %td.align-right= sp.lastphoto
 
 
-%div.column_layout
-  %h2 Latest pictured after > 2yrs
+  %div.column_layout
+    %h2 Latest pictured after > 2yrs
 
-  %table.neat_table
-    %th Species
-    %th Last photo
-    %th Photo again
+    %table.neat_table
+      %th &nbsp;
+      %th Species
+      %th Last photo
+      %th Photo again
 
-    - @recent_2yrs.each do |el|
-      %tr
-        %td= species_link(el[:sp])
-        %td= el[:date1]
-        %td= el[:date2]
+      - @recent_2yrs.each_with_index do |el, i|
+        %tr
+          %td.align-right= "#{i+1}."
+          %td= species_link(el[:sp])
+          %td= el[:date1]
+          %td= el[:date2]
