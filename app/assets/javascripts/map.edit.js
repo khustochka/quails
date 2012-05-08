@@ -124,7 +124,7 @@ $(function () {
                 if (selectedObs.data('obs_id') == spotData.observation_id)
                     $('#spot_id', newForm).val(data.id);
 
-                $('#spot_exactness', newForm).attr('value', spotData.exactness);
+                $('#spot_exactness_' + spotData.exactness, newForm).attr('checked', true);
                 $('#spot_memo', newForm).attr('value', spotData.memo);
                 // It is public by default so I have to do something only in case it should be false
                 // by I may have to update this logic if the default is changed
@@ -228,6 +228,7 @@ $(function () {
                     $('#spot_lat', newForm).val(event.latLng.lat());
                     $('#spot_lng', newForm).val(event.latLng.lng());
                     $('#spot_zoom', newForm).val(map.zoom);
+                    $('#spot_exactness_1', newForm).attr('checked', true); // Check the "exact" value
                     $('#spot_observation_id', newForm).val(selectedObs.data('obs_id'));
                     wndContent = newForm.html();
                 }
