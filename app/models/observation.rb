@@ -45,7 +45,7 @@ class Observation < ActiveRecord::Base
     if @biotopes && !refresh
       @biotopes
     else
-      @biotopes = (DEFAULT_BIOTOPES + uniq.pluck(:biotope)).uniq
+      @biotopes = uniq.pluck(:biotope) | DEFAULT_BIOTOPES
     end
   end
 
