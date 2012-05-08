@@ -1,5 +1,6 @@
 - stylesheet 'forms', 'jquery-ui'
 - javascript 'images'
+- javascript AssetsHelper::GMAP_API_URL, 'map.image' if @image.persisted?
 
 - @page_title = '%s image' % (@image.persisted? ? 'Edit' : 'New')
 
@@ -68,3 +69,7 @@
 
 - if @image.persisted?
   %p= link_to 'DELETE', @image, confirm: 'Are you sure?', method: :delete
+
+  %h3 Map
+
+  #googleMap
