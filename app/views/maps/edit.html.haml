@@ -15,7 +15,7 @@
     = form.input :lng, as: :hidden
     = form.input :zoom, as: :hidden
     = form.input :observation_id, as: :hidden
-    = form.input :exactness, as: :radio_buttons, collection: 0..2, label_method: lambda {|v| Spot::EXACTNESS[v] }
+    = form.input :exactness, as: :radio_buttons, collection: Spot::EXACTNESS.zip((0..2).to_a)
     = form.input :public
     %div
       = form.input :memo
