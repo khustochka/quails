@@ -110,7 +110,7 @@ class ObservationsController < ApplicationController
   def with_spots
     observs =
         params[:q] && params[:q].values.uniq != [''] ?
-            Observation.search(params[:q]).result.preload(:locus, :species, :spots) :
+            Observation.search(params[:q]).result.preload(:locus, :species, :spots).order(:observ_date, :locus_id) :
             []
     respond_with(observs, :only => :id, :methods => [:species_str, :when_where_str, :spots])
   end
