@@ -3,9 +3,9 @@ source :rubygems
 ruby '1.9.3'
 
 gem 'rails', '3.2.3'
-# gem 'rails', git: 'git://github.com/rails/rails.git'
+# gem 'rails', github: 'rails/rails'
 
-gem 'pg'#, :platforms => [:ruby, :mingw]
+gem 'pg' #, :platforms => [:ruby, :mingw]
 
 # gem "activerecord-jdbcpostgresql-adapter", :platforms => :jruby
 
