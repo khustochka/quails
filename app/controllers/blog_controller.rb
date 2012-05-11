@@ -21,9 +21,8 @@ class BlogController < ApplicationController
       else
         # If all posts belong to the same month we fetch and show all the rest of posts
         @posts.concat(
-            current_user.available_posts.order('face_date DESC').where(
-                'EXTRACT(year from face_date) = ? AND EXTRACT(month from face_date) = ?', post_last[:year], post_last[:month]
-            ).offset(POSTS_ON_FRONT_PAGE + 1)
+            current_user.available_posts.month(post_last[:year], post_last[:month]).
+                reorder('face_date DESC').offset(POSTS_ON_FRONT_PAGE + 1)
         )
         @prev_month = current_user.available_posts.prev_month(post_last[:year], post_last[:month])
       end
