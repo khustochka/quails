@@ -2,7 +2,7 @@
 - javascript 'images'
 - javascript AssetsHelper::GMAP_API_URL, 'map.image' if @image.persisted?
 
-- @page_title = '%s image' % (@image.persisted? ? 'Edit' : 'New')
+- @page_title = "#{new_or_edit_label(@image)} image"
 
 %h1= @page_title
 
