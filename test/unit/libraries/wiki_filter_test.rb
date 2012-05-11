@@ -69,12 +69,20 @@ class WikiFilterTest < ActionDispatch::IntegrationTest
 
   # Allowed fallbacks
 
-  test 'properly parse not existing species code' do
+  test 'ignore unknown species code (name provided)' do
     assert_equal 'Emu', transform('[Emu|dronov]')
   end
 
-  test 'properly parse not existing scientific name' do
-    assert_equal 'Emu', transform('[Emu|Dromaius novaehollandiae]')
+  test 'show unknown species code (no name provided)' do
+    assert_equal 'dronov', transform('[dronov]')
+  end
+
+  test 'properly show unknown scientific name (name provided)' do
+    assert_equal unknown_species('Emu', 'Dromaius novaehollandiae'), transform('[Emu|Dromaius novaehollandiae]')
+  end
+
+  test 'properly show unknown scientific name (no name provided)' do
+    assert_equal unknown_species(nil, 'Dromaius novaehollandiae'), transform('[Dromaius novaehollandiae]')
   end
 
   # Combined

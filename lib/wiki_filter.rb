@@ -14,8 +14,8 @@ module WikiFilter
 
     species = Hash.new do |hash, term|
       hash[term] = term.size == 6 ?
-          spcs.find {|s| s.code == term} :
-          spcs.find {|s| s.name_sci == term.sp_humanize }
+          spcs.find { |s| s.code == term } :
+          spcs.find { |s| s.name_sci == term.sp_humanize }
     end
 
     text.gsub(/\[(@|#|)(?:([^\]]*?)\|)?(.*?)\]/) do |full|
@@ -30,9 +30,11 @@ module WikiFilter
               post_link(word || post_title(post), post, true)
         when '' then
           sp = species[code]
-          sp.nil? ?
-              word :
-              species_link(sp, word || sp.name_sci)
+          if sp
+            species_link(sp, word || sp.name_sci)
+          else
+            code.size > 6 ? unknown_species(word, code) : (word || code)
+          end
       end
     end
   end
