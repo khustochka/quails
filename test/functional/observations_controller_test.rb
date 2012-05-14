@@ -32,7 +32,7 @@ class ObservationsControllerTest < ActionController::TestCase
     create(:observation, species_id: 0, observ_date: "2010-06-18")
     create(:observation, species_id: 0, observ_date: "2009-06-19")
     login_as_admin
-    get :index, search: {species_id_eq: 0}
+    get :index, q: {species_id_eq: 0}
     assert_response :success
     assert_not_nil assigns(:observations)
     assert_select 'td', '- Avis incognita'
