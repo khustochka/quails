@@ -4,7 +4,7 @@ class ObservationsControllerTest < ActionController::TestCase
   setup do
   end
 
-  test "get index" do
+  test "get index (no search)" do
     create(:observation, species: seed(:pasdom), observ_date: "2010-06-20", locus: seed(:new_york))
     create(:observation, species: seed(:melgal), observ_date: "2010-06-18")
     create(:observation, species: seed(:anapla), observ_date: "2009-06-18")
@@ -13,7 +13,19 @@ class ObservationsControllerTest < ActionController::TestCase
     login_as_admin
     get :index
     assert_response :success
-    assert_not_nil assigns(:observations)
+    assigns(:observations).should_not be_blank
+  end
+
+  test "get index (search)" do
+    create(:observation, species: seed(:pasdom), observ_date: "2010-06-20", locus: seed(:new_york))
+    create(:observation, species: seed(:melgal), observ_date: "2010-06-18")
+    create(:observation, species: seed(:anapla), observ_date: "2009-06-18")
+    create(:observation, species: seed(:anacly), observ_date: "2007-07-18", locus: seed(:brovary))
+    create(:observation, species: seed(:embcit), observ_date: "2009-08-09", locus: seed(:kherson))
+    login_as_admin
+    get :index, q: {locus_id_eq: seed(:brovary).id}
+    assert_response :success
+    assigns(:observations).size.should == 3
   end
 
   test "get index sorted by species order" do
