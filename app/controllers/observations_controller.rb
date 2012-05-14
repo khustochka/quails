@@ -13,10 +13,10 @@ class ObservationsController < ApplicationController
 
   # GET /observations
   def index
-    @search = Observation.search(params[:q])
+    @search = Observation.new(params[:observation])
     # sorting by species.index_num requires using #includes
     # but #preload is faster, so use it for locus and post, and for species if possible
-    @observations = @search.result.order(params[:sort]).preload(:locus, :post).page(params[:page]).
+    @observations = Observation.filter(params[:observation] || {}).order(params[:sort]).preload(:locus, :post).page(params[:page]).
         send((params[:sort] == 'species.index_num') ? :includes : :preload, :species)
 
     # TODO: extract to model; add tests
