@@ -126,12 +126,12 @@ class LifelistTest < ActiveSupport::TestCase
   end
 
   test 'Do not associate post of the wrong year' do
-    @obs[0].post = create(:post, code: 'feraldoves_2008')
+    @obs[0].post = create(:post, slug: 'feraldoves_2008')
     @obs[0].save!
-    @obs[5].post = create(:post, code: 'feraldoves_2009')
+    @obs[5].post = create(:post, slug: 'feraldoves_2009')
     @obs[5].save!
     lifelist = Lifelist.basic.filter(year: 2009).preload(posts: Post.public)
-    lifelist.find {|sp| sp.code == 'colliv'}.post.code.should == @obs[5].post.code
+    lifelist.find {|sp| sp.code == 'colliv'}.post.slug.should == @obs[5].post.slug
   end
 
   test 'Do not associate post of the wrong location' do

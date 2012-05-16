@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :locus do
-    sequence(:code) {|n| "locus_#{(n+65).chr}" }
+    sequence(:slug) {|n| "locus_#{(n+65).chr}" }
     parent_id nil
     loc_type 0
     sequence(:name_en) {|n| "Locus Anglais #{(n+65).chr}" }

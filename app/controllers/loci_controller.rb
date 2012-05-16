@@ -2,7 +2,7 @@ class LociController < ApplicationController
 
   administrative
 
-  add_finder_by :code, :only => [:show, :edit, :update, :destroy]
+  add_finder_by :slug, :only => [:show, :edit, :update, :destroy]
 
   # GET /locus
   def index

@@ -2,7 +2,7 @@ class Locus < ActiveRecord::Base
 
   TYPES = %w(Country Region Location)
 
-  validates :code, :format => /^[a-z_]+$/i, :uniqueness => true, :presence => true, :length => { :maximum => 32 }
+  validates :slug, :format => /^[a-z_]+$/i, :uniqueness => true, :presence => true, :length => { :maximum => 32 }
   validates :loc_type, :presence => true
   # FIXME: allow blank because imported locations do not have eng, ukr names
   validates :name_en, :name_ru, :name_uk, :uniqueness => true, :allow_blank => true
@@ -15,12 +15,12 @@ class Locus < ActiveRecord::Base
   # Parameters
 
   def to_param
-    code_was
+    slug_was
   end
 
   # Scopes
 
-  scope :list_order, order('loc_type DESC', :parent_id, :code)
+  scope :list_order, order('loc_type DESC', :parent_id, :slug)
 
   # Instance methods
 

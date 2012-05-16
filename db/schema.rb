@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120228132713) do
+ActiveRecord::Schema.define(:version => 20120516073809) do
 
   create_table "comments", :force => true do |t|
     t.integer  "post_id"
@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(:version => 20120228132713) do
   add_index "comments", ["post_id"], :name => "index_comments_on_post_id"
 
   create_table "images", :force => true do |t|
-    t.string   "code",        :limit => 64, :null => false
+    t.string   "slug",        :limit => 64, :null => false
     t.string   "title"
     t.text     "description"
     t.integer  "index_num"
@@ -40,8 +40,8 @@ ActiveRecord::Schema.define(:version => 20120228132713) do
     t.string   "flickr_size", :limit => 1
   end
 
-  add_index "images", ["code"], :name => "index_images_on_code"
   add_index "images", ["index_num"], :name => "index_images_on_index_num"
+  add_index "images", ["slug"], :name => "index_images_on_slug"
 
   create_table "images_observations", :id => false, :force => true do |t|
     t.integer "image_id",       :null => false
@@ -51,7 +51,7 @@ ActiveRecord::Schema.define(:version => 20120228132713) do
   add_index "images_observations", ["image_id", "observation_id"], :name => "index_images_observations_on_image_id_and_observation_id", :unique => true
 
   create_table "loci", :force => true do |t|
-    t.string  "code",      :limit => 32, :null => false
+    t.string  "slug",      :limit => 32, :null => false
     t.integer "parent_id"
     t.string  "name_en"
     t.string  "name_ru"
@@ -61,9 +61,9 @@ ActiveRecord::Schema.define(:version => 20120228132713) do
     t.integer "loc_type",                :null => false
   end
 
-  add_index "loci", ["code"], :name => "index_locus_on_code"
   add_index "loci", ["loc_type"], :name => "index_loci_on_loc_type"
-  add_index "loci", ["parent_id"], :name => "index_locus_on_parent_id"
+  add_index "loci", ["parent_id"], :name => "index_loci_on_parent_id"
+  add_index "loci", ["slug"], :name => "index_loci_on_slug"
 
   create_table "observations", :force => true do |t|
     t.integer "species_id",                    :null => false
@@ -84,7 +84,7 @@ ActiveRecord::Schema.define(:version => 20120228132713) do
   add_index "observations", ["species_id"], :name => "index_observations_on_species_id"
 
   create_table "posts", :force => true do |t|
-    t.string   "code",       :limit => 64
+    t.string   "slug",       :limit => 64
     t.string   "title",                    :null => false
     t.text     "text",                     :null => false
     t.string   "topic",      :limit => 4
@@ -95,8 +95,8 @@ ActiveRecord::Schema.define(:version => 20120228132713) do
     t.datetime "updated_at",               :null => false
   end
 
-  add_index "posts", ["code"], :name => "index_posts_on_code"
-  add_index "posts", ["face_date"], :name => "index_posts_on_created_at"
+  add_index "posts", ["face_date"], :name => "index_posts_on_face_date"
+  add_index "posts", ["slug"], :name => "index_posts_on_slug"
   add_index "posts", ["status"], :name => "index_posts_on_status"
   add_index "posts", ["topic"], :name => "index_posts_on_topic"
 

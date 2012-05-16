@@ -6,16 +6,16 @@ class PostTest < ActiveSupport::TestCase
     create(:post)
   end
 
-  test 'do not save post with empty code' do
-    blogpost = build(:post, code: '')
+  test 'do not save post with empty slug' do
+    blogpost = build(:post, slug: '')
     assert_raises(ActiveRecord::RecordInvalid) do
       blogpost.save!
     end
   end
 
-  test 'do not save post with existing code' do
-    create(:post, code: 'kiev-observations')
-    blogpost = build(:post, code: 'kiev-observations')
+  test 'do not save post with existing slug' do
+    create(:post, slug: 'kiev-observations')
+    blogpost = build(:post, slug: 'kiev-observations')
     assert_raises(ActiveRecord::RecordInvalid) do
       blogpost.save!
     end

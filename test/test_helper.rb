@@ -23,8 +23,8 @@ class ActiveSupport::TestCase
         ActionController::HttpAuthentication::Basic.encode_credentials(TEST_CREDENTIALS.username, TEST_CREDENTIALS.password)
   end
 
-  @@seed = HashWithIndifferentAccess.new do |hash, code|
-    hash[code] = Locus.find_by_code(code) || Species.find_by_code!(code)
+  @@seed = HashWithIndifferentAccess.new do |hash, term|
+    hash[term] = Locus.find_by_slug(term) || Species.find_by_code!(term)
   end
 
   def seed(key)

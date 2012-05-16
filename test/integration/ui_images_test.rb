@@ -27,14 +27,14 @@ class UIImagesTest < ActionDispatch::IntegrationTest
     login_as_admin
     visit edit_image_path(img)
 
-    fill_in('Code', with: 'test-img-capybara')
+    fill_in('Slug', with: 'test-img-capybara')
     fill_in('Title', with: 'Capybara test image')
 
     lambda { submit_form_with('Save') }.should_not change(Image, :count)
     img.reload
     current_path.should == show_image_path(img.to_url_params)
     img.observations.size.should == 2
-    img.code.should == 'test-img-capybara'
+    img.slug.should == 'test-img-capybara'
   end
 
   test "Adding new image" do
@@ -42,7 +42,7 @@ class UIImagesTest < ActionDispatch::IntegrationTest
     login_as_admin
     visit new_image_path
 
-    fill_in('Code', with: 'test-img-capybara')
+    fill_in('Slug', with: 'test-img-capybara')
     fill_in('Title', with: 'Capybara test image')
 
     within('.observation_search') do
@@ -54,7 +54,7 @@ class UIImagesTest < ActionDispatch::IntegrationTest
     find(:xpath, "//ul[contains(@class,'found-obs')]/li[1]").drag_to find('.observation_list')
 
     lambda { submit_form_with('Save') }.should change(Image, :count).by(1)
-    img = Image.find_by_code('test-img-capybara')
+    img = Image.find_by_slug('test-img-capybara')
     current_path.should == show_image_path(img.to_url_params)
   end
 
@@ -64,7 +64,7 @@ class UIImagesTest < ActionDispatch::IntegrationTest
     login_as_admin
     visit new_image_path
 
-    fill_in('Code', with: 'test-img-capybara')
+    fill_in('Slug', with: 'test-img-capybara')
     fill_in('Title', with: 'Capybara test image')
 
     within('.observation_search') do
@@ -74,7 +74,7 @@ class UIImagesTest < ActionDispatch::IntegrationTest
     find(:xpath, "//ul[contains(@class,'found-obs')]/li[div[contains(text(),'Mergus serrator')]]").drag_to find('.observation_list')
 
     lambda { submit_form_with('Save') }.should change(Image, :count).by(1)
-    img = Image.find_by_code('test-img-capybara')
+    img = Image.find_by_slug('test-img-capybara')
 
     img.species.map(&:name_sci).should == ['Mergus serrator']
   end

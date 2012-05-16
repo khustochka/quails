@@ -2,7 +2,7 @@ module WikiFilter
 
   def transform(text)
     posts = Hash.new do |hash, term|
-      hash[term] = Post.find_by_code(term.downcase)
+      hash[term] = Post.find_by_slug(term.downcase)
     end
 
     sp_codes = text.gsub(/\[(?!#|@)(?:([^\]]*?)\|)?(.*?)\]/).map do |full|
@@ -19,21 +19,21 @@ module WikiFilter
     end
 
     text.gsub(/\[(@|#|)(?:([^\]]*?)\|)?(.*?)\]/) do |full|
-      tag, word, code = $1, $2.try(:html_safe), $3
+      tag, word, term = $1, $2.try(:html_safe), $3
       case tag
         when '@' then
-          link_to(word || code, code)
+          link_to(word || term, term)
         when '#' then
-          post = posts[code]
+          post = posts[term]
           post.nil? ?
               word :
               post_link(word || post_title(post), post, true)
         when '' then
-          sp = species[code]
+          sp = species[term]
           if sp
             species_link(sp, word || sp.name_sci)
           else
-            code.size > 6 ? unknown_species(word, code) : (word || code)
+            term.size > 6 ? unknown_species(word, term) : (word || term)
           end
       end
     end

@@ -5,7 +5,7 @@
 = simple_form_for @post do |form|
 
   %div
-    = form.input :code
+    = form.input :slug
     = form.input :face_date, label: 'Post date', input_html: {value: @post.face_date.strftime("%F %T")}, as: :string unless @post.new_record?
   %div
     = form.input :title, input_html: {class: 'long'}

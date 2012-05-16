@@ -7,7 +7,7 @@ class Post < ActiveRecord::Base
 
   before_save :update_face_date
 
-  validates :code, :uniqueness => true, :presence => true, :length => {:maximum => 64}
+  validates :slug, :uniqueness => true, :presence => true, :length => {:maximum => 64}
   validates :title, :presence => true
   validates :topic, :inclusion => TOPICS, :presence => true, :length => {:maximum => 4}
   validates :status, :inclusion => STATES, :presence => true, :length => {:maximum => 4}
@@ -31,7 +31,7 @@ class Post < ActiveRecord::Base
   # Parameters
 
   def to_param
-    code_was
+    slug_was
   end
 
   # Scopes
@@ -39,7 +39,7 @@ class Post < ActiveRecord::Base
   scope :public, where("status <> 'PRIV'")
 
   def self.year(year)
-    select('id, code, title, face_date, status').where('EXTRACT(year from face_date) = ?', year).order('face_date ASC')
+    select('id, slug, title, face_date, status').where('EXTRACT(year from face_date) = ?', year).order('face_date ASC')
   end
 
   def self.month(year, month)
@@ -85,7 +85,7 @@ class Post < ActiveRecord::Base
   end
 
   def to_url_params
-    {:id => code, :year => year, :month => month}
+    {:id => slug, :year => year, :month => month}
   end
 
   private

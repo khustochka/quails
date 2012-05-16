@@ -10,7 +10,7 @@ class ImagesAssociationsTest < ActiveSupport::TestCase
   test 'properly link images with one species' do
     sp = @obs.species
 
-    assert_equal [@image.code], sp.images.map(&:code)
+    assert_equal [@image.slug], sp.images.map(&:slug)
     assert_equal [sp.code], @image.species.map(&:code)
   end
 
@@ -19,18 +19,18 @@ class ImagesAssociationsTest < ActiveSupport::TestCase
     sp2 = seed(:jyntor)
     obs1 = create(:observation, species: sp1, observ_date: "2008-07-01")
     obs2 = create(:observation, species: sp2, observ_date: "2008-07-01")
-    img = create(:image, code: 'picture-of-the-shrike-and-the-wryneck', observations: [obs1, obs2])
+    img = create(:image, slug: 'picture-of-the-shrike-and-the-wryneck', observations: [obs1, obs2])
 
-    assert_equal [img.code], sp1.images.map(&:code)
-    assert_equal [img.code], sp2.images.map(&:code)
+    assert_equal [img.slug], sp1.images.map(&:slug)
+    assert_equal [img.slug], sp2.images.map(&:slug)
     ([sp1.code, sp2.code] - img.species.map(&:code)).should be_empty
   end
 
   test 'properly link image and post' do
     blogpost = create(:post, observations: [@obs])
 
-    assert_equal [@image.code], blogpost.images.map(&:code)
-    assert_equal blogpost.code, @image.post(Post.public).code
+    assert_equal [@image.slug], blogpost.images.map(&:slug)
+    assert_equal blogpost.slug, @image.post(Post.public).slug
   end
 
   test 'properly unlink observations when image destroyed' do

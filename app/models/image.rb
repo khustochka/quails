@@ -1,5 +1,5 @@
 class Image < ActiveRecord::Base
-  validates :code, :uniqueness => true, :presence => true, :length => {:maximum => 64}
+  validates :slug, :uniqueness => true, :presence => true, :length => {:maximum => 64}
 
   has_and_belongs_to_many :observations, :include => :species
   has_many :species, :through => :observations
@@ -12,7 +12,7 @@ class Image < ActiveRecord::Base
   # Parameters
 
   def to_param
-    code_was
+    slug_was
   end
 
   # Associations
@@ -39,7 +39,7 @@ class Image < ActiveRecord::Base
   end
 
   def to_url_params
-    {id: code, species: species_for_url}
+    {id: slug, species: species_for_url}
   end
 
   def search_applicable_observations

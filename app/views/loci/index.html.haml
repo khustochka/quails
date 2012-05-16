@@ -21,8 +21,8 @@
           %h3= type.pluralize.upcase
         - @locus_by_type[i].each do |locus|
           %tr
-            %td= link_to locus.code, edit_locus_path(locus)
-            %td= locus.parent.try(:code) || '-'
+            %td= link_to locus.slug, edit_locus_path(locus)
+            %td= locus.parent.try(:slug) || '-'
             %td= %w(en ru uk).map{|lang| "#{lang}: #{locus.send("name_#{lang}")}"}.join('<br />').html_safe
             %td.align-center= latlon(locus)
             %td

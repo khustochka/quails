@@ -8,7 +8,7 @@
 
 = simple_form_for @locus do |form|
   %div
-    = form.input :code, :label => 'Code'
+    = form.input :slug, :label => 'Code'
     = form.association :parent, :label => 'Parent', :label_method => :name_en, :collection => (Locus.list_order - [@locus])
     = form.input :loc_type, :label => 'Type',  :collection => Locus::TYPES.zip((0..2).to_a),
           :input_html => {:size => '3'}, :include_blank => false

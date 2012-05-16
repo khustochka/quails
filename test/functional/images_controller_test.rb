@@ -35,7 +35,7 @@ class ImagesControllerTest < ActionController::TestCase
   test "create image with one observation" do
     login_as_admin
     new_attr = @image.attributes.dup
-    new_attr['code'] = 'new_img_code'
+    new_attr['slug'] = 'new_img_slug'
     assert_difference('Image.count') do
       post :create, image: new_attr, obs: [@obs.id]
     end
@@ -48,7 +48,7 @@ class ImagesControllerTest < ActionController::TestCase
     obs2 = create(:observation, species: seed(:lancol))
     obs3 = create(:observation, species: seed(:jyntor))
     new_attr = @image.attributes.dup
-    new_attr['code'] = 'new_img_code'
+    new_attr['slug'] = 'new_img_slug'
     assert_difference('Image.count') do
       post :create, image: new_attr, obs: [@obs.id, obs2.id, obs3.id]
     end
@@ -70,7 +70,7 @@ class ImagesControllerTest < ActionController::TestCase
   test "update image" do
     login_as_admin
     new_attr = @image.attributes
-    new_attr['code'] = 'new_code'
+    new_attr['slug'] = 'new_slug'
     put :update, id: @image.to_param, image: new_attr, obs: @image.observation_ids
     assert_redirected_to public_image_path(assigns(:image))
   end
@@ -87,7 +87,7 @@ class ImagesControllerTest < ActionController::TestCase
   # TODO: all 'incognita' should be records in the DB (like Passer sp.)
   test 'Image page can be shown for Avis incognita photo as well' do
     observation = create(:observation, species_id: 0)
-    img = create(:image, code: 'picture-of-the-unknown', observations: [observation])
+    img = create(:image, slug: 'picture-of-the-unknown', observations: [observation])
     get :show, img.to_url_params
   end
 

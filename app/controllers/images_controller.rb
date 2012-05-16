@@ -4,7 +4,7 @@ class ImagesController < ApplicationController
 
   administrative :except => [:photostream, :show]
 
-  add_finder_by :code, :only => [:show, :edit, :update, :destroy]
+  add_finder_by :slug, :only => [:show, :edit, :update, :destroy]
 
   after_filter :cache_expire, only: [:create, :update, :destroy]
 

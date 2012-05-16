@@ -1,4 +1,4 @@
-%section.post-box{id: "post-#{post.code}", class: ('grayout' unless post.public?)}
+%section.post-box{id: "post-#{post.slug}", class: ('grayout' unless post.public?)}
   %article.post
     %header
       %h2.post-title= link_to(post_title(post), public_post_path(post))

@@ -40,7 +40,7 @@ module LifelistStrategies
       initial_filter.dup.tap do |filter|
         if filter[:locus]
           if allowed_locus?(filter[:locus])
-            filter[:locus] = Locus.select(:id).find_by_code!(filter[:locus]).get_subregions
+            filter[:locus] = Locus.select(:id).find_by_slug!(filter[:locus]).get_subregions
           else
             raise ActiveRecord::RecordNotFound
           end

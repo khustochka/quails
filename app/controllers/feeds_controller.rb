@@ -12,8 +12,8 @@ class FeedsController < ApplicationController
   end
 
   def sitemap
-    @posts = Post.public.select("code, face_date, updated_at")
-    @images = Image.preload(:species).select("id, code, created_at")
+    @posts = Post.public.select("slug, face_date, updated_at")
+    @images = Image.preload(:species).select("id, slug, created_at")
     @species = Species.joins(:observations).where('species.id != 0').
         uniq.select('name_sci')
 

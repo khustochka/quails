@@ -15,7 +15,7 @@ module Legacy
         puts "Updating countries..."
         arr.each do |country|
           Locus.create!({
-                            code: country[:country_id],
+                            slug: country[:country_id],
                             loc_type: 0,
                             name_ru: country[:country_name],
                             parent_id: nil
@@ -29,7 +29,7 @@ module Legacy
         puts "Updating regions..."
         arr.each do |region|
           Locus.create!({
-                            code: region[:reg_id],
+                            slug: region[:reg_id],
                             loc_type: 1,
                             name_ru: region[:reg_name],
                             parent_id: Legacy::Mapping.locations[region[:country_id]]
@@ -44,7 +44,7 @@ module Legacy
         arr.each do |loc|
           (lat, lon) = loc[:latlon].split(',')
           Locus.create!({
-                            code: loc[:loc_id].gsub('-', '_'),
+                            slug: loc[:loc_id].gsub('-', '_'),
                             loc_type: 2,
                             name_ru: loc[:loc_name],
                             parent_id: Legacy::Mapping.locations[loc[:reg_id]],

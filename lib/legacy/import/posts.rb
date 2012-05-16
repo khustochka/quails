@@ -12,7 +12,7 @@ module Legacy
         column_names = Post.column_names.reject { |e| e == 'id' }
         records = posts.map do |post|
           rec = HashWithIndifferentAccess.new(
-              code: post[:post_id],
+              slug: post[:post_id],
               title: post[:post_title],
               text: post[:post_text],
               topic: post[:post_type],

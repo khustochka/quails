@@ -63,12 +63,12 @@ class PostsControllerTest < ActionController::TestCase
     assert_template :edit
   end
 
-  test "do not update post with invalid code" do
+  test "do not update post with invalid slug" do
     blogpost = create(:post)
     blogpost2 = blogpost.dup
-    blogpost2.code = ''
+    blogpost2.slug = ''
     login_as_admin
-    put :update, id: blogpost.code, post: blogpost2.attributes
+    put :update, id: blogpost.slug, post: blogpost2.attributes
     assert_template :edit
     assert_select "form[action=#{post_path(blogpost)}]"
   end
@@ -84,7 +84,7 @@ class PostsControllerTest < ActionController::TestCase
 
   test "redirect post to correct URL if year and month are incorrect" do
     blogpost = create(:post, face_date: '2007-12-06 13:14:15')
-    get :show, {id: blogpost.code, year: 2010, month: '01'}
+    get :show, {id: blogpost.slug, year: 2010, month: '01'}
     assert_redirected_to public_post_path(blogpost)
     assert_response 301
   end

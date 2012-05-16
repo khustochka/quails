@@ -55,7 +55,7 @@ class PostsController < ApplicationController
   private
 
   def find_post
-    @post = current_user.available_posts.find_by_code!(params[:id])
+    @post = current_user.available_posts.find_by_slug!(params[:id])
   end
 
   def cache_expire

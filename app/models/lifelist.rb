@@ -69,7 +69,7 @@ class Lifelist
   end
 
   def locations
-    Locus.where(:code => PUBLIC_LOCI).group_by(&:code)
+    Locus.where(:slug => PUBLIC_LOCI).group_by(&:slug)
   end
 
   private

@@ -1,6 +1,6 @@
-- @page_title = @locus.code
+- @page_title = @locus.slug
 
-%h1= @locus.code
+%h1= @locus.slug
 
 = render 'admin/shortcuts' if current_user.admin?
 
@@ -9,7 +9,7 @@
   = Locus::TYPES[@locus.loc_type]
 %p
   %b Parent:
-  = @locus.parent.nil? ? '-' : (link_to @locus.parent.code, @locus.parent)
+  = @locus.parent.nil? ? '-' : (link_to @locus.parent.slug, @locus.parent)
 %p
   %b English name:
   = @locus.name_en

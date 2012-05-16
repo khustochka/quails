@@ -17,7 +17,7 @@ module Legacy
 
         images.each do |im|
           img = Image.new({
-                              code: im[:img_id],
+                              slug: im[:img_id],
                               title: im[:img_title],
                               description: im[:img_descr],
                               created_at: Time.zone.parse(im[:add_date]),
