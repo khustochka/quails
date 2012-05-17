@@ -18,6 +18,10 @@ class Locus < ActiveRecord::Base
     slug_was
   end
 
+  def to_label
+    name_en
+  end
+
   # Scopes
 
   scope :list_order, order('loc_type DESC', :parent_id, :slug)

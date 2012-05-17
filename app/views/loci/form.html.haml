@@ -8,16 +8,16 @@
 
 = simple_form_for @locus do |form|
   %div
-    = form.input :slug, :label => 'Code'
-    = form.association :parent, :label => 'Parent', :label_method => :name_en, :collection => (Locus.list_order - [@locus])
-    = form.input :loc_type, :label => 'Type',  :collection => Locus::TYPES.zip((0..2).to_a),
-          :input_html => {:size => '3'}, :include_blank => false
+    = form.input :slug, label: 'Code'
+    = form.association :parent, label: 'Parent', collection: (Locus.list_order - [@locus])
+    = form.input :loc_type, label: 'Type',  collection: Locus::TYPES.zip((0..2).to_a),
+          input_html: {size: '3'}, include_blank: false
   %div
-    = form.input :name_en, :label => 'English name'
-    = form.input :name_ru, :label => 'Russian name'
-    = form.input :name_uk, :label => 'Ukrainian name'
+    = form.input :name_en, label: 'English name'
+    = form.input :name_ru, label: 'Russian name'
+    = form.input :name_uk, label: 'Ukrainian name'
   %div
-    = form.input :lat, :label => 'Lat', :input_html => { :size => 10, :type => :text }
-    = form.input :lon, :label => 'Lon', :input_html => { :size => 10, :type => :text }
+    = form.input :lat, label: 'Lat', input_html: { size: 10, type: :text }
+    = form.input :lon, label: 'Lon', input_html: { size: 10, type: :text }
   .buttons
     = default_submit_button(form)
