@@ -5,9 +5,9 @@ ruby '1.9.3'
 gem 'rails', '3.2.3'
 # gem 'rails', github: 'rails/rails'
 
-gem 'pg' #, :platforms => [:ruby, :mingw]
+gem 'pg', :platforms => [:ruby, :mingw]
 
-# gem "activerecord-jdbcpostgresql-adapter", :platforms => :jruby
+gem "activerecord-jdbcpostgresql-adapter", :platforms => :jruby
 
 gem 'thin', :group => :production, :require => false, :platforms => :ruby # for heroku
 
@@ -42,7 +42,7 @@ group :development do
   gem 'nokogiri', :platforms => [:ruby, :mingw], :require => false
   gem 'mysql2', '~>0.3.7', :platforms => :ruby, :require => false
 
-  gem 'grit', '~> 2.5', :require => false
+  gem 'grit', '~> 2.5', :require => false, :platforms => [:ruby, :mingw]
 
 # Other gems that may be useful but are not really dependencies:
 # gem 'ruby-debug-ide' # for debugging in RubyMine
