@@ -2,7 +2,7 @@ source :rubygems
 
 ruby '1.9.3'
 
-gem 'rails', '3.2.3'
+gem 'rails', '3.2.4.rc1'
 # gem 'rails', github: 'rails/rails'
 
 gem 'pg', :platforms => [:ruby, :mingw]
