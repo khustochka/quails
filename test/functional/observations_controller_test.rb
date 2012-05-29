@@ -97,7 +97,7 @@ class ObservationsControllerTest < ActionController::TestCase
     observation = create(:observation)
     login_as_admin
     get :show, id: observation.to_param
-    assert_redirected_to edit_observation_path(assigns(:observation))
+    assert_redirected_to edit_observation_path(observation)
   end
 
   test "get edit" do
