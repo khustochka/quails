@@ -75,6 +75,17 @@ class ImagesControllerTest < ActionController::TestCase
     assert_redirected_to public_image_path(assigns(:image))
   end
 
+  test "image removed from map if it is tied to another observation" do
+    spot = create(:spot)
+    obs = spot.observation
+    img = create(:image, observation_ids: [obs.id], spot: spot)
+    obs2 = create(:observation)
+    login_as_admin
+    put :update, id: img.to_param, obs: [obs2.id]
+    img.reload
+    img.spot.should be_blank
+  end
+
   test "destroy image" do
     login_as_admin
     assert_difference('Image.count', -1) do
