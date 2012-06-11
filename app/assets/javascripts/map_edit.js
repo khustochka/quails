@@ -12,7 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require map.init
+//= require map_init
 //= require suggest_over_combo
 
 $(function () {

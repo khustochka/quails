@@ -10,33 +10,34 @@
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
 //
-//= require jquery
-//= require jquery_ujs
-//= require map.init
+//= require map_init
 
 $(function () {
 
     var marks,
         theMap = $('#googleMap');
 
+    theMap.width('800px');
+    theMap.height('600px');
+
     theMap.gmap3('init');
 
-    $.get('/map/spots', function (data, textStatus, jqXHR) {
-        marks = data;
-        theMap.gmap3(
-            { action:'addMarkers',
-                markers:marks,
-                radius:40,
-                clusters:{
-                    // This style will be used for clusters with more than 0 markers
-                    0:{
-                        content:'<div class="cluster">CLUSTER_COUNT</div>',
-                        width:46,
-                        height:28
-                    }
-                }
-            }
-        );
-    });
+//    $.get('/map/spots', function (data, textStatus, jqXHR) {
+//        marks = data;
+//        theMap.gmap3(
+//            { action:'addMarkers',
+//                markers:marks,
+//                radius:40,
+//                clusters:{
+//                    // This style will be used for clusters with more than 0 markers
+//                    0:{
+//                        content:'<div class="cluster">CLUSTER_COUNT</div>',
+//                        width:46,
+//                        height:28
+//                    }
+//                }
+//            }
+//        );
+//    });
 
 });
