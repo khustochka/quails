@@ -6,4 +6,4 @@
 
 = render 'form'
 
-%p= link_to 'DELETE', @post, :confirm => 'Are you sure?', :method => :delete
+%p= link_to 'DELETE', @post, data: {confirm: 'Are you sure?'}, method: :delete
