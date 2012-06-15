@@ -58,7 +58,7 @@ class ResearchController < ApplicationController
     sort_col = :date2
     period = 365 * 2 * 24 * 60 * 60
     @recent_2yrs = Image.joins(:observations).order(:created_at).preload(:species).merge(MyObservation.scoped).
-        group_by {|i| i.species.first}.each_with_object([]) do |imgdata, collection|
+        group_by { |i| i.species.first }.each_with_object([]) do |imgdata, collection|
 
       sp, imgs = imgdata
 
@@ -88,5 +88,30 @@ class ResearchController < ApplicationController
     @next_day = [next_day[:imon], next_day[:iday]].join('-') rescue nil
     @images = Image.joins(:observations).where("mine").
         where('EXTRACT(day from observ_date) = ? AND EXTRACT(month from observ_date) = ?', @day, @month)
+  end
+
+  def compare
+    l1 = params[:loc1]
+    l2 = params[:loc2]
+
+    if l1 && l2
+      @loc1 = Locus.find_by_slug(l1)
+      @loc2 = Locus.find_by_slug(l2)
+
+      observations_source = if @loc1.country == @loc2.country
+                              MyObservation.where(locus_id: @loc1.country.get_subregions)
+                            else
+                              MyObservation.scoped
+                            end
+
+      @species = Species.uniq.joins(:observations).merge(observations_source).ordered_by_taxonomy.all.extend(SpeciesArray)
+
+      @loc1_species = Species.uniq.joins(:observations).merge(MyObservation.where(locus_id: @loc1.get_subregions)).all
+      @loc2_species = Species.uniq.joins(:observations).merge(MyObservation.where(locus_id: @loc2.get_subregions)).all
+    else
+      l1 ||= 'kiev'
+      l2 ||= 'brovary'
+      redirect_to(loc1: l1, loc2: l2)
+    end
   end
 end

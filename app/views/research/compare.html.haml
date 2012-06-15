@@ -1,0 +1,38 @@
+- @page_title = 'Compare two regions'
+- i = 0
+- check = lambda{|loc| image_tag('/img/check_16x13.png', title: loc, alt: loc) }
+
+%h1= [link_to('Research', research_path), @page_title].join(' : ').html_safe
+
+%ul.horiz-list.filter-list
+  %li= link_to('Kiev / Brovary', {loc1: 'kiev', loc2: 'brovary'})
+  %li= link_to('Kiev obl / Kherson obl', {loc1: 'kiev_obl', loc2: 'kherson_obl'})
+  %li= link_to('Kiev obl / Ukraine', {loc1: 'kiev_obl', loc2: 'ukraine'})
+  %li= link_to('Ukraine / USA', {loc1: 'ukraine', loc2: 'usa'})
+
+%table.neat_table
+  %tr
+    %th.align-right No
+    %th Scientific name
+    %th.align-center
+      = name1 = @loc1.name_en
+      %br
+      = "(#{@loc1_species.size})"
+    %th.align-center
+      = name2 = @loc2.name_en
+      %br
+      = "(#{@loc2_species.size})"
+
+  - @species.group_by_family.each do |fam, species_list|
+    %tr
+      %td
+      %td{:colspan => 3}
+        %h4= "#{fam[:order]}: #{fam[:family].upcase}"
+    - species_list.each do |species|
+      %tr
+        %td.align-right= i += 1
+        %td
+          = species_link(species)
+          = name_sci(species)
+        %td.align-center= check.call(name1) if species.in?(@loc1_species)
+        %td.align-center= check.call(name2) if species.in?(@loc2_species)

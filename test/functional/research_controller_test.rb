@@ -41,4 +41,10 @@ class ResearchControllerTest < ActionController::TestCase
     get :topicture
     assert_response :success
   end
+
+  test "admin sees Research/compare" do
+    login_as_admin
+    get :compare, loc1: 'kiev', loc2: 'brovary'
+    assert_response :success
+  end
 end

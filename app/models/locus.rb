@@ -2,7 +2,7 @@ class Locus < ActiveRecord::Base
 
   TYPES = %w(Country Region Location)
 
-  validates :slug, :format => /^[a-z_]+$/i, :uniqueness => true, :presence => true, :length => { :maximum => 32 }
+  validates :slug, :format => /^[a-z_]+$/i, :uniqueness => true, :presence => true, :length => {:maximum => 32}
   validates :loc_type, :presence => true
   # FIXME: allow blank because imported locations do not have eng, ukr names
   validates :name_en, :name_ru, :name_uk, :uniqueness => true, :allow_blank => true
@@ -35,6 +35,14 @@ class Locus < ActiveRecord::Base
       result.concat(bunch)
     end
     result
+  end
+
+  def country
+    @country ||= if loc_type == 0
+                   self
+                 else
+                   parent.country
+                 end
   end
 
 end
