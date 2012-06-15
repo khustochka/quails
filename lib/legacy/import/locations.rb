@@ -43,14 +43,23 @@ module Legacy
         puts "Updating locations..."
         arr.each do |loc|
           (lat, lon) = loc[:latlon].split(',')
-          Locus.create!({
-                            slug: loc[:loc_id].gsub('-', '_'),
-                            loc_type: 2,
-                            name_ru: loc[:loc_name],
-                            parent_id: Legacy::Mapping.locations[loc[:reg_id]],
-                            lat: (lat.try(:to_f)),
-                            lon: (lon.try(:to_f))
-                        }) if Legacy::Mapping.locations[loc[:loc_id].gsub('-', '_')].nil?
+          normalized_slug = loc[:loc_id].gsub('-', '_')
+          if Legacy::Mapping.locations[normalized_slug]
+            locus = Locus.find_by_slug(normalized_slug)
+            if locus.lat.nil? && lat
+              locus.update_attributes(lat: lat.try(:to_f), lon: lon.try(:to_f))
+            end
+          else
+            Locus.create!({
+                              slug: normalized_slug,
+                              loc_type: 2,
+                              name_ru: loc[:loc_name],
+                              parent_id: Legacy::Mapping.locations[loc[:reg_id]],
+                              lat: lat.try(:to_f),
+                              lon: lon.try(:to_f)
+                          })
+
+          end
         end
         puts "Done."
       end
