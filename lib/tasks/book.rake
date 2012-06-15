@@ -4,12 +4,12 @@ require 'import/book_import'
 desc 'Tasks for importing species lists'
 namespace :book do
 
+  regions = %w( ua uken07 usny )
+
   desc 'Fetch from web or html file, parse it and save to yaml'
   task :fetch_to_yaml do
 
     include ChecklistsHelper
-
-    regions = %w( ua usny )
 
     @cache = WebPageCache.new("tmp/")
 
@@ -49,13 +49,14 @@ namespace :book do
       puts sp[:name_sci]
     end
 
-    File.new('clements_ua_ny.yml', 'w').write(desired_ordered.to_yaml)
+    File.new("clements_#{regions.join('_')}.yml", 'w').write(desired_ordered.to_yaml)
 
   end
 
+  #TODO: but now it only updates yaml, not the DB!
   desc 'Import checklist from yaml to the database'
   task :load_to_db => :environment do
-    f = File.open('vendor/clements_ua_ny.yml')
+    f = File.open("clements_#{regions.join('_')}.yml")
     records = YAML.load(f.read)
     newlist = records.map do |rec|
       sp = Species.find_by_name_sci(rec[:name_sci]) || Species.find_by_avibase_id(rec[:avibase_id])
@@ -68,8 +69,11 @@ namespace :book do
         if sps = Species.where("name_sci LIKE '%#{nomen}'")
           sps.each { |s| puts "  But there is '#{s.name_sci}' with different genus. Code: #{s.code}" }
         end
-        puts "Enter the code to use (exisiting / new): "
-        code = $stdin.gets
+        code = rec[:code]
+        unless code
+          puts "Enter the code to use (exisiting / new): "
+          code = $stdin.gets.strip
+        end
         if sp = Species.find_by_code(code.strip)
           puts "  !! Will use #{sp.name_sci}"
         else
@@ -92,7 +96,7 @@ namespace :book do
       end
     end
 
-    File.new('clements_ua_ny.yml', 'w').write(newlist.to_yaml)
+    File.new("clements_#{regions.join('_')}.yml", 'w').write(newlist.to_yaml)
 
   end
 end
