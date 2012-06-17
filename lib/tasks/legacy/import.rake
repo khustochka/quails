@@ -24,15 +24,21 @@ namespace :legacy do
     #puts 'Pulling from remote'
     #repo.git.pull
 
-    source = File.join(folder, 'legacy', 'db_dump.yml')
-
+    source = File.join(folder, 'legacy', 'seed_data.yml')
     puts "Importing from #{source}"
-
-    f = File.open(source, encoding: 'windows-1251:utf-8')
-    dump = YAML.load(f.read)
+    dump = File.open(source, encoding: 'windows-1251:utf-8') do |f|
+      YAML.load(f.read)
+    end
     countries = Legacy::Utils.prepare_table(dump['country'])
     regions = Legacy::Utils.prepare_table(dump['region'])
     locs = Legacy::Utils.prepare_table(dump['location'])
+
+
+    source = File.join(folder, 'legacy', 'field_data.yml')
+    puts "Importing from #{source}"
+    dump = File.open(source, encoding: 'windows-1251:utf-8') do |f|
+      YAML.load(f.read)
+    end
     posts = Legacy::Utils.prepare_table(dump['blog'])
     observations = Legacy::Utils.prepare_table(dump['observation'])
     images = Legacy::Utils.prepare_table(dump['images'])

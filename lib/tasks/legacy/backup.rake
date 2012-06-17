@@ -18,13 +18,17 @@ namespace :legacy do
     puts 'Pulling from remote'
     repo.git.pull
 
-    filename = File.join(folder, 'legacy', 'db_dump.yml')
 
     auth = "--basic -u #{spec['user']}:#{spec['password']}" if spec["user"] && spec["password"]
-    system "curl #{auth} #{spec['url']} > #{filename}"
+
+    filename = File.join(folder, 'legacy', 'seed_data.yml')
+    system "curl #{auth} #{spec['url']}?data=seed > #{filename}"
+
+    filename = File.join(folder, 'legacy', 'field_data.yml')
+    system "curl #{auth} #{spec['url']}?data=field > #{filename}"
 
     Dir.chdir(folder) do
-      repo.add("legacy/db_dump.yml")
+      repo.add("legacy/*.yml")
     end
 
     puts 'Committing: ', msg = "DB backup #{Time.current.strftime('%F %T')}"
@@ -48,14 +52,24 @@ namespace :legacy do
     puts 'Pulling from remote'
     repo.git.pull
 
-    filename = File.join(folder, 'legacy', 'db_dump.yml')
-
-    ActiveRecord::Base.establish_connection(local_opts['database'])
-    puts "Loading #{filename}..."
-
     # NOTE: legacy DB connection encoding should be utf8 for this to work!
-    file = File.open(filename, encoding: 'windows-1251')
-    ydoc = YAML.load(file.read)
+    ActiveRecord::Base.establish_connection(local_opts['database'])
+
+    filename = File.join(folder, 'legacy', 'seed_data.yml')
+    puts "Loading #{filename}..."
+    dump1 = File.open(filename, encoding: 'windows-1251') do |file|
+      YAML.load(file.read)
+    end
+
+    filename = File.join(folder, 'legacy', 'field_data.yml')
+    puts "Loading #{filename}..."
+    dump2 = File.open(filename, encoding: 'windows-1251') do |file|
+      YAML.load(file.read)
+    end
+
+    ydoc = dump1.merge(dump2)
+
+
     ydoc.keys.each do |table_name|
       data = ydoc[table_name]
       next unless data
