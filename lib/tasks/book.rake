@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require 'checklists_helper'
 require 'import/book_import'
 
@@ -7,7 +9,7 @@ namespace :book do
   regions = %w( ua uken07 usny )
 
   desc 'Fetch from web or html file, parse it and save to yaml'
-  task :fetch_to_yaml do
+  task :fetch_to_yaml => :environment do
 
     include ChecklistsHelper
 
@@ -27,24 +29,26 @@ namespace :book do
 
     puts 'Missing:'
     (desired - desired_ordered).each do |sp|
-      puts sp[:name_sci]
-      ind = desired.index(sp)
-      before = desired[ind - 1]
-      after = desired[ind + 1]
-      before_i = desired_ordered.index(before)
-      after_i = desired_ordered.index(after)
-      (before_i..after_i).each do |i|
-        puts "#{i}. #{desired_ordered[i][:name_sci]}"
+      unless desired_ordered.find { |ss| ss[:name_sci] == sp[:name_sci] } || Species.find_by_name_sci(sp[:name_sci])
+        puts sp[:name_sci]
+        ind = desired.index(sp)
+        before = desired[ind - 1]
+        after = desired[ind + 1]
+        before_i = desired_ordered.index(before)
+        after_i = desired_ordered.index(after)
+        (before_i..after_i).each do |i|
+          puts "#{i}. #{desired_ordered[i][:name_sci]}"
+        end
+        puts "Select to insert after: "
+        val = $stdin.gets
+
+        desired_ordered.insert(val.strip.to_i + 1, sp)
+
+        puts "\n"
       end
-      puts "Select to insert after: "
-      val = $stdin.gets
-
-      desired_ordered.insert(val.strip.to_i + 1, sp)
-
-      puts "\n"
     end
 
-    puts 'Recheck missing:'
+    puts 'Skipped missing:'
     (desired - desired_ordered).each do |sp|
       puts sp[:name_sci]
     end
@@ -53,12 +57,12 @@ namespace :book do
 
   end
 
-  #TODO: but now it only updates yaml, not the DB!
-  desc 'Import checklist from yaml to the database'
-  task :load_to_db => :environment do
-    f = File.open("clements_#{regions.join('_')}.yml")
-    records = YAML.load(f.read)
-    newlist = records.map do |rec|
+  desc 'Merge to DB'
+  task :merge_to_db => :environment do
+    records = File.open("clements_#{regions.join('_')}.yml") do |f|
+      YAML.load(f.read)
+    end
+    records.each do |rec|
       sp = Species.find_by_name_sci(rec[:name_sci]) || Species.find_by_avibase_id(rec[:avibase_id])
       unless sp
         puts "No species '#{rec[:name_sci]}'"
@@ -69,34 +73,128 @@ namespace :book do
         if sps = Species.where("name_sci LIKE '%#{nomen}'")
           sps.each { |s| puts "  But there is '#{s.name_sci}' with different genus. Code: #{s.code}" }
         end
-        code = rec[:code]
-        unless code
-          puts "Enter the code to use (exisiting / new): "
-          code = $stdin.gets.strip
+
+        gen, spn = rec[:name_sci].downcase.split(' ')
+        new_code = gen[0, 3] + (gen != spn || gen.length < 6 ? spn[0, 3] : spn[-3, 3])
+        puts "New code would be: #{new_code}"
+
+        if confl_sp = Species.find_by_code(new_code)
+          puts "  It is conflicting with #{confl_sp.name_sci}"
         end
+        #puts "Enter the code to use (exisiting / new): "
+        #code = $stdin.gets.strip || new_code
+        code = new_code
+
         if sp = Species.find_by_code(code.strip)
           puts "  !! Will use #{sp.name_sci}"
         else
-          puts "  !! Will create new"
+          puts "  !! Will create new species"
         end
+        puts "\n"
       end
 
       if sp
-        rec.merge(
+        rec.merge!(
             {
                 code: sp.code,
-                name_ru: sp.name_ru,
-                name_uk: sp.name_uk,
-                authority: sp.authority,
-                protonym: sp.protonym
+                id: sp.id
             }
         )
       else
-        rec.merge({code: code})
+        rec.merge!({code: code})
       end
+
     end
 
-    File.new("clements_#{regions.join('_')}.yml", 'w').write(newlist.to_yaml)
+    final = Species.ordered_by_taxonomy.map{|sp| sp.attributes.slice('name_sci', 'id', 'code') }
+
+    collected = []
+    records.each_with_index do |rec, i|
+      unless rec[:id]
+        collected.push(rec)
+        if records[i + 1][:id]
+          puts "Inserting #{collected.map{|a| a[:name_sci]}.join(', ')} before #{records[i + 1][:name_sci]}"
+          index_next = final.index { |el| el['name_sci'] == records[i + 1][:name_sci] }
+          final.insert(index_next, *collected)
+          collected = []
+        end
+        puts "\n"
+      end
+    end
+    if collected.present?
+      puts "Inserting #{collected.map{|a| a[:name_sci]}.join(', ')} after #{final[-1]['name_sci']}"
+      final.insert(-1, *collected)
+    end
+
+    final.each_with_index do |sp, i|
+      if sp['id']
+        spc = Species.find_by_id(sp['id'])
+      else
+        spc = Species.new(sp)
+      end
+      spc.index_num = i + 1
+      spc.save!
+    end
+
+    #File.new("clements_#{regions.join('_')}.yml", 'w').write(records.to_yaml)
 
   end
+
+  desc 'Fetch details for species where they are missing'
+  task :update_missing_details => :environment do
+
+    include SpeciesHelper
+    require 'nokogiri'
+
+    Species.select {|s| s.authority.blank? }.each do |sp|
+      puts "Fetching details for #{sp.name_sci}"
+      sp.update_attributes!(fetch_details(sp))
+    end
+
+  end
+
+end
+
+def fetch_details(sp)
+  @cache = WebPageCache.new("tmp/")
+
+  avibase_id = sp.avibase_id
+
+  file_ru = @cache.fetch("#{avibase_id}_RU.html", avibase_species_url(avibase_id, 'RU'), verbose: true)
+  file_uk = @cache.fetch("#{avibase_id}_UK.html", avibase_species_url(avibase_id, 'UK'), verbose: true)
+  file_fr = @cache.fetch("#{avibase_id}_FR.html", avibase_species_url(avibase_id, 'FR'), verbose: true)
+
+  doc_ru = Nokogiri::HTML(file_ru, nil, 'utf-8')
+  doc_uk = Nokogiri::HTML(file_uk, nil, 'utf-8')
+  doc_fr = Nokogiri::HTML(file_fr, nil, 'utf-8')
+
+  header_regex = /^([^(]+) (\([^)]+\)) (\(?([^()]+)\)?)$/
+
+  data_fr = doc_fr.at("//td[@class='AVBHeader']").content.match(header_regex)
+
+  name_fr = data_fr[1].strip
+
+  protonym = doc_fr.at("//p[b[text()='Protonyme:']]/i").content.strip
+
+  authority = if sp.name_sci == data_fr[2].strip
+                data_fr[3].strip
+              else
+                proto_parts = protonym.split(' ')
+                sp.name_sci != "#{proto_parts.first} #{proto_parts.last}".downcase.capitalize ?
+                    "(#{data_fr[4]})" :
+                    "#{data_fr[4]}"
+              end
+  name_ru = doc_ru.at("//td[@class='AVBHeader']").content.match(header_regex)[1].strip
+  name_uk = doc_uk.at("//td[@class='AVBHeader']").content.match(header_regex)[1].strip
+
+  name_ru = '' if name_ru.downcase.eql?(sp.name_en.downcase)
+  name_uk = '' if name_uk.downcase.eql?(sp.name_en.downcase)
+  name_fr = '' if name_fr.downcase.eql?(sp.name_en.downcase)
+  {
+      protonym: protonym,
+      authority: authority,
+      name_ru: name_ru,
+      name_uk: name_uk,
+      name_fr: name_fr
+  }
 end
