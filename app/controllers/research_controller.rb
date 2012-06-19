@@ -15,22 +15,26 @@ class ResearchController < ApplicationController
   end
 
   def more_than_year
-    sort_col = params[:sort].try(:to_sym) || :date2
-    period = params[:period].try(:to_i) || 365
-    @list = MyObservation.order(:observ_date).preload(:species).group_by(&:species).each_with_object([]) do |obsdata, collection|
-      sp, obss = obsdata
-      obs = obss.each_cons(2).select do |ob1, ob2|
-        (ob2.observ_date - ob1.observ_date) >= period
-      end
-      collection.concat(
-          obs.map do |ob1, ob2|
-            {:sp => sp,
-             :date1 => ob1.observ_date,
-             :date2 => ob2.observ_date,
-             :days => (ob2.observ_date - ob1.observ_date).to_i}
-          end
-      )
-    end.sort { |a, b| b[sort_col] <=> a[sort_col] }
+    if params[:days]
+      sort_col = params[:sort].try(:to_sym) || :date2
+      @period = params[:days].to_i
+      @list = MyObservation.order(:observ_date).preload(:species).group_by(&:species).each_with_object([]) do |obsdata, collection|
+        sp, obss = obsdata
+        obs = obss.each_cons(2).select do |ob1, ob2|
+          (ob2.observ_date - ob1.observ_date) >= @period
+        end
+        collection.concat(
+            obs.map do |ob1, ob2|
+              {:sp => sp,
+               :date1 => ob1.observ_date,
+               :date2 => ob2.observ_date,
+               :days => (ob2.observ_date - ob1.observ_date).to_i}
+            end
+        )
+      end.sort { |a, b| b[sort_col] <=> a[sort_col] }
+    else
+      redirect_to(days: 365)
+    end
   end
 
   def topicture
