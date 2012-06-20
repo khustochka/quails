@@ -32,7 +32,7 @@ class ResearchControllerTest < ActionController::TestCase
     create(:observation, observ_date: "2007-06-18")
     create(:observation, observ_date: "2009-06-18")
     login_as_admin
-    get :more_than_year
+    get :more_than_year, days: 365
     assert_response :success
   end
 
