@@ -1,0 +1,24 @@
+- @page_title = "Checklist for #{@locus.name_en}"
+
+%h1= @page_title
+
+%table.neat_table
+  %tr
+    %th.align-right
+    %th Name
+    %th Scientific name
+    %th Status
+
+  - i = 0
+
+  - @checklist.group_by_family.each do |fam, species_list|
+    %tr
+      %td
+      %td{:colspan => 3}
+        %h3= "#{fam[:order].upcase}: #{fam[:family]}"
+    - species_list.each do |species|
+      %tr
+        %td.align-right= i += 1
+        %td= species_link(species)
+        %td= name_sci(species)
+        %td= species.status_en

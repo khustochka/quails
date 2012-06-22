@@ -5,6 +5,7 @@
         blog: Blog
         photos: Photos
         lifelist: Lifelist
+        checklist: Checklist
 
     years:
       years: 'Year:'

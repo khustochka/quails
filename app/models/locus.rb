@@ -12,6 +12,9 @@ class Locus < ActiveRecord::Base
 
   has_many :observations, :dependent => :restrict
 
+  has_many :checklists
+  has_many :species, :through => :checklists, :select => '*'
+
   # Parameters
 
   def to_param
@@ -27,6 +30,10 @@ class Locus < ActiveRecord::Base
   scope :list_order, order('loc_type DESC', :parent_id, :slug)
 
   # Instance methods
+
+  def checklist
+    species.ordered_by_taxonomy.all.extend(SpeciesArray)
+  end
 
   def get_subregions
     result = bunch = [self]

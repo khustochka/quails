@@ -39,6 +39,8 @@ Quails3::Application.routes.draw do
       locus: /(?!by_)[^\/]+/, # negative look-ahead: not starting with 'by_'
       sort: /by_(count|taxonomy)/
 
+  get 'checklists/:slug' => 'checklists#show', constraints: {slug: 'ukraine'}, as: 'checklist'
+
   get '/blog.:format' => 'feeds#blog', constraints: {format: 'xml'}
   get '/photos.:format' => 'feeds#photos', constraints: {format: 'xml'}
   get '/sitemap(.:format)' => 'feeds#sitemap', constraints: {format: 'xml'}, defaults: {format: 'xml'}

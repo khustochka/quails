@@ -4,12 +4,12 @@
   %li= link_to_or_span '+ Image', new_image_path
   %li= link_to_or_span 'Observations', observations_path
   %li= link_to_or_span 'Species', species_index_path
-  %li= link_to_or_span 'Comments', comments_path
   %li= link_to_or_span 'Research', research_path
 
 - unless @minimal_layout
   %ul.admin_box
     %li= link_to_or_span 'Images', images_path
+    %li= link_to_or_span 'Comments', comments_path
     %li= link_to_or_span 'Locations', loci_path
     %li= link_to_or_span 'Map Edit', edit_map_path
     %li= link_to_or_span 'Flickr', flickr_path
