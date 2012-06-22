@@ -17,13 +17,15 @@ class BookImport
           sp_data = row.children
           name_en = sp_data[0].content
           name_sci = sp_data[1].content
+          status = sp_data[2].content
           avb_id = sp_data[1].at('a')['href'].match(/^species\.jsp\?avibaseid=([\dA-F]+)$/)[1]
           list.push({
                         name_sci: name_sci,
                         name_en: name_en,
                         order: order,
                         family: family,
-                        avibase_id: avb_id
+                        avibase_id: avb_id,
+                        status: status
                     })
         end
       end

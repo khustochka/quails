@@ -7,7 +7,7 @@ namespace :seed do
     require 'tasks/grit_init'
     require 'bunch_db/table'
 
-    tables = %w(species loci)
+    tables = %w(species loci checklists)
 
     local_opts = YAML.load_file('config/local.yml')
     folder = local_opts['repo']

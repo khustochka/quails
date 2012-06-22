@@ -26,8 +26,8 @@ namespace :checklist do
       BookImport.parse_list(source).each do |s|
         sp = Species.find_by_avibase_id(s[:avibase_id])
 
-        puts s[:name_sci] if sp.nil?
-        #Checklist.create(locus_id: id, species_id: sp.id)
+        raise "#{s[:name_sci]} #{s[:avibase_id]} is nil" if sp.nil?
+        Checklist.create(locus_id: id, species_id: sp.id, status_en: s[:status])
       end
 
     else
