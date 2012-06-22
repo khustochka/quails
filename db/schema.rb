@@ -11,18 +11,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120620145728) do
+ActiveRecord::Schema.define(:version => 20120622144322) do
 
   create_table "checklists", :id => false, :force => true do |t|
-    t.integer "locus_id"
-    t.integer "species_id"
-    t.string  "status_codes"
-    t.string  "status_en"
-    t.string  "status_ru"
-    t.string  "status_uk"
+    t.integer "locus_id",   :null => false
+    t.integer "species_id", :null => false
+    t.string  "status"
+    t.string  "notes_en"
+    t.string  "notes_ru"
+    t.string  "notes_uk"
   end
 
-  add_index "checklists", ["locus_id", "species_id"], :name => "index_checklists_on_locus_id_and_species_id"
+  add_index "checklists", ["locus_id"], :name => "index_checklists_on_locus_id"
+  add_index "checklists", ["species_id"], :name => "index_checklists_on_species_id"
 
   create_table "comments", :force => true do |t|
     t.integer  "post_id"

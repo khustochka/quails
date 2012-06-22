@@ -79,4 +79,22 @@ class BookImport
         name_fr: name_fr
     }
   end
+
+  STATUS_CONVERSIONS = {
+      'Introduced species' => 'INT',
+      'Rare/Accidental' => 'RAR',
+      'Near-threatened' => 'NT',
+      'Vulnerable' => 'VU',
+      'Endangered' => 'EN',
+      'Critically endangered' => 'CR',
+      'Extinct' => 'EX'
+  }
+
+  def self.convert_status(st)
+    STATUS_CONVERSIONS.each_with_object(st.strip) do |kv, result|
+      k,v = kv
+      result.sub!(k, v)
+    end
+  end
+
 end
