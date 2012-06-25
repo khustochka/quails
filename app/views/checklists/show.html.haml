@@ -2,7 +2,7 @@
 
 %h1= @page_title
 
-%table.neat_table
+%table.neat_table.checklist_table
   %tr
     %th.align-right
     %th Name
@@ -21,4 +21,4 @@
         %td.align-right= i += 1
         %td= species_link(species)
         %td= name_sci(species)
-        %td= species.status
+        %td= convert_statuses(species.status)

@@ -1,0 +1,11 @@
+'en':
+  checklists:
+    show:
+      status:
+        RAR: '_Rare/Accidental_'
+        INT: '_Introduced_'
+        NT: '*Near Threatened*'
+        VU: '*Vulnerable*'
+        EN: '*Endangered*'
+        CR: '*Critically Endangered*'
+        EX: '*Extinct*'
