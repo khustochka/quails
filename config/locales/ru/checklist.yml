@@ -1,6 +1,17 @@
 'ru':
   checklists:
     show:
+      title:
+        checklist_for: Чеклист птиц
+
+      country:
+        ukraine: Украины
+
+      table:
+        name: Название
+        sci_name: Научное название
+        status: Статус
+
       status:
         RAR: '_Редкий/залетный_'
         INT: '_Интродуцированный_'

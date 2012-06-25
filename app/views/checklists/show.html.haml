@@ -1,13 +1,13 @@
-- @page_title = "Checklist for #{@locus.name_en}"
+- @page_title = "%s %s" % [t('.title.checklist_for'), t(".country.#{@locus.slug}")]
 
 %h1= @page_title
 
 %table.neat_table.checklist_table
   %tr
     %th.align-right
-    %th Name
-    %th Scientific name
-    %th Status
+    %th= t '.table.name'
+    %th= t '.table.sci_name'
+    %th= t '.table.status'
 
   - i = 0
 
