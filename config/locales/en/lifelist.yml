@@ -1,0 +1,23 @@
+"en":
+  lifelist:
+    default:
+      title:
+        lifelist: Lifelist
+
+        template:
+          by_date: by first observation date
+          by_count: by observations count
+          by_taxonomy: by taxonomy
+
+    menus:
+      filter:
+        places: 'Regions:'
+        sort_by: 'Order by:'
+
+      sort_option:
+        by_date: date
+        by_count: count
+        by_taxonomy: taxonomy
+
+    by_date:
+      first_seen_in: 'First seen in %{year}:'

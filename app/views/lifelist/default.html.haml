@@ -1,11 +1,11 @@
-- sort = params[:sort]
-- @page_title = "Lifelist #{sort.nil? ? "by date" : sort.sub('_', ' ')}"
+- template = params[:sort] || 'by_date'
+- @page_title = "%s %s" % [t('.title.lifelist'), t(".title.template.#{template}")]
 
 %h1= @page_title
 
-= render 'menus'
+= render partial: 'menus'
 
 - if @lifelist.blank?
   %p No species
 - else
-  = render sort.nil? ? 'by_date' : sort
+  = render template
