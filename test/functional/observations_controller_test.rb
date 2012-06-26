@@ -23,7 +23,7 @@ class ObservationsControllerTest < ActionController::TestCase
     create(:observation, species: seed(:anacly), observ_date: "2007-07-18", locus: seed(:brovary))
     create(:observation, species: seed(:embcit), observ_date: "2009-08-09", locus: seed(:kherson))
     login_as_admin
-    get :index, q: {locus_id_eq: seed(:brovary).id}
+    get :index, observation: {locus_id: seed(:brovary).id}
     assert_response :success
     assigns(:observations).size.should eq(3)
   end
@@ -44,7 +44,7 @@ class ObservationsControllerTest < ActionController::TestCase
     create(:observation, species_id: 0, observ_date: "2010-06-18")
     create(:observation, species_id: 0, observ_date: "2009-06-19")
     login_as_admin
-    get :index, q: {species_id: 0}
+    get :index, observation: {species_id: 0}
     assert_response :success
     assert_not_nil assigns(:observations)
     assert_select 'td', '- Avis incognita'
@@ -180,7 +180,7 @@ class ObservationsControllerTest < ActionController::TestCase
   test 'return observation search results in json' do
     login_as_admin
     observation = create(:observation)
-    get :search, q: {}, format: :json
+    get :search, observation: {}, format: :json
     assert_response :success
     assert_equal Mime::JSON, response.content_type
     result = JSON.parse(response.body)
@@ -193,7 +193,7 @@ class ObservationsControllerTest < ActionController::TestCase
     create(:spot, observation: obs1)
     create(:spot, observation: obs2)
     login_as_admin
-    get :with_spots, format: :json, q: {observ_date_eq: '2010-07-24'}
+    get :with_spots, format: :json, observation: {observ_date: '2010-07-24'}
     assert_response :success
     assert_equal Mime::JSON, response.content_type
     result = JSON.parse(response.body)
