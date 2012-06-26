@@ -1,6 +1,6 @@
 module LifelistStrategies
 
-  PUBLIC_LOCI = %w(ukraine kiev_obl kiev brovary kherson_obl krym usa new_york)
+  PUBLIC_LOCI = %w(ukraine kiev brovary kiev_obl zhytomyr_obl chernihiv_obl kherson_obl zaporizh_obl krym usa)
 
   class Strategy
 
