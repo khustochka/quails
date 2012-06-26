@@ -16,4 +16,10 @@ class ObservationTest < ActiveSupport::TestCase
     assert_equal [img], @observation.images
   end
 
+  test 'search mine: false is different from mine: nil' do
+    ob2 = create(:observation, mine: false)
+    Observation.search(mine: '').should eq(Observation.search(mine: nil))
+    Observation.search(mine: false).should eq([ob2])
+  end
+
 end

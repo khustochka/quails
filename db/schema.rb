@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120622144322) do
+ActiveRecord::Schema.define(:version => 20120626133937) do
 
   create_table "checklists", :id => false, :force => true do |t|
     t.integer "locus_id",   :null => false
@@ -78,14 +78,14 @@ ActiveRecord::Schema.define(:version => 20120622144322) do
   add_index "loci", ["slug"], :name => "index_loci_on_slug"
 
   create_table "observations", :force => true do |t|
-    t.integer "species_id",                    :null => false
-    t.integer "locus_id",                      :null => false
-    t.date    "observ_date",                   :null => false
+    t.integer "species_id",  :null => false
+    t.integer "locus_id",    :null => false
+    t.date    "observ_date", :null => false
     t.string  "quantity"
     t.string  "biotope"
     t.string  "place"
     t.string  "notes"
-    t.boolean "mine",        :default => true
+    t.boolean "mine",        :null => false
     t.integer "post_id"
   end
 
