@@ -9,7 +9,7 @@ class ChecklistsControllerTest < ActionController::TestCase
   end
 
   test 'do not show checklist for other countries' do
-    assert_raises(ActionController::RoutingError) { get :show, slug: 'usa' }
+    expect { get :show, slug: 'usa' }.to raise_error(ActionController::RoutingError)
   end
 
 end

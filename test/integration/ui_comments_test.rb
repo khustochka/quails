@@ -16,9 +16,9 @@ class UICommentsTest < ActionDispatch::IntegrationTest
       click_button("save_button")
     end
 
-    current_path.should == show_post_path(blogpost.to_url_params)
+    current_path.should eq(show_post_path(blogpost.to_url_params))
     page.should have_content("Vasya")
-    comment.subcomments.size.should == 1
+    comment.subcomments.size.should eq(1)
   end
 
 end

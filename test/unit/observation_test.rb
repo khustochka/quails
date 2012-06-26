@@ -11,9 +11,7 @@ class ObservationTest < ActiveSupport::TestCase
 
   test 'do not destroy observation if having associated images' do
     img = create(:image, observations: [@observation])
-    assert_raises(ActiveRecord::DeleteRestrictionError) do
-      @observation.destroy
-    end
+    expect { @observation.destroy }.to raise_error(ActiveRecord::DeleteRestrictionError)
     assert @observation.reload
     assert_equal [img], @observation.images
   end

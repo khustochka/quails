@@ -13,9 +13,9 @@ class UIImagesTest < ActionDispatch::IntegrationTest
     visit edit_image_path(img)
 
     lambda { submit_form_with('Save') }.should_not change(Image, :count)
-    current_path.should == show_image_path(img.to_url_params)
+    current_path.should eq(show_image_path(img.to_url_params))
     img.reload
-    img.observations.size.should == 2
+    img.observations.size.should eq(2)
   end
 
   # NO JavaScript test
@@ -32,9 +32,9 @@ class UIImagesTest < ActionDispatch::IntegrationTest
 
     lambda { submit_form_with('Save') }.should_not change(Image, :count)
     img.reload
-    current_path.should == show_image_path(img.to_url_params)
-    img.observations.size.should == 2
-    img.slug.should == 'test-img-capybara'
+    current_path.should eq(show_image_path(img.to_url_params))
+    img.observations.size.should eq(2)
+    img.slug.should eq('test-img-capybara')
   end
 
   test "Adding new image" do
@@ -55,7 +55,7 @@ class UIImagesTest < ActionDispatch::IntegrationTest
 
     lambda { submit_form_with('Save') }.should change(Image, :count).by(1)
     img = Image.find_by_slug('test-img-capybara')
-    current_path.should == show_image_path(img.to_url_params)
+    current_path.should eq(show_image_path(img.to_url_params))
   end
 
   test "Image save does not use all found observations" do
@@ -76,7 +76,7 @@ class UIImagesTest < ActionDispatch::IntegrationTest
     lambda { submit_form_with('Save') }.should change(Image, :count).by(1)
     img = Image.find_by_slug('test-img-capybara')
 
-    img.species.map(&:name_sci).should == ['Mergus serrator']
+    img.species.map(&:name_sci).should eq(['Mergus serrator'])
   end
 
   test "Remove an observation from image" do
@@ -92,7 +92,7 @@ class UIImagesTest < ActionDispatch::IntegrationTest
 
     click_button('Save')
     img.reload
-    img.observations.size.should == 2
+    img.observations.size.should eq(2)
   end
 
   test "Restore original observations if deleted" do
@@ -104,11 +104,11 @@ class UIImagesTest < ActionDispatch::IntegrationTest
     within(:xpath, "//ul[contains(@class,'current-obs')]/li[1]") do
       find('.remove').click
     end
-    all('.current-obs li').size.should == 1
+    all('.current-obs li').size.should eq(1)
 
     click_link('Restore original')
 
-    all('.current-obs li').size.should == 2
+    all('.current-obs li').size.should eq(2)
   end
 
 end

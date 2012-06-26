@@ -36,7 +36,7 @@ class PostsControllerTest < ActionController::TestCase
     create(:observation, species: sp1, post: blogpost)
 
     get :show, blogpost.to_url_params
-    assigns(:post).species.should == [sp2, sp1]
+    assigns(:post).species.should eq([sp2, sp1])
   end
 
   test "get edit" do
@@ -92,39 +92,37 @@ class PostsControllerTest < ActionController::TestCase
   # HTTP auth tests
 
   test 'protect new with HTTP authentication' do
-    assert_raises(ActionController::RoutingError) { get :new }
+    expect { get :new }.to raise_error(ActionController::RoutingError)
     #assert_response 404
   end
 
   test 'protect edit with HTTP authentication' do
     blogpost = create(:post)
-    assert_raises(ActionController::RoutingError) { get :edit, id: blogpost.to_param }
+    expect { get :edit, id: blogpost.to_param }.to raise_error(ActionController::RoutingError)
     #assert_response 404
   end
 
   test 'protect create with HTTP authentication' do
     blogpost = create(:post)
-    assert_raises(ActionController::RoutingError) { post :create, post: blogpost.attributes }
+    expect { post :create, post: blogpost.attributes }.to raise_error(ActionController::RoutingError)
     #assert_response 404
   end
 
   test 'protect update with HTTP authentication' do
     blogpost = create(:post)
     blogpost.title = 'Changed title'
-    assert_raises(ActionController::RoutingError) do
-      put :update, id: blogpost.to_param, post: blogpost.attributes
-    end
+    expect { put :update, id: blogpost.to_param, post: blogpost.attributes }.to raise_error(ActionController::RoutingError)
     #assert_response 404
   end
 
   test 'protect destroy with HTTP authentication' do
     blogpost = create(:post)
-    assert_raises(ActionController::RoutingError) { delete :destroy, id: blogpost.to_param }
+    expect { delete :destroy, id: blogpost.to_param }.to raise_error(ActionController::RoutingError)
     #assert_response 404
   end
 
   test 'proper link options' do
     blogpost = create(:post)
-    public_post_path(blogpost, anchor: 'comments').should == show_post_path(blogpost.to_url_params.merge({anchor: 'comments'}))
+    public_post_path(blogpost, anchor: 'comments').should eq(show_post_path(blogpost.to_url_params.merge({anchor: 'comments'})))
   end
 end

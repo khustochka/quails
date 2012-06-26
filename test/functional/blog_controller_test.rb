@@ -34,7 +34,7 @@ class BlogControllerTest < ActionController::TestCase
     assert_response :success
     assigns(:posts).should include(blogpost1, blogpost2, blogpost3)
     assigns(:posts).should_not include(blogpost4, blogpost5)
-    assigns(:prev_month).should == blogpost4.to_month_url.stringify_keys
+    assigns(:prev_month).should eq(blogpost4.to_month_url.stringify_keys)
   end
 
   test 'show correct Earlier Posts link if limit is inside the month' do
@@ -47,7 +47,7 @@ class BlogControllerTest < ActionController::TestCase
     assert_response :success
     assigns(:posts).should include(blogpost1, blogpost2, blogpost3)
     assigns(:posts).should_not include(blogpost4, blogpost5)
-    assigns(:prev_month).should == blogpost4.to_month_url.stringify_keys
+    assigns(:prev_month).should eq(blogpost4.to_month_url.stringify_keys)
   end
 
   test 'show full month and correct Earlier Posts link if the last month exceeds the limit' do
@@ -59,10 +59,10 @@ class BlogControllerTest < ActionController::TestCase
     blogpost6 = create(:post, face_date: '2007-10-05 13:14:15')
     get :front_page
     assert_response :success
-    assigns(:posts).size.should == 5
+    assigns(:posts).size.should eq(5)
     assigns(:posts).should include(blogpost1, blogpost2, blogpost3, blogpost4, blogpost5)
     assigns(:posts).should_not include(blogpost6)
-    assigns(:prev_month).should == blogpost6.to_month_url.stringify_keys
+    assigns(:prev_month).should eq(blogpost6.to_month_url.stringify_keys)
   end
 
   # Year view

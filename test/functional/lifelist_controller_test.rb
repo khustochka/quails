@@ -49,7 +49,7 @@ class LifelistControllerTest < ActionController::TestCase
     get :default, year: 2009
     assert_response :success
     lifers = assigns(:lifelist)
-    lifers.map { |s| s.first_seen_date.year }.uniq.should == [2009]
+    lifers.map { |s| s.first_seen_date.year }.uniq.should eq([2009])
     assert_select '.main' do
       assert_select 'h5', false # should not show "First time seen in..."
       assert_select "a[href=#{lifelist_path(year: 2009)}]", false
@@ -73,7 +73,7 @@ class LifelistControllerTest < ActionController::TestCase
     get :default, sort: 'by_taxonomy', year: 2009
     assert_response :success
     lifers = assigns(:lifelist)
-    lifers.map { |s| s.first_seen_date.year }.uniq.should == [2009]
+    lifers.map { |s| s.first_seen_date.year }.uniq.should eq([2009])
     assert_select '.main' do
       assert_select 'h5' # should show order/family headings
       assert_select "a[href=#{lifelist_path(year: 2009)}]"
@@ -86,21 +86,21 @@ class LifelistControllerTest < ActionController::TestCase
     get :default, locus: 'new_york'
     assert_response :success
     lifers = assigns(:lifelist)
-    lifers.size.should == 3
+    lifers.size.should eq(3)
   end
 
   test "show lifelist filtered by year and location" do
     get :default, locus: 'new_york', year: 2009
     assert_response :success
     lifers = assigns(:lifelist)
-    lifers.size.should == 1
-    lifers.map { |s| s.first_seen_date.year }.uniq.should == [2009]
+    lifers.size.should eq(1)
+    lifers.map { |s| s.first_seen_date.year }.uniq.should eq([2009])
   end
 
   test "show lifelist filtered by super location" do
     get :default, locus: 'ukraine'
     lifers = assigns(:lifelist)
-    lifers.size.should == 2
+    lifers.size.should eq(2)
   end
 
   test "not allowed locus fails" do

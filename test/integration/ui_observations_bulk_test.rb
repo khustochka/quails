@@ -8,13 +8,13 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
   test "Adding new rows to observations bulk form" do
     login_as_admin
     visit add_observations_path
-    all('.obs-row').size.should == 0
+    all('.obs-row').size.should eq(0)
 
     find(:xpath, "//span[text()='Add new row']").click
-    all('.obs-row').size.should == 1
+    all('.obs-row').size.should eq(1)
 
     find(:xpath, "//span[text()='Add new row']").click
-    all('.obs-row').size.should == 2
+    all('.obs-row').size.should eq(2)
   end
 
   # NO JavaScript test
@@ -22,7 +22,7 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
     Capybara.use_default_driver
     login_as_admin
     visit add_observations_path
-    all('.obs-row').size.should == 1
+    all('.obs-row').size.should eq(1)
     select('Brovary', from: 'Location')
     fill_in('Date', with: '2011-04-08')
     select('Cyanistes caeruleus', from: 'Species')
@@ -39,7 +39,7 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
     select_suggestion('- Avis incognita', from: 'Species')
     select_suggestion 'park', from: 'Biotope'
     lambda { submit_form_with('Save') }.should change(Observation, :count).by(1)
-    Observation.order('id DESC').limit(1).first.species_id.should == 0
+    Observation.order('id DESC').limit(1).first.species_id.should eq(0)
   end
 
   test "Adding several observations" do
@@ -95,7 +95,7 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
     lambda { submit_form_with('Save') }.should change(Observation, :count).by(2)
     page.should have_css('.obs-row.save-success')
 
-    blogpost.observations.size.should == 2
+    blogpost.observations.size.should eq(2)
   end
 
   test "Start adding observations for post but then uncheck it" do
@@ -121,7 +121,7 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
     submit_form_with('Save')
     page.should have_css('.obs-row.save-success')
 
-    blogpost.observations.size.should == 0
+    blogpost.observations.size.should eq(0)
   end
 
   test "Add observations for post, then save unlinked" do
@@ -146,13 +146,13 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
     submit_form_with('Save')
     page.should have_css('.obs-row.save-success')
 
-    blogpost.observations.size.should == 1
+    blogpost.observations.size.should eq(1)
     obs = blogpost.observations.first
 
     uncheck('observation_post_id')
     submit_form_with('Save')
 
-    blogpost.observations.reload.size.should == 0
+    blogpost.observations.reload.size.should eq(0)
     obs.reload.post_id.should be_nil
   end
 
@@ -198,7 +198,7 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
     login_as_admin
     visit bulk_observations_path(observ_date: "2010-06-18", locus_id: seed(:brovary).id, mine: true)
 
-    all('.obs-row').size.should == 2
+    all('.obs-row').size.should eq(2)
 
     [1, 2].map do |i|
       find(:xpath, "//div[contains(@class,'obs-row')][#{i}]//input[contains(@class, 'ui-autocomplete-input')]").value
@@ -229,7 +229,7 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
 
     lambda { submit_form_with('Save') }.should change(Observation, :count).by(0)
 
-    obs1.reload.post_id.should == blogpost.id
+    obs1.reload.post_id.should eq(blogpost.id)
     obs2.reload.post_id.should be_nil
   end
 

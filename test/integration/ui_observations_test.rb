@@ -13,7 +13,7 @@ class UIObservationsTest < ActionDispatch::IntegrationTest
     visit observations_path
     select('- Avis incognita', from: 'Species')
     click_button('Search')
-    page.driver.response.status.should == 200
+    page.driver.response.status.should eq(200)
     find('table.obs_list').should have_content('- Avis incognita')
     find('table.obs_list').should_not have_content('Spinus spinus')
   end

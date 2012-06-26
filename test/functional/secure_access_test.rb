@@ -40,9 +40,7 @@ class SecureAccessTest < ActionController::TestCase
 
     @controller = PostsController.new
 
-    assert_raises ActiveRecord::RecordNotFound do
-      get :show, blogpost1.to_url_params
-    end
+    expect { get :show, blogpost1.to_url_params }.to raise_error(ActiveRecord::RecordNotFound)
 
     get :show, blogpost2.to_url_params
     assert_response :success

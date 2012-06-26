@@ -35,7 +35,7 @@ class ImageObservValidationTest < ActiveSupport::TestCase
     new_attr = @image.attributes.dup # observations_ids are not in here
     new_attr['slug'] = 'new_img_slug'
     @image.update_with_observations(new_attr, [])
-    @image.observation_ids.should == @image.observation_ids
+    @image.observation_ids.should eq(@image.observation_ids)
   end
 
 test "does not restore former observation list if image was not saved not due to their emptiness" do
@@ -43,7 +43,7 @@ test "does not restore former observation list if image was not saved not due to
     new_attr['slug'] = ''
     new_obs = create(:observation)
     @image.update_with_observations(new_attr, [new_obs.id])
-    @image.observation_ids.should == [new_obs.id]
+    @image.observation_ids.should eq([new_obs.id])
   end
 
  test 'excludes duplicated observations on image create' do
@@ -54,7 +54,7 @@ test "does not restore former observation list if image was not saved not due to
       img.update_with_observations(new_attr, [@obs.id, @obs.id])
     end
     img.errors.should be_empty
-    img.observation_ids.should == [@obs.id]
+    img.observation_ids.should eq([@obs.id])
   end
 
 test 'excludes duplicated observation (existing) on image update' do
@@ -62,7 +62,7 @@ test 'excludes duplicated observation (existing) on image update' do
     obs = create(:observation)
     @image.update_with_observations(new_attr, [@obs.id, @obs.id, obs.id]).should be_true
     @image.errors.should be_empty
-    @image.observation_ids.count.should == 2
+    @image.observation_ids.count.should eq(2)
   end
 
 test 'excludes duplicated observation (new) on image update' do
@@ -70,7 +70,7 @@ test 'excludes duplicated observation (new) on image update' do
     obs = create(:observation)
     @image.update_with_observations(new_attr, [@obs.id, obs.id, obs.id]).should be_true
     @image.errors.should be_empty
-    @image.observation_ids.count.should == 2
+    @image.observation_ids.count.should eq(2)
   end
 
  test 'does not create image with inconsistent observations (different date)' do

@@ -22,12 +22,12 @@ class LifelistTest < ActiveSupport::TestCase
   end
 
   test 'Species lifelist by count return proper number of species' do
-    Lifelist.basic.sort('count').size.should == @obs.map(&:species_id).uniq.size
+    Lifelist.basic.sort('count').size.should eq(@obs.map(&:species_id).uniq.size)
   end
 
   test 'Species lifelist by count does not include Avis incognita' do
     create(:observation, species_id: 0, observ_date: "2010-06-18")
-    Lifelist.basic.sort('count').size.should == @obs.map(&:species_id).uniq.size
+    Lifelist.basic.sort('count').size.should eq(@obs.map(&:species_id).uniq.size)
   end
 
   test 'Species lifelist by count does not include species never seen by me' do
@@ -41,12 +41,12 @@ class LifelistTest < ActiveSupport::TestCase
   end
 
   test 'Species lifelist by taxonomy return proper number of species' do
-    Lifelist.basic.sort('class').size.should == @obs.map(&:species_id).uniq.size
+    Lifelist.basic.sort('class').size.should eq(@obs.map(&:species_id).uniq.size)
   end
 
   test 'Species lifelist by taxonomy does not include Avis incognita' do
     create(:observation, species_id: 0, observ_date: "2010-06-18")
-    Lifelist.basic.sort('class').size.should == @obs.map(&:species_id).uniq.size
+    Lifelist.basic.sort('class').size.should eq(@obs.map(&:species_id).uniq.size)
   end
 
   test 'Species lifelist by taxonomy does not include species never seen by me' do
@@ -60,12 +60,12 @@ class LifelistTest < ActiveSupport::TestCase
   end
 
   test 'Species lifelist by date return proper number of species' do
-    Lifelist.basic.size.should == @obs.map(&:species_id).uniq.size
+    Lifelist.basic.size.should eq(@obs.map(&:species_id).uniq.size)
   end
 
   test 'Species lifelist by date does not include Avis incognita' do
     create(:observation, species_id: 0, observ_date: "2010-06-18")
-    Lifelist.basic.size.should == @obs.map(&:species_id).uniq.size
+    Lifelist.basic.size.should eq(@obs.map(&:species_id).uniq.size)
   end
 
   test 'Species lifelist by date does not include species never seen by me' do
@@ -131,7 +131,7 @@ class LifelistTest < ActiveSupport::TestCase
     @obs[5].post = create(:post, slug: 'feraldoves_2009')
     @obs[5].save!
     lifelist = Lifelist.basic.filter(year: 2009).preload(posts: Post.public)
-    lifelist.find {|sp| sp.code == 'colliv'}.post.slug.should == @obs[5].post.slug
+    lifelist.find {|sp| sp.code == 'colliv'}.post.slug.should eq(@obs[5].post.slug)
   end
 
   test 'Do not associate post of the wrong location' do

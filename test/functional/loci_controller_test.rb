@@ -58,40 +58,38 @@ class LociControllerTest < ActionController::TestCase
   # HTTP auth tests
 
   test 'protect index with HTTP authentication' do
-    assert_raises(ActionController::RoutingError) { get :index }
+    expect { get :index }.to raise_error(ActionController::RoutingError)
     #assert_response 404
   end
 
   test 'protect show with HTTP authentication' do
-    assert_raises(ActionController::RoutingError) { get :show, id: 'krym' }
+    expect { get :show, id: 'krym' }.to raise_error(ActionController::RoutingError)
     #assert_response 404
   end
 
   test 'protect new with HTTP authentication' do
-    assert_raises(ActionController::RoutingError) { get :new }
+    expect { get :new }.to raise_error(ActionController::RoutingError)
     #assert_response 404
   end
 
   test 'protect edit with HTTP authentication' do
-    assert_raises(ActionController::RoutingError) { get :edit, id: 'krym' }
+    expect { get :edit, id: 'krym' }.to raise_error(ActionController::RoutingError)
     #assert_response 404
   end
 
   test 'protect create with HTTP authentication' do
-    assert_raises(ActionController::RoutingError) do
-      post :create, locus: build(:locus).attributes
-    end
+    expect { post :create, locus: build(:locus).attributes }.to raise_error(ActionController::RoutingError)
     #assert_response 404
   end
 
   test 'protect update with HTTP authentication' do
     locus = seed(:krym)
-    assert_raises(ActionController::RoutingError) { put :update, id: locus.to_param, locus: locus.attributes }
+    expect { put :update, id: locus.to_param, locus: locus.attributes }.to raise_error(ActionController::RoutingError)
     #assert_response 404
   end
 
   test 'protect destroy with HTTP authentication' do
-    assert_raises(ActionController::RoutingError) { delete :destroy, id: 'krym' }
+    expect { delete :destroy, id: 'krym' }.to raise_error(ActionController::RoutingError)
     #assert_response 404
   end
 end

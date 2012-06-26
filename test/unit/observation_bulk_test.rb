@@ -31,9 +31,9 @@ class ObservationBulkTest < ActiveSupport::TestCase
       bulk.save
     end
     err = bulk.errors
-    err["observ_date"].should == ["can't be blank"]
-    err["locus_id"].should == ["can't be blank"]
-    err["base"].should == ["provide at least one observation"]
+    err["observ_date"].should eq(["can't be blank"])
+    err["locus_id"].should eq(["can't be blank"])
+    err["base"].should eq(["provide at least one observation"])
   end
 
   test 'Observations bulk save does not save the bunch if any observation is wrong' do
@@ -58,8 +58,8 @@ class ObservationBulkTest < ActiveSupport::TestCase
     assert_difference('Observation.count', 0) do
       bulk.save.should be_true
     end
-    obs1.reload.species.code.should == 'cornix'
-    obs2.reload.notes.should == 'Voices'
+    obs1.reload.species.code.should eq('cornix')
+    obs2.reload.notes.should eq('Voices')
   end
 
   test 'Observations bulk save both saves new and updates existing' do
@@ -72,8 +72,8 @@ class ObservationBulkTest < ActiveSupport::TestCase
     assert_difference('Observation.count', 1) do
       bulk.save.should be_true
     end
-    bulk[0].species.code.should == 'cornix'
-    bulk[1].notes.should == 'Voices'
+    bulk[0].species.code.should eq('cornix')
+    bulk[1].notes.should eq('Voices')
   end
 
   test 'Observations bulk save does not save post for invalid bulk' do

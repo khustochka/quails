@@ -8,7 +8,7 @@ class ResearchControllerTest < ActionController::TestCase
   end
 
   test "user does not see Research/index" do
-    assert_raises(ActionController::RoutingError) { get :index }
+    expect { get :index }.to raise_error(ActionController::RoutingError)
     #assert_response 404
   end
 

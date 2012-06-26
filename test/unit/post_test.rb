@@ -8,24 +8,18 @@ class PostTest < ActiveSupport::TestCase
 
   test 'do not save post with empty slug' do
     blogpost = build(:post, slug: '')
-    assert_raises(ActiveRecord::RecordInvalid) do
-      blogpost.save!
-    end
+    expect { blogpost.save! }.to raise_error(ActiveRecord::RecordInvalid)
   end
 
   test 'do not save post with existing slug' do
     create(:post, slug: 'kiev-observations')
     blogpost = build(:post, slug: 'kiev-observations')
-    assert_raises(ActiveRecord::RecordInvalid) do
-      blogpost.save!
-    end
+    expect { blogpost.save! }.to raise_error(ActiveRecord::RecordInvalid)
   end
 
   test 'do not save post with empty title' do
     blogpost = build(:post, title: '')
-    assert_raises(ActiveRecord::RecordInvalid) do
-      blogpost.save!
-    end
+    expect { blogpost.save! }.to raise_error(ActiveRecord::RecordInvalid)
   end
 
   test "set post's face_date to current (equal to updated_at) when creating" do
@@ -45,18 +39,18 @@ class PostTest < ActiveSupport::TestCase
     blogpost2 = create(:post, face_date: '2009-11-06 13:14:15')
     blogpost3 = create(:post, face_date: '2009-10-06 13:14:15')
     assert_nil Post.prev_month('2009', '10')
-    Post.prev_month('2009', '12').should == {month: '11', year: '2009'}
-    Post.prev_month('2010', '01').should == {month: '11', year: '2009'}
-    Post.prev_month('2010', '02').should == {month: '11', year: '2009'}
+    Post.prev_month('2009', '12').should eq({month: '11', year: '2009'})
+    Post.prev_month('2010', '01').should eq({month: '11', year: '2009'})
+    Post.prev_month('2010', '02').should eq({month: '11', year: '2009'})
   end
 
   test 'calculate next month correctly (one having posts) even for month with no posts' do
     blogpost1 = create(:post, face_date: '2010-02-06 13:14:15')
     blogpost2 = create(:post, face_date: '2009-11-06 13:14:15')
     blogpost1 = create(:post, face_date: '2010-03-06 13:14:15')
-    Post.next_month('2009', '11').should == {month: '02', year: '2010'}
-    Post.next_month('2009', '12').should == {month: '02', year: '2010'}
-    Post.next_month('2010', '01').should == {month: '02', year: '2010'}
+    Post.next_month('2009', '11').should eq({month: '02', year: '2010'})
+    Post.next_month('2009', '12').should eq({month: '02', year: '2010'})
+    Post.next_month('2010', '01').should eq({month: '02', year: '2010'})
     assert_nil Post.next_month('2010', '03')
   end
 
@@ -80,8 +74,8 @@ class PostTest < ActiveSupport::TestCase
     create(:post, face_date: '2011-01-31 23:53:00') # last day and risky time
     create(:post, face_date: '2011-02-01 00:30:00') # risky time (different days in GMT and EEST)
     create(:post, face_date: '2011-02-15 12:53:00')
-    Post.next_month('2011', '01').should == {month: '02', year: '2011'}
-    Post.prev_month('2011', '02').should == {month: '01', year: '2011'}
+    Post.next_month('2011', '01').should eq({month: '02', year: '2011'})
+    Post.prev_month('2011', '02').should eq({month: '01', year: '2011'})
   end
 
 end
