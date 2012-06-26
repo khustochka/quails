@@ -27,8 +27,8 @@ class ObservationsController < ApplicationController
   # GET /observations/search
   def search
     observs =
-        params[:q] && params[:q].values.uniq != [''] ?
-            Observation.search(params[:q]).result.preload(:locus, :species).limit(params[:limit]) :
+        params[:observation] && params[:observation].values.uniq != [''] ?
+            Observation.search(params[:observation]).preload(:locus, :species).limit(params[:limit]) :
             []
     respond_with(observs, :only => :id, :methods => [:species_str, :when_where_str])
   end
@@ -109,8 +109,8 @@ class ObservationsController < ApplicationController
   # GET "/observations/with_spots.json"
   def with_spots
     observs =
-        params[:q] && params[:q].values.uniq != [''] ?
-            Observation.search(params[:q]).result.preload(:locus, :species, :spots).order(:observ_date, :locus_id) :
+        params[:observation] && params[:observation].values.uniq != [''] ?
+            Observation.search(params[:observation]).preload(:locus, :species, :spots).order(:observ_date, :locus_id) :
             []
     respond_with(observs, :only => :id, :methods => [:species_str, :when_where_str, :spots])
   end

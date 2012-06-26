@@ -20,7 +20,7 @@ $(function () {
     function adjustSizes() {
         var clientHeight = $(window).height(),
             clientWidth = $(window).width(),
-            upper = $('#header').outerHeight(true) + $('#new_q').outerHeight(),
+            upper = $('#header').outerHeight(true) + $('form.search').outerHeight(),
             leftmost = $('ul.obs-list').outerWidth(true);
         $('ul.obs-list').height(clientHeight - upper - 2);
         $('div.mapContainer').height(clientHeight - upper).width(clientWidth - leftmost)

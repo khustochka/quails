@@ -19,7 +19,6 @@ gem 'rails-i18n'
 gem 'haml-rails'
 gem 'RedCloth'
 gem 'kaminari'
-gem 'ransack', '~> 0.6'
 gem 'rails_autolink'
 gem 'simple_form', '~> 2.0'
 gem 'flickraw', '~> 0.9.5', :require => false
