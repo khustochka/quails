@@ -85,7 +85,7 @@ ActiveRecord::Schema.define(:version => 20120626133937) do
     t.string  "biotope"
     t.string  "place"
     t.string  "notes"
-    t.boolean "mine",        :null => false
+    t.boolean "mine"
     t.integer "post_id"
   end
 

@@ -93,9 +93,6 @@ $(function () {
     // Search button click
     $('.obs_search_btn').click(searchForObservations);
 
-    // Onchange works bad on text input and doesn't work on autosuggest
-    // $("input#q_observ_date_eq, select#q_locus_id_eq, select#q_species_id_eq").bind('change', searchForObservations);
-
     $('.observation_list').droppable({
         accept:'.found-obs li',
         drop:function (event, ui) {

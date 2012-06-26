@@ -5,7 +5,7 @@
       input_html: {class: 'short', maxlength: 10, type: 'date'}
   = form.association :locus, label: 'Location:', collection: Locus.list_order, required: false,
       input_html: {class: 'suggest-combo'}
-  %div.input.optional.mine_eq_select
+  %div.input.optional.mine_radio_group
     = form.collection_radio_buttons :mine, [['', 'All'], [true, 'Mine'], [false, 'Not mine']], :first, :last
   .buttons
     = form.button :submit, value: 'Search', name: nil
