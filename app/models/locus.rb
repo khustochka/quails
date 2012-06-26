@@ -1,5 +1,8 @@
 class Locus < ActiveRecord::Base
 
+  include ActiveRecord::Localized
+  localize :name
+
   TYPES = %w(Country Region Location)
 
   validates :slug, :format => /^[a-z_]+$/i, :uniqueness => true, :presence => true, :length => {:maximum => 32}

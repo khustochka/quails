@@ -34,7 +34,7 @@
     %tr
       %td.align-right= link_to observation.id, edit_observation_path(observation)
       %td.nowrap= name_sci(observation.species)
-      %td= observation.locus.name_en || observation.locus.slug
+      %td= observation.locus.name || observation.locus.slug
       %td.align-center.nowrap= observation.observ_date
       %td= observation.quantity
       %td= observation.biotope

@@ -4,7 +4,7 @@
 %p
   %i= image.species.map(&:name_sci) * ', '
 
-%p= [l(image.observ_date, :format => :long), image.locus.name_en] * ', '
+%p= [l(image.observ_date, :format => :long), image.locus.name] * ', '
 
 = wiki_filter(image.description)
 
