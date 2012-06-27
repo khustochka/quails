@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120626133937) do
+ActiveRecord::Schema.define(:version => 20120627134521) do
 
   create_table "checklists", :id => false, :force => true do |t|
     t.integer "locus_id",   :null => false
@@ -60,7 +60,8 @@ ActiveRecord::Schema.define(:version => 20120626133937) do
     t.integer "observation_id", :null => false
   end
 
-  add_index "images_observations", ["image_id", "observation_id"], :name => "index_images_observations_on_image_id_and_observation_id", :unique => true
+  add_index "images_observations", ["image_id"], :name => "index_images_observations_on_image_id"
+  add_index "images_observations", ["observation_id"], :name => "index_images_observations_on_observation_id"
 
   create_table "loci", :force => true do |t|
     t.string  "slug",      :limit => 32, :null => false
@@ -85,7 +86,7 @@ ActiveRecord::Schema.define(:version => 20120626133937) do
     t.string  "biotope"
     t.string  "place"
     t.string  "notes"
-    t.boolean "mine"
+    t.boolean "mine",        :null => false
     t.integer "post_id"
   end
 
