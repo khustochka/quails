@@ -14,7 +14,7 @@
     \: Bulk should have the same date, place, and 'mine' value to be editable.
   - if @observations.present?
     %li
-      %b= link_to 'Map this bulk', edit_map_path(observation: params[:observation])
+      %b= link_to 'Map this bulk', edit_map_path(q: params[:q])
 
 %table.neat_table.obs_list
   %tr

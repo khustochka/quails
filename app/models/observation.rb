@@ -40,8 +40,7 @@ class Observation < ActiveRecord::Base
   end
 
   def self.search(conditions = {})
-    conds = conditions.try(:reject) {|_, v| v != false && v.blank? }
-    where(conds)
+    SearchModel.new(self, conditions)
   end
 
   # Get data

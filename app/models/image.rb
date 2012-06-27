@@ -43,7 +43,7 @@ class Image < ActiveRecord::Base
   end
 
   def search_applicable_observations
-    Observation.new(
+    Observation.search(
         new_record? ?
             {:observ_date => Observation.select('MAX(observ_date) AS last_date').first.last_date} :
             {:observ_date => observ_date, :locus_id => locus.id}
