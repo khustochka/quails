@@ -16,7 +16,7 @@ class ObservationsController < ApplicationController
     @search = Observation.search(params[:q])
     # sorting by species.index_num requires using #includes
     # but #preload is faster, so use it for locus and post, and for species if possible
-    @observations = @search.result.order(params[:sort]).preload(:locus, :post).page(params[:page]).
+    @observations = @search.order(params[:sort]).preload(:locus, :post).page(params[:page]).
         send((params[:sort] == 'species.index_num') ? :includes : :preload, :species)
 
     # TODO: extract to model; add tests
@@ -28,7 +28,7 @@ class ObservationsController < ApplicationController
   def search
     observs =
         params[:q] && params[:q].values.uniq != [''] ?
-            Observation.search(params[:q]).result.preload(:locus, :species).limit(params[:limit]) :
+            Observation.search(params[:q]).preload(:locus, :species).limit(params[:limit]) :
             []
     respond_with(observs, :only => :id, :methods => [:species_str, :when_where_str])
   end
@@ -110,7 +110,7 @@ class ObservationsController < ApplicationController
   def with_spots
     observs =
         params[:q] && params[:q].values.uniq != [''] ?
-            Observation.search(params[:q]).result.preload(:locus, :species, :spots).order(:observ_date, :locus_id) :
+            Observation.search(params[:q]).preload(:locus, :species, :spots).order(:observ_date, :locus_id) :
             []
     respond_with(observs, :only => :id, :methods => [:species_str, :when_where_str, :spots])
   end

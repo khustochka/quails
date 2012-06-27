@@ -1,5 +1,7 @@
 class SearchModel
 
+  # This makes it act as Model usable to build form
+
   extend ActiveModel::Naming
   include ActiveModel::Conversion
 
@@ -11,22 +13,41 @@ class SearchModel
     false
   end
 
-  def initialize(scope, conditions)
-    @scope = scope
-    @conditions = (conditions || {}).with_indifferent_access
-    @attributes = @scope.column_names
-  end
-
-  def result
-    @relation ||= @scope.where(normalized_conditions)
-  end
-
   def method_missing(method)
     if method.to_s.in?(@attributes)
       @conditions[method]
     else
       super
     end
+  end
+
+  # This makes it usable as an Relation
+
+  # TODO: implement respond_to?
+  include ActiveRecord::Querying
+  delegate :to_a, :to_sql, to: :scoped
+  # Taken from ActiveRecord::Delegation
+  delegate :to_xml, :to_yaml, :length, :collect, :map, :each, :all?, :include?, :to_ary, :to => :scoped
+
+  def ==(other)
+    case other
+      when ActiveRecord::Relation, SearchModel
+        other.to_sql == to_sql
+      when Array
+        to_a == other
+    end
+  end
+
+  def scoped
+    @relation ||= @scope.where(normalized_conditions)
+  end
+
+  # Initializer
+
+  def initialize(scope, conditions)
+    @scope = scope
+    @conditions = (conditions || {}).with_indifferent_access
+    @attributes = @scope.column_names
   end
 
   private
