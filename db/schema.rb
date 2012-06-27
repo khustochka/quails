@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120627134521) do
+ActiveRecord::Schema.define(:version => 20120627170236) do
 
   create_table "checklists", :id => false, :force => true do |t|
     t.integer "locus_id",   :null => false
@@ -74,7 +74,6 @@ ActiveRecord::Schema.define(:version => 20120627134521) do
     t.integer "loc_type",                :null => false
   end
 
-  add_index "loci", ["loc_type"], :name => "index_loci_on_loc_type"
   add_index "loci", ["parent_id"], :name => "index_loci_on_parent_id"
   add_index "loci", ["slug"], :name => "index_loci_on_slug"
 
@@ -91,7 +90,6 @@ ActiveRecord::Schema.define(:version => 20120627134521) do
   end
 
   add_index "observations", ["locus_id"], :name => "index_observations_on_locus_id"
-  add_index "observations", ["mine"], :name => "index_observations_on_mine"
   add_index "observations", ["observ_date"], :name => "index_observations_on_observ_date"
   add_index "observations", ["post_id"], :name => "index_observations_on_post_id"
   add_index "observations", ["species_id"], :name => "index_observations_on_species_id"
@@ -108,10 +106,7 @@ ActiveRecord::Schema.define(:version => 20120627134521) do
     t.datetime "updated_at",               :null => false
   end
 
-  add_index "posts", ["face_date"], :name => "index_posts_on_face_date"
   add_index "posts", ["slug"], :name => "index_posts_on_slug"
-  add_index "posts", ["status"], :name => "index_posts_on_status"
-  add_index "posts", ["topic"], :name => "index_posts_on_topic"
 
   create_table "species", :force => true do |t|
     t.string  "code",       :limit => 6
