@@ -106,6 +106,7 @@ ActiveRecord::Schema.define(:version => 20120627170236) do
     t.datetime "updated_at",               :null => false
   end
 
+  add_index "posts", ["face_date"], :name => "index_posts_on_face_date"
   add_index "posts", ["slug"], :name => "index_posts_on_slug"
 
   create_table "species", :force => true do |t|
