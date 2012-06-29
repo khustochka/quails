@@ -22,7 +22,9 @@ namespace :legacy do
     #repo = Grit::Repo.new(folder)
 
     #puts 'Pulling from remote'
-    #repo.git.pull
+    #Dir.chdir(folder) do
+    #  repo.git.pull
+    #end
 
     source = File.join(folder, 'legacy', 'seed_data.yml')
     puts "Importing from #{source}"

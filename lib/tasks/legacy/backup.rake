@@ -16,7 +16,9 @@ namespace :legacy do
     repo = Grit::Repo.new(folder)
 
     puts 'Pulling from remote'
-    repo.git.pull
+    Dir.chdir(folder) do
+      repo.git.pull
+    end
 
 
     auth = "--basic -u #{spec['user']}:#{spec['password']}" if spec["user"] && spec["password"]

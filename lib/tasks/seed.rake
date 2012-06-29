@@ -15,7 +15,9 @@ namespace :seed do
     repo = Grit::Repo.new(folder)
 
     puts 'Pulling from remote'
-    repo.git.pull
+    Dir.chdir(folder) do
+      repo.git.pull
+    end
 
     dirname = File.join(folder, 'seed')
 
@@ -48,7 +50,9 @@ namespace :seed do
     repo = Grit::Repo.new(folder)
 
     puts 'Pulling from remote'
-    repo.git.pull
+    Dir.chdir(folder) do
+      repo.git.pull
+    end
 
     Rake::Task['db:setup'].invoke
   end
