@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120627170236) do
+ActiveRecord::Schema.define(:version => 20120629093358) do
 
   create_table "checklists", :id => false, :force => true do |t|
     t.integer "locus_id",   :null => false
@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(:version => 20120627170236) do
   end
 
   add_index "images", ["index_num"], :name => "index_images_on_index_num"
-  add_index "images", ["slug"], :name => "index_images_on_slug"
+  add_index "images", ["slug"], :name => "index_images_on_slug", :unique => true
 
   create_table "images_observations", :id => false, :force => true do |t|
     t.integer "image_id",       :null => false
@@ -75,7 +75,7 @@ ActiveRecord::Schema.define(:version => 20120627170236) do
   end
 
   add_index "loci", ["parent_id"], :name => "index_loci_on_parent_id"
-  add_index "loci", ["slug"], :name => "index_loci_on_slug"
+  add_index "loci", ["slug"], :name => "index_loci_on_slug", :unique => true
 
   create_table "observations", :force => true do |t|
     t.integer "species_id",  :null => false
@@ -107,7 +107,7 @@ ActiveRecord::Schema.define(:version => 20120627170236) do
   end
 
   add_index "posts", ["face_date"], :name => "index_posts_on_face_date"
-  add_index "posts", ["slug"], :name => "index_posts_on_slug"
+  add_index "posts", ["slug"], :name => "index_posts_on_slug", :unique => true
 
   create_table "species", :force => true do |t|
     t.string  "code",       :limit => 6
@@ -124,9 +124,9 @@ ActiveRecord::Schema.define(:version => 20120627170236) do
     t.string  "name_fr"
   end
 
-  add_index "species", ["code"], :name => "index_species_on_code"
+  add_index "species", ["code"], :name => "index_species_on_code", :unique => true
   add_index "species", ["index_num"], :name => "index_species_on_index_num"
-  add_index "species", ["name_sci"], :name => "index_species_on_name_sci"
+  add_index "species", ["name_sci"], :name => "index_species_on_name_sci", :unique => true
 
   create_table "spots", :force => true do |t|
     t.integer "observation_id"
@@ -137,5 +137,7 @@ ActiveRecord::Schema.define(:version => 20120627170236) do
     t.boolean "public"
     t.string  "memo"
   end
+
+  add_index "spots", ["observation_id"], :name => "index_spots_on_observation_id"
 
 end
