@@ -27,7 +27,8 @@ module Legacy
               place: ob[:place],
               notes: ob[:notes],
               post_id: (Legacy::Mapping.posts[ob[:post_id]] unless ob[:post_id].blank?),
-              mine: ob[:mine]
+              mine: ob[:mine],
+              voice: ob[:voice_only]
           )
           column_names.map { |c| rec[c] }
         end
