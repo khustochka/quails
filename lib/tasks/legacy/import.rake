@@ -36,6 +36,8 @@ namespace :legacy do
     locs = Legacy::Utils.prepare_table(dump['location'])
     posts = Legacy::Utils.prepare_table(dump['blog'])
     comments = Legacy::Utils.prepare_table(dump['comments'])
+    images = Legacy::Utils.prepare_table(dump['images'])
+    spots = Legacy::Utils.prepare_table(dump['map'])
 
     source = File.join(folder, 'legacy', 'field_data.yml')
     puts "Importing from #{source}"
@@ -43,8 +45,6 @@ namespace :legacy do
       YAML.load(f.read)
     end
     observations = Legacy::Utils.prepare_table(dump['observation'])
-    images = Legacy::Utils.prepare_table(dump['images'])
-    spots = Legacy::Utils.prepare_table(dump['map'])
 
     Legacy::Import::Locations.update_all(countries, regions, locs)
 
