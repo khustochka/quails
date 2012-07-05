@@ -27,7 +27,7 @@
     %th Place
     %th Notes
     %th Post
-    %th.align-center= link_to_unless_current('Mine ⇓', significant_params.merge({:sort => 'mine DESC', :page => nil}))
+    %th.align-center= link_to_unless_current('Mine ⇓', significant_params.merge({:sort => 'mine ASC', :page => nil}))
     %th
 
   - @observations.each do |observation|
@@ -41,7 +41,11 @@
       %td= observation.place
       %td= observation.notes
       %td= post_link('>>', observation.post)
-      %td.align-center= observation.mine ? '+' : '-'
+      %td.align-center
+        - unless observation.mine
+          %small.not_mine.tag not mine
+        - if observation.voice
+          %small.voice.tag voice
       %td
         - if observation.images.count > 0
           = image_tag('/img/x_alt_16x16_tan.png', :title => 'Destroy disabled due to existing images')
