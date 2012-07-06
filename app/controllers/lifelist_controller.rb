@@ -10,10 +10,10 @@ class LifelistController < ApplicationController
         case params[:sort]
           when nil
             nil
-          when 'by_count'
-            'count'
           when 'by_taxonomy'
             'class'
+          else
+            raise ActionController::RoutingError, "No route matches #{request.path.inspect}"
         end
 
     @lifelist = Lifelist.basic.
@@ -21,5 +21,14 @@ class LifelistController < ApplicationController
         filter(params.slice(:year, :locus))
 
     @lifelist.preload(posts: current_user.available_posts) unless sort_override == 'count'
+  end
+
+  def advanced
+    @allowed_params = [:controller, :action, :year, :locus, :sort, :month]
+
+    @lifelist = Lifelist.advanced.
+        sort(params[:sort]).
+        filter(params.slice(:year, :month, :locus)).
+        preload(posts: current_user.available_posts)
   end
 end

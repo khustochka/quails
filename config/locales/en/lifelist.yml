@@ -6,8 +6,10 @@
 
         template:
           by_date: by first observation date
-          by_count: by observations count
           by_taxonomy: by taxonomy
+
+      by_date:
+        first_seen_in: 'First seen in %{year}:'
 
     menus:
       filter:
@@ -16,8 +18,4 @@
 
       sort_option:
         by_date: date
-        by_count: count
         by_taxonomy: taxonomy
-
-    by_date:
-      first_seen_in: 'First seen in %{year}:'

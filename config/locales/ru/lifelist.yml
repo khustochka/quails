@@ -6,8 +6,11 @@
 
         template:
           by_date: по дате первой встречи
-          by_count: по количеству наблюдений
           by_taxonomy: по классификации
+
+      by_date:
+        first_seen_in: 'Впервые встречены в %{year} году:'
+
 
     menus:
       filter:
@@ -16,8 +19,4 @@
 
       sort_option:
         by_date: по дате первой встречи
-        by_count: по количеству наблюдений
         by_taxonomy: по классификации
-
-    by_date:
-      first_seen_in: 'Впервые встречены в %{year} году:'

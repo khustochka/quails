@@ -21,17 +21,16 @@ class RoutingTest < ActionDispatch::IntegrationTest
 
   test 'route lifelist correctly' do
     assert_routing '/lifelist', {controller: 'lifelist', action: 'default'}
-    assert_routing '/lifelist/by_count', {controller: 'lifelist', action: 'default', sort: 'by_count'}
+    assert_routing '/lifelist/advanced', {controller: 'lifelist', action: 'advanced'}
     assert_routing '/lifelist/by_taxonomy', {controller: 'lifelist', action: 'default', sort: 'by_taxonomy'}
     assert_routing '/lifelist/2008', {controller: 'lifelist', action: 'default', year: '2008'}
-    assert_routing '/lifelist/2008/by_count', {controller: 'lifelist', action: 'default', sort: 'by_count', year: '2008'}
     assert_routing '/lifelist/2008/by_taxonomy', {controller: 'lifelist', action: 'default', sort: 'by_taxonomy', year: '2008'}
     assert_routing '/lifelist/2010/kiev', {controller: 'lifelist', action: 'default', year: '2010', locus: 'kiev'}
     assert_routing '/lifelist/kherson_obl', {controller: 'lifelist', action: 'default', locus: 'kherson_obl'}
-    assert_routing '/lifelist/kherson_obl/by_count', {controller: 'lifelist', action: 'default', sort: 'by_count', locus: 'kherson_obl'}
-    assert_routing '/lifelist/2010/kiev/by_count', {controller: 'lifelist', action: 'default', sort: 'by_count', year: '2010', locus: 'kiev'}
+    assert_routing '/lifelist/kherson_obl/by_taxonomy', {controller: 'lifelist', action: 'default', sort: 'by_taxonomy', locus: 'kherson_obl'}
+    assert_routing '/lifelist/2010/kiev/by_taxonomy', {controller: 'lifelist', action: 'default', sort: 'by_taxonomy', year: '2010', locus: 'kiev'}
     # have 'by_' inside locus
-    assert_routing '/lifelist/druzhby_obl/by_count', {controller: 'lifelist', action: 'default', sort: 'by_count', locus: 'druzhby_obl'}
+    assert_routing '/lifelist/druzhby_obl/by_taxonomy', {controller: 'lifelist', action: 'default', sort: 'by_taxonomy', locus: 'druzhby_obl'}
   end
 
   test 'route images correctly' do

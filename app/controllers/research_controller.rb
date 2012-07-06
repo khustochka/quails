@@ -5,15 +5,6 @@ class ResearchController < ApplicationController
   def index
   end
 
-  def lifelist
-    @allowed_params = [:controller, :action, :year, :locus, :sort, :month]
-
-    @lifelist = Lifelist.advanced.
-        sort(params[:sort]).
-        filter(params.slice(:year, :month, :locus)).
-        preload(posts: current_user.available_posts)
-  end
-
   def more_than_year
     if params[:days]
       sort_col = params[:sort].try(:to_sym) || :date2

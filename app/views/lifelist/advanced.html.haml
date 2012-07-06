@@ -3,7 +3,7 @@
 
 %h1= @page_title
 
-= render 'lifelist/menus'
+= render 'menus'
 
 %ul.horiz-list.filter-list
   %strong Months:
@@ -24,4 +24,4 @@
       %th.align-right= params[:sort].nil? ? 'First seen ⇓' : link_to('First seen ⇓', params.merge(:sort => nil))
       %th.align-right= link_to_unless_current('Last seen ⇓', params.merge(:sort => 'last'))
       %th.align-right= link_to_unless_current('Count ⇓', params.merge(:sort => 'count'))
-    = render sort.nil? || sort == 'last' ? 'by_date' : "by_#{sort}"
+    = render sort.nil? || sort == 'last' ? 'lifelist/advanced/by_date' : "lifelist/advanced/by_#{sort}"

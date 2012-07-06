@@ -12,12 +12,6 @@ class ResearchControllerTest < ActionController::TestCase
     #assert_response 404
   end
 
-  test "admin sees Research/lifelist" do
-    login_as_admin
-    get :lifelist
-    assert_response :success
-  end
-
   test "admin sees Research/day" do
     p = create(:post)
     o = create(:observation, observ_date: Time.now, post: p)

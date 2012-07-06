@@ -34,6 +34,8 @@ Quails3::Application.routes.draw do
     end
   end
 
+  get '/lifelist/advanced' => 'lifelist#advanced'
+
   get '/lifelist(/:year)(/:locus)(/:sort)' => 'lifelist#default', as: :lifelist,
       year: /\d{4}/,
       locus: /(?!by_)[^\/]+/, # negative look-ahead: not starting with 'by_'
