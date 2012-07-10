@@ -14,28 +14,28 @@ class ImageObservValidationTest < ActiveSupport::TestCase
     assert_difference('Image.count', 0) do
       img.update_with_observations(new_attr, [])
     end
-    img.errors.should_not be_blank
+    expect(img.errors).not_to be_blank
   end
 
   test "does not update image with empty observation list" do
     new_attr = @image.attributes.dup
     new_attr['slug'] = 'new_img_slug'
-    @image.update_with_observations(new_attr, []).should be_false
-    @image.errors.should_not be_blank
+    expect(@image.update_with_observations(new_attr, [])).to be_false
+    expect(@image.errors).not_to be_blank
   end
 
   test "does not update image if no observation list provided" do
     new_attr = @image.attributes.dup
     new_attr['slug'] = 'new_img_slug'
-    @image.update_with_observations(new_attr, nil).should be_false
-    @image.errors.should_not be_blank
+    expect(@image.update_with_observations(new_attr, nil)).to be_false
+    expect(@image.errors).not_to be_blank
   end
 
  test "restores observation list if image was not saved due to its emptiness" do
     new_attr = @image.attributes.dup # observations_ids are not in here
     new_attr['slug'] = 'new_img_slug'
     @image.update_with_observations(new_attr, [])
-    @image.observation_ids.should eq(@image.observation_ids)
+    expect(@image.observation_ids).to eq(@image.observation_ids)
   end
 
 test "does not restore former observation list if image was not saved not due to their emptiness" do
@@ -43,7 +43,7 @@ test "does not restore former observation list if image was not saved not due to
     new_attr['slug'] = ''
     new_obs = create(:observation)
     @image.update_with_observations(new_attr, [new_obs.id])
-    @image.observation_ids.should eq([new_obs.id])
+    expect(@image.observation_ids).to eq([new_obs.id])
   end
 
  test 'excludes duplicated observations on image create' do
@@ -53,24 +53,24 @@ test "does not restore former observation list if image was not saved not due to
     assert_difference('Image.count', 1) do
       img.update_with_observations(new_attr, [@obs.id, @obs.id])
     end
-    img.errors.should be_empty
-    img.observation_ids.should eq([@obs.id])
+    expect(img.errors).to be_empty
+    expect(img.observation_ids).to eq([@obs.id])
   end
 
 test 'excludes duplicated observation (existing) on image update' do
     new_attr = @image.attributes.dup
     obs = create(:observation)
-    @image.update_with_observations(new_attr, [@obs.id, @obs.id, obs.id]).should be_true
-    @image.errors.should be_empty
-    @image.observation_ids.count.should eq(2)
+    expect(@image.update_with_observations(new_attr, [@obs.id, @obs.id, obs.id])).to be_true
+    expect(@image.errors).to be_empty
+    expect(@image.observation_ids.count).to eq(2)
   end
 
 test 'excludes duplicated observation (new) on image update' do
     new_attr = @image.attributes.dup
     obs = create(:observation)
-    @image.update_with_observations(new_attr, [@obs.id, obs.id, obs.id]).should be_true
-    @image.errors.should be_empty
-    @image.observation_ids.count.should eq(2)
+    expect(@image.update_with_observations(new_attr, [@obs.id, obs.id, obs.id])).to be_true
+    expect(@image.errors).to be_empty
+    expect(@image.observation_ids.count).to eq(2)
   end
 
  test 'does not create image with inconsistent observations (different date)' do
@@ -81,7 +81,7 @@ test 'excludes duplicated observation (new) on image update' do
     assert_difference('Image.count', 0) do
       img.update_with_observations(new_attr, [obs1.id, obs2.id])
     end
-    img.errors.should_not be_blank
+    expect(img.errors).not_to be_blank
   end
 
 test 'does not create image with inconsistent observations (different loc)' do
@@ -92,7 +92,7 @@ test 'does not create image with inconsistent observations (different loc)' do
     assert_difference('Image.count', 0) do
       img.update_with_observations(new_attr, [obs1.id, obs2.id])
     end
-    img.errors.should_not be_blank
+    expect(img.errors).not_to be_blank
   end
 
   test 'does not create image with inconsistent observations (mine-not mine)' do
@@ -103,23 +103,23 @@ test 'does not create image with inconsistent observations (different loc)' do
     assert_difference('Image.count', 0) do
       img.update_with_observations(new_attr, [obs1.id, obs2.id])
     end
-    img.errors.should_not be_blank
+    expect(img.errors).not_to be_blank
   end
 
 test 'does not update image with inconsistent observations' do
     obs1 = create(:observation, observ_date: '2011-01-01')
     obs2 = create(:observation, observ_date: '2010-01-01')
     new_attr = @image.attributes
-    @image.update_with_observations(new_attr, [obs1.id, obs2.id]).should be_false
-    @image.errors.should_not be_blank
+    expect(@image.update_with_observations(new_attr, [obs1.id, obs2.id])).to be_false
+    expect(@image.errors).not_to be_blank
   end
 
 test 'preserves changed values if image failed to update with inconsistent observations' do
     obs1 = create(:observation, observ_date: '2011-01-01')
     obs2 = create(:observation, observ_date: '2010-01-01')
     new_attr = build(:image).attributes
-    @image.update_with_observations(new_attr, [obs1.id, obs2.id]).should be_false
-    @image.errors.should_not be_blank
+    expect(@image.update_with_observations(new_attr, [obs1.id, obs2.id])).to be_false
+    expect(@image.errors).not_to be_blank
   end
 
 end

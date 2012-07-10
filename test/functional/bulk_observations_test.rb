@@ -17,8 +17,8 @@ class BulkObservationsTest < ActionController::TestCase
     assert_response :created
     assert_equal Mime::JSON, response.content_type
     result = JSON.parse(response.body)
-    result.size.should eq(3)
-    result[0].keys.should eq(['id'])
+    expect(result.size).to eq(3)
+    expect(result[0].keys).to eq(['id'])
     assert_not_nil Observation.find_by_species_id(2)
     assert_not_nil Observation.find_by_species_id(4)
     assert_not_nil Observation.find_by_species_id(6)

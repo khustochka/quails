@@ -8,13 +8,13 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
   test "Adding new rows to observations bulk form" do
     login_as_admin
     visit add_observations_path
-    all('.obs-row').size.should eq(0)
+    expect(all('.obs-row').size).to eq(0)
 
     find(:xpath, "//span[text()='Add new row']").click
-    all('.obs-row').size.should eq(1)
+    expect(all('.obs-row').size).to eq(1)
 
     find(:xpath, "//span[text()='Add new row']").click
-    all('.obs-row').size.should eq(2)
+    expect(all('.obs-row').size).to eq(2)
   end
 
   # NO JavaScript test
@@ -22,12 +22,12 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
     Capybara.use_default_driver
     login_as_admin
     visit add_observations_path
-    all('.obs-row').size.should eq(1)
+    expect(all('.obs-row').size).to eq(1)
     select('Brovary', from: 'Location')
     fill_in('Date', with: '2011-04-08')
     select('Cyanistes caeruleus', from: 'Species')
     select 'park', from: 'Biotope'
-    lambda { submit_form_with('Save') }.should change(Observation, :count).by(1)
+    expect(lambda { submit_form_with('Save') }).to change(Observation, :count).by(1)
   end
 
   test 'Species autosuggest box should have Avis incognita and be able to add it' do
@@ -38,8 +38,8 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
     fill_in('Date', with: '2011-04-08')
     select_suggestion('- Avis incognita', from: 'Species')
     select_suggestion 'park', from: 'Biotope'
-    lambda { submit_form_with('Save') }.should change(Observation, :count).by(1)
-    Observation.order('id DESC').limit(1).first.species_id.should eq(0)
+    expect(lambda { submit_form_with('Save') }).to change(Observation, :count).by(1)
+    expect(Observation.order('id DESC').limit(1).first.species_id).to eq(0)
   end
 
   test "Adding several observations" do
@@ -62,8 +62,8 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
       select_suggestion 'park', from: 'Biotope'
     end
 
-    lambda { submit_form_with('Save') }.should change(Observation, :count).by(2)
-    page.should have_css('.obs-row.save-success')
+    expect(lambda { submit_form_with('Save') }).to change(Observation, :count).by(2)
+    expect(page).to have_css('.obs-row.save-success')
 
   end
 
@@ -74,7 +74,7 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
     visit show_post_path(blogpost.to_url_params)
     click_link 'Add more observations'
 
-    page.should have_css('label a', text: blogpost.title)
+    expect(page).to have_css('label a', text: blogpost.title)
 
     select_suggestion('Brovary', from: 'Location')
     fill_in('Date', with: '2011-04-09')
@@ -92,10 +92,10 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
       select_suggestion 'park', from: 'Biotope'
     end
 
-    lambda { submit_form_with('Save') }.should change(Observation, :count).by(2)
-    page.should have_css('.obs-row.save-success')
+    expect(lambda { submit_form_with('Save') }).to change(Observation, :count).by(2)
+    expect(page).to have_css('.obs-row.save-success')
 
-    blogpost.observations.size.should eq(2)
+    expect(blogpost.observations.size).to eq(2)
   end
 
   test "Start adding observations for post but then uncheck it" do
@@ -105,7 +105,7 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
     visit show_post_path(blogpost.to_url_params)
     click_link 'Add more observations'
 
-    page.should have_css('label a', text: blogpost.title)
+    expect(page).to have_css('label a', text: blogpost.title)
 
     select_suggestion('Brovary', from: 'Location')
     fill_in('Date', with: '2011-04-09')
@@ -119,9 +119,9 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
     end
 
     submit_form_with('Save')
-    page.should have_css('.obs-row.save-success')
+    expect(page).to have_css('.obs-row.save-success')
 
-    blogpost.observations.size.should eq(0)
+    expect(blogpost.observations.size).to eq(0)
   end
 
   test "Add observations for post, then save unlinked" do
@@ -131,7 +131,7 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
     visit show_post_path(blogpost.to_url_params)
     click_link 'Add more observations'
 
-    page.should have_css('label a', text: blogpost.title)
+    expect(page).to have_css('label a', text: blogpost.title)
 
     select_suggestion('Brovary', from: 'Location')
     fill_in('Date', with: '2011-04-09')
@@ -144,16 +144,16 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
     end
 
     submit_form_with('Save')
-    page.should have_css('.obs-row.save-success')
+    expect(page).to have_css('.obs-row.save-success')
 
-    blogpost.observations.size.should eq(1)
+    expect(blogpost.observations.size).to eq(1)
     obs = blogpost.observations.first
 
     uncheck('observation_post_id')
     submit_form_with('Save')
 
-    blogpost.observations.reload.size.should eq(0)
-    obs.reload.post_id.should be_nil
+    expect(blogpost.observations.reload.size).to eq(0)
+    expect(obs.reload.post_id).to be_nil
   end
 
   test "Add and update observations" do
@@ -170,8 +170,8 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
       select_suggestion 'park', from: 'Biotope'
     end
 
-    lambda { submit_form_with('Save') }.should change(Observation, :count).by(1)
-    page.should have_css('.obs-row.save-success')
+    expect(lambda { submit_form_with('Save') }).to change(Observation, :count).by(1)
+    expect(page).to have_css('.obs-row.save-success')
 
     find(:xpath, "//span[text()='Add new row']").click
 
@@ -184,11 +184,11 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
       select_suggestion 'park', from: 'Biotope'
     end
 
-    lambda { submit_form_with('Save') }.should change(Observation, :count).by(1)
+    expect(lambda { submit_form_with('Save') }).to change(Observation, :count).by(1)
 
-    Species.find_by_code('drymar').observations.should_not be_empty
-    Species.find_by_code('faltin').observations.should_not be_empty
-    Species.find_by_code('crecre').observations.should be_empty
+    expect(Species.find_by_code('drymar').observations).not_to be_empty
+    expect(Species.find_by_code('faltin').observations).not_to be_empty
+    expect(Species.find_by_code('crecre').observations).to be_empty
 
   end
 
@@ -198,11 +198,12 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
     login_as_admin
     visit bulk_observations_path(observ_date: "2010-06-18", locus_id: seed(:brovary).id, mine: true)
 
-    all('.obs-row').size.should eq(2)
+    expect(all('.obs-row').size).to eq(2)
 
-    [1, 2].map do |i|
+    actual = [1, 2].map do |i|
       find(:xpath, "//div[contains(@class,'obs-row')][#{i}]//input[contains(@class, 'ui-autocomplete-input')]").value
-    end.should =~ ['Anas platyrhynchos', 'Meleagris gallopavo']
+    end
+    expect(actual).to match_array ['Anas platyrhynchos', 'Meleagris gallopavo']
   end
 
   test "Bulk edit functionality" do
@@ -215,9 +216,9 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
       select_suggestion('Dryocopus martius', from: 'Species')
     end
 
-    lambda { submit_form_with('Save') }.should change(Observation, :count).by(0)
+    expect(lambda { submit_form_with('Save') }).to change(Observation, :count).by(0)
 
-    Species.find_by_code('drymar').observations.should_not be_empty
+    expect(Species.find_by_code('drymar').observations).not_to be_empty
   end
 
   test "Bulk edit preserves post" do
@@ -227,10 +228,10 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
     login_as_admin
     visit bulk_observations_path(observ_date: "2010-06-18", locus_id: seed(:brovary).id, mine: true)
 
-    lambda { submit_form_with('Save') }.should change(Observation, :count).by(0)
+    expect(lambda { submit_form_with('Save') }).to change(Observation, :count).by(0)
 
-    obs1.reload.post_id.should eq(blogpost.id)
-    obs2.reload.post_id.should be_nil
+    expect(obs1.reload.post_id).to eq(blogpost.id)
+    expect(obs2.reload.post_id).to be_nil
   end
 
 end

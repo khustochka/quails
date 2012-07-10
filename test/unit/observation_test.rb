@@ -18,8 +18,8 @@ class ObservationTest < ActiveSupport::TestCase
 
   test 'search mine: false is different from mine: nil' do
     ob2 = create(:observation, mine: false)
-    Observation.search(mine: '').should eq(Observation.search(mine: nil))
-    Observation.search(mine: false).should eq([ob2])
+    expect(Observation.search(mine: '')).to eq(Observation.search(mine: nil))
+    expect(Observation.search(mine: false)).to eq([ob2])
   end
 
 end

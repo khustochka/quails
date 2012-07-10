@@ -36,7 +36,7 @@ class PostsControllerTest < ActionController::TestCase
     create(:observation, species: sp1, post: blogpost)
 
     get :show, blogpost.to_url_params
-    assigns(:post).species.should eq([sp2, sp1])
+    expect(assigns(:post).species).to eq([sp2, sp1])
   end
 
   test "get edit" do
@@ -123,6 +123,6 @@ class PostsControllerTest < ActionController::TestCase
 
   test 'proper link options' do
     blogpost = create(:post)
-    public_post_path(blogpost, anchor: 'comments').should eq(show_post_path(blogpost.to_url_params.merge({anchor: 'comments'})))
+    expect(public_post_path(blogpost, anchor: 'comments')).to eq(show_post_path(blogpost.to_url_params.merge({anchor: 'comments'})))
   end
 end

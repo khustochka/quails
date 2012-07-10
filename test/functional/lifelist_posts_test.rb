@@ -19,7 +19,7 @@ class LifelistPostsTest < ActionController::TestCase
     get :default
     assert_response :success
     lifers = assigns(:lifelist)
-    lifers.map(&:post).compact.size.should eq(1)
+    expect(lifers.map(&:post).compact.size).to eq(1)
     assert_select "a[href=#{public_post_path(@obs[1].post)}]"
   end
 
@@ -29,7 +29,7 @@ class LifelistPostsTest < ActionController::TestCase
     get :default, sort: :by_taxonomy
     assert_response :success
     lifers = assigns(:lifelist)
-    lifers.map(&:post).compact.size.should eq(1)
+    expect(lifers.map(&:post).compact.size).to eq(1)
     assert_select "a[href=#{public_post_path(@obs[1].post)}]"
   end
 
@@ -39,7 +39,7 @@ class LifelistPostsTest < ActionController::TestCase
     get :default
     assert_response :success
     lifers = assigns(:lifelist)
-    lifers.find {|s| s.code == 'anapla'}.post.should be_nil
+    expect(lifers.find {|s| s.code == 'anapla'}.post).to be_nil
   end
 
   test 'do not show hidden post link to common visitor' do
@@ -48,7 +48,7 @@ class LifelistPostsTest < ActionController::TestCase
     get :default
     assert_response :success
     lifers = assigns(:lifelist)
-    lifers.map(&:post).compact.should be_empty
+    expect(lifers.map(&:post).compact).to be_empty
   end
 
   test 'show hidden post link to administrator' do
@@ -58,7 +58,7 @@ class LifelistPostsTest < ActionController::TestCase
     get :default
     assert_response :success
     lifers = assigns(:lifelist)
-    lifers.map(&:post).compact.size.should eq(1)
+    expect(lifers.map(&:post).compact.size).to eq(1)
     assert_select "a[href=#{public_post_path(@obs[1].post)}]"
   end
 end

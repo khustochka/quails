@@ -13,9 +13,9 @@ class UIObservationsTest < ActionDispatch::IntegrationTest
     visit observations_path
     select('- Avis incognita', from: 'Species')
     click_button('Search')
-    page.driver.response.status.should eq(200)
-    find('table.obs_list').should have_content('- Avis incognita')
-    find('table.obs_list').should_not have_content('Spinus spinus')
+    expect(page.driver.response.status).to eq(200)
+    expect(find('table.obs_list')).to have_content('- Avis incognita')
+    expect(find('table.obs_list')).not_to have_content('Spinus spinus')
   end
 
   test 'Searching observations by species works properly' do
@@ -25,8 +25,8 @@ class UIObservationsTest < ActionDispatch::IntegrationTest
     visit observations_path
     select('Acanthis flammea', from: 'Species')
     click_button('Search')
-    find('table.obs_list').should have_content('Acanthis flammea')
-    find('table.obs_list').should_not have_content('Spinus spinus')
+    expect(find('table.obs_list')).to have_content('Acanthis flammea')
+    expect(find('table.obs_list')).not_to have_content('Spinus spinus')
   end
 
   test 'Searching observations by mine/not mine works properly' do
@@ -36,8 +36,8 @@ class UIObservationsTest < ActionDispatch::IntegrationTest
     visit observations_path
     choose('Not mine')
     click_button('Search')
-    find('table.obs_list').should have_content('Acanthis flammea')
-    find('table.obs_list').should_not have_content('Spinus spinus')
+    expect(find('table.obs_list')).to have_content('Acanthis flammea')
+    expect(find('table.obs_list')).not_to have_content('Spinus spinus')
   end
 
 end

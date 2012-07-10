@@ -21,7 +21,7 @@ class SpeciesControllerTest < ActionController::TestCase
 
     get :index
     assert_response :success
-    assigns(:species).last.should eq(sp1)
+    expect(assigns(:species).last).to eq(sp1)
   end
 
   test "show species" do

@@ -83,7 +83,7 @@ class ImagesControllerTest < ActionController::TestCase
     login_as_admin
     put :update, id: img.to_param, obs: [obs2.id]
     img.reload
-    img.spot.should be_blank
+    expect(img.spot).to be_blank
   end
 
   test "destroy image" do

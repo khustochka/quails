@@ -20,7 +20,7 @@ class SecureAccessTest < ActionController::TestCase
     blogpost2 = create(:post, face_date: '2008-11-06 13:14:15')
     login_as_admin
     get :front_page
-    assigns(:posts).should include(blogpost1, blogpost2)
+    expect(assigns(:posts)).to include(blogpost1, blogpost2)
 
     @controller = PostsController.new
 
@@ -35,8 +35,8 @@ class SecureAccessTest < ActionController::TestCase
     blogpost1 = create(:post, face_date: '2007-12-06 13:14:15', status: 'PRIV')
     blogpost2 = create(:post, face_date: '2008-11-06 13:14:15')
     get :front_page
-    assigns(:posts).should include(blogpost2)
-    assigns(:posts).should_not include(blogpost1)
+    expect(assigns(:posts)).to include(blogpost2)
+    expect(assigns(:posts)).not_to include(blogpost1)
 
     @controller = PostsController.new
 

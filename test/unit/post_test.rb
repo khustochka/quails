@@ -39,18 +39,18 @@ class PostTest < ActiveSupport::TestCase
     blogpost2 = create(:post, face_date: '2009-11-06 13:14:15')
     blogpost3 = create(:post, face_date: '2009-10-06 13:14:15')
     assert_nil Post.prev_month('2009', '10')
-    Post.prev_month('2009', '12').should eq({month: '11', year: '2009'})
-    Post.prev_month('2010', '01').should eq({month: '11', year: '2009'})
-    Post.prev_month('2010', '02').should eq({month: '11', year: '2009'})
+    expect(Post.prev_month('2009', '12')).to eq({month: '11', year: '2009'})
+    expect(Post.prev_month('2010', '01')).to eq({month: '11', year: '2009'})
+    expect(Post.prev_month('2010', '02')).to eq({month: '11', year: '2009'})
   end
 
   test 'calculate next month correctly (one having posts) even for month with no posts' do
     blogpost1 = create(:post, face_date: '2010-02-06 13:14:15')
     blogpost2 = create(:post, face_date: '2009-11-06 13:14:15')
     blogpost1 = create(:post, face_date: '2010-03-06 13:14:15')
-    Post.next_month('2009', '11').should eq({month: '02', year: '2010'})
-    Post.next_month('2009', '12').should eq({month: '02', year: '2010'})
-    Post.next_month('2010', '01').should eq({month: '02', year: '2010'})
+    expect(Post.next_month('2009', '11')).to eq({month: '02', year: '2010'})
+    expect(Post.next_month('2009', '12')).to eq({month: '02', year: '2010'})
+    expect(Post.next_month('2010', '01')).to eq({month: '02', year: '2010'})
     assert_nil Post.next_month('2010', '03')
   end
 
@@ -65,8 +65,8 @@ class PostTest < ActiveSupport::TestCase
 
   test 'face date is treated as timezone-less' do
     blogpost = create(:post, face_date: '2013-01-01 00:30:00') # risky time (different days in GMT and EEST)
-    Post.year(2013).pluck(:id).should include(blogpost.id)
-    Post.year(2012).pluck(:id).should_not include(blogpost.id)
+    expect(Post.year(2013).pluck(:id)).to include(blogpost.id)
+    expect(Post.year(2012).pluck(:id)).not_to include(blogpost.id)
   end
 
   test 'calculate next and previous months correctly (last day in mind)' do
@@ -74,8 +74,8 @@ class PostTest < ActiveSupport::TestCase
     create(:post, face_date: '2011-01-31 23:53:00') # last day and risky time
     create(:post, face_date: '2011-02-01 00:30:00') # risky time (different days in GMT and EEST)
     create(:post, face_date: '2011-02-15 12:53:00')
-    Post.next_month('2011', '01').should eq({month: '02', year: '2011'})
-    Post.prev_month('2011', '02').should eq({month: '01', year: '2011'})
+    expect(Post.next_month('2011', '01')).to eq({month: '02', year: '2011'})
+    expect(Post.prev_month('2011', '02')).to eq({month: '01', year: '2011'})
   end
 
 end

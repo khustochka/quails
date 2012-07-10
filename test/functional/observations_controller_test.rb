@@ -13,7 +13,7 @@ class ObservationsControllerTest < ActionController::TestCase
     login_as_admin
     get :index
     assert_response :success
-    assigns(:observations).should_not be_blank
+    expect(assigns(:observations)).not_to be_blank
   end
 
   test "get index (search)" do
@@ -25,7 +25,7 @@ class ObservationsControllerTest < ActionController::TestCase
     login_as_admin
     get :index, q: {locus_id: seed(:brovary).id}
     assert_response :success
-    assigns(:observations).size.should eq(3)
+    expect(assigns(:observations).size).to eq(3)
   end
 
   test "get index sorted by species order" do
@@ -70,7 +70,7 @@ class ObservationsControllerTest < ActionController::TestCase
     login_as_admin
     get :bulk, observ_date: "2010-06-18", locus_id: seed(:brovary).id, mine: true
     assert_response :success
-    assigns(:observations).size.should eq(2)
+    expect(assigns(:observations).size).to eq(2)
   end
 
   test "get bulk missing parameters" do
@@ -184,7 +184,7 @@ class ObservationsControllerTest < ActionController::TestCase
     assert_response :success
     assert_equal Mime::JSON, response.content_type
     result = JSON.parse(response.body)
-    result.first.keys.should =~ ["id", "species_str", "when_where_str"]
+    expect(result.first.keys).to match_array(["id", "species_str", "when_where_str"])
   end
 
   test "properly find spots" do
@@ -197,8 +197,8 @@ class ObservationsControllerTest < ActionController::TestCase
     assert_response :success
     assert_equal Mime::JSON, response.content_type
     result = JSON.parse(response.body)
-    result.size.should eq(1)
-    result[0].should include('id', 'species_str', 'when_where_str', 'spots')
-    result[0]['spots'].size.should eq(1)
+    expect(result.size).to eq(1)
+    expect(result[0]).to include('id', 'species_str', 'when_where_str', 'spots')
+    expect(result[0]['spots'].size).to eq(1)
   end
 end
