@@ -1,7 +1,7 @@
 class ObservationsController < ApplicationController
 
-  BULK_REQUIRED_KEYS = [:locus_id, :observ_date, :mine]
-  BULK_MEANINGFUL_KEYS = BULK_REQUIRED_KEYS + [:species_id, :post_id]
+  BULK_REQUIRED_KEYS = ['locus_id', 'observ_date', 'mine']
+  BULK_MEANINGFUL_KEYS = BULK_REQUIRED_KEYS + ['species_id', 'post_id']
 
   respond_to :json, :only => [:search, :bulksave, :with_spots]
 
@@ -21,7 +21,8 @@ class ObservationsController < ApplicationController
 
     # TODO: extract to model; add tests
     common = @observations.map(&:attributes).inject(&:&) || {}
-    @common = common.with_indifferent_access.slice(*BULK_MEANINGFUL_KEYS)
+    @common = common.slice(*BULK_MEANINGFUL_KEYS)
+    @common = nil unless @common.values_at(*BULK_REQUIRED_KEYS).map(&:nil?).uniq == [false]
   end
 
   # GET /observations/search
