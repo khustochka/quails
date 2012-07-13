@@ -18,9 +18,8 @@ class LifelistController < ApplicationController
 
     @lifelist = Lifelist.basic.
         sort(sort_override).
-        filter(params.slice(:year, :locus))
-
-    @lifelist.preload(posts: current_user.available_posts) unless sort_override == 'count'
+        filter(params.slice(:year, :locus)).
+        preload(posts: current_user.available_posts)
   end
 
   def advanced
