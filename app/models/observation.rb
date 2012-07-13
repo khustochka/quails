@@ -65,8 +65,11 @@ class Observation < ActiveRecord::Base
   # Decorators
 
   def species_str
-    [["<b>#{species.name}</b>", species.name_sci].join(' '), quantity, notes].
-        delete_if(&:'blank?').join(', ').html_safe
+    str = [["<b>#{species.name}</b>", species.name_sci].join(' '), quantity, notes].
+        delete_if(&:'blank?').join(', ')
+    str += " <small class='not_mine tag'>not mine</small>" unless mine
+    str += " <small class='voice tag'>voice</small>" if voice
+    str.html_safe
   end
 
   def when_where_str
