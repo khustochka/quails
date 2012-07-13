@@ -19,7 +19,6 @@ class LifelistController < ApplicationController
     @locations = Locus.countries.group_by(&:slug)
 
     @lifelist = Lifelist.basic.
-        loci_base(Locus.countries).
         sort(sort_override).
         filter(params.slice(:year, :locus)).
         preload(posts: current_user.available_posts)

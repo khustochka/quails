@@ -38,11 +38,13 @@ module LifelistStrategies
       SORT_COLUMNS[@sorting]
     end
 
+    attr_reader :locus
+
     def extend_filter(initial_filter)
       initial_filter.dup.tap do |filter|
         if filter[:locus]
-          locus = @loci_base.find_by_slug!(filter[:locus])
-          filter[:locus] = locus.get_subregions
+          @locus = @loci_base.find_by_slug!(filter[:locus])
+          filter[:locus] = @locus.get_subregions
         end
       end
     end
@@ -50,6 +52,11 @@ module LifelistStrategies
   end
 
   class BasicStrategy < Strategy
+
+    def initialize
+      @loci_base = Locus.countries
+      super
+    end
 
     def advanced?
       false
