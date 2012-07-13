@@ -221,4 +221,62 @@ class UIObservationsBulkTest < ActionDispatch::IntegrationTest
     expect(obs2.reload.post_id).to be_nil
   end
 
+  test "Bulk add observations with voice only, then uncheck" do
+    visit add_observations_path
+
+    select_suggestion('Brovary', from: 'Location')
+    fill_in('Date', with: '2011-04-09')
+
+    3.times { find(:xpath, "//span[text()='Add new row']").click }
+
+    within(:xpath, "//div[contains(@class,'obs-row')][1]") do
+      select_suggestion('Dryocopus martius', from: 'Species')
+      select_suggestion 'park', from: 'Biotope'
+    end
+
+    within(:xpath, "//div[contains(@class,'obs-row')][2]") do
+      select_suggestion('Crex crex', from: 'Species')
+      select_suggestion 'park', from: 'Biotope'
+      check 'Voice?'
+    end
+
+    within(:xpath, "//div[contains(@class,'obs-row')][3]") do
+      select_suggestion('Falco tinnunculus', from: 'Species')
+      select_suggestion 'park', from: 'Biotope'
+    end
+
+    expect(lambda { submit_form_with('Save') }).to change(Observation, :count).by(3)
+
+    drymar = Observation.where(species_id: Species.find_by_code('drymar')).order('id DESC').limit(1).first
+    crecre = Observation.where(species_id: Species.find_by_code('crecre')).order('id DESC').limit(1).first
+    faltin = Observation.where(species_id: Species.find_by_code('faltin')).order('id DESC').limit(1).first
+
+    expect(drymar.voice).to be_false
+    expect(crecre.voice).to be_true
+    expect(faltin.voice).to be_false
+
+    within(:xpath, "//div[contains(@class,'obs-row')][1]") do
+      select_suggestion('Dryocopus martius', from: 'Species')
+      select_suggestion 'park', from: 'Biotope'
+      check 'Voice?'
+    end
+
+    within(:xpath, "//div[contains(@class,'obs-row')][2]") do
+      select_suggestion('Crex crex', from: 'Species')
+      select_suggestion 'park', from: 'Biotope'
+      uncheck 'Voice?'
+    end
+
+    submit_form_with('Save')
+
+    drymar.reload
+    crecre.reload
+    faltin.reload
+
+    expect(drymar.voice).to be_true
+    expect(crecre.voice).to be_false
+    expect(faltin.voice).to be_false
+
+  end
+
 end
