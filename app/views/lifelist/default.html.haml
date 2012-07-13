@@ -3,7 +3,23 @@
 
 %h1= @page_title
 
-= render partial: 'menus'
+- @years = @lifelist.years
+= render 'partials/years'
+
+%ul.horiz-list.filter-list
+  %strong= t('.filter.places')
+  %li= params[:locus].nil? ? content_tag(:span, t('misc.all')) : link_to(t('misc.all'), significant_params.merge(:locus => nil))
+  - %w(ukraine usa).each do |slug|
+    %li= link_to_or_span(@locations[slug][0].name, significant_params.merge(:locus => slug))
+
+- unless @lifelist.blank?
+  %ul.horiz-list.filter-list
+    %strong= t('.filter.sort_by')
+    - [nil, :by_taxonomy].each do |sort|
+      %li= link_to_or_span(t(sort || :by_date, scope: 'lifelist.menus.sort_option'), significant_params.merge(:sort => sort))
+    %li
+      %b= link_to 'Advanced lifelist', action: :advanced
+
 
 - if @lifelist.blank?
   %p No species

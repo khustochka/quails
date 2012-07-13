@@ -1,7 +1,5 @@
 module LifelistStrategies
 
-  PUBLIC_LOCI = %w(ukraine kiev brovary kiev_obl zhytomyr_obl chernihiv_obl kherson_obl zaporizh_obl krym usa)
-
   class Strategy
 
     ALLOWED_SORT = [nil, 'last', 'class', 'count']
@@ -32,6 +30,10 @@ module LifelistStrategies
       @sorting = sort
     end
 
+    def loci_base=(rel)
+      @loci_base = rel
+    end
+
     def sort_columns
       SORT_COLUMNS[@sorting]
     end
@@ -39,11 +41,8 @@ module LifelistStrategies
     def extend_filter(initial_filter)
       initial_filter.dup.tap do |filter|
         if filter[:locus]
-          if allowed_locus?(filter[:locus])
-            filter[:locus] = Locus.select(:id).find_by_slug!(filter[:locus]).get_subregions
-          else
-            raise ActiveRecord::RecordNotFound
-          end
+          locus = @loci_base.find_by_slug!(filter[:locus])
+          filter[:locus] = locus.get_subregions
         end
       end
     end
@@ -63,10 +62,6 @@ module LifelistStrategies
     def aggregation_query
       AGGREGATION_TEMPLATE % AGGREGATION[@sorting]
     end
-
-    def allowed_locus?(locus)
-      locus.in? PUBLIC_LOCI
-    end
   end
 
   class AdvancedStrategy < Strategy
@@ -81,10 +76,6 @@ module LifelistStrategies
 
     def aggregation_query
       @aggregation_query ||= [nil, 'last', 'count'].map { |o| AGGREGATION_TEMPLATE % AGGREGATION[o] }.join(',')
-    end
-
-    def allowed_locus?(locus)
-      true
     end
   end
 

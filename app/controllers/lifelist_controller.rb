@@ -16,7 +16,10 @@ class LifelistController < ApplicationController
             raise ActionController::RoutingError, "No route matches #{request.path.inspect}"
         end
 
+    @locations = Locus.countries.group_by(&:slug)
+
     @lifelist = Lifelist.basic.
+        loci_base(Locus.countries).
         sort(sort_override).
         filter(params.slice(:year, :locus)).
         preload(posts: current_user.available_posts)
@@ -25,7 +28,10 @@ class LifelistController < ApplicationController
   def advanced
     @allowed_params = [:controller, :action, :year, :locus, :sort, :month]
 
+    @locations = current_user.available_loci.group_by(&:slug)
+
     @lifelist = Lifelist.advanced.
+        loci_base(current_user.available_loci).
         sort(params[:sort]).
         filter(params.slice(:year, :month, :locus)).
         preload(posts: current_user.available_posts)

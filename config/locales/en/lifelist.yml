@@ -11,10 +11,13 @@
       by_date:
         first_seen_in: 'First seen in %{year}:'
 
+      filter:
+        places: 'Countries:'
+        sort_by: 'Order by:'
+
     menus:
       filter:
         places: 'Regions:'
-        sort_by: 'Order by:'
 
       sort_option:
         by_date: date

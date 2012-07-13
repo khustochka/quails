@@ -27,6 +27,11 @@ class Lifelist
     self
   end
 
+  def loci_base(rel)
+    @strategy.loci_base = rel
+    self
+  end
+
   def filter(filter)
     @filter = @strategy.extend_filter(filter)
     self
@@ -66,10 +71,6 @@ class Lifelist
   # Given observations filtered by (month, locus) returns array of years within these observations happened
   def years
     [nil] + @observation_source.filter(@filter.merge({year: nil})).years
-  end
-
-  def locations
-    Locus.where(:slug => PUBLIC_LOCI).group_by(&:slug)
   end
 
   private

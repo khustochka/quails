@@ -1,17 +1,8 @@
 - @years = @lifelist.years
-- locs = @lifelist.locations
 = render 'partials/years'
 
 %ul.horiz-list.filter-list
   %strong= t('.filter.places')
   %li= params[:locus].nil? ? content_tag(:span, t('misc.all')) : link_to(t('misc.all'), significant_params.merge(:locus => nil))
-  - Lifelist::PUBLIC_LOCI.each do |slug|
-    %li= link_to_or_span(locs[slug][0].name, significant_params.merge(:locus => slug))
-
-- unless @lifelist.blank? || action_name == 'advanced'
-  %ul.horiz-list.filter-list
-    %strong= t('.filter.sort_by')
-    - [nil, :by_taxonomy].each do |sort|
-      %li= link_to_or_span(t(sort || :by_date, scope: 'lifelist.menus.sort_option'), significant_params.merge(:sort => sort))
-    %li
-      %b= link_to 'Advanced lifelist', action: :advanced
+  - Locus::PUBLIC_LOCI.each do |slug|
+    %li= link_to_or_span(@locations[slug][0].name, significant_params.merge(:locus => slug))
