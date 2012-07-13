@@ -256,14 +256,10 @@ class UIObservationsBulkTest < ActionDispatch::IntegrationTest
     expect(faltin.voice).to be_false
 
     within(:xpath, "//div[contains(@class,'obs-row')][1]") do
-      select_suggestion('Dryocopus martius', from: 'Species')
-      select_suggestion 'park', from: 'Biotope'
       check 'Voice?'
     end
 
     within(:xpath, "//div[contains(@class,'obs-row')][2]") do
-      select_suggestion('Crex crex', from: 'Species')
-      select_suggestion 'park', from: 'Biotope'
       uncheck 'Voice?'
     end
 
@@ -277,6 +273,22 @@ class UIObservationsBulkTest < ActionDispatch::IntegrationTest
     expect(crecre.voice).to be_false
     expect(faltin.voice).to be_false
 
+  end
+
+  test "Clicking on voice checkbox label should not change the wrong checkbox" do
+    visit add_observations_path
+
+    select_suggestion('Brovary', from: 'Location')
+    fill_in('Date', with: '2011-04-09')
+
+    3.times { find(:xpath, "//span[text()='Add new row']").click }
+
+    within(:xpath, "//div[contains(@class,'obs-row')][3]") do
+      find('label', text: 'Voice?').click
+    end
+
+    find(:xpath, "//div[contains(@class,'obs-row')][3]").should have_checked_field('Voice?')
+    find(:xpath, "//div[contains(@class,'obs-row')][1]").should_not have_checked_field('Voice?')
   end
 
 end

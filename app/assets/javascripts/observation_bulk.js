@@ -21,11 +21,12 @@ $(function () {
 
         options_list = $('.obs-row select.sp-suggest').children("option");
 
-    // var cnt = 1;
+    var cnt = 1;
 
     function addNewRow(event, ui) {
         var row = sample_row.clone(true).insertBefore('.buttons');
-        //$('label:contains("Species:")', row).attr('for', 'observation_species_id_' + cnt);
+        $('#observation_voice', row).attr('id', 'observation_voice_' + cnt);
+        $('label:contains("Voice?")', row).attr('for', 'observation_voice_' + cnt);
         var suggest = $('.sp-suggest', row) /*.attr('id', 'observation_species_id_' + cnt)*/ ;
         if (arguments.length > 1) {
             suggest.children("option").each(function () {
@@ -37,7 +38,7 @@ $(function () {
         }
         suggest.combobox();
         $("#observation_biotope", row).biotope();
-        // cnt++;
+        cnt++;
         refreshSubmitAbility();
         return false;
     }
