@@ -1,7 +1,7 @@
 require 'test_helper'
 require 'capybara_helper'
 
-class UIObservationsAddTest < ActionDispatch::IntegrationTest
+class UIObservationsBulkTest < ActionDispatch::IntegrationTest
 
   include JavaScriptTestCase
 
@@ -15,19 +15,6 @@ class UIObservationsAddTest < ActionDispatch::IntegrationTest
 
     find(:xpath, "//span[text()='Add new row']").click
     expect(all('.obs-row').size).to eq(2)
-  end
-
-  # NO JavaScript test
-  test 'Adding one observation if JavaScript is off' do
-    Capybara.use_default_driver
-    login_as_admin
-    visit add_observations_path
-    expect(all('.obs-row').size).to eq(1)
-    select('Brovary', from: 'Location')
-    fill_in('Date', with: '2011-04-08')
-    select('Cyanistes caeruleus', from: 'Species')
-    select 'park', from: 'Biotope'
-    expect(lambda { submit_form_with('Save') }).to change(Observation, :count).by(1)
   end
 
   test 'Species autosuggest box should have Avis incognita and be able to add it' do

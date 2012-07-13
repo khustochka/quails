@@ -41,6 +41,13 @@ module CapybaraTestCase
       visit str % [test_credentials.username, test_credentials.password, page.driver.rack_server.host, page.driver.rack_server.port]
     end
   end
+
+  def submit_form_with(name)
+    click_button(name)
+    if page.driver.respond_to? :resynchronize
+      page.driver.resynchronize {}
+    end
+  end
 end
 
 module JavaScriptTestCase
@@ -61,13 +68,6 @@ module JavaScriptTestCase
         fill_in hash[:from], with: value
         #sleep(0.5)
         page.execute_script " $('#{selector}').trigger('mouseenter').click();"
-      end
-
-      def submit_form_with(name)
-        click_button(name)
-        if page.driver.respond_to? :resynchronize
-          page.driver.resynchronize {}
-        end
       end
     end
 

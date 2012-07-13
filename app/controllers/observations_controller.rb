@@ -72,7 +72,9 @@ class ObservationsController < ApplicationController
 
   # POST /observations
   def create
-    @observation = Observation.new(params[:c].merge(params[:o].first))
+    ob = params[:o].first
+    ob[:voice] ||= false
+    @observation = Observation.new(params[:c].merge(ob))
 
     if @observation.save
       redirect_to(@observation, :notice => 'Observation was successfully created.')
@@ -83,8 +85,10 @@ class ObservationsController < ApplicationController
 
   # PUT /observations/1
   def update
+    ob = params[:o].first
+    ob[:voice] ||= false
     params[:c][:post_id] ||= nil
-    if @observation.update_attributes(params[:c].merge(params[:o].first))
+    if @observation.update_attributes(params[:c].merge(ob))
       redirect_to(edit_observation_path(@observation), :notice => 'Observation was successfully updated.')
     else
       render :form
