@@ -1,7 +1,7 @@
 class ObservationsController < ApplicationController
 
-  BULK_REQUIRED_KEYS = ['locus_id', 'observ_date', 'mine']
-  BULK_MEANINGFUL_KEYS = BULK_REQUIRED_KEYS + ['species_id', 'post_id']
+  BULK_REQUIRED_KEYS = %w(locus_id observ_date mine)
+  BULK_MEANINGFUL_KEYS = BULK_REQUIRED_KEYS + %w(species_id voice post_id)
 
   respond_to :json, :only => [:search, :bulksave, :with_spots]
 
@@ -103,7 +103,7 @@ class ObservationsController < ApplicationController
 
   # POST /observations/bulksave
   # API: parameters are a hash with two keys:
-  # c: hash of common options - locus_id, observ_date,mine, post_id
+  # c: hash of common options - locus_id, observ_date, mine, post_id
   # o: array of hashes each having species_id, quantity, biotope, place, notes
   def bulksave
     obs_bunch = ObservationBulk.new(params)
