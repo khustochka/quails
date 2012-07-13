@@ -1,13 +1,12 @@
 "en":
   lifelist:
+    title:
+      lifelist: Lifelist
+      yearlist: '%{year} Year List'
+      countrylist: '%{country} Country List'
+      locationlist: '%{location} Location List'
+
     default:
-      title:
-        lifelist: Lifelist
-
-        template:
-          by_date: by first observation date
-          by_taxonomy: by taxonomy
-
       by_date:
         first_seen_in: 'First seen in %{year}:'
 
@@ -18,6 +17,7 @@
     menus:
       filter:
         places: 'Regions:'
+        months: 'Months:'
 
       sort_option:
         by_date: date

@@ -1,12 +1,12 @@
 "ru":
   lifelist:
-    default:
-      title:
-        lifelist: Мой список (lifelist)
+    title:
+      lifelist: Мой список (lifelist)
+      yearlist: Список %{year} года
+      countrylist: 'Список страны: %{country}'
+      locationlist: 'Местный список: %{location}'
 
-        template:
-          by_date: по дате первой встречи
-          by_taxonomy: по классификации
+    default:
 
       filter:
         places: 'Страны:'
@@ -19,6 +19,7 @@
     menus:
       filter:
         places: 'Регионы:'
+        months: 'Месяцы:'
 
       sort_option:
         by_date: по дате первой встречи

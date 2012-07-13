@@ -73,6 +73,8 @@ class Lifelist
     [nil] + @observation_source.filter(@filter.merge({year: nil})).years
   end
 
+  delegate :locus, to: :@strategy
+
   private
 
   def lifers_sql
