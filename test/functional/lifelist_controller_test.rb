@@ -22,6 +22,17 @@ class LifelistControllerTest < ActionController::TestCase
     end
   end
 
+  test "show lifelist ordered by count" do
+    get :advanced, sort: 'count'
+    assert_response :success
+    assert_select '.main' do
+      assert_select 'h5', false # should not splice the list
+      assert_select "a[href=#{lifelist_advanced_path}]"
+      assert_select "a[href=#{url_for(sort: :class, only_path: true)}]"
+      assert_select "a[href=#{url_for(sort: :count, only_path: true)}]", false
+    end
+  end
+
   test "show default lifelist" do
     get :default
     assert_response :success
@@ -56,15 +67,24 @@ class LifelistControllerTest < ActionController::TestCase
     end
   end
 
+  test "show year list by count" do
+    get :advanced, sort: 'count', year: 2009
+    assert_response :success
+    assert_select '.main' do
+      assert_select 'h5', false # should not splice the list
+      assert_select "a[href=#{lifelist_advanced_path(year: 2009)}]"
+    end
+  end
+
   test "show location list" do
-    get :default, locus: 'new_york'
+    get :advanced, locus: 'usa'
     assert_response :success
     lifers = assigns(:lifelist)
     expect(lifers.size).to eq(3)
   end
 
   test "show lifelist filtered by year and location" do
-    get :default, locus: 'new_york', year: 2009
+    get :advanced, locus: 'usa', year: 2009
     assert_response :success
     lifers = assigns(:lifelist)
     expect(lifers.size).to eq(1)

@@ -10,8 +10,6 @@ require 'rails/test_help'
 
 require 'rspec/expectations'
 
-Locus::PUBLIC_LOCI.push('new_york') # needed for tests
-
 class ActiveSupport::TestCase
 
   include FactoryGirl::Syntax::Methods
