@@ -16,6 +16,7 @@ class ObservationsController < ApplicationController
     @search = Observation.search(params[:q])
     # sorting by species.index_num requires using #includes
     # but #preload is faster, so use it for locus and post, and for species if possible
+    # TODO: when Rails 4 is out look at #references
     @observations = @search.order(params[:sort]).preload(:locus, :post).page(params[:page]).
         send((params[:sort] == 'species.index_num') ? :includes : :preload, :species)
 
