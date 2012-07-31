@@ -2,7 +2,7 @@ source :rubygems
 
 ruby '1.9.3'
 
-gem 'rails', '3.2.6'
+gem 'rails', '3.2.7'
 # gem 'rails', github: 'rails/rails'
 
 gem 'pg', :platforms => [:ruby, :mingw]
@@ -42,7 +42,7 @@ end
 group :development do
   gem 'rails3-generators'
   gem 'nokogiri', :platforms => [:ruby, :mingw], :require => false
-  gem 'mysql2', '~>0.3.7', :platforms => :ruby, :require => false
+  gem 'mysql2', '~> 0.3.7', :platforms => :ruby, :require => false
 
   gem 'grit', '~> 2.5', :require => false, :platforms => [:ruby, :mingw]
 
