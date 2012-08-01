@@ -98,9 +98,8 @@ class LifelistControllerTest < ActionController::TestCase
   end
 
   test "not allowed locus fails" do
-    assert_raise ActiveRecord::RecordNotFound do
-      get :default, locus: 'sumy_obl'
-    end
+    #TODO: .to raise_error(ActiveRecord::RecordNotFound)
+    expect { get :default, locus: 'sumy_obl' }.to raise_error
     # assert_response :not_found
   end
 

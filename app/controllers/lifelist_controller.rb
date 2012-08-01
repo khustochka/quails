@@ -30,9 +30,8 @@ class LifelistController < ApplicationController
     @locations = current_user.available_loci.group_by(&:slug)
 
     @lifelist = Lifelist.advanced.
-        loci_base(current_user.available_loci).
         sort(params[:sort]).
         filter(params.slice(:year, :month, :locus)).
-        preload(posts: current_user.available_posts)
+        preload(posts: current_user.available_posts, loci: current_user.available_loci)
   end
 end

@@ -11,13 +11,14 @@ class Lifelist
   end
 
   def self.basic
-    new(BasicStrategy)
+    new(BasicStrategy).preload(loci: Locus.countries)
   end
 
   def initialize(strategy_class)
     @strategy = strategy_class.new
-    @filter = {}
+    @raw_filter = {}
     @observation_source = MyObservation
+    @source = {}
   end
 
   # Chainable methods
@@ -27,18 +28,13 @@ class Lifelist
     self
   end
 
-  def loci_base(rel)
-    @strategy.loci_base = rel
-    self
-  end
-
   def filter(filter)
-    @filter = @strategy.extend_filter(filter)
+    @raw_filter = filter
     self
   end
 
   def preload(options)
-    @posts_source = options[:posts]
+    @source.merge!(options)
     self
   end
 
@@ -56,7 +52,7 @@ class Lifelist
         order(@strategy.sort_columns).all
 
     # TODO: somehow extract posts preload to depend on strategy
-    if @posts_source
+    if @source[:posts]
       first_posts = posts('first')
       last_posts = posts('last')
       @records.each do |sp|
@@ -70,26 +66,37 @@ class Lifelist
 
   # Given observations filtered by (month, locus) returns array of years within these observations happened
   def years
-    [nil] + @observation_source.filter(@filter.merge({year: nil})).years
+    [nil] + @observation_source.filter(prepared_filter.merge({year: nil})).years
   end
 
-  delegate :locus, to: :@strategy
+  def locus
+    @locus ||= @source[:loci].find_by_slug!(@raw_filter[:locus])
+  end
 
   private
+
+  def prepared_filter
+    @prepared_filter ||=
+        @raw_filter.dup.tap do |filter|
+          if filter[:locus]
+            filter[:locus] = locus.get_subregions
+          end
+        end
+  end
 
   def lifers_sql
     @lifers_sql ||= lifers_aggregation.to_sql
   end
 
   def lifers_aggregation
-    @observation_source.filter(@filter).select("species_id, #{@strategy.aggregation_query}").group(:species_id)
+    @observation_source.filter(prepared_filter).select("species_id, #{@strategy.aggregation_query}").group(:species_id)
   end
 
   def posts(first_or_last = 'first')
     return {} unless first_or_last == 'first' || @strategy.advanced?
-    @posts_source.select('posts.*, lifers.species_id').
+    @source[:posts].select('posts.*, lifers.species_id').
         joins(
-        "INNER JOIN (#{@observation_source.filter(@filter).to_sql}) AS observs
+        "INNER JOIN (#{@observation_source.filter(prepared_filter).to_sql}) AS observs
               ON posts.id = observs.post_id").
         joins(
         "INNER JOIN (#{lifers_sql}) AS lifers

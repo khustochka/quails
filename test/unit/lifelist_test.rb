@@ -94,7 +94,7 @@ class LifelistTest < ActiveSupport::TestCase
   end
 
   test 'List by locus returns properly filtered list' do
-    expect(Lifelist.advanced.loci_base(Locus.scoped).filter(locus: 'new_york').map { |s| [s.code, s.first_seen] }).to eq \
+    expect(Lifelist.advanced.filter(locus: 'new_york').preload(loci: Locus.scoped).map { |s| [s.code, s.first_seen] }).to eq \
         [["colliv", "2010-03-10"], ["pasdom", "2009-12-01"]]
   end
 
@@ -138,7 +138,7 @@ class LifelistTest < ActiveSupport::TestCase
     new_obs = create(:observation, species: seed(:colliv), observ_date: "2008-05-22", locus: seed(:kiev))
     @obs[0].post = create(:post)
     @obs[0].save!
-    lifelist = Lifelist.advanced.loci_base(Locus.public).filter(locus: 'kiev').preload(posts: Post.public)
+    lifelist = Lifelist.advanced.filter(locus: 'kiev').preload(posts: Post.public, loci: Locus.public)
     expect(lifelist.find {|sp| sp.code == 'colliv'}.post).to be_nil
   end
 end
