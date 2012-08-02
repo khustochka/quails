@@ -1,5 +1,7 @@
 class LociController < ApplicationController
 
+  respond_to :json, :only => [:save_order]
+
   administrative
 
   add_finder_by :slug, :only => [:show, :edit, :update, :destroy]
@@ -48,5 +50,21 @@ class LociController < ApplicationController
     @locus.destroy
     #TODO: rescue ActiveRecord::DeleteRestrictionError showing a notice and later - options for substitution
     redirect_to(loci_url)
+  end
+
+  def public
+    @locs_public = Locus.public
+    @locs_other = Locus.where('public_index IS NULL').order('loc_type ASC', :parent_id, :slug)
+  end
+
+  def save_order
+    result = params[:order]
+    Locus.transaction do
+      Locus.update_all(public_index: nil)
+      result.each_with_index do |loc_id, i|
+        Locus.update(loc_id, public_index: i + 1)
+      end
+    end
+    render json: [], status: 201
   end
 end

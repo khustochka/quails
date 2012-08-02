@@ -6,6 +6,9 @@
 
 = render 'admin/shortcuts' if current_user.admin?
 
+%p
+  = link_to 'Order public locations', action: :public
+
 %table.neat_table.loci_index
   %tr
     %th Code

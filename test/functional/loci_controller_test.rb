@@ -55,6 +55,12 @@ class LociControllerTest < ActionController::TestCase
     assert_redirected_to loci_path
   end
 
+  test "show page to order public locations" do
+    login_as_admin
+    get :public
+    assert_response :success
+  end
+
   # HTTP auth tests
 
   test 'protect index with HTTP authentication' do

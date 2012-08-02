@@ -1,0 +1,16 @@
+- javascript 'loci_order'
+
+- @page_title = 'Order public locations'
+
+%h1= @page_title
+
+= render 'admin/shortcuts' if current_user.admin?
+
+%div.table_like
+  %ul.drag_locs.other
+    - @locs_other.each do |loc|
+      %li{'data-loc-id' => loc.id}= loc.name
+
+  %ul.drag_locs.public
+    - @locs_public.each do |loc|
+      %li{'data-loc-id' => loc.id}= loc.name
