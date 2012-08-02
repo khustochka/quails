@@ -11,12 +11,12 @@ class Lifelist
   end
 
   def self.basic
-    new(BasicStrategy).preload(loci: Locus.countries)
+    new(BasicStrategy).source(loci: Locus.countries)
   end
 
   def initialize(strategy_class)
     @strategy = strategy_class.new
-    @raw_filter = {}
+    @filter = {}
     @observation_source = MyObservation
     @source = {}
   end
@@ -29,11 +29,11 @@ class Lifelist
   end
 
   def filter(filter)
-    @raw_filter = filter
+    @filter = prepare_filter(filter)
     self
   end
 
-  def preload(options)
+  def source(options)
     @source.merge!(options)
     self
   end
@@ -66,22 +66,20 @@ class Lifelist
 
   # Given observations filtered by (month, locus) returns array of years within these observations happened
   def years
-    [nil] + @observation_source.filter(prepared_filter.merge({year: nil})).years
+    [nil] + @observation_source.filter(@filter.merge({year: nil})).years
   end
 
-  def locus
-    @locus ||= @source[:loci].find_by_slug!(@raw_filter[:locus])
-  end
+  attr_reader :locus
 
   private
 
-  def prepared_filter
-    @prepared_filter ||=
-        @raw_filter.dup.tap do |filter|
-          if filter[:locus]
-            filter[:locus] = locus.get_subregions
-          end
-        end
+  def prepare_filter(initial)
+    initial.dup.tap do |filter|
+      if filter[:locus]
+        @locus = @source[:loci].find_by_slug!(filter[:locus])
+        filter[:locus] = @locus.get_subregions
+      end
+    end
   end
 
   def lifers_sql
@@ -89,14 +87,14 @@ class Lifelist
   end
 
   def lifers_aggregation
-    @observation_source.filter(prepared_filter).select("species_id, #{@strategy.aggregation_query}").group(:species_id)
+    @observation_source.filter(@filter).select("species_id, #{@strategy.aggregation_query}").group(:species_id)
   end
 
   def posts(first_or_last = 'first')
     return {} unless first_or_last == 'first' || @strategy.advanced?
     @source[:posts].select('posts.*, lifers.species_id').
         joins(
-        "INNER JOIN (#{@observation_source.filter(prepared_filter).to_sql}) AS observs
+        "INNER JOIN (#{@observation_source.filter(@filter).to_sql}) AS observs
               ON posts.id = observs.post_id").
         joins(
         "INNER JOIN (#{lifers_sql}) AS lifers

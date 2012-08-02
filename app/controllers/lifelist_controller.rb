@@ -19,9 +19,9 @@ class LifelistController < ApplicationController
     @locations = Locus.countries.group_by(&:slug)
 
     @lifelist = Lifelist.basic.
+        source(posts: current_user.available_posts).
         sort(sort_override).
-        filter(params.slice(:year, :locus)).
-        preload(posts: current_user.available_posts)
+        filter(params.slice(:year, :locus))
   end
 
   def advanced
@@ -30,8 +30,8 @@ class LifelistController < ApplicationController
     @locations = current_user.available_loci.group_by(&:slug)
 
     @lifelist = Lifelist.advanced.
+        source(loci: current_user.available_loci, posts: current_user.available_posts).
         sort(params[:sort]).
-        filter(params.slice(:year, :month, :locus)).
-        preload(posts: current_user.available_posts, loci: current_user.available_loci)
+        filter(params.slice(:year, :month, :locus))
   end
 end
