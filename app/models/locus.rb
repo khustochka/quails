@@ -5,8 +5,6 @@ class Locus < ActiveRecord::Base
 
   TYPES = %w(Country Region Location)
 
-  PUBLIC_LOCI = %w(ukraine kiev brovary kiev_obl zhytomyr_obl chernihiv_obl kherson_obl zaporizh_obl krym usa)
-
   validates :slug, :format => /^[a-z_]+$/i, :uniqueness => true, :presence => true, :length => {:maximum => 32}
   validates :loc_type, :presence => true
   # FIXME: allow blank because imported locations do not have eng, ukr names
@@ -34,9 +32,9 @@ class Locus < ActiveRecord::Base
 
   scope :list_order, order('loc_type DESC', :parent_id, :slug)
 
-  scope :countries, where(loc_type: 0)
+  scope :countries, where(loc_type: 0).order(:public_index)
 
-  scope :public, where(slug: PUBLIC_LOCI)
+  scope :public, where('public_index IS NOT NULL').order(:public_index)
 
   # Instance methods
 

@@ -16,7 +16,7 @@ class LifelistController < ApplicationController
             raise ActionController::RoutingError, "No route matches #{request.path.inspect}"
         end
 
-    @locations = Locus.countries.group_by(&:slug)
+    @locations = Locus.countries
 
     @lifelist = Lifelist.basic.
         source(posts: current_user.available_posts).
@@ -27,7 +27,7 @@ class LifelistController < ApplicationController
   def advanced
     @allowed_params = [:controller, :action, :year, :locus, :sort, :month]
 
-    @locations = current_user.available_loci.group_by(&:slug)
+    @locations = Locus.public
 
     @lifelist = Lifelist.advanced.
         source(loci: current_user.available_loci, posts: current_user.available_posts).

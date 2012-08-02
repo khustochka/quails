@@ -13,8 +13,8 @@
 %ul.horiz-list.filter-list
   %strong= t('.filter.places')
   %li= params[:locus].nil? ? content_tag(:span, t('misc.all')) : link_to(t('misc.all'), significant_params.merge(:locus => nil))
-  - %w(ukraine usa).each do |slug|
-    %li= link_to_or_span(@locations[slug][0].name, significant_params.merge(:locus => slug))
+  - @locations.each do |loc|
+    %li= link_to_or_span(loc.name, significant_params.merge(:locus => loc.slug))
 
 - unless @lifelist.blank?
   %ul.horiz-list.filter-list
