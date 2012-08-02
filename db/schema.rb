@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120704105951) do
+ActiveRecord::Schema.define(:version => 20120802095358) do
 
   create_table "checklists", :id => false, :force => true do |t|
     t.integer "locus_id",   :null => false
@@ -64,14 +64,15 @@ ActiveRecord::Schema.define(:version => 20120704105951) do
   add_index "images_observations", ["observation_id"], :name => "index_images_observations_on_observation_id"
 
   create_table "loci", :force => true do |t|
-    t.string  "slug",      :limit => 32, :null => false
+    t.string  "slug",         :limit => 32, :null => false
     t.integer "parent_id"
     t.string  "name_en"
     t.string  "name_ru"
     t.string  "name_uk"
     t.float   "lat"
     t.float   "lon"
-    t.integer "loc_type",                :null => false
+    t.integer "loc_type",                   :null => false
+    t.integer "public_index"
   end
 
   add_index "loci", ["parent_id"], :name => "index_loci_on_parent_id"
