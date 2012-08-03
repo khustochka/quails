@@ -3,6 +3,8 @@
     title:
       lifelist: Мой список (lifelist)
       yearlist: Список %{year} года
+      monthlist: Список за %{month}
+      yearsublist: '%{year} года'
       countrylist: 'Список страны: %{country}'
       locationlist: 'Местный список: %{location}'
 
