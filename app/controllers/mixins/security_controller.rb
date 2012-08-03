@@ -8,7 +8,11 @@ module SecurityController
     def requires_admin_authorized(*args)
       options = args.extract_options!
       before_filter options do
-        unless current_user.admin?
+        if current_user.admin?
+          #PASS
+        elsif current_user.potential_admin?
+          authenticate_or_request_with_http_basic &CredentialsVerifier.method(:check_credentials)
+        else
           raise ActionController::RoutingError, "No route matches #{request.path.inspect}"
         end
       end
@@ -27,10 +31,14 @@ module SecurityController
 
   private
   def current_user
-    @current_user ||= User.new(
-        CredentialsVerifier.free_access ||
-            authenticate_with_http_basic(&CredentialsVerifier.method(:check_credentials))
-    )
+    @current_user ||=
+        if CredentialsVerifier.free_access || authenticate_with_http_basic(&CredentialsVerifier.method(:check_credentials))
+          User.new(admin: true)
+        elsif cookies.signed[CredentialsVerifier.cookie_name] == CredentialsVerifier.cookie_value
+          User.new(potential_admin: true)
+        else
+          User.new
+        end
   end
 
 end

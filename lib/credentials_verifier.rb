@@ -11,6 +11,14 @@ module CredentialsVerifier
     @free_access
   end
 
+  def self.cookie_value
+    @options.cookie_value
+  end
+
+  def self.cookie_name
+    :quails_visitor
+  end
+
   def self.check_credentials(username, password)
     (username == @options.username &&
         (Digest::SHA1.hexdigest(password) == @options.password || password == @options.password)) ||

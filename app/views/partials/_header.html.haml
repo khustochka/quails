@@ -9,4 +9,8 @@
     %li= link_to_or_span t('.menu.checklist'), checklist_path(slug: 'ukraine')
     %li= link_to_or_span t('.menu.lifelist'), lifelist_path
 
-  = @admin_menu if current_user.admin?
+  - if current_user.admin?
+    = @admin_menu
+  - elsif current_user.potential_admin?
+    %ul.admin_box
+      %li= link_to 'Login', login_path
