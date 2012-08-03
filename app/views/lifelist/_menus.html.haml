@@ -4,6 +4,5 @@
 %ul.horiz-list.filter-list
   %strong= t('.filter.places')
   %li= params[:locus].nil? ? content_tag(:span, t('misc.all')) : link_to(t('misc.all'), significant_params.merge(:locus => nil))
-  -# FIXME!!
   - @locations.each do |loc|
     %li= link_to_or_span(loc.name, significant_params.merge(:locus => loc.slug))
