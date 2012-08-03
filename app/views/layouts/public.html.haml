@@ -9,6 +9,8 @@
     %meta{ :content => "text/html; charset=UTF-8", "http-equiv" => "content-type" }
 
     -# robots
+    - if @robots
+      %meta{ name: 'robots', content: @robots}
 
     -# page information, keywords
 
