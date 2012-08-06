@@ -1,7 +1,7 @@
 require 'iconv'
 
 module Legacy
-  class Utils
+  module Utils
 
     def self.prepare_table(raw)
       cols = raw['columns']

@@ -1,5 +1,5 @@
 module Legacy
-  class Mapping
+  module Mapping
 
     class << self
       attr_reader :species, :posts, :locations

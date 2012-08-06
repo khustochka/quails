@@ -2,7 +2,7 @@ require 'legacy/mapping'
 
 module Legacy
   module Import
-    class Locations
+    module Locations
 
       def self.update_all(countries, regions, locs)
         update_countries(countries)

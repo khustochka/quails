@@ -2,7 +2,7 @@ require 'legacy/mapping'
 
 module Legacy
   module Import
-    class Spots
+    module Spots
 
       def self.import_spots(spots)
 

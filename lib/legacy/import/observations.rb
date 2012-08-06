@@ -2,7 +2,7 @@ require 'legacy/mapping'
 
 module Legacy
   module Import
-    class Observations
+    module Observations
 
       def self.import_observations(observations)
 

@@ -2,7 +2,7 @@ require 'legacy/mapping'
 
 module Legacy
   module Import
-    class Comments
+    module Comments
 
       def self.import_comments(comments)
 

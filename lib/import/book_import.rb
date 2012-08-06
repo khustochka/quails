@@ -34,7 +34,7 @@ class BookImport
 
   end
 
-  def fetch_details(sp)
+  def self.fetch_details(sp)
     include SpeciesHelper
 
     cache = WebPageCache.new("tmp/")

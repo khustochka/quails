@@ -4,7 +4,7 @@ require 'bunch_db/table'
 
 module Legacy
   module Import
-    class Posts
+    module Posts
 
       def self.import_posts(posts)
         puts 'Importing blog posts...'

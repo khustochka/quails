@@ -4,7 +4,7 @@ require 'legacy/mapping'
 
 module Legacy
   module Import
-    class Images
+    module Images
 
       def self.import_images(images, observations)
 
