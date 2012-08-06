@@ -10,7 +10,7 @@ class LifelistController < ApplicationController
           when 'by_taxonomy'
             'class'
           else
-            raise ActionController::RoutingError, "No route matches #{request.path.inspect}"
+            raise ActionController::RoutingError, "Illegal argument sort=#{params[:sort]}"
         end
 
     @locations = Locus.countries

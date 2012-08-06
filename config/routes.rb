@@ -39,7 +39,7 @@ Quails3::Application.routes.draw do
   get '/lifelist(/:year)(/:locus)(/:sort)' => 'lifelist#default', as: :lifelist,
       year: /\d{4}/,
       locus: /(?!by_)[^\/]+/, # negative look-ahead: not starting with 'by_'
-      sort: /by_(count|taxonomy)/
+      sort: /by_taxonomy/
 
   get 'checklists/:slug' => 'checklists#show', constraints: {slug: 'ukraine'}, as: 'checklist'
 

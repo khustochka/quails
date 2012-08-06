@@ -13,7 +13,7 @@ module SecurityController
         elsif current_user.potential_admin?
           authenticate_or_request_with_http_basic &CredentialsVerifier.method(:check_credentials)
         else
-          raise ActionController::RoutingError, "No route matches #{request.path.inspect}"
+          raise ActionController::RoutingError, "Restricted path"
         end
       end
     end
