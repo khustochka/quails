@@ -1,23 +1,27 @@
 class User
   extend CredentialsCheck
 
-  def initialize(options = {})
-    @options = options
+  def initialize(cookies)
+    @cookies = cookies
   end
 
   def admin?
-    @is_admin ||= @options[:admin]
+    false
   end
 
-  def potential_admin?
-    @options[:potential_admin]
+  def has_admin_cookie?
+    @cookies.signed[User.cookie_name] == User.cookie_value
+  end
+
+  def set_admin_cookie
+    @cookies.signed[User.cookie_name] = {value: User.cookie_value, expires: 1.month.from_now}
   end
 
   def available_posts
-    admin? ? Post.scoped : Post.public
+    Post.public
   end
 
   def available_loci
-    admin? ? Locus.scoped : Locus.public
+    Locus.public
   end
 end

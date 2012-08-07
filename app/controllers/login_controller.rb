@@ -5,7 +5,7 @@ class LoginController < ApplicationController
   layout 'admin'
 
   def login
-    cookies.signed[User.cookie_name] = {value: User.cookie_value, expires: 1.month.from_now}
+    current_user.set_admin_cookie
     redirect_to root_url, :status => 303
   end
 

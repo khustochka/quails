@@ -11,6 +11,6 @@
 
   - if current_user.admin?
     = @admin_menu
-  - elsif current_user.potential_admin?
+  - elsif current_user.has_admin_cookie?
     %ul.admin_box
       %li= link_to 'Login', login_path
