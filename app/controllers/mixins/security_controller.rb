@@ -11,7 +11,7 @@ module SecurityController
         if current_user.admin?
           #PASS
         elsif current_user.potential_admin?
-          authenticate_or_request_with_http_basic &CredentialsVerifier.method(:check_credentials)
+          authenticate_or_request_with_http_basic &User.method(:check_credentials)
         else
           raise ActionController::RoutingError, "Restricted path"
         end
@@ -21,8 +21,8 @@ module SecurityController
     def ask_for_credentials(*args)
       options = args.extract_options!
       before_filter options do
-        unless CredentialsVerifier.free_access
-          authenticate_or_request_with_http_basic &CredentialsVerifier.method(:check_credentials)
+        unless User.free_access
+          authenticate_or_request_with_http_basic &User.method(:check_credentials)
         end
       end
     end
@@ -32,9 +32,9 @@ module SecurityController
   private
   def current_user
     @current_user ||=
-        if CredentialsVerifier.free_access || authenticate_with_http_basic(&CredentialsVerifier.method(:check_credentials))
+        if User.free_access || authenticate_with_http_basic(&User.method(:check_credentials))
           User.new(admin: true)
-        elsif cookies.signed[CredentialsVerifier.cookie_name] == CredentialsVerifier.cookie_value
+        elsif cookies.signed[User.cookie_name] == User.cookie_value
           User.new(potential_admin: true)
         else
           User.new

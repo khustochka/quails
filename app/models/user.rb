@@ -1,4 +1,6 @@
 class User
+  extend CredentialsCheck
+
   def initialize(options = {})
     @options = options
   end

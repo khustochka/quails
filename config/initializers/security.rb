@@ -15,8 +15,7 @@ rescue Errno::ENOENT
   end
 end
 
-require 'credentials_verifier'
-CredentialsVerifier.init(options.admin)
+User.init(options.admin)
 
 secret = options.secret_token
 if secret.blank? || secret.length < 30
