@@ -15,4 +15,4 @@ named my application Rails but decided it could inspire confusion in the Ruby op
 == Dependencies
 
 [Ruby 1.9] Ruby 1.9.3 is used for both production and development. 1.9 Hash syntax is used here and there making the app incompatible with Ruby 1.8.
-[PostgreSQL] Some queries are postgres-specific. Heroku shared DB is still on 8.3 so I don't use any 9.1 features.
+[PostgreSQL] Some queries may be PostgreSQL-specific. PostgreSQL 9.1 is used.
