@@ -1,21 +1,6 @@
-require "ostruct"
-filename = 'config/security.yml'
+require "config_reader"
 
-begin
-  options = OpenStruct.new(YAML.load(ERB.new(File.read(filename)).result)[Rails.env])
-rescue Errno::ENOENT
-  require 'fileutils'
-  FileUtils.cp 'config/security.sample.yml', filename
-  err_msg = 'Created config/security.yml. Please edit it as appropriate'
-  if Rails.env.production?
-    Rails.logger.warn err_msg
-    retry
-  else
-    raise err_msg
-  end
-end
-
-User.init(options.admin)
+options = ConfigReader.config_data
 
 secret = options.secret_token
 if secret.blank? || secret.length < 30

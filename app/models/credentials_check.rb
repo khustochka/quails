@@ -1,5 +1,9 @@
 module CredentialsCheck
 
+  def self.extended(klass)
+    klass.init(ConfigReader.admin_options)
+  end
+
   def init(options)
     @options = OpenStruct.new(options)
     @free_access = Rails.env.development? && @options.free_access
