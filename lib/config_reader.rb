@@ -27,4 +27,16 @@ module ConfigReader
     end
   end
 
+  def self.configure_secret_token
+    secret = config_data.secret_token
+    if secret.blank? || secret.length < 30
+      raise ArgumentError, "A secret is required to generate an " +
+          "integrity hash for cookie session data. Use " +
+          "SecureRandom.hex(30) to generate a secret " +
+          "of at least 30 characters and store it " +
+          "in config/security.yml"
+    end
+    Quails3::Application.config.secret_token = secret
+  end
+
 end
