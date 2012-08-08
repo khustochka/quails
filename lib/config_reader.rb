@@ -2,10 +2,6 @@ require "ostruct"
 
 module ConfigReader
 
-  def self.admin_options
-    config_data.admin
-  end
-
   def self.config_data
     @config_data ||= read_config
   end
@@ -22,6 +18,12 @@ module ConfigReader
       retry
     else
       raise err_msg
+    end
+  end
+
+  def self.configure(klass)
+    if klass == User
+      User.configure(config_data.admin)
     end
   end
 

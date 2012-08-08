@@ -1,10 +1,10 @@
 module CredentialsCheck
 
   def self.extended(klass)
-    klass.init(ConfigReader.admin_options)
+    ConfigReader.configure(klass)
   end
 
-  def init(options)
+  def configure(options)
     @options = OpenStruct.new(options)
     @free_access = Rails.env.development? && @options.free_access
     raise ArgumentError, "You have to specify admin username and password" unless
