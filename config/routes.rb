@@ -87,6 +87,9 @@ Quails3::Application.routes.draw do
     post :save, on: :collection
   end
 
+  get '/settings' => 'settings#index'
+  post '/settings/save' => 'settings#save'
+
   get '/research(/:action)', controller: :research, as: :research
 
   get '/login' => 'login#login'

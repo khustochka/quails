@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120802095358) do
+ActiveRecord::Schema.define(:version => 20120808093052) do
 
   create_table "checklists", :id => false, :force => true do |t|
     t.integer "locus_id",   :null => false
@@ -110,6 +110,11 @@ ActiveRecord::Schema.define(:version => 20120802095358) do
 
   add_index "posts", ["face_date"], :name => "index_posts_on_face_date"
   add_index "posts", ["slug"], :name => "index_posts_on_slug", :unique => true
+
+  create_table "settings", :id => false, :force => true do |t|
+    t.string "key",   :null => false
+    t.string "value", :null => false
+  end
 
   create_table "species", :force => true do |t|
     t.string  "code",       :limit => 6

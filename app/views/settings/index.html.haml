@@ -1,0 +1,14 @@
+- stylesheet 'forms'
+
+- @page_title = 'View and edit settings'
+
+%h1= @page_title
+
+%p#notice= notice
+
+= form_tag(settings_save_path, method: :post, class: 'simple_form') do
+  %div.input.string
+    %label Images host
+    %input.string{:name => :images_host, :type => :text, :value => @settings[:images_host]}
+  %div.buttons
+    %input.button#save_button{:type => :submit, :value => 'Save'}
