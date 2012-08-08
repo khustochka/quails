@@ -12,6 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery-ui-1.8.22.custom.min
+//= require jquery-ui.custom.min
 //= require suggest_over_combo
 //= require biotopes
