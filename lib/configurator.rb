@@ -3,8 +3,11 @@ require "ostruct"
 module Configurator
 
   def self.configure(klass)
-    if klass == User
-      User.configure(config_data.admin)
+    case klass.name
+      when 'User'
+        User.configure(config_data.admin)
+      when 'ImagesHelper'
+        ImagesHelper.images_host = config_data.images_host
     end
   end
 

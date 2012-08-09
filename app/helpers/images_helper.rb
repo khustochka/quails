@@ -30,10 +30,19 @@ module ImagesHelper
     end
   end
 
+  def self.images_host=(host)
+    @images_host = host
+  end
+
   private
 
+  def self.images_host
+    Configurator.configure(ImagesHelper) unless @images_host
+    @images_host
+  end
+
   def legacy_image_url(file_name)
-    "#{IMAGES_HOST}/aves/photos/#{file_name}"
+    "#{ImagesHelper.images_host}/aves/photos/#{file_name}"
   end
 
 end
