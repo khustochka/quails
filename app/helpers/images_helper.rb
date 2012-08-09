@@ -13,12 +13,12 @@ module ImagesHelper
 
   def jpg_url(img)
     (img.flickr_size.present? && img.flickr_data[img.flickr_size]) ||
-        "#{IMAGES_HOST}/aves/photos/#{img.slug}.jpg"
+        legacy_image_url("#{img.slug}.jpg")
   end
 
   def thumbnail_url(img)
     (img.flickr_size.present? && img.flickr_data['t']) ||
-        "#{IMAGES_HOST}/aves/photos/tn_#{img.slug}.jpg"
+        legacy_image_url("tn_#{img.slug}.jpg")
   end
 
   def image_title(image)
@@ -28,6 +28,12 @@ module ImagesHelper
     else
       img_title
     end
+  end
+
+  private
+
+  def legacy_image_url(file_name)
+    "#{IMAGES_HOST}/aves/photos/#{file_name}"
   end
 
 end
