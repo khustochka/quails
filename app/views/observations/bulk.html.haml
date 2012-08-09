@@ -8,7 +8,7 @@
 = render 'admin/shortcuts' if current_user.admin?
 
 = simple_form_for @observations.first, remote: true, method: :post,
-        html: {'data-action' => bulksave_observations_path, id: 'bulk_observ_form', class: 'observation'} do |form|
+      html: {data: {action: bulksave_observations_path}, id: 'bulk_observ_form', class: 'observation'} do |form|
   %div
     = render partial: 'common', locals: { form: form }
     .to-add-row

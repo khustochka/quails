@@ -8,7 +8,7 @@
   - if action_name != 'reply'
     .reply
       \--
-      = link_to(t('.reply_link'), reply_comment_path(comment), 'data-comment-id' => comment.id)
+      = link_to(t('.reply_link'), reply_comment_path(comment), data: {comment_id: comment.id})
 
 - @comments.try(:[], comment.id).if_present do |subcomments|
   .subcomments
