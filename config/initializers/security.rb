@@ -1,8 +1,8 @@
-require "config_reader"
+require "configurator"
 
-options = ConfigReader.config_data
+options = Configurator.config_data
 
-ConfigReader.configure_secret_token
+Configurator.configure_secret_token
 
 IMAGES_HOST = options.images_host
 

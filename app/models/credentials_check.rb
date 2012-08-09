@@ -1,7 +1,7 @@
 module CredentialsCheck
 
   def self.extended(klass)
-    ConfigReader.configure(klass)
+    Configurator.configure(klass)
   end
 
   def configure(options)
