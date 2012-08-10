@@ -1,10 +1,10 @@
 class ImagesController < ApplicationController
 
-  respond_to :json, :only => [:flickr_search, :observations]
+  respond_to :json, only: [:flickr_search, :observations]
 
-  administrative :except => [:photostream, :show]
+  administrative except: [:photostream, :show]
 
-  add_finder_by :slug, :only => [:show, :edit, :update, :destroy]
+  find_record by: :slug, before: [:show, :edit, :update, :destroy]
 
   after_filter :cache_expire, only: [:create, :update, :destroy]
 

@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   include AdminController
   include PublicPathController
 
-  extend ModelFinderForController
+  extend RecordFinder
 
   layout 'public'
 

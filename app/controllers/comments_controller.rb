@@ -1,8 +1,8 @@
 class CommentsController < ApplicationController
 
-  administrative :except => [:create, :reply]
+  administrative except: [:create, :reply]
 
-  add_finder_by :id, :only => [:show, :edit, :update, :destroy, :reply]
+  find_record before: [:show, :edit, :update, :destroy, :reply]
 
   # GET /comments
   # GET /comments.json

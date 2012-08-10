@@ -1,10 +1,10 @@
 class LociController < ApplicationController
 
-  respond_to :json, :only => [:save_order]
+  respond_to :json, only: [:save_order]
 
   administrative
 
-  add_finder_by :slug, :only => [:show, :edit, :update, :destroy]
+  find_record by: :slug, before: [:show, :edit, :update, :destroy]
 
   # GET /locus
   def index

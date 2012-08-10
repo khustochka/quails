@@ -3,11 +3,11 @@ class ObservationsController < ApplicationController
   BULK_REQUIRED_KEYS = %w(locus_id observ_date mine)
   BULK_MEANINGFUL_KEYS = BULK_REQUIRED_KEYS + %w(species_id voice post_id)
 
-  respond_to :json, :only => [:search, :bulksave, :with_spots]
+  respond_to :json, only: [:search, :bulksave, :with_spots]
 
   administrative
 
-  add_finder_by :id, :only => [:edit, :update, :destroy]
+  find_record before: [:edit, :update, :destroy]
 
   after_filter :cache_expire, only: [:create, :update, :destroy, :bulksave]
 
