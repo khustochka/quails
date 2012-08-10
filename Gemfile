@@ -2,7 +2,7 @@ source :rubygems
 
 ruby '1.9.3'
 
-gem 'rails', '3.2.7'
+gem 'rails', '3.2.8'
 # gem 'rails', github: 'rails/rails'
 
 gem 'pg', :platforms => [:ruby, :mingw]
@@ -54,7 +54,7 @@ group :development do
 end
 
 # in dev group for generators
-gem 'factory_girl_rails', '~> 3.0', :groups => [:development, :test]
+gem 'factory_girl_rails', '~> 4.0', :groups => [:development, :test]
 
 group :test do
   gem 'test-unit'
