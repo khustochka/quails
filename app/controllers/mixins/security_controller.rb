@@ -32,7 +32,7 @@ module SecurityController
   private
   def current_user
     @current_user ||=
-        if authenticate_with_http_basic(&User.method(:check_credentials))
+        if User.free_access || authenticate_with_http_basic(&User.method(:check_credentials))
           Admin.new(cookies)
         else
           User.new(cookies)
