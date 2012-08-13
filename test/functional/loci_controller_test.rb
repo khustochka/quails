@@ -61,6 +61,14 @@ class LociControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "save order properly" do
+    new_list = %w(ukraine usa new_york)
+    login_as_admin
+    post :save_order, format: :json, order: new_list.map {|r| seed(r).id}
+    assert_response :success
+    expect(Locus.public.pluck(:slug)).to eq(new_list)
+  end
+
   # HTTP auth tests
 
   test 'protect index with HTTP authentication' do
