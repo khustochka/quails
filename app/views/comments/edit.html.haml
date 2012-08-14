@@ -7,5 +7,5 @@
 = render 'form'
 
 = link_to 'Show', @comment
-\|
-= link_to 'Back', comments_path
+= precede ' | ' do
+  = link_to 'Back', comments_path
