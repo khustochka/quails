@@ -1,4 +1,5 @@
-- @admin_menu = render 'admin/menu' if current_user.admin?
+- content_for(:admin_menu) do
+  = render 'admin/menu' if current_user.admin?
 
 #header
   = link_to_or_span('logo', root_path, :id => 'site_cap')
@@ -10,7 +11,7 @@
     %li= link_to_or_span t('.menu.lifelist'), lifelist_path
 
   - if current_user.admin?
-    = @admin_menu
+    = yield :admin_menu
   - elsif current_user.has_admin_cookie?
     %ul.admin_box
       %li= link_to 'Login', login_path

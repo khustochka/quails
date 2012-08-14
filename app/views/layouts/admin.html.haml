@@ -8,12 +8,9 @@
     -# encoding
     %meta{ :content => "text/html; charset=UTF-8", "http-equiv" => "content-type" }
 
-    -# robots
-
     -# csfr meta
     = csrf_meta_tags if @jquery
 
-    -# link tags
     -# stylesheets
     - if @minimal_layout
       = stylesheet_link_tag 'minimal'
@@ -21,8 +18,6 @@
       = stylesheet_link_tag 'admin'
 
     = render 'partials/css_and_js'
-
-    -# rss feeds - do I need them for admin layout?
 
     %title= page_title
 
@@ -33,7 +28,7 @@
       = render 'partials/header'
 
       .main
-        =yield
+        = yield
 
     %footer
-      = @admin_menu if current_user.admin?
+      = yield :admin_menu

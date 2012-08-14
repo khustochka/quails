@@ -31,8 +31,6 @@
 
     -# favicon (index only?)
 
-    %title= page_title
-
     -# stylesheets
     - if @minimal_layout
       = stylesheet_link_tag 'minimal'
@@ -41,6 +39,8 @@
     = stylesheet_link_tag 'mobile', :media => :handheld
 
     = render 'partials/css_and_js'
+
+    %title= page_title
 
     -# google analytics
 
@@ -51,6 +51,6 @@
       = render 'partials/header'
 
       .main
-        =yield
+        = yield
 
     = render 'partials/footer'
