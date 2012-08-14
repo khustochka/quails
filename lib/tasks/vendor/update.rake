@@ -13,6 +13,8 @@ namespace :vendor do
       system "curl http://code.jquery.com/jquery-#{JQUERY_VERSION}.js > vendor/assets/javascripts/jquery.js"
       puts "\n=== Getting latest JQuery-ujs ==="
       system "curl https://raw.github.com/rails/jquery-ujs/master/src/rails.js > vendor/assets/javascripts/jquery_ujs.js"
+      puts "\n=== Getting latest JQuery-pjax ==="
+      system "curl https://raw.github.com/defunkt/jquery-pjax/master/jquery.pjax.js > vendor/assets/javascripts/jquery_pjax.js"
       puts "\n=== Getting latest HTML5shiv for IE ==="
       system "curl http://html5shiv.googlecode.com/svn/trunk/html5.js > vendor/assets/javascripts/html5.js"
       puts "\n=== Getting latest Gmap3 ==="

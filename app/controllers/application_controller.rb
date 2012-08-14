@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
   include LocaleController
   include AdminController
   include PublicPathController
+  include Pjax
 
   extend RecordFinder
 
