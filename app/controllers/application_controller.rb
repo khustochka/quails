@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
 
   extend RecordFinder
 
-  layout 'public'
+  use_layout 'public'
 
   private
 
