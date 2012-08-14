@@ -1,7 +1,7 @@
-- @page_title = [t('date.month_names')[@month.to_i], link_to(@year, year_path(@year))].join(' ').html_safe
+- @page_title = [t('date.month_names')[@month.to_i], link_to(@year, year_path(@year))].join(' ')
 - @robots = 'NOINDEX, NOARCHIVE'
 
-%h1.over-header= @page_title
+%h1.over-header= page_header
 
 = render @posts
 

@@ -4,7 +4,7 @@
 - @page_title = "#{new_or_edit_label(@observation)} observation"
 - @blogpost = @observation.post
 
-%h1= @page_title
+%h1= page_header
 
 = render 'admin/shortcuts' if current_user.admin?
 

@@ -4,6 +4,10 @@ module ApplicationHelper
     strip_tags(@page_title) || default_page_title
   end
 
+  def page_header
+    @page_title.html_safe
+  end
+
   def default_page_title
     Rails.env.development? ? '!!! - Set the window caption / quails3' : request.host
   end
