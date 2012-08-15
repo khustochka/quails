@@ -9,6 +9,6 @@ $(function() {
     $('.main').on('pjax:start', showSpinner);
 
     function showSpinner() {
-      $("nav.pagination", this).append("<img src='/img/loading.gif'>");
+      $("nav.pagination", this).append("<img src='/img/loading_small.gif'>");
     }
 });
