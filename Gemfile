@@ -11,7 +11,7 @@ gem "activerecord-jdbcpostgresql-adapter", :platforms => :jruby
 
 group :production do
   gem 'thin', :require => false
-  gem 'eventmachine', '~> 1.0.0.rc', :require => false
+#  gem 'eventmachine', '~> 1.0.0.rc', :require => false
 end
 
 # Deploy with Capistrano
