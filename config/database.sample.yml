@@ -15,16 +15,15 @@ DEFAULT: &DEFAULT
   pool: 5
   username: quails
   password:
-
-development:
-  <<: *DEFAULT
-  database: quails_development
-
   # Connect on a TCP socket. Omitted by default since the client uses a
   # domain socket that doesn't need configuration. Windows does not have
   # domain sockets, so uncomment these lines.
   #host: localhost
   #port: 5432
+
+development:
+  <<: *DEFAULT
+  database: quails_development
 
   # Schema search path. The server defaults to $user,public
   #schema_search_path: myapp,sharedapp,public
