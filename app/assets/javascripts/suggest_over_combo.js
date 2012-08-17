@@ -12,7 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery-ui.custom.min
+//= require jquery-ui.custom
 
 (function( $ ) {
     $.widget( "ui.combobox", {
