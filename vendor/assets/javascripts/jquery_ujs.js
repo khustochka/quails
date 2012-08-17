@@ -48,7 +48,7 @@
   // Cut down on the number if issues from people inadvertently including jquery_ujs twice
   // by detecting and raising an error when it happens.
   var alreadyInitialized = function() {
-    var events = $(document).data('events');
+    var events = $._data(document, 'events');
     return events && events.click && $.grep(events.click, function(e) { return e.namespace === 'rails'; }).length;
   }
 
@@ -117,11 +117,12 @@
 
     // Submits "remote" forms and links with ajax
     handleRemote: function(element) {
-      var method, url, data, elCrossDomain, crossDomain, dataType, options;
+      var method, url, data, elCrossDomain, crossDomain, withCredentials, dataType, options;
 
       if (rails.fire(element, 'ajax:before')) {
         elCrossDomain = element.data('cross-domain');
         crossDomain = elCrossDomain === undefined ? null : elCrossDomain;
+        withCredentials = element.data('with-credentials') || null;
         dataType = element.data('type') || ($.ajaxSettings && $.ajaxSettings.dataType);
 
         if (element.is('form')) {
@@ -146,7 +147,7 @@
         }
 
         options = {
-          type: method || 'GET', data: data, dataType: dataType, crossDomain: crossDomain,
+          type: method || 'GET', data: data, dataType: dataType,
           // stopping the "ajax:beforeSend" event will cancel the ajax request
           beforeSend: function(xhr, settings) {
             if (settings.dataType === undefined) {
@@ -162,7 +163,11 @@
           },
           error: function(xhr, status, error) {
             element.trigger('ajax:error', [xhr, status, error]);
-          }
+          },
+          xhrFields: {
+            withCredentials: withCredentials
+          },
+          crossDomain: crossDomain
         };
         // Only pass url to `ajax` options if not blank
         if (url) { options.url = url; }
@@ -289,7 +294,7 @@
       element.data('ujs:enable-with', element.html()); // store enabled state
       element.html(element.data('disable-with')); // set to disabled state
       element.bind('click.railsDisable', function(e) { // prevent further clicking
-        return rails.stopEverything(e)
+        return rails.stopEverything(e);
       });
     },
 
@@ -323,7 +328,13 @@
       if (link.data('remote') !== undefined) {
         if ( (e.metaKey || e.ctrlKey) && (!method || method === 'GET') && !data ) { return true; }
 
-        if (rails.handleRemote(link) === false) { rails.enableElement(link); }
+        var handleRemote = rails.handleRemote(link);
+        // response from rails.handleRemote() will either be false or a deferred object promise.
+        if (handleRemote === false) {
+          rails.enableElement(link);
+        } else {
+          handleRemote.error( function() { rails.enableElement(link); } );
+        }
         return false;
 
       } else if (link.data('method')) {
