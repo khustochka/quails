@@ -14,7 +14,7 @@
 
   - @images.each do |image|
     %tr
-      %td.thumbnail= link_to image_tag(thumbnail_url(image)), public_image_path(image)
+      %td.thumbnail= link_to image_tag(jpg_url(image)), public_image_path(image)
       %td= link_to image.slug, edit_image_path(image)
       %td= image_title(image)
       %td.align-right= image.index_num
