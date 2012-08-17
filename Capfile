@@ -4,6 +4,8 @@ load 'deploy/assets'
 Dir['vendor/gems/*/recipes/*.rb', 'vendor/plugins/*/recipes/*.rb'].each { |plugin| load(plugin) }
 load 'config/deploy' # remove this line to skip loading any of the default tasks
 
+default_run_options[:pty] = true
+
 namespace :config do
 
   desc <<-DESC
@@ -40,7 +42,7 @@ namespace :config do
       [internal] Updates the symlink for database.yml file to the just deployed release.
   DESC
   task :symlink, :except => {:no_release => true} do
-    %w(database security).each do |aspect|
+    %w(database security local).each do |aspect|
       run "ln -nfs #{shared_path}/config/#{aspect}.yml #{release_path}/config/#{aspect}.yml"
     end
   end
@@ -63,7 +65,12 @@ namespace :deploy do
   end
 end
 
-default_run_options[:pty] = true
+namespace :db do
+  desc 'Restore the database from local backup'
+  task :restore, :roles => :db do
+    run %Q{cd #{latest_release} && #{rake} RAILS_ENV=#{rails_env} legacy:import }
+  end
+end
 
 namespace :deploy do
 
