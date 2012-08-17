@@ -23,7 +23,7 @@ Quails3::Application.routes.draw do
 
   # Constraint below is to differ paths like /species/Crex_crex/edit from /species/Crex_crex/photo-of-the-corncrake
   get '/species/:species/:id' => 'images#show', as: 'show_image', constraints: lambda { |r| r.url !~ /edit$/ }
-  get '/photostream' => 'images#photostream'
+  get '/photostream(/page/:page)' => 'images#photostream', as: 'photostream', page: /[^0]\d*/
 
   constraints year: /20\d\d/ do
     get '/:year' => 'blog#year', as: 'year'

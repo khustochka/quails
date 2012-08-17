@@ -15,6 +15,8 @@ class ImagesController < ApplicationController
 
   # GET /photostream
   def photostream
+    redirect_to page: nil if params[:page].to_i == 1
+    @robots = 'NOINDEX, NOARCHIVE' if params[:page]
     @images = Image.order('created_at DESC').page(params[:page]).per(20)
     @feed = 'photos'
   end
