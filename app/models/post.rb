@@ -37,6 +37,7 @@ class Post < ActiveRecord::Base
   # Scopes
 
   scope :public, where("status <> 'PRIV'")
+  scope :hidden, where(status: 'PRIV')
 
   def self.year(year)
     select('id, slug, title, face_date, status').where('EXTRACT(year from face_date) = ?', year).order('face_date ASC')

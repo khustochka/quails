@@ -15,7 +15,15 @@ class BlogControllerTest < ActionController::TestCase
     expect(assigns(:posts)).to include(blogpost1, blogpost2)
   end
 
-  test 'get index in Eglish' do
+  test 'do not show hidden posts on front page' do
+    blogpost1 = create(:post, face_date: '2007-12-06 13:14:15', status: 'PRIV')
+    blogpost2 = create(:post, face_date: '2008-11-06 13:14:15')
+    get :front_page
+    expect(assigns(:posts)).to include(blogpost2)
+    expect(assigns(:posts)).not_to include(blogpost1)
+  end
+
+  test 'get front page in Eglish' do
     blogpost1 = create(:post, face_date: '2007-12-06 13:14:15')
     blogpost2 = create(:post, face_date: '2008-11-06 13:14:15')
     create(:comment)

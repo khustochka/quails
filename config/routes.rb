@@ -20,7 +20,6 @@ Quails3::Application.routes.draw do
   root to: 'blog#front_page', as: 'blog'
 
   resources :species, only: [:index, :show]
-  resources :posts, except: [:index, :show]
 
   # Constraint below is to differ paths like /species/Crex_crex/edit from /species/Crex_crex/photo-of-the-corncrake
   get '/species/:species/:id' => 'images#show', as: 'show_image', constraints: lambda { |r| r.url !~ /edit$/ }
@@ -53,7 +52,10 @@ Quails3::Application.routes.draw do
 
 # ADMINISTRATIVE PAGES
 
-# scope 'admin' do
+  resources :posts, except: [:index, :show] do
+    get :hidden, on: :collection
+  end
+
   resources :observations do
     collection do
       get 'search', defaults: {format: :json}
@@ -77,7 +79,6 @@ Quails3::Application.routes.draw do
   resources :comments, except: :new do
     get :reply, on: :member
   end
-# end
 
   resource :map, only: [:show, :edit] do
     resources :spots, only: :index, defaults: {format: :json}

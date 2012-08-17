@@ -9,7 +9,7 @@ class BlogController < ApplicationController
   # GET /
   def front_page
     # Read the desired number of posts + 1
-    @posts = current_user.available_posts.order('face_date DESC').limit(POSTS_ON_FRONT_PAGE + 1).all
+    @posts = Post.public.order('face_date DESC').limit(POSTS_ON_FRONT_PAGE + 1).all
     if @posts.size > POSTS_ON_FRONT_PAGE
       post_1 = @posts.first.to_month_url
       post_last = @posts.last.to_month_url

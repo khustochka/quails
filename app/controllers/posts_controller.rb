@@ -1,10 +1,16 @@
 class PostsController < ApplicationController
 
-  administrative :except => [:show]
+  administrative except: [:show, :hidden]
 
   before_filter :find_post, only: [:edit, :update, :destroy, :show]
 
   after_filter :cache_expire, only: [:create, :update, :destroy]
+
+  # This is rendered in public layout, just raising exception when no posts are found (the case for regular user)
+  def hidden
+    @posts = current_user.available_posts.hidden.order('face_date DESC').page(params[:page]).per(20)
+    raise ActiveRecord::RecordNotFound if @posts.blank?
+  end
 
   # GET /posts/1
   def show

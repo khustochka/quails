@@ -125,4 +125,31 @@ class PostsControllerTest < ActionController::TestCase
     blogpost = create(:post)
     expect(public_post_path(blogpost, anchor: 'comments')).to eq(show_post_path(blogpost.to_url_params.merge({anchor: 'comments'})))
   end
+
+  test 'show draft posts page to admin' do
+    blogpost1 = create(:post, face_date: '2007-12-06 13:14:15', status: 'PRIV')
+    blogpost2 = create(:post, face_date: '2008-11-06 13:14:15')
+    login_as_admin
+    get :hidden
+    expect(assigns(:posts)).to include(blogpost1)
+    expect(assigns(:posts)).not_to include(blogpost2)
+  end
+
+  test 'show hidden post to admin' do
+    blogpost1 = create(:post, face_date: '2007-12-06 13:14:15', status: 'PRIV')
+    login_as_admin
+    get :show, blogpost1.to_url_params
+    assert_response :success
+  end
+
+  test 'do not show draft posts page to user' do
+    blogpost1 = create(:post, face_date: '2007-12-06 13:14:15', status: 'PRIV')
+    blogpost2 = create(:post, face_date: '2008-11-06 13:14:15')
+    expect { get :hidden }.to raise_error(ActiveRecord::RecordNotFound)
+  end
+
+  test 'do not show hidden post to user' do
+    blogpost1 = create(:post, face_date: '2007-12-06 13:14:15', status: 'PRIV')
+    expect { get :show, blogpost1.to_url_params }.to raise_error(ActiveRecord::RecordNotFound)
+  end
 end

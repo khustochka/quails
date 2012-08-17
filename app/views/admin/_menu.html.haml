@@ -8,6 +8,7 @@
 
 - unless @minimal_layout
   %ul.admin_box
+    %li= link_to_or_span 'Drafts', hidden_posts_path
     %li= link_to_or_span 'Images', images_path
     %li= link_to_or_span 'Comments', comments_path
     %li= link_to_or_span 'Locations', loci_path
