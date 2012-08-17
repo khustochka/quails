@@ -8,6 +8,9 @@
     -# encoding
     %meta{ :content => "text/html; charset=UTF-8", "http-equiv" => "content-type" }
 
+    -# mobile viewport
+    %meta{ name: 'viewport', content: 'width=device-width'}
+
     -# csfr meta
     = csrf_meta_tags if @jquery
 
