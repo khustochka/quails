@@ -8,7 +8,8 @@ module WikiHelper
   # for now, before release do transform first; i don't use textile markup on legacy site
   def wiki_filter(text)
     auto_link(
-        RedCloth.new(transform(text), [:no_span_caps]).to_html
+        RedCloth.new(transform(text), [:no_span_caps]).to_html,
+        sanitize: false
     ).html_safe
   end
 
