@@ -72,7 +72,7 @@ namespace :legacy do
     ydoc = dump1.merge(dump2)
 
 
-    ydoc.keys.each do |table_name|
+    ydoc.each_key do |table_name|
       data = ydoc[table_name]
       next unless data
 
