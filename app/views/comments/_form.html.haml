@@ -13,7 +13,7 @@
   = form.input :email
   = form.input :url
   = form.input :text, label: false
-  - if action_name.in? ['edit', 'update']
+  - if action_name.in? %w(edit update)
     = form.input :approved, label: 'Approved'
   .buttons
     = default_submit_button(form)

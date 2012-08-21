@@ -184,7 +184,7 @@ class ObservationsControllerTest < ActionController::TestCase
     assert_response :success
     assert_equal Mime::JSON, response.content_type
     result = JSON.parse(response.body)
-    expect(result.first.keys).to match_array(%w(id species_str when_where_str))
+    expect(result.first.keys).to match_array(%w{id species_str when_where_str})
   end
 
   test "properly find spots" do
