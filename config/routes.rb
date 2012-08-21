@@ -58,19 +58,20 @@ Quails3::Application.routes.draw do
 
   resources :observations do
     collection do
-      get 'search', defaults: {format: :json}
+      get 'search(/:with_spots)', defaults: {format: :json}, action: :search, with_spots: /with_spots/
       get 'add'
       get 'bulk'
       post 'bulksave', defaults: {format: :json}
-      get 'with_spots', defaults: {format: :json}
     end
   end
+
   resources :loci do
     collection do
       get :public
       post :save_order, defaults: {format: :json}
     end
   end
+
   resources :species, only: [:edit, :update]
   resources :images, except: :show do
     get 'observations', on: :member, defaults: {format: :json}

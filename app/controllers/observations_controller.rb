@@ -3,7 +3,7 @@ class ObservationsController < ApplicationController
   BULK_REQUIRED_KEYS = %w(locus_id observ_date mine)
   BULK_MEANINGFUL_KEYS = BULK_REQUIRED_KEYS + %w(species_id voice post_id)
 
-  respond_to :json, only: [:search, :bulksave, :with_spots]
+  respond_to :json, only: [:search, :bulksave]
 
   administrative
 
@@ -24,15 +24,6 @@ class ObservationsController < ApplicationController
     common = @observations.map(&:attributes).inject(&:&) || {}
     @common = common.slice(*BULK_MEANINGFUL_KEYS)
     @common = nil unless @common.values_at(*BULK_REQUIRED_KEYS).map(&:nil?).uniq == [false]
-  end
-
-  # GET /observations/search
-  def search
-    observs =
-        params[:q] && params[:q].values.uniq != [''] ?
-            Observation.search(params[:q]).preload(:locus, :species).limit(params[:limit]) :
-            []
-    respond_with(observs, :only => :id, :methods => [:species_str, :when_where_str])
   end
 
   # GET /observations/1
@@ -112,13 +103,19 @@ class ObservationsController < ApplicationController
     respond_with(obs_bunch, :location => observations_url, :only => :id)
   end
 
-  # GET "/observations/with_spots.json"
-  def with_spots
+  # GET /observations/search(/with_spots).json
+  def search
+    preload_tables = [:locus, :species]
+    json_methods = [:species_str, :when_where_str]
+    if params[:with_spots]
+      preload_tables << :spots
+      json_methods << :spots
+    end
     observs =
-        params[:q] && params[:q].values.uniq != [''] ?
-            Observation.search(params[:q]).preload(:locus, :species, :spots).order(:observ_date, :locus_id) :
+        params[:q] && params[:q].delete_if {|_, v| v.empty? }.present? ?
+            Observation.search(params[:q]).preload(preload_tables).order(:observ_date, :locus_id).limit(params[:limit]) :
             []
-    respond_with(observs, :only => :id, :methods => [:species_str, :when_where_str, :spots])
+    respond_with(observs, only: :id, methods: json_methods)
   end
 
   private

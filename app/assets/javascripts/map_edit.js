@@ -79,7 +79,7 @@ $(function () {
     var searchForm = $('form.search');
 
     /* Make search form remote */
-    searchForm.attr('action', "/observations/with_spots");
+    searchForm.attr('action', "/observations/search/with_spots");
     searchForm.data('remote', true);
 
     searchForm.on('ajax:beforeSend', function () {

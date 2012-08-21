@@ -180,11 +180,11 @@ class ObservationsControllerTest < ActionController::TestCase
   test 'return observation search results in json' do
     login_as_admin
     observation = create(:observation)
-    get :search, q: {}, format: :json
+    get :search, q: {species_id: observation.species_id.to_s}, format: :json
     assert_response :success
     assert_equal Mime::JSON, response.content_type
     result = JSON.parse(response.body)
-    expect(result.first.keys).to match_array(["id", "species_str", "when_where_str"])
+    expect(result.first.keys).to match_array(%w(id species_str when_where_str))
   end
 
   test "properly find spots" do
@@ -193,7 +193,7 @@ class ObservationsControllerTest < ActionController::TestCase
     create(:spot, observation: obs1)
     create(:spot, observation: obs2)
     login_as_admin
-    get :with_spots, format: :json, q: {observ_date: '2010-07-24'}
+    get :search, with_spots: :with_spots, format: :json, q: {observ_date: '2010-07-24'}
     assert_response :success
     assert_equal Mime::JSON, response.content_type
     result = JSON.parse(response.body)
