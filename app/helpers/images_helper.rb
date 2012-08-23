@@ -12,12 +12,12 @@ module ImagesHelper
   }
 
   def jpg_url(img)
-    (img.flickr_size.present? && img.flickr_data[img.flickr_size]) ||
+    (img.flickr_id.present? && img.flickr_data['Original']['source']) ||
         legacy_image_url("#{img.slug}.jpg")
   end
 
   def thumbnail_url(img)
-    (img.flickr_size.present? && img.flickr_data['t']) ||
+    (img.flickr_id.present? && img.flickr_data['Thumbnail']['source']) ||
         legacy_image_url("tn_#{img.slug}.jpg")
   end
 

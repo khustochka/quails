@@ -4,7 +4,7 @@ class ImagesController < ApplicationController
 
   administrative except: [:photostream, :show]
 
-  find_record by: :slug, before: [:show, :edit, :update, :destroy]
+  find_record by: :slug, before: [:show, :edit, :flickr_edit, :update, :destroy]
 
   after_filter :cache_expire, only: [:create, :update, :destroy]
 
@@ -40,6 +40,11 @@ class ImagesController < ApplicationController
     render 'form'
   end
 
+  # GET /images/1/flickr_edit
+  def flickr_edit
+    @extra_params = @image.to_url_params
+  end
+
   # POST /images
   def create
     @image = Image.new
@@ -54,11 +59,16 @@ class ImagesController < ApplicationController
   # PUT /images/1
   def update
     @extra_params = @image.to_url_params
-
-    if @image.update_with_observations(params[:image], params[:obs])
-      redirect_to(public_image_path(@image), :notice => 'Image was successfully updated.')
+    new_params = params[:image]
+    if new_params[:flickr_id]
+      @image.set_flickr_data(new_params)
+      redirect_to action: :flickr_edit
     else
-      render 'form'
+      if @image.update_with_observations(new_params, params[:obs])
+        redirect_to(public_image_path(@image), :notice => 'Image was successfully updated.')
+      else
+        render 'form'
+      end
     end
   end
 
@@ -76,10 +86,14 @@ class ImagesController < ApplicationController
 
   # GET /flickr_search
   def flickr_search
-    date_param = params[:flickr_date]
-    dates_params = date_param.present? ?
-        {min_taken_date: date_param - 1, max_taken_date: date_param + 1} :
-        {}
+    dates_params =
+        if params[:flickr_date].present?
+          date_param = Date.parse(params[:flickr_date])
+          {min_taken_date: date_param - 1, max_taken_date: date_param + 1}
+        else
+          {}
+        end
+
     result =
         params[:flickr_text].blank? ?
             [] :
@@ -89,7 +103,7 @@ class ImagesController < ApplicationController
                  text: params[:flickr_text]}.merge(dates_params)
             ).map(&:to_hash)
 
-    respond_with( result, only: %w(title datetaken url_s) )
+    respond_with(result, only: %w(id title datetaken url_s))
   end
 
   private

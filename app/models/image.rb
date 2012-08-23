@@ -7,7 +7,7 @@ class Image < ActiveRecord::Base
 
   delegate :observ_date, :locus, :to => :first_observation
 
-  serialize :flickr_data
+  serialize :flickr_data, Hash
 
   # Parameters
 
@@ -48,6 +48,18 @@ class Image < ActiveRecord::Base
             {:observ_date => Observation.select('MAX(observ_date) AS last_date').first.last_date} :
             {:observ_date => observ_date, :locus_id => locus.id}
     )
+  end
+
+  def set_flickr_data(parameters)
+    update_attributes(parameters)
+
+    sizes_array = flickr.photos.getSizes(photo_id: parameters[:flickr_id])
+
+    self.flickr_data = Hash[
+        sizes_array.map do |el|
+          [el['label'], el.to_hash.slice('width', 'height', 'source') ]
+        end
+         ]
   end
 
   # Saving with observation validation

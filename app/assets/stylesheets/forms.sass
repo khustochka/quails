@@ -146,30 +146,39 @@ form.observation
     background-color: #ffcccc
 
 // Images
-form.image
-  table
-    margin-left: 10px
-    td
-      padding: 0 10px
-      border: 1px solid #888
-    .observation_list, .observation_options
-      width: 362px
-      height: 268px
-      vertical-align: top
-      h5, a.restore
-        @include inline-block
-      a.restore
-        float: right
-        margin-top: 3px
-    .observation_search
-      text-align: right
-    .observation_search, .flickr_search
-      button
-        vertical-align: -19px
-        margin-left: 10px
-        width: 100px
-    ul.found-obs .remove
-      display: none
+table.with_search
+  margin-left: 10px
+  td
+    padding: 0 10px
+    border: 1px solid #888
+  .observation_list, .observation_options
+    width: 362px
+    height: 268px
+    vertical-align: top
+    h5, a.restore
+      @include inline-block
+    a.restore
+      float: right
+      margin-top: 3px
+  .observation_search
+    text-align: right
+  .observation_search, .flickr_search
+    button
+      vertical-align: -19px
+      margin-left: 10px
+      width: 100px
+  ul.found-obs .remove
+    display: none
+
+table.flickr_search_table
+  width: 1000px
+  td.found_pictures
+    height: 200px
+    img
+      border: 1px solid #aaaaaa
+      padding: 10px
+      margin:  10px
+      cursor: pointer
 
 ul.obs-list
   li

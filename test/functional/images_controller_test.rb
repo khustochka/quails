@@ -67,6 +67,12 @@ class ImagesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "get flickr_edit" do
+    login_as_admin
+    get :flickr_edit, id: @image.to_param
+    assert_response :success
+  end
+
   test "update image" do
     login_as_admin
     new_attr = @image.attributes
@@ -81,7 +87,7 @@ class ImagesControllerTest < ActionController::TestCase
     img = create(:image, observation_ids: [obs.id], spot: spot)
     obs2 = create(:observation)
     login_as_admin
-    put :update, id: img.to_param, obs: [obs2.id]
+    put :update, id: img.to_param, obs: [obs2.id], image: img.attributes
     img.reload
     expect(img.spot).to be_blank
   end

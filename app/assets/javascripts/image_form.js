@@ -70,10 +70,6 @@ $(function () {
         refreshObservList();
     }
 
-    $("#image_slug").keyup(function () {
-        $("img.image_pic").attr('src', $("img.image_pic").attr('src').replace(/\/tn_[^\.\/]*/, "/tn_" + $(this).val()));
-    });
-
     current_obs.on('click', '.remove', function () {
         $(this).closest('li').remove();
         refreshObservList();
@@ -131,25 +127,8 @@ $(function () {
 
     $('form.image').submit(function () {
         $('.observation_search').empty();
-        $('.flickr_search').empty();
         found_obs.empty();
     });
-
-    // Flickr functions
-
-    function searchOnFlickr() {
-        //found_obs.empty();
-        //$('.observation_options').addClass('loading');
-        var data = $(".flickr_search :input").serializeArray();
-        $.get("/images/flickr_search", data, function (data) {
-            $(data).each(function () {
-                $("<img>", { "src":this.url_s }).appendTo('.flickr_search');
-            });
-        });
-    }
-
-    // Search button click
-    $('.flickr_search_btn').click(searchOnFlickr);
 
     // Init
 

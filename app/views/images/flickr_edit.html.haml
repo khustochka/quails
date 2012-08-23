@@ -1,0 +1,42 @@
+- stylesheet 'forms'
+- javascript 'image_flickr'
+
+- @page_title = "Edit: #{@image.slug}"
+
+%h1= page_header
+
+%ul.horiz-list
+  %li= link_to('Show', @extra_params.merge(action: :show))
+  %li= link_to('Edit', action: :edit)
+
+%p
+  - if @image.flickr_id.present?
+    This image is linked to flickr photo:
+    = @image.flickr_data['Original']['source']
+  - else
+    This image is not linked to flickr photo. Legacy picture:
+
+%p= image_tag(jpg_url(@image))
+
+- if FlickRaw.api_key.nil? or FlickRaw.shared_secret.nil?
+  %div.errors No Flickr API key or secret defined!
+- else
+  %h3 Find a picture:
+
+  %table.with_search.flickr_search_table.with_search
+    %tr
+      %td
+        = simple_form_for @image, html: {class: 'flickr_edit'} do |form|
+          = form.input :flickr_size, as: :select,
+                collection: ImagesHelper::FLICKR_SIZES, input_html: {size: '8'}, include_blank: false, default: 'o'
+          = form.input :flickr_id, as: :hidden
+      %td.flickr_search
+        %div.input.string
+          %label.string Text:
+          %input.string#flickr_text{name: 'flickr_text', type: 'text', value: @image.species.map(&:name_sci).join(' ')}
+        %div.input.string
+          %label.string Date:
+          %input.string.short#flickr_date{name: 'flickr_date', maxlength: '10', type: 'date', value: @image.observ_date}
+        %button.flickr_search_btn{type: 'button'} Search
+    %tr
+      %td.found_pictures{colspan: 2}

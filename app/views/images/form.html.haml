@@ -8,6 +8,18 @@
 
 = render 'admin/shortcuts' if current_user.admin?
 
+- if @image.persisted?
+
+  %p
+    - if @image.flickr_id.present?
+      This image is linked to flickr photo.
+    - else
+      This image is not linked to flickr photo.
+
+    = link_to('Edit flickr data', action: :flickr_edit)
+
+  %p= image_tag(thumbnail_url(@image), class: 'image_pic')
+
 = simple_form_for @image, html: {class: 'image'} do |form|
 
   - if @image.errors.any?
@@ -19,9 +31,7 @@
     = form.input :slug
     = form.input :title
 
-  %p= image_tag(thumbnail_url(@image), class: 'image_pic')
-
-  %table
+  %table.with_search
     %tr
       %td.observation_search{colspan: 2}
         = simple_fields_for @image.search_applicable_observations do |form2|
@@ -44,22 +54,6 @@
       %td.observation_options
         %h5 Found observations
         %ul.obs-list.found-obs
-
-  %h3 Flickr
-  %table
-    %tr
-      %td
-        = form.input :flickr_size, as: :select,
-              collection: ImagesHelper::FLICKR_SIZES, input_html: {size: '8'}, include_blank: false
-        = form.input :flickr_id, as: :hidden
-      %td.flickr_search
-        %div.input.string
-          %label.string Text:
-          %input.string#flickr_text{name: 'flickr_text', type: 'text'}
-        %div.input.string
-          %label.string Date:
-          %input.string.short#flickr_date{name: 'flickr_date', maxlength: '10', type: 'date'}
-        %button.flickr_search_btn{type: 'button'} Search
 
   %div
     = form.input :description
