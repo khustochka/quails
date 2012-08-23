@@ -51,15 +51,13 @@ class Image < ActiveRecord::Base
   end
 
   def set_flickr_data(parameters)
-    update_attributes(parameters)
-
     sizes_array = flickr.photos.getSizes(photo_id: parameters[:flickr_id])
-
     self.flickr_data = Hash[
         sizes_array.map do |el|
           [el['label'], el.to_hash.slice('width', 'height', 'source') ]
         end
          ]
+    update_attributes(parameters)
   end
 
   # Saving with observation validation
