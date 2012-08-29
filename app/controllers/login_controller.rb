@@ -6,7 +6,7 @@ class LoginController < ApplicationController
 
   def login
     current_user.set_admin_cookie
-    redirect_to root_url, :status => 303
+    redirect_to request.referrer || root_url, :status => 303
   end
 
 end
