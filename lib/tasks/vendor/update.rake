@@ -8,7 +8,7 @@ namespace :vendor do
 
     #desc 'Update Javascripts'
     task :javascripts do
-      JQUERY_VERSION = '1.8.0'
+      JQUERY_VERSION = '1.8.1'
       puts "\n=== Getting JQuery #{JQUERY_VERSION} ==="
       system "curl http://code.jquery.com/jquery-#{JQUERY_VERSION}.js > vendor/assets/javascripts/jquery.js"
       puts "\n=== Getting latest JQuery-ujs ==="
