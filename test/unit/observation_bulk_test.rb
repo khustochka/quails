@@ -12,7 +12,7 @@ class ObservationBulkTest < ActiveSupport::TestCase
     assert_difference('Observation.count', 3) do
       bulk.save
     end
-    expect(bulk.errors).to be_blank
+    assert bulk.errors.blank?, "Should be no errors"
   end
 
   test 'observation bulk save returns error if no observations provided' do
@@ -22,7 +22,7 @@ class ObservationBulkTest < ActiveSupport::TestCase
     assert_difference('Observation.count', 0) do
       bulk.save
     end
-    expect(bulk.errors).not_to be_blank
+    assert_present bulk.errors
   end
 
   test 'Observations bulk save combines errors for incorrect common parameters and zero observations' do
@@ -31,9 +31,9 @@ class ObservationBulkTest < ActiveSupport::TestCase
       bulk.save
     end
     err = bulk.errors
-    expect(err["observ_date"]).to eq(["can't be blank"])
-    expect(err["locus_id"]).to eq(["can't be blank"])
-    expect(err["base"]).to eq(["provide at least one observation"])
+    assert_equal ["can't be blank"], err["observ_date"]
+    assert_equal ["can't be blank"], err["locus_id"]
+    assert_equal ["provide at least one observation"], err["base"]
   end
 
   test 'Observations bulk save does not save the bunch if any observation is wrong' do
@@ -42,9 +42,9 @@ class ObservationBulkTest < ActiveSupport::TestCase
                                 o: [{species_id: ''}, {species_id: 2}]
                                })
     assert_difference('Observation.count', 0) do
-      expect(bulk.save).to be_false
+      assert_equal false, bulk.save
     end
-    expect(bulk.errors).not_to be_blank
+    assert_present bulk.errors
   end
 
   test 'Observations bulk save updates observations if id is specified' do
@@ -56,10 +56,10 @@ class ObservationBulkTest < ActiveSupport::TestCase
                                        {id: obs2.id, notes: 'Voices'}]
                                })
     assert_difference('Observation.count', 0) do
-      expect(bulk.save).to be_true
+      assert bulk.save
     end
-    expect(obs1.reload.species.code).to eq('cornix')
-    expect(obs2.reload.notes).to eq('Voices')
+    assert_equal 'cornix', obs1.reload.species.code
+    assert_equal 'Voices', obs2.reload.notes
   end
 
   test 'Observations bulk save both saves new and updates existing' do
@@ -70,10 +70,10 @@ class ObservationBulkTest < ActiveSupport::TestCase
                                        {id: obs1.id, notes: 'Voices', biotope: 'city'}]
                                })
     assert_difference('Observation.count', 1) do
-      expect(bulk.save).to be_true
+      assert bulk.save
     end
-    expect(bulk[0].species.code).to eq('cornix')
-    expect(bulk[1].notes).to eq('Voices')
+    assert_equal 'cornix', bulk[0].species.code
+    assert_equal 'Voices', bulk[1].notes
   end
 
   test 'Observations bulk save does not save post for invalid bulk' do
@@ -87,8 +87,8 @@ class ObservationBulkTest < ActiveSupport::TestCase
                                 o: [{id: obs1.id},
                                        {id: obs2.id, species_id: nil}]
                                })
-    expect(bulk.save).to be_false
-    expect(obs1.reload.post).to be_nil
+    assert_equal false, bulk.save
+    assert_equal nil, obs1.reload.post
   end
 
   test 'Observations bulk save saves post for valid bulk' do
@@ -102,8 +102,8 @@ class ObservationBulkTest < ActiveSupport::TestCase
                                 o: [{id: obs1.id},
                                        {id: obs2.id}]
                                })
-    expect(bulk.save).to be_true
-    expect(obs1.reload.post).not_to be_nil
+    assert bulk.save
+    assert_not_nil obs1.reload.post
   end
 
 end

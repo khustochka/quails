@@ -48,7 +48,7 @@ class FeedsControllerTest < ActionController::TestCase
     get :sitemap, format: :xml
     assert_response :success
     assert_equal Mime::XML, response.content_type
-    expect(assigns(:posts).size).to eq(2)
+    assert_equal 2, assigns(:posts).size
   end
 
 end

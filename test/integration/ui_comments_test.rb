@@ -16,9 +16,9 @@ class UICommentsTest < ActionDispatch::IntegrationTest
       click_button("save_button")
     end
 
-    expect(current_path).to eq(show_post_path(blogpost.to_url_params))
-    expect(page).to have_content("Vasya")
-    expect(comment.subcomments.size).to eq(1)
+    assert_equal show_post_path(blogpost.to_url_params), current_path
+    assert page.has_content?("Vasya")
+    assert_equal 1, comment.subcomments.size
   end
 
 end

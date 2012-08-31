@@ -8,18 +8,18 @@ class PostTest < ActiveSupport::TestCase
 
   test 'do not save post with empty slug' do
     blogpost = build(:post, slug: '')
-    expect { blogpost.save! }.to raise_error(ActiveRecord::RecordInvalid)
+    assert_raise(ActiveRecord::RecordInvalid) { blogpost.save! }
   end
 
   test 'do not save post with existing slug' do
     create(:post, slug: 'kiev-observations')
     blogpost = build(:post, slug: 'kiev-observations')
-    expect { blogpost.save! }.to raise_error(ActiveRecord::RecordInvalid)
+    assert_raise(ActiveRecord::RecordInvalid) { blogpost.save! }
   end
 
   test 'do not save post with empty title' do
     blogpost = build(:post, title: '')
-    expect { blogpost.save! }.to raise_error(ActiveRecord::RecordInvalid)
+    assert_raise(ActiveRecord::RecordInvalid) { blogpost.save! }
   end
 
   test "set post's face_date to current (equal to updated_at) when creating" do
@@ -39,18 +39,18 @@ class PostTest < ActiveSupport::TestCase
     blogpost2 = create(:post, face_date: '2009-11-06 13:14:15')
     blogpost3 = create(:post, face_date: '2009-10-06 13:14:15')
     assert_nil Post.prev_month('2009', '10')
-    expect(Post.prev_month('2009', '12')).to eq({month: '11', year: '2009'})
-    expect(Post.prev_month('2010', '01')).to eq({month: '11', year: '2009'})
-    expect(Post.prev_month('2010', '02')).to eq({month: '11', year: '2009'})
+    assert_equal({month: '11', year: '2009'}, Post.prev_month('2009', '12'))
+    assert_equal({month: '11', year: '2009'}, Post.prev_month('2010', '01'))
+    assert_equal({month: '11', year: '2009'}, Post.prev_month('2010', '02'))
   end
 
   test 'calculate next month correctly (one having posts) even for month with no posts' do
     blogpost1 = create(:post, face_date: '2010-02-06 13:14:15')
     blogpost2 = create(:post, face_date: '2009-11-06 13:14:15')
     blogpost1 = create(:post, face_date: '2010-03-06 13:14:15')
-    expect(Post.next_month('2009', '11')).to eq({month: '02', year: '2010'})
-    expect(Post.next_month('2009', '12')).to eq({month: '02', year: '2010'})
-    expect(Post.next_month('2010', '01')).to eq({month: '02', year: '2010'})
+    assert_equal({month: '02', year: '2010'}, Post.next_month('2009', '11'))
+    assert_equal({month: '02', year: '2010'}, Post.next_month('2009', '12'))
+    assert_equal({month: '02', year: '2010'}, Post.next_month('2010', '01'))
     assert_nil Post.next_month('2010', '03')
   end
 
@@ -65,8 +65,8 @@ class PostTest < ActiveSupport::TestCase
 
   test 'face date is treated as timezone-less' do
     blogpost = create(:post, face_date: '2013-01-01 00:30:00') # risky time (different days in GMT and EEST)
-    expect(Post.year(2013).pluck(:id)).to include(blogpost.id)
-    expect(Post.year(2012).pluck(:id)).not_to include(blogpost.id)
+    assert Post.year(2013).pluck(:id).include?(blogpost.id)
+    assert_equal false, Post.year(2012).pluck(:id).include?(blogpost.id)
   end
 
   test 'calculate next and previous months correctly (last day in mind)' do
@@ -74,8 +74,8 @@ class PostTest < ActiveSupport::TestCase
     create(:post, face_date: '2011-01-31 23:53:00') # last day and risky time
     create(:post, face_date: '2011-02-01 00:30:00') # risky time (different days in GMT and EEST)
     create(:post, face_date: '2011-02-15 12:53:00')
-    expect(Post.next_month('2011', '01')).to eq({month: '02', year: '2011'})
-    expect(Post.prev_month('2011', '02')).to eq({month: '01', year: '2011'})
+    assert_equal({month: '02', year: '2011'}, Post.next_month('2011', '01'))
+    assert_equal({month: '01', year: '2011'}, Post.prev_month('2011', '02'))
   end
 
 end

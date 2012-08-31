@@ -8,12 +8,12 @@ class LocusTest < ActiveSupport::TestCase
 
   test 'do not save locus with empty slug' do
     loc = build(:locus, slug: '')
-    expect { loc.save! }.to raise_error(ActiveRecord::RecordInvalid)
+    assert_raise(ActiveRecord::RecordInvalid) { loc.save! }
   end
 
   test 'do not save locus with existing slug' do
     loc = build(:locus, slug: 'kiev')
-    expect { loc.save! }.to raise_error(ActiveRecord::RecordInvalid)
+    assert_raise(ActiveRecord::RecordInvalid) { loc.save! }
   end
 
   test 'properly find all locus subregions' do
@@ -27,14 +27,14 @@ class LocusTest < ActiveSupport::TestCase
 
   test 'do not destroy locus if it has child locations' do
     loc = seed(:ukraine)
-    expect { loc.destroy }.to raise_error(ActiveRecord::DeleteRestrictionError)
+    assert_raise(ActiveRecord::DeleteRestrictionError) { loc.destroy }
     assert loc
   end
 
   test 'do not destroy locus if it has associated observations' do
     loc = seed(:kiev)
     observation = create(:observation, locus: loc)
-    expect { loc.destroy }.to raise_error(ActiveRecord::DeleteRestrictionError)
+    assert_raise(ActiveRecord::DeleteRestrictionError) { loc.destroy }
     assert observation.reload
     assert_equal loc, observation.locus
   end

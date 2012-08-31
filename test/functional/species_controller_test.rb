@@ -21,7 +21,7 @@ class SpeciesControllerTest < ActionController::TestCase
 
     get :index
     assert_response :success
-    expect(assigns(:species).last).to eq(sp1)
+    assert_equal sp1, assigns(:species).last
   end
 
   test "show species" do
@@ -66,14 +66,14 @@ class SpeciesControllerTest < ActionController::TestCase
 
   test 'protect edit with HTTP authentication' do
     species = seed(:melgal)
-    expect { get :edit, id: species.to_param }.to raise_error(ActionController::RoutingError)
+    assert_raise(ActionController::RoutingError) { get :edit, id: species.to_param }
     #assert_response 404
   end
 
   test 'protect update with HTTP authentication' do
     species = seed(:corbra)
     species.name_ru = 'Американская ворона'
-    expect { put :update, id: species.to_param, species: species.attributes }.to raise_error(ActionController::RoutingError)
+    assert_raise(ActionController::RoutingError) { put :update, id: species.to_param, species: species.attributes }
     #assert_response 404
   end
 end

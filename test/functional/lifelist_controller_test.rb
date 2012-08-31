@@ -47,7 +47,7 @@ class LifelistControllerTest < ActionController::TestCase
     get :default, year: 2009
     assert_response :success
     lifers = assigns(:lifelist)
-    expect(lifers.map { |s| s.first_seen_date.year }.uniq).to eq([2009])
+    assert_equal [2009], lifers.map { |s| s.first_seen_date.year }.uniq
     assert_select '.main' do
       assert_select 'h5', false # should not show "First time seen in..."
       assert_select "a[href=#{lifelist_path(year: 2009)}]", false
@@ -59,7 +59,7 @@ class LifelistControllerTest < ActionController::TestCase
     get :default, sort: 'by_taxonomy', year: 2009
     assert_response :success
     lifers = assigns(:lifelist)
-    expect(lifers.map { |s| s.first_seen_date.year }.uniq).to eq([2009])
+    assert_equal [2009], lifers.map { |s| s.first_seen_date.year }.uniq
     assert_select '.main' do
       assert_select 'h5' # should show order/family headings
       assert_select "a[href=#{lifelist_path(year: 2009)}]"
@@ -80,25 +80,25 @@ class LifelistControllerTest < ActionController::TestCase
     get :advanced, locus: 'usa'
     assert_response :success
     lifers = assigns(:lifelist)
-    expect(lifers.size).to eq(3)
+    assert_equal 3, lifers.size
   end
 
   test "show lifelist filtered by year and location" do
     get :advanced, locus: 'usa', year: 2009
     assert_response :success
     lifers = assigns(:lifelist)
-    expect(lifers.size).to eq(1)
-    expect(lifers.map { |s| s.first_seen_date.year }.uniq).to eq([2009])
+    assert_equal 1, lifers.size
+    assert_equal [2009], lifers.map { |s| s.first_seen_date.year }.uniq
   end
 
   test "show lifelist filtered by super location" do
     get :default, locus: 'ukraine'
     lifers = assigns(:lifelist)
-    expect(lifers.size).to eq(2)
+    assert_equal 2, lifers.size
   end
 
   test "not allowed locus fails" do
-    expect { get :default, locus: 'sumy_obl' }.to raise_error(ActiveRecord::RecordNotFound)
+    assert_raise(ActiveRecord::RecordNotFound) { get :default, locus: 'sumy_obl' }
     # assert_response :not_found
   end
 

@@ -12,10 +12,10 @@ class UIImagesTest < ActionDispatch::IntegrationTest
     login_as_admin
     visit edit_image_path(img)
 
-    expect(lambda { submit_form_with('Save') }).not_to change(Image, :count)
-    expect(current_path).to eq(show_image_path(img.to_url_params))
+    assert_difference('Image.count', 0) { submit_form_with('Save') }
+    assert_equal show_image_path(img.to_url_params), current_path
     img.reload
-    expect(img.observations.size).to eq(2)
+    assert_equal 2, img.observations.size
   end
 
   # NO JavaScript test
@@ -30,11 +30,11 @@ class UIImagesTest < ActionDispatch::IntegrationTest
     fill_in('Slug', with: 'test-img-capybara')
     fill_in('Title', with: 'Capybara test image')
 
-    expect(lambda { submit_form_with('Save') }).not_to change(Image, :count)
+    assert_difference('Image.count', 0) { submit_form_with('Save') }
     img.reload
-    expect(current_path).to eq(show_image_path(img.to_url_params))
-    expect(img.observations.size).to eq(2)
-    expect(img.slug).to eq('test-img-capybara')
+    assert_equal show_image_path(img.to_url_params), current_path
+    assert_equal 2, img.observations.size
+    assert_equal 'test-img-capybara', img.slug
   end
 
   test "Adding new image" do
@@ -53,9 +53,9 @@ class UIImagesTest < ActionDispatch::IntegrationTest
 
     find(:xpath, "//ul[contains(@class,'found-obs')]/li[1]").drag_to find('.observation_list')
 
-    expect(lambda { submit_form_with('Save') }).to change(Image, :count).by(1)
+    assert_difference('Image.count', 1) { submit_form_with('Save') }
     img = Image.find_by_slug('test-img-capybara')
-    expect(current_path).to eq(show_image_path(img.to_url_params))
+    assert_equal show_image_path(img.to_url_params), current_path
   end
 
   test "Image save does not use all found observations" do
@@ -73,10 +73,10 @@ class UIImagesTest < ActionDispatch::IntegrationTest
 
     find(:xpath, "//ul[contains(@class,'found-obs')]/li[div[contains(text(),'Mergus serrator')]]").drag_to find('.observation_list')
 
-    expect(lambda { submit_form_with('Save') }).to change(Image, :count).by(1)
+    assert_difference('Image.count', 1) { submit_form_with('Save') }
     img = Image.find_by_slug('test-img-capybara')
 
-    expect(img.species.map(&:name_sci)).to eq(['Mergus serrator'])
+    assert_equal ['Mergus serrator'], img.species.map(&:name_sci)
   end
 
   test "Remove an observation from image" do
@@ -92,7 +92,7 @@ class UIImagesTest < ActionDispatch::IntegrationTest
 
     click_button('Save')
     img.reload
-    expect(img.observations.size).to eq(2)
+    assert_equal 2, img.observations.size
   end
 
   test "Restore original observations if deleted" do
@@ -104,11 +104,11 @@ class UIImagesTest < ActionDispatch::IntegrationTest
     within(:xpath, "//ul[contains(@class,'current-obs')]/li[1]") do
       find('.remove').click
     end
-    expect(all('.current-obs li').size).to eq(1)
+    assert_equal 1, all('.current-obs li').size
 
     click_link('Restore original')
 
-    expect(all('.current-obs li').size).to eq(2)
+    assert_equal 2, all('.current-obs li').size
   end
 
 end

@@ -11,15 +11,15 @@ class ObservationTest < ActiveSupport::TestCase
 
   test 'do not destroy observation if having associated images' do
     img = create(:image, observations: [@observation])
-    expect { @observation.destroy }.to raise_error(ActiveRecord::DeleteRestrictionError)
+    assert_raise(ActiveRecord::DeleteRestrictionError) { @observation.destroy }
     assert @observation.reload
     assert_equal [img], @observation.images
   end
 
   test 'search mine: false is different from mine: nil' do
     ob2 = create(:observation, mine: false)
-    expect(Observation.search(mine: '')).to eq(Observation.search(mine: nil))
-    expect(Observation.search(mine: false)).to eq([ob2])
+    assert_equal Observation.search(mine: nil), Observation.search(mine: '')
+    assert_equal [ob2], Observation.search(mine: false)
   end
 
 end

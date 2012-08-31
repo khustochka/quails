@@ -23,14 +23,15 @@ class LifelistAdvancedTest < ActiveSupport::TestCase
 
   test 'Advanced lifelist results each have first, last seen date, and count' do
     sp = Lifelist.advanced.first
-    expect(sp.first_seen_date).not_to be_nil
-    expect(sp.last_seen_date).not_to be_nil
-    expect(sp.count).not_to be_nil
+    assert_not_nil sp.first_seen_date
+    assert_not_nil sp.last_seen_date
+    assert_not_nil sp.count
   end
 
   test 'Advanced lifelist by last date properly sorts the list' do
-    expect(Lifelist.advanced.sort('last').map { |s| [s.code, s.last_seen] }).to eq \
-        [["carlis", "2010-10-13"], ["pasdom", "2010-09-10"], ["colliv", "2010-07-27"], ["parmaj", "2009-12-31"], ["merser", "2008-10-18"]]
+    expected = [["carlis", "2010-10-13"], ["pasdom", "2010-09-10"], ["colliv", "2010-07-27"], ["parmaj", "2009-12-31"], ["merser", "2008-10-18"]]
+    actual = Lifelist.advanced.sort('last').map { |s| [s.code, s.last_seen] }
+    assert_equal expected, actual
   end
 
 end

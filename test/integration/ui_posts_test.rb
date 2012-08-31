@@ -15,7 +15,7 @@ class UIPostsTest < ActionDispatch::IntegrationTest
     select('OBSR', from: 'Topic')
     click_button('Save')
     blogpost = Post.find_by_slug('new-post')
-    expect(current_path).to eq(show_post_path(blogpost.to_url_params))
+    assert_equal show_post_path(blogpost.to_url_params), current_path
   end
 
   test "Editing post" do
@@ -28,7 +28,7 @@ class UIPostsTest < ActionDispatch::IntegrationTest
     fill_in('Post date', with: '2009-07-27')
     click_button('Save')
     blogpost = Post.find_by_slug('changed-post')
-    expect(current_path).to eq(show_post_path(blogpost.to_url_params))
+    assert_equal show_post_path(blogpost.to_url_params), current_path
   end
 
   test "Navigation via Edit this and Show this links" do
@@ -36,9 +36,9 @@ class UIPostsTest < ActionDispatch::IntegrationTest
     login_as_admin
     visit show_post_path(blogpost.to_url_params)
     click_link('Edit this one')
-    expect(current_path).to eq(edit_post_path(blogpost))
+    assert_equal edit_post_path(blogpost), current_path
     click_link('Show this one')
-    expect(current_path).to eq(show_post_path(blogpost.to_url_params))
+    assert_equal show_post_path(blogpost.to_url_params), current_path
   end
 
   test "Add comment to post" do
@@ -50,7 +50,7 @@ class UIPostsTest < ActionDispatch::IntegrationTest
     end
     click_button("save_button")
 
-    expect(page).to have_content("Vasya")
+    assert page.has_content?("Vasya")
 
   end
 
@@ -65,9 +65,9 @@ class UIPostsTest < ActionDispatch::IntegrationTest
     end
     click_button("save_button")
 
-    expect(current_path).to eq(show_post_path(blogpost.to_url_params))
-    expect(page).to have_content("Vasya")
-    expect(comment.subcomments.size).to eq(1)
+    assert_equal show_post_path(blogpost.to_url_params), current_path
+    assert page.has_content?("Vasya")
+    assert_equal 1, comment.subcomments.size
   end
 
   test "Try to post invalid comment (no JS)" do
@@ -79,9 +79,9 @@ class UIPostsTest < ActionDispatch::IntegrationTest
     end
     click_button("save_button")
 
-    expect(current_path).to eq(comments_path)
+    assert_equal comments_path, current_path
     # TODO: remove strip when https://github.com/jnicklas/capybara/issues/677 is fixed
-    expect(find('#comment_text').text.lstrip).to eq('Some text')
+    assert_equal 'Some text', find('#comment_text').text.lstrip
   end
 
   test "Try to post invalid reply to comment (no JS)" do
@@ -95,9 +95,9 @@ class UIPostsTest < ActionDispatch::IntegrationTest
     end
     click_button("save_button")
 
-    expect(current_path).to eq(comments_path)
+    assert_equal comments_path, current_path
     # TODO: remove strip when https://github.com/jnicklas/capybara/issues/677 is fixed
-    expect(find('#comment_text').text.lstrip).to eq('Some text')
+    assert_equal 'Some text', find('#comment_text').text.lstrip
   end
 
 end

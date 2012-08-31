@@ -13,7 +13,7 @@ class ObservationsControllerTest < ActionController::TestCase
     login_as_admin
     get :index
     assert_response :success
-    expect(assigns(:observations)).not_to be_blank
+    assert_present assigns(:observations)
   end
 
   test "get index (search)" do
@@ -25,7 +25,7 @@ class ObservationsControllerTest < ActionController::TestCase
     login_as_admin
     get :index, q: {locus_id: seed(:brovary).id}
     assert_response :success
-    expect(assigns(:observations).size).to eq(3)
+    assert_equal 3, assigns(:observations).size
   end
 
   test "get index sorted by species order" do
@@ -70,7 +70,7 @@ class ObservationsControllerTest < ActionController::TestCase
     login_as_admin
     get :bulk, observ_date: "2010-06-18", locus_id: seed(:brovary).id, mine: true
     assert_response :success
-    expect(assigns(:observations).size).to eq(2)
+    assert_equal 2, assigns(:observations).size
   end
 
   test "get bulk missing parameters" do
@@ -128,52 +128,52 @@ class ObservationsControllerTest < ActionController::TestCase
   # HTTP auth tests
 
   test 'protect index with HTTP authentication' do
-    expect { get :index }.to raise_error(ActionController::RoutingError)
+    assert_raise(ActionController::RoutingError) { get :index }
     #assert_response 404
   end
 
   test 'protect show with HTTP authentication' do
     observation = create(:observation)
-    expect { get :show, id: observation.to_param }.to raise_error(ActionController::RoutingError)
+    assert_raise(ActionController::RoutingError) { get :show, id: observation.to_param }
     #assert_response 404
   end
 
   test 'protect new with HTTP authentication' do
-    expect { get :new }.to raise_error(ActionController::RoutingError)
+    assert_raise(ActionController::RoutingError) { get :new }
     #assert_response 404
   end
 
   test 'protect add with HTTP authentication' do
-    expect { get :add }.to raise_error(ActionController::RoutingError)
+    assert_raise(ActionController::RoutingError) { get :add }
     #assert_response 404
   end
 
   test 'protect bulk with HTTP authentication' do
-    expect { get :bulk }.to raise_error(ActionController::RoutingError)
+    assert_raise(ActionController::RoutingError) { get :bulk }
     #assert_response 404
   end
 
   test 'protect edit with HTTP authentication' do
     observation = create(:observation)
-    expect { get :edit, id: observation.to_param }.to raise_error(ActionController::RoutingError)
+    assert_raise(ActionController::RoutingError) { get :edit, id: observation.to_param }
     #assert_response 404
   end
 
   test 'protect create with HTTP authentication' do
-    expect { post :create, observation: build(:observation).attributes }.to raise_error(ActionController::RoutingError)
+    assert_raise(ActionController::RoutingError) { post :create, observation: build(:observation).attributes }
     #assert_response 404
   end
 
   test 'protect update with HTTP authentication' do
     observation = create(:observation)
     observation.observ_date = '2010-11-07'
-    expect { put :update, id: observation.to_param, observation: observation.attributes }.to raise_error(ActionController::RoutingError)
+    assert_raise(ActionController::RoutingError) { put :update, id: observation.to_param, observation: observation.attributes }
     #assert_response 404
   end
 
   test 'protect destroy with HTTP authentication' do
     observation = create(:observation)
-    expect { delete :destroy, id: observation.to_param }.to raise_error(ActionController::RoutingError)
+    assert_raise(ActionController::RoutingError) { delete :destroy, id: observation.to_param }
     #assert_response 404
   end
 
@@ -184,7 +184,7 @@ class ObservationsControllerTest < ActionController::TestCase
     assert_response :success
     assert_equal Mime::JSON, response.content_type
     result = JSON.parse(response.body)
-    expect(result.first.keys).to match_array(%w{id species_str when_where_str})
+    result.first.assert_valid_keys('id', 'species_str', 'when_where_str')
   end
 
   test "properly find spots" do
@@ -197,8 +197,8 @@ class ObservationsControllerTest < ActionController::TestCase
     assert_response :success
     assert_equal Mime::JSON, response.content_type
     result = JSON.parse(response.body)
-    expect(result.size).to eq(1)
-    expect(result[0]).to include('id', 'species_str', 'when_where_str', 'spots')
-    expect(result[0]['spots'].size).to eq(1)
+    assert_equal 1, result.size
+    result[0].assert_valid_keys('id', 'species_str', 'when_where_str', 'spots')
+    assert_equal 1, result[0]['spots'].size
   end
 end

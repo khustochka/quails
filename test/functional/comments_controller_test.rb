@@ -62,11 +62,11 @@ class CommentsControllerTest < ActionController::TestCase
   end
 
   test "user cannot create comment to hidden post" do
-    expect do
+    assert_raise(ActiveRecord::RecordNotFound) do
       assert_difference('Comment.count', 0) do
         post :create, comment: attributes_for(:comment, post_id: create(:post, status: 'PRIV').id)
       end
-    end.to raise_error(ActiveRecord::RecordNotFound)
+    end
   end
 
   test "admin can create comment to hidden post" do
@@ -78,6 +78,6 @@ class CommentsControllerTest < ActionController::TestCase
 
   test "user does not see reply page to hidden post" do
     comment = create(:comment, post: create(:post, status: 'PRIV'))
-    expect { get :reply, id: comment.to_param }.to raise_error(ActiveRecord::RecordNotFound)
+    assert_raise(ActiveRecord::RecordNotFound) { get :reply, id: comment.to_param }
   end
 end

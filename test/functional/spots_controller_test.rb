@@ -15,19 +15,19 @@ class SpotsControllerTest < ActionController::TestCase
 
   test 'Create spot' do
     login_as_admin
-    expect(lambda { post :save, spot: build(:spot).attributes }).to change(Spot, :count).by(1)
+    assert_difference('Spot.count', 1) { post :save, spot: build(:spot).attributes }
   end
 
   test 'Update spot' do
     spot = create(:spot)
     login_as_admin
-    expect(lambda { post :save, spot: {id: spot.id, memo: "Zzz"} }).not_to change(Spot, :count)
+    assert_difference('Spot.count', 0) { post :save, spot: {id: spot.id, memo: "Zzz"} }
   end
 
   test 'Destroy spot' do
     spot = create(:spot)
     login_as_admin
-    expect(lambda { delete :destroy, id: spot.id, format: :json }).to change(Spot, :count).by(-1)
+    assert_difference('Spot.count', -1) { delete :destroy, id: spot.id, format: :json }
     assert_response :success
     assert_equal Mime::JSON, response.content_type
   end

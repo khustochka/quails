@@ -8,38 +8,38 @@ class UISingleObservationTest < ActionDispatch::IntegrationTest
   test 'Adding one observation - not voice (JS off)' do
     login_as_admin
     visit add_observations_path
-    expect(all('.obs-row').size).to eq(1)
+    assert_equal 1, all('.obs-row').size
     select('Brovary', from: 'Location')
     fill_in('Date', with: '2011-04-08')
     select('Cyanistes caeruleus', from: 'Species')
     select 'park', from: 'Biotope'
-    expect(lambda { submit_form_with('Save') }).to change(Observation, :count).by(1)
-    expect(Observation.order('id DESC').limit(1).first.voice).to be_false
+    assert_difference('Observation.count', 1) { submit_form_with('Save') }
+    assert_equal false, Observation.order('id DESC').limit(1).first.voice
   end
 
   test 'Adding one observation - voice only (JS off)' do
     login_as_admin
     visit add_observations_path
-    expect(all('.obs-row').size).to eq(1)
+    assert_equal 1, all('.obs-row').size
     select('Brovary', from: 'Location')
     fill_in('Date', with: '2011-04-08')
     select('Cyanistes caeruleus', from: 'Species')
     check('Voice?')
     select 'park', from: 'Biotope'
-    expect(lambda { submit_form_with('Save') }).to change(Observation, :count).by(1)
-    expect(Observation.order('id DESC').limit(1).first.voice).to be_true
+    assert_difference('Observation.count', 1) { submit_form_with('Save') }
+    assert Observation.order('id DESC').limit(1).first.voice
   end
 
   test 'Edit observation - uncheck voice only' do
     observation = create(:observation, voice: true)
     login_as_admin
     visit edit_observation_path(observation)
-    expect(all('.obs-row').size).to eq(1)
-    expect(page).to have_checked_field('Voice?')
+    assert_equal 1, all('.obs-row').size
+    assert page.has_checked_field?('Voice?')
     uncheck('Voice?')
-    expect(lambda { submit_form_with('Save') }).to change(Observation, :count).by(0)
+    assert_difference('Observation.count', 0) { submit_form_with('Save') }
     observation.reload
-    expect(observation.voice).to be_false
+    assert_equal false, observation.voice
   end
 
 end

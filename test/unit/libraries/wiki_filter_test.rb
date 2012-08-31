@@ -114,8 +114,8 @@ class WikiFilterTest < ActionDispatch::IntegrationTest
   # Erroneous
 
   test 'do not parse species with post or link modifier [#cotnix]' do
-    expect(transform('[#cotnix]')).not_to eq(species_link(seed(:cotnix), 'Coturnix coturnix'))
-    expect(transform('[@cotnix]')).not_to eq(species_link(seed(:cotnix), 'Coturnix coturnix'))
+    assert_not_equal species_link(seed(:cotnix), 'Coturnix coturnix'), transform('[#cotnix]')
+    assert_not_equal species_link(seed(:cotnix), 'Coturnix coturnix'), transform('[@cotnix]')
   end
 
   #  test 'properly parse non closed tag' do

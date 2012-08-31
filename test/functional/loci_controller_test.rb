@@ -66,44 +66,44 @@ class LociControllerTest < ActionController::TestCase
     login_as_admin
     post :save_order, format: :json, order: new_list.map {|r| seed(r).id}
     assert_response :success
-    expect(Locus.public.pluck(:slug)).to eq(new_list)
+    assert_equal new_list, Locus.public.pluck(:slug)
   end
 
   # HTTP auth tests
 
   test 'protect index with HTTP authentication' do
-    expect { get :index }.to raise_error(ActionController::RoutingError)
+    assert_raise(ActionController::RoutingError) { get :index }
     #assert_response 404
   end
 
   test 'protect show with HTTP authentication' do
-    expect { get :show, id: 'krym' }.to raise_error(ActionController::RoutingError)
+    assert_raise(ActionController::RoutingError) { get :show, id: 'krym' }
     #assert_response 404
   end
 
   test 'protect new with HTTP authentication' do
-    expect { get :new }.to raise_error(ActionController::RoutingError)
+    assert_raise(ActionController::RoutingError) { get :new }
     #assert_response 404
   end
 
   test 'protect edit with HTTP authentication' do
-    expect { get :edit, id: 'krym' }.to raise_error(ActionController::RoutingError)
+    assert_raise(ActionController::RoutingError) { get :edit, id: 'krym' }
     #assert_response 404
   end
 
   test 'protect create with HTTP authentication' do
-    expect { post :create, locus: build(:locus).attributes }.to raise_error(ActionController::RoutingError)
+    assert_raise(ActionController::RoutingError) { post :create, locus: build(:locus).attributes }
     #assert_response 404
   end
 
   test 'protect update with HTTP authentication' do
     locus = seed(:krym)
-    expect { put :update, id: locus.to_param, locus: locus.attributes }.to raise_error(ActionController::RoutingError)
+    assert_raise(ActionController::RoutingError) { put :update, id: locus.to_param, locus: locus.attributes }
     #assert_response 404
   end
 
   test 'protect destroy with HTTP authentication' do
-    expect { delete :destroy, id: 'krym' }.to raise_error(ActionController::RoutingError)
+    assert_raise(ActionController::RoutingError) { delete :destroy, id: 'krym' }
     #assert_response 404
   end
 end

@@ -36,7 +36,7 @@ class PostsControllerTest < ActionController::TestCase
     create(:observation, species: sp1, post: blogpost)
 
     get :show, blogpost.to_url_params
-    expect(assigns(:post).species).to eq([sp2, sp1])
+    assert_equal [sp2, sp1], assigns(:post).species
   end
 
   test "get edit" do
@@ -92,38 +92,38 @@ class PostsControllerTest < ActionController::TestCase
   # HTTP auth tests
 
   test 'protect new with HTTP authentication' do
-    expect { get :new }.to raise_error(ActionController::RoutingError)
+    assert_raise(ActionController::RoutingError) { get :new }
     #assert_response 404
   end
 
   test 'protect edit with HTTP authentication' do
     blogpost = create(:post)
-    expect { get :edit, id: blogpost.to_param }.to raise_error(ActionController::RoutingError)
+    assert_raise(ActionController::RoutingError) { get :edit, id: blogpost.to_param }
     #assert_response 404
   end
 
   test 'protect create with HTTP authentication' do
     blogpost = create(:post)
-    expect { post :create, post: blogpost.attributes }.to raise_error(ActionController::RoutingError)
+    assert_raise(ActionController::RoutingError) { post :create, post: blogpost.attributes }
     #assert_response 404
   end
 
   test 'protect update with HTTP authentication' do
     blogpost = create(:post)
     blogpost.title = 'Changed title'
-    expect { put :update, id: blogpost.to_param, post: blogpost.attributes }.to raise_error(ActionController::RoutingError)
+    assert_raise(ActionController::RoutingError) { put :update, id: blogpost.to_param, post: blogpost.attributes }
     #assert_response 404
   end
 
   test 'protect destroy with HTTP authentication' do
     blogpost = create(:post)
-    expect { delete :destroy, id: blogpost.to_param }.to raise_error(ActionController::RoutingError)
+    assert_raise(ActionController::RoutingError) { delete :destroy, id: blogpost.to_param }
     #assert_response 404
   end
 
   test 'proper link options' do
     blogpost = create(:post)
-    expect(public_post_path(blogpost, anchor: 'comments')).to eq(show_post_path(blogpost.to_url_params.merge({anchor: 'comments'})))
+    assert_equal show_post_path(blogpost.to_url_params.merge({anchor: 'comments'})), public_post_path(blogpost, anchor: 'comments')
   end
 
   test 'show draft posts page to admin' do
@@ -131,8 +131,8 @@ class PostsControllerTest < ActionController::TestCase
     blogpost2 = create(:post, face_date: '2008-11-06 13:14:15')
     login_as_admin
     get :hidden
-    expect(assigns(:posts)).to include(blogpost1)
-    expect(assigns(:posts)).not_to include(blogpost2)
+    assert assigns(:posts).include?(blogpost1)
+    assert_equal false, assigns(:posts).include?(blogpost2)
   end
 
   test 'show hidden post to admin' do
@@ -145,11 +145,11 @@ class PostsControllerTest < ActionController::TestCase
   test 'do not show draft posts page to user' do
     blogpost1 = create(:post, face_date: '2007-12-06 13:14:15', status: 'PRIV')
     blogpost2 = create(:post, face_date: '2008-11-06 13:14:15')
-    expect { get :hidden }.to raise_error(ActiveRecord::RecordNotFound)
+    assert_raise(ActiveRecord::RecordNotFound) { get :hidden }
   end
 
   test 'do not show hidden post to user' do
     blogpost1 = create(:post, face_date: '2007-12-06 13:14:15', status: 'PRIV')
-    expect { get :show, blogpost1.to_url_params }.to raise_error(ActiveRecord::RecordNotFound)
+    assert_raise(ActiveRecord::RecordNotFound) { get :show, blogpost1.to_url_params }
   end
 end
