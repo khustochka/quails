@@ -10,8 +10,7 @@ gem 'pg', :platforms => [:ruby, :mingw]
 gem "activerecord-jdbcpostgresql-adapter", :platforms => :jruby
 
 group :production do
-  gem 'thin', :require => false
-#  gem 'eventmachine', '~> 1.0.0.rc', :require => false
+  gem 'thin', :require => false, :platforms => :ruby
 end
 
 # Deploy with Capistrano
@@ -45,12 +44,6 @@ group :development do
   gem 'mysql2', '~> 0.3.7', :platforms => :ruby, :require => false
 
   gem 'grit', '~> 2.5', :require => false, :platforms => [:ruby, :mingw]
-
-# Other gems that may be useful but are not really dependencies:
-# gem 'ruby-debug-ide' # for debugging in RubyMine
-# gem 'unicorn' # web server
-# gem 'heroku'  # for Heroku deployment
-# gem 'taps'    # for pushing DB to Heroku
 end
 
 # in dev group for generators
