@@ -23,6 +23,10 @@ class Image < ActiveRecord::Base
 
   # Instance methods
 
+  def on_flickr?
+    flickr_id.present?
+  end
+
   def public_title
     title.present? ? title : species[0].name # Not using || because of empty string possibility
   end
@@ -50,14 +54,16 @@ class Image < ActiveRecord::Base
     )
   end
 
-  def set_flickr_data(parameters)
-    sizes_array = flickr.photos.getSizes(photo_id: parameters[:flickr_id])
-    self.flickr_data = Hash[
-        sizes_array.map do |el|
-          [el['label'], el.to_hash.slice('width', 'height', 'source') ]
-        end
-         ]
-    update_attributes(parameters)
+  def set_flickr_data(parameters = {})
+    self.flickr_id = parameters[:flickr_id] || flickr_id
+    if self.flickr_id.present?
+      sizes_array = flickr.photos.getSizes(photo_id: flickr_id)
+      self.flickr_data = Hash[
+          sizes_array.map do |el|
+            [el['label'], el.to_hash.slice('width', 'height', 'source')]
+          end
+      ]
+    end
   end
 
   # Saving with observation validation
@@ -66,7 +72,7 @@ class Image < ActiveRecord::Base
     validate_observations(obs_ids)
     with_transaction_returning_status do
       assign_attributes(attr)
-      if self.spot_id && ! self.spot.observation.in?(self.observation_ids & obs_ids)
+      if self.spot_id && !self.spot.observation.in?(self.observation_ids & obs_ids)
         self.spot_id = nil
       end
       self.observation_ids = obs_ids.uniq unless obs_ids.blank?

@@ -8,17 +8,16 @@
 
 = render 'admin/shortcuts' if current_user.admin?
 
-- if @image.persisted?
+%p
+  - if @image.on_flickr?
+    This image is linked to flickr photo.
 
-  %p
-    - if @image.flickr_id.present?
-      This image is linked to flickr photo.
-    - else
-      This image is not linked to flickr photo.
+  - elsif @image.persisted?
+    This image is not linked to flickr photo.
 
-    = link_to('Edit flickr data', action: :flickr_edit)
+  = link_to('Edit flickr data', action: :flickr_edit) if @image.persisted?
 
-  %p= image_tag(thumbnail_url(@image), class: 'image_pic')
+%p= image_tag(thumbnail_url(@image), class: 'image_pic')
 
 = simple_form_for @image, html: {class: 'image'} do |form|
 
@@ -56,6 +55,7 @@
         %ul.obs-list.found-obs
 
   %div
+    = form.input :flickr_id, as: :hidden
     = form.input :description
     = form.input :index_num, input_html: { size: 10, type: :text }
   .buttons

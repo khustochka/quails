@@ -28,9 +28,18 @@ class ImagesController < ApplicationController
     end
   end
 
+  # GET /images/add # select flickr photo
+  def add
+    @flickr_images = flickr.photos.search({user_id: '8289389@N04',
+                                           extras: 'date_taken',
+                                           per_page: 10})
+  end
+
   # GET /images/new
   def new
-    @image = Image.new
+    @image = Image.new(params[:i])
+    @image.set_flickr_data
+
     render 'form'
   end
 
@@ -49,6 +58,8 @@ class ImagesController < ApplicationController
   def create
     @image = Image.new
 
+    @image.set_flickr_data(params[:image])
+
     if @image.update_with_observations(params[:image], params[:obs])
       redirect_to(public_image_path(@image), :notice => 'Image was successfully created.')
     else
@@ -60,15 +71,11 @@ class ImagesController < ApplicationController
   def update
     @extra_params = @image.to_url_params
     new_params = params[:image]
-    if new_params[:flickr_id]
-      @image.set_flickr_data(new_params)
-      redirect_to action: :flickr_edit
+    @image.set_flickr_data(new_params)
+    if @image.update_with_observations(new_params, params[:obs])
+      redirect_to(public_image_path(@image), :notice => 'Image was successfully updated.')
     else
-      if @image.update_with_observations(new_params, params[:obs])
-        redirect_to(public_image_path(@image), :notice => 'Image was successfully updated.')
-      else
-        render 'form'
-      end
+      render 'form'
     end
   end
 

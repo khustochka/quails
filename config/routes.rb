@@ -76,6 +76,7 @@ Quails3::Application.routes.draw do
   resources :images, except: :show do
     get 'edit/flickr', on: :member, action: :flickr_edit, as: 'flickr_edit'
     get 'observations', on: :member, defaults: {format: :json}
+    get 'add', on: :collection
     get 'flickr_search', on: :collection, defaults: {format: :json}
   end
   resources :comments, except: :new do

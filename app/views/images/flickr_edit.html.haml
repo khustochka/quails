@@ -10,7 +10,7 @@
   %li= link_to('Edit', action: :edit)
 
 %p
-  - if @image.flickr_id.present?
+  - if @image.on_flickr?
     This image is linked to flickr photo:
     = @image.flickr_data['Original']['source']
   - else

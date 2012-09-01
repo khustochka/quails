@@ -1,0 +1,9 @@
+- @page_title = "Add image"
+
+%h1= page_header
+
+= render 'admin/shortcuts' if current_user.admin?
+
+- @flickr_images.each do |img|
+  = link_to(action: :new, i: {flickr_id: img.id}) do
+    = image_tag(FlickRaw.url_m(img))
