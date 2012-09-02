@@ -19,12 +19,15 @@
 
 %p= image_tag(thumbnail_url(@image), class: 'image_pic')
 
-= simple_form_for @image, html: {class: 'image'} do |form|
+- if flash[:alert]
+  %div.errors= flash[:alert]
 
-  - if @image.errors.any?
-    %ul.errors
-      - @image.errors.full_messages.each do |msg|
-        %li= msg
+- if @image.errors.any?
+  %ul.errors
+    - @image.errors.full_messages.each do |msg|
+      %li= msg
+
+= simple_form_for @image, html: {class: 'image'} do |form|
 
   %div
     = form.input :slug
@@ -55,7 +58,8 @@
         %ul.obs-list.found-obs
 
   %div
-    = form.input :flickr_id, as: :hidden
+    - unless @image.persisted?
+      = form.input :flickr_id, as: :hidden
     = form.input :description
     = form.input :index_num, input_html: { size: 10, type: :text }
   .buttons

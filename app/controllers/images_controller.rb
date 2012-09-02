@@ -30,9 +30,13 @@ class ImagesController < ApplicationController
 
   # GET /images/add # select flickr photo
   def add
-    @flickr_images = flickr.photos.search({user_id: '8289389@N04',
-                                           extras: 'date_taken',
-                                           per_page: 10})
+    if FlickRaw.api_key.nil? || FlickRaw.shared_secret.nil?
+      redirect_to({action: :new}, alert: "No Flickr API key or secret defined!")
+    else
+      @flickr_images = flickr.photos.search({user_id: '8289389@N04',
+                                             extras: 'date_taken',
+                                             per_page: 10})
+    end
   end
 
   # GET /images/new
@@ -71,11 +75,16 @@ class ImagesController < ApplicationController
   def update
     @extra_params = @image.to_url_params
     new_params = params[:image]
-    @image.set_flickr_data(new_params)
-    if @image.update_with_observations(new_params, params[:obs])
-      redirect_to(public_image_path(@image), :notice => 'Image was successfully updated.')
-    else
+    if new_params[:flickr_id]
+      @image.set_flickr_data(new_params)
+      @image.save!
       render 'form'
+    else
+      if @image.update_with_observations(new_params, params[:obs])
+        redirect_to(public_image_path(@image), :notice => 'Image was successfully updated.')
+      else
+        render 'form'
+      end
     end
   end
 

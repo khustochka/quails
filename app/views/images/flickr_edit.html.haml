@@ -18,7 +18,7 @@
 
 %p= image_tag(jpg_url(@image))
 
-- if FlickRaw.api_key.nil? or FlickRaw.shared_secret.nil?
+- if FlickRaw.api_key.nil? || FlickRaw.shared_secret.nil?
   %div.errors No Flickr API key or secret defined!
 - else
   %h3 Find a picture:
