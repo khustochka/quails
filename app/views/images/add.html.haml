@@ -2,7 +2,8 @@
 
 %h1= page_header
 
-= render 'admin/shortcuts' if current_user.admin?
+%ul.horiz-list
+  %li= link_to('Skip to simple add form', action: :new)
 
 - @flickr_images.each do |img|
   = link_to(action: :new, i: {flickr_id: img.id}) do
