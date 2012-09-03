@@ -4,7 +4,7 @@ class ImagesController < ApplicationController
 
   administrative except: [:photostream, :show]
 
-  find_record by: :slug, before: [:show, :edit, :flickr_edit, :update, :destroy]
+  find_record by: :slug, before: [:show, :edit, :flickr_edit, :map_edit, :update, :destroy]
 
   after_filter :cache_expire, only: [:create, :update, :destroy]
 
@@ -55,6 +55,11 @@ class ImagesController < ApplicationController
 
   # GET /images/1/flickr_edit
   def flickr_edit
+    @extra_params = @image.to_url_params
+  end
+
+  # GET /images/1/map_edit
+  def map_edit
     @extra_params = @image.to_url_params
   end
 

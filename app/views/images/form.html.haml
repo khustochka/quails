@@ -1,10 +1,12 @@
 - stylesheet 'forms', 'jquery-ui'
 - javascript 'image_form'
-- javascript AssetsHelper::GMAP_API_URL, 'image_map' if @image.persisted?
 
 - @page_title = "#{new_or_edit_label(@image)} image"
 
 %h1= page_header
+
+- content_for :add_shortcuts do
+  %li= link_to 'Edit map', action: :map_edit if @image.persisted?
 
 = render 'admin/shortcuts' if current_user.admin?
 
@@ -67,7 +69,3 @@
 
 - if @image.persisted?
   %p= link_to 'DELETE', @image, data: {confirm: 'Are you sure?'}, method: :delete
-
-  %h3 Map
-
-  #googleMap

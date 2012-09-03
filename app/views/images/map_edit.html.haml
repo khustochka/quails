@@ -1,0 +1,25 @@
+- stylesheet 'map_edit'
+- javascript AssetsHelper::GMAP_API_URL, 'image_map'
+
+- @page_title = "Edit map: #{@image.slug}"
+
+%h1= page_header
+
+%ul.horiz-list
+  %li= link_to('Show', @extra_params.merge(action: :show))
+  %li= link_to('Edit', action: :edit)
+
+%p= image_tag(thumbnail_url(@image), class: 'image_pic')
+
+- if @image.spots.empty?
+  %p.errors No observations mapped!
+- elsif @image.spot_id.blank?
+  %p.errors Not yet mapped!
+
+#googleMap
+
+:javascript
+  var marks = #{@image.spots.to_json(only: [:lat, :lng, :id])},
+      image_spot;
+  #{"image_spot = #{@image.spot_id};" if @image.spot_id}
+

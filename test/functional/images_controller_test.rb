@@ -73,6 +73,12 @@ class ImagesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "get map_edit" do
+    login_as_admin
+    get :map_edit, id: @image.to_param
+    assert_response :success
+  end
+
   test "update image" do
     login_as_admin
     new_attr = @image.attributes

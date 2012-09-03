@@ -7,3 +7,4 @@
     %li= link_to 'Create new', :action => :new
   - if action_name != 'index' && controller.respond_to?(:index)
     %li= link_to 'Index', :action => :index
+  = yield :add_shortcuts

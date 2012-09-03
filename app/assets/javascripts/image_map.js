@@ -10,34 +10,57 @@
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
 //
+//= require jquery
+//= require jquery_ujs
 //= require map_init
 
 $(function () {
 
-    var marks,
-        theMap = $('#googleMap');
+    var theMap = $('#googleMap'),
+        activeMarkers;
 
-    theMap.width('800px');
+    var GRAY_ICON = "http://maps.google.com/mapfiles/marker_white.png",
+        RED_ICON = "http://maps.google.com/mapfiles/marker.png";
+    // TODO: add shadow?
+
+    var DEFAULT_MARKER_OPTIONS = {
+        options:{
+            draggable:true,
+            icon:GRAY_ICON
+        }
+    };
+
+    marks = $.map(marks, function (el) {
+        el.tag = el.id;
+        return el;
+    });
+
+    theMap.width('1024px');
     theMap.height('600px');
 
     theMap.gmap3('init');
 
-//    $.get('/map/spots', function (data, textStatus, jqXHR) {
-//        marks = data;
-//        theMap.gmap3(
-//            { action:'addMarkers',
-//                markers:marks,
-//                radius:40,
-//                clusters:{
-//                    // This style will be used for clusters with more than 0 markers
-//                    0:{
-//                        content:'<div class="cluster">CLUSTER_COUNT</div>',
-//                        width:46,
-//                        height:28
-//                    }
-//                }
-//            }
-//        );
-//    });
+    theMap.gmap3(
+        { action:'addMarkers',
+            markers:marks,
+            options:DEFAULT_MARKER_OPTIONS
+        },
+        'autofit' // Zooms and moves to see all markers
+    );
 
+//    if (image_spot) {
+//
+//        activeMarkers = $('#googleMap').gmap3({
+//            action:'get',
+//            name:'marker',
+//            all:true,
+//            tag:image_spot
+//        });
+//
+//        $.each(activeMarkers, function (i, marker) {
+//            marker.setIcon(RED_ICON);
+//            $(marker).data['OrigZIndex'] = marker.getZIndex();
+//            marker.setZIndex(google.maps.Marker.MAX_ZINDEX);
+//        });
+//    }
 });

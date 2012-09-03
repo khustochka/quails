@@ -5,6 +5,10 @@
 
 %h1= page_header
 
+- content_for :add_shortcuts do
+  %li= link_to 'Edit map', action: :map_edit
+  %li= link_to 'Edit flickr data', action: :flickr_edit
+
 = render 'admin/shortcuts' if current_user.admin?
 
 %p= image_tag(jpg_url(@image))

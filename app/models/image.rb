@@ -3,6 +3,7 @@ class Image < ActiveRecord::Base
 
   has_and_belongs_to_many :observations, :include => :species
   has_many :species, :through => :observations
+  has_many :spots, :through => :observations
   belongs_to :spot
 
   delegate :observ_date, :locus, :to => :first_observation
