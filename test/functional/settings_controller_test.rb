@@ -8,14 +8,14 @@ class SettingsControllerTest < ActionController::TestCase
     login_as_admin
     get :index
     assert_template 'index'
-    assert assigns(:settings).is_a?(Hash), 'Settings should be Hash'
+    assert_kind_of Hash, assigns(:settings)
   end
 
   test "create new setting" do
     login_as_admin
     post :save, {new_setting: 'this value', utf8: '✓'}
     assert_equal 'this value', Settings.find_by_key(:new_setting).value
-    assert Settings.where(key: [:utf8, :authenticity_token, :controller, :action]).empty?, "Bad keys are saved"
+    assert_empty Settings.where(key: [:utf8, :authenticity_token, :controller, :action]), "Bad keys are saved"
   end
 
   test "update existing setting" do

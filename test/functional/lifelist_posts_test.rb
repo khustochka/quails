@@ -48,7 +48,7 @@ class LifelistPostsTest < ActionController::TestCase
     get :default
     assert_response :success
     lifers = assigns(:lifelist)
-    assert lifers.map(&:post).compact.empty?, "Should be empty"
+    assert_empty lifers.map(&:post).compact
   end
 
   test 'show hidden post link to administrator' do

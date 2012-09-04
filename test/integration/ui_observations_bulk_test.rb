@@ -175,7 +175,7 @@ class UIObservationsBulkTest < ActionDispatch::IntegrationTest
 
     assert_present Species.find_by_code('drymar').observations
     assert_present Species.find_by_code('faltin').observations
-    assert Species.find_by_code('crecre').observations.empty?, "Should be empty"
+    assert_empty Species.find_by_code('crecre').observations
 
   end
 
@@ -190,8 +190,8 @@ class UIObservationsBulkTest < ActionDispatch::IntegrationTest
     actual = [1, 2].map do |i|
       find(:xpath, "//div[contains(@class,'obs-row')][#{i}]//input[contains(@class, 'ui-autocomplete-input')]").value
     end
-    assert actual.include?('Anas platyrhynchos')
-    assert actual.include?('Meleagris gallopavo')
+    assert_include(actual, 'Anas platyrhynchos')
+    assert_include(actual, 'Meleagris gallopavo')
   end
 
   test "Bulk edit functionality" do
@@ -252,9 +252,9 @@ class UIObservationsBulkTest < ActionDispatch::IntegrationTest
     crecre = Observation.where(species_id: Species.find_by_code('crecre')).order('id DESC').limit(1).first
     faltin = Observation.where(species_id: Species.find_by_code('faltin')).order('id DESC').limit(1).first
 
-    assert_equal false, drymar.voice
+    assert_false drymar.voice
     assert crecre.voice
-    assert_equal false, faltin.voice
+    assert_false faltin.voice
 
     within(:xpath, "//div[contains(@class,'obs-row')][1]") do
       check 'Voice?'
@@ -271,8 +271,8 @@ class UIObservationsBulkTest < ActionDispatch::IntegrationTest
     faltin.reload
 
     assert drymar.voice
-    assert_equal false, crecre.voice
-    assert_equal false, faltin.voice
+    assert_false crecre.voice
+    assert_false faltin.voice
 
   end
 
@@ -289,7 +289,7 @@ class UIObservationsBulkTest < ActionDispatch::IntegrationTest
     end
 
     assert find(:xpath, "//div[contains(@class,'obs-row')][3]").has_checked_field?('Voice?')
-    assert_equal false, find(:xpath, "//div[contains(@class,'obs-row')][1]").has_checked_field?('Voice?')
+    assert_false find(:xpath, "//div[contains(@class,'obs-row')][1]").has_checked_field?('Voice?')
   end
 
 end

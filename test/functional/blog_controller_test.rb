@@ -12,16 +12,16 @@ class BlogControllerTest < ActionController::TestCase
     create(:comment)
     get :front_page
     assert_response :success
-    assert assigns(:posts).include?(blogpost1)
-    assert assigns(:posts).include?(blogpost2)
+    assert_include(assigns(:posts), blogpost1)
+    assert_include(assigns(:posts), blogpost2)
   end
 
   test 'do not show hidden posts on front page' do
     blogpost1 = create(:post, face_date: '2007-12-06 13:14:15', status: 'PRIV')
     blogpost2 = create(:post, face_date: '2008-11-06 13:14:15')
     get :front_page
-    assert assigns(:posts).include?(blogpost2)
-    assert_equal false, assigns(:posts).include?(blogpost1)
+    assert_include(assigns(:posts), blogpost2)
+    assert_not_include(assigns(:posts), blogpost1)
   end
 
   test 'get front page in Eglish' do
@@ -30,8 +30,8 @@ class BlogControllerTest < ActionController::TestCase
     create(:comment)
     get :front_page, hl: 'en'
     assert_response :success
-    assert assigns(:posts).include?(blogpost1)
-    assert assigns(:posts).include?(blogpost2)
+    assert_include(assigns(:posts), blogpost1)
+    assert_include(assigns(:posts), blogpost2)
   end
 
   test 'show correct Earlier Posts link if limit is on the month border' do
@@ -42,11 +42,11 @@ class BlogControllerTest < ActionController::TestCase
     blogpost5 = create(:post, face_date: '2007-10-05 13:14:15')
     get :front_page
     assert_response :success
-    assert assigns(:posts).include?(blogpost1)
-    assert assigns(:posts).include?(blogpost2)
-    assert assigns(:posts).include?(blogpost3)
-    assert_equal false, assigns(:posts).include?(blogpost4)
-    assert_equal false, assigns(:posts).include?(blogpost5)
+    assert_include(assigns(:posts), blogpost1)
+    assert_include(assigns(:posts), blogpost2)
+    assert_include(assigns(:posts), blogpost3)
+    assert_not_include(assigns(:posts), blogpost4)
+    assert_not_include(assigns(:posts), blogpost5)
     assert_equal blogpost4.to_month_url.stringify_keys, assigns(:prev_month)
   end
 
@@ -58,11 +58,11 @@ class BlogControllerTest < ActionController::TestCase
     blogpost5 = create(:post, face_date: '2007-11-04 13:14:15')
     get :front_page
     assert_response :success
-    assert assigns(:posts).include?(blogpost1)
-    assert assigns(:posts).include?(blogpost2)
-    assert assigns(:posts).include?(blogpost3)
-    assert_equal false, assigns(:posts).include?(blogpost4)
-    assert_equal false, assigns(:posts).include?(blogpost5)
+    assert_include(assigns(:posts), blogpost1)
+    assert_include(assigns(:posts), blogpost2)
+    assert_include(assigns(:posts), blogpost3)
+    assert_not_include(assigns(:posts), blogpost4)
+    assert_not_include(assigns(:posts), blogpost5)
     assert_equal blogpost4.to_month_url.stringify_keys, assigns(:prev_month)
   end
 
@@ -76,11 +76,11 @@ class BlogControllerTest < ActionController::TestCase
     get :front_page
     assert_response :success
     assert_equal 5, assigns(:posts).size
-    assert assigns(:posts).include?(blogpost1)
-    assert assigns(:posts).include?(blogpost2)
-    assert assigns(:posts).include?(blogpost3)
-    assert assigns(:posts).include?(blogpost4)
-    assert assigns(:posts).include?(blogpost5)
+    assert_include(assigns(:posts), blogpost1)
+    assert_include(assigns(:posts), blogpost2)
+    assert_include(assigns(:posts), blogpost3)
+    assert_include(assigns(:posts), blogpost4)
+    assert_include(assigns(:posts), blogpost5)
     assert_equal blogpost6.to_month_url.stringify_keys, assigns(:prev_month)
   end
 
@@ -91,9 +91,9 @@ class BlogControllerTest < ActionController::TestCase
     blogpost2 = create(:post, face_date: '2008-11-06 13:14:15')
     get :year, year: 2007
     assert_response :success
-    assert assigns(:posts).include?(blogpost1)
-    assert_equal false, assigns(:posts).include?(blogpost2)
-    assert assigns(:months).keys.include?("12")
+    assert_include(assigns(:posts), blogpost1)
+    assert_not_include(assigns(:posts), blogpost2)
+    assert_include(assigns(:months).keys, "12")
   end
 
   # Month view
@@ -103,8 +103,8 @@ class BlogControllerTest < ActionController::TestCase
     blogpost2 = create(:post, face_date: '2007-11-06 13:14:15')
     get :month, year: 2007, month: 12
     assert_response :success
-    assert assigns(:posts).include?(blogpost1)
-    assert_equal false, assigns(:posts).include?(blogpost2)
+    assert_include(assigns(:posts), blogpost1)
+    assert_not_include(assigns(:posts), blogpost2)
   end
 
   test 'render month properly if there is no previous or next month' do

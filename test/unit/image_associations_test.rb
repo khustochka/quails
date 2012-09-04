@@ -23,7 +23,7 @@ class ImagesAssociationsTest < ActiveSupport::TestCase
 
     assert_equal [img.slug], sp1.images.map(&:slug)
     assert_equal [img.slug], sp2.images.map(&:slug)
-    assert ([sp1.code, sp2.code] - img.species.map(&:code)).empty?, "Should be empty"
+    assert_empty ([sp1.code, sp2.code] - img.species.map(&:code))
   end
 
   test 'properly link image and post' do
