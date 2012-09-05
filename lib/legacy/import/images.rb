@@ -43,6 +43,9 @@ module Legacy
                 Observation.find($stdin.gets)
               end
             end
+          else
+            # Set spot_id only for non-multi obs images (coz it would be difficult)
+            img.spot_id = Legacy::Mapping.spots["#{im[:observ_id]}#{im[:mark_id]}"]
           end
 
           img.observations = obs

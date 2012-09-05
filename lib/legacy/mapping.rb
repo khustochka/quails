@@ -2,7 +2,7 @@ module Legacy
   module Mapping
 
     class << self
-      attr_reader :species, :posts, :locations
+      attr_reader :species, :posts, :locations, :spots
     end
 
     def self.refresh_species
@@ -15,6 +15,11 @@ module Legacy
 
     def self.refresh_locations
       @locations = Hash[Locus.all.map { |loc| [loc.slug, loc.id] }]
+    end
+
+    def self.add_spot(ob_id, mark_id, new_id)
+      @spots ||= {}
+      @spots["#{ob_id}#{mark_id}"] = new_id
     end
 
   end

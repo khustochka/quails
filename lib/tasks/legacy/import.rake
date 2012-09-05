@@ -54,9 +54,9 @@ namespace :legacy do
 
     Legacy::Import::Observations.import_observations(observations)
 
-    Legacy::Import::Images.import_images(images, observations)
-
     Legacy::Import::Spots.import_spots(spots)
+
+    Legacy::Import::Images.import_images(images, observations)
 
   end
 end
