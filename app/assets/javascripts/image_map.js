@@ -48,19 +48,19 @@ $(function () {
         'autofit' // Zooms and moves to see all markers
     );
 
-//    if (image_spot) {
-//
-//        activeMarkers = $('#googleMap').gmap3({
-//            action:'get',
-//            name:'marker',
-//            all:true,
-//            tag:image_spot
-//        });
-//
-//        $.each(activeMarkers, function (i, marker) {
-//            marker.setIcon(RED_ICON);
-//            $(marker).data['OrigZIndex'] = marker.getZIndex();
-//            marker.setZIndex(google.maps.Marker.MAX_ZINDEX);
-//        });
-//    }
+    if (image_spot) {
+
+        activeMarkers = $('#googleMap').gmap3({
+            action:'get',
+            name:'marker',
+            all:true,
+            tag:image_spot
+        });
+
+        $.each(activeMarkers, function (i, marker) {
+            marker.setIcon(RED_ICON);
+            $(marker).data['OrigZIndex'] = marker.getZIndex();
+            marker.setZIndex(google.maps.Marker.MAX_ZINDEX);
+        });
+    }
 });
