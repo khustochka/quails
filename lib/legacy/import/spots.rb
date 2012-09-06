@@ -29,6 +29,7 @@ module Legacy
         # Delete multi Spp spots and other spots with lost observations:
         Spot.where('observation_id NOT IN (SELECT id FROM observations)').delete_all
 
+        table.reset_pk_sequence!
         puts "Done."
       end
     end
