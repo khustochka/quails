@@ -84,6 +84,9 @@ class ImagesController < ApplicationController
       @image.set_flickr_data(new_params)
       @image.save!
       render 'form'
+    elsif params[:format] == 'json'
+      @image.update_attributes(new_params)
+      render json: @image, only: [:id, :spot_id]
     else
       if @image.update_with_observations(new_params, params[:obs])
         redirect_to(public_image_path(@image), :notice => 'Image was successfully updated.')

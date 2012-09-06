@@ -87,6 +87,19 @@ class ImagesControllerTest < ActionController::TestCase
     assert_redirected_to public_image_path(assigns(:image))
   end
 
+  test "update image spot via json" do
+    spot = create(:spot)
+    obs = spot.observation
+    img = create(:image, observation_ids: [obs.id], spot: spot)
+    spot2 = create(:spot, observation: obs)
+    login_as_admin
+    put :update, id: img.to_param, image: {spot_id: spot2.id}, format: :json
+    img.reload
+    assert_equal spot2.id, img.spot_id
+    assert_response :success
+    assert_equal Mime::JSON, response.content_type
+  end
+
   test "image removed from map if it is tied to another observation" do
     spot = create(:spot)
     obs = spot.observation
