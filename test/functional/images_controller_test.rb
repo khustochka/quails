@@ -117,7 +117,7 @@ class ImagesControllerTest < ActionController::TestCase
     img = create(:image, observation_ids: [obs.id], spot: spot)
     spot2 = create(:spot, observation: obs)
     login_as_admin
-    put :update, id: img.to_param, image: {spot_id: spot2.id}, format: :json
+    post :patch, id: img.to_param, image: {spot_id: spot2.id}, format: :json
     img.reload
     assert_equal spot2.id, img.spot_id
     assert_response :success

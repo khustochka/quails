@@ -77,6 +77,7 @@ Quails3::Application.routes.draw do
     member do
       get 'edit/map', action: :map_edit
       get 'edit/flickr', action: :flickr_edit
+      post 'patch'
       get 'observations', defaults: {format: :json}
     end
     collection do

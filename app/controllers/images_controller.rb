@@ -4,7 +4,7 @@ class ImagesController < ApplicationController
 
   administrative except: [:photostream, :show]
 
-  find_record by: :slug, before: [:show, :edit, :flickr_edit, :map_edit, :update, :destroy]
+  find_record by: :slug, before: [:show, :edit, :flickr_edit, :map_edit, :update, :patch, :destroy]
 
   after_filter :cache_expire, only: [:create, :update, :destroy]
 
@@ -80,18 +80,27 @@ class ImagesController < ApplicationController
   def update
     @extra_params = @image.to_url_params
     new_params = params[:image]
+    if @image.update_with_observations(new_params, params[:obs])
+      redirect_to(public_image_path(@image), :notice => 'Image was successfully updated.')
+    else
+      render 'form'
+    end
+  end
+
+  # POST /images/1/patch
+  def patch
+    new_params = params[:image]
     if new_params[:flickr_id]
       @image.set_flickr_data(new_params)
-      @image.save!
-      render 'form'
-    elsif params[:format] == 'json'
-      @image.update_attributes(new_params)
-      render json: @image, only: [:id, :spot_id]
-    else
-      if @image.update_with_observations(new_params, params[:obs])
-        redirect_to(public_image_path(@image), :notice => 'Image was successfully updated.')
+      @image.save
+    end
+    respond_to do |format|
+      if @image.update_attributes(new_params)
+        format.html { redirect_to action: 'edit' }
+        format.json { head :ok }
       else
-        render 'form'
+        format.html { render 'form' }
+        format.json { render :json => @image.errors, :status => :unprocessable_entity }
       end
     end
   end

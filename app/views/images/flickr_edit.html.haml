@@ -26,7 +26,7 @@
   %table.with_search.flickr_search_table.with_search
     %tr
       %td
-        = simple_form_for @image, html: {class: 'flickr_edit'} do |form|
+        = simple_form_for @image,url: patch_image_path(@image), method: :post, html: {class: 'flickr_edit'} do |form|
           = form.input :flickr_size, as: :select,
                 collection: ImagesHelper::FLICKR_SIZES, input_html: {size: '8'}, include_blank: false, default: 'o'
           = form.input :flickr_id, as: :hidden
