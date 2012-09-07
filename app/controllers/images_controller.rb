@@ -97,7 +97,8 @@ class ImagesController < ApplicationController
     respond_to do |format|
       if @image.update_attributes(new_params)
         format.html { redirect_to action: 'edit' }
-        format.json { head :ok }
+        # Have to return something because empty response (head :ok) is not valid JSON and is not considered $.ajax success
+        format.json { render json: @image, only: new_params.keys + [:id] }
       else
         format.html { render 'form' }
         format.json { render :json => @image.errors, :status => :unprocessable_entity }

@@ -19,19 +19,49 @@ $(function () {
     var theMap = $('#googleMap'),
         activeMarkers;
 
+    function closeInfoWindows() {
+        var infowindow = theMap.gmap3({action:'get', name:'infowindow'});
+        if (infowindow) infowindow.close();
+    }
+
     var GRAY_ICON = "http://maps.google.com/mapfiles/marker_white.png",
         RED_ICON = "http://maps.google.com/mapfiles/marker.png";
-    // TODO: add shadow?
 
     var DEFAULT_MARKER_OPTIONS = {
         options:{
-            draggable:true,
+            draggable:false,
             icon:GRAY_ICON
+        },
+        events:{
+            click:function (marker, event, data) {
+                closeInfoWindows();
+                $.post(patch_url, {'image': {'spot_id': data.id}}, function(data2) {
+
+                    var activeMarkers = $('#googleMap').gmap3({
+                        action:'get',
+                        name:'marker',
+                        all:true,
+                        tag:image_spot
+                    });
+
+                    $.each(activeMarkers, function (i, marker) {
+                        marker.setIcon(GRAY_ICON);
+                        marker.setZIndex($(marker).data['OrigZIndex']);
+                    });
+
+                    image_spot = data.id;
+
+                    marker.setIcon(RED_ICON);
+                    $(marker).data['OrigZIndex'] = marker.getZIndex();
+                    marker.setZIndex(google.maps.Marker.MAX_ZINDEX);
+                }, 'json');
+            }
         }
     };
 
     marks = $.map(marks, function (el) {
         el.tag = el.id;
+        el.data = {id: el.id};
         return el;
     });
 
@@ -43,7 +73,7 @@ $(function () {
     theMap.gmap3(
         { action:'addMarkers',
             markers:marks,
-            options:DEFAULT_MARKER_OPTIONS
+            marker:DEFAULT_MARKER_OPTIONS
         },
         'autofit' // Zooms and moves to see all markers
     );
