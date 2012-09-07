@@ -16,6 +16,9 @@
 - elsif @image.spot_id.blank?
   %p.errors Not yet mapped!
 
+%ul.horiz-obs-list.obs-list
+  = render partial: 'observations/obs_item', collection: @image.observations
+
 = render 'spots/form'
 
 #googleMap
