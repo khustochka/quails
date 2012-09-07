@@ -61,6 +61,7 @@ class ImagesController < ApplicationController
   # GET /images/1/map_edit
   def map_edit
     @extra_params = @image.to_url_params
+    @spot = Spot.new(public: true)
   end
 
   # POST /images

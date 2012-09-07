@@ -35,7 +35,7 @@ $(function () {
         events:{
             click:function (marker, event, data) {
                 closeInfoWindows();
-                $.post(patch_url, {'image': {'spot_id': data.id}}, function(data2) {
+                $.post(patch_url, {'image':{'spot_id':data.id}}, function (data2) {
 
                     var activeMarkers = $('#googleMap').gmap3({
                         action:'get',
@@ -61,14 +61,47 @@ $(function () {
 
     marks = $.map(marks, function (el) {
         el.tag = el.id;
-        el.data = {id: el.id};
+        el.data = {id:el.id};
         return el;
     });
+
+    // Spot edit form
+
+    var spotForm = $('.spot_form_container').detach();
+
+    // The Map
 
     theMap.width('1024px');
     theMap.height('600px');
 
-    theMap.gmap3('init');
+    theMap.gmap3({
+        action:'init',
+        options:{
+            draggableCursor:'pointer'
+        },
+        events:{
+            click:function (map, event) {
+                var newForm = spotForm.clone(),
+                    wndContent;
+
+                closeInfoWindows();
+                $('#spot_lat', newForm).val(event.latLng.lat());
+                $('#spot_lng', newForm).val(event.latLng.lng());
+                $('#spot_zoom', newForm).val(map.zoom);
+                $('#spot_exactness_1', newForm).attr('checked', true); // Check the "exact" value
+                //$('#spot_observation_id', newForm).val(selectedObs.data('obs_id'));
+                wndContent = newForm.html();
+
+                theMap.gmap3({
+                    action:'addInfoWindow',
+                    latLng:event.latLng,
+                    options:{
+                        content:wndContent
+                    }
+                });
+            }
+        }
+    });
 
     theMap.gmap3(
         { action:'addMarkers',

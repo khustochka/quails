@@ -1,0 +1,13 @@
+.spot_form_container
+  = simple_form_for @spot, url: save_spots_path, remote: true do |form|
+    = form.input :id, as: :hidden
+    = form.input :lat, as: :hidden
+    = form.input :lng, as: :hidden
+    = form.input :zoom, as: :hidden
+    = form.input :observation_id, as: :hidden
+    = form.input :exactness, as: :radio_buttons, collection: Spot::EXACTNESS.zip((0..2).to_a), required: false
+    = form.input :public
+    %div
+      = form.input :memo
+    .buttons
+      = default_submit_button(form)
