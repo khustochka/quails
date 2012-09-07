@@ -135,6 +135,10 @@ $(function () {
         bindImageToMarker(addedMarker, {id: data.id});
     });
 
+    $(document).on('ajax:error', '#new_spot', function (e, data) {
+        alert("Error submitting form");
+    });
+
     theMap.gmap3(
         { action:'addMarkers',
             markers:marks,

@@ -267,4 +267,8 @@ $(function () {
         infowindow.close();
     });
 
+    $(document).on('ajax:error', '#new_spot', function (e, data) {
+       alert("Error submitting form");
+    });
+
 });
