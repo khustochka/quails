@@ -56,6 +56,30 @@ class ImagesControllerTest < ActionController::TestCase
     assert_redirected_to public_image_path(assigns(:image))
   end
 
+  test "do not save image with no observations" do
+    login_as_admin
+    new_attr = @image.attributes.dup
+    new_attr['slug'] = 'new_img_slug'
+    assert_difference('Image.count', 0) do
+      post :create, image: new_attr, obs: []
+    end
+
+    assert_template :form
+  end
+
+  test "do not save image with conflicting observations" do
+    login_as_admin
+    obs2 = create(:observation, locus: seed(:kiev))
+    obs3 = create(:observation, locus: seed(:brovary))
+    new_attr = @image.attributes.dup
+    new_attr['slug'] = 'new_img_slug'
+    assert_difference('Image.count', 0) do
+      post :create, image: new_attr, obs: [obs2.id, obs3.id]
+    end
+
+    assert_template :form
+  end
+
   test "show image" do
     get :show, @image.to_url_params
     assert_response :success
