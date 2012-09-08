@@ -10,7 +10,7 @@ gem 'pg', :platforms => [:ruby, :mingw]
 gem "activerecord-jdbcpostgresql-adapter", :platforms => :jruby
 
 group :production do
-  gem 'thin', :require => false, :platforms => :ruby
+  gem 'thin', :require => false
 end
 
 # Deploy with Capistrano
