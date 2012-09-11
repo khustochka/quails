@@ -5,8 +5,8 @@ module WikiFilter
       hash[term] = Post.find_by_slug(term.downcase)
     end
 
-    sp_codes = text.gsub(/\[(?!#|@)(?:([^\]]*?)\|)?(.*?)\]/).map do |full|
-      $2 || $1
+    sp_codes = text.scan(/\[(?!#|@)(?:([^\]]*?)\|)?(.*?)\]/).map do |word, term|
+      term || word
     end.uniq.compact
 
     # TODO: IDEA: use already calculated species of the post! the rest will be ok with separate requests?
@@ -18,7 +18,7 @@ module WikiFilter
           spcs.find { |s| s.name_sci == term.sp_humanize }
     end
 
-    text.gsub(/\[(@|#|)(?:([^\]]*?)\|)?(.*?)\]/) do |full|
+    text.gsub(/\[(@|#|)(?:([^\]]*?)\|)?(.*?)\]/) do |_|
       tag, word, term = $1, $2.try(:html_safe), $3
       case tag
         when '@' then
