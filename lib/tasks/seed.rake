@@ -1,3 +1,5 @@
+SEED_TABLES = %w(species loci checklists)
+
 desc 'Tasks for managing DB seed'
 namespace :seed do
 
@@ -6,8 +8,6 @@ namespace :seed do
 
     require 'tasks/grit_init'
     require 'bunch_db/table'
-
-    tables = %w(species loci checklists)
 
     local_opts = YAML.load_file('config/local.yml')
     folder = local_opts['repo']
@@ -22,7 +22,7 @@ namespace :seed do
     dirname = File.join(folder, 'seed')
 
     Dir.chdir(folder) do
-      tables.each do |table_name|
+      SEED_TABLES.each do |table_name|
         puts "Dumping '#{table_name}'..."
         io = File.new "#{dirname}/#{table_name}.yml", "w"
         table = BunchDB::Table.new(table_name)

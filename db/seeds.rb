@@ -11,9 +11,10 @@ require 'bunch_db/table'
 local_opts = YAML.load_file('config/local.yml')
 dirname = File.join(local_opts['repo'], 'seed')
 
-Dir[File.join(dirname, '*.yml')].each do |file|
-  raw = YAML.load(File.new(file, "r")).to_a[0]
-  table_name, data = *raw
+SEED_TABLES.each do |table_name|
+  raw = YAML.load(File.new "#{dirname}/#{table_name}.yml", "r").to_a[0]
+
+  data = raw[1]
 
   table = BunchDB::Table.new(table_name)
   table.cleanup
