@@ -13,15 +13,14 @@ class SettingsControllerTest < ActionController::TestCase
 
   test "create new setting" do
     login_as_admin
-    post :save, {new_setting: 'this value', utf8: '✓'}
+    post :save, s: {new_setting: 'this value'}
     assert_equal 'this value', Settings.find_by_key(:new_setting).value
-    assert_empty Settings.where(key: [:utf8, :authenticity_token, :controller, :action]), "Bad keys are saved"
   end
 
   test "update existing setting" do
     login_as_admin
     Settings.create(key: 'old_setting', value: 'old value')
-    post :save, {old_setting: 'new value'}
+    post :save, s: {old_setting: 'new value'}
     assert_equal 'new value', Settings.find_by_key(:old_setting).value
   end
 

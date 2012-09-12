@@ -9,10 +9,10 @@ class SettingsController < ApplicationController
 
   # POST /settings/save
   def save
-    request.request_parameters.except(:utf8, :authenticity_token).each do |key, value|
+    params[:s].each do |key, value|
       setting = Settings.where(key: key)
       if setting.any?
-        setting.update_all(value: value)
+        setting.update_all(value: Settings.serialized_attributes['value'].dump(value))
       else
         Settings.create!(key: key, value: value)
       end
