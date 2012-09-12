@@ -1,16 +1,13 @@
 %ul.admin_menu.horiz-list
-  %li= link_to_or_span '+ Post', new_post_path
-  %li= link_to_or_span '+ Obs', add_observations_path
-  %li= link_to_or_span '+ Image', add_images_path
-  %li= link_to_or_span 'Observations', observations_path
-  %li= link_to_or_span 'Species', species_index_path
-  %li= link_to_or_span 'Research', research_path
-
-- unless @minimal_layout
-  %ul.admin_box
-    %li= link_to_or_span 'Drafts', hidden_posts_path
-    %li= link_to_or_span 'Images', images_path
-    %li= link_to_or_span 'Comments', comments_path
-    %li= link_to_or_span 'Locations', loci_path
-    %li= link_to_or_span 'Map Edit', edit_map_path
-    %li= link_to_or_span 'Settings', settings_path
+  %li= link_to '+ Post', new_post_path
+  %li= link_to '+ Obs', add_observations_path
+  %li= link_to '+ Image', add_images_path
+  %li= link_to 'Observations', observations_path
+  %li= link_to 'Species', species_index_path
+  %li= link_to 'Research', research_path
+  %li= link_to 'Drafts', hidden_posts_path
+  %li= link_to 'Images', images_path
+  %li= link_to 'Comments', comments_path
+  %li= link_to 'Locations', loci_path
+  %li= link_to 'Map Edit', edit_map_path
+  %li= link_to 'Settings', settings_path
