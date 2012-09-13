@@ -12,7 +12,7 @@
 
   %div.input.string
     %label API key
-    %input.string{name: 's[flickr_app][api_key]', type: :text, value: Settings.flickr_app.api_key}
+    %input.string.api_key{name: 's[flickr_app][api_key]', type: :text, value: Settings.flickr_app.api_key}
 
   %div.input.string
     %label Shared secret
