@@ -8,7 +8,6 @@ class SettingsControllerTest < ActionController::TestCase
     login_as_admin
     get :index
     assert_template 'index'
-    assert_kind_of Hash, assigns(:settings)
   end
 
   test "create new setting" do

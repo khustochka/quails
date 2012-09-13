@@ -8,4 +8,9 @@ class Settings < ActiveRecord::Base
     h.default = {}
     h
   end
+
+  def self.flickr_app
+    h = find_by_key(:flickr_app).try(:value) || {}
+    OpenStruct.new(h)
+  end
 end

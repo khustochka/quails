@@ -4,7 +4,6 @@ class SettingsController < ApplicationController
 
   # GET /settings
   def index
-    @settings = Settings.to_hash
   end
 
   # POST /settings/save
