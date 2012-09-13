@@ -4,7 +4,7 @@
 - if current_user.admin?
   = yield :admin_menu
 - elsif current_user.has_admin_cookie?
-  %ul.admin_box
+  %ul.admin_menu.horiz-list
     %li= link_to 'Login', login_path
 
 #header
