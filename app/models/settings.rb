@@ -4,9 +4,7 @@ class Settings < ActiveRecord::Base
   serialize :value
 
   def self.to_hash
-    h = Hash[ all.map {|s| [s.key, s.value] } ].with_indifferent_access
-    h.default = {}
-    h
+    Hash[ all.map {|s| [s.key, s.value] } ]
   end
 
   def self.flickr_app
