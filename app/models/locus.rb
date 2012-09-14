@@ -42,10 +42,10 @@ class Locus < ActiveRecord::Base
     species.ordered_by_taxonomy.all.extend(SpeciesArray)
   end
 
-  def get_subregions
-    result = bunch = [self]
+  def subregion_ids
+    result = bunch = [self.id]
     until bunch.empty?
-      bunch = Locus.select(:id).where(:parent_id => bunch).all
+      bunch = Locus.where(:parent_id => bunch).pluck(:id)
       result.concat(bunch)
     end
     result

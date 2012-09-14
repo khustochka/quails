@@ -77,7 +77,7 @@ class Lifelist
     initial.dup.tap do |filter|
       if filter[:locus]
         @locus = @source[:loci].find_by_slug!(filter[:locus])
-        filter[:locus] = @locus.get_subregions
+        filter[:locus] = @locus.subregion_ids
       end
     end
   end

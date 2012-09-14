@@ -5,22 +5,17 @@ namespace :check do
   task :benchmark => :environment do
     require 'benchmark'
 
-    @query = {observ_date: '2010-07-24'}
-    @query2 = {observation_observ_date: '2010-07-24'}
+    @ukr = Locus.find_by_slug('ukraine')
 
     n = 500
     Benchmark.bmbm do |x|
 
-      x.report('manual join') { n.times {
-        Spot.
-            joins("JOIN (#{Observation.search(@query).to_sql}) as obs ON observation_id=obs.id").
-            select('lat, lng')
+      x.report('old') { n.times {
+        @ukr.get_subregions
       } }
 
-      x.report('join+merge') { n.times {
-        Spot.
-            joins(:observation).merge(Observation.search(@query)).
-        select('lat, lng')
+      x.report('new') { n.times {
+        @ukr.subregion_ids
       } }
 
     end

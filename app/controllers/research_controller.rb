@@ -94,15 +94,15 @@ class ResearchController < ApplicationController
       @loc2 = Locus.find_by_slug(l2)
 
       observations_source = if @loc1.country == @loc2.country
-                              MyObservation.where(locus_id: @loc1.country.get_subregions)
+                              MyObservation.where(locus_id: @loc1.country.subregion_ids)
                             else
                               MyObservation.scoped
                             end
 
       @species = Species.uniq.joins(:observations).merge(observations_source).ordered_by_taxonomy.all.extend(SpeciesArray)
 
-      @loc1_species = Species.uniq.joins(:observations).merge(MyObservation.where(locus_id: @loc1.get_subregions)).all
-      @loc2_species = Species.uniq.joins(:observations).merge(MyObservation.where(locus_id: @loc2.get_subregions)).all
+      @loc1_species = Species.uniq.joins(:observations).merge(MyObservation.where(locus_id: @loc1.subregion_ids)).all
+      @loc2_species = Species.uniq.joins(:observations).merge(MyObservation.where(locus_id: @loc2.subregion_ids)).all
     else
       l1 ||= 'kiev'
       l2 ||= 'brovary'
