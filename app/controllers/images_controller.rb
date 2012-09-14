@@ -30,12 +30,12 @@ class ImagesController < ApplicationController
 
   # GET /images/add # select flickr photo
   def add
-    if FlickRaw.api_key.nil? || FlickRaw.shared_secret.nil?
-      redirect_to({action: :new}, alert: "No Flickr API key or secret defined!")
-    else
+    if FlickrApp.configured?
       @flickr_images = flickr.photos.search({user_id: '8289389@N04',
                                              extras: 'date_taken',
                                              per_page: 10})
+    else
+      redirect_to({action: :new}, alert: "No Flickr API key or secret defined!")
     end
   end
 

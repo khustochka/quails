@@ -18,9 +18,7 @@
 
 %p= image_tag(jpg_url(@image))
 
-- if FlickRaw.api_key.nil? || FlickRaw.shared_secret.nil?
-  %div.errors No Flickr API key or secret defined!
-- else
+- if FlickrApp.configured?
   %h3 Find a picture:
 
   %table.with_search.flickr_search_table.with_search
@@ -40,3 +38,5 @@
         %button.flickr_search_btn{type: 'button'} Search
     %tr
       %td.found_pictures{colspan: 2}
+- else
+  %div.errors No Flickr API key or secret defined!

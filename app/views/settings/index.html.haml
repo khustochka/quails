@@ -18,5 +18,15 @@
     %label Shared secret
     %input.string{name: 's[flickr_app][shared_secret]', type: :text, value: Settings.flickr_app.shared_secret}
 
+  %h2 Flickr Admin
+
+  %div.input.string
+    %label Access token
+    %input.string.api_key{name: 's[flickr_admin][access_token]', type: :text, value: Settings.flickr_admin.access_token}
+
+  %div.input.string
+    %label Access secret
+    %input.string{name: 's[flickr_admin][access_secret]', type: :text, value: Settings.flickr_admin.access_secret}
+
   %div.buttons
     %input.button#save_button{:type => :submit, :value => 'Save'}

@@ -13,4 +13,9 @@ class Settings < ActiveRecord::Base
     h = find_by_key(:flickr_app).try(:value) || {}
     OpenStruct.new(h)
   end
+
+  def self.flickr_admin
+    h = find_by_key(:flickr_admin).try(:value) || {}
+    OpenStruct.new(h)
+  end
 end
