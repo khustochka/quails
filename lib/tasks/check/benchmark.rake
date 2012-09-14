@@ -10,11 +10,15 @@ namespace :check do
     n = 500
     Benchmark.bmbm do |x|
 
-      x.report('old') { n.times {
+      x.report('Instantiating') { n.times {
         @ukr.get_subregions
       } }
 
-      x.report('new') { n.times {
+      x.report('Ruby recursive') { n.times {
+        @ukr.subregion_ids0
+      } }
+
+      x.report('PGSQL recursive') { n.times {
         @ukr.subregion_ids
       } }
 

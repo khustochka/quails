@@ -43,12 +43,23 @@ class Locus < ActiveRecord::Base
   end
 
   def subregion_ids
-    result = bunch = [self.id]
-    until bunch.empty?
-      bunch = Locus.where(:parent_id => bunch).pluck(:id)
-      result.concat(bunch)
-    end
-    result
+    # WARNING: PostgreSQL specific syntax
+    # Learnt from: http://blog.hashrocket.com/posts/recursive-sql-in-activerecord
+    query = <<-SQL
+      WITH RECURSIVE subregions(id) AS (
+        SELECT id
+        FROM loci
+        WHERE parent_id = #{self.id}
+          UNION ALL
+        SELECT loci.id
+        FROM loci JOIN subregions ON loci.parent_id = subregions.id
+      )
+      SELECT * FROM subregions
+    SQL
+
+    Locus.connection.select_all(query, "Locus Load").map! do |a|
+      a["id"].to_i
+    end.push(self.id)
   end
 
   def country
