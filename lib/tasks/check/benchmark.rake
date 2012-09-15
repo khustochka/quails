@@ -7,18 +7,18 @@ namespace :check do
 
     @ukr = Locus.find_by_slug('ukraine')
 
-    n = 500
+    n = 2000
     Benchmark.bmbm do |x|
 
-      x.report('Instantiating') { n.times {
-        @ukr.get_subregions
-      } }
-
-      x.report('Ruby recursive') { n.times {
+      x.report('select all') { n.times {
         @ukr.subregion_ids0
       } }
 
-      x.report('PGSQL recursive') { n.times {
+      x.report('select values') { n.times {
+        @ukr.subregion_ids1
+      } }
+
+      x.report('select flatten') { n.times {
         @ukr.subregion_ids
       } }
 

@@ -57,9 +57,7 @@ class Locus < ActiveRecord::Base
       SELECT * FROM subregions
     SQL
 
-    Locus.connection.select_all(query, "Locus Load").map! do |a|
-      a["id"].to_i
-    end.push(self.id)
+    Locus.connection.select_rows(query, "Locus Load").map! {|a| a[0].to_i }.push(self.id)
   end
 
   def country
