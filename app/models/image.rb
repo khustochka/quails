@@ -55,7 +55,7 @@ class Image < ActiveRecord::Base
     )
   end
 
-  def set_flickr_data(parameters = {})
+  def set_flickr_data(flickr, parameters = {})
     self.flickr_id = parameters[:flickr_id] || flickr_id
     if self.flickr_id.present?
       sizes_array = flickr.photos.getSizes(photo_id: flickr_id)

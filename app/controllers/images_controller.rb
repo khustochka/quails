@@ -42,7 +42,7 @@ class ImagesController < ApplicationController
   # GET /images/new
   def new
     @image = Image.new(params[:i])
-    @image.set_flickr_data
+    @image.set_flickr_data(flickr)
 
     render 'form'
   end
@@ -68,7 +68,7 @@ class ImagesController < ApplicationController
   def create
     @image = Image.new
 
-    @image.set_flickr_data(params[:image])
+    @image.set_flickr_data(flickr, params[:image])
 
     if @image.update_with_observations(params[:image], params[:obs])
       redirect_to(public_image_path(@image), :notice => 'Image was successfully created.')
@@ -92,7 +92,7 @@ class ImagesController < ApplicationController
   def patch
     new_params = params[:image]
     if new_params[:flickr_id]
-      @image.set_flickr_data(new_params)
+      @image.set_flickr_data(flickr, new_params)
       @image.save
     end
     respond_to do |format|

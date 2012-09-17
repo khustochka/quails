@@ -10,11 +10,10 @@ module FlickrApp
   end
 
   def flickr
-    @flickr ||= FlickRaw::Flickr.new.tap do |fl|
+    @flickr ||= (FlickRaw::Flickr.new.tap do |fl|
       fl.access_token = Settings.flickr_admin.access_token
       fl.access_secret = Settings.flickr_admin.access_secret
-    end
-
+    end if FlickrApp.configured?)
   end
 
 end
