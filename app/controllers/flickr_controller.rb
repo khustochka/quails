@@ -13,11 +13,11 @@ class FlickrController < ApplicationController
     @flickr_imgs = @images.each_with_object({}) do |img, memo|
       memo[img.id] =
           flickr.photos.search(
-              :user_id => '8289389@N04',
-              :extras => 'original_format,date_taken',
-              :text => img.species[0].name_sci,
-              :min_taken_date => img.observ_date - 1,
-              :max_taken_date => img.observ_date + 1
+              user_id: Settings.flickr_admin.user_id,
+              extras: 'original_format,date_taken',
+              text: img.species[0].name_sci,
+              min_taken_date: img.observ_date - 1,
+              max_taken_date: img.observ_date + 1
           )
     end
 

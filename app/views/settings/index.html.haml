@@ -20,6 +20,11 @@
 
   %h2 Flickr Admin
 
+  %div
+    %div.input.string
+      %label User id
+      %input.string{name: 's[flickr_admin][user_id]', type: :text, value: Settings.flickr_admin.user_id}
+
   %div.input.string
     %label Access token
     %input.string.api_key{name: 's[flickr_admin][access_token]', type: :text, value: Settings.flickr_admin.access_token}

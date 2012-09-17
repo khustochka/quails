@@ -31,7 +31,7 @@ class ImagesController < ApplicationController
   # GET /images/add # select flickr photo
   def add
     if FlickrApp.configured?
-      @flickr_images = flickr.photos.search({user_id: '8289389@N04',
+      @flickr_images = flickr.photos.search({user_id: Settings.flickr_admin.user_id,
                                              extras: 'date_taken',
                                              per_page: 10})
     else
@@ -133,7 +133,7 @@ class ImagesController < ApplicationController
         params[:flickr_text].blank? ?
             [] :
             flickr.photos.search(
-                {user_id: '8289389@N04',
+                {user_id: Settings.flickr_admin.user_id,
                  extras: 'date_taken,url_s',
                  text: params[:flickr_text]}.merge(dates_params)
             ).map(&:to_hash)
