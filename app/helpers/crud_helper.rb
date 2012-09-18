@@ -11,4 +11,8 @@ module CrudHelper
   def default_destroy_link(rec)
     link_to image_tag('/img/x_alt_16x16.png', title: 'Destroy'), rec, data: {confirm: 'Are you sure?'}, method: :delete, class: 'destroy'
   end
+
+  def default_destroy_button
+    button_to('DELETE', {action: :destroy}, {confirm: 'Are you sure?', method: :delete})
+  end
 end
