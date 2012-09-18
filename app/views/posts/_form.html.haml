@@ -13,8 +13,5 @@
   %div
     = form.input :topic, collection: Post::TOPICS, input_html: {size: '3'}, include_blank: false
     = form.input :status, collection: Post::STATES, input_html: {size: '3'}, include_blank: false
-  - unless @post.lj_url_id.blank?
-    %b LJ:
-    = link_to(lj_post_url, lj_post_url)
   .buttons
     = default_submit_button(form)

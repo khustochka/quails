@@ -54,6 +54,7 @@ Quails3::Application.routes.draw do
 
   resources :posts, except: [:index, :show] do
     get :hidden, on: :collection
+    post :lj_post, on: :member
   end
 
   resources :observations do

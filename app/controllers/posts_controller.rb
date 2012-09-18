@@ -2,7 +2,7 @@ class PostsController < ApplicationController
 
   administrative except: [:show, :hidden]
 
-  before_filter :find_post, only: [:edit, :update, :destroy, :show]
+  before_filter :find_post, only: [:edit, :update, :destroy, :show, :lj_post]
 
   after_filter :cache_expire, only: [:create, :update, :destroy]
 
@@ -56,6 +56,23 @@ class PostsController < ApplicationController
   def destroy
     @post.destroy
     redirect_to(blog_url)
+  end
+
+  # POST
+  def lj_post
+    #user = LiveJournal::User.new(Settings.lj_user.name, Settings.lj_user.password)
+    #entry = LiveJournal::Entry.new
+    #entry.security = :private
+    #entry.subject = post_title(@post)
+    #entry.event = @post.text
+    #
+    #request = LiveJournal::Request::PostEvent.new(user, entry)
+    #
+    #request.run
+    #
+    #puts "Entry #{entry.itemid}, #{entry.anum}"
+
+    redirect_to({action: :edit}, {notice: 'Posted to LJ'})
   end
 
   private
