@@ -37,6 +37,8 @@ class ImagesController < ApplicationController
     else
       redirect_to({action: :new}, alert: "No Flickr API key or secret defined!")
     end
+  rescue FlickRaw::FailedResponse => e
+    redirect_to({action: :new}, alert: e.message)
   end
 
   # GET /images/new
@@ -139,6 +141,8 @@ class ImagesController < ApplicationController
             ).map(&:to_hash)
 
     respond_with(result, only: %w(id title datetaken url_s))
+  rescue FlickRaw::FailedResponse => e
+    respond_with({error: e.message}, status: :error)
   end
 
   private
