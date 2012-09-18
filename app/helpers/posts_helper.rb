@@ -13,7 +13,7 @@ module PostsHelper
   end
 
   def lj_post_url
-    "http://stonechat.livejournal.com/#{@post.lj_url_id}.html"
+    "http://#{Settings.lj_user.name}.livejournal.com/#{@post.lj_url_id}.html"
   end
 
 end

@@ -33,5 +33,15 @@
     %label Access secret
     %input.string{name: 's[flickr_admin][access_secret]', type: :text, value: Settings.flickr_admin.access_secret}
 
+  %h2 Livejournal User
+
+  %div.input.string
+    %label User name
+    %input.string{name: 's[lj_user][name]', type: :text, value: Settings.lj_user.name}
+
+  %div.input.string
+    %label Password
+    %input.string{name: 's[lj_user][password]', type: :password, value: Settings.lj_user.password}
+
   %div.buttons
     %input.button#save_button{:type => :submit, :value => 'Save'}
