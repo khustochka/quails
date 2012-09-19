@@ -12,7 +12,7 @@ module Configurator
   end
 
   def self.configure_secret_token
-    secret = ENV['secret_token'] || config_data.secret_token
+    secret = config_data.secret_token
     if secret.blank? || secret.length < 30
       raise ArgumentError, "A secret is required to generate an " +
           "integrity hash for cookie session data. Use " +
