@@ -7,7 +7,7 @@ module Configurator
       when 'User'
         User.configure(config_data.admin)
       when 'ImagesHelper'
-        ImagesHelper.images_host = config_data.images_host
+        ImagesHelper.image_host = config_data.image_host
     end
   end
 
