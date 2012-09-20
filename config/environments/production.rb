@@ -48,7 +48,7 @@ Quails3::Application.configure do
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   js = Dir.chdir("#{Rails.root}/app/assets/javascripts") { Dir.glob("*.{js}") }
   css = Dir.chdir("#{Rails.root}/app/assets/stylesheets") do
-    Dir.glob("[^_]*.{css,sass}").map {|f| f.sub('.sass', '.css')}
+    Dir.glob("*.{css,sass}").map {|f| f.sub('.sass', '.css')}
   end
   config.assets.precompile += %w( html5.js ) + js + css
 
