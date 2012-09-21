@@ -73,6 +73,8 @@ Quails3::Application.routes.draw do
     end
   end
 
+  resources :authorities
+
   resources :species, only: [:edit, :update]
   resources :images, except: :show do
     member do

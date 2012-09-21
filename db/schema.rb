@@ -11,7 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120808093052) do
+ActiveRecord::Schema.define(:version => 20120921094042) do
+
+  create_table "authorities", :force => true do |t|
+    t.string "slug",        :limit => 32, :null => false
+    t.string "name"
+    t.text   "description"
+  end
 
   create_table "checklists", :id => false, :force => true do |t|
     t.integer "locus_id",   :null => false

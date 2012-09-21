@@ -1,0 +1,22 @@
+- javascript 'ujs'
+
+- @page_title = 'Authorities'
+
+%h1= page_header
+
+= render 'admin/shortcuts' if current_user.admin?
+
+%table.neat_table.loci_index
+  %tr
+    %th Slug
+    %th Name
+    %th Description
+    %th
+
+  - @authorities.each do |author|
+    %tr
+      %td= link_to author.slug, edit_authority_path(author)
+      %td= author.name
+      %td= author.description
+      %td
+        = default_destroy_link(author)

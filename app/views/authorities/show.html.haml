@@ -1,0 +1,15 @@
+- @page_title = @authority.slug
+
+%h1= @authority.slug
+
+= render 'admin/shortcuts' if current_user.admin?
+
+%p
+  %b Slug:
+  = @authority.slug
+%p
+  %b Name:
+  = @authority.name
+%p
+  %b Description:
+  = @authority.description
