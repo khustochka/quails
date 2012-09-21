@@ -27,6 +27,7 @@ namespace :seed do
         io = File.new "#{dirname}/#{table_name}.yml", "w"
         table = BunchDB::Table.new(table_name)
         table.dump(io)
+        io.close
         repo.add("seed/#{table_name}.yml")
       end
 
