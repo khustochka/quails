@@ -30,8 +30,13 @@ module Configurator
   end
 
   def self.read_config
-    filename = 'config/security.yml'
-    OpenStruct.new(YAML.load(ERB.new(File.read(filename)).result)[Rails.env])
+    OpenStruct.new(
+        if ENV['QUAILS_ENV'].try(:include?, 'heroku')
+          read_config_from_env_vars
+        else
+          YAML.load(ERB.new(File.read('config/security.yml')).result)[Rails.env]
+        end
+    )
   rescue Errno::ENOENT
     require 'fileutils'
     FileUtils.cp 'config/security.sample.yml', filename
@@ -42,6 +47,18 @@ module Configurator
     else
       raise err_msg
     end
+  end
+
+  def self.read_config_from_env_vars
+    {
+        admin: {
+            username: ENV['admin_username'],
+            password: ENV['admin_password'],
+            cookie_value: ENV['admin_cookie_value']
+        },
+        secret_token: ENV['quails_secret_token'],
+        image_host: ENV['quails_image_host']
+    }
   end
 
 end
