@@ -9,16 +9,17 @@ module FlickrApp
     @configured = flickraw_configured?
   end
 
+  private
+
+  def self.flickraw_configured?
+    FlickRaw.api_key.present? && FlickRaw.shared_secret.present?
+  end
+
   def flickr
     @flickr ||= (FlickRaw::Flickr.new.tap do |fl|
       fl.access_token = Settings.flickr_admin.access_token
       fl.access_secret = Settings.flickr_admin.access_secret
     end if FlickrApp.configured?)
-  end
-
-  private
-  def self.flickraw_configured?
-    FlickRaw.api_key.present? && FlickRaw.shared_secret.present?
   end
 
 end
