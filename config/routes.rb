@@ -73,8 +73,6 @@ Quails3::Application.routes.draw do
     end
   end
 
-  resources :authorities
-
   resources :species, only: [:edit, :update]
   resources :images, except: :show do
     member do
@@ -98,6 +96,10 @@ Quails3::Application.routes.draw do
 
   resources :spots, only: :destroy, defaults: {format: :json} do
     post :save, on: :collection
+  end
+
+  resources :authorities do
+    resources :book_species, except: [:new, :create, :destroy]
   end
 
   get '/settings' => 'settings#index'

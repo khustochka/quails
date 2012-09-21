@@ -7,9 +7,13 @@
 %p
   %b Slug:
   = @authority.slug
+%ul
+  %li
+    %b= link_to "Species list (#{@authority.book_species.count})", authority_book_species_index_path(@authority)
 %p
   %b Name:
   = @authority.name
 %p
   %b Description:
   = @authority.description
+
