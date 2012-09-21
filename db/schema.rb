@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120921104325) do
+ActiveRecord::Schema.define(:version => 20120921120351) do
 
   create_table "authorities", :force => true do |t|
     t.string "slug",        :limit => 32, :null => false
@@ -141,22 +141,24 @@ ActiveRecord::Schema.define(:version => 20120921104325) do
   end
 
   create_table "species", :force => true do |t|
-    t.string  "code",       :limit => 6
-    t.string  "name_sci",                 :null => false
+    t.string  "code",        :limit => 6
+    t.string  "name_sci",                  :null => false
     t.string  "authority"
-    t.string  "name_en",                  :null => false
+    t.string  "name_en",                   :null => false
     t.string  "name_ru"
     t.string  "name_uk"
-    t.integer "index_num",                :null => false
+    t.integer "index_num",                 :null => false
     t.string  "order"
-    t.string  "family",                   :null => false
-    t.string  "avibase_id", :limit => 16
+    t.string  "family",                    :null => false
+    t.string  "avibase_id",  :limit => 16
     t.string  "protonym"
     t.string  "name_fr"
+    t.string  "legacy_slug",               :null => false
   end
 
   add_index "species", ["code"], :name => "index_species_on_code", :unique => true
   add_index "species", ["index_num"], :name => "index_species_on_index_num"
+  add_index "species", ["legacy_slug"], :name => "index_species_on_legacy_slug", :unique => true
   add_index "species", ["name_sci"], :name => "index_species_on_name_sci", :unique => true
 
   create_table "spots", :force => true do |t|
