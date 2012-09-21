@@ -16,10 +16,11 @@
 
   - @authorities.each do |author|
     %tr
-      %td= link_to author.slug, authority_path(author)
-      %td= author.name
+      %td
+        %b= author.slug
+      %td= link_to author.name, authority_path(author)
       %td
         %i
           %small= author.description
-      %td.align-center= link_to author.book_species.count, authority_book_species_index_path(author)
+      %td.align-center= author.book_species.count
       %td= default_destroy_link(author)

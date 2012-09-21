@@ -2,13 +2,7 @@ class BookSpeciesController < ApplicationController
 
   administrative
 
-  before_filter :find_species, :only => [:show, :edit, :update]
-
-  # GET /species
-  def index
-    @authority = Authority.find_by_slug(params[:authority_id])
-    @species = @authority.book_species.extend(SpeciesArray)
-  end
+  before_filter :find_species
 
   # GET /species/1
   def show

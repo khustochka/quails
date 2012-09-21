@@ -1,19 +1,38 @@
-- @page_title = @authority.slug
+- @page_title = "[#{@authority.name}]"
 
-%h1= @authority.slug
+%h1= @page_title
 
 = render 'admin/shortcuts' if current_user.admin?
 
-%p
-  %b Slug:
-  = @authority.slug
-%ul
-  %li
-    %b= link_to "Species list (#{@authority.book_species.count})", authority_book_species_index_path(@authority)
-%p
-  %b Name:
-  = @authority.name
-%p
-  %b Description:
-  = @authority.description
+%dl
+  %dt
+    %b= @authority.slug
+  %dd
+    %i= @authority.description
+
+%h2= Species
+
+%table.neat_table
+  %tr
+    %th.align-right No
+    %th Scientific name
+    %th Global species
+    %th Authority
+    %th Names
+    %th.align-right Avibase id
+
+  - @species.group_by_family.each do |fam, species_list|
+    %tr
+      %td
+      %td
+      %td{:colspan => 5}
+        %h3= "#{fam[:order].upcase}: #{fam[:family]}"
+    - species_list.each do |species|
+      %tr
+        %td.align-right= species.index_num
+        %td= species.name_sci
+        %td= link_to content_tag(:i, species_link(species.species, species.species.name_sci)), species.species
+        %td= species.authority
+        %td= %w(en ru uk).map{|lang| "#{lang}: #{species.send("name_#{lang}")}"}.join('<br />').html_safe
+        %td.align-right= link_to species.avibase_id, avibase_species_url(species.avibase_id)
 

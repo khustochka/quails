@@ -99,7 +99,7 @@ Quails3::Application.routes.draw do
   end
 
   resources :authorities do
-    resources :book_species, except: [:new, :create, :destroy]
+    resources :book_species, except: [:index, :new, :create, :destroy]
   end
 
   get '/settings' => 'settings#index'

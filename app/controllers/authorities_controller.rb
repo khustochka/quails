@@ -13,6 +13,7 @@ class AuthoritiesController < ApplicationController
 
   # GET /authority/1
   def show
+    @species = @authority.book_species.extend(SpeciesArray)
   end
 
   # GET /authority/new
