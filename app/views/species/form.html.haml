@@ -8,8 +8,10 @@
 
 = simple_form_for @species do |form|
   %div
-    = form.input :name_sci, :label => 'Scientific name', :input_html => {:disabled => true}, :input_html => {:class => 'larger'}
     = form.input :code, :input_html => {:class => 'short larger'}
+  %div
+    = form.input :name_sci, :label => 'Scientific name', :input_html => {:disabled => true, :class => 'larger'}
+    = form.input :legacy_slug, :label => 'Legacy slug', :input_html => {:disabled => true}
   %div
     = form.input :protonym
     = form.input :authority
