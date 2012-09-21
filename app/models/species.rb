@@ -17,7 +17,7 @@ class Species < ActiveRecord::Base
   # Parameters
 
   def to_param
-    name_sci_was.sp_parameterize
+    legacy_slug_was.sp_parameterize
   end
 
   def to_label

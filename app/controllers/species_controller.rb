@@ -32,6 +32,6 @@ class SpeciesController < ApplicationController
 
   private
   def find_species
-    @species = Species.find_by_name_sci!(params[:id].sp_humanize)
+    @species = Species.find_by_legacy_slug(params[:id]) || Species.find_by_name_sci!(params[:id].sp_humanize)
   end
 end
