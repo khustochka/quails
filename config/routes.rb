@@ -98,7 +98,7 @@ Quails3::Application.routes.draw do
     post :save, on: :collection
   end
 
-  resources :authorities do
+  resources :books do
     resources :book_species, except: [:index, :new, :create, :destroy]
   end
 

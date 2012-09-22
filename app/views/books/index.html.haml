@@ -1,6 +1,6 @@
 - javascript 'ujs'
 
-- @page_title = 'Authorities'
+- @page_title = 'Books'
 
 %h1= page_header
 
@@ -14,11 +14,11 @@
     %th Species
     %th
 
-  - @authorities.each do |author|
+  - @books.each do |author|
     %tr
       %td
         %b= author.slug
-      %td= link_to author.name, authority_path(author)
+      %td= link_to author.name, book_path(author)
       %td
         %i
           %small= author.description

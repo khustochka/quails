@@ -10,7 +10,7 @@ class BookSpecies < ActiveRecord::Base
 
   # Associations
 
-  belongs_to :authority
+  belongs_to :book
   belongs_to :species
 
   # Parameters

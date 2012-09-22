@@ -1,4 +1,4 @@
-class AuthoritiesController < ApplicationController
+class BooksController < ApplicationController
 
   respond_to :json, only: [:save_order]
 
@@ -8,17 +8,17 @@ class AuthoritiesController < ApplicationController
 
   # GET /authority
   def index
-    @authorities = Authority.scoped
+    @books = Book.scoped
   end
 
   # GET /authority/1
   def show
-    @species = @authority.book_species.extend(SpeciesArray)
+    @species = @book.book_species.extend(SpeciesArray)
   end
 
   # GET /authority/new
   def new
-    @authority = Authority.new
+    @book = Book.new
     render :form
   end
 
@@ -29,9 +29,9 @@ class AuthoritiesController < ApplicationController
 
   # POST /authority
   def create
-    @authority = Authority.new(params[:authority])
-    if @authority.save
-      redirect_to(@authority, :notice => 'Authority was successfully created.')
+    @book = Book.new(params[:authority])
+    if @book.save
+      redirect_to(@book, :notice => 'Book was successfully created.')
     else
       render :form
     end
@@ -39,8 +39,8 @@ class AuthoritiesController < ApplicationController
 
   # PUT /authority/1
   def update
-    if @authority.update_attributes(params[:authority])
-      redirect_to(@authority, :notice => 'Authority was successfully updated.')
+    if @book.update_attributes(params[:authority])
+      redirect_to(@book, :notice => 'Book was successfully updated.')
     else
       render :form
     end
@@ -48,8 +48,8 @@ class AuthoritiesController < ApplicationController
 
   # DELETE /authority/1
   def destroy
-    @authority.destroy
+    @book.destroy
     #TODO: rescue ActiveRecord::DeleteRestrictionError showing a notice and later - options for substitution
-    redirect_to(authorities_url)
+    redirect_to(books_url)
   end
 end

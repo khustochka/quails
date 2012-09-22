@@ -24,7 +24,7 @@ class BookSpeciesController < ApplicationController
 
   private
   def find_species
-    @authority = Authority.find_by_slug(params[:authority_id])
+    @book = Book.find_by_slug(params[:authority_id])
     @species = BookSpecies.find_by_name_sci!(params[:id].sp_humanize)
   end
 end

@@ -1,4 +1,4 @@
-class Authority < ActiveRecord::Base
+class Book < ActiveRecord::Base
 
   has_many :book_species, order: :index_num
 
