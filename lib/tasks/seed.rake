@@ -1,4 +1,4 @@
-SEED_TABLES = %w(species loci checklists books)
+SEED_TABLES = %w(species loci checklists books book_species)
 
 desc 'Tasks for managing DB seed'
 namespace :seed do
