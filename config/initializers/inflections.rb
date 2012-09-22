@@ -7,6 +7,6 @@ ActiveSupport::Inflector.inflections do |inflect|
 #   inflect.singular /^(ox)en/i, '\1'
 #   inflect.irregular 'person', 'people'
 #   inflect.uncountable %w( fish sheep )
-  inflect.uncountable [ /^(.*)species$/i ]
   inflect.irregular 'locus', 'loci'
+  inflect.irregular 'species', 'species'
 end
