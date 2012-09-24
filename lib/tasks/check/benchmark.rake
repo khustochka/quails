@@ -7,19 +7,15 @@ namespace :check do
 
     @ukr = Locus.find_by_slug('ukraine')
 
-    n = 2000
+    n = 500
     Benchmark.bmbm do |x|
 
-      x.report('select all') { n.times {
-        @ukr.subregion_ids0
+      x.report('join') { n.times {
+        Species.select("DISTINCT species.id").joins(:observations).merge(MyObservation.scoped).count
       } }
 
-      x.report('select values') { n.times {
-        @ukr.subregion_ids1
-      } }
-
-      x.report('select flatten') { n.times {
-        @ukr.subregion_ids
+      x.report('subquery') { n.times {
+        Species.where("id IN (#{MyObservation.select(:species_id).to_sql})").count
       } }
 
     end

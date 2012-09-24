@@ -33,6 +33,8 @@ Quails3::Application.routes.draw do
     end
   end
 
+  get '/my' => 'my_stats#index'
+
   get '/lifelist/advanced' => 'lifelist#advanced'
 
   get '/lifelist(/:year)(/:locus)(/:sort)' => 'lifelist#default', as: :lifelist,

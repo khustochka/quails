@@ -4,4 +4,6 @@ class MyObservation < Observation
 
   default_scope where(:mine => true).identified
 
+  scope :distinct_species, select("DISTINCT species_id")
+
 end

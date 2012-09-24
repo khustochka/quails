@@ -19,6 +19,10 @@ class RoutingTest < ActionDispatch::IntegrationTest
     assert_routing '/species/Aquilla_pomarina/edit', {controller: 'species', action: 'edit', id: 'Aquilla_pomarina'}
   end
 
+  test 'route `/my` correctly' do
+    assert_routing '/my', {controller: 'my_stats', action: 'index'}
+  end
+
   test 'route lifelist correctly' do
     assert_routing '/lifelist', {controller: 'lifelist', action: 'default'}
     assert_routing '/lifelist/advanced', {controller: 'lifelist', action: 'advanced'}

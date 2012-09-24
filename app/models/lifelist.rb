@@ -42,14 +42,18 @@ class Lifelist
   delegate :each, :length, :size, :empty?, :to_ary, :group_by_family, to: :to_a
   delegate :as_json, :to_yaml, :to_xml, to: :to_a
 
+  def relation
+    Lifer.select("species.*, #{@strategy.aggregation_column}").
+        joins("INNER JOIN (#{lifers_sql}) AS obs ON species.id=obs.species_id").
+        order(@strategy.sort_columns)
+  end
+
   # TODO: is it possible to delegate to relation?
   # main problem - preload posts
   def to_a
     return @records if @records
 
-    @records = Lifer.select("species.*, #{@strategy.aggregation_column}").
-        joins("INNER JOIN (#{lifers_sql}) AS obs ON species.id=obs.species_id").
-        order(@strategy.sort_columns).all
+    @records = relation.all
 
     # TODO: somehow extract posts preload to depend on strategy
     if @source[:posts]
