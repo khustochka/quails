@@ -5,17 +5,18 @@ namespace :check do
   task :benchmark => :environment do
     require 'benchmark'
 
-    @ukr = Locus.find_by_slug('ukraine')
+    @rel = MyObservation.aggregate_by_species(:min).
+                    having("EXTRACT(year FROM MIN(observ_date)) = 2012")
 
-    n = 500
+    n = 1000
     Benchmark.bmbm do |x|
 
-      x.report('join') { n.times {
-        Species.select("DISTINCT species.id").joins(:observations).merge(MyObservation.scoped).count
+      x.report('size') { n.times {
+        @rel.reload.all.size
       } }
 
       x.report('subquery') { n.times {
-        Species.where("id IN (#{MyObservation.select(:species_id).to_sql})").count
+        Observation.from("(#{@rel.to_sql}) AS obs").count
       } }
 
     end
