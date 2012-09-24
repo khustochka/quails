@@ -9,7 +9,7 @@ class MyStatsController < ApplicationController
     @species_this_year = MyObservation.distinct_species.filter(year: 2012).count
 
     # Count over subquery is faster than Array#size
-    rel =MyObservation.aggregate_by_species(:min).
+    rel = MyObservation.aggregate_by_species(:min).
                     having("EXTRACT(year FROM MIN(observ_date)) = 2012")
     @new_this_year = Observation.from("(#{rel.to_sql}) AS obs").count
   end
