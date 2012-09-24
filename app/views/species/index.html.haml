@@ -7,23 +7,30 @@
     %th.align-right No
     %th.align-center Code
     %th Scientific name
-    %th Authority
-    %th Protonym
     %th Names
-    %th.align-right Avibase id
+    %th.align-center Avibase id
 
   - @species.group_by_family.each do |fam, species_list|
     %tr
       %td
       %td
-      %td{:colspan => 5}
+      %td{:colspan => 3}
         %h3= "#{fam[:order].upcase}: #{fam[:family]}"
     - species_list.each do |species|
       %tr
         %td.align-right= species.index_num
-        %td.align-center= species.code
-        %td= link_to content_tag(:i, species_link(species, species.name_sci)), species
-        %td= species.authority
-        %td= species.protonym
-        %td= %w(en fr ru uk).map{|lang| "#{lang}: #{species.send("name_#{lang}")}"}.join('<br />').html_safe
-        %td.align-right= link_to species.avibase_id, avibase_species_url(species.avibase_id)
+        %td.align-center
+          %b= species.code
+        %td
+          = link_to content_tag(:i, species_link(species, species.name_sci)), species
+          = species.authority
+          %div
+            %small proto:
+            %i.less-important= species.protonym
+        %td
+          - %w(en ru uk fr).each do |lang|
+            %div
+              %i.less-important.monospace= "#{lang}:"
+              = species.send("name_#{lang}")
+        %td.align-center
+          %small= link_to species.avibase_id, avibase_species_url(species.avibase_id)
