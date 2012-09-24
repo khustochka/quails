@@ -86,6 +86,7 @@ Quails3::Application.routes.draw do
       get 'flickr_search', defaults: {format: :json}
     end
   end
+
   resources :comments, except: :new do
     get :reply, on: :member
   end
@@ -99,7 +100,7 @@ Quails3::Application.routes.draw do
   end
 
   resources :books do
-    resources :book_species, except: [:index, :new, :create, :destroy]
+    resources :book_species, except: [:index, :edit, :destroy]
   end
 
   get '/settings' => 'settings#index'

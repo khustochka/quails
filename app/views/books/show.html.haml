@@ -30,7 +30,7 @@
         %td.align-right= species.index_num
         %td
           %i
-            %b= species.name_sci
+            %b= link_to(species.name_sci, [@book, species])
           %span.less-important= species.authority
         %td
           - if species.species

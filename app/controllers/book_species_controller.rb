@@ -4,19 +4,28 @@ class BookSpeciesController < ApplicationController
 
   before_filter :find_species
 
-  # GET /species/1
   def show
-  end
-
-  # GET /species/1/edit
-  def edit
     render :form
   end
 
-  # PUT /species/1
+  def new
+    @book = Book.find_by_slug(params[:book_id])
+    @species = @book.species.new
+    render :form.species.new
+  end
+
+  def create
+    @book = Book.find_by_slug(params[:book_id])
+    if @species = @book.species.create(params[:book_species])
+      redirect_to([@book, @species], :notice => 'BookSpecies was successfully created.')
+    else
+      render :form
+    end
+  end
+
   def update
-    if @species.update_attributes(params[:species])
-      redirect_to(@species, :notice => 'BookSpecies was successfully updated.')
+    if @species.update_attributes(params[:book_species])
+      redirect_to([@book, @species], :notice => 'BookSpecies was successfully updated.')
     else
       render :form
     end
@@ -24,7 +33,7 @@ class BookSpeciesController < ApplicationController
 
   private
   def find_species
-    @book = Book.find_by_slug(params[:authority_id])
+    @book = Book.find_by_slug(params[:book_id])
     @species = BookSpecies.find_by_name_sci!(params[:id].sp_humanize)
   end
 end

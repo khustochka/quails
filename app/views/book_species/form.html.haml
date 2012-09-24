@@ -1,0 +1,28 @@
+- javascript 'bare_combo_suggest'
+- stylesheet 'forms', 'jquery-ui'
+
+- @page_title = "Editing #{@species.name_sci} [#{@book.name}]"
+
+%h1= page_header
+
+= render 'admin/shortcuts' if current_user.admin?
+
+= simple_form_for [@book, @species] do |form|
+  %div
+    = form.input :name_sci, :label => 'Scientific name', :input_html => {:class => 'larger'}
+    = form.input :authority
+  %div
+    = form.input :species_id, label: 'Related species:', collection: species_for_select, required: false,
+      input_html: {class: 'suggest-combo'}
+    = form.input :name_en, :label => 'English name'
+  %div
+    = form.input :name_ru, :label => 'Russian name'
+    = form.input :name_uk, :label => 'Ukrainian name'
+  %div
+    = form.input :order, :input_html => {:disabled => true}
+    = form.input :family, :input_html => {:disabled => true}
+  %div
+    = form.input :avibase_id, :label => 'Avibase ID', :input_html => {:disabled => true}
+    = form.input :index_num, :label => 'Index number', :input_html => {:disabled => true, :size => 10, :type => :text }
+  .buttons
+    = default_submit_button(form)
