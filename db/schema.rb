@@ -11,25 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120922101456) do
-
-  create_table "book_species", :force => true do |t|
-    t.integer "book_id",                  :null => false
-    t.integer "species_id"
-    t.string  "name_sci",                 :null => false
-    t.string  "authority",                :null => false
-    t.string  "name_en",                  :null => false
-    t.string  "name_ru",                  :null => false
-    t.string  "name_uk",                  :null => false
-    t.integer "index_num",                :null => false
-    t.string  "order",                    :null => false
-    t.string  "family",                   :null => false
-    t.string  "avibase_id", :limit => 16
-  end
-
-  add_index "book_species", ["book_id"], :name => "index_book_species_on_authority_id"
-  add_index "book_species", ["index_num"], :name => "index_book_species_on_index_num"
-  add_index "book_species", ["name_sci"], :name => "index_book_species_on_name_sci", :unique => true
+ActiveRecord::Schema.define(:version => 20120925122014) do
 
   create_table "books", :force => true do |t|
     t.string "slug",        :limit => 32, :null => false
@@ -172,5 +154,22 @@ ActiveRecord::Schema.define(:version => 20120922101456) do
   end
 
   add_index "spots", ["observation_id"], :name => "index_spots_on_observation_id"
+
+  create_table "taxa", :force => true do |t|
+    t.integer "book_id",                  :null => false
+    t.integer "species_id"
+    t.string  "name_sci",                 :null => false
+    t.string  "authority",                :null => false
+    t.string  "name_en",                  :null => false
+    t.string  "name_ru",                  :null => false
+    t.string  "name_uk",                  :null => false
+    t.integer "index_num",                :null => false
+    t.string  "order",                    :null => false
+    t.string  "family",                   :null => false
+    t.string  "avibase_id", :limit => 16
+  end
+
+  add_index "taxa", ["book_id", "index_num"], :name => "index_taxa_on_book_id_and_index_num"
+  add_index "taxa", ["book_id", "name_sci"], :name => "index_taxa_on_book_id_and_name_sci"
 
 end

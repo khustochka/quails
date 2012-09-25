@@ -1,6 +1,6 @@
 class Book < ActiveRecord::Base
 
-  has_many :book_species, order: :index_num
+  has_many :taxa, order: :index_num
 
   # Parameters
 

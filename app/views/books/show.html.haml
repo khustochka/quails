@@ -20,7 +20,7 @@
     %th Names
     %th.align-right Avibase id
 
-  - @species.group_by_family.each do |fam, species_list|
+  - @taxa.group_by_family.each do |fam, species_list|
     %tr
       %td
       %td{:colspan => 4}

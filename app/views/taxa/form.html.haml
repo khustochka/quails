@@ -1,13 +1,13 @@
 - javascript 'bare_combo_suggest'
 - stylesheet 'forms', 'jquery-ui'
 
-- @page_title = "Editing #{@species.name_sci} [#{@book.name}]"
+- @page_title = "Editing #{@taxon.name_sci} [#{@book.name}]"
 
 %h1= page_header
 
 = render 'admin/shortcuts' if current_user.admin?
 
-= simple_form_for [@book, @species] do |form|
+= simple_form_for [@book, @taxon] do |form|
   %div
     = form.input :name_sci, :label => 'Scientific name', :input_html => {:class => 'larger'}
     = form.input :authority

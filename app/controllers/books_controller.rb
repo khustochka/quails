@@ -13,7 +13,7 @@ class BooksController < ApplicationController
 
   # GET /books/1
   def show
-    @species = @book.book_species.preload(:species).extend(SpeciesArray)
+    @taxa = @book.taxa.preload(:species).extend(SpeciesArray)
   end
 
   # GET /books/new
