@@ -1,6 +1,11 @@
-class LifelistController < ApplicationController
+class ListsController < ApplicationController
 
-  def default
+  def index
+
+  end
+
+  def basic
+
     @allowed_params = [:controller, :action, :year, :locus, :sort]
 
     sort_override =

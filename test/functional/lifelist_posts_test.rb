@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class LifelistPostsTest < ActionController::TestCase
-  tests LifelistController
+  tests ListsController
 
   setup do
     @obs = [
@@ -16,7 +16,7 @@ class LifelistPostsTest < ActionController::TestCase
   test 'show post link on default lifelist if post is associated' do
     @obs[1].post = create(:post)
     @obs[1].save!
-    get :default
+    get :basic
     assert_response :success
     lifers = assigns(:lifelist)
     assert_equal 1, lifers.map(&:post).compact.size
@@ -26,7 +26,7 @@ class LifelistPostsTest < ActionController::TestCase
   test 'show post link on lifelist ordered by taxonomy if post is associated' do
     @obs[1].post = create(:post)
     @obs[1].save!
-    get :default, sort: :by_taxonomy
+    get :basic, sort: :by_taxonomy
     assert_response :success
     lifers = assigns(:lifelist)
     assert_equal 1, lifers.map(&:post).compact.size
@@ -36,7 +36,7 @@ class LifelistPostsTest < ActionController::TestCase
   test 'do not show post link if no post is associated' do
     @obs[3].post = create(:post)
     @obs[3].save!
-    get :default
+    get :basic
     assert_response :success
     lifers = assigns(:lifelist)
     assert_equal nil, lifers.find {|s| s.code == 'anapla'}.post
@@ -45,7 +45,7 @@ class LifelistPostsTest < ActionController::TestCase
   test 'do not show hidden post link to common visitor' do
     @obs[1].post = create(:post, status: 'PRIV')
     @obs[1].save!
-    get :default
+    get :basic
     assert_response :success
     lifers = assigns(:lifelist)
     assert_empty lifers.map(&:post).compact
@@ -55,7 +55,7 @@ class LifelistPostsTest < ActionController::TestCase
     @obs[1].post = create(:post, status: 'PRIV')
     @obs[1].save!
     login_as_admin
-    get :default
+    get :basic
     assert_response :success
     lifers = assigns(:lifelist)
     assert_equal 1, lifers.map(&:post).compact.size

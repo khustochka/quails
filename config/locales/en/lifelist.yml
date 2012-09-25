@@ -1,5 +1,5 @@
 "en":
-  lifelist:
+  lists:
     title:
       lifelist: Lifelist
       yearlist: '%{year} Year List'
@@ -8,7 +8,7 @@
       countrylist: '%{country} Country List'
       locationlist: '%{location} Location List'
 
-    default:
+    basic:
       by_date:
         first_seen_in: 'First seen in %{year}:'
 

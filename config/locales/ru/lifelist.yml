@@ -1,5 +1,5 @@
 "ru":
-  lifelist:
+  lists:
     title:
       lifelist: Мой список (lifelist)
       yearlist: Список %{year} года
@@ -8,7 +8,7 @@
       countrylist: 'Список страны: %{country}'
       locationlist: 'Местный список: %{location}'
 
-    default:
+    basic:
 
       filter:
         places: 'Страны:'

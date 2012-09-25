@@ -33,13 +33,17 @@ Quails3::Application.routes.draw do
     end
   end
 
-  get '/my' => 'my_stats#index'
+  get '/my' => 'my_stats#index', as: :my_stats
 
-  get '/lifelist/advanced' => 'lifelist#advanced'
+  get '/my/lists' => 'lists#index'
 
-  get '/lifelist(/:year)(/:locus)(/:sort)' => 'lifelist#default', as: :lifelist,
+  get '/my/lists/advanced' => 'lists#advanced', as: :advanced_list
+
+  get '/my/lists/life(/:sort)' => 'lists#basic', as: :lifelist
+
+  get '/my/lists(/:locus)(/:year)(/:sort)' => 'lists#basic', as: :list,
+      locus: /(?!by_)\D[^\/]+/, # negative look-ahead: not starting with 'by_'
       year: /\d{4}/,
-      locus: /(?!by_)[^\/]+/, # negative look-ahead: not starting with 'by_'
       sort: /by_taxonomy/
 
   get 'checklists/:slug' => 'checklists#show', constraints: {slug: 'ukraine'}, as: 'checklist'
