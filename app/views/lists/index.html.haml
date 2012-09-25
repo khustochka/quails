@@ -1,3 +1,35 @@
-- @page_title = "My (life)lists"
+- @page_title = "Lifelist и другие списки"
+
+- lifer = lambda do |sp|
+  %li.lifer_row
+    %span
+      = species_link(sp)
+      = name_sci(sp)
+    %time= l(sp.first_seen_date, :format => :long)
+    = post_link('>>', sp.post)
 
 %h1= @page_title
+
+%h2= link_to('Lifelist', lifelist_path)
+
+%ol.lifers_list
+  - @top_5_life.each do |sp|
+    - lifer.call(sp)
+
+%h2= link_to('Список 2012 года', list_path(year: 2012))
+
+%ol.lifers_list
+  - @top_5_year.each do |sp|
+    - lifer.call(sp)
+
+-#%h2= link_to('Список Украины', list_path(locus: 'ukraine'))
+-#
+-#%ol.lifers_list
+-#  - @top_5_ukraine.each do |sp|
+-#    - lifer.call(sp)
+
+%h2= link_to('Список США', list_path(locus: 'usa'))
+
+%ol.lifers_list
+  - @top_5_usa.each do |sp|
+    - lifer.call(sp)

@@ -2,6 +2,13 @@
 
 %h1= @page_title
 
+%h2 Списки
+
+%ul
+  %li= link_to('Lifelist', lifelist_path)
+  %li= link_to('Ukraine list', list_path(locus: 'ukraine'))
+  %li= link_to('USA list', list_path(locus: 'usa'))
+
 %ul
   %li
     Я начал наблюдать птиц в августе 2007 года
@@ -43,10 +50,3 @@
     Чаще всего встречаемый вид
   %li
     ХХ видов встречены всего однажды
-
-%h2 Списки
-
-%ul
-  %li= link_to('Lifelist', lifelist_path)
-  %li= link_to('Ukraine list', list_path(locus: 'ukraine'))
-  %li= link_to('USA list', list_path(locus: 'usa'))

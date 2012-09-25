@@ -1,7 +1,10 @@
 class ListsController < ApplicationController
 
   def index
-
+    @top_5_life = Lifelist.basic.relation.limit(5)
+    @top_5_year = Lifelist.basic.filter(year: 2012).relation.limit(5)
+    #@top_5_ukraine = Lifelist.basic.filter(locus: 'ukraine').relation.limit(5)
+    @top_5_usa = Lifelist.basic.filter(locus: 'usa').relation.limit(5)
   end
 
   def basic
