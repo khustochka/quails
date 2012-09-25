@@ -2,7 +2,7 @@ class TaxaController < ApplicationController
 
   administrative
 
-  before_filter :find_species
+  before_filter :find_species, only: [:show, :update]
 
   def show
     render :form
@@ -10,22 +10,22 @@ class TaxaController < ApplicationController
 
   def new
     @book = Book.find_by_slug(params[:book_id])
-    @taxon = @book.species.new
-    render :form.species.new
+    @taxon = @book.taxa.new
+    render :form
   end
 
   def create
     @book = Book.find_by_slug(params[:book_id])
-    if @taxon = @book.species.create(params[:taxa])
-      redirect_to([@book, @taxon], :notice => 'BookSpecies was successfully created.')
+    if @taxon = @book.species.create(params[:taxon])
+      redirect_to([@book, @taxon], :notice => 'Taxon was successfully created.')
     else
       render :form
     end
   end
 
   def update
-    if @taxon.update_attributes(params[:taxa])
-      redirect_to([@book, @taxon], :notice => 'BookSpecies was successfully updated.')
+    if @taxon.update_attributes(params[:taxon])
+      redirect_to([@book, @taxon], :notice => 'Taxon was successfully updated.')
     else
       render :form
     end
