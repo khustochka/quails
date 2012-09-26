@@ -3,7 +3,7 @@ require File.expand_path('../application', __FILE__)
 
 begin
 # Initialize the rails application
-  Quails3::Application.initialize!
+  Quails::Application.initialize!
 rescue Errno::ENOENT
   require 'fileutils'
   FileUtils.cp 'config/database.sample.yml', 'config/database.yml'

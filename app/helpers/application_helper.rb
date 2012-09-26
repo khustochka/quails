@@ -9,7 +9,7 @@ module ApplicationHelper
   end
 
   def default_page_title
-    Rails.env.development? ? '!!! - Set the window caption / quails3' : request.host
+    Rails.env.development? ? '!!! - Set the window caption / quails' : request.host
   end
 
   def link_to_or_span(name, options = {}, html_options = {})

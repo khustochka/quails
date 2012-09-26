@@ -20,7 +20,7 @@ module Configurator
           "of at least 30 characters and store it " +
           "in config/security.yml"
     end
-    Quails3::Application.config.secret_token = secret
+    Quails::Application.config.secret_token = secret
   end
 
   private

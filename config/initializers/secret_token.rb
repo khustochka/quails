@@ -7,4 +7,4 @@
 
 # It is now configured in security.yml and initialized in config/initializers/security.rb
 
-# Quails3::Application.config.secret_token =
+# Quails::Application.config.secret_token =

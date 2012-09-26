@@ -4,4 +4,4 @@
 require File.expand_path('../config/application', __FILE__)
 require 'rake'
 
-Quails3::Application.load_tasks
+Quails::Application.load_tasks
