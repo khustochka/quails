@@ -35,10 +35,7 @@
     -# favicon (index only?)
 
     -# stylesheets
-    - if @minimal_layout
-      = stylesheet_link_tag 'minimal'
-    - else
-      = stylesheet_link_tag 'public'
+    - stylesheet @minimal_layout ? 'minimal' : 'public'
 
     = render 'partials/css_and_js'
 

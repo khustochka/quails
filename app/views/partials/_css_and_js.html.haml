@@ -1,8 +1,8 @@
-= stylesheet_link_tag(*@stylesheets) if @stylesheets.present?
-
 -# enable HTML5 in IE
 /[if lt IE 9]
   = javascript_include_tag 'html5'
+
+= stylesheet_link_tag(*@stylesheets) if @stylesheets.present?
 
 -# scripts
 = javascript_include_tag(*@scripts) if @scripts.present?
