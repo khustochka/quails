@@ -46,11 +46,24 @@ Quails::Application.configure do
   # config.action_controller.asset_host = "http://assets.example.com"
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-  js = Dir.chdir("#{Rails.root}/app/assets/javascripts") { Dir.glob("*.{js}") }
-  css = Dir.chdir("#{Rails.root}/app/assets/stylesheets") do
-    Dir.glob("*.{css,sass}").map {|f| f.sub('.sass', '.css')}
-  end
-  config.assets.precompile += %w( html5.js ) + js + css
+  #js = Dir.chdir("#{Rails.root}/app/assets/javascripts") { Dir.glob("*.{js}") }
+  #css = Dir.chdir("#{Rails.root}/app/assets/stylesheets") do
+  #  Dir.glob("*.{css,sass}").map {|f| f.sub('.sass', '.css')}
+  #end
+
+  config.assets.precompile += %w( html5.js )
+
+  app_assets_path = Rails.root.join('app', 'assets').to_path
+
+  config.assets.precompile << Proc.new { |path|
+    if path =~ /\.(css|js|sass)\z/
+      full_path = Rails.application.assets.resolve(path).to_path
+      # return true to compile asset, false to skip
+      full_path.starts_with? app_assets_path
+    else
+      false
+    end
+  }
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
