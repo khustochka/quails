@@ -1,7 +1,7 @@
 class FeedsController < ApplicationController
   respond_to :xml
 
-  caches_page :blog, :photos, :sitemap
+  caches_page :blog, :photos, :sitemap, :gzip => true
 
   def blog
     @posts = Post.public.order('face_date DESC').limit(10)
