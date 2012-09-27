@@ -56,7 +56,7 @@ Quails::Application.configure do
   app_assets_path = Rails.root.join('app', 'assets').to_path
 
   config.assets.precompile << Proc.new { |path|
-    if path =~ /\.(css|js|sass)\z/
+    if path =~ /\.(css|js)\z/
       full_path = Rails.application.assets.resolve(path).to_path
       # return true to compile asset, false to skip
       full_path.starts_with? app_assets_path
