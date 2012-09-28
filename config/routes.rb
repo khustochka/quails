@@ -33,6 +33,8 @@ Quails::Application.routes.draw do
     end
   end
 
+  get '/archive' => 'blog#archive'
+
   get '/my' => 'my_stats#index', as: :my_stats
 
   get '/my/lists' => 'lists#index'

@@ -16,6 +16,13 @@ class BlogControllerTest < ActionController::TestCase
     assert_include(assigns(:posts), blogpost2)
   end
 
+  test 'get archive' do
+    blogpost1 = create(:post, face_date: '2007-12-06 13:14:15')
+    blogpost2 = create(:post, face_date: '2008-11-06 13:14:15')
+    get :archive
+    assert_response :success
+  end
+
   test 'do not show hidden posts on front page' do
     blogpost1 = create(:post, face_date: '2007-12-06 13:14:15', status: 'PRIV')
     blogpost2 = create(:post, face_date: '2008-11-06 13:14:15')

@@ -1,0 +1,13 @@
+- @page_title = "Архив блога"
+
+%h1= page_header
+
+= render 'partials/years'
+
+- @archive.each do |year, months|
+  %h2= link_to("#{t('blog.year.year')} #{year}", year_path(year: year))
+  %ul
+    - months.each do |month|
+      %li
+        = "#{link_to(t('date.month_names')[month.raw_month.to_i], month_path({:year => year, :month => "%02d" % month.raw_month}))}".html_safe
+        = "(#{month.posts_count})"
