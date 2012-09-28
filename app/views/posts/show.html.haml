@@ -4,15 +4,15 @@
 
 = render 'admin/shortcuts' if current_user.admin?
 
-%article.post{id: "post-#{@post.slug}", class: ('grayout' unless @post.public?)}
-  %header
+%div.post{id: "post-#{@post.slug}", class: ('grayout' unless @post.public?)}
+  %div.post-heading
     %h1.post-title= post_title(@post)
     %time{pubdate: 'pubdate', datetime: @post.face_date.iso8601}= l(@post.face_date, format: :long)
     -#%small= @post.topic
 
   = wiki_filter(@post.text)
   - @post.images.all.if_present do |images|
-    %section.photos
+    %div.photos
       %h3= t('.sections.photos')
       = render partial: 'images/thumbnail', collection: images
 

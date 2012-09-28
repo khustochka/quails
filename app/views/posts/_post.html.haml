@@ -1,13 +1,13 @@
-%section.post-box{id: "post-#{post.slug}", class: ('grayout' unless post.public?)}
-  %article.post
-    %header
+%div.post-box{id: "post-#{post.slug}", class: ('grayout' unless post.public?)}
+  %div.post
+    %div.post-heading
       %h2.post-title= link_to(post_title(post), public_post_path(post))
       %time{pubdate: 'pubdate', datetime: post.face_date.iso8601}= l(post.face_date, format: :long)
       -#%small= post.topic
 
     = wiki_filter(post.text)
     - post.images.all.if_present do |images|
-      %section= render partial: 'images/thumbnail', collection: images
+      %div= render partial: 'images/thumbnail', collection: images
 
   %p.comment_links
     - post.comments.size.tap do |cmt_count|

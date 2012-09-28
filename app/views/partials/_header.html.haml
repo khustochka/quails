@@ -10,7 +10,7 @@
 #header
   = link_to_or_span(image_tag('/img/logo.png'), root_path, :id => 'site_cap')
 
-  %ul#site_menu.horiz-list
+  %ul#site_menu.horiz-list(role="navigation")
     %li= link_to_or_span t('.menu.blog'), blog_path
     %li= link_to_or_span t('.menu.photos'), photostream_path
     %li= link_to_or_span t('.menu.checklist'), checklist_path(slug: 'ukraine')
