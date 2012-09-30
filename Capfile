@@ -78,21 +78,21 @@ namespace :deploy do
     Start unicorn server
   DESC
   task :start, :roles => :app do
-    run "#{try_sudo} service unicorn start"
+    run "sudo service unicorn start"
   end
 
   desc <<-DESC
     Stop unicorn server
   DESC
   task :stop, :roles => :app do
-    run "#{try_sudo} service unicorn stop"
+    run "sudo service unicorn stop"
   end
 
   desc <<-DESC
     Start unicorn server
   DESC
   task :restart, :roles => :app do
-    run "#{try_sudo} service unicorn upgrade"
+    run "sudo service unicorn upgrade"
   end
 
 end
