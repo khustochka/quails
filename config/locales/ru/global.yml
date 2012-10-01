@@ -3,9 +3,13 @@
     header:
       menu:
         blog: Дневник
-        photos: Фотографии
-        my_stats: Моя статистика
+        archive: Архив
+        birds_ukraine: Птицы Украины
         checklist: Чеклист
+        galery: Фотографии
+        photos: Последние добавления
+        my_stats: Моя статистика
+        lifelist: Lifelist
 
     years:
       years: 'Год:'

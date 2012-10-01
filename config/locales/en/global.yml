@@ -3,9 +3,13 @@
     header:
       menu:
         blog: Blog
-        photos: Photos
-        my_stats: My Stats
+        archive: Archive
+        birds_ukraine: Birds of Ukraine
         checklist: Checklist
+        galery: Photos
+        photos: Recently added
+        my_stats: My Stats
+        lifelist: Lifelist
 
     years:
       years: 'Year:'

@@ -164,6 +164,8 @@ a#site_cap:hover
 #header
   padding: 10px
   background-color: #D0E0FF
+  ul
+    margin-bottom: 0
 
 #site_menu
   margin:
@@ -171,10 +173,17 @@ a#site_cap:hover
     bottom: 0
   @include inline-block
   vertical-align: bottom
-  li
+  > li
     background-color: #EBEBCF
     margin: 2px 5px 2px 0
     padding: 5px 10px
+  ul
+    margin-bottom: 0
+    li
+      font-size: 12px
+      margin-left: 2px
+      &:before
+        content: "* "
 
 .over-header
   margin-top: -10px
