@@ -31,8 +31,8 @@ class ObservationBulkTest < ActiveSupport::TestCase
       bulk.save
     end
     err = bulk.errors
-    assert_equal ["can't be blank"], err["observ_date"]
-    assert_equal ["can't be blank"], err["locus_id"]
+    assert_equal [I18n.t('errors.messages.blank')], err["observ_date"]
+    assert_equal [I18n.t('errors.messages.blank')], err["locus_id"]
     assert_equal ["provide at least one observation"], err["base"]
   end
 

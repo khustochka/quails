@@ -3,6 +3,8 @@ require 'test_helper'
 class BulkObservationsTest < ActionController::TestCase
   tests ObservationsController
 
+  CANT_BE_BLANK = I18n.t('errors.messages.blank')
+
   test 'successful Observations bulk save' do
     login_as_admin
     assert_difference('Observation.count', 3) do
@@ -46,14 +48,13 @@ class BulkObservationsTest < ActionController::TestCase
                               observ_date: '', mine: true},
                        o: [{species_id: 2, biotope: 'city'},
                               {species_id: 4, biotope: 'city'},
-                              {species_id: 6, biotope: 'city'}],
-                       hl: 'en'
+                              {species_id: 6, biotope: 'city'}]
       }
     end
     assert_response :unprocessable_entity
     assert_equal Mime::JSON, response.content_type
     result = JSON.parse(response.body)
-    assert_equal({"errors"=>{"observ_date"=>["can't be blank"], "locus_id"=>["can't be blank"]}}, result)
+    assert_equal({"errors"=>{"observ_date"=>[CANT_BE_BLANK], "locus_id"=>[CANT_BE_BLANK]}}, result)
   end
 
   test 'Observations bulk save combines errors for incorrect common parameters and zero observations' do
@@ -61,15 +62,14 @@ class BulkObservationsTest < ActionController::TestCase
     assert_difference('Observation.count', 0) do
       post :bulksave, {format: :json,
                         c: {locus_id: '',
-                              observ_date: '', mine: true},
-          hl: 'en'
+                              observ_date: '', mine: true}
       }
     end
     assert_response :unprocessable_entity
     assert_equal Mime::JSON, response.content_type
     result = JSON.parse(response.body)
-    assert_equal({"errors"=>{"observ_date"=>["can't be blank"],
-                  "locus_id"=>["can't be blank"],
+    assert_equal({"errors"=>{"observ_date"=>[CANT_BE_BLANK],
+                  "locus_id"=>[CANT_BE_BLANK],
                   "base"=>["provide at least one observation"]}}, result)
   end
 
@@ -79,14 +79,13 @@ class BulkObservationsTest < ActionController::TestCase
       post :bulksave, {format: :json,
                         c: {locus_id: seed(:brovary).id,
                               observ_date: '2010-05-05', mine: true},
-                       o: [{species_id: '', biotope: 'city'}],
-                       hl: 'en'
+                       o: [{species_id: '', biotope: 'city'}]
       }
     end
     assert_response :unprocessable_entity
     assert_equal Mime::JSON, response.content_type
     result = JSON.parse(response.body)['errors']
-    assert_equal({"species_id"=>["can't be blank"]}, result['observs'][0])
+    assert_equal({"species_id"=>[CANT_BE_BLANK]}, result['observs'][0])
   end
 
   test 'Observations bulk save does not save the bunch if any observation is wrong' do
@@ -95,14 +94,13 @@ class BulkObservationsTest < ActionController::TestCase
       post :bulksave, {format: :json,
                         c: {locus_id: seed(:brovary).id,
                               observ_date: '2010-05-05', mine: true},
-                       o: [{species_id: '', biotope: 'city'}, {species_id: 2, biotope: 'city'}],
-                       hl: 'en'
+                       o: [{species_id: '', biotope: 'city'}, {species_id: 2, biotope: 'city'}]
       }
     end
     assert_response :unprocessable_entity
     assert_equal Mime::JSON, response.content_type
     result = JSON.parse(response.body)['errors']
-    assert_equal({"species_id"=>["can't be blank"]}, result['observs'][0])
+    assert_equal({"species_id"=>[CANT_BE_BLANK]}, result['observs'][0])
   end
 
   test 'successful updating existing and saving new observations' do
