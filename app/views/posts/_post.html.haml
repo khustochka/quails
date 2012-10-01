@@ -1,9 +1,10 @@
-%div.post-box{id: "post-#{post.slug}", class: ('grayout' unless post.public?)}
+%div.post-box{id: "post-#{post.slug}"}
   %div.post
     %div.post-heading
       %h2.post-title= link_to(post_title(post), public_post_path(post))
       %time{pubdate: 'pubdate', datetime: post.face_date.iso8601}= l(post.face_date, format: :long)
-      -#%small= post.topic
+      - unless post.public?
+        %span.tag.draft Draft
 
     = wiki_filter(post.text)
     - post.images.all.if_present do |images|

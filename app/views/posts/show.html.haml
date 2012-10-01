@@ -4,11 +4,12 @@
 
 = render 'admin/shortcuts' if current_user.admin?
 
-%div.post{id: "post-#{@post.slug}", class: ('grayout' unless @post.public?)}
+%div.post{id: "post-#{@post.slug}"}
   %div.post-heading
     %h1.post-title= post_title(@post)
     %time{pubdate: 'pubdate', datetime: @post.face_date.iso8601}= l(@post.face_date, format: :long)
-    -#%small= @post.topic
+    - unless @post.public?
+      %span.tag.draft Draft
 
   = wiki_filter(@post.text)
   - @post.images.all.if_present do |images|
