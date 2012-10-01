@@ -5,7 +5,6 @@ begin
 # Initialize the rails application
   Quails::Application.initialize!
 rescue Errno::ENOENT
-  require 'fileutils'
-  FileUtils.cp 'config/database.sample.yml', 'config/database.yml'
-  raise 'Created config/database.yml. Please edit it as appropriate'
+  raise "Missing database setup. Run `rake init` to create basic config/database.yml
+            and edit it as appropriate."
 end

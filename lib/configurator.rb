@@ -38,15 +38,8 @@ module Configurator
         end
     )
   rescue Errno::ENOENT
-    require 'fileutils'
-    FileUtils.cp 'config/security.sample.yml', filename
-    err_msg = 'Created config/security.yml. Please edit it as appropriate'
-    if Rails.env.production?
-      Rails.logger.warn err_msg
-      retry
-    else
-      raise err_msg
-    end
+    raise "Missing configuration. Run `rake init` to create basic config/security.yml
+            and edit it as appropriate. Or set the environment variables."
   end
 
   def self.read_config_from_env_vars
