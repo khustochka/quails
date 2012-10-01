@@ -1,13 +1,17 @@
-%ul.admin_menu.horiz-list
-  %li= link_to 'Images', images_path
-  %li= link_to 'Comments', comments_path
-  %li= link_to 'Locations', loci_path
-  %li= link_to 'Species', species_index_path
-  %li= link_to '+ Post', new_post_path
-  %li= link_to '+ Obs', add_observations_path
-  %li= link_to '+ Image', add_images_path
-  %li= link_to 'Observations', observations_path
-  %li= link_to 'Research', research_path
-  %li= link_to 'Drafts', hidden_posts_path
-  %li= link_to 'Map Edit', edit_map_path
-  %li= link_to 'Settings', settings_path
+- if current_user.admin?
+  %ul.admin_menu.horiz-list
+    %li= link_to '+ Post', new_post_path
+    %li= link_to '+ Obs', add_observations_path
+    %li= link_to '+ Image', add_images_path
+    %li= link_to 'Drafts', hidden_posts_path
+    %li= link_to 'Images', images_path
+    %li= link_to 'Observations', observations_path
+    %li= link_to 'Species', species_index_path
+    %li= link_to 'Comments', comments_path
+    %li= link_to 'Locations', loci_path
+    %li= link_to 'Research', research_path
+    %li= link_to 'Map Edit', edit_map_path
+    %li= link_to 'Settings', settings_path
+- elsif current_user.has_admin_cookie?
+  %ul.admin_menu.horiz-list
+    %li= link_to 'Login', login_path

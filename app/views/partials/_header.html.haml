@@ -1,13 +1,9 @@
 - content_for(:admin_menu) do
-  = render 'admin/menu' if current_user.admin?
-
-- if current_user.admin?
-  = yield :admin_menu
-- elsif current_user.has_admin_cookie?
-  %ul.admin_menu.horiz-list
-    %li= link_to 'Login', login_path
+  = render 'admin/menu'
 
 #header
+  = yield :admin_menu
+
   = link_to_or_span(image_tag('/img/logo.png'), root_path, :id => 'site_cap')
 
   %ul#site_menu.horiz-list(role="navigation")
