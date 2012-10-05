@@ -11,6 +11,7 @@ gem "activerecord-jdbcpostgresql-adapter", :platforms => :jruby
 
 group :production do
   gem 'thin', :require => false
+  gem 'unicorn', :require => false
 end
 
 # Deploy with Capistrano
