@@ -89,24 +89,24 @@ end
 namespace :deploy do
 
   desc <<-DESC
-    Start unicorn server
+    Start server
   DESC
   task :start, :roles => :app do
-    run "sudo service unicorn start"
+    run "sudo service #{fetch(:service)} start"
   end
 
   desc <<-DESC
-    Stop unicorn server
+    Stop server
   DESC
   task :stop, :roles => :app do
-    run "sudo service unicorn stop"
+    run "sudo service #{fetch(:service)} stop"
   end
 
   desc <<-DESC
-    Start unicorn server
+    Start server
   DESC
   task :restart, :roles => :app do
-    run "sudo service unicorn upgrade"
+    run "sudo service #{fetch(:service)} upgrade"
   end
 
 end
