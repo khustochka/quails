@@ -7,11 +7,9 @@ gem 'rails', '3.2.8'
 
 gem 'pg', :platforms => [:ruby, :mingw]
 
-gem "activerecord-jdbcpostgresql-adapter", :platforms => :jruby
-
 group :production do
   gem 'thin', :require => false
-  gem 'unicorn', :require => false
+  gem 'unicorn', :require => false, :platforms => :ruby
 end
 
 # Deploy with Capistrano
