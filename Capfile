@@ -7,6 +7,15 @@ load 'config/deploy' # remove this line to skip loading any of the default tasks
 default_run_options[:pty] = true
 
 require "bundler/capistrano"
+set :bundle_flags,    "--deployment"
+after "bundle:install", "bundle:clean"
+
+namespace :bundle do
+  task :clean, :except => {:no_release => true} do
+    bundle_cmd = fetch(:bundle_cmd, "bundle")
+    run "cd #{latest_release} && #{bundle_cmd} clean"
+  end
+end
 
 # Helper method to upload to /tmp then use sudo to move to correct location.
 def put_sudo(data, to)
