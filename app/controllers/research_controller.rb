@@ -2,6 +2,10 @@ class ResearchController < ApplicationController
 
   administrative
 
+  def env
+    @env = ENV
+  end
+
   def index
   end
 
