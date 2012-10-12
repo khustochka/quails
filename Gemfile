@@ -7,17 +7,12 @@ gem 'rails', '3.2.8'
 
 gem 'pg', :platforms => [:ruby, :mingw]
 
-group :heroku, :development do
-  gem 'thin', :require => false
-end
+gem 'thin', :require => false, :groups => [:development, :heroku]
 
 group :vps do
   gem 'unicorn', :require => false, :platforms => :ruby
   gem 'puma', :require => false, :platforms => :ruby
 end
-
-# Deploy with Capistrano
-# gem 'capistrano'
 
 # Bundle the extra gems:
 gem 'rails-i18n'
@@ -45,9 +40,9 @@ group :development do
   gem 'rails3-generators'
   gem 'nokogiri', :platforms => [:ruby, :mingw], :require => false
   gem 'mysql2', '~> 0.3.7', :platforms => :ruby, :require => false
-
-  gem 'grit', '~> 2.5', :require => false, :platforms => [:ruby, :mingw]
 end
+
+gem 'grit', '~> 2.5', :require => false, :groups => [:development, :vps]
 
 # in dev group for generators
 gem 'factory_girl_rails', '~> 4.0', :groups => [:development, :test]
