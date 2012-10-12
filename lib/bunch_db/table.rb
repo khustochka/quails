@@ -6,7 +6,7 @@ module BunchDB
     end
 
     def cleanup
-      ActiveRecord::Base.connection.execute("DELETE FROM #{@quoted_table_name}")
+      ActiveRecord::Base.connection.execute("DELETE FROM #@quoted_table_name")
     end
 
     def fill(column_names, records)
@@ -16,7 +16,7 @@ module BunchDB
 
       records.each_slice(1000) do |bunch|
         quoted_values = bunch.map { |rec| "(#{rec.zip(columns).map { |c| ActiveRecord::Base.connection.quote(c.first, c.last) }.join(',')})" }.join(',')
-        ActiveRecord::Base.connection.execute("INSERT INTO #{@quoted_table_name} (#{quoted_column_names}) VALUES #{quoted_values}")
+        ActiveRecord::Base.connection.execute("INSERT INTO #@quoted_table_name (#{quoted_column_names}) VALUES #{quoted_values}")
       end
     end
 
