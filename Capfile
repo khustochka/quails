@@ -8,6 +8,7 @@ default_run_options[:pty] = true
 
 require "bundler/capistrano"
 set :bundle_flags,    "--deployment"
+set :bundle_without,  [:development, :test, :heroku]
 after "bundle:install", "bundle:clean"
 
 namespace :bundle do

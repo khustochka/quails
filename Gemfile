@@ -7,9 +7,13 @@ gem 'rails', '3.2.8'
 
 gem 'pg', :platforms => [:ruby, :mingw]
 
-group :production do
+group :heroku, :development do
   gem 'thin', :require => false
+end
+
+group :vps do
   gem 'unicorn', :require => false, :platforms => :ruby
+  gem 'puma', :require => false, :platforms => :ruby
 end
 
 # Deploy with Capistrano
