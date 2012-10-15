@@ -9,7 +9,7 @@ module WikiFilter
       term || word
     end.uniq.compact
 
-    # TODO: IDEA: use already calculated species of the post! the rest will be ok with separate requests?
+    # TODO: use already calculated species of the post! the rest will be ok with separate requests?
     spcs = Species.where("code IN (?) OR name_sci IN (?)", sp_codes, sp_codes)
 
     species = Hash.new do |hash, term|
@@ -18,7 +18,7 @@ module WikiFilter
           spcs.find { |s| s.name_sci == term.sp_humanize }
     end
 
-    text.gsub(/\[(@|#|)(?:([^\]]*?)\|)?(.*?)\]/) do |_|
+    result = text.gsub(/\[(@|#|)(?:([^\]]*?)\|)?(.*?)\]/) do |_|
       tag, word, term = $1, $2.try(:html_safe), $3
       case tag
         when '@' then
@@ -27,7 +27,7 @@ module WikiFilter
           post = posts[term]
           post.nil? ?
               word :
-              post_link(word || post_title(post), post, true)
+              "\"#{word || post_title(post)}\":#{term}"
         when '' then
           sp = species[term]
           if sp
@@ -37,6 +37,17 @@ module WikiFilter
           end
       end
     end
+
+    if posts.any?
+      result << "\n"
+
+      posts.each do |slug, post|
+        result << "\n[#{slug}]#{public_post_path(post)}" if post
+      end
+    end
+
+    result
+
   end
 
 end

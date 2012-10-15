@@ -7,7 +7,7 @@ class WikiFilterTest < ActionDispatch::IntegrationTest
   include WikiFilter
   include ActionView::Helpers::UrlHelper
   include SpeciesHelper
-  include PostsHelper
+  include PublicPathController
 
   # Screening - no need
 

@@ -1,6 +1,8 @@
 module PublicPathController
   def self.included(klass)
-    klass.helper_method :root_path, :root_url, :public_post_path, :public_image_path, :public_comment_path
+    klass.helper_method(
+        :root_path, :root_url, :public_post_path, :public_image_path, :public_comment_path
+    ) if klass.respond_to? :helper_method
   end
 
   private
