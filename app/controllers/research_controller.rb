@@ -2,8 +2,8 @@ class ResearchController < ApplicationController
 
   administrative
 
-  def env
-    @env = ENV
+  def environ
+    #@env = ENV
   end
 
   def index

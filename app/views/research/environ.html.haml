@@ -16,3 +16,6 @@
   - if defined? Unicorn
     %dt Unicorn version
     %dd= Unicorn::Const::UNICORN_VERSION rescue nil
+
+  %dt Environment
+  %dd= Rails.env
