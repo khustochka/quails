@@ -18,32 +18,32 @@ class WikiFilterTest < ActionDispatch::IntegrationTest
   # Species
 
   test 'properly parse species by code [Quails|cotnix]' do
-    assert_equal species_link(seed(:cotnix), 'Quail'),
+    assert_equal %Q("(sp_link). Quail":cotnix\n\n[cotnix]#{species_path(seed(:cotnix))}),
                  transform('[Quail|cotnix]')
   end
 
   test 'properly parse species by bare code [cotnix]' do
-    assert_equal species_link(seed(:cotnix), 'Coturnix coturnix'),
+    assert_equal %Q("(sp_link). Coturnix coturnix":cotnix\n\n[cotnix]#{species_path(seed(:cotnix))}),
                  transform('[cotnix]')
   end
 
   test 'properly parse species by scientific name [Quails|Coturnix coturnix]' do
-    assert_equal species_link(seed(:cotnix), 'Quail'),
+    assert_equal %Q("(sp_link). Quail":cotnix\n\n[cotnix]#{species_path(seed(:cotnix))}),
                  transform('[Quail|Coturnix coturnix]')
   end
 
   test 'properly parse species by bare scientific name [Coturnix coturnix]' do
-    assert_equal species_link(seed(:cotnix), 'Coturnix coturnix'),
+    assert_equal %Q("(sp_link). Coturnix coturnix":cotnix\n\n[cotnix]#{species_path(seed(:cotnix))}),
                  transform('[Coturnix coturnix]')
   end
 
   test 'properly parse species name with undescore [Quails|Coturnix_coturnix]' do
-    assert_equal species_link(seed(:cotnix), 'Quail'),
+    assert_equal %Q("(sp_link). Quail":cotnix\n\n[cotnix]#{species_path(seed(:cotnix))}),
                  transform('[Quail|Coturnix coturnix]')
   end
 
   test 'properly parse species in the string' do
-    assert_equal "Those were #{species_link(seed(:cotnix), 'quails')}!",
+    assert_equal %Q(Those were "(sp_link). quails":cotnix!\n\n[cotnix]#{species_path(seed(:cotnix))}),
                  transform('Those were [quails|cotnix]!')
   end
 
@@ -58,12 +58,12 @@ class WikiFilterTest < ActionDispatch::IntegrationTest
   # Links
 
   test 'properly parse links with text [@see this|http://google.com]' do
-    assert_equal link_to('see this', 'http://google.com'),
+    assert_equal %Q("see this":http://google.com),
                  transform('[@see this|http://google.com]')
   end
 
   test 'properly parse links without text [@http://google.com]' do
-    assert_equal link_to('http://google.com', 'http://google.com'),
+    assert_equal %Q("http://google.com":http://google.com),
                  transform('[@http://google.com]')
   end
 
@@ -88,19 +88,23 @@ class WikiFilterTest < ActionDispatch::IntegrationTest
   # Combined
 
   test 'properly parse two species' do
-    assert_equal "#{species_link(seed(:parmaj), 'Great')} and #{species_link(seed(:parcae), 'Blue Tits')}",
-                 transform('[Great|parmaj] and [Blue Tits|parcae]')
+    result = transform('[Great|parmaj] and [Blue Tits|parcae]')
+    text, links = result.split("\n\n")
+    assert_equal %Q("(sp_link). Great":parmaj and "(sp_link). Blue Tits":parcae), text
+
+    assert_equal ["[parcae]#{species_path(seed(:parcae))}", "[parmaj]#{species_path(seed(:parmaj))}"],
+                 links.split("\n").sort
   end
 
   test 'properly parse pipe in the second code' do
-    assert_equal "#{link_to(nil, 'http://birdwatch.by')} has #{species_link(seed(:parcae), 'Blue Tits')}",
+    assert_equal %Q("http://birdwatch.by":http://birdwatch.by has "(sp_link). Blue Tits":parcae\n\n[parcae]#{species_path(seed(:parcae))}),
                  transform('[@http://birdwatch.by] has [Blue Tits|parcae]')
   end
 
   # HTML entities
 
   test 'preserve HTML entities' do
-    assert_equal species_link(seed(:acacan), 'Linotte m&eacute;lodieuse'.html_safe),
+    assert_equal %Q("(sp_link). Linotte m&eacute;lodieuse":acacan\n\n[acacan]#{species_path(seed(:acacan))}),
                  transform('[Linotte m&eacute;lodieuse|acacan]')
   end
 
