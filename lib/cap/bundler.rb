@@ -1,6 +1,5 @@
 require "bundler/capistrano"
 
-set :bundle_flags,    "--deployment"
 set :bundle_without,  [:development, :test, :heroku]
 after "bundle:install", "bundle:clean"
 
