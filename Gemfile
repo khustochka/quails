@@ -11,7 +11,7 @@ gem 'thin', :require => false, :groups => [:development, :heroku]
 
 group :vps do
   gem 'unicorn', :require => false, :platforms => :ruby
-  gem 'puma', :require => false, :platforms => :ruby
+  #gem 'puma', :require => false, :platforms => :ruby
 end
 
 # Bundle the extra gems:
