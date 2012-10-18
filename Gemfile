@@ -9,6 +9,8 @@ gem 'pg', :platforms => [:ruby, :mingw]
 
 gem 'thin', :require => false, :groups => [:development, :heroku]
 
+gem 'airbrake', :require => false
+
 group :vps do
   gem 'unicorn', :require => false, :platforms => :ruby
   #gem 'puma', :require => false, :platforms => :ruby

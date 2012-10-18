@@ -23,6 +23,19 @@ module Configurator
     Quails::Application.config.secret_token = secret
   end
 
+  def self.configure_errbit
+    errbit = OpenStruct.new(config_data.errbit)
+    if errbit && errbit.api_key && errbit.host
+      require "airbrake"
+      Airbrake.configure do |config|
+        config.api_key = errbit.api_key
+        config.host    = errbit.host
+        config.port    = 80
+        config.secure  = config.port == 443
+      end
+    end
+  end
+
   private
 
   def self.config_data
@@ -50,7 +63,11 @@ module Configurator
             cookie_value: ENV['admin_cookie_value']
         },
         secret_token: ENV['quails_secret_token'],
-        image_host: ENV['quails_image_host']
+        image_host: ENV['quails_image_host'],
+        errbit: {
+            api_key: ENV['quails_errbit_api_key'],
+            host: ENV['quails_errbit_host']
+        }
     }
   end
 
