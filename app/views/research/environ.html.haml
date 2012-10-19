@@ -17,5 +17,10 @@
     %dt Unicorn version
     %dd= Unicorn::Const::UNICORN_VERSION rescue nil
 
-  %dt Environment
+  %dt Rails Environment
   %dd= Rails.env
+
+  - if quails_env = ENV['QUAILS_ENV']
+    %dt Quails Environment
+    %dd= quails_env
+
