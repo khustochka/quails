@@ -41,4 +41,10 @@ class ResearchControllerTest < ActionController::TestCase
     get :compare, loc1: 'kiev', loc2: 'brovary'
     assert_response :success
   end
+
+  test "admin sees Research/environment" do
+    login_as_admin
+    get :environ
+    assert_template 'environ'
+  end
 end
