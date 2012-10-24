@@ -44,7 +44,7 @@ module Configurator
 
   def self.read_config
     OpenStruct.new(
-        if ENV['QUAILS_ENV'].try(:include?, 'heroku')
+        if ENV['QUAILS_ENV'].try(:include?, 'configured')
           read_config_from_env_vars
         else
           YAML.load(ERB.new(File.read('config/security.yml')).result)[Rails.env]
@@ -65,8 +65,8 @@ module Configurator
         secret_token: ENV['quails_secret_token'],
         image_host: ENV['quails_image_host'],
         errbit: {
-            api_key: ENV['quails_errbit_api_key'],
-            host: ENV['quails_errbit_host']
+            api_key: ENV['errbit_api_key'],
+            host: ENV['errbit_host']
         }
     }
   end
