@@ -1,4 +1,5 @@
 require "ostruct"
+require "quails_env"
 
 module Configurator
 
@@ -44,7 +45,7 @@ module Configurator
 
   def self.read_config
     OpenStruct.new(
-        if ENV['QUAILS_ENV'].try(:include?, 'configured')
+        if Quails.env.configured?
           read_config_from_env_vars
         else
           YAML.load(ERB.new(File.read('config/security.yml')).result)[Rails.env]
