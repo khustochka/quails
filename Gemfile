@@ -9,7 +9,7 @@ gem 'pg', :platforms => [:ruby, :mingw]
 
 gem 'thin', :require => false, :groups => [:development, :heroku]
 
-gem 'airbrake', :require => false
+gem 'airbrake'
 
 group :vps do
   gem 'unicorn', :require => false, :platforms => :ruby

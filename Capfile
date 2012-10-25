@@ -7,6 +7,8 @@ default_run_options[:pty] = true
 
 load "./lib/cap/bundler"
 
+load "./lib/cap/airbrake"
+
 load "./lib/cap/config"
 
 load "./lib/cap/assets"
