@@ -1,7 +1,7 @@
 require "bundler/capistrano"
 
 set :bundle_without,  [:development, :test, :heroku]
-after "bundle:install", "bundle:clean"
+#after "bundle:install", "bundle:clean"
 
 namespace :bundle do
   task :clean, :except => {:no_release => true} do
