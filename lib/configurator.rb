@@ -27,7 +27,7 @@ module Configurator
   def self.configure_errbit
     errbit = OpenStruct.new(config_data.errbit)
     if errbit && errbit.api_key && errbit.host
-      #require "airbrake"
+      require "airbrake"
       Airbrake.configure do |config|
         config.api_key = errbit.api_key
         config.host    = errbit.host
