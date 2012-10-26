@@ -28,10 +28,8 @@ namespace :config do
     run "#{try_sudo} mkdir -p #{shared_path}/db #{shared_path}/config"
     run "#{try_sudo} chmod g+w #{shared_path}/db #{shared_path}/config"
 
-    require "securerandom"
-
-    %w(database security).each do |aspect|
-      location = fetch(:template_dir, "config") + "/#{aspect}.sample.yml"
+    %w(database).each do |aspect|
+      location = "config/#{aspect}.sample.yml"
       template = File.read(location)
 
       config = ERB.new(template)
@@ -44,8 +42,20 @@ namespace :config do
       [internal] Updates the symlink for database.yml file to the just deployed release.
   DESC
   task :symlink, :except => {:no_release => true} do
-    %w(database security local).each do |aspect|
+    %w(database local).each do |aspect|
       run "ln -nfs #{shared_path}/config/#{aspect}.yml #{release_path}/config/#{aspect}.yml"
+    end
+  end
+
+  desc <<-DESC
+      [internal] Copies the security.yml or init.conf to the current release
+  DESC
+  task :security, :except => {:no_release => true} do
+    fetch(:config_file, %w(security.yml)).each do |config_file|
+      template_dir = fetch(:template_dir, "config/deploy")
+      template = File.read("#{template_dir}/#{config_file}")
+
+      put template, "#{release_path}/config/#{config_file}"
     end
   end
 
@@ -53,3 +63,4 @@ end
 
 after "deploy:setup", "config:setup" unless fetch(:skip_config_setup, false)
 after "deploy:finalize_update", "config:symlink"
+after "deploy:finalize_update", "config:security"
