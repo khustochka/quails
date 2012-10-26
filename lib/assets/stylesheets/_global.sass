@@ -222,6 +222,10 @@ img, video
   max-width: 99%
   height: auto
 
+// But this breaks map elements, so need to fix
+#googleMap img
+  max-width: inherit
+
 /* http://webdesignerwall.com/tutorials/css-elastic-videos */
 @media only all and (max-width: 580px)
   .video-container
