@@ -8,6 +8,11 @@ class BrowsingTest < ActionDispatch::PerformanceTest
   end
 
   def test_lifelist
-    get '/lifelist'
+    get '/my/lists/advanced'
   end
+
+  #def test_more_than_year
+  #  login_as_admin
+  #  get '/research/more_than_year'
+  #end
 end
