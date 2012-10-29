@@ -26,9 +26,19 @@ class TaxaControllerTest < ActionController::TestCase
     assert_equal "Zzz zzz", assigns(:taxon).name_en
   end
 
+  test 'create taxon' do
+    login_as_admin
+    new_values = {name_sci: 'Some new', name_en: "Zzz zzz"}
+    get :create, book_id: @book, taxon: new_values
+    taxon = assigns(:taxon)
+    assert taxon.valid?
+    assert_redirected_to book_taxon_path(@book, taxon)
+  end
+
   test 'not allowed to use Latin name already taken in this book' do
     login_as_admin
     new_values = {name_sci: "Gavia immer"}
+
     get :update, book_id: @book, id: 'Gavia_stellata', taxon: new_values
     assert_present assigns(:taxon).errors
   end

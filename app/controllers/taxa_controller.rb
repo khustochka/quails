@@ -16,7 +16,8 @@ class TaxaController < ApplicationController
 
   def create
     @book = Book.find_by_slug(params[:book_id])
-    if @taxon = @book.species.create(params[:taxon])
+    @taxon = @book.taxa.create(params[:taxon])
+    if @taxon.valid?
       redirect_to([@book, @taxon], :notice => 'Taxon was successfully created.')
     else
       render :form
