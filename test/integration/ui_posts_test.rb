@@ -80,8 +80,7 @@ class UIPostsTest < ActionDispatch::IntegrationTest
     click_button("save_button")
 
     assert_equal comments_path, current_path
-    # TODO: remove strip when https://github.com/jnicklas/capybara/issues/677 is fixed
-    assert_equal 'Some text', find('#comment_text').text.lstrip
+    assert_equal 'Some text', find('#comment_text').value
   end
 
   test "Try to post invalid reply to comment (no JS)" do
@@ -96,8 +95,7 @@ class UIPostsTest < ActionDispatch::IntegrationTest
     click_button("save_button")
 
     assert_equal comments_path, current_path
-    # TODO: remove strip when https://github.com/jnicklas/capybara/issues/677 is fixed
-    assert_equal 'Some text', find('#comment_text').text.lstrip
+    assert_equal 'Some text', find('#comment_text').value
   end
 
 end
