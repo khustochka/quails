@@ -14,12 +14,8 @@ module Configurator
 
   def self.configure_secret_token
     secret = config_data.secret_token
-    if secret.blank? || secret.length < 30
-      raise ArgumentError, "A secret is required to generate an " +
-          "integrity hash for cookie session data. Use " +
-          "SecureRandom.hex(30) to generate a secret " +
-          "of at least 30 characters and store it " +
-          "in config/security.yml"
+    if secret.blank?
+      $stderr.puts("[WARN] Secret token is not configured! Please set it unless this is a CLI task")
     end
     Quails::Application.config.secret_token = secret
   end
