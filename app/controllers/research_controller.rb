@@ -13,21 +13,22 @@ class ResearchController < ApplicationController
     if params[:days]
       sort_col = params[:sort].try(:to_sym) || :date2
       @period = params[:days].to_i
-      @list = MyObservation.select("id, species_id, observ_date").order(:observ_date).group_by(&:species_id).each_with_object([]) do |obsdata, collection|
+      query = MyObservation.select("species_id, observ_date").order(:observ_date).to_sql
+      @list = Observation.connection.select_rows(query).group_by(&:first).each_with_object([]) do |obsdata, collection|
         sp, obss = obsdata
-        obs = obss.each_cons(2).select do |ob1, ob2|
-          (ob2.observ_date - ob1.observ_date) >= @period
+        obs = obss.map {|_, d| Date.parse(d)}.each_cons(2).select do |ob1, ob2|
+          (ob2 - ob1) >= @period
         end
         collection.concat(
             obs.map do |ob1, ob2|
-              {:sp_id => sp,
-               :date1 => ob1.observ_date,
-               :date2 => ob2.observ_date,
-               :days => (ob2.observ_date - ob1.observ_date).to_i}
+              {:sp_id => sp.to_i,
+               :date1 => ob1,
+               :date2 => ob2,
+               :days => (ob2 - ob1).to_i}
             end
         )
       end.sort { |a, b| b[sort_col] <=> a[sort_col] }
-      spcs = Species.where(id: @list.map{|i| i[:sp_id]}).index_by(&:id)
+      spcs = Species.where(id: @list.map { |i| i[:sp_id] }).index_by(&:id)
       @list.each do |item|
         item[:sp] = spcs[item[:sp_id]]
       end
