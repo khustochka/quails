@@ -7,7 +7,7 @@ module Quails
 
     def initialize(val)
       @raw = val
-      @arr = val.split(' ')
+      @arr = val.split(':')
       super
     end
 

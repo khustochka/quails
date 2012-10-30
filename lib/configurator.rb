@@ -1,5 +1,5 @@
 require "ostruct"
-require "quails_env"
+require "quails/env"
 
 module Configurator
 
