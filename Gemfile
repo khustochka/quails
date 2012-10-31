@@ -6,8 +6,9 @@ gem 'rails', '3.2.9.rc1'
 # gem 'rails', github: 'rails/rails'
 
 gem 'pg', :platforms => [:ruby, :mingw]
+gem "activerecord-jdbcpostgresql-adapter", :platforms => :jruby
 
-gem 'thin', :require => false, :groups => [:development, :heroku]
+gem 'thin', :require => false, :groups => [:development, :heroku], :platforms => [:ruby, :mingw]
 
 gem 'airbrake', require: false
 
@@ -44,7 +45,7 @@ group :development do
   gem 'mysql2', '~> 0.3.7', :platforms => :ruby, :require => false
 end
 
-gem 'grit', '~> 2.5', :require => false, :groups => [:development, :vps]
+gem 'grit', '~> 2.5', :require => false, :groups => [:development, :vps], :platforms => [:ruby, :mingw]
 
 # in dev group for generators
 gem 'factory_girl_rails', '~> 4.0', :groups => [:development, :test]
@@ -54,6 +55,6 @@ group :test do
   gem 'ruby-prof', :require => false, :platforms => [:mri, :mingw]
   gem 'capybara'
   gem 'launchy' # So you can do Then show me the page
-  gem 'simplecov', :require => false
+  gem 'simplecov', :require => false, :platforms => [:ruby, :mingw]
 #  gem 'spork-testunit'
 end

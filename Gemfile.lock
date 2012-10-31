@@ -177,6 +177,7 @@ PLATFORMS
 
 DEPENDENCIES
   RedCloth
+  activerecord-jdbcpostgresql-adapter
   airbrake
   capybara
   factory_girl_rails (~> 4.0)
