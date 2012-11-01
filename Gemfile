@@ -42,10 +42,12 @@ end
 group :development do
   gem 'rails3-generators'
   gem 'nokogiri', :platforms => [:ruby, :mingw], :require => false
-  gem 'mysql2', '~> 0.3.7', :platforms => :ruby, :require => false
 end
 
-gem 'grit', '~> 2.5', :require => false, :groups => [:development, :vps], :platforms => [:ruby, :mingw]
+group :development, :vps do
+  gem 'grit', '~> 2.5', :require => false, :platforms => [:ruby, :mingw]
+  gem 'mysql2', '~> 0.3.7', :platforms => :ruby, :require => false
+end
 
 # in dev group for generators
 gem 'factory_girl_rails', '~> 4.0', :groups => [:development, :test]
