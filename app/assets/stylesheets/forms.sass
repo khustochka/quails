@@ -158,9 +158,9 @@ table.with_search
     width: 362px
     height: 268px
     vertical-align: top
-    h5, a.restore
+    h5, .restore
       @include inline-block
-    a.restore
+    .restore
       float: right
       margin-top: 3px
   .observation_search
@@ -170,8 +170,11 @@ table.with_search
       vertical-align: -19px
       margin-left: 10px
       width: 100px
-  ul.found-obs .remove
-    display: none
+  ul.found-obs
+    li
+      background-color: #eeffee
+    .remove
+      display: none
 
 table.flickr_search_table
   width: 1000px
@@ -197,8 +200,6 @@ ul.obs-list
     div
       // To work around line wrap because of 'remove' icon
       margin-bottom: 1px
-  li.new-obs
-    background-color: #eeffee
 
 
 // Observations index

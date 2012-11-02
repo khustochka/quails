@@ -67,7 +67,7 @@ Quails::Application.routes.draw do
 
   resources :observations do
     collection do
-      get 'search(/:with_spots)', defaults: {format: :json}, action: :search, with_spots: /with_spots/
+      get 'search(/:with_spots)', action: :search, with_spots: /with_spots/
       get 'add'
       get 'bulk'
       post 'bulksave', defaults: {format: :json}

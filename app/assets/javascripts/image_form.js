@@ -18,7 +18,8 @@
 $(function () {
 
     var current_obs = $('.current-obs'),
-        found_obs = $('.found-obs');
+        found_obs = $('.found-obs'),
+        originalObservations = current_obs.html();
 
     function refreshObservList() {
         if ($('li', current_obs).length == 0) {
@@ -36,33 +37,12 @@ $(function () {
     function searchForObservations() {
         found_obs.empty();
         $('.observation_options').addClass('loading');
-        var data = $(".observation_search :input").serializeArray();
-        $.get("/observations/search", data, function (data) {
+        var data = $.param($(".observation_search :input"));
+        found_obs.load("/observations/search", data, function (data) {
             $('.observation_options').removeClass('loading');
-            buildObservations(data, found_obs, true);
             $('li', found_obs).draggable({ "revert":"invalid" });
         });
     }
-
-    function buildObservations(data, ulSelector, newObs) {
-        $(data).each(function () {
-            var hiddenField = $("<input type='hidden' name='obs[]'>").val(this.id),
-                removeIcon = $("<span class='remove'>").html($("<img>").attr('src', '/img/x_14x14.png'));
-            $("<li>", newObs ? { "class":'new-obs'} : null)
-                .append(hiddenField, removeIcon,
-                $('<div>').html(this.species_str),
-                $('<div>').html(this.when_where_str)
-            )
-                .appendTo($(ulSelector));
-        });
-    }
-
-//    function getOriginalObservations() {
-//        if ($('.restore').length == 0 || $('ul.errors li').length > 0)
-//            refreshObservList();
-//        else
-//            $('.restore').click();
-//    }
 
     function insertNewObservation(newObs) {
         //newObs.draggable("destroy");
@@ -75,14 +55,8 @@ $(function () {
         refreshObservList();
     });
 
-    $('.restore').on('ajax:beforeSend', function () {
-        current_obs.empty();
-        $('.observation_list').addClass('loading');
-    });
-
-    $('.restore').on('ajax:success', function (xhr, data, status) {
-        $('.observation_list').removeClass('loading');
-        buildObservations(data, current_obs, false);
+    $('.restore').on('click', function () {
+        current_obs.html(originalObservations);
         refreshObservList();
     });
 

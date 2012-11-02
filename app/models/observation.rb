@@ -64,6 +64,7 @@ class Observation < ActiveRecord::Base
 
   # Decorators
 
+  #TODO: get rid of this
   def species_str
     str = [["<b>#{species.name}</b>", species.name_sci].join(' '), quantity, notes].
         delete_if(&:'blank?').join(', ')

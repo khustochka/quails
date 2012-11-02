@@ -187,6 +187,14 @@ class ObservationsControllerTest < ActionController::TestCase
     result.first.assert_valid_keys('id', 'species_str', 'when_where_str')
   end
 
+  test 'return observation search results in html' do
+    login_as_admin
+    observation = create(:observation)
+    get :search, q: {species_id: observation.species_id.to_s}
+    assert_response :success
+    assert_equal Mime::HTML, response.content_type
+  end
+
   test "properly find spots" do
     obs1 = create(:observation, observ_date: '2010-07-24')
     obs2 = create(:observation, observ_date: '2011-07-24')

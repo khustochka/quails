@@ -106,7 +106,7 @@ class UIImagesTest < ActionDispatch::IntegrationTest
     end
     assert_equal 1, all('.current-obs li').size
 
-    click_link('Restore original')
+    find('span', text: 'Restore original').click
 
     assert_equal 2, all('.current-obs li').size
   end

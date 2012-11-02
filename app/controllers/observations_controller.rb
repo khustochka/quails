@@ -3,7 +3,7 @@ class ObservationsController < ApplicationController
   BULK_REQUIRED_KEYS = %w(locus_id observ_date mine)
   BULK_MEANINGFUL_KEYS = BULK_REQUIRED_KEYS + %w(species_id voice post_id)
 
-  respond_to :json, only: [:search, :bulksave]
+  respond_to :json, only: [:bulksave]
 
   administrative
 
@@ -112,10 +112,14 @@ class ObservationsController < ApplicationController
       json_methods << :spots
     end
     observs =
-        params[:q] && params[:q].delete_if {|_, v| v.empty? }.present? ?
+        params[:q] && params[:q].delete_if { |_, v| v.empty? }.present? ?
             Observation.search(params[:q]).preload(preload_tables).order(:observ_date, :locus_id).limit(params[:limit]) :
             []
-    respond_with(observs, only: :id, methods: json_methods)
+
+    respond_to do |format|
+      format.html { render partial: 'observations/obs_item', collection: observs }
+      format.json { render json: observs, only: :id, methods: json_methods }
+    end
   end
 
   private
