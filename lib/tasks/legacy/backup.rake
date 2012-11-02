@@ -23,11 +23,10 @@ namespace :legacy do
 
     auth = "--basic -u #{spec['user']}:#{spec['password']}" if spec["user"] && spec["password"]
 
-    filename = File.join(folder, 'legacy', 'seed_data.yml')
-    system "curl #{auth} #{spec['url']}?data=seed > #{filename}"
-
-    filename = File.join(folder, 'legacy', 'field_data.yml')
-    system "curl #{auth} #{spec['url']}?data=field > #{filename}"
+    %w(seed field).each do |aspect|
+      filename = File.join(folder, 'legacy', "#{aspect}_data.yml")
+      system "curl #{auth} #{spec['url']}?data=#{aspect} --silent --show-error -o #{filename}"
+    end
 
     Dir.chdir(folder) do
       repo.add("legacy/*.yml")
