@@ -1,19 +1,10 @@
 desc 'Init application. Copy necessary configuration files'
-task :init do
-  require 'fileutils'
-  %w(database security).each do |aspect|
-    filename = "config/#{aspect}.yml"
-    if File.exist?(filename)
-      puts "--- File #{filename} exists."
-    else
-      puts "--- Creating #{filename}. Please edit as appropriate."
+multitask :init => ["config/database.yml", "config/security.yml"]
 
-      template = ERB.new(File.read("config/#{aspect}.sample.yml"))
+file "config/database.yml" do
+  system "erb config/database.sample.yml > config/database.yml"
+end
 
-
-      File.open(filename, "w") do |file|
-        file.puts template.result
-      end
-    end
-  end
+file "config/security.yml" do
+  system "erb -r securerandom config/security.sample.yml > config/security.yml"
 end
