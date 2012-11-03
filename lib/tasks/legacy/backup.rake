@@ -23,7 +23,7 @@ namespace :legacy do
 
     auth = "--basic -u #{spec['user']}:#{spec['password']}" if spec["user"] && spec["password"]
 
-    %w(seed field).each do |aspect|
+    %w(seed field1 field2).each do |aspect|
       filename = File.join(folder, 'legacy', "#{aspect}_data.yml")
       system "curl #{auth} #{spec['url']}?data=#{aspect} --silent --show-error -o #{filename}"
     end
@@ -62,13 +62,24 @@ namespace :legacy do
       YAML.load(file.read)
     end
 
-    filename = File.join(folder, 'legacy', 'field_data.yml')
+    filename = File.join(folder, 'legacy', 'field1_data.yml')
     puts "Loading #{filename}..."
     dump2 = File.open(filename, encoding: 'windows-1251') do |file|
       YAML.load(file.read)
     end
 
-    ydoc = dump1.merge(dump2)
+    filename = File.join(folder, 'legacy', 'field2_data.yml')
+    puts "Loading #{filename}..."
+    dump3 = File.open(filename, encoding: 'windows-1251') do |file|
+      YAML.load(file.read)
+    end
+
+    obs_dump = {
+        'columns' => dump2['observation']['columns'],
+        'records' => dump2['observation']['records'] + dump3['observation']['records']
+    }
+
+    ydoc = dump1.merge!({'observation' => obs_dump})
 
 
     ydoc.each_key do |table_name|

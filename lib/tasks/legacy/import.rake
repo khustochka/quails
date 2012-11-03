@@ -39,12 +39,24 @@ namespace :legacy do
     images = Legacy::Utils.prepare_table(dump['images'])
     spots = Legacy::Utils.prepare_table(dump['map'])
 
-    source = File.join(folder, 'legacy', 'field_data.yml')
+    source = File.join(folder, 'legacy', 'field1_data.yml')
     puts "Importing from #{source}"
-    dump = File.open(source, encoding: 'windows-1251:utf-8') do |f|
+    dump1 = File.open(source, encoding: 'windows-1251:utf-8') do |f|
       YAML.load(f.read)
     end
-    observations = Legacy::Utils.prepare_table(dump['observation'])
+
+    source = File.join(folder, 'legacy', 'field2_data.yml')
+    puts "Importing from #{source}"
+    dump2 = File.open(source, encoding: 'windows-1251:utf-8') do |f|
+      YAML.load(f.read)
+    end
+
+    obs_dump = {
+            'columns' => dump1['observation']['columns'],
+            'records' => dump1['observation']['records'] + dump2['observation']['records']
+        }
+
+    observations = Legacy::Utils.prepare_table(obs_dump)
 
     Legacy::Import::Locations.update_all(countries, regions, locs)
 
