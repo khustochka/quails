@@ -1,5 +1,3 @@
-require 'iconv'
-
 module Legacy
   module Utils
 
