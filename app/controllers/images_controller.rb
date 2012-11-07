@@ -2,7 +2,7 @@ class ImagesController < ApplicationController
 
   respond_to :json, only: [:flickr_search, :observations]
 
-  administrative except: [:photostream, :show]
+  administrative except: [:photostream, :show, :gallery]
 
   find_record by: :slug, before: [:show, :edit, :flickr_edit, :map_edit, :update, :patch, :destroy]
 
@@ -11,6 +11,12 @@ class ImagesController < ApplicationController
   # GET /images
   def index
     @images = Image.page(params[:page])
+  end
+
+  # Galleries
+  def gallery
+    @country = Locus.find_by_slug(params[:country])
+    @species = @country.species.preload(:image).ordered_by_taxonomy.all.extend(SpeciesArray)
   end
 
   # GET /photostream

@@ -1,0 +1,19 @@
+- @page_title = @country.slug == 'ukraine' ? 'Birds of Ukraine' : 'Birds Gallery'
+
+%h1= page_header
+
+%table.gallery
+
+  - @species.group_by_family.each do |fam, species_list|
+    %tr
+      %td{colspan: 2}
+        %h3= "#{fam[:order].upcase}: #{fam[:family]}"
+    %tr
+      %td
+        %ul
+          - species_list.each do |species|
+            %li
+              = species_link(species)
+              = name_sci(species)
+      %td.gallery_img
+        = render :partial => 'species/thumbnail', :collection => species_list.select(&:image)

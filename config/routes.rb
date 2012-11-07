@@ -19,6 +19,8 @@ Quails::Application.routes.draw do
   # just remember to delete public/index.html.
   root to: 'blog#front_page', as: 'blog'
 
+  get 'ukraine' => 'images#gallery', country: 'ukraine', as: 'birds_ukraine'
+
   resources :species, only: [:index, :show]
 
   # Constraint below is to differ paths like /species/Crex_crex/edit from /species/Crex_crex/photo-of-the-corncrake

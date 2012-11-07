@@ -1,0 +1,10 @@
+- sp_text = capture do
+  = thumbnail.name
+  %br
+  = name_sci(thumbnail)
+
+- alt_text = strip_tags(sp_text).gsub(/\s+/, ' ')
+
+%div.imageholder
+  = link_to image_tag(thumbnail_url(thumbnail.image), alt: alt_text), species_path(thumbnail)
+  %div.imagetitle= link_to sp_text, species_path(thumbnail)

@@ -7,18 +7,30 @@
     %lastmod= @root_lastmod
     %changefreq daily
 
-  -# posts
-  - @posts.each do |post|
-    %url
-      %loc= public_post_path(post, only_path: false)
-      %lastmod= post.updated_at.iso8601
-      %changefreq yearly
+  -# Birds of Ukraine page
+  %url
+    %loc= birds_ukraine_url
+    -# TODO: %lastmod=
+    -#%changefreq weekly
+
+  -# Ukraine checklist page
+  %url
+    %loc= checklist_url(slug: 'ukraine')
+    -# TODO: %lastmod=
+    -#%changefreq weekly
 
   -# photostream page
   %url
     %loc= photostream_url
     -# TODO: %lastmod=
     %changefreq weekly
+
+  -# posts
+  - @posts.each do |post|
+    %url
+      %loc= public_post_path(post, only_path: false)
+      %lastmod= post.updated_at.iso8601
+      %changefreq yearly
 
   -# images
   - @images.each do |img|
