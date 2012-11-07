@@ -3,18 +3,20 @@ namespace :vendor do
 
   namespace :update do
 
+    require './config/initializers/jquery'
+
     desc 'Update vendored JS and CSS'
     task :assets => [:javascripts, :css]
 
     #desc 'Update Javascripts'
     task :javascripts do
-      JQUERY_VERSION = '1.8.2'
-      puts "\n=== Getting JQuery #{JQUERY_VERSION} ==="
-      system "curl http://code.jquery.com/jquery-#{JQUERY_VERSION}.js > vendor/assets/javascripts/jquery.js"
+      puts "\n=== Getting JQuery #{JQUERY_CDN.scan(/\d\.\d\.\d/)[0]} ==="
+      system "curl #{JQUERY_CDN} > vendor/assets/javascripts/jquery.min.js"
       puts "\n=== Getting latest JQuery-ujs ==="
       system "curl https://raw.github.com/rails/jquery-ujs/master/src/rails.js > vendor/assets/javascripts/jquery_ujs.js"
       puts "\n=== Getting latest JQuery-pjax ==="
-      system "curl https://raw.github.com/defunkt/jquery-pjax/master/jquery.pjax.js > vendor/assets/javascripts/jquery_pjax.js"
+      puts "\n          --------> Skipping..."
+      #system "curl https://raw.github.com/defunkt/jquery-pjax/master/jquery.pjax.js > vendor/assets/javascripts/jquery_pjax.js"
       puts "\n=== Getting latest HTML5shiv for IE ==="
       system "curl http://html5shiv.googlecode.com/svn/trunk/html5.js > vendor/assets/javascripts/html5.js"
       puts "\n=== Getting latest Gmap3 ==="

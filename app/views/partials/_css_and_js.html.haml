@@ -5,4 +5,4 @@
 = stylesheet_link_tag(*@stylesheets) if @stylesheets.present?
 
 -# scripts
-= javascript_include_tag(*@scripts) if @scripts.present?
+= javascript_include_tag(*@scripts.unshift(JQUERY_URL)) if @scripts.present?
