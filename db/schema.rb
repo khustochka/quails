@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120925122014) do
+ActiveRecord::Schema.define(:version => 20121107102037) do
 
   create_table "books", :force => true do |t|
     t.string "slug",        :limit => 32, :null => false
@@ -136,6 +136,7 @@ ActiveRecord::Schema.define(:version => 20120925122014) do
     t.string  "protonym"
     t.string  "name_fr"
     t.string  "legacy_slug",               :null => false
+    t.integer "image_id"
   end
 
   add_index "species", ["code"], :name => "index_species_on_code", :unique => true

@@ -13,6 +13,8 @@ class Species < ActiveRecord::Base
   has_many :observations, :dependent => :restrict, :order => [:observ_date]
   has_many :images, :through => :observations, :order => [:observ_date, :locus_id, :index_num]
 
+  belongs_to :image
+
   AVIS_INCOGNITA = OpenStruct.new(id: 0, name_sci: '- Avis incognita', to_label: '- Avis incognita')
 
   # Parameters

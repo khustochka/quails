@@ -6,12 +6,12 @@ module Legacy
   module Import
     module Images
 
-      def self.import_images(images, observations)
+      def self.import_images(images, observations, species)
 
         Legacy::Mapping.refresh_species
         Legacy::Mapping.refresh_locations
 
-        multi_obs = Hash[observations.select {|o| o[:sp_id] == 'mulspp'}.map {|o| [o[:observ_id], o] }]
+        multi_obs = Hash[observations.select { |o| o[:sp_id] == 'mulspp' }.map { |o| [o[:observ_id], o] }]
 
         puts 'Importing images...'
 
@@ -50,6 +50,15 @@ module Legacy
 
           img.observations = obs
           img.save!
+        end
+
+        # Set main images for the species
+        species.each do |sp|
+          spcs = Legacy::Mapping.species[sp[:sp_id]]
+          next if spcs.nil?
+          sp_img = sp[:sp_img]
+          img = Image.find_by_slug!(sp_img) if sp_img.present?
+          Species.find(spcs).update_column(:image_id, img)
         end
 
         puts 'Done.'

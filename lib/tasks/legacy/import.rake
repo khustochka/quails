@@ -31,6 +31,7 @@ namespace :legacy do
     dump = File.open(source, encoding: 'windows-1251:utf-8') do |f|
       YAML.load(f.read)
     end
+    species = Legacy::Utils.prepare_table(dump['species'])
     countries = Legacy::Utils.prepare_table(dump['country'])
     regions = Legacy::Utils.prepare_table(dump['region'])
     locs = Legacy::Utils.prepare_table(dump['location'])
@@ -68,7 +69,7 @@ namespace :legacy do
 
     Legacy::Import::Spots.import_spots(spots)
 
-    Legacy::Import::Images.import_images(images, observations)
+    Legacy::Import::Images.import_images(images, observations, species)
 
   end
 end
