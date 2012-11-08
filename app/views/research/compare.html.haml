@@ -1,6 +1,5 @@
 - @page_title = 'Compare two regions'
 - i = 0
-- check = lambda{|loc| image_tag('/img/check_16x13.png', title: loc, alt: loc) }
 
 %h1= research_page_header
 
@@ -34,5 +33,5 @@
         %td
           = species_link(species)
           = name_sci(species)
-        %td.align-center= check.call(name1) if species.in?(@loc1_species)
-        %td.align-center= check.call(name2) if species.in?(@loc2_species)
+        %td.align-center= locus_check(name1) if species.in?(@loc1_species)
+        %td.align-center= locus_check(name2) if species.in?(@loc2_species)
