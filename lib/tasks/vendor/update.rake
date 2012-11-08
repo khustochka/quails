@@ -11,22 +11,22 @@ namespace :vendor do
     #desc 'Update Javascripts'
     task :javascripts do
       puts "\n=== Getting JQuery #{JQUERY_CDN.scan(/\d\.\d\.\d/)[0]} ==="
-      system "curl #{JQUERY_CDN} > vendor/assets/javascripts/jquery.min.js"
+      system "curl #{JQUERY_CDN} -o vendor/assets/javascripts/jquery.min.js"
       puts "\n=== Getting latest JQuery-ujs ==="
-      system "curl https://raw.github.com/rails/jquery-ujs/master/src/rails.js > vendor/assets/javascripts/jquery_ujs.js"
+      system "curl https://raw.github.com/rails/jquery-ujs/master/src/rails.js -o vendor/assets/javascripts/jquery_ujs.js"
       puts "\n=== Getting latest JQuery-pjax ==="
       puts "\n          --------> Skipping..."
-      #system "curl https://raw.github.com/defunkt/jquery-pjax/master/jquery.pjax.js > vendor/assets/javascripts/jquery_pjax.js"
+      #system "curl https://raw.github.com/defunkt/jquery-pjax/master/jquery.pjax.js -o vendor/assets/javascripts/jquery_pjax.js"
       puts "\n=== Getting latest HTML5shiv for IE ==="
-      system "curl http://html5shiv.googlecode.com/svn/trunk/html5.js > vendor/assets/javascripts/html5.js"
+      system "curl http://html5shiv.googlecode.com/svn/trunk/html5.js -o vendor/assets/javascripts/html5.js"
       puts "\n=== Getting latest Gmap3 ==="
-      system "curl https://raw.github.com/khustochka/gmap3/one-marker-cluster/gmap3.js > vendor/assets/javascripts/gmap3.js"
+      system "curl https://raw.github.com/khustochka/gmap3/one-marker-cluster/gmap3.js -o vendor/assets/javascripts/gmap3.js"
     end
 
     #desc 'Update CSS'
     task :css do
       puts "\n=== Getting latest normalize.css ==="
-      system "curl https://raw.github.com/necolas/normalize.css/v1/normalize.css > vendor/assets/stylesheets/normalize.css"
+      system "curl https://raw.github.com/necolas/normalize.css/v1/normalize.css -o vendor/assets/stylesheets/normalize.css"
     end
 
   end
