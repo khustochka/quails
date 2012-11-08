@@ -1,7 +1,9 @@
-- @page_title = [t('date.month_names')[@month.to_i], link_to(@year, year_path(@year))].join(' ')
+- @page_title = capture do
+  #{t('date.month_names')[@month.to_i]} #{link_to(@year, year_path(@year))}
+
 - @robots = 'NOINDEX, NOARCHIVE'
 
-%h1.over-header= page_header
+%h1.over-header<= page_header
 
 = render @posts
 

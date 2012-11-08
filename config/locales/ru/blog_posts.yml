@@ -32,7 +32,7 @@
     form:
       save_button: Отправить
     reply:
-      reply_title: Ответ на комментарий
+      reply_title: Ответ на комментарий к записи
       comment_title: Ответ на запись
 
   simple_form:

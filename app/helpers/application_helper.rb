@@ -5,7 +5,7 @@ module ApplicationHelper
   end
 
   def page_header
-    @page_title.html_safe
+    @page_title
   end
 
   def default_page_title
