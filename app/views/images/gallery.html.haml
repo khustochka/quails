@@ -1,19 +1,10 @@
 - @page_title = @country.slug == 'ukraine' ? 'Birds of Ukraine' : 'Birds Gallery'
+- checklist_link = link_to("полный список птиц Украины", checklist_path(slug: 'ukraine'))
 
 %h1= page_header
 
-%table.gallery
+%p
+  Тут представлены только виды птиц Украины, фотографии которых есть на сайте.
+  Смотрите также #{checklist_link}.
 
-  - @species.group_by_family.each do |fam, species_list|
-    %tr
-      %td{colspan: 2}
-        %h3= "#{fam[:order].upcase}: #{fam[:family]}"
-    %tr
-      %td
-        %ul
-          - species_list.each do |species|
-            %li
-              = species_link(species)
-              = name_sci(species)
-      %td.gallery_img
-        = render :partial => 'species/thumbnail', :collection => species_list.select(&:image)
+= render :partial => 'species/thumbnail', :collection => @species

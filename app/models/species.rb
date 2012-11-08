@@ -29,7 +29,7 @@ class Species < ActiveRecord::Base
 
   # Scopes
 
-  scope :ordered_by_taxonomy, order(:index_num)
+  scope :ordered_by_taxonomy, order("species.index_num")
 
   scope :alphabetic, order(:name_sci)
 
