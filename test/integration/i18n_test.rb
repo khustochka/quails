@@ -3,7 +3,7 @@
 require 'test_helper'
 require 'capybara_helper'
 
-class UIPostsTest < ActionDispatch::IntegrationTest
+class I18NTest < ActionDispatch::IntegrationTest
 
   include CapybaraTestCase
 
