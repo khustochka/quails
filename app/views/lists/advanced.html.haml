@@ -32,8 +32,13 @@
       %th &nbsp;
       %th
         Sort by:
-        = link_to_unless_current('Classification &#8659;'.html_safe, params.merge(:sort => 'class'))
-      %th.align-right= params[:sort].nil? ? 'First seen &#8659;'.html_safe : link_to('First seen &#8659;'.html_safe, params.merge(:sort => nil))
-      %th.align-right= link_to_unless_current('Last seen &#8659;'.html_safe, params.merge(:sort => 'last'))
-      %th.align-right= link_to_unless_current('Count &#8659;'.html_safe, params.merge(:sort => 'count'))
+        = link_to_unless_current('Classification ⇓', params.merge(:sort => 'class'))
+      %th.align-right
+        - if params[:sort].nil?
+          First seen ⇓
+        - else
+          = link_to params.merge(:sort => nil) do
+            First seen ⇓
+      %th.align-right= link_to_unless_current('Last seen ⇓', params.merge(:sort => 'last'))
+      %th.align-right= link_to_unless_current('Count ⇓', params.merge(:sort => 'count'))
     = render sort.nil? || sort == 'last' ? "lists/advanced/by_date" : "lists/advanced/by_#{sort}"

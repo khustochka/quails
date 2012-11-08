@@ -27,7 +27,12 @@
           %tr
             %td= link_to locus.slug, edit_locus_path(locus)
             %td= locus.parent.try(:slug) || '-'
-            %td= %w(en ru uk).map{|lang| "#{lang}: #{locus.send("name_#{lang}")}"}.join('<br />').html_safe
+            %td
+              - %w(en ru uk).map do |lang|
+                %div
+                  %i.less-important.monospace
+                    #{lang}:
+                  #{locus.send("name_#{lang}")}
             %td.align-center= latlon(locus)
             %td.align-right= locus.public_index
             %td

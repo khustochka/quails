@@ -5,7 +5,11 @@
 = render 'partials/years'
 
 - @months.each do |month, posts|
-  %h2= "#{link_to(t('date.month_names')[month.to_i], month_path({:year => @year, :month => month}))}".html_safe
+  %h2
+    = link_to month_path({:year => @year, :month => month}) do
+      = t('date.month_names')[month.to_i]
   %ul
     - posts.each do |post|
-      %li= "#{post.day}: #{post_link(post_title(post), post)}".html_safe
+      %li
+        #{post.day}:
+        = post_link(post_title(post), post)

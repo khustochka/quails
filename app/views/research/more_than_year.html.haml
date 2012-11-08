@@ -4,9 +4,9 @@
 
 %table.neat_table
   %th Species
-  %th= link_to_unless_current('Last seen &#8659;'.html_safe, params.merge({:sort => :date1}))
-  %th= params[:sort].nil? ? 'Seen again &#8659;'.html_safe : link_to('Seen again &#8659;'.html_safe, params.merge(:sort => nil))
-  %th= link_to_unless_current('Days &#8659;'.html_safe, params.merge({:sort => :days}))
+  %th= link_to_unless_current('Last seen ⇓', params.merge({:sort => :date1}))
+  %th= params[:sort].nil? ? 'Seen again ⇓' : link_to('Seen again ⇓', params.merge(:sort => nil))
+  %th= link_to_unless_current('Days ⇓', params.merge({:sort => :days}))
 
   - @list.each do |el|
     %tr

@@ -1,10 +1,9 @@
 - @page_title = @country.slug == 'ukraine' ? 'Birds of Ukraine' : 'Birds Gallery'
-- checklist_link = link_to("полный список птиц Украины", checklist_path(slug: 'ukraine'))
 
 %h1= page_header
 
 %p
   Тут представлены только виды птиц Украины, фотографии которых есть на сайте.
-  Смотрите также #{checklist_link}.
+  Смотрите также #{link_to("полный список птиц Украины", checklist_path(slug: 'ukraine'))}.
 
 = render :partial => 'species/thumbnail', :collection => @species

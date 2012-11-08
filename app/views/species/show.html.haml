@@ -11,8 +11,11 @@
 
 %p= @species.authority
 
-%p
-  = %w(en fr ru uk).map {|lang| "<b>#{lang} name:</b> #{@species.send("name_#{lang}".intern)}"}.join('; ').html_safe
+%dl
+  - %w(en fr ru uk).map do |lang|
+    %dt
+      %b #{lang} name:
+    %dd #{@species.send("name_#{lang}")}
 
 = render 'admin/shortcuts' if current_user.admin?
 
