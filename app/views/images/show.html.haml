@@ -5,7 +5,7 @@
 
 %h1= page_header
 
-- content_for :add_shortcuts do
+- provide :add_shortcuts do
   %li= link_to 'Edit map', action: :map_edit
   %li= link_to 'Edit flickr data', action: :flickr_edit
 
