@@ -23,9 +23,12 @@ namespace :legacy do
 
     auth = "--basic -u #{spec['user']}:#{spec['password']}" if spec["user"] && spec["password"]
 
+    silence = Quails.env.background? ? "--silent --show-error" : ""
+
     %w(seed field1 field2).each do |aspect|
       filename = File.join(folder, 'legacy', "#{aspect}_data.yml")
-      system "curl #{auth} #{spec['url']}?data=#{aspect} --silent --show-error -o #{filename}"
+      puts "Getting #{aspect}_data.yml"
+      system "curl #{auth} #{spec['url']}?data=#{aspect} #{silence} -o #{filename}"
     end
 
     Dir.chdir(folder) do
