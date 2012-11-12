@@ -108,7 +108,7 @@ class ResearchController < ApplicationController
                               MyObservation.scoped
                             end
 
-      @species = Species.uniq.joins(:observations).merge(observations_source).ordered_by_taxonomy.all.extend(SpeciesArray)
+      @species = Species.uniq.joins(:observations).merge(observations_source).ordered_by_taxonomy.extend(SpeciesArray)
 
       @loc1_species = Species.uniq.joins(:observations).merge(MyObservation.where(locus_id: @loc1.subregion_ids)).all
       @loc2_species = Species.uniq.joins(:observations).merge(MyObservation.where(locus_id: @loc2.subregion_ids)).all

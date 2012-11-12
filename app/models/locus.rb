@@ -15,8 +15,7 @@ class Locus < ActiveRecord::Base
 
   has_many :observations, :dependent => :restrict
 
-  has_many :checklists
-  has_many :species, :through => :checklists, :select => '*'
+  has_many :local_species
 
   # Parameters
 
@@ -39,7 +38,7 @@ class Locus < ActiveRecord::Base
   # Instance methods
 
   def checklist
-    species.ordered_by_taxonomy.all.extend(SpeciesArray)
+    local_species.includes(:species).order("species.index_num").extend(SpeciesArray)
   end
 
   def subregion_ids

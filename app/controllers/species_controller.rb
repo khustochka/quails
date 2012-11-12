@@ -6,7 +6,7 @@ class SpeciesController < ApplicationController
 
   # GET /species
   def index
-    @species = Species.ordered_by_taxonomy.all.extend(SpeciesArray)
+    @species = Species.ordered_by_taxonomy.extend(SpeciesArray)
   end
 
   # GET /species/1

@@ -11,25 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121107102037) do
+ActiveRecord::Schema.define(:version => 20121112155403) do
 
   create_table "books", :force => true do |t|
     t.string "slug",        :limit => 32, :null => false
     t.string "name"
     t.text   "description"
   end
-
-  create_table "checklists", :id => false, :force => true do |t|
-    t.integer "locus_id",   :null => false
-    t.integer "species_id", :null => false
-    t.string  "status"
-    t.string  "notes_en"
-    t.string  "notes_ru"
-    t.string  "notes_uk"
-  end
-
-  add_index "checklists", ["locus_id"], :name => "index_checklists_on_locus_id"
-  add_index "checklists", ["species_id"], :name => "index_checklists_on_species_id"
 
   create_table "comments", :force => true do |t|
     t.integer  "post_id"
@@ -68,6 +56,18 @@ ActiveRecord::Schema.define(:version => 20121107102037) do
 
   add_index "images_observations", ["image_id"], :name => "index_images_observations_on_image_id"
   add_index "images_observations", ["observation_id"], :name => "index_images_observations_on_observation_id"
+
+  create_table "local_species", :force => true do |t|
+    t.integer "locus_id",   :null => false
+    t.integer "species_id", :null => false
+    t.string  "status"
+    t.string  "notes_en"
+    t.string  "notes_ru"
+    t.string  "notes_uk"
+  end
+
+  add_index "local_species", ["locus_id"], :name => "index_local_species_on_locus_id"
+  add_index "local_species", ["species_id"], :name => "index_local_species_on_species_id"
 
   create_table "loci", :force => true do |t|
     t.string  "slug",         :limit => 32, :null => false

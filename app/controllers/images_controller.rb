@@ -16,7 +16,7 @@ class ImagesController < ApplicationController
   # Galleries
   def gallery
     @country = Locus.find_by_slug(params[:country])
-    @species = @country.species.joins(:image).includes(:image).ordered_by_taxonomy
+    @species = @country.checklist.joins(:image).includes(:image)
   end
 
   # GET /photostream
