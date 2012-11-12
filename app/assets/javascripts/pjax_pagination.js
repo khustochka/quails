@@ -3,7 +3,7 @@
 
 $(function() {
     // default timeout is causing page reload on heavy pages, like lifelist
-    $('nav.pagination a').pjax('.main', {timeout: false});
+    $('.main').pjax('nav.pagination a', {timeout: false});
 
     $('.main').on('pjax:start', showSpinner);
 
