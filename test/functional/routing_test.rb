@@ -46,6 +46,11 @@ class RoutingTest < ActionDispatch::IntegrationTest
                    {controller: 'images', action: 'show', species: 'Aquilla_pomarina', id: 'lesser_spotted_eagle'}
   end
 
+  test 'photos paging' do
+    assert_routing '/images/page/2',
+                   {controller: 'images', action: 'index', page: '2'}
+  end
+
   test 'route observations correctly' do
     assert_routing '/observations/11876', {controller: 'observations', action: 'show', id: "11876"}
     assert_routing '/observations/new', {controller: 'observations', action: 'new'}
