@@ -18,4 +18,16 @@ module ApplicationHelper
     end
   end
 
+  def filtering_link_to_all(parameter)
+    if params[parameter].nil?
+      content_tag(:span, t('misc.all'))
+    else
+      link_to(t('misc.all'), significant_params.merge(parameter => nil))
+    end
+  end
+
+  def sorting_link_to(text)
+    params[:sort].nil? ? text : link_to(text, params.merge(:sort => nil))
+  end
+
 end

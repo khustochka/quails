@@ -19,7 +19,7 @@
 
 %ul.horiz-list.filter-list
   %strong= t('lists.menus.filter.months')
-  %li= params[:month].nil? ? content_tag(:span, t('misc.all')) : link_to(t('misc.all'), params.merge(:month => nil))
+  %li= filtering_link_to_all(:month)
   - 1.upto(12) do |m|
     %li
       = link_to_or_span(t('date.abbr_month_names')[m], params.merge(:month => m))
@@ -34,12 +34,7 @@
       %th
         Sort by:
         = link_to_unless_current('Classification ⇓', params.merge(:sort => 'class'))
-      %th.align-right
-        - if params[:sort].nil?
-          First seen ⇓
-        - else
-          = link_to params.merge(:sort => nil) do
-            First seen ⇓
+      %th.align-right= sorting_link_to("First seen ⇓")
       %th.align-right= link_to_unless_current('Last seen ⇓', params.merge(:sort => 'last'))
       %th.align-right= link_to_unless_current('Count ⇓', params.merge(:sort => 'count'))
     = render sort.nil? || sort == 'last' ? "lists/advanced/by_date" : "lists/advanced/by_#{sort}"
