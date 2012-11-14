@@ -43,7 +43,7 @@ module ImagesHelper
   end
 
   def legacy_image_url(file_name)
-    "#{ImagesHelper.image_host}/aves/photos/#{file_name}"
+    "#{ImagesHelper.image_host}/#{file_name}"
   end
 
 end
