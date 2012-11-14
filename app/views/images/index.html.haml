@@ -1,23 +1,9 @@
 - javascript 'pjax_pagination'
 
-- @page_title = 'Listing images'
+- @page_title = 'Photostream'
 
 %h1= page_header
 
-%table.neat_table
-  %tr
-    %th
-    %th Code
-    %th Title
-    %th Index
-    %th
-
-  - @images.each do |image|
-    %tr
-      %td.thumbnail= link_to image_tag(thumbnail_url(image)), public_image_path(image)
-      %td= link_to image.slug, edit_image_path(image)
-      %td= image_title(image)
-      %td.align-right= image.index_num
-      %td= default_destroy_link(image)
+= render :partial => 'thumbnail', :collection => @images
 
 = paginate @images

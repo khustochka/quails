@@ -2,16 +2,11 @@ class ImagesController < ApplicationController
 
   respond_to :json, only: [:flickr_search, :observations]
 
-  administrative except: [:photostream, :show, :gallery]
+  administrative except: [:index, :show, :gallery]
 
   find_record by: :slug, before: [:show, :edit, :flickr_edit, :map_edit, :update, :patch, :destroy]
 
   after_filter :cache_expire, only: [:create, :update, :destroy]
-
-  # GET /images
-  def index
-    @images = Image.page(params[:page])
-  end
 
   # Galleries
   def gallery
@@ -19,8 +14,8 @@ class ImagesController < ApplicationController
     @species = @country.checklist.joins(:image).includes(:image)
   end
 
-  # GET /photostream
-  def photostream
+  # GET /images
+  def index
     redirect_to page: nil if params[:page].to_i == 1
     @robots = 'NOINDEX, NOARCHIVE' if params[:page]
     @images = Image.order('created_at DESC').page(params[:page]).per(20)

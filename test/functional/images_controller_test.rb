@@ -13,12 +13,6 @@ class ImagesControllerTest < ActionController::TestCase
     assert_not_nil assigns(:images)
   end
 
-  test "get photostream" do
-    get :photostream
-    assert_response :success
-    assert_not_nil assigns(:images)
-  end
-
   test "get Birds of Ukraine" do
     get :gallery, country: 'ukraine'
     assert_response :success
