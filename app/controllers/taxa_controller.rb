@@ -8,22 +8,6 @@ class TaxaController < ApplicationController
     render :form
   end
 
-  def new
-    @book = Book.find_by_slug(params[:book_id])
-    @taxon = @book.taxa.new
-    render :form
-  end
-
-  def create
-    @book = Book.find_by_slug(params[:book_id])
-    @taxon = @book.taxa.create(params[:taxon])
-    if @taxon.valid?
-      redirect_to([@book, @taxon], :notice => 'Taxon was successfully created.')
-    else
-      render :form
-    end
-  end
-
   def update
     if @taxon.update_attributes(params[:taxon])
       redirect_to([@book, @taxon], :notice => 'Taxon was successfully updated.')

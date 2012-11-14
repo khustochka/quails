@@ -110,7 +110,7 @@ Quails::Application.routes.draw do
   end
 
   resources :books do
-    resources :taxa, except: [:index, :edit, :destroy]
+    resources :taxa, only: [:show, :update]
   end
   get '/books/:id/taxa' => redirect("/books/%{id}")
 
