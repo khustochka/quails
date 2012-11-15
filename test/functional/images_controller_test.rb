@@ -3,6 +3,7 @@ require 'test_helper'
 class ImagesControllerTest < ActionController::TestCase
   setup do
     @image = create(:image)
+    seed(:pasdom).update_column(:image_id, @image.id)
     @obs = @image.observations.first
   end
 
@@ -13,10 +14,19 @@ class ImagesControllerTest < ActionController::TestCase
     assert_not_nil assigns(:images)
   end
 
-  test "get Birds of Ukraine" do
+  test "Birds of Ukraine" do
     get :country, country: 'ukraine'
     assert_response :success
-    assert_not_nil assigns(:species)
+    assert_present assigns(:species)
+    assert_select "a[href=#{species_path(@obs.species)}]"
+  end
+
+  test "Birds of USA" do
+    create(:observation, locus: seed(:queens))
+    get :country, country: 'usa'
+    assert_response :success
+    assert_present assigns(:species)
+    assert_select "a[href=#{species_path(@obs.species)}]"
   end
 
   test "get gallery" do
