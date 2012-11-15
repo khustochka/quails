@@ -31,8 +31,6 @@ class Locus < ActiveRecord::Base
 
   scope :list_order, lambda { order('loc_type DESC', :parent_id, :slug) }
 
-  scope :countries, lambda { where(loc_type: 0).order(:public_index) }
-
   scope :public, lambda { where('public_index IS NOT NULL').order(:public_index) }
 
   # Instance methods

@@ -21,7 +21,7 @@ class ListsController < ApplicationController
             raise ActionController::RoutingError, "Illegal argument sort=#{params[:sort]}"
         end
 
-    @locations = Locus.countries
+    @locations = Country.scoped
 
     @lifelist = Lifelist.basic.
         source(posts: current_user.available_posts).
