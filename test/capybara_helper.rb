@@ -15,11 +15,6 @@ end
 # Capybara because it starts the web server in a thread.
 ActiveRecord::Base.shared_connection = ActiveRecord::Base.connection
 
-# Turn on resynchronize option for selenium driver
-Capybara.register_driver :selenium do |app|
-  Capybara::Selenium::Driver.new(app, resynchronize: true)
-end
-
 module CapybaraTestCase
   include Capybara::DSL
 
@@ -38,15 +33,12 @@ module CapybaraTestCase
     else
       # FIXME for this to work you need to add pref("network.http.phishy-userpass-length", 255); to /Applications/Firefox.app/Contents/MacOS/defaults/pref/firefox.js
       str = "http://%s:%s@%s:%s/login"
-      visit str % [test_credentials.username, test_credentials.password, page.driver.rack_server.host, page.driver.rack_server.port]
+      visit str % [test_credentials.username, test_credentials.password, page.server.host, page.server.port]
     end
   end
 
   def submit_form_with(name)
     click_button(name)
-    if page.driver.respond_to? :resynchronize
-      page.driver.resynchronize {}
-    end
   end
 end
 
