@@ -47,7 +47,7 @@ class RoutingTest < ActionDispatch::IntegrationTest
   end
 
   test 'photos paging' do
-    assert_routing '/images/page/2',
+    assert_routing '/photos/page/2',
                    {controller: 'images', action: 'index', page: '2'}
   end
 

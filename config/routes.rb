@@ -25,7 +25,7 @@ Quails::Application.routes.draw do
 
   # Constraint below is to differ paths like /species/Crex_crex/edit from /species/Crex_crex/photo-of-the-corncrake
   get '/species/:species/:id' => 'images#show', as: 'show_image', constraints: lambda { |r| r.url !~ /edit$/ }
-  get '/images(/page/:page)' => 'images#index', page: /[^0]\d*/
+  get '/photos(/page/:page)' => 'images#index', page: /[^0]\d*/, constraints: {format: 'html'}
 
   constraints year: /20\d\d/ do
     get '/:year' => 'blog#year', as: 'year'
@@ -84,7 +84,7 @@ Quails::Application.routes.draw do
   end
 
   resources :species, only: [:edit, :update]
-  resources :images, except: [:show, :index] do
+  resources :photos, controller: 'images', as: 'images', except: [:show, :index] do
     member do
       get 'edit/map', action: :map_edit
       get 'edit/flickr', action: :flickr_edit
