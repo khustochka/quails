@@ -9,6 +9,6 @@ class Comment < ActiveRecord::Base
     self.approved = true if self.approved.nil?
   end
 
-  default_scope order(:created_at)
+  default_scope { order(:created_at) }
 
 end

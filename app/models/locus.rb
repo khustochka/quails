@@ -29,11 +29,11 @@ class Locus < ActiveRecord::Base
 
   # Scopes
 
-  scope :list_order, order('loc_type DESC', :parent_id, :slug)
+  scope :list_order, lambda { order('loc_type DESC', :parent_id, :slug) }
 
-  scope :countries, where(loc_type: 0).order(:public_index)
+  scope :countries, lambda { where(loc_type: 0).order(:public_index) }
 
-  scope :public, where('public_index IS NOT NULL').order(:public_index)
+  scope :public, lambda { where('public_index IS NOT NULL').order(:public_index) }
 
   # Instance methods
 

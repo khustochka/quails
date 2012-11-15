@@ -23,7 +23,7 @@ class Observation < ActiveRecord::Base
 
   # Scopes
 
-  scope :identified, where('observations.species_id != 0')
+  scope :identified, lambda { where('observations.species_id != 0') }
 
   # TODO: improve and probably use universally
   def self.filter(options = {})

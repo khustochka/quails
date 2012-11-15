@@ -7,5 +7,5 @@ class Spot < ActiveRecord::Base
 
   validates :observation_id, :lat, :lng, :zoom, :exactness, presence: true
 
-  scope :public, where(:public => true)
+  scope :public, lambda { where(:public => true) }
 end
