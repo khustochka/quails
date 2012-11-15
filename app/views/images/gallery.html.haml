@@ -1,15 +1,9 @@
-- @page_title = @country.slug == 'ukraine' ? 'Birds of Ukraine' : 'Birds Gallery'
+- @page_title = "Birds gallery"
 
 %h1= page_header
 
-%p
-  Тут представлены только виды птиц Украины, фотографии которых есть на сайте.
-  Смотрите также #{link_to("полный список птиц Украины", checklist_path(slug: 'ukraine'))}.
+%ul.horiz-list
+  %li= link_to('Birds of Ukraine', birds_ukraine_path)
+  %li= link_to('Birds of USA', birds_usa_path)
 
-- species_rarity = @species.group_by {|s| s.status.match(/RAR/).nil? }
-
-- [true, false].each do |common|
-  - if sps = species_rarity[common]
-    %h2= common ? "Common" : "Rare"
-
-    = render :partial => 'species/thumbnail', :collection => sps
+= render :partial => 'species/thumbnail', :collection => @species

@@ -19,7 +19,9 @@ Quails::Application.routes.draw do
   # just remember to delete public/index.html.
   root to: 'blog#front_page', as: 'blog'
 
-  get 'ukraine' => 'images#gallery', country: 'ukraine', as: 'birds_ukraine'
+  get 'ukraine' => 'images#country', country: 'ukraine', as: 'birds_ukraine'
+  get 'usa' => 'images#country', country: 'usa', as: 'birds_usa'
+  get 'gallery' => 'images#gallery', as: 'gallery'
 
   resources :species, only: [:index, :show]
 

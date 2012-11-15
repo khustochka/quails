@@ -2,14 +2,20 @@ class ImagesController < ApplicationController
 
   respond_to :json, only: [:flickr_search, :observations]
 
-  administrative except: [:index, :show, :gallery]
+  administrative except: [:index, :show, :gallery, :country]
 
   find_record by: :slug, before: [:show, :edit, :flickr_edit, :map_edit, :update, :patch, :destroy]
 
   after_filter :cache_expire, only: [:create, :update, :destroy]
 
   # Galleries
+
   def gallery
+    @species = Species.joins(:image).includes(:image).ordered_by_taxonomy
+    @feed = 'photos'
+  end
+
+  def country
     @country = Locus.find_by_slug(params[:country])
     @species = @country.checklist.joins(:image).includes(:image)
   end

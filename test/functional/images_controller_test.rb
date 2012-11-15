@@ -14,7 +14,13 @@ class ImagesControllerTest < ActionController::TestCase
   end
 
   test "get Birds of Ukraine" do
-    get :gallery, country: 'ukraine'
+    get :country, country: 'ukraine'
+    assert_response :success
+    assert_not_nil assigns(:species)
+  end
+
+  test "get gallery" do
+    get :gallery
     assert_response :success
     assert_not_nil assigns(:species)
   end
