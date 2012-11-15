@@ -8,9 +8,9 @@ class BookImport
     order = family = nil
 
     doc.xpath('/html/body/table[2]/tr/td/table[2]/tr/td/table/tr').inject([]) do |list, row|
-      if /(?:(?<order>[A-Z]+FORMES): )?(?<family>(?:[A-Z]+dae))\s*$/i =~ row.content
-        order = order.nil? ? '' : order.strip.downcase.capitalize
-        family = family.strip.downcase.capitalize
+      if /(?:(?<order1>[A-Z]+FORMES): )?(?<family1>[A-Z]+dae)\s*$/i =~ row.content
+        order = order1.nil? ? '' : order1.strip.downcase.capitalize
+        family = family1.strip.downcase.capitalize
       else
         if family
           sp_data = row.children

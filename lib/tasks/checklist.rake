@@ -4,7 +4,7 @@ require 'web_page_cache'
 require 'checklists_helper'
 require 'import/book_import'
 
-REGION_TO_AVIBASE = {'ukraine' => 'ua'}
+REGION_TO_AVIBASE = {'ukraine' => 'ua', 'usa' => 'us'}
 
 desc 'Tasks for checklists'
 namespace :checklist do
@@ -29,8 +29,12 @@ namespace :checklist do
       BookImport.parse_list(source).each do |s|
         sp = Species.find_by_avibase_id(s[:avibase_id])
 
-        raise "#{s[:name_sci]} #{s[:avibase_id]} is nil" if sp.nil?
-        LocalSpecies.create(locus_id: id, species_id: sp.id, status: BookImport.convert_status(s[:status]))
+        #raise "#{s[:name_sci]} #{s[:avibase_id]} is nil" if sp.nil?
+        if sp
+          LocalSpecies.create(locus_id: id, species_id: sp.id, status: BookImport.convert_status(s[:status]))
+        else
+          puts "#{s[:name_sci]} #{s[:avibase_id]} is nil"
+        end
       end
 
     else
