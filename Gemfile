@@ -56,7 +56,7 @@ gem 'factory_girl_rails', '~> 4.0', :groups => [:development, :test]
 group :test do
   gem 'test-unit'
   gem 'ruby-prof', :require => false, :platforms => [:mri, :mingw]
-  gem 'capybara'
+  gem 'capybara', '~> 1.1'
   gem 'launchy' # So you can do Then show me the page
   gem 'simplecov', :require => false, :platforms => [:ruby, :mingw]
 #  gem 'spork-testunit'
