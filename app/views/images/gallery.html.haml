@@ -3,7 +3,7 @@
 %h1= page_header
 
 %ul.horiz-list
-  %li= link_to('Birds of Ukraine', birds_ukraine_path)
-  %li= link_to('Birds of USA', birds_usa_path)
+  %li= link_to('Birds of Ukraine', country_path(country: 'ukraine'))
+  %li= link_to('Birds of USA', country_path(country: 'usa'))
 
 = render :partial => 'species/thumbnail', :collection => @species

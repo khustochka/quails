@@ -15,9 +15,9 @@
           %li= link_to t('.menu.archive'), archive_path
 
       %li
-        = link_to t('.menu.birds_ukraine'), birds_ukraine_path
+        = link_to t('.menu.birds_ukraine'), country_path(country: 'ukraine')
         %ul
-          %li= link_to t('.menu.checklist'), checklist_path(slug: 'ukraine')
+          %li= link_to t('.menu.checklist'), checklist_path(country: 'ukraine')
 
       %li
         = link_to t('.menu.galery'), gallery_path

@@ -19,8 +19,11 @@ Quails::Application.routes.draw do
   # just remember to delete public/index.html.
   root to: 'blog#front_page', as: 'blog'
 
-  get 'ukraine' => 'images#country', country: 'ukraine', as: 'birds_ukraine'
-  get 'usa' => 'images#country', country: 'usa', as: 'birds_usa'
+  constraints country: /ukraine|usa/ do
+    get '/:country' => 'countries#gallery', as: "country"
+    get '/:country/checklist' => 'countries#checklist', as: "checklist"
+  end
+
   get 'gallery' => 'images#gallery', as: 'gallery'
 
   resources :species, only: [:index, :show]
@@ -51,8 +54,6 @@ Quails::Application.routes.draw do
       locus: /(?!by_)\D[^\/]+/, # negative look-ahead: not starting with 'by_'
       year: /\d{4}/,
       sort: /by_taxonomy/
-
-  get 'checklists/:slug' => 'checklists#show', constraints: {slug: 'ukraine'}, as: 'checklist'
 
   get '/blog.:format' => 'feeds#blog', constraints: {format: 'xml'}
   get '/photos.:format' => 'feeds#photos', constraints: {format: 'xml'}

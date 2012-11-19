@@ -66,4 +66,9 @@ class RoutingTest < ActionDispatch::IntegrationTest
     assert_recognizes({controller: 'feeds', action: 'sitemap', format: 'xml'}, '/sitemap.xml')
     assert_recognizes({controller: 'feeds', action: 'sitemap', format: 'xml'}, '/sitemap')
   end
+
+  test 'route countries correctly' do
+    assert_routing '/ukraine', {controller: 'countries', action: 'gallery', country: 'ukraine'}
+    assert_routing '/ukraine/checklist', {controller: 'countries', action: 'checklist', country: 'ukraine'}
+  end
 end

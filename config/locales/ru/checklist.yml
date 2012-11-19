@@ -1,6 +1,6 @@
 'ru':
-  checklists:
-    show:
+  countries:
+    checklist:
       title:
         checklist_for: Чеклист птиц
 
