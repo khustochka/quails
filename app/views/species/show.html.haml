@@ -19,7 +19,7 @@
 
 = render 'admin/shortcuts' if current_user.admin?
 
-- @species.images.all.if_present do |images|
+- @species.images.if_present do |images|
   %div.photos
     %h3 Images
     = render :partial => 'images/thumbnail', :collection => images

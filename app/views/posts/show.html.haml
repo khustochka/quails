@@ -12,7 +12,7 @@
       %span.tag.draft Draft
 
   = wiki_filter(@post.text)
-  - @post.images.all.if_present do |images|
+  - @post.images.if_present do |images|
     %div.photos
       %h3= t('.sections.photos')
       = render partial: 'images/thumbnail', collection: images

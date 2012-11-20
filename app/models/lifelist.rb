@@ -53,7 +53,7 @@ class Lifelist
   def to_a
     return @records if @records
 
-    @records = relation.all
+    @records = relation.to_a
 
     # TODO: somehow extract posts preload to depend on strategy
     if @source[:posts]

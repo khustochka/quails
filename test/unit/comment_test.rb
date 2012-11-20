@@ -9,7 +9,7 @@ class CommentTest < ActiveSupport::TestCase
     assert_difference('Comment.count', -1) do
       @comment.post.destroy
     end
-    assert_empty Comment.where(id: @comment.id).all
+    assert_empty Comment.where(id: @comment.id)
   end
 
   test 'destroying comments when parent comment is destroyed' do
@@ -18,6 +18,6 @@ class CommentTest < ActiveSupport::TestCase
     assert_difference('Comment.count', -2) do
       @comment.destroy
     end
-    assert_empty Comment.where(post_id: blogpost.id).all
+    assert_empty Comment.where(post_id: blogpost.id)
   end
 end
