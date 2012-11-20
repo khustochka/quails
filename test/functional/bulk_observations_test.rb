@@ -120,4 +120,41 @@ class BulkObservationsTest < ActionController::TestCase
     assert_not_nil Observation.find_by_species_id(6)
   end
 
+  test "get bulk successful" do
+    create(:observation, species: seed(:pasdom), observ_date: "2010-06-20", locus: seed(:new_york))
+    create(:observation, species: seed(:pasdom), observ_date: "2010-06-18", locus: seed(:new_york))
+    create(:observation, species: seed(:melgal), observ_date: "2010-06-18")
+    create(:observation, species: seed(:anapla), observ_date: "2010-06-18")
+    login_as_admin
+    get :bulk, observ_date: "2010-06-18", locus_id: seed(:brovary).id, mine: true
+    assert_response :success
+    assert_equal 2, assigns(:observations).size
+  end
+
+  test "get bulk not mine" do
+    create(:observation, species: seed(:pasdom), observ_date: "2010-06-20", locus: seed(:new_york))
+    create(:observation, species: seed(:pasdom), observ_date: "2010-06-18", locus: seed(:new_york))
+    create(:observation, species: seed(:melgal), observ_date: "2010-06-18", mine: false)
+    create(:observation, species: seed(:anapla), observ_date: "2010-06-18", mine: false)
+    login_as_admin
+    get :bulk, observ_date: "2010-06-18", locus_id: seed(:brovary).id, mine: false
+    assert_response :success
+    assert_equal 2, assigns(:observations).size
+  end
+
+  test "get bulk missing parameters" do
+    create(:observation, species: seed(:pasdom), observ_date: "2010-06-20", locus: seed(:new_york))
+    create(:observation, species: seed(:pasdom), observ_date: "2010-06-18", locus: seed(:new_york))
+    create(:observation, species: seed(:melgal), observ_date: "2010-06-18")
+    create(:observation, species: seed(:anapla), observ_date: "2009-06-18")
+    login_as_admin
+    get :bulk, locus_id: seed(:brovary).id
+    assert_redirected_to add_observations_path(locus_id: seed(:brovary).id)
+  end
+
+  test 'protect bulk with HTTP authentication' do
+    assert_raise(ActionController::RoutingError) { get :bulk }
+    #assert_response 404
+  end
+
 end

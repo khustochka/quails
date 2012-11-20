@@ -62,27 +62,6 @@ class ObservationsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "get bulk successful" do
-    create(:observation, species: seed(:pasdom), observ_date: "2010-06-20", locus: seed(:new_york))
-    create(:observation, species: seed(:pasdom), observ_date: "2010-06-18", locus: seed(:new_york))
-    create(:observation, species: seed(:melgal), observ_date: "2010-06-18")
-    create(:observation, species: seed(:anapla), observ_date: "2010-06-18")
-    login_as_admin
-    get :bulk, observ_date: "2010-06-18", locus_id: seed(:brovary).id, mine: true
-    assert_response :success
-    assert_equal 2, assigns(:observations).size
-  end
-
-  test "get bulk missing parameters" do
-    create(:observation, species: seed(:pasdom), observ_date: "2010-06-20", locus: seed(:new_york))
-    create(:observation, species: seed(:pasdom), observ_date: "2010-06-18", locus: seed(:new_york))
-    create(:observation, species: seed(:melgal), observ_date: "2010-06-18")
-    create(:observation, species: seed(:anapla), observ_date: "2009-06-18")
-    login_as_admin
-    get :bulk, locus_id: seed(:brovary).id
-    assert_redirected_to add_observations_path(locus_id: seed(:brovary).id)
-  end
-
   test "create observation" do
     observ = build(:observation).attributes
     common = observ.extract!(:locus_id, :observ_date, :mine)
@@ -145,11 +124,6 @@ class ObservationsControllerTest < ActionController::TestCase
 
   test 'protect add with HTTP authentication' do
     assert_raise(ActionController::RoutingError) { get :add }
-    #assert_response 404
-  end
-
-  test 'protect bulk with HTTP authentication' do
-    assert_raise(ActionController::RoutingError) { get :bulk }
     #assert_response 404
   end
 

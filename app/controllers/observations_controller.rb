@@ -23,7 +23,7 @@ class ObservationsController < ApplicationController
     # TODO: extract to model; add tests
     common = @observations.map(&:attributes).inject(&:&) || {}
     @common = common.slice(*BULK_MEANINGFUL_KEYS)
-    @common = nil unless @common.values_at(*BULK_REQUIRED_KEYS).map(&:nil?).uniq == [false]
+    @common = nil if @common.values_at(*BULK_REQUIRED_KEYS).any?(&:nil?)
   end
 
   # GET /observations/1
@@ -55,10 +55,12 @@ class ObservationsController < ApplicationController
   # GET /observations/bulk
   # Bulk edit observations
   def bulk
-    if params.values_at(*BULK_REQUIRED_KEYS).map(&:present?).uniq == [true] && (@observations = Observation.where(params.slice(*BULK_MEANINGFUL_KEYS)).all).present?
-      render
+    required_keys = params.slice(*BULK_REQUIRED_KEYS)
+    @observations = Observation.where(params.slice(*BULK_MEANINGFUL_KEYS))
+    if params.values_at(*BULK_REQUIRED_KEYS).any?(&:nil?) || @observations.blank?
+      redirect_to add_observations_url(required_keys)
     else
-      redirect_to add_observations_url(params.slice(*BULK_REQUIRED_KEYS))
+      render
     end
   end
 
