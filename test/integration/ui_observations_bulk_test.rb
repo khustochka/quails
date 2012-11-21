@@ -188,7 +188,7 @@ class UIObservationsBulkTest < ActionDispatch::IntegrationTest
     assert_equal 2, all('.obs-row').size
 
     actual = [1, 2].map do |i|
-      find(:xpath, "//div[contains(@class,'obs-row')][#{i}]//input[contains(@class, 'ui-autocomplete-input')]").value
+      find(:xpath, "//div[contains(@class,'obs-row')][#{i}]//input[@id='observation_species_id']").value
     end
     assert_include(actual, 'Anas platyrhynchos')
     assert_include(actual, 'Meleagris gallopavo')

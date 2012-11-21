@@ -22,4 +22,4 @@ test:
     password: test
     cookie_value: test
   secret_token: <%= SecureRandom.hex(30) %>
-  image_host:
+  image_host: /photos

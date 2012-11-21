@@ -127,6 +127,15 @@ Quails::Application.routes.draw do
   get '/flickr' => 'flickr#search'
   get '/flickr/auth' => 'flickr#auth'
 
+
+# WORKAROUND: For Capybara not being able to find dummy thumbnails
+  if Rails.env.test?
+    constraints format: "jpg" do
+      get "/photos/tn_(:some).:format" => redirect("/img/rails.png")
+      get "/photos/:some.:format" => redirect("/img/rails.png")
+    end
+  end if Rails.env.test?
+
   # LEGACY REDIRECTS
 
   # The captured wildcard in a Rails 3 route can be used in the redirect method:
