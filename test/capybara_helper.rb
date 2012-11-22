@@ -39,6 +39,7 @@ module CapybaraTestCase
 
   def submit_form_with(name)
     click_button(name)
+    sleep 1
   end
 end
 

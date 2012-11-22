@@ -22,4 +22,5 @@ test:
     password: test
     cookie_value: test
   secret_token: <%= SecureRandom.hex(30) %>
-  image_host: /photos
+  # WORKAROUND for Capybara not being able to find dummy thumbnails: this should not be your app!
+  image_host: http://localhost/photos
