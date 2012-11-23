@@ -23,8 +23,8 @@ class BookImport
                         name_en: name_en,
                         order: order,
                         family: family,
-                        avibase_id: avb_id,
-                        status: status
+                        avibase_id: avb_id
+                        #status: status
                     })
         end
       end

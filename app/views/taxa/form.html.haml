@@ -1,7 +1,7 @@
 - javascript 'bare_combo_suggest'
 - stylesheet 'forms'
 
-- @page_title = "Editing #{@taxon.name_sci} [#{@book.name}]"
+- @page_title = "Editing #{@taxon.name_sci} [#{link_to @book.name, @book}]".html_safe
 
 %h1= page_header
 
