@@ -112,8 +112,7 @@ GEM
       activesupport (= 3.2.9)
       bundler (~> 1.0)
       railties (= 3.2.9)
-    rails-i18n (0.7.0)
-      i18n (~> 0.5)
+    rails-i18n (0.7.1)
     rails3-generators (1.0.0)
       railties (>= 3.0.0)
     rails_autolink (1.0.9)
@@ -179,7 +178,7 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
-    websocket (1.0.3)
+    websocket (1.0.4)
     xpath (1.0.0)
       nokogiri (~> 1.3)
 
