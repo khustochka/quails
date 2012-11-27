@@ -56,7 +56,7 @@ class LifelistTest < ActiveSupport::TestCase
   end
 
   test 'Species lifelist by taxonomy properly sorts the list' do
-    expected = [["merser", "2008-10-18"], ["colliv", "2008-05-22"], ["parmaj", "2009-01-01"], ["carlis", "2010-10-13"], ["pasdom", "2009-01-01"]]
+    expected = [%w(merser 2008-10-18), %w(colliv 2008-05-22), %w(parmaj 2009-01-01), %w(pasdom 2009-01-01), %w(carlis 2010-10-13)]
     actual = Lifelist.basic.sort('class').map { |s| [s.code, s.first_seen] }
     assert_equal expected, actual
   end
