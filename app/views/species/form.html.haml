@@ -10,7 +10,8 @@
   %div
     = form.input :code, :input_html => {:class => 'short larger'}
   %div
-    = form.input :name_sci, :label => 'Scientific name', :input_html => {:disabled => true, :class => 'larger'}
+    = form.input :name_sci, :label => 'Scientific name', :input_html => {:class => 'larger'}
+    = form.input :index_num, :label => 'Index number', :input_html => {:disabled => true, :size => 10, :type => :text }
   %div
     = form.input :protonym
     = form.input :authority
@@ -24,7 +25,8 @@
     = form.input :order, :input_html => {:disabled => true}
     = form.input :family, :input_html => {:disabled => true}
   %div
-    = form.input :avibase_id, :label => 'Avibase ID', :input_html => {:disabled => true}
-    = form.input :index_num, :label => 'Index number', :input_html => {:disabled => true, :size => 10, :type => :text }
+    = form.input :avibase_id, :label => 'Avibase ID'
+
+    = link_to @species.avibase_id, avibase_species_url(@species.avibase_id)
   .buttons
     = default_submit_button(form)

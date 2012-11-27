@@ -30,6 +30,7 @@ class SpeciesController < ApplicationController
 
   # PUT /species/1
   def update
+    params[:species].delete(:code) if params[:species][:code].blank?
     if @species.update_attributes(params[:species])
       redirect_to(@species, :notice => 'Species was successfully updated.')
     else
