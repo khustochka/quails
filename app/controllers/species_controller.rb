@@ -2,7 +2,7 @@ class SpeciesController < ApplicationController
 
   administrative :except => [:index, :show]
 
-  find_record by: :legacy_slug, before: [:edit, :update]
+  before_filter :find_species, only: [:show, :edit, :update]
 
   # GET /species
   def index
@@ -11,7 +11,6 @@ class SpeciesController < ApplicationController
 
   # GET /species/1
   def show
-    @species = Species.find_by_legacy_slug(params[:id]) || Species.find_by_name_sci!(params[:id].sp_humanize)
     if params[:id] != @species.to_param
       redirect_to @species, :status => 301
     end
@@ -29,5 +28,10 @@ class SpeciesController < ApplicationController
     else
       render :form
     end
+  end
+
+  private
+  def find_species
+    @species = Species.find_by_name_sci!(params[:id].sp_humanize)
   end
 end

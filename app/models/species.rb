@@ -8,7 +8,6 @@ class Species < ActiveRecord::Base
   validates :name_sci, :format => /^[A-Z][a-z]+ [a-z]+$/, :uniqueness => true
   validates :code, :format => /^[a-z]{6}$/, :uniqueness => true
   validates :avibase_id, :format => /^[\dA-F]{16}$/, :allow_blank => true
-  validates :legacy_slug, :format => /^[A-Z][a-z]+_[a-z]+$/, :uniqueness => true
 
   has_many :observations, :dependent => :restrict, :order => [:observ_date]
   has_many :images, :through => :observations, :order => [:observ_date, :locus_id, :index_num]
@@ -20,7 +19,7 @@ class Species < ActiveRecord::Base
   # Parameters
 
   def to_param
-    legacy_slug_was.sp_parameterize
+    name_sci_was.sp_parameterize
   end
 
   def to_label
