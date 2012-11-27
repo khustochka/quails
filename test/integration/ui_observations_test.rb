@@ -19,25 +19,25 @@ class UIObservationsTest < ActionDispatch::IntegrationTest
   end
 
   test 'Searching observations by species works properly' do
-    create(:observation, species: seed(:acaflm), observ_date: "2010-06-18")
-    create(:observation, species: seed(:spinus), observ_date: "2010-06-18")
+    create(:observation, species: seed(:pasdom), observ_date: "2010-06-18")
+    create(:observation, species: seed(:fulatr), observ_date: "2010-06-18")
     login_as_admin
     visit observations_path
-    select('Acanthis flammea', from: 'Species')
+    select('Passer domesticus', from: 'Species')
     click_button('Search')
-    assert find('table.obs_list').has_content?('Acanthis flammea')
-    assert_false find('table.obs_list').has_content?('Spinus spinus')
+    assert find('table.obs_list').has_content?('Passer domesticus')
+    assert_false find('table.obs_list').has_content?('Fulica atra')
   end
 
   test 'Searching observations by mine/not mine works properly' do
-    create(:observation, species: seed(:acaflm), observ_date: "2010-06-18", mine: false)
-    create(:observation, species: seed(:spinus), observ_date: "2010-06-18")
+    create(:observation, species: seed(:pasdom), observ_date: "2010-06-18", mine: false)
+    create(:observation, species: seed(:fulatr), observ_date: "2010-06-18")
     login_as_admin
     visit observations_path
     choose('Not mine')
     click_button('Search')
-    assert find('table.obs_list').has_content?('Acanthis flammea')
-    assert_false find('table.obs_list').has_content?('Spinus spinus')
+    assert find('table.obs_list').has_content?('Passer domesticus')
+    assert_false find('table.obs_list').has_content?('Fulica atra')
   end
 
 end
