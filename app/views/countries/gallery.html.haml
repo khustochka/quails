@@ -2,18 +2,20 @@
 
 %h1= page_header
 
+-# FIXME: temporarily use only observations for ukraine, instead of checklist
 - if @country.slug == 'ukraine'
   %p
     Тут представлены только виды птиц Украины, фотографии которых есть на сайте.
     Смотрите также #{link_to("полный список птиц Украины", checklist_path(country: 'ukraine'))}.
 
-  - species_rarity = @species.group_by {|s| s.status.match(/RAR/).nil? }
+  -#- species_rarity = @species.group_by {|s| s.status.match(/RAR/).nil? }
+  -#
+  -#- [true, false].each do |common|
+  -#  - if sps = species_rarity[common]
+  -#    %h2= common ? "Common" : "Rare"
+  -#
+  -#    = render :partial => 'species/thumbnail', :collection => sps
 
-  - [true, false].each do |common|
-    - if sps = species_rarity[common]
-      %h2= common ? "Common" : "Rare"
+-# else
 
-      = render :partial => 'species/thumbnail', :collection => sps
-
-- else
-  = render :partial => 'species/thumbnail', :collection => @species
+= render :partial => 'species/thumbnail', :collection => @species

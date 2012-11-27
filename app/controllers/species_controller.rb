@@ -2,7 +2,7 @@ class SpeciesController < ApplicationController
 
   administrative :except => [:index, :show]
 
-  before_filter :find_species, only: [:show, :edit, :update]
+  before_filter :find_species, only: [:edit, :update]
 
   # GET /species
   def index
@@ -11,8 +11,15 @@ class SpeciesController < ApplicationController
 
   # GET /species/1
   def show
-    if params[:id] != @species.to_param
-      redirect_to @species, :status => 301
+    id_humanized = params[:id].sp_humanize
+    @species = Species.find_by_name_sci(id_humanized) || Taxon.find_by_name_sci!(id_humanized).species
+    if @species
+      if params[:id] != @species.to_param
+        #redirect_to @species, :status => 301
+        # TODO: set canonical, set NOCACHE, NOINDEX
+      end
+    else
+      raise ActiveRecord::RecordNotFound, "Cannot find #{id_humanized}"
     end
   end
 
