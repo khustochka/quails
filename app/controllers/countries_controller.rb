@@ -24,7 +24,7 @@ class CountriesController < ApplicationController
     if @locus.slug == 'ukraine'
       @checklist = Book.find_by_slug('fesenko-bokotej').taxa.extend(SpeciesArray)
     else
-      raise "Incorrect option"
+      raise ActiveRecord::RecordNotFound, "Checklist not allowed for #{@locus.name_en}"
     end
   end
 

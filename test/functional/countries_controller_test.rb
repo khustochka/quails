@@ -32,4 +32,8 @@ class CountriesControllerTest < ActionController::TestCase
     assert_raise(ActionController::RoutingError) { get :checklist, country: 'georgia' }
   end
 
+  test 'do not show checklist for other countries' do
+    assert_raise(ActiveRecord::RecordNotFound) { get :checklist, country: 'usa' }
+  end
+
 end
