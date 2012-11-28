@@ -4,15 +4,16 @@ class CountriesController < ApplicationController
     @country = Country.find_by_slug!(params[:country])
 
     # FIXME: temporarily use only observations for ukraine, instead of checklist
-    @species = Species.ordered_by_taxonomy.joins(:image).includes(:image).
-        includes(:observations).where("observations.locus_id" => @country.subregion_ids)
+
+    country_obs = Observation.select(:species_id).where(locus_id: @country.subregion_ids)
+    @species = Species.ordered_by_taxonomy.where("species.id IN (#{country_obs.to_sql})").joins(:image).includes(:image)
 
     #case @country.slug
     #  when 'ukraine'
     #    @country.checklist.joins(:image).includes(:image)
     #  when 'usa'
-    #    Species.ordered_by_taxonomy.joins(:image).includes(:image).
-    #        includes(:observations).where("observations.locus_id" => @country.subregion_ids)
+    #    country_obs = Observation.select(:species_id).where(locus_id: @country.subregion_ids)
+    #    @species = Species.ordered_by_taxonomy.where("species.id IN (#{country_obs.to_sql})").joins(:image).includes(:image)
     #end
   end
 
