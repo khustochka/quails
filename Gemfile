@@ -59,5 +59,4 @@ group :test do
   gem 'capybara', '~> 2.0'
   gem 'launchy' # So you can do Then show me the page
   gem 'simplecov', :require => false, :platforms => [:ruby, :mingw]
-#  gem 'spork-testunit'
 end
