@@ -11,7 +11,7 @@ class UISingleObservationTest < ActionDispatch::IntegrationTest
     assert_equal 1, all('.obs-row').size
     select('Brovary', from: 'Location')
     fill_in('Date', with: '2011-04-08')
-    select('Cyanistes caeruleus', from: 'Species')
+    select('Sitta europaea', from: 'Species')
     select 'park', from: 'Biotope'
     assert_difference('Observation.count', 1) { submit_form_with('Save') }
     assert_false Observation.order('id DESC').limit(1).first.voice
@@ -23,7 +23,7 @@ class UISingleObservationTest < ActionDispatch::IntegrationTest
     assert_equal 1, all('.obs-row').size
     select('Brovary', from: 'Location')
     fill_in('Date', with: '2011-04-08')
-    select('Cyanistes caeruleus', from: 'Species')
+    select('Sitta europaea', from: 'Species')
     check('Voice?')
     select 'park', from: 'Biotope'
     assert_difference('Observation.count', 1) { submit_form_with('Save') }
