@@ -11,6 +11,7 @@ gem "activerecord-jdbcpostgresql-adapter", :platforms => :jruby
 gem 'thin', :require => false, :groups => [:development, :heroku], :platforms => [:ruby, :mingw]
 
 gem 'airbrake', require: false
+gem 'newrelic_rpm', groups: [:production]
 
 group :vps do
   gem 'unicorn', :require => false, :platforms => :ruby
