@@ -8,15 +8,12 @@ gem 'rails', '3.2.9'
 gem 'pg', :platforms => [:ruby, :mingw]
 gem "activerecord-jdbcpostgresql-adapter", :platforms => :jruby
 
-gem 'thin', :require => false, :groups => [:development, :heroku], :platforms => [:ruby, :mingw]
+gem 'thin', :require => false, :groups => [:development], :platforms => [:ruby, :mingw]
+
+gem 'unicorn', :require => false, :platforms => :ruby
 
 gem 'airbrake', require: false
 gem 'newrelic_rpm', groups: [:production]
-
-group :vps do
-  gem 'unicorn', :require => false, :platforms => :ruby
-  #gem 'puma', :require => false, :platforms => :ruby
-end
 
 # Bundle the extra gems:
 gem 'rails-i18n'
