@@ -4,7 +4,7 @@ namespace :check do
   desc 'Check that all DB records are valid'
   task :validity => :environment do
 
-    [Species, Locus, Observation, Post, Image].each do |model|
+    [Species, Locus, Observation, Post, Image, Book, Comment, Spot, Taxon].each do |model|
       puts "Checking #{model.to_s} records in the DB for validity..."
       model.all.each do |record|
         raise(ActiveRecord::RecordInvalid.new(record)) if record.invalid?
