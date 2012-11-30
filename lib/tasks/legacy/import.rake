@@ -6,27 +6,24 @@ require 'legacy/import/comments'
 require 'legacy/import/spots'
 require 'legacy/utils'
 
+
 desc 'Legacy data tasks'
 namespace :legacy do
 
+  desc 'Pull the latest legacy dump from repository and import into DB'
+  task :update => [:pull, :import]
+
+  desc 'Fetch the latest legacy dump from site and import into DB'
+  task :upgrade => [:fetch, :import]
+
+  desc 'Fetch the legacy dump, and restore both legacy and new DB'
+  task :full_backup => [:backup, :import]
+
+
   desc 'Importing data from legacy DB dump'
-  task(:import => 'db:setup') do
+  task :import => ['db:setup', 'load_locals'] do
 
-    local_opts = YAML.load_file('config/local.yml')
-
-    source = ENV['SOURCE']
-
-    #require 'tasks/grit_init'
-    folder = local_opts['repo']
-
-    #repo = Grit::Repo.new(folder)
-
-    #puts 'Pulling from remote'
-    #Dir.chdir(folder) do
-    #  repo.git.pull
-    #end
-
-    source = File.join(folder, 'legacy', 'seed_data.yml')
+    source = File.join(@folder, 'legacy', 'seed_data.yml')
     puts "Importing from #{source}"
     dump = File.open(source, encoding: 'windows-1251:utf-8') do |f|
       YAML.load(f.read)
@@ -40,13 +37,13 @@ namespace :legacy do
     images = Legacy::Utils.prepare_table(dump['images'])
     spots = Legacy::Utils.prepare_table(dump['map'])
 
-    source = File.join(folder, 'legacy', 'field1_data.yml')
+    source = File.join(@folder, 'legacy', 'field1_data.yml')
     puts "Importing from #{source}"
     dump1 = File.open(source, encoding: 'windows-1251:utf-8') do |f|
       YAML.load(f.read)
     end
 
-    source = File.join(folder, 'legacy', 'field2_data.yml')
+    source = File.join(@folder, 'legacy', 'field2_data.yml')
     puts "Importing from #{source}"
     dump2 = File.open(source, encoding: 'windows-1251:utf-8') do |f|
       YAML.load(f.read)
