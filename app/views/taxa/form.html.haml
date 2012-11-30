@@ -7,6 +7,9 @@
 
 = render 'admin/shortcuts' if current_user.admin?
 
+- if @taxon.avibase_id.present?
+  = link_to @taxon.avibase_id, avibase_species_url(@taxon.avibase_id)
+
 = simple_form_for [@book, @taxon] do |form|
   %div
     = form.input :name_sci, :label => 'Scientific name', :input_html => {:class => 'larger'}
@@ -22,7 +25,7 @@
     = form.input :order, :input_html => {:disabled => true}
     = form.input :family, :input_html => {:disabled => true}
   %div
-    = form.input :avibase_id, :label => 'Avibase ID', :input_html => {:disabled => true}
+    = form.input :avibase_id, :label => 'Avibase ID'
     = form.input :index_num, :label => 'Index number', :input_html => {:disabled => true, :size => 10, :type => :text }
   .buttons
     = default_submit_button(form)
