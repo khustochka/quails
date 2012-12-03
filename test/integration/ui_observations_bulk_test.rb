@@ -25,7 +25,7 @@ class UIObservationsBulkTest < ActionDispatch::IntegrationTest
     fill_in('Date', with: '2011-04-08')
     select_suggestion('- Avis incognita', from: 'Species')
     select_suggestion 'park', from: 'Biotope'
-    assert_difference('Observation.count', 1) { submit_form_with('Save') }
+    assert_difference('Observation.count', 1) { click_button('Save') }
     assert_equal 0, Observation.order('id DESC').limit(1).first.species_id
   end
 
@@ -49,7 +49,7 @@ class UIObservationsBulkTest < ActionDispatch::IntegrationTest
       select_suggestion 'park', from: 'Biotope'
     end
 
-    assert_difference('Observation.count', 2) { submit_form_with('Save') }
+    assert_difference('Observation.count', 2) { click_button('Save') }
     assert page.has_css?('.obs-row.save-success')
 
   end
@@ -79,7 +79,7 @@ class UIObservationsBulkTest < ActionDispatch::IntegrationTest
       select_suggestion 'park', from: 'Biotope'
     end
 
-    assert_difference('Observation.count', 2) { submit_form_with('Save') }
+    assert_difference('Observation.count', 2) { click_button('Save') }
     assert page.has_css?('.obs-row.save-success')
 
     assert_equal 2, blogpost.observations.size
@@ -105,7 +105,7 @@ class UIObservationsBulkTest < ActionDispatch::IntegrationTest
       select_suggestion 'park', from: 'Biotope'
     end
 
-    submit_form_with('Save')
+    click_button('Save')
     assert page.has_css?('.obs-row.save-success')
 
     assert_equal 0, blogpost.observations.size
@@ -130,14 +130,14 @@ class UIObservationsBulkTest < ActionDispatch::IntegrationTest
       select_suggestion 'park', from: 'Biotope'
     end
 
-    submit_form_with('Save')
+    click_button('Save')
     assert page.has_css?('.obs-row.save-success')
 
     assert_equal 1, blogpost.observations.size
     obs = blogpost.observations.first
 
     uncheck('observation_post_id')
-    submit_form_with('Save')
+    click_button('Save')
 
     assert_equal 0, blogpost.observations.reload.size
     assert_equal nil, obs.reload.post_id
@@ -157,7 +157,7 @@ class UIObservationsBulkTest < ActionDispatch::IntegrationTest
       select_suggestion 'park', from: 'Biotope'
     end
 
-    assert_difference('Observation.count', 1) { submit_form_with('Save') }
+    assert_difference('Observation.count', 1) { click_button('Save') }
     assert page.has_css?('.obs-row.save-success')
 
     find(:xpath, "//span[text()='Add new row']").click
@@ -171,7 +171,7 @@ class UIObservationsBulkTest < ActionDispatch::IntegrationTest
       select_suggestion 'park', from: 'Biotope'
     end
 
-    assert_difference('Observation.count', 1) { submit_form_with('Save') }
+    assert_difference('Observation.count', 1) { click_button('Save') }
 
     assert_present Species.find_by_code('drymar').observations
     assert_present Species.find_by_code('faltin').observations
@@ -204,7 +204,7 @@ class UIObservationsBulkTest < ActionDispatch::IntegrationTest
       select_suggestion('Dryocopus martius', from: 'Species')
     end
 
-    assert_difference('Observation.count', 0) { submit_form_with('Save') }
+    assert_difference('Observation.count', 0) { click_button('Save') }
 
     assert_present Species.find_by_code('drymar').observations
   end
@@ -216,7 +216,7 @@ class UIObservationsBulkTest < ActionDispatch::IntegrationTest
     login_as_admin
     visit bulk_observations_path(observ_date: "2010-06-18", locus_id: seed(:brovary).id, mine: true)
 
-    assert_difference('Observation.count', 0) { submit_form_with('Save') }
+    assert_difference('Observation.count', 0) { click_button('Save') }
 
     assert_equal blogpost.id, obs1.reload.post_id
     assert_equal nil, obs2.reload.post_id
@@ -246,7 +246,7 @@ class UIObservationsBulkTest < ActionDispatch::IntegrationTest
       select_suggestion 'park', from: 'Biotope'
     end
 
-    assert_difference('Observation.count', 3) { submit_form_with('Save') }
+    assert_difference('Observation.count', 3) { click_button('Save') }
 
     drymar = Observation.where(species_id: Species.find_by_code('drymar')).order('id DESC').limit(1).first
     crecre = Observation.where(species_id: Species.find_by_code('crecre')).order('id DESC').limit(1).first
@@ -264,7 +264,7 @@ class UIObservationsBulkTest < ActionDispatch::IntegrationTest
       uncheck 'Voice?'
     end
 
-    submit_form_with('Save')
+    click_button('Save')
 
     drymar.reload
     crecre.reload

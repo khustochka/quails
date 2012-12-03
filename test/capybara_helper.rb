@@ -36,10 +36,6 @@ module CapybaraTestCase
       visit str % [test_credentials.username, test_credentials.password, page.server.host, page.server.port]
     end
   end
-
-  def submit_form_with(name)
-    click_button(name)
-  end
 end
 
 module JavaScriptTestCase

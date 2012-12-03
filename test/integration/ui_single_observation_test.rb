@@ -13,7 +13,7 @@ class UISingleObservationTest < ActionDispatch::IntegrationTest
     fill_in('Date', with: '2011-04-08')
     select('Sitta europaea', from: 'Species')
     select 'park', from: 'Biotope'
-    assert_difference('Observation.count', 1) { submit_form_with('Save') }
+    assert_difference('Observation.count', 1) { click_button('Save') }
     assert_false Observation.order('id DESC').limit(1).first.voice
   end
 
@@ -26,7 +26,7 @@ class UISingleObservationTest < ActionDispatch::IntegrationTest
     select('Sitta europaea', from: 'Species')
     check('Voice?')
     select 'park', from: 'Biotope'
-    assert_difference('Observation.count', 1) { submit_form_with('Save') }
+    assert_difference('Observation.count', 1) { click_button('Save') }
     assert Observation.order('id DESC').limit(1).first.voice
   end
 
@@ -37,7 +37,7 @@ class UISingleObservationTest < ActionDispatch::IntegrationTest
     assert_equal 1, all('.obs-row').size
     assert page.has_checked_field?('Voice?')
     uncheck('Voice?')
-    assert_difference('Observation.count', 0) { submit_form_with('Save') }
+    assert_difference('Observation.count', 0) { click_button('Save') }
     observation.reload
     assert_false observation.voice
   end

@@ -17,7 +17,7 @@ class UIImagesTest < ActionDispatch::IntegrationTest
     fill_in('Slug', with: 'test-img-capybara')
     fill_in('Title', with: 'Capybara test image')
 
-    assert_difference('Image.count', 0) { submit_form_with('Save') }
+    assert_difference('Image.count', 0) { click_button('Save') }
     img.reload
     assert_equal show_image_path(img.to_url_params), current_path
     assert_equal 2, img.observations.size
@@ -34,7 +34,7 @@ class UIImagesTest < ActionDispatch::IntegrationTest
     # This test was sometimes failing with timeout, probably due to no actions performed on page
     sleep 1
 
-    assert_difference('Image.count', 0) { submit_form_with('Save') }
+    assert_difference('Image.count', 0) { click_button('Save') }
     assert_equal show_image_path(img.to_url_params), current_path
     img.reload
     assert_equal 2, img.observations.size
@@ -57,7 +57,7 @@ class UIImagesTest < ActionDispatch::IntegrationTest
 
     find(:xpath, "//ul[contains(@class,'found-obs')]/li[1]").drag_to find('.observation_list')
 
-    assert_difference('Image.count', 1) { submit_form_with('Save') }
+    assert_difference('Image.count', 1) { click_button('Save') }
     img = Image.find_by_slug('test-img-capybara')
     assert_equal show_image_path(img.to_url_params), current_path
   end
@@ -77,7 +77,7 @@ class UIImagesTest < ActionDispatch::IntegrationTest
 
     find(:xpath, "//ul[contains(@class,'found-obs')]/li[div[contains(text(),'Mergus serrator')]]").drag_to find('.observation_list')
 
-    assert_difference('Image.count', 1) { submit_form_with('Save') }
+    assert_difference('Image.count', 1) { click_button('Save') }
     img = Image.find_by_slug('test-img-capybara')
 
     assert_equal ['Mergus serrator'], img.species.map(&:name_sci)
