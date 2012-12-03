@@ -1,3 +1,6 @@
+- if @edit
+  - javascript 'checklist_edit'
+
 - @page_title = "%s %s" % [t('.title.checklist_for'), t(".country.#{@locus.slug}")]
 
 %h1= page_header
@@ -23,4 +26,12 @@
         %td= species_link(species)
         %td= name_sci(species)
         %td= species.status
-        %td= species.notes_ru
+        %td
+          - if @edit
+            = hidden_field_tag("s[][id]", species.id)
+            = text_field_tag("s[][n]", species.notes_ru, :size => 100)
+          - else
+            = species.notes_ru
+
+- if @edit
+  = submit_tag("Save", id: 'checklist_save')
