@@ -5,19 +5,6 @@ class UIImagesTest < ActionDispatch::IntegrationTest
 
   include JavaScriptTestCase
 
-  test "Save existing image with no changes" do
-    img = create(:image)
-    create(:observation, species: seed(:lancol), images: [img])
-
-    login_as_admin
-    visit edit_image_path(img)
-
-    assert_difference('Image.count', 0) { submit_form_with('Save') }
-    assert_equal show_image_path(img.to_url_params), current_path
-    img.reload
-    assert_equal 2, img.observations.size
-  end
-
   # NO JavaScript test
   test 'Save changes to existing image if JavaScript is off' do
     Capybara.use_default_driver
@@ -36,6 +23,23 @@ class UIImagesTest < ActionDispatch::IntegrationTest
     assert_equal 2, img.observations.size
     assert_equal 'test-img-capybara', img.slug
   end
+
+  test "Save existing image with no changes" do
+    img = create(:image)
+    create(:observation, species: seed(:lancol), images: [img])
+
+    login_as_admin
+    visit edit_image_path(img)
+
+    # This test was sometimes failing with timeout, probably due to no actions performed on page
+    sleep 1
+
+    assert_difference('Image.count', 0) { submit_form_with('Save') }
+    assert_equal show_image_path(img.to_url_params), current_path
+    img.reload
+    assert_equal 2, img.observations.size
+  end
+
 
   test "Adding new image" do
     create(:observation, observ_date: '2008-07-01')
