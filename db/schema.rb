@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121127101854) do
+ActiveRecord::Schema.define(:version => 20121203164124) do
 
   create_table "books", :force => true do |t|
     t.string "slug",        :limit => 32, :null => false
@@ -61,9 +61,9 @@ ActiveRecord::Schema.define(:version => 20121127101854) do
     t.integer "locus_id",   :null => false
     t.integer "species_id", :null => false
     t.string  "status"
-    t.string  "notes_en"
-    t.string  "notes_ru"
-    t.string  "notes_uk"
+    t.text    "notes_en"
+    t.text    "notes_ru"
+    t.text    "notes_uk"
   end
 
   add_index "local_species", ["locus_id"], :name => "index_local_species_on_locus_id"
