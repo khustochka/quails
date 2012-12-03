@@ -19,10 +19,8 @@ class CountriesController < ApplicationController
 
   def checklist
     @locus = Country.find_by_slug!(params[:country])
-    #@checklist = @locus.checklist
-    # FIXME: temporarily use Fesenko-Bokotey Book
     if @locus.slug == 'ukraine'
-      @checklist = Book.find_by_slug('fesenko-bokotej').taxa.extend(SpeciesArray)
+      @checklist = @locus.checklist
     else
       raise ActiveRecord::RecordNotFound, "Checklist not allowed for #{@locus.name_en}"
     end

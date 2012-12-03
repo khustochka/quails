@@ -7,6 +7,7 @@
     %th.align-right
     %th= t '.table.name'
     %th= t '.table.sci_name'
+    %th
     %th= t '.table.status'
 
   - i = 0
@@ -14,13 +15,12 @@
   - @checklist.group_by_family.each do |fam, species_list|
     %tr
       %td
-      %td{:colspan => 3}
+      %td{:colspan => 4}
         %h3= "#{fam[:order].upcase}: #{fam[:family]}"
     - species_list.each do |species|
       %tr
         %td.align-right= i += 1
         %td= species_link(species)
         %td= name_sci(species)
-        %td=# convert_statuses(species.status)
-
--# FIXME: temporarily use Fesenko-Bokotey Book
+        %td= species.status
+        %td= species.notes_ru
