@@ -6,30 +6,25 @@
 %h1= page_header
 
 %table.neat_table.checklist_table
-  %tr
-    %th.align-right
-    %th= t '.table.name'
-    %th= t '.table.sci_name'
-    %th
-    %th= t '.table.status'
 
   - i = 0
 
   - @checklist.group_by_family.each do |fam, species_list|
-    %tr
+    %tr.family_row
       %td
       %td{:colspan => 4}
         %h3= "#{fam[:order].upcase}: #{fam[:family]}"
     - species_list.each do |species|
       %tr
         %td.align-right= i += 1
-        %td= species_link(species)
-        %td= name_sci(species)
+        %td.names
+          %b= species_link(species)
+          = name_sci(species)
         %td= species.status
-        %td
+        %td.status_column
           - if @edit
             = hidden_field_tag("s[][id]", species.id)
-            = text_field_tag("s[][n]", species.notes_ru, :size => 100)
+            = text_area_tag("s[][n]", species.notes_ru, :size => "100x2")
           - else
             = species.notes_ru
 

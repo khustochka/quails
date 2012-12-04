@@ -7,16 +7,16 @@
       country:
         ukraine: Ukraine
 
-      table:
-        name: Name
-        sci_name: Scientific name
-        status: Status
-
-      status:
-        RAR: '_Rare/Accidental_'
-        INT: '_Introduced_'
-        NT: '*Near Threatened*'
-        VU: '*Vulnerable*'
-        EN: '*Endangered*'
-        CR: '*Critically Endangered*'
-        EX: '*Extinct*'
+#      table:
+#        name: Name
+#        sci_name: Scientific name
+#        status: Status
+#
+#      status:
+#        RAR: '_Rare/Accidental_'
+#        INT: '_Introduced_'
+#        NT: '*Near Threatened*'
+#        VU: '*Vulnerable*'
+#        EN: '*Endangered*'
+#        CR: '*Critically Endangered*'
+#        EX: '*Extinct*'

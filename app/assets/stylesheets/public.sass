@@ -132,7 +132,19 @@ h5.first_seen
     width: 380px
     vertical-align: top
 
-.checklist_table
-  strong
-    color: #D81E05
-// color from IUCN site
+table.neat_table.checklist_table
+  max-width: 1200px
+  display: block
+  border-top: none
+  tr
+    border-bottom: 1px solid #eee
+
+  td.names
+    b, i
+      white-space: nowrap
+      display: block
+  td.status_column
+    width: 66%
+    font-style: italic
+    font-size: 87%
+    color: #444
