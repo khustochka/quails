@@ -3,6 +3,10 @@ class LocalSpecies < ActiveRecord::Base
   localize :name
 
   belongs_to :locus
-  #belongs_to :species
+  belongs_to :species
   has_one :image, through: :species
+
+  def to_param
+    name_sci.sp_parameterize
+  end
 end

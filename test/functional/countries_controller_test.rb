@@ -26,6 +26,7 @@ class CountriesControllerTest < ActionController::TestCase
     get :checklist, country: 'ukraine'
     assert_response :success
     assert_present assigns(:checklist)
+    assert_select "a[href=#{species_path(@obs.species)}]"
   end
 
   test 'do not show checklist for unknown countries' do
