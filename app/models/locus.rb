@@ -39,9 +39,9 @@ class Locus < ActiveRecord::Base
     book = Book.find_by_slug('fesenko-bokotej') if slug == 'ukraine'
 
     local_species.
-        select("*").
-        joins("JOIN (#{book.taxa.except(:order).to_sql}) as taxa ON local_species.species_id = taxa.species_id").
-        order("taxa.index_num").
+        select('local_species.*, taxa1.*').
+        joins("JOIN (#{book.taxa.except(:order).to_sql}) as taxa1 ON local_species.species_id = taxa1.species_id").
+        order("taxa1.index_num").
         extend(SpeciesArray)
   end
 
@@ -60,7 +60,7 @@ class Locus < ActiveRecord::Base
       SELECT * FROM subregions
     SQL
 
-    Locus.connection.select_rows(query, "Locus Load").map! {|a| a[0].to_i }.push(self.id)
+    Locus.connection.select_rows(query, "Locus Load").map! { |a| a[0].to_i }.push(self.id)
   end
 
   def country
