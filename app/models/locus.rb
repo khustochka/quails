@@ -38,10 +38,8 @@ class Locus < ActiveRecord::Base
   def checklist
     book = Book.find_by_slug('fesenko-bokotej') if slug == 'ukraine'
 
-    local_species.
-        select('local_species.*, taxa1.*').
-        joins("JOIN (#{book.taxa.except(:order).to_sql}) as taxa1 ON local_species.species_id = taxa1.species_id").
-        order("taxa1.index_num").
+    book.taxa.select("taxa.*, checklist.*").
+        joins("INNER JOIN (#{local_species.to_sql}) AS checklist ON checklist.species_id = taxa.species_id").
         extend(SpeciesArray)
   end
 

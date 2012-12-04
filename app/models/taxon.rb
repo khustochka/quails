@@ -13,6 +13,7 @@ class Taxon < ActiveRecord::Base
 
   belongs_to :book
   belongs_to :species
+  has_one :image, through: :species
 
   # Parameters
 
