@@ -39,7 +39,7 @@ class Lifelist
   end
 
   # Enumerable methods
-  delegate :each, :length, :size, :empty?, :to_ary, :group_by_family, to: :to_a
+  delegate :each, :length, :size, :empty?, :to_ary, :group_by_taxonomy, to: :to_a
   delegate :as_json, :to_yaml, :to_xml, to: :to_a
 
   def relation

@@ -1,9 +1,9 @@
 - i = 0
-- @lifelist.group_by_family.each do |fam, species_list|
+- @lifelist.group_by_taxonomy do |order, family, species_list|
   %tr
     %td
     %td{:colspan => 5}
-      %h3= "#{fam[:order].upcase}: #{fam[:family]}"
+      %h3= "#{order.upcase}: #{family}"
   - species_list.each do |sp|
     %tr
       %td.align-right= "#{i += 1}."

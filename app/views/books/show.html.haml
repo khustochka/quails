@@ -20,11 +20,11 @@
     %th Names
     %th.align-right Avibase id
 
-  - @taxa.group_by_family.each do |fam, species_list|
+  - @taxa.group_by_taxonomy do |order, family, species_list|
     %tr
       %td
       %td{:colspan => 4}
-        %h3= "#{fam[:order].upcase}: #{fam[:family]}"
+        %h3= "#{order.upcase}: #{family}"
     - species_list.each do |species|
       %tr
         %td.align-right= species.index_num

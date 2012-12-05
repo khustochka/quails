@@ -22,11 +22,11 @@
       %br
       = "(#{@loc2_species.size})"
 
-  - @species.group_by_family.each do |fam, species_list|
+  - @species.group_by_taxonomy do |order, family, species_list|
     %tr
       %td
       %td{:colspan => 3}
-        %h4= "#{fam[:order]}: #{fam[:family].upcase}"
+        %h4= "#{order}: #{family.upcase}"
     - species_list.each do |species|
       %tr
         %td.align-right= i += 1
