@@ -12,8 +12,10 @@ gem 'thin', :require => false, :groups => [:development], :platforms => [:ruby, 
 
 gem 'unicorn', :require => false, :platforms => :ruby
 
-gem 'airbrake', require: false
-gem 'newrelic_rpm', groups: [:production]
+group :production do
+  gem 'airbrake', require: false
+  gem 'newrelic_rpm', require: false
+end
 
 # Bundle the extra gems:
 gem 'rails-i18n'
