@@ -35,10 +35,6 @@ group :assets do
   gem 'turbo-sprockets-rails3'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  platforms :ruby do
-    gem 'therubyracer', '~> 0.11'
-    gem 'libv8', '~> 3.11.8.3'
-  end
 
   gem 'uglifier', '>= 1.0.3'
 end
