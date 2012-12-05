@@ -12,8 +12,10 @@
   - @checklist.group_by_taxonomy do |order, family, species_list|
     %tr.family_row
       %td
-      %td{:colspan => 4}
-        %h3= "#{order.upcase}: #{family}"
+      %td{:colspan => 3}
+        %h2= render partial: 'species/taxonomy', locals: {rank: :order, value: order}
+        %h3= render partial: 'species/taxonomy', locals: {rank: :family, value: family}
+
     - species_list.each do |species|
       %tr
         %td.align-right= i += 1

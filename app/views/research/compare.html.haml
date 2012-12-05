@@ -26,7 +26,8 @@
     %tr
       %td
       %td{:colspan => 3}
-        %h4= "#{order}: #{family.upcase}"
+        %h2= render partial: 'species/taxonomy', locals: {rank: :order, value: order}
+        %h3= render partial: 'species/taxonomy', locals: {rank: :family, value: family}
     - species_list.each do |species|
       %tr
         %td.align-right= i += 1
