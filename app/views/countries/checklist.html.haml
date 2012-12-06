@@ -22,11 +22,15 @@
         %td.names
           %b= species_link(species)
           = name_sci(species)
-        %td= species.status
+        %td
+          - if @edit
+            = text_field_tag("s[][s]", species.status, size: 1)
+          - else
+            = species.status
         %td.status_column
           - if @edit
             = hidden_field_tag("s[][id]", species.id)
-            = text_area_tag("s[][n]", species.notes_ru, :size => "100x2")
+            = text_area_tag("s[][n]", species.notes_ru, size: "100x2")
           - else
             = species.notes_ru
 
