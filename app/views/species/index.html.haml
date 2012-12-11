@@ -7,6 +7,7 @@
     %th.align-right No
     %th.align-center Code
     %th Scientific name
+    %th
     %th Names
     %th.align-center Avibase id
 
@@ -14,7 +15,7 @@
     %tr
       %td
       %td
-      %td{:colspan => 3}
+      %td{:colspan => 4}
         %h2= render partial: 'species/taxonomy', locals: {rank: :order, value: order}
         %h3= render partial: 'species/taxonomy', locals: {rank: :family, value: family}
     - species_list.each do |species|
@@ -23,11 +24,17 @@
         %td.align-center
           %b= species.code
         %td
-          = link_to content_tag(:i, species_link(species, species.name_sci)), species
+          %i
+            %b= link_to(species.name_sci, edit_species_path(species))
           = species.authority
           %div
             %small proto:
             %i.less-important= species.protonym
+        %td.align-center
+          - if species.reviewed?
+            = image_tag("/img/check_16x13.png", alt: "reviewed", title: "reviewed")
+          - else
+            = image_tag("/img/x_alt_16x16_tan.png", alt: "not reviewed", title: "not reviewed")
         %td
           - %w(en ru uk fr).each do |lang|
             %div
