@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121203164124) do
+ActiveRecord::Schema.define(:version => 20121211150931) do
 
   create_table "books", :force => true do |t|
     t.string "slug",        :limit => 32, :null => false
@@ -124,18 +124,19 @@ ActiveRecord::Schema.define(:version => 20121203164124) do
 
   create_table "species", :force => true do |t|
     t.string  "code",       :limit => 6
-    t.string  "name_sci",                 :null => false
+    t.string  "name_sci",                                    :null => false
     t.string  "authority"
-    t.string  "name_en",                  :null => false
+    t.string  "name_en",                                     :null => false
     t.string  "name_ru"
     t.string  "name_uk"
-    t.integer "index_num",                :null => false
+    t.integer "index_num",                                   :null => false
     t.string  "order"
-    t.string  "family",                   :null => false
+    t.string  "family",                                      :null => false
     t.string  "avibase_id", :limit => 16
     t.string  "protonym"
     t.string  "name_fr"
     t.integer "image_id"
+    t.boolean "reviewed",                 :default => false, :null => false
   end
 
   add_index "species", ["code"], :name => "index_species_on_code", :unique => true
