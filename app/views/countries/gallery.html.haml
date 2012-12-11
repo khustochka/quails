@@ -13,7 +13,7 @@
     - if sps = species_rarity[common]
       %h2= common ? "Common" : "Rare"
 
-      = render :partial => 'species/thumbnail', :collection => sps
+      = render :partial => 'species/thumbnail', :collection => sps.map(&:taxon)
 
 - else
 

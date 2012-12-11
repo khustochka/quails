@@ -20,8 +20,8 @@
       %tr
         %td.align-right= i += 1
         %td.names
-          %b= species_link(species)
-          = name_sci(species)
+          %b= species_link(species.taxon)
+          = name_sci(species.taxon)
         %td
           - if @edit
             = text_field_tag("s[][s]", species.status, size: 1)

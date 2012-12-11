@@ -35,12 +35,14 @@ class Locus < ActiveRecord::Base
 
   # Instance methods
 
-  def checklist
+  def checklist(to_include = [])
     book = Book.find_by_slug('fesenko-bokotej') if slug == 'ukraine'
 
-    book.taxa.select("taxa.*, checklist.*").
-        joins("INNER JOIN (#{local_species.to_sql}) AS checklist ON checklist.species_id = taxa.species_id").
-        extend(SpeciesArray)
+    local_species.
+        joins(:taxa => to_include).includes(:taxa => to_include).
+        merge(book.taxa.scoped).
+        order("taxa.index_num").
+        extending(SpeciesArray)
   end
 
   def subregion_ids

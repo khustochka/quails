@@ -6,9 +6,7 @@ class CountriesController < ApplicationController
     @species =
         case @country.slug
           when 'ukraine'
-            # TODO: I would prefer includes(:image) because it is one query less
-            # but it erases the select
-            @country.checklist.joins(:image).preload(:image)
+            @country.checklist(:image)
           when 'usa'
             country_obs = Observation.select(:species_id).where(locus_id: @country.subregion_ids)
             Species.ordered_by_taxonomy.where("species.id IN (#{country_obs.to_sql})").joins(:image).includes(:image)
