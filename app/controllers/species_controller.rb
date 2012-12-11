@@ -7,6 +7,13 @@ class SpeciesController < ApplicationController
   # GET /species/admin
   def index
     @species = Species.ordered_by_taxonomy.extend(SpeciesArray)
+
+    @observed = Species.where("id IN (#{Observation.select(:species_id).to_sql})")
+    @obs_not_reviewed = @observed.where("NOT reviewed")
+
+    fesenko = Book.find(1)
+    @ukrainian = fesenko.taxa
+    @ukr_not_reviewed = Species.where("id IN (#{fesenko.taxa.select(:species_id).to_sql})").where("NOT reviewed")
   end
 
   # GET /species

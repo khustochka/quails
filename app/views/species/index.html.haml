@@ -2,6 +2,12 @@
 
 %h1 Listing species
 
+%h5.errors Not reviewed:
+
+%ul.errors
+  %li= "#{@obs_not_reviewed.count} out of #{@observed.count} observed species"
+  %li= "#{@ukr_not_reviewed.count} out of #{@ukrainian.count} Ukrainian species"
+
 %table.neat_table
   %tr
     %th.align-right No
