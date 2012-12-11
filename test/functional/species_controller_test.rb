@@ -6,9 +6,22 @@ class SpeciesControllerTest < ActionController::TestCase
   end
 
   test "get index" do
+    login_as_admin
     get :index
     assert_response :success
     assert_not_nil assigns(:species)
+  end
+
+  test "get gallery" do
+    # Setup main image for species
+    @image = create(:image)
+    seed(:pasdom).update_column(:image_id, @image.id)
+    @obs = @image.observations.first
+
+    get :gallery
+    assert_response :success
+    assert_not_nil assigns(:species)
+    assert_select "a[href=#{species_path(@obs.species)}]"
   end
 
   test "species index properly ordered" do
@@ -19,6 +32,7 @@ class SpeciesControllerTest < ActionController::TestCase
     sp2 = Species.find_by_index_num(max_index)
     sp2.update_attributes(index_num: 10)
 
+    login_as_admin
     get :index
     assert_response :success
     assert_equal sp1, assigns(:species).last
@@ -64,6 +78,11 @@ class SpeciesControllerTest < ActionController::TestCase
   #end
 
   # HTTP auth tests
+
+  test 'protect index with HTTP authentication' do
+    assert_raise(ActionController::RoutingError) { get :index }
+    #assert_response 404
+  end
 
   test 'protect edit with HTTP authentication' do
     species = seed(:melgal)

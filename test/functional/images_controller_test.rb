@@ -14,13 +14,6 @@ class ImagesControllerTest < ActionController::TestCase
     assert_not_nil assigns(:images)
   end
 
-  test "get gallery" do
-    get :gallery
-    assert_response :success
-    assert_not_nil assigns(:species)
-    assert_select "a[href=#{species_path(@obs.species)}]"
-  end
-
   test "get new" do
     login_as_admin
     get :new

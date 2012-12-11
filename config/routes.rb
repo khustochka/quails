@@ -26,9 +26,12 @@ Quails::Application.routes.draw do
     post '/:country/checklist/edit' => 'checklist#save'
   end
 
-  get 'gallery' => 'images#gallery', as: 'gallery'
-
-  resources :species, only: [:index, :show]
+  get '/species' => 'species#gallery', as: 'gallery'
+  resources :species, only: [:show] do
+    collection do
+      get 'admin', action: :index
+    end
+  end
 
   get '/photos(/page/:page)' => 'images#index', page: /[^0]\d*/, constraints: {format: 'html'}
   resources :photos, controller: 'images', as: 'images', except: :index do

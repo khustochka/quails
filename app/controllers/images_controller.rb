@@ -8,14 +8,7 @@ class ImagesController < ApplicationController
 
   after_filter :cache_expire, only: [:create, :update, :destroy]
 
-  # Galleries
-
-  def gallery
-    @species = Species.joins(:image).includes(:image).ordered_by_taxonomy
-    @feed = 'photos'
-  end
-
-  # GET /images
+  # Latest addons
   def index
     redirect_to page: nil if params[:page].to_i == 1
     @robots = 'NOINDEX, NOARCHIVE' if params[:page]

@@ -1,12 +1,18 @@
 class SpeciesController < ApplicationController
 
-  administrative :except => [:index, :show]
+  administrative :except => [:gallery, :show]
 
   before_filter :find_species, only: [:edit, :update]
 
-  # GET /species
+  # GET /species/admin
   def index
     @species = Species.ordered_by_taxonomy.extend(SpeciesArray)
+  end
+
+  # GET /species
+  def gallery
+    @species = Species.joins(:image).includes(:image).ordered_by_taxonomy
+    @feed = 'photos'
   end
 
   # GET /species/1
