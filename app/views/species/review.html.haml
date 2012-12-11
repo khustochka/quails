@@ -1,0 +1,29 @@
+- stylesheet 'forms'
+
+- @page_title = "Review #{@species.name_sci}"
+
+%h1= page_header
+
+- if @species.reviewed?
+  %p
+    %b This species is reviewed
+- else
+  %p.errors This species is not reviewed
+
+%p
+  Avibase:
+  = link_to @species.avibase_id, avibase_species_url(@species.avibase_id)
+
+%dl
+  - %w(name_sci name_en name_ru name_uk).each do |attr|
+    %dt
+      %b= attr
+    %dd= @species.send(attr.to_sym)
+
+- @books.each do |book, taxon|
+  %h5= book.name
+  %dl
+    - %w(name_sci name_en name_ru name_uk).each do |attr|
+      %dt
+        %b= attr
+      %dd= taxon.send(attr.to_sym)

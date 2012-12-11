@@ -101,7 +101,11 @@ Quails::Application.routes.draw do
     end
   end
 
-  resources :species, only: [:edit, :update]
+  resources :species, only: [:edit, :update] do
+    member do
+      get 'review'
+    end
+  end
 
   resources :comments, except: :new do
     get :reply, on: :member

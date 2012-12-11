@@ -2,7 +2,7 @@ class SpeciesController < ApplicationController
 
   administrative :except => [:gallery, :show]
 
-  before_filter :find_species, only: [:edit, :update]
+  before_filter :find_species, only: [:edit, :update, :review]
 
   # GET /species/admin
   def index
@@ -39,6 +39,11 @@ class SpeciesController < ApplicationController
   # GET /species/1/edit
   def edit
     render :form
+  end
+
+  # GET /species/1/review
+  def review
+    @books = @species.taxa.joins(:book).includes(:book).order(:book_id).index_by(&:book)
   end
 
   # PUT /species/1
