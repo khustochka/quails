@@ -12,7 +12,7 @@ class ActiveSupport::TestCase
 
   include FactoryGirl::Syntax::Methods
 
-  delegate :root_url, :public_post_path, :public_image_path, :public_comment_path, :url_for, to: :@controller
+  delegate :root_url, :public_post_path, :public_comment_path, :url_for, to: :@controller
 
   TEST_CREDENTIALS = OpenStruct.new(YAML::load_file('config/security.yml')['test']['admin'])
 

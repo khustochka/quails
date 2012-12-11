@@ -19,7 +19,7 @@ class UIImagesTest < ActionDispatch::IntegrationTest
 
     assert_difference('Image.count', 0) { click_button('Save') }
     img.reload
-    assert_equal show_image_path(img.to_url_params), current_path
+    assert_equal image_path(img), current_path
     assert_equal 2, img.observations.size
     assert_equal 'test-img-capybara', img.slug
   end
@@ -35,7 +35,7 @@ class UIImagesTest < ActionDispatch::IntegrationTest
     sleep 2
 
     assert_difference('Image.count', 0) { click_button('Save') }
-    assert_equal show_image_path(img.to_url_params), current_path
+    assert_equal image_path(img), current_path
     img.reload
     assert_equal 2, img.observations.size
   end
@@ -59,7 +59,7 @@ class UIImagesTest < ActionDispatch::IntegrationTest
 
     assert_difference('Image.count', 1) { click_button('Save') }
     img = Image.find_by_slug('test-img-capybara')
-    assert_equal show_image_path(img.to_url_params), current_path
+    assert_equal image_path(img), current_path
   end
 
   test "Image save does not use all found observations" do

@@ -32,21 +32,6 @@ class Image < ActiveRecord::Base
     title.present? ? title : species[0].name # Not using || because of empty string possibility
   end
 
-  def species_for_url
-    case species.size
-      when 0
-        'Avis_incognita'
-      when 1
-        species.first.to_param
-      else
-        'Aves_sp'
-    end
-  end
-
-  def to_url_params
-    {id: slug, species: species_for_url}
-  end
-
   def search_applicable_observations
     Observation.search(
         new_record? ?

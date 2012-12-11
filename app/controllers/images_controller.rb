@@ -25,9 +25,6 @@ class ImagesController < ApplicationController
 
   # GET /images/1
   def show
-    if params[:species] != @image.species_for_url
-      redirect_to @image.to_url_params, :status => 301
-    end
   end
 
   # GET /images/add # select flickr photo
@@ -53,18 +50,15 @@ class ImagesController < ApplicationController
 
   # GET /images/1/edit
   def edit
-    @extra_params = @image.to_url_params
     render 'form'
   end
 
   # GET /images/1/flickr_edit
   def flickr_edit
-    @extra_params = @image.to_url_params
   end
 
   # GET /images/1/map_edit
   def map_edit
-    @extra_params = @image.to_url_params
     @spot = Spot.new(public: true)
   end
 
@@ -75,7 +69,7 @@ class ImagesController < ApplicationController
     @image.set_flickr_data(flickr, params[:image])
 
     if @image.update_with_observations(params[:image], params[:obs])
-      redirect_to(public_image_path(@image), :notice => 'Image was successfully created.')
+      redirect_to(image_path(@image), :notice => 'Image was successfully created.')
     else
       render 'form'
     end
@@ -83,10 +77,9 @@ class ImagesController < ApplicationController
 
   # PUT /images/1
   def update
-    @extra_params = @image.to_url_params
     new_params = params[:image]
     if @image.update_with_observations(new_params, params[:obs])
-      redirect_to(public_image_path(@image), :notice => 'Image was successfully updated.')
+      redirect_to(image_path(@image), :notice => 'Image was successfully updated.')
     else
       render 'form'
     end

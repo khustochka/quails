@@ -35,7 +35,7 @@
   -# images
   - @images.each do |img|
     %url
-      %loc= public_image_path(img, only_path: false)
+      %loc= image_path(img, only_path: false)
       %lastmod= img.created_at.iso8601
       %changefreq yearly
 

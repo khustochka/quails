@@ -42,7 +42,7 @@ class ImagesControllerTest < ActionController::TestCase
       post :create, image: new_attr, obs: [@obs.id]
     end
 
-    assert_redirected_to public_image_path(assigns(:image))
+    assert_redirected_to image_path(assigns(:image))
   end
 
   test "create image with several observations" do
@@ -55,7 +55,7 @@ class ImagesControllerTest < ActionController::TestCase
       post :create, image: new_attr, obs: [@obs.id, obs2.id, obs3.id]
     end
 
-    assert_redirected_to public_image_path(assigns(:image))
+    assert_redirected_to image_path(assigns(:image))
   end
 
   test "do not save image with no observations" do
@@ -83,7 +83,7 @@ class ImagesControllerTest < ActionController::TestCase
   end
 
   test "show image" do
-    get :show, @image.to_url_params
+    get :show, id: @image.to_param
     assert_response :success
   end
 
@@ -110,7 +110,7 @@ class ImagesControllerTest < ActionController::TestCase
     new_attr = @image.attributes
     new_attr['slug'] = 'new_slug'
     put :update, id: @image.to_param, image: new_attr, obs: @image.observation_ids
-    assert_redirected_to public_image_path(assigns(:image))
+    assert_redirected_to image_path(assigns(:image))
   end
 
   test "update image spot via json" do
@@ -149,14 +149,14 @@ class ImagesControllerTest < ActionController::TestCase
   test 'Image page can be shown for Avis incognita photo as well' do
     observation = create(:observation, species_id: 0)
     img = create(:image, slug: 'picture-of-the-unknown', observations: [observation])
-    get :show, img.to_url_params
+    get :show, id: img
   end
 
   test 'do not show link to private post to public user on image page' do
     blogpost = create(:post, status: 'PRIV')
     @obs.post = blogpost
     @obs.save!
-    get :show, @image.to_url_params
+    get :show, id: @image
     assert_select "a[href=#{public_post_path(blogpost)}]", false
   end
 
@@ -164,7 +164,7 @@ class ImagesControllerTest < ActionController::TestCase
     blogpost = create(:post)
     @obs.post = blogpost
     @obs.save!
-    get :show, @image.to_url_params
+    get :show, id: @image.to_param
     assert_select "a[href=#{public_post_path(blogpost)}]"
   end
 end

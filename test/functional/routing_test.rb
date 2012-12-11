@@ -42,8 +42,8 @@ class RoutingTest < ActionDispatch::IntegrationTest
   end
 
   test 'route images correctly' do
-    assert_routing '/species/Aquilla_pomarina/lesser_spotted_eagle',
-                   {controller: 'images', action: 'show', species: 'Aquilla_pomarina', id: 'lesser_spotted_eagle'}
+    assert_routing '/photos/lesser_spotted_eagle',
+                   {controller: 'images', action: 'show', id: 'lesser_spotted_eagle'}
   end
 
   test 'photos paging' do
