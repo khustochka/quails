@@ -14,10 +14,12 @@
           'true': Common
           'false': Rare or Vagrant
 
-
     checklist:
       title:
         ukraine: Checklist of the birds of Ukraine
+
+    ukraine:
+      sources: Sources
 
 #      table:
 #        name: Name

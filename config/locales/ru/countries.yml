@@ -18,6 +18,10 @@
       title:
         ukraine: Список (чеклист) птиц Украины
 
+    ukraine:
+      sources: Источники
+
+
 #      table:
 #        name: Название
 #        sci_name: Научное название
