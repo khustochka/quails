@@ -31,8 +31,13 @@
           - if @edit
             = hidden_field_tag("s[][id]", species.id)
             = text_area_tag("s[][n]", species.notes_ru, size: "100x2")
+            = text_field_tag("s[][r]", species.reference)
           - else
             = convert_status(species.notes_ru)
+            - if species.reference.present?
+              %small
+                = surround("[", "]") do
+                  %a{href: "##{species.reference}"}= species.reference
 
 - if @edit
   = submit_tag("Save", id: 'checklist_save')

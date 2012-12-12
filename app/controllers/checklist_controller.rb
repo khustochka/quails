@@ -4,7 +4,7 @@ class ChecklistController < ApplicationController
   def save
     params[:s].each do |sp|
       item = LocalSpecies.find(sp[:id])
-      item.update_attributes!(notes_ru: sp[:n], status: sp[:s])
+      item.update_attributes!(notes_ru: sp[:n], status: sp[:s], reference: sp[:r])
     end
     redirect_to checklist_path(country: params[:country])
   end
