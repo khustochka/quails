@@ -32,7 +32,7 @@
             = hidden_field_tag("s[][id]", species.id)
             = text_area_tag("s[][n]", species.notes_ru, size: "100x2")
           - else
-            = species.notes_ru
+            = convert_status(species.notes_ru)
 
 - if @edit
   = submit_tag("Save", id: 'checklist_save')
