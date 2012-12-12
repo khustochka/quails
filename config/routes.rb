@@ -22,7 +22,7 @@ Quails::Application.routes.draw do
   constraints country: /ukraine|usa/ do
     get '/:country' => 'countries#gallery', as: "country"
     get '/:country/checklist' => 'countries#checklist', as: "checklist"
-    get '/:country/checklist/edit' => 'checklist#edit'
+    get '/:country/checklist/edit' => 'countries#checklist_edit'
     post '/:country/checklist/edit' => 'checklist#save'
   end
 

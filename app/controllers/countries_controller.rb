@@ -1,5 +1,7 @@
 class CountriesController < ApplicationController
 
+  administrative except: [:gallery, :checklist]
+
   def gallery
     @country = Country.find_by_slug!(params[:country])
 
@@ -16,11 +18,23 @@ class CountriesController < ApplicationController
   end
 
   def checklist
-    @locus = Country.find_by_slug!(params[:country])
-    if @locus.slug == 'ukraine'
-      @checklist = @locus.checklist
+    fetch_checklist
+    render @country.slug
+  end
+
+  def checklist_edit
+    fetch_checklist
+    @edit = true
+    render @country.slug
+  end
+
+  private
+  def fetch_checklist
+    @country = Country.find_by_slug!(params[:country])
+    if @country.slug == 'ukraine'
+      @checklist = @country.checklist
     else
-      raise ActiveRecord::RecordNotFound, "Checklist not allowed for #{@locus.name_en}"
+      raise ActiveRecord::RecordNotFound, "Checklist not allowed for #{@country.name_en}"
     end
   end
 
