@@ -1,7 +1,5 @@
-%p
-  = t(".intro_html", link: link_to(t('.full_list'), checklist_path(country: 'ukraine')))
-  -#Тут представлены только виды птиц Украины, фотографии которых есть на сайте.
-  -#Смотрите также #{link_to("полный список птиц Украины", checklist_path(country: 'ukraine'))}.
+:textile
+  #{t(".intro", url: checklist_path(country: 'ukraine'))}
 
 - species_rarity = @species.group_by {|s| s.status.match(/\?|\-/).nil? }
 
