@@ -8,9 +8,13 @@
 
 - if @species.reviewed?
   %p
-    %b This species is reviewed
+    %b
+      This species is
+      = link_to "reviewed", review_species_path(@species)
 - else
-  %p.errors This species is not reviewed
+  %p.errors
+    This species is not reviewed.
+    = link_to "REVIEW", review_species_path(@species)
 
 = simple_form_for @species do |form|
   %div
