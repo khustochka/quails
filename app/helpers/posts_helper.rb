@@ -9,7 +9,7 @@ module PostsHelper
   end
 
   def post_title(post)
-    RedCloth.new(post.title, [:no_span_caps, :lite_mode]).to_html.html_safe
+    wikify_one_line(post.title)
   end
 
   def lj_post_url
