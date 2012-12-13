@@ -6,5 +6,5 @@
 
 - if @prev_month
   %nav.month-navigation
-    = link_to "<< #{t('.previous_posts')}", month_path(@prev_month)
-    = "(#{[t('date.month_names')[@prev_month[:month].to_i], @prev_month[:year]] * ' '})"
+    = link_to t('.previous_posts'), month_path(@prev_month)
+    (#{[t('date.month_names')[@prev_month[:month].to_i], @prev_month[:year]] * ' '})

@@ -16,11 +16,11 @@
     %th.align-center
       = name1 = @loc1.name
       %br
-      = "(#{@loc1_species.size})"
+      (#{@loc1_species.size})
     %th.align-center
       = name2 = @loc2.name
       %br
-      = "(#{@loc2_species.size})"
+      (#{@loc2_species.size})
 
   - @species.group_by_taxonomy do |order, family, species_list|
     %tr

@@ -2,7 +2,7 @@
   blog:
     front_page:
       title: Birdwatching blog
-      previous_posts: Previous posts
+      previous_posts: << Previous posts
 
     year:
       year: Year
