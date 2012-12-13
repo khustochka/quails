@@ -70,6 +70,12 @@ class SpeciesController < ApplicationController
           new(:name_sci, :name_en, :name_ru, :name_uk).
           new(legacy['sp_la'], legacy['sp_en'], legacy['sp_ru'], legacy['sp_uk'])
     end
+    obs = Observation.select(:species_id)
+    ukr = Book.find(1).taxa.select(:species_id)
+    @next_species = Species.
+        where("id in (#{obs.to_sql}) OR id IN (#{ukr.to_sql})").
+        where("index_num > #{@species.index_num}").
+        order(:index_num).first
   end
 
   private

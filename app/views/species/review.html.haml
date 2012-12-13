@@ -38,3 +38,7 @@
         - div_class << [:mismatch] if @legacy.send(attr) != @species.send(attr)
         = content_tag(:div, class: div_class) do
           = text_field_tag(nil, @legacy.send(attr), class: 'string')
+
+  - if @next_species
+    = link_to review_species_path(@next_species) do
+      Skip to the next species (#{@next_species.name_sci}) &gt;&gt;
