@@ -41,11 +41,6 @@ class SpeciesController < ApplicationController
     render :form
   end
 
-  # GET /species/1/review
-  def review
-    @books = @species.taxa.joins(:book).includes(:book).order(:book_id).index_by(&:book)
-  end
-
   # PUT /species/1
   def update
     params[:species].delete(:code) if params[:species][:code].blank?
@@ -53,6 +48,27 @@ class SpeciesController < ApplicationController
       redirect_to(@species, :notice => 'Species was successfully updated.')
     else
       render :form
+    end
+  end
+
+  # GET /species/1/review
+  def review
+    @books = @species.taxa.joins(:book).includes(:book).order(:book_id).index_by(&:book)
+
+    if @species.code.present?
+      local_opts = YAML.load_file('config/local.yml')
+      folder = local_opts['repo']
+      leg = File.open("#{folder}/legacy/seed_data.yml", encoding: 'windows-1251:utf-8') do |f|
+        YAML.load(f.read)
+      end
+      spcs = leg['species']
+      cols = spcs['columns']
+      col = cols.index('sp_id')
+      legacy = spcs['records'].find { |rec| rec[col] == @species.code }
+      legacy = Hash[ cols.zip(legacy) ]
+      @legacy = Struct.
+          new(:name_sci, :name_en, :name_ru, :name_uk).
+          new(legacy['sp_la'], legacy['sp_en'], legacy['sp_ru'], legacy['sp_uk'])
     end
   end
 
