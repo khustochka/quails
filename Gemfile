@@ -26,6 +26,7 @@ gem 'rails_autolink'
 gem 'simple_form', '~> 2.0'
 gem 'flickraw', '~> 0.9.5', :require => false
 gem 'flickraw-cached'
+gem 'hashie'
 
 # Gems used only for assets and not required
 # in production environments by default.

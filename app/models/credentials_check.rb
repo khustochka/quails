@@ -5,7 +5,7 @@ module CredentialsCheck
   end
 
   def configure(options)
-    @options = OpenStruct.new(options)
+    @options = Hashie::Mash.new(options)
     @free_access = Rails.env.development? && @options.free_access
     raise ArgumentError, "You have to specify admin username and password" unless @free_access || (@options.username && @options.password)
   end

@@ -1,4 +1,3 @@
-require "ostruct"
 require "quails/env"
 
 module Configurator
@@ -21,7 +20,7 @@ module Configurator
   end
 
   def self.configure_errbit
-    errbit = OpenStruct.new(config_data.errbit)
+    errbit = Hashie::Mash.new(config_data.errbit)
     if errbit && errbit.api_key && errbit.host
       require "airbrake"
       Airbrake.configure do |config|
@@ -40,7 +39,7 @@ module Configurator
   end
 
   def self.read_config
-    OpenStruct.new(
+    Hashie::Mash.new(
         if Quails.env.configured?
           read_config_from_env_vars
         else

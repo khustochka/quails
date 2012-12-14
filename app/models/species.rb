@@ -15,7 +15,7 @@ class Species < ActiveRecord::Base
 
   belongs_to :image
 
-  AVIS_INCOGNITA = OpenStruct.new(id: 0, name_sci: '- Avis incognita', to_label: '- Avis incognita')
+  AVIS_INCOGNITA = Struct.new(:id, :name_sci, :to_label).new(0, '- Avis incognita', '- Avis incognita')
 
   # Parameters
 
