@@ -67,7 +67,10 @@ GEM
       diff-lcs (~> 1.1)
       mime-types (~> 1.15)
       posix-spawn (~> 0.3.6)
-    haml (3.1.7)
+    haml (3.2.0.rc.2)
+      tilt
+    haml-contrib (0.0.1)
+      haml (>= 3.2.0.alpha.13)
     haml-rails (0.3.5)
       actionpack (>= 3.1, < 4.1)
       activesupport (>= 3.1, < 4.1)
@@ -195,6 +198,8 @@ DEPENDENCIES
   flickraw (~> 0.9.5)
   flickraw-cached
   grit (~> 2.5)
+  haml (~> 3.2.0.rc.2)
+  haml-contrib
   haml-rails
   hashie
   kaminari

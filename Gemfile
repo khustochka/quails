@@ -20,6 +20,8 @@ end
 # Bundle the extra gems:
 gem 'rails-i18n'
 gem 'haml-rails'
+gem 'haml', '~> 3.2.0.rc.2'
+gem 'haml-contrib'
 gem 'RedCloth'
 gem 'kaminari'
 gem 'rails_autolink'
