@@ -21,7 +21,7 @@ class ObservationsController < ApplicationController
         send((params[:sort] == 'species.index_num') ? :includes : :preload, :species)
 
     # TODO: extract to model; add tests
-    common = @observations.map(&:attributes).inject(&:&) || {}
+    common = @observations.map(&:attributes).inject(:&) || {}
     @common = common.slice(*BULK_MEANINGFUL_KEYS)
     @common = nil if @common.values_at(*BULK_REQUIRED_KEYS).any?(&:nil?)
   end

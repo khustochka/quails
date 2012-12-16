@@ -25,7 +25,7 @@ namespace :book do
       puts "Fetching #{reg} checklist"
       source = @cache.fetch("list_#{reg}_#{author}_real.html", avibase_list_url(reg, author), verbose: true)
       BookImport.parse_list(source)
-    end.inject(&:+).uniq
+    end.inject(:+).uniq
 
     (holarctic & desired).each_with_index do |rec, i|
       Taxon.create!(rec.except(:status).merge(book_id: 3, authority: "", name_ru: "", name_uk: "", index_num: i+1))
