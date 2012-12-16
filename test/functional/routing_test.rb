@@ -74,6 +74,6 @@ class RoutingTest < ActionDispatch::IntegrationTest
 
   test 'route countries correctly' do
     assert_routing '/ukraine', {controller: 'countries', action: 'gallery', country: 'ukraine'}
-    assert_routing '/ukraine/checklist', {controller: 'countries', action: 'checklist', country: 'ukraine'}
+    assert_routing '/ukraine/checklist', {controller: 'checklist', action: 'show', country: 'ukraine'}
   end
 end

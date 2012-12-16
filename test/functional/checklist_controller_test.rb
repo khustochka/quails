@@ -2,6 +2,35 @@ require 'test_helper'
 
 class ChecklistControllerTest < ActionController::TestCase
 
+  test 'shows checklist for Ukraine' do
+    get :show, country: 'ukraine'
+    assert_response :success
+    assert_present assigns(:checklist)
+    assert_select "a[href=#{species_path(seed(:pasdom))}]"
+  end
+
+  test 'edit checklist for Ukraine' do
+    login_as_admin
+    get :edit, country: 'ukraine'
+    assert_response :success
+    assert_present assigns(:checklist)
+    assert_select "input"
+  end
+
+  test 'edit checklist should be protected' do
+    assert_raise(ActionController::RoutingError) {
+      get :edit, country: 'ukraine'
+    }
+  end
+
+  test 'do not show checklist for unknown countries' do
+    assert_raise(ActionController::RoutingError) { get :show, country: 'georgia' }
+  end
+
+  test 'do not show checklist for other countries' do
+    assert_raise(ActiveRecord::RecordNotFound) { get :show, country: 'usa' }
+  end
+
   #test 'save checklist for Ukraine' do
   #  login_as_admin
   #  get :save, country: 'ukraine'

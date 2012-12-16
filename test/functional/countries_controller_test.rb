@@ -22,33 +22,4 @@ class CountriesControllerTest < ActionController::TestCase
     assert_select "a[href=#{species_path(@obs.species)}]"
   end
 
-  test 'shows checklist for Ukraine' do
-    get :checklist, country: 'ukraine'
-    assert_response :success
-    assert_present assigns(:checklist)
-    assert_select "a[href=#{species_path(@obs.species)}]"
-  end
-
-  test 'edit checklist for Ukraine' do
-    login_as_admin
-    get :checklist_edit, country: 'ukraine'
-    assert_response :success
-    assert_present assigns(:checklist)
-    assert_select "input"
-  end
-
-  test 'edit checklist should be protected' do
-    assert_raise(ActionController::RoutingError) {
-      get :checklist_edit, country: 'ukraine'
-    }
-  end
-
-  test 'do not show checklist for unknown countries' do
-    assert_raise(ActionController::RoutingError) { get :checklist, country: 'georgia' }
-  end
-
-  test 'do not show checklist for other countries' do
-    assert_raise(ActiveRecord::RecordNotFound) { get :checklist, country: 'usa' }
-  end
-
 end
