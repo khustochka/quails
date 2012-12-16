@@ -30,23 +30,23 @@
     Diomedeidae: Альбатросовые
     Procellariidae: Буревестниковые
     Hydrobatidae: Качурковые
-    Phaethontidae:
+    Phaethontidae: Фаэтоновые
     Pelecanidae: Пеликановые
     Sulidae: Олушевые
     Phalacrocoracidae: Баклановые
-    Anhingidae:
+    Anhingidae: Змеешейковые
     Fregatidae: Фрегатовые
     Ardeidae: Цаплевые
     Threskiornithidae: Ибисовые
     Ciconiidae: Аистовые
     Phoenicopteridae: Фламинговые
     Anatidae: Утиные
-    Cathartidae:
+    Cathartidae: Американские грифы
     Pandionidae: Скопиные
     Accipitridae: Ястребиные
     Falconidae: Соколиные
     Tetraonidae: Тетеревиные
-    Odontophoridae:
+    Odontophoridae: Зубчатоклювые куропатки
     Phasianidae: Фазановые
     Gruidae: Журавлиные
     Rallidae: Пастушковые
@@ -59,11 +59,11 @@
     Glareolidae: Тиркушковые
     Stercorariidae: Поморниковые
     Laridae: Чайковые
-    Rynchopidae:
+    Rynchopidae: Водорезовые
     Alcidae: Чистиковые
     Pteroclidae: Рябковые
     Columbidae: Голубиные
-    Psittacidae:
+    Psittacidae: Попугаевые
     Cuculidae: Кукушковые
     Strigidae: Совиные
     Tytonidae: Сипуховые
@@ -89,7 +89,7 @@
     Mimidae: Пересмешниковые
     Prunellidae: Завирушковые
     Sylviidae: Славковые
-    Polioptilidae:
+    Polioptilidae: Комароловковые
     Regulidae: Корольковые
     Muscicapidae: Мухоловковые
     Turdidae: Дроздовые
@@ -98,8 +98,8 @@
     Paridae: Синицевые
     Sittidae: Поползневые
     Certhiidae: Пищуховые
-    Vireonidae:
-    Parulidae: Лесные певуны
+    Vireonidae: Виреоновые
+    Parulidae: Древесницевые
     Passeridae: Воробьиные
     Icteridae: Трупиаловые
     Fringillidae: Вьюрковые
