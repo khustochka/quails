@@ -37,7 +37,7 @@ class BlogController < ApplicationController
                 COUNT(id) as posts_count").
         group(:raw_year, :raw_month).
         order(:raw_year, :raw_month).
-        group_by(&:raw_year)
+        chunk(&:raw_year)
   end
 
   def month
@@ -48,7 +48,7 @@ class BlogController < ApplicationController
 
   def year
     @posts = current_user.available_posts.year(@year = params[:year])
-    @months = @posts.group_by(&:month)
+    @months = @posts.chunk(&:month)
     @years = current_user.available_posts.years
   end
 

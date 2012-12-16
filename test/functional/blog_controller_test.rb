@@ -100,7 +100,7 @@ class BlogControllerTest < ActionController::TestCase
     assert_response :success
     assert_include(assigns(:posts), blogpost1)
     assert_not_include(assigns(:posts), blogpost2)
-    assert_include(assigns(:months).keys, "12")
+    assert_include(assigns(:months).map(&:first), "12")
   end
 
   # Month view

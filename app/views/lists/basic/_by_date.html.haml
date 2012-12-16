@@ -1,5 +1,5 @@
 - i = @lifelist.size + 1
-- @lifelist.group_by {|s| s.first_seen_date.year}.each do |year, species_list|
+- @lifelist.chunk {|s| s.first_seen_date.year}.each do |year, species_list|
   - if params[:year].blank?
     %h5.first_seen= t('.first_seen_in', year: year)
   %ol.lifers_list

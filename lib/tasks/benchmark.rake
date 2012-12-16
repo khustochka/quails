@@ -2,25 +2,17 @@ desc 'Quick benchmark'
 task :benchmark => :environment do
   require 'benchmark'
 
-@cnt = ResearchController.new
+  sps = Species.scoped.to_a
 
-  n = 30
+  n = 100
   Benchmark.bmbm do |x|
 
-    x.report('more_than_year_no_inst') { n.times {
-      @cnt.send(:more_than_year_no_inst)
+    x.report('chunk') { n.times {
+      sps.chunk { |sp| {:order => sp.order, :family => sp.family} }.each { |k, v| [k, v] }
     } }
 
-    x.report('more_than_year_no_inst_flat') { n.times {
-      @cnt.send(:more_than_year_no_inst_flat)
-    } }
-
-    x.report('more_than_year_no_inst2') { n.times {
-      @cnt.send(:more_than_year_no_inst)
-    } }
-
-    x.report('more_than_year_no_inst_flat2') { n.times {
-      @cnt.send(:more_than_year_no_inst_flat)
+    x.report('groupby') { n.times {
+      sps.group_by { |sp| {:order => sp.order, :family => sp.family} }.each { |k, v| [k, v] }
     } }
 
   end
