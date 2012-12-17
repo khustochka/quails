@@ -14,6 +14,8 @@ class SpeciesController < ApplicationController
     fesenko = Book.find(1)
     @ukrainian = fesenko.taxa
     @ukr_not_reviewed = Species.where("id IN (#{fesenko.taxa.select(:species_id).to_sql})").where("NOT reviewed")
+
+    @reviewed = Species.where("reviewed")
   end
 
   # GET /species
