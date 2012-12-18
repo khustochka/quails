@@ -4,7 +4,8 @@ $(function () {
 
   var spForm = $('form.edit_species'),
       bringUp = $("<span>", {html: "&#8682;", class: "bringUp"}),
-      variantInputs = $("form:not('.edit_species') div.input input");
+      variantInputs = $("form:not('.edit_species') div.input input"),
+      finalReview = false;
 
   function reborder() {
     variantInputs.each(
@@ -28,11 +29,21 @@ $(function () {
   });
 
   spForm.on("ajax:success", function (e, data) {
-    reborder();
+    if (finalReview)
+      document.location = $("a#nextSp").attr("href");
+    else
+      reborder();
   });
 
   spForm.on("ajax:error", function (e, data) {
     alert("Error saving species");
+    finalReview = false;
+  });
+
+  $("#markReviewed").on("click", function () {
+    $("input#species_reviewed").val("1");
+    finalReview = true;
+    spForm.submit();
   });
 
 });
