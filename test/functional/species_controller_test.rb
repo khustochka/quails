@@ -59,6 +59,14 @@ class SpeciesControllerTest < ActionController::TestCase
     assert_redirected_to species_path(assigns(:species))
   end
 
+  test "update species via JSON" do
+    species = seed(:corbra)
+    login_as_admin
+    put :update, id: species.to_param, species: {name_ru: 'Американская ворона'}, format: :json
+    assert_response :success
+    assert_equal Mime::JSON, response.content_type
+  end
+
   test "do not update species with invalid name_sci" do
     species = seed(:corbra)
     species2 = species.dup

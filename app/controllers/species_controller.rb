@@ -46,10 +46,15 @@ class SpeciesController < ApplicationController
   # PUT /species/1
   def update
     params[:species].delete(:code) if params[:species][:code].blank?
-    if @species.update_attributes(params[:species])
-      redirect_to(@species, :notice => 'Species was successfully updated.')
-    else
-      render :form
+
+    respond_to do |format|
+      if @species.update_attributes(params[:species])
+        format.html { redirect_to(@species, notice: 'Species was successfully updated.') }
+        format.json { render json: @species }
+      else
+        format.html { render :form }
+        format.json { render json: @species.errors, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -67,7 +72,7 @@ class SpeciesController < ApplicationController
       cols = spcs['columns']
       col = cols.index('sp_id')
       legacy = spcs['records'].find { |rec| rec[col] == @species.code }
-      legacy = Hash[ cols.zip(legacy) ]
+      legacy = Hash[cols.zip(legacy)]
       @legacy = Struct.
           new(:name_sci, :name_en, :name_ru, :name_uk).
           new(legacy['sp_la'], legacy['sp_en'], legacy['sp_ru'], legacy['sp_uk'])
