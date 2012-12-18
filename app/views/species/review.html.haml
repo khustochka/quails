@@ -17,7 +17,7 @@
 
 .reviewForms
 
-  = simple_form_for @species do |form|
+  = simple_form_for @species, format: :json, remote: true do |form|
     %i= @species.name_sci
     - %w(name_en name_ru name_uk).each do |attr|
       = form.input attr
@@ -29,21 +29,12 @@
       %i= taxon.name_sci
       - %w(name_en name_ru name_uk).each do |attr|
         = form.input attr, label: false,
-              wrapper_html: {class: (taxon.send(attr) != @species.send(attr)) ? 'mismatch' : nil},
               input_html: {'data-target' => "species_#{attr}"}
-
-  - base_class = [:input, :string]
 
   - if @legacy
     %b Legacy
     %form.simple_form
       %i= @legacy.name_sci
       - %w(name_en name_ru name_uk).each do |attr|
-        - div_class = base_class.dup
-        - div_class << [:mismatch] if @legacy.send(attr) != @species.send(attr)
-        = content_tag(:div, class: div_class) do
+        = content_tag(:div, class: "input string") do
           = text_field_tag(nil, @legacy.send(attr), class: 'string', 'data-target' => "species_#{attr}")
-
-  - if @next_species
-    = link_to review_species_path(@next_species) do
-      Skip to the next species (#{@next_species.name_sci}) &gt;&gt;
