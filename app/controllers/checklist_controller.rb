@@ -13,8 +13,10 @@ class ChecklistController < ApplicationController
   end
 
   def save
-    params[:s].each do |sp|
-      LocalSpecies.update(sp[:id], notes_ru: sp[:n], status: sp[:s], reference: sp[:r])
+    LocalSpecies.transaction do
+      params[:s].each do |sp|
+        LocalSpecies.where(id: sp[:id]).update_all(notes_ru: sp[:n], status: sp[:s], reference: sp[:r])
+      end
     end
     redirect_to checklist_path(country: params[:country])
   end
