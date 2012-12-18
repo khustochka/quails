@@ -62,8 +62,7 @@ class LociController < ApplicationController
     Locus.transaction do
       Locus.update_all(public_index: nil)
       result.each_with_index do |loc_id, i|
-        # TODO: Skip validation
-        Locus.update(loc_id, public_index: i + 1)
+        Locus.where(id: loc_id).update_all(public_index: i + 1)
       end
     end
     head :ok
