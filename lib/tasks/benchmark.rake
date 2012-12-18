@@ -2,17 +2,23 @@ desc 'Quick benchmark'
 task :benchmark => :environment do
   require 'benchmark'
 
-  sps = Species.scoped.to_a
+  sps = LocalSpecies.scoped.map(&:attributes)
+  @letters = ("A".."Z").cycle
 
-  n = 100
+  n = 1
   Benchmark.bmbm do |x|
 
-    x.report('chunk') { n.times {
-      sps.chunk { |sp| {:order => sp.order, :family => sp.family} }.each { |k, v| [k, v] }
+    x.report('with search') { n.times {
+      sps.each do |sp|
+        item = LocalSpecies.find(sp['id'])
+        item.update_attributes!(notes_ru: @letters.next)
+      end
     } }
 
-    x.report('groupby') { n.times {
-      sps.group_by { |sp| {:order => sp.order, :family => sp.family} }.each { |k, v| [k, v] }
+    x.report('without search') { n.times {
+      sps.each do |sp|
+        LocalSpecies.update(sp['id'], notes_ru: @letters.next, status: @letters.next)
+      end
     } }
 
   end
