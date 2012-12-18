@@ -4,7 +4,7 @@
 #header
   = yield :admin_menu
 
-  - cache :navigation_header do
+  - cache [:navigation_header, locale: I18n.locale] do
 
     = link_to(image_tag('/img/logo.png'), root_path, :id => 'site_cap')
 
