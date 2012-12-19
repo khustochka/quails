@@ -72,10 +72,12 @@ class SpeciesController < ApplicationController
       cols = spcs['columns']
       col = cols.index('sp_id')
       legacy = spcs['records'].find { |rec| rec[col] == @species.code }
-      legacy = Hash[cols.zip(legacy)]
-      @legacy = Struct.
-          new(:name_sci, :name_en, :name_ru, :name_uk).
-          new(legacy['sp_la'], legacy['sp_en'], legacy['sp_ru'], legacy['sp_uk'])
+      if legacy
+        legacy = Hash[cols.zip(legacy)]
+        @legacy = Struct.
+            new(:name_sci, :name_en, :name_ru, :name_uk).
+            new(legacy['sp_la'], legacy['sp_en'], legacy['sp_ru'], legacy['sp_uk'])
+      end
     end
     obs = Observation.select(:species_id)
     ukr = Book.find(1).taxa.select(:species_id)
