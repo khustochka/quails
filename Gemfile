@@ -8,8 +8,6 @@ gem 'rails', '3.2.9'
 gem 'pg', :platforms => [:ruby, :mingw]
 gem "activerecord-jdbcpostgresql-adapter", :platforms => :jruby
 
-gem 'thin', :require => false, :groups => [:development], :platforms => [:ruby, :mingw]
-
 gem 'unicorn', :require => false, :platforms => :ruby
 
 group :production do
