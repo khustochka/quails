@@ -45,7 +45,7 @@ class SpeciesController < ApplicationController
 
   # PUT /species/1
   def update
-    params[:species].delete(:code) if params[:species][:code].blank?
+    params[:species][:code] = nil if params[:species][:code].blank?
 
     respond_to do |format|
       if @species.update_attributes(params[:species])
