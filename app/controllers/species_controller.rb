@@ -84,6 +84,7 @@ class SpeciesController < ApplicationController
     @next_species = Species.
         where("id in (#{obs.to_sql}) OR id IN (#{ukr.to_sql})").
         where("index_num > #{@species.index_num}").
+        where("NOT reviewed").
         order(:index_num).first
   end
 
