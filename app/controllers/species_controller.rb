@@ -45,7 +45,9 @@ class SpeciesController < ApplicationController
 
   # PUT /species/1
   def update
-    params[:species][:code] = nil if params[:species][:code].blank?
+    # if code is not provided, should not remove it
+    # if code is empty string, should remove it
+    params[:species][:code] = nil if params[:species][:code] == ''
 
     respond_to do |format|
       if @species.update_attributes(params[:species])
