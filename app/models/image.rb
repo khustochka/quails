@@ -3,9 +3,7 @@ class Image < ActiveRecord::Base
 
   validates :slug, :uniqueness => true, :presence => true, :length => {:maximum => 64}
 
-  # FIXME: was
-  # has_and_belongs_to_many :observations, :include => :species
-  has_and_belongs_to_many :observations
+  has_and_belongs_to_many :observations # FIXME: was -> { includes(:species) }
   has_many :species, :through => :observations
   has_many :spots, :through => :observations
   belongs_to :spot
@@ -97,7 +95,7 @@ class Image < ActiveRecord::Base
     if obs.blank?
       errors.add(:observations, 'must not be empty')
     else
-      if obs.map{|o| o.attributes.values_at(*COMMON_OBSERVATION_ATTRIBUTES) }.uniq.size > 1
+      if obs.map { |o| o.attributes.values_at(*COMMON_OBSERVATION_ATTRIBUTES) }.uniq.size > 1
         errors.add(:observations, 'must have the same date, location, and mine value')
       end
     end
