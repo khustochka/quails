@@ -3,6 +3,8 @@ class Image < ActiveRecord::Base
 
   validates :slug, :uniqueness => true, :presence => true, :length => {:maximum => 64}
 
+  # FIXME: was
+  # has_and_belongs_to_many :observations, :include => :species
   has_and_belongs_to_many :observations
   has_many :species, :through => :observations
   has_many :spots, :through => :observations
