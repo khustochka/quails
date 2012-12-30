@@ -34,7 +34,7 @@ module Legacy
             obs = m_ob[:notes].split(',').map do |sp_code|
               potential_ob = Observation.where(species_id: Legacy::Mapping.species[sp_code],
                                                locus_id: loc_id,
-                                               observ_date: date).all
+                                               observ_date: date).to_a
               if potential_ob.size == 1
                 puts "  #{sp_code}: #{potential_ob.first.id}"
                 potential_ob.first

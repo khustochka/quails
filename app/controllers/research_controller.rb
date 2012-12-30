@@ -61,7 +61,7 @@ class ResearchController < ApplicationController
 
     sort_col = :date2
     period = 365 * 2 * 24 * 60 * 60
-    @recent_2yrs = Image.joins(:observations).order(:created_at).preload(:species).merge(MyObservation.scoped).
+    @recent_2yrs = Image.joins(:observations).order(:created_at).preload(:species).merge(MyObservation.all).
         group_by { |i| i.species.first }.each_with_object([]) do |imgdata, collection|
 
       sp, imgs = imgdata
@@ -126,13 +126,13 @@ class ResearchController < ApplicationController
       observations_source = if @loc1.country == @loc2.country
                               MyObservation.where(locus_id: @loc1.country.subregion_ids)
                             else
-                              MyObservation.scoped
+                              MyObservation.all
                             end
 
       @species = Species.uniq.joins(:observations).merge(observations_source).ordered_by_taxonomy.extend(SpeciesArray)
 
-      @loc1_species = Species.uniq.joins(:observations).merge(MyObservation.where(locus_id: @loc1.subregion_ids)).all
-      @loc2_species = Species.uniq.joins(:observations).merge(MyObservation.where(locus_id: @loc2.subregion_ids)).all
+      @loc1_species = Species.uniq.joins(:observations).merge(MyObservation.where(locus_id: @loc1.subregion_ids)).to_a
+      @loc2_species = Species.uniq.joins(:observations).merge(MyObservation.where(locus_id: @loc2.subregion_ids)).to_a
     else
       l1 ||= 'kiev'
       l2 ||= 'brovary'

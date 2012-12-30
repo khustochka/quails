@@ -23,7 +23,7 @@ module BunchDB
     def dump(io)
       column_names = table_column_names
 
-      records = @table_name.singularize.camelize.constantize.all
+      records = @table_name.singularize.camelize.constantize.to_a
 
       records.each_with_index do |record, index|
         records[index] = column_names.map { |key| record[key] }

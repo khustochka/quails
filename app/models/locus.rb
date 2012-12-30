@@ -40,7 +40,7 @@ class Locus < ActiveRecord::Base
 
     local_species.
         joins(:taxa => to_include).includes(:taxa => to_include).
-        merge(book.taxa.scoped).
+        merge(book.taxa).
         order("taxa.index_num").
         extending(SpeciesArray)
   end

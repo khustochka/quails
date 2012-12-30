@@ -8,7 +8,7 @@ class BooksController < ApplicationController
 
   # GET /books
   def index
-    @books = Book.scoped
+    @books = Book.all
   end
 
   # GET /books/1

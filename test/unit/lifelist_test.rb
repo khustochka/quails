@@ -101,7 +101,7 @@ class LifelistTest < ActiveSupport::TestCase
 
   test 'List by locus returns properly filtered list' do
     expected = [["colliv", "2010-03-10"], ["pasdom", "2009-12-01"]]
-    actual = Lifelist.advanced.source(loci: Locus.scoped).filter(locus: 'new_york').map { |s| [s.code, s.first_seen] }
+    actual = Lifelist.advanced.source(loci: Locus.all).filter(locus: 'new_york').map { |s| [s.code, s.first_seen] }
     assert_equal expected, actual
   end
 
