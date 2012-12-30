@@ -14,7 +14,7 @@ class UISingleObservationTest < ActionDispatch::IntegrationTest
     select('Sitta europaea', from: 'Species')
     select 'park', from: 'Biotope'
     assert_difference('Observation.count', 1) { click_button('Save') }
-    assert_false Observation.order('id DESC').limit(1).first.voice
+    refute Observation.order('id DESC').limit(1).first.voice
   end
 
   test 'Adding one observation - voice only (JS off)' do
@@ -39,7 +39,7 @@ class UISingleObservationTest < ActionDispatch::IntegrationTest
     uncheck('Voice?')
     assert_difference('Observation.count', 0) { click_button('Save') }
     observation.reload
-    assert_false observation.voice
+    refute observation.voice
   end
 
 end

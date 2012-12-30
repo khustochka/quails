@@ -190,8 +190,8 @@ class UIObservationsBulkTest < ActionDispatch::IntegrationTest
     actual = [1, 2].map do |i|
       find(:xpath, "//div[contains(@class,'obs-row')][#{i}]//input[@id='observation_species_id']").value
     end
-    assert_include(actual, 'Anas platyrhynchos')
-    assert_include(actual, 'Meleagris gallopavo')
+    assert_includes(actual, 'Anas platyrhynchos')
+    assert_includes(actual, 'Meleagris gallopavo')
   end
 
   test "Bulk edit functionality" do
@@ -252,9 +252,9 @@ class UIObservationsBulkTest < ActionDispatch::IntegrationTest
     crecre = Observation.where(species_id: Species.find_by_code('crecre')).order('id DESC').limit(1).first
     faltin = Observation.where(species_id: Species.find_by_code('faltin')).order('id DESC').limit(1).first
 
-    assert_false drymar.voice
+    refute drymar.voice
     assert crecre.voice
-    assert_false faltin.voice
+    refute faltin.voice
 
     within(:xpath, "//div[contains(@class,'obs-row')][1]") do
       check 'Voice?'
@@ -271,8 +271,8 @@ class UIObservationsBulkTest < ActionDispatch::IntegrationTest
     faltin.reload
 
     assert drymar.voice
-    assert_false crecre.voice
-    assert_false faltin.voice
+    refute crecre.voice
+    refute faltin.voice
 
   end
 
@@ -289,7 +289,7 @@ class UIObservationsBulkTest < ActionDispatch::IntegrationTest
     end
 
     assert find(:xpath, "//div[contains(@class,'obs-row')][3]").has_checked_field?('Voice?')
-    assert_false find(:xpath, "//div[contains(@class,'obs-row')][1]").has_checked_field?('Voice?')
+    refute find(:xpath, "//div[contains(@class,'obs-row')][1]").has_checked_field?('Voice?')
   end
 
 end

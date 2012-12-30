@@ -32,7 +32,7 @@ class LifelistTest < ActiveSupport::TestCase
 
   test 'Species lifelist by count does not include species never seen by me' do
     ob = create(:observation, species: seed(:parcae), observ_date: "2010-06-18", mine: false)
-    assert_not_include(Lifelist.basic.sort('count').map(&:id), ob.species_id)
+    refute_includes(Lifelist.basic.sort('count').map(&:id), ob.species_id)
   end
 
   test 'Species lifelist by count properly sorts the list' do
@@ -52,7 +52,7 @@ class LifelistTest < ActiveSupport::TestCase
 
   test 'Species lifelist by taxonomy does not include species never seen by me' do
     ob = create(:observation, species: seed(:parcae), observ_date: "2010-06-18", mine: false)
-    assert_not_include(Lifelist.basic.sort('class').map(&:id), ob.species_id)
+    refute_includes(Lifelist.basic.sort('class').map(&:id), ob.species_id)
   end
 
   test 'Species lifelist by taxonomy properly sorts the list' do
@@ -72,7 +72,7 @@ class LifelistTest < ActiveSupport::TestCase
 
   test 'Species lifelist by date does not include species never seen by me' do
     ob = create(:observation, species: seed(:parcae), observ_date: "2010-06-18", mine: false)
-    assert_not_include(Lifelist.basic.relation.pluck(:id), ob.species_id)
+    refute_includes(Lifelist.basic.relation.pluck(:id), ob.species_id)
   end
 
   test 'Species lifelist by date properly sorts the list' do

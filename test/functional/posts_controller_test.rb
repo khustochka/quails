@@ -131,8 +131,8 @@ class PostsControllerTest < ActionController::TestCase
     blogpost2 = create(:post, face_date: '2008-11-06 13:14:15')
     login_as_admin
     get :hidden
-    assert_include(assigns(:posts), blogpost1)
-    assert_not_include(assigns(:posts), blogpost2)
+    assert_includes(assigns(:posts), blogpost1)
+    refute_includes(assigns(:posts), blogpost2)
   end
 
   test 'show hidden post to admin' do

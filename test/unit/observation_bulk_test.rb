@@ -42,7 +42,7 @@ class ObservationBulkTest < ActiveSupport::TestCase
                                 o: [{species_id: ''}, {species_id: 2}]
                                })
     assert_difference('Observation.count', 0) do
-      assert_false bulk.save
+      refute bulk.save
     end
     assert_present bulk.errors
   end
@@ -87,7 +87,7 @@ class ObservationBulkTest < ActiveSupport::TestCase
                                 o: [{id: obs1.id},
                                        {id: obs2.id, species_id: nil}]
                                })
-    assert_false bulk.save
+    refute bulk.save
     assert_equal nil, obs1.reload.post
   end
 

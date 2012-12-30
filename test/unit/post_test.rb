@@ -65,8 +65,8 @@ class PostTest < ActiveSupport::TestCase
 
   test 'face date is treated as timezone-less' do
     blogpost = create(:post, face_date: '2013-01-01 00:30:00') # risky time (different days in GMT and EEST)
-    assert_include(Post.year(2013).pluck(:id), blogpost.id)
-    assert_not_include(Post.year(2012).pluck(:id), blogpost.id)
+    assert_includes(Post.year(2013).pluck(:id), blogpost.id)
+    refute_includes(Post.year(2012).pluck(:id), blogpost.id)
   end
 
   test 'calculate next and previous months correctly (last day in mind)' do
