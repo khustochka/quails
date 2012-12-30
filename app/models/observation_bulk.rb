@@ -6,7 +6,7 @@ class ObservationBulk < Array
     @test_obs = Observation.new(common)
     super(
         Array.wrap(params[:o]).map do |ind|
-          o = Observation.find_or_initialize_by_id(ind[:id])
+          o = Observation.find_or_initialize_by(id: ind[:id])
           ind[:voice] ||= false
           o.assign_attributes(ind.merge(common))
           o.one_of_bulk = true

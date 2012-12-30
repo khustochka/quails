@@ -11,9 +11,9 @@ class Locus < ActiveRecord::Base
   validates :name_en, :name_ru, :name_uk, :uniqueness => true, :allow_blank => true
 
   belongs_to :parent, :class_name => 'Locus'
-  has_many :children, :class_name => 'Locus', :foreign_key => 'parent_id', :dependent => :restrict
+  has_many :children, :class_name => 'Locus', :foreign_key => 'parent_id', :dependent => :restrict_with_exception
 
-  has_many :observations, :dependent => :restrict
+  has_many :observations, :dependent => :restrict_with_exception
 
   has_many :local_species
 

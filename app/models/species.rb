@@ -9,8 +9,8 @@ class Species < ActiveRecord::Base
   validates :code, :format => /\A[a-z]{6}\Z/, :uniqueness => true, :allow_blank => true
   validates :avibase_id, :format => /\A[\dA-F]{16}\Z/, :allow_blank => true
 
-  has_many :observations, :dependent => :restrict, :order => [:observ_date]
-  has_many :images, :through => :observations, :order => [:observ_date, :locus_id, :index_num]
+  has_many :observations, -> { order :observ_date }, dependent: :restrict_with_exception
+  has_many :images, -> { order(:observ_date, :locus_id, :index_num) }, through: :observations
   has_many :taxa
   has_many :posts, through: :observations, order: 'face_date DESC', uniq: true
 
