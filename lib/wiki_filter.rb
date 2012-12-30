@@ -10,9 +10,13 @@ module WikiFilter
     end.uniq.compact
 
     # TODO: use already calculated species of the post! the rest will be ok with separate requests?
-    spcs = Species.where("code IN (?) OR name_sci IN (?)", sp_codes, sp_codes)
-
-    species = spcs.index_by(&:code).merge(spcs.index_by(&:name_sci))
+    if sp_codes.any?
+      spcs = Species.where("code IN (?) OR name_sci IN (?)", sp_codes, sp_codes)
+      species = spcs.index_by(&:code).merge(spcs.index_by(&:name_sci))
+    else
+      spcs = []
+      species = {}
+    end
 
     #species = Hash.new do |hash, term|
     #  hash[term] = term.size == 6 ?
