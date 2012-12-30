@@ -13,6 +13,6 @@ module CrudHelper
   end
 
   def default_destroy_button
-    button_to('DELETE', {action: :destroy}, {confirm: 'Are you sure?', method: :delete})
+    button_to('DELETE', {action: :destroy}, {method: :delete, data: {confirm: 'Are you sure?'}})
   end
 end
