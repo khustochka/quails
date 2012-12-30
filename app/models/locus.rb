@@ -5,7 +5,7 @@ class Locus < ActiveRecord::Base
 
   TYPES = %w(Country Region Location)
 
-  validates :slug, :format => /^[a-z_]+$/i, :uniqueness => true, :presence => true, :length => {:maximum => 32}
+  validates :slug, :format => /\A[a-z_]+\Z/i, :uniqueness => true, :presence => true, :length => {:maximum => 32}
   validates :loc_type, :presence => true
   # FIXME: allow blank because imported locations do not have eng, ukr names
   validates :name_en, :name_ru, :name_uk, :uniqueness => true, :allow_blank => true
