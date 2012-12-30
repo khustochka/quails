@@ -72,7 +72,7 @@ class LifelistTest < ActiveSupport::TestCase
 
   test 'Species lifelist by date does not include species never seen by me' do
     ob = create(:observation, species: seed(:parcae), observ_date: "2010-06-18", mine: false)
-    assert_not_include(Lifelist.basic.map(&:id), ob.species_id)
+    assert_not_include(Lifelist.basic.relation.pluck(:id), ob.species_id)
   end
 
   test 'Species lifelist by date properly sorts the list' do

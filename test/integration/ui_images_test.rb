@@ -80,7 +80,7 @@ class UIImagesTest < ActionDispatch::IntegrationTest
     assert_difference('Image.count', 1) { click_button('Save') }
     img = Image.find_by_slug('test-img-capybara')
 
-    assert_equal ['Mergus serrator'], img.species.map(&:name_sci)
+    assert_equal ['Mergus serrator'], img.species.pluck(:name_sci)
   end
 
   test "Remove an observation from image" do
