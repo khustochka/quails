@@ -2,9 +2,11 @@
 
 # Your secret key for verifying the integrity of signed cookies.
 # If you change this key, all old signed cookies will become invalid!
+
 # Make sure the secret is at least 30 characters and all random,
 # no regular words or you'll be exposed to dictionary attacks.
+# You can use `rake secret` to generate a secure secret key.
 
-# It is now configured in security.yml and initialized in config/initializers/security.rb
-
-# Quails::Application.config.secret_token =
+# Make sure your secret_key_base is kept private
+# if you're sharing your code publicly.
+# Quails::Application.config.secret_key_base =
