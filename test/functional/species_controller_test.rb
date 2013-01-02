@@ -78,12 +78,11 @@ class SpeciesControllerTest < ActionController::TestCase
     assert_select "form[action=#{species_path(species)}]"
   end
 
-  # FIXME: disabled the test temporarily
-  #test "redirect species to correct URL " do
-  #  get :show, id: 'Corvus cornix'
-  #  assert_redirected_to species_path(id: 'Corvus_cornix')
-  #  assert_response 301
-  #end
+  test "redirect species to correct URL " do
+    get :show, id: 'Corvus cornix'
+    assert_redirected_to species_path(id: 'Corvus_cornix')
+    assert_response 301
+  end
 
   # HTTP auth tests
 

@@ -29,12 +29,13 @@ class SpeciesController < ApplicationController
     id_humanized = params[:id].sp_humanize
     @species = Species.find_by_name_sci(id_humanized) || Taxon.find_by_name_sci!(id_humanized).species
     if @species
-      #if params[:id] != @species.to_param
-        #redirect_to @species, :status => 301
+      if params[:id] != @species.to_param
+        redirect_to @species, :status => 301
         # TODO: set canonical, set NOCACHE, NOINDEX
-      #end
-      @posts = @species.posts.limit(10).merge(current_user.available_posts)
-      @months = @species.observations.except(:order).pluck("DISTINCT EXTRACT(month FROM observ_date)")
+      else
+        @posts = @species.posts.limit(10).merge(current_user.available_posts)
+        @months = @species.observations.except(:order).pluck("DISTINCT EXTRACT(month FROM observ_date)")
+      end
     else
       raise ActiveRecord::RecordNotFound, "Cannot find #{id_humanized}"
     end
