@@ -13,7 +13,7 @@
 
 %p= image_tag(jpg_url(@image))
 
-- list_type = @image.species.count == 1 ? :ul : :ol
+- list_type = @image.multi? ? :ol : :ul
 = content_tag(list_type) do
   - @image.species.each do |sp|
     %li
@@ -31,3 +31,13 @@
     встреча описана в посте «#{post_link(post_title(p), p, true)}».
 
 = wiki_filter(@image.description)
+
+-# TODO: more photos of several species
+-#- if @image.multi?
+-#  = link_to("More photos of several species", multi_spp_path)
+
+- if @prev
+  = link_to("<< Previous image", @prev)
+
+- if @next
+  = link_to("Next image >>", @next)

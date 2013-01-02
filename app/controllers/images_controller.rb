@@ -18,6 +18,8 @@ class ImagesController < ApplicationController
 
   # GET /images/1
   def show
+    @prev = Image.where("created_at < ?", @image.created_at).order('created_at DESC').first
+    @next = Image.where("created_at > ?", @image.created_at).order('created_at ASC').first
   end
 
   # GET /images/add # select flickr photo

@@ -28,6 +28,10 @@ class Image < ActiveRecord::Base
     flickr_id.present?
   end
 
+  def multi?
+    species.count > 1
+  end
+
   def public_title
     title.present? ? title : species[0].name # Not using || because of empty string possibility
   end
