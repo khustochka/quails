@@ -16,7 +16,7 @@ class ResearchController < ApplicationController
       query = MyObservation.select("species_id, observ_date").order(:observ_date).to_sql
       @list = Observation.connection.select_rows(query).group_by(&:first).each_with_object([]) do |obsdata, collection|
         sp, obss = obsdata
-        obs = obss.map {|_, d| Date.parse(d)}.each_cons(2).select do |ob1, ob2|
+        obs = obss.map { |_, d| Date.parse(d) }.each_cons(2).select do |ob1, ob2|
           (ob2 - ob1) >= @period
         end
         collection.concat(
@@ -94,28 +94,42 @@ class ResearchController < ApplicationController
         where('EXTRACT(day from observ_date) = ? AND EXTRACT(month from observ_date) = ?', @day, @month)
   end
 
-  def compare
-    l1 = params[:loc1]
-    l2 = params[:loc2]
+  def uptoday
+    @today = Date.today
+    @uptoday = MyObservation.where(
+        'EXTRACT(month FROM observ_date) < ? OR
+        (EXTRACT(month FROM observ_date) = ?
+        AND EXTRACT(day FROM observ_date) <= ?)',
+        @today.month, @today.month, @today.day
+    ).
+        order('EXTRACT(year FROM observ_date)').
+        group('EXTRACT(year FROM observ_date)').
+        count('DISTINCT species_id')
+end
 
-    if l1 && l2
-      @loc1 = Locus.find_by_slug(l1)
-      @loc2 = Locus.find_by_slug(l2)
+def compare
+  l1 = params[:loc1]
+  l2 = params[:loc2]
 
-      observations_source = if @loc1.country == @loc2.country
-                              MyObservation.where(locus_id: @loc1.country.subregion_ids)
-                            else
-                              MyObservation.scoped
-                            end
+  if l1 && l2
+    @loc1 = Locus.find_by_slug(l1)
+    @loc2 = Locus.find_by_slug(l2)
 
-      @species = Species.uniq.joins(:observations).merge(observations_source).ordered_by_taxonomy.extend(SpeciesArray)
+    observations_source = if @loc1.country == @loc2.country
+                            MyObservation.where(locus_id: @loc1.country.subregion_ids)
+                          else
+                            MyObservation.scoped
+                          end
 
-      @loc1_species = Species.uniq.joins(:observations).merge(MyObservation.where(locus_id: @loc1.subregion_ids)).all
-      @loc2_species = Species.uniq.joins(:observations).merge(MyObservation.where(locus_id: @loc2.subregion_ids)).all
-    else
-      l1 ||= 'kiev'
-      l2 ||= 'brovary'
-      redirect_to(loc1: l1, loc2: l2)
-    end
+    @species = Species.uniq.joins(:observations).merge(observations_source).ordered_by_taxonomy.extend(SpeciesArray)
+
+    @loc1_species = Species.uniq.joins(:observations).merge(MyObservation.where(locus_id: @loc1.subregion_ids)).all
+    @loc2_species = Species.uniq.joins(:observations).merge(MyObservation.where(locus_id: @loc2.subregion_ids)).all
+  else
+    l1 ||= 'kiev'
+    l2 ||= 'brovary'
+    redirect_to(loc1: l1, loc2: l2)
   end
+end
+
 end

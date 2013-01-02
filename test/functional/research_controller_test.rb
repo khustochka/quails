@@ -4,6 +4,7 @@ class ResearchControllerTest < ActionController::TestCase
   test "admin sees Research/index" do
     login_as_admin
     get :index
+    assert_response :success
     assert_template 'index'
   end
 
@@ -42,9 +43,16 @@ class ResearchControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "admin sees Research/uptoday" do
+    login_as_admin
+    get :uptoday
+    assert_response :success
+  end
+
   test "admin sees Research/environment" do
     login_as_admin
     get :environ
+    assert_response :success
     assert_template 'environ'
   end
 end
