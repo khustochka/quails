@@ -2,14 +2,12 @@
 
 %h1= research_page_header
 
-%p
-  Today is
-  %b= l(@today, format: :long)
+%h2= l(@today, format: :long)
 
 %dl
   - @uptoday.each do |year, number|
     %dt
-      %b= year
+      %b= link_to(year, list_path(year: year))
     %dd= number
 
 
