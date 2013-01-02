@@ -53,7 +53,7 @@
         - unless @image.new_record?
           %span.restore.pseudolink Restore original
         %ul.obs-list.current-obs
-          = render partial: 'observations/obs_item', collection: @image.observations
+          = render partial: 'observations/obs_item', collection: @image.observations.preload(:species, :locus)
       %td.observation_options
         %h5 Found observations
         %ul.obs-list.found-obs
