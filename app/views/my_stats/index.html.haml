@@ -13,25 +13,27 @@
   %li
     Я начал наблюдать птиц в августе 2007 года
   %li
-    = raw "Всего я встречал #{link_to(@total, lifelist_path)} видов"
+    Всего я встречал #{link_to(@total, lifelist_path)} видов
   %li
-    = raw "Из них #{link_to(@species_ukraine, list_path(locus: 'ukraine'))} на территории Украины"
+    Из них #{link_to(@species_ukraine, list_path(locus: 'ukraine'))} на территории Украины
 
 %h2 В 2013 году
 
 %ul
   %li
-    = raw "Я встретил #{link_to(@species_this_year, list_path(year: 2013))} видов"
-  %li
-    = raw "Из них #@new_this_year новых"
-  %li
-    Самый новый вид:
+    Я встретил #{link_to(@species_this_year, list_path(year: 2013))} видов
+  - if @new_this_year == 0
+    %li
+      Пока ни одного нового
+  - else
+    %li
+      Из них #{@new_this_year} новых
+    %li
+      Самый новый вид:
 
 %h2 Рекорды
 
 %ul
-  %li
-    Год, в котором встречено больше всего видов
   %li
     Год, в котором встречено больше всего видов
   %li
@@ -44,6 +46,11 @@
 %h2 Виды
 
 %ul
+  -# If latest new species is seen this year it will be shown in the appropriate section, otherwise here
+  - if @new_this_year == 0
+    %li
+      Самый новый вид:
+
   %li
     Самый давно не встречаемый вид
   %li
