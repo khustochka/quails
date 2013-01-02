@@ -31,7 +31,7 @@
   %h3 Latest posts
   %ul
     - posts.each do |post|
-      %li= post_link(post.title, post)
+      %li= post_link(post_title(post), post)
 
 - if @species.observations.present?
   %h3 Observation stats
