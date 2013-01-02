@@ -2,12 +2,18 @@
 
 %h1= research_page_header
 
-%h2= l(@today, format: :long)
+%h2
+  = link_to "<", day: @prev_day.strftime("%m-%d")
+  = l(@this_day, format: :long)
+  = link_to ">", day: @next_day.strftime("%m-%d")
 
 %dl
   - @uptoday.each do |year, number|
     %dt
       %b= link_to(year, list_path(year: year))
-    %dd= number
+      - if year.to_s == @today.year.to_s && @this_day > @today
+        %span.errors &mdash; This day is in the future.
+    %dd
+      = number
 
 
