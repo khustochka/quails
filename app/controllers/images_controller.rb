@@ -2,18 +2,23 @@ class ImagesController < ApplicationController
 
   respond_to :json, only: [:flickr_search, :observations]
 
-  administrative except: [:index, :show, :gallery, :country]
+  administrative except: [:index, :various, :show, :gallery, :country]
 
   find_record by: :slug, before: [:show, :edit, :flickr_edit, :map_edit, :update, :patch, :destroy]
 
   after_filter :cache_expire, only: [:create, :update, :destroy]
 
-  # Latest addons
+  # Latest additions
   def index
     redirect_to page: nil if params[:page].to_i == 1
     @robots = 'NOINDEX, NOARCHIVE' if params[:page]
     @images = Image.preload(:species).order('created_at DESC').page(params[:page]).per(20)
     @feed = 'photos'
+  end
+
+  # Photos of various species
+  def various
+    @images = Image.various_species
   end
 
   # GET /images/1

@@ -51,6 +51,11 @@ class RoutingTest < ActionDispatch::IntegrationTest
                    {controller: 'images', action: 'show', id: 'lesser_spotted_eagle'}
   end
 
+  test 'route to photos of several species' do
+    assert_routing '/photos/various',
+                   {controller: 'images', action: 'various'}
+  end
+
   test 'photos paging' do
     assert_routing '/photos/page/2',
                    {controller: 'images', action: 'index', page: '2'}

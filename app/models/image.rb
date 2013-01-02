@@ -16,6 +16,12 @@ class Image < ActiveRecord::Base
     slug_was
   end
 
+  # Photos with several species
+  def self.various_species
+    rel = select(:image_id).from("images_observations").group(:image_id).having("COUNT(observation_id) > 1")
+    where("id IN (#{rel.to_sql})").preload(:species).order('created_at ASC')
+  end
+
   # Associations
 
   def post(posts_source)

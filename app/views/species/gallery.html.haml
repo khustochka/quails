@@ -5,5 +5,14 @@
 %ul.horiz-list
   %li= link_to('Birds of Ukraine', country_path(country: 'ukraine'))
   %li= link_to('Birds of USA', country_path(country: 'usa'))
+  - if @thumbnail_for_various
+    %li= link_to('Photos of several species', photos_various_path)
 
 = render :partial => 'thumbnail', :collection => @species
+
+- if @thumbnail_for_various
+  %div.imageholder
+    = link_to image_tag(thumbnail_url(@thumbnail_for_various), alt: "Photos of several species"), photos_various_path
+    %div.imagetitle
+      = link_to photos_various_path do
+        %div Photos of several species

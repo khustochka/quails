@@ -2,6 +2,9 @@
 require 'test_helper'
 
 class SpeciesControllerTest < ActionController::TestCase
+
+  include ImagesHelper
+
   setup do
   end
 
@@ -22,6 +25,25 @@ class SpeciesControllerTest < ActionController::TestCase
     assert_response :success
     assert_not_nil assigns(:species)
     assert_select "a[href=#{species_path(@obs.species)}]"
+  end
+
+  test "show link to various species on gallery" do
+    # Setup main image for species
+    @image = create(:image)
+    seed(:pasdom).update_column(:image_id, @image.id)
+    @obs = @image.observations.first
+
+    # Setup photo of several species
+    sp1 = seed(:lancol)
+    sp2 = seed(:jyntor)
+    obs1 = create(:observation, species: sp1, observ_date: "2008-07-01")
+    obs2 = create(:observation, species: sp2, observ_date: "2008-07-01")
+    img = create(:image, slug: 'picture-of-the-shrike-and-the-wryneck', observations: [obs1, obs2])
+
+    get :gallery
+    assert_response :success
+    assert_not_nil assigns(:thumbnail_for_various)
+    assert_select "a[href=#{photos_various_path}] img[src=#{thumbnail_url(img)}]"
   end
 
   test "species index properly ordered" do
