@@ -12,14 +12,22 @@
 = render 'admin/shortcuts' if current_user.admin?
 
 %p= image_tag(jpg_url(@image))
-%p
-  %i= @image.species.map(&:name_sci) * ', '
 
-%p= [l(@image.observ_date, :format => :long), @image.locus.name] * ', '
+- list_type = @image.species.count == 1 ? :ul : :ol
+= content_tag(list_type) do
+  - @image.species.each do |sp|
+    %li
+      = species_link(sp)
+      = name_sci(sp)
+
+- p = @image.post(current_user.available_posts)
+- stop = p ? ";" : "."
+
+%p
+  Снято #{l(@image.observ_date, :format => :long)},
+  %i= "#{@image.locus.name}#{stop}"
+
+  - if p
+    встреча описана в посте «#{post_link(post_title(p), p, true)}».
 
 = wiki_filter(@image.description)
-
-- if p = @image.post(current_user.available_posts)
-  %p
-    Post:
-    = post_link(post_title(p), p, true)
