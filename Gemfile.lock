@@ -132,6 +132,7 @@ GEM
     rake (10.0.3)
     rdoc (3.12)
       json (~> 1.4)
+    roman-numerals (0.3.0)
     rubinius-actor (0.0.2)
       rubinius-core-api
     rubinius-core-api (0.0.1)
@@ -206,6 +207,7 @@ DEPENDENCIES
   rails-i18n
   rails3-generators
   rails_autolink
+  roman-numerals
   ruby-prof
   sass-rails (~> 3.2.3)
   simple_form (~> 2.0)

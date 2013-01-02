@@ -1,15 +1,20 @@
 - @page_title = "#{@species.name} (#{@species.name_sci})"
 
 %p
-  Order
-  %b= @species.order
-  \/ Family
-  %b= @species.family
+  = t("taxonomy.order")
+  %strong= t("taxonomy.#{@species.order}") rescue nil
+  %i.sci_name= @species.order
+  &bull;
+  = t("taxonomy.family")
+  %strong= t("taxonomy.#{@species.family}") rescue nil
+  %i.sci_name= @species.family
 
 %h1= @species.name
 %h2= @species.name_sci
 
 %p= @species.authority
+
+= render 'admin/shortcuts' if current_user.admin?
 
 %dl
   - %w(en fr ru uk).map do |lang|
@@ -17,9 +22,26 @@
       %b #{lang} name:
     %dd #{@species.send("name_#{lang}")}
 
-= render 'admin/shortcuts' if current_user.admin?
-
 - @species.images.if_present do |images|
   %div.photos
     %h3 Images
     = render :partial => 'images/thumbnail', :collection => images
+
+- @posts.if_present do |posts|
+  %h3 Latest posts
+  %ul
+    - posts.each do |post|
+      %li= post_link(post.title, post)
+
+- if @species.observations.present?
+  %h3 Observation stats
+  %p
+    Total observations:
+    %strong= @species.observations.count
+
+  %h4 Monthly
+  %table.monthly
+    %tr
+      - 1.upto(12) do |m|
+        - month_class, tag = @months.include?(m.to_s) ? ["seen_this_month", :strong] : [nil, :span]
+        %td{class: month_class}= content_tag(tag, RomanNumerals.to_roman(m))
