@@ -6,25 +6,13 @@
 
   - cache [:navigation_header, locale: I18n.locale] do
 
-    = link_to(image_tag('/img/logo.png'), root_path, :id => 'site_cap')
+    -#= link_to(image_tag('/img/logo.png'), root_path, :id => 'site_cap')
 
     %ul#site_menu.horiz-list(role="navigation")
-      %li
-        = link_to t('.menu.blog'), blog_path
-        %ul
-          %li= link_to t('.menu.archive'), archive_path
+      %li= link_to t('.menu.blog'), blog_path
 
-      %li
-        = link_to t('.menu.birds_ukraine'), country_path(country: 'ukraine')
-        %ul
-          %li= link_to t('.menu.checklist'), checklist_path(country: 'ukraine')
+      %li= link_to t('.menu.birds_ukraine'), country_path(country: 'ukraine')
 
-      %li
-        = link_to t('.menu.galery'), gallery_path
-        %ul
-          %li= link_to t('.menu.photos'), images_path
+      %li= link_to t('.menu.galery'), gallery_path
 
-      %li
-        = link_to t('.menu.my_stats'), my_stats_path
-        %ul
-          %li= link_to t('.menu.lifelist'), lifelist_path
+      %li= link_to t('.menu.lifelist'), lifelist_path

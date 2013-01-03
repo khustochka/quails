@@ -12,6 +12,13 @@
     %li= link_to 'Research', research_path
     %li= link_to 'Map Edit', edit_map_path
     %li= link_to 'Settings', settings_path
+
+  %ul.admin_menu.horiz-list
+    %li= link_to t('partials.header.menu.archive'), archive_path
+    %li= link_to t('partials.header.menu.checklist'), checklist_path(country: 'ukraine')
+    %li= link_to t('partials.header.menu.photos'), images_path
+    %li= link_to t('partials.header.menu.my_stats'), my_stats_path
+
 - elsif current_user.has_admin_cookie?
   %ul.admin_menu.horiz-list
     %li= link_to 'Login', login_path
