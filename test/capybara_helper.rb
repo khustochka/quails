@@ -62,6 +62,11 @@ module JavaScriptTestCase
         Capybara.use_default_driver
       end
 
+      def submit_with_button(button)
+        click_button(button)
+        sleep 2
+      end
+
       def select_suggestion(value, hash)
         selector = ".ui-menu-item a:contains(\"#{value}\"):first"
         fill_in hash[:from], with: value
