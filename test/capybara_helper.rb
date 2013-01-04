@@ -1,6 +1,7 @@
 require 'capybara/rails'
 require 'database_cleaner'
 require 'seed_tables'
+require 'capybara_drivers'
 
 # Transactional fixtures do not work with Selenium tests, because Capybara
 # uses a separate server thread, which the transactions would be hidden
@@ -43,6 +44,7 @@ module CapybaraTestCase
       # visit '/login'
     else
       # FIXME for this to work you need to add pref("network.http.phishy-userpass-length", 255); to /Applications/Firefox.app/Contents/MacOS/defaults/pref/firefox.js
+      # For IE: Set an “iexplore.exe” DWORD to 0 in HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_HTTP_USERNAME_PASSWORD_DISABLE.
       str = "http://%s:%s@%s:%s/login"
       visit str % [test_credentials.username, test_credentials.password, page.server.host, page.server.port]
     end
@@ -55,7 +57,7 @@ module JavaScriptTestCase
       include CapybaraTestCase
 
       setup do
-        Capybara.current_driver = Capybara.javascript_driver
+        Capybara.current_driver = ENV['JS_DRIVER'].to_sym || Capybara.javascript_driver
       end
 
       teardown do
