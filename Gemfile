@@ -5,10 +5,10 @@ ruby '1.9.3'
 gem 'rails', '3.2.10'
 # gem 'rails', github: 'rails/rails'
 
-gem 'pg', :platforms => [:ruby, :mingw]
-gem "activerecord-jdbcpostgresql-adapter", :platforms => :jruby
+gem 'pg', platforms: [:ruby, :mingw]
+gem "activerecord-jdbcpostgresql-adapter", platforms: :jruby
 
-gem 'unicorn', :require => false, :platforms => :ruby
+gem 'unicorn', require: false, platforms: :ruby
 
 group :production do
   gem 'airbrake', require: false
@@ -24,7 +24,7 @@ gem 'RedCloth'
 gem 'kaminari'
 gem 'rails_autolink'
 gem 'simple_form', '~> 2.0'
-gem 'flickraw', '~> 0.9.5', :require => false
+gem 'flickraw', '~> 0.9.5', require: false
 gem 'flickraw-cached'
 gem 'hashie'
 gem 'roman-numerals'
@@ -43,21 +43,22 @@ end
 
 group :development do
   gem 'rails3-generators'
-  gem 'nokogiri', :platforms => [:ruby, :mingw], :require => false
+  gem 'nokogiri', platforms: [:ruby, :mingw], require: false
 end
 
 group :development, :vps do
-  gem 'grit', '~> 2.5', :require => false, :platforms => [:ruby, :mingw]
-  gem 'mysql2', '~> 0.3.7', :platforms => :ruby, :require => false
+  gem 'grit', '~> 2.5', require: false, platforms: [:ruby, :mingw]
+  gem 'mysql2', '~> 0.3.7', platforms: :ruby, require: false
 end
 
 # in dev group for generators
-gem 'factory_girl_rails', '~> 4.0', :groups => [:development, :test]
+gem 'factory_girl_rails', '~> 4.0', groups: [:development, :test]
 
 group :test do
   gem 'test-unit'
-  gem 'ruby-prof', :require => false, :platforms => [:mri, :mingw]
+  gem 'ruby-prof', require: false, platforms: [:mri, :mingw]
   gem 'capybara', '~> 2.0'
+  gem 'database_cleaner', require: false
   gem 'launchy' # So you can do Then show me the page
-  gem 'simplecov', :require => false, :platforms => [:ruby, :mingw]
+  gem 'simplecov', require: false, platforms: [:ruby, :mingw]
 end

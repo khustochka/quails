@@ -1,6 +1,13 @@
 require 'capybara/rails'
+require 'database_cleaner'
+require 'seed_tables'
 
-# To enable transactions (i.e. proper teardown) for tests run via selenium
+# Transactional fixtures do not work with Selenium tests, because Capybara
+# uses a separate server thread, which the transactions would be hidden
+# from. We hence use DatabaseCleaner to truncate our test database.
+DatabaseCleaner.strategy = [:truncation, except: SEED_TABLES]
+
+# To enable FactoryGirl (and probably transactions) for tests run via selenium
 # https://groups.google.com/forum/#!msg/ruby-capybara/JI6JrirL9gM/R6YiXj4gi_UJ
 class ActiveRecord::Base
   mattr_accessor :shared_connection
@@ -19,7 +26,11 @@ module CapybaraTestCase
   include Capybara::DSL
 
   def self.included(klass)
+    # Stop ActiveRecord from wrapping tests in transactions
+    klass.use_transactional_fixtures = false
+
     klass.teardown do
+      DatabaseCleaner.clean
       Capybara.reset_sessions!
     end
   end

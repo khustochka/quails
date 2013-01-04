@@ -7,6 +7,7 @@
 #   Mayor.create(:name => 'Daley', :city => cities.first)
 
 require 'bunch_db/table'
+require 'seed_tables'
 
 local_opts = YAML.load_file('config/local.yml')
 dirname = File.join(local_opts['repo'], 'seed')
