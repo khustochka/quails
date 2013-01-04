@@ -57,7 +57,7 @@ module JavaScriptTestCase
       include CapybaraTestCase
 
       setup do
-        Capybara.current_driver = ENV['JS_DRIVER'].to_sym || Capybara.javascript_driver
+        Capybara.current_driver = ENV['JS_DRIVER'].try(:to_sym) || Capybara.javascript_driver
       end
 
       teardown do
