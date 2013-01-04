@@ -1,16 +1,15 @@
 "en":
-  partials:
-    header:
-      menu:
-        blog: Blog
-        archive: Archive
-        birds_ukraine: Birds of Ukraine
-        checklist: Checklist
-        galery: Bird Photos
-        photos: Recently added
-        my_stats: My Stats
-        lifelist: Lifelist
+  menu:
+    blog: Blog
+    archive: Archive
+    birds_ukraine: Birds of Ukraine
+    checklist: Checklist
+    galery: Bird Photos
+    photos: Recently added
+    my_stats: My Stats
+    lifelist: Lifelist
 
+  partials:
     years:
       years: 'Year:'
 
