@@ -123,7 +123,7 @@ SimpleForm.setup do |config|
   # config.country_priority = nil
 
   # Default size for text inputs.
-  config.default_input_size = nil
+  config.default_input_size = 0
 
   # When false, do not use translations for labels.
   # config.translate_labels = true
