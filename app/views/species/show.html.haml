@@ -25,7 +25,8 @@
 - @species.images.if_present do |images|
   %div.photos
     %h3 Images
-    = render :partial => 'images/thumbnail', :collection => images
+    %ul.thumbnails
+      = render :partial => 'images/thumbnail', :collection => images
 
 - @posts.if_present do |posts|
   %h3 Latest posts

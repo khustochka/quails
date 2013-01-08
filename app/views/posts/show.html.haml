@@ -15,7 +15,8 @@
   - @post.images.if_present do |images|
     %div.photos
       %h3= t('.sections.photos')
-      = render partial: 'images/thumbnail', collection: images
+      %ul.thumbnails
+        = render partial: 'images/thumbnail', collection: images
 
 - @post.species.if_present do |spcs|
   %p

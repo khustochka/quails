@@ -4,6 +4,7 @@
 
 %h1= page_header
 
-= render :partial => 'thumbnail', :collection => @images
+%ul.thumbnails
+  = render :partial => 'thumbnail', :collection => @images
 
 = paginate @images

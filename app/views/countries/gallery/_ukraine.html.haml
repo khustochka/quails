@@ -7,4 +7,5 @@
   - if sps = species_rarity[common]
     %h2= t(".is_common.#{common}")
 
-    = render :partial => 'species/thumbnail', :collection => sps.map(&:taxon)
+    %ul.thumbnails
+      = render :partial => 'species/thumbnail', :collection => sps.map(&:taxon)

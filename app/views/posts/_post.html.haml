@@ -8,7 +8,8 @@
 
     = wiki_filter(post.text)
     - post.images.if_present do |images|
-      %div= render partial: 'images/thumbnail', collection: images
+      %ul.thumbnails
+        = render partial: 'images/thumbnail', collection: images
 
   %p.comment_links
     - post.comments.size.tap do |cmt_count|
