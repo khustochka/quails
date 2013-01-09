@@ -1,5 +1,7 @@
 - if current_user.admin?
-  %ul.admin_menu.horiz-list
+  %ul.admin_menu
+    %li.switcher
+      %span Menu
     %li= link_to '+ Post', new_post_path
     %li= link_to '+ Obs', add_observations_path
     %li= link_to '+ Image', add_images_path
@@ -12,8 +14,7 @@
     %li= link_to 'Research', research_path
     %li= link_to 'Map Edit', edit_map_path
     %li= link_to 'Settings', settings_path
-
-  %ul.admin_menu.horiz-list
+    %hr
     %li= link_to t('menu.archive'), archive_path
     %li= link_to t('menu.checklist'), checklist_path(country: 'ukraine')
     %li= link_to t('menu.photos'), images_path
@@ -21,5 +22,5 @@
     %li= link_to t('menu.lifelist'), lifelist_path
 
 - elsif current_user.has_admin_cookie?
-  %ul.admin_menu.horiz-list
-    %li= link_to 'Login', login_path
+  %ul.admin_menu
+    %li.switcher= link_to 'Login', login_path
