@@ -1,32 +1,10 @@
-@mixin inline-block
-  display: inline-block
-  // IE inline-block fix
-  zoom: 1
-  *display: inline
-
-@mixin horiz-list
-  list-style: none
-  list-style-image: none
-  padding: 0
-  li
-    @include inline-block
+@import 'new_mixins'
 
 .horiz-list
   @include horiz-list
 
 body
   padding: 0 1em
-
-#header
-  margin: auto
-  max-width: 896px
-
-$margin-between: 8px
-#site_menu
-  margin-left: -$margin-between
-  @include horiz-list
-  li
-    margin: auto $margin-between
 
 .main
   margin: auto

@@ -1,0 +1,33 @@
+@import 'new_mixins'
+
+// Layouts
+
+#header
+  margin: auto
+  max-width: 896px
+
+$margin-between: 8px
+#site_menu
+  margin-left: -$margin-between
+  @include horiz-list
+  li
+    margin: auto $margin-between
+
+
+// Looks
+
+#header
+  border-bottom: 1px solid #aabfaa
+
+$site-menu-color: #339966
+#site_menu
+  font-size: 20px
+  a
+    color: #339966
+    padding: 2px 3px
+    text-decoration: none
+    border-bottom: 1px dotted $site-menu-color
+    border-bottom: 2px solid rgba($site-menu-color, 0.4)
+  a:hover
+    border-bottom: 2px solid lighten($site-menu-color, 4)
+    border-bottom: 2px solid rgba($site-menu-color, 0.7)

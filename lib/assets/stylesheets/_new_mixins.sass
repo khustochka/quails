@@ -1,0 +1,12 @@
+@mixin inline-block
+  display: inline-block
+  // IE inline-block fix
+  zoom: 1
+  *display: inline
+
+@mixin horiz-list
+  list-style: none
+  list-style-image: none
+  padding: 0
+  li
+    @include inline-block
