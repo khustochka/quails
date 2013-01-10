@@ -2,6 +2,7 @@ body
   background-color: #ffffff
   color: #111111
 
+// Links
 .main, div.footer
   a
     color: $link-color
@@ -10,3 +11,14 @@ body
     background-color: $link-color
     color: #fff
     text-decoration: none
+
+.post
+
+  img
+    border: 1px solid #444
+
+  // Necessary to remove a:hover background-color in img inside a
+  a img
+    vertical-align: top
+    margin-bottom: 4px
+    border: 2px solid darken($link-color, 10%)
