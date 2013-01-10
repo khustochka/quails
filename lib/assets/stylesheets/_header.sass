@@ -4,16 +4,22 @@
 
 #header
   border-bottom: 1px solid #aabfaa
+  margin: 0 -1em
+//  background-color: #F8F8C0
 
 #menucontainer
   position: relative
   margin: auto
   max-width: 896px
+  padding: 0 1em
 
 $margin-between: 8px
 #site_menu
   display: inline-block
-  margin-left: -$margin-between
+  margin:
+    top: 5px
+    bottom: 5px
+    left: -$margin-between
   @include horiz-list
   li
     margin: auto $margin-between
@@ -24,6 +30,7 @@ $margin-between: 8px
 $site-menu-color: #339966
 #site_menu
   font-size: 20px
+  line-height: 2.2em
   a
     color: #339966
     padding: 2px 3px
