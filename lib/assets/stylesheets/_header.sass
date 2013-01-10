@@ -3,9 +3,7 @@
 // Layouts
 
 #header
-  border-bottom: 1px solid #aabfaa
   margin: 0 -1em
-//  background-color: #F8F8C0
 
 #menucontainer
   position: relative
@@ -19,7 +17,7 @@ $margin-between: 8px
   margin:
     top: 5px
     bottom: 5px
-    left: -$margin-between
+    left: -($margin-between + 1)
   @include horiz-list
   li
     margin: auto $margin-between
@@ -27,12 +25,16 @@ $margin-between: 8px
 
 // Looks
 
-$site-menu-color: #339966
+#header
+  border-bottom: 1px dotted #aaaabf
+  background-color: #f7f7f1
+
+$site-menu-color: #407FBF
 #site_menu
   font-size: 20px
   line-height: 2.2em
   a
-    color: #339966
+    color: $site-menu-color
     padding: 2px 3px
     text-decoration: none
     border-bottom: 1px dotted $site-menu-color
