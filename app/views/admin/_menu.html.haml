@@ -2,9 +2,9 @@
   %ul.admin_menu
     %li.switcher
       %span Menu
-    %li= link_to '+ Post', new_post_path
-    %li= link_to '+ Obs', add_observations_path
-    %li= link_to '+ Image', add_images_path
+    %li.adder= link_to '+ Post', new_post_path
+    %li.adder= link_to '+ Observation', add_observations_path
+    %li.adder= link_to '+ Image', add_images_path
     %li= link_to 'Drafts', hidden_posts_path
     %li= link_to 'Observations', observations_path
     %li= link_to 'Species', admin_species_index_path
