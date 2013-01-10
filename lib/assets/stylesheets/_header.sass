@@ -3,11 +3,16 @@
 // Layouts
 
 #header
+  border-bottom: 1px solid #aabfaa
+
+#menucontainer
+  position: relative
   margin: auto
   max-width: 896px
 
 $margin-between: 8px
 #site_menu
+  display: inline-block
   margin-left: -$margin-between
   @include horiz-list
   li
@@ -15,9 +20,6 @@ $margin-between: 8px
 
 
 // Looks
-
-#header
-  border-bottom: 1px solid #aabfaa
 
 $site-menu-color: #339966
 #site_menu
