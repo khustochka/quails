@@ -13,6 +13,9 @@
     years:
       years: 'Год:'
 
+  author:
+    name: Виталий Хусточка
+
   misc:
     all: Все
 

@@ -2,7 +2,7 @@ atom_feed(:id => "tag:#{request.host},2008-03-24:/gallery") do |feed|
   feed.title("Birds photos")
   feed.updated(@photos.first.created_at) if @photos.present?
   feed.author do |a|
-    a.name('Vitalii Khustochka')
+    a.name t('author.name')
   end
 
   @photos.each do |img|

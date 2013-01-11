@@ -2,7 +2,7 @@ atom_feed(:id => "tag:#{request.host},2008-03-24:/blog") do |feed|
   feed.title("Birdwatching diary")
   feed.updated(@posts.first.face_date) if @posts.present?
   feed.author do |a|
-    a.name('Vitalii Khustochka')
+    a.name t('author.name')
   end
 
   @posts.each do |post|
