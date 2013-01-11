@@ -14,6 +14,5 @@
   %p.comment_links
     - post.comments.size.tap do |cmt_count|
       - if cmt_count > 0
-        = succeed ' | ' do
-          = link_to t('.comments', count: cmt_count), public_post_path(post, anchor: 'comments')
-      = link_to t('.add_comment'), public_post_path(post, anchor: 'add_comment')
+        = link_to t('.comments', count: cmt_count), public_post_path(post, anchor: 'comments'), class: 'num_comments'
+      = link_to t('.add_comment'), public_post_path(post, anchor: 'add_comment'), class: 'add_comment'

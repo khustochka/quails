@@ -24,7 +24,7 @@
         one: '1 комментарий'
         few: '%{count} комментария'
         many: '%{count} комментариев'
-      add_comment: Добавить комментарий
+      add_comment: Комментировать
 
   comments:
     comment:

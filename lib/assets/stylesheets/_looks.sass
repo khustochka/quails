@@ -44,6 +44,9 @@ div.footer
 
 // Post
 
+.post-box
+  border-bottom: 1px solid #dddddd
+
 .post
 
   .header-with-subheader time
@@ -60,3 +63,30 @@ div.footer
     vertical-align: top
     margin-bottom: 4px
     border: 2px solid darken($link-color, 10%)
+
+.comment_links
+  text-align: right
+  a
+    display: inline-block
+    font-weight: bold
+
+  a.num_comments
+    margin: 12px 5px
+    &:hover
+      background-color: #ffffff
+      color: $link-color
+      text-decoration: underline
+
+  a.add_comment
+    padding: 5px 8px
+    margin:
+      bottom: 10px
+      left: 5px
+      right: 1px
+    border-radius: 2px
+    background-color: $link-color
+    color: #ffffff
+    text-decoration: none
+    &:hover
+      text-decoration: underline
+
