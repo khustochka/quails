@@ -4,9 +4,6 @@
 
 #header
   margin: 0 -1em
-//  width: 100%
-//  position: fixed
-//  top: 0
 
 #menucontainer
   position: relative
@@ -40,11 +37,5 @@ $site-menu-color: #407FBF
   font-size: 20px
   line-height: 2.2em
   a
-    color: $site-menu-color
+    @include deep-bordered-link($site-menu-color)
     padding: 2px 3px
-    text-decoration: none
-    border-bottom: 1px dotted $site-menu-color
-    border-bottom: 2px solid rgba($site-menu-color, 0.4)
-  a:hover
-    border-bottom: 2px solid lighten($site-menu-color, 4)
-    border-bottom: 2px solid rgba($site-menu-color, 0.7)

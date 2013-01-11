@@ -12,3 +12,20 @@
     @include inline-block
 
 $link-color: darken(#33aa66, 10%)
+
+@mixin basic-link($ln-color: $link-color)
+  color:  $ln-color
+  &:hover
+    background-color: $ln-color
+    color: #ffffff
+    text-decoration: none
+    
+@mixin deep-bordered-link($ln-color)
+  color: $ln-color
+  text-decoration: none
+  border-bottom: 1px dotted $ln-color
+  border-bottom: 2px solid rgba($ln-color, 0.4)
+  background-color: inherit
+  &:hover
+    border-bottom: 2px solid lighten($ln-color, 4)
+    border-bottom: 2px solid rgba($ln-color, 0.7)    
