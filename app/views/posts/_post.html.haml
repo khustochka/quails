@@ -12,8 +12,8 @@
       %ul.thumbnails
         = render partial: 'images/thumbnail', collection: images
 
-  %p.comment_links
+  %ul.comment_links
     - post.comments.size.tap do |cmt_count|
+      %li= link_to t('.add_comment'), public_post_path(post, anchor: 'add_comment'), class: 'add_comment'
       - if cmt_count > 0
-        = link_to t('.comments', count: cmt_count), public_post_path(post, anchor: 'comments'), class: 'num_comments'
-      = link_to t('.add_comment'), public_post_path(post, anchor: 'add_comment'), class: 'add_comment'
+        %li= link_to t('.comments', count: cmt_count), public_post_path(post, anchor: 'comments'), class: 'num_comments'

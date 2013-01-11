@@ -64,7 +64,7 @@ div.footer
     border: 2px solid darken($link-color, 10%)
 
 .comment_links
-  text-align: right
+  @include horiz-list
   a
     display: inline-block
     font-weight: bold
@@ -80,8 +80,8 @@ div.footer
     padding: 5px 8px
     margin:
       bottom: 10px
-      left: 5px
-      right: 1px
+      right: 5px
+      left: 1px
     border-radius: 2px
     background-color: $link-color
     color: #ffffff
