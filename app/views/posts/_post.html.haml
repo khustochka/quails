@@ -14,6 +14,6 @@
 
   %ul.comment_links
     - post.comments.size.tap do |cmt_count|
-      %li= link_to t('.add_comment'), public_post_path(post, anchor: 'add_comment'), class: 'add_comment'
+      %li.add_comment= link_to t('.add_comment'), public_post_path(post, anchor: 'add_comment')
       - if cmt_count > 0
-        %li= link_to t('.comments', count: cmt_count), public_post_path(post, anchor: 'comments'), class: 'num_comments'
+        %li.num_comments= link_to t('.comments', count: cmt_count), public_post_path(post, anchor: 'comments')

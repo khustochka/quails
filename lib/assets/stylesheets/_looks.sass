@@ -15,9 +15,9 @@ h3
   color: lighten($base-header-color, 20%)
 
 // Links
-.main, div.footer
-  a
-    @include basic-link($link-color)
+//.main, div.footer
+a
+  @include basic-link($link-color)
 
 // Footer
 
@@ -60,27 +60,39 @@ div.footer
 
 .comment_links
   @include horiz-list
+  font-weight: bold
+  margin-bottom: 10px
+  li
+    width: 45%
+    margin: 10px
+  li.add_comment
+    text-align: right
   a
-    display: inline-block
-    font-weight: bold
+    @include deep-bordered-link($link-color)
+  //a.num_comments
+  //  margin: 12px 5px
+  //  &:hover
+  //    background-color: #ffffff
+  //    color: $link-color
+  //    text-decoration: underline
+  //
+  //a.add_comment
+  //  padding: 5px 8px
+  //  margin:
+  //    bottom: 10px
+  //    right: 5px
+  //    left: 1px
+  //  border-radius: 2px
+  //  background-color: $link-color
+  //  color: #ffffff
+  //  text-decoration: none
+  //  &:hover
+  //    text-decoration: underline
 
-  a.num_comments
-    margin: 12px 5px
-    &:hover
-      background-color: #ffffff
-      color: $link-color
-      text-decoration: underline
+nav.month-navigation
+  font-weight: bold
+  color: #555555
+  a
+    @include deep-bordered-link($link-color)
 
-  a.add_comment
-    padding: 5px 8px
-    margin:
-      bottom: 10px
-      right: 5px
-      left: 1px
-    border-radius: 2px
-    background-color: $link-color
-    color: #ffffff
-    text-decoration: none
-    &:hover
-      text-decoration: underline
 

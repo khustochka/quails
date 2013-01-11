@@ -20,7 +20,8 @@ $link-color: darken(#33aa66, 10%)
     color: #ffffff
     text-decoration: none
     
-@mixin deep-bordered-link($ln-color)
+@mixin bordered-link($ln-color)
+  padding: 2px 3px
   color: $ln-color
   text-decoration: none
   border-bottom: 1px dotted $ln-color
@@ -29,3 +30,7 @@ $link-color: darken(#33aa66, 10%)
   &:hover
     border-bottom: 2px solid lighten($ln-color, 4)
     border-bottom: 2px solid rgba($ln-color, 0.7)    
+
+@mixin deep-bordered-link($ln-color)
+  padding: 2px 3px
+  @include bordered-link($ln-color)
