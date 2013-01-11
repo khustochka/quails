@@ -10,3 +10,13 @@ preload_app true
 # Immediately restart any workers that
 # haven't responded within 30 seconds
 timeout 30
+
+before_fork do |server, worker|
+  defined?(ActiveRecord::Base) and
+      ActiveRecord::Base.connection.disconnect!
+end
+
+after_fork do |server, worker|
+   defined?(ActiveRecord::Base) and
+      ActiveRecord::Base.establish_connection
+end
