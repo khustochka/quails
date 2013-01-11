@@ -14,7 +14,7 @@
   = wiki_filter(@post.text)
   - @post.images.if_present do |images|
     %div.photos
-      %h3= t('.sections.photos')
+      %h2= t('.sections.photos')
       %ul.thumbnails
         = render partial: 'images/thumbnail', collection: images
 
@@ -23,11 +23,11 @@
     %b= t('.sections.species')
     = spcs.map { |sp| species_link(sp) }.join(",\n").html_safe
 
-%h3#comments= t('.sections.comments')
+%h2#comments= t('.sections.comments')
 
 = render @comments[0] if @comments[0]
 
-%h4#add_comment= t('.add_comment')
+%h3#add_comment= t('.add_comment')
 
 = render "comments/form"
 
