@@ -4,21 +4,20 @@ p
   line-height: 1.3em
 
 // 100% height
-$footer-height: 40px
+$footer-margin: 59px
 
 html, body
   height: 100%
 #above-footer
-  margin-bottom: -($footer-height + 30px)
   min-height: 100%
 // IE6
 * html #above-footer
   height: 100%
 
 .main
-  padding-bottom: ($footer-height + 30px)
+  padding-bottom: ($footer-margin + 40px)
 div.footer
-  margin-top: $footer-height
+  margin-top: -$footer-margin
 
 /* For small screens */
 img, video
