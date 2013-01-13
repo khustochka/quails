@@ -6,7 +6,7 @@
   %li= link_to('Birds of Ukraine', country_path(country: 'ukraine'))
   %li= link_to('Birds of USA', country_path(country: 'usa'))
   - if @thumbnail_for_various
-    %li= link_to('Photos of several species', photos_various_path)
+    %li= link_to t('menu.photos'), images_path
 
 %ul.thumbnails
   = render :partial => 'thumbnail', :collection => @species
