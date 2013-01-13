@@ -47,3 +47,33 @@ ul.thumbnails
     a, a:hover
       padding: 0
 
+// Form comment
+
+form.comment
+
+  label
+    vertical-align: top
+    display: inline-block
+    width: 64px
+
+  div.input
+    display: block
+    margin-bottom: 10px
+
+  input.string
+    width: 560px
+
+  textarea
+    width: 620px
+
+  div.buttons
+    //margin-top: 10px
+    input.button
+      width: 130px
+      height: 40px
+
+@media only all and (max-width: 580px)
+  form.comment
+    textarea, input.string
+      width: 100%
+

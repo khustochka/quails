@@ -12,7 +12,7 @@
   = form.input :name
   = form.input :email
   = form.input :url
-  = form.input :text, label: false
+  = form.input :text, label: false, input_html: {rows: 10}
   - if action_name.in? %w(edit update)
     = form.input :approved, label: 'Approved'
   .buttons
