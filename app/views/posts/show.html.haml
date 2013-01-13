@@ -24,9 +24,11 @@
     %b= t('.sections.species')
     = spcs.map { |sp| species_link(sp) }.join(",\n").html_safe
 
-%h2#comments= t('.sections.comments')
+- if @comments[0]
 
-= render @comments[0] if @comments[0]
+  %h2#comments= t('.sections.comments')
+
+  = render @comments[0]
 
 %h3#add_comment= t('.add_comment')
 
