@@ -1,14 +1,15 @@
-.comment{:id => "comment#{comment.id}"}
-  %span.name= link_to_if(comment.url.present?, comment.name, comment.url, :rel => 'nofollow')
-  = precede '-- ' do
-    %time= link_to(l(comment.created_at, :format => :long), public_comment_path(comment, @post))
-  = default_destroy_link(comment) if current_user.admin? && action_name != 'reply'
-  = comment_filter(comment.text)
+.comment_box{:id => "comment#{comment.id}"}
+  %div.header-with-subheader
+    %h6.name= link_to_if(comment.url.present?, comment.name, comment.url, :rel => 'nofollow')
+    %i
+      %time= link_to(l(comment.created_at, :format => :long), public_comment_path(comment, @post))
+    = default_destroy_link(comment) if current_user.admin? && action_name != 'reply'
+  .comment_body
+    = comment_filter(comment.text)
 
   - if action_name != 'reply'
-    .reply
-      = precede '-- ' do
-        = link_to(t('.reply_link'), reply_comment_path(comment), data: {comment_id: comment.id})
+    %ul.reply
+      %li= link_to(t('.reply_link'), reply_comment_path(comment), data: {comment_id: comment.id})
 
 - @comments.try(:[], comment.id).if_present do |subcomments|
   .subcomments

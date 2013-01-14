@@ -50,6 +50,26 @@ ul.thumbnails
     a, a:hover
       padding: 0
 
+// Comments
+
+.subcomments
+  margin-left: 50px
+
+// It is possible to stop padding on certain level
+//.subcomments .subcomments .subcomments .subcomments
+//  margin-left: 0
+
+.comment_box
+  margin-bottom: 10px
+  padding: 10px
+  h6
+    margin-top: 0
+  ul.reply
+    @include horiz-list
+    margin-bottom: 0
+  .comment_body
+    margin-left: 30px
+
 // Form comment
 
 form.comment
