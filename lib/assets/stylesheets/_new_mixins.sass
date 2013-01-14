@@ -14,7 +14,7 @@
 $link-color: darken(#33aa66, 10%)
 
 @mixin basic-link($ln-color: $link-color)
-  color:  $ln-color
+  color: $ln-color
   &:hover
     background-color: $ln-color
     color: #ffffff
@@ -25,13 +25,20 @@ $link-color: darken(#33aa66, 10%)
   text-decoration: none
   border-bottom: 1px dotted $ln-color
   border-bottom: 2px solid rgba($ln-color, 0.4)
-  background-color: inherit
-  // IE6/7 do not understand inherit
-  *background-color: $bg-color
   &:hover
-    border-bottom: 2px solid lighten($ln-color, 4)
-    border-bottom: 2px solid rgba($ln-color, 0.7)    
+    background-color: $ln-color
+    color: #ffffff
 
 @mixin deep-bordered-link($ln-color, $bg-color: #ffffff)
-  padding: 2px 3px
+  padding: 5px 2px 3px 2px
   @include bordered-link($ln-color, $bg-color)
+
+// unused for now
+@mixin unhighlighted-link($ln-color, $bg-color: #ffffff)
+  &:hover
+    color: $ln-color
+    border-bottom: 2px solid lighten($ln-color, 4)
+    border-bottom: 2px solid rgba($ln-color, 0.7)
+    background-color: inherit
+    // IE6/7 do not understand inherit
+    *background-color: $bg-color
