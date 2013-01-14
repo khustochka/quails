@@ -15,7 +15,7 @@
     show:
       sections:
         photos: Фотографии
-        species: 'Встреченные виды:'
+        species: 'Встреченные виды (%{count}):'
         comments: Комментарии
       add_comment: Добавить комментарий
 

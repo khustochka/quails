@@ -15,7 +15,7 @@
     show:
       sections:
         photos: Images
-        species: 'List of species:'
+        species: 'Species met (%{count}):'
         comments: Comments
       add_comment: Add new
       save_button: Save

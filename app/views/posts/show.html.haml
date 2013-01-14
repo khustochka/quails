@@ -20,9 +20,9 @@
         = render partial: 'images/thumbnail', collection: images
 
 - @post.species.if_present do |spcs|
+  %h3= t('.sections.species', count: spcs.size)
   %p
-    %b= t('.sections.species')
-    = spcs.map { |sp| species_link(sp) }.join(",\n").html_safe
+    = (spcs.map { |sp| species_link(sp) }.join(",\n") << ".").html_safe
 
 - if @comments[0]
 
