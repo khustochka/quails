@@ -3,17 +3,17 @@
 - if notice
   %p#notice= notice
 
-%h1= page_header
-
 - provide :add_shortcuts do
   %li= link_to 'Edit map', action: :map_edit
   %li= link_to 'Edit flickr data', action: :flickr_edit
 
 = render 'admin/shortcuts' if current_user.admin?
 
-%p= image_tag(jpg_url(@image))
+%h1= page_header
 
-= content_tag(list_type_for_image_species(@image)) do
+%div.image_canvas= image_tag(jpg_url(@image))
+
+= content_tag(list_type_for_image_species(@image), class: 'img_species') do
   - @image.species.each do |sp|
     %li
       = species_link(sp)
@@ -22,8 +22,13 @@
 - post = @image.post(current_user.available_posts)
 
 %p
-  Снято #{l(@image.observ_date, :format => :long)},
-  %i= "#{@image.locus.name}#{sentence_separator_depending_on_post(post)}"
+  Снято
+  = succeed ',' do
+    %i<
+      %time{datetime: @image.observ_date.iso8601} #{l(@image.observ_date, :format => :long)}
+
+  = succeed sentence_separator_depending_on_post(post) do
+    = @image.locus.name
 
   - if post
     встреча описана в посте «#{post_link(post_title(post), post, true)}».
@@ -34,8 +39,9 @@
 -#- if @image.multi?
 -#  = link_to("More photos of several species", multi_spp_path)
 
-- if @prev
-  = link_to("<< Previous image", @prev)
+%nav.image_nav
+  - if @prev
+    = link_to(t('.prev_image'), @prev, class: 'img_prev')
 
-- if @next
-  = link_to("Next image >>", @next)
+  - if @next
+    = link_to(t('.next_image'), @next, class: 'img_next')

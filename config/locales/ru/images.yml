@@ -1,0 +1,5 @@
+'ru':
+  images:
+    show:
+      prev_image: "<< Предыдущее фото"
+      next_image: "Следующее фото >>"
