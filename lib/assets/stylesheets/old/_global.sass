@@ -1,4 +1,4 @@
-@import 'old/mixins', 'header'
+@import 'old/mixins', 'new_mixins', 'universal', 'header'
 
 ul, ol
   line-height: 1.4
@@ -8,32 +8,38 @@ li
 
 body
 
-  p, dl, hr, h1, h2, h3, h4, h5, h6, ol, ul, pre, table, address, fieldset, figure
+  table
     margin: 0 0 20px 0
     padding: 0
 
-  h1, h2
-    font-size: 23px
-
-  h3
-    font-size: 21px
-
-  h4
-    font-size: 19px
-
-  h5
-    font-size: 16px
-
-  h6
-    font-size: 15px
+//body
+//
+//  p, dl, hr, h1, h2, h3, h4, h5, h6, ol, ul, pre, table, address, fieldset, figure
+//    margin: 0 0 20px 0
+//    padding: 0
+//
+//  h1, h2
+//    font-size: 23px
+//
+//  h3
+//    font-size: 21px
+//
+//  h4
+//    font-size: 19px
+//
+//  h5
+//    font-size: 16px
+//
+//  h6
+//    font-size: 15px
 
 // this is required for min-height
-html, body
-  height: 100%
-
-body
-  background-color: #ffffff
-  color: #333333
+//html, body
+//  height: 100%
+//
+//body
+//  background-color: #ffffff
+//  color: #333333
 
 // Links
 
@@ -58,9 +64,9 @@ body
     color: #fff
     text-decoration: none
 
-div.imageholder
-  a, a:hover
-    background-color: inherit
+//div.imageholder
+//  a, a:hover
+//    background-color: inherit
 
 a.remove, a.destroy, a.remove:hover, a.destroy:hover, a.img, a.img:hover
   background-color: inherit
@@ -152,16 +158,16 @@ table.neat_table
 .sci_name
   color: #555
 
-#above-footer
-  min-height: 100%
-
-.over-header
-  margin-top: -10px
-  margin-bottom: 10px
-  border-bottom: 1px solid #aaaaaa
-  font-size: 18px
-  font-weight: normal
-  color: #555555
+//#above-footer
+//  min-height: 100%
+//
+//.over-header
+//  margin-top: -10px
+//  margin-bottom: 10px
+//  border-bottom: 1px solid #aaaaaa
+//  font-size: 18px
+//  font-weight: normal
+//  color: #555555
 
 .pagination span
   display: inline-block
@@ -170,12 +176,12 @@ table.neat_table
   padding: 3px 8px
   margin-right: 3px
   //width: 15px
-
-div.footer
-  @include default-margin
-  border-top: 1px solid #555555
-  padding: 10px 2px 0 2px
-  margin-top: -35px
+//
+//div.footer
+//  @include default-margin
+//  border-top: 1px solid #555555
+//  padding: 10px 2px 0 2px
+//  margin-top: -35px
 
 .errors
   color: #ff0000
@@ -199,25 +205,25 @@ span.error
   background-color: crimson
 
 /* For small screens */
-img, video
-  max-width: 100%
-  height: auto
-
-// But this breaks map elements, so need to fix
-#googleMap img
-  max-width: inherit
-
-/* http://webdesignerwall.com/tutorials/css-elastic-videos */
-@media only all and (max-width: 580px)
-  .video-container
-    position: relative
-    padding-bottom: 56.25%
-    padding-top: 30px
-    height: 0
-    overflow: hidden
-    iframe
-      position: absolute
-      top: 0
-      left: 0
-      width: 100%
-      height: 100%
+//img, video
+//  max-width: 100%
+//  height: auto
+//
+//// But this breaks map elements, so need to fix
+//#googleMap img
+//  max-width: inherit
+//
+///* http://webdesignerwall.com/tutorials/css-elastic-videos */
+//@media only all and (max-width: 580px)
+//  .video-container
+//    position: relative
+//    padding-bottom: 56.25%
+//    padding-top: 30px
+//    height: 0
+//    overflow: hidden
+//    iframe
+//      position: absolute
+//      top: 0
+//      left: 0
+//      width: 100%
+//      height: 100%
