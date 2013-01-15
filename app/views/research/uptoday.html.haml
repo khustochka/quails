@@ -14,6 +14,6 @@
       - if year.to_s == @today.year.to_s && @this_day > @today
         %span.errors &mdash; This day is in the future.
     %dd
-      = number
+      = content_tag(number == @max ? :b : :span, number)
 
 

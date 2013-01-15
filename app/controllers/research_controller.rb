@@ -112,6 +112,7 @@ class ResearchController < ApplicationController
         order('EXTRACT(year FROM observ_date)').
         group('EXTRACT(year FROM observ_date)').
         count('DISTINCT species_id')
+    @max = @uptoday.map(&:second).max
   end
 
   def compare
