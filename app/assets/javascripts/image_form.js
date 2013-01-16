@@ -45,7 +45,7 @@ $(function () {
 
     function insertNewObservation(newObs) {
         //newObs.draggable("destroy");
-        newObs.attr('style', '').appendTo(current_obs);
+        newObs.removeAttr('style').appendTo(current_obs);
         refreshObservList();
     }
 
