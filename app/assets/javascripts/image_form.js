@@ -36,7 +36,7 @@ $(function () {
     function searchForObservations() {
         found_obs.empty();
         $('.observation_options').addClass('loading');
-        var data = $.param($(".observation_search :input"));
+        var data = $.param($(".observation_search :input[name]"));
         found_obs.load("/observations/search", data, function (data) {
             $('.observation_options').removeClass('loading');
             $('li', found_obs).draggable({ "revert":"invalid" });
