@@ -1,5 +1,7 @@
 #header
 
+  = render 'admin/menu'
+
   #menucontainer
 
     - cache [:navigation_header, locale: I18n.locale] do
@@ -14,5 +16,3 @@
         %li= link_to t('menu.galery'), gallery_path
 
         %li= link_to t('menu.lifelist'), my_lists_path
-
-    = render 'admin/menu'

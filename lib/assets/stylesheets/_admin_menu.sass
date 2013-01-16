@@ -1,14 +1,14 @@
 .admin_menu
-  z-index: 2000
-  position: absolute
-  display: inline-block
-  margin: 12px 20px
-  padding: 7px 15px 7px 25px
+  @include horiz-list
+  text-align: center
+  margin: 0
+  padding: 3px 0
   font: 13px Helvetica, Arial, sans-serif
   font-weight: bold
   line-height: 1.4em
   color: #cccccc
-  background-color: #6d6d6d
+  background-color: #2d2d2d
+  overflow: hidden
   a
     color: #cccccc
     text-decoration: none
@@ -17,22 +17,14 @@
     color:  #ffffff
     text-decoration: underline
 
-  .the_rest
-    display: none
+  li
+    margin: 0 10px
   li.adder
     font-size: 14px
-    list-style: none
-    margin-left: -17px
     text-transform: uppercase
-  li.switcher, li.login_link
-    display: list-item
-    span
-      color: #ffffff
-      cursor: pointer
 
-.admin_menu:hover
-  background-color: #2d2d2d
-  .the_rest
-    display: block
-  li.switcher
-    display: none
+@media only all and (max-width: 580px)
+  .admin_menu
+    height: 18px
+    &:hover, &:focus, &:active
+      height: auto
