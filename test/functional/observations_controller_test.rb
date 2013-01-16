@@ -169,6 +169,14 @@ class ObservationsControllerTest < ActionController::TestCase
     assert_equal Mime::HTML, response.content_type
   end
 
+  test 'return observation search results that include Avis incognita' do
+    login_as_admin
+    observation = create(:observation, species_id: 0)
+    get :search, q: {observ_date: observation.observ_date.iso8601}
+    assert_response :success
+    assert_equal Mime::HTML, response.content_type
+  end
+
   test "properly find spots" do
     obs1 = create(:observation, observ_date: '2010-07-24')
     obs2 = create(:observation, observ_date: '2011-07-24')
