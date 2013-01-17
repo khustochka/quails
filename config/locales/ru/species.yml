@@ -1,0 +1,10 @@
+'ru':
+  species:
+    show:
+      sections:
+        photos: Фотографии
+        posts: Последние записи
+        stats: Статистика наблюдений
+        monthly: По месяцам
+
+      total_observations: 'Всего встреч:'

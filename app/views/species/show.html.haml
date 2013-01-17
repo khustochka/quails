@@ -1,5 +1,7 @@
 - @page_title = "#{@species.name} (#{@species.name_sci})"
 
+= render 'admin/shortcuts' if current_user.admin?
+
 %p
   = t("taxonomy.order")
   %strong= t("taxonomy.#{@species.order}") rescue nil
@@ -14,8 +16,6 @@
 
 %p= @species.authority
 
-= render 'admin/shortcuts' if current_user.admin?
-
 %dl
   - %w(en fr ru uk).map do |lang|
     %dt
@@ -24,23 +24,23 @@
 
 - @species.images.if_present do |images|
   %div.photos
-    %h3 Images
+    %h3= t('.sections.photos')
     %ul.thumbnails
       = render :partial => 'images/thumbnail', :collection => images
 
 - @posts.if_present do |posts|
-  %h3 Latest posts
+  %h3= t('.sections.posts')
   %ul
     - posts.each do |post|
       %li= post_link(post_title(post), post)
 
 - if @species.observations.present?
-  %h3 Observation stats
+  %h3= t('.sections.stats')
   %p
-    Total observations:
+    = t('.total_observations')
     %strong= @species.observations.count
 
-  %h4 Monthly
+  %h4= t('.sections.monthly')
   %table.monthly
     %tr
       - 1.upto(12) do |m|
