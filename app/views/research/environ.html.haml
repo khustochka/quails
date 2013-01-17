@@ -9,6 +9,9 @@
   %dt Rails version
   %dd= Rails.version
 
+  %dt Rack release
+  %dd= Rack.release
+
   - if server_software = request.env['SERVER_SOFTWARE']
     %dt Server Software
     %dd= server_software
