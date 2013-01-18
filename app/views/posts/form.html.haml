@@ -1,4 +1,10 @@
+- @page_title = "#{new_or_edit_label(@post)} post"
+
+- javascript 'ujs'
+
 - stylesheet 'forms'
+
+%h1= page_header
 
 = render 'admin/shortcuts' if current_user.admin?
 
@@ -15,3 +21,15 @@
     = form.input :status, collection: Post::STATES, input_html: {size: '3'}, include_blank: false
   .buttons
     = default_submit_button(form)
+
+- if @post.persisted?
+
+  %p= default_destroy_button
+
+  %h3 Livejournal
+  - if @post.lj_url_id.blank?
+    Not yet on Livejournal
+  - else
+    = link_to(lj_post_url, lj_post_url)
+
+  = button_to('Post to LJ', action: :lj_post)

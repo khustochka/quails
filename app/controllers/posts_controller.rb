@@ -24,11 +24,13 @@ class PostsController < ApplicationController
   # GET /posts/new
   def new
     @post = Post.new
+    render 'form'
   end
 
   # GET /posts/1/edit
   def edit
     @extra_params = @post.to_url_params
+    render 'form'
   end
 
   # POST /posts
@@ -38,7 +40,7 @@ class PostsController < ApplicationController
     if @post.save
       redirect_to(public_post_path(@post), :notice => 'Post was successfully created.')
     else
-      render :action => "new"
+      render 'form'
     end
   end
 
@@ -48,7 +50,7 @@ class PostsController < ApplicationController
     if @post.update_attributes(params[:post])
       redirect_to(public_post_path(@post), :notice => 'Post was successfully updated.')
     else
-      render :action => "edit"
+      render 'form'
     end
   end
 
