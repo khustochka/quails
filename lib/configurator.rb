@@ -25,9 +25,9 @@ module Configurator
       require "airbrake"
       Airbrake.configure do |config|
         config.api_key = errbit.api_key
-        config.host    = errbit.host
-        config.port    = 80
-        config.secure  = config.port == 443
+        config.host = errbit.host
+        config.port = 80
+        config.secure = config.port == 443
       end
     end
   end
@@ -35,20 +35,22 @@ module Configurator
   private
 
   def self.config_data
-    @config_data ||= read_config
+    @config_data ||= Hashie::Mash.new(read_config)
   end
 
   def self.read_config
-    Hashie::Mash.new(
-        if Quails.env.configured?
-          read_config_from_env_vars
-        else
-          YAML.load(ERB.new(File.read('config/security.yml')).result)[Rails.env]
-        end
-    )
+    if Quails.env.configured?
+      read_config_from_env_vars
+    else
+      YAML.load(ERB.new(File.read('config/security.yml')).result)[Rails.env]
+    end
   rescue Errno::ENOENT
-    raise "Missing configuration. Run `rake init` to create basic config/security.yml
+    if Rails.env.test?
+      test_configuration
+    else
+      raise "Missing configuration. Run `rake init` to create basic config/security.yml
             and edit it as appropriate. Or set the environment variables."
+    end
   end
 
   def self.read_config_from_env_vars
@@ -64,6 +66,18 @@ module Configurator
             api_key: ENV['errbit_api_key'],
             host: ENV['errbit_host']
         }
+    }
+  end
+
+  def self.test_configuration
+    {
+        admin: {
+            username: 'test',
+            password: 'test',
+            cookie_value: 'test'
+        },
+        secret_token: SecureRandom.hex(30),
+        image_host: 'http://localhost/photos'
     }
   end
 

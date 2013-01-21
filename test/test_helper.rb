@@ -14,7 +14,13 @@ class ActiveSupport::TestCase
 
   delegate :root_url, :public_post_path, :public_comment_path, :url_for, to: :@controller
 
-  TEST_CREDENTIALS = Hashie::Mash.new(YAML::load_file('config/security.yml')['test']['admin'])
+  TEST_CREDENTIALS = Hashie::Mash.new(
+      begin
+        YAML::load_file('config/security.yml')['test']['admin']
+      rescue
+        {username: 'test', password: 'test'}
+      end
+  )
 
   def login_as_admin
     @request.env['HTTP_AUTHORIZATION'] =
