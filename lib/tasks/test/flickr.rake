@@ -1,4 +1,4 @@
-# if you ever need to retore DB
+# if you ever need to restore DB
 # use Rake::TestTask.new('test:flickr' => 'test:prepare')
 
 Rake::TestTask.new('test:flickr') do |t|
