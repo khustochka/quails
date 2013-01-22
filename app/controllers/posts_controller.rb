@@ -62,17 +62,28 @@ class PostsController < ApplicationController
 
   # POST
   def lj_post
-    #user = LiveJournal::User.new(Settings.lj_user.name, Settings.lj_user.password)
-    #entry = LiveJournal::Entry.new
-    #entry.security = :private
-    #entry.subject = post_title(@post)
-    #entry.event = @post.text
-    #
-    #request = LiveJournal::Request::PostEvent.new(user, entry)
-    #
-    #request.run
-    #
-    #puts "Entry #{entry.itemid}, #{entry.anum}"
+    user = LiveJournal::User.new(Settings.lj_user.name, Settings.lj_user.password)
+
+    entry = LiveJournal::Entry.new
+    entry.security = :private
+    entry.subject = @post.title
+    entry.event = @post.text
+
+    request = if @post.lj_url_id.present?
+                raise "Editing LJ entries is prohibited!"
+                #entry.itemid = @post.lj_post_id
+                #LiveJournal::Request::EditEvent.new(user, entry)
+              else
+                LiveJournal::Request::PostEvent.new(user, entry)
+              end
+
+    request.run
+
+    if entry.itemid
+      @post.lj_post_id = entry.itemid
+      @post.lj_url_id = entry.display_itemid if entry.anum
+      @post.save!
+    end
 
     redirect_to({action: :edit}, {notice: 'Posted to LJ'})
   end
