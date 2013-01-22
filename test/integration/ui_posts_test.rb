@@ -10,7 +10,7 @@ class UIPostsTest < ActionDispatch::IntegrationTest
     visit new_post_path
     fill_in('Slug', with: 'new-post')
     fill_in('Title', with: 'Test post')
-    fill_in('Text', with: 'Post text.')
+    fill_in('post_text', with: 'Post text.')
     select('OPEN', from: 'Status')
     select('OBSR', from: 'Topic')
     click_button('Save')
@@ -24,7 +24,7 @@ class UIPostsTest < ActionDispatch::IntegrationTest
     visit edit_post_path(blogpost)
     fill_in('Slug', with: 'changed-post')
     fill_in('Title', with: 'Test post edited')
-    fill_in('Text', with: 'Post text edited.')
+    fill_in('post_text', with: 'Post text edited.')
     fill_in('Post date', with: '2009-07-27')
     click_button('Save')
     blogpost = Post.find_by_slug('changed-post')
