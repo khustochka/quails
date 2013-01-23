@@ -12,8 +12,4 @@ module PostsHelper
     wikify_one_line(post.title)
   end
 
-  def lj_post_url
-    "http://#{Settings.lj_user.name}.livejournal.com/#{@post.lj_url_id}.html"
-  end
-
 end

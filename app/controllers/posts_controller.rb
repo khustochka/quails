@@ -70,22 +70,33 @@ class PostsController < ApplicationController
     entry.event = @post.text
 
     request = if @post.lj_url_id.present?
-                raise "Editing LJ entries is prohibited!"
+                flash.alert = "Editing LJ entries is prohibited!"
+                nil
                 #entry.itemid = @post.lj_post_id
                 #LiveJournal::Request::EditEvent.new(user, entry)
               else
                 LiveJournal::Request::PostEvent.new(user, entry)
               end
 
-    request.run
+    if request
+      request.run
+      flash.notice = 'Posted to LJ'
 
-    if entry.itemid
-      @post.lj_post_id = entry.itemid
-      @post.lj_url_id = entry.display_itemid if entry.anum
-      @post.save!
+      if entry.itemid
+        @post.lj_post_id = entry.itemid
+        @post.lj_url_id = entry.display_itemid if entry.anum
+        @post.save!
+      end
     end
 
-    redirect_to({action: :edit}, {notice: 'Posted to LJ'})
+    respond_to do |format|
+      format.html { redirect_to action: :edit }
+      format.json do
+        render json: flash.to_hash.merge(url: @post.lj_url), status: flash.alert ? 403 : 200
+        flash.discard
+      end
+    end
+
   end
 
   private

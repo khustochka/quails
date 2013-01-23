@@ -85,6 +85,10 @@ class Post < ActiveRecord::Base
     {:id => slug, :year => year, :month => month}
   end
 
+  def lj_url
+    @lj_url ||= "http://#{Settings.lj_user.name}.livejournal.com/#{lj_url_id}.html" if lj_url_id.present?
+  end
+
   private
   def update_face_date
     if read_attribute(:face_date).blank?

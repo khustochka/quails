@@ -8,6 +8,12 @@
 
 = render 'admin/shortcuts' if current_user.admin?
 
+- if notice
+  %p#notice= notice
+
+- if alert
+  %p.errors= alert
+
 = simple_form_for @post do |form|
 
   %div
@@ -27,9 +33,11 @@
   %p= default_destroy_button
 
   %h3 Livejournal
-  - if @post.lj_url_id.blank?
-    Not yet on Livejournal
-  - else
-    = link_to(lj_post_url, lj_post_url)
+  %ul
+    %li#lj_url_li
+      - if @post.lj_url_id.blank?
+        Not yet on Livejournal
+      - else
+        = link_to(@post.lj_url, @post.lj_url)
 
-  = button_to('Post to LJ', action: :lj_post)
+    %li= button_to('Post to LJ', {action: :lj_post}, {form: {id: 'lj_post'}})
