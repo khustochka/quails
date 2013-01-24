@@ -63,6 +63,9 @@ class MyStatsController < ApplicationController
 
     # Most often seen species
     @most_often_species = Lifelist.advanced.sort('count').relation.limit(1).first
+
+    # Species met only once # TODO: can be done via SQL
+    @sp_met_once = MyObservation.group(:species_id).having('COUNT(id) = 1').count.size
   end
 
 end
