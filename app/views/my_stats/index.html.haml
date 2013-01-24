@@ -1,5 +1,11 @@
 - @page_title = "Моя статистика"
 
+- provide :the_newest_species do
+  Самый новый вид:
+  = species_link(@newest_species)
+  = surround '(', ')' do
+    %time= l(@newest_species.first_seen_date, :format => :long)
+
 %h1= @page_title
 
 %h2 Списки
@@ -23,13 +29,10 @@
   %li
     Я встретил #{link_to(@species_this_year, list_path(year: 2013))} видов
   - if @new_this_year == 0
-    %li
-      Пока ни одного нового
+    %li Пока ни одного нового
   - else
-    %li
-      Из них #{@new_this_year} новых
-    %li
-      Самый новый вид:
+    %li Из них #{@new_this_year} новых
+    %li= content_for :the_newest_species
 
 %h2 Рекорды
 
@@ -55,19 +58,28 @@
     (#{@day_with_max_species.sp_count})
 
   %li
-    День, в который встречено больше всего новых видов
+    День, в который встречено больше всего новых видов:
+    = l(Date.parse(@day_with_max_new_species.observed_at), format: :long)
+    (#{@day_with_max_new_species.sp_count})
 
 %h2 Виды
 
 %ul
   -# If latest new species is seen this year it will be shown in the appropriate section, otherwise here
   - if @new_this_year == 0
-    %li
-      Самый новый вид:
+    %li= content_for :the_newest_species
 
   %li
-    Самый давно не встречаемый вид
+    Самый давно не встречаемый вид:
+    = species_link(@oldest_species)
+    = surround '(', ')' do
+      %time= l(@oldest_species.last_seen_date, :format => :long)
+
   %li
-    Чаще всего встречаемый вид
+    Чаще всего встречаемый вид:
+    = species_link(@most_often_species)
+    = surround '(', ')' do
+      = @most_often_species.times_seen
+
   %li
     ХХ видов встречены всего однажды

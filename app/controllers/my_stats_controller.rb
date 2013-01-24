@@ -44,6 +44,25 @@ class MyStatsController < ApplicationController
         order("sp_count DESC").
         limit(1)
     @day_with_max_species = Hashie::Mash.new(Observation.connection.select_one(query, "Day with max species"))
+
+    # Day with max new species
+    new_sp_query = MyObservation.select("species_id, MIN(observ_date) as observed_at").group(:species_id).to_sql
+    query = Observation.
+        select("COUNT(species_id) as sp_count, observed_at").
+        from("(#{new_sp_query}) as new_sp_dates").
+        group("observed_at").
+        order("sp_count DESC").
+        limit(1)
+    @day_with_max_new_species = Hashie::Mash.new(Observation.connection.select_one(query, "Day with max new species"))
+
+    # Newest species
+    @newest_species = Lifelist.basic.relation.limit(1).first
+
+    # Oldest species
+    @oldest_species = Lifelist.advanced.sort('last').relation.reorder('last_seen ASC').limit(1).first
+
+    # Most often seen species
+    @most_often_species = Lifelist.advanced.sort('count').relation.limit(1).first
   end
 
 end
