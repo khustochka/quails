@@ -35,16 +35,25 @@
 
 %ul
   %li
-    Год, в котором встречено больше всего видов: #{@year_with_max_species[1]} в #{@year_with_max_species[0]} году
-  %li
-    Месяц года, когда было встречено больше всего видов: #{@month_year_with_max_species}
-  %li
-    Месяц, в котором встречено больше всего видов:
-    = t('date.standalone_month_names')[@month_with_max_species[0].to_i]
-    (#{@month_with_max_species[1]})
+    Год, в котором встречено больше всего видов:
+    #{@year_with_max_species.sp_count} в #{@year_with_max_species.year} году
 
   %li
-    День, в который встречено больше всего видов
+    Месяц года, когда было встречено больше всего видов:
+    = t('date.standalone_month_names')[@month_year_with_max_species.month.to_i]
+    = @month_year_with_max_species.year
+    (#{@month_year_with_max_species.sp_count})
+
+  %li
+    Месяц, в котором встречено больше всего видов:
+    = t('date.standalone_month_names')[@month_with_max_species.month.to_i]
+    (#{@month_with_max_species.sp_count})
+
+  %li
+    День, в который встречено больше всего видов:
+    = l(Date.parse(@day_with_max_species.observ_date), format: :long)
+    (#{@day_with_max_species.sp_count})
+
   %li
     День, в который встречено больше всего новых видов
 

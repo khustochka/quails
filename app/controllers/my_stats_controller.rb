@@ -14,25 +14,36 @@ class MyStatsController < ApplicationController
     @new_this_year = Observation.from("(#{rel.to_sql}) AS obs").count
 
     # Year with max species
-    @year_with_max_species = MyObservation.distinct_species.
+    query = MyObservation.
+        select("COUNT(DISTINCT species_id) as sp_count, EXTRACT(YEAR from observ_date) as year").
         group("EXTRACT(YEAR from observ_date)").
-        order("COUNT(DISTINCT species_id) DESC").
-        limit(1).
-        count("DISTINCT species_id").to_a.first
+        order("sp_count DESC").
+        limit(1)
+    @year_with_max_species = Hashie::Mash.new(Observation.connection.select_one(query, "Year with max species"))
 
     # Month+year with max species
-    @month_year_with_max_species = MyObservation.distinct_species.
+    query = MyObservation.
+        select("COUNT(DISTINCT species_id) as sp_count, EXTRACT(YEAR from observ_date) as year, EXTRACT(month from observ_date) as month").
         group("EXTRACT(YEAR from observ_date), EXTRACT(month from observ_date)").
-        order("COUNT(DISTINCT species_id) DESC").
-        limit(1).
-        count("DISTINCT species_id")
+        order("sp_count DESC").
+        limit(1)
+    @month_year_with_max_species = Hashie::Mash.new(Observation.connection.select_one(query, "Month, year with max species"))
 
     # Month with max species
-    @month_with_max_species = MyObservation.distinct_species.
-        group("EXTRACT(month from observ_date)").
-        order("COUNT(DISTINCT species_id) DESC").
-        limit(1).
-        count("DISTINCT species_id").to_a.first
+    query = MyObservation.
+        select("COUNT(DISTINCT species_id) as sp_count, EXTRACT(MONTH from observ_date) as month").
+        group("EXTRACT(month FROM observ_date)").
+        order("sp_count DESC").
+        limit(1)
+    @month_with_max_species = Hashie::Mash.new(Observation.connection.select_one(query, "Month with max species"))
+
+    # Day with max species
+    query = MyObservation.
+        select("COUNT(DISTINCT species_id) as sp_count, observ_date").
+        group("observ_date").
+        order("sp_count DESC").
+        limit(1)
+    @day_with_max_species = Hashie::Mash.new(Observation.connection.select_one(query, "Day with max species"))
   end
 
 end
