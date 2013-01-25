@@ -12,8 +12,6 @@ class ApplicationController < ActionController::Base
 
   extend RecordFinder
 
-  use_layout 'public'
-
   private
 
   def significant_params

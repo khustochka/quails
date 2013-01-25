@@ -8,7 +8,7 @@ module LayoutController
   module ClassMethods
 
     # TODO: if layout is inherited from ApplicationController and then redefined
-    # the parent's unnecessary before_filter remains in the chain (possibly not?)
+    # the parent's unnecessary before_filter remains in the chain
     def use_layout(layout, conditions = {})
       before_filter conditions do
         @layout = layout

@@ -8,7 +8,9 @@ module AdminController
 
     def administrative(options={})
       requires_admin_authorized options
-      use_layout 'admin', options
+      before_filter options do
+        @admin_layout = true
+      end
     end
 
   end
