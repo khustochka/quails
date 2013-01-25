@@ -3,20 +3,27 @@ require './config/environment'
 def calculate(result, therest)
   #puts "-- for the day #{result.size}"
   if therest.empty?
-    puts result.map.with_index { |s, i| "#{i+1}. #{SPCS[s]}" }
+    puts result.map.with_index { |s, i| "#{i+1}. #{s}" }
     exit
   else
     day = therest.first
-    day.each do |sp_id|
-      temprest2 = Marshal.load(Marshal.dump(therest[1..-1]))
-      temprest2.each do |d|
-        d.reject! { |s| s == sp_id }
+    if day.is_a? Array
+      day.each do |sp_id|
+        temprest2 = Marshal.load(Marshal.dump(therest[1..-1]))
+        temprest2.each do |d|
+          if d.is_a? Array
+            d.reject! { |s| s == sp_id }
+          end
+        end
+        next if temprest2.any? { |el| el.empty? }
+        #puts "Trying #{SPCS[sp_id]}"
+        calculate(result + [SPCS[sp_id]], temprest2)
       end
-      next if temprest2.any? { |el| el.empty? }
-      #puts "Trying #{SPCS[sp_id]}"
-      calculate(result + [sp_id], temprest2)
+      return false
+    else
+      temprest2 = Marshal.load(Marshal.dump(therest[1..-1]))
+      calculate(result + [day], temprest2)
     end
-    return false
   end
 end
 
@@ -42,9 +49,11 @@ begin
 #  p singles.map {|u| SPCS[u]}
 
   obs.map! do |day|
-    cross = day & singles
+    if day.is_a? Array
+      cross = day & singles
+    end
     if cross.present?
-      cross
+      cross.map { |c| SPCS[c] }.join(", ")
     else
       day
     end
