@@ -40,6 +40,7 @@ development:
 test: &TEST
   <<: *DEFAULT
   database: quails_test
+  min_messages: warning
 
 production:
   <<: *DEFAULT
