@@ -16,6 +16,7 @@ def calculate(result, therest)
           end
         end
         next if temprest2.any? { |el| el.empty? }
+        cleanup(temprest2)
         #puts "Trying #{SPCS[sp_id]}"
         calculate(result + [SPCS[sp_id]], temprest2)
       end
@@ -39,30 +40,33 @@ obs = MyObservation.
 # p obs.flatten.size
 
 # Use species met only in one day
+def cleanup(obs)
+  prev_singles = []
 
-prev_singles = []
-
-begin
-  counts = obs.flatten.inject(Hash.new(0)) { |h, i| h[i] += 1; h }
-  singles = counts.to_a.select { |e| e[1] == 1 }.map(&:first) - prev_singles
+  begin
+    counts = obs.flatten.inject(Hash.new(0)) { |h, i| h[i] += 1 if i.is_a?(Integer); h }
+    singles = counts.to_a.select { |e| e[1] == 1 }.map(&:first) - prev_singles
 
 #  p singles.map {|u| SPCS[u]}
 
-  obs.map! do |day|
-    if day.is_a? Array
-      cross = day & singles
+    obs.map! do |day|
+      if day.is_a? Array
+        cross = day & singles
+      end
+      if cross.present?
+        cross.map { |c| SPCS[c] }.join(", ")
+      else
+        day
+      end
     end
-    if cross.present?
-      cross.map { |c| SPCS[c] }.join(", ")
-    else
-      day
-    end
-  end
 
-  prev_singles = prev_singles + singles
+    prev_singles = prev_singles + singles
 
-end until singles.empty?
+  end until singles.empty?
+end
 
+cleanup(obs)
+#puts "Start"
 # p obs.flatten.size
 
 calculate([], obs)
