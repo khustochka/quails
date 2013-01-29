@@ -1,7 +1,7 @@
 module ChecklistsHelper
 
   def convert_status(str)
-    wikify_one_line(str)
+    OneLineFormatter.apply(str)
   end
 
 end

@@ -4,6 +4,6 @@ class TitleFormatter
   end
 
   def to_html
-    RedCloth.new(@str, [:lite_mode]).to_html.html_safe
+    OneLineFormatter.apply(@str)
   end
 end

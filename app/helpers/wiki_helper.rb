@@ -18,9 +18,4 @@ module WikiHelper
     RedCloth.new(transform(sanitize(text))).to_html.html_safe
   end
 
-  # For parsing titles and other one line strings
-  def wikify_one_line(str)
-    RedCloth.new(str, [:lite_mode]).to_html.html_safe
-  end
-
 end

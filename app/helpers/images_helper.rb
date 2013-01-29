@@ -40,7 +40,7 @@ module ImagesHelper
   end
 
   def image_title(image)
-    img_title = wikify_one_line(image.public_title)
+    img_title = OneLineFormatter.apply(image.public_title)
     if block_given?
       yield img_title
     else
