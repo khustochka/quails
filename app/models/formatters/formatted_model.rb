@@ -1,5 +1,10 @@
 module FormattedModel
+
+  MAPPING = {
+      Post => PostFormatter
+  }
+
   def formatted
-    ModelFormatter.new(self)
+    MAPPING[self.class].new(self)
   end
 end
