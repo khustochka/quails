@@ -1,5 +1,7 @@
 class Post < ActiveRecord::Base
 
+  include FormattedModel
+
   self.skip_time_zone_conversion_for_attributes = [:face_date]
 
   TOPICS = %w(OBSR NEWS SITE)

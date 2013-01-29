@@ -32,7 +32,7 @@
   %h3= t('.sections.posts')
   %ul
     - posts.each do |post|
-      %li= post_link(post_title(post), post)
+      %li= post_link(post.formatted.title, post)
 
 - if @species.observations.present?
   %h3= t('.sections.stats')

@@ -2,7 +2,7 @@
 
 - @page_title = t( @parent_comment ? '.reply_title' : '.comment_title')
 
-%h1 #{@page_title} #{post_link(post_title(@post), @post)}
+%h1 #{@page_title} #{post_link(@post.formatted.title, @post)}
 
 = render @parent_comment if @parent_comment
 

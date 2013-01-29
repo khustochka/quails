@@ -10,7 +10,7 @@ atom_feed(:id => "tag:#{request.host},2008-03-24:/blog") do |feed|
                :published => post.face_date,
                :url => public_post_path(post),
                :id => "tag:#{request.host},2008-03-24:#{public_post_path(post)}") do |entry|
-      entry.title(post_title(post), :type => 'html')
+      entry.title(post.formatted.title, :type => 'html')
       entry.content(render(partial: 'post', formats: :html, object: post), :type => 'html')
     end
   end

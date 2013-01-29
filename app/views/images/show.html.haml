@@ -31,7 +31,7 @@
     = @image.locus.name
 
   - if post
-    встреча описана в посте «#{post_link(post_title(post), post, true)}».
+    встреча описана в посте «#{post_link(post.formatted.title, post, true)}».
 
 = wiki_filter(@image.description)
 

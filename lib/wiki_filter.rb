@@ -33,7 +33,7 @@ module WikiFilter
           post = posts[term]
           post.nil? ?
               word :
-              %Q("#{word || post_title(post)}":#{term})
+              %Q("#{word || post.formatted.title}":#{term})
         when '' then
           sp = species[term]
           if sp

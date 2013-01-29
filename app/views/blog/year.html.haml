@@ -12,4 +12,4 @@
     - posts.each do |post|
       %li
         #{post.day}:
-        = post_link(post_title(post), post)
+        = post_link(post.formatted.title, post)

@@ -8,8 +8,4 @@ module PostsHelper
     end
   end
 
-  def post_title(post)
-    wikify_one_line(post.title)
-  end
-
 end

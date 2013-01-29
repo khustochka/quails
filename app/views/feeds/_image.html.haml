@@ -8,7 +8,7 @@
 
 = wiki_filter(image.description)
 
-- if p = image.post(current_user.available_posts)
+- if post = image.post(current_user.available_posts)
   %p
     Post:
-    = post_link(post_title(p), p, true)
+    = post_link(post.formatted.title, post, true)

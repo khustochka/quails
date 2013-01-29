@@ -17,7 +17,7 @@ module Quails
 
     # Custom directories with classes and modules you want to be autoloadable.
     # config.autoload_paths += %W(#{config.root}/app/presenters)
-    config.autoload_paths += %W(#{config.root}/app/controllers/mixins)
+    config.autoload_paths += %W(#{config.root}/app/controllers/mixins #{config.root}/app/models/formatters)
 
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.

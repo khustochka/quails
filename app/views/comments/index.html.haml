@@ -21,7 +21,7 @@
   - @comments.group_by(&:post).each do |post, comments|
     %tr
       %td{:colspan => 5}
-        %h4= post_link(post_title(post), post)
+        %h4= post_link(post.formatted.title, post)
     - comments.each do |comment|
       %tr
         %td= link_to comment.id, edit_comment_path(comment)

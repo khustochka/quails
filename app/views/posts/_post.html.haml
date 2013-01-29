@@ -1,7 +1,7 @@
 %div.post-box{id: "post-#{post.slug}"}
   %div.post
     %div.header-with-subheader
-      %h2= link_to(post_title(post), public_post_path(post))
+      %h2= link_to(post.formatted.title, public_post_path(post))
       %i
         %time{pubdate: 'pubdate', datetime: post.face_date.iso8601}= l(post.face_date, format: :long)
       - unless post.public?

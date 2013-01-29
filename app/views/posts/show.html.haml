@@ -1,12 +1,12 @@
 - javascript 'comments'
 
-- @page_title = post_title(@post)
+- @page_title = @post.formatted.title
 
 = render 'admin/shortcuts' if current_user.admin?
 
 %div.post{id: "post-#{@post.slug}"}
   %div.header-with-subheader
-    %h1= post_title(@post)
+    %h1= @post.formatted.title
     %i
       %time{pubdate: 'pubdate', datetime: @post.face_date.iso8601}= l(@post.face_date, format: :long)
     - unless @post.public?
