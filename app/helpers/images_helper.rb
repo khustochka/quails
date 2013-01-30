@@ -17,7 +17,7 @@ module ImagesHelper
   }
 
   SENTENCE_SEPARATOR_DEPENDING_ON_POST = {
-      true =>  ';',
+      true => ';',
       false => '.'
   }
 
@@ -40,12 +40,7 @@ module ImagesHelper
   end
 
   def image_title(image)
-    img_title = OneLineFormatter.apply(image.public_title)
-    if block_given?
-      yield img_title
-    else
-      img_title
-    end
+    OneLineFormatter.apply(image.public_title)
   end
 
   # TODO: Use Addressable::URI to parse and generate urls (better than stdlib's URI)

@@ -1,4 +1,4 @@
-- image_title(thumbnail) do |img_title|
+- image_title(thumbnail).tap do |img_title|
   %li.imageholder
     = link_to image_tag(thumbnail_url(thumbnail), :alt => img_title), image_path(thumbnail), :title => img_title
     %div.imagetitle= link_to img_title, image_path(thumbnail), :title => img_title

@@ -3,7 +3,7 @@
 = wiki_filter(post.text)
 
 - post.images.each do |thumbnail|
-  - image_title(thumbnail) do |img_title|
+  - image_title(thumbnail).tap do |img_title|
     = link_to image_tag(thumbnail_url(thumbnail), :alt => img_title), image_path(thumbnail), :title => img_title
 
 %p= link_to '+ Add comment', public_post_path(post, anchor: 'add_comment')
