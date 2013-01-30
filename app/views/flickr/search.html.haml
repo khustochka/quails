@@ -16,7 +16,7 @@
     %tr
       %td.thumbnail= link_to image_tag(thumbnail_url(image)), image_path(image)
       %td= link_to image.slug, edit_image_path(image)
-      %td= image_title(image)
+      %td= image.formatted.title
       %td= image.observ_date
       %td
         - @flickr_imgs[image.id].each do |img|

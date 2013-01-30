@@ -1,4 +1,4 @@
-- image_title(image).tap do |img_title|
+- image.formatted.title.tap do |img_title|
   %p= link_to image_tag(jpg_url(image), :alt => img_title), image_path(image), :title => img_title
 
 %p

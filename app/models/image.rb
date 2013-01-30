@@ -1,4 +1,6 @@
 class Image < ActiveRecord::Base
+  include FormattedModel
+
   validates :slug, :uniqueness => true, :presence => true, :length => {:maximum => 64}
 
   has_and_belongs_to_many :observations

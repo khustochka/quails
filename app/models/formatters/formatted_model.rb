@@ -1,7 +1,8 @@
 module FormattedModel
 
   MAPPING = {
-      Post => PostFormatter
+      Post => PostFormatter,
+      Image => ImageFormatter
   }
 
   def formatted

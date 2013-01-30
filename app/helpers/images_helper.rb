@@ -39,10 +39,6 @@ module ImagesHelper
         legacy_image_url("tn_#{img.slug}.jpg")
   end
 
-  def image_title(image)
-    OneLineFormatter.apply(image.public_title)
-  end
-
   # TODO: Use Addressable::URI to parse and generate urls (better than stdlib's URI)
   def self.image_host=(host)
     @image_host = host

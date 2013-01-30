@@ -9,7 +9,7 @@ atom_feed(:id => "tag:#{request.host},2008-03-24:/gallery") do |feed|
     feed.entry(img,
                :url => image_path(img),
                :id => "tag:#{request.host},2008-03-24:#{image_path(img)}") do |entry|
-      entry.title(image_title(img), :type => 'html')
+      entry.title(img.formatted.title, :type => 'html')
       entry.content(render(partial: 'image', formats: :html, object: img), :type => 'html')
     end
   end
