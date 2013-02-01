@@ -1,0 +1,7 @@
+"en":
+  my_stats:
+    index:
+      new_count_species:
+        one: '1 new'
+        few: '%{count} new ones'
+        many: '%{count} new ones'

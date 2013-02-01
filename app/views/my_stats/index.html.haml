@@ -19,7 +19,7 @@
   %li
     Я начал наблюдать птиц в августе 2007 года
   %li
-    Всего я встречал #{link_to(@total, lifelist_path)} видов
+    Всего я встречал #{link_to(@total, lifelist_path)} #{t('misc.species_count', count: @total)}
   %li
     Из них #{link_to(@species_ukraine, list_path(locus: 'ukraine'))} на территории Украины
 
@@ -27,11 +27,11 @@
 
 %ul
   %li
-    Я встретил #{link_to(@species_this_year, list_path(year: 2013))} видов
+    Я встретил #{link_to(@species_this_year, list_path(year: 2013))} #{t('misc.species_count', count: @species_this_year)}
   - if @new_this_year == 0
     %li Пока ни одного нового
   - else
-    %li Из них #{@new_this_year} новых
+    %li Из них #{t('.new_count_species', count: @new_this_year)}
     %li= content_for :the_newest_species
 
 %h2 Рекорды
@@ -82,4 +82,4 @@
       = @most_often_species.times_seen
 
   %li
-    #{@sp_met_once} видов встречены всего однажды
+    #{@sp_met_once} #{t('misc.species_count', count: @sp_met_once)} встречены всего однажды

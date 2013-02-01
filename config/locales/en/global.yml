@@ -18,3 +18,5 @@
 
   misc:
     all: All
+
+    species_count: 'species'
