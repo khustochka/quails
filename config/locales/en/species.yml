@@ -1,5 +1,8 @@
 'en':
   species:
+    gallery:
+      title: Bird photos
+
     show:
       sections:
         photos: Photos

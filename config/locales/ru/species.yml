@@ -1,5 +1,8 @@
 'ru':
   species:
+    gallery:
+      title: Фотографии птиц
+
     show:
       sections:
         photos: Фотографии

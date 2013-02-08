@@ -3,7 +3,11 @@
 
 - @page_title = t(".title.#{@country.slug}")
 
-%h1= page_header
+%div.header-with-subheader
+  %h1.over-header= page_header
+  %div.subheader-menu
+    &bull;
+    = link_to(t('menu.galery'), country_path(country: @country.slug))
 
 %table.neat_table.checklist_table
 

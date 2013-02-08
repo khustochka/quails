@@ -1,8 +1,12 @@
 - javascript 'pjax_pagination'
 
-- @page_title = 'Photostream'
+- @page_title = t('menu.photos')
 
-%h1= page_header
+%div.header-with-subheader
+  %h1= page_header
+  %div.subheader-menu
+    &bull;
+    = link_to t('.species_galery'), gallery_path
 
 %ul.thumbnails
   = render :partial => 'thumbnail', :collection => @images

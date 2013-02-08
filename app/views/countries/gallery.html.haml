@@ -1,5 +1,10 @@
 - @page_title = t(".title.#{@country.slug}")
 
-%h1= page_header
+%div.header-with-subheader
+  %h1= page_header
+  - if @country.slug == 'ukraine'
+    %div.subheader-menu
+      &bull;
+      = link_to('Checklist', checklist_path(country: @country))
 
 = render "countries/gallery/#{@country.slug}"

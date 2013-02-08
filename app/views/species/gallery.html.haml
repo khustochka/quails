@@ -1,12 +1,14 @@
-- @page_title = "Birds gallery"
+- @page_title = t(".title")
 
-%h1= page_header
-
-%ul.horiz-list
-  %li= link_to('Birds of Ukraine', country_path(country: 'ukraine'))
-  %li= link_to('Birds of USA', country_path(country: 'usa'))
-  - if @thumbnail_for_various
-    %li= link_to t('menu.photos'), images_path
+%div.header-with-subheader
+  %h1.over-header= page_header
+  %div.subheader-menu
+    &bull;
+    = link_to(t("countries.gallery.title.ukraine"), country_path(country: 'ukraine'))
+    &bull;
+    = link_to(t("countries.gallery.title.usa"), country_path(country: 'usa'))
+    &bull;
+    = link_to t('menu.photos'), images_path
 
 %ul.thumbnails
   = render :partial => 'thumbnail', :collection => @species

@@ -1,5 +1,8 @@
 'ru':
   images:
+    index:
+      species_galery: Галерея видов
+
     show:
       prev_image: "<< Предыдущее фото"
       next_image: "Следующее фото >>"

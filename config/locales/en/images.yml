@@ -1,5 +1,8 @@
 'en':
   images:
+    index:
+      species_galery: Species galery
+
     show:
       prev_image: "<< Previous image"
       next_image: "Next image >>"

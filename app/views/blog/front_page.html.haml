@@ -3,6 +3,7 @@
 %div.header-with-subheader
   %h1.over-header= page_header
   %div.subheader-menu
+    &bull;
     = link_to(t('menu.archive'), action: :archive)
     &bull;
     = link_to(t('misc.feed'), {:controller => :feeds, :action => @feed, :format => :xml})
