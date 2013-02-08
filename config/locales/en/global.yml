@@ -20,3 +20,5 @@
     all: All
 
     species_count: 'species'
+
+    feed: Feed

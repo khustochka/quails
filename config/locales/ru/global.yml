@@ -24,6 +24,8 @@
       few: 'вида'
       many: 'видов'
 
+    feed: Подписка
+
   errors:
     template:
       header:
