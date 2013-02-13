@@ -34,7 +34,7 @@
   -# posts
   - @posts.each do |post|
     %url
-      %loc= public_post_path(post, only_path: false)
+      %loc= public_post_path(post, only_path: false, host: request.host)
       %lastmod= post.updated_at.iso8601
       %changefreq yearly
 

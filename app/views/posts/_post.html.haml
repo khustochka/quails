@@ -7,7 +7,7 @@
       - unless post.public?
         %span.tag.draft Draft
 
-    = wiki_filter(post.text)
+    = post.formatted.text
     - post.images.if_present do |images|
       %ul.thumbnails
         = render partial: 'images/thumbnail', collection: images

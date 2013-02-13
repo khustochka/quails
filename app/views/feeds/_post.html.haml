@@ -1,6 +1,6 @@
 %time{pubdate: 'pubdate', datetime: post.face_date.iso8601}= l(post.face_date, format: :long)
 
-= wiki_filter(post.text)
+= post.formatted.text
 
 - post.images.each do |thumbnail|
   - thumbnail.formatted.title.tap do |img_title|

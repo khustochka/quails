@@ -1,6 +1,11 @@
 module WikiFilter
+  delegate :url_helpers, to: 'Rails.application.routes'
+  include SpeciesHelper
+  include ActionView::Helpers::TagHelper
+  include PublicRoutesHelper
 
   def transform(text)
+
     posts = Hash.new do |hash, term|
       hash[term] = Post.find_by_slug(term.downcase)
     end
@@ -52,7 +57,7 @@ module WikiFilter
       end
 
       spcs.each do |sp|
-        result << "\n[#{sp.code}]#{species_path(sp)}"
+        result << "\n[#{sp.code}]#{url_helpers.species_path(sp)}"
       end
     end
 

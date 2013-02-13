@@ -33,7 +33,7 @@
   - if post
     встреча описана в посте «#{post_link(post.formatted.title, post, true)}».
 
-= wiki_filter(@image.description)
+= @image.formatted.description
 
 -# TODO: more photos of several species
 -#- if @image.multi?
