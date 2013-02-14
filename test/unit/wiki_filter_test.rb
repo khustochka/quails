@@ -1,13 +1,14 @@
 require 'test_helper'
-require 'wiki_filter'
 
 # use ActionDispatch::IntegrationTest to access paths helpers
 class WikiFilterTest < ActionDispatch::IntegrationTest
-
-  include WikiFilter
   include ActionView::Helpers::UrlHelper
   include SpeciesHelper
   include PublicPathController
+
+  def transform(text)
+    WikiFormatter.new(nil).send(:wiki_format, text)
+  end
 
   # Screening - no need
 
