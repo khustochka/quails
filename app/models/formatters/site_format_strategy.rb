@@ -1,4 +1,4 @@
-class SiteFormatStrategy
+class SiteFormatStrategy < FormattingStrategy
 
   delegate :url_helpers, to: 'Rails.application.routes'
   include SpeciesHelper
