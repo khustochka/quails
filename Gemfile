@@ -17,8 +17,7 @@ end
 
 # Bundle the extra gems:
 gem 'rails-i18n'
-gem 'haml', '~> 4.0'
-gem 'haml-rails', github: 'norman/haml-rails', branch: 'change_deps_for_haml_4'
+gem 'haml-rails', '~> 0.4'
 gem 'haml-contrib'
 gem 'RedCloth'
 gem 'kaminari'
