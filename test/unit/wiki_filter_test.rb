@@ -7,7 +7,7 @@ class WikiFilterTest < ActionDispatch::IntegrationTest
   include PublicPathController
 
   def transform(text)
-    SiteFormatStrategy.new.wiki_format(text)
+    SiteFormatStrategy.new(text).apply
   end
 
   # Screening - no need

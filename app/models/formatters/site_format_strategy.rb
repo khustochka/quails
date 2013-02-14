@@ -5,13 +5,13 @@ class SiteFormatStrategy < FormattingStrategy
   include ActionView::Helpers::TagHelper
   include PublicRoutesHelper
 
-  def prepare(text)
+  def prepare
 
     @posts = Hash.new do |hash, term|
       hash[term] = Post.find_by_slug(term.downcase)
     end
 
-    sp_codes = text.scan(/\[(?!#|@)(?:([^\]]*?)\|)?(.+?)\]/).map do |word, term|
+    sp_codes = @text.scan(/\[(?!#|@)(?:([^\]]*?)\|)?(.+?)\]/).map do |word, term|
       term || word
     end.uniq.compact
 

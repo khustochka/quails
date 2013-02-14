@@ -5,7 +5,9 @@ class ImageFormatter < ModelFormatter
   end
 
   def description
-    WikiFormatter.new(SiteFormatStrategy.new).apply(@model.description)
+    WikiFormatter.new(
+        SiteFormatStrategy.new(@model.description)
+    ).apply
   end
 
 end

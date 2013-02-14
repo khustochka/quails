@@ -4,9 +4,9 @@ class WikiFormatter
     @strategy = strategy
   end
 
-  def apply(text)
+  def apply
     ParagraphFormatter.apply(
-        @strategy.wiki_format(text)
+        @strategy.apply
     )
   end
 
