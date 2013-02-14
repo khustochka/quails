@@ -18,7 +18,7 @@
   = @comment.url
 %p
   %b Text:
-= comment_filter(@comment.text)
+= @comment.formatted.text
 
 %p
   %b Approved:

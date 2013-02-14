@@ -1,4 +1,7 @@
 class Comment < ActiveRecord::Base
+
+  include FormattedModel
+
   validates :text, :name, :post_id, :presence => true
 
   belongs_to :post
