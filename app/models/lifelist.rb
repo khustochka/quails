@@ -90,6 +90,10 @@ class Lifelist
     @lifers_sql ||= lifers_aggregation.to_sql
   end
 
+  # NOTES; other ways to implement lifers aggregation:
+  # 1) select("distinct on(species_id) *").order('species_id, observ_date ASC')
+  #    will select the first observation for every species, but proved to be much slower
+  # 2) TODO: Window functions
   def lifers_aggregation
     @observation_source.filter(@filter).select("species_id, #{@strategy.aggregation_query}").group(:species_id)
   end
