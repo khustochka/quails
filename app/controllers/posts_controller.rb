@@ -66,8 +66,11 @@ class PostsController < ApplicationController
 
     entry = LiveJournal::Entry.new
     entry.security = :private
-    entry.subject = @post.title
-    entry.event = @post.text
+    entry.preformatted = true
+    # SafeBuffer breaks 'livejournal' gem, so we are not applying it to 'for_lj.text'
+    # And `unsafing` the title with 'to_str'
+    entry.subject = @post.formatted.title.to_str
+    entry.event = @post.formatted.for_lj.text
 
     request = if @post.lj_url_id.present?
                 flash.alert = "Editing LJ entries is prohibited!"

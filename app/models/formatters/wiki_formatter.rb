@@ -6,7 +6,7 @@ class WikiFormatter
 
   def for_site
     @strategy = SiteFormatStrategy.new(@text)
-    apply
+    apply.html_safe
   end
 
   def for_lj
