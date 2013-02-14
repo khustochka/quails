@@ -5,18 +5,17 @@ class PostFormatter < ModelFormatter
   end
 
   def for_site
-    @strategy = SiteFormatStrategy.new(@model.text)
+    @formatting_method = :for_site
     self
   end
 
   def for_lj
-    @strategy = LJFormatStrategy.new(@model.text)
+    @formatting_method = :for_lj
     self
   end
 
   def text
-    self.for_site unless @strategy
-    WikiFormatter.new(@strategy).apply
+    WikiFormatter.new(@model.text).send(@formatting_method)
   end
 
 end

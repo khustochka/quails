@@ -12,7 +12,7 @@
     - unless @post.public?
       %span.tag.draft Draft
 
-  = @post.formatted.text
+  = @post.formatted.for_site.text
   - @post.images.if_present do |images|
     %div.photos
       %h2= t('.sections.photos')

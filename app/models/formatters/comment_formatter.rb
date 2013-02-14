@@ -3,11 +3,7 @@ class CommentFormatter < ModelFormatter
   include ActionView::Helpers::SanitizeHelper
 
   def text
-    WikiFormatter.new(
-        SiteFormatStrategy.new(
-            sanitize(@model.text)
-        )
-    ).apply
+    WikiFormatter.new(sanitize(@model.text)).for_site
   end
 
 end

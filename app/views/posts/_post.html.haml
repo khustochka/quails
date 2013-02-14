@@ -7,7 +7,7 @@
       - unless post.public?
         %span.tag.draft Draft
 
-    = post.formatted.text
+    = post.formatted.for_site.text
     - post.images.if_present do |images|
       %ul.thumbnails
         = render partial: 'images/thumbnail', collection: images

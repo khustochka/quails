@@ -1,6 +1,6 @@
 %time{pubdate: 'pubdate', datetime: post.face_date.iso8601}= l(post.face_date, format: :long)
 
-= post.formatted.text
+= post.formatted.for_site.text
 
 - post.images.each do |thumbnail|
   - thumbnail.formatted.title.tap do |img_title|
