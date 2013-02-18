@@ -65,10 +65,10 @@ class PostsControllerTest < ActionController::TestCase
 
   test "do not update post with invalid slug" do
     blogpost = create(:post)
-    blogpost2 = blogpost.dup
-    blogpost2.slug = ''
+    post_attr = blogpost.attributes
+    post_attr['slug'] = ''
     login_as_admin
-    put :update, id: blogpost.slug, post: blogpost2.attributes
+    put :update, id: blogpost.slug, post: post_attr
     assert_template :form
     assert_select "form[action=#{post_path(blogpost)}]"
   end

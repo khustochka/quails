@@ -91,11 +91,11 @@ class SpeciesControllerTest < ActionController::TestCase
 
   test "do not update species with invalid name_sci" do
     species = seed(:corbra)
-    species2 = species.dup
+    sp_attr = species.attributes
     old_id = species.to_param
-    species2.name_sci = '$!#@'
+    sp_attr['name_sci'] = '$!#@'
     login_as_admin
-    put :update, id: old_id, species: species2.attributes
+    put :update, id: old_id, species: sp_attr
     assert_template :form
     assert_select "form[action=#{species_path(species)}]"
   end
