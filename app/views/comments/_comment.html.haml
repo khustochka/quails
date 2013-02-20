@@ -1,6 +1,6 @@
 .comment_box{:id => "comment#{comment.id}"}
   %div.header-with-subheader
-    %h6.name= link_to_if(comment.url.present?, comment.name, comment.url, :rel => 'nofollow')
+    %h6.name= link_to_if(comment.url.present?, comment.formatted.name, comment.url, :rel => 'nofollow')
     %i
       %time= link_to(l(comment.created_at, :format => :long), public_comment_path(comment, @post))
     = default_destroy_link(comment) if current_user.admin? && action_name != 'reply'
