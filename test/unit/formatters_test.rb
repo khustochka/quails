@@ -59,7 +59,7 @@ class FormattersTest < ActionView::TestCase
 
   test "do not strip wiki tags from comment" do
     comment = create(:comment, text: "Aaa [Blue Tit|parcae]")
-    assert_equal "<p>Aaa <a href=\"/species/Parus_caeruleus\" class=\"sp_link\">Blue Tit</a></p>",
+    assert_equal "<p>Aaa <a href=\"/species/Parus_caeruleus\">Blue Tit</a></p>",
                  comment.formatted.text
   end
 
