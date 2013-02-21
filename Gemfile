@@ -21,7 +21,7 @@ gem 'haml-rails', '~> 0.4'
 gem 'haml-contrib'
 gem 'RedCloth'
 gem 'kaminari'
-gem 'rails_autolink'
+#gem 'rails_autolink'
 gem 'simple_form', '~> 2.0'
 gem 'flickraw', '~> 0.9.5', require: false
 gem 'flickraw-cached'
