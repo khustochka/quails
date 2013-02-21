@@ -15,10 +15,11 @@ namespace :deploy do
   end
 
   desc <<-DESC
-    Start server
+    Restart server
   DESC
   task :restart, :roles => :app do
     run "sudo service #{fetch(:service)} upgrade"
+    #stream "tail -f #{current_path}/log/unicorn.log"
   end
 
 end
