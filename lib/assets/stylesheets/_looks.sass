@@ -77,3 +77,89 @@ form.comment
   display: inline-block
   border: 1px solid #666666
   //background-color: #c0c0c0
+
+// Lifelists
+
+.sci_name
+  color: #555
+
+h5.first_seen
+  color: #666
+  font-style: italic
+  font-size: 14px
+  margin-bottom: 3px
+  margin-left: 40px
+
+.lifers_list
+  margin-top: 0
+
+.lifer_row
+  line-height: 1.5em
+  span, time, em
+    margin: 0 5px
+    display: inline-block
+  time, em
+    text-align: right
+    font-style: italic
+  time, em, a
+    vertical-align: bottom
+  time
+    width: 150px
+  em
+    width: 35px
+  span
+    width: 380px
+    vertical-align: top
+
+// Neat table
+
+table.neat_table
+  border-top: 1px solid #ddd
+
+  td, th
+    padding: 2px 12px
+
+  tr
+    border-bottom: 1px solid #ddd
+
+  th
+    background-color: #f5f5f5
+    text-align: left
+
+  td
+    h2, h3, h4
+      margin: 30px 0 2px 0
+
+// Checklist table
+
+table.neat_table.checklist_table
+  max-width: 1200px
+  display: block
+  border-top: none
+  tr
+    border-bottom: 1px solid #eee
+
+  td.names
+    b, i
+      white-space: nowrap
+      display: block
+  td.status_column
+    width: 66%
+    font-style: italic
+    font-size: 87%
+    color: #444
+
+// Filter list
+
+.filter-list
+  margin-top: -5px
+  li
+    margin: 3px
+    padding: 0 3px
+    background-color: #EBEBCF
+    border-bottom: 1px dotted #777
+    a, a:hover
+      background-color: inherit
+      color: $link-color
+      text-decoration: none
+      padding: 0
