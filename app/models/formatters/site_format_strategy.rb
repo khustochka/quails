@@ -1,6 +1,6 @@
 class SiteFormatStrategy < FormattingStrategy
 
-  delegate :url_helpers, to: 'Rails.application.routes'
+  include Rails.application.routes.url_helpers
   include SpeciesHelper
   include ActionView::Helpers::TagHelper
   include PublicRoutesHelper
@@ -58,7 +58,7 @@ class SiteFormatStrategy < FormattingStrategy
       end
 
       @spcs.each do |sp|
-        result << "\n[#{sp.code}]#{url_helpers.species_path(sp)}"
+        result << "\n[#{sp.code}]#{species_path(sp)}"
       end
     end
 
