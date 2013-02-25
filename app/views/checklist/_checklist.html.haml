@@ -16,7 +16,7 @@
   - @checklist.group_by_taxonomy do |order, family, species_list|
     %tr.family_row
       %td
-      %td{:colspan => 3}
+      %td{:colspan => 2}
         %h2= render partial: 'species/taxonomy', locals: {rank: :order, value: order}
         %h3= render partial: 'species/taxonomy', locals: {rank: :family, value: family}
 
@@ -26,17 +26,18 @@
         %td.names
           %b= species_link(species.taxon)
           = name_sci(species.taxon)
-        %td
-          - if @edit
-            = text_field_tag("s[][s]", species.status, size: 1)
-          - else
-            = species.status
         %td.status_column
           - if @edit
+            = text_field_tag("s[][s]", species.status, size: 1)
             = hidden_field_tag("s[][id]", species.id)
             = text_area_tag("s[][n]", species.notes_ru, size: "100x2")
             = text_field_tag("s[][r]", species.reference)
           - else
+            - case species.status
+              - when "-"
+                %span.status-old{title: t('.status.old')} x
+              - when "?"
+                %span.status-unsure{title: t('.status.unsure')} ?
             = convert_status(species.notes_ru)
             - if species.reference.present?
               %small

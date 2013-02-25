@@ -1,5 +1,13 @@
 = render 'checklist'
 
+%h2= t(".legend")
+%p
+  %span.status-old x
+  = t('checklist.checklist.status.old')
+%p
+  %span.status-unsure ?
+  = t('checklist.checklist.status.unsure')
+
 %h2= t(".sources")
 
 %dl
