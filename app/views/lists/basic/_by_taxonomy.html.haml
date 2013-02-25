@@ -5,8 +5,4 @@
   %ol
     - species_list.each do |sp|
       %li.lifer_row{:value => i += 1}
-        %span
-          = species_link(sp)
-          = name_sci(sp)
-        %time= l(sp.first_seen_date, :format => :long)
-        = post_link('>>', sp.post)
+        = render partial: 'lifer', object: sp

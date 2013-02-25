@@ -81,7 +81,7 @@ form.comment
 // Lifelists
 
 .sci_name
-  color: #555
+  color: #777
 
 h5.first_seen
   color: #666
@@ -95,21 +95,13 @@ h5.first_seen
 
 .lifer_row
   line-height: 1.5em
-  span, time, em
-    margin: 0 5px
-    display: inline-block
-  time, em
-    text-align: right
-    font-style: italic
-  time, em, a
-    vertical-align: bottom
-  time
-    width: 150px
-  em
-    width: 35px
   span
-    width: 380px
-    vertical-align: top
+    font-size: 12px
+
+#lifelist, .lifers_list
+  time, .sp_link, .sci_name
+    white-space: nowrap
+
 
 // Neat table
 
@@ -148,6 +140,8 @@ table.neat_table.checklist_table
     font-style: italic
     font-size: 87%
     color: #444
+  .sci_name
+    color: #555
 
 // Filter list
 
@@ -163,3 +157,15 @@ table.neat_table.checklist_table
       color: $link-color
       text-decoration: none
       padding: 0
+
+
+// Some globals
+
+.align-right
+  text-align: right !important
+
+.align-left
+  text-align: left !important
+
+.align-center
+  text-align: center !important

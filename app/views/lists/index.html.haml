@@ -1,17 +1,11 @@
 - @page_title = "Lifelist и другие списки"
 
--# TODO: partials!
 - lifers = lambda do |rel|
   %ol.lifers_list
-    - count = rel.except(:limit).count
+    - count = rel.except(:limit).count + 1
     - rel.each do |sp|
-      %li.lifer_row{value: count}
-        %span
-          = species_link(sp)
-          = name_sci(sp)
-        %time= l(sp.first_seen_date, :format => :long)
-        = post_link('>>', sp.post)
-        - count -= 1
+      %li.lifer_row{value: count -= 1}
+        = render partial: 'lifer', object: sp
 
 %h1= @page_title
 
