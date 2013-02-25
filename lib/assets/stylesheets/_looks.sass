@@ -169,3 +169,39 @@ table.neat_table.checklist_table
 
 .align-center
   text-align: center !important
+
+// Species page
+
+.latin
+  font-style: italic
+  margin-top: 0
+  display: inline
+
+.authority
+  font-family: Verdana, Tahoma, Arial, sans-serif
+  font-variant: small-caps
+  font-size: 14px
+
+.sp_translations
+  dt
+    display: inline
+    color: #33b
+    font-style: italic
+
+  dd
+    display: inline
+    margin-left: 0
+    &:after
+      content: ";"
+    &:last-child:after
+      content: ""
+
+table.monthly
+  td
+    text-align: center
+    border: 1px solid #333
+    width: 40px
+    height:  40px
+
+  td.seen_this_month
+    background-color: #cfc

@@ -11,16 +11,16 @@
   %strong= t("taxonomy.#{@species.family}") rescue nil
   %i.sci_name= @species.family
 
-%h1= @species.name
-%h2= @species.name_sci
+%div.header-with-subheader
+  %h1= @species.name
+  %h2.latin= @species.name_sci
+  %span.authority= @species.authority
 
-%p= @species.authority
-
-%dl
-  - %w(en fr ru uk).map do |lang|
-    %dt
-      %b #{lang} name:
-    %dd #{@species.send("name_#{lang}")}
+%dl.sp_translations
+  - %w(en uk fr).map do |lang|
+    - if (trans_name = @species.send("name_#{lang}")).present?
+      %dt= t("languages.#{lang}")
+      %dd= trans_name
 
 - @species.images.if_present do |images|
   %div.photos

@@ -22,3 +22,9 @@
     species_count: 'species'
 
     feed: Feed
+
+  languages:
+    en: in English
+    ru: in Russian
+    uk: in Ukrainian
+    fr: in French

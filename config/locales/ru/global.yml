@@ -26,6 +26,12 @@
 
     feed: Подписка
 
+  languages:
+    en: по-английски
+    ru: по-русски
+    uk: по-украински
+    fr: по-фрацузски
+
   errors:
     template:
       header:
