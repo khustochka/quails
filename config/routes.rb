@@ -73,7 +73,7 @@ Quails::Application.routes.draw do
 
   get '/blog.:format' => 'feeds#blog', constraints: {format: 'xml'}
   get '/photos.:format' => 'feeds#photos', constraints: {format: 'xml'}
-  get '/sitemap(.:format)' => 'feeds#sitemap', constraints: {format: 'xml'}, defaults: {format: 'xml'}
+  get '/sitemap.:format' => 'feeds#sitemap', constraints: {format: 'xml'}
 
 #  scope '/(:locale)', locale: /[a-z]{2}/ do
 #    resources :species, except: [:new, :create, :destroy]
