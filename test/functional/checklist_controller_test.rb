@@ -24,7 +24,7 @@ class ChecklistControllerTest < ActionController::TestCase
   end
 
   test 'do not show checklist for unknown countries' do
-    assert_raise(ActionController::RoutingError) { get :show, country: 'georgia' }
+    assert_raise(ActionController::UrlGenerationError) { get :show, country: 'georgia' }
   end
 
   test 'do not show checklist for other countries' do
