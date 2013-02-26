@@ -36,7 +36,7 @@ gem 'roman-numerals'
 group :assets do
   gem 'sass-rails', '~> 4.0.0.beta1'
   #gem 'coffee-rails', '~> 3.2.1'
-  gem 'turbo-sprockets-rails3'
+  #gem 'turbo-sprockets-rails3'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 
