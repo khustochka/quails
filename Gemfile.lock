@@ -39,6 +39,7 @@ GEM
       activesupport
       builder
       json
+    ansi (1.4.3)
     arel (4.0.0.beta1)
     atomic (1.0.1)
     builder (3.1.4)
@@ -93,6 +94,11 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.21)
     minitest (4.6.1)
+    minitest-reporters (0.14.7)
+      ansi
+      builder
+      minitest (>= 2.12, < 5.0)
+      powerbar
     multi_json (1.6.1)
     mysql2 (0.3.11)
     newrelic_rpm (3.5.7.59)
@@ -100,6 +106,9 @@ GEM
     pg (0.14.1)
     polyglot (0.3.3)
     posix-spawn (0.3.6)
+    powerbar (1.0.11)
+      ansi (~> 1.4.0)
+      hashie (>= 1.1.0)
     rack (1.5.2)
     rack-test (0.6.2)
       rack (>= 1.0)
@@ -199,6 +208,7 @@ DEPENDENCIES
   launchy
   livejournal
   minitest
+  minitest-reporters
   mysql2 (~> 0.3.7)
   newrelic_rpm
   nokogiri
