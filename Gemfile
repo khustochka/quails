@@ -2,7 +2,7 @@ source 'https://rubygems.org/'
 
 ruby '1.9.3'
 
-gem 'rails', '3.2.12'
+gem 'rails', '4.0.0.beta1'
 # gem 'rails', github: 'rails/rails'
 
 gem 'pg', platforms: [:ruby, :mingw]
@@ -22,7 +22,7 @@ gem 'haml-contrib'
 gem 'RedCloth'
 gem 'kaminari'
 #gem 'rails_autolink'
-gem 'simple_form', '~> 2.0'
+gem 'simple_form', '~> 3.0.0.beta1'
 gem 'flickraw', '~> 0.9.5', require: false
 gem 'flickraw-cached'
 gem 'livejournal'
@@ -32,7 +32,7 @@ gem 'roman-numerals'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails', '~> 3.2.3'
+  gem 'sass-rails', '~> 4.0.0.beta1'
   #gem 'coffee-rails', '~> 3.2.1'
   gem 'turbo-sprockets-rails3'
 
