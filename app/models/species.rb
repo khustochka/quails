@@ -12,7 +12,7 @@ class Species < ActiveRecord::Base
   has_many :observations, -> { order :observ_date }, dependent: :restrict_with_exception
   has_many :images, -> { order('observations.observ_date', 'observations.locus_id', :index_num) }, through: :observations
   has_many :taxa
-  has_many :posts, through: :observations, order: 'face_date DESC', uniq: true
+  has_many :posts, -> { order('face_date DESC').uniq}, through: :observations
 
   belongs_to :image
 
