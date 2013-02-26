@@ -6,6 +6,13 @@ GIT
     haml (4.0.1)
       tilt
 
+GIT
+  remote: git://github.com/rails/actionpack-page_caching.git
+  revision: af84843c1a0e2a97de2f2b29c1288bf414d6ee00
+  specs:
+    actionpack-page_caching (0.0.1)
+      actionpack (>= 4.0.0.beta, < 5.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -192,6 +199,7 @@ PLATFORMS
 
 DEPENDENCIES
   RedCloth
+  actionpack-page_caching!
   activerecord-jdbcpostgresql-adapter
   airbrake
   capybara (~> 2.0)

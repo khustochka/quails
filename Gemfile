@@ -16,6 +16,7 @@ group :production do
 end
 
 # Bundle the extra gems:
+gem 'actionpack-page_caching', github: 'rails/actionpack-page_caching'
 gem 'rails-i18n'
 gem 'haml-rails', '~> 0.4'
 gem 'haml-contrib'
