@@ -54,7 +54,7 @@ class BlogControllerTest < ActionController::TestCase
     assert_includes(assigns(:posts), blogpost3)
     refute_includes(assigns(:posts), blogpost4)
     refute_includes(assigns(:posts), blogpost5)
-    assert_equal blogpost4.to_month_url.stringify_keys, assigns(:prev_month)
+    assert_equal blogpost4.to_month_url, assigns(:prev_month)
   end
 
   test 'show correct Earlier Posts link if limit is inside the month' do
@@ -70,7 +70,7 @@ class BlogControllerTest < ActionController::TestCase
     assert_includes(assigns(:posts), blogpost3)
     refute_includes(assigns(:posts), blogpost4)
     refute_includes(assigns(:posts), blogpost5)
-    assert_equal blogpost4.to_month_url.stringify_keys, assigns(:prev_month)
+    assert_equal blogpost4.to_month_url, assigns(:prev_month)
   end
 
   test 'show full month and correct Earlier Posts link if the last month exceeds the limit' do
@@ -88,7 +88,7 @@ class BlogControllerTest < ActionController::TestCase
     assert_includes(assigns(:posts), blogpost3)
     assert_includes(assigns(:posts), blogpost4)
     assert_includes(assigns(:posts), blogpost5)
-    assert_equal blogpost6.to_month_url.stringify_keys, assigns(:prev_month)
+    assert_equal blogpost6.to_month_url, assigns(:prev_month)
   end
 
   # Year view
