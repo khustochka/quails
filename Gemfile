@@ -56,6 +56,7 @@ end
 gem 'factory_girl_rails', '~> 4.0', groups: [:development, :test]
 
 group :test do
+  gem 'minitest'
   gem 'test-unit'
   gem 'ruby-prof', require: false, platforms: [:mri, :mingw]
   gem 'capybara', '~> 2.0'

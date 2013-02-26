@@ -198,6 +198,7 @@ DEPENDENCIES
   kaminari
   launchy
   livejournal
+  minitest
   mysql2 (~> 0.3.7)
   newrelic_rpm
   nokogiri
