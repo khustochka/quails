@@ -35,8 +35,8 @@ class BlogController < ApplicationController
         select("EXTRACT(year FROM face_date) as raw_year,
                 EXTRACT(month FROM face_date) as raw_month,
                 COUNT(id) as posts_count").
-        group(:raw_year, :raw_month).
-        order(:raw_year, :raw_month).
+        group('raw_year, raw_month').
+        order('raw_year, raw_month').
         chunk(&:raw_year)
   end
 
