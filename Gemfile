@@ -19,6 +19,7 @@ end
 gem 'rails-i18n'
 gem 'haml-rails', '~> 0.4'
 gem 'haml-contrib'
+gem "haml", :github => "haml/haml", :branch => "stable"
 gem 'RedCloth'
 gem 'kaminari'
 #gem 'rails_autolink'

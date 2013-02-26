@@ -1,3 +1,11 @@
+GIT
+  remote: git://github.com/haml/haml.git
+  revision: ae3d08f9534d70af42146912c8c367b6eb043031
+  branch: stable
+  specs:
+    haml (4.0.1)
+      tilt
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -61,8 +69,6 @@ GEM
       diff-lcs (~> 1.1)
       mime-types (~> 1.15)
       posix-spawn (~> 0.3.6)
-    haml (4.0.0)
-      tilt
     haml-contrib (1.0.0)
       haml (>= 3.2.0.alpha.13)
     haml-rails (0.4)
@@ -185,6 +191,7 @@ DEPENDENCIES
   flickraw (~> 0.9.5)
   flickraw-cached
   grit (~> 2.5)
+  haml!
   haml-contrib
   haml-rails (~> 0.4)
   hashie
