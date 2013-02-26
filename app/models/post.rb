@@ -62,7 +62,7 @@ class Post < ActiveRecord::Base
   end
 
   def self.years
-    order(:year).pluck('DISTINCT EXTRACT(year from face_date) AS year')
+    order('year').pluck('DISTINCT EXTRACT(year from face_date) AS year')
   end
 
   # Instance methods
