@@ -57,7 +57,7 @@ class LifelistTest < ActiveSupport::TestCase
 
   test 'Species lifelist by taxonomy properly sorts the list' do
     expected = [%w(merser 2008-10-18), %w(colliv 2008-05-22), %w(parmaj 2009-01-01), %w(pasdom 2009-01-01), %w(carlis 2010-10-13)]
-    actual = Lifelist.basic.sort('class').map { |s| [s.code, s.first_seen] }
+    actual = Lifelist.basic.sort('class').map { |s| [s.code, s.first_seen.iso8601] }
     assert_equal expected, actual
   end
 
@@ -77,7 +77,7 @@ class LifelistTest < ActiveSupport::TestCase
 
   test 'Species lifelist by date properly sorts the list' do
     expected = [["carlis", "2010-10-13"], ["pasdom", "2009-01-01"], ["parmaj", "2009-01-01"], ["merser", "2008-10-18"], ["colliv", "2008-05-22"]]
-    actual = Lifelist.basic.map { |s| [s.code, s.first_seen] }
+    actual = Lifelist.basic.map { |s| [s.code, s.first_seen.iso8601] }
     assert_equal expected, actual
   end
 
@@ -89,43 +89,43 @@ class LifelistTest < ActiveSupport::TestCase
 
   test 'Year list by taxonomy properly sorts the list' do
     expected = [["colliv", "2009-10-18"], ["parmaj", "2009-01-01"], ["pasdom", "2009-01-01"]]
-    actual = Lifelist.basic.sort('class').filter(year: 2009).map { |s| [s.code, s.first_seen] }
+    actual = Lifelist.basic.sort('class').filter(year: 2009).map { |s| [s.code, s.first_seen.iso8601] }
     assert_equal expected, actual
   end
 
   test 'Year list by date properly sorts the list' do
     expected = [["colliv", "2009-10-18"], ["pasdom", "2009-01-01"], ["parmaj", "2009-01-01"]]
-    actual = Lifelist.basic.filter(year: 2009).map { |s| [s.code, s.first_seen] }
+    actual = Lifelist.basic.filter(year: 2009).map { |s| [s.code, s.first_seen.iso8601] }
     assert_equal expected, actual
   end
 
   test 'List by locus returns properly filtered list' do
     expected = [["colliv", "2010-03-10"], ["pasdom", "2009-12-01"]]
-    actual = Lifelist.advanced.source(loci: Locus.all).filter(locus: 'new_york').map { |s| [s.code, s.first_seen] }
+    actual = Lifelist.advanced.source(loci: Locus.all).filter(locus: 'new_york').map { |s| [s.code, s.first_seen.iso8601] }
     assert_equal expected, actual
   end
 
   test 'List by super locus returns properly filtered list' do
     expected = [["colliv", "2010-03-10"], ["pasdom", "2009-12-01"]]
-    actual = Lifelist.basic.filter(locus: 'usa').map { |s| [s.code, s.first_seen] }
+    actual = Lifelist.basic.filter(locus: 'usa').map { |s| [s.code, s.first_seen.iso8601] }
     assert_equal expected, actual
   end
 
   test 'List by locus and year returns properly filtered list' do
     expected = [["pasdom", "2010-04-16"], ["colliv", "2010-03-10"]]
-    actual = Lifelist.basic.filter(locus: 'usa', year: 2010).map { |s| [s.code, s.first_seen] }
+    actual = Lifelist.basic.filter(locus: 'usa', year: 2010).map { |s| [s.code, s.first_seen.iso8601] }
     assert_equal expected, actual
   end
 
   test 'Month list returns properly filtered list' do
     expected = [["carlis", "2010-10-13"], ["colliv", "2009-10-18"], ["merser", "2008-10-18"]]
-    actual = Lifelist.basic.filter(month: 10).map { |s| [s.code, s.first_seen] }
+    actual = Lifelist.basic.filter(month: 10).map { |s| [s.code, s.first_seen.iso8601] }
     assert_equal expected, actual
   end
 
   test 'List for month and year returns properly filtered list' do
     expected = [["colliv", "2009-10-18"]]
-    actual = Lifelist.basic.filter(month: 10, year: 2009).map { |s| [s.code, s.first_seen] }
+    actual = Lifelist.basic.filter(month: 10, year: 2009).map { |s| [s.code, s.first_seen.iso8601] }
     assert_equal expected, actual
   end
 

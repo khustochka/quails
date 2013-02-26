@@ -30,7 +30,7 @@ class LifelistAdvancedTest < ActiveSupport::TestCase
 
   test 'Advanced lifelist by last date properly sorts the list' do
     expected = [["carlis", "2010-10-13"], ["pasdom", "2010-09-10"], ["colliv", "2010-07-27"], ["parmaj", "2009-12-31"], ["merser", "2008-10-18"]]
-    actual = Lifelist.advanced.sort('last').map { |s| [s.code, s.last_seen] }
+    actual = Lifelist.advanced.sort('last').map { |s| [s.code, s.last_seen.iso8601] }
     assert_equal expected, actual
   end
 
