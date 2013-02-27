@@ -52,6 +52,8 @@
 
       = render 'partials/header'
 
+      = render 'partials/search' unless Rails.env.test? || @admin_layout
+
       .main
         = yield
 
