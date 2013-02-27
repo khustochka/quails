@@ -21,7 +21,7 @@ class CommentsControllerTest < ActionController::TestCase
 
   test "create comment" do
     assert_difference('Comment.count') do
-      post :create, comment: @comment.attributes
+      post :create, comment: attributes_for(:comment, post_id: @comment.post_id)
     end
 
     comment = assigns(:comment)

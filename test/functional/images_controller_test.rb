@@ -44,8 +44,7 @@ class ImagesControllerTest < ActionController::TestCase
 
   test "create image with one observation" do
     login_as_admin
-    new_attr = @image.attributes.dup
-    new_attr['slug'] = 'new_img_slug'
+    new_attr = build(:image, slug: 'new_img_slug').attributes
     assert_difference('Image.count') do
       post :create, image: new_attr, obs: [@obs.id]
     end
@@ -57,8 +56,7 @@ class ImagesControllerTest < ActionController::TestCase
     login_as_admin
     obs2 = create(:observation, species: seed(:lancol))
     obs3 = create(:observation, species: seed(:jyntor))
-    new_attr = @image.attributes.dup
-    new_attr['slug'] = 'new_img_slug'
+    new_attr = build(:image, slug: 'new_img_slug').attributes
     assert_difference('Image.count') do
       post :create, image: new_attr, obs: [@obs.id, obs2.id, obs3.id]
     end
@@ -68,8 +66,7 @@ class ImagesControllerTest < ActionController::TestCase
 
   test "do not save image with no observations" do
     login_as_admin
-    new_attr = @image.attributes.dup
-    new_attr['slug'] = 'new_img_slug'
+    new_attr = build(:image, slug: 'new_img_slug').attributes
     assert_difference('Image.count', 0) do
       post :create, image: new_attr, obs: []
     end
@@ -81,8 +78,7 @@ class ImagesControllerTest < ActionController::TestCase
     login_as_admin
     obs2 = create(:observation, locus: seed(:kiev))
     obs3 = create(:observation, locus: seed(:brovary))
-    new_attr = @image.attributes.dup
-    new_attr['slug'] = 'new_img_slug'
+    new_attr = build(:image, slug: 'new_img_slug').attributes
     assert_difference('Image.count', 0) do
       post :create, image: new_attr, obs: [obs2.id, obs3.id]
     end
