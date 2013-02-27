@@ -15,13 +15,13 @@ class SpotsControllerTest < ActionController::TestCase
 
   test 'Create spot' do
     login_as_admin
-    assert_difference('Spot.count', 1) { post :save, spot: build(:spot).attributes }
+    assert_difference('Spot.count', 1) { post :save, spot: build(:spot).attributes, format: :json }
   end
 
   test 'Update spot' do
     spot = create(:spot)
     login_as_admin
-    assert_difference('Spot.count', 0) { post :save, spot: {id: spot.id, memo: "Zzz"} }
+    assert_difference('Spot.count', 0) { post :save, spot: {id: spot.id, memo: "Zzz"}, format: :json }
   end
 
   test 'Destroy spot' do
