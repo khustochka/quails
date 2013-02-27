@@ -15,21 +15,21 @@ class ImageObservValidationTest < ActiveSupport::TestCase
     assert_difference('Image.count', 0) do
       img.update_with_observations(new_attr, [])
     end
-    assert_present img.errors
+    assert img.errors.present?
   end
 
   test "does not update image with empty observation list" do
     new_attr = build(:image).attributes
     new_attr['slug'] = 'new_img_slug'
     refute @image.update_with_observations(new_attr, [])
-    assert_present @image.errors
+    assert @image.errors.present?
   end
 
   test "does not update image if no observation list provided" do
     new_attr = @image.attributes
     new_attr['slug'] = 'new_img_slug'
     refute @image.update_with_observations(new_attr, nil)
-    assert_present @image.errors
+    assert @image.errors.present?
   end
 
   test "restores observation list if image was not saved due to its emptiness" do
@@ -82,7 +82,7 @@ class ImageObservValidationTest < ActiveSupport::TestCase
     assert_difference('Image.count', 0) do
       img.update_with_observations(new_attr, [obs1.id, obs2.id])
     end
-    assert_present img.errors
+    assert img.errors.present?
   end
 
   test 'does not create image with inconsistent observations (different loc)' do
@@ -93,7 +93,7 @@ class ImageObservValidationTest < ActiveSupport::TestCase
     assert_difference('Image.count', 0) do
       img.update_with_observations(new_attr, [obs1.id, obs2.id])
     end
-    assert_present img.errors
+    assert img.errors.present?
   end
 
   test 'does not create image with inconsistent observations (mine-not mine)' do
@@ -104,7 +104,7 @@ class ImageObservValidationTest < ActiveSupport::TestCase
     assert_difference('Image.count', 0) do
       img.update_with_observations(new_attr, [obs1.id, obs2.id])
     end
-    assert_present img.errors
+    assert img.errors.present?
   end
 
   test 'does not update image with inconsistent observations' do
@@ -112,7 +112,7 @@ class ImageObservValidationTest < ActiveSupport::TestCase
     obs2 = create(:observation, observ_date: '2010-01-01')
     new_attr = @image.attributes
     refute @image.update_with_observations(new_attr, [obs1.id, obs2.id])
-    assert_present @image.errors
+    assert @image.errors.present?
   end
 
   test 'preserves changed values if image failed to update with inconsistent observations' do
@@ -120,7 +120,7 @@ class ImageObservValidationTest < ActiveSupport::TestCase
     obs2 = create(:observation, observ_date: '2010-01-01')
     new_attr = build(:image, slug: 'newslug').attributes
     refute @image.update_with_observations(new_attr, [obs1.id, obs2.id])
-    assert_present @image.errors
+    assert @image.errors.present?
     assert_equal 'newslug', @image.slug
   end
 

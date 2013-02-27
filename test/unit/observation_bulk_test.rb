@@ -12,7 +12,7 @@ class ObservationBulkTest < ActiveSupport::TestCase
     assert_difference('Observation.count', 3) do
       bulk.save
     end
-    assert_blank bulk.errors, "Should be no errors"
+    assert bulk.errors.blank?, "Should be no errors"
   end
 
   test 'observation bulk save returns error if no observations provided' do
@@ -22,7 +22,7 @@ class ObservationBulkTest < ActiveSupport::TestCase
     assert_difference('Observation.count', 0) do
       bulk.save
     end
-    assert_present bulk.errors
+    assert bulk.errors.present?
   end
 
   test 'Observations bulk save combines errors for incorrect common parameters and zero observations' do
@@ -44,7 +44,7 @@ class ObservationBulkTest < ActiveSupport::TestCase
     assert_difference('Observation.count', 0) do
       refute bulk.save
     end
-    assert_present bulk.errors
+    assert bulk.errors.present?
   end
 
   test 'Observations bulk save updates observations if id is specified' do

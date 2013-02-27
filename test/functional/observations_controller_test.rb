@@ -13,7 +13,7 @@ class ObservationsControllerTest < ActionController::TestCase
     login_as_admin
     get :index
     assert_response :success
-    assert_present assigns(:observations)
+    assert assigns(:observations).present?
   end
 
   test "get index (search)" do

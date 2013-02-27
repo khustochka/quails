@@ -5,7 +5,7 @@ class ChecklistControllerTest < ActionController::TestCase
   test 'shows checklist for Ukraine' do
     get :show, country: 'ukraine'
     assert_response :success
-    assert_present assigns(:checklist)
+    assert assigns(:checklist).present?
     assert_select "a[href=#{species_path(seed(:pasdom))}]"
   end
 
@@ -13,7 +13,7 @@ class ChecklistControllerTest < ActionController::TestCase
     login_as_admin
     get :edit, country: 'ukraine'
     assert_response :success
-    assert_present assigns(:checklist)
+    assert assigns(:checklist).present?
     assert_select "input"
   end
 

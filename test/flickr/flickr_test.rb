@@ -6,7 +6,7 @@ class FlickrTest < ActiveSupport::TestCase
 
   test 'can find private flickr photos (auth success)' do
     FlickrApp.reconfigure!
-    assert_present flickr.photos.getInfo(photo_id: '3210846200')
+    assert flickr.photos.getInfo(photo_id: '3210846200').present?
   end
 
 end

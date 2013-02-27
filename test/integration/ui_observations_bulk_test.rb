@@ -173,8 +173,8 @@ class UIObservationsBulkTest < ActionDispatch::IntegrationTest
 
     assert_difference('Observation.count', 1) { click_button('Save') }
 
-    assert_present Species.find_by_code('drymar').observations
-    assert_present Species.find_by_code('faltin').observations
+    assert Species.find_by_code('drymar').observations.present?
+    assert Species.find_by_code('faltin').observations.present?
     assert_empty Species.find_by_code('crecre').observations
 
   end
@@ -206,7 +206,7 @@ class UIObservationsBulkTest < ActionDispatch::IntegrationTest
 
     assert_difference('Observation.count', 0) { click_button('Save') }
 
-    assert_present Species.find_by_code('drymar').observations
+    assert Species.find_by_code('drymar').observations.present?
   end
 
   test "Bulk edit preserves post" do
