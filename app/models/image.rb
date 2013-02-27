@@ -67,10 +67,13 @@ class Image < ActiveRecord::Base
   # Saving with observation validation
 
   def update_with_observations(attr, obs_ids)
+    assign_attributes(attr)
     validate_observations(obs_ids)
-    return false if errors.any?
+    if errors.any?
+      run_validations!
+      return false
+    end
     with_transaction_returning_status do
-      assign_attributes(attr)
       if self.spot_id && !self.spot.observation.in?(self.observation_ids & obs_ids)
         self.spot_id = nil
       end
