@@ -15,7 +15,7 @@ class ActiveSupport::TestCase
 
   include FactoryGirl::Syntax::Methods
 
-  delegate :root_url, :public_post_path, :public_comment_path, :url_for, to: :@controller
+  delegate :public_post_path, :public_comment_path, :url_for, to: :@controller
 
   TEST_CREDENTIALS = Hashie::Mash.new(
       begin
