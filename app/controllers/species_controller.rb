@@ -35,7 +35,7 @@ class SpeciesController < ApplicationController
         # TODO: set canonical, set NOCACHE, NOINDEX
       else
         @posts = @species.posts.limit(10).merge(current_user.available_posts)
-        @months = @species.observations.except(:order).pluck("DISTINCT EXTRACT(month FROM observ_date)")
+        @months = @species.observations.except(:order).pluck("DISTINCT EXTRACT(month FROM observ_date)::integer")
       end
     else
       raise ActiveRecord::RecordNotFound, "Cannot find #{id_humanized}"

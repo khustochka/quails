@@ -91,7 +91,7 @@ class ResearchController < ApplicationController
         where("mine").order("to_char(observ_date, 'MM-DD') ASC").limit(1).first
     @next_day = [next_day[:imon], next_day[:iday]].join('-') rescue nil
     @images = Image.joins(:observations).where("mine").
-        where('EXTRACT(day from observ_date) = ? AND EXTRACT(month from observ_date) = ?', @day, @month)
+        where('EXTRACT(day from observ_date)::integer = ? AND EXTRACT(month from observ_date)::integer = ?', @day, @month)
   end
 
   def uptoday
@@ -104,13 +104,13 @@ class ResearchController < ApplicationController
     @next_day = @this_day + 1
     @prev_day = @this_day - 1
     @uptoday = MyObservation.where(
-        'EXTRACT(month FROM observ_date) < ? OR
-        (EXTRACT(month FROM observ_date) = ?
-        AND EXTRACT(day FROM observ_date) <= ?)',
+        'EXTRACT(month FROM observ_date)::integer < ? OR
+        (EXTRACT(month FROM observ_date)::integer = ?
+        AND EXTRACT(day FROM observ_date)::integer <= ?)',
         @this_day.month, @this_day.month, @this_day.day
     ).
-        order('EXTRACT(year FROM observ_date)').
-        group('EXTRACT(year FROM observ_date)').
+        order('EXTRACT(year FROM observ_date)::integer').
+        group('EXTRACT(year FROM observ_date)::integer').
         count('DISTINCT species_id')
     @max = @uptoday.map(&:second).max
   end

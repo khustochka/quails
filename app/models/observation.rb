@@ -28,14 +28,14 @@ class Observation < ActiveRecord::Base
   # TODO: improve and probably use universally
   def self.filter(options = {})
     rel = self.all
-    rel = rel.where('EXTRACT(year from observ_date) = ?', options[:year]) unless options[:year].blank?
-    rel = rel.where('EXTRACT(month from observ_date) = ?', options[:month]) unless options[:month].blank?
+    rel = rel.where('EXTRACT(year from observ_date)::integer = ?', options[:year]) unless options[:year].blank?
+    rel = rel.where('EXTRACT(month from observ_date)::integer = ?', options[:month]) unless options[:month].blank?
     rel = rel.where('locus_id' => options[:locus]) unless options[:locus].blank?
     rel
   end
 
   def self.years
-    order('year').pluck('DISTINCT EXTRACT(year from observ_date) AS year')
+    order('year').pluck('DISTINCT EXTRACT(year from observ_date)::integer AS year')
   end
 
   def self.search(conditions = {})

@@ -42,11 +42,11 @@ class Post < ActiveRecord::Base
   scope :hidden, lambda { where(status: 'PRIV') }
 
   def self.year(year)
-    select('id, slug, title, face_date, status').where('EXTRACT(year from face_date) = ?', year).order('face_date ASC')
+    select('id, slug, title, face_date, status').where('EXTRACT(year from face_date)::integer = ?', year).order('face_date ASC')
   end
 
   def self.month(year, month)
-    year(year).except(:select).where('EXTRACT(month from face_date) = ?', month)
+    year(year).except(:select).where('EXTRACT(month from face_date)::integer = ?', month)
   end
 
   def self.prev_month(year, month)
@@ -62,7 +62,7 @@ class Post < ActiveRecord::Base
   end
 
   def self.years
-    order('year').pluck('DISTINCT EXTRACT(year from face_date) AS year')
+    order('year').pluck('DISTINCT EXTRACT(year from face_date)::integer AS year')
   end
 
   # Instance methods
