@@ -20,7 +20,7 @@ gem 'actionpack-page_caching', github: 'rails/actionpack-page_caching'
 gem 'rails-i18n'
 gem 'haml-rails', '~> 0.4'
 gem 'haml-contrib'
-gem "haml", :github => "haml/haml", :branch => "stable"
+gem "haml", '4.0.1.rc.1'
 gem 'RedCloth'
 gem 'kaminari'
 #gem 'rails_autolink'
@@ -59,7 +59,6 @@ gem 'factory_girl_rails', '~> 4.0', groups: [:development, :test]
 group :test do
   gem 'minitest'
   gem 'minitest-reporters'
-  gem 'test-unit'
   gem 'ruby-prof', require: false, platforms: [:mri, :mingw]
   gem 'capybara', '~> 2.0'
   gem 'database_cleaner', require: false

@@ -1,12 +1,4 @@
 GIT
-  remote: git://github.com/haml/haml.git
-  revision: ae3d08f9534d70af42146912c8c367b6eb043031
-  branch: stable
-  specs:
-    haml (4.0.1)
-      tilt
-
-GIT
   remote: git://github.com/rails/actionpack-page_caching.git
   revision: af84843c1a0e2a97de2f2b29c1288bf414d6ee00
   specs:
@@ -77,6 +69,8 @@ GEM
       diff-lcs (~> 1.1)
       mime-types (~> 1.15)
       posix-spawn (~> 0.3.6)
+    haml (4.0.1.rc.1)
+      tilt
     haml-contrib (1.0.0)
       haml (>= 3.2.0.alpha.13)
     haml-rails (0.4)
@@ -84,7 +78,7 @@ GEM
       activesupport (>= 3.1, < 4.1)
       haml (>= 3.1, < 4.1)
       railties (>= 3.1, < 4.1)
-    hashie (2.0.1)
+    hashie (2.0.2)
     hike (1.2.1)
     i18n (0.6.2)
     json (1.7.7)
@@ -171,7 +165,6 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (~> 2.8)
-    test-unit (2.5.4)
     thor (0.17.0)
     thread_safe (0.1.0)
       atomic
@@ -205,7 +198,7 @@ DEPENDENCIES
   flickraw (~> 0.9.5)
   flickraw-cached
   grit (~> 2.5)
-  haml!
+  haml (= 4.0.1.rc.1)
   haml-contrib
   haml-rails (~> 0.4)
   hashie
@@ -226,6 +219,5 @@ DEPENDENCIES
   sass-rails (~> 4.0.0.beta1)
   simple_form (~> 3.0.0.beta1)
   simplecov
-  test-unit
   uglifier (>= 1.0.3)
   unicorn
