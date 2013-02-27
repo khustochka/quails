@@ -10,7 +10,7 @@ class MyStatsController < ApplicationController
 
     # Count over subquery is faster than Array#size
     rel = MyObservation.aggregate_by_species(:min).
-        having("EXTRACT(year FROM MIN(observ_date)::integer) = 2013")
+        having("EXTRACT(year FROM MIN(observ_date))::integer = 2013")
     @new_this_year = Observation.from("(#{rel.to_sql}) AS obs").count
 
     # Year with max species
