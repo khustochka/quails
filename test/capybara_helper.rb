@@ -68,7 +68,7 @@ module JavaScriptTestCase
 
       def submit_with_button(button)
         click_button(button)
-        sleep 2
+        sleep 1
       end
 
       def select_suggestion(value, hash)

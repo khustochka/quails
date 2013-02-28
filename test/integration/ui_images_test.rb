@@ -32,7 +32,7 @@ class UIImagesTest < ActionDispatch::IntegrationTest
     visit edit_image_path(img)
 
     # This test is sometimes failing with timeout, probably due to no actions performed on page
-    sleep 2
+    sleep 1
 
     assert_difference('Image.count', 0) { submit_with_button('Save') }
     assert_equal image_path(img), current_path
