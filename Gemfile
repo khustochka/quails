@@ -58,6 +58,7 @@ group :test do
   gem 'test-unit'
   gem 'ruby-prof', require: false, platforms: [:mri, :mingw]
   gem 'capybara', '~> 2.0'
+  gem 'capybara-webkit', platforms: [:mri], require: false
   gem 'database_cleaner', require: false
   gem 'launchy' # So you can do Then show me the page
   gem 'simplecov', require: false, platforms: [:ruby, :mingw]
