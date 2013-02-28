@@ -3,6 +3,8 @@ require 'database_cleaner'
 require 'seed_tables'
 require 'capybara_drivers'
 
+Capybara.default_wait_time = 5
+
 # Transactional fixtures do not work with Selenium tests, because Capybara
 # uses a separate server thread, which the transactions would be hidden
 # from. We hence use DatabaseCleaner to truncate our test database.
