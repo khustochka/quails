@@ -95,7 +95,7 @@ class ObservationsController < ApplicationController
     redirect_to(observations_url)
   end
 
-  # POST /observations/bulksave
+  # POST /observations/bulksave.json
   # API: parameters are a hash with two keys:
   # c: hash of common options - locus_id, observ_date, mine, post_id
   # o: array of hashes each having species_id, quantity, biotope, place, notes
