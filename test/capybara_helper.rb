@@ -3,10 +3,6 @@ require 'database_cleaner'
 require 'seed_tables'
 require 'capybara_drivers'
 
-if ENV['JS_DRIVER'].try(:to_s) == "webkit"
-  require "capybara/webkit"
-end
-
 # Transactional fixtures do not work with Selenium tests, because Capybara
 # uses a separate server thread, which the transactions would be hidden
 # from. We hence use DatabaseCleaner to truncate our test database.
