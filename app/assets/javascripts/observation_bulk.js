@@ -51,20 +51,8 @@ $(function () {
         }
     }
 
-//    $.ajaxSetup({
-//        dataType: "json",
-//        accepts: {
-//            json: "application/json"
-//        }
-//    });
-
     /* Form actions */
-    form.attr('action', form.data('action') + ".json");
-
-    $.rails.ajax = function (options) {
-        if (options.url == form.data('action')) options.async = false;
-        return $.ajax(options);
-    };
+    form.attr('action', form.data('action'));
 
     form.on('ajax:beforeSend', function () {
         $(".errors").remove();
