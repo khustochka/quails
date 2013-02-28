@@ -223,8 +223,8 @@ class UIObservationsBulkTest < ActionDispatch::IntegrationTest
   end
 
   test "Bulk add observations with voice only, then uncheck" do
+    login_as_admin
     visit add_observations_path
-
     select_suggestion('Brovary', from: 'Location')
     fill_in('Date', with: '2011-04-09')
 
@@ -277,6 +277,7 @@ class UIObservationsBulkTest < ActionDispatch::IntegrationTest
   end
 
   test "Clicking on voice checkbox label should not change the wrong checkbox" do
+    login_as_admin
     visit add_observations_path
 
     select_suggestion('Brovary', from: 'Location')
