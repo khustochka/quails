@@ -26,6 +26,7 @@ gem 'simple_form', '~> 2.0'
 gem 'flickraw', '~> 0.9.5', require: false
 gem 'flickraw-cached'
 gem 'livejournal'
+gem "high_voltage"
 gem 'hashie'
 gem 'roman-numerals'
 
