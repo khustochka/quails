@@ -18,6 +18,16 @@ class FeedsControllerTest < ActionController::TestCase
     assert_equal Mime::XML, response.content_type
   end
 
+  test 'feed updated time should be correct (in local TZ)' do
+    create(:post)
+    create(:post)
+    p3 = create(:post)
+
+    get :blog, format: :xml
+    assert_select "feed>updated", p3.updated_at.iso8601
+    assert_select "entry>published", Time.zone.parse(p3.read_attribute(:face_date).strftime("%F %T")).iso8601
+  end
+
   test 'empty photos atom feed is not failing' do
     get :photos, format: :xml
     assert_response :success

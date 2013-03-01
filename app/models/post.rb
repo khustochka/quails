@@ -23,7 +23,7 @@ class Post < ActiveRecord::Base
 
   # Convert "timezone-less" face_date to local time zone because AR treats it as UTC (especially necessary for feed updated time)
   def face_date
-    Time.zone.parse(read_attribute(:face_date).strftime("%F %T"))
+    Time.zone.parse(face_date_before_type_cast)
   end
 
   # Parameters
