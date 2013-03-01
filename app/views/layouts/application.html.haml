@@ -52,8 +52,7 @@
 
       = render 'partials/header'
 
-      - cache [:google_cse, admin: admin_layout?] do
-        = GoogleSearch.render(self)
+      = GoogleSearch.render(self)
 
       .main
         = yield
