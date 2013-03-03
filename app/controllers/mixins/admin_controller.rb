@@ -8,6 +8,7 @@ module AdminController
   def admin_layout?
     @admin_layout
   end
+  private :admin_layout?
 
   module ClassMethods
 
