@@ -23,6 +23,10 @@ class LJFormatStrategy < FormattingStrategy
     end
   end
 
+  def lj_user(user)
+    %Q(<lj user="#{user}">)
+  end
+
   def post_link(word, term)
     post = @posts[term]
     post.nil? || post.lj_url.nil? ?

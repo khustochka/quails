@@ -71,4 +71,16 @@ class FormattersTest < ActionView::TestCase
                  comment.formatted.text
   end
 
+  test "LJ user in site post" do
+    p = create(:post, text: "LJ user [@stonechat|lj]")
+    assert_equal %Q(<p>LJ user <span class="ljuser" style="white-space: nowrap;"><a href="http://stonechat.livejournal.com/profile" rel="nofollow"><img src="http://p-stat.livejournal.com/img/userinfo.gif" alt="info" width="17" height="17" style="vertical-align: bottom; border: 0; padding-right: 1px;" /></a><a href="http://stonechat.livejournal.com/" rel="nofollow"><b>stonechat</b></a></span></p>),
+                 p.formatted.for_site.text
+  end
+
+  test "LJ user in LJ post" do
+    p = create(:post, text: "LJ user [@stonechat|lj]")
+    assert_equal %Q(<p>LJ user <lj user="stonechat"></p>),
+                 p.formatted.for_lj.text
+  end
+
 end
