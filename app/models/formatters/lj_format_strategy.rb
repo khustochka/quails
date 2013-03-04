@@ -1,6 +1,7 @@
 class LJFormatStrategy < FormattingStrategy
 
   include SpeciesHelper
+  include ImagesHelper
   include ActionView::Helpers::TagHelper
 
   def prepare
@@ -41,6 +42,15 @@ class LJFormatStrategy < FormattingStrategy
 
   def post_scriptum
     result = ''
+
+    if @metadata[:images].any?
+      result << "\n\n"
+      @metadata[:images].each_with_index do |img, i|
+        result << '<lj-cut>' if i > 0
+        result << "!#{jpg_url(img)}(#{img.public_title})!\n#{img.public_title} __(#{img.species.first.name_sci})__\n\n"
+      end
+      result << '</lj-cut>' if @metadata[:images].size > 1
+    end
 
     if @posts.any? || @spcs.any?
       result << "\n"

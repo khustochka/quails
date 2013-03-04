@@ -57,6 +57,14 @@ class FormattersTest < ActionView::TestCase
                  post.formatted.for_lj.text
   end
 
+  test "LJ Post with images" do
+    p = create(:post, text: "AAA")
+    img = create(:image)
+    img.observations.first.update_column(:post_id, p.id)
+    assert_equal %Q(<p>AAA</p>\n<p><img src="http://localhost/photos/#{img.slug}.jpg" title="House Sparrow" alt="House Sparrow" /><br />\nHouse Sparrow <i>(Passer domesticus)</i></p>),
+                 p.formatted.for_lj.text
+  end
+
   test "do not strip wiki tags from comment" do
     comment = create(:comment, text: "Aaa [Blue Tit|parcae]")
     assert_equal "<p>Aaa <a href=\"/species/Parus_caeruleus\">Blue Tit</a></p>",

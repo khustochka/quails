@@ -1,7 +1,8 @@
 class FormattingStrategy
   
-  def initialize(text)
+  def initialize(text, metadata = {})
     @text = text
+    @metadata = metadata
   end
 
   def apply

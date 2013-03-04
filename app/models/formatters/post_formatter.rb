@@ -15,7 +15,11 @@ class PostFormatter < ModelFormatter
   end
 
   def text
-    WikiFormatter.new(@model.text).send(@formatting_method)
+    WikiFormatter.new(@model.text, fetch_metadata).send(@formatting_method)
+  end
+
+  def fetch_metadata
+    {images: @model.images}
   end
 
 end
