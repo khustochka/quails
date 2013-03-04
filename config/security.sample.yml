@@ -5,7 +5,8 @@ production:
     password: admin
     cookie_value: <%= SecureRandom.hex(16) %>
   secret_token: <%= SecureRandom.hex(30) %>
-  image_host:
+  image_host: /photos
+#  google_cse:
 
 # use plain or SHA1 encoded password for development
 development:
@@ -13,7 +14,8 @@ development:
     free_access: true # works only in dev mode
     cookie_value: admin
   secret_token: <%= SecureRandom.hex(30) %>
-  image_host:
+  image_host: /photos
+#  google_cse:
 
 # use plain text password for test environment
 test:

@@ -5,6 +5,12 @@ class UIImagesTest < ActionDispatch::IntegrationTest
 
   include JavaScriptTestCase
 
+  def save_and_check
+    click_button('Save')
+    assert page.has_text?("Image was successfully")
+  end
+  private :save_and_check
+
   # NO JavaScript test
   test 'Save changes to existing image if JavaScript is off' do
     Capybara.use_default_driver
@@ -17,7 +23,7 @@ class UIImagesTest < ActionDispatch::IntegrationTest
     fill_in('Slug', with: 'test-img-capybara')
     fill_in('Title', with: 'Capybara test image')
 
-    assert_difference('Image.count', 0) { submit_with_button('Save') }
+    assert_difference('Image.count', 0) { save_and_check }
     img.reload
     assert_equal image_path(img), current_path
     assert_equal 2, img.observations.size
@@ -32,9 +38,9 @@ class UIImagesTest < ActionDispatch::IntegrationTest
     visit edit_image_path(img)
 
     # This test is sometimes failing with timeout, probably due to no actions performed on page
-    sleep 2
+    #sleep 1
 
-    assert_difference('Image.count', 0) { submit_with_button('Save') }
+    assert_difference('Image.count', 0) { save_and_check }
     assert_equal image_path(img), current_path
     img.reload
     assert_equal 2, img.observations.size
@@ -58,7 +64,7 @@ class UIImagesTest < ActionDispatch::IntegrationTest
 
     find(:xpath, "//ul[contains(@class,'found-obs')]/li[1]").drag_to find('.observation_list')
 
-    assert_difference('Image.count', 1) { submit_with_button('Save') }
+    assert_difference('Image.count', 1) { save_and_check }
     img = Image.find_by_slug('test-img-capybara')
     assert_equal image_path(img), current_path
   end
@@ -78,7 +84,7 @@ class UIImagesTest < ActionDispatch::IntegrationTest
 
     find(:xpath, "//ul[contains(@class,'found-obs')]/li[div[contains(text(),'Mergus serrator')]]").drag_to find('.observation_list')
 
-    assert_difference('Image.count', 1) { submit_with_button('Save') }
+    assert_difference('Image.count', 1) { save_and_check }
     img = Image.find_by_slug('test-img-capybara')
 
     assert_equal ['Mergus serrator'], img.species.pluck(:name_sci)
@@ -95,7 +101,7 @@ class UIImagesTest < ActionDispatch::IntegrationTest
       find('.remove').click
     end
 
-    submit_with_button('Save')
+    save_and_check
     img.reload
     assert_equal 2, img.observations.size
   end

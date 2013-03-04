@@ -31,6 +31,8 @@ gem 'livejournal'
 gem 'hashie'
 gem 'roman-numerals'
 
+gem 'sprockets', '2.2.2.backport1'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -61,6 +63,7 @@ group :test do
   gem 'minitest-reporters'
   gem 'ruby-prof', require: false, platforms: [:mri, :mingw]
   gem 'capybara', '~> 2.0'
+  gem 'capybara-webkit', platforms: [:mri], require: false
   gem 'database_cleaner', require: false
   gem 'launchy' # So you can do Then show me the page
   gem 'simplecov', require: false, platforms: [:ruby, :mingw]

@@ -51,23 +51,19 @@ $(function () {
         }
     }
 
-    $.rails.ajax = function (options) {
-        if (options.url == form.data('action')) options.async = false;
-        return $.ajax(options);
-    };
-
     /* Form actions */
     form.attr('action', form.data('action'));
 
     form.on('ajax:beforeSend', function () {
         $(".errors").remove();
+        $(".obs-row").removeClass('save-fail').removeClass('save-success');
     });
 
     form.on('ajax:success', function (e, data) {
         $(".obs-row").each(function (index) {
             var val = data[index];
             $('input#observation_id', $(this)).val(val.id);
-            $(this).removeClass('save-fail').addClass('save-success');
+            $(this).addClass('save-success');
         });
     });
 
@@ -82,7 +78,7 @@ $(function () {
             if (errors.observs) $.each(errors.observs[i], function (ind, val) {
                 $('input#observation_' + ind, row).after($('<span class="error">').text(val[0]));
             });
-            row.removeClass('save-success').addClass('save-fail');
+            row.addClass('save-fail');
         });
     });
 

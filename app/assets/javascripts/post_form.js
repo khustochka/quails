@@ -1,4 +1,5 @@
 //= require jquery_ujs
+//= require suggest_over_combo
 
 // Tag insertion
 $(function () {
@@ -15,6 +16,14 @@ $(function () {
 
   sp_insert_button.appendTo(".edit_tools");
 
+
+  // Observations search form
+
+  var searchForm = $('form.search');
+
+  searchForm.attr('action', "/observations/bulk");
+  $("#new_post_id").appendTo(searchForm);
+
 });
 
 // Lj post
@@ -23,11 +32,11 @@ $(function () {
   lj_post_form.data('remote', true);
   lj_post_form.attr('action', lj_post_form.attr('action') + '.json');
 
-  lj_post_form.bind("ajax:error", function(e, xhr) {
+  lj_post_form.bind("ajax:error", function (e, xhr) {
     alert($.parseJSON(xhr.responseText).alert);
   });
 
-  lj_post_form.bind("ajax:success", function(e, data) {
+  lj_post_form.bind("ajax:success", function (e, data) {
     var url = data.url;
     $("li#lj_url_li").html($("<a>", {text: url, href: url}));
   });

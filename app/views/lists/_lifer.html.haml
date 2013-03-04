@@ -1,5 +1,12 @@
-= species_link(lifer)
-= name_sci(lifer)
-%span
-  = surround'(', ')' do
-    = post_link(content_tag(:time, l(lifer.first_seen_date, :format => :long)), lifer.post, true)
+- if defined?(total_count)
+  - i = total_count - lifer_counter
+
+- if defined?(count_reached)
+  - i = count_reached + lifer_counter
+
+%li.lifer_row{value: i}
+  = species_link(lifer)
+  = name_sci(lifer)
+  %span
+    = surround'(', ')' do
+      = post_link(content_tag(:time, l(lifer.first_seen_date, :format => :long)), lifer.post, true)

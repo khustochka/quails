@@ -1,6 +1,6 @@
 atom_feed(:id => "tag:#{request.host},2008-03-24:/blog") do |feed|
   feed.title("Birdwatching diary")
-  feed.updated(@posts.first.face_date) if @posts.present?
+  feed.updated(@posts.max_by(&:updated_at).updated_at) if @posts.present?
   feed.author do |a|
     a.name t('author.name')
   end

@@ -11,7 +11,7 @@
     -# mobile viewport
     %meta{ name: 'viewport', content: 'width=device-width'}
 
-    - unless @admin_layout
+    - unless admin_layout?
 
       -# robots
       - if @robots
@@ -37,13 +37,13 @@
     = csrf_meta_tags if @jquery
 
     -# stylesheets
-    - stylesheet @minimal_layout ? 'old/minimal' : (@admin_layout ? 'old/admin' : 'public')
+    - stylesheet @minimal_layout ? 'old/minimal' : (admin_layout? ? 'old/admin' : 'public')
 
     = render 'partials/css_and_js'
 
     %title= page_title
 
-    - unless @admin_layout
+    - unless admin_layout?
       -# google analytics
 
   %body
@@ -52,7 +52,7 @@
 
       = render 'partials/header'
 
-      = render 'partials/search' unless Rails.env.test? || @admin_layout
+      = GoogleSearch.render(self)
 
       .main
         = yield

@@ -1,16 +1,17 @@
 class WikiFormatter
 
-  def initialize(text)
+  def initialize(text, metadata = {})
     @text = text
+    @metadata = metadata
   end
 
   def for_site
-    @strategy = SiteFormatStrategy.new(@text)
+    @strategy = SiteFormatStrategy.new(@text, @metadata)
     apply.html_safe
   end
 
   def for_lj
-    @strategy = LJFormatStrategy.new(@text)
+    @strategy = LJFormatStrategy.new(@text, @metadata)
     apply
   end
 

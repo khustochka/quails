@@ -4,6 +4,12 @@ require 'capybara_helper'
 class UIObservationsBulkTest < ActionDispatch::IntegrationTest
 
   include JavaScriptTestCase
+  
+  def save_and_check
+    click_button('Save')
+    assert page.has_css?('.obs-row.save-success')
+  end
+  private :save_and_check
 
   test "Adding new rows to observations bulk form" do
     login_as_admin
@@ -25,7 +31,7 @@ class UIObservationsBulkTest < ActionDispatch::IntegrationTest
     fill_in('Date', with: '2011-04-08')
     select_suggestion('- Avis incognita', from: 'Species')
     select_suggestion 'park', from: 'Biotope'
-    assert_difference('Observation.count', 1) { click_button('Save') }
+    assert_difference('Observation.count', 1) { save_and_check }
     assert_equal 0, Observation.order('id DESC').limit(1).first.species_id
   end
 
@@ -49,9 +55,7 @@ class UIObservationsBulkTest < ActionDispatch::IntegrationTest
       select_suggestion 'park', from: 'Biotope'
     end
 
-    assert_difference('Observation.count', 2) { click_button('Save') }
-    assert page.has_css?('.obs-row.save-success')
-
+    assert_difference('Observation.count', 2) { save_and_check }
   end
 
   test "Adding observations for the post" do
@@ -79,8 +83,8 @@ class UIObservationsBulkTest < ActionDispatch::IntegrationTest
       select_suggestion 'park', from: 'Biotope'
     end
 
-    assert_difference('Observation.count', 2) { click_button('Save') }
-    assert page.has_css?('.obs-row.save-success')
+    assert_difference('Observation.count', 2) { save_and_check }
+    
 
     assert_equal 2, blogpost.observations.size
   end
@@ -105,8 +109,8 @@ class UIObservationsBulkTest < ActionDispatch::IntegrationTest
       select_suggestion 'park', from: 'Biotope'
     end
 
-    click_button('Save')
-    assert page.has_css?('.obs-row.save-success')
+    save_and_check
+    
 
     assert_equal 0, blogpost.observations.size
   end
@@ -130,14 +134,14 @@ class UIObservationsBulkTest < ActionDispatch::IntegrationTest
       select_suggestion 'park', from: 'Biotope'
     end
 
-    click_button('Save')
-    assert page.has_css?('.obs-row.save-success')
+    save_and_check
+    
 
     assert_equal 1, blogpost.observations.size
     obs = blogpost.observations.first
 
     uncheck('observation_post_id')
-    click_button('Save')
+    save_and_check
 
     assert_equal 0, blogpost.observations.reload.size
     assert_equal nil, obs.reload.post_id
@@ -157,8 +161,8 @@ class UIObservationsBulkTest < ActionDispatch::IntegrationTest
       select_suggestion 'park', from: 'Biotope'
     end
 
-    assert_difference('Observation.count', 1) { click_button('Save') }
-    assert page.has_css?('.obs-row.save-success')
+    assert_difference('Observation.count', 1) { save_and_check }
+    
 
     find(:xpath, "//span[text()='Add new row']").click
 
@@ -171,7 +175,7 @@ class UIObservationsBulkTest < ActionDispatch::IntegrationTest
       select_suggestion 'park', from: 'Biotope'
     end
 
-    assert_difference('Observation.count', 1) { click_button('Save') }
+    assert_difference('Observation.count', 1) { save_and_check }
 
     assert Species.find_by_code('drymar').observations.present?
     assert Species.find_by_code('faltin').observations.present?
@@ -204,7 +208,7 @@ class UIObservationsBulkTest < ActionDispatch::IntegrationTest
       select_suggestion('Dryocopus martius', from: 'Species')
     end
 
-    assert_difference('Observation.count', 0) { click_button('Save') }
+    assert_difference('Observation.count', 0) { save_and_check }
 
     assert Species.find_by_code('drymar').observations.present?
   end
@@ -216,15 +220,15 @@ class UIObservationsBulkTest < ActionDispatch::IntegrationTest
     login_as_admin
     visit bulk_observations_path(observ_date: "2010-06-18", locus_id: seed(:brovary).id, mine: true)
 
-    assert_difference('Observation.count', 0) { click_button('Save') }
+    assert_difference('Observation.count', 0) { save_and_check }
 
     assert_equal blogpost.id, obs1.reload.post_id
     assert_equal nil, obs2.reload.post_id
   end
 
   test "Bulk add observations with voice only, then uncheck" do
+    login_as_admin
     visit add_observations_path
-
     select_suggestion('Brovary', from: 'Location')
     fill_in('Date', with: '2011-04-09')
 
@@ -246,7 +250,7 @@ class UIObservationsBulkTest < ActionDispatch::IntegrationTest
       select_suggestion 'park', from: 'Biotope'
     end
 
-    assert_difference('Observation.count', 3) { click_button('Save') }
+    assert_difference('Observation.count', 3) { save_and_check }
 
     drymar = Observation.where(species_id: Species.find_by_code('drymar')).order('id DESC').limit(1).first
     crecre = Observation.where(species_id: Species.find_by_code('crecre')).order('id DESC').limit(1).first
@@ -264,7 +268,7 @@ class UIObservationsBulkTest < ActionDispatch::IntegrationTest
       uncheck 'Voice?'
     end
 
-    click_button('Save')
+    save_and_check
 
     drymar.reload
     crecre.reload
@@ -277,6 +281,7 @@ class UIObservationsBulkTest < ActionDispatch::IntegrationTest
   end
 
   test "Clicking on voice checkbox label should not change the wrong checkbox" do
+    login_as_admin
     visit add_observations_path
 
     select_suggestion('Brovary', from: 'Location')
@@ -290,6 +295,26 @@ class UIObservationsBulkTest < ActionDispatch::IntegrationTest
 
     assert find(:xpath, "//div[contains(@class,'obs-row')][3]").has_checked_field?('Voice?')
     refute find(:xpath, "//div[contains(@class,'obs-row')][1]").has_checked_field?('Voice?')
+  end
+
+  test 'Attach observations to the post' do
+    create(:observation, species: seed(:pasdom), observ_date: "2010-06-18")
+    create(:observation, species: seed(:fulatr), observ_date: "2010-06-18")
+    create(:observation, species: seed(:spinus), observ_date: "2010-06-18")
+    p = create(:post)
+
+    login_as_admin
+    visit edit_post_path(p)
+    fill_in('Date:', with: "2010-06-18")
+    select_suggestion('Brovary', from: 'Location')
+    choose('Mine')
+    click_button('Search')
+
+    assert page.has_css?('label a', text: p.title)
+    assert find('#observation_post_id').checked?
+
+    save_and_check
+    assert_equal 3, p.observations.size
   end
 
 end

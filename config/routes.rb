@@ -75,11 +75,11 @@ Quails::Application.routes.draw do
       get 'edit/map', action: :map_edit
       get 'edit/flickr', action: :flickr_edit
       post 'patch'
-      get 'observations', defaults: {format: :json}
+      get 'observations'
     end
     collection do
       get 'add'
-      get 'flickr_search', defaults: {format: :json}
+      get 'flickr_search'
     end
   end
 
@@ -106,6 +106,8 @@ Quails::Application.routes.draw do
       year: /\d{4}/,
       sort: /by_taxonomy/
 
+  get '/:id' => 'pages#show', constraints: {id: 'links'}, as: :page
+
   get '/blog.:format' => 'feeds#blog', constraints: {format: 'xml'}
   get '/photos.:format' => 'feeds#photos', constraints: {format: 'xml'}
   get '/sitemap.:format' => 'feeds#sitemap', constraints: {format: 'xml'}
@@ -126,14 +128,14 @@ Quails::Application.routes.draw do
       get 'search(/:with_spots)', action: :search, with_spots: /with_spots/
       get 'add'
       get 'bulk'
-      post 'bulksave', defaults: {format: :json}
+      post 'bulksave'
     end
   end
 
   resources :loci do
     collection do
       get :public
-      post :save_order, defaults: {format: :json}
+      post :save_order
     end
   end
 
@@ -148,10 +150,10 @@ Quails::Application.routes.draw do
   end
 
   resource :map, only: [:show, :edit] do
-    resources :spots, only: :index, defaults: {format: :json}
+    resources :spots, only: :index
   end
 
-  resources :spots, only: :destroy, defaults: {format: :json} do
+  resources :spots, only: :destroy do
     post :save, on: :collection
   end
 
