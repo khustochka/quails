@@ -2,10 +2,8 @@
 
 - lifers = lambda do |rel|
   %ol.lifers_list
-    - count = rel.except(:limit).count + 1
-    - rel.each do |sp|
-      %li.lifer_row{value: count -= 1}
-        = render partial: 'lifer', object: sp
+    - total_count = rel.except(:limit).count
+    = render partial: 'lifer', collection: rel, locals: {total_count: total_count}
 
 %h1= @page_title
 
