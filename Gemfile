@@ -16,7 +16,7 @@ group :production do
 end
 
 # Bundle the extra gems:
-gem 'actionpack-page_caching', github: 'rails/actionpack-page_caching'
+gem 'actionpack-page_caching'
 gem 'rails-i18n'
 gem 'haml-rails', '~> 0.4'
 gem 'haml-contrib'
@@ -30,8 +30,6 @@ gem 'flickraw-cached'
 gem 'livejournal'
 gem 'hashie'
 gem 'roman-numerals'
-
-gem 'sprockets', '2.2.2.backport1'
 
 # Gems used only for assets and not required
 # in production environments by default.
