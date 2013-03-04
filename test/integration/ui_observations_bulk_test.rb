@@ -7,7 +7,6 @@ class UIObservationsBulkTest < ActionDispatch::IntegrationTest
   
   def save_and_check
     click_button('Save')
-    sleep 1
     assert page.has_css?('.obs-row.save-success')
   end
   private :save_and_check
