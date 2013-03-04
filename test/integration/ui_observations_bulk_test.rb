@@ -56,8 +56,6 @@ class UIObservationsBulkTest < ActionDispatch::IntegrationTest
     end
 
     assert_difference('Observation.count', 2) { save_and_check }
-    
-
   end
 
   test "Adding observations for the post" do
@@ -297,6 +295,26 @@ class UIObservationsBulkTest < ActionDispatch::IntegrationTest
 
     assert find(:xpath, "//div[contains(@class,'obs-row')][3]").has_checked_field?('Voice?')
     assert_false find(:xpath, "//div[contains(@class,'obs-row')][1]").has_checked_field?('Voice?')
+  end
+
+  test 'Attach observations to the post' do
+    create(:observation, species: seed(:pasdom), observ_date: "2010-06-18")
+    create(:observation, species: seed(:fulatr), observ_date: "2010-06-18")
+    create(:observation, species: seed(:spinus), observ_date: "2010-06-18")
+    p = create(:post)
+
+    login_as_admin
+    visit edit_post_path(p)
+    fill_in('Date:', with: "2010-06-18")
+    select_suggestion('Brovary', from: 'Location')
+    choose('Mine')
+    click_button('Search')
+
+    assert page.has_css?('label a', text: p.title)
+    assert find('#observation_post_id').checked?
+
+    save_and_check
+    assert_equal 3, p.observations.size
   end
 
 end

@@ -55,11 +55,15 @@ class ObservationsController < ApplicationController
   # GET /observations/bulk
   # Bulk edit observations
   def bulk
-    required_keys = params.slice(*BULK_REQUIRED_KEYS)
-    @observations = Observation.where(params.slice(*BULK_MEANINGFUL_KEYS))
-    if params.values_at(*BULK_REQUIRED_KEYS).any?(&:nil?) || @observations.blank?
+    # FIXME: now there are two ways to pass params: plain and in q[]
+    normalized_params = params[:q] || params
+    normalized_params.delete_if { |_, v| v == "" }
+    required_keys = normalized_params.slice(*BULK_REQUIRED_KEYS)
+    @observations = Observation.where(normalized_params.slice(*BULK_MEANINGFUL_KEYS))
+    if normalized_params.values_at(*BULK_REQUIRED_KEYS).any?(&:nil?) || @observations.blank?
       redirect_to add_observations_url(required_keys)
     else
+      @blogpost = Post.find_by_id(params[:new_post_id]) || @observations.first.post
       render
     end
   end
