@@ -1,11 +1,15 @@
-class GoogleSearch
+module GoogleSearch
 
   def self.render(view)
     cache view, [:google_cse, admin: view.admin_layout?] do
-      unless Rails.env.test? || view.admin_layout?
-        view.render partial: 'partials/search'
+      unless Rails.env.test? || view.admin_layout? || @code.blank?
+        view.render partial: 'partials/search', object: @code, as: :code
       end
     end
+  end
+
+  def self.configure(code)
+    @code = code
   end
 
   private

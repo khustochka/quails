@@ -32,6 +32,10 @@ module Configurator
     end
   end
 
+  def self.configure_google_search
+    GoogleSearch.configure(config_data.google_cse)
+  end
+
   private
 
   def self.config_data
@@ -65,7 +69,8 @@ module Configurator
         errbit: {
             api_key: ENV['errbit_api_key'],
             host: ENV['errbit_host']
-        }
+        },
+        google_cse: ENV['quails_google_cse']
     }
   end
 
