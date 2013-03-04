@@ -25,6 +25,8 @@ class FormattingStrategy
       end
     end
 
+    result.gsub!(/([Ввр])О([рн])/, '\1о&#769;\2')
+
     result << post_scriptum
 
     result

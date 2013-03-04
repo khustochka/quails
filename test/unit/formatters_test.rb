@@ -83,4 +83,10 @@ class FormattersTest < ActionView::TestCase
                  p.formatted.for_lj.text
   end
 
+  test "Voron vs vorona" do
+    p = create(:post, text: "[вОрон|Corvus corax]")
+    assert_equal %Q(<p><a href=\"/species/Corvus_corax\" class=\"sp_link\">во&#769;рон</a></p>),
+                 p.formatted.for_site.text
+  end
+
 end
