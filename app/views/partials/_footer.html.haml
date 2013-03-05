@@ -1,2 +1,12 @@
 %div.footer(role="contentinfo")
-  %p #{t('author.name')}, 2013
+  %p
+    = succeed "," do
+      %b= t('author.name')
+    2007&ndash;2013
+    %br
+    %em
+      Все фотографии и текст распространяются под лицензией
+      = succeed ":" do
+        %b<>
+          %a(href="http://creativecommons.org/licenses/by-nc/3.0/" rel="nofollow license") CC-BY-NC
+      разрешено использование с некоммерческой целью и обязательным указанием авторства (ссылкой на сайт).

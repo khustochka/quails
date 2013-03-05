@@ -56,5 +56,5 @@
 
       .main
         = yield
-
-    = render 'partials/footer'
+    - cache :footer do
+      = render 'partials/footer'
