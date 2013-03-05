@@ -5,8 +5,7 @@
   %div.subheader-menu
     &bull;
     = link_to(t('menu.archive'), action: :archive)
-    &bull;
-    = link_to(t('misc.feed'), {:controller => :feeds, :action => @feed, :format => :xml})
+    %span.feed= link_to(t('misc.feed'), {:controller => :feeds, :action => @feed, :format => :xml})
 
 = render @posts
 

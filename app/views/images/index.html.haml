@@ -7,6 +7,7 @@
   %div.subheader-menu
     &bull;
     = link_to t('.species_galery'), gallery_path
+    %span.feed= link_to(t('misc.feed'), {:controller => :feeds, :action => @feed, :format => :xml})
 
 %ul.thumbnails
   = render :partial => 'thumbnail', :collection => @images
