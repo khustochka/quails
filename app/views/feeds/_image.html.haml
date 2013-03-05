@@ -1,14 +1,4 @@
 - image.formatted.title.tap do |img_title|
   %p= link_to image_tag(jpg_url(image), :alt => img_title), image_path(image), :title => img_title
 
-%p
-  %i= image.species.map(&:name_sci) * ', '
-
-%p= [l(image.observ_date, :format => :long), image.locus.name] * ', '
-
-= image.formatted.description
-
-- if post = image.post(current_user.available_posts)
-  %p
-    Post:
-    = post_link(post.formatted.title, post, true)
+= render partial: "images/long_details", formats: :html, locals: {image: image}

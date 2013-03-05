@@ -1,0 +1,21 @@
+= content_tag(list_type_for_image_species(image), class: 'img_species') do
+  - image.species.each do |sp|
+    %li
+      = species_link(sp)
+      = name_sci(sp)
+
+- post = image.post(current_user.available_posts)
+
+%p
+  Снято
+  = succeed ',' do
+    %i<
+      %time{datetime: image.observ_date.iso8601} #{l(image.observ_date, :format => :long)}
+
+  = succeed sentence_separator_depending_on_post(post) do
+    = image.locus.name
+
+  - if post
+    встреча описана в посте «#{post_link(post.formatted.title, post, true)}».
+
+= image.formatted.description
