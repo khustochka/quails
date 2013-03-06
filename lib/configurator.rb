@@ -36,6 +36,10 @@ module Configurator
     GoogleSearch.configure(config_data.google_cse)
   end
 
+  def self.configure_google_analytics
+    GoogleSearch.configure(config_data.ga_code)
+  end
+
   private
 
   def self.config_data
@@ -70,7 +74,8 @@ module Configurator
             api_key: ENV['errbit_api_key'],
             host: ENV['errbit_host']
         },
-        google_cse: ENV['quails_google_cse']
+        google_cse: ENV['quails_google_cse'],
+        ga_code: ENV['quails_ga_code']
     }
   end
 
