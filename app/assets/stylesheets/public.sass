@@ -1,2 +1,266 @@
-@import 'normalize', 'global', 'layouts', 'looks'
+@import 'normalize', 'global'
 
+// Post
+
+.post-box
+  margin-bottom: 40px
+  border-bottom: 1px solid #dddddd
+
+.post
+
+  .header-with-subheader time
+    color: #666666
+    font-style: italic
+    font-family: Verdana, Tahoma, sans-serif
+    font-size: 13px
+
+  img
+    border: 1px solid #444
+
+  // Necessary to remove a:hover background-color in img inside a
+  a img
+    vertical-align: top
+    margin-bottom: 4px
+    border: 2px solid darken($link-color, 10%)
+
+.comment_links
+  margin: 0
+  margin-bottom: 10px
+  text-align: right
+  li
+    margin: 10px
+    margin-right: 2px
+  @include horiz-list
+  a
+    @include deep-bordered-link($link-color)
+    border-bottom: 1px dotted $link-color
+
+
+nav.front_page_prev
+  margin-top: -15px
+  font-size: 20px
+  a
+    font-size: 32px
+
+// Thumbnails
+
+ul.thumbnails
+  @include horiz-list
+
+// Imageholder
+
+.imageholder
+  width: 162px
+  height: 150px
+  margin: 0 2px 6px 0
+  padding: 10px 5px
+  text-align: center
+  // vertical-align: top is necessary for IE7
+  vertical-align: top
+  background-color: #e6e6e6
+  font-size: 12px
+  line-height: 1em
+  overflow: hidden
+  a, a:hover
+    text-decoration: none
+    color: #555
+    background-color: inherit
+  a img
+    border: 2px solid $link-color
+    vertical-align: text-top
+  .imagetitle
+    margin-top: 5px
+    a, a:hover
+      padding: 0
+
+// Comments
+
+.subcomments
+  margin-left: 50px
+
+// It is possible to stop padding on certain level
+//.subcomments .subcomments .subcomments .subcomments
+//  margin-left: 0
+
+.comment_box
+  margin-bottom: 10px
+  padding: 10px
+  background-color: #eeeeee
+  border-left: 4px solid #407FBF
+  h6
+    margin-top: 0
+    font-size: 16px
+  time
+    font-size: 13px
+    font-style: italic
+  .comment_body, ul.reply
+    font-family: Verdana, Tahoma, sans-serif
+    font-size: 13px
+  ul.reply
+    @include horiz-list
+    margin-bottom: 0
+  .comment_body
+    margin-left: 30px
+
+// Form comment
+
+form.comment
+
+  label
+    vertical-align: top
+    display: inline-block
+    width: 64px
+    font: 15px Verdana, Arial, sans-serif
+    color: #221144
+
+  div.input
+    display: block
+    margin-bottom: 10px
+
+  input.string
+    width: 560px
+
+  textarea
+    width: 620px
+
+  div.buttons
+    //margin-top: 10px
+    input.button
+      width: 130px
+      height: 40px
+
+  input.string, textarea
+    border: 2px solid #888888
+
+// Image
+
+.image_canvas
+  display: inline-block
+  border: 1px solid #666666
+  //background-color: #c0c0c0
+  //padding: 10px
+  img
+    vertical-align: top
+
+// Lifelists
+
+.sci_name
+  color: #666
+
+#lifelist, .lifers_list
+  time, .sci_name
+    white-space: nowrap
+  .sp_link
+    font-weight: bold
+
+h5.first_seen
+  color: #666
+  font-style: italic
+  font-size: 14px
+  margin-bottom: 3px
+  margin-left: 40px
+
+.lifers_list
+  margin-top: 0
+
+.lifer_row
+  line-height: 1.5em
+  span
+    font-size: 12px
+
+// Checklist table
+
+table.neat_table.checklist_table
+  max-width: 1200px
+  display: block
+  border-top: none
+  tr
+    border-bottom: 1px solid #eee
+
+  td.names
+    b, i
+      white-space: nowrap
+      display: block
+  td.status_column
+    width: 66%
+    font-style: italic
+    font-size: 87%
+    color: #444
+
+.status-old, .status-unsure
+  font-style: italic
+  display: inline-block
+  color: white
+  background-color: #ccbbbb
+  padding: 5px
+  font-weight: bold
+  font-size: 14px
+  text-align: center
+  width: 15px
+  line-height: 15px
+  border-radius: 15px
+  cursor: default
+
+// Species page
+
+.latin
+  font-style: italic
+  margin-top: 0
+  display: inline
+
+.authority
+  font-family: Verdana, Tahoma, Arial, sans-serif
+  font-variant: small-caps
+  font-size: 14px
+
+.sp_translations
+  dt
+    white-space: nowrap
+    display: inline
+    color: #33b
+    font-style: italic
+
+  dd
+    display: inline
+    margin-left: 0
+    &:after
+      content: ";"
+    &:last-child:after
+      content: ""
+
+table.monthly
+  td
+    text-align: center
+    border: 1px solid #333
+    width: 40px
+    height:  40px
+
+  td.seen_this_month
+    background-color: #cfc
+
+// Google CSE
+
+div#cse-wrapper
+  margin-top: 20px
+  text-align: right
+  input[name=q]
+    min-width: 300px
+
+// Feed
+
+.feed
+  background: url('/img/rss_16x16.png') no-repeat left center
+  padding-left: 18px
+  margin-left: 15px
+
+// Small screen
+
+@media only all and (max-width: 580px)
+  form.comment
+    textarea, input.string
+      width: 100%
+  div#cse-wrapper
+    white-space: nowrap
+    max-width: 100%
+    input[name=q]
+      min-width: 0 !important
