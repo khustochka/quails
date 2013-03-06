@@ -1,4 +1,4 @@
 - image.formatted.title.tap do |img_title|
-  %p= link_to image_tag(jpg_url(image), :alt => img_title), image_path(image), :title => img_title
+  %p= link_to image_tag(jpg_url(image), :alt => img_title), image_url(image), :title => img_title
 
 = render partial: "images/long_details", formats: :html, locals: {image: image}
