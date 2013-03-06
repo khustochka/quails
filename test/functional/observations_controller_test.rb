@@ -159,6 +159,8 @@ class ObservationsControllerTest < ActionController::TestCase
     assert_equal Mime::JSON, response.content_type
     result = JSON.parse(response.body)
     result.first.assert_valid_keys('id', 'species_str', 'when_where_str')
+    assert result.first['species_str'].present?
+    assert result.first['when_where_str'].present?
   end
 
   test 'return observation search results in html' do
@@ -189,6 +191,10 @@ class ObservationsControllerTest < ActionController::TestCase
     result = JSON.parse(response.body)
     assert_equal 1, result.size
     result[0].assert_valid_keys('id', 'species_str', 'when_where_str', 'spots')
+    assert result.first['species_str'].present?
+    assert result.first['when_where_str'].present?
+    assert result.first['species_str'].present?
+    assert result.first['when_where_str'].present?
     assert_equal 1, result[0]['spots'].size
   end
 end

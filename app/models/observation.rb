@@ -1,4 +1,6 @@
 class Observation < ActiveRecord::Base
+  include FormattedModel
+
   belongs_to :species
   belongs_to :locus
   belongs_to :post, :select => [:id, :slug, :face_date, :title, :status]
@@ -62,19 +64,6 @@ class Observation < ActiveRecord::Base
         real_species
   end
 
-  # Decorators
-
-  #TODO: get rid of this
-  def species_str
-    str = [["<b>#{species.name}</b>", species.name_sci].join(' '), quantity, notes].
-        delete_if(&:'blank?').join(', ')
-    str += " <small class='not_mine tag'>not mine</small>" unless mine
-    str += " <small class='voice tag'>voice</small>" if voice
-    str.html_safe
-  end
-
-  def when_where_str
-    [observ_date, "<b>#{locus.name_en}</b>", place].delete_if(&:'blank?').join(', ').html_safe
-  end
+  delegate :species_str, :when_where_str, to: :formatted
 
 end
