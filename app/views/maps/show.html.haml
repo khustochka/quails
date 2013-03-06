@@ -1,8 +1,8 @@
 - stylesheet 'map'
+- @minimal_layout = true
 - javascript AssetsHelper::GMAP_API_URL, 'map_show'
 
 - @page_title = 'Map'
 
-%h1= page_header
-
-#googleMap
+.mapContainer
+  #googleMap
