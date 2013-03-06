@@ -39,7 +39,7 @@
     = csrf_meta_tags if @jquery
 
     -# stylesheets
-    - stylesheet @minimal_layout ? 'old/minimal' : (admin_layout? ? 'old/admin' : 'public')
+    - stylesheet @minimal_layout ? 'minimal' : (admin_layout? ? 'old/admin' : 'public')
 
     = render 'partials/css_and_js'
 
