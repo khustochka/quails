@@ -8,6 +8,8 @@
     -# encoding
     %meta{ :content => "text/html; charset=UTF-8", "http-equiv" => "content-type" }
 
+    %title= page_title
+
     -# mobile viewport
     %meta{ name: 'viewport', content: 'width=device-width'}
 
@@ -41,10 +43,7 @@
 
     = render 'partials/css_and_js'
 
-    %title= page_title
-
-    - unless admin_layout?
-      -# google analytics
+    -#= GoogleAnalytics.render(self)
 
   %body
 
@@ -56,5 +55,6 @@
 
       .main
         = yield
+
     - cache :footer do
       = render 'partials/footer'
