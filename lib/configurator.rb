@@ -8,6 +8,9 @@ module Configurator
         User.configure(config_data.admin)
       when 'ImagesHelper'
         ImagesHelper.image_host = config_data.image_host
+      when 'CommentMailer'
+        CommentMailer.default from: config_data.mail.try(:sender)
+        CommentMailer.default to: config_data.mail.try(:reader)
     end
   end
 
@@ -75,7 +78,11 @@ module Configurator
             host: ENV['errbit_host']
         },
         google_cse: ENV['quails_google_cse'],
-        ga_code: ENV['quails_ga_code']
+        ga_code: ENV['quails_ga_code'],
+        mail: {
+            sender: ENV['quails_mail_sender'],
+            reader: ENV['quails_mail_reader']
+        }
     }
   end
 
