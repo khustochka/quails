@@ -1,14 +1,15 @@
 class ServiceCode
 
   def self.render(view)
-    new(view).render
+    new(@code, view).render
   end
 
   def self.configure(code)
-    @@code = code
+    @code = code
   end
 
-  def initialize(view)
+  def initialize(code, view)
+    @code = code
     @view = view
   end
 

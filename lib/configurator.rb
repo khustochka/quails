@@ -40,7 +40,7 @@ module Configurator
   end
 
   def self.configure_google_analytics
-    GoogleSearch.configure(config_data.ga_code)
+    GoogleAnalytics.configure(config_data.ga_code)
   end
 
   private
