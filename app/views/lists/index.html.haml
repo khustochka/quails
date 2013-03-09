@@ -11,10 +11,14 @@
 
 - lifers.call(@top_5_life)
 
+%h2
+  = link_to('Список Украины', list_path(locus: 'ukraine'))
+  (#{@list_ukraine.count})
+
 %h2= link_to('Список 2013 года', list_path(year: 2013))
 
 - lifers.call(@top_5_year)
 
-%h2= link_to('Список США', list_path(locus: 'usa'))
-
-- lifers.call(@top_5_usa)
+%h2
+  = link_to('Список США', list_path(locus: 'usa'))
+  (#{@list_usa.count})
