@@ -20,16 +20,18 @@
     margin-bottom: 0
 
 .subheader-menu
+  @include horiz-list
   line-height: 1.6em
   font-size: 19px
   color:  #777777
   padding-left: 0
   margin-top: 0
   li
-    margin-left: 30px
-    @include inline-block
+    margin-right: 10px
   li:before
-    content: '\2022            '
+    font-size: 22px
+    content: '\2022'
+    margin-right: 5px
   a
     @include deep-bordered-link($link-color)
     border-bottom: 1px dotted $link-color
