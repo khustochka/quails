@@ -1,3 +1,5 @@
+$localeenabled = false
+
 module LocaleController
   def self.included(klass)
     klass.before_filter :set_locale

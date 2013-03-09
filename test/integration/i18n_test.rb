@@ -13,16 +13,18 @@ class I18NTest < ActionDispatch::IntegrationTest
     assert_equal 'Январь 2011', find('h1').text
   end
 
-  test 'Use standalone month names in English' do
-    create(:post, face_date: '2011-01-09')
-    visit month_path(year: '2011', month: '01', hl: :en)
-    assert_equal 'January 2011', find('h1').text
-  end
+  if $localeenabled
+    test 'Use standalone month names in English' do
+      create(:post, face_date: '2011-01-09')
+      visit month_path(year: '2011', month: '01', hl: :en)
+      assert_equal 'January 2011', find('h1').text
+    end
 
-  test 'Properly parse pubdate in English' do
-    blogpost = create(:post, face_date: '2011-01-09')
-    visit show_post_path(blogpost.to_url_params.merge(hl: :en))
-    assert_match /^January 9, 2011/, find('time').text
+    test 'Properly parse pubdate in English' do
+      blogpost = create(:post, face_date: '2011-01-09')
+      visit show_post_path(blogpost.to_url_params.merge(hl: :en))
+      assert_match /^January 9, 2011/, find('time').text
+    end
   end
 
   test 'Properly parse pubdate in Russian' do

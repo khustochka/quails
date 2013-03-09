@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   include SecurityController
-  include LocaleController
+  include LocaleController if $localeenabled
   include AdminController
   include PublicPathController
   include Pjax
