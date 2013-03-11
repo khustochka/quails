@@ -5,7 +5,9 @@ class CommentMailer < ActionMailer::Base
   #default to: ENV['quails_comment_reciever']
 
   def comment_posted(comment)
-    @comment = comment
-    mail subject: 'New comment posted'
+    if self.class.default_params[:to] && self.class.default_params[:from]
+      @comment = comment
+      mail subject: 'New comment posted'
+    end
   end
 end
