@@ -8,12 +8,12 @@ class SpeciesController < ApplicationController
   def index
     @species = Species.ordered_by_taxonomy.extend(SpeciesArray)
 
-    @observed = Species.where("id IN (#{Observation.select(:species_id).to_sql})")
+    @observed = Species.where(id: Observation.select(:species_id))
     @obs_not_reviewed = @observed.where("NOT reviewed")
 
     fesenko = Book.find(1)
     @ukrainian = fesenko.taxa
-    @ukr_not_reviewed = Species.where("id IN (#{fesenko.taxa.select(:species_id).to_sql})").where("NOT reviewed")
+    @ukr_not_reviewed = Species.where(id: fesenko.taxa.select(:species_id)).where("NOT reviewed")
 
     @reviewed = Species.where("reviewed")
   end

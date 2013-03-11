@@ -21,7 +21,7 @@ class Image < ActiveRecord::Base
   # Photos with several species
   def self.various_species
     rel = select(:image_id).from("images_observations").group(:image_id).having("COUNT(observation_id) > 1")
-    where("id IN (#{rel.to_sql})").preload(:species).order('created_at ASC')
+    where(id: rel).preload(:species).order('created_at ASC')
   end
 
   # Associations
