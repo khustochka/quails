@@ -193,8 +193,6 @@ class ObservationsControllerTest < ActionController::TestCase
     result[0].assert_valid_keys('id', 'species_str', 'when_where_str', 'spots')
     assert result.first['species_str'].present?
     assert result.first['when_where_str'].present?
-    assert result.first['species_str'].present?
-    assert result.first['when_where_str'].present?
     assert_equal 1, result[0]['spots'].size
   end
 end
