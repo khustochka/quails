@@ -13,7 +13,7 @@ class I18NTest < ActionDispatch::IntegrationTest
     assert_equal 'Январь 2011', find('h1').text
   end
 
-  if $localeenabled
+  unless $localedisabled
     test 'Use standalone month names in English' do
       create(:post, face_date: '2011-01-09')
       visit month_path(year: '2011', month: '01', hl: :en)

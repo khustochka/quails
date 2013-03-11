@@ -1,4 +1,4 @@
-$localeenabled = false
+$localedisabled = true
 
 module LocaleController
   def self.included(klass)
