@@ -32,7 +32,7 @@ class SpeciesController < ApplicationController
     if @species
       if params[:id] != @species.to_param
         redirect_to @species, :status => 301
-        # TODO: set canonical, set NOCACHE, NOINDEX
+        # TODO: set canonical, set NOINDEX
       else
         @posts = @species.posts.limit(10).merge(current_user.available_posts)
         @months = @species.observations.except(:order).pluck("DISTINCT EXTRACT(month FROM observ_date)")
