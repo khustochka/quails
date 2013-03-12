@@ -10,11 +10,6 @@ gem "activerecord-jdbcpostgresql-adapter", platforms: :jruby
 
 gem 'unicorn', require: false, platforms: :ruby
 
-group :production do
-  gem 'airbrake', require: false
-  gem 'newrelic_rpm', require: false
-end
-
 # Bundle the extra gems:
 gem 'rails-i18n'
 gem 'haml-rails', '~> 0.4'
@@ -28,6 +23,11 @@ gem 'flickraw-cached'
 gem 'livejournal'
 gem 'hashie'
 gem 'roman-numerals'
+
+group :production do
+  gem 'airbrake', require: false
+  gem 'newrelic_rpm'
+end
 
 gem 'sprockets', '2.2.2.backport1'
 
