@@ -9,7 +9,7 @@ class CountriesController < ApplicationController
             @country.checklist(:image)
           when 'usa'
             country_obs = Observation.select(:species_id).where(locus_id: @country.subregion_ids)
-            Species.ordered_by_taxonomy.where("species.id IN (#{country_obs.to_sql})").joins(:image).includes(:image)
+            Species.ordered_by_taxonomy.where("species.id" => country_obs).joins(:image).includes(:image)
           else
             raise ActiveRecord::RecordNotFound
         end

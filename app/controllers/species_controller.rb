@@ -8,12 +8,12 @@ class SpeciesController < ApplicationController
   def index
     @species = Species.ordered_by_taxonomy.extend(SpeciesArray)
 
-    @observed = Species.where("id IN (#{Observation.select(:species_id).to_sql})")
+    @observed = Species.where(id: Observation.select(:species_id))
     @obs_not_reviewed = @observed.where("NOT reviewed")
 
-    # Id 1 is for Fesenko
-    @ukrainian = Taxon.where(book_id: 1)
-    @ukr_not_reviewed = Species.where("id IN (#{@ukrainian.select(:species_id).to_sql})").where("NOT reviewed")
+    fesenko = Book.find(1)
+    @ukrainian = fesenko.taxa
+    @ukr_not_reviewed = Species.where(id: fesenko.taxa.select(:species_id)).where("NOT reviewed")
 
     @reviewed = Species.where("reviewed")
   end
@@ -32,7 +32,7 @@ class SpeciesController < ApplicationController
     if @species
       if params[:id] != @species.to_param
         redirect_to @species, :status => 301
-        # TODO: set canonical, set NOCACHE, NOINDEX
+        # TODO: set canonical, set NOINDEX
       else
         @posts = @species.posts.limit(10).merge(current_user.available_posts)
         @months = @species.observations.except(:order).pluck("DISTINCT EXTRACT(month FROM observ_date)::integer")

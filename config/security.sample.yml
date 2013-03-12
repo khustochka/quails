@@ -7,6 +7,7 @@ production:
   secret_token: <%= SecureRandom.hex(30) %>
   image_host: /photos
 #  google_cse:
+#  ga_code:
 
 # use plain or SHA1 encoded password for development
 development:

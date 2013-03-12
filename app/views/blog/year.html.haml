@@ -6,8 +6,7 @@
 
 - @months.each do |month, posts|
   %h2
-    = link_to month_path({:year => @year, :month => month}) do
-      = t('date.month_names')[month.to_i]
+    = link_to t('date.month_names')[month.to_i], month_path({:year => @year, :month => month})
   %ul
     - posts.each do |post|
       %li

@@ -9,27 +9,31 @@
 
   -# Birds of Ukraine page
   %url
-    %loc= country_path(country: 'ukraine')
+    %loc= country_url(country: 'ukraine')
     -# TODO: %lastmod=
     -#%changefreq weekly
 
   -# Ukraine checklist page
   %url
-    %loc= checklist_path(country: 'ukraine')
+    %loc= checklist_url(country: 'ukraine')
     -# TODO: %lastmod=
     -#%changefreq weekly
 
-  -# photostream page
+  -# Birds of USA page
   %url
-    %loc= images_url
+    %loc= country_url(country: 'usa')
     -# TODO: %lastmod=
-    %changefreq weekly
+    -#%changefreq weekly
 
   -# species gallery page
   %url
     %loc= gallery_url
     -# TODO: %lastmod=
     -#%changefreq weekly
+
+  -# Links page
+  %url
+    %loc= page_url(:links)
 
   -# posts
   - @posts.each do |post|
@@ -41,7 +45,7 @@
   -# images
   - @images.each do |img|
     %url
-      %loc= image_path(img, only_path: false)
+      %loc= image_url(img)
       %lastmod= img.created_at.iso8601
       %changefreq yearly
 

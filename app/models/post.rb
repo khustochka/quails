@@ -38,7 +38,9 @@ class Post < ActiveRecord::Base
 
   # Scopes
 
-  scope :public, lambda { where("status <> 'PRIV'") }
+  # We need a string condition to properly merge where's
+  # FIXME: probably will be fixed in Rails 4
+  scope :public, lambda { where("status = 'OPEN'") }
   scope :hidden, lambda { where(status: 'PRIV') }
 
   def self.year(year)

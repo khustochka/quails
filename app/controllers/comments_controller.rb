@@ -46,6 +46,8 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.save
+        CommentMailer.comment_posted(@comment).deliver
+
         format.html { redirect_to public_comment_path(@comment) }
         format.json { render :json => @comment, :status => :created, :location => @comment }
       else

@@ -3,10 +3,11 @@ module FormattedModel
   MAPPING = {
       Post => PostFormatter,
       Image => ImageFormatter,
-      Comment => CommentFormatter
+      Comment => CommentFormatter,
+      Observation => ObservationFormatter
   }
 
   def formatted
-    MAPPING[self.class].new(self)
+    MAPPING.fetch(self.class).new(self)
   end
 end

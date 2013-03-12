@@ -8,6 +8,8 @@
     -# encoding
     %meta{ :content => "text/html; charset=UTF-8", "http-equiv" => "content-type" }
 
+    %title= page_title
+
     -# mobile viewport
     %meta{ name: 'viewport', content: 'width=device-width'}
 
@@ -37,14 +39,11 @@
     = csrf_meta_tags if @jquery
 
     -# stylesheets
-    - stylesheet @minimal_layout ? 'old/minimal' : (admin_layout? ? 'old/admin' : 'public')
+    - stylesheet @minimal_layout ? 'minimal' : (admin_layout? ? 'admin' : 'public')
 
     = render 'partials/css_and_js'
 
-    %title= page_title
-
-    - unless admin_layout?
-      -# google analytics
+    = GoogleAnalytics.render(self)
 
   %body
 
@@ -55,6 +54,13 @@
       = GoogleSearch.render(self)
 
       .main
+
+        - if !admin_layout? && $announcement
+          %div.announcement
+            :textile
+              #{$announcement}
+
         = yield
 
-    = render 'partials/footer'
+    - cache :footer do
+      = render 'partials/footer'

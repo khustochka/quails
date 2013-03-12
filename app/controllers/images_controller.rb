@@ -11,7 +11,7 @@ class ImagesController < ApplicationController
   # Latest additions
   def index
     redirect_to page: nil if params[:page].to_i == 1
-    @robots = 'NOINDEX, NOARCHIVE' if params[:page]
+    @robots = 'NOINDEX' if params[:page]
     @images = Image.preload(:species).order('created_at DESC').page(params[:page]).per(20)
     @feed = 'photos'
   end

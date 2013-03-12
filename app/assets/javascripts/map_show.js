@@ -15,27 +15,40 @@
 
 $(function () {
 
-    var marks,
-        theMap = $('#googleMap');
+  var marks,
+      theMap = $('#googleMap');
 
-    theMap.gmap3('init');
+  function adjustSizes() {
+    var clientHeight = $(window).height(),
+        clientWidth = $(window).width(),
+        upper = $('#header').outerHeight(true),
+        lower = $('div.footer').outerHeight();
+    $('div.mapContainer').height(clientHeight - upper - lower).width(clientWidth)
+        .css('top', upper);
+  }
 
-    $.get('/map/spots', function (data, textStatus, jqXHR) {
-        marks = data;
-        theMap.gmap3(
-            { action:'addMarkers',
-                markers:marks,
-                radius:40,
-                clusters:{
-                    // This style will be used for clusters with more than 0 markers
-                    0:{
-                        content:'<div class="cluster">CLUSTER_COUNT</div>',
-                        width:46,
-                        height:28
-                    }
-                }
+  adjustSizes();
+
+  $(window).resize(adjustSizes);
+
+  theMap.gmap3('init');
+
+  $.get('/map/spots', function (data, textStatus, jqXHR) {
+    marks = data;
+    theMap.gmap3(
+        { action: 'addMarkers',
+          markers: marks,
+          radius: 40,
+          clusters: {
+            // This style will be used for clusters with more than 0 markers
+            0: {
+              content: '<div class="cluster">CLUSTER_COUNT</div>',
+              width: 46,
+              height: 28
             }
-        );
-    });
+          }
+        }
+    );
+  });
 
 });

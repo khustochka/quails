@@ -1,0 +1,125 @@
+// Reusable
+
+.align-right
+  text-align: right !important
+
+.align-left
+  text-align: left !important
+
+.align-center
+  text-align: center !important
+
+.horiz-list
+  @include horiz-list
+
+// Header
+
+.header-with-subheader
+  margin-bottom: 21px
+  h1, h2, h3, h4, h5, h6
+    margin-bottom: 0
+
+.subheader-menu
+  @include horiz-list
+  line-height: 1.6em
+  font-size: 19px
+  color:  #777777
+  padding-left: 0
+  margin-top: 0
+  li
+    margin-right: 10px
+  li:before
+    font-size: 22px
+    content: '\2022'
+    margin-right: 5px
+  a
+    @include deep-bordered-link($link-color)
+    border-bottom: 1px dotted $link-color
+
+
+// Neat table
+
+table.neat_table
+  border-top: 1px solid #ddd
+
+  td, th
+    padding: 2px 12px
+
+  tr
+    border-bottom: 1px solid #ddd
+
+  th
+    background-color: #f5f5f5
+    text-align: left
+
+  td
+    h2, h3, h4
+      margin: 30px 0 2px 0
+
+// Filter list
+
+.filter-list
+  margin-top: -5px
+  li
+    margin: 3px
+    padding: 0 3px
+    background-color: #EBEBCF
+    border-bottom: 1px dotted #777
+    a, a:hover
+      background-color: inherit
+      color: $link-color
+      text-decoration: none
+      padding: 0
+
+// Minor
+
+a.remove, a.destroy, a.remove:hover, a.destroy:hover, a.img, a.img:hover
+  background-color: inherit
+
+.grayout
+  background-color: #efefef
+
+.less-important
+  color: #888888
+
+.monospace
+  font-family: monospace
+  font-size: small
+
+.big-red
+  color: red
+  font-size: xx-large
+  font-weight: bold
+
+.pseudolink, .pseudolink:hover
+  padding: 0 1px
+  background-color: inherit
+  cursor: pointer
+  text-decoration: none
+  border-bottom: 1px dashed #55a
+  color: #55a
+
+.remove
+  cursor: pointer
+
+.loading
+  background: #ffffff url('/img/loading.gif') no-repeat center
+
+.tag
+  color: white
+  font-weight: bold
+  padding: 1px 4px
+  border-radius: 5px
+  white-space: nowrap
+
+.draft
+  background-color: crimson
+
+// Announcement
+
+div.announcement
+  background-color: #ffe45c
+  color: #333366
+  border: 1px solid orange
+  padding: 0 15px
+  margin: 20px 0
