@@ -6,11 +6,19 @@ Capybara.register_driver :ie do |app|
   Capybara::Selenium::Driver.new(app, browser: :ie, introduce_flakiness_by_ignoring_security_domains: true)
 end
 
-if ENV['JS_DRIVER'].blank? || ENV['JS_DRIVER'].try(:to_s) == "webkit"
+env_js_driver = ENV['JS_DRIVER']
+
+def load_driver(driver)
+  require "capybara/#{driver.to_s}"
+  Capybara.javascript_driver = driver.to_sym
+end
+
+if env_js_driver.blank?
   begin
-    require "capybara/webkit"
-    Capybara.javascript_driver = :webkit
+    load_driver(:webkit)
   rescue LoadError
-    raise if ENV['JS_DRIVER'].try(:to_s) == "webkit"
+    # Use selenium
   end
+else
+  load_driver(env_js_driver)
 end
