@@ -17,6 +17,10 @@ class Image < ActiveRecord::Base
     species.each(&:update_image)
   end
 
+  after_destroy do
+    species.each(&:update_image)
+  end
+
   # Parameters
 
   def to_param
@@ -83,7 +87,11 @@ class Image < ActiveRecord::Base
         self.spot_id = nil
       end
       self.observation_ids = obs_ids.uniq
-      run_validations! && save
+      run_validations! && save.tap do |result|
+        if result
+          self.species.each(&:update_image)
+        end
+      end
     end
   end
 
