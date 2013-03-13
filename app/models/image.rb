@@ -12,6 +12,11 @@ class Image < ActiveRecord::Base
 
   serialize :flickr_data, Hash
 
+  # Callbacks
+  after_create do
+    species.each(&:update_image)
+  end
+
   # Parameters
 
   def to_param

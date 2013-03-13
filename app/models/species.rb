@@ -35,4 +35,10 @@ class Species < ActiveRecord::Base
 
   scope :alphabetic, lambda { order(:name_sci) }
 
+  def update_image
+    unless image_id
+      update_column(:image_id, images.first.id)
+    end
+  end
+
 end
