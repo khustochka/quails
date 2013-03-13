@@ -1,6 +1,8 @@
 - @page_title = "#{@species.name} (#{@species.name_sci})"
 
-= render 'admin/shortcuts' if current_user.admin?
+- if current_user.admin?
+  - javascript 'species_image'
+  = render 'admin/shortcuts'
 
 %p
   = t("taxonomy.order")
@@ -27,6 +29,11 @@
     %h3= t('.sections.photos')
     %ul.thumbnails
       = render :partial => 'images/thumbnail', :collection => images
+      - if current_user.admin?
+        = simple_form_for @species do |form|
+          = form.input :image_id, as: :hidden
+        %p
+          %span.pseudolink.edit_main_image Edit main image
 
 - @posts.if_present do |posts|
   %h3= t('.sections.posts')
