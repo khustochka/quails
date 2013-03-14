@@ -5,7 +5,12 @@
     - total_count = rel.except(:limit).count
     = render partial: 'lifer', collection: rel, locals: {total_count: total_count}
 
-%h1= @page_title
+%div.header-with-subheader
+  %h1= @page_title
+  %ul.subheader-menu
+    %li
+      См. также
+      = link_to 'Рекорды и статистика', my_stats_path
 
 %h2= link_to('Lifelist', lifelist_path)
 
