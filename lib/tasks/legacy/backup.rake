@@ -1,6 +1,6 @@
 desc 'Legacy data tasks'
 namespace :legacy do
-  
+
   task :load_locals do
     @local_opts = YAML.load_file('config/local.yml')
     @folder = @local_opts['repo']

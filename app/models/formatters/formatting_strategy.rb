@@ -1,5 +1,5 @@
 class FormattingStrategy
-  
+
   def initialize(text, metadata = {})
     @text = text
     @metadata = metadata

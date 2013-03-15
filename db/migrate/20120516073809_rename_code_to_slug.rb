@@ -3,7 +3,7 @@ class RenameCodeToSlug < ActiveRecord::Migration
     rename_column :posts, :code, :slug
     rename_column :images, :code, :slug
     rename_column :loci, :code, :slug
-    
+
     rename_index :posts, :index_posts_on_code, :index_posts_on_slug
     rename_index :images, :index_images_on_code, :index_images_on_slug
     rename_index :loci, :index_locus_on_code, :index_loci_on_slug
