@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
 
-  caches_action :show, :error, unless: -> { current_user.admin? || current_user.has_admin_cookie? }
+  caches_page :show, :error, gzip: true, unless: -> { current_user.admin? || current_user.has_admin_cookie? }
 
   def show
     render params[:id]
