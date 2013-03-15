@@ -71,7 +71,8 @@ Quails::Application.routes.draw do
       year: /\d{4}/,
       sort: /by_taxonomy/
 
-  get '/:id' => 'pages#show', constraints: {id: 'links'}, as: :page
+  # Static pages
+  get '/:id' => 'pages#show', constraints: {id: /links|about/}, as: :page
 
   get '/blog.:format' => 'feeds#blog', constraints: {format: 'xml'}
   get '/photos.:format' => 'feeds#photos', constraints: {format: 'xml'}
