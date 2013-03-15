@@ -74,6 +74,9 @@ Quails::Application.routes.draw do
   # Static pages
   get '/:id' => 'pages#show', constraints: {id: /links|about/}, as: :page
 
+  # Error codes
+  get '/:code' => 'pages#error', constraints: {code: /404|500/}
+
   # Feeds and sitemap
   get '/blog.:format' => 'feeds#blog', constraints: {format: 'xml'}
   get '/photos.:format' => 'feeds#photos', constraints: {format: 'xml'}

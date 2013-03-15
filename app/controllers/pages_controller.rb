@@ -7,7 +7,7 @@ class PagesController < ApplicationController
   end
 
   def error
-    @status = env["PATH_INFO"][1..-1]
+    @status = params[:code]
     render @status, layout: 'error', status: @status
   end
 
