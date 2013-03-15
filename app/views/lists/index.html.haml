@@ -1,5 +1,7 @@
 - @page_title = "Lifelist и другие списки"
 
+- @robots = 'NOINDEX'
+
 - lifers = lambda do |rel|
   %ol.lifers_list
     - total_count = rel.except(:limit).count

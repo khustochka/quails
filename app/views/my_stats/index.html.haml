@@ -1,5 +1,7 @@
 - @page_title = "Моя статистика"
 
+- @robots = 'NOINDEX'
+
 - provide :the_newest_species do
   %b= species_link(@newest_species)
   = surround '(', ')' do
