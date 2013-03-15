@@ -65,6 +65,9 @@ Quails::Application.configure do
     end
   }
 
+  # Route error pages through rails
+  config.exceptions_app = self.routes
+
   # Disable delivery errors, bad email addresses will be ignored
   config.action_mailer.raise_delivery_errors = false
 
