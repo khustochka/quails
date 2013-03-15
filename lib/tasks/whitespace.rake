@@ -1,6 +1,6 @@
 namespace :whitespace do
 
-  EXCLUDE = "-e '.git/' -e '.idea/' -e 'public/' -e '.png' -e 'log/' -e 'tmp/' -e 'coverage'"
+  EXCLUDE = "-e '.git/' -e '.idea/' -e 'public/' -e 'vendor/' -e '.png' -e 'log/' -e 'tmp/' -e 'coverage'"
 
   desc 'Removes trailing whitespace'
   task :cleanup do
