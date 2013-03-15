@@ -41,7 +41,7 @@
     - posts.each do |post|
       %li= post_link(post.formatted.title, post)
 
-- if @species.observations.present?
+- if @species.observations.any?
   %h3= t('.sections.stats')
   %p
     = t('.total_observations')
