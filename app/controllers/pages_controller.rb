@@ -1,19 +1,20 @@
 class PagesController < ApplicationController
 
-  caches_page :show, :error, gzip: true, unless: -> { current_user.admin? || current_user.has_admin_cookie? }
+  caches_action :show, layout: false
+  caches_page :error, gzip: true, unless: -> { current_user.admin? || current_user.has_admin_cookie? }
 
   def show
     render params[:id]
   end
 
   def error
-    @status = env["PATH_INFO"][1..-1]
-    render @status, layout: 'error', status: @status
+    @code = env["PATH_INFO"][1..-1]
+    render @code, layout: 'error', status: @code
   end
 
   private
   def caching_allowed?
-    if @status
+    if @code
       request.get?
     else
       super
