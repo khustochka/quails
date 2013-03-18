@@ -16,9 +16,7 @@
     %li= link_to t('menu.archive'), archive_path
     %li= link_to t('menu.checklist'), checklist_path(country: 'ukraine')
     %li= link_to 'Photostream', images_path
-    %li= link_to 'Stats', my_stats_path
-    -#%li= link_to t('menu.photos'), images_path
-    -#%li= link_to t('menu.my_stats'), my_stats_path
+    %li= link_to 'Stats', research_path(action: 'stats')
     %li= link_to t('menu.lifelist'), lifelist_path
 
 - elsif current_user.has_admin_cookie?
