@@ -141,32 +141,40 @@ class ResearchController < ApplicationController
   end
 
   def stats
-    @year_data = MyObservation.select('EXTRACT(year FROM observ_date) as year,
+    @years = [nil] + MyObservation.years
+
+    observations_filtered = MyObservation.filter(year: params[:year])
+    lifelist_filtered = Lifelist.basic.relation
+    lifelist_filtered = lifelist_filtered.where('EXTRACT(year from first_seen) = ?', params[:year]) if params[:year]
+
+    @year_data = observations_filtered.select('EXTRACT(year FROM observ_date) as year,
                                       COUNT(id) as count_obs,
                                       COUNT(DISTINCT observ_date) as count_days,
                                       COUNT(DISTINCT species_id) as count_species').
                 group('EXTRACT(year FROM observ_date)').order(:year)
-    @first_sp_by_year = Lifelist.basic.relation.group('EXTRACT(year FROM first_seen)').except(:order).count
 
-    @month_data = MyObservation.select('EXTRACT(month FROM observ_date) as month,
+    @first_sp_by_year = lifelist_filtered.group('EXTRACT(year FROM first_seen)').except(:order).count
+
+    @month_data = observations_filtered.select('EXTRACT(month FROM observ_date) as month,
                                       COUNT(id) as count_obs,
                                       COUNT(DISTINCT species_id) as count_species').
         group('EXTRACT(month FROM observ_date)').order(:month)
-    @first_sp_by_month = Lifelist.basic.relation.group('EXTRACT(month FROM first_seen)').except(:order).count
+    @first_sp_by_month = lifelist_filtered.group('EXTRACT(month FROM first_seen)').except(:order).count
 
-    @day_by_obs = MyObservation.select('observ_date, COUNT(id) as count_obs').
+    @day_by_obs = observations_filtered.select('observ_date, COUNT(id) as count_obs').
                   group('observ_date').
                   order('count_obs DESC, observ_date ASC').limit(10)
 
-    @day_by_species = MyObservation.select('observ_date, COUNT(DISTINCT species_id) as count_species').
+    @day_by_species = observations_filtered.select('observ_date, COUNT(DISTINCT species_id) as count_species').
         group('observ_date').
         order('count_species DESC, observ_date ASC').limit(10)
 
-    @day_and_loc_by_species = MyObservation.select('observ_date, locus_id, COUNT(DISTINCT species_id) as count_species').
+    @day_and_loc_by_species = observations_filtered.select('observ_date, locus_id, COUNT(DISTINCT species_id) as count_species').
         group('observ_date, locus_id').preload(:locus).
         order('count_species DESC, observ_date ASC').limit(10)
 
-    @day_by_new_species = Lifelist.basic.relation.except(:select).select('first_seen, COUNT(species_id) as count_species').
+    @day_by_new_species = lifelist_filtered.
+        except(:select).select('first_seen, COUNT(species_id) as count_species').
         group('first_seen').except(:order).
         order('count_species DESC, first_seen ASC').limit(10)
 
