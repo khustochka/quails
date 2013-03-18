@@ -141,7 +141,18 @@ class ResearchController < ApplicationController
   end
 
   def stats
+    @year_data = MyObservation.select('EXTRACT(year FROM observ_date) as year,
+                                      COUNT(id) as count_obs,
+                                      COUNT(DISTINCT observ_date) as count_days,
+                                      COUNT(DISTINCT species_id) as count_species').
+                group('EXTRACT(year FROM observ_date)').order(:year)
+    @first_sp_by_year = Lifelist.basic.relation.group('EXTRACT(year FROM first_seen)').except(:order).count
 
+    @month_data = MyObservation.select('EXTRACT(month FROM observ_date) as month,
+                                      COUNT(id) as count_obs,
+                                      COUNT(DISTINCT species_id) as count_species').
+        group('EXTRACT(month FROM observ_date)').order(:month)
+    @first_sp_by_month = Lifelist.basic.relation.group('EXTRACT(month FROM first_seen)').except(:order).count
   end
 
 end

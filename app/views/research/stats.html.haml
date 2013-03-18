@@ -1,3 +1,34 @@
 - @page_title = 'Statistics'
 
 %h1= research_page_header
+
+%table.neat_table.statistics
+  %tr
+    %th Year
+    %th Observ
+    %th Days
+    %th Species
+    %th First
+
+  - @year_data.each do |row|
+    %tr
+      %td= row.year
+      %td= row.count_obs
+      %td= row.count_days
+      %td= row.count_species
+      %td= @first_sp_by_year[row.year]
+
+%table.neat_table.statistics
+  %tr
+    %th Month
+    %th Observ
+    %th Species
+    %th First
+
+  - @month_data.each do |row|
+    %tr
+      %td= t('date.month_names')[row.month.to_i]
+      %td= row.count_obs
+      %td= row.count_species
+      %td= @first_sp_by_month[row.month]
+
