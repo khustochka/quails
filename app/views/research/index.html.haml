@@ -2,6 +2,8 @@
 
 %h1= page_header
 
+%h3= link_to('Statistics', action: :stats)
+
 %ul
   %li= link_to('Number of species up to day', {:action => :uptoday})
   %li= link_to('Find species seen after more than a year', {:action => :more_than_year})

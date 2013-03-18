@@ -32,6 +32,8 @@ class ResearchControllerTest < ActionController::TestCase
   end
 
   test "admin sees Research/topicture" do
+    o = create(:observation, observ_date: "2007-06-18")
+    create(:image, observations: [o])
     login_as_admin
     get :topicture
     assert_response :success
@@ -46,6 +48,14 @@ class ResearchControllerTest < ActionController::TestCase
   test "admin sees Research/uptoday" do
     login_as_admin
     get :uptoday
+    assert_response :success
+  end
+
+  test "admin sees Research/stats" do
+    create(:observation, observ_date: "2007-06-18")
+    create(:observation, observ_date: "2009-06-18")
+    login_as_admin
+    get :stats
     assert_response :success
   end
 

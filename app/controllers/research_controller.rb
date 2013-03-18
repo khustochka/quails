@@ -140,4 +140,8 @@ class ResearchController < ApplicationController
     end
   end
 
+  def stats
+
+  end
+
 end
