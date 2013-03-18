@@ -32,3 +32,59 @@
       %td= row.count_species
       %td= @first_sp_by_month[row.month]
 
+%h2 Рекордные дни
+
+%h3
+  %i — По количеству наблюдений за день
+
+%table.neat_table.statistics
+  %tr
+    %th Date
+    %th Observations
+
+  - @day_by_obs.each do |row|
+    %tr
+      %td= l(row.observ_date, format: :long)
+      %td= row.count_obs
+
+%h3
+  %i — По количеству видов за день
+
+%table.neat_table.statistics
+  %tr
+    %th Date
+    %th Species count
+
+  - @day_by_species.each do |row|
+    %tr
+      %td= l(row.observ_date, format: :long)
+      %td= row.count_species
+
+%h3
+  %i — По количеству видов в одной местности
+
+%table.neat_table.statistics
+  %tr
+    %th Date
+    %th Species count
+    %th Location
+
+  - @day_and_loc_by_species.each do |row|
+    %tr
+      %td= l(row.observ_date, format: :long)
+      %td= row.count_species
+      %td= row.locus.name
+
+%h3
+  %i — По количеству новых видов за день
+
+%table.neat_table.statistics
+  %tr
+    %th Date
+    %th New species
+
+  - @day_by_new_species.each do |row|
+    %tr
+      %td= l(row.first_seen_date, format: :long)
+      %td= row.count_species
+
