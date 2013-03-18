@@ -32,7 +32,7 @@
     %li Пока ни одного нового.
   - elsif @new_this_year == 1
     %li
-      Один новый вид:
+      Из них один новый:
       = content_for :the_newest_species
   - else
     %li Из них #{t('.new_count_species', count: @new_this_year)}.
