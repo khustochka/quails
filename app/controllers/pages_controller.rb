@@ -9,7 +9,7 @@ class PagesController < ApplicationController
 
   def error
     @code = env["PATH_INFO"][1..-1]
-    render @code, layout: 'error', status: @code
+    render @code, layout: 'error', formats: %w(html), status: @code
   end
 
   private
