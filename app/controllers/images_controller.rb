@@ -2,7 +2,7 @@ class ImagesController < ApplicationController
 
   respond_to :json, only: [:flickr_search, :observations]
 
-  administrative except: [:index, :various, :show, :gallery, :country]
+  administrative except: [:index, :multiple_species, :show, :gallery, :country]
 
   find_record by: :slug, before: [:show, :edit, :flickr_edit, :map_edit, :update, :patch, :destroy]
 
@@ -15,9 +15,9 @@ class ImagesController < ApplicationController
     @feed = 'photos'
   end
 
-  # Photos of various species
-  def various
-    @images = Image.various_species
+  # Photos of multiple species
+  def multiple_species
+    @images = Image.multiple_species
   end
 
   # GET /photos/1

@@ -34,7 +34,7 @@ Quails::Application.routes.draw do
   end
 
   get '/photos(/page/:page)' => 'images#index', page: /[^0]\d*/, constraints: {format: 'html'}
-  get '/photos/various' => 'images#various'
+  get '/photos/multiple_species' => 'images#multiple_species'
   resources :photos, controller: 'images', as: 'images', except: :index do
     member do
       get 'edit/map', action: :map_edit

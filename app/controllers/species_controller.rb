@@ -22,7 +22,7 @@ class SpeciesController < ApplicationController
   def gallery
     @species = Species.joins(:image).includes(:image).ordered_by_taxonomy
     @feed = 'photos'
-    @thumbnail_for_various = Image.various_species.first
+    @thumbnail_for_multiple_species = Image.multiple_species.first
   end
 
   # GET /species/1

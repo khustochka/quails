@@ -6,13 +6,14 @@
     %li= link_to(t("countries.gallery.title.ukraine"), country_path(country: 'ukraine'))
     %li= link_to(t("countries.gallery.title.usa"), country_path(country: 'usa'))
     %li= link_to t('menu.photos'), images_path
+    %li.feed= link_to(t('misc.feed'), {controller: :feeds, action: @feed, format: :xml})
 
 %ul.thumbnails
   = render :partial => 'thumbnail', :collection => @species
 
-  - if @thumbnail_for_various
+  - if @thumbnail_for_multiple_species
     %li.imageholder
-      = link_to image_tag(thumbnail_url(@thumbnail_for_various), alt: "Photos of several species"), photos_various_path
+      = link_to image_tag(thumbnail_url(@thumbnail_for_multiple_species), alt: 'Разные виды на одном фото'), photos_multiple_species_path
       %div.imagetitle
-        = link_to photos_various_path do
-          %div Photos of several species
+        = link_to photos_multiple_species_path do
+          %div Разные виды на одном фото

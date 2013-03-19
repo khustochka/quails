@@ -15,14 +15,14 @@ class ImagesControllerTest < ActionController::TestCase
     assert_select "a[href=#{image_path(@image)}]"
   end
 
-  test "show photos of various species" do
+  test "show photos of multiple species" do
     sp1 = seed(:lancol)
     sp2 = seed(:jyntor)
     obs1 = create(:observation, species: sp1, observ_date: "2008-07-01")
     obs2 = create(:observation, species: sp2, observ_date: "2008-07-01")
     img = create(:image, slug: 'picture-of-the-shrike-and-the-wryneck', observations: [obs1, obs2])
 
-    get :various
+    get :multiple_species
     assert_response :success
     assert_not_empty assigns(:images)
 
