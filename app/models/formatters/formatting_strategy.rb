@@ -16,7 +16,7 @@ class FormattingStrategy
           if term == "lj"
             lj_user(word)
           else
-            %Q("#{word || term}":#{term})
+            %Q(["#{word || term}":#{term}])
           end
         when '#' then
           post_link(word, term)
