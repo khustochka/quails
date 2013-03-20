@@ -53,15 +53,15 @@ class Image < ActiveRecord::Base
   PREV_NEXT_ORDER = "(ORDER BY #{ORDERING_COLUMNS.join(', ')})"
 
   def prev_by_species(sp)
-    r = sp.images.select("images.id AS id, lag(images.id) OVER #{PREV_NEXT_ORDER} AS prev")
-    im = Image.from("(#{r.to_sql}) AS tmp").select("id, prev").where("id = ?", self.id).first
-    Image.where(id: im.prev).first
+    r = sp.images.select("images.id AS img_id, lag(images.id) OVER #{PREV_NEXT_ORDER} AS prev")
+    im = Image.from("(#{r.to_sql}) AS tmp").select("prev").where("img_id = ?", self.id)
+    Image.where(id: im).first
   end
 
   def next_by_species(sp)
-    r = sp.images.select("images.id AS id, lead(images.id) OVER #{PREV_NEXT_ORDER} AS next")
-    im = Image.from("(#{r.to_sql}) AS tmp").select("id, next").where("id = ?", self.id).first
-    Image.where(id: im.next).first
+    r = sp.images.select("images.id AS img_id, lead(images.id) OVER #{PREV_NEXT_ORDER} AS next")
+    im = Image.from("(#{r.to_sql}) AS tmp").select("next").where("img_id = ?", self.id)
+    Image.where(id: im).first
   end
 
   def public_title
