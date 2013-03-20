@@ -13,8 +13,6 @@
 
 %div.image_canvas= image_tag(jpg_url(@image))
 
-= render partial: "images/long_details", locals: {image: @image}
-
 %table.image_nav
   %tr
     %th пред.
@@ -29,7 +27,9 @@
           %span.img_prev_next &ndash;
 
       %td
-        %nav= sp.name
+        %b= species_link(sp)
+        %br
+        = name_sci(sp)
 
       %td
         - if next_image = @image.next_by_species(sp)
@@ -37,8 +37,8 @@
         - else
           %span.img_prev_next &ndash;
 
+= render partial: "images/long_details", locals: {image: @image}
 
-  - if @image.multi?
-    %tr
-      %td{colspan: 3}
-        %nav= link_to("Еще фото нескольких видов", photos_multiple_species_path)
+
+- if @image.multi?
+  %nav= link_to("Еще фото нескольких видов", photos_multiple_species_path)
