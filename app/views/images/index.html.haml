@@ -5,10 +5,11 @@
 - @robots = 'NOINDEX'
 
 %div.header-with-subheader
-  %h1= page_header
+  %h1
+    = page_header
+    = feed_icon
   %ul.subheader-menu
     %li= link_to t('.species_galery'), gallery_path
-    %li.feed= link_to(t('misc.feed'), {controller: :feeds, action: @feed, format: :xml})
 
 %ul.thumbnails
   = render :partial => 'thumbnail', :collection => @images

@@ -30,4 +30,12 @@ module ApplicationHelper
     params[:sort].nil? ? text : link_to(text, params.merge(:sort => nil))
   end
 
+  def feed_icon
+    link_to(
+        image_tag('/img/rss_16x16.png', alt: t('misc.feed'), title: t('misc.feed')),
+        {:controller => :feeds, :action => @feed, :format => :xml},
+        class: 'img'
+    )
+  end
+
 end

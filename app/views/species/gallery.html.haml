@@ -1,12 +1,13 @@
 - @page_title = t(".title")
 
 %div.header-with-subheader
-  %h1.over-header= page_header
+  %h1.over-header
+    = page_header
+    = feed_icon
   %ul.subheader-menu
     %li= link_to(t("countries.gallery.title.ukraine"), country_path(country: 'ukraine'))
     %li= link_to(t("countries.gallery.title.usa"), country_path(country: 'usa'))
     %li= link_to t('menu.photos'), images_path
-    %li.feed= link_to(t('misc.feed'), {controller: :feeds, action: @feed, format: :xml})
 
 %ul.thumbnails
   = render :partial => 'thumbnail', :collection => @species
