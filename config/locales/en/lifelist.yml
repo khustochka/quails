@@ -24,3 +24,5 @@
       sort_option:
         by_date: date
         by_taxonomy: taxonomy
+
+      advanced: Advanced lifelist
