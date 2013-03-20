@@ -49,20 +49,16 @@ class Image < ActiveRecord::Base
     species.count > 1
   end
 
-  ORDERING_COLUMNS = %w(observ_date locus_id index_num created_at)
-
   def prev_by_species(sp)
     sp.images.
-        where("#{ORDERING_COLUMNS.map {|c| "#{c} <= ?"}.join(' AND ')} AND images.id < ?",
-              *ORDERING_COLUMNS.map {|c| self.send(c.to_sym)}, self.id)
-    .order("#{ORDERING_COLUMNS.map {|c| "#{c} DESC"}.join(', ')}, images.id DESC").first
+        where(conditions_for_image(:prev), *columns_bound_for_ordering).
+        order(ordering_clause(:prev)).first
   end
 
   def next_by_species(sp)
     sp.images.
-        where("#{ORDERING_COLUMNS.map {|c| "#{c} >= ?"}.join(' AND ')}  AND images.id > ?",
-              *ORDERING_COLUMNS.map {|c| self.send(c.to_sym)}, self.id)
-    .order("#{ORDERING_COLUMNS.map {|c| "#{c} ASC"}.join(', ')}, images.id ASC").first
+        where(conditions_for_image(:next), *columns_bound_for_ordering).
+        order(ordering_clause(:next)).first
   end
 
   def public_title
@@ -128,6 +124,24 @@ class Image < ActiveRecord::Base
         errors.add(:observations, 'must have the same date, location, and mine value')
       end
     end
+  end
+
+  ORDERING_COLUMNS = %w(observ_date locus_id index_num created_at)
+  ORDERING_SIGN = {prev: '<=', next: '>='}
+  ORDERING_DIRECTION = {prev: 'DESC', next: 'ASC'}
+
+  def conditions_for_image(val)
+    "%s AND images.id #{ORDERING_SIGN[val][0]} ?" %
+        ORDERING_COLUMNS.map { |c| "#{c} #{ORDERING_SIGN[val]} ?" }.join(' AND ')
+  end
+
+  def columns_bound_for_ordering
+    @columns_bound_for_ordering ||= (ORDERING_COLUMNS + %w(id)).map { |c| self.send(c.to_sym) }
+  end
+
+  def ordering_clause(val)
+    "%s, images.id #{ORDERING_DIRECTION[val]}" %
+        ORDERING_COLUMNS.map { |c| "#{c} #{ORDERING_DIRECTION[val]}" }.join(", ")
   end
 
 end
