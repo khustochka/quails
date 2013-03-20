@@ -10,7 +10,7 @@ class Species < ActiveRecord::Base
   validates :avibase_id, :format => /\A[\dA-F]{16}\Z/, :allow_blank => true
 
   has_many :observations, :dependent => :restrict, :order => [:observ_date]
-  has_many :images, :through => :observations, :order => [:observ_date, :locus_id, :index_num]
+  has_many :images, :through => :observations, :order => [:observ_date, :locus_id, :index_num, :created_at, 'images.id']
   has_many :taxa
   has_many :posts, through: :observations, order: 'face_date DESC', uniq: true
 

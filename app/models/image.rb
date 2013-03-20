@@ -8,7 +8,7 @@ class Image < ActiveRecord::Base
   has_many :spots, :through => :observations
   belongs_to :spot
 
-  delegate :observ_date, :locus, :to => :first_observation
+  delegate :observ_date, :locus, :locus_id, :to => :first_observation
 
   serialize :flickr_data, Hash
 
@@ -47,6 +47,22 @@ class Image < ActiveRecord::Base
 
   def multi?
     species.count > 1
+  end
+
+  ORDERING_COLUMNS = %w(observ_date locus_id index_num created_at)
+
+  def prev_by_species(sp)
+    sp.images.
+        where("#{ORDERING_COLUMNS.map {|c| "#{c} <= ?"}.join(' AND ')} AND images.id < ?",
+              *ORDERING_COLUMNS.map {|c| self.send(c.to_sym)}, self.id)
+    .order("#{ORDERING_COLUMNS.map {|c| "#{c} DESC"}.join(', ')}, images.id DESC").first
+  end
+
+  def next_by_species(sp)
+    sp.images.
+        where("#{ORDERING_COLUMNS.map {|c| "#{c} >= ?"}.join(' AND ')}  AND images.id > ?",
+              *ORDERING_COLUMNS.map {|c| self.send(c.to_sym)}, self.id)
+    .order("#{ORDERING_COLUMNS.map {|c| "#{c} ASC"}.join(', ')}, images.id ASC").first
   end
 
   def public_title
@@ -108,7 +124,7 @@ class Image < ActiveRecord::Base
     if obs.blank?
       errors.add(:observations, 'must not be empty')
     else
-      if obs.map{|o| o.attributes.values_at(*COMMON_OBSERVATION_ATTRIBUTES) }.uniq.size > 1
+      if obs.map { |o| o.attributes.values_at(*COMMON_OBSERVATION_ATTRIBUTES) }.uniq.size > 1
         errors.add(:observations, 'must have the same date, location, and mine value')
       end
     end
