@@ -24,7 +24,7 @@
         - if prev_image = @image.prev_by_species(sp)
           = link_to("&lt;".html_safe, prev_image, class: 'img_prev_next')
         - else
-          %span.img_prev_next &ndash;
+          %span.img_prev_next &minus;
 
       %td
         %b= species_link(sp)
@@ -35,7 +35,7 @@
         - if next_image = @image.next_by_species(sp)
           = link_to("&gt;".html_safe, next_image, class: 'img_prev_next')
         - else
-          %span.img_prev_next &ndash;
+          %span.img_prev_next &minus;
 
 = render partial: "images/long_details", locals: {image: @image}
 
