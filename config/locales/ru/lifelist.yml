@@ -14,8 +14,10 @@
         places: 'Страны:'
         sort_by: 'Сортировка:'
 
-      by_date:
-        first_seen_in: 'Впервые встречены в %{year} году:'
+    by_date:
+      seen_in:
+        first: 'Впервые встречены в %{year} году:'
+        last: 'Последний раз встречены в %{year} году:'
 
 
     menus:
