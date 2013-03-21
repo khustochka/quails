@@ -67,7 +67,7 @@ table.neat_table
     background-color: #EBEBCF
     border-bottom: 1px dotted #777
     a, a:hover
-      background-color: inherit
+      background-color: #EBEBCF
       color: $link-color
       text-decoration: none
       padding: 0
@@ -76,6 +76,8 @@ table.neat_table
 
 a.remove, a.destroy, a.remove:hover, a.destroy:hover, a.img, a.img:hover
   background-color: inherit
+  // IE6/7 do not understand inherit
+  *background-color: white
 
 .grayout
   background-color: #efefef
@@ -95,6 +97,8 @@ a.remove, a.destroy, a.remove:hover, a.destroy:hover, a.img, a.img:hover
 .pseudolink, .pseudolink:hover
   padding: 0 1px
   background-color: inherit
+  // IE6/7 do not understand inherit
+  *background-color: white
   cursor: pointer
   text-decoration: none
   border-bottom: 1px dashed #55a
