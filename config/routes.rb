@@ -68,7 +68,8 @@ Quails::Application.routes.draw do
     end
   end
 
-  get '/photos(/page/:page)' => 'images#index', page: /[^0]\d*/, constraints: {format: 'html'}
+  # FIXME: back to format: 'html', 'xml'
+  get '/photos(/page/:page)' => 'images#index', page: /[^0]\d*/, constraints: {format: /html/}
   get '/photos/multiple_species' => 'images#multiple_species'
   resources :photos, controller: 'images', as: 'images', except: :index do
     member do
@@ -110,9 +111,9 @@ Quails::Application.routes.draw do
   get '/:id' => 'pages#show', constraints: {id: /links|about/}, as: :page
 
   # Feeds and sitemap
-  get '/blog.:format' => 'feeds#blog', constraints: {format: 'xml'}
-  get '/photos.:format' => 'feeds#photos', constraints: {format: 'xml'}
-  get '/sitemap.:format' => 'feeds#sitemap', constraints: {format: 'xml'}
+  get '/blog.:format' => 'feeds#blog', constraints: {format: /xml/}
+  get '/photos.:format' => 'feeds#photos', constraints: {format: /xml/}
+  get '/sitemap.:format' => 'feeds#sitemap', constraints: {format: /xml/}
 
 #  scope '/(:locale)', locale: /[a-z]{2}/ do
 #    resources :species, except: [:new, :create, :destroy]
