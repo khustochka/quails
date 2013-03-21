@@ -151,14 +151,14 @@ class ResearchController < ApplicationController
                                       COUNT(id) as count_obs,
                                       COUNT(DISTINCT observ_date) as count_days,
                                       COUNT(DISTINCT species_id) as count_species').
-                group('EXTRACT(year FROM observ_date)').order(:year)
+                group('EXTRACT(year FROM observ_date)').order('year')
 
     @first_sp_by_year = lifelist_filtered.group('EXTRACT(year FROM first_seen)').except(:order).count
 
     @month_data = observations_filtered.select('EXTRACT(month FROM observ_date) as month,
                                       COUNT(id) as count_obs,
                                       COUNT(DISTINCT species_id) as count_species').
-        group('EXTRACT(month FROM observ_date)').order(:month)
+        group('EXTRACT(month FROM observ_date)').order('month')
     @first_sp_by_month = lifelist_filtered.group('EXTRACT(month FROM first_seen)').except(:order).count
 
     @day_by_obs = observations_filtered.select('observ_date, COUNT(id) as count_obs').
