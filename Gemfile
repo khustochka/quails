@@ -3,7 +3,7 @@ source 'https://rubygems.org/'
 ruby '2.0.0'
 
 gem 'rails', '4.0.0.beta1'
-# gem 'rails', github: 'rails/rails'
+#gem 'rails', github: 'rails/rails'
 
 gem 'pg', platforms: [:ruby, :mingw]
 gem "activerecord-jdbcpostgresql-adapter", platforms: :jruby
@@ -12,7 +12,7 @@ gem 'unicorn', require: false, platforms: :ruby
 
 group :production do
   gem 'airbrake', require: false
-  gem 'newrelic_rpm', require: false
+  gem 'newrelic_rpm'
 end
 
 # Bundle the extra gems:
@@ -20,7 +20,7 @@ gem 'actionpack-page_caching'
 gem 'rails-i18n'
 gem 'haml-rails', '~> 0.4'
 gem 'haml-contrib'
-gem "haml", '4.0.1.rc.1'
+gem "haml"
 gem 'RedCloth'
 gem 'kaminari'
 #gem 'rails_autolink'

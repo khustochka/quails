@@ -34,7 +34,7 @@ GEM
       builder
       json
     ansi (1.4.3)
-    arel (4.0.0.beta1)
+    arel (4.0.0.beta2)
     atomic (1.0.1)
     builder (3.1.4)
     capybara (2.0.2)
@@ -59,7 +59,7 @@ GEM
     factory_girl_rails (4.2.1)
       factory_girl (~> 4.2.0)
       railties (>= 3.0.0)
-    ffi (1.4.0)
+    ffi (1.5.0)
     flickraw (0.9.6)
     flickraw-cached (20120701)
       flickraw (>= 0.9)
@@ -67,7 +67,7 @@ GEM
       diff-lcs (~> 1.1)
       mime-types (~> 1.15)
       posix-spawn (~> 0.3.6)
-    haml (4.0.1.rc.1)
+    haml (4.0.1)
       tilt
     haml-contrib (1.0.0)
       haml (>= 3.2.0.alpha.13)
@@ -76,7 +76,7 @@ GEM
       activesupport (>= 3.1, < 4.1)
       haml (>= 3.1, < 4.1)
       railties (>= 3.1, < 4.1)
-    hashie (2.0.2)
+    hashie (2.0.3)
     hike (1.2.1)
     i18n (0.6.4)
     json (1.7.7)
@@ -92,16 +92,16 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.21)
-    minitest (4.6.2)
-    minitest-reporters (0.14.7)
+    minitest (4.7.0)
+    minitest-reporters (0.14.9)
       ansi
       builder
       minitest (>= 2.12, < 5.0)
       powerbar
-    multi_json (1.6.1)
+    multi_json (1.7.1)
     mysql2 (0.3.11)
-    newrelic_rpm (3.5.8.72)
-    nokogiri (1.5.6)
+    newrelic_rpm (3.6.0.78)
+    nokogiri (1.5.8)
     pg (0.14.1)
     polyglot (0.3.3)
     posix-spawn (0.3.6)
@@ -119,7 +119,7 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 4.0.0.beta1)
       sprockets-rails (~> 2.0.0.rc3)
-    rails-i18n (0.7.2)
+    rails-i18n (0.7.3)
       i18n (~> 0.5)
     rails3-generators (1.0.0)
       railties (>= 3.0.0)
@@ -136,7 +136,7 @@ GEM
     roman-numerals (0.3.0)
     ruby-prof (0.13.0)
     rubyzip (0.9.9)
-    sass (3.2.6)
+    sass (3.2.7)
     sass-rails (4.0.0.beta1)
       railties (>= 4.0.0.beta, < 5.0)
       sass (>= 3.1.10)
@@ -166,11 +166,11 @@ GEM
     thor (0.17.0)
     thread_safe (0.1.0)
       atomic
-    tilt (1.3.4)
+    tilt (1.3.6)
     treetop (1.4.12)
       polyglot
       polyglot (>= 0.3.1)
-    tzinfo (0.3.36)
+    tzinfo (0.3.37)
     uglifier (1.3.0)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
@@ -197,7 +197,7 @@ DEPENDENCIES
   flickraw (~> 0.9.5)
   flickraw-cached
   grit (~> 2.5)
-  haml (= 4.0.1.rc.1)
+  haml
   haml-contrib
   haml-rails (~> 0.4)
   hashie
