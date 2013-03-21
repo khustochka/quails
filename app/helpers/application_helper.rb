@@ -32,9 +32,9 @@ module ApplicationHelper
 
   def feed_icon
     link_to(
-        image_tag('/img/rss_16x16.png', alt: t('misc.feed'), title: t('misc.feed')),
+        image_tag('/img/rss_32x32.png', alt: t('misc.feed'), title: t('misc.feed')),
         {:controller => :feeds, :action => @feed, :format => :xml},
-        class: 'img'
+        class: 'img feed'
     )
   end
 
