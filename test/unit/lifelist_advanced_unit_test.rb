@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class LifelistAdvancedTest < ActiveSupport::TestCase
+class LifelistAdvancedUnitTest < ActiveSupport::TestCase
 
   setup do
     @obs = [
