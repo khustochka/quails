@@ -1,7 +1,9 @@
 - @page_title = t(".title")
 
 %div.header-with-subheader
-  %h1.over-header= page_header
+  = feed_icon
+  %h1.over-header
+    = page_header
   %ul.subheader-menu
     %li= link_to(t("countries.gallery.title.ukraine"), country_path(country: 'ukraine'))
     %li= link_to(t("countries.gallery.title.usa"), country_path(country: 'usa'))
@@ -10,9 +12,9 @@
 %ul.thumbnails
   = render :partial => 'thumbnail', :collection => @species
 
-  - if @thumbnail_for_various
+  - if @thumbnail_for_multiple_species
     %li.imageholder
-      = link_to image_tag(thumbnail_url(@thumbnail_for_various), alt: "Photos of several species"), photos_various_path
+      = link_to image_tag(thumbnail_url(@thumbnail_for_multiple_species), alt: '[фото нескольких видов]'), photos_multiple_species_path
       %div.imagetitle
-        = link_to photos_various_path do
-          %div Photos of several species
+        = link_to photos_multiple_species_path do
+          %div Разные виды на одном фото

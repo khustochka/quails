@@ -1,0 +1,9 @@
+- @page_title = 'Разные виды на одном фото'
+
+%div.header-with-subheader
+  %h1= page_header
+  %ul.subheader-menu
+    %li= link_to t('images.index.species_galery'), gallery_path
+
+%ul.thumbnails
+  = render :partial => 'thumbnail', :collection => @images

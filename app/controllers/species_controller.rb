@@ -22,7 +22,7 @@ class SpeciesController < ApplicationController
   def gallery
     @species = Species.joins(:image).includes(:image).ordered_by_taxonomy
     @feed = 'photos'
-    @thumbnail_for_various = Image.various_species.first
+    @thumbnail_for_multiple_species = Image.multiple_species.first
   end
 
   # GET /species/1
@@ -34,7 +34,11 @@ class SpeciesController < ApplicationController
         redirect_to @species, :status => 301
         # TODO: set canonical, set NOINDEX
       else
-        @posts = @species.posts.limit(10).merge(current_user.available_posts)
+        if @species.observations.any?
+          @posts = @species.posts.limit(10).merge(current_user.available_posts)
+        else
+          @robots = 'NOINDEX'
+        end
         @months = @species.observations.except(:order).pluck("DISTINCT EXTRACT(month FROM observ_date)::integer")
       end
     else

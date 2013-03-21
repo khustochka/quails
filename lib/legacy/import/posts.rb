@@ -16,7 +16,7 @@ module Legacy
               title: post[:post_title],
               text: post[:post_text],
               topic: post[:post_type],
-              status: post[:post_status],
+              status: (post[:post_id] == 'new-site' ? 'PRIV' : post[:post_status]),
               lj_post_id: post[:lj_post_id].to_i.zero? ? nil : post[:lj_post_id],
               lj_url_id: post[:lj_url_id].to_i.zero? ? nil : post[:lj_url_id],
               face_date: post[:post_date],

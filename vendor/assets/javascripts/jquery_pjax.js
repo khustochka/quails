@@ -89,9 +89,14 @@ function handleClick(event, container, options) {
     fragment: null
   }
 
-  pjax($.extend({}, defaults, options))
+  var opts = $.extend({}, defaults, options)
+  var clickEvent = $.Event('pjax:click')
+  $(link).trigger(clickEvent, [opts])
 
-  event.preventDefault()
+  if (!clickEvent.isDefaultPrevented()) {
+    pjax(opts)
+    event.preventDefault()
+  }
 }
 
 // Public: pjax on form submit handler
@@ -223,8 +228,23 @@ function pjax(options) {
   }
 
   options.success = function(data, status, xhr) {
+    // If $.pjax.defaults.version is a function, invoke it first.
+    // Otherwise it can be a static string.
+    var currentVersion = (typeof $.pjax.defaults.version === 'function') ?
+      $.pjax.defaults.version() :
+      $.pjax.defaults.version
+
+    var latestVersion = xhr.getResponseHeader('X-PJAX-Version')
+
     var container = extractContainer(data, xhr, options)
 
+    // If there is a layout version mismatch, hard load the new url
+    if (currentVersion && latestVersion && currentVersion !== latestVersion) {
+      locationReplace(container.url)
+      return
+    }
+
+    // If the new response is missing a body, hard load the page
     if (!container.contents) {
       locationReplace(container.url)
       return
@@ -245,6 +265,7 @@ function pjax(options) {
 
     if (container.title) document.title = container.title
     context.html(container.contents)
+    executeScriptTags(container.scripts)
 
     // Scroll to top by default
     if (typeof options.scrollTo === 'number')
@@ -342,6 +363,18 @@ function locationReplace(url) {
   window.location.replace(url)
 }
 
+
+var initialPop = true
+var initialURL = window.location.href
+var initialState = window.history.state
+
+// Initialize $.pjax.state if possible
+// Happens when reloading a page and coming forward from a different
+// session history.
+if (initialState && initialState.container) {
+  pjax.state = initialState
+}
+
 // popstate handler takes care of the back and forward buttons
 //
 // You probably shouldn't use pjax on pages with other pushState
@@ -350,23 +383,23 @@ function onPjaxPopstate(event) {
   var state = event.state
 
   if (state && state.container) {
+    // When coming forward from a seperate history session, will get an
+    // initial pop with a state we are already at. Skip reloading the current
+    // page.
+    if (initialPop && initialURL == state.url) return
+
     var container = $(state.container)
     if (container.length) {
-      var contents = cacheMapping[state.id]
+      var direction, contents = cacheMapping[state.id]
 
       if (pjax.state) {
         // Since state ids always increase, we can deduce the history
         // direction from the previous state.
-        var direction = pjax.state.id < state.id ? 'forward' : 'back'
+        direction = pjax.state.id < state.id ? 'forward' : 'back'
 
         // Cache current container before replacement and inform the
         // cache which direction the history shifted.
         cachePop(direction, pjax.state.id, container.clone().contents())
-      } else {
-        // Page was reloaded but we have an existing history entry.
-        // Set it to our initial state.
-        pjax.state = state;
-        return;
       }
 
       var popstateEvent = $.Event('pjax:popstate', {
@@ -404,6 +437,7 @@ function onPjaxPopstate(event) {
       locationReplace(location.href)
     }
   }
+  initialPop = false
 }
 
 // Fallback version of main pjax function for browsers that don't
@@ -611,16 +645,47 @@ function extractContainer(data, xhr, options) {
   // Clean up any <title> tags
   if (obj.contents) {
     // Remove any parent title elements
-    obj.contents = obj.contents.not('title')
+    obj.contents = obj.contents.not(function() { return $(this).is('title') })
 
     // Then scrub any titles from their descendents
     obj.contents.find('title').remove()
+
+    // Gather all script[src] elements
+    obj.scripts = findAll(obj.contents, 'script[src]').remove()
+    obj.contents = obj.contents.not(obj.scripts)
   }
 
   // Trim any whitespace off the title
   if (obj.title) obj.title = $.trim(obj.title)
 
   return obj
+}
+
+// Load an execute scripts using standard script request.
+//
+// Avoids jQuery's traditional $.getScript which does a XHR request and
+// globalEval.
+//
+// scripts - jQuery object of script Elements
+//
+// Returns nothing.
+function executeScriptTags(scripts) {
+  if (!scripts) return
+
+  var existingScripts = $('script[src]')
+
+  scripts.each(function() {
+    var src = this.src
+    var matchedScripts = existingScripts.filter(function() {
+      return this.src === src
+    })
+    if (matchedScripts.length) return
+
+    var script = document.createElement('script')
+    script.type = $(this).attr('type')
+    script.src = $(this).attr('src')
+    document.head.appendChild(script)
+  })
 }
 
 // Internal: History DOM caching class.
@@ -676,6 +741,16 @@ function cachePop(direction, id, value) {
     delete cacheMapping[id]
 }
 
+// Public: Find version identifier for the initial page load.
+//
+// Returns String version or undefined.
+function findVersion() {
+  return $('meta').filter(function() {
+    var name = $(this).attr('http-equiv')
+    return name && name.toUpperCase() === 'X-PJAX-VERSION'
+  }).attr('content')
+}
+
 // Install pjax functions on $.pjax to enable pushState behavior.
 //
 // Does nothing if already enabled.
@@ -700,7 +775,8 @@ function enable() {
     type: 'GET',
     dataType: 'html',
     scrollTo: 0,
-    maxCacheLength: 20
+    maxCacheLength: 20,
+    version: findVersion
   }
   $(window).bind('popstate.pjax', onPjaxPopstate)
 }

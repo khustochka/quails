@@ -59,12 +59,12 @@ class WikiFilterTest < ActionDispatch::IntegrationTest
   # Links
 
   test 'properly parse links with text [@see this|http://google.com]' do
-    assert_equal %Q("see this":http://google.com),
+    assert_equal %Q(["see this":http://google.com]),
                  transform('[@see this|http://google.com]')
   end
 
   test 'properly parse links without text [@http://google.com]' do
-    assert_equal %Q("http://google.com":http://google.com),
+    assert_equal %Q(["http://google.com":http://google.com]),
                  transform('[@http://google.com]')
   end
 
@@ -98,7 +98,7 @@ class WikiFilterTest < ActionDispatch::IntegrationTest
   end
 
   test 'properly parse pipe in the second code' do
-    assert_equal %Q("http://birdwatch.by":http://birdwatch.by has "(sp_link). Blue Tits":parcae\n\n[parcae]#{species_path(seed(:parcae))}),
+    assert_equal %Q(["http://birdwatch.by":http://birdwatch.by] has "(sp_link). Blue Tits":parcae\n\n[parcae]#{species_path(seed(:parcae))}),
                  transform('[@http://birdwatch.by] has [Blue Tits|parcae]')
   end
 

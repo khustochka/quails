@@ -78,6 +78,10 @@ Quails::Application.configure do
     end
   }
 
+  # Route error pages through custom middleware
+  require 'quails/public_exceptions'
+  config.exceptions_app = Quails::PublicExceptions.new(Rails.public_path)
+
   # Disable delivery errors, bad email addresses will be ignored
   config.action_mailer.raise_delivery_errors = false
 

@@ -4,7 +4,7 @@ require 'capybara_helper'
 class UIObservationsBulkTest < ActionDispatch::IntegrationTest
 
   include JavaScriptTestCase
-  
+
   def save_and_check
     click_button('Save')
     assert page.has_css?('.obs-row.save-success')
@@ -84,7 +84,7 @@ class UIObservationsBulkTest < ActionDispatch::IntegrationTest
     end
 
     assert_difference('Observation.count', 2) { save_and_check }
-    
+
 
     assert_equal 2, blogpost.observations.size
   end
@@ -110,7 +110,7 @@ class UIObservationsBulkTest < ActionDispatch::IntegrationTest
     end
 
     save_and_check
-    
+
 
     assert_equal 0, blogpost.observations.size
   end
@@ -135,7 +135,7 @@ class UIObservationsBulkTest < ActionDispatch::IntegrationTest
     end
 
     save_and_check
-    
+
 
     assert_equal 1, blogpost.observations.size
     obs = blogpost.observations.first
@@ -162,7 +162,7 @@ class UIObservationsBulkTest < ActionDispatch::IntegrationTest
     end
 
     assert_difference('Observation.count', 1) { save_and_check }
-    
+
 
     find(:xpath, "//span[text()='Add new row']").click
 

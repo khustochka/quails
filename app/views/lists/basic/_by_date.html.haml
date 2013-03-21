@@ -2,7 +2,7 @@
 
 - @lifelist.chunk {|s| s.first_seen_date.year}.each do |year, species_list|
   - if params[:year].blank?
-    %h5.first_seen= t('.first_seen_in', year: year)
+    %h5.first_seen= t('lists.by_date.seen_in.first', year: year)
   %ol.lifers_list
     = render partial: 'lifer', collection: species_list, locals: {total_count: total_count}
   - total_count -= species_list.size

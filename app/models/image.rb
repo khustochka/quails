@@ -8,9 +8,18 @@ class Image < ActiveRecord::Base
   has_many :spots, :through => :observations
   belongs_to :spot
 
-  delegate :observ_date, :locus, :to => :first_observation
+  delegate :observ_date, :locus, :locus_id, :to => :first_observation
 
   serialize :flickr_data, Hash
+
+  # Callbacks
+  after_create do
+    species.each(&:update_image)
+  end
+
+  after_destroy do
+    species.each(&:update_image)
+  end
 
   # Parameters
 
@@ -19,7 +28,7 @@ class Image < ActiveRecord::Base
   end
 
   # Photos with several species
-  def self.various_species
+  def self.multiple_species
     rel = select(:image_id).from("images_observations").group(:image_id).having("COUNT(observation_id) > 1")
     where(id: rel).preload(:species).order('created_at ASC')
   end
@@ -38,6 +47,21 @@ class Image < ActiveRecord::Base
 
   def multi?
     species.count > 1
+  end
+
+  ORDERING_COLUMNS = %w(observ_date locus_id index_num created_at images.id)
+  PREV_NEXT_ORDER = "(ORDER BY #{ORDERING_COLUMNS.join(', ')})"
+
+  def prev_by_species(sp)
+    r = sp.images.select("images.id AS img_id, lag(images.id) OVER #{PREV_NEXT_ORDER} AS prev").except(:order)
+    im = Image.from("(#{r.to_sql}) AS tmp").select("prev").where("img_id = ?", self.id)
+    Image.where(id: im).first
+  end
+
+  def next_by_species(sp)
+    r = sp.images.select("images.id AS img_id, lead(images.id) OVER #{PREV_NEXT_ORDER} AS next").except(:order)
+    im = Image.from("(#{r.to_sql}) AS tmp").select("next").where("img_id = ?", self.id)
+    Image.where(id: im).first
   end
 
   def public_title
@@ -78,7 +102,11 @@ class Image < ActiveRecord::Base
         self.spot_id = nil
       end
       self.observation_ids = obs_ids.uniq
-      run_validations! && save
+      run_validations! && save.tap do |result|
+        if result
+          self.species.each(&:update_image)
+        end
+      end
     end
   end
 

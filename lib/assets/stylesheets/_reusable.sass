@@ -52,9 +52,10 @@ table.neat_table
     background-color: #f5f5f5
     text-align: left
 
-  td
-    h2, h3, h4
-      margin: 30px 0 2px 0
+  // Disabled in favor of .order, .family
+  //td
+  //  h2, h3, h4
+  //    margin: 30px 0 2px 0
 
 // Filter list
 
@@ -66,7 +67,7 @@ table.neat_table
     background-color: #EBEBCF
     border-bottom: 1px dotted #777
     a, a:hover
-      background-color: inherit
+      background-color: #EBEBCF
       color: $link-color
       text-decoration: none
       padding: 0
@@ -75,6 +76,8 @@ table.neat_table
 
 a.remove, a.destroy, a.remove:hover, a.destroy:hover, a.img, a.img:hover
   background-color: inherit
+  // IE6/7 do not understand inherit
+  *background-color: white
 
 .grayout
   background-color: #efefef
@@ -94,6 +97,8 @@ a.remove, a.destroy, a.remove:hover, a.destroy:hover, a.img, a.img:hover
 .pseudolink, .pseudolink:hover
   padding: 0 1px
   background-color: inherit
+  // IE6/7 do not understand inherit
+  *background-color: white
   cursor: pointer
   text-decoration: none
   border-bottom: 1px dashed #55a
@@ -118,8 +123,16 @@ a.remove, a.destroy, a.remove:hover, a.destroy:hover, a.img, a.img:hover
 // Announcement
 
 div.announcement
+  font-weight: bold
   background-color: #ffe45c
   color: #333366
-  border: 1px solid orange
-  padding: 0 15px
-  margin: 20px 0
+  border-bottom: 3px solid orange
+  padding: 10px 15px
+  margin: 0 -16px
+
+// Order and family headers
+
+h2.order
+  margin: 40px 0 3px 0
+h3.family
+  margin: 3px 0 10px 0

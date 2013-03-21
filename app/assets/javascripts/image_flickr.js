@@ -21,7 +21,7 @@ $(function () {
         $('.found_pictures').empty();
         $('.found_pictures').addClass('loading');
         var data = $(".flickr_search :input").serializeArray();
-        $.ajax("/images/flickr_search", {
+        $.ajax("/photos/flickr_search", {
             data:data,
             success:function (data) {
                 $('.found_pictures').removeClass('loading');

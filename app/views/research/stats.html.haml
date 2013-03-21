@@ -1,0 +1,92 @@
+- @page_title = 'Statistics'
+
+%h1= research_page_header
+
+= render 'partials/years'
+
+%table.neat_table.statistics
+  %tr
+    %th Year
+    %th Observ
+    %th Days
+    %th Species
+    %th First
+
+  - @year_data.each do |row|
+    %tr
+      %td= row.year
+      %td= row.count_obs
+      %td= row.count_days
+      %td= row.count_species
+      %td= @first_sp_by_year[row.year]
+
+%table.neat_table.statistics
+  %tr
+    %th Month
+    %th Observ
+    %th Species
+    %th First
+
+  - @month_data.each do |row|
+    %tr
+      %td= t('date.month_names')[row.month.to_i]
+      %td= row.count_obs
+      %td= row.count_species
+      %td= @first_sp_by_month[row.month]
+
+%h2 Рекордные дни
+
+%h3
+  %i — По количеству наблюдений за день
+
+%table.neat_table.statistics
+  %tr
+    %th Date
+    %th Observations
+
+  - @day_by_obs.each do |row|
+    %tr
+      %td= l(row.observ_date, format: :long)
+      %td= row.count_obs
+
+%h3
+  %i — По количеству видов за день
+
+%table.neat_table.statistics
+  %tr
+    %th Date
+    %th Species count
+
+  - @day_by_species.each do |row|
+    %tr
+      %td= l(row.observ_date, format: :long)
+      %td= row.count_species
+
+%h3
+  %i — По количеству видов в одной местности
+
+%table.neat_table.statistics
+  %tr
+    %th Date
+    %th Species count
+    %th Location
+
+  - @day_and_loc_by_species.each do |row|
+    %tr
+      %td= l(row.observ_date, format: :long)
+      %td= row.count_species
+      %td= row.locus.name
+
+%h3
+  %i — По количеству новых видов за день
+
+%table.neat_table.statistics
+  %tr
+    %th Date
+    %th New species
+
+  - @day_by_new_species.each do |row|
+    %tr
+      %td= l(row.first_seen_date, format: :long)
+      %td= row.count_species
+

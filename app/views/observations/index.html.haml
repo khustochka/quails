@@ -48,7 +48,7 @@
           %small.voice.tag voice
       %td
         - if observation.images.count > 0
-          = image_tag('/img/x_alt_16x16_tan.png', :title => 'Destroy disabled due to existing images')
+          = disabled_destroy_icon
         - else
           = default_destroy_link(observation)
 

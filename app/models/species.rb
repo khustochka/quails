@@ -10,7 +10,7 @@ class Species < ActiveRecord::Base
   validates :avibase_id, :format => /\A[\dA-F]{16}\Z/, :allow_blank => true
 
   has_many :observations, -> { order :observ_date }, dependent: :restrict_with_exception
-  has_many :images, -> { order('observations.observ_date', 'observations.locus_id', :index_num) }, through: :observations
+  has_many :images, -> { order('observations.observ_date', 'observations.locus_id', :index_num, :created_at, 'images.id') }, through: :observations
   has_many :taxa
   has_many :posts, -> { order('face_date DESC').uniq}, through: :observations
 
@@ -34,5 +34,13 @@ class Species < ActiveRecord::Base
   scope :ordered_by_taxonomy, lambda { order("species.index_num") }
 
   scope :alphabetic, lambda { order(:name_sci) }
+
+  def update_image
+    self.reload
+    if !image_id || !image
+      self.image = self.images.first || nil
+      save!
+    end
+  end
 
 end

@@ -32,7 +32,7 @@
     %tr
       %th &nbsp;
       %th
-        Sort by:
+        = t('lists.basic.filter.sort_by')
         = link_to_unless_current('Classification ⇓', params.merge(:sort => 'class'))
       %th.align-right= sorting_link_to("First seen ⇓")
       %th.align-right= link_to_unless_current('Last seen ⇓', params.merge(:sort => 'last'))

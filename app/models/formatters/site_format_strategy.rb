@@ -40,7 +40,7 @@ class SiteFormatStrategy < FormattingStrategy
     post = @posts[term]
     post.nil? ?
         word :
-        %Q("#{word || post.formatted.title}":#{term})
+        %Q("#{word || '"%s"' % post.formatted.title}":#{term})
   end
 
   def species_link(word, term)

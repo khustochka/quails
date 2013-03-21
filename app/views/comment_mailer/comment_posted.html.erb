@@ -1,6 +1,6 @@
 <p>
   <b><%= @comment.formatted.name %></b> posted new comment to
-  <%= show_post_path(@comment.post.to_url_params.merge(anchor: "comment#{@comment.id}", only_path: false, host: 'new.birdwatch.org.ua')) %>
+  <%= show_post_path(@comment.post.to_url_params.merge(anchor: "comment#{@comment.id}", only_path: false, host: @host)) %>
 </p>
 
 <blockquote>

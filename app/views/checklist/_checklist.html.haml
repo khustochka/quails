@@ -16,8 +16,8 @@
     %tr.family_row
       %td
       %td{:colspan => 2}
-        %h2= render partial: 'species/taxonomy', locals: {rank: :order, value: order}
-        %h3= render partial: 'species/taxonomy', locals: {rank: :family, value: family}
+        %h2.order= render partial: 'species/taxonomy', locals: {rank: :order, value: order}
+        %h3.family= render partial: 'species/taxonomy', locals: {rank: :family, value: family}
 
     - species_list.each do |species|
       %tr

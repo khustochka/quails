@@ -27,7 +27,7 @@ class SpeciesControllerTest < ActionController::TestCase
     assert_select "a[href=#{species_path(@obs.species)}]"
   end
 
-  test "show link to various species on gallery" do
+  test "show link to multiple species on gallery" do
     # Setup main image for species
     @image = create(:image)
     seed(:pasdom).update_column(:image_id, @image.id)
@@ -42,8 +42,8 @@ class SpeciesControllerTest < ActionController::TestCase
 
     get :gallery
     assert_response :success
-    assert_not_nil assigns(:thumbnail_for_various)
-    assert_select "a[href=#{photos_various_path}] img[src=#{thumbnail_url(img)}]"
+    assert_not_nil assigns(:thumbnail_for_multiple_species)
+    assert_select "a[href=#{photos_multiple_species_path}] img[src=#{thumbnail_url(img)}]"
   end
 
   test "species index properly ordered" do

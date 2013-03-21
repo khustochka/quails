@@ -11,17 +11,34 @@
 
 %h1= page_header
 
-%div.image_canvas= image_tag(jpg_url(@image))
+%div.image_canvas= image_tag(jpg_url(@image), alt: '[фотография]')
+
+%table.image_nav
+  %tr
+    %th пред.
+    %th
+    %th след.
+  - @image.species.each do |sp|
+    %tr
+      %td
+        - if prev_image = @image.prev_by_species(sp)
+          = link_to("&lt;".html_safe, prev_image, class: 'img_prev_next')
+        - else
+          %span.img_prev_next &minus;
+
+      %td
+        %b= species_link(sp)
+        %br
+        = name_sci(sp)
+
+      %td
+        - if next_image = @image.next_by_species(sp)
+          = link_to("&gt;".html_safe, next_image, class: 'img_prev_next')
+        - else
+          %span.img_prev_next &minus;
 
 = render partial: "images/long_details", locals: {image: @image}
 
--# TODO: more photos of several species
--#- if @image.multi?
--#  = link_to("More photos of several species", multi_spp_path)
 
-%nav.image_nav
-  - if @prev
-    = link_to(t('.prev_image'), @prev, class: 'img_prev')
-
-  - if @next
-    = link_to(t('.next_image'), @next, class: 'img_next')
+- if @image.multi?
+  %nav= link_to("Еще фото нескольких видов", photos_multiple_species_path)

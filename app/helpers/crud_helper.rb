@@ -9,7 +9,11 @@ module CrudHelper
   end
 
   def default_destroy_link(rec)
-    link_to image_tag('/img/x_alt_16x16.png', title: 'Destroy'), rec, data: {confirm: 'Are you sure?'}, method: :delete, class: 'destroy'
+    link_to image_tag('/img/x_alt_16x16.png', title: 'Destroy', alt: 'Destroy'), rec, data: {confirm: 'Are you sure?'}, method: :delete, class: 'destroy'
+  end
+
+  def disabled_destroy_icon
+    image_tag('/img/x_alt_16x16_tan.png', title: 'Destroy disabled due to existing associations', alt: 'Destroy disabled')
   end
 
   def default_destroy_button

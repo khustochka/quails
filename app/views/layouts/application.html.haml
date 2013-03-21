@@ -51,14 +51,14 @@
 
       = render 'partials/header'
 
+      - if !admin_layout? && $announcement
+        %div.announcement
+          :textile
+            #{$announcement}
+
       = GoogleSearch.render(self)
 
       .main
-
-        - if !admin_layout? && $announcement
-          %div.announcement
-            :textile
-              #{$announcement}
 
         = yield
 

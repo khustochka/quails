@@ -1,8 +1,8 @@
 - count_reached = 1
 
 - @lifelist.group_by_taxonomy do |order, family, species_list|
-  %h2= render partial: 'species/taxonomy', locals: {rank: :order, value: order}
-  %h3= render partial: 'species/taxonomy', locals: {rank: :family, value: family}
+  %h2.order= render partial: 'species/taxonomy', locals: {rank: :order, value: order}
+  %h3.family= render partial: 'species/taxonomy', locals: {rank: :family, value: family}
   %ol
     = render partial: 'lifer', collection: species_list, locals: {count_reached: count_reached}
   - count_reached += species_list.size

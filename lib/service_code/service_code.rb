@@ -1,15 +1,15 @@
 class ServiceCode
+  include ActiveSupport::Configurable
 
   def self.render(view)
-    new(@code, view).render
+    new(view).render
   end
 
   def self.configure(code)
-    @code = code
+    config.code = code
   end
 
-  def initialize(code, view)
-    @code = code
+  def initialize(view)
     @view = view
   end
 

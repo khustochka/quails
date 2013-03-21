@@ -2,7 +2,7 @@ class ImagesController < ApplicationController
 
   respond_to :json, only: [:flickr_search, :observations]
 
-  administrative except: [:index, :various, :show, :gallery, :country]
+  administrative except: [:index, :multiple_species, :show, :gallery, :country]
 
   find_record by: :slug, before: [:show, :edit, :flickr_edit, :map_edit, :update, :patch, :destroy]
 
@@ -11,23 +11,20 @@ class ImagesController < ApplicationController
   # Latest additions
   def index
     redirect_to page: nil if params[:page].to_i == 1
-    @robots = 'NOINDEX' if params[:page]
     @images = Image.preload(:species).order('created_at DESC').page(params[:page]).per(20)
     @feed = 'photos'
   end
 
-  # Photos of various species
-  def various
-    @images = Image.various_species
+  # Photos of multiple species
+  def multiple_species
+    @images = Image.multiple_species
   end
 
-  # GET /images/1
+  # GET /photos/1
   def show
-    @prev = Image.where("created_at < ?", @image.created_at).order('created_at DESC').first
-    @next = Image.where("created_at > ?", @image.created_at).order('created_at ASC').first
   end
 
-  # GET /images/add # select flickr photo
+  # GET /photos/add # select flickr photo
   def add
     if FlickrApp.configured?
       @flickr_images = flickr.photos.search({user_id: Settings.flickr_admin.user_id,
@@ -40,7 +37,7 @@ class ImagesController < ApplicationController
     redirect_to({action: :new}, alert: e.message)
   end
 
-  # GET /images/new
+  # GET /photos/new
   def new
     @image = Image.new(params[:i])
     @image.set_flickr_data(flickr)
@@ -48,21 +45,21 @@ class ImagesController < ApplicationController
     render 'form'
   end
 
-  # GET /images/1/edit
+  # GET /photos/1/edit
   def edit
     render 'form'
   end
 
-  # GET /images/1/flickr_edit
+  # GET /photos/1/flickr_edit
   def flickr_edit
   end
 
-  # GET /images/1/map_edit
+  # GET /photos/1/map_edit
   def map_edit
     @spot = Spot.new(public: true)
   end
 
-  # POST /images
+  # POST /photos
   def create
     @image = Image.new
 
@@ -75,7 +72,7 @@ class ImagesController < ApplicationController
     end
   end
 
-  # PUT /images/1
+  # PUT /photos/1
   def update
     new_params = params[:image]
     if @image.update_with_observations(new_params, params[:obs])
@@ -85,7 +82,7 @@ class ImagesController < ApplicationController
     end
   end
 
-  # POST /images/1/patch
+  # POST /photos/1/patch
   def patch
     new_params = params[:image]
     if new_params[:flickr_id]
@@ -104,7 +101,7 @@ class ImagesController < ApplicationController
     end
   end
 
-  # DELETE /images/1
+  # DELETE /photos/1
   def destroy
     @image.destroy
     redirect_to(images_url)

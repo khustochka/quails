@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>We're sorry, but something went wrong (500)</title>
+    <title>Service temporarily unavailable</title>
     <style>
         body
         {
@@ -29,11 +29,15 @@
             color: #730E15;
             line-height: 1.5em;
         }
-        body>p
+        h2{
+            font-size: 90%;
+            color: #730E15;
+            line-height: 1.5em;
+        }
+        div.message
         {
             width: 33em;
             margin: 0 auto 1em;
-            padding: 1em 0;
             background-color: #f7f7f7;
             border: 1px solid #CCC;
             border-right-color: #999;
@@ -48,10 +52,14 @@
 </head>
 
 <body>
-<!-- This file lives in public/500.html -->
+<!-- This file lives in public/503.html -->
 <div class="dialog">
-    <h1>We're sorry, but something went wrong.</h1>
+    <h1>Сайт временно недоступен</h1>
+    <h2>Site is temporarily unavailable</h2>
 </div>
-<p>If you are the application owner check the logs for more information.</p>
+<div class="message">
+    <p>Возможно, производится обновление сайта или произошел сбой. Пожалуйста, попробуйте через несколько минут.</p>
+    <p>This is due to maintenance or error. Please check in several minutes.</p>
+</div>
 </body>
 </html>

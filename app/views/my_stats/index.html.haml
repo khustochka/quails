@@ -1,45 +1,51 @@
 - @page_title = "Моя статистика"
 
+- @robots = 'NOINDEX'
+
 - provide :the_newest_species do
-  Самый новый вид:
-  = species_link(@newest_species)
+  %b= species_link(@newest_species)
   = surround '(', ')' do
     %time= l(@newest_species.first_seen_date, :format => :long)
 
-%h1= @page_title
 
-%h2 Списки
+%div.header-with-subheader
+  %h1= @page_title
 
-%ul
-  %li= link_to('Lifelist', lifelist_path)
-  %li= link_to('Ukraine list', list_path(locus: 'ukraine'))
-  %li= link_to('USA list', list_path(locus: 'usa'))
+  %ul.subheader-menu
+    %li= link_to('Lifelist', lifelist_path)
+    %li= link_to('Список Украины', list_path(locus: 'ukraine'))
+    %li= link_to('Список США', list_path(locus: 'usa'))
 
-%ul
-  %li
-    Я начал наблюдать птиц в августе 2007 года
-  %li
-    Всего я встречал #{link_to(@total, lifelist_path)} #{t('misc.species_count', count: @total)}
-  %li
-    Из них #{link_to(@species_ukraine, list_path(locus: 'ukraine'))} на территории Украины
+:textile
+  * Я начал наблюдать птиц в августе 2007 года.
+  * Всего я встречал "**#{@total}**":#{lifelist_path} #{t('misc.species_count', count: @total)}.
+  * Из них "**#{@species_ukraine}**":#{list_path(locus: 'ukraine')} на территории Украины.
 
 %h2 В 2013 году
 
 %ul
   %li
-    Я встретил #{link_to(@species_this_year, list_path(year: 2013))} #{t('misc.species_count', count: @species_this_year)}
+    Я встретил
+    %b= link_to(@species_this_year, list_path(year: 2013))
+    #{t('misc.species_count', count: @species_this_year)}.
   - if @new_this_year == 0
-    %li Пока ни одного нового
+    %li Пока ни одного нового.
+  - elsif @new_this_year == 1
+    %li
+      Из них один новый:
+      = content_for :the_newest_species
   - else
-    %li Из них #{t('.new_count_species', count: @new_this_year)}
-    %li= content_for :the_newest_species
+    %li Из них #{t('.new_count_species', count: @new_this_year)}.
+    %li
+      Самый новый вид:
+      = content_for :the_newest_species
 
 %h2 Рекорды
 
 %ul
   %li
     Год, в котором встречено больше всего видов:
-    #{@year_with_max_species.sp_count} в #{@year_with_max_species.year} году
+    #{@year_with_max_species.sp_count} в #{@year_with_max_species.year} году.
 
   %li
     Месяц года, когда было встречено больше всего видов:
@@ -67,19 +73,21 @@
 %ul
   -# If latest new species is seen this year it will be shown in the appropriate section, otherwise here
   - if @new_this_year == 0
-    %li= content_for :the_newest_species
+    %li
+      Самый новый вид:
+      = content_for :the_newest_species
 
   %li
     Самый давно не встречаемый вид:
-    = species_link(@oldest_species)
+    %b= species_link(@oldest_species)
     = surround '(', ')' do
       %time= l(@oldest_species.last_seen_date, :format => :long)
 
   %li
     Чаще всего встречаемый вид:
-    = species_link(@most_often_species)
+    %b= species_link(@most_often_species)
     = surround '(', ')' do
       = @most_often_species.times_seen
 
   %li
-    #{@sp_met_once} #{t('misc.species_count', count: @sp_met_once)} встречены всего однажды
+    #{@sp_met_once} #{t('misc.species_count', count: @sp_met_once)} встречены лишь однажды.

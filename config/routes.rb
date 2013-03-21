@@ -69,7 +69,7 @@ Quails::Application.routes.draw do
   end
 
   get '/photos(/page/:page)' => 'images#index', page: /[^0]\d*/, constraints: {format: 'html'}
-  get '/photos/various' => 'images#various'
+  get '/photos/multiple_species' => 'images#multiple_species'
   resources :photos, controller: 'images', as: 'images', except: :index do
     member do
       get 'edit/map', action: :map_edit
@@ -106,8 +106,10 @@ Quails::Application.routes.draw do
       year: /\d{4}/,
       sort: /by_taxonomy/
 
-  get '/:id' => 'pages#show', constraints: {id: 'links'}, as: :page
+  # Static pages
+  get '/:id' => 'pages#show', constraints: {id: /links|about/}, as: :page
 
+  # Feeds and sitemap
   get '/blog.:format' => 'feeds#blog', constraints: {format: 'xml'}
   get '/photos.:format' => 'feeds#photos', constraints: {format: 'xml'}
   get '/sitemap.:format' => 'feeds#sitemap', constraints: {format: 'xml'}

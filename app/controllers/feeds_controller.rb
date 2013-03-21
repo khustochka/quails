@@ -8,7 +8,7 @@ class FeedsController < ApplicationController
   end
 
   def photos
-    @photos = Image.order('created_at DESC').preload(:species, :observations).limit(15)
+    @photos = Image.order('created_at DESC').preload(:species, :observations => :locus).limit(15)
   end
 
   def sitemap

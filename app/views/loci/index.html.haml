@@ -37,6 +37,6 @@
             %td.align-right= locus.public_index
             %td
               - if locus.children.count > 0 || locus.observations.count > 0
-                = image_tag('/img/x_alt_16x16_tan.png', :title => 'Destroy disabled due to existing associations')
+                = disabled_destroy_icon
               - else
                 = default_destroy_link(locus)

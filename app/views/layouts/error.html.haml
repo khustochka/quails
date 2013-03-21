@@ -1,0 +1,33 @@
+!!!
+
+%html
+
+  %head
+
+    -# meta tags
+    -# encoding
+    %meta{ :content => "text/html; charset=UTF-8", "http-equiv" => "content-type" }
+
+    %title= page_title
+
+    -# mobile viewport
+    %meta{ name: 'viewport', content: 'width=device-width'}
+
+    %meta{ name: 'robots', content: 'NOINDEX'}
+
+    -# stylesheets
+    - stylesheet 'public'
+
+    = render 'partials/css_and_js'
+
+  %body
+
+    #above-footer
+
+      = render 'partials/header'
+
+      = GoogleSearch.render(self)
+
+      .main
+
+        = yield
