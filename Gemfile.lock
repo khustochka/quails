@@ -207,7 +207,6 @@ DEPENDENCIES
   kaminari
   launchy
   livejournal
-  minitest
   minitest-reporters
   mysql2 (~> 0.3.7)
   newrelic_rpm
