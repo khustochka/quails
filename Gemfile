@@ -17,6 +17,7 @@ end
 
 # Bundle the extra gems:
 gem 'actionpack-page_caching'
+gem 'actionpack-action_caching'
 gem 'rails-i18n'
 gem 'haml-rails', '~> 0.4'
 gem 'haml-contrib'
