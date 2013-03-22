@@ -1,6 +1,5 @@
 class PagesController < ApplicationController
 
-  caches_action :show, layout: false
   caches_page :error, gzip: true, unless: -> { current_user.admin? || current_user.has_admin_cookie? }
 
   def show
