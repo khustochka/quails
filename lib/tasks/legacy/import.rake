@@ -21,7 +21,11 @@ namespace :legacy do
 
 
   desc 'Importing data from legacy DB dump'
-  task :import => ['db:setup', 'load_locals'] do
+  task :import => 'load_locals' do
+
+    raise "Do not purge the production DB!" if Rails.env.production?
+
+    Rake::Task['db:setup'].invoke
 
     source = File.join(@folder, 'legacy', 'seed_data.yml')
     puts "Importing from #{source}"
