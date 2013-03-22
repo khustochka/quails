@@ -1,6 +1,6 @@
 class Comment < ActiveRecord::Base
 
-  STOP_WORDS = %w(replica vuitton generic zithromax cheap cialis payday loans)
+  STOP_WORDS = %w( replica vuitton generic zithromax cheap cialis payday loans pharmacy url=http link=http )
 
   ALLOWED_PARAMETERS = [:name, :text, :parent_id]
 
