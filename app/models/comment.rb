@@ -2,6 +2,8 @@ class Comment < ActiveRecord::Base
 
   STOP_WORDS = %w(replica vuitton generic zithromax cheap cialis payday loans)
 
+  ALLOWED_PARAMETERS = [:name, :text, :parent_id]
+
   include FormattedModel
 
   validates :text, :name, :post_id, :presence => true
