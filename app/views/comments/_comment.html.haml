@@ -1,4 +1,4 @@
-.comment_box{:id => "comment#{comment.id}"}
+.comment_box{id: "comment#{comment.id}", class: comment.approved ? nil : 'hidden-comment'}
   %div.header-with-subheader
     %h6.name= link_to_if(comment.url.present?, comment.formatted.name, comment.url, :rel => 'nofollow')
     %i

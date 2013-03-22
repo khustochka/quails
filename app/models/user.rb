@@ -26,4 +26,8 @@ class User
   def available_loci
     Locus.public
   end
+
+  def available_comments(post)
+    post.comments.approved
+  end
 end

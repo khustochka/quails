@@ -21,4 +21,6 @@ class Comment < ActiveRecord::Base
 
   scope :approved, lambda {where(approved: true)}
 
+  scope :unapproved, lambda {where(approved: false)}
+
 end

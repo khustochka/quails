@@ -29,12 +29,21 @@ class PostsControllerTest < ActionController::TestCase
     assert_select ".comment_box h6.name", text: comment.name
   end
 
-  test "do not show unapproved comment in the post" do
+  test "do not show unapproved comment to user" do
     comment = create(:comment)
     comment.update_column(:approved, false)
     get :show, comment.post.to_url_params
     assert_response :success
     assert_select ".comment_box h6.name", text: comment.name, count: 0
+  end
+
+  test "show unapproved comment to admin" do
+    login_as_admin
+    comment = create(:comment)
+    comment.update_column(:approved, false)
+    get :show, comment.post.to_url_params
+    assert_response :success
+    assert_select ".comment_box h6.name", text: comment.name
   end
 
   # TODO: Unreliable test?

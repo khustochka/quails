@@ -10,4 +10,8 @@ class Admin < User
   def available_loci
     Locus.scoped
   end
+
+  def available_comments(post)
+    post.comments
+  end
 end
