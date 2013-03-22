@@ -169,7 +169,7 @@ class PostsControllerTest < ActionController::TestCase
   test 'do not show draft posts page to user' do
     blogpost1 = create(:post, face_date: '2007-12-06 13:14:15', status: 'PRIV')
     blogpost2 = create(:post, face_date: '2008-11-06 13:14:15')
-    assert_raise(ActiveRecord::RecordNotFound) { get :hidden }
+    assert_raise(ActionController::RoutingError) { get :hidden }
   end
 
   test 'do not show hidden post to user' do
