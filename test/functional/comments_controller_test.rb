@@ -26,7 +26,15 @@ class CommentsControllerTest < ActionController::TestCase
 
     comment = assigns(:comment)
     assert_redirected_to public_comment_path(comment)
-    assert assigns(:comment).approved
+    assert_equal true, comment.approved
+  end
+
+  test "autohide comment with stop word in the body" do
+    post :create, comment: build(:comment, text: "Hi friend. Buy #{Comment::STOP_WORDS.sample}. Thanks").attributes
+
+    comment = assigns(:comment)
+    assert_redirected_to public_comment_path(comment)
+    assert_equal false, comment.approved
   end
 
   test "show comment" do
