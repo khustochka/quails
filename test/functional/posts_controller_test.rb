@@ -22,6 +22,21 @@ class PostsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "show approved comment in the post" do
+    comment = create(:comment)
+    get :show, comment.post.to_url_params
+    assert_response :success
+    assert_select ".comment_box h6.name", text: comment.name
+  end
+
+  test "do not show unapproved comment in the post" do
+    comment = create(:comment)
+    comment.update_column(:approved, false)
+    get :show, comment.post.to_url_params
+    assert_response :success
+    assert_select ".comment_box h6.name", text: comment.name, count: 0
+  end
+
   # TODO: Unreliable test?
   test "species list in the post properly ordered" do
     # Dummy swap of two species
