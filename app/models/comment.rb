@@ -1,5 +1,7 @@
 class Comment < ActiveRecord::Base
 
+  STOP_WORDS = %w(replica vuitton generic zithromax cheap cialis payday loans)
+
   include FormattedModel
 
   validates :text, :name, :post_id, :presence => true
@@ -8,8 +10,9 @@ class Comment < ActiveRecord::Base
   has_many :subcomments, :class_name => 'Comment', :foreign_key => :parent_id, :dependent => :destroy
   belongs_to :parent_comment, :class_name => 'Comment', :foreign_key => :parent_id
 
-  before_save do
-    self.approved = true if self.approved.nil?
+  before_create do
+    self.approved = self.text !~ /#{STOP_WORDS.join('|')}/i
+    true
   end
 
   default_scope { order(:created_at) }
