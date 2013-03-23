@@ -1,6 +1,7 @@
 class Comment < ActiveRecord::Base
 
-  STOP_WORDS = %w( replica vuitton generic zithromax cheap cialis payday loans pharmacy url=http link=http )
+  STOP_WORDS = %w( replica vuitton generic zithromax cheap cialis payday loans pharmacy url=http link=http viagra tricor
+                  accutane seroquel retin lasix )
 
   ALLOWED_PARAMETERS = [:name, :text, :parent_id]
 
@@ -19,8 +20,8 @@ class Comment < ActiveRecord::Base
 
   default_scope { order(:created_at) }
 
-  scope :approved, lambda {where(approved: true)}
+  scope :approved, lambda { where(approved: true) }
 
-  scope :unapproved, lambda {where(approved: false)}
+  scope :unapproved, lambda { where(approved: false) }
 
 end
