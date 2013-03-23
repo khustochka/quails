@@ -40,4 +40,14 @@ class SpeciesTest < ActiveSupport::TestCase
     assert_equal sp, observation.species
   end
 
+  test 'sort by abundance' do
+    create(:observation, species: seed(:pasdom))
+    create(:observation, species: seed(:pasmon))
+    create(:observation, species: seed(:pasmon))
+    list = Species.by_abundance.to_a
+    assert_equal seed(:pasmon).id, list[0].id
+    assert_equal seed(:pasdom).id, list[1].id
+    assert_equal Species.count, list.size
+  end
+
 end

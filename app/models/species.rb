@@ -35,6 +35,11 @@ class Species < ActiveRecord::Base
 
   scope :alphabetic, lambda { order(:name_sci) }
 
+  def self.by_abundance
+    select('species.id, name_sci').joins("LEFT OUTER JOIN observations on observations.species_id=species.id").
+        group('species.id').order('COUNT(observations.id) DESC, name_sci')
+  end
+
   def update_image
     self.reload
     if !image_id || !image
