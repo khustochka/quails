@@ -8,7 +8,7 @@ class CommentMailer < ActionMailer::Base
     if self.class.default_params[:to] && self.class.default_params[:from]
       @comment = comment
       @host = host
-      mail subject: 'New comment posted'
+      mail subject: "Comment posted to \"#{@comment.post.formatted.title}\""
     end
   end
 end
