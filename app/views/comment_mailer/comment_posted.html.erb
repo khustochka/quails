@@ -1,8 +1,13 @@
 <p>
   <b><%= @comment.formatted.name %></b> posted new comment to
-  <%= link_to @comment.post.formatted.title,
-          show_post_path(@comment.post.to_url_params.merge(anchor: "comment#{@comment.id}", only_path: false, host: @host)) %>
+  "<%= link_to @comment.post.formatted.title,
+          show_post_path(@comment.post.to_url_params.merge(anchor: "comment#{@comment.id}", only_path: false, host: @host))
+   %>"
 </p>
+
+<%- unless @comment.approved %>
+    <p>Comment was hidden!</p>
+<%- end %>
 
 <blockquote>
   <%= @comment.formatted.text %>
