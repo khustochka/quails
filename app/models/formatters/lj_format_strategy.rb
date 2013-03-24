@@ -50,7 +50,7 @@ class LJFormatStrategy < FormattingStrategy
     if @metadata[:images].any?
       result << "\n\n"
       @metadata[:images].each_with_index do |img, i|
-        result << '<lj-cut>' if i > 0
+        result << '<lj-cut>\n\n' if i == 1
         title = img.formatted.title
         result << "!#{jpg_url(img)}(#{title})!\n#{title} __(#{img.species.map(&:name_sci).join(', ')})__\n\n"
       end
