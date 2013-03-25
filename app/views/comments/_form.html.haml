@@ -14,7 +14,7 @@
     = form.input :email
     = form.input :url
   - else
-    %div.input.string.required
+    %div.input.string.required<
       %label.string.required{for: Comment.negative_captcha}= t('simple_form.labels.comment.name')
       = text_field_tag Comment.negative_captcha, @comment.name, required: true, class: 'string required'
   = form.input :text, label: false, input_html: {rows: 10}
