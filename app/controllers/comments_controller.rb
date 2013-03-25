@@ -53,7 +53,13 @@ class CommentsController < ApplicationController
       if @comment.save
         CommentMailer.comment_posted(@comment, request.host).deliver
 
-        format.html { redirect_to public_comment_path(@comment) }
+        to_be_reviewed = {
+                @comment.parent_id =>
+                    "Извините, ваш комментарий был скрыт. Он будет рассмотрен модератором.
+                      <a href='#{public_comment_path(@comment)}'>Его ссылка</a>.".html_safe
+            } unless @comment.approved
+
+        format.html { redirect_to public_comment_path(@comment), notice: to_be_reviewed }
         format.json { render :json => @comment, :status => :created, :location => @comment }
       else
         format.html {
