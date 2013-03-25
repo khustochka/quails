@@ -8,7 +8,7 @@ class CommentsControllerTest < ActionController::TestCase
   def valid_comment_params(args = {})
     attrs = attributes_for(:comment, {name: '', post_id: @comment.post.id}.merge(args))
     name = "Vasya"
-    {a12b3e: name, comment: attrs}
+    {Comment.negative_captcha => name, comment: attrs}
   end
   private :valid_comment_params
 
@@ -38,10 +38,9 @@ class CommentsControllerTest < ActionController::TestCase
   end
 
   test "autohide comment with negative captcha" do
-    attrs = attributes_for(:comment, post_id: @comment.post.id)
-    name = "some"
+    invalid_attrs = valid_comment_params(name: 'Vasya')
     assert_difference('Comment.count') do
-      post :create, a12b3e: name, comment: attrs
+      post :create, invalid_attrs
     end
 
     comment = assigns(:comment)

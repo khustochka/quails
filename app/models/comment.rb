@@ -1,5 +1,7 @@
 class Comment < ActiveRecord::Base
 
+  cattr_accessor :negative_captcha
+
   STOP_WORDS = %w( replica vuitton generic zithromax cheap cialis payday loans pharmacy url=http link=http
                     viagra tricor accutane seroquel retin lasix )
 
