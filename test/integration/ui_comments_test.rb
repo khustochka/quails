@@ -11,7 +11,7 @@ class UICommentsTest < ActionDispatch::IntegrationTest
     visit show_post_path(blogpost.to_url_params)
     first('.reply a').click
     within("form#reply#{comment.id}") do
-      fill_in(Comment.negative_captcha, with: 'Vasya')
+      fill_in($negative_captcha, with: 'Vasya')
       fill_in('comment_text', with: 'Some text')
       click_button("save_button")
     end

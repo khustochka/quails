@@ -8,7 +8,7 @@ class CommentsControllerTest < ActionController::TestCase
   def valid_comment_params(args = {})
     attrs = attributes_for(:comment, {name: '', post_id: @comment.post.id}.merge(args))
     name = "Vasya"
-    {Comment.negative_captcha => name, comment: attrs}
+    {$negative_captcha => name, comment: attrs}
   end
   private :valid_comment_params
 

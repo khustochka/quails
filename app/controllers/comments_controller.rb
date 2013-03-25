@@ -43,7 +43,7 @@ class CommentsController < ApplicationController
   def create
     @post = current_user.available_posts.find_by_id!(params[:comment][:post_id])
     comment_attrs = params[:comment].slice(*Comment::ALLOWED_PARAMETERS)
-    comment_attrs[:name] = params[Comment.negative_captcha]
+    comment_attrs[:name] = params[$negative_captcha]
 
     @comment = @post.comments.create(comment_attrs)
 
