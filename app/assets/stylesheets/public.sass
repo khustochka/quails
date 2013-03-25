@@ -113,9 +113,8 @@ form.comment
     vertical-align: top
     display: inline-block
     width: 64px
-    font: 15px Tahoma, Verdana, Arial, sans-serif
+    font: bold 15px Tahoma, Verdana, Arial, sans-serif
     color: #605070
-    font-weight: bold
 
   div.input
     display: block
@@ -139,7 +138,14 @@ form.comment
   input.string, textarea
     border: 2px solid #888888
 
-// Image
+  .comment_text .hint
+    display: block
+    color: #777777
+    font: italic 15px sans-serif
+    width: 632px
+    text-align: right
+
+    // Image
 
 .image_canvas
   max-width: 100%
@@ -285,7 +291,7 @@ div#cse-wrapper
 
 @media only all and (max-width: 580px)
   form.comment
-    textarea, input.string
+    textarea, input.string, .comment_text .hint
       width: 100%
   div#cse-wrapper
     white-space: nowrap
