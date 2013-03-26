@@ -25,7 +25,7 @@ gem 'hashie'
 gem 'roman-numerals'
 
 group :production do
-  gem 'airbrake', require: false
+  gem 'airbrake'
   gem 'newrelic_rpm'
 end
 
