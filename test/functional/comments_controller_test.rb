@@ -5,6 +5,13 @@ class CommentsControllerTest < ActionController::TestCase
     @comment = create(:comment)
   end
 
+  def valid_comment_params(args = {})
+    attrs = attributes_for(:comment, {name: '', post_id: @comment.post.id}.merge(args))
+    name = "Vasya"
+    {$negative_captcha => name, comment: attrs}
+  end
+  private :valid_comment_params
+
   test "get index" do
     login_as_admin
     get :index
@@ -21,12 +28,32 @@ class CommentsControllerTest < ActionController::TestCase
 
   test "create comment" do
     assert_difference('Comment.count') do
-      post :create, comment: attributes_for(:comment, post_id: @comment.post_id)
+      post :create, valid_comment_params
     end
 
     comment = assigns(:comment)
     assert_redirected_to public_comment_path(comment)
-    assert assigns(:comment).approved
+    assert_equal true, comment.approved
+    assert_equal "Vasya", comment.name
+  end
+
+  test "autohide comment with negative captcha" do
+    invalid_attrs = valid_comment_params(name: 'Vasya')
+    assert_difference('Comment.count') do
+      post :create, invalid_attrs
+    end
+
+    comment = assigns(:comment)
+    assert_redirected_to public_comment_path(comment)
+    assert_equal false, comment.approved
+  end
+
+  test "autohide comment with stop word in the body" do
+    post :create, valid_comment_params(text: "Hi friend. Buy #{Comment::STOP_WORDS.sample}. Thanks")
+
+    comment = assigns(:comment)
+    assert_redirected_to public_comment_path(comment)
+    assert_equal false, comment.approved
   end
 
   test "show comment" do
@@ -72,7 +99,7 @@ class CommentsControllerTest < ActionController::TestCase
   test "admin can create comment to hidden post" do
     login_as_admin
     assert_difference('Comment.count', 1) do
-      post :create, comment: attributes_for(:comment, post_id: create(:post, status: 'PRIV').id)
+      post :create, valid_comment_params(post_id: create(:post, status: 'PRIV').id)
     end
   end
 

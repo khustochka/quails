@@ -11,13 +11,13 @@
   max-width: 896px
   padding: 0 1em
 
-$margin-between: 8px
+$margin-between: 0.4em
 #site_menu
   display: inline-block
   margin:
     top: 5px
     bottom: 5px
-    left: -($margin-between + 1)
+    left: -$margin-between
   @include horiz-list
   li
     margin: auto $margin-between
@@ -39,3 +39,14 @@ $site-menu-color: #407FBF
   a
     @include deep-bordered-link($site-menu-color, #f7f7f1)
     @include unhighlighted-link($site-menu-color, #f7f7f1)
+
+// Small screen
+
+@media only all and (max-width: 580px)
+  #site_menu
+    font-size: 14px
+    line-height: 1.8em
+    a, a:hover
+      border-bottom: none
+      text-decoration: underline
+

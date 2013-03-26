@@ -5,7 +5,7 @@ module SpeciesHelper
   end
 
   def species_for_select
-    @species_for_select ||= [Species::AVIS_INCOGNITA] + Species.alphabetic.to_a
+    @species_for_select ||= [Species::AVIS_INCOGNITA] + Species.by_abundance.to_a
   end
 
   def species_link(sp_obj, string = nil)

@@ -4,5 +4,6 @@ FactoryGirl.define do
     name 'Commenter'
     text 'Ahhaha!'
     association :post
+    approved true
   end
 end

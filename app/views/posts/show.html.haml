@@ -24,11 +24,16 @@
   %p
     = (spcs.map { |sp| species_link(sp) }.join(",\n") << ".").html_safe
 
-- if @comments[0]
+- if @comments[0] || (notice && notice[0])
 
   %h2#comments= t('.sections.comments')
 
-  = render @comments[0]
+  - if @comments[0]
+    = render @comments[0]
+
+  - if notice && notice[0]
+
+    %p.comment_screened= notice[0]
 
 %h3#add_comment= t('.add_comment')
 

@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
 
-  administrative except: [:show, :hidden]
+  administrative except: [:show]
 
   before_filter :find_post, only: [:edit, :update, :destroy, :show, :lj_post]
 
@@ -8,8 +8,7 @@ class PostsController < ApplicationController
 
   # This is rendered in public layout, just raising exception when no posts are found (the case for regular user)
   def hidden
-    @posts = current_user.available_posts.hidden.order('face_date DESC').page(params[:page]).per(20)
-    raise ActiveRecord::RecordNotFound if @posts.blank?
+    @posts = Post.hidden.order('face_date DESC').page(params[:page]).per(20)
   end
 
   # GET /posts/1
@@ -17,7 +16,7 @@ class PostsController < ApplicationController
     if @post.month != params[:month].to_s || @post.year != params[:year].to_s
       redirect_to public_post_path(@post), :status => 301
     end
-    @comments = @post.comments.group_by(&:parent_id)
+    @comments = current_user.available_comments(@post).group_by(&:parent_id)
     @comment = @post.comments.new(:parent_id => 0)
   end
 

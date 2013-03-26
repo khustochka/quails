@@ -2,30 +2,32 @@
 
 - @robots = 'NOINDEX'
 
-- lifers = lambda do |rel|
-  %ol.lifers_list
-    - total_count = rel.except(:limit).count
-    = render partial: 'lifer', collection: rel, locals: {total_count: total_count}
+- cache do
 
-%div.header-with-subheader
-  %h1= @page_title
-  %ul.subheader-menu
-    %li
-      См. также
-      = link_to 'Рекорды и статистика', my_stats_path
+  - lifers = lambda do |rel|
+    %ol.lifers_list
+      - total_count = rel.except(:limit).count
+      = render partial: 'lifer', collection: rel, locals: {total_count: total_count}
 
-%h2= link_to('Lifelist', lifelist_path)
+  %div.header-with-subheader
+    %h1= @page_title
+    %ul.subheader-menu
+      %li
+        См. также
+        = link_to 'Рекорды и статистика', my_stats_path
 
-- lifers.call(@top_5_life)
+  %h2= link_to('Lifelist', lifelist_path)
 
-%h2
-  = link_to('Список Украины', list_path(locus: 'ukraine'))
-  (#{@list_ukraine.count})
+  - lifers.call(@top_5_life)
 
-%h2= link_to('Список 2013 года', list_path(year: 2013))
+  %h2
+    = link_to('Список Украины', list_path(locus: 'ukraine'))
+    (#{@list_ukraine.count})
 
-- lifers.call(@top_5_year)
+  %h2= link_to('Список 2013 года', list_path(year: 2013))
 
-%h2
-  = link_to('Список США', list_path(locus: 'usa'))
-  (#{@list_usa.count})
+  - lifers.call(@top_5_year)
+
+  %h2
+    = link_to('Список США', list_path(locus: 'usa'))
+    (#{@list_usa.count})

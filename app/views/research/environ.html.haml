@@ -22,3 +22,11 @@
   %dt Quails Environment
   %dd= Quails.env
 
+  - if $revision
+    %dt Revision
+    %dd
+      :textile
+        ["#{$revision}":https://github.com/khustochka/quails/commit/#{$revision}]
+
+        #{$commit}
+

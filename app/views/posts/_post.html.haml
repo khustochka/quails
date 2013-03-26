@@ -13,7 +13,12 @@
         = render partial: 'images/thumbnail', collection: images
 
   %ul.comment_links
-    - post.comments.size.tap do |cmt_count|
+    - post.comments.approved.size.tap do |cmt_count|
       - if cmt_count > 0
         %li.num_comments= link_to t('.comments', count: cmt_count), public_post_path(post, anchor: 'comments')
+    - if current_user.admin?
+      - post.comments.unapproved.size.tap do |cmt_count|
+        - if cmt_count > 0
+          %li.num_comments
+            = link_to "#{cmt_count} hidden comment(s)", public_post_path(post, anchor: 'comments'), class: "tag draft"
     %li.add_comment= link_to t('.add_comment'), public_post_path(post, anchor: 'add_comment')

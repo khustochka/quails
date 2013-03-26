@@ -102,6 +102,16 @@ ul.thumbnails
   .comment_body
     margin-left: 30px
 
+.comment_box.hidden-comment
+  background-color: pink
+
+.comment_screened
+  font-weight: bold
+  background-color: #ffe45c
+  color: #333366
+  border-left: 4px solid orange
+  padding: 10px 15px
+
 // Form comment
 
 form.comment
@@ -110,12 +120,15 @@ form.comment
     vertical-align: top
     display: inline-block
     width: 64px
-    font: 15px Verdana, Arial, sans-serif
-    color: #221144
+    font: bold 15px Tahoma, Verdana, Arial, sans-serif
+    color: #605070
 
   div.input
     display: block
     margin-bottom: 10px
+
+  div.input.comment_name
+    display: none
 
   input.string
     width: 560px
@@ -132,7 +145,14 @@ form.comment
   input.string, textarea
     border: 2px solid #888888
 
-// Image
+  .comment_text .hint
+    display: block
+    color: #777777
+    font: italic 15px sans-serif
+    width: 632px
+    text-align: right
+
+    // Image
 
 .image_canvas
   max-width: 100%
@@ -278,7 +298,7 @@ div#cse-wrapper
 
 @media only all and (max-width: 580px)
   form.comment
-    textarea, input.string
+    textarea, input.string, .comment_text .hint
       width: 100%
   div#cse-wrapper
     white-space: nowrap

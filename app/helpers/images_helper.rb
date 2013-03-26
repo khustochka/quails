@@ -26,7 +26,7 @@ module ImagesHelper
   end
 
   def thumbnail_url(img)
-    (img.on_flickr? && img.flickr_data['Thumbnail']['source']) ||
+    (!img.has_old_thumbnail? && img.on_flickr? && img.flickr_data['Thumbnail']['source']) ||
         legacy_image_url("tn_#{img.slug}.jpg")
   end
 

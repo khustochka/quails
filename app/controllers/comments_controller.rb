@@ -42,13 +42,24 @@ class CommentsController < ApplicationController
   # POST /comments.json
   def create
     @post = current_user.available_posts.find_by_id!(params[:comment][:post_id])
-    @comment = @post.comments.create(params[:comment])
+    comment_attrs = params[:comment].slice(*Comment::ALLOWED_PARAMETERS)
+    comment_attrs[:name] = params[$negative_captcha]
+
+    @comment = @post.comments.create(comment_attrs)
+
+    @comment.approved = !@comment.like_spam? && params[:comment][:name].blank?
 
     respond_to do |format|
       if @comment.save
         CommentMailer.comment_posted(@comment, request.host).deliver
 
-        format.html { redirect_to public_comment_path(@comment) }
+        to_be_reviewed = {
+                @comment.parent_id =>
+                    "Извините, ваш комментарий был скрыт. Он будет рассмотрен модератором.
+                      <a href='#{public_comment_path(@comment)}'>Его ссылка</a>.".html_safe
+            } unless @comment.approved
+
+        format.html { redirect_to public_comment_path(@comment), notice: to_be_reviewed }
         format.json { render :json => @comment, :status => :created, :location => @comment }
       else
         format.html {

@@ -50,6 +50,8 @@ namespace :seed do
   desc 'Update the repo and load the seed (removing other data)'
   task :load => :environment do
 
+    raise "Do not purge the production DB!" if Rails.env.production?
+
     require 'tasks/grit_init'
 
     local_opts = YAML.load_file('config/local.yml')

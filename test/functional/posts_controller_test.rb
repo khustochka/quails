@@ -22,6 +22,30 @@ class PostsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "show approved comment in the post" do
+    comment = create(:comment)
+    get :show, comment.post.to_url_params
+    assert_response :success
+    assert_select ".comment_box h6.name", text: comment.name
+  end
+
+  test "do not show unapproved comment to user" do
+    comment = create(:comment)
+    comment.update_column(:approved, false)
+    get :show, comment.post.to_url_params
+    assert_response :success
+    assert_select ".comment_box h6.name", text: comment.name, count: 0
+  end
+
+  test "show unapproved comment to admin" do
+    login_as_admin
+    comment = create(:comment)
+    comment.update_column(:approved, false)
+    get :show, comment.post.to_url_params
+    assert_response :success
+    assert_select ".comment_box h6.name", text: comment.name
+  end
+
   # TODO: Unreliable test?
   test "species list in the post properly ordered" do
     # Dummy swap of two species
@@ -145,7 +169,7 @@ class PostsControllerTest < ActionController::TestCase
   test 'do not show draft posts page to user' do
     blogpost1 = create(:post, face_date: '2007-12-06 13:14:15', status: 'PRIV')
     blogpost2 = create(:post, face_date: '2008-11-06 13:14:15')
-    assert_raise(ActiveRecord::RecordNotFound) { get :hidden }
+    assert_raise(ActionController::RoutingError) { get :hidden }
   end
 
   test 'do not show hidden post to user' do
