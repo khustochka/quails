@@ -11,15 +11,15 @@ gem "activerecord-jdbcpostgresql-adapter", platforms: :jruby
 gem 'unicorn', require: false, platforms: :ruby
 
 group :production do
-  gem 'airbrake', require: false
-  gem 'newrelic_rpm'
+  gem 'airbrake'
+#  gem 'newrelic_rpm'
 end
 
 # Bundle the extra gems:
 gem 'actionpack-page_caching'
-gem 'actionpack-action_caching'
+gem 'rails-observers', github: 'rails/rails-observers'
 gem 'rails-i18n'
-gem 'haml-rails', '~> 0.4'
+gem 'haml-rails', github: 'indirect/haml-rails'
 gem 'haml-contrib'
 gem "haml"
 gem 'RedCloth'
