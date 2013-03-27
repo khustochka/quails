@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130327105442) do
+ActiveRecord::Schema.define(:version => 20130327132414) do
 
   create_table "books", :force => true do |t|
     t.string "slug",        :limit => 32, :null => false
@@ -40,12 +40,13 @@ ActiveRecord::Schema.define(:version => 20130327105442) do
     t.string   "title"
     t.text     "description"
     t.integer  "index_num",                       :default => 1000,  :null => false
-    t.datetime "created_at"
+    t.datetime "created_at",                                         :null => false
     t.integer  "spot_id"
     t.string   "flickr_id",         :limit => 64
     t.text     "flickr_data"
     t.string   "flickr_size",       :limit => 1
     t.boolean  "has_old_thumbnail",               :default => false, :null => false
+    t.datetime "updated_at",                                         :null => false
   end
 
   add_index "images", ["index_num"], :name => "index_images_on_index_num"
