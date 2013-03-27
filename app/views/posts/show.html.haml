@@ -4,20 +4,23 @@
 
 = render 'admin/shortcuts' if current_user.admin?
 
-%div.post{id: "post-#{@post.slug}"}
-  %div.header-with-subheader
-    %h1= @post.formatted.title
-    %i
-      %time{pubdate: 'pubdate', datetime: @post.face_date.iso8601}= l(@post.face_date, format: :long)
-    - unless @post.public?
-      %span.tag.draft Draft
+- cache @post do
 
-  = @post.formatted.for_site.text
-  - @post.images.if_present do |images|
-    %div.photos
-      %h2= t('.sections.photos')
-      %ul.thumbnails
-        = render partial: 'images/thumbnail', collection: images
+  %div.post{id: "post-#{@post.slug}"}
+    %div.header-with-subheader
+      %h1= @post.formatted.title
+      %i
+        %time{pubdate: 'pubdate', datetime: @post.face_date.iso8601}= l(@post.face_date, format: :long)
+      - unless @post.public?
+        %span.tag.draft Draft
+
+    = @post.formatted.for_site.text
+
+- @post.images.if_present do |images|
+  %div.photos
+    %h2= t('.sections.photos')
+    %ul.thumbnails
+      = render partial: 'images/thumbnail', collection: images
 
 - @post.species.if_present do |spcs|
   %h3= t('.sections.species', count: spcs.size)
