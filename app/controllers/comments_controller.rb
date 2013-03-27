@@ -45,7 +45,7 @@ class CommentsController < ApplicationController
     comment_attrs = params[:comment].slice(*Comment::ALLOWED_PARAMETERS)
     comment_attrs[:name] = params[$negative_captcha]
 
-    @comment = @post.comments.create(comment_attrs)
+    @comment = @post.comments.build(comment_attrs)
 
     @comment.approved = !@comment.like_spam? && params[:comment][:name].blank?
 
