@@ -30,6 +30,7 @@ class ImagesAssociationsTest < ActiveSupport::TestCase
     blogpost = create(:post, observations: [@obs])
 
     assert_equal [@image.slug], blogpost.images.map(&:slug)
+    @image.reload
     assert_equal blogpost.slug, @image.post(Post.public).slug
   end
 
