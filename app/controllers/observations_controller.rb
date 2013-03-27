@@ -1,5 +1,5 @@
 class ObservationsController < ApplicationController
-  cache_sweeper :observation_sweeper
+  cache_sweeper :lifelist_sweeper
 
   BULK_REQUIRED_KEYS = %w(locus_id observ_date mine)
   BULK_MEANINGFUL_KEYS = BULK_REQUIRED_KEYS + %w(species_id voice post_id)

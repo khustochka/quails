@@ -1,4 +1,4 @@
-class ObservationSweeper < ActionController::Caching::Sweeper
+class LifelistSweeper < ActionController::Caching::Sweeper
   observe Observation
 
   def after_save(obs)
