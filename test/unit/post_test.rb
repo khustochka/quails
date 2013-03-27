@@ -78,4 +78,21 @@ class PostTest < ActiveSupport::TestCase
     assert_equal({month: '01', year: '2011'}, Post.prev_month('2011', '02'))
   end
 
+  test 'adding image to post should touch posts`s updated_at' do
+    p = create(:post)
+    saved_date = p.updated_at
+
+    sleep 1
+
+    o = create(:observation, post_id: p.id)
+    p.reload
+    assert_equal saved_date.to_i, p.updated_at.to_i
+
+    sleep 1
+
+    i = create(:image, observation_ids: [o.id])
+    p.reload
+    assert p.updated_at.to_i > saved_date.to_i
+  end
+
 end

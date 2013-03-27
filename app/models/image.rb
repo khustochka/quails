@@ -17,8 +17,13 @@ class Image < ActiveRecord::Base
     species.each(&:update_image)
   end
 
+  after_save do
+    observations.each { |o| o.post.try(:touch) }
+  end
+
   after_destroy do
     species.each(&:update_image)
+    observations.each { |o| o.post.try(:touch) }
   end
 
   # Parameters
