@@ -95,6 +95,14 @@ class Image < ActiveRecord::Base
 
   # Saving with observation validation
 
+  def observations=(obs)
+    update_with_observations({}, obs.map(&:id))
+  end
+
+  #def observation_ids=(*args)
+  #  raise("Use update_with_observations!")
+  #end
+
   def update_with_observations(attr, obs_ids)
     assign_attributes(attr)
     validate_observations(obs_ids)
@@ -106,10 +114,14 @@ class Image < ActiveRecord::Base
       if self.spot_id && !self.spot.observation.in?(self.observation_ids & obs_ids)
         self.spot_id = nil
       end
+      old_observations = self.observations
       self.observation_ids = obs_ids.uniq
       run_validations! && save.tap do |result|
         if result
           self.species.each(&:update_image)
+          old_observations.each { |o| o.post.try(:touch) }
+          self.observations.each { |o| o.post.try(:touch) }
+          self.touch
         end
       end
     end

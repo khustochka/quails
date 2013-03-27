@@ -84,7 +84,7 @@ class PostTest < ActiveSupport::TestCase
 
     sleep 1
 
-    o = create(:observation, post_id: p.id)
+    o = create(:observation, post: p)
     p.reload
     assert_equal saved_date.to_i, p.updated_at.to_i
 
@@ -95,17 +95,19 @@ class PostTest < ActiveSupport::TestCase
     assert p.updated_at.to_i > saved_date.to_i
   end
 
+  # FIXME: crazy unstable test!!!
   test 'moving image to another observation should touch posts`s updated_at' do
     p = create(:post)
     saved_date = p.updated_at
 
-    o = create(:observation, post_id: p.id)
-    i = create(:image, observation_ids: [o.id])
-
-    sleep 1
+    o = create(:observation, post: p)
+    i = create(:image, observations: [o])
 
     o2 = create(:observation)
-    i.observation_ids = [o2.id]
+
+    sleep 2
+
+    i.update_with_observations({}, [o2.id])
 
     p.reload
     assert p.updated_at.to_i > saved_date.to_i
