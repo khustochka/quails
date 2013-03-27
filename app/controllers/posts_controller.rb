@@ -38,7 +38,7 @@ class PostsController < ApplicationController
     @post = Post.new(params[:post])
 
     if @post.save
-      redirect_to(public_post_path(@post), :notice => 'Post was successfully created.')
+      redirect_to(public_post_path(@post))
     else
       render 'form'
     end
@@ -49,7 +49,7 @@ class PostsController < ApplicationController
     @extra_params = @post.to_url_params
     @search = Observation.search
     if @post.update_attributes(params[:post])
-      redirect_to(public_post_path(@post), :notice => 'Post was successfully updated.')
+      redirect_to(public_post_path(@post))
     else
       render 'form'
     end
