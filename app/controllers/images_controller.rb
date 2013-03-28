@@ -1,5 +1,7 @@
 class ImagesController < ApplicationController
 
+  cache_sweeper :gallery_sweeper
+
   respond_to :json, only: [:flickr_search, :observations]
 
   administrative except: [:index, :multiple_species, :show, :gallery, :country]
