@@ -13,7 +13,7 @@
   - else
     = t('lists.title.lifelist')
 
-- cache significant_params do
+- cache significant_params.merge(admin: current_user.admin?) do
 
   %h1= page_header
 
