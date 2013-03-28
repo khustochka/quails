@@ -14,10 +14,15 @@ class SpeciesImageTest < ActiveSupport::TestCase
   end
 
   test 'removing the only species image should clear image_id' do
-    img = create(:image)
-    sps = img.species
+    obs = create(:observation)
+    sp = obs.species
+    img_id = obs.images.create(attributes_for(:image)).id
+
+    # Have to find it to clear association cache
+    img = Image.find(img_id)
     img.destroy
-    assert_equal [nil], sps.map(&:image_id)
+    sp.reload
+    assert_equal nil, sp.image_id
   end
 
   test 'removing the active species image links another one to the species' do

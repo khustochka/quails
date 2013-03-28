@@ -26,6 +26,13 @@ class Image < ActiveRecord::Base
     observations.each { |o| o.post.try(:touch) }
   end
 
+  def destroy
+    # If associations are not cached before, they are empty on destroy, so have to preload them for after_destroy hook
+    observations.to_a
+    species.to_a
+    super
+  end
+
   # Parameters
 
   def to_param
