@@ -1,5 +1,7 @@
 class TaxaController < ApplicationController
 
+  cache_sweeper :gallery_sweeper
+
   administrative
 
   before_filter :find_species, only: [:show, :update]
