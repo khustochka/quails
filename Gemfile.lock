@@ -16,7 +16,7 @@ GIT
 
 GIT
   remote: git://github.com/rails/rails.git
-  revision: 2d33796457b139a58539c890624591c97354d334
+  revision: 60e50d6435eabf41a737c89689dc0b6ff449b508
   specs:
     actionmailer (4.0.0.beta1)
       actionpack (= 4.0.0.beta1)
@@ -131,7 +131,7 @@ GEM
     multi_json (1.7.2)
     mysql2 (0.3.11)
     nokogiri (1.5.9)
-    pg (0.14.1)
+    pg (0.15.0)
     polyglot (0.3.3)
     posix-spawn (0.3.6)
     powerbar (1.0.11)
