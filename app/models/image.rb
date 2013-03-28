@@ -42,7 +42,7 @@ class Image < ActiveRecord::Base
   # Photos with several species
   def self.multiple_species
     rel = select(:image_id).from("images_observations").group(:image_id).having("COUNT(observation_id) > 1")
-    where(id: rel).preload(:species).order('created_at ASC')
+    select("DISTINCT images.*, observ_date").where(id: rel).joins(:observations).preload(:species).order('observ_date ASC')
   end
 
   # Associations
