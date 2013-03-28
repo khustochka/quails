@@ -121,14 +121,15 @@ class Image < ActiveRecord::Base
       if self.spot_id && !self.spot.observation.in?(self.observation_ids & obs_ids)
         self.spot_id = nil
       end
-      old_observations = self.observations
+      unless new_record?
+        old_observations = self.observations.to_a
+        old_species = self.species.to_a
+      end
       self.observation_ids = obs_ids.uniq
       run_validations! && save.tap do |result|
-        if result
-          self.species.each(&:update_image)
+        if result && old_species && old_observations
+          old_species.each(&:update_image)
           old_observations.each { |o| o.post.try(:touch) }
-          self.observations.each { |o| o.post.try(:touch) }
-          self.touch
         end
       end
     end
