@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130327132414) do
+ActiveRecord::Schema.define(:version => 20130328145237) do
 
   create_table "books", :force => true do |t|
     t.string "slug",        :limit => 32, :null => false
@@ -107,15 +107,16 @@ ActiveRecord::Schema.define(:version => 20130327132414) do
   add_index "observations", ["species_id"], :name => "index_observations_on_species_id"
 
   create_table "posts", :force => true do |t|
-    t.string   "slug",       :limit => 64
-    t.string   "title",                    :null => false
-    t.text     "text",                     :null => false
-    t.string   "topic",      :limit => 4
-    t.string   "status",     :limit => 4
+    t.string   "slug",         :limit => 64
+    t.string   "title",                      :null => false
+    t.text     "text",                       :null => false
+    t.string   "topic",        :limit => 4
+    t.string   "status",       :limit => 4
     t.integer  "lj_post_id"
     t.integer  "lj_url_id"
-    t.datetime "face_date",                :null => false
-    t.datetime "updated_at",               :null => false
+    t.datetime "face_date",                  :null => false
+    t.datetime "updated_at",                 :null => false
+    t.datetime "commented_at"
   end
 
   add_index "posts", ["face_date"], :name => "index_posts_on_face_date"

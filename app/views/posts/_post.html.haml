@@ -1,24 +1,28 @@
-%div.post-box{id: "post-#{post.slug}"}
-  %div.post
-    %div.header-with-subheader
-      %h2= link_to(post.formatted.title, public_post_path(post))
-      %i
-        %time{pubdate: 'pubdate', datetime: post.face_date.iso8601}= l(post.face_date, format: :long)
-      - unless post.public?
-        %span.tag.draft Draft
+- cache ['blog', post, admin: current_user.admin?] do
 
-    = post.formatted.for_site.text
-    - post.images.if_present do |images|
-      %ul.thumbnails
-        = render partial: 'images/thumbnail', collection: images
+  %div.post-box{id: "post-#{post.slug}"}
+    %div.post
+      %div.header-with-subheader
+        %h2= link_to(post.formatted.title, public_post_path(post))
+        %i
+          %time{pubdate: 'pubdate', datetime: post.face_date.iso8601}= l(post.face_date, format: :long)
+        - unless post.public?
+          %span.tag.draft Draft
 
-  %ul.comment_links
-    - post.comments.approved.size.tap do |cmt_count|
-      - if cmt_count > 0
-        %li.num_comments= link_to t('.comments', count: cmt_count), public_post_path(post, anchor: 'comments')
-    - if current_user.admin?
-      - post.comments.unapproved.size.tap do |cmt_count|
-        - if cmt_count > 0
-          %li.num_comments
-            = link_to "#{cmt_count} hidden comment(s)", public_post_path(post, anchor: 'comments'), class: "tag draft"
-    %li.add_comment= link_to t('.add_comment'), public_post_path(post, anchor: 'add_comment')
+      = post.formatted.for_site.text
+      - post.images.if_present do |images|
+        %ul.thumbnails
+          = render partial: 'images/thumbnail', collection: images
+
+    - cache ['comment', post, post.comments.count, admin: current_user.admin?] do
+
+      %ul.comment_links
+        - post.comments.approved.size.tap do |cmt_count|
+          - if cmt_count > 0
+            %li.num_comments= link_to t('.comments', count: cmt_count), public_post_path(post, anchor: 'comments')
+        - if current_user.admin?
+          - post.comments.unapproved.size.tap do |cmt_count|
+            - if cmt_count > 0
+              %li.num_comments
+                = link_to "#{cmt_count} hidden comment(s)", public_post_path(post, anchor: 'comments'), class: "tag draft"
+        %li.add_comment= link_to t('.add_comment'), public_post_path(post, anchor: 'add_comment')

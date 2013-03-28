@@ -92,6 +92,13 @@ class Post < ActiveRecord::Base
     @lj_url ||= "http://#{Settings.lj_user.name}.livejournal.com/#{lj_url_id}.html" if lj_url_id.present?
   end
 
+  def cache_key
+    updated = self[:updated_at].utc.to_s(cache_timestamp_format)
+    commented = self[:commented_at].utc.to_s(cache_timestamp_format) rescue "0"
+
+    "#{self.class.model_name.cache_key}/#{id}-#{updated}-#{commented}"
+  end
+
   private
   def update_face_date
     if read_attribute(:face_date).blank?
