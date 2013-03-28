@@ -133,5 +133,6 @@ class ObservationsController < ApplicationController
 
   def cache_expire
     expire_page controller: :feeds, action: :photos, format: 'xml'
+    expire_page controller: :feeds, action: :blog, format: 'xml'
   end
 end
