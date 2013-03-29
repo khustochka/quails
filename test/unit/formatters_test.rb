@@ -46,12 +46,6 @@ class FormattersTest < ActionView::TestCase
                  post.formatted.for_site.text
   end
 
-  test "Post with photo by url" do
-    post = create(:post, text: "[^/img/rails.png]")
-    assert_equal "<p><img src=\"/img/rails.png\" alt=\"\" /></p>",
-                 post.formatted.for_site.text
-  end
-
   test "LJ Post with species link" do
     post = create(:post, text: "This is a [Blue Tut|parcae]")
     assert_equal "<p>This is a <b title=\"Parus caeruleus\">Blue Tut</b></p>",
@@ -83,12 +77,6 @@ class FormattersTest < ActionView::TestCase
     image = create(:image)
     post = create(:post, text: "[^#{image.slug}]")
     assert_equal "<p><img src=\"#{jpg_url(image)}\" title=\"[photo]\" alt=\"[photo]\" /><br />\nHouse Sparrow <i>(Passer domesticus)</i></p>",
-                 post.formatted.for_lj.text
-  end
-
-  test "LJ Post with photo by url" do
-    post = create(:post, text: "[^/img/rails.png]")
-    assert_equal "<p><img src=\"/img/rails.png\" alt=\"\" /></p>",
                  post.formatted.for_lj.text
   end
 

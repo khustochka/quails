@@ -35,12 +35,8 @@ class LJFormatStrategy < FormattingStrategy
   end
 
   def img_link(term)
-    if term =~ %r{^(https?:/)?/}
-      "!#{term}!"
-    else
-      if image = Image.find_by_slug(term)
-        %Q(!#{jpg_url(image)}([photo])!\n#{image.formatted.title} __(#{image.species.map(&:name_sci).join(', ')})__)
-      end
+    if image = Image.find_by_slug(term)
+      %Q(!#{jpg_url(image)}([photo])!\n#{image.formatted.title} __(#{image.species.map(&:name_sci).join(', ')})__)
     end
   end
 
