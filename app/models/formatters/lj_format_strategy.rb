@@ -39,7 +39,7 @@ class LJFormatStrategy < FormattingStrategy
       "!#{term}!"
     else
       if image = Image.find_by_slug(term)
-        %Q(!#{jpg_url(image)}([photo])!\n#{image.title} __(#{image.species.map(&:name_sci).join(', ')})__)
+        %Q(!#{jpg_url(image)}([photo])!\n#{image.formatted.title} __(#{image.species.map(&:name_sci).join(', ')})__)
       end
     end
   end

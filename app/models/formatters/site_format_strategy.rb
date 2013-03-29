@@ -49,7 +49,7 @@ class SiteFormatStrategy < FormattingStrategy
       "!#{term}!"
     else
       if image = Image.find_by_slug(term)
-        %Q("!#{jpg_url(image)}([photo])!":#{image_path(image)}\n#{image.title} __(#{image.species.map(&:name_sci).join(', ')})__)
+        %Q("!#{jpg_url(image)}([photo])!":#{image_path(image)}\n#{image.formatted.title} __(#{image.species.map(&:name_sci).join(', ')})__)
       end
     end
   end
