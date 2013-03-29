@@ -123,9 +123,9 @@ class WikiFilterTest < ActionDispatch::IntegrationTest
     assert_not_equal species_link(seed(:cotnix), 'Coturnix coturnix'), transform('[@cotnix]')
   end
 
-    test 'properly handle missed code' do
-      assert_equal 'vid', transform('[vid|]')
-    end
+  test 'properly handle missed code' do
+    assert_equal 'vid', transform('[vid|]')
+  end
 
   #  test 'properly parse non closed tag' do
   #    assert_equal "[Great|parmaj or  #{species_link(seed(:parcae), 'Blue Tit')}",

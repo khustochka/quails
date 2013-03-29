@@ -34,6 +34,16 @@ class LJFormatStrategy < FormattingStrategy
         %Q("#{word || post.formatted.title}":#{term})
   end
 
+  def img_link(term)
+    if term =~ %r{^(https?:/)?/}
+      "!#{term}!"
+    else
+      if image = Image.find_by_slug(term)
+        %Q(!#{jpg_url(image)}([photo])!)
+      end
+    end
+  end
+
   def species_link(word, term)
     sp = @species[term]
     if sp

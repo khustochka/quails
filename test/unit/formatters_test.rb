@@ -4,6 +4,8 @@ require 'test_helper'
 
 class FormattersTest < ActionView::TestCase
 
+  include ImagesHelper
+
   test "no span_caps by default" do
     assert_equal "xxx ABC xxx", OneLineFormatter.apply("xxx ABC xxx")
   end
@@ -31,6 +33,25 @@ class FormattersTest < ActionView::TestCase
                  post.formatted.for_site.text
   end
 
+  test "Post with photo by slug" do
+    image = create(:image)
+    post = create(:post, text: "[^#{image.slug}]")
+    assert_equal "<p><a href=\"/photos/#{image.slug}\"><img src=\"#{jpg_url(image)}\" title=\"[photo]\" alt=\"[photo]\" /></a></p>",
+                 post.formatted.for_site.text
+  end
+
+  test "Invalid image wiki tag should not raise exception" do
+    post = create(:post, text: "[^sdfgdfsgsdfgdfsgdf]")
+    assert_equal "",
+                 post.formatted.for_site.text
+  end
+
+  test "Post with photo by url" do
+    post = create(:post, text: "[^/img/rails.png]")
+    assert_equal "<p><img src=\"/img/rails.png\" alt=\"\" /></p>",
+                 post.formatted.for_site.text
+  end
+
   test "LJ Post with species link" do
     post = create(:post, text: "This is a [Blue Tut|parcae]")
     assert_equal "<p>This is a <b title=\"Parus caeruleus\">Blue Tut</b></p>",
@@ -55,6 +76,19 @@ class FormattersTest < ActionView::TestCase
     post1 = create(:post, slug: "post_for_link")
     post = create(:post, text: "This is a [#post|post_for_link]")
     assert_equal "<p>This is a post</p>",
+                 post.formatted.for_lj.text
+  end
+
+  test "LJ Post with photo by slug" do
+    image = create(:image)
+    post = create(:post, text: "[^#{image.slug}]")
+    assert_equal "<p><img src=\"#{jpg_url(image)}\" title=\"[photo]\" alt=\"[photo]\" /></p>",
+                 post.formatted.for_lj.text
+  end
+
+  test "LJ Post with photo by url" do
+    post = create(:post, text: "[^/img/rails.png]")
+    assert_equal "<p><img src=\"/img/rails.png\" alt=\"\" /></p>",
                  post.formatted.for_lj.text
   end
 

@@ -2,6 +2,7 @@ class SiteFormatStrategy < FormattingStrategy
 
   include Rails.application.routes.url_helpers
   include SpeciesHelper
+  include ImagesHelper
   include ActionView::Helpers::TagHelper
   include PublicRoutesHelper
 
@@ -41,6 +42,16 @@ class SiteFormatStrategy < FormattingStrategy
     post.nil? ?
         word :
         %Q("#{word || '"%s"' % post.formatted.title}":#{term})
+  end
+
+  def img_link(term)
+    if term =~ %r{^(https?:/)?/}
+      "!#{term}!"
+    else
+      if image = Image.find_by_slug(term)
+        %Q("!#{jpg_url(image)}([photo])!":#{image_path(image)})
+      end
+    end
   end
 
   def species_link(word, term)
