@@ -36,7 +36,7 @@ class FormattersTest < ActionView::TestCase
   test "Post with photo by slug" do
     image = create(:image)
     post = create(:post, text: "[^#{image.slug}]")
-    assert_equal "<p><a href=\"/photos/#{image.slug}\"><img src=\"#{jpg_url(image)}\" title=\"[photo]\" alt=\"[photo]\" /></a></p>",
+    assert_equal "<p><a href=\"/photos/#{image.slug}\"><img src=\"#{jpg_url(image)}\" title=\"[photo]\" alt=\"[photo]\" /></a><br />\nHouse Sparrow <i>(Passer domesticus)</i></p>",
                  post.formatted.for_site.text
   end
 
@@ -82,7 +82,7 @@ class FormattersTest < ActionView::TestCase
   test "LJ Post with photo by slug" do
     image = create(:image)
     post = create(:post, text: "[^#{image.slug}]")
-    assert_equal "<p><img src=\"#{jpg_url(image)}\" title=\"[photo]\" alt=\"[photo]\" /></p>",
+    assert_equal "<p><img src=\"#{jpg_url(image)}\" title=\"[photo]\" alt=\"[photo]\" /><br />\nHouse Sparrow <i>(Passer domesticus)</i></p>",
                  post.formatted.for_lj.text
   end
 
