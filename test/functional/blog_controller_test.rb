@@ -31,7 +31,14 @@ class BlogControllerTest < ActionController::TestCase
     assert_not_include(assigns(:posts), blogpost1)
   end
 
-  test 'get front page in Eglish' do
+  test 'show NOINDEX post on front page' do
+    blogpost = create(:post, status: 'NIDX')
+    get :front_page
+    assert_response :success
+    assert_include(assigns(:posts), blogpost)
+  end
+
+  test 'get front page in English' do
     blogpost1 = create(:post, face_date: '2007-12-06 13:14:15')
     blogpost2 = create(:post, face_date: '2008-11-06 13:14:15')
     create(:comment)

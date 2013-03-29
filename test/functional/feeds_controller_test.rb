@@ -50,10 +50,11 @@ class FeedsControllerTest < ActionController::TestCase
     assert_equal Mime::XML, response.content_type
   end
 
-  test 'get sitemap' do
+  test 'get sitemap, do not include PRIVATE and NOINDEX posts' do
     create(:post)
     create(:post)
     create(:post, status: 'PRIV')
+    create(:post, status: 'NIDX')
 
     get :sitemap, format: :xml
     assert_response :success

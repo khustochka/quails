@@ -12,7 +12,7 @@ class FeedsController < ApplicationController
   end
 
   def sitemap
-    @posts = Post.public.select("slug, face_date, updated_at")
+    @posts = Post.indexable.select("slug, face_date, updated_at")
     @images = Image.select("id, slug, created_at")
     @species = Species.where(id: Observation.select(:species_id)).select("id, name_sci")
 
