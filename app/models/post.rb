@@ -66,7 +66,7 @@ class Post < ActiveRecord::Base
   # Instance methods
 
   def public?
-    status == 'OPEN'
+    status != 'PRIV'
   end
 
   def year
