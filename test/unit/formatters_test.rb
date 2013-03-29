@@ -44,6 +44,7 @@ class FormattersTest < ActionView::TestCase
   end
 
   test "LJ Post with link to another post in LJ" do
+    Settings.create(key: 'lj_user', value: {name: 'stonechat'})
     post1 = create(:post, slug: "post_for_link", lj_url_id: "1111")
     post = create(:post, text: "This is a [#post|post_for_link]")
     assert_equal "<p>This is a <a href=\"http://stonechat.livejournal.com/1111.html\">post</a></p>",
