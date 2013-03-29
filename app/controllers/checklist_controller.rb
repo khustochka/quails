@@ -8,8 +8,6 @@ class ChecklistController < ApplicationController
 
   def edit
     fetch_checklist
-    @edit = true
-    render @country.slug
   end
 
   def save
