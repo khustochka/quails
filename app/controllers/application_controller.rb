@@ -13,6 +13,10 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def self.cache_sweeper(*args)
+    #FIXME: see https://github.com/rails/rails-observers/issues/4
+  end
+
   def significant_params
     if @allowed_params
       params.slice(*@allowed_params)
