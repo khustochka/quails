@@ -1,5 +1,14 @@
 - javascript 'comments'
 
+- if @post.public?
+  - provide :add_shortcuts do
+    - if @post.status == 'OPEN'
+      %li
+        %b= link_to('Do not index!', {action: :update, post: {status: 'NIDX'}}, method: :put)
+    - elsif @post.status == 'NIDX'
+      %li
+        %b= link_to('Make back indexable', {action: :update, post: {status: 'OPEN'}}, method: :put)
+
 - @page_title = @post.formatted.title
 
 = render 'admin/shortcuts' if current_user.admin?
