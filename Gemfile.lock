@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/indirect/haml-rails.git
-  revision: 07bb62e18d5e3a3a466a239080f2663539a0210e
+  revision: 6b7a5dead27957aff853b6c82b81fc13543c1aeb
   specs:
     haml-rails (0.4)
       actionpack (>= 3.1, < 4.1)
@@ -10,13 +10,13 @@ GIT
 
 GIT
   remote: git://github.com/rails/rails-observers.git
-  revision: d80f56f6e075f8d4987c275524b1b142a31d428b
+  revision: 25ad85c3029b8c78bb984b2c968e2b98bdcc2dff
   specs:
     rails-observers (0.1.1)
 
 GIT
   remote: git://github.com/rails/rails.git
-  revision: 60e50d6435eabf41a737c89689dc0b6ff449b508
+  revision: b22ec860abcad5c92c450b7fb03b6e9928d50807
   specs:
     actionmailer (4.0.0.beta1)
       actionpack (= 4.0.0.beta1)
@@ -70,7 +70,7 @@ GEM
       json
     ansi (1.4.3)
     arel (4.0.0.beta2)
-    atomic (1.0.1)
+    atomic (1.0.2)
     builder (3.1.4)
     capybara (2.0.3)
       mime-types (>= 1.16)
