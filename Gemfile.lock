@@ -97,7 +97,6 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.21)
     multi_json (1.7.2)
-    mysql2 (0.3.11)
     newrelic_rpm (3.6.0.78)
     nokogiri (1.5.9)
     pg (0.15.0)
@@ -138,7 +137,6 @@ GEM
     rdoc (3.12.2)
       json (~> 1.4)
     roman-numerals (0.3.0)
-    ruby-prof (0.13.0)
     rubyzip (0.9.9)
     sass (3.2.7)
     sass-rails (3.2.6)
@@ -203,7 +201,6 @@ DEPENDENCIES
   kaminari
   launchy
   livejournal
-  mysql2 (~> 0.3.7)
   newrelic_rpm
   nokogiri
   pg
@@ -212,7 +209,6 @@ DEPENDENCIES
   rails-i18n
   rails3-generators
   roman-numerals
-  ruby-prof
   sass-rails (~> 3.2.3)
   simple_form (~> 2.0)
   simplecov

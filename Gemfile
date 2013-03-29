@@ -50,7 +50,6 @@ end
 
 group :development, :vps do
   gem 'grit', '~> 2.5', require: false, platforms: [:ruby, :mingw]
-  gem 'mysql2', '~> 0.3.7', platforms: :ruby, require: false
 end
 
 # in dev group for generators
@@ -58,7 +57,6 @@ gem 'factory_girl_rails', '~> 4.0', groups: [:development, :test]
 
 group :test do
   gem 'test-unit'
-  gem 'ruby-prof', require: false, platforms: [:mri, :mingw]
   gem 'capybara', '~> 2.0'
   gem 'capybara-webkit', platforms: [:mri], require: false
   gem 'poltergeist', platforms: [:mri], require: false
