@@ -23,6 +23,7 @@ gem 'flickraw-cached'
 gem 'livejournal'
 gem 'hashie'
 gem 'roman-numerals'
+gem 'rinku'
 
 group :production do
   gem 'airbrake'
