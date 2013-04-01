@@ -56,18 +56,6 @@ class WikiFilterTest < ActionDispatch::IntegrationTest
   #                 transform('[#see this|some-post]')
   #  end
 
-  # Links
-
-  test 'properly parse links with text [@see this|http://google.com]' do
-    assert_equal %Q(["see this":http://google.com]),
-                 transform('[@see this|http://google.com]')
-  end
-
-  test 'properly parse links without text [@http://google.com]' do
-    assert_equal %Q(["http://google.com":http://google.com]),
-                 transform('[@http://google.com]')
-  end
-
   # Allowed fallbacks
 
   test 'ignore unknown species code (name provided)' do
@@ -98,8 +86,10 @@ class WikiFilterTest < ActionDispatch::IntegrationTest
   end
 
   test 'properly parse pipe in the second code' do
-    assert_equal %Q(["http://birdwatch.by":http://birdwatch.by] has "(sp_link). Blue Tits":parcae\n\n[parcae]#{species_path(seed(:parcae))}),
-                 transform('[@http://birdwatch.by] has [Blue Tits|parcae]')
+    blogpost = create(:post)
+    slug = blogpost.slug
+    assert_equal %Q(""Test Post"":#{slug} has "(sp_link). Blue Tits":parcae\n\n[#{slug}]#{public_post_path(blogpost)}\n[parcae]#{species_path(seed(:parcae))}),
+                 transform("[##{slug}] has [Blue Tits|parcae]")
   end
 
   # HTML entities
