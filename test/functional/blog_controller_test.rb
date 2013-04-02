@@ -35,7 +35,7 @@ class BlogControllerTest < ActionController::TestCase
     blogpost = create(:post, status: 'NIDX')
     get :front_page
     assert_response :success
-    assert_include(assigns(:posts), blogpost)
+    assert_includes(assigns(:posts), blogpost)
   end
 
   test 'get front page in English' do

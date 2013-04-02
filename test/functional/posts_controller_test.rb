@@ -181,7 +181,7 @@ class PostsControllerTest < ActionController::TestCase
     blogpost = create(:post, status: 'NIDX')
     login_as_admin
     get :hidden
-    assert_not_include(assigns(:posts), blogpost)
+    assert_not_includes(assigns(:posts), blogpost)
   end
 
   test 'show NOINDEX post page to user' do
