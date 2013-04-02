@@ -9,7 +9,7 @@ class FormattingStrategy
 
     prepare
 
-    result = @text.gsub(/\[(@|#|\^|)(?:([^\]]*?)\|)?(.*?)\]/) do |_|
+    result = @text.gsub(/\{\{(@|#|\^|)(?:([^\}]*?)\|)?([^\}]*?)\}\}/) do |_|
       tag, word, term = $1, $2.try(:html_safe), $3
       case tag
         when '@' then

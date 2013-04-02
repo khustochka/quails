@@ -11,7 +11,7 @@ $(function () {
   $("<div>", {class: "edit_tools"}).insertBefore(textarea);
 
   sp_insert_button.click(function () {
-    insertTags('[', '|]', 'вид');
+    insertTags('{{', '|}}', 'вид');
   });
 
   sp_insert_button.appendTo(".edit_tools");

@@ -12,7 +12,7 @@ class SiteFormatStrategy < FormattingStrategy
       hash[term] = Post.find_by_slug(term.downcase)
     end
 
-    sp_codes = @text.scan(/\[(?!#|@)(?:([^\]]*?)\|)?(.+?)\]/).map do |word, term|
+    sp_codes = @text.scan(/\{\{(?!#|@)(?:([^\}]*?)\|)?(.+?)\}\}/).map do |word, term|
       term || word
     end.uniq.compact
 
