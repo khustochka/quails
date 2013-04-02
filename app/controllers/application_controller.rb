@@ -17,6 +17,11 @@ class ApplicationController < ActionController::Base
     #FIXME: see https://github.com/rails/rails-observers/issues/4
   end
 
+  #FIXME: see https://github.com/rails/rails-observers/issues/4
+  def caching_allowed?
+    false
+  end
+
   def significant_params
     if @allowed_params
       params.slice(*@allowed_params)
