@@ -58,8 +58,9 @@ module Configurator
     if Rails.env.test?
       test_configuration
     else
-      raise "Missing configuration. Run `rake init` to create basic config/security.yml
-            and edit it as appropriate. Or set the environment variables."
+      # FIXME!!!
+      #raise "Missing configuration. Run `rake init` to create basic config/security.yml
+      #      and edit it as appropriate. Or set the environment variables."
     end
   end
 
