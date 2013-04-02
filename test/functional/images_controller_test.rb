@@ -44,7 +44,7 @@ class ImagesControllerTest < ActionController::TestCase
 
   test "create image with one observation" do
     login_as_admin
-    new_attr = build(:image, slug: 'new_img_slug').attributes
+    new_attr = attributes_for(:image, slug: 'new_img_slug').except(:observations)
     assert_difference('Image.count') do
       post :create, image: new_attr, obs: [@obs.id]
     end
@@ -56,7 +56,7 @@ class ImagesControllerTest < ActionController::TestCase
     login_as_admin
     obs2 = create(:observation, species: seed(:lancol))
     obs3 = create(:observation, species: seed(:jyntor))
-    new_attr = build(:image, slug: 'new_img_slug').attributes
+    new_attr = attributes_for(:image, slug: 'new_img_slug').except(:observations)
     assert_difference('Image.count') do
       post :create, image: new_attr, obs: [@obs.id, obs2.id, obs3.id]
     end
