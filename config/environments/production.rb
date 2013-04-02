@@ -64,19 +64,19 @@ Quails::Application.configure do
   #  Dir.glob("*.{css,sass}").map {|f| f.sub('.sass', '.css')}
   #end
 
-  config.assets.precompile += %w( html5.js )
-
   app_assets_path = Rails.root.join('app', 'assets').to_path
 
   config.assets.precompile << Proc.new { |path|
     if path =~ /\.(css|js)\z/
       full_path = Rails.application.assets.resolve(path).to_path
       # return true to compile asset, false to skip
-      full_path.starts_with? app_assets_path
+      full_path.starts_with?(app_assets_path) || full_path.ends_with?('html5.js')
     else
       false
     end
   }
+
+  #config.assets.precompile += %w( html5.js )
 
   # Route error pages through custom middleware
   require 'quails/public_exceptions'
