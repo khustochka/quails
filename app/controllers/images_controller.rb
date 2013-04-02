@@ -1,5 +1,7 @@
 class ImagesController < ApplicationController
 
+  cache_sweeper :gallery_sweeper
+
   respond_to :json, only: [:flickr_search, :observations]
 
   administrative except: [:index, :multiple_species, :show, :gallery, :country]
@@ -140,6 +142,7 @@ class ImagesController < ApplicationController
   private
 
   def cache_expire
+    expire_page controller: :feeds, action: :blog, format: 'xml'
     expire_page controller: :feeds, action: :photos, format: 'xml'
     expire_page controller: :feeds, action: :sitemap, format: 'xml'
   end

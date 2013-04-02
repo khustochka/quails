@@ -1,6 +1,6 @@
 begin
-  require 'simplecov'
-  SimpleCov.start 'rails'
+  #require 'simplecov'
+  #SimpleCov.start 'rails'
 rescue LoadError, RuntimeError
 end
 

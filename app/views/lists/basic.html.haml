@@ -9,27 +9,29 @@
   - else
     = t('lists.title.lifelist')
 
-%h1= page_header
+- cache significant_params.merge(admin: current_user.admin?) do
 
-- @years = @lifelist.years
-= render 'partials/years'
+  %h1= page_header
 
-%ul.horiz-list.filter-list
-  %strong= t('.filter.places')
-  %li= filtering_link_to_all(:locus)
-  - @locations.each do |loc|
-    %li= link_to_or_span(loc.name, significant_params.merge(locus: loc.slug))
+  - @years = @lifelist.years
+  = render 'partials/years'
 
-- unless @lifelist.blank?
   %ul.horiz-list.filter-list
-    %strong= t('.filter.sort_by')
-    - [nil, :by_taxonomy].each do |sort|
-      %li= link_to_or_span(t(sort || :by_date, scope: 'lists.menus.sort_option'), significant_params.merge(:sort => sort))
-    %li
-      %b= link_to t('lists.menus.advanced'), significant_params.slice(:year, :locus).merge(action: :advanced)
+    %strong= t('.filter.places')
+    %li= filtering_link_to_all(:locus)
+    - @locations.each do |loc|
+      %li= link_to_or_span(loc.name, significant_params.merge(locus: loc.slug))
+
+  - unless @lifelist.blank?
+    %ul.horiz-list.filter-list
+      %strong= t('.filter.sort_by')
+      - [nil, :by_taxonomy].each do |sort|
+        %li= link_to_or_span(t(sort || :by_date, scope: 'lists.menus.sort_option'), significant_params.merge(:sort => sort))
+      %li
+        %b= link_to t('lists.menus.advanced'), significant_params.slice(:year, :locus).merge(action: :advanced)
 
 
-- if @lifelist.blank?
-  %p No species
-- else
-  = render "lists/basic/#{params[:sort] || 'by_date'}"
+  - if @lifelist.blank?
+    %p No species
+  - else
+    = render "lists/basic/#{params[:sort] || 'by_date'}"

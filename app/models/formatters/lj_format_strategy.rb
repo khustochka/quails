@@ -9,7 +9,7 @@ class LJFormatStrategy < FormattingStrategy
       hash[term] = Post.find_by_slug(term.downcase)
     end
 
-    sp_codes = @text.scan(/\[(?!#|@)(?:([^\]]*?)\|)?(.+?)\]/).map do |word, term|
+    sp_codes = @text.scan(/\{\{(?!#|@)(?:([^\}]*?)\|)?(.+?)\}\}/).map do |word, term|
       term || word
     end.uniq.compact
 
@@ -32,6 +32,12 @@ class LJFormatStrategy < FormattingStrategy
     post.nil? || post.lj_url.nil? ?
         word :
         %Q("#{word || post.formatted.title}":#{term})
+  end
+
+  def img_link(term)
+    if image = Image.find_by_slug(term)
+      %Q(!#{jpg_url(image)}([photo])!\n#{image.formatted.title} __(#{image.species.map(&:name_sci).join(', ')})__)
+    end
   end
 
   def species_link(word, term)

@@ -176,4 +176,27 @@ class PostsControllerTest < ActionController::TestCase
     blogpost1 = create(:post, face_date: '2007-12-06 13:14:15', status: 'PRIV')
     assert_raise(ActiveRecord::RecordNotFound) { get :show, blogpost1.to_url_params }
   end
+
+  test 'do not show NOINDEX post on drafts page' do
+    blogpost = create(:post, status: 'NIDX')
+    login_as_admin
+    get :hidden
+    assert_not_include(assigns(:posts), blogpost)
+  end
+
+  test 'show NOINDEX post page to user' do
+    blogpost = create(:post, status: 'NIDX')
+    login_as_admin
+    get :show, blogpost.to_url_params
+    assert_response :success
+    assert_equal 'NOINDEX', assigns(:robots)
+  end
+
+  test 'show NOINDEX post page to admin' do
+    blogpost = create(:post, status: 'NIDX')
+    login_as_admin
+    get :show, blogpost.to_url_params
+    assert_response :success
+    assert_equal 'NOINDEX', assigns(:robots)
+  end
 end

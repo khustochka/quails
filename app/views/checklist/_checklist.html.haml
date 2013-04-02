@@ -1,37 +1,30 @@
-- if @edit
-  - javascript 'checklist_edit'
-
 - @page_title = t(".title.#{@country.slug}")
 
-%div.header-with-subheader
-  %h1.over-header= page_header
-  %ul.subheader-menu
-    %li= link_to(t('menu.galery'), country_path(country: @country.slug))
+- cache do
 
-%table.neat_table.checklist_table
+  %div.header-with-subheader
+    %h1= page_header
+    %ul.subheader-menu
+      %li= link_to(t('menu.galery'), country_path(country: @country.slug))
 
-  - i = 0
+  %table.neat_table.checklist_table
 
-  - @checklist.group_by_taxonomy do |order, family, species_list|
-    %tr.family_row
-      %td
-      %td{:colspan => 2}
-        %h2.order= render partial: 'species/taxonomy', locals: {rank: :order, value: order}
-        %h3.family= render partial: 'species/taxonomy', locals: {rank: :family, value: family}
+    - i = 0
 
-    - species_list.each do |species|
-      %tr
-        %td.align-right= i += 1
-        %td.names
-          %b= species_link(species.taxon)
-          = name_sci(species.taxon)
-        %td.status_column
-          - if @edit
-            = text_field_tag("s[][s]", species.status, size: 1)
-            = hidden_field_tag("s[][id]", species.id)
-            = text_area_tag("s[][n]", species.notes_ru, size: "100x2")
-            = text_field_tag("s[][r]", species.reference)
-          - else
+    - @checklist.group_by_taxonomy do |order, family, species_list|
+      %tr.family_row
+        %td
+        %td{:colspan => 2}
+          %h2.order= render partial: 'species/taxonomy', locals: {rank: :order, value: order}
+          %h3.family= render partial: 'species/taxonomy', locals: {rank: :family, value: family}
+
+      - species_list.each do |species|
+        %tr
+          %td.align-right= i += 1
+          %td.names
+            %b= species_link(species.taxon)
+            = name_sci(species.taxon)
+          %td.status_column
             - case species.status
               - when "-"
                 %span.status-old{title: t('.status.old')} x
@@ -42,6 +35,3 @@
               %small
                 = surround("[", "]") do
                   %a{href: "##{species.reference}"}= species.reference
-
-- if @edit
-  = submit_tag("Save", id: 'checklist_save')

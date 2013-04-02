@@ -16,7 +16,7 @@ module Configurator
 
   def self.configure_secret_token
     secret = config_data.secret_token
-    if secret.blank? && !Quails.env.background?
+    if secret.blank?
       $stderr.puts("[WARN] Secret token is not configured! Please set it unless this is a CLI task")
     end
     Quails::Application.config.secret_key_base = secret

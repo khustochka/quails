@@ -5,7 +5,7 @@ class Post < ActiveRecord::Base
   self.skip_time_zone_conversion_for_attributes = [:face_date]
 
   TOPICS = %w(OBSR NEWS SITE)
-  STATES = %w(OPEN PRIV)
+  STATES = %w(OPEN PRIV NIDX)
 
   before_save :update_face_date
 
@@ -39,8 +39,9 @@ class Post < ActiveRecord::Base
   # Scopes
 
   # FIXME: be careful with merging these - last scope overwrites the previous
-  scope :public, lambda { where(status: 'OPEN') }
+  scope :public, lambda { where("status <> 'PRIV'") }
   scope :hidden, lambda { where(status: 'PRIV') }
+  scope :indexable, lambda { public.where("status <> 'NIDX'") }
 
   def self.year(year)
     select('id, slug, title, face_date, status').where('EXTRACT(year from face_date)::integer = ?', year).order('face_date ASC')
@@ -69,7 +70,7 @@ class Post < ActiveRecord::Base
   # Instance methods
 
   def public?
-    status == 'OPEN'
+    status != 'PRIV'
   end
 
   def year
@@ -94,6 +95,13 @@ class Post < ActiveRecord::Base
 
   def lj_url
     @lj_url ||= "http://#{Settings.lj_user.name}.livejournal.com/#{lj_url_id}.html" if lj_url_id.present?
+  end
+
+  def cache_key
+    updated = self[:updated_at].utc.to_s(cache_timestamp_format)
+    commented = self[:commented_at].utc.to_s(cache_timestamp_format) rescue "0"
+
+    "#{self.class.model_name.cache_key}/#{id}-#{updated}-#{commented}"
   end
 
   private

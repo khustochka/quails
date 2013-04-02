@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130325105325) do
+ActiveRecord::Schema.define(:version => 20130402093945) do
 
   create_table "books", :force => true do |t|
     t.string "slug",        :limit => 32, :null => false
@@ -20,16 +20,17 @@ ActiveRecord::Schema.define(:version => 20130325105325) do
   end
 
   create_table "comments", :force => true do |t|
-    t.integer  "post_id"
-    t.integer  "parent_id"
+    t.integer  "post_id",    :null => false
+    t.integer  "parent_id",  :null => false
     t.string   "provider"
     t.string   "uid"
-    t.string   "name"
+    t.string   "name",       :null => false
     t.string   "email"
     t.string   "url"
-    t.text     "text"
-    t.boolean  "approved"
-    t.datetime "created_at"
+    t.text     "text",       :null => false
+    t.boolean  "approved",   :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "comments", ["post_id"], :name => "index_comments_on_post_id"
@@ -39,12 +40,13 @@ ActiveRecord::Schema.define(:version => 20130325105325) do
     t.string   "title"
     t.text     "description"
     t.integer  "index_num",                       :default => 1000,  :null => false
-    t.datetime "created_at"
+    t.datetime "created_at",                                         :null => false
     t.integer  "spot_id"
     t.string   "flickr_id",         :limit => 64
     t.text     "flickr_data"
     t.string   "flickr_size",       :limit => 1
     t.boolean  "has_old_thumbnail",               :default => false, :null => false
+    t.datetime "updated_at",                                         :null => false
   end
 
   add_index "images", ["index_num"], :name => "index_images_on_index_num"
@@ -105,15 +107,16 @@ ActiveRecord::Schema.define(:version => 20130325105325) do
   add_index "observations", ["species_id"], :name => "index_observations_on_species_id"
 
   create_table "posts", :force => true do |t|
-    t.string   "slug",       :limit => 64
-    t.string   "title",                    :null => false
-    t.text     "text",                     :null => false
-    t.string   "topic",      :limit => 4
-    t.string   "status",     :limit => 4
+    t.string   "slug",         :limit => 64
+    t.string   "title",                      :null => false
+    t.text     "text",                       :null => false
+    t.string   "topic",        :limit => 4
+    t.string   "status",       :limit => 4
     t.integer  "lj_post_id"
     t.integer  "lj_url_id"
-    t.datetime "face_date",                :null => false
-    t.datetime "updated_at",               :null => false
+    t.datetime "face_date",                  :null => false
+    t.datetime "updated_at",                 :null => false
+    t.datetime "commented_at"
   end
 
   add_index "posts", ["face_date"], :name => "index_posts_on_face_date"

@@ -27,9 +27,3 @@ SEED_TABLES.each do |table_name|
 
   table.reset_pk_sequence!
 end
-
-ActiveRecord::Base.connection.execute("DELETE FROM settings")
-settings = YAML.load(File.new "#{dirname}/settings.yml", "r")
-settings.each do |key, value|
-  Settings.create(key: key, value: value)
-end

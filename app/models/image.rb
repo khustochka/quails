@@ -17,8 +17,20 @@ class Image < ActiveRecord::Base
     species.each(&:update_image)
   end
 
+  after_save do
+    observations.each { |o| o.post.try(:touch) }
+  end
+
   after_destroy do
     species.each(&:update_image)
+    observations.each { |o| o.post.try(:touch) }
+  end
+
+  def destroy
+    # If associations are not cached before, they are empty on destroy, so have to preload them for after_destroy hook
+    observations.to_a
+    species.to_a
+    super
   end
 
   # Parameters
@@ -30,7 +42,7 @@ class Image < ActiveRecord::Base
   # Photos with several species
   def self.multiple_species
     rel = select(:image_id).from("images_observations").group(:image_id).having("COUNT(observation_id) > 1")
-    where(id: rel).preload(:species).order('created_at ASC')
+    select("DISTINCT images.*, observ_date").where(id: rel).joins(:observations).preload(:species).order('observ_date ASC')
   end
 
   # Associations
@@ -94,6 +106,14 @@ class Image < ActiveRecord::Base
 
   # Saving with observation validation
 
+  def observations=(obs)
+    update_with_observations({}, obs.map(&:id))
+  end
+
+  #def observation_ids=(*args)
+  #  raise("Use update_with_observations!")
+  #end
+
   def update_with_observations(attr, obs_ids)
     assign_attributes(attr)
     validate_observations(obs_ids)
@@ -105,10 +125,15 @@ class Image < ActiveRecord::Base
       if self.spot_id && !self.spot.observation.in?(self.observation_ids & obs_ids)
         self.spot_id = nil
       end
+      unless new_record?
+        old_observations = self.observations.to_a
+        old_species = self.species.to_a
+      end
       self.observation_ids = obs_ids.uniq
       run_validations! && save.tap do |result|
-        if result
-          self.species.each(&:update_image)
+        if result && old_species && old_observations
+          old_species.each(&:update_image)
+          old_observations.each { |o| o.post.try(:touch) }
         end
       end
     end

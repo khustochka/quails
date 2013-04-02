@@ -30,12 +30,6 @@ namespace :seed do
         io.close
         repo.add("seed/#{table_name}.yml")
       end
-
-      puts "Dumping Settings..."
-      File.open "#{dirname}/settings.yml", "w" do |file|
-        file.write(Settings.to_hash.to_yaml)
-      end
-      repo.add("seed/settings.yml")
     end
 
 

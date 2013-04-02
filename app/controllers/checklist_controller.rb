@@ -8,8 +8,6 @@ class ChecklistController < ApplicationController
 
   def edit
     fetch_checklist
-    @edit = true
-    render @country.slug
   end
 
   def save
@@ -18,6 +16,8 @@ class ChecklistController < ApplicationController
         LocalSpecies.where(id: sp[:id]).update_all(notes_ru: sp[:n], status: sp[:s], reference: sp[:r])
       end
     end
+    # Expire cache manually, because update_all skips callbacks
+    expire_fragment(controller: :checklist, action: :show, country: 'ukraine')
     redirect_to checklist_path(country: params[:country])
   end
 

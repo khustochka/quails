@@ -16,6 +16,7 @@ class PostsController < ApplicationController
     if @post.month != params[:month].to_s || @post.year != params[:year].to_s
       redirect_to public_post_path(@post), :status => 301
     end
+    @robots = 'NOINDEX' if @post.status == 'NIDX'
     @comments = current_user.available_comments(@post).group_by(&:parent_id)
     @comment = @post.comments.new(:parent_id => 0)
   end
@@ -38,7 +39,7 @@ class PostsController < ApplicationController
     @post = Post.new(params[:post])
 
     if @post.save
-      redirect_to(public_post_path(@post), :notice => 'Post was successfully created.')
+      redirect_to(public_post_path(@post))
     else
       render 'form'
     end
@@ -49,7 +50,7 @@ class PostsController < ApplicationController
     @extra_params = @post.to_url_params
     @search = Observation.search
     if @post.update_attributes(params[:post])
-      redirect_to(public_post_path(@post), :notice => 'Post was successfully updated.')
+      redirect_to(public_post_path(@post))
     else
       render 'form'
     end
@@ -66,18 +67,21 @@ class PostsController < ApplicationController
     user = LiveJournal::User.new(Settings.lj_user.name, Settings.lj_user.password)
 
     entry = LiveJournal::Entry.new
-    entry.security = :private
     entry.preformatted = true
+    entry.security = :private unless Quails.env.real_prod?
     # SafeBuffer breaks 'livejournal' gem, so we are not applying it to 'for_lj.text'
     # And `unsafing` the title with 'to_str'
     entry.subject = @post.formatted.title.to_str
     entry.event = @post.formatted.for_lj.text
 
     request = if @post.lj_url_id.present?
-                flash.alert = "Editing LJ entries is prohibited!"
-                nil
-                #entry.itemid = @post.lj_post_id
-                #LiveJournal::Request::EditEvent.new(user, entry)
+                if Quails.env.real_prod?
+                  entry.itemid = @post.lj_post_id
+                  LiveJournal::Request::EditEvent.new(user, entry)
+                else
+                  flash.alert = "Editing LJ entries is prohibited in not real production"
+                  nil
+                end
               else
                 LiveJournal::Request::PostEvent.new(user, entry)
               end

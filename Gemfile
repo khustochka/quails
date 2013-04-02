@@ -31,10 +31,8 @@ gem 'flickraw-cached'
 gem 'livejournal'
 gem 'hashie'
 gem 'roman-numerals'
+gem 'rinku'
 
-# Gems used only for assets and not required
-# in production environments by default.
-group :assets do
   gem 'sass-rails', '~> 4.0.0.beta1'
   #gem 'coffee-rails', '~> 3.2.1'
   #gem 'turbo-sprockets-rails3'
@@ -42,7 +40,6 @@ group :assets do
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 
   gem 'uglifier', '>= 1.0.3'
-end
 
 group :development do
   gem 'rails3-generators'
@@ -51,7 +48,6 @@ end
 
 group :development, :vps do
   gem 'grit', '~> 2.5', require: false, platforms: [:ruby, :mingw]
-  gem 'mysql2', '~> 0.3.7', platforms: :ruby, require: false
 end
 
 # in dev group for generators
@@ -62,6 +58,7 @@ group :test do
   gem 'ruby-prof', require: false, platforms: [:mri, :mingw]
   gem 'capybara', '~> 2.0'
   gem 'capybara-webkit', platforms: [:mri], require: false
+  gem 'poltergeist', platforms: [:mri], require: false
   gem 'database_cleaner', require: false
   gem 'launchy' # So you can do Then show me the page
   gem 'simplecov', require: false, platforms: [:ruby, :mingw]
