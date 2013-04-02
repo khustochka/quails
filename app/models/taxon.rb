@@ -1,4 +1,8 @@
+require 'species_parameterizer'
+
 class Taxon < ActiveRecord::Base
+
+  extend SpeciesParameterizer
 
   include ActiveRecord::Localized
   localize :name
@@ -18,7 +22,7 @@ class Taxon < ActiveRecord::Base
   # Parameters
 
   def to_param
-    name_sci_was.sp_parameterize
+    Taxon.parameterize(name_sci_was)
   end
 
 end

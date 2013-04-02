@@ -21,6 +21,6 @@ class TaxaController < ApplicationController
   private
   def find_species
     @book = Book.find_by_slug!(params[:book_id])
-    @taxon = @book.taxa.find_by_name_sci!(params[:id].sp_humanize)
+    @taxon = @book.taxa.find_by_name_sci!(Taxon.humanize(params[:id]))
   end
 end

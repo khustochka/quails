@@ -29,7 +29,7 @@ class SpeciesController < ApplicationController
 
   # GET /species/1
   def show
-    id_humanized = params[:id].sp_humanize
+    id_humanized = Species.humanize(params[:id])
     @species = Species.find_by_name_sci(id_humanized) || Taxon.find_by_name_sci!(id_humanized).species
     if @species
       if params[:id] != @species.to_param
@@ -102,6 +102,6 @@ class SpeciesController < ApplicationController
 
   private
   def find_species
-    @species = Species.find_by_name_sci!(params[:id].sp_humanize)
+    @species = Species.find_by_name_sci!(Species.humanize(params[:id]))
   end
 end
