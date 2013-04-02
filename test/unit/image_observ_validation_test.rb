@@ -48,7 +48,7 @@ class ImageObservValidationTest < ActiveSupport::TestCase
   end
 
   test 'excludes duplicated observations on image create' do
-    new_attr = build(:image).attributes
+    new_attr = attributes_for(:image).except(:observations)
     new_attr['slug'] = 'new_img_slug'
     img = Image.new
     assert_difference('Image.count', 1) do
