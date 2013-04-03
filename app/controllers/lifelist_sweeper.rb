@@ -3,10 +3,10 @@ class LifelistSweeper < ActionController::Caching::Sweeper
   # FIXME: Currently does not sweep on species rename, post URL change (slug or date)
 
   def after_save(obs)
-    expire_fragment(controller: :lists)
+    expire_fragment %r[my/lists.*]
   end
 
   def after_destroy(obs)
-    expire_fragment(controller: :lists)
+    expire_fragment %r[my/lists.*]
   end
 end
