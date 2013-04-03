@@ -17,7 +17,12 @@ module Configurator
   def self.configure_secret_token
     secret = config_data.secret_token
     if secret.blank?
-      $stderr.puts("[WARN] Secret token is not configured! Please set it unless this is a CLI task")
+      msg = "Secret token is not configured!"
+      if Quails.env.rake?
+        STDERR.puts(msg)
+      else
+        raise msg
+      end
     end
     Quails::Application.config.secret_token = secret
   end
@@ -58,8 +63,13 @@ module Configurator
     if Rails.env.test?
       test_configuration
     else
-      raise "Missing configuration. Run `rake init` to create basic config/security.yml
+      msg = "Missing configuration. Run `rake init` to create basic config/security.yml
             and edit it as appropriate. Or set the environment variables."
+      if Quails.env.rake?
+        STDERR.puts msg
+      else
+        raise msg
+      end
     end
   end
 
