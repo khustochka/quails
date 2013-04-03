@@ -22,6 +22,7 @@ gem 'flickraw', '~> 0.9.5', require: false
 gem 'flickraw-cached'
 gem 'livejournal'
 gem 'hashie'
+gem 'addressable', require: 'addressable/uri'
 gem 'roman-numerals'
 gem 'rinku'
 

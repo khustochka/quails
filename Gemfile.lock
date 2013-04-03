@@ -188,6 +188,7 @@ PLATFORMS
 DEPENDENCIES
   RedCloth
   activerecord-jdbcpostgresql-adapter
+  addressable
   airbrake
   capybara (~> 2.0)
   capybara-webkit
