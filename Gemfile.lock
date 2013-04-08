@@ -138,6 +138,7 @@ GEM
       minitest (>= 2.12, < 5.0)
       powerbar
     multi_json (1.7.2)
+    newrelic_rpm (3.6.0.78)
     nokogiri (1.5.9)
     pg (0.15.0)
     poltergeist (1.1.0)
@@ -234,6 +235,7 @@ DEPENDENCIES
   launchy
   livejournal
   minitest-reporters
+  newrelic_rpm
   nokogiri
   pg
   poltergeist
