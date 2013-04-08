@@ -21,14 +21,8 @@ GIT
       railties (>= 3.1, < 4.1)
 
 GIT
-  remote: git://github.com/rails/rails-observers.git
-  revision: 25ad85c3029b8c78bb984b2c968e2b98bdcc2dff
-  specs:
-    rails-observers (0.1.1)
-
-GIT
   remote: git://github.com/rails/rails.git
-  revision: a92814b001d93f8ef533e692011bbc8824841bf7
+  revision: 0d8a76d8d4930c142193816def09b96be26e30da
   specs:
     actionmailer (4.0.0.beta1)
       actionpack (= 4.0.0.beta1)
@@ -160,6 +154,8 @@ GEM
       rack (>= 1.0)
     rails-i18n (0.7.3)
       i18n (~> 0.5)
+    rails-observers (0.1.1)
+      railties (~> 4.0.0.beta)
     rails3-generators (1.0.0)
       railties (>= 3.0.0)
     raindrops (0.10.0)
@@ -243,7 +239,7 @@ DEPENDENCIES
   poltergeist
   rails!
   rails-i18n
-  rails-observers!
+  rails-observers
   rails3-generators
   rails3_serve_static_assets!
   rails_log_stdout!
