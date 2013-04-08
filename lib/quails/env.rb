@@ -11,6 +11,10 @@ module Quails
       super
     end
 
+    def rake?
+      defined?(Rake)
+    end
+
     def method_missing(method, *args, &block)
       if /^(?<attr>.*)\?$/ =~ method.to_s
         @arr.include?(attr)

@@ -11,10 +11,14 @@ Quails::Application.configure do
 
   # Show full error reports and disable caching.
   config.consider_all_requests_local       = true
-  config.action_controller.perform_caching = ENV['DEV_CACHING'] || false
-
-  # Clear cache if necessary
-  FileUtils.rm_rf(Dir['tmp/cache/[^.]*']) if ENV['DEV_CACHING']
+  if ENV['DEV_CACHING']
+    # Clear cache
+    FileUtils.rm_rf(Dir['tmp/cache/[^.]*'])
+    config.action_controller.perform_caching = true
+  else
+    config.action_controller.perform_caching = false
+    config.cache_store = :null_store
+  end
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false

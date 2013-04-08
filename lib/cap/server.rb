@@ -18,7 +18,9 @@ namespace :deploy do
     Restart server
   DESC
   task :restart, :roles => :app do
-    run "sudo service #{fetch(:service)} upgrade"
+    stop
+    start
+    #run "sudo service #{fetch(:service)} upgrade"
     #stream "tail -f #{current_path}/log/unicorn.log"
   end
 

@@ -46,6 +46,14 @@ class PostsControllerTest < ActionController::TestCase
     assert_select ".comment_box h6.name", text: comment.name
   end
 
+  test "sanitize user web page URL in the comment" do
+    comment = create(:comment, url: "javascript:alert('1')", name: 'Vasya')
+    get :show, comment.post.to_url_params
+    assert_response :success
+    assert_select ".comment_box h6.name", text: comment.name
+    assert_select ".comment_box h6.name a", 0
+  end
+
   # TODO: Unreliable test?
   test "species list in the post properly ordered" do
     # Dummy swap of two species

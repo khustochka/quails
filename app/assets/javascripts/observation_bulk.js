@@ -18,7 +18,7 @@
 $(function () {
     var form = $('form#bulk_observ_form[data-remote]'),
 
-        options_list = $('.obs-row select.sp-suggest').children("option");
+        options_list = $('.obs-row:first select.sp-suggest').children("option");
 
     var cnt = 1;
 

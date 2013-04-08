@@ -16,6 +16,15 @@ class Locus < ActiveRecord::Base
 
   has_many :local_species
 
+  after_save do
+    Rails.cache.delete_matched(/subregion_ids/)
+  end
+
+  after_save do
+    Rails.cache.delete_matched(/subregion_ids/)
+  end
+
+
   # Parameters
 
   def to_param
@@ -45,9 +54,10 @@ class Locus < ActiveRecord::Base
   end
 
   def subregion_ids
-    # WARNING: PostgreSQL specific syntax
-    # Learnt from: http://blog.hashrocket.com/posts/recursive-sql-in-activerecord
-    query = <<-SQL
+    Rails.cache.fetch("subregion_ids/#{self.slug}") do
+      # WARNING: PostgreSQL specific syntax
+      # Learnt from: http://blog.hashrocket.com/posts/recursive-sql-in-activerecord
+      query = <<-SQL
       WITH RECURSIVE subregions(id) AS (
         SELECT id
         FROM loci
@@ -57,9 +67,10 @@ class Locus < ActiveRecord::Base
         FROM loci JOIN subregions ON loci.parent_id = subregions.id
       )
       SELECT * FROM subregions
-    SQL
+      SQL
 
-    Locus.connection.select_rows(query, "Locus Load").map! { |a| a[0].to_i }.push(self.id)
+      Locus.connection.select_rows(query, "Locus Load").map! { |a| a[0].to_i }.push(self.id)
+    end
   end
 
   def country
