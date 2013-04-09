@@ -1,6 +1,8 @@
 class Observation < ActiveRecord::Base
   include FormattedModel
 
+  belongs_to :card
+
   belongs_to :species
   belongs_to :locus
   belongs_to :post, select: [:id, :slug, :face_date, :title, :status]
