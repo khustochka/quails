@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130403154417) do
+ActiveRecord::Schema.define(:version => 20130409101213) do
 
   create_table "books", :force => true do |t|
     t.string "slug",        :limit => 32, :null => false
@@ -105,21 +105,17 @@ ActiveRecord::Schema.define(:version => 20130403154417) do
   add_index "loci", ["slug"], :name => "index_loci_on_slug", :unique => true
 
   create_table "observations", :force => true do |t|
-    t.integer "species_id",                     :null => false
-    t.integer "locus_id",                       :null => false
-    t.date    "observ_date",                    :null => false
+    t.integer "species_id",                    :null => false
     t.string  "quantity"
     t.string  "biotope"
     t.string  "place"
     t.string  "notes"
-    t.boolean "mine",        :default => true,  :null => false
+    t.boolean "mine",       :default => true,  :null => false
     t.integer "post_id"
-    t.boolean "voice",       :default => false, :null => false
+    t.boolean "voice",      :default => false, :null => false
     t.integer "card_id"
   end
 
-  add_index "observations", ["locus_id"], :name => "index_observations_on_locus_id"
-  add_index "observations", ["observ_date"], :name => "index_observations_on_observ_date"
   add_index "observations", ["post_id"], :name => "index_observations_on_post_id"
   add_index "observations", ["species_id"], :name => "index_observations_on_species_id"
 

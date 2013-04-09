@@ -4,7 +4,6 @@ class Observation < ActiveRecord::Base
   belongs_to :card
 
   belongs_to :species
-  belongs_to :locus
   belongs_to :post, select: [:id, :slug, :face_date, :title, :status]
   has_and_belongs_to_many :images
   has_many :spots
@@ -12,6 +11,8 @@ class Observation < ActiveRecord::Base
   attr_accessor :one_of_bulk
 
   DEFAULT_BIOTOPES = %w(open building garden water park bush woods)
+
+  delegate :observ_date, :locus, :locus_id, to: :card
 
   before_destroy do
     if images.present?
