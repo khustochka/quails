@@ -60,7 +60,7 @@ gem 'factory_girl_rails', '~> 4.0', groups: [:development, :test]
 group :test do
   gem 'minitest-reporters'
   gem 'ruby-prof', require: false, platforms: [:mri, :mingw]
-  gem 'capybara', '~> 2.0'
+  gem 'capybara', '~> 2.0.3'
   gem 'capybara-webkit', platforms: [:mri], require: false
   gem 'poltergeist', platforms: [:mri], require: false
   gem 'database_cleaner', require: false
