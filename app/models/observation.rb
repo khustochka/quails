@@ -12,8 +12,6 @@ class Observation < ActiveRecord::Base
 
   DEFAULT_BIOTOPES = %w(open building garden water park bush woods)
 
-  delegate :observ_date, :locus, :locus_id, to: :card
-
   before_destroy do
     if images.present?
       raise ActiveRecord::DeleteRestrictionError.new(self.class.reflections[:images])
@@ -24,7 +22,7 @@ class Observation < ActiveRecord::Base
     Observation.biotopes(true) # refresh the cached biotopes list
   end
 
-  validates :observ_date, :locus_id, :species_id, :biotope, :presence => true
+  validates :species_id, :biotope, :presence => true
 
   # Scopes
 
