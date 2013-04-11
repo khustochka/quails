@@ -8,8 +8,6 @@ class Image < ActiveRecord::Base
   has_many :spots, :through => :observations
   belongs_to :spot
 
-  delegate :observ_date, :locus, :locus_id, :to => :first_observation
-
   serialize :flickr_data, Hash
 
   # Callbacks
@@ -49,6 +47,12 @@ class Image < ActiveRecord::Base
 
   def post(posts_source)
     posts_source.find_by_id(first_observation.post_id)
+  end
+
+  delegate :observ_date, :locus, :locus_id, :to => :card
+
+  def card
+    first_observation.card
   end
 
   # Instance methods

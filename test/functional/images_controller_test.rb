@@ -18,8 +18,8 @@ class ImagesControllerTest < ActionController::TestCase
   test "show photos of multiple species" do
     sp1 = seed(:lancol)
     sp2 = seed(:jyntor)
-    obs1 = create(:observation, species: sp1, observ_date: "2008-07-01")
-    obs2 = create(:observation, species: sp2, observ_date: "2008-07-01")
+    obs1 = create(:observation, species: sp1, card: create(:card, observ_date: "2008-07-01"))
+    obs2 = create(:observation, species: sp2, card: create(:card, observ_date: "2008-07-01"))
     img = create(:image, slug: 'picture-of-the-shrike-and-the-wryneck', observations: [obs1, obs2])
 
     get :multiple_species
@@ -79,8 +79,8 @@ class ImagesControllerTest < ActionController::TestCase
 
   test "do not save image with conflicting observations" do
     login_as_admin
-    obs2 = create(:observation, locus: seed(:kiev))
-    obs3 = create(:observation, locus: seed(:brovary))
+    obs2 = create(:observation, card: create(:card, locus: seed(:kiev)))
+    obs3 = create(:observation, card: create(:card, locus: seed(:brovary)))
     new_attr = @image.attributes.dup
     new_attr['slug'] = 'new_img_slug'
     assert_difference('Image.count', 0) do
