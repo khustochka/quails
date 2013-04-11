@@ -20,8 +20,10 @@
   %tr
     %th.align-right ID
     %th= link_to_unless_current('Species ⇓', significant_params.merge({:sort => 'species.index_num', :page => nil}))
-    %th Location
-    %th.align-center= link_to_unless_current('Date ⇓', significant_params.merge({:sort => :observ_date, :page => nil}))
+    %th.align-center
+      Location,
+      %br
+      = link_to_unless_current('Date ⇓', significant_params.merge({:sort => 'observ_date,locus_id', :page => nil}))
     %th Quantity
     %th Biotope
     %th Place
@@ -34,8 +36,10 @@
     %tr
       %td.align-right= link_to observation.id, edit_observation_path(observation)
       %td.nowrap= name_sci(observation.species)
-      %td= observation.locus.name || observation.locus.slug
-      %td.align-center.nowrap= observation.observ_date
+      %td.align-center
+        = observation.observ_date
+        %br
+        %small= observation.locus.name || observation.locus.slug
       %td= observation.quantity
       %td= observation.biotope
       %td= observation.place
