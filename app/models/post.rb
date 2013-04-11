@@ -18,8 +18,9 @@ class Post < ActiveRecord::Base
   has_many :comments, :dependent => :destroy
   has_many :observations, :dependent => :nullify
   has_many :species, :through => :observations, :order => [:index_num], :uniq => true
-  has_many :images, :through => :observations, :include => [:species],
-           :order => 'observations.observ_date, observations.locus_id, images.index_num, species.index_num'
+  # FIXME: turn back ordering
+  has_many :images, :through => :observations, :include => [:species]
+           #:order => 'observations.observ_date, observations.locus_id, images.index_num, species.index_num'
 
   # Convert "timezone-less" face_date to local time zone because AR treats it as UTC (especially necessary for feed updated time)
   def face_date
