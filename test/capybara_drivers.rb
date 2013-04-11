@@ -19,6 +19,6 @@ if env_js_driver.blank?
   rescue LoadError
     # Use selenium
   end
-else
+elsif env_js_driver.to_s != 'selenium'
   load_driver(env_js_driver)
 end

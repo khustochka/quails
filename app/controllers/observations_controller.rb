@@ -120,7 +120,7 @@ class ObservationsController < ApplicationController
     end
     observs =
         params[:q] && params[:q].delete_if { |_, v| v.empty? }.present? ?
-            Observation.search(params[:q]).preload(preload_tables).order(:observ_date, :locus_id).limit(params[:limit]) :
+            Observation.search(params[:q]).joins(:species).preload(preload_tables).order(:observ_date, :locus_id, :index_num).limit(params[:limit]) :
             []
 
     respond_to do |format|
