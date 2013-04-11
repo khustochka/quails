@@ -60,7 +60,7 @@ class ImageObservValidationTest < ActiveSupport::TestCase
 
   test 'excludes duplicated observation (existing) on image update' do
     new_attr = @image.attributes
-    obs = create(:observation)
+    obs = create(:observation, card: @obs.card)
     assert @image.update_with_observations(new_attr, [@obs.id, @obs.id, obs.id])
     assert_empty @image.errors
     assert_equal 2, @image.observation_ids.count
@@ -68,15 +68,15 @@ class ImageObservValidationTest < ActiveSupport::TestCase
 
   test 'excludes duplicated observation (new) on image update' do
     new_attr = @image.attributes
-    obs = create(:observation)
+    obs = create(:observation, card: @obs.card)
     assert @image.update_with_observations(new_attr, [@obs.id, obs.id, obs.id])
     assert_empty @image.errors
     assert_equal 2, @image.observation_ids.count
   end
 
   test 'does not create image with inconsistent observations (different date)' do
-    obs1 = create(:observation, observ_date: '2011-01-01')
-    obs2 = create(:observation, observ_date: '2010-01-01')
+    obs1 = create(:observation, card: create(:card, observ_date: '2011-01-01'))
+    obs2 = create(:observation, card: create(:card, observ_date: '2010-01-01'))
     new_attr = build(:image).attributes
     img = Image.new
     assert_difference('Image.count', 0) do
@@ -86,8 +86,8 @@ class ImageObservValidationTest < ActiveSupport::TestCase
   end
 
   test 'does not create image with inconsistent observations (different loc)' do
-    obs1 = create(:observation, locus: seed(:kiev))
-    obs2 = create(:observation, locus: seed(:krym))
+    obs1 = create(:observation, card: create(:card, locus: seed(:kiev)))
+    obs2 = create(:observation, card: create(:card, locus: seed(:krym)))
     new_attr = build(:image).attributes
     img = Image.new
     assert_difference('Image.count', 0) do
@@ -108,16 +108,16 @@ class ImageObservValidationTest < ActiveSupport::TestCase
   end
 
   test 'does not update image with inconsistent observations' do
-    obs1 = create(:observation, observ_date: '2011-01-01')
-    obs2 = create(:observation, observ_date: '2010-01-01')
+    obs1 = create(:observation, card: create(:card, observ_date: '2011-01-01'))
+    obs2 = create(:observation, card: create(:card, observ_date: '2010-01-01'))
     new_attr = @image.attributes
     assert_false @image.update_with_observations(new_attr, [obs1.id, obs2.id])
     assert_present @image.errors
   end
 
   test 'preserves changed values if image failed to update with inconsistent observations' do
-    obs1 = create(:observation, observ_date: '2011-01-01')
-    obs2 = create(:observation, observ_date: '2010-01-01')
+    obs1 = create(:observation, card: create(:card, observ_date: '2011-01-01'))
+    obs2 = create(:observation, card: create(:card, observ_date: '2010-01-01'))
     new_attr = build(:image, slug: 'newslug').attributes
     assert_false @image.update_with_observations(new_attr, [obs1.id, obs2.id])
     assert_present @image.errors

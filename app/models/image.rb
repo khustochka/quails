@@ -141,7 +141,7 @@ class Image < ActiveRecord::Base
     observations[0]
   end
 
-  COMMON_OBSERVATION_ATTRIBUTES = %w(observ_date locus_id mine)
+  COMMON_OBSERVATION_ATTRIBUTES = %w(card_id mine)
 
   def validate_observations(observ_ids)
     obs = Observation.where(:id => observ_ids)
