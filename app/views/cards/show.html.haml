@@ -1,6 +1,11 @@
+- @page_title = "#{@card.observ_date}, #{@card.locus.name}"
+
+%h1= page_header
+
+= render 'admin/shortcuts' if current_user.admin?
+
 %p#notice= notice
 
-
-= link_to 'Edit', edit_card_path(@card)
-\|
-= link_to 'Back', cards_path
+%ol
+  - @card.observations.each do |obs|
+    %li= species_link(obs.species)

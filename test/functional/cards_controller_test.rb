@@ -3,6 +3,7 @@ require 'test_helper'
 class CardsControllerTest < ActionController::TestCase
   setup do
     @card = create(:card)
+    login_as_admin
   end
 
   test "should get index" do

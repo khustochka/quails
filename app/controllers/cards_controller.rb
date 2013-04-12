@@ -1,8 +1,11 @@
 class CardsController < ApplicationController
+
+  administrative
+
   # GET /cards
   # GET /cards.json
   def index
-    @cards = Card.all
+    @cards = Card.order('observ_date DESC').preload(:locus).page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -27,7 +30,7 @@ class CardsController < ApplicationController
     @card = Card.new
 
     respond_to do |format|
-      format.html # new.html.erb
+      format.html { render :form }
       format.json { render json: @card }
     end
   end
@@ -35,6 +38,7 @@ class CardsController < ApplicationController
   # GET /cards/1/edit
   def edit
     @card = Card.find(params[:id])
+    render :form
   end
 
   # POST /cards

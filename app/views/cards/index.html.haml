@@ -1,17 +1,15 @@
-%h1 Listing cards
+- @page_title = 'Cards'
 
-%table
-  %tr
-    %th
-    %th
-    %th
+%h1= page_header
 
-  - @cards.each do |card|
-    %tr
-      %td= link_to 'Show', card
-      %td= link_to 'Edit', edit_card_path(card)
-      %td= link_to 'Destroy', card, :method => :delete, :data => { :confirm => 'Are you sure?' }
+= render 'admin/shortcuts' if current_user.admin?
 
-%br
+- @cards.each do |card|
+  %div.observ_card
+    = card.observ_date
+    = card.locus.name
+    = link_to 'Show', card
+    = link_to 'Edit', edit_card_path(card)
+    = link_to 'Destroy', card, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
-= link_to 'New Card', new_card_path
+= paginate @cards
