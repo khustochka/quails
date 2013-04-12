@@ -90,6 +90,8 @@ Quails::Application.routes.draw do
     post :lj_post, on: :member
   end
 
+  resources :cards
+
   resources :observations do
     collection do
       get 'search(/:with_spots)', action: :search, with_spots: /with_spots/
