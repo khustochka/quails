@@ -28,6 +28,7 @@ class CardsController < ApplicationController
   # GET /cards/new.json
   def new
     @card = Card.new
+    10.times { @card.observations.build }
 
     respond_to do |format|
       format.html { render :form }
