@@ -22,7 +22,7 @@ class Observation < ActiveRecord::Base
     Observation.biotopes(true) # refresh the cached biotopes list
   end
 
-  validates :species_id, :biotope, :presence => true
+  validates :species_id, :presence => true
 
   # Scopes
 

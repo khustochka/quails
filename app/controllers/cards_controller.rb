@@ -39,6 +39,7 @@ class CardsController < ApplicationController
   # GET /cards/1/edit
   def edit
     @card = Card.find(params[:id])
+    @card.observations.build
     render :form
   end
 
@@ -52,7 +53,7 @@ class CardsController < ApplicationController
         format.html { redirect_to @card, notice: 'Card was successfully created.' }
         format.json { render json: @card, status: :created, location: @card }
       else
-        format.html { render action: "new" }
+        format.html { render :form }
         format.json { render json: @card.errors, status: :unprocessable_entity }
       end
     end
@@ -68,7 +69,7 @@ class CardsController < ApplicationController
         format.html { redirect_to @card, notice: 'Card was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render action: "edit" }
+        format.html { render :form }
         format.json { render json: @card.errors, status: :unprocessable_entity }
       end
     end

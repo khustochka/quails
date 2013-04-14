@@ -25,6 +25,15 @@ class CardsControllerTest < ActionController::TestCase
     assert_redirected_to card_path(assigns(:card))
   end
 
+  test "create card with observations" do
+    observ_attrs = [{species_id: 2}, {species_id: 4}, {species_id: 6}]
+    assert_difference('Observation.count', 3) do
+      post :create, card: attributes_for(:card).merge(observations_attributes: observ_attrs)
+    end
+
+    assert_redirected_to card_path(assigns(:card))
+  end
+
   test "should show card" do
     get :show, id: @card
     assert_response :success

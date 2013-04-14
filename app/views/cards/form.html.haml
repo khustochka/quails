@@ -31,20 +31,19 @@
   = form.input :with_me, label: 'With me'
   = form.input :notes, input_html: {rows: 7}
 
-  - @card.observations.each do |obs|
+  = form.simple_fields_for :observations do |form2|
     %div.obs-row
-      = simple_fields_for obs do |form2|
-        = form2.input :id, as: :string,
-            input_html: {readonly: true, disabled: true, class: :id_field}
-        = form2.association :species, label: 'Species:', collection: species_for_select,
-            include_blank: false, input_html: {class: 'sp-suggest'}
-        = form2.input :quantity, label: 'Quantity:', input_html: {class: :short}
-        = form2.input :notes, label: 'Notes:'
-        %div.input.boolean
-          = check_box_tag 'o[][voice]', '1', obs.voice, id: 'observation_voice', class: 'boolean'
-          %label.boolean{:for => 'observation_voice'} Voice?
-        -#= form2.input :voice, label: 'Voice?', input_html: {name: 'o[][voice]'}
-        = form2.input :place, label: 'Place:'
+      = form2.input :id, as: :string,
+          input_html: {readonly: true, disabled: true, class: :id_field}
+      = form2.association :species, label: 'Species:', collection: species_for_select,
+          include_blank: true, required: false, input_html: {class: 'sp-suggest'}
+      = form2.input :quantity, label: 'Quantity:', input_html: {class: :short}
+      = form2.input :notes, label: 'Notes:'
+      -#%div.input.boolean
+      -#  = check_box_tag nil, '1', obs.voice, id: 'observation_voice', class: 'boolean'
+      -#  %label.boolean{:for => 'observation_voice'} Voice?
+      = form2.input :voice, label: 'Voice?'
+      = form2.input :place, label: 'Place:'
 
   .buttons
     = default_submit_button(form)
