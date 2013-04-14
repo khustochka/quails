@@ -70,7 +70,7 @@ function handleClick(event, container, options) {
     return
 
   // Ignore cross origin links
-  if ( location.protocol !== link.protocol || location.host !== link.host )
+  if ( location.protocol !== link.protocol || location.hostname !== link.hostname )
     return
 
   // Ignore anchors on the same page
@@ -271,10 +271,6 @@ function pjax(options) {
     if (typeof options.scrollTo === 'number')
       $(window).scrollTop(options.scrollTo)
 
-    // Google Analytics support
-    if ( (options.replace || options.push) && window._gaq )
-      _gaq.push(['_trackPageview'])
-
     // If the URL has a hash in it, make sure the browser
     // knows to navigate to the hash.
     if ( hash !== '' ) {
@@ -373,6 +369,11 @@ var initialState = window.history.state
 // session history.
 if (initialState && initialState.container) {
   pjax.state = initialState
+}
+
+// Non-webkit browsers don't fire an initial popstate event
+if ('state' in window.history) {
+  initialPop = false
 }
 
 // popstate handler takes care of the back and forward buttons
