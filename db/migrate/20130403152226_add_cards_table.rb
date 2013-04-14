@@ -1,7 +1,7 @@
 class AddCardsTable < ActiveRecord::Migration
   def change
 
-    create_table "cards" do |t|
+    create_table "cards", force: true do |t|
       t.date "observ_date", null: false
       t.integer "locus_id", null: false
 
