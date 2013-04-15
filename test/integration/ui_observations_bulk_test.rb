@@ -30,7 +30,6 @@ class UIObservationsBulkTest < ActionDispatch::IntegrationTest
     select_suggestion('Brovary', from: 'Location')
     fill_in('Date', with: '2011-04-08')
     select_suggestion('- Avis incognita', from: 'Species')
-    select_suggestion 'park', from: 'Biotope'
     assert_difference('Observation.count', 1) { save_and_check }
     assert_equal 0, Observation.order('id DESC').limit(1).first.species_id
   end
@@ -47,13 +46,11 @@ class UIObservationsBulkTest < ActionDispatch::IntegrationTest
 
     within(:xpath, "//div[contains(@class,'obs-row')][1]") do
       select_suggestion('Crex crex', from: 'Species')
-      select_suggestion 'park', from: 'Biotope'
-    end
+      end
 
     within(:xpath, "//div[contains(@class,'obs-row')][2]") do
       select_suggestion('Falco tinnunculus', from: 'Species')
-      select_suggestion 'park', from: 'Biotope'
-    end
+      end
 
     assert_difference('Observation.count', 2) { save_and_check }
   end
@@ -75,13 +72,11 @@ class UIObservationsBulkTest < ActionDispatch::IntegrationTest
 
     within(:xpath, "//div[contains(@class,'obs-row')][1]") do
       select_suggestion('Crex crex', from: 'Species')
-      select_suggestion 'park', from: 'Biotope'
-    end
+      end
 
     within(:xpath, "//div[contains(@class,'obs-row')][2]") do
       select_suggestion('Falco tinnunculus', from: 'Species')
-      select_suggestion 'park', from: 'Biotope'
-    end
+      end
 
     assert_difference('Observation.count', 2) { save_and_check }
 
@@ -106,8 +101,7 @@ class UIObservationsBulkTest < ActionDispatch::IntegrationTest
 
     within(:xpath, "//div[contains(@class,'obs-row')][1]") do
       select_suggestion('Crex crex', from: 'Species')
-      select_suggestion 'park', from: 'Biotope'
-    end
+      end
 
     save_and_check
 
@@ -131,8 +125,7 @@ class UIObservationsBulkTest < ActionDispatch::IntegrationTest
 
     within(:xpath, "//div[contains(@class,'obs-row')][1]") do
       select_suggestion('Crex crex', from: 'Species')
-      select_suggestion 'park', from: 'Biotope'
-    end
+      end
 
     save_and_check
 
@@ -158,8 +151,7 @@ class UIObservationsBulkTest < ActionDispatch::IntegrationTest
 
     within(:xpath, "//div[contains(@class,'obs-row')][1]") do
       select_suggestion('Crex crex', from: 'Species')
-      select_suggestion 'park', from: 'Biotope'
-    end
+      end
 
     assert_difference('Observation.count', 1) { save_and_check }
 
@@ -172,8 +164,7 @@ class UIObservationsBulkTest < ActionDispatch::IntegrationTest
 
     within(:xpath, "//div[contains(@class,'obs-row')][2]") do
       select_suggestion('Falco tinnunculus', from: 'Species')
-      select_suggestion 'park', from: 'Biotope'
-    end
+      end
 
     assert_difference('Observation.count', 1) { save_and_check }
 
@@ -236,19 +227,16 @@ class UIObservationsBulkTest < ActionDispatch::IntegrationTest
 
     within(:xpath, "//div[contains(@class,'obs-row')][1]") do
       select_suggestion('Dryocopus martius', from: 'Species')
-      select_suggestion 'park', from: 'Biotope'
-    end
+      end
 
     within(:xpath, "//div[contains(@class,'obs-row')][2]") do
       select_suggestion('Crex crex', from: 'Species')
-      select_suggestion 'park', from: 'Biotope'
-      check 'Voice?'
+        check 'Voice?'
     end
 
     within(:xpath, "//div[contains(@class,'obs-row')][3]") do
       select_suggestion('Falco tinnunculus', from: 'Species')
-      select_suggestion 'park', from: 'Biotope'
-    end
+      end
 
     assert_difference('Observation.count', 3) { save_and_check }
 

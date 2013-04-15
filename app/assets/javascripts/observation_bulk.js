@@ -13,7 +13,6 @@
 //= require jquery_ujs
 //= require jquery-ui.custom
 //= require suggest_over_combo
-//= require biotopes
 
 $(function () {
     var form = $('form#bulk_observ_form[data-remote]'),
@@ -36,7 +35,6 @@ $(function () {
             });
         }
         suggest.combobox();
-        $("#observation_biotope", row).biotope();
         cnt++;
         refreshSubmitAbility();
         return false;
@@ -120,7 +118,6 @@ $(function () {
 
     var sample_row = $('.obs-row:last').detach();
     $('.sp-suggest').combobox();
-    $('#observation_biotope', '.obs-row').biotope();
     refreshSubmitAbility();
 
     $('#add-row').click(addNewRow);

@@ -4,7 +4,7 @@
 
 $(function () {
   // default timeout is causing page reload on heavy pages, like lifelist
-  $('.main').pjax('.filter-list a, table#lifelist th a');
+  $('.main').pjax('.filter-list a:not(.advanced), table#lifelist th a');
 
   showSpinner(function (event) {
     var link = $(event.relatedTarget);

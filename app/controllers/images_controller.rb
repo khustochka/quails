@@ -13,7 +13,7 @@ class ImagesController < ApplicationController
   # Latest additions
   def index
     redirect_to page: nil if params[:page].to_i == 1
-    @images = Image.preload(:species).order('created_at DESC').page(params[:page].to_i).per(20)
+    @images = Image.preload(:species).order('created_at DESC').page(params[:page].to_i).per(24)
     @feed = 'photos'
   end
 

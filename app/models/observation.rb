@@ -10,16 +10,10 @@ class Observation < ActiveRecord::Base
 
   attr_accessor :one_of_bulk
 
-  DEFAULT_BIOTOPES = %w(open building garden water park bush woods)
-
   before_destroy do
     if images.present?
       raise ActiveRecord::DeleteRestrictionError.new(self.class.reflections[:images])
     end
-  end
-
-  after_commit :unless => :one_of_bulk do
-    Observation.biotopes(true) # refresh the cached biotopes list
   end
 
   validates :species_id, :presence => true
@@ -43,16 +37,6 @@ class Observation < ActiveRecord::Base
 
   def self.search(conditions = {})
     SearchModel.new(self, conditions)
-  end
-
-  # Get data
-
-  def self.biotopes(refresh = false)
-    if @biotopes && !refresh
-      @biotopes
-    else
-      @biotopes = uniq.pluck(:biotope) | DEFAULT_BIOTOPES
-    end
   end
 
   # Species
