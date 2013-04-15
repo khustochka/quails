@@ -103,7 +103,7 @@ class ObservationsController < ApplicationController
   # POST /observations/bulksave.json
   # API: parameters are a hash with two keys:
   # c: hash of common options - locus_id, observ_date, mine, post_id
-  # o: array of hashes each having species_id, quantity, biotope, place, notes
+  # o: array of hashes each having species_id, quantity, place, notes
   def bulksave
     obs_bunch = ObservationBulk.new(params)
     obs_bunch.save
