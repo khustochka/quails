@@ -115,31 +115,31 @@ form.observation
     background-color: #fff
     color: #55A
 
-  div.obs-row
-    //display: table-row
-    div
-      display: table-cell
-      padding-left: 10px
-      padding-bottom: 10px
-    .remove
-      display: table-cell
-      padding: 18px 10px 10px 10px
-    .id_field
-      width: 50px
-      background-color: #ddd
+div.obs-row
+  //display: table-row
+  div
+    display: table-cell
+    padding-left: 10px
+    padding-bottom: 10px
+  .remove
+    display: table-cell
+    padding: 18px 10px 10px 10px
+  input.id_field
+    width: 50px
+    background-color: #ddd
 
-  // Refactor?
-  div.obs-row
-    margin-bottom: 3px
-    @include inline-block
-    #observation_place, #observation_notes
-      font-size: 13px
-      padding: 2px 0 4px 2px
+// Refactor?
+div.obs-row
+  margin-bottom: 3px
+  @include inline-block
+  #observation_place, #observation_notes
+    font-size: 13px
+    padding: 2px 0 4px 2px
 
-  div.obs-row.save-success
-    background-color: #ccffcc
-  div.obs-row.save-fail
-    background-color: #ffcccc
+div.obs-row.save-success
+  background-color: #ccffcc
+div.obs-row.save-fail
+  background-color: #ffcccc
 
 // Images
 table.with_search

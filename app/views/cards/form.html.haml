@@ -36,7 +36,7 @@
   = form.simple_fields_for :observations do |form2|
     %div.obs-row
       = form2.input :id, as: :string,
-          input_html: {readonly: true, disabled: true, class: :id_field}
+          input_html: {readonly: true, class: :id_field}
       = form2.association :species, label: 'Species:', collection: species_for_select,
           include_blank: true, required: false, input_html: {class: 'sp-suggest'}
       = form2.input :quantity, label: 'Quantity:', input_html: {class: :short}
