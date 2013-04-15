@@ -17,11 +17,14 @@ body
 .main
   margin: auto
   //margin-top: 80px
-  max-width: 896px
+  max-width: $main-width
 
-body.fullwidth
+body.wider
   .main
-    max-width: 100%
+    max-width: $main-width * 1.25
+
+  #menucontainer
+    max-width: $main-width * 1.25
 
 // Footer
 
