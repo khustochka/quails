@@ -112,7 +112,7 @@ $(function () {
             .appendTo(ul);
     };
 
-    if ($('#row_tmpl').length > 0) $($('#row_tmpl').text()).insertBefore('.buttons');
+    if ($('#row_tmpl').length > 0) $($.parseHTML($('#row_tmpl').text())).insertBefore('.buttons');
     $('.obs-row').
         append($("<span class='remove'><img src='/img/x_14x14.png' title='Remove'></span>"));
 
