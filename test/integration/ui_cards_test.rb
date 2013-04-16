@@ -36,4 +36,20 @@ class UICardsTest < ActionDispatch::IntegrationTest
     assert_difference('Observation.count', 2) { click_button 'Save' }
   end
 
+  test "Create card, add new row with observation and save" do
+    login_as_admin
+    visit new_card_path
+
+    select('Brovary', from: 'Location')
+    fill_in('Date', with: '2011-04-08')
+
+    find(:xpath, "//a[text()='Add new row']").click
+
+    within(:xpath, "//div[contains(@class,'obs-row')][11]") do
+      select('Crex crex', from: 'Species')
+    end
+
+    assert_difference('Observation.count', 1) { click_button 'Save' }
+  end
+
 end
