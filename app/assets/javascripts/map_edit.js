@@ -27,7 +27,7 @@ $(function () {
     }
 
     function closeInfoWindows() {
-        var infowindow = theMap.gmap3({action:'get', name:'infowindow'});
+        var infowindow = theMap.gmap3({action: 'get', name: 'infowindow'});
         if (infowindow) infowindow.close();
     }
 
@@ -52,20 +52,20 @@ $(function () {
             return($.map(this.spots, function (spot, i) {
                 spotsStore[spot.id] = spot;
                 return {
-                    lat:spot.lat,
-                    lng:spot.lng,
-                    tag:spot.observation_id,
-                    data:{id:spot.id},
-                    options:{title:hoverText}
+                    lat: spot.lat,
+                    lng: spot.lng,
+                    tag: spot.observation_id,
+                    data: {id: spot.id},
+                    options: {title: hoverText}
                 }
             }));
         });
 
         $('#googleMap').gmap3(
             'clear',
-            { action:'addMarkers',
-                markers:marks,
-                marker:DEFAULT_MARKER_OPTIONS
+            { action: 'addMarkers',
+                markers: marks,
+                marker: DEFAULT_MARKER_OPTIONS
             },
             'autofit' // Zooms and moves to see all markers
         );
@@ -102,12 +102,12 @@ $(function () {
     // TODO: add shadow?
 
     var DEFAULT_MARKER_OPTIONS = {
-        options:{
-            draggable:true,
-            icon:GRAY_ICON
+        options: {
+            draggable: true,
+            icon: GRAY_ICON
         },
-        events:{
-            click:function (marker, event, data) {
+        events: {
+            click: function (marker, event, data) {
                 var newForm = spotForm.clone(),
                     wndContent,
                     selectedObs = $('li.selected_obs'),
@@ -138,14 +138,14 @@ $(function () {
                 wndContent = newForm.html();
 
                 theMap.gmap3({
-                    action:'addInfoWindow',
-                    anchor:marker,
-                    options:{
-                        content:wndContent
+                    action: 'addInfoWindow',
+                    anchor: marker,
+                    options: {
+                        content: wndContent
                     }
                 });
             },
-            dragstart:function (marker, event, data) {
+            dragstart: function (marker, event, data) {
                 closeInfoWindows();
                 var selected = $('li.selected_obs'),
                     spotData = spotsStore[data.id];
@@ -153,16 +153,16 @@ $(function () {
                     observCollection[spotData.observation_id].click();
                 }
             },
-            dragend:function (marker, event, data) {
+            dragend: function (marker, event, data) {
                 var spotData = spotsStore[data.id];
                 $.post(
                     $('form', spotForm).attr('action'),
-                    {spot:{
-                        id:data.id,
-                        lat:marker.getPosition().lat(),
-                        lng:marker.getPosition().lng(),
+                    {spot: {
+                        id: data.id,
+                        lat: marker.getPosition().lat(),
+                        lng: marker.getPosition().lng(),
                         // Change zoom only if it was increased
-                        zoom:Math.max(spotData.zoom, marker.getMap().zoom)
+                        zoom: Math.max(spotData.zoom, marker.getMap().zoom)
                     }}
                 );
             }
@@ -179,10 +179,10 @@ $(function () {
         closeInfoWindows();
 
         var activeMarkers = $('#googleMap').gmap3({
-            action:'get',
-            name:'marker',
-            all:true,
-            tag:$('.selected_obs').data('obs_id')
+            action: 'get',
+            name: 'marker',
+            all: true,
+            tag: $('.selected_obs').data('obs_id') || undefined
         });
 
         $.each(activeMarkers, function (i, marker) {
@@ -194,10 +194,10 @@ $(function () {
         $(this).addClass('selected_obs');
 
         activeMarkers = $('#googleMap').gmap3({
-            action:'get',
-            name:'marker',
-            all:true,
-            tag:$(this).data('obs_id')
+            action: 'get',
+            name: 'marker',
+            all: true,
+            tag: $(this).data('obs_id')
         });
 
         $.each(activeMarkers, function (i, marker) {
@@ -210,12 +210,12 @@ $(function () {
     // Starting hardcore map stuff
 
     theMap.gmap3({
-        action:'init',
-        options:{
-            draggableCursor:'pointer'
+        action: 'init',
+        options: {
+            draggableCursor: 'pointer'
         },
-        events:{
-            click:function (map, event) {
+        events: {
+            click: function (map, event) {
                 var newForm = spotForm.clone(),
                     wndContent,
                     selectedObs = $('li.selected_obs');
@@ -232,10 +232,10 @@ $(function () {
                     wndContent = newForm.html();
                 }
                 theMap.gmap3({
-                    action:'addInfoWindow',
-                    latLng:event.latLng,
-                    options:{
-                        content:wndContent
+                    action: 'addInfoWindow',
+                    latLng: event.latLng,
+                    options: {
+                        content: wndContent
                     }
                 });
             }
@@ -243,21 +243,21 @@ $(function () {
     });
 
     $(document).on('ajax:success', '#new_spot', function (e, data) {
-        var infowindow = theMap.gmap3({action:'get', name:'infowindow'}),
+        var infowindow = theMap.gmap3({action: 'get', name: 'infowindow'}),
             selectedObs = $('li.selected_obs'),
             markerOptions = jQuery.extend(true, {}, DEFAULT_MARKER_OPTIONS);
         // Add new marker only if spot_id was empty
 
         if ($('#spot_id', '#new_spot').val() == '') {
-            markerOptions['data'] = {id:data.id};
+            markerOptions['data'] = {id: data.id};
             markerOptions['tag'] = selectedObs.data('obs_id');
             markerOptions.options.icon = RED_ICON;
             markerOptions.options.title = $('div:first', selectedObs).text();
             markerOptions.options.zIndex = google.maps.Marker.MAX_ZINDEX;
             theMap.gmap3({
-                action:'addMarker',
-                latLng:[data.lat, data.lng],
-                marker:markerOptions
+                action: 'addMarker',
+                latLng: [data.lat, data.lng],
+                marker: markerOptions
             });
         }
 
@@ -267,7 +267,7 @@ $(function () {
     });
 
     $(document).on('ajax:error', '#new_spot', function (e, data) {
-       alert("Error submitting form");
+        alert("Error submitting form");
     });
 
 });
