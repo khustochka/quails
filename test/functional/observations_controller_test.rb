@@ -173,10 +173,23 @@ class ObservationsControllerTest < ActionController::TestCase
 
   test 'return observation search results that include Avis incognita' do
     login_as_admin
+    create(:observation)
     observation = create(:observation, species_id: 0)
     get :search, q: {observ_date: observation.observ_date.iso8601}
     assert_response :success
     assert_equal Mime::HTML, response.content_type
+    assert_include response.body, 'Avis incognita'
+  end
+
+  test 'return observation search results that include Avis incognita in JSON' do
+    login_as_admin
+    observation = create(:observation, species_id: 0)
+    get :search, q: {observ_date: observation.observ_date.iso8601}, format: 'json'
+    assert_response :success
+    assert_equal Mime::JSON, response.content_type
+    result = JSON.parse(response.body)
+    assert_equal 1, result.size
+    assert result.first['species_str'].include?('Avis incognita')
   end
 
   test "properly find spots" do
