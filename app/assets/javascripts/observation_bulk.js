@@ -105,14 +105,14 @@ $(function () {
             $(this).val("");
             return false;
         }
-    }).data("autocomplete")._renderItem = function (ul, item) {
+    }).data("ui-autocomplete")._renderItem = function (ul, item) {
         return $("<li></li>")
             .data("item.autocomplete", item)
             .append("<a>" + item.label + "</a>")
             .appendTo(ul);
     };
 
-    if ($('#row_tmpl').length > 0) $($('#row_tmpl').text()).insertBefore('.buttons');
+    if ($('#row_tmpl').length > 0) $($.parseHTML($('#row_tmpl').text())).insertBefore('.buttons');
     $('.obs-row').
         append($("<span class='remove'><img src='/img/x_14x14.png' title='Remove'></span>"));
 

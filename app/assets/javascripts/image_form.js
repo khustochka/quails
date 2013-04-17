@@ -90,7 +90,7 @@ $(function () {
                             },
                             "Cancel":function () {
                                 $(this).dialog("close");
-                                var originalDrag = ui.helper.data('draggable');
+                                var originalDrag = ui.helper.data('ui-draggable');
                                 // Revert mechanism taken from JQuery UI source
                                 newObs.animate(originalDrag.originalPosition, parseInt(originalDrag.options.revertDuration, 10));
                             } }});
