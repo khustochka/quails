@@ -28,7 +28,9 @@
       - [nil, :by_taxonomy].each do |sort|
         %li= link_to_or_span(t(sort || :by_date, scope: 'lists.menus.sort_option'), significant_params.merge(:sort => sort))
       %li
-        %b= link_to t('lists.menus.advanced'), significant_params.slice(:year, :locus).merge(action: :advanced)
+        %b= link_to t('lists.menus.advanced'),
+                    significant_params.slice(:year, :locus).merge(action: :advanced),
+                    class: 'advanced'
 
 
   - if @lifelist.blank?

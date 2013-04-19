@@ -103,7 +103,7 @@ class ObservationsController < ApplicationController
   # POST /observations/bulksave.json
   # API: parameters are a hash with two keys:
   # c: hash of common options - locus_id, observ_date, mine, post_id
-  # o: array of hashes each having species_id, quantity, biotope, place, notes
+  # o: array of hashes each having species_id, quantity, place, notes
   def bulksave
     obs_bunch = ObservationBulk.new(params)
     obs_bunch.save
@@ -118,9 +118,14 @@ class ObservationsController < ApplicationController
       preload_tables << :spots
       json_methods << :spots
     end
+
+    # Have to do outer join to preserve Avis incognita
     observs =
         params[:q] && params[:q].delete_if { |_, v| v.empty? }.present? ?
-            Observation.search(params[:q]).joins(:species).preload(preload_tables).order(:observ_date, :locus_id, 'species.index_num').limit(params[:limit]) :
+            Observation.search(params[:q]).
+                joins("LEFT OUTER JOIN species ON species_id = species.id").
+                preload(preload_tables).
+                order(:observ_date, :locus_id, 'species.index_num').limit(params[:limit]) :
             []
 
     respond_to do |format|

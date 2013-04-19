@@ -12,7 +12,6 @@ class UISingleObservationTest < ActionDispatch::IntegrationTest
     select('Brovary', from: 'Location')
     fill_in('Date', with: '2011-04-08')
     select('Sitta europaea', from: 'Species')
-    select 'park', from: 'Biotope'
     assert_difference('Observation.count', 1) { click_button('Save') }
     refute Observation.order('id DESC').limit(1).first.voice
   end
@@ -25,7 +24,6 @@ class UISingleObservationTest < ActionDispatch::IntegrationTest
     fill_in('Date', with: '2011-04-08')
     select('Sitta europaea', from: 'Species')
     check('Voice?')
-    select 'park', from: 'Biotope'
     assert_difference('Observation.count', 1) { click_button('Save') }
     assert Observation.order('id DESC').limit(1).first.voice
   end

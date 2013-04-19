@@ -1,7 +1,7 @@
 require 'test_helper'
 require 'capybara_helper'
 
-class UIImagesTest < ActionDispatch::IntegrationTest
+class JSImagesTest < ActionDispatch::IntegrationTest
 
   include JavaScriptTestCase
 

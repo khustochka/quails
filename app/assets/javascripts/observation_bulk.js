@@ -13,7 +13,6 @@
 //= require jquery_ujs
 //= require jquery-ui.custom
 //= require suggest_over_combo
-//= require biotopes
 
 $(function () {
     var form = $('form#bulk_observ_form[data-remote]'),
@@ -36,7 +35,6 @@ $(function () {
             });
         }
         suggest.combobox();
-        $("#observation_biotope", row).biotope();
         cnt++;
         refreshSubmitAbility();
         return false;
@@ -107,20 +105,19 @@ $(function () {
             $(this).val("");
             return false;
         }
-    }).data("autocomplete")._renderItem = function (ul, item) {
+    }).data("ui-autocomplete")._renderItem = function (ul, item) {
         return $("<li></li>")
             .data("item.autocomplete", item)
             .append("<a>" + item.label + "</a>")
             .appendTo(ul);
     };
 
-    if ($('#row_tmpl').length > 0) $($('#row_tmpl').text()).insertBefore('.buttons');
+    if ($('#row_tmpl').length > 0) $($.parseHTML($('#row_tmpl').text())).insertBefore('.buttons');
     $('.obs-row').
         append($("<span class='remove'><img src='/img/x_14x14.png' title='Remove'></span>"));
 
     var sample_row = $('.obs-row:last').detach();
     $('.sp-suggest').combobox();
-    $('#observation_biotope', '.obs-row').biotope();
     refreshSubmitAbility();
 
     $('#add-row').click(addNewRow);

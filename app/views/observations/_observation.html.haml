@@ -10,6 +10,4 @@
       = check_box_tag 'o[][voice]', '1', observation.voice, id: 'observation_voice', class: 'boolean'
       %label.boolean{:for => 'observation_voice'} Voice?
     -#= form2.input :voice, label: 'Voice?', input_html: {name: 'o[][voice]'}
-    = form2.input :biotope, as: :select, label: 'Biotope:', collection: Observation.biotopes,
-        input_html: {name: 'o[][biotope]', class: :short, required: true}
     = form2.input :place, label: 'Place:', input_html: {name: 'o[][place]'}

@@ -171,12 +171,39 @@ class ObservationsControllerTest < ActionController::TestCase
     assert_equal Mime::HTML, response.content_type
   end
 
-  test 'return observation search results that include Avis incognita' do
+  test 'return observation search results sorted by taxonomy' do
+    login_as_admin
+    # Try to create observation in random order
+    obss = [create(:observation, species: seed(:denmaj)),
+            create(:observation, species: seed(:pasdom)),
+            create(:observation, species: seed(:anacre))]
+    get :search, q: {observ_date: obss[0].observ_date.iso8601}, format: 'json'
+    assert_response :success
+    result = JSON.parse(response.body)
+    assert_equal 3, result.size
+    assert_include result[0]['species_str'], 'Anas crecca'
+    assert_include result[1]['species_str'], 'Dendrocopos major'
+    assert_include result[2]['species_str'], 'Passer domesticus'
+  end
+
+  test 'return observation search results that include Avis incognita in HTML' do
     login_as_admin
     observation = create(:observation, species_id: 0)
     get :search, q: {observ_date: observation.observ_date.iso8601}
     assert_response :success
     assert_equal Mime::HTML, response.content_type
+    assert_include response.body, 'Avis incognita'
+  end
+
+  test 'return observation search results that include Avis incognita in JSON' do
+    login_as_admin
+    observation = create(:observation, species_id: 0)
+    get :search, q: {observ_date: observation.observ_date.iso8601}, format: 'json'
+    assert_response :success
+    assert_equal Mime::JSON, response.content_type
+    result = JSON.parse(response.body)
+    assert_equal 1, result.size
+    assert result.first['species_str'].include?('Avis incognita')
   end
 
   test "properly find spots" do

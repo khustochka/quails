@@ -1,0 +1,19 @@
+%tr
+  %td{rstyle: "padding-left: #{30 * indent}px;"}
+    = raw "&mdash;" * indent * 2
+    = link_to locus_tree.slug, edit_locus_path(locus_tree)
+  %td
+    - %w(en ru uk).map do |lang|
+      %div
+        %i.less-important.monospace
+          #{lang}:
+        #{locus_tree.send("name_#{lang}")}
+  %td.align-center= latlon(locus_tree)
+  %td.align-right= locus_tree.public_index
+  %td
+    - if locus_tree.children.count > 0 || locus_tree.observations.count > 0
+      = disabled_destroy_icon
+    - else
+      = default_destroy_link(locus_tree)
+
+= render partial: 'locus_tree', collection: @loci[locus_tree.id], locals: {indent: indent + 1}

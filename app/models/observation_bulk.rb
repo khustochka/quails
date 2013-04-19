@@ -35,7 +35,6 @@ class ObservationBulk < Array
       end
       obs_errors.clear if obs_errors.reject(&:empty?).empty?
     end
-    Observation.biotopes(true) # refresh the cached biotopes list
     @errors[:base] = ['provide at least one observation'] if self.blank?
     @errors[:observs] = obs_errors
     @errors.delete_if { |_, val| val.empty? }

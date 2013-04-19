@@ -1,3 +1,5 @@
+- @wider = true
+
 - javascript 'observation_index'
 - stylesheet 'forms'
 
@@ -25,7 +27,6 @@
       %br
       = link_to_unless_current('Date ⇓', significant_params.merge({:sort => 'observ_date,locus_id', :page => nil}))
     %th Quantity
-    %th Biotope
     %th Place
     %th Notes
     %th Post
@@ -41,7 +42,6 @@
         %br
         %small= observation.locus.name || observation.locus.slug
       %td= observation.quantity
-      %td= observation.biotope
       %td= observation.place
       %td= observation.notes
       %td= post_link('>>', observation.post)
