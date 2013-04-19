@@ -8,7 +8,7 @@ class LociController < ApplicationController
 
   # GET /locus
   def index
-    @locus_by_type = Locus.list_order.includes(:parent).group_by(&:loc_type)
+    @loci = Locus.list_order.group_by(&:parent_id)
   end
 
   # GET /locus/1
@@ -54,7 +54,7 @@ class LociController < ApplicationController
 
   def public
     @locs_public = Locus.public
-    @locs_other = Locus.where('public_index IS NULL').order('loc_type ASC', :parent_id, :slug)
+    @locs_other = Locus.where('public_index IS NULL').order(:parent_id, :slug)
   end
 
   def save_order

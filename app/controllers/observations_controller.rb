@@ -118,9 +118,14 @@ class ObservationsController < ApplicationController
       preload_tables << :spots
       json_methods << :spots
     end
+
+    # Have to do outer join to preserve Avis incognita
     observs =
         params[:q] && params[:q].delete_if { |_, v| v.empty? }.present? ?
-            Observation.search(params[:q]).joins(:species).preload(preload_tables).order(:observ_date, :locus_id, :index_num).limit(params[:limit]) :
+            Observation.search(params[:q]).
+                joins("LEFT OUTER JOIN species ON species_id = species.id").
+                preload(preload_tables).
+                order(:observ_date, :locus_id, :index_num).limit(params[:limit]) :
             []
 
     respond_to do |format|

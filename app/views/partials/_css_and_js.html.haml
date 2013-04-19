@@ -2,7 +2,7 @@
 /[if lt IE 9]
   = javascript_include_tag 'html5'
 
-= stylesheet_link_tag(*@stylesheets) if @stylesheets.present?
+= stylesheet_link_tag(*@stylesheets.compact) if @stylesheets.present?
 
 -# scripts
-= javascript_include_tag(*@scripts.unshift(JQUERY_URL)) if @scripts.present?
+= javascript_include_tag(*@scripts.compact.unshift(JQUERY_URL)) if @scripts.present?

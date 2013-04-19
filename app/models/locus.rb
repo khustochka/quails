@@ -3,10 +3,7 @@ class Locus < ActiveRecord::Base
   include ActiveRecord::Localized
   localize :name
 
-  TYPES = %w(Country Region Location)
-
   validates :slug, :format => /\A[a-z_]+\Z/i, :uniqueness => true, :presence => true, :length => {:maximum => 32}
-  validates :loc_type, :presence => true
   validates :name_en, :name_ru, :name_uk, :uniqueness => true
 
   belongs_to :parent, :class_name => 'Locus'
@@ -18,11 +15,11 @@ class Locus < ActiveRecord::Base
   has_many :local_species
 
   after_save do
-    Rails.cache.delete_matched(/subregion_ids/)
+    Rails.cache.delete_matched %r{records/loci}
   end
 
   after_save do
-    Rails.cache.delete_matched(/subregion_ids/)
+    Rails.cache.delete_matched %r{records/loci}
   end
 
 
@@ -38,7 +35,24 @@ class Locus < ActiveRecord::Base
 
   # Scopes
 
-  scope :list_order, lambda { order('loc_type DESC', :parent_id, :slug) }
+  scope :list_order, lambda { order(:parent_id, :slug) }
+
+  def self.suggestion_order
+    Rails.cache.fetch("records/loci/suggestion_order") do
+      query = <<-SQL
+      WITH RECURSIVE subregions(id) AS (
+        SELECT *, 0 as level
+        FROM loci
+        WHERE parent_id IS NULL
+          UNION ALL
+        SELECT loci.*, (subregions.level + 1) as level
+        FROM loci JOIN subregions ON loci.parent_id = subregions.id
+      )
+      SELECT * FROM subregions ORDER BY level DESC, parent_id, id
+      SQL
+      find_by_sql(query)
+    end
+  end
 
   scope :public, lambda { where('public_index IS NOT NULL').order(:public_index) }
 
@@ -55,7 +69,7 @@ class Locus < ActiveRecord::Base
   end
 
   def subregion_ids
-    Rails.cache.fetch("subregion_ids/#{self.slug}") do
+    Rails.cache.fetch("records/loci/#{self.slug}/subregion_ids") do
       # WARNING: PostgreSQL specific syntax
       # Learnt from: http://blog.hashrocket.com/posts/recursive-sql-in-activerecord
       query = <<-SQL
@@ -75,7 +89,7 @@ class Locus < ActiveRecord::Base
   end
 
   def country
-    @country ||= if loc_type == 0
+    @country ||= if parent_id.nil?
                    self
                  else
                    parent.country

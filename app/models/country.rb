@@ -1,3 +1,3 @@
 class Country < Locus
-  default_scope { where(loc_type: 0).order(:public_index) }
+  default_scope { where(parent_id: nil).order(:public_index) }
 end
