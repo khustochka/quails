@@ -1,7 +1,7 @@
 require 'test_helper'
 require 'capybara_helper'
 
-class UIObservationsBulkTest < ActionDispatch::IntegrationTest
+class JSObservationsBulkTest < ActionDispatch::IntegrationTest
 
   include JavaScriptTestCase
 
