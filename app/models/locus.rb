@@ -14,11 +14,11 @@ class Locus < ActiveRecord::Base
   has_many :local_species
 
   after_save do
-    Rails.cache.delete_matched(/subregion_ids/)
+    Rails.cache.delete_matched %r{records/loci}
   end
 
   after_save do
-    Rails.cache.delete_matched(/subregion_ids/)
+    Rails.cache.delete_matched %r{records/loci}
   end
 
 
@@ -36,7 +36,22 @@ class Locus < ActiveRecord::Base
 
   scope :list_order, lambda { order(:parent_id, :slug) }
 
-  scope :suggestion_order, lambda { order("parent_id DESC, slug DESC") }
+  def self.suggestion_order
+    Rails.cache.fetch("records/loci/suggestion_order") do
+      query = <<-SQL
+      WITH RECURSIVE subregions(id) AS (
+        SELECT *, 0 as level
+        FROM loci
+        WHERE parent_id IS NULL
+          UNION ALL
+        SELECT loci.*, (subregions.level + 1) as level
+        FROM loci JOIN subregions ON loci.parent_id = subregions.id
+      )
+      SELECT * FROM subregions ORDER BY level DESC, parent_id, id
+      SQL
+      find_by_sql(query)
+    end
+  end
 
   scope :public, lambda { where('public_index IS NOT NULL').order(:public_index) }
 
@@ -53,7 +68,7 @@ class Locus < ActiveRecord::Base
   end
 
   def subregion_ids
-    Rails.cache.fetch("subregion_ids/#{self.slug}") do
+    Rails.cache.fetch("records/loci/#{self.slug}/subregion_ids") do
       # WARNING: PostgreSQL specific syntax
       # Learnt from: http://blog.hashrocket.com/posts/recursive-sql-in-activerecord
       query = <<-SQL
