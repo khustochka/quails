@@ -29,7 +29,7 @@ GEM
     activesupport (3.2.13)
       i18n (= 0.6.1)
       multi_json (~> 1.0)
-    addressable (2.3.3)
+    addressable (2.3.4)
     airbrake (3.1.11)
       activesupport
       builder
@@ -88,7 +88,7 @@ GEM
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
     kgio (2.8.0)
-    launchy (2.2.0)
+    launchy (2.3.0)
       addressable (~> 2.3)
     livejournal (0.3.8)
     mail (2.5.3)
@@ -100,8 +100,8 @@ GEM
     newrelic_rpm (3.6.0.83)
     nokogiri (1.5.9)
     pg (0.15.1)
-    poltergeist (1.1.0)
-      capybara (~> 2.0, >= 2.0.1)
+    poltergeist (1.1.1)
+      capybara (~> 2.0.1)
       faye-websocket (~> 0.4, >= 0.4.4)
       http_parser.rb (~> 0.5.3)
     polyglot (0.3.3)
