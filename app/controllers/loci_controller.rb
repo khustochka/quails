@@ -8,7 +8,7 @@ class LociController < ApplicationController
 
   # GET /locus
   def index
-    @locus_by_type = Locus.list_order.includes(:parent).group_by(&:loc_type)
+    @loci = Locus.list_order.group_by(&:parent_id)
   end
 
   # GET /locus/1
