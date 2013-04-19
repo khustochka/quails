@@ -5,9 +5,6 @@
 = render 'admin/shortcuts' if current_user.admin?
 
 %p
-  %b Type:
-  = Locus::TYPES[@locus.loc_type]
-%p
   %b Parent:
   = @locus.parent.nil? ? '-' : (link_to @locus.parent.slug, @locus.parent)
 %p

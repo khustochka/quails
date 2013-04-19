@@ -54,7 +54,7 @@ class LociController < ApplicationController
 
   def public
     @locs_public = Locus.public
-    @locs_other = Locus.where('public_index IS NULL').order('loc_type ASC', :parent_id, :slug)
+    @locs_other = Locus.where('public_index IS NULL').order(:parent_id, :slug)
   end
 
   def save_order

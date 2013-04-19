@@ -3,10 +3,7 @@ class Locus < ActiveRecord::Base
   include ActiveRecord::Localized
   localize :name
 
-  TYPES = %w(Country Region Location)
-
   validates :slug, :format => /\A[a-z_]+\Z/i, :uniqueness => true, :presence => true, :length => {:maximum => 32}
-  validates :loc_type, :presence => true
   validates :name_en, :name_ru, :name_uk, :uniqueness => true
 
   belongs_to :parent, :class_name => 'Locus'
@@ -38,6 +35,8 @@ class Locus < ActiveRecord::Base
   # Scopes
 
   scope :list_order, lambda { order(:parent_id, :slug) }
+
+  scope :suggestion_order, lambda { order("parent_id DESC, slug DESC") }
 
   scope :public, lambda { where('public_index IS NOT NULL').order(:public_index) }
 
@@ -74,7 +73,7 @@ class Locus < ActiveRecord::Base
   end
 
   def country
-    @country ||= if loc_type == 0
+    @country ||= if parent_id.nil?
                    self
                  else
                    parent.country
