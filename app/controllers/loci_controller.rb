@@ -5,7 +5,7 @@ class LociController < ApplicationController
 
   administrative
 
-  find_record by: :slug, before: [:show, :edit, :update, :destroy]
+  find_record by: :slug, before: [:edit, :update, :destroy]
 
   # GET /locus
   def index
@@ -14,6 +14,7 @@ class LociController < ApplicationController
 
   # GET /locus/1
   def show
+    @locus = Locus.find_by_id(params[:id]) || Locus.find_by_slug!(params[:id])
     respond_with @locus
   end
 
