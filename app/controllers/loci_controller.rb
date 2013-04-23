@@ -1,6 +1,7 @@
 class LociController < ApplicationController
 
-  respond_to :json, only: [:save_order]
+  respond_to :html
+  respond_to :json, only: [:save_order, :show]
 
   administrative
 
@@ -13,6 +14,7 @@ class LociController < ApplicationController
 
   # GET /locus/1
   def show
+    respond_with @locus
   end
 
   # GET /locus/new
