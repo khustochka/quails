@@ -94,26 +94,23 @@ div.input span.select_arrow
 
 // Observations
 
-form.observation
+form.new_card, form.edit_card
   .to-add-row
-    margin-top: 5px
+    font-weight: bold
+    margin: 10px
+    padding-bottom: 15px
+  .quick-add
+    display: block
+    margin:
+      top: 20px
+      bottom: 30px
+    padding-bottom: 10px
+    border-bottom: 1px solid green
     label
       color: green
     input
       border-color: green
-    #add-row
-      margin-left: 5px
-    #hide-saved
-      background: #fff url('/img/x_14x14.png') no-repeat left center
-      padding-left: 18px
-      float: right
-
-  a[href='#top'], a[href='#top']:hover
-    margin-left: 30px
-    text-decoration: none
-    border-bottom: 1px dashed #55A
-    background-color: #fff
-    color: #55A
+      width: 400px
 
 div.obs-row
   //display: table-row

@@ -13,7 +13,7 @@ $(function () {
     function addNewRow() {
         last_row_num++;
         var row_html = sample_row_html.replace(tmpl_regex, "$1" + last_row_num + "$2");
-        $(row_html).insertBefore('#add-row');
+        $(row_html).insertBefore($('#add-row').parent());
         $('.obs-row:last .sp-suggest').combobox();
     }
 

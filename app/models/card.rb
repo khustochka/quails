@@ -6,6 +6,7 @@ class Card < ActiveRecord::Base
   validates :locus_id, :observ_date, presence: true
 
   accepts_nested_attributes_for :observations,
-                                reject_if: proc { |attrs| attrs.all? { |k, v| v.blank? || k == 'voice' } }
+                                reject_if:
+                                    proc { |attrs| attrs.all? { |k, v| v.blank? || k == 'voice' || k == 'mine' } }
 
 end
