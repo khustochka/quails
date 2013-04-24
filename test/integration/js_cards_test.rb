@@ -49,13 +49,19 @@ class JSCardsTest < ActionDispatch::IntegrationTest
     select('Brovary', from: 'Location')
     fill_in('Date', with: '2011-04-08')
 
-    find(:xpath, "//a[text()='Add new row']").click
+    find(:xpath, "//span[text()='Add new row']").click
+
+    assert_equal 11, all('.obs-row').size
+
+    within(:xpath, "//div[contains(@class,'obs-row')][10]") do
+      select('Parus major', from: 'Species')
+    end
 
     within(:xpath, "//div[contains(@class,'obs-row')][11]") do
       select('Crex crex', from: 'Species')
     end
 
-    assert_difference('Observation.count', 1) { save_and_check }
+    assert_difference('Observation.count', 2) { save_and_check }
   end
 
 end
