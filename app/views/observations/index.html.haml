@@ -9,15 +9,6 @@
 
 = render 'search'
 
-%ul
-  %li
-    %b= link_to_if @common, 'Edit this bulk',
-          bulk_observations_path(@common)
-    \: Bulk should have the same date, place, and 'mine' value to be editable.
-  - if @observations.present?
-    %li
-      %b= link_to 'Map this bulk', edit_map_path(q: params[:q])
-
 %table.neat_table.obs_list
   %tr
     %th.align-right ID

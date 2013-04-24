@@ -1,16 +1,11 @@
 class ObservationsController < ApplicationController
-  cache_sweeper :lifelist_sweeper
-
-  BULK_REQUIRED_KEYS = %w(locus_id observ_date mine)
-  BULK_MEANINGFUL_KEYS = BULK_REQUIRED_KEYS + %w(species_id voice post_id)
-
-  respond_to :json, only: [:bulksave]
 
   administrative
 
   find_record before: [:edit, :update, :destroy]
 
-  after_filter :cache_expire, only: [:create, :update, :destroy, :bulksave]
+  after_filter :cache_expire, only: [:create, :update, :destroy]
+  cache_sweeper :lifelist_sweeper
 
   # GET /observations
   def index
@@ -20,11 +15,6 @@ class ObservationsController < ApplicationController
     # TODO: when Rails 4 is out look at #references
     @observations = @search.order(params[:sort]).preload(:locus, :post).page(params[:page]).
         send((params[:sort] == 'species.index_num') ? :includes : :preload, :species)
-
-    # TODO: extract to model; add tests
-    common = @observations.map(&:attributes).inject(:&) || {}
-    @common = common.slice(*BULK_MEANINGFUL_KEYS)
-    @common = nil if @common.values_at(*BULK_REQUIRED_KEYS).any?(&:nil?)
   end
 
   # GET /observations/1
@@ -39,34 +29,9 @@ class ObservationsController < ApplicationController
     render :form
   end
 
-  # GET /observations/add
-  # Adding multiple observations
-  def add
-    possible_keys = [:locus_id, :observ_date, :mine, :post_id]
-    @observations = [Observation.new(params.slice(*possible_keys))]
-    @blogpost = @observations.first.post
-    render :bulk
-  end
-
   # GET /observations/1/edit
   def edit
     render :form
-  end
-
-  # GET /observations/bulk
-  # Bulk edit observations
-  def bulk
-    # FIXME: now there are two ways to pass params: plain and in q[]
-    normalized_params = params[:q] || params
-    normalized_params.delete_if { |_, v| v == "" }
-    required_keys = normalized_params.slice(*BULK_REQUIRED_KEYS)
-    @observations = Observation.where(normalized_params.slice(*BULK_MEANINGFUL_KEYS))
-    if normalized_params.values_at(*BULK_REQUIRED_KEYS).any?(&:nil?) || @observations.blank?
-      redirect_to add_observations_url(required_keys)
-    else
-      @blogpost = Post.find_by_id(params[:new_post_id]) || @observations.first.post
-      render
-    end
   end
 
   # POST /observations
@@ -98,16 +63,6 @@ class ObservationsController < ApplicationController
   def destroy
     @observation.destroy
     redirect_to(observations_url)
-  end
-
-  # POST /observations/bulksave.json
-  # API: parameters are a hash with two keys:
-  # c: hash of common options - locus_id, observ_date, mine, post_id
-  # o: array of hashes each having species_id, quantity, place, notes
-  def bulksave
-    obs_bunch = ObservationBulk.new(params)
-    obs_bunch.save
-    respond_with(obs_bunch, :location => observations_url, :only => :id)
   end
 
   # GET /observations/search(/with_spots).json

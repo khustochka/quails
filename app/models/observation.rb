@@ -8,8 +8,6 @@ class Observation < ActiveRecord::Base
   has_and_belongs_to_many :images
   has_many :spots
 
-  attr_accessor :one_of_bulk
-
   before_destroy do
     if images.present?
       raise ActiveRecord::DeleteRestrictionError.new(self.class.reflections[:images])
