@@ -1,9 +1,15 @@
 require 'test_helper'
 require 'capybara_helper'
 
-class UICardsTest < ActionDispatch::IntegrationTest
+class JSCardsTest < ActionDispatch::IntegrationTest
 
-  include CapybaraTestCase
+  include JavaScriptTestCase
+
+  def save_and_check
+    click_button('Save')
+    assert page.has_css?("#save_button[value=Save]")
+  end
+  private :save_and_check
 
   test "Adding card" do
     login_as_admin
@@ -12,7 +18,7 @@ class UICardsTest < ActionDispatch::IntegrationTest
     select('Brovary', from: 'Location')
     fill_in('Date', with: '2011-04-08')
     assert_difference('Card.count') do
-      click_button('Save')
+      save_and_check
     end
     card = Card.first
     assert_equal edit_card_path(card), current_path
@@ -33,7 +39,7 @@ class UICardsTest < ActionDispatch::IntegrationTest
       select('Falco tinnunculus', from: 'Species')
     end
 
-    assert_difference('Observation.count', 2) { click_button 'Save' }
+    assert_difference('Observation.count', 2) { save_and_check }
   end
 
   test "Create card, add new row with observation and save" do
@@ -49,7 +55,7 @@ class UICardsTest < ActionDispatch::IntegrationTest
       select('Crex crex', from: 'Species')
     end
 
-    assert_difference('Observation.count', 1) { click_button 'Save' }
+    assert_difference('Observation.count', 1) { save_and_check }
   end
 
 end
