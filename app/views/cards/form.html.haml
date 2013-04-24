@@ -20,7 +20,7 @@
   = form.error_notification
 
   %div
-    = form.association :locus, label: 'Location:', collection: Locus.list_order,
+    = form.association :locus, label: 'Location:', collection: Locus.suggestion_order,
         input_html: {class: 'suggest-combo'}
     = form.input :observ_date, as: :string, label: 'Date:',
           input_html: {class: 'short', maxlength: 10, type: 'date'}
