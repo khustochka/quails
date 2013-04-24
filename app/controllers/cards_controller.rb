@@ -2,6 +2,9 @@ class CardsController < ApplicationController
 
   administrative
 
+  after_filter :cache_expire, only: [:create, :update, :destroy]
+  cache_sweeper :lifelist_sweeper
+
   # GET /cards
   # GET /cards.json
   def index
@@ -83,5 +86,12 @@ class CardsController < ApplicationController
       format.html { redirect_to cards_url }
       format.json { head :no_content }
     end
+  end
+
+  private
+
+  def cache_expire
+    expire_page controller: :feeds, action: :photos, format: 'xml'
+    expire_page controller: :feeds, action: :blog, format: 'xml'
   end
 end
