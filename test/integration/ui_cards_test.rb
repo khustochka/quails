@@ -15,7 +15,7 @@ class UICardsTest < ActionDispatch::IntegrationTest
       click_button('Save')
     end
     card = Card.first
-    assert_equal card_path(card), current_path
+    assert_equal edit_card_path(card), current_path
   end
 
   test "Create card with observations" do

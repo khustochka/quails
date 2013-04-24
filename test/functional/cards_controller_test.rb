@@ -22,7 +22,7 @@ class CardsControllerTest < ActionController::TestCase
       post :create, card: attributes_for(:card)
     end
 
-    assert_redirected_to card_path(assigns(:card))
+    assert_redirected_to edit_card_path(assigns(:card))
   end
 
   test "create card with observations" do
@@ -31,7 +31,7 @@ class CardsControllerTest < ActionController::TestCase
       post :create, card: attributes_for(:card).merge(observations_attributes: observ_attrs)
     end
 
-    assert_redirected_to card_path(assigns(:card))
+    assert_redirected_to edit_card_path(assigns(:card))
   end
 
   test "should show card" do
@@ -46,7 +46,7 @@ class CardsControllerTest < ActionController::TestCase
 
   test "should update card" do
     put :update, id: @card, card: attributes_for(:card)
-    assert_redirected_to card_path(assigns(:card))
+    assert_redirected_to edit_card_path(assigns(:card))
   end
 
   test "should destroy card" do
