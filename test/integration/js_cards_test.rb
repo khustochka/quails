@@ -15,7 +15,7 @@ class JSCardsTest < ActionDispatch::IntegrationTest
     login_as_admin
     visit new_card_path
     assert_equal 10, all('.obs-row').size
-    select('Brovary', from: 'Location')
+    select_suggestion('Brovary', from: 'Location')
     fill_in('Date', with: '2011-04-08')
     assert_difference('Card.count') do
       save_and_check
@@ -28,15 +28,15 @@ class JSCardsTest < ActionDispatch::IntegrationTest
     login_as_admin
     visit new_card_path
 
-    select('Brovary', from: 'Location')
+    select_suggestion('Brovary', from: 'Location')
     fill_in('Date', with: '2011-04-08')
 
     within(:xpath, "//div[contains(@class,'obs-row')][1]") do
-      select('Crex crex', from: 'Species')
+      select_suggestion('Crex crex', from: 'Species')
     end
 
     within(:xpath, "//div[contains(@class,'obs-row')][2]") do
-      select('Falco tinnunculus', from: 'Species')
+      select_suggestion('Falco tinnunculus', from: 'Species')
     end
 
     assert_difference('Observation.count', 2) { save_and_check }
@@ -46,7 +46,7 @@ class JSCardsTest < ActionDispatch::IntegrationTest
     login_as_admin
     visit new_card_path
 
-    select('Brovary', from: 'Location')
+    select_suggestion('Brovary', from: 'Location')
     fill_in('Date', with: '2011-04-08')
 
     find(:xpath, "//span[text()='Add new row']").click
@@ -54,11 +54,11 @@ class JSCardsTest < ActionDispatch::IntegrationTest
     assert_equal 11, all('.obs-row').size
 
     within(:xpath, "//div[contains(@class,'obs-row')][10]") do
-      select('Parus major', from: 'Species')
+      select_suggestion('Parus major', from: 'Species')
     end
 
     within(:xpath, "//div[contains(@class,'obs-row')][11]") do
-      select('Crex crex', from: 'Species')
+      select_suggestion('Crex crex', from: 'Species')
     end
 
     assert_difference('Observation.count', 2) { save_and_check }

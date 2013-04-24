@@ -14,8 +14,10 @@ $(function () {
         last_row_num++;
         var row_html = sample_row_html.replace(tmpl_regex, "$1" + last_row_num + "$2");
         $(row_html).insertBefore('#add-row');
+        $('.obs-row:last .sp-suggest').combobox();
     }
 
     $('#add-row').click(addNewRow);
+    $('.sp-suggest').combobox();
 
 });
