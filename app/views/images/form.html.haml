@@ -68,4 +68,4 @@
     = default_submit_button(form)
 
 - if @image.persisted?
-  %p= link_to 'DELETE', @image, data: {confirm: 'Are you sure?'}, method: :delete
+  %p= default_destroy_button
