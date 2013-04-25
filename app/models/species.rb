@@ -7,6 +7,8 @@ class Species < ActiveRecord::Base
   include ActiveRecord::Localized
   localize :name
 
+  serialize :wikidata, Hash
+
 #  validates :order, :presence => true, :allow_blank => true
   validates :family, :presence => true
   validates :name_sci, :format => /\A[A-Z][a-z]+ [a-z]+\Z/, :uniqueness => true
@@ -50,6 +52,16 @@ class Species < ActiveRecord::Base
       self.image = self.images.first || nil
       save!
     end
+  end
+
+  # Wikidata
+
+  def similar_species
+    wikidata[:similar_species]
+  end
+
+  def similar_species=(val)
+    wikidata[:similar_species] = val
   end
 
 end

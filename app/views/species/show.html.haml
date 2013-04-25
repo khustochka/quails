@@ -21,8 +21,17 @@
 %dl.sp_translations
   - %w(en uk fr).map do |lang|
     - if (trans_name = @species.send("name_#{lang}")).present?
-      %dt= t("languages.#{lang}")
-      %dd= trans_name
+      %div
+        %dt= t("languages.#{lang}")
+        %dd= trans_name
+
+- if (similar = @species.similar_species).present?
+  %div.similar_species
+    %h3= t('.sections.similar_species')
+    %ul
+      - similar.split(',').each do |code|
+        - if sp = Species.find_by_code(code)
+          %li= species_link(sp)
 
 - @species.images.if_present do |images|
   %div.photos

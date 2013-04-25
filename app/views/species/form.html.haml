@@ -36,7 +36,8 @@
     = form.input :family, :input_html => {:disabled => true}
   %div
     = form.input :avibase_id, :label => 'Avibase ID'
-
     = link_to @species.avibase_id, avibase_species_url(@species.avibase_id)
+  %div
+    = form.input :similar_species
   .buttons
     = default_submit_button(form)
