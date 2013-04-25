@@ -56,12 +56,13 @@ class Species < ActiveRecord::Base
 
   # Wikidata
 
-  def similar_species
-    wikidata[:similar_species]
+  def wikidata
+    Hashie::Mash.new(read_attribute('wikidata'))
   end
 
-  def similar_species=(val)
-    wikidata[:similar_species] = val
+  def similar_species
+    arr = (wikidata.similar_species || '').split(',').map(&:strip)
+    Species.where(code: arr).order(:index_num)
   end
 
 end

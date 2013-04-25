@@ -29,9 +29,8 @@
   %div.similar_species
     %h3= t('.sections.similar_species')
     %ul
-      - similar.split(',').each do |code|
-        - if sp = Species.find_by_code(code)
-          %li= species_link(sp)
+      - similar.each do |sp|
+        %li= species_link(sp)
 
 - @species.images.if_present do |images|
   %div.photos
