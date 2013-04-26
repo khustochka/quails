@@ -53,7 +53,7 @@
 
 - if current_user.admin?
 
-  %p= link_to('Add more observations', add_observations_path(post_id: @post.id))
+  %p= link_to('Add new card', new_card_path(card: {post_id: @post.id}))
 
   - unless @post.lj_url_id.blank?
     %p= link_to 'This post on Livejournal', @post.lj_url

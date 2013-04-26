@@ -16,6 +16,7 @@ class Post < ActiveRecord::Base
   validates :lj_url_id, :lj_post_id, :numericality => {:greater_than => 0}, :allow_nil => true
 
   has_many :comments, :dependent => :destroy
+  has_many :cards, :dependent => :nullify
   has_many :observations, :dependent => :nullify
   has_many :species, :through => :observations, :order => [:index_num], :uniq => true
   # FIXME: turn back ordering

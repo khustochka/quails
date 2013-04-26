@@ -142,103 +142,80 @@ class JSCardsTest < ActionDispatch::IntegrationTest
     assert_false find(:xpath, "//div[contains(@class,'obs-row')][2]").has_checked_field?('Voice?')
   end
 
-  #test "Adding observations for the post" do
-  #  blogpost = create(:post)
-  #  login_as_admin
-  #
-  #  visit show_post_path(blogpost.to_url_params)
-  #  click_link 'Add more observations'
-  #
-  #  assert page.has_css?('label a', text: blogpost.title)
-  #
-  #  select_suggestion('Brovary', from: 'Location')
-  #  fill_in('Date', with: '2011-04-09')
-  #
-  #  find(:xpath, "//span[text()='Add new row']").click
-  #  find(:xpath, "//span[text()='Add new row']").click
-  #
-  #  within(:xpath, "//div[contains(@class,'obs-row')][1]") do
-  #    select_suggestion('Crex crex', from: 'Species')
-  #  end
-  #
-  #  within(:xpath, "//div[contains(@class,'obs-row')][2]") do
-  #    select_suggestion('Falco tinnunculus', from: 'Species')
-  #  end
-  #
-  #  assert_difference('Observation.count', 2) { save_and_check }
-  #
-  #
-  #  assert_equal 2, blogpost.observations.size
-  #end
-  #
-  #test "Start adding observations for post but then uncheck it" do
-  #  blogpost = create(:post)
-  #  login_as_admin
-  #
-  #  visit show_post_path(blogpost.to_url_params)
-  #  click_link 'Add more observations'
-  #
-  #  assert page.has_css?('label a', text: blogpost.title)
-  #
-  #  select_suggestion('Brovary', from: 'Location')
-  #  fill_in('Date', with: '2011-04-09')
-  #  uncheck('observation_post_id')
-  #
-  #  find(:xpath, "//span[text()='Add new row']").click
-  #
-  #  within(:xpath, "//div[contains(@class,'obs-row')][1]") do
-  #    select_suggestion('Crex crex', from: 'Species')
-  #  end
-  #
-  #  save_and_check
-  #
-  #
-  #  assert_equal 0, blogpost.observations.size
-  #end
-  #
-  #test "Add observations for post, then save unlinked" do
-  #  blogpost = create(:post)
-  #  login_as_admin
-  #
-  #  visit show_post_path(blogpost.to_url_params)
-  #  click_link 'Add more observations'
-  #
-  #  assert page.has_css?('label a', text: blogpost.title)
-  #
-  #  select_suggestion('Brovary', from: 'Location')
-  #  fill_in('Date', with: '2011-04-09')
-  #
-  #  find(:xpath, "//span[text()='Add new row']").click
-  #
-  #  within(:xpath, "//div[contains(@class,'obs-row')][1]") do
-  #    select_suggestion('Crex crex', from: 'Species')
-  #  end
-  #
-  #  save_and_check
-  #
-  #
-  #  assert_equal 1, blogpost.observations.size
-  #  obs = blogpost.observations.first
-  #
-  #  uncheck('observation_post_id')
-  #  save_and_check
-  #
-  #  assert_equal 0, blogpost.observations.reload.size
-  #  assert_equal nil, obs.reload.post_id
-  #end
+  test "Adding observations for the post" do
+    blogpost = create(:post)
+    login_as_admin
 
-  #test "Bulk edit preserves post" do
-  #  blogpost = create(:post)
-  #  obs1 = create(:observation, species: seed(:melgal), observ_date: "2010-06-18", post_id: blogpost.id)
-  #  obs2 = create(:observation, species: seed(:anapla), observ_date: "2010-06-18")
-  #  login_as_admin
-  #  visit bulk_observations_path(observ_date: "2010-06-18", locus_id: seed(:brovary).id, mine: true)
-  #
-  #  assert_difference('Observation.count', 0) { save_and_check }
-  #
-  #  assert_equal blogpost.id, obs1.reload.post_id
-  #  assert_equal nil, obs2.reload.post_id
-  #end
+    visit show_post_path(blogpost.to_url_params)
+    click_link 'Add new card'
+
+    assert page.has_css?('label a', text: blogpost.title)
+
+    select_suggestion('Brovary', from: 'Location')
+    fill_in('Date', with: '2011-04-09')
+
+    within(:xpath, "//div[contains(@class,'obs-row')][1]") do
+      select_suggestion('Crex crex', from: 'Species')
+    end
+
+    within(:xpath, "//div[contains(@class,'obs-row')][2]") do
+      select_suggestion('Falco tinnunculus', from: 'Species')
+    end
+
+    assert_difference('Observation.count', 2) { save_and_check }
+
+    assert_equal 2, blogpost.cards[0].observations.size
+  end
+
+  test "Start adding observations for post but then uncheck it" do
+    blogpost = create(:post)
+    login_as_admin
+
+    visit show_post_path(blogpost.to_url_params)
+    click_link 'Add new card'
+
+    assert page.has_css?('label a', text: blogpost.title)
+
+    select_suggestion('Brovary', from: 'Location')
+    fill_in('Date', with: '2011-04-09')
+    uncheck('card_post_id')
+
+    within(:xpath, "//div[contains(@class,'obs-row')][1]") do
+      select_suggestion('Crex crex', from: 'Species')
+    end
+
+    assert_difference('Observation.count', 1) { save_and_check }
+
+    assert_empty blogpost.cards
+  end
+
+  test "Add observations for post, then save unlinked" do
+    blogpost = create(:post)
+    login_as_admin
+
+    visit show_post_path(blogpost.to_url_params)
+    click_link 'Add new card'
+
+    assert page.has_css?('label a', text: blogpost.title)
+
+    select_suggestion('Brovary', from: 'Location')
+    fill_in('Date', with: '2011-04-09')
+
+    within(:xpath, "//div[contains(@class,'obs-row')][1]") do
+      select_suggestion('Crex crex', from: 'Species')
+    end
+
+    save_and_check
+
+    assert_not_empty blogpost.cards
+    card = blogpost.cards[0]
+
+    uncheck('card_post_id')
+    save_and_check
+
+    assert_empty blogpost.reload.cards
+    assert_equal nil, card.reload.post_id
+  end
 
   #test 'Attach observations to the post' do
   #  create(:observation, species: seed(:pasdom), observ_date: "2010-06-18")

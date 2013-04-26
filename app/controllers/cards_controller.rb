@@ -30,7 +30,7 @@ class CardsController < ApplicationController
   # GET /cards/new
   # GET /cards/new.json
   def new
-    @card = Card.new
+    @card = Card.new(params[:card])
 
     respond_to do |format|
       format.html { render :form }
