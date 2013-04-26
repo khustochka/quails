@@ -41,8 +41,8 @@ class ObservationsControllerTest < ActionController::TestCase
   end
 
   test "Avis incognita properly rendered on index page" do
-    create(:observation, species_id: 0, card: create(:card, card: create(:card, observ_date: "2010-06-18")))
-    create(:observation, species_id: 0, card: create(:card, card: create(:card, observ_date: "2009-06-19")))
+    create(:observation, species_id: 0, card: create(:card, observ_date: "2010-06-18"))
+    create(:observation, species_id: 0, card: create(:card, observ_date: "2009-06-19"))
     login_as_admin
     get :index, q: {species_id: 0}
     assert_response :success
@@ -53,12 +53,6 @@ class ObservationsControllerTest < ActionController::TestCase
   test "get new" do
     login_as_admin
     get :new
-    assert_response :success
-  end
-
-  test "get add" do
-    login_as_admin
-    get :add
     assert_response :success
   end
 
@@ -101,7 +95,7 @@ class ObservationsControllerTest < ActionController::TestCase
       login_as_admin
       delete :destroy, id: observation.to_param
     end
-    assert_redirected_to observations_path
+    assert_response :success
   end
 
   # HTTP auth tests
@@ -119,11 +113,6 @@ class ObservationsControllerTest < ActionController::TestCase
 
   test 'protect new with HTTP authentication' do
     assert_raise(ActionController::RoutingError) { get :new }
-    #assert_response 404
-  end
-
-  test 'protect add with HTTP authentication' do
-    assert_raise(ActionController::RoutingError) { get :add }
     #assert_response 404
   end
 
