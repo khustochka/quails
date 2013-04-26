@@ -33,4 +33,7 @@ $(function () {
         .on('ajax:error', function () {
             alert("Error removing observation");
         });
+
+    // Mark autocomplete locus field as required
+    $('input#card_locus_id').prop('required', true);
 });
