@@ -95,18 +95,20 @@ class JSCardsTest < ActionDispatch::IntegrationTest
     login_as_admin
 
     @card = create(:card)
-    create(:observation, species: seed(:melgal), card: @card)
-    create(:observation, species: seed(:anapla), card: @card)
+    o = create(:observation, species: seed(:melgal), card: @card)
 
     visit edit_card_path(@card)
+
+    assert page.has_css?('.obs-row div a', text: o.id.to_s)
 
     assert_difference('Observation.count', -1) do
       within(:xpath, "//div[contains(@class,'obs-row')][1]") do
         find(".destroy").click
       end
-      assert_equal edit_card_path(@card), current_path
-    end
 
+      assert_equal edit_card_path(@card), current_path
+      assert page.has_no_css?('.obs-row div a', text: o.id.to_s)
+    end
     assert_equal 9, all('.obs-row').size
   end
 

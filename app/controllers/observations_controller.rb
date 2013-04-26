@@ -62,7 +62,8 @@ class ObservationsController < ApplicationController
   # DELETE /observations/1
   def destroy
     @observation.destroy
-    redirect_to(observations_url)
+
+    head :no_content
   end
 
   # GET /observations/search(/with_spots).json

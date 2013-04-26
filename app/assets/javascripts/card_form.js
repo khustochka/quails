@@ -25,4 +25,12 @@ $(function () {
 
     $('.sp-suggest').combobox();
 
+    $('a.destroy')
+        .data('remote', 'true')
+        .on('ajax:success', function () {
+            $(this).closest('.obs-row').remove();
+        })
+        .on('ajax:error', function () {
+            alert("Error removing observation");
+        });
 });
