@@ -65,6 +65,51 @@ class JSCardsTest < ActionDispatch::IntegrationTest
     assert_difference('Observation.count', 2) { save_and_check }
   end
 
+  test "Remove row" do
+    login_as_admin
+    visit new_card_path
+
+    within(:xpath, "//div[contains(@class,'obs-row')][1]") do
+      find(".remove").click
+    end
+
+    assert_equal 9, all('.obs-row').size
+  end
+
+  test "Remove new row" do
+    login_as_admin
+    visit new_card_path
+
+    find(:xpath, "//span[text()='Add new row']").click
+
+    assert_equal 11, all('.obs-row').size
+
+    within(:xpath, "//div[contains(@class,'obs-row')][11]") do
+      find(".remove").click
+    end
+
+    assert_equal 10, all('.obs-row').size
+  end
+
+  test "Destroy observation from card page" do
+    login_as_admin
+
+    @card = create(:card)
+    create(:observation, species: seed(:melgal), card: @card)
+    create(:observation, species: seed(:anapla), card: @card)
+
+    visit edit_card_path(@card)
+
+    assert_difference('Observation.count', -1) do
+      within(:xpath, "//div[contains(@class,'obs-row')][1]") do
+        find(".destroy").click
+      end
+      assert_equal edit_card_path(@card), current_path
+    end
+
+    assert_equal 9, all('.obs-row').size
+  end
+
   test 'Species autosuggest box should have Avis incognita and be able to add it' do
     login_as_admin
     visit new_card_path

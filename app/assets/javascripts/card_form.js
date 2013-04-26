@@ -18,6 +18,11 @@ $(function () {
     }
 
     $('#add-row').click(addNewRow);
+
+    $('form.simple_form').on('click', '.remove', function () {
+        $(this).closest('.obs-row').remove();
+    });
+
     $('.sp-suggest').combobox();
 
 });
