@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130419090421) do
+ActiveRecord::Schema.define(:version => 20130425111059) do
 
   create_table "books", :force => true do |t|
     t.string "slug",        :limit => 32, :null => false
@@ -153,6 +153,7 @@ ActiveRecord::Schema.define(:version => 20130419090421) do
     t.string  "name_fr"
     t.integer "image_id"
     t.boolean "reviewed",                 :default => false, :null => false
+    t.text    "wikidata"
   end
 
   add_index "species", ["code"], :name => "index_species_on_code", :unique => true

@@ -25,7 +25,7 @@ $(function () {
         var row = sample_row.clone(true).insertBefore('.buttons');
         $('#observation_voice', row).attr('id', 'observation_voice_' + cnt);
         $('label:contains("Voice?")', row).attr('for', 'observation_voice_' + cnt);
-        var suggest = $('.sp-suggest', row) /*.attr('id', 'observation_species_id_' + cnt)*/ ;
+        var suggest = $('.sp-suggest', row) /*.attr('id', 'observation_species_id_' + cnt)*/;
         if (arguments.length > 1) {
             suggest.children("option").each(function () {
                 if ($(this).text() == ui.item.value) {
@@ -67,7 +67,7 @@ $(function () {
 
     form.on('ajax:error', function (event, xhr, status) {
         var errors = $.parseJSON(xhr.responseText).errors,
-            err_list = $("<ul>", {'class':'errors'}).prependTo("form#bulk_observ_form");
+            err_list = $("<ul>", {'class': 'errors'}).prependTo("form#bulk_observ_form");
         $.each(errors, function (i, val) {
             if (i != "observs") $("<li>").text(i + " " + val[0]).appendTo(err_list);
         });
@@ -80,32 +80,40 @@ $(function () {
         });
     });
 
-    $('#species-quick-add').autocomplete({
-        delay:0,
-        minLength:3,
-        autoFocus:true,
-        source:function (request, response) {
-            var matcher = new RegExp($.ui.autocomplete.escapeRegex(request.term), "i");
-            response(options_list.map(function () {
-                var text = $(this).text();
-                if (( this.value != null ) && ( !request.term || matcher.test(text) ))
-                    return {
-                        label:text.replace('Avis incognita', '<i>Avis incognita</i>').replace(
-                            new RegExp(
-                                "(?![^&;]+;)(?!<[^<>]*)(" +
-                                    $.ui.autocomplete.escapeRegex(request.term) +
-                                    ")(?![^<>]*>)(?![^&;]+;)", "gi"
-                            ), "<strong>$1</strong>"),
-                        value:text
-                    };
-            }));
-        },
-        select:function (event, ui) {
-            addNewRow(event, ui);
-            $(this).val("");
-            return false;
-        }
-    }).data("ui-autocomplete")._renderItem = function (ul, item) {
+    $('#species-quick-add')
+        // don't navigate away from the field on tab when selecting an item
+        .bind("keydown", function (event) {
+            if (event.keyCode === $.ui.keyCode.TAB &&
+                $(this).data("ui-autocomplete").menu.active) {
+                event.preventDefault();
+            }
+        })
+        .autocomplete({
+            delay: 0,
+            minLength: 3,
+            autoFocus: true,
+            source: function (request, response) {
+                var matcher = new RegExp($.ui.autocomplete.escapeRegex(request.term), "i");
+                response(options_list.map(function () {
+                    var text = $(this).text();
+                    if (( this.value != null ) && ( !request.term || matcher.test(text) ))
+                        return {
+                            label: text.replace('Avis incognita', '<i>Avis incognita</i>').replace(
+                                new RegExp(
+                                    "(?![^&;]+;)(?!<[^<>]*)(" +
+                                        $.ui.autocomplete.escapeRegex(request.term) +
+                                        ")(?![^<>]*>)(?![^&;]+;)", "gi"
+                                ), "<strong>$1</strong>"),
+                            value: text
+                        };
+                }));
+            },
+            select: function (event, ui) {
+                addNewRow(event, ui);
+                $(this).val("");
+                return false;
+            }
+        }).data("ui-autocomplete")._renderItem = function (ul, item) {
         return $("<li></li>")
             .data("item.autocomplete", item)
             .append("<a>" + item.label + "</a>")
@@ -121,7 +129,7 @@ $(function () {
     refreshSubmitAbility();
 
     $('#add-row').click(addNewRow);
-    $('#hide-saved').click(function(){
+    $('#hide-saved').click(function () {
         $(".obs-row.save-success").remove();
         refreshSubmitAbility();
     });

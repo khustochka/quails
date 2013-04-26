@@ -255,6 +255,8 @@ table.neat_table.checklist_table
   font-size: 14px
 
 .sp_translations
+  @include inline-block
+  margin-right: 80px
   dt
     white-space: nowrap
     display: inline
@@ -268,6 +270,9 @@ table.neat_table.checklist_table
       content: ";"
     &:last-child:after
       content: ""
+
+.similar_species
+  @include inline-block
 
 table.monthly
   td

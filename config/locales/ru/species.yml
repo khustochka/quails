@@ -6,6 +6,7 @@
     show:
       sections:
         photos: Фотографии
+        similar_species: Близкие виды
         posts: Последние записи
         stats: Статистика наблюдений
         monthly: По месяцам
