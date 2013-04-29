@@ -6,7 +6,6 @@ label
   color: #5555AA
 
 form.simple_form
-  margin-left: -10px
   margin-bottom: 20px
 //  width: 660px
 
@@ -27,7 +26,7 @@ form.search
 div.input
   @include inline-block
   vertical-align: top
-  margin-left: 10px
+  margin-right: 10px
   margin-bottom: 10px
 //  width: 339px
 
@@ -75,7 +74,7 @@ textarea
   width: 620px
 
 div.buttons
-  margin: 10px 0 0 10px
+  margin: 10px 0 0 0
 
 input.button, button
   min-width: 130px
@@ -97,7 +96,9 @@ div.input span.select_arrow
 form.new_card, form.edit_card
   .to-add-row
     font-weight: bold
-    margin: 10px
+    margin:
+      top: 10px
+      bottom: 10px
     padding-bottom: 15px
   .quick-add
     display: block
@@ -117,7 +118,7 @@ div.obs-row
   div
     display: table-cell
     vertical-align: bottom
-    padding-left: 10px
+    padding-right: 10px
     padding-bottom: 10px
     a
       font-size: 13px
@@ -137,7 +138,6 @@ div.obs-row.save-fail
 
 // Images
 table.with_search
-  margin-left: 10px
   td
     padding: 0 10px
     border: 1px solid #888
@@ -155,7 +155,6 @@ table.with_search
   .observation_search, .flickr_search
     button
       vertical-align: -19px
-      margin-left: 10px
       width: 100px
   ul.found-obs
     li
