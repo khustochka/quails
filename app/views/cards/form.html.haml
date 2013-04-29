@@ -41,11 +41,6 @@
 
   = form.input :notes, input_html: {rows: 7}
 
-  %div.quick-add
-    .input.flat
-      %label{for: 'species-quick-add'} Quick add species:
-      %input{id: 'species-quick-add', class: 'string'}
-
   = form.simple_fields_for :observations do |form2|
     - obs = form2.object
     %div.obs-row
@@ -72,5 +67,12 @@
     &laquo;
     %span.pseudolink#add-row Add new row
 
-  .buttons
-    = default_submit_button(form)
+  .fixed-bottom
+
+    %div.quick-add
+      .input.flat
+        %label{for: 'species-quick-add'} Quick add species:
+        %input{id: 'species-quick-add', class: 'string'}
+
+    .buttons
+      = default_submit_button(form)

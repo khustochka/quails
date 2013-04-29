@@ -103,9 +103,9 @@ form.new_card, form.edit_card
   .quick-add
     display: block
     margin:
-      top: 20px
-      bottom: 30px
-    padding-bottom: 10px
+      top: 10px
+      bottom: 10px
+    padding-bottom: 5px
     border-bottom: 1px solid green
     label
       color: green
@@ -131,10 +131,13 @@ div.obs-row
     font-size: 13px
     padding: 2px 0 4px 2px
 
-div.obs-row.save-success
-  background-color: #ccffcc
-div.obs-row.save-fail
-  background-color: #ffcccc
+.fixed-bottom
+  position: fixed
+  bottom: 0
+  background-color: rgba(#ccffcc, 0.8)
+  border-top: 4px solid green
+  padding: 15px
+  width: $main-width
 
 // Images
 table.with_search
