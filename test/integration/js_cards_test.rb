@@ -65,6 +65,16 @@ class JSCardsTest < ActionDispatch::IntegrationTest
     assert_difference('Observation.count', 2) { save_and_check }
   end
 
+  test "Quick add species" do
+    login_as_admin
+    visit new_card_path
+
+    select_suggestion('Parus major', from: 'species-quick-add')
+
+    assert_equal 'Parus major',
+                 find(:xpath, "//div[contains(@class,'obs-row')][1]//input[contains(@class, 'ui-autocomplete-input')]").value
+  end
+
   test "Remove row" do
     login_as_admin
     visit new_card_path
