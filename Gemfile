@@ -2,8 +2,8 @@ source 'https://rubygems.org/'
 
 ruby '2.0.0'
 
-#gem 'rails', '4.0.0.beta1'
-gem 'rails', github: 'rails/rails'
+gem 'rails', '4.0.0.rc1'
+#gem 'rails', github: 'rails/rails'
 
 gem 'pg', platforms: [:ruby, :mingw]
 gem "activerecord-jdbcpostgresql-adapter", platforms: :jruby
@@ -37,7 +37,7 @@ gem 'rinku'
 gem 'rails_log_stdout',           github: 'heroku/rails_log_stdout'
 gem 'rails3_serve_static_assets', github: 'heroku/rails3_serve_static_assets'
 
-  gem 'sass-rails', '~> 4.0.0.beta1'
+  gem 'sass-rails', '~> 4.0.0.rc1'
   #gem 'coffee-rails', '~> 3.2.1'
   #gem 'turbo-sprockets-rails3'
 
