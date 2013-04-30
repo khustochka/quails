@@ -6,6 +6,7 @@
     show:
       sections:
         photos: Photos
+        similar_species: Similar species
         posts: Latest posts
         stats: Observation statistics
         monthly: By months

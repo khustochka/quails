@@ -32,6 +32,20 @@ class LociControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "get locus in JSON" do
+    login_as_admin
+    get :show, id: 'krym', format: :json
+    assert_response :success
+    assert_equal Mime::JSON, response.content_type
+  end
+
+  test "get locus in JSON by id" do
+    login_as_admin
+    get :show, id: seed('krym').id, format: :json
+    assert_response :success
+    assert_equal Mime::JSON, response.content_type
+  end
+
   test "get edit" do
     login_as_admin
     get :edit, id: 'mokrets'

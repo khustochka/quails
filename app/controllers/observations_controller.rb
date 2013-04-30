@@ -125,7 +125,7 @@ class ObservationsController < ApplicationController
             Observation.search(params[:q]).
                 joins("LEFT OUTER JOIN species ON species_id = species.id").
                 preload(preload_tables).
-                order(:observ_date, :locus_id, 'species.index_num').limit(params[:limit]) :
+                order(:observ_date, :locus_id, 'species.index_num').limit(params[:limit] || 200) :
             []
 
     respond_to do |format|

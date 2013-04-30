@@ -61,14 +61,34 @@ $(function () {
             }));
         });
 
-        $('#googleMap').gmap3(
-            'clear',
-            { action: 'addMarkers',
-                markers: marks,
-                marker: DEFAULT_MARKER_OPTIONS
-            },
-            'autofit' // Zooms and moves to see all markers
-        );
+        theMap.gmap3('clear');
+
+        if (data.length > 0) {
+
+            if (marks.length > 0) {
+
+                theMap.gmap3(
+                    { action: 'addMarkers',
+                        markers: marks,
+                        marker: DEFAULT_MARKER_OPTIONS
+                    },
+                    'autofit' // Zooms and moves to see all markers
+                );
+            }
+            else {
+                var loc_id = $('#q_locus_id').val();
+                if (loc_id.length > 0) {
+                    $.get('/loci/' + loc_id + '.json', function (data) {
+                        var lat = data['lat'], lon = data['lon'];
+                        if (lat != null && lon != null) {
+                            theMap.gmap3("get").setCenter(new google.maps.LatLng(lat, lon));
+                            theMap.gmap3("get").setZoom(13);
+                        }
+
+                    });
+                }
+            }
+        }
     }
 
     adjustSizes();
@@ -178,7 +198,7 @@ $(function () {
     $('.obs-list').on('click', 'li', function () {
         closeInfoWindows();
 
-        var activeMarkers = $('#googleMap').gmap3({
+        var activeMarkers = theMap.gmap3({
             action: 'get',
             name: 'marker',
             all: true,
@@ -193,7 +213,7 @@ $(function () {
         $('li.selected_obs').removeClass('selected_obs');
         $(this).addClass('selected_obs');
 
-        activeMarkers = $('#googleMap').gmap3({
+        activeMarkers = theMap.gmap3({
             action: 'get',
             name: 'marker',
             all: true,
