@@ -20,21 +20,20 @@ $(function () {
     }
 
     function firstEmptyRow() {
-        addNewRow();
+        return addNewRow();
     }
 
     function quickAddSpecies(speciesName) {
         var firstEmpty = firstEmptyRow(),
-            suggest = $('.sp-suggest', firstEmpty) /*.attr('id', 'observation_species_id_' + cnt)*/;
+            suggest = $('.sp-suggest', firstEmpty);
 
         suggest.children("option").each(function () {
             if ($(this).text() == speciesName) {
                 this.selected = true;
+                $('.ui-autocomplete-input', firstEmpty).val(speciesName);
                 return false;
             }
         });
-
-        suggest.combobox();
     }
 
     $('#add-row').click(addNewRow);
