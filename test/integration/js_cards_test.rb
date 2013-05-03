@@ -15,7 +15,9 @@ class JSCardsTest < ActionDispatch::IntegrationTest
   test "Adding card" do
     login_as_admin
     visit new_card_path
-    assert_equal 10, all('.obs-row').size
+
+    find(:xpath, "//span[text()='Add new row']").click
+
     select_suggestion('Brovary', from: 'Location')
     fill_in('Date', with: '2011-04-08')
     assert_difference('Card.count') do
@@ -31,6 +33,10 @@ class JSCardsTest < ActionDispatch::IntegrationTest
 
     select_suggestion('Brovary', from: 'Location')
     fill_in('Date', with: '2011-04-08')
+
+    find(:xpath, "//span[text()='Add new row']").click
+
+    find(:xpath, "//span[text()='Add new row']").click
 
     within(:xpath, "//div[contains(@class,'obs-row')][1]") do
       select_suggestion('Crex crex', from: 'Species')
@@ -52,13 +58,15 @@ class JSCardsTest < ActionDispatch::IntegrationTest
 
     find(:xpath, "//span[text()='Add new row']").click
 
-    assert_equal 11, all('.obs-row').size
+    assert_equal 1, all('.obs-row').size
 
-    within(:xpath, "//div[contains(@class,'obs-row')][10]") do
+    within(:xpath, "//div[contains(@class,'obs-row')][1]") do
       select_suggestion('Parus major', from: 'Species')
     end
 
-    within(:xpath, "//div[contains(@class,'obs-row')][11]") do
+    find(:xpath, "//span[text()='Add new row']").click
+
+    within(:xpath, "//div[contains(@class,'obs-row')][2]") do
       select_suggestion('Crex crex', from: 'Species')
     end
 
@@ -71,37 +79,28 @@ class JSCardsTest < ActionDispatch::IntegrationTest
 
     select_suggestion('Parus major', from: 'species-quick-add')
 
+    assert_equal 1, all('.obs-row').size
+
     assert_equal 'Parus major',
                  find(:xpath, "//div[contains(@class,'obs-row')][1]//input[contains(@class, 'ui-autocomplete-input')]").value
 
-    assert_equal 'Parus major',
-                 find(:xpath, "//div[contains(@class,'obs-row')][1]//input[contains(@class, 'sp-suggest')]").value
+    assert_equal seed(:parmaj).id.to_s,
+                 find(:xpath, "//div[contains(@class,'obs-row')][1]//select[contains(@class, 'sp-suggest')]").value
   end
 
   test "Remove row" do
     login_as_admin
     visit new_card_path
 
+    find(:xpath, "//span[text()='Add new row']").click
+
+    find(:xpath, "//span[text()='Add new row']").click
+
     within(:xpath, "//div[contains(@class,'obs-row')][1]") do
       find(".remove").click
     end
 
-    assert_equal 9, all('.obs-row').size
-  end
-
-  test "Remove new row" do
-    login_as_admin
-    visit new_card_path
-
-    find(:xpath, "//span[text()='Add new row']").click
-
-    assert_equal 11, all('.obs-row').size
-
-    within(:xpath, "//div[contains(@class,'obs-row')][11]") do
-      find(".remove").click
-    end
-
-    assert_equal 10, all('.obs-row').size
+    assert_equal 1, all('.obs-row').size
   end
 
   test "Destroy observation from card page" do
@@ -122,7 +121,7 @@ class JSCardsTest < ActionDispatch::IntegrationTest
       assert_equal edit_card_path(@card), current_path
       assert page.has_no_css?('.obs-row div a', text: o.id.to_s)
     end
-    assert_equal 9, all('.obs-row').size
+    assert_equal 0, all('.obs-row').size
   end
 
   test 'Species autosuggest box should have Avis incognita and be able to add it' do
@@ -130,6 +129,8 @@ class JSCardsTest < ActionDispatch::IntegrationTest
     visit new_card_path
     select_suggestion('Brovary', from: 'Location')
     fill_in('Date', with: '2011-04-08')
+
+    find(:xpath, "//span[text()='Add new row']").click
 
     within(:xpath, "//div[contains(@class,'obs-row')][1]") do
       select_suggestion('- Avis incognita', from: 'Species')
@@ -145,6 +146,12 @@ class JSCardsTest < ActionDispatch::IntegrationTest
 
     select_suggestion('Brovary', from: 'Location')
     fill_in('Date', with: '2011-04-09')
+
+    find(:xpath, "//span[text()='Add new row']").click
+
+    find(:xpath, "//span[text()='Add new row']").click
+
+    find(:xpath, "//span[text()='Add new row']").click
 
     within(:xpath, "//div[contains(@class,'obs-row')][3]") do
       find('label', text: 'Voice?').click
@@ -166,6 +173,10 @@ class JSCardsTest < ActionDispatch::IntegrationTest
 
     select_suggestion('Brovary', from: 'Location')
     fill_in('Date', with: '2011-04-09')
+
+    find(:xpath, "//span[text()='Add new row']").click
+
+    find(:xpath, "//span[text()='Add new row']").click
 
     within(:xpath, "//div[contains(@class,'obs-row')][1]") do
       select_suggestion('Crex crex', from: 'Species')
@@ -193,6 +204,8 @@ class JSCardsTest < ActionDispatch::IntegrationTest
     fill_in('Date', with: '2011-04-09')
     uncheck('card_post_id')
 
+    find(:xpath, "//span[text()='Add new row']").click
+
     within(:xpath, "//div[contains(@class,'obs-row')][1]") do
       select_suggestion('Crex crex', from: 'Species')
     end
@@ -213,6 +226,8 @@ class JSCardsTest < ActionDispatch::IntegrationTest
 
     select_suggestion('Brovary', from: 'Location')
     fill_in('Date', with: '2011-04-09')
+
+    find(:xpath, "//span[text()='Add new row']").click
 
     within(:xpath, "//div[contains(@class,'obs-row')][1]") do
       select_suggestion('Crex crex', from: 'Species')

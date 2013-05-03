@@ -9,10 +9,7 @@
 
 = render 'admin/shortcuts' if current_user.admin?
 
-- 1.upto(9 - @card.observations.size) do
-  - @card.observations.build
-
--# Always add at least one blank observation
+-# Always add one blank observation
 - @card.observations.build
 
 

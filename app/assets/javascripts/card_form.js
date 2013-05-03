@@ -11,6 +11,8 @@ $(function () {
         tmpl_regex = new RegExp("(_|\\[)" + template_row_num + "(_|\\])", "g"),
         options_list = $('.obs-row:last select.sp-suggest').children("option");
 
+    $('.obs-row:last').remove();
+
     function addNewRow() {
         last_row_num++;
         var row_html = sample_row_html.replace(tmpl_regex, "$1" + last_row_num + "$2");
