@@ -3,9 +3,12 @@ require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
 
-
 # Assets should be precompiled for production (so we don't need the gems loaded then)
 Bundler.require(:default, Rails.env)
+
+#FIXME: see https://github.com/rails/rails-observers/issues/4
+require 'rails/observers/activerecord/base'
+require 'rails/observers/activerecord/observer'
 
 module Quails
   class Application < Rails::Application

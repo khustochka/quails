@@ -20,6 +20,12 @@ GIT
       haml (>= 3.1, < 4.1)
       railties (>= 3.1, < 4.1)
 
+GIT
+  remote: git://github.com/rails/rails-observers.git
+  revision: 25ad85c3029b8c78bb984b2c968e2b98bdcc2dff
+  specs:
+    rails-observers (0.1.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -113,7 +119,7 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.23)
-    minitest (4.7.3)
+    minitest (4.7.4)
     minitest-reporters (0.14.18)
       ansi
       builder
@@ -145,8 +151,6 @@ GEM
       sprockets-rails (~> 2.0.0.rc4)
     rails-i18n (0.7.3)
       i18n (~> 0.5)
-    rails-observers (0.1.1)
-      railties (~> 4.0.0.beta)
     rails3-generators (1.0.0)
       railties (>= 3.0.0)
     railties (4.0.0.rc1)
@@ -190,7 +194,7 @@ GEM
     thor (0.18.1)
     thread_safe (0.1.0)
       atomic
-    tilt (1.3.7)
+    tilt (1.4.0)
     treetop (1.4.12)
       polyglot
       polyglot (>= 0.3.1)
@@ -236,7 +240,7 @@ DEPENDENCIES
   poltergeist
   rails (= 4.0.0.rc1)
   rails-i18n
-  rails-observers
+  rails-observers!
   rails3-generators
   rails3_serve_static_assets!
   rails_log_stdout!
