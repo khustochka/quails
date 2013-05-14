@@ -3,7 +3,7 @@ source 'https://rubygems.org/'
 ruby '2.0.0'
 
 #gem 'rails', '4.0.0.rc1'
-gem 'rails', github: 'rails/rails', branch: '4-0-stable'
+gem 'rails', github: 'rails/rails', branch: '4-0-0'
 
 gem 'pg', platforms: [:ruby, :mingw]
 gem "activerecord-jdbcpostgresql-adapter", platforms: :jruby
@@ -25,7 +25,7 @@ gem "haml"
 gem 'RedCloth'
 gem 'kaminari'
 #gem 'rails_autolink'
-gem 'simple_form', '~> 3.0.0.beta1'
+gem 'simple_form', '~> 3.0.0.rc'
 gem 'flickraw', '~> 0.9.5', require: false
 gem 'flickraw-cached'
 gem 'livejournal'
