@@ -48,7 +48,7 @@ GEM
       json
     childprocess (0.3.9)
       ffi (~> 1.0, >= 1.0.11)
-    database_cleaner (0.9.1)
+    database_cleaner (1.0.1)
     diff-lcs (1.2.4)
     erubis (2.7.0)
     eventmachine (1.0.3)
@@ -91,8 +91,7 @@ GEM
     launchy (2.3.0)
       addressable (~> 2.3)
     livejournal (0.3.8)
-    mail (2.5.3)
-      i18n (>= 0.4.0)
+    mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.23)
