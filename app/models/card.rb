@@ -1,5 +1,6 @@
 class Card < ActiveRecord::Base
-  has_many :observations
+
+  has_many :observations, dependent: :restrict
   belongs_to :locus
   belongs_to :post
 
