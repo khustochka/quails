@@ -50,8 +50,9 @@ class Image < ActiveRecord::Base
 
   # Associations
 
+  # FIXME: think how to do this in a more clever way (posts?)
   def post(posts_source)
-    posts_source.find_by_id(first_observation.post_id)
+    posts_source.find_by_id(first_observation.post_id || cards.first.post_id)
   end
 
   delegate :observ_date, :locus, :locus_id, :to => :card
