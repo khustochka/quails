@@ -5,10 +5,10 @@ module LifelistStrategies
     ALLOWED_SORT = [nil, 'last', 'class', 'count']
 
     AGGREGATION = {
-        nil => ['MIN(observ_date)', 'first_seen'],
-        'last' => ['MAX(observ_date)', 'last_seen'],
-        'class' => ['MIN(observ_date)', 'first_seen'],
-        'count' => ['COUNT(id)', 'times_seen']
+        nil => ['MIN(cards.observ_date)', 'first_seen'],
+        'last' => ['MAX(cards.observ_date)', 'last_seen'],
+        'class' => ['MIN(cards.observ_date)', 'first_seen'],
+        'count' => ['COUNT(observations.id)', 'times_seen']
     }
 
     SORT_COLUMNS = {

@@ -95,7 +95,9 @@ class Lifelist
   #    will select the first observation for every species, but proved to be much slower
   # 2) TODO: Window functions
   def lifers_aggregation
-    @observation_source.filter(@filter).select("species_id, #{@strategy.aggregation_query}").group(:species_id)
+    @observation_source.filter(@filter).
+        joins(:card).
+        select("species_id, #{@strategy.aggregation_query}").group(:species_id)
   end
 
   def posts(first_or_last = 'first')
@@ -103,12 +105,17 @@ class Lifelist
     @source[:posts].select('posts.*, lifers.species_id').
         joins(
         "INNER JOIN (#{@observation_source.filter(@filter).to_sql}) AS observs
-              ON posts.id = observs.post_id").
+              ON posts.id = observs.post_id"
+        ).
         joins(
         "INNER JOIN (#{lifers_sql}) AS lifers
-              ON observs.species_id = lifers.species_id
-              AND observs.observ_date = lifers.#{first_or_last}_seen"
-    ).
+              ON observs.species_id = lifers.species_id"
+        ).
+        joins(
+        "INNER JOIN cards
+              ON observs.card_id = cards.id
+              AND cards.observ_date = lifers.#{first_or_last}_seen"
+        ).
         index_by { |p| p.species_id.to_i }
   end
 
