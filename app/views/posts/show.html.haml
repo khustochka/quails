@@ -53,7 +53,12 @@
 
 - if current_user.admin?
 
+  %hr
+
   %p= link_to('Add new card', new_card_path(card: {post_id: @post.id}))
+
+  %ul.cards_list
+    = render @post.cards
 
   - unless @post.lj_url_id.blank?
     %p= link_to 'This post on Livejournal', @post.lj_url

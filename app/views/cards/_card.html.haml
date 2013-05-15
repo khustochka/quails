@@ -1,0 +1,15 @@
+%li.observ_card
+  %div
+    = card.observ_date
+    %br
+    = card.locus.name
+  %div
+    Obs:
+    %big= card.observations.count
+  %div
+    Species:
+    %big= card.observations.merge(Observation.identified).count("DISTINCT species_id")
+  %div
+    = link_to 'Show', card
+    = link_to 'Edit', edit_card_path(card)
+    = link_to 'Destroy', card, :method => :delete, :data => { :confirm => 'Are you sure?' }

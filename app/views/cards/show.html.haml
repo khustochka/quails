@@ -7,5 +7,5 @@
 %p#notice= notice
 
 %ol
-  - @card.observations.each do |obs|
+  - @card.observations.preload(:species).each do |obs|
     %li= species_link(obs.species)
