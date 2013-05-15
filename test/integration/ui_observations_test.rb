@@ -6,9 +6,10 @@ class UIObservationsTest < ActionDispatch::IntegrationTest
   include CapybaraTestCase
 
   test 'Searching and showing Avis incognita observations' do
-    create(:observation, species_id: 0, observ_date: "2010-06-18")
-    create(:observation, species_id: 0, observ_date: "2009-06-19")
-    create(:observation, species: seed(:spinus), observ_date: "2010-06-18")
+    card = create(:card, observ_date: "2010-06-18")
+    create(:observation, species_id: 0, card: card)
+    create(:observation, species_id: 0, card: create(:card, observ_date: "2010-06-19"))
+    create(:observation, species: seed(:spinus), card: card)
     login_as_admin
     visit observations_path
     select('- Avis incognita', from: 'Species')
@@ -19,8 +20,9 @@ class UIObservationsTest < ActionDispatch::IntegrationTest
   end
 
   test 'Searching observations by species works properly' do
-    create(:observation, species: seed(:pasdom), observ_date: "2010-06-18")
-    create(:observation, species: seed(:fulatr), observ_date: "2010-06-18")
+    card = create(:card, observ_date: "2010-06-18")
+    create(:observation, species: seed(:pasdom), card: card)
+    create(:observation, species: seed(:fulatr), card: card)
     login_as_admin
     visit observations_path
     select('Passer domesticus', from: 'Species')
@@ -30,8 +32,9 @@ class UIObservationsTest < ActionDispatch::IntegrationTest
   end
 
   test 'Searching observations by mine/not mine works properly' do
-    create(:observation, species: seed(:pasdom), observ_date: "2010-06-18", mine: false)
-    create(:observation, species: seed(:fulatr), observ_date: "2010-06-18")
+    card = create(:card, observ_date: "2010-06-18")
+    create(:observation, species: seed(:pasdom), card: card, mine: false)
+    create(:observation, species: seed(:fulatr), card: card)
     login_as_admin
     visit observations_path
     choose('Not mine')

@@ -48,7 +48,7 @@ class JSImagesTest < ActionDispatch::IntegrationTest
 
 
   test "Adding new image" do
-    create(:observation, observ_date: '2008-07-01')
+    create(:observation, card: create(:card, observ_date: '2008-07-01'))
     login_as_admin
     visit new_image_path
 
