@@ -5,6 +5,10 @@ class Image < ActiveRecord::Base
 
   has_and_belongs_to_many :observations
   has_many :species, :through => :observations
+
+  # TODO: try to make it 'card', because image should belong to observations of the same card
+  has_many :cards, :through => :observations
+
   has_many :spots, :through => :observations
   belongs_to :spot
 
@@ -65,17 +69,17 @@ class Image < ActiveRecord::Base
     species.count > 1
   end
 
-  ORDERING_COLUMNS = %w(observ_date locus_id index_num created_at images.id)
+  ORDERING_COLUMNS = %w(cards.observ_date cards.locus_id index_num images.created_at images.id)
   PREV_NEXT_ORDER = "(ORDER BY #{ORDERING_COLUMNS.join(', ')})"
 
   def prev_by_species(sp)
-    r = sp.images.select("images.id AS img_id, lag(images.id) OVER #{PREV_NEXT_ORDER} AS prev").except(:order)
+    r = sp.images.joins(:cards).select("images.id AS img_id, lag(images.id) OVER #{PREV_NEXT_ORDER} AS prev").except(:order)
     im = Image.from("(#{r.to_sql}) AS tmp").select("prev").where("img_id = ?", self.id)
     Image.where(id: im).first
   end
 
   def next_by_species(sp)
-    r = sp.images.select("images.id AS img_id, lead(images.id) OVER #{PREV_NEXT_ORDER} AS next").except(:order)
+    r = sp.images.joins(:cards).select("images.id AS img_id, lead(images.id) OVER #{PREV_NEXT_ORDER} AS next").except(:order)
     im = Image.from("(#{r.to_sql}) AS tmp").select("next").where("img_id = ?", self.id)
     Image.where(id: im).first
   end
