@@ -30,7 +30,7 @@ class Observation < ActiveRecord::Base
   end
 
   def self.years
-    order(:year).pluck('DISTINCT EXTRACT(year from observ_date) AS year')
+    joins(:card).order(:year).pluck('DISTINCT EXTRACT(year from observ_date) AS year')
   end
 
   def self.search(conditions = {})

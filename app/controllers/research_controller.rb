@@ -13,7 +13,7 @@ class ResearchController < ApplicationController
     if params[:days]
       sort_col = params[:sort].try(:to_sym) || :date2
       @period = params[:days].to_i
-      query = MyObservation.select("species_id, observ_date").order(:observ_date).to_sql
+      query = MyObservation.joins(:card).select("species_id, observ_date").order(:observ_date).to_sql
       @list = Observation.connection.select_rows(query).group_by(&:first).each_with_object([]) do |obsdata, collection|
         sp, obss = obsdata
         obs = obss.map { |_, d| Date.parse(d) }.each_cons(2).select do |ob1, ob2|
@@ -52,7 +52,7 @@ class ResearchController < ApplicationController
     @new_pics = Species.select('*').joins("INNER JOIN (#{new_pic.to_sql}) AS obs ON species.id=obs.species_id").
         limit(15).order('add_date DESC')
 
-    long_rel = MyObservation.joins(:images).select("species_id, MAX(observ_date) as lastphoto").
+    long_rel = MyObservation.joins(:images, :card).select("species_id, MAX(observ_date) as lastphoto").
         group(:species_id).having("MAX(observ_date) < (now() - interval '2 years')")
 
     @long_time = Species.select('*').
@@ -82,15 +82,15 @@ class ResearchController < ApplicationController
 
   def day
     @month, @day = (params[:day].try(:split, '-') || [Time.current.month, Time.current.day]).map { |n| "%02d" % n.to_i }
-    prev_day = Image.joins(:observations).select("to_char(observ_date, 'DD') as iday, to_char(observ_date, 'MM') as imon").
+    prev_day = Image.joins(:observations, :cards).select("to_char(observ_date, 'DD') as iday, to_char(observ_date, 'MM') as imon").
         where("to_char(observ_date, 'MM-DD') < '#@month-#@day'").
-        where("mine").order("to_char(observ_date, 'MM-DD') DESC").limit(1).first
+        where("observations.mine").order("to_char(observ_date, 'MM-DD') DESC").limit(1).first
     @prev_day = [prev_day[:imon], prev_day[:iday]].join('-') rescue nil
-    next_day = Image.joins(:observations).select("to_char(observ_date, 'DD') as iday, to_char(observ_date, 'MM') as imon").
+    next_day = Image.joins(:observations, :cards).select("to_char(observ_date, 'DD') as iday, to_char(observ_date, 'MM') as imon").
         where("to_char(observ_date, 'MM-DD') > '#@month-#@day'").
-        where("mine").order("to_char(observ_date, 'MM-DD') ASC").limit(1).first
+        where("observations.mine").order("to_char(observ_date, 'MM-DD') ASC").limit(1).first
     @next_day = [next_day[:imon], next_day[:iday]].join('-') rescue nil
-    @images = Image.joins(:observations).where("mine").
+    @images = Image.joins(:observations, :cards).where("observations.mine").
         where('EXTRACT(day from observ_date) = ? AND EXTRACT(month from observ_date) = ?', @day, @month)
   end
 
@@ -103,7 +103,9 @@ class ResearchController < ApplicationController
                end
     @next_day = @this_day + 1
     @prev_day = @this_day - 1
-    @uptoday = MyObservation.where(
+    @uptoday = MyObservation.
+        joins(:card).
+        where(
         'EXTRACT(month FROM observ_date) < ? OR
         (EXTRACT(month FROM observ_date) = ?
         AND EXTRACT(day FROM observ_date) <= ?)',
@@ -124,15 +126,17 @@ class ResearchController < ApplicationController
       @loc2 = Locus.find_by_slug(l2)
 
       observations_source = if @loc1.country == @loc2.country
-                              MyObservation.where(locus_id: @loc1.country.subregion_ids)
+                              Card.where(locus_id: @loc1.country.subregion_ids)
                             else
-                              MyObservation.scoped
+                              Card.scoped
                             end
 
-      @species = Species.uniq.joins(:observations).merge(observations_source).ordered_by_taxonomy.extend(SpeciesArray)
+      prespecies = Species.uniq.joins(:cards).merge(MyObservation.scoped)
 
-      @loc1_species = Species.uniq.joins(:observations).merge(MyObservation.where(locus_id: @loc1.subregion_ids)).all
-      @loc2_species = Species.uniq.joins(:observations).merge(MyObservation.where(locus_id: @loc2.subregion_ids)).all
+      @species = prespecies.merge(observations_source).ordered_by_taxonomy.extend(SpeciesArray)
+
+      @loc1_species = prespecies.merge(Card.where(locus_id: @loc1.subregion_ids)).all
+      @loc2_species = prespecies.merge(Card.where(locus_id: @loc2.subregion_ids)).all
     else
       l1 ||= 'kiev'
       l2 ||= 'brovary'
@@ -143,12 +147,12 @@ class ResearchController < ApplicationController
   def stats
     @years = [nil] + MyObservation.years
 
-    observations_filtered = MyObservation.filter(year: params[:year])
+    observations_filtered = MyObservation.filter(year: params[:year]).joins(:card)
     lifelist_filtered = Lifelist.basic.relation
     lifelist_filtered = lifelist_filtered.where('EXTRACT(year from first_seen) = ?', params[:year]) if params[:year]
 
     @year_data = observations_filtered.select('EXTRACT(year FROM observ_date) as year,
-                                      COUNT(id) as count_obs,
+                                      COUNT(observations.id) as count_obs,
                                       COUNT(DISTINCT observ_date) as count_days,
                                       COUNT(DISTINCT species_id) as count_species').
                 group('EXTRACT(year FROM observ_date)').order(:year)
@@ -156,12 +160,12 @@ class ResearchController < ApplicationController
     @first_sp_by_year = lifelist_filtered.group('EXTRACT(year FROM first_seen)').except(:order).count
 
     @month_data = observations_filtered.select('EXTRACT(month FROM observ_date) as month,
-                                      COUNT(id) as count_obs,
+                                      COUNT(observations.id) as count_obs,
                                       COUNT(DISTINCT species_id) as count_species').
         group('EXTRACT(month FROM observ_date)').order(:month)
     @first_sp_by_month = lifelist_filtered.group('EXTRACT(month FROM first_seen)').except(:order).count
 
-    @day_by_obs = observations_filtered.select('observ_date, COUNT(id) as count_obs').
+    @day_by_obs = observations_filtered.joins(:card).select('observ_date, COUNT(observations.id) as count_obs').
                   group('observ_date').
                   order('count_obs DESC, observ_date ASC').limit(10)
 
@@ -170,7 +174,7 @@ class ResearchController < ApplicationController
         order('count_species DESC, observ_date ASC').limit(10)
 
     @day_and_loc_by_species = observations_filtered.select('observ_date, locus_id, COUNT(DISTINCT species_id) as count_species').
-        group('observ_date, locus_id').preload(:locus).
+        group('observ_date, locus_id').
         order('count_species DESC, observ_date ASC').limit(10)
 
     @day_by_new_species = lifelist_filtered.
