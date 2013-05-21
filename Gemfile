@@ -8,9 +8,6 @@ gem 'rails', '3.2.13'
 gem 'pg', platforms: [:ruby, :mingw]
 gem "activerecord-jdbcpostgresql-adapter", platforms: :jruby
 
-# Temporarily!
-gem 'mail', '2.5.3'
-
 gem 'unicorn', require: false, platforms: :ruby
 
 # Bundle the extra gems:
