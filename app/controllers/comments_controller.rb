@@ -48,6 +48,7 @@ class CommentsController < ApplicationController
     @comment = @post.comments.build(comment_attrs)
 
     @comment.approved = !@comment.like_spam? && params[:comment][:name].blank?
+    @comment.ip = request.remote_ip
 
     respond_to do |format|
       if @comment.save

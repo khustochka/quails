@@ -24,6 +24,10 @@
   %b Approved:
   = @comment.approved
 
+%p
+  %b IP:
+  = @comment.ip
+
 = link_to 'Edit', edit_comment_path(@comment)
 = precede ' | ' do
   = link_to 'Back', comments_path

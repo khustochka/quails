@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130425111059) do
+ActiveRecord::Schema.define(:version => 20130523093951) do
 
   create_table "books", :force => true do |t|
     t.string "slug",        :limit => 32, :null => false
@@ -20,17 +20,18 @@ ActiveRecord::Schema.define(:version => 20130425111059) do
   end
 
   create_table "comments", :force => true do |t|
-    t.integer  "post_id",    :null => false
-    t.integer  "parent_id",  :null => false
+    t.integer  "post_id",                  :null => false
+    t.integer  "parent_id",                :null => false
     t.string   "provider"
     t.string   "uid"
-    t.string   "name",       :null => false
+    t.string   "name",                     :null => false
     t.string   "email"
     t.string   "url"
-    t.text     "text",       :null => false
-    t.boolean  "approved",   :null => false
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.text     "text",                     :null => false
+    t.boolean  "approved",                 :null => false
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
+    t.string   "ip",         :limit => 15
   end
 
   add_index "comments", ["post_id"], :name => "index_comments_on_post_id"
