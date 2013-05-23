@@ -92,7 +92,7 @@ Quails::Application.routes.draw do
 
   resources :cards
 
-  resources :observations do
+  resources :observations, except: [:new, :create] do
     collection do
       get 'search(/:with_spots)', action: :search, with_spots: /with_spots/
     end

@@ -61,12 +61,6 @@ class RoutingTest < ActionDispatch::IntegrationTest
                    {controller: 'images', action: 'index', page: '2'}
   end
 
-  test 'route observations correctly' do
-    assert_routing '/observations/11876', {controller: 'observations', action: 'show', id: "11876"}
-    assert_routing '/observations/new', {controller: 'observations', action: 'new'}
-    assert_routing '/observations/11876/edit', {controller: 'observations', action: 'edit', id: "11876"}
-  end
-
   test 'route feeds and sitemap correctly' do
     assert_routing '/blog.xml', {controller: 'feeds', action: 'blog', format: 'xml'}
     assert_routing '/photos.xml', {controller: 'feeds', action: 'photos', format: 'xml'}

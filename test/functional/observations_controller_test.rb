@@ -50,22 +50,6 @@ class ObservationsControllerTest < ActionController::TestCase
     assert_select 'td', '- Avis incognita'
   end
 
-  test "get new" do
-    login_as_admin
-    get :new
-    assert_response :success
-  end
-
-  test "create observation" do
-    observ = attributes_for(:observation)
-    common = observ.extract!(:locus_id, :observ_date, :mine)
-    assert_difference('Observation.count') do
-      login_as_admin
-      post :create, c: common, o: [observ]
-    end
-    assert_redirected_to observation_path(assigns(:observation))
-  end
-
   test "redirect show observation to edit" do
     observation = create(:observation)
     login_as_admin
@@ -82,10 +66,9 @@ class ObservationsControllerTest < ActionController::TestCase
 
   test "update observation" do
     observation = create(:observation)
-    observ = attributes_for(:observation)
-    common = observ.extract!(:locus_id, :observ_date, :mine)
+    observ = attributes_for(:observation, {'place' => 'New place'})
     login_as_admin
-    put :update, id: observation.to_param, c: common, o: [observ]
+    put :update, id: observation.id, observation: observ
     assert_redirected_to edit_observation_path(assigns(:observation))
   end
 
@@ -129,7 +112,7 @@ class ObservationsControllerTest < ActionController::TestCase
 
   test 'protect update with HTTP authentication' do
     observation = create(:observation)
-    observation.observ_date = '2010-11-07'
+    observation.place = 'New place'
     assert_raise(ActionController::RoutingError) { put :update, id: observation.to_param, observation: observation.attributes }
     #assert_response 404
   end

@@ -22,37 +22,14 @@ class ObservationsController < ApplicationController
     redirect_to :action => :edit, :id => params[:id]
   end
 
-  # GET /observations/new
-  # Adding single observation
-  def new
-    @observation = Observation.new({:post_id => params[:post_id]})
-    render :form
-  end
-
   # GET /observations/1/edit
   def edit
     render :form
   end
 
-  # POST /observations
-  def create
-    ob = params[:o].first
-    ob[:voice] ||= false
-    @observation = Observation.new(params[:c].merge(ob))
-
-    if @observation.save
-      redirect_to(@observation, :notice => 'Observation was successfully created.')
-    else
-      render :form
-    end
-  end
-
   # PUT /observations/1
   def update
-    ob = params[:o].first
-    ob[:voice] ||= false
-    params[:c][:post_id] ||= nil
-    if @observation.update_attributes(params[:c].merge(ob))
+    if @observation.update_attributes(params[:observation])
       redirect_to(edit_observation_path(@observation), :notice => 'Observation was successfully updated.')
     else
       render :form
