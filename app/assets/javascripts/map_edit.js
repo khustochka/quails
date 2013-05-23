@@ -91,6 +91,16 @@ $(function () {
         }
     }
 
+    function destroy_link(spot_id) {
+        return $("<a href='/spots/" + spot_id + "' " +
+            "class='destroy' " +
+            "data-confirm='Spot will be REMOVED!' " +
+            "data-method='delete' " +
+            "rel='nofollow' " +
+            "data-remote='true'>Destroy</a>"
+        )
+    }
+
     adjustSizes();
 
     $(window).resize(adjustSizes);
@@ -133,6 +143,8 @@ $(function () {
                     selectedObs = $('li.selected_obs'),
                     spotData = spotsStore[data.id];
 
+                theLastMarker = marker;
+
                 closeInfoWindows();
 
                 if (selectedObs.length == 0) {
@@ -140,8 +152,10 @@ $(function () {
                     selectedObs = $('li.selected_obs');
                 }
 
-                if (selectedObs.data('obs_id') == spotData.observation_id)
+                if (selectedObs.data('obs_id') == spotData.observation_id) {
                     $('#spot_id', newForm).val(data.id);
+                    destroy_link(data.id).appendTo($('.buttons', newForm));
+                }
 
                 $('#spot_exactness_' + spotData.exactness, newForm).attr('checked', true);
                 $('#spot_memo', newForm).attr('value', spotData.memo);
@@ -288,6 +302,13 @@ $(function () {
 
     $(document).on('ajax:error', '#new_spot', function (e, data) {
         alert("Error submitting form");
+    });
+
+    // Destroy
+    $(document).on('ajax:success', '#new_spot .destroy', function (e, data) {
+        theLastMarker.setMap(null);
+        closeInfoWindows();
+        e.stopPropagation();
     });
 
 });
