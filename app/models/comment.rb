@@ -20,7 +20,7 @@ class Comment < ActiveRecord::Base
   scope :unapproved, lambda { where(approved: false) }
 
   def like_spam?
-    self.text =~ /#{STOP_WORDS.join('|')}/i ||
+    @likespam ||= self.text =~ /#{STOP_WORDS.join('|')}/i ||
         self.text.scan(/href=/i).size > 4
   end
 
