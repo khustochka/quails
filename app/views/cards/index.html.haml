@@ -1,4 +1,7 @@
-- javascript 'ujs'
+- @wider = true
+
+- javascript 'card_index'
+- stylesheet 'forms'
 
 - @page_title = 'Cards'
 
@@ -6,7 +9,20 @@
 
 = render 'admin/shortcuts' if current_user.admin?
 
+= render 'observations/search'
+
 %ul.cards_list
-  = render @cards
+  - if @search.observations_filtered?
+    - @cards.each do  |card|
+      = render card
+      %ul
+        - card.observations.each do |obs|
+          %li
+            = link_to(obs.id, observation_path(obs))
+            = obs.formatted.species_str
+            = obs.formatted.when_where_str
+
+  - else
+    = render @cards
 
 = paginate @cards

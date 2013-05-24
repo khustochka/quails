@@ -37,7 +37,7 @@ class SearchCardsControllerTest < ActionController::TestCase
     cards = assigns(:cards)
     assert_not_nil cards
     assert_present cards.find {|c| (c.observations.find {|o| o.species_id == 0}).present? }
-    #assert_select 'td', '- Avis incognita'
+    assert_select 'li b', '- Avis incognita'
   end
 
 end

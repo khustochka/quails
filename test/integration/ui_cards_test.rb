@@ -15,8 +15,8 @@ class UICardsTest < ActionDispatch::IntegrationTest
     select('- Avis incognita', from: 'Species')
     click_button('Search')
     assert_equal 200, page.driver.response.status
-    assert find('table.obs_list').has_content?('- Avis incognita')
-    assert_false find('table.obs_list').has_content?('Spinus spinus')
+    assert find('ul.cards_list').has_content?('- Avis incognita')
+    assert_false find('ul.cards_list').has_content?('Spinus spinus')
   end
 
   test 'Searching observations by species works properly' do
@@ -27,8 +27,8 @@ class UICardsTest < ActionDispatch::IntegrationTest
     visit cards_path
     select('Passer domesticus', from: 'Species')
     click_button('Search')
-    assert find('table.obs_list').has_content?('Passer domesticus')
-    assert_false find('table.obs_list').has_content?('Fulica atra')
+    assert find('ul.cards_list').has_content?('Passer domesticus')
+    assert_false find('ul.cards_list').has_content?('Fulica atra')
   end
 
   test 'Searching observations by mine/not mine works properly' do
@@ -39,8 +39,8 @@ class UICardsTest < ActionDispatch::IntegrationTest
     visit cards_path
     choose('Not mine')
     click_button('Search')
-    assert find('table.obs_list').has_content?('Passer domesticus')
-    assert_false find('table.obs_list').has_content?('Fulica atra')
+    assert find('ul.cards_list').has_content?('Passer domesticus')
+    assert_false find('ul.cards_list').has_content?('Fulica atra')
   end
 
 end
