@@ -8,7 +8,10 @@ class CardsController < ApplicationController
   # GET /cards
   # GET /cards.json
   def index
-    @cards = Card.order('observ_date DESC').preload(:locus).page(params[:page])
+
+    @search = ObservationSearch.new(params[:q])
+
+    @cards = @search.cards.order(params[:sort] || 'observ_date DESC').preload(:locus, :post).page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb

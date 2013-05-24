@@ -4,18 +4,8 @@ class ObservationsController < ApplicationController
 
   find_record before: [:show, :update, :destroy]
 
-  after_filter :cache_expire, only: [:create, :update, :destroy]
+  after_filter :cache_expire, only: [:update, :destroy]
   cache_sweeper :lifelist_sweeper
-
-  # GET /observations
-  def index
-    @search = Observation.search(params[:q])
-    # sorting by species.index_num requires using #includes
-    # but #preload is faster, so use it for locus and post, and for species if possible
-    # TODO: when Rails 4 is out look at #references
-    @observations = @search.order(params[:sort]).preload(:locus, :post).page(params[:page]).
-        send((params[:sort] == 'species.index_num') ? :includes : :preload, :species)
-  end
 
   # GET /observations/1
   def show

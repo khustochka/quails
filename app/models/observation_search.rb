@@ -4,7 +4,9 @@ class ObservationSearch
   OBSERVATION_ATTRIBUTES = [:species_id]
 
   def initialize(conditions = {})
-    @all_conditions = conditions.slice(*(CARD_ATTRIBUTES + OBSERVATION_ATTRIBUTES))
+    @all_conditions = conditions ?
+        conditions.slice(*(CARD_ATTRIBUTES + OBSERVATION_ATTRIBUTES)) :
+        {}
     @conditions = {
         card: @all_conditions.slice(*CARD_ATTRIBUTES),
         observation: @all_conditions.slice(*OBSERVATION_ATTRIBUTES)
