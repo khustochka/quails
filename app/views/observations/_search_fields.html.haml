@@ -1,0 +1,12 @@
+= form.input :species_id, label: 'Species:', collection: species_for_select, required: false,
+    input_html: {class: 'suggest-combo'}
+= form.input :observ_date, label: 'Date:', as: :string, required: false,
+    input_html: {class: 'short', maxlength: 10, type: 'date'}
+= form.input :locus_id, label: 'Location:', collection: Locus.suggestion_order, required: false,
+    input_html: {class: 'suggest-combo'}
+%div.input.optional.mine_radio_group
+  = form.collection_radio_buttons :mine, [['', 'All'], [true, 'Mine'], [false, 'Not mine']], :first, :last
+%div.input.optional.voice_radio_group
+  = form.collection_radio_buttons :voice, [['', 'All'], [false, 'Seen'], [true, 'Voice only']], :first, :last
+.buttons
+  = form.button :submit, value: 'Search', name: nil
