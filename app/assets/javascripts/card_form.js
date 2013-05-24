@@ -16,8 +16,9 @@ $(function () {
     function addNewRow() {
         last_row_num++;
         var row_html = sample_row_html.replace(tmpl_regex, "$1" + last_row_num + "$2");
-        $(row_html).insertBefore($('#add-row').parent());
+        $(row_html).insertBefore($('.fixed-bottom'));
         $('.obs-row:last .sp-suggest').combobox();
+        window.scrollTo(0, $(document).height());
         return $('.obs-row:last');
     }
 

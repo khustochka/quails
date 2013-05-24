@@ -41,16 +41,16 @@
   = form.simple_fields_for :observations do |builder|
     = render 'observations/observation_fields', form: builder
 
-  %div.to-add-row
-    &laquo;
-    %span.pseudolink#add-row Add new row
-
   .fixed-bottom
 
     %div.quick-add
       .input.flat
         %label{for: 'species-quick-add'} Quick add species:
         %input{id: 'species-quick-add', class: 'string'}
+
+      %div.to-add-row
+        &laquo;
+        %span.pseudolink#add-row Add new row
 
     .buttons
       = default_submit_button(form)
