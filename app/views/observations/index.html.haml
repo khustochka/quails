@@ -26,7 +26,7 @@
 
   - @observations.each do |observation|
     %tr
-      %td.align-right= link_to observation.id, edit_observation_path(observation)
+      %td.align-right= link_to observation.id, observation_path(observation)
       %td.nowrap= name_sci(observation.species)
       %td.align-center
         = observation.observ_date

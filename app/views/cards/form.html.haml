@@ -39,7 +39,7 @@
   = form.input :notes, input_html: {rows: 7}
 
   = form.simple_fields_for :observations do |builder|
-    = render 'observation_fields', form: builder
+    = render 'observations/observation', form: builder
 
   %div.to-add-row
     &laquo;

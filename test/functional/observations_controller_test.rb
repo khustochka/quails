@@ -50,17 +50,10 @@ class ObservationsControllerTest < ActionController::TestCase
     assert_select 'td', '- Avis incognita'
   end
 
-  test "redirect show observation to edit" do
+  test "get show" do
     observation = create(:observation)
     login_as_admin
     get :show, id: observation.to_param
-    assert_redirected_to edit_observation_path(observation)
-  end
-
-  test "get edit" do
-    observation = create(:observation)
-    login_as_admin
-    get :edit, id: observation.to_param
     assert_response :success
   end
 
@@ -69,7 +62,7 @@ class ObservationsControllerTest < ActionController::TestCase
     observ = attributes_for(:observation, {'place' => 'New place'})
     login_as_admin
     put :update, id: observation.id, observation: observ
-    assert_redirected_to edit_observation_path(assigns(:observation))
+    assert_redirected_to observation_path(assigns(:observation))
   end
 
   test "destroy observation" do
@@ -91,12 +84,6 @@ class ObservationsControllerTest < ActionController::TestCase
   test 'protect show with HTTP authentication' do
     observation = create(:observation)
     assert_raise(ActionController::RoutingError) { get :show, id: observation.to_param }
-    #assert_response 404
-  end
-
-  test 'protect edit with HTTP authentication' do
-    observation = create(:observation)
-    assert_raise(ActionController::RoutingError) { get :edit, id: observation.to_param }
     #assert_response 404
   end
 

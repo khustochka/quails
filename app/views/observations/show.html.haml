@@ -10,9 +10,12 @@
 
 = render 'admin/shortcuts' if current_user.admin?
 
-= simple_form_for @observation, html: {class: 'observation'} do |form|
+%ul.cards_list
+  = render @observation.card
 
-  = render partial: @observation
+= simple_form_for @observation, html: {class: 'observation'} do |builder|
+
+  = render partial: @observation, locals: {form: builder}
 
   .buttons
-    = default_submit_button(form)
+    = default_submit_button(builder)

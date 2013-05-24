@@ -2,7 +2,9 @@ require 'test_helper'
 
 class CardsControllerTest < ActionController::TestCase
   setup do
+    create(:observation)
     @card = create(:card)
+    3.times { create(:observation, card: @card) }
     login_as_admin
   end
 
@@ -59,7 +61,15 @@ class CardsControllerTest < ActionController::TestCase
     assert_redirected_to edit_card_path(assigns(:card))
   end
 
-  test "should destroy card" do
+  test "should not destroy card which is not empty" do
+    assert_difference('Card.count', 0) do
+      assert_raise(ActiveRecord::DeleteRestrictionError) { delete :destroy, id: @card }
+    end
+  end
+
+  test "should destroy empty card" do
+    @card.observations.each {|o| o.destroy }
+
     assert_difference('Card.count', -1) do
       delete :destroy, id: @card
     end

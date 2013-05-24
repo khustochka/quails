@@ -2,7 +2,7 @@ class ObservationsController < ApplicationController
 
   administrative
 
-  find_record before: [:edit, :update, :destroy]
+  find_record before: [:show, :update, :destroy]
 
   after_filter :cache_expire, only: [:create, :update, :destroy]
   cache_sweeper :lifelist_sweeper
@@ -19,18 +19,12 @@ class ObservationsController < ApplicationController
 
   # GET /observations/1
   def show
-    redirect_to :action => :edit, :id => params[:id]
-  end
-
-  # GET /observations/1/edit
-  def edit
-    render :form
   end
 
   # PUT /observations/1
   def update
     if @observation.update_attributes(params[:observation])
-      redirect_to(edit_observation_path(@observation), :notice => 'Observation was successfully updated.')
+      redirect_to(observation_path(@observation), :notice => 'Observation was successfully updated.')
     else
       render :form
     end
