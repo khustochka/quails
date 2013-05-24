@@ -80,7 +80,7 @@ class ObservationsControllerTest < ActionController::TestCase
     obss = [create(:observation, species: seed(:denmaj)),
             create(:observation, species: seed(:pasdom)),
             create(:observation, species: seed(:anacre))]
-    get :search, q: {observ_date: obss[0].observ_date.iso8601}, format: 'json'
+    get :search, q: {observ_date: obss[0].card.observ_date.iso8601}, format: 'json'
     assert_response :success
     result = JSON.parse(response.body)
     assert_equal 3, result.size
@@ -92,7 +92,7 @@ class ObservationsControllerTest < ActionController::TestCase
   test 'return observation search results that include Avis incognita in HTML' do
     login_as_admin
     observation = create(:observation, species_id: 0)
-    get :search, q: {observ_date: observation.observ_date.iso8601}
+    get :search, q: {observ_date: observation.card.observ_date.iso8601}
     assert_response :success
     assert_equal Mime::HTML, response.content_type
     assert_include response.body, 'Avis incognita'
@@ -101,7 +101,7 @@ class ObservationsControllerTest < ActionController::TestCase
   test 'return observation search results that include Avis incognita in JSON' do
     login_as_admin
     observation = create(:observation, species_id: 0)
-    get :search, q: {observ_date: observation.observ_date.iso8601}, format: 'json'
+    get :search, q: {observ_date: observation.card.observ_date.iso8601}, format: 'json'
     assert_response :success
     assert_equal Mime::JSON, response.content_type
     result = JSON.parse(response.body)
