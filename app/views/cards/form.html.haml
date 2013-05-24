@@ -38,27 +38,8 @@
 
   = form.input :notes, input_html: {rows: 7}
 
-  = form.simple_fields_for :observations do |form2|
-    - obs = form2.object
-    %div.obs-row
-      = form2.association :species, collection: species_for_select,
-          include_blank: true, required: false, input_html: {class: 'sp-suggest'}
-      = form2.input :mine, label: 'Mine?'
-      = form2.input :quantity, input_html: {class: :short}
-      = form2.input :notes
-      = form2.input :voice, label: 'Voice?'
-      = form2.input :place
-      - if obs.persisted?
-        %div.align-center
-          = link_to(obs.id, edit_observation_path(obs))
-          %br
-          = default_destroy_link(obs)
-        %div
-          - if obs.post_id
-            = link_to 'post', obs.post
-      - else
-        %div.align-center
-          %span.remove= image_tag('/img/x_14x14.png', title: 'Remove row')
+  = form.simple_fields_for :observations do |builder|
+    = render 'observation_fields', form: builder
 
   %div.to-add-row
     &laquo;
