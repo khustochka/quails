@@ -29,4 +29,10 @@ class ObservationSearchTest < ActiveSupport::TestCase
     assert_equal 1, cards[0].observations.size
   end
 
+  test 'search observations by date' do
+    obss = ObservationSearch.new(observ_date: '2013-05-18').observations.to_a
+    assert_equal 4, obss.size
+    assert obss.first.respond_to?(:voice)
+  end
+
 end

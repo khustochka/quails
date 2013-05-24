@@ -46,6 +46,16 @@ class ObservationSearch
     @cards_relation = scope
   end
 
+  def observations
+    return @obs_relation if @obs_relation
+    scope = Observation.where(@conditions[:observation]).joins(:card)
+    if @conditions[:card].present?
+     cards = Card.where(@conditions[:card])
+      scope = scope.merge(cards)
+    end
+    @obs_relation = scope
+  end
+
   def observations_filtered?
     @conditions[:observation].present?
   end

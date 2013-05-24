@@ -56,14 +56,14 @@ class ImagesControllerTest < ActionController::TestCase
 
   test "create image with several observations" do
     login_as_admin
-    obs2 = create(:observation, species: seed(:lancol))
-    obs3 = create(:observation, species: seed(:jyntor))
-    new_attr = @image.attributes.dup
-    new_attr['slug'] = 'new_img_slug'
+    obs2 = create(:observation, species: seed(:lancol), card: @obs.card)
+    obs3 = create(:observation, species: seed(:jyntor), card: @obs.card)
+    new_attr = attributes_for(:image, slug: 'new_img_slug').except(:observations)
     assert_difference('Image.count') do
       post :create, image: new_attr, obs: [@obs.id, obs2.id, obs3.id]
+      image = assigns(:image)
+      refute image.errors.any?
     end
-
     assert_redirected_to image_path(assigns(:image))
   end
 

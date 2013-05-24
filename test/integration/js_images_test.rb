@@ -15,7 +15,8 @@ class JSImagesTest < ActionDispatch::IntegrationTest
   test 'Save changes to existing image if JavaScript is off' do
     Capybara.use_default_driver
     img = create(:image)
-    create(:observation, species: seed(:lancol), images: [img])
+    card = img.observations[0].card
+    create(:observation, species: seed(:lancol), card: card, images: [img])
 
     login_as_admin
     visit edit_image_path(img)
@@ -32,7 +33,8 @@ class JSImagesTest < ActionDispatch::IntegrationTest
 
   test "Save existing image with no changes" do
     img = create(:image)
-    create(:observation, species: seed(:lancol), images: [img])
+    card = img.observations[0].card
+    create(:observation, species: seed(:lancol), card: card, images: [img])
 
     login_as_admin
     visit edit_image_path(img)
@@ -92,8 +94,9 @@ class JSImagesTest < ActionDispatch::IntegrationTest
 
   test "Remove an observation from image" do
     img = create(:image)
-    create(:observation, species: seed(:lancol), images: [img])
-    create(:observation, species: seed(:denmaj), images: [img])
+    card = img.observations[0].card
+    create(:observation, species: seed(:lancol), card: card, images: [img])
+    create(:observation, species: seed(:denmaj), card: card, images: [img])
 
     login_as_admin
     visit edit_image_path(img)

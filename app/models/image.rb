@@ -91,10 +91,10 @@ class Image < ActiveRecord::Base
   end
 
   def search_applicable_observations
-    Observation.search(
+    ObservationSearch.new(
         new_record? ?
-            {:observ_date => Observation.select('MAX(observ_date) AS last_date').first.last_date} :
-            {:observ_date => observ_date, :locus_id => locus.id}
+            {observ_date: Card.pluck('MAX(observ_date)').first} :
+            {observ_date: observ_date, locus_id: locus.id}
     )
   end
 
@@ -154,12 +154,12 @@ class Image < ActiveRecord::Base
   COMMON_OBSERVATION_ATTRIBUTES = %w(card_id mine)
 
   def validate_observations(observ_ids)
-    obs = Observation.where(:id => observ_ids)
+    obs = Observation.where(id: observ_ids)
     if obs.blank?
       errors.add(:observations, 'must not be empty')
     else
       if obs.map { |o| o.attributes.values_at(*COMMON_OBSERVATION_ATTRIBUTES) }.uniq.size > 1
-        errors.add(:observations, 'must have the same date, location, and mine value')
+        errors.add(:observations, 'must have the same card and mine value')
       end
     end
   end
