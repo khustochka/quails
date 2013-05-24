@@ -1,15 +1,17 @@
 %li.observ_card
-  %div
+  %div.card_cell
     = card.observ_date
     %br
     = card.locus.name
-  %div
+  %div.card_cell
     Obs:
     %big= card.observations.count
-  %div
+  %div.card_cell
     Species:
     %big= card.observations.merge(Observation.identified).count("DISTINCT species_id")
-  %div
+  %div.card_cell
+    = post_link("POST >>", card.post)
+  %div.card_cell
     = link_to 'Show', card
     = link_to 'Edit', edit_card_path(card)
     = link_to 'Destroy', card, :method => :delete, :data => { :confirm => 'Are you sure?' }

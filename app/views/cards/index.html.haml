@@ -17,10 +17,7 @@
       = render card
       %ul
         - card.observations.each do |obs|
-          %li
-            = link_to(obs.id, observation_path(obs))
-            = obs.formatted.species_str
-            = obs.formatted.when_where_str
+          = render 'observation_row', obs: obs
 
   - else
     = render @cards

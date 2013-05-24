@@ -15,7 +15,7 @@
 
 = simple_form_for @observation, html: {class: 'observation'} do |builder|
 
-  = render partial: @observation, locals: {form: builder}
+  = render partial: 'observation_fields', object: @observation, locals: {form: builder}
 
   .buttons
     = default_submit_button(builder)

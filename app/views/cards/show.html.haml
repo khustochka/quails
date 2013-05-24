@@ -8,4 +8,4 @@
 
 %ol
   - @card.observations.preload(:species).each do |obs|
-    %li= species_link(obs.species)
+    = render 'observation_row', obs: obs
