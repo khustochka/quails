@@ -94,19 +94,9 @@ class ObservationsControllerTest < ActionController::TestCase
     #assert_response 404
   end
 
-  test 'protect new with HTTP authentication' do
-    assert_raise(ActionController::RoutingError) { get :new }
-    #assert_response 404
-  end
-
   test 'protect edit with HTTP authentication' do
     observation = create(:observation)
     assert_raise(ActionController::RoutingError) { get :edit, id: observation.to_param }
-    #assert_response 404
-  end
-
-  test 'protect create with HTTP authentication' do
-    assert_raise(ActionController::RoutingError) { post :create, observation: build(:observation).attributes }
     #assert_response 404
   end
 
