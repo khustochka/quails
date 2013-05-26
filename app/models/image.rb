@@ -74,6 +74,10 @@ class Image < ActiveRecord::Base
   ORDERING_COLUMNS = %w(cards.observ_date cards.locus_id index_num images.created_at images.id)
   PREV_NEXT_ORDER = "(ORDER BY #{ORDERING_COLUMNS.join(', ')})"
 
+  def self.order_for_species
+    self.joins("INNER JOIN cards ON observations.card_id = cards.id").order(*PREV_NEXT_ORDER)
+  end
+
   def prev_by_species(sp)
     r = sp.ordered_images.select("images.id AS img_id, lag(images.id) OVER #{PREV_NEXT_ORDER} AS prev").except(:order)
     im = Image.from("(#{r.to_sql}) AS tmp").select("prev").where("img_id = ?", self.id)

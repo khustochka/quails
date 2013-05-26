@@ -48,8 +48,7 @@ class Species < ActiveRecord::Base
   end
 
   def ordered_images
-    images.joins("INNER JOIN cards ON observations.card_id = cards.id").
-        order('cards.observ_date', 'cards.locus_id', :index_num, 'images.created_at', 'images.id')
+    images.order_for_species
   end
 
   def update_image
