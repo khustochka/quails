@@ -107,10 +107,6 @@ $(function () {
 
     var searchForm = $('form.search');
 
-    /* Make search form remote */
-    searchForm.attr('action', "/observations/search/with_spots.json");
-    searchForm.data('remote', true);
-
     searchForm.on('ajax:beforeSend', function () {
         $('ul.obs-list').empty();
         //$('.observation_options').addClass('loading');
