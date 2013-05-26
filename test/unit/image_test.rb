@@ -52,4 +52,15 @@ class ImageTest < ActiveSupport::TestCase
     assert_equal im3, im2.next_by_species(s)
   end
 
+  test 'prevent duplication of multi-species image in prev next function' do
+    sp1 = seed(:lancol)
+    sp2 = seed(:jyntor)
+    card = create(:card, observ_date: "2008-07-01")
+    obs1 = create(:observation, species: sp1, card: card)
+    obs2 = create(:observation, species: sp2, card: card)
+    img = create(:image, slug: 'picture-of-the-shrike-and-the-wryneck', observations: [obs1, obs2])
+    assert_nil img.prev_by_species(sp1)
+    assert_nil img.next_by_species(sp1)
+  end
+
 end
