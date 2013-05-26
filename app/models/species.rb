@@ -17,8 +17,7 @@ class Species < ActiveRecord::Base
 
   has_many :observations, :dependent => :restrict, :order => [:observ_date]
   has_many :cards, :through => :observations
-  # FIXME: turn back ordering
-  has_many :images, :through => :observations #, :order => [:observ_date, :locus_id, :index_num, :created_at, 'images.id']
+  has_many :images, :through => :observations
   has_many :taxa
   has_many :posts, through: :observations, order: 'face_date DESC', uniq: true
 
@@ -46,6 +45,11 @@ class Species < ActiveRecord::Base
   def self.by_abundance
     select('species.id, name_sci').joins("LEFT OUTER JOIN observations on observations.species_id=species.id").
         group('species.id').order('COUNT(observations.id) DESC, name_sci')
+  end
+
+  def ordered_images
+    images.joins("INNER JOIN cards ON observations.card_id = cards.id").
+        order('cards.observ_date', 'cards.locus_id', :index_num, 'images.created_at', 'images.id')
   end
 
   def update_image

@@ -75,13 +75,13 @@ class Image < ActiveRecord::Base
   PREV_NEXT_ORDER = "(ORDER BY #{ORDERING_COLUMNS.join(', ')})"
 
   def prev_by_species(sp)
-    r = sp.images.joins(:cards).select("images.id AS img_id, lag(images.id) OVER #{PREV_NEXT_ORDER} AS prev").except(:order)
+    r = sp.ordered_images.select("images.id AS img_id, lag(images.id) OVER #{PREV_NEXT_ORDER} AS prev").except(:order)
     im = Image.from("(#{r.to_sql}) AS tmp").select("prev").where("img_id = ?", self.id)
     Image.where(id: im).first
   end
 
   def next_by_species(sp)
-    r = sp.images.joins(:cards).select("images.id AS img_id, lead(images.id) OVER #{PREV_NEXT_ORDER} AS next").except(:order)
+    r = sp.ordered_images.select("images.id AS img_id, lead(images.id) OVER #{PREV_NEXT_ORDER} AS next").except(:order)
     im = Image.from("(#{r.to_sql}) AS tmp").select("next").where("img_id = ?", self.id)
     Image.where(id: im).first
   end

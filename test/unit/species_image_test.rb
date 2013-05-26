@@ -33,6 +33,17 @@ class SpeciesImageTest < ActiveSupport::TestCase
     assert_equal [img2.id], sps.map(&:image_id)
   end
 
+  test 'species images should not be duplicated (if multi-species)' do
+    sp1 = seed(:lancol)
+    sp2 = seed(:jyntor)
+    card = create(:card, observ_date: "2008-07-01")
+    obs1 = create(:observation, species: sp1, card: card)
+    obs2 = create(:observation, species: sp2, card: card)
+    img = create(:image, slug: 'picture-of-the-shrike-and-the-wryneck', observations: [obs1, obs2])
+
+    assert_equal 1, sp1.ordered_images.size
+  end
+
   # Relinking a main species image to another species is very unlikely,
   # and association callbacks are harder, so skipping for now
 

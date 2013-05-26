@@ -32,7 +32,7 @@
       - similar.each do |sp|
         %li= species_link(sp)
 
-- @species.images.if_present do |images|
+- @species.ordered_images.if_present do |images|
   %div.photos
     %h3= t('.sections.photos')
     %ul.thumbnails
