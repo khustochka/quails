@@ -84,8 +84,8 @@ class JSCardsTest < ActionDispatch::IntegrationTest
     assert_equal 'Parus major',
                  find(:xpath, "//div[contains(@class,'obs-row')][1]//input[contains(@class, 'ui-autocomplete-input')]").value
 
-    assert_equal seed(:parmaj).id.to_s,
-                 find(:xpath, "//div[contains(@class,'obs-row')][1]//select[contains(@class, 'sp-suggest')]").value
+    #assert_equal seed(:parmaj).id.to_s,
+    #             find(:xpath, "//div[contains(@class,'obs-row')][1]//select[contains(@class, 'sp-suggest')]").value
   end
 
   test "Remove row" do
