@@ -18,9 +18,8 @@ class Post < ActiveRecord::Base
   has_many :comments, :dependent => :destroy
   has_many :cards, :dependent => :nullify
   has_many :observations, :dependent => :nullify
-  has_many :species, :through => :observations, :order => [:index_num], :uniq => true
-  # FIXME: turn back ordering
-  has_many :images, :through => :observations, :include => [:species]
+  #has_many :species, :through => :observations, :order => [:index_num], :uniq => true
+  #has_many :images, :through => :observations, :include => [:species]
            #:order => 'observations.observ_date, observations.locus_id, images.index_num, species.index_num'
 
   # Convert "timezone-less" face_date to local time zone because AR treats it as UTC (especially necessary for feed updated time)
@@ -63,6 +62,19 @@ class Post < ActiveRecord::Base
 
   def self.years
     order(:year).pluck('DISTINCT EXTRACT(year from face_date) AS year')
+  end
+
+  # Associations
+
+  # FIXME: this must be wrong if post_id set in observation but not a card. Create a test!
+  def species
+    Species.uniq.joins(:cards, :observations).where('cards.post_id = ? OR observations.post_id = ?', id, id).
+        order(:index_num)
+  end
+
+  def images
+    Image.uniq.joins(:observations).includes(:cards, :species).where('cards.post_id = ? OR observations.post_id = ?', id, id).
+        order('cards.observ_date, cards.locus_id, images.index_num, species.index_num')
   end
 
   # Instance methods
