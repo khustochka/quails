@@ -14,7 +14,7 @@
       = default_destroy_link(obs)
     %div
       - if obs.post_id
-        = link_to 'post', obs.post
+        = post_link('post', obs.post)
   - else
     %div.align-center
       %span.remove= image_tag('/img/x_14x14.png', title: 'Remove row')
