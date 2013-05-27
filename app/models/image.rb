@@ -75,7 +75,7 @@ class Image < ActiveRecord::Base
   PREV_NEXT_ORDER = "(ORDER BY #{ORDERING_COLUMNS.join(', ')})"
 
   def self.order_for_species
-    self.joins("INNER JOIN cards ON observations.card_id = cards.id").order(*PREV_NEXT_ORDER)
+    self.joins("INNER JOIN cards ON observations.card_id = cards.id").order(*ORDERING_COLUMNS)
   end
 
   def prev_by_species(sp)

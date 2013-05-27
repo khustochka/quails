@@ -41,7 +41,7 @@ class SpeciesImageTest < ActiveSupport::TestCase
     obs2 = create(:observation, species: sp2, card: card)
     img = create(:image, slug: 'picture-of-the-shrike-and-the-wryneck', observations: [obs1, obs2])
 
-    assert_equal 1, sp1.ordered_images.size
+    assert_equal 1, sp1.ordered_images.to_a.size
   end
 
   # Relinking a main species image to another species is very unlikely,
