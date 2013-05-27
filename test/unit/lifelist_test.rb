@@ -129,6 +129,20 @@ class LifelistTest < ActiveSupport::TestCase
     assert_equal expected, actual
   end
 
+  test 'Properly associate card post with lifer' do
+    @obs[0].card.post = create(:post)
+    @obs[0].card.save!
+    lifelist = Lifelist.basic.source(posts: Post.public)
+    assert_equal @obs[0].card.post, lifelist.find { |sp| sp.code == 'colliv' }.post
+  end
+
+  test 'Properly associate observation post with lifer' do
+    @obs[0].post = create(:post)
+    @obs[0].save!
+    lifelist = Lifelist.basic.source(posts: Post.public)
+    assert_equal @obs[0].post, lifelist.find { |sp| sp.code == 'colliv' }.post
+  end
+
   test 'Do not associate arbitrary post with lifer' do
     @obs[2].post = create(:post) # must be attached to the same species but not the first observation
     @obs[2].save!

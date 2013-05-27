@@ -102,20 +102,24 @@ class Lifelist
 
   def posts(first_or_last = 'first')
     return {} unless first_or_last == 'first' || @strategy.advanced?
-    @source[:posts].select('posts.*, lifers.species_id').
-        joins(
-        "INNER JOIN (#{@observation_source.filter(@filter).to_sql}) AS observs
-              ON posts.id = observs.post_id"
-        ).
+
+    sp_to_posts = @observation_source.filter(@filter).
+        select('lifers.species_id, observations.post_id AS obs_post, cards.post_id AS card_post').
         joins(
         "INNER JOIN (#{lifers_sql}) AS lifers
-              ON observs.species_id = lifers.species_id"
-        ).
+              ON observations.species_id = lifers.species_id"
+    ).
         joins(
         "INNER JOIN cards
-              ON observs.card_id = cards.id
+              ON observations.card_id = cards.id
               AND cards.observ_date = lifers.#{first_or_last}_seen"
-        ).
+    )
+
+    @source[:posts].select('posts.*, sp_to_posts.species_id').
+        joins(
+        "INNER JOIN (#{sp_to_posts.to_sql}) AS sp_to_posts
+         ON posts.id IN (obs_post, card_post)"
+    ).
         index_by { |p| p.species_id.to_i }
   end
 
