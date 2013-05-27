@@ -6,33 +6,6 @@ class SiteFormatStrategy < FormattingStrategy
   include ActionView::Helpers::TagHelper
   include PublicRoutesHelper
 
-  def prepare
-
-    @posts = Hash.new do |hash, term|
-      hash[term] = Post.find_by_slug(term.downcase)
-    end
-
-    sp_codes = @text.scan(/\{\{(?!#|@)(?:([^\}]*?)\|)?(.+?)\}\}/).map do |word, term|
-      term || word
-    end.uniq.compact
-
-    # TODO: use already calculated species of the post! the rest will be ok with separate requests?
-    if sp_codes.any?
-      @spcs = Species.where("code IN (?) OR name_sci IN (?)", sp_codes, sp_codes)
-      @species = @spcs.index_by(&:code).merge(@spcs.index_by(&:name_sci))
-    else
-      @spcs = []
-      @species = {}
-    end
-
-    #species = Hash.new do |hash, term|
-    #  hash[term] = term.size == 6 ?
-    #      spcs.find { |s| s.code == term } :
-    #      spcs.find { |s| s.name_sci == term.sp_humanize }
-    #end
-
-  end
-
   def lj_user(user)
     %Q(<span class="ljuser" style="white-space: nowrap;"><a href="http://#{user}.livejournal.com/profile" rel="nofollow"><img src="http://p-stat.livejournal.com/img/userinfo.gif" alt="info" width="17" height="17" style="vertical-align: bottom; border: 0; padding-right: 1px;" /></a><a href="http://#{user}.livejournal.com/" rel="nofollow"><b>#{user}</b></a></span>)
   end

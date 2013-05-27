@@ -4,25 +4,6 @@ class LJFormatStrategy < FormattingStrategy
   include ImagesHelper
   include ActionView::Helpers::TagHelper
 
-  def prepare
-    @posts = Hash.new do |hash, term|
-      hash[term] = Post.find_by_slug(term.downcase)
-    end
-
-    sp_codes = @text.scan(/\{\{(?!#|@)(?:([^\}]*?)\|)?(.+?)\}\}/).map do |word, term|
-      term || word
-    end.uniq.compact
-
-    # TODO: use already calculated species of the post! the rest will be ok with separate requests?
-    if sp_codes.any?
-      @spcs = Species.where("code IN (?) OR name_sci IN (?)", sp_codes, sp_codes)
-      @species = @spcs.index_by(&:code).merge(@spcs.index_by(&:name_sci))
-    else
-      @spcs = []
-      @species = {}
-    end
-  end
-
   def lj_user(user)
     %Q(<lj user="#{user}">)
   end
