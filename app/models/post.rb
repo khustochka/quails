@@ -66,7 +66,6 @@ class Post < ActiveRecord::Base
 
   # Associations
 
-  # FIXME: this must be wrong if post_id set in observation but not a card. Create a test!
   def species
     Species.uniq.joins(:cards, :observations).where('cards.post_id = ? OR observations.post_id = ?', id, id).
         order(:index_num)
