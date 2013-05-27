@@ -245,24 +245,24 @@ class JSCardsTest < ActionDispatch::IntegrationTest
     assert_equal nil, card.reload.post_id
   end
 
-  #test 'Attach observations to the post' do
-  #  create(:observation, species: seed(:pasdom), observ_date: "2010-06-18")
-  #  create(:observation, species: seed(:fulatr), observ_date: "2010-06-18")
-  #  create(:observation, species: seed(:spinus), observ_date: "2010-06-18")
-  #  p = create(:post)
-  #
-  #  login_as_admin
-  #  visit edit_post_path(p)
-  #  fill_in('Date:', with: "2010-06-18")
-  #  select_suggestion('Brovary', from: 'Location')
-  #  choose('Mine')
-  #  click_button('Search')
-  #
-  #  assert page.has_css?('label a', text: p.title)
-  #  assert find('#observation_post_id').checked?
-  #
-  #  save_and_check
-  #  assert_equal 3, p.observations.size
-  #end
+  test 'Attach card to the post' do
+    create(:card, observ_date: "2010-06-18")
+
+    p = create(:post)
+
+    login_as_admin
+    visit edit_post_path(p)
+    fill_in('Date:', with: "2010-06-18")
+
+    click_button('Search')
+
+    assert page.has_css?('li.observ_card')
+
+    page.find('li.observ_card').click_link('Attach to this post')
+
+    assert page.has_no_css?('.loading')
+
+    assert_equal 1, p.cards.size
+  end
 
 end

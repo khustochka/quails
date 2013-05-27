@@ -11,7 +11,9 @@
     %big= card.observations.merge(Observation.identified).count("DISTINCT species_id")
   %div.card_cell
     = post_link("POST >>", card.post)
+    - if @post
+      %div= attach_detach_link(card)
   %div.card_cell
     = link_to 'Show', card
     = link_to 'Edit', edit_card_path(card)
-    = link_to 'Destroy', card, :method => :delete, :data => { :confirm => 'Are you sure?' }
+    = link_to 'Destroy', card, method: :delete, data: { confirm: 'Card will be destroyed' }

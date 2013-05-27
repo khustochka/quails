@@ -11,10 +11,18 @@ class CardsController < ApplicationController
 
     @search = ObservationSearch.new(params[:q])
 
-    @cards = @search.cards.order(params[:sort] || 'observ_date DESC').preload(:locus, :post).page(params[:page])
+    @cards = @search.cards.order(params[:sort] || 'observ_date DESC, locus_id').preload(:locus, :post).page(params[:page])
+
+    @post = Post.where(id: params[:new_post_id]).first
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html {
+        if @post
+          render @cards, layout: false
+        else
+          render 'index'
+        end
+      }
       format.json { render json: @cards }
     end
   end

@@ -17,12 +17,22 @@ $(function () {
   sp_insert_button.appendTo(".edit_tools");
 
 
-  // Observations search form
+  // Cards search form
 
   var searchForm = $('form.search');
+  searchForm.on('ajax:success', function (e, data) {
+    $("#cards_table").html(data);
+  });
 
-  searchForm.attr('action', "/observations/bulk");
-  $("#new_post_id").appendTo(searchForm);
+  // reload search results after attach/detach
+
+  $("#cards_table").on('ajax:beforeSend', '.card_post_op', function () {
+    $(this).closest(".observ_card").addClass('loading');
+  });
+
+  $("#cards_table").on('ajax:success', '.card_post_op', function () {
+    searchForm.submit();
+  });
 
 });
 
