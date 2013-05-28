@@ -8,6 +8,8 @@
   = obs.notes
   = obs.place
   %b= post_link('POST >>', obs.post)
+  - if @post
+    %span= attach_detach_link(obs)
   - unless obs.mine
     %small.not_mine.tag not mine
   - if obs.voice

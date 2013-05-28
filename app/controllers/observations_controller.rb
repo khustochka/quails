@@ -13,10 +13,14 @@ class ObservationsController < ApplicationController
 
   # PUT /observations/1
   def update
-    if @observation.update_attributes(params[:observation])
-      redirect_to(observation_path(@observation), :notice => 'Observation was successfully updated.')
-    else
-      render :form
+    respond_to do |format|
+      if @observation.update_attributes(params[:observation])
+        format.html { redirect_to observation_path(@observation), notice: 'Observation was successfully updated.' }
+        format.json { head :no_content }
+      else
+        format.html { render :form }
+        format.json { render json: @observation.errors, status: :unprocessable_entity }
+      end
     end
   end
 
