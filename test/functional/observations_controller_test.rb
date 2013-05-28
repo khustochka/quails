@@ -31,18 +31,18 @@ class ObservationsControllerTest < ActionController::TestCase
   test 'extract observation to the new card' do
     card = create(:card)
     obs1 = create(:observation, card: card)
-    create(:observation, card: card)
+    obs2 = create(:observation, card: card)
     create(:observation, card: card)
 
     login_as_admin
     assert_difference('Card.count', 1) {
-      assert_difference('Observation.count', 0) { get :extract, id: obs1.id }
+      assert_difference('Observation.count', 0) { get :extract, obs: [obs1.id, obs2.id] }
     }
 
     card.reload
     obs1.reload
 
-    assert_equal 2, card.observations.size
+    assert_equal 1, card.observations.size
     assert card != obs1.card
   end
 

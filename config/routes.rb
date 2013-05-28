@@ -95,8 +95,8 @@ Quails::Application.routes.draw do
   resources :observations, except: [:index, :new, :create, :edit] do
     collection do
       get 'search(/:with_spots)', action: :search, with_spots: /with_spots/, as: 'search'
+      get 'extract'
     end
-    get 'extract', on: :member
   end
 
   resources :loci do

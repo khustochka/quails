@@ -2,7 +2,7 @@ class ObservationsController < ApplicationController
 
   administrative
 
-  find_record before: [:show, :update, :destroy, :extract]
+  find_record before: [:show, :update, :destroy]
 
   after_filter :cache_expire, only: [:update, :destroy]
   cache_sweeper :lifelist_sweeper
@@ -52,8 +52,9 @@ class ObservationsController < ApplicationController
   end
 
   def extract
-    card = @observation.card.dup
-    card.observations << @observation
+    observations = Observation.where(id: params[:obs])
+    card = observations[0].card.dup
+    card.observations << observations
     card.save!
     redirect_to edit_card_path(card), notice: "New card is extracted and saved. Edit if necessary."
   end
