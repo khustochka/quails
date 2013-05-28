@@ -59,6 +59,12 @@ class ObservationsController < ApplicationController
     redirect_to edit_card_path(card), notice: "New card is extracted and saved. Edit if necessary."
   end
 
+  def move
+    @observations = Observation.where(id: params[:obs]).preload(:species)
+    @card = @observations[0].card
+    @search = ObservationSearch.new(observ_date: @card.observ_date, locus_id: @card.locus_id)
+  end
+
   private
 
   def cache_expire

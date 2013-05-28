@@ -20,3 +20,4 @@
   .buttons
     = default_submit_button(builder)
     = link_to 'Extract to the new card', {action: :extract, obs: [@observation.id]}, class: 'pseudolink'
+    = link_to 'Move to another card', {action: :move, obs: [@observation.id]}, class: 'pseudolink'

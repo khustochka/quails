@@ -96,6 +96,7 @@ Quails::Application.routes.draw do
     collection do
       get 'search(/:with_spots)', action: :search, with_spots: /with_spots/, as: 'search'
       get 'extract'
+      get 'move'
     end
   end
 

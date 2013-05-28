@@ -22,7 +22,7 @@ $(function () {
 
   var searchForm = $('form.search');
   searchForm.on('ajax:success', function (e, data) {
-    $(".cards_list").html(data);
+    $("#search-results").html(data);
   });
 
 });

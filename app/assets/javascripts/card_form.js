@@ -100,9 +100,14 @@ $(function () {
         .appendTo(ul);
   };
 
-  // Extract to the new card
+  // Extract and move to the new card
   $(".extractor").click(function (e) {
     window.location.href = $(".extractor").attr('href') + "?" + $('input[name="obs[]"]:checked').serialize();
+    e.preventDefault();
+  });
+
+  $(".mover").click(function (e) {
+    window.location.href = $(".mover").attr('href') + "?" + $('input[name="obs[]"]:checked').serialize();
     e.preventDefault();
   });
 
