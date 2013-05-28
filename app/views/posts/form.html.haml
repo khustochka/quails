@@ -34,7 +34,7 @@
 
   %h3#card_attach Attach cards
 
-  = simple_form_for ObservationSearch.new, url: cards_path, method: :get, remote: true, html: {class: 'search'} do |form|
+  = simple_form_for @observation_search, url: cards_path, method: :get, remote: true, html: {class: 'search'} do |form|
     = render 'observations/search_fields', form: form
     = hidden_field_tag("new_post_id", @post.id)
 

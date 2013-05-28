@@ -9,18 +9,10 @@
 
 = render 'admin/shortcuts' if current_user.admin?
 
-= simple_form_for @search, url: cards_path, method: :get, html: {class: 'search'} do |form|
+= simple_form_for @observation_search, url: cards_path, method: :get, html: {class: 'search'} do |form|
   = render 'observations/search_fields', form: form
 
 %ul.cards_list
-  - if @search.observations_filtered?
-    - @cards.each do  |card|
-      = render card
-      %ul
-        - card.observations.each do |obs|
-          = render 'observation_row', obs: obs
-
-  - else
-    = render @cards
+  = render @cards
 
 = paginate @cards

@@ -14,4 +14,9 @@ module CardsHelper
             method: :put, data: {confirm: 'Are you sure?', params: "card[post_id]=#{post_id}"}
   end
 
+  # NOTICE: should always be called @observation_search !                                                                                         Observation
+  def show_separate_observation_on_card_search?
+    @observation_search.try(:observations_filtered?)
+  end
+
 end

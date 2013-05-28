@@ -19,3 +19,8 @@
     = link_to 'Destroy', card, method: :delete, data: { confirm: 'Card will be destroyed' }
     - if params[:obs]
       = link_to 'Attach here', attach_card_path(card, obs: params[:obs]), class: 'pseudolink', data: {method: :post}
+
+- if show_separate_observation_on_card_search?
+  %ul
+    - card.observations.each do |obs|
+      = render 'observation_row', obs: obs

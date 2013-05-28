@@ -9,9 +9,9 @@ class CardsController < ApplicationController
   # GET /cards.json
   def index
 
-    @search = ObservationSearch.new(params[:q])
+    @observation_search = ObservationSearch.new(params[:q])
 
-    @cards = @search.cards.order(params[:sort] || 'observ_date DESC, locus_id').preload(:locus, :post).page(params[:page])
+    @cards = @observation_search.cards.order(params[:sort] || 'observ_date DESC, locus_id').preload(:locus, :post).page(params[:page])
 
     @post = Post.where(id: params[:new_post_id]).first
 
