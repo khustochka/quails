@@ -33,10 +33,6 @@ class Observation < ActiveRecord::Base
     joins(:card).order(:year).pluck('DISTINCT EXTRACT(year from observ_date) AS year')
   end
 
-  def self.search(conditions = {})
-    SearchModel.new(self, conditions)
-  end
-
   # Species
 
   alias_method :real_species, :species
