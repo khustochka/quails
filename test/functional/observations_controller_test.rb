@@ -28,6 +28,24 @@ class ObservationsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test 'extract observation to the new card' do
+    card = create(:card)
+    obs1 = create(:observation, card: card)
+    create(:observation, card: card)
+    create(:observation, card: card)
+
+    login_as_admin
+    assert_difference('Card.count', 1) {
+      assert_difference('Observation.count', 0) { get :extract, id: obs1.id }
+    }
+
+    card.reload
+    obs1.reload
+
+    assert_equal 2, card.observations.size
+    assert card != obs1.card
+  end
+
   # HTTP auth tests
 
   test 'protect index with HTTP authentication' do

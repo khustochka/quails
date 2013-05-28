@@ -2,7 +2,7 @@ class ObservationsController < ApplicationController
 
   administrative
 
-  find_record before: [:show, :update, :destroy]
+  find_record before: [:show, :update, :destroy, :extract]
 
   after_filter :cache_expire, only: [:update, :destroy]
   cache_sweeper :lifelist_sweeper
@@ -49,6 +49,13 @@ class ObservationsController < ApplicationController
       format.html { render partial: 'observations/obs_item', collection: observs }
       format.json { render json: observs, only: :id, methods: json_methods }
     end
+  end
+
+  def extract
+    card = @observation.card.dup
+    card.observations << @observation
+    card.save!
+    redirect_to edit_card_path(card), notice: "New card is extracted and saved. Edit if necessary."
   end
 
   private

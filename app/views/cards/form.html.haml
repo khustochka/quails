@@ -9,6 +9,8 @@
 
 = render 'admin/shortcuts' if current_user.admin?
 
+%p#notice= notice
+
 -# Always add one blank observation
 - @card.observations.build
 
