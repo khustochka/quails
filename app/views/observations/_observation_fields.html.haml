@@ -8,6 +8,8 @@
   = form.input :voice, label: 'Voice?'
   = form.input :place
   - if obs.persisted?
+    - if controller_name == 'cards'
+      %div.bulk_select= check_box_tag('obs[]', obs.id)
     %div.align-center
       = link_to(obs.id, observation_path(obs))
       %br
