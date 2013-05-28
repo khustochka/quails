@@ -4,7 +4,8 @@
 
 = render 'admin/shortcuts' if current_user.admin?
 
-%p#notice= notice
+- if notice
+  %p#notice= notice
 
 %ol
   - @card.observations.preload(:species).each do |obs|
