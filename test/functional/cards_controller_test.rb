@@ -61,6 +61,20 @@ class CardsControllerTest < ActionController::TestCase
     assert_redirected_to edit_card_path(assigns(:card))
   end
 
+  test "move observations to existing card" do
+    card2 = create(:card)
+    obss = [1, 2, 3].map {|_| create(:observation, card: card2)}
+
+    post :attach, id: @card, obs: [obss[0], obss[1]]
+
+    @card.reload
+    card2.reload
+
+    assert_equal 5, @card.observations.size
+    assert_equal 1, card2.observations.size
+
+  end
+
   test "should not destroy card which is not empty" do
     assert_difference('Card.count', 0) do
       assert_raise(ActiveRecord::DeleteRestrictionError) { delete :destroy, id: @card }

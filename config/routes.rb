@@ -90,7 +90,11 @@ Quails::Application.routes.draw do
     post :lj_post, on: :member
   end
 
-  resources :cards
+  resources :cards do
+    member do
+      post :attach
+    end
+  end
 
   resources :observations, except: [:index, :new, :create, :edit] do
     collection do

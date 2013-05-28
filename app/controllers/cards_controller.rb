@@ -2,7 +2,7 @@ class CardsController < ApplicationController
 
   administrative
 
-  after_filter :cache_expire, only: [:create, :update, :destroy]
+  after_filter :cache_expire, only: [:create, :update, :destroy, :attach]
   cache_sweeper :lifelist_sweeper
 
   # GET /cards
@@ -97,6 +97,14 @@ class CardsController < ApplicationController
       format.html { redirect_to cards_url }
       format.json { head :no_content }
     end
+  end
+
+  def attach
+    card = Card.find(params[:id])
+    observations = Observation.where(id: params[:obs])
+    card.observations << observations
+
+    redirect_to card, notice: "#{observations.size} observations successfully moved"
   end
 
   private
