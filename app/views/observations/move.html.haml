@@ -18,5 +18,7 @@
 
 = simple_form_for @search, url: cards_path, method: :get, remote: true, html: {class: 'search'} do |form|
   = render 'observations/search_fields', form: form
+  - @observations.each do |obs|
+    = hidden_field_tag('obs[]', obs.id)
 
 %ul.cards_list#search-results

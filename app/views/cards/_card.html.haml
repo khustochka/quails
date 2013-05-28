@@ -1,4 +1,4 @@
-%li.observ_card{data: {id: card.id}}
+%li.observ_card
   %div.card_cell
     = card.observ_date
     %br
@@ -17,3 +17,5 @@
     = link_to 'Show', card
     = link_to 'Edit', edit_card_path(card)
     = link_to 'Destroy', card, method: :delete, data: { confirm: 'Card will be destroyed' }
+    - if params[:obs]
+      = link_to 'Attach here', attach_card_path(card, obs: params[:obs]), class: 'pseudolink', data: {method: :post}
