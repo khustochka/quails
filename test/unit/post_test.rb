@@ -114,4 +114,36 @@ class PostTest < ActiveSupport::TestCase
 
   end
 
+  test 'proper post species list for observations attached to post' do
+    p = create(:post)
+    c = create(:card, post: p)
+    o = create(:observation, card: c, species_id: seed(:motfla).id)
+    o2 = create(:observation, post_id: p.id, species_id: seed(:motfel).id)
+
+    assert_equal 2, p.species.to_a.size
+  end
+
+  test 'proper post images list for observations attached to post' do
+    p = create(:post)
+    c = create(:card, post: p)
+    o = create(:observation, card: c, species_id: seed(:motfla).id)
+    o2 = create(:observation, post_id: p.id, species_id: seed(:motfel).id)
+    create(:image, observations: [o])
+    create(:image, observations: [o2])
+
+    assert_equal 2, p.images.to_a.size
+  end
+
+  test 'post images should not be duplicated (if multi-species)' do
+    p = create(:post)
+    sp1 = seed(:lancol)
+    sp2 = seed(:jyntor)
+    card = create(:card, observ_date: "2008-07-01", post: p)
+    obs1 = create(:observation, species: sp1, card: card)
+    obs2 = create(:observation, species: sp2, card: card)
+    img = create(:image, slug: 'picture-of-the-shrike-and-the-wryneck', observations: [obs1, obs2])
+
+    assert_equal 1, p.images.to_a.size
+  end
+
 end

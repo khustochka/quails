@@ -1,0 +1,16 @@
+%li
+  %small
+    = surround('[', ']') do
+      = link_to(obs.id, observation_path(obs))
+  %b= species_link(obs.species)
+  = name_sci(obs.species)
+  = obs.quantity
+  = obs.notes
+  = obs.place
+  %b= post_link('POST >>', obs.post)
+  - if @post
+    %span= attach_detach_link(obs)
+  - unless obs.mine
+    %small.not_mine.tag not mine
+  - if obs.voice
+    %small.voice.tag voice

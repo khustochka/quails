@@ -4,7 +4,8 @@
 
 %h1= page_header
 
-%p#notice= notice
+- if notice
+  %p#notice= notice
 
 = form_tag(settings_save_path, method: :post, class: 'simple_form') do
 

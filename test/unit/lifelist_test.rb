@@ -4,20 +4,20 @@ class LifelistTest < ActiveSupport::TestCase
 
   setup do
     @obs = [
-        create(:observation, species: seed(:colliv), observ_date: "2008-05-22"),
-        create(:observation, species: seed(:merser), observ_date: "2008-10-18"),
-        create(:observation, species: seed(:colliv), observ_date: "2008-11-01"),
-        create(:observation, species: seed(:parmaj), observ_date: "2009-01-01"),
-        create(:observation, species: seed(:pasdom), observ_date: "2009-01-01"),
-        create(:observation, species: seed(:colliv), observ_date: "2009-10-18"),
-        create(:observation, species: seed(:parmaj), observ_date: "2009-11-01"),
-        create(:observation, species: seed(:pasdom), observ_date: "2009-12-01", locus: seed(:new_york)),
-        create(:observation, species: seed(:parmaj), observ_date: "2009-12-31"),
-        create(:observation, species: seed(:colliv), observ_date: "2010-03-10", locus: seed(:new_york)),
-        create(:observation, species: seed(:pasdom), observ_date: "2010-04-16", locus: seed(:new_york)),
-        create(:observation, species: seed(:colliv), observ_date: "2010-07-27", locus: seed(:new_york)),
-        create(:observation, species: seed(:pasdom), observ_date: "2010-09-10"),
-        create(:observation, species: seed(:carlis), observ_date: "2010-10-13")
+        create(:observation, species: seed(:colliv), card: create(:card, observ_date: "2008-05-22")),
+        create(:observation, species: seed(:merser), card: create(:card, observ_date: "2008-10-18")),
+        create(:observation, species: seed(:colliv), card: create(:card, observ_date: "2008-11-01")),
+        create(:observation, species: seed(:parmaj), card: create(:card, observ_date: "2009-01-01")),
+        create(:observation, species: seed(:pasdom), card: create(:card, observ_date: "2009-01-01")),
+        create(:observation, species: seed(:colliv), card: create(:card, observ_date: "2009-10-18")),
+        create(:observation, species: seed(:parmaj), card: create(:card, observ_date: "2009-11-01")),
+        create(:observation, species: seed(:pasdom), card: create(:card, observ_date: "2009-12-01", locus: seed(:new_york))),
+        create(:observation, species: seed(:parmaj), card: create(:card, observ_date: "2009-12-31")),
+        create(:observation, species: seed(:colliv), card: create(:card, observ_date: "2010-03-10", locus: seed(:new_york))),
+        create(:observation, species: seed(:pasdom), card: create(:card, observ_date: "2010-04-16", locus: seed(:new_york))),
+        create(:observation, species: seed(:colliv), card: create(:card, observ_date: "2010-07-27", locus: seed(:new_york))),
+        create(:observation, species: seed(:pasdom), card: create(:card, observ_date: "2010-09-10")),
+        create(:observation, species: seed(:carlis), card: create(:card, observ_date: "2010-10-13"))
     ]
   end
 
@@ -26,12 +26,12 @@ class LifelistTest < ActiveSupport::TestCase
   end
 
   test 'Species lifelist by count does not include Avis incognita' do
-    create(:observation, species_id: 0, observ_date: "2010-06-18")
+    create(:observation, species_id: 0, card: create(:card, observ_date: "2010-06-18"))
     assert_equal @obs.map(&:species_id).uniq.size, Lifelist.basic.sort('count').size
   end
 
   test 'Species lifelist by count does not include species never seen by me' do
-    ob = create(:observation, species: seed(:parcae), observ_date: "2010-06-18", mine: false)
+    ob = create(:observation, species: seed(:parcae), card: create(:card, observ_date: "2010-06-18"), mine: false)
     assert_not_include(Lifelist.basic.sort('count').map(&:id), ob.species_id)
   end
 
@@ -46,12 +46,12 @@ class LifelistTest < ActiveSupport::TestCase
   end
 
   test 'Species lifelist by taxonomy does not include Avis incognita' do
-    create(:observation, species_id: 0, observ_date: "2010-06-18")
+    create(:observation, species_id: 0, card: create(:card, observ_date: "2010-06-18"))
     assert_equal @obs.map(&:species_id).uniq.size, Lifelist.basic.sort('class').size
   end
 
   test 'Species lifelist by taxonomy does not include species never seen by me' do
-    ob = create(:observation, species: seed(:parcae), observ_date: "2010-06-18", mine: false)
+    ob = create(:observation, species: seed(:parcae), card: create(:card, observ_date: "2010-06-18"), mine: false)
     assert_not_include(Lifelist.basic.sort('class').map(&:id), ob.species_id)
   end
 
@@ -66,12 +66,12 @@ class LifelistTest < ActiveSupport::TestCase
   end
 
   test 'Species lifelist by date does not include Avis incognita' do
-    create(:observation, species_id: 0, observ_date: "2010-06-18")
+    create(:observation, species_id: 0, card: create(:card, observ_date: "2010-06-18"))
     assert_equal @obs.map(&:species_id).uniq.size, Lifelist.basic.size
   end
 
   test 'Species lifelist by date does not include species never seen by me' do
-    ob = create(:observation, species: seed(:parcae), observ_date: "2010-06-18", mine: false)
+    ob = create(:observation, species: seed(:parcae), card: create(:card, observ_date: "2010-06-18"), mine: false)
     assert_not_include(Lifelist.basic.relation.pluck(:id), ob.species_id)
   end
 
@@ -129,6 +129,20 @@ class LifelistTest < ActiveSupport::TestCase
     assert_equal expected, actual
   end
 
+  test 'Properly associate card post with lifer' do
+    @obs[0].card.post = create(:post)
+    @obs[0].card.save!
+    lifelist = Lifelist.basic.source(posts: Post.public)
+    assert_equal @obs[0].card.post, lifelist.find { |sp| sp.code == 'colliv' }.post
+  end
+
+  test 'Properly associate observation post with lifer' do
+    @obs[0].post = create(:post)
+    @obs[0].save!
+    lifelist = Lifelist.basic.source(posts: Post.public)
+    assert_equal @obs[0].post, lifelist.find { |sp| sp.code == 'colliv' }.post
+  end
+
   test 'Do not associate arbitrary post with lifer' do
     @obs[2].post = create(:post) # must be attached to the same species but not the first observation
     @obs[2].save!
@@ -146,7 +160,7 @@ class LifelistTest < ActiveSupport::TestCase
   end
 
   test 'Do not associate post of the wrong location' do
-    new_obs = create(:observation, species: seed(:colliv), observ_date: "2008-05-22", locus: seed(:kiev))
+    new_obs = create(:observation, species: seed(:colliv), card: create(:card, observ_date: "2008-05-22", locus: seed(:kiev)))
     @obs[0].post = create(:post)
     @obs[0].save!
     lifelist = Lifelist.advanced.source(posts: Post.public, loci: Locus.public).filter(locus: 'kiev')

@@ -9,7 +9,8 @@ class Locus < ActiveRecord::Base
   belongs_to :parent, :class_name => 'Locus'
   has_many :children, :class_name => 'Locus', :foreign_key => 'parent_id', :dependent => :restrict
 
-  has_many :observations, :dependent => :restrict
+  has_many :cards, dependent: :restrict
+  has_many :observations, through: :cards
 
   has_many :local_species
 

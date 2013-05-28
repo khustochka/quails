@@ -9,12 +9,12 @@ class MyStatsController < ApplicationController
     @species_this_year = MyObservation.distinct_species.filter(year: 2013).count
 
     # Count over subquery is faster than Array#size
-    rel = MyObservation.aggregate_by_species(:min).
+    rel = MyObservation.joins(:card).aggregate_by_species(:min).
         having("EXTRACT(year FROM MIN(observ_date)) = 2013")
     @new_this_year = Observation.from("(#{rel.to_sql}) AS obs").count
 
     # Year with max species
-    query = MyObservation.
+    query = MyObservation.joins(:card).
         select("COUNT(DISTINCT species_id) as sp_count, EXTRACT(YEAR from observ_date) as year").
         group("EXTRACT(YEAR from observ_date)").
         order("sp_count DESC").
@@ -22,7 +22,7 @@ class MyStatsController < ApplicationController
     @year_with_max_species = Hashie::Mash.new(Observation.connection.select_one(query, "Year with max species"))
 
     # Month+year with max species
-    query = MyObservation.
+    query = MyObservation.joins(:card).
         select("COUNT(DISTINCT species_id) as sp_count, EXTRACT(YEAR from observ_date) as year, EXTRACT(month from observ_date) as month").
         group("EXTRACT(YEAR from observ_date), EXTRACT(month from observ_date)").
         order("sp_count DESC").
@@ -30,7 +30,7 @@ class MyStatsController < ApplicationController
     @month_year_with_max_species = Hashie::Mash.new(Observation.connection.select_one(query, "Month, year with max species"))
 
     # Month with max species
-    query = MyObservation.
+    query = MyObservation.joins(:card).
         select("COUNT(DISTINCT species_id) as sp_count, EXTRACT(MONTH from observ_date) as month").
         group("EXTRACT(month FROM observ_date)").
         order("sp_count DESC").
@@ -38,7 +38,7 @@ class MyStatsController < ApplicationController
     @month_with_max_species = Hashie::Mash.new(Observation.connection.select_one(query, "Month with max species"))
 
     # Day with max species
-    query = MyObservation.
+    query = MyObservation.joins(:card).
         select("COUNT(DISTINCT species_id) as sp_count, observ_date").
         group("observ_date").
         order("sp_count DESC").
@@ -46,7 +46,7 @@ class MyStatsController < ApplicationController
     @day_with_max_species = Hashie::Mash.new(Observation.connection.select_one(query, "Day with max species"))
 
     # Day with max new species
-    new_sp_query = MyObservation.select("species_id, MIN(observ_date) as observed_at").group(:species_id).to_sql
+    new_sp_query = MyObservation.joins(:card).select("species_id, MIN(observ_date) as observed_at").group(:species_id).to_sql
     query = Observation.
         select("COUNT(species_id) as sp_count, observed_at").
         from("(#{new_sp_query}) as new_sp_dates").

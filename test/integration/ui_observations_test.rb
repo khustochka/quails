@@ -5,39 +5,36 @@ class UIObservationsTest < ActionDispatch::IntegrationTest
 
   include CapybaraTestCase
 
-  test 'Searching and showing Avis incognita observations' do
-    create(:observation, species_id: 0, observ_date: "2010-06-18")
-    create(:observation, species_id: 0, observ_date: "2009-06-19")
-    create(:observation, species: seed(:spinus), observ_date: "2010-06-18")
+  test 'Edit observation - uncheck voice only' do
+    observation = create(:observation, voice: true)
     login_as_admin
-    visit observations_path
-    select('- Avis incognita', from: 'Species')
-    click_button('Search')
-    assert_equal 200, page.driver.response.status
-    assert find('table.obs_list').has_content?('- Avis incognita')
-    assert_false find('table.obs_list').has_content?('Spinus spinus')
+    visit observation_path(observation)
+    assert_equal 1, all('.obs-row').size
+    assert page.has_checked_field?('Voice?')
+    uncheck('Voice?')
+    assert_difference('Observation.count', 0) { click_button('Save') }
+    observation.reload
+    assert_false observation.voice
   end
 
-  test 'Searching observations by species works properly' do
-    create(:observation, species: seed(:pasdom), observ_date: "2010-06-18")
-    create(:observation, species: seed(:fulatr), observ_date: "2010-06-18")
-    login_as_admin
-    visit observations_path
-    select('Passer domesticus', from: 'Species')
-    click_button('Search')
-    assert find('table.obs_list').has_content?('Passer domesticus')
-    assert_false find('table.obs_list').has_content?('Fulica atra')
-  end
+  test 'Extract single observation to the new card' do
+    card = create(:card)
+    obs1 = create(:observation, card: card)
+    create(:observation, card: card)
+    create(:observation, card: card)
 
-  test 'Searching observations by mine/not mine works properly' do
-    create(:observation, species: seed(:pasdom), observ_date: "2010-06-18", mine: false)
-    create(:observation, species: seed(:fulatr), observ_date: "2010-06-18")
     login_as_admin
-    visit observations_path
-    choose('Not mine')
-    click_button('Search')
-    assert find('table.obs_list').has_content?('Passer domesticus')
-    assert_false find('table.obs_list').has_content?('Fulica atra')
+    visit observation_path(obs1)
+    assert_difference('Card.count', 1) {
+      assert_difference('Observation.count', 0) { click_link('Extract to the new card') }
+    }
+
+    card.reload
+    obs1.reload
+    assert_equal edit_card_path(obs1.card), current_path
+
+    assert_equal 2, card.observations.size
+    assert card != obs1.card
   end
 
 end

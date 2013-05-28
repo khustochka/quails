@@ -69,7 +69,7 @@ module JavaScriptTestCase
       def select_suggestion(value, hash)
         selector = ".ui-menu-item a:contains(\"#{value}\"):first"
         fill_in hash[:from], with: value
-        #sleep(0.5)
+        sleep(0.01)
         page.execute_script " $('#{selector}').trigger('mouseenter').click();"
       end
     end

@@ -4,95 +4,19 @@ class ObservationsControllerTest < ActionController::TestCase
   setup do
   end
 
-  test "get index (no search)" do
-    create(:observation, species: seed(:pasdom), observ_date: "2010-06-20", locus: seed(:new_york))
-    create(:observation, species: seed(:melgal), observ_date: "2010-06-18")
-    create(:observation, species: seed(:anapla), observ_date: "2009-06-18")
-    create(:observation, species: seed(:anacly), observ_date: "2007-07-18", locus: seed(:brovary))
-    create(:observation, species: seed(:embcit), observ_date: "2009-08-09", locus: seed(:kherson))
-    login_as_admin
-    get :index
-    assert_response :success
-    assert_present assigns(:observations)
-  end
-
-  test "get index (search)" do
-    create(:observation, species: seed(:pasdom), observ_date: "2010-06-20", locus: seed(:new_york))
-    create(:observation, species: seed(:melgal), observ_date: "2010-06-18")
-    create(:observation, species: seed(:anapla), observ_date: "2009-06-18")
-    create(:observation, species: seed(:anacly), observ_date: "2007-07-18", locus: seed(:brovary))
-    create(:observation, species: seed(:embcit), observ_date: "2009-08-09", locus: seed(:kherson))
-    login_as_admin
-    get :index, q: {locus_id: seed(:brovary).id}
-    assert_response :success
-    assert_equal 3, assigns(:observations).size
-  end
-
-  test "get index sorted by species order" do
-    create(:observation, species: seed(:pasdom), observ_date: "2010-06-20", locus: seed(:new_york))
-    create(:observation, species: seed(:melgal), observ_date: "2010-06-18")
-    create(:observation, species: seed(:anapla), observ_date: "2009-06-18")
-    create(:observation, species: seed(:anacly), observ_date: "2007-07-18", locus: seed(:brovary))
-    create(:observation, species: seed(:embcit), observ_date: "2009-08-09", locus: seed(:kherson))
-    login_as_admin
-    get :index, sort: 'species.index_num'
-    assert_response :success
-    assert_not_nil assigns(:observations)
-  end
-
-  test "Avis incognita properly rendered on index page" do
-    create(:observation, species_id: 0, observ_date: "2010-06-18")
-    create(:observation, species_id: 0, observ_date: "2009-06-19")
-    login_as_admin
-    get :index, q: {species_id: 0}
-    assert_response :success
-    assert_not_nil assigns(:observations)
-    assert_select 'td', '- Avis incognita'
-  end
-
-  test "get new" do
-    login_as_admin
-    get :new
-    assert_response :success
-  end
-
-  test "get add" do
-    login_as_admin
-    get :add
-    assert_response :success
-  end
-
-  test "create observation" do
-    observ = attributes_for(:observation)
-    common = observ.extract!(:locus_id, :observ_date, :mine)
-    assert_difference('Observation.count') do
-      login_as_admin
-      post :create, c: common, o: [observ]
-    end
-    assert_redirected_to observation_path(assigns(:observation))
-  end
-
-  test "redirect show observation to edit" do
+  test "get show" do
     observation = create(:observation)
     login_as_admin
     get :show, id: observation.to_param
-    assert_redirected_to edit_observation_path(observation)
-  end
-
-  test "get edit" do
-    observation = create(:observation)
-    login_as_admin
-    get :edit, id: observation.to_param
     assert_response :success
   end
 
   test "update observation" do
     observation = create(:observation)
-    observ = attributes_for(:observation)
-    common = observ.extract!(:locus_id, :observ_date, :mine)
+    observ = attributes_for(:observation, {'place' => 'New place'})
     login_as_admin
-    put :update, id: observation.to_param, c: common, o: [observ]
-    assert_redirected_to edit_observation_path(assigns(:observation))
+    put :update, id: observation.id, observation: observ
+    assert_redirected_to observation_path(assigns(:observation))
   end
 
   test "destroy observation" do
@@ -101,7 +25,25 @@ class ObservationsControllerTest < ActionController::TestCase
       login_as_admin
       delete :destroy, id: observation.to_param
     end
-    assert_redirected_to observations_path
+    assert_response :success
+  end
+
+  test 'extract observation to the new card' do
+    card = create(:card)
+    obs1 = create(:observation, card: card)
+    obs2 = create(:observation, card: card)
+    create(:observation, card: card)
+
+    login_as_admin
+    assert_difference('Card.count', 1) {
+      assert_difference('Observation.count', 0) { get :extract, obs: [obs1.id, obs2.id] }
+    }
+
+    card.reload
+    obs1.reload
+
+    assert_equal 1, card.observations.size
+    assert card != obs1.card
   end
 
   # HTTP auth tests
@@ -117,30 +59,9 @@ class ObservationsControllerTest < ActionController::TestCase
     #assert_response 404
   end
 
-  test 'protect new with HTTP authentication' do
-    assert_raise(ActionController::RoutingError) { get :new }
-    #assert_response 404
-  end
-
-  test 'protect add with HTTP authentication' do
-    assert_raise(ActionController::RoutingError) { get :add }
-    #assert_response 404
-  end
-
-  test 'protect edit with HTTP authentication' do
-    observation = create(:observation)
-    assert_raise(ActionController::RoutingError) { get :edit, id: observation.to_param }
-    #assert_response 404
-  end
-
-  test 'protect create with HTTP authentication' do
-    assert_raise(ActionController::RoutingError) { post :create, observation: build(:observation).attributes }
-    #assert_response 404
-  end
-
   test 'protect update with HTTP authentication' do
     observation = create(:observation)
-    observation.observ_date = '2010-11-07'
+    observation.place = 'New place'
     assert_raise(ActionController::RoutingError) { put :update, id: observation.to_param, observation: observation.attributes }
     #assert_response 404
   end
@@ -177,7 +98,7 @@ class ObservationsControllerTest < ActionController::TestCase
     obss = [create(:observation, species: seed(:denmaj)),
             create(:observation, species: seed(:pasdom)),
             create(:observation, species: seed(:anacre))]
-    get :search, q: {observ_date: obss[0].observ_date.iso8601}, format: 'json'
+    get :search, q: {observ_date: obss[0].card.observ_date.iso8601}, format: 'json'
     assert_response :success
     result = JSON.parse(response.body)
     assert_equal 3, result.size
@@ -189,7 +110,7 @@ class ObservationsControllerTest < ActionController::TestCase
   test 'return observation search results that include Avis incognita in HTML' do
     login_as_admin
     observation = create(:observation, species_id: 0)
-    get :search, q: {observ_date: observation.observ_date.iso8601}
+    get :search, q: {observ_date: observation.card.observ_date.iso8601}
     assert_response :success
     assert_equal Mime::HTML, response.content_type
     assert_include response.body, 'Avis incognita'
@@ -198,7 +119,7 @@ class ObservationsControllerTest < ActionController::TestCase
   test 'return observation search results that include Avis incognita in JSON' do
     login_as_admin
     observation = create(:observation, species_id: 0)
-    get :search, q: {observ_date: observation.observ_date.iso8601}, format: 'json'
+    get :search, q: {observ_date: observation.card.observ_date.iso8601}, format: 'json'
     assert_response :success
     assert_equal Mime::JSON, response.content_type
     result = JSON.parse(response.body)
@@ -207,8 +128,8 @@ class ObservationsControllerTest < ActionController::TestCase
   end
 
   test "properly find spots" do
-    obs1 = create(:observation, observ_date: '2010-07-24')
-    obs2 = create(:observation, observ_date: '2011-07-24')
+    obs1 = create(:observation, card: create(:card, observ_date: '2010-07-24'))
+    obs2 = create(:observation, card: create(:card, observ_date: '2011-07-24'))
     create(:spot, observation: obs1)
     create(:spot, observation: obs2)
     login_as_admin

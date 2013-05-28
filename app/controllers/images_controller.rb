@@ -111,7 +111,7 @@ class ImagesController < ApplicationController
 
   # GET /observations
   def observations
-    observs = Image.find_by_id(params[:id]).observations.preload(:species, :locus)
+    observs = Image.find_by_id(params[:id]).observations.preload(:species, :card => :locus)
     respond_with(observs, :only => :id, :methods => [:species_str, :when_where_str])
   end
 

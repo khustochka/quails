@@ -32,13 +32,13 @@
 
   %p= default_destroy_button
 
-  %h3 Attach observations
-  %p
-    %i Please select all necessary fields: date, location, mine/not mine.
+  %h3#card_attach Attach cards
 
-  = render 'observations/search'
+  = simple_form_for @observation_search, url: cards_path, method: :get, remote: true, html: {class: 'search'} do |form|
+    = render 'observations/search_fields', form: form
+    = hidden_field_tag("new_post_id", @post.id)
 
-  = hidden_field_tag("new_post_id", @post.id)
+  %ul.cards_list#search-results
 
   %h3 Livejournal
   %ul

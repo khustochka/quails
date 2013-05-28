@@ -1,0 +1,12 @@
+- @page_title = "#{@card.observ_date}, #{@card.locus.name}"
+
+%h1= page_header
+
+= render 'admin/shortcuts' if current_user.admin?
+
+- if notice
+  %p#notice= notice
+
+%ol
+  - @card.observations.preload(:species).each do |obs|
+    = render 'observation_row', obs: obs

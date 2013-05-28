@@ -1,13 +1,12 @@
 class Observation < ActiveRecord::Base
   include FormattedModel
 
+  belongs_to :card
+
   belongs_to :species
-  belongs_to :locus
   belongs_to :post, select: [:id, :slug, :face_date, :title, :status]
   has_and_belongs_to_many :images
   has_many :spots
-
-  attr_accessor :one_of_bulk
 
   before_destroy do
     if images.present?
@@ -15,7 +14,7 @@ class Observation < ActiveRecord::Base
     end
   end
 
-  validates :observ_date, :locus_id, :species_id, :presence => true
+  validates :species_id, :presence => true
 
   # Scopes
 
@@ -24,18 +23,14 @@ class Observation < ActiveRecord::Base
   # TODO: improve and probably use universally
   def self.filter(options = {})
     rel = self.scoped
-    rel = rel.where('EXTRACT(year from observ_date) = ?', options[:year]) unless options[:year].blank?
-    rel = rel.where('EXTRACT(month from observ_date) = ?', options[:month]) unless options[:month].blank?
-    rel = rel.where('locus_id' => options[:locus]) unless options[:locus].blank?
+    rel = rel.joins(:card).where('EXTRACT(year from cards.observ_date) = ?', options[:year]) unless options[:year].blank?
+    rel = rel.joins(:card).where('EXTRACT(month from cards.observ_date) = ?', options[:month]) unless options[:month].blank?
+    rel = rel.joins(:card).where('cards.locus_id' => options[:locus]) unless options[:locus].blank?
     rel
   end
 
   def self.years
-    order(:year).pluck('DISTINCT EXTRACT(year from observ_date) AS year')
-  end
-
-  def self.search(conditions = {})
-    SearchModel.new(self, conditions)
+    joins(:card).order(:year).pluck('DISTINCT EXTRACT(year from observ_date) AS year')
   end
 
   # Species

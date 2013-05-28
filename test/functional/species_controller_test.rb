@@ -36,8 +36,9 @@ class SpeciesControllerTest < ActionController::TestCase
     # Setup photo of several species
     sp1 = seed(:lancol)
     sp2 = seed(:jyntor)
-    obs1 = create(:observation, species: sp1, observ_date: "2008-07-01")
-    obs2 = create(:observation, species: sp2, observ_date: "2008-07-01")
+    card = create(:card, observ_date: "2008-07-01")
+    obs1 = create(:observation, species: sp1, card: card)
+    obs2 = create(:observation, species: sp2, card: card)
     img = create(:image, slug: 'picture-of-the-shrike-and-the-wryneck', observations: [obs1, obs2])
 
     get :gallery
@@ -62,6 +63,13 @@ class SpeciesControllerTest < ActionController::TestCase
 
   test "show species" do
     species = seed(:melgal)
+    get :show, id: species.to_param
+    assert_response :success
+  end
+
+  test "show species with image" do
+    species = seed(:melgal)
+    create(:image, observations: [create(:observation, species: species)])
     get :show, id: species.to_param
     assert_response :success
   end

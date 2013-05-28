@@ -33,9 +33,9 @@ class LocusTest < ActiveSupport::TestCase
 
   test 'do not destroy locus if it has associated observations' do
     loc = seed(:kiev)
-    observation = create(:observation, locus: loc)
+    observation = create(:observation, card: create(:card, locus: loc))
     assert_raise(ActiveRecord::DeleteRestrictionError) { loc.destroy }
     assert observation.reload
-    assert_equal loc, observation.locus
+    assert_equal loc, observation.card.locus
   end
 end
