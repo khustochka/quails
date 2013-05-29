@@ -1,0 +1,40 @@
+%li.observ_card
+  %ul.card_cell
+    %li= link_to card.observ_date, card
+    %li
+      %small
+        %i= card.locus.name
+  %ul.card_cell
+    %li
+      Obs:
+      %big= card.observations.count
+      - if card.observations.count == 0
+        %small.voice.tag empty
+      - if card.alien?
+        %small.not_mine.tag alien
+    %li
+      Species:
+      %big= card.observations.merge(Observation.identified).count("DISTINCT species_id")
+  %ul.card_cell
+    %li
+      - if card.post
+        %small= post_link(card.post.formatted.title, card.post)
+      - else
+        %i.less-important.grayout No post
+    - if @post
+      %li= attach_detach_link(card)
+  %div.card_cell
+    = surround('[ ', ' ]') do
+      = link_to 'edit', edit_card_path(card), class: 'pseudolink'
+    - if card.observations.count > 0
+      = disabled_destroy_icon
+    - else
+      = default_destroy_link(card)
+
+    - if params[:obs]
+      = link_to 'Attach here', attach_card_path(card, obs: params[:obs]), class: 'pseudolink', data: {method: :post}
+
+- if show_separate_observation_on_card_search?
+  %ul
+    - card.observations.each do |obs|
+      = render 'observation_row', obs: obs

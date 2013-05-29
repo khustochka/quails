@@ -1,5 +1,6 @@
 //= require jquery_ujs
 //= require suggest_over_combo
+//= require post_cards
 
 // Tag insertion
 $(function () {
@@ -17,12 +18,12 @@ $(function () {
   sp_insert_button.appendTo(".edit_tools");
 
 
-  // Observations search form
+  // Cards search form
 
   var searchForm = $('form.search');
-
-  searchForm.attr('action', "/observations/bulk");
-  $("#new_post_id").appendTo(searchForm);
+  searchForm.on('ajax:success', function (e, data) {
+    $("#search-results").html(data);
+  });
 
 });
 
@@ -108,4 +109,8 @@ function insertTags(tagOpen, tagClose, sampleText) {
     }
   }
 
+}
+
+function reloadCardsSearch() {
+  $('form.search').submit();
 }

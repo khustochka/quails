@@ -17,8 +17,9 @@ class ImagesAssociationsTest < ActiveSupport::TestCase
   test 'properly link images with several species' do
     sp1 = seed(:lancol)
     sp2 = seed(:jyntor)
-    obs1 = create(:observation, species: sp1, observ_date: "2008-07-01")
-    obs2 = create(:observation, species: sp2, observ_date: "2008-07-01")
+    card = create(:card, observ_date: "2008-07-01")
+    obs1 = create(:observation, species: sp1, card: card)
+    obs2 = create(:observation, species: sp2, card: card)
     img = create(:image, slug: 'picture-of-the-shrike-and-the-wryneck', observations: [obs1, obs2])
 
     assert_equal [img.slug], sp1.images.pluck(:slug)

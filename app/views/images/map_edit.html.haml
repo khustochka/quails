@@ -17,7 +17,7 @@
   %p.errors Not yet mapped!
 
 %ul.horiz-obs-list.obs-list
-  = render partial: 'observations/obs_item', collection: @image.observations.preload(:species, :locus)
+  = render partial: 'observations/obs_item', collection: @image.observations.preload(:species, :card => :locus)
 
 = render 'spots/form'
 

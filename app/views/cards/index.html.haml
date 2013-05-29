@@ -1,0 +1,15 @@
+- @wider = true
+
+- javascript 'card_index'
+- stylesheet 'forms'
+
+- @page_title = 'Cards'
+
+%h1= page_header
+
+= render 'admin/shortcuts' if current_user.admin?
+
+= simple_form_for @observation_search, url: cards_path, method: :get, html: {class: 'search'} do |form|
+  = render 'observations/search_fields', form: form
+
+= render 'search_results'

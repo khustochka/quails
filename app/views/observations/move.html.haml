@@ -1,0 +1,24 @@
+- stylesheet 'forms'
+- javascript 'observation_move'
+
+- @page_title = "Move observations"
+
+%h1= page_header
+
+%ol
+  - @observations.each do |obs|
+    = render 'cards/observation_row', obs: obs
+
+%h3 From current card:
+
+%ul.cards_list
+  = render @card
+
+%h3 To another card:
+
+= simple_form_for @observation_search, url: cards_path, method: :get, remote: true, html: {class: 'search'} do |form|
+  = render 'observations/search_fields', form: form
+  - @observations.each do |obs|
+    = hidden_field_tag('obs[]', obs.id)
+
+%ul.cards_list#search-results

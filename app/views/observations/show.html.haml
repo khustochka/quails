@@ -1,0 +1,23 @@
+-# @wider = true
+
+- javascript 'observation_form'
+- stylesheet 'forms'
+
+- @page_title = "#{new_or_edit_label(@observation)} observation"
+- @blogpost = @observation.post
+
+%h1= page_header
+
+= render 'admin/shortcuts' if current_user.admin?
+
+%ul.cards_list
+  = render @observation.card
+
+= simple_form_for @observation, html: {class: 'observation'} do |builder|
+
+  = render partial: 'observation_fields', object: @observation, locals: {form: builder}
+
+  .buttons
+    = default_submit_button(builder)
+    = link_to 'Extract to the new card', {action: :extract, obs: [@observation.id]}, class: 'pseudolink'
+    = link_to 'Move to another card', {action: :move, obs: [@observation.id]}, class: 'pseudolink'

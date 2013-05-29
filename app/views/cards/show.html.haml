@@ -1,0 +1,42 @@
+- stylesheet 'public'
+
+- @page_title = "#{l(@card.observ_date, format: :long)}, #{@card.locus.name}"
+
+= render 'admin/shortcuts' if current_user.admin?
+
+%h1= page_header
+
+- if notice
+  %p#notice= notice
+
+= @card.formatted.notes
+
+- if @card.post || @card.secondary_posts.any?
+  %h3 Posts
+  %ul
+    - if @card.post
+      %li
+        %big
+          %b= post_link(@card.post.formatted.title, @card.post)
+
+    - @card.secondary_posts.if_present do |ps|
+      - ps.each do |p|
+        %li= post_link(p.formatted.title, p)
+
+
+- @card.images.if_present do |images|
+  %div.photos
+    %h3 Photos
+    %ul.thumbnails
+      = render partial: 'images/thumbnail', collection: images
+
+- @card.species.if_present do |spcs|
+  %h3 Species (#{spcs.size})
+  %p
+    = (spcs.map { |sp| species_link(sp) }.join(",\n") << ".").html_safe
+
+%h3 Observations
+
+%ol
+  - @card.observations.preload(:species).each do |obs|
+    = render 'observation_row', obs: obs

@@ -1,13 +1,13 @@
 - if current_user.admin?
   %ul.admin_menu
     %li.adder= link_to '+ Post', new_post_path
-    %li.adder= link_to '+ Observation', add_observations_path
+    %li.adder= link_to '+ Card', new_card_path
     %li.adder= link_to '+ Image', add_images_path
     %li= link_to 'Drafts', hidden_posts_path
-    %li= link_to 'Observations', observations_path
     %li= link_to 'Species', admin_species_index_path
-    %li= link_to 'Books', books_path
+    %li= link_to 'Cards', cards_path
     %li= link_to 'Comments', comments_path
+    %li= link_to 'Books', books_path
     %li= link_to 'Locations', loci_path
     %li= link_to 'Research', research_path
     %li= link_to 'Map Edit', edit_map_path

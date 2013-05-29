@@ -47,27 +47,36 @@ class CommentsController < ApplicationController
 
     @comment = @post.comments.build(comment_attrs)
 
-    @comment.approved = !@comment.like_spam? && params[:comment][:name].blank?
+    if @comment.like_spam? && params[:comment][:name].present?
 
-    respond_to do |format|
-      if @comment.save
-        CommentMailer.comment_posted(@comment, request.host).deliver
+      render text: 'Error', status: 422
 
-        to_be_reviewed = {
-                @comment.parent_id =>
-                    "Извините, ваш комментарий был скрыт. Он будет рассмотрен модератором.
+    else
+
+      @comment.approved = !@comment.like_spam? && params[:comment][:name].blank?
+      @comment.ip = request.remote_ip
+
+      respond_to do |format|
+        if @comment.save
+          CommentMailer.comment_posted(@comment, request.host).deliver
+
+          to_be_reviewed = {
+              @comment.parent_id =>
+                  "Извините, ваш комментарий был скрыт. Он будет рассмотрен модератором.
                       <a href='#{public_comment_path(@comment)}'>Его ссылка</a>.".html_safe
-            } unless @comment.approved
+          } unless @comment.approved
 
-        format.html { redirect_to public_comment_path(@comment), notice: to_be_reviewed }
-        format.json { render :json => @comment, :status => :created, :location => @comment }
-      else
-        format.html {
-          @parent_comment = @comment.parent_comment
-          render :action => "reply"
-        }
-        format.json { render :json => @comment.errors, :status => :unprocessable_entity }
+          format.html { redirect_to public_comment_path(@comment), notice: to_be_reviewed }
+          format.json { render :json => @comment, :status => :created, :location => @comment }
+        else
+          format.html {
+            @parent_comment = @comment.parent_comment
+            render :action => "reply"
+          }
+          format.json { render :json => @comment.errors, :status => :unprocessable_entity }
+        end
       end
+
     end
   end
 

@@ -30,7 +30,7 @@ class PostsController < ApplicationController
   # GET /posts/1/edit
   def edit
     @extra_params = @post.to_url_params
-    @search = Observation.search
+    @observation_search = ObservationSearch.new
     render 'form'
   end
 
@@ -48,10 +48,10 @@ class PostsController < ApplicationController
   # PUT /posts/1
   def update
     @extra_params = @post.to_url_params
-    @search = Observation.search
     if @post.update_attributes(params[:post])
       redirect_to(public_post_path(@post))
     else
+      @observation_search = ObservationSearch.new
       render 'form'
     end
   end

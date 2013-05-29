@@ -5,10 +5,12 @@ class Image < ActiveRecord::Base
 
   has_and_belongs_to_many :observations # FIXME: was -> { includes(:species) }
   has_many :species, :through => :observations
+
+  # TODO: try to make it 'card', because image should belong to observations of the same card
+  has_many :cards, :through => :observations
+
   has_many :spots, :through => :observations
   belongs_to :spot
-
-  delegate :observ_date, :locus, :locus_id, :to => :first_observation
 
   serialize :flickr_data, Hash
 
@@ -42,13 +44,21 @@ class Image < ActiveRecord::Base
   # Photos with several species
   def self.multiple_species
     rel = select(:image_id).from("images_observations").group(:image_id).having("COUNT(observation_id) > 1")
-    select("DISTINCT images.*, observ_date").where(id: rel).joins(:observations).preload(:species).order('observ_date ASC')
+    select("DISTINCT images.*, observ_date").where(id: rel).
+        joins(:observations, :cards).preload(:species).order('observ_date ASC')
   end
 
   # Associations
 
+  # FIXME: think how to do this in a more clever way (posts?)
   def post(posts_source)
-    posts_source.find_by_id(first_observation.post_id)
+    posts_source.find_by_id(first_observation.post_id || cards.first.post_id)
+  end
+
+  delegate :observ_date, :locus, :locus_id, :to => :card
+
+  def card
+    first_observation.card
   end
 
   # Instance methods
@@ -61,21 +71,23 @@ class Image < ActiveRecord::Base
     species.count > 1
   end
 
-  ORDERING_COLUMNS = %w(observ_date locus_id index_num created_at images.id)
+  ORDERING_COLUMNS = %w(cards.observ_date cards.locus_id index_num images.created_at images.id)
   PREV_NEXT_ORDER = "(ORDER BY #{ORDERING_COLUMNS.join(', ')})"
+
+  def self.order_for_species
+    self.joins("INNER JOIN cards ON observations.card_id = cards.id").order(*ORDERING_COLUMNS)
+  end
 
   def prev_by_species(sp)
     # FIXME: Use unprepared visitor
-    imgs = Image.joins(:observations).where('observations.species_id' => sp.id)
-    r = imgs.select("images.id AS img_id, lag(images.id) OVER #{PREV_NEXT_ORDER} AS prev").except(:order)
+    r = sp.ordered_images.select("images.id AS img_id, lag(images.id) OVER #{PREV_NEXT_ORDER} AS prev").except(:order)
     im = Image.from("(#{r.to_sql}) AS tmp").select("prev").where("img_id = ?", self.id)
     Image.where(id: im).first
   end
 
   def next_by_species(sp)
     # FIXME: Use unprepared visitor
-    imgs = Image.joins(:observations).where('observations.species_id' => sp.id)
-    r = imgs.select("images.id AS img_id, lead(images.id) OVER #{PREV_NEXT_ORDER} AS next").except(:order)
+    r = sp.ordered_images.select("images.id AS img_id, lead(images.id) OVER #{PREV_NEXT_ORDER} AS next").except(:order)
     im = Image.from("(#{r.to_sql}) AS tmp").select("next").where("img_id = ?", self.id)
     Image.where(id: im).first
   end
@@ -85,10 +97,10 @@ class Image < ActiveRecord::Base
   end
 
   def search_applicable_observations
-    Observation.search(
+    ObservationSearch.new(
         new_record? ?
-            {:observ_date => Observation.pluck('MAX(observ_date) AS last_date')} :
-            {:observ_date => observ_date, :locus_id => locus.id}
+            {observ_date: Card.pluck('MAX(observ_date)').first} :
+            {observ_date: observ_date, locus_id: locus.id}
     )
   end
 
@@ -145,15 +157,15 @@ class Image < ActiveRecord::Base
     observations[0]
   end
 
-  COMMON_OBSERVATION_ATTRIBUTES = %w(observ_date locus_id mine)
+  COMMON_OBSERVATION_ATTRIBUTES = %w(card_id mine)
 
   def validate_observations(observ_ids)
-    obs = Observation.where(:id => observ_ids)
+    obs = Observation.where(id: observ_ids)
     if obs.blank?
       errors.add(:observations, 'must not be empty')
     else
       if obs.map { |o| o.attributes.values_at(*COMMON_OBSERVATION_ATTRIBUTES) }.uniq.size > 1
-        errors.add(:observations, 'must have the same date, location, and mine value')
+        errors.add(:observations, 'must have the same card and mine value')
       end
     end
   end

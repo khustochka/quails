@@ -15,7 +15,7 @@ class ResearchControllerTest < ActionController::TestCase
 
   test "admin sees Research/day" do
     p = create(:post)
-    o = create(:observation, observ_date: Time.now, post: p)
+    o = create(:observation, card: create(:card, observ_date: Time.now, post: p))
     create(:image, observations: [o])
 
     login_as_admin
@@ -24,15 +24,15 @@ class ResearchControllerTest < ActionController::TestCase
   end
 
   test "admin sees Research/more_than_year" do
-    create(:observation, observ_date: "2007-06-18")
-    create(:observation, observ_date: "2009-06-18")
+    create(:observation, card: create(:card, observ_date: "2007-06-18"))
+    create(:observation, card: create(:card, observ_date: "2009-06-18"))
     login_as_admin
     get :more_than_year, days: 365
     assert_response :success
   end
 
   test "admin sees Research/topicture" do
-    o = create(:observation, observ_date: "2007-06-18")
+    o = create(:observation, card: create(:card, observ_date: "2007-06-18"))
     create(:image, observations: [o])
     login_as_admin
     get :topicture
@@ -52,8 +52,8 @@ class ResearchControllerTest < ActionController::TestCase
   end
 
   test "admin sees Research/stats" do
-    create(:observation, observ_date: "2007-06-18")
-    create(:observation, observ_date: "2009-06-18")
+    create(:observation, card: create(:card, observ_date: "2007-06-18"))
+    create(:observation, card: create(:card, observ_date: "2009-06-18"))
     login_as_admin
     get :stats
     assert_response :success

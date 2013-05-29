@@ -1,4 +1,5 @@
 - javascript 'comments'
+- javascript 'post_show_admin' if current_user.admin?
 
 - if @post.public?
   - provide :add_shortcuts do
@@ -53,7 +54,18 @@
 
 - if current_user.admin?
 
-  %p= link_to('Add more observations', add_observations_path(post_id: @post.id))
+  %hr
+
+  %p= link_to('Add new card', new_card_path(card: {post_id: @post.id}))
+
+  %p= link_to('Attach existing cards / observations', edit_post_path(@post, anchor: 'card_attach'))
+
+  %ul.cards_list
+    = render @post.cards
+
+    %ul
+      - @post.observations.each do |obs|
+        = render 'cards/observation_row', obs: obs
 
   - unless @post.lj_url_id.blank?
     %p= link_to 'This post on Livejournal', @post.lj_url

@@ -75,6 +75,8 @@ textarea
 
 div.buttons
   margin: 10px 0 0 0
+  button, input, a, span
+    margin-right: 20px
 
 input.button, button
   min-width: 130px
@@ -93,52 +95,52 @@ div.input span.select_arrow
 
 // Observations
 
-form.observation
+form.new_card, form.edit_card
   .to-add-row
-    margin-top: 5px
+    display: inline-block
+    font-weight: bold
+  .quick-add
+    display: block
+    margin:
+      top: 10px
+      bottom: 10px
+    padding-bottom: 5px
+    border-bottom: 1px solid green
     label
       color: green
     input
       border-color: green
-    #add-row
-      margin-left: 5px
-    #hide-saved
-      background: #fff url('/img/x_14x14.png') no-repeat left center
-      padding-left: 18px
-      float: right
+      width: 400px
 
-  a[href='#top'], a[href='#top']:hover
-    margin-left: 30px
-    text-decoration: none
-    border-bottom: 1px dashed #55A
-    background-color: #fff
-    color: #55A
-
-  div.obs-row
-    //display: table-row
-    div
-      display: table-cell
-      padding-right: 10px
-      padding-bottom: 10px
-    .remove
-      display: table-cell
-      padding: 18px 10px 10px 10px
-    .id_field
-      width: 50px
-      background-color: #ddd
-
-  // Refactor?
-  div.obs-row
-    margin-bottom: 3px
-    @include inline-block
-    #observation_place, #observation_notes
+div.obs-row
+  //display: table-row
+  div
+    display: table-cell
+    vertical-align: bottom
+    padding-right: 10px
+    padding-bottom: 10px
+    a
       font-size: 13px
-      padding: 2px 0 4px 2px
 
-  div.obs-row.save-success
-    background-color: #ccffcc
-  div.obs-row.save-fail
-    background-color: #ffcccc
+div.bulk_select
+  padding-left: 10px
+  border-left: 1px solid black
+
+// Refactor?
+div.obs-row
+  margin-bottom: 3px
+  @include inline-block
+  #observation_place, #observation_notes
+    font-size: 13px
+    padding: 2px 0 4px 2px
+
+.fixed-bottom
+  position: fixed
+  bottom: 0
+  background-color: rgba(#ccffcc, 0.8)
+  border-top: 4px solid green
+  padding: 15px
+  width: $main-width
 
 // Images
 table.with_search
@@ -220,11 +222,6 @@ ul.obs-list
     font-size: 22px
     color: red
     cursor: pointer
-
-  .buttons
-    margin-left: 0
-    button
-      margin-left: 30px
 
 .edit_tools
   border: 1px solid #ddd

@@ -15,7 +15,7 @@ class CountriesControllerTest < ActionController::TestCase
   end
 
   test "Birds of USA" do
-    create(:observation, locus: seed(:queens))
+    create(:observation, card: create(:card, locus: seed(:queens)))
     get :gallery, country: 'usa'
     assert_response :success
     assert assigns(:species).present?

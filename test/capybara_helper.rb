@@ -69,9 +69,16 @@ module JavaScriptTestCase
       def select_suggestion(value, hash)
         selector = ".ui-menu-item a:contains(\"#{value}\"):first"
         fill_in hash[:from], with: value
-        #sleep(0.5)
+        sleep(0.01)
         page.execute_script " $('#{selector}').trigger('mouseenter').click();"
       end
+
+      def accept_modal_dialog
+        if page.driver.browser.respond_to? :switch_to
+          page.driver.browser.switch_to.alert.accept
+        end
+      end
+
     end
 
   end

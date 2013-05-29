@@ -75,7 +75,7 @@
     %tr
       %td= l(row.observ_date, format: :long)
       %td= row.count_species
-      %td= row.locus.name
+      %td= Locus.find(row.locus_id).name
 
 %h3
   %i — По количеству новых видов за день

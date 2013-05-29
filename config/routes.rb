@@ -125,12 +125,17 @@ Quails::Application.routes.draw do
     post :lj_post, on: :member
   end
 
-  resources :observations do
+  resources :cards do
+    member do
+      post :attach
+    end
+  end
+
+  resources :observations, except: [:index, :new, :create, :edit] do
     collection do
-      get 'search(/:with_spots)', action: :search, with_spots: /with_spots/
-      get 'add'
-      get 'bulk'
-      post 'bulksave'
+      get 'search(/:with_spots)', action: :search, with_spots: /with_spots/, as: 'search'
+      get 'extract'
+      get 'move'
     end
   end
 

@@ -62,6 +62,7 @@ group :test do
   gem 'ruby-prof', require: false, platforms: [:mri, :mingw]
   gem 'capybara', '~> 2.1.0'
   gem 'capybara-webkit', '~> 1.0',platforms: [:mri], require: false
+  gem 'selenium-webdriver'
   gem 'poltergeist', platforms: [:mri], require: false
   gem 'database_cleaner', require: false
   gem 'launchy' # So you can do Then show me the page
