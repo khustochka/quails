@@ -79,16 +79,14 @@ class Image < ActiveRecord::Base
   end
 
   def prev_by_species(sp)
-    # FIXME: Use unprepared visitor
-    r = sp.ordered_images.select("images.id AS img_id, lag(images.id) OVER #{PREV_NEXT_ORDER} AS prev").except(:order)
-    im = Image.from("(#{r.to_sql}) AS tmp").select("prev").where("img_id = ?", self.id)
+    sql = prev_next_sql(sp, "lag")
+    im = Image.from("(#{sql}) AS tmp").select("desired").where("img_id = ?", self.id)
     Image.where(id: im).first
   end
 
   def next_by_species(sp)
-    # FIXME: Use unprepared visitor
-    r = sp.ordered_images.select("images.id AS img_id, lead(images.id) OVER #{PREV_NEXT_ORDER} AS next").except(:order)
-    im = Image.from("(#{r.to_sql}) AS tmp").select("next").where("img_id = ?", self.id)
+    sql = prev_next_sql(sp, "lead")
+    im = Image.from("(#{sql}) AS tmp").select("desired").where("img_id = ?", self.id)
     Image.where(id: im).first
   end
 
@@ -167,6 +165,15 @@ class Image < ActiveRecord::Base
       if obs.map { |o| o.attributes.values_at(*COMMON_OBSERVATION_ATTRIBUTES) }.uniq.size > 1
         errors.add(:observations, 'must have the same card and mine value')
       end
+    end
+  end
+
+  def prev_next_sql(sp, lag_or_lead)
+    Image.connection.unprepared_statement do
+      sp.ordered_images.
+          select("images.id AS img_id, #{lag_or_lead}(images.id) OVER #{PREV_NEXT_ORDER} AS desired").
+          except(:order).
+          to_sql
     end
   end
 
