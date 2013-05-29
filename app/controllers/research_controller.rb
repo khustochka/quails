@@ -149,9 +149,9 @@ class ResearchController < ApplicationController
 
     observations_filtered = MyObservation.filter(year: params[:year]).joins(:card)
     lifelist_filtered = Lifelist.basic.relation
-    lifelist_filtered = lifelist_filtered.where('EXTRACT(year from first_seen) = ?', params[:year]) if params[:year]
+    lifelist_filtered = lifelist_filtered.where('EXTRACT(year from first_seen)::integer = ?', params[:year]) if params[:year]
 
-    @year_data = observations_filtered.select('EXTRACT(year FROM observ_date) as year,
+    @year_data = observations_filtered.select('EXTRACT(year FROM observ_date)::integer as year,
                                       COUNT(observations.id) as count_obs,
                                       COUNT(DISTINCT observ_date) as count_days,
                                       COUNT(DISTINCT species_id) as count_species').
@@ -159,7 +159,7 @@ class ResearchController < ApplicationController
 
     @first_sp_by_year = lifelist_filtered.group('EXTRACT(year FROM first_seen)').except(:order).count
 
-    @month_data = observations_filtered.select('EXTRACT(month FROM observ_date) as month,
+    @month_data = observations_filtered.select('EXTRACT(month FROM observ_date)::integer as month,
                                       COUNT(observations.id) as count_obs,
                                       COUNT(DISTINCT species_id) as count_species').
         group('EXTRACT(month FROM observ_date)').order('month')
