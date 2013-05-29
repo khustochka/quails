@@ -15,7 +15,7 @@ class Species < ActiveRecord::Base
   validates :code, :format => /\A[a-z]{6}\Z/, :uniqueness => true, :allow_blank => true
   validates :avibase_id, :format => /\A[\dA-F]{16}\Z/, :allow_blank => true
 
-  has_many :observations, :dependent => :restrict, :order => [:observ_date]
+  has_many :observations, :dependent => :restrict
   has_many :cards, :through => :observations
   has_many :images, :through => :observations
   has_many :taxa
