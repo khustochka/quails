@@ -118,6 +118,8 @@ class JSCardsTest < ActionDispatch::IntegrationTest
         find(".destroy").click
       end
 
+      accept_modal_dialog
+
       assert_equal edit_card_path(@card), current_path
       assert page.has_no_css?('.obs-row div a', text: o.id.to_s)
     end
@@ -259,6 +261,8 @@ class JSCardsTest < ActionDispatch::IntegrationTest
     assert page.has_css?('li.observ_card')
 
     page.find('li.observ_card').click_link('Attach to this post')
+
+    accept_modal_dialog
 
     assert page.has_no_css?('.loading')
 
