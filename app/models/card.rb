@@ -1,8 +1,12 @@
 class Card < ActiveRecord::Base
 
-  has_many :observations, dependent: :restrict
+  include FormattedModel
+
   belongs_to :locus
   belongs_to :post
+  has_many :observations, dependent: :restrict
+  has_many :images, through: :observations
+  has_many :species, through: :observations
 
   validates :locus_id, :observ_date, presence: true
 

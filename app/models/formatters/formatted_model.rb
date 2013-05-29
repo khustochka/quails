@@ -4,7 +4,8 @@ module FormattedModel
       Post => PostFormatter,
       Image => ImageFormatter,
       Comment => CommentFormatter,
-      Observation => ObservationFormatter
+      Observation => ObservationFormatter,
+      Card => CardFormatter
   }
 
   def formatted

@@ -34,11 +34,10 @@
     = form.input :biotope
     = form.input :weather
     = form.input :time
-  %div
     = form.input :route
-    = form.input :observers
 
   = form.input :notes, input_html: {rows: 7}
+  = form.input :observers
 
   = form.simple_fields_for :observations do |builder|
     = render 'observations/observation_fields', form: builder
