@@ -12,4 +12,14 @@
 //
 //= require jquery_ujs
 //= require suggest_over_combo
-//= require pjax_pagination
+//= require jquery_pjax
+//= require pjax_spinner
+
+$(function () {
+  // default timeout is causing page reload on heavy pages, like lifelist
+  $('#cards_search_results').pjax('nav.pagination a');
+
+  showSpinner(function () {
+    $("nav.pagination", this).append("<img src='/img/loading_small.gif'>");
+  });
+});

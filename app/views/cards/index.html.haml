@@ -12,7 +12,4 @@
 = simple_form_for @observation_search, url: cards_path, method: :get, html: {class: 'search'} do |form|
   = render 'observations/search_fields', form: form
 
-%ul.cards_list
-  = render @cards
-
-= paginate @cards
+= render 'search_results'

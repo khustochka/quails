@@ -19,7 +19,9 @@ class CardsController < ApplicationController
 
     respond_to do |format|
       format.html {
-        if request.xhr? && !pjax_request?
+        if pjax_request?
+          render '_search_results'
+        elsif request.xhr?
           render @cards, layout: false
         else
           render 'index'
