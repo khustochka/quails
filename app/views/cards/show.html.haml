@@ -11,6 +11,11 @@
 
 = @card.formatted.notes
 
+- if @card.post
+  %h3
+    Post:
+    = post_link(@card.post.formatted.title, @card.post)
+
 - @card.images.if_present do |images|
   %div.photos
     %h3 Photos

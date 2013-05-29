@@ -1,22 +1,32 @@
 %li.observ_card
-  %div.card_cell
-    = card.observ_date
-    %br
-    = card.locus.name
-  %div.card_cell
-    Obs:
-    %big= card.observations.count
-  %div.card_cell
-    Species:
-    %big= card.observations.merge(Observation.identified).count("DISTINCT species_id")
-  %div.card_cell
-    = post_link("POST >>", card.post)
+  %ul.card_cell
+    %li= link_to card.observ_date, card
+    %li
+      %small
+        %i= card.locus.name
+  %ul.card_cell
+    %li
+      Obs:
+      %big= card.observations.count
+    %li
+      Species:
+      %big= card.observations.merge(Observation.identified).count("DISTINCT species_id")
+  %ul.card_cell
+    %li
+      - if card.post
+        %small= post_link(card.post.formatted.title, card.post)
+      - else
+        %i.less-important.grayout No post
     - if @post
-      %div= attach_detach_link(card)
+      %li= attach_detach_link(card)
   %div.card_cell
-    = link_to 'Show', card
-    = link_to 'Edit', edit_card_path(card)
-    = link_to 'Destroy', card, method: :delete, data: { confirm: 'Card will be destroyed' }
+    = surround('[ ', ' ]') do
+      = link_to 'edit', edit_card_path(card), class: 'pseudolink'
+    - if card.observations.count > 0
+      = disabled_destroy_icon
+    - else
+      = default_destroy_link(card)
+
     - if params[:obs]
       = link_to 'Attach here', attach_card_path(card, obs: params[:obs]), class: 'pseudolink', data: {method: :post}
 
