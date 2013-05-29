@@ -48,11 +48,6 @@ class ObservationsControllerTest < ActionController::TestCase
 
   # HTTP auth tests
 
-  test 'protect index with HTTP authentication' do
-    assert_raise(ActionController::RoutingError) { get :index }
-    #assert_response 404
-  end
-
   test 'protect show with HTTP authentication' do
     observation = create(:observation)
     assert_raise(ActionController::RoutingError) { get :show, id: observation.to_param }
