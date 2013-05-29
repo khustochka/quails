@@ -14,4 +14,12 @@ class Card < ActiveRecord::Base
                                 reject_if:
                                     proc { |attrs| attrs.all? { |k, v| v.blank? || k == 'voice' || k == 'mine' } }
 
+  def secondary_posts
+    Post.uniq.joins(:observations).where('observations.card_id =? AND observations.post_id <> ?', self.id, self.post_id)
+  end
+
+  def alien?
+    observations.present? && !observations.any?(&:mine)
+  end
+
 end

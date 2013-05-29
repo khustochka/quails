@@ -17,7 +17,7 @@ class Post < ActiveRecord::Base
 
   has_many :comments, :dependent => :destroy
   has_many :cards, :dependent => :nullify
-  has_many :observations, :dependent => :nullify
+  has_many :observations, :dependent => :nullify # only those attached directly
   #has_many :species, :through => :observations, :order => [:index_num], :uniq => true
   #has_many :images, :through => :observations, :include => [:species]
            #:order => 'observations.observ_date, observations.locus_id, images.index_num, species.index_num'

@@ -63,5 +63,9 @@
   %ul.cards_list
     = render @post.cards
 
+    %ul
+      - @post.observations.each do |obs|
+        = render 'cards/observation_row', obs: obs
+
   - unless @post.lj_url_id.blank?
     %p= link_to 'This post on Livejournal', @post.lj_url
