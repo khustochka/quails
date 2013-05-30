@@ -24,7 +24,7 @@
   %table.with_search.flickr_search_table.with_search
     %tr
       %td
-        = simple_form_for @image,url: patch_image_path(@image), method: :post, html: {class: 'flickr_edit'} do |form|
+        = simple_form_for @image,url: patch_image_path(@image, :json), remote: true, method: :post, html: {class: 'flickr_edit'} do |form|
           = form.input :flickr_size, as: :select,
                 collection: ImagesHelper::FLICKR_SIZES, input_html: {size: '8'}, include_blank: false, default: 'o'
           = form.input :flickr_id, as: :hidden
@@ -40,3 +40,5 @@
       %td.found_pictures{colspan: 2}
 - else
   %div.errors No Flickr API key or secret defined!
+
+= link_to("Next unflickred image >>", edit_flickr_image_path(@next), class: 'next_unflickred') if @next
