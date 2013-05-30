@@ -13,7 +13,7 @@ module CardsHelper
     url = url_for(controller: item.class.to_s.tableize, action: :update, id: item.id, format: :json)
 
     link_to text, url, class: 'card_post_op pseudolink', remote: true,
-            method: :put, data: {confirm: 'Are you sure?', params: "#{item.class.to_s.singularize.downcase}[post_id]=#{post_id}"}
+            method: :put, data: {confirm: 'Are you sure?', params: "#{item.class.to_s.downcase}[post_id]=#{post_id}"}
   end
 
   # NOTICE: should always be called @observation_search !                                                                                         Observation
