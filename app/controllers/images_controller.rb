@@ -134,7 +134,7 @@ class ImagesController < ApplicationController
         params[:flickr_text].blank? ?
             [] :
             flickr.photos.search(
-                {user_id: Settings.flickr_admin.user_id,
+                {user_id: (params[:flickr_user_id] || Settings.flickr_admin.user_id),
                  extras: 'date_taken,url_s',
                  text: params[:flickr_text]}.merge(dates_params)
             ).map(&:to_hash)

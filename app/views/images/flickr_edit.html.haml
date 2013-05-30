@@ -29,6 +29,7 @@
                 collection: ImagesHelper::FLICKR_SIZES, input_html: {size: '8'}, include_blank: false, default: 'o'
           = form.input :flickr_id, as: :hidden
       %td.flickr_search
+        %input.string.short#flickr_user_id{name: 'flickr_user_id', type: 'hidden', value: Settings.flickr_admin.user_id}
         %div.input.string
           %label.string Text:
           %input.string#flickr_text{name: 'flickr_text', type: 'text', value: @image.species.map(&:name_sci).join(' ')}
