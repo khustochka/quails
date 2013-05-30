@@ -70,7 +70,7 @@ GEM
       posix-spawn (~> 0.3.6)
     haml (4.0.3)
       tilt
-    haml-contrib (1.0.0)
+    haml-contrib (1.0.0.1)
       haml (>= 3.2.0.alpha.13)
     haml-rails (0.4)
       actionpack (>= 3.1, < 4.1)
@@ -94,7 +94,7 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.23)
-    multi_json (1.7.3)
+    multi_json (1.7.4)
     newrelic_rpm (3.6.2.96)
     nokogiri (1.5.9)
     pg (0.15.1)
@@ -142,7 +142,7 @@ GEM
       railties (~> 3.2.0)
       sass (>= 3.1.10)
       tilt (~> 1.3)
-    selenium-webdriver (2.32.1)
+    selenium-webdriver (2.33.0)
       childprocess (>= 0.2.5)
       multi_json (~> 1.0)
       rubyzip
