@@ -17,6 +17,10 @@ class ImagesController < ApplicationController
     @feed = 'photos'
   end
 
+  def unflickred
+    @images = Image.preload(:species).where(flickr_id: nil).order('created_at DESC').page(params[:page].to_i).per(24)
+  end
+
   # Photos of multiple species
   def multiple_species
     @images = Image.multiple_species

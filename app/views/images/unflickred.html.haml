@@ -1,0 +1,13 @@
+- @wider = true
+
+- stylesheet 'public'
+- javascript 'pjax_pagination'
+
+- @page_title = 'Unflickred photos'
+
+%h1= page_header
+
+%ul.thumbnails
+  = render :partial => 'thumbnail', :collection => @images
+
+= paginate @images

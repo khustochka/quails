@@ -45,6 +45,7 @@ Quails::Application.routes.draw do
     collection do
       get 'add'
       get 'flickr_search'
+      get 'unflickred'
     end
   end
 
