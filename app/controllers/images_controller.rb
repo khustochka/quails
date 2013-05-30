@@ -130,14 +130,11 @@ class ImagesController < ApplicationController
           {}
         end
 
-    result =
-        params[:flickr_text].blank? ?
-            [] :
-            flickr.photos.search(
-                {user_id: (params[:flickr_user_id] || Settings.flickr_admin.user_id),
-                 extras: 'date_taken,url_s',
-                 text: params[:flickr_text]}.merge(dates_params)
-            ).map(&:to_hash)
+    result = flickr.photos.search(
+        {user_id: (params[:flickr_user_id] || Settings.flickr_admin.user_id),
+         extras: 'date_taken,url_s',
+         text: params[:flickr_text]}.merge(dates_params)
+    ).map(&:to_hash)
 
     respond_with(result, only: %w(id title datetaken url_s))
   rescue FlickRaw::FailedResponse => e
