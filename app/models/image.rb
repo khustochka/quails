@@ -13,6 +13,7 @@ class Image < ActiveRecord::Base
   belongs_to :spot
 
   serialize :flickr_data, Hash
+  serialize :assets_cache, ImageAssetsArray
 
   # Callbacks
   after_create do
