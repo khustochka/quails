@@ -67,6 +67,17 @@ class ImagesControllerTest < ActionController::TestCase
     assert_redirected_to image_path(assigns(:image))
   end
 
+  test "do not save image without slug" do
+    login_as_admin
+    new_attr = @image.attributes.dup
+    new_attr['slug'] = ''
+    assert_difference('Image.count', 0) do
+      post :create, image: new_attr, obs: [@obs.id]
+    end
+
+    assert_template :form
+  end
+
   test "do not save image with no observations" do
     login_as_admin
     new_attr = @image.attributes.dup
