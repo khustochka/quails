@@ -107,6 +107,14 @@ class Image < ActiveRecord::Base
     self.flickr_id = parameters[:flickr_id] || flickr_id
     if self.flickr_id.present?
       sizes_array = flickr.photos.getSizes(photo_id: flickr_id)
+
+      # New
+      self.assets_cache.swipe(:flickr)
+      sizes_array.each do |fp|
+        self.assets_cache << ImageAssetItem.new(:flickr, fp["width"].to_i, fp["height"].to_i, fp["source"])
+      end
+
+      # Old
       self.flickr_data = Hash[
           sizes_array.map do |el|
             [el['label'], el.to_hash.slice('width', 'height', 'source')]

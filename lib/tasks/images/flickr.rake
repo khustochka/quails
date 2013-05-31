@@ -13,13 +13,7 @@ namespace :images do
         puts "Processing #{slug}"
 
         if img.flickr_id.present?
-          img.assets_cache.swipe(:flickr)
-
-          sizes_array = flickr.photos.getSizes(photo_id: img.flickr_id)
-
-          sizes_array.each do |fp|
-            img.assets_cache << ImageAssetItem.new(:flickr, fp["width"].to_i, fp["height"].to_i, fp["source"])
-          end
+          img.set_flickr_data(flickr)
           img.save!
         end
 
