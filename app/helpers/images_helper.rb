@@ -21,15 +21,16 @@ module ImagesHelper
   end
 
   def jpg_url(img)
-    (img.on_flickr? && img.flickr_data['Original']['source']) ||
-        legacy_image_url("#{img.slug}.jpg")
+    if img.on_flickr?
+      img.assets_cache.externals.main_image.full_url
+    else
+      img.assets_cache.locals.main_image.try(:full_url) || legacy_image_url("#{img.slug}.jpg")
+    end
   end
 
   def thumbnail_url(img)
-    #(!img.has_old_thumbnail? && img.on_flickr? && img.flickr_data['Thumbnail']['source']) ||
-    #    legacy_image_url("tn_#{img.slug}.jpg")
     if img.has_old_thumbnail? || !img.on_flickr?
-      img.assets_cache.locals.thumbnails.first.full_url
+      img.assets_cache.locals.thumbnails.first.try(:full_url) || legacy_image_url("tn_#{img.slug}.jpg")
     else
       img.assets_cache.externals.thumbnails.first.full_url
     end
