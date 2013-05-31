@@ -16,4 +16,12 @@ class ImageAssetItem < Struct.new(:type, :width, :height, :url)
     '%s: "%dx%d" %s' % [type, width, height, url.inspect]
   end
 
+  def full_url
+    if type == :local
+      "#{ImagesHelper.image_host}/#{url}"
+    else
+      url
+    end
+  end
+
 end

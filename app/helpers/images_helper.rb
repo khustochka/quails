@@ -26,8 +26,13 @@ module ImagesHelper
   end
 
   def thumbnail_url(img)
-    (!img.has_old_thumbnail? && img.on_flickr? && img.flickr_data['Thumbnail']['source']) ||
-        legacy_image_url("tn_#{img.slug}.jpg")
+    #(!img.has_old_thumbnail? && img.on_flickr? && img.flickr_data['Thumbnail']['source']) ||
+    #    legacy_image_url("tn_#{img.slug}.jpg")
+    if img.has_old_thumbnail? || !img.on_flickr?
+      img.assets_cache.locals.thumbnails.first.full_url
+    else
+      img.assets_cache.externals.thumbnails.first.full_url
+    end
   end
 
   # TODO: Use Addressable::URI to parse and generate urls (better than stdlib's URI)

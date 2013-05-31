@@ -14,6 +14,18 @@ class ImageAssetsArray < Array
   end
 
   def swipe(type)
-    delete_if {|el| el.type == type}
+    delete_if { |el| el.type == type }
+  end
+
+  def thumbnails
+    ImageAssetsArray.new( select { |a| a.height == 100 || a.width == 100 } )
+  end
+
+  def locals
+    ImageAssetsArray.new( select {|a| a.type == :local} )
+  end
+
+  def externals
+    ImageAssetsArray.new( select {|a| a.type != :local} )
   end
 end
