@@ -33,6 +33,10 @@ class ImageAssetsArray < Array
     find_max_size(width: 894)
   end
 
+  def original
+    max_by(&:width)
+  end
+
   # This proved to be faster than sort + find first
   def find_max_size(options)
     dimension = options.keys.first
