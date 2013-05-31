@@ -11,8 +11,11 @@
 
 %p
   - if @image.on_flickr?
-    This image is linked to flickr photo:
-    = @image.flickr_data['Original']['source']
+    This image is linked to flickr photo
+    = link_to nil, "http://www.flickr.com/photos/#{Settings.flickr_admin.user_id}/#{@image.flickr_id}/"
+    = form_tag({action: :patch}, method: 'post') do
+      = hidden_field_tag 'image[flickr_id]', nil
+      = submit_tag "Detach"
   - else
     This image is not linked to flickr photo. Legacy picture:
 
