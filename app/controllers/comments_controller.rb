@@ -86,7 +86,7 @@ class CommentsController < ApplicationController
     respond_to do |format|
       if @comment.update_attributes(params[:comment])
         format.html { redirect_to @comment, :notice => 'Comment was successfully updated.' }
-        format.json { head :ok }
+        format.json { head :no_content }
       else
         format.html { render :action => "edit" }
         format.json { render :json => @comment.errors, :status => :unprocessable_entity }
@@ -101,7 +101,7 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to public_post_path(@comment.post, :anchor => "comments") }
-      format.json { head :ok }
+      format.json { head :no_content }
     end
   end
 end

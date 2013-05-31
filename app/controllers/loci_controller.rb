@@ -68,6 +68,6 @@ class LociController < ApplicationController
         Locus.where(id: loc_id).update_all(public_index: i + 1)
       end
     end
-    head :ok
+    head :no_content
   end
 end
