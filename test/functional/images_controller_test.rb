@@ -69,8 +69,7 @@ class ImagesControllerTest < ActionController::TestCase
 
   test "do not save image without slug" do
     login_as_admin
-    new_attr = @image.attributes.dup
-    new_attr['slug'] = ''
+    new_attr = build(:image, slug: '').attributes.except('assets_cache')
     assert_difference('Image.count', 0) do
       post :create, image: new_attr, obs: [@obs.id]
     end
@@ -80,8 +79,7 @@ class ImagesControllerTest < ActionController::TestCase
 
   test "do not save image with no observations" do
     login_as_admin
-    new_attr = @image.attributes.dup
-    new_attr['slug'] = 'new_img_slug'
+    new_attr = build(:image, slug: 'new_img_slug').attributes.except('assets_cache')
     assert_difference('Image.count', 0) do
       post :create, image: new_attr, obs: []
     end
@@ -93,8 +91,7 @@ class ImagesControllerTest < ActionController::TestCase
     login_as_admin
     obs2 = create(:observation, card: create(:card, locus: seed(:kiev)))
     obs3 = create(:observation, card: create(:card, locus: seed(:brovary)))
-    new_attr = @image.attributes.dup
-    new_attr['slug'] = 'new_img_slug'
+    new_attr = build(:image, slug: 'new_img_slug').attributes.except('assets_cache')
     assert_difference('Image.count', 0) do
       post :create, image: new_attr, obs: [obs2.id, obs3.id]
     end
