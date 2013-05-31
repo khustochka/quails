@@ -1,7 +1,8 @@
 class Image < ActiveRecord::Base
   include FormattedModel
 
-  validates :slug, :uniqueness => true, :presence => true, :length => {:maximum => 64}
+  validates :slug, uniqueness: true, presence: true, length: {:maximum => 64}
+  validates :flickr_id, uniqueness: true, allow_nil: true
 
   has_and_belongs_to_many :observations
   has_many :species, :through => :observations

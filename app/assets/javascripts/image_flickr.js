@@ -51,6 +51,10 @@ $(function () {
     window.location.href = $('a.next_unflickred').attr('href');
   });
 
+  $('form.flickr_edit').on('ajax:error', function(e, xhr) {
+    alert(xhr.responseText);
+  });
+
   searchOnFlickr();
 
 });
