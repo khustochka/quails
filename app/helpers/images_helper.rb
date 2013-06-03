@@ -1,16 +1,5 @@
 module ImagesHelper
 
-  FLICKR_SIZES = {
-      "NO FLICKR" => '',
-      "Square" => 's',
-      "Thumbnail" => 't',
-      "Small" => 'm',
-      "Medium" => '-',
-      "Medium 640" => 'z',
-      "Large" => 'b',
-      "Original" => 'o'
-  }
-
   SENTENCE_SEPARATOR_DEPENDING_ON_POST = {
       true => ';',
       false => '.'

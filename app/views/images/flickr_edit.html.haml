@@ -28,8 +28,6 @@
     %tr
       %td
         = simple_form_for @image,url: patch_image_path(@image, :json), remote: true, method: :post, html: {class: 'flickr_edit'} do |form|
-          = form.input :flickr_size, as: :select,
-                collection: ImagesHelper::FLICKR_SIZES, input_html: {size: '8'}, include_blank: false, default: 'o'
           = form.input :flickr_id, as: :hidden
       %td.flickr_search
         %input.string.short#flickr_user_id{name: 'flickr_user_id', type: 'hidden', value: Settings.flickr_admin.user_id}
