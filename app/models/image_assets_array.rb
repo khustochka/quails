@@ -30,7 +30,7 @@ class ImageAssetsArray < Array
   end
 
   def main_image
-    find_max_size(width: 894)
+    find_max_size(width: 894, height: 768)
   end
 
   def original
@@ -39,17 +39,17 @@ class ImageAssetsArray < Array
 
   # This proved to be faster than sort + find first
   def find_max_size(options)
-    dimension = options.keys.first
-    value = options.values.first
+    dimensions = options.keys
     inject do |found, another|
-      if found.send(dimension) < value
-        if another.send(dimension) > found.send(dimension)
+      if dimensions.all? { |d| found.send(d) < options[d] }
+        if dimensions.any? { |d| another.send(d) > found.send(d) }
           another
         else
           found
         end
       else
-        if another.send(dimension) >= value && another.send(dimension) < found.send(dimension)
+        if dimensions.any? { |d| another.send(d) > options[d] } &&
+            dimensions.any? { |d| another.send(d) < found.send(d) }
           another
         else
           found
