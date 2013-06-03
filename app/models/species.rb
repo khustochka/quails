@@ -19,7 +19,6 @@ class Species < ActiveRecord::Base
   has_many :cards, :through => :observations
   has_many :images, :through => :observations
   has_many :taxa
-  has_many :posts, through: :observations, order: 'face_date DESC', uniq: true
 
   belongs_to :image
 
@@ -49,6 +48,12 @@ class Species < ActiveRecord::Base
 
   def ordered_images
     images.order_for_species
+  end
+
+  def posts
+    p1 = Post.select("posts.id").joins(:observations).where('observations.id' => self.observation_ids)
+    p2 = Post.select("posts.id").joins(:cards).where("cards.id" => self.cards)
+    Post.uniq.where('posts.id IN (?) OR posts.id IN (?)', p1, p2).order('face_date DESC')
   end
 
   def update_image
