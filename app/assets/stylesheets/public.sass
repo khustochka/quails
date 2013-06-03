@@ -49,6 +49,44 @@ ul.thumbnails
 
 // Imageholder
 
+// New
+
+.image_thumb
+  @include inline-block
+  position: relative
+  margin: 0 2px 6px 0
+  // vertical-align: top is necessary for IE7
+  vertical-align: top
+  border: 1px solid #ccc
+  a img
+    border: none
+    vertical-align: text-top
+    max-height: 100%
+    max-width: 100%
+  figcaption
+    @include inline-block
+    position: absolute
+    bottom: 0
+    left: 0
+    text-align: left
+    background: rgb(0, 0, 0)
+    background: rgba(0, 0, 0, 0.5)
+    padding: 10px
+    a, i.sci_name
+      color: #cccccc
+      font-weight: bold
+      font-size: 13px
+      text-shadow: rgb(0, 0, 0) 1px 1px 0px
+    a:hover
+      color: white
+      background: rgb(0, 0, 0)
+      background: rgba(0, 0, 0, 0)
+      text-decoration: underline
+
+
+
+// Old
+
 .imageholder
   width: 162px
   height: 150px

@@ -17,11 +17,13 @@ module ImagesHelper
     end
   end
 
-  def thumbnail_url(img)
-    if img.has_old_thumbnail? || !img.on_flickr?
-      img.assets_cache.locals.thumbnails.first.try(:full_url) || legacy_image_url("tn_#{img.slug}.jpg")
+  THUMBNAIL_HEIGHT = 200
+
+  def thumbnail_item(img)
+    if img.on_flickr?
+      img.assets_cache.externals.thumbnail
     else
-      img.assets_cache.externals.thumbnails.first.full_url
+      img.assets_cache.locals.thumbnail
     end
   end
 

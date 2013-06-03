@@ -33,6 +33,10 @@ class ImageAssetsArray < Array
     find_max_size(width: 894, height: 768)
   end
 
+  def thumbnail
+    find_max_size(height: ImagesHelper::THUMBNAIL_HEIGHT)
+  end
+
   def original
     max_by(&:width)
   end

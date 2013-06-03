@@ -1,6 +1,11 @@
-%li.imageholder
-  = link_to image_tag(thumbnail_url(thumbnail.image), alt: "[фото #{thumbnail.name}]"), species_path(thumbnail)
-  %div.imagetitle
-    = link_to species_path(thumbnail) do
-      %div= thumbnail.name
-      %div= name_sci(thumbnail)
+- thumb = thumbnail_item(thumbnail.image)
+- h = ImagesHelper::THUMBNAIL_HEIGHT
+- w = (thumb.width * (h.to_f / thumb.height)).to_i
+
+%figure.image_thumb{style: "width: #{w}px; height: #{h}px;"}
+  = link_to image_tag(thumb.full_url,
+                  alt: "[фото #{thumbnail.name}]", height: h, width: w),
+        species_path(thumbnail)
+  %figcaption.imagetitle{style: "width: #{w - 20}px;"}
+    = link_to thumbnail.name, species_path(thumbnail)
+    = name_sci(thumbnail)
