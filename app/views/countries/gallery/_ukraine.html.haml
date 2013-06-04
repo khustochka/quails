@@ -8,5 +8,4 @@
     %h2= t(".is_common.#{common}")
 
     %div.thumbnails
-      - justify(sps.map(&:to_thumbnail)).each do |thumbs|
-        %div.thumbs_row= render thumbs
+      = render 'images/justified', array: sps.map(&:to_thumbnail)

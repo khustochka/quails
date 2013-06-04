@@ -1,3 +1,2 @@
 %div.thumbnails
-  - justify(@species.map(&:to_thumbnail)).each do |thumbs|
-    %div.thumbs_row= render thumbs
+  = render 'images/justified', array: @species.map(&:to_thumbnail)

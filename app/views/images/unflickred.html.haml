@@ -8,7 +8,6 @@
 %h1= page_header
 
 %div.thumbnails
-  - justify(@images.map {|im| Thumbnail.new(edit_flickr_image_path(im), im.formatted.title, im)}).each do |thumbs|
-    %div.thumbs_row= render thumbs
+  = render 'images/justified', array: @images.map {|im| Thumbnail.new(edit_flickr_image_path(im), im.formatted.title, im)}
 
 = paginate @images

@@ -14,5 +14,4 @@
       %li= link_to t('menu.photos'), images_path
 
   %div.thumbnails
-    - justify(@thumbnails).each do |thumbs|
-      %div.thumbs_row= render thumbs
+    = render 'images/justified', array: @thumbnails
