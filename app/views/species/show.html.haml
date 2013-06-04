@@ -35,8 +35,8 @@
 - @species.ordered_images.if_present do |images|
   %div.photos
     %h3= t('.sections.photos')
-    %ul.thumbnails
-      = render :partial => 'images/thumbnail', :collection => images
+    %div.thumbnails
+      = render images.map(&:to_thumbnail)
       - if current_user.admin?
         = simple_form_for @species do |form|
           = form.input :image_id, as: :hidden

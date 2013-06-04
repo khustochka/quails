@@ -22,6 +22,13 @@ class PostsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "show post with images" do
+    blogpost = create(:post)
+    create(:image, observations: [create(:observation, card: create(:card, post: blogpost))])
+    get :show, blogpost.to_url_params
+    assert_response :success
+  end
+
   test "show approved comment in the post" do
     comment = create(:comment)
     get :show, comment.post.to_url_params

@@ -11,8 +11,8 @@
 
       = post.formatted.for_site.text
       - post.formatted.the_rest_of_images.if_present do |images|
-        %ul.thumbnails
-          = render partial: 'images/thumbnail', collection: images
+        %div.thumbnails
+          = render images.map(&:to_thumbnail)
 
     - cache ['comment', post, post.comments.count, admin: current_user.admin?] do
 

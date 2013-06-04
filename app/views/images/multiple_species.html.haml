@@ -5,5 +5,5 @@
   %ul.subheader-menu
     %li= link_to t('images.index.species_galery'), gallery_path
 
-%ul.thumbnails
-  = render :partial => 'thumbnail', :collection => @images
+%div.thumbnails
+  = render @images.map(&:to_thumbnail)

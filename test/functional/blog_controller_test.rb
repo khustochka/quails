@@ -16,6 +16,13 @@ class BlogControllerTest < ActionController::TestCase
     assert_include(assigns(:posts), blogpost2)
   end
 
+  test "get front_page with images" do
+    blogpost = create(:post)
+    create(:image, observations: [create(:observation, card: create(:card, post: blogpost))])
+    get :front_page
+    assert_response :success
+  end
+
   test 'get archive' do
     blogpost1 = create(:post, face_date: '2007-12-06 13:14:15')
     blogpost2 = create(:post, face_date: '2008-11-06 13:14:15')
