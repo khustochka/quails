@@ -75,4 +75,10 @@ class Species < ActiveRecord::Base
     Species.where(code: arr).order(:index_num)
   end
 
+  # Formatting
+
+  def to_thumbnail
+    Thumbnail.new(self, {partial: 'species/thumb_title'}, self.image)
+  end
+
 end

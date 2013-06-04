@@ -22,9 +22,12 @@ class SpeciesController < ApplicationController
 
   # GET /species
   def gallery
-    @species = Species.joins(:image).includes(:image).ordered_by_taxonomy
+    species = Species.joins(:image).includes(:image).ordered_by_taxonomy
+    @thumbnails = species.map(&:to_thumbnail)
+    if Image.multiple_species.any?
+      @thumbnails << Thumbnail.new(photos_multiple_species_path, "Разные виды на одном фото", Image.multiple_species.first)
+    end
     @feed = 'photos'
-    @thumbnail_for_multiple_species = Image.multiple_species.first
   end
 
   # GET /species/1

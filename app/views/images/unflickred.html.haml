@@ -8,6 +8,6 @@
 %h1= page_header
 
 %ul.thumbnails
-  = render :partial => 'thumbnail', :collection => @images
+  = render @images.map {|im| Thumbnail.new(edit_flickr_image_path(im), im.formatted.title, im)}
 
 = paginate @images

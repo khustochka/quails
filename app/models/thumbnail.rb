@@ -1,35 +1,34 @@
 class Thumbnail
 
-  include Rails.application.routes.url_helpers
-  include SpeciesHelper
-  include ImagesHelper
-  include ActionView::Helpers::TagHelper
+  class Title
+    attr_reader :object
 
-  attr_reader :object
+    def initialize(object, partial)
+      @partial = partial
+      @object = object
+    end
 
-  def initialize(object)
-    @object = object
-  end
-
-  def url
-    case object
-      when LocalSpecies
-      then
-        species_path(object.taxon)
-      when Species
-      then
-        species_path(object)
+    def to_partial_path
+      @partial
     end
   end
 
+  include ImagesHelper
+
+  attr_reader :url
+
+  def initialize(url_or_object, title_or_partial, image)
+    @url = url_or_object
+    @title_or_partial = title_or_partial
+    @image = image
+  end
+
   def title
-    case object
-      when LocalSpecies
-      then
-        ("%s %s" % [object.taxon.name, name_sci(object.taxon)]).html_safe
-      when Species
-      then
-        ("%s %s" % [object.name, name_sci(object)]).html_safe
+    case @title_or_partial
+      when String
+        @title_or_partial
+      when Hash
+        @cached_title = Title.new(@url, @title_or_partial[:partial])
     end
   end
 
@@ -51,14 +50,7 @@ class Thumbnail
 
   private
   def image_asset
-    case object
-      when LocalSpecies
-      then
-        thumbnail_item(object.taxon.image)
-      when Species
-      then
-        thumbnail_item(object.image)
-    end
+    thumbnail_item(@image)
   end
 
 end

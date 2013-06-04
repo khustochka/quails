@@ -1,11 +1,11 @@
 :textile
   #{t(".intro", url: checklist_path(country: 'ukraine'))}
 
-- species_rarity = @thumbnails.group_by {|s| s.object.status.match(/\?|\-/).nil? }
+- species_rarity = @species.group_by {|s| s.status.match(/\?|\-/).nil? }
 
 - [true, false].each do |common|
   - if sps = species_rarity[common]
     %h2= t(".is_common.#{common}")
 
     %div.thumbnails
-      = render @thumbnails
+      = render sps.map(&:to_thumbnail)

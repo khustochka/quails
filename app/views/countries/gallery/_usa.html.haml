@@ -1,2 +1,2 @@
 %div.thumbnails
-  = render @thumbnails
+  = render = render @species.map(&:to_thumbnail)

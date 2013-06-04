@@ -150,6 +150,12 @@ class Image < ActiveRecord::Base
     end
   end
 
+  # Formatting
+
+  def to_thumbnail
+    Thumbnail.new(self, self.formatted.title, self)
+  end
+
   private
 
   def first_observation
