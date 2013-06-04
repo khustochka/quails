@@ -18,7 +18,6 @@ module JustifyHelper
         new_width = width(current_row)
         if new_width > max_width
           current_row.cycle do |el|
-            puts new_width - max_width
             break if new_width == max_width
             el.force_width(el.width - 1)
             new_width -= 1
