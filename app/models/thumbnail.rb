@@ -38,11 +38,20 @@ class Thumbnail
   end
 
   def height
-    THUMBNAIL_HEIGHT
+    if @width
+      (image_asset.height * (@width.to_f / image_asset.width)).to_i
+    else
+      @height ||= THUMBNAIL_HEIGHT
+    end
   end
 
   def width
-    (image_asset.width * (height.to_f / image_asset.height)).to_i
+    @width || (image_asset.width * (height.to_f / image_asset.height)).to_i
+  end
+
+  def force_width(value)
+    @width = value
+    @height = nil
   end
 
   def to_partial_path
@@ -51,7 +60,15 @@ class Thumbnail
 
   private
   def image_asset
-    thumbnail_item(@image)
+    if @image.on_flickr?
+      @image.assets_cache.externals.find_max_size(height: @height || THUMBNAIL_HEIGHT)
+    else
+      @image.assets_cache.locals.find_max_size(height: @height || THUMBNAIL_HEIGHT)
+    end
+  end
+
+  def dimensions_set?
+    @width || @height
   end
 
 end

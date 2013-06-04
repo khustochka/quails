@@ -8,4 +8,5 @@
     %h2= t(".is_common.#{common}")
 
     %div.thumbnails
-      = render sps.map(&:to_thumbnail)
+      - justify(sps.map(&:to_thumbnail)).each do |thumbs|
+        %div.thumbs_row= render thumbs

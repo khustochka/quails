@@ -1,2 +1,3 @@
 %div.thumbnails
-  = render = render @species.map(&:to_thumbnail)
+  - justify(@species.map(&:to_thumbnail)).each do |thumbs|
+    %div.thumbs_row= render thumbs
