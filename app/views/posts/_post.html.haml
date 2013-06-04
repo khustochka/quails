@@ -10,7 +10,7 @@
           %span.tag.draft Draft
 
       = post.formatted.for_site.text
-      - post.images.if_present do |images|
+      - post.formatted.the_rest_of_images.if_present do |images|
         %ul.thumbnails
           = render partial: 'images/thumbnail', collection: images
 

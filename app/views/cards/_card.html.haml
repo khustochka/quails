@@ -34,6 +34,9 @@
     - if params[:obs]
       = link_to 'Attach here', attach_card_path(card, obs: params[:obs]), class: 'pseudolink', data: {method: :post}
 
+    - if card.notes.present?
+      %span.ui-icon.ui-icon-comment.inline-block
+
 - if show_separate_observation_on_card_search?
   %ul
     - card.observations.each do |obs|
