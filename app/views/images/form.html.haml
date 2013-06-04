@@ -26,7 +26,8 @@
 
   = link_to('Edit flickr data', action: :flickr_edit) if @image.persisted?
 
-%p= image_tag(thumbnail_url(@image), class: 'image_pic')
+- if @image.persisted?
+  %p= image_tag(thumbnail_item(@image).full_url, class: 'image_pic')
 
 - if flash[:alert]
   %div.errors= flash[:alert]

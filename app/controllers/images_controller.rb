@@ -70,6 +70,8 @@ class ImagesController < ApplicationController
   def create
     @image = Image.new
 
+    params[:image].slice!(:slug, :title, :description, :flickr_id)
+
     @image.set_flickr_data(flickr, params[:image])
 
     if @image.update_with_observations(params[:image], params[:obs])
@@ -81,7 +83,7 @@ class ImagesController < ApplicationController
 
   # PUT /photos/1
   def update
-    new_params = params[:image]
+    new_params = params[:image].slice(:slug, :title, :description, :flickr_id)
     if @image.update_with_observations(new_params, params[:obs])
       redirect_to(image_path(@image), :notice => 'Image was successfully updated.')
     else
