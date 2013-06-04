@@ -153,7 +153,7 @@ class Image < ActiveRecord::Base
   # Formatting
 
   def to_thumbnail
-    Thumbnail.new(self, self.formatted.title, self)
+    Thumbnail.new(self, self.formatted.title, self, {image: {id: id}})
   end
 
   private

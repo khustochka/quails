@@ -2,7 +2,7 @@
 - w = thumbnail.width
 - url = thumbnail.url.is_a?(String) ? thumbnail.url : url_for(thumbnail.url)
 
-%figure.image_thumb{style: "width: #{w}px; height: #{h}px;"}
+%figure.image_thumb{style: "width: #{w}px; height: #{h}px;", data: thumbnail.data}
   = link_to image_tag(thumbnail.asset_url, alt: "[фото #{thumbnail.title}]", height: h, width: w), thumbnail.url
   %figcaption.imagetitle{style: "width: #{w - 20}px;"}
     = link_to thumbnail.url do
