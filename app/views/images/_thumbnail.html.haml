@@ -1,9 +1,9 @@
 - h = thumbnail.height
 - w = thumbnail.width
 
-%figure.image_thumb{style: "width: #{w}px; height: #{h}px;", data: thumbnail.data}<>
+%figure.image_thumb{data: thumbnail.data}<>
   = link_to image_tag(thumbnail.asset_url, alt: "[фото]", height: h, width: w), thumbnail.url
-  %figcaption.imagetitle{style: "width: #{w - 20}px;"}
+  %figcaption.imagetitle
     = link_to thumbnail.url do
       - if thumbnail.title.is_a? String
         = thumbnail.title
