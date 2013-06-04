@@ -51,6 +51,12 @@ class CardsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "should show card with images" do
+    create(:image, observations: [@card.observations.first])
+    get :show, id: @card
+    assert_response :success
+  end
+
   test "should get edit" do
     get :edit, id: @card
     assert_response :success

@@ -27,8 +27,8 @@
 - @card.images.if_present do |images|
   %div.photos
     %h3 Photos
-    %ul.thumbnails
-      = render partial: 'images/thumbnail', collection: images
+    %div.thumbnails
+      = render images.map(&:to_thumbnail)
 
 - @card.species.if_present do |spcs|
   %h3 Species (#{spcs.size})
