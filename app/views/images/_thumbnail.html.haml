@@ -1,6 +1,14 @@
-- path_method = (action_name == "unflickred") ? :edit_flickr_image_path : :image_path
+-#- path_method = (action_name == "unflickred") ? :edit_flickr_image_path : :image_path
+-#
+-#- thumbnail.formatted.title.tap do |img_title|
+-#  %li.imageholder{'data-image-id' => thumbnail.id}
+-#    = link_to image_tag(thumbnail_url(thumbnail), alt: "[фотография]"), send(path_method, thumbnail)
+-#    %div.imagetitle= link_to img_title, image_path(thumbnail)
 
-- thumbnail.formatted.title.tap do |img_title|
-  %li.imageholder{'data-image-id' => thumbnail.id}
-    = link_to image_tag(thumbnail_url(thumbnail), alt: "[фотография]"), send(path_method, thumbnail)
-    %div.imagetitle= link_to img_title, image_path(thumbnail)
+- h = thumbnail.height
+- w = thumbnail.width
+
+%figure.image_thumb{style: "width: #{w}px; height: #{h}px;"}
+  = link_to image_tag(thumbnail.asset_url, alt: "[фото #{thumbnail.title}]", height: h, width: w), thumbnail.url
+  %figcaption.imagetitle{style: "width: #{w - 20}px;"}
+    = link_to thumbnail.title, thumbnail.url

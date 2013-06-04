@@ -3,7 +3,7 @@ class CountriesController < ApplicationController
   def gallery
     @country = Country.find_by_slug!(params[:country])
 
-    @species =
+    species =
         case @country.slug
           when 'ukraine'
             @country.checklist(:image)
@@ -13,6 +13,9 @@ class CountriesController < ApplicationController
           else
             raise ActiveRecord::RecordNotFound
         end
+
+    @thumbnails = species.map {|sp| Thumbnail.new(sp)}
+
   end
 
 end
