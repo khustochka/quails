@@ -14,6 +14,6 @@
     %li= link_to t('.species_galery'), gallery_path
 
 %div.thumbnails
-  = render 'images/justified', array: @images.map(&:to_thumbnail)
+  = render_justified @images.map(&:to_thumbnail)
 
 = paginate @images

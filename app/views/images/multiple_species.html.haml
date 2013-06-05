@@ -6,4 +6,4 @@
     %li= link_to t('images.index.species_galery'), gallery_path
 
 %div.thumbnails
-  = render @images.map(&:to_thumbnail)
+  = render_justified @images.map(&:to_thumbnail)

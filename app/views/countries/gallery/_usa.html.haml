@@ -1,2 +1,2 @@
 %div.thumbnails
-  = render 'images/justified', array: @species.map(&:to_thumbnail)
+  = render_justified @species.map(&:to_thumbnail)

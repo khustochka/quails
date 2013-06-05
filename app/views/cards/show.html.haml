@@ -28,7 +28,7 @@
   %div.photos
     %h3 Photos
     %div.thumbnails
-      = render images.map(&:to_thumbnail)
+      = render_justified images.map(&:to_thumbnail)
 
 - @card.species.if_present do |spcs|
   %h3 Species (#{spcs.size})

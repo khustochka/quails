@@ -8,4 +8,4 @@
     %h2= t(".is_common.#{common}")
 
     %div.thumbnails
-      = render 'images/justified', array: sps.map(&:to_thumbnail)
+      = render_justified sps.map(&:to_thumbnail)

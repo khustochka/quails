@@ -30,7 +30,7 @@
   %div.photos
     %h2= t('.sections.photos')
     %div.thumbnails
-      = render images.map(&:to_thumbnail)
+      = render_justified images.map(&:to_thumbnail)
 
 - @post.species.if_present do |spcs|
   %h3= t('.sections.species', count: spcs.size)

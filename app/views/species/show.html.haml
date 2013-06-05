@@ -36,7 +36,7 @@
   %div.photos
     %h3= t('.sections.photos')
     %div.thumbnails
-      = render images.map(&:to_thumbnail)
+      = render_justified images.map(&:to_thumbnail)
       - if current_user.admin?
         = simple_form_for @species do |form|
           = form.input :image_id, as: :hidden

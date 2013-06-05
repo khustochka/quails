@@ -1,6 +1,10 @@
 module JustifyHelper
   BORDER = 4
 
+  def render_justified(array)
+    render 'images/justified', array: array
+  end
+
   def justify(thumbs)
     result = []
     current_row = []
