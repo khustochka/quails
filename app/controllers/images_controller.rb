@@ -6,7 +6,7 @@ class ImagesController < ApplicationController
 
   administrative except: [:index, :multiple_species, :show, :gallery, :country]
 
-  find_record by: :slug, before: [:show, :edit, :flickr_edit, :map_edit, :update, :patch, :destroy]
+  find_record by: :slug, before: [:show, :edit, :flickr_edit, :flickr_upload, :map_edit, :update, :patch, :destroy]
 
   after_filter :cache_expire, only: [:create, :update, :destroy]
 
@@ -59,6 +59,22 @@ class ImagesController < ApplicationController
   # GET /photos/1/flickr_edit
   def flickr_edit
     @next = Image.where(flickr_id: nil).where('created_at < ?', @image.created_at).order('created_at DESC').first
+  end
+
+  # POST /photos/1/flickr_edit
+  def flickr_upload
+    raise "The image is already on flickr" if @image.on_flickr?
+    flickr_id = flickr.upload_photo @image.assets_cache.locals.main_image.full_url,
+                                    title: (@image.species.map {|s| "#{s.name_en}; #{s.name_sci}"}.join('; ')),
+                                    description: "#{l(@image.observ_date, format: :long, locale: :en)}\n#{@image.locus.name_en}, #{@image.locus.country.name_en}",
+                                    tags: %Q(#{@image.species.map {|s| "\"#{s.name_en}\" \"#{s.name_sci}\""}.join(' ')} bird #{@image.locus.country.name_en} #{@image.species.map(&:order).uniq.join(' ')} #{@image.species.map(&:family).uniq.join(' ')}),
+                                    is_public: params[:public],
+                                    safety_level: 1,
+                                    content_type: 1
+
+    @image.set_flickr_data(flickr, {flickr_id: flickr_id})
+    @image.save!
+    redirect_to edit_flickr_image_path(@image)
   end
 
   # GET /photos/1/map_edit
