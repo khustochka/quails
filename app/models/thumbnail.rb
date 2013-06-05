@@ -1,16 +1,6 @@
 class Thumbnail
 
-  class Title
-    attr_reader :object
-
-    def initialize(object, partial)
-      @partial = partial
-      @object = object
-    end
-
-    def to_partial_path
-      @partial
-    end
+  class Title < Struct.new(:object, :to_partial_path)
   end
 
   include ImagesHelper
