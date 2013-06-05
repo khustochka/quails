@@ -17,9 +17,6 @@
   img
     border: 1px solid #aaa
 
-  p img
-    height: auto
-
   // Necessary to remove a:hover background-color in img inside a
   a img
     vertical-align: top
@@ -55,12 +52,12 @@ figure.image_thumb, figure.imageholder
   vertical-align: top
   border: 1px solid #ccc
   max-width: 100%
+  height: auto
   a img
     border: none
     vertical-align: text-top
     // over write margin in .post a img
     margin-bottom: 0
-    width: auto
 
 figcaption.imagetitle
   @include inline-block

@@ -3,7 +3,7 @@
 
 - data = current_user.admin? ? thumbnail.data : nil
 
-%figure.image_thumb{data: data}<>
+%figure.image_thumb{data: data, style: "width: #{w}px; height: #{h}px;"}<>
   -# Show a badge if it is on flickr or not, with link to edit
   - if current_user.admin?
     - on_flickr = ImagesHelper::ON_FLICKR_IMG[thumbnail.image.on_flickr?]
