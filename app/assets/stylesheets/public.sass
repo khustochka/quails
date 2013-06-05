@@ -69,16 +69,27 @@ figcaption.imagetitle
   background: rgba(0, 0, 0, 0.5)
   padding: 10px
   a, i.sci_name
-    color: #cccccc
+    color: #cfcfcf
     font-weight: bold
-    font-size: 13px
     text-shadow: rgb(0, 0, 0) 1px 1px 0px
     text-decoration: none
-  a:hover
+  a:hover, a:hover i.sci_name
     color: white
     background: rgb(0, 0, 0)
     background: rgba(0, 0, 0, 0)
-    text-decoration: underline
+    //text-decoration: underline
+    border-bottom: 1px solid white
+
+figure.image_thumb figcaption
+  font-size: 13px
+
+.post figure.image_thumb figcaption
+  font-size: 14px
+
+figure.imageholder figcaption
+  font-size: 16px
+
+
 
 // Comments
 
