@@ -5,7 +5,7 @@ class Thumbnail
 
   include ImagesHelper
 
-  attr_reader :url, :data
+  attr_reader :url, :data, :image
 
   def initialize(url_or_object, title_or_partial, image, data = nil)
     @url = url_or_object

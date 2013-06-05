@@ -1,7 +1,15 @@
 - h = thumbnail.height
 - w = thumbnail.width
 
-%figure.image_thumb{data: thumbnail.data}<>
+- data = current_user.admin? ? thumbnail.data : nil
+
+%figure.image_thumb{data: data}<>
+  -# Show a badge if it is on flickr or not, with link to edit
+  - if current_user.admin?
+    - on_flickr = ImagesHelper::ON_FLICKR_IMG[thumbnail.image.on_flickr?]
+    %span.flickr_badge
+      = link_to image_tag(on_flickr[0]), edit_flickr_image_path(thumbnail.image), title: on_flickr[1]
+
   = link_to image_tag(thumbnail.asset_url, alt: "[фото]", height: h, width: w), thumbnail.url
   %figcaption.imagetitle
     = link_to thumbnail.url do
