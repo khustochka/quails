@@ -2,6 +2,9 @@
 
 - @page_title = "#{l(@card.observ_date, format: :long)}, #{@card.locus.name}"
 
+- provide :add_shortcuts do
+  %li= link_to 'Edit map', edit_map_path(q: {card_id: @card.id})
+
 = render 'admin/shortcuts' if current_user.admin?
 
 %h1= page_header

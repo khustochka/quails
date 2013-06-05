@@ -21,7 +21,7 @@ class ObservationSearch
     end
   end
 
-  CARD_ATTRIBUTES = [:observ_date, :locus_id]
+  CARD_ATTRIBUTES = [:observ_date, :locus_id, :card_id]
   OBSERVATION_ATTRIBUTES = [:species_id, :mine, :voice]
   ALL_ATTRIBUTES = CARD_ATTRIBUTES + OBSERVATION_ATTRIBUTES
 
@@ -35,6 +35,9 @@ class ObservationSearch
         card: @all_conditions.slice(*CARD_ATTRIBUTES),
         observation: @all_conditions.slice(*OBSERVATION_ATTRIBUTES)
     }
+    if card_id = @conditions[:card].delete(:card_id)
+      @conditions[:card][:id] = card_id
+    end
   end
 
   def cards
@@ -50,7 +53,7 @@ class ObservationSearch
     return @obs_relation if @obs_relation
     scope = Observation.where(@conditions[:observation]).joins(:card)
     if @conditions[:card].present?
-     cards = Card.where(@conditions[:card])
+      cards = Card.where(@conditions[:card])
       scope = scope.merge(cards)
     end
     @obs_relation = scope
