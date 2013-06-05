@@ -20,7 +20,6 @@
   // Necessary to remove a:hover background-color in img inside a
   a img
     vertical-align: top
-    margin-bottom: 4px
     border: 2px solid darken($link-color, 10%)
 
 .comment_links
@@ -44,7 +43,7 @@ nav.front_page_prev
 
 // Imageholder
 
-.image_thumb
+figure.image_thumb, figure.imageholder
   @include inline-block
   position: relative
   margin: 0 6px 6px 0
@@ -54,29 +53,29 @@ nav.front_page_prev
   a img
     border: none
     vertical-align: text-top
-    max-height: 100%
-    max-width: 100%
-  figcaption
-    @include inline-block
-    position: absolute
-    bottom: 0
-    left: 0
-    right: 0
-    text-align: left
+    //max-width: 100%
+
+figcaption.imagetitle
+  @include inline-block
+  position: absolute
+  bottom: -1px
+  left: 0
+  right: 0
+  text-align: left
+  background: rgb(0, 0, 0)
+  background: rgba(0, 0, 0, 0.5)
+  padding: 10px
+  a, i.sci_name
+    color: #cccccc
+    font-weight: bold
+    font-size: 13px
+    text-shadow: rgb(0, 0, 0) 1px 1px 0px
+    text-decoration: none
+  a:hover
+    color: white
     background: rgb(0, 0, 0)
-    background: rgba(0, 0, 0, 0.5)
-    padding: 10px
-    a, i.sci_name
-      color: #cccccc
-      font-weight: bold
-      font-size: 13px
-      text-shadow: rgb(0, 0, 0) 1px 1px 0px
-      text-decoration: none
-    a:hover
-      color: white
-      background: rgb(0, 0, 0)
-      background: rgba(0, 0, 0, 0)
-      text-decoration: underline
+    background: rgba(0, 0, 0, 0)
+    text-decoration: underline
 
 // Comments
 
