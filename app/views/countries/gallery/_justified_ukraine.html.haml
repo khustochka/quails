@@ -1,0 +1,8 @@
+- species_rarity = @species.group_by {|s| s.status.match(/\?|\-/).nil? }
+
+- [true, false].each do |common|
+  - if sps = species_rarity[common]
+    %h2= t("countries.gallery.ukraine.is_common.#{common}")
+
+    %div.thumbnails
+      = render_justified sps.map(&:to_thumbnail), @max_width

@@ -1,15 +1,15 @@
 module JustifyHelper
   BORDER = 4
 
-  def render_justified(array)
-    render 'images/justified', array: array
+  def render_justified(array, max_width = nil)
+    render 'images/justified', array: array, max_width: max_width
   end
 
-  def justify(thumbs)
+  def justify(thumbs, max_width = nil)
     result = []
     current_row = []
 
-    max_width = @wider ? 1120 : 896
+    max_width ||= (@wider ? 1120 : 896)
 
     sum_width = 0
 
