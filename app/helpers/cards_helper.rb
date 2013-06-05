@@ -21,4 +21,20 @@ module CardsHelper
     @observation_search.try(:observations_filtered?)
   end
 
+  def suggested_dates
+    prelim = {
+        Date.today => ['Today'],
+        Date.yesterday => ['Yesterday']
+    }
+    last_date = Card.pluck('MAX(observ_date)').first
+    if last_date
+      prelim[Date.parse(last_date) + 1] = ['Last unreported']
+    end
+    if @card.persisted?
+      prelim[@card.observ_date] = ["Same day as this card"]
+      prelim[@card.observ_date + 1] = ["Next day to this card"]
+    end
+    prelim
+  end
+
 end

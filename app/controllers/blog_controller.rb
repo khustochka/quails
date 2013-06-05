@@ -4,25 +4,25 @@ class BlogController < ApplicationController
     @feed = 'blog'
   end
 
-  POSTS_ON_FRONT_PAGE = 10
+  POSTS_ON_FRONT_PAGE = 5
 
   # GET /
   def front_page
     # Read the desired number of posts + 1
     @posts = Post.public.order('face_date DESC').limit(POSTS_ON_FRONT_PAGE + 1).all
     if @posts.size > POSTS_ON_FRONT_PAGE
-      post_1 = @posts.first.to_month_url
+      post_pre_last = @posts[-2].to_month_url
       post_last = @posts.last.to_month_url
-      if post_1 != post_last
+      if post_pre_last != post_last
         # If the last post belong to the different month it is not shown
         # but is used to generate the 'Previous month' link
         @prev_month = post_last
         @posts.pop
       else
-        # If all posts belong to the same month we fetch and show all the rest of posts
+        # we fetch and show all the rest of posts
         @posts.concat(
             Post.public.month(post_last[:year], post_last[:month]).
-                reorder('face_date DESC').offset(POSTS_ON_FRONT_PAGE + 1)
+                reorder('face_date DESC').where("id NOT IN (?)", @posts.map(&:id))
         )
         @prev_month = Post.public.prev_month(post_last[:year], post_last[:month])
       end

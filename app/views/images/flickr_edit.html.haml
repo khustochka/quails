@@ -17,7 +17,14 @@
       = hidden_field_tag 'image[flickr_id]', nil
       = submit_tag "Detach"
   - else
-    This image is not linked to flickr photo. Legacy picture:
+    This image is not linked to flickr photo.
+    = form_tag flickr_upload_image_path(@image) do
+      = hidden_field_tag("public", "0")
+      %div.input.flat
+        %label
+          = check_box_tag 'public', 1, true
+          Public
+        = submit_tag("Upload to flickr")
 
 %p= image_tag(jpg_url(@image))
 

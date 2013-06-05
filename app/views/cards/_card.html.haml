@@ -26,6 +26,8 @@
   %div.card_cell
     = surround('[ ', ' ]') do
       = link_to 'edit', edit_card_path(card), class: 'pseudolink'
+    = surround('[ ', ' ]') do
+      = link_to 'map', edit_map_path(q: {card_id: card.id}), class: 'pseudolink'
     - if card.observations.count > 0
       = disabled_destroy_icon
     - else

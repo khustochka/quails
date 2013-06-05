@@ -46,6 +46,10 @@ class CardsController < ApplicationController
   # GET /cards/new.json
   def new
     @card = Card.new(params[:card])
+    last_date = Card.pluck('MAX(observ_date)').first
+    if last_date
+      @card.observ_date ||= Date.parse(last_date) + 1
+    end
 
     respond_to do |format|
       format.html { render :form }

@@ -7,10 +7,20 @@
 
 %h1= page_header
 
+- if @card.persisted?
+  - provide :add_shortcuts do
+    %li
+      %b= link_to 'Edit map', edit_map_path(q: {card_id: @card.id})
+
 = render 'admin/shortcuts' if current_user.admin?
 
 - if notice
   %p#notice= notice
+
+%p#notice
+  %b Create new:
+  - suggested_dates.each do |date, words|
+    = link_to words.join(", "), new_card_path(card: {observ_date: date})
 
 -# Always add one blank observation
 - @card.observations.build
