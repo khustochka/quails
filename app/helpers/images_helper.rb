@@ -22,7 +22,7 @@ module ImagesHelper
     end
   end
 
-  THUMBNAIL_HEIGHT = 200
+  THUMBNAIL_HEIGHT = 240
 
   def thumbnail_item(img)
     if img.on_flickr?
