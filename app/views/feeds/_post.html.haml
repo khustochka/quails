@@ -6,7 +6,6 @@
 
 %hr
 
-%div
-  = render partial: post.formatted.the_rest_of_images.map(&:to_thumbnail), formats: :html
+= render partial: post.formatted.the_rest_of_images.map(&:to_thumbnail), formats: :html
 
 %p= link_to "+ #{t('posts.post.add_comment')}", public_post_path(post, anchor: 'add_comment', only_path: false)
