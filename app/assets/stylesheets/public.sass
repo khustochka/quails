@@ -56,13 +56,16 @@ figure.image_thumb, figure.imageholder
   // vertical-align: top is necessary for IE7
   vertical-align: top
   border: 1px solid #ccc
-  max-width: 100%
-  height: auto
   a img
     border: none
     vertical-align: text-top
-    // over write margin in .post a img
+    // overwrite margin in .post a img
     margin-bottom: 0
+
+figure.imageholder
+  @include auto-width
+  img
+    @include auto-width
 
 figcaption.imagetitle
   @include inline-block
@@ -101,6 +104,11 @@ figure.imageholder figcaption
 @media only all and (max-width: 580px)
   .thumbs_row
     width: auto
+
+  figure.image_thumb
+    @include auto-width
+    img
+      @include auto-width
 
 .flickr_badge
   position: absolute
@@ -193,7 +201,7 @@ form.comment
     // Image
 
 .image_canvas
-  max-width: 100%
+  @include auto-width
   max-height: 768px
   display: inline-block
   border: 1px solid #aaa

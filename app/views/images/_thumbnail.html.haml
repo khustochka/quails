@@ -5,7 +5,7 @@
 
 - data = extra_data ? thumbnail.data : nil
 
-%figure.image_thumb{data: data, style: "width: #{w}px;"}<>
+%figure.image_thumb{data: data}<>
   -# Show a badge if it is on flickr or not, with link to edit
   - if extra_data
     - on_flickr = ImagesHelper::ON_FLICKR_IMG[thumbnail.image.on_flickr?]
