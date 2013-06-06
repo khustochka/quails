@@ -14,6 +14,7 @@ module JustifyHelper
 
     sum_width = 0
     temp_el = nil
+    new_height = 0
 
     thumbs.each do |thumb|
       current_row << thumb
@@ -29,9 +30,10 @@ module JustifyHelper
           end
         end
 
+        new_height = (ImagesHelper::THUMBNAIL_HEIGHT * ratio).to_i
         new_width = current_row.inject(0) do |nw, th|
           w = (th.width * ratio).to_i
-          th.force_width(w)
+          th.force_dimensions(width: w, height: new_height)
           nw + w + (BORDER * 2)
         end
         #p "new_width=#{new_width}"
@@ -41,7 +43,7 @@ module JustifyHelper
           current_row.cycle do |el|
             break if new_width == max_width
             #p el.width
-            el.force_width(el.width - 1)
+            el.force_dimensions(width: el.width - 1, height: new_height)
             new_width -= 1
             #p el.width
           end
@@ -59,6 +61,7 @@ module JustifyHelper
           current_row << temp_el
           sum_width = temp_el.width + (BORDER * 2)
           temp_el = nil
+          new_height = 0
         end
 
       end

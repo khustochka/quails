@@ -28,20 +28,26 @@ class Thumbnail
   end
 
   def height
-    if @width
-      (image_asset.height * (@width.to_f / image_asset.width)).to_i
-    else
-      @height ||= THUMBNAIL_HEIGHT
-    end
+    @height ||= if @width
+                  (image_asset.height * (@width.to_f / image_asset.width)).to_i
+                else
+                  THUMBNAIL_HEIGHT
+                end
   end
 
   def width
-    @width || (image_asset.width * (height.to_f / image_asset.height)).to_i
+    @width ||= (image_asset.width * (height.to_f / image_asset.height)).to_i
   end
 
   def force_width(value)
     @width = value
     @height = nil
+  end
+
+  def force_dimensions(value)
+    value.each do |key, val|
+      self.instance_variable_set("@#{key}".to_sym, val)
+    end
   end
 
   def to_partial_path
