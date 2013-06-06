@@ -17,8 +17,18 @@ class LJFormatStrategy < FormattingStrategy
 
   def img_link(term)
     if image = Image.find_by_slug(term)
-      %Q(!#{jpg_url(image)}([photo])!\n#{image.formatted.title} __(#{image.species.map(&:name_sci).join(', ')})__)
+      real_image_tag(image)
     end
+  end
+
+  def real_image_tag(image)
+    %Q(<figure class="imageholder">
+          !#{jpg_url(image)}([photo])!
+          <figcaption class="imagetitle">
+          #{image.formatted.title} __(#{image.species.map(&:name_sci).join(', ')})__
+          </figcaption>
+        </figure>
+        )
   end
 
   def species_link(word, term)
@@ -38,8 +48,7 @@ class LJFormatStrategy < FormattingStrategy
       result << "\n\n"
       @metadata[:images].each_with_index do |img, i|
         result << "<lj-cut>\n\n" if i == 1
-        title = img.formatted.title
-        result << "<p>!#{jpg_url(img)}(#{title})!\n#{title} __(#{img.species.map(&:name_sci).join(', ')})__</p>\n\n"
+        result << "#{real_image_tag(img)}\n\n"
       end
       result << '</lj-cut>' if @metadata[:images].size > 1
     end

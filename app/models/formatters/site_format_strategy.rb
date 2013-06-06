@@ -21,9 +21,7 @@ class SiteFormatStrategy < FormattingStrategy
     if image = Image.find_by_slug(term)
       %Q(<figure class="imageholder">
         "!#{jpg_url(image)}([photo])!":#{image_path(image)}
-          <figcaption class="imagetitle">
-          "#{image.formatted.title} __(#{image.species.map(&:name_sci).join(', ')})__":#{image_path(image)}
-          </figcaption>
+          <figcaption class="imagetitle">"#{image.formatted.title}":#{image_path(image)}</figcaption>
           </figure>
         )
     end
