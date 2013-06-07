@@ -166,8 +166,8 @@ class ImagesController < ApplicationController
     expire_page controller: :feeds, action: :sitemap, format: 'xml'
   end
 
-  def local_image_url(file_name)
+  def local_image_url(img)
     prefix = ImagesHelper.local_image_path || ImagesHelper.image_host
-    "#{prefix}/#{file_name}"
+    "#{prefix}/#{img.slug}.jpg"
   end
 end
