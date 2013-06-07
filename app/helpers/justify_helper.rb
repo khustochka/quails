@@ -14,13 +14,13 @@ module JustifyHelper
 
     sum_width = 0
     temp_el = nil
-    new_height = 0
 
     thumbs.each do |thumb|
       current_row << thumb
       pre_sum_width = sum_width
       sum_width += thumb.width + (BORDER * 2)
-      if sum_width > max_width * 1.1
+      Rails.logger.debug "sum_width=#{sum_width}"
+      if sum_width > max_width
         ratio = max_width.to_f / sum_width
 
         if INCREASE_ENABLED
@@ -36,23 +36,23 @@ module JustifyHelper
           th.force_dimensions(width: w, height: new_height)
           nw + w + (BORDER * 2)
         end
-        #p "new_width=#{new_width}"
+        Rails.logger.debug "new_width=#{new_width}"
 
         #Reducing
         if new_width > max_width
           current_row.cycle do |el|
             break if new_width == max_width
-            #p el.width
+            #Rails.logger.debug el.width
             el.force_dimensions(width: el.width - 1, height: new_height)
             new_width -= 1
-            #p el.width
+            #Rails.logger.debug el.width
           end
         end
 
         #Increasing
         # TODO: should force height and recalc total width
 
-        #p "adjusted_width=#{width(current_row)}"
+        Rails.logger.debug "adjusted_width=#{width(current_row)}"
 
         result << current_row
         current_row = []
@@ -61,7 +61,6 @@ module JustifyHelper
           current_row << temp_el
           sum_width = temp_el.width + (BORDER * 2)
           temp_el = nil
-          new_height = 0
         end
 
       end
