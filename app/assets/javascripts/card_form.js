@@ -47,6 +47,17 @@ $(function () {
 
   $('.sp-suggest').combobox();
 
+//  if (typeof sp_list !== undefined) {
+//    $('.sp-light').autocomplete({
+//      source: sp_list,
+//      minLength: 3,
+//      select: function (event, ui) {
+//        //$( "#project" ).val( ui.item.label );
+//        //$( "#project-id" ).val( ui.item.value );
+//        return false;
+//      }});
+//  }
+
   $('a.destroy')
       .data('remote', 'true')
       .on('ajax:success', function () {
