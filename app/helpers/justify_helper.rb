@@ -1,6 +1,6 @@
 module JustifyHelper
   BORDER = 4
-  INCREASE_ENABLED = false
+  INCREASE_ENABLED = true
 
   def render_justified(array)
     render 'images/justified', array: array
@@ -37,22 +37,22 @@ module JustifyHelper
 
         Rails.logger.debug "new_width=#{new_width}"
 
-        #Reducing
-        if new_width > max_width
-          new_height -= ((new_width - max_width) / new_widths.size * 0.75).to_i
+        # Pixel adjustment
+        if new_width != max_width
+          delta = (max_width - new_width)
+          pixel = delta / delta.abs
+
+          new_height += (delta * pixel / new_widths.size * 0.75).to_i
           (0..new_widths.size - 1).cycle do |idx|
             break if new_width == max_width
-            new_widths[idx] -= 1
-            new_width -= 1
+            new_widths[idx] += pixel
+            new_width += pixel
           end
         end
 
         current_row.each_with_index do |el, idx|
           el.force_dimensions(width: new_widths[idx], height: new_height)
         end
-
-        #Increasing
-        # TODO: should force height and recalc total width
 
         Rails.logger.debug "adjusted_width=#{width(current_row)}"
 
