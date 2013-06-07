@@ -31,22 +31,24 @@ module JustifyHelper
         end
 
         new_height = (ImagesHelper::THUMBNAIL_HEIGHT * ratio).to_i
-        new_width = current_row.inject(0) do |nw, th|
-          w = (th.width * ratio).to_i
-          th.force_dimensions(width: w, height: new_height)
-          nw + w + (BORDER * 2)
-        end
+        new_widths = current_row.map {|th| (th.width * ratio).to_i}
+
+        new_width = new_widths.sum + (BORDER * 2 * current_row.size)
+
         Rails.logger.debug "new_width=#{new_width}"
 
         #Reducing
         if new_width > max_width
-          current_row.cycle do |el|
+          new_height -= ((new_width - max_width) / new_widths.size * 0.75).to_i
+          (0..new_widths.size - 1).cycle do |idx|
             break if new_width == max_width
-            #Rails.logger.debug el.width
-            el.force_dimensions(width: el.width - 1, height: new_height)
+            new_widths[idx] -= 1
             new_width -= 1
-            #Rails.logger.debug el.width
           end
+        end
+
+        current_row.each_with_index do |el, idx|
+          el.force_dimensions(width: new_widths[idx], height: new_height)
         end
 
         #Increasing
