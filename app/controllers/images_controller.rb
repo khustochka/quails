@@ -61,10 +61,10 @@ class ImagesController < ApplicationController
     @next = Image.where(flickr_id: nil).where('created_at < ?', @image.created_at).order('created_at DESC').first
   end
 
-  # POST /photos/1/flickr_edit
+  # POST /photos/1/flickr
   def flickr_upload
     raise "The image is already on flickr" if @image.on_flickr?
-    flickr_id = flickr.upload_photo @image.assets_cache.locals.main_image.full_url,
+    flickr_id = flickr.upload_photo local_image_url(@image),
                                     title: (@image.species.map {|s| "#{s.name_en}; #{s.name_sci}"}.join('; ')),
                                     description: "#{l(@image.observ_date, format: :long, locale: :en)}\n#{@image.locus.name_en}, #{@image.locus.country.name_en}",
                                     tags: %Q(#{@image.species.map {|s| "\"#{s.name_en}\" \"#{s.name_sci}\""}.join(' ')} bird #{@image.locus.country.name_en} #{@image.species.map(&:order).uniq.join(' ')} #{@image.species.map(&:family).uniq.join(' ')}),
@@ -164,5 +164,10 @@ class ImagesController < ApplicationController
     expire_page controller: :feeds, action: :blog, format: 'xml'
     expire_page controller: :feeds, action: :photos, format: 'xml'
     expire_page controller: :feeds, action: :sitemap, format: 'xml'
+  end
+
+  def local_image_url(file_name)
+    prefix = ImagesHelper.local_image_path || ImagesHelper.image_host
+    "#{prefix}/#{file_name}"
   end
 end

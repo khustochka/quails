@@ -8,6 +8,7 @@ module Configurator
         User.configure(config_data.admin)
       when 'ImagesHelper'
         ImagesHelper.image_host = config_data.image_host
+        ImagesHelper.local_image_path = config_data.local_image_path
       when 'CommentMailer'
         CommentMailer.default from: config_data.mail.try(:sender)
         CommentMailer.default to: config_data.mail.try(:reader)
