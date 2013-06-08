@@ -9,12 +9,12 @@
       -#= link_to(image_tag('/img/logo.png'), root_path, :id => 'site_cap')
 
       %ul#site_menu.horiz-list(role="menubar")
-        %li= link_to t('menu.blog'), blog_path
+        %li(role="menuitem")= link_to t('menu.blog'), blog_path
 
-        %li= link_to t('menu.birds_ukraine'), country_path(country: 'ukraine')
+        %li(role="menuitem")= link_to t('menu.birds_ukraine'), country_path(country: 'ukraine')
 
-        %li= link_to t('menu.galery'), gallery_path
+        %li(role="menuitem")= link_to t('menu.galery'), gallery_path
 
-        %li= link_to t('menu.lifelist'), my_lists_path
+        %li(role="menuitem")= link_to t('menu.lifelist'), my_lists_path
 
-        %li= link_to t('menu.links'), page_path('links')
+        %li(role="menuitem")= link_to t('menu.links'), page_path('links')

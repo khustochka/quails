@@ -74,4 +74,4 @@
 - if @light_species_selector
 
   :javascript
-    var sp_list = #{species_for_select.map {|s| {value: s.id, label: s.name_sci}}.to_json};
+    var sp_list = #{species_for_select.map {|s| {id: s.id, value: s.name_sci}}.to_json};

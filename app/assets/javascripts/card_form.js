@@ -9,15 +9,32 @@ $(function () {
       last_row_num = $('.obs-row').length - 1,
       template_row_num = last_row_num,
       tmpl_regex = new RegExp("(_|\\[)" + template_row_num + "(_|\\])", "g"),
+      lightmode = (typeof sp_list !== 'undefined'),
       options_list = $('.obs-row:last select.sp-suggest').children("option");
 
   $('.obs-row:last').remove();
+
+  function light_autocomplete(el) {
+    $(el).autocomplete({
+      source: sp_list,
+      minLength: 3,
+      select: function (event, ui) {
+        $(this).val(ui.item.value);
+        $('input', $(this).parent().next()).val(ui.item.id);
+        return false;
+      }}).data("ui-autocomplete")._renderItem = function (ul, item) {
+      return $("<li>")
+          .append("<a>" + item.label + "</a>")
+          .appendTo(ul);
+    };
+  }
 
   function addNewRow() {
     last_row_num++;
     var row_html = sample_row_html.replace(tmpl_regex, "$1" + last_row_num + "$2");
     $(row_html).insertBefore($('.fixed-bottom'));
-    $('.obs-row:last .sp-suggest').combobox();
+    if (lightmode) light_autocomplete('.obs-row:last .sp-light');
+    else $('.obs-row:last .sp-suggest').combobox();
     window.scrollTo(0, $(document).height());
     return $('.obs-row:last');
   }
@@ -45,18 +62,8 @@ $(function () {
     $(this).closest('.obs-row').remove();
   });
 
-  $('.sp-suggest').combobox();
-
-//  if (typeof sp_list !== undefined) {
-//    $('.sp-light').autocomplete({
-//      source: sp_list,
-//      minLength: 3,
-//      select: function (event, ui) {
-//        //$( "#project" ).val( ui.item.label );
-//        //$( "#project-id" ).val( ui.item.value );
-//        return false;
-//      }});
-//  }
+  if (lightmode) light_autocomplete('.sp-light');
+  else $('.sp-suggest').combobox();
 
   $('a.destroy')
       .data('remote', 'true')
