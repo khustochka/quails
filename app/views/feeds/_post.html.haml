@@ -1,6 +1,6 @@
 %p
   %em
-    %time{pubdate: 'pubdate', datetime: post.face_date.iso8601}= l(post.face_date, format: :long)
+    %time{datetime: post.face_date.iso8601}= l(post.face_date, format: :long)
 
 = post.formatted.for_site.text
 

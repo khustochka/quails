@@ -20,7 +20,7 @@
     %div.header-with-subheader
       %h1= @post.formatted.title
       %i
-        %time{pubdate: 'pubdate', datetime: @post.face_date.iso8601}= l(@post.face_date, format: :long)
+        %time{datetime: @post.face_date.iso8601}= l(@post.face_date, format: :long)
       - unless @post.public?
         %span.tag.draft Draft
 
