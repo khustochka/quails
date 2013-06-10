@@ -15,18 +15,17 @@ $(function () {
   $('.obs-row:last').remove();
 
   function light_autocomplete(el) {
-    $(el).autocomplete({
+    if ($(el).length > 0) $(el).autocomplete({
+      delay: 0,
+      autoFocus: true,
       source: sp_list,
       minLength: 3,
       select: function (event, ui) {
         $(this).val(ui.item.value);
-        $('input', $(this).parent().next()).val(ui.item.id);
+        $(this).next().val(ui.item.id);
         return false;
-      }}).data("ui-autocomplete")._renderItem = function (ul, item) {
-      return $("<li>")
-          .append("<a>" + item.label + "</a>")
-          .appendTo(ul);
-    };
+      }
+    });
   }
 
   function addNewRow() {
@@ -77,8 +76,20 @@ $(function () {
   // Mark autocomplete locus field as required
   $('input#card_locus_id').prop('required', true);
 
-
-  $('#species-quick-add')
+  if (lightmode) $('#species-quick-add').autocomplete({
+    delay: 0,
+    autoFocus: true,
+    source: sp_list,
+    minLength: 3,
+    select: function (event, ui) {
+      var row = firstEmptyRow();
+      $('.sp-light', row).val(ui.item.value);
+      $('.sp-light', row).next().val(ui.item.id);
+      $(this).val("");
+      return false;
+    }
+  });
+  else $('#species-quick-add')
     // don't navigate away from the field on tab when selecting an item
       .bind("keydown", function (event) {
         if (event.keyCode === $.ui.keyCode.TAB &&

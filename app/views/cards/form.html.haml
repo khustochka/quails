@@ -1,7 +1,7 @@
 - @wider = true
 
-- @light_species_selector = false
--# @light_species_selector = !params[:nojs]
+-# @light_species_selector = false
+- @light_species_selector = !params[:nojs]
 
 - stylesheet 'forms'
 - javascript 'card_form'
@@ -51,6 +51,10 @@
 
   = form.input :notes, input_html: {rows: 7}
   = form.input :observers
+
+  - if @light_species_selector
+    %noscript
+      %h1.errors Edit species will not work with no JS! Go to #{link_to 'No JS form', nojs:true}.
 
   = form.simple_fields_for :observations do |builder|
     = render 'observations/observation_fields', form: builder
