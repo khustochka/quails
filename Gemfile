@@ -34,9 +34,6 @@ gem 'addressable', require: 'addressable/uri'
 gem 'roman-numerals'
 gem 'rinku'
 
-gem 'rails_log_stdout',           github: 'heroku/rails_log_stdout'
-gem 'rails3_serve_static_assets', github: 'heroku/rails3_serve_static_assets'
-
   gem 'sass-rails', '~> 4.0.0.rc1'
   #gem 'coffee-rails', '~> 3.2.1'
   #gem 'turbo-sprockets-rails3'
