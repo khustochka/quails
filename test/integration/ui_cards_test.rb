@@ -55,7 +55,7 @@ class UICardsTest < ActionDispatch::IntegrationTest
 
     assert_difference('Observation.count', 1) { click_button 'Save' }
 
-    card = Card.scoped.last
+    card = Card.all.last
 
     assert_equal edit_card_path(card, nojs: true), current_path_info
 
