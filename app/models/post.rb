@@ -16,7 +16,7 @@ class Post < ActiveRecord::Base
   validates :lj_url_id, :lj_post_id, :numericality => {:greater_than => 0}, :allow_nil => true
 
   has_many :comments, dependent: :destroy
-  has_many :cards, dependent: :nullify, order: 'observ_date ASC, locus_id'
+  has_many :cards, -> {order('observ_date ASC, locus_id')}, dependent: :nullify
   has_many :observations, dependent: :nullify # only those attached directly
   #  has_many :species, -> { order(:index_num).uniq }, through: :observations
   #  has_many :images, -> {
