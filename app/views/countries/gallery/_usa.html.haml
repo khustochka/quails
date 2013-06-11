@@ -1,2 +1,2 @@
-%ul.thumbnails
-  = render :partial => 'species/thumbnail', :collection => @species
+%div.thumbnails
+  = render_justified @species.map(&:to_thumbnail)

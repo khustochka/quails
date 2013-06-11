@@ -146,4 +146,18 @@ class PostTest < ActiveSupport::TestCase
     assert_equal 1, p.images.to_a.size
   end
 
+  test 'do not show on homepage the images that are already in post body' do
+    p = create(:post, text: "First paragraph\n\n{{^image1}}\n\nLast paragraph")
+    sp1 = seed(:lancol)
+    sp2 = seed(:jyntor)
+    card = create(:card, post: p)
+    obs1 = create(:observation, species: sp1, card: card)
+    obs2 = create(:observation, species: sp2, card: card)
+    img1 = create(:image, observations: [obs1], slug: "image1")
+    img2 = create(:image, observations: [obs2], slug: "image2")
+
+    assert_equal 1, p.formatted.the_rest_of_images.size
+    assert_equal "image2", p.formatted.the_rest_of_images[0].slug
+  end
+
 end

@@ -36,8 +36,11 @@ class FormattersTest < ActionView::TestCase
   test "Post with photo by slug" do
     image = create(:image)
     post = create(:post, text: "{{^#{image.slug}}}")
-    assert_equal "<p><a href=\"/photos/#{image.slug}\"><img src=\"#{jpg_url(image)}\" title=\"[photo]\" alt=\"[photo]\" /></a><br />\nHouse Sparrow <i>(Passer domesticus)</i></p>",
-                 post.formatted.for_site.text
+    assert_include post.formatted.for_site.text,
+        "<a href=\"/photos/#{image.slug}\"><img src=\"#{jpg_url(image)}\" title=\"[photo]\" alt=\"[photo]\" /></a>"
+    assert_include post.formatted.for_site.text,
+                   "<figcaption class=\"imagetitle\"><a href=\"/photos/#{image.slug}\">House Sparrow</a></figcaption>"
+
   end
 
   test "Invalid image wiki tag should not raise exception" do
@@ -76,16 +79,21 @@ class FormattersTest < ActionView::TestCase
   test "LJ Post with photo by slug" do
     image = create(:image)
     post = create(:post, text: "{{^#{image.slug}}}")
-    assert_equal "<p><img src=\"#{jpg_url(image)}\" title=\"[photo]\" alt=\"[photo]\" /><br />\nHouse Sparrow <i>(Passer domesticus)</i></p>",
-                 post.formatted.for_lj.text
+    assert_include post.formatted.for_lj.text,
+                   "<img src=\"#{jpg_url(image)}\" title=\"[photo]\" alt=\"[photo]\" />"
+    assert_include post.formatted.for_lj.text,
+                   "<figcaption class=\"imagetitle\">\nHouse Sparrow <i>(Passer domesticus)</i>\n</figcaption>"
   end
 
   test "LJ Post with images" do
     p = create(:post, text: "AAA")
-    img = create(:image)
-    img.observations.first.update_column(:post_id, p.id)
-    assert_equal %Q(<p>AAA</p>\n<p><img src="http://localhost/photos/#{img.slug}.jpg" title="House Sparrow" alt="House Sparrow" /><br />\nHouse Sparrow <i>(Passer domesticus)</i></p>),
-                 p.formatted.for_lj.text
+    image = create(:image)
+    image.card.update_column(:post_id, p.id)
+    assert_include p.formatted.for_lj.text,
+                   "<img src=\"#{jpg_url(image)}\" title=\"[photo]\" alt=\"[photo]\" />"
+    assert_include p.formatted.for_lj.text,
+                   "<figcaption class=\"imagetitle\">\nHouse Sparrow <i>(Passer domesticus)</i>\n</figcaption>"
+
   end
 
   test "do not strip wiki tags from comment" do

@@ -15,6 +15,10 @@ $link-color: darken(#33aa66, 10%)
 
 $main-width: 896px
 
+@mixin auto-width
+  max-width: 100%
+  height: auto
+
 @mixin basic-link($ln-color: $link-color)
   color: $ln-color
   &:hover

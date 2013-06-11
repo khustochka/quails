@@ -6,6 +6,7 @@ production:
     cookie_value: <%= SecureRandom.hex(16) %>
   secret_token: <%= SecureRandom.hex(30) %>
   image_host: /photos
+#  local_image_path:
 #  google_cse:
 #  ga_code:
 

@@ -1,4 +1,21 @@
-- thumbnail.formatted.title.tap do |img_title|
-  %li.imageholder{'data-image-id' => thumbnail.id}
-    = link_to image_tag(thumbnail_url(thumbnail), alt: "[фотография]"), image_path(thumbnail)
-    %div.imagetitle= link_to img_title, image_path(thumbnail)
+- h = thumbnail.height
+- w = thumbnail.width
+
+- extra_data = current_user.admin? && request.format == 'text/html'
+
+- data = extra_data ? thumbnail.data : nil
+
+%figure.image_thumb{data: data}<>
+  -# Show a badge if it is on flickr or not, with link to edit
+  - if extra_data
+    - on_flickr = ImagesHelper::ON_FLICKR_IMG[thumbnail.image.on_flickr?]
+    %span.flickr_badge
+      = link_to image_tag(on_flickr[0], alt: on_flickr[1]), edit_flickr_image_path(thumbnail.image), title: on_flickr[1]
+
+  = link_to image_tag(thumbnail.asset_url, alt: "[фото]", height: h, width: w), thumbnail.url
+  %figcaption.imagetitle
+    = link_to thumbnail.url do
+      - if thumbnail.title.is_a? String
+        = thumbnail.title
+      - else
+        = render thumbnail.title

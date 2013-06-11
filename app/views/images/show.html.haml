@@ -7,7 +7,12 @@
 
 - provide :add_shortcuts do
   %li= link_to 'Edit map', action: :map_edit
-  %li= link_to 'Edit flickr data', action: :flickr_edit
+  %li
+    = link_to action: :flickr_edit do
+      - if @image.on_flickr?
+        Edit flickr data
+      - else
+        %b Link to flickr!
 
 = render 'admin/shortcuts' if current_user.admin?
 

@@ -11,10 +11,20 @@
 
 %p
   - if @image.on_flickr?
-    This image is linked to flickr photo:
-    = @image.flickr_data['Original']['source']
+    This image is linked to flickr photo
+    = link_to nil, "http://www.flickr.com/photos/#{Settings.flickr_admin.user_id}/#{@image.flickr_id}/"
+    = form_tag({action: :patch}, method: 'post') do
+      = hidden_field_tag 'image[flickr_id]', nil
+      = submit_tag "Detach"
   - else
-    This image is not linked to flickr photo. Legacy picture:
+    This image is not linked to flickr photo.
+    = form_tag flickr_upload_image_path(@image) do
+      = hidden_field_tag("public", "0")
+      %div.input.flat
+        %label
+          = check_box_tag 'public', 1, true
+          Public
+        = submit_tag("Upload to flickr")
 
 %p= image_tag(jpg_url(@image))
 
@@ -24,11 +34,10 @@
   %table.with_search.flickr_search_table.with_search
     %tr
       %td
-        = simple_form_for @image,url: patch_image_path(@image), method: :post, html: {class: 'flickr_edit'} do |form|
-          = form.input :flickr_size, as: :select,
-                collection: ImagesHelper::FLICKR_SIZES, input_html: {size: '8'}, include_blank: false, default: 'o'
+        = simple_form_for @image,url: patch_image_path(@image, :json), remote: true, method: :post, html: {class: 'flickr_edit'} do |form|
           = form.input :flickr_id, as: :hidden
       %td.flickr_search
+        %input.string.short#flickr_user_id{name: 'flickr_user_id', type: 'hidden', value: Settings.flickr_admin.user_id}
         %div.input.string
           %label.string Text:
           %input.string#flickr_text{name: 'flickr_text', type: 'text', value: @image.species.map(&:name_sci).join(' ')}
@@ -40,3 +49,5 @@
       %td.found_pictures{colspan: 2}
 - else
   %div.errors No Flickr API key or secret defined!
+
+= link_to("Next unflickred image >>", edit_flickr_image_path(@next), class: 'next_unflickred') if @next

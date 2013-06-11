@@ -26,6 +26,8 @@
   %div.card_cell
     = surround('[ ', ' ]') do
       = link_to 'edit', edit_card_path(card), class: 'pseudolink'
+    = surround('[ ', ' ]') do
+      = link_to 'map', edit_map_path(q: {card_id: card.id}), class: 'pseudolink'
     - if card.observations.count > 0
       = disabled_destroy_icon
     - else
@@ -33,6 +35,9 @@
 
     - if params[:obs]
       = link_to 'Attach here', attach_card_path(card, obs: params[:obs]), class: 'pseudolink', data: {method: :post}
+
+    - if card.notes.present?
+      %span.ui-icon.ui-icon-comment.inline-block
 
 - if show_separate_observation_on_card_search?
   %ul

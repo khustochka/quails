@@ -1,0 +1,13 @@
+-# @wider = true
+
+- stylesheet 'public'
+- javascript 'pjax_pagination'
+
+- @page_title = 'Unflickred photos'
+
+%h1= page_header
+
+%div.thumbnails
+  = render_justified @images.map {|im| Thumbnail.new(edit_flickr_image_path(im), im.formatted.title, im)}
+
+= paginate @images

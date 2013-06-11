@@ -36,42 +36,88 @@
     border-bottom: 1px dotted $link-color
 
 
+nav.month-navigation
+  margin-top: 0
+  a
+    margin-right: 15px
+
 nav.front_page_prev
   margin-top: -15px
   font-size: 20px
   a
     font-size: 32px
 
-// Thumbnails
-
-ul.thumbnails
-  @include horiz-list
-
 // Imageholder
 
-.imageholder
-  width: 162px
-  height: 150px
-  margin: 0 2px 6px 0
-  padding: 10px 5px
-  text-align: center
+figure.image_thumb, figure.imageholder
+  @include inline-block
+  position: relative
+  margin: 0 6px 6px 0
   // vertical-align: top is necessary for IE7
   vertical-align: top
-  background-color: #e6e6e6
-  font-size: 12px
-  line-height: 1em
-  overflow: hidden
-  a, a:hover
-    text-decoration: none
-    color: #555
-    background-color: #e6e6e6
+  border: 1px solid #ccc
   a img
-    border: 2px solid $link-color
+    border: none
     vertical-align: text-top
-  .imagetitle
-    margin-top: 5px
-    a, a:hover
-      padding: 0
+    // overwrite margin in .post a img
+    margin-bottom: 0
+
+figure.imageholder
+  @include auto-width
+  img
+    @include auto-width
+
+figcaption.imagetitle
+  @include inline-block
+  position: absolute
+  bottom: -1px
+  left: 0
+  right: 0
+  text-align: left
+  background: #3d3d3d
+  background: rgba(0, 0, 0, 0.5)
+  padding: 10px
+  a, i.sci_name
+    color: #cfcfcf
+    font-weight: bold
+    text-shadow: rgb(0, 0, 0) 1px 1px 0px
+    text-decoration: none
+  a:hover, a:hover i.sci_name
+    color: white
+    background: #3d3d3d
+    background: rgba(0, 0, 0, 0)
+    //text-decoration: underline
+    border-bottom: 1px solid white
+
+figure.image_thumb figcaption
+  font-size: 13px
+
+.post figure.image_thumb figcaption
+  font-size: 14px
+
+figure.imageholder figcaption
+  font-size: 16px
+
+.thumbs_row
+  width: $main-width
+
+@media only all and (max-width: 580px)
+  .thumbs_row
+    width: auto
+
+  figure.image_thumb
+    @include auto-width
+    img
+      @include auto-width
+
+.flickr_badge
+  position: absolute
+  top: 0
+  //left: 0
+  right: 0
+  background: #3d3d3d
+  background: rgba(0, 0, 0, 0.5)
+  padding: 5px
 
 // Comments
 
@@ -155,13 +201,15 @@ form.comment
     // Image
 
 .image_canvas
-  max-width: 100%
+  @include auto-width
+  max-height: 768px
   display: inline-block
   border: 1px solid #aaa
   //background-color: #c0c0c0
   //padding: 10px
   img
     vertical-align: top
+    @include auto-width
 
 table.image_nav
   max-width: 100%

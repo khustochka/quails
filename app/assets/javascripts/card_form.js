@@ -9,15 +9,31 @@ $(function () {
       last_row_num = $('.obs-row').length - 1,
       template_row_num = last_row_num,
       tmpl_regex = new RegExp("(_|\\[)" + template_row_num + "(_|\\])", "g"),
+      lightmode = (typeof sp_list !== 'undefined'),
       options_list = $('.obs-row:last select.sp-suggest').children("option");
 
   $('.obs-row:last').remove();
+
+  function light_autocomplete(el) {
+    if ($(el).length > 0) $(el).autocomplete({
+      delay: 0,
+      autoFocus: true,
+      source: sp_list,
+      minLength: 3,
+      select: function (event, ui) {
+        $(this).val(ui.item.value);
+        $(this).next().val(ui.item.id);
+        return false;
+      }
+    });
+  }
 
   function addNewRow() {
     last_row_num++;
     var row_html = sample_row_html.replace(tmpl_regex, "$1" + last_row_num + "$2");
     $(row_html).insertBefore($('.fixed-bottom'));
-    $('.obs-row:last .sp-suggest').combobox();
+    if (lightmode) light_autocomplete('.obs-row:last .sp-light');
+    else $('.obs-row:last .sp-suggest').combobox();
     window.scrollTo(0, $(document).height());
     return $('.obs-row:last');
   }
@@ -45,7 +61,8 @@ $(function () {
     $(this).closest('.obs-row').remove();
   });
 
-  $('.sp-suggest').combobox();
+  if (lightmode) light_autocomplete('.sp-light');
+  else $('.sp-suggest').combobox();
 
   $('a.destroy')
       .data('remote', 'true')
@@ -59,8 +76,20 @@ $(function () {
   // Mark autocomplete locus field as required
   $('input#card_locus_id').prop('required', true);
 
-
-  $('#species-quick-add')
+  if (lightmode) $('#species-quick-add').autocomplete({
+    delay: 0,
+    autoFocus: true,
+    source: sp_list,
+    minLength: 3,
+    select: function (event, ui) {
+      var row = firstEmptyRow();
+      $('.sp-light', row).val(ui.item.value);
+      $('.sp-light', row).next().val(ui.item.id);
+      $(this).val("");
+      return false;
+    }
+  });
+  else $('#species-quick-add')
     // don't navigate away from the field on tab when selecting an item
       .bind("keydown", function (event) {
         if (event.keyCode === $.ui.keyCode.TAB &&

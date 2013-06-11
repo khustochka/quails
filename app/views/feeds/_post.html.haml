@@ -1,14 +1,11 @@
 %p
   %em
-    %time{pubdate: 'pubdate', datetime: post.face_date.iso8601}= l(post.face_date, format: :long)
+    %time{datetime: post.face_date.iso8601}= l(post.face_date, format: :long)
 
 = post.formatted.for_site.text
 
 %hr
 
-%div
-  - post.images.each do |thumbnail|
-    - thumbnail.formatted.title.tap do |img_title|
-      = link_to image_tag(thumbnail_url(thumbnail), :alt => img_title), image_url(thumbnail), :title => img_title
+= render partial: post.formatted.the_rest_of_images.map(&:to_thumbnail), formats: :html
 
 %p= link_to "+ #{t('posts.post.add_comment')}", public_post_path(post, anchor: 'add_comment', only_path: false)

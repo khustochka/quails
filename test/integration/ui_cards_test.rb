@@ -43,4 +43,39 @@ class UICardsTest < ActionDispatch::IntegrationTest
     refute find('ul.cards_list').has_content?('Fulica atra')
   end
 
+  test "Create card (No JS)" do
+    login_as_admin
+
+    visit new_card_path(nojs: true)
+
+    select('Brovary', from: 'Location')
+    fill_in('Date', with: '2011-04-08')
+
+    select('Crex crex', from: 'Species')
+
+    assert_difference('Observation.count', 1) { click_button 'Save' }
+
+    card = Card.scoped.last
+
+    assert_equal edit_card_path(card, nojs: true), current_path_info
+
+  end
+
+  test "Edit card (No JS)" do
+    login_as_admin
+
+    @card = create(:card)
+    o = create(:observation, species: seed(:melgal), card: @card)
+
+    visit edit_card_path(@card, nojs: true)
+
+    within(:xpath, "//div[contains(@class,'obs-row')][2]") do
+      select('Crex crex', from: 'Species')
+    end
+
+    assert_difference('Observation.count', 1) { click_button 'Save' }
+
+    assert_equal edit_card_path(@card, nojs: true), current_path_info
+  end
+
 end

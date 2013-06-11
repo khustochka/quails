@@ -5,14 +5,14 @@
       %div.header-with-subheader
         %h2= link_to(post.formatted.title, public_post_path(post))
         %i
-          %time{pubdate: 'pubdate', datetime: post.face_date.iso8601}= l(post.face_date, format: :long)
+          %time{datetime: post.face_date.iso8601}= l(post.face_date, format: :long)
         - unless post.public?
           %span.tag.draft Draft
 
       = post.formatted.for_site.text
-      - post.images.if_present do |images|
-        %ul.thumbnails
-          = render partial: 'images/thumbnail', collection: images
+      - post.formatted.the_rest_of_images.if_present do |images|
+        %div.thumbnails
+          = render_justified images.map(&:to_thumbnail)
 
     - cache ['comment', post, post.comments.count, admin: current_user.admin?] do
 

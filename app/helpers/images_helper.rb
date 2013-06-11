@@ -1,19 +1,13 @@
 module ImagesHelper
 
-  FLICKR_SIZES = {
-      "NO FLICKR" => '',
-      "Square" => 's',
-      "Thumbnail" => 't',
-      "Small" => 'm',
-      "Medium" => '-',
-      "Medium 640" => 'z',
-      "Large" => 'b',
-      "Original" => 'o'
-  }
-
   SENTENCE_SEPARATOR_DEPENDING_ON_POST = {
       true => ';',
       false => '.'
+  }
+
+  ON_FLICKR_IMG = {
+      true => ["http://l.yimg.com/g/images/goodies/white-small-chiclet.png", "On flickr"],
+      false => ["http://l.yimg.com/g/images/goodies/black-small-chiclet.png", "Not on flickr"]
   }
 
   def sentence_separator_depending_on_post(post)
@@ -21,13 +15,21 @@ module ImagesHelper
   end
 
   def jpg_url(img)
-    (img.on_flickr? && img.flickr_data['Original']['source']) ||
-        legacy_image_url("#{img.slug}.jpg")
+    if img.on_flickr?
+      img.assets_cache.externals.main_image.full_url
+    else
+      img.assets_cache.locals.main_image.try(:full_url) || legacy_image_url("#{img.slug}.jpg")
+    end
   end
 
-  def thumbnail_url(img)
-    (!img.has_old_thumbnail? && img.on_flickr? && img.flickr_data['Thumbnail']['source']) ||
-        legacy_image_url("tn_#{img.slug}.jpg")
+  THUMBNAIL_HEIGHT = 200
+
+  def thumbnail_item(img)
+    if img.on_flickr?
+      img.assets_cache.externals.thumbnail
+    else
+      img.assets_cache.locals.thumbnail
+    end
   end
 
   # TODO: Use Addressable::URI to parse and generate urls (better than stdlib's URI)
@@ -35,11 +37,20 @@ module ImagesHelper
     @image_host = host
   end
 
+  def self.local_image_path=(dir)
+    @local_image_path = dir
+  end
+
   private
 
   def self.image_host
     Configurator.configure(ImagesHelper) unless @image_host
     @image_host
+  end
+
+  def self.local_image_path
+    Configurator.configure(ImagesHelper) unless @local_image_path
+    @local_image_path
   end
 
   def legacy_image_url(file_name)

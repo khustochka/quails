@@ -14,4 +14,10 @@ class LocalSpecies < ActiveRecord::Base
     taxa.first
   end
 
+  # Formatting
+
+  def to_thumbnail
+    Thumbnail.new(taxon.species, {partial: 'species/thumb_title'}, taxon.image)
+  end
+
 end

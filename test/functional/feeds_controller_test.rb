@@ -8,11 +8,10 @@ class FeedsControllerTest < ActionController::TestCase
     assert_equal Mime::XML, response.content_type
   end
 
-  test 'get blog atom feed' do
+  test 'get blog atom feed with images' do
     create(:post)
     create(:post)
-    create(:post)
-
+    create(:image, observations: [create(:observation, card: create(:card, post: create(:post)))])
     get :blog, format: :xml
     assert_response :success
     assert_equal Mime::XML, response.content_type

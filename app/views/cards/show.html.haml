@@ -2,6 +2,9 @@
 
 - @page_title = "#{l(@card.observ_date, format: :long)}, #{@card.locus.name}"
 
+- provide :add_shortcuts do
+  %li= link_to 'Edit map', edit_map_path(q: {card_id: @card.id})
+
 = render 'admin/shortcuts' if current_user.admin?
 
 %h1= page_header
@@ -27,8 +30,8 @@
 - @card.images.if_present do |images|
   %div.photos
     %h3 Photos
-    %ul.thumbnails
-      = render partial: 'images/thumbnail', collection: images
+    %div.thumbnails
+      = render_justified images.map(&:to_thumbnail)
 
 - @card.species.if_present do |spcs|
   %h3 Species (#{spcs.size})

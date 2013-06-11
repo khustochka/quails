@@ -12,6 +12,6 @@
   = render @posts
 
   - if @prev_month
-    %nav.month-navigation.front_page_prev
+    %nav.front_page_prev
       = link_to t('.previous_posts'), month_path(@prev_month)
       (#{[t('date.month_names')[@prev_month[:month].to_i], @prev_month[:year]] * ' '})

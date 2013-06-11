@@ -15,17 +15,17 @@ class Post < ActiveRecord::Base
   validates :status, :inclusion => STATES, :presence => true, :length => {:maximum => 4}
   validates :lj_url_id, :lj_post_id, :numericality => {:greater_than => 0}, :allow_nil => true
 
-  has_many :comments, :dependent => :destroy
-  has_many :cards, :dependent => :nullify
-  has_many :observations, :dependent => :nullify
-#  has_many :species, -> { order(:index_num).uniq }, through: :observations
-#  has_many :images, -> {
-#    includes(:species).
-#    references(:species).
-#        order('observations.observ_date, observations.locus_id, images.index_num, species.index_num')
-#  },
-#           through: :observations
-
+  has_many :comments, dependent: :destroy
+  has_many :cards, dependent: :nullify, order: 'observ_date ASC, locus_id'
+  has_many :observations, dependent: :nullify # only those attached directly
+  #  has_many :species, -> { order(:index_num).uniq }, through: :observations
+  #  has_many :images, -> {
+  #    includes(:species).
+  #    references(:species).
+  #        order('observations.observ_date, observations.locus_id, images.index_num, species.index_num')
+  #  },
+  #           through: :observations
+  
   # Convert "timezone-less" face_date to local time zone because AR treats it as UTC (especially necessary for feed updated time)
   def face_date
     Time.zone.parse(face_date_before_type_cast)

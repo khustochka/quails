@@ -46,6 +46,10 @@ class CardsController < ApplicationController
   # GET /cards/new.json
   def new
     @card = Card.new(params[:card])
+    last_date = Card.pluck('MAX(observ_date)').first
+    if last_date
+      @card.observ_date ||= Date.parse(last_date) + 1
+    end
 
     respond_to do |format|
       format.html { render :form }
@@ -112,6 +116,11 @@ class CardsController < ApplicationController
   end
 
   private
+
+  # FIXME: very intrusive nojs option.
+  def default_url_options(options={})
+    options.merge params[:nojs] ? {nojs: true} : {}
+  end
 
   def cache_expire
     expire_page controller: :feeds, action: :photos, format: 'xml'

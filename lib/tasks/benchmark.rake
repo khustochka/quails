@@ -2,25 +2,17 @@ desc 'Quick benchmark'
 task :benchmark => :environment do
   require 'benchmark'
 
-  Lifelist.class_eval do
+  img = Image.where(slug: "woodpecker22969").first
 
-    def lifers_aggregation2
-      @observation_source.filter(@filter).
-          select("distinct on(species_id) id, species_id, observ_date, post_id").
-          order('species_id, observ_date ASC')
-    end
-
-  end
-
-  n = 100
+  n = 100000
   Benchmark.bmbm do |x|
 
-    x.report('old lifelist') { n.times {
-      Lifelist.basic.send(:lifers_aggregation).to_a
+    x.report('inject') { n.times {
+      img.assets_cache.main_image
     } }
 
-    x.report('new lifelist') { n.times {
-      Lifelist.basic.send(:lifers_aggregation2).to_a
+    x.report('sort') { n.times {
+      img.assets_cache.externals.sort_by {|a| a.width}.find {|a| a.width >= 894}
     } }
 
   end

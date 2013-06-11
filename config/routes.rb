@@ -74,12 +74,14 @@ Quails::Application.routes.draw do
     member do
       get 'edit/map', action: :map_edit
       get 'edit/flickr', action: :flickr_edit
+      post 'flickr', action: :flickr_upload, as: 'flickr_upload'
       post 'patch'
       get 'observations'
     end
     collection do
       get 'add'
       get 'flickr_search'
+      get 'unflickred'
     end
   end
 

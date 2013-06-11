@@ -1,7 +1,12 @@
 %div.obs-row
   - obs = form.object
-  = form.association :species, collection: species_for_select,
-      include_blank: true, required: false, input_html: {class: 'sp-suggest'}
+  - if @light_species_selector
+    = form.input :species do
+      = form.input_field :species, as: :string, name: '', value: obs.species.try(:name_sci), class: 'sp-light'
+      = form.input_field :species_id, as: :hidden
+  - else
+    = form.association :species, collection: species_for_select,
+        include_blank: true, required: false, input_html: {class: 'sp-suggest'}
   = form.input :mine, label: 'Mine?'
   = form.input :quantity, input_html: {class: :short}
   = form.input :notes

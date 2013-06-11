@@ -6,7 +6,7 @@ class ImagesController < ApplicationController
 
   administrative except: [:index, :multiple_species, :show, :gallery, :country]
 
-  find_record by: :slug, before: [:show, :edit, :flickr_edit, :map_edit, :update, :patch, :destroy]
+  find_record by: :slug, before: [:show, :edit, :flickr_edit, :flickr_upload, :map_edit, :update, :patch, :destroy]
 
   after_filter :cache_expire, only: [:create, :update, :destroy]
 
@@ -52,8 +52,29 @@ class ImagesController < ApplicationController
     render 'form'
   end
 
+  def unflickred
+    @images = Image.preload(:species).where(flickr_id: nil).order('created_at DESC').page(params[:page].to_i).per(24)
+  end
+
   # GET /photos/1/flickr_edit
   def flickr_edit
+    @next = Image.where(flickr_id: nil).where('created_at < ?', @image.created_at).order('created_at DESC').first
+  end
+
+  # POST /photos/1/flickr
+  def flickr_upload
+    raise "The image is already on flickr" if @image.on_flickr?
+    flickr_id = flickr.upload_photo local_image_url(@image),
+                                    title: (@image.species.map {|s| "#{s.name_en}; #{s.name_sci}"}.join('; ')),
+                                    description: "#{l(@image.observ_date, format: :long, locale: :en)}\n#{@image.locus.name_en}, #{@image.locus.country.name_en}",
+                                    tags: %Q(#{@image.species.map {|s| "\"#{s.name_en}\" \"#{s.name_sci}\""}.join(' ')} bird #{@image.locus.country.name_en} #{@image.species.map(&:order).uniq.join(' ')} #{@image.species.map(&:family).uniq.join(' ')}),
+                                    is_public: params[:public],
+                                    safety_level: 1,
+                                    content_type: 1
+
+    @image.set_flickr_data(flickr, {flickr_id: flickr_id})
+    @image.save!
+    redirect_to edit_flickr_image_path(@image)
   end
 
   # GET /photos/1/map_edit
@@ -64,6 +85,8 @@ class ImagesController < ApplicationController
   # POST /photos
   def create
     @image = Image.new
+
+    params[:image].slice!(:slug, :title, :description, :flickr_id)
 
     @image.set_flickr_data(flickr, params[:image])
 
@@ -76,7 +99,7 @@ class ImagesController < ApplicationController
 
   # PUT /photos/1
   def update
-    new_params = params[:image]
+    new_params = params[:image].slice(:slug, :title, :description, :flickr_id)
     if @image.update_with_observations(new_params, params[:obs])
       redirect_to(image_path(@image), :notice => 'Image was successfully updated.')
     else
@@ -94,8 +117,7 @@ class ImagesController < ApplicationController
     respond_to do |format|
       if @image.update_attributes(new_params)
         format.html { redirect_to action: 'edit' }
-        # Have to return something because empty response (head :ok) is not valid JSON and is not considered $.ajax success
-        format.json { render json: @image, only: new_params.keys + [:id] }
+        format.json { head :no_content }
       else
         format.html { render 'form' }
         format.json { render :json => @image.errors, :status => :unprocessable_entity }
@@ -125,14 +147,11 @@ class ImagesController < ApplicationController
           {}
         end
 
-    result =
-        params[:flickr_text].blank? ?
-            [] :
-            flickr.photos.search(
-                {user_id: Settings.flickr_admin.user_id,
-                 extras: 'date_taken,url_s',
-                 text: params[:flickr_text]}.merge(dates_params)
-            ).map(&:to_hash)
+    result = flickr.photos.search(
+        {user_id: (params[:flickr_user_id] || Settings.flickr_admin.user_id),
+         extras: 'date_taken,url_s',
+         text: params[:flickr_text]}.merge(dates_params)
+    ).map(&:to_hash)
 
     respond_with(result, only: %w(id title datetaken url_s))
   rescue FlickRaw::FailedResponse => e
@@ -145,5 +164,10 @@ class ImagesController < ApplicationController
     expire_page controller: :feeds, action: :blog, format: 'xml'
     expire_page controller: :feeds, action: :photos, format: 'xml'
     expire_page controller: :feeds, action: :sitemap, format: 'xml'
+  end
+
+  def local_image_url(img)
+    prefix = ImagesHelper.local_image_path || ImagesHelper.image_host
+    "#{prefix}/#{img.slug}.jpg"
   end
 end

@@ -50,4 +50,22 @@ class SpeciesTest < ActiveSupport::TestCase
     assert_equal Species.count, list.size
   end
 
+  test "Species posts" do
+    blogpost1 = create(:post)
+    blogpost2 = create(:post)
+    card = create(:card, post: blogpost1)
+    obs1 = create(:observation, card: card)
+    # Add more to test uniqueness
+    create(:observation, card: card)
+    create(:observation, card: card)
+    create(:observation, card: card)
+    obs2 = create(:observation, post: blogpost2)
+
+    posts = obs1.species.posts.to_a
+
+    assert_equal 2, posts.size
+    assert posts.include?(blogpost1)
+    assert posts.include?(blogpost2)
+  end
+
 end

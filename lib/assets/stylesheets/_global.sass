@@ -55,9 +55,9 @@ div.footer
   margin-top: -$footer-margin
 
 /* For small screens */
-img, video
-  max-width: 100%
-  height: auto
+// p is added to exclude thumbnails
+p img, video
+  @include auto-width
 
 // But this breaks map elements, so need to fix
 #googleMap img
@@ -117,6 +117,7 @@ div.footer
 // Nav
 
 nav
+  margin-top: 10px
   font-weight: bold
   color: #555555
   a

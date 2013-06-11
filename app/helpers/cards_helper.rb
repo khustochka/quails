@@ -13,12 +13,28 @@ module CardsHelper
     url = url_for(controller: item.class.to_s.tableize, action: :update, id: item.id, format: :json)
 
     link_to text, url, class: 'card_post_op pseudolink', remote: true,
-            method: :put, data: {confirm: 'Are you sure?', params: "#{item.class.to_s.singularize.downcase}[post_id]=#{post_id}"}
+            method: :put, data: {confirm: 'Are you sure?', params: "#{item.class.to_s.downcase}[post_id]=#{post_id}"}
   end
 
   # NOTICE: should always be called @observation_search !                                                                                         Observation
   def show_separate_observation_on_card_search?
     @observation_search.try(:observations_filtered?)
+  end
+
+  def suggested_dates
+    prelim = {
+        Date.today => ['Today'],
+        Date.yesterday => ['Yesterday']
+    }
+    last_date = Card.pluck('MAX(observ_date)').first
+    if last_date
+      prelim[Date.parse(last_date) + 1] = ['Last unreported']
+    end
+    if @card.persisted?
+      prelim[@card.observ_date] = ["Same day as this card"]
+      prelim[@card.observ_date + 1] = ["Next day to this card"]
+    end
+    prelim
   end
 
 end

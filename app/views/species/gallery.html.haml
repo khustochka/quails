@@ -1,4 +1,4 @@
-- @wider = true
+-# @wider = true
 
 - @page_title = t(".title")
 
@@ -13,12 +13,5 @@
       %li= link_to(t("countries.gallery.title.usa"), country_path(country: 'usa'))
       %li= link_to t('menu.photos'), images_path
 
-  %ul.thumbnails
-    = render :partial => 'thumbnail', :collection => @species
-
-    - if @thumbnail_for_multiple_species
-      %li.imageholder
-        = link_to image_tag(thumbnail_url(@thumbnail_for_multiple_species), alt: '[фото нескольких видов]'), photos_multiple_species_path
-        %div.imagetitle
-          = link_to photos_multiple_species_path do
-            %div Разные виды на одном фото
+  %div.thumbnails
+    = render_justified @thumbnails

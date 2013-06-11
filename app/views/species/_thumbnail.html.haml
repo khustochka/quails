@@ -1,6 +1,0 @@
-%li.imageholder
-  = link_to image_tag(thumbnail_url(thumbnail.image), alt: "[фото #{thumbnail.name}]"), species_path(thumbnail)
-  %div.imagetitle
-    = link_to species_path(thumbnail) do
-      %div= thumbnail.name
-      %div= name_sci(thumbnail)
