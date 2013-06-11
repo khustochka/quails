@@ -13,14 +13,14 @@
   max-width: $main-width
   padding: 0 1em
 
-$margin-between: 0.4em
+$margin-between: 0.3em
 $site-menu-color: #407FBF
 #site_menu
   display: inline-block
   margin:
     top: 15px
     bottom: 17px
-    left: -$margin-between
+    left: -($margin-between * 2)
   @include horiz-list
   font-size: 20px
   font-weight: bold
@@ -30,6 +30,8 @@ $site-menu-color: #407FBF
     @include deep-bordered-link($site-menu-color, #f7f7f1)
     @include unhighlighted-link($site-menu-color, #f7f7f1)
     padding-bottom: 0px
+  a:hover
+    color: #306faf
 
 // Looks
 
@@ -65,6 +67,7 @@ div#cse-wrapper
     outline: 0
     overflow: visible
     margin: 0
+    margin-top: -1px
     padding: 3px 10px
     text-shadow: white 0 1px 1px
     text-decoration: none
