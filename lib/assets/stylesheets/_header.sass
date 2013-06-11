@@ -4,24 +4,30 @@
 
 #header
   margin: 0 -1em
+  position: relative
 
 #menucontainer
-  //position: relative
   margin: auto
-  max-width: $main-width
+  width: $main-width
   padding: 0 1em
 
 $margin-between: 0.4em
+$site-menu-color: #407FBF
 #site_menu
   display: inline-block
   margin:
-    top: 5px
-    bottom: 5px
+    top: 15px
+    bottom: 17px
     left: -$margin-between
   @include horiz-list
+  font-size: 20px
+  font-weight: bold
   li
     margin: auto $margin-between
-
+  a
+    @include deep-bordered-link($site-menu-color, #f7f7f1)
+    @include unhighlighted-link($site-menu-color, #f7f7f1)
+    padding-bottom: 0px
 
 // Looks
 
@@ -31,14 +37,6 @@ $margin-between: 0.4em
   //  background-color: rgba(#f7f7f1, 0.9)
   box-shadow: 0 0 5px #000000
   box-shadow: 0 0 10px rgba(#000, 0.5)
-
-$site-menu-color: #407FBF
-#site_menu
-  font-size: 20px
-  line-height: 2.2em
-  a
-    @include deep-bordered-link($site-menu-color, #f7f7f1)
-    @include unhighlighted-link($site-menu-color, #f7f7f1)
 
 // Small screen
 

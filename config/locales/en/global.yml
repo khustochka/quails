@@ -13,6 +13,8 @@
   partials:
     years:
       years: 'Year:'
+    search:
+      search_button: Search
 
   author:
     name: Vitalii Khustochka
