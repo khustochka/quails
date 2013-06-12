@@ -9,7 +9,11 @@ class JSCardsTest < ActionDispatch::IntegrationTest
     click_button('Save')
     assert page.has_css?("#save_button[value=Save]")
   end
-  private :save_and_check
+  
+  def select_date(value)
+    find('#card_observ_date', visible: false).set(value)
+  end
+  private :save_and_check, :select_date
 
   test "Adding card" do
     login_as_admin
@@ -18,7 +22,7 @@ class JSCardsTest < ActionDispatch::IntegrationTest
     find(:xpath, "//span[text()='Add new row']").click
 
     select_suggestion('Brovary', from: 'Location')
-    fill_in('Date', with: '2011-04-08')
+    select_date('2011-04-08')
     assert_difference('Card.count') do
       save_and_check
     end
@@ -31,7 +35,7 @@ class JSCardsTest < ActionDispatch::IntegrationTest
     visit new_card_path
 
     select_suggestion('Brovary', from: 'Location')
-    fill_in('Date', with: '2011-04-08')
+    select_date('2011-04-08')
 
     find(:xpath, "//span[text()='Add new row']").click
 
@@ -53,7 +57,7 @@ class JSCardsTest < ActionDispatch::IntegrationTest
     visit new_card_path
 
     select_suggestion('Brovary', from: 'Location')
-    fill_in('Date', with: '2011-04-08')
+    select_date('2011-04-08')
 
     find(:xpath, "//span[text()='Add new row']").click
 
@@ -129,7 +133,7 @@ class JSCardsTest < ActionDispatch::IntegrationTest
     login_as_admin
     visit new_card_path
     select_suggestion('Brovary', from: 'Location')
-    fill_in('Date', with: '2011-04-08')
+    select_date('2011-04-08')
 
     find(:xpath, "//span[text()='Add new row']").click
 
@@ -146,7 +150,7 @@ class JSCardsTest < ActionDispatch::IntegrationTest
     visit new_card_path
 
     select_suggestion('Brovary', from: 'Location')
-    fill_in('Date', with: '2011-04-09')
+    select_date('2011-04-09')
 
     find(:xpath, "//span[text()='Add new row']").click
 
@@ -173,7 +177,7 @@ class JSCardsTest < ActionDispatch::IntegrationTest
     assert page.has_css?('label a', text: blogpost.title)
 
     select_suggestion('Brovary', from: 'Location')
-    fill_in('Date', with: '2011-04-09')
+    select_date('2011-04-09')
 
     find(:xpath, "//span[text()='Add new row']").click
 
@@ -202,7 +206,7 @@ class JSCardsTest < ActionDispatch::IntegrationTest
     assert page.has_css?('label a', text: blogpost.title)
 
     select_suggestion('Brovary', from: 'Location')
-    fill_in('Date', with: '2011-04-09')
+    select_date('2011-04-09')
     uncheck('card_post_id')
 
     find(:xpath, "//span[text()='Add new row']").click
@@ -226,7 +230,7 @@ class JSCardsTest < ActionDispatch::IntegrationTest
     assert page.has_css?('label a', text: blogpost.title)
 
     select_suggestion('Brovary', from: 'Location')
-    fill_in('Date', with: '2011-04-09')
+    select_date('2011-04-09')
 
     find(:xpath, "//span[text()='Add new row']").click
 

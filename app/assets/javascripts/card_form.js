@@ -76,6 +76,23 @@ $(function () {
   // Mark autocomplete locus field as required
   $('input#card_locus_id').prop('required', true);
 
+  // datepicker
+
+  var datefield = $("#card_observ_date"),
+      currentDate = datefield.val();
+  datefield.attr("type", "hidden");
+  datefield.parent().hide();
+
+  $("<div class='inline_date'></div>").prependTo("form.simple_form");
+  $(".inline_date").datepicker({
+    dateFormat: "yy-mm-dd",
+    altField: datefield,
+    altFormat: "yy-mm-dd",
+    defaultDate: currentDate
+  });
+
+  // Quick add
+
   if (lightmode) $('#species-quick-add').autocomplete({
     delay: 0,
     autoFocus: true,
