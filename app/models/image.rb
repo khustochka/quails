@@ -80,15 +80,11 @@ class Image < ActiveRecord::Base
   end
 
   def prev_by_species(sp)
-    r = sp.ordered_images.select("images.id AS img_id, lag(images.id) OVER #{PREV_NEXT_ORDER} AS prev").except(:order)
-    im = Image.from("(#{r.to_sql}) AS tmp").select("prev").where("img_id = ?", self.id)
-    Image.where(id: im).first
+    prev_next_by_species(sp, :prev)
   end
 
   def next_by_species(sp)
-    r = sp.ordered_images.select("images.id AS img_id, lead(images.id) OVER #{PREV_NEXT_ORDER} AS next").except(:order)
-    im = Image.from("(#{r.to_sql}) AS tmp").select("next").where("img_id = ?", self.id)
-    Image.where(id: im).first
+    prev_next_by_species(sp, :next)
   end
 
   def public_title
@@ -173,6 +169,14 @@ class Image < ActiveRecord::Base
         errors.add(:observations, 'must have the same card and mine value')
       end
     end
+  end
+
+  PREV_NEXT_FUNC = {prev: "lag", next: "lead"}
+
+  # func: :prev, :next
+  def prev_next_by_species(sp, func)
+    r = sp.ordered_images.select("images.id, #{PREV_NEXT_FUNC[func]}(images.id) OVER #{PREV_NEXT_ORDER}").except(:order)
+    Image.where("(?, id) IN (#{r.to_sql})", self.id).first
   end
 
 end
