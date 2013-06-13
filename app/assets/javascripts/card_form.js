@@ -157,4 +157,16 @@ $(function () {
     e.preventDefault();
   });
 
+  // Prevent submit on Enter
+
+  $(document).keydown(function (event) {
+    if (event.keyCode == 13 && !event.ctrlKey) {
+      event.preventDefault();
+      return false;
+    }
+    else if (event.keyCode == 13 && event.ctrlKey) {
+      $('.simple_form').submit();
+    }
+  });
+
 });
