@@ -142,7 +142,7 @@ class JSCardsTest < ActionDispatch::IntegrationTest
     end
 
     assert_difference('Observation.count', 1) { save_and_check }
-    assert_equal 0, Observation.order('id DESC').limit(1).first.species_id
+    assert_equal 0, Observation.order('id DESC').first.species_id
   end
 
   test "Clicking on voice checkbox label should not change the wrong checkbox" do
