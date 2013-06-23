@@ -1,5 +1,5 @@
 class LifelistSweeper < ActionController::Caching::Sweeper
-  observe Observation
+  observe Observation, Card
   # FIXME: Currently does not sweep on species rename, post URL change (slug or date)
 
   def after_save(rec)
