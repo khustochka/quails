@@ -47,7 +47,7 @@ class CommentsController < ApplicationController
 
     @comment = @post.comments.build(comment_attrs)
 
-    if @comment.like_spam? && params[:comment][:name].present?
+    if params[:comment][:name].present?
 
       render text: 'Error', status: 422
 

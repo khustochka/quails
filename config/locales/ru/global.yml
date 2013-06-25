@@ -13,6 +13,8 @@
   partials:
     years:
       years: 'Год:'
+    search:
+      search_button: Поиск
 
   author:
     name: Виталий Хусточка
