@@ -39,13 +39,12 @@ class CommentsControllerTest < ActionController::TestCase
 
   test "autohide comment with negative captcha" do
     invalid_attrs = valid_comment_params(name: 'Vasya')
-    assert_difference('Comment.count') do
+    assert_difference('Comment.count', 0) do
       post :create, invalid_attrs
     end
 
     comment = assigns(:comment)
-    assert_redirected_to public_comment_path(comment)
-    assert_equal false, comment.approved
+    assert_response 422
   end
 
   test "autohide comment with stop word in the body" do
