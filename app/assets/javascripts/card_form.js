@@ -159,7 +159,7 @@ $(function () {
 
   // Prevent submit on Enter
 
-  $(document).keydown(function (event) {
+  $('#species-quick-add').keydown(function (event) {
     if (event.keyCode == 13 && !event.ctrlKey) {
       event.preventDefault();
       return false;
