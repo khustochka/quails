@@ -2,7 +2,7 @@
 
 - @page_title = t(".title.#{@country.slug}")
 
-- cache do
+- cache(admin: current_user.admin?) do
 
   %div.header-with-subheader
     %h1= page_header

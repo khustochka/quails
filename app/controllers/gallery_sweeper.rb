@@ -13,8 +13,8 @@ class GallerySweeper < ActionController::Caching::Sweeper
 
   private
   def sweep_galleries
-    expire_fragment(controller: :countries, action: :gallery, country: 'ukraine')
-    expire_fragment(controller: :countries, action: :gallery, country: 'usa')
-    expire_fragment(controller: :species, action: :gallery)
+    expire_fragment %r[/ukraine.*]
+    expire_fragment %r[/usa.*]
+    expire_fragment %r[/species.*]
   end
 end

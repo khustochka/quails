@@ -11,10 +11,6 @@ class ApplicationController < ActionController::Base
 
   extend RecordFinder
 
-  def perform_caching
-    super && !current_user.admin?
-  end
-
   private
 
   def significant_params
