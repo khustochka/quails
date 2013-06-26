@@ -1,5 +1,5 @@
 class GallerySweeper < ActionController::Caching::Sweeper
-  observe Species, Taxon
+  observe Species, Taxon, Image
   #FIXME: will not sweep if species image existed before, but only recently added to country USA
   # This is a rare case, observing Observation will be an overhead
 
