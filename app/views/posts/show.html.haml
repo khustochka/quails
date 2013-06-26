@@ -26,7 +26,7 @@
 
     = @post.formatted.for_site.text
 
-- @post.images.if_present do |images|
+- @post.formatted.the_rest_of_images.if_present do |images|
   %div.photos
     %h2= t('.sections.photos')
     %div.thumbnails
