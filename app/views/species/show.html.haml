@@ -9,15 +9,15 @@
 %p
   = t("taxonomy.order")
   %strong= t("taxonomy.#{@species.order}") rescue nil
-  %i.sci_name= @species.order
+  %i.sci_name{lang: "la"}= @species.order
   &bull;
   = t("taxonomy.family")
   %strong= t("taxonomy.#{@species.family}") rescue nil
-  %i.sci_name= @species.family
+  %i.sci_name{lang: "la"}= @species.family
 
 %div.header-with-subheader
   %h1= @species.name
-  %h2.latin= @species.name_sci
+  %h2.latin{lang: "la"}= @species.name_sci
   %span.authority= @species.authority
 
 %dl.sp_translations
@@ -25,7 +25,7 @@
     - if (trans_name = @species.send("name_#{lang}")).present?
       %div
         %dt= t("languages.#{lang}")
-        %dd= trans_name
+        %dd{lang: lang}= trans_name
 
 - if (similar = @species.similar_species).present?
   %div.similar_species
