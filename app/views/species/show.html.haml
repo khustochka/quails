@@ -1,3 +1,5 @@
+- @meta_thumbnail = thumbnail_item(@species.image).url if @species.image
+
 - @page_title = "#{@species.name} (#{@species.name_sci})"
 
 - if current_user.admin?

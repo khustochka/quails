@@ -1,5 +1,7 @@
 - javascript 'image_show'
 
+- @meta_thumbnail = thumbnail_item(@image).try(:url)
+
 - @page_title = @image.formatted.title
 
 - if notice
