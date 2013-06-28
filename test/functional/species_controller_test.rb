@@ -67,6 +67,15 @@ class SpeciesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "species with main image correctly rendered to admin" do
+    login_as_admin
+    im = create(:image)
+    species = seed(:pasdom)
+
+    get :show, id: species.to_param
+    assert_response :success
+  end
+
   test "show species with image" do
     species = seed(:melgal)
     create(:image, observations: [create(:observation, species: species)])
