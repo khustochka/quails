@@ -41,7 +41,8 @@
       = render_justified images.map(&:to_thumbnail)
       - if current_user.admin?
         = simple_form_for @species do |form|
-          = form.input :image_id, as: :hidden
+          = form.simple_fields_for :species_image do |f2|
+            = f2.input :image_id, as: :hidden
         %p
           %span.pseudolink.edit_main_image Edit main image
 

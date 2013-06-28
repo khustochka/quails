@@ -20,12 +20,15 @@ class Species < ActiveRecord::Base
   has_many :images, :through => :observations
   has_many :taxa
 
-  belongs_to :image
+  has_one :species_image
+  has_one :image, through: :species_image
 
   AVIS_INCOGNITA = Struct.new(:id, :name_sci, :to_label, :name).
       new(0, '- Avis incognita', '- Avis incognita', '- Avis incognita')
 
   # Parameters
+
+  accepts_nested_attributes_for :species_image
 
   def to_param
     Species.parameterize(name_sci_was)
@@ -58,7 +61,7 @@ class Species < ActiveRecord::Base
 
   def update_image
     self.reload
-    if !image_id || !image
+    if !image
       self.image = self.images.first || nil
       save!
     end

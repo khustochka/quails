@@ -18,7 +18,7 @@ class SpeciesControllerTest < ActionController::TestCase
   test "get gallery" do
     # Setup main image for species
     @image = create(:image)
-    seed(:pasdom).update_column(:image_id, @image.id)
+    assert seed(:pasdom).image
     @obs = @image.observations.first
 
     get :gallery
@@ -30,7 +30,7 @@ class SpeciesControllerTest < ActionController::TestCase
   test "show link to multiple species on gallery" do
     # Setup main image for species
     @image = create(:image)
-    seed(:pasdom).update_column(:image_id, @image.id)
+    assert seed(:pasdom).image
     @obs = @image.observations.first
 
     # Setup photo of several species
