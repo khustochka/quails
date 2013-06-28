@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130531144947) do
+ActiveRecord::Schema.define(:version => 20130628124259) do
 
   create_table "books", :force => true do |t|
     t.string "slug",        :limit => 32, :null => false
@@ -150,7 +150,6 @@ ActiveRecord::Schema.define(:version => 20130531144947) do
     t.string  "avibase_id", :limit => 16
     t.string  "protonym"
     t.string  "name_fr"
-    t.integer "image_id"
     t.boolean "reviewed",                 :default => false, :null => false
     t.text    "wikidata"
   end
@@ -158,6 +157,13 @@ ActiveRecord::Schema.define(:version => 20130531144947) do
   add_index "species", ["code"], :name => "index_species_on_code", :unique => true
   add_index "species", ["index_num"], :name => "index_species_on_index_num"
   add_index "species", ["name_sci"], :name => "index_species_on_name_sci", :unique => true
+
+  create_table "species_images", :force => true do |t|
+    t.integer "species_id", :null => false
+    t.integer "image_id",   :null => false
+  end
+
+  add_index "species_images", ["species_id"], :name => "index_species_images_on_species_id", :unique => true
 
   create_table "spots", :force => true do |t|
     t.integer "observation_id"
