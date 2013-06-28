@@ -28,6 +28,8 @@ class Species < ActiveRecord::Base
 
   # Parameters
 
+  accepts_nested_attributes_for :species_image
+
   def to_param
     Species.parameterize(name_sci_was)
   end
