@@ -7,10 +7,6 @@ namespace :db do
     task :load do
       ENV['RAILS_ENV'] = 'test'
       Rake::Task['db:seed'].invoke
-
-      # Remove species image_id's before testing (no images in test DB)
-      Species.update_all(image_id: nil)
-
     end
   end
 end
