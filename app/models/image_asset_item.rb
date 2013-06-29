@@ -13,7 +13,7 @@ class ImageAssetItem < Struct.new(:type, :width, :height, :url)
   end
 
   def inspect
-    '%s: "%dx%d" %s' % [type, width, height, url.inspect]
+    sprintf('%s: "%dx%d" %s', type, width, height, url.inspect)
   end
 
   def full_url
