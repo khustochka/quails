@@ -15,6 +15,12 @@ class ImagesControllerTest < ActionController::TestCase
     assert_select "a[href=#{image_path(@image)}]"
   end
 
+  test "crazy page number should return 404" do
+    assert_raise ActiveRecord::RecordNotFound do
+      get :index, page: 7262
+    end
+  end
+
   test "show photos of multiple species" do
     sp1 = seed(:lancol)
     sp2 = seed(:jyntor)
