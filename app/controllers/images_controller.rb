@@ -48,7 +48,7 @@ class ImagesController < ApplicationController
   def upload
     uploaded_io = params[:image]
     File.open(File.join(ImagesHelper.local_image_path, uploaded_io.original_filename), 'wb') do |file|
-      file.write(uploaded_io.open())
+      file.write(uploaded_io.read)
     end
     new_slug = File.basename(uploaded_io.original_filename, '.*')
     redirect_to action: :new, i: {slug: new_slug}
