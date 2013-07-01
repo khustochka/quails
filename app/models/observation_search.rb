@@ -37,6 +37,7 @@ class ObservationSearch
     }
     if card_id = @conditions[:card].delete(:card_id)
       @conditions[:card][:id] = card_id
+      @conditions[:card][:locus_id] ||= Card.find(card_id).try(:locus_id)
     end
   end
 
