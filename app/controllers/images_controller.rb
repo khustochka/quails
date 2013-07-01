@@ -39,6 +39,16 @@ class ImagesController < ApplicationController
     redirect_to({action: :new}, alert: e.message)
   end
 
+  # POST /photos/upload
+  def upload
+    uploaded_io = params[:image]
+    File.open(File.join(ImagesHelper.local_image_path, uploaded_io.original_filename), 'wb') do |file|
+      file.write(uploaded_io.open())
+    end
+    new_slug = File.basename(uploaded_io.original_filename, '.*')
+    redirect_to action: :new, i: {slug: new_slug}
+  end
+
   # GET /photos/new
   def new
     @image = Image.new(params[:i])
