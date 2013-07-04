@@ -4,13 +4,13 @@ class SpeciesImageTest < ActiveSupport::TestCase
 
   test 'first species image should be attached to it automatically' do
     img = create(:image)
-    assert_equal [img.id], img.species.map(&:image_id)
+    assert_equal [img.id], img.species.map {|sp| sp.image.id}
   end
 
   test 'adding another species image should not overwrite existing one' do
     img = create(:image)
     img2 = create(:image)
-    assert_equal [img.id], img.species.map(&:image_id)
+    assert_equal [img.id], img.species.map {|sp| sp.image.id}
   end
 
   test 'removing the only species image should clear image_id' do
@@ -22,7 +22,7 @@ class SpeciesImageTest < ActiveSupport::TestCase
     img = Image.find(img_id)
     img.destroy
     sp.reload
-    assert_equal nil, sp.image_id
+    assert_equal nil, sp.image
   end
 
   test 'removing the active species image links another one to the species' do
@@ -30,7 +30,7 @@ class SpeciesImageTest < ActiveSupport::TestCase
     img2 = create(:image)
     sps = img.species
     img.destroy
-    assert_equal [img2.id], sps.map(&:image_id)
+    assert_equal [img2.id], sps.map {|sp| sp.image.id}
   end
 
   test 'species images should not be duplicated (if multi-species)' do

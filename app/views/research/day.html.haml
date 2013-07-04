@@ -2,7 +2,7 @@
 
 %h1= research_page_header
 
-%h2= "%s %s" % [t("date.month_names")[@month.to_i], @day]
+%h2= sprintf("%s %s", t("date.month_names")[@month.to_i], @day)
 
 %p
   = link_to("<< previous #@prev_day", {:day => @prev_day}) if @prev_day

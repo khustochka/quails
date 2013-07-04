@@ -82,6 +82,7 @@ Quails::Application.routes.draw do
       get 'add'
       get 'flickr_search'
       get 'unflickred'
+      post 'upload'
     end
   end
 

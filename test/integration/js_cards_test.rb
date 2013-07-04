@@ -9,7 +9,7 @@ class JSCardsTest < ActionDispatch::IntegrationTest
     click_button('Save')
     assert page.has_css?("#save_button[value=Save]")
   end
-  
+
   def select_date(value)
     find('#card_observ_date', visible: false).set(value)
   end

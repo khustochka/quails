@@ -1,6 +1,8 @@
 class Observation < ActiveRecord::Base
   include FormattedModel
 
+  sweep_cache :lifelist
+
   belongs_to :card
 
   belongs_to :species

@@ -1,5 +1,7 @@
 class LocalSpecies < ActiveRecord::Base
 
+  sweep_cache :checklist
+
   has_many :taxa, foreign_key: :species_id, primary_key: :species_id
 
   delegate :order, :family, to: :taxon

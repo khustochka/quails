@@ -3,7 +3,7 @@ require 'test_helper'
 class ImagesControllerTest < ActionController::TestCase
   setup do
     @image = create(:image)
-    seed(:pasdom).update_column(:image_id, @image.id)
+    assert seed(:pasdom).image
     @obs = @image.observations.first
   end
 
@@ -13,6 +13,12 @@ class ImagesControllerTest < ActionController::TestCase
     assert_not_empty assigns(:images)
 
     assert_select "a[href=#{image_path(@image)}]"
+  end
+
+  test "crazy page number should return 404" do
+    assert_raise ActiveRecord::RecordNotFound do
+      get :index, page: 7262
+    end
   end
 
   test "show photos of multiple species" do

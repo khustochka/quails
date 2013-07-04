@@ -13,7 +13,7 @@ module SpeciesHelper
   end
 
   def name_sci(sp_obj)
-    content_tag(:i, sp_obj.name_sci, class: 'sci_name')
+    content_tag(:i, sp_obj.name_sci, class: 'sci_name', lang: "la")
   end
 
   def unknown_species(text, name_sci)

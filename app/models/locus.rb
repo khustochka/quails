@@ -70,21 +70,26 @@ class Locus < ActiveRecord::Base
 
   def subregion_ids
     Rails.cache.fetch("records/loci/#{self.slug}/subregion_ids") do
-      # WARNING: PostgreSQL specific syntax
-      # Learnt from: http://blog.hashrocket.com/posts/recursive-sql-in-activerecord
-      query = <<-SQL
-      WITH RECURSIVE subregions(id) AS (
-        SELECT id
-        FROM loci
-        WHERE parent_id = #{self.id}
-          UNION ALL
-        SELECT loci.id
-        FROM loci JOIN subregions ON loci.parent_id = subregions.id
-      )
-      SELECT * FROM subregions
-      SQL
+      # Hack for Arabat Spit
+      if self.slug == 'arabat_spit'
+        Locus.where("slug LIKE 'arabat%'").pluck(:id)
+      else
+        # WARNING: PostgreSQL specific syntax
+        # Learnt from: http://blog.hashrocket.com/posts/recursive-sql-in-activerecord
+        query = <<-SQL
+            WITH RECURSIVE subregions(id) AS (
+              SELECT id
+              FROM loci
+              WHERE parent_id = #{self.id}
+                UNION ALL
+              SELECT loci.id
+              FROM loci JOIN subregions ON loci.parent_id = subregions.id
+            )
+            SELECT * FROM subregions
+        SQL
 
-      Locus.connection.select_rows(query, "Locus Load").map! { |a| a[0].to_i }.push(self.id)
+        Locus.connection.select_rows(query, "Locus Load").map! { |a| a[0].to_i }.push(self.id)
+      end
     end
   end
 

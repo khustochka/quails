@@ -59,6 +59,15 @@ class ResearchControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "admin sees Research/voices" do
+    create(:observation, card: create(:card, observ_date: "2007-06-18"), voice: true)
+    create(:observation, card: create(:card, observ_date: "2009-06-18"), voice: false)
+    create(:observation, card: create(:card, observ_date: "2009-06-18"), voice: false, species: seed(:cormon))
+    login_as_admin
+    get :voices
+    assert_response :success
+  end
+
   test "admin sees Research/environment" do
     login_as_admin
     get :environ

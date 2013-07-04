@@ -13,20 +13,7 @@ class ApplicationController < ActionController::Base
 
   extend RecordFinder
 
-  def perform_caching
-    super && !current_user.admin?
-  end
-
   private
-
-  def self.cache_sweeper(*args)
-    #FIXME: see https://github.com/rails/rails-observers/issues/4
-  end
-
-  #FIXME: see https://github.com/rails/rails-observers/issues/4
-  def caching_allowed?
-    false
-  end
 
   def significant_params
     if @allowed_params

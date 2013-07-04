@@ -1,7 +1,5 @@
 class ImagesController < ApplicationController
 
-  cache_sweeper :gallery_sweeper
-
   respond_to :json, only: [:flickr_search, :observations]
 
   administrative except: [:index, :multiple_species, :show, :gallery, :country]
@@ -15,6 +13,11 @@ class ImagesController < ApplicationController
     redirect_to page: nil if params[:page].to_i == 1
     @images = Image.preload(:species).order('created_at DESC').page(params[:page].to_i).per(24)
     @feed = 'photos'
+    if @images.empty? && params[:page].to_i != 1
+      raise ActiveRecord::RecordNotFound
+    else
+      render :index
+    end
   end
 
   # Photos of multiple species
@@ -37,6 +40,16 @@ class ImagesController < ApplicationController
     end
   rescue FlickRaw::FailedResponse => e
     redirect_to({action: :new}, alert: e.message)
+  end
+
+  # POST /photos/upload
+  def upload
+    uploaded_io = params[:image]
+    File.open(File.join(ImagesHelper.local_image_path, uploaded_io.original_filename), 'wb') do |file|
+      file.write(uploaded_io.read)
+    end
+    new_slug = File.basename(uploaded_io.original_filename, '.*')
+    redirect_to action: :new, i: {slug: new_slug}
   end
 
   # GET /photos/new
@@ -65,9 +78,9 @@ class ImagesController < ApplicationController
   def flickr_upload
     raise "The image is already on flickr" if @image.on_flickr?
     flickr_id = flickr.upload_photo local_image_url(@image),
-                                    title: (@image.species.map {|s| "#{s.name_en}; #{s.name_sci}"}.join('; ')),
+                                    title: (@image.species.map { |s| "#{s.name_en}; #{s.name_sci}" }.join('; ')),
                                     description: "#{l(@image.observ_date, format: :long, locale: :en)}\n#{@image.locus.name_en}, #{@image.locus.country.name_en}",
-                                    tags: %Q(#{@image.species.map {|s| "\"#{s.name_en}\" \"#{s.name_sci}\""}.join(' ')} bird #{@image.locus.country.name_en} #{@image.species.map(&:order).uniq.join(' ')} #{@image.species.map(&:family).uniq.join(' ')}),
+                                    tags: %Q(#{@image.species.map { |s| "\"#{s.name_en}\" \"#{s.name_sci}\"" }.join(' ')} bird #{@image.locus.country.name_en} #{@image.species.map(&:order).uniq.join(' ')} #{@image.species.map(&:family).uniq.join(' ')}),
                                     is_public: params[:public],
                                     safety_level: 1,
                                     content_type: 1
@@ -91,6 +104,16 @@ class ImagesController < ApplicationController
     @image.set_flickr_data(flickr, params[:image])
 
     if @image.update_with_observations(params[:image], params[:obs])
+
+      if ImagesHelper.local_image_path && !Rails.env.test?
+        full_path = File.join(ImagesHelper.local_image_path, "#{params[:image][:slug]}.jpg")
+        if File.exist?(full_path)
+          w, h = `identify -format "%Wx%H" #{full_path}`.split('x').map(&:to_i)
+          @image.assets_cache << ImageAssetItem.new(:local, w, h, "#{params[:image][:slug]}.jpg")
+          @image.save!
+        end
+      end
+
       redirect_to(image_path(@image), :notice => 'Image was successfully created.')
     else
       render 'form'

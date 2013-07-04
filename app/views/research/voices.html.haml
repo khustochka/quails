@@ -1,0 +1,18 @@
+- @page_title = 'Species mostly recorded by voice'
+
+%h1= research_page_header
+
+%table.neat_table
+  %tr
+    %th
+    %th Species
+    %th Voice / Total
+  - @species.each_with_index do |sp, i|
+    %tr
+      %td.align-right= "#{i+1}."
+      %td
+        = species_link(sp)
+      %td.align-right
+        %i= sprintf "%.2f" % sp.percentage.to_f
+        \%
+

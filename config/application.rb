@@ -1,15 +1,10 @@
 require File.expand_path('../boot', __FILE__)
 
-
 require 'rails/all'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env)
-
-#FIXME: see https://github.com/rails/rails-observers/issues/4
-require 'rails/observers/activerecord/base'
-require 'rails/observers/activerecord/observer'
 
 module Quails
   class Application < Rails::Application
@@ -31,11 +26,6 @@ module Quails
     # This is necessary if your schema can't be completely dumped by the schema dumper,
     # like if you have constraints or database-specific column types.
     # config.active_record.schema_format = :sql
-
-    # FIXME: does not work in rails 4 ?
-    # Prevent running initializers on precompile
-    # (required for heroku, and works only in application.rb, not in production.rb)
-    config.assets.initialize_on_precompile = false
 
   end
 end

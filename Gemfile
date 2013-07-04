@@ -16,7 +16,6 @@ end
 
 # Bundle the extra gems:
 gem 'actionpack-page_caching'
-gem 'rails-observers', github: 'rails/rails-observers'
 gem 'rails-i18n'
 gem 'haml-rails', github: 'indirect/haml-rails'
 gem 'haml-contrib'

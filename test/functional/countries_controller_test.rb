@@ -3,7 +3,7 @@ require 'test_helper'
 class CountriesControllerTest < ActionController::TestCase
   setup do
     @image = create(:image)
-    seed(:pasdom).update_column(:image_id, @image.id)
+    assert seed(:pasdom).image
     @obs = @image.observations.first
   end
 

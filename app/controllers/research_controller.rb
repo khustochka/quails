@@ -185,4 +185,15 @@ class ResearchController < ApplicationController
 
   end
 
+  def voices
+    voiceful = "select species_id, COUNT(id) as voicenum from observations where voice group by species_id"
+    total = "select species_id, count(id) as totalnum from observations group by species_id"
+    @species = Species.find_by_sql("WITH voiceful AS (#{voiceful}), total AS (#{total})
+                SELECT species.*, 100.00 * voicenum / totalnum as percentage
+                FROM voiceful NATURAL JOIN total JOIN species on species_id = species.id
+                WHERE voicenum <> 0
+                ORDER BY percentage DESC
+                LIMIT 20")
+  end
+
 end
