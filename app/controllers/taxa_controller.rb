@@ -1,6 +1,6 @@
 class TaxaController < ApplicationController
 
-  cache_sweeper :gallery_sweeper, :checklist_sweeper
+  cache_sweeper :checklist_sweeper
 
   administrative
 

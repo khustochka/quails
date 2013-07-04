@@ -2,6 +2,8 @@ require 'species_parameterizer'
 
 class Taxon < ActiveRecord::Base
 
+  sweep_cache :gallery
+
   extend SpeciesParameterizer
 
   include ActiveRecord::Localized

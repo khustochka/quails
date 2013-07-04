@@ -4,6 +4,8 @@ class Species < ActiveRecord::Base
 
   extend SpeciesParameterizer
 
+  sweep_cache :gallery
+
   include ActiveRecord::Localized
   localize :name
 

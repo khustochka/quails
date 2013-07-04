@@ -1,7 +1,5 @@
 class SpeciesController < ApplicationController
 
-  cache_sweeper :gallery_sweeper
-
   administrative :except => [:gallery, :show]
 
   before_filter :find_species, only: [:edit, :update, :review]

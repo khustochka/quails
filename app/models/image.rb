@@ -1,6 +1,8 @@
 class Image < ActiveRecord::Base
   include FormattedModel
 
+  sweep_cache :gallery
+
   validates :slug, uniqueness: true, presence: true, length: {:maximum => 64}
   validates :flickr_id, uniqueness: true, allow_nil: true
 
