@@ -1,6 +1,6 @@
 - @page_title = t(".title.#{@country.slug}")
 
-- cache do
+- cache(key: checklist_cache_key) do
 
   %div.header-with-subheader
     %h1= page_header

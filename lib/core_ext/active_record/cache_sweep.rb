@@ -6,6 +6,10 @@ class ActiveRecord::Base
       then
         self.after_save { $gallery_cache_key = nil }
         self.after_destroy { $gallery_cache_key = nil }
+      when :checklist
+      then
+        self.after_save { $checklist_cache_key = nil }
+        self.after_destroy { $checklist_cache_key = nil }
     end
   end
 
