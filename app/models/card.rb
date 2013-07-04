@@ -1,6 +1,7 @@
 class Card < ActiveRecord::Base
-
   include FormattedModel
+
+  sweep_cache :lifelist
 
   belongs_to :locus
   belongs_to :post

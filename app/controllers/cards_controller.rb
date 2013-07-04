@@ -3,7 +3,6 @@ class CardsController < ApplicationController
   administrative
 
   after_filter :cache_expire, only: [:create, :update, :destroy, :attach]
-  cache_sweeper :lifelist_sweeper
 
   # GET /cards
   # GET /cards.json

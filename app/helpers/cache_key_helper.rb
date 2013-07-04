@@ -8,4 +8,8 @@ module CacheKeyHelper
     $checklist_cache_key ||= Time.now.to_i
   end
 
+  def lifelist_cache_key
+    $lifelist_cache_key ||= Time.now.to_i
+  end
+
 end
