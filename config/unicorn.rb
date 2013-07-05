@@ -12,7 +12,7 @@ env = ENV["RAILS_ENV"] || "production"
 
 # Use at least one worker per core if you're on a dedicated server,
 # more will usually help for _short_ waits on databases/caches.
-worker_processes ENV["QUAILS_UNICORN_WORKERS"] || 3
+worker_processes ENV["QUAILS_UNICORN_WORKERS"].to_i || 3
 
 # Since Unicorn is never exposed to outside clients, it does not need to
 # run on the standard HTTP port (80), there is no reason to start Unicorn
