@@ -1,6 +1,6 @@
 class LocalSpecies < ActiveRecord::Base
 
-  sweep_cache :checklist
+  invalidates CacheKey.checklist
 
   has_many :taxa, foreign_key: :species_id, primary_key: :species_id
 

@@ -2,7 +2,7 @@
 
 - @page_title = t(".title")
 
-- cache(admin: current_user.admin?, key: gallery_cache_key) do
+- cache(admin: current_user.admin?, key: CacheKey.gallery) do
 
   %div.header-with-subheader
     = feed_icon

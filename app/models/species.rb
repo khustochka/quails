@@ -4,7 +4,7 @@ class Species < ActiveRecord::Base
 
   extend SpeciesParameterizer
 
-  sweep_cache :gallery
+  invalidates CacheKey.gallery
 
   include ActiveRecord::Localized
   localize :name
