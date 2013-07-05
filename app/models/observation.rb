@@ -1,7 +1,7 @@
 class Observation < ActiveRecord::Base
   include FormattedModel
 
-  sweep_cache :lifelist
+  invalidates CacheKey.lifelist
 
   belongs_to :card
 
