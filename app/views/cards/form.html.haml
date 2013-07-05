@@ -6,7 +6,7 @@
 - stylesheet 'forms'
 - javascript 'card_form'
 
-- @page_title = "#{new_or_edit_label(@card)} card"
+- @page_title = @card.persisted? ? "Edit: #{l(@card.observ_date, format: :long)}, #{@card.locus.name}" : "New card"
 
 %h1= page_header
 
