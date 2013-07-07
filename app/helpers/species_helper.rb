@@ -12,6 +12,10 @@ module SpeciesHelper
     link_to(string || sp_obj.name, species_path(sp_obj), class: 'sp_link')
   end
 
+  def new_species_link(sp_obj)
+    "<b>#{species_link(sp_obj)}</b><span class='new_sp' title='Новый вид!'>&#8727;</span>"
+  end
+
   def name_sci(sp_obj)
     content_tag(:i, sp_obj.name_sci, class: 'sci_name', lang: "la")
   end

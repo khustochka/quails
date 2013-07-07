@@ -35,7 +35,7 @@
 - @post.species.if_present do |spcs|
   %h3= t('.sections.species', count: spcs.size)
   %p
-    = (spcs.map { |sp| species_link(sp) }.join(",\n") << ".").html_safe
+    = (spcs.map { |sp| sp.id.in?(@new_species) ? new_species_link(sp) : species_link(sp) }.join(",\n") << ".").html_safe
 
 - if @comments[0] || (notice && notice[0])
 
