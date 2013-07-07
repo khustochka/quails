@@ -13,7 +13,7 @@ module SpeciesHelper
   end
 
   def new_species_link(sp_obj)
-    "<b>#{species_link(sp_obj)}</b><span class='new_sp' title='Новый вид!'>&#8727;</span>"
+    "<b>#{species_link(sp_obj)}</b><span class='new_sp' title='#{t("posts.show.new_species")}'>&#8727;</span>"
   end
 
   def name_sci(sp_obj)
