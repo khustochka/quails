@@ -33,7 +33,10 @@
 %h3 Counts
 
 %ul
-  %li Posts: #{Post.count}
+  %li
+    Posts: #{Post.count}
+    %ul
+      %li public: #{Post.public.count}
   %li Images: #{Image.count}
   %li Cards: #{Card.count}
   %li Observations: #{Observation.count}
