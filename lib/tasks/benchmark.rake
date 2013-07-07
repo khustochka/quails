@@ -54,7 +54,9 @@ task :benchmark => :environment do
     } }
 
     x.report('lifelist preload') { n.times {
+      r4 = Lifelist.basic.source(posts: Post.scoped).select {|l| l.post.try(:id) == 555}
 
+      raise r4.size.to_sql unless r4.size == 7
 
     } }
 
