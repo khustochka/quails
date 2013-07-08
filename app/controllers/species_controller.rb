@@ -1,8 +1,10 @@
 class SpeciesController < ApplicationController
 
-  administrative :except => [:gallery, :show]
+  administrative :except => [:gallery, :show, :search]
 
   before_filter :find_species, only: [:edit, :update, :review]
+
+  respond_to :json, only: :search
 
   # GET /species/admin
   def index
@@ -99,6 +101,11 @@ class SpeciesController < ApplicationController
         where("index_num > #{@species.index_num}").
         where("NOT reviewed").
         order(:index_num).first
+  end
+
+  def search
+    result = SpeciesSearch.find(params[:term])
+    respond_with result
   end
 
   private

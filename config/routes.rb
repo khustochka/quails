@@ -30,6 +30,7 @@ Quails::Application.routes.draw do
   resources :species, only: [:show] do
     collection do
       get 'admin', action: :index
+      get 'search'
     end
   end
 

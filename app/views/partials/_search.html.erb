@@ -2,7 +2,7 @@
 <form action="http://www.google.com/cse" id="cse-search-box">
     <input name="cx" type="hidden" value="<%= code %>" />
     <input name="ie" type="hidden" value="UTF-8" />
-    <input name="q" />
+    <input name="q" id="cse-query-box" autocomplete="off" />
     <input name="sa" type="submit" value="<%= t(".search_button") %>" id="cse-submit" />
 </form>
 <script src="http://www.google.com/coop/cse/brand?form=cse-search-box&amp;lang=en">

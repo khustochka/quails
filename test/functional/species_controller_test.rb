@@ -142,4 +142,10 @@ class SpeciesControllerTest < ActionController::TestCase
     assert_raise(ActionController::RoutingError) { put :update, id: species.to_param, species: species.attributes }
     #assert_response 404
   end
+
+  test "search" do
+    get :search, term: 'gar', format: :json
+    assert_response :success
+    assert_equal Mime::JSON, response.content_type
+  end
 end
