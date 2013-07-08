@@ -5,4 +5,5 @@
 = stylesheet_link_tag(*@stylesheets.compact) if @stylesheets.present?
 
 -# scripts
-= javascript_include_tag(*@scripts.compact.unshift(JQUERY_URL)) if @scripts.present?
+- scripts = @scripts.try(:compact) || []
+= javascript_include_tag(*scripts.unshift(JQUERY_URL, jquery_ui_file(current_user)))

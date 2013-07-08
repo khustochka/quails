@@ -1,4 +1,3 @@
-//= require jquery_ujs
 
 $(function () {
 

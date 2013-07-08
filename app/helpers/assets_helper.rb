@@ -13,4 +13,8 @@ module AssetsHelper
     @scripts ||= []
     @scripts.concat args
   end
+
+  def jquery_ui_file(user)
+    user.admin? ? "admin" : "application"
+  end
 end
