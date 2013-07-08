@@ -163,7 +163,7 @@ class LifelistTest < ActiveSupport::TestCase
     new_obs = create(:observation, species: seed(:colliv), card: create(:card, observ_date: "2008-05-22", locus: seed(:kiev)))
     @obs[0].post = create(:post)
     @obs[0].save!
-    lifelist = Lifelist.advanced.source(posts: Post.public, loci: Locus.public).filter(locus: 'kiev')
+    lifelist = Lifelist.advanced.source(posts: Post.public, loci: Locus.public).filter(locus: 'kiev').to_a
     assert_equal nil, lifelist.find { |sp| sp.code == 'colliv' }.post
   end
 end
