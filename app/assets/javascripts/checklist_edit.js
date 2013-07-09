@@ -1,4 +1,3 @@
-
 $(function () {
 
     var form = $("<form method='post'>");

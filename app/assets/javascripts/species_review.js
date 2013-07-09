@@ -1,4 +1,3 @@
-
 $(function () {
 
   var spForm = $('form.edit_species'),

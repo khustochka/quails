@@ -1,3 +1,4 @@
+//= require jquery-ui.addon
 //= require suggest_over_combo
 
 

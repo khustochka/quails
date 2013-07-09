@@ -1,4 +1,3 @@
-
 $(function () {
 
   var current_image_id_field = $('#species_species_image_attributes_image_id');
