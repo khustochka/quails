@@ -37,6 +37,10 @@
 
       -# rel canonical, self, alternate etc
 
+      - if @canonical
+        %link{href: @canonical, rel: "canonical"}
+        %meta{content: @canonical, property: "og:url"}
+
       -# rss feeds
       - if @feed
         = auto_discovery_link_tag(:atom, {:controller => :feeds, :action => @feed, :format => :xml}, :title => @feed)
