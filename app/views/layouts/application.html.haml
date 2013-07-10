@@ -17,7 +17,7 @@
 
     - if @meta_description
       %meta{ property: "og:description", content: @meta_description }
-      %meta{ property: "description", content: @meta_description }
+      %meta{ name: "description", content: @meta_description }
 
 
     %title= page_title
