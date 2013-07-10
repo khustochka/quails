@@ -97,7 +97,18 @@ class Locus < ActiveRecord::Base
     @country ||= if parent_id.nil?
                    self
                  else
-                   parent.country
+                   query = <<-SQL
+                      WITH RECURSIVE parents AS (
+                        SELECT *
+                        FROM loci
+                        WHERE id = #{self.parent_id}
+                          UNION ALL
+                        SELECT loci.*
+                        FROM loci JOIN parents ON loci.id = parents.parent_id
+                      )
+                      SELECT * FROM parents WHERE parent_id IS NULL LIMIT 1
+                   SQL
+                   Locus.find_by_sql(query).first
                  end
   end
 
