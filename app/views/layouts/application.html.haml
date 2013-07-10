@@ -15,6 +15,10 @@
       %meta{ name: "thumbnail", content: @meta_thumbnail }
       %link{ rel: 'image_src', href: @meta_thumbnail }
 
+    - if @meta_description
+      %meta{ property: "og:description", content: @meta_description }
+      %meta{ property: "description", content: @meta_description }
+
 
     %title= page_title
 
