@@ -19,6 +19,8 @@
       %meta{ property: "og:description", content: @meta_description }
       %meta{ name: "description", content: @meta_description }
 
+    - if @og_type
+      %meta{ property: "og:type", content: @og_type }
 
     %title= page_title
 
