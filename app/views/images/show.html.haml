@@ -1,5 +1,7 @@
 - javascript 'image_show'
 
+- @facebook_like = true
+
 - @meta_thumbnail = thumbnail_item(@image).try(:url)
 - @meta_description = @image.formatted.meta_description
 
@@ -23,6 +25,9 @@
 %h1= page_header
 
 %div.image_canvas= image_tag(jpg_url(@image), alt: '[фотография]')
+
+- if FacebookSdk.configured? && @facebook_like
+  %p= render 'facebook/like'
 
 %table.image_nav
   %tr

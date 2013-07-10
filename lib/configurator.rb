@@ -44,6 +44,10 @@ module Configurator
     GoogleSearch.configure(config_data.google_cse)
   end
 
+  def self.configure_facebook_sdk
+    FacebookSdk.configure(config_data.facebook_app_id)
+  end
+
   def self.configure_google_analytics
     GoogleAnalytics.configure(config_data.ga_code)
   end
@@ -88,6 +92,7 @@ module Configurator
             host: ENV['errbit_host']
         },
         google_cse: ENV['quails_google_cse'],
+        facebook_app_id: ENV['quails_facebook_app_id'],
         ga_code: ENV['quails_ga_code'],
         mail: {
             sender: ENV['quails_mail_sender'],

@@ -59,6 +59,9 @@
 
   %body{class: (@wider ? 'wider' : nil)}
 
+    - if @facebook_like
+      = FacebookSdk.render(self)
+
     #above-footer
 
       = render 'partials/header'
