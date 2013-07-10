@@ -22,6 +22,9 @@
     - if @og_type
       %meta{ property: "og:type", content: @og_type }
 
+    - if FacebookSdk.configured?
+      %meta{ property: "fb:app_id", content: FacebookSdk.config.code }
+
     %title= page_title
 
     -# mobile viewport
