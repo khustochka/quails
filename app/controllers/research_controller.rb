@@ -6,6 +6,9 @@ class ResearchController < ApplicationController
     #@env = ENV
   end
 
+  def insights
+  end
+
   def index
   end
 
