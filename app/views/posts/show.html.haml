@@ -1,6 +1,12 @@
 - javascript 'comments'
 - javascript 'post_show_admin' if current_user.admin?
 
+- @facebook_like = true
+
+-# @meta_thumbnail = thumbnail_item(@post.images.to_a.first).try(:url) if @post.images.present?
+- @canonical = public_post_path(@post, only_path: false)
+- @og_type = 'article'
+
 - if @post.public?
   - provide :add_shortcuts do
     - if @post.status == 'OPEN'
@@ -26,6 +32,9 @@
 
     = @post.formatted.for_site.text
 
+- if FacebookSdk.configured? && @facebook_like
+  %p= render 'facebook/like'
+
 - @post.formatted.the_rest_of_images.if_present do |images|
   %div.photos
     %h2= t('.sections.photos')
@@ -33,9 +42,14 @@
       = render_justified images.map(&:to_thumbnail)
 
 - @post.species.if_present do |spcs|
-  %h3= t('.sections.species', count: spcs.size)
+  %h3
+    = t('.sections.species')
+    - arr = [spcs.size]
+    - arr << "из них #{t('my_stats.index.new_count_species', count: @new_species.size)}" if @new_species.size > 0
+    = surround '(', ')' do
+      = arr.join(", ")
   %p
-    = (spcs.map { |sp| species_link(sp) }.join(",\n") << ".").html_safe
+    = (spcs.map { |sp| sp.id.in?(@new_species) ? new_species_link(sp) : species_link(sp) }.join(",\n") << ".").html_safe
 
 - if @comments[0] || (notice && notice[0])
 
@@ -61,7 +75,7 @@
   %p= link_to('Attach existing cards / observations', edit_post_path(@post, anchor: 'card_attach'))
 
   %ul.cards_list
-    = render @post.cards
+    = render @post.cards.preload(:post, :locus)
 
     %ul
       - @post.observations.each do |obs|

@@ -15,9 +15,10 @@
     show:
       sections:
         photos: Фотографии
-        species: 'Встреченные виды (%{count}):'
+        species: 'Встреченные виды'
         comments: Комментарии
       add_comment: Добавить комментарий
+      new_species: Новый вид!
 
     post:
       comments:

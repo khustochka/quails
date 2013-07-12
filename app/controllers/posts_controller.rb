@@ -16,6 +16,14 @@ class PostsController < ApplicationController
     if @post.month != params[:month].to_s || @post.year != params[:year].to_s
       redirect_to public_post_path(@post), :status => 301
     end
+
+    subquery = "select obs.id from observations obs join cards c on obs.card_id = c.id where observations.species_id = obs.species_id and cards.observ_date > c.observ_date and obs.mine"
+    @new_species = Observation.
+        joins(:card).
+        where("observations.post_id = ? or cards.post_id = ?", @post.id, @post.id).
+        where("NOT EXISTS(#{subquery})").
+        pluck(:species_id)
+
     @robots = 'NOINDEX' if @post.status == 'NIDX'
     @comments = current_user.available_comments(@post).group_by(&:parent_id)
     @comment = @post.comments.new(:parent_id => 0)

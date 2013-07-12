@@ -15,10 +15,11 @@
     show:
       sections:
         photos: Images
-        species: 'Species met (%{count}):'
+        species: 'Species met'
         comments: Comments
       add_comment: Add new
       save_button: Save
+      new_species: New lifer!
 
     post:
       comments:

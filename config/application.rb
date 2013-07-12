@@ -29,3 +29,5 @@ module Quails
 
   end
 end
+
+require 'quails/env'
