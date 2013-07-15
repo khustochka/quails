@@ -18,11 +18,11 @@ class Post < ActiveRecord::Base
   has_many :comments, dependent: :destroy
   has_many :cards, dependent: :nullify, order: 'observ_date ASC, locus_id'
   has_many :observations, dependent: :nullify # only those attached directly
-  #has_many :species, :through => :observations, :order => [:index_num], :uniq => true
-  #has_many :images, :through => :observations, :include => [:species]
-           #:order => 'observations.observ_date, observations.locus_id, images.index_num, species.index_num'
+                                              #has_many :species, :through => :observations, :order => [:index_num], :uniq => true
+                                              #has_many :images, :through => :observations, :include => [:species]
+                                              #:order => 'observations.observ_date, observations.locus_id, images.index_num, species.index_num'
 
-  # Convert "timezone-less" face_date to local time zone because AR treats it as UTC (especially necessary for feed updated time)
+                                              # Convert "timezone-less" face_date to local time zone because AR treats it as UTC (especially necessary for feed updated time)
   def face_date
     Time.zone.parse(face_date_before_type_cast)
   end
@@ -111,6 +111,16 @@ class Post < ActiveRecord::Base
     commented = self[:commented_at].utc.to_s(cache_timestamp_format) rescue "0"
 
     "#{self.class.model_name.cache_key}/#{id}-#{updated}-#{commented}"
+  end
+
+  # List of new species
+  def new_species_ids
+    subquery = "select obs.id from observations obs join cards c on obs.card_id = c.id where observations.species_id = obs.species_id and cards.observ_date > c.observ_date and obs.mine"
+    @new_species_ids ||= MyObservation.
+        joins(:card).
+        where("observations.post_id = ? or cards.post_id = ?", self.id, self.id).
+        where("NOT EXISTS(#{subquery})").
+        pluck(:species_id)
   end
 
   private
