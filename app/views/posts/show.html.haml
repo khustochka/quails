@@ -49,7 +49,7 @@
     = surround '(', ')' do
       = arr.join(", ")
   %p
-    = (spcs.map { |sp| sp.id.in?(@new_species) ? new_species_link(sp) : species_link(sp) }.join(",\n") << ".").html_safe
+    = (spcs.map { |sp| species_link_in_post(sp, @post) }.join(",\n") << ".").html_safe
 
 - if @comments[0] || (notice && notice[0])
 

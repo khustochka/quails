@@ -117,6 +117,16 @@ class Post < ActiveRecord::Base
     "#{self.class.model_name.cache_key}/#{id}-#{updated}-#{commented}"
   end
 
+  # List of new species
+  def new_species_ids
+    subquery = "select obs.id from observations obs join cards c on obs.card_id = c.id where observations.species_id = obs.species_id and cards.observ_date > c.observ_date and obs.mine"
+    @new_species_ids ||= MyObservation.
+        joins(:card).
+        where("observations.post_id = ? or cards.post_id = ?", self.id, self.id).
+        where("NOT EXISTS(#{subquery})").
+        pluck(:species_id)
+  end
+
   private
   def update_face_date
     if read_attribute(:face_date).blank?
