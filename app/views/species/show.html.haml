@@ -62,5 +62,5 @@
   %table.monthly
     %tr
       - 1.upto(12) do |m|
-        - month_class, tag = @months.include?(m.to_s) ? ["seen_this_month", :strong] : [nil, :span]
+        - month_class, tag = @months.include?(m) ? ["seen_this_month", :strong] : [nil, :span]
         %td{class: month_class}= content_tag(tag, RomanNumerals.to_roman(m))
