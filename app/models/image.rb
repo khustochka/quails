@@ -6,7 +6,7 @@ class Image < ActiveRecord::Base
   validates :slug, uniqueness: true, presence: true, length: {:maximum => 64}
   validates :flickr_id, uniqueness: true, allow_nil: true
 
-  has_and_belongs_to_many :observations # FIXME: was -> { includes(:species) }
+  has_and_belongs_to_many :observations
   has_many :species, :through => :observations
 
   # TODO: try to make it 'card', because image should belong to observations of the same card
