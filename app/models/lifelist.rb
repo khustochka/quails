@@ -11,7 +11,7 @@ class Lifelist
   end
 
   def self.basic
-    new(BasicStrategy).source(loci: Country.scoped)
+    new(BasicStrategy).source(loci: Country.all)
   end
 
   def initialize(strategy_class)

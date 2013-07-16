@@ -42,7 +42,7 @@ class SpeciesController < ApplicationController
         else
           @robots = 'NOINDEX'
         end
-        @months = @species.cards.except(:order).pluck("DISTINCT EXTRACT(month FROM observ_date)")
+        @months = @species.cards.except(:order).pluck("DISTINCT EXTRACT(month FROM observ_date)::integer")
       end
     else
       raise ActiveRecord::RecordNotFound, "Cannot find #{id_humanized}"

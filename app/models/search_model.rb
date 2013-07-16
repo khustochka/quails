@@ -25,9 +25,9 @@ class SearchModel
 
   # TODO: implement respond_to?
   include ActiveRecord::Querying
-  delegate :to_a, :to_sql, to: :scoped
+  delegate :to_a, :to_sql, to: :all
   # Taken from ActiveRecord::Delegation
-  delegate :to_xml, :to_yaml, :length, :collect, :map, :each, :all?, :include?, :to_ary, :to => :scoped
+  delegate :to_xml, :to_yaml, :length, :collect, :map, :each, :all?, :include?, :to_ary, :to => :all
 
   def ==(other)
     case other
@@ -38,7 +38,7 @@ class SearchModel
     end
   end
 
-  def scoped
+  def all
     @relation ||= @scope.where(normalized_conditions)
   end
 

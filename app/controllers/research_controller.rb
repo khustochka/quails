@@ -16,7 +16,7 @@ class ResearchController < ApplicationController
     if params[:days]
       sort_col = params[:sort].try(:to_sym) || :date2
       @period = params[:days].to_i
-      query = MyObservation.joins(:card).select("species_id, observ_date").order(:observ_date).to_sql
+      query = MyObservation.joins(:card).select("species_id, observ_date").order('observ_date').to_sql
       @list = Observation.connection.select_rows(query).group_by(&:first).each_with_object([]) do |obsdata, collection|
         sp, obss = obsdata
         obs = obss.map { |_, d| Date.parse(d) }.each_cons(2).select do |ob1, ob2|
@@ -64,7 +64,7 @@ class ResearchController < ApplicationController
 
     sort_col = :date2
     period = 365 * 2 * 24 * 60 * 60
-    @recent_2yrs = Image.joins(:observations).order(:created_at).preload(:species).merge(MyObservation.scoped).
+    @recent_2yrs = Image.joins(:observations).order(:created_at).preload(:species).merge(MyObservation.all).
         group_by { |i| i.species.first }.each_with_object([]) do |imgdata, collection|
 
       sp, imgs = imgdata
@@ -94,7 +94,7 @@ class ResearchController < ApplicationController
         where("observations.mine").order("to_char(observ_date, 'MM-DD') ASC").first
     @next_day = [next_day[:imon], next_day[:iday]].join('-') rescue nil
     @images = Image.joins(:observations, :cards).where("observations.mine").
-        where('EXTRACT(day from observ_date) = ? AND EXTRACT(month from observ_date) = ?', @day, @month)
+        where('EXTRACT(day from observ_date)::integer = ? AND EXTRACT(month from observ_date)::integer = ?', @day, @month)
   end
 
   def uptoday
@@ -109,13 +109,13 @@ class ResearchController < ApplicationController
     @uptoday = MyObservation.
         joins(:card).
         where(
-        'EXTRACT(month FROM observ_date) < ? OR
-        (EXTRACT(month FROM observ_date) = ?
-        AND EXTRACT(day FROM observ_date) <= ?)',
+        'EXTRACT(month FROM observ_date)::integer < ? OR
+        (EXTRACT(month FROM observ_date)::integer = ?
+        AND EXTRACT(day FROM observ_date)::integer <= ?)',
         @this_day.month, @this_day.month, @this_day.day
     ).
-        order('EXTRACT(year FROM observ_date)').
-        group('EXTRACT(year FROM observ_date)').
+        order('EXTRACT(year FROM observ_date)::integer').
+        group('EXTRACT(year FROM observ_date)::integer').
         count('DISTINCT species_id')
     @max = @uptoday.map(&:second).max
   end
@@ -131,15 +131,15 @@ class ResearchController < ApplicationController
       observations_source = if @loc1.country == @loc2.country
                               Card.where(locus_id: @loc1.country.subregion_ids)
                             else
-                              Card.scoped
+                              Card.all
                             end
 
-      prespecies = Species.uniq.joins(:cards).merge(MyObservation.scoped)
+      prespecies = Species.uniq.joins(:cards).merge(MyObservation.all)
 
       @species = prespecies.merge(observations_source).ordered_by_taxonomy.extend(SpeciesArray)
 
-      @loc1_species = prespecies.merge(Card.where(locus_id: @loc1.subregion_ids)).all
-      @loc2_species = prespecies.merge(Card.where(locus_id: @loc2.subregion_ids)).all
+      @loc1_species = prespecies.merge(Card.where(locus_id: @loc1.subregion_ids)).to_a
+      @loc2_species = prespecies.merge(Card.where(locus_id: @loc2.subregion_ids)).to_a
     else
       l1 ||= 'kiev'
       l2 ||= 'brovary'
@@ -152,21 +152,21 @@ class ResearchController < ApplicationController
 
     observations_filtered = MyObservation.filter(year: params[:year]).joins(:card)
     lifelist_filtered = Lifelist.basic.relation
-    lifelist_filtered = lifelist_filtered.where('EXTRACT(year from first_seen) = ?', params[:year]) if params[:year]
+    lifelist_filtered = lifelist_filtered.where('EXTRACT(year from first_seen)::integer = ?', params[:year]) if params[:year]
 
-    @year_data = observations_filtered.select('EXTRACT(year FROM observ_date) as year,
+    @year_data = observations_filtered.select('EXTRACT(year FROM observ_date)::integer as year,
                                       COUNT(observations.id) as count_obs,
                                       COUNT(DISTINCT observ_date) as count_days,
                                       COUNT(DISTINCT species_id) as count_species').
-                group('EXTRACT(year FROM observ_date)').order(:year)
+                group('EXTRACT(year FROM observ_date)').order('year')
 
-    @first_sp_by_year = lifelist_filtered.group('EXTRACT(year FROM first_seen)').except(:order).count
+    @first_sp_by_year = lifelist_filtered.group('EXTRACT(year FROM first_seen)::integer').except(:order).count(:all)
 
-    @month_data = observations_filtered.select('EXTRACT(month FROM observ_date) as month,
+    @month_data = observations_filtered.select('EXTRACT(month FROM observ_date)::integer as month,
                                       COUNT(observations.id) as count_obs,
                                       COUNT(DISTINCT species_id) as count_species').
-        group('EXTRACT(month FROM observ_date)').order(:month)
-    @first_sp_by_month = lifelist_filtered.group('EXTRACT(month FROM first_seen)').except(:order).count
+        group('EXTRACT(month FROM observ_date)').order('month')
+    @first_sp_by_month = lifelist_filtered.group('EXTRACT(month FROM first_seen)::integer').except(:order).count(:all)
 
     @day_by_obs = observations_filtered.joins(:card).select('observ_date, COUNT(observations.id) as count_obs').
                   group('observ_date').

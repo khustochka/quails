@@ -4,11 +4,11 @@ class Admin < User
   end
 
   def available_posts
-    Post.scoped
+    Post.all
   end
 
   def available_loci
-    Locus.scoped
+    Locus.all
   end
 
   def available_comments(post)

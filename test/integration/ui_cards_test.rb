@@ -16,7 +16,7 @@ class UICardsTest < ActionDispatch::IntegrationTest
     click_button('Search')
     assert_equal 200, page.driver.response.status
     assert find('ul.cards_list').has_content?('- Avis incognita')
-    assert_false find('ul.cards_list').has_content?('Spinus spinus')
+    refute find('ul.cards_list').has_content?('Spinus spinus')
   end
 
   test 'Searching observations by species works properly' do
@@ -28,7 +28,7 @@ class UICardsTest < ActionDispatch::IntegrationTest
     select('Passer domesticus', from: 'Species')
     click_button('Search')
     assert find('ul.cards_list').has_content?('Passer domesticus')
-    assert_false find('ul.cards_list').has_content?('Fulica atra')
+    refute find('ul.cards_list').has_content?('Fulica atra')
   end
 
   test 'Searching observations by mine/not mine works properly' do
@@ -40,7 +40,7 @@ class UICardsTest < ActionDispatch::IntegrationTest
     choose('Not mine')
     click_button('Search')
     assert find('ul.cards_list').has_content?('Passer domesticus')
-    assert_false find('ul.cards_list').has_content?('Fulica atra')
+    refute find('ul.cards_list').has_content?('Fulica atra')
   end
 
   test "Create card (No JS)" do
@@ -55,7 +55,7 @@ class UICardsTest < ActionDispatch::IntegrationTest
 
     assert_difference('Observation.count', 1) { click_button 'Save' }
 
-    card = Card.scoped.last
+    card = Card.all.last
 
     assert_equal edit_card_path(card, nojs: true), current_path_info
 

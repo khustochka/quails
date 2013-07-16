@@ -6,7 +6,7 @@
 
   - lifers = lambda do |rel|
     %ol.lifers_list
-      - total_count = rel.except(:limit).count
+      - total_count = rel.except(:limit).count(:all)
       = render partial: 'lifer', collection: rel, locals: {total_count: total_count}
 
   %div.header-with-subheader
@@ -24,7 +24,7 @@
 
     %h2
       = link_to('Список Украины', list_path(locus: 'ukraine'))
-      (#{@list_ukraine.count})
+      (#{@list_ukraine.count(:all)})
 
   %div.lists_column
 
@@ -34,4 +34,4 @@
 
     %h2
       = link_to('Список США', list_path(locus: 'usa'))
-      (#{@list_usa.count})
+      (#{@list_usa.count(:all)})

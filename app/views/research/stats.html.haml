@@ -46,7 +46,7 @@
 
   - @day_by_obs.each do |row|
     %tr
-      %td= l(Date.parse(row.observ_date), format: :long)
+      %td= l(row.observ_date, format: :long)
       %td= row.count_obs
 
 %h3
@@ -59,7 +59,7 @@
 
   - @day_by_species.each do |row|
     %tr
-      %td= l(Date.parse(row.observ_date), format: :long)
+      %td= l(row.observ_date, format: :long)
       %td= row.count_species
 
 %h3
@@ -73,7 +73,7 @@
 
   - @day_and_loc_by_species.each do |row|
     %tr
-      %td= l(Date.parse(row.observ_date), format: :long)
+      %td= l(row.observ_date, format: :long)
       %td= row.count_species
       %td= Locus.find(row.locus_id).name
 

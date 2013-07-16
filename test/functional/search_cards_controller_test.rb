@@ -13,7 +13,7 @@ class SearchCardsControllerTest < ActionController::TestCase
     login_as_admin
     get :index
     assert_response :success
-    assert_present assigns(:cards)
+    assert assigns(:cards).present?, "Expected to assign cards"
   end
 
   test "get index (search)" do
@@ -36,7 +36,8 @@ class SearchCardsControllerTest < ActionController::TestCase
     assert_response :success
     cards = assigns(:cards)
     assert_not_nil cards
-    assert_present cards.find {|c| (c.observations.find {|o| o.species_id == 0}).present? }
+    assert cards.find { |c| (c.observations.find { |o| o.species_id == 0 }).present? }.present?,
+           "Expected to include Avis incognita"
     assert_select 'li b', '- Avis incognita'
   end
 

@@ -16,13 +16,17 @@ class Post < ActiveRecord::Base
   validates :lj_url_id, :lj_post_id, :numericality => {:greater_than => 0}, :allow_nil => true
 
   has_many :comments, dependent: :destroy
-  has_many :cards, dependent: :nullify, order: 'observ_date ASC, locus_id'
+  has_many :cards, -> {order('observ_date ASC, locus_id')}, dependent: :nullify
   has_many :observations, dependent: :nullify # only those attached directly
-                                              #has_many :species, :through => :observations, :order => [:index_num], :uniq => true
-                                              #has_many :images, :through => :observations, :include => [:species]
-                                              #:order => 'observations.observ_date, observations.locus_id, images.index_num, species.index_num'
-
-                                              # Convert "timezone-less" face_date to local time zone because AR treats it as UTC (especially necessary for feed updated time)
+  #  has_many :species, -> { order(:index_num).uniq }, through: :observations
+  #  has_many :images, -> {
+  #    includes(:species).
+  #    references(:species).
+  #        order('observations.observ_date, observations.locus_id, images.index_num, species.index_num')
+  #  },
+  #           through: :observations
+  
+  # Convert "timezone-less" face_date to local time zone because AR treats it as UTC (especially necessary for feed updated time)
   def face_date
     Time.zone.parse(face_date_before_type_cast)
   end
@@ -41,11 +45,11 @@ class Post < ActiveRecord::Base
   scope :indexable, lambda { public.where("status <> 'NIDX'") }
 
   def self.year(year)
-    select('id, slug, title, face_date, status').where('EXTRACT(year from face_date) = ?', year).order('face_date ASC')
+    select('id, slug, title, face_date, status').where('EXTRACT(year from face_date)::integer = ?', year).order('face_date ASC')
   end
 
   def self.month(year, month)
-    year(year).except(:select).where('EXTRACT(month from face_date) = ?', month)
+    year(year).except(:select).where('EXTRACT(month from face_date)::integer = ?', month)
   end
 
   def self.prev_month(year, month)
@@ -61,7 +65,7 @@ class Post < ActiveRecord::Base
   end
 
   def self.years
-    order(:year).pluck('DISTINCT EXTRACT(year from face_date) AS year')
+    order('year').pluck('DISTINCT EXTRACT(year from face_date)::integer AS year')
   end
 
   # Associations

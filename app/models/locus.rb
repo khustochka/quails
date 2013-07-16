@@ -7,9 +7,9 @@ class Locus < ActiveRecord::Base
   validates :name_en, :name_ru, :name_uk, :uniqueness => true
 
   belongs_to :parent, :class_name => 'Locus'
-  has_many :children, :class_name => 'Locus', :foreign_key => 'parent_id', :dependent => :restrict
+  has_many :children, :class_name => 'Locus', :foreign_key => 'parent_id', :dependent => :restrict_with_exception
 
-  has_many :cards, dependent: :restrict
+  has_many :cards, dependent: :restrict_with_exception
   has_many :observations, through: :cards
 
   has_many :local_species
@@ -59,11 +59,11 @@ class Locus < ActiveRecord::Base
   # Instance methods
 
   def checklist(to_include = [])
-    book = Book.find_by_slug('fesenko-bokotej') if slug == 'ukraine'
+    book_taxa = Taxon.where(book_id: 1) if slug == 'ukraine'
 
     local_species.
         joins(:taxa => to_include).includes(:taxa => to_include).
-        merge(book.taxa.scoped).
+        merge(book_taxa).
         order("taxa.index_num").
         extending(SpeciesArray)
   end

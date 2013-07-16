@@ -25,7 +25,7 @@ class TaxaControllerTest < ActionController::TestCase
     new_values = {name_sci: "Gavia immer"}
 
     get :update, book_id: @book, id: 'Gavia_stellata', taxon: new_values
-    assert_present assigns(:taxon).errors
+    assert assigns(:taxon).errors.present?
   end
 
   #test 'allowed to use Latin name taken in another book' do

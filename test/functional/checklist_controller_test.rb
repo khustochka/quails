@@ -5,7 +5,7 @@ class ChecklistControllerTest < ActionController::TestCase
   test 'shows checklist for Ukraine' do
     get :show, country: 'ukraine'
     assert_response :success
-    assert_present assigns(:checklist)
+    assert assigns(:checklist).present?
     assert_select "a[href=#{species_path(seed(:pasdom))}]"
   end
 
@@ -13,7 +13,7 @@ class ChecklistControllerTest < ActionController::TestCase
     login_as_admin
     get :edit, country: 'ukraine'
     assert_response :success
-    assert_present assigns(:checklist)
+    assert assigns(:checklist).present?
     assert_select "input"
   end
 
@@ -24,7 +24,7 @@ class ChecklistControllerTest < ActionController::TestCase
   end
 
   test 'do not show checklist for unknown countries' do
-    assert_raise(ActionController::RoutingError) { get :show, country: 'georgia' }
+    assert_raise(ActionController::UrlGenerationError) { get :show, country: 'georgia' }
   end
 
   test 'do not show checklist for other countries' do

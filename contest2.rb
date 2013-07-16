@@ -52,7 +52,7 @@ SPCS = Hash[Species.all.map { |s| [s.id, s.name_sci] }]
 
 obs = MyObservation.
     select('DISTINCT observ_date, species_id').
-    where('EXTRACT(year FROM observ_date) = 2012').
+    where('EXTRACT(year FROM observ_date)::integer = 2012').
     #where("observ_date <= '2012-01-16'").
     order(:observ_date).map { |o| [o.observ_date, o.species_id] }.
     group_by(&:first).values.map { |e| e.map(&:second) }
