@@ -97,4 +97,9 @@ Quails::Application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
+
+
+  # Folder for page_caching
+  config.action_controller.page_cache_directory = "#{Rails.root.to_s}/public"
+
 end
