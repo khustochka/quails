@@ -51,8 +51,7 @@ class ImagesControllerTest < ActionController::TestCase
 
   test "create image with one observation" do
     login_as_admin
-    new_attr = @image.attributes.dup
-    new_attr['slug'] = 'new_img_slug'
+    new_attr = attributes_for(:image, slug: 'new_img_slug').except(:observations)
     assert_difference('Image.count') do
       post :create, image: new_attr, obs: [@obs.id]
     end
@@ -85,7 +84,7 @@ class ImagesControllerTest < ActionController::TestCase
 
   test "do not save image with no observations" do
     login_as_admin
-    new_attr = build(:image, slug: 'new_img_slug').attributes.except('assets_cache')
+    new_attr = build(:image, slug: 'new_img_slug').attributes
     assert_difference('Image.count', 0) do
       post :create, image: new_attr, obs: []
     end
@@ -166,7 +165,7 @@ class ImagesControllerTest < ActionController::TestCase
     login_as_admin
     put :update, id: img.to_param, obs: [obs2.id], image: img.attributes
     img.reload
-    assert_blank img.spot
+    assert img.spot.blank?
   end
 
   test "destroy image" do

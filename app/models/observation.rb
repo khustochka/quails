@@ -6,7 +6,7 @@ class Observation < ActiveRecord::Base
   belongs_to :card
 
   belongs_to :species
-  belongs_to :post, select: [:id, :slug, :face_date, :title, :status]
+  belongs_to :post, -> { select(:id, :slug, :face_date, :title, :status) }
   has_and_belongs_to_many :images
   has_many :spots
 
@@ -24,15 +24,15 @@ class Observation < ActiveRecord::Base
 
   # TODO: improve and probably use universally
   def self.filter(options = {})
-    rel = self.scoped
-    rel = rel.joins(:card).where('EXTRACT(year from cards.observ_date) = ?', options[:year]) unless options[:year].blank?
-    rel = rel.joins(:card).where('EXTRACT(month from cards.observ_date) = ?', options[:month]) unless options[:month].blank?
+    rel = self.all
+    rel = rel.joins(:card).where('EXTRACT(year from cards.observ_date)::integer = ?', options[:year]) unless options[:year].blank?
+    rel = rel.joins(:card).where('EXTRACT(month from cards.observ_date)::integer = ?', options[:month]) unless options[:month].blank?
     rel = rel.joins(:card).where('cards.locus_id' => options[:locus]) unless options[:locus].blank?
     rel
   end
 
   def self.years
-    joins(:card).order(:year).pluck('DISTINCT EXTRACT(year from observ_date) AS year')
+    joins(:card).order('year').pluck('DISTINCT EXTRACT(year from observ_date)::integer AS year')
   end
 
   # Species

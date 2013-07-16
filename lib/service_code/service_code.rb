@@ -9,6 +9,10 @@ class ServiceCode
     config.code = code
   end
 
+  def self.configured?
+    config.code
+  end
+
   def initialize(view)
     @view = view
   end

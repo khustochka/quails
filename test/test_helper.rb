@@ -4,15 +4,22 @@ begin
 rescue LoadError, RuntimeError
 end
 
-ENV["RAILS_ENV"] = "test"
+ENV["RAILS_ENV"] ||= "test"
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 
+begin
+  require 'minitest/reporters'
+  MiniTest::Reporters.use!
+rescue LoadError, RuntimeError
+end
+
 class ActiveSupport::TestCase
+  ActiveRecord::Migration.check_pending!
 
   include FactoryGirl::Syntax::Methods
 
-  delegate :root_url, :public_post_path, :public_comment_path, :url_for, to: :@controller
+  delegate :public_post_path, :public_comment_path, :url_for, to: :@controller
 
   TEST_CREDENTIALS = Hashie::Mash.new(
       begin

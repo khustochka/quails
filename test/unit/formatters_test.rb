@@ -36,9 +36,9 @@ class FormattersTest < ActionView::TestCase
   test "Post with photo by slug" do
     image = create(:image)
     post = create(:post, text: "{{^#{image.slug}}}")
-    assert_include post.formatted.for_site.text,
+    assert_includes post.formatted.for_site.text,
         "<a href=\"/photos/#{image.slug}\"><img src=\"#{jpg_url(image)}\" title=\"[photo]\" alt=\"[photo]\" /></a>"
-    assert_include post.formatted.for_site.text,
+    assert_includes post.formatted.for_site.text,
                    "<figcaption class=\"imagetitle\"><a href=\"/photos/#{image.slug}\">House Sparrow</a></figcaption>"
 
   end
@@ -79,9 +79,9 @@ class FormattersTest < ActionView::TestCase
   test "LJ Post with photo by slug" do
     image = create(:image)
     post = create(:post, text: "{{^#{image.slug}}}")
-    assert_include post.formatted.for_lj.text,
+    assert_includes post.formatted.for_lj.text,
                    "<img src=\"#{jpg_url(image)}\" title=\"[photo]\" alt=\"[photo]\" />"
-    assert_include post.formatted.for_lj.text,
+    assert_includes post.formatted.for_lj.text,
                    "<figcaption class=\"imagetitle\">\nHouse Sparrow <i>(Passer domesticus)</i>\n</figcaption>"
   end
 
@@ -89,9 +89,9 @@ class FormattersTest < ActionView::TestCase
     p = create(:post, text: "AAA")
     image = create(:image)
     image.card.update_column(:post_id, p.id)
-    assert_include p.formatted.for_lj.text,
+    assert_includes p.formatted.for_lj.text,
                    "<img src=\"#{jpg_url(image)}\" title=\"[photo]\" alt=\"[photo]\" />"
-    assert_include p.formatted.for_lj.text,
+    assert_includes p.formatted.for_lj.text,
                    "<figcaption class=\"imagetitle\">\nHouse Sparrow <i>(Passer domesticus)</i>\n</figcaption>"
 
   end

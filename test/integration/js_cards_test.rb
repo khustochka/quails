@@ -163,8 +163,8 @@ class JSCardsTest < ActionDispatch::IntegrationTest
     end
 
     assert find(:xpath, "//div[contains(@class,'obs-row')][3]").has_checked_field?('Voice?')
-    assert_false find(:xpath, "//div[contains(@class,'obs-row')][1]").has_checked_field?('Voice?')
-    assert_false find(:xpath, "//div[contains(@class,'obs-row')][2]").has_checked_field?('Voice?')
+    refute find(:xpath, "//div[contains(@class,'obs-row')][1]").has_checked_field?('Voice?')
+    refute find(:xpath, "//div[contains(@class,'obs-row')][2]").has_checked_field?('Voice?')
   end
 
   test "Adding observations for the post" do

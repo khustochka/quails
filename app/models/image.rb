@@ -82,11 +82,15 @@ class Image < ActiveRecord::Base
   end
 
   def prev_by_species(sp)
-    prev_next_by_species(sp, :prev)
+    sql = prev_next_sql(sp, "lag")
+    im = Image.from("(#{sql}) AS tmp").select("desired").where("img_id = ?", self.id)
+    Image.where(id: im).first
   end
 
   def next_by_species(sp)
-    prev_next_by_species(sp, :next)
+    sql = prev_next_sql(sp, "lead")
+    im = Image.from("(#{sql}) AS tmp").select("desired").where("img_id = ?", self.id)
+    Image.where(id: im).first
   end
 
   def public_title
@@ -173,12 +177,13 @@ class Image < ActiveRecord::Base
     end
   end
 
-  PREV_NEXT_FUNC = {prev: "lag", next: "lead"}
-
-  # func: :prev, :next
-  def prev_next_by_species(sp, func)
-    r = sp.ordered_images.select("images.id, #{PREV_NEXT_FUNC[func]}(images.id) OVER #{PREV_NEXT_ORDER}").except(:order)
-    Image.where("(?, id) IN (#{r.to_sql})", self.id).first
+  def prev_next_sql(sp, lag_or_lead)
+    Image.connection.unprepared_statement do
+      sp.ordered_images.
+          select("images.id AS img_id, #{lag_or_lead}(images.id) OVER #{PREV_NEXT_ORDER} AS desired").
+          except(:order).
+          to_sql
+    end
   end
 
 end

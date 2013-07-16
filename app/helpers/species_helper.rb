@@ -5,15 +5,19 @@ module SpeciesHelper
   end
 
   def species_for_select
-    @species_for_select ||= [Species::AVIS_INCOGNITA] + Species.by_abundance.all
+    @species_for_select ||= [Species::AVIS_INCOGNITA] + Species.by_abundance.to_a
   end
 
   def species_link(sp_obj, string = nil)
     link_to(string || sp_obj.name, species_path(sp_obj), class: 'sp_link')
   end
 
-  def new_species_link(sp_obj)
-    "<b>#{species_link(sp_obj)}</b><span class='new_sp' title='#{t("posts.show.new_species")}'>&#8727;</span>"
+  def new_species_link(sp_obj, string = nil)
+    "<b>#{species_link(sp_obj, string)}</b><span class='new_sp' title='#{t("posts.show.new_species")}'>&#8727;</span>"
+  end
+
+  def species_link_in_post(sp_obj, post, string = nil)
+    sp_obj.id.in?(post.new_species_ids) ? new_species_link(sp_obj, string) : species_link(sp_obj, string)
   end
 
   def name_sci(sp_obj)

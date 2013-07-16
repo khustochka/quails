@@ -1,8 +1,14 @@
 - javascript 'image_show'
 
-- @meta_thumbnail = thumbnail_item(@image).try(:url)
+- @facebook_like = true
 
-- @page_title = @image.formatted.title
+- @meta_thumbnail = thumbnail_item(@image).try(:url)
+- @meta_description = @image.formatted.meta_description
+- @canonical = image_url(@image)
+- @og_type = 'birdwatchua:photo'
+
+- @page_header = @page_title = @image.formatted.title
+-# @page_title = "#{@page_header} // #{t("countries.gallery.title.#{@image.locus.country.slug}")}"
 
 - if notice
   %p#notice= notice
@@ -21,6 +27,9 @@
 %h1= page_header
 
 %div.image_canvas= image_tag(jpg_url(@image), alt: '[фотография]')
+
+- if FacebookSdk.configured? && @facebook_like
+  %p= render 'facebook/like'
 
 %table.image_nav
   %tr

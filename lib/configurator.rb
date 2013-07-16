@@ -18,14 +18,11 @@ module Configurator
   def self.configure_secret_token
     secret = config_data.secret_token
     if secret.blank?
-      msg = "Secret token is not configured!"
-      if Quails.env.rake?
-        STDERR.puts(msg)
-      else
-        raise msg
+      unless Quails.env.rake?
+        raise "Secret token is not configured!"
       end
     end
-    Quails::Application.config.secret_token = secret
+    Quails::Application.config.secret_key_base = secret
   end
 
   def self.configure_errbit
@@ -42,6 +39,10 @@ module Configurator
 
   def self.configure_google_search
     GoogleSearch.configure(config_data.google_cse)
+  end
+
+  def self.configure_facebook_sdk
+    FacebookSdk.configure(config_data.facebook_app_id)
   end
 
   def self.configure_google_analytics
@@ -88,6 +89,7 @@ module Configurator
             host: ENV['errbit_host']
         },
         google_cse: ENV['quails_google_cse'],
+        facebook_app_id: ENV['quails_facebook_app_id'],
         ga_code: ENV['quails_ga_code'],
         mail: {
             sender: ENV['quails_mail_sender'],

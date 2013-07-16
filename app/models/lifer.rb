@@ -6,10 +6,10 @@ class Lifer < Species
   end
 
   def first_seen_date
-    @first_seen_date ||= Date.parse(first_seen) if respond_to? :first_seen
+    @first_seen_date ||= first_seen if respond_to? :first_seen
   end
 
   def last_seen_date
-    @last_seen_date ||= Date.parse(last_seen) if respond_to? :last_seen
+    @last_seen_date ||= last_seen if respond_to? :last_seen
   end
 end

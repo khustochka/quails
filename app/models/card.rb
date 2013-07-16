@@ -5,7 +5,7 @@ class Card < ActiveRecord::Base
 
   belongs_to :locus
   belongs_to :post
-  has_many :observations, dependent: :restrict
+  has_many :observations, dependent: :restrict_with_exception
   has_many :images, through: :observations
   has_many :species, through: :observations
   has_many :spots, through: :observations

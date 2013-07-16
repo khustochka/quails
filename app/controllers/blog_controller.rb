@@ -9,7 +9,7 @@ class BlogController < ApplicationController
   # GET /
   def front_page
     # Read the desired number of posts + 1
-    @posts = Post.public.order('face_date DESC').limit(POSTS_ON_FRONT_PAGE + 1).all
+    @posts = Post.public.order('face_date DESC').limit(POSTS_ON_FRONT_PAGE + 1).to_a
     if @posts.size > POSTS_ON_FRONT_PAGE
       post_pre_last = @posts[-2].to_month_url
       post_last = @posts.last.to_month_url
@@ -32,11 +32,11 @@ class BlogController < ApplicationController
   def archive
     @years = current_user.available_posts.years
     @archive = current_user.available_posts.
-        select("EXTRACT(year FROM face_date) as raw_year,
-                EXTRACT(month FROM face_date) as raw_month,
+        select("EXTRACT(year FROM face_date)::integer as raw_year,
+                EXTRACT(month FROM face_date)::integer as raw_month,
                 COUNT(id) as posts_count").
-        group(:raw_year, :raw_month).
-        order(:raw_year, :raw_month).
+        group('raw_year, raw_month').
+        order('raw_year, raw_month').
         chunk(&:raw_year)
   end
 

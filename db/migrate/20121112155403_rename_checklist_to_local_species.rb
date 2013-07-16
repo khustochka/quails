@@ -19,7 +19,7 @@ class RenameChecklistToLocalSpecies < ActiveRecord::Migration
     add_index "local_species", ["locus_id"]
     add_index "local_species", ["species_id"]
 
-    Checklist.scoped.each do |ch|
+    Checklist.all.each do |ch|
       LocalSpecies.create!(ch.attributes)
     end
 

@@ -28,7 +28,7 @@ module CardsHelper
     }
     last_date = Card.pluck('MAX(observ_date)').first
     if last_date
-      prelim[Date.parse(last_date) + 1] = ['Last unreported']
+      prelim[last_date + 1] = ['Last unreported']
     end
     if @card.persisted?
       prelim[@card.observ_date] = ["Same day as this card"]
