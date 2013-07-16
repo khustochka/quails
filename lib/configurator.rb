@@ -18,11 +18,8 @@ module Configurator
   def self.configure_secret_token
     secret = config_data.secret_token
     if secret.blank?
-      msg = "Secret token is not configured!"
-      if Quails.env.rake?
-        STDERR.puts(msg)
-      else
-        raise msg
+      unless Quails.env.rake?
+        raise "Secret token is not configured!"
       end
     end
     Quails::Application.config.secret_key_base = secret
