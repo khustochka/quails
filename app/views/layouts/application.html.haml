@@ -59,7 +59,7 @@
       -# favicon (index only?)
 
     -# csfr meta
-    = csrf_meta_tags if @jquery
+    = csrf_meta_tags if @scripts.present?
 
     -# stylesheets
     - stylesheet @minimal_layout ? 'minimal' : (admin_layout? ? 'admin' : 'public')
