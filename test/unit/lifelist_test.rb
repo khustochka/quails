@@ -164,7 +164,6 @@ class LifelistTest < ActiveSupport::TestCase
     @obs[0].post = create(:post)
     @obs[0].save!
     lifelist = Lifelist.advanced.source(posts: Post.public, loci: Locus.public).filter(locus: 'kiev').to_a
-    p lifelist
     assert_equal nil, lifelist.find { |sp| sp.code == 'colliv' }.post
   end
 end
