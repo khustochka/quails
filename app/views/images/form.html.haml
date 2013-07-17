@@ -70,7 +70,7 @@
   %div
     - unless @image.persisted?
       = form.input :flickr_id, as: :hidden
-    = form.input :description
+    = form.input :description, input_html: {rows: 7}
     = form.input :index_num, input_html: { size: 10, type: :text }
   .buttons
     = default_submit_button(form)
