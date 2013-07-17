@@ -9,8 +9,12 @@ require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 
 begin
-  require 'minitest/reporters'
-  MiniTest::Reporters.use!
+  # minitest/reporters fail on Windows in command line
+  # OK on Linux, but steal couple of seconds on unit tests, perhaps more on all
+  if $LOAD_PATH.any? { |str| str =~ /rubymine/i }
+    require 'minitest/reporters'
+    MiniTest::Reporters.use!
+  end
 rescue LoadError, RuntimeError
 end
 
