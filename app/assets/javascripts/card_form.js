@@ -86,6 +86,7 @@ $(function () {
   $("<div class='inline_date'></div>").prependTo("form.simple_form");
   $(".inline_date").datepicker({
     dateFormat: "yy-mm-dd",
+    firstDay: 1, // To start a week from Monday
     altField: datefield,
     altFormat: "yy-mm-dd",
     defaultDate: currentDate
