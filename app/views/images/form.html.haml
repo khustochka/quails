@@ -9,7 +9,7 @@
   - provide :add_shortcuts do
     %li= link_to 'Edit map', action: :map_edit
     %li
-      = link_to action: :flickr_edit do
+      = link_to(url_for(action: 'flickr_edit')) do
         - if @image.on_flickr?
           Edit flickr data
         - else
