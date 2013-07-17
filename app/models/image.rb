@@ -158,6 +158,10 @@ class Image < ActiveRecord::Base
     Thumbnail.new(self, self.formatted.title, self, {image: {id: id}})
   end
 
+  def mapped?
+    spot
+  end
+
   private
 
   def first_observation
