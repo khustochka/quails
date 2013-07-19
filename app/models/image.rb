@@ -23,17 +23,20 @@ class Image < ActiveRecord::Base
   end
 
   after_save do
+    cards.each { |c| c.post.try(:touch) }
     observations.each { |o| o.post.try(:touch) }
   end
 
   after_destroy do
     species.each(&:update_image)
+    cards.each { |c| c.post.try(:touch) }
     observations.each { |o| o.post.try(:touch) }
   end
 
   def destroy
     # If associations are not cached before, they are empty on destroy, so have to preload them for after_destroy hook
     observations.to_a
+    cards.to_a
     species.to_a
     super
   end

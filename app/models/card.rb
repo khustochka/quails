@@ -4,7 +4,7 @@ class Card < ActiveRecord::Base
   invalidates CacheKey.lifelist
 
   belongs_to :locus
-  belongs_to :post
+  belongs_to :post, touch: :updated_at
   has_many :observations, dependent: :restrict_with_exception
   has_many :images, through: :observations
   has_many :species, through: :observations
