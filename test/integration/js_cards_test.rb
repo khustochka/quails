@@ -11,7 +11,7 @@ class JSCardsTest < ActionDispatch::IntegrationTest
   end
 
   def select_date(value)
-    find('#card_observ_date', visible: false).set(value)
+    page.execute_script "$('.inline_date').datepicker( 'setDate', '#{value}' );"
   end
   private :save_and_check, :select_date
 
