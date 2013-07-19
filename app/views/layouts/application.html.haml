@@ -30,7 +30,9 @@
     %title= page_title
 
     -# mobile viewport
-    %meta{ name: 'viewport', content: 'width=device-width'}
+    - unless @no_viewport
+      -# no_viewport is for very wide pages, e.g. with table
+      %meta{ name: 'viewport', content: 'width=device-width'}
 
     - unless admin_layout?
 
