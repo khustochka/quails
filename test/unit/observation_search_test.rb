@@ -35,10 +35,10 @@ class ObservationSearchTest < ActiveSupport::TestCase
     assert obss.first.respond_to?(:voice)
   end
 
-  test 'search mine: false is different from mine: nil' do
-    ob2 = create(:observation, mine: false)
-    assert_equal ObservationSearch.new(mine: nil).observations, ObservationSearch.new(mine: '').observations
-    assert_equal [ob2], ObservationSearch.new(mine: false).observations
+  test 'search voice: false is different from voice: nil' do
+    ob3 = create(:observation, voice: true)
+    assert ObservationSearch.new(voice: nil).observations.include?(ob3)
+    refute ObservationSearch.new(voice: false).observations.include?(ob3)
   end
 
 end

@@ -87,13 +87,13 @@ class ResearchController < ApplicationController
     @month, @day = (params[:day].try(:split, '-') || [Time.current.month, Time.current.day]).map { |n| "%02d" % n.to_i }
     prev_day = Image.joins(:observations, :cards).select("to_char(observ_date, 'DD') as iday, to_char(observ_date, 'MM') as imon").
         where("to_char(observ_date, 'MM-DD') < '#@month-#@day'").
-        where("observations.mine").order("to_char(observ_date, 'MM-DD') DESC").first
+        order("to_char(observ_date, 'MM-DD') DESC").first
     @prev_day = [prev_day[:imon], prev_day[:iday]].join('-') rescue nil
     next_day = Image.joins(:observations, :cards).select("to_char(observ_date, 'DD') as iday, to_char(observ_date, 'MM') as imon").
         where("to_char(observ_date, 'MM-DD') > '#@month-#@day'").
-        where("observations.mine").order("to_char(observ_date, 'MM-DD') ASC").first
+        order("to_char(observ_date, 'MM-DD') ASC").first
     @next_day = [next_day[:imon], next_day[:iday]].join('-') rescue nil
-    @images = Image.joins(:observations, :cards).where("observations.mine").
+    @images = Image.joins(:observations, :cards).
         where('EXTRACT(day from observ_date)::integer = ? AND EXTRACT(month from observ_date)::integer = ?', @day, @month)
   end
 

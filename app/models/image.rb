@@ -168,7 +168,8 @@ class Image < ActiveRecord::Base
     observations[0]
   end
 
-  COMMON_OBSERVATION_ATTRIBUTES = %w(card_id mine)
+  # FIXME: check only card
+  COMMON_OBSERVATION_ATTRIBUTES = %w(card_id)
 
   def validate_observations(observ_ids)
     obs = Observation.where(id: observ_ids)
@@ -176,7 +177,7 @@ class Image < ActiveRecord::Base
       errors.add(:observations, 'must not be empty')
     else
       if obs.map { |o| o.attributes.values_at(*COMMON_OBSERVATION_ATTRIBUTES) }.uniq.size > 1
-        errors.add(:observations, 'must have the same card and mine value')
+        errors.add(:observations, 'must have the same card value')
       end
     end
   end

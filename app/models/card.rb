@@ -14,14 +14,10 @@ class Card < ActiveRecord::Base
 
   accepts_nested_attributes_for :observations,
                                 reject_if:
-                                    proc { |attrs| attrs.all? { |k, v| v.blank? || k == 'voice' || k == 'mine' } }
+                                    proc { |attrs| attrs.all? { |k, v| v.blank? || k == 'voice' } }
 
   def secondary_posts
     Post.uniq.joins(:observations).where('observations.card_id =? AND observations.post_id <> ?', self.id, self.post_id)
-  end
-
-  def alien?
-    observations.present? && !observations.any?(&:mine)
   end
 
   def mapped?

@@ -22,7 +22,7 @@ class ObservationSearch
   end
 
   CARD_ATTRIBUTES = [:observ_date, :locus_id, :card_id]
-  OBSERVATION_ATTRIBUTES = [:species_id, :mine, :voice]
+  OBSERVATION_ATTRIBUTES = [:species_id, :voice]
   ALL_ATTRIBUTES = CARD_ATTRIBUTES + OBSERVATION_ATTRIBUTES
 
   def initialize(conditions = {})

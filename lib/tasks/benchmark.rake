@@ -42,7 +42,7 @@ task :benchmark => :environment do
 
     x.report('not exists') { n.times {
 
-      q3 = "select obs.id from observations obs join cards c on obs.card_id = c.id where observations.species_id = obs.species_id and cards.observ_date > c.observ_date and obs.mine"
+      q3 = "select obs.id from observations obs join cards c on obs.card_id = c.id where observations.species_id = obs.species_id and cards.observ_date > c.observ_date"
 
       r3 = Observation.
           joins(:card).

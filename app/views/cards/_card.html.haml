@@ -10,8 +10,6 @@
       %big= card.observations.count
       - if card.observations.count == 0
         %small.voice.tag empty
-      - if card.alien?
-        %small.not_mine.tag alien
     %li
       Species:
       %big= card.observations.merge(Observation.identified).count("DISTINCT species_id")

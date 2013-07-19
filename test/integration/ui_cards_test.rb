@@ -31,16 +31,26 @@ class UICardsTest < ActionDispatch::IntegrationTest
     refute find('ul.cards_list').has_content?('Fulica atra')
   end
 
-  test 'Searching observations by mine/not mine works properly' do
-    card = create(:card, observ_date: "2010-06-18")
-    create(:observation, species: seed(:pasdom), card: card, mine: false)
-    create(:observation, species: seed(:fulatr), card: card)
+  test 'Searching observations by voice/seen works properly' do
+    card1 = create(:card, observ_date: "2010-06-18")
+    card2 = create(:card, observ_date: "2010-06-19")
+    create(:observation, species: seed(:pasdom), card: card1, voice: false)
+    create(:observation, species: seed(:fulatr), card: card2, voice: true)
     login_as_admin
     visit cards_path
-    choose('Not mine')
+    choose('Seen')
     click_button('Search')
+    assert_equal 1, all(".observ_card").count
     assert find('ul.cards_list').has_content?('Passer domesticus')
     refute find('ul.cards_list').has_content?('Fulica atra')
+    choose('Voice only')
+    click_button('Search')
+    assert_equal 1, all(".observ_card").count
+    refute find('ul.cards_list').has_content?('Passer domesticus')
+    assert find('ul.cards_list').has_content?('Fulica atra')
+    within(".voice_radio_group") { choose('All') }
+    click_button('Search')
+    assert_equal 2, all(".observ_card").count
   end
 
   test "Create card (No JS)" do

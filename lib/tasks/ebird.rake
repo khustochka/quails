@@ -7,7 +7,7 @@ task :ebird => :environment do
 
   include ActiveSupport::Inflector
 
-  obs = Observation.where(mine: true).
+  obs = Observation.
       where("place ILIKE '%Байково%' AND place <> 'у Байкового' AND place <> 'ок. Байкового кладбища'").
       preload(:species)
 
