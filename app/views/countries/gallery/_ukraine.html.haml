@@ -1,6 +1,9 @@
 :textile
   #{t(".intro", url: checklist_path(country: 'ukraine'))}
 
+- if FacebookSdk.configured? && @facebook_like
+  %p= render 'facebook/like'
+
 - species_rarity = @species.group_by {|s| s.status.match(/\?|\-/).nil? }
 
 - [true, false].each do |common|
