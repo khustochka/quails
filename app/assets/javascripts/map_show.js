@@ -42,9 +42,9 @@ $(function () {
           clusters: {
             // This style will be used for clusters with more than 0 markers
             0: {
-              content: '<div class="marker-cluster marker-cluster-medium"><div><span>CLUSTER_COUNT<span></div></div>',
-              width: 46,
-              height: 28
+              content: '<div class="marker-cluster marker-cluster-medium"><div><span>CLUSTER_COUNT</span></div></div>',
+              width: 40,
+              height: 40
             }
           }
         }
