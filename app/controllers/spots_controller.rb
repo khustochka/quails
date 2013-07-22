@@ -10,7 +10,10 @@ class SpotsController < ApplicationController
 
   # GET "/map/photos.json"
   def photos
-    respond_with(Spot.public.joins(:images), :only => [:lat, :lng])
+    respond_with(
+        Spot.public.select("lat, lng, slug as data").joins(:images),
+        :only => [:lat, :lng, :data]
+    )
   end
 
   # POST "/spots/save.json"

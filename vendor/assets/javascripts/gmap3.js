@@ -1545,6 +1545,7 @@
             atodo.options.content = $('<div></div>');
             atodo.options.content.width(w);
             atodo.options.content.height(h);
+            atodo.options.content.css({cursor:"pointer"});
             shadow = this._addOverlay(atodo, toLatLng(cluster), true);
             
             // store data to the clusterer

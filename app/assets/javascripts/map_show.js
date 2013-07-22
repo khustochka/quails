@@ -50,11 +50,20 @@ $(function () {
               content: '<div class="marker-cluster marker-cluster-medium"><div><span>CLUSTER_COUNT</span></div></div>',
               width: 35,
               height: 35
-            } ,
+            },
             100: {
               content: '<div class="marker-cluster marker-cluster-large"><div><span>CLUSTER_COUNT</span></div></div>',
               width: 40,
               height: 40
+            }
+          },
+          cluster: {
+            events: {
+              click: function (cluster, event, data) {
+                alert($.map(data.markers, function(x) {
+                  return x.data
+                }).join(", "));
+              }
             }
           }
         },
