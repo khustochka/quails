@@ -1474,7 +1474,8 @@
       clusterer.setRedraw(function(force){
         var same, clusters = clusterer.clusters(map, radius, maxZoom, force);
         if (clusters){
-          same = clusterer.freeDiff(clusters);
+          clusterer.freeAll();
+          same = []; //clusterer.freeDiff(clusters);
           that._displayClusters(todo, clusterer, clusters, same, styles);
         }
       });
