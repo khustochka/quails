@@ -17,7 +17,7 @@ class ChecklistController < ApplicationController
       end
     end
     # Expire cache manually, because update_all skips callbacks
-    expire_fragment(controller: :checklist, action: :show, country: 'ukraine')
+    CacheKey.checklist.invalidate
     redirect_to checklist_path(country: params[:country])
   end
 
