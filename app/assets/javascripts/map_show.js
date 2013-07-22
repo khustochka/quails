@@ -33,7 +33,7 @@ $(function () {
 
   theMap.gmap3('init');
 
-  $.get('/map/spots', function (data, textStatus, jqXHR) {
+  $.get('/map/photos', function (data, textStatus, jqXHR) {
     marks = data;
     theMap.gmap3(
         { action: 'addMarkers',

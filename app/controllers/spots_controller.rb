@@ -8,6 +8,11 @@ class SpotsController < ApplicationController
     respond_with(Spot.public, :only => [:lat, :lng])
   end
 
+  # GET "/map/photos.json"
+  def photos
+    respond_with(Spot.public.joins(:images), :only => [:lat, :lng])
+  end
+
   # POST "/spots/save.json"
   def save
     spot = Spot.find_or_initialize_by(id: params[:spot][:id])
