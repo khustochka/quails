@@ -405,7 +405,7 @@
           lat, lng, keys, cnt,
           bounds = map.getBounds(),
           noClusters = maxZoom && (maxZoom <= map.getZoom()),
-          chkContain = map.getZoom() > 2;
+          chkContain = false; //map.getZoom() > 2;
       
       cnt = 0;
       keys = {};
@@ -1486,14 +1486,14 @@
           function() {
             clusterer.redraw(true);
           }
-        ),
-        google.maps.event.addListener(
-          map, 
-          'bounds_changed',
-          function() {
-            clusterer.redraw();
-          }
-        )
+        )//,
+//        google.maps.event.addListener(
+//          map,
+//          'bounds_changed',
+//          function() {
+//            clusterer.redraw();
+//          }
+//        )
       );
       
       clusterer.redraw();
