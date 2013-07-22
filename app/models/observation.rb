@@ -8,7 +8,7 @@ class Observation < ActiveRecord::Base
   belongs_to :species
   belongs_to :post, -> { select(:id, :slug, :face_date, :title, :status) }, touch: :updated_at
   has_and_belongs_to_many :images
-  has_many :spots
+  has_many :spots, dependent: :delete_all
 
   before_destroy do
     if images.present?
