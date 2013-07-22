@@ -57,7 +57,8 @@ $(function () {
               height: 40
             }
           }
-        }
+        },
+        'autofit' // Zooms and moves to see all markers
     );
   });
 
