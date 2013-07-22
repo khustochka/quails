@@ -22,7 +22,7 @@ $(function () {
     var clientHeight = $(window).height(),
         clientWidth = $(window).width(),
         upper = $('#header').outerHeight(true),
-        lower = $('div.footer').outerHeight();
+        lower = $('div.footer:visible').outerHeight();
     $('div.mapContainer').height(clientHeight - upper - lower).width(clientWidth)
         .css('top', upper);
   }
