@@ -1,7 +1,7 @@
 class SpotsController < ApplicationController
   respond_to :json
 
-  administrative except: :index
+  administrative except: %i(index photos)
 
   # GET "/map/spots.json"
   def index

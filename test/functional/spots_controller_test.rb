@@ -7,7 +7,6 @@ class SpotsControllerTest < ActionController::TestCase
     obs2 = create(:observation, card: create(:card, observ_date: '2011-07-24'))
     create(:spot, observation: obs1)
     create(:spot, observation: obs2)
-    login_as_admin
     get :index, format: :json
     assert_response :success
     assert_equal Mime::JSON, response.content_type
@@ -19,7 +18,6 @@ class SpotsControllerTest < ActionController::TestCase
     spot1 = create(:spot, observation: obs1)
     spot2 = create(:spot, observation: obs2)
     create(:image, observations: [obs1], spot_id: spot1.id)
-    login_as_admin
     get :photos, format: :json
     assert_response :success
     assert_equal Mime::JSON, response.content_type
