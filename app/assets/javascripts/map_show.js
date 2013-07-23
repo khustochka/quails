@@ -27,7 +27,7 @@ $(function () {
   }
 
   function showPhotos(cluster, event, data) {
-    var image_ids = $.map(data.markers, function(x) {
+    var image_ids = $.map(data.markers, function (x) {
       return x.data
     });
     $(".gallery_window").hide();
@@ -37,8 +37,9 @@ $(function () {
           data: JSON.stringify(image_ids),
           processData: false,
           contentType: "application/json; charset=utf-8",
-          success: function(body) {
-            $(".gallery_window").html(body)
+          success: function (body) {
+            $(".gallery_container").html(body);
+            $(".gallery_window")
                 .css('bottom', $('div.footer:visible').outerHeight() + "px")
                 .show();
           }
@@ -48,6 +49,10 @@ $(function () {
   adjustSizes();
 
   $(window).resize(adjustSizes);
+
+  $("span.close").click(function () {
+    $(".gallery_window").hide();
+  });
 
   theMap.gmap3('init');
 

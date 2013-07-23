@@ -73,14 +73,11 @@ div.thumbs_strip
   height: 200px
 
 .gallery_window
-  white-space: nowrap
   position: absolute
   bottom: 100px
   left: 0
   display: none
   width: 100%
-  overflow-x: auto
-  overflow-y: hidden
   background-color: #fff
   //z-index: 10000
   border:
@@ -88,3 +85,16 @@ div.thumbs_strip
     //bottom: 1px dashed #333333
   //box-shadow: 0 0 50px #ffffff
   //box-shadow: 0 0 10px rgba(#000, 0.5)
+
+.gallery_container
+  white-space: nowrap
+  overflow-x: auto
+  overflow-y: hidden
+
+.wnd_close
+  padding:
+    top: 5px
+    left: 15px
+  border-bottom: 1px solid #ddd
+  span.close
+    cursor: pointer
