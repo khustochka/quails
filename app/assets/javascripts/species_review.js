@@ -1,5 +1,3 @@
-//= require jquery_ujs
-
 $(function () {
 
   var spForm = $('form.edit_species'),

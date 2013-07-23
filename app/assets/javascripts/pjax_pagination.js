@@ -1,4 +1,3 @@
-//= require jquery_ujs
 //= require jquery_pjax
 //= require pjax_spinner
 

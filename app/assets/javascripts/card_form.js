@@ -1,5 +1,4 @@
-//= require jquery_ujs
-//= require jquery-ui.custom
+//= require jquery-ui.addon
 //= require suggest_over_combo
 
 

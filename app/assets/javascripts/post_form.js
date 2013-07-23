@@ -1,4 +1,3 @@
-//= require jquery_ujs
 //= require suggest_over_combo
 //= require post_cards
 

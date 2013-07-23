@@ -5,4 +5,8 @@
 = stylesheet_link_tag(*@stylesheets.compact) if @stylesheets.present?
 
 -# scripts
-= javascript_include_tag(*@scripts.compact.unshift(JQUERY_URL)) if @scripts.present?
+- scripts = @scripts.try(:compact) || []
+- if current_user.admin?
+  = javascript_include_tag(*scripts.unshift(JQUERY_URL, 'application'))
+- elsif scripts.any?
+  = javascript_include_tag(*scripts.unshift(JQUERY_URL))
