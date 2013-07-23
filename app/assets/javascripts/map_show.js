@@ -26,10 +26,16 @@ $(function () {
         .css('top', upper);
   }
 
+  function closeInfoWindows() {
+    var infowindow = theMap.gmap3({action: 'get', name: 'infowindow'});
+    if (infowindow) infowindow.close();
+  }
+
   function showPhotos(cluster, event, data) {
     var image_ids = $.map(data.markers, function(x) {
       return x.data
     });
+    closeInfoWindows();
     $.ajax('photos/strip',
         {
           method: 'POST',
