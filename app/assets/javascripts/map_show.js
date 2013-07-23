@@ -38,7 +38,9 @@ $(function () {
           processData: false,
           contentType: "application/json; charset=utf-8",
           success: function(body) {
-            $(".gallery_window").html(body).width($(window).width() - 30).show();
+            $(".gallery_window").html(body)
+                .css('bottom', $('div.footer:visible').outerHeight() + "px")
+                .show();
           }
         });
   }
