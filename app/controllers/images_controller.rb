@@ -2,7 +2,7 @@ class ImagesController < ApplicationController
 
   respond_to :json, only: [:flickr_search, :observations]
 
-  administrative except: [:index, :multiple_species, :show, :gallery, :country]
+  administrative except: [:index, :multiple_species, :show, :gallery, :country, :strip]
 
   find_record by: :slug, before: [:show, :edit, :flickr_edit, :flickr_upload, :map_edit, :update, :patch, :destroy]
 
@@ -179,6 +179,11 @@ class ImagesController < ApplicationController
     respond_with(result, only: %w(id title datetaken url_s))
   rescue FlickRaw::FailedResponse => e
     respond_with({error: e.message}, status: :error)
+  end
+
+  def strip
+    @images = Image.where(id: params[:_json])
+    render layout: false
   end
 
   private

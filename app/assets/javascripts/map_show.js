@@ -26,6 +26,32 @@ $(function () {
         .css('top', upper);
   }
 
+  function showPhotos(cluster, event, data) {
+    var image_ids = $.map(data.markers, function(x) {
+      return x.data
+    });
+    $.ajax('photos/strip',
+        {
+          method: 'POST',
+          data: JSON.stringify(image_ids),
+          processData: false,
+          contentType: "application/json; charset=utf-8",
+          success: function(body) {
+            theMap.gmap3(
+                {
+                  action: 'addInfoWindow',
+                  latLng: data.latLng,
+                  infowindow:{
+                    options:{
+                      //size: new google.maps.Size(50,50),
+                      content: body
+                    }
+                  }
+                });
+          }
+        });
+  }
+
   adjustSizes();
 
   $(window).resize(adjustSizes);
@@ -58,11 +84,7 @@ $(function () {
           },
           cluster: {
             events: {
-              click: function (cluster, event, data) {
-                alert($.map(data.markers, function(x) {
-                  return x.data
-                }).join(", "));
-              }
+              click: showPhotos
             }
           }
         },
