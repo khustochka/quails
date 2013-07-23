@@ -30,11 +30,6 @@ class LifelistTest < ActiveSupport::TestCase
     assert_equal @obs.map(&:species_id).uniq.size, Lifelist.basic.sort('count').size
   end
 
-  test 'Species lifelist by count does not include species never seen by me' do
-    ob = create(:observation, species: seed(:parcae), card: create(:card, observ_date: "2010-06-18"), mine: false)
-    refute_includes(Lifelist.basic.sort('count').map(&:id), ob.species_id)
-  end
-
   test 'Species lifelist by count properly sorts the list' do
     expected = [["colliv", 5], ["pasdom", 4], ["parmaj", 3], ["carlis", 1], ["merser", 1]]
     actual = Lifelist.basic.sort('count').map { |s| [s.code, s.count] }
@@ -50,11 +45,6 @@ class LifelistTest < ActiveSupport::TestCase
     assert_equal @obs.map(&:species_id).uniq.size, Lifelist.basic.sort('class').size
   end
 
-  test 'Species lifelist by taxonomy does not include species never seen by me' do
-    ob = create(:observation, species: seed(:parcae), card: create(:card, observ_date: "2010-06-18"), mine: false)
-    refute_includes(Lifelist.basic.sort('class').map(&:id), ob.species_id)
-  end
-
   test 'Species lifelist by taxonomy properly sorts the list' do
     expected = [%w(merser 2008-10-18), %w(colliv 2008-05-22), %w(parmaj 2009-01-01), %w(pasdom 2009-01-01), %w(carlis 2010-10-13)]
     actual = Lifelist.basic.sort('class').map { |s| [s.code, s.first_seen.iso8601] }
@@ -68,11 +58,6 @@ class LifelistTest < ActiveSupport::TestCase
   test 'Species lifelist by date does not include Avis incognita' do
     create(:observation, species_id: 0, card: create(:card, observ_date: "2010-06-18"))
     assert_equal @obs.map(&:species_id).uniq.size, Lifelist.basic.size
-  end
-
-  test 'Species lifelist by date does not include species never seen by me' do
-    ob = create(:observation, species: seed(:parcae), card: create(:card, observ_date: "2010-06-18"), mine: false)
-    refute_includes(Lifelist.basic.relation.pluck(:id), ob.species_id)
   end
 
   test 'Species lifelist by date properly sorts the list' do

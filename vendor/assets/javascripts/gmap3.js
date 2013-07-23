@@ -405,7 +405,7 @@
           lat, lng, keys, cnt,
           bounds = map.getBounds(),
           noClusters = maxZoom && (maxZoom <= map.getZoom()),
-          chkContain = map.getZoom() > 2;
+          chkContain = false; //map.getZoom() > 2;
       
       cnt = 0;
       keys = {};
@@ -1474,7 +1474,8 @@
       clusterer.setRedraw(function(force){
         var same, clusters = clusterer.clusters(map, radius, maxZoom, force);
         if (clusters){
-          same = clusterer.freeDiff(clusters);
+          clusterer.freeAll();
+          same = []; //clusterer.freeDiff(clusters);
           that._displayClusters(todo, clusterer, clusters, same, styles);
         }
       });
@@ -1486,14 +1487,14 @@
           function() {
             clusterer.redraw(true);
           }
-        ),
-        google.maps.event.addListener(
-          map, 
-          'bounds_changed',
-          function() {
-            clusterer.redraw();
-          }
-        )
+        )//,
+//        google.maps.event.addListener(
+//          map,
+//          'bounds_changed',
+//          function() {
+//            clusterer.redraw();
+//          }
+//        )
       );
       
       clusterer.redraw();
@@ -1545,6 +1546,7 @@
             atodo.options.content = $('<div></div>');
             atodo.options.content.width(w);
             atodo.options.content.height(h);
+            atodo.options.content.css({cursor:"pointer"});
             shadow = this._addOverlay(atodo, toLatLng(cluster), true);
             
             // store data to the clusterer

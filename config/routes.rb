@@ -162,6 +162,7 @@ Quails::Application.routes.draw do
 
   resource :map, only: [:show, :edit] do
     resources :spots, only: :index
+    get 'photos' => 'spots#photos'
   end
 
   resources :spots, only: :destroy do

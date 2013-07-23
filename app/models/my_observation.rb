@@ -1,8 +1,9 @@
 class MyObservation < Observation
 
-  # This class represents only observations that are mine and identified
+  # FIXME: no need in separate class, or rename
+  # This class represents only observations that are dentified
 
-  default_scope { where(:mine => true).identified }
+  default_scope { identified }
 
   scope :distinct_species, lambda { select("DISTINCT species_id") }
 

@@ -14,5 +14,5 @@ named my application Rails but decided it could inspire confusion in the Ruby op
 
 == Dependencies
 
-[Ruby 1.9] Ruby 1.9.3 is used for both production and development. 1.9 Hash syntax is used here and there making the app incompatible with Ruby 1.8.
+[Ruby 2.0] Ruby 2.0.0 is used for both production and development. May also work on 1.9.3, but not guaranteed.
 [PostgreSQL] Some queries may be PostgreSQL-specific. PostgreSQL 9.1 is used.

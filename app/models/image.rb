@@ -23,17 +23,20 @@ class Image < ActiveRecord::Base
   end
 
   after_save do
+    cards.each { |c| c.post.try(:touch) }
     observations.each { |o| o.post.try(:touch) }
   end
 
   after_destroy do
     species.each(&:update_image)
+    cards.each { |c| c.post.try(:touch) }
     observations.each { |o| o.post.try(:touch) }
   end
 
   def destroy
     # If associations are not cached before, they are empty on destroy, so have to preload them for after_destroy hook
     observations.to_a
+    cards.to_a
     species.to_a
     super
   end
@@ -158,21 +161,23 @@ class Image < ActiveRecord::Base
     Thumbnail.new(self, self.formatted.title, self, {image: {id: id}})
   end
 
+  def mapped?
+    spot
+  end
+
   private
 
   def first_observation
     observations[0]
   end
 
-  COMMON_OBSERVATION_ATTRIBUTES = %w(card_id mine)
-
   def validate_observations(observ_ids)
     obs = Observation.where(id: observ_ids)
     if obs.blank?
       errors.add(:observations, 'must not be empty')
     else
-      if obs.map { |o| o.attributes.values_at(*COMMON_OBSERVATION_ATTRIBUTES) }.uniq.size > 1
-        errors.add(:observations, 'must have the same card and mine value')
+      if obs.map(&:card_id).uniq.size > 1
+        errors.add(:observations, 'must belong to the same card')
       end
     end
   end

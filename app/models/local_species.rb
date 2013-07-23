@@ -1,7 +1,5 @@
 class LocalSpecies < ActiveRecord::Base
 
-  invalidates CacheKey.checklist
-
   has_many :taxa, foreign_key: :species_id, primary_key: :species_id
 
   delegate :order, :family, to: :taxon

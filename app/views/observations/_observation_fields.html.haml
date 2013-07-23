@@ -7,7 +7,6 @@
   - else
     = form.association :species, collection: species_for_select,
         include_blank: true, required: false, input_html: {class: 'sp-suggest'}
-  = form.input :mine, label: 'Mine?'
   = form.input :quantity, input_html: {class: :short}
   = form.input :notes
   = form.input :voice, label: 'Voice?'

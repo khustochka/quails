@@ -85,8 +85,6 @@ class PostTest < ActiveSupport::TestCase
     sleep 1
 
     o = create(:observation, post: p)
-    p.reload
-    assert_equal saved_date.to_i, p.updated_at.to_i
 
     sleep 1
 
@@ -96,7 +94,7 @@ class PostTest < ActiveSupport::TestCase
   end
 
   # FIXME: crazy unstable test!!!
-  test 'moving image to another observation should touch posts`s updated_at' do
+  test 'moving image to another observation of another card should touch posts`s updated_at' do
     p = create(:post)
     saved_date = p.updated_at
 
@@ -108,6 +106,42 @@ class PostTest < ActiveSupport::TestCase
     sleep 2
 
     i.update_with_observations({}, [o2.id])
+
+    p.reload
+    assert p.updated_at.to_i > saved_date.to_i
+
+  end
+
+  # !
+  test 'moving image to another observation of the same card should touch posts`s updated_at' do
+    p = create(:post)
+    saved_date = p.updated_at
+    card = create(:card, post: p)
+
+    o = create(:observation, card: card)
+    i = create(:image, observations: [o])
+
+    o2 = create(:observation, card: card)
+
+    sleep 2
+
+    i.update_with_observations({}, [o2.id])
+
+    p.reload
+    assert p.updated_at.to_i > saved_date.to_i
+
+  end
+
+  # !
+  test 'moving card out of the post should touch post' do
+    p = create(:post)
+    saved_date = p.updated_at
+    card = create(:card, post: p)
+
+    sleep 2
+
+    card.post = nil
+    card.save!
 
     p.reload
     assert p.updated_at.to_i > saved_date.to_i

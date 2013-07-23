@@ -7,8 +7,9 @@
 %ul
   %li
     Posts: #{Post.count}
-    %ul
+    %ul.no-margin-list
       %li public: #{Post.public.count}
+      %li indexable: #{Post.indexable.count}
   %li Images: #{Image.count}
   %li Cards: #{Card.count}
   %li Observations: #{Observation.count}

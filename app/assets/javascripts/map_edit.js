@@ -241,7 +241,9 @@ $(function () {
     theMap.gmap3({
         action: 'init',
         options: {
-            draggableCursor: 'pointer'
+            draggableCursor: 'pointer',
+            center: [48.2837, 31.62962],
+            zoom: 6
         },
         events: {
             click: function (map, event) {

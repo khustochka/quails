@@ -12,5 +12,5 @@
     = submit_tag "Upload"
 
 - @flickr_images.each do |img|
-  = link_to(action: :new, i: {flickr_id: img.id}) do
+  = link_to(url_for(action: :new, i: {flickr_id: img.id})) do
     = image_tag(FlickRaw.url_m(img))

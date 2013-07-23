@@ -12,7 +12,7 @@
   %div
     = form.input :name
   %div
-    = form.input :description
+    = form.input :description, input_html: {rows: 7}
 
   .buttons
     = default_submit_button(form)

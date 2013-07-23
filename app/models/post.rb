@@ -119,7 +119,7 @@ class Post < ActiveRecord::Base
 
   # List of new species
   def new_species_ids
-    subquery = "select obs.id from observations obs join cards c on obs.card_id = c.id where observations.species_id = obs.species_id and cards.observ_date > c.observ_date and obs.mine"
+    subquery = "select obs.id from observations obs join cards c on obs.card_id = c.id where observations.species_id = obs.species_id and cards.observ_date > c.observ_date"
     @new_species_ids ||= MyObservation.
         joins(:card).
         where("observations.post_id = ? or cards.post_id = ?", self.id, self.id).

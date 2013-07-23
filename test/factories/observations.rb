@@ -5,6 +5,5 @@ FactoryGirl.define do
     quantity "several"
     place "near the lake"
     notes "masc, fem"
-    mine true
   end
 end
