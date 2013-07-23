@@ -83,6 +83,7 @@ Quails::Application.routes.draw do
       get 'add'
       get 'flickr_search'
       get 'unflickred'
+      get 'half_mapped'
       post 'upload'
       post 'strip'
     end

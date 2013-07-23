@@ -12,6 +12,12 @@
   %li= link_to('Images and posts of this day', {:action => :day})
   %li= link_to('Compare lists of two regions', {:action => :compare})
 
+%h3 Review tasks:
+
+%ul
+  %li= link_to('Half-mapped images', {controller: :images, action: :half_mapped})
+  %li= link_to('Unflickred images', {controller: :images, action: :unflickred})
+
 %h3= link_to('Environment', action: :environ)
 
 %h3= link_to('Insights', action: :insights)
