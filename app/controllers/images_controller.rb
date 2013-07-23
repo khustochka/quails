@@ -182,7 +182,7 @@ class ImagesController < ApplicationController
   end
 
   def strip
-    @images = Image.where(id: params[:_json])
+    @images = Image.where(id: params[:_json]).preload(:species)
     render layout: false
   end
 
