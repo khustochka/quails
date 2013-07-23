@@ -24,12 +24,16 @@ $(function () {
         lower = $('div.footer:visible').outerHeight();
     $('div.mapContainer').height(clientHeight - upper - lower).width(clientWidth)
         .css('top', upper);
+    if ($(".gallery_window:visible").length > 0) {
+      $(".gallery_window").css('bottom', lower ? lower + "px" : "0");
+    }
+
   }
 
   function showPhotos(cluster, event, data) {
     var image_ids = $.map(data.markers, function (x) {
       return x.data
-    });
+    }), lower = $('div.footer:visible').outerHeight();
     $(".gallery_window").hide();
     $.ajax('photos/strip',
         {
@@ -40,7 +44,7 @@ $(function () {
           success: function (body) {
             $(".gallery_container").html(body);
             $(".gallery_window")
-                .css('bottom', $('div.footer:visible').outerHeight() + "px")
+                .css('bottom', lower ? lower + "px" : "0")
                 .show();
           }
         });
