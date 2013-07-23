@@ -26,16 +26,11 @@ $(function () {
         .css('top', upper);
   }
 
-  function closeInfoWindows() {
-    var infowindow = theMap.gmap3({action: 'get', name: 'infowindow'});
-    if (infowindow) infowindow.close();
-  }
-
   function showPhotos(cluster, event, data) {
     var image_ids = $.map(data.markers, function(x) {
       return x.data
     });
-    closeInfoWindows();
+    $(".gallery_window").hide();
     $.ajax('photos/strip',
         {
           method: 'POST',
@@ -43,17 +38,7 @@ $(function () {
           processData: false,
           contentType: "application/json; charset=utf-8",
           success: function(body) {
-            theMap.gmap3(
-                {
-                  action: 'addInfoWindow',
-                  latLng: data.latLng,
-                  infowindow:{
-                    options:{
-                      //size: new google.maps.Size(50,50),
-                      content: body
-                    }
-                  }
-                });
+            $(".gallery_window").html(body).width($(window).width() - 30).show();
           }
         });
   }
