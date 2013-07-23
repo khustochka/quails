@@ -6,4 +6,7 @@
 
 -# scripts
 - scripts = @scripts.try(:compact) || []
-= javascript_include_tag(*scripts.unshift(JQUERY_URL, 'application'))
+- if current_user.admin?
+  = javascript_include_tag(*scripts.unshift(JQUERY_URL, 'application'))
+- elsif scripts.any?
+  = javascript_include_tag(*scripts.unshift(JQUERY_URL))
