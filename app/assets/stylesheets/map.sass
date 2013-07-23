@@ -17,38 +17,40 @@
 //  font-weight: bold
 //  border-radius: 15px
 
+$base-cluster-size: 30px
+
 .marker-cluster-small
   background-color: rgba(181, 226, 140, 0.6)
-  width: 30px
-  height: 30px
+  width: $base-cluster-size
+  height: $base-cluster-size
   div
-    background-color: rgba(110, 204, 57, 0.6)
-    width: 20px
-    height: 20px
+    background-color: rgba(110, 204, 57, 0.8)
+    width: $base-cluster-size - 10
+    height: $base-cluster-size - 10
     span
-      line-height: 20px
+      line-height: $base-cluster-size - 10
 
 .marker-cluster-medium
   background-color: rgba(241, 211, 87, 0.6)
-  width: 35px
-  height: 35px
+  width: $base-cluster-size + 5
+  height: $base-cluster-size + 5
   div
-    background-color: rgba(240, 194, 12, 0.6)
-    width: 25px
-    height: 25px
+    background-color: rgba(240, 194, 12, 0.8)
+    width: $base-cluster-size - 5
+    height: $base-cluster-size - 5
     span
-      line-height: 25px
+      line-height: $base-cluster-size - 5
 
 .marker-cluster-large
   background-color: rgba(253, 156, 115, 0.6)
-  width: 40px
-  height: 40px
+  width: $base-cluster-size + 10
+  height: $base-cluster-size + 10
   div
-    background-color: rgba(241, 128, 23, 0.6)
-    width: 30px
-    height: 30px
+    background-color: rgba(241, 128, 23, 0.8)
+    width: $base-cluster-size
+    height: $base-cluster-size
     span
-      line-height: 30px
+      line-height: $base-cluster-size
 
 .marker-cluster
   background-clip: padding-box
@@ -59,4 +61,7 @@
     margin-top: 5px
     text-align: center
     border-radius: 15px
-    font: 12px "Helvetica Neue", Arial, Helvetica, sans-serif
+    font: 14px "Helvetica Neue", Arial, Helvetica, sans-serif
+    font-weight: bold
+    color: #fcfcfc
+    text-shadow: #333333 1px 1px 0px
