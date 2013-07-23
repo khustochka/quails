@@ -1,0 +1,71 @@
+// Imageholder
+
+figure.image_thumb, figure.imageholder
+  @include inline-block
+  position: relative
+  margin: 0 6px 6px 0
+  // vertical-align: top is necessary for IE7
+  vertical-align: top
+  border: 1px solid #ccc
+  a img
+    border: none
+    vertical-align: text-top
+    // overwrite margin in .post a img
+    margin-bottom: 0
+
+figure.imageholder
+  @include auto-width
+  img
+    @include auto-width
+
+figcaption.imagetitle
+  @include inline-block
+  position: absolute
+  bottom: -1px
+  left: 0
+  right: 0
+  text-align: left
+  background: #3d3d3d
+  background: rgba(0, 0, 0, 0.5)
+  padding: 10px
+  a, i.sci_name
+    color: #cfcfcf
+    font-weight: bold
+    text-shadow: rgb(0, 0, 0) 1px 1px 0px
+    text-decoration: none
+  a:hover, a:hover i.sci_name
+    color: white
+    background: #3d3d3d
+    background: rgba(0, 0, 0, 0)
+    //text-decoration: underline
+    border-bottom: 1px solid white
+
+figure.image_thumb figcaption
+  font-size: 13px
+
+.post figure.image_thumb figcaption
+  font-size: 14px
+
+figure.imageholder figcaption
+  font-size: 16px
+
+.thumbs_row
+  width: $main-width
+
+@media only all and (max-width: 580px)
+  .thumbs_row
+    width: auto
+
+  figure.image_thumb
+    @include auto-width
+    img
+      @include auto-width
+
+.flickr_badge
+  position: absolute
+  top: 0
+  //left: 0
+  right: 0
+  background: #3d3d3d
+  background: rgba(0, 0, 0, 0.5)
+  padding: 5px
