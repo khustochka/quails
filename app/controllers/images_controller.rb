@@ -120,7 +120,7 @@ class ImagesController < ApplicationController
         end
       end
 
-      redirect_to(image_path(@image), :notice => 'Image was successfully created.')
+      redirect_to(edit_map_image_path(@image), :notice => 'Image was successfully created. Map it now!')
     else
       render 'form'
     end
@@ -130,7 +130,11 @@ class ImagesController < ApplicationController
   def update
     new_params = params[:image].slice(:slug, :title, :description, :flickr_id)
     if @image.update_with_observations(new_params, params[:obs])
-      redirect_to(image_path(@image), :notice => 'Image was successfully updated.')
+      if @image.mapped?
+        redirect_to(image_path(@image), notice: 'Image was successfully updated.')
+      else
+        redirect_to(edit_map_image_path(@image), notice: 'Image was successfully updated. Map it now!')
+      end
     else
       render 'form'
     end

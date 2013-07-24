@@ -7,6 +7,7 @@ class JSImagesTest < ActionDispatch::IntegrationTest
 
   def save_and_check
     click_button('Save')
+    #save_and_open_page
     assert page.has_text?("Image was successfully")
   end
   private :save_and_check
@@ -26,7 +27,7 @@ class JSImagesTest < ActionDispatch::IntegrationTest
 
     assert_difference('Image.count', 0) { save_and_check }
     img.reload
-    assert_equal image_path(img), current_path
+    assert_equal edit_map_image_path(img), current_path
     assert_equal 2, img.observations.size
     assert_equal 'test-img-capybara', img.slug
   end
@@ -43,7 +44,7 @@ class JSImagesTest < ActionDispatch::IntegrationTest
     #sleep 1
 
     assert_difference('Image.count', 0) { save_and_check }
-    assert_equal image_path(img), current_path
+    assert_equal edit_map_image_path(img), current_path
     img.reload
     assert_equal 2, img.observations.size
   end
@@ -68,7 +69,7 @@ class JSImagesTest < ActionDispatch::IntegrationTest
 
     assert_difference('Image.count', 1) { save_and_check }
     img = Image.find_by_slug('test-img-capybara')
-    assert_equal image_path(img), current_path
+    assert_equal edit_map_image_path(img), current_path
   end
 
   test "Image save does not use all found observations" do

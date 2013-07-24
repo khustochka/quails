@@ -162,7 +162,7 @@ class Image < ActiveRecord::Base
   end
 
   def mapped?
-    spot
+    spot_id
   end
 
   private

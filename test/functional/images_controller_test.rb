@@ -56,7 +56,7 @@ class ImagesControllerTest < ActionController::TestCase
       post :create, image: new_attr, obs: [@obs.id]
     end
 
-    assert_redirected_to image_path(assigns(:image))
+    assert_redirected_to edit_map_image_path(assigns(:image))
   end
 
   test "create image with several observations" do
@@ -69,7 +69,7 @@ class ImagesControllerTest < ActionController::TestCase
       image = assigns(:image)
       refute image.errors.any?
     end
-    assert_redirected_to image_path(assigns(:image))
+    assert_redirected_to edit_map_image_path(assigns(:image))
   end
 
   test "do not save image without slug" do
@@ -141,7 +141,7 @@ class ImagesControllerTest < ActionController::TestCase
     new_attr = @image.attributes
     new_attr['slug'] = 'new_slug'
     put :update, id: @image.to_param, image: new_attr, obs: @image.observation_ids
-    assert_redirected_to image_path(assigns(:image))
+    assert_redirected_to edit_map_image_path(assigns(:image))
   end
 
   test "update image spot via json" do

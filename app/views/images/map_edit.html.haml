@@ -9,7 +9,10 @@
   %li= link_to('Show', action: :show)
   %li= link_to('Edit', action: :edit)
 
-%p= image_tag(thumbnail_item(@image).full_url, class: 'image_pic')
+- if notice
+  %p#notice= notice
+
+%p= image_tag(thumbnail_item(@image).try(:full_url), class: 'image_pic')
 
 - if @image.spots.empty?
   %p.errors No observations mapped!
