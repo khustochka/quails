@@ -37,7 +37,10 @@ $(function () {
     var image_ids = $.map(data.markers, function (x) {
       return x.data
     }), lower = $('div.footer:visible').outerHeight() || 0;
-    $(".gallery_window").hide();
+    $(".gallery_window")
+        .css('bottom', lower + "px")
+        .show();
+    $(".gallery_container").html("").scrollLeft(0).addClass('loading');
     $.ajax('photos/strip',
         {
           method: 'POST',
@@ -47,11 +50,10 @@ $(function () {
           processData: false,
           contentType: "application/json; charset=utf-8",
           success: function (body) {
-            $(".gallery_container").html(body);
-            $(".gallery_window")
-                .css('bottom', lower + "px")
-                .show();
-            $(".gallery_container").scrollLeft(0);
+            $(".gallery_container").removeClass('loading').html(body);
+          },
+          error: function(xhr, text, error) {
+            $(".gallery_container").removeClass('loading').html("<h2>Error :(</h2>");
           }
         });
   }

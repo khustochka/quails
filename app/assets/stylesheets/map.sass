@@ -70,7 +70,6 @@ $base-cluster-size: 30px
 
 div.thumbs_strip
   padding: 5px 20px 15px 15px
-  height: 200px
 
 .gallery_window
   position: absolute
@@ -87,9 +86,13 @@ div.thumbs_strip
   //box-shadow: 0 0 10px rgba(#000, 0.5)
 
 .gallery_container
+  height: 235px
   white-space: nowrap
   overflow-x: auto
   overflow-y: hidden
+
+.gallery_container.loading
+  background-size: 32px auto
 
 .wnd_close
   margin: 5px 15px
