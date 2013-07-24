@@ -51,6 +51,7 @@ $(function () {
             $(".gallery_window")
                 .css('bottom', lower + "px")
                 .show();
+            $(".gallery_container").scrollLeft(0);
           }
         });
   }
