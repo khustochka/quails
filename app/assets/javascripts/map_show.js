@@ -24,11 +24,11 @@ $(function () {
     var clientHeight = $(window).height(),
         clientWidth = $(window).width(),
         upper = $('#header').outerHeight(true),
-        lower = $('div.footer:visible').outerHeight();
+        lower = $('div.footer:visible').outerHeight() || 0;
     $('div.mapContainer').height(clientHeight - upper - lower).width(clientWidth)
         .css('top', upper);
     if ($(".gallery_window:visible").length > 0) {
-      $(".gallery_window").css('bottom', lower ? lower + "px" : "0");
+      $(".gallery_window").css('bottom', lower + "px");
     }
 
   }
@@ -36,7 +36,7 @@ $(function () {
   function showPhotos(cluster, event, data) {
     var image_ids = $.map(data.markers, function (x) {
       return x.data
-    }), lower = $('div.footer:visible').outerHeight();
+    }), lower = $('div.footer:visible').outerHeight() || 0;
     $(".gallery_window").hide();
     $.ajax('photos/strip',
         {
@@ -49,7 +49,7 @@ $(function () {
           success: function (body) {
             $(".gallery_container").html(body);
             $(".gallery_window")
-                .css('bottom', lower ? lower + "px" : "0")
+                .css('bottom', lower + "px")
                 .show();
           }
         });
