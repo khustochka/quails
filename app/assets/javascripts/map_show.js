@@ -11,13 +11,14 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require map_init
-//= require jquery_ujs
 
-//TODO: remove jquery-ujs when switching to application.js
 $(function () {
 
   var marks,
-      theMap = $('#googleMap');
+      theMap = $('#googleMap'),
+      token = $('meta[name="csrf-token"]').attr('content');
+      // TODO: remove token when user switched to application.js
+
 
   function adjustSizes() {
     var clientHeight = $(window).height(),
@@ -41,6 +42,8 @@ $(function () {
         {
           method: 'POST',
           data: JSON.stringify(image_ids),
+          // TODO: remove token when user switched to application.js
+          beforeSend: function(xhr) { xhr.setRequestHeader('X-CSRF-Token', token); },
           processData: false,
           contentType: "application/json; charset=utf-8",
           success: function (body) {
