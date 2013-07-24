@@ -18,7 +18,9 @@ namespace :vendor do
       system "curl https://raw.github.com/defunkt/jquery-pjax/master/jquery.pjax.js -o vendor/assets/javascripts/jquery_pjax.js"
       puts "\n=== Getting latest HTML5shiv for IE ==="
       system "curl http://html5shiv.googlecode.com/svn/trunk/html5.js -o vendor/assets/javascripts/html5.js"
-      puts "\n=== Getting latest Gmap3 ==="
+      puts "\n=== Getting latest JSON3 parser for IE ==="
+      system "curl https://raw.github.com/bestiejs/json3/gh-pages/lib/json3.js -o vendor/assets/javascripts/json3.js"
+      puts "\n=== Getting Gmap3 ==="
       system "curl https://raw.github.com/khustochka/gmap3/one-marker-cluster/gmap3.js -o vendor/assets/javascripts/gmap3.js"
     end
 
