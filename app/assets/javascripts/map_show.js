@@ -104,4 +104,12 @@ $(function () {
     );
   });
 
+//  // Fix for IE: click on span inside cluster was not propagated to parent
+//  $(document).on('click', '.marker-cluster div span', function(e) {
+//    $(e.target).parent().parent().trigger('click');
+//    //google.maps.event.trigger(markers[i], 'click');
+//    //alert(e.target);
+//    return false;
+//  });
+
 });
