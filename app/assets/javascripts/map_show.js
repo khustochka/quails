@@ -17,6 +17,7 @@
 $(function () {
 
   var marks,
+      template = '<div class="marker-cluster marker-cluster-SIZE"><div><span data-cluster="CLUSTER_ID">CLUSTER_COUNT</span></div></div>',
       theMap = $('#googleMap'),
       token = $('meta[name="csrf-token"]').attr('content');
       // TODO: remove token when user switched to application.js
@@ -79,17 +80,17 @@ $(function () {
           clusters: {
             // This style will be used for clusters with more than 0 markers
             0: {
-              content: '<div class="marker-cluster marker-cluster-small"><div><span>CLUSTER_COUNT</span></div></div>',
+              content: template.replace('SIZE', 'small'),
               width: 30,
               height: 30
             },
             10: {
-              content: '<div class="marker-cluster marker-cluster-medium"><div><span>CLUSTER_COUNT</span></div></div>',
+              content: template.replace('SIZE', 'medium'),
               width: 35,
               height: 35
             },
             100: {
-              content: '<div class="marker-cluster marker-cluster-large"><div><span>CLUSTER_COUNT</span></div></div>',
+              content: template.replace('SIZE', 'large'),
               width: 40,
               height: 40
             }
@@ -104,12 +105,12 @@ $(function () {
     );
   });
 
-//  // Fix for IE: click on span inside cluster was not propagated to parent
-//  $(document).on('click', '.marker-cluster div span', function(e) {
-//    $(e.target).parent().parent().trigger('click');
-//    //google.maps.event.trigger(markers[i], 'click');
-//    //alert(e.target);
-//    return false;
-//  });
+  // Fix for IE: click on span inside cluster was not propagated to parent
+  $(document).on('click', '.marker-cluster div span', function(e) {
+    var i = $(e.target).data('cluster'),
+        clusters = theMap.gmap3({action: "get", name: "cluster"}).stored();
+    google.maps.event.trigger(clusters[i].shadow, 'click');
+    return false;
+  });
 
 });

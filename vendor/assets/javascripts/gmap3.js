@@ -282,6 +282,10 @@
         events.push(arguments[i]);
       }
     }
+
+    this.stored = function() {
+      return stored;
+    }
     
     this.startRedraw = function(){
       if (!redrawing){
@@ -1533,7 +1537,9 @@
               ctodo, 
               { options:{
                   pane: 'overlayLayer',
-                  content:styles[m].content.replace('CLUSTER_COUNT', cluster.idx.length),
+                  content:styles[m].content.
+                      replace('CLUSTER_COUNT', cluster.idx.length).
+                      replace('CLUSTER_ID', i),
                   offset:{
                     x: offset[0],
                     y: offset[1]
