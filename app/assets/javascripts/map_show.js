@@ -11,7 +11,9 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require map_init
+//= require jquery_ujs
 
+//TODO: remove jquery-ujs when switching to application.js
 $(function () {
 
   var marks,
