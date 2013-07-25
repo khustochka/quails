@@ -20,7 +20,7 @@ $(function () {
       template = '<div class="marker-cluster marker-cluster-SIZE"><div><span data-cluster="CLUSTER_ID">CLUSTER_COUNT</span></div></div>',
       theMap = $('#googleMap'),
       token = $('meta[name="csrf-token"]').attr('content');
-      // TODO: remove token when user switched to application.js
+  // TODO: remove token when user switched to application.js
 
 
   function adjustSizes() {
@@ -30,6 +30,8 @@ $(function () {
         lower = $('div.footer:visible').outerHeight() || 0;
     $('div.mapContainer').height(clientHeight - upper - lower).width(clientWidth)
         .css('top', upper);
+    var gmap = theMap.gmap3('get');
+    if (gmap !== null) google.maps.event.trigger(gmap, 'resize');
     if ($(".gallery_window:visible").length > 0) {
       $(".gallery_window").css('bottom', lower + "px");
     }
@@ -49,13 +51,15 @@ $(function () {
           method: 'POST',
           data: JSON.stringify(image_ids),
           // TODO: remove token when user switched to application.js
-          beforeSend: function(xhr) { xhr.setRequestHeader('X-CSRF-Token', token); },
+          beforeSend: function (xhr) {
+            xhr.setRequestHeader('X-CSRF-Token', token);
+          },
           processData: false,
           contentType: "application/json; charset=utf-8",
           success: function (body) {
             $(".gallery_container").removeClass('loading').html(body);
           },
-          error: function(xhr, text, error) {
+          error: function (xhr, text, error) {
             $(".gallery_container").removeClass('loading').html("<h2>Error :(</h2>");
           }
         });
@@ -106,7 +110,7 @@ $(function () {
   });
 
   // Fix for IE: click on span inside cluster was not propagated to parent
-  $(document).on('click', '.marker-cluster div span', function(e) {
+  $(document).on('click', '.marker-cluster div span', function (e) {
     var i = $(e.target).data('cluster'),
         clusters = theMap.gmap3({action: "get", name: "cluster"}).stored();
     google.maps.event.trigger(clusters[i].shadow, 'click');
