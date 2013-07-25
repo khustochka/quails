@@ -149,7 +149,7 @@ class ImagesController < ApplicationController
     end
     respond_to do |format|
       if @image.update_attributes(new_params)
-        format.html { redirect_to action: 'edit' }
+        format.html { redirect_to action: 'flickr_edit' }
         format.json { head :no_content }
       else
         format.html { render 'form' }
