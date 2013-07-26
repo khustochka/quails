@@ -11,7 +11,6 @@ gem 'unicorn', require: false, platforms: :ruby
 
 group :production do
   gem 'airbrake'
-  gem 'newrelic_rpm'
 end
 
 # Bundle the extra gems:
