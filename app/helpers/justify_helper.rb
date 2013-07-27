@@ -14,18 +14,23 @@ module JustifyHelper
 
     sum_width = 0
     temp_el = nil
+    num_thumbs = 0
 
     thumbs.each do |thumb|
       current_row << thumb
       pre_sum_width = sum_width
       sum_width += thumb.width + (BORDER * 2)
+      num_thumbs += 1
       Rails.logger.debug "sum_width=#{sum_width}"
       if sum_width > max_width
-        ratio = max_width.to_f / sum_width
+        border_sum = num_thumbs * (BORDER * 2)
+        ratio = (max_width.to_f - border_sum) / (sum_width - border_sum + 5)
 
         if INCREASE_ENABLED
           if ratio < 0.85
-            ratio = pre_sum_width.to_f / sum_width
+            num_thumbs -= 1
+            border_sum = num_thumbs * (BORDER * 2)
+            ratio = (max_width.to_f - border_sum) / (pre_sum_width - border_sum)
             temp_el = current_row.pop
           end
         end
@@ -59,9 +64,11 @@ module JustifyHelper
         result << current_row
         current_row = []
         sum_width = 0
+        num_thumbs = 0
         if temp_el
           current_row << temp_el
           sum_width = temp_el.width + (BORDER * 2)
+          num_thumbs += 1
           temp_el = nil
         end
 
