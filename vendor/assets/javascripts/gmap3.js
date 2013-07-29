@@ -2089,9 +2089,11 @@
           // create a custom overlay command
           // nb: 2 extends are faster that a deeper extend
           atodo = $.extend({}, todo);
+          var xcontent = style.content ? style.content.replace("CLUSTER_COUNT", cnt) : "";
+          xcontent = $(xcontent).css({cursor:"pointer"});
           atodo.options = $.extend({
             pane: "overlayLayer",
-            content:style.content ? style.content.replace("CLUSTER_COUNT", cnt) : "",
+            content: xcontent ,
             offset:{
               x: ("x" in offset ? offset.x : offset[0]) || 0,
               y: ("y" in offset ? offset.y : offset[1]) || 0
@@ -2101,9 +2103,9 @@
           
           obj = that.overlay({todo:atodo, opts:atodo.options, latLng:toLatLng(cluster)}, true);
           
-          atodo.options.pane = "floatShadow";
-          atodo.options.content = $(document.createElement("div")).width(style.width+"px").height(style.height+"px").css({cursor:"pointer"});
-          shadow = that.overlay({todo:atodo, opts:atodo.options, latLng:toLatLng(cluster)}, true);
+          //atodo.options.pane = "floatShadow";
+          //atodo.options.content = $(document.createElement("div")).width(style.width+"px").height(style.height+"px").css({cursor:"pointer"});
+          shadow = null; //that.overlay({todo:atodo, opts:atodo.options, latLng:toLatLng(cluster)}, true);
           
           // store data to the clusterer
           todo.data = {
@@ -2116,7 +2118,7 @@
               internalClusterer.marker(index).setMap(null);
             }
           });
-          attachEvents($this, {todo:todo}, shadow, undef, {main:obj, shadow:shadow});
+          attachEvents($this, {todo:todo}, obj, undef, {main:obj, shadow:shadow});
           internalClusterer.store(cluster, obj, shadow);
         } else {
           $.each(cluster.indexes, function(i, index){

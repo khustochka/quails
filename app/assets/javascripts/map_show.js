@@ -110,11 +110,11 @@ $(function () {
   });
 
   // Fix for IE: click on span inside cluster was not propagated to parent
-  $(document).on('click', '.marker-cluster div span', function (e) {
-    var i = $(e.target).data('cluster'),
-        clusters = theMap.gmap3({action: "get", name: "cluster"}).stored();
-    google.maps.event.trigger(clusters[i].shadow, 'click');
-    return false;
-  });
+//  $(document).on('click', '.marker-cluster div span', function (e) {
+//    var i = $(e.target).data('cluster'),
+//        clusters = theMap.gmap3({action: "get", name: "cluster"}).stored();
+//    google.maps.event.trigger(clusters[i].shadow, 'click');
+//    return false;
+//  });
 
 });
