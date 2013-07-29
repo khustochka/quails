@@ -39,7 +39,7 @@ $(function () {
   }
 
   function showPhotos(cluster, event, data) {
-    var image_ids = $.map(data.markers, function (x) {
+    var image_ids = $.map(data.data.markers, function (x) {
       return x.data
     }), lower = $('div.footer:visible').outerHeight() || 0;
     $(".gallery_window")
