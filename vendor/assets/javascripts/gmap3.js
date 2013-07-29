@@ -2105,7 +2105,7 @@
           
           //atodo.options.pane = "floatShadow";
           //atodo.options.content = $(document.createElement("div")).width(style.width+"px").height(style.height+"px").css({cursor:"pointer"});
-          shadow = null; //that.overlay({todo:atodo, opts:atodo.options, latLng:toLatLng(cluster)}, true);
+          shadow = 1; //that.overlay({todo:atodo, opts:atodo.options, latLng:toLatLng(cluster)}, true);
           
           // store data to the clusterer
           todo.data = {
