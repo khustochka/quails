@@ -11,7 +11,7 @@ Quails::Application.configure do
   config.eager_load = true
 
   # Full error reports are disabled and caching is turned on.
-  config.consider_all_requests_local       = false
+  config.consider_all_requests_local = false
   config.action_controller.perform_caching = true
 
   # Enable Rack::Cache to put a simple HTTP cache in front of your application
@@ -23,7 +23,7 @@ Quails::Application.configure do
   config.serve_static_assets = Quails.env.nil? || Quails.env.heroku?
 
   # Compress JavaScripts and CSS.
-  config.assets.js_compressor  = :uglifier
+  config.assets.js_compressor = :uglifier
   # config.assets.css_compressor = :sass
 
   # Whether to fallback to assets pipeline if a precompiled asset is missed.
@@ -66,16 +66,16 @@ Quails::Application.configure do
   app_assets_path = Rails.root.join('app', 'assets').to_path
 
   config.assets.precompile << Proc.new { |path|
-    if path =~ /\.(css|js)\z/
+    if path == 'html5.js' || path =~ /\.png$/
+      true
+    elsif path =~ /\.(css|js)\z/
       full_path = Rails.application.assets.resolve(path).to_path
       # return true to compile asset, false to skip
-      full_path.starts_with?(app_assets_path) || full_path.ends_with?('html5.js')
+      full_path.starts_with?(app_assets_path)
     else
       false
     end
   }
-
-  #config.assets.precompile += %w( html5.js )
 
   # Route error pages through custom middleware
   require 'quails/public_exceptions'
