@@ -81,6 +81,7 @@ $(function () {
           marker: {
             values: marks,
             cluster: {
+              force: true,
               radius: 40,
               // This style will be used for clusters with more than 0 markers
               0: {
