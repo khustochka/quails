@@ -31,7 +31,7 @@ $(function () {
     $('div.mapContainer').height(clientHeight - upper - lower).width(clientWidth)
         .css('top', upper);
     var gmap = theMap.gmap3('get');
-    if (gmap !== null) google.maps.event.trigger(gmap, 'resize');
+    if (typeof(gmap) !== 'undefined' && gmap !== null) google.maps.event.trigger(gmap, 'resize');
     if ($(".gallery_window:visible").length > 0) {
       $(".gallery_window").css('bottom', lower + "px");
     }
@@ -73,35 +73,34 @@ $(function () {
     $(".gallery_window").hide();
   });
 
-  theMap.gmap3('init');
+  theMap.gmap3('map');
 
   $.get('/map/photos', function (data, textStatus, jqXHR) {
     marks = data;
-    theMap.gmap3(
-        { action: 'addMarkers',
-          markers: marks,
-          radius: 40,
-          clusters: {
-            // This style will be used for clusters with more than 0 markers
-            0: {
-              content: template.replace('SIZE', 'small'),
-              width: 30,
-              height: 30
-            },
-            10: {
-              content: template.replace('SIZE', 'medium'),
-              width: 35,
-              height: 35
-            },
-            100: {
-              content: template.replace('SIZE', 'large'),
-              width: 40,
-              height: 40
-            }
-          },
-          cluster: {
-            events: {
-              click: showPhotos
+    theMap.gmap3({
+          marker: {
+            values: marks,
+            cluster: {
+              radius: 40,
+              // This style will be used for clusters with more than 0 markers
+              0: {
+                content: template.replace('SIZE', 'small'),
+                width: 30,
+                height: 30
+              },
+              10: {
+                content: template.replace('SIZE', 'medium'),
+                width: 35,
+                height: 35
+              },
+              100: {
+                content: template.replace('SIZE', 'large'),
+                width: 40,
+                height: 40
+              },
+              events: {
+                click: showPhotos
+              }
             }
           }
         },
