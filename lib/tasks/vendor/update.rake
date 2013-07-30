@@ -21,7 +21,7 @@ namespace :vendor do
       puts "\n=== Getting latest JSON3 parser for IE ==="
       system "curl https://raw.github.com/bestiejs/json3/gh-pages/lib/json3.js -o vendor/assets/javascripts/json3.js"
       puts "\n=== Getting Gmap3 ==="
-      system "curl https://raw.github.com/khustochka/gmap3/one-marker-cluster/gmap3.js -o vendor/assets/javascripts/gmap3.js"
+      system "curl https://raw.github.com/jbdemonte/gmap3/master/gmap3.js -o vendor/assets/javascripts/gmap3.js"
     end
 
     #desc 'Update CSS'

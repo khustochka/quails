@@ -17,7 +17,7 @@
 $(function () {
 
   var marks,
-      template = '<div class="marker-cluster marker-cluster-SIZE"><div><span data-cluster="CLUSTER_ID">CLUSTER_COUNT</span></div></div>',
+      template = '<div class="marker-cluster marker-cluster-SIZE"><span data-cluster="CLUSTER_ID">CLUSTER_COUNT</span></div>',
       theMap = $('#googleMap');
 
 
@@ -29,7 +29,7 @@ $(function () {
     $('div.mapContainer').height(clientHeight - upper - lower).width(clientWidth)
         .css('top', upper);
     var gmap = theMap.gmap3('get');
-    if (gmap !== null) google.maps.event.trigger(gmap, 'resize');
+    if (typeof(gmap) !== 'undefined' && gmap !== null) google.maps.event.trigger(gmap, 'resize');
     if ($(".gallery_window:visible").length > 0) {
       $(".gallery_window").css('bottom', lower + "px");
     }
@@ -37,7 +37,7 @@ $(function () {
   }
 
   function showPhotos(cluster, event, data) {
-    var image_ids = $.map(data.markers, function (x) {
+    var image_ids = $.map(data.data.markers, function (x) {
       return x.data
     }), lower = $('div.footer:visible').outerHeight() || 0;
     $(".gallery_window")
@@ -67,35 +67,35 @@ $(function () {
     $(".gallery_window").hide();
   });
 
-  theMap.gmap3('init');
+  theMap.gmap3('map');
 
   $.get('/map/photos', function (data, textStatus, jqXHR) {
     marks = data;
-    theMap.gmap3(
-        { action: 'addMarkers',
-          markers: marks,
-          radius: 40,
-          clusters: {
-            // This style will be used for clusters with more than 0 markers
-            0: {
-              content: template.replace('SIZE', 'small'),
-              width: 30,
-              height: 30
-            },
-            10: {
-              content: template.replace('SIZE', 'medium'),
-              width: 35,
-              height: 35
-            },
-            100: {
-              content: template.replace('SIZE', 'large'),
-              width: 40,
-              height: 40
-            }
-          },
-          cluster: {
-            events: {
-              click: showPhotos
+    theMap.gmap3({
+          marker: {
+            values: marks,
+            cluster: {
+              force: true,
+              radius: 40,
+              // This style will be used for clusters with more than 0 markers
+              0: {
+                content: template.replace('SIZE', 'small'),
+                width: 25,
+                height: 25
+              },
+              10: {
+                content: template.replace('SIZE', 'medium'),
+                width: 30,
+                height: 30
+              },
+              100: {
+                content: template.replace('SIZE', 'large'),
+                width: 35,
+                height: 35
+              },
+              events: {
+                click: showPhotos
+              }
             }
           }
         },
@@ -104,11 +104,11 @@ $(function () {
   });
 
   // Fix for IE: click on span inside cluster was not propagated to parent
-  $(document).on('click', '.marker-cluster div span', function (e) {
-    var i = $(e.target).data('cluster'),
-        clusters = theMap.gmap3({action: "get", name: "cluster"}).stored();
-    google.maps.event.trigger(clusters[i].shadow, 'click');
-    return false;
-  });
+//  $(document).on('click', '.marker-cluster div span', function (e) {
+//    var i = $(e.target).data('cluster'),
+//        clusters = theMap.gmap3({action: "get", name: "cluster"}).stored();
+//    google.maps.event.trigger(clusters[i].shadow, 'click');
+//    return false;
+//  });
 
 });

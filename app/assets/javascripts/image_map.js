@@ -14,150 +14,154 @@
 
 $(function () {
 
-    var theMap = $('#googleMap'),
-        activeMarkers,
-        firstObserv = $('.obs-list li input').val();
+  var theMap = $('#googleMap'),
+      activeMarkers,
+      marker_options,
+      firstObserv = $('.obs-list li input').val();
 
-    function closeInfoWindows() {
-        var infowindow = theMap.gmap3({action:'get', name:'infowindow'});
-        if (infowindow) infowindow.close();
-    }
+  function closeInfoWindows() {
+    var infowindow = theMap.gmap3({get: {name: 'infowindow'}});
+    if (infowindow) infowindow.close();
+  }
 
-    var GRAY_ICON = "http://maps.google.com/mapfiles/marker_white.png",
-        RED_ICON = "http://maps.google.com/mapfiles/marker.png";
+  var GRAY_ICON = "http://maps.google.com/mapfiles/marker_white.png",
+      RED_ICON = "http://maps.google.com/mapfiles/marker.png";
 
-    function bindImageToMarker(marker, data) {
+  function bindImageToMarker(marker, data) {
 
-        $.post(patch_url, {'image':{'spot_id':data.id}}, function (data2) {
+    $.post(patch_url, {'image': {'spot_id': data.id}}, function (data2) {
 
-            var activeMarker = $('#googleMap').gmap3({
-                action:'get',
-                name:'marker',
-                first:true,
-                tag:image_spot
-            });
-
-            activeMarker.setIcon(GRAY_ICON);
-            activeMarker.setZIndex($(marker).data['OrigZIndex']);
-
-            image_spot = data.id;
-
-            marker.setIcon(RED_ICON);
-            $(marker).data['OrigZIndex'] = marker.getZIndex();
-            marker.setZIndex(google.maps.Marker.MAX_ZINDEX);
-        });
-    }
-
-    var DEFAULT_MARKER_OPTIONS = {
-        options:{
-            draggable:false,
-            icon:GRAY_ICON
-        },
-        events:{
-            click:function (marker, event, data) {
-                closeInfoWindows();
-                bindImageToMarker(marker, data);
-            }
+      var activeMarker = $('#googleMap').gmap3({
+        get: {
+          name: 'marker',
+          first: true,
+          tag: image_spot
         }
-    };
+      });
 
-    marks = $.map(marks, function (el) {
-        el.tag = el.id;
-        el.data = {id:el.id};
-        return el;
+      activeMarker.setIcon(GRAY_ICON);
+      activeMarker.setZIndex($(marker).data['OrigZIndex']);
+
+      image_spot = data.id;
+
+      marker.setIcon(RED_ICON);
+      $(marker).data['OrigZIndex'] = marker.getZIndex();
+      marker.setZIndex(google.maps.Marker.MAX_ZINDEX);
     });
+  }
 
-    // Spot edit form
+  var DEFAULT_MARKER_OPTIONS = {
+    options: {
+      draggable: false,
+      icon: GRAY_ICON
+    },
+    events: {
+      click: function (marker, event, data) {
+        closeInfoWindows();
+        bindImageToMarker(marker, data.data);
+      }
+    }
+  };
 
-    var spotForm = $('.spot_form_container').detach();
+  marks = $.map(marks, function (el) {
+    el.tag = el.id;
+    el.data = {id: el.id};
+    return el;
+  });
 
-    // The Map
+  // Spot edit form
 
-    theMap.width('1024px');
-    theMap.height('600px');
+  var spotForm = $('.spot_form_container').detach();
 
+  // The Map
+
+  theMap.width('1024px');
+  theMap.height('600px');
+
+  theMap.gmap3({
+    map: {
+      options: {
+        draggableCursor: 'pointer'
+      },
+      events: {
+        click: function (map, event) {
+          var newForm = spotForm.clone(),
+              wndContent;
+
+          closeInfoWindows();
+          $('#spot_lat', newForm).val(event.latLng.lat());
+          $('#spot_lng', newForm).val(event.latLng.lng());
+          $('#spot_zoom', newForm).val(map.zoom);
+          $('#spot_exactness_1', newForm).attr('checked', true); // Check the "exact" value
+          // TODO: create spots for all image's observations
+          $('#spot_observation_id', newForm).val(firstObserv);
+          wndContent = newForm.html();
+
+          theMap.gmap3({
+            infowindow: {
+              latLng: event.latLng,
+              options: {
+                content: wndContent
+              }
+            }
+          });
+        }
+      }
+    }
+  });
+
+  $(document).on('ajax:success', '#new_spot', function (e, data) {
+    var infowindow = theMap.gmap3({get: {name: 'infowindow'}}),
+
+        markerOptions = jQuery.extend(true, {}, DEFAULT_MARKER_OPTIONS);
+
+    markerOptions['data'] = {id: data.id};
+    markerOptions['tag'] = data.id;
+    markerOptions.latLng = [data.lat, data.lng];
     theMap.gmap3({
-        action:'init',
-        options:{
-            draggableCursor:'pointer'
-        },
-        events:{
-            click:function (map, event) {
-                var newForm = spotForm.clone(),
-                    wndContent;
-
-                closeInfoWindows();
-                $('#spot_lat', newForm).val(event.latLng.lat());
-                $('#spot_lng', newForm).val(event.latLng.lng());
-                $('#spot_zoom', newForm).val(map.zoom);
-                $('#spot_exactness_1', newForm).attr('checked', true); // Check the "exact" value
-                // TODO: create spots for all image's observations
-                $('#spot_observation_id', newForm).val(firstObserv);
-                wndContent = newForm.html();
-
-                theMap.gmap3({
-                    action:'addInfoWindow',
-                    latLng:event.latLng,
-                    options:{
-                        content:wndContent
-                    }
-                });
-            }
-        }
+      marker: markerOptions
     });
 
-    $(document).on('ajax:success', '#new_spot', function (e, data) {
-        var infowindow = theMap.gmap3({action:'get', name:'infowindow'}),
+    infowindow.close();
 
-            markerOptions = jQuery.extend(true, {}, DEFAULT_MARKER_OPTIONS);
+    // Simulate click
 
-            markerOptions['data'] = {id:data.id};
-            markerOptions['tag'] = data.id;
-            theMap.gmap3({
-                action:'addMarker',
-                latLng:[data.lat, data.lng],
-                marker:markerOptions
-            });
-
-        infowindow.close();
-
-        // Simulate click
-
-        var addedMarker = $('#googleMap').gmap3({
-            action:'get',
-            name:'marker',
-            first:true,
-            tag:data.id
-        });
-
-        bindImageToMarker(addedMarker, {id: data.id});
+    var addedMarker = $('#googleMap').gmap3({
+      get: {
+        name: 'marker',
+        first: true,
+        tag: data.id
+      }
     });
 
-    $(document).on('ajax:error', '#new_spot', function (e, data) {
-        alert("Error submitting form");
+    bindImageToMarker(addedMarker, {id: data.id});
+  });
+
+  $(document).on('ajax:error', '#new_spot', function (e, data) {
+    alert("Error submitting form");
+  });
+
+  marker_options = $.extend(true, {}, DEFAULT_MARKER_OPTIONS);
+  marker_options.values = marks;
+  theMap.gmap3(
+      {marker: marker_options},
+      'autofit' // Zooms and moves to see all markers
+  );
+
+  if (image_spot) {
+
+    activeMarkers = $('#googleMap').gmap3({
+      get: {
+        name: 'marker',
+        all: true,
+        tag: image_spot
+      }
     });
 
-    theMap.gmap3(
-        { action:'addMarkers',
-            markers:marks,
-            marker:DEFAULT_MARKER_OPTIONS
-        },
-        'autofit' // Zooms and moves to see all markers
-    );
-
-    if (image_spot) {
-
-        activeMarkers = $('#googleMap').gmap3({
-            action:'get',
-            name:'marker',
-            all:true,
-            tag:image_spot
-        });
-
-        $.each(activeMarkers, function (i, marker) {
-            marker.setIcon(RED_ICON);
-            $(marker).data['OrigZIndex'] = marker.getZIndex();
-            marker.setZIndex(google.maps.Marker.MAX_ZINDEX);
-        });
-    }
+    $.each(activeMarkers, function (i, marker) {
+      marker.setIcon(RED_ICON);
+      $(marker).data['OrigZIndex'] = marker.getZIndex();
+      marker.setZIndex(google.maps.Marker.MAX_ZINDEX);
+    });
+  }
 });
