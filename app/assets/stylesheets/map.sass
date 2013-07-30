@@ -13,62 +13,42 @@
     background-color: transparent
     padding: 0
 
-$base-cluster-size: 30px
+$base-cluster-size: 35px
 
 .marker-cluster-small
-  background-color: rgb(181, 226, 140)
-  background-color: rgba(181, 226, 140, 0.6)
-  width: $base-cluster-size
-  height: $base-cluster-size
-  div
-    background-color: rgb(110, 204, 57)
-    background-color: rgba(110, 204, 57, 0.8)
-    width: $base-cluster-size - 10
-    height: $base-cluster-size - 10
-    span
-      line-height: $base-cluster-size - 10
+  background-color: rgb(110, 204, 57)
+  //background-color: rgba(110, 204, 57, 0.8)
+  width: $base-cluster-size - 10
+  height: $base-cluster-size - 10
+  span
+    line-height: $base-cluster-size - 10
 
 .marker-cluster-medium
-  background-color: rgb(241, 211, 87)
-  background-color: rgba(241, 211, 87, 0.6)
-  width: $base-cluster-size + 5
-  height: $base-cluster-size + 5
-  div
-    background-color: rgb(240, 194, 12)
-    background-color: rgba(240, 194, 12, 0.8)
-    width: $base-cluster-size - 5
-    height: $base-cluster-size - 5
-    span
-      line-height: $base-cluster-size - 5
+  background-color: rgb(240, 194, 12)
+  //background-color: rgba(240, 194, 12, 0.8)
+  width: $base-cluster-size - 5
+  height: $base-cluster-size - 5
+  span
+    line-height: $base-cluster-size - 5
 
 .marker-cluster-large
-  background-color: rgb(253, 156, 115)
-  background-color: rgba(253, 156, 115, 0.6)
-  width: $base-cluster-size + 10
-  height: $base-cluster-size + 10
-  div
-    background-color: rgb(241, 128, 23)
-    background-color: rgba(241, 128, 23, 0.8)
-    width: $base-cluster-size
-    height: $base-cluster-size
-    span
-      line-height: $base-cluster-size
+  background-color: rgb(241, 128, 23)
+  //background-color: rgba(241, 128, 23, 0.8)
+  width: $base-cluster-size
+  height: $base-cluster-size
+  span
+    line-height: $base-cluster-size
 
 .marker-cluster
   background-clip: padding-box
   border-radius: 20px
   overflow: hidden
-  div
-    margin-left: 5px
-    margin-top: 5px
-    text-align: center
-    border-radius: 15px
-    font: 14px "Helvetica Neue", Arial, Helvetica, sans-serif
-    font-weight: bold
-    color: #fcfcfc
-    text-shadow: #333333 1px 1px 0px
-  //span
-  //  cursor: pointer
+  text-align: center
+  font: 14px "Helvetica Neue", Arial, Helvetica, sans-serif
+  font-weight: bold
+  color: #fcfcfc
+  text-shadow: #333333 1px 1px 0px
+  box-shadow: 5px 5px 10px 0px rgb(0, 0, 0)
 
 div.thumbs_strip
   padding: 5px 20px 15px 15px

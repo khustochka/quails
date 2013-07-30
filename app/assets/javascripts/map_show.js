@@ -17,7 +17,7 @@
 $(function () {
 
   var marks,
-      template = '<div class="marker-cluster marker-cluster-SIZE"><div><span data-cluster="CLUSTER_ID">CLUSTER_COUNT</span></div></div>',
+      template = '<div class="marker-cluster marker-cluster-SIZE"><span data-cluster="CLUSTER_ID">CLUSTER_COUNT</span></div>',
       theMap = $('#googleMap'),
       token = $('meta[name="csrf-token"]').attr('content');
   // TODO: remove token when user switched to application.js
@@ -86,18 +86,18 @@ $(function () {
               // This style will be used for clusters with more than 0 markers
               0: {
                 content: template.replace('SIZE', 'small'),
-                width: 30,
-                height: 30
+                width: 25,
+                height: 25
               },
               10: {
                 content: template.replace('SIZE', 'medium'),
-                width: 35,
-                height: 35
+                width: 30,
+                height: 30
               },
               100: {
                 content: template.replace('SIZE', 'large'),
-                width: 40,
-                height: 40
+                width: 35,
+                height: 35
               },
               events: {
                 click: showPhotos
