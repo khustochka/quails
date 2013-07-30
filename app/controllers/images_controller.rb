@@ -8,6 +8,9 @@ class ImagesController < ApplicationController
 
   after_filter :cache_expire, only: [:create, :update, :destroy]
 
+  # Do not check csrf token for photostrip on the map
+  skip_before_filter :verify_authenticity_token, only: :strip
+
   # Latest additions
   def index
     redirect_to page: nil if params[:page].to_i == 1

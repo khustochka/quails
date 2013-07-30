@@ -18,9 +18,7 @@ $(function () {
 
   var marks,
       template = '<div class="marker-cluster marker-cluster-SIZE"><div><span data-cluster="CLUSTER_ID">CLUSTER_COUNT</span></div></div>',
-      theMap = $('#googleMap'),
-      token = $('meta[name="csrf-token"]').attr('content');
-  // TODO: remove token when user switched to application.js
+      theMap = $('#googleMap');
 
 
   function adjustSizes() {
@@ -50,10 +48,6 @@ $(function () {
         {
           method: 'POST',
           data: JSON.stringify(image_ids),
-          // TODO: remove token when user switched to application.js
-          beforeSend: function (xhr) {
-            xhr.setRequestHeader('X-CSRF-Token', token);
-          },
           processData: false,
           contentType: "application/json; charset=utf-8",
           success: function (body) {
