@@ -60,7 +60,7 @@ $(function () {
       }));
     });
 
-    theMap.gmap3('clear');
+    theMap.gmap3({clear: {name: ['marker', 'infowindow']}});
 
     if (data.length > 0) {
 
@@ -244,6 +244,16 @@ $(function () {
   // Starting hardcore map stuff
 
   theMap.gmap3({
+    panel: {
+      options: {
+        content: '<div class="map-panel">' +
+            '<span class="pseudolink load_kml">Load KML</span> &nbsp; ' +
+            '<span class="pseudolink clear_kml">clear KML</span>' +
+            '</div>',
+        top: true,
+        left: 150
+      }
+    },
     map: {
       options: {
         draggableCursor: 'pointer',
@@ -313,5 +323,25 @@ $(function () {
     closeInfoWindows();
     e.stopPropagation();
   });
+
+  // Load KML
+  $(".load_kml").click(function () {
+    var kml_url = prompt("Enter KML url:");
+    theMap.gmap3({
+      kmllayer: {
+        options: {
+          url: kml_url,
+          opts: {
+            clickable: false
+          }
+        }
+      }
+    });
+  });
+
+  $(".clear_kml").click(function () {
+    theMap.gmap3({get: {name: "kmllayer"}}).setMap(null);
+  });
+
 
 });
