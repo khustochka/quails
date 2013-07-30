@@ -86,18 +86,18 @@ $(function () {
               // This style will be used for clusters with more than 0 markers
               0: {
                 content: template.replace('SIZE', 'small'),
-                width: 28,
-                height: 28
+                width: 30,
+                height: 30
               },
               10: {
                 content: template.replace('SIZE', 'medium'),
-                width: 33,
-                height: 33
+                width: 35,
+                height: 35
               },
               100: {
                 content: template.replace('SIZE', 'large'),
-                width: 38,
-                height: 38
+                width: 40,
+                height: 40
               },
               events: {
                 click: showPhotos
