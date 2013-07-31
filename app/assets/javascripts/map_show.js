@@ -17,7 +17,7 @@
 $(function () {
 
   var marks,
-      template = '<div class="marker-cluster marker-cluster-SIZE"><span data-cluster="CLUSTER_ID">CLUSTER_COUNT</span></div>',
+      template = '<div class="marker-cluster marker-cluster-SIZE"><span>CLUSTER_COUNT</span></div>',
       theMap = $('#googleMap');
 
 
