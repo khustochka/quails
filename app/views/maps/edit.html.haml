@@ -19,3 +19,7 @@
 
 .mapContainer
   #googleMap
+
+- if @observation_search.card_id
+  :javascript
+    var card_kml = "#{Card.find(@observation_search.card_id).kml_url}"

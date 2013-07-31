@@ -249,6 +249,7 @@ $(function () {
         content: '<div class="map-panel">' +
             '<span class="pseudolink load_kml">Load KML</span> &nbsp; ' +
             '<span class="pseudolink clear_kml">clear KML</span>' +
+            (typeof(card_kml) !== "undefined" && card_kml != "" ? ' &nbsp; <span class="pseudolink card_kml"><b>Card KML</b></span>' : "") +
             '</div>',
         top: true,
         left: 150
@@ -326,9 +327,7 @@ $(function () {
 
   var kmls = [];
 
-  // Load KML
-  $(".load_kml").click(function () {
-    var kml_url = prompt("Enter KML url:");
+  function loadKML(kml_url) {
     if (kml_url)
       theMap.gmap3({
         kmllayer: {
@@ -343,6 +342,16 @@ $(function () {
           }
         }
       });
+  }
+
+  // Load KML
+  $(".load_kml").click(function () {
+    var kml_url = prompt("Enter KML url:");
+    loadKML(kml_url);
+  });
+
+  $(".card_kml").click(function () {
+    loadKML(card_kml);
   });
 
   $(".clear_kml").click(function () {
