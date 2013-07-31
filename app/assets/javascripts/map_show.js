@@ -44,6 +44,8 @@ $(function () {
         .css('bottom', lower + "px")
         .show();
     $(".gallery_container").html("").scrollLeft(0).addClass('loading');
+    $(".marker-cluster.active-cluster").removeClass("active-cluster");
+    $(".marker-cluster", cluster.main.getDOMElement()).addClass("active-cluster");
     $.ajax('photos/strip',
         {
           method: 'POST',
@@ -64,6 +66,7 @@ $(function () {
   $(window).resize(adjustSizes);
 
   $("span.close").click(function () {
+    $(".marker-cluster.active-cluster").removeClass("active-cluster");
     $(".gallery_window").hide();
   });
 
