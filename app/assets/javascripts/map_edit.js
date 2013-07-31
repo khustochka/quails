@@ -327,17 +327,18 @@ $(function () {
   // Load KML
   $(".load_kml").click(function () {
     var kml_url = prompt("Enter KML url:");
-    theMap.gmap3({
-      kmllayer: {
-        options: {
-          url: kml_url,
-          opts: {
-            clickable: false
+    if (kml_url)
+      theMap.gmap3({
+        kmllayer: {
+          options: {
+            url: kml_url,
+            opts: {
+              clickable: false
+            }
           }
         }
-      }
+      });
     });
-  });
 
   $(".clear_kml").click(function () {
     theMap.gmap3({get: {name: "kmllayer"}}).setMap(null);
