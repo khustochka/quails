@@ -25,7 +25,9 @@
     = surround('[ ', ' ]') do
       = link_to 'edit', edit_card_path(card), class: 'pseudolink'
     = surround('[ ', ' ]') do
-      = link_to card.mapped? ? 'edit map' : '<b>MAP IT!</b>'.html_safe, edit_map_path(q: {card_id: card.id}), class: 'pseudolink'
+      = link_to edit_map_path(q: {card_id: card.id}), class: 'pseudolink' do
+        = card.mapped? ? 'edit map' : '<b>MAP IT!</b>'.html_safe
+        = image_tag(CardsHelper::KML_LOGO, width: 16, height: 19) if card.kml_url.present?
     - if card.observations.count > 0
       = disabled_destroy_icon
     - else

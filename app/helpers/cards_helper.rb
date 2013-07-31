@@ -1,5 +1,7 @@
 module CardsHelper
 
+  KML_LOGO = "http://images2.wikia.nocookie.net/__cb20101130020153/logopedia/images/thumb/9/9e/Google_Earth_logo.png/80px-Google_Earth_logo.png"
+
   def attach_detach_link(item) # Card or observation
 
     if @post.id == item.post_id
