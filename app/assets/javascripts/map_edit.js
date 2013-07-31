@@ -345,6 +345,9 @@ $(function () {
   }
 
   // Load KML
+
+  if (typeof(card_kml) !== "undefined" && card_kml != "") loadKML(card_kml);
+
   $(".load_kml").click(function () {
     var kml_url = prompt("Enter KML url:");
     loadKML(kml_url);
