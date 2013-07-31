@@ -324,6 +324,8 @@ $(function () {
     e.stopPropagation();
   });
 
+  var kmls = [];
+
   // Load KML
   $(".load_kml").click(function () {
     var kml_url = prompt("Enter KML url:");
@@ -335,13 +337,17 @@ $(function () {
             opts: {
               clickable: false
             }
+          },
+          callback: function (kml) {
+            kmls.push(kml);
           }
         }
       });
-    });
+  });
 
   $(".clear_kml").click(function () {
-    theMap.gmap3({get: {name: "kmllayer"}}).setMap(null);
+    for (i in kmls) kmls[i].setMap(null);
+    kmls = [];
   });
 
 
