@@ -31,7 +31,7 @@ $(function () {
 
     $.post(patch_url, {'image': {'spot_id': data.id}}, function (data2) {
 
-      var activeMarker = $('#googleMap').gmap3({
+      var activeMarker = theMap.gmap3({
         get: {
           name: 'marker',
           first: true,
@@ -126,7 +126,7 @@ $(function () {
 
     // Simulate click
 
-    var addedMarker = $('#googleMap').gmap3({
+    var addedMarker = theMap.gmap3({
       get: {
         name: 'marker',
         first: true,
@@ -150,7 +150,7 @@ $(function () {
 
   if (image_spot) {
 
-    activeMarkers = $('#googleMap').gmap3({
+    activeMarkers = theMap.gmap3({
       get: {
         name: 'marker',
         all: true,
