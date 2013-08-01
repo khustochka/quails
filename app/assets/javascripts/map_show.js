@@ -72,8 +72,15 @@ $(function () {
 
   theMap.gmap3('map');
 
-  $.get('/map/photos', function (data, textStatus, jqXHR) {
-    marks = data;
+  $.get('/map/photos', function (rdata, textStatus, jqXHR) {
+    marks = [];
+    var m;
+
+    for (var i = 0; i < rdata.length; i++) {
+      m = rdata[i];
+      marks.push({lat: m[0], lng: m[1], data: m[2]});
+    }
+
     theMap.gmap3({
           marker: {
             values: marks,
@@ -105,13 +112,5 @@ $(function () {
         'autofit' // Zooms and moves to see all markers
     );
   });
-
-  // Fix for IE: click on span inside cluster was not propagated to parent
-//  $(document).on('click', '.marker-cluster div span', function (e) {
-//    var i = $(e.target).data('cluster'),
-//        clusters = theMap.gmap3({action: "get", name: "cluster"}).stored();
-//    google.maps.event.trigger(clusters[i].shadow, 'click');
-//    return false;
-//  });
 
 });

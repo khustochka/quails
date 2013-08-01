@@ -11,8 +11,10 @@ class SpotsController < ApplicationController
   # GET "/map/photos.json"
   def photos
     respond_with(
-        Spot.public.select("lat, lng, images.id as data").joins(:images),
-        :only => [:lat, :lng, :data]
+        Spot.connection.select_rows(
+            Spot.public.select("lat, lng, images.id").joins(:images).to_sql
+        ).
+            map! { |e| [e[0].to_f, e[1].to_f, e[2].to_i] }
     )
   end
 
