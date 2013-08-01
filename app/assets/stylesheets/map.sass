@@ -23,8 +23,8 @@ $base-cluster-size: 35px
   span
     line-height: $base-cluster-size - 10
   &.active-cluster:before
-    width: $base-cluster-size - 10
-    height: $base-cluster-size - 10
+    width: $base-cluster-size - 5
+    height: $base-cluster-size - 5
 
 
 .marker-cluster-medium
@@ -35,8 +35,8 @@ $base-cluster-size: 35px
   span
     line-height: $base-cluster-size - 5
   &.active-cluster:before
-    width: $base-cluster-size - 5
-    height: $base-cluster-size - 5
+    width: $base-cluster-size
+    height: $base-cluster-size
 
 .marker-cluster-large
   background-color: rgb(241, 128, 23)
@@ -46,8 +46,8 @@ $base-cluster-size: 35px
   span
     line-height: $base-cluster-size
   &.active-cluster:before
-    width: $base-cluster-size
-    height: $base-cluster-size
+    width: $base-cluster-size + 5
+    height: $base-cluster-size + 5
 
 .marker-cluster
   background-clip: padding-box
@@ -63,13 +63,14 @@ $base-cluster-size: 35px
 .marker-cluster.active-cluster
   color: palegoldenrod
   box-shadow: none
-  border-radius: 0
+  //border-radius: 0
   &:before
-    background-color: inherit
+    background-color: crimson
     content: ""
     z-index: -1
     position: absolute
-    left: 0
+    left: -2px
+    top: -2px
     box-shadow: 5px 5px 10px 0px black
     -webkit-transform: rotate(45deg)
     -moz-transform: rotate(45deg)
