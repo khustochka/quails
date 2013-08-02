@@ -21,7 +21,7 @@ class Species < ActiveRecord::Base
   has_many :cards, through: :observations
   has_many :images, through: :observations
   has_many :taxa
-  has_many :posts, -> { order('face_date DESC').uniq}, through: :observations
+  has_many :posts, -> { order('face_date DESC').uniq }, through: :observations
 
   has_one :species_image
   has_one :image, through: :species_image
@@ -57,9 +57,13 @@ class Species < ActiveRecord::Base
   end
 
   def posts
-    p1 = Post.select("posts.id").joins(:observations).where('observations.id' => self.observation_ids)
-    p2 = Post.select("posts.id").joins(:cards).where("cards.id" => self.cards)
-    Post.uniq.where('posts.id IN (?) OR posts.id IN (?)', p1, p2).order('face_date DESC')
+    p1 = Post.select("posts.id").joins(:observations).where('observations.id' => self.observation_ids).to_sql
+
+    p2 = Post.connection.unprepared_statement do
+      Post.select("posts.id").joins(:cards).where("cards.id" => self.cards).to_sql
+    end
+
+    Post.uniq.where("posts.id IN (#{p1}) OR posts.id IN (#{p2})").order('face_date DESC')
   end
 
   def update_image
