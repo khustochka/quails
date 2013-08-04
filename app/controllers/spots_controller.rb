@@ -14,7 +14,10 @@ class SpotsController < ApplicationController
         Spot.connection.select_rows(
             Spot.public.select("lat, lng, images.id").joins(:images).to_sql
         ).
-            map! { |e| [e[0].to_f, e[1].to_f, e[2].to_i] }
+            each_with_object({}) do |e, memo|
+              key = [(e[0].to_f * 1000).ceil / 1000.0, (e[1].to_f * 1000).ceil / 1000.0]
+              (memo[key.join(',')] ||= []).push(e[2].to_i)
+            end
     )
   end
 

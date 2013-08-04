@@ -74,11 +74,10 @@ $(function () {
 
   $.get('/map/photos', function (rdata, textStatus, jqXHR) {
     marks = [];
-    var m;
+    var latLng;
 
-    for (var i = 0; i < rdata.length; i++) {
-      m = rdata[i];
-      marks.push({lat: m[0], lng: m[1], data: m[2]});
+    for (latLng in rdata) {
+      marks.push({latLng: latLng.split(','), data: rdata[latLng]});
     }
 
     theMap.gmap3({
@@ -102,6 +101,13 @@ $(function () {
                 content: template.replace('SIZE', 'large'),
                 width: 35,
                 height: 35
+              },
+              calculator: function(vals) {
+                var i, sum = 0;
+                for (i in vals) {
+                  sum = sum + vals[i].data.length;
+                }
+                return sum;
               },
               events: {
                 click: showPhotos
