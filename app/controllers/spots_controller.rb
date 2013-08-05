@@ -11,12 +11,16 @@ class SpotsController < ApplicationController
   # GET "/map/photos.json"
   def photos
     respond_with(
-        Spot.connection.select_rows(
-            Spot.public.select("lat, lng, images.id").joins(:images).to_sql
+        Image.connection.select_rows(
+            Image.select("spots.lat, spots.lng, loci.lat, loci.lon, images.id").
+                joins(:cards => :locus).
+                joins("LEFT OUTER JOIN (#{Spot.public.to_sql}) as spots ON spots.id=images.spot_id").
+                uniq.
+                to_sql
         ).
             each_with_object({}) do |e, memo|
-              key = [(e[0].to_f * 1000).ceil / 1000.0, (e[1].to_f * 1000).ceil / 1000.0]
-              (memo[key.join(',')] ||= []).push(e[2].to_i)
+              key = [((e[0] || e[2]).to_f * 1000).ceil / 1000.0, ((e[1] || e[3]).to_f * 1000).ceil / 1000.0]
+              (memo[key.join(',')] ||= []).push(e[4].to_i)
             end
     )
   end
