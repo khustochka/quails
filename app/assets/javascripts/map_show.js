@@ -18,7 +18,26 @@ $(function () {
 
   var marks,
       template = '<div class="marker-cluster marker-cluster-SIZE"><span>CLUSTER_COUNT</span></div>',
-      theMap = $('#googleMap');
+      theMap = $('#googleMap'), emptyOverlay;
+
+  function newEmptyOverlay(map) {
+    if (!emptyOverlay) {
+      function Overlay() {
+        this.onAdd = function () {
+        };
+        this.onRemove = function () {
+        };
+        this.draw = function () {
+        };
+        return google.maps.OverlayView.apply(this, []);
+      }
+
+      Overlay.prototype = google.maps.OverlayView.prototype;
+      var emptyOverlay = new Overlay();
+      emptyOverlay.setMap(map);
+    }
+    return emptyOverlay;
+  }
 
 
   function adjustSizes() {
@@ -46,6 +65,13 @@ $(function () {
     $(".gallery_container").html("").scrollLeft(0).addClass('loading');
     $(".marker-cluster.active-cluster").removeClass("active-cluster");
     $(".marker-cluster", cluster.main.getDOMElement()).addClass("active-cluster");
+    var proj = newEmptyOverlay(theMap.gmap3("get")).getProjection(),
+        px = proj.fromLatLngToContainerPixel(data.data.latLng),
+        delta = theMap.height() - $(".gallery_window").height() - 20;
+    if (px.y > delta) {
+      theMap.gmap3("get").panBy(0, px.y - delta);
+    }
+
     $.ajax('photos/strip',
         {
           method: 'POST',
@@ -102,7 +128,7 @@ $(function () {
                 width: 35,
                 height: 35
               },
-              calculator: function(vals) {
+              calculator: function (vals) {
                 var i, sum = 0;
                 for (i in vals) {
                   sum = sum + vals[i].data.length;
