@@ -20,6 +20,22 @@ $(function () {
       template = '<div class="marker-cluster marker-cluster-SIZE"><span>CLUSTER_COUNT</span></div>',
       theMap = $('#googleMap'), emptyOverlay;
 
+  var bounds = {
+    ukraine: new google.maps.LatLngBounds(
+        new google.maps.LatLng(44.18, 21.92), new google.maps.LatLng(52.53, 41.13)
+    ),
+    usa: new google.maps.LatLngBounds(
+        new google.maps.LatLng(36.66, -81.73), new google.maps.LatLng(45.02, -71.06)
+    ) ,
+    world: new google.maps.LatLngBounds(
+        new google.maps.LatLng(36.66, -81.73), new google.maps.LatLng(52.53, 41.13)
+    )
+  };
+
+  function fitToCountry(country) {
+    theMap.gmap3("get").fitBounds(bounds[country]);
+  }
+
   function newEmptyOverlay(map) {
     if (!emptyOverlay) {
       function Overlay() {
@@ -96,7 +112,20 @@ $(function () {
     $(".gallery_window").hide();
   });
 
-  theMap.gmap3('map');
+  theMap.gmap3({
+    map: {},
+    panel: {
+      options: {
+        content: '<div class="map-panel">' +
+            '<a class="pseudolink pan" href="#world">Весь мир</a> &nbsp; ' +
+            '<a class="pseudolink pan" href="#ukraine">Украина</a> &nbsp; ' +
+            '<a class="pseudolink pan" href="#usa">США</a>' +
+            '</div>',
+        top: true,
+        left: 150
+      }
+    }
+  });
 
   $.get('/map/photos', function (rdata, textStatus, jqXHR) {
     marks = [];
@@ -140,9 +169,15 @@ $(function () {
               }
             }
           }
-        },
-        'autofit' // Zooms and moves to see all markers
+        }
     );
+  });
+
+  fitToCountry(window.location.hash.substring(1) || "world");
+
+  $(".pan").click(function () {
+    var country = this.hash.substring(1);
+    fitToCountry(country);
   });
 
 });
