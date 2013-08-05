@@ -3,6 +3,8 @@ class Image < ActiveRecord::Base
 
   invalidates CacheKey.gallery
 
+  NORMAL_PARAMS = [:slug, :title, :description, :flickr_id, :index_num, :has_old_thumbnail]
+
   validates :slug, uniqueness: true, presence: true, length: {:maximum => 64}
   validates :flickr_id, uniqueness: true, allow_nil: true
 
