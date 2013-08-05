@@ -884,13 +884,12 @@
         }
 
         cluster = {indexes:[], ref:[]};
-        lat = lng = 0;
+        lat = todos[ keys[indexes[0]] ].options.position.lat();
+        lng = todos[ keys[indexes[0]] ].options.position.lng();
         for(k=0; k<indexes.length; k++){
           used[ indexes[k] ] = true;
           cluster.indexes.push(keys[indexes[k]]);
           cluster.ref.push(keys[indexes[k]]);
-          lat = lat || todos[ keys[indexes[k]] ].options.position.lat();
-          lng = lng || todos[ keys[indexes[k]] ].options.position.lng();
         }
         //lat /= indexes.length;
         //lng /= indexes.length;
