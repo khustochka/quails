@@ -889,11 +889,11 @@
           used[ indexes[k] ] = true;
           cluster.indexes.push(keys[indexes[k]]);
           cluster.ref.push(keys[indexes[k]]);
-          lat += todos[ keys[indexes[k]] ].options.position.lat();
-          lng += todos[ keys[indexes[k]] ].options.position.lng();
+          lat = lat || todos[ keys[indexes[k]] ].options.position.lat();
+          lng = lng || todos[ keys[indexes[k]] ].options.position.lng();
         }
-        lat /= indexes.length;
-        lng /= indexes.length;
+        //lat /= indexes.length;
+        //lng /= indexes.length;
         cluster.latLng = new google.maps.LatLng(lat, lng);
 
         cluster.ref = cluster.ref.join("-");
