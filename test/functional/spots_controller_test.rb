@@ -45,7 +45,6 @@ class SpotsControllerTest < ActionController::TestCase
     get :photos, format: :json
     assert_response :success
     assert_equal Mime::JSON, response.content_type
-    puts JSON.parse(response.body)
     assert_equal 1, JSON.parse(response.body).size
   end
 
