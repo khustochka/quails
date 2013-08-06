@@ -12,7 +12,7 @@ class SpotsControllerTest < ActionController::TestCase
     assert_equal Mime::JSON, response.content_type
   end
 
-  test "returns spots having photos" do
+  test "returns photos having spots" do
     obs1 = create(:observation, card: create(:card, observ_date: '2010-07-24'))
     obs2 = create(:observation, card: create(:card, observ_date: '2011-07-24'))
     spot1 = create(:spot, observation: obs1)
@@ -21,6 +21,31 @@ class SpotsControllerTest < ActionController::TestCase
     get :photos, format: :json
     assert_response :success
     assert_equal Mime::JSON, response.content_type
+    assert_equal 1, JSON.parse(response.body).size
+  end
+
+  test "returns photos attached to the city" do
+    obs1 = create(:observation, card: create(:card, observ_date: '2010-07-24'))
+    obs2 = create(:observation, card: create(:card, observ_date: '2011-07-24'))
+    spot1 = create(:spot, observation: obs1)
+    create(:image, observations: [obs1], spot_id: spot1.id)
+    create(:image, observations: [obs2])
+    get :photos, format: :json
+    assert_response :success
+    assert_equal Mime::JSON, response.content_type
+    assert_equal 2, JSON.parse(response.body).size
+  end
+
+  test "correctly process photos attached to a country (no latlng)" do
+    obs1 = create(:observation, card: create(:card, observ_date: '2010-07-24'))
+    obs2 = create(:observation, card: create(:card, observ_date: '2011-07-24', locus: seed(:ukraine)))
+    spot1 = create(:spot, observation: obs1)
+    create(:image, observations: [obs1], spot_id: spot1.id)
+    create(:image, observations: [obs2])
+    get :photos, format: :json
+    assert_response :success
+    assert_equal Mime::JSON, response.content_type
+    puts JSON.parse(response.body)
     assert_equal 1, JSON.parse(response.body).size
   end
 
