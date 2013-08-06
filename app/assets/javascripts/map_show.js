@@ -178,6 +178,8 @@ $(function () {
   $(".pan").click(function () {
     var country = this.hash.substring(1);
     fitToCountry(country);
+    window.history.replaceState('Object', 'Title', this.hash);
+    return false;
   });
 
 });
