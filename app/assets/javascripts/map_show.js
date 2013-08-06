@@ -22,13 +22,13 @@ $(function () {
 
   var bounds = {
     ukraine: new google.maps.LatLngBounds(
-        new google.maps.LatLng(44.18, 21.92), new google.maps.LatLng(52.53, 41.13)
+        new google.maps.LatLng(44.3864630, 22.13715890), new google.maps.LatLng(52.379581, 40.22858090)
     ),
     usa: new google.maps.LatLngBounds(
         new google.maps.LatLng(36.66, -81.73), new google.maps.LatLng(45.02, -71.06)
     ) ,
     world: new google.maps.LatLngBounds(
-        new google.maps.LatLng(36.66, -81.73), new google.maps.LatLng(52.53, 41.13)
+        new google.maps.LatLng(36.66, -81.73), new google.maps.LatLng(52.379581, 40.22858090)
     )
   };
 
