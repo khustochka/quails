@@ -24,6 +24,18 @@ $(function () {
     if (infowindow) infowindow.close();
   }
 
+
+  function adjustSizes() {
+    var clientHeight = $(window).height(),
+        clientWidth = $(window).width(),
+        upper = $('#header').outerHeight(true),
+        lower = $('div.footer:visible').outerHeight() || 0;
+    $('div.mapContainer').height(clientHeight - upper - lower).width(clientWidth)
+        .css('top', upper);
+    var gmap = theMap.gmap3("get");
+    if (typeof(gmap) !== 'undefined' && gmap !== null) google.maps.event.trigger(gmap, 'resize');
+  }
+
   var GRAY_ICON = "http://maps.google.com/mapfiles/marker_white.png",
       RED_ICON = "http://maps.google.com/mapfiles/marker.png";
 
@@ -75,13 +87,17 @@ $(function () {
 
   // The Map
 
-  theMap.width('1024px');
-  theMap.height('600px');
+  adjustSizes();
+
+  $(window).resize(adjustSizes);
 
   theMap.gmap3({
     map: {
       options: {
-        draggableCursor: 'pointer'
+        draggableCursor: 'pointer',
+        mapTypeControlOptions: {
+          position: google.maps.ControlPosition.RIGHT
+        }
       },
       events: {
         click: function (map, event) {
@@ -106,6 +122,13 @@ $(function () {
             }
           });
         }
+      }
+    },
+    panel: {
+      options: {
+        content: $(".map-panel").detach(),
+        top: 0,
+        left: 0
       }
     }
   });
@@ -164,4 +187,5 @@ $(function () {
       marker.setZIndex(google.maps.Marker.MAX_ZINDEX);
     });
   }
+
 });

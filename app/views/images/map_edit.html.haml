@@ -1,30 +1,29 @@
 - javascript AssetsHelper::GMAP_API_URL, 'image_map'
+- @body_class = 'map-page'
 - stylesheet 'map_edit'
 
 - @page_title = "Edit map: #{@image.slug}"
 
-%h1= page_header
+.map-panel
+  = render 'admin/shortcuts' if current_user.admin?
 
-%ul.horiz-list
-  %li= link_to('Show', action: :show)
-  %li= link_to('Edit', action: :edit)
+  - if notice
+    %p#notice= notice
 
-- if notice
-  %p#notice= notice
+  %p= image_tag(thumbnail_item(@image).try(:full_url), class: 'image_pic')
 
-%p= image_tag(thumbnail_item(@image).try(:full_url), class: 'image_pic')
+  - if @image.spots.empty?
+    %p.errors No observations mapped!
+  - elsif @image.spot_id.blank?
+    %p.errors Not yet mapped!
 
-- if @image.spots.empty?
-  %p.errors No observations mapped!
-- elsif @image.spot_id.blank?
-  %p.errors Not yet mapped!
-
-%ul.horiz-obs-list.obs-list
-  = render partial: 'observations/obs_item', collection: @image.observations.preload(:species, :card => :locus)
+  %ul.obs-list
+    = render partial: 'observations/obs_item', collection: @image.observations.preload(:species, :card => :locus)
 
 = render 'spots/form'
 
-#googleMap
+.mapContainer
+  #googleMap
 
 :javascript
   var patch_url = "#{patch_image_path(@image, format: :json)}",
