@@ -54,6 +54,13 @@ nav.front_page_prev
 
 .subcomments
   margin-left: 50px
+  margin-bottom: 10px
+  margin-top: -10px
+  .comment_box
+    //border-top: 1px solid #407FBF
+    margin-bottom: 0
+  .subcomments
+    margin-top: 0
 
 // It is possible to stop padding on certain level
 //.subcomments .subcomments .subcomments .subcomments
@@ -64,18 +71,26 @@ nav.front_page_prev
   padding: 10px
   background-color: #eeeeee
   border-left: 4px solid #407FBF
+  border-bottom: 1px solid #407FBF
   h6
     margin-top: 0
+    margin-right: 5px
     font-size: 16px
+    @include inline-block
   time
-    font-size: 13px
+    font-family: Verdana, Tahoma, sans-serif
+    font-size: 11px
     font-style: italic
+    @include inline-block
+    margin-bottom: 4px
+    vertical-align: 1px
   .comment_body, ul.reply
     font-family: Verdana, Tahoma, sans-serif
     font-size: 13px
   ul.reply
     @include horiz-list
     margin-bottom: 0
+    font-weight: bold
   .comment_body
     margin-left: 30px
 
@@ -125,7 +140,8 @@ form.comment
   .comment_text .hint
     display: block
     color: #777777
-    font: italic 15px sans-serif
+    font-size: 15px
+    font-style: italic
     width: 632px
     text-align: right
 

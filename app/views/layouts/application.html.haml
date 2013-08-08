@@ -64,13 +64,13 @@
     = csrf_meta_tags if @scripts.present?
 
     -# stylesheets
-    - stylesheet @minimal_layout ? 'minimal' : (admin_layout? ? 'admin' : 'public')
+    - stylesheet admin_layout? ? 'admin' : 'public'
 
     = render 'partials/css_and_js'
 
     = GoogleAnalytics.render(self)
 
-  %body{class: (@wider ? 'wider' : nil)}
+  %body{class: @body_class}
 
     - if @facebook_like
       = FacebookSdk.render(self)

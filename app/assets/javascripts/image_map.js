@@ -24,6 +24,16 @@ $(function () {
     if (infowindow) infowindow.close();
   }
 
+  function adjustSizes() {
+    var clientHeight = $(window).height(),
+        clientWidth = $(window).width(),
+        upper = $('#header').outerHeight(true) + $('form.search').outerHeight(),
+        leftmost = $('.map-side-panel').outerWidth(true);
+    $('.map-side-panel').height(clientHeight - upper - 2);
+    $('div.mapContainer').height(clientHeight - upper).width(clientWidth - leftmost)
+        .css('top', upper).css('left', leftmost);
+  }
+
   var GRAY_ICON = "http://maps.google.com/mapfiles/marker_white.png",
       RED_ICON = "http://maps.google.com/mapfiles/marker.png";
 
@@ -75,8 +85,9 @@ $(function () {
 
   // The Map
 
-  theMap.width('1024px');
-  theMap.height('600px');
+  adjustSizes();
+
+  $(window).resize(adjustSizes);
 
   theMap.gmap3({
     map: {
@@ -143,10 +154,16 @@ $(function () {
 
   marker_options = $.extend(true, {}, DEFAULT_MARKER_OPTIONS);
   marker_options.values = marks;
-  theMap.gmap3(
-      {marker: marker_options},
-      'autofit' // Zooms and moves to see all markers
-  );
+  if (marks.length > 0) {
+    theMap.gmap3(
+        {marker: marker_options},
+        'autofit' // Zooms and moves to see all markers
+    )
+  }
+  else if (typeof(locusLatLng !== 'undefined')) {
+    theMap.gmap3("get").setCenter(locusLatLng);
+    theMap.gmap3("get").setZoom(13);
+  }
 
   if (image_spot) {
 
@@ -164,4 +181,5 @@ $(function () {
       marker.setZIndex(google.maps.Marker.MAX_ZINDEX);
     });
   }
+
 });

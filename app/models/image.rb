@@ -56,6 +56,22 @@ class Image < ActiveRecord::Base
         joins(:observations, :cards).preload(:species).order('observ_date ASC')
   end
 
+  # Mapped photos
+  def self.for_the_map
+    Image.connection.select_rows(
+        Image.select("spots.lat, spots.lng, loci.lat, loci.lon, images.id").
+            joins(:cards => :locus).
+            joins("LEFT OUTER JOIN (#{Spot.public.to_sql}) as spots ON spots.id=images.spot_id").
+            where("spots.lat IS NOT NULL OR loci.lat IS NOT NULL").
+            uniq.
+            to_sql
+    ).
+        each_with_object({}) do |e, memo|
+      key = [(e[0] || e[2]), (e[1] || e[3])].map { |x| (x.to_f * 100000 ).round / 100000.0 }
+      (memo[key.join(',')] ||= []).push(e[4].to_i)
+    end
+  end
+
   # Associations
 
   # FIXME: think how to do this in a more clever way (posts?)

@@ -1,4 +1,33 @@
-@import 'mixins', 'images'
+body.map-page
+  padding: 0
+
+  #header
+    margin: 0
+
+  .main
+    padding: 0
+    max-width: 100%
+
+  div.footer
+    margin:
+      left: 0
+      right: 0
+      top: 0
+    position: absolute
+    bottom: 0
+    left: 0
+    right: 0
+    font-size: 12px
+    padding: 7px
+    p
+      font-size: 12px
+      margin:
+        top: 5px
+        bottom: 5px
+
+  @media only all and (max-height: 580px)
+    div.footer
+      display: none
 
 .mapContainer
   position: absolute
@@ -60,8 +89,10 @@ $base-cluster-size: 35px
   text-shadow: #333333 1px 1px 0px
   box-shadow: 5px 5px 10px 0px rgb(0, 0, 0)
 
-//.marker-cluster.active-cluster
-//  color: palegoldenrod
+.marker-cluster.active-cluster
+  color: palegoldenrod
+  border: 2px solid palegoldenrod
+  box-shadow: 5px 5px 14px 0px rgb(0, 0, 0)
 //  box-shadow: none
 //  //border-radius: 0
 //  &:before
@@ -116,7 +147,20 @@ div.thumbs_strip
 .map-panel
   background-color: #ffffcd
   padding: 5px 10px
+  margin: 0
   border-bottom-left-radius: 4px
   border-bottom-right-radius: 4px
+  box-shadow: 5px 5px 10px 0px rgb(0, 0, 0)
   .pan
     font-weight: bold
+
+.gray-panel
+  background-color: #eee
+  background-color: rgba(#eee, 0.8)
+  font-size: 12px
+  padding: 5px
+  a
+    color: #444
+  a:hover
+    color: #111
+    text-decoration: underline
