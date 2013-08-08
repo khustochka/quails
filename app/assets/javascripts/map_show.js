@@ -127,6 +127,16 @@ $(function () {
     }
   });
 
+  theMap.gmap3({
+    panel: {
+      options: {
+        content: $(".gray-panel").detach(),
+        top: true,
+        left: 500
+      }
+    }
+  });
+
   $.get('/map/photos', function (rdata, textStatus, jqXHR) {
     marks = [];
     var latLng;
