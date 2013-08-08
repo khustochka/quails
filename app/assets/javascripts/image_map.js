@@ -166,10 +166,16 @@ $(function () {
 
   marker_options = $.extend(true, {}, DEFAULT_MARKER_OPTIONS);
   marker_options.values = marks;
-  theMap.gmap3(
-      {marker: marker_options},
-      'autofit' // Zooms and moves to see all markers
-  );
+  if (marks.length > 0) {
+    theMap.gmap3(
+        {marker: marker_options},
+        'autofit' // Zooms and moves to see all markers
+    )
+  }
+  else if (typeof(locusLatLng !== 'undefined')) {
+    theMap.gmap3("get").setCenter(locusLatLng);
+    theMap.gmap3("get").setZoom(13);
+  }
 
   if (image_spot) {
 

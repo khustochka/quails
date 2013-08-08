@@ -28,6 +28,7 @@
 :javascript
   var patch_url = "#{patch_image_path(@image, format: :json)}",
       marks = #{@image.spots.to_json(only: [:lat, :lng, :id])},
-      image_spot;
+      image_spot, locusLatLng;
   #{"image_spot = #{@image.spot_id};" if @image.spot_id}
+  #{"locusLatLng = new google.maps.LatLng(#{@image.locus.lat}, #{@image.locus.lon});" if @image.locus.lat}
 
