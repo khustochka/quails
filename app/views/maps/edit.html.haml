@@ -14,8 +14,9 @@
 
 = render 'spots/form'
 
-%ul.obs-list
-  -#= render :partial => 'observations/obs_item', :collection => @observations
+.map-side-panel
+  %ul.obs-list
+    -#= render :partial => 'observations/obs_item', :collection => @observations
 
 .mapContainer
   #googleMap
