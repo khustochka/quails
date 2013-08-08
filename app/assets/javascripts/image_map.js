@@ -92,10 +92,7 @@ $(function () {
   theMap.gmap3({
     map: {
       options: {
-        draggableCursor: 'pointer',
-        mapTypeControlOptions: {
-          position: google.maps.ControlPosition.RIGHT
-        }
+        draggableCursor: 'pointer'
       },
       events: {
         click: function (map, event) {
