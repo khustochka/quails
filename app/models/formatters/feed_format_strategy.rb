@@ -13,6 +13,7 @@ class FeedFormatStrategy < SiteFormatStrategy
     false
   end
 
+  # FIXME: this omits the port!
   def default_url_options
     {host: @metadata[:host]}
   end
