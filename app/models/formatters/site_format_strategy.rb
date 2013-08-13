@@ -21,7 +21,7 @@ class SiteFormatStrategy < FormattingStrategy
     if image = Image.find_by_slug(term)
       %Q(<figure class="imageholder">
         "!#{jpg_url(image)}([photo])!":#{image_path(image)}
-          <figcaption class="imagetitle">"#{image.formatted.title}":#{image_path(image)}</figcaption>
+          <figcaption class="imagetitle">"#{image.formatted.title}":#{image_path(image, only_path: only_path?)}</figcaption>
           </figure>
         )
     end
@@ -42,11 +42,11 @@ class SiteFormatStrategy < FormattingStrategy
       result << "\n"
 
       @posts.each do |slug, post|
-        result << "\n[#{slug}]#{public_post_path(post)}" if post
+        result << "\n[#{slug}]#{public_post_path(post, only_path: only_path?)}" if post
       end
 
       @spcs.each do |sp|
-        result << "\n[#{sp.code}]#{species_path(sp)}"
+        result << "\n[#{sp.code}]#{species_path(sp, only_path: only_path?)}"
       end
     end
 

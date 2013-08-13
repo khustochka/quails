@@ -1,5 +1,6 @@
 class ModelFormatter
-  def initialize(model)
+  def initialize(model, metadata = {})
     @model = model
+    @metadata = metadata
   end
 end

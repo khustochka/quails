@@ -2,7 +2,7 @@
   %em
     %time{datetime: post.face_date.iso8601}= l(post.face_date, format: :long)
 
-= post.formatted.for_site.text
+= post.formatted({host: request.host}).for_feed.text
 
 %hr
 

@@ -8,7 +8,7 @@ module FormattedModel
       Card => CardFormatter
   }
 
-  def formatted
-    MAPPING.fetch(self.class).new(self)
+  def formatted(metadata = {})
+    MAPPING.fetch(self.class).new(self, metadata)
   end
 end

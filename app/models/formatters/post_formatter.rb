@@ -9,17 +9,22 @@ class PostFormatter < ModelFormatter
     self
   end
 
+  def for_feed
+    @formatting_method = :for_feed
+    self
+  end
+
   def for_lj
     @formatting_method = :for_lj
     self
   end
 
   def text
-    WikiFormatter.new(@model.text, fetch_metadata).send(@formatting_method)
+    WikiFormatter.new(@model.text, metadata).send(@formatting_method)
   end
 
-  def fetch_metadata
-    {images: the_rest_of_images}
+  def metadata
+    @metadata.merge!({images: the_rest_of_images})
   end
 
   def the_rest_of_images

@@ -10,6 +10,11 @@ class WikiFormatter
     apply.html_safe
   end
 
+  def for_feed
+    @strategy = FeedFormatStrategy.new(@text, @metadata)
+    apply.html_safe
+  end
+
   def for_lj
     @strategy = LJFormatStrategy.new(@text, @metadata)
     apply

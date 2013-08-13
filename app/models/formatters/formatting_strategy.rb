@@ -55,4 +55,10 @@ class FormattingStrategy
     end
   end
 
+  private
+
+  def only_path?
+    true
+  end
+
 end
