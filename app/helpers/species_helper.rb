@@ -9,7 +9,8 @@ module SpeciesHelper
   end
 
   def species_link(sp_obj, string = nil)
-    link_to(string || sp_obj.name, species_path(sp_obj), class: 'sp_link')
+    @only_path = true if @only_path.nil?
+    link_to(string || sp_obj.name, species_path(sp_obj, only_path: @only_path), class: 'sp_link')
   end
 
   def new_species_link(sp_obj, string = nil)
