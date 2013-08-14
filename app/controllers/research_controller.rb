@@ -150,11 +150,13 @@ class ResearchController < ApplicationController
   def stats
     @years = [nil] + MyObservation.years
 
-    observations_filtered = MyObservation.filter(year: params[:year]).joins(:card)
+    #FIXME: not counting unidentified species for now, and seem we cannot do it easily without splitting queries
+    observations_filtered = Observation.filter(year: params[:year]).joins(:card)
+    identified_observations = observations_filtered.identified
     lifelist_filtered = Lifelist.basic.relation
     lifelist_filtered = lifelist_filtered.where('EXTRACT(year from first_seen)::integer = ?', params[:year]) if params[:year]
 
-    @year_data = observations_filtered.select('EXTRACT(year FROM observ_date)::integer as year,
+    @year_data = identified_observations.select('EXTRACT(year FROM observ_date)::integer as year,
                                       COUNT(observations.id) as count_obs,
                                       COUNT(DISTINCT observ_date) as count_days,
                                       COUNT(DISTINCT species_id) as count_species').
@@ -162,21 +164,22 @@ class ResearchController < ApplicationController
 
     @first_sp_by_year = lifelist_filtered.group('EXTRACT(year FROM first_seen)::integer').except(:order).count(:all)
 
-    @month_data = observations_filtered.select('EXTRACT(month FROM observ_date)::integer as month,
+    @month_data = identified_observations.select('EXTRACT(month FROM observ_date)::integer as month,
                                       COUNT(observations.id) as count_obs,
                                       COUNT(DISTINCT species_id) as count_species').
         group('EXTRACT(month FROM observ_date)').order('month')
     @first_sp_by_month = lifelist_filtered.group('EXTRACT(month FROM first_seen)::integer').except(:order).count(:all)
 
+    #NOTICE: we use all observations (including unidentified) only here
     @day_by_obs = observations_filtered.joins(:card).select('observ_date, COUNT(observations.id) as count_obs').
                   group('observ_date').
                   order('count_obs DESC, observ_date ASC').limit(10)
 
-    @day_by_species = observations_filtered.select('observ_date, COUNT(DISTINCT species_id) as count_species').
+    @day_by_species = identified_observations.select('observ_date, COUNT(DISTINCT species_id) as count_species').
         group('observ_date').
         order('count_species DESC, observ_date ASC').limit(10)
 
-    @day_and_loc_by_species = observations_filtered.select('observ_date, locus_id, COUNT(DISTINCT species_id) as count_species').
+    @day_and_loc_by_species = identified_observations.select('observ_date, locus_id, COUNT(DISTINCT species_id) as count_species').
         group('observ_date, locus_id').
         order('count_species DESC, observ_date ASC').limit(10)
 
