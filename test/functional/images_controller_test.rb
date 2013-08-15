@@ -144,6 +144,56 @@ class ImagesControllerTest < ActionController::TestCase
     assert_redirected_to edit_map_image_path(assigns(:image))
   end
 
+  test "remove spot_id when changing image observation" do
+    login_as_admin
+    spot = create(:spot, observation_id: @image.observation_ids.first)
+    @image.spot_id = spot.id
+    @image.save!
+    new_attr = @image.attributes
+    obs = create(:observation)
+    put :update, id: @image.to_param, image: new_attr, obs: [obs.id]
+    @image.reload
+    refute @image.spot_id, "Spot id should be nil"
+  end
+
+  test "do not remove spot_id when resaving image" do
+    login_as_admin
+    spot = create(:spot, observation_id: @image.observation_ids.first)
+    @image.spot_id = spot.id
+    @image.save!
+    new_attr = @image.attributes
+    put :update, id: @image.to_param, image: new_attr, obs: @image.observation_ids
+    @image.reload
+    assert @image.spot_id, "Spot id is nil"
+  end
+
+  test "do not remove spot_id when adding image observation" do
+    login_as_admin
+    spot = create(:spot, observation_id: @image.observation_ids.first)
+    @image.spot_id = spot.id
+    @image.save!
+    new_attr = @image.attributes
+    obs = create(:observation, card: @obs.card)
+    put :update, id: @image.to_param, image: new_attr, obs: @image.observation_ids.push(obs.id)
+    assert assigns(:image).errors.blank?
+    @image.reload
+    assert @image.spot_id, "Spot id is nil"
+  end
+
+  test "do not remove spot_id when image change is not valid" do
+    login_as_admin
+    spot = create(:spot, observation_id: @image.observation_ids.first)
+    @image.spot_id = spot.id
+    @image.save!
+    new_attr = @image.attributes
+    obs1 = create(:observation)
+    obs2 = create(:observation)
+    put :update, id: @image.to_param, image: new_attr, obs: [obs1.id, obs2.id]
+    assert assigns(:image).errors.present?
+    @image.reload
+    assert @image.spot_id, "Spot id is nil"
+  end
+
   test "update image spot via json" do
     spot = create(:spot)
     obs = spot.observation

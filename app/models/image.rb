@@ -149,6 +149,7 @@ class Image < ActiveRecord::Base
   #end
 
   def update_with_observations(attr, obs_ids)
+    obs_ids.map!(&:to_i) if obs_ids
     assign_attributes(attr)
     validate_observations(obs_ids)
     if errors.any?
@@ -156,7 +157,7 @@ class Image < ActiveRecord::Base
       return false
     end
     with_transaction_returning_status do
-      if self.spot_id && !self.spot.observation.in?(self.observation_ids & obs_ids)
+      if self.spot_id && !self.spot.observation_id.in?(obs_ids)
         self.spot_id = nil
       end
       unless new_record?
