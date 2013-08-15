@@ -3,10 +3,10 @@ class Image < ActiveRecord::Base
 
   invalidates CacheKey.gallery
 
-  NORMAL_PARAMS = [:slug, :title, :description, :flickr_id, :index_num, :has_old_thumbnail]
+  NORMAL_PARAMS = [:slug, :title, :description, :index_num, :has_old_thumbnail]
 
   validates :slug, uniqueness: true, presence: true, length: {:maximum => 64}
-  validates :flickr_id, uniqueness: true, allow_nil: true
+  validates :flickr_id, uniqueness: true, allow_nil: true, exclusion: {in: ['']}
 
   has_and_belongs_to_many :observations
   has_many :species, :through => :observations
@@ -67,7 +67,7 @@ class Image < ActiveRecord::Base
             to_sql
     ).
         each_with_object({}) do |e, memo|
-      key = [(e[0] || e[2]), (e[1] || e[3])].map { |x| (x.to_f * 100000 ).round / 100000.0 }
+      key = [(e[0] || e[2]), (e[1] || e[3])].map { |x| (x.to_f * 100000).round / 100000.0 }
       (memo[key.join(',')] ||= []).push(e[4].to_i)
     end
   end
@@ -126,14 +126,21 @@ class Image < ActiveRecord::Base
     )
   end
 
-  def set_flickr_data(flickr, parameters = {})
-    self.flickr_id = parameters[:flickr_id] || flickr_id
-    if self.flickr_id.present?
-      sizes_array = flickr.photos.getSizes(photo_id: flickr_id)
-
+  def set_flickr_data(flickr, new_flickr_id)
+    # if new flickr_id is nil or blank - assign nil
+    self.flickr_id = new_flickr_id
+    if self.flickr_id.blank?
+      self.flickr_id = nil
+    end
+    if self.flickr_id_changed?
       self.assets_cache.swipe(:flickr)
-      sizes_array.each do |fp|
-        self.assets_cache << ImageAssetItem.new(:flickr, fp["width"].to_i, fp["height"].to_i, fp["source"])
+      if self.flickr_id
+        sizes_array = flickr.photos.getSizes(photo_id: flickr_id)
+
+        self.assets_cache.swipe(:flickr)
+        sizes_array.each do |fp|
+          self.assets_cache << ImageAssetItem.new(:flickr, fp["width"].to_i, fp["height"].to_i, fp["source"])
+        end
       end
     end
   end

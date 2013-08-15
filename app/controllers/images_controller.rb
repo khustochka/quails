@@ -58,7 +58,6 @@ class ImagesController < ApplicationController
   # GET /photos/new
   def new
     @image = Image.new(params[:i])
-    @image.set_flickr_data(flickr)
 
     render 'form'
   end
@@ -94,7 +93,7 @@ class ImagesController < ApplicationController
                                     safety_level: 1,
                                     content_type: 1
 
-    @image.set_flickr_data(flickr, {flickr_id: flickr_id})
+    @image.set_flickr_data(flickr, flickr_id)
     @image.save!
     redirect_to edit_flickr_image_path(@image)
   end
@@ -108,9 +107,10 @@ class ImagesController < ApplicationController
   def create
     @image = Image.new
 
+    flickr_id = params[:image].delete(:flickr_id)
     params[:image].slice!(*Image::NORMAL_PARAMS)
 
-    @image.set_flickr_data(flickr, params[:image])
+    @image.set_flickr_data(flickr, flickr_id)
 
     if @image.update_with_observations(params[:image], params[:obs])
 
@@ -146,8 +146,9 @@ class ImagesController < ApplicationController
   # POST /photos/1/patch
   def patch
     new_params = params[:image]
-    if new_params[:flickr_id]
-      @image.set_flickr_data(flickr, new_params)
+    new_flickr_id = new_params.delete(:flickr_id)
+    if new_flickr_id
+      @image.set_flickr_data(flickr, new_flickr_id)
       @image.save
     end
     respond_to do |format|
