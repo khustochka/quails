@@ -196,7 +196,8 @@ class ImagesController < ApplicationController
   end
 
   def strip
-    @images = Image.where(id: params[:_json]).preload(:species)
+    @images = Image.where(id: params[:_json]).includes(:cards, :species).
+        order('cards.observ_date, cards.locus_id, images.index_num, species.index_num')
     render layout: false
   end
 
