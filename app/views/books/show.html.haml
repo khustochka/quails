@@ -4,6 +4,9 @@
 
 = render 'admin/shortcuts' if current_user.admin?
 
+- if notice
+  %p#notice= notice
+
 %dl
   %dt
     %b= @book.slug

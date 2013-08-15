@@ -4,6 +4,9 @@
 
 = render 'admin/shortcuts' if current_user.admin?
 
+- if notice
+  %p#notice= notice
+
 %p
   %b Parent:
   = @locus.parent.nil? ? '-' : (link_to @locus.parent.slug, @locus.parent)

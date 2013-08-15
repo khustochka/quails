@@ -7,6 +7,9 @@
 
 = render 'admin/shortcuts' if current_user.admin?
 
+- if notice
+  %p#notice= notice
+
 - if @taxon.avibase_id.present?
   = link_to @taxon.avibase_id, avibase_species_url(@taxon.avibase_id)
 

@@ -12,6 +12,9 @@
 
 = render 'admin/shortcuts' if current_user.admin?
 
+- if notice
+  %p#notice= notice
+
 %ul.cards_list
   = render @observation.card
 
