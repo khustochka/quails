@@ -11,7 +11,7 @@
   %td.align-center= latlon(locus_tree)
   %td.align-right= locus_tree.public_index
   %td
-    - if locus_tree.children.count > 0 || locus_tree.observations.count > 0
+    - if @loci[locus_tree.id].present? || locus_tree.observations.count > 0
       = disabled_destroy_icon
     - else
       = default_destroy_link(locus_tree)
