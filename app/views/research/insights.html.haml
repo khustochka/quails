@@ -9,14 +9,19 @@
     Posts: #{Post.count}
     %ul.no-margin-list
       %li public: #{Post.public.count}
-      %li indexable: #{Post.indexable.count}
+      %li indexable: #{@index_posts}
   %li
     Images: #{Image.count}
     %ul.no-margin-list
-      %li indexable: #{Image.indexable.count}
+      %li indexable: #{@index_images}
   %li Cards: #{Card.count}
   %li Observations: #{Observation.count}
   %li Spots: #{Spot.count}
+  %li Indexed species: #{@index_species}
+  %li
+    %b
+      Total indexable (posts + images + species):
+      = @index_posts + @index_images + @index_species
 
 - @facebook_like = true
 

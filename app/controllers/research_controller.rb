@@ -7,6 +7,9 @@ class ResearchController < ApplicationController
   end
 
   def insights
+    @index_posts = Post.indexable.count
+    @index_images = Image.indexable.count
+    @index_species = Observation.identified.select(:species_id).uniq.count
   end
 
   def index
