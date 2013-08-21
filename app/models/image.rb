@@ -45,6 +45,10 @@ class Image < ActiveRecord::Base
     super
   end
 
+  # Scopes
+
+  scope :indexable, lambda { where("status <> 'NOIDX'") }
+
   # Parameters
 
   def to_param

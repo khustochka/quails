@@ -30,6 +30,7 @@ class ImagesController < ApplicationController
 
   # GET /photos/1
   def show
+    @robots = 'NOINDEX' if @image.status == 'NOIDX'
   end
 
   # GET /photos/add # select flickr photo

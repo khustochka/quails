@@ -10,7 +10,10 @@
     %ul.no-margin-list
       %li public: #{Post.public.count}
       %li indexable: #{Post.indexable.count}
-  %li Images: #{Image.count}
+  %li
+    Images: #{Image.count}
+    %ul.no-margin-list
+      %li indexable: #{Image.indexable.count}
   %li Cards: #{Card.count}
   %li Observations: #{Observation.count}
   %li Spots: #{Spot.count}
