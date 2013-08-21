@@ -21,6 +21,12 @@
         Edit flickr data
       - else
         %b Link to flickr!
+  - if @image.status == 'NOIDX'
+    %li
+      = link_to('Make back indexable', {action: :patch, image: {status: 'DEFLT'}}, method: :post)
+  - else
+    %li
+      %b= link_to('Do not index!', {action: :patch, image: {status: 'NOIDX'}}, method: :post)
 
 = render 'admin/shortcuts' if current_user.admin?
 
