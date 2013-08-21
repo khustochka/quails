@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130731131141) do
+ActiveRecord::Schema.define(version: 20130821123450) do
 
   create_table "books", force: true do |t|
     t.string "slug",        limit: 32, null: false
@@ -53,16 +53,17 @@ ActiveRecord::Schema.define(version: 20130731131141) do
   add_index "comments", ["post_id"], name: "index_comments_on_post_id", using: :btree
 
   create_table "images", force: true do |t|
-    t.string   "slug",              limit: 64,                 null: false
+    t.string   "slug",              limit: 64,                   null: false
     t.string   "title"
     t.text     "description"
-    t.integer  "index_num",                    default: 1000,  null: false
-    t.datetime "created_at",                                   null: false
+    t.integer  "index_num",                    default: 1000,    null: false
+    t.datetime "created_at",                                     null: false
     t.integer  "spot_id"
     t.string   "flickr_id",         limit: 64
-    t.boolean  "has_old_thumbnail",            default: false, null: false
-    t.datetime "updated_at",                                   null: false
-    t.text     "assets_cache",                 default: "",    null: false
+    t.boolean  "has_old_thumbnail",            default: false,   null: false
+    t.datetime "updated_at",                                     null: false
+    t.text     "assets_cache",                 default: "",      null: false
+    t.string   "status",            limit: 5,  default: "DEFLT", null: false
   end
 
   add_index "images", ["index_num"], name: "index_images_on_index_num", using: :btree
