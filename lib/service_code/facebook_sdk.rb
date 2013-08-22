@@ -5,7 +5,7 @@ class FacebookSdk < ServiceCode
   def render
     cache :facebook_sdk do
       unless Rails.env.test? || config.code.blank?
-        @view.render partial: 'facebook/sdk', object: config.code, as: :code
+        @view.render partial: 'social/fb_sdk', object: config.code, as: :code
       end
     end
   end

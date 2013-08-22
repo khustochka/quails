@@ -1,6 +1,6 @@
 - javascript 'image_show'
 
-- @facebook_like = true
+- @social_likes = true
 
 - @meta_thumbnail = thumbnail_item(@image).try(:url)
 - @meta_description = @image.formatted.meta_description
@@ -34,8 +34,11 @@
 
 %div.image_canvas= image_tag(jpg_url(@image), alt: '[фотография]')
 
-- if FacebookSdk.configured? && @facebook_like
-  %p= render 'facebook/like'
+- if FacebookSdk.configured? && @social_likes
+  %p= render 'social/fb_like'
+
+- if VkontakteSdk.configured? && @social_likes
+  %p= render 'social/vk_like'
 
 %table.image_nav
   %tr

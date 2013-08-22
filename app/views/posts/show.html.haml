@@ -1,7 +1,7 @@
 - javascript 'comments'
 - javascript 'post_show_admin' if current_user.admin?
 
-- @facebook_like = true
+- @social_likes = true
 
 -# @meta_thumbnail = thumbnail_item(@post.images.to_a.first).try(:url) if @post.images.present?
 - @canonical = public_post_path(@post, only_path: false)
@@ -32,8 +32,11 @@
 
     = @post.formatted.for_site.text
 
-- if FacebookSdk.configured? && @facebook_like
-  %p= render 'facebook/like'
+- if FacebookSdk.configured? && @social_likes
+  %p= render 'social/fb_like'
+
+- if VkontakteSdk.configured? && @social_likes
+  %p= render 'social/vk_like'
 
 - @post.formatted.the_rest_of_images.if_present do |images|
   %div.photos

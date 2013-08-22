@@ -23,8 +23,8 @@
       Total indexable (posts + images + species):
       = @index_posts + @index_images + @index_species
 
-- @facebook_like = true
+- @social_likes = true
 
-- if FacebookSdk.configured? && @facebook_like
+- if FacebookSdk.configured? && @social_likes
   %div.fb-activity{"data-app-id" => FacebookSdk.config.code, "data-width" => 300, "data-height" => 600,
            "data-header" => "true", "data-recommendations" => "false"}

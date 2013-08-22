@@ -46,6 +46,10 @@ module Configurator
     FacebookSdk.configure(config_data.facebook_app_id)
   end
 
+  def self.configure_vkontakte_sdk
+    VkontakteSdk.configure(config_data.vkontakte_app_id)
+  end
+
   def self.configure_google_analytics
     GoogleAnalytics.configure(config_data.ga_code)
   end
@@ -91,6 +95,7 @@ module Configurator
         },
         google_cse: ENV['quails_google_cse'],
         facebook_app_id: ENV['quails_facebook_app_id'],
+        vkontakte_app_id: ENV['quails_vkontakte_app_id'],
         ga_code: ENV['quails_ga_code'],
         mail: {
             sender: ENV['quails_mail_sender'],

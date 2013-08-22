@@ -72,8 +72,9 @@
 
   %body{class: @body_class}
 
-    - if @facebook_like
+    - if @social_likes
       = FacebookSdk.render(self)
+      = VkontakteSdk.render(self)
 
     #above-footer
 
