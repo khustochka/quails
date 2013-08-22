@@ -34,11 +34,7 @@
 
 %div.image_canvas= image_tag(jpg_url(@image), alt: '[фотография]')
 
-- if FacebookSdk.configured? && @social_likes
-  %p= render 'social/fb_like'
-
-- if VkontakteSdk.configured? && @social_likes
-  %p= render 'social/vk_like'
+= render 'social/buttons'
 
 %table.image_nav
   %tr

@@ -1,0 +1,9 @@
+- if @social_likes
+
+  %p
+
+    - if FacebookSdk.configured?
+      = render 'social/fb_like'
+
+    - if VkontakteSdk.configured?
+      = render 'social/vk_like'

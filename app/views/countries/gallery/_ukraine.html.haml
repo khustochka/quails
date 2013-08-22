@@ -3,11 +3,7 @@
 :textile
   #{t(".intro", url: checklist_path(country: 'ukraine'))}
 
-- if FacebookSdk.configured? && @social_likes
-  %p= render 'social/fb_like'
-
-- if VkontakteSdk.configured? && @social_likes
-  %p= render 'social/vk_like'
+= render 'social/buttons'
 
 - species_rarity = @species.group_by {|s| s.status.match(/\?|\-/).nil? }
 
