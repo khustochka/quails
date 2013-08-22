@@ -27,6 +27,9 @@
       %meta{ property: "fb:app_id", content: FacebookSdk.config.code }
       %meta{ property: "fb:admins", content: "1567280817" }
 
+    - if VkontakteSdk.configured?
+      %meta{ property: "vk:app_id", content: VkontakteSdk.config.code }
+
     %title= page_title
 
     -# mobile viewport
