@@ -1,9 +1,10 @@
 - if @social_likes
 
-  %p
+  - cache :social_buttons do
 
-    - if FacebookSdk.configured?
-      = render 'social/fb_like'
+    %p
+      - if FacebookSdk.configured?
+        = render 'social/fb_like'
 
-    - if VkontakteSdk.configured?
-      = render 'social/vk_like'
+      - if VkontakteSdk.configured?
+        = render 'social/vk_like'

@@ -73,8 +73,9 @@
   %body{class: @body_class}
 
     - if @social_likes
-      = FacebookSdk.render(self)
-      = VkontakteSdk.render(self)
+      - cache :social_sdks do
+        = FacebookSdk.render(self)
+        = VkontakteSdk.render(self)
 
     #above-footer
 
