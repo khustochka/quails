@@ -25,7 +25,7 @@ class Post < ActiveRecord::Base
   #        order('observations.observ_date, observations.locus_id, images.index_num, species.index_num')
   #  },
   #           through: :observations
-  
+
   # Convert "timezone-less" face_date to local time zone because AR treats it as UTC (especially necessary for feed updated time)
   def face_date
     Time.zone.parse(face_date_before_type_cast)
