@@ -176,6 +176,8 @@ Quails::Application.routes.draw do
   end
   get '/books/:id/taxa' => redirect("/books/%{id}")
 
+  resources :pages, except: [:show]
+
   get '/settings' => 'settings#index'
   post '/settings/save' => 'settings#save'
 
