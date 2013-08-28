@@ -16,22 +16,30 @@
         См. также
         = link_to 'Рекорды и статистика', my_stats_path
 
-  %div.lists_column
+  %div.fluid-row
 
-    %h2= link_to('Lifelist', lifelist_path)
+    %div.fluid-column
 
-    - lifers.call(@top_5_life)
+      %h2= link_to('Lifelist', lifelist_path)
 
-    %h2
-      = link_to('Список Украины', list_path(locus: 'ukraine'))
-      (#{@list_ukraine.count(:all)})
+      - lifers.call(@top_5_life)
 
-  %div.lists_column
+    %div.fluid-column
 
-    %h2= link_to('Список 2013 года', list_path(year: 2013))
+      %h2= link_to('Список 2013 года', list_path(year: 2013))
 
-    - lifers.call(@top_5_year)
+      - lifers.call(@top_5_year)
 
-    %h2
-      = link_to('Список США', list_path(locus: 'usa'))
-      (#{@list_usa.count(:all)})
+  %div.fluid-row
+
+    %div.fluid-column
+
+      %h2
+        = link_to('Список Украины', list_path(locus: 'ukraine'))
+        (#{@list_ukraine.count(:all)})
+
+    %div.fluid-column
+
+      %h2
+        = link_to('Список США', list_path(locus: 'usa'))
+        (#{@list_usa.count(:all)})
