@@ -178,7 +178,13 @@ div.thumbs_strip
 
   .map-panel
     //padding: 5px 10px
+    border-bottom: 1px solid #aaaabf
     border-bottom-left-radius: 0
     border-bottom-right-radius: 0
     box-shadow: none
     position: static
+
+// Hide search for small horizontal screen
+@media only all and (max-height: 580px)
+  #cse-wrapper
+    display: none
