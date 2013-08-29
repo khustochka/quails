@@ -6,11 +6,16 @@
 
 - @page_title = 'Map'
 
-.mapContainer
-  #googleMap
+%div.map-panel
+  %a.pseudolink.pan(href="#world") Весь мир
+  %a.pseudolink.pan(href="#ukraine") Украина
+  %a.pseudolink.pan(href="#usa") США
 
 %div.gray-panel
   %a{href: '/2013/08/site-news-map'} Сообщить об ошибке, оставить пожелание.
+
+.mapContainer
+  #googleMap
 
 .gallery_window
   .wnd_close

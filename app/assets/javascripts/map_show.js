@@ -116,11 +116,7 @@ $(function () {
     map: {},
     panel: {
       options: {
-        content: '<div class="map-panel">' +
-            '<a class="pseudolink pan" href="#world">Весь мир</a> &nbsp; ' +
-            '<a class="pseudolink pan" href="#ukraine">Украина</a> &nbsp; ' +
-            '<a class="pseudolink pan" href="#usa">США</a>' +
-            '</div>',
+        content: $(".map-panel").detach(),
         top: true,
         left: 150
       }
