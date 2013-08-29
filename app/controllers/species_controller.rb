@@ -104,7 +104,7 @@ class SpeciesController < ApplicationController
   end
 
   def search
-    result = SpeciesSearch.find(params[:term])
+    result = SpeciesSearch.new(params[:term]).find
     respond_with result
   end
 
