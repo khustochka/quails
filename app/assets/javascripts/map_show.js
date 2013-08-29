@@ -59,7 +59,8 @@ $(function () {
   function adjustSizes() {
     var clientHeight = $(window).height(),
         clientWidth = $(window).width(),
-        upper = $('#header').outerHeight(true),
+        upper = $('#header').outerHeight(true)
+            + ($('.map-panel').css("position") == 'static' ? $('.map-panel').outerHeight(true) : 0),
         lower = $('div.footer:visible').outerHeight() || 0;
     $('div.mapContainer').height(clientHeight - upper - lower).width(clientWidth)
         .css('top', upper);
@@ -112,16 +113,16 @@ $(function () {
     $(".gallery_window").hide();
   });
 
-  theMap.gmap3({
-    map: {},
-    panel: {
-      options: {
-        content: $(".map-panel").detach(),
-        top: true,
-        left: 150
-      }
-    }
-  });
+//  theMap.gmap3({
+//    map: {},
+//    panel: {
+//      options: {
+//        content: $(".map-panel").detach(),
+//        top: true,
+//        left: 150
+//      }
+//    }
+//  });
 
   theMap.gmap3({
     panel: {
