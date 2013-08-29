@@ -2,7 +2,8 @@
 
 - cache :social_buttons do
 
-  %p
+  %p.social_buttons
+
     - if FacebookSdk.configured?
       = render 'social/fb_like'
 
