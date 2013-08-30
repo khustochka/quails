@@ -4,7 +4,7 @@ class SpeciesSearchTest < ActionView::TestCase
 
   test 'simple search by scientific name' do
     result = SpeciesSearch.new('garrul').find
-    assert_equal ["Coracias garrulus", "Bombycilla garrulus", "Garrulus glandarius"], result.map(&:name_sci)
+    assert_equal ["Garrulus glandarius", "Coracias garrulus", "Bombycilla garrulus"], result.map(&:name_sci)
   end
 
 end
