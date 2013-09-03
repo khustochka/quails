@@ -14,4 +14,8 @@ class Admin < User
   def available_comments(post)
     post.comments
   end
+
+  def searchable_species
+    Species.all
+  end
 end

@@ -30,4 +30,8 @@ class User
   def available_comments(post)
     post.comments.approved
   end
+
+  def searchable_species
+    Species.joins(:observations)
+  end
 end

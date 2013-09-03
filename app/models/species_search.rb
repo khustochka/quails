@@ -6,13 +6,14 @@ class SpeciesSearch
     end.join(" OR ")
   end
 
-  def initialize(term)
+  def initialize(base, term)
+    @base = base
     @term = term
   end
 
   def find
     return [] if @term.blank?
-    rel = Species.
+    rel = @base.
         select("DISTINCT name_sci, name_en, name_ru, name_uk").
         where(FILTER.call(@term)).
         limit(5)
