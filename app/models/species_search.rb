@@ -14,8 +14,9 @@ class SpeciesSearch
   def find
     return [] if @term.blank?
     rel = @base.
-        select("DISTINCT name_sci, name_en, name_ru, name_uk").
+        select("DISTINCT name_sci, name_en, name_ru, name_uk, weight").
         where(FILTER.call(@term)).
+        order("weight DESC NULLS LAST").
         limit(5)
 
     rel.map { |sp| SpeciesSearchResult.new(sp.name_sci, detect_name(sp)) }
