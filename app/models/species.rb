@@ -5,6 +5,7 @@ class Species < ActiveRecord::Base
   extend SpeciesParameterizer
 
   invalidates CacheKey.gallery
+  invalidates CacheKey.lifelist
 
   include ActiveRecord::Localized
   localize :name
