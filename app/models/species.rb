@@ -20,6 +20,7 @@ class Species < ActiveRecord::Base
 
   has_many :observations, dependent: :restrict_with_exception
   has_many :cards, through: :observations
+  has_many :loci, through: :cards
   has_many :images, through: :observations
   has_many :taxa
   has_many :posts, -> { order('face_date DESC').uniq }, through: :observations
