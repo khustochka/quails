@@ -3,7 +3,7 @@
 FactoryGirl.define do
   factory :page do
     title "MyString"
-    meta "MyText"
     text "MyText"
+    public true
   end
 end
