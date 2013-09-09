@@ -91,11 +91,11 @@ GEM
       builder
       minitest (>= 2.12, < 5.0)
       powerbar
-    multi_json (1.7.9)
+    multi_json (1.8.0)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
     pg (0.16.0)
-    poltergeist (1.4.0)
+    poltergeist (1.4.1)
       capybara (~> 2.1.0)
       cliver (~> 0.2.1)
       multi_json (~> 1.0)
