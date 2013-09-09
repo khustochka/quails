@@ -30,7 +30,8 @@ $(function () {
     if (infowindow) infowindow.close();
   }
 
-  var spotsStore;
+  var spotsStore,
+      defaultPublicity = true;
 
   function buildObservations(data) {
 
@@ -156,11 +157,8 @@ $(function () {
 
         $('#spot_exactness_' + spotData.exactness, newForm).attr('checked', true);
         $('#spot_memo', newForm).attr('value', spotData.memo);
-        // It is public by default so I have to do something only in case it should be false
-        // by I may have to update this logic if the default is changed
-        if (!spotData.public) {
-          $('#spot_public', newForm).attr('checked', null);
-        }
+        if (!spotData.public) $('#spot_public', newForm).attr('checked', null);
+        else $('#spot_public', newForm).attr('checked', 'checked');
 
         $('#spot_lat', newForm).val(marker.position.lat());
         $('#spot_lng', newForm).val(marker.position.lng());
@@ -276,6 +274,8 @@ $(function () {
             $('#spot_zoom', newForm).val(map.zoom);
             $('#spot_exactness_1', newForm).attr('checked', true); // Check the "exact" value
             $('#spot_observation_id', newForm).val(selectedObs.data('obs_id'));
+            if (defaultPublicity) $('#spot_public', newForm).attr('checked', 'checked');
+            else $('#spot_public', newForm).attr('checked', null);
             wndContent = newForm.html();
           }
           theMap.gmap3({
@@ -289,6 +289,11 @@ $(function () {
         }
       }
     }
+  });
+
+  // Change default state of `public`
+  $(document).on('change', '#spot_public', function() {
+    defaultPublicity = $(this).is(':checked');
   });
 
   $(document).on('ajax:success', '#new_spot', function (e, data) {
