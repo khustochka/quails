@@ -17,8 +17,7 @@ class PagesControllerTest  < ActionController::TestCase
 
   test "get private page by user" do
     create(:page, slug: 'links', public: false)
-    get :show, id: 'links'
-    assert_response :not_found
+    assert_raise(ActiveRecord::RecordNotFound) { get :show, id: 'links' }
   end
 
 end
