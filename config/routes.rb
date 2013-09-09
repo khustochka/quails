@@ -112,9 +112,6 @@ Quails::Application.routes.draw do
       year: /\d{4}/,
       sort: /by_taxonomy/
 
-  # Static pages
-  get '/:id' => 'pages#show', constraints: {id: /links|about/}, as: :page
-
   # Feeds and sitemap
   get '/blog.:format' => 'feeds#blog', constraints: {format: 'xml'}
   get '/photos.:format' => 'feeds#photos', constraints: {format: 'xml'}
@@ -177,6 +174,9 @@ Quails::Application.routes.draw do
   get '/books/:id/taxa' => redirect("/books/%{id}")
 
   resources :pages, except: [:show]
+
+  # Static pages
+  get ':id' => 'pages#show', as: :show_page
 
   get '/settings' => 'settings#index'
   post '/settings/save' => 'settings#save'

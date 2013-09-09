@@ -38,6 +38,7 @@ class PagesController < ApplicationController
   end
 
   def show
+    @page_title = @page.title
     @robots = @page.meta.robots
   end
 
