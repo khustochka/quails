@@ -118,10 +118,11 @@ ActiveRecord::Schema.define(version: 20130827101118) do
   add_index "observations", ["species_id"], name: "index_observations_on_species_id", using: :btree
 
   create_table "pages", force: true do |t|
-    t.string   "slug",       null: false
-    t.string   "title",      null: false
+    t.string   "slug",                       null: false
+    t.string   "title",                      null: false
     t.text     "meta"
     t.text     "text"
+    t.boolean  "public",     default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

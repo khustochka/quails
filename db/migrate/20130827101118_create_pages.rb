@@ -5,6 +5,7 @@ class CreatePages < ActiveRecord::Migration
       t.string :title, null: false
       t.text :meta
       t.text :text
+      t.boolean :public, default: 'F', null: false
 
       t.timestamps
     end
