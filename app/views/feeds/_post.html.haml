@@ -5,7 +5,7 @@
 = render partial: post.formatted.the_rest_of_images.map(&:to_thumbnail), formats: :html
 
 %p
-  Опубликоввано:
+  Опубликовано:
   %em
     %time{datetime: post.face_date.iso8601}= l(post.face_date, format: :long)
     \|
