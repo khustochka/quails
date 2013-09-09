@@ -43,9 +43,13 @@ $(function () {
     var marks = $(data).map(function () {
       observCollection[this.id] =
           $("<li>").data('obs_id', this.id).append(
+              $('<span class="mapped_indicator" title="Is mapped">'),
               $('<div>').html(this.species_str),
               $('<div>').html(this.when_where_str)
-          ).appendTo($('ul.obs-list'));
+          )
+              .data('obs-count', this.spots.length)
+              .toggleClass( 'is_mapped',  this.spots.length > 0)
+              .appendTo($('ul.obs-list'));
 
       hoverText = $('div:first', observCollection[this.id]).text();
 
@@ -314,6 +318,8 @@ $(function () {
       });
     }
 
+    selectedObs.addClass('is_mapped');
+
     // Store updated spot data
     spotsStore[data.id] = data;
     infowindow.close();
@@ -327,6 +333,12 @@ $(function () {
   $(document).on('ajax:success', '#new_spot .destroy', function (e, data) {
     theLastMarker.setMap(null);
     closeInfoWindows();
+
+    var selectedObs = $('li.selected_obs');
+
+    selectedObs.data('obs-count', selectedObs.data('obs-count') - 1);
+
+    selectedObs.toggleClass( 'is_mapped',  selectedObs.data('obs-count') > 0)
     e.stopPropagation();
   });
 

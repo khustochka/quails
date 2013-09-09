@@ -22,11 +22,25 @@ form.search
   ul.obs-list
     li
       display: inline-block
+      position: relative
       .remove
         display: none
 
 li.selected_obs
   background-color: #AAAAEE
+
+.mapped_indicator
+  border-radius: 7px
+  height: 15px
+  width: 15px
+  display: none
+  position: absolute
+  top: 0
+  right: 0
+
+.is_mapped .mapped_indicator
+  display: block
+  background-color: cornflowerblue
 
 form#new_spot
   font-size: 12px !important
