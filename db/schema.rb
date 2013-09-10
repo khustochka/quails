@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130821123450) do
+ActiveRecord::Schema.define(version: 20130827101118) do
 
   create_table "books", force: true do |t|
     t.string "slug",        limit: 32, null: false
@@ -116,6 +116,18 @@ ActiveRecord::Schema.define(version: 20130821123450) do
 
   add_index "observations", ["post_id"], name: "index_observations_on_post_id", using: :btree
   add_index "observations", ["species_id"], name: "index_observations_on_species_id", using: :btree
+
+  create_table "pages", force: true do |t|
+    t.string   "slug",                       null: false
+    t.string   "title",                      null: false
+    t.text     "meta"
+    t.text     "text"
+    t.boolean  "public",     default: false, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "pages", ["slug"], name: "index_pages_on_slug", unique: true, using: :btree
 
   create_table "posts", force: true do |t|
     t.string   "slug",         limit: 64

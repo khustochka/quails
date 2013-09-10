@@ -1,0 +1,21 @@
+- stylesheet 'forms'
+
+- @page_title = "#{new_or_edit_label(@page)} page"
+
+%h1= page_header
+
+= render 'admin/shortcuts' if current_user.admin?
+
+= simple_form_for @page do |form|
+  %div
+    = form.input :slug
+    = form.input :public
+  %div
+    = form.input :title
+  %div
+    = form.input :meta, input_html: {rows: 5}, value: @page.meta_before_type_cast
+  %div
+    = form.input :text, input_html: {rows: 15}
+
+  .buttons
+    = default_submit_button(form)
