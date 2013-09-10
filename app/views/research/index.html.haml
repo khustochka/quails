@@ -15,7 +15,9 @@
 %h3 Review tasks:
 
 %ul
-  %li= link_to('Half-mapped images', {controller: :images, action: :half_mapped})
+  %li
+    = link_to('Half-mapped images', {controller: :images, action: :half_mapped})
+    %b (#{Image.half_mapped.count})
   %li= link_to('Unflickred images', {controller: :images, action: :unflickred})
 
 %h3= link_to('Environment', action: :environ)

@@ -77,6 +77,12 @@ class Image < ActiveRecord::Base
     end
   end
 
+  def self.half_mapped
+    Image.preload(:species).joins(:observations).
+        where(spot_id: nil).where("observation_id in (select observation_id from spots)").
+        order('created_at ASC')
+  end
+
   # Associations
 
   # FIXME: think how to do this in a more clever way (posts?)

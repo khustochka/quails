@@ -73,9 +73,7 @@ class ImagesController < ApplicationController
   end
 
   def half_mapped
-    @images = Image.preload(:species).joins(:observations).
-        where(spot_id: nil).where("observation_id in (select observation_id from spots)").
-        order('created_at ASC').page(params[:page].to_i).per(24)
+    @images = Image.half_mapped.page(params[:page].to_i).per(24)
   end
 
   # GET /photos/1/flickr_edit
