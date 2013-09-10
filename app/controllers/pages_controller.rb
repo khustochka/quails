@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
 
-  administrative except: [:show, :error]
+  administrative except: [:show_public, :error]
 
   caches_page :error, gzip: true, unless: -> { current_user.admin? || current_user.has_admin_cookie? }
 
@@ -18,7 +18,7 @@ class PagesController < ApplicationController
   def create
     @page = Page.new(params[:page])
     if @page.save
-      redirect_to(show_page_url(@page.slug), :notice => 'Page was successfully created.')
+      redirect_to(page_url(@page.slug), :notice => 'Page was successfully created.')
     else
       render :form
     end
@@ -31,20 +31,20 @@ class PagesController < ApplicationController
   def update
     @page.update_attributes(params[:page])
     if @page.save
-      redirect_to(show_page_url(@page.slug), :notice => 'Page was successfully updated.')
+      redirect_to(page_url(@page.slug), :notice => 'Page was successfully updated.')
     else
       render :form
     end
   end
 
   def show
-    if @page.public? || current_user.admin?
-      @page_title = @page.title
-      @robots = @page.meta.robots
-      render :show
-    else
-      raise ActiveRecord::RecordNotFound
-    end
+    @page_title = @page.title
+    @robots = @page.meta.robots
+    render :show
+  end
+
+  def show_public
+    render params[:id]
   end
 
   def error
