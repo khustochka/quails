@@ -1,4 +1,5 @@
 - stylesheet 'forms'
+- javascript 'page_form'
 
 - @page_title = "#{new_or_edit_label(@page)} page"
 
@@ -15,7 +16,7 @@
   %div
     = form.input :meta, input_html: {rows: 5}, value: @page.meta_before_type_cast
   %div
-    = form.input :text, input_html: {rows: 15}
+    = form.input :text, input_html: {rows: 15, class: 'wiki_field'}
 
   .buttons
     = default_submit_button(form)
