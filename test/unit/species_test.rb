@@ -26,12 +26,6 @@ class SpeciesTest < ActiveSupport::TestCase
     assert_raise(ActiveRecord::RecordInvalid) { sp.save! }
   end
 
-  test 'species reordered alphabetically' do
-    expected = Species.pluck(:name_sci).sort
-    got = Species.alphabetic.pluck(:name_sci)
-    assert_equal expected, got
-  end
-
   test 'do not destroy species if it has associated observations' do
     sp = seed(:parcae)
     observation = create(:observation, species: sp)

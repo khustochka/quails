@@ -1,11 +1,12 @@
-%p
-  %em
-    %time{datetime: post.face_date.iso8601}= l(post.face_date, format: :long)
-
 = post.formatted({host: request.host}).for_feed.text
 
 %hr
 
 = render partial: post.formatted.the_rest_of_images.map(&:to_thumbnail), formats: :html
 
-%p= link_to "+ #{t('posts.post.add_comment')}", public_post_path(post, anchor: 'add_comment', only_path: false)
+%p
+  Опубликовано:
+  %em
+    %time{datetime: post.face_date.iso8601}= l(post.face_date, format: :long)
+    \|
+    = link_to "+ #{t('posts.post.add_comment')}", public_post_path(post, anchor: 'add_comment', only_path: false)

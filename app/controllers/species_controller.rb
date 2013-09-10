@@ -41,10 +41,11 @@ class SpeciesController < ApplicationController
       else
         if @species.observations.any?
           @posts = @species.posts.limit(10).merge(current_user.available_posts)
+          @months = @species.cards.except(:order).pluck("DISTINCT EXTRACT(month FROM observ_date)::integer")
+          @markers = @species.loci.uniq.map {|loc| [loc.lat, loc.lon].join(',') }.join("|")
         else
           @robots = 'NOINDEX'
         end
-        @months = @species.cards.except(:order).pluck("DISTINCT EXTRACT(month FROM observ_date)::integer")
       end
     else
       raise ActiveRecord::RecordNotFound, "Cannot find #{id_humanized}"
@@ -104,7 +105,7 @@ class SpeciesController < ApplicationController
   end
 
   def search
-    result = SpeciesSearch.find(params[:term])
+    result = SpeciesSearch.new(current_user.searchable_species, params[:term]).find
     respond_with result
   end
 

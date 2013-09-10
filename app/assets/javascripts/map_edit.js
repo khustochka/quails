@@ -30,7 +30,8 @@ $(function () {
     if (infowindow) infowindow.close();
   }
 
-  var spotsStore;
+  var spotsStore,
+      defaultPublicity = true;
 
   function buildObservations(data) {
 
@@ -42,9 +43,13 @@ $(function () {
     var marks = $(data).map(function () {
       observCollection[this.id] =
           $("<li>").data('obs_id', this.id).append(
+              $('<span class="mapped_indicator" title="Is mapped">'),
               $('<div>').html(this.species_str),
               $('<div>').html(this.when_where_str)
-          ).appendTo($('ul.obs-list'));
+          )
+              .data('obs-count', this.spots.length)
+              .toggleClass( 'is_mapped',  this.spots.length > 0)
+              .appendTo($('ul.obs-list'));
 
       hoverText = $('div:first', observCollection[this.id]).text();
 
@@ -156,11 +161,8 @@ $(function () {
 
         $('#spot_exactness_' + spotData.exactness, newForm).attr('checked', true);
         $('#spot_memo', newForm).attr('value', spotData.memo);
-        // It is public by default so I have to do something only in case it should be false
-        // by I may have to update this logic if the default is changed
-        if (!spotData.public) {
-          $('#spot_public', newForm).attr('checked', null);
-        }
+        if (!spotData.public) $('#spot_public', newForm).attr('checked', null);
+        else $('#spot_public', newForm).attr('checked', 'checked');
 
         $('#spot_lat', newForm).val(marker.position.lat());
         $('#spot_lng', newForm).val(marker.position.lng());
@@ -276,6 +278,8 @@ $(function () {
             $('#spot_zoom', newForm).val(map.zoom);
             $('#spot_exactness_1', newForm).attr('checked', true); // Check the "exact" value
             $('#spot_observation_id', newForm).val(selectedObs.data('obs_id'));
+            if (defaultPublicity) $('#spot_public', newForm).attr('checked', 'checked');
+            else $('#spot_public', newForm).attr('checked', null);
             wndContent = newForm.html();
           }
           theMap.gmap3({
@@ -289,6 +293,11 @@ $(function () {
         }
       }
     }
+  });
+
+  // Change default state of `public`
+  $(document).on('change', '#spot_public', function() {
+    defaultPublicity = $(this).is(':checked');
   });
 
   $(document).on('ajax:success', '#new_spot', function (e, data) {
@@ -309,6 +318,8 @@ $(function () {
       });
     }
 
+    selectedObs.addClass('is_mapped');
+
     // Store updated spot data
     spotsStore[data.id] = data;
     infowindow.close();
@@ -322,6 +333,12 @@ $(function () {
   $(document).on('ajax:success', '#new_spot .destroy', function (e, data) {
     theLastMarker.setMap(null);
     closeInfoWindows();
+
+    var selectedObs = $('li.selected_obs');
+
+    selectedObs.data('obs-count', selectedObs.data('obs-count') - 1);
+
+    selectedObs.toggleClass( 'is_mapped',  selectedObs.data('obs-count') > 0)
     e.stopPropagation();
   });
 

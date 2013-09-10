@@ -2,29 +2,35 @@
 
 %h1= page_title
 
-%h3 Counts
+%div.fluid-row
 
-%ul
-  %li
-    Posts: #{Post.count}
-    %ul.no-margin-list
-      %li public: #{Post.public.count}
-      %li indexable: #{@index_posts}
-  %li
-    Images: #{Image.count}
-    %ul.no-margin-list
-      %li indexable: #{@index_images}
-  %li Cards: #{Card.count}
-  %li Observations: #{Observation.count}
-  %li Spots: #{Spot.count}
-  %li Indexed species: #{@index_species}
-  %li
-    %b
-      Total indexable (posts + images + species):
-      = @index_posts + @index_images + @index_species
+  %div.fluid-column
 
-- @social_likes = true
+    %h3 Counts
 
-- if FacebookSdk.configured? && @social_likes
-  %div.fb-activity{"data-app-id" => FacebookSdk.config.code, "data-width" => 300, "data-height" => 600,
-           "data-header" => "true", "data-recommendations" => "false"}
+    %ul
+      %li
+        Posts: #{Post.count}
+        %ul.no-margin-list
+          %li public: #{Post.public.count}
+          %li indexable: #{@index_posts}
+      %li
+        Images: #{Image.count}
+        %ul.no-margin-list
+          %li indexable: #{@index_images}
+      %li Cards: #{Card.count}
+      %li Observations: #{Observation.count}
+      %li Spots: #{Spot.count}
+      %li Indexed species: #{@index_species}
+      %li
+        %b
+          Total indexable (posts + images + species):
+          = @index_posts + @index_images + @index_species
+
+
+  %div.fluid-column
+
+    - if FacebookSdk.configured?
+      = FacebookSdk.render(self)
+      %div.fb-activity{"data-app-id" => FacebookSdk.config.code, "data-width" => 300, "data-height" => 600,
+               "data-header" => "true", "data-recommendations" => "false"}

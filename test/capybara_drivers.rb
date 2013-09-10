@@ -9,7 +9,9 @@ end
 env_js_driver = ENV['JS_DRIVER']
 
 def load_driver(driver)
-  require "capybara/#{driver.to_s}"
+  if driver.to_s != 'chrome' && driver.to_s != 'ie'
+    require "capybara/#{driver.to_s}"
+  end
   Capybara.javascript_driver = driver.to_sym
 end
 
