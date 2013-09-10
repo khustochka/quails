@@ -3,6 +3,7 @@ require 'test_helper'
 class PagesControllerTest  < ActionController::TestCase
 
   test "get `links` public page" do
+    create(:page, slug: 'links', public: true)
     get :show_public, id: 'links'
     assert_response :success
   end
