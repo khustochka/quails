@@ -87,11 +87,14 @@ table.neat_table
   .fluid-column
     vertical-align: top
     margin-right: 10px
-    display: inline-block
+    @include inline-block
     //width: ($main-width / 2) - 15px
     width: 47%
     @media only all and (max-width: 630px)
       width: 100%
+    &.span3
+      width: 31%
+
 
 // Minor
 

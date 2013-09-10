@@ -6,10 +6,13 @@
 
 = render 'partials/years'
 
-- @archive.each do |year, months|
-  %h2= link_to("#{t('blog.year.year')} #{year}", year_path(year: year))
-  %ul
-    - months.each do |month|
-      %li
-        = link_to t('date.month_names')[month.raw_month.to_i], month_path(year: year, month: "%02d" % month.raw_month)
-        (#{month.posts_count})
+%div.fluid-row
+
+  - @archive.each do |year, months|
+    %div.fluid-column.span3
+      %h2= link_to("#{t('blog.year.year')} #{year}", year_path(year: year))
+      %ul
+        - months.each do |month|
+          %li
+            = link_to t('date.month_names')[month.raw_month.to_i], month_path(year: year, month: "%02d" % month.raw_month)
+            (#{month.posts_count})
