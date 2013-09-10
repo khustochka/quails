@@ -2,7 +2,7 @@ class PagesController < ApplicationController
 
   administrative except: [:show_public]
 
-  find_record by: :slug, before: [:show, :edit, :update, :destroy]
+  find_record by: :slug, before: [:show, :show_public, :edit, :update, :destroy]
 
   def index
     @pages = Page.all
@@ -42,7 +42,13 @@ class PagesController < ApplicationController
   end
 
   def show_public
-    render params[:id]
+    if @page.public? || current_user.admin?
+      @page_title = @page.formatted.title
+      @robots = @page.meta.robots
+      render :show
+    else
+      raise ActiveRecord::RecordNotFound
+    end
   end
 
 end
