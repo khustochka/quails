@@ -68,6 +68,13 @@ class Species < ActiveRecord::Base
     Post.uniq.where("posts.id IN (#{p1}) OR posts.id IN (#{p2})").order('face_date DESC')
   end
 
+  def grouped_loci
+    countries = Country.select(:id, :slug).to_a
+    loci.uniq.group_by do |locus|
+      countries.find {|c| locus.id.in?(c.subregion_ids)}.slug
+    end
+  end
+
   def update_image
     self.reload
     if !image

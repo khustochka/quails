@@ -49,8 +49,8 @@
 - if current_user.admin?
   %h3 Map
   %div.obs_maps
-    = image_tag("http://maps.googleapis.com/maps/api/staticmap?zoom=5&size=443x300&sensor=false&center=48.6,31.2&markers=#{@markers}")
-    = image_tag("http://maps.googleapis.com/maps/api/staticmap?zoom=5&size=443x300&sensor=false&center=42.5,-74&markers=#{@markers}")
+    - @species.grouped_loci.each do |country, loci|
+      = species_map(country, loci)
 
 - @posts.if_present do |posts|
   %h3= t('.sections.posts')
