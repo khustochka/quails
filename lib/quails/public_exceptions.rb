@@ -42,7 +42,7 @@ module Quails
       if found || File.exist?(path)
         render_format(status, 'text/html', File.read(path))
       else
-        PagesController.action(:error).call(@env)
+        ErrorsController.action(:show).call(@env)
       end
     end
 

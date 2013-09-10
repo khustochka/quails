@@ -1,8 +1,6 @@
 class PagesController < ApplicationController
 
-  administrative except: [:show_public, :error]
-
-  caches_page :error, gzip: true, unless: -> { current_user.admin? || current_user.has_admin_cookie? }
+  administrative except: [:show_public]
 
   find_record by: :slug, before: [:show, :edit, :update, :destroy]
 
@@ -45,20 +43,6 @@ class PagesController < ApplicationController
 
   def show_public
     render params[:id]
-  end
-
-  def error
-    @code = env["PATH_INFO"][1..-1]
-    render @code, layout: 'error', formats: %w(html), status: @code
-  end
-
-  private
-  def caching_allowed?
-    if @code
-      request.get?
-    else
-      super
-    end
   end
 
 end
