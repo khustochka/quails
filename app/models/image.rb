@@ -71,10 +71,9 @@ class Image < ActiveRecord::Base
             where("spots.lat IS NOT NULL OR loci.lat IS NOT NULL").
             uniq.
             to_sql
-    ).
-        each_with_object({}) do |e, memo|
-      key = [(e[0] || e[2]), (e[1] || e[3])].map { |x| (x.to_f * 100000).round / 100000.0 }
-      (memo[key.join(',')] ||= []).push(e[4].to_i)
+    ).each_with_object({}) do |(lat1, lon1, lat2, lon2, im_id), memo|
+      key = [(lat1 || lat2), (lon1 || lon2)].map { |x| (x.to_f * 100000).round / 100000.0 }
+      (memo[key.join(',')] ||= []).push(im_id.to_i)
     end
   end
 
