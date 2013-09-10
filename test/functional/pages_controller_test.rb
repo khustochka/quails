@@ -12,14 +12,14 @@ class PagesControllerTest  < ActionController::TestCase
   #  get :show, id: 'links'
   #  assert_response :success
   #end
-  #
-  #test "get private page by admin" do
-  #  login_as_admin
-  #  create(:page, slug: 'links', public: false)
-  #  get :show, id: 'links'
-  #  assert_response :success
-  #end
-  #
+
+  test "get private page by admin" do
+    login_as_admin
+    create(:page, slug: 'some', public: false)
+    get :show, id: 'some'
+    assert_response :success
+  end
+
   #test "get private page by user" do
   #  create(:page, slug: 'links', public: false)
   #  assert_raise(ActiveRecord::RecordNotFound) { get :show, id: 'links' }

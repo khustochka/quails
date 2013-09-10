@@ -5,7 +5,8 @@ module FormattedModel
       Image => ImageFormatter,
       Comment => CommentFormatter,
       Observation => ObservationFormatter,
-      Card => CardFormatter
+      Card => CardFormatter,
+      Page => PageFormatter
   }
 
   def formatted(metadata = {})

@@ -36,7 +36,7 @@ class PagesController < ApplicationController
   end
 
   def show
-    @page_title = @page.title
+    @page_title = @page.formatted.title
     @robots = @page.meta.robots
     render :show
   end
