@@ -21,14 +21,14 @@ class ImageObservValidationTest < ActiveSupport::TestCase
   test "does not update image with empty observation list" do
     new_attr = build(:image).attributes
     new_attr['slug'] = 'new_img_slug'
-    refute @image.update_with_observations(new_attr, [])
+    assert_not @image.update_with_observations(new_attr, [])
     assert @image.errors.present?
   end
 
   test "does not update image if no observation list provided" do
     new_attr = @image.attributes
     new_attr['slug'] = 'new_img_slug'
-    refute @image.update_with_observations(new_attr, nil)
+    assert_not @image.update_with_observations(new_attr, nil)
     assert @image.errors.present?
   end
 
@@ -100,7 +100,7 @@ class ImageObservValidationTest < ActiveSupport::TestCase
     obs1 = create(:observation, card: create(:card, observ_date: '2011-01-01'))
     obs2 = create(:observation, card: create(:card, observ_date: '2010-01-01'))
     new_attr = @image.attributes
-    refute @image.update_with_observations(new_attr, [obs1.id, obs2.id])
+    assert_not @image.update_with_observations(new_attr, [obs1.id, obs2.id])
     assert @image.errors.present?
   end
 
@@ -108,7 +108,7 @@ class ImageObservValidationTest < ActiveSupport::TestCase
     obs1 = create(:observation, card: create(:card, observ_date: '2011-01-01'))
     obs2 = create(:observation, card: create(:card, observ_date: '2010-01-01'))
     new_attr = build(:image, slug: 'newslug').attributes
-    refute @image.update_with_observations(new_attr, [obs1.id, obs2.id])
+    assert_not @image.update_with_observations(new_attr, [obs1.id, obs2.id])
     assert @image.errors.present?
     assert_equal 'newslug', @image.slug
   end

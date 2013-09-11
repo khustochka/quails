@@ -16,7 +16,7 @@ class UICardsTest < ActionDispatch::IntegrationTest
     click_button('Search')
     assert_equal 200, page.driver.response.status
     assert find('ul.cards_list').has_content?('- Avis incognita')
-    refute find('ul.cards_list').has_content?('Spinus spinus')
+    assert_not find('ul.cards_list').has_content?('Spinus spinus')
   end
 
   test 'Searching observations by species works properly' do
@@ -28,7 +28,7 @@ class UICardsTest < ActionDispatch::IntegrationTest
     select('Passer domesticus', from: 'Species')
     click_button('Search')
     assert find('ul.cards_list').has_content?('Passer domesticus')
-    refute find('ul.cards_list').has_content?('Fulica atra')
+    assert_not find('ul.cards_list').has_content?('Fulica atra')
   end
 
   test 'Searching observations by voice/seen works properly' do
@@ -42,11 +42,11 @@ class UICardsTest < ActionDispatch::IntegrationTest
     click_button('Search')
     assert_equal 1, all(".observ_card").count
     assert find('ul.cards_list').has_content?('Passer domesticus')
-    refute find('ul.cards_list').has_content?('Fulica atra')
+    assert_not find('ul.cards_list').has_content?('Fulica atra')
     choose('Voice only')
     click_button('Search')
     assert_equal 1, all(".observ_card").count
-    refute find('ul.cards_list').has_content?('Passer domesticus')
+    assert_not find('ul.cards_list').has_content?('Passer domesticus')
     assert find('ul.cards_list').has_content?('Fulica atra')
     within(".voice_radio_group") { choose('All') }
     click_button('Search')

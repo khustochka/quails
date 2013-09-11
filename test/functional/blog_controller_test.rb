@@ -35,7 +35,7 @@ class BlogControllerTest < ActionController::TestCase
     blogpost2 = create(:post, face_date: '2008-11-06 13:14:15')
     get :front_page
     assert_includes(assigns(:posts), blogpost2)
-    refute_includes(assigns(:posts), blogpost1)
+    assert_not_includes(assigns(:posts), blogpost1)
   end
 
   test 'show NOINDEX post on front page' do
@@ -81,7 +81,7 @@ class BlogControllerTest < ActionController::TestCase
     get :year, year: 2007
     assert_response :success
     assert_includes(assigns(:posts), blogpost1)
-    refute_includes(assigns(:posts), blogpost2)
+    assert_not_includes(assigns(:posts), blogpost2)
     assert_includes(assigns(:months).map(&:first), "12")
   end
 
@@ -93,7 +93,7 @@ class BlogControllerTest < ActionController::TestCase
     get :month, year: 2007, month: 12
     assert_response :success
     assert_includes(assigns(:posts), blogpost1)
-    refute_includes(assigns(:posts), blogpost2)
+    assert_not_includes(assigns(:posts), blogpost2)
   end
 
   test 'render month properly if there is no previous or next month' do

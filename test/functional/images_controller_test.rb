@@ -67,7 +67,7 @@ class ImagesControllerTest < ActionController::TestCase
     assert_difference('Image.count') do
       post :create, image: new_attr, obs: [@obs.id, obs2.id, obs3.id]
       image = assigns(:image)
-      refute image.errors.any?
+      assert_not image.errors.any?
     end
     assert_redirected_to edit_map_image_path(assigns(:image))
   end
@@ -153,7 +153,7 @@ class ImagesControllerTest < ActionController::TestCase
     obs = create(:observation)
     put :update, id: @image.to_param, image: new_attr, obs: [obs.id]
     @image.reload
-    refute @image.spot_id, "Spot id should be nil"
+    assert_not @image.spot_id, "Spot id should be nil"
   end
 
   test "do not remove spot_id when resaving image" do

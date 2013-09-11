@@ -38,7 +38,7 @@ class ObservationSearchTest < ActiveSupport::TestCase
   test 'search voice: false is different from voice: nil' do
     ob3 = create(:observation, voice: true)
     assert ObservationSearch.new(voice: nil).observations.include?(ob3)
-    refute ObservationSearch.new(voice: false).observations.include?(ob3)
+    assert_not ObservationSearch.new(voice: false).observations.include?(ob3)
   end
 
 end

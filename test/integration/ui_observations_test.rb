@@ -14,7 +14,7 @@ class UIObservationsTest < ActionDispatch::IntegrationTest
     uncheck('Voice?')
     assert_difference('Observation.count', 0) { click_button('Save') }
     observation.reload
-    refute observation.voice
+    assert_not observation.voice
   end
 
   test 'Extract single observation to the new card' do
