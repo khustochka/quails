@@ -52,16 +52,20 @@
     = t('.total_observations')
     %strong= @species.observations.count
 
-  %h4= t('.sections.monthly')
-  %table.monthly
-    %tr
-      - 1.upto(12) do |m|
-        - month_class, tag = @months.include?(m) ? ["seen_this_month", :strong] : [nil, :span]
-        %td{class: month_class, title: t('date.month_names')[m]}= content_tag(tag, RomanNumerals.to_roman(m))
+  - grouped_loci = @species.grouped_loci
 
-  %div.obs_maps
-    - @species.grouped_loci.each do |country, loci|
-      = species_map(country, loci)
+  - span_size = grouped_loci.size == 1 ? 'span_1' : 'span_2'
+
+  %div.fluid-row.obs_maps
+
+    - grouped_loci.each do |country, loci|
+      %div{class: "fluid-column #{span_size}"}
+        = species_map(country, loci)
+        %table.monthly
+          %tr
+            - 1.upto(12) do |m|
+              - month_class, tag = @months[country].include?(m) ? ["seen_this_month", :strong] : [nil, :span]
+              %td{class: month_class, title: t('date.month_names')[m]}= content_tag(tag, RomanNumerals.to_roman(m))
 
 - @posts.if_present do |posts|
   %h3= t('.sections.posts')
