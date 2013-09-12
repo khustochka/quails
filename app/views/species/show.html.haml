@@ -15,8 +15,8 @@
   %strong= t("taxonomy.#{@species.family}") rescue nil
   %i.sci_name{lang: "la"}= @species.family
 
-%div.header-with-subheader
-  %h1= @species.name
+%div
+  %h1.species_name_h1= @species.name
   %h2.latin{lang: "la"}= @species.name_sci
   %span.authority= @species.authority
 
