@@ -35,6 +35,7 @@
         %li= species_link(sp)
 
 - @species.ordered_images.if_present do |images|
+  %a{name: 'photos'}
   %div.photos
     %h3= t('.sections.photos')
     %div.thumbnails
@@ -47,6 +48,7 @@
           %span.pseudolink.edit_main_image Edit main image
 
 - if @species.observations.any?
+  %a{name: 'observations'}
   %h3= t('.sections.stats')
   %p
     = t('.total_observations')
