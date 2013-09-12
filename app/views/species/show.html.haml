@@ -46,18 +46,6 @@
         %p
           %span.pseudolink.edit_main_image Edit main image
 
-- if current_user.admin?
-  %h3 Map
-  %div.obs_maps
-    - @species.grouped_loci.each do |country, loci|
-      = species_map(country, loci)
-
-- @posts.if_present do |posts|
-  %h3= t('.sections.posts')
-  %ul
-    - posts.each do |post|
-      %li= post_link(post.formatted.title, post)
-
 - if @species.observations.any?
   %h3= t('.sections.stats')
   %p
@@ -69,4 +57,14 @@
     %tr
       - 1.upto(12) do |m|
         - month_class, tag = @months.include?(m) ? ["seen_this_month", :strong] : [nil, :span]
-        %td{class: month_class}= content_tag(tag, RomanNumerals.to_roman(m))
+        %td{class: month_class, title: t('date.month_names')[m]}= content_tag(tag, RomanNumerals.to_roman(m))
+
+  %div.obs_maps
+    - @species.grouped_loci.each do |country, loci|
+      = species_map(country, loci)
+
+- @posts.if_present do |posts|
+  %h3= t('.sections.posts')
+  %ul
+    - posts.each do |post|
+      %li= post_link(post.formatted.title, post)

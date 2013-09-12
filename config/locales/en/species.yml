@@ -8,7 +8,7 @@
         photos: Photos
         similar_species: Similar species
         posts: Latest posts
-        stats: Observation statistics
+        stats: My observations
         monthly: By months
 
       total_observations: 'Observations total:'
