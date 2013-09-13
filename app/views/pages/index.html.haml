@@ -9,7 +9,7 @@
     %th Slug
     %th Title
     %th Meta
-    -#%th
+    %th
 
   - @pages.each do |page|
     %tr
@@ -17,4 +17,4 @@
       %td
         %b= link_to page.title, page_path(page.slug)
       %td= page.meta.to_hash
-      -#%td= default_destroy_link(page)
+      %td= default_destroy_link(page)

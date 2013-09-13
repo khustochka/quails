@@ -16,7 +16,7 @@ class PagesController < ApplicationController
   def create
     @page = Page.new(params[:page])
     if @page.save
-      redirect_to(page_url(@page.slug), :notice => 'Page was successfully created.')
+      redirect_to(page_url(@page.slug))
     else
       render :form
     end
@@ -29,7 +29,7 @@ class PagesController < ApplicationController
   def update
     @page.update_attributes(params[:page])
     if @page.save
-      redirect_to(page_url(@page.slug), :notice => 'Page was successfully updated.')
+      redirect_to(page_url(@page.slug))
     else
       render :form
     end
@@ -49,6 +49,11 @@ class PagesController < ApplicationController
     else
       raise ActiveRecord::RecordNotFound
     end
+  end
+
+  def destroy
+    @page.destroy
+    redirect_to(pages_url)
   end
 
 end
