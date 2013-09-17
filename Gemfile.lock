@@ -93,7 +93,7 @@ GEM
     multi_json (1.8.0)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
-    pg (0.16.0)
+    pg (0.17.0)
     polyglot (0.3.3)
     posix-spawn (0.3.6)
     powerbar (1.0.11)
