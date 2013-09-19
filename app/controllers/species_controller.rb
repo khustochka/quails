@@ -99,7 +99,8 @@ class SpeciesController < ApplicationController
       end
     end
     obs = Observation.select(:species_id)
-    ukr = Book.find(1).taxa.select(:species_id)
+    # Book with id=1 is Fesenko-Bokotey
+    ukr = Taxon.where(book_id: 1).select(:species_id)
     @next_species = Species.
         where("id in (#{obs.to_sql}) OR id IN (#{ukr.to_sql})").
         where("index_num > #{@species.index_num}").
