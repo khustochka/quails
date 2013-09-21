@@ -38,7 +38,6 @@
     @include deep-bordered-link($link-color)
     border-bottom: 1px dotted $link-color
 
-
 nav.month-navigation
   margin-top: 0
   a
@@ -87,6 +86,8 @@ nav.front_page_prev
   .comment_body, ul.reply
     font-family: Verdana, Tahoma, sans-serif
     font-size: 13px
+    p
+      line-height: 1.4
   ul.reply
     @include horiz-list
     margin-bottom: 0
@@ -145,7 +146,7 @@ form.comment
     width: 632px
     text-align: right
 
-    // Image
+// Image
 
 .image_canvas
   @include auto-width
@@ -175,7 +176,6 @@ table.image_nav
     color: #555
   a.img_prev_next
     text-decoration: none
-
 
 // Lifelists
 
@@ -286,7 +286,7 @@ table.monthly
     text-align: center
     border: 1px solid #333
     width: 34px
-    height:  34px
+    height: 34px
 
   td.seen_this_month
     background-color: #cfc
@@ -307,8 +307,8 @@ table.monthly
   p
     font-size: 14px
     color: #444444
-  //td
-  //  vertical-align: top
+//td
+//  vertical-align: top
 
 // Feed icon
 a.feed
