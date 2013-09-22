@@ -215,9 +215,15 @@ table.neat_table.checklist_table
     border-bottom: 1px solid #eee
 
   td.names
-    b, i
+    .sci_name, b
       white-space: nowrap
       display: block
+    .sci_name
+      font-size: 14px
+    .sp_link
+      @include arial-font
+      font-weight: bold
+      font-size: 16px
   td.status_column
     width: 66%
     font-style: italic
