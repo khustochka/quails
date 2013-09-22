@@ -21,7 +21,7 @@ gem 'haml-contrib'
 gem "haml"
 gem 'RedCloth'
 gem 'kaminari'
-gem 'simple_form', '~> 3.0.0.rc'
+gem 'simple_form', '~> 3.0.0'
 gem 'flickraw', '~> 0.9.5', require: false
 gem 'flickraw-cached'
 gem 'livejournal'

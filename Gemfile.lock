@@ -85,7 +85,7 @@ GEM
     mime-types (1.25)
     mini_portile (0.5.1)
     minitest (4.7.5)
-    minitest-reporters (0.14.21)
+    minitest-reporters (0.14.22)
       ansi
       builder
       minitest (>= 2.12, < 5.0)
@@ -203,7 +203,7 @@ DEPENDENCIES
   ruby-prof
   sass-rails (~> 4.0)
   selenium-webdriver
-  simple_form (~> 3.0.0.rc)
+  simple_form (~> 3.0.0)
   simplecov
   uglifier (>= 1.0.3)
   unicorn
