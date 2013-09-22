@@ -38,7 +38,6 @@
     @include deep-bordered-link($link-color)
     border-bottom: 1px dotted $link-color
 
-
 nav.month-navigation
   margin-top: 0
   a
@@ -49,6 +48,7 @@ nav.front_page_prev
   font-size: 20px
   a
     font-size: 32px
+    @include arial-font
 
 // Comments
 
@@ -87,6 +87,8 @@ nav.front_page_prev
   .comment_body, ul.reply
     font-family: Verdana, Tahoma, sans-serif
     font-size: 13px
+    p
+      line-height: 1.4
   ul.reply
     @include horiz-list
     margin-bottom: 0
@@ -145,7 +147,7 @@ form.comment
     width: 632px
     text-align: right
 
-    // Image
+// Image
 
 .image_canvas
   @include auto-width
@@ -176,17 +178,18 @@ table.image_nav
   a.img_prev_next
     text-decoration: none
 
-
 // Lifelists
 
 .sci_name
-  color: #666
+  color: #808080
 
 #lifelist, .lifers_list
   time, .sci_name
     white-space: nowrap
-  .sp_link
-    font-weight: bold
+  .sci_name
+    font-size: 13px
+  //.sp_link
+     //font-weight: bold
 
 h5.first_seen
   color: #666
@@ -213,9 +216,15 @@ table.neat_table.checklist_table
     border-bottom: 1px solid #eee
 
   td.names
-    b, i
+    .sci_name, b
       white-space: nowrap
       display: block
+    .sci_name
+      font-size: 14px
+    .sp_link
+      @include arial-font
+      font-weight: bold
+      font-size: 16px
   td.status_column
     width: 66%
     font-style: italic
@@ -286,7 +295,7 @@ table.monthly
     text-align: center
     border: 1px solid #333
     width: 34px
-    height:  34px
+    height: 34px
 
   td.seen_this_month
     background-color: #cfc
@@ -303,12 +312,12 @@ table.monthly
   h3
     i.sci_name
       font-weight: normal
-      font-size: 16px
+      font-size: 15px
   p
     font-size: 14px
     color: #444444
-  //td
-  //  vertical-align: top
+//td
+//  vertical-align: top
 
 // Feed icon
 a.feed
