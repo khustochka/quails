@@ -13,13 +13,16 @@ class ImagesController < ApplicationController
 
   # Latest additions
   def index
-    redirect_to page: nil if params[:page].to_i == 1
-    @images = Image.preload(:species).order('created_at DESC').page(params[:page].to_i).per(24)
-    @feed = 'photos'
-    if @images.empty? && params[:page].to_i != 1
-      raise ActiveRecord::RecordNotFound
+    if params[:page].to_i == 1
+      redirect_to page: nil
     else
-      render :index
+      @images = Image.preload(:species).order('created_at DESC').page(params[:page].to_i).per(24)
+      @feed = 'photos'
+      if @images.empty? && params[:page].to_i != 1
+        raise ActiveRecord::RecordNotFound
+      else
+        render :index
+      end
     end
   end
 
