@@ -1,8 +1,8 @@
 - @flickr_imgs.each do |img|
   - title = img.title
   - author = img.ownername
-  %div.flickr_result_cell
-    %a{href: FlickRaw.url_photopage(img), class: "img", title: "#{title} by #{author}, on Flickr"}<>
+  %div.flickr_result_cell<
+    %a{href: FlickRaw.url_photopage(img), class: "img", title: "#{title} by #{author}, on Flickr"}<
       %img{:src => FlickRaw.url_q(img) }
-    %span.flickr_author
+    %span.flickr_author<
       by #{link_to(author, FlickRaw.url_photostream(img), rel: "nofollow")} on Flickr.
