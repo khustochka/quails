@@ -304,7 +304,7 @@ table.monthly
 
 // Pages
 
-.species_photo_table
+.species_photo_table, .flickr_result
   img
     border: 1px solid #aaa
   span.flickr_author
@@ -320,6 +320,12 @@ table.monthly
     color: #444444
 //td
 //  vertical-align: top
+
+.flickr_result_cell
+  vertical-align: top
+  @include inline-block
+  width: 155px
+  height: 200px
 
 // Feed icon
 a.feed

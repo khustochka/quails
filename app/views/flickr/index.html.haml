@@ -1,4 +1,4 @@
-- stylesheet 'forms'
+- stylesheet 'forms', 'public'
 - javascript 'flickr_search'
 
 - @page_title = "Flickr search"
@@ -8,12 +8,15 @@
 %form{"data-remote" => true, "action" => "/flickr/search", "method" => "get"}
   %div.input.string
     %label.string Search string:
-    %input.string#flickr_text{name: 'flickr_text', type: 'text'}
+    %input.string#flickr_text{name: 'text', type: 'text'}
   %div.input.boolean
-    %input{name: 'flickr_user_id', type: 'checkbox', value: Settings.flickr_admin.user_id}
+    %input{name: 'user_id', type: 'checkbox', value: Settings.flickr_admin.user_id}
       %label.string My
   %div.input.boolean
-    %input{name: 'flickr_cc', type: 'checkbox', value: "1,2,3,4,5,6"}
+    %input{name: 'contacts', type: 'checkbox', value: "all"}
+      %label.string Contacts
+  %div.input.boolean
+    %input{name: 'license', type: 'checkbox', value: "1,2,3,4,5,6"}
       %label.string Creative Commons
   %div
     %button{type: 'submit'} Search

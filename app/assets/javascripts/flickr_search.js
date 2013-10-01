@@ -2,6 +2,7 @@ $(function () {
   $('#spinner').hide();
 
   $('form').on("ajax:send", function() {
+    $('.flickr_result').html("");
     $('#spinner').show();
   });
 
