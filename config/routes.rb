@@ -185,7 +185,8 @@ Quails::Application.routes.draw do
 
   get '/login' => 'login#login'
 
-  get '/flickr' => 'flickr#search'
+  get '/flickr' => 'flickr#index'
+  get '/flickr/search' => 'flickr#search'
   get '/flickr/auth' => 'flickr#auth'
 
 end

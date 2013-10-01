@@ -6,21 +6,35 @@ class FlickrController < ApplicationController
     redirect_to :action => :auth if flickr.access_token.blank?
   end
 
+  def index
+
+    #@images = Image.preload(:observations).page(params[:page]).per(10)
+
+    #@flickr_imgs = @images.each_with_object({}) do |img, memo|
+    #  memo[img.id] =
+    #      flickr.photos.search(
+    #          user_id: Settings.flickr_admin.user_id,
+    #          extras: 'original_format,date_taken',
+    #          text: img.species[0].name_sci,
+    #          min_taken_date: img.observ_date - 1,
+    #          max_taken_date: img.observ_date + 1
+    #      )
+    #end
+
+  end
+
   def search
-
-    @images = Image.preload(:observations).page(params[:page]).per(10)
-
-    @flickr_imgs = @images.each_with_object({}) do |img, memo|
-      memo[img.id] =
-          flickr.photos.search(
-              user_id: Settings.flickr_admin.user_id,
-              extras: 'original_format,date_taken',
-              text: img.species[0].name_sci,
-              min_taken_date: img.observ_date - 1,
-              max_taken_date: img.observ_date + 1
-          )
-    end
-
+    @flickr_imgs =
+        flickr.photos.search(
+            user_id: params[:flickr_user_id],
+            privacy_filter: 1,
+            safe_search: 1,
+            content_type: 1,
+            license: params[:flickr_cc],
+            extras: 'owner_name,url_q',
+            text: params[:flickr_text],
+        )
+    render :search, layout: false
   end
 
   def auth
