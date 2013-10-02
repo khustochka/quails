@@ -16,6 +16,8 @@ namespace :vendor do
       system "curl https://raw.github.com/rails/jquery-ujs/master/src/rails.js -o vendor/assets/javascripts/jquery_ujs.js"
       puts "\n=== Getting latest JQuery-pjax ==="
       system "curl https://raw.github.com/defunkt/jquery-pjax/master/jquery.pjax.js -o vendor/assets/javascripts/jquery_pjax.js"
+      puts "\n=== Getting latest Keypress.js ==="
+      system "curl https://raw.github.com/dmauro/Keypress/master/keypress.coffee -o vendor/assets/javascripts/keypress.coffee"
       puts "\n=== Getting latest HTML5shiv for IE ==="
       system "curl http://html5shiv.googlecode.com/svn/trunk/html5.js -o vendor/assets/javascripts/html5.js"
       puts "\n=== Getting latest JSON3 parser for IE ==="
