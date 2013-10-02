@@ -30,13 +30,13 @@ gem 'addressable', require: 'addressable/uri'
 gem 'roman-numerals'
 gem 'rinku'
 
-  gem 'sass-rails', '~> 4.0'
-  #gem 'coffee-rails', '~> 3.2.1'
-  #gem 'turbo-sprockets-rails3'
+gem 'sass-rails', '~> 4.0.0'
+gem 'coffee-rails', '~> 4.0.0'
+#gem 'turbo-sprockets-rails3'
 
-  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
+# See https://github.com/sstephenson/execjs#readme for more supported runtimes
 
-  gem 'uglifier', '>= 1.0.3'
+gem 'uglifier', '>= 1.0.3'
 
 group :development do
   gem 'rails3-generators'
