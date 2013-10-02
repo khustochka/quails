@@ -1,6 +1,7 @@
 //= require jquery-ui.addon
 //= require suggest_over_combo
 //= require wiki_form
+//= require keypress
 
 
 $(function () {
@@ -168,6 +169,17 @@ $(function () {
     else if (event.keyCode == 13 && event.ctrlKey) {
       $('.simple_form').submit();
     }
+  });
+
+  // Alt+V to mark as voice
+  keypress.combo("alt v", function() {
+    var checkbox,
+        focused = $(':focus'),
+        row = focused.closest('.obs-row');
+
+    if (row.length == 0 && focused.attr("id") == 'species-quick-add') row = $('.obs-row:last')
+    checkbox = $("div.card_observations_voice input.boolean", row)
+    checkbox.prop("checked", !checkbox.prop("checked"));
   });
 
 });
