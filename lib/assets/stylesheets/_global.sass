@@ -54,7 +54,7 @@ body
       margin-bottom: 3px
 
 // 100% height
-$footer-margin: 75px
+$footer-margin: 65px
 
 html, body
   height: 100%
@@ -100,7 +100,7 @@ p img, video
 
 body
   background-color: #ffffff
-  color: #4e4e4e
+  color: #303030
 
 // Headers
 $base-header-color: #555555
@@ -126,8 +126,11 @@ div.footer
   background-color: #f5f5f5
   color: #333366
   p
-    //margin-top: 0
-    font-size: 14px
+    margin:
+      top: 0.5em
+      bottom: 0.5em
+    @include arial-font
+    font-size: 13px
 
 // Nav
 

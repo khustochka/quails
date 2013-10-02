@@ -1,26 +1,8 @@
-- javascript 'pjax_pagination'
-
-- @page_title = 'Flickr tasks'
-
-%h1= page_header
-
-%table.neat_table
-  %tr
-    %th
-    %th Code
-    %th Title
-    %th Date
-    %th Flickr
-
-  - @images.each do |image|
-    %tr
-      %td.thumbnail= link_to image_tag(thumbnail_url(image)), image_path(image)
-      %td= link_to image.slug, edit_image_path(image)
-      %td= image.formatted.title
-      %td= image.observ_date
-      %td
-        - @flickr_imgs[image.id].each do |img|
-          %a{:href => FlickRaw.url_photopage(img)}
-            %img{:src => FlickRaw.url_t(img) }
-
-= paginate @images
+- @flickr_imgs.each do |img|
+  - title = img.title
+  - author = img.ownername
+  %div.flickr_result_cell<
+    %a{href: FlickRaw.url_photopage(img), class: "img", title: "#{title} by #{author}, on Flickr"}<
+      %img{:src => FlickRaw.url_q(img) }
+    %span.flickr_author<
+      by #{link_to(author, FlickRaw.url_photostream(img), rel: "nofollow")} on Flickr.

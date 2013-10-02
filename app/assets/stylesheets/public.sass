@@ -189,10 +189,11 @@ table.image_nav
   .sci_name
     font-family: Verdana, Arial, sans-serif
     font-size: 13px
-  //.sp_link
-     //font-weight: bold
+  .sp_link
+    font-size: 15px
 
 h5.first_seen
+  @include arial-font
   color: #666
   font-style: italic
   font-size: 14px
@@ -293,6 +294,7 @@ table.neat_table.checklist_table
 
 table.monthly
   td
+    @include arial-font
     text-align: center
     border: 1px solid #333
     width: 34px
@@ -303,7 +305,7 @@ table.monthly
 
 // Pages
 
-.species_photo_table
+.species_photo_table, .flickr_result
   img
     border: 1px solid #aaa
   span.flickr_author
@@ -319,6 +321,12 @@ table.monthly
     color: #444444
 //td
 //  vertical-align: top
+
+.flickr_result_cell
+  vertical-align: top
+  @include inline-block
+  width: 155px
+  height: 200px
 
 // Feed icon
 a.feed
