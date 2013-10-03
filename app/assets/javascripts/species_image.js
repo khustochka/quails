@@ -6,7 +6,7 @@ $(function () {
     $('div.thumbnails').css({border: "2px solid green", padding: "10px"});
 
     $('.image_thumb[data-image-id="' + current_image_id_field.val() + '"]', 'div.thumbnails')
-        .css({border: "2px solid orange"});
+        .addClass('orange_border');
 
     $('img', 'div.thumbnails').click(function (event) {
       event.preventDefault();
