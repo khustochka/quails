@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130827101118) do
+ActiveRecord::Schema.define(version: 20131003095012) do
 
   create_table "books", force: true do |t|
     t.string "slug",        limit: 32, null: false
@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 20130827101118) do
     t.datetime "updated_at",                                     null: false
     t.text     "assets_cache",                 default: "",      null: false
     t.string   "status",            limit: 5,  default: "DEFLT", null: false
+    t.integer  "parent_id"
   end
 
   add_index "images", ["index_num"], name: "index_images_on_index_num", using: :btree
