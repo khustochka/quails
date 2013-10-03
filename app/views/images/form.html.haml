@@ -28,12 +28,15 @@
 
 - if @image.persisted?
   - if @image.children.any?
-    %p This image has #{@image.children.count} children
+    %p
+      This image has #{@image.children.count} children.
+      = link_to("Detach", parent_image_path(@image), method: "POST")
 
   - else
     %p
       - if @image.parent_id
         This image has a parent.
+        = link_to("Detach", parent_image_path(@image), method: "POST")
       = link_to("Add/Edit parent", edit_parent_image_path(@image))
 
 - if @image.persisted?

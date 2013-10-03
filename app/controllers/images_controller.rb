@@ -212,16 +212,20 @@ class ImagesController < ApplicationController
   end
 
   def parent_update
-    new_parent = Image.find(params[:parent_id])
-    if new_parent.parent_id
-      raise "This is a child image"
-    else
-      Image.connection.transaction do
-        @image.children.update_all(parent_id: new_parent.id)
-        @image.update_attribute(:parent_id, new_parent.id)
+    new_id = params[:parent_id]
+    if new_id
+      new_parent = Image.find(new_id)
+      if new_parent.parent_id
+        raise "This is a child image"
       end
-      head :no_content
     end
+
+    Image.connection.transaction do
+      @image.children.update_all(parent_id: new_id)
+      @image.update_attribute(:parent_id, new_id)
+    end
+    head :no_content
+
   end
 
   private
