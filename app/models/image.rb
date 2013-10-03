@@ -19,6 +19,8 @@ class Image < ActiveRecord::Base
   has_many :spots, :through => :observations
   belongs_to :spot
 
+  has_many :children, -> { order(:index_num) }, class_name: 'Image', foreign_key: 'parent_id'
+
   serialize :assets_cache, ImageAssetsArray
 
   # Callbacks

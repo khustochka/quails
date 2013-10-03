@@ -32,6 +32,16 @@
 
 %div.image_canvas= image_tag(jpg_url(@image), alt: '[фотография]')
 
+- @image.children.each do |sub_img|
+
+  %h2{id: sub_img.slug}= sub_img.formatted.title
+
+  - if current_user.admin?
+    %ul.horiz-list.admin-shortcuts
+      %li= link_to 'Edit this one', edit_image_path(sub_img.slug)
+
+  %div.image_canvas= image_tag(jpg_url(sub_img), alt: '[фотография]')
+
 = render 'social/buttons'
 
 %table.image_nav
