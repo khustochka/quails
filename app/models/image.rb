@@ -116,13 +116,13 @@ class Image < ActiveRecord::Base
   end
 
   def prev_by_species(sp)
-    sql = prev_next_sql(sp, "lag")
+    sql = prev_next_sql(sp, "lag", self.parent_id.nil?)
     im = Image.from("(#{sql}) AS tmp").select("desired").where("img_id = ?", self.id)
     Image.where(id: im).first
   end
 
   def next_by_species(sp)
-    sql = prev_next_sql(sp, "lead")
+    sql = prev_next_sql(sp, "lead", self.parent_id.nil?)
     im = Image.from("(#{sql}) AS tmp").select("desired").where("img_id = ?", self.id)
     Image.where(id: im).first
   end
@@ -221,10 +221,11 @@ class Image < ActiveRecord::Base
     end
   end
 
-  def prev_next_sql(sp, lag_or_lead)
+  def prev_next_sql(sp, lag_or_lead, only_top_level)
     Image.connection.unprepared_statement do
       sp.ordered_images.
           select("images.id AS img_id, #{lag_or_lead}(images.id) OVER #{PREV_NEXT_ORDER} AS desired").
+          where(only_top_level ? "parent_id IS NULL" : nil).
           except(:order).
           to_sql
     end
