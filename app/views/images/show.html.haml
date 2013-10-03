@@ -42,6 +42,8 @@
 
   %div.image_canvas= image_tag(jpg_url(sub_img), alt: '[фотография]')
 
+  = sub_img.formatted.description
+
 = render 'social/buttons'
 
 %table.image_nav
