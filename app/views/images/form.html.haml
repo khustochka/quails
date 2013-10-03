@@ -27,6 +27,16 @@
   = link_to('Edit flickr data', action: :flickr_edit) if @image.persisted?
 
 - if @image.persisted?
+  - if @image.children.any?
+    %p This image has #{@image.children.count} children
+
+  - else
+    %p
+      - if @image.parent_id
+        This image has a parent.
+      = link_to("Add/Edit parent", edit_parent_image_path(@image))
+
+- if @image.persisted?
   %p= image_tag(thumbnail_item(@image).try(:full_url), class: 'image_pic')
 
 - if flash[:alert]
