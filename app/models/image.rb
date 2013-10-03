@@ -49,7 +49,7 @@ class Image < ActiveRecord::Base
 
   # Scopes
 
-  scope :indexable, lambda { where("status <> 'NOIDX'") }
+  scope :indexable, lambda { where("status <> 'NOIDX' AND parent_id IS NULL") }
 
   # Parameters
 
