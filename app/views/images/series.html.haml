@@ -1,0 +1,12 @@
+- stylesheet 'public'
+
+- @page_title = 'Series'
+
+%h1= page_header
+
+- @observations.each do |obs|
+  %h3= obs.observ_date
+  %div.thumbnails
+    = render_justified obs.images.map(&:to_thumbnail)
+
+= paginate @observations

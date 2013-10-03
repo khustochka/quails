@@ -228,6 +228,12 @@ class ImagesController < ApplicationController
 
   end
 
+  def series
+    rel = Observation.select(:observation_id).from("images_observations").group(:observation_id).having("COUNT(image_id) > 1")
+    @observations = Observation.select("DISTINCT observations.*, observ_date").where(id: rel).
+        joins(:card).preload(:images).order('observ_date ASC').page(params[:page])
+  end
+
   private
 
   def cache_expire
