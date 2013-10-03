@@ -1,10 +1,12 @@
 class ImagesController < ApplicationController
 
-  respond_to :json, only: [:flickr_search, :observations]
+  respond_to :json, only: [:flickr_search, :observations, :parent_update]
 
   administrative except: [:index, :multiple_species, :show, :gallery, :country, :strip]
 
-  find_record by: :slug, before: [:show, :edit, :flickr_edit, :flickr_upload, :map_edit, :update, :patch, :destroy]
+  find_record by: :slug, before: [:show, :edit, :flickr_edit, :flickr_upload,
+                                  :parent_edit, :parent_update,
+                                  :map_edit, :update, :patch, :destroy]
 
   after_filter :cache_expire, only: [:create, :update, :destroy]
 
@@ -201,6 +203,25 @@ class ImagesController < ApplicationController
     @images = Image.where(id: params[:_json]).includes(:cards, :species).
         order('cards.observ_date, cards.locus_id, images.index_num, species.index_num')
     render layout: false
+  end
+
+  def parent_edit
+    @similar_images = Image.uniq.joins(:observations).
+        where('observations.id' => @image.observation_ids).
+        where("images.id <> #{@image.id}")
+  end
+
+  def parent_update
+    new_parent = Image.find(params[:parent_id])
+    if new_parent.parent_id
+      raise "This is a child image"
+    else
+      Image.connection.transaction do
+        @image.children.update_all(parent_id: new_parent.id)
+        @image.update_attribute(:parent_id, new_parent.id)
+      end
+      head :no_content
+    end
   end
 
   private
