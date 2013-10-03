@@ -34,7 +34,7 @@
       - similar.each do |sp|
         %li= species_link(sp)
 
-- @species.ordered_images.if_present do |images|
+- @species.ordered_images.top_level.if_present do |images|
   %a{name: 'photos'}
   %div.photos
     %h3= t('.sections.photos')

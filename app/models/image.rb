@@ -49,7 +49,9 @@ class Image < ActiveRecord::Base
 
   # Scopes
 
-  scope :indexable, lambda { where("status <> 'NOIDX' AND parent_id IS NULL") }
+  scope :indexable, lambda { where("status <> 'NOIDX'").top_level }
+
+  scope :top_level, -> { where(parent_id: nil) }
 
   # Parameters
 
@@ -197,7 +199,12 @@ class Image < ActiveRecord::Base
   # Formatting
 
   def to_thumbnail
-    Thumbnail.new(self, self.formatted.title, self, {image: {id: id}})
+    title = self.formatted.title
+    child_num = children.count
+    if child_num > 0
+      title = "#{title} (#{child_num + 1} фото)"
+    end
+    Thumbnail.new(self, title, self, {image: {id: id}})
   end
 
   def mapped?

@@ -28,7 +28,7 @@ class ImagesController < ApplicationController
 
   # Photos of multiple species
   def multiple_species
-    @images = Image.multiple_species
+    @images = Image.multiple_species.top_level
   end
 
   # GET /photos/1
