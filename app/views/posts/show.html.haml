@@ -48,12 +48,14 @@
   %p
     = (spcs.map { |sp| species_link_in_post(sp, @post) }.join(",\n") << ".").html_safe
 
-- if @comments[0] || notice.try(:has_key?, 0)
+- top_level_comments = @comments[0]
+
+- if top_level_comments || notice.try(:has_key?, 0)
 
   %h2#comments= t('.sections.comments')
 
-  - if @comments[0]
-    = render @comments[0]
+  - if top_level_comments
+    = render top_level_comments
 
   - if notice.try(:has_key?, 0)
 
