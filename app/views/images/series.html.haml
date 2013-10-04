@@ -7,6 +7,6 @@
 - @observations.each do |obs|
   %h3= obs.observ_date
   %div.thumbnails
-    = render_justified obs.images.map(&:to_thumbnail)
+    = render_justified obs.images.basic_order.map(&:to_thumbnail)
 
 = paginate @observations

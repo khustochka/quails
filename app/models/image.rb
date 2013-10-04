@@ -19,7 +19,7 @@ class Image < ActiveRecord::Base
   has_many :spots, :through => :observations
   belongs_to :spot
 
-  has_many :children, -> { order(:index_num, :created_at, :id) }, class_name: 'Image', foreign_key: 'parent_id'
+  has_many :children, -> { basic_order }, class_name: 'Image', foreign_key: 'parent_id'
 
   serialize :assets_cache, ImageAssetsArray
 
@@ -52,6 +52,8 @@ class Image < ActiveRecord::Base
   scope :indexable, lambda { where("status <> 'NOIDX'").top_level }
 
   scope :top_level, -> { where(parent_id: nil) }
+
+  scope :basic_order, -> { order(:index_num, 'images.created_at', 'images.id') }
 
   # Parameters
 
