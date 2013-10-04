@@ -20,6 +20,7 @@
     %b (#{Image.half_mapped.count})
   %li= link_to('Unflickred images', {controller: :images, action: :unflickred})
   %li= link_to('Potential series', {controller: :images, action: :series})
+  %li= link_to('Unused flickr images', {controller: :images, action: :unused})
 
 %h3= link_to('Environment', action: :environ)
 

@@ -1,0 +1,7 @@
+- @page_title = 'Unused photos from Flickr'
+
+%h1= page_header
+
+- @diff.each do |img|
+  = link_to(url_for(action: :new, i: {flickr_id: img.id})) do
+    = image_tag(FlickRaw.url_m(img))

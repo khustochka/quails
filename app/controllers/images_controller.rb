@@ -234,6 +234,17 @@ class ImagesController < ApplicationController
         joins(:card).preload(:images).order('observ_date ASC').page(params[:page])
   end
 
+  def unused
+    used = Image.where("flickr_id IS NOT NULL").pluck(:flickr_id)
+    page = 0
+    all = []
+    begin
+      result = flickr.photos.search({user_id: Settings.flickr_admin.user_id, per_page: 500, page: (page += 1)})
+      all += result.to_a
+    end until result.size == 0
+    @diff = all.reject { |x| used.include?(x.id) }
+  end
+
   private
 
   def cache_expire
