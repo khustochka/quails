@@ -2,6 +2,10 @@
 
 %h1= page_header
 
-- @diff.each do |img|
-  = link_to(url_for(action: :new, i: {flickr_id: img.id})) do
-    = image_tag(FlickRaw.url_m(img))
+%div.flickr_result
+
+  - @diff.each do |img|
+    %div.flickr_result_cell<
+      = link_to(url_for(action: :new, i: {flickr_id: img.id})) do
+        = image_tag(FlickRaw.url_m(img))
+      %span.flickr_subscr= link_to "on flickr", FlickRaw.url_photopage(img)

@@ -4,5 +4,5 @@
   %div.flickr_result_cell<
     %a{href: FlickRaw.url_photopage(img), class: "img", title: "#{title} by #{author}, on Flickr"}<
       %img{:src => FlickRaw.url_q(img) }
-    %span.flickr_author<
+    %span.flickr_subscr<
       by #{link_to(author, FlickRaw.url_photostream(img), rel: "nofollow")} on Flickr.
