@@ -22,7 +22,7 @@ class PostsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "show post with images" do
+  test "show post with images (and species, which is new)" do
     blogpost = create(:post)
     create(:image, observations: [create(:observation, card: create(:card, post: blogpost))])
     get :show, blogpost.to_url_params

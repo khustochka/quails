@@ -19,7 +19,7 @@ module SpeciesHelper
   end
 
   def new_species_link(sp_obj, string = nil)
-    "<b>#{species_link(sp_obj, string)}</b><span class='new_sp' title='#{t("posts.show.new_species")}'>&#8727;</span>"
+    "<b>#{species_link(sp_obj, string)}</b><span class='new_sp' title='#{t("posts.sections.species.new_species")}'>&#8727;</span>"
   end
 
   def species_link_in_post(sp_obj, post, string = nil)

@@ -12,14 +12,15 @@
       next: Next month
 
   posts:
-    show:
-      sections:
-        photos: Images
-        species: 'Species met'
-        comments: Comments
-      add_comment: Add new
-      save_button: Save
-      new_species: New lifer!
+    sections:
+      photos:
+        title: Images
+      species:
+        title: 'Species met'
+        new_species: New lifer!
+      comments:
+        title: Comments
+        add_comment: Add new
 
     post:
       comments:
@@ -31,7 +32,7 @@
     comment:
       reply_link: reply
     form:
-      save_button: Save
+      save_button: Post comment
     reply:
       title: Replying to comment
 

@@ -1,0 +1,16 @@
+- top_level_comments = @comments[0]
+
+- if top_level_comments || notice.try(:has_key?, 0)
+
+  %h2#comments= t('.title')
+
+  - if top_level_comments
+    = render top_level_comments
+
+  - if notice.try(:has_key?, 0)
+
+    %p.comment_screened= notice[0]
+
+%h3#add_comment= t('.add_comment')
+
+= render "comments/form"

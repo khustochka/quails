@@ -1,0 +1,5 @@
+- @post.formatted.the_rest_of_images.if_present do |images|
+  %div.photos
+    %h2= t('.title')
+    %div.thumbnails
+      = render_justified images.map(&:to_thumbnail)

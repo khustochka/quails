@@ -12,13 +12,15 @@
       next: Следующий месяц
 
   posts:
-    show:
-      sections:
-        photos: Фотографии
-        species: 'Встреченные виды'
-        comments: Комментарии
-      add_comment: Добавить комментарий
-      new_species: Новый вид!
+    sections:
+      photos:
+        title: Фотографии
+      species:
+        title: 'Встреченные виды'
+        new_species: Новый вид!
+      comments:
+        title: Комментарии
+        add_comment: Добавить комментарий
 
     post:
       comments:
