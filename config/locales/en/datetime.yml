@@ -1,4 +1,5 @@
-# Rewrite formats because of: https://github.com/svenfuchs/rails-i18n/issues/216
+# Overwriting formats because of: https://github.com/svenfuchs/rails-i18n/issues/216
+# Still not fixed for en
 
 en:
   date:
