@@ -89,16 +89,7 @@ class ImagesController < ApplicationController
   # POST /photos/1/flickr
   def flickr_upload
     raise "The image is already on flickr" if @image.on_flickr?
-    flickr_id = flickr.upload_photo local_image_url(@image),
-                                    title: (@image.species.map { |s| "#{s.name_en}; #{s.name_sci}" }.join('; ')),
-                                    description: "#{l(@image.observ_date, format: :long, locale: :en)}\n#{@image.locus.name_en}, #{@image.locus.country.name_en}",
-                                    tags: %Q(#{@image.species.map { |s| "\"#{s.name_en}\" \"#{s.name_sci}\"" }.join(' ')} bird #{@image.locus.country.name_en} #{@image.species.map(&:order).uniq.join(' ')} #{@image.species.map(&:family).uniq.join(' ')}),
-                                    is_public: params[:public],
-                                    safety_level: 1,
-                                    content_type: 1
-
-    @image.set_flickr_data(flickr, flickr_id)
-    @image.save!
+    FlickrPhoto.new(@image).upload(params)
     redirect_to edit_flickr_image_path(@image)
   end
 
@@ -251,10 +242,5 @@ class ImagesController < ApplicationController
     expire_page controller: :feeds, action: :blog, format: 'xml'
     expire_page controller: :feeds, action: :photos, format: 'xml'
     expire_page controller: :feeds, action: :sitemap, format: 'xml'
-  end
-
-  def local_image_url(img)
-    prefix = ImagesHelper.local_image_path || ImagesHelper.image_host
-    "#{prefix}/#{img.slug}.jpg"
   end
 end
