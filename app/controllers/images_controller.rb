@@ -105,7 +105,7 @@ class ImagesController < ApplicationController
     flickr_id = params[:image].delete(:flickr_id)
     params[:image].slice!(*Image::NORMAL_PARAMS)
 
-    @image.set_flickr_data(flickr, flickr_id)
+    FlickrPhoto.new(@image).bind_with_flickr(flickr_id)
 
     if @image.update_with_observations(params[:image], params[:obs])
 
@@ -142,6 +142,7 @@ class ImagesController < ApplicationController
   def patch
     new_params = params[:image]
     new_flickr_id = new_params.delete(:flickr_id)
+    # TODO: Will deprecate
     if new_flickr_id
       @image.set_flickr_data(flickr, new_flickr_id)
       @image.save

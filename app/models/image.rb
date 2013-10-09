@@ -143,6 +143,7 @@ class Image < ActiveRecord::Base
     )
   end
 
+  # TODO: Will deprecate
   def set_flickr_data(flickr, new_flickr_id)
     # if new flickr_id is nil or blank - assign nil
     self.flickr_id = new_flickr_id
