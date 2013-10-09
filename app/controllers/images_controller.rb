@@ -4,7 +4,7 @@ class ImagesController < ApplicationController
 
   administrative except: [:index, :multiple_species, :show, :gallery, :country, :strip]
 
-  find_record by: :slug, before: [:show, :edit, :flickr_edit, :flickr_upload,
+  find_record by: :slug, before: [:show, :edit, :flickr_upload,
                                   :parent_edit, :parent_update,
                                   :map_edit, :update, :patch, :destroy]
 
@@ -58,16 +58,11 @@ class ImagesController < ApplicationController
     @images = Image.half_mapped.page(params[:page].to_i).per(24)
   end
 
-  # GET /photos/1/flickr_edit
-  def flickr_edit
-    @next = Image.where(flickr_id: nil).where('created_at < ?', @image.created_at).order('created_at DESC').first
-  end
-
   # POST /photos/1/flickr
   def flickr_upload
     raise "The image is already on flickr" if @image.on_flickr?
     FlickrPhoto.new(@image).upload(params)
-    redirect_to edit_flickr_image_path(@image)
+    redirect_to flickr_photo_path(@image)
   end
 
   # GET /photos/1/map_edit
@@ -126,7 +121,7 @@ class ImagesController < ApplicationController
     end
     respond_to do |format|
       if @image.update_attributes(new_params)
-        format.html { redirect_to action: new_flickr_id ? 'flickr_edit' : 'show' }
+        format.html { redirect_to new_flickr_id ? flickr_photo_path(@image) : {action: :show} }
         format.json { head :no_content }
       else
         format.html { render 'form' }

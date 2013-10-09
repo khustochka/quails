@@ -6,8 +6,9 @@
 %h1= page_header
 
 %ul.horiz-list
-  %li= link_to('Show', action: :show)
-  %li= link_to('Edit', action: :edit)
+  %li= link_to('Show', image_path(@image))
+  %li= link_to('Edit', edit_image_path(@image))
+  %li= link_to('Map', edit_map_image_path(@image))
 
 %p
   - if @image.on_flickr?
@@ -50,4 +51,4 @@
   %tr
     %td.found_pictures
 
-= link_to("Next unflickred image >>", edit_flickr_image_path(@next), class: 'next_unflickred') if @next
+= link_to("Next unflickred image >>", flickr_photo_path(@next), class: 'next_unflickred') if @next

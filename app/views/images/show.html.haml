@@ -14,7 +14,7 @@
 - provide :add_shortcuts do
   %li= link_to @image.mapped? ? 'Edit map' : '<b>MAP IT!</b>'.html_safe, action: :map_edit
   %li
-    = link_to url_for(action: :flickr_edit) do
+    = link_to flickr_photo_path(@image) do
       - if @image.on_flickr?
         Edit flickr data
       - else

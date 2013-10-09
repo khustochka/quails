@@ -115,19 +115,13 @@ class ImagesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "get flickr_edit" do
-    login_as_admin
-    get :flickr_edit, id: @image.to_param
-    assert_response :success
-  end
-
   test "get unflickred" do
     login_as_admin
     get :unflickred
     assert_response :success
     assert_not_empty assigns(:images)
 
-    assert_select "a[href=#{edit_flickr_image_path(@image)}]"
+    assert_select "a[href=#{flickr_photo_path(@image)}]"
   end
 
   test "get map_edit" do

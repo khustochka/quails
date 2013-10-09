@@ -74,7 +74,6 @@ Quails::Application.routes.draw do
   resources :photos, controller: 'images', as: 'images', except: :index do
     member do
       get 'edit/map', action: :map_edit
-      get 'edit/flickr', action: :flickr_edit
       get 'edit/parent', action: :parent_edit
       post 'parent', action: :parent_update
       post 'flickr', action: :flickr_upload, as: 'flickr_upload'
