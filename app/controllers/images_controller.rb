@@ -38,29 +38,6 @@ class ImagesController < ApplicationController
     @robots = 'NOINDEX' if @image.status == 'NOIDX' || @image.parent_id
   end
 
-  # GET /photos/add # select flickr photo
-  def add
-    if FlickrApp.configured?
-      @flickr_images = flickr.photos.search({user_id: Settings.flickr_admin.user_id,
-                                             extras: 'date_taken',
-                                             per_page: 10})
-    else
-      redirect_to({action: :new}, alert: "No Flickr API key or secret defined!")
-    end
-  rescue FlickRaw::FailedResponse => e
-    redirect_to({action: :new}, alert: e.message)
-  end
-
-  # POST /photos/upload
-  def upload
-    uploaded_io = params[:image]
-    File.open(File.join(ImagesHelper.local_image_path, uploaded_io.original_filename), 'wb') do |file|
-      file.write(uploaded_io.read)
-    end
-    new_slug = File.basename(uploaded_io.original_filename, '.*')
-    redirect_to action: :new, i: {slug: new_slug}
-  end
-
   # GET /photos/new
   def new
     @image = Image.new(params[:i])

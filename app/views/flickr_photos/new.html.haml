@@ -3,14 +3,14 @@
 %h1= page_header
 
 %ul.horiz-list
-  %li= link_to('Skip to simple add form', action: :new)
+  %li= link_to('Skip to simple add form', new_image_path)
 
-= form_tag({action: 'upload'}, multipart: true) do
+= form_tag({action: 'create'}, multipart: true) do
   %p
     %label{for: "image"} Select file
     = file_field_tag 'image'
     = submit_tag "Upload"
 
 - @flickr_images.each do |img|
-  = link_to(url_for(action: :new, i: {flickr_id: img.id})) do
+  = link_to(new_image_path(i: {flickr_id: img.id})) do
     = image_tag(FlickRaw.url_m(img))

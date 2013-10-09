@@ -82,13 +82,11 @@ Quails::Application.routes.draw do
       get 'observations'
     end
     collection do
-      get 'add'
       get 'flickr_search'
       get 'unflickred'
       get 'unused'
       get 'half_mapped'
       get 'series'
-      post 'upload'
       post 'strip'
     end
   end
@@ -147,6 +145,10 @@ Quails::Application.routes.draw do
       get 'extract'
       get 'move'
     end
+  end
+
+  scope '/flickr' do
+    resources :photos, controller: 'flickr_photos', as: 'flickr_photos'
   end
 
   resources :loci do
