@@ -51,6 +51,12 @@ class FlickrPhoto
     @image.save!
   end
 
+  def detach!
+    @image.assets_cache.swipe(:flickr)
+    @image.flickr_id = nil
+    @image.save!
+  end
+
   private
   def flickr
     FlickrApp.flickr

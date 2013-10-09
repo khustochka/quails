@@ -2,7 +2,7 @@ class FlickrPhotosController < ApplicationController
 
   administrative
 
-  before_filter :find_image, only: [:show, :create]
+  before_filter :find_image, only: [:show, :create, :destroy]
 
   def new
     if FlickrApp.configured?
@@ -29,6 +29,11 @@ class FlickrPhotosController < ApplicationController
   def create
     raise "The image is already on flickr" if @image.on_flickr?
     @photo.upload(params)
+    redirect_to flickr_photo_path(@image)
+  end
+
+  def destroy
+    @photo.detach!
     redirect_to flickr_photo_path(@image)
   end
 
