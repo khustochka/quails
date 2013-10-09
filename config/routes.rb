@@ -87,6 +87,7 @@ Quails::Application.routes.draw do
       get 'half_mapped'
       get 'series'
       post 'strip'
+      post 'upload'
     end
   end
 

@@ -5,7 +5,7 @@
 %ul.horiz-list
   %li= link_to('Skip to simple add form', new_image_path)
 
-= form_tag({action: 'create'}, multipart: true) do
+= form_tag(upload_images_path, multipart: true) do
   %p
     %label{for: "image"} Select file
     = file_field_tag 'image'

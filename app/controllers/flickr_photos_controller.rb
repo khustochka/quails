@@ -16,17 +16,6 @@ class FlickrPhotosController < ApplicationController
     end
   end
 
-  # Upload
-  # TODO: Upload to flickr immediately, then update flickr data after save
-  def create
-    uploaded_io = params[:image]
-    File.open(File.join(ImagesHelper.local_image_path, uploaded_io.original_filename), 'wb') do |file|
-      file.write(uploaded_io.read)
-    end
-    new_slug = File.basename(uploaded_io.original_filename, '.*')
-    redirect_to new_image_path(i: {slug: new_slug})
-  end
-
   def show
     @next = Image.where(flickr_id: nil).where('created_at < ?', @image.created_at).order('created_at DESC').first
   end

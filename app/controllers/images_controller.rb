@@ -50,6 +50,16 @@ class ImagesController < ApplicationController
     render 'form'
   end
 
+  # TODO: Probably merge with flickr_photo#create
+  def upload
+    uploaded_io = params[:image]
+    File.open(File.join(ImagesHelper.local_image_path, uploaded_io.original_filename), 'wb') do |file|
+      file.write(uploaded_io.read)
+    end
+    new_slug = File.basename(uploaded_io.original_filename, '.*')
+    redirect_to new_image_path(i: {slug: new_slug})
+  end
+
   def unflickred
     @images = Image.preload(:species).where(flickr_id: nil).order('created_at DESC').page(params[:page].to_i).per(24)
   end
