@@ -4,7 +4,7 @@ class ImagesController < ApplicationController
 
   administrative except: [:index, :multiple_species, :show, :gallery, :country, :strip]
 
-  find_record by: :slug, before: [:show, :edit, :flickr_upload,
+  find_record by: :slug, before: [:show, :edit,
                                   :parent_edit, :parent_update,
                                   :map_edit, :update, :patch, :destroy]
 
@@ -66,13 +66,6 @@ class ImagesController < ApplicationController
 
   def half_mapped
     @images = Image.half_mapped.page(params[:page].to_i).per(24)
-  end
-
-  # POST /photos/1/flickr
-  def flickr_upload
-    raise "The image is already on flickr" if @image.on_flickr?
-    FlickrPhoto.new(@image).upload(params)
-    redirect_to flickr_photo_path(@image)
   end
 
   # GET /photos/1/map_edit

@@ -2,7 +2,7 @@ class FlickrPhotosController < ApplicationController
 
   administrative
 
-  before_filter :find_image, only: [:show]
+  before_filter :find_image, only: [:show, :create]
 
   def new
     if FlickrApp.configured?
@@ -22,6 +22,14 @@ class FlickrPhotosController < ApplicationController
 
   def edit
     redirect_to action: :show
+  end
+
+  # This is flickr upload
+  # Maybe shoul be separate (upload) action
+  def create
+    raise "The image is already on flickr" if @image.on_flickr?
+    @photo.upload(params)
+    redirect_to flickr_photo_path(@image)
   end
 
   private

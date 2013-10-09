@@ -76,7 +76,6 @@ Quails::Application.routes.draw do
       get 'edit/map', action: :map_edit
       get 'edit/parent', action: :parent_edit
       post 'parent', action: :parent_update
-      post 'flickr', action: :flickr_upload, as: 'flickr_upload'
       post 'patch'
       get 'observations'
     end

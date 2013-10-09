@@ -19,7 +19,8 @@
       = submit_tag "Detach"
   - else
     This image is not linked to flickr photo.
-    = form_tag flickr_upload_image_path(@image) do
+    = form_tag flickr_photos_path do
+      = hidden_field_tag("id", @image.slug)
       = hidden_field_tag("public", "0")
       %div.input.flat
         %label
