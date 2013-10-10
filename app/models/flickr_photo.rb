@@ -89,7 +89,7 @@ class FlickrPhoto
 
   private
   def flickr
-    FlickrApp.flickr
+    FlickrApp.client
   end
 
   def get_info

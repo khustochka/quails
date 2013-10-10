@@ -15,7 +15,7 @@ module FlickrApp
     FlickRaw.api_key.present? && FlickRaw.shared_secret.present?
   end
 
-  def self.flickr
+  def self.client
     @flickr ||= (FlickRaw::Flickr.new.tap do |fl|
       fl.access_token = Settings.flickr_admin.access_token
       fl.access_secret = Settings.flickr_admin.access_secret
@@ -23,7 +23,7 @@ module FlickrApp
   end
 
   def flickr
-    FlickrApp.flickr
+    FlickrApp.client
   end
 
 end
