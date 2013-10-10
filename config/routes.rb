@@ -81,8 +81,6 @@ Quails::Application.routes.draw do
     end
     collection do
       get 'flickr_search'
-      get 'unflickred'
-      get 'unused'
       get 'half_mapped'
       get 'series'
       post 'strip'
@@ -147,6 +145,8 @@ Quails::Application.routes.draw do
   end
 
   scope '/flickr' do
+    get 'unflickred' => 'flickr_photos#unflickred', as: 'unflickred_photos'
+    get 'unused' => 'flickr_photos#unused', as: 'flickr_unused'
     resources :photos, controller: 'flickr_photos', as: 'flickr_photos'
   end
 

@@ -46,6 +46,23 @@ class FlickrPhotosController < ApplicationController
     redirect_to flickr_photo_path(@image)
   end
 
+  # Collection actions
+
+  def unflickred
+    @images = Image.preload(:species).where(flickr_id: nil).order('created_at DESC').page(params[:page].to_i).per(24)
+  end
+
+  def unused
+    used = Image.where("flickr_id IS NOT NULL").pluck(:flickr_id)
+    page = 0
+    all = []
+    begin
+      result = flickr.photos.search({user_id: Settings.flickr_admin.user_id, per_page: 500, page: (page += 1)})
+      all += result.to_a
+    end until result.size == 0
+    @diff = all.reject { |x| used.include?(x.id) }
+  end
+
   private
   def find_image
     @image = Image.find_by_slug(params[:id])

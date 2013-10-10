@@ -60,10 +60,6 @@ class ImagesController < ApplicationController
     redirect_to new_image_path(i: {slug: new_slug})
   end
 
-  def unflickred
-    @images = Image.preload(:species).where(flickr_id: nil).order('created_at DESC').page(params[:page].to_i).per(24)
-  end
-
   def half_mapped
     @images = Image.half_mapped.page(params[:page].to_i).per(24)
   end
@@ -193,17 +189,6 @@ class ImagesController < ApplicationController
     rel = Observation.select(:observation_id).from("images_observations").group(:observation_id).having("COUNT(image_id) > 1")
     @observations = Observation.select("DISTINCT observations.*, observ_date").where(id: rel).
         joins(:card).preload(:images).order('observ_date DESC').page(params[:page])
-  end
-
-  def unused
-    used = Image.where("flickr_id IS NOT NULL").pluck(:flickr_id)
-    page = 0
-    all = []
-    begin
-      result = flickr.photos.search({user_id: Settings.flickr_admin.user_id, per_page: 500, page: (page += 1)})
-      all += result.to_a
-    end until result.size == 0
-    @diff = all.reject { |x| used.include?(x.id) }
   end
 
   private

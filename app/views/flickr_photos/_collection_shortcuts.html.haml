@@ -1,0 +1,5 @@
+- pages = %w(unflickred unused)
+
+%ul.horiz-list
+  - pages.each do |page|
+    = link_to page.capitalize, action: page unless action_name == page

@@ -1,11 +1,13 @@
 - @page_title = 'Unused photos from Flickr'
 
+= render 'collection_shortcuts'
+
 %h1= page_header
 
 %div.flickr_result
 
   - @diff.each do |img|
     %div.flickr_result_cell<
-      = link_to(url_for(action: :new, i: {flickr_id: img.id}), class: 'img') do
+      = link_to(new_image_path(i: {flickr_id: img.id}), class: 'img') do
         = image_tag(FlickRaw.url_m(img), class: 'flickr_image')
       %span.flickr_subscr= link_to "on flickr", FlickRaw.url_photopage(img)
