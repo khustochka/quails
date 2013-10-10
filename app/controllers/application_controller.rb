@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   include SecurityController
-  include LocaleController #unless $localedisabled
+  include LocaleController unless $localedisabled
   include AdminController
   include PublicPathController
   include Pjax
