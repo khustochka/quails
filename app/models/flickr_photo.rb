@@ -57,6 +57,10 @@ class FlickrPhoto
     @image.save!
   end
 
+  def page_url
+    "http://www.flickr.com/photo.gne?id=#{@flickr_id}"
+  end
+
   private
   def flickr
     FlickrApp.flickr

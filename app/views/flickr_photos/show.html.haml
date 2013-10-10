@@ -13,7 +13,7 @@
 %p
   - if @image.on_flickr?
     This image is
-    %b= link_to "linked to flickr photo", "http://www.flickr.com/photo.gne?id=#{@image.flickr_id}"
+    %b= link_to "linked to flickr photo", @photo.page_url
     = form_tag({action: :destroy}, method: 'DELETE') do
       = submit_tag "Detach"
   - else

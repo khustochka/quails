@@ -26,7 +26,7 @@ $(function () {
         $('.found_pictures').removeClass('loading');
         if (data.length == 0) $("<div>", {text: 'No results', class: 'errors'}).appendTo('.found_pictures');
         else $(data).each(function () {
-          $("<img>", { "src": this.url_s }).data('id', this['id']).appendTo('.found_pictures');
+          $("<img>", { "src": this.url_s, "class": "flickr_image" }).data('id', this['id']).appendTo('.found_pictures');
         })
       },
       error: function (jqXHR, textStatus, errorThrown) {
