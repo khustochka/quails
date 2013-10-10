@@ -14,37 +14,43 @@
   = link_to @photo.page_url, class: "img" do
     = image_tag(thumbnail_item(@image).try(:full_url), class: 'flickr_image')
 
-= form_tag(flickr_photo_path(@photo), method: :put) do
 
-  %table.neat_table.flickr_info
-    %thead
+- if FlickrApp.configured?
+
+  = form_tag(flickr_photo_path(@photo), method: :put) do
+
+    %table.neat_table.flickr_info
+      %thead
+        %tr
+          %th
+          %th Generated
+          %th On flickr
       %tr
-        %th
-        %th Generated
-        %th On flickr
-    %tr
-      %th Title:
-      %td= text_field_tag(:title, @photo.title)
-      %td= @photo.info.title
-    %tr
-      %th Descr:
-      %td= text_area_tag(:description, @photo.description)
-      %td= @photo.info.description
-    %tr
-      %th Tags:
-      %td= text_area_tag(:tags, @photo.tags)
-      %td= @photo.info.tags
+        %th Title:
+        %td= text_field_tag(:title, @photo.title)
+        %td= @photo.info.title
+      %tr
+        %th Descr:
+        %td= text_area_tag(:description, @photo.description)
+        %td= @photo.info.description
+      %tr
+        %th Tags:
+        %td= text_area_tag(:tags, @photo.tags)
+        %td= @photo.info.tags
 
-  = submit_tag 'Post info'
+    = submit_tag 'Post info'
 
-%h2 Date taken:
+  %h2 Date taken:
 
-= form_tag(flickr_photo_path(@photo), method: :put) do
+  = form_tag(flickr_photo_path(@photo), method: :put) do
 
-  %table.neat_table.flickr_info
-    %tr
-      %th Taken:
-      %td= text_field_tag(:date_taken, @photo.date_taken)
-      %td= @photo.info.date_taken
+    %table.neat_table.flickr_info
+      %tr
+        %th Taken:
+        %td= text_field_tag(:date_taken, @photo.date_taken)
+        %td= @photo.info.date_taken
 
-  = submit_tag 'Post date'
+    = submit_tag 'Post date'
+
+- else
+  %div.errors No Flickr API key or secret defined!
