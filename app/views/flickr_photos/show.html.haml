@@ -12,8 +12,8 @@
 
 %p
   - if @image.on_flickr?
-    This image is linked to flickr photo
-    = link_to nil, "http://www.flickr.com/photos/#{Settings.flickr_admin.user_id}/#{@image.flickr_id}/"
+    This image is
+    %b= link_to "linked to flickr photo", "http://www.flickr.com/photo.gne?id=#{@image.flickr_id}"
     = form_tag({action: :destroy}, method: 'DELETE') do
       = submit_tag "Detach"
   - else
