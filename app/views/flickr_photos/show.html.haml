@@ -34,8 +34,9 @@
   %tr
     %td{rowspan: 2, valign: 'top'}
       = image_tag(thumbnail_item(@image).try(:full_url), class: 'image_pic')
-      = simple_form_for @image,url: patch_image_path(@image, :json), remote: true, method: :post, html: {class: 'flickr_edit'} do |form|
-        = form.input :flickr_id, as: :hidden
+      = form_tag flickr_photos_path(format: :json), class: "flickr_edit", remote: true do
+        = hidden_field_tag("id", @image.slug)
+        = hidden_field_tag("flickr_id")
     %td.flickr_search
       - if FlickrApp.configured?
         %input.string.short#flickr_user_id{name: 'flickr_user_id', type: 'hidden', value: Settings.flickr_admin.user_id}

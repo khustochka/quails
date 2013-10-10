@@ -42,7 +42,7 @@ $(function () {
 
 // Click on found image
   $(document).on('click', '.found_pictures img', function () {
-    $('#image_flickr_id').val($(this).data('id'));
+    $('#flickr_id').val($(this).data('id'));
     $('form.flickr_edit').submit();
   });
 

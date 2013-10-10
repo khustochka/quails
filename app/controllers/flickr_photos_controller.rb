@@ -24,11 +24,16 @@ class FlickrPhotosController < ApplicationController
     redirect_to action: :show
   end
 
-  # This is flickr upload
-  # Maybe shoul be separate (upload) action
+  # This is flickr upload and attach to flickr
+  # Maybe should be separate actions
   def create
-    raise "The image is already on flickr" if @image.on_flickr?
-    @photo.upload(params)
+    new_flickr_id = params[:flickr_id]
+    if new_flickr_id
+      @photo.bind_with_flickr!(new_flickr_id)
+    else
+      raise "The image is already on flickr" if @image.on_flickr?
+      @photo.upload(params)
+    end
     redirect_to flickr_photo_path(@image)
   end
 

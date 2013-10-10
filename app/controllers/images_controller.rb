@@ -116,12 +116,6 @@ class ImagesController < ApplicationController
   # POST /photos/1/patch
   def patch
     new_params = params[:image]
-    new_flickr_id = new_params.delete(:flickr_id)
-    # TODO: Will deprecate
-    if new_flickr_id
-      @image.set_flickr_data(flickr, new_flickr_id)
-      @image.save
-    end
     respond_to do |format|
       if @image.update_attributes(new_params)
         format.html { redirect_to new_flickr_id ? flickr_photo_path(@image) : {action: :show} }

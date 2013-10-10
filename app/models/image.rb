@@ -143,26 +143,6 @@ class Image < ActiveRecord::Base
     )
   end
 
-  # TODO: Will deprecate
-  def set_flickr_data(flickr, new_flickr_id)
-    # if new flickr_id is nil or blank - assign nil
-    self.flickr_id = new_flickr_id
-    if self.flickr_id.blank?
-      self.flickr_id = nil
-    end
-    if self.flickr_id_changed?
-      self.assets_cache.swipe(:flickr)
-      if self.flickr_id
-        sizes_array = flickr.photos.getSizes(photo_id: flickr_id)
-
-        self.assets_cache.swipe(:flickr)
-        sizes_array.each do |fp|
-          self.assets_cache << ImageAssetItem.new(:flickr, fp["width"].to_i, fp["height"].to_i, fp["source"])
-        end
-      end
-    end
-  end
-
   # Saving with observation validation
 
   def observations=(obs)
