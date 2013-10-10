@@ -118,7 +118,7 @@ class ImagesController < ApplicationController
     new_params = params[:image]
     respond_to do |format|
       if @image.update_attributes(new_params)
-        format.html { redirect_to new_flickr_id ? flickr_photo_path(@image) : {action: :show} }
+        format.html { redirect_to action: :show }
         format.json { head :no_content }
       else
         format.html { render 'form' }
