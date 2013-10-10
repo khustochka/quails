@@ -1,0 +1,8 @@
+- stylesheet 'forms'
+
+- @page_title = "Edit flickr photo data"
+
+%h1= page_header
+
+= link_to @photo.page_url do
+  = image_tag(thumbnail_item(@image).try(:full_url), class: 'image_pic')

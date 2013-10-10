@@ -14,6 +14,8 @@
   - if @image.on_flickr?
     This image is
     %b= link_to "linked to flickr photo", @photo.page_url
+    \//
+    = link_to "Edit flickr photo data", edit_flickr_photo_path(@image)
     = form_tag({action: :destroy}, method: 'DELETE') do
       = submit_tag "Detach"
   - else
