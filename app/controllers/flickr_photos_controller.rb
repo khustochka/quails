@@ -2,7 +2,7 @@ class FlickrPhotosController < ApplicationController
 
   administrative
 
-  before_filter :find_image, only: [:show, :create, :edit, :destroy]
+  before_filter :find_image, only: [:show, :create, :edit, :update, :destroy]
 
   def new
     if FlickrApp.configured?
@@ -21,7 +21,11 @@ class FlickrPhotosController < ApplicationController
   end
 
   def edit
+  end
 
+  def update
+    @photo.update(params)
+    redirect_to action: :edit
   end
 
   # This is flickr upload and attach to flickr

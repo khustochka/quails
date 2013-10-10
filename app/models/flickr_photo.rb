@@ -8,6 +8,10 @@ class FlickrPhoto
     @flickr_id = @image.flickr_id
   end
 
+  def to_param
+    @image.to_param
+  end
+
   def upload(params)
     @flickr_id = flickr.upload_photo(local_url, DEFAULT_PARAMS.merge(own_params).merge(sanitize(params)))
     bind_with_flickr!(@flickr_id)
@@ -23,6 +27,10 @@ class FlickrPhoto
 
   def tags
     %Q(#{@image.species.map { |s| "\"#{s.name_en}\" \"#{s.name_sci}\"" }.join(' ')} bird #{@image.locus.country.name_en} #{@image.species.map(&:order).uniq.join(' ')} #{@image.species.map(&:family).uniq.join(' ')})
+  end
+
+  def date_taken
+    @image.observ_date
   end
 
   def bind_with_flickr(new_flickr_id)
@@ -61,9 +69,37 @@ class FlickrPhoto
     "http://www.flickr.com/photo.gne?id=#{@flickr_id}"
   end
 
+  def info
+    @info ||= get_info
+  end
+
+  def update(params)
+    new_date = params[:date_taken]
+    if new_date
+      flickr.photos.setDates({photo_id: @flickr_id, date_taken: new_date})
+    else
+      flickr.photos.setMeta({photo_id: @flickr_id, title: params[:title], description: params[:description]})
+      flickr.photos.setTags({photo_id: @flickr_id, tags: params[:tags]})
+    end
+  end
+
+  def update!
+    update(own_params)
+  end
+
   private
   def flickr
     FlickrApp.flickr
+  end
+
+  def get_info
+    data = flickr.photos.getInfo({photo_id: @flickr_id})
+    Hashie::Mash.new({
+                         title: data.title,
+                         description: data.description,
+                         date_taken: data.dates.taken,
+                         tags: data.tags.map { |t| t.raw }
+                     })
   end
 
   def local_url
