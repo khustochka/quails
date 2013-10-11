@@ -3,9 +3,19 @@ class FlickrPhoto
   DEFAULT_PARAMS = {safety_level: 1, content_type: 1}
   DESCRIPTIVE_PARAMS = %i(title description tags)
 
+  attr_reader :errors
+
+  extend ActiveModel::Naming
+  extend ActiveModel::Translation
+
+  def persisted?
+    true
+  end
+
   def initialize(img)
     @image = img
     @flickr_id = @image.flickr_id
+    @errors = ActiveModel::Errors.new(self)
   end
 
   def to_param
@@ -13,8 +23,12 @@ class FlickrPhoto
   end
 
   def upload(params)
-    @flickr_id = flickr.upload_photo(local_url, DEFAULT_PARAMS.merge(own_params).merge(sanitize(params)))
-    bind_with_flickr!(@flickr_id)
+    if File.exist?(local_url)
+      @flickr_id = flickr.upload_photo(local_url, DEFAULT_PARAMS.merge(own_params).merge(sanitize(params)))
+      bind_with_flickr!(@flickr_id)
+    else
+      @errors.add(:file, "does not exist (#{local_url})")
+    end
   end
 
   def title
@@ -42,7 +56,7 @@ class FlickrPhoto
 
   def bind_with_flickr!(new_flickr_id)
     bind_with_flickr(new_flickr_id)
-    @image.save!
+    save_with_caution
   end
 
   def refresh
@@ -60,9 +74,13 @@ class FlickrPhoto
   end
 
   def detach!
-    @image.assets_cache.swipe(:flickr)
-    @image.flickr_id = nil
-    @image.save!
+    if @image.assets_cache.locals.any?
+      @image.assets_cache.swipe(:flickr)
+      @image.flickr_id = nil
+      save_with_caution
+    else
+      @errors.add(:photo, "has no local assets, cannot detach from flickr")
+    end
   end
 
   def page_url
@@ -103,8 +121,11 @@ class FlickrPhoto
   end
 
   def local_url
-    prefix = ImagesHelper.local_image_path || ImagesHelper.image_host
-    "#{prefix}/#{@image.slug}.jpg"
+    @local_url ||= "#{local_path}/#{@image.slug}.jpg"
+  end
+
+  def local_path
+    ImagesHelper.local_image_path || ImagesHelper.image_host
   end
 
   def own_params
@@ -113,6 +134,11 @@ class FlickrPhoto
 
   def sanitize(params)
     {is_public: params[:public]}
+  end
+
+  def save_with_caution
+    @image.save
+    @errors = @image.errors
   end
 
 end

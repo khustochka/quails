@@ -10,6 +10,11 @@
   %li= link_to('Flickr link', flickr_photo_path(@image))
   %li= link_to('Map', edit_map_image_path(@image))
 
+- if @photo.errors.any?
+  %ul.errors
+    - @photo.errors.full_messages.each do |msg|
+      %li= msg
+
 %p
   = link_to @photo.page_url, class: "img" do
     = image_tag(thumbnail_item(@image).try(:full_url), class: 'flickr_image')

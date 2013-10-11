@@ -1,19 +1,15 @@
 class FlickrPhotosController < ApplicationController
 
+  respond_to :html, :json
+
   administrative
 
   before_filter :find_image, only: [:show, :create, :edit, :update, :destroy]
 
   def new
-    if FlickrApp.configured?
-      begin
-        @flickr_images = flickr.photos.search({user_id: Settings.flickr_admin.user_id,
-                                               extras: 'date_taken',
-                                               per_page: 10})
-      rescue FlickRaw::FailedResponse => e
-        flash[:alert] = "No Flickr API key defined!"
-      end
-    end
+    @flickr_images = flickr.photos.search({user_id: Settings.flickr_admin.user_id,
+                                           extras: 'date_taken',
+                                           per_page: 10})
   end
 
   def show
@@ -21,11 +17,7 @@ class FlickrPhotosController < ApplicationController
   end
 
   def edit
-  end
 
-  def update
-    @photo.update(params)
-    redirect_to action: :edit
   end
 
   # This is flickr upload and attach to flickr
@@ -35,15 +27,27 @@ class FlickrPhotosController < ApplicationController
     if new_flickr_id
       @photo.bind_with_flickr!(new_flickr_id)
     else
-      raise "The image is already on flickr" if @image.on_flickr?
       @photo.upload(params)
     end
-    redirect_to flickr_photo_path(@image)
+    if request.format.html?
+      render :show
+    else
+      respond_with @photo
+    end
+  end
+
+  def update
+    @photo.update(params)
+    redirect_to action: :edit
   end
 
   def destroy
     @photo.detach!
-    redirect_to flickr_photo_path(@image)
+    if @photo.errors.any?
+      render :show
+    else
+      respond_with @photo
+    end
   end
 
   # Collection actions
