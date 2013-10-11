@@ -41,6 +41,10 @@ module ImagesHelper
     @local_image_path = dir
   end
 
+  def self.temp_image_path=(dir)
+    @temp_image_path = dir
+  end
+
   private
 
   def self.image_host
@@ -51,6 +55,11 @@ module ImagesHelper
   def self.local_image_path
     Configurator.configure(ImagesHelper) unless @local_image_path
     @local_image_path
+  end
+
+  def self.temp_image_path
+    Configurator.configure(ImagesHelper) unless @temp_image_path
+    @temp_image_path
   end
 
   def legacy_image_url(file_name)

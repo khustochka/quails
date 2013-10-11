@@ -9,6 +9,9 @@
   %p
     %label{for: "image"} Select file
     = file_field_tag 'image'
+    %label
+      To flickr
+      = check_box_tag 'to_flickr'
     = submit_tag "Upload"
 
 - @flickr_images.each do |img|

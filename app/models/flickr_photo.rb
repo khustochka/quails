@@ -105,6 +105,10 @@ class FlickrPhoto
     update(own_params)
   end
 
+  def self.upload_file(filename)
+    FlickrApp.client.upload_photo(filename, DEFAULT_PARAMS)
+  end
+
   private
   def flickr
     FlickrApp.client

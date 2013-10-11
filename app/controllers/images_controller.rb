@@ -52,12 +52,21 @@ class ImagesController < ApplicationController
 
   # TODO: Probably merge with flickr_photo#create
   def upload
+    to_flickr = params[:to_flickr]
     uploaded_io = params[:image]
-    File.open(File.join(ImagesHelper.local_image_path, uploaded_io.original_filename), 'wb') do |file|
+    path = to_flickr ? ImagesHelper.temp_image_path : ImagesHelper.local_image_path
+    filename = File.join(path, uploaded_io.original_filename)
+    File.open(filename, 'wb') do |file|
       file.write(uploaded_io.read)
     end
     new_slug = File.basename(uploaded_io.original_filename, '.*')
-    redirect_to new_image_path(i: {slug: new_slug})
+    image_attributes = {i: {slug: new_slug}}
+    if to_flickr
+      flickr_id = FlickrPhoto.upload_file(filename)
+      image_attributes[:i][:flickr_id] = flickr_id
+      image_attributes[:new_on_flickr] = true
+    end
+    redirect_to new_image_path(image_attributes)
   end
 
   def half_mapped
@@ -76,9 +85,14 @@ class ImagesController < ApplicationController
     flickr_id = params[:image].delete(:flickr_id)
     params[:image].slice!(*Image::NORMAL_PARAMS)
 
-    FlickrPhoto.new(@image).bind_with_flickr(flickr_id)
+    @photo = FlickrPhoto.new(@image)
+    @photo.bind_with_flickr(flickr_id)
 
     if @image.update_with_observations(params[:image], params[:obs])
+
+      if params[:new_on_flickr]
+        @photo.update!
+      end
 
       if ImagesHelper.local_image_path && !Rails.env.test?
         full_path = File.join(ImagesHelper.local_image_path, "#{params[:image][:slug]}.jpg")
