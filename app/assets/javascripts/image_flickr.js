@@ -17,24 +17,26 @@ $(function () {
 
   function searchOnFlickr() {
     //found_obs.empty();
-    $('.found_pictures').empty();
-    $('.found_pictures').addClass('loading');
-    var data = $(".flickr_search :input").serializeArray();
-    $.ajax("/photos/flickr_search", {
-      data: data,
-      success: function (data) {
-        $('.found_pictures').removeClass('loading');
-        if (data.length == 0) $("<div>", {text: 'No results', class: 'errors'}).appendTo('.found_pictures');
-        else $(data).each(function () {
-          $("<img>", { "src": this.url_s, "class": "flickr_image" }).data('id', this['id']).appendTo('.found_pictures');
-        })
-      },
-      error: function (jqXHR, textStatus, errorThrown) {
-        var error_message = $.parseJSON(jqXHR.responseText).error;
-        $('.found_pictures').removeClass('loading');
-        $('<div></div>', {class: 'errors', text: error_message}).appendTo('.found_pictures');
-      }
-    });
+    if ($(".flickr_search :input").length > 0) {
+      $('.found_pictures').empty();
+      $('.found_pictures').addClass('loading');
+      var data = $(".flickr_search :input").serializeArray();
+      $.ajax("/photos/flickr_search", {
+        data: data,
+        success: function (data) {
+          $('.found_pictures').removeClass('loading');
+          if (data.length == 0) $("<div>", {text: 'No results', class: 'errors'}).appendTo('.found_pictures');
+          else $(data).each(function () {
+            $("<img>", { "src": this.url_s, "class": "flickr_image" }).data('id', this['id']).appendTo('.found_pictures');
+          })
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+          var error_message = $.parseJSON(jqXHR.responseText).error;
+          $('.found_pictures').removeClass('loading');
+          $('<div></div>', {class: 'errors', text: error_message}).appendTo('.found_pictures');
+        }
+      });
+    }
   }
 
 // Search button click
@@ -46,11 +48,11 @@ $(function () {
     $('form.flickr_edit').submit();
   });
 
-  $('form.flickr_edit').on('ajax:success', function() {
+  $('form.flickr_edit').on('ajax:success', function () {
     window.location.href = $('a.next_unflickred').attr('href');
   });
 
-  $('form.flickr_edit').on('ajax:error', function(e, xhr) {
+  $('form.flickr_edit').on('ajax:error', function (e, xhr) {
     alert(xhr.responseText);
   });
 
