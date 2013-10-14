@@ -1,0 +1,6 @@
+- if errors.any?
+  .errors
+    = t("errors.template.header", count: errors.count, model: nil)
+    %ul
+      - errors.full_messages.each do |msg|
+        %li= msg

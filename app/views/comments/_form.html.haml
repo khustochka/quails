@@ -1,11 +1,6 @@
 = simple_form_for @comment, html: {class: 'comment'} do |form|
 
-  - if @comment.errors.any?
-    .errors
-      = t("errors.template.header", count: @comment.errors.count, model: nil)
-      %ul
-        - @comment.errors.full_messages.each do |msg|
-          %li= msg
+  = render @comment.errors.extend(CommentErrors)
 
   = form.input :post_id, as: :hidden
   = form.input :parent_id, as: :hidden
