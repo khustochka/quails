@@ -9,9 +9,13 @@ class FlickrPhotosController < ApplicationController
   after_filter :cache_expire, only: [:create, :destroy]
 
   def new
-    @flickr_images = flickr.photos.search({user_id: Settings.flickr_admin.user_id,
-                                           extras: 'date_taken',
-                                           per_page: 10})
+    @flickr_images = if FlickrApp.configured?
+      flickr.photos.search({user_id: Settings.flickr_admin.user_id,
+                                             extras: 'date_taken',
+                                             per_page: 10})
+                     else
+                       []
+    end
   end
 
   def show
