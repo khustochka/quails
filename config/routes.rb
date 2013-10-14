@@ -112,7 +112,7 @@ Quails::Application.routes.draw do
       sort: /by_taxonomy/
 
   # Static pages
-  get '/:id' => 'pages#show_public', constraints: {id: /links|about/}, as: :show_page
+  get '/:id' => 'pages#show_public', constraints: {id: /links|about|winter/}, as: :show_page
 
   # Feeds and sitemap
   get '/blog.:format' => 'feeds#blog', constraints: {format: 'xml'}
