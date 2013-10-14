@@ -6,6 +6,8 @@ class FlickrPhotosController < ApplicationController
 
   before_filter :find_image, only: [:show, :create, :edit, :update, :destroy]
 
+  after_filter :cache_expire, only: [:create, :destroy]
+
   def new
     @flickr_images = flickr.photos.search({user_id: Settings.flickr_admin.user_id,
                                            extras: 'date_taken',
@@ -71,6 +73,13 @@ class FlickrPhotosController < ApplicationController
   def find_image
     @image = Image.find_by_slug(params[:id])
     @photo = FlickrPhoto.new(@image)
+  end
+
+  private
+
+  def cache_expire
+    expire_page controller: :feeds, action: :blog, format: 'xml'
+    expire_page controller: :feeds, action: :photos, format: 'xml'
   end
 
 end
