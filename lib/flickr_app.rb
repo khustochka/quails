@@ -1,4 +1,5 @@
 module FlickrApp
+
   def self.configured?
     @configured ||= reconfigure!
   end
@@ -20,10 +21,6 @@ module FlickrApp
       fl.access_token = Settings.flickr_admin.access_token
       fl.access_secret = Settings.flickr_admin.access_secret
     end if FlickrApp.configured?)
-  end
-
-  def flickr
-    FlickrApp.client
   end
 
 end

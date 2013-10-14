@@ -1,3 +1,5 @@
+require 'flickr_app'
+
 class FlickrPhoto
 
   DEFAULT_PARAMS = {safety_level: 1, content_type: 1}

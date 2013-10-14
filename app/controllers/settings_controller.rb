@@ -1,3 +1,5 @@
+require 'flickr_app'
+
 class SettingsController < ApplicationController
 
   administrative
