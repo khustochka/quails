@@ -18,7 +18,7 @@ class SettingsController < ApplicationController
         Settings.create!(key: key, value: value)
       end
     end
-    FlickrApp.reconfigure!
+    FlickrApp.expire!
     redirect_to :settings, :notice => "Setings saved"
   end
 
