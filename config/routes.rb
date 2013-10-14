@@ -147,7 +147,9 @@ Quails::Application.routes.draw do
   scope '/flickr' do
     get 'unflickred' => 'flickr_photos#unflickred', as: 'unflickred_photos'
     get 'unused' => 'flickr_photos#unused', as: 'flickr_unused'
-    resources :photos, controller: 'flickr_photos', as: 'flickr_photos'
+    resources :photos, controller: 'flickr_photos', as: 'flickr_photos' do
+      post :search, on: :collection
+    end
   end
 
   resources :loci do
@@ -191,7 +193,6 @@ Quails::Application.routes.draw do
   get '/login' => 'login#login'
 
   get '/flickr' => 'flickr#index'
-  get '/flickr/search' => 'flickr#search'
   get '/flickr/auth' => 'flickr#auth'
 
 end

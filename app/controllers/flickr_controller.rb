@@ -10,18 +10,6 @@ class FlickrController < ApplicationController
 
   end
 
-  def search
-    @flickr_imgs =
-        flickr.photos.search(params.merge({
-                                              privacy_filter: 1,
-                                              safe_search: 1,
-                                              content_type: 1,
-                                              extras: 'owner_name,url_q'
-                                          })
-        )
-    render :search, layout: false
-  end
-
   def auth
     @auth_token = flickr.access_token
     @auth_secret = flickr.access_secret
