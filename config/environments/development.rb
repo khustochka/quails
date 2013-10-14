@@ -15,6 +15,8 @@ Quails::Application.configure do
     # Clear cache
     FileUtils.rm_rf(Dir['tmp/cache/[^.]*'])
     config.action_controller.perform_caching = true
+    # Folder for page_caching
+    config.action_controller.page_cache_directory = "#{Rails.root.to_s}/public"
   else
     config.action_controller.perform_caching = false
     config.cache_store = :null_store
