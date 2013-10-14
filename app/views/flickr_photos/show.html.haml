@@ -10,10 +10,7 @@
   %li= link_to('Edit', edit_image_path(@image))
   %li= link_to('Map', edit_map_image_path(@image))
 
-- if @photo.errors.any?
-  %ul.errors
-    - @photo.errors.full_messages.each do |msg|
-      %li= msg
+= render @photo.errors.extend(GenericErrors)
 
 %p
   - if @image.on_flickr?

@@ -45,10 +45,7 @@
 - if flash[:alert]
   %div.errors= flash[:alert]
 
-- if @image.errors.any?
-  %ul.errors
-    - @image.errors.full_messages.each do |msg|
-      %li= msg
+= render @image.errors.extend(GenericErrors)
 
 = simple_form_for @image, html: {class: 'image'} do |form|
 
