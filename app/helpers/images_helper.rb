@@ -66,4 +66,8 @@ module ImagesHelper
     "#{ImagesHelper.image_host}/#{file_name}"
   end
 
+  def flickr_img_format
+    @flickr_img_format || :url_m
+  end
+
 end

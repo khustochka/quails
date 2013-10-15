@@ -67,7 +67,9 @@ class FlickrPhotosController < ApplicationController
     page = 0
     all = []
     begin
-      result = flickr.photos.search({user_id: Settings.flickr_admin.user_id, per_page: 500, page: (page += 1)})
+      result = flickr.photos.search(
+          DEFAULT_SEARCH_PARAMS.merge({user_id: Settings.flickr_admin.user_id, per_page: 500, page: (page += 1)})
+      )
       all += result.to_a
     end until result.size == 0
     @diff = all.reject { |x| used.include?(x.id) }
@@ -77,7 +79,7 @@ class FlickrPhotosController < ApplicationController
   def search
     new_params = params
     date = new_params.delete(:flickr_date)
-    @flickr_img_format = new_params.delete(:flickr_img_format) || :url_m
+    @flickr_img_format = new_params.delete(:flickr_img_format)
     if date.present?
       date_param = Date.parse(date)
       new_params.merge!({min_taken_date: date_param - 1, max_taken_date: date_param + 1})
