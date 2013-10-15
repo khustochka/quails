@@ -80,7 +80,6 @@ Quails::Application.routes.draw do
       get 'observations'
     end
     collection do
-      get 'flickr_search'
       get 'half_mapped'
       get 'series'
       post 'strip'

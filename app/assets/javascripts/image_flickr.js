@@ -52,7 +52,7 @@ $(function () {
   });
 
   $('form.flickr_edit').on('ajax:error', function (e, xhr) {
-    alert(xhr.responseText.errors);
+    alert(JSON.stringify($.parseJSON(xhr.responseText).errors));
   });
 
   searchOnFlickr();

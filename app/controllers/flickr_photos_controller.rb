@@ -75,7 +75,13 @@ class FlickrPhotosController < ApplicationController
 
   DEFAULT_SEARCH_PARAMS = {content_type: 1, extras: 'owner_name,url_q'}
   def search
-    @flickr_imgs = flickr.photos.search(DEFAULT_SEARCH_PARAMS.merge(params))
+    new_params = params
+    date = new_params.delete(:flickr_date)
+    if date.present?
+      date_param = Date.parse(date)
+      new_params.merge!({min_taken_date: date_param - 1, max_taken_date: date_param + 1})
+    end
+    @flickr_imgs = flickr.photos.search(DEFAULT_SEARCH_PARAMS.merge(new_params))
     render :search, layout: false
   end
 

@@ -1,6 +1,6 @@
 class ImagesController < ApplicationController
 
-  respond_to :json, only: [:flickr_search, :observations, :parent_update]
+  respond_to :json, only: [:observations, :parent_update]
 
   administrative except: [:index, :multiple_species, :show, :gallery, :country, :strip]
 
@@ -147,27 +147,6 @@ class ImagesController < ApplicationController
   def observations
     observs = Image.find_by_id(params[:id]).observations.preload(:species, :card => :locus)
     respond_with(observs, :only => :id, :methods => [:species_str, :when_where_str])
-  end
-
-  # GET /flickr_search
-  def flickr_search
-    dates_params =
-        if params[:flickr_date].present?
-          date_param = Date.parse(params[:flickr_date])
-          {min_taken_date: date_param - 1, max_taken_date: date_param + 1}
-        else
-          {}
-        end
-
-    result = flickr.photos.search(
-        {user_id: (params[:flickr_user_id] || Settings.flickr_admin.user_id),
-         extras: 'date_taken,url_s',
-         text: params[:flickr_text]}.merge(dates_params)
-    ).map(&:to_hash)
-
-    respond_with(result, only: %w(id title datetaken url_s))
-  rescue FlickRaw::FailedResponse => e
-    respond_with({error: e.message}, status: :error)
   end
 
   def strip
