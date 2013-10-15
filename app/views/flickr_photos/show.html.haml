@@ -18,7 +18,7 @@
     %b= link_to "linked to flickr photo", @photo.page_url
     \//
     = link_to "Edit flickr photo data", edit_flickr_photo_path(@image)
-    = form_tag({action: :destroy}, method: 'DELETE') do
+    = form_tag({action: :destroy, id: @image.slug}, method: 'DELETE') do
       = submit_tag "Detach"
   - else
     This image is not linked to flickr photo.
