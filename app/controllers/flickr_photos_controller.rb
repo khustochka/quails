@@ -10,12 +10,14 @@ class FlickrPhotosController < ApplicationController
 
   def new
     @flickr_images = if FlickrApp.configured?
-                       flickr.photos.search({user_id: Settings.flickr_admin.user_id,
-                                             extras: 'date_taken',
-                                             per_page: 10})
+                       flickr.photos.search(DEFAULT_SEARCH_PARAMS.merge(
+                                                {user_id: Settings.flickr_admin.user_id,
+                                                 per_page: 10})
+                       )
                      else
                        []
                      end
+    @flickr_img_url_lambda = ->(img) { new_image_path(i: {flickr_id: img.id}) }
   end
 
   def show
@@ -73,10 +75,11 @@ class FlickrPhotosController < ApplicationController
       all += result.to_a
     end until result.size == 0
     @diff = all.reject { |x| used.include?(x.id) }
-    @flickr_img_url_lambda = ->(img){ new_image_path(i: {flickr_id: img.id}) }
+    @flickr_img_url_lambda = ->(img) { new_image_path(i: {flickr_id: img.id}) }
   end
 
   DEFAULT_SEARCH_PARAMS = {content_type: 1, extras: 'owner_name'}
+
   def search
     new_params = params
     date = new_params.delete(:flickr_date)
