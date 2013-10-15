@@ -73,6 +73,7 @@ class FlickrPhotosController < ApplicationController
       all += result.to_a
     end until result.size == 0
     @diff = all.reject { |x| used.include?(x.id) }
+    @flickr_img_url_lambda = ->(img){ new_image_path(i: {flickr_id: img.id}) }
   end
 
   DEFAULT_SEARCH_PARAMS = {content_type: 1, extras: 'owner_name'}

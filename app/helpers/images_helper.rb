@@ -70,4 +70,12 @@ module ImagesHelper
     @flickr_img_format || :url_m
   end
 
+  def flickr_img_url_function(flickr_image)
+    if @flickr_img_url_lambda
+      @flickr_img_url_lambda.call(flickr_image)
+    else
+      FlickRaw.url_photopage(flickr_image)
+    end
+  end
+
 end
