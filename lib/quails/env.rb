@@ -1,22 +1,33 @@
 module Quails
 
-  class Env < String
+  class Env
     def self.init
-      new(ENV['QUAILS_ENV'] || '')
+      new(ENV['QUAILS_ENV'])
     end
 
     def initialize(val)
       @raw = val
-      @arr = val.split(':')
-      super
+      @arr = val.split(':') if @raw
     end
 
     def rake?
       defined?(Rake)
     end
 
+    def nil?
+      @raw.nil?
+    end
+
+    def inspect
+      @raw
+    end
+
+    def to_s
+      @raw.to_s
+    end
+
     def method_missing(method, *args, &block)
-      if /^(?<attr>.*)\?$/ =~ method.to_s
+      if @raw && /^(?<attr>.*)\?$/ =~ method.to_s
         @arr.include?(attr)
       else
         #super
@@ -25,6 +36,6 @@ module Quails
   end
 
   def self.env
-    @raw_str ||= Env.init
+    @env ||= Env.init
   end
 end
