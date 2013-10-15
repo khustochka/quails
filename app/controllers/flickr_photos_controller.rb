@@ -83,7 +83,7 @@ class FlickrPhotosController < ApplicationController
       new_params.merge!({min_taken_date: date_param - 1, max_taken_date: date_param + 1})
     end
     @flickr_imgs = flickr.photos.search(DEFAULT_SEARCH_PARAMS.merge(new_params))
-    render :search, layout: false
+    render partial: 'flickr_photos/flickr_image', collection: @flickr_imgs.to_a
   end
 
   private
