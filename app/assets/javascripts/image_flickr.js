@@ -18,22 +18,20 @@ $(function () {
   function searchOnFlickr() {
     //found_obs.empty();
     if ($(".flickr_search :input").length > 0) {
-      $('.found_pictures').empty();
-      $('.found_pictures').addClass('loading');
+      $('.flickr_result').empty();
+      $('.flickr_result').addClass('loading');
       var data = $(".flickr_search :input").serializeArray();
-      $.ajax("/photos/flickr_search", {
+      $.ajax("/flickr/photos/search", {
         data: data,
+        method: 'POST',
         success: function (data) {
-          $('.found_pictures').removeClass('loading');
-          if (data.length == 0) $("<div>", {text: 'No results', class: 'errors'}).appendTo('.found_pictures');
-          else $(data).each(function () {
-            $("<img>", { "src": this.url_s, "class": "flickr_image" }).data('id', this['id']).appendTo('.found_pictures');
-          })
+          $('.flickr_result').removeClass('loading').html(data);
+
         },
         error: function (jqXHR, textStatus, errorThrown) {
           var error_message = $.parseJSON(jqXHR.responseText).error;
-          $('.found_pictures').removeClass('loading');
-          $('<div></div>', {class: 'errors', text: error_message}).appendTo('.found_pictures');
+          $('.flickr_result').removeClass('loading');
+          $('<div></div>', {class: 'errors', text: error_message}).appendTo('.flickr_result');
         }
       });
     }
@@ -46,6 +44,7 @@ $(function () {
   $(document).on('click', '.found_pictures img', function () {
     $('#flickr_id').val($(this).data('id'));
     $('form.flickr_edit').submit();
+    return false;
   });
 
   $('form.flickr_edit').on('ajax:success', function () {
@@ -53,7 +52,7 @@ $(function () {
   });
 
   $('form.flickr_edit').on('ajax:error', function (e, xhr) {
-    alert(xhr.responseText);
+    alert(xhr.responseText.errors);
   });
 
   searchOnFlickr();

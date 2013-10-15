@@ -43,10 +43,10 @@
         = hidden_field_tag("flickr_id")
     %td.flickr_search
       - if FlickrApp.configured?
-        %input.string.short#flickr_user_id{name: 'flickr_user_id', type: 'hidden', value: Settings.flickr_admin.user_id}
+        %input.string.short#user_id{name: 'user_id', type: 'hidden', value: Settings.flickr_admin.user_id}
         %div.input.string
           %label.string Text:
-          %input.string#flickr_text{name: 'flickr_text', type: 'text', value: @image.species.map(&:name_sci).join(' ')}
+          %input.string#text{name: 'text', type: 'text', value: @image.species.map(&:name_sci).join(' ')}
         %div.input.string
           %label.string Date:
           %input.string.short#flickr_date{name: 'flickr_date', maxlength: '10', type: 'date', value: @image.observ_date}
@@ -55,5 +55,6 @@
         %div.errors No Flickr API key or secret defined!
   %tr
     %td.found_pictures
+      %div.flickr_result
 
 = link_to("Next unflickred image >>", flickr_photo_path(@next), class: 'next_unflickred') if @next
