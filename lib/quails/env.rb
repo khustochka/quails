@@ -1,6 +1,6 @@
 module Quails
 
-  class Env < String
+  class Env
     def self.init
       new(ENV['QUAILS_ENV'])
     end
@@ -8,11 +8,22 @@ module Quails
     def initialize(val)
       @raw = val
       @arr = val.split(':') if @raw
-      super
     end
 
     def rake?
       defined?(Rake)
+    end
+
+    def nil?
+      @raw.nil?
+    end
+
+    def inspect
+      @raw
+    end
+
+    def to_s
+      @raw.to_s
     end
 
     def method_missing(method, *args, &block)
@@ -25,6 +36,6 @@ module Quails
   end
 
   def self.env
-    @raw_str ||= Env.init
+    @env ||= Env.init
   end
 end
