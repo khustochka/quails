@@ -73,10 +73,11 @@ class FlickrPhotosController < ApplicationController
     @diff = all.reject { |x| used.include?(x.id) }
   end
 
-  DEFAULT_SEARCH_PARAMS = {content_type: 1, extras: 'owner_name,url_q'}
+  DEFAULT_SEARCH_PARAMS = {content_type: 1, extras: 'owner_name'}
   def search
     new_params = params
     date = new_params.delete(:flickr_date)
+    @flickr_img_format = new_params.delete(:flickr_img_format) || :url_m
     if date.present?
       date_param = Date.parse(date)
       new_params.merge!({min_taken_date: date_param - 1, max_taken_date: date_param + 1})
