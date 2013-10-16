@@ -5,6 +5,6 @@ module FlickRaw
   end
 
   def self.configured?
-    !!(self.api_key && self.shared_secret)
+    !!(self.api_key.present? && self.shared_secret.present?)
   end
 end
