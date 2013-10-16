@@ -11,14 +11,10 @@ class FlickrPhotosController < ApplicationController
   after_filter :cache_expire, only: [:create, :destroy]
 
   def new
-    @flickr_images = if flickr.configured?
-                       flickr.photos.search(DEFAULT_SEARCH_PARAMS.merge(
-                                                {user_id: Settings.flickr_admin.user_id,
-                                                 per_page: 10})
-                       )
-                     else
-                       []
-                     end
+    @flickr_images = flickr.photos.search(DEFAULT_SEARCH_PARAMS.merge(
+                                              {user_id: Settings.flickr_admin.user_id,
+                                               per_page: 10})
+    )
     @flickr_img_url_lambda = ->(img) { new_image_path(i: {flickr_id: img.id}) }
   end
 
@@ -91,7 +87,7 @@ class FlickrPhotosController < ApplicationController
       new_params.merge!({min_taken_date: date_param - 1, max_taken_date: date_param + 1})
     end
     @flickr_imgs = flickr.photos.search(DEFAULT_SEARCH_PARAMS.merge(new_params))
-    render partial: 'flickr_photos/flickr_image', collection: @flickr_imgs.to_a
+    render partial: 'flickr_photos/flickr_images', object: @flickr_imgs
   end
 
   private

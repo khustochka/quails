@@ -4,6 +4,7 @@ module Flickr
     class Chain
       def initialize(client)
         @current = client
+        @errors = ActiveModel::Errors.new(self)
       end
 
       def method_missing(method, *args, &block)
