@@ -2,13 +2,28 @@ module Flickr
   class Client
 
     class Chain
+      attr_reader :errors
+
+      delegate :to_a, :each, :size, to: :get
+
       def initialize(client)
         @current = client
         @errors = ActiveModel::Errors.new(self)
       end
 
+      def get
+        @current
+      end
+
       def method_missing(method, *args, &block)
-        @current = @current.send(method, *args, &block)
+        unless @errors.any?
+          begin
+            @current = @current.send(method, *args, &block)
+          rescue => e
+            @errors.add(:base, e.message)
+          end
+        end
+        self
       end
     end
 

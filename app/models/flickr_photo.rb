@@ -26,7 +26,7 @@ class FlickrPhoto
 
   def upload(params)
     if File.exist?(local_url)
-      @flickr_id = flickr.upload_photo(local_url, DEFAULT_PARAMS.merge(own_params).merge(sanitize(params)))
+      @flickr_id = flickr.upload_photo(local_url, DEFAULT_PARAMS.merge(own_params).merge(sanitize(params))).get
       bind_with_flickr!(@flickr_id)
     else
       @errors.add(:file, "does not exist (#{local_url})")
@@ -63,7 +63,7 @@ class FlickrPhoto
 
   def refresh
     return false unless @flickr_id
-    sizes_array = flickr.photos.getSizes(photo_id: @flickr_id)
+    sizes_array = flickr.photos.getSizes(photo_id: @flickr_id).get
     @image.assets_cache.swipe(:flickr)
     sizes_array.each do |fp|
       @image.assets_cache << ImageAssetItem.new(:flickr, fp["width"].to_i, fp["height"].to_i, fp["source"])
@@ -117,7 +117,7 @@ class FlickrPhoto
   end
 
   def get_info
-    data = flickr.photos.getInfo({photo_id: @flickr_id})
+    data = flickr.photos.getInfo({photo_id: @flickr_id}).get
     Hashie::Mash.new({
                          title: data.title,
                          description: data.description,
