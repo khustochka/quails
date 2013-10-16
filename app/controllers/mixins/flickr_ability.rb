@@ -1,6 +1,6 @@
 require 'flickr_app'
 
-module FlickrClient
+module FlickrAbility
 
   def flickr
     FlickrApp.client

@@ -9,7 +9,6 @@ class ApplicationController < ActionController::Base
   include AdminController
   include PublicPathController
   include Pjax
-  include FlickrClient
 
   extend RecordFinder
 

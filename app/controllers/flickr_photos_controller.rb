@@ -4,6 +4,8 @@ class FlickrPhotosController < ApplicationController
 
   administrative
 
+  include FlickrAbility
+
   before_filter :find_image, only: [:show, :create, :edit, :update, :destroy]
 
   after_filter :cache_expire, only: [:create, :destroy]
