@@ -1,6 +1,16 @@
 module Flickr
   class Client
 
+    class Chain
+      def initialize(client)
+        @current = client
+      end
+
+      def method_missing(method, *args, &block)
+        @current = @current.send(method, *args, &block)
+      end
+    end
+
     def initialize
       if configured?
         @client = FlickRaw::Flickr.new
@@ -22,7 +32,7 @@ module Flickr
     end
 
     def method_missing(method, *args, &block)
-      @client.send(method, *args, &block)
+      Chain.new(@client).send(method, *args, &block)
     end
 
     private
