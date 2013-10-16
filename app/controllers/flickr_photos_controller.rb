@@ -11,7 +11,7 @@ class FlickrPhotosController < ApplicationController
   after_filter :cache_expire, only: [:create, :destroy]
 
   def new
-    @flickr_images = if FlickrApp.configured?
+    @flickr_images = if flickr.configured?
                        flickr.photos.search(DEFAULT_SEARCH_PARAMS.merge(
                                                 {user_id: Settings.flickr_admin.user_id,
                                                  per_page: 10})

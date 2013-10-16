@@ -1,4 +1,4 @@
-require 'flickr_app'
+require 'flickr/client'
 
 class FlickrPhoto
 
@@ -108,12 +108,12 @@ class FlickrPhoto
   end
 
   def self.upload_file(filename)
-    FlickrApp.client.upload_photo(filename, DEFAULT_PARAMS)
+    Flickr::Client.new.upload_photo(filename, DEFAULT_PARAMS)
   end
 
   private
   def flickr
-    FlickrApp.client
+    Flickr::Client.new
   end
 
   def get_info
