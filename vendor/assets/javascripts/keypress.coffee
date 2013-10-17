@@ -1,5 +1,5 @@
 ###
-Copyright 2012 David Mauro
+Copyright 2013 David Mauro
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -20,26 +20,21 @@ version 1.0.8
 ###
 
 ###
-Options available and defaults:
-    keys            : []            - An array of the keys pressed together to activate combo
+Options available and their defaults:
+    keys            : []            - An array of the keys pressed together to activate combo.
     count           : 0             - The number of times a counting combo has been pressed. Reset on release.
     prevent_default : false         - Prevent default behavior for all component key keypresses.
-    is_ordered      : false         - Unless this is set to true, the keys can be pressed down in any order
-    is_counting     : false         - Makes this a counting combo (see documentation)
-    is_exclusive    : false         - This combo will replace other exclusive combos when true
-    is_solitary     : false         - This combo will only fire if ONLY it's keys are pressed down
-    is_sequence     : false         - Rather than a key combo, this is an ordered key sequence
+    is_ordered      : false         - Unless this is set to true, the keys can be pressed down in any order.
+    is_counting     : false         - Makes this a counting combo (see documentation).
+    is_exclusive    : false         - This combo will replace other exclusive combos when true.
+    is_solitary     : false         - This combo will only fire if ONLY it's keys are pressed down.
+    is_sequence     : false         - Rather than a key combo, this is an ordered key sequence.
     prevent_repeat  : false         - Prevent the combo from repeating when keydown is held.
-    on_keyup        : null          - A function that is called when the combo is released
+    on_keyup        : null          - A function that is called when the combo is released.
     on_keydown      : null          - A function that is called when the combo is pressed.
     on_release      : null          - A function that is called hen all keys are released.
-    this            : undefined     - The scope for this of your callback functions
+    this            : undefined     - The scope for this of your callback functions.
 ###
-
-# Extending Array's prototype for IE support
-unless Array::filter
-  Array::filter = (callback) ->
-    element for element in this when callback(element)
 
 _registered_combos = []
 _sequence = []
@@ -54,6 +49,13 @@ _combo_defaults = {
     keys            : []
     count           : 0
 }
+
+_filter = (array, callback) ->
+  if array.filter
+    return array.filter(callback)
+  else
+    # For browsers without Array.prototype.filter like IE<9:
+    return (element for element in array when callback(element))
 
 _log_error = () ->
     console.log arguments...
@@ -155,7 +157,7 @@ _get_active_combos = (key) ->
     active_combos = []
 
     # First check that every key in keys_down maps to a combo
-    keys_down = _keys_down.filter (down_key) ->
+    keys_down = _filter _keys_down, (down_key) ->
         down_key isnt key
     keys_down.push key
 
@@ -267,7 +269,7 @@ _get_possible_sequences = ->
             sequence = _sequence.slice -j
             continue unless combo.is_sequence
             unless "shift" in combo.keys
-                sequence = sequence.filter (key) ->
+                sequence = _filter sequence, (key) ->
                     return key isnt "shift"
                 continue unless sequence.length
             for i in [0...sequence.length]
@@ -286,7 +288,7 @@ _get_sequence = (key) ->
         for j in [1.._sequence.length]
             # As we are traversing backwards through the sequence keys,
             # Take out any shift keys, unless shift is in the combo.
-            sequence = _sequence.filter((seq_key) ->
+            sequence = (_filter _sequence, (seq_key) ->
                 return true if "shift" in combo.keys
                 return seq_key isnt "shift"
             ).slice -j
@@ -639,6 +641,7 @@ _modifier_event_mapping =
     "alt"   : "altKey"
 
 _keycode_alternate_names =
+    "escape"        : "esc"
     "control"       : "ctrl"
     "command"       : "cmd"
     "break"         : "pause"
