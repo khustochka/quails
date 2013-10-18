@@ -1,4 +1,4 @@
-require 'flickr_app'
+require 'flickr/client'
 
 class SettingsController < ApplicationController
 
@@ -18,7 +18,7 @@ class SettingsController < ApplicationController
         Settings.create!(key: key, value: value)
       end
     end
-    FlickrApp.reconfigure!
+    Flickr::Client.reconfigure!
     redirect_to :settings, :notice => "Setings saved"
   end
 

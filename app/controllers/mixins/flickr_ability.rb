@@ -1,9 +1,13 @@
-require 'flickr_app'
+require 'flickr/client'
 
 module FlickrAbility
 
+  def self.included(klass)
+    klass.helper_method :flickr
+  end
+
   def flickr
-    FlickrApp.client
+    Flickr::Client.new
   end
 
 end
