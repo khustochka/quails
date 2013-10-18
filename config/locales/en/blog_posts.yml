@@ -15,9 +15,6 @@
     sections:
       photos:
         title: Images
-      species:
-        title: 'Species met'
-        new_species: New lifer!
       comments:
         title: Comments
         add_comment: Add new

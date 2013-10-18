@@ -15,9 +15,6 @@
     sections:
       photos:
         title: Фотографии
-      species:
-        title: 'Встреченные виды'
-        new_species: Новый вид!
       comments:
         title: Комментарии
         add_comment: Добавить комментарий

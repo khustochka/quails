@@ -12,3 +12,7 @@
         monthly: По месяцам
 
       total_observations: 'Всего встреч:'
+
+    flat_section:
+      title: 'Встреченные виды'
+      new_species: Новый вид!

@@ -12,3 +12,7 @@
         monthly: By months
 
       total_observations: 'Observations total:'
+
+    flat_section:
+      title: 'Species met'
+      new_species: New lifer!
