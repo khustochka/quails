@@ -1,3 +1,5 @@
+- stylesheet 'forms'
+
 - @page_title = "Add image"
 
 %h1= page_header
@@ -5,14 +7,23 @@
 %ul.horiz-list
   %li= link_to('Skip to simple add form', new_image_path)
 
-= form_tag(upload_images_path, multipart: true) do
-  %p
-    %label{for: "image"} Select file
-    = file_field_tag 'image'
-    %label
-      To flickr
-      = check_box_tag 'to_flickr'
-    = submit_tag "Upload"
+= form_tag(upload_images_path, multipart: true, class: 'upload_form') do
+  %table
+    %tr
+      %td
+        = file_field_tag 'image'
+      %td
+        %div
+          %label
+            = check_box_tag 'to_flickr', 1, true
+            To flickr
+        %div
+          = hidden_field_tag("flickr[is_public]", "0")
+          %label
+            = check_box_tag 'flickr[is_public]', 1, true
+            Public
+      %td
+        %div.buttons= submit_tag "Upload", class: 'button'
 
 %div.flickr_result
 
