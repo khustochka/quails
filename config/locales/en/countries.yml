@@ -9,6 +9,4 @@
         intro: >
           Only those species are listed that are pictured on this site.
           See also "full checklist of the birds of Ukraine":%{url}.
-        is_common:
-          'true': Common
-          'false': Rare or Vagrant
+        not_common: Rare or Vagrant

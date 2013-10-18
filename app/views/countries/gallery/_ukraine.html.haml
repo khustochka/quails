@@ -9,7 +9,8 @@
 
 - [true, false].each do |common|
   - if sps = species_rarity[common]
-    %h2= t(".is_common.#{common}")
+    - unless common
+      %h2= t(".not_common")
 
     %div.thumbnails
       = render_justified sps.map(&:to_thumbnail)
