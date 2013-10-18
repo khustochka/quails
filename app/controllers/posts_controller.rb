@@ -17,8 +17,6 @@ class PostsController < ApplicationController
       redirect_to public_post_path(@post), :status => 301
     end
 
-    @new_species = @post.new_species_ids
-
     @robots = 'NOINDEX' if @post.status == 'NIDX'
     @comments = current_user.available_comments(@post).group_by(&:parent_id)
     @comment = @post.comments.new(:parent_id => 0)

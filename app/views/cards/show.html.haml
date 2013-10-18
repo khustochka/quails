@@ -33,10 +33,7 @@
     %div.thumbnails
       = render_justified images.map(&:to_thumbnail)
 
-- @card.species.if_present do |spcs|
-  %h3 Species (#{spcs.size})
-  %p
-    = (spcs.map { |sp| species_link(sp) }.join(",\n") << ".").html_safe
+= render partial: 'species/flat_section', object: @card
 
 %h3 Observations
 

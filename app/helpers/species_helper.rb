@@ -5,6 +5,11 @@ module SpeciesHelper
       'usa' => '42.5,-74'
   }
 
+  NEW_SPECIES_LINK_METHOD = {
+      true => :new_species_link,
+      false => :species_link
+  }
+
   def avibase_species_url(avibase_id, lang = 'EN')
     "http://avibase.bsc-eoc.org/species.jsp?avibaseid=#{avibase_id}&lang=#{lang}"
   end
@@ -22,8 +27,9 @@ module SpeciesHelper
     "<b>#{species_link(sp_obj, string)}</b><span class='new_sp' title='#{t(".new_species")}'>&#8727;</span>"
   end
 
-  def species_link_in_post(sp_obj, post, string = nil)
-    sp_obj.id.in?(post.new_species_ids) ? new_species_link(sp_obj, string) : species_link(sp_obj, string)
+  def species_link_in_flat_section(sp_obj, post_or_card, string = nil)
+    method = NEW_SPECIES_LINK_METHOD[sp_obj.id.in?(post_or_card.new_species_ids)]
+    self.send(method, sp_obj, string)
   end
 
   def name_sci(sp_obj)
