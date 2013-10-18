@@ -27,4 +27,21 @@
 
 %div.flickr_result
 
-  = render partial: 'flickr_photos/flickr_images', object: @flickr_images
+-#  = render partial: 'flickr_photos/flickr_images', object: @flickr_images
+
+:javascript
+  $(function () {
+
+    $('.flickr_result').load('/flickr/photos/search',
+      {
+        user_id: '#{Settings.flickr_admin.user_id}',
+        per_page: 9
+      }
+    );
+
+    //$('.flickr_result img').click(function() {
+    //  window.location.href = "/photos/new?i%5Bflickr_id%5D=" + this.data("id");
+    //  return false;
+    //});
+
+  });
