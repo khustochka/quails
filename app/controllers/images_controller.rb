@@ -41,12 +41,17 @@ class ImagesController < ApplicationController
   # GET /photos/new
   def new
     @image = Image.new(params[:i])
+    @photo = FlickrPhoto.new(@image)
+    if @image.on_flickr? && !@image.persisted?
+      @flickr_id_in_use = Image.where(flickr_id: @image.flickr_id).first
+    end
 
     render 'form'
   end
 
   # GET /photos/1/edit
   def edit
+    @photo = FlickrPhoto.new(@image)
     render 'form'
   end
 

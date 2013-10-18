@@ -16,7 +16,7 @@ class FlickrPhoto
 
   def initialize(img)
     @image = img
-    @flickr_id = @image.flickr_id
+    @flickr_id = @image.try(:flickr_id)
     @errors = ActiveModel::Errors.new(self)
   end
 

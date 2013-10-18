@@ -19,12 +19,21 @@
 
 %p
   - if @image.on_flickr?
-    This image is linked to flickr photo.
+
+    - if @flickr_id_in_use
+      %span.errors
+        The
+        = link_to "flickr photo", @photo.page_url
+        is already linked to the
+        = link_to "image", @flickr_id_in_use
+    - else
+      This image is
+      %b= link_to "linked to flickr photo", @photo.page_url
 
   - elsif @image.persisted?
     This image is not linked to flickr photo.
 
-  = link_to('Edit flickr data', flickr_photo_path(@image)) if @image.persisted?
+  = link_to('Edit flickr link', flickr_photo_path(@image)) if @image.persisted?
 
 - if @image.persisted?
   - if @image.children.any?
