@@ -4,7 +4,7 @@ module Flickr
     class Chain
       attr_reader :errors
 
-      delegate :to_a, :each, :size, to: :get
+      delegate :to_a, :to_ary, :each, :size, to: :get
 
       def initialize(client)
         @current = client
@@ -13,6 +13,10 @@ module Flickr
 
       def get
         @current
+      end
+
+      def concat(other_chain)
+        @current.concat(other_chain.get)
       end
 
       def method_missing(method, *args, &block)

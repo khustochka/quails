@@ -1,4 +1,4 @@
-- if flickr_images.respond_to?(:errors) && flickr_images.errors.any?
+- if flickr_images.errors.any?
   = render partial: 'partials/errors', object: flickr_images.errors
 - else
   = render partial: 'flickr_photos/flickr_image', collection: flickr_images.to_a
