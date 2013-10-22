@@ -56,6 +56,9 @@
 
 = render @image.errors.extend(GenericErrors)
 
+- if params[:exif_date]
+  %p#notice Date taken from EXIF, may be incorrect
+
 = simple_form_for @image, html: {class: 'image'} do |form|
 
   %div
@@ -66,7 +69,7 @@
   %table.with_search
     %tr
       %td.observation_search{colspan: 2}
-        = simple_fields_for @image.search_applicable_observations do |form2|
+        = simple_fields_for @image.search_applicable_observations(date: params[:exif_date]) do |form2|
           = form2.input :observ_date, label: 'Date:', as: :string,
               input_html: {class: 'short', maxlength: 10, type: 'date'}, required: false
           = form2.input :locus_id, label: 'Location:', collection: Locus.suggestion_order,

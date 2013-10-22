@@ -135,10 +135,11 @@ class Image < ActiveRecord::Base
     title.present? ? title : species[0].name # Not using || because of empty string possibility
   end
 
-  def search_applicable_observations
+  def search_applicable_observations(params = {})
+    date = params[:date]
     ObservationSearch.new(
         new_record? ?
-            {observ_date: Card.pluck('MAX(observ_date)').first} :
+            {observ_date: date || Card.pluck('MAX(observ_date)').first} :
             {observ_date: observ_date, locus_id: locus.id}
     )
   end
