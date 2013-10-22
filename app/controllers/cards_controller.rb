@@ -51,7 +51,7 @@ class CardsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { render :form }
+      format.html { render :form, layout: !request.xhr? }
       format.json { render json: @card }
     end
   end

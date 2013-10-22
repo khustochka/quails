@@ -65,7 +65,7 @@ class FlickrPhotosController < ApplicationController
   def unused
     used = Image.where("flickr_id IS NOT NULL").pluck(:flickr_id)
     page = 0
-    all = []
+    all = nil
     begin
       result = flickr.photos.search(
           DEFAULT_SEARCH_PARAMS.merge({user_id: Settings.flickr_admin.user_id, per_page: 500, page: (page += 1)})
@@ -74,7 +74,11 @@ class FlickrPhotosController < ApplicationController
         all = result
         break
       else
-        all += result.to_a
+        if all
+          all.concat(result)
+        else
+          all = result
+        end
       end
     end until result.size == 0
     @diff = all.reject { |x| used.include?(x.id) }
