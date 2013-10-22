@@ -11,11 +11,6 @@ class FlickrPhotosController < ApplicationController
   after_filter :cache_expire, only: [:create, :destroy]
 
   def new
-    @flickr_images = flickr.photos.search(DEFAULT_SEARCH_PARAMS.merge(
-                                              {user_id: Settings.flickr_admin.user_id,
-                                               per_page: 10})
-    )
-    @flickr_img_url_lambda = ->(img) { new_image_path(i: {flickr_id: img.id}) }
   end
 
   def show
@@ -65,6 +60,8 @@ class FlickrPhotosController < ApplicationController
   def unused
     used = Image.where("flickr_id IS NOT NULL").pluck(:flickr_id)
     page = 0
+    top = params[:top]
+    top = top.to_i if top
     all = nil
     begin
       result = flickr.photos.search(
@@ -74,15 +71,26 @@ class FlickrPhotosController < ApplicationController
         all = result
         break
       else
+        result2 = result.reject { |x| used.include?(x.id) }
         if all
-          all.concat(result)
+          all.concat(result2)
         else
-          all = result
+          all = result2
         end
       end
-    end until result.size == 0
-    @diff = all.reject { |x| used.include?(x.id) }
+    end until result.size == 0 || (top && all.size >= top)
+    @diff = all
+    if top
+      @diff = @diff.take(top)
+    end
     @flickr_img_url_lambda = ->(img) { new_image_path(i: {flickr_id: img.id}) }
+
+    if request.xhr?
+      render partial: 'flickr_photos/flickr_images', object: @diff
+    else
+      render :unused
+    end
+
   end
 
   DEFAULT_SEARCH_PARAMS = {content_type: 1, extras: 'owner_name'}
