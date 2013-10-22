@@ -9,6 +9,7 @@ module Flickr
       def initialize(client)
         @current = client
         @errors = ActiveModel::Errors.new(self)
+        @errors.add(:base, 'Flickr App is not configured') if client.nil?
       end
 
       def get
