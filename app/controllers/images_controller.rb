@@ -67,7 +67,8 @@ class ImagesController < ApplicationController
     new_slug = File.basename(uploaded_io.original_filename, '.*')
     image_attributes = {i: {slug: new_slug}}
     if to_flickr
-      flickr_id = FlickrPhoto.upload_file(filename, params[:flickr])
+      flickr = Flickr::Client.new
+      flickr_id = flickr.upload_photo(filename, FlickrPhoto::DEFAULT_PARAMS.merge(params[:flickr])).get
       image_attributes[:i][:flickr_id] = flickr_id
       image_attributes[:new_on_flickr] = true
     end

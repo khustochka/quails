@@ -107,10 +107,6 @@ class FlickrPhoto
     update(own_params)
   end
 
-  def self.upload_file(filename, params)
-    Flickr::Client.new.upload_photo(filename, DEFAULT_PARAMS.merge(params)).get
-  end
-
   private
   def flickr
     Flickr::Client.new
