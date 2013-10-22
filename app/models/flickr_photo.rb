@@ -8,7 +8,6 @@ class FlickrPhoto
   attr_reader :errors
 
   extend ActiveModel::Naming
-  extend ActiveModel::Translation
 
   def persisted?
     true
@@ -29,7 +28,7 @@ class FlickrPhoto
       @flickr_id = flickr.upload_photo(local_url, DEFAULT_PARAMS.merge(own_params).merge(sanitize(params))).get
       bind_with_flickr!(@flickr_id)
     else
-      @errors.add(:file, "does not exist (#{local_url})")
+      @errors.add(:base, "File does not exist (#{local_url})")
     end
   end
 
@@ -81,7 +80,7 @@ class FlickrPhoto
       @image.flickr_id = nil
       save_with_caution
     else
-      @errors.add(:photo, "has no local assets, cannot detach from flickr")
+      @errors.add(:base, "Photo has no local assets, cannot detach from flickr")
     end
   end
 
