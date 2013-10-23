@@ -8,6 +8,17 @@ module Either
     Error.new(msg)
   end
 
+  def self.sequence(*args)
+    args.inject do |memo, obj|
+      if obj.error?
+        return obj
+      else
+        memo.concat(obj.get)
+      end
+    end
+
+  end
+
   class Value
     def initialize(value)
       @value = value
