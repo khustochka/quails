@@ -62,23 +62,19 @@ class FlickrPhotosController < ApplicationController
     page = 0
     top = params[:top]
     top = top.to_i if top
-    all = nil
+    all = Either.value([])
     begin
       result = flickr.photos.search(
           DEFAULT_SEARCH_PARAMS.merge({user_id: Settings.flickr_admin.user_id, per_page: 500, page: (page += 1)})
       )
-      if result.errors.any?
+      if result.error?
         all = result
         break
       else
         result2 = result.reject { |x| used.include?(x.id) }
-        if all
-          all.concat(result2)
-        else
-          all = result2
-        end
+        all.concat(result2.get)
       end
-    end until result.size == 0 || (top && all.size >= top)
+    end until result.get.size == 0 || (top && all.get.size >= top)
     @diff = all
     if top
       @diff = @diff.take(top)
