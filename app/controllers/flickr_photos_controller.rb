@@ -65,7 +65,7 @@ class FlickrPhotosController < ApplicationController
     all = Either.value([])
     begin
       result = flickr.photos.search(
-          DEFAULT_SEARCH_PARAMS.merge({user_id: Settings.flickr_admin.user_id, per_page: 500, page: (page += 1)})
+          DEFAULT_SEARCH_PARAMS.merge({user_id: flickr_admin.user_id, per_page: 500, page: (page += 1)})
       ).reject { |x| used.include?(x.id) }
       all = Either.sequence(all, result)
     end until all.error? || result.get.size == 0 || (top && all.get.size >= top)

@@ -43,7 +43,7 @@
         = hidden_field_tag("flickr_id")
     %td.flickr_search
       - if flickr.valid?
-        %input.string.short#user_id{name: 'user_id', type: 'hidden', value: Settings.flickr_admin.user_id}
+        %input.string.short#user_id{name: 'user_id', type: 'hidden', value: flickr_admin.user_id}
         %div.input.string
           %label.string Text:
           %input.string#text{name: 'text', type: 'text', value: @image.species.map(&:name_sci).join(' ')}

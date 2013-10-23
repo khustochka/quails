@@ -6,8 +6,9 @@ module Flickr
     def self.new
       if flickraw_configured?
         client = FlickRaw::Flickr.new
-        client.access_token = Settings.flickr_admin.access_token
-        client.access_secret = Settings.flickr_admin.access_secret
+        admin = Settings.flickr_admin
+        client.access_token = admin.access_token
+        client.access_secret = admin.access_secret
         Either.value(client)
       else
         Either.error("No Flickr API key or secret defined!")
