@@ -66,9 +66,10 @@ class FlickrPhotosController < ApplicationController
     begin
       result = flickr.photos.search(
           DEFAULT_SEARCH_PARAMS.merge({user_id: flickr_admin.user_id, per_page: 500, page: (page += 1)})
-      ).reject { |x| used.include?(x.id) }
-      all = Either.sequence(all, result)
-    end until all.error? || result.get.size == 0 || (top && all.get.size >= top)
+      ).to_a
+      filtered_result = result.reject { |x| used.include?(x.id) }
+      all = Either.sequence(all, filtered_result)
+    end until all.error? || result.get.size < 500 || (top && all.get.size >= top)
     @diff = all
     if top
       @diff = @diff.take(top)
