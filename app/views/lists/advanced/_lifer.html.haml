@@ -8,11 +8,20 @@
     %td.align-center{colspan: 2}
       &mdash;&ensp;
       %time= post_link(first_date, lifer.post, true)
+      - if current_user.admin?
+        %a{href: card_path(id: lifer.card), class: 'img'}<
+          %img(src="/img/book_alt2_12x11.png")
       &ensp;&mdash;
   - else
     %td.align-right
       %time= post_link(first_date, lifer.post, true)
+      - if current_user.admin?
+        %a{href: card_path(lifer.card), class: 'img'}<
+          %img(src="/img/book_alt2_12x11.png")
     %td.align-right
       %time= post_link(last_date, lifer.last_post, true)
+      - if current_user.admin?
+        %a{href: card_path(lifer.last_card), class: 'img'}<
+          %img(src="/img/book_alt2_12x11.png")
 
   %td.align-right= lifer.count

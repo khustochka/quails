@@ -65,10 +65,19 @@ class Lifelist
       end
     end
 
+    if @strategy.advanced?
+      first_cards = cards('first')
+      last_cards = cards('last')
+      @records.each do |sp|
+        sp.card = first_cards[sp.id]
+        sp.last_card = last_cards[sp.id]
+      end
+    end
+
     @records.extend(SpeciesArray)
   end
 
-  # Given observations filtered by (month, locus) returns array of years within these observations happened
+# Given observations filtered by (month, locus) returns array of years within these observations happened
   def years
     [nil] + @observation_source.filter(@filter.merge({year: nil})).years
   end
@@ -90,10 +99,10 @@ class Lifelist
     @lifers_sql ||= lifers_aggregation.to_sql
   end
 
-  # NOTES; other ways to implement lifers aggregation:
-  # 1) select("distinct on(species_id) *").order('species_id, observ_date ASC')
-  #    will select the first observation for every species, but proved to be much slower
-  # 2) TODO: Window functions
+# NOTES; other ways to implement lifers aggregation:
+# 1) select("distinct on(species_id) *").order('species_id, observ_date ASC')
+#    will select the first observation for every species, but proved to be much slower
+# 2) TODO: Window functions
   def lifers_aggregation
     @observation_source.filter(@filter).
         joins(:card).
@@ -121,6 +130,22 @@ class Lifelist
          ON posts.id IN (obs_post, card_post)"
     ).
         index_by { |p| p.species_id.to_i }
+  end
+
+  def cards(first_or_last = 'first')
+    sp_to_cards = @observation_source.filter(@filter).
+      joins(
+      "INNER JOIN (#{lifers_sql}) AS lifers
+              ON observations.species_id = lifers.species_id"
+    ).
+      joins(
+      "INNER JOIN cards
+              ON observations.card_id = cards.id
+              AND cards.observ_date = lifers.#{first_or_last}_seen"
+    ).
+    pluck('lifers.species_id, observations.card_id')
+
+    Hash[ sp_to_cards ]
   end
 
 end
