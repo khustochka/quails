@@ -65,8 +65,6 @@ GEM
       railties (>= 3.0.0)
     ffi (1.9.0)
     flickraw (0.9.6)
-    flickraw-cached (20120701)
-      flickraw (>= 0.9)
     grit (2.5.0)
       diff-lcs (~> 1.1)
       mime-types (~> 1.15)
@@ -193,7 +191,6 @@ DEPENDENCIES
   database_cleaner
   factory_girl_rails (~> 4.0)
   flickraw (~> 0.9.5)
-  flickraw-cached
   grit (~> 2.5)
   haml
   haml-contrib

@@ -1,4 +1,5 @@
 require 'monads/either'
+require 'flickraw-cached'
 
 module Flickr
   class Client
