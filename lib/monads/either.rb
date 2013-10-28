@@ -1,11 +1,17 @@
 module Either
 
-  def self.value(value)
-    VALUE_CLASS.new(value)
-  end
+  def Either.included(klass)
 
-  def self.error(msg)
-    ERROR_CLASS.new(msg)
+    class << klass
+      def value(value)
+        self::VALUE_CLASS.new(value)
+      end
+
+      def error(msg)
+        self::ERROR_CLASS.new(msg)
+      end
+    end
+
   end
 
   def self.sequence(*args)
@@ -39,6 +45,7 @@ module Either
 
   module Error
     attr_reader :errors
+
     def initialize(msg)
       @msg = msg
       @errors = ActiveModel::Errors.new(self)
