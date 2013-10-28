@@ -62,7 +62,7 @@ class FlickrPhotosController < ApplicationController
     page = 0
     top = params[:top]
     top = top.to_i if top
-    all = Either.value([])
+    all = Flickr::Value.new([])
     begin
       result = flickr.photos.search(
           DEFAULT_SEARCH_PARAMS.merge({user_id: flickr_admin.user_id, per_page: 500, page: (page += 1)})

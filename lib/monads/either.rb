@@ -1,11 +1,11 @@
 module Either
 
   def self.value(value)
-    Value.new(value)
+    VALUE_CLASS.new(value)
   end
 
   def self.error(msg)
-    Error.new(msg)
+    ERROR_CLASS.new(msg)
   end
 
   def self.sequence(*args)
@@ -19,7 +19,7 @@ module Either
 
   end
 
-  class Value
+  module Value
     def initialize(value)
       @value = value
     end
@@ -35,17 +35,9 @@ module Either
     def get
       @value
     end
-
-    def method_missing(method, *args, &block)
-      begin
-        Value.new(@value.send(method, *args, &block))
-      rescue => e
-        Error.new(e.message)
-      end
-    end
   end
 
-  class Error
+  module Error
     attr_reader :errors
     def initialize(msg)
       @msg = msg

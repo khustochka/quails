@@ -2,6 +2,9 @@ require 'monads/either'
 require 'flickraw-cached'
 
 module Flickr
+
+  include Either
+
   class Client
 
     def self.new
@@ -10,9 +13,9 @@ module Flickr
         admin = Settings.flickr_admin
         client.access_token = admin.access_token
         client.access_secret = admin.access_secret
-        Either.value(client)
+        Value.new(client)
       else
-        Either.error("No Flickr API key or secret defined!")
+        Error.new("No Flickr API key or secret defined!")
       end
     end
 
@@ -32,5 +35,25 @@ module Flickr
     end
 
   end
+
+  class Value
+    include Either::Value
+
+    def method_missing(method, *args, &block)
+      begin
+        Value.new(@value.send(method, *args, &block))
+      rescue FlickRaw::Error => e
+        Error.new(e.message)
+      end
+    end
+
+  end
+
+  class Error
+    include Either::Error
+  end
+
+  VALUE_CLASS = Value
+  ERROR_CLASS = Error
 
 end
