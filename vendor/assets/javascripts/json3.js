@@ -5,24 +5,24 @@
 
   // Detect the `define` function exposed by asynchronous module loaders. The
   // strict `define` check is necessary for compatibility with `r.js`.
-  var isLoader = typeof define === "function" && define.amd, JSON3 = typeof exports == "object" && exports;
+  var isLoader = typeof define === "function" && define.amd;
 
-  if (JSON3 || isLoader) {
-    if (typeof JSON == "object" && JSON) {
-      // Delegate to the native `stringify` and `parse` implementations in
-      // asynchronous module loaders and CommonJS environments.
-      if (JSON3) {
-        JSON3.stringify = JSON.stringify;
-        JSON3.parse = JSON.parse;
-      } else {
-        JSON3 = JSON;
-      }
-    } else if (isLoader) {
-      JSON3 = window.JSON = {};
-    }
+  // Detect native implementations.
+  var nativeJSON = typeof JSON == "object" && JSON;
+
+  // Set up the JSON 3 namespace, preferring the CommonJS `exports` object if
+  // available.
+  var JSON3 = typeof exports == "object" && exports && !exports.nodeType && exports;
+
+  if (JSON3 && nativeJSON) {
+    // Explicitly delegate to the native `stringify` and `parse`
+    // implementations in CommonJS environments.
+    JSON3.stringify = nativeJSON.stringify;
+    JSON3.parse = nativeJSON.parse;
   } else {
-    // Export for web browsers and JavaScript engines.
-    JSON3 = window.JSON || (window.JSON = {});
+    // Export for web browsers, JavaScript engines, and asynchronous module
+    // loaders, using the global `JSON` object if available.
+    JSON3 = window.JSON = nativeJSON || {};
   }
 
   // Test the `Date#getUTC*` methods. Based on work by @Yaffle.
@@ -40,15 +40,24 @@
   // Internal: Determines whether the native `JSON.stringify` and `parse`
   // implementations are spec-compliant. Based on work by Ken Snyder.
   function has(name) {
+    if (has[name] != null) {
+      // Return cached feature test result.
+      return has[name];
+    }
+
+    var isSupported;
     if (name == "bug-string-char-index") {
       // IE <= 7 doesn't support accessing string characters using square
       // bracket notation. IE 8 only supports this for primitives.
-      return "a"[0] != "a";
-    }
-    var value, serialized = '{"a":[1,true,false,null,"\\u0000\\b\\n\\f\\r\\t"]}', isAll = name == "json";
-    if (isAll || name == "json-stringify" || name == "json-parse") {
+      isSupported = "a"[0] != "a";
+    } else if (name == "json") {
+      // Indicates whether both `JSON.stringify` and `JSON.parse` are
+      // supported.
+      isSupported = has("json-stringify") && has("json-parse");
+    } else {
+      var value, serialized = '{"a":[1,true,false,null,"\\u0000\\b\\n\\f\\r\\t"]}';
       // Test `JSON.stringify`.
-      if (name == "json-stringify" || isAll) {
+      if (name == "json-stringify") {
         var stringify = JSON3.stringify, stringifySupported = typeof stringify == "function" && isExtended;
         if (stringifySupported) {
           // A test function object with a custom `toJSON` method.
@@ -114,12 +123,10 @@
             stringifySupported = false;
           }
         }
-        if (!isAll) {
-          return stringifySupported;
-        }
+        isSupported = stringifySupported;
       }
       // Test `JSON.parse`.
-      if (name == "json-parse" || isAll) {
+      if (name == "json-parse") {
         var parse = JSON3.parse;
         if (typeof parse == "function") {
           try {
@@ -149,13 +156,15 @@
             parseSupported = false;
           }
         }
-        if (!isAll) {
-          return parseSupported;
-        }
+        isSupported = parseSupported;
       }
-      return stringifySupported && parseSupported;
     }
+    return has[name] = !!isSupported;
   }
+  has["bug-string-char-index"] = null;
+  has["json"] = null;
+  has["json-stringify"] = null;
+  has["json-parse"] = null;
 
   if (!has("json")) {
     // Common `[[Class]]` name aliases.
@@ -236,7 +245,7 @@
     // Internal: Normalizes the `for...in` iteration algorithm across
     // environments. Each enumerated key is yielded to a `callback` function.
     forEach = function (object, callback) {
-      var size = 0, Properties, members, property, forEach;
+      var size = 0, Properties, members, property;
 
       // Tests for bugs in the current environment's `for...in` algorithm. The
       // `valueOf` property inherits the non-enumerable flag from
@@ -366,7 +375,7 @@
       // Internal: Recursively serializes an object. Implements the
       // `Str(key, holder)`, `JO(value)`, and `JA(value)` operations.
       var serialize = function (property, object, callback, properties, whitespace, indentation, stack) {
-        var value = object[property], className, year, month, date, time, hours, minutes, seconds, milliseconds, results, element, index, length, prefix, hasMembers, result;
+        var value, className, year, month, date, time, hours, minutes, seconds, milliseconds, results, element, index, length, prefix, hasMembers, result;
         try {
           // Necessary for host object support.
           value = object[property];
@@ -495,24 +504,24 @@
 
       // Public: `JSON.stringify`. See ES 5.1 section 15.12.3.
       JSON3.stringify = function (source, filter, width) {
-        var whitespace, callback, properties;
+        var whitespace, callback, properties, className;
         if (typeof filter == "function" || typeof filter == "object" && filter) {
-          if (getClass.call(filter) == functionClass) {
+          if ((className = getClass.call(filter)) == functionClass) {
             callback = filter;
-          } else if (getClass.call(filter) == arrayClass) {
+          } else if (className == arrayClass) {
             // Convert the property names array into a makeshift set.
             properties = {};
             for (var index = 0, length = filter.length, value; index < length; value = filter[index++], ((getClass.call(value) == stringClass || getClass.call(value) == numberClass) && (properties[value] = 1)));
           }
         }
         if (width) {
-          if (getClass.call(width) == numberClass) {
+          if ((className = getClass.call(width)) == numberClass) {
             // Convert the `width` to an integer and create a string containing
             // `width` number of space characters.
             if ((width -= width % 1) > 0) {
               for (whitespace = "", width > 10 && (width = 10); whitespace.length < width; whitespace += " ");
             }
-          } else if (getClass.call(width) == stringClass) {
+          } else if (className == stringClass) {
             whitespace = width.length <= 10 ? width : width.slice(0, 10);
           }
         }
