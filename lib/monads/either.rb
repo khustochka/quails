@@ -62,7 +62,7 @@ module Either
     end
 
     def get
-      raise "Do not run get on Error!"
+      raise @msg
     end
 
     def method_missing(method, *args, &block)
