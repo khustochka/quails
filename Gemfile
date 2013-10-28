@@ -22,7 +22,7 @@ gem "haml"
 gem 'RedCloth'
 gem 'kaminari'
 gem 'simple_form', '~> 3.0.0'
-gem 'flickraw', '~> 0.9.5'
+gem 'flickraw', github: 'khustochka/flickraw', branch: 'selfcontained'
 gem 'livejournal'
 gem 'hashie'
 gem 'addressable', require: 'addressable/uri'
