@@ -7,7 +7,7 @@ class Card < ActiveRecord::Base
   belongs_to :post, touch: :updated_at
   has_many :observations, -> { order('observations.id') }, dependent: :restrict_with_exception
   has_many :images, through: :observations
-  has_many :species, through: :observations
+  has_many :species, -> { order(:index_num) }, through: :observations
   has_many :spots, through: :observations
 
   validates :locus_id, :observ_date, presence: true
