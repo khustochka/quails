@@ -19,18 +19,19 @@ $(function () {
     //found_obs.empty();
     if ($(".flickr_search :input").length > 0) {
       $('.flickr_result').empty();
-      $('.flickr_result').addClass('loading');
+      $('.found_pictures').addClass('loading');
       var data = $(".flickr_search :input").serializeArray();
       $.ajax("/flickr/photos/search", {
         data: data,
         method: 'POST',
         success: function (data) {
-          $('.flickr_result').removeClass('loading').html(data);
+          $('.found_pictures').removeClass('loading');
+          $('.flickr_result').html(data);
 
         },
         error: function (jqXHR, textStatus, errorThrown) {
           var error_message = $.parseJSON(jqXHR.responseText).error;
-          $('.flickr_result').removeClass('loading');
+          $('.found_pictures').removeClass('loading');
           $('<div></div>', {class: 'errors', text: error_message}).appendTo('.flickr_result');
         }
       });
