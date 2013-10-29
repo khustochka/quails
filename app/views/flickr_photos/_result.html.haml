@@ -1,0 +1,4 @@
+- if result.error?
+  = render partial: 'partials/errors', object: result.errors
+- else
+  = render partial: 'flickr_photos/flickr_image', collection: result.get.to_a

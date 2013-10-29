@@ -5,8 +5,15 @@ module Flickr
 
   include Either
 
+  module ResultPartialPath
+    def to_partial_path
+      'flickr_photos/result'
+    end
+  end
+
   class Result
     include Either::Value
+    include ResultPartialPath
 
     def method_missing(method, *args, &block)
       begin
@@ -20,6 +27,7 @@ module Flickr
 
   class Error
     include Either::Error
+    include ResultPartialPath
   end
 
   Flickr::VALUE_CLASS = Result

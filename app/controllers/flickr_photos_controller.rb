@@ -77,7 +77,7 @@ class FlickrPhotosController < ApplicationController
     @flickr_img_url_lambda = ->(img) { new_image_path(i: {flickr_id: img.id}) }
 
     if request.xhr?
-      render partial: 'flickr_photos/flickr_images', object: @diff
+      render @diff
     else
       render :unused
     end
@@ -95,7 +95,7 @@ class FlickrPhotosController < ApplicationController
       new_params.merge!({min_taken_date: date_param - 1, max_taken_date: date_param + 1})
     end
     @flickr_imgs = flickr.photos.search(DEFAULT_SEARCH_PARAMS.merge(new_params))
-    render partial: 'flickr_photos/flickr_images', object: @flickr_imgs
+    render @flickr_imgs
   end
 
   private
