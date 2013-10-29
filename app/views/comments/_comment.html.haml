@@ -15,10 +15,9 @@
 
 - subcomments = @comments.try(:[], comment.id)
 
-- if subcomments || notice && notice[comment.id]
+- if subcomments || notice.try(:has_key?, comment.id)
   .subcomments
-    - if subcomments
-      = render :partial => 'comments/comment', :collection => subcomments
+    = render subcomments
 
     - if notice && notice[comment.id]
       %p.comment_screened= notice[comment.id]
