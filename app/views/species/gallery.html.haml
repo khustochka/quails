@@ -5,13 +5,13 @@
 - cache(admin: current_user.admin?, key: CacheKey.gallery) do
 
   %div.header-with-subheader
-    = feed_icon
     %h1.over-header
       = page_header
     %ul.subheader-menu
       %li= link_to(t("countries.gallery.title.ukraine"), country_path(country: 'ukraine'))
       %li= link_to(t("countries.gallery.title.usa"), country_path(country: 'usa'))
       %li= link_to t('menu.photos'), images_path
+      = feed_list_item
 
   %div.thumbnails
     = render_justified @thumbnails
