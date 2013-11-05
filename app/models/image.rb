@@ -113,22 +113,18 @@ class Image < ActiveRecord::Base
   end
 
   ORDERING_COLUMNS = %w(cards.observ_date cards.locus_id index_num images.created_at images.id)
-  PREV_NEXT_ORDER = "(ORDER BY #{ORDERING_COLUMNS.join(', ')})"
+  PREV_NEXT_ORDER = "ORDER BY #{ORDERING_COLUMNS.join(', ')}"
 
   def self.order_for_species
     self.joins("INNER JOIN cards ON observations.card_id = cards.id").order(*ORDERING_COLUMNS)
   end
 
   def prev_by_species(sp)
-    sql = prev_next_sql(sp, "lag", self.parent_id.nil?)
-    im = Image.from("(#{sql}) AS tmp").select("desired").where("img_id = ?", self.id)
-    Image.where(id: im).first
+    prev_next_by(sp)[-1]
   end
 
   def next_by_species(sp)
-    sql = prev_next_sql(sp, "lead", self.parent_id.nil?)
-    im = Image.from("(#{sql}) AS tmp").select("desired").where("img_id = ?", self.id)
-    Image.where(id: im).first
+    prev_next_by(sp)[1]
   end
 
   def public_title
@@ -212,14 +208,24 @@ class Image < ActiveRecord::Base
     end
   end
 
-  def prev_next_sql(sp, lag_or_lead, only_top_level)
-    Image.connection.unprepared_statement do
-      sp.ordered_images.
-          select("images.id AS img_id, #{lag_or_lead}(images.id) OVER #{PREV_NEXT_ORDER} AS desired").
-          where(only_top_level ? "parent_id IS NULL" : nil).
-          except(:order).
-          to_sql
+  def prev_next_by(sp)
+    @prev_next ||= {}
+    if @prev_next[sp]
+      return @prev_next[sp]
     end
+    # Calculate row number for every image under partition
+    window =
+        Image.select("images.*, row_number() over (partition by species_id #{PREV_NEXT_ORDER}) as rn").
+            joins(:cards).
+            where("observations.species_id" => sp.id)
+    # Join ranked tables by neighbouring images
+    # Select neighbours of the sought one, exclude duplication
+    q = "with ranked as (#{window.to_sql})
+      select that.*, that.rn - this.rn as diff
+      from ranked that
+      join ranked this on that.rn between this.rn-1 and this.rn+1
+      where this.id='#{self.id}' and this.rn <> that.rn"
+    @prev_next[sp] = Image.find_by_sql(q).index_by(&:diff)
   end
 
 end
