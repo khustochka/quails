@@ -8,15 +8,15 @@
 
 = simple_form_for @locus do |form|
   %div
-    = form.input :slug, label: 'Code'
+    = form.input :slug
     = form.association :parent, label: 'Parent', collection: (Locus.list_order - [@locus])
   %div
     = form.input :name_en, label: 'English name'
     = form.input :name_ru, label: 'Russian name'
     = form.input :name_uk, label: 'Ukrainian name'
   %div
-    = form.input :lat, label: 'Lat', input_html: { size: 10, type: :text }
-    = form.input :lon, label: 'Lon', input_html: { size: 10, type: :text }
+    = form.input :lat, input_html: { size: 10, type: :text }
+    = form.input :lon, input_html: { size: 10, type: :text }
 
     = form.input :public_index, input_html: { size: 10, type: :text }
   .buttons
