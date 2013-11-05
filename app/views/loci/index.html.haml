@@ -5,10 +5,10 @@
 
 %h1= page_header
 
-= render 'admin/shortcuts' if current_user.admin?
+- provide :add_shortcuts do
+  %li= link_to 'Order public locations', action: :public
 
-%p
-  = link_to 'Order public locations', action: :public
+= render 'admin/shortcuts' if current_user.admin?
 
 %table.neat_table.loci_index
   %tr
