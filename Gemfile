@@ -16,9 +16,9 @@ end
 # Bundle the extra gems:
 gem 'actionpack-page_caching'
 gem 'rails-i18n'
+gem "haml", "~> 4.0.4"
 #gem 'haml-rails', github: 'indirect/haml-rails'
 gem 'haml-contrib'
-gem "haml"
 gem 'RedCloth'
 gem 'kaminari'
 gem 'simple_form', '~> 3.0.0'

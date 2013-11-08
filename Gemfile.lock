@@ -62,7 +62,7 @@ GEM
       execjs
     coffee-script-source (1.6.3)
     database_cleaner (1.2.0)
-    diff-lcs (1.2.4)
+    diff-lcs (1.2.5)
     erubis (2.7.0)
     execjs (2.0.2)
     factory_girl (4.3.0)
@@ -75,7 +75,7 @@ GEM
       diff-lcs (~> 1.1)
       mime-types (~> 1.15)
       posix-spawn (~> 0.3.6)
-    haml (4.0.3)
+    haml (4.0.4)
       tilt
     haml-contrib (1.0.0.1)
       haml (>= 3.2.0.alpha.13)
@@ -198,7 +198,7 @@ DEPENDENCIES
   factory_girl_rails (~> 4.0)
   flickraw!
   grit (~> 2.5)
-  haml
+  haml (~> 4.0.4)
   haml-contrib
   hashie
   kaminari
