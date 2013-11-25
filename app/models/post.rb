@@ -114,7 +114,7 @@ class Post < ActiveRecord::Base
     updated = self[:updated_at].utc.to_s(cache_timestamp_format)
     commented = self[:commented_at].utc.to_s(cache_timestamp_format) rescue "0"
 
-    "#{self.class.model_name.cache_key}/#{id}-#{updated}-#{commented}"
+    "#{self.class.model_name.cache_key}-#{id}-#{updated}-#{commented}"
   end
 
   # List of new species
