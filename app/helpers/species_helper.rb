@@ -2,7 +2,8 @@ module SpeciesHelper
 
   STATIC_MAP_CENTER = {
       'ukraine' => '48.6,31.2',
-      'usa' => '42.5,-74'
+      'usa' => '42.5,-74',
+      'united_kingdom' => '54,-1.5'
   }
 
   NEW_SPECIES_LINK_METHOD = {
@@ -42,7 +43,7 @@ module SpeciesHelper
 
   def species_map(country, loci)
     center = "center=#{STATIC_MAP_CENTER[country]}"
-    markers = loci.map {|l| "#{l.lat},#{l.lon}"}.join('|')
+    markers = loci.map {|l| l.lat and "#{l.lat},#{l.lon}"}.compact.join('|')
     image_tag("http://maps.googleapis.com/maps/api/staticmap?zoom=5&size=443x300&sensor=false&#{center}&markers=#{markers}")
   end
 
