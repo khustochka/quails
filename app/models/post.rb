@@ -111,10 +111,12 @@ class Post < ActiveRecord::Base
   end
 
   def cache_key
-    updated = self[:updated_at].utc.to_s(cache_timestamp_format)
-    commented = self[:commented_at].utc.to_s(cache_timestamp_format) rescue "0"
+    updated = self[:updated_at].utc
+    commented = self[:commented_at].utc rescue nil
 
-    "#{self.class.model_name.cache_key}-#{id}-#{updated}-#{commented}"
+    date = [updated, commented].compact.max.to_s(cache_timestamp_format)
+
+    "#{self.class.model_name.cache_key}-#{id}-#{date}"
   end
 
   # List of new species
