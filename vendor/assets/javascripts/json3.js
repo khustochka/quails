@@ -1,4 +1,4 @@
-/*! JSON v3.2.5 | http://bestiejs.github.io/json3 | Copyright 2012-2013, Kit Cambridge | http://kit.mit-license.org */
+/*! JSON v3.2.6 | http://bestiejs.github.io/json3 | Copyright 2012-2013, Kit Cambridge | http://kit.mit-license.org */
 ;(function (window) {
   // Convenience aliases.
   var getClass = {}.toString, isProperty, forEach, undef;
@@ -40,7 +40,7 @@
   // Internal: Determines whether the native `JSON.stringify` and `parse`
   // implementations are spec-compliant. Based on work by Ken Snyder.
   function has(name) {
-    if (has[name] != null) {
+    if (has[name] !== undef) {
       // Return cached feature test result.
       return has[name];
     }
@@ -97,9 +97,8 @@
               // YUI 3.0.0b1 fails to serialize `null` literals.
               stringify(null) == "null" &&
               // FF 3.1b1, 2 halts serialization if an array contains a function:
-              // `[1, true, getClass, 1]` serializes as "[1,true,],". These versions
-              // of Firefox also allow trailing commas in JSON objects and arrays.
-              // FF 3.1b3 elides non-JSON values from objects and arrays, unless they
+              // `[1, true, getClass, 1]` serializes as "[1,true,],". FF 3.1b3
+              // elides non-JSON values from objects and arrays, unless they
               // define custom `toJSON` methods.
               stringify([undef, getClass, null]) == "[null,null,null]" &&
               // Simple serialization test. FF 3.1b1 uses Unicode escape sequences
@@ -144,10 +143,18 @@
                 } catch (exception) {}
                 if (parseSupported) {
                   try {
-                    // FF 4.0 and 4.0.1 allow leading `+` signs, and leading and
-                    // trailing decimal points. FF 4.0, 4.0.1, and IE 9-10 also
-                    // allow certain octal literals.
+                    // FF 4.0 and 4.0.1 allow leading `+` signs and leading
+                    // decimal points. FF 4.0, 4.0.1, and IE 9-10 also allow
+                    // certain octal literals.
                     parseSupported = parse("01") !== 1;
+                  } catch (exception) {}
+                }
+                if (parseSupported) {
+                  try {
+                    // FF 4.0, 4.0.1, and Rhino 1.7R3-R4 allow trailing decimal
+                    // points. These environments, along with FF 3.1b1 and 2,
+                    // also allow trailing commas in JSON objects and arrays.
+                    parseSupported = parse("1.") !== 1;
                   } catch (exception) {}
                 }
               }
@@ -161,10 +168,6 @@
     }
     return has[name] = !!isSupported;
   }
-  has["bug-string-char-index"] = null;
-  has["json"] = null;
-  has["json-stringify"] = null;
-  has["json-parse"] = null;
 
   if (!has("json")) {
     // Common `[[Class]]` name aliases.
@@ -375,7 +378,7 @@
       // Internal: Recursively serializes an object. Implements the
       // `Str(key, holder)`, `JO(value)`, and `JA(value)` operations.
       var serialize = function (property, object, callback, properties, whitespace, indentation, stack) {
-        var value, className, year, month, date, time, hours, minutes, seconds, milliseconds, results, element, index, length, prefix, hasMembers, result;
+        var value, className, year, month, date, time, hours, minutes, seconds, milliseconds, results, element, index, length, prefix, result;
         try {
           // Necessary for host object support.
           value = object[property];
@@ -472,11 +475,11 @@
           indentation += whitespace;
           if (className == arrayClass) {
             // Recursively serialize array elements.
-            for (index = 0, length = value.length; index < length; hasMembers || (hasMembers = true), index++) {
+            for (index = 0, length = value.length; index < length; index++) {
               element = serialize(index, value, callback, properties, whitespace, indentation, stack);
               results.push(element === undef ? "null" : element);
             }
-            result = hasMembers ? (whitespace ? "[\n" + indentation + results.join(",\n" + indentation) + "\n" + prefix + "]" : ("[" + results.join(",") + "]")) : "[]";
+            result = results.length ? (whitespace ? "[\n" + indentation + results.join(",\n" + indentation) + "\n" + prefix + "]" : ("[" + results.join(",") + "]")) : "[]";
           } else {
             // Recursively serialize object members. Members are selected from
             // either a user-specified list of property names, or the object
@@ -492,9 +495,8 @@
                 // `JSON.stringify`.
                 results.push(quote(property) + ":" + (whitespace ? " " : "") + element);
               }
-              hasMembers || (hasMembers = true);
             });
-            result = hasMembers ? (whitespace ? "{\n" + indentation + results.join(",\n" + indentation) + "\n" + prefix + "}" : ("{" + results.join(",") + "}")) : "{}";
+            result = results.length ? (whitespace ? "{\n" + indentation + results.join(",\n" + indentation) + "\n" + prefix + "}" : ("{" + results.join(",") + "}")) : "{}";
           }
           // Remove the object from the traversed object stack.
           stack.pop();
@@ -511,7 +513,7 @@
           } else if (className == arrayClass) {
             // Convert the property names array into a makeshift set.
             properties = {};
-            for (var index = 0, length = filter.length, value; index < length; value = filter[index++], ((getClass.call(value) == stringClass || getClass.call(value) == numberClass) && (properties[value] = 1)));
+            for (var index = 0, length = filter.length, value; index < length; value = filter[index++], ((className = getClass.call(value)), className == stringClass || className == numberClass) && (properties[value] = 1));
           }
         }
         if (width) {
