@@ -1,6 +1,8 @@
 class Card < ActiveRecord::Base
   include FormattedModel
 
+  include ActiveSupport::NumberHelper
+
   invalidates CacheKey.lifelist
 
   belongs_to :locus
@@ -22,6 +24,14 @@ class Card < ActiveRecord::Base
 
   def mapped?
     spots.any?
+  end
+
+  def mapped_observations
+    self.observations.joins(:spots).uniq
+  end
+
+  def mapped_percentage
+    number_to_percentage(mapped_observations.count * 100.0 / observations.count, precision: 0)
   end
 
   # List of new species
