@@ -20,7 +20,7 @@ $(function () {
       delay: 0,
       autoFocus: true,
       source: sp_list,
-      minLength: 3,
+      minLength: 2,
       select: function (event, ui) {
         $(this).val(ui.item.value);
         $(this).next().val(ui.item.id);
@@ -99,7 +99,7 @@ $(function () {
     delay: 0,
     autoFocus: true,
     source: sp_list,
-    minLength: 3,
+    minLength: 2,
     select: function (event, ui) {
       var row = firstEmptyRow();
       $('.sp-light', row).val(ui.item.value);
@@ -118,7 +118,7 @@ $(function () {
       })
       .autocomplete({
         delay: 0,
-        minLength: 3,
+        minLength: 2,
         autoFocus: true,
         source: function (request, response) {
           var matcher = new RegExp($.ui.autocomplete.escapeRegex(request.term), "i");
