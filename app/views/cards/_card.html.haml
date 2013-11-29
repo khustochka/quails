@@ -1,6 +1,9 @@
 %li.observ_card
   %ul.card_cell
-    %li= link_to card.observ_date, card
+    %li
+      = link_to card.observ_date, card
+      = surround('[ ', ' ]') do
+        %b= link_to 'edit', edit_card_path(card), class: 'pseudolink'
     %li
       %small
         %i= card.locus.name
@@ -30,11 +33,8 @@
   %ul.card_cell
     %li
       = surround('[ ', ' ]') do
-        = link_to 'EDIT', edit_card_path(card), class: 'pseudolink'
-    %li
-      = surround('[ ', ' ]') do
         = link_to edit_map_path(q: {card_id: card.id}), class: 'pseudolink' do
-          = card.mapped? ? "MAP (<b>#{card.mapped_percentage}</b>)".html_safe : '<b>MAP IT!</b>'.html_safe
+          = card.mapped? ? "edit map (<b>#{card.mapped_percentage}</b>)".html_safe : '<b>MAP IT!</b>'.html_safe
           = image_tag("/img/kml_logo.png", width: 16) if card.kml_url.present?
 
     - if params[:obs]
