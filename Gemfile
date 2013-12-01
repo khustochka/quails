@@ -7,7 +7,7 @@ gem 'rails', '4.0.1'
 gem 'pg', platforms: [:ruby, :mingw]
 gem "activerecord-jdbcpostgresql-adapter", platforms: :jruby
 
-gem 'unicorn', require: false, platforms: :ruby
+gem 'unicorn', '4.6.3', require: false, platforms: :ruby
 
 group :production do
   gem 'airbrake'
