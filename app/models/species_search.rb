@@ -15,12 +15,12 @@ class SpeciesSearch
     return [] if @term.blank?
     rel = @base.
         select("DISTINCT name_sci, name_en, name_ru, name_uk, weight,
-                          CASE WHEN name_sci ILIKE '#{@term}%'
-                              THEN 1
+                          CASE WHEN weight IS NULL THEN NULL
+                              WHEN name_sci ILIKE '#{@term}%' THEN 1
                               ELSE 2
                           END as rank").
         where(FILTER.call(@term)).
-        order("weight DESC NULLS LAST, rank ASC").
+        order("rank ASC NULLS LAST, weight DESC NULLS LAST").
         limit(5)
 
     rel.map { |sp| SpeciesSearchResult.new(sp.name_sci, detect_name(sp)) }
