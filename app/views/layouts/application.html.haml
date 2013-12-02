@@ -92,6 +92,11 @@
 
       .main
 
+        - if !admin_layout?
+          %div.winter-banner
+            = image_tag("http://farm8.staticflickr.com/7431/11178604643_33b30255eb_o.jpg")
+            = link_to("Зимующие птицы Украины &gt;&gt;".html_safe, "/winter")
+
         = yield
 
     - cache :footer do
