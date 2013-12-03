@@ -90,10 +90,10 @@
           :textile
             #{$announcement}
 
-      .main
+      - if !admin_layout?
+        = render 'partials/winter_banner'
 
-        - if !admin_layout?
-          = render 'partials/winter_banner'
+      .main
 
         = yield
 
