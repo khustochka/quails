@@ -337,15 +337,27 @@ li.feed_li:before
   padding-right: 20px
   img
     vertical-align: bottom
-  a
-    font-family: Verdana
+  div
+    display: inline-block
     margin-left: -30px
-    color: #6D7B9D
-    vertical-align: 40px
-    font-weight: bold
-    font-size: 24px
-  a:hover
-    color: #5D6BAD
-    background-color: transparent
-    text-decoration: underline
+    vertical-align: 28px
+    a
+      font-family: Verdana
+      color: #6D7B9D
+      font-weight: bold
+      font-size: 24px
+    a:hover
+      color: #5D6BAD
+      background-color: transparent
+      text-decoration: underline
+    span
+      font-weight: bold
+      color: #444
+
+  @media only all and (max-width: 900px)
+    background-color: #ddddee
+    img
+      display: none
+    div
+      margin: 10px
 
