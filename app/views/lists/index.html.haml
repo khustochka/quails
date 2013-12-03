@@ -36,10 +36,15 @@
 
       %h2
         = link_to('Список Украины', list_path(locus: 'ukraine'))
-        (#{@list_ukraine.count(:all)})
+
+      - lifers.call(@list_ukraine.limit(5))
 
     %div.fluid-column
 
       %h2
         = link_to('Список США', list_path(locus: 'usa'))
         (#{@list_usa.count(:all)})
+
+      %h2
+        = link_to('Список Великобритании', list_path(locus: 'united_kingdom'))
+        (#{@list_uk.count(:all)})
