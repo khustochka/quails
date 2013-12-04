@@ -7,4 +7,9 @@ class LoginController < ApplicationController
     redirect_to request.referrer || root_url, :status => 303
   end
 
+  def logout
+    current_user.remove_admin_cookie
+    redirect_to request.referrer || root_url, :status => 303
+  end
+
 end

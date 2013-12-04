@@ -24,6 +24,10 @@ module CredentialsCheck
     :quails_visitor
   end
 
+  def has_admin_cookie?(cookies)
+    User.cookie_value && cookies.signed[User.cookie_name] == User.cookie_value
+  end
+
   def check_credentials(username, password)
     (username == @options.username &&
         (Digest::SHA1.hexdigest(password) == @options.password || password == @options.password))

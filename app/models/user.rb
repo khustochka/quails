@@ -10,12 +10,18 @@ class User
   end
 
   def has_admin_cookie?
-    User.cookie_value && @cookies.signed[User.cookie_name] == User.cookie_value
+    User.has_admin_cookie?(@cookies)
   end
 
   def set_admin_cookie
     if User.cookie_value
       @cookies.signed[User.cookie_name] = {value: User.cookie_value, expires: 1.month.from_now}
+    end
+  end
+
+  def remove_admin_cookie
+    if User.cookie_value
+      @cookies.delete(User.cookie_name)
     end
   end
 

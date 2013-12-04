@@ -19,6 +19,7 @@
     %li= link_to t('menu.lifelist'), advanced_list_path
     %li
       %i= link_to 'No admin view', params.merge({noadmin: true})
+    %li= link_to "Logout", logout_path
 
 - elsif current_user.has_admin_cookie? && !params[:noadmin]
   %ul.admin_menu
