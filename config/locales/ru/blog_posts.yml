@@ -39,5 +39,6 @@
     labels:
       comment:
         name: 'Имя:'
+        send_email: 'Присылать ответ по электронной почте:'
         email: 'Email:'
         url: 'URL:'
