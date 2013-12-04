@@ -12,9 +12,6 @@
   %b Name:
   = @comment.name
 %p
-  %b Email:
-  = @comment.email
-%p
   %b Url:
   = @comment.url
 %p
@@ -24,6 +21,11 @@
 %p
   %b Approved:
   = @comment.approved
+
+- if @comment.send_email?
+  %p
+    %b Send email to:
+    = @comment.commenter.email
 
 %p
   %b IP:
