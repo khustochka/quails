@@ -61,7 +61,6 @@ class CommentsController < ApplicationController
       if @comment.send_email && commenter_email.present?
         commenter = Commenter.find_by_email(commenter_email) ||
             Commenter.create!(name: @comment.name, email: commenter_email)
-        commenter.save! unless commenter.persisted?
         @comment.commenter = commenter
       end
 
