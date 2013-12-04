@@ -6,4 +6,7 @@
 
   %h1= page_header
 
+  - if @page.likable?
+    = render 'social/buttons'
+
   = @page.formatted.text
