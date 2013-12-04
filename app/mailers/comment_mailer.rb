@@ -4,7 +4,7 @@ class CommentMailer < ActionMailer::Base
   #default from: ENV['quails_comment_sender']
   #default to: ENV['quails_comment_reciever']
 
-  def comment_posted(comment, host)
+  def notify_admin(comment, host)
     if self.class.default_params[:to] && self.class.default_params[:from]
       @comment = comment
       @host = host

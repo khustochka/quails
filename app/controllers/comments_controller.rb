@@ -66,7 +66,7 @@ class CommentsController < ApplicationController
 
       respond_to do |format|
         if @comment.save
-          CommentMailer.comment_posted(@comment, request.host).deliver
+          CommentMailer.notify_admin(@comment, request.host).deliver
 
           flash[:notice] = {
               @comment.parent_id =>
