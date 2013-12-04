@@ -3,7 +3,7 @@ class Comment < ActiveRecord::Base
   STOP_WORDS = %w( replica vuitton generic zithromax cheap cialis payday loans pharmacy url=http link=http
                     viagra tricor accutane seroquel retin lasix )
 
-  ALLOWED_PARAMETERS = [:text, :parent_id]
+  ALLOWED_PARAMETERS = [:text, :parent_id, :send_email]
 
   include FormattedModel
 
