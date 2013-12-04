@@ -36,4 +36,9 @@ class User
     Species.
         joins("INNER JOIN (#{obs.to_sql}) obs on id = obs.species_id")
   end
+
+  def prepopulate_comment(comment)
+    # No action
+  end
+
 end

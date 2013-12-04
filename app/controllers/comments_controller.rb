@@ -32,6 +32,7 @@ class CommentsController < ApplicationController
     @parent_comment = @comment
     @post = current_user.available_posts.find_by_id!(@parent_comment.post_id)
     @comment = @parent_comment.subcomments.new(:post => @post)
+    current_user.prepopulate_comment(@comment)
   end
 
   # GET /comments/1/edit

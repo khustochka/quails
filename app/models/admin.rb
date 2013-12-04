@@ -20,4 +20,17 @@ class Admin < User
     Species.
         joins("LEFT OUTER JOIN (#{obs.to_sql}) obs on id = obs.species_id")
   end
+
+  def prepopulate_comment(comment)
+    if commenter
+      comment.commenter = commenter
+      comment.name = commenter.name
+      comment.send_email = true
+    end
+  end
+
+  private
+  def commenter
+    @commenter ||= Commenter.where(is_admin: true).first
+  end
 end
