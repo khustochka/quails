@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131204090740) do
+ActiveRecord::Schema.define(version: 20131204102455) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,16 +45,17 @@ ActiveRecord::Schema.define(version: 20131204090740) do
   end
 
   create_table "comments", force: true do |t|
-    t.integer  "post_id",                               null: false
-    t.integer  "parent_id",                             null: false
-    t.string   "name",                                  null: false
+    t.integer  "post_id",                                 null: false
+    t.integer  "parent_id",                               null: false
+    t.string   "name",                                    null: false
     t.string   "url"
-    t.text     "text",                                  null: false
-    t.boolean  "approved",                              null: false
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
-    t.string   "ip",         limit: 15
-    t.boolean  "send_email",            default: false
+    t.text     "text",                                    null: false
+    t.boolean  "approved",                                null: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+    t.string   "ip",           limit: 15
+    t.boolean  "send_email",              default: false
+    t.integer  "commenter_id"
   end
 
   add_index "comments", ["post_id"], name: "index_comments_on_post_id", using: :btree
