@@ -2,9 +2,9 @@
   На ваш комментарий к записи "<%= link_to @comment.post.formatted.title,
                                            show_post_path(@comment.post.to_url_params.merge(only_path: false, host: @host))
   %>" получен
-  "<%= link_to "ответ",
+  <%= link_to "ответ",
                show_post_path(@comment.post.to_url_params.merge(anchor: "comment#{@comment.id}", only_path: false, host: @host))
-%>":
+  %>:
 </p>
 
 <blockquote>
