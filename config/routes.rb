@@ -189,7 +189,8 @@ Quails::Application.routes.draw do
 
   get '/research(/:action)', controller: :research, as: :research
 
-  get '/login' => 'login#login'
+  get '/login' => 'login#login_page'
+  post '/login' => 'login#login_do'
   get '/logout' => 'login#logout'
 
   get '/flickr' => 'flickr#index'

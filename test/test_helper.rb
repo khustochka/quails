@@ -34,8 +34,7 @@ class ActiveSupport::TestCase
   )
 
   def login_as_admin
-    @request.env['HTTP_AUTHORIZATION'] =
-        ActionController::HttpAuthentication::Basic.encode_credentials(TEST_CREDENTIALS.username, TEST_CREDENTIALS.password)
+    @request.cookie_jar.signed[User.cookie_name] = User.cookie_value
   end
 
   @@seed = HashWithIndifferentAccess.new do |hash, term|

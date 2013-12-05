@@ -18,9 +18,8 @@
     %li= link_to 'Stats', research_path(action: 'stats')
     %li= link_to t('menu.lifelist'), advanced_list_path
     %li
-      %i= link_to 'No admin view', params.merge({noadmin: true})
-    %li= link_to "Logout", logout_path
+      %i= link_to "**Logout", logout_path
 
-- elsif current_user.has_admin_cookie? && !params[:noadmin]
+- elsif current_user.has_trust_cookie?
   %ul.admin_menu
     %li.login_link= link_to 'Login', login_path
