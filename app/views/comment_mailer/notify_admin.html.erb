@@ -12,3 +12,8 @@
 <blockquote>
   <%= @comment.formatted.text %>
 </blockquote>
+
+<%- parent = @comment.parent_comment %>
+<%- if parent && parent.send_email? && @comment.approved && Rails.env.production? && Quails.env.real_prod? %>
+  <p><%= parent.name %> (<%= parent.commenter.email %>) should receive email notification.</p>
+<%- end %>
