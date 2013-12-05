@@ -153,7 +153,7 @@ form.comment
     label
       font-weight: normal
       width: auto
-      margin-left: 10px
+      margin-left: 6px
 
   .input.commenter_email
     input.string
@@ -339,5 +339,8 @@ li.feed_li:before
 
 @media only all and (max-width: 580px)
   form.comment
-    textarea, input.string, .comment_text .hint
+    textarea, input.string, .input.comment_text .hint, .input.commenter_email input.string
       width: 100%
+    label
+      display: inline
+
