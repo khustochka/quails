@@ -1,7 +1,7 @@
 @import 'normalize', 'global', 'images'
 
-.main
-  padding-top: 30px
+//.main
+  //padding-top: 30px
 
 // Post
 
@@ -344,3 +344,35 @@ li.feed_li:before
     label
       display: inline
 
+
+.winter-banner
+  border: 1px solid #ccc
+  display: inline-block
+  padding-right: 20px
+  margin:
+    top: 20px
+  img
+    vertical-align: bottom
+  div
+    display: inline-block
+    margin-left: -30px
+    vertical-align: 28px
+    a
+      font-family: Verdana
+      color: #6D7B9D
+      font-weight: bold
+      font-size: 24px
+    a:hover
+      color: #5D6BAD
+      background-color: transparent
+      text-decoration: underline
+    span
+      font-weight: bold
+      color: #444
+
+  @media only all and (max-width: 900px)
+    background-color: #ddddee
+    img
+      display: none
+    div
+      margin: 10px
