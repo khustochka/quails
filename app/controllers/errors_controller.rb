@@ -1,6 +1,6 @@
 class ErrorsController < ApplicationController
 
-  caches_page :show, gzip: true, unless: -> { current_user.admin? || current_user.has_admin_cookie? }
+  caches_page :show, gzip: true, unless: -> { current_user.admin? || current_user.has_trust_cookie? }
 
   def show
     @code = env["PATH_INFO"][1..-1]

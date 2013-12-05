@@ -189,7 +189,10 @@ Quails::Application.routes.draw do
 
   get '/research(/:action)', controller: :research, as: :research
 
-  get '/login' => 'login#login'
+  get '/login' => 'login#login_page'
+  constraints(Rails.env.production? ? {protocol: 'https://'} : {}) do
+    post '/login' => 'login#login_do'
+  end
   get '/logout' => 'login#logout'
 
   get '/flickr' => 'flickr#index'

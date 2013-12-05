@@ -1,0 +1,8 @@
+- @page_title = "Login"
+
+- @robots = "NOINDEX,NOFOLLOW"
+
+= form_tag(url_for(action: 'login_do', only_path: false, protocol: Rails.env.production? ? 'https' : 'http'), method: :post) do
+  = text_field_tag :username
+  = password_field_tag
+  = submit_tag("Login")
