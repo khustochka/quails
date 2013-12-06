@@ -24,11 +24,11 @@ module CredentialsCheck
   end
 
   def cookie_name
-    :quails_visitor
+    :is_admin
   end
 
-  def has_admin_cookie?(cookies)
-    User.cookie_value && cookies.signed[User.cookie_name] == User.cookie_value
+  def is_admin_session?(session)
+    User.cookie_value && session[User.cookie_name] == User.cookie_value
   end
 
   def has_trust_cookie?(cookies)

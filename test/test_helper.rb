@@ -34,7 +34,7 @@ class ActiveSupport::TestCase
   )
 
   def login_as_admin
-    @request.cookie_jar.signed[User.cookie_name] = User.cookie_value
+    @request.session[User.cookie_name] = User.cookie_value
   end
 
   @@seed = HashWithIndifferentAccess.new do |hash, term|

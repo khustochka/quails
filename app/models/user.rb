@@ -1,15 +1,16 @@
 class User
   extend CredentialsCheck
 
-  def self.detect(cookies)
-    if User.has_admin_cookie?(cookies)
-      Admin.new(cookies)
+  def self.detect(session, cookies)
+    if User.is_admin_session?(session)
+      Admin.new(session, cookies)
     else
-      User.new(cookies)
+      User.new(session, cookies)
     end
   end
 
-  def initialize(cookies)
+  def initialize(session, cookies)
+    @session = session
     @cookies = cookies
   end
 
@@ -17,18 +18,18 @@ class User
     false
   end
 
-  def has_admin_cookie?
-    User.has_admin_cookie?(@cookies)
+  def is_admin_session?
+    User.is_admin_session?(@session)
   end
 
-  def set_admin_cookie
+  def set_admin_session
     if User.cookie_value
-      @cookies.signed[User.cookie_name] = {value: User.cookie_value, httponly: true}
+      @session[User.cookie_name] = User.cookie_value
     end
   end
 
-  def remove_admin_cookie
-    @cookies.delete(User.cookie_name)
+  def drop_admin_session
+    @session[User.cookie_name] = nil
   end
 
   def has_trust_cookie?
