@@ -1,6 +1,6 @@
 class LoginController < ApplicationController
 
-  if Rails.env.production?
+  if Quails.env.ssl?
     force_ssl only: :login_page
   end
 

@@ -190,7 +190,7 @@ Quails::Application.routes.draw do
   get '/research(/:action)', controller: :research, as: :research
 
   get '/login' => 'login#login_page'
-  constraints(Rails.env.production? ? {protocol: 'https://'} : {}) do
+  constraints Quails.env.ssl? ? {protocol: 'https://'} : nil do
     post '/login' => 'login#login_do'
   end
   get '/logout' => 'login#logout'

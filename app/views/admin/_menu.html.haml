@@ -22,4 +22,4 @@
 
 - elsif current_user.has_trust_cookie?
   %ul.admin_menu
-    %li.login_link= link_to 'Login', login_path(only_path: false, protocol: 'https')
+    %li.login_link= link_to 'Login', login_path(Quails.env.ssl? ? {only_path: false, protocol: 'https'} : nil)

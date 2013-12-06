@@ -26,9 +26,13 @@ module Quails
       @raw.to_s
     end
 
+    def ssl?
+      @ssl ||= real_prod? || heroku? || (@raw && @arr.include?('ssl'))
+    end
+
     def method_missing(method, *args, &block)
       if @raw && /^(?<attr>.*)\?$/ =~ method.to_s
-        @arr.include?(attr)
+        instance_variable_get("@#{attr}".to_sym) || instance_variable_set("@#{attr}".to_sym, @arr.include?(attr))
       else
         #super
       end
