@@ -9,12 +9,12 @@ module PublicPathController
 
   include PublicRoutesHelper
 
-  def root_path
-    blog_path
+  def root_path(*args)
+    blog_path(*args)
   end
 
-  def root_url
-    blog_url
+  def root_url(*args)
+    blog_url(*args)
   end
 
 end
