@@ -31,10 +31,22 @@ module Quails
     end
 
     def method_missing(method, *args, &block)
-      if @raw && /^(?<attr>.*)\?$/ =~ method.to_s
-        instance_variable_get("@#{attr}".to_sym) || instance_variable_set("@#{attr}".to_sym, @arr.include?(attr))
+      if /^(?<attr>.*)\?$/ =~ method.to_s
+        if @raw
+          instance_variable_get("@#{attr}".to_sym) || instance_variable_set("@#{attr}".to_sym, @arr.include?(attr))
+        else
+          false
+        end
       else
-        #super
+        super
+      end
+    end
+
+    def respond_to?(method)
+      if /^.*\?$/ =~ method.to_s
+        true
+      else
+        super
       end
     end
   end
