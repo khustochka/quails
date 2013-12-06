@@ -37,13 +37,13 @@ class Observation < ActiveRecord::Base
 
   # Species
 
-  alias_method :real_species, :species
-
-  def species
+  def species_with_incognita
     species_id == 0 ?
         Species::AVIS_INCOGNITA :
-        real_species
+        species_without_incognita
   end
+
+  alias_method_chain :species, :incognita
 
   delegate :species_str, :when_where_str, to: :formatted
 
