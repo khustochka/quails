@@ -6,20 +6,20 @@ class BlogControllerTest < ActionController::TestCase
 
   # Front page
 
-  test 'get front_page' do
+  test 'get home page' do
     blogpost1 = create(:post, face_date: '2007-12-06 13:14:15')
     blogpost2 = create(:post, face_date: '2008-11-06 13:14:15')
     create(:comment)
-    get :front_page
+    get :home
     assert_response :success
     assert_includes(assigns(:posts), blogpost1)
     assert_includes(assigns(:posts), blogpost2)
   end
 
-  test "get front_page with images" do
+  test "get home page with images" do
     blogpost = create(:post)
     create(:image, observations: [create(:observation, card: create(:card, post: blogpost))])
-    get :front_page
+    get :home
     assert_response :success
   end
 
@@ -33,14 +33,14 @@ class BlogControllerTest < ActionController::TestCase
   test 'do not show hidden posts on front page' do
     blogpost1 = create(:post, face_date: '2007-12-06 13:14:15', status: 'PRIV')
     blogpost2 = create(:post, face_date: '2008-11-06 13:14:15')
-    get :front_page
+    get :home
     assert_includes(assigns(:posts), blogpost2)
     assert_not_includes(assigns(:posts), blogpost1)
   end
 
   test 'show NOINDEX post on front page' do
     blogpost = create(:post, status: 'NIDX')
-    get :front_page
+    get :home
     assert_response :success
     assert_includes(assigns(:posts), blogpost)
   end
@@ -49,7 +49,7 @@ class BlogControllerTest < ActionController::TestCase
     blogpost1 = create(:post, face_date: '2007-12-06 13:14:15')
     blogpost2 = create(:post, face_date: '2008-11-06 13:14:15')
     create(:comment)
-    get :front_page, hl: 'en'
+    get :home, hl: 'en'
     assert_response :success
     assert_includes(assigns(:posts), blogpost1)
     assert_includes(assigns(:posts), blogpost2)
@@ -62,7 +62,7 @@ class BlogControllerTest < ActionController::TestCase
     blogpost4 = create(:post, face_date: '2007-10-04 13:14:15')
     blogpost5 = create(:post, face_date: '2007-10-03 13:14:15')
     blogpost6 = create(:post, face_date: '2007-09-03 13:14:15')
-    get :front_page
+    get :home
     assert_response :success
     assert_equal 5, assigns(:posts).size
     assert_includes(assigns(:posts), blogpost1)

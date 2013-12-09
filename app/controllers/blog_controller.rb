@@ -1,13 +1,13 @@
 class BlogController < ApplicationController
 
-  before_filter :only => [:front_page, :year, :month] do
+  before_filter :only => [:home, :year, :month] do
     @feed = 'blog'
   end
 
   POSTS_ON_FRONT_PAGE = 5
 
   # GET /
-  def front_page
+  def home
     # Read the desired number of posts + 1
     @posts = Post.public.order('face_date DESC').limit(POSTS_ON_FRONT_PAGE + 1).to_a
     if @posts.size > POSTS_ON_FRONT_PAGE

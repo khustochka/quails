@@ -4,7 +4,7 @@ class RoutingTest < ActionDispatch::IntegrationTest
   fixtures :all
 
   test 'route index correctly' do
-    assert_routing '/', {controller: 'blog', action: 'front_page'}
+    assert_routing '/', {controller: 'blog', action: 'home'}
   end
 
   test 'route posts correctly' do
