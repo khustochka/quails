@@ -28,10 +28,6 @@ class User
     end
   end
 
-  def drop_admin_session
-    @session[User.cookie_name] = nil
-  end
-
   def has_trust_cookie?
     User.has_trust_cookie?(@cookies)
   end
