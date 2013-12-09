@@ -50,7 +50,9 @@ Quails::Application.configure do
   # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
 
   # Use a different cache store in production.
-  # config.cache_store = :mem_cache_store
+  unless Quails.env.heroku?
+    config.cache_store = :dalli_store, {namespace: 'quails', expires_in: 5.days, compress: true}
+  end
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.action_controller.asset_host = "http://assets.example.com"
