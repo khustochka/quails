@@ -11,6 +11,7 @@ module SecurityController
       before_filter options do
         unless current_user.admin?
           if current_user.has_trust_cookie?
+            flash[:ret] = request.url
             redirect_to login_path
           else
             raise ActionController::RoutingError, "Restricted path"

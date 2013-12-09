@@ -5,6 +5,7 @@
 %h1= page_header
 
 = form_tag(url_for(action: 'login_do', only_path: false, protocol: Quails.env.ssl? ? 'https' : 'http'), method: :post) do
+  = hidden_field_tag(:ret, flash[:ret]) if flash[:ret]
   = text_field_tag :username
   = password_field_tag
   = submit_tag("Login")
