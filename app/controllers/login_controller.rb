@@ -6,6 +6,7 @@ class LoginController < ApplicationController
 
   def login_page
     flash[:ret] = flash[:ret] || request.referrer
+    render layout: 'login'
   end
 
   def login_do
