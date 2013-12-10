@@ -28,6 +28,14 @@
         %td= comment.parent_id
         %td= comment.name
         %td= comment.formatted.text
-        %td= default_destroy_link(comment)
+        %td
+          = default_destroy_link(comment)
+          - if comment.commenter_id == @admin_id
+            %span.tag.admin_comment admin
+          - else
+            = form_for comment, remote: true do |form|
+              = form.hidden_field :send_email, value: true
+              = form.hidden_field :commenter_id, value: @admin_id
+              = form.submit 'adminify'
 
 = paginate @comments unless params[:sort] == 'by_post'

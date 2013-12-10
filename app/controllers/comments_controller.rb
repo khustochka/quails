@@ -12,6 +12,8 @@ class CommentsController < ApplicationController
             Comment.preload(:post) :
             Comment.preload(:post).reorder('created_at DESC').page(params[:page]).per(20)
 
+    @admin_id = Commenter.where(is_admin: true).pluck(:id).first
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render :json => @comments }
