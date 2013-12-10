@@ -1,6 +1,8 @@
 .comment_box{id: "comment#{comment.id}", class: comment.approved ? nil : 'hidden-comment'}
   %div.header-with-subheader
     %h6.name= link_to_if(comment.sane_url.present?, comment.formatted.name, comment.sane_url, :rel => 'nofollow')
+    - if admin_commenter_id && comment.commenter_id == admin_commenter_id
+      %span.tag.admin_comment admin
     %i
       %time= link_to(l(comment.created_at, :format => :long), public_comment_path(comment, @post))
     - if current_user.admin?
