@@ -11,7 +11,7 @@ namespace :vendor do
     #desc 'Update Javascripts'
     task :javascripts do
       puts "\n=== Getting JQuery #{JQUERY_CDN.scan(/\d\.\d\.\d/)[0]} ==="
-      system "curl #{JQUERY_CDN} -o vendor/assets/javascripts/jquery.min.js"
+      system "curl http:#{JQUERY_CDN} -o vendor/assets/javascripts/jquery.min.js"
       puts "\n=== Getting latest JQuery-ujs ==="
       system "curl https://raw.github.com/rails/jquery-ujs/master/src/rails.js -o vendor/assets/javascripts/jquery_ujs.js"
       puts "\n=== Getting latest JQuery-pjax ==="
