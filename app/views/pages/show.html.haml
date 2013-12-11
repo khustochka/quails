@@ -3,7 +3,7 @@
 = render 'admin/shortcuts' if current_user.admin?
 
 - @social_likes = @page.likable?
-- @canonical = show_page_url(@page)
+- @canonical = show_page_url(@page) rescue nil
 
 - cache @page do
 
