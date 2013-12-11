@@ -42,11 +42,6 @@ class CommentsController < ApplicationController
   # POST /comments
   # POST /comments.json
   def create
-    @post = current_user.available_posts.find_by_id!(params[:comment][:post_id])
-    comment_attrs = params[:comment].slice(*Comment::ALLOWED_PARAMETERS)
-    comment_attrs[:name] = params[$negative_captcha]
-
-    @comment = @post.comments.build(comment_attrs)
 
     if params[:comment][:name].present?
 
@@ -54,7 +49,13 @@ class CommentsController < ApplicationController
 
     else
 
-      @comment.approved = !@comment.like_spam? && params[:comment][:name].blank?
+      @post = current_user.available_posts.find_by_id!(params[:comment][:post_id])
+      comment_attrs = params[:comment].slice(*Comment::ALLOWED_PARAMETERS)
+      comment_attrs[:name] = params[$negative_captcha]
+
+      @comment = @post.comments.build(comment_attrs)
+
+      @comment.approved = !@comment.like_spam?
       @comment.ip = request.remote_ip
 
       commenter_email = params[:commenter].try(:[], :email)
