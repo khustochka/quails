@@ -1,2 +1,3 @@
-%p.comment_screened
-  = screened.text
+%p.comment_screened{id: "comment#{screened.id}"}
+  Извините, ваш комментарий был скрыт. Он будет рассмотрен модератором.
+  <a href='#{screened.path}'>Его ссылка</a>.

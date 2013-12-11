@@ -1,8 +1,9 @@
 class CommentScreened
-  attr_reader :text
+  attr_reader :path, :id
 
-  def initialize(text)
-    @text = text
+  def initialize(attr)
+    @path = attr[:path]
+    @id = attr[:id]
   end
 
   def to_partial_path

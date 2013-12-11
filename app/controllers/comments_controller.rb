@@ -73,20 +73,19 @@ class CommentsController < ApplicationController
             CommentMailer.notify_parent_author(@comment, request.host).deliver
           end
 
-          flash[:screened] = {
-              @comment.parent_id =>
-                  "Извините, ваш комментарий был скрыт. Он будет рассмотрен модератором.
-                      <a href='#{public_comment_path(@comment)}'>Его ссылка</a>.".html_safe
-          } unless @comment.approved
+          format.html {
 
-          format.html { redirect_to public_comment_path(@comment) }
-          format.json { render :json => @comment, :status => :created, :location => @comment }
+            flash[:screened] = {
+                @comment.parent_id => {id: @comment.id, path: public_comment_path(@comment)}
+            } unless @comment.approved
+
+            redirect_to public_comment_path(@comment)
+          }
         else
           format.html {
             @parent_comment = @comment.parent_comment
             render :action => "reply"
           }
-          format.json { render :json => @comment.errors, :status => :unprocessable_entity }
         end
       end
 
