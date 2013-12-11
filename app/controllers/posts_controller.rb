@@ -19,6 +19,14 @@ class PostsController < ApplicationController
 
     @robots = 'NOINDEX' if @post.status == 'NIDX'
     @comments = current_user.available_comments(@post).group_by(&:parent_id)
+
+    screened = flash[:screened]
+    screened_id = screened && screened.keys.first
+    if screened_id
+      @comments[screened_id] ||= []
+      @comments[screened_id].push(CommentScreened.new(screened[screened_id]))
+    end
+
     @comment = @post.comments.new(:parent_id => 0)
     current_user.prepopulate_comment(@comment)
   end

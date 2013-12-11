@@ -17,9 +17,6 @@
 
 - subcomments = @comments.try(:[], comment.id)
 
-- if subcomments || notice.try(:has_key?, comment.id)
+- if subcomments
   .subcomments
     = render subcomments
-
-    - if notice && notice[comment.id]
-      %p.comment_screened= notice[comment.id]

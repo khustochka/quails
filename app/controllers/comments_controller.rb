@@ -73,7 +73,7 @@ class CommentsController < ApplicationController
             CommentMailer.notify_parent_author(@comment, request.host).deliver
           end
 
-          flash[:notice] = {
+          flash[:screened] = {
               @comment.parent_id =>
                   "Извините, ваш комментарий был скрыт. Он будет рассмотрен модератором.
                       <a href='#{public_comment_path(@comment)}'>Его ссылка</a>.".html_safe
