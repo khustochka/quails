@@ -25,8 +25,8 @@ $(function () {
     var form_id = $(this).attr("id"),
         new_comment = $(data);
     if (form_id == "new_comment") {
-      $("#add_comment").prev().after(new_comment);
-      $(this).replaceWith(form);
+      $("#add_comment").before(new_comment);
+      $(this).replaceWith(form.clone());
     }
     else {
       var parent = $(this).closest(".comment_box");
