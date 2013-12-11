@@ -1,4 +1,4 @@
-= simple_form_for @comment, html: {class: 'comment'} do |form|
+= simple_form_for @comment, html: {class: 'comment'}, remote: !@comment.persisted? do |form|
 
   = render @comment.errors.extend(CommentErrors)
 
