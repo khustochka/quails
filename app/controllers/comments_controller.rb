@@ -4,6 +4,10 @@ class CommentsController < ApplicationController
 
   find_record before: [:show, :edit, :update, :destroy, :reply]
 
+  # Prevent CSRF attacks by raising an exception.
+  # For APIs, you may want to use :null_session instead.
+  protect_from_forgery with: :exception, only: [:create]
+
   # GET /comments
   # GET /comments.json
   def index
