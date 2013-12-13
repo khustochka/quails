@@ -50,7 +50,10 @@ class ObservationsController < ApplicationController
 
     respond_to do |format|
       format.html { render partial: 'observations/obs_item', collection: observs }
-      format.json { render json: observs, only: :id, methods: json_methods }
+      format.json { render json:
+        { json: observs.as_json(only: :id, methods: json_methods),
+          html: render_to_string(partial: 'observations/obs_item', collection: observs, formats: [:html]) }
+      }
     end
   end
 

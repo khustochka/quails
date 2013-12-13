@@ -118,7 +118,8 @@ $(function () {
   });
 
   searchForm.on('ajax:success', function (e, data) {
-    buildObservations(data);
+    $('ul.obs-list').html(data.html);
+    buildObservations(data.json);
   });
 
   searchForm.submit();

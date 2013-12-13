@@ -9,7 +9,7 @@
 -# %h1= page_header
 
 = simple_form_for @observation_search, url: search_observations_path(with_spots: 'with_spots', format: :json),
-                                                            remote:true, method: :get, html: {class: 'search'} do |form|
+                                                           remote: true, method: :get, html: {class: 'search'} do |form|
   = render 'observations/search_fields', form: form
 
 = render 'spots/form'
