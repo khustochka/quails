@@ -1,7 +1,9 @@
-begin
-  #require 'simplecov'
-  #SimpleCov.start 'rails'
-rescue LoadError, RuntimeError
+if ENV['COVERAGE'] == 'true'
+  begin
+    require 'simplecov'
+    SimpleCov.start 'rails'
+  rescue LoadError, RuntimeError
+  end
 end
 
 ENV["RAILS_ENV"] ||= "test"
