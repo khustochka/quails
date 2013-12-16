@@ -102,7 +102,7 @@ GEM
       minitest (>= 2.12, < 5.0)
       powerbar
     multi_json (1.8.2)
-    nokogiri (1.6.0)
+    nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
     pg (0.17.0)
     polyglot (0.3.3)
@@ -135,7 +135,6 @@ GEM
     rake (10.1.0)
     rinku (1.7.3)
     roman-numerals (0.3.0)
-    ruby-prof (0.13.0)
     rubyzip (1.1.0)
     sass (3.2.12)
     sass-rails (4.0.1)
@@ -172,7 +171,7 @@ GEM
       polyglot
       polyglot (>= 0.3.1)
     tzinfo (0.3.38)
-    uglifier (2.3.2)
+    uglifier (2.3.3)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
     unicorn (4.6.3)
@@ -214,7 +213,6 @@ DEPENDENCIES
   rails3-generators
   rinku
   roman-numerals
-  ruby-prof
   sass-rails (~> 4.0.0)
   selenium-webdriver
   simple_form (~> 3.0.0)

@@ -52,7 +52,6 @@ gem 'factory_girl_rails', '~> 4.0', groups: [:development, :test]
 
 group :test do
   gem 'minitest-reporters'
-  gem 'ruby-prof', require: false, platforms: [:mri, :mingw]
   gem 'capybara', '~> 2.2.0'
   gem 'capybara-webkit', '~> 1.0',platforms: [:mri], require: false
   gem 'selenium-webdriver'
