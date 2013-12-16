@@ -2,14 +2,14 @@
 
 = render 'admin/shortcuts' if current_user.admin?
 
-- @social_likes = @page.likable?
+- @social_likes = @page.meta.social
 - @canonical = show_page_url(@page) rescue nil
 
 - cache @page do
 
   %h1= page_header
 
-  - if @page.likable?
+  - if @page.meta.social
     = render 'social/buttons'
 
   = @page.formatted.text
