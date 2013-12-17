@@ -319,6 +319,7 @@ $(function () {
     }
 
     selectedObs.addClass('is_mapped');
+    selectedObs.data('obs-count', selectedObs.data('obs-count') + 1);
 
     // Store updated spot data
     spotsStore[data.id] = data;
@@ -338,7 +339,7 @@ $(function () {
 
     selectedObs.data('obs-count', selectedObs.data('obs-count') - 1);
 
-    selectedObs.toggleClass( 'is_mapped',  selectedObs.data('obs-count') > 0)
+    selectedObs.toggleClass( 'is_mapped',  selectedObs.data('obs-count') > 0);
     e.stopPropagation();
   });
 
