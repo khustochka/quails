@@ -46,22 +46,22 @@ class ObservationsControllerTest < ActionController::TestCase
     assert card != obs1.card
   end
 
-  # HTTP auth tests
+  # auth tests
 
-  test 'protect show with HTTP authentication' do
+  test 'protect show with authentication' do
     observation = create(:observation)
     assert_raise(ActionController::RoutingError) { get :show, id: observation.to_param }
     #assert_response 404
   end
 
-  test 'protect update with HTTP authentication' do
+  test 'protect update with authentication' do
     observation = create(:observation)
     observation.place = 'New place'
     assert_raise(ActionController::RoutingError) { put :update, id: observation.to_param, observation: observation.attributes }
     #assert_response 404
   end
 
-  test 'protect destroy with HTTP authentication' do
+  test 'protect destroy with authentication' do
     observation = create(:observation)
     assert_raise(ActionController::RoutingError) { delete :destroy, id: observation.to_param }
     #assert_response 404

@@ -83,40 +83,40 @@ class LociControllerTest < ActionController::TestCase
     assert_equal new_list, Locus.public.pluck(:slug)
   end
 
-  # HTTP auth tests
+  # auth tests
 
-  test 'protect index with HTTP authentication' do
+  test 'protect index with authentication' do
     assert_raise(ActionController::RoutingError) { get :index }
     #assert_response 404
   end
 
-  test 'protect show with HTTP authentication' do
+  test 'protect show with authentication' do
     assert_raise(ActionController::RoutingError) { get :show, id: 'krym' }
     #assert_response 404
   end
 
-  test 'protect new with HTTP authentication' do
+  test 'protect new with authentication' do
     assert_raise(ActionController::RoutingError) { get :new }
     #assert_response 404
   end
 
-  test 'protect edit with HTTP authentication' do
+  test 'protect edit with authentication' do
     assert_raise(ActionController::RoutingError) { get :edit, id: 'krym' }
     #assert_response 404
   end
 
-  test 'protect create with HTTP authentication' do
+  test 'protect create with authentication' do
     assert_raise(ActionController::RoutingError) { post :create, locus: build(:locus).attributes }
     #assert_response 404
   end
 
-  test 'protect update with HTTP authentication' do
+  test 'protect update with authentication' do
     locus = seed(:krym)
     assert_raise(ActionController::RoutingError) { put :update, id: locus.to_param, locus: locus.attributes }
     #assert_response 404
   end
 
-  test 'protect destroy with HTTP authentication' do
+  test 'protect destroy with authentication' do
     assert_raise(ActionController::RoutingError) { delete :destroy, id: 'krym' }
     #assert_response 404
   end

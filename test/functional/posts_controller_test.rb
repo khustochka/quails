@@ -128,33 +128,33 @@ class PostsControllerTest < ActionController::TestCase
     assert_response 301
   end
 
-  # HTTP auth tests
+  # auth tests
 
-  test 'protect new with HTTP authentication' do
+  test 'protect new with authentication' do
     assert_raise(ActionController::RoutingError) { get :new }
     #assert_response 404
   end
 
-  test 'protect edit with HTTP authentication' do
+  test 'protect edit with authentication' do
     blogpost = create(:post)
     assert_raise(ActionController::RoutingError) { get :edit, id: blogpost.to_param }
     #assert_response 404
   end
 
-  test 'protect create with HTTP authentication' do
+  test 'protect create with authentication' do
     blogpost = create(:post)
     assert_raise(ActionController::RoutingError) { post :create, post: blogpost.attributes }
     #assert_response 404
   end
 
-  test 'protect update with HTTP authentication' do
+  test 'protect update with authentication' do
     blogpost = create(:post)
     blogpost.title = 'Changed title'
     assert_raise(ActionController::RoutingError) { put :update, id: blogpost.to_param, post: blogpost.attributes }
     #assert_response 404
   end
 
-  test 'protect destroy with HTTP authentication' do
+  test 'protect destroy with authentication' do
     blogpost = create(:post)
     assert_raise(ActionController::RoutingError) { delete :destroy, id: blogpost.to_param }
     #assert_response 404

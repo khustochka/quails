@@ -123,20 +123,20 @@ class SpeciesControllerTest < ActionController::TestCase
     assert_response 301
   end
 
-  # HTTP auth tests
+  # auth tests
 
-  test 'protect index with HTTP authentication' do
+  test 'protect index with authentication' do
     assert_raise(ActionController::RoutingError) { get :index }
     #assert_response 404
   end
 
-  test 'protect edit with HTTP authentication' do
+  test 'protect edit with authentication' do
     species = seed(:melgal)
     assert_raise(ActionController::RoutingError) { get :edit, id: species.to_param }
     #assert_response 404
   end
 
-  test 'protect update with HTTP authentication' do
+  test 'protect update with authentication' do
     species = seed(:corbra)
     species.name_ru = 'Американская ворона'
     assert_raise(ActionController::RoutingError) { put :update, id: species.to_param, species: species.attributes }
