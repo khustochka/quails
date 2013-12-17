@@ -38,20 +38,25 @@ $(function () {
     observCollection = {};
     spotsStore = {};
 
-    var hoverText;
+    var hoverText, el;
 
     var marks = $(data).map(function () {
-      observCollection[this.id] =
-          $("<li>").data('obs_id', this.id).append(
-              $('<span class="mapped_indicator" title="Is mapped">'),
-              $('<div>').html(this.species_str),
-              $('<div>').html(this.when_where_str)
-          )
-              .data('obs-count', this.spots.length)
-              .toggleClass( 'is_mapped',  this.spots.length > 0)
-              .appendTo($('ul.obs-list'));
+//      observCollection[this.id] =
+//          $("<li>").data('obs-id', this.id).append(
+//              $('<span class="mapped_indicator" title="Is mapped">'),
+//              $('<div>').html(this.species_str),
+//              $('<div>').html(this.when_where_str)
+//          )
+//              .data('obs-count', this.spots.length)
+//              .toggleClass( 'is_mapped',  this.spots.length > 0)
+//              .appendTo($('ul.obs-list'));
+      el = $('li[data-obs-id=' + this.id + ']', 'ul.obs-list');
+      el.toggleClass('is_mapped', el.data('obs-count') > 0);
 
-      hoverText = $('div:first', observCollection[this.id]).text();
+
+      hoverText = $('div:first', el).text();
+
+      observCollection[this.id] = el;
 
       return($.map(this.spots, function (spot, i) {
         spotsStore[spot.id] = spot;
@@ -155,7 +160,7 @@ $(function () {
           selectedObs = $('li.selected_obs');
         }
 
-        if (selectedObs.data('obs_id') == spotData.observation_id) {
+        if (selectedObs.data('obs-id') == spotData.observation_id) {
           $('#spot_id', newForm).val(spot_id);
           destroy_link(spot_id).appendTo($('.buttons', newForm));
         }
@@ -168,7 +173,7 @@ $(function () {
         $('#spot_lat', newForm).val(marker.position.lat());
         $('#spot_lng', newForm).val(marker.position.lng());
         $('#spot_zoom', newForm).val(spotData.zoom);
-        $('#spot_observation_id', newForm).val(selectedObs.data('obs_id'));
+        $('#spot_observation_id', newForm).val(selectedObs.data('obs-id'));
         wndContent = newForm.html();
 
         theMap.gmap3({
@@ -183,7 +188,7 @@ $(function () {
         closeInfoWindows();
         var selected = $('li.selected_obs'),
             spotData = spotsStore[data.data.id];
-        if (selected.length == 0 || selected.data('obs_id') != spotData.observation_id) {
+        if (selected.length == 0 || selected.data('obs-id') != spotData.observation_id) {
           observCollection[spotData.observation_id].click();
         }
       },
@@ -217,7 +222,7 @@ $(function () {
       get: {
         name: 'marker',
         all: true,
-        tag: $('.selected_obs').data('obs_id') || undefined
+        tag: $('.selected_obs').data('obs-id') || undefined
       }
     });
 
@@ -233,7 +238,7 @@ $(function () {
       get: {
         name: 'marker',
         all: true,
-        tag: $(this).data('obs_id')
+        tag: $(this).data('obs-id')
       }
     });
 
@@ -278,7 +283,7 @@ $(function () {
             $('#spot_lng', newForm).val(event.latLng.lng());
             $('#spot_zoom', newForm).val(map.zoom);
             $('#spot_exactness_1', newForm).attr('checked', true); // Check the "exact" value
-            $('#spot_observation_id', newForm).val(selectedObs.data('obs_id'));
+            $('#spot_observation_id', newForm).val(selectedObs.data('obs-id'));
             if (defaultPublicity) $('#spot_public', newForm).attr('checked', 'checked');
             else $('#spot_public', newForm).attr('checked', null);
             wndContent = newForm.html();
@@ -297,7 +302,7 @@ $(function () {
   });
 
   // Change default state of `public`
-  $(document).on('change', '#spot_public', function() {
+  $(document).on('change', '#spot_public', function () {
     defaultPublicity = $(this).is(':checked');
   });
 
@@ -309,7 +314,7 @@ $(function () {
 
     if ($('#spot_id', '#new_spot').val() == '') {
       markerOptions['data'] = {id: data.id};
-      markerOptions['tag'] = selectedObs.data('obs_id');
+      markerOptions['tag'] = selectedObs.data('obs-id');
       markerOptions.options.icon = RED_ICON;
       markerOptions.options.title = $('div:first', selectedObs).text();
       markerOptions.options.zIndex = google.maps.Marker.MAX_ZINDEX;
@@ -340,7 +345,7 @@ $(function () {
 
     selectedObs.data('obs-count', selectedObs.data('obs-count') - 1);
 
-    selectedObs.toggleClass( 'is_mapped',  selectedObs.data('obs-count') > 0);
+    selectedObs.toggleClass('is_mapped', selectedObs.data('obs-count') > 0);
     e.stopPropagation();
   });
 

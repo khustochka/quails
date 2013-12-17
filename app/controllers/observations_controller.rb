@@ -33,7 +33,7 @@ class ObservationsController < ApplicationController
   # GET /observations/search(/with_spots).json
   def search
     preload_tables = [{:card => :locus}, :species]
-    json_methods = [:species_str, :when_where_str]
+    json_methods = []
     if params[:with_spots]
       preload_tables << :spots
       json_methods << :spots
@@ -52,7 +52,7 @@ class ObservationsController < ApplicationController
       format.html { render partial: 'observations/obs_item', collection: observs }
       format.json { render json:
         { json: observs.as_json(only: :id, methods: json_methods),
-          html: render_to_string(partial: 'observations/obs_item', collection: observs, formats: [:html]) }
+          html: render_to_string(partial: 'maps/observation', collection: observs, formats: [:html]) }
       }
     end
   end

@@ -73,10 +73,7 @@ class ObservationsControllerTest < ActionController::TestCase
     get :search, q: {species_id: observation.species_id.to_s}, format: :json
     assert_response :success
     assert_equal Mime::JSON, response.content_type
-    result = JSON.parse(response.body)
-    result.first.assert_valid_keys('id', 'species_str', 'when_where_str')
-    assert result.first['species_str'].present?
-    assert result.first['when_where_str'].present?
+    result = JSON.parse(response.body)['json']
   end
 
   test 'return observation search results in html' do
@@ -95,11 +92,8 @@ class ObservationsControllerTest < ActionController::TestCase
             create(:observation, species: seed(:anacre))]
     get :search, q: {observ_date: obss[0].card.observ_date.iso8601}, format: 'json'
     assert_response :success
-    result = JSON.parse(response.body)
+    result = JSON.parse(response.body)['json']
     assert_equal 3, result.size
-    assert_includes result[0]['species_str'], 'Anas crecca'
-    assert_includes result[1]['species_str'], 'Dendrocopos major'
-    assert_includes result[2]['species_str'], 'Passer domesticus'
   end
 
   test 'return observation search results that include Avis incognita in HTML' do
@@ -117,9 +111,8 @@ class ObservationsControllerTest < ActionController::TestCase
     get :search, q: {observ_date: observation.card.observ_date.iso8601}, format: 'json'
     assert_response :success
     assert_equal Mime::JSON, response.content_type
-    result = JSON.parse(response.body)
+    result = JSON.parse(response.body)['json']
     assert_equal 1, result.size
-    assert result.first['species_str'].include?('Avis incognita')
   end
 
   test "properly find spots" do
@@ -131,11 +124,9 @@ class ObservationsControllerTest < ActionController::TestCase
     get :search, with_spots: :with_spots, format: :json, q: {observ_date: '2010-07-24'}
     assert_response :success
     assert_equal Mime::JSON, response.content_type
-    result = JSON.parse(response.body)
+    result = JSON.parse(response.body)['json']
     assert_equal 1, result.size
-    result[0].assert_valid_keys('id', 'species_str', 'when_where_str', 'spots')
-    assert result.first['species_str'].present?
-    assert result.first['when_where_str'].present?
+    result[0].assert_valid_keys('id', 'spots')
     assert_equal 1, result[0]['spots'].size
   end
 end
