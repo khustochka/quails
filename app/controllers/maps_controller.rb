@@ -16,7 +16,7 @@ class MapsController < ApplicationController
 
   # GET "/map/observations.json"
   def observations
-    preload_tables = [{:card => :locus}, :species, :spots]
+    preload_tables = [{:card => :locus}, :species, :spots, :images]
     json_methods = [:spots]
 
     # Have to do outer join to preserve Avis incognita
