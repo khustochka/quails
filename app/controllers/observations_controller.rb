@@ -30,14 +30,9 @@ class ObservationsController < ApplicationController
     head :no_content
   end
 
-  # GET /observations/search(/with_spots).json
+  # GET /observations/search
   def search
     preload_tables = [{:card => :locus}, :species]
-    json_methods = []
-    if params[:with_spots]
-      preload_tables << :spots
-      json_methods << :spots
-    end
 
     # Have to do outer join to preserve Avis incognita
     observs =
@@ -50,10 +45,6 @@ class ObservationsController < ApplicationController
 
     respond_to do |format|
       format.html { render partial: 'observations/obs_item', collection: observs }
-      format.json { render json:
-        { json: observs.as_json(only: :id, methods: json_methods),
-          html: render_to_string(partial: 'maps/observation', collection: observs, formats: [:html]) }
-      }
     end
   end
 

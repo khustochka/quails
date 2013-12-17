@@ -67,33 +67,12 @@ class ObservationsControllerTest < ActionController::TestCase
     #assert_response 404
   end
 
-  test 'return observation search results in json' do
-    login_as_admin
-    observation = create(:observation)
-    get :search, q: {species_id: observation.species_id.to_s}, format: :json
-    assert_response :success
-    assert_equal Mime::JSON, response.content_type
-    result = JSON.parse(response.body)['json']
-  end
-
   test 'return observation search results in html' do
     login_as_admin
     observation = create(:observation)
     get :search, q: {species_id: observation.species_id.to_s}
     assert_response :success
     assert_equal Mime::HTML, response.content_type
-  end
-
-  test 'return observation search results sorted by taxonomy' do
-    login_as_admin
-    # Try to create observation in random order
-    obss = [create(:observation, species: seed(:denmaj)),
-            create(:observation, species: seed(:pasdom)),
-            create(:observation, species: seed(:anacre))]
-    get :search, q: {observ_date: obss[0].card.observ_date.iso8601}, format: 'json'
-    assert_response :success
-    result = JSON.parse(response.body)['json']
-    assert_equal 3, result.size
   end
 
   test 'return observation search results that include Avis incognita in HTML' do
@@ -103,30 +82,5 @@ class ObservationsControllerTest < ActionController::TestCase
     assert_response :success
     assert_equal Mime::HTML, response.content_type
     assert_includes response.body, 'Avis incognita'
-  end
-
-  test 'return observation search results that include Avis incognita in JSON' do
-    login_as_admin
-    observation = create(:observation, species_id: 0)
-    get :search, q: {observ_date: observation.card.observ_date.iso8601}, format: 'json'
-    assert_response :success
-    assert_equal Mime::JSON, response.content_type
-    result = JSON.parse(response.body)['json']
-    assert_equal 1, result.size
-  end
-
-  test "properly find spots" do
-    obs1 = create(:observation, card: create(:card, observ_date: '2010-07-24'))
-    obs2 = create(:observation, card: create(:card, observ_date: '2011-07-24'))
-    create(:spot, observation: obs1)
-    create(:spot, observation: obs2)
-    login_as_admin
-    get :search, with_spots: :with_spots, format: :json, q: {observ_date: '2010-07-24'}
-    assert_response :success
-    assert_equal Mime::JSON, response.content_type
-    result = JSON.parse(response.body)['json']
-    assert_equal 1, result.size
-    result[0].assert_valid_keys('id', 'spots')
-    assert_equal 1, result[0]['spots'].size
   end
 end

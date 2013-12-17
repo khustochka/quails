@@ -137,7 +137,7 @@ Quails::Application.routes.draw do
 
   resources :observations, except: [:index, :new, :create, :edit] do
     collection do
-      get 'search(/:with_spots)', action: :search, with_spots: /with_spots/, as: 'search'
+      get 'search', action: :search, as: 'search'
       get 'extract'
       get 'move'
     end
@@ -171,6 +171,7 @@ Quails::Application.routes.draw do
   resource :map, only: [:show, :edit] do
     resources :spots, only: :index
     get 'photos' => 'spots#photos'
+    get 'observations', on: :collection
   end
 
   resources :spots, only: :destroy do
