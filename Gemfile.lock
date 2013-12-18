@@ -141,7 +141,7 @@ GEM
       railties (>= 4.0.0, < 5.0)
       sass (>= 3.1.10)
       sprockets-rails (~> 2.0.0)
-    selenium-webdriver (2.38.0)
+    selenium-webdriver (2.39.0)
       childprocess (>= 0.2.5)
       multi_json (~> 1.0)
       rubyzip (~> 1.0)
@@ -174,7 +174,7 @@ GEM
     uglifier (2.3.3)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
-    unicorn (4.6.3)
+    unicorn (4.8.0.pre1)
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
@@ -218,4 +218,4 @@ DEPENDENCIES
   simple_form (~> 3.0.0)
   simplecov
   uglifier (>= 1.0.3)
-  unicorn (= 4.6.3)
+  unicorn (~> 4.8.0.pre1)
