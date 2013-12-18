@@ -1,9 +1,10 @@
 - img_count = observation.images.size
-- images_html = render partial: 'maps/image', collection: observation.images
 
 %li{data: {obs_id: observation.id, obs_count: observation.spots.size}}
   %span.mapped_indicator{title: "Is mapped"}
   %div= observation.formatted.species_str
   %div= observation.formatted.when_where_str
   - if img_count > 0
-    %span.images_count{data: {title: images_html}}= img_count
+    %div.obs_item_photos
+      %span.images_count= img_count
+      %div.images_popup.ui-tooltip= render partial: 'maps/image', collection: observation.images

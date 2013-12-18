@@ -115,25 +115,6 @@ $(function () {
 
   $(window).resize(adjustSizes);
 
-  $(document).tooltip({
-    items: ".images_count",
-    content: function () {
-      return $(this).data("title");
-    },
-    position: {
-      my: "center bottom-20",
-      at: "center top",
-      using: function (position, feedback) {
-        $(this).css(position);
-        $("<div>")
-            .addClass("arrow")
-            .addClass(feedback.vertical)
-            .addClass(feedback.horizontal)
-            .appendTo(this);
-      }
-    }
-  });
-
   var searchForm = $('form.search');
 
   searchForm.on('ajax:beforeSend', function () {
