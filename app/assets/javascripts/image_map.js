@@ -157,7 +157,7 @@ $(function () {
   if (marks.length > 0) {
     theMap.gmap3(
         {marker: marker_options},
-        'autofit' // Zooms and moves to see all markers
+        {autofit: {maxZoom: max_zoom}} // Zooms and moves to see all markers
     )
   }
   else if (typeof(locusLatLng !== 'undefined')) {
