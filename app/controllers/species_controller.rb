@@ -24,7 +24,7 @@ class SpeciesController < ApplicationController
   def gallery
     species = Species.joins(:image).includes(:image).ordered_by_taxonomy
     @thumbnails = species.map(&:to_thumbnail)
-    if Image.multiple_species.any?
+    if Image.multiple_species.count("DISTINCT images.id") > 0
       @thumbnails << Thumbnail.new(photos_multiple_species_path, "Разные виды на одном фото", Image.multiple_species.first)
     end
     @feed = 'photos'
@@ -45,7 +45,6 @@ class SpeciesController < ApplicationController
           @months = countries.each_with_object({}) do |country, memo|
             memo[country.slug] = @species.cards.except(:order).where(locus_id: country.subregion_ids).pluck("DISTINCT EXTRACT(month FROM observ_date)::integer")
           end
-          #@months = @species.cards.except(:order).pluck("DISTINCT EXTRACT(month FROM observ_date)::integer")
         else
           @robots = 'NOINDEX'
         end
