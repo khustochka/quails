@@ -2,11 +2,6 @@
 
 - @robots = 'NOINDEX'
 
-- provide :the_newest_species do
-  %b= species_link(@newest_species)
-  = surround '(', ')' do
-    %time= l(@newest_species.first_seen_date, :format => :long)
-
 
 %div.header-with-subheader
   %h1= @page_title
@@ -17,78 +12,53 @@
     %li= link_to('Список США', list_path(locus: 'usa'))
     %li= link_to('Список Великобритании', list_path(locus: 'united_kingdom'))
 
-:textile
-  * Я начал наблюдать птиц в августе 2007 года.
-  * Всего я встречал "**#{@total}**":#{lifelist_path} #{t('misc.species_count', count: @total)}.
-  * Из них "**#{@species_ukraine}**":#{list_path(locus: 'ukraine')} на территории Украины.
+%table.nice_stats
 
-%h2 В 2013 году
+  - @year_data.each do |row|
+    %tr
+      %td.year= row.year
+      %td.count_sp= row.count_species
+      %td.count_sp_label
+        = t('misc.species_count', count: row.count_species)
+      - unless row.year == 2007
+        %td.count_new
+          = @first_sp_by_year[row.year]
+        %td.count_new_label
+          = t('my_stats.index.new_count_species', count: @first_sp_by_year[row.year])
+      - else
+        %td.count_new &mdash;
+        %td
 
-%ul
-  %li
-    Я встретил
-    %b= link_to(@species_this_year, list_path(year: 2013))
-    #{t('misc.species_count', count: @species_this_year)}.
-  - if @new_this_year == 0
-    %li Пока ни одного нового.
-  - elsif @new_this_year == 1
-    %li
-      Из них один новый:
-      = content_for :the_newest_species
-  - else
-    %li Из них #{t('.new_count_species', count: @new_this_year)}.
-    %li
-      Самый новый вид:
-      = content_for :the_newest_species
 
-%h2 Рекорды
+  %tr.total
+    %td.year всего
+    %td.count_sp= @total
+    %td.count_sp_label
+      = t('misc.species_count', count: @total)
+    %td
+    %td
 
-%ul
-  %li
-    Год, в котором встречено больше всего видов:
-    #{@year_with_max_species.sp_count} в #{@year_with_max_species.year} году.
+- day_with_max_species = Date.new(2012, 6, 28)
+- max_species_for_day = 60
 
-  %li
-    Месяц года, когда было встречено больше всего видов:
-    = t('date.standalone_month_names')[@month_year_with_max_species.month.to_i]
-    = @month_year_with_max_species.year
-    (#{@month_year_with_max_species.sp_count})
+- day_with_max_new_species = Date.new(2010, 8, 14)
+- max_new_species_for_day = 15
 
-  %li
-    Месяц, в котором встречено больше всего видов:
-    = t('date.standalone_month_names')[@month_with_max_species.month.to_i]
-    (#{@month_with_max_species.sp_count})
+%table.nice_stats
+  %tr
+    %th{colspan: 4}
+      %h2 Рекорды:
 
-  %li
-    День, в который встречено больше всего видов:
-    = l(Date.parse(@day_with_max_species.observ_date), format: :long)
-    (#{@day_with_max_species.sp_count})
+  %tr
+    %td.day= l(day_with_max_species, format: :long)
+    %td.place с. Литочки и г. Бровары, Киевская область, Украина
+    %td.count_sp= max_species_for_day
+    %td.count_sp_label= t('misc.species_count', count: max_species_for_day)
 
-  %li
-    День, в который встречено больше всего новых видов:
-    = l(Date.parse(@day_with_max_new_species.observed_at), format: :long)
-    (#{@day_with_max_new_species.sp_count})
-
-%h2 Виды
-
-%ul
-  -# If latest new species is seen this year it will be shown in the appropriate section, otherwise here
-  - if @new_this_year == 0
-    %li
-      Самый новый вид:
-      = content_for :the_newest_species
-
-  %li
-    Самый давно не встречаемый вид:
-    %b= species_link(@oldest_species)
-    = surround '(', ')' do
-      %time= l(@oldest_species.last_seen_date, :format => :long)
-
-  %li
-    Чаще всего встречаемый вид:
-    %b= species_link(@most_often_species)
-    = surround '(', ')' do
-      = @most_often_species.times_seen
-
-  %li
-    #{@sp_met_once} #{t('misc.species_count', count: @sp_met_once)} встречены лишь однажды.
+  %tr
+    %td.day= l(day_with_max_new_species, format: :long)
+    %td.place Jamaica Bay Wildlife Refuge, New York City, USA
+    %td.count_new= max_new_species_for_day
+    %td.count_new_label
+      = t('my_stats.index.new_count_species', count: max_new_species_for_day)
+      = t('misc.species_count', count: max_new_species_for_day)

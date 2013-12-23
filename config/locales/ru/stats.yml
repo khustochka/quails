@@ -2,6 +2,6 @@
   my_stats:
     index:
       new_count_species:
-        one: '1 новый'
-        few: '%{count} новых'
-        many: '%{count} новых'
+        one: 'новый'
+        few: 'новых'
+        many: 'новых'
