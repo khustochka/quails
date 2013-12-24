@@ -21,16 +21,14 @@
     %tr
       %td.year= row.year
       %td.count_sp= row.count_species
-      %td.count_sp_label
-        = t('misc.species_count', count: row.count_species)
       - unless row.year == 2007
+        %td
         %td.count_new
           = @first_sp_by_year[row.year]
-        %td.count_new_label
-          = t('my_stats.index.new_count_species', count: @first_sp_by_year[row.year])
       - else
-        %td.count_new &mdash;
-        %td
+        %td.count_sp_label
+          = t('misc.species_count', count: row.count_species)
+        %td.count_new_label.align-right новых:
 
 
   %tr.total
@@ -38,7 +36,6 @@
     %td.count_sp= @total
     %td.count_sp_label
       = t('misc.species_count', count: @total)
-    %td
     %td
 
 - day_with_max_species = Date.new(2012, 6, 28)
