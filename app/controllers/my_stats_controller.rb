@@ -15,17 +15,6 @@ class MyStatsController < ApplicationController
 
     @first_sp_by_year = lifelist_filtered.group('EXTRACT(year FROM first_seen)::integer').except(:order).count(:all)
 
-    @countries = Country.all
-
-    country_mapper = @countries.map do |c|
-      " WHEN locus_id IN (#{c.subregion_ids.join(', ')}) THEN #{c.id} "
-    end.join
-    country_sql = "(CASE #{country_mapper} END)"
-
-    @grouped_by_country = identified_observations.
-        #select("#{country_sql} AS country_id").
-        group(country_sql).count("DISTINCT species_id")
-
   end
 
 end
