@@ -35,7 +35,9 @@
 
 .admin-shortcuts li a
   // Funny effect!
-  @include unhighlighted-link($site-menu-color, #f7f7f1)
+  @include unhighlighted-link($site-menu-color)
+  &:hover
+    background-color: #f7f7f1
   margin-right: 4px
   background-color: #eee
   border: 1px solid #ccc

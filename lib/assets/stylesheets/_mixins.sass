@@ -26,27 +26,27 @@ $main-width: 896px
     color: #ffffff
     text-decoration: none
 
-@mixin bordered-link($ln-color, $bg-color: #ffffff)
+@mixin bordered-link($ln-color)
   color: $ln-color
   text-decoration: none
   border-bottom: 1px dotted $ln-color
   border-bottom: 2px solid rgba($ln-color, 0.4)
-  &:hover
-    background-color: $ln-color
-    color: #ffffff
+  //&:hover
+  //  background-color: $ln-color
+  //  color: #ffffff
 
-@mixin deep-bordered-link($ln-color, $bg-color: #ffffff)
+@mixin deep-bordered-link($ln-color)
   padding: 5px 2px 3px 2px
-  @include bordered-link($ln-color, $bg-color)
+  @include bordered-link($ln-color)
 
-@mixin unhighlighted-link($ln-color, $bg-color: #ffffff)
+@mixin unhighlighted-link($ln-color)
   &:hover
     color: $ln-color
     border-bottom: 2px solid lighten($ln-color, 4)
     border-bottom: 2px solid rgba($ln-color, 0.7)
-    background-color: inherit
+    //background-color: inherit
     // IE6/7 do not understand inherit
-    *background-color: $bg-color
+    //*background-color: $bg-color
 
 @mixin arial-font
   font-family: Arial, sans-serif

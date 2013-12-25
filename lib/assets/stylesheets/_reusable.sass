@@ -27,6 +27,7 @@
 
 .subheader-menu
   @include horiz-list
+  @extend .green_links
   line-height: 1.6em
   font-size: 19px
   @include arial-font
@@ -126,15 +127,16 @@ a.remove, a.destroy, a.remove:hover, a.destroy:hover, a.img, a.img:hover
   //font-size: large
   font-weight: bold
 
-.pseudolink, .pseudolink:hover
-  padding: 0 1px
-  background-color: inherit
-  // IE6/7 do not understand inherit
-  *background-color: white
-  cursor: pointer
-  text-decoration: none
-  border-bottom: 1px dashed #55a
-  color: #55a
+body, .main
+  .pseudolink, .pseudolink:hover
+    padding: 0 1px
+    background-color: inherit
+    // IE6/7 do not understand inherit
+    *background-color: white
+    cursor: pointer
+    text-decoration: none
+    border-bottom: 1px dashed #55a
+    color: #55a
 
 .remove
   cursor: pointer

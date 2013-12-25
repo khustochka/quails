@@ -1,5 +1,13 @@
 module ApplicationHelper
 
+  def main_classes
+    @main_classes ||= ['main', 'green_links']
+    if @special_styling
+      @main_classes.delete('green_links')
+    end
+    @main_classes
+  end
+
   def page_title
     strip_tags(@page_title).try(:html_safe) || default_page_title
   end
