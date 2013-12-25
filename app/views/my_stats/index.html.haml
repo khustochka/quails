@@ -22,23 +22,21 @@
   - @year_data.each do |row|
     %tr
       %td.year= row.year
-      %td.count_sp= row.count_species
       - unless row.year == 2007
-        %td
         %td.count_new
-          = @first_sp_by_year[row.year]
-      - else
-        %td.count_sp_label
-          = t('misc.species_count', count: row.count_species)
-        %td.count_new_label.align-right новых:
+          %small{title: "Новых добавлено к списку"}
+            = precede '+' do
+              = @first_sp_by_year[row.year]
 
+      %td.count_sp{colspan: (row.year == 2007 ? 2 : 1)}
+        - if row.year == 2007
+          %small встречено видов:
+        = row.count_species
 
   %tr.total
     %td.year всего
-    %td.count_sp= @total
-    %td.count_sp_label
-      = t('misc.species_count', count: @total)
     %td
+    %td.count_sp= @total
 
 - day_with_max_species = Date.new(2012, 6, 28)
 - max_species_for_day = 60

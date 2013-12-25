@@ -386,7 +386,7 @@ table.nice_stats
   width: 100%
   margin-bottom: 50px
   td
-    padding: 3px 0 5px 0
+    padding: 3px 5px 5px 5px
     vertical-align: baseline
     font-family: Verdana, Tahoma, sans-serif
     font-weight: bold
@@ -409,7 +409,6 @@ table.nice_stats
     color: #666666
     font-size: 28px
   td.year
-    padding-right: 15px
     color: #666666
   td.place
     font-style: italic
@@ -418,9 +417,12 @@ table.nice_stats
     color: #555
   .count_sp, .count_new
     text-align: right
-    padding:
-      right: 5px
-      left: 50px
+    small
+      font-family: Arial
+  .count_sp small
+    font-size: 18px
+  .count_new small
+    font-size: 24px
   .count_sp, .count_sp_label
     color: #3661b7
   .count_new, .count_new_label
