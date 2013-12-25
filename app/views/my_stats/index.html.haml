@@ -37,6 +37,10 @@
     %td.year всего
     %td
     %td.count_sp= @total
+    %td
+      - @countries.each do |c|
+        %p= c.name_ru
+        %p= @grouped_by_country[c.id]
 
 - day_with_max_species = Date.new(2012, 6, 28)
 - max_species_for_day = 60
