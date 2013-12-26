@@ -23,8 +23,11 @@ class MyStatsController < ApplicationController
     country_sql = "(CASE #{country_mapper} END)"
 
     @grouped_by_country = identified_observations.
-        #select("#{country_sql} AS country_id").
         group(country_sql).count("DISTINCT species_id")
+
+    @grouped_by_year_and_country = identified_observations.
+        group('EXTRACT(year FROM observ_date)::integer', country_sql).count("DISTINCT species_id")
+
 
   end
 

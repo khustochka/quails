@@ -33,14 +33,27 @@
           %small встречено видов:
         = row.count_species
 
+      %td.countries
+        %ul
+          - @countries.each do |c|
+            - count = @grouped_by_year_and_country[[row.year, c.id]]
+            - if count
+              %li{class: c.slug}
+                = succeed ':' do
+                  = c.name_ru
+                %span.count= count
+
   %tr.total
     %td.year всего
     %td
     %td.count_sp= @total
-    %td
-      - @countries.each do |c|
-        %p= c.name_ru
-        %p= @grouped_by_country[c.id]
+    %td.countries
+      %ul
+        - @countries.each do |c|
+          %li{class: c.slug}
+            = succeed ':' do
+              = c.name_ru
+            %span.count= @grouped_by_country[c.id]
 
 - day_with_max_species = Date.new(2012, 6, 28)
 - max_species_for_day = 60
