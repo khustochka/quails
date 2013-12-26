@@ -17,65 +17,67 @@
     %li= link_to('Список США', list_path(locus: 'usa'))
     %li= link_to('Список Великобритании', list_path(locus: 'united_kingdom'))
 
-%table.nice_stats
+- cache(key: CacheKey.lifelist) do
 
-  - @year_data.each do |row|
-    %tr
-      %td.year= row.year
-      - unless row.year == 2007
-        %td.count_new
-          %small{title: "Новых добавлено к списку"}
-            = precede '+' do
-              = @first_sp_by_year[row.year]
+  %table.nice_stats
 
-      %td.count_sp{colspan: (row.year == 2007 ? 2 : 1)}
-        - if row.year == 2007
-          %small встречено видов:
-        = row.count_species
+    - @year_data.each do |year, count_species|
+      %tr
+        %td.year= year
+        - unless year == 2007
+          %td.count_new
+            %small{title: "Новых добавлено к списку"}
+              = precede '+' do
+                = @first_sp_by_year[year.to_i]
 
+        %td.count_sp{colspan: (year == 2007 ? 2 : 1)}
+          - if year == 2007
+            %small встречено видов:
+          = count_species
+
+        %td.countries
+          %ul
+            - @countries.each do |c|
+              - count = @grouped_by_year_and_country[[year, c.id]]
+              - if count
+                %li{class: c.slug}
+                  = succeed ':' do
+                    = c.name_ru
+                  %span.count= count
+
+    %tr.total
+      %td.year всего
+      %td
+      %td.count_sp= @total
       %td.countries
         %ul
           - @countries.each do |c|
-            - count = @grouped_by_year_and_country[[row.year, c.id]]
-            - if count
-              %li{class: c.slug}
-                = succeed ':' do
-                  = c.name_ru
-                %span.count= count
+            %li{class: c.slug}
+              = succeed ':' do
+                = c.name_ru
+              %span.count= @grouped_by_country[c.id]
 
-  %tr.total
-    %td.year всего
-    %td
-    %td.count_sp= @total
-    %td.countries
-      %ul
-        - @countries.each do |c|
-          %li{class: c.slug}
-            = succeed ':' do
-              = c.name_ru
-            %span.count= @grouped_by_country[c.id]
+  - day_with_max_species = Date.new(2012, 6, 28)
+  - max_species_for_day = 60
 
-- day_with_max_species = Date.new(2012, 6, 28)
-- max_species_for_day = 60
+  - day_with_max_new_species = Date.new(2010, 8, 14)
+  - max_new_species_for_day = 15
 
-- day_with_max_new_species = Date.new(2010, 8, 14)
-- max_new_species_for_day = 15
+  %table.nice_stats
+    %tr
+      %th{colspan: 4}
+        %h2 Рекорды:
 
-%table.nice_stats
-  %tr
-    %th{colspan: 4}
-      %h2 Рекорды:
+    %tr
+      %td.day= l(day_with_max_species, format: :long)
+      %td.place с. Литочки и г. Бровары, Киевская область, Украина
+      %td.count_sp= max_species_for_day
+      %td.count_sp_label= t('misc.species_count', count: max_species_for_day)
 
-  %tr
-    %td.day= l(day_with_max_species, format: :long)
-    %td.place с. Литочки и г. Бровары, Киевская область, Украина
-    %td.count_sp= max_species_for_day
-    %td.count_sp_label= t('misc.species_count', count: max_species_for_day)
-
-  %tr
-    %td.day= l(day_with_max_new_species, format: :long)
-    %td.place Jamaica Bay Wildlife Refuge, New York City, USA
-    %td.count_new= max_new_species_for_day
-    %td.count_new_label
-      = t('my_stats.index.new_count_species', count: max_new_species_for_day)
-      = t('misc.species_count', count: max_new_species_for_day)
+    %tr
+      %td.day= l(day_with_max_new_species, format: :long)
+      %td.place Jamaica Bay Wildlife Refuge, New York City, USA
+      %td.count_new= max_new_species_for_day
+      %td.count_new_label
+        = t('my_stats.index.new_count_species', count: max_new_species_for_day)
+        = t('misc.species_count', count: max_new_species_for_day)

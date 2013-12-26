@@ -7,13 +7,11 @@ class MyStatsController < ApplicationController
     identified_observations = observations_filtered.identified
     lifelist_filtered = Lifelist.basic.relation
 
-    @year_data = identified_observations.select('EXTRACT(year FROM observ_date)::integer as year,
-                                      COUNT(observations.id) as count_obs,
-                                      COUNT(DISTINCT observ_date) as count_days,
-                                      COUNT(DISTINCT species_id) as count_species').
-        group('EXTRACT(year FROM observ_date)').order('year')
+    @year_data = identified_observations.group('EXTRACT(year FROM observ_date)::integer').
+        order('EXTRACT(year FROM observ_date)::integer').count("DISTINCT species_id")
 
-    @first_sp_by_year = lifelist_filtered.group('EXTRACT(year FROM first_seen)::integer').except(:order).count(:all)
+    @first_sp_by_year = lifelist_filtered.group('EXTRACT(year FROM first_seen)::integer').
+        except(:order).count(:all)
 
     @countries = Country.all
 
