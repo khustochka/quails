@@ -22,6 +22,10 @@ class Observation < ActiveRecord::Base
 
   scope :identified, lambda { where('observations.species_id != 0') }
 
+  def self.count_distinct_species
+    self.count("DISTINCT species_id")
+  end
+
   # TODO: improve and probably use universally
   def self.filter(options = {})
     rel = self.all
