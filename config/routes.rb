@@ -55,7 +55,7 @@ Quails::Application.routes.draw do
   root to: 'blog#home', as: 'blog'
 
   constraints country: /ukraine|usa/ do
-    scope '/(:locale)', locale: /|en/ do
+    scope '(:locale)', locale: /en/ do
       get '/:country' => 'countries#gallery', as: "country"
       get '/:country/checklist' => 'checklist#show', as: "checklist"
     end
@@ -64,7 +64,7 @@ Quails::Application.routes.draw do
   end
 
 
-  scope '/(:locale)', locale: /|en/ do
+  scope '(:locale)' do
     get '/species' => 'species#gallery', as: 'gallery'
     resources :species, only: [:show]
   end
@@ -76,7 +76,7 @@ Quails::Application.routes.draw do
     end
   end
 
-  scope '/(:locale)', locale: /|en/ do
+  scope '(:locale)', locale: /en/ do
     get '/photos(/page/:page)' => 'images#index', page: /[^0]\d*/, constraints: {format: 'html'}
     resource :photos, controller: 'images', only: [:show]
     get '/photos/multiple_species' => 'images#multiple_species'
@@ -109,7 +109,7 @@ Quails::Application.routes.draw do
 
   get '/archive' => 'blog#archive'
 
-  scope '/(:locale)', locale: /|en/ do
+  scope '(:locale)', locale: /en/ do
 
     get '/my' => 'my_stats#index', as: :my_stats
 
