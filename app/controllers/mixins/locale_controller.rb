@@ -5,12 +5,14 @@ module LocaleController
 
   private
   def set_locale
-    I18n.locale = params[:hl] || DEFAULT_PUBLIC_LOCALE
-    #@locale = I18n.locale = non_default_locales.include?(params[:locale]) ? params[:locale] : I18n.default_locale
+    locale_from_path = request.symbolized_path_parameters[:locale].try(:to_sym)
+    if locale_from_path && ALL_LOCALES.include?(locale_from_path)
+      @locale_set = I18n.locale = locale_from_path
+    end
 #    I18n.reload!
   end
 
   def default_url_options(options={})
-    options.merge params[:hl] ? {:hl => params[:hl]} : {}
+    options.merge @locale_set ? {:locale => @locale_set} : {}
   end
 end
