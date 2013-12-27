@@ -1,7 +1,7 @@
 'en':
   images:
     index:
-      species_galery: Species galery
+      species_gallery: Species gallery
 
     show:
       prev_image: "<< Previous image"
