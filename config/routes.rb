@@ -55,23 +55,35 @@ Quails::Application.routes.draw do
   root to: 'blog#home', as: 'blog'
 
   constraints country: /ukraine|usa/ do
-    get '/:country' => 'countries#gallery', as: "country"
-    get '/:country/checklist' => 'checklist#show', as: "checklist"
+    scope '/(:locale)', locale: /|en/ do
+      get '/:country' => 'countries#gallery', as: "country"
+      get '/:country/checklist' => 'checklist#show', as: "checklist"
+    end
     get '/:country/checklist/edit' => 'checklist#edit'
     post '/:country/checklist/edit' => 'checklist#save'
   end
 
-  get '/species' => 'species#gallery', as: 'gallery'
-  resources :species, only: [:show] do
+
+  scope '/(:locale)', locale: /|en/ do
+    get '/species' => 'species#gallery', as: 'gallery'
+    resources :species, only: [:show]
+  end
+
+  resources :species, only: [] do
     collection do
       get 'admin', action: :index
       get 'search'
     end
   end
 
-  get '/photos(/page/:page)' => 'images#index', page: /[^0]\d*/, constraints: {format: 'html'}
-  get '/photos/multiple_species' => 'images#multiple_species'
-  resources :photos, controller: 'images', as: 'images', except: :index do
+  scope '/(:locale)', locale: /|en/ do
+    get '/photos(/page/:page)' => 'images#index', page: /[^0]\d*/, constraints: {format: 'html'}
+    resource :photos, controller: 'images', only: [:show]
+    get '/photos/multiple_species' => 'images#multiple_species'
+  end
+
+
+  resources :photos, controller: 'images', as: 'images', except: [:index, :show] do
     member do
       get 'edit/map', action: :map_edit
       get 'edit/parent', action: :parent_edit
@@ -97,18 +109,21 @@ Quails::Application.routes.draw do
 
   get '/archive' => 'blog#archive'
 
-  get '/my' => 'my_stats#index', as: :my_stats
+  scope '/(:locale)', locale: /|en/ do
 
-  get '/my/lists' => 'lists#index'
+    get '/my' => 'my_stats#index', as: :my_stats
 
-  get '/my/lists/advanced' => 'lists#advanced', as: :advanced_list
+    get '/my/lists' => 'lists#index'
 
-  get '/my/lists/life(/:sort)' => 'lists#basic', as: :lifelist
+    get '/my/lists/advanced' => 'lists#advanced', as: :advanced_list
 
-  get '/my/lists(/:locus)(/:year)(/:sort)' => 'lists#basic', as: :list,
-      locus: /(?!by_)\D[^\/]+/, # negative look-ahead: not starting with 'by_'
-      year: /\d{4}/,
-      sort: /by_taxonomy/
+    get '/my/lists/life(/:sort)' => 'lists#basic', as: :lifelist
+
+    get '/my/lists(/:locus)(/:year)(/:sort)' => 'lists#basic', as: :list,
+        locus: /(?!by_)\D[^\/]+/, # negative look-ahead: not starting with 'by_'
+        year: /\d{4}/,
+        sort: /by_taxonomy/
+  end
 
   # Static pages
   get '/:id' => 'pages#show_public', constraints: {id: /links|about|winter/}, as: :show_page
@@ -118,9 +133,11 @@ Quails::Application.routes.draw do
   get '/photos.:format' => 'feeds#photos', constraints: {format: 'xml'}
   get '/sitemap.:format' => 'feeds#sitemap', constraints: {format: 'xml'}
 
-#  scope '/(:locale)', locale: /[a-z]{2}/ do
-#    resources :species, except: [:new, :create, :destroy]
-#  end
+  # TRANSLATED:
+
+  scope '/:locale', locale: /en/ do
+    root 'species#gallery'
+  end
 
 # ADMINISTRATIVE PAGES
 
