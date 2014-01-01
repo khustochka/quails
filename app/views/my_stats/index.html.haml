@@ -30,9 +30,11 @@
         %td.year= year
         - unless year == 2007
           %td.count_new
-            %small{title: "Новых добавлено к списку"}
-              = precede '+' do
-                = first_sp_by_year[year.to_i]
+            - new_sp = first_sp_by_year[year.to_i]
+            - if new_sp && new_sp > 0
+              %small{title: "Новых добавлено к списку"}
+                = precede '+' do
+                  = new_sp
 
         %td.count_sp{colspan: (year == 2007 ? 2 : 1)}
           - if year == 2007
