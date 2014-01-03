@@ -24,7 +24,7 @@ module SecurityController
 
   private
   def current_user
-    @current_user ||= User.detect(session, cookies)
+    @current_user ||= User.detect(request)
   end
 
 end
