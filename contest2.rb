@@ -50,9 +50,11 @@ end
 
 SPCS = Hash[Species.all.map { |s| [s.id, s.name_sci] }]
 
+year = ENV['YEAR'] || 2014
+
 obs = MyObservation.joins(:card).
     select('DISTINCT observ_date, species_id').
-    where('EXTRACT(year FROM observ_date)::integer = 2014').
+    where('EXTRACT(year FROM observ_date)::integer = ?', year).
     #where("observ_date <= '2012-01-16'").
     order("observ_date").map { |o| [o.observ_date, o.species_id] }.
     group_by(&:first).values.map { |e| e.map(&:second) }
