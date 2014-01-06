@@ -5,11 +5,7 @@ module SecurityController
 
     #force HTTP
     if Quails.env.ssl?
-      klass.before_filter do
-        if request.ssl? && !current_user.has_trust_cookie?
-          redirect_to({only_path: false, protocol: 'http'})
-        end
-      end
+      klass.before_filter :force_http
     end
 
   end
@@ -30,11 +26,18 @@ module SecurityController
       end
     end
 
+
   end
 
   private
   def current_user
     @current_user ||= User.detect(request)
+  end
+
+  def force_http
+    if request.ssl? && !current_user.has_trust_cookie?
+      redirect_to({only_path: false, protocol: 'http'})
+    end
   end
 
 end
