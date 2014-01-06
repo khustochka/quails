@@ -26,7 +26,7 @@
     %li.login_link
 
     - if Quails.env.ssl? && !request.ssl?
-      = link_to 'Admin area', {only_path: false, protocol: 'https'}
+      = link_to 'Admin area', params.merge({only_path: false, protocol: 'https'})
 
     - else
       = link_to 'Login', login_path(Quails.env.ssl? ? {only_path: false, protocol: 'https'} : nil)
