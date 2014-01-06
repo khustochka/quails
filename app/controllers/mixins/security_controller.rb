@@ -2,6 +2,16 @@ module SecurityController
   def self.included(klass)
     klass.extend ClassMethods
     klass.helper_method :current_user
+
+    #force HTTP
+    if Quails.env.ssl?
+      klass.before_filter do
+        if request.ssl? && !current_user.has_trust_cookie?
+          redirect_to({only_path: false, protocol: 'http'})
+        end
+      end
+    end
+
   end
 
   module ClassMethods
