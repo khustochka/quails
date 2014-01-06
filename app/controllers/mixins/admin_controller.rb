@@ -13,6 +13,9 @@ module AdminController
   module ClassMethods
 
     def administrative(options={})
+      if Quails.env.ssl?
+        force_ssl options
+      end
       requires_admin_authorized options
       before_filter options do
         @admin_layout = true
