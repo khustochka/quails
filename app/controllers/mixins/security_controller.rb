@@ -36,7 +36,7 @@ module SecurityController
 
   def force_http
     if request.ssl? && !current_user.has_trust_cookie?
-      redirect_to({only_path: false, protocol: 'http'})
+      redirect_to({only_path: false, protocol: 'http', status: 301})
     end
   end
 
