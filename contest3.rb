@@ -1,5 +1,9 @@
 require './config/environment'
 
+class MaxDateReached < Exception
+
+end
+
 SPCS = Hash[Species.all.map { |s| [s.id, s.name_sci] }]
 
 year = (ENV['YEAR'] || 2014).to_i
@@ -13,22 +17,44 @@ $obs.each do |d, el|
   $obs[d] = el.map(&:species_id).uniq
 end
 
-def calculate(date, result)
+$max_date = $obs.keys.max
+
+def calculate(date, result, the_rest)
+  depth = result.size
   if $deepest < date - 1
     puts "Deepest #{date - 1}"
     puts result.map.with_index { |s, i| "#{i+1}. #{SPCS[s]}" }
-    puts "\n\n"
+    puts "\n"
     $deepest = date - 1
+    $best = result
   end
-  if $obs[date].nil?
+  if $deepest == $max_date
+    raise MaxDateReached
+  end
+  if the_rest[date].nil?
     return
   end
-  left = $obs[date] - result
+  left = the_rest[date] - result
   if left.empty?
     #puts "Last day reached #{date - 1}"
   else
-    left.each do |sp|
-      calculate(date + 1, result + [sp])
+    total = left.size
+    left.each_with_index do |sp, index|
+      #puts ("--" * depth) + " trying #{index + 1} of #{total}"
+      new_rest = {}
+      the_rest.each do |day, list|
+        if day > date
+          new_rest[day] = list - [sp]
+        end
+      end
+      # Cutoff
+      empty_date = new_rest.find {|d, l| l.empty?}
+      if empty_date
+        if empty_date.first <= $deepest
+          return
+        end
+      end
+      calculate(date + 1, result + [sp], new_rest)
     end
   end
 end
@@ -60,5 +86,9 @@ jan_1 = Date.new(year, 1, 1)
 
 $deepest = jan_1 - 1
 
-calculate(jan_1, [])
+begin
+  calculate(jan_1, [], $obs.dup)
+rescue MaxDateReached
+end
 
+#puts $best.map.with_index { |s, i| "#{i+1}. #{SPCS[s]}" }
