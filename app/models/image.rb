@@ -180,7 +180,7 @@ class Image < ActiveRecord::Base
 
   def to_thumbnail
     title = self.formatted.title
-    child_num = children.count
+    child_num = children.size
     if child_num > 0
       title = "#{title} (#{child_num + 1} фото)"
     end
