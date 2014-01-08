@@ -29,14 +29,14 @@ class Image < ActiveRecord::Base
   end
 
   after_save do
-    cards.each { |c| c.post.try(:touch) }
-    observations.each { |o| o.post.try(:touch) }
+    cards.preload(:post).map(&:post).uniq.each { |p| p.try(:touch) }
+    observations.preload(:post).map(&:post).uniq.each { |p| p.try(:touch) }
   end
 
   after_destroy do
     species.each(&:update_image)
-    cards.each { |c| c.post.try(:touch) }
-    observations.each { |o| o.post.try(:touch) }
+    cards.preload(:post).map(&:post).uniq.each { |p| p.try(:touch) }
+    observations.preload(:post).map(&:post).uniq.each { |p| p.try(:touch) }
   end
 
   def destroy
