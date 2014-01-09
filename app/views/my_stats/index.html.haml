@@ -34,12 +34,12 @@
             - if new_sp && new_sp > 0
               %small{title: "Новых добавлено к списку"}
                 = precede '+' do
-                  = new_sp
+                  = link_to new_sp, advanced_list_path(anchor: "first_seen_#{year}")
 
         %td.count_sp{colspan: (year == 2007 ? 2 : 1)}
           - if year == 2007
             %small встречено видов:
-          = count_species
+          = link_to count_species, list_path(year: year)
 
         %td.countries
           %ul
@@ -49,19 +49,19 @@
                 %li{class: c.slug}
                   = succeed ':' do
                     = c.name_ru
-                  %span.count= count
+                  %span.count= link_to count, list_path(year: year, locus: c.slug)
 
     %tr.total
       %td.year всего
       %td
-      %td.count_sp= MyObservation.count_distinct_species
+      %td.count_sp= link_to MyObservation.count_distinct_species, lifelist_path
       %td.countries
         %ul
           - @countries.each do |c|
             %li{class: c.slug}
               = succeed ':' do
                 = c.name_ru
-              %span.count= grouped_by_country[c.id]
+              %span.count= link_to grouped_by_country[c.id], list_path(locus: c.slug)
 
   - day_with_max_species = Date.new(2012, 6, 28)
   - max_species_for_day = 60
