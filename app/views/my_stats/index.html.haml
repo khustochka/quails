@@ -33,8 +33,9 @@
             - new_sp = first_sp_by_year[year.to_i]
             - if new_sp && new_sp > 0
               %small{title: "Новых добавлено к списку"}
-                = precede '+' do
-                  = link_to new_sp, advanced_list_path(anchor: "first_seen_#{year}")
+                = link_to advanced_list_path(anchor: "first_seen_#{year}") do
+                  = precede '+' do
+                    =  new_sp
 
         %td.count_sp{colspan: (year == 2007 ? 2 : 1)}
           - if year == 2007
