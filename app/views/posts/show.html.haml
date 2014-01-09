@@ -2,7 +2,7 @@
 - javascript 'post_show_admin' if current_user.admin?
 
 -# @meta_thumbnail = thumbnail_item(@post.images.to_a.first).try(:url) if @post.images.present?
-- @canonical = public_post_path(@post, only_path: false)
+- @canonical = public_post_path(@post, only_path: false, protocol: 'http')
 - @og_type = 'article'
 
 - if @post.public?

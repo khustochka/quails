@@ -2,7 +2,7 @@
 
 - @meta_thumbnail = thumbnail_item(@image).try(:url)
 - @meta_description = @image.formatted.meta_description
-- @canonical = image_url(@image)
+- @canonical = image_url(@image, protocol: 'http')
 - @og_type = 'birdwatchua:photo'
 
 - @page_header = @page_title = @image.formatted.title
