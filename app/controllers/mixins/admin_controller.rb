@@ -14,6 +14,8 @@ module AdminController
 
     def administrative(options={})
       if Quails.env.ssl?
+        before_filter :force_ssl_for_admin, options
+        # FIXME: seems not to work, but OK
         skip_before_filter :force_http, options
       end
       requires_admin_authorized options

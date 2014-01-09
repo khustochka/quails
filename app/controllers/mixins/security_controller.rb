@@ -40,4 +40,10 @@ module SecurityController
     end
   end
 
+  def force_ssl_for_admin
+    if !request.ssl? && current_user.has_trust_cookie?
+      redirect_to({only_path: false, protocol: 'https', status: 301})
+    end
+  end
+
 end
