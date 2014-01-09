@@ -27,8 +27,8 @@ module CredentialsCheck
     :is_admin
   end
 
-  def is_admin_session?(session)
-    User.cookie_value && session[User.cookie_name] == User.cookie_value
+  def is_admin_session?(request)
+    ssl_gate(request) && User.cookie_value && request.session[User.cookie_name] == User.cookie_value
   end
 
   def has_trust_cookie?(cookies)
@@ -38,5 +38,10 @@ module CredentialsCheck
   def check_credentials(username, password)
     username == @options.username &&
         (Digest::SHA1.hexdigest(password) == @options.password || (!Rails.env.production? && password == @options.password))
+  end
+
+  private
+  def ssl_gate(request)
+    !Quails.env.ssl? || request.ssl?
   end
 end

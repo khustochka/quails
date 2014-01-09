@@ -2,6 +2,12 @@ module SecurityController
   def self.included(klass)
     klass.extend ClassMethods
     klass.helper_method :current_user
+
+    #force HTTP
+    if Quails.env.ssl?
+      klass.before_filter :force_http
+    end
+
   end
 
   module ClassMethods
@@ -20,11 +26,24 @@ module SecurityController
       end
     end
 
+
   end
 
   private
   def current_user
-    @current_user ||= User.detect(session, cookies)
+    @current_user ||= User.detect(request)
+  end
+
+  def force_http
+    if request.ssl? && !current_user.has_trust_cookie?
+      redirect_to({only_path: false, protocol: 'http', status: 301})
+    end
+  end
+
+  def force_ssl_for_admin
+    if !request.ssl? && current_user.has_trust_cookie?
+      redirect_to({only_path: false, protocol: 'https', status: 301})
+    end
   end
 
 end
