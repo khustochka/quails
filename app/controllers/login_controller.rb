@@ -15,8 +15,11 @@ class LoginController < ApplicationController
     if User.check_credentials(params[:username], params[:password])
       current_user.set_trust_cookie
       current_user.set_admin_session
-      #redirect_to request.referrer || root_url, :status => 303
-      redirect_to params[:ret] || root_url(protocol: 'https'), status: 303
+      ret = params[:ret].dup
+      if Quails.env.ssl? && ret
+        ret.sub!('http://', 'https://')
+      end
+      redirect_to ret || root_url(protocol: 'https'), status: 303
     else
       render text: "403 Forbidden", status: 403
     end
