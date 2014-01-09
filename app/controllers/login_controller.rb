@@ -15,7 +15,7 @@ class LoginController < ApplicationController
     if User.check_credentials(params[:username], params[:password])
       current_user.set_trust_cookie
       current_user.set_admin_session
-      ret = params[:ret].dup
+      ret = params[:ret].try(:dup)
       if Quails.env.ssl? && ret
         ret.sub!('http://', 'https://')
       end
