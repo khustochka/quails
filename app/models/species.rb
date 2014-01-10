@@ -45,6 +45,8 @@ class Species < ActiveRecord::Base
 
   # Scopes
 
+  scope :short, lambda { select("species.id, name_sci, name_en, name_ru, name_uk, species.index_num") }
+
   scope :ordered_by_taxonomy, lambda { order("species.index_num") }
 
   scope :alphabetic, lambda { order(:name_sci) }
