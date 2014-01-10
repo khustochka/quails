@@ -139,7 +139,7 @@ class ResearchController < ApplicationController
                               Card.all
                             end
 
-      prespecies = Species.uniq.joins(:cards).merge(MyObservation.all)
+      prespecies = Species.short.select('"order", family').uniq.joins(:cards).merge(MyObservation.all)
 
       @species = prespecies.merge(observations_source).ordered_by_taxonomy.extend(SpeciesArray)
 
