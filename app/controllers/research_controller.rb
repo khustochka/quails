@@ -205,11 +205,9 @@ class ResearchController < ApplicationController
         group('first_seen').except(:order).
         order('COUNT(species_id) DESC, first_seen ASC').limit(10)
 
-    dates = @day_by_new_species.except(:select).select(:observ_date)
+    dates = @day_by_new_species.except(:select).select(:first_seen)
     @locs_for_day_by_new_species =
         Card.select('observ_date, locus_id').where(observ_date: dates).preload(:locus).group_by(&:observ_date)
-
-
   end
 
   def voices
