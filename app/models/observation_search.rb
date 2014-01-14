@@ -28,9 +28,8 @@ class ObservationSearch
   def initialize(conditions = {})
     @attributes = ALL_ATTRIBUTES
 
-    @all_conditions = conditions ?
-        conditions.slice(*@attributes).reject { |_, v| v != false && v.blank? } :
-        {}
+    conditions2 = conditions || {}
+    @all_conditions = conditions2.slice(*@attributes).reject { |_, v| v != false && v.blank? }
     @conditions = {
         card: @all_conditions.slice(*CARD_ATTRIBUTES),
         observation: @all_conditions.slice(*OBSERVATION_ATTRIBUTES)
