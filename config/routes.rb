@@ -63,6 +63,8 @@ Quails::Application.routes.draw do
     end
   end
 
+  get '/species' => 'species#gallery', as: 'gallery'
+
   resources :species, only: [:edit, :update] do
     collection do
       get 'admin', action: :index
@@ -75,7 +77,6 @@ Quails::Application.routes.draw do
   end
 
   scope '(:locale)', locale: /en/ do
-    get '/species' => 'species#gallery', as: 'gallery'
     resources :species, only: [:show]
   end
 
@@ -138,8 +139,9 @@ Quails::Application.routes.draw do
 
   # TRANSLATED:
 
-  scope '/:locale', locale: /en/ do
-    root 'species#gallery'
+  scope ':locale', locale: /en/ do
+    root 'species#gallery', as: :localized_root
+    get 'species' => redirect("/%{locale}")
   end
 
 # ADMINISTRATIVE PAGES
