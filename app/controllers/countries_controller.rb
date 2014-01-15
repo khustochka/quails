@@ -1,7 +1,7 @@
 class CountriesController < ApplicationController
 
   def gallery
-    @country = Country.find_by_slug!(params[:country])
+    @country = Country.quick_find(params[:country])
 
 
     @species = case @country.slug

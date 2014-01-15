@@ -19,7 +19,7 @@ class Card < ActiveRecord::Base
                                     proc { |attrs| attrs.all? { |k, v| v.blank? || k == 'voice' } }
 
   def secondary_posts
-    Post.uniq.joins(:observations).where('observations.card_id =? AND observations.post_id <> ?', self.id, self.post_id)
+    Post.uniq.joins(:observations).where('observations.card_id = ? AND observations.post_id <> ?', self.id, self.post_id)
   end
 
   def mapped?

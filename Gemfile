@@ -7,7 +7,7 @@ gem 'rails', '4.0.2'
 gem 'pg', platforms: [:ruby, :mingw]
 gem "activerecord-jdbcpostgresql-adapter", platforms: :jruby
 
-gem 'unicorn', '~> 4.8.0.pre1', require: false, platforms: :ruby
+gem 'unicorn', '~> 4.8.0', require: false, platforms: :ruby
 
 group :production do
   gem 'airbrake'
@@ -24,7 +24,7 @@ gem 'RedCloth'
 gem 'kaminari'
 gem 'simple_form', '~> 3.0.0'
 gem 'flickraw', '~> 0.9.7'
-gem 'livejournal'
+gem 'vk_livejournal'
 gem 'hashie'
 gem 'addressable', require: 'addressable/uri'
 gem 'roman-numerals'

@@ -23,7 +23,7 @@ class ChecklistController < ApplicationController
 
   private
   def fetch_checklist
-    @country = Country.find_by_slug!(params[:country])
+    @country = Country.quick_find(params[:country])
     if @country.slug == 'ukraine'
       @checklist = @country.checklist
     else

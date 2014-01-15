@@ -46,11 +46,13 @@
   %tr
     %th Date
     %th Observations
+    %th Locations
 
   - @day_by_obs.each do |row|
     %tr
       %td= l(row.observ_date, format: :long)
       %td= row.count_obs
+      %td= @locs_for_day_by_obs[row.observ_date].map {|c| c.locus.name}.join(", ")
 
 %h3
   %i — По количеству видов за день
@@ -59,11 +61,13 @@
   %tr
     %th Date
     %th Species count
+    %th Locations
 
   - @day_by_species.each do |row|
     %tr
       %td= l(row.observ_date, format: :long)
       %td= row.count_species
+      %td= @locs_for_day_by_species[row.observ_date].map {|c| c.locus.name}.join(", ")
 
 %h3
   %i — По количеству видов в одной местности
@@ -78,7 +82,7 @@
     %tr
       %td= l(row.observ_date, format: :long)
       %td= row.count_species
-      %td= Locus.find(row.locus_id).name
+      %td= @preloaded_locs[row.locus_id].name
 
 %h3
   %i — По количеству новых видов за день
@@ -87,9 +91,11 @@
   %tr
     %th Date
     %th New species
+    %th Locations
 
   - @day_by_new_species.each do |row|
     %tr
       %td= l(row.first_seen_date, format: :long)
       %td= row.count_species
+      %td= @locs_for_day_by_new_species[row.first_seen_date].map {|c| c.locus.name}.join(", ")
 

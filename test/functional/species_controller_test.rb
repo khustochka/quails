@@ -23,7 +23,7 @@ class SpeciesControllerTest < ActionController::TestCase
 
     get :gallery
     assert_response :success
-    assert_not_nil assigns(:thumbnails)
+    assert_not_nil assigns(:species)
     assert_select "a[href=#{species_path(@obs.species)}]"
   end
 
@@ -43,7 +43,6 @@ class SpeciesControllerTest < ActionController::TestCase
 
     get :gallery
     assert_response :success
-    assert_equal photos_multiple_species_path, assigns(:thumbnails).last.url
     assert_select "a[href=#{photos_multiple_species_path}] img[src=#{thumbnail_item(img).full_url}]"
   end
 

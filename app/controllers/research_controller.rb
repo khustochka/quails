@@ -75,7 +75,7 @@ class ResearchController < ApplicationController
       sp, imgs = imgdata
 
       img = imgs.each_cons(2).select do |im1, im2|
-        im2.created_at > Date.new(2012).beginning_of_year && (im2.created_at - im1.created_at) >= period
+        im2.created_at > Date.new(2013).beginning_of_year && (im2.created_at - im1.created_at) >= period
       end
       collection.concat(
           img.map do |im1, im2|
@@ -105,10 +105,10 @@ class ResearchController < ApplicationController
   def uptoday
     @today = Date.today
     @this_day = if params[:day]
-                 Date.parse("#{@today.year}-#{params[:day]}")
-               else
-                 @today
-               end
+                  Date.parse("#{@today.year}-#{params[:day]}")
+                else
+                  @today
+                end
     @next_day = @this_day + 1
     @prev_day = @this_day - 1
     @uptoday = MyObservation.
@@ -139,7 +139,7 @@ class ResearchController < ApplicationController
                               Card.all
                             end
 
-      prespecies = Species.uniq.joins(:cards).merge(MyObservation.all)
+      prespecies = Species.short.select('"order", family').uniq.joins(:cards).merge(MyObservation.all)
 
       @species = prespecies.merge(observations_source).ordered_by_taxonomy.extend(SpeciesArray)
 
@@ -165,7 +165,7 @@ class ResearchController < ApplicationController
                                       COUNT(observations.id) as count_obs,
                                       COUNT(DISTINCT observ_date) as count_days,
                                       COUNT(DISTINCT species_id) as count_species').
-                group('EXTRACT(year FROM observ_date)').order('year')
+        group('EXTRACT(year FROM observ_date)').order('year')
 
     @first_sp_by_year = lifelist_filtered.group('EXTRACT(year FROM first_seen)::integer').except(:order).count(:all)
 
@@ -177,23 +177,37 @@ class ResearchController < ApplicationController
 
     #NOTICE: we use all observations (including unidentified) only here
     @day_by_obs = observations_filtered.joins(:card).select('observ_date, COUNT(observations.id) as count_obs').
-                  group('observ_date').
-                  order('count_obs DESC, observ_date ASC').limit(10)
+        group('observ_date').
+        order('COUNT(observations.id) DESC, observ_date ASC').limit(10)
+
+    dates = @day_by_obs.except(:select).select(:observ_date)
+    @locs_for_day_by_obs =
+        Card.select('observ_date, locus_id').where(observ_date: dates).preload(:locus).group_by(&:observ_date)
 
     @day_by_species = identified_observations.select('observ_date, COUNT(DISTINCT species_id) as count_species').
         group('observ_date').
-        order('count_species DESC, observ_date ASC').limit(10)
+        order('COUNT(DISTINCT species_id) DESC, observ_date ASC').limit(10)
+
+    dates = @day_by_species.except(:select).select(:observ_date)
+    @locs_for_day_by_species =
+        Card.select('observ_date, locus_id').where(observ_date: dates).preload(:locus).group_by(&:observ_date)
 
     @day_and_loc_by_species = identified_observations.select('observ_date, locus_id, COUNT(DISTINCT species_id) as count_species').
         group('observ_date, locus_id').
-        order('count_species DESC, observ_date ASC').limit(10)
+        order('COUNT(DISTINCT species_id) DESC, observ_date ASC').
+        limit(10)
+
+    locs = @day_and_loc_by_species.except(:select).select(:locus_id)
+    @preloaded_locs = Locus.where(id: locs).index_by(&:id)
 
     @day_by_new_species = lifelist_filtered.
         except(:select).select('first_seen, COUNT(species_id) as count_species').
         group('first_seen').except(:order).
-        order('count_species DESC, first_seen ASC').limit(10)
+        order('COUNT(species_id) DESC, first_seen ASC').limit(10)
 
-
+    dates = @day_by_new_species.except(:select).select(:first_seen)
+    @locs_for_day_by_new_species =
+        Card.select('observ_date, locus_id').where(observ_date: dates).preload(:locus).group_by(&:observ_date)
   end
 
   def voices

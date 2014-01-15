@@ -71,7 +71,7 @@ class Post < ActiveRecord::Base
   # Associations
 
   def species
-    Species.uniq.joins(:cards, :observations).where('cards.post_id = ? OR observations.post_id = ?', id, id).
+    Species.short.uniq.joins(:cards, :observations).where('cards.post_id = ? OR observations.post_id = ?', id, id).
         order(:index_num)
   end
 

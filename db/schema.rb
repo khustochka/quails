@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131216150629) do
+ActiveRecord::Schema.define(version: 20140110131820) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,10 @@ ActiveRecord::Schema.define(version: 20131216150629) do
     t.datetime "updated_at",                    null: false
     t.string   "kml_url",       default: "",    null: false
   end
+
+  add_index "cards", ["locus_id"], name: "index_cards_on_locus_id", using: :btree
+  add_index "cards", ["observ_date"], name: "index_cards_on_observ_date", using: :btree
+  add_index "cards", ["post_id"], name: "index_cards_on_post_id", using: :btree
 
   create_table "commenters", force: true do |t|
     t.string  "email"
@@ -75,7 +79,6 @@ ActiveRecord::Schema.define(version: 20131216150629) do
     t.integer  "parent_id"
   end
 
-  add_index "images", ["index_num"], name: "index_images_on_index_num", using: :btree
   add_index "images", ["slug"], name: "index_images_on_slug", unique: true, using: :btree
 
   create_table "images_observations", id: false, force: true do |t|
@@ -123,6 +126,7 @@ ActiveRecord::Schema.define(version: 20131216150629) do
     t.integer "card_id"
   end
 
+  add_index "observations", ["card_id"], name: "index_observations_on_card_id", using: :btree
   add_index "observations", ["post_id"], name: "index_observations_on_post_id", using: :btree
   add_index "observations", ["species_id"], name: "index_observations_on_species_id", using: :btree
 
