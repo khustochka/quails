@@ -4,9 +4,4 @@
       %b= t('author.name')
     2007&ndash;2014
     %br
-    %em
-      Все фотографии и текст распространяются под лицензией
-      = succeed ":" do
-        %b<>
-          %a(href="http://creativecommons.org/licenses/by-nc/3.0/" rel="nofollow license") CC-BY-NC
-      разрешено использование с некоммерческой целью и указанием авторства (ссылкой на сайт).
+    %em= t('license.text').html_safe

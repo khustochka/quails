@@ -20,6 +20,12 @@
   author:
     name: Vitalii Khustochka
 
+  license:
+    text: >
+            All the text and photographs are licensed under
+            <b><a href="http://creativecommons.org/licenses/by-nc/3.0/" rel="nofollow license">CC-BY-NC</a></b>:
+            non-commercial usage is allowed with appropriate credit (link to the site).
+
   misc:
     all: All
 

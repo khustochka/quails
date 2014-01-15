@@ -20,6 +20,12 @@
   author:
     name: Виталий Хусточка
 
+  license:
+    text: >
+            Все фотографии и текст распространяются под лицензией
+            <b><a href="http://creativecommons.org/licenses/by-nc/3.0/" rel="nofollow license">CC-BY-NC</a></b>:
+            разрешено использование с некоммерческой целью и указанием авторства (ссылкой на сайт).
+
   misc:
     all: Все
 
