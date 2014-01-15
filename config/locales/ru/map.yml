@@ -1,0 +1,10 @@
+"ru":
+  maps:
+    show:
+      title: Карта
+
+      world: Весь мир
+      ukraine: Украина
+      usa: США
+
+      close: Закрыть

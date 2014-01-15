@@ -1,0 +1,10 @@
+"en":
+  maps:
+    show:
+      title: Map
+
+      world: Whole world
+      ukraine: Ukraine
+      usa: USA
+
+      close: Close

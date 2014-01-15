@@ -5,15 +5,16 @@
 -# @no_viewport = true
 - javascript AssetsHelper::GMAP_API_URL, 'map_show'
 
-- @page_title = 'Map'
+- @page_title = t(".title")
 
 %div.map-panel
-  %a.pseudolink.pan(href="#world") Весь мир
-  %a.pseudolink.pan(href="#ukraine") Украина
-  %a.pseudolink.pan(href="#usa") США
+  %a.pseudolink.pan(href="#world")= t(".world")
+  %a.pseudolink.pan(href="#ukraine")= t(".ukraine")
+  %a.pseudolink.pan(href="#usa")= t(".usa")
 
-%div.gray-panel
-  %a{href: '/2013/08/site-news-map'} Сообщить об ошибке, оставить пожелание.
+- if I18n.locale == :ru
+  %div.gray-panel
+    %a{href: '/2013/08/site-news-map'} Сообщить об ошибке, оставить пожелание.
 
 .mapContainer
   #googleMap
@@ -22,5 +23,5 @@
   .wnd_close
     %span.close
       = image_tag("/img/x_14x14.png", width: 21, height: 21)
-      %span.pseudolink Закрыть
+      %span.pseudolink= t(".close")
   .gallery_container

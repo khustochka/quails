@@ -92,7 +92,6 @@ Quails::Application.routes.draw do
     collection do
       get 'half_mapped'
       get 'series'
-      post 'strip'
       post 'upload'
     end
   end
@@ -100,7 +99,11 @@ Quails::Application.routes.draw do
   scope '(:locale)', locale: /en/ do
     get '/photos(/page/:page)' => 'images#index', page: /[^0]\d*/, constraints: {format: 'html'}
     get '/photos/multiple_species' => 'images#multiple_species'
-    resources :photos, controller: 'images', only: [:show]
+    resources :photos, controller: 'images', only: [:show] do
+      collection do
+        post 'strip'
+      end
+    end
   end
 
   constraints year: /20\d\d/ do
@@ -184,7 +187,11 @@ Quails::Application.routes.draw do
     get :reply, on: :member
   end
 
-  resource :map, only: [:show, :edit] do
+  scope '(:locale)', locale: /en/ do
+    resource :map, only: [:show]
+  end
+
+  resource :map, only: [:edit] do
     resources :spots, only: :index
     get 'photos' => 'spots#photos'
     get 'observations', on: :collection
