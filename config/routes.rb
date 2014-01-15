@@ -80,7 +80,6 @@ Quails::Application.routes.draw do
     resources :species, only: [:show]
   end
 
-
   resources :photos, controller: 'images', as: 'images', except: [:index, :show] do
     member do
       get 'edit/map', action: :map_edit

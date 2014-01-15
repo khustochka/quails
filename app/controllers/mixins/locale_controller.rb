@@ -13,6 +13,7 @@ module LocaleController
   end
 
   def default_url_options(options={})
-    options.merge @locale_set ? {:locale => @locale_set} : {}
+    locale_option = @locale_set ? {:locale => @locale_set} : {}
+    options.merge(locale_option)
   end
 end
