@@ -55,31 +55,28 @@ Quails::Application.routes.draw do
   root to: 'blog#home', as: 'blog'
 
   constraints country: /ukraine|usa/ do
+    get '/:country/checklist/edit' => 'checklist#edit'
+    post '/:country/checklist/edit' => 'checklist#save'
     scope '(:locale)', locale: /en/ do
       get '/:country' => 'countries#gallery', as: "country"
       get '/:country/checklist' => 'checklist#show', as: "checklist"
     end
-    get '/:country/checklist/edit' => 'checklist#edit'
-    post '/:country/checklist/edit' => 'checklist#save'
   end
 
-
-  scope '(:locale)' do
-    get '/species' => 'species#gallery', as: 'gallery'
-    resources :species, only: [:show]
-  end
-
-  resources :species, only: [] do
+  resources :species, only: [:edit, :update] do
     collection do
       get 'admin', action: :index
       get 'search'
     end
+
+    member do
+      get 'review'
+    end
   end
 
   scope '(:locale)', locale: /en/ do
-    get '/photos(/page/:page)' => 'images#index', page: /[^0]\d*/, constraints: {format: 'html'}
-    resource :photos, controller: 'images', only: [:show]
-    get '/photos/multiple_species' => 'images#multiple_species'
+    get '/species' => 'species#gallery', as: 'gallery'
+    resources :species, only: [:show]
   end
 
 
@@ -97,6 +94,12 @@ Quails::Application.routes.draw do
       post 'strip'
       post 'upload'
     end
+  end
+
+  scope '(:locale)', locale: /en/ do
+    get '/photos(/page/:page)' => 'images#index', page: /[^0]\d*/, constraints: {format: 'html'}
+    get '/photos/multiple_species' => 'images#multiple_species'
+    resources :photos, controller: 'images', only: [:show]
   end
 
   constraints year: /20\d\d/ do
@@ -172,12 +175,6 @@ Quails::Application.routes.draw do
     collection do
       get :public
       post :save_order
-    end
-  end
-
-  resources :species, only: [:edit, :update] do
-    member do
-      get 'review'
     end
   end
 
