@@ -3,6 +3,9 @@
     index:
       species_gallery: Галерея видов
 
+    multiple_species:
+      title: Разные виды на одном фото
+
     show:
       prev_image: "<< Предыдущее фото"
       next_image: "Следующее фото >>"
