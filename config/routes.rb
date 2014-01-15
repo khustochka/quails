@@ -77,7 +77,7 @@ Quails::Application.routes.draw do
   end
 
   scope '(:locale)', locale: /en/ do
-    resources :species, only: [:show]
+    resources :species, only: [:show], as: :localized_species
   end
 
   resources :photos, controller: 'images', as: 'images', except: [:index, :show] do
@@ -96,13 +96,11 @@ Quails::Application.routes.draw do
   end
 
   scope '(:locale)', locale: /en/ do
-    get '/photos(/page/:page)' => 'images#index', page: /[^0]\d*/, constraints: {format: 'html'}
+    get '/photos(/page/:page)' => 'images#index', page: /[^0]\d*/,
+                                                        constraints: {format: 'html'}, as: 'localized_images'
     get '/photos/multiple_species' => 'images#multiple_species'
-    resources :photos, controller: 'images', only: [:show] do
-      collection do
-        post 'strip'
-      end
-    end
+    get 'photos/:id' => 'images#show', as: 'localized_image'
+    post 'photos/strip' => 'images#strip'
   end
 
   constraints year: /20\d\d/ do
