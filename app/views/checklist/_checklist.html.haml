@@ -30,7 +30,7 @@
                 %span.status-old{title: t('.status.old')} x
               - when "?"
                 %span.status-unsure{title: t('.status.unsure')} ?
-            = convert_status(species.notes_ru)
+            = convert_status(species.notes)
             - if species.reference.present?
               %small
                 = surround("[", "]") do
