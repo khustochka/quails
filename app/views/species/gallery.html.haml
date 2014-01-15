@@ -16,7 +16,7 @@
 
   - thumbnails = @species.map(&:to_thumbnail)
   - if Image.multiple_species.count("DISTINCT images.id") > 0
-    - thumbnails << Thumbnail.new(photos_multiple_species_path, "Разные виды на одном фото", Image.multiple_species.first)
+    - thumbnails << Thumbnail.new(photos_multiple_species_path, t('images.multiple_species.title'), Image.multiple_species.first)
 
   %div.thumbnails
     = render_justified thumbnails

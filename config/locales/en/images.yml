@@ -3,6 +3,9 @@
     index:
       species_gallery: Species gallery
 
+    multiple_species:
+      title: Photos of multiple species
+
     show:
       prev_image: "<< Previous image"
       next_image: "Next image >>"
