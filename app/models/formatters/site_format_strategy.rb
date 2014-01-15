@@ -46,7 +46,7 @@ class SiteFormatStrategy < FormattingStrategy
       end
 
       @spcs.each do |sp|
-        result << "\n[#{sp.code}]#{species_path(sp, only_path: only_path?)}"
+        result << "\n[#{sp.code}]#{localized_species_path(id: sp, only_path: only_path?)}"
       end
     end
 
