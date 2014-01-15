@@ -1,7 +1,7 @@
 module ChecklistsHelper
 
   def convert_status(str)
-    OneLineFormatter.apply(str)
+    str ? OneLineFormatter.apply(str) : nil
   end
 
 end
