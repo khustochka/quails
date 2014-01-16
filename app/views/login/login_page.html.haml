@@ -2,7 +2,7 @@
 
 - @robots = "NOINDEX,NOFOLLOW"
 
-= form_tag(url_for(action: 'login_do', only_path: false, protocol: Quails.env.ssl? ? 'https' : 'http'), method: :post) do
+= form_tag(url_for({action: 'login_do'}.merge(url_options_for_admin)), method: :post) do
   = hidden_field_tag(:ret, flash[:ret]) if flash[:ret]
   = text_field_tag :username
   = password_field_tag
