@@ -18,7 +18,8 @@ $(function () {
 
   var marks,
       template = '<div class="marker-cluster marker-cluster-SIZE"><span>CLUSTER_COUNT</span></div>',
-      theMap = $('#googleMap'), emptyOverlay;
+      theMap = $('#googleMap'), emptyOverlay,
+      photo_strip_url = $(".gallery_window").data('strip-url');
 
   var bounds = {
     ukraine: new google.maps.LatLngBounds(
@@ -89,7 +90,7 @@ $(function () {
       theMap.gmap3("get").panBy(0, px.y - delta);
     }
 
-    $.ajax('photos/strip',
+    $.ajax(photo_strip_url,
         {
           method: 'POST',
           data: JSON.stringify(image_ids),
