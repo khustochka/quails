@@ -2,7 +2,7 @@ class User
   extend CredentialsCheck
 
   def self.detect(request)
-    if User.is_admin_session?(request)
+    if User.fully_authorised_admin_session?(request)
       Admin.new(request)
     else
       User.new(request)
@@ -18,9 +18,9 @@ class User
     false
   end
 
-  #def is_admin_session?
-  #  User.is_admin_session?(@session)
-  #end
+  def is_admin_session?
+    User.is_admin_session?(@session)
+  end
 
   def set_admin_session
     if User.cookie_value
