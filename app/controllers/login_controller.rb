@@ -19,7 +19,7 @@ class LoginController < ApplicationController
       if Quails.env.ssl? && ret
         ret.sub!('http://', 'https://')
       end
-      redirect_to ret || root_url(Quails.env.ssl? ? {protocol: 'https'} : nil), status: 303
+      redirect_to ret || root_url(url_options_for_admin), status: 303
     else
       render text: "403 Forbidden", status: 403
     end

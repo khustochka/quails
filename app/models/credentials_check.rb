@@ -27,8 +27,12 @@ module CredentialsCheck
     :is_admin
   end
 
-  def is_admin_session?(request)
-    ssl_gate(request) && User.cookie_value && request.session[User.cookie_name] == User.cookie_value
+  def is_admin_session?(session)
+    User.cookie_value && session[User.cookie_name] == User.cookie_value
+  end
+
+  def fully_authorised_admin_session?(request)
+    ssl_gate(request) && is_admin_session?(request.session)
   end
 
   def has_trust_cookie?(cookies)

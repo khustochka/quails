@@ -1,22 +1,26 @@
-- if current_user.admin?
+- if current_user.is_admin_session?
   %ul.admin_menu
-    %li.adder= link_to '+ Post', new_post_path
-    %li.adder= link_to '+ Card', new_card_path
-    %li.adder= link_to '+ Image', new_flickr_photo_path
-    %li= link_to 'Drafts', hidden_posts_path
-    %li= link_to 'Species', admin_species_index_path
-    %li= link_to 'Cards', cards_path
-    %li= link_to 'Comments', comments_path
-    %li= link_to 'Books', books_path
-    %li= link_to 'Locations', loci_path
-    %li= link_to 'Pages', pages_path
-    %li= link_to 'Research', research_path
-    %li= link_to 'Map Edit', edit_map_path
+    %li.adder= link_to '+ Post', new_post_path(url_options_for_admin)
+    %li.adder= link_to '+ Card', new_card_path(url_options_for_admin)
+    %li.adder= link_to '+ Image', new_flickr_photo_path(url_options_for_admin)
+    %li= link_to 'Drafts', hidden_posts_path(url_options_for_admin)
+    %li= link_to 'Species', admin_species_index_path(url_options_for_admin)
+    %li= link_to 'Cards', cards_path(url_options_for_admin)
+    %li= link_to 'Comments', comments_path(url_options_for_admin)
+    %li= link_to 'Books', books_path(url_options_for_admin)
+    %li= link_to 'Locations', loci_path(url_options_for_admin)
+    %li= link_to 'Pages', pages_path(url_options_for_admin)
+    %li= link_to 'Research', research_path(url_options_for_admin)
+    %li= link_to 'Map Edit', edit_map_path(url_options_for_admin)
     \|
-    %li= link_to t('menu.checklist'), checklist_path(country: 'ukraine')
-    %li= link_to 'Photostream', images_path
-    %li= link_to 'Stats', research_path(action: 'stats')
-    %li= link_to t('menu.lifelist'), advanced_list_path
+    %li= link_to t('menu.checklist'), checklist_path({country: 'ukraine'}.merge(url_options_for_admin))
+    %li= link_to 'Photostream', images_path(url_options_for_admin)
+    %li= link_to 'Stats', research_path({action: 'stats'}.merge(url_options_for_admin))
+    %li= link_to t('menu.lifelist'), advanced_list_path(url_options_for_admin)
+
+    - if Quails.env.ssl? && !request.ssl?
+      = link_to 'Admin`s', params.merge({only_path: false, protocol: 'https'})
+
     %li
       %i= link_to "**Logout", logout_path
 
@@ -24,9 +28,4 @@
 
   %ul.admin_menu
     %li.login_link
-
-    - if Quails.env.ssl? && !request.ssl?
-      = link_to 'Admin area', params.merge({only_path: false, protocol: 'https'})
-
-    - else
-      = link_to 'Login', login_path(Quails.env.ssl? ? {only_path: false, protocol: 'https'} : nil)
+      = link_to 'Login', login_path(url_options_for_admin)
