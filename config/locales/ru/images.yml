@@ -1,6 +1,8 @@
 'ru':
   images:
     index:
+      window_title: Последние добавленные фотографии
+      title: Последние добавленные фотографии
       species_gallery: Галерея видов
 
     multiple_species:

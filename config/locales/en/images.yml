@@ -1,6 +1,8 @@
 'en':
   images:
     index:
+      window_title: Bird photos from Ukraine and other countries
+      title: Recently added photos
       species_gallery: Species gallery
 
     multiple_species:
