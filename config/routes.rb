@@ -146,6 +146,7 @@ Quails::Application.routes.draw do
   scope '/flickr' do
     get 'unflickred' => 'flickr_photos#unflickred', as: 'unflickred_photos'
     get 'unused' => 'flickr_photos#unused', as: 'flickr_unused'
+    get 'bou_cc' => 'flickr_photos#bou_cc', as: 'flickr_bou_cc'
     resources :photos, controller: 'flickr_photos', as: 'flickr_photos' do
       post :search, on: :collection
     end
