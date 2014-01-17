@@ -1,3 +1,13 @@
+ALL_LOCALES = [:en, :ru, :uk]
+DEFAULT_PUBLIC_LOCALE = :ru
+
+I18n.available_locales = ALL_LOCALES
+
+$localedisabled = false
+
+
+
+
 # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
 # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
 Rails.application.config.time_zone = 'Kyiv'
