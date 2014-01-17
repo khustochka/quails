@@ -66,9 +66,11 @@
 
   - day_with_max_species = Date.new(2012, 6, 28)
   - max_species_for_day = 60
+  - post_for_day_with_max_species = show_post_path(2012, 11, "litochky-corncrake-shorttoedeagle")
 
   - day_with_max_new_species = Date.new(2010, 8, 14)
   - max_new_species_for_day = 15
+  - post_for_day_with_max_new_species = show_post_path(2010, "08", "jamaica-bay-herons-et-al")
 
   %table.nice_stats
     %tr
@@ -76,13 +78,13 @@
         %h2 Рекорды:
 
     %tr
-      %td.day= l(day_with_max_species, format: :long)
+      %td.day= link_to l(day_with_max_species, format: :long), post_for_day_with_max_species
       %td.place с. Литочки и г. Бровары, Киевская область, Украина
       %td.count_sp= max_species_for_day
       %td.count_sp_label= t('misc.species_count', count: max_species_for_day)
 
     %tr
-      %td.day= l(day_with_max_new_species, format: :long)
+      %td.day= link_to l(day_with_max_new_species, format: :long), post_for_day_with_max_new_species
       %td.place Jamaica Bay Wildlife Refuge, New York City, USA
       %td.count_new= max_new_species_for_day
       %td.count_new_label
