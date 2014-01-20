@@ -2,6 +2,8 @@
 !.gitignore
 !.gitkeep
 !.keep
+!.env
+!.env.test
 .bundle
 db/*.sqlite3
 config/database.yml

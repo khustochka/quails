@@ -84,6 +84,20 @@ class FlickrPhotosController < ApplicationController
 
   end
 
+  def bou_cc
+    page = 0
+    search_params = {license: '1,2,3,4,5,6', group_id: '615480@N22', extras: 'owner_name,license'}
+    all = Flickr::Result.new([])
+    begin
+      result = flickr.photos.search(
+          search_params.merge({per_page: 500, page: (page += 1)})
+      ).to_a
+      filtered_result = result.reject { |x| x.owner == flickr_admin.user_id }
+      all = Either.sequence(all, filtered_result)
+    end until all.error? || result.get.size < 500
+    @diff = all
+  end
+
   DEFAULT_SEARCH_PARAMS = {content_type: 1, extras: 'owner_name'}
 
   def search

@@ -9,14 +9,9 @@ module CredentialsCheck
 
   def configure(options)
     @options = Hashie::Mash.new(options)
-    @free_access = Rails.env.development? && @options.free_access
-    unless @free_access || (@options.username && @options.password) || Quails.env.rake?
+    unless (@options.username && @options.password) || Quails.env.rake?
       raise ArgumentError, "You have to specify admin username and password"
     end
-  end
-
-  def free_access
-    @free_access
   end
 
   def cookie_value

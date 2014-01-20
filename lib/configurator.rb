@@ -58,27 +58,7 @@ module Configurator
   private
 
   def self.config_data
-    @config_data ||= Hashie::Mash.new(read_config)
-  end
-
-  def self.read_config
-    if Quails.env.configured?
-      read_config_from_env_vars
-    else
-      YAML.load(ERB.new(File.read('config/security.yml')).result)[Rails.env]
-    end
-  rescue Errno::ENOENT
-    if Rails.env.test?
-      test_configuration
-    else
-      msg = "Missing configuration. Run `rake init` to create basic config/security.yml
-            and edit it as appropriate. Or set the environment variables."
-      if Quails.env.rake?
-        STDERR.puts msg
-      else
-        raise msg
-      end
-    end
+    @config_data ||= Hashie::Mash.new(read_config_from_env_vars)
   end
 
   def self.read_config_from_env_vars
@@ -94,6 +74,8 @@ module Configurator
             api_key: ENV['errbit_api_key'],
             host: ENV['errbit_host']
         },
+        local_image_path: ENV['quails_local_image_path'],
+        temp_image_path: ENV['quails_temp_image_path'],
         google_cse: ENV['quails_google_cse'],
         facebook_app_id: ENV['quails_facebook_app_id'],
         vkontakte_app_id: ENV['quails_vkontakte_app_id'],
@@ -102,18 +84,6 @@ module Configurator
             sender: ENV['quails_mail_sender'],
             reader: ENV['quails_mail_reader']
         }
-    }
-  end
-
-  def self.test_configuration
-    {
-        admin: {
-            username: 'test',
-            password: 'test',
-            cookie_value: 'test'
-        },
-        secret_token: SecureRandom.hex(30),
-        image_host: 'http://localhost/photos'
     }
   end
 
