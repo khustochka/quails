@@ -13,7 +13,6 @@ production:
 # use plain or SHA1 encoded password for development
 development:
   admin:
-    free_access: true # works only in dev mode
     cookie_value: admin
   secret_token: <%= SecureRandom.hex(30) %>
   image_host: /photos
