@@ -10,9 +10,6 @@ module Configurator
         ImagesHelper.image_host = config_data.image_host
         ImagesHelper.local_image_path = config_data.local_image_path
         ImagesHelper.temp_image_path = config_data.temp_image_path
-      when 'CommentMailer'
-        CommentMailer.default from: config_data.mail.try(:sender)
-        CommentMailer.default to: config_data.mail.try(:reader)
     end
   end
 
@@ -54,11 +51,7 @@ module Configurator
         secret_token: ENV['quails_secret_token'],
         image_host: ENV['quails_image_host'],
         local_image_path: ENV['quails_local_image_path'],
-        temp_image_path: ENV['quails_temp_image_path'],
-        mail: {
-            sender: ENV['quails_mail_sender'],
-            reader: ENV['quails_mail_reader']
-        }
+        temp_image_path: ENV['quails_temp_image_path']
     }
   end
 
