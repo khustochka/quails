@@ -2,15 +2,6 @@ require "quails/env"
 
 module Configurator
 
-  def self.configure(klass)
-    case klass.name
-      when 'ImagesHelper'
-        ImagesHelper.image_host = config_data.image_host
-        ImagesHelper.local_image_path = config_data.local_image_path
-        ImagesHelper.temp_image_path = config_data.temp_image_path
-    end
-  end
-
   def self.configure_secret_token
     secret = ENV['quails_secret_token']
     if secret.blank?
@@ -31,20 +22,6 @@ module Configurator
         config.ignore_only = []
       end
     end
-  end
-
-  private
-
-  def self.config_data
-    @config_data ||= Hashie::Mash.new(read_config_from_env_vars)
-  end
-
-  def self.read_config_from_env_vars
-    {
-        image_host: ENV['quails_image_host'],
-        local_image_path: ENV['quails_local_image_path'],
-        temp_image_path: ENV['quails_temp_image_path']
-    }
   end
 
 end
