@@ -27,11 +27,10 @@ module Configurator
   end
 
   def self.configure_errbit
-    errbit = Hashie::Mash.new(config_data.errbit)
-    if errbit && errbit.api_key && errbit.host
+    if ENV['errbit_api_key'] && ENV['errbit_host']
       Airbrake.configure do |config|
-        config.api_key = errbit.api_key
-        config.host = errbit.host
+        config.api_key = ENV['errbit_api_key']
+        config.host = ENV['errbit_api_key']
         config.port = 443 #80
         config.secure = config.port == 443
         config.ignore_only = []
@@ -70,10 +69,6 @@ module Configurator
         },
         secret_token: ENV['quails_secret_token'],
         image_host: ENV['quails_image_host'],
-        errbit: {
-            api_key: ENV['errbit_api_key'],
-            host: ENV['errbit_host']
-        },
         local_image_path: ENV['quails_local_image_path'],
         temp_image_path: ENV['quails_temp_image_path'],
         google_cse: ENV['quails_google_cse'],
