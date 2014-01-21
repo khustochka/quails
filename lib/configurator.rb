@@ -14,7 +14,7 @@ module Configurator
   end
 
   def self.configure_secret_token
-    secret = config_data.secret_token
+    secret = ENV['quails_secret_token']
     if secret.blank?
       unless Quails.env.rake?
         raise "Secret token is not configured!"
@@ -48,7 +48,6 @@ module Configurator
             password: ENV['admin_password'],
             cookie_value: ENV['admin_cookie_value']
         },
-        secret_token: ENV['quails_secret_token'],
         image_host: ENV['quails_image_host'],
         local_image_path: ENV['quails_local_image_path'],
         temp_image_path: ENV['quails_temp_image_path']
