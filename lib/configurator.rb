@@ -4,8 +4,6 @@ module Configurator
 
   def self.configure(klass)
     case klass.name
-      when 'User'
-        User.configure(config_data.admin)
       when 'ImagesHelper'
         ImagesHelper.image_host = config_data.image_host
         ImagesHelper.local_image_path = config_data.local_image_path
@@ -43,11 +41,6 @@ module Configurator
 
   def self.read_config_from_env_vars
     {
-        admin: {
-            username: ENV['admin_username'],
-            password: ENV['admin_password'],
-            cookie_value: ENV['admin_cookie_value']
-        },
         image_host: ENV['quails_image_host'],
         local_image_path: ENV['quails_local_image_path'],
         temp_image_path: ENV['quails_temp_image_path']

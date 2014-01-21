@@ -4,11 +4,15 @@ module CredentialsCheck
   TRUST_COOKIE_VALUE = 'I believe you'
 
   def self.extended(klass)
-    Configurator.configure(klass)
+    klass.configure
   end
 
-  def configure(options)
-    @options = Hashie::Mash.new(options)
+  def configure
+    @options = Hashie::Mash.new({
+        username: ENV['admin_username'],
+        password: ENV['admin_password'],
+        cookie_value: ENV['admin_cookie_value']
+    })
     unless (@options.username && @options.password) || Quails.env.rake?
       raise ArgumentError, "You have to specify admin username and password"
     end
