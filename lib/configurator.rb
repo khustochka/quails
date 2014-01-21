@@ -38,22 +38,6 @@ module Configurator
     end
   end
 
-  def self.configure_google_search
-    GoogleSearch.configure(config_data.google_cse)
-  end
-
-  def self.configure_facebook_sdk
-    FacebookSdk.configure(config_data.facebook_app_id)
-  end
-
-  def self.configure_vkontakte_sdk
-    VkontakteSdk.configure(config_data.vkontakte_app_id)
-  end
-
-  def self.configure_google_analytics
-    GoogleAnalytics.configure(config_data.ga_code)
-  end
-
   private
 
   def self.config_data
@@ -71,10 +55,6 @@ module Configurator
         image_host: ENV['quails_image_host'],
         local_image_path: ENV['quails_local_image_path'],
         temp_image_path: ENV['quails_temp_image_path'],
-        google_cse: ENV['quails_google_cse'],
-        facebook_app_id: ENV['quails_facebook_app_id'],
-        vkontakte_app_id: ENV['quails_vkontakte_app_id'],
-        ga_code: ENV['quails_ga_code'],
         mail: {
             sender: ENV['quails_mail_sender'],
             reader: ENV['quails_mail_reader']
