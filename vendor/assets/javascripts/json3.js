@@ -1,4 +1,4 @@
-/*! JSON v3.2.6 | http://bestiejs.github.io/json3 | Copyright 2012-2013, Kit Cambridge | http://kit.mit-license.org */
+/*! JSON v3.3.0 | http://bestiejs.github.io/json3 | Copyright 2012-2014, Kit Cambridge | http://kit.mit-license.org */
 ;(function (root) {
   // Detect the `define` function exposed by asynchronous module loaders. The
   // strict `define` check is necessary for compatibility with `r.js`.
@@ -16,19 +16,20 @@
   // `stringify` and `parse` functions to the specified `exports` object.
   function runInContext(context, exports) {
     context || (context = root["Object"]());
-    exports["runInContext"] = runInContext;
+    exports || (exports = root["Object"]());
 
     // Native constructor aliases.
-    var Date = context["Date"] || root["Date"],
-        Math = context["Math"] || root["Math"],
-        Object = context["Object"] || root["Object"],
+    var Number = context["Number"] || root["Number"],
         String = context["String"] || root["String"],
+        Object = context["Object"] || root["Object"],
+        Date = context["Date"] || root["Date"],
         SyntaxError = context["SyntaxError"] || root["SyntaxError"],
         TypeError = context["TypeError"] || root["TypeError"],
+        Math = context["Math"] || root["Math"],
         nativeJSON = context["JSON"] || root["JSON"];
 
     // Delegate to the native `stringify` and `parse` implementations.
-    if (nativeJSON && typeof nativeJSON == "object") {
+    if (typeof nativeJSON == "object" && nativeJSON) {
       exports.stringify = nativeJSON.stringify;
       exports.parse = nativeJSON.parse;
     }
@@ -862,6 +863,7 @@
       }
     }
 
+    exports["runInContext"] = runInContext;
     return exports;
   }
 
@@ -870,7 +872,7 @@
     runInContext(root, exports);
   } else {
     // Export for web browsers and JavaScript engines.
-    var nativeJSON = typeof (nativeJSON = root.JSON) == "object" && nativeJSON;
+    var nativeJSON = root.JSON;
     var JSON3 = runInContext(root, (root["JSON3"] = {
       // Public: Restores the original value of the global `JSON` object and
       // returns a reference to the `JSON3` object.
@@ -884,12 +886,12 @@
       "parse": JSON3.parse,
       "stringify": JSON3.stringify
     };
+  }
 
-    // Export for asynchronous module loaders.
-    if (isLoader) {
-      define(function () {
-        return JSON3;
-      });
-    }
+  // Export for asynchronous module loaders.
+  if (isLoader) {
+    define(function () {
+      return JSON3;
+    });
   }
 }(this));
