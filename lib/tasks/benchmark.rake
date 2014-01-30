@@ -2,26 +2,24 @@ desc 'Quick benchmark'
 task :benchmark => :environment do
   require 'benchmark'
 
-  n = 1000
-  Benchmark.bmbm do |x|
+  module SimpleCache
+    def self.quails_google_cse
+      @quails_google_cse ||= ENV['quails_google_cse']
+    end
+  end
 
-    x.report('old') { n.times {
+  n = 10000000
+  Benchmark.bmbm do |bench|
 
-      @img = Image.find_by_slug('sparrow4603')
-      @sp = @img.species.first
+    bench.report('env') { n.times {
 
-      @img.prev_by_species0(@sp)
-      @img.next_by_species0(@sp)
+      z = ENV['quails_google_cse']
 
     } }
 
-    x.report('window') { n.times {
+    bench.report('module cache') { n.times {
 
-      @img = Image.find_by_slug('sparrow4603')
-      @sp = @img.species.first
-
-      @img.prev_by_species(@sp)
-      @img.next_by_species(@sp)
+      y = SimpleCache.quails_google_cse
 
     } }
 
