@@ -1,7 +1,7 @@
 class Settings < ActiveRecord::Base
   validates :key, uniqueness: true
 
-  SETTING_KEYS = [:flickr_app, :flickr_admin, :lj_user]
+  SETTING_KEYS = [:flickr_admin, :lj_user]
 
   serialize :value
 
