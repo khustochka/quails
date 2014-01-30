@@ -14,7 +14,7 @@
       = feed_list_item
 
 
-  - thumbnails = @species.map(&:to_thumbnail)
+  - thumbnails = @species.thumbnails
   - if Image.multiple_species.count("DISTINCT images.id") > 0
     - thumbnails << Thumbnail.new(photos_multiple_species_path, t('images.multiple_species.title'), Image.multiple_species.first)
 
