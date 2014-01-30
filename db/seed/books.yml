@@ -1,0 +1,26 @@
+
+---
+books:
+  columns:
+  - id
+  - slug
+  - name
+  - description
+  records:
+  - - 1
+    - fesenko-bokotej
+    - "Фесенко, Бокотей"
+    - "Фесенко Г. В., Бокотей А. А. Анотований список українських наукових назв птахів
+      фауни України (з характеристикою статусу видів). — Київ—Львів, 2007. — 112 с."
+  - - 2
+    - clements5
+    - Clements 5th edition (updated 2005)
+    - The Clements Checklist of Birds of the World, 5th edition, updated 2005
+  - - 3
+    - clements6
+    - Clements 6th edition (updated 2011)
+    - The Clements Checklist of Birds of the World, 6th edition, updated 2011
+  - - 4
+    - koblik-redkin
+    - "Коблик, Редькин, Архипов"
+    - " Е.А. Коблик, Я.А. Редькин, В.Ю. Архипов \"Список птиц РФ\""
