@@ -9,5 +9,6 @@ It must be multiline.
 TEXT
     topic "OBSR"
     status "OPEN"
+    lj_data { nil }
   end
 end

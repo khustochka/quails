@@ -90,7 +90,7 @@ class PostsControllerTest < ActionController::TestCase
     blogpost = create(:post)
     blogpost.title = 'Changed title'
     login_as_admin
-    put :update, id: blogpost.to_param, post: blogpost.attributes
+    put :update, id: blogpost.to_param, post: blogpost.attributes.except('lj_data')
     assert_redirected_to public_post_path(assigns(:post))
   end
 

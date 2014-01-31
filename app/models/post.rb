@@ -7,13 +7,14 @@ class Post < ActiveRecord::Base
   TOPICS = %w(OBSR NEWS SITE)
   STATES = %w(OPEN PRIV NIDX)
 
+  serialize :lj_data, Hashie::Mash
+
   before_save :update_face_date
 
   validates :slug, :uniqueness => true, :presence => true, :length => {:maximum => 64}
   validates :title, :presence => true
   validates :topic, :inclusion => TOPICS, :presence => true, :length => {:maximum => 4}
   validates :status, :inclusion => STATES, :presence => true, :length => {:maximum => 4}
-  validates :lj_url_id, :lj_post_id, :numericality => {:greater_than => 0}, :allow_nil => true
 
   has_many :comments, dependent: :destroy
   has_many :cards, -> {order('observ_date ASC, locus_id')}, dependent: :nullify
@@ -107,7 +108,7 @@ class Post < ActiveRecord::Base
   end
 
   def lj_url
-    @lj_url ||= "http://#{Settings.lj_user.name}.livejournal.com/#{lj_url_id}.html" if lj_url_id.present?
+    @lj_url ||= lj_data.url
   end
 
   def cache_key

@@ -37,9 +37,9 @@ class FormattersTest < ActionView::TestCase
     image = build(:image)
     post = build(:post, text: "{{^#{image.slug}}}")
     assert_includes post.formatted.for_site.text,
-        "<a href=\"/photos/#{image.slug}\"><img src=\"#{jpg_url(image)}\" title=\"[photo]\" alt=\"[photo]\" /></a>"
+                    "<a href=\"/photos/#{image.slug}\"><img src=\"#{jpg_url(image)}\" title=\"[photo]\" alt=\"[photo]\" /></a>"
     assert_includes post.formatted.for_site.text,
-                   "<figcaption class=\"imagetitle\"><a href=\"/photos/#{image.slug}\">House Sparrow</a></figcaption>"
+                    "<figcaption class=\"imagetitle\"><a href=\"/photos/#{image.slug}\">House Sparrow</a></figcaption>"
 
   end
 
@@ -63,9 +63,12 @@ class FormattersTest < ActionView::TestCase
 
   test "LJ Post with link to another post in LJ" do
     Settings.create(key: 'lj_user', value: {name: 'stonechat'})
-    post1 = create(:post, slug: "post_for_link", lj_url_id: "1111")
+    url = "http://stonechat.livejournal.com/1111.html"
+    post1 = create(:post,
+                   slug: "post_for_link",
+                   lj_data: Hashie::Mash.new({post_id: "1111", url: "http://stonechat.livejournal.com/1111.html"}))
     post = build(:post, text: "This is a {{#post|post_for_link}}")
-    assert_equal "<p>This is a <a href=\"http://stonechat.livejournal.com/1111.html\">post</a></p>",
+    assert_equal "<p>This is a <a href=\"#{url}\">post</a></p>",
                  post.formatted.for_lj.text
   end
 
@@ -80,9 +83,9 @@ class FormattersTest < ActionView::TestCase
     image = build(:image)
     post = build(:post, text: "{{^#{image.slug}}}")
     assert_includes post.formatted.for_lj.text,
-                   "<img src=\"#{jpg_url(image)}\" title=\"[photo]\" alt=\"[photo]\" />"
+                    "<img src=\"#{jpg_url(image)}\" title=\"[photo]\" alt=\"[photo]\" />"
     assert_includes post.formatted.for_lj.text,
-                   "<figcaption class=\"imagetitle\">\nHouse Sparrow <i>(Passer domesticus)</i>\n</figcaption>"
+                    "<figcaption class=\"imagetitle\">\nHouse Sparrow <i>(Passer domesticus)</i>\n</figcaption>"
   end
 
   test "LJ Post with images" do
@@ -90,9 +93,9 @@ class FormattersTest < ActionView::TestCase
     image = build(:image)
     image.card.update_column(:post_id, p.id)
     assert_includes p.formatted.for_lj.text,
-                   "<img src=\"#{jpg_url(image)}\" title=\"[photo]\" alt=\"[photo]\" />"
+                    "<img src=\"#{jpg_url(image)}\" title=\"[photo]\" alt=\"[photo]\" />"
     assert_includes p.formatted.for_lj.text,
-                   "<figcaption class=\"imagetitle\">\nHouse Sparrow <i>(Passer domesticus)</i>\n</figcaption>"
+                    "<figcaption class=\"imagetitle\">\nHouse Sparrow <i>(Passer domesticus)</i>\n</figcaption>"
 
   end
 

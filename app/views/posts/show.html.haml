@@ -16,7 +16,7 @@
 
 - @page_title = @post.formatted.title
 
-- unless @post.lj_url_id.blank?
+- unless @post.lj_data.blank?
   - provide :add_shortcuts do
     %li= link_to 'LJ Post', @post.lj_url
 
