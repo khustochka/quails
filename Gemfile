@@ -32,7 +32,7 @@ gem 'rinku'
 gem 'dotenv-rails'
 
 gem 'sass-rails', '~> 4.0.0'
-gem 'coffee-rails', '~> 4.0.0'
+#gem 'coffee-rails', '~> 4.0.0'
 #gem 'turbo-sprockets-rails3'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
