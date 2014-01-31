@@ -9,3 +9,5 @@ module FlickRaw
   end
 
 end
+
+undef flickr # remove global flickr method defined by FlickRaw

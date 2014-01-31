@@ -9,4 +9,13 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-# Quails::Application.config.secret_key_base =
+
+secret = ENV['quails_secret_token']
+
+if secret.blank?
+  unless Quails.env.rake?
+    raise "Secret token is not configured!"
+  end
+end
+
+Quails::Application.config.secret_key_base = secret
