@@ -52,7 +52,7 @@ module Flickr
     end
 
     def self.reconfigure!
-      FlickRaw.configure(Settings.flickr_app.api_key, Settings.flickr_app.shared_secret)
+      FlickRaw.configure(ENV['quails_flickr_app_key'], ENV['quails_flickr_app_secret'])
     end
 
     private

@@ -56,6 +56,10 @@ class Species < ActiveRecord::Base
         group('species.id').order('COUNT(observations.id) DESC, name_sci')
   end
 
+  def self.thumbnails
+    all.map(&:to_thumbnail)
+  end
+
   def ordered_images
     images.order_for_species
   end

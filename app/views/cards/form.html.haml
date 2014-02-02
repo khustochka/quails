@@ -10,19 +10,20 @@
 
 - @page_title = @card.persisted? ? "Edit: #{l(@card.observ_date, format: :long)}, #{@card.locus.name}" : "New card"
 
-%h1= page_header
-
 - if @card.persisted?
+
+  %h1= page_header
+
   - provide :add_shortcuts do
     %li= link_to @card.mapped? ? 'Edit map' : '<b>MAP IT!</b>'.html_safe, edit_map_path(q: {card_id: @card.id})
 
-= render 'admin/shortcuts' if current_user.admin?
+  = render 'admin/shortcuts' if current_user.admin?
 
 - if notice
   %p#notice= notice
 
 %p#notice
-  %b Create new:
+  %b Create new card:
   - suggested_dates.each do |date, words|
     = link_to words.join(", "), new_card_path(card: {observ_date: date}), class: 'suggest-date'
 

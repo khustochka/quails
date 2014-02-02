@@ -1,6 +1,10 @@
 <div id="cse-wrapper">
-<form action="http://www.google.com/cse" id="cse-search-box">
+<form action="<%= form_url %>" id="cse-search-box">
+  <%- if code %>
     <input name="cx" type="hidden" value="<%= code %>" />
+  <%- else %>
+    <input name="as_sitesearch" type="hidden" value="birdwatch.org.ua" />
+  <%- end %>
     <input name="ie" type="hidden" value="UTF-8" />
     <input name="q" id="cse-query-box" autocomplete="off" />
     <input name="sa" type="submit" value="<%= t(".search_button") %>" id="cse-submit" />

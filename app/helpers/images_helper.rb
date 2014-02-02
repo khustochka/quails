@@ -48,18 +48,15 @@ module ImagesHelper
   private
 
   def self.image_host
-    Configurator.configure(ImagesHelper) unless @image_host
-    @image_host
+    @image_host ||= ENV['quails_image_host']
   end
 
   def self.local_image_path
-    Configurator.configure(ImagesHelper) unless @local_image_path
-    @local_image_path
+    @local_image_path ||= ENV['local_image_path']
   end
 
   def self.temp_image_path
-    Configurator.configure(ImagesHelper) unless @temp_image_path
-    @temp_image_path
+    @temp_image_path ||= ENV['temp_image_path']
   end
 
   def legacy_image_url(file_name)

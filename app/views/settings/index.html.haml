@@ -9,16 +9,6 @@
 
 = form_tag(settings_save_path, method: :post, class: 'simple_form') do
 
-  %h2 Flickr App
-
-  %div.input.string
-    %label API key
-    %input.string.api_key{name: 's[flickr_app][api_key]', type: :text, value: Settings.flickr_app.api_key}
-
-  %div.input.string
-    %label Shared secret
-    %input.string{name: 's[flickr_app][shared_secret]', type: :text, value: Settings.flickr_app.shared_secret}
-
   %h2 Flickr Admin
 
   %div

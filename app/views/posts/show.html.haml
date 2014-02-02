@@ -16,6 +16,10 @@
 
 - @page_title = @post.formatted.title
 
+- unless @post.lj_data.blank?
+  - provide :add_shortcuts do
+    %li= link_to 'LJ Post', @post.lj_url
+
 = render 'admin/shortcuts' if current_user.admin?
 
 - cache @post do
@@ -53,6 +57,3 @@
     %ul
       - @post.observations.each do |obs|
         = render 'cards/observation_row', obs: obs
-
-  - unless @post.lj_url_id.blank?
-    %p= link_to 'This post on Livejournal', @post.lj_url

@@ -5,8 +5,8 @@ class ServiceCode
     new(view).render
   end
 
-  def self.configure(code)
-    config.code = code
+  def self.configure
+    config.code = ENV[self::CODE_ENV_VAR]
   end
 
   def self.configured?

@@ -84,9 +84,9 @@ class PostsController < ApplicationController
     entry.subject = @post.formatted.title.to_str
     entry.event = @post.formatted.for_lj.text
 
-    request = if @post.lj_url_id.present?
+    request = if @post.lj_data.url.present?
                 if Quails.env.real_prod?
-                  entry.itemid = @post.lj_post_id
+                  entry.itemid = @post.lj_data.post_id
                   LiveJournal::Request::EditEvent.new(user, entry)
                 else
                   flash.alert = "Editing LJ entries is prohibited in not real production"
@@ -101,8 +101,10 @@ class PostsController < ApplicationController
       flash.notice = 'Posted to LJ'
 
       if entry.itemid
-        @post.lj_post_id = entry.itemid
-        @post.lj_url_id = entry.display_itemid if entry.anum
+        @post.lj_data.post_id = entry.itemid
+        if entry.anum
+          @post.lj_data.url = "http://#{Settings.lj_user.name}.livejournal.com/#{entry.display_itemid}.html"
+        end
         @post.save!
       end
     end

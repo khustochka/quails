@@ -9,8 +9,7 @@
 require 'bunch_db/table'
 require 'seed_tables'
 
-local_opts = YAML.load_file('config/local.yml')
-dirname = File.join(local_opts['repo'], 'seed')
+dirname = File.join(Rails.root, 'db', 'seed')
 
 SEED_TABLES.each do |table_name|
   raw = YAML.load(File.new "#{dirname}/#{table_name}.yml", "r").to_a[0]
@@ -27,3 +26,5 @@ SEED_TABLES.each do |table_name|
 
   table.reset_pk_sequence!
 end
+
+Page.create(slug: 'links', title: "Links", public: true, text: "Lorem ipsum")

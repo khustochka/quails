@@ -18,9 +18,10 @@ class ImagesController < ApplicationController
     if params[:page].to_i == 1
       redirect_to page: nil
     else
-      @images = Image.preload(:species).order('created_at DESC').page(params[:page].to_i).per(24)
+      page = (params[:page] || 1).to_i
+      @images = Image.preload(:species).order('created_at DESC').page(page).per(24)
       @feed = 'photos'
-      if @images.empty? && params[:page].to_i != 1
+      if @images.empty? && page != 1
         raise ActiveRecord::RecordNotFound
       else
         render :index

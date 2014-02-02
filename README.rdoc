@@ -1,18 +1,18 @@
 == What is Quails
 
-This is an application for keeping track of birdwatching activities and presenting them to the world. It allows to
-store, analyze, review, and filter observation records, place them on the map, attach images, generate life-, year-,
-month- and other checklists, and of course blog about birds and birding.
+This is an application for keeping track of birdwatching activities and sharing them with the world. It allows to
+log bird observations, place them on the map, attach images, generate life-, year- or region lists,
+and blog about birds and birding.
 
 == Why Quails
 
 Quails is a collective name for several groups of mid-sized hen-like birds. The reference species is Old World
-Common Quail <i>Coturnix coturnix</i>. In addition 'quails' sounds very close to 'rails'.
+Common Quail <i>Coturnix coturnix</i>. In addition 'quails' sounds similar to 'rails'.
 
-Actually 'rails' are birds as well - members of the _Rallidae_ family associated mostly with wetlands. So I could have
-named my application Rails but decided it could inspire confusion in the Ruby open source world.
+Actually 'rails' are birds as well. They are members of the _Rallidae_ family associated mostly with wetlands.
+So I could have named my project 'Rails' but I have abandoned this idea because it could arouse confusion in Ruby comunity.
 
 == Dependencies
 
-[Ruby 2.0] Ruby 2.0.0 is used for both production and development. May also work on 1.9.3, but not guaranteed.
+[Ruby 2.1.0] Ruby 2.1.0 is used for both production and development. May also work on 1.9.3 until I start using keyword arguments.
 [PostgreSQL] Some queries may be PostgreSQL-specific. PostgreSQL 9.1 is used.
