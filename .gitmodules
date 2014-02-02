@@ -1,0 +1,3 @@
+[submodule "db/seed"]
+	path = db/seed
+	url = git@gist.github.com:8771462.git
