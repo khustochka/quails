@@ -5,8 +5,14 @@ class GoogleSearch < ServiceCode
   CODE_ENV_VAR = 'quails_google_cse'.freeze
 
   def render
-    unless Rails.env.test? || config.code.blank?
-      @view.render partial: 'partials/search', object: config.code, as: :code
+    @view.render partial: 'partials/search', locals: {form_url: form_url, code: config.code}
+  end
+
+  def form_url
+    if config.code.present?
+      "http://google.com/cse"
+    else
+      "http://google.com/search"
     end
   end
 
