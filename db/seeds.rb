@@ -11,8 +11,17 @@ require 'seed_tables'
 
 dirname = File.join(Rails.root, 'db', 'seed')
 
+submodule_status = `git submodule status db/seed | head -c1`
+
+if submodule_status == '-'
+  system("git submodule init")
+  system("git submodule update")
+end
+
 SEED_TABLES.each do |table_name|
-  raw = YAML.load(File.new "#{dirname}/#{table_name}.yml", "r").to_a[0]
+  filename = "#{dirname}/#{table_name}.yml"
+
+  raw = YAML.load(File.new(filename), "r").to_a[0]
 
   data = raw[1]
 

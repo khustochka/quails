@@ -52,11 +52,11 @@ module ImagesHelper
   end
 
   def self.local_image_path
-    @local_image_path ||= ENV['local_image_path']
+    @local_image_path ||= ENV['quails_local_image_path']
   end
 
   def self.temp_image_path
-    @temp_image_path ||= ENV['temp_image_path']
+    @temp_image_path ||= ENV['quails_temp_image_path']
   end
 
   def legacy_image_url(file_name)
