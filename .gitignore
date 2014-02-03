@@ -1,6 +1,7 @@
 .*
 !.gitignore
 !.gitkeep
+!.gitmodules
 !.keep
 !.env
 !.env.test
