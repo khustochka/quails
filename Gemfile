@@ -39,6 +39,9 @@ gem 'sass-rails', '~> 4.0.0'
 
 gem 'uglifier', '>= 1.0.3'
 
+# For heroku
+gem 'rails_stdout_logging', require: false
+
 group :development do
   gem 'rails3-generators'
   gem 'nokogiri', platforms: [:ruby, :mingw], require: false

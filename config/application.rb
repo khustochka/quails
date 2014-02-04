@@ -46,3 +46,7 @@ module Quails
 end
 
 require 'quails/env'
+
+if Quails.env.heroku?
+  require 'rails_stdout_logging'
+end
