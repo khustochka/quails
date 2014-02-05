@@ -1,4 +1,4 @@
-require 'seed_tables'
+require 'seed_helper'
 
 desc 'Tasks for managing DB seed'
 namespace :seed do
