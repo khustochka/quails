@@ -1,5 +1,7 @@
 SEED_TABLES = %w(species loci local_species books taxa)
 
+SEED_DIR = File.join(Rails.root, 'db', 'seed')
+
 def seed_init_if_necessary!
   unless seed_inited?
     system("git submodule init")

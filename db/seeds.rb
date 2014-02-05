@@ -9,7 +9,7 @@
 require 'bunch_db/table'
 require 'seed_helper'
 
-dirname = File.join(Rails.root, 'db', 'seed')
+dirname = SEED_DIR
 
 seed_init_if_necessary!
 
