@@ -31,4 +31,4 @@ SEED_TABLES.each do |table_name|
   table.reset_pk_sequence!
 end
 
-Page.create(slug: 'links', title: "Links", public: true, text: "Lorem ipsum")
+#Page.create(slug: 'links', title: "Links", public: true, text: "Lorem ipsum")
