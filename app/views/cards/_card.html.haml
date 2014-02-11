@@ -37,6 +37,9 @@
           = card.mapped? ? "edit map (<b>#{card.mapped_percentage}</b>)".html_safe : '<b>MAP IT!</b>'.html_safe
           = image_tag("/img/kml_logo.png", width: 16) if card.kml_url.present?
 
+      - tag_class = (card.effort_type.blank? || card.effort_type == 'UNSET') ? 'alert' : 'good'
+      %small{class: "#{tag_class} tag"}= card.effort_type
+
     - if params[:obs]
       = link_to 'Attach here', attach_card_path(card, obs: params[:obs]), class: 'pseudolink', data: {method: :post}
 
