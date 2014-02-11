@@ -2,6 +2,8 @@
   %td{rstyle: "padding-left: #{30 * indent}px;"}
     = raw "&mdash;" * indent * 2
     = link_to locus_tree.slug, edit_locus_path(locus_tree)
+    - if locus_tree.iso_code.present?
+      (<b>#{locus_tree.iso_code}</b>)
   %td
     - %w(en ru uk).map do |lang|
       %div

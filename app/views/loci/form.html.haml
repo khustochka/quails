@@ -10,6 +10,7 @@
   %div
     = form.input :slug
     = form.association :parent, label: 'Parent', collection: (Locus.list_order - [@locus])
+    = form.input :iso_code, label: 'ISO code'
   %div
     = form.input :name_en, label: 'English name'
     = form.input :name_ru, label: 'Russian name'
