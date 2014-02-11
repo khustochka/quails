@@ -1,4 +1,7 @@
 class Card < ActiveRecord::Base
+
+  EFFORT_TYPES = %w(UNSET INCIDENTAL TRAVEL AREA)
+
   include FormattedModel
 
   include ActiveSupport::NumberHelper
