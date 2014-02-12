@@ -191,6 +191,10 @@ class Image < ActiveRecord::Base
     spot_id
   end
 
+  def public_locus
+    locus.public_locus
+  end
+
   private
 
   def first_observation

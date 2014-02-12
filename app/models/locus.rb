@@ -112,4 +112,23 @@ class Locus < ActiveRecord::Base
                  end
   end
 
+  def public_locus
+    @public_locus ||= if !patch?
+                        self
+                      else
+                        query = <<-SQL
+                      WITH RECURSIVE parents AS (
+                        SELECT *
+                        FROM loci
+                        WHERE id = #{self.parent_id}
+                          UNION ALL
+                        SELECT loci.*
+                        FROM loci JOIN parents ON loci.id = parents.parent_id
+                      )
+                      SELECT * FROM parents WHERE patch = 'f' LIMIT 1
+                        SQL
+                        Locus.find_by_sql(query).first
+                      end
+  end
+
 end
