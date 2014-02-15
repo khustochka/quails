@@ -159,6 +159,8 @@ Quails::Application.routes.draw do
     end
   end
 
+  resources :patches
+
   resources :species, only: [:edit, :update] do
     member do
       get 'review'

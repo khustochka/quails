@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140212101912) do
+ActiveRecord::Schema.define(version: 20140215134020) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -129,6 +129,7 @@ ActiveRecord::Schema.define(version: 20140212101912) do
     t.integer "post_id"
     t.boolean "voice",      default: false, null: false
     t.integer "card_id"
+    t.integer "patch_id"
   end
 
   add_index "observations", ["card_id"], name: "index_observations_on_card_id", using: :btree
@@ -146,6 +147,13 @@ ActiveRecord::Schema.define(version: 20140212101912) do
   end
 
   add_index "pages", ["slug"], name: "index_pages_on_slug", unique: true, using: :btree
+
+  create_table "patches", force: true do |t|
+    t.string   "name",       null: false
+    t.float    "lat"
+    t.float    "lng"
+    t.datetime "created_at"
+  end
 
   create_table "posts", force: true do |t|
     t.string   "slug",         limit: 64

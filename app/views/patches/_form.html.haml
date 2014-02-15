@@ -1,0 +1,12 @@
+- stylesheet 'forms'
+
+= simple_form_for(@patch) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :name
+    = f.input :lat
+    = f.input :lng
+
+  .form-actions
+    = f.button :submit

@@ -1,0 +1,23 @@
+%h1 Listing patches
+
+%table.neat_table
+  %tr
+    %th Name
+    %th Lat
+    %th Lng
+    %th
+    %th
+    %th
+
+  - @patches.each do |patch|
+    %tr
+      %td= patch.name
+      %td= patch.lat
+      %td= patch.lng
+      %td= link_to 'Show', patch
+      %td= link_to 'Edit', edit_patch_path(patch)
+      %td= link_to 'Destroy', patch, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Patch', new_patch_path

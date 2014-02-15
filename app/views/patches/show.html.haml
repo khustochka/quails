@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @patch.name
+%p
+  %b Lat:
+  = @patch.lat
+%p
+  %b Lng:
+  = @patch.lng
+
+= link_to 'Edit', edit_patch_path(@patch)
+\|
+= link_to 'Back', patches_path
