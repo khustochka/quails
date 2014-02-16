@@ -124,6 +124,7 @@ class Locus < ActiveRecord::Base
                           UNION ALL
                         SELECT loci.*
                         FROM loci JOIN parents ON loci.id = parents.parent_id
+                        WHERE parents.patch = 't'
                       )
                       SELECT * FROM parents WHERE patch = 'f' LIMIT 1
                         SQL
