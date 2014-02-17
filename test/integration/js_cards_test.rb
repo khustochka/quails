@@ -85,7 +85,7 @@ class JSCardsTest < ActionDispatch::IntegrationTest
     assert_equal 1, all('.obs-row').size
 
     assert_equal 'Parus major',
-                 find(:xpath, "//div[contains(@class,'obs-row')][1]//input[contains(@class, 'ui-autocomplete-input')]").value
+                 find(:xpath, "//div[contains(@class,'obs-row')][1]//input[contains(@class, 'sp-light')]").value
 
     #assert_equal seed(:parmaj).id.to_s,
     #             find(:xpath, "//div[contains(@class,'obs-row')][1]//select[contains(@class, 'sp-suggest')]").value

@@ -35,6 +35,7 @@ $(function () {
     $(row_html).insertBefore($('.fixed-bottom'));
     if (lightmode) light_autocomplete('.obs-row:last .sp-light');
     else $('.obs-row:last .sp-suggest').combobox();
+    $('.obs-row:last .patch-suggest').combobox();
     window.scrollTo(0, $(document).height());
     return $('.obs-row:last');
   }
@@ -64,6 +65,8 @@ $(function () {
 
   if (lightmode) light_autocomplete('.sp-light');
   else $('.sp-suggest').combobox();
+
+  $('.patch-suggest').combobox();
 
   $('a.destroy')
       .data('remote', 'true')

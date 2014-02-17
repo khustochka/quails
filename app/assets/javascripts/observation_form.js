@@ -14,4 +14,5 @@
 
 $(function () {
     $('.sp-suggest').combobox();
+    $('.patch-suggest').combobox();
 });

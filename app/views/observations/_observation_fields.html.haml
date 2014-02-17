@@ -11,7 +11,7 @@
   = form.input :notes
   = form.input :voice, label: 'Voice?'
   = form.input :place
-  = form.association :patch, input_html: {class: :short}, label_method: :name
+  = form.association :patch, input_html: {class: 'short patch-suggest'}, label_method: :name
   - if obs.persisted?
     - if controller_name == 'cards'
       %div.bulk_select= check_box_tag('obs[]', obs.id)
