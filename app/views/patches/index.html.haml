@@ -1,4 +1,8 @@
-%h1 Listing patches
+- @page_title = "Patches"
+
+%h1= page_header
+
+= render 'admin/shortcuts' if current_user.admin?
 
 %table.neat_table
   %tr
@@ -17,7 +21,3 @@
       %td= link_to 'Show', patch
       %td= link_to 'Edit', edit_patch_path(patch)
       %td= link_to 'Destroy', patch, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-%br
-
-= link_to 'New Patch', new_patch_path

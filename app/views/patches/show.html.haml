@@ -1,4 +1,11 @@
-%p#notice= notice
+- @page_title = "Patch `#{@patch.name}`"
+
+%h1= page_header
+
+= render 'admin/shortcuts' if current_user.admin?
+
+- if notice
+  %p#notice= notice
 
 %p
   %b Name:
@@ -9,7 +16,3 @@
 %p
   %b Lng:
   = @patch.lng
-
-= link_to 'Edit', edit_patch_path(@patch)
-\|
-= link_to 'Back', patches_path

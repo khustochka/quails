@@ -1,5 +1,7 @@
-%h1 New patch
+- @page_title = "Create patch"
+
+%h1= page_header
+
+= render 'admin/shortcuts' if current_user.admin?
 
 = render 'form'
-
-= link_to 'Back', patches_path
