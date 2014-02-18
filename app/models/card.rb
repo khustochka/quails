@@ -16,6 +16,7 @@ class Card < ActiveRecord::Base
   has_many :spots, through: :observations
 
   validates :locus_id, :observ_date, presence: true
+  validates :effort_type, inclusion: EFFORT_TYPES, allow_blank: false
 
   accepts_nested_attributes_for :observations,
                                 reject_if:
