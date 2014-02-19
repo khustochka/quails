@@ -1,6 +1,3 @@
-class Patch < ActiveRecord::Base
-
-  def to_param
-    name_was
-  end
+class Patch  < Locus
+  default_scope { where(patch: true) }
 end
