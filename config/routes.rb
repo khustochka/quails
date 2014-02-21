@@ -200,4 +200,6 @@ Quails::Application.routes.draw do
   get '/flickr' => 'flickr#index'
   get '/flickr/auth' => 'flickr#auth'
 
+  get "ebird" => 'ebird#index'
+
 end
