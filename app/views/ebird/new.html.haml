@@ -1,0 +1,11 @@
+- stylesheet 'forms'
+- javascript 'ebird_new'
+
+- @page_title = 'Export to eBird'
+
+%h1= page_header
+
+= simple_form_for @observation_search, url: cards_path, method: :get, remote: true, html: {class: 'search'} do |form|
+  = render 'observations/search_fields', form: form
+
+%ul.cards_list#search-results

@@ -1,16 +1,7 @@
-//= require suggest_over_combo
+//= require cards_search_remote
 //= require post_cards
 //= require wiki_form
 
-$(function () {
-  // Cards search form
-
-  var searchForm = $('form.search');
-  searchForm.on('ajax:success', function (e, data) {
-    $("#search-results").html(data);
-  });
-
-});
 
 // Lj post
 $(function () {

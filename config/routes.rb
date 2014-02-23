@@ -200,6 +200,10 @@ Quails::Application.routes.draw do
   get '/flickr' => 'flickr#index'
   get '/flickr/auth' => 'flickr#auth'
 
-  get "ebird" => 'ebird#index'
+  scope '/ebird', controller: 'ebird' do
+    get '/', action: :index
+    get '/new', action: :new
+    post '/', action: :create
+  end
 
 end
