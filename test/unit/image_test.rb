@@ -63,9 +63,9 @@ class ImageTest < ActiveSupport::TestCase
     assert_nil img.next_by_species(sp1)
   end
 
-  test "image public locus should not be patch" do
+  test "image public locus should not be private" do
     brvr = seed(:brovary)
-    loc = create(:locus, parent_id: brvr.id, patch: true)
+    loc = create(:locus, parent_id: brvr.id, private_loc: true)
     card = create(:card, locus: loc)
     obs1 = create(:observation, card: card)
     img = create(:image, observations: [obs1])

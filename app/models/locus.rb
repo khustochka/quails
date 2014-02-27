@@ -113,7 +113,7 @@ class Locus < ActiveRecord::Base
   end
 
   def public_locus
-    @public_locus ||= if !patch?
+    @public_locus ||= if !private_loc?
                         self
                       else
                         query = <<-SQL
@@ -124,9 +124,9 @@ class Locus < ActiveRecord::Base
                           UNION ALL
                         SELECT loci.*
                         FROM loci JOIN parents ON loci.id = parents.parent_id
-                        WHERE parents.patch = 't'
+                        WHERE parents.private_loc = 't'
                       )
-                      SELECT * FROM parents WHERE patch = 'f' LIMIT 1
+                      SELECT * FROM parents WHERE private_loc = 'f' LIMIT 1
                         SQL
                         Locus.find_by_sql(query).first
                       end

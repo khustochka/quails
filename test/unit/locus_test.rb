@@ -39,10 +39,10 @@ class LocusTest < ActiveSupport::TestCase
     assert_equal loc, observation.card.locus
   end
 
-  test "proper public parent for a patch locus" do
+  test "proper public parent for a private locus" do
     brvr = seed(:brovary)
-    loc = create(:locus, parent_id: brvr.id, patch: true)
-    loc2 = create(:locus, parent_id: loc.id, patch: true)
+    loc = create(:locus, parent_id: brvr.id, private_loc: true)
+    loc2 = create(:locus, parent_id: loc.id, private_loc: true)
     assert_equal brvr, loc2.public_locus
   end
 
