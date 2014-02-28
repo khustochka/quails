@@ -31,7 +31,7 @@ class EbirdObservation
   private
 
   def common_name
-
+    @obs.species.ebird_species.name_en
   end
 
   def genus
@@ -39,7 +39,7 @@ class EbirdObservation
   end
 
   def latin_name
-
+    @obs.species.ebird_species.name_sci
   end
 
   def count
