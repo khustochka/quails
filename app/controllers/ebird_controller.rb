@@ -20,7 +20,7 @@ class EbirdController < ApplicationController
     if @file.valid?
       @file.update_attribute(:name, "#{@file.name}-#{test_prefix}#{@file.id}")
 
-      cards_rel = Card.where(id: params[:card_id]).preload({:observations => [:species, :images]}, :locus)
+      cards_rel = Card.where(id: params[:card_id])
 
       result = EbirdExporter.new(@file.name, cards_rel).export
     else
