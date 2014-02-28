@@ -4,6 +4,8 @@
     = link_to locus_tree.slug, edit_locus_path(locus_tree)
     - if locus_tree.iso_code.present?
       (<b>#{locus_tree.iso_code}</b>)
+    - if locus_tree.loc_type.present?
+      %small.tag.good= locus_tree.loc_type
   %td
     - %w(en ru uk).map do |lang|
       %div
