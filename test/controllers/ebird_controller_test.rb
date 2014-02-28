@@ -43,6 +43,10 @@ class EbirdControllerTest < ActionController::TestCase
     assert_difference("Ebird::File.count", 0) do
       get :create, {ebird_file: {name: "fileBBB"}}
     end
+
+    assert_template 'new'
+    assert flash[:alert].present?
+
   end
 
 end

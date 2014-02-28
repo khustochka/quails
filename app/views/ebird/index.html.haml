@@ -4,6 +4,9 @@
 
 = render 'admin/shortcuts' if current_user.admin?
 
+- if notice
+  %p#notice= notice
+
 %table.neat_table
   %tr
     %th id
@@ -15,7 +18,7 @@
   - @files.each do |file|
     %tr
       %td= file.id
-      %td= link_to file.name, "/csv/#{file.name}.csv"
+      %td= link_to file.name, file.full_url
       %td= file.created_at.strftime("%F %R")
       %td= file.cards.size
       %td= file.status
