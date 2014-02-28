@@ -1,5 +1,5 @@
 require 'csv'
-require 'ebird/converter'
+require 'ebird/converter_factory'
 
 class EbirdExporter
 
@@ -11,10 +11,10 @@ class EbirdExporter
   def export
     if @filename.present? && @cards.any?
 
-      converter = EbirdConverter.new
+      converter = EbirdConverterFactory.new(@cards)
 
       @result = observations.map do |obs|
-        converter.to_a(obs)
+        converter.new(obs).to_a
       end
 
       save_to_file(@result) unless Rails.env.test?
@@ -28,7 +28,7 @@ class EbirdExporter
   private
 
   def observations
-    @cards.map(&:observations).flatten
+    @cards.map {|c| c.observations.to_a }.flatten
   end
 
   def save_to_file(array)

@@ -18,8 +18,8 @@ class EbirdControllerTest < ActionController::TestCase
   end
 
   test "create ebird file object with valid params" do
-    card1 = FactoryGirl.create(:card)
-    card2 = FactoryGirl.create(:card)
+    card1 = FactoryGirl.create(:observation).card
+    card2 = FactoryGirl.create(:observation).card
     login_as_admin
 
     assert_difference("Ebird::File.count", 1) do
