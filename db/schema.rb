@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140227152208) do
+ActiveRecord::Schema.define(version: 20140228063246) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -129,6 +129,8 @@ ActiveRecord::Schema.define(version: 20140227152208) do
     t.string  "iso_code",     limit: 3
     t.boolean "patch",                   default: false, null: false
     t.boolean "private_loc",             default: false, null: false
+    t.string  "loc_type"
+    t.string  "name_format",             default: "",    null: false
   end
 
   add_index "loci", ["parent_id"], name: "index_loci_on_parent_id", using: :btree
@@ -160,6 +162,13 @@ ActiveRecord::Schema.define(version: 20140227152208) do
   end
 
   add_index "pages", ["slug"], name: "index_pages_on_slug", unique: true, using: :btree
+
+  create_table "patches", force: true do |t|
+    t.string   "name",       null: false
+    t.float    "lat"
+    t.float    "lng"
+    t.datetime "created_at"
+  end
 
   create_table "posts", force: true do |t|
     t.string   "slug",         limit: 64

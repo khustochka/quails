@@ -22,6 +22,7 @@ class Locus < ActiveRecord::Base
     Rails.cache.delete_matched %r{records/loci}
   end
 
+  TYPES = %w(continent country subcountry state oblast raion city)
 
   # Parameters
 
