@@ -23,7 +23,7 @@ class LociControllerTest < ActionController::TestCase
       login_as_admin
       post :create, locus: build(:locus).attributes
     end
-    assert_redirected_to locus_path(assigns(:locus))
+    assert_redirected_to edit_locus_path(assigns(:locus))
   end
 
   test "show locus" do
@@ -57,7 +57,7 @@ class LociControllerTest < ActionController::TestCase
     locus.name_ru = 'Крымъ'
     login_as_admin
     put :update, id: locus.to_param, locus: locus.attributes
-    assert_redirected_to locus_path(assigns(:locus))
+    assert_redirected_to edit_locus_path(assigns(:locus))
   end
 
   test "destroy locus" do

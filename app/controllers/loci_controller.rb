@@ -33,7 +33,7 @@ class LociController < ApplicationController
   def create
     @locus = Locus.new(params[:locus])
     if @locus.save
-      redirect_to(@locus, :notice => 'Locus was successfully created.')
+      redirect_to(edit_locus_path(@locus), notice: 'Locus was successfully created.')
     else
       render :form
     end
@@ -42,7 +42,7 @@ class LociController < ApplicationController
   # PUT /locus/1
   def update
     if @locus.update_attributes(params[:locus])
-      redirect_to(@locus, :notice => 'Locus was successfully updated.')
+      redirect_to(edit_locus_path(@locus), notice: 'Locus was successfully updated.')
     else
       render :form
     end
