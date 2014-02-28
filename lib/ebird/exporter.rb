@@ -5,7 +5,7 @@ class EbirdExporter
 
   def initialize(filename, cards_rel)
     @filename = filename
-    @cards = cards_rel.preload({:observations => [{:species => :ebird_species}, :images]}, :locus)
+    @cards = cards_rel.preload({:observations => [:species, :images]}, :locus)
   end
 
   def export
