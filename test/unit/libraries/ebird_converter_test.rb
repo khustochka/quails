@@ -37,6 +37,15 @@ class EbirdConverterTest < ActiveSupport::TestCase
     assert_equal "02/12/2014", oconv(obs).send(:date)
   end
 
+  test "should include images" do
+    obs = FactoryGirl.create(:observation)
+    img1 = FactoryGirl.create(:image, slug: 'img1', observation_ids: [obs.id])
+    img2 = FactoryGirl.create(:image, slug: 'img2', observation_ids: [obs.id])
+    comments = oconv(obs).send(:comments)
+    assert_includes comments, img1.slug
+    assert_includes comments, img2.slug
+  end
+
   test "that unidentified species is marked properly" do
     skip
   end
