@@ -18,7 +18,7 @@ class EbirdController < ApplicationController
     @file = Ebird::File.create(params[:ebird_file])
 
     if @file.valid?
-      @file.update_attribute(:name, "#{@file.name}_#{@file.id}")
+      @file.update_attribute(:name, "#{@file.name}-#{test_prefix}#{@file.id}")
 
       cards_rel = Card.where(id: params[:card_id]).preload({:observations => [:species, :images]}, :locus)
 
@@ -40,6 +40,16 @@ class EbirdController < ApplicationController
       render :new
     end
 
+  end
+
+  private
+
+  def test_prefix
+    if Quails.env.real_prod?
+      ''
+    else
+      'test-'
+    end
   end
 
 end
