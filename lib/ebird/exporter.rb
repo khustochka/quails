@@ -5,11 +5,11 @@ class EbirdExporter
 
   def initialize(filename, cards_rel)
     @filename = filename
-    @cards = cards_rel.to_a
+    @cards = cards_rel
   end
 
   def export
-    if @filename.present? && @cards.any?
+    if @filename.present? && @cards.present?
 
       converter = EbirdConverterFactory.new(@cards)
 
