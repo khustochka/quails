@@ -14,7 +14,7 @@ class CommentsController < ApplicationController
     @comments =
         params[:sort] == 'by_post' ?
             Comment.preload(:post) :
-            Comment.preload(:post).reorder('created_at DESC').page(params[:page]).per(20)
+            Comment.preload(:post).reorder(created_at: :desc).page(params[:page]).per(20)
 
     respond_to do |format|
       format.html # index.html.erb

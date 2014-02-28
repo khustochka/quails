@@ -46,7 +46,7 @@ class Post < ActiveRecord::Base
   scope :indexable, lambda { public.where("status <> 'NIDX'") }
 
   def self.year(year)
-    select('id, slug, title, face_date, status').where('EXTRACT(year from face_date)::integer = ?', year).order('face_date ASC')
+    select('id, slug, title, face_date, status').where('EXTRACT(year from face_date)::integer = ?', year).order(face_date: :asc)
   end
 
   def self.month(year, month)
@@ -55,13 +55,13 @@ class Post < ActiveRecord::Base
 
   def self.prev_month(year, month)
     date = Time.parse("#{year}-#{month}-01").beginning_of_month.strftime("%F %T") # No Time.zone is OK!
-    rec = select('face_date').where('face_date < ?', date).order('face_date DESC').first
+    rec = select('face_date').where('face_date < ?', date).order(face_date: :desc).first
     rec.try(:to_month_url)
   end
 
   def self.next_month(year, month)
     date = Time.parse("#{year}-#{month}-01").end_of_month.strftime("%F %T.%N") # No Time.zone is OK!
-    rec = select('face_date').where('face_date > ?', date).order('face_date ASC').first
+    rec = select('face_date').where('face_date > ?', date).order(face_date: :asc).first
     rec.try(:to_month_url)
   end
 

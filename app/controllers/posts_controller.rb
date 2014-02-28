@@ -8,7 +8,7 @@ class PostsController < ApplicationController
 
   # This is rendered in public layout, just raising exception when no posts are found (the case for regular user)
   def hidden
-    @posts = Post.hidden.order('face_date DESC').page(params[:page]).per(20)
+    @posts = Post.hidden.order(face_date: :desc).page(params[:page]).per(20)
   end
 
   # GET /posts/1

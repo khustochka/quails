@@ -9,7 +9,7 @@ class BlogController < ApplicationController
   # GET /
   def home
     # Read the desired number of posts + 1
-    @posts = Post.public.order('face_date DESC').limit(POSTS_ON_FRONT_PAGE + 1).to_a
+    @posts = Post.public.order(face_date: :desc).limit(POSTS_ON_FRONT_PAGE + 1).to_a
     if @posts.size > POSTS_ON_FRONT_PAGE
       post_pre_last = @posts[-2].to_month_url
       post_last = @posts.last.to_month_url
@@ -22,7 +22,7 @@ class BlogController < ApplicationController
         # we fetch and show all the rest of posts
         @posts.concat(
             Post.public.month(post_last[:year], post_last[:month]).
-                reorder('face_date DESC').where("id NOT IN (?)", @posts.map(&:id))
+                reorder(face_date: :desc).where("id NOT IN (?)", @posts.map(&:id))
         )
         @prev_month = Post.public.prev_month(post_last[:year], post_last[:month])
       end

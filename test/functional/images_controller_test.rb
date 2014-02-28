@@ -218,6 +218,13 @@ class ImagesControllerTest < ActionController::TestCase
     get :show, id: img
   end
 
+  test "get series page" do
+    create(:image, observations: [@obs])
+    login_as_admin
+    get :series
+    assert assigns(:observations).any?
+  end
+
   test 'do not show link to private post to public user on image page' do
     blogpost = create(:post, status: 'PRIV')
     @obs.post = blogpost

@@ -86,7 +86,7 @@ class Image < ActiveRecord::Base
   def self.half_mapped
     Image.preload(:species).joins(:observations).
         where(spot_id: nil).where("observation_id in (select observation_id from spots)").
-        order('created_at ASC')
+        order(created_at: :asc)
   end
 
   # Associations
