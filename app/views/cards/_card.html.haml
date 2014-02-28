@@ -1,6 +1,7 @@
 %li.observ_card{data: {id: card.id}}
   %ul.card_cell
     %li
+      = hidden_field_tag("card_id[]", card.id)
       = link_to card.observ_date, card
       = surround('[ ', ' ]') do
         %b= link_to 'edit', edit_card_path(card), class: 'pseudolink'

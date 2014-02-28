@@ -11,8 +11,12 @@ class CardsController < ApplicationController
     @observation_search = ObservationSearch.new(params[:q])
 
     @cards = @observation_search.cards.
-        order(params[:sort] || 'observ_date DESC, locus_id').preload(:locus, :post).
-        page(params[:page]).per(10)
+        order(params[:sort] || 'observ_date DESC, locus_id').preload(:locus, :post)
+
+    if !request.xhr? || pjax_request?
+      @cards = @cards.page(params[:page]).per(10)
+    end
+
 
     @post = Post.where(id: params[:new_post_id]).first
 
