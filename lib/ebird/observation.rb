@@ -63,6 +63,46 @@ class EbirdObservation
   end
 
   def date
+    @obs.card.observ_date.strftime("%m/%d/%Y")
+  end
+
+  def start_time
+
+  end
+
+  def state
+
+  end
+
+  def country
+
+  end
+
+  def protocol
+
+  end
+
+  def number_of_observers
+
+  end
+
+  def duration_minutes
+
+  end
+
+  def all_observations?
+
+  end
+
+  def distance_miles
+    @obs.card.distance_kms.try(:*, 0.621371192)
+  end
+
+  def area
+
+  end
+
+  def checklist_comment
 
   end
 
