@@ -15,21 +15,6 @@ class EbirdConverterTest < ActiveSupport::TestCase
     FactoryGirl.create(:card, effort_type: 'TRAVEL', distance_kms: 1.1)
   end
 
-  test "that the same correct latin name is used (Clements 6)" do
-    obs = FactoryGirl.create(:observation, species: seed(:pasdom))
-    assert_equal "Passer domesticus", oconv(obs).send(:latin_name)
-  end
-
-  test "that the different correct latin name is used (Clements 6)" do
-    obs = FactoryGirl.create(:observation, species: seed(:acacan))
-    assert_equal "Carduelis cannabina", oconv(obs).send(:latin_name)
-  end
-
-  test "that the correct latin name is used for problematic species (Clements 6)" do
-    obs = FactoryGirl.create(:observation, species: seed(:saxtor))
-    assert_equal "Saxicola rubicola", oconv(obs).send(:latin_name)
-  end
-
   test "that distance in miles is used" do
     card = travel_card
     obs = FactoryGirl.create(:observation, card: card)
@@ -56,36 +41,73 @@ class EbirdConverterTest < ActiveSupport::TestCase
     assert_includes comments, img2.slug
   end
 
+  test "that the same correct latin name is used (Clements 6)" do
+    obs = FactoryGirl.create(:observation, species: seed(:pasdom))
+    assert_equal "Passer domesticus", oconv(obs).send(:latin_name)
+  end
+
+  test "that the different correct latin name is used (Clements 6)" do
+    obs = FactoryGirl.create(:observation, species: seed(:acacan))
+    assert_equal "Carduelis cannabina", oconv(obs).send(:latin_name)
+  end
+
+  test "that the correct latin name is used for problematic species (Clements 6)" do
+    obs = FactoryGirl.create(:observation, species: seed(:saxtor))
+    assert_equal "Saxicola rubicola", oconv(obs).send(:latin_name)
+  end
+
   test "that unidentified species is marked properly" do
-    skip
+    obs = FactoryGirl.create(:observation, species_id: 0, notes: 'Corvus sp')
+    assert_equal "Corvus sp", oconv(obs).send(:latin_name)
+    assert_equal "Corvus sp", oconv(obs).send(:common_name)
   end
 
   test "that Feral Pigeon is marked properly" do
-    skip
+    obs = FactoryGirl.create(:observation, species: seed(:colliv))
+    assert_equal "Columba livia (Domestic type)", oconv(obs).send(:latin_name)
+    assert_equal "Rock Pigeon (Feral Pigeon)", oconv(obs).send(:common_name)
   end
 
   test "that Hirundo rustica is marked properly when seen in Ukraine" do
-    skip
+    card = FactoryGirl.create(:card, locus: seed(:brovary))
+    obs = FactoryGirl.create(:observation, species: seed(:hirrus), card: card)
+    assert_equal "Hirundo rustica", oconv(obs).send(:latin_name)
+    assert_equal "Barn Swallow", oconv(obs).send(:common_name)
   end
 
   test "that Hirundo rustica is marked properly when seen in USA" do
-    skip
+    card = FactoryGirl.create(:card, locus: seed(:brooklyn))
+    obs = FactoryGirl.create(:observation, species: seed(:hirrus), card: card)
+    assert_equal "Hirundo rustica erythrogaster", oconv(obs).send(:latin_name)
+    assert_equal "Barn Swallow (American)", oconv(obs).send(:common_name)
   end
 
   test "that Larus argentatus is marked properly when seen in Ukraine" do
-    skip
+    card = FactoryGirl.create(:card, locus: seed(:kiev))
+    obs = FactoryGirl.create(:observation, species: seed(:lararg), card: card)
+    assert_equal "Larus argentatus", oconv(obs).send(:latin_name)
+    assert_equal "Herring Gull", oconv(obs).send(:common_name)
   end
 
-  test "that Larus argentatus is marked properly when seen in USA" do
-    skip
+  test "that Larus argentatus smithsonianus is marked properly when seen in USA" do
+    card = FactoryGirl.create(:card, locus: seed(:brooklyn))
+    obs = FactoryGirl.create(:observation, species: seed(:lararg), card: card)
+    assert_equal "Larus argentatus smithsonianus", oconv(obs).send(:latin_name)
+    assert_equal "Herring Gull (American)", oconv(obs).send(:common_name)
   end
 
-  test "that Larus heuglini is marked properly when seen in UK" do
-    skip
+  test "that Larus fuscus graellsii is marked properly when seen in UK" do
+    card = FactoryGirl.create(:card, locus: seed(:london))
+    obs = FactoryGirl.create(:observation, species: seed(:larfus), card: card)
+    assert_equal "Larus fuscus graellsii", oconv(obs).send(:latin_name)
+    assert_equal "Lesser Black-backed Gull (graellsii)", oconv(obs).send(:common_name)
   end
 
   test "that Motacilla feldegg is marked properly" do
-    skip
+    card = FactoryGirl.create(:card, locus: seed(:arabatska_khersonska))
+    obs = FactoryGirl.create(:observation, species: seed(:motfel), card: card)
+    assert_equal "Motacilla flava feldegg", oconv(obs).send(:latin_name)
+    assert_equal "Western Yellow Wagtail (Black-headed)", oconv(obs).send(:common_name)
   end
 
 end

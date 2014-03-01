@@ -33,10 +33,6 @@ class EbirdObservation
         Taxon.where(book_id: Book.select(:id).where(slug: 'clements6')).index_by(&:species_id).merge(ADDITIONAL_SPECIES)
   end
 
-  ADDITIONAL_SPECIES = {
-
-  }
-
   PROTOCOL_MAPPING = {
       'UNSET' => 'incidental',
       'INCIDENTAL' => 'incidental',
@@ -155,5 +151,19 @@ class EbirdObservation
       image_tag(img.assets_cache.locals.find_max_size(width: 600).try(:full_url) || legacy_image_url("#{img.slug}.jpg"), alt: nil)
     end
   end
+
+  SpeciesTemplate = Struct.new(:name_sci, :name_en)
+
+  EUROPEAN_STONECHAT = SpeciesTemplate.new('Saxicola rubicola', 'European Stonechat')
+
+  FERAL_PIGEON = SpeciesTemplate.new('Columba livia (Domestic type)', 'Rock Pigeon (Feral Pigeon)')
+
+  MOTACILLA_FELDEGG = SpeciesTemplate.new('Motacilla flava feldegg', 'Western Yellow Wagtail (Black-headed)')
+
+  ADDITIONAL_SPECIES = {
+    Species.where(code: 'colliv').pluck(:id).first => FERAL_PIGEON,
+    Species.where(code: 'saxtor').pluck(:id).first => EUROPEAN_STONECHAT,
+    Species.where(code: 'motfel').pluck(:id).first => MOTACILLA_FELDEGG
+  }
 
 end
