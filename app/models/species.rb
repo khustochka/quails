@@ -28,7 +28,7 @@ class Species < ActiveRecord::Base
   has_one :species_image
   has_one :image, through: :species_image
 
-  has_one :ebird_species, -> { where(book_id: Book.find_by_slug('clements6')) }, class_name: 'Taxon'
+  #has_one :ebird_species, -> { where(book_id: Book.find_by_slug('clements6')) }, class_name: 'Taxon'
 
   AVIS_INCOGNITA = Struct.new(:id, :name_sci, :to_label, :name).
       new(0, '- Avis incognita', '- Avis incognita', '- Avis incognita')

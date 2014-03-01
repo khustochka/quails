@@ -28,10 +28,32 @@ class EbirdObservation
     ]
   end
 
+  def self.ebird_species_cache
+    @ebird_species_cache ||=
+        Taxon.where(book_id: Book.select(:id).where(slug: 'clements6')).index_by(&:species_id).merge(ADDITIONAL_SPECIES)
+  end
+
+  ADDITIONAL_SPECIES = {
+
+  }
+
+  PROTOCOL_MAPPING = {
+      'UNSET' => 'incidental',
+      'INCIDENTAL' => 'incidental',
+      'TRAVEL' => 'traveling',
+      'AREA' => 'area'
+  }
+
   private
 
   def common_name
-    @obs.species.ebird_species.name_en
+    if @obs.species_id == 0
+      @obs.notes
+    else
+      self.class.ebird_species_cache[@obs.species_id].name_en
+    end
+  rescue
+    raise "Error with species id #{@obs.species_id}"
   end
 
   def genus
@@ -39,7 +61,13 @@ class EbirdObservation
   end
 
   def latin_name
-    @obs.species.ebird_species.name_sci
+    if @obs.species_id == 0
+      @obs.notes
+    else
+      self.class.ebird_species_cache[@obs.species_id].name_sci
+    end
+  rescue
+    raise "Error with species id #{@obs.species_id}"
   end
 
   def count
@@ -50,7 +78,7 @@ class EbirdObservation
     (
     [transliterate(@obs.notes)] +
         @obs.images.map { |i| polymorfic_image_render(i) }
-    ).join("\n\n")
+    ).join(" ")
   end
 
   def location_name
@@ -82,7 +110,7 @@ class EbirdObservation
   end
 
   def protocol
-    @obs.card.effort_type
+    PROTOCOL_MAPPING[@obs.card.effort_type]
   end
 
   def number_of_observers
