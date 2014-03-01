@@ -46,7 +46,8 @@ class EbirdObservation
     if @obs.species_id == 0
       @obs.notes
     else
-      self.class.ebird_species_cache[@obs.species_id].name_en
+      sp = SPECIES_BY_COUNTRY[@obs.card.locus.country.slug][@obs.species_id] || self.class.ebird_species_cache[@obs.species_id]
+      sp.name_en
     end
   rescue
     raise "Error with species id #{@obs.species_id}"
@@ -60,7 +61,8 @@ class EbirdObservation
     if @obs.species_id == 0
       @obs.notes
     else
-      self.class.ebird_species_cache[@obs.species_id].name_sci
+      sp = SPECIES_BY_COUNTRY[@obs.card.locus.country.slug][@obs.species_id] || self.class.ebird_species_cache[@obs.species_id]
+      sp.name_sci
     end
   rescue
     raise "Error with species id #{@obs.species_id}"
@@ -164,6 +166,25 @@ class EbirdObservation
     Species.where(code: 'colliv').pluck(:id).first => FERAL_PIGEON,
     Species.where(code: 'saxtor').pluck(:id).first => EUROPEAN_STONECHAT,
     Species.where(code: 'motfel').pluck(:id).first => MOTACILLA_FELDEGG
+  }
+
+  LARUS_FUSCUS_GRAELLSII = SpeciesTemplate.new('Larus fuscus graellsii', 'Lesser Black-backed Gull (graellsii)')
+
+  AMERICAN_BARN_SWALLOW = SpeciesTemplate.new('Hirundo rustica erythrogaster', 'Barn Swallow (American)')
+
+  AMERICAN_HERRING_GULL = SpeciesTemplate.new('Larus argentatus smithsonianus', 'Herring Gull (American)')
+
+  SPECIES_BY_COUNTRY = {
+      'ukraine' => {},
+
+      'usa' => {
+          Species.where(code: 'hirrus').pluck(:id).first => AMERICAN_BARN_SWALLOW,
+          Species.where(code: 'lararg').pluck(:id).first => AMERICAN_HERRING_GULL
+      },
+
+      'united_kingdom' => {
+          Species.where(code: 'larfus').pluck(:id).first => LARUS_FUSCUS_GRAELLSII
+      }
   }
 
 end
