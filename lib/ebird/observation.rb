@@ -80,7 +80,8 @@ class EbirdObservation
   end
 
   def location_name
-    @obs.card.locus.name_en
+    loc = @obs.patch || @obs.card.locus
+    loc.name_en
   end
 
   def latitude

@@ -32,6 +32,18 @@ class EbirdConverterTest < ActiveSupport::TestCase
     assert_equal "02/12/2014", oconv(obs).send(:date)
   end
 
+  test "that card locus is properly presented" do
+    card = FactoryGirl.create(:card, locus: seed(:kiev))
+    obs = FactoryGirl.create(:observation, card: card)
+    assert_equal "Kiev City", oconv(obs).send(:location_name)
+  end
+
+  test "that patch locus is properly presented" do
+    card = FactoryGirl.create(:card, locus: seed(:kiev))
+    obs = FactoryGirl.create(:observation, card: card, patch: seed(:expocenter))
+    assert_equal "Expocentre", oconv(obs).send(:location_name)
+  end
+
   test "should include images" do
     obs = FactoryGirl.create(:observation)
     img1 = FactoryGirl.create(:image, slug: 'img1', observation_ids: [obs.id])
