@@ -16,8 +16,8 @@ class EbirdObservation
         longtitude,
         date,
         start_time,
-        state,
-        country,
+        state_iso_code,
+        country_iso_code,
         protocol,
         number_of_observers,
         duration_minutes,
@@ -43,14 +43,7 @@ class EbirdObservation
   private
 
   def common_name
-    if @obs.species_id == 0
-      @obs.notes
-    else
-      sp = SPECIES_BY_COUNTRY[@obs.card.locus.country.slug][@obs.species_id] || self.class.ebird_species_cache[@obs.species_id]
-      sp.name_en
-    end
-  rescue
-    raise "Error with species id #{@obs.species_id}"
+    try_name(:name_en)
   end
 
   def genus
@@ -58,14 +51,7 @@ class EbirdObservation
   end
 
   def latin_name
-    if @obs.species_id == 0
-      @obs.notes
-    else
-      sp = SPECIES_BY_COUNTRY[@obs.card.locus.country.slug][@obs.species_id] || self.class.ebird_species_cache[@obs.species_id]
-      sp.name_sci
-    end
-  rescue
-    raise "Error with species id #{@obs.species_id}"
+    try_name(:name_sci)
   end
 
   def count
@@ -80,7 +66,7 @@ class EbirdObservation
   end
 
   def location_name
-    loc = @obs.patch || @obs.card.locus
+    loc = @obs.patch || locus
     loc.name_en
   end
 
@@ -93,33 +79,33 @@ class EbirdObservation
   end
 
   def date
-    @obs.card.observ_date.strftime("%m/%d/%Y")
+    card.observ_date.strftime("%m/%d/%Y")
   end
 
   def start_time
-    @obs.card.start_time
+    card.start_time
   end
 
-  def state
+  def state_iso_code
 
   end
 
-  def country
-    @obs.card.locus.country.iso_code
+  def country_iso_code
+    country.iso_code
   end
 
   def protocol
-    PROTOCOL_MAPPING[@obs.card.effort_type]
+    PROTOCOL_MAPPING[card.effort_type]
   end
 
   def number_of_observers
-    n = @obs.card.observers.to_s.split(',').size
+    n = card.observers.to_s.split(',').size
     n = 1 if n == 0
     n
   end
 
   def duration_minutes
-    @obs.card.duration_minutes
+    card.duration_minutes
   end
 
   def all_observations?
@@ -127,12 +113,12 @@ class EbirdObservation
   end
 
   def distance_miles
-    @obs.card.distance_kms.try(:*, 0.621371192)
+    card.distance_kms.try(:*, 0.621371192)
   end
 
   def area
     # acres?
-    #@obs.card.area
+    #card.area
   end
 
   def checklist_comment
@@ -140,6 +126,29 @@ class EbirdObservation
   end
 
   ## helpers
+
+  def try_name(method)
+    if @obs.species_id == 0
+      @obs.notes
+    else
+      sp = SPECIES_BY_COUNTRY[country.slug][@obs.species_id] || self.class.ebird_species_cache[@obs.species_id]
+      sp.send(method)
+    end
+  rescue
+    raise "Error with species id #{@obs.species_id}"
+  end
+
+  def card
+    @card ||= @obs.card
+  end
+
+  def locus
+    @locus ||= card.locus
+  end
+
+  def country
+    @country ||= locus.country
+  end
 
   include ActionView::Helpers::AssetTagHelper
   include ActionView::Helpers::UrlHelper
