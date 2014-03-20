@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140320054653) do
+ActiveRecord::Schema.define(version: 20140320193022) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -119,7 +119,6 @@ ActiveRecord::Schema.define(version: 20140320054653) do
 
   create_table "loci", force: true do |t|
     t.string  "slug",         limit: 32,                 null: false
-    t.integer "parent_id"
     t.string  "name_en"
     t.string  "name_ru"
     t.string  "name_uk"
@@ -135,7 +134,6 @@ ActiveRecord::Schema.define(version: 20140320054653) do
   end
 
   add_index "loci", ["ancestry"], name: "index_loci_on_ancestry", using: :btree
-  add_index "loci", ["parent_id"], name: "index_loci_on_parent_id", using: :btree
   add_index "loci", ["slug"], name: "index_loci_on_slug", unique: true, using: :btree
 
   create_table "observations", force: true do |t|
