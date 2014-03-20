@@ -9,7 +9,7 @@
 = simple_form_for @locus do |form|
   %div
     = form.input :slug
-    = form.association :parent, label: 'Parent', collection: (Locus.list_order - [@locus])
+    = form.input :parent_id, label: 'Parent', collection: (Locus.all - [@locus])
     = form.input :iso_code, label: 'ISO code'
   %div
     = form.input :loc_type, label: 'Locus type', as: :select, collection: Locus::TYPES
