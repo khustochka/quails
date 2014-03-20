@@ -3,6 +3,8 @@ class Locus < ActiveRecord::Base
   include ActiveRecord::Localized
   localize :name
 
+  has_ancestry
+
   validates :slug, :format => /\A[a-z_]+\Z/i, :uniqueness => true, :presence => true, :length => {:maximum => 32}
   validates :name_en, :name_ru, :name_uk, :uniqueness => true
 

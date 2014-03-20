@@ -32,6 +32,8 @@ GEM
     airbrake (3.1.16)
       builder
       multi_json
+    ancestry (2.0.0)
+      activerecord (>= 3.0.0)
     ansi (1.4.3)
     arel (4.0.2)
     atomic (1.1.16)
@@ -187,6 +189,7 @@ DEPENDENCIES
   activerecord-jdbcpostgresql-adapter
   addressable
   airbrake
+  ancestry
   capybara (~> 2.2.0)
   capybara-webkit (~> 1.0)
   database_cleaner

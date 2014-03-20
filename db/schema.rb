@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140228063246) do
+ActiveRecord::Schema.define(version: 20140320054653) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -131,8 +131,10 @@ ActiveRecord::Schema.define(version: 20140228063246) do
     t.boolean "private_loc",             default: false, null: false
     t.string  "loc_type"
     t.string  "name_format",             default: "",    null: false
+    t.string  "ancestry"
   end
 
+  add_index "loci", ["ancestry"], name: "index_loci_on_ancestry", using: :btree
   add_index "loci", ["parent_id"], name: "index_loci_on_parent_id", using: :btree
   add_index "loci", ["slug"], name: "index_loci_on_slug", unique: true, using: :btree
 
