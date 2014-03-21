@@ -46,10 +46,6 @@ group :development do
   gem 'nokogiri', platforms: [:ruby, :mingw], require: false
 end
 
-group :development, :vps do
-  gem 'grit', '~> 2.5', require: false, platforms: [:ruby, :mingw]
-end
-
 # in dev group for generators
 gem 'factory_girl_rails', '~> 4.0', groups: [:development, :test]
 

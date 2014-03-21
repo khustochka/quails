@@ -6,17 +6,11 @@ namespace :helper do
     @folder = @local_opts['repo']
   end
 
-  task :init_repo => :load_locals do
-    require 'tasks/grit_init'
-    @repo = Grit::Repo.new(@folder)
-  end
-
   desc 'Pull the legacy data from remote repository'
-  task :pull => :init_repo do
-
+  task :pull => :load_locals do
     puts 'Pulling from remote'
     Dir.chdir(@folder) do
-      @repo.git.pull
+      system 'git pull'
     end
   end
 
