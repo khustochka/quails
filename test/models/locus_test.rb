@@ -46,4 +46,14 @@ class LocusTest < ActiveSupport::TestCase
     assert_equal brvr, loc2.public_locus
   end
 
+  test "#country" do
+    brvr = seed(:brovary)
+    assert_equal 'ukraine', brvr.country.slug
+  end
+
+  test "#country for country should be self" do
+    ukr = seed(:ukraine)
+    assert_equal 'ukraine', ukr.country.slug
+  end
+
 end
