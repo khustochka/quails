@@ -77,7 +77,7 @@ class Species < ActiveRecord::Base
   end
 
   def grouped_loci
-    countries = Country.select(:id, :slug).to_a
+    countries = Country.select(:id, :slug, :ancestry).to_a
     loci.uniq.group_by do |locus|
       countries.find {|c| locus.id.in?(c.subregion_ids)}.slug
     end
