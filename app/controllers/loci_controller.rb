@@ -9,7 +9,7 @@ class LociController < ApplicationController
 
   # GET /locus
   def index
-    @loci = Locus.list_order.group_by(&:parent_id)
+    @loci = Locus.all.arrange
   end
 
   # GET /locus/1
@@ -57,7 +57,7 @@ class LociController < ApplicationController
 
   def public
     @locs_public = Locus.public
-    @locs_other = Locus.where('public_index IS NULL').order(:parent_id, :slug)
+    @locs_other = Locus.sort_by_ancestry(Locus.where('public_index IS NULL'))
   end
 
   def save_order

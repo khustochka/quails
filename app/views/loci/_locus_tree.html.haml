@@ -1,29 +1,30 @@
+- locus = locus_tree[0]
 %tr
   %td{rstyle: "padding-left: #{30 * indent}px;"}
     = raw "&mdash;" * indent * 2
-    = link_to locus_tree.slug, edit_locus_path(locus_tree)
-    - if locus_tree.iso_code.present?
-      (<b>#{locus_tree.iso_code}</b>)
-    - if locus_tree.loc_type.present?
-      %small.tag.good= locus_tree.loc_type
+    = link_to locus.slug, edit_locus_path(locus)
+    - if locus.iso_code.present?
+      (<b>#{locus.iso_code}</b>)
+    - if locus.loc_type.present?
+      %small.tag.good= locus.loc_type
   %td
     - %w(en ru uk).map do |lang|
       %div
         %i.less-important.monospace
           #{lang}:
-        #{locus_tree.send("name_#{lang}")}
-  %td.align-center= latlon(locus_tree)
+        #{locus.send("name_#{lang}")}
+  %td.align-center= latlon(locus)
   %td.align-right
-    = locus_tree.public_index
-    - if locus_tree.patch
+    = locus.public_index
+    - if locus.patch
       %small.tag.good patch
-    - if locus_tree.private_loc
+    - if locus.private_loc
       %small.tag.alert private
 
   %td
-    - if @loci[locus_tree.id].present? || locus_tree.observations.count > 0
+    - if @loci[locus.id].present? || locus.observations.count > 0
       = disabled_destroy_icon
     - else
-      = default_destroy_link(locus_tree)
+      = default_destroy_link(locus)
 
-= render partial: 'locus_tree', collection: @loci[locus_tree.id], locals: {indent: indent + 1}
+= render partial: 'locus_tree', collection: locus_tree[1].to_a, locals: {indent: indent + 1}

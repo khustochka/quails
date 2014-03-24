@@ -35,8 +35,6 @@ class Locus < ActiveRecord::Base
 
   # Scopes
 
-  scope :list_order, lambda { order(:parent_id, :slug) }
-
   def self.suggestion_order
     sort_by_ancestry(Locus.all)
     # Rails.cache.fetch("records/loci/suggestion_order") do

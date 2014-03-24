@@ -18,4 +18,4 @@
     %th Public #
     %th
 
-  = render partial: 'locus_tree', collection: @loci[nil], locals: {indent: 0}
+  = render partial: 'locus_tree', collection: @loci.to_a, locals: {indent: 0}
