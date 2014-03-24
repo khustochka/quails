@@ -163,13 +163,6 @@ ActiveRecord::Schema.define(version: 20140320193022) do
 
   add_index "pages", ["slug"], name: "index_pages_on_slug", unique: true, using: :btree
 
-  create_table "patches", force: true do |t|
-    t.string   "name",       null: false
-    t.float    "lat"
-    t.float    "lng"
-    t.datetime "created_at"
-  end
-
   create_table "posts", force: true do |t|
     t.string   "slug",         limit: 64
     t.string   "title",                   null: false
