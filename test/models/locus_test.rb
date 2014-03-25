@@ -25,6 +25,13 @@ class LocusTest < ActiveSupport::TestCase
     assert_equal [], not_expected & actual, 'Some unexpected values are included'
   end
 
+  test "subregions of the Arabat Spit" do
+    loc = seed(:arabat_spit)
+    actual = loc.subregion_ids
+    expected = Locus.where("slug LIKE 'arabat%'").pluck(:id)
+    assert_equal expected, actual
+  end
+
   test 'do not destroy locus if it has child locations' do
     loc = seed(:ukraine)
     assert_raise(Ancestry::AncestryException) { loc.destroy }
@@ -44,6 +51,11 @@ class LocusTest < ActiveSupport::TestCase
     loc = create(:locus, parent_id: brvr.id, private_loc: true)
     loc2 = create(:locus, parent_id: loc.id, private_loc: true)
     assert_equal brvr, loc2.public_locus
+  end
+
+  test "proper public locus for self" do
+    brvr = seed(:brovary)
+    assert_equal brvr, brvr.public_locus
   end
 
   test "#country" do

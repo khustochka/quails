@@ -37,20 +37,6 @@ class Locus < ActiveRecord::Base
 
   def self.suggestion_order
     sort_by_ancestry(Locus.all).reverse
-    # Rails.cache.fetch("records/loci/suggestion_order") do
-    #   query = <<-SQL
-    #   WITH RECURSIVE subregions(id) AS (
-    #     SELECT *, 0 as level
-    #     FROM loci
-    #     WHERE parent_id IS NULL
-    #       UNION ALL
-    #     SELECT loci.*, (subregions.level + 1) as level
-    #     FROM loci JOIN subregions ON loci.parent_id = subregions.id
-    #   )
-    #   SELECT * FROM subregions ORDER BY level DESC, parent_id, id
-    #   SQL
-    #   find_by_sql(query)
-    # end
   end
 
   scope :public, lambda { where('public_index IS NOT NULL').order(:public_index) }
@@ -68,7 +54,12 @@ class Locus < ActiveRecord::Base
   end
 
   def subregion_ids
-    subtree_ids
+    # Hack for Arabat Spit
+    if slug == 'arabat_spit'
+      Locus.where("slug LIKE 'arabat%'").pluck(:id)
+    else
+      subtree_ids
+    end
   end
 
   def country
@@ -76,24 +67,7 @@ class Locus < ActiveRecord::Base
   end
 
   def public_locus
-    ancestors.where(private_loc: false).last
-    # @public_locus ||= if !private_loc?
-    #                     self
-    #                   else
-    #                     query = <<-SQL
-    #                   WITH RECURSIVE parents AS (
-    #                     SELECT *
-    #                     FROM loci
-    #                     WHERE id = #{self.parent_id}
-    #                       UNION ALL
-    #                     SELECT loci.*
-    #                     FROM loci JOIN parents ON loci.id = parents.parent_id
-    #                     WHERE parents.private_loc = 't'
-    #                   )
-    #                   SELECT * FROM parents WHERE private_loc = 'f' LIMIT 1
-    #                     SQL
-    #                     Locus.find_by_sql(query).first
-    #                   end
+    path.where(private_loc: false).last
   end
 
 end
