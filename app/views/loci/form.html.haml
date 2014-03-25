@@ -10,7 +10,7 @@
 = simple_form_for @locus do |form|
   %div
     = form.input :slug
-    = form.input :parent_id, label: 'Parent', collection: (Locus.where('id <> ?', @locus)),
+    = form.input :parent_id, label: 'Parent', collection: (Locus.where.not(id: @locus)),
           input_html: {class: 'suggest-combo'}
     = form.input :iso_code, label: 'ISO code'
   %div
