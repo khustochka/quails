@@ -36,7 +36,7 @@ class Locus < ActiveRecord::Base
   # Scopes
 
   def self.suggestion_order
-    sort_by_ancestry(Locus.all)
+    sort_by_ancestry(Locus.all).reverse
     # Rails.cache.fetch("records/loci/suggestion_order") do
     #   query = <<-SQL
     #   WITH RECURSIVE subregions(id) AS (
