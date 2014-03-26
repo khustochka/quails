@@ -52,4 +52,8 @@ class Observation < ActiveRecord::Base
 
   delegate :species_str, :when_where_str, to: :formatted
 
+  def patch_or_locus
+    patch || card.locus
+  end
+
 end
