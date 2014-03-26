@@ -29,12 +29,16 @@ $(function () {
     });
   }
 
+  function initAutocomplete(parent) {
+    if (lightmode) light_autocomplete(parent + ' .sp-light');
+    else $(parent + ' .sp-suggest').combobox();
+  }
+
   function addNewRow() {
     last_row_num++;
     var row_html = sample_row_html.replace(tmpl_regex, "$1" + last_row_num + "$2");
     $(row_html).insertBefore($('.fixed-bottom'));
-    if (lightmode) light_autocomplete('.obs-row:last .sp-light');
-    else $('.obs-row:last .sp-suggest').combobox();
+    initAutocomplete(".obs-row:last");
     $('.obs-row:last .patch-suggest').combobox();
     window.scrollTo(0, $(document).height());
     return $('.obs-row:last');
@@ -63,8 +67,7 @@ $(function () {
     $(this).closest('.obs-row').remove();
   });
 
-  if (lightmode) light_autocomplete('.sp-light');
-  else $('.sp-suggest').combobox();
+  initAutocomplete("");
 
   $('.patch-suggest').combobox();
 
@@ -101,7 +104,22 @@ $(function () {
   if (lightmode) $('#species-quick-add').autocomplete({
     delay: 0,
     autoFocus: true,
-    source: sp_list,
+    source: function (request, response) {
+      var matcher = new RegExp("(^| )" + $.ui.autocomplete.escapeRegex(request.term), "i");
+      response($.map(sp_list, function (species) {
+        var text = species.value;
+        if (( species.value != null ) && ( !request.term || matcher.test(text) ))
+          return {
+            label: text.replace('Avis incognita', '<i>Avis incognita</i>').replace(
+                new RegExp(
+                    "(?![^&;]+;)(?!<[^<>]*)(" +
+                        $.ui.autocomplete.escapeRegex(request.term) +
+                        ")(?![^<>]*>)(?![^&;]+;)", "gi"
+                ), "<strong>$1</strong>"),
+            value: text
+          };
+      }));
+    },
     minLength: 2,
     select: function (event, ui) {
       var row = firstEmptyRow();
@@ -124,7 +142,7 @@ $(function () {
         minLength: 2,
         autoFocus: true,
         source: function (request, response) {
-          var matcher = new RegExp($.ui.autocomplete.escapeRegex(request.term), "i");
+          var matcher = new RegExp("(^| )" + $.ui.autocomplete.escapeRegex(request.term), "i");
           response(options_list.map(function () {
             var text = $(this).text();
             if (( this.value != null ) && ( !request.term || matcher.test(text) ))
@@ -144,7 +162,9 @@ $(function () {
           $(this).val("");
           return false;
         }
-      }).data("ui-autocomplete")._renderItem = function (ul, item) {
+      });
+
+  $('#species-quick-add').data("ui-autocomplete")._renderItem = function (ul, item) {
     return $("<li></li>")
         .data("item.autocomplete", item)
         .append("<a>" + item.label + "</a>")
@@ -175,7 +195,7 @@ $(function () {
   });
 
   // Alt+V to mark as voice
-  keypress.combo("alt v", function() {
+  keypress.combo("alt v", function () {
     var checkbox,
         focused = $(':focus'),
         row = focused.closest('.obs-row');
