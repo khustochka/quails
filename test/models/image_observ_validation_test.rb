@@ -8,27 +8,24 @@ class ImageObservValidationTest < ActiveSupport::TestCase
   end
 
   test "does not create image with no observations" do
-    # we use build(:image).attributes because 'attributes_for' includes 'observations'
-    new_attr = build(:image).attributes
-    new_attr['slug'] = 'new_img_slug'
+    new_attr = attributes_for(:image, slug: 'new_img_slug').except(:observations)
     img = Image.new
     assert_difference('Image.count', 0) do
-      img.update_with_observations(new_attr, [])
+      img.update_with_observations(new_attr)
     end
     assert img.errors.present?
   end
 
   test "does not update image with empty observation list" do
-    new_attr = build(:image).attributes
-    new_attr['slug'] = 'new_img_slug'
-    assert_not @image.update_with_observations(new_attr, [])
+    new_attr = attributes_for(:image, slug: 'new_img_slug').except(:observations)
+    new_attr[:observations] = []
+    assert_not @image.update_with_observations(new_attr)
     assert @image.errors.present?
   end
 
   test "does not update image if no observation list provided" do
-    new_attr = @image.attributes
-    new_attr['slug'] = 'new_img_slug'
-    assert_not @image.update_with_observations(new_attr, nil)
+    new_attr = attributes_for(:image, slug: 'new_img_slug').except(:observations)
+    assert_not @image.update_with_observations(new_attr)
     assert @image.errors.present?
   end
 
