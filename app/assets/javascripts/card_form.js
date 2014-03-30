@@ -116,7 +116,8 @@ $(function () {
                         $.ui.autocomplete.escapeRegex(request.term) +
                         ")(?![^<>]*>)(?![^&;]+;)", "gi"
                 ), "<strong>$1</strong>"),
-            value: text
+            value: text,
+            id: species.id
           };
       }));
     },

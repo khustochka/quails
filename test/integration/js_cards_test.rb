@@ -84,11 +84,11 @@ class JSCardsTest < ActionDispatch::IntegrationTest
 
     assert_equal 1, all('.obs-row').size
 
-    assert_equal 'Parus major',
-                 find(:xpath, "//div[contains(@class,'obs-row')][1]//input[contains(@class, 'sp-light')]").value
+    field = find(:xpath, "//div[contains(@class,'obs-row')][1]//input[contains(@class, 'sp-light')]")
 
-    #assert_equal seed(:parmaj).id.to_s,
-    #             find(:xpath, "//div[contains(@class,'obs-row')][1]//select[contains(@class, 'sp-suggest')]").value
+    assert_equal 'Parus major', field.value
+
+    assert_equal seed(:parmaj).id.to_s, field.find(:xpath, "./following-sibling::input", visible: false).value
   end
 
   test "Remove row" do
