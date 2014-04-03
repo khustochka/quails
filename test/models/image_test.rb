@@ -72,38 +72,4 @@ class ImageTest < ActiveSupport::TestCase
     assert_equal brvr, img.public_locus
   end
 
-  # image for the map
-
-  test "image with public spot" do
-    skip
-  end
-
-  test "image with private spot and public patch" do
-    skip
-  end
-
-  test "image with private spot, no patch and public locus" do
-    skip
-  end
-
-  test "image with private spot, private patch and public locus" do
-    skip
-  end
-
-  test "image with no spot and public patch" do
-    skip
-  end
-
-  test "image with no spot, no patch and public locus" do
-    skip
-  end
-
-  test "image with no spot, no patch and private locus" do
-    skip
-  end
-
-  test "image with no spot, no patch and locus with no latlng" do
-    skip
-  end
-
 end
