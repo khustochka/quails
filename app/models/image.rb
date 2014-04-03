@@ -71,13 +71,8 @@ class Image < ActiveRecord::Base
   # Mapped photos
   def self.for_the_map
     Image.connection.select_rows(
-        Image.select("spots.lat, spots.lng, loci.lat, loci.lon, images.id").
-            joins(:cards => :locus).
-            joins("LEFT OUTER JOIN (#{Spot.public.to_sql}) as spots ON spots.id=images.spot_id").
-            where("spots.lat IS NOT NULL OR loci.lat IS NOT NULL").
-            uniq.
-            to_sql
-    ).each_with_object({}) do |(lat1, lon1, lat2, lon2, im_id), memo|
+        Image.for_the_map_query.to_sql
+    ).each_with_object({}) do |(im_id, lat1, lon1, lat2, lon2), memo|
       key = [(lat1 || lat2), (lon1 || lon2)].map { |x| (x.to_f * 100000).round / 100000.0 }
       (memo[key.join(',')] ||= []).push(im_id.to_i)
     end
@@ -230,6 +225,15 @@ class Image < ActiveRecord::Base
       join ranked this on that.rn between this.rn-1 and this.rn+1
       where this.id='#{self.id}' and this.rn <> that.rn"
     @prev_next[sp] = Image.find_by_sql(q).index_by(&:diff)
+  end
+
+  def self.for_the_map_query
+    Image.select("images.id, spots.lat, spots.lng, loci.lat, loci.lon").
+        joins(:cards => :locus).
+        joins("LEFT OUTER JOIN (#{Spot.public.to_sql}) as spots ON spots.id=images.spot_id").
+        joins("LEFT OUTER JOIN (#{Locus.non_private.to_sql}) as patches ON patches.id=observations.patch_id").
+        where("spots.lat IS NOT NULL OR loci.lat IS NOT NULL").
+        uniq
   end
 
 end

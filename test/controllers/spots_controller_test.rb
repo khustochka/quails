@@ -24,7 +24,7 @@ class SpotsControllerTest < ActionController::TestCase
     assert_equal 1, JSON.parse(response.body).size
   end
 
-  test "returns photos attached to the city" do
+  test "returns photos with no spot (attached to loc with latlng)" do
     obs1 = create(:observation, card: create(:card, observ_date: '2010-07-24'))
     obs2 = create(:observation, card: create(:card, observ_date: '2011-07-24'))
     spot1 = create(:spot, observation: obs1)
@@ -36,7 +36,7 @@ class SpotsControllerTest < ActionController::TestCase
     assert_equal 2, JSON.parse(response.body).size
   end
 
-  test "correctly process photos attached to a country (no latlng)" do
+  test "does not return photos attached to a country (no latlng)" do
     obs1 = create(:observation, card: create(:card, observ_date: '2010-07-24'))
     obs2 = create(:observation, card: create(:card, observ_date: '2011-07-24', locus: seed(:ukraine)))
     spot1 = create(:spot, observation: obs1)

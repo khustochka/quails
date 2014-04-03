@@ -41,6 +41,8 @@ class Locus < ActiveRecord::Base
 
   scope :public, lambda { where('public_index IS NOT NULL').order(:public_index) }
 
+  scope :non_private, lambda { where("private_loc = 'f'") }
+
   # Instance methods
 
   def checklist(to_include = [])
