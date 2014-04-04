@@ -228,7 +228,7 @@ class Image < ActiveRecord::Base
   end
 
   def self.for_the_map_query
-    Image.select("images.id, spots.lat, spots.lng, loci.lat, loci.lon").
+    Image.select("images.id, spots.lat, spots.lng").
         joins(:cards => :locus).
         joins("LEFT OUTER JOIN (#{Spot.public.to_sql}) as spots ON spots.id=images.spot_id").
         joins("LEFT OUTER JOIN (#{Locus.non_private.to_sql}) as patches ON patches.id=observations.patch_id").
