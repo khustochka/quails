@@ -228,11 +228,13 @@ class Image < ActiveRecord::Base
   end
 
   def self.for_the_map_query
-    Image.select("images.id, spots.lat, spots.lng").
+    Image.select("images.id,
+                  COALESCE(spots.lat, patches.lat, loci.lat) AS lat,
+                  COALESCE(spots.lng, patches.lon, loci.lon) AS lng").
         joins(:cards => :locus).
         joins("LEFT OUTER JOIN (#{Spot.public.to_sql}) as spots ON spots.id=images.spot_id").
         joins("LEFT OUTER JOIN (#{Locus.non_private.to_sql}) as patches ON patches.id=observations.patch_id").
-        where("spots.lat IS NOT NULL OR loci.lat IS NOT NULL").
+        where("spots.lat IS NOT NULL OR patches.lat IS NOT NULL OR loci.lat IS NOT NULL").
         uniq
   end
 

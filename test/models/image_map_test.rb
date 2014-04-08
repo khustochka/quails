@@ -31,9 +31,9 @@ class ImageMapTest < ActiveSupport::TestCase
   end
 
   def megafactory(card_locus, observation_patch, spot_factory)
-    card_args = {locus: card_locus}.reject! { |_, v| v.nil? }
+    card_args = {locus: card_locus}.reject { |_, v| v.nil? }
     @card = create(:card, card_args)
-    obs_args = {patch: observation_patch, card: @card}.reject! { |_, v| v.nil? }
+    obs_args = {patch: observation_patch, card: @card}.reject { |_, v| v.nil? }
     @observation = create(:observation, obs_args)
     @spot = if spot_factory
               send(spot_factory, observation: @observation)
@@ -42,7 +42,7 @@ class ImageMapTest < ActiveSupport::TestCase
   end
 
   def result
-    Image.for_the_map_query.find(@image.id)
+    Image.for_the_map_query.where(id: @image.id).first
   end
 
   # image for the map
@@ -94,8 +94,7 @@ class ImageMapTest < ActiveSupport::TestCase
 
   test "image with no spot, no patch and locus with no latlng" do
     @image = megafactory(@public_locus_no_geo, nil, nil)
-    assert result
-    skip
+    assert result.nil?
     #assert_equal @overlocus.lat, result.lat
   end
 
