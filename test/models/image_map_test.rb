@@ -8,6 +8,7 @@ class ImageMapTest < ActiveSupport::TestCase
 
     @country = seed(:ukraine)
     @overlocus = FactoryGirl.create(:locus, private_loc: false, lat: 3, parent: @country)
+    @overlocus_no_geo = FactoryGirl.create(:locus, private_loc: false, lat: nil, lon: nil, parent: @country)
 
     @public_locus = FactoryGirl.create(:locus, private_loc: false, lat: 4, parent: @overlocus)
     @private_locus = FactoryGirl.create(:locus, private_loc: true, lat: 5, parent: @overlocus)
@@ -92,10 +93,14 @@ class ImageMapTest < ActiveSupport::TestCase
     assert_equal @overlocus.lat, result.lat
   end
 
-  test "image with no spot, no patch and locus with no latlng" do
+  test "image with no spot, no patch and locus with no latlng but parent with geo" do
     @image = megafactory(@public_locus_no_geo, nil, nil)
-    assert result.nil?
-    #assert_equal @overlocus.lat, result.lat
+    assert result
+    assert_equal @overlocus.lat, result.lat
   end
 
+  test "image with no spot, no patch and locus with no latlng and parent with no latlng" do
+    @image = megafactory(@overlocus_no_geo, nil, nil)
+    assert result.nil?
+  end
 end
