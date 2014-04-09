@@ -2,7 +2,7 @@ source 'https://rubygems.org/'
 
 ruby '2.1.1'
 
-gem 'rails', '4.0.4'
+gem 'rails', '4.1.0'
 
 gem 'pg', platforms: [:ruby, :mingw]
 gem "activerecord-jdbcpostgresql-adapter", platforms: :jruby
@@ -22,7 +22,7 @@ gem 'haml-rails', '~> 0.5.1'
 gem 'haml-contrib'
 gem 'RedCloth'
 gem 'kaminari'
-gem 'simple_form', '~> 3.0.0'
+gem 'simple_form', '~> 3.0.2'
 gem 'flickraw', '~> 0.9.7'
 gem 'livejournal', '~> 0.3.9'
 gem 'hashie'
