@@ -80,7 +80,7 @@ class LociControllerTest < ActionController::TestCase
     login_as_admin
     post :save_order, format: :json, order: new_list.map {|r| seed(r).id}
     assert_response :success
-    assert_equal new_list, Locus.public.pluck(:slug)
+    assert_equal new_list, Locus.locs_for_lifelist.pluck(:slug)
   end
 
   # auth tests

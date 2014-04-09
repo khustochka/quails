@@ -41,9 +41,9 @@ class Post < ActiveRecord::Base
   # Scopes
 
   # FIXME: be careful with merging these - last scope overwrites the previous
-  scope :public, lambda { where("status <> 'PRIV'") }
+  scope :public_posts, lambda { where("status <> 'PRIV'") }
   scope :hidden, lambda { where(status: 'PRIV') }
-  scope :indexable, lambda { public.where("status <> 'NIDX'") }
+  scope :indexable, lambda { public_posts.where("status <> 'NIDX'") }
 
   def self.year(year)
     select('id, slug, title, face_date, status').where('EXTRACT(year from face_date)::integer = ?', year).order(face_date: :asc)

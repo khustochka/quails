@@ -232,7 +232,7 @@ class Image < ActiveRecord::Base
                   COALESCE(spots.lat, patches.lat, public_locus.lat, parent_locus.lat) AS lat,
                   COALESCE(spots.lng, patches.lon, public_locus.lon, parent_locus.lon) AS lng").
         joins(:cards).
-        joins("LEFT OUTER JOIN (#{Spot.public.to_sql}) as spots ON spots.id=images.spot_id").
+        joins("LEFT OUTER JOIN (#{Spot.public_spots.to_sql}) as spots ON spots.id=images.spot_id").
         joins("LEFT OUTER JOIN (#{Locus.non_private.to_sql}) as patches ON patches.id=observations.patch_id").
         joins("LEFT OUTER JOIN (#{Locus.non_private.to_sql}) as public_locus ON public_locus.id=cards.locus_id").
         joins("JOIN loci as card_locus ON card_locus.id=cards.locus_id").
