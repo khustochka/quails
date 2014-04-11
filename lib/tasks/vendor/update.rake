@@ -3,13 +3,13 @@ namespace :vendor do
 
   namespace :update do
 
-    require './config/initializers/jquery'
-
     desc 'Update vendored JS and CSS'
     task :assets => [:javascripts, :css]
 
     #desc 'Update Javascripts'
     task :javascripts do
+      require './config/initializers/jquery'
+
       puts "\n=== Getting JQuery #{JQUERY_CDN.scan(/\d\.\d\.\d/)[0]} ==="
       system "curl http:#{JQUERY_CDN} -o vendor/assets/javascripts/jquery.min.js"
       puts "\n=== Getting latest JQuery-ujs ==="
