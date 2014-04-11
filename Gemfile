@@ -45,6 +45,7 @@ gem 'rails_stdout_logging', require: false
 
 group :development do
   gem 'nokogiri', platforms: [:ruby, :mingw], require: false
+  gem 'spring'
 end
 
 # in dev group for generators
