@@ -1,0 +1,4 @@
+@Quails = {
+  pages: {}
+  features: {}
+}

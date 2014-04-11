@@ -1,4 +1,4 @@
-Quails.comments =
+Quails.pages.comments =
     init: ->
 
       form = $("#new_comment").clone()
