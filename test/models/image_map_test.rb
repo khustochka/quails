@@ -32,9 +32,9 @@ class ImageMapTest < ActiveSupport::TestCase
   end
 
   def megafactory(card_locus, observation_patch, spot_factory)
-    card_args = {locus: card_locus}.reject { |_, v| v.nil? }
+    card_args = {locus: card_locus}.compact
     @card = create(:card, card_args)
-    obs_args = {patch: observation_patch, card: @card}.reject { |_, v| v.nil? }
+    obs_args = {patch: observation_patch, card: @card}.compact
     @observation = create(:observation, obs_args)
     @spot = if spot_factory
               send(spot_factory, observation: @observation)
