@@ -2,7 +2,6 @@
 #= require jquery-ui.user
 #= require search
 #= require base
-#= require pages/comments
 
 $ ->
   jsController = $("body").data("js-controller")
