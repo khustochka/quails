@@ -2,7 +2,6 @@
 -# no_viewport is for very wide pages, e.g. with table
 - @no_viewport = true
 
--# @light_species_selector = false
 - @light_species_selector = !params[:nojs]
 
 - stylesheet 'forms'
@@ -48,12 +47,16 @@
   = form.input :notes, input_html: {rows: 7, class: 'wiki_field'}
 
   %div.card-fields-wrapper
+    = form.input :effort_type, collection: Card::EFFORT_TYPES, include_blank: false,
+                               input_html: {size: '3'}, wrapper_html: {class: 'float-left'}
+    = form.input :start_time, input_html: {class: 'short'}
+    = form.input :duration_minutes, as: :string, input_html: {class: 'short'}
+    = form.input :distance_kms, as: :string, input_html: {class: 'short'}
+    = form.input :area, as: :string, input_html: {class: 'short'}
+    = form.input :observers, input_html: {class: 'medium'}
     = form.input :biotope
     = form.input :weather
-    = form.input :time
-    = form.input :route
-    = form.input :observers
-    = form.input :kml_url, input_html: {class: 'long'}
+    = form.input :kml_url, input_html: {class: 'medium'}
 
   - if @light_species_selector
     %noscript

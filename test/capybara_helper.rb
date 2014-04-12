@@ -1,6 +1,6 @@
 require 'capybara/rails'
 require 'database_cleaner'
-require 'seed_tables'
+require 'seed_helper'
 require 'capybara_drivers'
 
 #Capybara.default_wait_time = 5

@@ -1,4 +1,7 @@
 class Card < ActiveRecord::Base
+
+  EFFORT_TYPES = %w(UNSET INCIDENTAL TRAVEL AREA)
+
   include FormattedModel
 
   include ActiveSupport::NumberHelper
@@ -12,7 +15,11 @@ class Card < ActiveRecord::Base
   has_many :species, -> { order(:index_num) }, through: :observations
   has_many :spots, through: :observations
 
+  has_many :ebird_submissions, :class_name => 'Ebird::Submission'
+  has_many :ebird_files, :class_name => 'Ebird::File', through: :ebird_submissions
+
   validates :locus_id, :observ_date, presence: true
+  validates :effort_type, inclusion: EFFORT_TYPES, allow_blank: false
 
   accepts_nested_attributes_for :observations,
                                 reject_if:

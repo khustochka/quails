@@ -7,16 +7,11 @@
 #   Mayor.create(:name => 'Daley', :city => cities.first)
 
 require 'bunch_db/table'
-require 'seed_tables'
+require 'seed_helper'
 
-dirname = File.join(Rails.root, 'db', 'seed')
+dirname = SEED_DIR
 
-submodule_status = `git submodule status db/seed | head -c1`
-
-if submodule_status == '-'
-  system("git submodule init")
-  system("git submodule update")
-end
+seed_init_if_necessary!
 
 SEED_TABLES.each do |table_name|
   filename = "#{dirname}/#{table_name}.yml"
@@ -36,4 +31,4 @@ SEED_TABLES.each do |table_name|
   table.reset_pk_sequence!
 end
 
-Page.create(slug: 'links', title: "Links", public: true, text: "Lorem ipsum")
+#Page.create(slug: 'links', title: "Links", public: true, text: "Lorem ipsum")

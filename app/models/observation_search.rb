@@ -21,7 +21,7 @@ class ObservationSearch
     end
   end
 
-  CARD_ATTRIBUTES = [:observ_date, :locus_id, :card_id]
+  CARD_ATTRIBUTES = [:observ_date, :locus_id, :card_id, :inclusive]
   OBSERVATION_ATTRIBUTES = [:species_id, :voice]
   ALL_ATTRIBUTES = CARD_ATTRIBUTES + OBSERVATION_ATTRIBUTES
 
@@ -39,6 +39,13 @@ class ObservationSearch
       @conditions[:card][:locus_id] ||= Card.find(card_id).try(:locus_id)
       @all_conditions[:locus_id] ||= @conditions[:card][:locus_id]
     end
+
+    if @conditions[:card].delete(:inclusive)
+      locus = Locus.find(@conditions[:card][:locus_id])
+      @conditions[:card][:locus_id] = locus.subregion_ids
+      @all_conditions[:locus_id] = @conditions[:card][:locus_id]
+    end
+
   end
 
   def cards

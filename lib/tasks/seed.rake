@@ -1,4 +1,4 @@
-require 'seed_tables'
+require 'seed_helper'
 
 desc 'Tasks for managing DB seed'
 namespace :seed do
@@ -8,7 +8,7 @@ namespace :seed do
 
     require 'bunch_db/table'
 
-    dirname = File.join(Rails.root, 'db', 'seed')
+    dirname = SEED_DIR
 
     SEED_TABLES.each do |table_name|
       puts "Dumping '#{table_name}'..."
@@ -20,7 +20,7 @@ namespace :seed do
 
     puts "\nGit diff:\n"
 
-    system("git diff #{dirname}")
+    system("git diff #{dirname} #{dirname}")
 
   end
 

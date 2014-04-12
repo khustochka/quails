@@ -1,4 +1,5 @@
 - stylesheet 'forms'
+- javascript 'bare_combo_suggest'
 
 - @page_title = "#{new_or_edit_label(@locus)} location"
 
@@ -9,7 +10,12 @@
 = simple_form_for @locus do |form|
   %div
     = form.input :slug
-    = form.association :parent, label: 'Parent', collection: (Locus.list_order - [@locus])
+    = form.input :parent_id, label: 'Parent', collection: (Locus.where.not(id: @locus)),
+          input_html: {class: 'suggest-combo'}
+    = form.input :iso_code, label: 'ISO code'
+  %div
+    = form.input :loc_type, label: 'Locus type', as: :select, collection: Locus::TYPES
+    = form.input :name_format
   %div
     = form.input :name_en, label: 'English name'
     = form.input :name_ru, label: 'Russian name'
@@ -19,5 +25,7 @@
     = form.input :lon, input_html: { size: 10, type: :text }
 
     = form.input :public_index, input_html: { size: 10, type: :text }
+    = form.input :private_loc
+    = form.input :patch
   .buttons
     = default_submit_button(form)

@@ -9,6 +9,7 @@ class Observation < ActiveRecord::Base
   belongs_to :post, -> { select(:id, :slug, :face_date, :title, :status) }, touch: :updated_at
   has_and_belongs_to_many :images
   has_many :spots, dependent: :delete_all
+  belongs_to :patch, class_name: 'Locus', foreign_key: 'patch_id'
 
   before_destroy do
     if images.present?
@@ -50,5 +51,9 @@ class Observation < ActiveRecord::Base
   alias_method_chain :species, :incognita
 
   delegate :species_str, :when_where_str, to: :formatted
+
+  def patch_or_locus
+    patch || card.locus
+  end
 
 end

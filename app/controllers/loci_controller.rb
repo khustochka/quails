@@ -9,7 +9,7 @@ class LociController < ApplicationController
 
   # GET /locus
   def index
-    @loci = Locus.list_order.group_by(&:parent_id)
+    @loci = Locus.all.arrange
   end
 
   # GET /locus/1
@@ -33,7 +33,7 @@ class LociController < ApplicationController
   def create
     @locus = Locus.new(params[:locus])
     if @locus.save
-      redirect_to(@locus, :notice => 'Locus was successfully created.')
+      redirect_to(edit_locus_path(@locus), notice: 'Locus was successfully created.')
     else
       render :form
     end
@@ -42,7 +42,7 @@ class LociController < ApplicationController
   # PUT /locus/1
   def update
     if @locus.update_attributes(params[:locus])
-      redirect_to(@locus, :notice => 'Locus was successfully updated.')
+      redirect_to(edit_locus_path(@locus), notice: 'Locus was successfully updated.')
     else
       render :form
     end
@@ -56,8 +56,8 @@ class LociController < ApplicationController
   end
 
   def public
-    @locs_public = Locus.public
-    @locs_other = Locus.where('public_index IS NULL').order(:parent_id, :slug)
+    @locs_public = Locus.locs_for_lifelist
+    @locs_other = Locus.sort_by_ancestry(Locus.where('public_index IS NULL'))
   end
 
   def save_order

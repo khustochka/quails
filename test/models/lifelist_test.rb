@@ -117,21 +117,21 @@ class LifelistTest < ActiveSupport::TestCase
   test 'Properly associate card post with lifer' do
     @obs[0].card.post = create(:post)
     @obs[0].card.save!
-    lifelist = Lifelist.basic.source(posts: Post.public)
+    lifelist = Lifelist.basic.source(posts: Post.public_posts)
     assert_equal @obs[0].card.post, lifelist.find { |sp| sp.code == 'colliv' }.post
   end
 
   test 'Properly associate observation post with lifer' do
     @obs[0].post = create(:post)
     @obs[0].save!
-    lifelist = Lifelist.basic.source(posts: Post.public)
+    lifelist = Lifelist.basic.source(posts: Post.public_posts)
     assert_equal @obs[0].post, lifelist.find { |sp| sp.code == 'colliv' }.post
   end
 
   test 'Do not associate arbitrary post with lifer' do
     @obs[2].post = create(:post) # must be attached to the same species but not the first observation
     @obs[2].save!
-    lifelist = Lifelist.basic.source(posts: Post.public)
+    lifelist = Lifelist.basic.source(posts: Post.public_posts)
     assert_equal nil, lifelist.find { |sp| sp.code == 'colliv' }.post
   end
 
@@ -140,7 +140,7 @@ class LifelistTest < ActiveSupport::TestCase
     @obs[0].save!
     @obs[5].post = create(:post, slug: 'feraldoves_2009')
     @obs[5].save!
-    lifelist = Lifelist.advanced.source(posts: Post.public).filter(year: 2009)
+    lifelist = Lifelist.advanced.source(posts: Post.public_posts).filter(year: 2009)
     assert_equal @obs[5].post.slug, lifelist.find { |sp| sp.code == 'colliv' }.post.slug
   end
 
@@ -148,7 +148,7 @@ class LifelistTest < ActiveSupport::TestCase
     new_obs = create(:observation, species: seed(:colliv), card: create(:card, observ_date: "2008-05-22", locus: seed(:kiev)))
     @obs[0].post = create(:post)
     @obs[0].save!
-    lifelist = Lifelist.advanced.source(posts: Post.public, loci: Locus.public).filter(locus: 'kiev').to_a
+    lifelist = Lifelist.advanced.source(posts: Post.public_posts, loci: Locus.locs_for_lifelist).filter(locus: 'kiev').to_a
     assert_equal nil, lifelist.find { |sp| sp.code == 'colliv' }.post
   end
 end

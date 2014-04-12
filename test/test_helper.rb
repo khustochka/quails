@@ -21,7 +21,6 @@ rescue LoadError, RuntimeError
 end
 
 class ActiveSupport::TestCase
-  ActiveRecord::Migration.check_pending!
 
   include FactoryGirl::Syntax::Methods
 
@@ -50,18 +49,5 @@ class ActiveSupport::TestCase
   def current_path_info
     current_url.sub(%r{.*?://}, '')[%r{[/\?\#].*}] || '/'
   end
-
-  #def self.test(name, &block)
-  #  test_name = "test: #{name}. ".to_sym
-  #  defined = instance_method(test_name) rescue false
-  #  raise "#{test_name} is already defined in #{self}" if defined
-  #  if block_given?
-  #    define_method(test_name, &block)
-  #  else
-  #    define_method(test_name) do
-  #      flunk "No implementation provided for #{name}"
-  #    end
-  #  end
-  #end
 
 end

@@ -6,6 +6,7 @@
     %h1= page_header
     %ul.subheader-menu
       %li= link_to(t('menu.gallery'), country_path(country: @country.slug))
+      %li= link_to("Зимующие птицы", show_page_path(:winter))
 
   %table.neat_table.checklist_table
 

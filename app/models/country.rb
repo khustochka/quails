@@ -1,5 +1,5 @@
 class Country < Locus
-  default_scope { where(parent_id: nil).order(:public_index) }
+  default_scope { where(loc_type: 'country').order(:public_index) }
 
   def self.quick_find(slug)
     Rails.cache.fetch("records/loci/country/#{slug}") do

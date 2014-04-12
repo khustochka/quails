@@ -41,4 +41,12 @@ class ObservationSearchTest < ActiveSupport::TestCase
     assert_not ObservationSearch.new(voice: false).observations.include?(ob3)
   end
 
+  test 'search cards by locus exclusive' do
+    assert_equal 2, ObservationSearch.new(locus_id: seed(:kiev).id).cards.to_a.size
+  end
+
+  test 'search cards by locus inclusive' do
+    assert_equal 3, ObservationSearch.new(locus_id: seed(:ukraine).id, inclusive: true).cards.to_a.size
+  end
+
 end

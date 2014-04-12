@@ -1,0 +1,24 @@
+- @page_title = 'eBird submissions'
+
+%h1= page_header
+
+= render 'admin/shortcuts' if current_user.admin?
+
+- if notice
+  %p#notice= notice
+
+%table.neat_table
+  %tr
+    %th id
+    %th Name
+    %th Created
+    %th Cards count
+    %th Status
+
+  - @files.each do |file|
+    %tr
+      %td= file.id
+      %td= link_to file.name, file.full_url
+      %td= file.created_at.strftime("%F %R")
+      %td= file.cards.size
+      %td= file.status

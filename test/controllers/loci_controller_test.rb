@@ -23,7 +23,7 @@ class LociControllerTest < ActionController::TestCase
       login_as_admin
       post :create, locus: build(:locus).attributes
     end
-    assert_redirected_to locus_path(assigns(:locus))
+    assert_redirected_to edit_locus_path(assigns(:locus))
   end
 
   test "show locus" do
@@ -57,7 +57,7 @@ class LociControllerTest < ActionController::TestCase
     locus.name_ru = 'Крымъ'
     login_as_admin
     put :update, id: locus.to_param, locus: locus.attributes
-    assert_redirected_to locus_path(assigns(:locus))
+    assert_redirected_to edit_locus_path(assigns(:locus))
   end
 
   test "destroy locus" do
@@ -80,7 +80,7 @@ class LociControllerTest < ActionController::TestCase
     login_as_admin
     post :save_order, format: :json, order: new_list.map {|r| seed(r).id}
     assert_response :success
-    assert_equal new_list, Locus.public.pluck(:slug)
+    assert_equal new_list, Locus.locs_for_lifelist.pluck(:slug)
   end
 
   # auth tests

@@ -1,6 +1,7 @@
-%li.observ_card
+%li.observ_card{data: {id: card.id}}
   %ul.card_cell
     %li
+      = hidden_field_tag("card_id[]", card.id)
       = link_to card.observ_date, card
       = surround('[ ', ' ]') do
         %b= link_to 'edit', edit_card_path(card), class: 'pseudolink'
@@ -36,6 +37,9 @@
         = link_to edit_map_path(q: {card_id: card.id}), class: 'pseudolink' do
           = card.mapped? ? "edit map (<b>#{card.mapped_percentage}</b>)".html_safe : '<b>MAP IT!</b>'.html_safe
           = image_tag("/img/kml_logo.png", width: 16) if card.kml_url.present?
+
+      - tag_class = card.effort_type.downcase
+      %small{class: "#{tag_class} tag"}= card.effort_type
 
     - if params[:obs]
       = link_to 'Attach here', attach_card_path(card, obs: params[:obs]), class: 'pseudolink', data: {method: :post}

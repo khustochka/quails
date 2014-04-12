@@ -32,7 +32,7 @@ class ImagesAssociationsTest < ActiveSupport::TestCase
 
     assert_equal [@image.slug], blogpost.images.map(&:slug)
     @image.reload
-    assert_equal blogpost.slug, @image.post(Post.public).slug
+    assert_equal blogpost.slug, @image.post(Post.public_posts).slug
   end
 
   test 'properly unlink observations when image destroyed' do

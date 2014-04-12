@@ -1,0 +1,22 @@
+- stylesheet 'forms'
+- javascript 'ebird_new'
+
+- @page_title = 'Export to eBird'
+
+%h1= page_header
+
+= render 'admin/shortcuts' if current_user.admin?
+
+- if alert
+  %div.errors= alert
+
+= simple_form_for @observation_search, url: cards_path, method: :get, remote: true, html: {class: 'search'} do |form|
+  = render 'observations/search_fields', form: form
+
+= simple_form_for @file, url: {action: :create} do |form|
+
+  = form.input :name
+
+  = default_submit_button(form, value: "Generate CSV")
+
+  %ul.cards_list#search-results

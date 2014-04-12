@@ -37,7 +37,7 @@ class ListsController < ApplicationController
   def advanced
     @allowed_params = [:controller, :action, :year, :locus, :sort, :month]
 
-    @locations = Locus.public
+    @locations = Locus.locs_for_lifelist
 
     @lifelist = Lifelist.advanced.
         source(loci: current_user.available_loci, posts: current_user.available_posts).
