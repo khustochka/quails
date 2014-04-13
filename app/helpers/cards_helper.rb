@@ -1,5 +1,7 @@
 module CardsHelper
 
+  FAST_LOCI = %w(geologorozvidka kiev brovary les_i_pole)
+
   def attach_detach_link(item) # Card or observation
 
     if @post.id == item.post_id
@@ -35,6 +37,10 @@ module CardsHelper
       prelim[@card.observ_date + 1] = ["Next day to this card"]
     end
     prelim
+  end
+
+  def fast_loci
+    @fast_loci ||= Locus.where(slug: FAST_LOCI).index_by(&:slug)
   end
 
 end
