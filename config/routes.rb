@@ -73,7 +73,6 @@ Rails.application.routes.draw do
   resources :species, only: [:edit, :update] do
     collection do
       get 'admin', action: :index
-      get 'search'
     end
 
     member do
@@ -82,7 +81,9 @@ Rails.application.routes.draw do
   end
 
   scope '(:locale)', locale: /en/ do
-    resources :species, only: [:show], as: :localized_species
+    resources :species, only: [:show], as: :localized_species do
+      get 'search', on: :collection
+    end
     get 'species' => 'species#gallery', as: 'gallery'
   end
 

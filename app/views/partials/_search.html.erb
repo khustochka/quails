@@ -1,4 +1,4 @@
-<div id="cse-wrapper">
+<div id="cse-wrapper" data-search-url="<%= search_localized_species_index_path(format: :json) %>">
 <form action="<%= form_url %>" id="cse-search-box">
   <%- if code %>
     <input name="cx" type="hidden" value="<%= code %>" />
