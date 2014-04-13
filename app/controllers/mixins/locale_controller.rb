@@ -9,11 +9,11 @@ module LocaleController
     if locale_from_path && ALL_LOCALES.include?(locale_from_path)
       @locale_set = I18n.locale = locale_from_path
     end
-#    I18n.reload!
+    I18n.reload!
   end
 
   def default_url_options(options={})
-    locale_option = @locale_set ? {:locale => @locale_set} : {}
+    locale_option = @locale_set ? {locale: @locale_set} : {locale: nil}
     options.merge(locale_option)
   end
 end
