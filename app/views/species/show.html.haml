@@ -21,7 +21,7 @@
   %span.authority= @species.authority
 
 %dl.sp_translations
-  - %w(en uk fr).map do |lang|
+  - (ALL_LOCALES - [I18n.locale] + [:fr]).map do |lang|
     - if (trans_name = @species.send("name_#{lang}")).present?
       %div
         %dt= t("languages.#{lang}")
