@@ -14,6 +14,7 @@
     - if @country.slug == 'ukraine'
       %ul.subheader-menu
         %li= link_to('Checklist', checklist_path(country: @country))
-        %li= link_to("Зимующие птицы", show_page_path(:winter))
+        - if I18n.locale == :ru
+          %li= link_to("Зимующие птицы", show_page_path(:winter))
 
   = render "countries/gallery/#{@country.slug}"

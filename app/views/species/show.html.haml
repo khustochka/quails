@@ -69,8 +69,9 @@
               - month_class, tag = @months[country].include?(m) ? ["seen_this_month", :strong] : [nil, :span]
               %td{class: month_class, title: t('date.month_names')[m]}= content_tag(tag, RomanNumerals.to_roman(m))
 
-- @posts.if_present do |posts|
-  %h3= t('.sections.posts')
-  %ul
-    - posts.each do |post|
-      %li= post_link(post.formatted.title, post)
+- if I18n.locale == :ru
+  - @posts.if_present do |posts|
+    %h3= t('.sections.posts')
+    %ul
+      - posts.each do |post|
+        %li= post_link(post.formatted.title, post)
