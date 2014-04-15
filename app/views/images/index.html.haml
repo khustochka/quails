@@ -14,6 +14,10 @@
     %li= link_to t('.species_gallery'), gallery_path
     = feed_list_item
 
+- unless params[:page]
+  %h3
+    %i= t('.last_updated', date: l(@images.first.created_at, format: :long))
+
 %div.thumbnails
   = render_justified @images.map(&:to_thumbnail)
 
