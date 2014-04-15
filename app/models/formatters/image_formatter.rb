@@ -11,6 +11,10 @@ class ImageFormatter < ModelFormatter
     @description ||= WikiFormatter.new(@model.description).for_site
   end
 
+  def public_locus_full_name
+    @model.public_locus.formatted.full_name
+  end
+
   def meta_description
     descr = "Снято #{l(@model.observ_date, :format => :long)}, #{@model.locus.name}."
     if description.present?
