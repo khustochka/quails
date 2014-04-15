@@ -86,9 +86,8 @@ class Image < ActiveRecord::Base
 
   # Associations
 
-  # FIXME: think how to do this in a more clever way (posts?)
   def posts(posts_source)
-    posts_id = [first_observation.post_id, cards.first.post_id].compact
+    posts_id = [first_observation.post_id, cards.first.post_id].uniq.compact
     posts_source.where(id: posts_id)
   end
 
