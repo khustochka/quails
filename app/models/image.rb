@@ -123,7 +123,7 @@ class Image < ActiveRecord::Base
   end
 
   def public_title
-    (I18n.locale == DEFAULT_PUBLIC_LOCALE && title.present?) ? title : species[0].name # Not using || because of empty string possibility
+    (I18n.default_locale? && title.present?) ? title : species[0].name # Not using || because of empty string possibility
   end
 
   def search_applicable_observations(params = {})
