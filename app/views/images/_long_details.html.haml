@@ -1,15 +1,18 @@
-- post = image.post(current_user.available_posts)
+- posts = image.posts(current_user.available_posts)
 
 %p
   Снято
-  = succeed ',' do
+  = succeed ', ' do
     %i<
       %time{datetime: image.observ_date.iso8601} #{l(image.observ_date, :format => :long)}
 
-  = succeed sentence_separator_depending_on_post(post) do
+  = succeed('.') do
     = image.public_locus.name
 
-  - if post
-    встреча описана в посте «#{post_link(post.formatted.title, post, true)}».
+  - if posts.present?
+    %h3 Почитать:
+    %ul
+      - posts.each do |post|
+        %li= post_link(post.formatted.title, post, true)
 
 = image.formatted.description
