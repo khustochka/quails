@@ -172,6 +172,14 @@ $(function () {
         .appendTo(ul);
   };
 
+  // Fast locus selector
+  $('.fast_locus').click(
+      function () {
+        $("input#card_locus_id").data('ui-autocomplete').search(this.textContent);
+        $(".ui-menu-item a:contains(" + this.textContent + "):first").click();
+      }
+  );
+
   // Extract and move to the new card
   $(".extractor").click(function (e) {
     window.location.href = $(".extractor").attr('href') + "?" + $('input[name="obs[]"]:checked').serialize();
