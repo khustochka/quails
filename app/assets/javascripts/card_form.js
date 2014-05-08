@@ -204,7 +204,8 @@ $(function () {
   });
 
   // Alt+V to mark as voice
-  keypress.combo("alt v", function () {
+  keypress = new window.keypress.Listener();
+  keypress.simple_combo("alt v", function () {
     var checkbox,
         focused = $(':focus'),
         row = focused.closest('.obs-row');
