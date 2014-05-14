@@ -97,7 +97,7 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.25.1)
-    mini_portile (0.5.3)
+    mini_portile (0.6.0)
     minitest (5.3.3)
     minitest-reporters (1.0.4)
       ansi
@@ -105,8 +105,8 @@ GEM
       minitest (>= 5.0)
       ruby-progressbar
     multi_json (1.10.0)
-    nokogiri (1.6.2)
-      mini_portile (~> 0.5.2)
+    nokogiri (1.6.2.1)
+      mini_portile (= 0.6.0)
     pg (0.17.1)
     polyglot (0.3.4)
     rack (1.5.2)
