@@ -82,6 +82,10 @@ function handleClick(event, container, options) {
   if (link.href === location.href + '#')
     return
 
+  // Ignore event with default prevented
+  if (event.isDefaultPrevented())
+    return
+
   var defaults = {
     url: link.href,
     container: $(link).attr('data-pjax'),
@@ -263,7 +267,9 @@ function pjax(options) {
     }
 
     // Clear out any focused controls before inserting new page contents.
-    document.activeElement.blur()
+    try {
+      document.activeElement.blur()
+    } catch (e) { }
 
     if (container.title) document.title = container.title
     context.html(container.contents)

@@ -3,7 +3,7 @@ module SpeciesHelper
   STATIC_MAP_CENTER = {
       'ukraine' => '48.6,31.2',
       'usa' => '42.5,-74',
-      'united_kingdom' => '54,-1.5'
+      'united_kingdom' => '54.8,-1.5'
   }
 
   NEW_SPECIES_LINK_METHOD = {
