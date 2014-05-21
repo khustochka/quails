@@ -1,7 +1,7 @@
 - posts = image.posts(current_user.available_posts)
 
 %p
-  Снято
+  = t('images.picture_taken')
   = succeed ', ' do
     %i<
       %time{datetime: image.observ_date.iso8601} #{l(image.observ_date, :format => :long)}
@@ -9,10 +9,12 @@
   = succeed('.') do
     = image.formatted.public_locus_full_name
 
+- if I18n.russian_locale?
+  = image.formatted.description
+
   - if posts.present?
     %h3 Почитать:
     %ul
       - posts.each do |post|
         %li= post_link(post.formatted.title, post, true)
 
-= image.formatted.description

@@ -12,3 +12,5 @@
     show:
       prev_image: "<< Previous image"
       next_image: "Next image >>"
+
+    picture_taken: Picture taken
