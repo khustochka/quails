@@ -1,6 +1,16 @@
 "ru":
   my_stats:
     index:
+      title: Моя статистика
+
+      total: всего
+
+      species_met: 'встречено видов:'
+
+      litochky_place: 'с. Литочки и г. Бровары, Киевская область, Украина'
+
+      records: 'Рекорды:'
+
       new_count_species:
         one: 'новый'
         few: 'новых'

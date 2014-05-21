@@ -1,4 +1,4 @@
-- @page_title = "Lifelist и другие списки"
+- @page_title = t('.title')
 
 - @robots = 'NOINDEX'
 
@@ -13,8 +13,8 @@
     %h1= @page_title
     %ul.subheader-menu
       %li
-        См. также
-        = link_to 'Рекорды и статистика', my_stats_path
+        = t('.see_also')
+        = link_to t('.records_and_stats'), my_stats_path
 
   %div.fluid-row
 
@@ -26,7 +26,7 @@
 
     %div.fluid-column
 
-      %h2= link_to('Список 2014 года', list_path(year: 2014))
+      %h2= link_to(t('lists.title.yearlist', year: 2014), list_path(year: 2014))
 
       - lifers.call(@top_5_year)
 
@@ -35,20 +35,20 @@
     %div.fluid-column
 
       %h2
-        = link_to('Список Украины', list_path(locus: 'ukraine'))
+        = link_to(t('lists.title.ukraine'), list_path(locus: 'ukraine'))
 
       - lifers.call(@list_ukraine.limit(5))
 
     %div.fluid-column
 
       %h2
-        = link_to('Список 2013 года', list_path(year: 2013))
+        = link_to(t('lists.title.yearlist', year: 2013), list_path(year: 2013))
         (#{@list_prev_year.count(:all)})
 
       %h2
-        = link_to('Список США', list_path(locus: 'usa'))
+        = link_to(t('lists.title.usa'), list_path(locus: 'usa'))
         (#{@list_usa.count(:all)})
 
       %h2
-        = link_to('Список Великобритании', list_path(locus: 'united_kingdom'))
+        = link_to(t('lists.title.gb'), list_path(locus: 'united_kingdom'))
         (#{@list_uk.count(:all)})

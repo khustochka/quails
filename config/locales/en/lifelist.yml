@@ -7,6 +7,14 @@
       yearsublist: '%{year}'
       countrylist: '%{country} Country List'
       locationlist: '%{location} Location List'
+      ukraine: Ukraine List
+      usa: USA List
+      gb: UK List
+
+    index:
+      title: Lifelist and the like
+      see_also: See also
+      records_and_stats: Stats and achievements
 
     basic:
 
