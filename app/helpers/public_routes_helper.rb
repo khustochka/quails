@@ -9,12 +9,13 @@ module PublicRoutesHelper
     public_post_path(post, :anchor => "comment#{comment.id}")
   end
 
-  def localize_url(string_or_obj)
+  def localize_url(string_or_obj, args = {})
+    new_args = args.merge({id: string_or_obj})
     case string_or_obj
       when Image
-        localized_image_path(id: string_or_obj)
+        localized_image_path(new_args)
       when Species
-        localized_species_path(id: string_or_obj)
+        localized_species_path(new_args)
       else
         string_or_obj
     end
