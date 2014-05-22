@@ -10,6 +10,8 @@
       title: Photos of multiple species
 
     show:
+      prev: 'prev'
+      next: 'next'
       prev_image: "<< Previous image"
       next_image: "Next image >>"
       more_photos_of_multiple_species: More photos of multiple species

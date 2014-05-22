@@ -10,6 +10,8 @@
       title: Разные виды на одном фото
 
     show:
+      prev: 'пред.'
+      next: 'след.'
       prev_image: "<< Предыдущее фото"
       next_image: "Следующее фото >>"
       more_photos_of_multiple_species: Еще фото нескольких видов
