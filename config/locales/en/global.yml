@@ -35,6 +35,9 @@
 
     feed: Feed
 
+  translated:
+    ru: читать по-русски
+
   languages:
     en: in English
     ru: in Russian

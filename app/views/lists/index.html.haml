@@ -9,6 +9,8 @@
       - total_count = rel.except(:limit).count(:all)
       = render partial: 'lifer', collection: rel, locals: {total_count: total_count}
 
+  = render 'partials/translated'
+
   %div.header-with-subheader
     %h1= @page_title
     %ul.subheader-menu

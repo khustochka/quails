@@ -2,7 +2,7 @@
 
 - cache [@posts, admin: current_user.admin?] do
 
-  = render 'partials/translated'
+  = render partial: 'partials/translated', locals: {url: {controller: :images, action: :index}}
 
   %div.header-with-subheader
     %h1.over-header

@@ -8,6 +8,8 @@
   - javascript 'species_image'
   = render 'admin/shortcuts'
 
+= render 'partials/translated'
+
 %p
   = t("taxonomy.order")
   %strong= t("taxonomy.#{@species.order}") rescue nil

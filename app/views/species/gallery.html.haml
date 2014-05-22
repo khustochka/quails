@@ -5,6 +5,8 @@
 
 - cache(admin: current_user.admin?, key: CacheKey.gallery) do
 
+  = render 'partials/translated'
+
   %div.header-with-subheader
     %h1.over-header
       = page_header

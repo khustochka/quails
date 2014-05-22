@@ -28,6 +28,8 @@
 
 = render 'admin/shortcuts' if current_user.admin?
 
+= render 'partials/translated'
+
 %h1= page_header
 
 %div.image_canvas= image_tag(jpg_url(@image), alt: '[фотография]')

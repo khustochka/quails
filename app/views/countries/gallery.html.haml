@@ -8,6 +8,8 @@
 
 - cache(admin: current_user.admin?, key: CacheKey.gallery) do
 
+  = render 'partials/translated'
+
   %div.header-with-subheader
     %h1= page_header
     - if @country.slug == 'ukraine'
