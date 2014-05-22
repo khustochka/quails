@@ -12,5 +12,6 @@
     show:
       prev_image: "<< Предыдущее фото"
       next_image: "Следующее фото >>"
+      more_photos_of_multiple_species: Еще фото нескольких видов
 
     picture_taken: Снято
