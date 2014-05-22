@@ -10,6 +10,8 @@
     photos: Последние добавления
     my_stats: Моя статистика
     lifelist: Lifelist
+    english: English
+    russian: По-русски
 
   partials:
     years:

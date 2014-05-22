@@ -11,6 +11,8 @@
     photos: Recently added
     my_stats: My Stats
     lifelist: Lifelist
+    english: English
+    russian: По-русски
 
   partials:
     years:
