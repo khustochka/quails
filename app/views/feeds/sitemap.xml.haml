@@ -7,6 +7,12 @@
     %lastmod= @root_lastmod
     %changefreq daily
 
+  -# English home page (photostream)
+  %url
+    %loc= localized_root_url(locale: :en)
+    -# TODO: %lastmod=
+    -#%changefreq weekly
+
   -# Birds of Ukraine page
   %url
     %loc= country_url(country: 'ukraine')
@@ -40,9 +46,8 @@
     -# TODO: %lastmod=
     -#%changefreq weekly
 
-  -# English home page (species gallery)
   %url
-    %loc= localized_root_url(locale: :en)
+    %loc= gallery_url(locale: :en)
     -# TODO: %lastmod=
     -#%changefreq weekly
 
