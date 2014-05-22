@@ -1,0 +1,4 @@
+- new_locale = Set.new([:en, :ru]).delete(I18n.locale).first
+
+%nav.translated
+  = link_to t("translated.#{new_locale}"), {locale: new_locale}

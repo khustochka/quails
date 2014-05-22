@@ -37,6 +37,9 @@
 
     feed: Подписка
 
+  translated:
+    en: English version
+
   languages:
     en: по-английски
     ru: по-русски
