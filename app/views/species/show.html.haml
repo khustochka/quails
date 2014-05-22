@@ -10,7 +10,7 @@
 
 = render 'partials/translated'
 
-%p
+%p.taxonomy
   = t("taxonomy.order")
   %strong= t("taxonomy.#{@species.order}") rescue nil
   %i.sci_name{lang: "la"}= @species.order
