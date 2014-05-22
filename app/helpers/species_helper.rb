@@ -44,7 +44,8 @@ module SpeciesHelper
   def species_map(country, loci)
     center = "center=#{STATIC_MAP_CENTER[country]}"
     markers = loci.map {|l| l.lat and "#{l.lat},#{l.lon}"}.compact.join('|')
-    image_tag("http://maps.googleapis.com/maps/api/staticmap?zoom=5&size=443x300&sensor=false&#{center}&markers=#{markers}")
+    image_tag("http://maps.googleapis.com/maps/api/staticmap?zoom=5&size=443x300&sensor=false&#{center}&markers=#{markers}",
+      alt: "#{country} map")
   end
 
 end
