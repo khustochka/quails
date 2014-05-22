@@ -28,8 +28,10 @@ class ListsController < ApplicationController
 
     @locations = Country.all
 
+    sources = I18n.russian_locale? ? {posts: current_user.available_posts} : {}
+
     @lifelist = Lifelist.basic.
-        source(posts: current_user.available_posts).
+        source(sources).
         sort(sort_override).
         filter(params.slice(:year, :locus))
   end
@@ -39,8 +41,12 @@ class ListsController < ApplicationController
 
     @locations = Locus.locs_for_lifelist
 
+    sources = {loci: current_user.available_loci}
+
+    sources[:posts] = current_user.available_posts if I18n.russian_locale?
+
     @lifelist = Lifelist.advanced.
-        source(loci: current_user.available_loci, posts: current_user.available_posts).
+        source(sources).
         sort(params[:sort]).
         filter(params.slice(:year, :month, :locus))
   end
