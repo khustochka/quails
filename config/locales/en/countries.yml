@@ -11,3 +11,6 @@
           See also "full checklist of the birds of Ukraine":%{url}.
         not_common: Rare or Vagrant
         meta_description: Birds of Ukraine with photographs
+
+      usa:
+        meta_description: Birds of USA with photographs
