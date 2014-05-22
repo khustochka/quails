@@ -17,6 +17,7 @@
       years: 'Year:'
     search:
       search_button: Search
+      fallback_text: Find more
 
   author:
     name: Vitalii Khustochka
