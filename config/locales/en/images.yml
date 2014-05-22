@@ -1,5 +1,9 @@
 'en':
   images:
+
+    alt_photo: '[photo]'
+    series_photos_num: photos
+
     index:
       window_title: Bird photos from Ukraine and other countries
       title: Recently added photos

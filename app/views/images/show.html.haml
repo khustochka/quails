@@ -32,7 +32,7 @@
 
 %h1= page_header
 
-%div.image_canvas= image_tag(jpg_url(@image), alt: '[фотография]')
+%div.image_canvas= image_tag(jpg_url(@image), alt: t('images.alt_photo'))
 
 - @image.children.each do |sub_img|
 
@@ -42,7 +42,7 @@
     %ul.horiz-list.admin-shortcuts
       %li= link_to 'Edit this one', edit_image_path(sub_img.slug)
 
-  %div.image_canvas= image_tag(jpg_url(sub_img), alt: '[фотография]')
+  %div.image_canvas= image_tag(jpg_url(sub_img), alt: t('images.alt_photo'))
 
   = sub_img.formatted.description
 
