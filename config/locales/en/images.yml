@@ -6,7 +6,7 @@
 
     index:
       window_title: Bird photos from Ukraine and other countries
-      title: Recently added photos
+      title: Bird photos from Ukraine and other countries
       species_gallery: Species gallery
       last_updated: Last updated on %{date}.
 
