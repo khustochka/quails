@@ -8,7 +8,7 @@ class CountriesControllerTest < ActionController::TestCase
   end
 
   test 'Birds of Ukraine' do
-    get :gallery, country: 'ukraine'
+    get :gallery, country: 'ukraine', locale: :ru
     assert_response :success
     assert assigns(:species).present?
     assert_select "a[href=#{species_path(@obs.species)}]"
@@ -16,7 +16,7 @@ class CountriesControllerTest < ActionController::TestCase
 
   test "Birds of USA" do
     create(:observation, card: create(:card, locus: seed(:queens)))
-    get :gallery, country: 'usa'
+    get :gallery, country: 'usa', locale: :ru
     assert_response :success
     assert assigns(:species).present?
     assert_select "a[href=#{species_path(@obs.species)}]"

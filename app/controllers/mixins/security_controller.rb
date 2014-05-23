@@ -35,11 +35,7 @@ module SecurityController
   end
 
   def url_options_for_admin
-    options = {locale: nil}
-    if Quails.env.ssl?
-      options.merge!({only_path: false, protocol: 'https'})
-    end
-    options
+    Quails.env.ssl? ? {only_path: false, protocol: 'https'} : {}
   end
 
   def force_http

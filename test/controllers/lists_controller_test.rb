@@ -13,7 +13,7 @@ class ListsControllerTest < ActionController::TestCase
   end
 
   test 'get index' do
-    get :index
+    get :index, locale: :ru
     assert_response :success
   end
 

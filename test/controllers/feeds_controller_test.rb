@@ -28,7 +28,7 @@ class FeedsControllerTest < ActionController::TestCase
   end
 
   test 'empty photos atom feed is not failing' do
-    get :photos, format: :xml
+    get :photos, format: :xml, locale: :ru
     assert_response :success
     assert_equal Mime::XML, response.content_type
   end
@@ -38,7 +38,7 @@ class FeedsControllerTest < ActionController::TestCase
     create(:image)
     create(:image)
 
-    get :photos, format: :xml
+    get :photos, format: :xml, locale: :ru
     assert_response :success
     assert_equal Mime::XML, response.content_type
   end

@@ -21,7 +21,7 @@ class SpeciesControllerTest < ActionController::TestCase
     assert seed(:pasdom).image
     @obs = @image.observations.first
 
-    get :gallery
+    get :gallery, locale: :ru
     assert_response :success
     assert_not_nil assigns(:species)
     assert_select "a[href=#{species_path(@obs.species)}]"
@@ -41,7 +41,7 @@ class SpeciesControllerTest < ActionController::TestCase
     obs2 = create(:observation, species: sp2, card: card)
     img = create(:image, slug: 'picture-of-the-shrike-and-the-wryneck', observations: [obs1, obs2])
 
-    get :gallery
+    get :gallery, locale: :ru
     assert_response :success
     assert_select "a[href=#{photos_multiple_species_path}] img[src=#{thumbnail_item(img).full_url}]"
   end
@@ -62,7 +62,7 @@ class SpeciesControllerTest < ActionController::TestCase
 
   test "show species" do
     species = seed(:melgal)
-    get :show, id: species.to_param
+    get :show, id: species.to_param, locale: :ru
     assert_response :success
   end
 
@@ -71,14 +71,14 @@ class SpeciesControllerTest < ActionController::TestCase
     im = create(:image)
     species = seed(:pasdom)
 
-    get :show, id: species.to_param
+    get :show, id: species.to_param, locale: :ru
     assert_response :success
   end
 
   test "show species with image" do
     species = seed(:melgal)
     create(:image, observations: [create(:observation, species: species)])
-    get :show, id: species.to_param
+    get :show, id: species.to_param, locale: :ru
     assert_response :success
   end
 
@@ -117,7 +117,7 @@ class SpeciesControllerTest < ActionController::TestCase
   end
 
   test "redirect species to correct URL " do
-    get :show, id: 'Corvus cornix'
+    get :show, id: 'Corvus cornix', locale: :ru
     assert_redirected_to species_path(id: 'Corvus_cornix')
     assert_response 301
   end
@@ -144,7 +144,7 @@ class SpeciesControllerTest < ActionController::TestCase
 
   test "search" do
     create(:observation, species: seed(:bomgar))
-    get :search, term: 'gar', format: :json
+    get :search, term: 'gar', format: :json, locale: :ru
     assert_response :success
     assert_equal Mime::JSON, response.content_type
     assert response.body.include?('garrulus')

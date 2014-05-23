@@ -29,7 +29,7 @@ class ImagesControllerTest < ActionController::TestCase
     obs2 = create(:observation, species: sp2, card: card)
     img = create(:image, slug: 'picture-of-the-shrike-and-the-wryneck', observations: [obs1, obs2])
 
-    get :multiple_species
+    get :multiple_species, locale: :ru
     assert_response :success
     assert_not_empty assigns(:images)
 
@@ -105,7 +105,7 @@ class ImagesControllerTest < ActionController::TestCase
   end
 
   test "show image" do
-    get :show, id: @image.to_param
+    get :show, id: @image.to_param, locale: :ru
     assert_response :success
   end
 
@@ -215,7 +215,7 @@ class ImagesControllerTest < ActionController::TestCase
   test 'Image page can be shown for Avis incognita photo as well' do
     observation = create(:observation, species_id: 0)
     img = create(:image, slug: 'picture-of-the-unknown', observations: [observation])
-    get :show, id: img
+    get :show, id: img, locale: :ru
   end
 
   test "get series page" do
@@ -229,7 +229,7 @@ class ImagesControllerTest < ActionController::TestCase
     blogpost = create(:post, status: 'PRIV')
     @obs.post = blogpost
     @obs.save!
-    get :show, id: @image
+    get :show, id: @image, locale: :ru
     assert_select "a[href=#{public_post_path(blogpost)}]", false
   end
 
@@ -237,7 +237,7 @@ class ImagesControllerTest < ActionController::TestCase
     blogpost = create(:post)
     @obs.post = blogpost
     @obs.save!
-    get :show, id: @image.to_param
+    get :show, id: @image.to_param, locale: :ru
     assert_select "a[href=#{public_post_path(blogpost)}]"
   end
 end

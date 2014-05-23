@@ -15,45 +15,45 @@ class RoutingTest < ActionDispatch::IntegrationTest
   end
 
   test 'route species correctly' do
-    assert_routing '/species/Aquilla_pomarina', {controller: 'species', action: 'show', id: 'Aquilla_pomarina'}
+    assert_routing '/species/Aquilla_pomarina', {controller: 'species', action: 'show', id: 'Aquilla_pomarina', locale: 'ru'}
     assert_routing '/species/Aquilla_pomarina/edit', {controller: 'species', action: 'edit', id: 'Aquilla_pomarina'}
   end
 
   test 'route species index and gallery' do
-    assert_routing '/species', {controller: 'species', action: 'gallery'}
+    assert_routing '/species', {controller: 'species', action: 'gallery', locale: 'ru'}
     assert_routing '/species/admin', {controller: 'species', action: 'index'}
   end
 
   test 'route `/my` correctly' do
-    assert_routing '/my', {controller: 'my_stats', action: 'index'}
+    assert_routing '/my', {controller: 'my_stats', action: 'index', locale: 'ru'}
   end
 
   test 'route lists correctly' do
-    assert_routing '/my/lists', {controller: "lists", action: "index"}
+    assert_routing '/my/lists', {controller: "lists", action: "index", locale: 'ru'}
   end
 
   test 'route lifelist correctly' do
-    assert_routing '/my/lists/life', {controller: "lists", action: "basic"}
-    assert_routing '/my/lists/advanced', {controller: "lists", action: 'advanced'}
-    assert_routing '/my/lists/life/by_taxonomy', {controller: "lists", action: "basic", sort: 'by_taxonomy'}
-    assert_routing '/my/lists/2008', {controller: "lists", action: "basic", year: '2008'}
-    assert_routing '/my/lists/2008/by_taxonomy', {controller: "lists", action: "basic", sort: 'by_taxonomy', year: '2008'}
-    assert_routing '/my/lists/kiev/2010', {controller: "lists", action: "basic", year: '2010', locus: 'kiev'}
-    assert_routing '/my/lists/kherson_obl', {controller: "lists", action: "basic", locus: 'kherson_obl'}
-    assert_routing '/my/lists/kherson_obl/by_taxonomy', {controller: "lists", action: "basic", sort: 'by_taxonomy', locus: 'kherson_obl'}
-    assert_routing '/my/lists/kiev/2010/by_taxonomy', {controller: "lists", action: "basic", sort: 'by_taxonomy', year: '2010', locus: 'kiev'}
+    assert_routing '/my/lists/life', {controller: "lists", action: "basic", locale: 'ru'}
+    assert_routing '/my/lists/advanced', {controller: "lists", action: 'advanced', locale: 'ru'}
+    assert_routing '/my/lists/life/by_taxonomy', {controller: "lists", action: "basic", sort: 'by_taxonomy', locale: 'ru'}
+    assert_routing '/my/lists/2008', {controller: "lists", action: "basic", year: '2008', locale: 'ru'}
+    assert_routing '/my/lists/2008/by_taxonomy', {controller: "lists", action: "basic", sort: 'by_taxonomy', year: '2008', locale: 'ru'}
+    assert_routing '/my/lists/kiev/2010', {controller: "lists", action: "basic", year: '2010', locus: 'kiev', locale: 'ru'}
+    assert_routing '/my/lists/kherson_obl', {controller: "lists", action: "basic", locus: 'kherson_obl', locale: 'ru'}
+    assert_routing '/my/lists/kherson_obl/by_taxonomy', {controller: "lists", action: "basic", sort: 'by_taxonomy', locus: 'kherson_obl', locale: 'ru'}
+    assert_routing '/my/lists/kiev/2010/by_taxonomy', {controller: "lists", action: "basic", sort: 'by_taxonomy', year: '2010', locus: 'kiev', locale: 'ru'}
     # have 'by_' inside locus
-    assert_routing '/my/lists/druzhby_obl/by_taxonomy', {controller: "lists", action: "basic", sort: 'by_taxonomy', locus: 'druzhby_obl'}
+    assert_routing '/my/lists/druzhby_obl/by_taxonomy', {controller: "lists", action: "basic", sort: 'by_taxonomy', locus: 'druzhby_obl', locale: 'ru'}
   end
 
   test 'route images correctly' do
     assert_routing '/photos/lesser_spotted_eagle',
-                   {controller: 'images', action: 'show', id: 'lesser_spotted_eagle'}
+                   {controller: 'images', action: 'show', id: 'lesser_spotted_eagle', locale: 'ru'}
   end
 
   test 'route to photos of several species' do
     assert_routing '/photos/multiple_species',
-                   {controller: 'images', action: 'multiple_species'}
+                   {controller: 'images', action: 'multiple_species', locale: 'ru'}
   end
 
   test 'photos paging' do
@@ -63,13 +63,13 @@ class RoutingTest < ActionDispatch::IntegrationTest
 
   test 'route feeds and sitemap correctly' do
     assert_routing '/blog.xml', {controller: 'feeds', action: 'blog', format: 'xml'}
-    assert_routing '/photos.xml', {controller: 'feeds', action: 'photos', format: 'xml'}
+    assert_routing '/photos.xml', {controller: 'feeds', action: 'photos', format: 'xml', locale: 'ru'}
     assert_routing '/sitemap.xml', {controller: 'feeds', action: 'sitemap', format: 'xml'}
   end
 
   test 'route countries correctly' do
-    assert_routing '/ukraine', {controller: 'countries', action: 'gallery', country: 'ukraine'}
-    assert_routing '/ukraine/checklist', {controller: 'checklist', action: 'show', country: 'ukraine'}
+    assert_routing '/ukraine', {controller: 'countries', action: 'gallery', country: 'ukraine', locale: 'ru'}
+    assert_routing '/ukraine/checklist', {controller: 'checklist', action: 'show', country: 'ukraine', locale: 'ru'}
   end
 
   # Localized routes

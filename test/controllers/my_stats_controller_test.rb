@@ -10,7 +10,7 @@ class MyStatsControllerTest < ActionController::TestCase
   end
 
   test 'shows My Statistics page' do
-    get :index
+    get :index, locale: :ru
   end
 
 end

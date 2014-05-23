@@ -3,7 +3,7 @@ require 'test_helper'
 class ChecklistControllerTest < ActionController::TestCase
 
   test 'shows checklist for Ukraine' do
-    get :show, country: 'ukraine'
+    get :show, country: 'ukraine', locale: :ru
     assert_response :success
     assert assigns(:checklist).present?
     assert_select "a[href=#{species_path(seed(:pasdom))}]"
@@ -28,7 +28,7 @@ class ChecklistControllerTest < ActionController::TestCase
   end
 
   test 'do not show checklist for other countries' do
-    assert_raise(ActiveRecord::RecordNotFound) { get :show, country: 'usa' }
+    assert_raise(ActiveRecord::RecordNotFound) { get :show, country: 'usa', locale: :ru }
   end
 
   #test 'save checklist for Ukraine' do

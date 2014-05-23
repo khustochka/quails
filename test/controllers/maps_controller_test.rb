@@ -4,7 +4,7 @@ class MapsControllerTest < ActionController::TestCase
 
   test "admin sees Map" do
     login_as_admin
-    get :show
+    get :show, locale: :ru
     assert_response :success
   end
 

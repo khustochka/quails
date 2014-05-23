@@ -14,7 +14,7 @@ class LifelistBasicTest < ActionController::TestCase
   end
 
   test "show lifelist ordered by taxonomy" do
-    get :basic, sort: 'by_taxonomy'
+    get :basic, sort: 'by_taxonomy', locale: :ru
     assert_response :success
     assert_select '.main' do
       assert_select "h3"
@@ -24,7 +24,7 @@ class LifelistBasicTest < ActionController::TestCase
   end
 
   test "show default lifelist" do
-    get :basic
+    get :basic, locale: :ru
     assert_response :success
     assert_select '.main' do
       assert_select 'h5' # should show "First time seen in..."
@@ -34,7 +34,7 @@ class LifelistBasicTest < ActionController::TestCase
   end
 
   test "show year list by date" do
-    get :basic, year: 2009
+    get :basic, year: 2009, locale: :ru
     assert_response :success
     lifers = assigns(:lifelist)
     assert_equal [2009], lifers.map { |s| s.first_seen_date.year }.uniq
@@ -46,7 +46,7 @@ class LifelistBasicTest < ActionController::TestCase
   end
 
   test "show year list by taxonomy" do
-    get :basic, sort: 'by_taxonomy', year: 2009
+    get :basic, sort: 'by_taxonomy', year: 2009, locale: :ru
     assert_response :success
     lifers = assigns(:lifelist)
     assert_equal [2009], lifers.map { |s| s.first_seen_date.year }.uniq
@@ -58,18 +58,18 @@ class LifelistBasicTest < ActionController::TestCase
   end
 
   test "show lifelist filtered by super location" do
-    get :basic, locus: 'ukraine'
+    get :basic, locus: 'ukraine', locale: :ru
     lifers = assigns(:lifelist)
     assert_equal 2, lifers.size
   end
 
   test "not allowed locus fails" do
-    assert_raise(ActiveRecord::RecordNotFound) { get :basic, locus: 'sumy_obl' }
+    assert_raise(ActiveRecord::RecordNotFound) { get :basic, locus: 'sumy_obl', locale: :ru }
     # assert_response :not_found
   end
 
   test "lifelist links filter out invalid parameters" do
-    get :basic, sort: 'by_taxonomy', year: 2009, zzz: 'ooo'
+    get :basic, sort: 'by_taxonomy', year: 2009, zzz: 'ooo', locale: :ru
     assert_response :success
     assert_select '.main' do
       assert_select "a[href=#{list_path(year: 2009)}]"
@@ -79,7 +79,7 @@ class LifelistBasicTest < ActionController::TestCase
   end
 
   test 'empty lifelist shows no list' do
-    get :basic, year: 1899
+    get :basic, year: 1899, locale: :ru
     assert_select '.main' do
       assert_select 'ol', false
       assert_select 'p', 'No species', 'No proper message found (saying no species in the list)'

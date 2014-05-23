@@ -1,4 +1,4 @@
-<div id="cse-wrapper" data-search-url="<%= search_localized_species_index_path(format: :json) %>" data-fallback-text="<%= t(".fallback_text") %>">
+<div id="cse-wrapper" data-search-url="<%= search_species_index_path(format: :json) %>" data-fallback-text="<%= t(".fallback_text") %>">
 <form action="<%= form_url %>" id="cse-search-box">
   <%- if code.present? %>
     <input name="cx" type="hidden" value="<%= code %>" />

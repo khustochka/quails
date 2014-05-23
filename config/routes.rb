@@ -64,7 +64,7 @@ Rails.application.routes.draw do
   constraints country: /ukraine|usa/ do
     get '/:country/checklist/edit' => 'checklist#edit'
     post '/:country/checklist/edit' => 'checklist#save'
-    scope '(:locale)', locale: /en/ do
+    localized do
       get '/:country' => 'countries#gallery', as: "country"
       get '/:country/checklist' => 'checklist#show', as: "checklist"
     end
@@ -80,8 +80,8 @@ Rails.application.routes.draw do
     end
   end
 
-  scope '(:locale)', locale: /en/ do
-    resources :species, only: [:show], as: :localized_species do
+  localized do
+    resources :species, only: [:show] do
       get 'search', on: :collection
     end
     get 'species' => 'species#gallery', as: 'gallery'
@@ -105,9 +105,9 @@ Rails.application.routes.draw do
   get '/photos(/page/:page)' => 'images#index', page: /[^0]\d*/,
                     constraints: {format: 'html'}
 
-  scope '(:locale)', locale: /en/ do
+  localized do
     get '/photos/multiple_species' => 'images#multiple_species'
-    get 'photos/:id' => 'images#show', as: 'localized_image'
+    get 'photos/:id' => 'images#show'
     post 'photos/strip' => 'images#strip'
   end
 
@@ -121,7 +121,7 @@ Rails.application.routes.draw do
 
   get '/archive' => 'blog#archive'
 
-  scope '(:locale)', locale: /en/ do
+  localized do
 
     get '/my' => 'my_stats#index', as: :my_stats
 
@@ -142,16 +142,16 @@ Rails.application.routes.draw do
 
   # Feeds and sitemap
   get '/blog.:format' => 'feeds#blog', constraints: {format: 'xml'}
-  scope '(:locale)', locale: /en/ do
+  localized do
     get '/photos.:format' => 'feeds#photos', constraints: {format: 'xml'}
   end
   get '/sitemap.:format' => 'feeds#sitemap', constraints: {format: 'xml'}
 
   # TRANSLATED:
 
-  scope ':locale', locale: /en/ do
+  localized do
     get '(/page/:page)' => 'images#index', page: /[^0]\d*/, as: :localized_root
-    get 'photos' => redirect("/%{locale}")
+    #get 'photos' => redirect("/%{locale}")
   end
 
 # ADMINISTRATIVE PAGES
@@ -195,7 +195,7 @@ Rails.application.routes.draw do
     get :reply, on: :member
   end
 
-  scope '(:locale)', locale: /en/ do
+  localized do
     resource :map, only: [:show]
   end
 
