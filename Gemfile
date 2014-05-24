@@ -31,7 +31,7 @@ gem 'roman-numerals'
 gem 'rinku'
 gem 'dotenv-rails'
 gem 'ancestry'
-gem 'route_translator', github: 'khustochka/route_translator', branch: 'format-segment'
+gem 'route_translator', github: 'khustochka/route_translator', branch: 'no-translation'
 
 gem 'sass-rails', '~> 4.0.0'
 gem 'coffee-rails', '~> 4.0.0'
