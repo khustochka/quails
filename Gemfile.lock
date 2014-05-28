@@ -31,7 +31,7 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
     addressable (2.3.6)
-    airbrake (3.1.17)
+    airbrake (4.0.0)
       builder
       multi_json
     ancestry (2.1.0)
@@ -64,7 +64,7 @@ GEM
     dotenv-rails (0.11.1)
       dotenv (= 0.11.1)
     erubis (2.7.0)
-    execjs (2.0.2)
+    execjs (2.1.0)
     factory_girl (4.4.0)
       activesupport (>= 3.0.0)
     factory_girl_rails (4.4.1)
@@ -160,7 +160,7 @@ GEM
       activesupport (>= 3.0)
       sprockets (~> 2.8)
     thor (0.19.1)
-    thread_safe (0.3.3)
+    thread_safe (0.3.4)
     tilt (1.4.1)
     treetop (1.4.15)
       polyglot
