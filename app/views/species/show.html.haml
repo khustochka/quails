@@ -1,18 +1,22 @@
 - @meta_thumbnail = thumbnail_item(@species.image).url if @species.image
 
+- @canonical = localize_url(@species, protocol: 'http')
+
 - @page_title = "#{@species.name} (#{@species.name_sci})"
 
 - if current_user.admin?
   - javascript 'species_image'
   = render 'admin/shortcuts'
 
-%p
+= render 'partials/translated'
+
+%p.taxonomy
   = t("taxonomy.order")
-  %strong= t("taxonomy.#{@species.order}") rescue nil
+  %strong= t("taxonomy.#{@species.order}", default: "")
   %i.sci_name{lang: "la"}= @species.order
   &bull;
   = t("taxonomy.family")
-  %strong= t("taxonomy.#{@species.family}") rescue nil
+  %strong= t("taxonomy.#{@species.family}", default: "")
   %i.sci_name{lang: "la"}= @species.family
 
 %div
@@ -21,7 +25,7 @@
   %span.authority= @species.authority
 
 %dl.sp_translations
-  - %w(en uk fr).map do |lang|
+  - (ALL_LOCALES - [I18n.locale] + [:fr]).map do |lang|
     - if (trans_name = @species.send("name_#{lang}")).present?
       %div
         %dt= t("languages.#{lang}")
@@ -69,8 +73,9 @@
               - month_class, tag = @months[country].include?(m) ? ["seen_this_month", :strong] : [nil, :span]
               %td{class: month_class, title: t('date.month_names')[m]}= content_tag(tag, RomanNumerals.to_roman(m))
 
-- @posts.if_present do |posts|
-  %h3= t('.sections.posts')
-  %ul
-    - posts.each do |post|
-      %li= post_link(post.formatted.title, post)
+- if I18n.russian_locale?
+  - @posts.if_present do |posts|
+    %h3= t('.sections.posts')
+    %ul
+      - posts.each do |post|
+        %li= post_link(post.formatted.title, post)

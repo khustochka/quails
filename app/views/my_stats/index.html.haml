@@ -3,19 +3,20 @@
 
 - @special_styling = true
 
-- @page_title = "Моя статистика"
+- @page_title = t('.title')
 
 - @robots = 'NOINDEX'
 
+= render 'partials/translated'
 
 %div.header-with-subheader
   %h1= @page_title
 
   %ul.subheader-menu
     %li= link_to('Lifelist', lifelist_path)
-    %li= link_to('Список Украины', list_path(locus: 'ukraine'))
-    %li= link_to('Список США', list_path(locus: 'usa'))
-    %li= link_to('Список Великобритании', list_path(locus: 'united_kingdom'))
+    %li= link_to(t('lists.title.ukraine'), list_path(locus: 'ukraine'))
+    %li= link_to(t('lists.title.usa'), list_path(locus: 'usa'))
+    %li= link_to(t('lists.title.gb'), list_path(locus: 'united_kingdom'))
 
 - cache(key: CacheKey.lifelist) do
 
@@ -39,7 +40,7 @@
 
         %td.count_sp{colspan: (year == 2007 ? 2 : 1)}
           - if year == 2007
-            %small встречено видов:
+            %small= t('.species_met')
           = link_to count_species, list_path(year: year)
 
         %td.countries
@@ -49,11 +50,11 @@
               - if count
                 %li{class: c.slug}
                   = succeed ':' do
-                    = c.name_ru
+                    = c.name
                   %span.count= link_to count, list_path(year: year, locus: c.slug)
 
     %tr.total
-      %td.year всего
+      %td.year= t('.total')
       %td
       %td.count_sp= link_to MyObservation.count_distinct_species, lifelist_path
       %td.countries
@@ -61,7 +62,7 @@
           - @countries.each do |c|
             %li{class: c.slug}
               = succeed ':' do
-                = c.name_ru
+                = c.name
               %span.count= link_to grouped_by_country[c.id], list_path(locus: c.slug)
 
   - day_with_max_species = Date.new(2012, 6, 28)
@@ -75,16 +76,16 @@
   %table.nice_stats
     %tr
       %th{colspan: 4}
-        %h2 Рекорды:
+        %h2= t('.records')
 
     %tr
-      %td.day= link_to l(day_with_max_species, format: :long), post_for_day_with_max_species
-      %td.place с. Литочки и г. Бровары, Киевская область, Украина
+      %td.day= link_to_if I18n.russian_locale?, l(day_with_max_species, format: :long), post_for_day_with_max_species
+      %td.place= t('.litochky_place')
       %td.count_sp= max_species_for_day
       %td.count_sp_label= t('misc.species_count', count: max_species_for_day)
 
     %tr
-      %td.day= link_to l(day_with_max_new_species, format: :long), post_for_day_with_max_new_species
+      %td.day= link_to_if I18n.russian_locale?, l(day_with_max_new_species, format: :long), post_for_day_with_max_new_species
       %td.place Jamaica Bay Wildlife Refuge, New York City, USA
       %td.count_new= max_new_species_for_day
       %td.count_new_label

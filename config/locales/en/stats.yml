@@ -1,7 +1,17 @@
 "en":
   my_stats:
     index:
+    index:
+      title: My stats
+
+      total: total
+
+      species_met: 'species met:'
+
+      litochky_place: 'Litochky and Brovary, Kiev oblast, Ukraine'
+
+      records: 'All-time highs:'
+
       new_count_species:
-        one: '1 new'
-        few: '%{count} new ones'
-        many: '%{count} new ones'
+        one: 'new'
+        other: 'new'

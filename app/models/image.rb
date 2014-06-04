@@ -123,7 +123,11 @@ class Image < ActiveRecord::Base
   end
 
   def public_title
-    title.present? ? title : species[0].name # Not using || because of empty string possibility
+    if I18n.russian_locale? && title.present?
+      title
+    else
+      species.map(&:name).join(', ')
+    end
   end
 
   def search_applicable_observations(params = {})
@@ -177,7 +181,7 @@ class Image < ActiveRecord::Base
     title = self.formatted.title
     child_num = children.size
     if child_num > 0
-      title = "#{title} (#{child_num + 1} фото)"
+      title = "#{title} (#{child_num + 1} #{I18n.t('images.series_photos_num')})"
     end
     Thumbnail.new(self, title, self, {image: {id: id}})
   end

@@ -1,7 +1,8 @@
 'en':
   species:
     gallery:
-      title: Bird photos
+      window_title: Bird photos by species
+      title: Bird photos by species
 
     show:
       sections:

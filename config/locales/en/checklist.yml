@@ -10,6 +10,7 @@
 
     ukraine:
       sources: Sources
+      legend: Legend
 
 #      table:
 #        name: Name

@@ -10,12 +10,15 @@
     photos: Последние добавления
     my_stats: Моя статистика
     lifelist: Lifelist
+    english: English
+    russian: По-русски
 
   partials:
     years:
       years: 'Год:'
     search:
       search_button: Поиск
+      fallback_text: Найти больше
 
   author:
     name: Виталий Хусточка
@@ -35,6 +38,9 @@
       many: 'видов'
 
     feed: Подписка
+
+  translated:
+    en: English version
 
   languages:
     en: по-английски

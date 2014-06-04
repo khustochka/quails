@@ -11,6 +11,8 @@
 
 - cache significant_params.merge(admin: current_user.admin?, key: CacheKey.lifelist) do
 
+  = render partial: 'partials/translated', locals: {url: significant_params}
+
   %h1= page_header
 
   - @years = @lifelist.years
