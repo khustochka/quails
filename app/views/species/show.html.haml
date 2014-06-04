@@ -12,11 +12,11 @@
 
 %p.taxonomy
   = t("taxonomy.order")
-  %strong= t("taxonomy.#{@species.order}") rescue nil
+  %strong= t("taxonomy.#{@species.order}", default: "")
   %i.sci_name{lang: "la"}= @species.order
   &bull;
   = t("taxonomy.family")
-  %strong= t("taxonomy.#{@species.family}") rescue nil
+  %strong= t("taxonomy.#{@species.family}", default: "")
   %i.sci_name{lang: "la"}= @species.family
 
 %div
