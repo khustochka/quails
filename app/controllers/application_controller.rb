@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :null_session
 
   include SecurityController
-  include LocaleController unless $localedisabled
+  include LocaleController
   include AdminController
   include PublicPathController
   include Pjax

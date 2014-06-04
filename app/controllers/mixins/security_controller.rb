@@ -35,7 +35,8 @@ module SecurityController
   end
 
   def url_options_for_admin
-    Quails.env.ssl? ? {only_path: false, protocol: 'https'} : {}
+    @@url_options_for_admin ||=
+            Quails.env.ssl? ? {only_path: false, protocol: 'https'} : {}
   end
 
   def force_http

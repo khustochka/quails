@@ -14,7 +14,6 @@ class I18NTest < ActionDispatch::IntegrationTest
   end
 
   # Blog is not localized
-  #unless $localedisabled
   #  test 'Use standalone month names in English' do
   #    create(:post, face_date: '2011-01-09')
   #    visit month_path(year: '2011', month: '01', locale: "en")
@@ -26,7 +25,6 @@ class I18NTest < ActionDispatch::IntegrationTest
   #    visit show_post_path(blogpost.to_url_params.merge(locale: "en"))
   #    assert_match /^January 9, 2011/, find('time').text
   #  end
-  #end
 
   test 'Properly parse pubdate in Russian' do
     blogpost = create(:post, face_date: '2011-01-09')
