@@ -17,6 +17,9 @@
     = form.input :loc_type, label: 'Locus type', as: :select, collection: Locus::TYPES
     = form.input :name_format
   %div
+    Full name:
+    = @locus.formatted.full_name
+  %div
     = form.input :name_en, label: 'English name'
     = form.input :name_ru, label: 'Russian name'
     = form.input :name_uk, label: 'Ukrainian name'
