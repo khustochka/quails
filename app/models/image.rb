@@ -86,9 +86,9 @@ class Image < ActiveRecord::Base
 
   # Associations
 
-  def posts(posts_source)
+  def posts
     posts_id = [first_observation.post_id, cards.first.post_id].uniq.compact
-    posts_source.where(id: posts_id)
+    Post.where(id: posts_id)
   end
 
   delegate :observ_date, :locus, :locus_id, :to => :card

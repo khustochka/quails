@@ -1,4 +1,4 @@
-- posts = image.posts(current_user.available_posts)
+- posts = image.posts.merge(current_user.available_posts)
 
 %p
   = t('images.picture_taken')
