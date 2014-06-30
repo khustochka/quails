@@ -6,7 +6,7 @@
 
 = render 'social/buttons'
 
-- species_rarity = @species.group_by {|s| s.status.match(/\?|\-/).nil? }
+- species_rarity = @thumbs.group_by {|s| s.status.match(/\?|\-/).nil? }
 
 - [true, false].each do |common|
   - if sps = species_rarity[common]
