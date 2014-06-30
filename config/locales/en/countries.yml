@@ -4,6 +4,7 @@
       title:
         ukraine: Birds of Ukraine
         usa: Birds of USA
+        united_kingdom: Birds of Great Britain
 
       ukraine:
         intro: >
@@ -14,3 +15,6 @@
 
       usa:
         meta_description: Birds of USA with photographs
+
+      united_kingdom:
+       meta_description: Birds of Great Britain with photographs

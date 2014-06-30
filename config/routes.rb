@@ -61,7 +61,7 @@ Rails.application.routes.draw do
   # just remember to delete public/index.html.
   root to: 'blog#home', as: 'blog'
 
-  constraints country: /ukraine|usa/ do
+  constraints country: /ukraine|usa|united_kingdom/ do
     get '/:country/checklist/edit' => 'checklist#edit'
     post '/:country/checklist/edit' => 'checklist#save'
     scope '(:locale)', locale: /en/ do
