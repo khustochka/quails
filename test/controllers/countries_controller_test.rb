@@ -15,11 +15,12 @@ class CountriesControllerTest < ActionController::TestCase
   end
 
   test "Birds of USA" do
-    create(:observation, card: create(:card, locus: seed(:queens)))
+    obs = create(:observation, card: create(:card, locus: seed(:brooklyn)))
+    img = create(:image, observations: [obs])
     get :gallery, country: 'usa'
     assert_response :success
     assert assigns(:thumbs).present?
-    assert_select "a[href=#{species_path(@obs.species)}]"
+    assert_select "a[href=#{image_path(img)}]"
   end
 
   test "Birds of UK" do
