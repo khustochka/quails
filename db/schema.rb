@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140320193022) do
+ActiveRecord::Schema.define(version: 20140711233206) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -239,5 +239,17 @@ ActiveRecord::Schema.define(version: 20140320193022) do
 
   add_index "taxa", ["book_id", "index_num"], name: "index_taxa_on_book_id_and_index_num", using: :btree
   add_index "taxa", ["book_id", "name_sci"], name: "index_taxa_on_book_id_and_name_sci", using: :btree
+
+  create_table "videos", force: true do |t|
+    t.string   "slug",        limit: 64, null: false
+    t.string   "title"
+    t.string   "url",                    null: false
+    t.text     "description"
+    t.integer  "spot_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "videos", ["slug"], name: "index_videos_on_slug", unique: true, using: :btree
 
 end
