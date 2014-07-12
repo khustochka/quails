@@ -66,28 +66,7 @@
     = form.input :title
     = form.input :has_old_thumbnail
 
-  %table.with_search
-    %tr
-      %td.observation_search{colspan: 2}
-        = simple_fields_for @image.search_applicable_observations(date: params[:exif_date]) do |form2|
-          = form2.input :observ_date, label: 'Date:', as: :string,
-              input_html: {class: 'short', maxlength: 10, type: 'date'}, required: false
-          = form2.input :locus_id, label: 'Location:', collection: Locus.suggestion_order,
-              input_html: {class: 'suggest-combo'}, required: false
-          = form2.input :species_id, label: 'Species:', collection: species_for_select,
-              input_html: {class: 'suggest-combo'}, required: false
-          %input#obs_limit{type: 'hidden', name: 'limit', value: 5}
-          %button.obs_search_btn{type: 'button'} Search
-    %tr
-      %td.observation_list
-        %h5 Current observations
-        - unless @image.new_record?
-          %span.restore.pseudolink Restore original
-        %ul.obs-list.current-obs
-          = render partial: 'observations/obs_item', collection: @image.observations.preload(:species, :card => :locus)
-      %td.observation_options
-        %h5 Found observations
-        %ul.obs-list.found-obs
+  = render partial: 'partials/obs_draggable', locals: {media: @image}
 
   %div
     - unless @image.persisted?

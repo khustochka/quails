@@ -1,5 +1,6 @@
 class Image < ActiveRecord::Base
   include FormattedModel
+  include Observationable
 
   invalidates CacheKey.gallery
 
@@ -91,12 +92,6 @@ class Image < ActiveRecord::Base
     Post.where(id: posts_id)
   end
 
-  delegate :observ_date, :locus, :locus_id, :to => :card
-
-  def card
-    first_observation.card
-  end
-
   # Instance methods
 
   def on_flickr?
@@ -128,15 +123,6 @@ class Image < ActiveRecord::Base
     else
       species.map(&:name).join(', ')
     end
-  end
-
-  def search_applicable_observations(params = {})
-    date = params[:date]
-    ObservationSearch.new(
-        new_record? ?
-            {observ_date: date || Card.pluck('MAX(observ_date)').first} :
-            {observ_date: observ_date, locus_id: locus.id}
-    )
   end
 
   # Saving with observation validation
@@ -195,10 +181,6 @@ class Image < ActiveRecord::Base
   end
 
   private
-
-  def first_observation
-    observations[0]
-  end
 
   def validate_observations(observ_ids)
     obs = Observation.where(id: observ_ids)

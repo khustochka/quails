@@ -17,7 +17,13 @@
     = f.input :slug
     = f.input :title
     = f.input :url
-    = f.input :description
 
-  .form-actions
-    = f.button :submit
+  = render partial: 'partials/obs_draggable', locals: {media: @video}
+
+  = f.input :description, input_html: {rows: 7, class: 'wiki_field'}
+
+  .buttons
+    = default_submit_button(f)
+
+- if @video.persisted?
+  %p= default_destroy_button
