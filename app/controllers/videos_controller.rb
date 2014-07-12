@@ -15,10 +15,12 @@ class VideosController < ApplicationController
   # GET /videos/new
   def new
     @video = Video.new
+    render 'form'
   end
 
   # GET /videos/1/edit
   def edit
+    render 'form'
   end
 
   # POST /videos
@@ -28,7 +30,7 @@ class VideosController < ApplicationController
     if @video.save
       redirect_to @video, notice: 'Video was successfully created.'
     else
-      render :new
+      render 'form'
     end
   end
 
@@ -37,7 +39,7 @@ class VideosController < ApplicationController
     if @video.update(video_params)
       redirect_to @video, notice: 'Video was successfully updated.'
     else
-      render :edit
+      render 'form'
     end
   end
 
