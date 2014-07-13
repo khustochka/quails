@@ -1,12 +1,21 @@
 "ru":
   lists:
     title:
+      all: Lifelist и другие списки
       lifelist: Мой список (lifelist)
       yearlist: Список %{year} года
       monthlist: Список за %{month}
       yearsublist: '%{year} года'
       countrylist: 'Список страны: %{country}'
       locationlist: 'Местный список: %{location}'
+      ukraine: Список Украины
+      usa: Список США
+      gb: Список Великобритании
+
+    index:
+      title: Lifelist и другие списки
+      see_also: См. также
+      records_and_stats: Рекорды и статистика
 
     basic:
 

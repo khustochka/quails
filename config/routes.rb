@@ -1,9 +1,9 @@
-Quails::Application.routes.draw do
+Rails.application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  # root to: 'welcome#index'
+  # root 'welcome#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
@@ -40,6 +40,13 @@ Quails::Application.routes.draw do
   #     end
   #   end
 
+  # Example resource route with concerns:
+  #   concern :toggleable do
+  #     post 'toggle'
+  #   end
+  #   resources :posts, concerns: :toggleable
+  #   resources :photos, concerns: :toggleable
+
   # Example resource route within a namespace:
   #   namespace :admin do
   #     # Directs /admin/products/* to Admin::ProductsController
@@ -54,24 +61,33 @@ Quails::Application.routes.draw do
   # just remember to delete public/index.html.
   root to: 'blog#home', as: 'blog'
 
-  constraints country: /ukraine|usa/ do
-    get '/:country' => 'countries#gallery', as: "country"
-    get '/:country/checklist' => 'checklist#show', as: "checklist"
+  constraints country: /ukraine|usa|united_kingdom/ do
     get '/:country/checklist/edit' => 'checklist#edit'
     post '/:country/checklist/edit' => 'checklist#save'
-  end
-
-  get '/species' => 'species#gallery', as: 'gallery'
-  resources :species, only: [:show] do
-    collection do
-      get 'admin', action: :index
-      get 'search'
+    scope '(:locale)', locale: /en/ do
+      get '/:country' => 'countries#gallery', as: "country"
+      get '/:country/checklist' => 'checklist#show', as: "checklist"
     end
   end
 
-  get '/photos(/page/:page)' => 'images#index', page: /[^0]\d*/, constraints: {format: 'html'}
-  get '/photos/multiple_species' => 'images#multiple_species'
-  resources :photos, controller: 'images', as: 'images', except: :index do
+  resources :species, only: [:edit, :update] do
+    collection do
+      get 'admin', action: :index
+    end
+
+    member do
+      get 'review'
+    end
+  end
+
+  scope '(:locale)', locale: /en/ do
+    resources :species, only: [:show], as: :localized_species do
+      get 'search', on: :collection
+    end
+    get 'species' => 'species#gallery', as: 'gallery'
+  end
+
+  resources :photos, controller: 'images', as: 'images', except: [:index, :show] do
     member do
       get 'edit/map', action: :map_edit
       get 'edit/parent', action: :parent_edit
@@ -82,9 +98,17 @@ Quails::Application.routes.draw do
     collection do
       get 'half_mapped'
       get 'series'
-      post 'strip'
       post 'upload'
     end
+  end
+
+  get '/photos(/page/:page)' => 'images#index', page: /[^0]\d*/,
+                    constraints: {format: 'html'}
+
+  scope '(:locale)', locale: /en/ do
+    get '/photos/multiple_species' => 'images#multiple_species'
+    get 'photos/:id' => 'images#show', as: 'localized_image'
+    post 'photos/strip' => 'images#strip'
   end
 
   constraints year: /20\d\d/ do
@@ -97,30 +121,38 @@ Quails::Application.routes.draw do
 
   get '/archive' => 'blog#archive'
 
-  get '/my' => 'my_stats#index', as: :my_stats
+  scope '(:locale)', locale: /en/ do
 
-  get '/my/lists' => 'lists#index'
+    get '/my' => 'my_stats#index', as: :my_stats
 
-  get '/my/lists/advanced' => 'lists#advanced', as: :advanced_list
+    get '/my/lists' => 'lists#index'
 
-  get '/my/lists/life(/:sort)' => 'lists#basic', as: :lifelist
+    get '/my/lists/advanced' => 'lists#advanced', as: :advanced_list
 
-  get '/my/lists(/:locus)(/:year)(/:sort)' => 'lists#basic', as: :list,
-      locus: /(?!by_)\D[^\/]+/, # negative look-ahead: not starting with 'by_'
-      year: /\d{4}/,
-      sort: /by_taxonomy/
+    get '/my/lists/life(/:sort)' => 'lists#basic', as: :lifelist
+
+    get '/my/lists(/:locus)(/:year)(/:sort)' => 'lists#basic', as: :list,
+        locus: /(?!by_)\D[^\/]+/, # negative look-ahead: not starting with 'by_'
+        year: /\d{4}/,
+        sort: /by_taxonomy/
+  end
 
   # Static pages
   get '/:id' => 'pages#show_public', constraints: {id: /links|about|winter/}, as: :show_page
 
   # Feeds and sitemap
   get '/blog.:format' => 'feeds#blog', constraints: {format: 'xml'}
-  get '/photos.:format' => 'feeds#photos', constraints: {format: 'xml'}
+  scope '(:locale)', locale: /en/ do
+    get '/photos.:format' => 'feeds#photos', constraints: {format: 'xml'}
+  end
   get '/sitemap.:format' => 'feeds#sitemap', constraints: {format: 'xml'}
 
-#  scope '/(:locale)', locale: /[a-z]{2}/ do
-#    resources :species, except: [:new, :create, :destroy]
-#  end
+  # TRANSLATED:
+
+  scope ':locale', locale: /en/ do
+    get '(/page/:page)' => 'images#index', page: /[^0]\d*/, as: :localized_root
+    get 'photos' => redirect("/%{locale}")
+  end
 
 # ADMINISTRATIVE PAGES
 
@@ -159,17 +191,15 @@ Quails::Application.routes.draw do
     end
   end
 
-  resources :species, only: [:edit, :update] do
-    member do
-      get 'review'
-    end
-  end
-
   resources :comments, except: :new do
     get :reply, on: :member
   end
 
-  resource :map, only: [:show, :edit] do
+  scope '(:locale)', locale: /en/ do
+    resource :map, only: [:show]
+  end
+
+  resource :map, only: [:edit] do
     resources :spots, only: :index
     get 'photos' => 'spots#photos'
     get 'observations', on: :collection

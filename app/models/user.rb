@@ -38,11 +38,11 @@ class User
   end
 
   def available_posts
-    Post.public
+    Post.public_posts
   end
 
   def available_loci
-    Locus.public
+    Locus.locs_for_lifelist
   end
 
   def available_comments(post)

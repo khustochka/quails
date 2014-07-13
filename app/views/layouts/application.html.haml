@@ -73,7 +73,7 @@
 
     = GoogleAnalytics.render(self)
 
-  %body{class: @body_class}
+  %body{class: @body_class, data: {'js-controller' => @js_controller}}
 
     - if @social_likes
       - cache :social_sdks do

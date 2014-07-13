@@ -165,6 +165,13 @@ div.thumbs_strip
     font-weight: bold
     margin: 5px
 
+.map-page nav.translated
+  border-top: 0px none
+  position: absolute
+  left: 410px
+  z-index: 9999
+  margin-top: -3px
+
 .gray-panel
   background-color: #eee
   background-color: rgba(#eee, 0.8)
@@ -188,6 +195,15 @@ div.thumbs_strip
     border-bottom-right-radius: 0
     box-shadow: none
     position: static
+
+  .map-page nav.translated
+    left: 110px
+    border: none
+    padding: 0
+    margin-top: 5px
+    a, a:hover
+      padding: 3px 5px
+      font-size: 14px
 
 // Hide search for small horizontal screen
 @media only all and (max-height: 580px)

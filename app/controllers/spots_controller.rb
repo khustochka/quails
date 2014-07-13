@@ -5,7 +5,7 @@ class SpotsController < ApplicationController
 
   # GET "/map/spots.json"
   def index
-    respond_with(Spot.public, :only => [:lat, :lng])
+    respond_with(Spot.public_spots, only: [:lat, :lng])
   end
 
   # GET "/map/photos.json"

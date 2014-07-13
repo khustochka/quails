@@ -116,7 +116,8 @@ $(function () {
                         $.ui.autocomplete.escapeRegex(request.term) +
                         ")(?![^<>]*>)(?![^&;]+;)", "gi"
                 ), "<strong>$1</strong>"),
-            value: text
+            value: text,
+            id: species.id
           };
       }));
     },
@@ -171,6 +172,14 @@ $(function () {
         .appendTo(ul);
   };
 
+  // Fast locus selector
+  $('.fast_locus').click(
+      function () {
+        $("input#card_locus_id").data('ui-autocomplete').search(this.textContent);
+        $(".ui-menu-item a:contains(" + this.textContent + "):first").click();
+      }
+  );
+
   // Extract and move to the new card
   $(".extractor").click(function (e) {
     window.location.href = $(".extractor").attr('href') + "?" + $('input[name="obs[]"]:checked').serialize();
@@ -195,7 +204,8 @@ $(function () {
   });
 
   // Alt+V to mark as voice
-  keypress.combo("alt v", function () {
+  keypress = new window.keypress.Listener();
+  keypress.simple_combo("alt v", function () {
     var checkbox,
         focused = $(':focus'),
         row = focused.closest('.obs-row');

@@ -37,11 +37,13 @@ class FlickrPhoto
   end
 
   def description
-    "#{I18n.l(@image.observ_date, format: :long, locale: :en)}\n#{@image.locus.name_en}, #{@image.locus.country.name_en}"
+    I18n.with_locale(:en) do
+      "#{I18n.l(date_taken, format: :long)}\n#{@image.formatted.public_locus_full_name}"
+    end
   end
 
   def tags
-    %Q(#{@image.species.map { |s| "\"#{s.name_en}\" \"#{s.name_sci}\"" }.join(' ')} bird #{@image.locus.country.name_en} #{@image.species.map(&:order).uniq.join(' ')} #{@image.species.map(&:family).uniq.join(' ')})
+    %Q(#{@image.species.map { |s| "\"#{s.name_en}\" \"#{s.name_sci}\"" }.join(' ')} bird \"#{@image.locus.country.name_en}\" #{@image.species.map(&:order).uniq.join(' ')} #{@image.species.map(&:family).uniq.join(' ')})
   end
 
   def date_taken

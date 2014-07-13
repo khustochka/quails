@@ -22,7 +22,7 @@
       = link_to 'Admin`s', params.merge({only_path: false, protocol: 'https'})
 
     %li
-      %i= link_to "**Logout", logout_path
+      %i= link_to "**Logout", logout_path(locale: nil)
 
 - elsif current_user.has_trust_cookie?
 

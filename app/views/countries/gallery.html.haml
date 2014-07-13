@@ -1,19 +1,17 @@
 -# @body_class = 'wider'
 -# This is rquired to be outside of cache
 - @social_likes = true
-- @canonical = country_url(@country, protocol: 'http')
+- @canonical = country_url(protocol: 'http')
 - @og_type = 'website'
-- @meta_thumbnail = 'http://farm4.staticflickr.com/3492/3895472701_13ab6ba2e7.jpg'
 
 - @page_title = t(".title.#{@country.slug}")
 
 - cache(admin: current_user.admin?, key: CacheKey.gallery) do
 
+  = render 'partials/translated'
+
   %div.header-with-subheader
     %h1= page_header
-    - if @country.slug == 'ukraine'
-      %ul.subheader-menu
-        %li= link_to('Checklist', checklist_path(country: @country))
-        %li= link_to("Зимующие птицы", show_page_path(:winter))
+    = render "countries/gallery/subheader/#{@country.slug}"
 
   = render "countries/gallery/#{@country.slug}"

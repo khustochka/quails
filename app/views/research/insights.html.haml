@@ -12,7 +12,7 @@
       %li
         Posts: #{Post.count}
         %ul.no-margin-list
-          %li public: #{Post.public.count}
+          %li public: #{Post.public_posts.count}
           %li indexable: #{@index_posts}
       %li
         Images: #{Image.count}

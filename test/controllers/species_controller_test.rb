@@ -143,8 +143,19 @@ class SpeciesControllerTest < ActionController::TestCase
   end
 
   test "search" do
+    create(:observation, species: seed(:bomgar))
     get :search, term: 'gar', format: :json
     assert_response :success
     assert_equal Mime::JSON, response.content_type
+    assert response.body.include?('garrulus')
+  end
+
+  test "search localized" do
+    create(:observation, species: seed(:bomgar))
+    get :search, term: 'gar', locale: 'en', format: :json
+    assert_response :success
+    assert_equal Mime::JSON, response.content_type
+    assert response.body.include?('Waxwing')
+    assert response.body.include?('/en/species/Bombycilla')
   end
 end

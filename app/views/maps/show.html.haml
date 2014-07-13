@@ -12,14 +12,12 @@
   %a.pseudolink.pan(href="#ukraine")= t(".ukraine")
   %a.pseudolink.pan(href="#usa")= t(".usa")
 
-- if I18n.locale == :ru
-  %div.gray-panel
-    %a{href: '/2013/08/site-news-map'} Сообщить об ошибке, оставить пожелание.
+= render partial: 'partials/translated'
 
 .mapContainer
   #googleMap
 
-.gallery_window{data: {strip_url: strip_images_path}}
+.gallery_window{data: {strip_url: photos_strip_path}}
   .wnd_close
     %span.close
       = image_tag("/img/x_14x14.png", width: 21, height: 21)

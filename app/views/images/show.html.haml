@@ -2,7 +2,7 @@
 
 - @meta_thumbnail = thumbnail_item(@image).try(:url)
 - @meta_description = @image.formatted.meta_description
-- @canonical = image_url(@image, protocol: 'http')
+- @canonical = localize_url(@image, only_path: false, protocol: 'http')
 - @og_type = 'birdwatchua:photo'
 
 - @page_header = @page_title = @image.formatted.title
@@ -28,9 +28,11 @@
 
 = render 'admin/shortcuts' if current_user.admin?
 
+= render 'partials/translated'
+
 %h1= page_header
 
-%div.image_canvas= image_tag(jpg_url(@image), alt: '[фотография]')
+%div.image_canvas= image_tag(jpg_url(@image), alt: t('images.alt_photo'))
 
 - @image.children.each do |sub_img|
 
@@ -40,7 +42,7 @@
     %ul.horiz-list.admin-shortcuts
       %li= link_to 'Edit this one', edit_image_path(sub_img.slug)
 
-  %div.image_canvas= image_tag(jpg_url(sub_img), alt: '[фотография]')
+  %div.image_canvas= image_tag(jpg_url(sub_img), alt: t('images.alt_photo'))
 
   = sub_img.formatted.description
 
@@ -48,14 +50,14 @@
 
 %table.image_nav
   %tr
-    %th пред.
+    %th= t('.prev')
     %th
-    %th след.
+    %th= t('.next')
   - @image.species.each do |sp|
     %tr
       %td
         - if prev_image = @image.prev_by_species(sp)
-          = link_to("&lt;".html_safe, prev_image, class: 'img_prev_next')
+          = link_to("&lt;".html_safe, localized_image_path(id: prev_image), class: 'img_prev_next')
         - else
           %span.img_prev_next &minus;
 
@@ -66,7 +68,7 @@
 
       %td
         - if next_image = @image.next_by_species(sp)
-          = link_to("&gt;".html_safe, next_image, class: 'img_prev_next')
+          = link_to("&gt;".html_safe, localized_image_path(id: next_image), class: 'img_prev_next')
         - else
           %span.img_prev_next &minus;
 
@@ -74,4 +76,4 @@
 
 
 - if @image.multi?
-  %nav= link_to("Еще фото нескольких видов", photos_multiple_species_path)
+  %nav= link_to(t(".more_photos_of_multiple_species"), photos_multiple_species_path)

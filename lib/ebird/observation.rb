@@ -194,6 +194,10 @@ class EbirdObservation
 
       'united_kingdom' => {
           Species.where(code: 'larfus').pluck(:id).first => LARUS_FUSCUS_GRAELLSII
+      },
+
+      'canada' => {
+          Species.where(code: 'hirrus').pluck(:id).first => AMERICAN_BARN_SWALLOW
       }
   }
 

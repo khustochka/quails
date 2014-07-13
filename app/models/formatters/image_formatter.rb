@@ -11,9 +11,13 @@ class ImageFormatter < ModelFormatter
     @description ||= WikiFormatter.new(@model.description).for_site
   end
 
+  def public_locus_full_name
+    @model.public_locus.formatted.full_name
+  end
+
   def meta_description
-    descr = "Снято #{l(@model.observ_date, :format => :long)}, #{@model.locus.name}."
-    if description.present?
+    descr = "#{I18n.t("images.picture_taken")} #{l(@model.observ_date, :format => :long)}, #{@model.locus.name}."
+    if I18n.russian_locale? && description.present?
       descr << "\n"
       descr << strip_tags(description)
     end

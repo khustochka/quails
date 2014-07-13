@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :null_session
 
   include SecurityController
-  include LocaleController unless $localedisabled
+  include LocaleController
   include AdminController
   include PublicPathController
   include Pjax
@@ -23,5 +23,10 @@ class ApplicationController < ActionController::Base
   end
 
   helper_method :significant_params
+
+  def expire_photo_feeds
+    expire_page controller: :feeds, action: :photos, format: 'xml'
+    expire_page controller: :feeds, action: :photos, format: 'xml', locale: 'en'
+  end
 
 end

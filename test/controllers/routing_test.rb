@@ -71,4 +71,45 @@ class RoutingTest < ActionDispatch::IntegrationTest
     assert_routing '/ukraine', {controller: 'countries', action: 'gallery', country: 'ukraine'}
     assert_routing '/ukraine/checklist', {controller: 'checklist', action: 'show', country: 'ukraine'}
   end
+
+  # Localized routes
+  test 'English root routing' do
+    assert_routing '/en', {controller: 'images', action: 'index', locale: 'en'}
+  end
+
+  test 'English Birds of Ukraine, USA, checklist routing' do
+    assert_routing '/en/ukraine', {controller: 'countries', action: 'gallery', locale: 'en', country: 'ukraine'}
+    assert_routing '/en/ukraine/checklist', {controller: 'checklist', action: 'show', locale: 'en', country: 'ukraine'}
+    assert_routing '/en/usa', {controller: 'countries', action: 'gallery', locale: 'en', country: 'usa'}
+  end
+
+  test 'English species gallery routing' do
+    assert_routing '/en/species', {controller: 'species', action: 'gallery', locale: 'en'}
+  end
+
+  test 'English map routing' do
+    assert_routing '/en/map', {controller: 'maps', action: 'show', locale: 'en'}
+  end
+
+  test 'English species routing' do
+    assert_routing '/en/species/Passer_domesticus', {controller: 'species', action: 'show', locale: 'en', id: 'Passer_domesticus'}
+  end
+
+  test 'English photo routing' do
+    assert_routing '/en/photos/sparrow12345', {controller: 'images', action: 'show', locale: 'en', id: 'sparrow12345'}
+  end
+
+  test 'English lifelists routing' do
+    assert_routing '/en/my/lists', {controller: 'lists', action: 'index', locale: 'en'}
+    assert_routing '/en/my/lists/2009', {controller: 'lists', action: 'basic', locale: 'en', year: '2009'}
+    assert_routing '/en/my/lists/usa', {controller: 'lists', action: 'basic', locale: 'en', locus: 'usa'}
+    assert_routing '/en/my/lists/usa/2011', {controller: 'lists', action: 'basic', locale: 'en', locus: 'usa', year: '2011'}
+  end
+
+  test 'English my stats routing' do
+    assert_routing '/en/my', {controller: 'my_stats', action: 'index', locale: 'en'}
+  end
+
+
+
 end

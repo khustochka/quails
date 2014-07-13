@@ -1,4 +1,5 @@
 class Locus < ActiveRecord::Base
+  include FormattedModel
 
   include ActiveRecord::Localized
   localize :name
@@ -39,7 +40,9 @@ class Locus < ActiveRecord::Base
     sort_by_ancestry(Locus.all).reverse
   end
 
-  scope :public, lambda { where('public_index IS NOT NULL').order(:public_index) }
+  scope :locs_for_lifelist, lambda { where('public_index IS NOT NULL').order(:public_index) }
+
+  scope :non_private, lambda { where("private_loc = 'f'") }
 
   # Instance methods
 

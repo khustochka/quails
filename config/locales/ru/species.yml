@@ -2,6 +2,7 @@
   species:
     gallery:
       title: Фотографии птиц
+      window_title: Фотографии птиц
 
     show:
       sections:

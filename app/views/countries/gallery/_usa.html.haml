@@ -1,2 +1,7 @@
+- @meta_description = t(".meta_description")
+- @meta_thumbnail = 'https://farm6.staticflickr.com/5027/5575981314_aca47744ba.jpg'
+
+= render 'social/buttons'
+
 %div.thumbnails
-  = render_justified @species.map(&:to_thumbnail)
+  = render_justified @thumbs.map(&:to_thumbnail)

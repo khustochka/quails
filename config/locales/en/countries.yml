@@ -4,9 +4,17 @@
       title:
         ukraine: Birds of Ukraine
         usa: Birds of USA
+        united_kingdom: Birds of Great Britain
 
       ukraine:
         intro: >
           Only those species are listed that are pictured on this site.
           See also "full checklist of the birds of Ukraine":%{url}.
         not_common: Rare or Vagrant
+        meta_description: Birds of Ukraine with photographs
+
+      usa:
+        meta_description: Birds of USA with photographs
+
+      united_kingdom:
+       meta_description: Birds of Great Britain with photographs

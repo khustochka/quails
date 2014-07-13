@@ -56,7 +56,7 @@ class LociController < ApplicationController
   end
 
   def public
-    @locs_public = Locus.public
+    @locs_public = Locus.locs_for_lifelist
     @locs_other = Locus.sort_by_ancestry(Locus.where('public_index IS NULL'))
   end
 

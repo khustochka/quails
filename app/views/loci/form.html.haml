@@ -1,5 +1,5 @@
 - stylesheet 'forms'
-- javascript 'bare_combo_suggest'
+- javascript AssetsHelper::GMAP_API_URL, 'locus_edit'
 
 - @page_title = "#{new_or_edit_label(@locus)} location"
 
@@ -17,15 +17,21 @@
     = form.input :loc_type, label: 'Locus type', as: :select, collection: Locus::TYPES
     = form.input :name_format
   %div
+    Full name:
+    = @locus.formatted.full_name
+  %div
     = form.input :name_en, label: 'English name'
     = form.input :name_ru, label: 'Russian name'
     = form.input :name_uk, label: 'Ukrainian name'
   %div
-    = form.input :lat, input_html: { size: 10, type: :text }
-    = form.input :lon, input_html: { size: 10, type: :text }
+    = form.input :lat, as: :hidden
+    = form.input :lon, as: :hidden
 
     = form.input :public_index, input_html: { size: 10, type: :text }
     = form.input :private_loc
     = form.input :patch
+
+  %div#googleMap
+
   .buttons
     = default_submit_button(form)
