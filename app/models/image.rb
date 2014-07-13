@@ -20,7 +20,7 @@ class Image < ActiveRecord::Base
 
   validates :slug, uniqueness: true, presence: true, length: {:maximum => 64}
   validates :flickr_id, uniqueness: true, allow_nil: true, exclusion: {in: ['']}
-  validates :observations, presence: true
+  validate :consistent_observations
 
   serialize :assets_cache, ImageAssetsArray
 
@@ -192,8 +192,8 @@ class Image < ActiveRecord::Base
     observations[0]
   end
 
-  def validate_observations(observ_ids)
-    obs = Observation.where(id: observ_ids)
+  def consistent_observations
+    obs = Observation.where(id: observation_ids)
     if obs.blank?
       errors.add(:observations, 'must not be empty')
     else
