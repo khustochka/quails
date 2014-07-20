@@ -51,9 +51,10 @@ class ImagesControllerTest < ActionController::TestCase
 
   test "create image with one observation" do
     login_as_admin
-    new_attr = attributes_for(:image, slug: 'new_img_slug').except(:observations)
+    new_attr = attributes_for(:image, slug: 'new_img_slug')
+    new_attr[:observation_ids] = [@obs.id]
     assert_difference('Image.count') do
-      post :create, image: new_attr, obs: [@obs.id]
+      post :create, image: new_attr
     end
 
     assert_redirected_to edit_map_image_path(assigns(:image))
@@ -64,8 +65,9 @@ class ImagesControllerTest < ActionController::TestCase
     obs2 = create(:observation, species: seed(:lancol), card: @obs.card)
     obs3 = create(:observation, species: seed(:jyntor), card: @obs.card)
     new_attr = attributes_for(:image, slug: 'new_img_slug').except(:observations)
+    new_attr[:observation_ids] = [@obs.id, obs2.id, obs3.id]
     assert_difference('Image.count') do
-      post :create, image: new_attr, obs: [@obs.id, obs2.id, obs3.id]
+      post :create, image: new_attr
       image = assigns(:image)
       assert_not image.errors.any?
     end
@@ -136,7 +138,7 @@ class ImagesControllerTest < ActionController::TestCase
     @image.save!
     new_attr = @image.attributes
     obs = create(:observation)
-    put :update, id: @image.to_param, image: new_attr, obs: [obs.id]
+    put :update, id: @image.to_param, image: new_attr.merge(observation_ids: [obs.id])
     @image.reload
     assert_not @image.spot_id, "Spot id should be nil"
   end
@@ -170,10 +172,10 @@ class ImagesControllerTest < ActionController::TestCase
     spot = create(:spot, observation_id: @image.observation_ids.first)
     @image.spot_id = spot.id
     @image.save!
-    new_attr = @image.attributes
     obs1 = create(:observation)
     obs2 = create(:observation)
-    put :update, id: @image.to_param, image: new_attr, obs: [obs1.id, obs2.id]
+    new_attr = @image.attributes.merge({observation_ids: [obs1.id, obs2.id]})
+    put :update, id: @image.to_param, image: new_attr
     assert assigns(:image).errors.present?
     @image.reload
     assert @image.spot_id, "Spot id is nil"
@@ -190,17 +192,6 @@ class ImagesControllerTest < ActionController::TestCase
     assert_equal spot2.id, img.spot_id
     assert_response :success
     assert_equal Mime::JSON, response.content_type
-  end
-
-  test "image removed from map if it is tied to another observation" do
-    spot = create(:spot)
-    obs = spot.observation
-    img = create(:image, observation_ids: [obs.id], spot: spot)
-    obs2 = create(:observation)
-    login_as_admin
-    put :update, id: img.to_param, obs: [obs2.id], image: img.attributes
-    img.reload
-    assert img.spot.blank?
   end
 
   test "destroy image" do

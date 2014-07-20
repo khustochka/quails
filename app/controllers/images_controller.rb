@@ -97,7 +97,7 @@ class ImagesController < ApplicationController
     @photo = FlickrPhoto.new(@image)
     @photo.bind_with_flickr(flickr_id)
 
-    if @image.update_with_observations(params[:image], params[:obs])
+    if @image.update_with_observations(params[:image])
 
       if params[:new_on_flickr]
         @photo.update!
@@ -121,7 +121,7 @@ class ImagesController < ApplicationController
   # PUT /photos/1
   def update
     new_params = params[:image].slice(*Image::NORMAL_PARAMS)
-    if @image.update_with_observations(new_params, params[:obs])
+    if @image.update_with_observations(new_params)
       if @image.mapped?
         redirect_to(image_path(@image), notice: 'Image was successfully updated.')
       else

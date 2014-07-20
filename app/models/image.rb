@@ -3,7 +3,7 @@ class Image < ActiveRecord::Base
 
   invalidates CacheKey.gallery
 
-  NORMAL_PARAMS = [:slug, :title, :description, :index_num, :has_old_thumbnail, :status]
+  NORMAL_PARAMS = [:slug, :title, :description, :index_num, :has_old_thumbnail, :status, :observation_ids]
 
   STATES = %w(DEFLT NOIDX)
 
@@ -165,6 +165,10 @@ class Image < ActiveRecord::Base
     #    end
     #  end
     #end
+  end
+
+  def observation_ids=(list)
+    super(list.uniq)
   end
 
   # Formatting

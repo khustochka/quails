@@ -105,7 +105,7 @@ class PostTest < ActiveSupport::TestCase
 
     sleep 2
 
-    i.update_with_observations({}, [o2.id])
+    i.update_with_observations({observation_ids: [o2.id]})
 
     p.reload
     assert p.updated_at.to_i > saved_date.to_i
@@ -125,7 +125,7 @@ class PostTest < ActiveSupport::TestCase
 
     sleep 2
 
-    i.update_with_observations({}, [o2.id])
+    i.update_with_observations({observation_ids: [o2.id]})
 
     p.reload
     assert p.updated_at.to_i > saved_date.to_i
