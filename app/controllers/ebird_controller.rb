@@ -1,7 +1,6 @@
 require 'ebird/exporter'
 
 class EbirdController < ApplicationController
-  include ActionView::Helpers::UrlHelper
 
   administrative
 
@@ -31,7 +30,7 @@ class EbirdController < ApplicationController
       if result
         @file.cards = cards_rel
         @files = Ebird::File.preload(:cards)
-        flash.notice = "Successfully created CSV file #{link_to(@file.name, @file.full_url)}".html_safe
+        flash.notice = "Successfully created CSV file #{ActionController::Base.helpers.link_to(@file.name, @file.full_url)}".html_safe
         render :index
       else
         @file.destroy
