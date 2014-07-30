@@ -230,10 +230,6 @@ Rails.application.routes.draw do
   get '/flickr' => 'flickr#index'
   get '/flickr/auth' => 'flickr#auth'
 
-  scope '/ebird', controller: 'ebird' do
-    get '/', action: :index
-    get '/new', action: :new
-    post '/', action: :create
-  end
+  resources :ebird, as: :ebird_files, controller: :ebird, only: [:index, :new, :create, :destroy]
 
 end

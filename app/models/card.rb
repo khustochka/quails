@@ -15,7 +15,7 @@ class Card < ActiveRecord::Base
   has_many :species, -> { order(:index_num) }, through: :observations
   has_many :spots, through: :observations
 
-  has_many :ebird_submissions, :class_name => 'Ebird::Submission'
+  has_many :ebird_submissions, class_name: 'Ebird::Submission', dependent: :delete_all
   has_many :ebird_files, :class_name => 'Ebird::File', through: :ebird_submissions
 
   validates :locus_id, :observ_date, presence: true

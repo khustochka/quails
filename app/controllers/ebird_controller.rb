@@ -46,6 +46,11 @@ class EbirdController < ApplicationController
 
   end
 
+  def destroy
+    Ebird::File.find(params[:id]).destroy
+    redirect_to action: :index
+  end
+
   private
 
   def test_prefix
