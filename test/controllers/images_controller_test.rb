@@ -78,7 +78,7 @@ class ImagesControllerTest < ActionController::TestCase
     login_as_admin
     new_attr = build(:image, slug: '').attributes.except('assets_cache')
     assert_difference('Image.count', 0) do
-      post :create, image: new_attr, obs: [@obs.id]
+      post :create, image: new_attr.merge(observation_ids: [@obs.id])
     end
 
     assert_template :form
@@ -88,7 +88,7 @@ class ImagesControllerTest < ActionController::TestCase
     login_as_admin
     new_attr = build(:image, slug: 'new_img_slug').attributes
     assert_difference('Image.count', 0) do
-      post :create, image: new_attr, obs: []
+      post :create, image: new_attr.merge(observation_ids: [])
     end
 
     assert_template :form
@@ -100,7 +100,7 @@ class ImagesControllerTest < ActionController::TestCase
     obs3 = create(:observation, card: create(:card, locus: seed(:brovary)))
     new_attr = build(:image, slug: 'new_img_slug').attributes.except('assets_cache')
     assert_difference('Image.count', 0) do
-      post :create, image: new_attr, obs: [obs2.id, obs3.id]
+      post :create, image: new_attr.merge(observation_ids: [obs2.id, obs3.id])
     end
 
     assert_template :form
@@ -127,7 +127,7 @@ class ImagesControllerTest < ActionController::TestCase
     login_as_admin
     new_attr = @image.attributes
     new_attr['slug'] = 'new_slug'
-    put :update, id: @image.to_param, image: new_attr, obs: @image.observation_ids
+    put :update, id: @image.to_param, image: new_attr.merge(observation_ids: @image.observation_ids)
     assert_redirected_to edit_map_image_path(assigns(:image))
   end
 
@@ -149,7 +149,7 @@ class ImagesControllerTest < ActionController::TestCase
     @image.spot_id = spot.id
     @image.save!
     new_attr = @image.attributes
-    put :update, id: @image.to_param, image: new_attr, obs: @image.observation_ids
+    put :update, id: @image.to_param, image: new_attr.merge(observation_ids: @image.observation_ids)
     @image.reload
     assert @image.spot_id, "Spot id is nil"
   end
@@ -161,7 +161,7 @@ class ImagesControllerTest < ActionController::TestCase
     @image.save!
     new_attr = @image.attributes
     obs = create(:observation, card: @obs.card)
-    put :update, id: @image.to_param, image: new_attr, obs: @image.observation_ids.push(obs.id)
+    put :update, id: @image.to_param, image: new_attr.merge(observation_ids: @image.observation_ids.push(obs.id))
     assert assigns(:image).errors.blank?
     @image.reload
     assert @image.spot_id, "Spot id is nil"
