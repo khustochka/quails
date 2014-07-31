@@ -14,6 +14,7 @@
     %th Created
     %th Cards count
     %th Status
+    %th
 
   - @files.each do |file|
     %tr
@@ -22,3 +23,4 @@
       %td= file.created_at.strftime("%F %R")
       %td= file.cards.size
       %td= file.status
+      %td= default_destroy_link(file)

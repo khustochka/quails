@@ -21,6 +21,16 @@ class EbirdConverterTest < ActiveSupport::TestCase
     assert_equal "0.683", oconv(obs).send(:distance_miles).to_s[0..4]
   end
 
+  test "properly sum count" do
+    obs = FactoryGirl.create(:observation, quantity: '5 + 1')
+    assert_equal 6, oconv(obs).send(:count)
+  end
+
+  test "count is a string" do
+    obs = FactoryGirl.create(:observation, quantity: 'many')
+    assert_equal nil, oconv(obs).send(:count)
+  end
+
   test "correctly process empty distance" do
     obs = FactoryGirl.create(:observation)
     assert oconv(obs).send(:distance_miles).blank?
