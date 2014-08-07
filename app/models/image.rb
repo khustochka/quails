@@ -3,7 +3,7 @@ class Image < ActiveRecord::Base
 
   invalidates CacheKey.gallery
 
-  NORMAL_PARAMS = [:slug, :title, :description, :index_num, :has_old_thumbnail, :status, :observation_ids]
+  NORMAL_PARAMS = [:slug, :title, :description, :index_num, :has_old_thumbnail, :status]
 
   STATES = %w(DEFLT NOIDX)
 
@@ -144,33 +144,6 @@ class Image < ActiveRecord::Base
             {observ_date: date || Card.pluck('MAX(observ_date)').first} :
             {observ_date: observ_date, locus_id: locus.id}
     )
-  end
-
-  def update_with_observations(attr)
-    update_attributes(attr)
-    #obs_ids.map!(&:to_i) if obs_ids
-    #assign_attributes(attr)
-    #validate_observations(obs_ids)
-    #if errors.any?
-    #  run_validations!
-    #  return false
-    #end
-    #with_transaction_returning_status do
-    #  if self.spot_id && !self.spot.observation_id.in?(obs_ids)
-    #    self.spot_id = nil
-    #  end
-    #  unless new_record?
-    #    old_observations = self.observations.to_a
-    #    old_species = self.species.to_a
-    #  end
-    #  self.observation_ids = obs_ids.uniq
-    #  run_validations! && save.tap do |result|
-    #    if result && old_species && old_observations
-    #      old_species.each(&:update_image)
-    #      old_observations.each { |o| o.post.try(:touch) }
-    #    end
-    #  end
-    #end
   end
 
   def observation_ids=(list)

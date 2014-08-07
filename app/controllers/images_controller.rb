@@ -91,23 +91,22 @@ class ImagesController < ApplicationController
   def create
     @image = Image.new
 
-    flickr_id = params[:image].delete(:flickr_id)
-    params[:image].slice!(*Image::NORMAL_PARAMS)
+    flickr_id = params[:image][:flickr_id]
 
     @photo = FlickrPhoto.new(@image)
     @photo.bind_with_flickr(flickr_id)
 
-    if @image.update_with_observations(params[:image])
+    if @image.update(image_params)
 
       if params[:new_on_flickr]
         @photo.update!
       end
 
       if ImagesHelper.local_image_path && !Rails.env.test?
-        full_path = File.join(ImagesHelper.local_image_path, "#{params[:image][:slug]}.jpg")
+        full_path = File.join(ImagesHelper.local_image_path, "#{image_params[:slug]}.jpg")
         if File.exist?(full_path)
           w, h = `identify -format "%Wx%H" #{full_path}`.split('x').map(&:to_i)
-          @image.assets_cache << ImageAssetItem.new(:local, w, h, "#{params[:image][:slug]}.jpg")
+          @image.assets_cache << ImageAssetItem.new(:local, w, h, "#{image_params[:slug]}.jpg")
           @image.save!
         end
       end
@@ -120,8 +119,7 @@ class ImagesController < ApplicationController
 
   # PUT /photos/1
   def update
-    new_params = params[:image].slice(*Image::NORMAL_PARAMS)
-    if @image.update_with_observations(new_params)
+    if @image.update(image_params)
       if @image.mapped?
         redirect_to(image_path(@image), notice: 'Image was successfully updated.')
       else
@@ -194,6 +192,10 @@ class ImagesController < ApplicationController
   end
 
   private
+
+  def image_params
+    @image_params ||= params[:image].slice(*Image::NORMAL_PARAMS).merge(observation_ids: params[:obs] || [])
+  end
 
   def cache_expire
     expire_page controller: :feeds, action: :blog, format: 'xml'

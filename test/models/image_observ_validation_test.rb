@@ -7,25 +7,10 @@ class ImageObservValidationTest < ActiveSupport::TestCase
     @image = create(:image, observation_ids: [@obs.id])
   end
 
-  test "does not create image with no observations" do
-    new_attr = attributes_for(:image, slug: 'new_img_slug').except(:observations)
-    img = Image.new
-    assert_difference('Image.count', 0) do
-      img.update_with_observations(new_attr)
-    end
-    assert img.errors.present?
-  end
-
   test "does not update image with empty observation list" do
     new_attr = attributes_for(:image, slug: 'new_img_slug').except(:observations)
     new_attr[:observations] = []
-    assert_not @image.update_with_observations(new_attr)
-    assert @image.errors.present?
-  end
-
-  test "does not update image if no observation list provided" do
-    new_attr = attributes_for(:image, slug: 'new_img_slug').except(:observations)
-    assert_not @image.update_with_observations(new_attr)
+    assert_not @image.update(new_attr)
     assert @image.errors.present?
   end
 
@@ -33,7 +18,7 @@ class ImageObservValidationTest < ActiveSupport::TestCase
     new_attr = @image.attributes # observations_ids are not in here
     new_attr['slug'] = 'new_img_slug'
     new_attr[:observations] = []
-    @image.update_with_observations(new_attr)
+    @image.update(new_attr)
     assert_equal @image.observation_ids, @image.observation_ids
   end
 
@@ -42,7 +27,7 @@ class ImageObservValidationTest < ActiveSupport::TestCase
     new_attr = @image.attributes # observations_ids are not in here
     new_attr['slug'] = ''
     new_attr[:observations] = [new_obs]
-    @image.update_with_observations(new_attr)
+    @image.update(new_attr)
     assert_equal [new_obs.id], @image.observation_ids
   end
 
@@ -52,7 +37,7 @@ class ImageObservValidationTest < ActiveSupport::TestCase
     new_attr[:observation_ids] = [@obs.id, @obs.id]
     img = Image.new
     assert_difference('Image.count', 1) do
-      img.update_with_observations(new_attr)
+      img.update(new_attr)
     end
     assert_empty img.errors
     assert_equal [@obs.id], img.observation_ids
@@ -62,7 +47,7 @@ class ImageObservValidationTest < ActiveSupport::TestCase
     new_attr = @image.attributes
     obs = create(:observation, card: @obs.card)
     new_attr[:observation_ids] = [@obs.id, @obs.id, obs.id]
-    assert @image.update_with_observations(new_attr)
+    assert @image.update(new_attr)
     assert_empty @image.errors
     assert_equal 2, @image.observation_ids.count
   end
@@ -71,7 +56,7 @@ class ImageObservValidationTest < ActiveSupport::TestCase
     new_attr = @image.attributes
     obs = create(:observation, card: @obs.card)
     new_attr[:observation_ids] = [@obs.id, obs.id, obs.id]
-     assert @image.update_with_observations(new_attr)
+     assert @image.update(new_attr)
     assert_empty @image.errors
     assert_equal 2, @image.observation_ids.count
   end
@@ -83,7 +68,7 @@ class ImageObservValidationTest < ActiveSupport::TestCase
     new_attr[:observation_ids] = [obs1.id, obs2.id]
     img = Image.new
     assert_difference('Image.count', 0) do
-      img.update_with_observations(new_attr)
+      img.update(new_attr)
     end
     assert img.errors.present?
   end
@@ -95,7 +80,7 @@ class ImageObservValidationTest < ActiveSupport::TestCase
     img = Image.new
     new_attr[:observation_ids] = [obs1.id, obs2.id]
         assert_difference('Image.count', 0) do
-      img.update_with_observations(new_attr)
+      img.update(new_attr)
     end
     assert img.errors.present?
   end
@@ -105,7 +90,7 @@ class ImageObservValidationTest < ActiveSupport::TestCase
     obs2 = create(:observation, card: create(:card, observ_date: '2010-01-01'))
     new_attr = @image.attributes
     new_attr[:observation_ids] = [obs1.id, obs2.id]
-    assert_not @image.update_with_observations(new_attr)
+    assert_not @image.update(new_attr)
     assert @image.errors.present?
   end
 
@@ -115,7 +100,7 @@ class ImageObservValidationTest < ActiveSupport::TestCase
     new_attr = @image.attributes
     new_attr[:slug] = 'newslug'
     new_attr[:observation_ids] = [obs1.id, obs2.id]
-    assert_not @image.update_with_observations(new_attr)
+    assert_not @image.update(new_attr)
     assert @image.errors.present?
     assert_equal 'newslug', @image.slug
   end
