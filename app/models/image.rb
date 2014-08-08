@@ -35,6 +35,7 @@ class Image < ActiveRecord::Base
     end
   end
 
+  # FIXME: the NEW post is touched if it exists, but not the OLD!
   after_save do
     cards.preload(:post).map(&:post).uniq.each { |p| p.try(:touch) }
     observations.preload(:post).map(&:post).uniq.each { |p| p.try(:touch) }
