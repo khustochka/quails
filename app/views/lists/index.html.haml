@@ -44,13 +44,25 @@
     %div.fluid-column
 
       %h2
-        = link_to(t('lists.title.yearlist', year: 2013), list_path(year: 2013))
-        (#{@list_prev_year.count(:all)})
+        = link_to(t('lists.title.canada'), list_path(locus: 'canada'))
 
-      %h2
-        = link_to(t('lists.title.usa'), list_path(locus: 'usa'))
-        (#{@list_usa.count(:all)})
+      - lifers.call(@list_canada.limit(5))
+
+
+  %div.fluid-row
+
+    %div.fluid-column
+
+      -#%h2
+      -#  = link_to(t('lists.title.yearlist', year: 2013), list_path(year: 2013))
+      -#  (#{@list_prev_year.count(:all)})
 
       %h2
         = link_to(t('lists.title.gb'), list_path(locus: 'united_kingdom'))
         (#{@list_uk.count(:all)})
+
+    %div.fluid-column
+
+      %h2
+        = link_to(t('lists.title.usa'), list_path(locus: 'usa'))
+        (#{@list_usa.count(:all)})

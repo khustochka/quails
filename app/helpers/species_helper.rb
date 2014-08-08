@@ -44,7 +44,12 @@ module SpeciesHelper
   def species_map(country, loci)
     center = "center=#{STATIC_MAP_CENTER[country]}"
     markers = loci.map {|l| l.lat and "#{l.lat},#{l.lon}"}.compact.join('|')
-    image_tag("http://maps.googleapis.com/maps/api/staticmap?zoom=5&size=443x300&sensor=false&#{center}&markers=#{markers}",
+    zoom = 5
+    # Hack for static map including Montreal/Dorval
+    if country == 'canada' && loci.any? {|l| l.slug == 'dorval'}
+      zoom = 4
+    end
+    image_tag("http://maps.googleapis.com/maps/api/staticmap?zoom=#{zoom}&size=443x300&sensor=false&#{center}&markers=#{markers}",
       alt: "#{country} map")
   end
 

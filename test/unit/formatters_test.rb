@@ -34,7 +34,7 @@ class FormattersTest < ActionView::TestCase
   end
 
   test "Post with photo by slug" do
-    image = build(:image)
+    image = create(:image)
     post = build(:post, text: "{{^#{image.slug}}}")
     assert_includes post.formatted.for_site.text,
                     "<a href=\"/photos/#{image.slug}\"><img src=\"#{jpg_url(image)}\" title=\"[photo]\" alt=\"[photo]\" /></a>"
@@ -80,7 +80,7 @@ class FormattersTest < ActionView::TestCase
   end
 
   test "LJ Post with photo by slug" do
-    image = build(:image)
+    image = create(:image)
     post = build(:post, text: "{{^#{image.slug}}}")
     assert_includes post.formatted.for_lj.text,
                     "<img src=\"#{jpg_url(image)}\" title=\"[photo]\" alt=\"[photo]\" />"
@@ -90,7 +90,7 @@ class FormattersTest < ActionView::TestCase
 
   test "LJ Post with images" do
     p = create(:post, text: "AAA")
-    image = build(:image)
+    image = create(:image)
     image.card.update_column(:post_id, p.id)
     assert_includes p.formatted.for_lj.text,
                     "<img src=\"#{jpg_url(image)}\" title=\"[photo]\" alt=\"[photo]\" />"

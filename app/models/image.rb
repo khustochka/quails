@@ -8,11 +8,8 @@ class Image < ActiveRecord::Base
 
   STATES = %w(DEFLT NOIDX)
 
-  validates :slug, uniqueness: true, presence: true, length: {:maximum => 64}
-  validates :flickr_id, uniqueness: true, allow_nil: true, exclusion: {in: ['']}
-
   has_and_belongs_to_many :observations
-  has_many :species, :through => :observations
+  has_many :species, through: :observations
 
   # TODO: try to make it 'card', because image should belong to observations of the same card
   has_many :cards, :through => :observations
@@ -22,6 +19,10 @@ class Image < ActiveRecord::Base
 
   has_many :children, -> { basic_order }, class_name: 'Image', foreign_key: 'parent_id'
 
+  validates :slug, uniqueness: true, presence: true, length: {:maximum => 64}
+  validates :flickr_id, uniqueness: true, allow_nil: true, exclusion: {in: ['']}
+  validate :consistent_observations
+
   serialize :assets_cache, ImageAssetsArray
 
   # Callbacks
@@ -29,6 +30,13 @@ class Image < ActiveRecord::Base
     species.each(&:update_image)
   end
 
+  after_update do
+    if spot_id && !spot.observation_id.in?(observation_ids)
+       self.update_column(:spot_id, nil)
+    end
+  end
+
+  # FIXME: the NEW post is touched if it exists, but not the OLD!
   after_save do
     cards.preload(:post).map(&:post).uniq.each { |p| p.try(:touch) }
     observations.preload(:post).map(&:post).uniq.each { |p| p.try(:touch) }
@@ -131,36 +139,6 @@ class Image < ActiveRecord::Base
     update_with_observations({}, obs.map(&:id))
   end
 
-  #def observation_ids=(*args)
-  #  raise("Use update_with_observations!")
-  #end
-
-  def update_with_observations(attr, obs_ids)
-    obs_ids.map!(&:to_i) if obs_ids
-    assign_attributes(attr)
-    validate_observations(obs_ids)
-    if errors.any?
-      run_validations!
-      return false
-    end
-    with_transaction_returning_status do
-      if self.spot_id && !self.spot.observation_id.in?(obs_ids)
-        self.spot_id = nil
-      end
-      unless new_record?
-        old_observations = self.observations.to_a
-        old_species = self.species.to_a
-      end
-      self.observation_ids = obs_ids.uniq
-      run_validations! && save.tap do |result|
-        if result && old_species && old_observations
-          old_species.each(&:update_image)
-          old_observations.each { |o| o.post.try(:touch) }
-        end
-      end
-    end
-  end
-
   # Formatting
 
   def to_thumbnail
@@ -182,8 +160,8 @@ class Image < ActiveRecord::Base
 
   private
 
-  def validate_observations(observ_ids)
-    obs = Observation.where(id: observ_ids)
+  def consistent_observations
+    obs = Observation.where(id: observation_ids)
     if obs.blank?
       errors.add(:observations, 'must not be empty')
     else

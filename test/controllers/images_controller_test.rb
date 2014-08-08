@@ -192,17 +192,6 @@ class ImagesControllerTest < ActionController::TestCase
     assert_equal Mime::JSON, response.content_type
   end
 
-  test "image removed from map if it is tied to another observation" do
-    spot = create(:spot)
-    obs = spot.observation
-    img = create(:image, observation_ids: [obs.id], spot: spot)
-    obs2 = create(:observation)
-    login_as_admin
-    put :update, id: img.to_param, obs: [obs2.id], image: img.attributes
-    img.reload
-    assert img.spot.blank?
-  end
-
   test "destroy image" do
     login_as_admin
     assert_difference('Image.count', -1) do
