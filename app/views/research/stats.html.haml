@@ -21,7 +21,7 @@
       %td= row.count_obs
       %td= row.count_days
       %td= row.count_species
-      %td= @first_sp_by_year[row.year]
+      %td= @first_sp_by_year[row.year] rescue nil
 
 %table.neat_table.statistics
   %tr
@@ -35,7 +35,7 @@
       %td= t('date.month_names')[row.month.to_i]
       %td= row.count_obs
       %td= row.count_species
-      %td= @first_sp_by_month[row.month]
+      %td= @first_sp_by_month[row.month] rescue nil
 
 %h2 Рекордные дни
 
@@ -93,7 +93,7 @@
     %th New species
     %th Locations
 
-  - @day_by_new_species.each do |row|
+  - (@day_by_new_species || []).each do |row|
     %tr
       %td= l(row.first_seen_date, format: :long)
       %td= row.count_species
