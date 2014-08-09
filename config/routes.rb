@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -61,7 +62,7 @@ Rails.application.routes.draw do
   # just remember to delete public/index.html.
   root to: 'blog#home', as: 'blog'
 
-  constraints country: /ukraine|usa|united_kingdom/ do
+  constraints country: /ukraine|usa|united_kingdom|canada/ do
     get '/:country/checklist/edit' => 'checklist#edit'
     post '/:country/checklist/edit' => 'checklist#save'
     scope '(:locale)', locale: /en/ do
@@ -101,6 +102,8 @@ Rails.application.routes.draw do
       post 'upload'
     end
   end
+
+  resources :videos
 
   get '/photos(/page/:page)' => 'images#index', page: /[^0]\d*/,
                     constraints: {format: 'html'}

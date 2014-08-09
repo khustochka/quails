@@ -4,6 +4,7 @@
       title:
         ukraine: Птицы Украины
         usa: Птицы США
+        canada: Птицы Канады
         united_kingdom: Птицы Великобритании
 
       ukraine:
@@ -17,4 +18,7 @@
         meta_description: Фотографии птиц США
 
       united_kingdom:
-       meta_description: Фотографии птиц Великобритании
+        meta_description: Фотографии птиц Великобритании
+
+      canada:
+        meta_description: Фотографии птиц Канады
