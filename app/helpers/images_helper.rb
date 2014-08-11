@@ -1,18 +1,9 @@
 module ImagesHelper
 
-  SENTENCE_SEPARATOR_DEPENDING_ON_POST = {
-      true => ';',
-      false => '.'
-  }
-
   ON_FLICKR_IMG = {
       true => ["https://s.yimg.com/pw/images/goodies/white-small-chiclet.png", "On flickr"],
       false => ["https://s.yimg.com/pw/images/goodies/black-small-chiclet.png", "Not on flickr"]
   }
-
-  def sentence_separator_depending_on_post(post)
-    SENTENCE_SEPARATOR_DEPENDING_ON_POST[post.present?]
-  end
 
   def jpg_url(img)
     if img.on_flickr?
