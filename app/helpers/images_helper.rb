@@ -6,8 +6,8 @@ module ImagesHelper
   }
 
   ON_FLICKR_IMG = {
-      true => ["http://l.yimg.com/g/images/goodies/white-small-chiclet.png", "On flickr"],
-      false => ["http://l.yimg.com/g/images/goodies/black-small-chiclet.png", "Not on flickr"]
+      true => ["https://s.yimg.com/pw/images/goodies/white-small-chiclet.png", "On flickr"],
+      false => ["https://s.yimg.com/pw/images/goodies/black-small-chiclet.png", "Not on flickr"]
   }
 
   def sentence_separator_depending_on_post(post)
