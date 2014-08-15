@@ -157,9 +157,17 @@ class ResearchController < ApplicationController
 
     #FIXME: not counting unidentified species for now, and seem we cannot do it easily without splitting queries
     observations_filtered = Observation.filter(year: params[:year]).joins(:card)
+    if params[:locus]
+      loc_filter = Locus.find_by_slug!(params[:locus]).subregion_ids
+      observations_filtered = observations_filtered.where('cards.locus_id' => loc_filter)
+    end
     identified_observations = observations_filtered.identified
     lifelist_filtered = Lifelist.basic.relation
     lifelist_filtered = lifelist_filtered.where('EXTRACT(year from first_seen)::integer = ?', params[:year]) if params[:year]
+    # if params[:locus]
+    #   loc_filter = Locus.find_by_slug!(params[:locus]).subregion_ids
+    #   lifelist_filtered = lifelist_filtered.where('EXTRACT(year from first_seen)::integer = ?', params[:year])
+    # end
 
     @year_data = identified_observations.select('EXTRACT(year FROM observ_date)::integer as year,
                                       COUNT(observations.id) as count_obs,
@@ -167,13 +175,15 @@ class ResearchController < ApplicationController
                                       COUNT(DISTINCT species_id) as count_species').
         group('EXTRACT(year FROM observ_date)').order('year')
 
-    @first_sp_by_year = lifelist_filtered.group('EXTRACT(year FROM first_seen)::integer').except(:order).count(:all)
+    @first_sp_by_year =
+        lifelist_filtered.group('EXTRACT(year FROM first_seen)::integer').except(:order).count(:all) unless params[:locus]
 
     @month_data = identified_observations.select('EXTRACT(month FROM observ_date)::integer as month,
                                       COUNT(observations.id) as count_obs,
                                       COUNT(DISTINCT species_id) as count_species').
         group('EXTRACT(month FROM observ_date)').order('month')
-    @first_sp_by_month = lifelist_filtered.group('EXTRACT(month FROM first_seen)::integer').except(:order).count(:all)
+    @first_sp_by_month =
+        lifelist_filtered.group('EXTRACT(month FROM first_seen)::integer').except(:order).count(:all) unless params[:locus]
 
     #NOTICE: we use all observations (including unidentified) only here
     @day_by_obs = observations_filtered.joins(:card).select('observ_date, COUNT(observations.id) as count_obs').
@@ -200,14 +210,16 @@ class ResearchController < ApplicationController
     locs = @day_and_loc_by_species.except(:select).select(:locus_id)
     @preloaded_locs = Locus.where(id: locs).index_by(&:id)
 
-    @day_by_new_species = lifelist_filtered.
-        except(:select).select('first_seen, COUNT(species_id) as count_species').
-        group('first_seen').except(:order).
-        order('COUNT(species_id) DESC, first_seen ASC').limit(10)
+    unless params[:locus]
+      @day_by_new_species = lifelist_filtered.
+          except(:select).select('first_seen, COUNT(species_id) as count_species').
+          group('first_seen').except(:order).
+          order('COUNT(species_id) DESC, first_seen ASC').limit(10)
 
-    dates = @day_by_new_species.except(:select).select(:first_seen)
-    @locs_for_day_by_new_species =
-        Card.select('observ_date, locus_id').where(observ_date: dates).preload(:locus).group_by(&:observ_date)
+      dates = @day_by_new_species.except(:select).select(:first_seen)
+      @locs_for_day_by_new_species =
+          Card.select('observ_date, locus_id').where(observ_date: dates).preload(:locus).group_by(&:observ_date)
+    end
   end
 
   def voices

@@ -49,6 +49,15 @@
   %url
     %loc= country_url(country: 'united_kingdom', locale: :en)
 
+  -# Birds of Canada page
+  %url
+    %loc= country_url(country: 'canada')
+    -# TODO: %lastmod=
+    -#%changefreq weekly
+
+  %url
+    %loc= country_url(country: 'canada', locale: :en)
+
   -# species gallery page
   %url
     %loc= gallery_url
