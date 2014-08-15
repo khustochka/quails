@@ -20,4 +20,10 @@ class Video < ActiveRecord::Base
     spot_id
   end
 
+  # Update
+
+  def observation_ids=(list)
+    super(list.uniq)
+  end
+
 end
