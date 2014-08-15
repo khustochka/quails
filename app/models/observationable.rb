@@ -1,5 +1,10 @@
 module Observationable
 
+  def self.included(klass)
+    klass.validate :consistent_observations
+
+  end
+
   def search_applicable_observations(params = {})
     date = params[:date]
     ObservationSearch.new(
@@ -17,6 +22,16 @@ module Observationable
 
   private
 
+  def consistent_observations
+    obs = Observation.where(id: observation_ids)
+    if obs.blank?
+      errors.add(:observations, 'must not be empty')
+    else
+      if obs.map(&:card_id).uniq.size > 1
+        errors.add(:observations, 'must belong to the same card')
+      end
+    end
+  end
 
   def first_observation
     observations[0]

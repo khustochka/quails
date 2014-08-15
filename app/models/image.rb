@@ -21,7 +21,6 @@ class Image < ActiveRecord::Base
 
   validates :slug, uniqueness: true, presence: true, length: {:maximum => 64}
   validates :flickr_id, uniqueness: true, allow_nil: true, exclusion: {in: ['']}
-  validate :consistent_observations
 
   serialize :assets_cache, ImageAssetsArray
 
@@ -68,6 +67,12 @@ class Image < ActiveRecord::Base
 
   def to_param
     slug_was
+  end
+
+  # Update
+
+  def observation_ids=(list)
+    super(list.uniq)
   end
 
   # Photos with several species
@@ -133,12 +138,6 @@ class Image < ActiveRecord::Base
     end
   end
 
-  # Saving with observation validation
-
-  def observations=(obs)
-    update_with_observations({}, obs.map(&:id))
-  end
-
   # Formatting
 
   def to_thumbnail
@@ -159,17 +158,6 @@ class Image < ActiveRecord::Base
   end
 
   private
-
-  def consistent_observations
-    obs = Observation.where(id: observation_ids)
-    if obs.blank?
-      errors.add(:observations, 'must not be empty')
-    else
-      if obs.map(&:card_id).uniq.size > 1
-        errors.add(:observations, 'must belong to the same card')
-      end
-    end
-  end
 
   def prev_next_by(sp)
     @prev_next ||= {}
