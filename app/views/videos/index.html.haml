@@ -1,6 +1,8 @@
-%h1 Listing videos
+- @page_title = 'Videos'
 
-%table
+%h1= page_header
+
+%table.neat_table
   %tr
     %th Slug
     %th Title
@@ -14,7 +16,7 @@
     %tr
       %td= video.slug
       %td= video.title
-      %td= video.url
+      %td= link_to 'YouTube', video.url
       %td= video.description
       %td= link_to 'Show', video
       %td= link_to 'Edit', edit_video_path(video)

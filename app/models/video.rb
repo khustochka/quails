@@ -1,6 +1,8 @@
 class Video < ActiveRecord::Base
   include Observationable
 
+  NORMAL_PARAMS = [:slug, :title, :url, :description]
+
   has_and_belongs_to_many :observations, join_table: 'videos_observations'
   has_many :species, through: :observations
 

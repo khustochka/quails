@@ -194,7 +194,7 @@ class ImagesController < ApplicationController
   private
 
   def image_params
-    @image_params ||= params[:image].slice(*Image::NORMAL_PARAMS).merge(observation_ids: params[:obs] || [])
+    @image_params ||= params.require(:image).permit(*Image::NORMAL_PARAMS).merge(observation_ids: params[:obs] || [])
   end
 
   def cache_expire
