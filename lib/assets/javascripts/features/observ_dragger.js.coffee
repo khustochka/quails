@@ -80,7 +80,7 @@ Quails.features.observDragger =
 
         return
 
-    $("form.image").submit ->
+    $("form.with_observations").submit ->
       $(".observation_search").empty()
       found_obs.empty()
       return

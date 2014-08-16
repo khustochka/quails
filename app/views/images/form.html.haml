@@ -59,7 +59,7 @@
 - if params[:exif_date]
   %p#notice Date taken from EXIF, may be incorrect
 
-= simple_form_for @image, html: {class: 'image'} do |form|
+= simple_form_for @image, html: {class: 'image with_observations'} do |form|
 
   %div
     = form.input :slug

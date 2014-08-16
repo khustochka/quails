@@ -11,7 +11,7 @@
 
 = render 'admin/shortcuts' if current_user.admin?
 
-= simple_form_for(@video) do |f|
+= simple_form_for(@video, html: {class: 'with_observations'}) do |f|
   = f.error_notification
 
   .form-inputs
@@ -24,7 +24,7 @@
   = f.input :description, input_html: {rows: 7, class: 'wiki_field'}
 
   .buttons
-    = default_submit_button(f)
+    = default_submit_button(f, class: 'submit_with_obs')
 
 - if @video.persisted?
   %p= default_destroy_button
