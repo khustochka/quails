@@ -71,7 +71,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :species, only: [:edit, :update] do
+  resources :species, except: [:index, :destroy] do
     collection do
       get 'admin', action: :index
     end

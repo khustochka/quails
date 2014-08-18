@@ -12,11 +12,16 @@ class Species < ActiveRecord::Base
 
   serialize :wikidata, Hash
 
-#  validates :order, :presence => true, :allow_blank => true
-  validates :family, :presence => true
-  validates :name_sci, :format => /\A[A-Z][a-z]+ [a-z]+\Z/, :uniqueness => true
-  validates :code, :format => /\A[a-z]{6}\Z/, :uniqueness => true, :allow_blank => true
-  validates :avibase_id, :format => /\A[\dA-F]{16}\Z/, :allow_blank => true
+#  validates :order, presence: true, allow_blank: true
+  validates :family, presence: true
+  validates :name_sci, presence: true, format: /\A[A-Z][a-z]+ [a-z]+\Z/, uniqueness: true
+  validates :code, format: /\A[a-z]{6}\Z/, uniqueness: true, allow_blank: true
+  validates :avibase_id, format: /\A[\dA-F]{16}\Z/, allow_blank: true
+  validates :index_num, presence: true
+
+  before_create do |sp|
+    Species.where('index_num >= ?', sp.index_num).update_all('index_num = index_num + 1')
+  end
 
   has_many :observations, dependent: :restrict_with_exception
   has_many :cards, through: :observations
