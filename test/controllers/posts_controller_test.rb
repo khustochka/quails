@@ -66,8 +66,8 @@ class PostsControllerTest < ActionController::TestCase
     # Dummy swap of two species
     max_index = Species.maximum(:index_num)
     sp1 = Species.find_by_index_num(10)
-    sp1.update_attributes(index_num: max_index + 1)
     sp2 = Species.find_by_index_num(max_index)
+    sp1.update_attributes(index_num: max_index)
     sp2.update_attributes(index_num: 10)
 
     blogpost = create(:post)

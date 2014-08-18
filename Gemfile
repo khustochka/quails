@@ -31,6 +31,7 @@ gem 'roman-numerals'
 gem 'rinku'
 gem 'dotenv-rails'
 gem 'ancestry'
+gem 'ordered-active-record'
 
 gem 'sass-rails', '~> 4.0.0'
 gem 'coffee-rails', '~> 4.0.0'

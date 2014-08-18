@@ -19,9 +19,7 @@ class Species < ActiveRecord::Base
   validates :avibase_id, format: /\A[\dA-F]{16}\Z/, allow_blank: true
   validates :index_num, presence: true
 
-  before_create do |sp|
-    Species.where('index_num >= ?', sp.index_num).update_all('index_num = index_num + 1')
-  end
+  acts_as_ordered :index_num
 
   has_many :observations, dependent: :restrict_with_exception
   has_many :cards, through: :observations
