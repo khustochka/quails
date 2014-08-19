@@ -33,7 +33,7 @@ namespace :book do
 
     #puts 'Missing:'
     #(desired - desired_ordered).each do |sp|
-    #  unless desired_ordered.find { |ss| ss[:name_sci] == sp[:name_sci] } || Species.find_by_name_sci(sp[:name_sci])
+    #  unless desired_ordered.find { |ss| ss[:name_sci] == sp[:name_sci] } || Species.find_by(name_sci: sp[:name_sci])
     #    puts sp[:name_sci]
     #    ind = desired.index(sp)
     #    before = desired[ind - 1]
@@ -67,10 +67,10 @@ namespace :book do
       YAML.load(f.read)
     end
     records.each do |rec|
-      sp = Species.find_by_name_sci(rec[:name_sci]) || Species.find_by_avibase_id(rec[:avibase_id])
+      sp = Species.find_by(name_sci: rec[:name_sci]) || Species.find_by(avibase_id: rec[:avibase_id])
       unless sp
         puts "No species '#{rec[:name_sci]}'"
-        if nsp = Species.find_by_name_en(rec[:name_en])
+        if nsp = Species.find_by(name_en: rec[:name_en])
           puts "  But there is '#{nsp.name_sci}' with the same name (#{nsp.name_en}). Code: #{nsp.code}"
         end
         _, nomen = rec[:name_sci].split(' ')
@@ -82,14 +82,14 @@ namespace :book do
         new_code = gen[0, 3] + (gen != spn || gen.length < 6 ? spn[0, 3] : spn[-3, 3])
         puts "New code would be: #{new_code}"
 
-        if confl_sp = Species.find_by_code(new_code)
+        if confl_sp = Species.find_by(code: new_code)
           puts "  It is conflicting with #{confl_sp.name_sci}"
         end
         #puts "Enter the code to use (exisiting / new): "
         #code = $stdin.gets.strip || new_code
         code = new_code
 
-        if sp = Species.find_by_code(code.strip)
+        if sp = Species.find_by(code: code.strip)
           puts "  !! Will use #{sp.name_sci}"
         else
           puts "  !! Will create new species"
@@ -132,7 +132,7 @@ namespace :book do
 
     final.each_with_index do |sp, i|
       if sp['id']
-        spc = Species.find_by_id(sp['id'])
+        spc = Species.find_by(id: sp['id'])
       else
         spc = Species.new(sp)
       end

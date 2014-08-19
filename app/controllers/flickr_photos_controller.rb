@@ -114,7 +114,7 @@ class FlickrPhotosController < ApplicationController
 
   private
   def find_image
-    @image = Image.find_by_slug(params[:id])
+    @image = Image.find_by(slug: params[:id])
     @photo = FlickrPhoto.new(@image)
   end
 

@@ -14,7 +14,7 @@ class LociController < ApplicationController
 
   # GET /locus/1
   def show
-    @locus = Locus.find_by_id(params[:id]) || Locus.find_by_slug!(params[:id])
+    @locus = Locus.find_by(id: params[:id]) || Locus.find_by!(slug: params[:id])
     respond_with @locus
   end
 

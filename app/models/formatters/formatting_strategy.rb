@@ -38,7 +38,7 @@ class FormattingStrategy
 
   def prepare
     @posts = Hash.new do |hash, term|
-      hash[term] = Post.find_by_slug(term.downcase)
+      hash[term] = Post.find_by(slug: term.downcase)
     end
 
     sp_codes = @text.scan(/\{\{(?!#{WIKI_PREFIXES})(?:([^\}]*?)\|)?(.+?)\}\}/).map do |word, term|

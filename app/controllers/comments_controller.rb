@@ -34,7 +34,7 @@ class CommentsController < ApplicationController
   # GET /comments/1/reply
   def reply
     @parent_comment = @comment
-    @post = current_user.available_posts.find_by_id!(@parent_comment.post_id)
+    @post = current_user.available_posts.find_by!(id: @parent_comment.post_id)
     @comment = @parent_comment.subcomments.new(:post => @post)
     current_user.prepopulate_comment(@comment)
   end
@@ -53,7 +53,7 @@ class CommentsController < ApplicationController
 
     else
 
-      @post = current_user.available_posts.find_by_id!(params[:comment][:post_id])
+      @post = current_user.available_posts.find_by!(id: params[:comment][:post_id])
       comment_attrs = params[:comment].slice(*Comment::ALLOWED_PARAMETERS)
       comment_attrs[:name] = params[CommentsHelper::REAL_NAME_FIELD]
 
@@ -65,7 +65,7 @@ class CommentsController < ApplicationController
       commenter_email = params[:commenter].try(:[], :email)
 
       if @comment.send_email && commenter_email.present?
-        commenter = Commenter.find_by_email(commenter_email) ||
+        commenter = Commenter.find_by(email: commenter_email) ||
             Commenter.create!(name: @comment.name, email: commenter_email)
         @comment.commenter = commenter
       end

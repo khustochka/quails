@@ -28,7 +28,7 @@ class ActiveSupport::TestCase
   end
 
   @@seed = HashWithIndifferentAccess.new do |hash, term|
-    hash[term] = Locus.find_by_slug(term) || Species.find_by_code!(term)
+    hash[term] = Locus.find_by(slug: term) || Species.find_by!(code: term)
   end
 
   def seed(key)
