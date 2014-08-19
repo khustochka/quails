@@ -1,42 +1,43 @@
 - stylesheet 'forms'
 
-- @page_title = "Editing #{@species.name_sci} / #{@species.name_en}"
+- @page_title = @species.persisted? ? "Editing #{@species.name_sci} / #{@species.name_en}" : "Create species"
 
 %h1= page_header
 
 = render 'admin/shortcuts' if current_user.admin?
 
-- if @species.reviewed?
-  %p
-    %b
-      This species is
-      = link_to "reviewed", review_species_path(@species)
-- else
-  %p.errors
-    This species is not reviewed.
-    = link_to "REVIEW", review_species_path(@species)
+- if @species.persisted?
+  - if @species.reviewed?
+    %p
+      %b
+        This species is
+        = link_to "reviewed", review_species_path(@species)
+  - else
+    %p.errors
+      This species is not reviewed.
+      = link_to "REVIEW", review_species_path(@species)
 
 = simple_form_for @species do |form|
   %div
-    = form.input :code, :input_html => {:class => 'short larger'}
+    = form.input :code, input_html: {class: 'short larger'}
   %div
-    = form.input :name_sci, :label => 'Scientific name', :input_html => {:class => 'larger'}
-    = form.input :index_num, :label => 'Index number', :input_html => {:disabled => true, :size => 10, :type => :text }
+    = form.input :name_sci, label: 'Scientific name', input_html: {class: 'larger'}
+    = form.input :index_num, label: 'Index number', input_html: {disabled: @species.persisted?, size: 10, type: :text }
   %div
     = form.input :protonym
     = form.input :authority
   %div
-    = form.input :name_en, :label => 'English name'
-    = form.input :name_fr, :label => 'French name'
+    = form.input :name_en, label: 'English name'
+    = form.input :name_fr, label: 'French name'
   %div
-    = form.input :name_ru, :label => 'Russian name'
-    = form.input :name_uk, :label => 'Ukrainian name'
+    = form.input :name_ru, label: 'Russian name'
+    = form.input :name_uk, label: 'Ukrainian name'
   %div
-    = form.input :order, :input_html => {:disabled => true}
-    = form.input :family, :input_html => {:disabled => true}
+    = form.input :order, input_html: {disabled: @species.persisted?}
+    = form.input :family, input_html: {disabled: @species.persisted?}
   %div
-    = form.input :avibase_id, :label => 'Avibase ID'
-    = link_to @species.avibase_id, avibase_species_url(@species.avibase_id)
+    = form.input :avibase_id, label: 'Avibase ID'
+    = link_to @species.avibase_id, avibase_species_url(@species.avibase_id) if @species.avibase_id.present?
   %div
     = form.simple_fields_for :wikidata, @species.wikidata do |f2|
       = f2.input :similar_species

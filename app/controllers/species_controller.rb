@@ -50,6 +50,12 @@ class SpeciesController < ApplicationController
     end
   end
 
+  # GET /species/new
+  def new
+    @species = Species.new
+    render :form
+  end
+
   # GET /species/1/edit
   def edit
     render :form
@@ -64,6 +70,23 @@ class SpeciesController < ApplicationController
     respond_to do |format|
       if @species.update_attributes(params[:species])
         format.html { redirect_to(@species, notice: 'Species was successfully updated.') }
+        format.json { render json: @species }
+      else
+        format.html { render :form }
+        format.json { render json: @species.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # PUT /species
+  def create
+    # if code is empty string, should remove it
+    params[:species][:code] = nil if params[:species][:code] == ''
+
+    @species = Species.new(params[:species])
+    respond_to do |format|
+      if @species.save
+        format.html { redirect_to(@species, notice: 'Species was successfully created.') }
         format.json { render json: @species }
       else
         format.html { render :form }

@@ -50,8 +50,8 @@ class SpeciesControllerTest < ActionController::TestCase
     # Dummy swap of two species
     max_index = Species.maximum(:index_num)
     sp1 = Species.find_by_index_num(10)
-    sp1.update_attributes(index_num: max_index + 1)
     sp2 = Species.find_by_index_num(max_index)
+    sp1.update_attributes(index_num: max_index)
     sp2.update_attributes(index_num: 10)
 
     login_as_admin
@@ -157,5 +157,23 @@ class SpeciesControllerTest < ActionController::TestCase
     assert_equal Mime::JSON, response.content_type
     assert response.body.include?('Waxwing')
     assert response.body.include?('/en/species/Bombycilla')
+  end
+
+  test "get new" do
+    login_as_admin
+    get :new
+    assert_response :success
+  end
+
+  test "create species should insert properly" do
+    login_as_admin
+    old_species = Species.where(index_num: 2).first
+    assert_difference('Species.count') do
+      put :create, species: {name_sci: 'Apteryx australis', code: 'aptaus', index_num: 2, family: 'Apterygidae',
+                              name_en: 'Southern brown kiwi' }
+    end
+    assert_redirected_to species_path(Species.find_by(code: 'aptaus'))
+    old_species.reload
+    assert_equal 3, old_species.index_num
   end
 end

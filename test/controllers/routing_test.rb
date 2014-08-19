@@ -19,6 +19,11 @@ class RoutingTest < ActionDispatch::IntegrationTest
     assert_routing '/species/Aquilla_pomarina/edit', {controller: 'species', action: 'edit', id: 'Aquilla_pomarina'}
   end
 
+  test 'route species search correctly' do
+    assert_routing '/species/search.json',
+                   {controller: 'species', action: 'search', format: 'json'}
+  end
+
   test 'route species index and gallery' do
     assert_routing '/species', {controller: 'species', action: 'gallery'}
     assert_routing '/species/admin', {controller: 'species', action: 'index'}

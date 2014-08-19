@@ -2,7 +2,7 @@ source 'https://rubygems.org/'
 
 ruby '2.1.2'
 
-gem 'rails', '4.1.4'
+gem 'rails', '4.1.5'
 
 gem 'pg', platforms: [:ruby, :mingw]
 gem "activerecord-jdbcpostgresql-adapter", platforms: :jruby
@@ -31,6 +31,7 @@ gem 'roman-numerals'
 gem 'rinku'
 gem 'dotenv-rails'
 gem 'ancestry'
+gem 'ordered-active-record'
 
 gem 'sass-rails', '~> 4.0.0'
 gem 'coffee-rails', '~> 4.0.0'
@@ -45,13 +46,14 @@ gem 'rails_stdout_logging', require: false
 group :development do
   gem 'nokogiri', platforms: [:ruby, :mingw], require: false
   gem 'spring'
+  gem 'pry-rails'
 end
 
 # in dev group for generators
 gem 'factory_girl_rails', '~> 4.0', groups: [:development, :test]
 
 group :test do
-  gem 'capybara', '~> 2.3.0'
+  gem 'capybara'
   gem 'capybara-webkit', '~> 1.0', platforms: [:mri], require: false
   gem 'selenium-webdriver'
 #  gem 'poltergeist', platforms: [:mri], require: false
