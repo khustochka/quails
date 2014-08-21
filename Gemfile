@@ -2,7 +2,7 @@ source 'https://rubygems.org/'
 
 ruby '2.1.2'
 
-gem 'rails', '4.1.5'
+gem 'rails', '4.2.0.beta1'
 
 gem 'pg', platforms: [:ruby, :mingw]
 gem "activerecord-jdbcpostgresql-adapter", platforms: :jruby
@@ -33,7 +33,7 @@ gem 'dotenv-rails'
 gem 'ancestry'
 gem 'ordered-active-record'
 
-gem 'sass-rails', '~> 4.0.0'
+gem 'sass-rails', '5.0.0.beta1'
 gem 'coffee-rails', '~> 4.0.0'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
