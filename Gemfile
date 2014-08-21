@@ -45,7 +45,6 @@ gem 'rails_stdout_logging', require: false
 
 group :development do
   gem 'nokogiri', platforms: [:ruby, :mingw], require: false
-  gem 'spring'
   gem 'pry-rails'
 end
 
