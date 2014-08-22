@@ -1,7 +1,5 @@
 class FlickrPhotosController < ApplicationController
 
-  respond_to :html, :json
-
   administrative
 
   include FlickrAbility
@@ -47,7 +45,7 @@ class FlickrPhotosController < ApplicationController
     if @photo.errors.any?
       render :show
     else
-      respond_with @photo
+      render json: @photo
     end
   end
 
