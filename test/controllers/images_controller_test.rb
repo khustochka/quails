@@ -15,6 +15,14 @@ class ImagesControllerTest < ActionController::TestCase
     assert_select "a[href='#{image_path(@image)}']"
   end
 
+  test 'get front page in English' do
+    create(:comment)
+    get :index, locale: 'en'
+    assert_response :success
+    assert_not_empty assigns(:images)
+    assert_select "figcaption", text: @image.species[0].name_en
+  end
+
   test "crazy page number should return 404" do
     assert_raise ActiveRecord::RecordNotFound do
       get :index, page: 7262
