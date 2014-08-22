@@ -74,7 +74,9 @@ $(function () {
   $('a.destroy')
       .data('remote', 'true')
       .on('ajax:success', function () {
-        $(this).closest('.obs-row').remove();
+        var row = $(this).closest('.obs-row');
+        row.next().remove();
+        row.remove();
       })
       .on('ajax:error', function () {
         alert("Error removing observation");
