@@ -83,7 +83,7 @@ class PostsControllerTest < ActionController::TestCase
     login_as_admin
     get :edit, id: blogpost.to_param
     assert_response :success
-    assert_select "a[href=#{public_post_path(blogpost)}]", true
+    assert_select "a[href='#{public_post_path(blogpost)}']", true
   end
 
   test "update post" do

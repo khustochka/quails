@@ -12,7 +12,15 @@ class ImagesControllerTest < ActionController::TestCase
     assert_response :success
     assert_not_empty assigns(:images)
 
-    assert_select "a[href=#{image_path(@image)}]"
+    assert_select "a[href='#{image_path(@image)}']"
+  end
+
+  test 'get front page in English' do
+    create(:comment)
+    get :index, locale: 'en'
+    assert_response :success
+    assert_not_empty assigns(:images)
+    assert_select "figcaption", text: @image.species[0].name_en
   end
 
   test "crazy page number should return 404" do
@@ -33,7 +41,7 @@ class ImagesControllerTest < ActionController::TestCase
     assert_response :success
     assert_not_empty assigns(:images)
 
-    assert_select "a[href=#{image_path(img)}]"
+    assert_select "a[href='#{image_path(img)}']"
   end
 
   test "get new" do
@@ -219,7 +227,7 @@ class ImagesControllerTest < ActionController::TestCase
     @obs.post = blogpost
     @obs.save!
     get :show, id: @image
-    assert_select "a[href=#{public_post_path(blogpost)}]", false
+    assert_select "a[href='#{public_post_path(blogpost)}']", false
   end
 
   test 'show link to public post to public user on image page' do
@@ -227,6 +235,6 @@ class ImagesControllerTest < ActionController::TestCase
     @obs.post = blogpost
     @obs.save!
     get :show, id: @image.to_param
-    assert_select "a[href=#{public_post_path(blogpost)}]"
+    assert_select "a[href='#{public_post_path(blogpost)}']"
   end
 end
