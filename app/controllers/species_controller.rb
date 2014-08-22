@@ -2,7 +2,7 @@ class SpeciesController < ApplicationController
 
   administrative :except => [:gallery, :show, :search]
 
-  before_filter :find_species, only: [:edit, :update, :review]
+  before_action :find_species, only: [:edit, :update, :review]
 
   # GET /species/admin
   def index

@@ -1,6 +1,6 @@
 module LocaleController
   def self.included(klass)
-    klass.before_filter :set_locale
+    klass.before_action :set_locale
   end
 
   private
