@@ -1,7 +1,5 @@
 class ImagesController < ApplicationController
 
-  respond_to :json, only: [:observations, :parent_update]
-
   administrative except: [:index, :multiple_species, :show, :gallery, :country, :strip]
 
   find_record by: :slug, before: [:show, :edit,
