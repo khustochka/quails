@@ -4,8 +4,6 @@ class SpeciesController < ApplicationController
 
   before_filter :find_species, only: [:edit, :update, :review]
 
-  respond_to :json, only: :search
-
   # GET /species/admin
   def index
     @species = Species.ordered_by_taxonomy.extend(SpeciesArray)
@@ -128,7 +126,7 @@ class SpeciesController < ApplicationController
 
   def search
     result = SpeciesSearch.new(current_user.searchable_species, params[:term]).find
-    respond_with result
+    render json: result
   end
 
   private

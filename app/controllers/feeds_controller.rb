@@ -1,5 +1,4 @@
 class FeedsController < ApplicationController
-  respond_to :xml
 
   caches_page :blog, :photos, :sitemap, :gzip => true
 

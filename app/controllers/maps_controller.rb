@@ -1,5 +1,4 @@
 class MapsController < ApplicationController
-  respond_to :html, :only => [:index, :edit]
 
   administrative :except => [:show]
 

@@ -1,7 +1,5 @@
 class ImagesController < ApplicationController
 
-  respond_to :json, only: [:observations, :parent_update]
-
   administrative except: [:index, :multiple_species, :show, :gallery, :country, :strip]
 
   find_record by: :slug, before: [:show, :edit,
@@ -150,10 +148,11 @@ class ImagesController < ApplicationController
     redirect_to(images_url)
   end
 
-  # GET /observations
+  # FIXME: probably unused
+  # GET /photos/1/observations
   def observations
     observs = Image.find_by(id: params[:id]).observations.preload(:species, :card => :locus)
-    respond_with(observs, :only => :id, :methods => [:species_str, :when_where_str])
+    render json: observs, only: :id, methods: [:species_str, :when_where_str]
   end
 
   def strip
