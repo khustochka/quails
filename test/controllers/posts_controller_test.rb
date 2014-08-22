@@ -109,7 +109,7 @@ class PostsControllerTest < ActionController::TestCase
     login_as_admin
     put :update, id: blogpost.slug, post: post_attr
     assert_template :form
-    assert_select "form[action=#{post_path(blogpost)}]"
+    assert_select "form[action='#{post_path(blogpost)}']"
   end
 
   test "destroy post" do
