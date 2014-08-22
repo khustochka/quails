@@ -2,7 +2,7 @@ class CardsController < ApplicationController
 
   administrative
 
-  after_filter :cache_expire, only: [:create, :update, :destroy, :attach]
+  after_action :cache_expire, only: [:create, :update, :destroy, :attach]
 
   # GET /cards
   # GET /cards.json

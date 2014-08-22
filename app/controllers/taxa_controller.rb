@@ -2,7 +2,7 @@ class TaxaController < ApplicationController
 
   administrative
 
-  before_filter :find_species, only: [:show, :update]
+  before_action :find_species, only: [:show, :update]
 
   def show
     render :form

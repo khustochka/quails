@@ -6,10 +6,10 @@ class ImagesController < ApplicationController
                                   :parent_edit, :parent_update,
                                   :map_edit, :update, :patch, :destroy]
 
-  after_filter :cache_expire, only: [:create, :update, :destroy]
+  after_action :cache_expire, only: [:create, :update, :destroy]
 
   # Do not check csrf token for photostrip on the map
-  skip_before_filter :verify_authenticity_token, only: :strip
+  skip_before_action :verify_authenticity_token, only: :strip
 
   # Latest additions
   def index

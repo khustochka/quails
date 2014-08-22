@@ -5,7 +5,7 @@ module SecurityController
 
     #force HTTP
     if Quails.env.ssl?
-      klass.before_filter :force_http
+      klass.before_action :force_http
     end
 
   end
@@ -14,7 +14,7 @@ module SecurityController
 
     def requires_admin_authorized(*args)
       options = args.extract_options!
-      before_filter options do
+      before_action options do
         unless current_user.admin?
           if current_user.has_trust_cookie?
             flash[:ret] = request.url

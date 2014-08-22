@@ -2,9 +2,9 @@ class PostsController < ApplicationController
 
   administrative except: [:show]
 
-  before_filter :find_post, only: [:edit, :update, :destroy, :show, :lj_post]
+  before_action :find_post, only: [:edit, :update, :destroy, :show, :lj_post]
 
-  after_filter :cache_expire, only: [:create, :update, :destroy]
+  after_action :cache_expire, only: [:create, :update, :destroy]
 
   # This is rendered in public layout, just raising exception when no posts are found (the case for regular user)
   def hidden
