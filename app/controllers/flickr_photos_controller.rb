@@ -1,14 +1,12 @@
 class FlickrPhotosController < ApplicationController
 
-  respond_to :html, :json
-
   administrative
 
   include FlickrAbility
 
-  before_filter :find_image, only: [:show, :create, :edit, :update, :destroy]
+  before_action :find_image, only: [:show, :create, :edit, :update, :destroy]
 
-  after_filter :cache_expire, only: [:create, :destroy]
+  after_action :cache_expire, only: [:create, :destroy]
 
   def new
   end
@@ -47,7 +45,7 @@ class FlickrPhotosController < ApplicationController
     if @photo.errors.any?
       render :show
     else
-      respond_with @photo
+      render json: @photo
     end
   end
 
@@ -114,7 +112,7 @@ class FlickrPhotosController < ApplicationController
 
   private
   def find_image
-    @image = Image.find_by_slug(params[:id])
+    @image = Image.find_by(slug: params[:id])
     @photo = FlickrPhoto.new(@image)
   end
 

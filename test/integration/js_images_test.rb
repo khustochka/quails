@@ -69,7 +69,7 @@ class JSImagesTest < ActionDispatch::IntegrationTest
     find(:xpath, "//ul[contains(@class,'found-obs')]/li[1]").drag_to find('.observation_list')
 
     assert_difference('Image.count', 1) { save_and_check }
-    img = Image.find_by_slug('test-img-capybara')
+    img = Image.find_by(slug: 'test-img-capybara')
     assert_equal edit_map_image_path(img), current_path
   end
 
@@ -89,7 +89,7 @@ class JSImagesTest < ActionDispatch::IntegrationTest
     find(:xpath, "//ul[contains(@class,'found-obs')]/li[div[contains(text(),'Mergus serrator')]]").drag_to find('.observation_list')
 
     assert_difference('Image.count', 1) { save_and_check }
-    img = Image.find_by_slug('test-img-capybara')
+    img = Image.find_by(slug: 'test-img-capybara')
 
     assert_equal ['Mergus serrator'], img.species.pluck(:name_sci)
   end

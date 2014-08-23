@@ -36,7 +36,7 @@ class BooksControllerTest < ActionController::TestCase
   end
 
   test "update book" do
-    book = Book.find_by_slug('fesenko-bokotej')
+    book = Book.find_by(slug: 'fesenko-bokotej')
     book.name = 'changed'
     login_as_admin
     put :update, id: book.to_param, book: book.attributes

@@ -130,8 +130,8 @@ class ResearchController < ApplicationController
     l2 = params[:loc2]
 
     if l1 && l2
-      @loc1 = Locus.find_by_slug(l1)
-      @loc2 = Locus.find_by_slug(l2)
+      @loc1 = Locus.find_by(slug: l1)
+      @loc2 = Locus.find_by(slug: l2)
 
       observations_source = if @loc1.country == @loc2.country
                               Card.where(locus_id: @loc1.country.subregion_ids)
@@ -158,14 +158,14 @@ class ResearchController < ApplicationController
     #FIXME: not counting unidentified species for now, and seem we cannot do it easily without splitting queries
     observations_filtered = Observation.filter(year: params[:year]).joins(:card)
     if params[:locus]
-      loc_filter = Locus.find_by_slug!(params[:locus]).subregion_ids
+      loc_filter = Locus.find_by!(slug: params[:locus]).subregion_ids
       observations_filtered = observations_filtered.where('cards.locus_id' => loc_filter)
     end
     identified_observations = observations_filtered.identified
     lifelist_filtered = Lifelist.basic.relation
     lifelist_filtered = lifelist_filtered.where('EXTRACT(year from first_seen)::integer = ?', params[:year]) if params[:year]
     # if params[:locus]
-    #   loc_filter = Locus.find_by_slug!(params[:locus]).subregion_ids
+    #   loc_filter = Locus.find_by!(slug: params[:locus]).subregion_ids
     #   lifelist_filtered = lifelist_filtered.where('EXTRACT(year from first_seen)::integer = ?', params[:year])
     # end
 

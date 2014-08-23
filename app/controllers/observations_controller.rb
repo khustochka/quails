@@ -4,7 +4,7 @@ class ObservationsController < ApplicationController
 
   find_record before: [:show, :update, :destroy]
 
-  after_filter :cache_expire, only: [:update, :destroy, :extract]
+  after_action :cache_expire, only: [:update, :destroy, :extract]
 
   # GET /observations/1
   def show

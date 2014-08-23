@@ -24,7 +24,7 @@ class SpeciesControllerTest < ActionController::TestCase
     get :gallery
     assert_response :success
     assert_not_nil assigns(:species)
-    assert_select "a[href=#{species_path(@obs.species)}]"
+    assert_select "a[href='#{species_path(@obs.species)}']"
   end
 
   test "show link to multiple species on gallery" do
@@ -43,14 +43,14 @@ class SpeciesControllerTest < ActionController::TestCase
 
     get :gallery
     assert_response :success
-    assert_select "a[href=#{photos_multiple_species_path}] img[src=#{thumbnail_item(img).full_url}]"
+    assert_select "a[href='#{photos_multiple_species_path}'] img[src='#{thumbnail_item(img).full_url}']"
   end
 
   test "species index properly ordered" do
     # Dummy swap of two species
     max_index = Species.maximum(:index_num)
-    sp1 = Species.find_by_index_num(10)
-    sp2 = Species.find_by_index_num(max_index)
+    sp1 = Species.find_by(index_num: 10)
+    sp2 = Species.find_by(index_num: max_index)
     sp1.update_attributes(index_num: max_index)
     sp2.update_attributes(index_num: 10)
 

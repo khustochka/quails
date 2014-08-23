@@ -2,9 +2,7 @@ class SpeciesController < ApplicationController
 
   administrative :except => [:gallery, :show, :search]
 
-  before_filter :find_species, only: [:edit, :update, :review]
-
-  respond_to :json, only: :search
+  before_action :find_species, only: [:edit, :update, :review]
 
   # GET /species/admin
   def index
@@ -29,7 +27,7 @@ class SpeciesController < ApplicationController
   # GET /species/1
   def show
     id_humanized = Species.humanize(params[:id])
-    @species = Species.find_by_name_sci(id_humanized) || Taxon.find_by_name_sci!(id_humanized).species
+    @species = Species.find_by(name_sci: id_humanized) || Taxon.find_by!(name_sci: id_humanized).species
     if @species
       if params[:id] != @species.to_param
         redirect_to @species, :status => 301
@@ -128,11 +126,11 @@ class SpeciesController < ApplicationController
 
   def search
     result = SpeciesSearch.new(current_user.searchable_species, params[:term]).find
-    respond_with result
+    render json: result
   end
 
   private
   def find_species
-    @species = Species.find_by_name_sci!(Species.humanize(params[:id]))
+    @species = Species.find_by!(name_sci: Species.humanize(params[:id]))
   end
 end

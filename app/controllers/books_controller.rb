@@ -1,7 +1,5 @@
 class BooksController < ApplicationController
 
-  respond_to :json, only: [:save_order]
-
   administrative
 
   find_record by: :slug, before: [:show, :edit, :update, :destroy]

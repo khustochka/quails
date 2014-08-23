@@ -18,7 +18,7 @@ class SiteFormatStrategy < FormattingStrategy
   end
 
   def img_link(term)
-    if image = Image.find_by_slug(term)
+    if image = Image.find_by(slug: term)
       %Q(<figure class="imageholder">
         "!#{jpg_url(image)}([photo])!":#{image_path(image)}
           <figcaption class="imagetitle"><a href="#{image_path(image, only_path: only_path?)}">#{image.formatted.title}</a></figcaption>

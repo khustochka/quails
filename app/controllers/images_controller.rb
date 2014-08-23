@@ -1,17 +1,15 @@
 class ImagesController < ApplicationController
 
-  respond_to :json, only: [:observations, :parent_update]
-
   administrative except: [:index, :multiple_species, :show, :gallery, :country, :strip]
 
   find_record by: :slug, before: [:show, :edit,
                                   :parent_edit, :parent_update,
                                   :map_edit, :update, :patch, :destroy]
 
-  after_filter :cache_expire, only: [:create, :update, :destroy]
+  after_action :cache_expire, only: [:create, :update, :destroy]
 
   # Do not check csrf token for photostrip on the map
-  skip_before_filter :verify_authenticity_token, only: :strip
+  skip_before_action :verify_authenticity_token, only: :strip
 
   # Latest additions
   def index
@@ -150,10 +148,11 @@ class ImagesController < ApplicationController
     redirect_to(images_url)
   end
 
-  # GET /observations
+  # FIXME: probably unused
+  # GET /photos/1/observations
   def observations
-    observs = Image.find_by_id(params[:id]).observations.preload(:species, :card => :locus)
-    respond_with(observs, :only => :id, :methods => [:species_str, :when_where_str])
+    observs = Image.find_by(id: params[:id]).observations.preload(:species, :card => :locus)
+    render json: observs, only: :id, methods: [:species_str, :when_where_str]
   end
 
   def strip

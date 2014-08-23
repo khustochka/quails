@@ -17,7 +17,7 @@ namespace :britain do
 
   desc "Add Scotland, Glasgow, and Bishopbriggs"
   task :scotland => :environment do
-    gb = Locus.find_by_slug('united_kingdom')
+    gb = Locus.find_by(slug: 'united_kingdom')
 
     scot = Locus.new(slug: 'scotland', name_en: 'Scotland', name_ru: 'Шотландия',
                     name_uk: 'Шотландія', parent_id: gb.id)

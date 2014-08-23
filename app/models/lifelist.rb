@@ -89,7 +89,7 @@ class Lifelist
   def prepare_filter(initial)
     initial.dup.tap do |filter|
       if filter[:locus]
-        @locus = @source[:loci].find_by_slug!(filter[:locus])
+        @locus = @source[:loci].find_by!(slug: filter[:locus])
         filter[:locus] = @locus.subregion_ids
       end
     end

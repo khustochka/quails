@@ -65,8 +65,8 @@ class PostsControllerTest < ActionController::TestCase
   test "species list in the post properly ordered" do
     # Dummy swap of two species
     max_index = Species.maximum(:index_num)
-    sp1 = Species.find_by_index_num(10)
-    sp2 = Species.find_by_index_num(max_index)
+    sp1 = Species.find_by(index_num: 10)
+    sp2 = Species.find_by(index_num: max_index)
     sp1.update_attributes(index_num: max_index)
     sp2.update_attributes(index_num: 10)
 
@@ -83,7 +83,7 @@ class PostsControllerTest < ActionController::TestCase
     login_as_admin
     get :edit, id: blogpost.to_param
     assert_response :success
-    assert_select "a[href=#{public_post_path(blogpost)}]", true
+    assert_select "a[href='#{public_post_path(blogpost)}']", true
   end
 
   test "update post" do

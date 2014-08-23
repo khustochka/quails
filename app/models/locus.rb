@@ -14,12 +14,8 @@ class Locus < ActiveRecord::Base
 
   has_many :local_species
 
-  after_save do
-    Rails.cache.delete_matched %r{records/loci}
-  end
-
-  after_save do
-    Rails.cache.delete_matched %r{records/loci}
+  after_save do |record|
+    Rails.cache.delete("records/loci/country/#{record.slug}")
   end
 
   TYPES = %w(continent country subcountry state oblast raion city)
