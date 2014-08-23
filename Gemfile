@@ -53,7 +53,7 @@ gem 'factory_girl_rails', '~> 4.0', groups: [:development, :test]
 
 group :test do
   gem 'capybara'
-  gem 'capybara-webkit', '~> 1.0', platforms: [:mri], require: false
+  gem 'capybara-webkit', '~> 1.2.0', platforms: [:mri], require: false
   gem 'selenium-webdriver'
 #  gem 'poltergeist', platforms: [:mri], require: false
   gem 'database_cleaner', require: false
