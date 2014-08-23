@@ -51,6 +51,14 @@
         %p
           %span.pseudolink.edit_main_image Edit main image
 
+- @species.videos.if_present do |videos|
+  %a{name: 'videos'}
+  %div.videos
+    %h3= t('.sections.videos')
+    = render videos
+
+
+
 - if @species.observations.any?
   %a{name: 'observations'}
   %h3= t('.sections.stats')
