@@ -55,7 +55,7 @@
   %a{name: 'videos'}
   %div.videos
     %h3= t('.sections.videos')
-    = render videos
+    = render videos.map(&:small)
 
 
 

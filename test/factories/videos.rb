@@ -4,7 +4,7 @@ FactoryGirl.define do
   factory :video do
     sequence(:slug) {|n| "video_#{n}" }
     title "MyString"
-    url "MyString"
+    youtube_id "kdf83e7aks"
     description "MyText"
     observations { [FactoryGirl.create(:observation)] }
   end

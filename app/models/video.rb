@@ -1,7 +1,7 @@
 class Video < ActiveRecord::Base
   include Observationable
 
-  NORMAL_PARAMS = [:slug, :title, :url, :description]
+  NORMAL_PARAMS = [:slug, :title, :youtube_id, :description]
 
   has_and_belongs_to_many :observations, join_table: 'videos_observations'
   has_many :species, through: :observations
@@ -26,6 +26,14 @@ class Video < ActiveRecord::Base
 
   def observation_ids=(list)
     super(list.uniq)
+  end
+
+  def youtube_url
+    "//www.youtube.com/watch?v=#{youtube_id}"
+  end
+
+  def small
+    YoutubeVideo.new(youtube_id, 560, 315)
   end
 
 end

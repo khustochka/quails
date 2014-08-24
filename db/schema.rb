@@ -243,7 +243,7 @@ ActiveRecord::Schema.define(version: 20140711234922) do
   create_table "videos", force: true do |t|
     t.string   "slug",        limit: 64, null: false
     t.string   "title"
-    t.string   "url",                    null: false
+    t.string   "youtube_id",             null: false
     t.text     "description"
     t.integer  "spot_id"
     t.datetime "created_at"

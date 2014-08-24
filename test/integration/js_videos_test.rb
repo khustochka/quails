@@ -57,7 +57,7 @@ class JSVideosTest < ActionDispatch::IntegrationTest
     visit new_video_path
 
     fill_in('Slug', with: 'test-video-capybara')
-    fill_in('Url', with: 'https://www.youtube.com/watch?v=Opg6PBxsRdM')
+    fill_in('Youtube', with: 'Opg6PBxsRdM')
 
     within('.observation_search') do
       # Temporarily disable because of Chrome super clever date picker

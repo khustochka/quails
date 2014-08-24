@@ -3,7 +3,7 @@ class CreateVideos < ActiveRecord::Migration
     create_table :videos do |t|
       t.string :slug,              limit: 64,                   null: false
       t.string :title
-      t.string :url,                   null: false
+      t.string :youtube_id,                   null: false
       t.text :description
       t.integer :spot_id
 
