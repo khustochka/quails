@@ -1,11 +1,22 @@
 class VideosController < ApplicationController
   before_action :set_video, only: [:show, :edit, :update, :destroy, :map_edit, :patch]
 
-  administrative except: [:show]
+  administrative except: [:index]
 
   # GET /videos
   def index
-    @videos = Video.all
+    if params[:page].to_i == 1
+      redirect_to page: nil
+    else
+      page = (params[:page] || 1).to_i
+      @videos = Video.preload(:species).order(created_at: :desc).page(page).per(10)
+      #@feed = 'photos'
+      if @videos.empty? && page != 1
+        raise ActiveRecord::RecordNotFound
+      else
+        render :index
+      end
+    end
   end
 
   # GET /videos/1

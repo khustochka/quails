@@ -20,20 +20,20 @@ class VideosControllerTest < ActionController::TestCase
     end
   end
 
-  test "show videos of multiple species" do
-    sp1 = seed(:lancol)
-    sp2 = seed(:jyntor)
-    card = create(:card, observ_date: "2008-07-01")
-    obs1 = create(:observation, species: sp1, card: card)
-    obs2 = create(:observation, species: sp2, card: card)
-    video = create(:video, slug: 'picture-of-the-shrike-and-the-wryneck', observations: [obs1, obs2])
-
-    get :multiple_species
-    assert_response :success
-    assert_not_empty assigns(:videos)
-
-    assert_select "a[href=#{video_path(video)}]"
-  end
+  # test "show videos of multiple species" do
+  #   sp1 = seed(:lancol)
+  #   sp2 = seed(:jyntor)
+  #   card = create(:card, observ_date: "2008-07-01")
+  #   obs1 = create(:observation, species: sp1, card: card)
+  #   obs2 = create(:observation, species: sp2, card: card)
+  #   video = create(:video, slug: 'picture-of-the-shrike-and-the-wryneck', observations: [obs1, obs2])
+  #
+  #   get :multiple_species
+  #   assert_response :success
+  #   assert_not_empty assigns(:videos)
+  #
+  #   assert_select "a[href=#{video_path(video)}]"
+  # end
 
   test "get new" do
     login_as_admin
@@ -200,19 +200,19 @@ class VideosControllerTest < ActionController::TestCase
     assert_redirected_to videos_path
   end
 
-  test 'do not show link to private post to public user on video page' do
-    blogpost = create(:post, status: 'PRIV')
-    @obs.post = blogpost
-    @obs.save!
-    get :show, id: @video
-    assert_select "a[href=#{public_post_path(blogpost)}]", false
-  end
+  # test 'do not show link to private post to public user on video page' do
+  #   blogpost = create(:post, status: 'PRIV')
+  #   @obs.post = blogpost
+  #   @obs.save!
+  #   get :show, id: @video
+  #   assert_select "a[href=#{public_post_path(blogpost)}]", false
+  # end
 
-  test 'show link to public post to public user on video page' do
-    blogpost = create(:post)
-    @obs.post = blogpost
-    @obs.save!
-    get :show, id: @video.to_param
-    assert_select "a[href=#{public_post_path(blogpost)}]"
-  end
+  # test 'show link to public post to public user on video page' do
+  #   blogpost = create(:post)
+  #   @obs.post = blogpost
+  #   @obs.save!
+  #   get :show, id: @video.to_param
+  #   assert_select "a[href=#{public_post_path(blogpost)}]"
+  # end
 end

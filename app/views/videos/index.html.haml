@@ -1,27 +1,26 @@
-- @page_title = 'Videos'
+-# @body_class = 'wider'
 
-%h1= page_header
+- javascript 'pjax_pagination'
 
-%table.neat_table
-  %tr
-    %th Slug
-    %th Title
-    %th Url
-    %th Description
-    %th
-    %th
-    %th
+- @page_title = t(".window_title")
+- @page_header = t(".title")
 
-  - @videos.each do |video|
-    %tr
-      %td= video.slug
-      %td= video.title
-      %td= link_to 'YouTube', video.youtube_url
-      %td= video.description
-      %td= link_to 'Show', video
-      %td= link_to 'Edit', edit_video_path(video)
-      %td= link_to 'Destroy', video, :method => :delete, :data => { :confirm => 'Are you sure?' }
+- @robots = 'NOINDEX'
 
-%br
+= render 'partials/translated'
 
-= link_to 'New Video', new_video_path
+%div.header-with-subheader
+  %h1
+    = page_header
+  -#%ul.subheader-menu
+  -#  %li= link_to t('.species_gallery'), gallery_path
+  -#  = feed_list_item
+
+-#- unless params[:page]
+-#  %h3
+-#    %i= t('.last_updated', date: l(@videos.first.created_at, format: :long))
+
+%div
+  = render @videos
+
+= paginate @videos

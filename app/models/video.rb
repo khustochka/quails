@@ -1,5 +1,6 @@
 class Video < ActiveRecord::Base
   include Observationable
+  include FormattedModel
 
   NORMAL_PARAMS = [:slug, :title, :youtube_id, :description]
 

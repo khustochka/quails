@@ -20,6 +20,18 @@ module Observationable
     first_observation.card
   end
 
+  def public_title
+    if I18n.russian_locale? && title.present?
+      title
+    else
+      species.map(&:name).join(', ')
+    end
+  end
+
+  def public_locus
+    locus.public_locus
+  end
+
   private
 
   def consistent_observations

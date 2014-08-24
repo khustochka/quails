@@ -1,0 +1,16 @@
+%h2= video.formatted.title
+
+%i= video.species.map {|sp| species_link(sp, sp.name_sci)}.join(', ').html_safe
+
+%p
+  = succeed ', ' do
+    %i<
+      %time{datetime: video.observ_date.iso8601} #{l(video.observ_date, format: :long)}
+
+  = succeed('.') do
+    = video.formatted.public_locus_full_name
+
+- if I18n.russian_locale?
+  = video.formatted.description
+
+= render video.small

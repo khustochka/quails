@@ -124,14 +124,6 @@ class Image < ActiveRecord::Base
     prev_next_by(sp)[1]
   end
 
-  def public_title
-    if I18n.russian_locale? && title.present?
-      title
-    else
-      species.map(&:name).join(', ')
-    end
-  end
-
   # Formatting
 
   def to_thumbnail
@@ -145,10 +137,6 @@ class Image < ActiveRecord::Base
 
   def mapped?
     spot_id
-  end
-
-  def public_locus
-    locus.public_locus
   end
 
   private
