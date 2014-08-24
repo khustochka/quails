@@ -1,0 +1,35 @@
+- javascript AssetsHelper::GMAP_API_URL, 'image_map'
+- @body_class = 'map-page'
+- stylesheet 'map_edit'
+
+- @page_title = "Edit map: #{mappable.slug}"
+
+.map-side-panel
+  = render 'admin/shortcuts' if current_user.admin?
+
+  - if notice
+    %p#notice= notice
+
+  = content_for :observable_thumbnail
+
+  - if mappable.spots.empty?
+    %p.errors No observations mapped!
+  - elsif mappable.spot_id.blank?
+    %p.errors Not yet mapped!
+
+  %ul.obs-list
+    = render partial: 'observations/obs_item', collection: mappable.observations.preload(:species, :card => :locus)
+
+= render 'spots/form'
+
+.mapContainer
+  #googleMap
+
+:javascript
+  var patch_url = "#{url_for(action: :patch, format: :json)}",
+      marks = #{mappable.spots.to_json(only: [:lat, :lng, :id])},
+      max_zoom = #{mappable.spots.map(&:zoom).max || "null"},
+      selected_spot, locusLatLng;
+  #{"selected_spot = #{mappable.spot_id};" if mappable.spot_id}
+  #{"locusLatLng = new google.maps.LatLng(#{mappable.locus.lat}, #{mappable.locus.lon});" if mappable.locus.lat}
+

@@ -45,14 +45,14 @@ $(function () {
         get: {
           name: 'marker',
           first: true,
-          tag: image_spot
+          tag: selected_spot
         }
       });
 
       activeMarker.setIcon(GRAY_ICON);
       activeMarker.setZIndex($(marker).data['OrigZIndex']);
 
-      image_spot = data.id;
+      selected_spot = data.id;
 
       marker.setIcon(RED_ICON);
       $(marker).data['OrigZIndex'] = marker.getZIndex();
@@ -165,13 +165,13 @@ $(function () {
     theMap.gmap3("get").setZoom(13);
   }
 
-  if (image_spot) {
+  if (selected_spot) {
 
     activeMarkers = theMap.gmap3({
       get: {
         name: 'marker',
         all: true,
-        tag: image_spot
+        tag: selected_spot
       }
     });
 
