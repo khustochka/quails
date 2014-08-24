@@ -5,9 +5,9 @@
 
 %h1= page_header
 
--#- if @video.persisted?
--#  - provide :add_shortcuts do
--#    %li= link_to @video.mapped? ? 'Edit map' : '<b>MAP IT!</b>'.html_safe, action: :map_edit
+- if @video.persisted?
+  - provide :add_shortcuts do
+    %li= link_to @video.mapped? ? 'Edit map' : '<b>MAP IT!</b>'.html_safe, action: :map_edit
 
 = render 'admin/shortcuts' if current_user.admin?
 

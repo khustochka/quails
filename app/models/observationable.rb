@@ -2,7 +2,7 @@ module Observationable
 
   def self.included(klass)
     klass.validate :consistent_observations
-
+    klass.after_update :update_spot
   end
 
   def search_applicable_observations(params = {})
@@ -35,6 +35,12 @@ module Observationable
 
   def first_observation
     observations[0]
+  end
+
+  def update_spot
+    if spot_id && !spot.observation_id.in?(observation_ids)
+      self.update_column(:spot_id, nil)
+    end
   end
 
 end

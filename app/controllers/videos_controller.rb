@@ -1,5 +1,5 @@
 class VideosController < ApplicationController
-  before_action :set_video, only: [:show, :edit, :update, :destroy]
+  before_action :set_video, only: [:show, :edit, :update, :destroy, :map_edit, :patch]
 
   administrative except: [:show]
 
@@ -28,7 +28,7 @@ class VideosController < ApplicationController
     @video = Video.new(video_params)
 
     if @video.save
-      redirect_to @video, notice: 'Video was successfully created.'
+      redirect_to edit_map_video_path(@video), notice: 'Video was successfully created. Now map it!'
     else
       render 'form'
     end
@@ -37,7 +37,11 @@ class VideosController < ApplicationController
   # PATCH/PUT /videos/1
   def update
     if @video.update(video_params)
-      redirect_to @video, notice: 'Video was successfully updated.'
+      if @video.mapped?
+        redirect_to video_path(@video), notice: 'Video was successfully updated.'
+      else
+        redirect_to edit_map_video_path(@video), notice: 'Video was successfully updated. Now map it!'
+      end
     else
       render 'form'
     end
@@ -47,6 +51,23 @@ class VideosController < ApplicationController
   def destroy
     @video.destroy
     redirect_to videos_url, notice: 'Video was successfully destroyed.'
+  end
+
+  def map_edit
+    @spot = Spot.new(public: true)
+  end
+
+  def patch
+    new_params = params[:video]
+    respond_to do |format|
+      if @video.update_attributes(new_params)
+        format.html { redirect_to action: :show }
+        format.json { head :no_content }
+      else
+        format.html { render 'form' }
+        format.json { render json: @video.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   private

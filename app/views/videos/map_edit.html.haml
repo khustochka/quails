@@ -1,0 +1,35 @@
+- javascript AssetsHelper::GMAP_API_URL, 'image_map'
+- @body_class = 'map-page'
+- stylesheet 'map_edit'
+
+- @page_title = "Edit map: #{@video.slug}"
+
+.map-side-panel
+  = render 'admin/shortcuts' if current_user.admin?
+
+  - if notice
+    %p#notice= notice
+
+  = render @video.small
+
+  - if @video.spots.empty?
+    %p.errors No observations mapped!
+  - elsif @video.spot_id.blank?
+    %p.errors Not yet mapped!
+
+  %ul.obs-list
+    = render partial: 'observations/obs_item', collection: @video.observations.preload(:species, :card => :locus)
+
+= render 'spots/form'
+
+.mapContainer
+  #googleMap
+
+:javascript
+  var patch_url = "#{patch_video_path(@video, format: :json)}",
+      marks = #{@video.spots.to_json(only: [:lat, :lng, :id])},
+      max_zoom = #{@video.spots.map(&:zoom).max || "null"},
+      video_spot, locusLatLng;
+  #{"video_spot = #{@video.spot_id};" if @video.spot_id}
+  #{"locusLatLng = new google.maps.LatLng(#{@video.locus.lat}, #{@video.locus.lon});" if @video.locus.lat}
+

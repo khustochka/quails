@@ -41,12 +41,12 @@ class VideosControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "get observations for an video" do
-    login_as_admin
-    get :observations, id: @video.id, format: :json
-    assert_response :success
-    assert_equal Mime::JSON, response.content_type
-  end
+  # test "get observations for an video" do
+  #   login_as_admin
+  #   get :observations, id: @video.id, format: :json
+  #   assert_response :success
+  #   assert_equal Mime::JSON, response.content_type
+  # end
 
   test "create video with one observation" do
     login_as_admin

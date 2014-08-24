@@ -103,10 +103,15 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :videos
+  resources :videos do
+    member do
+      get 'edit/map', action: :map_edit
+      post 'patch'
+    end
+  end
 
   get '/photos(/page/:page)' => 'images#index', page: /[^0]\d*/,
-                    constraints: {format: 'html'}
+      constraints: {format: 'html'}
 
   scope '(:locale)', locale: /en/ do
     get '/photos/multiple_species' => 'images#multiple_species'

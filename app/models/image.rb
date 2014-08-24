@@ -29,12 +29,6 @@ class Image < ActiveRecord::Base
     species.each(&:update_image)
   end
 
-  after_update do
-    if spot_id && !spot.observation_id.in?(observation_ids)
-       self.update_column(:spot_id, nil)
-    end
-  end
-
   # FIXME: the NEW post is touched if it exists, but not the OLD!
   after_save do
     cards.preload(:post).map(&:post).uniq.each { |p| p.try(:touch) }
