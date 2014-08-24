@@ -19,7 +19,7 @@
     = f.input :title
     = f.input :youtube_id
 
-  = render partial: 'partials/obs_draggable', locals: {media: @video}
+  = render partial: 'observable/obs_draggable', locals: {media: @video}
 
   = f.input :description, input_html: {rows: 7, class: 'wiki_field'}
 
