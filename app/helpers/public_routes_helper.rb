@@ -14,6 +14,8 @@ module PublicRoutesHelper
     case string_or_obj
       when Image
         localized_image_path(new_args)
+      when Video
+        localized_video_path(new_args)
       when Species
         localized_species_path(new_args)
       else

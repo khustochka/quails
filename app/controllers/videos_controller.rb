@@ -1,7 +1,7 @@
 class VideosController < ApplicationController
   before_action :set_video, only: [:show, :edit, :update, :destroy, :map_edit, :patch]
 
-  administrative except: [:index]
+  administrative except: [:index, :show]
 
   # GET /videos
   def index

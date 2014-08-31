@@ -1,18 +1,39 @@
-%p#notice= notice
+- javascript 'image_show'
 
-%p
-  %b Slug:
-  = @video.slug
-%p
-  %b Title:
-  = @video.title
-%p
-  %b Url:
-  = link_to 'YouTube', @video.youtube_url
-%p
-  %b Description:
-  = @video.description
+- #@meta_thumbnail = thumbnail_item(@video).try(:url)
+- @meta_description = @video.formatted.meta_description
+- @canonical = localize_url(@video, only_path: false, protocol: 'http')
+- #@og_type = 'birdwatchua:video'
 
-= link_to 'Edit', edit_video_path(@video)
-\|
-= link_to 'Back', videos_path
+- @page_header = @page_title = @video.formatted.title
+-# @page_title = "#{@page_header} // #{t("countries.gallery.title.#{@video.locus.country.slug}")}"
+
+- if notice
+  %p#notice= notice
+
+- provide :add_shortcuts do
+  %li= link_to @video.mapped? ? 'Edit map' : '<b>MAP IT!</b>'.html_safe, action: :map_edit
+
+= render 'admin/shortcuts' if current_user.admin?
+
+= render 'partials/translated'
+
+%h1= page_header
+
+%table.image_nav
+  - @video.species.each do |sp|
+    %tr
+      %td
+        %b= species_link(sp)
+        %br
+        = name_sci(sp)
+
+= render @video.large
+
+=# render 'social/buttons'
+
+= render partial: "observable/long_details", locals: {media: @video}
+
+
+-#- if @video.multi?
+-#  %nav= link_to(t(".more_photos_of_multiple_species"), photos_multiple_species_path)

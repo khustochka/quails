@@ -103,7 +103,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :videos, except: [:index] do
+  resources :videos, except: [:index, :show] do
     member do
       get 'edit/map', action: :map_edit
       post 'patch'
@@ -119,6 +119,7 @@ Rails.application.routes.draw do
     post 'photos/strip' => 'images#strip'
     get '/videos(/page/:page)' => 'videos#index', page: /[^0]\d*/,
         constraints: {format: 'html'}
+    get 'videos/:id' => 'videos#show', as: 'localized_video'
   end
 
   constraints year: /20\d\d/ do

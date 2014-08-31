@@ -32,6 +32,11 @@ module Observationable
     locus.public_locus
   end
 
+  def posts
+    posts_id = [first_observation.post_id, cards.first.post_id].uniq.compact
+    Post.where(id: posts_id)
+  end
+
   private
 
   def consistent_observations

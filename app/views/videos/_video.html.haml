@@ -1,6 +1,12 @@
-%h2= video.formatted.title
+%h2= link_to video.formatted.title, localize_url(video)
 
-%i= video.species.map {|sp| species_link(sp, sp.name_sci)}.join(', ').html_safe
+%table.image_nav
+  - video.species.each do |sp|
+    %tr
+      %td
+        %b= species_link(sp)
+        %br
+        = name_sci(sp)
 
 %p
   = succeed ', ' do

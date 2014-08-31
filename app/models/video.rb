@@ -37,4 +37,8 @@ class Video < ActiveRecord::Base
     YoutubeVideo.new(youtube_id, 560, 315)
   end
 
+  def large
+    YoutubeVideo.new(youtube_id, 853, 480)
+  end
+
 end

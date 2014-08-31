@@ -21,3 +21,8 @@
       more_photos_of_multiple_species: More photos of multiple species
 
     picture_taken: Picture taken
+
+  videos:
+    index:
+      window_title: Bird videos
+      title: Videos
