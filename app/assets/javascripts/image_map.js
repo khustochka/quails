@@ -38,8 +38,10 @@ $(function () {
       RED_ICON = "http://maps.google.com/mapfiles/marker.png";
 
   function bindImageToMarker(marker, data) {
+    var payload = {};
+    payload[media_type] = {'spot_id': data.id};
 
-    $.post(patch_url, {'image': {'spot_id': data.id}}, function (data2) {
+    $.post(patch_url, payload, function (data2) {
 
       var activeMarker = theMap.gmap3({
         get: {

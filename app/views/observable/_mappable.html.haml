@@ -27,6 +27,7 @@
 
 :javascript
   var patch_url = "#{url_for(action: :patch, format: :json)}",
+      media_type = '#{mappable.class.to_s.downcase}',
       marks = #{mappable.spots.to_json(only: [:lat, :lng, :id])},
       max_zoom = #{mappable.spots.map(&:zoom).max || "null"},
       selected_spot, locusLatLng;
