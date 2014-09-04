@@ -1,1 +1,0 @@
-//= require wiki_form
