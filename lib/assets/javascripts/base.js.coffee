@@ -1,6 +1,6 @@
 #= require_self
-#= require_tree ./features
-#= require_tree ./pages
+#= require_tree ./base/features
+#= require_tree ./base/pages
 
 @Quails = {
   pages: {}
