@@ -162,7 +162,7 @@ $(function () {
         {autofit: {maxZoom: max_zoom}} // Zooms and moves to see all markers
     )
   }
-  else if (typeof(locusLatLng !== 'undefined')) {
+  else if (typeof(locusLatLng) !== 'undefined') {
     theMap.gmap3("get").setCenter(locusLatLng);
     theMap.gmap3("get").setZoom(13);
   }
