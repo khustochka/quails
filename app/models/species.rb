@@ -25,6 +25,7 @@ class Species < ActiveRecord::Base
   has_many :cards, through: :observations
   has_many :loci, through: :cards
   has_many :images, through: :observations
+  has_many :videos, through: :observations
   has_many :taxa
   has_many :posts, -> { order(face_date: :desc).uniq }, through: :observations
 

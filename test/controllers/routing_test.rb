@@ -104,6 +104,10 @@ class RoutingTest < ActionDispatch::IntegrationTest
     assert_routing '/en/photos/sparrow12345', {controller: 'images', action: 'show', locale: 'en', id: 'sparrow12345'}
   end
 
+  test 'English video routing' do
+    assert_routing '/en/videos/sparrow12345', {controller: 'videos', action: 'show', locale: 'en', id: 'sparrow12345'}
+  end
+
   test 'English lifelists routing' do
     assert_routing '/en/my/lists', {controller: 'lists', action: 'index', locale: 'en'}
     assert_routing '/en/my/lists/2009', {controller: 'lists', action: 'basic', locale: 'en', year: '2009'}

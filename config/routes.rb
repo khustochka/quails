@@ -103,15 +103,23 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :videos
+  resources :videos, except: [:index, :show] do
+    member do
+      get 'edit/map', action: :map_edit
+      post 'patch'
+    end
+  end
 
   get '/photos(/page/:page)' => 'images#index', page: /[^0]\d*/,
-                    constraints: {format: 'html'}
+      constraints: {format: 'html'}
 
   scope '(:locale)', locale: /en/ do
     get '/photos/multiple_species' => 'images#multiple_species'
     get 'photos/:id' => 'images#show', as: 'localized_image'
     post 'photos/strip' => 'images#strip'
+    get '/videos(/page/:page)' => 'videos#index', page: /[^0]\d*/,
+        constraints: {format: 'html'}
+    get 'videos/:id' => 'videos#show', as: 'localized_video'
   end
 
   constraints year: /20\d\d/ do

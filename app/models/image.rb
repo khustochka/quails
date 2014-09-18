@@ -1,5 +1,6 @@
 class Image < ActiveRecord::Base
   include FormattedModel
+  include Observationable
 
   invalidates CacheKey.gallery
 
@@ -20,19 +21,12 @@ class Image < ActiveRecord::Base
 
   validates :slug, uniqueness: true, presence: true, length: {:maximum => 64}
   validates :flickr_id, uniqueness: true, allow_nil: true, exclusion: {in: ['']}
-  validate :consistent_observations
 
   serialize :assets_cache, ImageAssetsArray
 
   # Callbacks
   after_create do
     species.each(&:update_image)
-  end
-
-  after_update do
-    if spot_id && !spot.observation_id.in?(observation_ids)
-       self.update_column(:spot_id, nil)
-    end
   end
 
   # FIXME: the NEW post is touched if it exists, but not the OLD!
@@ -69,6 +63,12 @@ class Image < ActiveRecord::Base
     slug_was
   end
 
+  # Update
+
+  def observation_ids=(list)
+    super(list.uniq)
+  end
+
   # Photos with several species
   def self.multiple_species
     rel = select(:image_id).from("images_observations").group(:image_id).having("COUNT(observation_id) > 1")
@@ -90,19 +90,6 @@ class Image < ActiveRecord::Base
     Image.preload(:species).joins(:observations).
         where(spot_id: nil).where("observation_id in (select observation_id from spots)").
         order(created_at: :asc)
-  end
-
-  # Associations
-
-  def posts
-    posts_id = [first_observation.post_id, cards.first.post_id].uniq.compact
-    Post.where(id: posts_id)
-  end
-
-  delegate :observ_date, :locus, :locus_id, :to => :card
-
-  def card
-    first_observation.card
   end
 
   # Instance methods
@@ -130,27 +117,6 @@ class Image < ActiveRecord::Base
     prev_next_by(sp)[1]
   end
 
-  def public_title
-    if I18n.russian_locale? && title.present?
-      title
-    else
-      species.map(&:name).join(', ')
-    end
-  end
-
-  def search_applicable_observations(params = {})
-    date = params[:date]
-    ObservationSearch.new(
-        new_record? ?
-            {observ_date: date || Card.pluck('MAX(observ_date)').first} :
-            {observ_date: observ_date, locus_id: locus.id}
-    )
-  end
-
-  def observation_ids=(list)
-    super(list.uniq)
-  end
-
   # Formatting
 
   def to_thumbnail
@@ -166,26 +132,7 @@ class Image < ActiveRecord::Base
     spot_id
   end
 
-  def public_locus
-    locus.public_locus
-  end
-
   private
-
-  def first_observation
-    observations[0]
-  end
-
-  def consistent_observations
-    obs = Observation.where(id: observation_ids)
-    if obs.blank?
-      errors.add(:observations, 'must not be empty')
-    else
-      if obs.map(&:card_id).uniq.size > 1
-        errors.add(:observations, 'must belong to the same card')
-      end
-    end
-  end
 
   def prev_next_by(sp)
     @prev_next ||= {}

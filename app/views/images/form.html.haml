@@ -1,5 +1,5 @@
 - stylesheet 'forms'
-- javascript 'image_form'
+- @js_features = [:observDragger, :wikiFields]
 
 - @page_title = "#{new_or_edit_label(@image)} image"
 
@@ -59,35 +59,14 @@
 - if params[:exif_date]
   %p#notice Date taken from EXIF, may be incorrect
 
-= simple_form_for @image, html: {class: 'image'} do |form|
+= simple_form_for @image, html: {class: 'image with_observations'} do |form|
 
   %div
     = form.input :slug
     = form.input :title
     = form.input :has_old_thumbnail
 
-  %table.with_search
-    %tr
-      %td.observation_search{colspan: 2}
-        = simple_fields_for @image.search_applicable_observations(date: params[:exif_date]) do |form2|
-          = form2.input :observ_date, label: 'Date:', as: :string,
-              input_html: {class: 'short', maxlength: 10, type: 'date'}, required: false
-          = form2.input :locus_id, label: 'Location:', collection: Locus.suggestion_order,
-              input_html: {class: 'suggest-combo'}, required: false
-          = form2.input :species_id, label: 'Species:', collection: species_for_select,
-              input_html: {class: 'suggest-combo'}, required: false
-          %input#obs_limit{type: 'hidden', name: 'limit', value: 5}
-          %button.obs_search_btn{type: 'button'} Search
-    %tr
-      %td.observation_list
-        %h5 Current observations
-        - unless @image.new_record?
-          %span.restore.pseudolink Restore original
-        %ul.obs-list.current-obs
-          = render partial: 'observations/obs_item', collection: @image.observations.preload(:species, :card => :locus)
-      %td.observation_options
-        %h5 Found observations
-        %ul.obs-list.found-obs
+  = render partial: 'observable/obs_draggable', locals: {media: @image}
 
   %div
     - unless @image.persisted?

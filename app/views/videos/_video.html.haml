@@ -1,0 +1,22 @@
+%h2= link_to video.formatted.title, localize_url(video)
+
+%table.image_nav
+  - video.species.each do |sp|
+    %tr
+      %td
+        %b= species_link(sp)
+        %br
+        = name_sci(sp)
+
+%p
+  = succeed ', ' do
+    %i<
+      %time{datetime: video.observ_date.iso8601} #{l(video.observ_date, format: :long)}
+
+  = succeed('.') do
+    = video.formatted.public_locus_full_name
+
+- if I18n.russian_locale?
+  = video.formatted.description
+
+= render video.small

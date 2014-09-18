@@ -82,6 +82,13 @@ class SpeciesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "show species with video" do
+    species = seed(:melgal)
+    create(:video, observations: [create(:observation, species: species)])
+    get :show, id: species.to_param
+    assert_response :success
+  end
+
   test "get edit" do
     species = seed(:melgal)
     login_as_admin

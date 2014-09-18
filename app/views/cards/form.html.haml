@@ -6,6 +6,7 @@
 
 - stylesheet 'forms'
 - javascript 'card_form'
+- @js_features = [:wikiFields]
 
 - @page_title = @card.persisted? ? "Edit: #{l(@card.observ_date, format: :long)}, #{@card.locus.name}" : "New card"
 

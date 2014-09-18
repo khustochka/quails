@@ -8,6 +8,7 @@ class Observation < ActiveRecord::Base
   belongs_to :species
   belongs_to :post, -> { select(:id, :slug, :face_date, :title, :status) }, touch: :updated_at
   has_and_belongs_to_many :images
+  has_and_belongs_to_many :videos, join_table: 'videos_observations'
   has_many :spots, dependent: :delete_all
   belongs_to :patch, class_name: 'Locus', foreign_key: 'patch_id'
 

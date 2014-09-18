@@ -1,6 +1,5 @@
 //= require jquery-ui.addon
 //= require suggest_over_combo
-//= require wiki_form
 //= require keypress
 
 
@@ -74,7 +73,9 @@ $(function () {
   $('a.destroy')
       .data('remote', 'true')
       .on('ajax:success', function () {
-        $(this).closest('.obs-row').remove();
+        var row = $(this).closest('.obs-row');
+        row.next().remove();
+        row.remove();
       })
       .on('ajax:error', function () {
         alert("Error removing observation");

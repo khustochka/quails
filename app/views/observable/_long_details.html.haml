@@ -1,16 +1,16 @@
-- posts = image.posts.merge(current_user.available_posts)
+- posts = media.posts.merge(current_user.available_posts)
 
 %p
   = t('images.picture_taken')
   = succeed ', ' do
     %i<
-      %time{datetime: image.observ_date.iso8601} #{l(image.observ_date, :format => :long)}
+      %time{datetime: media.observ_date.iso8601} #{l(media.observ_date, :format => :long)}
 
   = succeed('.') do
-    = image.formatted.public_locus_full_name
+    = media.formatted.public_locus_full_name
 
 - if I18n.russian_locale?
-  = image.formatted.description
+  = media.formatted.description
 
   - if posts.present?
     %h3 Почитать:
