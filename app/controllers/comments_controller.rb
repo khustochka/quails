@@ -72,9 +72,9 @@ class CommentsController < ApplicationController
 
       respond_to do |format|
         if @comment.save
-          CommentMailer.notify_admin(@comment, request.host).deliver
+          CommentMailer.notify_admin(@comment, request.host).deliver_now
           if @comment.parent_comment && @comment.parent_comment.send_email? && @comment.approved
-            CommentMailer.notify_parent_author(@comment, request.host).deliver
+            CommentMailer.notify_parent_author(@comment, request.host).deliver_now
           end
 
           format.html {
