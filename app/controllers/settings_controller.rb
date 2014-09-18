@@ -13,7 +13,7 @@ class SettingsController < ApplicationController
     params[:s].each do |key, value|
       setting = Settings.where(key: key)
       if setting.any?
-        setting.update_all(value: Settings.serialized_attributes['value'].dump(value))
+        setting.update_all(value: value)
       else
         Settings.create!(key: key, value: value)
       end
