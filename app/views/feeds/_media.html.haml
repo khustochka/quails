@@ -1,0 +1,11 @@
+- @only_path = false
+
+= render partial: "feeds/#{media.class.to_s.underscore}", object: media
+
+%ul.img_species
+  - media.species.each do |sp|
+    %li
+      = species_link(sp)
+      = name_sci(sp)
+
+= render partial: "observable/long_details", formats: :html, locals: {media: media}
