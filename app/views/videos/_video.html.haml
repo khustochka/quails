@@ -1,12 +1,11 @@
 %h2= link_to video.formatted.title, localize_url(video)
 
-%table.image_nav
+%ul.species_under_video
   - video.species.each do |sp|
-    %tr
-      %td
-        %b= species_link(sp)
-        %br
-        = name_sci(sp)
+    %li
+      %b= species_link(sp)
+      = name_sci(sp)
+
 
 %p
   = succeed ', ' do
