@@ -71,7 +71,7 @@ GEM
     factory_girl_rails (4.4.1)
       factory_girl (~> 4.4.0)
       railties (>= 3.0.0)
-    ffi (1.9.3)
+    ffi (1.9.4)
     flickraw (0.9.8)
     haml (4.0.5)
       tilt
