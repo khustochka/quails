@@ -66,7 +66,7 @@ class Locus < ActiveRecord::Base
   end
 
   def public_locus
-    path.where(private_loc: false).last
+    path.where(private_loc: false, patch: false).last
   end
 
 end
