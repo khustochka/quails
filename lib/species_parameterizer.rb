@@ -1,6 +1,6 @@
 module SpeciesParameterizer
   def parameterize(str)
-    str.gsub(' ', '_')
+    str.tr(' ', '_')
   end
 
   def humanize(str)

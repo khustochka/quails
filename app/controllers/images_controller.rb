@@ -65,7 +65,7 @@ class ImagesController < ApplicationController
     end
     new_slug = File.basename(uploaded_io.original_filename, '.*')
     image_attributes = {i: {slug: new_slug}}
-    exif_date = `identify -format "%[EXIF:DateTimeOriginal]" "#{filename}"`.chomp[0..9].gsub(":", "-")
+    exif_date = `identify -format "%[EXIF:DateTimeOriginal]" "#{filename}"`.chomp[0..9].tr(":", "-")
     image_attributes[:exif_date] = exif_date if exif_date.present?
     if to_flickr
       flickr = Flickr::Client.new
