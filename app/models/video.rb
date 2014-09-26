@@ -14,6 +14,7 @@ class Video < ActiveRecord::Base
   belongs_to :spot
 
   validates :slug, uniqueness: true, presence: true, length: {:maximum => 64}
+  validates :youtube_id, presence: true
 
   def to_param
     slug_was
