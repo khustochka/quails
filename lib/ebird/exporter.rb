@@ -28,7 +28,7 @@ class EbirdExporter
   private
 
   def observations
-    @cards.map(&:observations).flatten
+    @cards.flat_map(&:observations)
   end
 
   def save_to_file(array)

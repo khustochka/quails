@@ -81,6 +81,7 @@ class JSVideosTest < ActionDispatch::IntegrationTest
 
     fill_in('Slug', with: 'test-video-capybara')
     fill_in('Title', with: 'Capybara test video')
+    fill_in('Youtube', with: 'sd768dsfas')
 
     within('.observation_search') do
       click_button 'Search'

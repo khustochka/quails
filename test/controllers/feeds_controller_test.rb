@@ -43,6 +43,19 @@ class FeedsControllerTest < ActionController::TestCase
     assert_equal Mime::XML, response.content_type
   end
 
+  test 'photos feed should include photos and videos' do
+    im1 = create(:image)
+    vi1 = create(:video)
+    im2 = create(:image)
+
+    get :photos, format: :xml
+    assert_response :success
+    assert_equal Mime::XML, response.content_type
+    assert_select "link[href='#{url_for(im1)}']"
+    assert_select "link[href='#{url_for(im2)}']"
+    assert_select "link[href='#{url_for(vi1)}']"
+  end
+
   test 'empty sitemap is not failing' do
     get :sitemap, format: :xml
     assert_response :success

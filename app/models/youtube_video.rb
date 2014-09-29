@@ -7,6 +7,6 @@ class YoutubeVideo < Struct.new(:video_id, :width, :height)
   end
 
   def url
-    "#{YOUTUBE_HOST}/embed/#{video_id}/?vq=hd720"
+    "#{YOUTUBE_HOST}/embed/#{video_id}?enablejsapi=1&rel=0&vq=hd720"
   end
 end

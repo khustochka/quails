@@ -1,9 +1,9 @@
 source 'https://rubygems.org/'
 
-ruby '2.1.2'
+ruby '2.1.3'
 
-gem 'rails', github: 'rails/rails'
-gem 'rails-dom-testing', github: 'rails/rails-dom-testing'
+gem 'rails', '4.2.0.beta2'
+#gem 'rails-dom-testing', github: 'rails/rails-dom-testing'
 
 gem 'pg', platforms: [:ruby, :mingw]
 gem "activerecord-jdbcpostgresql-adapter", platforms: :jruby

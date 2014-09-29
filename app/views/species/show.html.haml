@@ -4,6 +4,8 @@
 
 - @page_title = "#{@species.name} (#{@species.name_sci})"
 
+- javascript 'video_quality'
+
 - if current_user.admin?
   - javascript 'species_image'
   = render 'admin/shortcuts'
