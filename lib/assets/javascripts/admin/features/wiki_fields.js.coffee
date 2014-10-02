@@ -21,16 +21,17 @@ Quails.features.wikiFields =
     $("<div>",
       class: "edit_tools"
     ).insertBefore textarea
-    sp_insert_button.click ->
-      Quails.features.wikiFields.insertTags textarea, "{{", "|}}", "вид"
+
+    sp_insert_button.click =>
+      @insertTags textarea, "{{", "|}}", "вид"
       return
 
-    img_insert_button.click ->
-      Quails.features.wikiFields.insertTags textarea, "{{^", "}}", "img_slug"
+    img_insert_button.click =>
+      @insertTags textarea, "{{^", "}}", "img_slug"
       return
 
-    post_insert_button.click ->
-      Quails.features.wikiFields.insertTags textarea, "{{#", "|}}", "post"
+    post_insert_button.click =>
+      @insertTags textarea, "{{#", "|}}", "post"
       return
 
     $(".edit_tools").append(sp_insert_button).append(img_insert_button).append post_insert_button
