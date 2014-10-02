@@ -11,6 +11,11 @@ Quails.features.wikiFields =
       id: "insert_img_tag"
       type: "button"
     )
+    video_insert_button = $("<button>",
+      text: "{{&video}}"
+      id: "insert_video_tag"
+      type: "button"
+    )
     post_insert_button = $("<button>",
       text: "{{#post}}"
       id: "insert_post_tag"
@@ -27,14 +32,22 @@ Quails.features.wikiFields =
       return
 
     img_insert_button.click =>
-      @insertTags textarea, "{{^", "}}", "img_slug"
+      @insertTags textarea, "{{^", "}}", "image"
+      return
+
+    video_insert_button.click =>
+      @insertTags textarea, "{{&", "}}", "video"
       return
 
     post_insert_button.click =>
       @insertTags textarea, "{{#", "|}}", "post"
       return
 
-    $(".edit_tools").append(sp_insert_button).append(img_insert_button).append post_insert_button
+    $(".edit_tools")
+      .append(sp_insert_button)
+      .append(img_insert_button)
+      .append(video_insert_button)
+      .append(post_insert_button)
 
   insertTags: (txtarea, tagOpen, tagClose, sampleText) ->
 

@@ -27,6 +27,14 @@ class SiteFormatStrategy < FormattingStrategy
     end
   end
 
+  def video_embed(term)
+    if video = Video.find_by(slug: term)
+      youtube_embed = video.large
+      template = ERB.new File.new(Rails.root.join('app/views/videos/_youtube_embed.html.erb')).read, nil, "%"
+      template.result(binding)
+    end
+  end
+
   def species_link(word, term)
     sp = @species[term]
     if sp

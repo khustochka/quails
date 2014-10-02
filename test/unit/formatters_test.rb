@@ -43,6 +43,16 @@ class FormattersTest < ActionView::TestCase
 
   end
 
+  test "Post with video by slug" do
+    video = create(:video)
+    post = build(:post, text: "{{&#{video.slug}}}")
+    assert_includes post.formatted.for_site.text,
+                    "<div class=\"video-container\"><iframe"
+    assert_includes post.formatted.for_site.text,
+                    "src=\"#{video.large.url}\""
+
+  end
+
   test "Invalid image wiki tag should not raise exception" do
     post = build(:post, text: "{{^sdfgdfsgsdfgdfsgdf}}")
     assert_equal "",
