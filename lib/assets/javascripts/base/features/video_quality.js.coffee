@@ -12,7 +12,8 @@ Quails.features.videoQuality =
         function () {
           new YT.Player(this, {
             events: {
-              'onReady': $.onPlayerReady
+              'onReady': $.onPlayerReady,
+              'onStateChange': $.onStateChange
             }
           });
       });
@@ -20,4 +21,9 @@ Quails.features.videoQuality =
 
     $.onPlayerReady = (event) ->
       event.target.setPlaybackQuality "hd720"
+      return
+
+    $.onStateChange = (event) ->
+      if event.data == YT.PlayerState.UNSTARTED
+        event.target.setSize 853, 480
       return
