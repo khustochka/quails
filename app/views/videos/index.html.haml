@@ -8,19 +8,20 @@
 - @page_header = t(".title")
 
 - @robots = 'NOINDEX'
+- @feed = :photos
 
 = render 'partials/translated'
 
 %div.header-with-subheader
-  %h1
+  %h1.over-header
     = page_header
-  -#%ul.subheader-menu
-  -#  %li= link_to t('.species_gallery'), gallery_path
-  -#  = feed_list_item
+  %ul.subheader-menu
+    %li= link_to t('menu.gallery'), gallery_path
+    = feed_list_item
 
--#- unless params[:page]
--#  %h3
--#    %i= t('.last_updated', date: l(@videos.first.created_at, format: :long))
+- unless params[:page]
+  %h3
+    %i= t('images.index.last_updated', date: l(@videos.first.created_at, format: :long))
 
 %div
   = render @videos
