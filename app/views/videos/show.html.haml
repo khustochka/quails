@@ -5,6 +5,8 @@
 - @canonical = localize_url(@video, only_path: false, protocol: 'http')
 - #@og_type = 'birdwatchua:video'
 
+- @js_features = [:videoQuality]
+
 - @page_header = @page_title = @video.formatted.title
 -# @page_title = "#{@page_header} // #{t("countries.gallery.title.#{@video.locus.country.slug}")}"
 

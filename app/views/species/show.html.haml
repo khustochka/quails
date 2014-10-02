@@ -4,7 +4,7 @@
 
 - @page_title = "#{@species.name} (#{@species.name_sci})"
 
-- javascript 'video_quality'
+- @js_features = [:videoQuality]
 
 - if current_user.admin?
   - javascript 'species_image'
