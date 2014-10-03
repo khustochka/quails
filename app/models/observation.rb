@@ -31,9 +31,11 @@ class Observation < ActiveRecord::Base
   # TODO: improve and probably use universally
   def self.filter(options = {})
     rel = self.all
-    rel = rel.joins(:card).where('EXTRACT(year from cards.observ_date)::integer = ?', options[:year]) unless options[:year].blank?
-    rel = rel.joins(:card).where('EXTRACT(month from cards.observ_date)::integer = ?', options[:month]) unless options[:month].blank?
-    rel = rel.joins(:card).where('cards.locus_id' => options[:locus]) unless options[:locus].blank?
+    options.each do |key, val|
+      if val
+        rel = rel.joins(:card).send("filter_#{key}", val)
+      end
+    end
     rel
   end
 
@@ -55,6 +57,25 @@ class Observation < ActiveRecord::Base
 
   def patch_or_locus
     patch || card.locus
+  end
+
+  private
+
+  # Filters
+
+  def self.filter_year(year)
+    rel = where('EXTRACT(year from cards.observ_date)::integer = ?', year)
+    rel
+  end
+
+  def self.filter_month(month)
+    rel = where('EXTRACT(month from cards.observ_date)::integer = ?', month)
+    rel
+  end
+
+  def self.filter_locus(locus)
+    rel = where('cards.locus_id' => locus)
+    rel
   end
 
 end

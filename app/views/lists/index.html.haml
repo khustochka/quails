@@ -6,7 +6,7 @@
 
   - lifers = lambda do |rel|
     %ol.lifers_list
-      - total_count = rel.except(:limit).count(:all)
+      - total_count = rel.except(:limit).total_count
       = render partial: 'lifer', collection: rel, locals: {total_count: total_count}
 
   = render 'partials/translated'
@@ -55,14 +55,14 @@
 
       -#%h2
       -#  = link_to(t('lists.title.yearlist', year: 2013), list_path(year: 2013))
-      -#  (#{@list_prev_year.count(:all)})
+      -#  (#{@list_prev_year.total_count})
 
       %h2
         = link_to(t('lists.title.gb'), list_path(locus: 'united_kingdom'))
-        (#{@list_uk.count(:all)})
+        (#{@list_uk.total_count})
 
     %div.fluid-column
 
       %h2
         = link_to(t('lists.title.usa'), list_path(locus: 'usa'))
-        (#{@list_usa.count(:all)})
+        (#{@list_usa.total_count})

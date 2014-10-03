@@ -2,24 +2,21 @@ desc 'Quick benchmark'
 task :benchmark => :environment do
   require 'benchmark'
 
-  module SimpleCache
-    def self.quails_google_cse
-      @quails_google_cse ||= ENV['quails_google_cse']
-    end
-  end
-
-  n = 10000000
+  n = 1
   Benchmark.bmbm do |bench|
 
-    bench.report('env') { n.times {
+    bench.report('old') { n.times {
 
-      z = ENV['quails_google_cse']
-
+      l = Lifelist.basic.relation
+      l.count(:all)
+      l.to_a
     } }
 
-    bench.report('module cache') { n.times {
+    bench.report('new') { n.times {
 
-      y = SimpleCache.quails_google_cse
+      l = Lifelist.simple
+      l.total_count
+      l.to_a
 
     } }
 

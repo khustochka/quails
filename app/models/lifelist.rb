@@ -14,6 +14,10 @@ class Lifelist
     new(BasicStrategy).source(loci: Country.all)
   end
 
+  def self.simple
+    LiferObservation.all
+  end
+
   def initialize(strategy_class)
     @strategy = strategy_class.new
     @filter = {}

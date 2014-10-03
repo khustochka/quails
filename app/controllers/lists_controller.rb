@@ -1,19 +1,19 @@
 class ListsController < ApplicationController
 
   def index
-    @top_5_life = Lifelist.basic.relation.limit(5)
-    @top_5_year = Lifelist.basic.filter(year: 2014).relation.limit(5)
+    @top_5_life = Lifelist.simple.limit(5)
+    @top_5_year = Lifelist.simple.filter(year: 2014).limit(5)
 
-    #@list_prev_year = Lifelist.basic.filter(year: 2013).relation
-    @list_canada = Lifelist.basic.filter(locus: 'canada').relation
+    #@list_prev_year = Lifelist.simple.filter(year: 2013)
+    @list_canada = Lifelist.simple.filter(locus: 'canada')
 
-    @list_ukraine = Lifelist.basic.filter(locus: 'ukraine').relation
+    @list_ukraine = Lifelist.simple.filter(locus: 'ukraine')
 
-    @list_usa = Lifelist.basic.filter(locus: 'usa').relation
-    @list_uk = Lifelist.basic.filter(locus: 'united_kingdom').relation
+    @list_usa = Lifelist.simple.filter(locus: 'usa')
+    @list_uk = Lifelist.simple.filter(locus: 'united_kingdom')
   end
 
-  def basic
+  def simple
 
     @allowed_params = [:controller, :action, :year, :locus, :sort]
 
@@ -31,7 +31,7 @@ class ListsController < ApplicationController
 
     sources = I18n.russian_locale? ? {posts: current_user.available_posts} : {}
 
-    @lifelist = Lifelist.basic.
+    @lifelist = Lifelist.simple.
         source(sources).
         sort(sort_override).
         filter(params.slice(:year, :locus))
