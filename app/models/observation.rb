@@ -64,18 +64,15 @@ class Observation < ActiveRecord::Base
   # Filters
 
   def self.filter_year(year)
-    rel = where('EXTRACT(year from cards.observ_date)::integer = ?', year)
-    rel
+    where('EXTRACT(year from cards.observ_date)::integer = ?', year)
   end
 
   def self.filter_month(month)
-    rel = where('EXTRACT(month from cards.observ_date)::integer = ?', month)
-    rel
+    where('EXTRACT(month from cards.observ_date)::integer = ?', month)
   end
 
   def self.filter_locus(locus)
-    rel = where('cards.locus_id' => locus)
-    rel
+    where('cards.locus_id' => locus)
   end
 
 end

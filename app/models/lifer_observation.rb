@@ -9,6 +9,15 @@ class LiferObservation < Observation
         preload(:species)
   end
 
+  class ActiveRecord_Relation
+    def generate
+      Species.
+          select("species.*, first_met").
+          joins("INNER JOIN (#{self.to_sql}) AS lifeobs ON species.id=lifeobs.species_id").
+          order('first_met')
+    end
+  end
+
   def self.total_count
     except(:group).except(:order).count("DISTINCT species_id")
   end

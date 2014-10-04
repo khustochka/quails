@@ -20,5 +20,13 @@ task :benchmark => :environment do
 
     } }
 
+    bench.report('alt1') { n.times {
+
+      l = Lifelist.simple
+      l.total_count
+      l.generate
+
+    } }
+
   end
 end

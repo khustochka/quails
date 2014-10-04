@@ -13,7 +13,7 @@ class ListsController < ApplicationController
     @list_uk = Lifelist.simple.filter(locus: 'united_kingdom')
   end
 
-  def simple
+  def basic
 
     @allowed_params = [:controller, :action, :year, :locus, :sort]
 
@@ -31,7 +31,7 @@ class ListsController < ApplicationController
 
     sources = I18n.russian_locale? ? {posts: current_user.available_posts} : {}
 
-    @lifelist = Lifelist.simple.
+    @lifelist = Lifelist.basic.
         source(sources).
         sort(sort_override).
         filter(params.slice(:year, :locus))

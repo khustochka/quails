@@ -5,8 +5,8 @@
   - i = count_reached + lifer_counter
 
 %li.lifer_row{value: i}
-  = species_link(lifer.species)
-  = name_sci(lifer.species)
+  = species_link(lifer)
+  = name_sci(lifer)
   %span
     = surround'(', ')' do
-      = post_link(content_tag(:time, l(lifer.first_met, :format => :long)), lifer.post, true)
+      = content_tag(:time, l(lifer.first_met, :format => :long))

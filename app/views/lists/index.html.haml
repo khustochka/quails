@@ -7,7 +7,7 @@
   - lifers = lambda do |rel|
     %ol.lifers_list
       - total_count = rel.except(:limit).total_count
-      = render partial: 'lifer', collection: rel, locals: {total_count: total_count}
+      = render partial: 'lifer', collection: rel.generate, locals: {total_count: total_count}
 
   = render 'partials/translated'
 
