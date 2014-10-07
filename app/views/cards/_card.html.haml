@@ -41,6 +41,9 @@
       - tag_class = card.effort_type.downcase
       %small{class: "#{tag_class} tag"}= card.effort_type
 
+      - unless card.resolved
+        %small.draft.tag UNRESOLVED
+
     - if params[:obs]
       = link_to 'Attach here', attach_card_path(card, obs: params[:obs]), class: 'pseudolink', data: {method: :post}
 
