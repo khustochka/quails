@@ -21,7 +21,7 @@ class ObservationSearch
     end
   end
 
-  CARD_ATTRIBUTES = [:observ_date, :locus_id, :card_id, :inclusive]
+  CARD_ATTRIBUTES = [:observ_date, :locus_id, :card_id, :resolved, :inclusive]
   OBSERVATION_ATTRIBUTES = [:species_id, :voice]
   ALL_ATTRIBUTES = CARD_ATTRIBUTES + OBSERVATION_ATTRIBUTES
 
