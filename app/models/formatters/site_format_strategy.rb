@@ -1,4 +1,5 @@
 class SiteFormatStrategy < FormattingStrategy
+  include VideoEmbedder
 
   include Rails.application.routes.url_helpers
   include SpeciesHelper
@@ -24,14 +25,6 @@ class SiteFormatStrategy < FormattingStrategy
           <figcaption class="imagetitle"><a href="#{image_path(image, only_path: only_path?)}">#{image.formatted.title}</a></figcaption>
           </figure>
         )
-    end
-  end
-
-  def video_embed(term)
-    if video = Video.find_by(slug: term)
-      youtube_embed = video.large
-      template = ERB.new File.new(Rails.root.join('app/views/videos/_youtube_embed.html.erb')).read, nil, "%"
-      template.result(binding)
     end
   end
 
