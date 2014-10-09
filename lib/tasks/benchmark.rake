@@ -2,24 +2,26 @@ desc 'Quick benchmark'
 task :benchmark => :environment do
   require 'benchmark'
 
-  module SimpleCache
-    def self.quails_google_cse
-      @quails_google_cse ||= ENV['quails_google_cse']
-    end
-  end
+  SomeData = Struct.new(:a, :b, :c)
 
-  n = 10000000
+  n = 100000
   Benchmark.bmbm do |bench|
 
-    bench.report('env') { n.times {
+    bench.report('struct') { n.times {
 
-      z = ENV['quails_google_cse']
+      x = SomeData.new(1, "a", 2)
+      x.a
+      x.b
+      x.c
 
     } }
 
-    bench.report('module cache') { n.times {
+    bench.report('hashie::mash') { n.times {
 
-      y = SimpleCache.quails_google_cse
+      x = Hashie::Mash.new(a: 1, b: "a", c: 2)
+      x.a
+      x.b
+      x.c
 
     } }
 
