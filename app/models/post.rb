@@ -1,6 +1,10 @@
 class Post < ActiveRecord::Base
 
-  LJData = Struct.new(:post_id, :url)
+  class LJData < Struct.new(:post_id, :url)
+    def blank?
+      post_id.blank? || url.blank?
+    end
+  end
 
   include FormattedModel
 
