@@ -1,5 +1,7 @@
 class Post < ActiveRecord::Base
 
+  LJData = Struct.new(:post_id, :url)
+
   include FormattedModel
 
   self.skip_time_zone_conversion_for_attributes = [:face_date]
@@ -7,7 +9,7 @@ class Post < ActiveRecord::Base
   TOPICS = %w(OBSR NEWS SITE)
   STATES = %w(OPEN PRIV NIDX)
 
-  serialize :lj_data, Hashie::Mash
+  serialize :lj_data, LJData
 
   before_save :update_face_date
 
