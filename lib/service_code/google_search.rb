@@ -10,9 +10,9 @@ class GoogleSearch < ServiceCode
 
   def form_url
     if config.code.present?
-      "http://google.com/cse"
+      "//www.google.com/cse"
     else
-      "http://google.com/search"
+      "//www.google.com/search"
     end
   end
 
