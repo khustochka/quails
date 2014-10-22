@@ -31,7 +31,7 @@ class FlickrPhotosController < ApplicationController
     if request.format.html?
       render :show
     else
-      respond_with @photo
+      render json: @photo
     end
   end
 
