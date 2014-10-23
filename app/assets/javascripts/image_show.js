@@ -1,5 +1,3 @@
-//= require jquery_pjax
-
 $(function () {
 
   // Not used for now
