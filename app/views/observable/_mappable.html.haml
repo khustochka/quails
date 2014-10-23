@@ -4,6 +4,9 @@
 
 - @page_title = "Edit map: #{mappable.slug}"
 
+- provide :add_shortcuts do
+  %li= link_to "Map the card", edit_map_url(q: {card_id: mappable.card.id})
+
 .map-side-panel
   = render 'admin/shortcuts' if current_user.admin?
 

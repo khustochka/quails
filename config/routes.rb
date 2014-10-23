@@ -97,7 +97,7 @@ Rails.application.routes.draw do
       get 'observations'
     end
     collection do
-      get 'half_mapped'
+      get 'unmapped'
       get 'series'
       post 'upload'
     end
