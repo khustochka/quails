@@ -36,7 +36,7 @@ module SecurityController
 
   def url_options_for_admin
     @@url_options_for_admin ||=
-        {locale: nil}.merge(
+        {locale: nil}.merge!(
             Quails.env.ssl? ? {only_path: false, protocol: 'https'} : {}
         )
   end

@@ -16,7 +16,7 @@
     \|
     %li= link_to t('menu.checklist'), checklist_path({country: 'ukraine'}.merge(url_options_for_admin))
     %li= link_to 'Photostream', images_path(url_options_for_admin)
-    %li= link_to 'Stats', research_path({action: 'stats'}.merge(url_options_for_admin))
+    %li= link_to 'Stats', research_path({action: 'stats'}.merge!(url_options_for_admin))
     %li= link_to t('menu.lifelist'), advanced_list_path(url_options_for_admin)
 
     - if Quails.env.ssl? && !request.ssl?
