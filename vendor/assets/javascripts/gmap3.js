@@ -1760,11 +1760,9 @@ function Gmap3($this) {
         // create a custom overlay command
         // nb: 2 extends are faster self a deeper extend
         atd = $.extend({}, td);
-        var xcontent = style.content ? style.content.replace("CLUSTER_COUNT", cnt) : "";
-        xcontent = $(xcontent).css({cursor:"pointer"});
         atd.options = $.extend({
             pane: "overlayLayer",
-            content: xcontent,
+            content: style.content ? style.content.replace("CLUSTER_COUNT", cnt) : "",
             offset: {
               x: ("x" in offset ? offset.x : offset[0]) || 0,
               y: ("y" in offset ? offset.y : offset[1]) || 0
