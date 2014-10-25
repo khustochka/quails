@@ -108,6 +108,9 @@ Rails.application.routes.draw do
       get 'edit/map', action: :map_edit
       post 'patch'
     end
+    collection do
+      get 'unmapped'
+    end
   end
 
   get '/photos(/page/:page)' => 'images#index', page: /[^0]\d*/,

@@ -20,6 +20,8 @@
     %b (#{Image.half_mapped.count})
     \/
     = link_to('Unmapped images', {controller: :images, action: :unmapped})
+    \/
+    = link_to('Unmapped videos', {controller: :videos, action: :unmapped})
   %li= link_to('Unflickred images', unflickred_photos_path)
   %li= link_to('Potential series', {controller: :images, action: :series})
   %li= link_to('Unused flickr images', flickr_unused_path)
