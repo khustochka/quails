@@ -3,8 +3,10 @@
     show:
       title: Map
 
-      world: Whole world
+      world: The World
       ukraine: Ukraine
       usa: USA
+      europe: Europe
+      north_america: North America
 
       close: Close
