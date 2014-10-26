@@ -244,6 +244,6 @@ Rails.application.routes.draw do
   get '/flickr' => 'flickr#index'
   get '/flickr/auth' => 'flickr#auth'
 
-  resources :ebird, as: :ebird_files, controller: :ebird, only: [:index, :new, :create, :destroy]
+  resources :ebird, as: :ebird_files, controller: :ebird
 
 end

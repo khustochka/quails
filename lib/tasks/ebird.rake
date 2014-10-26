@@ -62,7 +62,7 @@ end
 def polimorfic_image_render(img)
   if img.on_flickr?
     ff = FlickrPhoto.new(img)
-    link_to image_tag(img.assets_cache.externals.find_max_size(width: 600).full_url, alt: nil), ff.page_url
+    link_to image_tag(img.assets_cache.externals.find_max_size(width: 600).download_url, alt: nil), ff.page_url
   else
     image_tag(img.assets_cache.locals.find_max_size(width: 600).try(:full_url) || legacy_image_url("#{img.slug}.jpg"), alt: nil)
   end

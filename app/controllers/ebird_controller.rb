@@ -5,7 +5,11 @@ class EbirdController < ApplicationController
   administrative
 
   def index
-    @files = Ebird::File.preload(:cards)
+    @files = Ebird::File.order(:created_at).preload(:cards)
+  end
+
+  def show
+    @file = Ebird::File.find(params[:id])
   end
 
   def new
@@ -30,7 +34,7 @@ class EbirdController < ApplicationController
       if result
         @file.cards = cards_rel
         @files = Ebird::File.preload(:cards)
-        flash.notice = "Successfully created CSV file #{ActionController::Base.helpers.link_to(@file.name, @file.full_url)}".html_safe
+        flash.notice = "Successfully created CSV file #{ActionController::Base.helpers.link_to(@file.name, @file.download_url)}".html_safe
         render :index
       else
         @file.destroy
@@ -44,6 +48,12 @@ class EbirdController < ApplicationController
       raise
     end
 
+  end
+
+  def update
+    @file = Ebird::File.find(params[:id])
+    @file.update_attributes(params[:file])
+    render json: {status_line: render_to_string(partial: 'status_line', formats: [:html], locals: {file: @file})}
   end
 
   def destroy

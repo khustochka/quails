@@ -1,3 +1,5 @@
+- @js_features = ['ebirdTransitions']
+
 - @page_title = 'eBird submissions'
 
 %h1= page_header
@@ -11,16 +13,22 @@
   %tr
     %th id
     %th Name
+    %th file
     %th Created
-    %th Cards count
+    %th Cards
     %th Status
     %th
 
   - @files.each do |file|
     %tr
       %td= file.id
-      %td= link_to file.name, file.full_url
+      %td= link_to file.name, file
+      %td= link_to "[csv]", file.download_url
       %td= file.created_at.strftime("%F %R")
-      %td= file.cards.size
-      %td= file.status
+      %td
+        = file.cards.size
+        - if file.outdated?
+          %small.draft.tag OUTDATED
+      %td.status-line
+        = render partial: 'status_line', locals: {file: file}
       %td= default_destroy_link(file)
