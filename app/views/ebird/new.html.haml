@@ -15,8 +15,12 @@
 
 = simple_form_for @file, url: {action: :create} do |form|
 
+  = render @file.errors.extend(GenericErrors)
+
   = form.input :name
 
   = default_submit_button(form, value: "Generate CSV")
 
   %ul.cards_list#search-results
+
+    = render @file.cards
