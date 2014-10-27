@@ -21,7 +21,7 @@ class Ebird::File < ActiveRecord::Base
   validate :cards_effort, on: :create
 
   has_many :ebird_submissions, :class_name => 'Ebird::Submission', foreign_key: 'ebird_file_id', dependent: :delete_all
-  has_many :cards, through: :ebird_submissions
+  has_many :cards, -> { order(:observ_date) }, through: :ebird_submissions
 
   def download_url
     "/csv/#{name}.csv"

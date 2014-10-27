@@ -23,4 +23,4 @@
 
   %ul.cards_list#search-results
 
-    = render @file.cards
+    = render @file.cards.sort {|a, b| b.errors.size <=> a.errors.size}
