@@ -70,6 +70,7 @@ class CardsController < ApplicationController
   # POST /cards.json
   def create
     @card = Card.new(params[:card])
+    params[:card][:resolved] = true if params[:resolve]
 
     respond_to do |format|
       if @card.save
@@ -86,6 +87,7 @@ class CardsController < ApplicationController
   # PUT /cards/1.json
   def update
     @card = Card.find(params[:id])
+    params[:card][:resolved] = true if params[:resolve]
 
     respond_to do |format|
       if @card.update_attributes(params[:card])
