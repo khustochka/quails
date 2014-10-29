@@ -16,6 +16,7 @@
     %th file
     %th Created
     %th Cards
+    %th Period
     %th Status
     %th
 
@@ -28,7 +29,11 @@
       %td
         = file.cards.size
         - if file.outdated?
-          %small.draft.tag OUTDATED
+          %small.draft.tag OUT
+      %td
+        %nobr= file.cards.minimum(:observ_date)
+        \-
+        %nobr= file.cards.maximum(:observ_date)
       %td.status-line
         = render partial: 'status_line', locals: {file: file}
       %td= default_destroy_link(file)
