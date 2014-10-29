@@ -1,3 +1,5 @@
+require 'simple_partial'
+
 class ObservationSearch
 
   # This makes it act as Model usable to build form
@@ -21,7 +23,7 @@ class ObservationSearch
     end
   end
 
-  CARD_ATTRIBUTES = [:observ_date, :locus_id, :card_id, :resolved, :inclusive]
+  CARD_ATTRIBUTES = [:observ_date, :end_date, :locus_id, :card_id, :resolved, :inclusive]
   OBSERVATION_ATTRIBUTES = [:species_id, :voice]
   ALL_ATTRIBUTES = CARD_ATTRIBUTES + OBSERVATION_ATTRIBUTES
 
@@ -34,17 +36,8 @@ class ObservationSearch
         card: @all_conditions.slice(*CARD_ATTRIBUTES),
         observation: @all_conditions.slice(*OBSERVATION_ATTRIBUTES)
     }
-    if card_id = @conditions[:card].delete(:card_id)
-      @conditions[:card][:id] = card_id
-      @conditions[:card][:locus_id] ||= Card.find(card_id).try(:locus_id)
-      @all_conditions[:locus_id] ||= @conditions[:card][:locus_id]
-    end
 
-    if @conditions[:card].delete(:inclusive)
-      locus = Locus.find(@conditions[:card][:locus_id])
-      @conditions[:card][:locus_id] = locus.subregion_ids
-      @all_conditions[:locus_id] = @conditions[:card][:locus_id]
-    end
+    normalize_conditions
 
   end
 
@@ -69,6 +62,37 @@ class ObservationSearch
 
   def observations_filtered?
     @conditions[:observation].present?
+  end
+
+  # Rendering
+
+  def dates_fieldset
+    SimplePartial.new('observations/search/dates_fieldset')
+  end
+
+  def voice_fieldset
+    SimplePartial.new('observations/search/voice_fieldset')
+  end
+
+  private
+
+  def normalize_conditions
+    if card_id = @conditions[:card].delete(:card_id)
+      @conditions[:card][:id] = card_id
+      @conditions[:card][:locus_id] ||= Card.find(card_id).try(:locus_id)
+      @all_conditions[:locus_id] ||= @conditions[:card][:locus_id]
+    end
+
+    if @conditions[:card].delete(:inclusive) && loc = @conditions[:card][:locus_id]
+      locus = Locus.find(loc)
+      @conditions[:card][:locus_id] = locus.subregion_ids
+      @all_conditions[:locus_id] = @conditions[:card][:locus_id]
+    end
+
+    if end_date = @conditions[:card].delete(:end_date)
+      start_date = @conditions[:card].delete(:observ_date)
+      @conditions[:card][:observ_date] = start_date..end_date
+    end
   end
 
 end

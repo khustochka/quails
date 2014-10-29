@@ -10,7 +10,7 @@
 - if alert
   %div.errors= alert
 
-= simple_form_for @observation_search, url: cards_path, method: :get, remote: true, html: {class: 'search'} do |form|
+= simple_form_for @observation_search, url: cards_path, method: :get, remote: true, html: {class: 'search ebird_obs_search'} do |form|
   = render 'observations/search_fields', form: form
 
 = simple_form_for @file, url: {action: :create} do |form|

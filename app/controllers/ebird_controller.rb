@@ -14,7 +14,7 @@ class EbirdController < ApplicationController
 
   def new
     @file = Ebird::File.new
-    @observation_search = ObservationSearch.new
+    @observation_search = Ebird::ObsSearch.new
   end
 
   def create
