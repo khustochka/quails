@@ -16,8 +16,8 @@ class Card < ActiveRecord::Base
   has_many :species, -> { order(:index_num) }, through: :observations
   has_many :spots, through: :observations
 
-  has_many :ebird_submissions, class_name: 'Ebird::Submission', dependent: :delete_all
-  has_many :ebird_files, :class_name => 'Ebird::File', through: :ebird_submissions
+  has_many :ebird_submissions, class_name: 'Ebird::Submission', dependent: :delete_all, inverse_of: :card
+  has_many :ebird_files, class_name: 'Ebird::File', through: :ebird_submissions, inverse_of: :cards
 
   validates :locus_id, :observ_date, presence: true
   validates :effort_type, inclusion: EFFORT_TYPES, allow_blank: false
