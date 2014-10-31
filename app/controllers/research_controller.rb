@@ -2,6 +2,8 @@ class ResearchController < ApplicationController
 
   administrative
 
+  TWO_YEARS = 365 * 2 * 24 * 60 * 60
+
   def environ
     #@env = ENV
     @lc_collate = ActiveRecord::Base.connection.select_rows("SHOW LC_COLLATE")[0][0]
@@ -68,14 +70,14 @@ class ResearchController < ApplicationController
 
 
     sort_col = :date2
-    period = 365 * 2 * 24 * 60 * 60
+
     @recent_2yrs = Image.joins(:observations).order(:created_at).preload(:species).merge(MyObservation.all).
         group_by { |i| i.species.first }.each_with_object([]) do |imgdata, collection|
 
       sp, imgs = imgdata
 
       img = imgs.each_cons(2).select do |im1, im2|
-        im2.created_at > Date.new(2013).beginning_of_year && (im2.created_at - im1.created_at) >= period
+        im2.created_at > Date.new(2014).beginning_of_year && (im2.created_at - im1.created_at) >= TWO_YEARS
       end
       collection.concat(
           img.map do |im1, im2|

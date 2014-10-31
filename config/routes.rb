@@ -97,7 +97,7 @@ Rails.application.routes.draw do
       get 'observations'
     end
     collection do
-      get 'half_mapped'
+      get 'unmapped'
       get 'series'
       post 'upload'
     end
@@ -107,6 +107,9 @@ Rails.application.routes.draw do
     member do
       get 'edit/map', action: :map_edit
       post 'patch'
+    end
+    collection do
+      get 'unmapped'
     end
   end
 
@@ -241,6 +244,6 @@ Rails.application.routes.draw do
   get '/flickr' => 'flickr#index'
   get '/flickr/auth' => 'flickr#auth'
 
-  resources :ebird, as: :ebird_files, controller: :ebird, only: [:index, :new, :create, :destroy]
+  resources :ebird, as: :ebird_files, controller: :ebird, except: [:edit]
 
 end

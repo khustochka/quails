@@ -2,6 +2,8 @@ require 'flickr/client'
 
 class FlickrPhoto
 
+  Data = Struct.new(:title, :description, :date_taken, :tags)
+
   DEFAULT_PARAMS = {safety_level: 1, content_type: 1}
   DESCRIPTIVE_PARAMS = %i(title description tags)
 
@@ -115,12 +117,12 @@ class FlickrPhoto
 
   def get_info
     data = flickr.photos.getInfo({photo_id: @flickr_id}).get
-    Hashie::Mash.new({
-                         title: data.title,
-                         description: data.description,
-                         date_taken: data.dates.taken,
-                         tags: data.tags.map { |t| t.raw }
-                     })
+    Data.new(
+        data.title,
+        data.description,
+        data.dates.taken,
+        data.tags.map { |t| t.raw }
+    )
   end
 
   def local_url

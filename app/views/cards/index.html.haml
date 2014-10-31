@@ -7,6 +7,14 @@
 
 - @page_title = 'Cards'
 
+- provide :add_shortcuts do
+  %li
+    - if params[:q].try(:[], :resolved).to_s == 'false'
+      - @page_title = 'Unresolved cards'
+      = link_to 'Show all', cards_path
+    - else
+      = link_to 'Unresolved', cards_path(q: {resolved: false})
+
 %h1= page_header
 
 = render 'admin/shortcuts' if current_user.admin?

@@ -1,4 +1,7 @@
 - @js_controller = 'comments'
+
+- @js_features = [:videoQuality]
+
 - javascript 'post_show_admin' if current_user.admin?
 
 -# @meta_thumbnail = thumbnail_item(@post.images.to_a.first).try(:url) if @post.images.present?

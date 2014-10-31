@@ -98,13 +98,13 @@ class PostsControllerTest < ActionController::TestCase
     blogpost = create(:post)
     blogpost.title = ''
     login_as_admin
-    put :update, id: blogpost.to_param, post: blogpost.attributes
+    put :update, id: blogpost.to_param, post: blogpost.attributes.except('lj_data')
     assert_template :form
   end
 
   test "do not update post with invalid slug" do
     blogpost = create(:post)
-    post_attr = blogpost.attributes
+    post_attr = blogpost.attributes.except('lj_data')
     post_attr['slug'] = ''
     login_as_admin
     put :update, id: blogpost.slug, post: post_attr

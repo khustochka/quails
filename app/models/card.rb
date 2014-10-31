@@ -16,11 +16,14 @@ class Card < ActiveRecord::Base
   has_many :species, -> { order(:index_num) }, through: :observations
   has_many :spots, through: :observations
 
-  has_many :ebird_submissions, class_name: 'Ebird::Submission', dependent: :delete_all
-  has_many :ebird_files, :class_name => 'Ebird::File', through: :ebird_submissions
+  has_many :ebird_submissions, class_name: 'Ebird::Submission', dependent: :delete_all, inverse_of: :card
+  has_many :ebird_files, class_name: 'Ebird::File', through: :ebird_submissions, inverse_of: :cards
 
   validates :locus_id, :observ_date, presence: true
   validates :effort_type, inclusion: EFFORT_TYPES, allow_blank: false
+  validate :check_effort, on: :ebird_post
+  validates :start_time, :duration_minutes, :distance_kms, presence: true, on: :travel
+  validates :start_time, :duration_minutes, :area, presence: true, on: :area
 
   accepts_nested_attributes_for :observations,
                                 reject_if:
@@ -48,6 +51,14 @@ class Card < ActiveRecord::Base
     @new_species_ids ||= self.observations.
         where("NOT EXISTS(#{subquery})").
         pluck(:species_id)
+  end
+
+  def check_effort
+    if effort_type == 'TRAVEL'
+      self.valid?(:travel)
+    elsif effort_type == 'AREA'
+      self.valid?(:area)
+    end
   end
 
 end

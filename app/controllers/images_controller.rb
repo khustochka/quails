@@ -76,8 +76,15 @@ class ImagesController < ApplicationController
     redirect_to new_image_path(image_attributes)
   end
 
-  def half_mapped
-    @images = Image.half_mapped.page(params[:page].to_i).per(24)
+  def unmapped
+    @half = params[:half]
+    images =
+        if @half
+          Image.half_mapped
+        else
+          Image.where(spot_id: nil)
+        end
+    @images = images.order('created_at DESC').page(params[:page].to_i).per(24)
   end
 
   # GET /photos/1/map_edit

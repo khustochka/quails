@@ -43,6 +43,16 @@ class FormattersTest < ActionView::TestCase
 
   end
 
+  test "Post with video by slug" do
+    video = create(:video)
+    post = build(:post, text: "{{&#{video.slug}}}")
+    assert_includes post.formatted.for_site.text,
+                    "<div class=\"video-container\"><iframe"
+    assert_includes post.formatted.for_site.text,
+                    "src=\"#{video.large.url}\""
+
+  end
+
   test "Invalid image wiki tag should not raise exception" do
     post = build(:post, text: "{{^sdfgdfsgsdfgdfsgdf}}")
     assert_equal "",
@@ -66,7 +76,7 @@ class FormattersTest < ActionView::TestCase
     url = "http://stonechat.livejournal.com/1111.html"
     post1 = create(:post,
                    slug: "post_for_link",
-                   lj_data: Hashie::Mash.new({post_id: "1111", url: "http://stonechat.livejournal.com/1111.html"}))
+                   lj_data: Post::LJData.new("1111", "http://stonechat.livejournal.com/1111.html"))
     post = build(:post, text: "This is a {{#post|post_for_link}}")
     assert_equal "<p>This is a <a href=\"#{url}\">post</a></p>",
                  post.formatted.for_lj.text

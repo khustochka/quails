@@ -169,7 +169,7 @@ class EbirdObservation
 
   EUROPEAN_STONECHAT = SpeciesTemplate.new('Saxicola rubicola', 'European Stonechat')
 
-  FERAL_PIGEON = SpeciesTemplate.new('Columba livia (Domestic type)', 'Rock Pigeon (Feral Pigeon)')
+  FERAL_PIGEON = SpeciesTemplate.new('Columba livia (Feral Pigeon)', 'Rock Pigeon (Feral Pigeon)')
 
   MOTACILLA_FELDEGG = SpeciesTemplate.new('Motacilla flava feldegg', 'Western Yellow Wagtail (Black-headed)')
 

@@ -1,4 +1,5 @@
 class LJFormatStrategy < FormattingStrategy
+  include VideoEmbedder
 
   include SpeciesHelper
   include ImagesHelper

@@ -1,6 +1,6 @@
 class FormattingStrategy
 
-  WIKI_PREFIXES = "@|#|\\^"
+  WIKI_PREFIXES = "@|#|\\^|&"
 
   def initialize(text, metadata = {})
     @text = text
@@ -22,6 +22,8 @@ class FormattingStrategy
           post_link(word, term)
         when '^' then
           img_link(term)
+        when '&' then
+          video_embed(term)
         when '' then
           species_link(word, term)
       end
@@ -54,8 +56,6 @@ class FormattingStrategy
       @species = {}
     end
   end
-
-  private
 
   def only_path?
     true

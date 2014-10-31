@@ -1,9 +1,8 @@
 source 'https://rubygems.org/'
 
-ruby '2.1.3'
+ruby '2.1.4'
 
-gem 'rails', '4.2.0.beta2'
-#gem 'rails-dom-testing', github: 'rails/rails-dom-testing'
+gem 'rails', '4.2.0.beta4'
 
 gem 'pg', platforms: [:ruby, :mingw]
 gem "activerecord-jdbcpostgresql-adapter", platforms: :jruby
@@ -30,7 +29,7 @@ gem 'hashie'
 gem 'addressable', require: 'addressable/uri'
 gem 'roman-numerals'
 gem 'rinku'
-gem 'dotenv-rails'
+gem 'dotenv-deployment'
 gem 'ancestry'
 gem 'ordered-active-record'
 
@@ -54,7 +53,7 @@ gem 'factory_girl_rails', '~> 4.0', groups: [:development, :test]
 
 group :test do
   gem 'capybara'
-  gem 'capybara-webkit', '~> 1.0', platforms: [:mri], require: false
+  gem 'capybara-webkit'#, '~> 1.2.0', platforms: [:mri], require: false
   gem 'selenium-webdriver'
 #  gem 'poltergeist', platforms: [:mri], require: false
   gem 'database_cleaner', require: false

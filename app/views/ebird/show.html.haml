@@ -1,0 +1,39 @@
+- @js_features = ['ebirdTransitions']
+
+- @page_title = @file.name
+
+%h1= @page_title
+
+= render 'admin/shortcuts' if current_user.admin?
+
+%dl
+  %dt CSV
+  %dd= link_to "[download]", @file.download_url
+
+  %dt Created
+  %dd= @file.created_at.strftime("%F %R")
+
+  %dt Status and transitions
+  %dd.status-line
+    = render partial: 'status_line', locals: {file: @file}
+
+  %dt Cards
+  %dd= @file.cards.size
+
+  %dt From
+  %dd= @file.cards.first.observ_date
+
+  %dt Till
+  %dd= @file.cards.last.observ_date
+
+  %dt Places
+  %dd= @file.cards.preload(:locus).map(&:locus).uniq.map(&:name_en).to_sentence
+
+  %dt Outdated (any card updated after file creation)
+  %dd
+    %span.draft.tag= @file.outdated?
+
+  %dt Expired (any valid ebird file for the same cards)
+  %dd TODO
+
+= render @file.cards

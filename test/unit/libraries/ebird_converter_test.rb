@@ -86,7 +86,7 @@ class EbirdConverterTest < ActiveSupport::TestCase
 
   test "that Feral Pigeon is marked properly" do
     obs = FactoryGirl.create(:observation, species: seed(:colliv))
-    assert_equal "Columba livia (Domestic type)", oconv(obs).send(:latin_name)
+    assert_equal "Columba livia (Feral Pigeon)", oconv(obs).send(:latin_name)
     assert_equal "Rock Pigeon (Feral Pigeon)", oconv(obs).send(:common_name)
   end
 
