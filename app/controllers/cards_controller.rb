@@ -70,7 +70,7 @@ class CardsController < ApplicationController
   # POST /cards.json
   def create
     @card = Card.new(params[:card])
-    params[:card][:resolved] = true if params[:resolve]
+    @card.resolved = true if params[:resolve]
 
     respond_to do |format|
       if @card.save
