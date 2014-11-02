@@ -23,7 +23,7 @@ class Card < ActiveRecord::Base
   validates :effort_type, inclusion: EFFORT_TYPES, allow_blank: false
   validate :check_effort, on: :ebird_post
   validates :start_time, :duration_minutes, :distance_kms, presence: true, on: :travel
-  validates :start_time, :duration_minutes, :area, presence: true, on: :area
+  validates :start_time, :duration_minutes, :area_acres, presence: true, on: :area
 
   accepts_nested_attributes_for :observations,
                                 reject_if:

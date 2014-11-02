@@ -118,8 +118,8 @@ class EbirdObservation
   end
 
   def area
-    # acres?
-    #card.area
+    # values is in acres
+    card.area_acres
   end
 
   def checklist_comment

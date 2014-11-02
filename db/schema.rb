@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141009183225) do
+ActiveRecord::Schema.define(version: 20141102185743) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(version: 20141009183225) do
     t.string   "effort_type",                default: "INCIDENTAL", null: false
     t.integer  "duration_minutes"
     t.float    "distance_kms"
-    t.float    "area"
+    t.float    "area_acres"
     t.boolean  "resolved",                   default: false,        null: false
   end
 
