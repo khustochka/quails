@@ -112,11 +112,20 @@ form.comment
 
   label
     vertical-align: top
-    display: inline-block
-    width: 48px
+    display: block
+    //width: 48px
     font: bold 15px Tahoma, Verdana, Arial, sans-serif
     color: #605070
-    padding: 5px 0
+    //padding: 5px 0
+
+  .comment_nmaee, .commenter_email
+    float: left
+    width: 295px
+
+  .comment_nmaee
+    margin-right: 10px
+  .commenter_email
+    margin-left: 10px
 
   div.input
     display: block
@@ -126,7 +135,7 @@ form.comment
     display: none
 
   input.string
-    width: 552px
+    width: 285px
 
   textarea
     width: 600px
@@ -141,26 +150,20 @@ form.comment
     border: 2px solid #888888
     padding: 5px
 
-  .input.comment_text
+  .input
     .hint
-      display: block
       color: #777777
       font-size: 15px
       font-style: italic
-      width: 612px
-      text-align: right
-
-  .input.comment_send_email
-    margin-bottom: 3px
-    label
       font-weight: normal
-      width: auto
-      margin-left: 6px
-      padding: 0
+      font-family: Arial, sans-serif
+  .input.comment_text .hint
+    width: 612px
+    text-align: right
+    display: block
+  .input.commenter_email .hint
+    font-size: 11px
 
-  .input.commenter_email
-    input.string
-      width: 600px
 
 // Image
 
@@ -347,10 +350,14 @@ li.feed_li:before
 
 @media only all and (max-width: 580px)
   form.comment
-    textarea, input.string, .input.comment_text .hint, .input.commenter_email input.string
+    .input.commenter_email, .input.comment_nmaee
       width: 100%
-    label
-      display: inline
+      margin-left: 0px
+    textarea, input.string,
+    .input.comment_text .hint,
+    .input.commenter_email input.string,
+    .input.comment_nmaee input.string
+      width: 100%
 
 
 .winter-banner
