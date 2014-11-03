@@ -130,13 +130,17 @@ class EbirdObservation
 
   def try_name(method)
     if @obs.species_id == 0
-      @obs.notes
+      name_from_notes
     else
       sp = SPECIES_BY_COUNTRY[country.slug][@obs.species_id] || self.class.ebird_species_cache[@obs.species_id]
       sp.send(method)
     end
   rescue
     raise "Error with species id #{@obs.species_id}"
+  end
+
+  def name_from_notes
+    @name_from_notes ||= @obs.notes.gsub(/https?:\/\/[\w0-9\-_\/#?=&\.]*/, '')
   end
 
   def card
