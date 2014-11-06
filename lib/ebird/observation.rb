@@ -37,7 +37,9 @@ class EbirdObservation
       'UNSET' => 'incidental',
       'INCIDENTAL' => 'incidental',
       'TRAVEL' => 'traveling',
-      'AREA' => 'area'
+      'AREA' => 'area',
+      'HISTORICAL' => 'historical',
+      'STATIONARY' => 'stationary'
   }
 
   private
