@@ -14,9 +14,11 @@
     english: English
     russian: По-русски
 
-  partials:
+  filters:
     years:
       years: 'Год:'
+
+  partials:
     search:
       search_button: Поиск
       fallback_text: Найти больше
