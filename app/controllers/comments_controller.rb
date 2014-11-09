@@ -64,7 +64,9 @@ class CommentsController < ApplicationController
 
       commenter_email = params[:commenter].try(:[], :email)
 
-      if @comment.send_email && commenter_email.present?
+      @comment.send_email = commenter_email.present?
+
+      if @comment.send_email
         commenter = Commenter.find_by(email: commenter_email) ||
             Commenter.create!(name: @comment.name, email: commenter_email)
         @comment.commenter = commenter
