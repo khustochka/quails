@@ -52,7 +52,7 @@
 
   = form.input :notes, input_html: {rows: 7, class: 'wiki_field'}
 
-  %div.card-fields-wrapper
+  %div.card-fields-wrapper.cf
     = form.input :effort_type, collection: Card::EFFORT_TYPES, include_blank: false,
                                input_html: {size: '5'}, wrapper_html: {class: 'float-left'}
     = form.input :start_time, input_html: {class: 'short'}
