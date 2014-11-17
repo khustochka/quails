@@ -17,8 +17,11 @@ Quails.features.showcase =
 
   processHash: ->
     hash = location.hash[1..-1]
-    if $.inArray(hash, @slughashes) > -1
-      @loadPage(hash)
+    if hash = ""
+      @closeOverlay
+    else
+      if $.inArray(hash, @slughashes) > -1
+        @loadPage(hash)
 
   loadPage: (hash) ->
     @showOverlay()
@@ -40,3 +43,10 @@ Quails.features.showcase =
     $('.main_inside').css('height', window.innerHeight - 60 + "px")
     # Disable body scroll
     $("body").css({'overflow':'hidden'});
+
+  closeOverlay: ->
+    $('.full_overlay').hide()
+    $('.image_overlay').hide()
+    $('.image_overlay .main_inside').html("")
+    $("body").css({'overflow':'auto'});
+
