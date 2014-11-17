@@ -1,0 +1,19 @@
+- @page_header = @image.formatted.title
+
+=# render 'partials/translated'
+
+%div.image_canvas= image_tag(jpg_url(@image), alt: t('images.alt_photo'))
+
+%h2= link_to page_header, @image
+
+- @image.children.each do |sub_img|
+
+  %div.image_canvas= image_tag(jpg_url(sub_img), alt: t('images.alt_photo'))
+
+  %h2{id: sub_img.slug}= link_to sub_img.formatted.title, sub_img
+
+  = sub_img.formatted.description
+
+= render partial: "observable/long_details", locals: {media: @image}
+
+=# render 'social/buttons'

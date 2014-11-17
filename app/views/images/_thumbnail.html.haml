@@ -3,7 +3,8 @@
 
 - extra_data = current_user.admin? && request.format == 'text/html'
 
-- data = extra_data ? thumbnail.data : nil
+- data = {slughash: thumbnail.slug}
+- data.merge!(thumbnail.data) if extra_data
 
 %figure.image_thumb{data: data}<>
   -# Show a badge if it is on flickr or not, with link to edit
@@ -12,9 +13,10 @@
     %span.flickr_badge
       = link_to image_tag(on_flickr[0], alt: on_flickr[1]), flickr_photo_path(thumbnail.image), title: on_flickr[1]
 
-  = link_to image_tag(thumbnail.asset_url, alt: t('images.alt_photo'), height: h, width: w), localize_url(thumbnail.url)
+  = link_to localize_url(thumbnail.url), data: {rel: :self} do
+    = image_tag(thumbnail.asset_url, alt: t('images.alt_photo'), height: h, width: w)
   %figcaption.imagetitle
-    = link_to localize_url(thumbnail.url) do
+    = link_to localize_url(thumbnail.url), data: {rel: :self} do
       - if thumbnail.title.is_a? String
         = thumbnail.title
       - else

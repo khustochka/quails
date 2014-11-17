@@ -35,6 +35,11 @@ class ImagesController < ApplicationController
   # GET /photos/1
   def show
     @robots = 'NOINDEX' if @image.status == 'NOIDX' || @image.parent_id
+    if params[:showcase]
+      render :showcase, layout: false
+    else
+      render
+    end
   end
 
   # GET /photos/new
