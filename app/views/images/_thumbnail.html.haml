@@ -1,7 +1,7 @@
 - h = thumbnail.height
 - w = thumbnail.width
 
-- extra_data = current_user.admin? && request.format == 'text/html'
+- extra_data = current_user.admin? && request.format == 'text/html' && thumbnail.data
 
 - data = {slughash: thumbnail.slug}
 - data.merge!(thumbnail.data) if extra_data

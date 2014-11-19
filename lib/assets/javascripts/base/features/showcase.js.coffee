@@ -17,7 +17,7 @@ Quails.features.showcase =
 
   processHash: ->
     hash = location.hash[1..-1]
-    if hash = ""
+    if hash == ""
       @closeOverlay
     else
       if $.inArray(hash, @slughashes) > -1
