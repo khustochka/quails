@@ -12,4 +12,11 @@ class ObservationTest < ActiveSupport::TestCase
     assert_equal [img], @observation.images
   end
 
+  test 'updating observation touches card' do
+    before = @observation.card.updated_at
+    @observation.update_attribute(:species_id, seed('paratr').id)
+    after = @observation.card.updated_at
+    assert after > before
+  end
+
 end
