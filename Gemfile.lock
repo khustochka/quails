@@ -1,9 +1,11 @@
 GIT
   remote: git://github.com/khustochka/route_translator.git
-  revision: f9a05b760f0529cbdc8aa2493eeefd34e7ee9586
+  revision: 15df185c34a64ebb931a2a9e1fb9032fc0ff5957
   branch: no-translation
   specs:
-    route_translator (3.2.2)
+    route_translator (3.2.4)
+      actionpack (>= 3.0, < 5.0)
+      activesupport (>= 3.0, < 5.0)
 
 GEM
   remote: https://rubygems.org/
@@ -168,7 +170,7 @@ GEM
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
-    sprockets-rails (2.2.0)
+    sprockets-rails (2.2.1)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)

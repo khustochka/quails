@@ -7,8 +7,8 @@ atom_feed(id: "tag:#{request.host},2008-03-24:/gallery", root_url: url_for({acti
 
   @media.each do |media|
     feed.entry(media,
-               :url => localize_url(media, only_path: false),
-               :id => "tag:#{request.host},2008-03-24:#{localize_url(media)}") do |entry|
+               :url => polymorphic_url(media),
+               :id => "tag:#{request.host},2008-03-24:#{polymorphic_path(media)}") do |entry|
       entry.title(media.formatted.title, :type => 'html')
       entry.content(
           render(partial: 'media', formats: :html, object: media), :type => 'html'
