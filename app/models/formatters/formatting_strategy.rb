@@ -1,6 +1,6 @@
 class FormattingStrategy
 
-  WIKI_PREFIXES = "@|#|\\^"
+  WIKI_PREFIXES = "@|#|\\^|&"
 
   def initialize(text, metadata = {})
     @text = text
@@ -22,6 +22,8 @@ class FormattingStrategy
           post_link(word, term)
         when '^' then
           img_link(term)
+        when '&' then
+          video_embed(term)
         when '' then
           species_link(word, term)
       end
@@ -38,7 +40,7 @@ class FormattingStrategy
 
   def prepare
     @posts = Hash.new do |hash, term|
-      hash[term] = Post.find_by_slug(term.downcase)
+      hash[term] = Post.find_by(slug: term.downcase)
     end
 
     sp_codes = @text.scan(/\{\{(?!#{WIKI_PREFIXES})(?:([^\}]*?)\|)?(.+?)\}\}/).map do |word, term|
@@ -54,8 +56,6 @@ class FormattingStrategy
       @species = {}
     end
   end
-
-  private
 
   def only_path?
     true

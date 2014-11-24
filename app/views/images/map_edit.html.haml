@@ -1,35 +1,4 @@
-- javascript AssetsHelper::GMAP_API_URL, 'image_map'
-- @body_class = 'map-page'
-- stylesheet 'map_edit'
-
-- @page_title = "Edit map: #{@image.slug}"
-
-.map-side-panel
-  = render 'admin/shortcuts' if current_user.admin?
-
-  - if notice
-    %p#notice= notice
-
+- content_for :observable_thumbnail do
   %p= image_tag(thumbnail_item(@image).try(:full_url), class: 'image_pic')
 
-  - if @image.spots.empty?
-    %p.errors No observations mapped!
-  - elsif @image.spot_id.blank?
-    %p.errors Not yet mapped!
-
-  %ul.obs-list
-    = render partial: 'observations/obs_item', collection: @image.observations.preload(:species, :card => :locus)
-
-= render 'spots/form'
-
-.mapContainer
-  #googleMap
-
-:javascript
-  var patch_url = "#{patch_image_path(@image, format: :json)}",
-      marks = #{@image.spots.to_json(only: [:lat, :lng, :id])},
-      max_zoom = #{@image.spots.map(&:zoom).max || "null"},
-      image_spot, locusLatLng;
-  #{"image_spot = #{@image.spot_id};" if @image.spot_id}
-  #{"locusLatLng = new google.maps.LatLng(#{@image.locus.lat}, #{@image.locus.lon});" if @image.locus.lat}
-
+= render partial: 'observable/mappable', object: @image

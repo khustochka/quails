@@ -2,9 +2,9 @@ class PostsController < ApplicationController
 
   administrative except: [:show]
 
-  before_filter :find_post, only: [:edit, :update, :destroy, :show, :lj_post]
+  before_action :find_post, only: [:edit, :update, :destroy, :show, :lj_post]
 
-  after_filter :cache_expire, only: [:create, :update, :destroy]
+  after_action :cache_expire, only: [:create, :update, :destroy]
 
   # This is rendered in public layout, just raising exception when no posts are found (the case for regular user)
   def hidden
@@ -33,7 +33,7 @@ class PostsController < ApplicationController
 
   # GET /posts/new
   def new
-    @post = Post.new
+    @post = Post.new(topic: 'OBSR', status: 'PRIV')
     render 'form'
   end
 
@@ -122,12 +122,12 @@ class PostsController < ApplicationController
   private
 
   def find_post
-    @post = current_user.available_posts.find_by_slug!(params[:id])
+    @post = current_user.available_posts.find_by!(slug: params[:id])
   end
 
   def cache_expire
     expire_page controller: :feeds, action: :blog, format: 'xml'
-    expire_page controller: :feeds, action: :photos, format: 'xml'
+    expire_photo_feeds
     expire_page controller: :feeds, action: :sitemap, format: 'xml'
   end
 

@@ -129,6 +129,29 @@ class JSCardsTest < ActionDispatch::IntegrationTest
     assert_equal 0, all('.obs-row').size
   end
 
+  test "Save card after observation removal" do
+    login_as_admin
+
+    @card = create(:card)
+    o = create(:observation, species: seed(:melgal), card: @card)
+    o2 = create(:observation, species: seed(:pasdom), card: @card)
+
+    visit edit_card_path(@card)
+
+    within(:xpath, "//div[contains(@class,'obs-row')][1]") do
+      find(".destroy").click
+    end
+
+    accept_modal_dialog
+
+    assert page.has_no_css?('.obs-row div a', text: o.id.to_s)
+    assert page.has_no_css?("input[value='#{o.id.to_s}'][type=hidden]")
+
+    save_and_check
+
+    assert_equal edit_card_path(@card), current_path
+  end
+
   test 'Species autosuggest box should have Avis incognita and be able to add it' do
     login_as_admin
     visit new_card_path

@@ -45,16 +45,6 @@ class BlogControllerTest < ActionController::TestCase
     assert_includes(assigns(:posts), blogpost)
   end
 
-  test 'get front page in English' do
-    blogpost1 = create(:post, face_date: '2007-12-06 13:14:15')
-    blogpost2 = create(:post, face_date: '2008-11-06 13:14:15')
-    create(:comment)
-    get :home, hl: 'en'
-    assert_response :success
-    assert_includes(assigns(:posts), blogpost1)
-    assert_includes(assigns(:posts), blogpost2)
-  end
-
   test 'show full month and correct Earlier Posts link if the last month exceeds the limit' do
     blogpost1 = create(:post, face_date: '2007-11-30 13:14:15')
     blogpost2 = create(:post, face_date: '2007-11-06 13:14:15')

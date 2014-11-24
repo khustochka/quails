@@ -9,6 +9,7 @@
       countrylist: 'Список страны: %{country}'
       locationlist: 'Местный список: %{location}'
       ukraine: Список Украины
+      canada: Список Канады
       usa: Список США
       gb: Список Великобритании
 

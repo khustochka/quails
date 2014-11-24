@@ -1,6 +1,5 @@
 //= require cards_search_remote
 //= require post_cards
-//= require wiki_form
 
 
 // Lj post

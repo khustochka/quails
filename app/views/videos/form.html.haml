@@ -1,0 +1,30 @@
+- stylesheet 'forms'
+- @js_features = [:observDragger, :wikiFields]
+
+- @page_title = "#{new_or_edit_label(@video)} video"
+
+%h1= page_header
+
+- if @video.persisted?
+  - provide :add_shortcuts do
+    %li= link_to @video.mapped? ? 'Edit map' : '<b>MAP IT!</b>'.html_safe, action: :map_edit
+
+= render 'admin/shortcuts' if current_user.admin?
+
+= simple_form_for(@video, html: {class: 'with_observations'}) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :slug
+    = f.input :title
+    = f.input :youtube_id
+
+  = render partial: 'observable/obs_draggable', locals: {media: @video}
+
+  = f.input :description, input_html: {rows: 7, class: 'wiki_field'}
+
+  .buttons
+    = default_submit_button(f, class: 'submit_with_obs')
+
+- if @video.persisted?
+  %p= default_destroy_button

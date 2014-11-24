@@ -18,9 +18,9 @@ class LifelistAdvancedTest < ActionController::TestCase
     assert_response :success
     assert_select '.main' do
       assert_select 'h5', false # should not splice the list
-      assert_select "a[href=#{advanced_list_path}]"
-      assert_select "a[href=#{url_for(sort: :class, only_path: true)}]"
-      assert_select "a[href=#{url_for(sort: :count, only_path: true)}]", false
+      assert_select "a[href='#{advanced_list_path}']"
+      assert_select "a[href='#{url_for(sort: :class, only_path: true)}']"
+      assert_select "a[href='#{url_for(sort: :count, only_path: true)}']", false
     end
   end
 
@@ -29,7 +29,7 @@ class LifelistAdvancedTest < ActionController::TestCase
     assert_response :success
     assert_select '.main' do
       assert_select 'h5', false # should not splice the list
-      assert_select "a[href=#{advanced_list_path(year: 2009)}]"
+      assert_select "a[href='#{advanced_list_path(year: 2009)}']"
     end
   end
 

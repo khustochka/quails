@@ -1,6 +1,3 @@
-//= require jquery_pjax
-//= require pjax_spinner
-
 $(function () {
 
   // Not used for now
@@ -11,7 +8,7 @@ $(function () {
   // default timeout is causing page reload on heavy pages, like lifelist
   $('.main').pjax('a.img_prev_next');
 
-  showSpinner(function (event) {
+  Quails.features.pjaxSpinner.define(function (event) {
     var link = $(event.relatedTarget);
     link.replaceWith("<img src='/img/loading_small.gif'>");
   });

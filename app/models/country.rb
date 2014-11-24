@@ -3,7 +3,7 @@ class Country < Locus
 
   def self.quick_find(slug)
     Rails.cache.fetch("records/loci/country/#{slug}") do
-      Country.find_by_slug!(slug)
+      Country.find_by!(slug: slug)
     end
   end
 end

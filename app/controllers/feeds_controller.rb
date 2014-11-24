@@ -1,5 +1,4 @@
 class FeedsController < ApplicationController
-  respond_to :xml
 
   caches_page :blog, :photos, :sitemap, :gzip => true
 
@@ -8,7 +7,10 @@ class FeedsController < ApplicationController
   end
 
   def photos
-    @photos = Image.order(created_at: :desc).preload(:species, :observations => {:card => :locus}).limit(15)
+    @media =
+        [Image, Video].flat_map do |klass|
+          klass.order(created_at: :desc).preload(:species, :observations => {:card => :locus}).limit(10)
+        end.sort { |x,y| y.created_at <=> x.created_at }
   end
 
   def sitemap

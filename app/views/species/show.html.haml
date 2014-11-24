@@ -4,6 +4,8 @@
 
 - @page_title = "#{@species.name} (#{@species.name_sci})"
 
+- @js_features = [:videoQuality]
+
 - if current_user.admin?
   - javascript 'species_image'
   = render 'admin/shortcuts'
@@ -50,6 +52,14 @@
             = f2.input :image_id, as: :hidden
         %p
           %span.pseudolink.edit_main_image Edit main image
+
+- @species.videos.if_present do |videos|
+  %a{name: 'videos'}
+  %div.videos
+    %h3= t('.sections.videos')
+    = render videos.map(&:small)
+
+
 
 - if @species.observations.any?
   %a{name: 'observations'}

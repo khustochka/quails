@@ -11,7 +11,7 @@ class Settings < ActiveRecord::Base
 
   def self.method_missing(method_id, *arguments, &block)
     if SETTING_KEYS.include?(method_id)
-      Hashie::Mash.new(find_by_key(method_id).try(:value) || {})
+      Hashie::Mash.new(find_by(key: method_id).try(:value) || {})
     else
       super
     end

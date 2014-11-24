@@ -19,6 +19,11 @@ class RoutingTest < ActionDispatch::IntegrationTest
     assert_routing '/species/Aquilla_pomarina/edit', {controller: 'species', action: 'edit', id: 'Aquilla_pomarina'}
   end
 
+  test 'route species search correctly' do
+    assert_routing '/species/search.json',
+                   {controller: 'species', action: 'search', format: 'json'}
+  end
+
   test 'route species index and gallery' do
     assert_routing '/species', {controller: 'species', action: 'gallery', locale: 'ru'}
     assert_routing '/species/admin', {controller: 'species', action: 'index'}
@@ -97,6 +102,10 @@ class RoutingTest < ActionDispatch::IntegrationTest
 
   test 'English photo routing' do
     assert_routing '/en/photos/sparrow12345', {controller: 'images', action: 'show', locale: 'en', id: 'sparrow12345'}
+  end
+
+  test 'English video routing' do
+    assert_routing '/en/videos/sparrow12345', {controller: 'videos', action: 'show', locale: 'en', id: 'sparrow12345'}
   end
 
   test 'English lifelists routing' do

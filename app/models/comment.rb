@@ -3,15 +3,15 @@ class Comment < ActiveRecord::Base
   STOP_WORDS = %w( replica vuitton generic zithromax cheap cialis payday loans pharmacy url=http link=http
                     viagra tricor accutane seroquel retin lasix )
 
-  ALLOWED_PARAMETERS = [:text, :parent_id, :send_email]
+  ALLOWED_PARAMETERS = [:text, :parent_id]
 
   include FormattedModel
 
   validates :text, :name, :post_id, :presence => true
 
   belongs_to :post, touch: :commented_at
-  has_many :subcomments, :class_name => 'Comment', :foreign_key => :parent_id, :dependent => :destroy
-  belongs_to :parent_comment, :class_name => 'Comment', :foreign_key => :parent_id
+  has_many :subcomments, class_name: 'Comment', foreign_key: :parent_id, dependent: :destroy, inverse_of: :parent_comment
+  belongs_to :parent_comment, class_name: 'Comment', foreign_key: :parent_id, inverse_of: :subcomments
   belongs_to :commenter
 
   default_scope { order(:created_at) }

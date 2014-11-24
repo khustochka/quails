@@ -1,17 +1,15 @@
 class ImagesController < ApplicationController
 
-  respond_to :json, only: [:observations, :parent_update]
-
   administrative except: [:index, :multiple_species, :show, :gallery, :country, :strip]
 
   find_record by: :slug, before: [:show, :edit,
                                   :parent_edit, :parent_update,
                                   :map_edit, :update, :patch, :destroy]
 
-  after_filter :cache_expire, only: [:create, :update, :destroy]
+  after_action :cache_expire, only: [:create, :update, :destroy]
 
   # Do not check csrf token for photostrip on the map
-  skip_before_filter :verify_authenticity_token, only: :strip
+  skip_before_action :verify_authenticity_token, only: :strip
 
   # Latest additions
   def index
@@ -67,7 +65,7 @@ class ImagesController < ApplicationController
     end
     new_slug = File.basename(uploaded_io.original_filename, '.*')
     image_attributes = {i: {slug: new_slug}}
-    exif_date = `identify -format "%[EXIF:DateTimeOriginal]" "#{filename}"`.chomp[0..9].gsub(":", "-")
+    exif_date = `identify -format "%[EXIF:DateTimeOriginal]" "#{filename}"`.chomp[0..9].tr(":", "-")
     image_attributes[:exif_date] = exif_date if exif_date.present?
     if to_flickr
       flickr = Flickr::Client.new
@@ -78,8 +76,15 @@ class ImagesController < ApplicationController
     redirect_to new_image_path(image_attributes)
   end
 
-  def half_mapped
-    @images = Image.half_mapped.page(params[:page].to_i).per(24)
+  def unmapped
+    @half = params[:half]
+    images =
+        if @half
+          Image.half_mapped
+        else
+          Image.where(spot_id: nil)
+        end
+    @images = images.order('created_at DESC').page(params[:page].to_i).per(24)
   end
 
   # GET /photos/1/map_edit
@@ -91,23 +96,22 @@ class ImagesController < ApplicationController
   def create
     @image = Image.new
 
-    flickr_id = params[:image].delete(:flickr_id)
-    params[:image].slice!(*Image::NORMAL_PARAMS)
+    flickr_id = params[:image][:flickr_id]
 
     @photo = FlickrPhoto.new(@image)
     @photo.bind_with_flickr(flickr_id)
 
-    if @image.update_with_observations(params[:image], params[:obs])
+    if @image.update(image_params)
 
       if params[:new_on_flickr]
         @photo.update!
       end
 
       if ImagesHelper.local_image_path && !Rails.env.test?
-        full_path = File.join(ImagesHelper.local_image_path, "#{params[:image][:slug]}.jpg")
+        full_path = File.join(ImagesHelper.local_image_path, "#{image_params[:slug]}.jpg")
         if File.exist?(full_path)
           w, h = `identify -format "%Wx%H" #{full_path}`.split('x').map(&:to_i)
-          @image.assets_cache << ImageAssetItem.new(:local, w, h, "#{params[:image][:slug]}.jpg")
+          @image.assets_cache << ImageAssetItem.new(:local, w, h, "#{image_params[:slug]}.jpg")
           @image.save!
         end
       end
@@ -120,8 +124,7 @@ class ImagesController < ApplicationController
 
   # PUT /photos/1
   def update
-    new_params = params[:image].slice(*Image::NORMAL_PARAMS)
-    if @image.update_with_observations(new_params, params[:obs])
+    if @image.update(image_params)
       if @image.mapped?
         redirect_to(image_path(@image), notice: 'Image was successfully updated.')
       else
@@ -152,10 +155,11 @@ class ImagesController < ApplicationController
     redirect_to(images_url)
   end
 
-  # GET /observations
+  # FIXME: probably unused
+  # GET /photos/1/observations
   def observations
-    observs = Image.find_by_id(params[:id]).observations.preload(:species, :card => :locus)
-    respond_with(observs, :only => :id, :methods => [:species_str, :when_where_str])
+    observs = Image.find_by(id: params[:id]).observations.preload(:species, :card => :locus)
+    render json: observs, only: :id, methods: [:species_str, :when_where_str]
   end
 
   def strip
@@ -195,9 +199,13 @@ class ImagesController < ApplicationController
 
   private
 
+  def image_params
+    @image_params ||= params.require(:image).permit(*Image::NORMAL_PARAMS).merge(observation_ids: params[:obs] || [])
+  end
+
   def cache_expire
     expire_page controller: :feeds, action: :blog, format: 'xml'
-    expire_page controller: :feeds, action: :photos, format: 'xml'
+    expire_photo_feeds
     expire_page controller: :feeds, action: :sitemap, format: 'xml'
   end
 end

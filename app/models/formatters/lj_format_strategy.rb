@@ -1,4 +1,5 @@
 class LJFormatStrategy < FormattingStrategy
+  include VideoEmbedder
 
   include SpeciesHelper
   include ImagesHelper
@@ -16,7 +17,7 @@ class LJFormatStrategy < FormattingStrategy
   end
 
   def img_link(term)
-    if image = Image.find_by_slug(term)
+    if image = Image.find_by(slug: term)
       real_image_tag(image)
     end
   end

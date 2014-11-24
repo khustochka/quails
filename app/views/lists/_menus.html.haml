@@ -1,8 +1,4 @@
 - @years = @lifelist.years
-= render 'partials/years'
+= render 'filters/years'
 
-%ul.horiz-list.filter-list
-  %strong= t('.filter.places')
-  %li= filtering_link_to_all(:locus)
-  - @locations.each do |loc|
-    %li= link_to_or_span(loc.name, significant_params.merge(:locus => loc.slug))
+= render partial: 'filters/loci', locals: {loci_filter_label: t('.filter.places')}

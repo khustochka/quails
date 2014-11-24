@@ -17,7 +17,7 @@ namespace :checklist do
     if country = ENV['COUNTRY']
 
       reg = REGION_TO_AVIBASE[country]
-      id = Locus.find_by_slug(country).id
+      id = Locus.find_by(slug: country).id
 
       @cache = WebPageCache.new("tmp/")
 
@@ -27,7 +27,7 @@ namespace :checklist do
       LocalSpecies.where(locus_id: id).delete_all
 
       BookImport.parse_list(source).each do |s|
-        sp = Species.find_by_avibase_id(s[:avibase_id])
+        sp = Species.find_by(avibase_id: s[:avibase_id])
 
         #raise "#{s[:name_sci]} #{s[:avibase_id]} is nil" if sp.nil?
         if sp

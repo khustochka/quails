@@ -16,6 +16,8 @@ class Taxon < ActiveRecord::Base
   validates :avibase_id, :format => /\A[\dA-F]{16}\Z/, :allow_blank => true
   validates :species_id, uniqueness: {scope: :book_id}, :allow_blank => true
 
+  acts_as_ordered :index_num, scope: :book_id
+
   # Associations
 
   belongs_to :book

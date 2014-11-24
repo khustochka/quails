@@ -34,12 +34,22 @@ class FormattersTest < ActionView::TestCase
   end
 
   test "Post with photo by slug" do
-    image = build(:image)
+    image = create(:image)
     post = build(:post, text: "{{^#{image.slug}}}")
     assert_includes post.formatted.for_site.text,
                     "<a href=\"/photos/#{image.slug}\"><img src=\"#{jpg_url(image)}\" title=\"[photo]\" alt=\"[photo]\" /></a>"
     assert_includes post.formatted.for_site.text,
                     "<figcaption class=\"imagetitle\"><a href=\"/photos/#{image.slug}\">House Sparrow</a></figcaption>"
+
+  end
+
+  test "Post with video by slug" do
+    video = create(:video)
+    post = build(:post, text: "{{&#{video.slug}}}")
+    assert_includes post.formatted.for_site.text,
+                    "<div class=\"video-container\"><iframe"
+    assert_includes post.formatted.for_site.text,
+                    "src=\"#{video.large.url}\""
 
   end
 
@@ -66,7 +76,7 @@ class FormattersTest < ActionView::TestCase
     url = "http://stonechat.livejournal.com/1111.html"
     post1 = create(:post,
                    slug: "post_for_link",
-                   lj_data: Hashie::Mash.new({post_id: "1111", url: "http://stonechat.livejournal.com/1111.html"}))
+                   lj_data: Post::LJData.new("1111", "http://stonechat.livejournal.com/1111.html"))
     post = build(:post, text: "This is a {{#post|post_for_link}}")
     assert_equal "<p>This is a <a href=\"#{url}\">post</a></p>",
                  post.formatted.for_lj.text
@@ -80,7 +90,7 @@ class FormattersTest < ActionView::TestCase
   end
 
   test "LJ Post with photo by slug" do
-    image = build(:image)
+    image = create(:image)
     post = build(:post, text: "{{^#{image.slug}}}")
     assert_includes post.formatted.for_lj.text,
                     "<img src=\"#{jpg_url(image)}\" title=\"[photo]\" alt=\"[photo]\" />"
@@ -90,7 +100,7 @@ class FormattersTest < ActionView::TestCase
 
   test "LJ Post with images" do
     p = create(:post, text: "AAA")
-    image = build(:image)
+    image = create(:image)
     image.card.update_column(:post_id, p.id)
     assert_includes p.formatted.for_lj.text,
                     "<img src=\"#{jpg_url(image)}\" title=\"[photo]\" alt=\"[photo]\" />"

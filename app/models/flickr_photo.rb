@@ -2,6 +2,8 @@ require 'flickr/client'
 
 class FlickrPhoto
 
+  Data = Struct.new(:title, :description, :date_taken, :tags)
+
   DEFAULT_PARAMS = {safety_level: 1, content_type: 1}
   DESCRIPTIVE_PARAMS = %i(title description tags)
 
@@ -37,11 +39,13 @@ class FlickrPhoto
   end
 
   def description
-    "#{I18n.l(@image.observ_date, format: :long, locale: :en)}\n#{@image.locus.name_en}, #{@image.locus.country.name_en}"
+    I18n.with_locale(:en) do
+      "#{I18n.l(date_taken, format: :long)}\n#{@image.formatted.public_locus_full_name}"
+    end
   end
 
   def tags
-    %Q(#{@image.species.map { |s| "\"#{s.name_en}\" \"#{s.name_sci}\"" }.join(' ')} bird #{@image.locus.country.name_en} #{@image.species.map(&:order).uniq.join(' ')} #{@image.species.map(&:family).uniq.join(' ')})
+    %Q(#{@image.species.map { |s| "\"#{s.name_en}\" \"#{s.name_sci}\"" }.join(' ')} bird \"#{@image.locus.country.name_en}\" #{@image.species.map(&:order).uniq.join(' ')} #{@image.species.map(&:family).uniq.join(' ')})
   end
 
   def date_taken
@@ -113,12 +117,12 @@ class FlickrPhoto
 
   def get_info
     data = flickr.photos.getInfo({photo_id: @flickr_id}).get
-    Hashie::Mash.new({
-                         title: data.title,
-                         description: data.description,
-                         date_taken: data.dates.taken,
-                         tags: data.tags.map { |t| t.raw }
-                     })
+    Data.new(
+        data.title,
+        data.description,
+        data.dates.taken,
+        data.tags.map { |t| t.raw }
+    )
   end
 
   def local_url

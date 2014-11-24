@@ -10,12 +10,13 @@
     %li= link_to 'Books', books_path(url_options_for_admin)
     %li= link_to 'Locations', loci_path(url_options_for_admin)
     %li= link_to 'Pages', pages_path(url_options_for_admin)
+    %li= link_to 'Videos', videos_path(url_options_for_admin)
     %li= link_to 'Research', research_path(url_options_for_admin)
     %li= link_to 'Map Edit', edit_map_path(url_options_for_admin)
     \|
     %li= link_to t('menu.checklist'), checklist_path({country: 'ukraine'}.merge(url_options_for_admin))
     %li= link_to 'Photostream', images_path(url_options_for_admin)
-    %li= link_to 'Stats', research_path({action: 'stats'}.merge(url_options_for_admin))
+    %li= link_to 'Stats', research_path({action: 'stats'}.merge!(url_options_for_admin))
     %li= link_to t('menu.lifelist'), advanced_list_path(url_options_for_admin)
 
     - if Quails.env.ssl? && !request.ssl?

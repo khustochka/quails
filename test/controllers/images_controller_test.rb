@@ -12,7 +12,15 @@ class ImagesControllerTest < ActionController::TestCase
     assert_response :success
     assert_not_empty assigns(:images)
 
-    assert_select "a[href=#{image_path(@image)}]"
+    assert_select "a[href='#{image_path(@image)}']"
+  end
+
+  test 'get front page in English' do
+    create(:comment)
+    get :index, locale: 'en'
+    assert_response :success
+    assert_not_empty assigns(:images)
+    assert_select "figcaption", text: @image.species[0].name_en
   end
 
   test "crazy page number should return 404" do
@@ -33,7 +41,7 @@ class ImagesControllerTest < ActionController::TestCase
     assert_response :success
     assert_not_empty assigns(:images)
 
-    assert_select "a[href=#{image_path(img)}]"
+    assert_select "a[href='#{image_path(img)}']"
   end
 
   test "get new" do
@@ -192,17 +200,6 @@ class ImagesControllerTest < ActionController::TestCase
     assert_equal Mime::JSON, response.content_type
   end
 
-  test "image removed from map if it is tied to another observation" do
-    spot = create(:spot)
-    obs = spot.observation
-    img = create(:image, observation_ids: [obs.id], spot: spot)
-    obs2 = create(:observation)
-    login_as_admin
-    put :update, id: img.to_param, obs: [obs2.id], image: img.attributes
-    img.reload
-    assert img.spot.blank?
-  end
-
   test "destroy image" do
     login_as_admin
     assert_difference('Image.count', -1) do
@@ -229,15 +226,15 @@ class ImagesControllerTest < ActionController::TestCase
     blogpost = create(:post, status: 'PRIV')
     @obs.post = blogpost
     @obs.save!
-    get :show, id: @image, locale: :ru
-    assert_select "a[href=#{public_post_path(blogpost)}]", false
+    get :show, id: @image
+    assert_select "a[href='#{public_post_path(blogpost)}']", false
   end
 
   test 'show link to public post to public user on image page' do
     blogpost = create(:post)
     @obs.post = blogpost
     @obs.save!
-    get :show, id: @image.to_param, locale: :ru
-    assert_select "a[href=#{public_post_path(blogpost)}]"
+    get :show, id: @image.to_param
+    assert_select "a[href='#{public_post_path(blogpost)}']"
   end
 end

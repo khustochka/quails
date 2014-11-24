@@ -6,6 +6,7 @@
 
 - stylesheet 'forms'
 - javascript 'card_form'
+- @js_features = [:wikiFields]
 
 - @page_title = @card.persisted? ? "Edit: #{l(@card.observ_date, format: :long)}, #{@card.locus.name}" : "New card"
 
@@ -51,13 +52,13 @@
 
   = form.input :notes, input_html: {rows: 7, class: 'wiki_field'}
 
-  %div.card-fields-wrapper
+  %div.card-fields-wrapper.cf
     = form.input :effort_type, collection: Card::EFFORT_TYPES, include_blank: false,
-                               input_html: {size: '3'}, wrapper_html: {class: 'float-left'}
+                               input_html: {size: '5'}, wrapper_html: {class: 'float-left'}
     = form.input :start_time, input_html: {class: 'short'}
     = form.input :duration_minutes, as: :string, input_html: {class: 'short'}
     = form.input :distance_kms, as: :string, input_html: {class: 'short'}
-    = form.input :area, as: :string, input_html: {class: 'short'}
+    = form.input :area_acres, as: :string, input_html: {class: 'short'}
     = form.input :observers, input_html: {class: 'medium'}
     = form.input :biotope
     = form.input :weather
@@ -82,6 +83,8 @@
         %span.pseudolink#add-row Add new row
 
     .buttons
+      = form.input :resolved
+      = form.button :submit, value: 'Resolve', data: {disable_with: 'Saving...'}, id: 'resolve_button', name: 'resolve'
       = default_submit_button(form)
       = link_to 'Extract selected to the new card', extract_observations_path, class: 'pseudolink extractor'
       = link_to 'Move selected to another card', move_observations_path, class: 'pseudolink mover'

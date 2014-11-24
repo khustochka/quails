@@ -8,11 +8,12 @@
       countrylist: '%{country} Country List'
       locationlist: '%{location} Location List'
       ukraine: Ukraine List
+      canada: Canada List
       usa: USA List
       gb: UK List
 
     index:
-      title: Lifelist and the like
+      title: The Lists
       see_also: See also
       records_and_stats: Stats and achievements
 

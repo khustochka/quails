@@ -1,8 +1,8 @@
 source 'https://rubygems.org/'
 
-ruby '2.1.2'
+ruby '2.1.5'
 
-gem 'rails', '4.1.1'
+gem 'rails', '4.1.8'
 
 gem 'pg', platforms: [:ruby, :mingw]
 gem "activerecord-jdbcpostgresql-adapter", platforms: :jruby
@@ -29,8 +29,9 @@ gem 'hashie'
 gem 'addressable', require: 'addressable/uri'
 gem 'roman-numerals'
 gem 'rinku'
-gem 'dotenv-rails'
+gem 'dotenv-deployment'
 gem 'ancestry'
+gem 'ordered-active-record'
 gem 'route_translator', github: 'khustochka/route_translator', branch: 'no-translation'
 
 gem 'sass-rails', '~> 4.0.0'
@@ -45,15 +46,15 @@ gem 'rails_stdout_logging', require: false
 
 group :development do
   gem 'nokogiri', platforms: [:ruby, :mingw], require: false
-  gem 'spring'
+  gem 'pry-rails'
 end
 
 # in dev group for generators
 gem 'factory_girl_rails', '~> 4.0', groups: [:development, :test]
 
 group :test do
-  gem 'capybara', '~> 2.3.0'
-  gem 'capybara-webkit', '~> 1.0', platforms: [:mri], require: false
+  gem 'capybara'
+  gem 'capybara-webkit'#, '~> 1.2.0', platforms: [:mri], require: false
   gem 'selenium-webdriver'
 #  gem 'poltergeist', platforms: [:mri], require: false
   gem 'database_cleaner', require: false

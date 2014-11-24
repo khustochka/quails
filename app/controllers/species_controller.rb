@@ -2,9 +2,7 @@ class SpeciesController < ApplicationController
 
   administrative :except => [:gallery, :show, :search]
 
-  before_filter :find_species, only: [:edit, :update, :review]
-
-  respond_to :json, only: :search
+  before_action :find_species, only: [:edit, :update, :review]
 
   # GET /species/admin
   def index
@@ -29,7 +27,7 @@ class SpeciesController < ApplicationController
   # GET /species/1
   def show
     id_humanized = Species.humanize(params[:id])
-    @species = Species.find_by_name_sci(id_humanized) || Taxon.find_by_name_sci!(id_humanized).species
+    @species = Species.find_by(name_sci: id_humanized) || Taxon.find_by!(name_sci: id_humanized).species
     if @species
       if params[:id] != @species.to_param
         redirect_to @species, :status => 301
@@ -50,6 +48,12 @@ class SpeciesController < ApplicationController
     end
   end
 
+  # GET /species/new
+  def new
+    @species = Species.new
+    render :form
+  end
+
   # GET /species/1/edit
   def edit
     render :form
@@ -64,6 +68,23 @@ class SpeciesController < ApplicationController
     respond_to do |format|
       if @species.update_attributes(params[:species])
         format.html { redirect_to(@species, notice: 'Species was successfully updated.') }
+        format.json { render json: @species }
+      else
+        format.html { render :form }
+        format.json { render json: @species.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # PUT /species
+  def create
+    # if code is empty string, should remove it
+    params[:species][:code] = nil if params[:species][:code] == ''
+
+    @species = Species.new(params[:species])
+    respond_to do |format|
+      if @species.save
+        format.html { redirect_to(@species, notice: 'Species was successfully created.') }
         format.json { render json: @species }
       else
         format.html { render :form }
@@ -105,11 +126,11 @@ class SpeciesController < ApplicationController
 
   def search
     result = SpeciesSearch.new(current_user.searchable_species, params[:term]).find
-    respond_with result
+    render json: result
   end
 
   private
   def find_species
-    @species = Species.find_by_name_sci!(Species.humanize(params[:id]))
+    @species = Species.find_by!(name_sci: Species.humanize(params[:id]))
   end
 end

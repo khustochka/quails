@@ -21,3 +21,8 @@
       more_photos_of_multiple_species: Еще фото нескольких видов
 
     picture_taken: Снято
+
+  videos:
+    index:
+      window_title: Видео с птицами
+      title: Видео

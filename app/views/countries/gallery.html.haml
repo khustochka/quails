@@ -12,10 +12,6 @@
 
   %div.header-with-subheader
     %h1= page_header
-    - if @country.slug == 'ukraine'
-      %ul.subheader-menu
-        %li= link_to('Checklist', checklist_path(country: @country))
-        - if I18n.russian_locale?
-          %li= link_to("Зимующие птицы", show_page_path(:winter))
+    = render "countries/gallery/subheader/#{@country.slug}"
 
   = render "countries/gallery/#{@country.slug}"

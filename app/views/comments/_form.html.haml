@@ -8,18 +8,19 @@
   - if @comment.persisted?
     = form.input :url
   - else
-    %div.input.string.required<
+    %div.input.string.required.comment_nmaee<
       %label.string.required{for: CommentsHelper::REAL_NAME_FIELD}= t('simple_form.labels.comment.name')
       = text_field_tag CommentsHelper::REAL_NAME_FIELD, @comment.name, required: true, class: 'string required'
+
+  = simple_fields_for @comment.commenter || Commenter.new do |f2|
+    = f2.input :email, label: 'Email:',
+                hint: @comment.persisted? ? nil : 'Если хотите получить уведомление об ответах.'
 
   = form.input :text, label: false, input_html: {rows: 10, class: 'wiki_field'},
                 hint: 'Немного HTML разрешено, включая &lt;a&gt;, &lt;img&gt;.'.html_safe
 
-  = form.input :send_email, label: t('simple_form.labels.comment.send_email')
-  = simple_fields_for @comment.commenter || Commenter.new do |f2|
-    = f2.input :email, label: false
-
   - if @comment.persisted?
+    = form.input :send_email, label: 'Send email?'
     = form.input :approved, label: 'Approved'
     %b= @comment.ip
   .buttons

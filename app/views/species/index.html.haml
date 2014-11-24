@@ -5,6 +5,8 @@
 
 %h1 Listing species
 
+= render 'admin/shortcuts' if current_user.admin?
+
 %h5.errors Not reviewed:
 
 %ul.errors

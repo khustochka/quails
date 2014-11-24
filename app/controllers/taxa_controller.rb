@@ -2,7 +2,7 @@ class TaxaController < ApplicationController
 
   administrative
 
-  before_filter :find_species, only: [:show, :update]
+  before_action :find_species, only: [:show, :update]
 
   def show
     render :form
@@ -18,7 +18,7 @@ class TaxaController < ApplicationController
 
   private
   def find_species
-    @book = Book.find_by_slug!(params[:book_id])
-    @taxon = @book.taxa.find_by_name_sci!(Taxon.humanize(params[:id]))
+    @book = Book.find_by!(slug: params[:book_id])
+    @taxon = @book.taxa.find_by!(name_sci: Taxon.humanize(params[:id]))
   end
 end

@@ -4,7 +4,7 @@ module RecordFinder
     only = options[:before]
     raise ArgumentError, "Please define actions explicitly for record finder" unless only
     column = options[:by] || :id
-    before_filter only: only do
+    before_action only: only do
       instance_variable_set(
           "@#{controller_name.singularize}".to_sym,
           controller_name.classify.constantize.send("find_by_#{column}!", params[:id])

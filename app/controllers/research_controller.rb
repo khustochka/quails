@@ -2,6 +2,8 @@ class ResearchController < ApplicationController
 
   administrative
 
+  TWO_YEARS = 365 * 2 * 24 * 60 * 60
+
   def environ
     #@env = ENV
     @lc_collate = ActiveRecord::Base.connection.select_rows("SHOW LC_COLLATE")[0][0]
@@ -68,14 +70,14 @@ class ResearchController < ApplicationController
 
 
     sort_col = :date2
-    period = 365 * 2 * 24 * 60 * 60
+
     @recent_2yrs = Image.joins(:observations).order(:created_at).preload(:species).merge(MyObservation.all).
         group_by { |i| i.species.first }.each_with_object([]) do |imgdata, collection|
 
       sp, imgs = imgdata
 
       img = imgs.each_cons(2).select do |im1, im2|
-        im2.created_at > Date.new(2013).beginning_of_year && (im2.created_at - im1.created_at) >= period
+        im2.created_at > Date.new(2014).beginning_of_year && (im2.created_at - im1.created_at) >= TWO_YEARS
       end
       collection.concat(
           img.map do |im1, im2|
@@ -130,8 +132,8 @@ class ResearchController < ApplicationController
     l2 = params[:loc2]
 
     if l1 && l2
-      @loc1 = Locus.find_by_slug(l1)
-      @loc2 = Locus.find_by_slug(l2)
+      @loc1 = Locus.find_by(slug: l1)
+      @loc2 = Locus.find_by(slug: l2)
 
       observations_source = if @loc1.country == @loc2.country
                               Card.where(locus_id: @loc1.country.subregion_ids)
@@ -154,12 +156,21 @@ class ResearchController < ApplicationController
 
   def stats
     @years = [nil] + MyObservation.years
+    @locations = Country.all
 
     #FIXME: not counting unidentified species for now, and seem we cannot do it easily without splitting queries
     observations_filtered = Observation.filter(year: params[:year]).joins(:card)
+    if params[:locus]
+      loc_filter = Locus.find_by!(slug: params[:locus]).subregion_ids
+      observations_filtered = observations_filtered.where('cards.locus_id' => loc_filter)
+    end
     identified_observations = observations_filtered.identified
     lifelist_filtered = Lifelist.basic.relation
     lifelist_filtered = lifelist_filtered.where('EXTRACT(year from first_seen)::integer = ?', params[:year]) if params[:year]
+    # if params[:locus]
+    #   loc_filter = Locus.find_by!(slug: params[:locus]).subregion_ids
+    #   lifelist_filtered = lifelist_filtered.where('EXTRACT(year from first_seen)::integer = ?', params[:year])
+    # end
 
     @year_data = identified_observations.select('EXTRACT(year FROM observ_date)::integer as year,
                                       COUNT(observations.id) as count_obs,
@@ -167,13 +178,15 @@ class ResearchController < ApplicationController
                                       COUNT(DISTINCT species_id) as count_species').
         group('EXTRACT(year FROM observ_date)').order('year')
 
-    @first_sp_by_year = lifelist_filtered.group('EXTRACT(year FROM first_seen)::integer').except(:order).count(:all)
+    @first_sp_by_year =
+        lifelist_filtered.group('EXTRACT(year FROM first_seen)::integer').except(:order).count(:all) unless params[:locus]
 
     @month_data = identified_observations.select('EXTRACT(month FROM observ_date)::integer as month,
                                       COUNT(observations.id) as count_obs,
                                       COUNT(DISTINCT species_id) as count_species').
         group('EXTRACT(month FROM observ_date)').order('month')
-    @first_sp_by_month = lifelist_filtered.group('EXTRACT(month FROM first_seen)::integer').except(:order).count(:all)
+    @first_sp_by_month =
+        lifelist_filtered.group('EXTRACT(month FROM first_seen)::integer').except(:order).count(:all) unless params[:locus]
 
     #NOTICE: we use all observations (including unidentified) only here
     @day_by_obs = observations_filtered.joins(:card).select('observ_date, COUNT(observations.id) as count_obs').
@@ -200,14 +213,16 @@ class ResearchController < ApplicationController
     locs = @day_and_loc_by_species.except(:select).select(:locus_id)
     @preloaded_locs = Locus.where(id: locs).index_by(&:id)
 
-    @day_by_new_species = lifelist_filtered.
-        except(:select).select('first_seen, COUNT(species_id) as count_species').
-        group('first_seen').except(:order).
-        order('COUNT(species_id) DESC, first_seen ASC').limit(10)
+    unless params[:locus]
+      @day_by_new_species = lifelist_filtered.
+          except(:select).select('first_seen, COUNT(species_id) as count_species').
+          group('first_seen').except(:order).
+          order('COUNT(species_id) DESC, first_seen ASC').limit(10)
 
-    dates = @day_by_new_species.except(:select).select(:first_seen)
-    @locs_for_day_by_new_species =
-        Card.select('observ_date, locus_id').where(observ_date: dates).preload(:locus).group_by(&:observ_date)
+      dates = @day_by_new_species.except(:select).select(:first_seen)
+      @locs_for_day_by_new_species =
+          Card.select('observ_date, locus_id').where(observ_date: dates).preload(:locus).group_by(&:observ_date)
+    end
   end
 
   def voices

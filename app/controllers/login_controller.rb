@@ -2,7 +2,7 @@ class LoginController < ApplicationController
 
   if Quails.env.ssl?
     force_ssl only: :login_page
-    skip_before_filter :force_http
+    skip_before_action :force_http
   end
 
   def login_page

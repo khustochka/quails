@@ -1,0 +1,98 @@
+@import 'map', 'forms'
+
+div.footer
+  display: none
+
+form.search
+  display: block
+  padding: 5px 0 0 10px
+  border:
+    left: none
+    right: none
+    top: none
+    bottom: 1px solid #aaa
+  margin: 0
+
+.map-side-panel
+  overflow-y: scroll
+  width: 380px
+  border-right: 1px solid #555
+  margin: 0
+  padding: 1px
+  ul.obs-list
+    li
+      display: inline-block
+      position: relative
+      .remove
+        display: none
+
+li.selected_obs
+  background-color: #AAAAEE
+
+.obs_item_photos
+  position: absolute
+  bottom: 0
+  right: 0
+  .images_popup
+    display: none
+  &:hover .images_popup
+    display: block
+    //position: absolute
+    top: 5px
+    right: 50%
+    margin-left: -500px
+    max-width: 300px
+    figure
+      display: inline-block
+      margin: 5px
+      width: 100px
+      height: 100px
+      overflow: hidden
+      img
+        max-width: 100%
+        height: auto
+
+.images_count
+  font-weight: bold
+  font-family: Verdana
+  color: #444444
+  padding: 1px 2px
+  border: 4px double #444
+  border-radius: 5px
+  cursor: pointer
+
+.mapped_indicator
+  border-radius: 7px
+  height: 15px
+  width: 15px
+  display: none
+  position: absolute
+  top: 0
+  right: 0
+
+.is_mapped .mapped_indicator
+  display: block
+  background-color: cornflowerblue
+
+form#new_spot
+  font-size: 12px !important
+  margin: 0
+  // This is to fix Gmap infowindow styling
+  min-height: 130px
+  min-width: 250px
+  #save_button
+    width: 70px
+    height: 30px
+  div.input span
+    display: inline
+    margin-right: 5px
+  a.destroy
+    font-weight: bold
+    padding: 5px 10px
+    margin-left: 10px
+    color: yellow
+    background-color: red
+
+.mapContainer .map-panel
+  position: static
+

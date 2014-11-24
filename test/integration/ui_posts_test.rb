@@ -14,7 +14,7 @@ class UIPostsTest < ActionDispatch::IntegrationTest
     select('OPEN', from: 'Status')
     select('OBSR', from: 'Topic')
     click_button('Save')
-    blogpost = Post.find_by_slug('new-post')
+    blogpost = Post.find_by(slug: 'new-post')
     assert_equal show_post_path(blogpost.to_url_params), current_path
   end
 
@@ -27,7 +27,7 @@ class UIPostsTest < ActionDispatch::IntegrationTest
     fill_in('post_text', with: 'Post text edited.')
     fill_in('Post date', with: '2009-07-27')
     click_button('Save')
-    blogpost = Post.find_by_slug('changed-post')
+    blogpost = Post.find_by(slug: 'changed-post')
     assert_equal show_post_path(blogpost.to_url_params), current_path
   end
 

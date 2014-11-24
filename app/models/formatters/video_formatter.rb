@@ -1,0 +1,2 @@
+class VideoFormatter < MediaFormatter
+end

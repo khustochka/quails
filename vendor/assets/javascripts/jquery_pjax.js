@@ -1,6 +1,8 @@
-// jquery.pjax.js
-// copyright chris wanstrath
-// https://github.com/defunkt/jquery-pjax
+/*!
+ * Copyright 2012, Chris Wanstrath
+ * Released under the MIT License
+ * https://github.com/defunkt/jquery-pjax
+ */
 
 (function($){
 
@@ -129,9 +131,22 @@ function handleSubmit(event, container, options) {
   var defaults = {
     type: form.method.toUpperCase(),
     url: form.action,
-    data: $(form).serializeArray(),
     container: $(form).attr('data-pjax'),
     target: form
+  }
+
+  if (defaults.type !== 'GET' && window.FormData !== undefined) {
+    defaults.data = new FormData(form);
+    defaults.processData = false;
+    defaults.contentType = false;
+  } else {
+    // Can't handle file uploads, exit
+    if ($(form).find(':file').length) {
+      return;
+    }
+
+    // Fallback to manually serializing the fields
+    defaults.data = $(form).serializeArray();
   }
 
   pjax($.extend({}, defaults, options))
@@ -178,8 +193,10 @@ function pjax(options) {
   if (!options.data) options.data = {}
   options.data._pjax = context.selector
 
-  function fire(type, args) {
-    var event = $.Event(type, { relatedTarget: target })
+  function fire(type, args, props) {
+    if (!props) props = {}
+    props.relatedTarget = target
+    var event = $.Event(type, props)
     context.trigger(event, args)
     return !event.isDefaultPrevented()
   }
@@ -231,6 +248,8 @@ function pjax(options) {
   }
 
   options.success = function(data, status, xhr) {
+    var previousState = pjax.state;
+
     // If $.pjax.defaults.version is a function, invoke it first.
     // Otherwise it can be a static string.
     var currentVersion = (typeof $.pjax.defaults.version === 'function') ?
@@ -273,7 +292,10 @@ function pjax(options) {
 
     if (container.title) document.title = container.title
 
-    fire('pjax:beforeReplace', [container.contents, options])
+    fire('pjax:beforeReplace', [container.contents, options], {
+      state: pjax.state,
+      previousState: previousState
+    })
     context.html(container.contents)
 
     // FF bug: Won't autofocus fields that are inserted via JS.
@@ -402,6 +424,7 @@ if ('state' in window.history) {
 // You probably shouldn't use pjax on pages with other pushState
 // stuff yet.
 function onPjaxPopstate(event) {
+  var previousState = pjax.state;
   var state = event.state
 
   if (state && state.container) {
@@ -447,10 +470,14 @@ function onPjaxPopstate(event) {
       if (contents) {
         container.trigger('pjax:start', [null, options])
 
-        if (state.title) document.title = state.title
-        container.trigger('pjax:beforeReplace', [contents, options])
-        container.html(contents)
         pjax.state = state
+        if (state.title) document.title = state.title
+        var beforeReplaceEvent = $.Event('pjax:beforeReplace', {
+          state: state,
+          previousState: previousState
+        })
+        container.trigger(beforeReplaceEvent, [contents, options])
+        container.html(contents)
 
         container.trigger('pjax:end', [null, options])
       } else {
@@ -709,7 +736,8 @@ function executeScriptTags(scripts) {
     if (matchedScripts.length) return
 
     var script = document.createElement('script')
-    script.type = $(this).attr('type')
+    var type = $(this).attr('type')
+    if (type) script.type = type
     script.src = $(this).attr('src')
     document.head.appendChild(script)
   })
@@ -732,14 +760,11 @@ function cachePush(id, value) {
   cacheMapping[id] = value
   cacheBackStack.push(id)
 
-  // Remove all entires in forward history stack after pushing
-  // a new page.
-  while (cacheForwardStack.length)
-    delete cacheMapping[cacheForwardStack.shift()]
+  // Remove all entries in forward history stack after pushing a new page.
+  trimCacheStack(cacheForwardStack, 0)
 
   // Trim back history stack to max cache length.
-  while (cacheBackStack.length > pjax.defaults.maxCacheLength)
-    delete cacheMapping[cacheBackStack.shift()]
+  trimCacheStack(cacheBackStack, pjax.defaults.maxCacheLength)
 }
 
 // Shifts cache from directional history cache. Should be
@@ -766,6 +791,21 @@ function cachePop(direction, id, value) {
   pushStack.push(id)
   if (id = popStack.pop())
     delete cacheMapping[id]
+
+  // Trim whichever stack we just pushed to to max cache length.
+  trimCacheStack(pushStack, pjax.defaults.maxCacheLength)
+}
+
+// Trim a cache stack (either cacheBackStack or cacheForwardStack) to be no
+// longer than the specified length, deleting cached DOM elements as necessary.
+//
+// stack  - Array of state IDs
+// length - Maximum length to trim to
+//
+// Returns nothing.
+function trimCacheStack(stack, length) {
+  while (stack.length > length)
+    delete cacheMapping[stack.shift()]
 }
 
 // Public: Find version identifier for the initial page load.
@@ -841,7 +881,7 @@ if ( $.inArray('state', $.event.props) < 0 )
 $.support.pjax =
   window.history && window.history.pushState && window.history.replaceState &&
   // pushState isn't reliable on iOS until 5.
-  !navigator.userAgent.match(/((iPod|iPhone|iPad).+\bOS\s+[1-4]|WebApps\/.+CFNetwork)/)
+  !navigator.userAgent.match(/((iPod|iPhone|iPad).+\bOS\s+[1-4]\D|WebApps\/.+CFNetwork)/)
 
 $.support.pjax ? enable() : disable()
 

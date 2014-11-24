@@ -2,6 +2,8 @@
 
 #cards_search_results
 
+  - @cards.each {|c| c.valid?(:ebird_post)}
+
   %ul.cards_list
     = render @cards
 

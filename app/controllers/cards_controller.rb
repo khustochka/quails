@@ -2,7 +2,7 @@ class CardsController < ApplicationController
 
   administrative
 
-  after_filter :cache_expire, only: [:create, :update, :destroy, :attach]
+  after_action :cache_expire, only: [:create, :update, :destroy, :attach]
 
   # GET /cards
   # GET /cards.json
@@ -70,6 +70,7 @@ class CardsController < ApplicationController
   # POST /cards.json
   def create
     @card = Card.new(params[:card])
+    @card.resolved = true if params[:resolve]
 
     respond_to do |format|
       if @card.save
@@ -86,6 +87,7 @@ class CardsController < ApplicationController
   # PUT /cards/1.json
   def update
     @card = Card.find(params[:id])
+    params[:card][:resolved] = true if params[:resolve]
 
     respond_to do |format|
       if @card.update_attributes(params[:card])
@@ -126,7 +128,7 @@ class CardsController < ApplicationController
   end
 
   def cache_expire
-    expire_page controller: :feeds, action: :photos, format: 'xml'
+    expire_photo_feeds
     expire_page controller: :feeds, action: :blog, format: 'xml'
   end
 end

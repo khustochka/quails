@@ -68,4 +68,20 @@ class LocusTest < ActiveSupport::TestCase
     assert_equal 'ukraine', ukr.country.slug
   end
 
+  test "default locus full name if name format is not set" do
+    brvr = seed(:brovary)
+    brvr.update_attributes(name_format: "")
+    I18n.with_locale(:en) do
+      assert_equal "Brovary, Ukraine", brvr.formatted.full_name
+    end
+  end
+
+  test "use name format to show full name" do
+    brvr = seed(:brovary)
+    brvr.update_attributes(name_format: "%self, %oblast, %country")
+    I18n.with_locale(:en) do
+      assert_equal "Brovary, Kiev oblast, Ukraine", brvr.formatted.full_name
+    end
+  end
+
 end

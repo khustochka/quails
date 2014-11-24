@@ -1,8 +1,5 @@
 class LociController < ApplicationController
 
-  respond_to :html
-  respond_to :json, only: [:save_order, :show]
-
   administrative
 
   find_record by: :slug, before: [:edit, :update, :destroy]
@@ -14,8 +11,11 @@ class LociController < ApplicationController
 
   # GET /locus/1
   def show
-    @locus = Locus.find_by_id(params[:id]) || Locus.find_by_slug!(params[:id])
-    respond_with @locus
+    @locus = Locus.find_by(id: params[:id]) || Locus.find_by!(slug: params[:id])
+    respond_to do |format|
+      format.html {  }
+      format.json { render json: @locus }
+    end
   end
 
   # GET /locus/new

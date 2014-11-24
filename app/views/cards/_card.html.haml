@@ -41,12 +41,17 @@
       - tag_class = card.effort_type.downcase
       %small{class: "#{tag_class} tag"}= card.effort_type
 
+      - unless card.resolved
+        %small.draft.tag UNRESOLVED
+
     - if params[:obs]
       = link_to 'Attach here', attach_card_path(card, obs: params[:obs]), class: 'pseudolink', data: {method: :post}
 
   - if card.notes.present?
     -#%span.ui-icon.ui-icon-comment.inline-block.notes-tooltip{"data-title" => card.formatted.notes}
     %div.card-notes= card.formatted.notes
+
+  = render card.errors.extend(GenericErrors)
 
 - if show_separate_observation_on_card_search?
   %ul

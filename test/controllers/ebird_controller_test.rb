@@ -26,7 +26,7 @@ class EbirdControllerTest < ActionController::TestCase
       get :create, {ebird_file: {name: "fileAAA"}, card_id: [card1.id, card2.id]}
     end
 
-    assert_response :success
+    assert_redirected_to controller: :ebird, action: :show, id: Ebird::File.last
   end
 
   test "do not create ebird file object without name" do

@@ -12,23 +12,27 @@ class Species < ActiveRecord::Base
 
   serialize :wikidata, Hash
 
-#  validates :order, :presence => true, :allow_blank => true
-  validates :family, :presence => true
-  validates :name_sci, :format => /\A[A-Z][a-z]+ [a-z]+\Z/, :uniqueness => true
-  validates :code, :format => /\A[a-z]{6}\Z/, :uniqueness => true, :allow_blank => true
-  validates :avibase_id, :format => /\A[\dA-F]{16}\Z/, :allow_blank => true
+#  validates :order, presence: true, allow_blank: true
+  validates :family, presence: true
+  validates :name_sci, presence: true, format: /\A[A-Z][a-z]+ [a-z]+\Z/, uniqueness: true
+  validates :code, format: /\A[a-z]{6}\Z/, uniqueness: true, allow_blank: true
+  validates :avibase_id, format: /\A[\dA-F]{16}\Z/, allow_blank: true
+  validates :index_num, presence: true
+
+  acts_as_ordered :index_num
 
   has_many :observations, dependent: :restrict_with_exception
   has_many :cards, through: :observations
   has_many :loci, through: :cards
   has_many :images, through: :observations
+  has_many :videos, through: :observations
   has_many :taxa
   has_many :posts, -> { order(face_date: :desc).uniq }, through: :observations
 
   has_one :species_image
   has_one :image, through: :species_image
 
-  #has_one :ebird_species, -> { where(book_id: Book.find_by_slug('clements6')) }, class_name: 'Taxon'
+  #has_one :ebird_species, -> { where(book_id: Book.find_by(slug: 'clements6')) }, class_name: 'Taxon'
 
   AVIS_INCOGNITA = Struct.new(:id, :name_sci, :to_label, :name).
       new(0, '- Avis incognita', '- Avis incognita', '- Avis incognita')

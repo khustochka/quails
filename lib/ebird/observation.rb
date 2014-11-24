@@ -37,7 +37,9 @@ class EbirdObservation
       'UNSET' => 'incidental',
       'INCIDENTAL' => 'incidental',
       'TRAVEL' => 'traveling',
-      'AREA' => 'area'
+      'AREA' => 'area',
+      'HISTORICAL' => 'historical',
+      'STATIONARY' => 'stationary'
   }
 
   private
@@ -55,7 +57,8 @@ class EbirdObservation
   end
 
   def count
-    @obs.quantity[/(\d+(\s*\+\s*\d+)?)/, 1]
+    cnt = @obs.quantity[/(\d+(\s*\+\s*\d+)?)/, 1]
+    cnt && eval(cnt)
   end
 
   def comments
@@ -117,8 +120,8 @@ class EbirdObservation
   end
 
   def area
-    # acres?
-    #card.area
+    # values is in acres
+    card.area_acres
   end
 
   def checklist_comment
@@ -129,13 +132,17 @@ class EbirdObservation
 
   def try_name(method)
     if @obs.species_id == 0
-      @obs.notes
+      name_from_notes
     else
       sp = SPECIES_BY_COUNTRY[country.slug][@obs.species_id] || self.class.ebird_species_cache[@obs.species_id]
       sp.send(method)
     end
   rescue
     raise "Error with species id #{@obs.species_id}"
+  end
+
+  def name_from_notes
+    @name_from_notes ||= @obs.notes.gsub(/https?:\/\/[\w0-9\-_\/#?=&\.]*/, '')
   end
 
   def card
@@ -168,7 +175,7 @@ class EbirdObservation
 
   EUROPEAN_STONECHAT = SpeciesTemplate.new('Saxicola rubicola', 'European Stonechat')
 
-  FERAL_PIGEON = SpeciesTemplate.new('Columba livia (Domestic type)', 'Rock Pigeon (Feral Pigeon)')
+  FERAL_PIGEON = SpeciesTemplate.new('Columba livia (Feral Pigeon)', 'Rock Pigeon (Feral Pigeon)')
 
   MOTACILLA_FELDEGG = SpeciesTemplate.new('Motacilla flava feldegg', 'Western Yellow Wagtail (Black-headed)')
 
@@ -194,6 +201,10 @@ class EbirdObservation
 
       'united_kingdom' => {
           Species.where(code: 'larfus').pluck(:id).first => LARUS_FUSCUS_GRAELLSII
+      },
+
+      'canada' => {
+          Species.where(code: 'hirrus').pluck(:id).first => AMERICAN_BARN_SWALLOW
       }
   }
 

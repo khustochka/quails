@@ -11,14 +11,12 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require suggest_over_combo
-//= require jquery_pjax
-//= require pjax_spinner
 
 $(function () {
   // default timeout is causing page reload on heavy pages, like lifelist
   $('#cards_search_results').pjax('nav.pagination a');
 
-  showSpinner(function () {
+  Quails.features.pjaxSpinner.define(function () {
     $("nav.pagination", this).append("<img src='/img/loading_small.gif'>");
   });
 

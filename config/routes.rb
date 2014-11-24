@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -61,7 +62,7 @@ Rails.application.routes.draw do
   # just remember to delete public/index.html.
   root to: 'blog#home', as: 'blog'
 
-  constraints country: /ukraine|usa/ do
+  constraints country: /ukraine|usa|united_kingdom|canada/ do
     get '/:country/checklist/edit' => 'checklist#edit'
     post '/:country/checklist/edit' => 'checklist#save'
     localized do
@@ -70,7 +71,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :species, only: [:edit, :update] do
+  resources :species, except: [:index, :show, :destroy] do
     collection do
       get 'admin', action: :index
     end
@@ -96,19 +97,32 @@ Rails.application.routes.draw do
       get 'observations'
     end
     collection do
-      get 'half_mapped'
+      get 'unmapped'
       get 'series'
       post 'upload'
     end
   end
 
+  resources :videos, except: [:index, :show] do
+    member do
+      get 'edit/map', action: :map_edit
+      post 'patch'
+    end
+    collection do
+      get 'unmapped'
+    end
+  end
+
   get '/photos(/page/:page)' => 'images#index', page: /[^0]\d*/,
-                    constraints: {format: 'html'}
+      constraints: {format: 'html'}
 
   localized do
     get '/photos/multiple_species' => 'images#multiple_species'
     get 'photos/:id' => 'images#show'
     post 'photos/strip' => 'images#strip'
+    get '/videos(/page/:page)' => 'videos#index', page: /[^0]\d*/,
+        constraints: {format: 'html'}
+    get 'videos/:id' => 'videos#show', as: 'localized_video'
   end
 
   constraints year: /20\d\d/ do
@@ -230,10 +244,8 @@ Rails.application.routes.draw do
   get '/flickr' => 'flickr#index'
   get '/flickr/auth' => 'flickr#auth'
 
-  scope '/ebird', controller: 'ebird' do
-    get '/', action: :index
-    get '/new', action: :new
-    post '/', action: :create
+  resources :ebird, as: :ebird_files, controller: :ebird, except: [:edit] do
+    post :regenerate, on: :member
   end
 
 end
