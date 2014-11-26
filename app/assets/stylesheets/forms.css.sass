@@ -1,14 +1,22 @@
 @import 'mixins'
 //There was also 'normalize'
 
-label
-  font: 13px Verdana, Arial, sans-serif
-  display: block
-  color: #5555AA
-
 form.simple_form
   margin-bottom: 20px
 //  width: 660px
+
+.main
+  .ui-widget .ui-menu-item
+    font-size: 16px
+
+  input, textarea, select
+    font-size: 14px
+
+
+  label
+    font: 12px Verdana, Arial, sans-serif
+    display: block
+    color: #5555AA
 
 form.search
   display: inline-block
@@ -87,6 +95,12 @@ input.button, button
   min-width: 100px
   margin-right: 0
 
+form.regenerate_btn
+  display: inline-block
+  margin: 5px 15px
+  input
+    padding: 10px
+
 div.input span.select_arrow
   background-image: url('../img/select_arrow.gif')
   background-repeat: no-repeat
@@ -125,7 +139,7 @@ div.obs-row
     padding-right: 10px
     padding-bottom: 10px
     a
-      font-size: 13px
+      font-size: 12px
 
 div.bulk_select
   padding-left: 10px
@@ -135,9 +149,13 @@ div.bulk_select
 div.obs-row
   margin-bottom: 3px
   @include inline-block
-  #observation_place, #observation_notes
-    font-size: 13px
-    padding: 2px 0 4px 2px
+  .card_observations_notes,
+  .card_observations_place,
+  .observation_notes,
+  .observation_place
+    input
+      font-size: 13px
+      padding: 1px 0 2px 2px
 
 .fixed-bottom
   position: fixed

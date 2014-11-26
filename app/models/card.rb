@@ -1,6 +1,6 @@
 class Card < ActiveRecord::Base
 
-  EFFORT_TYPES = %w(UNSET INCIDENTAL TRAVEL AREA)
+  EFFORT_TYPES = %w(INCIDENTAL STATIONARY TRAVEL AREA HISTORICAL)
 
   include FormattedModel
 
@@ -23,7 +23,8 @@ class Card < ActiveRecord::Base
   validates :effort_type, inclusion: EFFORT_TYPES, allow_blank: false
   validate :check_effort, on: :ebird_post
   validates :start_time, :duration_minutes, :distance_kms, presence: true, on: :travel
-  validates :start_time, :duration_minutes, :area, presence: true, on: :area
+  validates :start_time, :duration_minutes, :area_acres, presence: true, on: :area
+  validates :start_time, :duration_minutes, presence: true, on: :stationary
 
   accepts_nested_attributes_for :observations,
                                 reject_if:
@@ -54,10 +55,8 @@ class Card < ActiveRecord::Base
   end
 
   def check_effort
-    if effort_type == 'TRAVEL'
-      self.valid?(:travel)
-    elsif effort_type == 'AREA'
-      self.valid?(:area)
+    if effort_type.in? %w(TRAVEL AREA STATIONARY)
+      self.valid?(effort_type.downcase.to_sym)
     end
   end
 

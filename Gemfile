@@ -1,6 +1,6 @@
 source 'https://rubygems.org/'
 
-ruby '2.1.4'
+ruby '2.1.5'
 
 gem 'rails', '4.2.0.beta4'
 
@@ -22,7 +22,7 @@ gem 'haml-rails', '~> 0.5.1'
 gem 'haml-contrib'
 gem 'RedCloth'
 gem 'kaminari'
-gem 'simple_form', github: 'plataformatec/simple_form', branch: 'rails-4-2'
+gem 'simple_form'
 gem 'flickraw', '~> 0.9.7'
 gem 'livejournal', '~> 0.3.9'
 gem 'hashie'
@@ -34,7 +34,7 @@ gem 'ancestry'
 gem 'ordered-active-record'
 
 gem 'sass-rails', '5.0.0.beta1'
-gem 'coffee-rails', '~> 4.0.0'
+gem 'coffee-rails', '~> 4.1.0'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 

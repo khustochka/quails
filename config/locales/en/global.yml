@@ -15,9 +15,13 @@
     english: English
     russian: По-русски
 
-  partials:
+  filters:
     years:
       years: 'Year:'
+    loci:
+      loci: ''
+
+  partials:
     search:
       search_button: Search
       fallback_text: Find more

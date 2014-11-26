@@ -33,7 +33,7 @@ class PostsController < ApplicationController
 
   # GET /posts/new
   def new
-    @post = Post.new
+    @post = Post.new(topic: 'OBSR', status: 'PRIV')
     render 'form'
   end
 

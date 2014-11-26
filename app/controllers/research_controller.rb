@@ -156,6 +156,7 @@ class ResearchController < ApplicationController
 
   def stats
     @years = [nil] + MyObservation.years
+    @locations = Country.all
 
     #FIXME: not counting unidentified species for now, and seem we cannot do it easily without splitting queries
     observations_filtered = Observation.filter(year: params[:year]).joins(:card)
