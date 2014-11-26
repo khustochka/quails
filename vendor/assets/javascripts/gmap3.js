@@ -1761,7 +1761,7 @@ function Gmap3($this) {
         // nb: 2 extends are faster self a deeper extend
         atd = $.extend({}, td);
         atd.options = $.extend({
-            pane: "overlayLayer",
+            pane: "overlayMouseTarget",
             content: style.content ? style.content.replace("CLUSTER_COUNT", cnt) : "",
             offset: {
               x: ("x" in offset ? offset.x : offset[0]) || 0,

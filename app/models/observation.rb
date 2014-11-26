@@ -3,7 +3,7 @@ class Observation < ActiveRecord::Base
 
   invalidates CacheKey.lifelist
 
-  belongs_to :card
+  belongs_to :card, touch: true
 
   belongs_to :species
   belongs_to :post, -> { select(:id, :slug, :face_date, :title, :status) }, touch: :updated_at

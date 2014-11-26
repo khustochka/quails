@@ -18,10 +18,40 @@ class EbirdController < ApplicationController
   end
 
   def create
-    begin
-      @file = Ebird::File.new(params[:ebird_file])
+    create_ebird_file(params[:ebird_file], params[:card_id])
+  end
 
-      cards_rel = Card.where(id: params[:card_id])
+  def regenerate
+    @file = Ebird::File.find(params[:id])
+    create_ebird_file({name: @file.name.sub(/(\-test)?\-\d+$/, '')}, @file.card_ids)
+  end
+
+  def update
+    @file = Ebird::File.find(params[:id])
+    @file.update_attributes(params[:file])
+    render json: {status_line: render_to_string(partial: 'status_line', formats: [:html], locals: {file: @file})}
+  end
+
+  def destroy
+    Ebird::File.find(params[:id]).destroy
+    redirect_to action: :index
+  end
+
+  private
+
+  def test_prefix
+    if Quails.env.real_prod?
+      ''
+    else
+      'test-'
+    end
+  end
+
+  def create_ebird_file(file_params, card_ids)
+    begin
+      @file = Ebird::File.new(file_params)
+
+      cards_rel = Card.where(id: card_ids)
 
       @file.cards = cards_rel
 
@@ -50,27 +80,6 @@ class EbirdController < ApplicationController
       raise
     end
 
-  end
-
-  def update
-    @file = Ebird::File.find(params[:id])
-    @file.update_attributes(params[:file])
-    render json: {status_line: render_to_string(partial: 'status_line', formats: [:html], locals: {file: @file})}
-  end
-
-  def destroy
-    Ebird::File.find(params[:id]).destroy
-    redirect_to action: :index
-  end
-
-  private
-
-  def test_prefix
-    if Quails.env.real_prod?
-      ''
-    else
-      'test-'
-    end
   end
 
 end

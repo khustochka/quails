@@ -1,3 +1,5 @@
+- stylesheet 'forms'
+
 - @js_features = ['ebirdTransitions']
 
 - @page_title = @file.name
@@ -32,6 +34,7 @@
   %dt Outdated (any card updated after file creation)
   %dd
     %span.draft.tag= @file.outdated?
+    = button_to 'Regenerate', regenerate_ebird_file_path(@file), {form_class: 'regenerate_btn'}
 
   %dt Expired (any valid ebird file for the same cards)
   %dd TODO
