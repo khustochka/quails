@@ -147,7 +147,7 @@ GEM
       multi_json (~> 1.0)
       rubyzip (~> 1.0)
       websocket (~> 1.0)
-    simple_form (3.0.2)
+    simple_form (3.1.0)
       actionpack (~> 4.0)
       activemodel (~> 4.0)
     simplecov (0.9.1)
@@ -216,7 +216,7 @@ DEPENDENCIES
   roman-numerals
   sass-rails (~> 4.0.0)
   selenium-webdriver
-  simple_form (~> 3.0.2)
+  simple_form (~> 3.1.0)
   simplecov
   uglifier (>= 1.0.3)
   unicorn (~> 4.8.0)
