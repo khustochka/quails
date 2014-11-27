@@ -3,11 +3,34 @@ Quails.features.showcase =
     @slughashes = $('[data-slughash]').map(->
       $(this).data('slughash')).get()
 
+    @gallery = {}
+
+    @Image::loadImage = @loadImage
+    @Image::showImage = @showImage
+
+    @collectImages()
+
     @createOverlays()
 
     @clickEvents()
 
     @processHash()
+
+  Image: (slug) ->
+    this.slug = slug
+    return this
+
+  collectImages: ->
+    _self = @
+    _prev = false
+    $('[data-slugs]').each ->
+      $.each $(this).data("slugs"), ->
+        newImg = new _self.Image(this)
+        _self.gallery[this] = newImg
+        if (_prev)
+          _prev.next = newImg
+          newImg.prev = _prev
+        _prev = newImg
 
   clickEvents: ->
     $('[data-slughash] a[data-rel=self]').click (e) =>
@@ -22,19 +45,14 @@ Quails.features.showcase =
 
   processHash: ->
     hash = location.hash[1..-1]
-    if hash == ""
-      @closeOverlay()
+    if $.inArray(hash, @slughashes) > -1
+      @loadPage(hash)
     else
-      if $.inArray(hash, @slughashes) > -1
-        @loadPage(hash)
+      @closeOverlay()
 
   loadPage: (hash) ->
     @showOverlay()
-    url = $('[data-slughash=' + hash + '] a[data-rel=self]:first').prop('href')
-    $.ajax(url, { data: {showcase: true}, success: @showFullscreen})
-
-  showFullscreen: (data, status) ->
-    $('.image_overlay .main_inside').html(data)
+    @gallery[hash].loadImage()
 
   createOverlays: ->
     $('body').append($("<div>", {class: 'full_overlay'}))
@@ -50,9 +68,16 @@ Quails.features.showcase =
     # Disable body scroll
     $("body").css({'overflow':'hidden'});
 
+  loadImage: ->
+    url = $('[data-slughash=' + this.slug + '] a[data-rel=self]:first').prop('href')
+    $.ajax(url, { data: {showcase: true}, success: @showImage})
+    return false
+
+  showImage: (data, status) ->
+    $('.image_overlay .main_inside').html(data)
+
   closeOverlay: ->
     $('.full_overlay').hide()
     $('.image_overlay').hide()
     $('.image_overlay .main_inside').html("")
     $("body").css({'overflow':'auto'});
-

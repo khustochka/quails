@@ -3,7 +3,7 @@
 
 - extra_data = current_user.admin? && request.format == 'text/html' && thumbnail.data
 
-- data = {slughash: thumbnail.slug}
+- data = {slughash: thumbnail.slug, slugs: thumbnail.slug_chain}
 - data.merge!(thumbnail.data) if extra_data
 
 %figure.image_thumb{data: data}<>

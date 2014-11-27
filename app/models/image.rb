@@ -102,6 +102,10 @@ class Image < ActiveRecord::Base
     species.count > 1
   end
 
+  def slug_chain
+    children.map(&:slug).unshift(slug)
+  end
+
   ORDERING_COLUMNS = %w(cards.observ_date cards.locus_id index_num images.created_at images.id)
   PREV_NEXT_ORDER = "ORDER BY #{ORDERING_COLUMNS.join(', ')}"
 
