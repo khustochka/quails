@@ -15,10 +15,15 @@ Quails.features.showcase =
       @processHash()
       return false
 
+    $(document).on 'click', '.close_button', =>
+      location.hash = ''
+      @processHash()
+      return false
+
   processHash: ->
     hash = location.hash[1..-1]
     if hash == ""
-      @closeOverlay
+      @closeOverlay()
     else
       if $.inArray(hash, @slughashes) > -1
         @loadPage(hash)
