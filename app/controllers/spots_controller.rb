@@ -25,6 +25,6 @@ class SpotsController < ApplicationController
     @spot = Spot.find(params[:id])
     @spot.destroy
 
-    render json: @spot
+    render json: {}
   end
 end
