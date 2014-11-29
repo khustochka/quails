@@ -5,9 +5,6 @@ Quails.features.showcase =
 
     @gallery = {}
 
-    @Image::loadImage = @loadImage
-    @Image::showImage = @showImage
-
     @collectImages()
 
     @createOverlays()
@@ -16,9 +13,17 @@ Quails.features.showcase =
 
     @processHash()
 
-  Image: (slug) ->
-    this.slug = slug
-    return this
+  Image: class
+    constructor: (@slug) ->
+
+    loadImage: ->
+      url = $('[data-slughash=' + this.slug + '] a[data-rel=self]:first').prop('href')
+      $.ajax(url, { data: {showcase: true}, success: @showImage})
+      return false
+
+    showImage: (data, status) ->
+      $('.image_overlay .main_inside').html(data)
+      return false
 
   collectImages: ->
     _self = @
@@ -67,14 +72,6 @@ Quails.features.showcase =
     $('.main_inside').css('height', window.innerHeight - 60 + "px")
     # Disable body scroll
     $("body").css({'overflow':'hidden'});
-
-  loadImage: ->
-    url = $('[data-slughash=' + this.slug + '] a[data-rel=self]:first').prop('href')
-    $.ajax(url, { data: {showcase: true}, success: @showImage})
-    return false
-
-  showImage: (data, status) ->
-    $('.image_overlay .main_inside').html(data)
 
   closeOverlay: ->
     $('.full_overlay').hide()
