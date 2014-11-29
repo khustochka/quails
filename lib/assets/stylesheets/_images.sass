@@ -113,17 +113,31 @@ figure.imageholder figcaption
       border-bottom: 1px solid #666666
       padding: 10px 0 30px 0
 
-.close_button
+.close_button, .prev_button, .next_button
   cursor: pointer
   position: fixed
-  top: 0
-  right: 0
   width: 40px
   height: 40px
   //padding: 10px 20px 10px 0
   display: block
-  background: url(/img/whiteX.gif) no-repeat #000000
-  background-position: 10px center
   color: #fff
   text-indent: -100px
   overflow: hidden
+
+.close_button
+  top: 0
+  right: 0
+  background: url(/img/whiteX.gif) no-repeat #000000
+  background-position: 10px center
+
+.prev_button
+  top: 50%
+  left: 0
+  background: url(/img/prev-arrow.gif) no-repeat #000000
+  background-position: 0px center
+
+.next_button
+  top: 50%
+  right: 0
+  background: url(/img/next-arrow.gif) no-repeat #000000
+  background-position: 10px center

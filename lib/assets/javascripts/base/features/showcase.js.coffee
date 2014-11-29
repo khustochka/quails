@@ -64,6 +64,8 @@ Quails.features.showcase =
     $('body').append($("<div>", {class: 'image_overlay'}))
     $('.image_overlay').append($("<div>", {class: 'main_inside'}))
     $('.image_overlay').append($("<div>", {class: 'close_button', text: "[X]"}))
+    $('.image_overlay').append($("<div>", {class: 'prev_button', text: "[<]"}))
+    $('.image_overlay').append($("<div>", {class: 'next_button', text: "[>]"}))
 
   showOverlay: ->
     $('.full_overlay').show()
