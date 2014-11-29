@@ -11,6 +11,9 @@ Quails.features.showcase =
 
     @clickEvents()
 
+    $(window).on 'hashchange', =>
+      @processHash()
+
     @processHash()
 
   Image: class
@@ -40,12 +43,10 @@ Quails.features.showcase =
   clickEvents: ->
     $('[data-slughash] a[data-rel=self]').click (e) =>
       location.hash = $(e.target).closest('[data-slughash]').data('slughash')
-      @processHash()
       return false
 
     $(document).on 'click', '.close_button', =>
       @removeHash()
-      @processHash()
       return false
 
   processHash: ->
@@ -97,4 +98,5 @@ Quails.features.showcase =
       # Restore the scroll offset, should be flicker free
       document.body.scrollTop = scrollV
       document.body.scrollLeft = scrollH
+      @processHash()
     return
