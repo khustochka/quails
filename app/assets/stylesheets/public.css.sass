@@ -127,11 +127,10 @@ form.comment
   .commenter_email
     margin-left: 10px
 
-  div.input
-    display: block
+  div.form-group
     margin-bottom: 10px
 
-  div.input.comment_name
+  div.form-group.comment_name
     display: none
 
   input.string
@@ -141,8 +140,7 @@ form.comment
     width: 600px
 
   div.buttons
-    //margin-top: 10px
-    input.button
+    input.btn
       width: 130px
       height: 40px
 
@@ -150,18 +148,19 @@ form.comment
     border: 2px solid #888888
     padding: 5px
 
-  .input
-    .hint
+  .form-group
+    .help-block
+      margin: 0
       color: #777777
       font-size: 15px
       font-style: italic
       font-weight: normal
       font-family: Arial, sans-serif
-  .input.comment_text .hint
+  .form-group.comment_text .help-block
     width: 612px
     text-align: right
     display: block
-  .input.commenter_email .hint
+  .form-group.commenter_email .help-block
     font-size: 12px
 
 
