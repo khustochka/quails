@@ -33,6 +33,7 @@ gem 'dotenv-deployment'
 gem 'ancestry'
 gem 'ordered-active-record'
 
+gem 'jquery-rails'
 gem 'sass-rails', '~> 4.0.0'
 gem 'coffee-rails', '~> 4.0.0'
 
