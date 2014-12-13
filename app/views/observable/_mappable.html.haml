@@ -35,5 +35,7 @@
       max_zoom = #{mappable.spots.map(&:zoom).max || "null"},
       selected_spot, locusLatLng;
   #{"selected_spot = #{mappable.spot_id};" if mappable.spot_id}
-  #{"locusLatLng = new google.maps.LatLng(#{mappable.locus.lat}, #{mappable.locus.lon});" if mappable.locus.lat}
+  if (typeof google === 'object') {
+    #{"locusLatLng = new google.maps.LatLng(#{mappable.locus.lat}, #{mappable.locus.lon});" if mappable.locus.lat}
+  }
 

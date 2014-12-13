@@ -22,7 +22,7 @@ gem 'haml-rails', '~> 0.5.1'
 gem 'haml-contrib'
 gem 'RedCloth'
 gem 'kaminari'
-gem 'simple_form'
+gem 'simple_form', '~> 3.1.0'
 gem 'flickraw', '~> 0.9.7'
 gem 'livejournal', '~> 0.3.9'
 gem 'hashie'
@@ -33,7 +33,8 @@ gem 'dotenv-deployment'
 gem 'ancestry'
 gem 'ordered-active-record'
 
-gem 'sass-rails', '5.0.0.beta1'
+gem 'jquery-rails'
+gem 'sass-rails', '~> 5.0.0'
 gem 'coffee-rails', '~> 4.1.0'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes

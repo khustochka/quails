@@ -107,10 +107,11 @@ class JSCardsTest < ActionDispatch::IntegrationTest
   end
 
   test "Destroy observation from card page" do
-    login_as_admin
 
     @card = create(:card)
     o = create(:observation, species: seed(:melgal), card: @card)
+
+    login_as_admin
 
     visit edit_card_path(@card)
 
@@ -130,12 +131,12 @@ class JSCardsTest < ActionDispatch::IntegrationTest
   end
 
   test "Save card after observation removal" do
-    login_as_admin
 
     @card = create(:card)
     o = create(:observation, species: seed(:melgal), card: @card)
     o2 = create(:observation, species: seed(:pasdom), card: @card)
 
+    login_as_admin
     visit edit_card_path(@card)
 
     within(:xpath, "//div[contains(@class,'obs-row')][1]") do

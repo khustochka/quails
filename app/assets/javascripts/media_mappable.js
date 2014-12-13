@@ -91,37 +91,41 @@ $(function () {
 
   $(window).resize(adjustSizes);
 
-  theMap.gmap3({
-    map: {
-      options: {
-        draggableCursor: 'pointer'
-      },
-      events: {
-        click: function (map, event) {
-          var newForm = spotForm.clone(),
-              wndContent;
+  if (typeof google === "object") {
 
-          closeInfoWindows();
-          $('#spot_lat', newForm).val(event.latLng.lat());
-          $('#spot_lng', newForm).val(event.latLng.lng());
-          $('#spot_zoom', newForm).val(map.zoom);
-          $('#spot_exactness_1', newForm).attr('checked', true); // Check the "exact" value
-          // TODO: create spots for all image's observations
-          $('#spot_observation_id', newForm).val(firstObserv);
-          wndContent = newForm.html();
+    theMap.gmap3({
+      map: {
+        options: {
+          draggableCursor: 'pointer'
+        },
+        events: {
+          click: function (map, event) {
+            var newForm = spotForm.clone(),
+                wndContent;
 
-          theMap.gmap3({
-            infowindow: {
-              latLng: event.latLng,
-              options: {
-                content: wndContent
+            closeInfoWindows();
+            $('#spot_lat', newForm).val(event.latLng.lat());
+            $('#spot_lng', newForm).val(event.latLng.lng());
+            $('#spot_zoom', newForm).val(map.zoom);
+            $('#spot_exactness_1', newForm).attr('checked', true); // Check the "exact" value
+            // TODO: create spots for all image's observations
+            $('#spot_observation_id', newForm).val(firstObserv);
+            wndContent = newForm.html();
+
+            theMap.gmap3({
+              infowindow: {
+                latLng: event.latLng,
+                options: {
+                  content: wndContent
+                }
               }
-            }
-          });
+            });
+          }
         }
       }
-    }
-  });
+    });
+
+  }
 
   $(document).on('ajax:success', '#new_spot', function (e, data) {
     var infowindow = theMap.gmap3({get: {name: 'infowindow'}}),
@@ -156,18 +160,22 @@ $(function () {
 
   marker_options = $.extend(true, {}, DEFAULT_MARKER_OPTIONS);
   marker_options.values = marks;
-  if (marks.length > 0) {
-    theMap.gmap3(
-        {marker: marker_options},
-        {autofit: {maxZoom: max_zoom}} // Zooms and moves to see all markers
-    )
-  }
-  else if (typeof(locusLatLng) !== 'undefined') {
-    theMap.gmap3("get").setCenter(locusLatLng);
-    theMap.gmap3("get").setZoom(13);
+
+
+  if (typeof google === "object") {
+    if (marks.length > 0) {
+      theMap.gmap3(
+          {marker: marker_options},
+          {autofit: {maxZoom: max_zoom}} // Zooms and moves to see all markers
+      )
+    }
+    else if (typeof(locusLatLng) !== 'undefined') {
+      theMap.gmap3("get").setCenter(locusLatLng);
+      theMap.gmap3("get").setZoom(13);
+    }
   }
 
-  if (selected_spot) {
+  if (selected_spot && typeof google === "object") {
 
     activeMarkers = theMap.gmap3({
       get: {

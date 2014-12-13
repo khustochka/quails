@@ -8,12 +8,12 @@ namespace :vendor do
 
     #desc 'Update Javascripts'
     task :javascripts do
-      require './config/initializers/jquery'
+      #require './config/initializers/jquery'
 
-      puts "\n=== Getting JQuery #{JQUERY_CDN.scan(/\d\.\d\.\d/)[0]} ==="
-      system "curl http:#{JQUERY_CDN} -o vendor/assets/javascripts/jquery.min.js"
-      puts "\n=== Getting latest JQuery-ujs ==="
-      system "curl https://raw.githubusercontent.com/rails/jquery-ujs/master/src/rails.js -o vendor/assets/javascripts/jquery_ujs.js"
+      # puts "\n=== Getting JQuery #{JQUERY_CDN.scan(/\d\.\d\.\d/)[0]} ==="
+      # system "curl http:#{JQUERY_CDN} -o vendor/assets/javascripts/jquery.min.js"
+      # puts "\n=== Getting latest JQuery-ujs ==="
+      # system "curl https://raw.githubusercontent.com/rails/jquery-ujs/master/src/rails.js -o vendor/assets/javascripts/jquery_ujs.js"
       puts "\n=== Getting latest JQuery-pjax ==="
       system "curl https://raw.githubusercontent.com/defunkt/jquery-pjax/master/jquery.pjax.js -o vendor/assets/javascripts/jquery_pjax.js"
       puts "\n=== Getting latest Keypress.js ==="

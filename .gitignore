@@ -2,6 +2,8 @@
 !.gitignore
 !.gitkeep
 !.gitmodules
+!.ruby-version
+!.ruby-gemset
 !.keep
 !.env
 !.env.test

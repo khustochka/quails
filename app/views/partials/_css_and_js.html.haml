@@ -6,4 +6,4 @@
 
 -# scripts
 - scripts = @scripts.try(:compact) || []
-= javascript_include_tag(*scripts.unshift(JQUERY_URL, 'application'))
+= javascript_include_tag(*scripts.unshift('application'))

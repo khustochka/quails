@@ -2,7 +2,8 @@ class SpeciesSearch
 
   FILTER = lambda do |term|
     %w(name_sci name_ru name_en name_uk).map do |field|
-      "#{field} ILIKE '#{term}%' OR #{field} ILIKE '% #{term}%' OR #{field} ILIKE '%-#{term}%'"
+      Species.send(:sanitize_conditions,
+                   ["#{field} ILIKE '%s%%' OR #{field} ILIKE '%% %s%%' OR #{field} ILIKE '%%-%s%%'", term, term, term])
     end.join(" OR ")
   end
 
@@ -13,10 +14,11 @@ class SpeciesSearch
 
   def find
     return [] if @term.blank?
+    main_condition = Species.send(:sanitize_conditions, ["name_sci ILIKE '%s%%'", @term])
     rel = @base.
         select("DISTINCT name_sci, name_en, name_ru, name_uk, weight,
                           CASE WHEN weight IS NULL THEN NULL
-                              WHEN name_sci ILIKE '#{@term}%' THEN 1
+                              WHEN #{main_condition} THEN 1
                               ELSE 2
                           END as rank").
         where(FILTER.call(@term)).
