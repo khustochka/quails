@@ -1,297 +1,297 @@
-@import 'mixins'
-//There was also 'normalize'
-
-form.simple_form
-  margin-bottom: 20px
-//  width: 660px
-
-.main
-  .ui-widget .ui-menu-item
-    font-size: 16px
-
-  input, textarea, select
-    font-size: 14px
-
-
-  label
-    font: 12px Verdana, Arial, sans-serif
-    display: block
-    color: #5555AA
-
-form.search
-  display: inline-block
-  margin-left: 0
-  padding: 10px 10px 0 10px
-  width: auto
-  border: 1px solid #4444aa
-  background-color: #dde4ff
-  .buttons
-    @include inline-block
-    margin-top: 15px
-    .button
-      width: 95px
-      height: 30px
-
-div.input
-  @include inline-block
-  vertical-align: top
-  margin-right: 10px
-  margin-bottom: 10px
-//  width: 339px
-
-div.input.hidden
-  display: none
-
-div.input.flat label
-  display: inline
-
-div.boolean.flat label
-  margin-left: 4px
-
-// Radios
-div.input span
-  display: block
-  label
-    display: inline
-    margin-left: 4px
-
-div.input span.remove
-  display: inline
-  margin: 0 5px
-
-input.string
-  width: 220px
-
-input.string[type=date]
-  &, &.short
-    width: auto
-
-input.string.short
-  width: 100px
-
-input.string.medium
-  width: 320px
-
-input.string.long
-  width: 620px
-
-input.string.larger
-  font-size: 16px
-  font-weight: bold
-
-textarea
-  width: 620px
-
-div.buttons
-  margin: 10px 0 0 0
-  button, input, a, span
-    margin-right: 20px
-
-input.button, button
-  min-width: 130px
-  height: 40px
-
-.ebird_obs_search input.button, button
-  min-width: 100px
-  margin-right: 0
-
-form.regenerate_btn
-  display: inline-block
-  margin: 5px 15px
-  input
-    padding: 10px
-
-div.input span.select_arrow
-  background-image: url('../img/select_arrow.gif')
-  background-repeat: no-repeat
-  background-position: right center
-  padding: 3px 8px 0 8px
-  margin-left: -23px
-  display: inline-block
-  border: 1px solid #bbb
-  vertical-align: bottom
-  cursor: default
-
-// Observations
-
-form.new_card, form.edit_card
-  .to-add-row
-    display: inline-block
-    font-weight: bold
-  .quick-add
-    display: block
-    margin:
-      top: 10px
-      bottom: 10px
-    padding-bottom: 5px
-    border-bottom: 1px solid green
-    label
-      color: green
-    input
-      border-color: green
-      width: 400px
-
-div.obs-row
-  //display: table-row
-  div
-    display: table-cell
-    vertical-align: bottom
-    padding-right: 10px
-    padding-bottom: 10px
-    a
-      font-size: 12px
-
-div.bulk_select
-  padding-left: 10px
-  border-left: 1px solid black
-
-// Refactor?
-div.obs-row
-  margin-bottom: 3px
-  @include inline-block
-  .card_observations_notes,
-  .card_observations_place,
-  .observation_notes,
-  .observation_place
-    input
-      font-size: 13px
-      padding: 1px 0 2px 2px
-
-.fixed-bottom
-  position: fixed
-  bottom: 0
-  background-color: rgba(#ccffcc, 0.8)
-  border-top: 4px solid green
-  padding: 15px
-  width: $main-width
-
-// Images
-table.with_search
-  td
-    padding: 0 10px
-    border: 1px solid #888
-  .observation_list, .observation_options
-    width: 362px
-    height: 268px
-    vertical-align: top
-    h5, .restore
-      @include inline-block
-    .restore
-      float: right
-      margin-top: 3px
-  .observation_search
-    text-align: right
-  .observation_search, .flickr_search
-    button
-      vertical-align: -19px
-      width: 100px
-  ul.found-obs
-    li
-      background-color: #eeffee
-    .remove
-      display: none
-
-table.flickr_search_table
-  width: 1000px
-  td.found_pictures
-    height: 200px
-    img
-      cursor: pointer
-
-ul.obs-list
-  padding: 0
-  margin: 0
-  line-height: normal
-  li
-    list-style: none
-    margin-left: 0
-    margin-bottom: 5px
-    padding: 2px 5px
-    font-size: 11px
-    border: 1px dotted #777
-    width: 350px
-    .remove
-      float: right
-    div
-      // To work around line wrap because of 'remove' icon
-      margin-bottom: 1px
-
-
-// Observations index
-
-.voice
-  background-color: DodgerBlue
-
-// Species review
-
-.reviewForms
-  .edit_species
-    background-color: #ccddff
-    div.input
-      padding-right: 24px
-
-  input.mismatch
-    border: 3px solid crimson
-
-  .bringUp
-    display: inline
-    margin: 3px
-    font-weight: bold
-    font-size: 22px
-    color: red
-    cursor: pointer
-
-.edit_tools
-  border: 1px solid #ddd
-  border-bottom: none
-  border-top-left-radius: 10px
-  border-top-right-radius: 10px
-  padding: 5px
-  button
-    font-weight: bold
-    text-decoration: underline
-    color: green
-    background-color: inherit
-    border: none
-    border-right: 1px solid #ddd
-    height: 24px
-
-// inline datepicker
-
-.inline_date
-  font-size: 80%
-  float: left
-  margin: 0 10px 10px 0
-
-.ui-widget-content .ui-datepicker-today .ui-state-highlight
-  background: #93c3cd url(/assets/ui-bg_diagonals-small_50_93c3cd_40x40.png) 50% 50% repeat
-  border: 2px solid #222222
-
-
-// Card form
-
-.card-fields-wrapper
-  clear: both
-  border-bottom: 2px solid black
-  margin-bottom: 20px
-  input
-    width: 200px
-
-.fast-locus-container
-  display: inline-block
-  vertical-align: -20px
-  span
-    margin-right: 10px
-
-// FLickr info edit
-.flickr_info
-  input, textarea
-    width: 400px
-
-// File upload
-.upload_form
-  border: 1px solid black
-  margin-bottom: 20px
-  td
-    padding: 10px
-    width: 30%
+//@import 'mixins'
+////There was also 'normalize'
+//
+//form.simple_form
+//  margin-bottom: 20px
+////  width: 660px
+//
+//.main
+//  .ui-widget .ui-menu-item
+//    font-size: 16px
+//
+//  input, textarea, select
+//    font-size: 14px
+//
+//
+//  label
+//    font: 12px Verdana, Arial, sans-serif
+//    display: block
+//    color: #5555AA
+//
+//form.search
+//  display: inline-block
+//  margin-left: 0
+//  padding: 10px 10px 0 10px
+//  width: auto
+//  border: 1px solid #4444aa
+//  background-color: #dde4ff
+//  .buttons
+//    @include inline-block
+//    margin-top: 15px
+//    .button
+//      width: 95px
+//      height: 30px
+//
+//div.input
+//  @include inline-block
+//  vertical-align: top
+//  margin-right: 10px
+//  margin-bottom: 10px
+////  width: 339px
+//
+//div.input.hidden
+//  display: none
+//
+//div.input.flat label
+//  display: inline
+//
+//div.boolean.flat label
+//  margin-left: 4px
+//
+//// Radios
+//div.input span
+//  display: block
+//  label
+//    display: inline
+//    margin-left: 4px
+//
+//div.input span.remove
+//  display: inline
+//  margin: 0 5px
+//
+//input.string
+//  width: 220px
+//
+//input.string[type=date]
+//  &, &.short
+//    width: auto
+//
+//input.string.short
+//  width: 100px
+//
+//input.string.medium
+//  width: 320px
+//
+//input.string.long
+//  width: 620px
+//
+//input.string.larger
+//  font-size: 16px
+//  font-weight: bold
+//
+//textarea
+//  width: 620px
+//
+//div.buttons
+//  margin: 10px 0 0 0
+//  button, input, a, span
+//    margin-right: 20px
+//
+//input.button, button
+//  min-width: 130px
+//  height: 40px
+//
+//.ebird_obs_search input.button, button
+//  min-width: 100px
+//  margin-right: 0
+//
+//form.regenerate_btn
+//  display: inline-block
+//  margin: 5px 15px
+//  input
+//    padding: 10px
+//
+//div.input span.select_arrow
+//  background-image: url('../img/select_arrow.gif')
+//  background-repeat: no-repeat
+//  background-position: right center
+//  padding: 3px 8px 0 8px
+//  margin-left: -23px
+//  display: inline-block
+//  border: 1px solid #bbb
+//  vertical-align: bottom
+//  cursor: default
+//
+//// Observations
+//
+//form.new_card, form.edit_card
+//  .to-add-row
+//    display: inline-block
+//    font-weight: bold
+//  .quick-add
+//    display: block
+//    margin:
+//      top: 10px
+//      bottom: 10px
+//    padding-bottom: 5px
+//    border-bottom: 1px solid green
+//    label
+//      color: green
+//    input
+//      border-color: green
+//      width: 400px
+//
+//div.obs-row
+//  //display: table-row
+//  div
+//    display: table-cell
+//    vertical-align: bottom
+//    padding-right: 10px
+//    padding-bottom: 10px
+//    a
+//      font-size: 12px
+//
+//div.bulk_select
+//  padding-left: 10px
+//  border-left: 1px solid black
+//
+//// Refactor?
+//div.obs-row
+//  margin-bottom: 3px
+//  @include inline-block
+//  .card_observations_notes,
+//  .card_observations_place,
+//  .observation_notes,
+//  .observation_place
+//    input
+//      font-size: 13px
+//      padding: 1px 0 2px 2px
+//
+//.fixed-bottom
+//  position: fixed
+//  bottom: 0
+//  background-color: rgba(#ccffcc, 0.8)
+//  border-top: 4px solid green
+//  padding: 15px
+//  width: $main-width
+//
+//// Images
+//table.with_search
+//  td
+//    padding: 0 10px
+//    border: 1px solid #888
+//  .observation_list, .observation_options
+//    width: 362px
+//    height: 268px
+//    vertical-align: top
+//    h5, .restore
+//      @include inline-block
+//    .restore
+//      float: right
+//      margin-top: 3px
+//  .observation_search
+//    text-align: right
+//  .observation_search, .flickr_search
+//    button
+//      vertical-align: -19px
+//      width: 100px
+//  ul.found-obs
+//    li
+//      background-color: #eeffee
+//    .remove
+//      display: none
+//
+//table.flickr_search_table
+//  width: 1000px
+//  td.found_pictures
+//    height: 200px
+//    img
+//      cursor: pointer
+//
+//ul.obs-list
+//  padding: 0
+//  margin: 0
+//  line-height: normal
+//  li
+//    list-style: none
+//    margin-left: 0
+//    margin-bottom: 5px
+//    padding: 2px 5px
+//    font-size: 11px
+//    border: 1px dotted #777
+//    width: 350px
+//    .remove
+//      float: right
+//    div
+//      // To work around line wrap because of 'remove' icon
+//      margin-bottom: 1px
+//
+//
+//// Observations index
+//
+//.voice
+//  background-color: DodgerBlue
+//
+//// Species review
+//
+//.reviewForms
+//  .edit_species
+//    background-color: #ccddff
+//    div.input
+//      padding-right: 24px
+//
+//  input.mismatch
+//    border: 3px solid crimson
+//
+//  .bringUp
+//    display: inline
+//    margin: 3px
+//    font-weight: bold
+//    font-size: 22px
+//    color: red
+//    cursor: pointer
+//
+//.edit_tools
+//  border: 1px solid #ddd
+//  border-bottom: none
+//  border-top-left-radius: 10px
+//  border-top-right-radius: 10px
+//  padding: 5px
+//  button
+//    font-weight: bold
+//    text-decoration: underline
+//    color: green
+//    background-color: inherit
+//    border: none
+//    border-right: 1px solid #ddd
+//    height: 24px
+//
+//// inline datepicker
+//
+//.inline_date
+//  font-size: 80%
+//  float: left
+//  margin: 0 10px 10px 0
+//
+//.ui-widget-content .ui-datepicker-today .ui-state-highlight
+//  background: #93c3cd url(/assets/ui-bg_diagonals-small_50_93c3cd_40x40.png) 50% 50% repeat
+//  border: 2px solid #222222
+//
+//
+//// Card form
+//
+//.card-fields-wrapper
+//  clear: both
+//  border-bottom: 2px solid black
+//  margin-bottom: 20px
+//  input
+//    width: 200px
+//
+//.fast-locus-container
+//  display: inline-block
+//  vertical-align: -20px
+//  span
+//    margin-right: 10px
+//
+//// FLickr info edit
+//.flickr_info
+//  input, textarea
+//    width: 400px
+//
+//// File upload
+//.upload_form
+//  border: 1px solid black
+//  margin-bottom: 20px
+//  td
+//    padding: 10px
+//    width: 30%
