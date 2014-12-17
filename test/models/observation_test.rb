@@ -19,4 +19,16 @@ class ObservationTest < ActiveSupport::TestCase
     assert after > before
   end
 
+  test "locus filter should filter by observations patch too" do
+    card = create(:card, locus_id: seed(:kiev_obl).id)
+    obs = create(:observation, card_id: card.id, patch_id: seed(:brovary).id)
+    assert_includes Observation.filter(locus: seed(:brovary).id), obs
+  end
+
+  test "locus filter should filter by observations patch too (many locs)" do
+    card = create(:card, locus_id: seed(:kiev_obl).id)
+    obs = create(:observation, card_id: card.id, patch_id: seed(:brovary).id)
+    assert_includes Observation.filter(locus: [seed(:brovary).id, seed(:geologorozvidka).id]), obs
+  end
+
 end
