@@ -40,9 +40,6 @@ class JSImagesTest < ActionDispatch::IntegrationTest
     login_as_admin
     visit edit_image_path(img)
 
-    # This test is sometimes failing with timeout, probably due to no actions performed on page
-    #sleep 1
-
     assert_difference('Image.count', 0) { save_and_check }
     assert_equal edit_map_image_path(img), current_path
     img.reload
