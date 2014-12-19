@@ -37,6 +37,7 @@ GEM
     ancestry (2.1.0)
       activerecord (>= 3.0.0)
     arel (5.0.1.20140414130214)
+    benchmark-ips (2.1.0)
     builder (3.2.2)
     capybara (2.4.4)
       mime-types (>= 1.16)
@@ -194,6 +195,7 @@ DEPENDENCIES
   addressable
   airbrake
   ancestry
+  benchmark-ips
   capybara
   capybara-webkit
   coffee-rails (~> 4.0.0)

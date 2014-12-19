@@ -47,6 +47,7 @@ gem 'rails_stdout_logging', require: false
 group :development do
   gem 'nokogiri', platforms: [:ruby, :mingw], require: false
   gem 'pry-rails'
+  gem 'benchmark-ips'
 end
 
 # in dev group for generators
