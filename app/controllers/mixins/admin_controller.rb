@@ -23,6 +23,7 @@ module AdminController
         @admin_layout = true
         @scripts ||= []
         @scripts.push 'administrative'
+        params.permit!
       end
     end
 
