@@ -12,11 +12,6 @@ class ApplicationController < ActionController::Base
 
   extend RecordFinder
 
-  # FIXME: temp fix. switch to strong parameters
-  before_action do
-    ActionController::Parameters.permit_all_parameters = true
-  end
-
   private
 
   def significant_params
