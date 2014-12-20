@@ -8,10 +8,11 @@ class SpeciesTest < ActiveSupport::TestCase
     assert_raise(ActiveRecord::RecordInvalid) { sp.save! }
   end
 
-  test 'do not save species with empty code' do
+  test 'empty code should be turned into nil' do
     sp = Species.find_by!(code: :parcae)
     sp.code = ''
-    assert_raise(ActiveRecord::RecordInvalid) { sp.save! }
+    sp.save!
+    assert_nil sp.code
   end
 
   test 'not be saved with existing Latin name' do
