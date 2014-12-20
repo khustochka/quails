@@ -9,6 +9,7 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
 #   inflect.irregular 'person', 'people'
 #   inflect.uncountable %w( fish sheep )
   inflect.irregular 'species', 'species'
+  inflect.irregular 'media', 'media'
   inflect.irregular 'locus', 'loci'
   inflect.irregular 'taxon', 'taxa'
 end
