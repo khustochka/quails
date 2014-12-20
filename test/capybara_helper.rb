@@ -28,6 +28,8 @@ ActiveRecord::Base.shared_connection = ActiveRecord::Base.connection
 module CapybaraTestCase
   include Capybara::DSL
 
+  TEST_CREDENTIALS = {username: ENV['admin_username'], password: ENV['admin_password']}
+
   def self.included(klass)
     # Stop ActiveRecord from wrapping tests in transactions
     klass.use_transactional_fixtures = false
@@ -39,10 +41,9 @@ module CapybaraTestCase
   end
 
   def login_as_admin
-    test_credentials = ActiveSupport::TestCase::TEST_CREDENTIALS
     visit '/login'
-    fill_in 'username', with: test_credentials.username
-    fill_in 'password', with: test_credentials.password
+    fill_in 'username', with: TEST_CREDENTIALS[:username]
+    fill_in 'password', with: TEST_CREDENTIALS[:password]
     click_button "Login"
   end
 end

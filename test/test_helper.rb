@@ -16,13 +16,6 @@ class ActiveSupport::TestCase
 
   delegate :public_post_path, :public_comment_path, :url_for, to: :@controller
 
-  TEST_CREDENTIALS = Hashie::Mash.new(
-      {
-          username: ENV['admin_username'],
-          password: ENV['admin_password']
-      }
-  )
-
   def login_as_admin
     @request.session[User.cookie_name] = User.cookie_value
   end
