@@ -61,9 +61,6 @@ class SpeciesController < ApplicationController
 
   # PUT /species/1
   def update
-    # if code is not provided, should not remove it
-    # if code is empty string, should remove it
-    params[:species][:code] = nil if params[:species][:code] == ''
 
     respond_to do |format|
       if @species.update_attributes(params[:species])
@@ -78,8 +75,6 @@ class SpeciesController < ApplicationController
 
   # PUT /species
   def create
-    # if code is empty string, should remove it
-    params[:species][:code] = nil if params[:species][:code] == ''
 
     @species = Species.new(params[:species])
     respond_to do |format|

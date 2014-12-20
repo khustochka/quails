@@ -40,9 +40,6 @@ class JSVideosTest < ActionDispatch::IntegrationTest
     login_as_admin
     visit edit_video_path(video)
 
-    # This test is sometimes failing with timeout, probably due to no actions performed on page
-    #sleep 1
-
     assert_difference('Video.count', 0) { save_and_check }
     assert_equal edit_map_video_path(video), current_path
     video.reload

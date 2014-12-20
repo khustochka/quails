@@ -15,7 +15,7 @@ class Species < ActiveRecord::Base
 #  validates :order, presence: true, allow_blank: true
   validates :family, presence: true
   validates :name_sci, presence: true, format: /\A[A-Z][a-z]+ [a-z]+\Z/, uniqueness: true
-  validates :code, format: /\A[a-z]{6}\Z/, uniqueness: true, allow_blank: true
+  validates :code, format: /\A[a-z]{6}\Z/, uniqueness: true, allow_nil: true
   validates :avibase_id, format: /\A[\dA-F]{16}\Z/, allow_blank: true
   validates :index_num, presence: true
 
@@ -47,6 +47,10 @@ class Species < ActiveRecord::Base
 
   def to_label
     name_sci
+  end
+
+  def code=(val)
+    super(val == '' ? nil : val)
   end
 
   # Scopes
