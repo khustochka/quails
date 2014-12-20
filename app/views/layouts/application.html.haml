@@ -99,5 +99,5 @@
 
         = yield
 
-    - cache :footer do
+    - cache [:footer, admin: current_user.admin?] do
       = render 'partials/footer'
