@@ -56,7 +56,7 @@ class Thumbnail
 
   private
   def image_asset
-    if @image.on_flickr?
+    if @image.external_id
       @image.assets_cache.externals.find_max_size(height: @height || THUMBNAIL_HEIGHT)
     else
       @image.assets_cache.locals.find_max_size(height: @height || THUMBNAIL_HEIGHT)

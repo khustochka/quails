@@ -55,16 +55,6 @@ class Image < Media
         joins(:observations, :cards).preload(:species).order('observ_date ASC')
   end
 
-  # Mapped photos
-  def self.for_the_map
-    Image.connection.select_rows(
-        Image.for_the_map_query.to_sql
-    ).each_with_object({}) do |(im_id, lat1, lon1, lat2, lon2), memo|
-      key = [(lat1 || lat2), (lon1 || lon2)].map { |x| (x.to_f * 100000).round / 100000.0 }
-      (memo[key.join(',')] ||= []).push(im_id.to_i)
-    end
-  end
-
   def self.half_mapped
     Image.preload(:species).joins(:observations).
         where(spot_id: nil).where("observation_id in (select observation_id from spots)").
@@ -135,20 +125,6 @@ class Image < Media
       join ranked this on that.rn between this.rn-1 and this.rn+1
       where this.id='#{self.id}' and this.rn <> that.rn"
     @prev_next[sp] = Image.find_by_sql(q).index_by(&:diff)
-  end
-
-  def self.for_the_map_query
-    Image.select("media.id,
-                  COALESCE(spots.lat, patches.lat, public_locus.lat, parent_locus.lat) AS lat,
-                  COALESCE(spots.lng, patches.lon, public_locus.lon, parent_locus.lon) AS lng").
-        joins(:cards).
-        joins("LEFT OUTER JOIN (#{Spot.public_spots.to_sql}) as spots ON spots.id=media.spot_id").
-        joins("LEFT OUTER JOIN (#{Locus.non_private.to_sql}) as patches ON patches.id=observations.patch_id").
-        joins("LEFT OUTER JOIN (#{Locus.non_private.to_sql}) as public_locus ON public_locus.id=cards.locus_id").
-        joins("JOIN loci as card_locus ON card_locus.id=cards.locus_id").
-        joins("LEFT OUTER JOIN (#{Locus.non_private.to_sql}) as parent_locus ON card_locus.ancestry LIKE CONCAT(parent_locus.ancestry, '/', parent_locus.id)").
-        where("spots.lat IS NOT NULL OR patches.lat IS NOT NULL OR public_locus.lat IS NOT NULL OR parent_locus.lat IS NOT NULL").
-        uniq
   end
 
 end

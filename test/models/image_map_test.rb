@@ -43,7 +43,7 @@ class ImageMapTest < ActiveSupport::TestCase
   end
 
   def result
-    Image.for_the_map_query.where(id: @image.id).first
+    Media.for_the_map_query.where(id: @image.id).first
   end
 
   # image for the map

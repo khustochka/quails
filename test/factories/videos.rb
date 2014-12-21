@@ -7,5 +7,10 @@ FactoryGirl.define do
     youtube_id "kdf83e7aks"
     description "MyText"
     observations { [FactoryGirl.create(:observation)] }
+    assets_cache { ImageAssetsArray.new (
+                                            [
+                                                ImageAssetItem.new(:youtube, 800, 600, "#{slug}.jpg")
+                                            ]
+                                        ) }
   end
 end

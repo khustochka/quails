@@ -7,6 +7,12 @@ class Video < Media
 
   validates :external_id, presence: true
 
+  before_save do
+    if new_record? || changed_attributes.has_key?(:external_id)
+      update_thumbnail
+    end
+  end
+
   # Update
 
   def youtube_id
@@ -27,6 +33,25 @@ class Video < Media
 
   def large
     YoutubeVideo.new(youtube_id, 853, 480)
+  end
+
+  def to_thumbnail
+    title = self.formatted.title + " (video)"
+    Thumbnail.new(self, title, self, {video: {id: id}})
+  end
+
+  private
+
+  def update_thumbnail
+    self.assets_cache = ImageAssetsArray.new (
+                                            [
+                                                ImageAssetItem.new(:youtube, 480, 360, thumbnail_url_template)
+                                            ]
+                                        )
+  end
+
+  def thumbnail_url_template
+    "//img.youtube.com/vi/#{youtube_id}/hqdefault.jpg"
   end
 
 end

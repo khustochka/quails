@@ -141,7 +141,7 @@ $(function () {
     }
   });
 
-  $.get('/map/photos', function (rdata, textStatus, jqXHR) {
+  $.get('/map/media', function (rdata, textStatus, jqXHR) {
     marks = [];
     var latLng;
 

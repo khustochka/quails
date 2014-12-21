@@ -36,8 +36,22 @@ class Media < ActiveRecord::Base
     spot_id
   end
 
+  # Mapped photos and vidoes
+  def self.for_the_map
+    Media.connection.select_rows(
+        Media.for_the_map_query.to_sql
+    ).each_with_object({}) do |(im_id, lat1, lon1, lat2, lon2), memo|
+      key = [(lat1 || lat2), (lon1 || lon2)].map { |x| (x.to_f * 100000).round / 100000.0 }
+      (memo[key.join(',')] ||= []).push(im_id.to_i)
+    end
+  end
+
   def extend_with_class
     self.becomes(AVAILABLE_CLASSES[media_type].constantize)
+  end
+
+  def to_thumbnail
+    extend_with_class.to_thumbnail
   end
 
   def search_applicable_observations(params = {})
@@ -93,6 +107,20 @@ class Media < ActiveRecord::Base
     if spot_id && !spot.observation_id.in?(observation_ids)
       self.update_column(:spot_id, nil)
     end
+  end
+
+  def self.for_the_map_query
+    Media.select("media.id,
+                  COALESCE(spots.lat, patches.lat, public_locus.lat, parent_locus.lat) AS lat,
+                  COALESCE(spots.lng, patches.lon, public_locus.lon, parent_locus.lon) AS lng").
+        joins(:cards).
+        joins("LEFT OUTER JOIN (#{Spot.public_spots.to_sql}) as spots ON spots.id=media.spot_id").
+        joins("LEFT OUTER JOIN (#{Locus.non_private.to_sql}) as patches ON patches.id=observations.patch_id").
+        joins("LEFT OUTER JOIN (#{Locus.non_private.to_sql}) as public_locus ON public_locus.id=cards.locus_id").
+        joins("JOIN loci as card_locus ON card_locus.id=cards.locus_id").
+        joins("LEFT OUTER JOIN (#{Locus.non_private.to_sql}) as parent_locus ON card_locus.ancestry LIKE CONCAT(parent_locus.ancestry, '/', parent_locus.id)").
+        where("spots.lat IS NOT NULL OR patches.lat IS NOT NULL OR public_locus.lat IS NOT NULL OR parent_locus.lat IS NOT NULL").
+        uniq
   end
 
 end

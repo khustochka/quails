@@ -1,15 +1,12 @@
 class ImagesController < ApplicationController
 
-  administrative except: [:index, :multiple_species, :show, :gallery, :country, :strip]
+  administrative except: [:index, :multiple_species, :show, :gallery, :country]
 
   find_record by: :slug, before: [:show, :edit,
                                   :parent_edit, :parent_update,
                                   :map_edit, :update, :patch, :destroy]
 
   after_action :cache_expire, only: [:create, :update, :destroy]
-
-  # Do not check csrf token for photostrip on the map
-  skip_before_action :verify_authenticity_token, only: :strip
 
   # Latest additions
   def index
@@ -160,12 +157,6 @@ class ImagesController < ApplicationController
   def observations
     observs = Image.find_by(id: params[:id]).observations.preload(:species, :card => :locus)
     render json: observs, only: :id, methods: [:species_str, :when_where_str]
-  end
-
-  def strip
-    @images = Image.where(id: params[:_json]).includes(:cards, :species).
-        order('cards.observ_date, cards.locus_id, media.index_num, species.index_num')
-    render layout: false
   end
 
   def parent_edit

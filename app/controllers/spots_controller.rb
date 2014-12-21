@@ -1,6 +1,6 @@
 class SpotsController < ApplicationController
 
-  administrative except: %i(index photos)
+  administrative except: %i(index media)
 
   # FIXME: probably unused
   # GET "/map/spots.json"
@@ -8,9 +8,9 @@ class SpotsController < ApplicationController
     render json: Spot.public_spots, only: [:lat, :lng]
   end
 
-  # GET "/map/photos.json"
-  def photos
-    render json: Image.for_the_map
+  # GET "/map/media.json"
+  def media
+    render json: Media.for_the_map
   end
 
   # POST "/spots/save.json"
