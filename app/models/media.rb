@@ -17,6 +17,14 @@ class Media < ActiveRecord::Base
 
   after_update :update_spot
 
+  AVAILABLE_CLASSES = {
+      'photo' => 'Image',
+      'video' => 'Video'
+  }
+
+  # Needed for ome reason for becomes
+  attr_accessor :type
+
   # Parameters
 
   def to_param
@@ -29,6 +37,10 @@ class Media < ActiveRecord::Base
 
   def mapped?
     spot_id
+  end
+
+  def extend_with_class
+    self.becomes(AVAILABLE_CLASSES[media_type].constantize)
   end
 
   def search_applicable_observations(params = {})
