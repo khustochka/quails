@@ -1,4 +1,4 @@
-class Image < ActiveRecord::Base
+class Image < Media
   include FormattedModel
   include Observationable
 
@@ -8,7 +8,8 @@ class Image < ActiveRecord::Base
 
   STATES = %w(DEFLT NOIDX)
 
-  has_and_belongs_to_many :observations
+  default_scope -> { where(media_type: 'photo') }
+
   has_many :species, through: :observations
 
   # TODO: try to make it 'card', because image should belong to observations of the same card
@@ -55,7 +56,7 @@ class Image < ActiveRecord::Base
 
   scope :top_level, -> { where(parent_id: nil) }
 
-  scope :basic_order, -> { order(:index_num, 'images.created_at', 'images.id') }
+  scope :basic_order, -> { order(:index_num, 'media.created_at', 'media.id') }
 
   # Parameters
 
@@ -71,8 +72,8 @@ class Image < ActiveRecord::Base
 
   # Photos with several species
   def self.multiple_species
-    rel = select(:image_id).from("images_observations").group(:image_id).having("COUNT(observation_id) > 1")
-    select("DISTINCT images.*, observ_date").where(id: rel).
+    rel = select(:media_id).from("media_observations").group(:media_id).having("COUNT(observation_id) > 1")
+    select("DISTINCT media.*, observ_date").where(id: rel).
         joins(:observations, :cards).preload(:species).order('observ_date ASC')
   end
 
@@ -94,6 +95,10 @@ class Image < ActiveRecord::Base
 
   # Instance methods
 
+  def flickr_id
+    external_id
+  end
+
   def on_flickr?
     flickr_id.present?
   end
@@ -102,7 +107,7 @@ class Image < ActiveRecord::Base
     species.count > 1
   end
 
-  ORDERING_COLUMNS = %w(cards.observ_date cards.locus_id index_num images.created_at images.id)
+  ORDERING_COLUMNS = %w(cards.observ_date cards.locus_id index_num media.created_at media.id)
   PREV_NEXT_ORDER = "ORDER BY #{ORDERING_COLUMNS.join(', ')}"
 
   def self.order_for_species
@@ -141,7 +146,7 @@ class Image < ActiveRecord::Base
     end
     # Calculate row number for every image under partition
     window =
-        Image.select("images.*, row_number() over (partition by species_id #{PREV_NEXT_ORDER}) as rn").
+        Image.select("media.*, row_number() over (partition by species_id #{PREV_NEXT_ORDER}) as rn").
             joins(:cards).
             where("observations.species_id" => sp.id)
     # Join ranked tables by neighbouring images
@@ -155,11 +160,11 @@ class Image < ActiveRecord::Base
   end
 
   def self.for_the_map_query
-    Image.select("images.id,
+    Image.select("media.id,
                   COALESCE(spots.lat, patches.lat, public_locus.lat, parent_locus.lat) AS lat,
                   COALESCE(spots.lng, patches.lon, public_locus.lon, parent_locus.lon) AS lng").
         joins(:cards).
-        joins("LEFT OUTER JOIN (#{Spot.public_spots.to_sql}) as spots ON spots.id=images.spot_id").
+        joins("LEFT OUTER JOIN (#{Spot.public_spots.to_sql}) as spots ON spots.id=media.spot_id").
         joins("LEFT OUTER JOIN (#{Locus.non_private.to_sql}) as patches ON patches.id=observations.patch_id").
         joins("LEFT OUTER JOIN (#{Locus.non_private.to_sql}) as public_locus ON public_locus.id=cards.locus_id").
         joins("JOIN loci as card_locus ON card_locus.id=cards.locus_id").

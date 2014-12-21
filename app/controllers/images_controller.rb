@@ -164,7 +164,7 @@ class ImagesController < ApplicationController
 
   def strip
     @images = Image.where(id: params[:_json]).includes(:cards, :species).
-        order('cards.observ_date, cards.locus_id, images.index_num, species.index_num')
+        order('cards.observ_date, cards.locus_id, media.index_num, species.index_num')
     render layout: false
   end
 
@@ -192,7 +192,7 @@ class ImagesController < ApplicationController
   end
 
   def series
-    rel = Observation.select(:observation_id).from("images_observations").group(:observation_id).having("COUNT(image_id) > 1")
+    rel = Observation.select(:observation_id).from("media_observations").group(:observation_id).having("COUNT(media_id) > 1")
     @observations = Observation.select("DISTINCT observations.*, observ_date").where(id: rel).
         joins(:card).preload(:images).order('observ_date DESC').page(params[:page])
   end

@@ -1,10 +1,11 @@
-class Video < ActiveRecord::Base
+class Video < Media
   include Observationable
   include FormattedModel
 
   NORMAL_PARAMS = [:slug, :title, :youtube_id, :description]
 
-  has_and_belongs_to_many :observations, join_table: 'videos_observations'
+  default_scope -> { where(media_type: 'video') }
+
   has_many :species, through: :observations
 
   # TODO: try to make it 'card', because image should belong to observations of the same card
@@ -14,7 +15,7 @@ class Video < ActiveRecord::Base
   belongs_to :spot
 
   validates :slug, uniqueness: true, presence: true, length: {:maximum => 64}
-  validates :youtube_id, presence: true
+  validates :external_id, presence: true
 
   def to_param
     slug_was
@@ -25,6 +26,14 @@ class Video < ActiveRecord::Base
   end
 
   # Update
+
+  def youtube_id
+    external_id
+  end
+
+  def youtube_id=(val)
+    self.external_id = val
+  end
 
   def observation_ids=(list)
     super(list.uniq)

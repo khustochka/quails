@@ -27,7 +27,7 @@ class Post < ActiveRecord::Base
   #  has_many :images, -> {
   #    includes(:species).
   #    references(:species).
-  #        order('observations.observ_date, observations.locus_id, images.index_num, species.index_num')
+  #        order('observations.observ_date, observations.locus_id, media.index_num, species.index_num')
   #  },
   #           through: :observations
 
@@ -89,7 +89,7 @@ class Post < ActiveRecord::Base
 
   def images
     Image.uniq.joins(:observations).includes(:cards, :species).where('cards.post_id = ? OR observations.post_id = ?', id, id).
-        order('cards.observ_date, cards.locus_id, images.index_num, species.index_num')
+        order('cards.observ_date, cards.locus_id, media.index_num, species.index_num')
   end
 
   # Instance methods

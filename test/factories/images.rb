@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :image do
+  factory :image, class: Image do
     sequence(:slug) {|n| "image_#{n}" }
     title "House Sparrow"
     description "This was taken somewhere"
