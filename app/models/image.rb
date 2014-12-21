@@ -1,6 +1,5 @@
 class Image < Media
   include FormattedModel
-  include Observationable
 
   invalidates CacheKey.gallery
 
@@ -10,20 +9,9 @@ class Image < Media
 
   default_scope -> { where(media_type: 'photo') }
 
-  has_many :species, through: :observations
-
-  # TODO: try to make it 'card', because image should belong to observations of the same card
-  has_many :cards, :through => :observations
-
-  has_many :spots, :through => :observations
-  belongs_to :spot
-
   has_many :children, -> { basic_order }, class_name: 'Image', foreign_key: 'parent_id'
 
-  validates :slug, uniqueness: true, presence: true, length: {:maximum => 64}
   validates :flickr_id, uniqueness: true, allow_nil: true, exclusion: {in: ['']}
-
-  serialize :assets_cache, ImageAssetsArray
 
   # Callbacks
   after_create do
@@ -57,18 +45,6 @@ class Image < Media
   scope :top_level, -> { where(parent_id: nil) }
 
   scope :basic_order, -> { order(:index_num, 'media.created_at', 'media.id') }
-
-  # Parameters
-
-  def to_param
-    slug_was
-  end
-
-  # Update
-
-  def observation_ids=(list)
-    super(list.uniq)
-  end
 
   # Photos with several species
   def self.multiple_species
@@ -131,10 +107,6 @@ class Image < Media
       title = "#{title} (#{child_num + 1} #{I18n.t('images.series_photos_num')})"
     end
     Thumbnail.new(self, title, self, {image: {id: id}})
-  end
-
-  def mapped?
-    spot_id
   end
 
   private
