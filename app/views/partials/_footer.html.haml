@@ -6,4 +6,4 @@
     %br
     %em= t('license.text').html_safe
 
-  = Birdingtop.render(self)
+  = Birdingtop.render(self) unless controller_name == 'maps'
