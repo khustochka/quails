@@ -11,7 +11,9 @@ class Image < Media
 
   has_many :children, -> { basic_order }, class_name: 'Image', foreign_key: 'parent_id'
 
-  validates :flickr_id, uniqueness: true, allow_nil: true, exclusion: {in: ['']}
+  validates :external_id, uniqueness: true, allow_nil: true, exclusion: {in: ['']}
+
+  scope :unflickred, -> { where(external_id: nil) }
 
   # Callbacks
   after_create do
@@ -73,6 +75,10 @@ class Image < Media
 
   def flickr_id
     external_id
+  end
+
+  def flickr_id=(val)
+    self.external_id = val
   end
 
   def on_flickr?

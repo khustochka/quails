@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'minitest/mock'
 
 class FlickrPhotosControllerTest < ActionController::TestCase
 
@@ -13,5 +14,25 @@ class FlickrPhotosControllerTest < ActionController::TestCase
   #   assert 422, response.code
   #
   # end
+
+  test "#unflickred" do
+    img1 = create(:image)
+    login_as_admin
+    get :unflickred
+  end
+
+  test '#show for unflickred image' do
+    img1 = create(:image)
+
+    login_as_admin
+    get :show, id: img1.slug
+  end
+
+  test '#show for flickred image' do
+    img1 = create(:image_on_flickr)
+
+    login_as_admin
+    get :show, id: img1.slug
+  end
 
 end

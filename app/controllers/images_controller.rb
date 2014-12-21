@@ -42,7 +42,7 @@ class ImagesController < ApplicationController
     @image = Image.new(params[:i])
     @photo = FlickrPhoto.new(@image)
     if @image.on_flickr? && !@image.persisted?
-      @flickr_id_in_use = Image.where(flickr_id: @image.flickr_id).first
+      @flickr_id_in_use = Image.where(external_id: @image.flickr_id).first
     end
 
     render 'form'
