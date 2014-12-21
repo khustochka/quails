@@ -12,7 +12,7 @@ class FlickrPhotosController < ApplicationController
   end
 
   def show
-    @next = Image.where(flickr_id: nil).where('created_at < ?', @image.created_at).order(created_at: :desc).first
+    @next = Image.unflickred.where('created_at < ?', @image.created_at).order(created_at: :desc).first
   end
 
   def edit
@@ -52,11 +52,11 @@ class FlickrPhotosController < ApplicationController
   # Collection actions
 
   def unflickred
-    @images = Image.preload(:species).where(flickr_id: nil).order(created_at: :desc).page(params[:page].to_i).per(24)
+    @images = Image.unflickred.preload(:species).order(created_at: :desc).page(params[:page].to_i).per(24)
   end
 
   def unused
-    used = Image.where("flickr_id IS NOT NULL").pluck(:flickr_id)
+    used = Image.where("external_id IS NOT NULL").pluck(:external_id)
     page = 0
     top = params[:top]
     top = top.to_i if top

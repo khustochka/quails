@@ -54,7 +54,7 @@ class CommentsController < ApplicationController
     else
 
       @post = current_user.available_posts.find_by!(id: params[:comment][:post_id])
-      comment_attrs = params[:comment].slice(*Comment::ALLOWED_PARAMETERS)
+      comment_attrs = params.require(:comment).permit(*Comment::ALLOWED_PARAMETERS)
       comment_attrs[:name] = params[CommentsHelper::REAL_NAME_FIELD]
 
       @comment = @post.comments.build(comment_attrs)
@@ -74,9 +74,9 @@ class CommentsController < ApplicationController
 
       respond_to do |format|
         if @comment.save
-          CommentMailer.notify_admin(@comment, request.host).deliver
+          CommentMailer.notify_admin(@comment, request.host).deliver_now
           if @comment.parent_comment && @comment.parent_comment.send_email? && @comment.approved
-            CommentMailer.notify_parent_author(@comment, request.host).deliver
+            CommentMailer.notify_parent_author(@comment, request.host).deliver_now
           end
 
           format.html {

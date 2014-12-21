@@ -120,7 +120,7 @@ class SpeciesControllerTest < ActionController::TestCase
     login_as_admin
     put :update, id: old_id, species: sp_attr
     assert_template :form
-    assert_select "form[action=#{species_path(species)}]"
+    assert_select "form[action='#{species_path(species)}']"
   end
 
   test "redirect species to correct URL " do

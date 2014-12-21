@@ -7,4 +7,23 @@ class VideoTest < ActiveSupport::TestCase
     assert_raise(ActiveRecord::RecordInvalid) { video.save! }
   end
 
+  test 'properly dump and load thumbnail' do
+    video = build(:video)
+    assert_equal :youtube, video.assets_cache.externals.first.type
+  end
+
+  test 'create thumbnail when video is created' do
+    obs = create(:observation)
+    video = Video.create!(slug: 'video2', external_id: 'Aaaa1111', observations: [obs])
+    assert video.assets_cache.externals.present?
+  end
+
+  test 'change thumbnail when youtube id is updated' do
+    video = create(:video)
+
+    video.update_attributes(youtube_id: 'Zzzzz33333')
+
+    assert video.assets_cache.externals.first.url.include?('Zzzzz33333')
+  end
+
 end

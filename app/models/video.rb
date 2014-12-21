@@ -1,33 +1,26 @@
-class Video < ActiveRecord::Base
-  include Observationable
+class Video < Media
   include FormattedModel
 
   NORMAL_PARAMS = [:slug, :title, :youtube_id, :description]
 
-  has_and_belongs_to_many :observations, join_table: 'videos_observations'
-  has_many :species, through: :observations
+  default_scope -> { where(media_type: 'video') }
 
-  # TODO: try to make it 'card', because image should belong to observations of the same card
-  has_many :cards, through: :observations
+  validates :external_id, presence: true
 
-  has_many :spots, through: :observations
-  belongs_to :spot
-
-  validates :slug, uniqueness: true, presence: true, length: {:maximum => 64}
-  validates :youtube_id, presence: true
-
-  def to_param
-    slug_was
-  end
-
-  def mapped?
-    spot_id
+  before_save do
+    if new_record? || changed_attributes.has_key?(:external_id)
+      update_thumbnail
+    end
   end
 
   # Update
 
-  def observation_ids=(list)
-    super(list.uniq)
+  def youtube_id
+    external_id
+  end
+
+  def youtube_id=(val)
+    self.external_id = val
   end
 
   def youtube_url
@@ -40,6 +33,25 @@ class Video < ActiveRecord::Base
 
   def large
     YoutubeVideo.new(youtube_id, 853, 480)
+  end
+
+  def to_thumbnail
+    title = self.formatted.title + " (video)"
+    Thumbnail.new(self, title, self, {video: {id: id}})
+  end
+
+  private
+
+  def update_thumbnail
+    self.assets_cache = ImageAssetsArray.new (
+                                            [
+                                                ImageAssetItem.new(:youtube, 480, 360, thumbnail_url_template)
+                                            ]
+                                        )
+  end
+
+  def thumbnail_url_template
+    "//img.youtube.com/vi/#{youtube_id}/hqdefault.jpg"
   end
 
 end

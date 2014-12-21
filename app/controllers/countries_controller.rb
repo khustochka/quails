@@ -11,7 +11,7 @@ class CountriesController < ApplicationController
 #        Species.ordered_by_taxonomy.where("species.id" => country_sps).joins(:image).includes(:image)
       when 'united_kingdom', 'usa', 'canada'
         Image.joins(:observations => :card).
-            select("DISTINCT images.*, cards.observ_date").
+            select("DISTINCT media.*, cards.observ_date").
             where("cards.locus_id" => @country.subregion_ids).
             preload(:species).
             order('cards.observ_date').basic_order

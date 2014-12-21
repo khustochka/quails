@@ -36,4 +36,12 @@ class ServiceCode
     end
   end
 
+  def may_be_admin?
+    @view.current_user.has_trust_cookie? || @view.admin_layout?
+  end
+
+  def is_admin?
+    @view.current_user.admin?
+  end
+
 end

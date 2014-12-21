@@ -12,9 +12,4 @@ class GoogleAnalytics < ServiceCode
     end
   end
 
-  private
-  def may_be_admin?
-    @view.current_user.has_trust_cookie? || @view.admin_layout?
-  end
-
 end

@@ -7,10 +7,7 @@ class FeedsController < ApplicationController
   end
 
   def photos
-    @media =
-        [Image, Video].flat_map do |klass|
-          klass.order(created_at: :desc).preload(:species, :observations => {:card => :locus}).limit(10)
-        end.sort { |x,y| y.created_at <=> x.created_at }
+    @media = Media.order(created_at: :desc).preload(:species, :observations => {:card => :locus}).limit(15)
   end
 
   def sitemap

@@ -15,8 +15,6 @@ class Post < ActiveRecord::Base
 
   serialize :lj_data, LJData
 
-  before_save :update_face_date
-
   validates :slug, :uniqueness => true, :presence => true, :length => {:maximum => 64}
   validates :title, :presence => true
   validates :topic, :inclusion => TOPICS, :presence => true, :length => {:maximum => 4}
@@ -29,9 +27,16 @@ class Post < ActiveRecord::Base
   #  has_many :images, -> {
   #    includes(:species).
   #    references(:species).
-  #        order('observations.observ_date, observations.locus_id, images.index_num, species.index_num')
+  #        order('observations.observ_date, observations.locus_id, media.index_num, species.index_num')
   #  },
   #           through: :observations
+
+  def initialize(*args)
+    super
+    unless face_date_before_type_cast
+      self.face_date = ''
+    end
+  end
 
   # Convert "timezone-less" face_date to local time zone because AR treats it as UTC (especially necessary for feed updated time)
   def face_date
@@ -84,7 +89,7 @@ class Post < ActiveRecord::Base
 
   def images
     Image.uniq.joins(:observations).includes(:cards, :species).where('cards.post_id = ? OR observations.post_id = ?', id, id).
-        order('cards.observ_date, cards.locus_id, images.index_num, species.index_num')
+        order('cards.observ_date, cards.locus_id, media.index_num, species.index_num')
   end
 
   # Instance methods
@@ -136,14 +141,11 @@ class Post < ActiveRecord::Base
         pluck(:species_id)
   end
 
-  private
-  def update_face_date
-    if read_attribute(:face_date).blank?
-      old = changed_attributes['face_date']
-      # TODO: why doing just 'write_attribute :face_date, Time.current' works for create but fails on update?
-      # Additionaly I have to manually preserve changed attribute value
-      write_attribute :face_date, Time.current.strftime("%F %T")
-      changed_attributes['face_date'] = old if old
+  def face_date=(new_date)
+    if new_date.blank?
+      super(Time.current.strftime("%F %T"))
+    else
+      super
     end
   end
 

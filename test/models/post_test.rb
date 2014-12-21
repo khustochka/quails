@@ -82,15 +82,17 @@ class PostTest < ActiveSupport::TestCase
     p = create(:post)
     saved_date = p.updated_at
 
-    sleep 1
+    travel 1.minute
 
     o = create(:observation, post: p)
 
-    sleep 1
+    travel 2.minutes
 
     i = create(:image, observation_ids: [o.id])
     p.reload
     assert p.updated_at.to_i > saved_date.to_i
+
+    travel_back
   end
 
   # FIXME: the NEW post is touched if it exists, but not the OLD!
@@ -124,13 +126,14 @@ class PostTest < ActiveSupport::TestCase
 
     o2 = create(:observation, card: card)
 
-    sleep 2
+    travel 1.minute
 
     i.update({observation_ids: [o2.id]})
 
     p.reload
     assert p.updated_at.to_i > saved_date.to_i
 
+    travel_back
   end
 
   # !
@@ -139,13 +142,15 @@ class PostTest < ActiveSupport::TestCase
     saved_date = p.updated_at
     card = create(:card, post: p)
 
-    sleep 2
+    travel 1.minute
 
     card.post = nil
     card.save!
 
     p.reload
     assert p.updated_at.to_i > saved_date.to_i
+
+    travel_back
 
   end
 

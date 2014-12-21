@@ -51,7 +51,7 @@ class ResearchController < ApplicationController
     unpic_rel = MyObservation.select('species_id, COUNT(observations.id) AS cnt').where(
         "species_id NOT IN (%s)" %
             MyObservation.select('DISTINCT species_id').
-                joins('INNER JOIN images_observations as im on (observations.id = im.observation_id)').to_sql
+                joins('INNER JOIN media_observations as im on (observations.id = im.observation_id)').to_sql
     ).group(:species_id)
 
     @no_photo = Species.select('*').

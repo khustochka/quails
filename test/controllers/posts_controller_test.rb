@@ -11,7 +11,7 @@ class PostsControllerTest < ActionController::TestCase
   test "create post" do
     assert_difference('Post.count') do
       login_as_admin
-      post :create, post: build(:post).attributes
+      post :create, post: build(:post).attributes.except('lj_data')
     end
     assert_redirected_to public_post_path(assigns(:post))
   end
@@ -109,7 +109,7 @@ class PostsControllerTest < ActionController::TestCase
     login_as_admin
     put :update, id: blogpost.slug, post: post_attr
     assert_template :form
-    assert_select "form[action=#{post_path(blogpost)}]"
+    assert_select "form[action='#{post_path(blogpost)}']"
   end
 
   test "destroy post" do

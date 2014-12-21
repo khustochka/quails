@@ -5,7 +5,7 @@ namespace :images do
     desc 'Dump flickr images into assets cache'
     task :flickr => :environment do
 
-      Image.where('flickr_id IS NOT NULL').each do |img|
+      Image.where('external_id IS NOT NULL').each do |img|
 
         slug = img.slug
         puts "Processing #{slug}"

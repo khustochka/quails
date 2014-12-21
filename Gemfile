@@ -2,7 +2,7 @@ source 'https://rubygems.org/'
 
 ruby '2.1.5'
 
-gem 'rails', '4.1.8'
+gem 'rails', '4.2.0'
 
 gem 'pg', platforms: [:ruby, :mingw]
 gem "activerecord-jdbcpostgresql-adapter", platforms: :jruby
@@ -35,12 +35,12 @@ gem 'ordered-active-record'
 
 gem 'jquery-rails'
 gem 'bootstrap-sass'
-gem 'sass-rails', '~> 4.0.0'
-gem 'coffee-rails', '~> 4.0.0'
+gem 'sass-rails', '~> 5.0'
+gem 'coffee-rails', '~> 4.1.0'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 
-gem 'uglifier', '>= 1.0.3'
+gem 'uglifier', '>= 1.3.0'
 
 # For heroku
 gem 'rails_stdout_logging', require: false
@@ -48,6 +48,7 @@ gem 'rails_stdout_logging', require: false
 group :development do
   gem 'nokogiri', platforms: [:ruby, :mingw], require: false
   gem 'pry-rails'
+  gem 'benchmark-ips'
 end
 
 # in dev group for generators

@@ -119,10 +119,10 @@ Rails.application.routes.draw do
   scope '(:locale)', locale: /en/ do
     get '/photos/multiple_species' => 'images#multiple_species'
     get 'photos/:id' => 'images#show', as: 'localized_image'
-    post 'photos/strip' => 'images#strip'
     get '/videos(/page/:page)' => 'videos#index', page: /[^0]\d*/,
         constraints: {format: 'html'}
     get 'videos/:id' => 'videos#show', as: 'localized_video'
+    post 'media/strip' => 'media#strip'
   end
 
   constraints year: /20\d\d/ do
@@ -215,7 +215,7 @@ Rails.application.routes.draw do
 
   resource :map, only: [:edit] do
     resources :spots, only: :index
-    get 'photos' => 'spots#photos'
+    get 'media' => 'spots#media'
     get 'observations', on: :collection
   end
 

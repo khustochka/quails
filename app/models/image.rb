@@ -1,6 +1,5 @@
-class Image < ActiveRecord::Base
+class Image < Media
   include FormattedModel
-  include Observationable
 
   invalidates CacheKey.gallery
 
@@ -8,21 +7,13 @@ class Image < ActiveRecord::Base
 
   STATES = %w(DEFLT NOIDX)
 
-  has_and_belongs_to_many :observations
-  has_many :species, through: :observations
-
-  # TODO: try to make it 'card', because image should belong to observations of the same card
-  has_many :cards, :through => :observations
-
-  has_many :spots, :through => :observations
-  belongs_to :spot
+  default_scope -> { where(media_type: 'photo') }
 
   has_many :children, -> { basic_order }, class_name: 'Image', foreign_key: 'parent_id'
 
-  validates :slug, uniqueness: true, presence: true, length: {:maximum => 64}
-  validates :flickr_id, uniqueness: true, allow_nil: true, exclusion: {in: ['']}
+  validates :external_id, uniqueness: true, allow_nil: true, exclusion: {in: ['']}
 
-  serialize :assets_cache, ImageAssetsArray
+  scope :unflickred, -> { where(external_id: nil) }
 
   # Callbacks
   after_create do
@@ -55,35 +46,13 @@ class Image < ActiveRecord::Base
 
   scope :top_level, -> { where(parent_id: nil) }
 
-  scope :basic_order, -> { order(:index_num, 'images.created_at', 'images.id') }
-
-  # Parameters
-
-  def to_param
-    slug_was
-  end
-
-  # Update
-
-  def observation_ids=(list)
-    super(list.uniq)
-  end
+  scope :basic_order, -> { order(:index_num, 'media.created_at', 'media.id') }
 
   # Photos with several species
   def self.multiple_species
-    rel = select(:image_id).from("images_observations").group(:image_id).having("COUNT(observation_id) > 1")
-    select("DISTINCT images.*, observ_date").where(id: rel).
+    rel = select(:media_id).from("media_observations").group(:media_id).having("COUNT(observation_id) > 1")
+    select("DISTINCT media.*, observ_date").where(id: rel).
         joins(:observations, :cards).preload(:species).order('observ_date ASC')
-  end
-
-  # Mapped photos
-  def self.for_the_map
-    Image.connection.select_rows(
-        Image.for_the_map_query.to_sql
-    ).each_with_object({}) do |(im_id, lat1, lon1, lat2, lon2), memo|
-      key = [(lat1 || lat2), (lon1 || lon2)].map { |x| (x.to_f * 100000).round / 100000.0 }
-      (memo[key.join(',')] ||= []).push(im_id.to_i)
-    end
   end
 
   def self.half_mapped
@@ -94,6 +63,14 @@ class Image < ActiveRecord::Base
 
   # Instance methods
 
+  def flickr_id
+    external_id
+  end
+
+  def flickr_id=(val)
+    self.external_id = val
+  end
+
   def on_flickr?
     flickr_id.present?
   end
@@ -102,7 +79,7 @@ class Image < ActiveRecord::Base
     species.count > 1
   end
 
-  ORDERING_COLUMNS = %w(cards.observ_date cards.locus_id index_num images.created_at images.id)
+  ORDERING_COLUMNS = %w(cards.observ_date cards.locus_id index_num media.created_at media.id)
   PREV_NEXT_ORDER = "ORDER BY #{ORDERING_COLUMNS.join(', ')}"
 
   def self.order_for_species
@@ -128,10 +105,6 @@ class Image < ActiveRecord::Base
     Thumbnail.new(self, title, self, {image: {id: id}})
   end
 
-  def mapped?
-    spot_id
-  end
-
   private
 
   def prev_next_by(sp)
@@ -141,7 +114,7 @@ class Image < ActiveRecord::Base
     end
     # Calculate row number for every image under partition
     window =
-        Image.select("images.*, row_number() over (partition by species_id #{PREV_NEXT_ORDER}) as rn").
+        Image.select("media.*, row_number() over (partition by species_id #{PREV_NEXT_ORDER}) as rn").
             joins(:cards).
             where("observations.species_id" => sp.id)
     # Join ranked tables by neighbouring images
@@ -152,20 +125,6 @@ class Image < ActiveRecord::Base
       join ranked this on that.rn between this.rn-1 and this.rn+1
       where this.id='#{self.id}' and this.rn <> that.rn"
     @prev_next[sp] = Image.find_by_sql(q).index_by(&:diff)
-  end
-
-  def self.for_the_map_query
-    Image.select("images.id,
-                  COALESCE(spots.lat, patches.lat, public_locus.lat, parent_locus.lat) AS lat,
-                  COALESCE(spots.lng, patches.lon, public_locus.lon, parent_locus.lon) AS lng").
-        joins(:cards).
-        joins("LEFT OUTER JOIN (#{Spot.public_spots.to_sql}) as spots ON spots.id=images.spot_id").
-        joins("LEFT OUTER JOIN (#{Locus.non_private.to_sql}) as patches ON patches.id=observations.patch_id").
-        joins("LEFT OUTER JOIN (#{Locus.non_private.to_sql}) as public_locus ON public_locus.id=cards.locus_id").
-        joins("JOIN loci as card_locus ON card_locus.id=cards.locus_id").
-        joins("LEFT OUTER JOIN (#{Locus.non_private.to_sql}) as parent_locus ON card_locus.ancestry LIKE CONCAT(parent_locus.ancestry, '/', parent_locus.id)").
-        where("spots.lat IS NOT NULL OR patches.lat IS NOT NULL OR public_locus.lat IS NOT NULL OR parent_locus.lat IS NOT NULL").
-        uniq
   end
 
 end

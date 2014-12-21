@@ -11,7 +11,7 @@ class VideosControllerTest < ActionController::TestCase
     assert_response :success
     assert_not_empty assigns(:videos)
 
-    assert_select "a[href=#{video_path(@video)}]"
+    assert_select "a[href='#{video_path(@video)}']"
   end
 
   test "crazy page number should return 404" do

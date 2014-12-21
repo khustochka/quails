@@ -8,7 +8,7 @@ atom_feed(id: "tag:#{request.host},2008-03-24:/blog", language: :ru) do |feed|
   @posts.each do |post|
     feed.entry(post,
                :published => post.face_date,
-               :url => public_post_path(post, only_path: false),
+               :url => public_post_url(post, only_path: false),
                :id => "tag:#{request.host},2008-03-24:#{public_post_path(post)}") do |entry|
       entry.title(post.formatted.title, :type => 'html')
       entry.content(render(partial: 'post', formats: :html, object: post), :type => 'html')

@@ -1,15 +1,12 @@
 class ImagesController < ApplicationController
 
-  administrative except: [:index, :multiple_species, :show, :gallery, :country, :strip]
+  administrative except: [:index, :multiple_species, :show, :gallery, :country]
 
   find_record by: :slug, before: [:show, :edit,
                                   :parent_edit, :parent_update,
                                   :map_edit, :update, :patch, :destroy]
 
   after_action :cache_expire, only: [:create, :update, :destroy]
-
-  # Do not check csrf token for photostrip on the map
-  skip_before_action :verify_authenticity_token, only: :strip
 
   # Latest additions
   def index
@@ -42,7 +39,7 @@ class ImagesController < ApplicationController
     @image = Image.new(params[:i])
     @photo = FlickrPhoto.new(@image)
     if @image.on_flickr? && !@image.persisted?
-      @flickr_id_in_use = Image.where(flickr_id: @image.flickr_id).first
+      @flickr_id_in_use = Image.where(external_id: @image.flickr_id).first
     end
 
     render 'form'
@@ -162,12 +159,6 @@ class ImagesController < ApplicationController
     render json: observs, only: :id, methods: [:species_str, :when_where_str]
   end
 
-  def strip
-    @images = Image.where(id: params[:_json]).includes(:cards, :species).
-        order('cards.observ_date, cards.locus_id, images.index_num, species.index_num')
-    render layout: false
-  end
-
   def parent_edit
     @similar_images = Image.uniq.joins(:observations).
         where('observations.id' => @image.observation_ids).
@@ -192,7 +183,7 @@ class ImagesController < ApplicationController
   end
 
   def series
-    rel = Observation.select(:observation_id).from("images_observations").group(:observation_id).having("COUNT(image_id) > 1")
+    rel = Observation.select(:observation_id).from("media_observations").group(:observation_id).having("COUNT(media_id) > 1")
     @observations = Observation.select("DISTINCT observations.*, observ_date").where(id: rel).
         joins(:card).preload(:images).order('observ_date DESC').page(params[:page])
   end

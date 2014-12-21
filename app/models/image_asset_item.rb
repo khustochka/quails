@@ -1,6 +1,6 @@
 class ImageAssetItem < Struct.new(:type, :width, :height, :url)
 
-  TYPE_TO_STR = {local: "l", flickr: "f"}
+  TYPE_TO_STR = {local: "l", flickr: "f", youtube: "y"}
   STR_TO_TYPE = TYPE_TO_STR.invert
 
   def self.dump(obj)
