@@ -22,9 +22,6 @@ class Media < ActiveRecord::Base
       'video' => 'Video'
   }
 
-  # Needed for ome reason for becomes
-  attr_accessor :type
-
   # Parameters
 
   def to_param
