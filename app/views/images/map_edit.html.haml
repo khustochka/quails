@@ -1,4 +1,4 @@
 - content_for :observable_thumbnail do
   %p= image_tag(thumbnail_item(@image).try(:full_url), class: 'image_pic')
 
-= render partial: 'observable/mappable', object: @image
+= render partial: 'media/mappable', object: @image
