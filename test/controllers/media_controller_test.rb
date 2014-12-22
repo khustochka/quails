@@ -13,4 +13,24 @@ class MediaControllerTest < ActionController::TestCase
     assert assigns(:media)
   end
 
+  test 'unmapped' do
+    image2 = create(:image, spot_id: 999)
+    login_as_admin
+    get :unmapped
+    result = assigns(:media).map(&:id)
+    assert result.include?(@image.id)
+    assert result.include?(@video.id)
+    assert_not result.include?(image2.id)
+  end
+
+  test 'half-mapped' do
+    image2 = create(:image, spot_id: 999)
+    login_as_admin
+    get :unmapped, half: true
+    # result = assigns(:media).map(&:id)
+    # assert result.include?(@image.id)
+    # assert result.include?(@video.id)
+    # assert_not result.include?(image2.id)
+  end
+
 end

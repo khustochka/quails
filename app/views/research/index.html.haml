@@ -16,12 +16,10 @@
 
 %ul
   %li
-    = link_to('Half-mapped images', {controller: :images, action: :unmapped, half: true})
-    %b (#{Image.half_mapped.count})
+    = link_to('Half-mapped media', {controller: :media, action: :unmapped, half: true})
+    %b (#{Media.half_mapped.count})
     \/
-    = link_to('Unmapped images', {controller: :images, action: :unmapped})
-    \/
-    = link_to('Unmapped videos', {controller: :videos, action: :unmapped})
+    = link_to('Unmapped media', {controller: :media, action: :unmapped})
   %li= link_to('Unflickred images', unflickred_photos_path)
   %li= link_to('Potential series', {controller: :images, action: :series})
   %li= link_to('Unused flickr images', flickr_unused_path)

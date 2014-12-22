@@ -46,6 +46,12 @@ class Media < ActiveRecord::Base
     end
   end
 
+  def self.half_mapped
+    Media.preload(:species).joins(:observations).
+        where(spot_id: nil).where("observation_id in (select observation_id from spots)").
+        order(created_at: :asc)
+  end
+
   def extend_with_class
     self.becomes(AVAILABLE_CLASSES[media_type].constantize)
   end

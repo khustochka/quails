@@ -81,11 +81,6 @@ class VideosController < ApplicationController
     end
   end
 
-  def unmapped
-    videos = Video.where(spot_id: nil)
-    @videos = videos.order('created_at DESC').page(params[:page].to_i).per(24)
-  end
-
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_video

@@ -55,12 +55,6 @@ class Image < Media
         joins(:observations, :cards).preload(:species).order('observ_date ASC')
   end
 
-  def self.half_mapped
-    Image.preload(:species).joins(:observations).
-        where(spot_id: nil).where("observation_id in (select observation_id from spots)").
-        order(created_at: :asc)
-  end
-
   # Instance methods
 
   def flickr_id
