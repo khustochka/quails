@@ -1,9 +1,9 @@
 module ApplicationHelper
 
   def main_classes
-    @main_classes ||= ['main', 'green_links']
-    if @special_styling
-      @main_classes.delete('green_links')
+    @main_classes ||= [admin_layout? ? 'container' : 'main']
+    unless @special_styling
+      @main_classes << 'green_links'
     end
     @main_classes
   end
