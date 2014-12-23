@@ -40,8 +40,8 @@ class Media < ActiveRecord::Base
   def self.for_the_map
     Media.connection.select_rows(
         Media.for_the_map_query.to_sql
-    ).each_with_object({}) do |(im_id, lat1, lon1, lat2, lon2), memo|
-      key = [(lat1 || lat2), (lon1 || lon2)].map { |x| (x.to_f * 100000).round / 100000.0 }
+    ).each_with_object({}) do |(im_id, lat, lon), memo|
+      key = [lat, lon].map { |x| (x.to_f * 100000).round / 100000.0 }
       (memo[key.join(',')] ||= []).push(im_id.to_i)
     end
   end
