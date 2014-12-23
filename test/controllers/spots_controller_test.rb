@@ -2,16 +2,6 @@ require 'test_helper'
 
 class SpotsControllerTest < ActionController::TestCase
 
-  test "returns spots" do
-    obs1 = create(:observation, card: create(:card, observ_date: '2010-07-24'))
-    obs2 = create(:observation, card: create(:card, observ_date: '2011-07-24'))
-    create(:spot, observation: obs1)
-    create(:spot, observation: obs2)
-    get :index, format: :json
-    assert_response :success
-    assert_equal Mime::JSON, response.content_type
-  end
-
   test "returns media having spots" do
     obs1 = create(:observation, card: create(:card, observ_date: '2010-07-24'))
     obs2 = create(:observation, card: create(:card, observ_date: '2011-07-24'))

@@ -212,7 +212,6 @@ Rails.application.routes.draw do
   end
 
   resource :map, only: [:edit] do
-    resources :spots, only: :index
     get 'media' => 'spots#media'
     get 'observations', on: :collection
   end

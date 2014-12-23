@@ -2,12 +2,6 @@ class SpotsController < ApplicationController
 
   administrative except: %i(index media)
 
-  # FIXME: probably unused
-  # GET "/map/spots.json"
-  def index
-    render json: Spot.public_spots, only: [:lat, :lng]
-  end
-
   # GET "/map/media.json"
   def media
     render json: Media.for_the_map
