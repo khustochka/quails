@@ -2,44 +2,6 @@ require 'test_helper'
 
 class SpotsControllerTest < ActionController::TestCase
 
-  test "returns media having spots" do
-    obs1 = create(:observation, card: create(:card, observ_date: '2010-07-24'))
-    obs2 = create(:observation, card: create(:card, observ_date: '2011-07-24'))
-    spot1 = create(:spot, observation: obs1)
-    spot2 = create(:spot, observation: obs2)
-    create(:image, observations: [obs1], spot_id: spot1.id)
-    create(:video, observations: [obs1], spot_id: spot1.id)
-    get :media, format: :json
-    assert_response :success
-    assert_equal Mime::JSON, response.content_type
-    result = JSON.parse(response.body)
-    assert_equal 2, result.to_a.first[1].size
-  end
-
-  test "returns photos with no spot (attached to loc with latlng)" do
-    obs1 = create(:observation, card: create(:card, observ_date: '2010-07-24'))
-    obs2 = create(:observation, card: create(:card, observ_date: '2011-07-24'))
-    spot1 = create(:spot, observation: obs1)
-    create(:image, observations: [obs1], spot_id: spot1.id)
-    create(:image, observations: [obs2])
-    get :media, format: :json
-    assert_response :success
-    assert_equal Mime::JSON, response.content_type
-    assert_equal 2, JSON.parse(response.body).size
-  end
-
-  test "does not return photos attached to a country (no latlng)" do
-    obs1 = create(:observation, card: create(:card, observ_date: '2010-07-24'))
-    obs2 = create(:observation, card: create(:card, observ_date: '2011-07-24', locus: seed(:ukraine)))
-    spot1 = create(:spot, observation: obs1)
-    create(:image, observations: [obs1], spot_id: spot1.id)
-    create(:image, observations: [obs2])
-    get :media, format: :json
-    assert_response :success
-    assert_equal Mime::JSON, response.content_type
-    assert_equal 1, JSON.parse(response.body).size
-  end
-
   test 'Create spot' do
     login_as_admin
     assert_difference('Spot.count', 1) { post :save, spot: build(:spot).attributes, format: :json }

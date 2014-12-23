@@ -212,7 +212,7 @@ Rails.application.routes.draw do
   end
 
   resource :map, only: [:edit] do
-    get 'media' => 'spots#media'
+    get 'media' => 'maps#media'
     get 'observations', on: :collection
   end
 

@@ -1,11 +1,6 @@
 class SpotsController < ApplicationController
 
-  administrative except: %i(index media)
-
-  # GET "/map/media.json"
-  def media
-    render json: Media.for_the_map
-  end
+  administrative
 
   # POST "/spots/save.json"
   def save

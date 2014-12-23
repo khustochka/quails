@@ -1,6 +1,6 @@
 class MapsController < ApplicationController
 
-  administrative :except => [:show]
+  administrative :except => [:show, :media]
 
   # GET "/map"
   def show
@@ -33,6 +33,11 @@ class MapsController < ApplicationController
                                  html: render_to_string(partial: 'maps/observation', collection: observs, formats: [:html]) }
       }
     end
+  end
+
+  # GET "/map/media.json"
+  def media
+    render json: Media.for_the_map
   end
 
 end
