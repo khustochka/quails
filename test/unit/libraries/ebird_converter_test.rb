@@ -1,14 +1,10 @@
 require 'test_helper'
-require 'ebird/converter_factory'
+require 'ebird/observation'
 
 class EbirdConverterTest < ActiveSupport::TestCase
 
-  setup do
-    @converter = EbirdConverterFactory.new(nil)
-  end
-
   def oconv(obs)
-    @converter.new(obs)
+    EbirdObservation.new(obs)
   end
 
   def travel_card

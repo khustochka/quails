@@ -1,20 +1,18 @@
 require 'csv'
-require 'ebird/converter_factory'
+require 'ebird/observation'
 
 class EbirdExporter
 
   def initialize(filename, cards_rel)
     @filename = filename
-    @cards = cards_rel.preload({:observations => [:species, :images]}, :locus)
+    @cards = cards_rel
   end
 
   def export
     if @filename.present? && @cards.present?
 
-      converter = EbirdConverterFactory.new(@cards)
-
       @result = observations.map do |obs|
-        converter.new(obs).to_a
+        EbirdObservation.new(obs).to_a
       end
 
       save_to_file(@result) unless Rails.env.test?
@@ -28,7 +26,7 @@ class EbirdExporter
   private
 
   def observations
-    @cards.flat_map(&:observations)
+    Observation.where(card_id: @cards).preload(:images, :species, :card => :locus)
   end
 
   def save_to_file(array)
