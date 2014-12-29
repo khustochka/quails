@@ -1,18 +1,23 @@
 require 'csv'
-require 'ebird/observation'
+require 'export/ebird/strategy'
 
-class EbirdExporter
+class Exporter
 
-  def initialize(filename, cards_rel)
+  def initialize(strategy, filename, cards)
+    @strategy = strategy
     @filename = filename
-    @cards = cards_rel
+    @cards = cards
+  end
+
+  def self.ebird(filename, cards)
+    new(EbirdStrategy.new(cards), filename, cards)
   end
 
   def export
     if @filename.present? && @cards.present?
 
-      @result = observations.map do |obs|
-        EbirdObservation.new(obs).to_a
+      @result = @strategy.observations.map do |obs|
+        @strategy.wrap(obs).to_a
       end
 
       save_to_file(@result) unless Rails.env.test?
@@ -24,10 +29,6 @@ class EbirdExporter
   end
 
   private
-
-  def observations
-    Observation.where(card_id: @cards).preload(:images, :species, :card => :locus)
-  end
 
   def save_to_file(array)
 

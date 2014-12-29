@@ -1,5 +1,5 @@
 require 'test_helper'
-require 'ebird/observation'
+require 'export/ebird/observation'
 
 class EbirdConverterTest < ActiveSupport::TestCase
 
