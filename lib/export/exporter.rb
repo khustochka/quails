@@ -1,5 +1,5 @@
 require 'csv'
-require 'export/ebird/strategy'
+require 'export/strategies'
 
 class Exporter
 
@@ -11,6 +11,10 @@ class Exporter
 
   def self.ebird(filename, cards)
     new(EbirdStrategy.new(cards), filename, cards)
+  end
+
+  def self.rubirds(filename, cards)
+    new(RuBirdsStrategy.new(cards), filename, cards)
   end
 
   def export
