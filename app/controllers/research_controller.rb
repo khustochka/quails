@@ -116,11 +116,11 @@ class ResearchController < ApplicationController
     @uptoday = MyObservation.
         joins(:card).
         where(
-        'EXTRACT(month FROM observ_date)::integer < ? OR
+            'EXTRACT(month FROM observ_date)::integer < ? OR
         (EXTRACT(month FROM observ_date)::integer = ?
         AND EXTRACT(day FROM observ_date)::integer <= ?)',
-        @this_day.month, @this_day.month, @this_day.day
-    ).
+            @this_day.month, @this_day.month, @this_day.day
+        ).
         order('EXTRACT(year FROM observ_date)::integer').
         group('EXTRACT(year FROM observ_date)::integer').
         count('DISTINCT species_id')
@@ -234,6 +234,19 @@ class ResearchController < ApplicationController
                 WHERE voicenum <> 0
                 ORDER BY percentage DESC
                 LIMIT 20")
+  end
+
+  def graphs
+    @data = (2007..2014).to_a.map do |year|
+      list = Observation.identified.
+          joins(:card).
+          select('species_id, MIN(observ_date) as first_date').
+          where("extract(year from observ_date) = ?", year).
+          group(:species_id)
+      dates = Observation.from(list).order('first_date').pluck('DISTINCT first_date')
+
+      dates.map { |dt| [dt.to_time.to_i, Observation.from(list).where('first_date <= ?', dt).count] }
+    end
   end
 
 end
