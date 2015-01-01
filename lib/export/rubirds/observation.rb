@@ -23,11 +23,11 @@ class RubirdsObservation
   end
 
   def date
-    @obs.observ_date
+    @obs.card.observ_date
   end
 
   def region
-    @obs.locus.name_ru
+    @obs.card.locus.name_ru
   end
 
   def district
@@ -64,8 +64,8 @@ class RubirdsObservation
   end
 
   def gps_coords
-    s = spots.first(&:public)
-    [s.lat, s.lng].join(";")
+    s = @obs.spots.first(&:public)
+    [s.lat, s.lng].join(";") if s
   end
 
   def notes

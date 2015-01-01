@@ -14,7 +14,7 @@ class Exporter
   end
 
   def self.rubirds(filename, cards)
-    new(RuBirdsStrategy.new(cards), filename, cards)
+    new(RubirdsStrategy.new(cards), filename, cards)
   end
 
   def export
