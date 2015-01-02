@@ -237,16 +237,14 @@ class ResearchController < ApplicationController
   end
 
   def graphs
-    @data = (2007..2014).to_a.map do |year|
-      list = Observation.identified.
-          joins(:card).
-          select('species_id, MIN(observ_date) as first_date').
-          where("extract(year from observ_date) = ?", year).
-          group(:species_id)
-      dates = Observation.from(list).order('first_date').pluck('DISTINCT first_date')
+    list = Observation.identified.
+        joins(:card).
+        select('species_id, MIN(observ_date) as first_date').
+        where("extract(year from observ_date) = 2014").
+        group(:species_id)
+    dates = Observation.from(list).order('first_date').pluck(:first_date)
 
-      dates.map { |dt| [dt.to_time.to_i, Observation.from(list).where('first_date <= ?', dt).count] }
-    end
+    @data = dates.map {|dt| [dt.to_time.to_i, Observation.from(list).where('first_date <= ?', dt).count] }
   end
 
 end
