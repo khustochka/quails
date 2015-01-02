@@ -28,7 +28,7 @@
 
     %div.fluid-column
 
-      %h2= link_to(t('lists.title.yearlist', year: 2014), list_path(year: 2014))
+      %h2= link_to(t('lists.title.yearlist', year: 2015), list_path(year: 2015))
 
       - lifers.call(@top_5_year)
 
@@ -37,25 +37,36 @@
     %div.fluid-column
 
       %h2
-        = link_to(t('lists.title.ukraine'), list_path(locus: 'ukraine'))
-
-      - lifers.call(@list_ukraine.limit(5))
-
-    %div.fluid-column
-
-      %h2
         = link_to(t('lists.title.canada'), list_path(locus: 'canada'))
 
       - lifers.call(@list_canada.limit(5))
 
+    -# Temporary previous year list
+    %div.fluid-column
+
+      %h2
+        = link_to(t('lists.title.yearlist', year: 2014), list_path(year: 2014))
+
+      - lifers.call(@list_prev_year.limit(5))
+
+    -#%div.fluid-column
+    -#
+    -#  %h2
+    -#    = link_to(t('lists.title.ukraine'), list_path(locus: 'ukraine'))
+    -#
+    -#  - lifers.call(@list_ukraine.limit(5))
+
 
   %div.fluid-row
 
+    -# Temp list Ukraine while we show list of the previous year
     %div.fluid-column
 
-      -#%h2
-      -#  = link_to(t('lists.title.yearlist', year: 2013), list_path(year: 2013))
-      -#  (#{@list_prev_year.count(:all)})
+      %h2
+        = link_to(t('lists.title.ukraine'), list_path(locus: 'ukraine'))
+        (#{@list_ukraine.count(:all)})
+
+    %div.fluid-column
 
       %h2
         = link_to(t('lists.title.gb'), list_path(locus: 'united_kingdom'))
