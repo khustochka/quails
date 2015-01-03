@@ -42,9 +42,3 @@ module Quails
     config.active_record.raise_in_transactional_callbacks = true
   end
 end
-
-require 'quails/env'
-
-if Quails.env.heroku?
-  require 'rails_stdout_logging'
-end

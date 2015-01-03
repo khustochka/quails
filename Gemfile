@@ -41,9 +41,6 @@ gem 'coffee-rails', '~> 4.1.0'
 
 gem 'uglifier', '>= 1.3.0'
 
-# For heroku
-gem 'rails_stdout_logging', require: false
-
 group :development do
   gem 'nokogiri', platforms: [:ruby, :mingw], require: false
   gem 'pry-rails'
