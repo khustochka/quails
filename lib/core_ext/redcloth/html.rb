@@ -7,7 +7,11 @@ module RedCloth::Formatters::HTML
 
   # TODO: Select quotation marks based on locale
   def quote2(opts)
-    "&#171;#{opts[:text]}&#187;"
+    "«#{opts[:text]}»"
+  end
+
+  def endash(opts)
+    " – "
   end
 
 end

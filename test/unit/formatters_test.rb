@@ -11,7 +11,7 @@ class FormattersTest < ActionView::TestCase
   end
 
   test "Russian double quotes" do
-    assert_equal 'Новый &#171;лайфер&#187;', OneLineFormatter.apply('Новый "лайфер"')
+    assert_equal 'Новый «лайфер»', OneLineFormatter.apply('Новый "лайфер"')
   end
 
   test "Post with species link" do
