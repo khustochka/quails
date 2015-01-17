@@ -4,7 +4,7 @@ require 'test_helper'
 class WikiFilterTest < ActionDispatch::IntegrationTest
   include ActionView::Helpers::UrlHelper
   include SpeciesHelper
-  include PublicPathController
+  include Aspects::PublicPaths
 
   def transform(text)
     SiteFormatStrategy.new(text).apply
