@@ -26,7 +26,7 @@
   %ul.card_cell
     %li
       - if card.post
-        %small= post_link(card.post.formatted.title, card.post)
+        %small= post_link(card.post.decorated.title, card.post)
       - else
         %i.less-important.grayout No post
     - if @post
@@ -48,8 +48,8 @@
       = link_to 'Attach here', attach_card_path(card, obs: params[:obs]), class: 'pseudolink', data: {method: :post}
 
   - if card.notes.present?
-    -#%span.ui-icon.ui-icon-comment.inline-block.notes-tooltip{"data-title" => card.formatted.notes}
-    %div.card-notes= card.formatted.notes
+    -#%span.ui-icon.ui-icon-comment.inline-block.notes-tooltip{"data-title" => card.decorated.notes}
+    %div.card-notes= card.decorated.notes
 
   = render card.errors.extend(GenericErrors)
 

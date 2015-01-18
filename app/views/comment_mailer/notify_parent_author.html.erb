@@ -1,5 +1,5 @@
 <p>
-  На ваш комментарий к записи "<%= link_to @comment.post.formatted.title,
+  На ваш комментарий к записи "<%= link_to @comment.post.decorated.title,
                                            show_post_url(@comment.post.to_url_params.merge(only_path: false, host: @host))
   %>" получен
   <%= link_to "ответ",
@@ -8,6 +8,6 @@
 </p>
 
 <blockquote>
-  <b><%= @comment.formatted.name %></b>:
-  <%= @comment.formatted.text %>
+  <b><%= @comment.decorated.name %></b>:
+  <%= @comment.decorated.text %>
 </blockquote>

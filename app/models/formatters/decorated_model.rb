@@ -1,6 +1,6 @@
-module FormattedModel
+module DecoratedModel
 
-  def formatted(metadata = {})
+  def decorated(metadata = {})
     ("#{self.class.name}Formatter").constantize.new(self, metadata)
   end
 end

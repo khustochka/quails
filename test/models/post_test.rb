@@ -196,8 +196,8 @@ class PostTest < ActiveSupport::TestCase
     img1 = create(:image, observations: [obs1], slug: "image1")
     img2 = create(:image, observations: [obs2], slug: "image2")
 
-    assert_equal 1, p.formatted.the_rest_of_images.size
-    assert_equal "image2", p.formatted.the_rest_of_images[0].slug
+    assert_equal 1, p.decorated.the_rest_of_images.size
+    assert_equal "image2", p.decorated.the_rest_of_images[0].slug
   end
 
 end

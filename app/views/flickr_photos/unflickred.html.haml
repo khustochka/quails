@@ -10,6 +10,6 @@
 %h1= page_header
 
 %div.thumbnails
-  = render_justified @images.map {|im| Thumbnail.new(flickr_photo_path(im), im.formatted.title, im)}
+  = render_justified @images.map {|im| Thumbnail.new(flickr_photo_path(im), im.decorated.title, im)}
 
 = paginate @images

@@ -12,7 +12,7 @@ class MediaFormatter < ModelFormatter
   end
 
   def public_locus_full_name
-    @model.public_locus.formatted.full_name
+    @model.public_locus.decorated.full_name
   end
 
   def meta_description

@@ -88,4 +88,4 @@
     %h3= t('.sections.posts')
     %ul
       - posts.each do |post|
-        %li= post_link(post.formatted.title, post)
+        %li= post_link(post.decorated.title, post)

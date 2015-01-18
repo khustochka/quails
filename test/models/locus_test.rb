@@ -72,7 +72,7 @@ class LocusTest < ActiveSupport::TestCase
     brvr = seed(:brovary)
     brvr.update_attributes(name_format: "")
     I18n.with_locale(:en) do
-      assert_equal "Brovary, Ukraine", brvr.formatted.full_name
+      assert_equal "Brovary, Ukraine", brvr.decorated.full_name
     end
   end
 
@@ -80,7 +80,7 @@ class LocusTest < ActiveSupport::TestCase
     brvr = seed(:brovary)
     brvr.update_attributes(name_format: "%self, %oblast, %country")
     I18n.with_locale(:en) do
-      assert_equal "Brovary, Kiev oblast, Ukraine", brvr.formatted.full_name
+      assert_equal "Brovary, Kiev oblast, Ukraine", brvr.decorated.full_name
     end
   end
 

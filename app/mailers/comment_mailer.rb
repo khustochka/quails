@@ -7,7 +7,7 @@ class CommentMailer < ActionMailer::Base
     if self.class.default_params[:to] && self.class.default_params[:from]
       @comment = comment
       @host = host
-      mail subject: "Comment posted to \"#{@comment.post.formatted.title}\""
+      mail subject: "Comment posted to \"#{@comment.post.decorated.title}\""
     end
   end
 
@@ -16,7 +16,7 @@ class CommentMailer < ActionMailer::Base
     if Rails.env.production? && Quails.env.real_prod? && self.class.default_params[:from] && to.present?
       @comment = comment
       @host = host
-      mail subject: "Ответ на ваш комментарий на birdwatch.org.ua (\"#{@comment.post.formatted.title}\")", to: to
+      mail subject: "Ответ на ваш комментарий на birdwatch.org.ua (\"#{@comment.post.decorated.title}\")", to: to
     end
   end
 end

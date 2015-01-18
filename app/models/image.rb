@@ -1,5 +1,5 @@
 class Image < Media
-  include FormattedModel
+  include DecoratedModel
 
   invalidates CacheKey.gallery
 
@@ -91,7 +91,7 @@ class Image < Media
   # Formatting
 
   def to_thumbnail
-    title = self.formatted.title
+    title = self.decorated.title
     child_num = children.size
     if child_num > 0
       title = "#{title} (#{child_num + 1} #{I18n.t('images.series_photos_num')})"

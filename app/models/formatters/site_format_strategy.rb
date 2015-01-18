@@ -15,14 +15,14 @@ class SiteFormatStrategy < FormattingStrategy
     post = @posts[term]
     post.nil? ?
         word :
-        %Q("#{word || '"%s"' % post.formatted.title}":#{term})
+        %Q("#{word || '"%s"' % post.decorated.title}":#{term})
   end
 
   def img_link(term)
     if image = Image.find_by(slug: term)
       %Q(<figure class="imageholder">
         "!#{jpg_url(image)}([photo])!":#{image_path(image)}
-          <figcaption class="imagetitle"><a href="#{image_url(image, only_path: only_path?)}">#{image.formatted.title}</a></figcaption>
+          <figcaption class="imagetitle"><a href="#{image_url(image, only_path: only_path?)}">#{image.decorated.title}</a></figcaption>
           </figure>
         )
     end

@@ -1,5 +1,5 @@
 class Observation < ActiveRecord::Base
-  include FormattedModel
+  include DecoratedModel
 
   invalidates CacheKey.lifelist
 
@@ -52,7 +52,7 @@ class Observation < ActiveRecord::Base
 
   alias_method_chain :species, :incognita
 
-  delegate :species_str, :when_where_str, to: :formatted
+  delegate :species_str, :when_where_str, to: :decorated
 
   def patch_or_locus
     patch || card.locus

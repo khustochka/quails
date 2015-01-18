@@ -10,7 +10,7 @@ atom_feed(id: "tag:#{request.host},2008-03-24:/gallery", root_url: url_for({acti
     feed.entry(media,
                :url => localize_url(media, only_path: false),
                :id => "tag:#{request.host},#{media.created_at.strftime('%F')}:#{localize_url(media, only_path: true)}") do |entry|
-      entry.title(media.formatted.title, :type => 'html')
+      entry.title(media.decorated.title, :type => 'html')
       entry.content(
           render(partial: 'media', formats: :html, object: media), :type => 'html'
       )

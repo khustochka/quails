@@ -1,4 +1,4 @@
-%h2= link_to video.formatted.title, localize_url(video, only_path: true)
+%h2= link_to video.decorated.title, localize_url(video, only_path: true)
 
 %ul.species_under_video
   - video.species.each do |sp|
@@ -13,9 +13,9 @@
       %time{datetime: video.observ_date.iso8601} #{l(video.observ_date, format: :long)}
 
   = succeed('.') do
-    = video.formatted.public_locus_full_name
+    = video.decorated.public_locus_full_name
 
 - if I18n.russian_locale?
-  = video.formatted.description
+  = video.decorated.description
 
 = render video.small

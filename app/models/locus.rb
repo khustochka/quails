@@ -1,5 +1,5 @@
 class Locus < ActiveRecord::Base
-  include FormattedModel
+  include DecoratedModel
 
   include ActiveRecord::Localized
   localize :name

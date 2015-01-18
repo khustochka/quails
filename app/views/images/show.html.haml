@@ -1,11 +1,11 @@
 -# javascript 'image_show'
 
 - @meta_thumbnail = thumbnail_item(@image).try(:url)
-- @meta_description = @image.formatted.meta_description
+- @meta_description = @image.decorated.meta_description
 - @canonical = localize_url(@image, only_path: false, protocol: 'http')
 - @og_type = 'birdwatchua:photo'
 
-- @page_header = @page_title = @image.formatted.title
+- @page_header = @page_title = @image.decorated.title
 -# @page_title = "#{@page_header} // #{t("countries.gallery.title.#{@image.locus.country.slug}")}"
 
 - if notice
@@ -36,7 +36,7 @@
 
 - @image.children.each do |sub_img|
 
-  %h2{id: sub_img.slug}= sub_img.formatted.title
+  %h2{id: sub_img.slug}= sub_img.decorated.title
 
   - if current_user.admin?
     %ul.horiz-list.admin-shortcuts

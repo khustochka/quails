@@ -40,7 +40,7 @@ class FlickrPhoto
 
   def description
     I18n.with_locale(:en) do
-      "#{I18n.l(date_taken, format: :long)}\n#{@image.formatted.public_locus_full_name}"
+      "#{I18n.l(date_taken, format: :long)}\n#{@image.decorated.public_locus_full_name}"
     end
   end
 

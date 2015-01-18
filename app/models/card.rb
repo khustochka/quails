@@ -2,7 +2,7 @@ class Card < ActiveRecord::Base
 
   EFFORT_TYPES = %w(INCIDENTAL STATIONARY TRAVEL AREA HISTORICAL)
 
-  include FormattedModel
+  include DecoratedModel
 
   include ActiveSupport::NumberHelper
 

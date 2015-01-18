@@ -7,14 +7,14 @@
       %time{datetime: media.observ_date.iso8601} #{l(media.observ_date, :format => :long)}
 
   = succeed('.') do
-    = media.formatted.public_locus_full_name
+    = media.decorated.public_locus_full_name
 
 - if I18n.russian_locale?
-  = media.formatted.description
+  = media.decorated.description
 
   - if posts.present?
     %h3 Почитать:
     %ul
       - posts.each do |post|
-        %li= post_link(post.formatted.title, post, true)
+        %li= post_link(post.decorated.title, post, true)
 

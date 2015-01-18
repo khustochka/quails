@@ -13,7 +13,7 @@ class LJFormatStrategy < FormattingStrategy
     post = @posts[term]
     post.nil? || post.lj_url.nil? ?
         word :
-        %Q("#{word || post.formatted.title}":#{term})
+        %Q("#{word || post.decorated.title}":#{term})
   end
 
   def img_link(term)
@@ -26,7 +26,7 @@ class LJFormatStrategy < FormattingStrategy
     %Q(<figure class="imageholder">
           !#{jpg_url(image)}([photo])!
           <figcaption class="imagetitle">
-          #{image.formatted.title} __(#{image.species.map(&:name_sci).join(', ')})__
+          #{image.decorated.title} __(#{image.species.map(&:name_sci).join(', ')})__
           </figcaption>
         </figure>
         )

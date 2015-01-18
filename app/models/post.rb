@@ -6,7 +6,7 @@ class Post < ActiveRecord::Base
     end
   end
 
-  include FormattedModel
+  include DecoratedModel
 
   self.skip_time_zone_conversion_for_attributes = [:face_date]
 

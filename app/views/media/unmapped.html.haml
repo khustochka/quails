@@ -12,6 +12,6 @@
   %li= link_to 'Half-mapped', {half: true}
 
 %div.thumbnails
-  = render_justified @media.map(&:extend_with_class).map {|me| Thumbnail.new(url_for(id: me.slug, controller: me.class.to_s.downcase.pluralize, action: 'map_edit'), me.formatted.title, me)}
+  = render_justified @media.map(&:extend_with_class).map {|me| Thumbnail.new(url_for(id: me.slug, controller: me.class.to_s.downcase.pluralize, action: 'map_edit'), me.decorated.title, me)}
 
 = paginate @media
