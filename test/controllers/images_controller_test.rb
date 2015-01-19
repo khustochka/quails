@@ -117,6 +117,12 @@ class ImagesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "show image with children" do
+    img = create(:image, children: [@image])
+    get :show, id: img.to_param
+    assert_response :success
+  end
+
   test "get edit" do
     login_as_admin
     get :edit, id: @image.to_param
