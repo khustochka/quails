@@ -55,7 +55,7 @@ group :test do
   gem 'capybara-webkit'#, '~> 1.2.0', platforms: [:mri], require: false
   gem 'selenium-webdriver'
 #  gem 'poltergeist', platforms: [:mri], require: false
-  gem 'database_cleaner', '~> 1.3.0', require: false
+#  gem 'database_cleaner', '~> 1.3.0', require: false
   gem 'launchy' # So you can do Then show me the page
   gem 'simplecov', require: false, platforms: [:ruby, :mingw]
 end
