@@ -52,6 +52,8 @@ module JavaScriptTestCase
 
       setup do
         Capybara.current_driver = ENV['JS_DRIVER'].try(:to_sym) || Capybara.javascript_driver
+        page.driver.allow_url("data:image/*")
+        page.driver.block_unknown_urls
       end
 
       teardown do
