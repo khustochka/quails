@@ -45,13 +45,9 @@ class BooksControllerTest < ActionController::TestCase
     assert_equal 'changed', book.name
   end
 
-  test "destroy book" do
-    assert_difference('Book.count', -1) do
-      login_as_admin
-      delete :destroy, id: 'fesenko-bokotej'
-    end
-
-    assert_redirected_to books_path
+  test "destroy book should not be possible if it has taxa" do
+    login_as_admin
+    assert_raise(ActiveRecord::DeleteRestrictionError) { delete :destroy, id: 'fesenko-bokotej' }
   end
 
 end

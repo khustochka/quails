@@ -14,7 +14,8 @@ class MediaControllerTest < ActionController::TestCase
   end
 
   test 'unmapped' do
-    image2 = create(:image, spot_id: 999)
+    spot = create(:spot)
+    image2 = create(:image, spot_id: spot.id)
     login_as_admin
     get :unmapped
     result = assigns(:media).map(&:id)
@@ -24,7 +25,8 @@ class MediaControllerTest < ActionController::TestCase
   end
 
   test 'half-mapped' do
-    image2 = create(:image, spot_id: 999)
+    spot = create(:spot)
+    image2 = create(:image, spot_id: spot.id)
     login_as_admin
     get :unmapped, half: true
     # result = assigns(:media).map(&:id)

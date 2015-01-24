@@ -10,6 +10,7 @@ class Image < Media
   default_scope -> { where(media_type: 'photo') }
 
   has_many :children, -> { basic_order }, class_name: 'Image', foreign_key: 'parent_id'
+  has_one :species_image, dependent: :destroy # only for foreign key
 
   validates :external_id, uniqueness: true, allow_nil: true, exclusion: {in: ['']}
 
