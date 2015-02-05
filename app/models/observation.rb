@@ -8,8 +8,8 @@ class Observation < ActiveRecord::Base
   belongs_to :species
   belongs_to :post, -> { select(:id, :slug, :face_date, :title, :status) }, touch: :updated_at
   has_and_belongs_to_many :media
-  has_and_belongs_to_many :images, -> { references(:media).where(media_type: 'photo') }, class_name: 'Image', association_foreign_key: :media_id
-  has_and_belongs_to_many :videos, -> { references(:media).where(media_type: 'video') }, class_name: 'Video', association_foreign_key: :media_id
+  has_and_belongs_to_many :images, class_name: 'Image', association_foreign_key: :media_id
+  has_and_belongs_to_many :videos, class_name: 'Video', association_foreign_key: :media_id
   has_many :spots, dependent: :delete_all
   belongs_to :patch, class_name: 'Locus', foreign_key: 'patch_id'
 
