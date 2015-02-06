@@ -39,7 +39,7 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
-    addressable (2.3.6)
+    addressable (2.3.7)
     airbrake (4.1.0)
       builder
       multi_json
@@ -80,7 +80,7 @@ GEM
       railties (>= 3.0.0)
     ffi (1.9.6)
     flickraw (0.9.8)
-    globalid (0.3.0)
+    globalid (0.3.2)
       activesupport (>= 4.1.0)
     haml (4.0.6)
       tilt
