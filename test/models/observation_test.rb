@@ -31,4 +31,15 @@ class ObservationTest < ActiveSupport::TestCase
     assert_includes Observation.filter(locus: [seed(:brovary).id, seed(:geologorozvidka).id]), obs
   end
 
+  test "the bug when images were not correctly preloaded when there were 2 observations with images in different cards" do
+    img1 = create(:image)
+    img2 = create(:image)
+    cards = [img1.card, img2.card]
+    obs_with_images = Observation.where(card_id: cards).preload(:images)
+    img_slugs = obs_with_images.map(&:images).flatten.map(&:slug)
+    [img1, img2].each do |img|
+      assert_includes img_slugs, img.slug
+    end
+  end
+
 end
