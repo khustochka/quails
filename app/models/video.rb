@@ -31,6 +31,10 @@ class Video < Media
     YoutubeVideo.new(youtube_id, 560, 315)
   end
 
+  def medium
+    YoutubeVideo.new(youtube_id, 640, 360)
+  end
+
   def large
     YoutubeVideo.new(youtube_id, 853, 480)
   end

@@ -64,7 +64,7 @@ class EbirdObservation
   def comments
     (
     [transliterate(@obs.notes)] +
-        @obs.images.map { |i| polymorfic_image_render(i) }
+        @obs.media.map { |i| polymorfic_media_render(i) }
     ).join(" ")
   end
 
@@ -161,13 +161,19 @@ class EbirdObservation
   include ActionView::Helpers::UrlHelper
 
   include ActiveSupport::Inflector
+  include VideoEmbedder
 
-  def polymorfic_image_render(img)
-    if img.on_flickr?
-      ff = FlickrPhoto.new(img)
-      link_to image_tag(img.assets_cache.externals.find_max_size(width: 600).full_url, alt: nil), ff.page_url
+  def polymorfic_media_render(media)
+    media = media.extend_with_class
+    if media.media_type == 'photo'
+      if media.on_flickr?
+        ff = FlickrPhoto.new(media)
+        link_to image_tag(media.assets_cache.externals.find_max_size(width: 600).full_url, alt: nil), ff.page_url
+      else
+        image_tag(media.assets_cache.locals.find_max_size(width: 600).try(:full_url) || legacy_image_url("#{media.slug}.jpg"), alt: nil)
+      end
     else
-      image_tag(img.assets_cache.locals.find_max_size(width: 600).try(:full_url) || legacy_image_url("#{img.slug}.jpg"), alt: nil)
+      video_embed(media.slug, :medium).gsub("\n", ' ')
     end
   end
 
@@ -180,9 +186,9 @@ class EbirdObservation
   MOTACILLA_FELDEGG = SpeciesTemplate.new('Motacilla flava feldegg', 'Western Yellow Wagtail (Black-headed)')
 
   ADDITIONAL_SPECIES = {
-    Species.where(code: 'colliv').pluck(:id).first => FERAL_PIGEON,
-    Species.where(code: 'saxtor').pluck(:id).first => EUROPEAN_STONECHAT,
-    Species.where(code: 'motfel').pluck(:id).first => MOTACILLA_FELDEGG
+      Species.where(code: 'colliv').pluck(:id).first => FERAL_PIGEON,
+      Species.where(code: 'saxtor').pluck(:id).first => EUROPEAN_STONECHAT,
+      Species.where(code: 'motfel').pluck(:id).first => MOTACILLA_FELDEGG
   }
 
   LARUS_FUSCUS_GRAELLSII = SpeciesTemplate.new('Larus fuscus graellsii', 'Lesser Black-backed Gull (graellsii)')
