@@ -5,7 +5,6 @@ class FlickrPhoto
   Data = Struct.new(:title, :description, :date_taken, :tags)
 
   DEFAULT_PARAMS = {safety_level: 1, content_type: 1}
-  DESCRIPTIVE_PARAMS = %i(title description tags)
 
   attr_reader :errors
 
@@ -134,7 +133,11 @@ class FlickrPhoto
   end
 
   def own_params
-    Hash[DESCRIPTIVE_PARAMS.zip(DESCRIPTIVE_PARAMS.map { |attr| self.send(attr) })]
+    {
+        title: self.title,
+        description: self.description,
+        tags: self.tags
+    }
   end
 
   def sanitize(params)
