@@ -28,8 +28,8 @@ class PostTest < ActiveSupport::TestCase
   end
 
   test "set post's face_date to current (equal to updated_at) when saving with empty value" do
-    blogpost = create(:post, updated_at: '2008-01-01 02:02:02')
-    blogpost.update_attributes(face_date: '')
+    blogpost = create(:post, updated_at: '2008-01-01 02:02:02', face_date: "2008-01-01")
+    blogpost.update_attributes(face_date: "")
     blogpost.reload
     assert_equal blogpost.updated_at.strftime('%F %T'), blogpost.face_date.strftime('%F %T')
   end
