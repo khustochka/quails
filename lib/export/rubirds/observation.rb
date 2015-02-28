@@ -32,7 +32,7 @@ class RubirdsObservation
   end
 
   def region
-    @obs.card.locus.name_ru
+    @obs.card.locus.ancestors.where(loc_type: 'oblast').first.name_ru
   end
 
   def district
