@@ -22,6 +22,11 @@ class RubirdsObservation
     ]
   end
 
+  def self.rubirds_species_cache
+    @rubirds_species_cache ||=
+        Taxon.where(book_id: Book.select(:id).where(slug: 'koblik-redkin')).index_by(&:species_id)
+  end
+
   def date
     @obs.card.observ_date
   end
@@ -51,11 +56,11 @@ class RubirdsObservation
   end
 
   def species_ru
-    @obs.species.name_ru
+    self.class.rubirds_species_cache[@obs.species_id].name_ru
   end
 
   def species_lat
-    @obs.species.name_sci
+    self.class.rubirds_species_cache[@obs.species_id].name_sci
   end
 
   def quantity
