@@ -33,22 +33,30 @@ $(function () {
     else $(parent + ' .sp-suggest').combobox();
   }
 
-  function addNewRow() {
+  function addNewRow(scrollToBottom) {
     last_row_num++;
     var row_html = sample_row_html.replace(tmpl_regex, "$1" + last_row_num + "$2");
-    $(row_html).insertBefore($('.fixed-bottom'));
+    $(row_html).appendTo($('.obs-block'));
     initAutocomplete(".obs-row:last");
     $('.obs-row:last .patch-suggest').combobox();
-    window.scrollTo(0, $(document).height());
+    if (scrollToBottom) window.scrollTo(0, $(document).height());
     return $('.obs-row:last');
   }
 
-  function firstEmptyRow() {
-    return addNewRow();
+  function addNewRowWithScroll() {
+    return addNewRow(true);
+  }
+
+  function firstEmptyRowWithScroll() {
+    return addNewRow(true);
+  }
+
+  function firstEmptyRowWithoutScroll() {
+    return addNewRow(false);
   }
 
   function quickAddSpecies(speciesName) {
-    var firstEmpty = firstEmptyRow(),
+    var firstEmpty = firstEmptyRowWithScroll(),
         suggest = $('.sp-suggest', firstEmpty);
 
     suggest.children("option").each(function () {
@@ -60,7 +68,7 @@ $(function () {
     });
   }
 
-  $('#add-row').click(addNewRow);
+  $('#add-row').click(addNewRowWithScroll);
 
   $('form.simple_form').on('click', '.remove', function () {
     $(this).closest('.obs-row').remove();
@@ -124,7 +132,7 @@ $(function () {
     },
     minLength: 2,
     select: function (event, ui) {
-      var row = firstEmptyRow();
+      var row = firstEmptyRowWithScroll();
       $('.sp-light', row).val(ui.item.value);
       $('.sp-light', row).next().val(ui.item.id);
       $(this).val("");
@@ -172,6 +180,17 @@ $(function () {
         .append("<a>" + item.label + "</a>")
         .appendTo(ul);
   };
+
+  // Fast species links
+
+  if (lightmode) {
+    $(".fast-sp-link").click(function() {
+      var row = firstEmptyRowWithoutScroll();
+      $('.sp-light', row).val(this.innerText);
+      $('.sp-light', row).next().val($(this).data("species-id"));
+      return false;
+    });
+  }
 
   // Fast locus selector
   $('.fast_locus').click(

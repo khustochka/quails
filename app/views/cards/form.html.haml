@@ -64,12 +64,17 @@
     = form.input :weather
     = form.input :kml_url, input_html: {class: 'medium'}
 
-  - if @light_species_selector
-    %noscript
-      %h1.errors Edit species will not work with no JS! Go to #{link_to 'No JS form', nojs:true}.
+  %div.obs-block
 
-  = form.simple_fields_for :observations do |builder|
-    = render 'observations/observation_fields', form: builder
+    - if @light_species_selector
+      %noscript
+        %h1.errors Edit species will not work with no JS! Go to #{link_to 'No JS form', nojs:true}.
+
+      %div.fast-species
+        = render "fast_species"
+
+    = form.simple_fields_for :observations do |builder|
+      = render 'observations/observation_fields', form: builder
 
   .fixed-bottom
 
