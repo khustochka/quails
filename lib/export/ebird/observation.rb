@@ -69,7 +69,7 @@ class EbirdObservation
   end
 
   def location_name
-    loc = @obs.patch || locus
+    loc = (!card.non_incidental? && @obs.patch) || locus
     loc.name_en
   end
 

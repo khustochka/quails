@@ -55,9 +55,13 @@ class Card < ActiveRecord::Base
   end
 
   def check_effort
-    if effort_type.in? %w(TRAVEL AREA STATIONARY)
+    if non_incidental?
       self.valid?(effort_type.downcase.to_sym)
     end
+  end
+
+  def non_incidental?
+    effort_type.in? %w(TRAVEL AREA STATIONARY)
   end
 
 end

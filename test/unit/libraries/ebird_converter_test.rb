@@ -50,6 +50,12 @@ class EbirdConverterTest < ActiveSupport::TestCase
     assert_equal "Expocentre", ebird_observation(obs).send(:location_name)
   end
 
+  test "patch locus should not be shown for travel card" do
+    card = FactoryGirl.create(:card, locus: seed(:kiev), effort_type: 'TRAVEL')
+    obs = FactoryGirl.create(:observation, card: card, patch: seed(:expocenter))
+    assert_equal "Kiev City", ebird_observation(obs).send(:location_name)
+  end
+
   test "should include images" do
     obs = FactoryGirl.create(:observation)
     img1 = FactoryGirl.create(:image, slug: 'img1', observation_ids: [obs.id])
