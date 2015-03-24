@@ -1,0 +1,3 @@
+%ol.lifers_list
+- total_count = rel.except(:limit).count(:all)
+= render partial: 'lifer', collection: rel, locals: {total_count: total_count}

@@ -44,6 +44,7 @@ gem 'uglifier', '>= 1.3.0'
 group :development do
   gem 'nokogiri', platforms: [:ruby, :mingw], require: false
   gem 'pry-rails'
+  gem 'pry-byebug'
   gem 'benchmark-ips'
 end
 
