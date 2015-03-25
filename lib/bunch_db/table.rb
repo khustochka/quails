@@ -15,19 +15,15 @@ module BunchDB
       quoted_column_names = column_names.map { |column| ActiveRecord::Base.connection.quote_column_name(column) }.join(',')
 
       records.each_slice(1000) do |bunch|
-        quoted_values = bunch.map { |rec| "(#{rec.zip(columns).map { |c| ActiveRecord::Base.connection.quote(c.first, c.last) }.join(',')})" }.join(',')
+        quoted_values = bunch.map { |rec| "(#{rec.each_with_index.map { |v, i| ActiveRecord::Base.connection.quote(v, columns[i]) }.join(',')})" }.join(',')
         ActiveRecord::Base.connection.execute("INSERT INTO #@quoted_table_name (#{quoted_column_names}) VALUES #{quoted_values}")
       end
     end
 
     def dump(io)
       column_names = table_column_names
-
-      records = @table_name.singularize.camelize.constantize.all.to_a
-
-      records.each_with_index do |record, index|
-        records[index] = column_names.map { |key| record[key] }
-      end
+      klass = @table_name.singularize.camelize.constantize
+      records = ActiveRecord::Base.connection.select_rows(klass.order(:id).to_sql)
 
       io.write("\n")
       io.write({ @table_name => { 'columns' => column_names, 'records' => records } }.to_yaml)

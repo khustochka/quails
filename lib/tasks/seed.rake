@@ -10,17 +10,28 @@ namespace :seed do
 
     dirname = SEED_DIR
 
+    seed_init_if_necessary!
+
     SEED_TABLES.each do |table_name|
       puts "Dumping '#{table_name}'..."
-      io = File.new "#{dirname}/#{table_name}.yml", "w"
+      io = File.new File.join(dirname, "#{table_name}.yml"), "w"
       table = BunchDB::Table.new(table_name)
       table.dump(io)
       io.close
     end
 
-    puts "\nGit diff:\n"
+    msg = "Seed update #{Time.now}"
 
-    system("git diff #{dirname} #{dirname}")
+    Dir.chdir(SEED_DIR) do
+      if ENV["DEBUG"].nil? || ENV["DEBUG"] == "false"
+        system("git add *.yml")
+        system("git commit -m '#{msg}'")
+        system("git push origin master")
+      else
+        system "git diff"
+      end
+    end
+
 
   end
 

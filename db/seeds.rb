@@ -16,9 +16,9 @@ seed_init_if_necessary!
 SEED_TABLES.each do |table_name|
   filename = "#{dirname}/#{table_name}.yml"
 
-  raw = YAML.load(File.new(filename), "r").to_a[0]
+  raw = YAML.load(File.new(filename), "r")
 
-  data = raw[1]
+  data = raw[table_name]
 
   table = BunchDB::Table.new(table_name)
   table.cleanup
