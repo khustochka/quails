@@ -6,29 +6,8 @@
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Daley', :city => cities.first)
 
-require 'bunch_db/table'
-require 'seed_helper'
+require 'seeds/seeds'
 
-dirname = SEED_DIR
-
-seed_init_if_necessary!
-
-SEED_TABLES.each do |table_name|
-  filename = "#{dirname}/#{table_name}.yml"
-
-  raw = YAML.load(File.new(filename), "r")
-
-  data = raw[table_name]
-
-  table = BunchDB::Table.new(table_name)
-  table.cleanup
-
-  column_names = data['columns']
-  records = data['records']
-
-  table.fill(column_names, records)
-
-  table.reset_pk_sequence!
-end
+Seeds.load_all
 
 #Page.create(slug: 'links', title: "Links", public: true, text: "Lorem ipsum")

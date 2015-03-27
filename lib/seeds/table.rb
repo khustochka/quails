@@ -1,4 +1,4 @@
-module BunchDB
+module Seeds
   class Table
     def initialize(name)
       @table_name = name

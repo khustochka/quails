@@ -1,5 +1,4 @@
 require 'capybara/rails'
-require 'seed_helper'
 require 'capybara_drivers'
 
 #Capybara.default_wait_time = 5
