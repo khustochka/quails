@@ -11,6 +11,11 @@
   = form.input :notes
   = form.input :voice, label: 'Voice?'
   = form.input :place
+  %div
+    %span.pseudolink.priv_notes
+      Priv
+      - if obs.private_notes.present?
+        *
   = form.input :private_notes
   = form.association :patch, input_html: {class: 'short patch-suggest'}, label_method: :name_en
   - if obs.persisted?
