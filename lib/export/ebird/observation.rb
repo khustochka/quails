@@ -63,9 +63,13 @@ class EbirdObservation
 
   def comments
     (
-    [transliterate(@obs.notes)] +
+    [notes_and_place] +
         @obs.media.map { |i| polymorfic_media_render(i) }
     ).join(" ")
+  end
+
+  def notes_and_place
+    [transliterate(@obs.notes), transliterate(@obs.place)].delete_if(&:blank?).join("; ")
   end
 
   def location_name

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141221201620) do
+ActiveRecord::Schema.define(version: 20150404182216) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -139,14 +139,15 @@ ActiveRecord::Schema.define(version: 20141221201620) do
   add_index "media_observations", ["observation_id"], name: "index_media_observations_on_observation_id", using: :btree
 
   create_table "observations", force: :cascade do |t|
-    t.integer "species_id",                             null: false
-    t.string  "quantity",   limit: 255
-    t.string  "place",      limit: 255
-    t.string  "notes",      limit: 255
+    t.integer "species_id",                                null: false
+    t.string  "quantity",      limit: 255
+    t.string  "private_notes", limit: 255
+    t.string  "notes",         limit: 255
     t.integer "post_id"
-    t.boolean "voice",                  default: false, null: false
+    t.boolean "voice",                     default: false, null: false
     t.integer "card_id"
     t.integer "patch_id"
+    t.string  "place"
   end
 
   add_index "observations", ["card_id"], name: "index_observations_on_card_id", using: :btree
