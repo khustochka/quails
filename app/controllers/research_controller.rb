@@ -154,6 +154,25 @@ class ResearchController < ApplicationController
     end
   end
 
+  def by_countries
+    @countries = Country.all.to_a
+
+    by_sps = {}
+
+    @countries.each do |cnt|
+
+      list = Species.joins(:cards).merge(Observation.identified).where("cards.locus_id" => cnt.subregion_ids).pluck("DISTINCT species.id")
+      list.each do |sp_id|
+        by_sps[sp_id] ||= []
+        by_sps[sp_id] << cnt
+      end
+    end
+    @species = Species.where(id: by_sps.keys).index_by(&:id)
+
+    @result = by_sps.group_by {|_, cnts| cnts.size}.to_a.sort {|a, b| b.first <=> a.first}
+
+  end
+
   def stats
     @years = [nil] + MyObservation.years
     @locations = Country.all

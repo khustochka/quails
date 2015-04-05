@@ -45,6 +45,12 @@ class ResearchControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "admin sees Research/by_countries" do
+    login_as_admin
+    get :by_countries
+    assert_response :success
+  end
+
   test "admin sees Research/uptoday" do
     login_as_admin
     get :uptoday
