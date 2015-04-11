@@ -1,7 +1,7 @@
 module CardsHelper
 
   #FAST_LOCI = %w(geologorozvidka kiev brovary les_i_pole)
-  FAST_LOCI = %w(kil_cona winnipeg)
+  FAST_LOCI = %w(kil_cona terracon_pl dugald_rd winnipeg)
 
   def attach_detach_link(item) # Card or observation
 
