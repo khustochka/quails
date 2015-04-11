@@ -13,7 +13,10 @@
         %i.less-important.monospace
           #{lang}:
         #{locus.send("name_#{lang}")}
-  %td.align-center= latlon(locus)
+  %td
+    = link_to("list", advanced_list_path(locus: locus.slug))
+  %td.align-center
+    %small= latlon(locus)
   %td.align-right
     = locus.public_index
     - if locus.patch
