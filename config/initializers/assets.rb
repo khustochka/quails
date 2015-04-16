@@ -16,7 +16,7 @@ Rails.application.config.assets.precompile << Proc.new { |path|
   if path == 'html5.js' || path =~ /\.png$/
     true
   elsif path =~ /\.(css|js)\z/
-    full_path = Rails.application.assets.resolve(path).to_path
+    full_path = Rails.application.assets.resolve(path)
     # return true to compile asset, false to skip
     full_path.starts_with?(app_assets_path)
   else
