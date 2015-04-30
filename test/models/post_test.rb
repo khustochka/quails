@@ -186,6 +186,15 @@ class PostTest < ActiveSupport::TestCase
     assert_equal 1, p.images.to_a.size
   end
 
+  test "new species count should not be duplicated if new species was seen twice in a day" do
+    p = create(:post)
+    card1 = create(:card, observ_date: "2015-04-27", post: p)
+    obs1 = create(:observation, species: seed(:podgri), card: card1)
+    card2 = create(:card, observ_date: "2015-04-27", post: p)
+    obs2 = create(:observation, species: seed(:podgri), card: card2)
+    assert_equal 1, p.new_species_ids.size
+  end
+
   test 'do not show on homepage the images that are already in post body' do
     p = create(:post, text: "First paragraph\n\n{{^image1}}\n\nLast paragraph")
     sp1 = seed(:lancol)

@@ -138,7 +138,7 @@ class Post < ActiveRecord::Base
         joins(:card).
         where("observations.post_id = ? or cards.post_id = ?", self.id, self.id).
         where("NOT EXISTS(#{subquery})").
-        pluck(:species_id)
+        pluck("DISTINCT species_id")
   end
 
   def face_date=(new_date)
