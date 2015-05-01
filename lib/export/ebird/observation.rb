@@ -146,7 +146,7 @@ class EbirdObservation
   end
 
   def name_from_notes
-    @name_from_notes ||= @obs.notes.gsub(/https?:\/\/[\w0-9\-_\/#?=&\.]*/, '')
+    @name_from_notes ||= @obs.notes[0, 64]
   end
 
   def card

@@ -93,6 +93,14 @@ class EbirdConverterTest < ActiveSupport::TestCase
     assert_equal "Corvus sp", ebird_observation(obs).send(:common_name)
   end
 
+  test "that unidentified species name is properly trimmed" do
+    # Ebird accepts no more than 64 chars in species name
+    notes = "Accipiter sp or other raptor: seemed large (like a large crow). from below: light, finely streaked, from above: brownish"
+    obs = FactoryGirl.create(:observation, species_id: 0, notes: notes)
+    assert_equal notes[0..63], ebird_observation(obs).send(:latin_name)
+    assert_equal notes[0..63], ebird_observation(obs).send(:common_name)
+  end
+
   test "that Feral Pigeon is marked properly" do
     obs = FactoryGirl.create(:observation, species: seed(:colliv))
     assert_equal "Columba livia (Feral Pigeon)", ebird_observation(obs).send(:latin_name)
