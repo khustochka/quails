@@ -64,4 +64,8 @@ class Card < ActiveRecord::Base
     effort_type.in? %w(TRAVEL AREA STATIONARY)
   end
 
+  def ebird_id=(val)
+    super(val.presence)
+  end
+
 end

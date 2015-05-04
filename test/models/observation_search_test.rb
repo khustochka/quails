@@ -4,7 +4,7 @@ class ObservationSearchTest < ActiveSupport::TestCase
 
   setup do
     @cards = [
-        create(:card, observ_date: '2013-05-18', locus: seed(:brovary)),
+        create(:card, observ_date: '2013-05-18', locus: seed(:brovary), ebird_id: "S123456789"),
         create(:card, observ_date: '2013-05-18', locus: seed(:kiev)),
         create(:card, observ_date: '2013-05-19', locus: seed(:kiev))
     ]
@@ -47,6 +47,10 @@ class ObservationSearchTest < ActiveSupport::TestCase
 
   test 'search cards by locus inclusive' do
     assert_equal 3, ObservationSearch.new(locus_id: seed(:ukraine).id, inclusive: true).cards.to_a.size
+  end
+
+  test 'search cards excluding ebirded' do
+    assert_equal 2, ObservationSearch.new(exclude_ebirded: 1).cards.to_a.size
   end
 
 end

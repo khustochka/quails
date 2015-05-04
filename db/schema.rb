@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150405042245) do
+ActiveRecord::Schema.define(version: 20150504002244) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 20150405042245) do
     t.float    "distance_kms"
     t.float    "area_acres"
     t.boolean  "resolved",                     default: false,        null: false
+    t.string   "ebird_id"
   end
 
   add_index "cards", ["locus_id"], name: "index_cards_on_locus_id", using: :btree

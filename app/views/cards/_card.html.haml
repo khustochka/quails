@@ -29,6 +29,8 @@
         %small= post_link(card.post.decorated.title, card.post)
       - else
         %i.less-important.grayout No post
+      - if card.ebird_id
+        %p= link_to "eBird Checklist", "http://ebird.org/ebird/view/checklist?subID=#{card.ebird_id}"
     - if @post
       %li= attach_detach_link(card)
   %ul.card_cell
@@ -49,7 +51,8 @@
 
   - if card.notes.present?
     -#%span.ui-icon.ui-icon-comment.inline-block.notes-tooltip{"data-title" => card.decorated.notes}
-    %div.card-notes= card.decorated.notes
+    %div.card-notes
+      = card.decorated.notes
 
   = render card.errors.extend(GenericErrors)
 
