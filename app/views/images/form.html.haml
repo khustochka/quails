@@ -74,7 +74,7 @@
       = hidden_field_tag(:new_on_flickr, "true") if params[:new_on_flickr]
     = form.input :description, input_html: {rows: 7, class: 'wiki_field'}
     = form.input :index_num, input_html: { size: 10, type: :text }
-    = form.input :status, collection: Image::STATES, input_html: {size: '3'}, include_blank: false
+    = form.input :status, collection: Image::STATES, input_html: {size: '5'}, include_blank: false
   .buttons
     = default_submit_button(form)
 

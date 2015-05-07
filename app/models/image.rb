@@ -5,13 +5,14 @@ class Image < Media
 
   NORMAL_PARAMS = [:slug, :title, :description, :index_num, :has_old_thumbnail, :status]
 
-  STATES = %w(PUBLIC NOINDEX)
+  STATES = %w(PUBLIC NOINDEX POST_ONLY EBIRD_ONLY PRIVATE)
 
   default_scope -> { where(media_type: 'photo') }
 
   has_many :children, -> { basic_order }, class_name: 'Image', foreign_key: 'parent_id'
 
   validates :external_id, uniqueness: true, allow_nil: true, exclusion: {in: ['']}
+  validates :status, inclusion: STATES, presence: true, length: {maximum: 16}
 
   scope :unflickred, -> { where(external_id: nil) }
 

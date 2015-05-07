@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150504002244) do
+ActiveRecord::Schema.define(version: 20150507010417) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -114,8 +114,8 @@ ActiveRecord::Schema.define(version: 20150504002244) do
   add_index "loci", ["slug"], name: "index_loci_on_slug", unique: true, using: :btree
 
   create_table "media", force: :cascade do |t|
-    t.string   "slug",              limit: 64,                   null: false
-    t.string   "media_type",        limit: 5,                    null: false
+    t.string   "slug",              limit: 64,                    null: false
+    t.string   "media_type",        limit: 5,                     null: false
     t.string   "title"
     t.string   "external_id"
     t.text     "description"
@@ -123,7 +123,7 @@ ActiveRecord::Schema.define(version: 20150504002244) do
     t.integer  "index_num",                    default: 1000
     t.boolean  "has_old_thumbnail",            default: false
     t.text     "assets_cache",                 default: ""
-    t.string   "status",            limit: 5,  default: "DEFLT"
+    t.string   "status",            limit: 16, default: "PUBLIC"
     t.integer  "parent_id"
     t.datetime "created_at"
     t.datetime "updated_at"
