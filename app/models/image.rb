@@ -5,7 +5,7 @@ class Image < Media
 
   NORMAL_PARAMS = [:slug, :title, :description, :index_num, :has_old_thumbnail, :status]
 
-  STATES = %w(DEFLT NOIDX)
+  STATES = %w(PUBLIC NOINDEX)
 
   default_scope -> { where(media_type: 'photo') }
 
@@ -42,7 +42,7 @@ class Image < Media
 
   # Scopes
 
-  scope :indexable, lambda { where("status <> 'NOIDX'").top_level }
+  scope :indexable, lambda { where("status <> 'NOINDEX'").top_level }
 
   scope :top_level, -> { where(parent_id: nil) }
 

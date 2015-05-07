@@ -31,7 +31,7 @@ class ImagesController < ApplicationController
 
   # GET /photos/1
   def show
-    @robots = 'NOINDEX' if @image.status == 'NOIDX' || @image.parent_id
+    @robots = 'NOINDEX' if @image.status == 'NOINDEX' || @image.parent_id
   end
 
   # GET /photos/new

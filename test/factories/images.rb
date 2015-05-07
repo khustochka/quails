@@ -3,7 +3,7 @@ FactoryGirl.define do
     sequence(:slug) { |n| "image_#{n}" }
     title "House Sparrow"
     description "This was taken somewhere"
-    status 'DEFLT'
+    status 'PUBLIC'
     observations { [FactoryGirl.create(:observation)] }
     assets_cache { ImageAssetsArray.new (
                                             [
