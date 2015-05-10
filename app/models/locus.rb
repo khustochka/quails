@@ -6,7 +6,7 @@ class Locus < ActiveRecord::Base
 
   has_ancestry orphan_strategy: :restrict
 
-  validates :slug, :format => /\A[a-z_]+\Z/i, :uniqueness => true, :presence => true, :length => {:maximum => 32}
+  validates :slug, :format => /\A[a-z_0-9]+\Z/i, :uniqueness => true, :presence => true, :length => {:maximum => 32}
   validates :name_en, :name_ru, :name_uk, :uniqueness => true
 
   has_many :cards, dependent: :restrict_with_exception
