@@ -64,6 +64,11 @@ class Card < ActiveRecord::Base
     effort_type.in? %w(TRAVEL AREA STATIONARY)
   end
 
+  # HISTORICAL is neither incidental, nor non-incidental
+  def incidental?
+    effort_type == "INCIDENTAL"
+  end
+
   def ebird_id=(val)
     super(val.presence)
   end

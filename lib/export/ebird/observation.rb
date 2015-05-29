@@ -116,7 +116,7 @@ class EbirdObservation
   end
 
   def all_observations?
-    "Y"
+    card.incidental? ? "N" : "Y"
   end
 
   def distance_miles
