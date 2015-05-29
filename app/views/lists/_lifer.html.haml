@@ -7,12 +7,6 @@
 %li.lifer_row{value: i}
   = species_link(lifer)
   = name_sci(lifer)
-
-  - if I18n.locale != :en && lifer.seen_abroad?
-    %small
-      %b
-        = surround'(', ')' do
-          %b= lifer.name_en
   %span
-    = precede "&mdash; ".html_safe do
+    = surround'(', ')' do
       = post_link(content_tag(:time, l(lifer.first_seen_date, :format => :long)), lifer.post, true)

@@ -12,11 +12,4 @@ class Lifer < Species
   def last_seen_date
     @last_seen_date ||= last_seen if respond_to? :last_seen
   end
-
-  def seen_abroad?
-    (first_seen >= Date.new(2010, 07, 19) && first_seen <= Date.new(2011, 05, 15)) ||
-        (first_seen >= Date.new(2013, 11, 10) && first_seen <= Date.new(2013, 11, 20)) ||
-        (first_seen >= Date.new(2014, 04, 25) && first_seen <= Date.new(2014, 05, 01)) ||
-        first_seen > Date.new(2014, 06, 18)
-  end
 end
