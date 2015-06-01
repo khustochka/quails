@@ -7,7 +7,7 @@ class LiferObservation < Observation
   private
 
   def self.life_observ_relation
-    select("DISTINCT ON (observ_date, species_id) *").
+    select("DISTINCT ON (species_id) *").
         joins(:card).
         where("(observ_date, species_id) IN (#{life_dates_sql})")
   end
