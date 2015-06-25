@@ -38,12 +38,20 @@ class LocusTest < ActiveSupport::TestCase
     assert loc
   end
 
-  test 'do not destroy locus if it has associated observations' do
-    loc = seed(:kiev)
+  test 'do not destroy locus if it has associated cards (and no child loci)' do
+    loc = seed(:les_i_pole)
     observation = create(:observation, card: create(:card, locus: loc))
-    assert_raise(Ancestry::AncestryException) { loc.destroy }
+    assert loc.descendants.empty?
+    assert_raise(ActiveRecord::DeleteRestrictionError) { loc.destroy }
     assert observation.reload
     assert_equal loc, observation.card.locus
+  end
+
+  test 'do not destroy locus if it has associated observations (patch) and no cards' do
+    loc = seed(:les_i_pole)
+    observation = create(:observation, card: create(:card, locus: seed(:brovary)), patch: loc)
+    assert loc.cards.empty?
+    assert_raise(ActiveRecord::DeleteRestrictionError) { loc.destroy }
   end
 
   test "proper public parent for a private locus" do
