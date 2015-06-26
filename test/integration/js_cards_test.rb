@@ -119,10 +119,10 @@ class JSCardsTest < ActionDispatch::IntegrationTest
 
     assert_difference('Observation.count', -1) do
       within(:xpath, "//div[contains(@class,'obs-row')][1]") do
-        find(".destroy").click
+        accept_confirm do
+          find(".destroy").click
+        end
       end
-
-      accept_modal_dialog
 
       assert_equal edit_card_path(@card), current_path
       assert page.has_no_css?('.obs-row div a', text: o.id.to_s)
@@ -140,10 +140,10 @@ class JSCardsTest < ActionDispatch::IntegrationTest
     visit edit_card_path(@card)
 
     within(:xpath, "//div[contains(@class,'obs-row')][1]") do
-      find(".destroy").click
+      accept_confirm do
+        find(".destroy").click
+      end
     end
-
-    accept_modal_dialog
 
     assert page.has_no_css?('.obs-row div a', text: o.id.to_s)
     assert page.has_no_css?("input[value='#{o.id.to_s}'][type=hidden]")
@@ -287,9 +287,9 @@ class JSCardsTest < ActionDispatch::IntegrationTest
 
     assert page.has_css?('li.observ_card')
 
-    page.find('li.observ_card').click_link('Attach to this post')
-
-    accept_modal_dialog
+    accept_confirm do
+      page.find('li.observ_card').click_link('Attach to this post')
+    end
 
     assert page.has_no_css?('.loading')
 
