@@ -69,7 +69,12 @@ class EbirdObservation
   end
 
   def notes_and_place
-    [transliterate(@obs.notes), transliterate(@obs.place)].delete_if(&:blank?).join("; ")
+    [
+        voice_component,
+        transliterate(@obs.notes),
+        transliterate(@obs.place)
+    ].
+        delete_if(&:blank?).join("; ")
   end
 
   def location_name
@@ -147,6 +152,10 @@ class EbirdObservation
 
   def name_from_notes
     @name_from_notes ||= @obs.notes[0, 64]
+  end
+
+  def voice_component
+    @obs.voice? ? "Heard" : nil
   end
 
   def card
