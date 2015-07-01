@@ -146,8 +146,8 @@ class EbirdObservation
       sp = SPECIES_BY_COUNTRY[country.slug][@obs.species_id] || self.class.ebird_species_cache[@obs.species_id]
       sp.send(method)
     end
-  rescue
-    raise "Error with species id #{@obs.species_id}"
+  rescue => e
+    raise "Error with species id #{@obs.species_id}\n#{e.message}"
   end
 
   def name_from_notes
@@ -210,8 +210,7 @@ class EbirdObservation
 
   AMERICAN_HERRING_GULL = SpeciesTemplate.new('Larus argentatus smithsonianus', 'Herring Gull (American)')
 
-  SPECIES_BY_COUNTRY = {
-      'ukraine' => {},
+  SPECIES_BY_COUNTRY = Hash.new({}).merge!({
 
       'usa' => {
           Species.where(code: 'hirrus').pluck(:id).first => AMERICAN_BARN_SWALLOW,
@@ -225,6 +224,6 @@ class EbirdObservation
       'canada' => {
           Species.where(code: 'hirrus').pluck(:id).first => AMERICAN_BARN_SWALLOW
       }
-  }
+  })
 
 end
