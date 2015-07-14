@@ -92,4 +92,12 @@ class LocusTest < ActiveSupport::TestCase
     end
   end
 
+  test "%parent pattern in name_format" do
+    brvr = seed(:brovary)
+    brvr.update_attributes(name_format: "%self, %parent, %country")
+    I18n.with_locale(:en) do
+      assert_equal "Brovary, Brovary district, Ukraine", brvr.decorated.full_name
+    end
+  end
+
 end
