@@ -13,7 +13,7 @@ class Card < ActiveRecord::Base
   has_many :observations, -> { order('observations.id') }, dependent: :restrict_with_exception
   has_many :images, through: :observations
   has_many :videos, through: :observations
-  has_many :species, -> { order(:index_num) }, through: :observations
+  has_many :species, through: :observations
   has_many :spots, through: :observations
 
   has_many :ebird_submissions, class_name: 'Ebird::Submission', dependent: :delete_all, inverse_of: :card
