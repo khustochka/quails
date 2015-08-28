@@ -25,7 +25,7 @@
       %small.tag.alert private
 
   %td
-    - if @loci[locus.id].present? || locus.observations.count > 0
+    - if locus.descendants.any? || locus.observations.any? || locus.patch_observations.any?
       = disabled_destroy_icon
     - else
       = default_destroy_link(locus)
