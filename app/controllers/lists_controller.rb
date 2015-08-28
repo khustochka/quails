@@ -3,17 +3,17 @@ class ListsController < ApplicationController
   CURRENT_YEAR = 2015
 
   def index
-    @list_life = NewLifelist.full
-    @list_current_year = NewLifelist.over(year: CURRENT_YEAR)
+    @list_life = BasicLifelist.full
+    @list_current_year = BasicLifelist.over(year: CURRENT_YEAR)
 
-    #@list_prev_year = NewLifelist.over(year: CURRENT_YEAR - 1)
+    #@list_prev_year = BasicLifelist.over(year: CURRENT_YEAR - 1)
 
-    @list_canada = NewLifelist.over(locus: 'canada')
+    @list_canada = BasicLifelist.over(locus: 'canada')
 
-    @list_ukraine = NewLifelist.over(locus: 'ukraine')
+    @list_ukraine = BasicLifelist.over(locus: 'ukraine')
 
-    @list_usa = NewLifelist.over(locus: 'usa')
-    @list_uk = NewLifelist.over(locus: 'united_kingdom')
+    @list_usa = BasicLifelist.over(locus: 'usa')
+    @list_uk = BasicLifelist.over(locus: 'united_kingdom')
   end
 
   def basic

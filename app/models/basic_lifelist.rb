@@ -1,4 +1,4 @@
-class NewLifelist
+class BasicLifelist
   def self.over(options)
     new(options)
   end
