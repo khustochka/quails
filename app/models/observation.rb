@@ -58,4 +58,8 @@ class Observation < ActiveRecord::Base
     patch || card.locus
   end
 
+  def main_post
+    post || card.post
+  end
+
 end

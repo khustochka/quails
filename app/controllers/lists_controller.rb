@@ -34,10 +34,14 @@ class ListsController < ApplicationController
 
     sources = I18n.russian_locale? ? {posts: current_user.available_posts} : {}
 
-    @lifelist = Lifelist.basic.
-        source(sources).
-        sort(sort_override).
-        filter(params.slice(:year, :locus))
+    # @lifelist = Lifelist.basic.
+    #     source(sources).
+    #     sort(sort_override).
+    #     filter(params.slice(:year, :locus))
+
+    @lifelist = NewLifelist.
+        over(params.slice(:year, :locus)).
+        sort(sort_override)
   end
 
   def advanced
