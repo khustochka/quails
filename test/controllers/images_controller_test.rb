@@ -228,6 +228,13 @@ class ImagesControllerTest < ActionController::TestCase
     assert assigns(:observations).any?
   end
 
+  test "image and video should not be considered series" do
+    create(:video, observations: [@obs])
+    login_as_admin
+    get :series
+    assert assigns(:observations).none?
+  end
+
   test 'do not show link to private post to public user on image page' do
     blogpost = create(:post, status: 'PRIV')
     @obs.post = blogpost

@@ -172,9 +172,20 @@ class ImagesController < ApplicationController
   end
 
   def series
-    rel = Observation.select(:observation_id).from("media_observations").group(:observation_id).having("COUNT(media_id) > 1")
-    @observations = Observation.select("DISTINCT observations.*, observ_date").where(id: rel).
-        joins(:card).preload(:images).order('observ_date DESC').page(params[:page])
+    rel =
+        Observation.
+            select(:observation_id).
+            joins(:media).
+            where(media: {media_type: "photo"}).
+            group(:observation_id).
+            having("COUNT(media_id) > 1")
+    @observations = Observation.
+        select("DISTINCT observations.*, observ_date").
+        where(id: rel).
+        joins(:card).
+        preload(:images).
+        order('observ_date DESC').
+        page(params[:page])
   end
 
   private
