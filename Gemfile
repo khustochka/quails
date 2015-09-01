@@ -37,10 +37,6 @@ gem 'jquery-rails'
 gem 'sass-rails', '~> 5.0'
 gem 'coffee-rails', '~> 4.1.0'
 
-
-# Temporary
-gem "sprockets", "~> 2.12"
-
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 
 gem 'uglifier', '>= 1.3.0'
