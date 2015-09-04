@@ -1,4 +1,7 @@
 class NewLifelist
+
+  include NewLifelist::RelationBuilder
+
   def self.over(options)
     new(options)
   end
@@ -29,32 +32,13 @@ class NewLifelist
   private
 
   def get_records
-    relation.to_a
+    records = relation.to_a
+    preload_posts(records)
+    records
   end
 
   def relation
-    Observation.# Just for relation
-    select("observations.*").
-        from(pre_ordered_relation, "observations").
-        order(ordering).
-        # FIXME: Do not join on species when not on taxonomy sorting
-        joins(:species).
-        includes({:card => :post}, :species, :post)
-  end
-
-  def pre_ordered_relation
-    # NOTE: Formerly it was select("DISTINCT ON (species_id) *")
-    # but it caused strange bug when card id was saved as observation's
-    base.
-        select("DISTINCT ON (species_id) observations.*, cards.observ_date").
-        where("(observ_date, species_id) IN (#{life_dates_sql})")
-  end
-
-  def life_dates_sql
-    base.
-        select("MIN(observ_date) as first_seen, species_id").
-        group(:species_id).
-        to_sql
+    @relation ||= build_relation.order(ordering)
   end
 
   def base

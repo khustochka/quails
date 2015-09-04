@@ -6,7 +6,7 @@ class Observation < ActiveRecord::Base
   belongs_to :card, touch: true
 
   belongs_to :species
-  belongs_to :post, -> { select(:id, :slug, :face_date, :title, :status) }, touch: :updated_at
+  belongs_to :post, -> { short_form }, touch: :updated_at
   has_and_belongs_to_many :media
   has_and_belongs_to_many :images, class_name: 'Image', association_foreign_key: :media_id
   has_and_belongs_to_many :videos, class_name: 'Video', association_foreign_key: :media_id
