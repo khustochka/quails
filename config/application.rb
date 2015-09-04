@@ -6,6 +6,11 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+# Workaround for haml + textile + new tilt
+# New tilt fails to load maruku and does not try textile
+require 'tilt/redcloth'
+require "haml/filters/textile"
+
 module Quails
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
