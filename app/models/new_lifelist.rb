@@ -29,6 +29,18 @@ class NewLifelist
     @records ||= get_records
   end
 
+  def locus
+    @locus ||= if @filter[:locus]
+                 Locus.find_by_slug(@filter[:locus])
+               else
+                 nil
+               end
+  end
+
+  def years
+    [nil] + MyObservation.filter(normalized_filter.merge({year: nil})).years
+  end
+
   private
 
   def get_records
