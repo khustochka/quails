@@ -71,9 +71,10 @@ GEM
     coffee-script-source (1.9.1.1)
     columnize (0.9.0)
     docile (1.1.5)
-    dotenv (1.0.2)
-    dotenv-deployment (0.3.0)
-      dotenv (~> 1.0)
+    dotenv (2.0.2)
+    dotenv-rails (2.0.2)
+      dotenv (= 2.0.2)
+      railties (~> 4.0)
     erubis (2.7.0)
     execjs (2.6.0)
     factory_girl (4.5.0)
@@ -223,7 +224,7 @@ DEPENDENCIES
   capybara
   capybara-webkit
   coffee-rails (~> 4.1.0)
-  dotenv-deployment
+  dotenv-rails
   factory_girl_rails (~> 4.0)
   flickraw (~> 0.9.7)
   haml (~> 4.0.4)

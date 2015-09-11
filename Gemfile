@@ -29,7 +29,7 @@ gem 'hashie'
 gem 'addressable', require: 'addressable/uri'
 gem 'roman-numerals'
 gem 'rinku'
-gem 'dotenv-deployment'
+gem 'dotenv-rails'
 gem 'ancestry'
 gem 'ordered-active-record'
 
