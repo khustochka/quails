@@ -11,10 +11,9 @@
     %b= species_link(lifer.species)
     = name_sci(lifer.species)
     - if I18n.russian_locale?
-      %br
-      = lifer.species.name_en
+      %span.lifer_en
+        = lifer.species.name_en
   %td
     = post_link(content_tag(:time, l(lifer.card.observ_date, :format => :long)), lifer.main_post || lifer.post, true)
-    %br
-    = lifer.patch_or_locus.public_locus.decorated.full_name
+    %span.lifer_locus= lifer.patch_or_locus.public_locus.decorated.full_name
 

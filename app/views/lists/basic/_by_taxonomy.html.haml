@@ -2,7 +2,7 @@
 
 - chunked = @lifelist.to_a.chunk {|obs| [obs.species.order, obs.species.family] }
 
-%table.checklist_table.neat_table
+%table.neat_table.lifelist_table
 
   - chunked.each do|(order, family), species_list|
     %tr.family_row

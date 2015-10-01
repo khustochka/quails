@@ -1,4 +1,4 @@
 - total_count = @lifelist.size
 
-%table.checklist_table.neat_table
+%table.neat_table.lifelist_table
   = render partial: 'lifer', collection: @lifelist.to_a, locals: {total_count: total_count}
