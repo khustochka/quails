@@ -4,9 +4,17 @@
 - if defined?(count_reached)
   - i = count_reached + lifer_counter
 
-%li.lifer_row{value: i}
-  = species_link(lifer.species)
-  = name_sci(lifer.species)
-  %span
-    = surround'(', ')' do
-      = post_link(content_tag(:time, l(lifer.card.observ_date, :format => :long)), lifer.main_post || lifer.post, true)
+%tr
+  %td
+    = i
+  %td
+    %b= species_link(lifer.species)
+    = name_sci(lifer.species)
+    - if I18n.russian_locale?
+      %br
+      = lifer.species.name_en
+  %td
+    = post_link(content_tag(:time, l(lifer.card.observ_date, :format => :long)), lifer.main_post || lifer.post, true)
+    %br
+    = lifer.card.locus.public_locus.decorated.full_name
+

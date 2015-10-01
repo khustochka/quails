@@ -2,9 +2,13 @@
 
 - chunked = @lifelist.to_a.chunk {|obs| [obs.species.order, obs.species.family] }
 
-- chunked.each do|(order, family), species_list|
-  %h2.order= render partial: 'species/taxonomy', locals: {rank: :order, value: order}
-  %h3.family= render partial: 'species/taxonomy', locals: {rank: :family, value: family}
-  %ol
+%table.checklist_table.neat_table
+
+  - chunked.each do|(order, family), species_list|
+    %tr.family_row
+      %td &nbsp;
+      %td{colspan: 2}
+        %h2.order= render partial: 'species/taxonomy', locals: {rank: :order, value: order}
+        %h3.family= render partial: 'species/taxonomy', locals: {rank: :family, value: family}
     = render partial: 'lifer', collection: species_list, locals: {count_reached: count_reached}
-  - count_reached += species_list.size
+    - count_reached += species_list.size
