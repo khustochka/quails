@@ -16,5 +16,5 @@
   %td
     = post_link(content_tag(:time, l(lifer.card.observ_date, :format => :long)), lifer.main_post || lifer.post, true)
     %br
-    = lifer.card.locus.public_locus.decorated.full_name
+    = lifer.patch_or_locus.public_locus.decorated.full_name
 
