@@ -34,7 +34,11 @@ class NewLifelist
     end
 
     def post_preloader
-      PublicPostPreloader.new
+      if @user.try(&:admin?)
+        ActiveRecord::Associations::Preloader.new
+      else
+        PublicPostPreloader.new
+      end
     end
   end
 

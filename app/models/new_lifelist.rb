@@ -14,6 +14,11 @@ class NewLifelist
     @filter = options
   end
 
+  def for(user)
+    @user = user
+    self
+  end
+
   def sort(sorting)
     @sorting = sorting
     self

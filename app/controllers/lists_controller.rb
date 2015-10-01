@@ -41,6 +41,7 @@ class ListsController < ApplicationController
 
     @lifelist = NewLifelist.
         over(params.slice(:year, :locus)).
+        for(current_user).
         sort(sort_override)
   end
 
