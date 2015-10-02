@@ -29,16 +29,16 @@ class NewLifelist
     end
 
     def preload_posts(records)
-      post_preloader.preload(records, :post)
-      post_preloader.preload(records.map(&:card), :post)
+      post_preloader.preload(records, :post, available_posts)
+      post_preloader.preload(records.map(&:card), :post, available_posts)
     end
 
     def post_preloader
-      if @user.try(&:admin?)
-        ActiveRecord::Associations::Preloader.new
-      else
-        PublicPostPreloader.new
-      end
+      ActiveRecord::Associations::Preloader.new
+    end
+
+    def available_posts
+      @user.try(&:available_posts) || Post.public_posts
     end
   end
 
