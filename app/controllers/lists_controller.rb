@@ -30,7 +30,10 @@ class ListsController < ApplicationController
             raise ActionController::RoutingError, "Illegal argument sort=#{params[:sort]}"
         end
 
+    locus = params[:locus]
     @locations = Country.all
+
+    raise ActiveRecord::RecordNotFound if locus && !locus.in?(@locations.map(&:slug))
 
     sources = I18n.russian_locale? ? {posts: current_user.available_posts} : {}
 
