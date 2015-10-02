@@ -35,11 +35,6 @@ class ListsController < ApplicationController
 
     raise ActiveRecord::RecordNotFound if locus && !locus.in?(@locations.map(&:slug))
 
-    # @lifelist = Lifelist.basic.
-    #     source(sources).
-    #     sort(sort_override).
-    #     filter(params.slice(:year, :locus))
-
     @lifelist = NewLifelist.
         over(params.slice(:year, :locus)).
         sort(sort_override)
