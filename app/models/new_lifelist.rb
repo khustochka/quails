@@ -14,8 +14,8 @@ class NewLifelist
     @filter = options
   end
 
-  def for(user)
-    @user = user
+  def set_posts_scope(posts_scope)
+    @posts_scope = posts_scope
     self
   end
 

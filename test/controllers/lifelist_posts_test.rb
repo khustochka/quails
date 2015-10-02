@@ -23,6 +23,15 @@ class LifelistPostsTest < ActionController::TestCase
     assert_select "a[href='#{public_post_path(@obs[1].post)}']"
   end
 
+  test 'do show post link if locale is not Russian' do
+    @obs[1].post = create(:post)
+    @obs[1].save!
+    get :basic, locale: :en
+    assert_response :success
+    lifers = assigns(:lifelist)
+    assert_equal nil, lifers.to_a.find {|s| s.species.code == 'anacly'}.main_post
+  end
+
   test 'show post link on lifelist ordered by taxonomy if post is associated' do
     @obs[1].post = create(:post)
     @obs[1].save!

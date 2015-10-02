@@ -29,17 +29,18 @@ class NewLifelist
     end
 
     def preload_posts(records)
-      post_preloader.preload(records, :post, available_posts)
-      post_preloader.preload(records.map(&:card), :post, available_posts)
+      post_preloader.preload(records, :post, posts_scope)
+      post_preloader.preload(records.map(&:card), :post, posts_scope)
     end
 
     def post_preloader
       ActiveRecord::Associations::Preloader.new
     end
 
-    def available_posts
-      @user.try(&:available_posts) || Post.public_posts
+    def posts_scope
+      @posts_scope ||= Post.none
     end
+
   end
 
 end

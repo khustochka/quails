@@ -35,8 +35,6 @@ class ListsController < ApplicationController
 
     raise ActiveRecord::RecordNotFound if locus && !locus.in?(@locations.map(&:slug))
 
-    sources = I18n.russian_locale? ? {posts: current_user.available_posts} : {}
-
     # @lifelist = Lifelist.basic.
     #     source(sources).
     #     sort(sort_override).
@@ -44,8 +42,11 @@ class ListsController < ApplicationController
 
     @lifelist = NewLifelist.
         over(params.slice(:year, :locus)).
-        for(current_user).
         sort(sort_override)
+
+    if I18n.russian_locale?
+      @lifelist.set_posts_scope(current_user.available_posts)
+    end
   end
 
   def advanced
