@@ -3,17 +3,17 @@ class ListsController < ApplicationController
   CURRENT_YEAR = 2015
 
   def index
-    @top_5_life = Lifelist.basic.relation.limit(5)
-    @top_5_year = Lifelist.basic.filter(year: CURRENT_YEAR).relation.limit(5)
+    @list_life = BasicLifelist.full
+    @list_current_year = BasicLifelist.over(year: CURRENT_YEAR)
 
-    #@list_prev_year = Lifelist.basic.filter(year: CURRENT_YEAR - 1).relation
+    #@list_prev_year = BasicLifelist.over(year: CURRENT_YEAR - 1)
 
-    @list_canada = Lifelist.basic.filter(locus: 'canada').relation
+    @list_canada = BasicLifelist.over(locus: 'canada')
 
-    @list_ukraine = Lifelist.basic.filter(locus: 'ukraine').relation
+    @list_ukraine = BasicLifelist.over(locus: 'ukraine')
 
-    @list_usa = Lifelist.basic.filter(locus: 'usa').relation
-    @list_uk = Lifelist.basic.filter(locus: 'united_kingdom').relation
+    @list_usa = BasicLifelist.over(locus: 'usa')
+    @list_uk = BasicLifelist.over(locus: 'united_kingdom')
   end
 
   def basic
@@ -30,14 +30,23 @@ class ListsController < ApplicationController
             raise ActionController::RoutingError, "Illegal argument sort=#{params[:sort]}"
         end
 
+    locus = params[:locus]
     @locations = Country.all
 
-    sources = I18n.russian_locale? ? {posts: current_user.available_posts} : {}
+    raise ActiveRecord::RecordNotFound if locus && !locus.in?(@locations.map(&:slug))
 
-    @lifelist = Lifelist.basic.
-        source(sources).
-        sort(sort_override).
-        filter(params.slice(:year, :locus))
+    # @lifelist = Lifelist.basic.
+    #     source(sources).
+    #     sort(sort_override).
+    #     filter(params.slice(:year, :locus))
+
+    @lifelist = NewLifelist.
+        over(params.slice(:year, :locus)).
+        sort(sort_override)
+
+    if I18n.russian_locale?
+      @lifelist.set_posts_scope(current_user.available_posts)
+    end
   end
 
   def advanced

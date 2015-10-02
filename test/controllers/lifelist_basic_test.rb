@@ -27,7 +27,7 @@ class LifelistBasicTest < ActionController::TestCase
     get :basic
     assert_response :success
     assert_select '.main' do
-      assert_select 'h5' # should show "First time seen in..."
+#      assert_select 'h5' # should show "First time seen in..."
       assert_select "a[href='#{lifelist_path}']", false
       assert_select "a[href='#{url_for(sort: :by_taxonomy, only_path: true)}']"
     end
@@ -37,7 +37,7 @@ class LifelistBasicTest < ActionController::TestCase
     get :basic, year: 2009
     assert_response :success
     lifers = assigns(:lifelist)
-    assert_equal [2009], lifers.map { |s| s.first_seen_date.year }.uniq
+    assert_equal [2009], lifers.to_a.map { |s| s.card.observ_date.year }.uniq
     assert_select '.main' do
       assert_select 'h5', false # should not show "First time seen in..."
       assert_select "a[href='#{list_path(year: 2009)}']", false
@@ -49,7 +49,7 @@ class LifelistBasicTest < ActionController::TestCase
     get :basic, sort: 'by_taxonomy', year: 2009
     assert_response :success
     lifers = assigns(:lifelist)
-    assert_equal [2009], lifers.map { |s| s.first_seen_date.year }.uniq
+    assert_equal [2009], lifers.to_a.map { |s| s.card.observ_date.year }.uniq
     assert_select '.main' do
       assert_select 'h3' # should show order/family headings
       assert_select "a[href='#{list_path(year: 2009)}']"

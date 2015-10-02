@@ -1,3 +1,2 @@
 %ol.lifers_list
-  - total_count = top5list.except(:limit).count(:all)
-  = render partial: 'lifer', collection: top5list, locals: {total_count: total_count}
+  = render partial: 'new_lifer', collection: top5list.top(5), locals: {total_count: top5list.total_count}

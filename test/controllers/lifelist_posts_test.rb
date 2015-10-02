@@ -19,8 +19,17 @@ class LifelistPostsTest < ActionController::TestCase
     get :basic
     assert_response :success
     lifers = assigns(:lifelist)
-    assert_equal 1, lifers.map(&:post).compact.size
+    assert_equal 1, lifers.to_a.map(&:post).compact.size
     assert_select "a[href='#{public_post_path(@obs[1].post)}']"
+  end
+
+  test 'do show post link if locale is not Russian' do
+    @obs[1].post = create(:post)
+    @obs[1].save!
+    get :basic, locale: :en
+    assert_response :success
+    lifers = assigns(:lifelist)
+    assert_equal nil, lifers.to_a.find {|s| s.species.code == 'anacly'}.main_post
   end
 
   test 'show post link on lifelist ordered by taxonomy if post is associated' do
@@ -29,7 +38,7 @@ class LifelistPostsTest < ActionController::TestCase
     get :basic, sort: :by_taxonomy
     assert_response :success
     lifers = assigns(:lifelist)
-    assert_equal 1, lifers.map(&:post).compact.size
+    assert_equal 1, lifers.to_a.map(&:post).compact.size
     assert_select "a[href='#{public_post_path(@obs[1].post)}']"
   end
 
@@ -39,7 +48,7 @@ class LifelistPostsTest < ActionController::TestCase
     get :basic
     assert_response :success
     lifers = assigns(:lifelist)
-    assert_equal nil, lifers.find {|s| s.code == 'anapla'}.post
+    assert_equal nil, lifers.to_a.find {|s| s.species.code == 'anapla'}.post
   end
 
   test 'do not show hidden post link to common visitor' do
@@ -48,7 +57,7 @@ class LifelistPostsTest < ActionController::TestCase
     get :basic
     assert_response :success
     lifers = assigns(:lifelist)
-    assert_empty lifers.map(&:post).compact
+    assert_empty lifers.to_a.map(&:post).compact
   end
 
   test 'show hidden post link to administrator' do
@@ -58,7 +67,7 @@ class LifelistPostsTest < ActionController::TestCase
     get :basic
     assert_response :success
     lifers = assigns(:lifelist)
-    assert_equal 1, lifers.map(&:post).compact.size
+    assert_equal 1, lifers.to_a.map(&:post).compact.size
     assert_select "a[href='#{public_post_path(@obs[1].post)}']"
   end
 end

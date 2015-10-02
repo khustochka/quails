@@ -1,0 +1,9 @@
+- if defined?(total_count)
+  - i = total_count - new_lifer_counter
+
+%li.lifer_row{value: i}
+  = species_link(new_lifer.species)
+  = name_sci(new_lifer.species)
+  %span
+    = surround'(', ')' do
+      = content_tag(:time, l(new_lifer.observ_date, format: :long))
