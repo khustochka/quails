@@ -4,6 +4,8 @@ class Locus < ActiveRecord::Base
   include ActiveRecord::Localized
   localize :name
 
+  invalidates CacheKey.lifelist
+
   has_ancestry orphan_strategy: :restrict
 
   validates :slug, :format => /\A[a-z_0-9]+\Z/i, :uniqueness => true, :presence => true, :length => {:maximum => 32}
