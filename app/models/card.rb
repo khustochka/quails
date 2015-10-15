@@ -22,6 +22,9 @@ class Card < ActiveRecord::Base
   validates :locus_id, :observ_date, presence: true
   validates :effort_type, inclusion: EFFORT_TYPES, allow_blank: false
   validate :check_effort, on: :ebird_post
+  validates :start_time, format: /\A(\d{1,2}:\d\d)\Z/, allow_blank: true
+  validates :duration_minutes, numericality: { only_integer: true }, allow_blank: true
+  validates :distance_kms, numericality: {greater_than: 0}, allow_blank: true
   validates :start_time, :duration_minutes, :distance_kms, presence: true, on: :travel
   validates :start_time, :duration_minutes, :area_acres, presence: true, on: :area
   validates :start_time, :duration_minutes, presence: true, on: :stationary
