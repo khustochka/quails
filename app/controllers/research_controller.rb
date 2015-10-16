@@ -257,14 +257,19 @@ class ResearchController < ApplicationController
   end
 
   def graphs
-    list = Observation.identified.
-        joins(:card).
-        select('species_id, MIN(observ_date) as first_date').
-        where("extract(year from observ_date) = 2014").
-        group(:species_id)
-    dates = Observation.from(list).order('first_date').pluck(:first_date)
-
-    @data = dates.map {|dt| [dt.to_time.to_i, Observation.from(list).where('first_date <= ?', dt).count] }
+    @data = {}
+    [2014, 2015].each do |yr|
+      list = Observation.identified.
+          joins(:card).
+          select('species_id, MIN(observ_date) as first_date').
+          where("extract(year from observ_date) = #{yr}").
+          group(:species_id)
+      dates = Observation.from(list).order('first_date').
+                  group(:first_date).pluck("first_date, COUNT(species_id) as cnt")
+      @data[yr] = dates.inject([]) do |memo, (dt, cnt)|
+        memo << [dt.to_time.to_i, (memo.last.try(&:last) || 0) + cnt]
+      end
+    end
   end
 
 end
