@@ -40,7 +40,7 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     addressable (2.3.8)
-    airbrake (4.3.1)
+    airbrake (4.3.3)
       builder
       multi_json
     ancestry (2.1.0)
