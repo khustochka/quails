@@ -267,7 +267,7 @@ class ResearchController < ApplicationController
       dates = Observation.from(list).order('first_date').
                   group(:first_date).pluck("first_date, COUNT(species_id) as cnt")
       @data[yr] = dates.inject([]) do |memo, (dt, cnt)|
-        memo << [dt.to_time.to_i, (memo.last.try(&:last) || 0) + cnt]
+        memo << [[dt.month, dt.day], (memo.last.try(&:last) || 0) + cnt]
       end
     end
   end
