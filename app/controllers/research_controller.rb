@@ -257,7 +257,7 @@ class ResearchController < ApplicationController
   end
 
   def graphs
-    @data = {}
+    @data = []
     [2014, 2015].each do |yr|
       list = Observation.identified.
           joins(:card).
@@ -266,7 +266,7 @@ class ResearchController < ApplicationController
           group(:species_id)
       dates = Observation.from(list).order('first_date').
                   group(:first_date).pluck("first_date, COUNT(species_id) as cnt")
-      @data[yr] = dates.inject([]) do |memo, (dt, cnt)|
+      @data << dates.inject([]) do |memo, (dt, cnt)|
         memo << [[dt.month, dt.day], (memo.last.try(&:last) || 0) + cnt]
       end
     end

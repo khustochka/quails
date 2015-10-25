@@ -28,12 +28,14 @@ $(function () {
           type: "stepLine",
           lineThickness: 1,
           name: "2014",
+          showInLegend: true,
           dataPoints: $.map(data[0], convertData)
         },
         {
           type: "stepLine",
           lineThickness: 1,
           name: "2015",
+          showInLegend: true,
           dataPoints: $.map(data[1], convertData)
         }
       ]
