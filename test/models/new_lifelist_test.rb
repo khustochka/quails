@@ -41,4 +41,24 @@ class NewLifelistTest < ActiveSupport::TestCase
     assert_equal "pasdom", list.last.species.code
   end
 
+  # Sometimes a lifer is seen several times a day. Correct first card should be selected
+  test "should take into account start time when selecting lifer card (same species)" do
+    card1 = FactoryGirl.create(:card, start_time: "13:00")
+    card2 = FactoryGirl.create(:card, start_time: "9:00")
+    obs1 = FactoryGirl.create(:observation, card: card1, species: seed("nycsca"))
+    obs2 = FactoryGirl.create(:observation, card: card2, species: seed("nycsca"))
+    list = NewLifelist.full.to_a
+    # Lifer should be the earlier observation
+    assert_equal "9:00", list.first.card.start_time
+  end
+
+  test "for lifer card empty start time is lower priority" do
+    card1 = FactoryGirl.create(:card, start_time: "9:00")
+    card2 = FactoryGirl.create(:card, start_time: "")
+    obs1 = FactoryGirl.create(:observation, card: card1, species: seed("nycsca"))
+    obs2 = FactoryGirl.create(:observation, card: card2, species: seed("nycsca"))
+    list = NewLifelist.full.to_a
+    assert_equal "9:00", list.first.card.start_time
+  end
+
 end
