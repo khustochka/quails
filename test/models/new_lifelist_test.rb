@@ -17,4 +17,28 @@ class NewLifelistTest < ActiveSupport::TestCase
     assert_equal nil, list.first.main_post
   end
 
+  test "should take into account start time when ordering lifers (diff species)" do
+    card1 = FactoryGirl.create(:card, start_time: "9:00")
+    card2 = FactoryGirl.create(:card, start_time: "13:00")
+    obs1 = FactoryGirl.create(:observation, card: card1, species: seed("pasdom"))
+    obs2 = FactoryGirl.create(:observation, card: card2, species: seed("colliv"))
+    list = NewLifelist.full.to_a
+    # First is the newer (seen later)
+    assert_equal "colliv", list.first.species.code
+    # Last is the older (seen earlier)
+    assert_equal "pasdom", list.last.species.code
+  end
+
+  test "should treat start time as earlier when ordering different lifers" do
+    card1 = FactoryGirl.create(:card, start_time: "")
+    card2 = FactoryGirl.create(:card, start_time: "13:00")
+    obs1 = FactoryGirl.create(:observation, card: card1, species: seed("pasdom"))
+    obs2 = FactoryGirl.create(:observation, card: card2, species: seed("colliv"))
+    list = NewLifelist.full.to_a
+    # First is the newer (seen later)
+    assert_equal "colliv", list.first.species.code
+    # Last is the older (seen earlier)
+    assert_equal "pasdom", list.last.species.code
+  end
+
 end
