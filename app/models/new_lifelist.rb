@@ -66,7 +66,7 @@ class NewLifelist
     if @sorting == "class"
       "index_num ASC"
     else
-      "observ_date DESC, to_timestamp(start_time, 'HH24:MI') DESC"
+      "observ_date DESC, to_timestamp(start_time, 'HH24:MI') DESC NULLS LAST"
     end
   end
 

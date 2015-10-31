@@ -30,7 +30,7 @@ class NewLifelistTest < ActiveSupport::TestCase
   end
 
   test "should treat start time as earlier when ordering different lifers" do
-    card1 = FactoryGirl.create(:card, start_time: "")
+    card1 = FactoryGirl.create(:card, start_time: nil)
     card2 = FactoryGirl.create(:card, start_time: "13:00")
     obs1 = FactoryGirl.create(:observation, card: card1, species: seed("pasdom"))
     obs2 = FactoryGirl.create(:observation, card: card2, species: seed("colliv"))
@@ -54,7 +54,7 @@ class NewLifelistTest < ActiveSupport::TestCase
 
   test "for lifer card empty start time is lower priority" do
     card1 = FactoryGirl.create(:card, start_time: "9:00")
-    card2 = FactoryGirl.create(:card, start_time: "")
+    card2 = FactoryGirl.create(:card, start_time: nil)
     obs1 = FactoryGirl.create(:observation, card: card1, species: seed("nycsca"))
     obs2 = FactoryGirl.create(:observation, card: card2, species: seed("nycsca"))
     list = NewLifelist.full.to_a

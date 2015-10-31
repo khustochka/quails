@@ -24,9 +24,9 @@ class NewLifelist
       base.select(
           "first_value(observations.id)
           OVER (PARTITION BY species_id
-          ORDER BY observ_date ASC, (CASE WHEN start_time='' THEN NULL ELSE to_timestamp(start_time, 'HH24:MI') END) ASC NULLS LAST)"
+          ORDER BY observ_date ASC, to_timestamp(start_time, 'HH24:MI') ASC NULLS LAST)"
       )
-      # TODO: better to save empty start_time as NULL.
+
     end
 
     # def life_dates_sql

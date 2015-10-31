@@ -22,7 +22,7 @@ class Card < ActiveRecord::Base
   validates :locus_id, :observ_date, presence: true
   validates :effort_type, inclusion: EFFORT_TYPES, allow_blank: false
   validate :check_effort, on: :ebird_post
-  validates :start_time, format: /\A(\d{1,2}:\d\d)\Z/, allow_blank: true
+  validates :start_time, format: /\A(\d{1,2}:\d\d)\Z/, allow_blank: false, allow_nil: true
   validates :duration_minutes, numericality: { only_integer: true }, allow_blank: true
   validates :distance_kms, numericality: {greater_than: 0}, allow_blank: true
   validates :start_time, :duration_minutes, :distance_kms, presence: true, on: :travel
@@ -32,6 +32,15 @@ class Card < ActiveRecord::Base
   accepts_nested_attributes_for :observations,
                                 reject_if:
                                     proc { |attrs| attrs.all? { |k, v| v.blank? || k == 'voice' } }
+
+  def start_time=(str)
+    if str.is_a?(String) && str.strip.empty?
+      super(nil)
+    else
+      super(str)
+    end
+  end
+
 
   def secondary_posts
     Post.uniq.joins(:observations).where('observations.card_id = ? AND observations.post_id <> ?', self.id, self.post_id)
