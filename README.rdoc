@@ -14,5 +14,5 @@ So I could have named my project 'Rails' but I have abandoned this idea because 
 
 == Dependencies
 
-[Ruby 2.1.0] Ruby 2.1.0 is used for both production and development. May also work on 1.9.3 until I start using keyword arguments.
-[PostgreSQL] Some queries may be PostgreSQL-specific. PostgreSQL 9.1 is used.
+[Ruby] See `Gemfile` or `.ruby-version` for Ruby version.
+[PostgreSQL] Some queries may be PostgreSQL-specific.
