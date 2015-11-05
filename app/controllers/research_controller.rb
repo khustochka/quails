@@ -55,7 +55,8 @@ class ResearchController < ApplicationController
     ).group(:species_id)
 
     @no_photo = Species.select('*').
-        joins("INNER JOIN (#{unpic_rel.to_sql}) AS obs ON species.id=obs.species_id").order('cnt DESC')
+        joins("INNER JOIN (#{unpic_rel.to_sql}) AS obs ON species.id=obs.species_id").order('cnt DESC').
+        where("cnt > 1")
 
     new_pic = MyObservation.joins(:images).select("species_id, MIN(created_at) as add_date").
         group(:species_id)
@@ -63,7 +64,7 @@ class ResearchController < ApplicationController
         limit(15).order('add_date DESC')
 
     long_rel = MyObservation.joins(:images, :card).select("species_id, MAX(observ_date) as lastphoto").
-        group(:species_id).having("MAX(observ_date) < (now() - interval '2 years')")
+        group(:species_id).having("MAX(observ_date) < (now() - interval '3 years')")
 
     @long_time = Species.select('*').
         joins("INNER JOIN (#{long_rel.to_sql}) AS obs ON species.id=obs.species_id").order('lastphoto')
@@ -77,7 +78,7 @@ class ResearchController < ApplicationController
       sp, imgs = imgdata
 
       img = imgs.each_cons(2).select do |im1, im2|
-        im2.created_at > Date.new(2014).beginning_of_year && (im2.created_at - im1.created_at) >= TWO_YEARS
+        im2.created_at > Date.new(2015).beginning_of_year && (im2.created_at - im1.created_at) >= TWO_YEARS
       end
       collection.concat(
           img.map do |im1, im2|
