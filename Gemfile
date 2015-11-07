@@ -18,7 +18,7 @@ gem 'actionpack-page_caching'
 #gem 'dalli'
 gem 'rails-i18n'
 gem "haml", "~> 4.0.4"
-gem 'haml-rails', '~> 0.5.1'
+gem 'haml-rails'
 gem 'haml-contrib'
 gem 'RedCloth'
 gem 'kaminari'
