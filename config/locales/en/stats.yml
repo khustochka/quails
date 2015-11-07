@@ -6,12 +6,13 @@
 
       total: total
 
-      species_met: 'species met:'
+      species_met: 'Species'
+      lifers_met: "Lifers"
 
       litochky_place: 'Litochky and Brovary, Kiev oblast, Ukraine'
 
       records: 'All-time highs:'
 
       new_count_species:
-        one: 'new'
-        other: 'new'
+        one: 'lifer'
+        other: 'lifers'

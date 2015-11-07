@@ -5,13 +5,14 @@
 
       total: всего
 
-      species_met: 'встречено видов:'
+      species_met: 'Видов'
+      lifers_met: "новых"
 
       litochky_place: 'с. Литочки и г. Бровары, Киевская область, Украина'
 
       records: 'Рекорды:'
 
       new_count_species:
-        one: 'новый'
-        few: 'новых'
-        many: 'новых'
+        one: 'новый вид'
+        few: 'новых вида'
+        many: 'новых видов'

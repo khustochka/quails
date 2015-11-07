@@ -431,8 +431,8 @@ table.nice_stats
     top: 30px
     bottom: 30px
   td
-    padding: 3px 5px 5px 5px
-    vertical-align: baseline
+    width: 25%
+    padding: 3px 5px 15px 15px
     font-family: Verdana, Tahoma, sans-serif
     font-weight: bold
     border:
@@ -440,7 +440,7 @@ table.nice_stats
       bottom: 1px solid #aaaaaa
     a
       text-decoration: none
-      border-bottom: 2px solid
+      border-bottom: 1px solid
   th
     padding-bottom: 1px
     border:
@@ -448,7 +448,7 @@ table.nice_stats
     h2
       color: #383838
       margin-bottom: 0
-  td.year, td.count_sp, td.count_new
+  td.year, td.count_sp, td.count_new, td.count_new_big
     font-size: 30px
     font-family: "Verdana", sans-serif
   td.day
@@ -465,17 +465,19 @@ table.nice_stats
     font-weight: normal
     font-size: 12px
     color: #555
-  .count_sp, .count_new
+  .count_sp, .count_new_big
     text-align: right
+  .count_new
+    text-align: center
+    font-size: 18px
+    font-weight: normal
     small
       font-family: Arial
-  .count_sp small
-    font-size: 16px
   .count_new small
     font-size: 18px
   .count_sp, .count_sp_label, .count_sp a
     color: #3661b7
-  .count_new, .count_new_label, .count_new a
+  .count_new, .count_new_label, .count_new a, .count_new_big
     color: #e04747
   tr.total
     border:
@@ -500,4 +502,13 @@ table.nice_stats
         color: #aa6666
       li.united_kingdom, li.united_kingdom a
         color: #6666aa
+      li.canada, li.canada a
+        color: #cc3399
+      li.netherlands, li.netherlands a
+        color: #ba9d33
+
+table.nice_stats.records
+  td
+    width: auto
+    vertical-align: baseline
 

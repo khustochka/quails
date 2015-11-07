@@ -17,6 +17,7 @@
     %li= link_to(t('lists.title.ukraine'), list_path(locus: 'ukraine'))
     %li= link_to(t('lists.title.usa'), list_path(locus: 'usa'))
     %li= link_to(t('lists.title.gb'), list_path(locus: 'united_kingdom'))
+    %li= link_to(t('lists.title.canada'), list_path(locus: 'canada'))
 
 - cache(key: CacheKey.lifelist) do
 
@@ -25,23 +26,29 @@
   - grouped_by_country = @grouped_by_country.count_distinct_species
 
   %table.nice_stats
+    %tr
+      %th &nbsp;
+      %th.count_sp
+        = t('.species_met')
+      %th.count_new
+        = t('.lifers_met')
+      %th &nbsp;
 
     - @year_data.count_distinct_species.each do |year, count_species|
+
       %tr
         %td.year= year
-        - unless year == 2007
-          %td.count_new
-            - new_sp = first_sp_by_year[year.to_i]
-            - if new_sp && new_sp > 0
-              %small{title: "Новых добавлено к списку"}
-                = link_to advanced_list_path(anchor: "first_seen_#{year}") do
-                  = precede '+' do
-                    =  new_sp
 
-        %td.count_sp{colspan: (year == 2007 ? 2 : 1)}
-          - if year == 2007
-            %small= t('.species_met')
+        %td.count_sp
           = link_to count_species, list_path(year: year)
+
+        %td.count_new<>
+          - new_sp = first_sp_by_year[year.to_i]
+          - if new_sp && new_sp > 0
+            -#\/
+            %small<>
+              = link_to advanced_list_path(anchor: "first_seen_#{year}") do
+                =  new_sp
 
         %td.countries
           %ul
@@ -55,8 +62,8 @@
 
     %tr.total
       %td.year= t('.total')
-      %td
       %td.count_sp= link_to MyObservation.count_distinct_species, lifelist_path
+      %td
       %td.countries
         %ul
           - @countries.each do |c|
@@ -73,7 +80,7 @@
   - max_new_species_for_day = 15
   - post_for_day_with_max_new_species = show_post_path(2010, "08", "jamaica-bay-herons-et-al")
 
-  %table.nice_stats
+  %table.nice_stats.records
     %tr
       %th{colspan: 4}
         %h2= t('.records')
@@ -87,7 +94,6 @@
     %tr
       %td.day= link_to_if I18n.russian_locale?, l(day_with_max_new_species, format: :long), post_for_day_with_max_new_species
       %td.place Jamaica Bay Wildlife Refuge, New York City, USA
-      %td.count_new= max_new_species_for_day
+      %td.count_new_big= max_new_species_for_day
       %td.count_new_label
         = t('my_stats.index.new_count_species', count: max_new_species_for_day)
-        = t('misc.species_count', count: max_new_species_for_day)
