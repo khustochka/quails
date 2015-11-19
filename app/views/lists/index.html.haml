@@ -32,9 +32,9 @@
     %div.fluid-column
 
       %h2
-        = link_to(t('lists.title.ukraine'), list_path(locus: 'ukraine'))
+        = link_to(t('lists.title.usa'), list_path(locus: 'usa'))
 
-      = render partial: "top5list", object: @list_ukraine
+      = render partial: "top5list", object: @list_usa
 
     %div.fluid-column
 
@@ -54,12 +54,13 @@
 
   %div.fluid-row
 
-    -# Temp list Ukraine while we show list of the previous year
-    -#%div.fluid-column
-    -#
-    -#  %h2
-    -#    = link_to(t('lists.title.ukraine'), list_path(locus: 'ukraine'))
-    -#    (#{@list_ukraine.count(:all)})
+    %div.fluid-column
+
+      %h2
+        = link_to(t('lists.title.ukraine'), list_path(locus: 'ukraine'))
+        (#{@list_ukraine.total_count})
+
+      -#= render partial: "top5list", object: @list_ukraine
 
     %div.fluid-column
 
@@ -67,8 +68,8 @@
         = link_to(t('lists.title.gb'), list_path(locus: 'united_kingdom'))
         (#{@list_uk.total_count})
 
-    %div.fluid-column
+    -#%div.fluid-column
 
-      %h2
-        = link_to(t('lists.title.usa'), list_path(locus: 'usa'))
-        (#{@list_usa.total_count})
+      -#%h2
+      -#  = link_to(t('lists.title.usa'), list_path(locus: 'usa'))
+      -#  (#{@list_usa.total_count})
