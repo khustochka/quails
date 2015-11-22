@@ -32,11 +32,15 @@ class LJFormatStrategy < FormattingStrategy
         )
   end
 
-  def species_link(word, term)
+  def species_link(word, term, en)
     sp = @species[term]
     if sp
-      %Q(<b title="#{sp.name_sci}">#{word || sp.name_sci}</b>)
+      str = %Q(<b title="#{sp.name_sci}">#{word or (en ? sp.name_en : sp.name_sci)}</b>)
       #%Q("(sp_link). #{word || sp.name_sci}":#{sp.code})
+      if en && word.present?
+        str << " (#{sp.name_en})"
+      end
+      str
     else
       term.size > 6 ? unknown_species(word, term) : (word || term)
     end

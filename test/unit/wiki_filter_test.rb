@@ -44,6 +44,16 @@ class WikiFilterTest < ActionDispatch::IntegrationTest
                  transform('Those were {{quails|cotnix}}!')
   end
 
+  test 'Add English name after species link' do
+    assert_equal %Q("(sp_link). Перепел":cotnix (Common Quail)\n\n[cotnix]#{species_path(seed(:cotnix))}),
+                 transform('{{Перепел|cotnix|en}}')
+  end
+
+  test 'Use English name if no word specified' do
+    assert_equal %Q("(sp_link). Common Quail":cotnix\n\n[cotnix]#{species_path(seed(:cotnix))}),
+                 transform('{{cotnix|en}}')
+  end
+
   # Posts
 
   #  test 'properly parse post by code {{#see this|some-post}}' do
