@@ -87,8 +87,8 @@ ActiveRecord::Schema.define(version: 20151124013656) do
     t.string  "name_ioc_en",         null: false
     t.string  "category",            null: false
     t.string  "ebird_code",          null: false
-    t.string  "order",               null: false
-    t.string  "family",              null: false
+    t.string  "order"
+    t.string  "family"
     t.string  "ebird_order_num_str"
     t.integer "index_num",           null: false
     t.integer "parent_id"
@@ -222,9 +222,10 @@ ActiveRecord::Schema.define(version: 20151124013656) do
     t.string  "name_en",        null: false
     t.string  "name_ru"
     t.string  "category",       null: false
-    t.string  "order",          null: false
-    t.string  "family",         null: false
+    t.string  "order"
+    t.string  "family"
     t.integer "index_num",      null: false
+    t.string  "ebird_code",     null: false
     t.integer "parent_id"
     t.integer "species_id"
     t.integer "ebird_taxon_id"
