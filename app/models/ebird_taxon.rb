@@ -1,11 +1,4 @@
-#require 'species_parameterizer'
-
-class Taxon < ActiveRecord::Base
-
-  # invalidates CacheKey.gallery
-  # invalidates CacheKey.checklist
-
-  # extend SpeciesParameterizer
+class EbirdTaxon < ActiveRecord::Base
 
   include ActiveRecord::Localized
   localize :name
@@ -19,10 +12,14 @@ class Taxon < ActiveRecord::Base
   # validates :species_id, uniqueness: {scope: :book_id}, :allow_blank => true
 
   # Associations
-  belongs_to :parent, class_name: "EbirdTaxon"
+
+  belongs_to :species
+  belongs_to :ebird_taxon
+  belongs_to :parent, class_name: "Taxon"
 
   # Parameters
 
+  # temporarily using ebird code
   def to_param
     ebird_code
   end
