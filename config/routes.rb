@@ -225,6 +225,8 @@ Rails.application.routes.draw do
   end
   get '/books/:id/taxa' => redirect("/books/%{id}")
 
+  resources :ebird_taxa, only: [:index]
+
   resources :pages
 
   get '/settings' => 'settings#index'

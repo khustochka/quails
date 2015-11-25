@@ -1,0 +1,37 @@
+-# no_viewport is for very wide pages, e.g. with table
+- @no_viewport = true
+
+- @page_title = 'EBird Taxonomy'
+
+%h1= page_title
+
+
+%table.neat_table
+  %tr
+    %th.align-right No
+    %th Scientific name
+    %th English name
+    %th EBird
+    %th Taxonomy
+
+  - @ebird_taxa.each do |taxon|
+    %tr
+      %td.align-right
+        = taxon.index_num
+      %td
+        %i= taxon.name_sci
+      %td
+        = taxon.name_en
+        - if taxon.name_en != taxon.name_ioc_en
+          %br
+          = taxon.name_ioc_en
+      %td
+        %i= taxon.category
+        %br
+        = taxon.ebird_code
+      %td
+        = taxon.order
+        %br
+        = taxon.family
+
+= paginate @ebird_taxa
