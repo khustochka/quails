@@ -220,11 +220,9 @@ Rails.application.routes.draw do
     post :save, on: :collection
   end
 
-  resources :books do
-    resources :taxa, only: [:show, :update]
-  end
-  get '/books/:id/taxa' => redirect("/books/%{id}")
+  resources :books
 
+  resources :taxa
   resources :ebird_taxa, only: [:index]
 
   resources :pages
