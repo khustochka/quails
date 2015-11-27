@@ -1,0 +1,91 @@
+- @meta_thumbnail = thumbnail_item(@species.image).url if @species.image
+
+- @canonical = localize_url(@species, protocol: 'http')
+
+- @page_title = "#{@species.name} (#{@species.name_sci})"
+
+- @js_features = [:videoQuality]
+
+- if current_user.admin?
+  - javascript 'species_image'
+  = render 'admin/shortcuts'
+
+= render 'partials/translated'
+
+%p.taxonomy
+  = t("taxonomy.order")
+  %strong= t("taxonomy.#{@species.order}", default: "")
+  %i.sci_name{lang: "la"}= @species.order
+  &bull;
+  = t("taxonomy.family")
+  %strong= t("taxonomy.#{@species.family}", default: "")
+  %i.sci_name{lang: "la"}= @species.family
+
+%div
+  %h1.species_name_h1= @species.name
+  %h2.latin{lang: "la"}= @species.name_sci
+  %span.authority= @species.authority
+
+%dl.sp_translations
+  - (ALL_LOCALES - [I18n.locale] + [:fr]).map do |lang|
+    - if (trans_name = @species.send("name_#{lang}")).present?
+      %div
+        %dt= t("languages.#{lang}")
+        %dd{lang: lang}= trans_name
+
+- if (similar = @species.similar_species).present?
+  %div.similar_species
+    %h3= t('.sections.similar_species')
+    %ul
+      - similar.each do |sp|
+        %li= species_link(sp)
+
+- @species.ordered_images.top_level.if_present do |images|
+  %a{name: 'photos'}
+  %div.photos
+    %h3= t('.sections.photos')
+    %div.thumbnails
+      = render_justified images.map(&:to_thumbnail)
+      - if current_user.admin?
+        = simple_form_for @species do |form|
+          = form.simple_fields_for :species_image do |f2|
+            = f2.input :image_id, as: :hidden
+        %p
+          %span.pseudolink.edit_main_image Edit main image
+
+- @species.videos.if_present do |videos|
+  %a{name: 'videos'}
+  %div.videos
+    %h3= t('.sections.videos')
+    = render videos.map(&:small)
+
+
+
+- if @species.observations.any?
+  %a{name: 'observations'}
+  %h3= t('.sections.stats')
+  %p
+    = t('.total_observations')
+    %strong= @species.observations.count
+
+  - grouped_loci = @species.grouped_loci
+
+  - span_size = grouped_loci.size == 1 ? 'span_1' : 'span_2'
+
+  %div.fluid-row.obs_maps
+
+    - grouped_loci.each do |country, loci|
+      %div{class: "fluid-column #{span_size}"}
+        = species_map(country, loci)
+        %table.monthly
+          %tr
+            - 1.upto(12) do |m|
+              - month_class, tag = @months[country].include?(m) ? ["seen_this_month", :strong] : [nil, :span]
+              %td{class: month_class, title: t('date.month_names')[m]}= content_tag(tag, RomanNumerals.to_roman(m))
+
+- if I18n.russian_locale?
+  - @posts.if_present do |posts|
+    %h3= t('.sections.posts')
+    %ul
+      - posts.each do |post|
+        %li= post_link(post.decorated.title, post)

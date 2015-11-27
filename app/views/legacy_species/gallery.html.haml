@@ -1,0 +1,28 @@
+-# @body_class = 'wider'
+
+- @page_title = t(".window_title")
+- @page_header = t(".title")
+
+- cache(admin: current_user.admin?, key: CacheKey.gallery) do
+
+  = render 'partials/translated'
+
+  %div.header-with-subheader
+    %h1.over-header
+      = page_header
+    %ul.subheader-menu
+      %li= link_to(t("countries.gallery.title.ukraine"), country_path(country: 'ukraine'))
+      %li= link_to(t("countries.gallery.title.united_kingdom"), country_path(country: 'united_kingdom'))
+      %li= link_to(t("countries.gallery.title.usa"), country_path(country: 'usa'))
+      %li= link_to(t("countries.gallery.title.canada"), country_path(country: 'canada'))
+      %li= link_to t('menu.videos'), {action: 'index', controller: 'videos'}
+      %li= link_to t('menu.photos'), {action: 'index', controller: 'images'}
+      = feed_list_item
+
+
+  - thumbnails = @species.thumbnails
+  - if Image.multiple_species.count("DISTINCT media.id") > 0
+    - thumbnails << Thumbnail.new(photos_multiple_species_path, t('images.multiple_species.title'), Image.multiple_species.first)
+
+  %div.thumbnails
+    = render_justified thumbnails

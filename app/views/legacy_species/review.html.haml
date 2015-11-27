@@ -1,0 +1,47 @@
+- stylesheet 'forms'
+- javascript 'species_review'
+
+- @page_title = "Review #{@species.name_sci}"
+
+%h1= page_header
+
+%ul.errors
+  - if @species.reviewed?
+    %li.green This species is reviewed
+  - else
+    %li This species is not reviewed
+
+%p
+  Avibase:
+  = link_to @species.avibase_id, avibase_species_url(@species.avibase_id)
+
+.reviewForms
+
+  = simple_form_for @species, format: :json, remote: true do |form|
+    %i= @species.name_sci
+    - %w(name_en name_ru name_uk).each do |attr|
+      = form.input attr
+    = form.input :reviewed, as: "hidden"
+
+  - @books.each do |book, taxon|
+    %b= book.name
+
+    = simple_form_for [book, taxon] do |form|
+      %i= taxon.name_sci
+      - %w(name_en name_ru name_uk).each do |attr|
+        = form.input attr, label: false,
+              input_html: {'data-target' => "species_#{attr}"}
+
+  - if @legacy
+    %b Legacy
+    %form.simple_form
+      %i= @legacy.name_sci
+      - %w(name_en name_ru name_uk).each do |attr|
+        = content_tag(:div, class: "input string") do
+          = text_field_tag(nil, @legacy.send(attr), class: 'string', 'data-target' => "species_#{attr}")
+
+  %div.buttons
+    - if @next_species
+      = link_to review_species_path(@next_species), id: "nextSp" do
+        Skip to the next species (#{content_tag(:i, @next_species.name_sci)}) &gt;&gt;
+    %button#markReviewed Mark as reviewed &gt;&gt;

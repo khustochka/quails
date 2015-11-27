@@ -94,6 +94,27 @@ ActiveRecord::Schema.define(version: 20151124013656) do
     t.integer "parent_id"
   end
 
+  create_table "legacy_species", force: :cascade do |t|
+    t.string  "code",       limit: 6
+    t.string  "name_sci",   limit: 255,                 null: false
+    t.string  "authority",  limit: 255
+    t.string  "name_en",    limit: 255,                 null: false
+    t.string  "name_ru",    limit: 255
+    t.string  "name_uk",    limit: 255
+    t.integer "index_num",                              null: false
+    t.string  "order",      limit: 255
+    t.string  "family",     limit: 255,                 null: false
+    t.string  "avibase_id", limit: 16
+    t.string  "protonym",   limit: 255
+    t.string  "name_fr",    limit: 255
+    t.boolean "reviewed",               default: false, null: false
+    t.text    "wikidata"
+  end
+
+  add_index "legacy_species", ["code"], name: "index_legacy_species_on_code", unique: true, using: :btree
+  add_index "legacy_species", ["index_num"], name: "index_legacy_species_on_index_num", using: :btree
+  add_index "legacy_species", ["name_sci"], name: "index_legacy_species_on_name_sci", unique: true, using: :btree
+
   create_table "loci", force: :cascade do |t|
     t.string  "slug",         limit: 32,                  null: false
     t.string  "name_en",      limit: 255

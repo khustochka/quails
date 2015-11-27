@@ -1,0 +1,10 @@
+- new_species = flat_section.new_species_ids
+- flat_section.species.ordered_by_taxonomy.if_present do |spcs|
+  %h3
+    = t('.title')
+    - arr = [spcs.size]
+    - arr << "из них #{new_species.size} #{t('my_stats.index.new_count_species', count: new_species.size)}" if new_species.size > 0
+    = surround '(', ')' do
+      = arr.join(", ")
+  %p
+    = (spcs.map { |sp| species_link_in_flat_section(sp, flat_section) }.join(",\n") << ".").html_safe
