@@ -6,16 +6,18 @@ class SpeciesController < ApplicationController
 
   # GET /species/admin
   def index
-    @species = Species.ordered_by_taxonomy.extend(SpeciesArray)
+    #TODO : Filter by order, family
+    @species = Species.order(:index_num).page(params[:page]).per(50)
 
-    @observed = Species.where(id: Observation.select(:species_id))
-    @obs_not_reviewed = @observed.where("NOT reviewed")
-
-    fesenko = Book.find(1)
-    @ukrainian = fesenko.taxa
-    @ukr_not_reviewed = Species.where(id: fesenko.taxa.select(:species_id)).where("NOT reviewed")
-
-    @reviewed = Species.where("reviewed")
+    #@species = Species.ordered_by_taxonomy.extend(SpeciesArray)
+    # @observed = Species.where(id: Observation.select(:species_id))
+    # @obs_not_reviewed = @observed.where("NOT reviewed")
+    #
+    # fesenko = Book.find(1)
+    # @ukrainian = fesenko.taxa
+    # @ukr_not_reviewed = Species.where(id: fesenko.taxa.select(:species_id)).where("NOT reviewed")
+    #
+    # @reviewed = Species.where("reviewed")
   end
 
   # GET /species

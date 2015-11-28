@@ -12,6 +12,7 @@
     %th Common names
     %th EBird
     %th Taxonomy
+    %th Species
 
   - @taxa.each do |taxon|
     %tr
@@ -32,5 +33,8 @@
         = taxon.order
         %br
         = taxon.family
+      %td
+        - if sp = taxon.species
+          = link_to sp.name_sci, sp
 
 = paginate @taxa

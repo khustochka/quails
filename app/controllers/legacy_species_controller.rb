@@ -7,15 +7,6 @@ class LegacySpeciesController < ApplicationController
   # GET /species/admin
   def index
     @species = LegacySpecies.ordered_by_taxonomy.extend(SpeciesArray)
-
-    @observed = Species.where(id: Observation.select(:species_id))
-    @obs_not_reviewed = @observed.where("NOT reviewed")
-
-    fesenko = Book.find(1)
-    @ukrainian = fesenko.taxa
-    @ukr_not_reviewed = Species.where(id: fesenko.taxa.select(:species_id)).where("NOT reviewed")
-
-    @reviewed = Species.where("reviewed")
   end
 
   # GET /species

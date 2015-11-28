@@ -20,6 +20,9 @@ class Taxon < ActiveRecord::Base
 
   # Associations
   belongs_to :parent, class_name: "EbirdTaxon"
+  belongs_to :species
+
+  scope :category_species, -> { where(category: "species") }
 
   def self.search_by_term(term)
     select("*, CASE WHEN #{self.send(:sanitize_conditions, ["name_sci ~* '^%s'", term])} THEN 1
