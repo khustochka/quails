@@ -1,5 +1,5 @@
-- last15obs = Observation.identified.joins(:card).select("species_id, COUNT(observations.id) AS cnt").where("observ_date > ?", Time.now - 14.days).group(:species_id).order("cnt DESC").limit(20)
-- last10species = Species.select(:id, :name_sci).joins("INNER JOIN (#{last15obs.to_sql}) obs ON obs.species_id=species.id").order("index_num ASC")
+- last15obs = Observation.joins(:card).select("taxon_id, COUNT(observations.id) AS cnt").where("observ_date > ?", Time.now - 14.days).group(:taxon_id).order("cnt DESC").limit(20)
+- last10taxa = Taxon.select(:id, :name_sci).joins("INNER JOIN (#{last15obs.to_sql}) obs ON obs.taxon_id=taxa.id").order("index_num ASC")
 
-- last10species.each do |sp|
-  %span.pseudolink.fast-sp-link{data: {species_id: sp.id}}= sp.name_sci
+- last10taxa.each do |tx|
+  %span.pseudolink.fast-sp-link{data: {taxon_id: tx.id}}= tx.name_sci

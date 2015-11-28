@@ -234,7 +234,10 @@ Rails.application.routes.draw do
 
   resources :books
 
-  resources :taxa
+  resources :taxa do
+    get :search, on: :collection
+  end
+
   resources :ebird_taxa, only: [:index]
 
   resources :pages

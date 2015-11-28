@@ -5,8 +5,8 @@
 - @light_species_selector = !params[:nojs]
 
 - stylesheet 'forms'
-- javascript 'card_form'
 - @js_features = [:wikiFields]
+- @js_controller = :cards
 
 - @page_title = @card.persisted? ? "Edit: #{l(@card.observ_date, format: :long)}, #{@card.locus.name}" : "New card"
 
@@ -37,8 +37,7 @@
   %div
     = form.input :observ_date, as: :string, label: 'Date:',
           input_html: {class: 'short', maxlength: 10, type: 'date'}
-    = form.association :locus, label: 'Location:', collection: Locus.suggestion_order,
-        input_html: {class: 'suggest-combo'}
+    = form.association :locus, label: 'Location:', collection: Locus.suggestion_order
     - unless @card.persisted?
       %div.fast-locus-container
         - CardsHelper::FAST_LOCI.each do |slug|
@@ -94,8 +93,3 @@
       = default_submit_button(form)
       = link_to 'Extract selected to the new card', extract_observations_path, class: 'pseudolink extractor'
       = link_to 'Move selected to another card', move_observations_path, class: 'pseudolink mover'
-
-- if @light_species_selector
-
-  :javascript
-    var sp_list = #{species_for_select.map {|s| {id: s.id, value: s.name_sci}}.to_json};

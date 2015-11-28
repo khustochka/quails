@@ -6,7 +6,7 @@
             input_html: {class: 'short', maxlength: 10, type: 'date'}, required: false
         = form2.input :locus_id, label: 'Location:', collection: Locus.suggestion_order,
             input_html: {class: 'suggest-combo'}, required: false
-        = form2.input :species_id, label: 'Species:', collection: species_for_select,
+        = form2.input :species_id, label: 'Species:', collection: taxa_for_select,
             input_html: {class: 'suggest-combo'}, required: false
         %input#obs_limit{type: 'hidden', name: 'limit', value: 5}
         %button.obs_search_btn{type: 'button'} Search

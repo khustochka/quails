@@ -5,7 +5,8 @@ class Observation < ActiveRecord::Base
 
   belongs_to :card, touch: true
 
-  belongs_to :species
+  belongs_to :taxon
+  belongs_to :legacy_species
   belongs_to :post, -> { short_form }, touch: :updated_at
   has_and_belongs_to_many :media
   has_and_belongs_to_many :images, class_name: 'Image', association_foreign_key: :media_id
@@ -19,7 +20,7 @@ class Observation < ActiveRecord::Base
     end
   end
 
-  validates :species_id, :presence => true
+  validates :taxon_id, presence: true
 
   # Scopes
 
@@ -44,13 +45,9 @@ class Observation < ActiveRecord::Base
 
   # Species
 
-  def species_with_incognita
-    species_id == 0 ?
-        Species::AVIS_INCOGNITA :
-        species_without_incognita
+  def species
+    taxon.species
   end
-
-  alias_method_chain :species, :incognita
 
   delegate :species_str, :when_where_str, to: :decorated
 

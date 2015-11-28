@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151124013656) do
+ActiveRecord::Schema.define(version: 20151127034331) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -161,20 +161,22 @@ ActiveRecord::Schema.define(version: 20151124013656) do
   add_index "media_observations", ["observation_id"], name: "index_media_observations_on_observation_id", using: :btree
 
   create_table "observations", force: :cascade do |t|
-    t.integer "species_id",                                null: false
-    t.string  "quantity",      limit: 255
-    t.string  "private_notes", limit: 255, default: "",    null: false
-    t.string  "notes",                     default: "",    null: false
+    t.integer "legacy_species_id"
+    t.string  "quantity",          limit: 255
+    t.string  "private_notes",     limit: 255, default: "",    null: false
+    t.string  "notes",                         default: "",    null: false
     t.integer "post_id"
-    t.boolean "voice",                     default: false, null: false
+    t.boolean "voice",                         default: false, null: false
     t.integer "card_id"
     t.integer "patch_id"
-    t.string  "place",         limit: 255, default: "",    null: false
+    t.string  "place",             limit: 255, default: "",    null: false
+    t.integer "taxon_id"
   end
 
   add_index "observations", ["card_id"], name: "index_observations_on_card_id", using: :btree
+  add_index "observations", ["legacy_species_id"], name: "index_observations_on_legacy_species_id", using: :btree
   add_index "observations", ["post_id"], name: "index_observations_on_post_id", using: :btree
-  add_index "observations", ["species_id"], name: "index_observations_on_species_id", using: :btree
+  add_index "observations", ["taxon_id"], name: "index_observations_on_taxon_id", using: :btree
 
   create_table "pages", force: :cascade do |t|
     t.string   "slug",       limit: 255,                 null: false

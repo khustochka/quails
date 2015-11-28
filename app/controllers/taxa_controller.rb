@@ -9,6 +9,19 @@ class TaxaController < ApplicationController
     @taxa = Taxon.order(:index_num).page(params[:page]).per(50)
   end
 
+  def search
+    term = params[:term]
+    @taxa = Taxon.search_by_term(term).limit(30)
+    taxa_arr = @taxa.map do |tx|
+      {
+          value: tx.name_sci,
+          label: [tx.name_sci, tx.name_en].join(" - "),
+          id: tx.id
+      }
+    end
+    render json: taxa_arr
+  end
+
   # def show
   #   render :form
   # end

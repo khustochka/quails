@@ -15,12 +15,13 @@
       - if card.observations.count == 0
         %small.voice.tag empty
     %li
-      Species:
-      %big= card.observations.merge(Observation.identified).count("DISTINCT species_id")
-      - new_sp_size = card.new_species_ids.size
-      - if new_sp_size > 0
-        %span.new_sp{title: "Lifers"} &#8727;
-        %small<>= new_sp_size
+      -# FIXME
+      -#Species:
+      -#%big= card.observations.merge(Observation.identified).count("DISTINCT species_id")
+      -#- new_sp_size = card.new_species_ids.size
+      -#- if new_sp_size > 0
+      -#  %span.new_sp{title: "Lifers"} &#8727;
+      -#  %small<>= new_sp_size
       - if card.observations.count == 0
         = default_destroy_link(card)
   %ul.card_cell

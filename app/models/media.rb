@@ -3,7 +3,7 @@ class Media < ActiveRecord::Base
 
   serialize :assets_cache, ImageAssetsArray
 
-  has_many :species, through: :observations
+  has_many :taxa, through: :observations
 
   # TODO: try to make it 'card', because image should belong to observations of the same card
   has_many :cards, through: :observations
@@ -70,6 +70,10 @@ class Media < ActiveRecord::Base
   end
 
   delegate :observ_date, :locus, :locus_id, to: :card
+
+  def species
+    taxa.map(&:species).uniq
+  end
 
   def card
     first_observation.card

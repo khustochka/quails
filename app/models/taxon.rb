@@ -21,10 +21,24 @@ class Taxon < ActiveRecord::Base
   # Associations
   belongs_to :parent, class_name: "EbirdTaxon"
 
+  def self.search_by_term(term)
+    select("*, CASE WHEN #{self.send(:sanitize_conditions, ["name_sci ~* '^%s'", term])} THEN 1
+                    ELSE 2
+               END as rank").
+      where(
+          self.send(:sanitize_conditions, ["name_sci ~* '(^| |\\(|-|\\/)%s'", term])
+      ).
+      order("rank, index_num")
+  end
+
   # Parameters
 
   def to_param
     ebird_code
+  end
+
+  def to_label
+    name_sci
   end
 
 end

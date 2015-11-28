@@ -89,8 +89,8 @@ class Post < ActiveRecord::Base
   end
 
   def images
-    Image.uniq.joins(:observations).includes(:cards, :species).where('cards.post_id = ? OR observations.post_id = ?', id, id).
-        order('cards.observ_date, cards.locus_id, media.index_num, species.index_num')
+    Image.uniq.joins(:observations).includes(:cards, :taxa).where('cards.post_id = ? OR observations.post_id = ?', id, id).
+        order('cards.observ_date, cards.locus_id, media.index_num, taxa.index_num')
   end
 
   # Instance methods
