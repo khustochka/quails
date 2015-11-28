@@ -7,6 +7,10 @@ class Observation < ActiveRecord::Base
 
   belongs_to :taxon
   belongs_to :legacy_species
+
+  # This will only work if joined with taxon
+  belongs_to :species
+
   belongs_to :post, -> { short_form }, touch: :updated_at
   has_and_belongs_to_many :media
   has_and_belongs_to_many :images, class_name: 'Image', association_foreign_key: :media_id
@@ -24,7 +28,7 @@ class Observation < ActiveRecord::Base
 
   # Scopes
 
-  scope :identified, lambda { where('observations.species_id != 0') }
+  scope :identified, lambda { joins(:taxon).where("taxa.species_id IS NOT NULL") }
 
   def self.count_distinct_species
     self.count("DISTINCT species_id")
@@ -44,10 +48,6 @@ class Observation < ActiveRecord::Base
   end
 
   # Species
-
-  def species
-    taxon.species
-  end
 
   delegate :species_str, :when_where_str, to: :decorated
 
