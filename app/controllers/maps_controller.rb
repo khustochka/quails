@@ -22,9 +22,9 @@ class MapsController < ApplicationController
     observs =
         params[:q] && params[:q].delete_if { |_, v| v.empty? }.present? ?
             ObservationSearch.new(params[:q]).observations.
-                joins("LEFT OUTER JOIN species ON species_id = species.id").
+                joins(:taxon).
                 preload(preload_tables).
-                order('cards.observ_date', 'cards.locus_id', 'patch_id', 'species.index_num').limit(params[:limit] || 200) :
+                order('cards.observ_date', 'cards.locus_id', 'patch_id', 'taxa.index_num').limit(params[:limit] || 200) :
             []
 
     respond_to do |format|

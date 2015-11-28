@@ -24,7 +24,7 @@ class ObservationSearch
   end
 
   CARD_ATTRIBUTES = [:observ_date, :end_date, :locus_id, :card_id, :resolved, :inclusive, :exclude_ebirded]
-  OBSERVATION_ATTRIBUTES = [:species_id, :voice]
+  OBSERVATION_ATTRIBUTES = [:taxon_id, :voice]
   ALL_ATTRIBUTES = CARD_ATTRIBUTES + OBSERVATION_ATTRIBUTES
 
   def initialize(conditions = {})
@@ -45,7 +45,7 @@ class ObservationSearch
     return @cards_relation if @cards_relation
     scope = Card.where(@conditions[:card])
     if observations_filtered?
-      scope = scope.includes(:observations).where(observations: @conditions[:observation]).preload(observations: :species)
+      scope = scope.includes(:observations).where(observations: @conditions[:observation]).preload(observations: :taxa)
     end
     @cards_relation = scope
   end

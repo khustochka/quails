@@ -18,7 +18,7 @@ class Image < Media
 
   # Callbacks
   after_create do
-    species.each(&:update_image)
+    #species.each(&:update_image)
   end
 
   # FIXME: the NEW post is touched if it exists, but not the OLD!
@@ -28,7 +28,7 @@ class Image < Media
   end
 
   after_destroy do
-    species.each(&:update_image)
+    #species.each(&:update_image)
     cards.preload(:post).map(&:post).uniq.each { |p| p.try(:touch) }
     observations.preload(:post).map(&:post).uniq.each { |p| p.try(:touch) }
   end
@@ -74,7 +74,7 @@ class Image < Media
     species.count > 1
   end
 
-  ORDERING_COLUMNS = %w(cards.observ_date cards.locus_id index_num media.created_at media.id)
+  ORDERING_COLUMNS = %w(cards.observ_date cards.locus_id species.index_num media.created_at media.id)
   PREV_NEXT_ORDER = "ORDER BY #{ORDERING_COLUMNS.join(', ')}"
 
   def self.order_for_species
@@ -109,9 +109,9 @@ class Image < Media
     end
     # Calculate row number for every image under partition
     window =
-        Image.select("media.*, row_number() over (partition by species_id #{PREV_NEXT_ORDER}) as rn").
-            joins(:cards).
-            where("observations.species_id" => sp.id)
+        Image.select("media.*, row_number() over (partition by species.id #{PREV_NEXT_ORDER}) as rn").
+            joins(:taxa, :species, :cards).
+            where("species.id = ?", sp.id)
     # Join ranked tables by neighbouring images
     # Select neighbours of the sought one, exclude duplication
     q = "with ranked as (#{window.to_sql})
