@@ -45,7 +45,7 @@ class ObservationSearch
     return @cards_relation if @cards_relation
     scope = Card.where(@conditions[:card])
     if observations_filtered?
-      scope = scope.includes(:observations).where(observations: @conditions[:observation]).preload(observations: :taxa)
+      scope = scope.includes(:observations).where(observations: @conditions[:observation]).preload(observations: {:taxon => :species})
     end
     @cards_relation = scope
   end
