@@ -6,10 +6,11 @@ class NewLifelist
 
     def build_relation
       Observation.
+          select("observations.*, species_id").
           where(id: pre_ordered_relation).
           # FIXME: Do not join on species when not on taxonomy sorting
-          joins(:species).
-          includes(:card, :species)
+          joins(:taxon, :card).
+          preload(:species, :card)
     end
 
     # FIXME: rename
