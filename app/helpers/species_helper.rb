@@ -14,7 +14,6 @@ module SpeciesHelper
     "http://avibase.bsc-eoc.org/species.jsp?avibaseid=#{avibase_id}&lang=#{lang}"
   end
 
-  # FIXME: do we need it??
   def taxa_for_select
     @taxa_for_select ||= Taxon.where(id: Observation.select("DISTINCT taxon_id")).select("id, name_sci")
   end

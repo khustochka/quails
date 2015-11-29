@@ -60,8 +60,14 @@ class Card < ActiveRecord::Base
 
   # List of new species
   def new_species_ids
-    subquery = "select obs.id from observations obs join cards c on obs.card_id = c.id where observations.species_id = obs.species_id and '#{self.observ_date}' > c.observ_date"
+    subquery = "
+        select obs.id
+        from observations obs
+        join cards c on obs.card_id = c.id
+        join taxa tt ON obs.taxon_id = tt.id
+        where taxa.species_id = tt.species_id and '#{self.observ_date}' > c.observ_date"
     @new_species_ids ||= self.observations.
+        identified.
         where("NOT EXISTS(#{subquery})").
         pluck(:species_id)
   end
