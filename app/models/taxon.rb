@@ -22,6 +22,8 @@ class Taxon < ActiveRecord::Base
   belongs_to :parent, class_name: "EbirdTaxon"
   belongs_to :species
 
+  has_many :observations, dependent: :restrict_with_exception
+
   scope :category_species, -> { where(category: "species") }
 
   def self.search_by_term(term)

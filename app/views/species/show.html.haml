@@ -24,21 +24,22 @@
 %div
   %h1.species_name_h1= @species.name
   %h2.latin{lang: "la"}= @species.name_sci
-  %span.authority= @species.authority
+  -#%span.authority= @species.authority
 
 %dl.sp_translations
-  - (ALL_LOCALES - [I18n.locale] + [:fr]).map do |lang|
+  -# (ALL_LOCALES - [I18n.locale] + [:fr]).map do |lang|
+  - ([:en, :ru] - [I18n.locale]).map do |lang|
     - if (trans_name = @species.send("name_#{lang}")).present?
       %div
         %dt= t("languages.#{lang}")
         %dd{lang: lang}= trans_name
 
-- if (similar = @species.similar_species).present?
-  %div.similar_species
-    %h3= t('.sections.similar_species')
-    %ul
-      - similar.each do |sp|
-        %li= species_link(sp)
+-#- if (similar = @species.similar_species).present?
+-#  %div.similar_species
+-#    %h3= t('.sections.similar_species')
+-#    %ul
+-#      - similar.each do |sp|
+-#        %li= species_link(sp)
 
 - @species.ordered_images.top_level.if_present do |images|
   %a{name: 'photos'}

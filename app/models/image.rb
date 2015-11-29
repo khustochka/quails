@@ -18,7 +18,7 @@ class Image < Media
 
   # Callbacks
   after_create do
-    #species.each(&:update_image)
+    species.each(&:update_image)
   end
 
   # FIXME: the NEW post is touched if it exists, but not the OLD!
@@ -28,7 +28,7 @@ class Image < Media
   end
 
   after_destroy do
-    #species.each(&:update_image)
+    species.each(&:update_image)
     cards.preload(:post).map(&:post).uniq.each { |p| p.try(:touch) }
     observations.preload(:post).map(&:post).uniq.each { |p| p.try(:touch) }
   end
@@ -50,11 +50,11 @@ class Image < Media
   scope :basic_order, -> { order(:index_num, 'media.created_at', 'media.id') }
 
   # Photos with several species
-  # def self.multiple_species
-  #   rel = select(:media_id).from("media_observations").group(:media_id).having("COUNT(observation_id) > 1")
-  #   select("DISTINCT media.*, observ_date").where(id: rel).
-  #       joins(:observations, :cards).preload(:species).order('observ_date ASC')
-  # end
+  def self.multiple_species
+    rel = select(:media_id).from("media_observations").group(:media_id).having("COUNT(observation_id) > 1")
+    select("DISTINCT media.*, observ_date").where(id: rel).
+        joins({:observations => :taxon}, :cards).preload(:species).order('observ_date ASC')
+  end
 
   # Instance methods
 
@@ -78,7 +78,7 @@ class Image < Media
   PREV_NEXT_ORDER = "ORDER BY #{ORDERING_COLUMNS.join(', ')}"
 
   def self.order_for_species
-    self.joins("INNER JOIN cards ON observations.card_id = cards.id").order(*ORDERING_COLUMNS)
+    self.joins(:species).joins("INNER JOIN cards ON observations.card_id = cards.id").order(*ORDERING_COLUMNS)
   end
 
   def prev_by_species(sp)
