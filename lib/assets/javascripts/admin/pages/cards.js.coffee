@@ -91,6 +91,12 @@ Quails.pages.cards =
         window.scrollTo 0, $(document).height()
         false
 
+    $('#species-quick-add').data('ui-autocomplete')._renderItem = (ul, item) ->
+      $('<li></li>').
+      data('item.autocomplete', item).
+      append('<a>' + item.label + '</a>').
+      appendTo ul
+
     #@preventSubmitOnEnter()
 
   # Not sure we need it
