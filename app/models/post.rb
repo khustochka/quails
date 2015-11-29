@@ -84,7 +84,7 @@ class Post < ActiveRecord::Base
   # Associations
 
   def species
-    Species.short.uniq.joins(:cards, :observations).where('cards.post_id = ? OR observations.post_id = ?', id, id).
+    Species.uniq.joins(:cards, :observations).where('cards.post_id = ? OR observations.post_id = ?', id, id).
         order(:index_num)
   end
 
@@ -134,7 +134,13 @@ class Post < ActiveRecord::Base
 
   # List of new species
   def new_species_ids
-    subquery = "select obs.id from observations obs join cards c on obs.card_id = c.id where observations.species_id = obs.species_id and cards.observ_date > c.observ_date"
+    subquery = "
+      select obs.id
+          from observations obs
+          join cards c on obs.card_id = c.id
+          join taxa tt ON obs.taxon_id = tt.id
+          where taxa.species_id = tt.species_id
+          and cards.observ_date > c.observ_date"
     @new_species_ids ||= MyObservation.
         joins(:card).
         where("observations.post_id = ? or cards.post_id = ?", self.id, self.id).

@@ -19,7 +19,7 @@
     %li= link_to t('menu.gallery'), gallery_path
     = feed_list_item
 
-- unless params[:page]
+- unless params[:page] || @videos.empty?
   %h3
     %i= t('images.index.last_updated', date: l(@videos.first.created_at, format: :long))
 
