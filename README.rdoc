@@ -10,7 +10,6 @@ Quails is a collective name for several groups of mid-sized hen-like birds. The 
 Common Quail <i>Coturnix coturnix</i>. In addition 'quails' sounds similar to 'rails'.
 
 Actually 'rails' are birds as well. They are members of the _Rallidae_ family associated mostly with wetlands.
-So I could have named my project 'Rails' but I have abandoned this idea because it could arouse confusion in Ruby comunity.
 
 == Dependencies
 
