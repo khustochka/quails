@@ -80,7 +80,7 @@ class MapsControllerTest < ActionController::TestCase
 
   test "does not return photos attached to a country (no latlng)" do
     obs1 = create(:observation, card: create(:card, observ_date: '2010-07-24'))
-    obs2 = create(:observation, card: create(:card, observ_date: '2011-07-24', locus: seed(:ukraine)))
+    obs2 = create(:observation, card: create(:card, observ_date: '2011-07-24', locus: loci(:ukraine)))
     spot1 = create(:spot, observation: obs1)
     create(:image, observations: [obs1], spot_id: spot1.id)
     create(:image, observations: [obs2])
