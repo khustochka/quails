@@ -29,6 +29,12 @@ class CardsControllerTest < ActionController::TestCase
     assert_equal p, card.post
   end
 
+  test "new card page should not explode if one of fast loci does not exist" do
+    CardsHelper::FAST_LOCI << "some_loc"
+    get :new
+    assert_response :success
+  end
+
   test "should create card" do
     assert_difference('Card.count') do
       post :create, card: attributes_for(:card)
