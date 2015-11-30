@@ -17,8 +17,7 @@ class ListsController < ApplicationController
   end
 
   def basic
-
-    @allowed_params = [:controller, :action, :year, :locus, :sort]
+    allow_params(:year, :locus, :sort)
 
     sort_override =
         case params[:sort]
@@ -45,7 +44,7 @@ class ListsController < ApplicationController
   end
 
   def advanced
-    @allowed_params = [:controller, :action, :year, :locus, :sort, :month]
+    allow_params(:year, :locus, :sort, :month)
 
     @locations = Locus.locs_for_lifelist
 
