@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class RoutingTest < ActionDispatch::IntegrationTest
-  fixtures :all
 
   test 'route index correctly' do
     assert_routing '/', {controller: 'blog', action: 'home'}

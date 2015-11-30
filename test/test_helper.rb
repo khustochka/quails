@@ -16,6 +16,8 @@ end
 
 class ActiveSupport::TestCase
 
+  fixtures :all
+
   include FactoryGirl::Syntax::Methods
 
   delegate :public_post_path, :public_comment_path, :url_for, to: :@controller
@@ -25,7 +27,7 @@ class ActiveSupport::TestCase
   end
 
   @@seed = HashWithIndifferentAccess.new do |hash, term|
-    hash[term] = Locus.find_by(slug: term) || Species.find_by!(code: term)
+    hash[term] = Species.find_by!(code: term)
   end
 
   def seed(key)

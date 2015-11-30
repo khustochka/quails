@@ -21,10 +21,10 @@ class CardsControllerTest < ActionController::TestCase
 
   test "new card should accept locus, date, and post" do
     p = create(:post)
-    get :new, card: {locus_id: seed(:brovary).id, observ_date: '2013-04-26', post_id: p.id}
+    get :new, card: {locus_id: loci(:brovary).id, observ_date: '2013-04-26', post_id: p.id}
     assert_response :success
     card = assigns(:card)
-    assert_equal seed(:brovary), card.locus
+    assert_equal loci(:brovary), card.locus
     assert_equal '2013-04-26', card.observ_date.iso8601
     assert_equal p, card.post
   end
