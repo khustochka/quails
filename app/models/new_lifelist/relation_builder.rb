@@ -6,14 +6,13 @@ class NewLifelist
 
     def build_relation
       Observation.
-          where(id: pre_ordered_relation).
+          where(id: preselected_observations).
           # FIXME: Do not join on species when not on taxonomy sorting
           joins(:species).
           includes(:card, :species)
     end
 
-    # FIXME: rename
-    def pre_ordered_relation
+    def preselected_observations
       # NOTE: Formerly it was select("DISTINCT ON (species_id) *")
       # but it caused strange bug when card id was saved as observation's
       # base.
