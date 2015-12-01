@@ -24,16 +24,18 @@ class NewLifelist
           "first_value(observations.id)
           OVER (PARTITION BY species_id
           ORDER BY observ_date ASC, to_timestamp(start_time, 'HH24:MI') ASC NULLS LAST)"
-      )
+      ).
+          where("(observ_date, species_id) IN (#{life_dates_sql})")
 
     end
 
-    # def life_dates_sql
-    #   base.
-    #       select("MIN(observ_date) as first_seen, species_id").
-    #       group(:species_id).
-    #       to_sql
-    # end
+
+    def life_dates_sql
+      base.
+          select("MIN(observ_date) as first_seen, species_id").
+          group(:species_id).
+          to_sql
+    end
 
     def preload_posts(records)
       post_preloader.preload(records, :post, posts_scope)
