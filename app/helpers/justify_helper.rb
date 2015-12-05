@@ -6,17 +6,24 @@ module JustifyHelper
     render 'images/justified', array: array
   end
 
-  def justify(thumbs)
+  def justify(thumbs, max_width = nil)
     result = []
     current_row = []
 
-    max_width = (@body_class == 'wider') ? 1120 : 896
+    if max_width.nil?
+      max_width = (@body_class == 'wider') ? 1120 : 896
+    end
 
     sum_width = 0
     temp_el = nil
     num_thumbs = 0
 
+    x = (max_width - 148) / 445 + 1
+
+    thumbnail_height = (max_width / x) * 2 / 3 #ImagesHelper::THUMBNAIL_HEIGHT
+
     thumbs.each do |thumb|
+      thumb.force_height(thumbnail_height)
       current_row << thumb
       pre_sum_width = sum_width
       sum_width += thumb.width + (BORDER * 2)
@@ -35,7 +42,7 @@ module JustifyHelper
           end
         end
 
-        new_height = (ImagesHelper::THUMBNAIL_HEIGHT * ratio).to_i
+        new_height = (thumbnail_height * ratio).to_i
         new_widths = current_row.map { |th| (th.width * ratio).to_i }
 
         new_width = new_widths.sum + (BORDER * 2 * current_row.size)
@@ -79,7 +86,7 @@ module JustifyHelper
     ratio = (max_width.to_f - border_sum) / (sum_width - border_sum)
 
     if ratio < 1.2
-      new_height = (ImagesHelper::THUMBNAIL_HEIGHT * ratio).to_i
+      new_height = (thumbnail_height * ratio).to_i
       new_widths = current_row.map { |th| (th.width * ratio).to_i }
 
       new_width = new_widths.sum + (BORDER * 2 * current_row.size)

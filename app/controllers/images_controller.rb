@@ -18,6 +18,8 @@ class ImagesController < ApplicationController
       @feed = 'photos'
       if @images.empty? && page != 1
         raise ActiveRecord::RecordNotFound
+      elsif request.xhr? && @width = params[:justified].try(&:to_i)
+        render "images/justified", layout: false
       else
         render :index
       end

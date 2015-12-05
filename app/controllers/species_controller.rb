@@ -22,6 +22,13 @@ class SpeciesController < ApplicationController
   def gallery
     @species = Species.joins(:image).includes(:image).ordered_by_taxonomy
     @feed = 'photos'
+
+    if request.xhr? && @width = params[:justified].try(&:to_i)
+      @images = @species
+      render "images/justified", layout: false
+    else
+      render
+    end
   end
 
   # GET /species/1

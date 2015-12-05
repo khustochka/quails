@@ -19,6 +19,12 @@ class CountriesController < ApplicationController
         raise ActiveRecord::RecordNotFound
     end
 
+    if request.xhr? && @width = params[:justified].try(&:to_i)
+      @images = @thumbs
+      render "images/justified", layout: false
+    else
+      render
+    end
   end
 
 end

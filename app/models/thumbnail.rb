@@ -44,6 +44,11 @@ class Thumbnail
     @height = nil
   end
 
+  def force_height(value)
+    @height = value
+    @width = nil
+  end
+
   def force_dimensions(value)
     value.each do |key, val|
       self.instance_variable_set("@#{key}".to_sym, val)
