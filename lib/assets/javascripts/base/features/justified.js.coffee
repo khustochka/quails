@@ -9,13 +9,22 @@ Quails.features.justified =
     $(document).on "pjax:complete", =>
       @loadNewImages()
 
+    $(window).on "resize", =>
+      if @width != $(window).width()
+        clearTimeout $.data(this, 'resizeTimer')
+        $.data this, 'resizeTimer', setTimeout((=>
+          @loadNewImages()
+          return
+        ), 1000)
+
     return
 
   loadNewImages: ->
+    @refreshWidth()
     #$(".thumbnails img").attr("src", "")
     $('div.main').css("max-width", "100%")
     $.ajax
-      url: "#{window.location.href}?justified=#{$(window).width() - 40}"
+      url: "#{window.location.href}?justified=#{@width - 40}"
       dataType: "html"
       error: (jqXHR, textStatus, errorThrown) ->
         $('body').append "AJAX Error: #{textStatus}"
@@ -23,3 +32,5 @@ Quails.features.justified =
         $('div.thumbnails').replaceWith(data)
         $('div.thumbs_row').css("width", "100%")
 
+  refreshWidth: ->
+    @width = $(window).width()
