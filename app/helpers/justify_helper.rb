@@ -20,7 +20,7 @@ module JustifyHelper
 
     x = (max_width - 148) / 445 + 1
 
-    thumbnail_height = (max_width / x) * 2 / 3 #ImagesHelper::THUMBNAIL_HEIGHT
+    thumbnail_height = (max_width / x) * 3 / 4 #ImagesHelper::THUMBNAIL_HEIGHT
 
     thumbs.each do |thumb|
       thumb.force_height(thumbnail_height)
