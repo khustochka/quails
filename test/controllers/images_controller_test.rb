@@ -102,8 +102,8 @@ class ImagesControllerTest < ActionController::TestCase
 
   test "do not save image with conflicting observations" do
     login_as_admin
-    obs2 = create(:observation, card: create(:card, locus: seed(:kiev)))
-    obs3 = create(:observation, card: create(:card, locus: seed(:brovary)))
+    obs2 = create(:observation, card: create(:card, locus: loci(:kiev)))
+    obs3 = create(:observation, card: create(:card, locus: loci(:brovary)))
     new_attr = build(:image, slug: 'new_img_slug').attributes.except('assets_cache')
     assert_difference('Image.count', 0) do
       post :create, image: new_attr, obs: [obs2.id, obs3.id]

@@ -20,15 +20,15 @@ class ObservationTest < ActiveSupport::TestCase
   end
 
   test "locus filter should filter by observations patch too" do
-    card = create(:card, locus_id: seed(:kiev_obl).id)
-    obs = create(:observation, card_id: card.id, patch_id: seed(:brovary).id)
-    assert_includes Observation.filter(locus: seed(:brovary).id), obs
+    card = create(:card, locus_id: loci(:kiev_obl).id)
+    obs = create(:observation, card_id: card.id, patch_id: loci(:brovary).id)
+    assert_includes Observation.filter(locus: loci(:brovary).id), obs
   end
 
   test "locus filter should filter by observations patch too (many locs)" do
-    card = create(:card, locus_id: seed(:kiev_obl).id)
-    obs = create(:observation, card_id: card.id, patch_id: seed(:brovary).id)
-    assert_includes Observation.filter(locus: [seed(:brovary).id, seed(:geologorozvidka).id]), obs
+    card = create(:card, locus_id: loci(:kiev_obl).id)
+    obs = create(:observation, card_id: card.id, patch_id: loci(:brovary).id)
+    assert_includes Observation.filter(locus: [loci(:brovary).id, loci(:kiev).id]), obs
   end
 
   test "the bug when images were not correctly preloaded when there were 2 observations with images in different cards" do

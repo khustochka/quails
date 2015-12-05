@@ -28,33 +28,33 @@ class LociControllerTest < ActionController::TestCase
 
   test "show locus" do
     login_as_admin
-    get :show, id: 'krym'
+    get :show, id: 'brovary'
     assert_response :success
   end
 
   test "get locus in JSON" do
     login_as_admin
-    get :show, id: 'krym', format: :json
+    get :show, id: 'brovary', format: :json
     assert_response :success
     assert_equal Mime::JSON, response.content_type
   end
 
   test "get locus in JSON by id" do
     login_as_admin
-    get :show, id: seed('krym').id, format: :json
+    get :show, id: loci(:brovary).id, format: :json
     assert_response :success
     assert_equal Mime::JSON, response.content_type
   end
 
   test "get edit" do
     login_as_admin
-    get :edit, id: 'mokrets'
+    get :edit, id: 'brovary'
     assert_response :success
   end
 
   test "update locus" do
-    locus = seed(:krym)
-    locus.name_ru = 'Крымъ'
+    locus = loci(:brovary)
+    locus.name_ru = 'Браворы'
     login_as_admin
     put :update, id: locus.to_param, locus: locus.attributes
     assert_redirected_to edit_locus_path(assigns(:locus))
@@ -63,7 +63,7 @@ class LociControllerTest < ActionController::TestCase
   test "destroy locus" do
     assert_difference('Locus.count', -1) do
       login_as_admin
-      delete :destroy, id: 'mokrets'
+      delete :destroy, id: 'brovary'
     end
 
     assert_redirected_to loci_path
@@ -78,7 +78,7 @@ class LociControllerTest < ActionController::TestCase
   test "save order properly" do
     new_list = %w(ukraine usa new_york)
     login_as_admin
-    post :save_order, format: :json, order: new_list.map {|r| seed(r).id}
+    post :save_order, format: :json, order: new_list.map {|r| loci(r).id}
     assert_response :success
     assert_equal new_list, Locus.locs_for_lifelist.pluck(:slug)
   end
@@ -111,7 +111,7 @@ class LociControllerTest < ActionController::TestCase
   end
 
   test 'protect update with authentication' do
-    locus = seed(:krym)
+    locus = loci(:brovary)
     assert_raise(ActionController::RoutingError) { put :update, id: locus.to_param, locus: locus.attributes }
     #assert_response 404
   end

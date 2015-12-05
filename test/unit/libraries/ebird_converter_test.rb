@@ -39,21 +39,21 @@ class EbirdConverterTest < ActiveSupport::TestCase
   end
 
   test "that card locus is properly presented" do
-    card = FactoryGirl.create(:card, locus: seed(:kiev))
+    card = FactoryGirl.create(:card, locus: loci(:kiev))
     obs = FactoryGirl.create(:observation, card: card)
     assert_equal "Kiev City", ebird_observation(obs).send(:location_name)
   end
 
   test "that patch locus is properly presented" do
-    card = FactoryGirl.create(:card, locus: seed(:kiev))
-    obs = FactoryGirl.create(:observation, card: card, patch: seed(:expocenter))
-    assert_equal "Expocentre", ebird_observation(obs).send(:location_name)
+    card = FactoryGirl.create(:card, locus: loci(:kiev_obl))
+    obs = FactoryGirl.create(:observation, card: card, patch: loci(:kiev))
+    assert_equal "Kiev City", ebird_observation(obs).send(:location_name)
   end
 
   test "patch locus should not be shown for travel card" do
-    card = FactoryGirl.create(:card, locus: seed(:kiev), effort_type: 'TRAVEL')
-    obs = FactoryGirl.create(:observation, card: card, patch: seed(:expocenter))
-    assert_equal "Kiev City", ebird_observation(obs).send(:location_name)
+    card = FactoryGirl.create(:card, locus: loci(:kiev_obl), effort_type: 'TRAVEL')
+    obs = FactoryGirl.create(:observation, card: card, patch: loci(:kiev))
+    assert_equal "Kiev oblast", ebird_observation(obs).send(:location_name)
   end
 
   test "should include images" do
@@ -108,42 +108,44 @@ class EbirdConverterTest < ActiveSupport::TestCase
   end
 
   test "that Hirundo rustica is marked properly when seen in Ukraine" do
-    card = FactoryGirl.create(:card, locus: seed(:brovary))
+    card = FactoryGirl.create(:card, locus: loci(:brovary))
     obs = FactoryGirl.create(:observation, species: seed(:hirrus), card: card)
     assert_equal "Hirundo rustica", ebird_observation(obs).send(:latin_name)
     assert_equal "Barn Swallow", ebird_observation(obs).send(:common_name)
   end
 
   test "that Hirundo rustica is marked properly when seen in USA" do
-    card = FactoryGirl.create(:card, locus: seed(:brooklyn))
+    card = FactoryGirl.create(:card, locus: loci(:nyc))
     obs = FactoryGirl.create(:observation, species: seed(:hirrus), card: card)
     assert_equal "Hirundo rustica erythrogaster", ebird_observation(obs).send(:latin_name)
     assert_equal "Barn Swallow (American)", ebird_observation(obs).send(:common_name)
   end
 
   test "that Larus argentatus is marked properly when seen in Ukraine" do
-    card = FactoryGirl.create(:card, locus: seed(:kiev))
+    card = FactoryGirl.create(:card, locus: loci(:kiev))
     obs = FactoryGirl.create(:observation, species: seed(:lararg), card: card)
     assert_equal "Larus argentatus", ebird_observation(obs).send(:latin_name)
     assert_equal "Herring Gull", ebird_observation(obs).send(:common_name)
   end
 
   test "that Larus argentatus smithsonianus is marked properly when seen in USA" do
-    card = FactoryGirl.create(:card, locus: seed(:brooklyn))
+    card = FactoryGirl.create(:card, locus: loci(:nyc))
     obs = FactoryGirl.create(:observation, species: seed(:lararg), card: card)
     assert_equal "Larus argentatus smithsonianus", ebird_observation(obs).send(:latin_name)
     assert_equal "Herring Gull (American)", ebird_observation(obs).send(:common_name)
   end
 
   test "that Larus fuscus graellsii is marked properly when seen in UK" do
-    card = FactoryGirl.create(:card, locus: seed(:london))
+    uk = create(:locus, loc_type: "country", slug: "united_kingdom")
+    london = create(:locus, parent: uk, slug: "london")
+    card = FactoryGirl.create(:card, locus: london)
     obs = FactoryGirl.create(:observation, species: seed(:larfus), card: card)
     assert_equal "Larus fuscus graellsii", ebird_observation(obs).send(:latin_name)
     assert_equal "Lesser Black-backed Gull (graellsii)", ebird_observation(obs).send(:common_name)
   end
 
   test "that Motacilla feldegg is marked properly" do
-    card = FactoryGirl.create(:card, locus: seed(:arabatska_khersonska))
+    card = FactoryGirl.create(:card, locus: loci(:brovary))
     obs = FactoryGirl.create(:observation, species: seed(:motfel), card: card)
     assert_equal "Motacilla flava feldegg", ebird_observation(obs).send(:latin_name)
     assert_equal "Western Yellow Wagtail (Black-headed)", ebird_observation(obs).send(:common_name)

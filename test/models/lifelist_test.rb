@@ -11,11 +11,11 @@ class LifelistTest < ActiveSupport::TestCase
         create(:observation, species: seed(:pasdom), card: create(:card, observ_date: "2009-01-01")),
         create(:observation, species: seed(:colliv), card: create(:card, observ_date: "2009-10-18")),
         create(:observation, species: seed(:parmaj), card: create(:card, observ_date: "2009-11-01")),
-        create(:observation, species: seed(:pasdom), card: create(:card, observ_date: "2009-12-01", locus: seed(:new_york))),
+        create(:observation, species: seed(:pasdom), card: create(:card, observ_date: "2009-12-01", locus: loci(:nyc))),
         create(:observation, species: seed(:parmaj), card: create(:card, observ_date: "2009-12-31")),
-        create(:observation, species: seed(:colliv), card: create(:card, observ_date: "2010-03-10", locus: seed(:new_york))),
-        create(:observation, species: seed(:pasdom), card: create(:card, observ_date: "2010-04-16", locus: seed(:new_york))),
-        create(:observation, species: seed(:colliv), card: create(:card, observ_date: "2010-07-27", locus: seed(:new_york))),
+        create(:observation, species: seed(:colliv), card: create(:card, observ_date: "2010-03-10", locus: loci(:nyc))),
+        create(:observation, species: seed(:pasdom), card: create(:card, observ_date: "2010-04-16", locus: loci(:nyc))),
+        create(:observation, species: seed(:colliv), card: create(:card, observ_date: "2010-07-27", locus: loci(:nyc))),
         create(:observation, species: seed(:pasdom), card: create(:card, observ_date: "2010-09-10")),
         create(:observation, species: seed(:carlis), card: create(:card, observ_date: "2010-10-13"))
     ]
@@ -145,7 +145,7 @@ class LifelistTest < ActiveSupport::TestCase
   end
 
   test 'Do not associate post of the wrong location' do
-    new_obs = create(:observation, species: seed(:colliv), card: create(:card, observ_date: "2008-05-22", locus: seed(:kiev)))
+    new_obs = create(:observation, species: seed(:colliv), card: create(:card, observ_date: "2008-05-22", locus: loci(:kiev)))
     @obs[0].post = create(:post)
     @obs[0].save!
     lifelist = Lifelist.advanced.source(posts: Post.public_posts, loci: Locus.locs_for_lifelist).filter(locus: 'kiev').to_a

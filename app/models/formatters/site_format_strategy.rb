@@ -28,10 +28,14 @@ class SiteFormatStrategy < FormattingStrategy
     end
   end
 
-  def species_link(word, term)
+  def species_link(word, term, en)
     sp = @species[term]
     if sp
-      %Q("(sp_link). #{word || sp.name_sci}":#{sp.code})
+      str = %Q("(sp_link). #{word or (en ? sp.name_en : sp.name_sci)}":#{sp.code})
+      if en && word.present?
+        str << " (#{sp.name_en})"
+      end
+      str
     else
       term.size > 6 ? unknown_species(word, term) : (word || term)
     end

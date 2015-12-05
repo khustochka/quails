@@ -11,11 +11,11 @@ class LifelistAdvancedUnitTest < ActiveSupport::TestCase
         create(:observation, species: seed(:pasdom), card: create(:card, observ_date: "2009-01-01")),
         create(:observation, species: seed(:colliv), card: create(:card, observ_date: "2009-10-18")),
         create(:observation, species: seed(:parmaj), card: create(:card, observ_date: "2009-11-01")),
-        create(:observation, species: seed(:pasdom), card: create(:card, observ_date: "2009-12-01", locus: seed(:new_york))),
+        create(:observation, species: seed(:pasdom), card: create(:card, observ_date: "2009-12-01", locus: loci(:nyc))),
         create(:observation, species: seed(:parmaj), card: create(:card, observ_date: "2009-12-31")),
-        create(:observation, species: seed(:colliv), card: create(:card, observ_date: "2010-03-10", locus: seed(:new_york))),
-        create(:observation, species: seed(:pasdom), card: create(:card, observ_date: "2010-04-16", locus: seed(:new_york))),
-        create(:observation, species: seed(:colliv), card: create(:card, observ_date: "2010-07-27", locus: seed(:new_york))),
+        create(:observation, species: seed(:colliv), card: create(:card, observ_date: "2010-03-10", locus: loci(:nyc))),
+        create(:observation, species: seed(:pasdom), card: create(:card, observ_date: "2010-04-16", locus: loci(:nyc))),
+        create(:observation, species: seed(:colliv), card: create(:card, observ_date: "2010-07-27", locus: loci(:nyc))),
         create(:observation, species: seed(:pasdom), card: create(:card, observ_date: "2010-09-10")),
         create(:observation, species: seed(:carlis), card: create(:card, observ_date: "2010-10-13"))
     ]
