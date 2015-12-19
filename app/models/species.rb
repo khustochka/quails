@@ -27,7 +27,7 @@ class Species < ActiveRecord::Base
   has_many :images, through: :observations
   has_many :videos, through: :observations
   has_many :taxa
-  has_many :posts, -> { order(face_date: :desc).uniq }, through: :observations
+  has_many :posts, -> { order(face_date: :desc).distinct }, through: :observations
 
   has_one :species_image
   has_one :image, through: :species_image
@@ -81,12 +81,12 @@ class Species < ActiveRecord::Base
       Post.select("posts.id").joins(:cards).where("cards.id" => self.cards).to_sql
     end
 
-    Post.uniq.where("posts.id IN (#{p1}) OR posts.id IN (#{p2})").order(face_date: :desc)
+    Post.distinct.where("posts.id IN (#{p1}) OR posts.id IN (#{p2})").order(face_date: :desc)
   end
 
   def grouped_loci
     countries = Country.select(:id, :slug, :ancestry).to_a
-    loci.uniq.group_by do |locus|
+    loci.distinct.group_by do |locus|
       countries.find {|c| locus.id.in?(c.subregion_ids)}.slug
     end
   end
