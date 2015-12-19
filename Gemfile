@@ -10,7 +10,7 @@ gem "activerecord-jdbcpostgresql-adapter", platforms: :jruby
 gem 'unicorn', require: false, platforms: :ruby
 
 group :production do
-  gem 'airbrake'
+  gem 'airbrake', '~> 4.3.4'
 end
 
 # Bundle the extra gems:
