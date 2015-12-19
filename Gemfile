@@ -41,6 +41,10 @@ gem 'coffee-rails', '~> 4.1.0'
 
 gem 'uglifier', '>= 1.3.0'
 
+# TEMPORARILY: with sprockets-rails 3.0.0 assets:precompile fails in production
+gem "sprockets-rails", "~> 2.3"
+
+
 group :development do
   gem 'nokogiri', platforms: [:ruby, :mingw], require: false
   gem 'pry-rails'
