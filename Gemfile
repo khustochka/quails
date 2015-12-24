@@ -9,9 +9,7 @@ gem "activerecord-jdbcpostgresql-adapter", platforms: :jruby
 
 gem 'unicorn', require: false, platforms: :ruby
 
-group :production do
-  gem 'airbrake', '~> 4.3.4'
-end
+gem 'airbrake'
 gem 'newrelic_rpm'
 
 # Bundle the extra gems:
