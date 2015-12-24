@@ -123,6 +123,7 @@ GEM
     mini_portile2 (2.0.0)
     minitest (5.8.3)
     multi_json (1.11.2)
+    newrelic_rpm (3.14.1.311)
     nokogiri (1.6.7.1)
       mini_portile2 (~> 2.0.0.rc2)
     ordered-active-record (0.9.8)
@@ -244,6 +245,7 @@ DEPENDENCIES
   kaminari
   launchy
   livejournal (~> 0.3.9)
+  newrelic_rpm
   nokogiri
   ordered-active-record
   pg

@@ -12,6 +12,7 @@ gem 'unicorn', require: false, platforms: :ruby
 group :production do
   gem 'airbrake', '~> 4.3.4'
 end
+gem 'newrelic_rpm'
 
 # Bundle the extra gems:
 gem 'actionpack-page_caching'
