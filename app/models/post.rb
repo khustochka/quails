@@ -23,7 +23,7 @@ class Post < ActiveRecord::Base
   has_many :comments, dependent: :destroy
   has_many :cards, -> {order('observ_date ASC, locus_id')}, dependent: :nullify
   has_many :observations, dependent: :nullify # only those attached directly
-  #  has_many :species, -> { order(:index_num).uniq }, through: :observations
+  #  has_many :species, -> { order(:index_num).distinct }, through: :observations
   #  has_many :images, -> {
   #    includes(:species).
   #    references(:species).
@@ -84,12 +84,12 @@ class Post < ActiveRecord::Base
   # Associations
 
   def species
-    Species.short.uniq.joins(:cards, :observations).where('cards.post_id = ? OR observations.post_id = ?', id, id).
+    Species.short.distinct.joins(:cards, :observations).where('cards.post_id = ? OR observations.post_id = ?', id, id).
         order(:index_num)
   end
 
   def images
-    Image.uniq.joins(:observations).includes(:cards, :species).where('cards.post_id = ? OR observations.post_id = ?', id, id).
+    Image.distinct.joins(:observations).includes(:cards, :species).where('cards.post_id = ? OR observations.post_id = ?', id, id).
         order('cards.observ_date, cards.locus_id, media.index_num, species.index_num')
   end
 

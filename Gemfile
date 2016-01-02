@@ -1,6 +1,6 @@
 source 'https://rubygems.org/'
 
-ruby '2.2.3'
+ruby '2.3.0'
 
 gem 'rails', '4.2.5'
 
@@ -9,9 +9,8 @@ gem "activerecord-jdbcpostgresql-adapter", platforms: :jruby
 
 gem 'unicorn', require: false, platforms: :ruby
 
-group :production do
-  gem 'airbrake'
-end
+gem 'airbrake'
+gem 'newrelic_rpm'
 
 # Bundle the extra gems:
 gem 'actionpack-page_caching'
@@ -40,6 +39,10 @@ gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 
 gem 'uglifier', '>= 1.3.0'
+
+# TEMPORARILY: with sprockets-rails 3.0.0 assets:precompile fails in production
+gem "sprockets-rails", "~> 2.3"
+
 
 group :development do
   gem 'nokogiri', platforms: [:ruby, :mingw], require: false

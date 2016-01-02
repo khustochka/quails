@@ -50,7 +50,7 @@ end
 
 SPCS = Hash[Species.all.map { |s| [s.id, s.name_sci] }]
 
-year = ENV['YEAR'] || 2015
+year = ENV['YEAR'] || 2016
 
 obs = MyObservation.joins(:card).
     select('DISTINCT observ_date, species_id').

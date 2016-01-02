@@ -149,7 +149,7 @@ class ImagesController < ApplicationController
   end
 
   def parent_edit
-    @similar_images = Image.uniq.joins(:observations).
+    @similar_images = Image.distinct.joins(:observations).
         where('observations.id' => @image.observation_ids).
         where("images.id <> #{@image.id}").basic_order
   end

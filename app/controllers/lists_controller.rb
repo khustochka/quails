@@ -1,6 +1,6 @@
 class ListsController < ApplicationController
 
-  CURRENT_YEAR = 2015
+  CURRENT_YEAR = 2016
 
   def index
     @list_life = BasicLifelist.full

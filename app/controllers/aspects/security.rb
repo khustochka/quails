@@ -32,7 +32,7 @@ module Aspects
 
     private
     def current_user
-      @current_user ||= User.detect(request)
+      @current_user ||= User.from_session(request)
     end
 
     def url_options_for_admin
