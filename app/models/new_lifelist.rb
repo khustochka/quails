@@ -26,12 +26,16 @@ class NewLifelist
 
   delegate :size, :blank?, to: :to_a
 
-  # def total_count
-  #   base.count("DISTINCT species_id")
-  # end
+  def total_count
+    base.count("DISTINCT species_id")
+  end
 
   def to_a
     @records ||= get_records
+  end
+
+  def top(num)
+    relation.limit(num).to_a
   end
 
   def locus
