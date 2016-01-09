@@ -11,9 +11,9 @@
         params[:year] ? t('lists.title.yearsublist', year: params[:year]) : nil,
         params[:locus] ? "(#{@lifelist.locus.name})" : nil ] * ' '
   - elsif params[:year]
-    = [t('lists.title.yearlist', year: params[:year]), params[:locus] ? "(#{@lifelist.locus.name})" : nil] * ' '
+    -#= [t('lists.title.yearlist', year: params[:year]), params[:locus] ? "(#{@lifelist.locus.name})" : nil] * ' '
   - elsif params[:locus]
-    = t('lists.title.locationlist', location: @lifelist.locus.name)
+    -#= t('lists.title.locationlist', location: @lifelist.locus.name)
   - else
     = t('lists.title.lifelist')
 

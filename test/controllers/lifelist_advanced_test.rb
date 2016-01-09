@@ -45,7 +45,7 @@ class LifelistAdvancedTest < ActionController::TestCase
     assert_response :success
     lifers = assigns(:lifelist)
     assert_equal 1, lifers.size
-    assert_equal [2009], lifers.map { |s| s.first_seen_date.year }.uniq
+    assert_equal [2009], lifers.map { |s| s.first_seen.observ_date.year }.uniq
   end
 
   test "show Advanced Lifelist" do

@@ -1,29 +1,7 @@
 module NewLifelist
-  class Base
+  class Base < Factory
 
-    def self.over(options)
-      new(options)
-    end
-
-    def self.full
-      new({})
-    end
-
-    def initialize(options = {})
-      @filter = options
-    end
-
-    def set_posts_scope(posts_scope)
-      @posts_scope = posts_scope
-      self
-    end
-
-    def sort(sorting)
-      @sorting = sorting
-      self
-    end
-
-    delegate :size, :blank?, to: :to_a
+    delegate :each, :map, :size, :blank?, to: :to_a
 
     def total_count
       base.count("DISTINCT species_id")
@@ -43,10 +21,6 @@ module NewLifelist
                  else
                    nil
                  end
-    end
-
-    def years
-      [nil] + MyObservation.filter(normalized_filter.merge({year: nil})).years
     end
 
     def get_records
@@ -71,20 +45,18 @@ module NewLifelist
       end
     end
 
-    def normalized_filter
-      @normalized_filter ||= @filter.dup.tap do |filter|
-        if filter[:locus]
-          filter[:locus] = Locus.find_by!(slug: filter[:locus]).subregion_ids
-        end
-      end
+    # TODO: preload locus ?
+    def bare_relation
+      Observation.
+          where(id: preselected_observations)
+
     end
 
     private
 
     def build_relation
-      Observation.
-          where(id: preselected_observations).
-          # FIXME: Do not join on species when not on taxonomy sorting
+      # FIXME: Do not join on species when not on taxonomy sorting
+      bare_relation.
           joins(:species).
           includes(:card, :species)
     end
@@ -100,7 +72,7 @@ module NewLifelist
       base.select(
           "first_value(observations.id)
           OVER (PARTITION BY species_id
-          ORDER BY observ_date ASC, to_timestamp(start_time, 'HH24:MI') ASC NULLS LAST)"
+          ORDER BY observ_date #{preselect_ordering}, to_timestamp(start_time, 'HH24:MI') #{preselect_ordering} NULLS LAST)"
       ).
           where("(observ_date, species_id) IN (#{life_dates_sql})")
 
@@ -109,7 +81,7 @@ module NewLifelist
 
     def life_dates_sql
       base.
-          select("MIN(observ_date) as first_seen, species_id").
+          select("#{aggregation_operator}(observ_date) as first_seen, species_id").
           group(:species_id).
           to_sql
     end

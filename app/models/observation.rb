@@ -54,6 +54,14 @@ class Observation < ActiveRecord::Base
 
   delegate :species_str, :when_where_str, to: :decorated
 
+  def observ_date
+    if d = read_attribute(:observ_date)
+      d
+    else
+      card.observ_date
+    end
+  end
+
   def patch_or_locus
     patch || card.locus
   end

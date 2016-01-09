@@ -48,13 +48,17 @@ class ListsController < ApplicationController
 
     @locations = Locus.locs_for_lifelist
 
-    sources = {loci: current_user.available_loci}
+    locus = params[:locus]
 
-    sources[:posts] = current_user.available_posts if I18n.russian_locale?
+    raise ActiveRecord::RecordNotFound if locus && !locus.in?(current_user.available_loci.map(&:slug))
 
-    @lifelist = Lifelist.advanced.
-        source(sources).
-        sort(params[:sort]).
-        filter(params.slice(:year, :month, :locus))
+    @lifelist = NewLifelist::Advanced.
+        over(params.slice(:year, :month, :locus)).
+        sort(params[:sort])
+
+    if I18n.russian_locale?
+      @lifelist.set_posts_scope(current_user.available_posts)
+    end
+
   end
 end
