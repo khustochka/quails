@@ -10,5 +10,9 @@ module Lifelist
       bare_relation.preload(:species).to_a
     end
 
+    def short_to_a
+      bare_relation.to_a
+    end
+
   end
 end

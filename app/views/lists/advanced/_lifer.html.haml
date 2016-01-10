@@ -7,19 +7,19 @@
   - if first_date == last_date
     %td.align-center{colspan: 2}
       &mdash;&ensp;
-      %time= post_link(first_date, lifer.first_seen.post, true)
+      %time= post_link(first_date, lifer.first_seen.main_post, true)
       - if current_user.admin?
         %a{href: card_path(id: lifer.first_seen.card), class: 'img'}<
           %img(src="/img/book_alt2_12x11.png")
       &ensp;&mdash;
   - else
     %td.align-right
-      %time= post_link(first_date, lifer.first_seen.post, true)
+      %time= post_link(first_date, lifer.first_seen.main_post, true)
       - if current_user.admin?
         %a{href: card_path(lifer.first_seen.card), class: 'img'}<
           %img(src="/img/book_alt2_12x11.png")
     %td.align-right
-      %time= post_link(last_date, lifer.last_seen.post, true)
+      %time= post_link(last_date, lifer.last_seen.main_post, true)
       - if current_user.admin?
         %a{href: card_path(lifer.last_seen.card), class: 'img'}<
           %img(src="/img/book_alt2_12x11.png")

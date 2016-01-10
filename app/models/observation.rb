@@ -70,4 +70,13 @@ class Observation < ActiveRecord::Base
     post || card.post
   end
 
+  def significant_value_for_lifelist
+    # If it were observation count it's significant value is the count otherwise it is observation itself
+    if read_attribute(:obs_count)
+      obs_count
+    else
+      self
+    end
+  end
+
 end

@@ -15,16 +15,12 @@ module Lifelist
         result = FullLifer.new(species)
 
         # Put the primary value in place
-        result.set(primary_key, obs)
+        result.set(primary_key, obs.significant_value_for_lifelist)
 
         KEYS.each do |key|
           # If not yet filled (secondary values) fill it (indexed by species)
           if result.get(key).nil?
-            val = if key == :obs_count
-                    secondary_list(key)[species.id].obs_count
-                  else
-                    secondary_list(key)[species.id]
-                  end
+            val = secondary_list(key)[species.id].significant_value_for_lifelist
             result.set(key, val)
           end
         end
@@ -53,19 +49,21 @@ module Lifelist
 
     def all_lists(key)
       @all_lists ||= {}
-      @all_lists[key] ||= case key
+      return @all_lists[key] if @all_lists[key]
+      list = case key
                             when :first_seen
                               then Lifelist::FirstSeen.over(@filter)
                             when :last_seen
                               then Lifelist::LastSeen.over(@filter)
                             when :obs_count
                               then Lifelist::Count.over(@filter)
-                          end
+             end
+      list.set_posts_scope(@posts_scope)
     end
 
     def secondary_list(key)
       @secondary_list ||= {}
-      @secondary_list[key] ||= all_lists(key).bare_relation.index_by {|ob| ob.species_id }
+      @secondary_list[key] ||= all_lists(key).short_to_a.index_by {|ob| ob.species_id }
     end
 
   end

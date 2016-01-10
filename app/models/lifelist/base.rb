@@ -44,6 +44,12 @@ module Lifelist
 
     end
 
+    def short_to_a
+      records = bare_relation.includes(:card).to_a
+      preload_posts(records)
+      records
+    end
+
     private
 
     def build_relation
