@@ -47,6 +47,23 @@ module Lifelist
 
     end
 
+    test 'Properly associate card post with lifer' do
+      post = FactoryGirl.create(:post)
+      card = FactoryGirl.create(:card, post: post)
+      obs = FactoryGirl.create(:observation, card: card)
+      list = Lifelist::Advanced.full
+      list.set_posts_scope(Post.public_posts)
+      assert_equal post, list.first.first_seen.main_post
+    end
+
+    test 'Properly associate observation post with lifer' do
+      post = FactoryGirl.create(:post)
+      obs = FactoryGirl.create(:observation, post: post)
+      list = Lifelist::Advanced.full
+      list.set_posts_scope(Post.public_posts)
+      assert_equal post, list.first.first_seen.main_post
+    end
+
   end
 
 end
