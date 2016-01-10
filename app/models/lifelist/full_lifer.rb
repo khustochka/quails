@@ -15,6 +15,9 @@ module Lifelist
       send("#{key}=", val)
     end
 
+    # Behave as species for taxonomy sorting
+    delegate :order, :family, to: :species
+
   end
 end
 

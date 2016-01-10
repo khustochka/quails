@@ -29,6 +29,9 @@ module Lifelist
       end
     end
 
+    # Behave as species array for taxonomy sorting. FullLifer should respond to order, family
+    include SpeciesArray
+
     private
     def primary_list
       @primary_list ||= all_lists(primary_key).sort(@sorting)
