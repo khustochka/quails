@@ -3,17 +3,17 @@ class ListsController < ApplicationController
   CURRENT_YEAR = 2016
 
   def index
-    @list_life = NewLifelist::FirstSeen.full
-    @list_current_year = NewLifelist::FirstSeen.over(year: CURRENT_YEAR)
+    @list_life = Lifelist::FirstSeen.full
+    @list_current_year = Lifelist::FirstSeen.over(year: CURRENT_YEAR)
 
     #@list_prev_year = NewLifelist::FirstSeen.over(year: CURRENT_YEAR - 1)
 
-    @list_canada = NewLifelist::FirstSeen.over(locus: 'canada')
+    @list_canada = Lifelist::FirstSeen.over(locus: 'canada')
 
-    @list_ukraine = NewLifelist::FirstSeen.over(locus: 'ukraine')
+    @list_ukraine = Lifelist::FirstSeen.over(locus: 'ukraine')
 
-    @list_usa = NewLifelist::FirstSeen.over(locus: 'usa')
-    @list_uk = NewLifelist::FirstSeen.over(locus: 'united_kingdom')
+    @list_usa = Lifelist::FirstSeen.over(locus: 'usa')
+    @list_uk = Lifelist::FirstSeen.over(locus: 'united_kingdom')
   end
 
   def basic
@@ -34,7 +34,7 @@ class ListsController < ApplicationController
 
     raise ActiveRecord::RecordNotFound if locus && !locus.in?(@locations.map(&:slug))
 
-    @lifelist = NewLifelist::FirstSeen.
+    @lifelist = Lifelist::FirstSeen.
         over(params.slice(:year, :locus)).
         sort(sort_override)
 
@@ -52,7 +52,7 @@ class ListsController < ApplicationController
 
     raise ActiveRecord::RecordNotFound if locus && !locus.in?(current_user.available_loci.map(&:slug))
 
-    @lifelist = NewLifelist::Advanced.
+    @lifelist = Lifelist::Advanced.
         over(params.slice(:year, :month, :locus)).
         sort(params[:sort])
 

@@ -1,6 +1,6 @@
 require 'test_helper'
 
-module NewLifelist
+module Lifelist
 
   class AdvancedTest < ActiveSupport::TestCase
 
@@ -8,7 +8,7 @@ module NewLifelist
 
       obs = FactoryGirl.create(:observation)
 
-      list = NewLifelist::Advanced.over({}).sort(nil)
+      list = Lifelist::Advanced.over({}).sort(nil)
 
       assert_equal obs.species, list.to_a.first.species
 
@@ -19,7 +19,7 @@ module NewLifelist
       obs = FactoryGirl.create(:observation)
       obs2 = FactoryGirl.create(:observation, card: FactoryGirl.create(:card, observ_date: obs.card.observ_date + 1.day))
 
-      list = NewLifelist::Advanced.over({}).sort(nil)
+      list = Lifelist::Advanced.over({}).sort(nil)
 
       assert_equal obs.id, list.to_a.first.first_seen.id
 
@@ -30,7 +30,7 @@ module NewLifelist
       obs = FactoryGirl.create(:observation)
       obs2 = FactoryGirl.create(:observation, card: FactoryGirl.create(:card, observ_date: obs.card.observ_date + 1.day))
 
-      list = NewLifelist::Advanced.over({}).sort(nil)
+      list = Lifelist::Advanced.over({}).sort(nil)
 
       assert_equal obs2.id, list.to_a.first.last_seen.id
 
@@ -41,7 +41,7 @@ module NewLifelist
       obs = FactoryGirl.create(:observation)
       obs2 = FactoryGirl.create(:observation)
 
-      list = NewLifelist::Advanced.over({}).sort(nil)
+      list = Lifelist::Advanced.over({}).sort(nil)
 
       assert_equal 2, list.to_a.first.obs_count
 

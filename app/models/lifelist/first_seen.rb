@@ -1,12 +1,12 @@
-module NewLifelist
-  class LastSeen < Base
+module Lifelist
+  class FirstSeen < Base
 
     def preselect_ordering
-      "DESC"
+      "ASC"
     end
 
     def aggregation_operator
-      "MAX"
+      "MIN"
     end
 
   end

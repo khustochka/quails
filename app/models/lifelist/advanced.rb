@@ -1,4 +1,4 @@
-module NewLifelist
+module Lifelist
   class Advanced < Factory
 
     KEYS = [
@@ -55,11 +55,11 @@ module NewLifelist
       @all_lists ||= {}
       @all_lists[key] ||= case key
                             when :first_seen
-                              then NewLifelist::FirstSeen.over(@filter)
+                              then Lifelist::FirstSeen.over(@filter)
                             when :last_seen
-                              then NewLifelist::LastSeen.over(@filter)
+                              then Lifelist::LastSeen.over(@filter)
                             when :obs_count
-                              then NewLifelist::Count.over(@filter)
+                              then Lifelist::Count.over(@filter)
                           end
     end
 

@@ -1,4 +1,4 @@
-module NewLifelist
+module Lifelist
   class Base < Factory
 
     delegate :each, :map, :size, :blank?, to: :to_a

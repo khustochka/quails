@@ -1,4 +1,4 @@
-module NewLifelist
+module Lifelist
   class FullLifer
 
     attr_accessor :species, :first_seen, :last_seen, :obs_count

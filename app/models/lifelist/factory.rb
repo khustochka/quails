@@ -1,4 +1,4 @@
-module NewLifelist
+module Lifelist
   class Factory
 
     include Enumerable
