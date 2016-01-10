@@ -30,10 +30,13 @@ module Lifelist
     end
 
     def ordering
-      if @sorting == "class"
-        "index_num ASC"
-      else
-        "observ_date DESC, to_timestamp(start_time, 'HH24:MI') DESC NULLS LAST"
+      case @sorting
+        when "class"
+          then "index_num ASC"
+        when "count"
+          then "obs_count DESC"
+        else
+          "observ_date DESC, to_timestamp(start_time, 'HH24:MI') DESC NULLS LAST"
       end
     end
 
