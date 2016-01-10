@@ -15,14 +15,6 @@ module Lifelist
       relation.limit(num).to_a
     end
 
-    def locus
-      @locus ||= if @filter[:locus]
-                   Locus.find_by_slug(@filter[:locus])
-                 else
-                   nil
-                 end
-    end
-
     def get_records
       records = relation.to_a
       preload_posts(records)

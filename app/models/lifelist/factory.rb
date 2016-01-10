@@ -26,7 +26,15 @@ module Lifelist
     end
 
     def years
-      [nil] + MyObservation.filter(normalized_filter.merge({year: nil})).years
+      @years ||= [nil] + MyObservation.filter(normalized_filter.merge({year: nil})).years
+    end
+
+    def locus
+      @locus ||= if @filter[:locus]
+                   Locus.find_by_slug(@filter[:locus])
+                 else
+                   nil
+                 end
     end
 
     def normalized_filter
