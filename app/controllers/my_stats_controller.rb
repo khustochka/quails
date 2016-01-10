@@ -3,12 +3,12 @@ class MyStatsController < ApplicationController
   def index
     observations_filtered = Observation.joins(:card)
     identified_observations = observations_filtered.identified
-    lifelist_filtered = Lifelist.basic.relation
+    lifelist_filtered = LiferObservation.all
 
     @year_data = identified_observations.group('EXTRACT(year FROM observ_date)::integer').
         order('EXTRACT(year FROM observ_date)::integer')
 
-    @first_sp_by_year = lifelist_filtered.group('EXTRACT(year FROM first_seen)::integer').
+    @first_sp_by_year = lifelist_filtered.group('EXTRACT(year FROM observ_date)::integer').
         except(:order)
 
     @countries = Country.all
