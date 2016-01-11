@@ -1,7 +1,6 @@
 module Lifelist
   class Count < Base
 
-    # TODO: simpler base
     def bare_relation
       base.select("species_id, COUNT(DISTINCT observations.id) AS obs_count").group("species_id")
     end
