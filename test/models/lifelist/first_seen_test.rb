@@ -22,10 +22,6 @@ module Lifelist
       ]
     end
 
-    test 'Species lifelist by count return proper number of species' do
-      assert_equal @obs.map(&:species_id).uniq.size, Lifelist::FirstSeen.full.sort('count').size
-    end
-
     test 'Species lifelist by taxonomy return proper number of species' do
       assert_equal @obs.map(&:species_id).uniq.size, Lifelist::FirstSeen.full.sort('class').size
     end
