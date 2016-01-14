@@ -1,0 +1,4 @@
+%time= post_link(l(life_observation.observ_date, format: :long), life_observation.main_post, true)
+- if current_user.admin?
+  %a{href: card_path(id: life_observation.card), class: 'img'}<
+    %img(src="/img/book_alt2_12x11.png")

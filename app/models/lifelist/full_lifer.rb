@@ -18,6 +18,10 @@ module Lifelist
     # Behave as species for taxonomy sorting
     delegate :order, :family, to: :species
 
+    def same_date?
+      first_seen.observ_date == last_seen.observ_date
+    end
+
   end
 end
 
