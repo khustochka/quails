@@ -11,7 +11,7 @@ $(function () {
     var chart = new CanvasJS.Chart("chartContainer", {
 
       title: {
-        text: "2014-2015 Species Progress"
+        text: "Species Progress"
       },
       axisY: {
         interval: 50
@@ -23,22 +23,15 @@ $(function () {
       toolTip: {
         shared: true
       },
-      data: [
-        {
+      data: $.map(data, function (value, key) {
+        return {
           type: "stepLine",
           lineThickness: 1,
-          name: "2014",
+          name: key,
           showInLegend: true,
-          dataPoints: $.map(data[0], convertData)
-        },
-        {
-          type: "stepLine",
-          lineThickness: 1,
-          name: "2015",
-          showInLegend: true,
-          dataPoints: $.map(data[1], convertData)
+          dataPoints: $.map(value, convertData)
         }
-      ]
+      })
     });
     chart.render();
   }
