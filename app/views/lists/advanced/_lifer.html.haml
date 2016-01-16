@@ -7,10 +7,8 @@
     &mdash;&ensp;
     = render "lists/advanced/lifer_date", life_observation: lifer.first_seen
     &ensp;&mdash;
-    %span.lifer_locus= lifer.first_seen.patch_or_locus.public_locus.decorated.full_name
 - else
   - [:first_seen, :last_seen].map{|s| lifer.send(s)}.each do |life_obs|
     %td.align-right
       = render "lists/advanced/lifer_date", life_observation: life_obs
-      %span.lifer_locus= life_obs.patch_or_locus.public_locus.decorated.full_name
 %td.align-right= lifer.obs_count
