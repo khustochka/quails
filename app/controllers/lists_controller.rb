@@ -3,17 +3,17 @@ class ListsController < ApplicationController
   CURRENT_YEAR = 2016
 
   def index
-    @list_life = NewLifelist.full
-    @list_current_year = NewLifelist.over(year: CURRENT_YEAR)
+    @list_life = Lifelist::FirstSeen.full
+    @list_current_year = Lifelist::FirstSeen.over(year: CURRENT_YEAR)
 
-    #@list_prev_year = NewLifelist.over(year: CURRENT_YEAR - 1)
+    #@list_prev_year = NewLifelist::FirstSeen.over(year: CURRENT_YEAR - 1)
 
-    @list_canada = NewLifelist.over(locus: 'canada')
+    @list_canada = Lifelist::FirstSeen.over(locus: 'canada')
 
-    @list_ukraine = NewLifelist.over(locus: 'ukraine')
+    @list_ukraine = Lifelist::FirstSeen.over(locus: 'ukraine')
 
-    @list_usa = NewLifelist.over(locus: 'usa')
-    @list_uk = NewLifelist.over(locus: 'united_kingdom')
+    @list_usa = Lifelist::FirstSeen.over(locus: 'usa')
+    @list_uk = Lifelist::FirstSeen.over(locus: 'united_kingdom')
   end
 
   def basic
@@ -34,7 +34,7 @@ class ListsController < ApplicationController
 
     raise ActiveRecord::RecordNotFound if locus && !locus.in?(@locations.map(&:slug))
 
-    @lifelist = NewLifelist.
+    @lifelist = Lifelist::FirstSeen.
         over(params.slice(:year, :locus)).
         sort(sort_override)
 
@@ -48,13 +48,17 @@ class ListsController < ApplicationController
 
     @locations = Locus.locs_for_lifelist
 
-    sources = {loci: current_user.available_loci}
+    locus = params[:locus]
 
-    sources[:posts] = current_user.available_posts if I18n.russian_locale?
+    raise ActiveRecord::RecordNotFound if locus && !locus.in?(current_user.available_loci.map(&:slug))
 
-    @lifelist = Lifelist.advanced.
-        source(sources).
-        sort(params[:sort]).
-        filter(params.slice(:year, :month, :locus))
+    @lifelist = Lifelist::Advanced.
+        over(params.slice(:year, :month, :locus)).
+        sort(params[:sort])
+
+    if I18n.russian_locale?
+      @lifelist.set_posts_scope(current_user.available_posts)
+    end
+
   end
 end

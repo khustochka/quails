@@ -13,6 +13,11 @@ class LifelistAdvancedTest < ActionController::TestCase
     ]
   end
 
+  test "show Advanced Lifelist" do
+    get :advanced
+    assert_response :success
+  end
+
   test "show lifelist ordered by count" do
     get :advanced, sort: 'count'
     assert_response :success
@@ -21,6 +26,16 @@ class LifelistAdvancedTest < ActionController::TestCase
       assert_select "a[href='#{advanced_list_path}']"
       assert_select "a[href='#{url_for(sort: :class, only_path: true)}']"
       assert_select "a[href='#{url_for(sort: :count, only_path: true)}']", false
+    end
+  end
+
+  test "show lifelist ordered by taxonomy" do
+    get :advanced, sort: 'class'
+    assert_response :success
+    assert_select '.main' do
+      assert_select "a[href='#{advanced_list_path}']"
+      assert_select "a[href='#{url_for(sort: :class, only_path: true)}']", false
+      assert_select "a[href='#{url_for(sort: :count, only_path: true)}']"
     end
   end
 
@@ -45,12 +60,7 @@ class LifelistAdvancedTest < ActionController::TestCase
     assert_response :success
     lifers = assigns(:lifelist)
     assert_equal 1, lifers.size
-    assert_equal [2009], lifers.map { |s| s.first_seen_date.year }.uniq
-  end
-
-  test "show Advanced Lifelist" do
-    get :advanced
-    assert_response :success
+    assert_equal [2009], lifers.map { |s| s.first_seen.observ_date.year }.uniq
   end
 
 end
