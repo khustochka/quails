@@ -10,9 +10,9 @@ $(function () {
   });
 
   $(document).tooltip({
-    items: ".llc img",
+    items: ".llc",
     content: function () {
-      return $(this).prop("title");
+      return $("img", this).prop("title");
     },
     position: {
       my: "center bottom",
