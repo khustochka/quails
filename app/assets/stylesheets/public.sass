@@ -260,24 +260,8 @@ h5.first_seen
 
 #lifelist.advanced
   span.llc
-    display: inline-block
     position: relative
     top: 3px
-    span.lifer_locus
-      position: absolute
-      right: -5px
-      top: 12px
-      display: none
-      padding: 15px
-      border: 5px solid #eee
-      background-color: white
-      z-index: 100
-      width: 250px
-  span.llc:hover
-    cursor: pointer
-    span.lifer_locus
-      display: block
-
 
 // Checklist table
 
@@ -533,3 +517,53 @@ table.nice_stats.records
     width: auto
     vertical-align: baseline
 
+// Tooltip
+
+.ui-tooltip, .arrow:after
+  background: #333333
+  //border: 2px solid white
+  border: none
+
+.ui-tooltip
+  padding: 5px 10px
+  color: white
+  //border-radius: 20px
+  border-radius: 0
+  font: normal 13px "Helvetica Neue", Arial, sans-serif
+  //box-shadow: 0 0 7px black
+  box-shadow: none
+  max-width: 200px
+
+//.arrow
+//  width: 70px
+//  height: 16px
+//  overflow: hidden
+//  position: absolute
+//  left: 50%
+//  margin-left: -35px
+//  bottom: -16px
+//
+//.arrow.top
+//  top: -16px
+//  bottom: auto
+//
+//.arrow.left
+//  left: 20%
+//
+//.arrow:after
+//  content: ""
+//  position: absolute
+//  left: 20px
+//  top: -20px
+//  width: 25px
+//  height: 25px
+//  box-shadow: 6px 5px 9px -9px black
+//  -webkit-transform: rotate(45deg)
+//  -moz-transform: rotate(45deg)
+//  -ms-transform: rotate(45deg)
+//  -o-transform: rotate(45deg)
+//  tranform: rotate(45deg)
+//
+//.arrow.top:after
+//  bottom: -20px
+//  top: auto

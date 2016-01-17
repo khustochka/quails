@@ -8,4 +8,16 @@ $(function () {
     if (row.length < 1) row = $(link).parents('table#lifelist tr');
     row.append("<img src='/img/loading_small.gif'>");
   });
+
+  $(document).tooltip({
+    items: ".llc img",
+    content: function () {
+      return $(this).prop("title");
+    },
+    position: {
+      my: "center bottom",
+      at: "center top"
+    }
+  });
+
 });
