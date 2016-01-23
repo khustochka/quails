@@ -12,12 +12,14 @@ $(function () {
   $(document).tooltip({
     items: ".llc",
     content: function () {
-      return $("img", this).prop("title");
+      return $("img", this).data("title");
     },
     position: {
       my: "center bottom",
       at: "center top"
     }
   });
+
+  $(".llc img").prop("title", "");
 
 });
