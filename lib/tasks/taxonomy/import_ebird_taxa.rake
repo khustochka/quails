@@ -11,6 +11,8 @@ namespace :tax do
     codes = {}
     filename = ENV['CSV']
 
+    raise "*** Provide path to ebird CSV as CSV env var." if filename.blank?
+
     # File was in MacCentEuro encoding but I saved it in UTF-8
     data = CSV.read(filename)
     data.shift # skip headers

@@ -1,6 +1,6 @@
 class RecreateNewTaxonomyTables < ActiveRecord::Migration
   def up
-    %w(taxa local_species).each do |tb|
+    %w(taxa local_species legacy_species ebird_taxa).each do |tb|
       drop_table tb if ActiveRecord::Base.connection.table_exists? tb
     end
 
