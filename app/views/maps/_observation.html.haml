@@ -2,8 +2,8 @@
 
 %li{data: {obs_id: observation.id, obs_count: observation.spots.size}}
   %span.mapped_indicator{title: "Is mapped"}
-  %div= observation.formatted.species_str
-  %div= observation.formatted.when_where_str
+  %div= observation.decorated.species_str
+  %div= observation.decorated.when_where_str
   - if img_count > 0
     %div.obs_item_photos
       %span.images_count= img_count

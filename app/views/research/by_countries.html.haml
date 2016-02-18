@@ -1,0 +1,13 @@
+- @page_title = 'Species by number of countries'
+
+%h1= research_page_header
+
+- @result.each do |num, species|
+  %h2= "Seen in #{num} countries (#{species.size} species)"
+  - if num > 1
+    %ul
+      - species.each do |sp_id, _|
+        %li
+          - sp = @species[sp_id]
+          = species_link(sp)
+          = name_sci(sp)

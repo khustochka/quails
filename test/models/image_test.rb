@@ -64,7 +64,7 @@ class ImageTest < ActiveSupport::TestCase
   end
 
   test "image public locus should not be private" do
-    brvr = seed(:brovary)
+    brvr = loci(:brovary)
     loc = create(:locus, parent_id: brvr.id, private_loc: true)
     card = create(:card, locus: loc)
     obs1 = create(:observation, card: card)
@@ -73,7 +73,7 @@ class ImageTest < ActiveSupport::TestCase
   end
 
   test "image public locus should not be patch" do
-    brvr = seed(:brovary)
+    brvr = loci(:brovary)
     loc = create(:locus, parent_id: brvr.id, patch: true)
     card = create(:card, locus: loc)
     obs1 = create(:observation, card: card)

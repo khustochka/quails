@@ -12,7 +12,7 @@
 - if notice
   %p#notice= notice
 
-= @card.formatted.notes
+= @card.decorated.notes
 
 - if @card.post || @card.secondary_posts.any?
   %h3 Posts
@@ -20,11 +20,11 @@
     - if @card.post
       %li
         %big
-          %b= post_link(@card.post.formatted.title, @card.post)
+          %b= post_link(@card.post.decorated.title, @card.post)
 
     - @card.secondary_posts.if_present do |ps|
       - ps.each do |p|
-        %li= post_link(p.formatted.title, p)
+        %li= post_link(p.decorated.title, p)
 
 
 - @card.images.if_present do |images|

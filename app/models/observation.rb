@@ -1,15 +1,15 @@
 class Observation < ActiveRecord::Base
-  include FormattedModel
+  include DecoratedModel
 
   invalidates CacheKey.lifelist
 
   belongs_to :card, touch: true
 
   belongs_to :species
-  belongs_to :post, -> { select(:id, :slug, :face_date, :title, :status) }, touch: :updated_at
+  belongs_to :post, -> { short_form }, touch: :updated_at
   has_and_belongs_to_many :media
-  has_and_belongs_to_many :images, -> { references(:media).where(media_type: 'photo') }, class_name: 'Image', association_foreign_key: :media_id
-  has_and_belongs_to_many :videos, -> { references(:media).where(media_type: 'video') }, class_name: 'Video', association_foreign_key: :media_id
+  has_and_belongs_to_many :images, class_name: 'Image', association_foreign_key: :media_id
+  has_and_belongs_to_many :videos, class_name: 'Video', association_foreign_key: :media_id
   has_many :spots, dependent: :delete_all
   belongs_to :patch, class_name: 'Locus', foreign_key: 'patch_id'
 
@@ -52,10 +52,31 @@ class Observation < ActiveRecord::Base
 
   alias_method_chain :species, :incognita
 
-  delegate :species_str, :when_where_str, to: :formatted
+  delegate :species_str, :when_where_str, to: :decorated
+
+  def observ_date
+    if d = read_attribute(:observ_date)
+      d
+    else
+      card.observ_date
+    end
+  end
 
   def patch_or_locus
     patch || card.locus
+  end
+
+  def main_post
+    post || card.post
+  end
+
+  def significant_value_for_lifelist
+    # If it were observation count it's significant value is the count otherwise it is observation itself
+    if read_attribute(:obs_count)
+      obs_count
+    else
+      self
+    end
   end
 
 end

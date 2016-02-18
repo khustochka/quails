@@ -20,23 +20,23 @@ $(function () {
     $("nav.pagination", this).append("<img src='/img/loading_small.gif'>");
   });
 
-  $(document).tooltip({
-    items: ".notes-tooltip",
-    content: function () {
-      return $(this).data("title");
-    },
-    position: {
-      my: "center bottom-20",
-      at: "center top",
-      using: function (position, feedback) {
-        $(this).css(position);
-        $("<div>")
-            .addClass("arrow")
-            .addClass(feedback.vertical)
-            .addClass(feedback.horizontal)
-            .appendTo(this);
-      }
-    }
-  });
+  //$(document).tooltip({
+  //  items: ".notes-tooltip",
+  //  content: function () {
+  //    return $(this).data("title");
+  //  },
+  //  position: {
+  //    my: "center bottom-20",
+  //    at: "center top",
+  //    using: function (position, feedback) {
+  //      $(this).css(position);
+  //      $("<div>")
+  //          .addClass("arrow")
+  //          .addClass(feedback.vertical)
+  //          .addClass(feedback.horizontal)
+  //          .appendTo(this);
+  //    }
+  //  }
+  //});
 
 });

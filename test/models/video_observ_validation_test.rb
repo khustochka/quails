@@ -74,8 +74,8 @@ class VideoObservValidationTest < ActiveSupport::TestCase
   end
 
   test 'does not create video with inconsistent observations (different loc)' do
-    obs1 = create(:observation, card: create(:card, locus: seed(:kiev)))
-    obs2 = create(:observation, card: create(:card, locus: seed(:krym)))
+    obs1 = create(:observation, card: create(:card, locus: loci(:brovary)))
+    obs2 = create(:observation, card: create(:card, locus: loci(:nyc)))
     new_attr = build(:video).attributes
     video = Video.new
     new_attr[:observation_ids] = [obs1.id, obs2.id]

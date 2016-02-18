@@ -1,16 +1,19 @@
 class Locus < ActiveRecord::Base
-  include FormattedModel
+  include DecoratedModel
 
   include ActiveRecord::Localized
   localize :name
 
+  invalidates CacheKey.lifelist
+
   has_ancestry orphan_strategy: :restrict
 
-  validates :slug, :format => /\A[a-z_]+\Z/i, :uniqueness => true, :presence => true, :length => {:maximum => 32}
+  validates :slug, :format => /\A[a-z_0-9]+\Z/i, :uniqueness => true, :presence => true, :length => {:maximum => 32}
   validates :name_en, :name_ru, :name_uk, :uniqueness => true
 
   has_many :cards, dependent: :restrict_with_exception
   has_many :observations, through: :cards
+  has_many :patch_observations, class_name: 'Observation', foreign_key: 'patch_id', dependent: :restrict_with_exception
 
   has_many :local_species
 

@@ -216,7 +216,6 @@ h5.first_seen
   font-style: italic
   font-size: 14px
   margin-bottom: 3px
-  margin-left: 40px
 
 .lifers_list
   margin-top: 0
@@ -225,6 +224,46 @@ h5.first_seen
   margin-bottom: 5px
   span
     font-size: 12px
+
+.neat_table.lifelist_table
+  max-width: 1200px
+  display: block
+  border-top: 1px solid #eee
+  td
+    padding-top: 10px
+    padding-bottom: 10px
+
+  .sci_name
+    white-space: nowrap
+
+
+.lifer_en, .lifer_locus
+  display: block
+  font-size: 14px
+  margin-top: 3px
+
+.lifer_locus
+  font-style: italic
+
+@media only all and (max-width: 500px)
+  .neat_table.lifelist_table
+    tbody, tr, td.place_td
+      display: block
+    td
+      padding-bottom: 0
+    td.place_td
+      font-size: small
+      padding-top: 0
+      text-align: right
+      padding-bottom: 20px
+
+#lifelist.advanced
+  span.llc
+    position: relative
+    top: 3px
+    padding: 1px
+  span.llc:hover
+    cursor: pointer
 
 // Checklist table
 
@@ -399,8 +438,8 @@ table.nice_stats
     top: 30px
     bottom: 30px
   td
-    padding: 3px 5px 5px 5px
-    vertical-align: baseline
+    width: 25%
+    padding: 3px 5px 15px 15px
     font-family: Verdana, Tahoma, sans-serif
     font-weight: bold
     border:
@@ -408,7 +447,7 @@ table.nice_stats
       bottom: 1px solid #aaaaaa
     a
       text-decoration: none
-      border-bottom: 2px solid
+      border-bottom: 1px solid
   th
     padding-bottom: 1px
     border:
@@ -416,7 +455,7 @@ table.nice_stats
     h2
       color: #383838
       margin-bottom: 0
-  td.year, td.count_sp, td.count_new
+  td.year, td.count_sp, td.count_new, td.count_new_big
     font-size: 30px
     font-family: "Verdana", sans-serif
   td.day
@@ -433,17 +472,19 @@ table.nice_stats
     font-weight: normal
     font-size: 12px
     color: #555
-  .count_sp, .count_new
+  .count_sp, .count_new_big
     text-align: right
+  .count_new
+    text-align: center
+    font-size: 18px
+    font-weight: normal
     small
       font-family: Arial
-  .count_sp small
-    font-size: 16px
   .count_new small
     font-size: 18px
   .count_sp, .count_sp_label, .count_sp a
     color: #3661b7
-  .count_new, .count_new_label, .count_new a
+  .count_new, .count_new_label, .count_new a, .count_new_big
     color: #e04747
   tr.total
     border:
@@ -468,4 +509,63 @@ table.nice_stats
         color: #aa6666
       li.united_kingdom, li.united_kingdom a
         color: #6666aa
+      li.canada, li.canada a
+        color: #cc3399
+      li.netherlands, li.netherlands a
+        color: #ba9d33
 
+table.nice_stats.records
+  td
+    width: auto
+    vertical-align: baseline
+
+// Tooltip
+
+.ui-tooltip, .arrow:after
+  background: #333333
+  //border: 2px solid white
+  border: none
+
+.ui-tooltip
+  padding: 5px 10px
+  color: white
+  //border-radius: 20px
+  border-radius: 0
+  font: normal 13px "Helvetica Neue", Arial, sans-serif
+  //box-shadow: 0 0 7px black
+  box-shadow: none
+  max-width: 200px
+
+//.arrow
+//  width: 70px
+//  height: 16px
+//  overflow: hidden
+//  position: absolute
+//  left: 50%
+//  margin-left: -35px
+//  bottom: -16px
+//
+//.arrow.top
+//  top: -16px
+//  bottom: auto
+//
+//.arrow.left
+//  left: 20%
+//
+//.arrow:after
+//  content: ""
+//  position: absolute
+//  left: 20px
+//  top: -20px
+//  width: 25px
+//  height: 25px
+//  box-shadow: 6px 5px 9px -9px black
+//  -webkit-transform: rotate(45deg)
+//  -moz-transform: rotate(45deg)
+//  -ms-transform: rotate(45deg)
+//  -o-transform: rotate(45deg)
+//  tranform: rotate(45deg)
+//
+//.arrow.top:after
+//  bottom: -20px
+//  top: auto

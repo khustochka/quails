@@ -23,7 +23,7 @@ class ObservationSearch
     end
   end
 
-  CARD_ATTRIBUTES = [:observ_date, :end_date, :locus_id, :card_id, :resolved, :inclusive]
+  CARD_ATTRIBUTES = [:observ_date, :end_date, :locus_id, :card_id, :resolved, :inclusive, :exclude_ebirded]
   OBSERVATION_ATTRIBUTES = [:species_id, :voice]
   ALL_ATTRIBUTES = CARD_ATTRIBUTES + OBSERVATION_ATTRIBUTES
 
@@ -87,6 +87,10 @@ class ObservationSearch
       locus = Locus.find(loc)
       @conditions[:card][:locus_id] = locus.subregion_ids
       @all_conditions[:locus_id] = @conditions[:card][:locus_id]
+    end
+
+    if @conditions[:card].delete(:exclude_ebirded)
+      @conditions[:card][:ebird_id] = nil
     end
 
     if end_date = @conditions[:card].delete(:end_date)

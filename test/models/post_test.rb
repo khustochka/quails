@@ -28,8 +28,8 @@ class PostTest < ActiveSupport::TestCase
   end
 
   test "set post's face_date to current (equal to updated_at) when saving with empty value" do
-    blogpost = create(:post, updated_at: '2008-01-01 02:02:02')
-    blogpost.update_attributes(face_date: '')
+    blogpost = create(:post, updated_at: '2008-01-01 02:02:02', face_date: "2008-01-01")
+    blogpost.update_attributes(face_date: "")
     blogpost.reload
     assert_equal blogpost.updated_at.strftime('%F %T'), blogpost.face_date.strftime('%F %T')
   end
@@ -186,6 +186,15 @@ class PostTest < ActiveSupport::TestCase
     assert_equal 1, p.images.to_a.size
   end
 
+  test "new species count should not be duplicated if new species was seen twice in a day" do
+    p = create(:post)
+    card1 = create(:card, observ_date: "2015-04-27", post: p)
+    obs1 = create(:observation, species: seed(:podgri), card: card1)
+    card2 = create(:card, observ_date: "2015-04-27", post: p)
+    obs2 = create(:observation, species: seed(:podgri), card: card2)
+    assert_equal 1, p.new_species_ids.size
+  end
+
   test 'do not show on homepage the images that are already in post body' do
     p = create(:post, text: "First paragraph\n\n{{^image1}}\n\nLast paragraph")
     sp1 = seed(:lancol)
@@ -196,8 +205,8 @@ class PostTest < ActiveSupport::TestCase
     img1 = create(:image, observations: [obs1], slug: "image1")
     img2 = create(:image, observations: [obs2], slug: "image2")
 
-    assert_equal 1, p.formatted.the_rest_of_images.size
-    assert_equal "image2", p.formatted.the_rest_of_images[0].slug
+    assert_equal 1, p.decorated.the_rest_of_images.size
+    assert_equal "image2", p.decorated.the_rest_of_images[0].slug
   end
 
 end

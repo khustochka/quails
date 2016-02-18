@@ -1,12 +1,15 @@
 class User
+
   extend CredentialsCheck
 
-  def self.detect(request)
-    if User.fully_authorised_admin_session?(request)
-      Admin.new(request)
+  def self.from_session(request)
+    user = new(request)
+    if ssl_gate(request) && user.is_admin_session?
+      user.extend(Role::Admin)
     else
-      User.new(request)
+      user.extend(Role::User)
     end
+    user
   end
 
   def initialize(request)
@@ -14,12 +17,8 @@ class User
     @cookies = request.cookie_jar
   end
 
-  def admin?
-    false
-  end
-
   def is_admin_session?
-    User.is_admin_session?(@session)
+    User.cookie_value && @session[User.cookie_name] == User.cookie_value
   end
 
   def set_admin_session
@@ -29,34 +28,12 @@ class User
   end
 
   def has_trust_cookie?
-    User.has_trust_cookie?(@cookies)
+    @cookies.signed[CredentialsCheck::TRUST_COOKIE_NAME] == CredentialsCheck::TRUST_COOKIE_VALUE
   end
 
   def set_trust_cookie
     @cookies.signed[CredentialsCheck::TRUST_COOKIE_NAME] =
         {value: CredentialsCheck::TRUST_COOKIE_VALUE, expires: 1.month.from_now, httponly: true}
-  end
-
-  def available_posts
-    Post.public_posts
-  end
-
-  def available_loci
-    Locus.locs_for_lifelist
-  end
-
-  def available_comments(post)
-    post.comments.approved
-  end
-
-  def searchable_species
-    obs = Observation.identified.select("species_id, COUNT(id) as weight").group(:species_id)
-    Species.
-        joins("INNER JOIN (#{obs.to_sql}) obs on id = obs.species_id")
-  end
-
-  def prepopulate_comment(comment)
-    # No action
   end
 
 end

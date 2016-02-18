@@ -15,23 +15,27 @@ class SiteFormatStrategy < FormattingStrategy
     post = @posts[term]
     post.nil? ?
         word :
-        %Q("#{word || '"%s"' % post.formatted.title}":#{term})
+        %Q("#{word || '"%s"' % post.decorated.title}":#{term})
   end
 
   def img_link(term)
     if image = Image.find_by(slug: term)
       %Q(<figure class="imageholder">
         "!#{jpg_url(image)}([photo])!":#{image_path(image)}
-          <figcaption class="imagetitle"><a href="#{image_path(image, only_path: only_path?)}">#{image.formatted.title}</a></figcaption>
+          <figcaption class="imagetitle"><a href="#{image_url(image, only_path: only_path?)}">#{image.decorated.title}</a></figcaption>
           </figure>
         )
     end
   end
 
-  def species_link(word, term)
+  def species_link(word, term, en)
     sp = @species[term]
     if sp
-      %Q("(sp_link). #{word || sp.name_sci}":#{sp.code})
+      str = %Q("(sp_link). #{word or (en ? sp.name_en : sp.name_sci)}":#{sp.code})
+      if en && word.present?
+        str << " (#{sp.name_en})"
+      end
+      str
     else
       term.size > 6 ? unknown_species(word, term) : (word || term)
     end
@@ -43,11 +47,11 @@ class SiteFormatStrategy < FormattingStrategy
       result << "\n"
 
       @posts.each do |slug, post|
-        result << "\n[#{slug}]#{public_post_path(post, only_path: only_path?)}" if post
+        result << "\n[#{slug}]#{public_post_url(post, only_path: only_path?)}" if post
       end
 
       @spcs.each do |sp|
-        result << "\n[#{sp.code}]#{localized_species_path(id: sp, only_path: only_path?)}"
+        result << "\n[#{sp.code}]#{localized_species_url(id: sp, only_path: only_path?)}"
       end
     end
 

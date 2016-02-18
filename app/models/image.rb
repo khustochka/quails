@@ -1,17 +1,18 @@
 class Image < Media
-  include FormattedModel
+  include DecoratedModel
 
   invalidates CacheKey.gallery
 
   NORMAL_PARAMS = [:slug, :title, :description, :index_num, :has_old_thumbnail, :status]
 
-  STATES = %w(DEFLT NOIDX)
+  STATES = %w(PUBLIC NOINDEX POST_ONLY EBIRD_ONLY PRIVATE)
 
   default_scope -> { where(media_type: 'photo') }
 
   has_many :children, -> { basic_order }, class_name: 'Image', foreign_key: 'parent_id'
 
   validates :external_id, uniqueness: true, allow_nil: true, exclusion: {in: ['']}
+  validates :status, inclusion: STATES, presence: true, length: {maximum: 16}
 
   scope :unflickred, -> { where(external_id: nil) }
 
@@ -42,7 +43,7 @@ class Image < Media
 
   # Scopes
 
-  scope :indexable, lambda { where("status <> 'NOIDX'").top_level }
+  scope :indexable, lambda { where("status <> 'NOINDEX'").top_level }
 
   scope :top_level, -> { where(parent_id: nil) }
 
@@ -53,12 +54,6 @@ class Image < Media
     rel = select(:media_id).from("media_observations").group(:media_id).having("COUNT(observation_id) > 1")
     select("DISTINCT media.*, observ_date").where(id: rel).
         joins(:observations, :cards).preload(:species).order('observ_date ASC')
-  end
-
-  def self.half_mapped
-    Image.preload(:species).joins(:observations).
-        where(spot_id: nil).where("observation_id in (select observation_id from spots)").
-        order(created_at: :asc)
   end
 
   # Instance methods
@@ -97,7 +92,7 @@ class Image < Media
   # Formatting
 
   def to_thumbnail
-    title = self.formatted.title
+    title = self.decorated.title
     child_num = children.size
     if child_num > 0
       title = "#{title} (#{child_num + 1} #{I18n.t('images.series_photos_num')})"

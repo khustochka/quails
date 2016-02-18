@@ -17,7 +17,7 @@
       %li
         %b= link_to('Make back indexable', {action: :update, post: {status: 'OPEN'}}, method: :put)
 
-- @page_title = @post.formatted.title
+- @page_title = @post.decorated.title
 
 - unless @post.lj_data.blank?
   - provide :add_shortcuts do
@@ -29,13 +29,13 @@
 
   %div.post{id: "post-#{@post.slug}"}
     %div.header-with-subheader
-      %h1= @post.formatted.title
+      %h1= @post.decorated.title
       %i
         %time{datetime: @post.face_date.iso8601}= l(@post.face_date, format: :long)
       - unless @post.public?
         %span.tag.draft Draft
 
-    = @post.formatted.for_site.text
+    = @post.decorated.for_site.text
 
 = render 'social/buttons'
 

@@ -10,7 +10,7 @@
     = link_to("next #@next_day >>", {:day => @next_day}) if @next_day
 
 - @images.each do |img|
-  %h3= link_to img.formatted.title, image_path(img)
+  %h3= link_to img.decorated.title, image_path(img)
   %p
     %i= img.species.map(&:name_sci) * ', '
   %p= image_tag(jpg_url(img))

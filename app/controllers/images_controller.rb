@@ -31,7 +31,7 @@ class ImagesController < ApplicationController
 
   # GET /photos/1
   def show
-    @robots = 'NOINDEX' if @image.status == 'NOIDX' || @image.parent_id
+    @robots = 'NOINDEX' if @image.status == 'NOINDEX' || @image.parent_id
   end
 
   # GET /photos/new
@@ -71,17 +71,6 @@ class ImagesController < ApplicationController
       image_attributes[:new_on_flickr] = true
     end
     redirect_to new_image_path(image_attributes)
-  end
-
-  def unmapped
-    @half = params[:half]
-    images =
-        if @half
-          Image.half_mapped
-        else
-          Image.where(spot_id: nil)
-        end
-    @images = images.order('created_at DESC').page(params[:page].to_i).per(24)
   end
 
   # GET /photos/1/map_edit
@@ -160,7 +149,7 @@ class ImagesController < ApplicationController
   end
 
   def parent_edit
-    @similar_images = Image.uniq.joins(:observations).
+    @similar_images = Image.distinct.joins(:observations).
         where('observations.id' => @image.observation_ids).
         where("images.id <> #{@image.id}").basic_order
   end
@@ -183,9 +172,20 @@ class ImagesController < ApplicationController
   end
 
   def series
-    rel = Observation.select(:observation_id).from("media_observations").group(:observation_id).having("COUNT(media_id) > 1")
-    @observations = Observation.select("DISTINCT observations.*, observ_date").where(id: rel).
-        joins(:card).preload(:images).order('observ_date DESC').page(params[:page])
+    rel =
+        Observation.
+            select(:observation_id).
+            joins(:media).
+            where(media: {media_type: "photo"}).
+            group(:observation_id).
+            having("COUNT(media_id) > 1")
+    @observations = Observation.
+        select("DISTINCT observations.*, observ_date").
+        where(id: rel).
+        joins(:card).
+        preload(:images).
+        order('observ_date DESC').
+        page(params[:page])
   end
 
   private

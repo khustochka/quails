@@ -4,7 +4,7 @@ require 'test_helper'
 class WikiFilterTest < ActionDispatch::IntegrationTest
   include ActionView::Helpers::UrlHelper
   include SpeciesHelper
-  include PublicPathController
+  include Aspects::PublicPaths
 
   def transform(text)
     SiteFormatStrategy.new(text).apply
@@ -42,6 +42,16 @@ class WikiFilterTest < ActionDispatch::IntegrationTest
   test 'properly parse species in the string' do
     assert_equal %Q(Those were "(sp_link). quails":cotnix!\n\n[cotnix]#{species_path(seed(:cotnix))}),
                  transform('Those were {{quails|cotnix}}!')
+  end
+
+  test 'Add English name after species link' do
+    assert_equal %Q("(sp_link). Перепел":cotnix (Common Quail)\n\n[cotnix]#{species_path(seed(:cotnix))}),
+                 transform('{{Перепел|cotnix|en}}')
+  end
+
+  test 'Use English name if no word specified' do
+    assert_equal %Q("(sp_link). Common Quail":cotnix\n\n[cotnix]#{species_path(seed(:cotnix))}),
+                 transform('{{cotnix|en}}')
   end
 
   # Posts

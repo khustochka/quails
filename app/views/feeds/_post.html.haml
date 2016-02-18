@@ -1,8 +1,8 @@
-= post.formatted({host: request.host}).for_feed.text
+= post.decorated({host: request.host}).for_feed.text
 
 %hr
 
-= render partial: post.formatted.the_rest_of_images.map(&:to_thumbnail), formats: :html
+= render partial: post.decorated.the_rest_of_images.map(&:to_thumbnail), formats: :html
 
 %p
   Опубликовано:

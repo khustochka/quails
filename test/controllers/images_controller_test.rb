@@ -102,8 +102,8 @@ class ImagesControllerTest < ActionController::TestCase
 
   test "do not save image with conflicting observations" do
     login_as_admin
-    obs2 = create(:observation, card: create(:card, locus: seed(:kiev)))
-    obs3 = create(:observation, card: create(:card, locus: seed(:brovary)))
+    obs2 = create(:observation, card: create(:card, locus: loci(:kiev)))
+    obs3 = create(:observation, card: create(:card, locus: loci(:brovary)))
     new_attr = build(:image, slug: 'new_img_slug').attributes.except('assets_cache')
     assert_difference('Image.count', 0) do
       post :create, image: new_attr, obs: [obs2.id, obs3.id]
@@ -114,6 +114,12 @@ class ImagesControllerTest < ActionController::TestCase
 
   test "show image" do
     get :show, id: @image.to_param
+    assert_response :success
+  end
+
+  test "show image with children" do
+    img = create(:image, children: [@image])
+    get :show, id: img.to_param
     assert_response :success
   end
 
@@ -220,6 +226,13 @@ class ImagesControllerTest < ActionController::TestCase
     login_as_admin
     get :series
     assert assigns(:observations).any?
+  end
+
+  test "image and video should not be considered series" do
+    create(:video, observations: [@obs])
+    login_as_admin
+    get :series
+    assert assigns(:observations).none?
   end
 
   test 'do not show link to private post to public user on image page' do

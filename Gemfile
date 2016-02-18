@@ -1,35 +1,34 @@
 source 'https://rubygems.org/'
 
-ruby '2.1.5'
+ruby '2.3.0'
 
-gem 'rails', '4.2.0'
+gem 'rails', '4.2.5.1'
 
 gem 'pg', platforms: [:ruby, :mingw]
 gem "activerecord-jdbcpostgresql-adapter", platforms: :jruby
 
-gem 'unicorn', '~> 4.8.0', require: false, platforms: :ruby
+gem 'unicorn', require: false, platforms: :ruby
 
-group :production do
-  gem 'airbrake'
-end
+gem 'airbrake', '~> 4.3'
+gem 'newrelic_rpm'
 
 # Bundle the extra gems:
 gem 'actionpack-page_caching'
 #gem 'dalli'
 gem 'rails-i18n'
 gem "haml", "~> 4.0.4"
-gem 'haml-rails', '~> 0.5.1'
+gem 'haml-rails'
 gem 'haml-contrib'
 gem 'RedCloth'
 gem 'kaminari'
-gem 'simple_form', '~> 3.1.0'
+gem 'simple_form'
 gem 'flickraw', '~> 0.9.7'
 gem 'livejournal', '~> 0.3.9'
 gem 'hashie'
 gem 'addressable', require: 'addressable/uri'
 gem 'roman-numerals'
 gem 'rinku'
-gem 'dotenv-deployment'
+gem 'dotenv-rails'
 gem 'ancestry'
 gem 'ordered-active-record'
 
@@ -42,12 +41,14 @@ gem 'coffee-rails', '~> 4.1.0'
 
 gem 'uglifier', '>= 1.3.0'
 
-# For heroku
-gem 'rails_stdout_logging', require: false
+# TEMPORARILY: with sprockets-rails 3.0.0 assets:precompile fails in production
+gem "sprockets-rails", "~> 2.3"
+
 
 group :development do
   gem 'nokogiri', platforms: [:ruby, :mingw], require: false
   gem 'pry-rails'
+  gem 'pry-byebug'
   gem 'benchmark-ips'
 end
 
@@ -59,7 +60,7 @@ group :test do
   gem 'capybara-webkit'#, '~> 1.2.0', platforms: [:mri], require: false
   gem 'selenium-webdriver'
 #  gem 'poltergeist', platforms: [:mri], require: false
-  gem 'database_cleaner', require: false
+#  gem 'database_cleaner', '~> 1.3.0', require: false
   gem 'launchy' # So you can do Then show me the page
   gem 'simplecov', require: false, platforms: [:ruby, :mingw]
 end

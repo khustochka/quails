@@ -6,6 +6,11 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+# Workaround for haml + textile + new tilt
+# New tilt fails to load maruku and does not try textile
+require 'tilt/redcloth'
+require "haml/filters/textile"
+
 module Quails
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
@@ -14,7 +19,7 @@ module Quails
 
     # Custom directories with classes and modules you want to be autoloadable.
     # config.autoload_paths += %W(#{config.root}/app/presenters)
-    config.autoload_paths += %W(#{config.root}/app/controllers/mixins #{config.root}/app/models/formatters)
+    config.autoload_paths += %W( #{config.root}/app/models/formatters )
 
     # Configure generators values. Many other options are available, be sure to check the documentation.
     config.generators do |g|
@@ -41,10 +46,4 @@ module Quails
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
   end
-end
-
-require 'quails/env'
-
-if Quails.env.heroku?
-  require 'rails_stdout_logging'
 end

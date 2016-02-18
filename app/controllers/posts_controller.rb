@@ -81,8 +81,8 @@ class PostsController < ApplicationController
     entry.security = :private unless Quails.env.real_prod?
     # SafeBuffer breaks 'livejournal' gem, so we are not applying it to 'for_lj.text'
     # And `unsafing` the title with 'to_str'
-    entry.subject = @post.formatted.title.to_str
-    entry.event = @post.formatted.for_lj.text
+    entry.subject = @post.decorated.title.to_str
+    entry.event = @post.decorated.for_lj.text
 
     request = if @post.lj_data.url.present?
                 if Quails.env.real_prod?

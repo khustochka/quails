@@ -4,11 +4,6 @@
 
 - cache(key: CacheKey.lifelist) do
 
-  - lifers = lambda do |rel|
-    %ol.lifers_list
-      - total_count = rel.except(:limit).count(:all)
-      = render partial: 'lifer', collection: rel, locals: {total_count: total_count}
-
   = render 'partials/translated'
 
   %div.header-with-subheader
@@ -24,13 +19,38 @@
 
       %h2= link_to('Lifelist', lifelist_path)
 
-      - lifers.call(@top_5_life)
+      = render partial: "top5list", object: @list_life
 
     %div.fluid-column
 
-      %h2= link_to(t('lists.title.yearlist', year: 2014), list_path(year: 2014))
+      %h2= link_to(t('lists.title.yearlist', year: ListsController::CURRENT_YEAR), list_path(year: ListsController::CURRENT_YEAR))
 
-      - lifers.call(@top_5_year)
+      = render partial: "top5list", object: @list_current_year
+
+  %div.fluid-row
+
+    %div.fluid-column
+
+      %h2
+        = link_to(t('lists.title.usa'), list_path(locus: 'usa'))
+
+      = render partial: "top5list", object: @list_usa
+
+    %div.fluid-column
+
+      %h2
+        = link_to(t('lists.title.canada'), list_path(locus: 'canada'))
+
+      = render partial: "top5list", object: @list_canada
+
+    -# Temporary previous year list
+    -#%div.fluid-column
+    -#
+    -#  %h2
+    -#    = link_to(t('lists.title.yearlist', year: 2014), list_path(year: 2014))
+    -#
+    -#  = render partial: "top5list", object: @list_prev_year.limit(5)
+
 
   %div.fluid-row
 
@@ -38,31 +58,18 @@
 
       %h2
         = link_to(t('lists.title.ukraine'), list_path(locus: 'ukraine'))
+        (#{@list_ukraine.total_count})
 
-      - lifers.call(@list_ukraine.limit(5))
-
-    %div.fluid-column
-
-      %h2
-        = link_to(t('lists.title.canada'), list_path(locus: 'canada'))
-
-      - lifers.call(@list_canada.limit(5))
-
-
-  %div.fluid-row
+      -#= render partial: "top5list", object: @list_ukraine
 
     %div.fluid-column
-
-      -#%h2
-      -#  = link_to(t('lists.title.yearlist', year: 2013), list_path(year: 2013))
-      -#  (#{@list_prev_year.count(:all)})
 
       %h2
         = link_to(t('lists.title.gb'), list_path(locus: 'united_kingdom'))
-        (#{@list_uk.count(:all)})
+        (#{@list_uk.total_count})
 
-    %div.fluid-column
+    -#%div.fluid-column
 
-      %h2
-        = link_to(t('lists.title.usa'), list_path(locus: 'usa'))
-        (#{@list_usa.count(:all)})
+      -#%h2
+      -#  = link_to(t('lists.title.usa'), list_path(locus: 'usa'))
+      -#  (#{@list_usa.total_count})

@@ -1,6 +1,6 @@
 <p>
-  <b><%= @comment.formatted.name %></b> posted new comment to
-  "<%= link_to @comment.post.formatted.title,
+  <b><%= @comment.decorated.name %></b> posted new comment to
+  "<%= link_to @comment.post.decorated.title,
           show_post_url(@comment.post.to_url_params.merge(anchor: "comment#{@comment.id}", only_path: false, host: @host))
    %>"
 </p>
@@ -10,7 +10,7 @@
 <%- end %>
 
 <blockquote>
-  <%= @comment.formatted.text %>
+  <%= @comment.decorated.text %>
 </blockquote>
 
 <%- parent = @comment.parent_comment %>

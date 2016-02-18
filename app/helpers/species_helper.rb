@@ -2,7 +2,6 @@ module SpeciesHelper
 
   STATIC_MAP_CENTER = {
       'ukraine' => '48.6,31.2',
-      'usa' => '42.5,-74',
       'united_kingdom' => '54.8,-1.5'
   }
 
@@ -43,14 +42,15 @@ module SpeciesHelper
 
   def species_map(country, loci)
     center = "center=#{STATIC_MAP_CENTER[country]}"
-    markers = loci.map {|l| l.lat and "#{l.lat},#{l.lon}"}.compact.join('|')
+    markers = loci.map { |l| l.lat and "#{l.lat},#{l.lon}" }.compact.join('|')
     zoom = 5
-    # Hack for static map including Montreal/Dorval
-    if country == 'canada' && loci.any? {|l| l.slug == 'dorval'}
-      zoom = 4
+    if !country.in?(STATIC_MAP_CENTER.keys)
+      lats = loci.map(&:lat).compact
+      # if distance is too far rely on automatic zoom
+      zoom = nil if (lats.max - lats.min).abs > 5
     end
     image_tag("http://maps.googleapis.com/maps/api/staticmap?zoom=#{zoom}&size=443x300&sensor=false&#{center}&markers=#{markers}",
-      alt: "#{country} map")
+              alt: "#{country} map")
   end
 
 end

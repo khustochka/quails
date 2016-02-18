@@ -10,9 +10,8 @@ Quails is a collective name for several groups of mid-sized hen-like birds. The 
 Common Quail <i>Coturnix coturnix</i>. In addition 'quails' sounds similar to 'rails'.
 
 Actually 'rails' are birds as well. They are members of the _Rallidae_ family associated mostly with wetlands.
-So I could have named my project 'Rails' but I have abandoned this idea because it could arouse confusion in Ruby comunity.
 
 == Dependencies
 
-[Ruby 2.1.0] Ruby 2.1.0 is used for both production and development. May also work on 1.9.3 until I start using keyword arguments.
-[PostgreSQL] Some queries may be PostgreSQL-specific. PostgreSQL 9.1 is used.
+[Ruby] See `Gemfile` or `.ruby-version` for Ruby version.
+[PostgreSQL] Some queries may be PostgreSQL-specific.

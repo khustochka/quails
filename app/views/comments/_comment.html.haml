@@ -4,14 +4,14 @@
     - if admin_commenter_id && comment.commenter_id == admin_commenter_id
       - author_classes += %w(tag admin_comment)
       - popup_title = 'Administrator'
-    %h6{class: author_classes, title: popup_title}= link_to_if(comment.sane_url.present?, comment.formatted.name, comment.sane_url, :rel => 'nofollow')
+    %h6{class: author_classes, title: popup_title}= link_to_if(comment.sane_url.present?, comment.decorated.name, comment.sane_url, :rel => 'nofollow')
     %i
       %time= link_to(l(comment.created_at, :format => :long), public_comment_path(comment, @post))
     - if current_user.admin?
       = default_destroy_link(comment) if action_name != 'reply'
       %i= comment.ip
   .comment_body
-    = comment.formatted.text
+    = comment.decorated.text
 
   - if action_name != 'reply'
     %ul.reply

@@ -5,7 +5,7 @@ class Comment < ActiveRecord::Base
 
   ALLOWED_PARAMETERS = [:text, :parent_id]
 
-  include FormattedModel
+  include DecoratedModel
 
   validates :text, :name, :post_id, :presence => true
 

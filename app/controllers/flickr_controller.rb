@@ -2,7 +2,7 @@ class FlickrController < ApplicationController
 
   administrative
 
-  include FlickrAbility
+  include Aspects::Flickr
 
   before_action :except => :auth do
     redirect_to :action => :auth if flickr.access_token.blank?

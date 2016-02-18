@@ -13,7 +13,7 @@ class LJFormatStrategy < FormattingStrategy
     post = @posts[term]
     post.nil? || post.lj_url.nil? ?
         word :
-        %Q("#{word || post.formatted.title}":#{term})
+        %Q("#{word || post.decorated.title}":#{term})
   end
 
   def img_link(term)
@@ -26,17 +26,21 @@ class LJFormatStrategy < FormattingStrategy
     %Q(<figure class="imageholder">
           !#{jpg_url(image)}([photo])!
           <figcaption class="imagetitle">
-          #{image.formatted.title} __(#{image.species.map(&:name_sci).join(', ')})__
+          #{image.decorated.title} __(#{image.species.map(&:name_sci).join(', ')})__
           </figcaption>
         </figure>
         )
   end
 
-  def species_link(word, term)
+  def species_link(word, term, en)
     sp = @species[term]
     if sp
-      %Q(<b title="#{sp.name_sci}">#{word || sp.name_sci}</b>)
+      str = %Q(<b title="#{sp.name_sci}">#{word or (en ? sp.name_en : sp.name_sci)}</b>)
       #%Q("(sp_link). #{word || sp.name_sci}":#{sp.code})
+      if en && word.present?
+        str << " (#{sp.name_en})"
+      end
+      str
     else
       term.size > 6 ? unknown_species(word, term) : (word || term)
     end

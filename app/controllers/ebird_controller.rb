@@ -1,4 +1,4 @@
-require 'ebird/exporter'
+require 'export/exporter'
 
 class EbirdController < ApplicationController
 
@@ -57,7 +57,7 @@ class EbirdController < ApplicationController
 
       if @file.save
         @file.update_attribute(:name, "#{@file.name}-#{test_prefix}#{@file.id}")
-        result = EbirdExporter.new(@file.name, cards_rel).export
+        result = Exporter.ebird(@file.name, cards_rel).export
       else
         # FIXME: this is hack. For some reason errors on cards are not preserved after validation.
         @file.cards.each {|c| c.valid?(:ebird_post)}

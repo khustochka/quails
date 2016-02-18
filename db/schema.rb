@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141221201620) do
+ActiveRecord::Schema.define(version: 20150507010417) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 20141221201620) do
     t.float    "distance_kms"
     t.float    "area_acres"
     t.boolean  "resolved",                     default: false,        null: false
+    t.string   "ebird_id"
   end
 
   add_index "cards", ["locus_id"], name: "index_cards_on_locus_id", using: :btree
@@ -113,8 +114,8 @@ ActiveRecord::Schema.define(version: 20141221201620) do
   add_index "loci", ["slug"], name: "index_loci_on_slug", unique: true, using: :btree
 
   create_table "media", force: :cascade do |t|
-    t.string   "slug",              limit: 64,                   null: false
-    t.string   "media_type",        limit: 5,                    null: false
+    t.string   "slug",              limit: 64,                    null: false
+    t.string   "media_type",        limit: 5,                     null: false
     t.string   "title"
     t.string   "external_id"
     t.text     "description"
@@ -122,7 +123,7 @@ ActiveRecord::Schema.define(version: 20141221201620) do
     t.integer  "index_num",                    default: 1000
     t.boolean  "has_old_thumbnail",            default: false
     t.text     "assets_cache",                 default: ""
-    t.string   "status",            limit: 5,  default: "DEFLT"
+    t.string   "status",            limit: 16, default: "PUBLIC"
     t.integer  "parent_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -139,14 +140,15 @@ ActiveRecord::Schema.define(version: 20141221201620) do
   add_index "media_observations", ["observation_id"], name: "index_media_observations_on_observation_id", using: :btree
 
   create_table "observations", force: :cascade do |t|
-    t.integer "species_id",                             null: false
-    t.string  "quantity",   limit: 255
-    t.string  "place",      limit: 255
-    t.string  "notes",      limit: 255
+    t.integer "species_id",                                null: false
+    t.string  "quantity",      limit: 255
+    t.string  "private_notes", limit: 255, default: "",    null: false
+    t.string  "notes",                     default: "",    null: false
     t.integer "post_id"
-    t.boolean "voice",                  default: false, null: false
+    t.boolean "voice",                     default: false, null: false
     t.integer "card_id"
     t.integer "patch_id"
+    t.string  "place",         limit: 255, default: "",    null: false
   end
 
   add_index "observations", ["card_id"], name: "index_observations_on_card_id", using: :btree

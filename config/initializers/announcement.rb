@@ -1,5 +1,3 @@
-#require "quails/env"
-#
 #if Rails.env.production?
 #  $announcement = <<-CDATA
 #    ...

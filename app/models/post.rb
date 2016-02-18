@@ -6,7 +6,7 @@ class Post < ActiveRecord::Base
     end
   end
 
-  include FormattedModel
+  include DecoratedModel
 
   self.skip_time_zone_conversion_for_attributes = [:face_date]
 
@@ -23,7 +23,7 @@ class Post < ActiveRecord::Base
   has_many :comments, dependent: :destroy
   has_many :cards, -> {order('observ_date ASC, locus_id')}, dependent: :nullify
   has_many :observations, dependent: :nullify # only those attached directly
-  #  has_many :species, -> { order(:index_num).uniq }, through: :observations
+  #  has_many :species, -> { order(:index_num).distinct }, through: :observations
   #  has_many :images, -> {
   #    includes(:species).
   #    references(:species).
@@ -52,9 +52,10 @@ class Post < ActiveRecord::Base
   # Scopes
 
   # FIXME: be careful with merging these - last scope overwrites the previous
-  scope :public_posts, lambda { where("status <> 'PRIV'") }
+  scope :public_posts, lambda { where("posts.status <> 'PRIV'") }
   scope :hidden, lambda { where(status: 'PRIV') }
   scope :indexable, lambda { public_posts.where("status <> 'NIDX'") }
+  scope :short_form, -> { select(:id, :slug, :face_date, :title, :status) }
 
   def self.year(year)
     select('id, slug, title, face_date, status').where('EXTRACT(year from face_date)::integer = ?', year).order(face_date: :asc)
@@ -83,12 +84,12 @@ class Post < ActiveRecord::Base
   # Associations
 
   def species
-    Species.short.uniq.joins(:cards, :observations).where('cards.post_id = ? OR observations.post_id = ?', id, id).
+    Species.short.distinct.joins(:cards, :observations).where('cards.post_id = ? OR observations.post_id = ?', id, id).
         order(:index_num)
   end
 
   def images
-    Image.uniq.joins(:observations).includes(:cards, :species).where('cards.post_id = ? OR observations.post_id = ?', id, id).
+    Image.distinct.joins(:observations).includes(:cards, :species).where('cards.post_id = ? OR observations.post_id = ?', id, id).
         order('cards.observ_date, cards.locus_id, media.index_num, species.index_num')
   end
 
@@ -138,7 +139,7 @@ class Post < ActiveRecord::Base
         joins(:card).
         where("observations.post_id = ? or cards.post_id = ?", self.id, self.id).
         where("NOT EXISTS(#{subquery})").
-        pluck(:species_id)
+        pluck("DISTINCT species_id")
   end
 
   def face_date=(new_date)

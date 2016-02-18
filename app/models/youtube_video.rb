@@ -6,13 +6,8 @@ class YoutubeVideo < Struct.new(:video_id, :width, :height)
     'videos/youtube_embed'
   end
 
-  if Rails.env.test?
-    def url
-      ''
-    end
-  else
-    def url
-      "#{YOUTUBE_HOST}/embed/#{video_id}?enablejsapi=1&rel=0&vq=hd720"
-    end
+  def url
+    "#{YOUTUBE_HOST}/embed/#{video_id}?enablejsapi=1&rel=0&vq=hd720"
   end
+
 end

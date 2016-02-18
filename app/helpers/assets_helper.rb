@@ -1,8 +1,6 @@
 module AssetsHelper
 
-  GMAP_API_URL = Rails.env.test? ?
-      nil :
-      '//maps.googleapis.com/maps/api/js?v=3.17&sensor=false'
+  GMAP_API_URL = '//maps.googleapis.com/maps/api/js?v=3.17&sensor=false'
 
   def stylesheet(*args)
     @stylesheets ||= []

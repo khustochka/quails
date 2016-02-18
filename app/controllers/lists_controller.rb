@@ -1,21 +1,23 @@
 class ListsController < ApplicationController
 
+  CURRENT_YEAR = 2016
+
   def index
-    @top_5_life = Lifelist.basic.relation.limit(5)
-    @top_5_year = Lifelist.basic.filter(year: 2014).relation.limit(5)
+    @list_life = Lifelist::FirstSeen.full
+    @list_current_year = Lifelist::FirstSeen.over(year: CURRENT_YEAR)
 
-    #@list_prev_year = Lifelist.basic.filter(year: 2013).relation
-    @list_canada = Lifelist.basic.filter(locus: 'canada').relation
+    #@list_prev_year = NewLifelist::FirstSeen.over(year: CURRENT_YEAR - 1)
 
-    @list_ukraine = Lifelist.basic.filter(locus: 'ukraine').relation
+    @list_canada = Lifelist::FirstSeen.over(locus: 'canada')
 
-    @list_usa = Lifelist.basic.filter(locus: 'usa').relation
-    @list_uk = Lifelist.basic.filter(locus: 'united_kingdom').relation
+    @list_ukraine = Lifelist::FirstSeen.over(locus: 'ukraine')
+
+    @list_usa = Lifelist::FirstSeen.over(locus: 'usa')
+    @list_uk = Lifelist::FirstSeen.over(locus: 'united_kingdom')
   end
 
   def basic
-
-    @allowed_params = [:controller, :action, :year, :locus, :sort]
+    allow_params(:year, :locus, :sort)
 
     sort_override =
         case params[:sort]
@@ -27,28 +29,36 @@ class ListsController < ApplicationController
             raise ActionController::RoutingError, "Illegal argument sort=#{params[:sort]}"
         end
 
+    locus = params[:locus]
     @locations = Country.all
 
-    sources = I18n.russian_locale? ? {posts: current_user.available_posts} : {}
+    raise ActiveRecord::RecordNotFound if locus && !locus.in?(@locations.map(&:slug))
 
-    @lifelist = Lifelist.basic.
-        source(sources).
-        sort(sort_override).
-        filter(params.slice(:year, :locus))
+    @lifelist = Lifelist::FirstSeen.
+        over(params.slice(:year, :locus)).
+        sort(sort_override)
+
+    if I18n.russian_locale?
+      @lifelist.set_posts_scope(current_user.available_posts)
+    end
   end
 
   def advanced
-    @allowed_params = [:controller, :action, :year, :locus, :sort, :month]
+    allow_params(:year, :locus, :sort, :month)
 
     @locations = Locus.locs_for_lifelist
 
-    sources = {loci: current_user.available_loci}
+    locus = params[:locus]
 
-    sources[:posts] = current_user.available_posts if I18n.russian_locale?
+    raise ActiveRecord::RecordNotFound if locus && !locus.in?(current_user.available_loci.map(&:slug))
 
-    @lifelist = Lifelist.advanced.
-        source(sources).
-        sort(params[:sort]).
-        filter(params.slice(:year, :month, :locus))
+    @lifelist = Lifelist::Advanced.
+        over(params.slice(:year, :month, :locus)).
+        sort(params[:sort])
+
+    if I18n.russian_locale?
+      @lifelist.set_posts_scope(current_user.available_posts)
+    end
+
   end
 end

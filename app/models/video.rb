@@ -1,5 +1,5 @@
 class Video < Media
-  include FormattedModel
+  include DecoratedModel
 
   NORMAL_PARAMS = [:slug, :title, :youtube_id, :description]
 
@@ -31,12 +31,16 @@ class Video < Media
     YoutubeVideo.new(youtube_id, 560, 315)
   end
 
+  def medium
+    YoutubeVideo.new(youtube_id, 640, 360)
+  end
+
   def large
     YoutubeVideo.new(youtube_id, 853, 480)
   end
 
   def to_thumbnail
-    title = self.formatted.title + " (video)"
+    title = self.decorated.title + " (video)"
     Thumbnail.new(self, title, self, {video: {id: id}})
   end
 

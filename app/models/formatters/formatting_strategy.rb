@@ -11,8 +11,8 @@ class FormattingStrategy
 
     prepare
 
-    result = @text.gsub(/\{\{(#{WIKI_PREFIXES}|)(?:([^\}]*?)\|)?([^\}]*?)\}\}/) do |_|
-      tag, word, term = $1, $2.try(:html_safe), $3
+    result = @text.gsub(/\{\{(#{WIKI_PREFIXES}|)(?:([^\}]*?)\|)?([^\}]*?)(\|en)?\}\}/) do |_|
+      tag, word, term, en = $1, $2.try(:html_safe), $3, $4
       case tag
         when '@' then
           if term == "lj"
@@ -25,7 +25,12 @@ class FormattingStrategy
         when '&' then
           video_embed(term)
         when '' then
-          species_link(word, term)
+          if term == "en"
+            term = word
+            word = nil
+            en = "en"
+          end
+          species_link(word, term, en)
       end
     end
 
@@ -43,8 +48,12 @@ class FormattingStrategy
       hash[term] = Post.find_by(slug: term.downcase)
     end
 
-    sp_codes = @text.scan(/\{\{(?!#{WIKI_PREFIXES})(?:([^\}]*?)\|)?(.+?)\}\}/).map do |word, term|
-      term || word
+    sp_codes = @text.scan(/\{\{(?!#{WIKI_PREFIXES})(?:([^\}]*?)\|)?(.+?)(\|en)?\}\}/).map do |word, term|
+      if term && term != "en"
+        term
+      else
+        word
+      end
     end.uniq.compact
 
     # TODO: use already calculated species of the post! the rest will be ok with separate requests?

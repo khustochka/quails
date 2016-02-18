@@ -6,7 +6,7 @@ class LociController < ApplicationController
 
   # GET /locus
   def index
-    @loci = Locus.all.arrange
+    @loci = Locus.all.preload(:observations, :patch_observations).arrange
   end
 
   # GET /locus/1

@@ -1,8 +1,8 @@
 module VideoEmbedder
 
-  def video_embed(term)
+  def video_embed(term, size = :large)
     if video = Video.find_by(slug: term)
-      youtube_embed = video.large
+      youtube_embed = video.send(size)
       VideoEmbedder.erb_template.result(binding)
     end
   end

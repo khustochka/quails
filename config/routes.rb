@@ -97,7 +97,6 @@ Rails.application.routes.draw do
       get 'observations'
     end
     collection do
-      get 'unmapped'
       get 'series'
       post 'upload'
     end
@@ -109,7 +108,6 @@ Rails.application.routes.draw do
       post 'patch'
     end
     collection do
-      get 'unmapped'
     end
   end
 
@@ -214,8 +212,7 @@ Rails.application.routes.draw do
   end
 
   resource :map, only: [:edit] do
-    resources :spots, only: :index
-    get 'media' => 'spots#media'
+    get 'media' => 'maps#media'
     get 'observations', on: :collection
   end
 
@@ -232,6 +229,8 @@ Rails.application.routes.draw do
 
   get '/settings' => 'settings#index'
   post '/settings/save' => 'settings#save'
+
+  get '/media/unmapped' => 'media#unmapped'
 
   get '/research(/:action)', controller: :research, as: :research
 

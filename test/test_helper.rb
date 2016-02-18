@@ -10,7 +10,13 @@ ENV["RAILS_ENV"] ||= "test"
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 
+Capybara::Webkit.configure do |config|
+  config.block_unknown_urls
+end
+
 class ActiveSupport::TestCase
+
+  fixtures :all
 
   include FactoryGirl::Syntax::Methods
 
@@ -21,7 +27,7 @@ class ActiveSupport::TestCase
   end
 
   @@seed = HashWithIndifferentAccess.new do |hash, term|
-    hash[term] = Locus.find_by(slug: term) || Species.find_by!(code: term)
+    hash[term] = Species.find_by!(code: term)
   end
 
   def seed(key)

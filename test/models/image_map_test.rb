@@ -6,7 +6,7 @@ class ImageMapTest < ActiveSupport::TestCase
     @public_spot = FactoryGirl.create(:spot, public: true, lat: 1)
     @private_spot = FactoryGirl.create(:spot, public: false, lat: 2)
 
-    @country = seed(:ukraine)
+    @country = loci(:ukraine)
     @overlocus = FactoryGirl.create(:locus, private_loc: false, lat: 3, parent: @country)
     @overlocus_no_geo = FactoryGirl.create(:locus, private_loc: false, lat: nil, lon: nil, parent: @country)
 

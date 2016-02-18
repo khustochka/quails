@@ -1,0 +1,11 @@
+- javascript 'charts'
+
+- @page_title = "Charts"
+
+%h1= page_title
+
+%div#chartContainer(style="height: 500px; width: 100%;")
+
+:javascript
+
+  var data = #{@data.to_json};

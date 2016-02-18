@@ -36,14 +36,14 @@ class PagesController < ApplicationController
   end
 
   def show
-    @page_title = @page.formatted.title
+    @page_title = @page.decorated.title
     @robots = @page.meta.robots
     render :show
   end
 
   def show_public
     if @page.public? || current_user.admin?
-      @page_title = @page.formatted.title
+      @page_title = @page.decorated.title
       @robots = @page.meta.robots
       render :show
     else

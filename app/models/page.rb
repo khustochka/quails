@@ -1,5 +1,5 @@
 class Page < ActiveRecord::Base
-  include FormattedModel
+  include DecoratedModel
 
   validates :slug, :uniqueness => true, :presence => true
   validates :title, :presence => true

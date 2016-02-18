@@ -8,6 +8,9 @@
 
 = render 'admin/shortcuts' if current_user.admin?
 
+- if notice
+  %p#notice= notice.html_safe
+
 %dl
   %dt CSV
   %dd= link_to "[download]", @file.download_url

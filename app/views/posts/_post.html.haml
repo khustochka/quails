@@ -3,14 +3,14 @@
   %div.post-box{id: "post-#{post.slug}"}
     %div.post
       %div.header-with-subheader
-        %h2= link_to(post.formatted.title, public_post_path(post))
+        %h2= link_to(post.decorated.title, public_post_path(post))
         %i
           %time{datetime: post.face_date.iso8601}= l(post.face_date, format: :long)
         - unless post.public?
           %span.tag.draft Draft
 
-      = post.formatted.for_site.text
-      - post.formatted.the_rest_of_images.if_present do |images|
+      = post.decorated.for_site.text
+      - post.decorated.the_rest_of_images.if_present do |images|
         %div.thumbnails
           = render_justified images.map(&:to_thumbnail)
 
