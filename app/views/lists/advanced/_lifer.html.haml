@@ -1,27 +1,14 @@
 %td
-  = species_link(lifer)
-  = name_sci(lifer)
+  = species_link(lifer.species)
+  = name_sci(lifer.species)
 
-- [:first_seen_date, :last_seen_date].map {|d| l(lifer.send(d), :format => :long) }.tap do |first_date, last_date|
-
-  - if first_date == last_date
-    %td.align-center{colspan: 2}
-      &mdash;&ensp;
-      %time= post_link(first_date, lifer.post, true)
-      - if current_user.admin?
-        %a{href: card_path(id: lifer.card), class: 'img'}<
-          %img(src="/img/book_alt2_12x11.png")
-      &ensp;&mdash;
-  - else
+- if lifer.same_date?
+  %td.align-center{colspan: 2}
+    &mdash;&ensp;
+    = render "lists/advanced/lifer_date", life_observation: lifer.first_seen
+    &ensp;&mdash;
+- else
+  - [:first_seen, :last_seen].map{|s| lifer.send(s)}.each do |life_obs|
     %td.align-right
-      %time= post_link(first_date, lifer.post, true)
-      - if current_user.admin?
-        %a{href: card_path(lifer.card), class: 'img'}<
-          %img(src="/img/book_alt2_12x11.png")
-    %td.align-right
-      %time= post_link(last_date, lifer.last_post, true)
-      - if current_user.admin?
-        %a{href: card_path(lifer.last_card), class: 'img'}<
-          %img(src="/img/book_alt2_12x11.png")
-
-  %td.align-right= lifer.count
+      = render "lists/advanced/lifer_date", life_observation: life_obs
+%td.align-right= lifer.obs_count

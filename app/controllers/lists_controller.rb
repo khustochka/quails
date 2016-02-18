@@ -1,24 +1,23 @@
 class ListsController < ApplicationController
 
-  CURRENT_YEAR = 2015
+  CURRENT_YEAR = 2016
 
   def index
-    @list_life = BasicLifelist.full
-    @list_current_year = BasicLifelist.over(year: CURRENT_YEAR)
+    @list_life = Lifelist::FirstSeen.full
+    @list_current_year = Lifelist::FirstSeen.over(year: CURRENT_YEAR)
 
-    #@list_prev_year = BasicLifelist.over(year: CURRENT_YEAR - 1)
+    #@list_prev_year = NewLifelist::FirstSeen.over(year: CURRENT_YEAR - 1)
 
-    @list_canada = BasicLifelist.over(locus: 'canada')
+    @list_canada = Lifelist::FirstSeen.over(locus: 'canada')
 
-    @list_ukraine = BasicLifelist.over(locus: 'ukraine')
+    @list_ukraine = Lifelist::FirstSeen.over(locus: 'ukraine')
 
-    @list_usa = BasicLifelist.over(locus: 'usa')
-    @list_uk = BasicLifelist.over(locus: 'united_kingdom')
+    @list_usa = Lifelist::FirstSeen.over(locus: 'usa')
+    @list_uk = Lifelist::FirstSeen.over(locus: 'united_kingdom')
   end
 
   def basic
-
-    @allowed_params = [:controller, :action, :year, :locus, :sort]
+    allow_params(:year, :locus, :sort)
 
     sort_override =
         case params[:sort]
@@ -35,7 +34,7 @@ class ListsController < ApplicationController
 
     raise ActiveRecord::RecordNotFound if locus && !locus.in?(@locations.map(&:slug))
 
-    @lifelist = NewLifelist.
+    @lifelist = Lifelist::FirstSeen.
         over(params.slice(:year, :locus)).
         sort(sort_override)
 
@@ -45,17 +44,21 @@ class ListsController < ApplicationController
   end
 
   def advanced
-    @allowed_params = [:controller, :action, :year, :locus, :sort, :month]
+    allow_params(:year, :locus, :sort, :month)
 
     @locations = Locus.locs_for_lifelist
 
-    sources = {loci: current_user.available_loci}
+    locus = params[:locus]
 
-    sources[:posts] = current_user.available_posts if I18n.russian_locale?
+    raise ActiveRecord::RecordNotFound if locus && !locus.in?(current_user.available_loci.map(&:slug))
 
-    @lifelist = Lifelist.advanced.
-        source(sources).
-        sort(params[:sort]).
-        filter(params.slice(:year, :month, :locus))
+    @lifelist = Lifelist::Advanced.
+        over(params.slice(:year, :month, :locus)).
+        sort(params[:sort])
+
+    if I18n.russian_locale?
+      @lifelist.set_posts_scope(current_user.available_posts)
+    end
+
   end
 end

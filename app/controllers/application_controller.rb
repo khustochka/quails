@@ -13,6 +13,10 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def allow_params(*list)
+    @allowed_params = list + [:action, :controller]
+  end
+
   def significant_params
     if @allowed_params
       params.slice(*@allowed_params)

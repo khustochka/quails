@@ -2,43 +2,33 @@ desc 'Quick benchmark'
 task :benchmark => :environment do
   require 'benchmark/ips'
 
-  SomeData = Struct.new(:a, :b, :c)
+  @base = MyObservation.filter({}).joins(:card)
+  @dates =
 
   Benchmark.ips do |bench|
 
-    bench.report('struct') do
+    bench.report('preselect') do
 
-      x = SomeData.new(1, "a", 2)
-      x.a
-      x.b
-      x.c
-
-    end
-
-    bench.report('open-struct') do
-
-      x = OpenStruct.new(a: 1, b: "a", c: 2)
-      x.a
-      x.b
-      x.c
+      @base.select(
+          "first_value(observations.id)
+          OVER (PARTITION BY species_id
+          ORDER BY observ_date ASC, to_timestamp(start_time, 'HH24:MI') ASC NULLS LAST)"
+      ).
+          where("(species_id, observ_date) IN
+                (select species_id, MAX(observ_date)
+                  from observations join cards on card_id=cards.id
+                group by species_id)").
+          to_a
 
     end
 
-    bench.report('hashie::mash') do
+    bench.report('full') do
 
-      x = Hashie::Mash.new(a: 1, b: "a", c: 2)
-      x.a
-      x.b
-      x.c
-
-    end
-
-    bench.report('hash') do
-
-      x = {a: 1, b: "a", c: 2}
-      x[:a]
-      x[:b]
-      x[:c]
+      @base.select(
+          "first_value(observations.id)
+          OVER (PARTITION BY species_id
+          ORDER BY observ_date ASC, to_timestamp(start_time, 'HH24:MI') ASC NULLS LAST)"
+      ).to_a
 
     end
 

@@ -43,7 +43,7 @@ class Card < ActiveRecord::Base
 
 
   def secondary_posts
-    Post.uniq.joins(:observations).where('observations.card_id = ? AND observations.post_id <> ?', self.id, self.post_id)
+    Post.distinct.joins(:observations).where('observations.card_id = ? AND observations.post_id <> ?', self.id, self.post_id)
   end
 
   def mapped?
@@ -51,7 +51,7 @@ class Card < ActiveRecord::Base
   end
 
   def mapped_observations
-    self.observations.joins(:spots).uniq
+    self.observations.joins(:spots).distinct
   end
 
   def mapped_percentage

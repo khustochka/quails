@@ -26,7 +26,7 @@ class Species < ActiveRecord::Base
   has_many :loci, through: :cards
   has_many :images, through: :observations
   has_many :videos, through: :observations
-  has_many :posts, -> { order(face_date: :desc).uniq }, through: :observations
+  has_many :posts, -> { order(face_date: :desc).distinct }, through: :observations
 
   scope :ordered_by_taxonomy, lambda { uniq.reorder("species.index_num") }
 
@@ -62,7 +62,7 @@ class Species < ActiveRecord::Base
 
   def grouped_loci
     countries = Country.select(:id, :slug, :ancestry).to_a
-    loci.uniq.group_by do |locus|
+    loci.distinct.group_by do |locus|
       countries.find {|c| locus.id.in?(c.subregion_ids)}.slug
     end
   end
