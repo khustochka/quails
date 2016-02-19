@@ -11,8 +11,7 @@ module Lifelist
 
     def to_a
       primary_list.map do |obs|
-        #FIXME: dirty hack :( Works differently for dated lists and count lists
-        species = obs.species || obs.taxon.species
+        species = obs.species
         result = FullLifer.new(species)
 
         # Put the primary value in place

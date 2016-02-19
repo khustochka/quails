@@ -1,7 +1,7 @@
 class MyObservation < Observation
 
   # FIXME: no need in separate class, or rename
-  # This class represents only observations that are dentified
+  # This class represents only observations that are identified
 
   default_scope { identified }
 

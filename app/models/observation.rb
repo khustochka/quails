@@ -10,6 +10,7 @@ class Observation < ActiveRecord::Base
 
   # This will only work if joined with taxon
   belongs_to :species
+  # NOTE: Do not use .includes(:taxon), it breaks species preloading, use .preload
 
   belongs_to :post, -> { short_form }, touch: :updated_at
   has_and_belongs_to_many :media

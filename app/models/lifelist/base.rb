@@ -60,7 +60,8 @@ module Lifelist
       # FIXME: Do not join on species when not on taxonomy sorting
       bare_relation.
           joins(:taxon, :card).
-          includes({:taxon => :species}, :card)
+          preload({:taxon => :species}, :card)
+      # NOTE: Do not use .includes(:taxon), it breaks species preloading, use .preload
     end
 
     def preselected_observations
