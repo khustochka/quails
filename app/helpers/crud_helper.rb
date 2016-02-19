@@ -5,7 +5,7 @@ module CrudHelper
   end
 
   def default_submit_button(form, options = {})
-    default_option = {:value => t('.save_button', :default => 'Save'), data: {disable_with: 'Saving...'}, :id => 'save_button'}
+    default_option = {:value => t('.save_button', :default => 'Save'), data: {disable_with: 'Saving...'}, :id => 'save_button', class: "btn btn-primary"}
     form.button :submit, default_option.merge!(options)
   end
 
@@ -18,6 +18,6 @@ module CrudHelper
   end
 
   def default_destroy_button
-    button_to('DELETE', {action: :destroy}, {method: :delete, data: {confirm: 'Object will be DESTROYED!'}})
+    button_to('DELETE', {action: :destroy}, {method: :delete, data: {confirm: 'Object will be DESTROYED!'}, class: "btn btn-danger"})
   end
 end

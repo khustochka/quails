@@ -17,21 +17,26 @@
 
 = simple_form_for @post do |form|
 
+  %div.form-horizontal
+    = form.input :slug, wrapper: "horizontal_form", wrapper_html: {class: 'col-sm-6 col-xs-12'}
+    = form.input :face_date,
+                  wrapper: "horizontal_form",
+                  wrapper_html: {class: 'col-sm-6 col-xs-12'},
+                  label: 'Post date',
+                  input_html: {value: @post.face_date.strftime("%F %T")}, as: :string unless @post.new_record?
+  %div.clearfix
+  = form.input :title, input_html: {class: 'long'}
+  = form.input :text, input_html: {rows: 20, class: 'wiki_field'}, label_html: {class: "sr-only"}
   %div.row
-    = form.input :slug, wrapper_html: {class: 'col-sm-6 col-xs-12'}
-    = form.input :face_date, label: 'Post date', input_html: {value: @post.face_date.strftime("%F %T")}, as: :string unless @post.new_record?
-  %div
-    = form.input :title, input_html: {class: 'long'}
-  = form.input :text, label: false, input_html: {rows: 20, class: 'wiki_field'}
-  %div
-    = form.input :topic, collection: Post::TOPICS, input_html: {size: '3'}, include_blank: false
-    = form.input :status, collection: Post::STATES, input_html: {size: '3'}, include_blank: false
+    %div.col-lg-1.col-sm-2.col-xs-4
+      = form.input :topic, collection: Post::TOPICS, input_html: {size: '3'}, include_blank: false
+    %div.col-lg-1.col-sm-2.col-xs-4
+      = form.input :status, collection: Post::STATES, input_html: {size: '3'}, include_blank: false
   .buttons
     = default_submit_button(form)
+    = default_destroy_button if @post.persisted?
 
 - if @post.persisted?
-
-  %p= default_destroy_button
 
   %h3#card_attach Attach cards
 
@@ -49,4 +54,4 @@
       - else
         = link_to(@post.lj_url, @post.lj_url)
 
-    %li= button_to('Post to LJ', {action: :lj_post}, {form: {id: 'lj_post'}})
+    %li= button_to('Post to LJ', {action: :lj_post}, {class: "btn btn-default", form: {id: 'lj_post'}})
