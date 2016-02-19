@@ -10,16 +10,8 @@ Rails.application.config.assets.version = '1.0'
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 # Rails.application.config.assets.precompile += %w( search.js )
 
-app_assets_path = Rails.root.join('app', 'assets').to_path
+LOOSE_APP_ASSETS = lambda do |logical_path, filename|
+  filename.start_with?(::Rails.root.join("app/assets").to_s)
+end
 
-Rails.application.config.assets.precompile << Proc.new { |path|
-  if path == 'html5.js' || path =~ /\.png$/
-    true
-  elsif path =~ /\.(css|js)\z/
-    full_path = Rails.application.assets.resolve(path)
-    # return true to compile asset, false to skip
-    full_path.starts_with?(app_assets_path)
-  else
-    false
-  end
-}
+Rails.application.config.assets.precompile = [LOOSE_APP_ASSETS, /(?:\/|\\|\A)application\.(css|js)$/, "*.png", "html5.js"]
