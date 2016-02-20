@@ -1,0 +1,16 @@
+@import "variables"
+
+@import "bootstrap-sprockets"
+@import "bootstrap"
+
+@import "admin_menu"
+@import "header"
+
+.main
+  @extend .container
+
+a
+  text-decoration: underline
+
+#site_menu, .subheader-menu, .comment_links
+  @extend .list-inline

@@ -25,7 +25,7 @@
 
   = render 'menus'
 
-  %ul.horiz-list.filter-list
+  %ul.list-inline.filter-list
     %strong= t('lists.menus.filter.months')
     %li= filtering_link_to_all(:month)
     - 1.upto(12) do |m|

@@ -4,7 +4,7 @@
 
 %h1= page_header
 
-%ul.horiz-list
+%ul.list-inline
   %li= link_to('Skip to simple add form', new_image_path)
 
 = form_tag(upload_images_path, multipart: true, class: 'upload_form') do

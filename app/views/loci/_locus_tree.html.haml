@@ -6,7 +6,7 @@
     - if locus.iso_code.present?
       (<b>#{locus.iso_code}</b>)
     - if locus.loc_type.present?
-      %small.tag.good= locus.loc_type
+      %span.label.label-info= locus.loc_type
   %td
     - %w(en ru uk).map do |lang|
       %div

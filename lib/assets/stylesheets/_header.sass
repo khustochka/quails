@@ -3,15 +3,16 @@
 // Layouts
 
 #header
-  margin: 0 -1em
+  //margin: 0 -1em
 
 #userheader
   position: relative
 
 #menucontainer
-  margin: auto
-  max-width: $main-width
-  padding: 0 1em
+  @extend .container
+  //margin: auto
+  //max-width: $main-width
+  //padding: 0 1em
 
 $margin-between: 0.3em
 $site-menu-color: #407FBF
@@ -22,12 +23,12 @@ $site-menu-color: #407FBF
     bottom: 17px
     left: -($margin-between * 2)
   line-height: 1.4em
-  @include horiz-list
   font-size: 20px
   font-weight: bold
-  @include arial-font
+  font-family: Arial, sans-serif
   li
     margin: auto $margin-between
+    padding: 0
   a
     @include deep-bordered-link($site-menu-color)
     padding-bottom: 0px

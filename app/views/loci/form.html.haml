@@ -8,30 +8,38 @@
 = render 'admin/shortcuts' if current_user.admin?
 
 = simple_form_for @locus do |form|
-  %div
-    = form.input :slug
-    = form.input :parent_id, label: 'Parent', collection: (Locus.where.not(id: @locus)),
-          input_html: {class: 'suggest-combo'}
-    = form.input :iso_code, label: 'ISO code'
+  %div.row
+    %div.col-md-4
+      = form.input :slug
+    %div.col-md-4
+      = form.input :parent_id, label: 'Parent', collection: (Locus.where.not(id: @locus)),
+          input_html: {class: 'suggest-combo form-control'}
+    %div.col-md-4
+      = form.input :iso_code, label: 'ISO code'
   %div
     = form.input :loc_type, label: 'Locus type', as: :select, collection: Locus::TYPES
     = form.input :name_format
-  %div
-    Full name:
-    = @locus.decorated.full_name
-  %div
-    = form.input :name_en, label: 'English name'
-    = form.input :name_ru, label: 'Russian name'
-    = form.input :name_uk, label: 'Ukrainian name'
-  %div
-    = form.input :lat, as: :hidden
-    = form.input :lon, as: :hidden
+  %div.form-horizontal
+    %div.form-group
+      %label.control-label.col-sm-3 Full name
+      %div.col-sm-9
+        %span.form-control-static= @locus.decorated.full_name
+    = form.input :name_en, label: 'English name', wrapper: "horizontal_form"
+    = form.input :name_ru, label: 'Russian name', wrapper: "horizontal_form"
+    = form.input :name_uk, label: 'Ukrainian name', wrapper: "horizontal_form"
 
-    = form.input :public_index, input_html: { size: 10, type: :text }
-    = form.input :private_loc
-    = form.input :patch
+  %div.row
+    %div.col-md-2
+      = form.input :public_index, input_html: { size: 10, type: :text }
+    %div.col-md-3
+      = form.input :private_loc
+      = form.input :patch
 
   %div#googleMap
 
-  .buttons
-    = default_submit_button(form)
+  = form.input :lat, as: :hidden
+  = form.input :lon, as: :hidden
+
+  .buttons.row
+    %div.col-md-12
+      = default_submit_button(form)

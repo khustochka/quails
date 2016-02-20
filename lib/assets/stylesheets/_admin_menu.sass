@@ -1,13 +1,11 @@
-@import "mixins"
-
 .admin_menu
-  @include horiz-list
+  @extend .list-inline
   text-align: center
   margin: 0
-  padding: 3px 0
+  padding: 4px 0
   font: 13px Helvetica, Arial, sans-serif
   font-weight: bold
-  line-height: 1.4em
+  //line-height: 1.4em
   color: #cccccc
   background-color: #2d2d2d
   a
@@ -18,21 +16,19 @@
     color: #ffffff
     text-decoration: underline
 
-  li
-    margin: 0 5px
   li.adder
     font-size: 14px
     text-transform: uppercase
 
 // Admin shortcuts
 
-.admin-shortcuts li a
-  // Funny effect!
-  @include unhighlighted-link($site-menu-color)
-  &:hover
-    background-color: #f7f7f1
-  margin-right: 4px
-  background-color: #eee
-  border: 1px solid #ccc
-  border-radius: 3px
-  padding: 3px 6px
+//.admin-shortcuts li a
+//  // Funny effect!
+//  @include unhighlighted-link($site-menu-color)
+//  &:hover
+//    background-color: #f7f7f1
+//  margin-right: 4px
+//  background-color: #eee
+//  border: 1px solid #ccc
+//  border-radius: 3px
+//  padding: 3px 6px

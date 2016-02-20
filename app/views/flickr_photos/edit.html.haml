@@ -4,7 +4,7 @@
 
 %h1= page_header
 
-%ul.horiz-list.admin-shortcuts
+%ul.list-inline.admin-shortcuts
   %li= link_to('Show', image_path(@image))
   %li= link_to('Edit', edit_image_path(@image))
   %li= link_to('Flickr link', flickr_photo_path(@image))

@@ -21,7 +21,7 @@
   = render partial: 'filters/loci', locals: {loci_filter_label: t('.filter.places')}
 
   - unless @lifelist.blank?
-    %ul.horiz-list.filter-list
+    %ul.list-inline.filter-list
       %strong= t('.filter.sort_by')
       - [nil, :by_taxonomy].each do |sort|
         %li= link_to_or_span(t(sort || :by_date, scope: 'lists.menus.sort_option'), significant_params.merge(:sort => sort))

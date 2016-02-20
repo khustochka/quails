@@ -17,5 +17,7 @@
 
   - if @prev_month
     %nav.front_page_prev
-      = link_to t('.previous_posts'), month_path(@prev_month)
-      (#{[t('date.month_names')[@prev_month[:month].to_i], @prev_month[:year]] * ' '})
+      %ul.pagination-lg
+        %li
+          = link_to t('.previous_posts'), month_path(@prev_month)
+          (#{[t('date.month_names')[@prev_month[:month].to_i], @prev_month[:year]] * ' '})
