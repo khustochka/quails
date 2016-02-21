@@ -12,7 +12,7 @@ $(function () {
   $(document).tooltip({
     items: ".llc",
     content: function () {
-      return $("img", this).data("title");
+      return $(this).data("title");
     },
     position: {
       my: "center bottom",
@@ -20,6 +20,6 @@ $(function () {
     }
   });
 
-  $(".llc img").prop("title", "");
+  $(".llc").prop("title", "");
 
 });
