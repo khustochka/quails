@@ -36,13 +36,15 @@
     %p No species
   - else
     - sort = params[:sort]
-    %table#lifelist.neat_table.advanced
+    %table#lifelist.neat_table.advanced.table
       %tr
         %th &nbsp;
         %th
           = t('lists.basic.filter.sort_by')
-          = link_to_unless_current('Classification ⇓', params.merge(:sort => 'class'))
-        %th.align-right= sorting_link_to("First seen ⇓")
-        %th.align-right= link_to_unless_current('Last seen ⇓', params.merge(:sort => 'last'))
-        %th.align-right= link_to_unless_current('Count ⇓', params.merge(:sort => 'count'))
+          - sort_icon = capture(:sort_icon) do
+            %span.glyphicon.glyphicon-sort
+          = link_to_unless_current("Classification #{sort_icon}".html_safe, params.merge(:sort => 'class'))
+        %th.align-right= sorting_link_to("First seen #{sort_icon}".html_safe)
+        %th.align-right= link_to_unless_current("Last seen #{sort_icon}".html_safe, params.merge(:sort => 'last'))
+        %th.align-right= link_to_unless_current("Count #{sort_icon}".html_safe, params.merge(:sort => 'count'))
       = render sort.nil? || sort == 'last' ? "lists/advanced/by_date" : "lists/advanced/by_#{sort}"
