@@ -14,7 +14,7 @@ module CrudHelper
   end
 
   def disabled_destroy_icon
-    content_tag(:span, "", class: "oi oi-circle-x", title: 'Destroy disabled due to existing associations')
+    content_tag(:span, "", class: "oi oi-circle-x text-muted", title: 'Destroy disabled due to existing associations')
   end
 
   def default_destroy_button
