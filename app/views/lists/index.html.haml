@@ -13,30 +13,30 @@
         = t('.see_also')
         = link_to t('.records_and_stats'), my_stats_path
 
-  %div.fluid-row
+  %div.row
 
-    %div.fluid-column
+    %div.col-sm-6
 
       %h2= link_to('Lifelist', lifelist_path)
 
       = render partial: "top5list", object: @list_life
 
-    %div.fluid-column
+    %div.col-sm-6
 
       %h2= link_to(t('lists.title.yearlist', year: ListsController::CURRENT_YEAR), list_path(year: ListsController::CURRENT_YEAR))
 
       = render partial: "top5list", object: @list_current_year
 
-  %div.fluid-row
+  %div.row
 
-    %div.fluid-column
+    %div.col-sm-6
 
       %h2
         = link_to(t('lists.title.usa'), list_path(locus: 'usa'))
 
       = render partial: "top5list", object: @list_usa
 
-    %div.fluid-column
+    %div.col-sm-6
 
       %h2
         = link_to(t('lists.title.canada'), list_path(locus: 'canada'))
@@ -44,7 +44,7 @@
       = render partial: "top5list", object: @list_canada
 
     -# Temporary previous year list
-    -#%div.fluid-column
+    -#%div.col-sm-6
     -#
     -#  %h2
     -#    = link_to(t('lists.title.yearlist', year: 2014), list_path(year: 2014))
@@ -52,9 +52,9 @@
     -#  = render partial: "top5list", object: @list_prev_year.limit(5)
 
 
-  %div.fluid-row
+  %div.row
 
-    %div.fluid-column
+    %div.col-sm-6
 
       %h2
         = link_to(t('lists.title.ukraine'), list_path(locus: 'ukraine'))
@@ -62,13 +62,13 @@
 
       -#= render partial: "top5list", object: @list_ukraine
 
-    %div.fluid-column
+    %div.col-sm-6
 
       %h2
         = link_to(t('lists.title.gb'), list_path(locus: 'united_kingdom'))
         (#{@list_uk.total_count})
 
-    -#%div.fluid-column
+    -#%div.col-sm-6
 
       -#%h2
       -#  = link_to(t('lists.title.usa'), list_path(locus: 'usa'))

@@ -10,8 +10,14 @@
 @import "footer"
 @import "images"
 
+//#above-footer
+//  @extend .container
+
 .main
-  @extend .container
+  @include make-md-column(11.4)
+  @include make-md-column-offset(0.3)
+  @include make-lg-column(9.5)
+  @include make-lg-column-offset(1.25)
 
 a
   text-decoration: underline
