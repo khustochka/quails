@@ -38,6 +38,12 @@ module ApplicationHelper
     params[:sort].nil? ? text : link_to(text, params.merge(:sort => nil))
   end
 
+  def sorting_glyph
+    content_tag(:small, class: "glyphicon glyphicon-sort") do
+      ""
+    end
+  end
+
   def feed_list_item
     render 'partials/feed_list_item'
   end

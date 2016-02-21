@@ -41,10 +41,15 @@
         %th &nbsp;
         %th
           = t('lists.basic.filter.sort_by')
-          - sort_icon = capture(:sort_icon) do
-            %span.glyphicon.glyphicon-sort
-          = link_to_unless_current("Classification #{sort_icon}".html_safe, params.merge(:sort => 'class'))
-        %th.align-right= sorting_link_to("First seen #{sort_icon}".html_safe)
-        %th.align-right= link_to_unless_current("Last seen #{sort_icon}".html_safe, params.merge(:sort => 'last'))
-        %th.align-right= link_to_unless_current("Count #{sort_icon}".html_safe, params.merge(:sort => 'count'))
+          Classification
+          = link_to_unless_current(sorting_glyph, params.merge(:sort => 'class'))
+        %th.align-right
+          First seen
+          = sorting_link_to(sorting_glyph)
+        %th.align-right
+          Last seen
+          = link_to_unless_current(sorting_glyph, params.merge(:sort => 'last'))
+        %th.align-right
+          Count
+          = link_to_unless_current(sorting_glyph, params.merge(:sort => 'count'))
       = render sort.nil? || sort == 'last' ? "lists/advanced/by_date" : "lists/advanced/by_#{sort}"
