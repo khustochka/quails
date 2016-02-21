@@ -30,11 +30,7 @@ body.wider
 
 // Footer
 
-div.footer
-  margin:
-    left: -1em
-    right: -1em
-  padding: 5px 20px
+
 
 // Override normalize.css & jquery-ui
 body
@@ -61,20 +57,6 @@ body
     font-family: Arial, sans-serif
 
 // 100% height
-$footer-margin: 65px
-
-html, body
-  height: 100%
-#above-footer
-  min-height: 100%
-// IE6
-* html #above-footer
-  height: 100%
-
-.main
-  padding-bottom: ($footer-margin + 40px)
-div.footer
-  margin-top: -$footer-margin
 
 /* For small screens */
 // p is added to exclude thumbnails
@@ -128,17 +110,6 @@ h3
     //@include basic-link($link-color)
 
 // Footer
-
-div.footer
-  border-top: 1px dotted #407FBF
-  background-color: #f5f5f5
-  color: #333366
-  p
-    margin:
-      top: 0.5em
-      bottom: 0.5em
-    @include arial-font
-    font-size: 13px
 
 // Nav
 

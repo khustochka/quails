@@ -1,10 +1,10 @@
 module ApplicationHelper
 
   def main_classes
-    @main_classes ||= [admin_layout? ? 'container main_container' : 'main']
-    unless @special_styling
-      @main_classes << 'green_links'
-    end
+    @main_classes ||= ['main']
+    # unless @special_styling
+    #   @main_classes << 'green_links'
+    # end
     @main_classes
   end
 
