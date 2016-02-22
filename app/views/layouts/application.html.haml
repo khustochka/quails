@@ -85,6 +85,13 @@
 
       = render 'partials/header'
 
+      - if content_for?(:jumbo)
+        %div.jumbo-bg{style: "background-image: url(#{@jumbo_image})"}
+          %div.jumbo-side
+            = content_for :jumbo_side
+          %div.jumbo
+            = content_for :jumbo
+
       - if !admin_layout? && $announcement
         %div.announcement
           :textile

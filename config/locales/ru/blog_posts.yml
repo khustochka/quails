@@ -1,7 +1,7 @@
 'ru':
   blog:
     home:
-      title: Дневник наблюдений за птицами
+      title: "Дневник наблюдений за\u00a0птицами"
       previous_posts: << Ранее
 
     year:

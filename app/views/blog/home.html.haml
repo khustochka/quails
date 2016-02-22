@@ -2,16 +2,20 @@
 
 - @page_title = t('.title')
 
+- @jumbo_image = "https://c1.staticflickr.com/9/8345/8198280055_0391dba330_b.jpg"
+
+- content_for :jumbo do
+
+  %h1
+    = page_header
+
+- content_for :jumbo_side do
+  %ul.subheader-menu
+    %li= render partial: 'partials/translated', locals: {url: {controller: :images, action: :index}}
+    %li= link_to(t('menu.archive'), action: :archive)
+    = feed_list_item
+
 - cache [@posts, admin: current_user.admin?] do
-
-  = render partial: 'partials/translated', locals: {url: {controller: :images, action: :index}}
-
-  %div.header-with-subheader
-    %h1.over-header
-      = page_header
-    %ul.subheader-menu
-      %li= link_to(t('menu.archive'), action: :archive)
-      = feed_list_item
 
   = render @posts
 
