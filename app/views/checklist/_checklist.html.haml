@@ -1,14 +1,17 @@
 - @page_title = t(".title.#{@country.slug}")
 
+- @jumbo_image = "https://farm6.staticflickr.com/5498/10143647255_dde609e35c_z.jpg"
+
+- content_for :jumbo do
+  %h1= page_header
+
+- content_for :jumbo_side do
+  %ul.subheader-menu
+    %li= render 'partials/translated'
+    %li= link_to(t('menu.gallery'), country_path(country: @country.slug))
+    - if I18n.russian_locale? && @country.slug == "ukraine"
+      %li= link_to("Зимующие птицы", show_page_path(:winter))
+
 - cache(key: CacheKey.checklist) do
-
-  = render 'partials/translated'
-
-  %div.header-with-subheader
-    %h1= page_header
-    %ul.subheader-menu
-      %li= link_to(t('menu.gallery'), country_path(country: @country.slug))
-      - if I18n.russian_locale?
-        %li= link_to("Зимующие птицы", show_page_path(:winter))
 
   = render "temp_checklist"
