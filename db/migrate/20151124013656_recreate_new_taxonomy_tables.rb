@@ -38,6 +38,8 @@ class RecreateNewTaxonomyTables < ActiveRecord::Migration
       t.string :name_sci, null: false
       t.string :name_en, null: false
       t.string :name_ru
+      t.string :name_uk
+      t.string :name_fr
       t.string :code, limit: 6
       t.string :legacy_code, limit: 6
       t.string :order, null: false
