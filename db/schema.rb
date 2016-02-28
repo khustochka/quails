@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151127034331) do
+ActiveRecord::Schema.define(version: 20160227220146) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -109,11 +109,42 @@ ActiveRecord::Schema.define(version: 20151127034331) do
     t.string  "name_fr",    limit: 255
     t.boolean "reviewed",               default: false, null: false
     t.text    "wikidata"
+    t.integer "species_id"
   end
 
   add_index "legacy_species", ["code"], name: "index_legacy_species_on_code", unique: true, using: :btree
   add_index "legacy_species", ["index_num"], name: "index_legacy_species_on_index_num", using: :btree
   add_index "legacy_species", ["name_sci"], name: "index_legacy_species_on_name_sci", unique: true, using: :btree
+
+  create_table "legacy_taxa", force: :cascade do |t|
+    t.integer "book_id",                null: false
+    t.integer "species_id"
+    t.string  "name_sci",   limit: 255, null: false
+    t.string  "authority",  limit: 255, null: false
+    t.string  "name_en",    limit: 255, null: false
+    t.string  "name_ru",    limit: 255, null: false
+    t.string  "name_uk",    limit: 255, null: false
+    t.integer "index_num",              null: false
+    t.string  "order",      limit: 255, null: false
+    t.string  "family",     limit: 255, null: false
+    t.string  "avibase_id", limit: 16
+  end
+
+  add_index "legacy_taxa", ["book_id", "index_num"], name: "index_legacy_taxa_on_book_id_and_index_num", using: :btree
+  add_index "legacy_taxa", ["book_id", "name_sci"], name: "index_legacy_taxa_on_book_id_and_name_sci", using: :btree
+
+  create_table "local_species", force: :cascade do |t|
+    t.integer "locus_id",               null: false
+    t.integer "species_id",             null: false
+    t.string  "status",     limit: 255
+    t.text    "notes_en"
+    t.text    "notes_ru"
+    t.text    "notes_uk"
+    t.string  "reference",  limit: 255
+  end
+
+  add_index "local_species", ["locus_id"], name: "index_local_species_on_locus_id", using: :btree
+  add_index "local_species", ["species_id"], name: "index_local_species_on_species_id", using: :btree
 
   create_table "loci", force: :cascade do |t|
     t.string  "slug",         limit: 32,                  null: false

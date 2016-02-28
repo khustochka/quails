@@ -1,6 +1,6 @@
 class Book < ActiveRecord::Base
 
-  has_many :taxa, -> {order "taxa.index_num"}
+  has_many :legacy_taxa, -> {order "legacy_taxa.index_num"}
 
   # Parameters
 

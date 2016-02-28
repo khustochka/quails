@@ -1,0 +1,65 @@
+-# no_viewport is for very wide pages, e.g. with table
+- @no_viewport = true
+
+- @page_title = 'Listing species'
+
+:css
+  div.legacy_species_species {
+    display: inline-block;
+  }
+
+:coffeescript
+  $(document).ready ->
+    $('.sp-light').autocomplete
+      delay: 0
+      autoFocus: true
+      source: "/species/simple_search.json"
+      minLength: 2
+      select: (event, ui) ->
+        $(this).val ui.item.value
+        $(this).next().val ui.item.id
+        false
+
+    $('.sp-light').data('ui-autocomplete')._renderItem = (ul, item) ->
+      $('<li></li>').
+      data('item.autocomplete', item).
+      append('<a>' + item.label + '</a>').
+      appendTo ul
+
+    $(".edit_legacy_species").on "ajax:success", (e, data, xhr) ->
+      if data.species_id
+        td = $(this).closest("td")
+        td.prev().html("<img src='/img/check_16x13.png'>")
+
+
+%h1 Mapping species
+
+%table.neat_table
+  %tr
+    %th.align-center Code
+    %th Legacy species
+    %th Saved
+    %th New species
+
+  - @legacy_species.each do |species|
+    %tr
+      %td= species.code
+      %td
+        = species.name_sci
+        %br
+        = species.name_ru
+      %td
+        - if species.species
+          = image_tag("/img/check_16x13.png")
+        - else
+          = image_tag("/img/x_alt_16x16_tan.png")
+          - species.species = Species.where(name_sci: species.name_sci).first
+      %td
+        = simple_form_for species, remote: true, format: :json do |form|
+          = form.input :species, label: false do
+            = form.input_field :species, as: :string, name: '', value: species.species.try(:name_sci), class: 'sp-light'
+            = form.input_field :species_id, as: :hidden
+          = form.submit value: "Save"
+
+
+= paginate @legacy_species

@@ -42,6 +42,18 @@ namespace :tax do
       )
       codes[code] = [e_taxon.id, taxon.id]
     end
+
+    # Raise Motacilla feldegg to species
+    motfel = Taxon.find_by_name_sci("Motacilla flava feldegg")
+    motfel.update_attributes(
+        name_sci: "Motacilla feldegg",
+        name_en: "Black-headed Wagtail",
+        category: "species",
+        parent_id: nil
+    )
+
+
+
   end
 
 end

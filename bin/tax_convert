@@ -1,0 +1,10 @@
+#!/bin/bash
+
+rake db:drop db:create
+DATABASE_NAME=quails_taxon_development rake db:restore
+rake db:migrate
+echo '********** Import taxa from ebird'
+CSV=./vendor/eBird_v2015_csv.csv rake tax:import_ebird_taxa
+echo '********** Create species from taxa'
+rake tax:create_species
+rake tax:restore_mapping

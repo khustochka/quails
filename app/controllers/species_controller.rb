@@ -126,6 +126,17 @@ class SpeciesController < ApplicationController
     render json: result
   end
 
+  def simple_search
+    result = Species.where("name_sci ILIKE '#{params[:term]}%' OR name_sci ILIKE '% #{params[:term]}%'").map do |sp|
+      {
+          value: sp.name_sci,
+          label: sp.name_sci,
+          id: sp.id
+      }
+    end
+    render json: result
+  end
+
   private
   def find_species
     @species = Species.find_by!(name_sci: Species.humanize(params[:id]))

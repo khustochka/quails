@@ -71,7 +71,11 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :legacy_species, only: [:index, :edit]
+  resources :legacy_species, only: [:index, :edit, :update] do
+    collection do
+      get :mapping
+    end
+  end
 
   resources :species, except: [:index, :show, :destroy] do
     collection do
@@ -86,6 +90,7 @@ Rails.application.routes.draw do
   resources :species, except: [:index, :show, :destroy] do
     collection do
       get 'admin', action: :index
+      get :simple_search
     end
 
     member do
