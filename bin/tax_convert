@@ -9,3 +9,4 @@ echo '********** Create species from taxa'
 rake tax:create_species
 rake tax:restore_mapping
 rake tax:map_observations
+rake tax:map_species_images
