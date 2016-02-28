@@ -238,11 +238,13 @@
 598: Alle alle
 601: Alca torda
 546: Larus cachinnans
+616: Fratercula arctica
 566: Rissa tridactyla
 555: Chroicocephalus genei
 556: Chroicocephalus philadelphia
 554: Chroicocephalus ridibundus
 561: Hydrocoloeus minutus
+563: Rhodostethia rosea
 559: Leucophaeus atricilla
 560: Leucophaeus pipixcan
 557: Ichthyaetus melanocephalus
@@ -251,6 +253,7 @@
 532: Larus delawarensis
 533: Larus californicus
 541: Larus argentatus
+549: Larus michahellis
 542: Larus fuscus
 538: Larus hyperboreus
 534: Larus marinus
@@ -504,6 +507,7 @@
 1012: Prunella montanella
 1016: Prunella modularis
 905: Motacilla flava
+906: Motacilla feldegg
 904: Motacilla citreola
 908: Motacilla cinerea
 901: Motacilla alba
@@ -538,6 +542,7 @@
 1257: Setophaga petechia
 1258: Setophaga pensylvanica
 1276: Setophaga striata
+1261: Setophaga caerulescens
 1274: Setophaga palmarum
 1271: Setophaga pinus
 1262: Setophaga coronata
@@ -619,4 +624,3 @@
 1307: Passer montanus
 1310: Petronia petronia
 1312: Montifringilla nivalis
-906: Motacilla feldegg

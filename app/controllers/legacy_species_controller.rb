@@ -106,9 +106,18 @@ class LegacySpeciesController < ApplicationController
 
   def mapping
     fesenko = Book.find(1)
+    rx = /\{\{(?:([^@#\\^&][^\}]*?)\|)?([^@#\\^&][^\}]*?)(\|en)?\}\}/
+    in_posts_codes = Post.all.map {|p| p.text.scan(rx).map(&:second)}.inject(:+).uniq
+    in_posts_sps = LegacySpecies.where("code IN (?) OR name_sci IN (?)", in_posts_codes, in_posts_codes).pluck(:id)
+
+    full = LegacySpecies.
+        where("id IN (?) OR id IN (?) OR id IN (?)",
+              Observation.select(:legacy_species_id),
+              fesenko.legacy_taxa.select(:species_id),
+              in_posts_sps)
+    @undecided = full.where(species_id: nil)
     @legacy_species =
-        LegacySpecies.
-            where("id IN (?) OR id IN (?)", Observation.select(:legacy_species_id), fesenko.legacy_taxa.select(:species_id)).
+        full.
             order(:index_num).
             preload(:species).
             page(params[:page])

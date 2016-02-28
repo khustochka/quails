@@ -34,6 +34,10 @@
 
 %h1 Mapping species
 
+Undecided:
+%i
+  = @undecided.map(&:name_sci).join(", ")
+
 %table.neat_table
   %tr
     %th.align-center Code
