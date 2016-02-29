@@ -20,7 +20,11 @@ module SpeciesHelper
 
   def species_link(sp_obj, string = nil)
     @only_path = true if @only_path.nil?
-    link_to_unless(sp_obj.id.zero?, string || sp_obj.name, localized_species_url(id: sp_obj, only_path: @only_path), class: 'sp_link')
+    if sp_obj
+      link_to(string || sp_obj.name, localized_species_url(id: sp_obj, only_path: @only_path), class: 'sp_link')
+    else
+      "Bird sp."
+    end
   end
 
   def new_species_link(sp_obj, string = nil)

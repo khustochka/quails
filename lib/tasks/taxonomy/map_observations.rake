@@ -31,6 +31,11 @@ namespace :tax do
       base.where(legacy_species_id: lsp.id).update_all(taxon_id: lsp.species.taxa.where(category: "species").first.id)
     end
 
+    # Aves sp
+
+    base.where(legacy_species_id: 0).update_all(taxon_id: Taxon.find_by_ebird_code("bird1"))
+
+
   end
 
 
