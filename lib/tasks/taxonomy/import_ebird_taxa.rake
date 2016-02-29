@@ -43,15 +43,21 @@ namespace :tax do
       codes[code] = [e_taxon.id, taxon.id]
     end
 
-    # Raise Motacilla feldegg to species
-    motfel = Taxon.find_by_name_sci("Motacilla flava feldegg")
-    motfel.update_attributes(
-        name_sci: "Motacilla feldegg",
-        name_en: "Black-headed Wagtail",
-        category: "species",
-        parent_id: nil
-    )
-
+    # Raise some subspecies to species
+    [
+        ["Cygnus columbianus bewickii", "Cygnus bewickii", "Bewick's Swan", "tunswa2"],
+        ["Larus fuscus heuglini", "Larus heuglini", "Heuglin's Gull", "slbgul"],
+        ["Motacilla flava feldegg", "Motacilla feldegg", "Black-headed Wagtail", "eaywag"]
+    ].each do |ssp_name, sp_name, en_name, idx_next|
+      motfel = Taxon.find_by_name_sci(ssp_name)
+      motfel.update_attributes(
+          name_sci: sp_name,
+          name_en: en_name,
+          category: "species",
+          parent_id: nil,
+          index_num: Taxon.find_by_ebird_code(idx_next).index_num - 1
+      )
+    end
 
 
   end
