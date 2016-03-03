@@ -1,0 +1,16 @@
+---
+pasdom:
+  name_sci: "Passer domesticus"
+  name_en: "House Sparrow"
+  index_num: 100
+  code: pasdom
+  order: Passeriformes
+  family: Passeridae
+
+hirrus:
+  name_sci: "Hirundo rustica"
+  name_en: "Barn Swallow"
+  index_num: 50
+  code: hirrus
+  order: Passeriformes
+  family: Hirundinidae

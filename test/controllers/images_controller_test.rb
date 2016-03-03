@@ -3,7 +3,7 @@ require 'test_helper'
 class ImagesControllerTest < ActionController::TestCase
   setup do
     @image = create(:image)
-    assert seed(:pasdom).image
+    assert species(:pasdom).image
     @obs = @image.observations.first
   end
 
@@ -30,8 +30,8 @@ class ImagesControllerTest < ActionController::TestCase
   end
 
   test "show photos of multiple species" do
-    sp1 = seed(:lancol)
-    sp2 = seed(:jyntor)
+    sp1 = species(:lancol)
+    sp2 = species(:jyntor)
     card = create(:card, observ_date: "2008-07-01")
     obs1 = create(:observation, species: sp1, card: card)
     obs2 = create(:observation, species: sp2, card: card)
@@ -69,8 +69,8 @@ class ImagesControllerTest < ActionController::TestCase
 
   test "create image with several observations" do
     login_as_admin
-    obs2 = create(:observation, species: seed(:lancol), card: @obs.card)
-    obs3 = create(:observation, species: seed(:jyntor), card: @obs.card)
+    obs2 = create(:observation, species: species(:lancol), card: @obs.card)
+    obs3 = create(:observation, species: species(:jyntor), card: @obs.card)
     new_attr = attributes_for(:image, slug: 'new_img_slug').except(:observations)
     assert_difference('Image.count') do
       post :create, image: new_attr, obs: [@obs.id, obs2.id, obs3.id]

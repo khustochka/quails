@@ -13,7 +13,7 @@ class Card < ActiveRecord::Base
   has_many :observations, -> { order('observations.id') }, dependent: :restrict_with_exception
   has_many :images, through: :observations
   has_many :videos, through: :observations
-  has_many :species, through: :observations
+  #has_many :species, through: :observations
   has_many :spots, through: :observations
 
   has_many :ebird_submissions, class_name: 'Ebird::Submission', dependent: :delete_all, inverse_of: :card
@@ -41,6 +41,9 @@ class Card < ActiveRecord::Base
     end
   end
 
+  def species
+    Species.where(id: observations.joins(:taxon).select(:species_id))
+  end
 
   def secondary_posts
     Post.distinct.joins(:observations).where('observations.card_id = ? AND observations.post_id <> ?', self.id, self.post_id)

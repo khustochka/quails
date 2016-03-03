@@ -34,8 +34,8 @@ class SpeciesImageTest < ActiveSupport::TestCase
   end
 
   test 'species images should not be duplicated (if multi-species)' do
-    sp1 = seed(:lancol)
-    sp2 = seed(:jyntor)
+    sp1 = species(:lancol)
+    sp2 = species(:jyntor)
     card = create(:card, observ_date: "2008-07-01")
     obs1 = create(:observation, species: sp1, card: card)
     obs2 = create(:observation, species: sp2, card: card)
@@ -48,7 +48,7 @@ class SpeciesImageTest < ActiveSupport::TestCase
   # and association callbacks are harder, so skipping for now
 
   #test 'switching the only species image to another sp should clear image_id' do
-  #  obs = create(:observation, species: seed('larrid'))
+  #  obs = create(:observation, species: species('larrid'))
   #  img = create(:image)
   #  sps = img.species
   #  img.update_with_observations(nil, [obs.id])
@@ -56,7 +56,7 @@ class SpeciesImageTest < ActiveSupport::TestCase
   #end
   #
   #test 'switching the active species image to another sp links another one to the species' do
-  #  obs = create(:observation, species_id: seed('larrid').id)
+  #  obs = create(:observation, species_id: species('larrid').id)
   #  img = create(:image)
   #  img2 = create(:image)
   #  sps = img.species

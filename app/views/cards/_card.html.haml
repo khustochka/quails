@@ -19,7 +19,7 @@
       %big= card.observations.merge(Observation.all).count("DISTINCT taxon_id")
     %li
       Species:
-      %big= card.observations.merge(MyObservation.all).count("DISTINCT species_id")
+      %big= card.observations.merge(MyObservation.all).count("DISTINCT taxa.species_id")
       - new_sp_size = card.new_species_ids.size
       - if new_sp_size > 0
         %span.new_sp{title: "Lifers"} &#8727;

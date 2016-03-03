@@ -26,14 +26,6 @@ class ActiveSupport::TestCase
     @request.session[User.cookie_name] = User.cookie_value
   end
 
-  @@seed = HashWithIndifferentAccess.new do |hash, term|
-    hash[term] = Species.find_by!(code: term)
-  end
-
-  def seed(key)
-    @@seed[key]
-  end
-
   # current path that preserves arguments after ? and # (unlike current_path)
   def current_path_info
     current_url.sub(%r{.*?://}, '')[%r{[/\?\#].*}] || '/'

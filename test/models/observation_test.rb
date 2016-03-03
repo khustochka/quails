@@ -14,7 +14,7 @@ class ObservationTest < ActiveSupport::TestCase
 
   test 'updating observation touches card' do
     before = @observation.card.updated_at
-    @observation.update_attribute(:species_id, seed('paratr').id)
+    @observation.update_attribute(:species_id, species('paratr').id)
     after = @observation.card.updated_at
     assert after > before
   end

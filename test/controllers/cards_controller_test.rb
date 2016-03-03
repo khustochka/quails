@@ -44,7 +44,7 @@ class CardsControllerTest < ActionController::TestCase
   end
 
   test "create card with observations" do
-    observ_attrs = [{species_id: 2}, {species_id: 4}, {species_id: 6}]
+    observ_attrs = [{taxon_id: 2}, {taxon_id: 4}, {taxon_id: 6}]
     assert_difference('Observation.count', 3) do
       post :create, card: attributes_for(:card).merge(observations_attributes: observ_attrs)
     end

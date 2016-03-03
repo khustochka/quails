@@ -73,17 +73,17 @@ class EbirdConverterTest < ActiveSupport::TestCase
   end
 
   test "that the same correct latin name is used (Clements 6)" do
-    obs = FactoryGirl.create(:observation, species: seed(:pasdom))
+    obs = FactoryGirl.create(:observation, species: species(:pasdom))
     assert_equal "Passer domesticus", ebird_observation(obs).send(:latin_name)
   end
 
   test "that the different correct latin name is used (Clements 6)" do
-    obs = FactoryGirl.create(:observation, species: seed(:acacan))
+    obs = FactoryGirl.create(:observation, species: species(:acacan))
     assert_equal "Carduelis cannabina", ebird_observation(obs).send(:latin_name)
   end
 
   test "that the correct latin name is used for problematic species (Clements 6)" do
-    obs = FactoryGirl.create(:observation, species: seed(:saxtor))
+    obs = FactoryGirl.create(:observation, species: species(:saxtor))
     assert_equal "Saxicola rubicola", ebird_observation(obs).send(:latin_name)
   end
 
@@ -102,35 +102,35 @@ class EbirdConverterTest < ActiveSupport::TestCase
   end
 
   test "that Feral Pigeon is marked properly" do
-    obs = FactoryGirl.create(:observation, species: seed(:colliv))
+    obs = FactoryGirl.create(:observation, species: species(:colliv))
     assert_equal "Columba livia (Feral Pigeon)", ebird_observation(obs).send(:latin_name)
     assert_equal "Rock Pigeon (Feral Pigeon)", ebird_observation(obs).send(:common_name)
   end
 
   test "that Hirundo rustica is marked properly when seen in Ukraine" do
     card = FactoryGirl.create(:card, locus: loci(:brovary))
-    obs = FactoryGirl.create(:observation, species: seed(:hirrus), card: card)
+    obs = FactoryGirl.create(:observation, species: species(:hirrus), card: card)
     assert_equal "Hirundo rustica", ebird_observation(obs).send(:latin_name)
     assert_equal "Barn Swallow", ebird_observation(obs).send(:common_name)
   end
 
   test "that Hirundo rustica is marked properly when seen in USA" do
     card = FactoryGirl.create(:card, locus: loci(:nyc))
-    obs = FactoryGirl.create(:observation, species: seed(:hirrus), card: card)
+    obs = FactoryGirl.create(:observation, species: species(:hirrus), card: card)
     assert_equal "Hirundo rustica erythrogaster", ebird_observation(obs).send(:latin_name)
     assert_equal "Barn Swallow (American)", ebird_observation(obs).send(:common_name)
   end
 
   test "that Larus argentatus is marked properly when seen in Ukraine" do
     card = FactoryGirl.create(:card, locus: loci(:kiev))
-    obs = FactoryGirl.create(:observation, species: seed(:lararg), card: card)
+    obs = FactoryGirl.create(:observation, species: species(:lararg), card: card)
     assert_equal "Larus argentatus", ebird_observation(obs).send(:latin_name)
     assert_equal "Herring Gull", ebird_observation(obs).send(:common_name)
   end
 
   test "that Larus argentatus smithsonianus is marked properly when seen in USA" do
     card = FactoryGirl.create(:card, locus: loci(:nyc))
-    obs = FactoryGirl.create(:observation, species: seed(:lararg), card: card)
+    obs = FactoryGirl.create(:observation, species: species(:lararg), card: card)
     assert_equal "Larus argentatus smithsonianus", ebird_observation(obs).send(:latin_name)
     assert_equal "Herring Gull (American)", ebird_observation(obs).send(:common_name)
   end
@@ -139,14 +139,14 @@ class EbirdConverterTest < ActiveSupport::TestCase
     uk = create(:locus, loc_type: "country", slug: "united_kingdom")
     london = create(:locus, parent: uk, slug: "london")
     card = FactoryGirl.create(:card, locus: london)
-    obs = FactoryGirl.create(:observation, species: seed(:larfus), card: card)
+    obs = FactoryGirl.create(:observation, species: species(:larfus), card: card)
     assert_equal "Larus fuscus graellsii", ebird_observation(obs).send(:latin_name)
     assert_equal "Lesser Black-backed Gull (graellsii)", ebird_observation(obs).send(:common_name)
   end
 
   test "that Motacilla feldegg is marked properly" do
     card = FactoryGirl.create(:card, locus: loci(:brovary))
-    obs = FactoryGirl.create(:observation, species: seed(:motfel), card: card)
+    obs = FactoryGirl.create(:observation, species: species(:motfel), card: card)
     assert_equal "Motacilla flava feldegg", ebird_observation(obs).send(:latin_name)
     assert_equal "Western Yellow Wagtail (Black-headed)", ebird_observation(obs).send(:common_name)
   end

@@ -8,12 +8,12 @@ class ObservationSearchTest < ActiveSupport::TestCase
         create(:card, observ_date: '2013-05-18', locus: loci(:kiev)),
         create(:card, observ_date: '2013-05-19', locus: loci(:kiev))
     ]
-    create(:observation, species: seed(:parmaj), card: @cards[0])
-    create(:observation, species: seed(:parcae), card: @cards[0])
-    create(:observation, species: seed(:parcae), card: @cards[1])
-    create(:observation, species: seed(:cotnix), card: @cards[1])
-    create(:observation, species: seed(:parmaj), card: @cards[2])
-    create(:observation, species: seed(:anapla), card: @cards[2])
+    create(:observation, species: species(:parmaj), card: @cards[0])
+    create(:observation, species: species(:parcae), card: @cards[0])
+    create(:observation, species: species(:parcae), card: @cards[1])
+    create(:observation, species: species(:cotnix), card: @cards[1])
+    create(:observation, species: species(:parmaj), card: @cards[2])
+    create(:observation, species: species(:anapla), card: @cards[2])
   end
 
   test 'search cards by date' do
@@ -21,11 +21,11 @@ class ObservationSearchTest < ActiveSupport::TestCase
   end
 
   test 'search cards by species' do
-    assert_equal 2, ObservationSearch.new(species_id: seed(:parmaj).id).cards.to_a.size
+    assert_equal 2, ObservationSearch.new(species_id: species(:parmaj).id).cards.to_a.size
   end
 
   test 'search cards by species filters only matching observations' do
-    cards = ObservationSearch.new(species_id: seed(:parmaj).id).cards.to_a
+    cards = ObservationSearch.new(species_id: species(:parmaj).id).cards.to_a
     assert_equal 1, cards[0].observations.size
   end
 

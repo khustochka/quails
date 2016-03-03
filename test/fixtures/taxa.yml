@@ -1,0 +1,16 @@
+---
+pasdom:
+  name_sci: "Passer domesticus"
+  name_en: "House Sparrow"
+  category: species
+  index_num: 100
+  ebird_code: houspa
+  species: :pasdom
+
+hirrus:
+  name_sci: "Hirundo rustica"
+  name_en: "Barn Swallow"
+  category: "species"
+  index_num: 50
+  ebird_code: barswa
+  species: :hirrus

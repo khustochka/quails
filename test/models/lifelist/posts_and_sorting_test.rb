@@ -41,8 +41,8 @@ module Lifelist
     test "should take into account start time when ordering lifers (diff species)" do
       card1 = FactoryGirl.create(:card, start_time: "9:00")
       card2 = FactoryGirl.create(:card, start_time: "13:00")
-      obs1 = FactoryGirl.create(:observation, card: card1, species: seed("pasdom"))
-      obs2 = FactoryGirl.create(:observation, card: card2, species: seed("colliv"))
+      obs1 = FactoryGirl.create(:observation, card: card1, species: species("pasdom"))
+      obs2 = FactoryGirl.create(:observation, card: card2, species: species("colliv"))
       list = Lifelist::FirstSeen.full.to_a
       # First is the newer (seen later)
       assert_equal "colliv", list.first.species.code
@@ -53,8 +53,8 @@ module Lifelist
     test "should treat start time as earlier when ordering different lifers" do
       card1 = FactoryGirl.create(:card, start_time: nil)
       card2 = FactoryGirl.create(:card, start_time: "13:00")
-      obs1 = FactoryGirl.create(:observation, card: card1, species: seed("pasdom"))
-      obs2 = FactoryGirl.create(:observation, card: card2, species: seed("colliv"))
+      obs1 = FactoryGirl.create(:observation, card: card1, species: species("pasdom"))
+      obs2 = FactoryGirl.create(:observation, card: card2, species: species("colliv"))
       list = Lifelist::FirstSeen.full.to_a
       # First is the newer (seen later)
       assert_equal "colliv", list.first.species.code
@@ -66,8 +66,8 @@ module Lifelist
     test "should take into account start time when selecting lifer card (same species)" do
       card1 = FactoryGirl.create(:card, start_time: "13:00")
       card2 = FactoryGirl.create(:card, start_time: "9:00")
-      obs1 = FactoryGirl.create(:observation, card: card1, species: seed("nycsca"))
-      obs2 = FactoryGirl.create(:observation, card: card2, species: seed("nycsca"))
+      obs1 = FactoryGirl.create(:observation, card: card1, species: species("nycsca"))
+      obs2 = FactoryGirl.create(:observation, card: card2, species: species("nycsca"))
       list = Lifelist::FirstSeen.full.to_a
       # Lifer should be the earlier observation
       assert_equal "9:00", list.first.card.start_time
@@ -76,8 +76,8 @@ module Lifelist
     test "for lifer card empty start time is lower priority" do
       card1 = FactoryGirl.create(:card, start_time: "9:00")
       card2 = FactoryGirl.create(:card, start_time: nil)
-      obs1 = FactoryGirl.create(:observation, card: card1, species: seed("nycsca"))
-      obs2 = FactoryGirl.create(:observation, card: card2, species: seed("nycsca"))
+      obs1 = FactoryGirl.create(:observation, card: card1, species: species("nycsca"))
+      obs2 = FactoryGirl.create(:observation, card: card2, species: species("nycsca"))
       list = Lifelist::FirstSeen.full.to_a
       assert_equal "9:00", list.first.card.start_time
     end

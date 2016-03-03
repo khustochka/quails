@@ -17,7 +17,7 @@ class JSVideosTest < ActionDispatch::IntegrationTest
     Capybara.use_default_driver
     video = create(:video)
     card = video.observations[0].card
-    create(:observation, species: seed(:lancol), card: card, videos: [video])
+    create(:observation, species: species(:lancol), card: card, videos: [video])
 
     login_as_admin
     visit edit_video_path(video)
@@ -35,7 +35,7 @@ class JSVideosTest < ActionDispatch::IntegrationTest
   test "Save existing video with no changes" do
     video = create(:video)
     card = video.observations[0].card
-    create(:observation, species: seed(:lancol), card: card, videos: [video])
+    create(:observation, species: species(:lancol), card: card, videos: [video])
 
     login_as_admin
     visit edit_video_path(video)
@@ -71,8 +71,8 @@ class JSVideosTest < ActionDispatch::IntegrationTest
   end
 
   test "Video save does not use all found observations" do
-    create(:observation, species: seed(:merser))
-    create(:observation, species: seed(:anapla))
+    create(:observation, species: species(:merser))
+    create(:observation, species: species(:anapla))
     login_as_admin
     visit new_video_path
 
@@ -95,8 +95,8 @@ class JSVideosTest < ActionDispatch::IntegrationTest
   test "Remove an observation from video" do
     video = create(:video)
     card = video.observations[0].card
-    create(:observation, species: seed(:lancol), card: card, videos: [video])
-    create(:observation, species: seed(:denmaj), card: card, videos: [video])
+    create(:observation, species: species(:lancol), card: card, videos: [video])
+    create(:observation, species: species(:denmaj), card: card, videos: [video])
 
     login_as_admin
     visit edit_video_path(video)
@@ -111,7 +111,7 @@ class JSVideosTest < ActionDispatch::IntegrationTest
 
   test "Restore original observations if deleted" do
     video = create(:video)
-    create(:observation, species: seed(:lancol), videos: [video])
+    create(:observation, species: species(:lancol), videos: [video])
 
     login_as_admin
     visit edit_video_path(video)

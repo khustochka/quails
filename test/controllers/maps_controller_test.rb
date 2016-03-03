@@ -32,9 +32,9 @@ class MapsControllerTest < ActionController::TestCase
   test 'return observation search results sorted by taxonomy' do
     login_as_admin
     # Try to create observation in random order
-    obss = [create(:observation, species: seed(:denmaj)),
-            create(:observation, species: seed(:pasdom)),
-            create(:observation, species: seed(:anacre))]
+    obss = [create(:observation, species: species(:denmaj)),
+            create(:observation, species: species(:pasdom)),
+            create(:observation, species: species(:anacre))]
     get :observations, q: {observ_date: obss[0].card.observ_date.iso8601}, format: 'json'
     assert_response :success
     result = JSON.parse(response.body)['json']

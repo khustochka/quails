@@ -88,7 +88,7 @@ class JSCardsTest < ActionDispatch::IntegrationTest
 
     assert_equal 'Parus major', field.value
 
-    assert_equal seed(:parmaj).id.to_s, field.find(:xpath, "./following-sibling::input", visible: false).value
+    assert_equal species(:parmaj).id.to_s, field.find(:xpath, "./following-sibling::input", visible: false).value
   end
 
   test "Remove row" do
@@ -109,7 +109,7 @@ class JSCardsTest < ActionDispatch::IntegrationTest
   test "Destroy observation from card page" do
 
     @card = create(:card)
-    o = create(:observation, species: seed(:melgal), card: @card)
+    o = create(:observation, species: species(:melgal), card: @card)
 
     login_as_admin
 
@@ -133,8 +133,8 @@ class JSCardsTest < ActionDispatch::IntegrationTest
   test "Save card after observation removal" do
 
     @card = create(:card)
-    o = create(:observation, species: seed(:melgal), card: @card)
-    o2 = create(:observation, species: seed(:pasdom), card: @card)
+    o = create(:observation, species: species(:melgal), card: @card)
+    o2 = create(:observation, species: species(:pasdom), card: @card)
 
     login_as_admin
     visit edit_card_path(@card)

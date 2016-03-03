@@ -5,8 +5,8 @@ module Lifelist
   class CountTest < ActiveSupport::TestCase
 
     test "list by count is properly sorted" do
-      sp1 = seed(:pasdom)
-      sp2 = seed(:gavste)
+      sp1 = species(:pasdom)
+      sp2 = species(:gavste)
       card1 = create(:card, observ_date: "2016-01-01")
       card2 = create(:card, observ_date: "2016-01-02")
       create(:observation, species: sp1, card: card1)

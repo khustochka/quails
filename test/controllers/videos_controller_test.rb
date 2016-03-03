@@ -21,8 +21,8 @@ class VideosControllerTest < ActionController::TestCase
   end
 
   # test "show videos of multiple species" do
-  #   sp1 = seed(:lancol)
-  #   sp2 = seed(:jyntor)
+  #   sp1 = species(:lancol)
+  #   sp2 = species(:jyntor)
   #   card = create(:card, observ_date: "2008-07-01")
   #   obs1 = create(:observation, species: sp1, card: card)
   #   obs2 = create(:observation, species: sp2, card: card)
@@ -60,8 +60,8 @@ class VideosControllerTest < ActionController::TestCase
 
   test "create video with several observations" do
     login_as_admin
-    obs2 = create(:observation, species: seed(:lancol), card: @obs.card)
-    obs3 = create(:observation, species: seed(:jyntor), card: @obs.card)
+    obs2 = create(:observation, species: species(:lancol), card: @obs.card)
+    obs3 = create(:observation, species: species(:jyntor), card: @obs.card)
     new_attr = attributes_for(:video, slug: 'new_video_slug').except(:observations)
     assert_difference('Video.count') do
       post :create, video: new_attr, obs: [@obs.id, obs2.id, obs3.id]

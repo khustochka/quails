@@ -17,7 +17,7 @@ class JSImagesTest < ActionDispatch::IntegrationTest
     Capybara.use_default_driver
     img = create(:image)
     card = img.observations[0].card
-    create(:observation, species: seed(:lancol), card: card, images: [img])
+    create(:observation, species: species(:lancol), card: card, images: [img])
 
     login_as_admin
     visit edit_image_path(img)
@@ -35,7 +35,7 @@ class JSImagesTest < ActionDispatch::IntegrationTest
   test "Save existing image with no changes" do
     img = create(:image)
     card = img.observations[0].card
-    create(:observation, species: seed(:lancol), card: card, images: [img])
+    create(:observation, species: species(:lancol), card: card, images: [img])
 
     login_as_admin
     visit edit_image_path(img)
@@ -71,8 +71,8 @@ class JSImagesTest < ActionDispatch::IntegrationTest
   end
 
   test "Image save does not use all found observations" do
-    create(:observation, species: seed(:merser))
-    create(:observation, species: seed(:anapla))
+    create(:observation, species: species(:merser))
+    create(:observation, species: species(:anapla))
     login_as_admin
     visit new_image_path
 
@@ -94,8 +94,8 @@ class JSImagesTest < ActionDispatch::IntegrationTest
   test "Remove an observation from image" do
     img = create(:image)
     card = img.observations[0].card
-    create(:observation, species: seed(:lancol), card: card, images: [img])
-    create(:observation, species: seed(:denmaj), card: card, images: [img])
+    create(:observation, species: species(:lancol), card: card, images: [img])
+    create(:observation, species: species(:denmaj), card: card, images: [img])
 
     login_as_admin
     visit edit_image_path(img)
@@ -110,7 +110,7 @@ class JSImagesTest < ActionDispatch::IntegrationTest
 
   test "Restore original observations if deleted" do
     img = create(:image)
-    create(:observation, species: seed(:lancol), images: [img])
+    create(:observation, species: species(:lancol), images: [img])
 
     login_as_admin
     visit edit_image_path(img)

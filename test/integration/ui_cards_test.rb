@@ -9,7 +9,7 @@ class UICardsTest < ActionDispatch::IntegrationTest
     card = create(:card, observ_date: "2010-06-18")
     create(:observation, species_id: 0, card: card)
     create(:observation, species_id: 0, card: create(:card, observ_date: "2010-06-19"))
-    create(:observation, species: seed(:spinus), card: card)
+    create(:observation, species: species(:spinus), card: card)
     login_as_admin
     visit cards_path
     select('- Avis incognita', from: 'Species')
@@ -21,8 +21,8 @@ class UICardsTest < ActionDispatch::IntegrationTest
 
   test 'Searching observations by species works properly' do
     card = create(:card, observ_date: "2010-06-18")
-    create(:observation, species: seed(:pasdom), card: card)
-    create(:observation, species: seed(:fulatr), card: card)
+    create(:observation, species: species(:pasdom), card: card)
+    create(:observation, species: species(:fulatr), card: card)
     login_as_admin
     visit cards_path
     select('Passer domesticus', from: 'Species')
@@ -34,8 +34,8 @@ class UICardsTest < ActionDispatch::IntegrationTest
   test 'Searching observations by voice/seen works properly' do
     card1 = create(:card, observ_date: "2010-06-18")
     card2 = create(:card, observ_date: "2010-06-19")
-    create(:observation, species: seed(:pasdom), card: card1, voice: false)
-    create(:observation, species: seed(:fulatr), card: card2, voice: true)
+    create(:observation, species: species(:pasdom), card: card1, voice: false)
+    create(:observation, species: species(:fulatr), card: card2, voice: true)
     login_as_admin
     visit cards_path
     choose('Seen')
@@ -75,7 +75,7 @@ class UICardsTest < ActionDispatch::IntegrationTest
     login_as_admin
 
     @card = create(:card)
-    o = create(:observation, species: seed(:melgal), card: @card)
+    o = create(:observation, species: species(:melgal), card: @card)
 
     visit edit_card_path(@card, nojs: true)
 

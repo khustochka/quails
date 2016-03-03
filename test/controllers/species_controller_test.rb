@@ -18,7 +18,7 @@ class SpeciesControllerTest < ActionController::TestCase
   test "get gallery" do
     # Setup main image for species
     @image = create(:image)
-    assert seed(:pasdom).image
+    assert species(:pasdom).image
     @obs = @image.observations.first
 
     get :gallery
@@ -30,12 +30,12 @@ class SpeciesControllerTest < ActionController::TestCase
   test "show link to multiple species on gallery" do
     # Setup main image for species
     @image = create(:image)
-    assert seed(:pasdom).image
+    assert species(:pasdom).image
     @obs = @image.observations.first
 
     # Setup photo of several species
-    sp1 = seed(:lancol)
-    sp2 = seed(:jyntor)
+    sp1 = species(:lancol)
+    sp2 = species(:jyntor)
     card = create(:card, observ_date: "2008-07-01")
     obs1 = create(:observation, species: sp1, card: card)
     obs2 = create(:observation, species: sp2, card: card)
@@ -61,7 +61,7 @@ class SpeciesControllerTest < ActionController::TestCase
   end
 
   test "show species" do
-    species = seed(:melgal)
+    species = species(:melgal)
     get :show, id: species.to_param
     assert_response :success
   end
@@ -69,35 +69,35 @@ class SpeciesControllerTest < ActionController::TestCase
   test "species with main image correctly rendered to admin" do
     login_as_admin
     im = create(:image)
-    species = seed(:pasdom)
+    species = species(:pasdom)
 
     get :show, id: species.to_param
     assert_response :success
   end
 
   test "show species with image" do
-    species = seed(:melgal)
+    species = species(:melgal)
     create(:image, observations: [create(:observation, species: species)])
     get :show, id: species.to_param
     assert_response :success
   end
 
   test "show species with video" do
-    species = seed(:melgal)
+    species = species(:melgal)
     create(:video, observations: [create(:observation, species: species)])
     get :show, id: species.to_param
     assert_response :success
   end
 
   test "get edit" do
-    species = seed(:melgal)
+    species = species(:melgal)
     login_as_admin
     get :edit, id: species.to_param
     assert_response :success
   end
 
   test "update species" do
-    species = seed(:corbra)
+    species = species(:corbra)
     species.name_ru = 'Американская ворона'
     login_as_admin
     put :update, id: species.to_param, species: species.attributes
@@ -105,7 +105,7 @@ class SpeciesControllerTest < ActionController::TestCase
   end
 
   test "update species via JSON" do
-    species = seed(:corbra)
+    species = species(:corbra)
     login_as_admin
     put :update, id: species.to_param, species: {name_ru: 'Американская ворона'}, format: :json
     assert_response :success
@@ -113,7 +113,7 @@ class SpeciesControllerTest < ActionController::TestCase
   end
 
   test "do not update species with invalid name_sci" do
-    species = seed(:corbra)
+    species = species(:corbra)
     sp_attr = species.attributes
     old_id = species.to_param
     sp_attr['name_sci'] = '$!#@'
@@ -137,20 +137,20 @@ class SpeciesControllerTest < ActionController::TestCase
   end
 
   test 'protect edit with authentication' do
-    species = seed(:melgal)
+    species = species(:melgal)
     assert_raise(ActionController::RoutingError) { get :edit, id: species.to_param }
     #assert_response 404
   end
 
   test 'protect update with authentication' do
-    species = seed(:corbra)
+    species = species(:corbra)
     species.name_ru = 'Американская ворона'
     assert_raise(ActionController::RoutingError) { put :update, id: species.to_param, species: species.attributes }
     #assert_response 404
   end
 
   test "search" do
-    create(:observation, species: seed(:bomgar))
+    create(:observation, species: species(:bomgar))
     get :search, term: 'gar', format: :json
     assert_response :success
     assert_equal Mime::JSON, response.content_type
@@ -158,7 +158,7 @@ class SpeciesControllerTest < ActionController::TestCase
   end
 
   test "search localized" do
-    create(:observation, species: seed(:bomgar))
+    create(:observation, species: species(:bomgar))
     get :search, term: 'gar', locale: 'en', format: :json
     assert_response :success
     assert_equal Mime::JSON, response.content_type

@@ -9,8 +9,12 @@ class Observation < ActiveRecord::Base
   belongs_to :legacy_species
 
   # This will only work if joined with taxon
-  belongs_to :species
+  #belongs_to :species
   # NOTE: Do not use .includes(:taxon), it breaks species preloading, use .preload
+
+  def species
+    taxon.species
+  end
 
   belongs_to :post, -> { short_form }, touch: :updated_at
   has_and_belongs_to_many :media
