@@ -69,6 +69,10 @@ class Species < ActiveRecord::Base
     end
   end
 
+  def main_taxon
+    taxa.where(category: "species").first
+  end
+
   # Formatting
 
   def to_thumbnail

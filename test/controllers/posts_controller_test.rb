@@ -65,14 +65,15 @@ class PostsControllerTest < ActionController::TestCase
   test "species list in the post properly ordered" do
     # Dummy swap of two species
     max_index = Species.maximum(:index_num)
-    sp1 = Species.find_by(index_num: 10)
+    min_index = Species.minimum(:index_num)
+    sp1 = Species.find_by(index_num: min_index)
     sp2 = Species.find_by(index_num: max_index)
     sp1.update_attributes(index_num: max_index)
-    sp2.update_attributes(index_num: 10)
+    sp2.update_attributes(index_num: min_index)
 
     blogpost = create(:post)
-    create(:observation, species: sp2, post: blogpost)
-    create(:observation, species: sp1, post: blogpost)
+    create(:observation, taxon: sp2.main_taxon, post: blogpost)
+    create(:observation, taxon: sp1.main_taxon, post: blogpost)
 
     get :show, blogpost.to_url_params
     assert_equal [sp2, sp1], assigns(:post).species

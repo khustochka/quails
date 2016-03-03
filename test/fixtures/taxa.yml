@@ -14,3 +14,10 @@ hirrus:
   index_num: 50
   ebird_code: barswa
   species: :hirrus
+
+aves_sp:
+  name_sci: "Aves sp."
+  name_en: "bird sp."
+  category: "spuh"
+  index_num: 15000
+  ebird_code: bird1

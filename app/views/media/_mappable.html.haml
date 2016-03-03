@@ -21,7 +21,7 @@
     %p.errors Not yet mapped!
 
   %ul.obs-list
-    = render partial: 'observations/obs_item', collection: mappable.observations.preload(:species, :card => :locus)
+    = render partial: 'observations/obs_item', collection: mappable.observations.preload(:taxon => :species, :card => :locus)
 
 = render 'spots/form'
 

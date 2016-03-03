@@ -32,9 +32,9 @@ class MapsControllerTest < ActionController::TestCase
   test 'return observation search results sorted by taxonomy' do
     login_as_admin
     # Try to create observation in random order
-    obss = [create(:observation, species: species(:denmaj)),
-            create(:observation, species: species(:pasdom)),
-            create(:observation, species: species(:anacre))]
+    obss = [create(:observation, taxon: taxa(:denmaj)),
+            create(:observation, taxon: taxa(:pasdom)),
+            create(:observation, taxon: taxa(:anacre))]
     get :observations, q: {observ_date: obss[0].card.observ_date.iso8601}, format: 'json'
     assert_response :success
     result = JSON.parse(response.body)['json']
@@ -43,7 +43,7 @@ class MapsControllerTest < ActionController::TestCase
 
   test 'return observation search results that include Avis incognita in JSON' do
     login_as_admin
-    observation = create(:observation, species_id: 0)
+    observation = create(:observation, taxon: taxa(:aves_sp))
     get :observations, q: {observ_date: observation.card.observ_date.iso8601}, format: 'json'
     assert_response :success
     assert_equal Mime::JSON, response.content_type

@@ -70,17 +70,17 @@ class ObservationsControllerTest < ActionController::TestCase
   test 'return observation search results in html' do
     login_as_admin
     observation = create(:observation)
-    get :search, q: {species_id: observation.species_id.to_s}
+    get :search, q: {taxon_id: observation.taxon_id.to_s}
     assert_response :success
     assert_equal Mime::HTML, response.content_type
   end
 
   test 'return observation search results that include Avis incognita in HTML' do
     login_as_admin
-    observation = create(:observation, species_id: 0)
+    observation = create(:observation, taxon: taxa(:aves_sp))
     get :search, q: {observ_date: observation.card.observ_date.iso8601}
     assert_response :success
     assert_equal Mime::HTML, response.content_type
-    assert_includes response.body, 'Avis incognita'
+    assert_includes response.body, "Aves sp."
   end
 end

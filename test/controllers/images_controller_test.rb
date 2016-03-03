@@ -30,11 +30,11 @@ class ImagesControllerTest < ActionController::TestCase
   end
 
   test "show photos of multiple species" do
-    sp1 = species(:lancol)
-    sp2 = species(:jyntor)
+    tx1 = taxa(:pasdom)
+    tx2 = taxa(:hirrus)
     card = create(:card, observ_date: "2008-07-01")
-    obs1 = create(:observation, species: sp1, card: card)
-    obs2 = create(:observation, species: sp2, card: card)
+    obs1 = create(:observation, taxon: tx1, card: card)
+    obs2 = create(:observation, taxon: tx2, card: card)
     img = create(:image, slug: 'picture-of-the-shrike-and-the-wryneck', observations: [obs1, obs2])
 
     get :multiple_species
@@ -69,8 +69,8 @@ class ImagesControllerTest < ActionController::TestCase
 
   test "create image with several observations" do
     login_as_admin
-    obs2 = create(:observation, species: species(:lancol), card: @obs.card)
-    obs3 = create(:observation, species: species(:jyntor), card: @obs.card)
+    obs2 = create(:observation, taxon: taxa(:pasdom), card: @obs.card)
+    obs3 = create(:observation, taxon: taxa(:hirrus), card: @obs.card)
     new_attr = attributes_for(:image, slug: 'new_img_slug').except(:observations)
     assert_difference('Image.count') do
       post :create, image: new_attr, obs: [@obs.id, obs2.id, obs3.id]
@@ -216,7 +216,7 @@ class ImagesControllerTest < ActionController::TestCase
   end
 
   test 'Image page can be shown for Avis incognita photo as well' do
-    observation = create(:observation, species_id: 0)
+    observation = create(:observation, taxon: taxa(:aves_sp))
     img = create(:image, slug: 'picture-of-the-unknown', observations: [observation])
     get :show, id: img
   end

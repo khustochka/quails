@@ -16,7 +16,7 @@
       - unless media.new_record?
         %span.restore.pseudolink Restore original
       %ul.obs-list.current-obs
-        = render partial: 'observations/obs_item', collection: media.observations.preload(:species, :card => :locus)
+        = render partial: 'observations/obs_item', collection: media.observations.preload(:taxon => :species, :card => :locus)
     %td.observation_options
       %h5 Found observations
       %ul.obs-list.found-obs

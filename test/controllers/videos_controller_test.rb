@@ -60,8 +60,8 @@ class VideosControllerTest < ActionController::TestCase
 
   test "create video with several observations" do
     login_as_admin
-    obs2 = create(:observation, species: species(:lancol), card: @obs.card)
-    obs3 = create(:observation, species: species(:jyntor), card: @obs.card)
+    obs2 = create(:observation, taxon: taxa(:pasdom), card: @obs.card)
+    obs3 = create(:observation, taxon: taxa(:hirrus), card: @obs.card)
     new_attr = attributes_for(:video, slug: 'new_video_slug').except(:observations)
     assert_difference('Video.count') do
       post :create, video: new_attr, obs: [@obs.id, obs2.id, obs3.id]

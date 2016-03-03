@@ -5,11 +5,11 @@ class LifelistAdvancedTest < ActionController::TestCase
 
   setup do
     @obs = [
-        create(:observation, species: species(:pasdom), card: create(:card, observ_date: "2010-06-20", locus: loci(:nyc))),
-        create(:observation, species: species(:melgal), card: create(:card, observ_date: "2010-06-18", locus: loci(:nyc))),
-        create(:observation, species: species(:anapla), card: create(:card, observ_date: "2009-06-18", locus: loci(:nyc))),
-        create(:observation, species: species(:anacly), card: create(:card, observ_date: "2007-07-18")),
-        create(:observation, species: species(:embcit), card: create(:card, observ_date: "2009-08-09", locus: loci(:brovary)))
+        create(:observation, taxon: taxa(:pasdom), card: create(:card, observ_date: "2010-06-20", locus: loci(:nyc))),
+        create(:observation, taxon: taxa(:melgal), card: create(:card, observ_date: "2010-06-18", locus: loci(:nyc))),
+        create(:observation, taxon: taxa(:anapla), card: create(:card, observ_date: "2009-06-18", locus: loci(:nyc))),
+        create(:observation, taxon: taxa(:anacly), card: create(:card, observ_date: "2007-07-18")),
+        create(:observation, taxon: taxa(:embcit), card: create(:card, observ_date: "2009-08-09", locus: loci(:brovary)))
     ]
   end
 

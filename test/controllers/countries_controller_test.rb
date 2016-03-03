@@ -8,6 +8,7 @@ class CountriesControllerTest < ActionController::TestCase
   end
 
   test 'Birds of Ukraine' do
+    LocalSpecies.create(locus: loci(:ukraine), species: species(:pasdom), status: "")
     get :gallery, country: 'ukraine'
     assert_response :success
     assert assigns(:thumbs).present?

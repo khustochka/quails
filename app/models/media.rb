@@ -73,7 +73,7 @@ class Media < ActiveRecord::Base
   delegate :observ_date, :locus, :locus_id, to: :card
 
   def species
-    taxa.map(&:species).uniq
+    taxa.map(&:species).compact.uniq
   end
 
   def card
