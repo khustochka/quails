@@ -14,4 +14,31 @@
 
 - cache(key: CacheKey.checklist) do
 
-  = render "temp_checklist"
+  %table.neat_table.checklist_table
+
+    - i = 0
+
+    - @checklist.group_by_taxonomy do |order, family, species_list|
+      %tr.family_row
+        %td
+        %td{:colspan => 2}
+          %h2.order= render partial: 'species/taxonomy', locals: {rank: :order, value: order}
+          %h3.family= render partial: 'species/taxonomy', locals: {rank: :family, value: family}
+
+      - species_list.each do |species|
+        %tr
+          %td.align-right= i += 1
+          %td.names
+            %b= species_link(species.species)
+            = name_sci(species.species)
+          %td.status_column
+            - case species.status
+              - when "-"
+                %span.status-old{title: t('.status.old')} x
+              - when "?"
+                %span.status-unsure{title: t('.status.unsure')} ?
+            = convert_status(species.notes)
+            - if species.reference.present?
+              %small
+                = surround("[", "]") do
+                  %a{href: "##{species.reference}"}= species.reference

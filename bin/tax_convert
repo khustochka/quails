@@ -11,3 +11,4 @@ rake tax:restore_mapping
 rake tax:import_species_names
 rake tax:map_observations
 rake tax:map_species_images
+rake tax:remap_local_species

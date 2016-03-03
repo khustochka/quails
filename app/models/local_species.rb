@@ -3,24 +3,16 @@ class LocalSpecies < ActiveRecord::Base
   include ActiveRecord::Localized
   localize :notes
 
-  has_many :taxa, foreign_key: :species_id, primary_key: :species_id
+  delegate :order, :family, to: :species
 
-  delegate :order, :family, to: :taxon
-
-  #belongs_to :locus
-  #belongs_to :species
-  #has_one :image, through: :species
-
-  def taxon
-    raise "Local species taxa not loaded" unless association(:taxa).loaded?
-    raise "Local species taxa not filtered by checklist" if taxa.size > 1
-    taxa.first
-  end
+  belongs_to :locus
+  belongs_to :species
+  has_one :image, through: :species
 
   # Formatting
 
   def to_thumbnail
-    Thumbnail.new(taxon.species, {partial: 'species/thumb_title'}, taxon.image)
+    Thumbnail.new(species, {partial: 'species/thumb_title'}, species.image)
   end
 
 end

@@ -28,6 +28,8 @@ class Species < ActiveRecord::Base
   has_many :videos, through: :observations
   has_many :posts, -> { order(face_date: :desc).distinct }, through: :observations
 
+  has_many :local_species
+
   scope :ordered_by_taxonomy, lambda { uniq.reorder("species.index_num") }
 
   def ordered_images

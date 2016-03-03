@@ -46,12 +46,10 @@ class Locus < ActiveRecord::Base
   # Instance methods
 
   def checklist(to_include = [])
-    book_taxa = Taxon.where(book_id: 1) if slug == 'ukraine'
-
     local_species.
-        joins(:taxa => to_include).includes(:taxa => to_include).
-        merge(book_taxa).
-        order("taxa.index_num").
+        joins(species: to_include).
+        preload(species: to_include).
+        order("species.index_num").
         extending(SpeciesArray)
   end
 
