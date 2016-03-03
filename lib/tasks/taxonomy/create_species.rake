@@ -9,7 +9,7 @@ namespace :tax do
                  name_sci: tx.name_sci,
                  name_en: tx.name_en,
                  order: tx.order,
-                 family: tx.family,
+                 family: tx.family.match(/^\w+dae/)[0],
                  index_num: idx + 1
       )
       Taxon.where("id = ? OR parent_id = ?", tx.id, tx.id).update_all(species_id: sp.id)
