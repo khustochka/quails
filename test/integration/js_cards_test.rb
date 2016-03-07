@@ -42,11 +42,11 @@ class JSCardsTest < ActionDispatch::IntegrationTest
     find(:xpath, "//span[text()='Add new row']").click
 
     within(:xpath, "//div[contains(@class,'obs-row')][1]") do
-      select_suggestion('Crex crex', from: 'Species')
+      select_suggestion('Passer domesticus', from: 'Taxon')
     end
 
     within(:xpath, "//div[contains(@class,'obs-row')][2]") do
-      select_suggestion('Falco tinnunculus', from: 'Species')
+      select_suggestion('Hirundo rustica', from: 'Taxon')
     end
 
     assert_difference('Observation.count', 2) { save_and_check }
@@ -64,13 +64,13 @@ class JSCardsTest < ActionDispatch::IntegrationTest
     assert_equal 1, all('.obs-row').size
 
     within(:xpath, "//div[contains(@class,'obs-row')][1]") do
-      select_suggestion('Parus major', from: 'Species')
+      select_suggestion('Passer domesticus', from: 'Taxon')
     end
 
     find(:xpath, "//span[text()='Add new row']").click
 
     within(:xpath, "//div[contains(@class,'obs-row')][2]") do
-      select_suggestion('Crex crex', from: 'Species')
+      select_suggestion('Hirundo rustica', from: 'Taxon')
     end
 
     assert_difference('Observation.count', 2) { save_and_check }
@@ -80,15 +80,15 @@ class JSCardsTest < ActionDispatch::IntegrationTest
     login_as_admin
     visit new_card_path
 
-    select_suggestion('Parus major', from: 'species-quick-add')
+    select_suggestion('Passer domesticus', from: 'species-quick-add')
 
     assert_equal 1, all('.obs-row').size
 
     field = find(:xpath, "//div[contains(@class,'obs-row')][1]//input[contains(@class, 'sp-light')]")
 
-    assert_equal 'Parus major', field.value
+    assert_equal 'Passer domesticus', field.value
 
-    assert_equal species(:parmaj).id.to_s, field.find(:xpath, "./following-sibling::input", visible: false).value
+    assert_equal taxa(:pasdom).id.to_s, field.find(:xpath, "./following-sibling::input", visible: false).value
   end
 
   test "Remove row" do
@@ -109,7 +109,7 @@ class JSCardsTest < ActionDispatch::IntegrationTest
   test "Destroy observation from card page" do
 
     @card = create(:card)
-    o = create(:observation, species: species(:melgal), card: @card)
+    o = create(:observation, taxon: taxa(:pasdom), card: @card)
 
     login_as_admin
 
@@ -133,8 +133,8 @@ class JSCardsTest < ActionDispatch::IntegrationTest
   test "Save card after observation removal" do
 
     @card = create(:card)
-    o = create(:observation, species: species(:melgal), card: @card)
-    o2 = create(:observation, species: species(:pasdom), card: @card)
+    o = create(:observation, taxon: taxa(:hirrus), card: @card)
+    o2 = create(:observation, taxon: taxa(:pasdom), card: @card)
 
     login_as_admin
     visit edit_card_path(@card)
@@ -162,11 +162,11 @@ class JSCardsTest < ActionDispatch::IntegrationTest
     find(:xpath, "//span[text()='Add new row']").click
 
     within(:xpath, "//div[contains(@class,'obs-row')][1]") do
-      select_suggestion('- Avis incognita', from: 'Species')
+      select_suggestion('Aves sp.', from: 'Taxon')
     end
 
     assert_difference('Observation.count', 1) { save_and_check }
-    assert_equal 0, Observation.order(id: :desc).first.species_id
+    assert_equal taxa(:aves_sp), Observation.order(id: :desc).first.taxon
   end
 
   test "Clicking on voice checkbox label should not change the wrong checkbox" do
@@ -208,11 +208,11 @@ class JSCardsTest < ActionDispatch::IntegrationTest
     find(:xpath, "//span[text()='Add new row']").click
 
     within(:xpath, "//div[contains(@class,'obs-row')][1]") do
-      select_suggestion('Crex crex', from: 'Species')
+      select_suggestion('Passer domesticus', from: 'Taxon')
     end
 
     within(:xpath, "//div[contains(@class,'obs-row')][2]") do
-      select_suggestion('Falco tinnunculus', from: 'Species')
+      select_suggestion('Hirundo rustica', from: 'Taxon')
     end
 
     assert_difference('Observation.count', 2) { save_and_check }
@@ -236,7 +236,7 @@ class JSCardsTest < ActionDispatch::IntegrationTest
     find(:xpath, "//span[text()='Add new row']").click
 
     within(:xpath, "//div[contains(@class,'obs-row')][1]") do
-      select_suggestion('Crex crex', from: 'Species')
+      select_suggestion('Passer domesticus', from: 'Taxon')
     end
 
     assert_difference('Observation.count', 1) { save_and_check }
@@ -259,7 +259,7 @@ class JSCardsTest < ActionDispatch::IntegrationTest
     find(:xpath, "//span[text()='Add new row']").click
 
     within(:xpath, "//div[contains(@class,'obs-row')][1]") do
-      select_suggestion('Crex crex', from: 'Species')
+      select_suggestion('Passer domesticus', from: 'Taxon')
     end
 
     save_and_check

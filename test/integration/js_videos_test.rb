@@ -17,7 +17,7 @@ class JSVideosTest < ActionDispatch::IntegrationTest
     Capybara.use_default_driver
     video = create(:video)
     card = video.observations[0].card
-    create(:observation, species: species(:lancol), card: card, videos: [video])
+    create(:observation, taxon: taxa(:pasdom), card: card, videos: [video])
 
     login_as_admin
     visit edit_video_path(video)
@@ -35,7 +35,7 @@ class JSVideosTest < ActionDispatch::IntegrationTest
   test "Save existing video with no changes" do
     video = create(:video)
     card = video.observations[0].card
-    create(:observation, species: species(:lancol), card: card, videos: [video])
+    create(:observation, taxon: taxa(:pasdom), card: card, videos: [video])
 
     login_as_admin
     visit edit_video_path(video)
@@ -71,8 +71,8 @@ class JSVideosTest < ActionDispatch::IntegrationTest
   end
 
   test "Video save does not use all found observations" do
-    create(:observation, species: species(:merser))
-    create(:observation, species: species(:anapla))
+    create(:observation, taxon: taxa(:pasdom))
+    create(:observation, taxon: taxa(:hirrus))
     login_as_admin
     visit new_video_path
 
@@ -84,19 +84,19 @@ class JSVideosTest < ActionDispatch::IntegrationTest
       click_button 'Search'
     end
 
-    find(:xpath, "//ul[contains(@class,'found-obs')]/li[div[contains(text(),'Mergus serrator')]]").drag_to find('.observation_list')
+    find(:xpath, "//ul[contains(@class,'found-obs')]/li[div[contains(text(),'Hirundo rustica')]]").drag_to find('.observation_list')
 
     assert_difference('Video.count', 1) { save_and_check }
     video = Video.find_by_slug('test-video-capybara')
 
-    assert_equal ['Mergus serrator'], video.species.pluck(:name_sci)
+    assert_equal ['Hirundo rustica'], video.species.map(&:name_sci)
   end
 
   test "Remove an observation from video" do
     video = create(:video)
     card = video.observations[0].card
-    create(:observation, species: species(:lancol), card: card, videos: [video])
-    create(:observation, species: species(:denmaj), card: card, videos: [video])
+    create(:observation, taxon: taxa(:pasdom), card: card, videos: [video])
+    create(:observation, taxon: taxa(:hirrus), card: card, videos: [video])
 
     login_as_admin
     visit edit_video_path(video)
@@ -111,7 +111,7 @@ class JSVideosTest < ActionDispatch::IntegrationTest
 
   test "Restore original observations if deleted" do
     video = create(:video)
-    create(:observation, species: species(:lancol), videos: [video])
+    create(:observation, taxon: taxa(:pasdom), videos: [video])
 
     login_as_admin
     visit edit_video_path(video)
