@@ -8,7 +8,7 @@ namespace :db do
     if ENV['RAILS_ENV'] == 'production'
       puts "You will destroy production DB!\nIf sure, type\n  #{cli}"
     else
-      exec cli
+      system cli
     end
   end
 

@@ -2,6 +2,13 @@ namespace :tax do
 
   desc "Import ebird taxa to taxa and ebird_taxa tables"
   task :import_ebird_taxa => :environment do
+
+    filename = ENV['CSV'] || "./vendor/eBird_v2015_csv.csv"
+
+    raise "*** Provide path to ebird CSV as CSV env var." if filename.blank?
+
+    puts "\n********** Import taxa from ebird from `#{filename}`"
+
     if Taxon.count > 0 || EbirdTaxon.count > 0
       raise "Taxa tables not empty"
     end
@@ -9,9 +16,6 @@ namespace :tax do
     require 'csv'
 
     codes = {}
-    filename = ENV['CSV']
-
-    raise "*** Provide path to ebird CSV as CSV env var." if filename.blank?
 
     # File was in MacCentEuro encoding but I saved it in UTF-8
     data = CSV.read(filename)

@@ -2,6 +2,9 @@ namespace :tax do
 
   desc "Creates species from taxa"
   task :create_species => :environment do
+
+    puts "\n********** Create species from taxa"
+
     Species.delete_all
     Taxon.category_species.find_each.with_index do |tx, idx|
       begin
