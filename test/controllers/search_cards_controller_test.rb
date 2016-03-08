@@ -29,16 +29,17 @@ class SearchCardsControllerTest < ActionController::TestCase
   end
 
   test "Avis incognita properly rendered on index page" do
-    create(:observation, species_id: 0, card: create(:card, observ_date: "2010-06-18"))
-    create(:observation, species_id: 0, card: create(:card, observ_date: "2009-06-19"))
+    create(:observation, taxon: taxa(:aves_sp), card: create(:card, observ_date: "2010-06-18"))
+    create(:observation, taxon: taxa(:aves_sp), card: create(:card, observ_date: "2009-06-19"))
     login_as_admin
-    get :index, q: {species_id: 0}
+    aves_sp_id = taxa(:aves_sp).id
+    get :index, q: {taxon_id: aves_sp_id}
     assert_response :success
     cards = assigns(:cards)
     assert_not_nil cards
-    assert cards.find { |c| (c.observations.find { |o| o.species_id == 0 }).present? }.present?,
-           "Expected to include Avis incognita"
-    assert_select 'li b', '- Avis incognita'
+    assert cards.find { |c| (c.observations.find { |o| o.taxon_id == aves_sp_id }).present? }.present?,
+           "Expected to include Aves sp."
+    assert_select 'li b', 'Bird sp.'
   end
 
 end
