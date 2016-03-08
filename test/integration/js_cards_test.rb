@@ -15,7 +15,7 @@ class JSCardsTest < ActionDispatch::IntegrationTest
   end
   private :save_and_check, :select_date
 
-  test "Adding card" do
+  test "Adding empty card" do
     login_as_admin
     visit new_card_path
 
@@ -209,12 +209,13 @@ class JSCardsTest < ActionDispatch::IntegrationTest
 
     within(:xpath, "//div[contains(@class,'obs-row')][1]") do
       select_suggestion('Passer domesticus', from: 'Taxon')
+      assert find(:css, "input.hidden", visible: false).value == taxa(:pasdom).id, "Taxon not selected properly"
     end
 
     within(:xpath, "//div[contains(@class,'obs-row')][2]") do
       select_suggestion('Hirundo rustica', from: 'Taxon')
+      assert find(:css, "input.hidden", visible: false).value == taxa(:hirrus).id, "Taxon not selected properly"
     end
-
     assert_difference('Observation.count', 2) { save_and_check }
 
     assert_equal 2, blogpost.cards[0].observations.size

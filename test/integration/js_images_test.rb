@@ -17,7 +17,7 @@ class JSImagesTest < ActionDispatch::IntegrationTest
     Capybara.use_default_driver
     img = create(:image)
     card = img.observations[0].card
-    create(:observation, species: species(:lancol), card: card, images: [img])
+    create(:observation, card: card, images: [img])
 
     login_as_admin
     visit edit_image_path(img)
@@ -35,7 +35,7 @@ class JSImagesTest < ActionDispatch::IntegrationTest
   test "Save existing image with no changes" do
     img = create(:image)
     card = img.observations[0].card
-    create(:observation, species: species(:lancol), card: card, images: [img])
+    create(:observation, card: card, images: [img])
 
     login_as_admin
     visit edit_image_path(img)
@@ -71,8 +71,8 @@ class JSImagesTest < ActionDispatch::IntegrationTest
   end
 
   test "Image save does not use all found observations" do
-    create(:observation, species: species(:merser))
-    create(:observation, species: species(:anapla))
+    create(:observation)
+    create(:observation, taxon: taxa(:hirrus))
     login_as_admin
     visit new_image_path
 
@@ -83,19 +83,19 @@ class JSImagesTest < ActionDispatch::IntegrationTest
       click_button 'Search'
     end
 
-    find(:xpath, "//ul[contains(@class,'found-obs')]/li[div[contains(text(),'Mergus serrator')]]").drag_to find('.observation_list')
+    find(:xpath, "//ul[contains(@class,'found-obs')]/li[div[contains(text(),'Passer domesticus')]]").drag_to find('.observation_list')
 
     assert_difference('Image.count', 1) { save_and_check }
     img = Image.find_by(slug: 'test-img-capybara')
 
-    assert_equal ['Mergus serrator'], img.species.pluck(:name_sci)
+    assert_equal ['Passer domesticus'], img.species.map(&:name_sci)
   end
 
   test "Remove an observation from image" do
     img = create(:image)
     card = img.observations[0].card
-    create(:observation, species: species(:lancol), card: card, images: [img])
-    create(:observation, species: species(:denmaj), card: card, images: [img])
+    create(:observation, card: card, images: [img])
+    create(:observation, card: card, images: [img])
 
     login_as_admin
     visit edit_image_path(img)
@@ -110,7 +110,7 @@ class JSImagesTest < ActionDispatch::IntegrationTest
 
   test "Restore original observations if deleted" do
     img = create(:image)
-    create(:observation, species: species(:lancol), images: [img])
+    create(:observation, images: [img])
 
     login_as_admin
     visit edit_image_path(img)

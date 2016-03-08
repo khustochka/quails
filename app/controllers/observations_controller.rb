@@ -17,7 +17,7 @@ class ObservationsController < ApplicationController
         format.html { redirect_to observation_path(@observation), notice: 'Observation was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render :form }
+        format.html { render :show }
         format.json { render json: @observation.errors, status: :unprocessable_entity }
       end
     end

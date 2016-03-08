@@ -19,6 +19,14 @@ class ObservationsControllerTest < ActionController::TestCase
     assert_redirected_to observation_path(assigns(:observation))
   end
 
+  test "Invalid observation update" do
+    observation = create(:observation)
+    observ = attributes_for(:observation, {'taxon_id' => nil})
+    login_as_admin
+    put :update, id: observation.id, observation: observ
+    assert_select "div.observation_taxon.field_with_errors"
+  end
+
   test "destroy observation" do
     observation = create(:observation)
     assert_difference('Observation.count', -1) do

@@ -61,6 +61,7 @@ module JavaScriptTestCase
         selector = ".ui-menu-item a:contains(\"#{value}\"):first"
         fill_in hash[:from], with: value
         sleep(0.01)
+        #raise "No element '#{value}' in the field #{hash[:from]}" unless page.has_selector?(:xpath, "//*[@class=\"ui-menu-item\"]//a[contains(text(), \"#{value}\")]")
         page.execute_script " $('#{selector}').trigger('mouseenter').click();"
       end
 
