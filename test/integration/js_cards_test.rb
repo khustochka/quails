@@ -209,12 +209,12 @@ class JSCardsTest < ActionDispatch::IntegrationTest
 
     within(:xpath, "//div[contains(@class,'obs-row')][1]") do
       select_suggestion('Passer domesticus', from: 'Taxon')
-      assert find(:css, "input.hidden", visible: false).value == taxa(:pasdom).id, "Taxon not selected properly"
+      assert_equal taxa(:pasdom).id.to_s, find(:css, "input.hidden", visible: false).value.to_s, "Taxon not selected properly"
     end
 
     within(:xpath, "//div[contains(@class,'obs-row')][2]") do
       select_suggestion('Hirundo rustica', from: 'Taxon')
-      assert find(:css, "input.hidden", visible: false).value == taxa(:hirrus).id, "Taxon not selected properly"
+      assert_equal taxa(:hirrus).id.to_s, find(:css, "input.hidden", visible: false).value.to_s, "Taxon not selected properly"
     end
     assert_difference('Observation.count', 2) { save_and_check }
 
