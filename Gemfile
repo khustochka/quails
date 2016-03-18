@@ -42,7 +42,7 @@ gem 'addressable', require: 'addressable/uri'
 gem 'roman-numerals'
 
 # Monitoring
-gem 'airbrake', '~> 4.3'
+gem 'airbrake'
 gem 'newrelic_rpm'
 
 # Assets
