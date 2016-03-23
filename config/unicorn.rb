@@ -8,11 +8,11 @@
 # See http://unicorn.bogomips.org/Unicorn/Configurator.html for complete
 # documentation.
 
-env = ENV["RAILS_ENV"] || "production"
+env = ENV["RACK_ENV"] || ENV["RAILS_ENV"] || "development"
 
 # Use at least one worker per core if you're on a dedicated server,
 # more will usually help for _short_ waits on databases/caches.
-worker_processes (ENV["QUAILS_UNICORN_WORKERS"] || 3).to_i
+worker_processes (ENV["WEB_CONCURRENCY"] || 3).to_i
 
 # Since Unicorn is never exposed to outside clients, it does not need to
 # run on the standard HTTP port (80), there is no reason to start Unicorn
@@ -20,8 +20,7 @@ worker_processes (ENV["QUAILS_UNICORN_WORKERS"] || 3).to_i
 # If running the master process as root and the workers as an unprivileged
 # user, do this to switch euid/egid in the workers (also chowns logs):
 
-#user_name = ENV['QUAILS_UNICORN_USER']
-#if user_name
+if ENV["PORT"].nil?
 
  # user user_name, user_name
 
@@ -37,10 +36,10 @@ worker_processes (ENV["QUAILS_UNICORN_WORKERS"] || 3).to_i
 # By default, the Unicorn logger will write to stderr.
 # Additionally, ome applications/frameworks log to stderr or stdout,
 # so prevent them from going to /dev/null when daemonized here:
-  #stderr_path "/home/#{user_name}/www/quails/shared/log/unicorn.log"
-  #stdout_path "/home/#{user_name}/www/quails/shared/log/unicorn.log"
+  stderr_path "../../shared/log/unicorn.log"
+  stdout_path "../../shared/log/unicorn.log"
 
-#end
+end
 
 # nuke workers after 30 seconds instead of 60 seconds (the default)
 timeout 30
