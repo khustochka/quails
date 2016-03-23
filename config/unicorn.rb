@@ -20,10 +20,10 @@ worker_processes (ENV["QUAILS_UNICORN_WORKERS"] || 3).to_i
 # If running the master process as root and the workers as an unprivileged
 # user, do this to switch euid/egid in the workers (also chowns logs):
 
-user_name = ENV['QUAILS_UNICORN_USER']
-if user_name
+#user_name = ENV['QUAILS_UNICORN_USER']
+#if user_name
 
-  user user_name, user_name
+ # user user_name, user_name
 
 # listen on both a Unix domain socket and a TCP port,
 # we use a shorter backlog for quicker failover when busy
@@ -32,15 +32,15 @@ if user_name
 #listen 9099, :tcp_nopush => true
 
 # feel free to point this anywhere accessible on the filesystem
-  pid "/home/#{user_name}/www/quails/shared/pids/unicorn.pid"
+  pid "../../shared/pids/unicorn.pid"
 
 # By default, the Unicorn logger will write to stderr.
 # Additionally, ome applications/frameworks log to stderr or stdout,
 # so prevent them from going to /dev/null when daemonized here:
-  stderr_path "/home/#{user_name}/www/quails/shared/log/unicorn.log"
-  stdout_path "/home/#{user_name}/www/quails/shared/log/unicorn.log"
+  #stderr_path "/home/#{user_name}/www/quails/shared/log/unicorn.log"
+  #stdout_path "/home/#{user_name}/www/quails/shared/log/unicorn.log"
 
-end
+#end
 
 # nuke workers after 30 seconds instead of 60 seconds (the default)
 timeout 30
