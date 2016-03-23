@@ -34,9 +34,9 @@
     %div.fluid-column
 
       %h2
-        = link_to(t('lists.title.usa'), list_path(locus: 'usa'))
+        = link_to(t('lists.title.ukraine'), list_path(locus: 'ukraine'))
 
-      = render partial: "top5list", object: @list_usa
+      = render partial: "top5list", object: @list_ukraine
 
     %div.fluid-column
 
@@ -59,8 +59,8 @@
     %div.fluid-column
 
       %h2
-        = link_to(t('lists.title.ukraine'), list_path(locus: 'ukraine'))
-        (#{@list_ukraine.total_count})
+        = link_to(t('lists.title.usa'), list_path(locus: 'usa'))
+        (#{@list_usa.total_count})
 
       -#= render partial: "top5list", object: @list_ukraine
 

@@ -2,7 +2,7 @@ source 'https://rubygems.org/'
 
 ruby '2.3.0'
 
-gem 'rails', '4.2.5.2'
+gem 'rails', '4.2.6'
 
 gem 'pg', platforms: [:ruby, :mingw]
 #gem "activerecord-jdbcpostgresql-adapter", platforms: :jruby
@@ -42,7 +42,7 @@ gem 'addressable', require: 'addressable/uri'
 gem 'roman-numerals'
 
 # Monitoring
-gem 'airbrake', '~> 4.3'
+gem 'airbrake'
 gem 'newrelic_rpm'
 
 # Assets
