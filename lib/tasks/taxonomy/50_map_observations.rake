@@ -28,7 +28,13 @@ namespace :tax do
 
     legacy_sps = LegacySpecies.where(id: base.select(:legacy_species_id))
     legacy_sps.each do |lsp|
-      base.where(legacy_species_id: lsp.id).update_all(taxon_id: lsp.species.taxa.where(category: "species").first.id)
+      sp = lsp.species
+      if sp
+        base.where(legacy_species_id: lsp.id).update_all(taxon_id: sp.taxa.where(category: "species").first.id)
+      else
+        puts "Species mapping not present for #{lsp.name_sci}. Please set the mapping, backup it with rake tax:backup_mapping and rerun."
+        abort
+      end
     end
 
     # Aves sp
