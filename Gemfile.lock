@@ -141,8 +141,6 @@ GEM
     pry-rails (0.3.4)
       pry (>= 0.9.10)
     puma (3.1.0)
-    puma-heroku (1.0.0)
-      puma (~> 3.0)
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -252,7 +250,6 @@ DEPENDENCIES
   pry-byebug
   pry-rails
   puma
-  puma-heroku
   rails (= 4.2.6)
   rails-i18n
   rinku

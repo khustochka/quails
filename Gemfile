@@ -10,7 +10,6 @@ gem 'pg', platforms: [:ruby, :mingw]
 # Deployment
 #gem 'unicorn', require: false, platforms: :ruby
 gem "puma"
-gem "puma-heroku"
 gem 'dotenv-rails'
 
 # Translations
