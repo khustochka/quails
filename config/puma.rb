@@ -5,14 +5,13 @@ threads threads_count, threads_count
 
 preload_app!
 
-app_port = ENV['PORT'] || 3000
+app_port = ENV['PORT']
 rails_env = ENV['RACK_ENV'] || ENV['RAILS_ENV'] || 'development'
 
-port app_port
 environment rails_env
 
 # Run on socket in production if port is not specified
-if ENV['PORT'].nil? && rails_env == "production"
+if app_port.nil? && rails_env == "production"
   app_dir = File.expand_path("../../../..", __FILE__)
   shared_dir = "#{app_dir}/shared"
 
@@ -24,6 +23,8 @@ if ENV['PORT'].nil? && rails_env == "production"
 # Set master PID and state locations
   pidfile "#{shared_dir}/pids/puma.pid"
   state_path "#{shared_dir}/pids/puma.state"
+else
+  port app_port || 3000
 end
 
 on_worker_boot do
