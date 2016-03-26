@@ -13,7 +13,7 @@ environment rails_env
 
 # Run on socket in production if port is not specified
 if ENV['PORT'].nil? && rails_env == "production"
-  app_dir = File.expand_path("../..", __FILE__)
+  app_dir = File.expand_path("../../../..", __FILE__)
   shared_dir = "#{app_dir}/shared"
 
   bind "unix://#{shared_dir}/sockets/puma.sock"
