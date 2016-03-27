@@ -8,7 +8,8 @@ gem 'pg', platforms: [:ruby, :mingw]
 #gem "activerecord-jdbcpostgresql-adapter", platforms: :jruby
 
 # Deployment
-gem 'unicorn', require: false, platforms: :ruby
+#gem 'unicorn', require: false, platforms: :ruby
+gem "puma"
 gem 'dotenv-rails'
 
 # Translations
@@ -60,6 +61,7 @@ group :development do
   gem 'pry-rails'
   gem 'pry-byebug'
   gem 'benchmark-ips'
+  gem "foreman"
 end
 
 # in dev group for generators
