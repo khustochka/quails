@@ -17,6 +17,16 @@ class EbirdControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test 'new ebird with search' do
+    card1 = FactoryGirl.create(:card, observ_date: "2016-01-01")
+    card2 = FactoryGirl.create(:card, observ_date: "2016-01-03")
+    login_as_admin
+    get :new, q: {observ_date: "2016-01-01", end_date: "2016-01-03"}
+    assert_response :success
+    file = assigns(:file)
+    assert_equal "ukraine-20160101-20160103", file.name
+  end
+
   test "create ebird file object with valid params" do
     card1 = FactoryGirl.create(:observation).card
     card2 = FactoryGirl.create(:observation).card
