@@ -16,9 +16,16 @@ namespace :tax do
     base.where(legacy_species_id: old_larfus.id, "cards.locus_id" => uk_locs).update_all(taxon_id: larfus_grael.id)
 
     aba_locs = %w(usa canada).map {|slug| Locus.find_by_slug(slug).subregion_ids}.inject(:+)
+
     old_hirrus = LegacySpecies.find_by_code "hirrus"
     hirrus_amer = Taxon.find_by_name_sci("Hirundo rustica erythrogaster")
     base.where(legacy_species_id: old_hirrus.id, "cards.locus_id" => aba_locs).update_all(taxon_id: hirrus_amer.id)
+
+    old_anacre = LegacySpecies.find_by_code "anacre"
+    anacre_amer = Taxon.find_by_name_sci("Anas crecca carolinensis")
+    anacre_euro = Taxon.find_by_name_sci("Anas crecca crecca/nimia")
+    base.where(legacy_species_id: old_anacre.id, "cards.locus_id" => aba_locs).update_all(taxon_id: anacre_amer.id)    
+    base.where(legacy_species_id: old_anacre.id).where("cards.locus_id NOT IN (?)", aba_locs).update_all(taxon_id: anacre_euro.id)
 
     old_lararg = LegacySpecies.find_by_code "lararg"
     lararg_amer = Taxon.find_by_name_sci("Larus argentatus smithsonianus")
