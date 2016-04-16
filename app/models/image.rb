@@ -27,18 +27,21 @@ class Image < Media
     observations.preload(:post).map(&:post).uniq.each { |p| p.try(:touch) }
   end
 
-  after_destroy do
-    species.each(&:update_image)
-    cards.preload(:post).map(&:post).uniq.each { |p| p.try(:touch) }
-    observations.preload(:post).map(&:post).uniq.each { |p| p.try(:touch) }
+  before_destroy do
+    # Save observation ids to make after_destroy work properly
+    @cached_observation_ids = self.observation_ids
   end
 
-  def destroy
-    # If associations are not cached before, they are empty on destroy, so have to preload them for after_destroy hook
-    observations.to_a
-    cards.to_a
-    species.to_a
-    super
+  after_destroy do
+    base_obs = Observation.where(id: @cached_observation_ids)
+    species = Species.where(id: base_obs.select(:species_id))
+    species.each(&:update_image)
+
+    cards = Card.where(id: base_obs.select(:card_id)).preload(:post)
+    cards.map(&:post).uniq.each { |p| p.try(:touch) }
+
+    observations = base_obs.preload(:post)
+    observations.map(&:post).uniq.each { |p| p.try(:touch) }
   end
 
   # Scopes
