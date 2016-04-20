@@ -48,6 +48,8 @@ gem "high_voltage"
 # External services
 gem 'flickraw', '~> 0.9.7'
 gem 'livejournal', '~> 0.3.9'
+gem "omniauth-facebook"
+gem "omniauth-flickr"
 
 # Small utils
 gem 'hashie'

@@ -1,8 +1,42 @@
 <div id="fb-root"></div>
-<script>(function(d, s, id) {
+<script>
+window.fbAsyncInit = function() {
+    FB.init({
+        appId      : $("meta[property='fb:app_id']").attr('content'),
+        xfbml      : true,
+        cookie     : true,
+        status     : true,
+        version    : 'v2.6'
+    });
+};
+
+(function(d, s, id){
     var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
+    if (d.getElementById(id)) {return;}
     js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=" + $("meta[property='fb:app_id']").attr('content');
+    js.src = "//connect.facebook.net/en_US/sdk.js";
     fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
+}(document, 'script', 'facebook-jssdk'));
+
+$(function() {
+    $(".facebook-login").click(function(e) {
+        e.preventDefault();
+        FB.login(function(response) {
+            if (response.authResponse) {
+                $('#connect').html('Connected! Hitting OmniAuth callback (GET /auth/facebook/callback)...');
+                // since we have cookies enabled, this request will allow omniauth to parse
+                // out the auth code from the signed request in the fbsr_XXX cookie
+                $.getJSON('/auth/facebook/callback', function(json) {
+                    $('#connect').html('Connected! Callback complete.');
+                    $('#results').html(JSON.stringify(json));
+//                    FB.api('/me', function(response) {
+//                        console.log('Successful login for: ' + JSON.stringify(response));
+//                    });
+                });
+            }
+        }, { scope: 'public_profile,email', state: 'abc123' });
+    });
+});
+
+
+</script>

@@ -213,6 +213,8 @@ Rails.application.routes.draw do
     get :reply, on: :member
   end
 
+  get '/auth/:provider/callback', to: 'facebook_login#create', provider: "facebook"
+
   scope '(:locale)', locale: /en/ do
     resource :map, only: [:show]
   end

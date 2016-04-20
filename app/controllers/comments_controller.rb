@@ -81,10 +81,12 @@ class CommentsController < ApplicationController
 
           format.html {
             if request.xhr?
-              object_to_render = @comment
-              unless @comment.approved
-                object_to_render = CommentScreened.new({id: @comment.id, path: public_comment_path(@comment)})
-              end
+              object_to_render =
+                  if @comment.approved
+                    @comment
+                  else
+                    CommentScreened.new({id: @comment.id, path: public_comment_path(@comment)})
+                  end
               render object_to_render, layout: false
             else
               flash[:screened] = {

@@ -48,9 +48,11 @@ ActiveRecord::Schema.define(version: 20161225010312) do
   add_index "cards", ["post_id"], name: "index_cards_on_post_id", using: :btree
 
   create_table "commenters", force: :cascade do |t|
-    t.string  "email",    limit: 255
-    t.string  "name",     limit: 255
-    t.boolean "is_admin",             default: false
+    t.string  "email",     limit: 255
+    t.string  "name",      limit: 255
+    t.boolean "is_admin",              default: false
+    t.string  "provider"
+    t.text    "auth_hash"
   end
 
   create_table "comments", force: :cascade do |t|

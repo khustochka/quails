@@ -13,6 +13,7 @@ class FlickrController < ApplicationController
   end
 
   def auth
+    binding.pry
     @auth_token = flickr.access_token
     @auth_secret = flickr.access_secret
     if @auth_token.blank?
