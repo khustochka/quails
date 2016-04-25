@@ -37,9 +37,9 @@
 
     = @post.decorated.for_site.text
 
-= render 'social/buttons'
+    = render 'posts/sections/photos'
 
-= render 'posts/sections/photos'
+= render 'social/buttons'
 
 - cache([:species_section, post_id: @post.id, key: CacheKey.lifelist, locale: I18n.locale]) do
   = render partial: 'species/flat_section', object: @post

@@ -13,8 +13,23 @@ class EbirdController < ApplicationController
   end
 
   def new
-    @file = Ebird::File.new
-    @observation_search = Ebird::ObsSearch.new
+    @observation_search = Ebird::ObsSearch.new(params[:q])
+
+    @cards = if params[:q]
+               @observation_search.cards.preload(:locus, :post)
+             else
+               Card.none
+             end
+
+    name = if @cards.present?
+             [
+                 @cards.first.locus.country.slug,
+                 @observation_search.observ_date.try(:gsub, "-", ""),
+                 @observation_search.end_date.try(:gsub, "-", "")
+             ].compact.uniq.join("-")
+           end
+
+    @file = Ebird::File.new(cards: @cards, name: name)
   end
 
   def create
@@ -60,7 +75,7 @@ class EbirdController < ApplicationController
         result = Exporter.ebird(@file.name, cards_rel).export
       else
         # FIXME: this is hack. For some reason errors on cards are not preserved after validation.
-        @file.cards.each {|c| c.valid?(:ebird_post)}
+        @file.cards.each { |c| c.valid?(:ebird_post) }
         result = false
       end
 

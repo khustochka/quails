@@ -28,9 +28,10 @@ class SpeciesImageTest < ActiveSupport::TestCase
   test 'removing the active species image links another one to the species' do
     img = create(:image)
     img2 = create(:image)
-    sps = img.species
+    sps = img.species.first
     img.destroy
-    assert_equal [img2.id], sps.map {|sp| sp.image.id}
+    sps.reload
+    assert_equal img2.id, sps.image.id
   end
 
   test 'species images should not be duplicated (if multi-species)' do

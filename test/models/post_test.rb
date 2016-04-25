@@ -128,7 +128,31 @@ class PostTest < ActiveSupport::TestCase
 
     travel 1.minute
 
-    i.update({observation_ids: [o2.id]})
+    # Have to refind it to clear association cache
+    img = Image.find(i.id)
+
+    img.update({observation_ids: [o2.id]})
+
+    p.reload
+    assert p.updated_at.to_i > saved_date.to_i
+
+    travel_back
+  end
+
+  test 'destroying image should touch posts`s updated_at' do
+    p = create(:post)
+    saved_date = p.updated_at
+    card = create(:card, post: p)
+
+    o = create(:observation, card: card)
+    i = create(:image, observations: [o])
+
+    travel 1.minute
+
+    # Have to refind it to clear association cache
+    img = Image.find(i.id)
+
+    img.destroy
 
     p.reload
     assert p.updated_at.to_i > saved_date.to_i
@@ -144,8 +168,11 @@ class PostTest < ActiveSupport::TestCase
 
     travel 1.minute
 
-    card.post = nil
-    card.save!
+
+    # Have to refind it to clear association cache
+    c = Card.find card.id
+    c.post = nil
+    c.save!
 
     p.reload
     assert p.updated_at.to_i > saved_date.to_i
