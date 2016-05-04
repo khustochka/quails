@@ -1,5 +1,4 @@
 if ENV['errbit_api_key'] && ENV['errbit_host']
-  require "airbrake"
   Airbrake.configure do |config|
     config.project_id = true # Not needed for errbit
     config.project_key = ENV['errbit_api_key']
