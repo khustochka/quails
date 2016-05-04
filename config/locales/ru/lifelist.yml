@@ -1,8 +1,8 @@
 "ru":
   lists:
     title:
-      all: Lifelist и другие списки
-      lifelist: Мой список (lifelist)
+      all: Списки
+      lifelist: Полный список (lifelist)
       yearlist: Список %{year} года
       monthlist: Список за %{month}
       yearsublist: '%{year} года'
@@ -14,7 +14,7 @@
       gb: Список Великобритании
 
     index:
-      title: "Lifelist и\u00a0другие\u00a0списки"
+      title: Списки
       see_also: См. также
       records_and_stats: Рекорды и статистика
 
