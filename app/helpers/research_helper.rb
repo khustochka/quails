@@ -4,6 +4,6 @@ module ResearchHelper
   end
 
   def locus_check(loc)
-    image_tag('/img/check_16x13.png', title: loc, alt: loc)
+    content_tag(:span, "", class: "fa fa-check green-check", title: loc, alt: loc)
   end
 end
