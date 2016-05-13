@@ -1,6 +1,6 @@
 source 'https://rubygems.org/'
 
-ruby '2.3.0'
+ruby '2.3.1'
 
 gem 'rails', '4.2.6'
 
@@ -43,7 +43,7 @@ gem 'addressable', require: 'addressable/uri'
 gem 'roman-numerals'
 
 # Monitoring
-gem 'airbrake', require: false
+gem 'airbrake'
 gem 'newrelic_rpm'
 
 # Assets

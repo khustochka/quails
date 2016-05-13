@@ -1,7 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    RedCloth (4.2.9)
+    RedCloth (4.3.0)
     actionmailer (4.2.6)
       actionpack (= 4.2.6)
       actionview (= 4.2.6)
@@ -40,23 +40,23 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     addressable (2.4.0)
-    airbrake (5.2.3)
-      airbrake-ruby (~> 1.2)
-    airbrake-ruby (1.2.3)
+    airbrake (5.3.0)
+      airbrake-ruby (~> 1.3)
+    airbrake-ruby (1.3.1)
     ancestry (2.1.0)
       activerecord (>= 3.0.0)
     arel (6.0.3)
     benchmark-ips (2.6.1)
     builder (3.2.2)
-    byebug (8.2.4)
-    capybara (2.7.0)
+    byebug (8.2.5)
+    capybara (2.7.1)
       addressable
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
-    capybara-webkit (1.10.1)
+    capybara-webkit (1.11.1)
       capybara (>= 2.3.0, < 2.8.0)
       json
     childprocess (0.5.9)
@@ -69,7 +69,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.10.0)
-    concurrent-ruby (1.0.1)
+    concurrent-ruby (1.0.2)
     docile (1.1.5)
     dotenv (2.1.1)
     dotenv-rails (2.1.1)
@@ -84,7 +84,7 @@ GEM
       railties (>= 3.0.0)
     ffi (1.9.10)
     flickraw (0.9.8)
-    foreman (0.80.1)
+    foreman (0.81.0)
       thor (~> 0.19.1)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
@@ -98,7 +98,7 @@ GEM
       haml (>= 4.0.6, < 5.0)
       html2haml (>= 1.0.1)
       railties (>= 4.0.1)
-    hashie (3.4.3)
+    hashie (3.4.4)
     html2haml (2.0.0)
       erubis (~> 2.7.0)
       haml (~> 4.0.0)
@@ -126,7 +126,7 @@ GEM
     mime-types-data (3.2016.0221)
     mini_portile2 (2.0.0)
     minitest (5.8.4)
-    newrelic_rpm (3.15.1.316)
+    newrelic_rpm (3.15.2.317)
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
     ordered-active-record (0.9.8)
@@ -175,7 +175,7 @@ GEM
     rake (11.1.2)
     rinku (1.7.3)
     roman-numerals (0.3.0)
-    ruby_parser (3.8.1)
+    ruby_parser (3.8.2)
       sexp_processor (~> 4.1)
     rubyzip (1.2.0)
     sass (3.4.22)
@@ -208,7 +208,7 @@ GEM
       sprockets (>= 3.0.0)
     thor (0.19.1)
     thread_safe (0.3.5)
-    tilt (2.0.2)
+    tilt (2.0.3)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uglifier (3.0.0)
@@ -260,5 +260,8 @@ DEPENDENCIES
   sprockets-rails
   uglifier (>= 1.3.0)
 
+RUBY VERSION
+   ruby 2.3.1p112
+
 BUNDLED WITH
-   1.11.2
+   1.12.3

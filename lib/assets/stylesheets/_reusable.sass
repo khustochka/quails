@@ -139,10 +139,14 @@ table.neat_table
 
 // Minor
 body
-  a.remove, a.destroy, a.remove:hover, a.destroy:hover, a.img, a.img:hover
+  a.remove, a.destroy, a.remove:hover, a.destroy:hover, a.img, a.img:hover, a.fa, a.fa:hover
     background-color: inherit
     // IE6/7 do not understand inherit
     *background-color: white
+  a.fa
+    color: #383838
+  a.fa:hover
+    color: $link-color
 
 .grayout
   background-color: #efefef
@@ -177,6 +181,9 @@ body, .main
 
 .remove
   cursor: pointer
+
+.green-check
+  color: #55a532
 
 .loading
   background: #ffffff url('/img/loading.gif') no-repeat center
