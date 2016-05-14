@@ -48,6 +48,11 @@ namespace :tax do
 
     base.where(legacy_species_id: 0).update_all(taxon_id: Taxon.find_by_ebird_code("bird1"))
 
+    # Check if there are observations without taxon:
+    obs = Observation.where(taxon_id: nil)
+    if obs.any?
+      raise "There are still #{obs.size} observations not mapped to taxa!"
+    end
 
   end
 
