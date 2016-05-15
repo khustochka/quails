@@ -14,3 +14,19 @@ hirrus:
   code: hirrus
   order: Passeriformes
   family: Hirundinidae
+
+lancol:
+  name_sci: "Lanius collurio"
+  name_en: "Red-backed Shrike"
+  index_num: 70
+  code: lancol
+  order: Passeriformes
+  family: Laniidae
+
+jyntor:
+  name_sci: "Jynx torquilla"
+  name_en: "Wryneck"
+  index_num: 20
+  code: jyntor
+  order: Piciformes
+  family: Picidae

@@ -53,11 +53,13 @@ class ImageTest < ActiveSupport::TestCase
   end
 
   test 'prevent duplication of multi-species image in prev next function' do
-    sp1 = species(:lancol)
-    sp2 = species(:jyntor)
+    tx1 = taxa(:lancol)
+    tx2 = taxa(:jyntor)
+    sp1 = tx1.species
+    sp2 = tx2.species
     card = create(:card, observ_date: "2008-07-01")
-    obs1 = create(:observation, species: sp1, card: card)
-    obs2 = create(:observation, species: sp2, card: card)
+    obs1 = create(:observation, taxon: tx1, card: card)
+    obs2 = create(:observation, taxon: tx2, card: card)
     img = create(:image, slug: 'picture-of-the-shrike-and-the-wryneck', observations: [obs1, obs2])
     assert_nil img.prev_by_species(sp1)
     assert_nil img.next_by_species(sp1)

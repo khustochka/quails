@@ -23,6 +23,7 @@ class Taxon < ActiveRecord::Base
   belongs_to :species
 
   has_many :observations, dependent: :restrict_with_exception
+  has_many :images, through: :observations
 
   scope :category_species, -> { where(category: "species") }
 

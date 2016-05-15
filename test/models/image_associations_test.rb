@@ -11,20 +11,20 @@ class ImagesAssociationsTest < ActiveSupport::TestCase
     sp = @obs.species
 
     assert_equal [@image.slug], sp.images.pluck(:slug)
-    assert_equal [sp.code], @image.species.pluck(:code)
+    assert_equal sp.code, @image.species.first.code
   end
 
   test 'properly link images with several species' do
-    sp1 = species(:lancol)
-    sp2 = species(:jyntor)
+    tx1 = taxa(:lancol)
+    tx2 = taxa(:jyntor)
     card = create(:card, observ_date: "2008-07-01")
-    obs1 = create(:observation, species: sp1, card: card)
-    obs2 = create(:observation, species: sp2, card: card)
+    obs1 = create(:observation, taxon: tx1, card: card)
+    obs2 = create(:observation, taxon: tx2, card: card)
     img = create(:image, slug: 'picture-of-the-shrike-and-the-wryneck', observations: [obs1, obs2])
 
-    assert_equal [img.slug], sp1.images.pluck(:slug)
-    assert_equal [img.slug], sp2.images.pluck(:slug)
-    assert_empty ([sp1.code, sp2.code] - img.species.pluck(:code))
+    assert_equal img, tx1.images.first
+    assert_equal img, tx2.images.first
+    assert_empty ([tx1, tx2] - img.taxa.to_a)
   end
 
   test 'properly link image and post' do

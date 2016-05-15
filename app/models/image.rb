@@ -34,7 +34,7 @@ class Image < Media
 
   after_destroy do
     base_obs = Observation.where(id: @cached_observation_ids)
-    species = Species.where(id: base_obs.select(:species_id))
+    species = Species.joins(:taxa).where(taxa: {id: base_obs.select(:taxon_id)})
     species.each(&:update_image)
 
     cards = Card.where(id: base_obs.select(:card_id)).preload(:post)

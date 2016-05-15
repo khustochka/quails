@@ -15,6 +15,22 @@ hirrus:
   ebird_code: barswa
   species: :hirrus
 
+lancol:
+  name_sci: "Lanius collurio"
+  name_en: "Red-backed Shrike"
+  category: "species"
+  index_num: 70
+  ebird_code: rebshr1
+  species: :lancol
+
+jyntor:
+  name_sci: "Jynx torquilla"
+  name_en: "Wryneck"
+  category: "species"
+  index_num: 20
+  ebird_code: eurwry
+  species: :jyntor
+
 aves_sp:
   name_sci: "Aves sp."
   name_en: "bird sp."

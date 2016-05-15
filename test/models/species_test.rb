@@ -3,32 +3,32 @@ require 'test_helper'
 class SpeciesTest < ActiveSupport::TestCase
 
   test 'do not save species with empty Latin name' do
-    sp = Species.find_by!(code: :parcae)
+    sp = Species.find_by!(code: :hirrus)
     sp.name_sci = ''
     assert_raise(ActiveRecord::RecordInvalid) { sp.save! }
   end
 
   test 'empty code should be turned into nil' do
-    sp = Species.find_by!(code: :parcae)
+    sp = Species.find_by!(code: :hirrus)
     sp.code = ''
     sp.save!
     assert_nil sp.code
   end
 
   test 'not be saved with existing Latin name' do
-    sp = Species.find_by!(code: :parcae)
-    sp.name_sci = 'Parus major'
+    sp = Species.find_by!(code: :hirrus)
+    sp.name_sci = species(:lancol).name_sci
     assert_raise(ActiveRecord::RecordInvalid) { sp.save! }
   end
 
   test 'do not save species with existing code' do
-    sp = Species.find_by!(code: :parcae)
-    sp.code = 'parmaj'
+    sp = Species.find_by!(code: :hirrus)
+    sp.code = 'lancol'
     assert_raise(ActiveRecord::RecordInvalid) { sp.save! }
   end
 
   test 'do not destroy species if it has associated observations' do
-    sp = Species.find_by!(code: :parcae)
+    sp = Species.find_by!(code: :hirrus)
     observation = create(:observation, species: sp)
     assert_raise(ActiveRecord::DeleteRestrictionError) { sp.destroy }
     assert observation.reload
@@ -36,11 +36,11 @@ class SpeciesTest < ActiveSupport::TestCase
   end
 
   test 'sort by abundance' do
-    create(:observation, species: species(:pasdom))
-    create(:observation, species: species(:pasmon))
-    create(:observation, species: species(:pasmon))
+    create(:observation, taxon: taxa(:pasdom))
+    create(:observation, taxon: taxa(:hirrus))
+    create(:observation, taxon: taxa(:hirrus))
     list = Species.by_abundance.to_a
-    assert_equal species(:pasmon).id, list[0].id
+    assert_equal species(:hirrus).id, list[0].id
     assert_equal species(:pasdom).id, list[1].id
     assert_equal Species.count, list.size
   end

@@ -26,7 +26,7 @@ class Species < ActiveRecord::Base
   has_many :loci, through: :cards
   has_many :images, through: :observations
   has_many :videos, through: :observations
-  has_many :posts, -> { order(face_date: :desc).distinct }, through: :observations
+  #has_many :posts, -> { order(face_date: :desc).distinct }, through: :observations
 
   has_many :local_species
 
@@ -34,6 +34,16 @@ class Species < ActiveRecord::Base
 
   def ordered_images
     images.order_for_species
+  end
+
+  def posts
+    p1 = Post.select("posts.id").joins(:observations).where('observations.id' => self.observations.select(:id)).to_sql
+
+    p2 = Post.connection.unprepared_statement do
+      Post.select("posts.id").joins(:cards).where("cards.id" => self.cards).to_sql
+    end
+
+    Post.distinct.where("posts.id IN (#{p1}) OR posts.id IN (#{p2})").order(face_date: :desc)
   end
 
   # Parameters
@@ -46,6 +56,10 @@ class Species < ActiveRecord::Base
 
   def to_label
     name_sci
+  end
+
+  def code=(val)
+    super(val == '' ? nil : val)
   end
 
   # Methods

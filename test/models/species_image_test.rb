@@ -35,14 +35,14 @@ class SpeciesImageTest < ActiveSupport::TestCase
   end
 
   test 'species images should not be duplicated (if multi-species)' do
-    sp1 = species(:lancol)
-    sp2 = species(:jyntor)
+    tx1 = taxa(:lancol)
+    tx2 = taxa(:jyntor)
     card = create(:card, observ_date: "2008-07-01")
-    obs1 = create(:observation, species: sp1, card: card)
-    obs2 = create(:observation, species: sp2, card: card)
+    obs1 = create(:observation, taxon: tx1, card: card)
+    obs2 = create(:observation, taxon: tx2, card: card)
     img = create(:image, slug: 'picture-of-the-shrike-and-the-wryneck', observations: [obs1, obs2])
 
-    assert_equal 1, sp1.ordered_images.to_a.size
+    assert_equal 1, tx1.species.ordered_images.to_a.size
   end
 
   # Relinking a main species image to another species is very unlikely,

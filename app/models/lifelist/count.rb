@@ -6,7 +6,7 @@ module Lifelist
     end
 
     def get_records
-      bare_relation.order(ordering).includes(:species).to_a
+      bare_relation.order(ordering).preload(:taxon => :species).to_a
     end
 
     def short_to_a
