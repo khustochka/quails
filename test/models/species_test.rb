@@ -28,8 +28,9 @@ class SpeciesTest < ActiveSupport::TestCase
   end
 
   test 'do not destroy species if it has associated observations' do
-    sp = Species.find_by!(code: :hirrus)
-    observation = create(:observation, species: sp)
+    hirrus = taxa(:hirrus)
+    observation = create(:observation, taxon: hirrus)
+    sp = taxa(:hirrus).species
     assert_raise(ActiveRecord::DeleteRestrictionError) { sp.destroy }
     assert observation.reload
     assert_equal sp, observation.species

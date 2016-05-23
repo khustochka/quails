@@ -30,3 +30,19 @@ jyntor:
   code: jyntor
   order: Piciformes
   family: Picidae
+
+gargla:
+  name_sci: "Garrulus glandarius"
+  name_en: "Eurasian Jay"
+  index_num: 60
+  code: gargla
+  order: Passeriformes
+  family: Corvidae
+
+bomgar:
+  name_sci: "Bombycilla garrulus"
+  name_en: "Bohemian Waxwing"
+  index_num: 65
+  code: bomgar
+  order: Passeriformes
+  family: Bombycillidae

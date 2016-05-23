@@ -14,44 +14,44 @@ class WikiFilterTest < ActionDispatch::IntegrationTest
 
   # Species
 
-  test 'properly parse species by code {{Quails|cotnix}}' do
-    assert_equal %Q("(sp_link). Quail":cotnix\n\n[cotnix]#{species_path(species(:cotnix))}),
-                 transform('{{Quail|cotnix}}')
+  test 'properly parse species by code {{Wryneck|jyntor}}' do
+    assert_equal %Q("(sp_link). Wryneck":jyntor\n\n[jyntor]#{species_path(species(:jyntor))}),
+                 transform('{{Wryneck|jyntor}}')
   end
 
-  test 'properly parse species by bare code {{cotnix}}' do
-    assert_equal %Q("(sp_link). Coturnix coturnix":cotnix\n\n[cotnix]#{species_path(species(:cotnix))}),
-                 transform('{{cotnix}}')
+  test 'properly parse species by bare code {{jyntor}}' do
+    assert_equal %Q("(sp_link). Jynx torquilla":jyntor\n\n[jyntor]#{species_path(species(:jyntor))}),
+                 transform('{{jyntor}}')
   end
 
-  test 'properly parse species by scientific name {{Quails|Coturnix coturnix}}' do
-    assert_equal %Q("(sp_link). Quail":cotnix\n\n[cotnix]#{species_path(species(:cotnix))}),
-                 transform('{{Quail|Coturnix coturnix}}')
+  test 'properly parse species by scientific name {{Wrynecks|Jynx torquilla}}' do
+    assert_equal %Q("(sp_link). Wryneck":jyntor\n\n[jyntor]#{species_path(species(:jyntor))}),
+                 transform('{{Wryneck|Jynx torquilla}}')
   end
 
-  test 'properly parse species by bare scientific name {{Coturnix coturnix}}' do
-    assert_equal %Q("(sp_link). Coturnix coturnix":cotnix\n\n[cotnix]#{species_path(species(:cotnix))}),
-                 transform('{{Coturnix coturnix}}')
+  test 'properly parse species by bare scientific name {{Jynx torquilla}}' do
+    assert_equal %Q("(sp_link). Jynx torquilla":jyntor\n\n[jyntor]#{species_path(species(:jyntor))}),
+                 transform('{{Jynx torquilla}}')
   end
 
-  test 'properly parse species name with undescore {{Quails|Coturnix_coturnix}}' do
-    assert_equal %Q("(sp_link). Quail":cotnix\n\n[cotnix]#{species_path(species(:cotnix))}),
-                 transform('{{Quail|Coturnix coturnix}}')
+  test 'properly parse species name with undescore {{Wryneck|Jynx_torquilla}}' do
+    assert_equal %Q("(sp_link). Wryneck":jyntor\n\n[jyntor]#{species_path(species(:jyntor))}),
+                 transform('{{Wryneck|Jynx torquilla}}')
   end
 
   test 'properly parse species in the string' do
-    assert_equal %Q(Those were "(sp_link). quails":cotnix!\n\n[cotnix]#{species_path(species(:cotnix))}),
-                 transform('Those were {{quails|cotnix}}!')
+    assert_equal %Q(Those were "(sp_link). Wrynecks":jyntor!\n\n[jyntor]#{species_path(species(:jyntor))}),
+                 transform('Those were {{Wrynecks|jyntor}}!')
   end
 
   test 'Add English name after species link' do
-    assert_equal %Q("(sp_link). Перепел":cotnix (Common Quail)\n\n[cotnix]#{species_path(species(:cotnix))}),
-                 transform('{{Перепел|cotnix|en}}')
+    assert_equal %Q("(sp_link). Вертишейка":jyntor (Wryneck)\n\n[jyntor]#{species_path(species(:jyntor))}),
+                 transform('{{Вертишейка|jyntor|en}}')
   end
 
   test 'Use English name if no word specified' do
-    assert_equal %Q("(sp_link). Common Quail":cotnix\n\n[cotnix]#{species_path(species(:cotnix))}),
-                 transform('{{cotnix|en}}')
+    assert_equal %Q("(sp_link). Wryneck":jyntor\n\n[jyntor]#{species_path(species(:jyntor))}),
+                 transform('{{jyntor|en}}')
   end
 
   # Posts
@@ -83,33 +83,33 @@ class WikiFilterTest < ActionDispatch::IntegrationTest
   # Combined
 
   test 'properly parse two species' do
-    result = transform('{{Great|parmaj}} and {{Blue Tits|parcae}}')
+    result = transform('{{Sparrows|pasdom}} and {{Barn Swallows|hirrus}}')
     text, links = result.split("\n\n")
-    assert_equal %Q("(sp_link). Great":parmaj and "(sp_link). Blue Tits":parcae), text
+    assert_equal %Q("(sp_link). Sparrows":pasdom and "(sp_link). Barn Swallows":hirrus), text
 
-    assert_equal ["[parcae]#{species_path(species(:parcae))}", "[parmaj]#{species_path(species(:parmaj))}"],
+    assert_equal ["[hirrus]#{species_path(species(:hirrus))}", "[pasdom]#{species_path(species(:pasdom))}"],
                  links.split("\n").sort
   end
 
   test 'properly parse pipe in the second code' do
     blogpost = create(:post)
     slug = blogpost.slug
-    assert_equal %Q(""Test Post"":#{slug} has "(sp_link). Blue Tits":parcae\n\n[#{slug}]#{public_post_path(blogpost)}\n[parcae]#{species_path(species(:parcae))}),
-                 transform("{{##{slug}}} has {{Blue Tits|parcae}}")
+    assert_equal %Q(""Test Post"":#{slug} has "(sp_link). Wrynecks":jyntor\n\n[#{slug}]#{public_post_path(blogpost)}\n[jyntor]#{species_path(species(:jyntor))}),
+                 transform("{{##{slug}}} has {{Wrynecks|jyntor}}")
   end
 
   # HTML entities
 
   test 'preserve HTML entities' do
-    assert_equal %Q("(sp_link). Linotte m&eacute;lodieuse":acacan\n\n[acacan]#{species_path(species(:acacan))}),
-                 transform('{{Linotte m&eacute;lodieuse|acacan}}')
+    assert_equal %Q("(sp_link). Linotte m&eacute;lodieuse":bomgar\n\n[bomgar]#{species_path(species(:bomgar))}),
+                 transform('{{Linotte m&eacute;lodieuse|bomgar}}')
   end
 
   # Erroneous
 
-  test 'do not parse species with post or link modifier {{#cotnix}}' do
-    assert_not_equal species_link(species(:cotnix), 'Coturnix coturnix'), transform('{{#cotnix}}')
-    assert_not_equal species_link(species(:cotnix), 'Coturnix coturnix'), transform('{{@cotnix}}')
+  test 'do not parse species with post or link modifier {{#jyntor}}' do
+    assert_not_equal species_link(species(:jyntor), 'Jynx torquilla'), transform('{{#jyntor}}')
+    assert_not_equal species_link(species(:jyntor), 'Jynx torquilla'), transform('{{@jyntor}}')
   end
 
   test 'properly handle missed code' do

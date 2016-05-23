@@ -18,7 +18,7 @@ module Role
     end
 
     def searchable_species
-      obs = Observation.identified.select("species_id, COUNT(id) as weight").group(:species_id)
+      obs = Observation.identified.select("species_id, COUNT(observations.id) as weight").group(:species_id)
       Species.
           joins("INNER JOIN (#{obs.to_sql}) obs on id = obs.species_id")
     end

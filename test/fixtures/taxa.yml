@@ -31,6 +31,22 @@ jyntor:
   ebird_code: eurwry
   species: :jyntor
 
+gargla:
+  name_sci: "Garrulus glandarius"
+  name_en: "Eurasian Jay"
+  category: "species"
+  index_num: 60
+  ebird_code: eurjay1
+  species: :gargla
+
+bomgar:
+  name_sci: "Bombycilla garrulus"
+  name_en: "Bohemian Waxwing"
+  category: "species"
+  index_num: 65
+  ebird_code: bohwax
+  species: :bomgar
+
 aves_sp:
   name_sci: "Aves sp."
   name_en: "bird sp."

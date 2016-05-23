@@ -140,14 +140,14 @@ class EbirdObservation
   ## helpers
 
   def try_name(method)
-    if @obs.species_id == 0
+    if @obs.taxon.species.nil?
       name_from_notes
     else
       sp = SPECIES_BY_COUNTRY[country.slug][@obs.species_id] || self.class.ebird_species_cache[@obs.species_id]
       sp.send(method)
     end
   rescue => e
-    raise "Error with species id #{@obs.species_id}\n#{e.message}"
+    raise "Error with species id #{@obs.taxon.species.id}\n#{e.message}"
   end
 
   def name_from_notes
