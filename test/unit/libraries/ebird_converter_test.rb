@@ -22,9 +22,9 @@ class EbirdConverterTest < ActiveSupport::TestCase
     assert_equal 6, ebird_observation(obs).send(:count)
   end
 
-  test "count is a string" do
+  test "X mark if count is a string" do
     obs = FactoryGirl.create(:observation, quantity: 'many')
-    assert_equal nil, ebird_observation(obs).send(:count)
+    assert_equal "X", ebird_observation(obs).send(:count)
   end
 
   test "correctly process empty distance" do

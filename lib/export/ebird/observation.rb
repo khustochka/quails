@@ -58,7 +58,7 @@ class EbirdObservation
 
   def count
     cnt = @obs.quantity[/(\d+(\s*\+\s*\d+)?)/, 1]
-    cnt && eval(cnt)
+    cnt && eval(cnt) || "X"
   end
 
   def comments
