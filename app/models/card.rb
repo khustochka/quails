@@ -85,4 +85,19 @@ class Card < ActiveRecord::Base
     super(val.presence)
   end
 
+  def self.first_unebirded_date
+    unebirded.order(:observ_date => :asc).first.try(:observ_date)
+  end
+
+  def self.last_unebirded_date
+    unebirded.order(:observ_date => :desc).first.try(:observ_date)
+  end
+
+  private
+
+  def self.unebirded
+    ebirded = Card.select(:id).joins(:ebird_files).where("ebird_files.status IN ('NEW', 'POSTED')")
+    self.where("id NOT IN (#{ebirded.to_sql})").where(ebird_id: nil)
+  end
+
 end

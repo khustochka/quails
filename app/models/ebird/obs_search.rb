@@ -10,4 +10,10 @@ class Ebird::ObsSearch < ObservationSearch
     SimplePartial.new('ebird/obs_search/voice_fieldset')
   end
 
+  private
+
+  def base_cards
+    Card.unebirded
+  end
+
 end
