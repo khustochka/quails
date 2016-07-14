@@ -22,4 +22,5 @@
 
   %ul.cards_list#search-results
 
-    = render @file.cards #.sort {|a, b| b.errors.size <=> a.errors.size}
+    - validated = @file.cards.group_by {|c| c.valid?(:ebird_post)}
+    = render [false, true].map {|k| validated[k]}.compact.inject([], &:+)

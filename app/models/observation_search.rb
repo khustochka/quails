@@ -97,7 +97,7 @@ class ObservationSearch
     @conditions[:card][:observ_date] = Date.parse(observ_date) if observ_date.presence.is_a?(String)
 
     if end_date = @conditions[:card].delete(:end_date)
-      end_date = Date.parse(observ_date) if end_date.is_a?(String)
+      end_date = Date.parse(end_date) if end_date.is_a?(String)
       start_date = @conditions[:card].delete(:observ_date)
       @conditions[:card][:observ_date] = start_date..end_date
     end

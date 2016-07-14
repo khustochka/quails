@@ -33,6 +33,10 @@ class Card < ActiveRecord::Base
                                 reject_if:
                                     proc { |attrs| attrs.all? { |k, v| v.blank? || k == 'voice' } }
 
+  def self.default_cards_order(asc_or_desc)
+    order("observ_date #{asc_or_desc}, to_timestamp(start_time, 'HH24:MI') #{asc_or_desc} NULLS LAST")
+  end
+
   def start_time=(str)
     if str.is_a?(String) && str.strip.empty?
       super(nil)
