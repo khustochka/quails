@@ -2,7 +2,7 @@ source 'https://rubygems.org/'
 
 ruby '2.3.1'
 
-gem 'rails', '4.2.6'
+gem 'rails', '4.2.7'
 
 gem 'pg', platforms: [:ruby, :mingw]
 #gem "activerecord-jdbcpostgresql-adapter", platforms: :jruby
