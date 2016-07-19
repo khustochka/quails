@@ -5,8 +5,8 @@
     series_photos_num: photos
 
     index:
-      window_title: Bird photos from Ukraine and other countries
-      title: Bird photos from Ukraine and other countries
+      window_title: Birdwatching in Ukraine and beyond
+      title: Bird photos
       species_gallery: Species gallery
       last_updated: Last updated on %{date}.
 

@@ -49,6 +49,11 @@
       - unless card.resolved
         %small.draft.tag UNRESOLVED
 
+    %li.card_time
+      = card.start_time + ", " if card.start_time
+      = card.duration_minutes.to_s + " min, " if card.duration_minutes
+      = card.distance_kms.to_s + " km" if card.distance_kms
+
     - if params[:obs]
       = link_to 'Attach here', attach_card_path(card, obs: params[:obs]), class: 'pseudolink', data: {method: :post}
 

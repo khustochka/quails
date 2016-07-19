@@ -23,7 +23,7 @@ class ObservationSearch
     end
   end
 
-  CARD_ATTRIBUTES = [:observ_date, :end_date, :locus_id, :card_id, :resolved, :inclusive, :exclude_ebirded]
+  CARD_ATTRIBUTES = [:observ_date, :end_date, :locus_id, :card_id, :resolved, :inclusive]
   OBSERVATION_ATTRIBUTES = [:taxon_id, :voice]
   ALL_ATTRIBUTES = CARD_ATTRIBUTES + OBSERVATION_ATTRIBUTES
 
@@ -43,7 +43,7 @@ class ObservationSearch
 
   def cards
     return @cards_relation if @cards_relation
-    scope = Card.where(@conditions[:card])
+    scope = base_cards.where(@conditions[:card])
     if observations_filtered?
       scope = scope.includes(:observations).where(observations: @conditions[:observation]).preload(observations: {:taxon => :species})
     end
@@ -76,6 +76,10 @@ class ObservationSearch
 
   private
 
+  def base_cards
+    Card.all
+  end
+
   def normalize_conditions
     if card_id = @conditions[:card].delete(:card_id)
       @conditions[:card][:id] = card_id
@@ -89,11 +93,11 @@ class ObservationSearch
       @all_conditions[:locus_id] = @conditions[:card][:locus_id]
     end
 
-    if @conditions[:card].delete(:exclude_ebirded)
-      @conditions[:card][:ebird_id] = nil
-    end
+    observ_date = @conditions[:card][:observ_date]
+    @conditions[:card][:observ_date] = Date.parse(observ_date) if observ_date.presence.is_a?(String)
 
     if end_date = @conditions[:card].delete(:end_date)
+      end_date = Date.parse(end_date) if end_date.is_a?(String)
       start_date = @conditions[:card].delete(:observ_date)
       @conditions[:card][:observ_date] = start_date..end_date
     end

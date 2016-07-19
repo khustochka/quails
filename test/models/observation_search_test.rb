@@ -49,8 +49,4 @@ class ObservationSearchTest < ActiveSupport::TestCase
     assert_equal 3, ObservationSearch.new(locus_id: loci(:ukraine).id, inclusive: true).cards.to_a.size
   end
 
-  test 'search cards excluding ebirded' do
-    assert_equal 2, ObservationSearch.new(exclude_ebirded: 1).cards.to_a.size
-  end
-
 end

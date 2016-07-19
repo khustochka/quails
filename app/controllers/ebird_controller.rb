@@ -13,13 +13,10 @@ class EbirdController < ApplicationController
   end
 
   def new
-    @observation_search = Ebird::ObsSearch.new(params[:q])
+    search_params = params[:q] || {observ_date: Card.first_unebirded_date, end_date: Card.last_unebirded_date}
+    @observation_search = Ebird::ObsSearch.new(search_params)
 
-    @cards = if params[:q]
-               @observation_search.cards.preload(:locus, :post)
-             else
-               Card.none
-             end
+    @cards = @observation_search.cards.default_cards_order(:asc).preload(:locus, :post)
 
     name = if @cards.present?
              [

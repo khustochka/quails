@@ -34,8 +34,8 @@ $(function () {
         .css('top', upper).css('left', leftmost);
   }
 
-  var GRAY_ICON = "http://maps.google.com/mapfiles/marker_white.png",
-      RED_ICON = "http://maps.google.com/mapfiles/marker.png";
+  var GRAY_ICON = "https://maps.google.com/mapfiles/marker_white.png",
+      RED_ICON = "https://maps.google.com/mapfiles/marker.png";
 
   function bindImageToMarker(marker, data) {
     var payload = {};
