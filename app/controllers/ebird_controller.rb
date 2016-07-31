@@ -21,8 +21,8 @@ class EbirdController < ApplicationController
     name = if @cards.present?
              [
                  @cards.first.locus.country.slug,
-                 @observation_search.observ_date.try(:gsub, "-", ""),
-                 @observation_search.end_date.try(:gsub, "-", "")
+                 @observation_search.observ_date.try(:strftime, "%Y%m%d"),
+                 @observation_search.end_date.try(:strftime, "%Y%m%d")
              ].compact.uniq.join("-")
            end
 

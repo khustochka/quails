@@ -32,6 +32,9 @@ class ObservationSearch
 
     conditions2 = conditions || {}
     @all_conditions = conditions2.slice(*@attributes).reject { |_, v| v != false && v.blank? }
+
+    normalize_dates
+
     @conditions = {
         card: @all_conditions.slice(*CARD_ATTRIBUTES),
         observation: @all_conditions.slice(*OBSERVATION_ATTRIBUTES)
@@ -80,6 +83,15 @@ class ObservationSearch
     Card.all
   end
 
+  def normalize_dates
+    [:observ_date, :end_date].each do |attr|
+      date = @all_conditions[attr]
+      if date.presence.is_a?(String)
+        @all_conditions[attr] = Date.parse(date)
+      end
+    end
+  end
+
   def normalize_conditions
     if card_id = @conditions[:card].delete(:card_id)
       @conditions[:card][:id] = card_id
@@ -93,11 +105,7 @@ class ObservationSearch
       @all_conditions[:locus_id] = @conditions[:card][:locus_id]
     end
 
-    observ_date = @conditions[:card][:observ_date]
-    @conditions[:card][:observ_date] = Date.parse(observ_date) if observ_date.presence.is_a?(String)
-
     if end_date = @conditions[:card].delete(:end_date)
-      end_date = Date.parse(end_date) if end_date.is_a?(String)
       start_date = @conditions[:card].delete(:observ_date)
       @conditions[:card][:observ_date] = start_date..end_date
     end
