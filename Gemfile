@@ -50,7 +50,7 @@ gem 'newrelic_rpm'
 gem "sprockets-rails"
 gem 'jquery-rails'
 gem 'sass-rails', '~> 5.0'
-gem 'coffee-rails', '~> 4.1.0'
+gem 'coffee-rails'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 
