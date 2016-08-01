@@ -21,6 +21,7 @@ class Taxon < ActiveRecord::Base
   # Associations
   belongs_to :parent, class_name: "EbirdTaxon"
   belongs_to :species
+  belongs_to :ebird_taxon
 
   has_many :observations, dependent: :restrict_with_exception
   has_many :images, through: :observations

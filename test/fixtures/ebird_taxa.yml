@@ -1,0 +1,59 @@
+---
+pasdom:
+  name_sci: "Passer domesticus"
+  name_en: "House Sparrow"
+  name_ioc_en: "House Sparrow"
+  category: species
+  index_num: 100
+  ebird_code: houspa
+
+#hirrus:
+#  name_sci: "Hirundo rustica"
+#  name_en: "Barn Swallow"
+#  category: "species"
+#  index_num: 50
+#  ebird_code: barswa
+#
+#lancol:
+#  name_sci: "Lanius collurio"
+#  name_en: "Red-backed Shrike"
+#  category: "species"
+#  index_num: 70
+#  ebird_code: rebshr1
+#
+#jyntor:
+#  name_sci: "Jynx torquilla"
+#  name_en: "Wryneck"
+#  category: "species"
+#  index_num: 20
+#  ebird_code: eurwry
+#
+#gargla:
+#  name_sci: "Garrulus glandarius"
+#  name_en: "Eurasian Jay"
+#  category: "species"
+#  index_num: 60
+#  ebird_code: eurjay1
+#
+#bomgar:
+#  name_sci: "Bombycilla garrulus"
+#  name_en: "Bohemian Waxwing"
+#  category: "species"
+#  index_num: 65
+#  ebird_code: bohwax
+
+motfel:
+  name_sci: "Motacilla flava feldegg"
+  name_en: "Western Yellow Wagtail (Black-headed)"
+  name_ioc_en: "Western Yellow Wagtail (Black-headed)"
+  category: issf
+  index_num: 14900
+  ebird_code: weywag6
+
+aves_sp:
+  name_sci: "Aves sp."
+  name_en: "bird sp."
+  name_ioc_en: "bird sp."
+  category: "spuh"
+  index_num: 15000
+  ebird_code: bird1

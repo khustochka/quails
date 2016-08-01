@@ -11,7 +11,7 @@ class EbirdStrategy
   end
 
   def observations
-    Observation.where(card_id: @cards).preload(:images, :species, :card => :locus)
+    Observation.where(card_id: @cards).preload(:images, :taxon => :species, :card => :locus)
   end
 
 end

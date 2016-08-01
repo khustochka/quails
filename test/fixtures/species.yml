@@ -46,3 +46,12 @@ bomgar:
   code: bomgar
   order: Passeriformes
   family: Bombycillidae
+
+motfel:
+  name_sci: "Motacilla feldegg"
+  name_en: "Black-headed Wagtail"
+  index_num: 14900
+  code: motfel
+  order: Passeriformes
+  family: Motacillidae
+

@@ -73,27 +73,19 @@ class EbirdConverterTest < ActiveSupport::TestCase
   end
 
   test "it properly marks species to ebird taxon" do
-    raise
+    obs = FactoryGirl.create(:observation, taxon: taxa(:pasdom))
+    assert_equal "Passer domesticus", ebird_observation(obs).send(:latin_name)
+    assert_equal "House Sparrow", ebird_observation(obs).send(:common_name)
   end
 
   test "it properly marks spuh to ebird taxon" do
-    raise
-    obs = FactoryGirl.create(:observation, taxon: taxa(:aves_sp), notes: 'Corvus sp')
-    assert_equal "Corvus sp", ebird_observation(obs).send(:latin_name)
-    assert_equal "Corvus sp", ebird_observation(obs).send(:common_name)
-  end
-
-  test "that unidentified species name is properly trimmed" do
-    # Ebird accepts no more than 64 chars in species name
-    notes = "Accipiter sp or other raptor: seemed large (like a large crow). from below: light, finely streaked, from above: brownish"
-    obs = FactoryGirl.create(:observation, taxon: taxa(:aves_sp), notes: notes)
-    assert_equal notes[0..63], ebird_observation(obs).send(:latin_name)
-    assert_equal notes[0..63], ebird_observation(obs).send(:common_name)
+    obs = FactoryGirl.create(:observation, taxon: taxa(:aves_sp))
+    assert_equal "Aves sp.", ebird_observation(obs).send(:latin_name)
+    assert_equal "bird sp.", ebird_observation(obs).send(:common_name)
   end
 
   test "that Motacilla feldegg is marked properly" do
-    card = FactoryGirl.create(:card, locus: loci(:brovary))
-    obs = FactoryGirl.create(:observation, taxon: taxa(:motfel), card: card)
+    obs = FactoryGirl.create(:observation, taxon: taxa(:motfel))
     assert_equal "Motacilla flava feldegg", ebird_observation(obs).send(:latin_name)
     assert_equal "Western Yellow Wagtail (Black-headed)", ebird_observation(obs).send(:common_name)
   end

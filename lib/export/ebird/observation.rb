@@ -45,7 +45,7 @@ class EbirdObservation
   private
 
   def common_name
-    try_name(:name_en)
+    ebird_taxon.name_en
   end
 
   def genus
@@ -53,7 +53,7 @@ class EbirdObservation
   end
 
   def latin_name
-    try_name(:name_sci)
+    ebird_taxon.name_sci
   end
 
   def count
@@ -139,23 +139,17 @@ class EbirdObservation
 
   ## helpers
 
-  def try_name(method)
-    if @obs.taxon.species.nil?
-      name_from_notes
-    else
-      sp = SPECIES_BY_COUNTRY[country.slug][@obs.species_id] || self.class.ebird_species_cache[@obs.species_id]
-      sp.send(method)
-    end
-  rescue => e
-    raise "Error with species id #{@obs.taxon.species.id}\n#{e.message}"
-  end
-
-  def name_from_notes
-    @name_from_notes ||= @obs.notes[0, 64]
-  end
 
   def voice_component
     @obs.voice? ? "Heard" : nil
+  end
+
+  def ebird_taxon
+    @ebird_taxon ||= taxon.ebird_taxon
+  end
+
+  def taxon
+    @taxon ||= @obs.taxon
   end
 
   def card

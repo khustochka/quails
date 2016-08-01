@@ -6,6 +6,7 @@ pasdom:
   index_num: 100
   ebird_code: houspa
   species: :pasdom
+  ebird_taxon: :pasdom
 
 hirrus:
   name_sci: "Hirundo rustica"
@@ -47,9 +48,19 @@ bomgar:
   ebird_code: bohwax
   species: :bomgar
 
+motfel:
+  name_sci: "Motacilla feldegg"
+  name_en: "Black-headed Wagtail"
+  category: species
+  index_num: 14900
+  ebird_code: weywag6
+  species: :motfel
+  ebird_taxon: :motfel
+
 aves_sp:
   name_sci: "Aves sp."
   name_en: "bird sp."
   category: "spuh"
   index_num: 15000
   ebird_code: bird1
+  ebird_taxon: :aves_sp
