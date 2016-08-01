@@ -47,7 +47,7 @@ module Lifelist
     end
 
     test 'Species lifelist by date properly sorts the list' do
-      expected = [["lancol", "2009-01-01"], ["pasdom", "2009-01-01"], ["jyntor", "2008-10-18"], ["hirrus", "2008-05-22"]]
+      expected = [["pasdom", "2009-01-01"], ["lancol", "2009-01-01"], ["jyntor", "2008-10-18"], ["hirrus", "2008-05-22"]]
       actual = Lifelist::FirstSeen.full.map { |s| [s.species.code, s.observ_date.iso8601] }
       assert_equal expected, actual
     end

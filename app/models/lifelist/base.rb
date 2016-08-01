@@ -36,7 +36,7 @@ module Lifelist
         when "count"
           then "obs_count DESC"
         else
-          "observ_date DESC, to_timestamp(start_time, 'HH24:MI') DESC NULLS LAST"
+          "observ_date DESC, to_timestamp(start_time, 'HH24:MI') DESC NULLS LAST, created_at DESC"
       end
     end
 
