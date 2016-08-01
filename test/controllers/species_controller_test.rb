@@ -34,11 +34,11 @@ class SpeciesControllerTest < ActionController::TestCase
     @obs = @image.observations.first
 
     # Setup photo of several species
-    sp1 = species(:lancol)
-    sp2 = species(:jyntor)
+    sp1 = taxa(:lancol)
+    sp2 = taxa(:jyntor)
     card = create(:card, observ_date: "2008-07-01")
-    obs1 = create(:observation, species: sp1, card: card)
-    obs2 = create(:observation, species: sp2, card: card)
+    obs1 = create(:observation, taxon: sp1, card: card)
+    obs2 = create(:observation, taxon: sp2, card: card)
     img = create(:image, slug: 'picture-of-the-shrike-and-the-wryneck', observations: [obs1, obs2])
 
     get :gallery
@@ -48,11 +48,12 @@ class SpeciesControllerTest < ActionController::TestCase
 
   test "species index properly ordered" do
     # Dummy swap of two species
+    min_index = Species.minimum(:index_num)
     max_index = Species.maximum(:index_num)
-    sp1 = Species.find_by(index_num: 10)
+    sp1 = Species.find_by(index_num: min_index)
     sp2 = Species.find_by(index_num: max_index)
     sp1.update_attributes(index_num: max_index)
-    sp2.update_attributes(index_num: 10)
+    sp2.update_attributes(index_num: min_index)
 
     login_as_admin
     get :index
@@ -61,7 +62,7 @@ class SpeciesControllerTest < ActionController::TestCase
   end
 
   test "show species" do
-    species = species(:melgal)
+    species = species(:jyntor)
     get :show, id: species.to_param
     assert_response :success
   end
@@ -76,44 +77,44 @@ class SpeciesControllerTest < ActionController::TestCase
   end
 
   test "show species with image" do
-    species = species(:melgal)
-    create(:image, observations: [create(:observation, species: species)])
-    get :show, id: species.to_param
+    tx = taxa(:jyntor)
+    create(:image, observations: [create(:observation, taxon: tx)])
+    get :show, id: tx.species.to_param
     assert_response :success
   end
 
   test "show species with video" do
-    species = species(:melgal)
-    create(:video, observations: [create(:observation, species: species)])
-    get :show, id: species.to_param
+    tx = taxa(:jyntor)
+    create(:video, observations: [create(:observation, taxon: tx)])
+    get :show, id: tx.species.to_param
     assert_response :success
   end
 
   test "get edit" do
-    species = species(:melgal)
+    species = species(:jyntor)
     login_as_admin
     get :edit, id: species.to_param
     assert_response :success
   end
 
   test "update species" do
-    species = species(:corbra)
-    species.name_ru = 'Американская ворона'
+    species = species(:bomgar)
+    species.name_ru = 'Богемский свиристель'
     login_as_admin
     put :update, id: species.to_param, species: species.attributes
     assert_redirected_to species_path(assigns(:species))
   end
 
   test "update species via JSON" do
-    species = species(:corbra)
+    species = species(:bomgar)
     login_as_admin
-    put :update, id: species.to_param, species: {name_ru: 'Американская ворона'}, format: :json
+    put :update, id: species.to_param, species: {name_ru: 'Богемский свиристель'}, format: :json
     assert_response :success
     assert_equal Mime::JSON, response.content_type
   end
 
   test "do not update species with invalid name_sci" do
-    species = species(:corbra)
+    species = species(:bomgar)
     sp_attr = species.attributes
     old_id = species.to_param
     sp_attr['name_sci'] = '$!#@'
@@ -124,8 +125,8 @@ class SpeciesControllerTest < ActionController::TestCase
   end
 
   test "redirect species to correct URL " do
-    get :show, id: 'Corvus cornix'
-    assert_redirected_to species_path(id: 'Corvus_cornix')
+    get :show, id: 'Lanius collurio'
+    assert_redirected_to species_path(id: 'Lanius_collurio')
     assert_response 301
   end
 
@@ -137,20 +138,20 @@ class SpeciesControllerTest < ActionController::TestCase
   end
 
   test 'protect edit with authentication' do
-    species = species(:melgal)
+    species = species(:jyntor)
     assert_raise(ActionController::RoutingError) { get :edit, id: species.to_param }
     #assert_response 404
   end
 
   test 'protect update with authentication' do
-    species = species(:corbra)
-    species.name_ru = 'Американская ворона'
+    species = species(:bomgar)
+    species.name_ru = 'Богемский свиристель'
     assert_raise(ActionController::RoutingError) { put :update, id: species.to_param, species: species.attributes }
     #assert_response 404
   end
 
   test "search" do
-    create(:observation, species: species(:bomgar))
+    create(:observation, taxon: taxa(:bomgar))
     get :search, term: 'gar', format: :json
     assert_response :success
     assert_equal Mime::JSON, response.content_type
@@ -158,7 +159,7 @@ class SpeciesControllerTest < ActionController::TestCase
   end
 
   test "search localized" do
-    create(:observation, species: species(:bomgar))
+    create(:observation, taxon: taxa(:bomgar))
     get :search, term: 'gar', locale: 'en', format: :json
     assert_response :success
     assert_equal Mime::JSON, response.content_type

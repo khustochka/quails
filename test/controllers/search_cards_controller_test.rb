@@ -6,10 +6,10 @@ class SearchCardsControllerTest < ActionController::TestCase
 
   test "get index (no search)" do
     create(:observation, taxon: taxa(:pasdom), card: create(:card, observ_date: "2010-06-20", locus: loci(:nyc)))
-    create(:observation, taxon: taxa(:melgal), card: create(:card, observ_date: "2010-06-18"))
-    create(:observation, taxon: taxa(:anapla), card: create(:card, observ_date: "2009-06-18"))
-    create(:observation, taxon: taxa(:anacly), card: create(:card, observ_date: "2007-07-18", locus: loci(:brovary)))
-    create(:observation, taxon: taxa(:embcit), card: create(:card, observ_date: "2009-08-09", locus: loci(:kiev)))
+    create(:observation, taxon: taxa(:jyntor), card: create(:card, observ_date: "2010-06-18"))
+    create(:observation, taxon: taxa(:hirrus), card: create(:card, observ_date: "2009-06-18"))
+    create(:observation, taxon: taxa(:lancol), card: create(:card, observ_date: "2007-07-18", locus: loci(:brovary)))
+    create(:observation, taxon: taxa(:bomgar), card: create(:card, observ_date: "2009-08-09", locus: loci(:kiev)))
     login_as_admin
     get :index
     assert_response :success
@@ -18,10 +18,10 @@ class SearchCardsControllerTest < ActionController::TestCase
 
   test "get index (search)" do
     create(:observation, taxon: taxa(:pasdom), card: create(:card, observ_date: "2010-06-20", locus: loci(:nyc)))
-    create(:observation, taxon: taxa(:melgal), card: create(:card, observ_date: "2010-06-18"))
-    create(:observation, taxon: taxa(:anapla), card: create(:card, observ_date: "2009-06-18"))
-    create(:observation, taxon: taxa(:anacly), card: create(:card, observ_date: "2007-07-18", locus: loci(:brovary)))
-    create(:observation, taxon: taxa(:embcit), card: create(:card, observ_date: "2009-08-09", locus: loci(:kiev)))
+    create(:observation, taxon: taxa(:hirrus), card: create(:card, observ_date: "2010-06-18"))
+    create(:observation, taxon: taxa(:lancol), card: create(:card, observ_date: "2009-06-18"))
+    create(:observation, taxon: taxa(:jyntor), card: create(:card, observ_date: "2007-07-18", locus: loci(:brovary)))
+    create(:observation, taxon: taxa(:gargla), card: create(:card, observ_date: "2009-08-09", locus: loci(:kiev)))
     login_as_admin
     get :index, q: {locus_id: loci(:brovary).id}
     assert_response :success
@@ -38,8 +38,8 @@ class SearchCardsControllerTest < ActionController::TestCase
     cards = assigns(:cards)
     assert_not_nil cards
     assert cards.find { |c| (c.observations.find { |o| o.taxon_id == aves_sp_id }).present? }.present?,
-           "Expected to include Aves sp."
-    assert_select 'li b', 'Bird sp.'
+           "Expected to include Bird sp."
+    assert_select 'li b', 'bird sp.'
   end
 
 end
