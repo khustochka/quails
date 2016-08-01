@@ -58,14 +58,17 @@ gem 'uglifier', '>= 1.3.0'
 
 group :development do
   gem 'nokogiri', platforms: [:ruby, :mingw], require: false
-  gem 'pry-rails'
-  gem 'pry-byebug'
   gem 'benchmark-ips'
   gem "foreman"
 end
 
-# in dev group for generators
-gem 'factory_girl_rails', '~> 4.0', groups: [:development, :test]
+
+group :development, :test do
+  gem 'pry-rails'
+  gem 'pry-byebug'
+  # in dev group for generators
+  gem 'factory_girl_rails', '~> 4.0'
+end
 
 group :test do
   gem 'capybara'
