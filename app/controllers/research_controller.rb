@@ -142,7 +142,7 @@ class ResearchController < ApplicationController
                               Card.all
                             end
 
-      prespecies = Species.short.select('"order", family').distinct.joins(:cards).merge(MyObservation.all)
+      prespecies = Species.short.select('species."order", species.family').distinct.joins(:cards).merge(MyObservation.all)
 
       @species = prespecies.merge(observations_source).ordered_by_taxonomy.extend(SpeciesArray)
 
@@ -247,9 +247,10 @@ class ResearchController < ApplicationController
   end
 
   def voices
-    voiceful = "select species_id, COUNT(id) as voicenum from observations where voice group by species_id"
-    total = "select species_id, count(id) as totalnum from observations group by species_id"
-    @species = Species.find_by_sql("WITH voiceful AS (#{voiceful}), total AS (#{total})
+    base = Observation.joins(:taxon).where("species_id IS NOT NULL").group("species_id")
+    voiceful = base.select("species_id, COUNT(observations.id) as voicenum").where(voice: true)
+    total = base.select("species_id, count(observations.id) as totalnum")
+    @species = Species.find_by_sql("WITH voiceful AS (#{voiceful.to_sql}), total AS (#{total.to_sql})
                 SELECT species.*, 100.00 * voicenum / totalnum as percentage
                 FROM voiceful NATURAL JOIN total JOIN species on species_id = species.id
                 WHERE voicenum <> 0
