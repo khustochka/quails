@@ -7,6 +7,10 @@ class MyObservation < Observation
 
   scope :distinct_species, lambda { joins(:taxon).select("DISTINCT species_id") }
 
+  # FIXME: this is a strange workaround to fix Advanced lifelist sorted by count.
+  # Though it is not too bad, can be used for other places?
+  belongs_to :species
+
   def self.aggregate_by_species(*args)
     # for now argument should be :min, :max or :count
     select("species_id, #{args[0]}(observ_date)").group(:species_id)
