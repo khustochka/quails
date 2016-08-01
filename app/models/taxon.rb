@@ -47,4 +47,8 @@ class Taxon < ActiveRecord::Base
     name_sci
   end
 
+  def countable?
+    species_id.present?
+  end
+
 end
