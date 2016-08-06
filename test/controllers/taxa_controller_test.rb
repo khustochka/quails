@@ -2,7 +2,7 @@ require "test_helper"
 
 class TaxaControllerTest < ActionController::TestCase
   def setup
-    @taxon = FactoryGirl.create(:taxon)
+    @taxon = taxa(:jyntor)
   end
 
   test 'show index' do

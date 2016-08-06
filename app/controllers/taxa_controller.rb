@@ -22,10 +22,11 @@ class TaxaController < ApplicationController
     render json: taxa_arr
   end
 
-  # def show
-  #   render :form
-  # end
-  #
+  def show
+    @taxon = Taxon.find_by_ebird_code(params[:id])
+    #render :form
+  end
+
   # def update
   #   if @taxon.update_attributes(params[:taxon])
   #     redirect_to([@book, @taxon], :notice => 'Taxon was successfully updated.')

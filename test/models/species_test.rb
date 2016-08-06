@@ -27,15 +27,6 @@ class SpeciesTest < ActiveSupport::TestCase
     assert_raise(ActiveRecord::RecordInvalid) { sp.save! }
   end
 
-  test 'do not destroy species if it has associated observations' do
-    hirrus = taxa(:hirrus)
-    observation = create(:observation, taxon: hirrus)
-    sp = taxa(:hirrus).species
-    assert_raise(ActiveRecord::DeleteRestrictionError) { sp.destroy }
-    assert observation.reload
-    assert_equal sp, observation.species
-  end
-
   test 'sort by abundance' do
     skip "Sort by abundance not implemented yet"
     create(:observation, taxon: taxa(:pasdom))

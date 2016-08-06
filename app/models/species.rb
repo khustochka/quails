@@ -97,4 +97,8 @@ class Species < ActiveRecord::Base
     Thumbnail.new(self, {partial: 'species/thumb_title'}, self.image)
   end
 
+  def destroy
+    raise "Destroying species not allowed!"
+  end
+
 end
