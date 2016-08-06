@@ -112,9 +112,19 @@ class Image < Media
       return @prev_next[sp]
     end
     # Calculate row number for every image under partition
+    # FIXME: was joins(:taxa, :species, :cards), producting overcomplicated join (some tables joined 2-3 times)
+    # probably can be refactored taking into account media_observations automatic joins
     window =
         Image.select("media.*, row_number() over (partition by species.id #{PREV_NEXT_ORDER}) as rn").
-            joins(:taxa, :species, :cards).
+            joins(
+<<SQL
+            INNER JOIN "media_observations" ON "media_observations"."media_id" = "media"."id"
+            INNER JOIN "observations" ON "observations"."id" = "media_observations"."observation_id"
+            INNER JOIN "taxa" ON "taxa"."id" = "observations"."taxon_id"
+            INNER JOIN "cards" ON "cards"."id" = "observations"."card_id"
+            INNER JOIN "species" ON "species"."id" = "taxa"."species_id"
+SQL
+            ).
             where("species.id = ?", sp.id)
     # Join ranked tables by neighbouring images
     # Select neighbours of the sought one, exclude duplication
