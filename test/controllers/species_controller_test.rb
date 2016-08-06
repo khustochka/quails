@@ -175,13 +175,14 @@ class SpeciesControllerTest < ActionController::TestCase
 
   test "create species should insert properly" do
     login_as_admin
-    old_species = Species.where(index_num: 2).first
+    old_species = Species.order(:index_num).last
+    index_num = old_species.index_num
     assert_difference('Species.count') do
-      put :create, species: {name_sci: 'Apteryx australis', code: 'aptaus', index_num: 2, family: 'Apterygidae',
-                              name_en: 'Southern brown kiwi' }
+      put :create, species: {name_sci: 'Apteryx australis', code: 'aptaus', index_num: index_num,
+                             family: 'Apterygidae', order: "	Apterygiformes", name_en: 'Southern brown kiwi' }
     end
     assert_redirected_to species_path(Species.find_by(code: 'aptaus'))
     old_species.reload
-    assert_equal 3, old_species.index_num
+    assert_equal index_num + 1, old_species.index_num
   end
 end

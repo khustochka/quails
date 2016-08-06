@@ -242,16 +242,18 @@ ActiveRecord::Schema.define(version: 20160227220146) do
   end
 
   create_table "species", force: :cascade do |t|
-    t.string  "name_sci",              null: false
-    t.string  "name_en",               null: false
+    t.string  "name_sci",                              null: false
+    t.string  "name_en",                               null: false
     t.string  "name_ru"
     t.string  "name_uk"
     t.string  "name_fr"
     t.string  "code",        limit: 6
     t.string  "legacy_code", limit: 6
-    t.string  "order",                 null: false
-    t.string  "family",                null: false
-    t.integer "index_num",             null: false
+    t.string  "order",                                 null: false
+    t.string  "family",                                null: false
+    t.string  "authority"
+    t.boolean "reviewed",              default: false, null: false
+    t.integer "index_num",                             null: false
   end
 
   create_table "species_images", force: :cascade do |t|

@@ -44,6 +44,8 @@ class RecreateNewTaxonomyTables < ActiveRecord::Migration
       t.string :legacy_code, limit: 6
       t.string :order, null: false
       t.string :family, null: false
+      t.string :authority
+      t.boolean :reviewed, default: false, null: false
       t.integer :index_num, null: false
     end
   end
