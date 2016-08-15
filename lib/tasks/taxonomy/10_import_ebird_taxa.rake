@@ -3,7 +3,7 @@ namespace :tax do
   desc "Import ebird taxa to taxa and ebird_taxa tables"
   task :import_ebird_taxa => :environment do
 
-    filename = ENV['CSV'] || "./vendor/eBird_v2015_csv.csv"
+    filename = ENV['CSV'] || "./vendor/eBird_Taxonomy_v2016.csv"
 
     raise "*** Provide path to ebird CSV as CSV env var." if filename.blank?
 
@@ -17,10 +17,12 @@ namespace :tax do
 
     codes = {}
 
-    # File was in MacCentEuro encoding but I saved it in UTF-8
-    data = CSV.read(filename)
+    # Ebird File is in some Mac encoding, and not all of them are convertable to UTF-8.
+    # This one works for now (check Rüppell's Warbler)
+    # 2016: Fixed sci name for Red-billed Curassow to Crax blumenbachii
+    data = CSV.read(filename, encoding: "macRoman:UTF-8")
     data.shift # skip headers
-    data.each_with_index do |(ebird_order, category, code, name_sci, name_en, name_ioc, order, family, _, report_as), idx|
+    data.each_with_index do |(ebird_order, category, code, name_en, name_ioc, name_sci, order, family, _, report_as), idx|
       e_taxon = EbirdTaxon.create!(
           name_sci: name_sci,
           name_en: name_en,
