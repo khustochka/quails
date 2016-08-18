@@ -179,7 +179,7 @@ class SpeciesControllerTest < ActionController::TestCase
     index_num = old_species.index_num
     assert_difference('Species.count') do
       put :create, species: {name_sci: 'Apteryx australis', code: 'aptaus', index_num: index_num,
-                             family: 'Apterygidae', order: "	Apterygiformes", name_en: 'Southern brown kiwi' }
+                             family: 'Apterygidae', order: "Apterygiformes", name_en: 'Southern brown kiwi' }
     end
     assert_redirected_to species_path(Species.find_by(code: 'aptaus'))
     old_species.reload

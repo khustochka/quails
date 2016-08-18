@@ -1,3 +1,4 @@
+# See https://gist.github.com/NARKOZ/1179915
 namespace :whitespace do
 
   EXCLUDE = "-e '.git/' -e '.idea/' -e 'public/' -e 'db/seed' -e 'vendor/' -e '.png' -e 'log/' -e 'tmp/' -e 'coverage'"
