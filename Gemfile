@@ -2,7 +2,7 @@ source 'https://rubygems.org/'
 
 ruby '2.3.1'
 
-gem 'rails', '4.2.7'
+gem 'rails', '4.2.7.1'
 
 gem 'pg', platforms: [:ruby, :mingw]
 #gem "activerecord-jdbcpostgresql-adapter", platforms: :jruby
@@ -72,7 +72,9 @@ end
 
 group :test do
   gem 'capybara'
+  # This is a driver for headless JS tests (default).
   gem 'capybara-webkit'
+  # And this one is if you want to see it in a real browser.
   gem 'selenium-webdriver'
 #  gem 'poltergeist', platforms: [:mri], require: false
 #  gem 'database_cleaner', '~> 1.3.0', require: false
