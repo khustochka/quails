@@ -2,8 +2,6 @@ require 'test_helper'
 
 class BlogControllerTest < ActionController::TestCase
 
-  BlogController::POSTS_ON_FRONT_PAGE = 3
-
   # Front page
 
   test 'get home page' do
