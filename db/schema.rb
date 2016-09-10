@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160227220146) do
+ActiveRecord::Schema.define(version: 20160910004453) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -287,6 +287,11 @@ ActiveRecord::Schema.define(version: 20160227220146) do
     t.integer "parent_id"
     t.integer "species_id"
     t.integer "ebird_taxon_id"
+  end
+
+  create_table "url_synonyms", force: :cascade do |t|
+    t.string  "name_sci"
+    t.integer "species_id"
   end
 
 end

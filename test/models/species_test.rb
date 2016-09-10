@@ -17,13 +17,13 @@ class SpeciesTest < ActiveSupport::TestCase
 
   test 'not be saved with existing Latin name' do
     sp = Species.find_by!(code: :hirrus)
-    sp.name_sci = species(:lancol).name_sci
+    sp.name_sci = species(:saxola).name_sci
     assert_raise(ActiveRecord::RecordInvalid) { sp.save! }
   end
 
   test 'do not save species with existing code' do
     sp = Species.find_by!(code: :hirrus)
-    sp.code = 'lancol'
+    sp.code = 'saxola'
     assert_raise(ActiveRecord::RecordInvalid) { sp.save! }
   end
 

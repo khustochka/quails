@@ -15,7 +15,7 @@ class ImagesAssociationsTest < ActiveSupport::TestCase
   end
 
   test 'properly link images with several species' do
-    tx1 = taxa(:lancol)
+    tx1 = taxa(:saxola)
     tx2 = taxa(:jyntor)
     card = create(:card, observ_date: "2008-07-01")
     obs1 = create(:observation, taxon: tx1, card: card)

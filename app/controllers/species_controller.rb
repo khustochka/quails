@@ -29,7 +29,7 @@ class SpeciesController < ApplicationController
   # GET /species/1
   def show
     id_humanized = Species.humanize(params[:id])
-    @species = Species.find_by(name_sci: id_humanized) || Taxon.find_by!(name_sci: id_humanized).species
+    @species = Species.find_by(name_sci: id_humanized) || UrlSynonym.find_by(name_sci: id_humanized).try(:species)
     if @species
       if params[:id] != @species.to_param
         redirect_to @species, :status => 301
@@ -46,7 +46,7 @@ class SpeciesController < ApplicationController
         end
       end
     else
-      raise ActiveRecord::RecordNotFound, "Cannot find #{id_humanized}"
+      raise ActiveRecord::RecordNotFound, "Cannot find species `#{id_humanized}` nor its synonyms."
     end
   end
 

@@ -14,12 +14,12 @@ pasdom:
 #  index_num: 50
 #  ebird_code: barswa
 #
-#lancol:
-#  name_sci: "Lanius collurio"
-#  name_en: "Red-backed Shrike"
+#saxola:
+#  name_sci: "Saxicola rubicola"
+#  name_en: "European Stonechat"
 #  category: "species"
 #  index_num: 70
-#  ebird_code: rebshr1
+#  ebird_code: stonec4
 #
 #jyntor:
 #  name_sci: "Jynx torquilla"

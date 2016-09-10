@@ -16,14 +16,6 @@ hirrus:
   ebird_code: barswa
   species: :hirrus
 
-lancol:
-  name_sci: "Lanius collurio"
-  name_en: "Red-backed Shrike"
-  category: "species"
-  index_num: 70
-  ebird_code: rebshr1
-  species: :lancol
-
 jyntor:
   name_sci: "Jynx torquilla"
   name_en: "Wryneck"
@@ -47,6 +39,14 @@ bomgar:
   index_num: 65
   ebird_code: bohwax
   species: :bomgar
+
+saxola:
+  name_sci: "Saxicola rubicola"
+  name_en: "European Stonechat"
+  category: "species"
+  index_num: 70
+  ebird_code: stonec4
+  species: :saxola
 
 motfel:
   name_sci: "Motacilla feldegg"

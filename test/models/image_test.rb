@@ -53,7 +53,7 @@ class ImageTest < ActiveSupport::TestCase
   end
 
   test 'prevent duplication of multi-species image in prev next function' do
-    tx1 = taxa(:lancol)
+    tx1 = taxa(:saxola)
     tx2 = taxa(:jyntor)
     sp1 = tx1.species
     sp2 = tx2.species

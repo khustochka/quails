@@ -34,7 +34,7 @@ class SpeciesControllerTest < ActionController::TestCase
     @obs = @image.observations.first
 
     # Setup photo of several species
-    sp1 = taxa(:lancol)
+    sp1 = taxa(:saxola)
     sp2 = taxa(:jyntor)
     card = create(:card, observ_date: "2008-07-01")
     obs1 = create(:observation, taxon: sp1, card: card)
@@ -125,8 +125,14 @@ class SpeciesControllerTest < ActionController::TestCase
   end
 
   test "redirect species to correct URL " do
-    get :show, id: 'Lanius collurio'
-    assert_redirected_to species_path(id: 'Lanius_collurio')
+    get :show, id: 'Saxicola rubicola'
+    assert_redirected_to species_path(id: 'Saxicola_rubicola')
+    assert_response 301
+  end
+
+  test "redirect old synonym to the new species URL " do
+    get :show, id: 'Saxicola torquata'
+    assert_redirected_to species_path(id: 'Saxicola_rubicola')
     assert_response 301
   end
 

@@ -8,12 +8,12 @@ module Lifelist
           create(:observation, taxon: taxa(:hirrus), card: create(:card, observ_date: "2008-05-22")),
           create(:observation, taxon: taxa(:jyntor), card: create(:card, observ_date: "2008-10-18")),
           create(:observation, taxon: taxa(:hirrus), card: create(:card, observ_date: "2008-11-01")),
-          create(:observation, taxon: taxa(:lancol), card: create(:card, observ_date: "2009-01-01")),
+          create(:observation, taxon: taxa(:saxola), card: create(:card, observ_date: "2009-01-01")),
           create(:observation, taxon: taxa(:pasdom), card: create(:card, observ_date: "2009-01-01")),
           create(:observation, taxon: taxa(:hirrus), card: create(:card, observ_date: "2009-10-18")),
-          create(:observation, taxon: taxa(:lancol), card: create(:card, observ_date: "2009-11-01")),
+          create(:observation, taxon: taxa(:saxola), card: create(:card, observ_date: "2009-11-01")),
           create(:observation, taxon: taxa(:pasdom), card: create(:card, observ_date: "2009-12-01", locus: loci(:nyc))),
-          create(:observation, taxon: taxa(:lancol), card: create(:card, observ_date: "2009-12-31")),
+          create(:observation, taxon: taxa(:saxola), card: create(:card, observ_date: "2009-12-31")),
           create(:observation, taxon: taxa(:hirrus), card: create(:card, observ_date: "2010-03-10", locus: loci(:nyc))),
           create(:observation, taxon: taxa(:pasdom), card: create(:card, observ_date: "2010-04-16", locus: loci(:nyc))),
           create(:observation, taxon: taxa(:hirrus), card: create(:card, observ_date: "2010-07-27", locus: loci(:nyc))),
@@ -32,7 +32,7 @@ module Lifelist
     end
 
     test 'Species lifelist by taxonomy properly sorts the list' do
-      expected = [%w(jyntor 2008-10-18), %w(hirrus 2008-05-22), %w(lancol 2009-01-01), %w(pasdom 2009-01-01)]
+      expected = [%w(jyntor 2008-10-18), %w(hirrus 2008-05-22), %w(saxola 2009-01-01), %w(pasdom 2009-01-01)]
       actual = Lifelist::FirstSeen.full.sort('class').map { |s| [s.species.code, s.observ_date.iso8601] }
       assert_equal expected, actual
     end
@@ -47,13 +47,13 @@ module Lifelist
     end
 
     test 'Species lifelist by date properly sorts the list' do
-      expected = [["pasdom", "2009-01-01"], ["lancol", "2009-01-01"], ["jyntor", "2008-10-18"], ["hirrus", "2008-05-22"]]
+      expected = [["pasdom", "2009-01-01"], ["saxola", "2009-01-01"], ["jyntor", "2008-10-18"], ["hirrus", "2008-05-22"]]
       actual = Lifelist::FirstSeen.full.map { |s| [s.species.code, s.observ_date.iso8601] }
       assert_equal expected, actual
     end
 
     test 'Year list by taxonomy properly sorts the list' do
-      expected = [["hirrus", "2009-10-18"], ["lancol", "2009-01-01"], ["pasdom", "2009-01-01"]]
+      expected = [["hirrus", "2009-10-18"], ["saxola", "2009-01-01"], ["pasdom", "2009-01-01"]]
       actual = Lifelist::FirstSeen.over(year: 2009).sort('class').map { |s| [s.species.code, s.observ_date.iso8601] }
       assert_equal expected, actual
     end

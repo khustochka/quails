@@ -13,7 +13,7 @@ class ObservationSearchTest < ActiveSupport::TestCase
     create(:observation, taxon: taxa(:hirrus), card: @cards[1])
     create(:observation, taxon: taxa(:jyntor), card: @cards[1])
     create(:observation, taxon: taxa(:pasdom), card: @cards[2])
-    create(:observation, taxon: taxa(:lancol), card: @cards[2])
+    create(:observation, taxon: taxa(:saxola), card: @cards[2])
   end
 
   test 'search cards by date' do

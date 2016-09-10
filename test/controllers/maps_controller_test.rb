@@ -34,7 +34,7 @@ class MapsControllerTest < ActionController::TestCase
     # Try to create observation in random order
     obss = [create(:observation, taxon: taxa(:hirrus)),
             create(:observation, taxon: taxa(:pasdom)),
-            create(:observation, taxon: taxa(:lancol))]
+            create(:observation, taxon: taxa(:saxola))]
     get :observations, q: {observ_date: obss[0].card.observ_date.iso8601}, format: 'json'
     assert_response :success
     result = JSON.parse(response.body)['json']

@@ -15,14 +15,6 @@ hirrus:
   order: Passeriformes
   family: Hirundinidae
 
-lancol:
-  name_sci: "Lanius collurio"
-  name_en: "Red-backed Shrike"
-  index_num: 70
-  code: lancol
-  order: Passeriformes
-  family: Laniidae
-
 jyntor:
   name_sci: "Jynx torquilla"
   name_en: "Wryneck"
@@ -46,6 +38,14 @@ bomgar:
   code: bomgar
   order: Passeriformes
   family: Bombycillidae
+
+saxola:
+  name_sci: "Saxicola rubicola"
+  name_en: "European Stonechat"
+  index_num: 70
+  code: saxola
+  order: Passeriformes
+  family: Muscicapidae
 
 motfel:
   name_sci: "Motacilla feldegg"
