@@ -33,7 +33,7 @@ gargla:
 
 bomgar:
   name_sci: "Bombycilla garrulus"
-  name_en: "Bohemian Waxwing"
+  name_en: "(Bohemian) Waxwing"
   index_num: 65
   code: bomgar
   order: Passeriformes

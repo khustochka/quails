@@ -22,8 +22,8 @@ class SpeciesSearchTest < ActionView::TestCase
 
   test 'search for the name in brackets, e.g. Russian name for bobolink' do
     user = User.from_session(controller.request).extend(Role::Admin)
-    result = SpeciesSearch.new(user.searchable_species, "боболинк").find
-    assert_equal ["Dolichonyx oryzivorus"], result.map(&:name_sci)
+    result = SpeciesSearch.new(user.searchable_species, "Bohemian").find
+    assert_equal ["Bombycilla garrulus"], result.map(&:name_sci)
   end
 
 end
