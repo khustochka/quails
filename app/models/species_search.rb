@@ -3,7 +3,7 @@ class SpeciesSearch
   FILTER = lambda do |term|
     %w(name_sci name_ru name_en name_uk).map do |field|
       Species.send(:sanitize_conditions,
-                   ["#{field} ILIKE '%s%%' OR #{field} ILIKE '%% %s%%' OR #{field} ILIKE '%%-%s%%'", term, term, term])
+                   ["#{field} ILIKE '%s%%' OR #{field} ILIKE '%% %s%%' OR #{field} ILIKE '%%-%s%%' OR #{field} ILIKE '%%(%s%%'", term, term, term, term])
     end.join(" OR ")
   end
 
@@ -30,7 +30,7 @@ class SpeciesSearch
 
   private
   def detect_name(sp)
-    @regex ||= /(^| |-)#{@term}/i
+    @regex ||= /(^| |-|\()#{@term}/i
     if sp.name_sci =~ @regex
       sp.name
     elsif sp.name_en =~ @regex
