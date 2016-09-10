@@ -28,11 +28,6 @@ class EbirdObservation
     ]
   end
 
-  def self.ebird_species_cache
-    @ebird_species_cache ||=
-        Taxon.where(book_id: Book.select(:id).where(slug: 'clements6')).index_by(&:species_id).merge(ADDITIONAL_SPECIES)
-  end
-
   PROTOCOL_MAPPING = {
       'UNSET' => 'incidental',
       'INCIDENTAL' => 'incidental',
@@ -183,41 +178,5 @@ class EbirdObservation
       video_embed(media.slug, :medium).gsub("\n", ' ')
     end
   end
-
-  SpeciesTemplate = Struct.new(:name_sci, :name_en)
-
-  EUROPEAN_STONECHAT = SpeciesTemplate.new('Saxicola rubicola', 'European Stonechat')
-
-  FERAL_PIGEON = SpeciesTemplate.new('Columba livia (Feral Pigeon)', 'Rock Pigeon (Feral Pigeon)')
-
-  MOTACILLA_FELDEGG = SpeciesTemplate.new('Motacilla flava feldegg', 'Western Yellow Wagtail (Black-headed)')
-
-  ADDITIONAL_SPECIES = {
-      Species.where(code: 'colliv').pluck(:id).first => FERAL_PIGEON,
-      Species.where(code: 'saxtor').pluck(:id).first => EUROPEAN_STONECHAT,
-      Species.where(code: 'motfel').pluck(:id).first => MOTACILLA_FELDEGG
-  }
-
-  LARUS_FUSCUS_GRAELLSII = SpeciesTemplate.new('Larus fuscus graellsii', 'Lesser Black-backed Gull (graellsii)')
-
-  AMERICAN_BARN_SWALLOW = SpeciesTemplate.new('Hirundo rustica erythrogaster', 'Barn Swallow (American)')
-
-  AMERICAN_HERRING_GULL = SpeciesTemplate.new('Larus argentatus smithsonianus', 'Herring Gull (American)')
-
-  SPECIES_BY_COUNTRY = Hash.new({}).merge!({
-
-      'usa' => {
-          Species.where(code: 'hirrus').pluck(:id).first => AMERICAN_BARN_SWALLOW,
-          Species.where(code: 'lararg').pluck(:id).first => AMERICAN_HERRING_GULL
-      },
-
-      'united_kingdom' => {
-          Species.where(code: 'larfus').pluck(:id).first => LARUS_FUSCUS_GRAELLSII
-      },
-
-      'canada' => {
-          Species.where(code: 'hirrus').pluck(:id).first => AMERICAN_BARN_SWALLOW
-      }
-  })
 
 end
