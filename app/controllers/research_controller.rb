@@ -106,6 +106,15 @@ class ResearchController < ApplicationController
   end
 
   def uptoday
+
+    @locations = Country.all
+
+    observations_filtered = MyObservation.joins(:card)
+    if params[:locus]
+      loc_filter = Locus.find_by!(slug: params[:locus]).subregion_ids
+      observations_filtered = observations_filtered.where('cards.locus_id' => loc_filter)
+    end
+
     @today = Date.today
     @this_day = if params[:day]
                   Date.parse("#{@today.year}-#{params[:day]}")
@@ -114,8 +123,7 @@ class ResearchController < ApplicationController
                 end
     @next_day = @this_day + 1
     @prev_day = @this_day - 1
-    @uptoday = MyObservation.
-        joins(:card).
+    @uptoday = observations_filtered.
         where(
             'EXTRACT(month FROM observ_date)::integer < ? OR
         (EXTRACT(month FROM observ_date)::integer = ?
@@ -258,14 +266,21 @@ class ResearchController < ApplicationController
   end
 
   def charts
+    @locations = Country.all
+
+    observations_filtered = MyObservation.joins(:card)
+    if params[:locus]
+      loc_filter = Locus.find_by!(slug: params[:locus]).subregion_ids
+      observations_filtered = observations_filtered.where('cards.locus_id' => loc_filter)
+    end
+
     current = ListsController::CURRENT_YEAR
     @data = {}
     @years = params[:years] ?
               Range.new(*params[:years].split("..")) :
               (current - 1)..current
     @years.each do |yr|
-      list = Observation.identified.
-          joins(:card).
+      list = observations_filtered.
           select('species_id, MIN(observ_date) as first_date').
           where("extract(year from observ_date) = #{yr}").
           group(:species_id)
