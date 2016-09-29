@@ -32,6 +32,7 @@ gem 'rinku'
 # Improved functionality utils
 gem 'kaminari'
 gem 'simple_form'
+gem "high_voltage"
 
 # External services
 gem 'flickraw', '~> 0.9.7'
