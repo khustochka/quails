@@ -19,7 +19,7 @@ namespace :vendor do
       puts "\n=== Getting latest Keypress.js ==="
       system "curl https://raw.githubusercontent.com/dmauro/Keypress/v1.0/keypress.js -o vendor/assets/javascripts/keypress.js"
       puts "\n=== Getting latest HTML5shiv for IE ==="
-      system "curl http://html5shiv.googlecode.com/svn/trunk/html5.js -o vendor/assets/javascripts/html5.js"
+      system "curl https://raw.githubusercontent.com/aFarkas/html5shiv/master/src/html5shiv.js -o vendor/assets/javascripts/html5.js"
       puts "\n=== Getting latest JSON3 parser for IE ==="
       system "curl https://raw.githubusercontent.com/bestiejs/json3/gh-pages/lib/json3.js -o vendor/assets/javascripts/json3.js"
       puts "\n=== Getting Gmap3 ==="

@@ -10,7 +10,7 @@
     %li= render 'partials/translated'
     %li= link_to(t('menu.gallery'), country_path(country: @country.slug))
     - if I18n.russian_locale? && @country.slug == "ukraine"
-      %li= link_to("Зимующие птицы", show_page_path(:winter))
+      %li= link_to("Зимующие птицы", page_path(:winter))
 
 - cache(key: CacheKey.checklist) do
 

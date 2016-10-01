@@ -166,9 +166,6 @@ Rails.application.routes.draw do
         sort: /by_taxonomy/
   end
 
-  # Static pages
-  get '/:id' => 'pages#show_public', constraints: {id: /links|about|winter/}, as: :show_page
-
   # Feeds and sitemap
   get '/blog.:format' => 'feeds#blog', constraints: {format: 'xml'}
   scope '(:locale)', locale: /en/ do
@@ -244,8 +241,6 @@ Rails.application.routes.draw do
   end
 
   resources :ebird_taxa, only: [:index]
-
-  resources :pages
 
   get '/settings' => 'settings#index'
   post '/settings/save' => 'settings#save'

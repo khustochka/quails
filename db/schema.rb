@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160910004453) do
+ActiveRecord::Schema.define(version: 20160929232040) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -208,18 +208,6 @@ ActiveRecord::Schema.define(version: 20160910004453) do
   add_index "observations", ["legacy_species_id"], name: "index_observations_on_legacy_species_id", using: :btree
   add_index "observations", ["post_id"], name: "index_observations_on_post_id", using: :btree
   add_index "observations", ["taxon_id"], name: "index_observations_on_taxon_id", using: :btree
-
-  create_table "pages", force: :cascade do |t|
-    t.string   "slug",       limit: 255,                 null: false
-    t.string   "title",      limit: 255,                 null: false
-    t.text     "meta"
-    t.text     "text"
-    t.boolean  "public",                 default: false, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "pages", ["slug"], name: "index_pages_on_slug", unique: true, using: :btree
 
   create_table "posts", force: :cascade do |t|
     t.string   "slug",         limit: 64
