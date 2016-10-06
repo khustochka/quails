@@ -74,9 +74,9 @@
                   = c.name
                 %span.count= link_to count, list_path(locus: c.slug)
 
-  - day_with_max_species = Date.new(2012, 6, 28)
-  - max_species_for_day = 60
-  - post_for_day_with_max_species = show_post_path(2012, 11, "litochky-corncrake-shorttoedeagle")
+  - day_with_max_species = Date.new(2016, 9, 3)
+  - max_species_for_day = 64
+  - post_for_day_with_max_species = nil
 
   - day_with_max_new_species = Date.new(2010, 8, 14)
   - max_new_species_for_day = 15
@@ -88,8 +88,8 @@
         %h2= t('.records')
 
     %tr
-      %td.day= link_to_if I18n.russian_locale?, l(day_with_max_species, format: :long), post_for_day_with_max_species
-      %td.place= t('.litochky_place')
+      %td.day= link_to_if I18n.russian_locale? && post_for_day_with_max_species, l(day_with_max_species, format: :long), post_for_day_with_max_species
+      %td.place Whitewater Lake WMA & Turtle Mountain Provincial Park, Manitoba, Canada
       %td.count_sp= max_species_for_day
       %td.count_sp_label= t('misc.species_count', count: max_species_for_day)
 
