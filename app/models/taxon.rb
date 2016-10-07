@@ -19,7 +19,7 @@ class Taxon < ActiveRecord::Base
   # validates :species_id, uniqueness: {scope: :book_id}, :allow_blank => true
 
   # Associations
-  belongs_to :parent, class_name: "EbirdTaxon"
+  belongs_to :parent, class_name: "Taxon"
   belongs_to :species
   belongs_to :ebird_taxon
 

@@ -14,8 +14,7 @@ class EbirdTaxon < ActiveRecord::Base
   # Associations
 
   belongs_to :species
-  belongs_to :ebird_taxon
-  belongs_to :parent, class_name: "Taxon"
+  belongs_to :parent, class_name: "EbirdTaxon"
 
   # Parameters
 
