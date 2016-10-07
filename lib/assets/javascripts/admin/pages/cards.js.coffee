@@ -21,7 +21,7 @@ Quails.pages.cards =
     $(".card_observations_private_notes").hide()
     @last_row_num = $('.obs-row').length - 1
     @sample_row_html = $('.obs-row:last')[0].outerHTML
-    @tmpl_regex = new RegExp("(_|\\[)" + @last_row_num + "(_|\\])", "g")
+    @tmpl_regex = new RegExp("(_|\\[)#{@last_row_num}(_|\\])", "g")
     $('.obs-row:last').remove()
 
   initDatepicker: ->
@@ -46,7 +46,7 @@ Quails.pages.cards =
     # Fast locus selector
     $('.fast_locus').click ->
       $("input#card_locus_id").data('ui-autocomplete').search(this.textContent)
-      $(".ui-menu-item a:contains(" + this.textContent + "):first").click()
+      $(".ui-menu-item a:contains(#{this.textContent}):first").click()
 
   initPatchAutocomplete: ->
     $('.patch-suggest').combobox()
@@ -71,10 +71,11 @@ Quails.pages.cards =
       return
 
   initFastSpeciesLinks: ->
+    global = @
     $('.fast-sp-link').click ->
-      row = @addNewRow()
+      row = global.addNewRow()
       $('.sp-light', row).val @innerText
-      $('.sp-light', row).next().val $(this).data('species-id')
+      $('.sp-light', row).next().val $(this).data('taxon-id')
       false
 
   initQuickAdd: ->
@@ -94,12 +95,11 @@ Quails.pages.cards =
     $('#species-quick-add').data('ui-autocomplete')._renderItem = (ul, item) ->
       $('<li></li>').
       data('item.autocomplete', item).
-      append('<a>' + item.label + '</a>').
+      append("<a>#{item.label} <small class=\"tag tag_#{item.cat}\">#{item.cat}</small></a>").
       appendTo ul
 
-    #@preventSubmitOnEnter()
+    @preventSubmitOnEnter()
 
-  # Not sure we need it
   preventSubmitOnEnter: ->
     # Prevent submit on Enter
     $('#species-quick-add').keydown (event) ->
@@ -146,12 +146,21 @@ Quails.pages.cards =
     $ '.obs-row:last'
 
   initAutocompleteField: (parent) ->
-    $(parent + ' .sp-light').autocomplete
-      delay: 0
-      autoFocus: true
-      source: "/taxa/search.json"
-      minLength: 2
-      select: (event, ui) ->
-        $(this).val ui.item.value
-        $(this).next().val ui.item.id
-        false
+    input = $(parent + ' .sp-light')
+    if input.length > 0
+      input.autocomplete
+        delay: 0
+        autoFocus: true
+        source: "/taxa/search.json"
+        minLength: 2
+        select: (event, ui) ->
+          $(this).val ui.item.value
+          $(this).next().val ui.item.id
+          false
+      input.data('ui-autocomplete')._renderItem = (ul, item) ->
+        $('<li></li>').
+          data('item.autocomplete', item).
+          append("<a>#{item.label} <small class=\"tag tag_#{item.cat}\">#{item.cat}</small></a>").
+          appendTo ul
+    return
+

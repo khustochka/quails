@@ -16,6 +16,7 @@ class TaxaController < ApplicationController
       {
           value: tx.name_sci,
           label: [tx.name_sci, tx.name_en].join(" - "),
+          cat: tx.category,
           id: tx.id
       }
     end
