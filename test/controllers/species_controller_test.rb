@@ -97,12 +97,12 @@ class SpeciesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "update species" do
+  test "normal update species should get back to edit form" do
     species = species(:bomgar)
     species.name_ru = 'Богемский свиристель'
     login_as_admin
     put :update, id: species.to_param, species: species.attributes
-    assert_redirected_to species_path(assigns(:species))
+    assert_redirected_to edit_species_path(assigns(:species))
   end
 
   test "update species via JSON" do
@@ -124,13 +124,13 @@ class SpeciesControllerTest < ActionController::TestCase
     assert_select "form[action='#{species_path(species)}']"
   end
 
-  test "redirect species to correct URL " do
+  test "correct spaces in species URL" do
     get :show, id: 'Saxicola rubicola'
     assert_redirected_to species_path(id: 'Saxicola_rubicola')
     assert_response 301
   end
 
-  test "redirect old synonym to the new species URL " do
+  test "redirect old synonym to the new species URL" do
     get :show, id: 'Saxicola torquata'
     assert_redirected_to species_path(id: 'Saxicola_rubicola')
     assert_response 301
@@ -173,22 +173,4 @@ class SpeciesControllerTest < ActionController::TestCase
     assert response.body.include?('/en/species/Bombycilla')
   end
 
-  test "get new" do
-    login_as_admin
-    get :new
-    assert_response :success
-  end
-
-  test "create species should insert properly" do
-    login_as_admin
-    old_species = Species.order(:index_num).last
-    index_num = old_species.index_num
-    assert_difference('Species.count') do
-      put :create, species: {name_sci: 'Apteryx australis', code: 'aptaus', index_num: index_num,
-                             family: 'Apterygidae', order: "Apterygiformes", name_en: 'Southern brown kiwi' }
-    end
-    assert_redirected_to species_path(Species.find_by(code: 'aptaus'))
-    old_species.reload
-    assert_equal index_num + 1, old_species.index_num
-  end
 end

@@ -8,6 +8,10 @@ $(function () {
     $('.image_thumb[data-image-id="' + current_image_id_field.val() + '"]', 'div.thumbnails')
         .addClass('orange_border');
 
+    $('form', 'div.thumbnails').on("ajax:success", function() {
+      location.reload();
+    });
+
     $('img', 'div.thumbnails').click(function (event) {
       event.preventDefault();
       current_image_id_field.val($(this).closest('figure').data('image-id'));

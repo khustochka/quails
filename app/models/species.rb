@@ -10,7 +10,8 @@ class Species < ActiveRecord::Base
   validates :order, presence: true
   validates :family, presence: true
   validates :name_sci, presence: true, format: /\A[A-Z][a-z]+ [a-z]+\Z/, uniqueness: true
-  validates :code, format: /\A[a-z]{6}\Z/, uniqueness: true, allow_nil: true
+  validates :code, format: /\A[a-z]{6}\Z/, uniqueness: true, allow_nil: true, allow_blank: false
+  validates :legacy_code, format: /\A[a-z]{6}\Z/, uniqueness: true, allow_nil: true, allow_blank: false
   #validates :avibase_id, format: /\A[\dA-F]{16}\Z/, allow_blank: true
   validates :index_num, presence: true
 
@@ -20,6 +21,7 @@ class Species < ActiveRecord::Base
   has_one :image, through: :species_image
 
   has_many :taxa
+  has_many :high_level_taxa, -> { where(taxa: {category: "species"}) }, class_name: "Taxon"
   has_many :observations, through: :taxa
 
   has_many :cards, through: :observations
@@ -29,6 +31,7 @@ class Species < ActiveRecord::Base
   #has_many :posts, -> { order(face_date: :desc).distinct }, through: :observations
 
   has_many :local_species
+  has_many :url_synonyms
 
   # Scopes
 
@@ -50,6 +53,10 @@ class Species < ActiveRecord::Base
     Post.distinct.where("posts.id IN (#{p1}) OR posts.id IN (#{p2})").order(face_date: :desc)
   end
 
+  def high_level_taxon
+    high_level_taxa.first
+  end
+
   # Parameters
 
   accepts_nested_attributes_for :species_image
@@ -63,6 +70,10 @@ class Species < ActiveRecord::Base
   end
 
   def code=(val)
+    super(val == '' ? nil : val)
+  end
+
+  def legacy_code=(val)
     super(val == '' ? nil : val)
   end
 

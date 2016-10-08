@@ -77,24 +77,12 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :species, except: [:index, :show, :destroy] do
-    collection do
-      get 'admin', action: :index
-    end
-
-    member do
-      get 'review'
-    end
-  end
-
-  resources :species, except: [:index, :show, :destroy] do
+  resources :species, only: [:edit, :update] do
+    # index, show - declared localize
+    # new, create, destroy - not present
     collection do
       get 'admin', action: :index
       get :simple_search
-    end
-
-    member do
-      get 'review'
     end
   end
 

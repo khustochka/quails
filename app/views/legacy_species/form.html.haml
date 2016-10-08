@@ -6,17 +6,6 @@
 
 = render 'admin/shortcuts' if current_user.admin?
 
-- if @species.persisted?
-  - if @species.reviewed?
-    %p
-      %b
-        This species is
-        = link_to "reviewed", review_species_path(@species)
-  - else
-    %p.errors
-      This species is not reviewed.
-      = link_to "REVIEW", review_species_path(@species)
-
 = simple_form_for @species do |form|
   %div
     = form.input :code, input_html: {class: 'short larger'}
