@@ -7,17 +7,17 @@ class SpeciesController < ApplicationController
   # GET /species/admin
   def index
     #TODO : Filter by order, family
-    @species = Species.order(:index_num).page(params[:page]).per(50)
-
-    #@species = Species.ordered_by_taxonomy.extend(SpeciesArray)
-    # @observed = Species.where(id: Observation.select(:species_id))
-    # @obs_not_reviewed = @observed.where("NOT reviewed")
-    #
-    # fesenko = Book.find(1)
-    # @ukrainian = fesenko.taxa
-    # @ukr_not_reviewed = Species.where(id: fesenko.taxa.select(:species_id)).where("NOT reviewed")
-    #
-    # @reviewed = Species.where("reviewed")
+    @term = params[:term]
+    @species = if @term.present?
+                 SpeciesSearchUnweighted.new(Species.all, @term).find
+               else
+                 Species.order(:index_num).page(params[:page]).per(50)
+               end
+    if request.xhr?
+      render partial: "species/table", layout: false
+    else
+      render
+    end
   end
 
   # GET /species
@@ -74,6 +74,7 @@ class SpeciesController < ApplicationController
     render json: result
   end
 
+  # TODO: remove when removing legacy mapping
   def simple_search
     result = Species.where("name_sci ILIKE '#{params[:term]}%' OR name_sci ILIKE '% #{params[:term]}%'").map do |sp|
       {

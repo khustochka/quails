@@ -1,4 +1,3 @@
-# encoding: utf-8
 require 'test_helper'
 
 class SpeciesControllerTest < ActionController::TestCase
@@ -13,6 +12,16 @@ class SpeciesControllerTest < ActionController::TestCase
     get :index
     assert_response :success
     assert_not_nil assigns(:species)
+  end
+
+  test "search species for admin index page" do
+    login_as_admin
+    xhr :get, :index, term: "gar"
+    assert_response :success
+    species = assigns(:species)
+    assert_not_nil species
+    assert_template "species/_table"
+    assert_template layout: false
   end
 
   test "get gallery" do

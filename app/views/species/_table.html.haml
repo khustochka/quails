@@ -1,0 +1,52 @@
+%table.neat_table{data: {term: @term}}
+  %tr
+    %th.align-right No
+    %th Scientific name
+    %th Names
+    %th Taxon
+    %th.align-center Code
+    %th Url synonyms
+
+  - @species.each do |species|
+    %tr
+      %td.align-right= species.index_num
+
+      %td
+        %div
+          %i
+            %b= link_to(species.name_sci, edit_species_path(species))
+        %div.less-important
+          = species.authority
+        %div
+          %small
+            = %w(order family).map{|m| species.send(m)}.compact.join(" ◆ ")
+      -#%div
+      -#  %small proto:
+      -#  %i.less-important= species.protonym
+      %td
+        - %w(en ru uk).each do |lang|
+          %div
+            %i.less-important.monospace= "#{lang}:"
+            = term_highlight(species.send("name_#{lang}"), @term)
+      %td
+        - taxon = species.high_level_taxon
+        %div
+          %b= taxon_link(taxon)
+        %div
+          = name_sci(taxon)
+      -#%small.tag{class: "tag_#{taxon.category}"}= taxon.category
+      %td.align-center
+        %div
+          %b= species.code
+        - species.legacy_code.tap do |code|
+          - if code.present?
+            %div.less-important
+              = surround '(', ')' do
+                = code
+      %td
+        - species.url_synonyms.each do |syn|
+          %div.less-important
+            %i= syn.name_sci
+
+- if @species.kind_of?(Kaminari::ActiveRecordRelationMethods)
+  = paginate @species
