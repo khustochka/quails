@@ -215,7 +215,7 @@ class ImagesControllerTest < ActionController::TestCase
     assert_redirected_to images_path
   end
 
-  test 'Image page can be shown for Avis incognita photo as well' do
+  test 'Image page can be shown for spuhs as well' do
     observation = create(:observation, taxon: taxa(:aves_sp))
     img = create(:image, slug: 'picture-of-the-unknown', observations: [observation])
     get :show, id: img

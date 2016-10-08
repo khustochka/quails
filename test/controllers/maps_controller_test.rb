@@ -41,7 +41,7 @@ class MapsControllerTest < ActionController::TestCase
     assert_equal 3, result.size
   end
 
-  test 'return observation search results that include Avis incognita in JSON' do
+  test 'return observation search results that include spuhs in JSON' do
     login_as_admin
     observation = create(:observation, taxon: taxa(:aves_sp))
     get :observations, q: {observ_date: observation.card.observ_date.iso8601}, format: 'json'

@@ -5,15 +5,14 @@ class UICardsTest < ActionDispatch::IntegrationTest
 
   include CapybaraTestCase
 
-  test 'Searching and showing Avis incognita observations' do
-    skip
+  test 'Searching and showing spuh observations' do
     card = create(:card, observ_date: "2010-06-18")
     create(:observation, taxon: taxa(:aves_sp), card: card)
     create(:observation, taxon: taxa(:aves_sp), card: create(:card, observ_date: "2010-06-19"))
     create(:observation, taxon: taxa(:pasdom), card: card)
     login_as_admin
     visit cards_path
-    select('Aves sp. - bird sp.', from: 'Taxon')
+    select('Aves sp.', from: 'Taxon')
     click_button('Search')
     assert_equal 200, page.driver.response.status
     assert find('ul.cards_list').has_content?('Aves sp.')

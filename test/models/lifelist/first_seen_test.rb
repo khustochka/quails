@@ -26,7 +26,7 @@ module Lifelist
       assert_equal @obs.map(&:species).uniq.size, Lifelist::FirstSeen.full.sort('class').size
     end
 
-    test 'Species lifelist by taxonomy does not include Avis incognita' do
+    test 'Species lifelist by taxonomy does not include spuhs' do
       create(:observation, taxon: taxa(:aves_sp), card: create(:card, observ_date: "2010-06-18"))
       assert_equal @obs.map(&:species).uniq.size, Lifelist::FirstSeen.full.sort('class').size
     end
@@ -41,7 +41,7 @@ module Lifelist
       assert_equal @obs.map(&:species).uniq.size, Lifelist::FirstSeen.full.size
     end
 
-    test 'Species lifelist by date does not include Avis incognita' do
+    test 'Species lifelist by date does not include spuhs' do
       create(:observation, taxon: taxa(:aves_sp), card: create(:card, observ_date: "2010-06-18"))
       assert_equal @obs.map(&:species).uniq.size, Lifelist::FirstSeen.full.size
     end

@@ -28,7 +28,7 @@ class SearchCardsControllerTest < ActionController::TestCase
     assert_equal 3, assigns(:cards).size
   end
 
-  test "Avis incognita properly rendered on index page" do
+  test "Spuhs properly rendered on index page" do
     create(:observation, taxon: taxa(:aves_sp), card: create(:card, observ_date: "2010-06-18"))
     create(:observation, taxon: taxa(:aves_sp), card: create(:card, observ_date: "2009-06-19"))
     login_as_admin

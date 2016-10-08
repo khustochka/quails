@@ -153,7 +153,7 @@ class JSCardsTest < ActionDispatch::IntegrationTest
     assert_equal edit_card_path(@card), current_path
   end
 
-  test 'Species autosuggest box should have Avis incognita and be able to add it' do
+  test 'Species autosuggest box should have spuhs and be able to add them' do
     login_as_admin
     visit new_card_path
     select_suggestion('Brovary', from: 'Location')

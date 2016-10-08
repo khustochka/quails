@@ -18,7 +18,6 @@ class MapsController < ApplicationController
     preload_tables = [{:card => :locus}, {:taxon => :species}, :spots, :images]
     json_methods = [:spots]
 
-    # Have to do outer join to preserve Avis incognita
     observs =
         params[:q] && params[:q].delete_if { |_, v| v.empty? }.present? ?
             ObservationSearch.new(params[:q]).observations.

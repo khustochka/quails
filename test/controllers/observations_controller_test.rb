@@ -83,7 +83,7 @@ class ObservationsControllerTest < ActionController::TestCase
     assert_equal Mime::HTML, response.content_type
   end
 
-  test 'return observation search results that include Avis incognita in HTML' do
+  test 'return observation search results that include spuhs in HTML' do
     login_as_admin
     observation = create(:observation, taxon: taxa(:aves_sp))
     get :search, q: {observ_date: observation.card.observ_date.iso8601}
