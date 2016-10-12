@@ -1,40 +1,16 @@
 -# no_viewport is for very wide pages, e.g. with table
 - @no_viewport = true
+- @body_class = 'wider'
+
+- @js_features = [:admin_instant_search]
 
 - @page_title = 'Taxonomic concepts'
 
 %h1= page_title
 
-%table.neat_table
-  %tr
-    %th.align-right No
-    %th Scientific name
-    %th Common names
-    %th EBird
-    %th Taxonomy
-    %th Species
+= render 'admin/shortcuts' if current_user.admin?
 
-  - @taxa.each do |taxon|
-    %tr
-      %td.align-right
-        = taxon.index_num
-      %td
-        %i= taxon.name_sci
-        %br
-        = taxon.category
-      %td
-        = taxon.name_en
-        - if taxon.name_ru
-          %br
-          = taxon.name_ru
-      %td
-        = taxon.ebird_code
-      %td
-        = taxon.order
-        %br
-        = taxon.family
-      %td
-        - if sp = taxon.species
-          = link_to sp.name_sci, sp
+= render partial: "partials/admin_instant_search", locals: {url: taxa_path}
 
-= paginate @taxa
+.instant_search_container
+  = render "taxa/table"

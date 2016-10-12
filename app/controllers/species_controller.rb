@@ -13,6 +13,7 @@ class SpeciesController < ApplicationController
                else
                  Species.order(:index_num).page(params[:page]).per(50)
                end
+    @species = @species.preload(:high_level_taxa, :url_synonyms)
     if request.xhr?
       render partial: "species/table", layout: false
     else

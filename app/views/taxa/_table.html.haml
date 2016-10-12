@@ -1,0 +1,35 @@
+%table.neat_table
+  %tr
+    %th.align-right No
+    %th Scientific name
+    %th Common names
+    %th EBird
+    %th Taxonomy
+    %th Species
+
+  - @taxa.each do |taxon|
+    %tr
+      %td.align-right
+        = taxon.index_num
+      %td
+        %i= taxon.name_sci
+        %br
+        = taxon.category
+      %td
+        = taxon.name_en
+        - if taxon.name_ru
+          %br
+          = taxon.name_ru
+      %td
+        = taxon.ebird_code
+      %td
+        = taxon.order
+        %br
+        = taxon.family
+      %td
+        - if sp = taxon.species
+          = link_to sp.name_sci, sp
+
+
+- if @taxa.kind_of?(Kaminari::ActiveRecordRelationMethods)
+  = paginate @taxa

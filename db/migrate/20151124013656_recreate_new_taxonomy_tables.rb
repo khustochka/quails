@@ -6,6 +6,7 @@ class RecreateNewTaxonomyTables < ActiveRecord::Migration
 
     rename_table :species, :legacy_species
     rename_table :taxa, :legacy_taxa
+    rename_column :legacy_taxa, :species_id, :legacy_species_id
 
     create_table :taxa do |t|
       t.string :name_sci, null: false
@@ -55,5 +56,7 @@ class RecreateNewTaxonomyTables < ActiveRecord::Migration
     drop_table :taxa
     drop_table :ebird_taxa
     rename_table :legacy_species, :species
+    rename_column :legacy_taxa, :legacy_species_id, :species_id
+    rename_table :legacy_taxa, :taxa
   end
 end

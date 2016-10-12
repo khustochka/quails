@@ -117,17 +117,17 @@ ActiveRecord::Schema.define(version: 20160929232040) do
   add_index "legacy_species", ["name_sci"], name: "index_legacy_species_on_name_sci", unique: true, using: :btree
 
   create_table "legacy_taxa", force: :cascade do |t|
-    t.integer "book_id",                null: false
-    t.integer "species_id"
-    t.string  "name_sci",   limit: 255, null: false
-    t.string  "authority",  limit: 255, null: false
-    t.string  "name_en",    limit: 255, null: false
-    t.string  "name_ru",    limit: 255, null: false
-    t.string  "name_uk",    limit: 255, null: false
-    t.integer "index_num",              null: false
-    t.string  "order",      limit: 255, null: false
-    t.string  "family",     limit: 255, null: false
-    t.string  "avibase_id", limit: 16
+    t.integer "book_id",                       null: false
+    t.integer "legacy_species_id"
+    t.string  "name_sci",          limit: 255, null: false
+    t.string  "authority",         limit: 255, null: false
+    t.string  "name_en",           limit: 255, null: false
+    t.string  "name_ru",           limit: 255, null: false
+    t.string  "name_uk",           limit: 255, null: false
+    t.integer "index_num",                     null: false
+    t.string  "order",             limit: 255, null: false
+    t.string  "family",            limit: 255, null: false
+    t.string  "avibase_id",        limit: 16
   end
 
   add_index "legacy_taxa", ["book_id", "index_num"], name: "index_legacy_taxa_on_book_id_and_index_num", using: :btree

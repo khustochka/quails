@@ -6,7 +6,18 @@ class TaxaController < ApplicationController
 
   def index
     #TODO : Filter by order, family, category
-    @taxa = Taxon.order(:index_num).page(params[:page]).per(50)
+    @term = params[:term]
+    @taxa = if @term.present?
+                 Taxon.search_by_term(@term).limit(50)
+               else
+                 Taxon.order(:index_num).page(params[:page]).per(50)
+            end
+    @taxa = @taxa.preload(:species)
+    if request.xhr?
+      render partial: "taxa/table", layout: false
+    else
+      render
+    end
   end
 
   def search
@@ -25,7 +36,12 @@ class TaxaController < ApplicationController
 
   def show
     @taxon = Taxon.find_by_ebird_code(params[:id])
-    #render :form
+    render :form
+  end
+
+  def edit
+    @taxon = Taxon.find_by_ebird_code(params[:id])
+    render :form
   end
 
   # def update

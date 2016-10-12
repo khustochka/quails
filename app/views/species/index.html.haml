@@ -2,7 +2,7 @@
 - @no_viewport = true
 - @body_class = 'wider'
 
-- @js_controller = :species_admin
+- @js_features = [:admin_instant_search]
 
 - provide :add_shortcuts do
   %li= link_to "Legacy species", legacy_species_index_path
@@ -13,9 +13,7 @@
 
 = render 'admin/shortcuts' if current_user.admin?
 
-%div.admin_sp_search_container
-  Search:
-  %input{type: "text", id: "admin_sp_search"}
+= render partial: "partials/admin_instant_search", locals: {url: admin_species_index_path}
 
-.species_list_container
+.instant_search_container
   = render "species/table"

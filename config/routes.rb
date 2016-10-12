@@ -222,9 +222,11 @@ Rails.application.routes.draw do
     post :save, on: :collection
   end
 
-  resources :books
+  resources :books do
+    resources :legacy_taxa, only: [:show, :update]
+  end
 
-  resources :taxa do
+  resources :taxa, except: [:new, :create, :destroy] do
     get :search, on: :collection
   end
 
