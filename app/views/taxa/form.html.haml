@@ -10,21 +10,35 @@
 - if notice
   %p#notice= notice
 
+%dl
+  - if @taxon.species
+    %dt Species:
+    %dd= species_link(@taxon.species, @taxon.species.name_sci)
+
+  %dt Category
+  %dd
+    %span{class: "tag tag_#{@taxon.category}"}= @taxon.category
+
+  %dt Ebird code
+  %dd= @taxon.ebird_code
+
+  %dt Order
+  %dd
+    %i= @taxon.order
+
+  %dt Family
+  %dd
+    %i= @taxon.family
+
+
 = simple_form_for [@book, @taxon] do |form|
   %div
     = form.input :name_sci, :label => 'Scientific name', :input_html => {:class => 'larger'}
     -#= form.input :authority
   %div
-    - if @taxon.species
-      Species:
-      = @taxon.species.name_sci
     = form.input :name_en, :label => 'English name'
-  %div
     = form.input :name_ru, :label => 'Russian name'
     -#= form.input :name_uk, :label => 'Ukrainian name'
-  %div
-    = form.input :order, :input_html => {:disabled => true}
-    = form.input :family, :input_html => {:disabled => true}
   %div
     -#= form.input :avibase_id, :label => 'Avibase ID'
     = form.input :index_num, :label => 'Index number', :input_html => {:disabled => true, :size => 10, :type => :text }

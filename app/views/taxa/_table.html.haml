@@ -12,20 +12,18 @@
       %td.align-right
         = taxon.index_num
       %td
-        %i= taxon.name_sci
-        %br
-        = taxon.category
+        %b
+          %i= taxon_link(taxon, taxon.name_sci)
+        %small{class: [:tag, "tag_#{taxon.category}"]}= taxon.category
       %td
-        = taxon.name_en
+        %div= term_highlight(taxon.name_en, @term)
         - if taxon.name_ru
-          %br
-          = taxon.name_ru
+          %div= term_highlight(taxon.name_ru, @term)
       %td
         = taxon.ebird_code
       %td
-        = taxon.order
-        %br
-        = taxon.family
+        %div= taxon.order
+        %div= taxon.family
       %td
         - if sp = taxon.species
           = link_to sp.name_sci, sp

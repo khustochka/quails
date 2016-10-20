@@ -8,7 +8,7 @@ class TaxaController < ApplicationController
     #TODO : Filter by order, family, category
     @term = params[:term]
     @taxa = if @term.present?
-                 Taxon.search_by_term(@term).limit(50)
+                TaxonSearchUnweighted.new(Taxon.all, @term).find
                else
                  Taxon.order(:index_num).page(params[:page]).per(50)
             end

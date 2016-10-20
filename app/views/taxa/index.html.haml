@@ -6,6 +6,9 @@
 
 - @page_title = 'Taxonomic concepts'
 
+- provide :add_shortcuts do
+  %li= link_to "Species", admin_species_index_path
+
 %h1= page_title
 
 = render 'admin/shortcuts' if current_user.admin?

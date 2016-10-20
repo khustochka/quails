@@ -27,9 +27,9 @@ module SpeciesHelper
     end
   end
 
-  def taxon_link(taxon)
+  def taxon_link(taxon, string = nil)
     @only_path = true if @only_path.nil?
-    link_to(taxon.name, taxon_url(id: taxon, only_path: @only_path), class: taxon.countable? ? "tx_link" : "spuh_link")
+    link_to(string || taxon.name, taxon_url(id: taxon, only_path: @only_path), class: taxon.countable? ? "tx_link" : "spuh_link")
   end
 
   def new_species_link(sp_obj, string = nil)
