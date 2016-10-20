@@ -22,16 +22,10 @@ class TaxaController < ApplicationController
 
   def search
     term = params[:term]
-    @taxa = Taxon.search_by_term(term).limit(30)
-    taxa_arr = @taxa.map do |tx|
-      {
-          value: tx.name_sci,
-          label: [tx.name_sci, tx.name_en].join(" - "),
-          cat: tx.category,
-          id: tx.id
-      }
-    end
-    render json: taxa_arr
+    obs = Observation.select("taxon_id, COUNT(observations.id) as weight").group(:taxon_id)
+    weighted_taxa = Taxon.joins("LEFT OUTER JOIN (#{obs.to_sql}) obs on id = obs.taxon_id")
+    @taxa = TaxonSearchWeighted.new(weighted_taxa, term)
+    render json: @taxa.find
   end
 
   def show
