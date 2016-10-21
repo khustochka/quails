@@ -90,7 +90,7 @@ class Post < ActiveRecord::Base
 
   def images
     Image.distinct.joins(:observations).includes(:cards, :taxa).where('cards.post_id = ? OR observations.post_id = ?', id, id).
-        order('cards.observ_date, cards.locus_id, media.index_num, taxa.index_num')
+        order('cards.observ_date, cards.locus_id, media.index_num, taxa.index_num').preload(:species)
   end
 
   # Instance methods

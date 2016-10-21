@@ -6,11 +6,24 @@ module Lifelist
     end
 
     def get_records
-      bare_relation.order(ordering).preload(:species).to_a
+      records = bare_relation.order(ordering).to_a
+      # FIXME: workaround species preloader, because declaring species association on observation causes problems
+      species_preload(records)
+      records
     end
 
     def short_to_a
       bare_relation.to_a
+    end
+
+    private
+
+    def species_preload(records)
+      sp_ids = records.map(&:species_id)
+      spcs = Species.where(id: sp_ids).index_by(&:id)
+      records.each do |rec|
+        rec.taxon = Taxon.new(species: spcs[rec.species_id])
+      end
     end
 
   end

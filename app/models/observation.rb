@@ -8,7 +8,7 @@ class Observation < ActiveRecord::Base
   belongs_to :taxon
   belongs_to :legacy_species
 
-  # This will only work if joined with taxon
+  # FIXME: do not use this!! (See MyObservation for more comments)
   #belongs_to :species
   # NOTE: Do not use .includes(:taxon), it breaks species preloading, use .preload
 
