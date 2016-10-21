@@ -141,7 +141,7 @@ class ImagesController < ApplicationController
     redirect_to(images_url)
   end
 
-  # FIXME: probably unused
+  # Used for photo mapping
   # GET /photos/1/observations
   def observations
     observs = Image.find_by(id: params[:id]).observations.preload(:taxon => :species, :card => :locus)
