@@ -25,6 +25,27 @@ class SpeciesSearch
         order("rank ASC NULLS LAST, weight DESC NULLS LAST").
         limit(5)
 
+    if rel.size < 5
+      main_condition = Species.send(:sanitize_conditions, ["url_synonyms.name_sci ILIKE '%s%%'", @term])
+      secondary_condition = UrlSynonym.send(
+          :sanitize_conditions,
+          ["url_synonyms.name_sci ~* '(^| |\\(|-|\\/)%s'", @term]
+      )
+      rel2 = @base.
+          joins(:url_synonyms).
+          select("DISTINCT url_synonyms.name_sci as name_sci, name_en, name_ru, name_uk, weight,
+                          CASE WHEN weight IS NULL THEN NULL
+                              WHEN #{main_condition} THEN 1
+                              ELSE 2
+                          END as rank").
+          where(secondary_condition).
+          order("rank ASC NULLS LAST, weight DESC NULLS LAST").
+          limit(5 - rel.size)
+      rel = rel.to_a.concat(rel2.to_a)
+    end
+
+
+
     rel.map { |sp| SpeciesSearchResult.new(sp.name_sci, detect_name(sp)) }
   end
 
