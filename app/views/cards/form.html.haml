@@ -2,7 +2,7 @@
 -# no_viewport is for very wide pages, e.g. with table
 - @no_viewport = true
 
-- @light_species_selector = !params[:nojs]
+- @light_species_selector = true
 
 - stylesheet 'forms'
 - @js_features = [:wikiFields]
@@ -65,13 +65,8 @@
     = form.input :ebird_id, label: "eBird Checklist Id", input_html: {class: 'short'}
 
   %div.obs-block
-
-    - if @light_species_selector
-      %noscript
-        %h1.errors Edit species will not work with no JS! Go to #{link_to 'No JS form', nojs:true}.
-
-      %div.fast-species
-        = render "fast_species"
+    %div.fast-species
+      = render "fast_species"
 
     = form.simple_fields_for :observations do |builder|
       = render 'observations/observation_fields', form: builder

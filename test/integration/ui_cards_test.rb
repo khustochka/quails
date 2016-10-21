@@ -53,41 +53,4 @@ class UICardsTest < ActionDispatch::IntegrationTest
     assert_equal 2, all(".observ_card").count
   end
 
-  test "Create card (No JS)" do
-    skip
-    login_as_admin
-
-    visit new_card_path(nojs: true)
-
-    select('Brovary', from: 'Location')
-    fill_in('Date', with: '2011-04-08')
-
-    select('Hirundo rustica', from: 'Taxon')
-
-    assert_difference('Observation.count', 1) { click_button 'Save' }
-
-    card = Card.all.last
-
-    assert_equal edit_card_path(card, nojs: true), current_path_info
-
-  end
-
-  test "Edit card (No JS)" do
-    skip
-    login_as_admin
-
-    @card = create(:card)
-    o = create(:observation, taxon: taxa(:pasdom), card: @card)
-
-    visit edit_card_path(@card, nojs: true)
-
-    within(:xpath, "//div[contains(@class,'obs-row')][2]") do
-      select('Hirundo rustica', from: 'Taxon')
-    end
-
-    assert_difference('Observation.count', 1) { click_button 'Save' }
-
-    assert_equal edit_card_path(@card, nojs: true), current_path_info
-  end
-
 end

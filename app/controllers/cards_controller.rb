@@ -122,11 +122,6 @@ class CardsController < ApplicationController
 
   private
 
-  # FIXME: very intrusive nojs option.
-  def default_url_options(options={})
-    options.merge params[:nojs] ? {nojs: true} : {}
-  end
-
   def cache_expire
     expire_photo_feeds
     expire_page controller: :feeds, action: :blog, format: 'xml'
