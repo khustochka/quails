@@ -57,6 +57,14 @@ motfel:
   species: :motfel
   ebird_taxon: :motfel
 
+larheu:
+  name_sci: "Larus heuglini"
+  name_en: "Heuglin's Gull"
+  category: species
+  index_num: 10
+  ebird_code: lbbgul4
+  species: :larheu
+
 aves_sp:
   name_sci: "Aves sp."
   name_en: "bird sp."

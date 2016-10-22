@@ -53,13 +53,13 @@ class FormattingStrategy
         term
       else
         word
-      end
+      end.sub("_", " ")
     end.uniq.compact
 
     # TODO: use already calculated species of the post! the rest will be ok with separate requests?
     if sp_codes.any?
-      @spcs = Species.where("code IN (?) OR name_sci IN (?)", sp_codes, sp_codes)
-      @species = @spcs.index_by(&:code).merge(@spcs.index_by(&:name_sci))
+      @spcs = Species.where("code IN (?) OR species.name_sci IN (?)", sp_codes, sp_codes)
+      @species = @spcs.index_by(&:code_or_slug).merge(@spcs.index_by(&:name_sci))
     else
       @spcs = []
       @species = {}

@@ -68,6 +68,10 @@ class Species < ActiveRecord::Base
     Species.parameterize(name_sci_was)
   end
 
+  def code_or_slug
+    code.presence || to_param
+  end
+
   def to_label
     name_sci
   end

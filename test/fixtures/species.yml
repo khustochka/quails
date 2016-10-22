@@ -55,3 +55,11 @@ motfel:
   order: Passeriformes
   family: Motacillidae
 
+larheu:
+  name_sci: "Larus heuglini"
+  name_en: "Heuglin's Gull"
+  index_num: 10
+  # Intentionally no code
+  order: Charadriiformes
+  family: Laridae
+

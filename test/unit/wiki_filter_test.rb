@@ -29,6 +29,23 @@ class WikiFilterTest < ActionDispatch::IntegrationTest
                  transform('{{Wryneck|Jynx torquilla}}')
   end
 
+  test 'properly parse species by scientific name when species has no code' do
+    assert_equal %Q("(sp_link). Heuglin's Gull":Larus_heuglini\n\n[Larus_heuglini]#{species_path(species(:larheu))}),
+                 transform("{{Heuglin's Gull|Larus heuglini}}")
+  end
+
+  test 'properly parse species by scientific name with underscore' do
+    assert_equal %Q("(sp_link). Heuglin's Gull":Larus_heuglini\n\n[Larus_heuglini]#{species_path(species(:larheu))}),
+                 transform("{{Heuglin's Gull|Larus_heuglini}}")
+  end
+
+  # Not sure we need this
+  test 'properly parse species by legacy scientific name' do
+    skip
+    assert_equal %Q("(sp_link). Stonechat":saxtor\n\n[saxola]#{species_path(species(:saxola))}),
+                 transform("{{Stonechat|Saxicola torquata}}")
+  end
+
   test 'properly parse species by bare scientific name {{Jynx torquilla}}' do
     assert_equal %Q("(sp_link). Jynx torquilla":jyntor\n\n[jyntor]#{species_path(species(:jyntor))}),
                  transform('{{Jynx torquilla}}')

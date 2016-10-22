@@ -32,7 +32,7 @@ class SiteFormatStrategy < FormattingStrategy
   def species_link(word, term, en)
     sp = @species[term]
     if sp
-      str = %Q("(sp_link). #{word or (en ? sp.name_en : sp.name_sci)}":#{sp.code})
+      str = %Q("(sp_link). #{word or (en ? sp.name_en : sp.name_sci)}":#{sp.code_or_slug})
       if en && word.present?
         str << " (#{sp.name_en})"
       end
@@ -52,7 +52,7 @@ class SiteFormatStrategy < FormattingStrategy
       end
 
       @spcs.each do |sp|
-        result << "\n[#{sp.code}]#{localized_species_url(id: sp, only_path: only_path?)}"
+        result << "\n[#{sp.code_or_slug}]#{localized_species_url(id: sp, only_path: only_path?)}"
       end
     end
 
