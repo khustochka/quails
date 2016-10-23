@@ -33,12 +33,13 @@
         %dt= t("languages.#{lang}")
         %dd{lang: lang}= trans_name
 
--#- if (similar = @species.similar_species).present?
--#  %div.similar_species
--#    %h3= t('.sections.similar_species')
--#    %ul
--#      - similar.each do |sp|
--#        %li= species_link(sp)
+- if @species.url_synonyms
+  %div.sp_synonyms
+    = t(".species_synonyms")
+    %ul
+      - @species.url_synonyms.each do |syn|
+        %li
+          %i= syn.name_sci
 
 - @species.ordered_images.top_level.if_present do |images|
   %a{name: 'photos'}

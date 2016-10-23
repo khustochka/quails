@@ -8,12 +8,12 @@
       sections:
         photos: Фотографии
         videos: Видео
-        similar_species: Близкие виды
         posts: Последние записи
         stats: Мои наблюдения
         monthly: По месяцам
 
       total_observations: 'Всего встреч:'
+      species_synonyms: 'В некоторых источниках может иметь другое название:'
 
     flat_section:
       title: 'Встреченные виды'
