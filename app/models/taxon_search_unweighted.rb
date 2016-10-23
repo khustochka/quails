@@ -2,8 +2,10 @@ class TaxonSearchUnweighted
 
   FILTER = lambda do |term|
     %w(name_sci name_ru name_en).map do |field|
-      Taxon.send(:sanitize_conditions,
-                   ["#{field} ILIKE '%s%%' OR #{field} ILIKE '%% %s%%' OR #{field} ILIKE '%%-%s%%' OR #{field} ILIKE '%%(%s%%'", term, term, term, term])
+      Taxon.send(
+          :sanitize_conditions,
+          ["#{field} ~* '(^| |\\(|-|\\/)%s'", term]
+      )
     end.join(" OR ")
   end
 
