@@ -230,7 +230,7 @@ Rails.application.routes.draw do
     get :search, on: :collection
   end
 
-  resources :ebird_taxa, only: [:index]
+  resources :ebird_taxa, only: [:index, :show]
 
   get '/settings' => 'settings#index'
   post '/settings/save' => 'settings#save'

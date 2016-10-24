@@ -42,4 +42,8 @@ class Taxon < ActiveRecord::Base
     species_id.present?
   end
 
+  def is_a_species?
+    category == "species"
+  end
+
 end
