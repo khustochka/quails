@@ -33,7 +33,7 @@
         %dt= t("languages.#{lang}")
         %dd{lang: lang}= trans_name
 
-- if @species.url_synonyms
+- if @species.url_synonyms.to_a.any?
   %div.sp_synonyms
     = t(".species_synonyms")
     %ul
