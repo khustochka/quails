@@ -157,10 +157,11 @@ Quails.pages.cards =
           $(this).val ui.item.value
           $(this).next().val ui.item.id
           false
-      input.data('ui-autocomplete')._renderItem = (ul, item) ->
-        $('<li></li>').
+      input.each (i) ->
+        $(this).data("ui-autocomplete")._renderItem = (ul, item) ->
+          $('<li></li>').
           data('item.autocomplete', item).
           append("<a>#{item.label} <small class=\"tag tag_#{item.cat}\">#{item.cat}</small></a>").
           appendTo ul
+        return
     return
-
