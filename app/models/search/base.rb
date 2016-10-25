@@ -3,7 +3,7 @@ module Search
 
     def initialize(base, term)
       @base = base
-      @term = term.downcase
+      @term = term.downcase.strip
     end
 
     private

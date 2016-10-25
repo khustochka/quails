@@ -9,6 +9,13 @@ class Search::SpeciesSearchTest < ActionView::TestCase
     assert_equal ["Garrulus glandarius"], result.map(&:name_sci)
   end
 
+  test 'simple search with leading and trailing spaces (spaces should be ignored)' do
+    create(:observation, taxon: taxa(:gargla))
+
+    result = Search::SpeciesSearch.new(User.from_session(controller.request).searchable_species, ' garrul').find
+    assert_equal ["Garrulus glandarius"], result.map(&:name_sci)
+  end
+
   test 'simple search by scientific name for admin should include unseen species' do
     create(:observation, taxon: taxa(:gargla))
     user = User.from_session(controller.request).extend(Role::Admin)
