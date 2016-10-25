@@ -15,7 +15,7 @@ module SpeciesHelper
   end
 
   def taxa_for_select
-    @taxa_for_select ||= Taxon.where(id: Observation.select("DISTINCT taxon_id")).select("id, name_sci")
+    @taxa_for_select ||= Taxon.where(id: Observation.select("DISTINCT taxon_id")).select("id, name_sci, name_en")
   end
 
   def species_link(sp_obj, string = nil)

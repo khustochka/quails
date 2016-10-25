@@ -16,8 +16,7 @@ module Search
 
       rel.map do |tx|
         {
-            value: tx.name_sci,
-            label: [tx.name_sci, tx.name_en].join(" - "),
+            value: tx.to_label,
             cat: tx.category,
             id: tx.id
         }

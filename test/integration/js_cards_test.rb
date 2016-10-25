@@ -86,7 +86,7 @@ class JSCardsTest < ActionDispatch::IntegrationTest
 
     field = find(:xpath, "//div[contains(@class,'obs-row')][1]//input[contains(@class, 'sp-light')]")
 
-    assert_equal 'Passer domesticus', field.value
+    assert_equal 'Passer domesticus - House Sparrow', field.value
 
     assert_equal taxa(:pasdom).id.to_s, field.find(:xpath, "./following-sibling::input", visible: false).value
   end

@@ -2,7 +2,7 @@
   - obs = form.object
   - if @light_species_selector
     = form.input :taxon do
-      = form.input_field :taxon, as: :string, name: '', value: obs.taxon.try(:name_sci), class: 'sp-light'
+      = form.input_field :taxon, as: :string, name: '', value: obs.taxon.try(:to_label), class: 'sp-light'
       = form.input_field :taxon_id, as: :hidden
   - else
     = form.association :taxon, collection: taxa_for_select,

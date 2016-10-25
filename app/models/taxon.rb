@@ -35,7 +35,7 @@ class Taxon < ActiveRecord::Base
   end
 
   def to_label
-    name_sci
+    [name_sci, name_en].join(" - ")
   end
 
   def countable?
