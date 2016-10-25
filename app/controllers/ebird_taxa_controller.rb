@@ -8,7 +8,7 @@ class EbirdTaxaController < ApplicationController
     #TODO : Filter by order, family, category
     @term = params[:term]
     @taxa = if @term.present?
-              EbirdTaxonSearchUnweighted.new(EbirdTaxon.all, @term).find
+              Search::EbirdTaxonSearchUnweighted.new(EbirdTaxon.all, @term).find
             else
               EbirdTaxon.order(:index_num).page(params[:page]).per(50)
             end

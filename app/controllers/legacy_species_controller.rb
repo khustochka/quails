@@ -68,11 +68,6 @@ class LegacySpeciesController < ApplicationController
         page(params[:page])
   end
 
-  def search
-    result = SpeciesSearch.new(current_user.searchable_species, params[:term]).find
-    render json: result
-  end
-
   private
   def find_species
     @species = LegacySpecies.find_by!(name_sci: LegacySpecies.humanize(params[:id]))

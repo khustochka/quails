@@ -8,9 +8,9 @@ class TaxaController < ApplicationController
     #TODO : Filter by order, family, category
     @term = params[:term]
     @taxa = if @term.present?
-                TaxonSearchUnweighted.new(Taxon.all, @term).find
-               else
-                 Taxon.order(:index_num).page(params[:page]).per(50)
+              Search::TaxonSearchUnweighted.new(Taxon.all, @term).find
+            else
+              Taxon.order(:index_num).page(params[:page]).per(50)
             end
     @taxa = @taxa.preload(:species)
     if request.xhr?
@@ -24,7 +24,7 @@ class TaxaController < ApplicationController
     term = params[:term]
     obs = Observation.select("taxon_id, COUNT(observations.id) as weight").group(:taxon_id)
     weighted_taxa = Taxon.joins("LEFT OUTER JOIN (#{obs.to_sql}) obs on id = obs.taxon_id")
-    @taxa = TaxonSearchWeighted.new(weighted_taxa, term)
+    @taxa = Search::TaxonSearchWeighted.new(weighted_taxa, term)
     render json: @taxa.find
   end
 

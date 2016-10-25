@@ -9,7 +9,7 @@ class SpeciesController < ApplicationController
     #TODO : Filter by order, family
     @term = params[:term]
     @species = if @term.present?
-                 SpeciesSearchUnweighted.new(Species.all, @term).find
+                 Search::SpeciesSearchUnweighted.new(Species.all, @term).find
                else
                  Species.order(:index_num).page(params[:page]).per(50)
                end
@@ -71,7 +71,7 @@ class SpeciesController < ApplicationController
   end
 
   def search
-    result = SpeciesSearch.new(current_user.searchable_species, params[:term]).find
+    result = Search::SpeciesSearch.new(current_user.searchable_species, params[:term]).find
     render json: result
   end
 
