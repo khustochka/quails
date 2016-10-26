@@ -14,7 +14,7 @@ Quails.pages.cards =
     @initRemoveAndDestroy()
     @initFastSpeciesLinks()
     @initQuickAdd()
-    @initSpeciesAutocomplete()
+    @inittaxaAutosuggest()
     @initMarkAsVoice()
 
   initObservationRows: ->
@@ -79,24 +79,13 @@ Quails.pages.cards =
       false
 
   initQuickAdd: ->
-    $('#species-quick-add').autocomplete
-      delay: 0
-      autoFocus: true
-      source: "/taxa/search.json"
-      minLength: 2
-      select: (event, ui) =>
-        row = @addNewRow()
-        $('.sp-light', row).val ui.item.value
-        $('.sp-light', row).next().val ui.item.id
-        $('#species-quick-add').val ''
-        window.scrollTo 0, $(document).height()
-        false
-
-    $('#species-quick-add').data('ui-autocomplete')._renderItem = (ul, item) ->
-      $('<li></li>').
-      data('item.autocomplete', item).
-      append("<a>#{item.label} <small class=\"tag tag_#{item.cat}\">#{item.cat}</small></a>").
-      appendTo ul
+    @initTaxonSuggestField '#species-quick-add', (event, ui) =>
+      row = @addNewRow()
+      $('.sp-light', row).val ui.item.value
+      $('.sp-light', row).next().val ui.item.id
+      $('#species-quick-add').val ''
+      window.scrollTo 0, $(document).height()
+      false
 
     @preventSubmitOnEnter()
 
@@ -134,34 +123,15 @@ Quails.pages.cards =
       checkbox.prop 'checked', !checkbox.prop('checked')
       return
 
-  initSpeciesAutocomplete: ->
-    @initAutocompleteField(document)
+  inittaxaAutosuggest: ->
+    @initTaxonSuggestField ".sp-light"
 
   addNewRow: ->
     @last_row_num++
     row_html = @sample_row_html.replace(@tmpl_regex, '$1' + @last_row_num + '$2')
     $(row_html).appendTo $('.obs-block')
-    @initAutocompleteField '.obs-row:last'
+    @initTaxonSuggestField '.obs-row:last .sp-light'
     $('.obs-row:last .patch-suggest').combobox()
     $ '.obs-row:last'
 
-  initAutocompleteField: (parent) ->
-    input = $('.sp-light', $(parent))
-    if input.length > 0
-      input.autocomplete
-        delay: 0
-        autoFocus: true
-        source: "/taxa/search.json"
-        minLength: 2
-        select: (event, ui) ->
-          $(this).val ui.item.value
-          $(this).next().val ui.item.id
-          false
-      input.each (i) ->
-        $(this).data("ui-autocomplete")._renderItem = (ul, item) ->
-          $('<li></li>').
-          data('item.autocomplete', item).
-          append("<a>#{item.label} <small class=\"tag tag_#{item.cat}\">#{item.cat}</small></a>").
-          appendTo ul
-        return
-    return
+  initTaxonSuggestField: Quails.features.taxaAutosuggest.initTaxonSuggestField

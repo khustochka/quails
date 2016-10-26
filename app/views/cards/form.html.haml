@@ -5,7 +5,7 @@
 - @light_species_selector = true
 
 - stylesheet 'forms'
-- @js_features = [:wikiFields]
+- @js_features = [:taxaAutosuggest, :wikiFields]
 - @js_controller = :cards
 
 - @page_title = @card.persisted? ? "Edit: #{l(@card.observ_date, format: :long)}, #{@card.locus.name}" : "New card"
