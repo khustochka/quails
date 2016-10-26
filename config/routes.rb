@@ -181,6 +181,10 @@ Rails.application.routes.draw do
     end
   end
 
+  scope '/observations' do
+    resources :spuhs, only: [:index, :show, :update]
+  end
+
   resources :observations, except: [:index, :new, :create, :edit] do
     collection do
       get 'search', action: :search, as: 'search'

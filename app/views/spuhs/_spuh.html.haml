@@ -1,0 +1,11 @@
+%ul.cards_list
+  = render @observation.card
+
+= simple_form_for @observation, url: spuh_path(id: @observation.id), html: {class: 'observation'}, remote: true do |builder|
+
+  = render partial: 'observations/observation_fields', object: @observation, locals: {form: builder}
+
+  .buttons
+    = default_submit_button(builder)
+    -  if @next
+      = link_to 'Skip', spuh_path(id: @next.id), class: "skip_link", remote: true

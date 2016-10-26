@@ -1,0 +1,23 @@
+- stylesheet "forms"
+- @page_title = "Spuhs"
+
+:javascript
+  $(
+    function() {
+
+      var show_form = function(e, data) {
+
+        $(".spuh_container").html(data);
+
+      };
+
+      $(document).on("ajax:success", ".skip_link", show_form);
+      $(document).on("ajax:success", "form.observation", show_form);
+
+    }
+  );
+
+%h3 Spuhs
+
+.spuh_container
+  = render "spuh"
