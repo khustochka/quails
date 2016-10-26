@@ -67,7 +67,9 @@ class Locus < ActiveRecord::Base
   end
 
   def public_locus
-    path.where(private_loc: false, patch: false).last
+    # Rails' #last does not play well with the new ancestry gem COALESCE ordering.
+    # Had to rewrite the query to find the last (closest) public locus
+    path.where(private_loc: false, patch: false).reorder("COALESCE(ancestry, '') DESC").limit(1).first
   end
 
 end
