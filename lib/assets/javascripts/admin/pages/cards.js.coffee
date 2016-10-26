@@ -74,7 +74,7 @@ Quails.pages.cards =
     global = @
     $('.fast-sp-link').click ->
       row = global.addNewRow()
-      $('.sp-light', row).val @innerText
+      $('.sp-light', row).val $(this).data('label')
       $('.sp-light', row).next().val $(this).data('taxon-id')
       false
 
@@ -135,7 +135,7 @@ Quails.pages.cards =
       return
 
   initSpeciesAutocomplete: ->
-    @initAutocompleteField("")
+    @initAutocompleteField(document)
 
   addNewRow: ->
     @last_row_num++
@@ -146,7 +146,7 @@ Quails.pages.cards =
     $ '.obs-row:last'
 
   initAutocompleteField: (parent) ->
-    input = $(parent + ' .sp-light')
+    input = $('.sp-light', $(parent))
     if input.length > 0
       input.autocomplete
         delay: 0
