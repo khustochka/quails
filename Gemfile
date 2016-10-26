@@ -19,7 +19,7 @@ gem 'rails-i18n'
 gem 'actionpack-page_caching'
 
 # AR utils
-gem 'ancestry'
+gem 'ancestry', '2.2.0'
 gem 'ordered-active-record'
 
 # Templating
