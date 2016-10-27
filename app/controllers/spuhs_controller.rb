@@ -17,10 +17,8 @@ class SpuhsController < ApplicationController
 
   def update
     find_data
-    if @observation.update_attributes(params[:observation])
+    if @observation.update_attributes!(params[:observation])
       redirect_to spuh_path(@next.id)
-    else
-      raise
     end
   end
 

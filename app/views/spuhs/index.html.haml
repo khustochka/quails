@@ -19,9 +19,13 @@
 
       activateFields();
 
-      $(document).on("ajax:success", ".skip_link", show_form);
-      $(document).on("ajax:success", "form.observation", show_form);
+      $(document).on("click", ".fast-sp-link", function(e) {
+        $('.sp-light').val($(e.target).data('label'));
+        $('.sp-light').next().val($(e.target).data('taxon-id'));
+      });
 
+      $(document).on("ajax:success", ".skip_link", show_form);
+      $(document).on("ajax:success", "form.spec_edit_observation", show_form);
     }
   );
 
