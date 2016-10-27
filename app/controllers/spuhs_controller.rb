@@ -2,6 +2,10 @@ class SpuhsController < ApplicationController
 
   administrative
 
+  before_action do
+    @light_species_selector = true
+  end
+
   def index
     find_data
   end

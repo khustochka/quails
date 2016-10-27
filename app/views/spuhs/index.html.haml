@@ -1,5 +1,6 @@
 - stylesheet "forms"
 - @page_title = "Spuhs"
+- @js_features = [:taxaAutosuggest]
 
 :javascript
   $(
@@ -8,8 +9,15 @@
       var show_form = function(e, data) {
 
         $(".spuh_container").html(data);
-
+        activateFields();
       };
+
+      var activateFields = function () {
+        Quails.features.taxaAutosuggest.initTaxonSuggestField(".sp-light");
+        $(".observation_private_notes").show();
+      }
+
+      activateFields();
 
       $(document).on("ajax:success", ".skip_link", show_form);
       $(document).on("ajax:success", "form.observation", show_form);
