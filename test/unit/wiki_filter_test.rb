@@ -19,6 +19,11 @@ class WikiFilterTest < ActionDispatch::IntegrationTest
                  transform('{{Wryneck|jyntor}}')
   end
 
+  test 'properly parse species code capitalized' do
+    assert_equal %Q("(sp_link). Wryneck":jyntor\n\n[jyntor]#{species_path(species(:jyntor))}),
+                 transform('{{Wryneck|Jyntor}}')
+  end
+
   test 'properly parse species by bare code {{jyntor}}' do
     assert_equal %Q("(sp_link). Jynx torquilla":jyntor\n\n[jyntor]#{species_path(species(:jyntor))}),
                  transform('{{jyntor}}')
@@ -29,20 +34,18 @@ class WikiFilterTest < ActionDispatch::IntegrationTest
                  transform('{{Wryneck|Jynx torquilla}}')
   end
 
+  test 'properly parse species by scientific name with underscore' do
+    assert_equal %Q("(sp_link). Wryneck":jyntor\n\n[jyntor]#{species_path(species(:jyntor))}),
+                 transform('{{Wryneck|Jynx_torquilla}}')
+  end
+
   test 'properly parse species by scientific name when species has no code' do
     assert_equal %Q("(sp_link). Heuglin's Gull":Larus_heuglini\n\n[Larus_heuglini]#{species_path(species(:larheu))}),
                  transform("{{Heuglin's Gull|Larus heuglini}}")
   end
 
-  test 'properly parse species by scientific name with underscore' do
-    assert_equal %Q("(sp_link). Heuglin's Gull":Larus_heuglini\n\n[Larus_heuglini]#{species_path(species(:larheu))}),
-                 transform("{{Heuglin's Gull|Larus_heuglini}}")
-  end
-
-  # Not sure we need this
   test 'properly parse species by legacy scientific name' do
-    skip
-    assert_equal %Q("(sp_link). Stonechat":saxtor\n\n[saxola]#{species_path(species(:saxola))}),
+    assert_equal %Q("(sp_link). Stonechat":saxola\n\n[saxola]#{species_path(species(:saxola))}),
                  transform("{{Stonechat|Saxicola torquata}}")
   end
 
@@ -73,11 +76,11 @@ class WikiFilterTest < ActionDispatch::IntegrationTest
 
   # Posts
 
-  #  test 'properly parse post by code {{#see this|some-post}}' do
-  #    blogpost = create(:post)
-  #    assert_equal post_link('see this', blogpost),
-  #                 transform('{{#see this|some-post}}')
-  #  end
+   test 'properly parse post by code {{#see this|some-post}}' do
+     blogpost = Post.create!(slug: "some-post", title: "Some post", topic: "OBSR", status: "OPEN", text: "Aaaa")
+     assert_equal "\"see this\":some-post\n\n[some-post]#{public_post_path(blogpost)}",
+                  transform('{{#see this|some-post}}')
+   end
 
   # Allowed fallbacks
 
