@@ -1,6 +1,20 @@
 -# no_viewport is for very wide pages, e.g. with table
 - @no_viewport = true
 
+- @jumbo_image = "https://farm6.staticflickr.com/5498/10143647255_dde609e35c_z.jpg"
+
+- @page_title = t(".title.#{@country.slug}")
+
+- content_for :jumbo do
+  %h1= page_header
+
+- content_for :jumbo_side do
+  %ul.subheader-menu
+    %li= render 'partials/translated'
+    %li= link_to(t('menu.gallery'), country_path(country: @country.slug))
+    - if I18n.russian_locale? && @country.slug == "ukraine"
+      %li= link_to("Зимующие птицы", page_path(:winter))
+
 = render 'checklist'
 
 %h2= t(".legend")
