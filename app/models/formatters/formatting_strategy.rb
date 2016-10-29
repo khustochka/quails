@@ -30,7 +30,7 @@ class FormattingStrategy
             word = nil
             en = "en"
           end
-          species_link(word, term.gsub("_", " "), en)
+          species_link(word, term, en)
       end
     end
 

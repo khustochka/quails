@@ -19,11 +19,6 @@ class WikiFilterTest < ActionDispatch::IntegrationTest
                  transform('{{Wryneck|jyntor}}')
   end
 
-  test 'properly parse species code capitalized' do
-    assert_equal %Q("(sp_link). Wryneck":jyntor\n\n[jyntor]#{species_path(species(:jyntor))}),
-                 transform('{{Wryneck|Jyntor}}')
-  end
-
   test 'properly parse species by bare code {{jyntor}}' do
     assert_equal %Q("(sp_link). Jynx torquilla":jyntor\n\n[jyntor]#{species_path(species(:jyntor))}),
                  transform('{{jyntor}}')
@@ -32,11 +27,6 @@ class WikiFilterTest < ActionDispatch::IntegrationTest
   test 'properly parse species by scientific name {{Wrynecks|Jynx torquilla}}' do
     assert_equal %Q("(sp_link). Wryneck":jyntor\n\n[jyntor]#{species_path(species(:jyntor))}),
                  transform('{{Wryneck|Jynx torquilla}}')
-  end
-
-  test 'properly parse species by scientific name with underscore' do
-    assert_equal %Q("(sp_link). Wryneck":jyntor\n\n[jyntor]#{species_path(species(:jyntor))}),
-                 transform('{{Wryneck|Jynx_torquilla}}')
   end
 
   test 'properly parse species by scientific name when species has no code' do
