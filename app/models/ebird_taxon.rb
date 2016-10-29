@@ -14,6 +14,7 @@ class EbirdTaxon < ActiveRecord::Base
   # Associations
 
   belongs_to :parent, class_name: "EbirdTaxon"
+  has_many :children, class_name: "EbirdTaxon", foreign_key: "parent_id"
   has_one :taxon
 
   # Parameters

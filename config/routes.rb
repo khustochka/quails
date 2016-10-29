@@ -234,7 +234,11 @@ Rails.application.routes.draw do
     get :search, on: :collection
   end
 
-  resources :ebird_taxa, only: [:index, :show]
+  resources :ebird_taxa, only: [:index, :show] do
+    member do
+      post :promote
+    end
+  end
 
   get '/settings' => 'settings#index'
   post '/settings/save' => 'settings#save'
