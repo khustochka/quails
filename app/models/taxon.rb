@@ -20,6 +20,7 @@ class Taxon < ActiveRecord::Base
 
   # Associations
   belongs_to :parent, class_name: "Taxon"
+  has_many :children, class_name: "Taxon", foreign_key: "parent_id", dependent: :restrict_with_exception
   belongs_to :species
   belongs_to :ebird_taxon
 

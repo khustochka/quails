@@ -15,6 +15,7 @@ hirrus:
   index_num: 50
   ebird_code: barswa
   species: :hirrus
+  ebird_taxon: :hirrus
 
 jyntor:
   name_sci: "Jynx torquilla"

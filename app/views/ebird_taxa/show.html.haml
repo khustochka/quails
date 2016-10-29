@@ -1,0 +1,45 @@
+- @page_title = @taxon.name_sci
+
+= render 'admin/shortcuts' if current_user.admin?
+
+%h1
+  = page_title
+  %small{class: [:tag, "tag_#{@taxon.category}"]}= @taxon.category
+
+%p
+  %i= @taxon.order
+  &bull;
+  %i= @taxon.family
+
+
+%h2= @taxon.name_en
+
+%p
+  %b Name IOC:
+  = @taxon.name_ioc_en
+  \|
+  %b Ebird code:
+  = @taxon.ebird_code
+
+- if tx = @taxon.taxon
+  %div
+    %span.less-important Taxon:
+    = taxon_link(tx, tx.name_sci)
+  - if tx.is_a_species? && sp = tx.species
+    %div
+      %span.less-important Species:
+      = species_link(sp, sp.name_sci)
+- else
+  = button_to "Promote to taxon", promote_ebird_taxon_path(@taxon)
+
+- if parent = @taxon.parent
+  %h3 Parent
+
+  &bull;
+  = link_to parent.name_sci, parent
+
+- if @taxon.children.any?
+  %h3 Children
+  %ul
+    - @taxon.children.each do |tx|
+      %li= link_to tx.name_sci, tx

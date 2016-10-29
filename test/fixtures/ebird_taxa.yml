@@ -7,13 +7,14 @@ pasdom:
   index_num: 100
   ebird_code: houspa
 
-#hirrus:
-#  name_sci: "Hirundo rustica"
-#  name_en: "Barn Swallow"
-#  category: "species"
-#  index_num: 50
-#  ebird_code: barswa
-#
+hirrus:
+  name_sci: "Hirundo rustica"
+  name_en: "Barn Swallow"
+  name_ioc_en: "Barn Swallow"
+  category: "species"
+  index_num: 50
+  ebird_code: barswa
+
 #saxola:
 #  name_sci: "Saxicola rubicola"
 #  name_en: "European Stonechat"
@@ -57,3 +58,45 @@ aves_sp:
   category: "spuh"
   index_num: 15000
   ebird_code: bird1
+
+# Ebird taxa to test promotion:
+
+some_spuh:
+  name_sci: "Tinamus sp."
+  name_en: "Tinamus sp."
+  name_ioc_en: "Tinamus sp."
+  category: "spuh"
+  index_num: 18
+  ebird_code: tinamu1
+
+some_species:
+  name_sci: "Tinamus solitarius"
+  name_en: "Solitary Tinamou"
+  name_ioc_en: "Solitary Tinamou"
+  category: "species"
+  order: "Tinamiformes"
+  family: "Tinamidae (Tinamous)"
+  index_num: 14
+  ebird_code: soltin1
+
+barn_swallow_subspecies:
+  name_sci: "Hirundo rustica erythrogaster"
+  name_en: "Barn Swallow (American)"
+  name_ioc_en: "Barn Swallow (American)"
+  category: "issf"
+  index_num: 51
+  ebird_code: barswa5
+  parent: :hirrus
+
+some_tinamu_subspecies:
+  name_sci: "Tinamus solitarius noveboracensis"
+  name_en: "Solitary Tinamou (New York)"
+  name_ioc_en: "Solitary Tinamou (New York)"
+  category: "issf"
+  order: "Tinamiformes"
+  family: "Tinamidae (Tinamous)"
+  index_num: 15
+  ebird_code: soltin99
+  parent: :some_species
+
+# ===== END OF Ebird taxa to test promotion
