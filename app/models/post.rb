@@ -89,8 +89,9 @@ class Post < ActiveRecord::Base
   end
 
   def images
-    Image.distinct.joins(:observations).includes(:cards, :taxa).where('cards.post_id = ? OR observations.post_id = ?', id, id).
-        order('cards.observ_date, cards.locus_id, media.index_num, taxa.index_num').preload(:species)
+    Image.joins(:observations, :cards).includes(:cards, :taxa).where('cards.post_id = ? OR observations.post_id = ?', id, id).
+        merge(Card.default_cards_order("ASC")).
+        order('media.index_num, taxa.index_num').preload(:species)
   end
 
   # Instance methods

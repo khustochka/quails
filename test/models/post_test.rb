@@ -236,4 +236,18 @@ class PostTest < ActiveSupport::TestCase
     assert_equal "image2", p.decorated.the_rest_of_images[0].slug
   end
 
+  test "properly sort post images" do
+    p = create(:post, text: "Text")
+    tx1 = taxa(:pasdom)
+    tx2 = taxa(:hirrus)
+    card1 = create(:card, start_time: "6:00", post: p)
+    card2 = create(:card, start_time: "7:00", post: p)
+    obs1 = create(:observation, taxon: tx1, card: card1)
+    obs2 = create(:observation, taxon: tx2, card: card2)
+    img1 = create(:image, observations: [obs1], slug: "image1")
+    img2 = create(:image, observations: [obs2], slug: "image2")
+
+    assert_equal [img1.id, img2.id], p.images.map(&:id)
+  end
+
 end
