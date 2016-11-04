@@ -27,17 +27,6 @@ class SpeciesTest < ActiveSupport::TestCase
     assert_raise(ActiveRecord::RecordInvalid) { sp.save! }
   end
 
-  test 'sort by abundance' do
-    skip "Sort by abundance not implemented yet"
-    create(:observation, taxon: taxa(:pasdom))
-    create(:observation, taxon: taxa(:hirrus))
-    create(:observation, taxon: taxa(:hirrus))
-    list = Species.by_abundance.to_a
-    assert_equal species(:hirrus).id, list[0].id
-    assert_equal species(:pasdom).id, list[1].id
-    assert_equal Species.count, list.size
-  end
-
   test "Species posts" do
     blogpost1 = create(:post)
     blogpost2 = create(:post)
