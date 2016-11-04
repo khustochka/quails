@@ -2,7 +2,15 @@ source 'https://rubygems.org/'
 
 ruby '2.3.1'
 
-gem 'rails', '4.2.7.1'
+#gem 'rails', '5.0.0.1'
+VERSION = "5.0.0.1"
+gem "activesupport", VERSION
+gem "actionpack",    VERSION
+gem "actionview",    VERSION
+gem "activemodel",   VERSION
+gem "activerecord",  VERSION
+gem "actionmailer",  VERSION
+gem "railties",      VERSION
 
 gem 'pg', platforms: [:ruby, :mingw]
 #gem "activerecord-jdbcpostgresql-adapter", platforms: :jruby
@@ -16,7 +24,10 @@ gem 'dotenv-rails'
 gem 'rails-i18n'
 
 # Old rails functionality
-gem 'actionpack-page_caching'
+gem "actionpack-page_caching",
+    git: "https://github.com/kord-as/actionpack-page_caching",
+    branch: "rails5"
+gem "rails-controller-testing"
 
 # AR utils
 gem 'ancestry'

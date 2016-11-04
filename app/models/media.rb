@@ -131,7 +131,7 @@ class Media < ActiveRecord::Base
         joins("JOIN loci as card_locus ON card_locus.id=cards.locus_id").
         joins("LEFT OUTER JOIN (#{Locus.non_private.to_sql}) as parent_locus ON card_locus.ancestry LIKE CONCAT(parent_locus.ancestry, '/', parent_locus.id)").
         where("spots.lat IS NOT NULL OR patches.lat IS NOT NULL OR public_locus.lat IS NOT NULL OR parent_locus.lat IS NOT NULL").
-        uniq
+        distinct
   end
 
 end

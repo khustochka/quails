@@ -82,7 +82,7 @@ class ImagesControllerTest < ActionController::TestCase
 
   test "do not save image without slug" do
     login_as_admin
-    new_attr = build(:image, slug: '').attributes.except('assets_cache')
+    new_attr = attributes_for(:image, slug: '')
     assert_difference('Image.count', 0) do
       post :create, image: new_attr, obs: [@obs.id]
     end
@@ -92,7 +92,7 @@ class ImagesControllerTest < ActionController::TestCase
 
   test "do not save image with no observations" do
     login_as_admin
-    new_attr = build(:image, slug: 'new_img_slug').attributes
+    new_attr = attributes_for(:image, slug: 'new_img_slug')
     assert_difference('Image.count', 0) do
       post :create, image: new_attr, obs: []
     end
@@ -202,8 +202,7 @@ class ImagesControllerTest < ActionController::TestCase
     post :patch, id: img.to_param, image: {spot_id: spot2.id}, format: :json
     img.reload
     assert_equal spot2.id, img.spot_id
-    assert_response :success
-    assert_equal Mime::JSON, response.content_type
+    assert_response :no_content
   end
 
   test "destroy image" do

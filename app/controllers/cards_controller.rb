@@ -7,7 +7,6 @@ class CardsController < ApplicationController
   # GET /cards
   # GET /cards.json
   def index
-
     @observation_search = ObservationSearch.new(params[:q])
 
     @cards = @observation_search.cards.

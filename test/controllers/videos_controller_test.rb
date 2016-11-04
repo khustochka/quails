@@ -73,7 +73,7 @@ class VideosControllerTest < ActionController::TestCase
 
   test "do not save video without slug" do
     login_as_admin
-    new_attr = build(:video, slug: '').attributes.except('assets_cache')
+    new_attr = attributes_for(:video, slug: '')
     assert_difference('Video.count', 0) do
       post :create, video: new_attr, obs: [@obs.id]
     end
@@ -83,7 +83,7 @@ class VideosControllerTest < ActionController::TestCase
 
   test "do not save video with no observations" do
     login_as_admin
-    new_attr = build(:video, slug: 'new_video_slug').attributes
+    new_attr = attributes_for(:video, slug: 'new_video_slug')
     assert_difference('Video.count', 0) do
       post :create, video: new_attr, obs: []
     end
@@ -95,7 +95,7 @@ class VideosControllerTest < ActionController::TestCase
     login_as_admin
     obs2 = create(:observation, card: create(:card, locus: loci(:kiev)))
     obs3 = create(:observation, card: create(:card, locus: loci(:brovary)))
-    new_attr = build(:video, slug: 'new_video_slug').attributes.except('assets_cache')
+    new_attr = attributes_for(:video, slug: 'new_video_slug')
     assert_difference('Video.count', 0) do
       post :create, video: new_attr, obs: [obs2.id, obs3.id]
     end
@@ -187,8 +187,7 @@ class VideosControllerTest < ActionController::TestCase
     post :patch, id: video.to_param, video: {spot_id: spot2.id}, format: :json
     video.reload
     assert_equal spot2.id, video.spot_id
-    assert_response :success
-    assert_equal Mime::JSON, response.content_type
+    assert_response :no_content
   end
 
   test "destroy video" do

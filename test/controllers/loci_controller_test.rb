@@ -21,7 +21,7 @@ class LociControllerTest < ActionController::TestCase
   test "create locus" do
     assert_difference('Locus.count') do
       login_as_admin
-      post :create, locus: build(:locus).attributes
+      post :create, locus: attributes_for(:locus)
     end
     assert_redirected_to edit_locus_path(assigns(:locus))
   end
@@ -106,7 +106,7 @@ class LociControllerTest < ActionController::TestCase
   end
 
   test 'protect create with authentication' do
-    assert_raise(ActionController::RoutingError) { post :create, locus: build(:locus).attributes }
+    assert_raise(ActionController::RoutingError) { post :create, locus: attributes_for(:locus) }
     #assert_response 404
   end
 
