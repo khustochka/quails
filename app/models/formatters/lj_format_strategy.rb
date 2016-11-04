@@ -49,13 +49,14 @@ class LJFormatStrategy < FormattingStrategy
   def post_scriptum
     result = ''
 
-    if @metadata[:images].any?
+    images = @metadata[:images]
+    if images.any?
       result << "\n\n"
-      @metadata[:images].each_with_index do |img, i|
-        result << "<lj-cut>\n\n" if i == 1
+      images.each_with_index do |img, i|
+        result << "<lj-cut text=\"#{images[1..-1].map(&:public_title).to_sentence.capitalize}\">\n\n" if i == 1
         result << "#{real_image_tag(img)}\n\n"
       end
-      result << '</lj-cut>' if @metadata[:images].size > 1
+      result << '</lj-cut>' if images.size > 1
     end
 
     if @posts.any? || @spcs.any?
