@@ -30,7 +30,7 @@ class ObservationSearch
   def initialize(conditions = {})
     @attributes = ALL_ATTRIBUTES
 
-    conditions2 = conditions || {}
+    conditions2 = conditions.to_h || {}
     @all_conditions = conditions2.slice(*@attributes).reject { |_, v| v != false && v.blank? }
 
     normalize_dates
