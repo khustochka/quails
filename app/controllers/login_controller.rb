@@ -21,7 +21,7 @@ class LoginController < ApplicationController
       end
       redirect_to ret || root_url(url_options_for_admin), status: 303
     else
-      render text: "403 Forbidden", status: 403
+      render plain: "403 Forbidden", status: 403
     end
   end
 

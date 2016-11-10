@@ -49,7 +49,7 @@ class CommentsController < ApplicationController
 
     if params[:comment][:name].present?
 
-      render text: 'Error', status: 422
+      render plain: 'Error', status: 422
 
     else
 

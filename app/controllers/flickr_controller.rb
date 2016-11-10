@@ -30,7 +30,7 @@ class FlickrController < ApplicationController
   end
 
   rescue_from FlickRaw::FailedResponse do |e|
-    render :text => "<h2>Error</h2>\n#{e.message}", :layout => true
+    render html: "<h2>Error</h2>\n#{e.message}", layout: true
   end
 
 end
