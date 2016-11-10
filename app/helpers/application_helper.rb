@@ -35,7 +35,7 @@ module ApplicationHelper
   end
 
   def sorting_link_to(text)
-    params[:sort].nil? ? text : link_to(text, params.merge(:sort => nil))
+    params[:sort].nil? ? text : link_to(text, significant_params.merge(:sort => nil))
   end
 
   def feed_list_item

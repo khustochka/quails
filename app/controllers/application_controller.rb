@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
 
   def significant_params
     if @allowed_params
-      params.slice(*@allowed_params)
+      params.permit(*@allowed_params)
     else
       params
     end

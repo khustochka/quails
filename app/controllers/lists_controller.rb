@@ -35,7 +35,7 @@ class ListsController < ApplicationController
     raise ActiveRecord::RecordNotFound if locus && !locus.in?(@locations.map(&:slug))
 
     @lifelist = Lifelist::FirstSeen.
-        over(params.slice(:year, :locus)).
+        over(params.permit(:year, :locus)).
         sort(sort_override)
 
     if I18n.russian_locale?
@@ -53,7 +53,7 @@ class ListsController < ApplicationController
     raise ActiveRecord::RecordNotFound if locus && !locus.in?(current_user.available_loci.map(&:slug))
 
     @lifelist = Lifelist::Advanced.
-        over(params.slice(:year, :month, :locus)).
+        over(params.permit(:year, :month, :locus)).
         sort(params[:sort])
 
     if I18n.russian_locale?
