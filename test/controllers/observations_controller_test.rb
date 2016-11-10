@@ -80,7 +80,7 @@ class ObservationsControllerTest < ActionController::TestCase
     observation = create(:observation)
     get :search, q: {taxon_id: observation.taxon_id.to_s}
     assert_response :success
-    assert_equal Mime::HTML, response.content_type
+    assert_equal Mime[:html], response.content_type
   end
 
   test 'return observation search results that include spuhs in HTML' do
@@ -88,7 +88,7 @@ class ObservationsControllerTest < ActionController::TestCase
     observation = create(:observation, taxon: taxa(:aves_sp))
     get :search, q: {observ_date: observation.card.observ_date.iso8601}
     assert_response :success
-    assert_equal Mime::HTML, response.content_type
+    assert_equal Mime[:html], response.content_type
     assert_includes response.body, "Aves sp."
   end
 end

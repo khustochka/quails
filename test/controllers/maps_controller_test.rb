@@ -22,7 +22,7 @@ class MapsControllerTest < ActionController::TestCase
     login_as_admin
     get :observations, format: :json, q: {observ_date: '2010-07-24'}
     assert_response :success
-    assert_equal Mime::JSON, response.content_type
+    assert_equal Mime[:json], response.content_type
     result = JSON.parse(response.body)['json']
     assert_equal 1, result.size
     result[0].assert_valid_keys('id', 'spots')
@@ -46,7 +46,7 @@ class MapsControllerTest < ActionController::TestCase
     observation = create(:observation, taxon: taxa(:aves_sp))
     get :observations, q: {observ_date: observation.card.observ_date.iso8601}, format: 'json'
     assert_response :success
-    assert_equal Mime::JSON, response.content_type
+    assert_equal Mime[:json], response.content_type
     result = JSON.parse(response.body)['json']
     assert_equal 1, result.size
   end
@@ -61,7 +61,7 @@ class MapsControllerTest < ActionController::TestCase
     create(:video, observations: [obs1], spot_id: spot1.id)
     get :media, format: :json
     assert_response :success
-    assert_equal Mime::JSON, response.content_type
+    assert_equal Mime[:json], response.content_type
     result = JSON.parse(response.body)
     assert_equal 2, result.to_a.first[1].size
   end
@@ -74,7 +74,7 @@ class MapsControllerTest < ActionController::TestCase
     create(:image, observations: [obs2])
     get :media, format: :json
     assert_response :success
-    assert_equal Mime::JSON, response.content_type
+    assert_equal Mime[:json], response.content_type
     assert_equal 2, JSON.parse(response.body).size
   end
 
@@ -86,7 +86,7 @@ class MapsControllerTest < ActionController::TestCase
     create(:image, observations: [obs2])
     get :media, format: :json
     assert_response :success
-    assert_equal Mime::JSON, response.content_type
+    assert_equal Mime[:json], response.content_type
     assert_equal 1, JSON.parse(response.body).size
   end
 

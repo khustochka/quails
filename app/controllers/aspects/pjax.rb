@@ -22,7 +22,7 @@ module Aspects
 
     protected
     def pjax_request?
-      env['HTTP_X_PJAX'].present?
+      request.env['HTTP_X_PJAX'].present?
     end
 
     def pjax_layout
