@@ -40,7 +40,7 @@ class Species < ActiveRecord::Base
 
   scope :short, lambda { select("species.id, species.name_sci, species.name_en, species.name_ru, species.name_uk, species.index_num") }
 
-  scope :ordered_by_taxonomy, lambda { uniq.reorder("species.index_num") }
+  scope :ordered_by_taxonomy, lambda { distinct.reorder("species.index_num") }
 
   def ordered_images
     images.order_for_species
