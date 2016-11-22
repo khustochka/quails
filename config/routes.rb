@@ -168,7 +168,7 @@ Rails.application.routes.draw do
     get 'photos' => redirect("/%{locale}")
   end
 
-# ADMINISTRATIVE PAGES
+  # ADMINISTRATIVE PAGES
 
   resources :posts, except: [:index, :show] do
     get :hidden, on: :collection
@@ -245,7 +245,12 @@ Rails.application.routes.draw do
 
   get '/media/unmapped' => 'media#unmapped'
 
-  get '/research(/:action)', controller: :research, as: :research
+  get '/research', controller: :research, action: :index, as: :research
+
+  research_actions = %w(environ insights more_than_year topicture day uptoday compare by_countries stats voices charts)
+  research_actions.each do |name|
+    get "/research/#{name}", controller: :research, action: name
+  end
 
   get '/login' => 'login#login_page'
   constraints Quails.env.ssl? ? {protocol: 'https://'} : nil do
