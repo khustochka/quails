@@ -19,7 +19,7 @@ class LifelistAdvancedTest < ActionController::TestCase
   end
 
   test "show lifelist ordered by count" do
-    get :advanced, sort: 'count'
+    get :advanced, params: {sort: 'count'}
     assert_response :success
     assert_select '.main' do
       assert_select 'h5', false # should not splice the list
@@ -30,7 +30,7 @@ class LifelistAdvancedTest < ActionController::TestCase
   end
 
   test "show lifelist ordered by taxonomy" do
-    get :advanced, sort: 'class'
+    get :advanced, params: {sort: 'class'}
     assert_response :success
     assert_select '.main' do
       assert_select "a[href='#{advanced_list_path}']"
@@ -40,7 +40,7 @@ class LifelistAdvancedTest < ActionController::TestCase
   end
 
   test "show year list by count" do
-    get :advanced, sort: 'count', year: 2009
+    get :advanced, params: {sort: 'count', year: 2009}
     assert_response :success
     assert_select '.main' do
       assert_select 'h5', false # should not splice the list
@@ -49,14 +49,14 @@ class LifelistAdvancedTest < ActionController::TestCase
   end
 
   test "show location list" do
-    get :advanced, locus: 'usa'
+    get :advanced, params: {locus: 'usa'}
     assert_response :success
     lifers = assigns(:lifelist)
     assert_equal 3, lifers.size
   end
 
   test "show lifelist filtered by year and location" do
-    get :advanced, locus: 'usa', year: 2009
+    get :advanced, params: {locus: 'usa', year: 2009}
     assert_response :success
     lifers = assigns(:lifelist)
     assert_equal 1, lifers.size

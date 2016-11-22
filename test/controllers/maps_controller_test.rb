@@ -20,7 +20,7 @@ class MapsControllerTest < ActionController::TestCase
     create(:spot, observation: obs1)
     create(:spot, observation: obs2)
     login_as_admin
-    get :observations, format: :json, q: {observ_date: '2010-07-24'}
+    get :observations, params: {format: :json, q: {observ_date: '2010-07-24'}}
     assert_response :success
     assert_equal Mime[:json], response.content_type
     result = JSON.parse(response.body)['json']
@@ -35,7 +35,7 @@ class MapsControllerTest < ActionController::TestCase
     obss = [create(:observation, taxon: taxa(:hirrus)),
             create(:observation, taxon: taxa(:pasdom)),
             create(:observation, taxon: taxa(:saxola))]
-    get :observations, q: {observ_date: obss[0].card.observ_date.iso8601}, format: 'json'
+    get :observations, params: {q: {observ_date: obss[0].card.observ_date.iso8601}, format: 'json'}
     assert_response :success
     result = JSON.parse(response.body)['json']
     assert_equal 3, result.size
@@ -44,7 +44,7 @@ class MapsControllerTest < ActionController::TestCase
   test 'return observation search results that include spuhs in JSON' do
     login_as_admin
     observation = create(:observation, taxon: taxa(:aves_sp))
-    get :observations, q: {observ_date: observation.card.observ_date.iso8601}, format: 'json'
+    get :observations, params: {q: {observ_date: observation.card.observ_date.iso8601}, format: 'json'}
     assert_response :success
     assert_equal Mime[:json], response.content_type
     result = JSON.parse(response.body)['json']
@@ -59,7 +59,7 @@ class MapsControllerTest < ActionController::TestCase
     spot2 = create(:spot, observation: obs2)
     create(:image, observations: [obs1], spot_id: spot1.id)
     create(:video, observations: [obs1], spot_id: spot1.id)
-    get :media, format: :json
+    get :media, params: {format: :json}
     assert_response :success
     assert_equal Mime[:json], response.content_type
     result = JSON.parse(response.body)
@@ -72,7 +72,7 @@ class MapsControllerTest < ActionController::TestCase
     spot1 = create(:spot, observation: obs1)
     create(:image, observations: [obs1], spot_id: spot1.id)
     create(:image, observations: [obs2])
-    get :media, format: :json
+    get :media, params: {format: :json}
     assert_response :success
     assert_equal Mime[:json], response.content_type
     assert_equal 2, JSON.parse(response.body).size
@@ -84,7 +84,7 @@ class MapsControllerTest < ActionController::TestCase
     spot1 = create(:spot, observation: obs1)
     create(:image, observations: [obs1], spot_id: spot1.id)
     create(:image, observations: [obs2])
-    get :media, format: :json
+    get :media, params: {format: :json}
     assert_response :success
     assert_equal Mime[:json], response.content_type
     assert_equal 1, JSON.parse(response.body).size

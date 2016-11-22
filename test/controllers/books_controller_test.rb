@@ -22,20 +22,20 @@ class BooksControllerTest < ActionController::TestCase
   test "create book" do
     assert_difference('Book.count') do
       login_as_admin
-      post :create, book: {slug: 'ebird_000', name: 'eBird 0.00'}
+      post :create, params: {book: {slug: 'ebird_000', name: 'eBird 0.00'}}
     end
     assert_redirected_to book_path(assigns(:book))
   end
 
   test "show book" do
     login_as_admin
-    get :show, id: 'fesenko-bokotej'
+    get :show, params: {id: 'fesenko-bokotej'}
     assert_response :success
   end
 
   test "get edit" do
     login_as_admin
-    get :edit, id: 'fesenko-bokotej'
+    get :edit, params: {id: 'fesenko-bokotej'}
     assert_response :success
   end
 
@@ -43,7 +43,7 @@ class BooksControllerTest < ActionController::TestCase
     book = Book.find_by(slug: 'fesenko-bokotej')
     book.name = 'changed'
     login_as_admin
-    put :update, id: book.to_param, book: book.attributes
+    put :update, params: {id: book.to_param, book: book.attributes}
     assert_redirected_to book_path(assigns(:book))
     book.reload
     assert_equal 'changed', book.name
@@ -52,7 +52,7 @@ class BooksControllerTest < ActionController::TestCase
   test "destroy book" do
     assert_difference('Book.count', -1) do
       login_as_admin
-      delete :destroy, id: 'fesenko-bokotej'
+      delete :destroy, params: {id: 'fesenko-bokotej'}
     end
 
     assert_redirected_to books_path

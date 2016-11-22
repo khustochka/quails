@@ -27,7 +27,7 @@ class ResearchControllerTest < ActionController::TestCase
     create(:observation, card: create(:card, observ_date: "2007-06-18"))
     create(:observation, card: create(:card, observ_date: "2009-06-18"))
     login_as_admin
-    get :more_than_year, days: 365
+    get :more_than_year, params: {days: 365}
     assert_response :success
   end
 
@@ -41,7 +41,7 @@ class ResearchControllerTest < ActionController::TestCase
 
   test "admin sees Research/compare" do
     login_as_admin
-    get :compare, loc1: 'kiev', loc2: 'brovary'
+    get :compare, params: {loc1: 'kiev', loc2: 'brovary'}
     assert_response :success
   end
 

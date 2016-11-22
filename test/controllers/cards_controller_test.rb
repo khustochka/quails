@@ -21,7 +21,7 @@ class CardsControllerTest < ActionController::TestCase
 
   test "new card should accept locus, date, and post" do
     p = create(:post)
-    get :new, card: {locus_id: loci(:brovary).id, observ_date: '2013-04-26', post_id: p.id}
+    get :new, params: {card: {locus_id: loci(:brovary).id, observ_date: '2013-04-26', post_id: p.id}}
     assert_response :success
     card = assigns(:card)
     assert_equal loci(:brovary), card.locus
@@ -37,7 +37,7 @@ class CardsControllerTest < ActionController::TestCase
 
   test "should create card" do
     assert_difference('Card.count') do
-      post :create, card: attributes_for(:card)
+      post :create, params: {card: attributes_for(:card)}
     end
 
     assert_redirected_to edit_card_path(assigns(:card))
@@ -46,30 +46,30 @@ class CardsControllerTest < ActionController::TestCase
   test "create card with observations" do
     observ_attrs = [{taxon_id: 2}, {taxon_id: 4}, {taxon_id: 6}]
     assert_difference('Observation.count', 3) do
-      post :create, card: attributes_for(:card).merge(observations_attributes: observ_attrs)
+      post :create, params: {card: attributes_for(:card).merge(observations_attributes: observ_attrs)}
     end
 
     assert_redirected_to edit_card_path(assigns(:card))
   end
 
   test "should show card" do
-    get :show, id: @card
+    get :show, params: {id: @card}
     assert_response :success
   end
 
   test "should show card with images" do
     create(:image, observations: [@card.observations.first])
-    get :show, id: @card
+    get :show, params: {id: @card}
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, id: @card
+    get :edit, params: {id: @card}
     assert_response :success
   end
 
   test "should update card" do
-    put :update, id: @card, card: attributes_for(:card)
+    put :update, params: {id: @card, card: attributes_for(:card)}
     assert_redirected_to edit_card_path(assigns(:card))
   end
 
@@ -77,7 +77,7 @@ class CardsControllerTest < ActionController::TestCase
     card2 = create(:card)
     obss = [1, 2, 3].map {|_| create(:observation, card: card2)}
 
-    post :attach, id: @card, obs: [obss[0], obss[1]]
+    post :attach, params: {id: @card, obs: [obss[0], obss[1]]}
 
     @card.reload
     card2.reload
@@ -89,7 +89,7 @@ class CardsControllerTest < ActionController::TestCase
 
   test "should not destroy card which is not empty" do
     assert_difference('Card.count', 0) do
-      assert_raise(ActiveRecord::DeleteRestrictionError) { delete :destroy, id: @card }
+      assert_raise(ActiveRecord::DeleteRestrictionError) { delete :destroy, params: {id: @card} }
     end
   end
 
@@ -97,7 +97,7 @@ class CardsControllerTest < ActionController::TestCase
     @card.observations.each {|o| o.destroy }
 
     assert_difference('Card.count', -1) do
-      delete :destroy, id: @card
+      delete :destroy, params: {id: @card}
     end
 
     assert_redirected_to cards_path

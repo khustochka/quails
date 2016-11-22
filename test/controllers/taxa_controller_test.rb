@@ -14,7 +14,7 @@ class TaxaControllerTest < ActionController::TestCase
 
   test 'show taxon' do
     login_as_admin
-    get :show, id: @taxon.ebird_code
+    get :show, params: {id: @taxon.ebird_code}
     assert_response :success
     assert_not_nil assigns(:taxon)
   end
