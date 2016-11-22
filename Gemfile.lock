@@ -132,7 +132,7 @@ GEM
     mime-types-data (3.2016.0521)
     mini_portile2 (2.1.0)
     minitest (5.9.1)
-    newrelic_rpm (3.17.0.325)
+    newrelic_rpm (3.17.1.326)
     nokogiri (1.6.8.1)
       mini_portile2 (~> 2.1.0)
     ordered-active-record (0.9.10)
@@ -147,8 +147,8 @@ GEM
       pry (~> 0.10)
     pry-rails (0.3.4)
       pry (>= 0.9.10)
-    public_suffix (2.0.3)
-    puma (3.6.0)
+    public_suffix (2.0.4)
+    puma (3.6.1)
     rack (2.0.1)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -183,7 +183,7 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
-    selenium-webdriver (3.0.0)
+    selenium-webdriver (3.0.1)
       childprocess (~> 0.5)
       rubyzip (~> 1.0)
       websocket (~> 1.0)
@@ -267,7 +267,7 @@ DEPENDENCIES
   uglifier (>= 1.3.0)
 
 RUBY VERSION
-   ruby 2.3.1p112
+   ruby 2.3.2p217
 
 BUNDLED WITH
    1.13.6

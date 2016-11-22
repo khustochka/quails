@@ -29,6 +29,11 @@ class Taxon < ActiveRecord::Base
 
   scope :category_species, -> { where(category: "species") }
 
+  def self.weighted_by_abundance
+    obs = Observation.select("taxon_id, COUNT(observations.id) as weight").group(:taxon_id)
+    self.joins("LEFT OUTER JOIN (#{obs.to_sql}) obs on id = obs.taxon_id")
+  end
+
   # Parameters
 
   def to_param

@@ -22,9 +22,7 @@ class TaxaController < ApplicationController
 
   def search
     term = params[:term]
-    obs = Observation.select("taxon_id, COUNT(observations.id) as weight").group(:taxon_id)
-    weighted_taxa = Taxon.joins("LEFT OUTER JOIN (#{obs.to_sql}) obs on id = obs.taxon_id")
-    @taxa = Search::TaxonSearchWeighted.new(weighted_taxa, term)
+    @taxa = Search::TaxonSearchWeighted.new(Taxon.weighted_by_abundance, term)
     render json: @taxa.find
   end
 

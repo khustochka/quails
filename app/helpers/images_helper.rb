@@ -43,11 +43,17 @@ module ImagesHelper
   end
 
   def self.local_image_path
-    @local_image_path ||= ENV['quails_local_image_path']
+    return @local_image_path if @local_image_path
+    @local_image_path = ENV['quails_local_image_path']
+    FileUtils.mkdir_p(@local_image_path) if @local_image_path
+    @local_image_path
   end
 
   def self.temp_image_path
-    @temp_image_path ||= ENV['quails_temp_image_path']
+    return @temp_image_path if @temp_image_path
+    @temp_image_path = ENV['quails_temp_image_path']
+    FileUtils.mkdir_p(@temp_image_path) if @temp_image_path
+    @temp_image_path
   end
 
   def legacy_image_url(file_name)
