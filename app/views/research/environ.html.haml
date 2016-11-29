@@ -31,7 +31,8 @@
   - if $revision
     %dt Revision
     %dd
-      :textile
-        ["#{$revision}":https://bitbucket.org/khustochka/quails/commits/#{$revision}]
+      - if defined?($revision) && $revision.present?
+        :textile
+          ["#{$revision[0..7]}":https://bitbucket.org/khustochka/quails/commits/#{$revision}]
 
-        #{$commit}
+          #{$commit}
