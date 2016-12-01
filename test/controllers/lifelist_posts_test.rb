@@ -29,7 +29,7 @@ class LifelistPostsTest < ActionController::TestCase
     get :basic, locale: :en
     assert_response :success
     lifers = assigns(:lifelist)
-    assert_equal nil, lifers.to_a.find {|s| s.species.code == 'hirrus'}.main_post
+    assert_nil lifers.to_a.find {|s| s.species.code == 'hirrus'}.main_post
   end
 
   test 'show post link on lifelist ordered by taxonomy if post is associated' do
@@ -48,7 +48,7 @@ class LifelistPostsTest < ActionController::TestCase
     get :basic
     assert_response :success
     lifers = assigns(:lifelist)
-    assert_equal nil, lifers.to_a.find {|s| s.species.code == 'jyntor'}.post
+    assert_nil lifers.to_a.find {|s| s.species.code == 'jyntor'}.post
   end
 
   test 'do not show hidden post link to common visitor' do

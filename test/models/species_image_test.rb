@@ -22,7 +22,7 @@ class SpeciesImageTest < ActiveSupport::TestCase
     img = Image.find(img_id)
     img.destroy
     sp.reload
-    assert_equal nil, sp.image
+    assert_nil sp.image
   end
 
   test 'removing the active species image links another one to the species' do
