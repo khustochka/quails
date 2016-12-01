@@ -272,7 +272,7 @@ class JSCardsTest < ActionDispatch::IntegrationTest
     save_and_check
 
     assert_empty blogpost.reload.cards
-    assert_equal nil, card.reload.post_id
+    assert_nil card.reload.post_id
   end
 
   test 'Attach card to the post' do

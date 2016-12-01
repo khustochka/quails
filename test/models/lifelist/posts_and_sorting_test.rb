@@ -26,7 +26,7 @@ module Lifelist
       obs = FactoryGirl.create(:observation, post: post)
       list = Lifelist::FirstSeen.full
       list.set_posts_scope(Post.public_posts)
-      assert_equal nil, list.first.main_post
+      assert_nil list.first.main_post
     end
 
     test "should not include hidden posts (from card)" do
@@ -35,7 +35,7 @@ module Lifelist
       obs = FactoryGirl.create(:observation, card: card)
       list = Lifelist::FirstSeen.full
       list.set_posts_scope(Post.public_posts)
-      assert_equal nil, list.first.main_post
+      assert_nil list.first.main_post
     end
 
     test "should take into account start time when ordering lifers (diff species)" do
