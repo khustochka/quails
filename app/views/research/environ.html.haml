@@ -32,7 +32,6 @@
     %dt Revision
     %dd
       - if defined?($revision) && $revision.present?
-        :textile
-          ["#{$revision[0..7]}":https://bitbucket.org/khustochka/quails/commits/#{$revision}]
+        = link_to $revision[0..7], "https://bitbucket.org/khustochka/quails/commits/#{$revision}"
+        = simple_format($commit)
 
-          #{$commit}
