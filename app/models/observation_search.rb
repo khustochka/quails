@@ -47,13 +47,11 @@ class ObservationSearch
   end
 
   def cards
-    build_relations unless @cards_relation
-    @cards_relation
+    @cards_relation ||= build_cards_relation
   end
 
   def observations
-    build_relations unless @obs_relation
-    @obs_relation
+    @obs_relation ||= build_obs_relation
   end
 
   def observations_filtered?
@@ -89,40 +87,42 @@ class ObservationSearch
     end
   end
 
-  def build_relations
-    cards_scope = base_cards
-    obs_scope = Observation.all
+  def build_cards_relation
+    cards_rel = bare_cards_relation
+    if observations_filtered?
+      cards_rel = cards_rel.includes(:observations).references(:observations).merge(bare_obs_relation).preload(observations: {:taxon => :species})
+    end
+    cards_rel
+  end
 
-    cards_scope =
+  def build_obs_relation
+    obs_rel = bare_obs_relation.preload(:card)
+    if @conditions[:card].present?
+      obs_rel = obs_rel.joins(:card).merge(bare_cards_relation)
+    end
+    obs_rel
+  end
+
+  def bare_cards_relation
+    @bare_cards_relation ||=
         [
             :apply_card_id_filter,
             :apply_date_filter,
             :apply_locus_filter,
             :apply_resolved_filter
-        ].inject(cards_scope) do |scope, filter|
+        ].inject(base_cards) do |scope, filter|
           send(filter, scope)
         end
+  end
 
-    obs_scope =
+  def bare_obs_relation
+    @bare_obs_relation ||=
         [
             :apply_taxon_filter,
             :apply_voice_filter
-        ].inject(obs_scope) do |scope, filter|
+        ].inject(Observation.all) do |scope, filter|
           send(filter, scope)
         end
-
-    cards_scope_final = cards_scope
-    if observations_filtered?
-      cards_scope_final = cards_scope_final.includes(:observations).references(:observations).merge(obs_scope).preload(observations: {:taxon => :species})
-    end
-
-    obs_scope_final = obs_scope.preload(:card)
-    if @conditions[:card].present?
-      obs_scope_final = obs_scope_final.joins(:card).merge(cards_scope)
-    end
-
-    @cards_relation = cards_scope_final
-    @obs_relation = obs_scope_final
   end
 
   def apply_card_id_filter(cards_scope)
