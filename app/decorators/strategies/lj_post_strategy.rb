@@ -1,0 +1,3 @@
+class LJPostStrategy < FormatStrategy
+
+end
