@@ -10,10 +10,12 @@ class ObservationSearchTest < ActiveSupport::TestCase
     ]
     create(:observation, taxon: taxa(:pasdom), card: @cards[0])
     create(:observation, taxon: taxa(:hirrus), card: @cards[0])
+    create(:observation, taxon: taxa(:gargla), card: @cards[0])
     create(:observation, taxon: taxa(:hirrus), card: @cards[1])
     create(:observation, taxon: taxa(:jyntor), card: @cards[1])
     create(:observation, taxon: taxa(:pasdom), card: @cards[2])
     create(:observation, taxon: taxa(:saxola), card: @cards[2])
+    create(:observation, taxon: taxa(:gargla_eurasian), card: @cards[2])
   end
 
   test 'search cards by date' do
@@ -24,6 +26,14 @@ class ObservationSearchTest < ActiveSupport::TestCase
     assert_equal 2, ObservationSearch.new(taxon_id: taxa(:pasdom).id).cards.to_a.size
   end
 
+  test 'search cards by species including subspecies (default)' do
+    assert_equal 2, ObservationSearch.new(taxon_id: taxa(:gargla).id).cards.to_a.size
+  end
+
+  test 'search cards by species excluding subspecies' do
+    assert_equal 1, ObservationSearch.new(taxon_id: taxa(:gargla).id, exclude_subtaxa: true).cards.to_a.size
+  end
+
   test 'search cards by species filters only matching observations' do
     cards = ObservationSearch.new(taxon_id: taxa(:pasdom).id).cards.to_a
     assert_equal 1, cards[0].observations.size
@@ -31,7 +41,7 @@ class ObservationSearchTest < ActiveSupport::TestCase
 
   test 'search observations by date' do
     obss = ObservationSearch.new(observ_date: '2013-05-18').observations.to_a
-    assert_equal 4, obss.size
+    assert_equal 5, obss.size
     assert obss.first.respond_to?(:voice)
   end
 
@@ -46,7 +56,7 @@ class ObservationSearchTest < ActiveSupport::TestCase
   end
 
   test 'search cards by locus inclusive' do
-    assert_equal 3, ObservationSearch.new(locus_id: loci(:ukraine).id, inclusive: true).cards.to_a.size
+    assert_equal 3, ObservationSearch.new(locus_id: loci(:ukraine).id, include_subregions: true).cards.to_a.size
   end
 
 end

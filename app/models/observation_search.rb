@@ -23,8 +23,8 @@ class ObservationSearch
     end
   end
 
-  CARD_ATTRIBUTES = [:observ_date, :end_date, :locus_id, :card_id, :resolved, :inclusive]
-  OBSERVATION_ATTRIBUTES = [:taxon_id, :voice]
+  CARD_ATTRIBUTES = [:observ_date, :end_date, :locus_id, :card_id, :resolved, :include_subregions]
+  OBSERVATION_ATTRIBUTES = [:taxon_id, :voice, :exclude_subtaxa]
   ALL_ATTRIBUTES = CARD_ATTRIBUTES + OBSERVATION_ATTRIBUTES
 
   def initialize(conditions = {})
@@ -99,15 +99,22 @@ class ObservationSearch
       @all_conditions[:locus_id] ||= @conditions[:card][:locus_id]
     end
 
-    if @conditions[:card].delete(:inclusive) && loc = @conditions[:card][:locus_id]
+    if @conditions[:card].delete(:include_subregions) && loc = @conditions[:card][:locus_id]
       locus = Locus.find(loc)
       @conditions[:card][:locus_id] = locus.subregion_ids
-      @all_conditions[:locus_id] = @conditions[:card][:locus_id]
     end
 
     if end_date = @conditions[:card].delete(:end_date)
       start_date = @conditions[:card].delete(:observ_date)
       @conditions[:card][:observ_date] = start_date..end_date
+    end
+
+    if @conditions[:observation].delete(:exclude_subtaxa)
+      # do nothing if subtaxa are excluded (search by provided taxon id)
+    elsif tx = @conditions[:observation].try(:[], :taxon_id)
+      # Add subtaxa id
+      taxa = Taxon.where("taxa.parent_id" => tx)
+      @conditions[:observation][:taxon_id] = [tx.to_i] + taxa.pluck(:id)
     end
   end
 

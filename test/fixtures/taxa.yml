@@ -32,6 +32,17 @@ gargla:
   index_num: 60
   ebird_code: eurjay1
   species: :gargla
+  ebird_taxon: :gargla
+
+gargla_eurasian:
+  name_sci: "Garrulus glandarius [glandarius Group]"
+  name_en: "Eurasian Jay (Eurasian)"
+  category: "issf"
+  index_num: 61
+  ebird_code: eurjay2
+  species: :gargla
+  ebird_taxon: :gargla_eurasian
+  parent: :gargla
 
 bomgar:
   name_sci: "Bombycilla garrulus"
