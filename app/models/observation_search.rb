@@ -23,8 +23,8 @@ class ObservationSearch
     end
   end
 
-  CARD_ATTRIBUTES = [:observ_date, :end_date, :locus_id, :card_id, :resolved, :include_subregions]
-  OBSERVATION_ATTRIBUTES = [:taxon_id, :voice, :exclude_subtaxa]
+  CARD_ATTRIBUTES = [:observ_date, :end_date, :locus_id, :resolved, :include_subregions]
+  OBSERVATION_ATTRIBUTES = [:taxon_id, :voice, :exclude_subtaxa, :card_id]
   ALL_ATTRIBUTES = CARD_ATTRIBUTES + OBSERVATION_ATTRIBUTES
 
   def initialize(conditions = {})
@@ -80,8 +80,8 @@ class ObservationSearch
   end
 
   def extend_conditions
-    if card_id = @conditions[:card].delete(:card_id)
-      @conditions[:card][:id] = card_id
+    if card_id = @conditions[:observation][:card_id]
+      # This is done mostly for map edit. When you edit map for a certain card we want to place the map at the location of the card
       @conditions[:card][:locus_id] ||= Card.find(card_id).try(:locus_id)
       @all_conditions[:locus_id] ||= @conditions[:card][:locus_id]
     end
@@ -106,7 +106,6 @@ class ObservationSearch
   def bare_cards_relation
     @bare_cards_relation ||=
         [
-            :apply_card_id_filter,
             :apply_date_filter,
             :apply_locus_filter,
             :apply_resolved_filter
@@ -118,19 +117,12 @@ class ObservationSearch
   def bare_obs_relation
     @bare_obs_relation ||=
         [
+            :apply_card_id_filter,
             :apply_taxon_filter,
             :apply_voice_filter
         ].inject(Observation.all) do |scope, filter|
           send(filter, scope)
         end
-  end
-
-  def apply_card_id_filter(cards_scope)
-    if card_id = @conditions[:card][:id]
-      cards_scope.where(id: card_id)
-    else
-      cards_scope
-    end
   end
 
   def apply_date_filter(cards_scope)
@@ -165,6 +157,14 @@ class ObservationSearch
       cards_scope.where(resolved: resolved)
     else
       cards_scope
+    end
+  end
+
+  def apply_card_id_filter(obs_scope)
+    if card_id = @conditions[:observation][:card_id]
+      obs_scope.where(card_id: card_id)
+    else
+      obs_scope
     end
   end
 
