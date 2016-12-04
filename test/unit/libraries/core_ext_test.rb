@@ -10,4 +10,16 @@ class CoreExtTest < ActiveSupport::TestCase
     assert_equal({a: 1}, z.inject(:&))
   end
 
+  test "nil is not meaningful" do
+    assert_not nil.meaningful?
+  end
+
+  test "empty string is not meaningful" do
+    assert_not "".meaningful?
+  end
+
+  test "false is meaningful" do
+    assert false.meaningful?
+  end
+
 end

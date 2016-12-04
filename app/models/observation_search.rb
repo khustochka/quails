@@ -15,28 +15,28 @@ class ObservationSearch
     false
   end
 
-  def method_missing(method)
-    if method.in?(ALL_ATTRIBUTES)
-      @all_conditions[method]
-    else
-      super
-    end
-  end
-
   CARD_ATTRIBUTES = [:observ_date, :end_date, :locus_id, :resolved, :include_subregions]
   OBSERVATION_ATTRIBUTES = [:taxon_id, :voice, :exclude_subtaxa, :card_id]
   ALL_ATTRIBUTES = CARD_ATTRIBUTES + OBSERVATION_ATTRIBUTES
 
+  ALL_ATTRIBUTES.each do |attr|
+    attr_accessor attr
+  end
+
+
   def initialize(conditions = {})
+    # TODO: in Rails 5 do ActiveModel::AttributeAssignment and use assign_attributes
+
+    # FIXME: security
+
     conditions2 = conditions || {}
-    @all_conditions = conditions2.slice(*ALL_ATTRIBUTES).reject { |_, v| v.blank? && v != false }
+    all_conditions = conditions2.slice(*ALL_ATTRIBUTES).select { |_, v| v.meaningful? }
+
+    all_conditions.each do |key, val|
+      send(:"#{key}=", val)
+    end
 
     normalize_dates
-
-    @conditions = {
-        card: @all_conditions.slice(*CARD_ATTRIBUTES),
-        observation: @all_conditions.slice(*OBSERVATION_ATTRIBUTES)
-    }
 
     extend_conditions
   end
@@ -54,8 +54,12 @@ class ObservationSearch
     @obs_relation ||= build_obs_relation
   end
 
-  def observations_filtered?
-    @conditions[:observation].present?
+  def observation_filtered?
+    OBSERVATION_ATTRIBUTES.any? {|key| send(key).meaningful?}
+  end
+
+  def card_filtered?
+    CARD_ATTRIBUTES.any? {|key| send(key).meaningful?}
   end
 
   # Rendering
@@ -72,24 +76,23 @@ class ObservationSearch
 
   def normalize_dates
     [:observ_date, :end_date].each do |attr|
-      date = @all_conditions[attr]
+      date = send(attr)
       if date.presence.is_a?(String)
-        @all_conditions[attr] = Date.parse(date)
+        send(:"#{attr}=", Date.parse(date))
       end
     end
   end
 
   def extend_conditions
-    if card_id = @conditions[:observation][:card_id]
+    if card_id
       # This is done mostly for map edit. When you edit map for a certain card we want to place the map at the location of the card
-      @conditions[:card][:locus_id] ||= Card.find(card_id).try(:locus_id)
-      @all_conditions[:locus_id] ||= @conditions[:card][:locus_id]
+      self.locus_id ||= Card.find(card_id).try(:locus_id)
     end
   end
 
   def build_cards_relation
     cards_rel = bare_cards_relation
-    if observations_filtered?
+    if observation_filtered?
       cards_rel = cards_rel.includes(:observations).references(:observations).merge(bare_obs_relation).preload(observations: {:taxon => :species})
     end
     cards_rel
@@ -97,7 +100,7 @@ class ObservationSearch
 
   def build_obs_relation
     obs_rel = bare_obs_relation.preload(:card)
-    if @conditions[:card].present?
+    if card_filtered?
       obs_rel = obs_rel.joins(:card).merge(bare_cards_relation)
     end
     obs_rel
@@ -126,8 +129,8 @@ class ObservationSearch
   end
 
   def apply_date_filter(cards_scope)
-    if observ_date = @conditions[:card][:observ_date]
-      dates = if end_date = @conditions[:card][:end_date]
+    if observ_date
+      dates = if end_date
                 observ_date..end_date
               else
                 observ_date
@@ -140,11 +143,11 @@ class ObservationSearch
   end
 
   def apply_locus_filter(cards_scope)
-    if loc = @conditions[:card][:locus_id]
-      loci = if @conditions[:card][:include_subregions]
-               Locus.find(loc).subregion_ids
+    if locus_id
+      loci = if include_subregions
+               Locus.find(locus_id).subregion_ids
              else
-               loc
+               locus_id
              end
       cards_scope.where(locus_id: loci)
     else
@@ -153,7 +156,7 @@ class ObservationSearch
   end
 
   def apply_resolved_filter(cards_scope)
-    if resolved = @conditions[:card][:resolved]
+    if resolved
       cards_scope.where(resolved: resolved)
     else
       cards_scope
@@ -161,7 +164,7 @@ class ObservationSearch
   end
 
   def apply_card_id_filter(obs_scope)
-    if card_id = @conditions[:observation][:card_id]
+    if card_id
       obs_scope.where(card_id: card_id)
     else
       obs_scope
@@ -169,11 +172,11 @@ class ObservationSearch
   end
 
   def apply_taxon_filter(obs_scope)
-    if tx = @conditions[:observation][:taxon_id]
-      taxa = if @conditions[:observation][:exclude_subtaxa]
-               tx
+    if taxon_id
+      taxa = if exclude_subtaxa
+               taxon_id
              else
-               [tx.to_i] + Taxon.where("taxa.parent_id" => tx).pluck(:id)
+               [taxon_id.to_i] + Taxon.where("taxa.parent_id" => taxon_id).pluck(:id)
              end
       obs_scope.where(taxon_id: taxa)
     else
@@ -182,7 +185,6 @@ class ObservationSearch
   end
 
   def apply_voice_filter(obs_scope)
-    voice = @conditions[:observation][:voice]
     if !voice.nil?
       obs_scope.where(voice: voice)
     else

@@ -63,4 +63,10 @@ class ObservationSearchTest < ActiveSupport::TestCase
     assert_equal 3, ObservationSearch.new(locus_id: loci(:ukraine).id, include_subregions: true).cards.to_a.size
   end
 
+  test 'search observations by card id should set search locus' do
+    obs_search = ObservationSearch.new(card_id: @cards.first.id)
+    assert_equal 3, obs_search.observations.to_a.size
+    assert_equal @cards.first.locus_id, obs_search.locus_id
+  end
+
 end
