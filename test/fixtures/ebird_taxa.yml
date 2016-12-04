@@ -28,13 +28,23 @@ hirrus:
 #  category: "species"
 #  index_num: 20
 #  ebird_code: eurwry
-#
-#gargla:
-#  name_sci: "Garrulus glandarius"
-#  name_en: "Eurasian Jay"
-#  category: "species"
-#  index_num: 60
-#  ebird_code: eurjay1
+
+gargla:
+  name_sci: "Garrulus glandarius"
+  name_en: "Eurasian Jay"
+  name_ioc_en: "Eurasian Jay"
+  category: "species"
+  index_num: 60
+  ebird_code: eurjay1
+
+gargla_eurasian:
+  name_sci: "Garrulus glandarius [glandarius Group]"
+  name_en: "Eurasian Jay (Eurasian)"
+  name_ioc_en: "Eurasian Jay (Eurasian)"
+  category: "issf"
+  index_num: 61
+  ebird_code: eurjay2
+  parent: :gargla
 #
 #bomgar:
 #  name_sci: "Bombycilla garrulus"

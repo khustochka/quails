@@ -19,11 +19,6 @@ module CardsHelper
             method: :put, data: {confirm: 'Are you sure?', params: "#{item.class.to_s.downcase}[post_id]=#{post_id}"}
   end
 
-  # NOTICE: should always be called @observation_search !                                                                                         Observation
-  def show_separate_observation_on_card_search?
-    @observation_search.try(:observations_filtered?)
-  end
-
   def suggested_dates
     prelim = {
         Date.today => ['Today'],

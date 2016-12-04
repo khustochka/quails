@@ -37,7 +37,7 @@ class ObservationsController < ApplicationController
     observs =
         params[:q] && params[:q].delete_if { |_, v| v.empty? }.present? ?
             ObservationSearch.new(params[:q]).observations.
-                joins(:taxon).
+                joins(:card, :taxon).
                 preload(preload_tables).
                 order('cards.observ_date', 'cards.locus_id', 'taxa.index_num').limit(params[:limit] || 200) :
             []
