@@ -111,7 +111,7 @@ class FlickrPhoto
 
   private
   def flickr
-    Flickr::Client.new
+    @flickr ||= Flickr::Client.new
   end
 
   def get_info
