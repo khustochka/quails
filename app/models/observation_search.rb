@@ -25,9 +25,7 @@ class ObservationSearch
 
 
   def initialize(conditions = {})
-    # TODO: in Rails 5 do ActiveModel::AttributeAssignment and use assign_attributes
-
-    # FIXME: security
+    # TODO: in Rails 5 include ActiveModel::AttributeAssignment and use `assign_attributes`. Also mind security!
 
     conditions2 = conditions || {}
     all_conditions = conditions2.slice(*ALL_ATTRIBUTES).select { |_, v| v.meaningful? }
@@ -35,10 +33,40 @@ class ObservationSearch
     all_conditions.each do |key, val|
       send(:"#{key}=", val)
     end
+  end
 
-    normalize_dates
+  # Overriden accessor methods
 
-    extend_conditions
+  def observ_date=(date)
+    @observ_date = if date.presence.is_a?(String)
+                     Date.parse(date)
+                   else
+                     date.presence
+                   end
+  end
+
+  def end_date=(date)
+    @end_date = if date.presence.is_a?(String)
+                  Date.parse(date)
+                else
+                  date.presence
+                end
+  end
+
+  def locus_id
+    if card_id && !@locus_id
+      self.locus_id = Card.find(card_id).try(:locus_id)
+    end
+    @locus_id
+  end
+
+  # Properties
+  def observation_filtered?
+    OBSERVATION_ATTRIBUTES.any? { |key| send(key).meaningful? }
+  end
+
+  def card_filtered?
+    CARD_ATTRIBUTES.any? { |key| send(key).meaningful? }
   end
 
   # Overwritten in Ebird::ObsSearch
@@ -46,20 +74,13 @@ class ObservationSearch
     Card.all
   end
 
+  # Relations
   def cards
     @cards_relation ||= build_cards_relation
   end
 
   def observations
     @obs_relation ||= build_obs_relation
-  end
-
-  def observation_filtered?
-    OBSERVATION_ATTRIBUTES.any? {|key| send(key).meaningful?}
-  end
-
-  def card_filtered?
-    CARD_ATTRIBUTES.any? {|key| send(key).meaningful?}
   end
 
   # Rendering
@@ -73,22 +94,6 @@ class ObservationSearch
   end
 
   private
-
-  def normalize_dates
-    [:observ_date, :end_date].each do |attr|
-      date = send(attr)
-      if date.presence.is_a?(String)
-        send(:"#{attr}=", Date.parse(date))
-      end
-    end
-  end
-
-  def extend_conditions
-    if card_id
-      # This is done mostly for map edit. When you edit map for a certain card we want to place the map at the location of the card
-      self.locus_id ||= Card.find(card_id).try(:locus_id)
-    end
-  end
 
   def build_cards_relation
     cards_rel = bare_cards_relation
