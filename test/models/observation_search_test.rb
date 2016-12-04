@@ -45,9 +45,13 @@ class ObservationSearchTest < ActiveSupport::TestCase
     assert obss.first.respond_to?(:voice)
   end
 
-  test 'search voice: false is different from voice: nil' do
+  test 'search voice: nil means do not filter by voice' do
     ob3 = create(:observation, voice: true)
     assert ObservationSearch.new(voice: nil).observations.include?(ob3)
+  end
+
+  test 'search voice: false means filter by `seen only`' do
+    ob3 = create(:observation, voice: true)
     assert_not ObservationSearch.new(voice: false).observations.include?(ob3)
   end
 
