@@ -1,5 +1,7 @@
 module Quails
 
+  CURRENT_YEAR = 2016
+
   class Env
     def self.init
       new(ENV['QUAILS_ENV'])

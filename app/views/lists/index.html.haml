@@ -25,7 +25,7 @@
 
     %div.fluid-column
 
-      %h2= link_to(t('lists.title.yearlist', year: ListsController::CURRENT_YEAR), list_path(year: ListsController::CURRENT_YEAR))
+      %h2= link_to(t('lists.title.yearlist', year: Quails::CURRENT_YEAR), list_path(year: Quails::CURRENT_YEAR))
 
       = render partial: "top5list", object: @list_current_year
 

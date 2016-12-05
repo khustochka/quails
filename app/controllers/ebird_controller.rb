@@ -5,7 +5,7 @@ class EbirdController < ApplicationController
   administrative
 
   def index
-    @files = Ebird::File.order(:created_at).preload(:cards)
+    @files = Ebird::File.preload(:cards).order(:created_at => :desc).page(params[:page])
   end
 
   def show

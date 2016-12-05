@@ -275,7 +275,7 @@ class ResearchController < ApplicationController
       observations_filtered = observations_filtered.where('cards.locus_id' => loc_filter)
     end
 
-    current = ListsController::CURRENT_YEAR
+    current = Quails::CURRENT_YEAR
     @data = {}
     @years = params[:years] ?
               Range.new(*params[:years].split("..")) :

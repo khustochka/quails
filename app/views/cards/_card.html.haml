@@ -65,7 +65,7 @@
   = render card.errors.extend(GenericErrors)
 
 -# show separate observation on card search
-- if @observation_search.try(:observations_filtered?)
+- if @observation_search.try(:observation_filtered?)
   %ul
     - card.observations.each do |obs|
       = render 'observation_row', obs: obs

@@ -41,6 +41,17 @@ class MapsControllerTest < ActionController::TestCase
     assert_equal 1, result.size
   end
 
+  test 'return observation selected by card_id' do
+    login_as_admin
+    obss = [create(:observation, taxon: taxa(:hirrus)),
+            create(:observation, taxon: taxa(:pasdom)),
+            create(:observation, taxon: taxa(:saxola))]
+    get :observations, q: {card_id: obss.first.card_id.to_s}, format: 'json'
+    assert_response :success
+    result = JSON.parse(response.body)['json']
+    assert_equal 1, result.size
+  end
+
   test 'return observation search results sorted by taxonomy' do
     login_as_admin
     # Try to create observation in random order
