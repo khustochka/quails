@@ -31,7 +31,7 @@ class ObservationSearch
     all_conditions = conditions2.slice(*ALL_ATTRIBUTES).select { |_, v| v.meaningful? }
 
     all_conditions.each do |key, val|
-      send(:"#{key}=", val)
+      public_send(:"#{key}=", val)
     end
   end
 
@@ -62,11 +62,11 @@ class ObservationSearch
 
   # Properties
   def observation_filtered?
-    OBSERVATION_ATTRIBUTES.any? { |key| send(key).meaningful? }
+    OBSERVATION_ATTRIBUTES.any? { |key| public_send(key).meaningful? }
   end
 
   def card_filtered?
-    CARD_ATTRIBUTES.any? { |key| send(key).meaningful? }
+    CARD_ATTRIBUTES.any? { |key| public_send(key).meaningful? }
   end
 
   # Overwritten in Ebird::ObsSearch
