@@ -34,14 +34,14 @@ class LociControllerTest < ActionController::TestCase
 
   test "get locus in JSON" do
     login_as_admin
-    get :show, params: {id: 'brovary', format: :json}
+    get :show, params: {id: 'brovary'}, format: :json
     assert_response :success
     assert_equal Mime[:json], response.content_type
   end
 
   test "get locus in JSON by id" do
     login_as_admin
-    get :show, params: {id: loci(:brovary).id, format: :json}
+    get :show, params: {id: loci(:brovary).id}, format: :json
     assert_response :success
     assert_equal Mime[:json], response.content_type
   end
@@ -78,7 +78,7 @@ class LociControllerTest < ActionController::TestCase
   test "save order properly" do
     new_list = %w(ukraine usa new_york)
     login_as_admin
-    post :save_order, params: {format: :json, order: new_list.map {|r| loci(r).id}}
+    post :save_order, params: {order: new_list.map {|r| loci(r).id}}, format: :json
     assert_response :success
     assert_equal new_list, Locus.locs_for_lifelist.pluck(:slug)
   end

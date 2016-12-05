@@ -20,7 +20,7 @@ class MapsControllerTest < ActionController::TestCase
     create(:spot, observation: obs1)
     create(:spot, observation: obs2)
     login_as_admin
-    get :observations, params: {format: :json, q: {observ_date: '2010-07-24'}}
+    get :observations, params: {q: {observ_date: '2010-07-24'}}, format: :json
     assert_response :success
     assert_equal Mime[:json], response.content_type
     result = JSON.parse(response.body)['json']
@@ -46,7 +46,7 @@ class MapsControllerTest < ActionController::TestCase
     obss = [create(:observation, taxon: taxa(:hirrus)),
             create(:observation, taxon: taxa(:pasdom)),
             create(:observation, taxon: taxa(:saxola))]
-    get :observations, q: {card_id: obss.first.card_id.to_s}, format: 'json'
+    get :observations, params: {q: {card_id: obss.first.card_id.to_s}}, format: 'json'
     assert_response :success
     result = JSON.parse(response.body)['json']
     assert_equal 1, result.size
@@ -82,7 +82,7 @@ class MapsControllerTest < ActionController::TestCase
     spot2 = create(:spot, observation: obs2)
     create(:image, observations: [obs1], spot_id: spot1.id)
     create(:video, observations: [obs1], spot_id: spot1.id)
-    get :media, params: {format: :json}
+    get :media, format: :json
     assert_response :success
     assert_equal Mime[:json], response.content_type
     result = JSON.parse(response.body)
@@ -95,7 +95,7 @@ class MapsControllerTest < ActionController::TestCase
     spot1 = create(:spot, observation: obs1)
     create(:image, observations: [obs1], spot_id: spot1.id)
     create(:image, observations: [obs2])
-    get :media, params: {format: :json}
+    get :media, format: :json
     assert_response :success
     assert_equal Mime[:json], response.content_type
     assert_equal 2, JSON.parse(response.body).size
@@ -107,7 +107,7 @@ class MapsControllerTest < ActionController::TestCase
     spot1 = create(:spot, observation: obs1)
     create(:image, observations: [obs1], spot_id: spot1.id)
     create(:image, observations: [obs2])
-    get :media, params: {format: :json}
+    get :media, format: :json
     assert_response :success
     assert_equal Mime[:json], response.content_type
     assert_equal 1, JSON.parse(response.body).size

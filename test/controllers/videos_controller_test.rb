@@ -184,7 +184,7 @@ class VideosControllerTest < ActionController::TestCase
     video = create(:video, observation_ids: [obs.id], spot: spot)
     spot2 = create(:spot, observation: obs)
     login_as_admin
-    post :patch, params: {id: video.to_param, video: {spot_id: spot2.id}, format: :json}
+    post :patch, params: {id: video.to_param, video: {spot_id: spot2.id}}, format: :json
     video.reload
     assert_equal spot2.id, video.spot_id
     assert_response :no_content

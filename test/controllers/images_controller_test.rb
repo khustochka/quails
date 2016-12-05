@@ -52,7 +52,7 @@ class ImagesControllerTest < ActionController::TestCase
 
   test "get observations for an image" do
     login_as_admin
-    get :observations, params: {id: @image.id, format: :json}
+    get :observations, params: {id: @image.id}, format: :json
     assert_response :success
     assert_equal Mime[:json], response.content_type
   end
@@ -199,7 +199,7 @@ class ImagesControllerTest < ActionController::TestCase
     img = create(:image, observation_ids: [obs.id], spot: spot)
     spot2 = create(:spot, observation: obs)
     login_as_admin
-    post :patch, params: {id: img.to_param, image: {spot_id: spot2.id}, format: :json}
+    post :patch, params: {id: img.to_param, image: {spot_id: spot2.id}}, format: :json
     img.reload
     assert_equal spot2.id, img.spot_id
     assert_response :no_content

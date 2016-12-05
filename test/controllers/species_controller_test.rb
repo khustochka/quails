@@ -117,7 +117,7 @@ class SpeciesControllerTest < ActionController::TestCase
   test "update species via JSON" do
     species = species(:bomgar)
     login_as_admin
-    put :update, params: {id: species.to_param, species: {name_ru: 'Богемский свиристель'}, format: :json}
+    put :update, params: {id: species.to_param, species: {name_ru: 'Богемский свиристель'}}, format: :json
     assert_response :success
     assert_equal Mime[:json], response.content_type
   end
@@ -167,7 +167,7 @@ class SpeciesControllerTest < ActionController::TestCase
 
   test "search" do
     create(:observation, taxon: taxa(:bomgar))
-    get :search, params: {term: 'gar', format: :json}
+    get :search, params: {term: 'gar'}, format: :json
     assert_response :success
     assert_equal Mime[:json], response.content_type
     assert response.body.include?('garrulus')
@@ -175,7 +175,7 @@ class SpeciesControllerTest < ActionController::TestCase
 
   test "search localized" do
     create(:observation, taxon: taxa(:bomgar))
-    get :search, params: {term: 'gar', locale: 'en', format: :json}
+    get :search, params: {term: 'gar', locale: 'en'}, format: :json
     assert_response :success
     assert_equal Mime[:json], response.content_type
     assert response.body.include?('Waxwing')
