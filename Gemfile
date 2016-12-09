@@ -61,7 +61,7 @@ gem 'newrelic_rpm'
 # Assets
 gem "sprockets-rails"
 gem 'jquery-rails'
-gem 'pjax_rails'
+gem 'pjax_rails', github: "rails/pjax_rails"
 gem 'sass-rails', '~> 5.0'
 gem 'coffee-rails'
 
