@@ -1,12 +1,10 @@
 class ListsController < ApplicationController
 
-  CURRENT_YEAR = 2016
-
   def index
     @list_life = Lifelist::FirstSeen.full
-    @list_current_year = Lifelist::FirstSeen.over(year: CURRENT_YEAR)
+    @list_current_year = Lifelist::FirstSeen.over(year: Quails::CURRENT_YEAR)
 
-    #@list_prev_year = NewLifelist::FirstSeen.over(year: CURRENT_YEAR - 1)
+    #@list_prev_year = NewLifelist::FirstSeen.over(year: Quails::CURRENT_YEAR - 1)
 
     @list_canada = Lifelist::FirstSeen.over(locus: 'canada')
 

@@ -8,7 +8,6 @@ class ApplicationController < ActionController::Base
   include Aspects::Localization
   include Aspects::Administrative
   include Aspects::PublicPaths
-  include Aspects::Pjax
   include Aspects::RecordFinder
 
   private
@@ -30,6 +29,12 @@ class ApplicationController < ActionController::Base
   def expire_photo_feeds
     expire_page controller: :feeds, action: :photos, format: 'xml'
     expire_page controller: :feeds, action: :photos, format: 'xml', locale: 'en'
+  end
+
+  protected
+
+  def pjax_layout
+    "pjax"
   end
 
 end
