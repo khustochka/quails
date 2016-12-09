@@ -31,8 +31,10 @@ class ObservationSearch
     all_conditions = conditions2.slice(*ALL_ATTRIBUTES).select { |_, v| v.meaningful? }
 
     all_conditions.each do |key, val|
-      send(:"#{key}=", val)
+      public_send(:"#{key}=", val)
     end
+
+    extend_attributes
   end
 
   # Overriden accessor methods
@@ -53,20 +55,20 @@ class ObservationSearch
                 end
   end
 
-  def locus_id
-    if card_id && !@locus_id
-      self.locus_id = Card.find(card_id).try(:locus_id)
+  def extend_attributes
+    # If card is provided we additionally apply location filter (to automatically center the map at card's location)
+    if card_id
+      self.locus_id ||= Card.find(card_id).try(:locus_id)
     end
-    @locus_id
   end
 
   # Properties
   def observation_filtered?
-    OBSERVATION_ATTRIBUTES.any? { |key| send(key).meaningful? }
+    OBSERVATION_ATTRIBUTES.any? { |key| public_send(key).meaningful? }
   end
 
   def card_filtered?
-    CARD_ATTRIBUTES.any? { |key| send(key).meaningful? }
+    CARD_ATTRIBUTES.any? { |key| public_send(key).meaningful? }
   end
 
   # Overwritten in Ebird::ObsSearch

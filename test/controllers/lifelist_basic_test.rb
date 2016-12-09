@@ -33,6 +33,15 @@ class LifelistBasicTest < ActionController::TestCase
     end
   end
 
+  test "pjax response should contain title" do
+    request.env['HTTP_X_PJAX'] = true
+    get :basic, params: {_pjax: ".main"}
+    assert_response :success
+    assert_template "layouts/pjax"
+    assert_select "title"
+    assert_select "#header", 0
+  end
+
   test "show year list by date" do
     get :basic, params: {year: 2009}
     assert_response :success
