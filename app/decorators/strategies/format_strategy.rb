@@ -1,7 +1,11 @@
-class FormatStrategy
+module Strategies
 
-def apply(text)
-  text
-end
+  class FormatStrategy
+
+    def apply(text)
+      text
+    end
+
+  end
 
 end

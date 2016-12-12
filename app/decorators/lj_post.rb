@@ -8,7 +8,7 @@ class LJPost < PostDecorator
 
   private
   def text_formatter
-    TextFormatter.new(LJPostStrategy.new)
+    Formatters::TextFormatter.new(Strategies::LJPostStrategy.new)
   end
 
 end

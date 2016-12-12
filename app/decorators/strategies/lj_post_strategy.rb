@@ -1,3 +1,5 @@
-class LJPostStrategy < FormatStrategy
+module Strategies
+  class LJPostStrategy < FormatStrategy
 
+  end
 end
