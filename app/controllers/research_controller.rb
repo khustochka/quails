@@ -293,4 +293,35 @@ class ResearchController < ApplicationController
     end
   end
 
+  def month_targets
+    @month = params[:month].to_i
+    unless @month > 0 && @month < 13
+      @month = Date.current.month
+    end
+    @locations = Locus.locs_for_lifelist
+    @locus = Locus.find_by_slug(params[:locus])
+    obs_base = Observation.all
+    if @locus
+      obs_base = obs_base.filter(locus: @locus.subregion_ids)
+    end
+
+    # Put prev & next months into [1..12] interval
+    @prev_and_next = [@month - 1, @month + 1].map {|n| (n - 1) % 12 + 1}
+    species_of_this_month = obs_base.
+        select("DISTINCT species_id").
+        joins(:taxon, :card).
+        where("EXTRACT(month from observ_date) = ?", @month).
+        where("species_id IS NOT NULL")
+    species_of_adjacent_months = obs_base.
+        select("species_id").
+        joins(:taxon, :card).
+        where("EXTRACT(month from observ_date) IN (?)", @prev_and_next).
+        where("species_id IS NOT NULL")
+    @species = Species.
+        where(id: species_of_adjacent_months).
+        where("species.id NOT IN (?)", species_of_this_month).
+        order("species.index_num").
+        extending(SpeciesArray)
+  end
+
 end
