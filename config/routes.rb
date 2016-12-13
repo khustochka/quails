@@ -247,7 +247,7 @@ Rails.application.routes.draw do
 
   get '/research', controller: :research, action: :index, as: :research
 
-  research_actions = %w(environ insights more_than_year topicture day uptoday compare by_countries stats voices charts)
+  research_actions = %w(environ insights more_than_year topicture day uptoday compare by_countries stats voices charts month_targets)
   research_actions.each do |name|
     get "/research/#{name}", controller: :research, action: name
   end
