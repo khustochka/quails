@@ -80,4 +80,9 @@ class ResearchControllerTest < ActionController::TestCase
     assert_response :success
     assert_template 'environ'
   end
+
+  test "month targets work" do
+    login_as_admin
+    get :month_targets
+  end
 end
