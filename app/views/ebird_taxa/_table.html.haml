@@ -13,7 +13,9 @@
       %td
         %div
           %b
-            %i= link_to taxon.name_sci, taxon
+            %i
+              = link_to taxon do
+                = term_highlight(taxon.name_sci, @term)
           %small{class: [:tag, "tag_#{taxon.category}"]}= taxon.category
         %div
           - name_str = [:name_en, :name_ioc_en].map {|m| taxon.send(m)}.uniq.compact.join(", ")

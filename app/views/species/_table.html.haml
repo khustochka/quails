@@ -14,7 +14,9 @@
       %td
         %div
           %i
-            %b= link_to(species.name_sci, edit_species_path(species))
+            %b
+              = link_to edit_species_path(species) do
+                = term_highlight(species.name_sci, @term)
         %div.less-important
           = species.authority
         %div
