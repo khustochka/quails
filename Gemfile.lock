@@ -1,18 +1,19 @@
 GIT
+  remote: https://github.com/koenpunt/pjax_rails.git
+  revision: c15790e429bee371700d76409ad6a5a4e04a5489
+  branch: update-strip
+  specs:
+    pjax_rails (0.5.0)
+      jquery-rails
+      railties (>= 3.2, < 6.0)
+
+GIT
   remote: https://github.com/kord-as/actionpack-page_caching
   revision: 8b3fa423183dc6989623a0b88538b21e8a5915fc
   branch: rails5
   specs:
     actionpack-page_caching (1.0.3)
       actionpack (>= 4.0.0, < 5.1)
-
-GIT
-  remote: https://github.com/rails/pjax_rails
-  revision: 98b6275fc3ab13b6804bf42ca02e7b75f9c415ac
-  specs:
-    pjax_rails (0.5.0)
-      jquery-rails
-      railties (>= 3.2, < 6.0)
 
 GEM
   remote: https://rubygems.org/
