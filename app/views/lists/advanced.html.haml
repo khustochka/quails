@@ -37,12 +37,17 @@
   - else
     - sort = params[:sort]
     %table#lifelist.neat_table.advanced
-      %tr
-        %th &nbsp;
-        %th
-          = t('lists.basic.filter.sort_by')
-          = link_to_unless_current('Classification ⇓', significant_params.merge(:sort => 'class'))
-        %th.align-right= sorting_link_to("First seen ⇓")
-        %th.align-right= link_to_unless_current('Last seen ⇓', significant_params.merge(:sort => 'last'))
-        %th.align-right= link_to_unless_current('Count ⇓', significant_params.merge(:sort => 'count'))
-      = render sort.nil? || sort == 'last' ? "lists/advanced/by_date" : "lists/advanced/by_#{sort}"
+      %thead
+        %tr
+          %th &nbsp;
+          %th
+            %i.sort_by_label= t('lists.basic.filter.sort_by')
+            = sorting_link_to(:class, "Classification")
+          %th.align-center
+            = sorting_link_to(nil, "First seen")
+          %th.align-center
+            = sorting_link_to(:last, "Last seen")
+          %th.align-right.count-column-header
+            = sorting_link_to(:count, "Count")
+      %tbody
+        = render sort.nil? || sort == 'last' ? "lists/advanced/by_date" : "lists/advanced/by_#{sort}"

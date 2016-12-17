@@ -34,8 +34,17 @@ module ApplicationHelper
     end
   end
 
-  def sorting_link_to(text)
-    params[:sort].nil? ? text : link_to(text, significant_params.merge(:sort => nil))
+  def sorting_link_to(sort_value, text)
+    current_sort = params[:sort].to_s == sort_value.to_s
+    updated_params = significant_params.merge(sort: sort_value)
+    capture do
+      concat link_to_unless(current_sort, text, updated_params)
+      concat "\n"
+      icon = link_to_unless(current_sort, tag(:span, class: %w(fa fa-sort)), updated_params, class: "force-link-color") do
+        tag(:span, class: %w(fa fa-caret-down))
+      end
+      concat icon
+    end
   end
 
   def feed_list_item

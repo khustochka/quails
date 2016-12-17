@@ -1,6 +1,9 @@
 %td
   = species_link(lifer.species)
   = name_sci(lifer.species)
+  - if I18n.russian_locale?
+    %span.lifer_en
+      = lifer.species.name_en
 
 - if lifer.same_date?
   %td.align-center{colspan: 2}

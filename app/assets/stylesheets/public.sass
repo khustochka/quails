@@ -260,12 +260,30 @@ h5.first_seen
       padding-bottom: 20px
 
 #lifelist.advanced
+  td, th
+    //border: 1px solid #CCCCCC
+  td
+    height: 2.2em
   span.llc
     //padding: 0 3px
+  .sort_by_label
+    font-weight: normal
   span.llc:hover
     cursor: pointer
-  a.cardlink
+  a.cardlink, span.fa-sort
     font-size: 14px
+  th
+    padding-top: 12px
+    padding-bottom: 12px
+    font-size: 15px
+  th.count-column-header
+    width: 5em
+  tr
+    position: relative
+  .spinner-img
+    position: absolute
+    left: 50%
+    padding-top: 10px
 
 // Checklist table
 

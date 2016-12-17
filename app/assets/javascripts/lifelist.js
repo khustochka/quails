@@ -6,7 +6,7 @@ $(function () {
     var link = $(event.relatedTarget);
     var row = $(link).parents('.filter-list');
     if (row.length < 1) row = $(link).parents('table#lifelist tr');
-    row.append("<img src='/img/loading_small.gif'>");
+    row.append("<img src='/img/loading_small.gif' class='spinner-img'>");
   });
 
   $(document).tooltip({
