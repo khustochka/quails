@@ -63,11 +63,7 @@ module SpeciesHelper
   end
 
   def term_highlight(string, term)
-    if string && term.present?
-      string.gsub(/(#{term})/i, content_tag(:span, '\1', class: "highlight")).html_safe
-    else
-      string
-    end
+    highlight(string, term, highlighter: content_tag(:span, '\1', class: "highlight"))
   end
 
 end
