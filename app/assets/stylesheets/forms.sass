@@ -149,6 +149,10 @@ form.new_card, form.edit_card, form.spec_edit_observation
         border-color: lightcoral
         color: lightcoral
 
+div.bulk_select
+  padding-left: 10px
+  border-left: 1px solid black
+
 div.obs-row
   //display: table-row
   div
@@ -158,10 +162,9 @@ div.obs-row
     padding-bottom: 10px
     a
       font-size: 12px
-
-div.bulk_select
-  padding-left: 10px
-  border-left: 1px solid black
+  .remove, .destroy-icon
+    color: red
+    font-size: 20px
 
 // Refactor?
 div.obs-row
@@ -234,6 +237,8 @@ ul.obs-list
     width: 350px
     .remove
       float: right
+      color: red
+      font-size: 24px
     div
       // To work around line wrap because of 'remove' icon
       margin-bottom: 1px

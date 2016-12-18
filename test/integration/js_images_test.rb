@@ -100,7 +100,7 @@ class JSImagesTest < ActionDispatch::IntegrationTest
     login_as_admin
     visit edit_image_path(img)
     within(:xpath, "//ul[contains(@class,'current-obs')]/li[2]") do
-      find('.remove').click
+      click_icon_link(".remove")
     end
 
     save_and_check
@@ -115,7 +115,7 @@ class JSImagesTest < ActionDispatch::IntegrationTest
     login_as_admin
     visit edit_image_path(img)
     within(:xpath, "//ul[contains(@class,'current-obs')]/li[1]") do
-      find('.remove').click
+      click_icon_link(".remove")
     end
     assert_equal 1, all('.current-obs li').size
 

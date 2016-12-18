@@ -100,7 +100,7 @@ class JSCardsTest < ActionDispatch::IntegrationTest
     find(:xpath, "//span[text()='Add new row']").click
 
     within(:xpath, "//div[contains(@class,'obs-row')][1]") do
-      find(".remove").click
+      click_icon_link(".remove")
     end
 
     assert_equal 1, all('.obs-row').size
@@ -120,7 +120,7 @@ class JSCardsTest < ActionDispatch::IntegrationTest
     assert_difference('Observation.count', -1) do
       within(:xpath, "//div[contains(@class,'obs-row')][1]") do
         accept_confirm do
-          find(".destroy").click
+          click_icon_link(".destroy")
         end
       end
 
@@ -141,7 +141,7 @@ class JSCardsTest < ActionDispatch::IntegrationTest
 
     within(:xpath, "//div[contains(@class,'obs-row')][1]") do
       accept_confirm do
-        find(".destroy").click
+        click_icon_link(".destroy")
       end
     end
 
