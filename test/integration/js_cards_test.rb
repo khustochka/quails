@@ -120,7 +120,7 @@ class JSCardsTest < ActionDispatch::IntegrationTest
     assert_difference('Observation.count', -1) do
       within(:xpath, "//div[contains(@class,'obs-row')][1]") do
         accept_confirm do
-          find(".destroy").click
+          click_icon_link(".destroy")
         end
       end
 
@@ -141,7 +141,7 @@ class JSCardsTest < ActionDispatch::IntegrationTest
 
     within(:xpath, "//div[contains(@class,'obs-row')][1]") do
       accept_confirm do
-        find(".destroy").click
+        click_icon_link(".destroy")
       end
     end
 

@@ -54,9 +54,9 @@ Undecided:
         = species.name_ru
       %td
         - if species.species
-          = image_tag("/img/check_16x13.png")
+          %span.fa.fa-check
         - else
-          = image_tag("/img/x_alt_16x16_tan.png")
+          %span.fa.fa-times-circle
           - species.species = Species.where(name_sci: species.name_sci).first
       %td
         = simple_form_for species, remote: true, format: :json do |form|
