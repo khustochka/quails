@@ -100,7 +100,7 @@ class JSCardsTest < ActionDispatch::IntegrationTest
     find(:xpath, "//span[text()='Add new row']").click
 
     within(:xpath, "//div[contains(@class,'obs-row')][1]") do
-      find(".remove").click
+      click_icon_link(".remove")
     end
 
     assert_equal 1, all('.obs-row').size

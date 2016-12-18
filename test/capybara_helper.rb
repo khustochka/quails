@@ -65,6 +65,11 @@ module JavaScriptTestCase
         page.execute_script " $('#{selector}').trigger('mouseenter').click();"
       end
 
+      # This is required for clicking font-awesome icon links (like .remove)
+      def click_icon_link(selector)
+        find(:css, selector).trigger('click')
+      end
+
     end
 
   end
