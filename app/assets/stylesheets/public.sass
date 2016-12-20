@@ -197,7 +197,7 @@ $image-info-pane-width: 300px
 
 .image_canvas
   @include auto-width
-  display: inline-block
+  @include inline-block
   border: 1px solid #cccccc
   img
     vertical-align: top
@@ -341,7 +341,7 @@ table.neat_table.checklist_table
 
 .status-old, .status-unsure
   font-style: italic
-  display: inline-block
+  @include inline-block
   color: white
   background-color: #ccbbbb
   padding: 5px
@@ -440,7 +440,7 @@ li.feed_li .fa
 .soc-btn
   vertical-align: top
   margin-bottom: 10px
-  display: inline-block
+  @include inline-block
 
 .fb_share_widget
   margin-right: 20px
@@ -461,14 +461,14 @@ li.feed_li .fa
 
 .winter-banner
   border: 1px solid #ccc
-  display: inline-block
+  @include inline-block
   padding-right: 20px
   margin:
     top: 20px
   img
     vertical-align: bottom
   div
-    display: inline-block
+    @include inline-block
     margin-left: -30px
     vertical-align: 28px
     a
@@ -690,5 +690,5 @@ table.nice_stats.records
     left: 0
     //width: 100%
     ul li
-      display: inline-block
+      @include inline-block
       margin: 0

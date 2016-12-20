@@ -161,12 +161,12 @@ nav
   a
     @include deep-bordered-link($link-color)
   .page
-    display: inline-block
+    @include inline-block
     width: 30px
 
 // Translated pages
 nav.translated
-  display: inline-block
+  @include inline-block
   margin-bottom: -20px
   margin-top: -20px
   //font-weight: 100
@@ -196,13 +196,6 @@ span.error
   color: #ff0000
   font-weight: bold
   display: block
-
-
-// Social
-
-div.db-like, div#vk_like
-  display: inline-block
-
 
 
 // Administrative
