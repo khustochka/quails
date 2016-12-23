@@ -28,8 +28,12 @@ module Quails
       @raw.to_s
     end
 
+    def puma_dev?
+      ENV["PUMADEV_ENV"]
+    end
+
     def ssl?
-      @ssl ||= real_prod? || heroku? || (@raw && @arr.include?('ssl'))
+      @ssl ||= real_prod? || heroku? || puma_dev? || (@raw && @arr.include?('ssl'))
     end
 
     def method_missing(method, *args, &block)

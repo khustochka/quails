@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
   include Aspects::Localization
   include Aspects::Administrative
   include Aspects::PublicPaths
+  include Aspects::UrlBuilder
   include Aspects::RecordFinder
 
   private
