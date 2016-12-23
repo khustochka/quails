@@ -44,6 +44,8 @@
 
   translated:
     en: English
+    short:
+      en: ENG
 
   languages:
     en: по-английски

@@ -5,12 +5,13 @@
 
 - @page_title = t(".title.#{@country.slug}")
 
+- translated
+
 - content_for :jumbo do
   %h1= page_header
 
 - content_for :jumbo_side do
   %ul.subheader-menu
-    %li= render 'partials/translated'
     %li= link_to(t('menu.gallery'), country_path(country: @country.slug))
     - if I18n.russian_locale? && @country.slug == "ukraine"
       %li= link_to("Зимующие птицы", page_path(:winter))

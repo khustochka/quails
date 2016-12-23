@@ -6,11 +6,11 @@
 
 - @js_features = [:videoQuality]
 
+- translated
+
 - if current_user.admin?
   - javascript 'species_image'
   = render 'admin/shortcuts'
-
-= render 'partials/translated'
 
 %p.taxonomy
   = t("taxonomy.order")

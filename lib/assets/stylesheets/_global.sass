@@ -167,14 +167,23 @@ nav
 // Translated pages
 nav.translated
   @include inline-block
-  margin-bottom: -20px
-  margin-top: -20px
-  //font-weight: 100
+  //margin-bottom: -20px
+  //margin-top: -20px
+  ////font-weight: 100
   text-transform: uppercase
-  font-size: 12px
+  font-size: 18px
+  position: absolute
+  left: 20px
+  bottom: -23px
+  z-index: 10
   a, a:hover
-    padding: 3px 5px
-    border: 1px solid $trans-link-color
+    border: 2px solid $trans-link-color
+    border-radius: 38px
+    height: 34px
+    width: 38px
+    display: inline-block
+    text-align: center
+    line-height: 1.8em
   a
     color: $trans-link-color
     background-color: white

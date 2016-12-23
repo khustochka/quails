@@ -5,6 +5,8 @@
 - @robots = 'NOINDEX'
 - javascript 'lifelist'
 
+- translated(url: significant_params)
+
 - @page_title = capture do
   - if params[:month]
     = [ t('lists.title.monthlist', month: t('date.month_names')[params[:month].to_i]),
@@ -18,8 +20,6 @@
     = t('lists.title.lifelist')
 
 - cache significant_params.merge(admin: current_user.admin?, key: CacheKey.lifelist) do
-
-  = render partial: 'partials/translated', locals: {url: significant_params}
 
   %h1= page_header
 

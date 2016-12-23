@@ -44,6 +44,8 @@
 
   translated:
     ru: По-русски
+    short:
+      ru: РУС
 
   languages:
     en: in English

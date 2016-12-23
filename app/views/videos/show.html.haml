@@ -10,6 +10,8 @@
 - @page_header = @page_title = @video.decorated.title
 -# @page_title = "#{@page_header} // #{t("countries.gallery.title.#{@video.locus.country.slug}")}"
 
+- translated
+
 - if notice
   %p#notice= notice
 
@@ -17,8 +19,6 @@
   %li= link_to @video.mapped? ? 'Edit map' : '<b>MAP IT!</b>'.html_safe, action: :map_edit
 
 = render 'admin/shortcuts' if current_user.admin?
-
-= render 'partials/translated'
 
 %h1= page_header
 

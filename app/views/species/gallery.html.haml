@@ -3,9 +3,9 @@
 - @page_title = t(".window_title")
 - @page_header = t(".title")
 
-- cache(admin: current_user.admin?, key: CacheKey.gallery) do
+- translated
 
-  = render 'partials/translated'
+- cache(admin: current_user.admin?, key: CacheKey.gallery) do
 
   %div.header-with-subheader
     %h1.over-header

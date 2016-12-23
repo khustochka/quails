@@ -27,3 +27,6 @@
           %li(role="menuitem")= link_to t('menu.lifelist'), my_lists_path
 
           %li(role="menuitem" class="trans-menu")= link_to t('menu.russian'), root_url(locale: nil)
+
+  - if @translated
+    = render partial: 'partials/translated', locals: {url: @translated_url}

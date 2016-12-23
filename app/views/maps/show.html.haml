@@ -5,14 +5,14 @@
 -# @no_viewport = true
 - javascript AssetsHelper::GMAP_API_URL, 'map_show'
 
+- translated
+
 - @page_title = t(".title")
 
 %div.map-panel
   %a.pseudolink.pan(href="#world")= t(".world")
   %a.pseudolink.pan(href="#ukraine")= t(".ukraine")
   %a.pseudolink.pan(href="#north_america")= t(".north_america")
-
-= render partial: 'partials/translated'
 
 .mapContainer
   #googleMap
