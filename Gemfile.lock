@@ -19,35 +19,35 @@ GEM
   remote: https://rubygems.org/
   specs:
     RedCloth (4.3.2)
-    actionmailer (5.0.1.rc2)
-      actionpack (= 5.0.1.rc2)
-      actionview (= 5.0.1.rc2)
-      activejob (= 5.0.1.rc2)
+    actionmailer (5.0.1)
+      actionpack (= 5.0.1)
+      actionview (= 5.0.1)
+      activejob (= 5.0.1)
       mail (~> 2.5, >= 2.5.4)
       rails-dom-testing (~> 2.0)
-    actionpack (5.0.1.rc2)
-      actionview (= 5.0.1.rc2)
-      activesupport (= 5.0.1.rc2)
+    actionpack (5.0.1)
+      actionview (= 5.0.1)
+      activesupport (= 5.0.1)
       rack (~> 2.0)
       rack-test (~> 0.6.3)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.0.2)
-    actionview (5.0.1.rc2)
-      activesupport (= 5.0.1.rc2)
+    actionview (5.0.1)
+      activesupport (= 5.0.1)
       builder (~> 3.1)
       erubis (~> 2.7.0)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.0.2)
-    activejob (5.0.1.rc2)
-      activesupport (= 5.0.1.rc2)
+    activejob (5.0.1)
+      activesupport (= 5.0.1)
       globalid (>= 0.3.6)
-    activemodel (5.0.1.rc2)
-      activesupport (= 5.0.1.rc2)
-    activerecord (5.0.1.rc2)
-      activemodel (= 5.0.1.rc2)
-      activesupport (= 5.0.1.rc2)
+    activemodel (5.0.1)
+      activesupport (= 5.0.1)
+    activerecord (5.0.1)
+      activemodel (= 5.0.1)
+      activesupport (= 5.0.1)
       arel (~> 7.0)
-    activesupport (5.0.1.rc2)
+    activesupport (5.0.1)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (~> 0.7)
       minitest (~> 5.1)
@@ -83,7 +83,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
-    concurrent-ruby (1.0.2)
+    concurrent-ruby (1.0.3)
     docile (1.1.5)
     dotenv (2.1.1)
     dotenv-rails (2.1.1)
@@ -175,9 +175,9 @@ GEM
     rails-i18n (5.0.1)
       i18n (~> 0.7)
       railties (~> 5.0)
-    railties (5.0.1.rc2)
-      actionpack (= 5.0.1.rc2)
-      activesupport (= 5.0.1.rc2)
+    railties (5.0.1)
+      actionpack (= 5.0.1)
+      activesupport (= 5.0.1)
       method_source
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
@@ -233,13 +233,13 @@ PLATFORMS
 
 DEPENDENCIES
   RedCloth
-  actionmailer (= 5.0.1.rc2)
-  actionpack (= 5.0.1.rc2)
+  actionmailer (= 5.0.1)
+  actionpack (= 5.0.1)
   actionpack-page_caching!
-  actionview (= 5.0.1.rc2)
-  activemodel (= 5.0.1.rc2)
-  activerecord (= 5.0.1.rc2)
-  activesupport (= 5.0.1.rc2)
+  actionview (= 5.0.1)
+  activemodel (= 5.0.1)
+  activerecord (= 5.0.1)
+  activesupport (= 5.0.1)
   addressable
   airbrake
   ancestry
@@ -271,7 +271,7 @@ DEPENDENCIES
   puma
   rails-controller-testing
   rails-i18n
-  railties (= 5.0.1.rc2)
+  railties (= 5.0.1)
   respond-js-rails
   rinku
   roman-numerals
