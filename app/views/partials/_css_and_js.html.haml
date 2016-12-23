@@ -1,6 +1,6 @@
--# enable HTML5 in IE
+-# enable HTML5 and media queries in IE
 /[if lt IE 9]
-  = javascript_include_tag 'html5'
+  = javascript_include_tag "ie_fix"
 
 = stylesheet_link_tag(*@stylesheets.compact) if @stylesheets.present?
 

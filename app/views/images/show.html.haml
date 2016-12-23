@@ -1,5 +1,7 @@
 -# javascript 'image_show'
 
+- @body_class = "full_width"
+
 - @meta_thumbnail = thumbnail_item(@image).try(:url)
 - @meta_description = @image.decorated.meta_description
 - @canonical = localize_url(@image, only_path: false, protocol: 'http')
@@ -26,54 +28,64 @@
     %li
       %b= link_to('Do not index!', {action: :patch, image: {status: 'NOINDEX'}}, method: :post)
 
-= render 'admin/shortcuts' if current_user.admin?
-
-= render 'partials/translated'
-
-%h1= page_header
-
-%div.image_canvas= image_tag(jpg_url(@image), alt: t('images.alt_photo'))
-
-- @image.children.each do |sub_img|
-
-  %h2{id: sub_img.slug}= sub_img.decorated.title
-
-  - if current_user.admin?
-    %ul.horiz-list.admin-shortcuts
-      %li= link_to 'Edit this one', edit_image_path(sub_img.slug)
-
-  %div.image_canvas= image_tag(jpg_url(sub_img), alt: t('images.alt_photo'))
-
-  = sub_img.decorated.description
-
-= render 'social/buttons'
-
-%table.image_nav
-  %tr
-    %th= t('.prev')
-    %th
-    %th= t('.next')
-  - @image.species.each do |sp|
-    %tr
-      %td
-        - if prev_image = @image.prev_by_species(sp)
-          = link_to("&lt;".html_safe, localized_image_path(id: prev_image), class: 'img_prev_next')
-        - else
-          %span.img_prev_next &minus;
-
-      %td
-        %b= species_link(sp)
-        %br
-        = name_sci(sp)
-
-      %td
-        - if next_image = @image.next_by_species(sp)
-          = link_to("&gt;".html_safe, localized_image_path(id: next_image), class: 'img_prev_next')
-        - else
-          %span.img_prev_next &minus;
-
-= render partial: "media/long_details", locals: {media: @image}
 
 
-- if @image.multi?
-  %nav= link_to(t(".more_photos_of_multiple_species"), photos_multiple_species_path)
+%div.image_over_container
+
+  %div.image_canvas_container
+
+    %div.image_canvas
+      = image_tag(jpg_url(@image), alt: t('images.alt_photo'))
+
+    - @image.children.each do |sub_img|
+
+      %h2{id: sub_img.slug}= sub_img.decorated.title
+
+      - if current_user.admin?
+        %ul.horiz-list.admin-shortcuts
+          %li= link_to 'Edit this one', edit_image_path(sub_img.slug)
+
+      %div.image_canvas= image_tag(jpg_url(sub_img), alt: t('images.alt_photo'))
+
+      = sub_img.decorated.description
+
+  %div.image_info_pane
+
+    = render 'partials/translated'
+
+    %h1= page_header
+
+    = render 'admin/shortcuts' if current_user.admin?
+
+    = render partial: "media/long_details", locals: {media: @image}
+
+    %table.image_nav
+      %tr
+        %th= t('.prev')
+        %th
+        %th= t('.next')
+      - @image.species.each do |sp|
+        %tr
+          %td
+            - if prev_image = @image.prev_by_species(sp)
+              = link_to("&lt;".html_safe, localized_image_path(id: prev_image), class: 'img_prev_next')
+            - else
+              %span.img_prev_next &minus;
+
+          %td
+            %b= species_link(sp)
+            %br
+            = name_sci(sp)
+
+          %td
+            - if next_image = @image.next_by_species(sp)
+              = link_to("&gt;".html_safe, localized_image_path(id: next_image), class: 'img_prev_next')
+            - else
+              %span.img_prev_next &minus;
+
+
+    - if @image.multi?
+      %nav= link_to(t(".more_photos_of_multiple_species"), photos_multiple_species_path)
+
+
+    = render 'social/buttons'

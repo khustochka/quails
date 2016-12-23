@@ -62,6 +62,7 @@ gem 'newrelic_rpm'
 gem "sprockets-rails"
 gem 'jquery-rails'
 gem 'pjax_rails', git: "https://github.com/koenpunt/pjax_rails.git", branch: "update-strip"
+gem 'respond-js-rails'
 gem 'sass-rails', '~> 5.0'
 gem 'coffee-rails'
 gem 'font-awesome-sass'

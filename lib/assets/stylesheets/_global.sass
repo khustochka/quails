@@ -32,6 +32,14 @@ body.wider
   #menucontainer, .bannercontainer
     max-width: $main-width * 1.25
 
+body.full_width
+  .main
+    max-width: 100%
+    width: 100%
+  //#menucontainer, .bannercontainer
+  //  width: 100%
+  //  max-width: 100%
+
 // Footer
 
 div.footer
@@ -153,12 +161,12 @@ nav
   a
     @include deep-bordered-link($link-color)
   .page
-    display: inline-block
+    @include inline-block
     width: 30px
 
 // Translated pages
 nav.translated
-  display: inline-block
+  @include inline-block
   margin-bottom: -20px
   margin-top: -20px
   //font-weight: 100
@@ -188,13 +196,6 @@ span.error
   color: #ff0000
   font-weight: bold
   display: block
-
-
-// Social
-
-div.db-like, div#vk_like
-  display: inline-block
-
 
 
 // Administrative

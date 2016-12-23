@@ -2,7 +2,7 @@ module Aspects
   module Security
     def self.included(klass)
       klass.extend ClassMethods
-      klass.helper_method :current_user, :url_options_for_admin
+      klass.helper_method :current_user
 
       #force HTTP
       if Quails.env.ssl?
@@ -18,7 +18,7 @@ module Aspects
         before_action options do
           unless current_user.admin?
             if current_user.has_trust_cookie?
-              flash[:ret] = request.url
+              session[:ret] = params
               redirect_to login_path
             else
               raise ActionController::RoutingError, "Restricted path"
@@ -35,24 +35,16 @@ module Aspects
       @current_user ||= User.from_session(request)
     end
 
-    def url_options_for_admin
-      @@url_options_for_admin ||=
-          {locale: nil}.merge!(
-              Quails.env.ssl? ? {only_path: false, protocol: 'https'} : {}
-          )
-    end
-
     def force_http
       if request.ssl? && !current_user.has_trust_cookie?
-        redirect_to({only_path: false, protocol: 'http', status: 301})
+        redirect_to(public_url_options, status: 301)
       end
     end
 
     def force_ssl_for_admin
       if !request.ssl? && current_user.has_trust_cookie?
-        redirect_to({only_path: false, protocol: 'https', status: 301})
+        redirect_to(admin_url_options, status: 301)
       end
     end
-
   end
 end
