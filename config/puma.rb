@@ -45,6 +45,16 @@ before_fork do
   end
 end
 
+# You should place code to close global log files, redis connections, etc in this block so that their
+# file descriptors don't leak into the restarted process. Failure to do so will result in slowly
+# running out of descriptors and eventually obscure crashes as the server is restarted many times.
+
+on_restart do
+  if defined?(::ActiveRecord) && defined?(::ActiveRecord::Base)
+    ActiveRecord::Base.connection_pool.disconnect!
+  end
+end
+
 # The code in the `on_worker_boot` will be called if you are using
 # clustered mode by specifying a number of `workers`. After each worker
 # process is booted, this block will be run. If you are using the `preload_app!`
