@@ -14,6 +14,8 @@ if app_port.nil? && rails_env == "production"
   app_dir = File.expand_path("../../../..", __FILE__)
   shared_dir = "#{app_dir}/shared"
 
+  directory "#{app_dir}/current"
+
   bind "unix://#{shared_dir}/tmp/sockets/puma.sock"
 
 # Logging
