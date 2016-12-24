@@ -29,11 +29,21 @@ module Quails
     end
 
     def puma_dev?
-      ENV["PUMADEV_ENV"]
+      # It is set in .powenv which is only read by puma-dev
+      ENV["PUMADEV_ENV"].present?
+    end
+
+    def heroku?
+      # DYNO is a unique heroku env var (not seen through `heroku config`). You can also mimic it using QUAILS_ENV
+      ENV["DYNO"].present? || test_for("heroku")
     end
 
     def ssl?
-      @ssl ||= real_prod? || heroku? || puma_dev? || (@raw && @arr.include?('ssl'))
+      @ssl ||= real_prod? || heroku? || puma_dev? || test_for("ssl")
+    end
+
+    def test_for(key)
+      @raw && @arr.include?(key)
     end
 
     def method_missing(method, *args, &block)
