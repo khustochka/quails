@@ -84,3 +84,10 @@ aves_sp:
   index_num: 15000
   ebird_code: bird1
   ebird_taxon: :aves_sp
+
+unreported_bird_sp:
+ name_sci: "Unreported bird sp."
+ name_en: "Unreported bird sp."
+ index_num: 15001
+ category: "spuh"
+ ebird_code: "unrepbirdsp"
