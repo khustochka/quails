@@ -31,4 +31,10 @@ class ActiveSupport::TestCase
     current_url.sub(%r{.*?://}, '')[%r{[/\?\#].*}] || '/'
   end
 
+  # Reset locale to default. (There was a rarely happening failure caused by incorrect path was accessed because of
+  # English locale leaking - probably due to multi-threading?)
+  setup do
+    I18n.locale = I18n.default_locale
+  end
+
 end
