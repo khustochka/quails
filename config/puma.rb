@@ -14,9 +14,13 @@ if app_port.nil? && rails_env == "production"
   app_dir = File.expand_path("../../../..", __FILE__)
   shared_dir = "#{app_dir}/shared"
 
+  # Keep an eye on this. May be an issue.
   directory "#{app_dir}/current"
 
   bind "unix://#{shared_dir}/tmp/sockets/puma.sock"
+
+  # Do not switch log/pid/state to current dir related path. Supposedly this was the cause of failed restarts.
+  # (Would be good to test though).
 
 # Logging
   stdout_redirect "#{shared_dir}/log/puma.stdout.log", "#{shared_dir}/log/puma.stderr.log", true
