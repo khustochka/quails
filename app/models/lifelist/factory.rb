@@ -12,7 +12,7 @@ module Lifelist
     end
 
     def initialize(options = {})
-      @filter = options.to_h
+      @filter = options.to_h.with_indifferent_access
     end
 
     def set_posts_scope(posts_scope)
