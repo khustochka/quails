@@ -5,7 +5,7 @@ module Aspects
       klass.helper_method :admin_pages_url_options, :admin_url_options, :public_url_options
     end
 
-    protected
+    private
 
     # URL options for links to admin-only pages (that's why locale is forced to nil)
     def admin_pages_url_options
@@ -19,8 +19,6 @@ module Aspects
     def public_url_options
       @@public_url_options ||= pumadev_public_url_options.merge(anti_ssl_url_options)
     end
-
-    private
 
     PUMA_DEV_SSL_PORT = 9283
     PUMA_DEV_HTTP_PORT = 9280
