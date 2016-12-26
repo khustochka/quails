@@ -1,4 +1,4 @@
-class LocalSpecies < ActiveRecord::Base
+class LocalSpecies < ApplicationRecord
 
   include ActiveRecord::Localized
   localize :notes

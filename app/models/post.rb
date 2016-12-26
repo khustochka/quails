@@ -1,4 +1,4 @@
-class Post < ActiveRecord::Base
+class Post < ApplicationRecord
 
   class LJData < Struct.new(:post_id, :url)
     def blank?

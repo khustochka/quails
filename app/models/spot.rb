@@ -1,4 +1,4 @@
-class Spot < ActiveRecord::Base
+class Spot < ApplicationRecord
 
   EXACTNESS = %w(precise exact rough)
 

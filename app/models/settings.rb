@@ -1,4 +1,4 @@
-class Settings < ActiveRecord::Base
+class Settings < ApplicationRecord
   validates :key, uniqueness: true
 
   SETTING_KEYS = [:flickr_admin, :lj_user]

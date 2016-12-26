@@ -1,4 +1,4 @@
-class EbirdTaxon < ActiveRecord::Base
+class EbirdTaxon < ApplicationRecord
 
   include ActiveRecord::Localized
   localize :name

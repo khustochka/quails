@@ -1,4 +1,4 @@
-class SpeciesImage < ActiveRecord::Base
+class SpeciesImage < ApplicationRecord
   belongs_to :species
   belongs_to :image, class_name: 'Image'
 end

@@ -1,4 +1,4 @@
-class Locus < ActiveRecord::Base
+class Locus < ApplicationRecord
   include DecoratedModel
 
   include ActiveRecord::Localized

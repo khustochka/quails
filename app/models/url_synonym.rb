@@ -1,4 +1,4 @@
-class UrlSynonym < ActiveRecord::Base
+class UrlSynonym < ApplicationRecord
 
   belongs_to :species
 

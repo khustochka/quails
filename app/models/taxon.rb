@@ -1,6 +1,6 @@
 #require 'species_parameterizer'
 
-class Taxon < ActiveRecord::Base
+class Taxon < ApplicationRecord
 
   # invalidates CacheKey.gallery
   # invalidates CacheKey.checklist

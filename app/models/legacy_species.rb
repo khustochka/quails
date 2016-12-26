@@ -1,6 +1,6 @@
 require 'species_parameterizer'
 
-class LegacySpecies < ActiveRecord::Base
+class LegacySpecies < ApplicationRecord
 
   extend SpeciesParameterizer
 
