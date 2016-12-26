@@ -23,7 +23,7 @@ if app_port.nil? && rails_env == "production"
   # (Would be good to test though).
 
 # Logging
-  stdout_redirect "#{shared_dir}/log/puma.stdout.log", "#{shared_dir}/log/puma.stderr.log", true
+  #stdout_redirect "#{shared_dir}/log/puma.stdout.log", "#{shared_dir}/log/puma.stderr.log", true
 
 # Set master PID and state locations
   pidfile "#{shared_dir}/tmp/pids/puma.pid"
