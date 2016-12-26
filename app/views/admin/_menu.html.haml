@@ -20,9 +20,9 @@
 
     - if Quails.env.ssl?
       - if request.ssl?
-        = link_to 'Public’s', params.merge(public_url_options) unless admin_layout?
+        = link_to 'Public’s', url_for(public_url_options) unless admin_layout?
       - else
-        = link_to 'Admin’s', params.merge(admin_url_options)
+        = link_to 'Admin’s', url_for(admin_url_options)
 
     %li
       %i= link_to "**Logout", logout_path(locale: nil)
