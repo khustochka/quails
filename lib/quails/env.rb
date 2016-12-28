@@ -9,7 +9,7 @@ module Quails
 
     def initialize(val)
       @raw = val
-      @arr = val.split(':') if @raw
+      @arr = val.split(':').inquiry if @raw
     end
 
     def rake?
@@ -49,7 +49,7 @@ module Quails
     def method_missing(method, *args, &block)
       if /^(?<attr>.*)\?$/ =~ method.to_s
         if @raw
-          instance_variable_get("@#{attr}".to_sym) || instance_variable_set("@#{attr}".to_sym, @arr.include?(attr))
+          instance_variable_get("@#{attr}".to_sym) || instance_variable_set("@#{attr}".to_sym, @arr.send(method))
         else
           false
         end
