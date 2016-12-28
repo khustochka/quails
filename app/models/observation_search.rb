@@ -6,6 +6,7 @@ class ObservationSearch
 
   extend ActiveModel::Naming
   include ActiveModel::Conversion
+  include ActiveModel::AttributeAssignment
 
   def self.model_name
     ActiveModel::Name.new(self, nil, "Q")
@@ -25,14 +26,10 @@ class ObservationSearch
 
 
   def initialize(conditions = {})
-    # TODO: in Rails 5 include ActiveModel::AttributeAssignment and use `assign_attributes`. Also mind security!
-
     conditions2 = conditions.to_h || {}
     all_conditions = conditions2.slice(*ALL_ATTRIBUTES).select { |_, v| v.meaningful? }
 
-    all_conditions.each do |key, val|
-      public_send(:"#{key}=", val)
-    end
+    assign_attributes(all_conditions)
 
     extend_attributes
   end
