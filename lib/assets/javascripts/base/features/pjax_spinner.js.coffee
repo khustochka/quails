@@ -1,11 +1,11 @@
 Quails.features.pjaxSpinner =
   init: ->
-    return
+    $(".main").on "pjax:send", ->
+      $("html").addClass("progress")
 
-  define: (spinnerFunction) ->
-    $(".main").on "pjax:send", spinnerFunction
+    $(".main").on "pjax:complete", ->
+      $("html").removeClass("progress")
 
-    # No need to hide spinner on pjax:complete - main content will be overwritten
     $(".main").on "pjax:timeout", (event) ->
 
       # Prevent default timeout redirection behavior

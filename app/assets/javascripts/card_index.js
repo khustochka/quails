@@ -16,9 +16,7 @@ $(function () {
   // default timeout is causing page reload on heavy pages, like lifelist
   $('#cards_search_results').pjax('nav.pagination a');
 
-  Quails.features.pjaxSpinner.define(function () {
-    $("nav.pagination", this).append("<img src='/img/loading_small.gif'>");
-  });
+  Quails.features.pjaxSpinner.init();
 
   //$(document).tooltip({
   //  items: ".notes-tooltip",

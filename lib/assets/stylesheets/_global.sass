@@ -246,3 +246,34 @@ span.error
   &:hover
     color: white !important
     background-color: yellowgreen !important
+
+// Progress bar
+
+html.progress:before
+  display: block
+  position: fixed
+  content: ""
+  z-index: 99
+  top: 0
+  left: -200px
+  width: 200px
+  height: 4px
+  animation: progress 2s linear infinite
+  background-color: orange
+
+
+@keyframes progress
+  from
+    left: -200px
+    width: 30%
+  50%
+    width: 30%
+  70%
+    width: 70%
+  80%
+    left: 50%
+  95%
+    left: 120%
+  to
+    left: 100%
+
