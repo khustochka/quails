@@ -1,7 +1,7 @@
 require 'test_helper'
 require 'capybara_helper'
 
-class UICardsTest < ActionDispatch::IntegrationTest
+class UILifelistTest < ActionDispatch::IntegrationTest
 
   include CapybaraTestCase
 
