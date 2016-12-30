@@ -7,8 +7,7 @@ class Species < ApplicationRecord
   invalidates CacheKey.gallery
   invalidates CacheKey.lifelist
 
-  include ActiveRecord::Localized
-  localize :name
+  localized_attr :name
 
   validates :order, presence: true
   validates :family, presence: true

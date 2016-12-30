@@ -1,7 +1,6 @@
 class EbirdTaxon < ApplicationRecord
 
-  include ActiveRecord::Localized
-  localize :name
+  localized_attr :name
 
   acts_as_ordered :index_num
 

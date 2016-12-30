@@ -1,8 +1,7 @@
 class Locus < ApplicationRecord
   include DecoratedModel
 
-  include ActiveRecord::Localized
-  localize :name
+  localized_attr :name
 
   invalidates CacheKey.lifelist
 

@@ -1,7 +1,6 @@
 class LocalSpecies < ApplicationRecord
 
-  include ActiveRecord::Localized
-  localize :notes
+  localized_attr :notes
 
   delegate :order, :family, to: :species
 

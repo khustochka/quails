@@ -7,8 +7,7 @@ class LegacySpecies < ApplicationRecord
   invalidates CacheKey.gallery
   invalidates CacheKey.lifelist
 
-  include ActiveRecord::Localized
-  localize :name
+  localized_attr :name
 
   serialize :wikidata, Hash
 
