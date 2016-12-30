@@ -1,6 +1,6 @@
 - new_locale = Set.new([:en, :ru]).delete(I18n.locale).first
 - url = defined?(url) ? url : {}
-- new_params = url.kind_of?(Hash) ? url : {}
+- new_params = url.kind_of?(Hash) ? url : significant_params
 - link_hash = new_params.merge({locale: new_locale == :ru ? nil : new_locale})
 
 %nav.translated

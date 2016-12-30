@@ -63,4 +63,10 @@ class LifelistAdvancedTest < ActionController::TestCase
     assert_equal [2009], lifers.map { |s| s.first_seen.observ_date.year }.uniq
   end
 
+  test "lifelist should show correct link to localized page (including filters)" do
+    get :advanced, params: {locus: 'usa', year: 2009}
+    assert_response :success
+    assert_select "a[href='#{advanced_list_path(locus: 'usa', year: 2009, locale: :en)}']"
+  end
+
 end

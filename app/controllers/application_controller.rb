@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
     if @allowed_params
       params.permit(*@allowed_params)
     else
-      params
+      {}
     end
   end
 
