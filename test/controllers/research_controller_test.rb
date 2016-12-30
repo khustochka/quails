@@ -85,4 +85,12 @@ class ResearchControllerTest < ActionController::TestCase
     login_as_admin
     get :month_targets
   end
+
+  test "correct redirect for Research/more_than_year" do
+    create(:observation, card: create(:card, observ_date: "2007-06-18"))
+    create(:observation, card: create(:card, observ_date: "2009-06-18"))
+    login_as_admin
+    get :more_than_year, params: {sort: :days}
+    assert_redirected_to controller: :research, action: :more_than_year, days: 365, sort: :days
+  end
 end

@@ -43,7 +43,7 @@ class ResearchController < ApplicationController
         item[:sp] = spcs[item[:sp_id]]
       end
     else
-      redirect_to(days: 365)
+      redirect_to(params.merge(days: 365))
     end
   end
 
