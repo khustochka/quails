@@ -26,4 +26,5 @@
 
           %li(role="menuitem")= link_to t('menu.lifelist'), my_lists_path
 
-          %li(role="menuitem" class="trans-menu")= link_to t('menu.russian'), root_url(locale: nil)
+          %li(role="menuitem" class="trans-menu")
+            = link_to t('menu.russian'), root_url(locale: nil), lang: :ru, hreflang: :ru

@@ -4,4 +4,4 @@
 - link_hash = new_params.merge({locale: new_locale == :ru ? nil : new_locale})
 
 %nav.translated
-  = link_to t("translated.#{new_locale}"), link_hash
+  = link_to t("translated.#{new_locale}"), link_hash, lang: new_locale, hreflang: new_locale, rel: :alternate
