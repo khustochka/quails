@@ -1,9 +1,9 @@
-workers Integer(ENV['WEB_CONCURRENCY'] || 4)
-
-threads_count = Integer(ENV['MAX_THREADS'] || 2)
-threads 0, threads_count
-
 rails_env = ENV['RACK_ENV'] || ENV['RAILS_ENV'] || 'development'
+
+workers Integer(ENV['WEB_CONCURRENCY'] || (rails_env == "production" ? 3 : 0))
+
+threads_count = Integer(ENV['RAILS_MAX_THREADS'] || 5)
+threads 0, threads_count
 
 environment rails_env
 
