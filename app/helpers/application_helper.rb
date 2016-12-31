@@ -51,4 +51,8 @@ module ApplicationHelper
     render 'partials/feed_list_item'
   end
 
+  def render_service_code(service_class)
+    service_class.render(self)
+  end
+
 end
