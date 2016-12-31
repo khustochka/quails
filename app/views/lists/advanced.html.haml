@@ -17,7 +17,7 @@
   - else
     = t('lists.title.lifelist')
 
-- cache significant_params.merge(admin: current_user.admin?, key: CacheKey.lifelist) do
+- cache significant_params.merge(admin: current_user.admin?, key: CacheKey.lifelist, locale: I18n.locale) do
 
   = render partial: 'partials/translated', locals: {url: significant_params}
 
