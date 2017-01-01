@@ -69,6 +69,16 @@ class CommentsController < ApplicationController
       if @comment.send_email
         commenter = Commenter.find_by(email: commenter_email) ||
             Commenter.create!(name: @comment.name, email: commenter_email)
+      end
+
+      commenter_provider = params[:commenter].try(:[], :provider)
+
+      if commenter_provider
+        commenter_id = session[:commenter_id]
+        commenter = Commenter.find_by(provider: commenter_provider, id: commenter_id)
+      end
+
+      if commenter
         @comment.commenter = commenter
       end
 

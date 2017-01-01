@@ -1,10 +1,13 @@
 .comment_box{id: "comment#{comment.id}", class: comment.approved ? nil : 'hidden-comment'}
   %div.header-with-subheader
-    - author_classes = %w(name)
-    - if admin_commenter_id && comment.commenter_id == admin_commenter_id
-      - author_classes += %w(tag admin_comment)
-      - popup_title = 'Administrator'
-    %h6{class: author_classes, title: popup_title}= link_to_if(comment.sane_url.present?, comment.decorated.name, comment.sane_url, :rel => 'nofollow')
+    - if comment.commenter && comment.commenter.provider
+      = render partial: "commenters/#{comment.commenter.provider}", locals: {commenter: comment.commenter}
+    - else
+      - author_classes = %w(name)
+      - if admin_commenter_id && comment.commenter_id == admin_commenter_id
+        - author_classes += %w(tag admin_comment)
+        - popup_title = 'Administrator'
+      %h6{class: author_classes, title: popup_title}= link_to_if(comment.sane_url.present?, comment.decorated.name, comment.sane_url, :rel => 'nofollow')
     %i
       %time= link_to(l(comment.created_at, :format => :long), public_comment_path(comment, @post))
     - if current_user.admin?

@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161225010312) do
+ActiveRecord::Schema.define(version: 20170101010255) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,18 +40,22 @@ ActiveRecord::Schema.define(version: 20161225010312) do
     t.float    "area_acres"
     t.boolean  "resolved",                     default: false,        null: false
     t.string   "ebird_id"
+    t.index ["locus_id"], name: "index_cards_on_locus_id", using: :btree
+    t.index ["observ_date"], name: "index_cards_on_observ_date", using: :btree
+    t.index ["post_id"], name: "index_cards_on_post_id", using: :btree
   end
 
-  add_index "cards", ["locus_id"], name: "index_cards_on_locus_id", using: :btree
-  add_index "cards", ["observ_date"], name: "index_cards_on_observ_date", using: :btree
-  add_index "cards", ["post_id"], name: "index_cards_on_post_id", using: :btree
-
   create_table "commenters", force: :cascade do |t|
-    t.string  "email",     limit: 255
-    t.string  "name",      limit: 255
-    t.boolean "is_admin",              default: false
-    t.string  "provider"
-    t.text    "auth_hash"
+    t.string   "email",      limit: 255
+    t.string   "name",       limit: 255
+    t.boolean  "is_admin",               default: false
+    t.string   "provider"
+    t.text     "auth_hash"
+    t.string   "uid"
+    t.string   "url"
+    t.string   "image"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "comments", force: :cascade do |t|
@@ -67,9 +70,8 @@ ActiveRecord::Schema.define(version: 20161225010312) do
     t.string   "ip",           limit: 15
     t.boolean  "send_email",               default: false
     t.integer  "commenter_id"
+    t.index ["post_id"], name: "index_comments_on_post_id", using: :btree
   end
-
-  add_index "comments", ["post_id"], name: "index_comments_on_post_id", using: :btree
 
   create_table "ebird_files", force: :cascade do |t|
     t.string   "name",       limit: 255,                 null: false
@@ -112,11 +114,10 @@ ActiveRecord::Schema.define(version: 20161225010312) do
     t.boolean "reviewed",               default: false, null: false
     t.text    "wikidata"
     t.integer "species_id"
+    t.index ["code"], name: "index_legacy_species_on_code", unique: true, using: :btree
+    t.index ["index_num"], name: "index_legacy_species_on_index_num", using: :btree
+    t.index ["name_sci"], name: "index_legacy_species_on_name_sci", unique: true, using: :btree
   end
-
-  add_index "legacy_species", ["code"], name: "index_legacy_species_on_code", unique: true, using: :btree
-  add_index "legacy_species", ["index_num"], name: "index_legacy_species_on_index_num", using: :btree
-  add_index "legacy_species", ["name_sci"], name: "index_legacy_species_on_name_sci", unique: true, using: :btree
 
   create_table "legacy_taxa", force: :cascade do |t|
     t.integer "book_id",                       null: false
@@ -130,10 +131,9 @@ ActiveRecord::Schema.define(version: 20161225010312) do
     t.string  "order",             limit: 255, null: false
     t.string  "family",            limit: 255, null: false
     t.string  "avibase_id",        limit: 16
+    t.index ["book_id", "index_num"], name: "index_legacy_taxa_on_book_id_and_index_num", using: :btree
+    t.index ["book_id", "name_sci"], name: "index_legacy_taxa_on_book_id_and_name_sci", using: :btree
   end
-
-  add_index "legacy_taxa", ["book_id", "index_num"], name: "index_legacy_taxa_on_book_id_and_index_num", using: :btree
-  add_index "legacy_taxa", ["book_id", "name_sci"], name: "index_legacy_taxa_on_book_id_and_name_sci", using: :btree
 
   create_table "local_species", force: :cascade do |t|
     t.integer "locus_id",               null: false
@@ -143,10 +143,9 @@ ActiveRecord::Schema.define(version: 20161225010312) do
     t.text    "notes_ru"
     t.text    "notes_uk"
     t.string  "reference",  limit: 255
+    t.index ["locus_id"], name: "index_local_species_on_locus_id", using: :btree
+    t.index ["species_id"], name: "index_local_species_on_species_id", using: :btree
   end
-
-  add_index "local_species", ["locus_id"], name: "index_local_species_on_locus_id", using: :btree
-  add_index "local_species", ["species_id"], name: "index_local_species_on_species_id", using: :btree
 
   create_table "loci", force: :cascade do |t|
     t.string  "slug",         limit: 32,                  null: false
@@ -162,10 +161,9 @@ ActiveRecord::Schema.define(version: 20161225010312) do
     t.string  "loc_type",     limit: 255
     t.string  "name_format",  limit: 255, default: "",    null: false
     t.string  "ancestry",     limit: 255
+    t.index ["ancestry"], name: "index_loci_on_ancestry", using: :btree
+    t.index ["slug"], name: "index_loci_on_slug", unique: true, using: :btree
   end
-
-  add_index "loci", ["ancestry"], name: "index_loci_on_ancestry", using: :btree
-  add_index "loci", ["slug"], name: "index_loci_on_slug", unique: true, using: :btree
 
   create_table "media", force: :cascade do |t|
     t.string   "slug",              limit: 64,                    null: false
@@ -181,17 +179,15 @@ ActiveRecord::Schema.define(version: 20161225010312) do
     t.integer  "parent_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["slug"], name: "index_media_on_slug", unique: true, using: :btree
   end
-
-  add_index "media", ["slug"], name: "index_media_on_slug", unique: true, using: :btree
 
   create_table "media_observations", id: false, force: :cascade do |t|
     t.integer "media_id",       null: false
     t.integer "observation_id", null: false
+    t.index ["media_id"], name: "index_media_observations_on_media_id", using: :btree
+    t.index ["observation_id"], name: "index_media_observations_on_observation_id", using: :btree
   end
-
-  add_index "media_observations", ["media_id"], name: "index_media_observations_on_media_id", using: :btree
-  add_index "media_observations", ["observation_id"], name: "index_media_observations_on_observation_id", using: :btree
 
   create_table "observations", force: :cascade do |t|
     t.integer "legacy_species_id"
@@ -204,12 +200,11 @@ ActiveRecord::Schema.define(version: 20161225010312) do
     t.integer "patch_id"
     t.string  "place",             limit: 255, default: "",    null: false
     t.integer "taxon_id"
+    t.index ["card_id"], name: "index_observations_on_card_id", using: :btree
+    t.index ["legacy_species_id"], name: "index_observations_on_legacy_species_id", using: :btree
+    t.index ["post_id"], name: "index_observations_on_post_id", using: :btree
+    t.index ["taxon_id"], name: "index_observations_on_taxon_id", using: :btree
   end
-
-  add_index "observations", ["card_id"], name: "index_observations_on_card_id", using: :btree
-  add_index "observations", ["legacy_species_id"], name: "index_observations_on_legacy_species_id", using: :btree
-  add_index "observations", ["post_id"], name: "index_observations_on_post_id", using: :btree
-  add_index "observations", ["taxon_id"], name: "index_observations_on_taxon_id", using: :btree
 
   create_table "posts", force: :cascade do |t|
     t.string   "slug",         limit: 64
@@ -221,10 +216,9 @@ ActiveRecord::Schema.define(version: 20161225010312) do
     t.datetime "updated_at",               null: false
     t.datetime "commented_at"
     t.text     "lj_data"
+    t.index ["face_date"], name: "index_posts_on_face_date", using: :btree
+    t.index ["slug"], name: "index_posts_on_slug", unique: true, using: :btree
   end
-
-  add_index "posts", ["face_date"], name: "index_posts_on_face_date", using: :btree
-  add_index "posts", ["slug"], name: "index_posts_on_slug", unique: true, using: :btree
 
   create_table "settings", id: false, force: :cascade do |t|
     t.string "key",   limit: 255, null: false
@@ -249,9 +243,8 @@ ActiveRecord::Schema.define(version: 20161225010312) do
   create_table "species_images", force: :cascade do |t|
     t.integer "species_id", null: false
     t.integer "image_id",   null: false
+    t.index ["species_id"], name: "index_species_images_on_species_id", unique: true, using: :btree
   end
-
-  add_index "species_images", ["species_id"], name: "index_species_images_on_species_id", unique: true, using: :btree
 
   create_table "spots", force: :cascade do |t|
     t.integer "observation_id"
@@ -261,9 +254,8 @@ ActiveRecord::Schema.define(version: 20161225010312) do
     t.integer "exactness"
     t.boolean "public"
     t.string  "memo",           limit: 255
+    t.index ["observation_id"], name: "index_spots_on_observation_id", using: :btree
   end
-
-  add_index "spots", ["observation_id"], name: "index_spots_on_observation_id", using: :btree
 
   create_table "taxa", force: :cascade do |t|
     t.string  "name_sci",       null: false
