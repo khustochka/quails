@@ -49,9 +49,9 @@
     -#%div.fluid-column
     -#
     -#  %h2
-    -#    = link_to(t('lists.title.yearlist', year: 2014), list_path(year: 2014))
+    -#    = link_to(t('lists.title.yearlist', year: Quails::CURRENT_YEAR - 1), list_path(year: Quails::CURRENT_YEAR - 1))
     -#
-    -#  = render partial: "top5list", object: @list_prev_year.limit(5)
+    -#  = render partial: "top5list", object: @list_prev_year
 
 
   %div.fluid-row
