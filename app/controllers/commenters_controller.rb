@@ -1,13 +1,19 @@
 class CommentersController < ApplicationController
 
+  PROVIDER_URL_KEY = {
+      facebook: "Facebook",
+      flickr: "Photos"
+  }.with_indifferent_access
+
   def login
+    Rails.logger.warn(auth_hash.to_hash)
     provider = auth_hash[:provider]
     uid = auth_hash[:uid]
     @commenter = Commenter.find_or_create_by(provider: provider, uid: uid)
     if @commenter
       @commenter.update_attributes(
           name: auth_hash[:info][:name],
-          url: auth_hash[:info][:urls]["Facebook"],
+          url: auth_hash[:info][:urls][PROVIDER_URL_KEY[provider]],
           image: auth_hash[:info][:image],
           auth_hash: auth_hash.to_h.with_indifferent_access
       )
