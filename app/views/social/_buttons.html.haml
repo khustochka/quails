@@ -2,12 +2,15 @@
 
 - cache :social_buttons do
 
-  %p.social_buttons
+  %div.social_buttons
 
     - if FacebookSdk.configured?
-      = render 'social/fb_like'
+      %div.soc-btn
+        = render 'social/fb_like'
 
+    %div.soc-btn
       = render 'social/gplus_like'
 
     - if VkontakteSdk.configured?
-      = render 'social/vk_like'
+      %div.soc-btn
+        = render 'social/vk_like'

@@ -18,7 +18,6 @@ class SettingsController < ApplicationController
         Settings.create!(key: key, value: value)
       end
     end
-    Flickr::Client.reconfigure!
     redirect_to :settings, :notice => "Setings saved"
   end
 

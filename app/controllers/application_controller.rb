@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   include Aspects::Localization
   include Aspects::Administrative
   include Aspects::PublicPaths
-  include Aspects::Pjax
+  include Aspects::UrlBuilder
   include Aspects::RecordFinder
 
   private
@@ -19,9 +19,9 @@ class ApplicationController < ActionController::Base
 
   def significant_params
     if @allowed_params
-      params.slice(*@allowed_params)
+      params.permit(*@allowed_params)
     else
-      params
+      {}
     end
   end
 
@@ -30,6 +30,10 @@ class ApplicationController < ActionController::Base
   def expire_photo_feeds
     expire_page controller: :feeds, action: :photos, format: 'xml'
     expire_page controller: :feeds, action: :photos, format: 'xml', locale: 'en'
+  end
+
+  def pjax_layout
+    "pjax"
   end
 
 end

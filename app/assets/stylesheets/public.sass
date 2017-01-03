@@ -127,10 +127,11 @@
 //  .commenter_email
 //    margin-left: 10px
 //
-//  div.form-group
+//  div.input
+//    display: block
 //    margin-bottom: 10px
 //
-//  div.form-group.comment_name
+//  div.input.comment_name
 //    display: none
 //
 //  input.string
@@ -140,7 +141,8 @@
 //    width: 600px
 //
 //  div.buttons
-//    input.btn
+//    //margin-top: 10px
+//    input.button
 //      width: 130px
 //      height: 40px
 //
@@ -148,33 +150,61 @@
 //    border: 2px solid #888888
 //    padding: 5px
 //
-//  .form-group
-//    .help-block
-//      margin: 0
+//  .input
+//    .hint
 //      color: #777777
 //      font-size: 15px
 //      font-style: italic
 //      font-weight: normal
 //      font-family: Arial, sans-serif
-//  .form-group.comment_text .help-block
+//  .input.comment_text .hint
 //    width: 612px
 //    text-align: right
 //    display: block
-//  .form-group.commenter_email .help-block
+//  .input.commenter_email .hint
 //    font-size: 12px
 //
 //
 //// Image
 //
+//$image-info-pane-width: 300px
+//
+//.image_over_container
+//  display: table
+//  width: 100%
+//
+//.image_canvas_container
+//  display: table-cell
+//  padding: 0 20px 0 0
+//  text-align: center
+//  vertical-align: top
+//  @media (max-width: 900px)
+//    display: block
+//
+//.image_info_pane
+//  display: table-cell
+//  vertical-align: top
+//  width: $image-info-pane-width
+//  margin-left: 10px
+//  padding: 2px 10px 10px 10px
+//  h1
+//    font-size: 26px
+//  @media (max-width: 900px)
+//    width: 100%
+//    display: block
+//    padding: 20px 0
+//    margin: 0
+//
 //.image_canvas
 //  @include auto-width
-//  display: inline-block
-//  border: 1px solid #aaa
-//  //background-color: #c0c0c0
-//  //padding: 10px
+//  @include inline-block
+//  border: 1px solid #cccccc
 //  img
 //    vertical-align: top
+//    display: block
 //    @include auto-width
+//    @media (max-width: 900px)
+//      max-height: 580px
 //
 //table.image_nav
 //  max-width: 100%
@@ -258,12 +288,31 @@
 //      padding-bottom: 20px
 //
 //#lifelist.advanced
+//  width: 100%
+//  td, th
+//    //border: 1px solid #CCCCCC
+//  td
+//    height: 2.2em
 //  span.llc
-//    position: relative
-//    top: 3px
-//    padding: 1px
+//    //padding: 0 3px
+//  .sort_by_label
+//    font-weight: normal
 //  span.llc:hover
 //    cursor: pointer
+//  a.cardlink, span.fa-sort
+//    font-size: 14px
+//  th
+//    padding-top: 12px
+//    padding-bottom: 12px
+//    font-size: 15px
+//  th.count-column-header
+//    width: 5em
+//  tr
+//    position: relative
+//  .spinner-img
+//    position: absolute
+//    left: 50%
+//    padding-top: 12px
 //
 //// Checklist table
 //
@@ -292,7 +341,7 @@
 //
 //.status-old, .status-unsure
 //  font-style: italic
-//  display: inline-block
+//  @include inline-block
 //  color: white
 //  background-color: #ccbbbb
 //  padding: 5px
@@ -341,8 +390,13 @@
 //    display: inline
 //    margin-left: 0
 //
-//.similar_species
+//.sp_synonyms
 //  @include inline-block
+//  border: 1px dotted lightgrey
+//  background-color: lightgoldenrodyellow
+//  padding: 10px 10px 0 10px
+//  border-radius: 2px
+//
 //
 //.obs_maps
 //  img
@@ -366,6 +420,8 @@
 //// Feed icon
 //li.feed_li:before
 //  content: ' '
+//li.feed_li .fa
+//  color: darkorange
 //
 //
 ////a.feed
@@ -378,10 +434,15 @@
 //// Social buttons
 //
 //.social_buttons
+//  margin-top: 20px
 //  vertical-align: top
 //
+//.soc-btn
+//  vertical-align: top
+//  margin-bottom: 10px
+//  @include inline-block
+//
 //.fb_share_widget
-//  display: inline-block
 //  margin-right: 20px
 //
 //// Small screen
@@ -400,14 +461,14 @@
 //
 //.winter-banner
 //  border: 1px solid #ccc
-//  display: inline-block
+//  @include inline-block
 //  padding-right: 20px
 //  margin:
 //    top: 20px
 //  img
 //    vertical-align: bottom
 //  div
-//    display: inline-block
+//    @include inline-block
 //    margin-left: -30px
 //    vertical-align: 28px
 //    a
@@ -545,27 +606,211 @@
 ////  margin-left: -35px
 ////  bottom: -16px
 ////
-////.arrow.top
-////  top: -16px
-////  bottom: auto
+////  @media only all and (max-width: 900px)
+////    background-color: #ddddee
+////    img
+////      display: none
+////    div
+////      margin: 10px
 ////
-////.arrow.left
-////  left: 20%
+////// Nice statistics
 ////
-////.arrow:after
-////  content: ""
-////  position: absolute
-////  left: 20px
-////  top: -20px
-////  width: 25px
-////  height: 25px
-////  box-shadow: 6px 5px 9px -9px black
-////  -webkit-transform: rotate(45deg)
-////  -moz-transform: rotate(45deg)
-////  -ms-transform: rotate(45deg)
-////  -o-transform: rotate(45deg)
-////  tranform: rotate(45deg)
+////table.nice_stats
+////  width: 100%
+////  margin:
+////    top: 30px
+////    bottom: 30px
+////  td
+////    width: 25%
+////    padding: 3px 5px 15px 15px
+////    font-family: Verdana, Tahoma, sans-serif
+////    font-weight: bold
+////    border:
+////      top: 1px solid #aaaaaa
+////      bottom: 1px solid #aaaaaa
+////    a
+////      text-decoration: none
+////      border-bottom: 1px solid
+////  th
+////    padding-bottom: 1px
+////    border:
+////      bottom: 4px double #aaaaaa
+////    h2
+////      color: #383838
+////      margin-bottom: 0
+////  td.year, td.count_sp, td.count_new, td.count_new_big
+////    font-size: 30px
+////    font-family: "Verdana", sans-serif
+////  td.day
+////    font-family: "Verdana", sans-serif
+////    padding-right: 15px
+////    color: #666666
+////    font-size: 22px
+////  td.day a
+////    color: #666666
+////  td.year
+////    color: #666666
+////  td.place
+////    font-style: italic
+////    font-weight: normal
+////    font-size: 12px
+////    color: #555
+////  .count_sp, .count_new_big
+////    text-align: right
+////  .count_new
+////    text-align: center
+////    font-size: 18px
+////    font-weight: normal
+////    small
+////      font-family: Arial
+////  .count_new small
+////    font-size: 18px
+////  .count_sp, .count_sp_label, .count_sp a
+////    color: #3661b7
+////  .count_new, .count_new_label, .count_new a, .count_new_big
+////    color: #e04747
+////  tr.total
+////    border:
+////      top: 4px double #aaaaaa
+////      bottom: 4px double #aaaaaa
+////    .count_sp, .count_sp_label
+////      color: #093ea8
+////    td.year
+////      color: #474747
+////  td.countries
+////    font-size: 14px
+////    vertical-align: middle
+////    font-weight: normal
+////    ul
+////      list-style: none
+////      margin: 0
+////      span
+////        font-weight: bold
+////      li.ukraine, li.ukraine a
+////        color: #66aa66
+////      li.usa, li.usa a
+////        color: #aa6666
+////      li.united_kingdom, li.united_kingdom a
+////        color: #6666aa
+////      li.canada, li.canada a
+////        color: #cc3399
+////      li.netherlands, li.netherlands a
+////        color: #ba9d33
 ////
-////.arrow.top:after
-////  bottom: -20px
-////  top: auto
+////table.nice_stats.records
+////  td
+////    width: auto
+////    vertical-align: baseline
+////
+////// Tooltip
+////
+////.ui-tooltip, .arrow:after
+////  background: #333333
+////  //border: 2px solid white
+////  border: none
+////
+////.ui-tooltip
+////  padding: 5px 10px
+////  color: white
+////  //border-radius: 20px
+////  border-radius: 0
+////  font: normal 13px "Helvetica Neue", Arial, sans-serif
+////  //box-shadow: 0 0 7px black
+////  box-shadow: none
+////  max-width: 200px
+////
+//////.arrow
+//////  width: 70px
+//////  height: 16px
+//////  overflow: hidden
+//////  position: absolute
+//////  left: 50%
+//////  margin-left: -35px
+//////  bottom: -16px
+//////
+//////.arrow.top
+//////  top: -16px
+//////  bottom: auto
+//////
+//////.arrow.left
+//////  left: 20%
+//////
+//////.arrow:after
+//////  content: ""
+//////  position: absolute
+//////  left: 20px
+//////  top: -20px
+//////  width: 25px
+//////  height: 25px
+//////  box-shadow: 6px 5px 9px -9px black
+//////  -webkit-transform: rotate(45deg)
+//////  -moz-transform: rotate(45deg)
+//////  -ms-transform: rotate(45deg)
+//////  -o-transform: rotate(45deg)
+//////  tranform: rotate(45deg)
+//////
+//////.arrow.top:after
+//////  bottom: -20px
+//////  top: auto
+//
+//.jumbo-bg
+//  //margin: -60px -1em 0 -1em
+//  margin: 0 -1em
+//  padding: 72px 0 72px 0
+//  background-color: #eef5ef
+//  opacity: 0.8
+//  background-repeat: no-repeat
+//  background-position: center center
+//  background-size: cover
+//  position: relative
+//
+//.jumbo-side
+//  position: absolute
+//  top: 0
+//  right: 0
+//  background-color: rgba(255, 255, 255, 0.7)
+//  //height: 100%
+//  padding: 10px
+//  ul
+//    margin: 0
+//    padding: 0
+//    li
+//      display: block
+//  nav.translated
+//    vertical-align: middle
+//    a
+//      color: white
+//      background-color: $trans-link-color
+//
+//.jumbo
+//  opacity: 1
+//  margin: auto
+//  max-width: $main-width - 110px
+//  padding: 1em
+//  padding-right: 120px
+//  h1
+//    opacity: 1 !important
+//    color: white
+//    text-shadow: #000 0px 0px 10px
+//    font-size: 64px
+//    margin: 0
+//
+//@media only all and (max-width: 1020px)
+//  .jumbo-bg
+//    padding: 48px 0 48px 0
+//  .jumbo h1
+//    font-size: 56px
+//
+//@media only all and (max-width: 900px)
+//  .jumbo-bg
+//    padding: 48px 0 10px 0
+//  .jumbo
+//    padding-right: 30px
+//    h1
+//      font-size: 42px
+//  .jumbo-side
+//    left: 0
+//    //width: 100%
+//    ul li
+//      @include inline-block
+//      margin: 0

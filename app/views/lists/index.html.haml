@@ -2,16 +2,18 @@
 
 - @robots = 'NOINDEX'
 
+- @jumbo_image = "https://c2.staticflickr.com/2/1648/25088028401_efeaaa65dd_o.jpg"
+
+- content_for :jumbo do
+  %h1= @page_title
+
+- content_for :jumbo_side do
+  %ul.subheader-menu
+    %li= render 'partials/translated'
+    %li
+      = link_to t('.records_and_stats'), my_stats_path
+
 - cache(key: CacheKey.lifelist) do
-
-  = render 'partials/translated'
-
-  %div.header-with-subheader
-    %h1= @page_title
-    %ul.subheader-menu
-      %li
-        = t('.see_also')
-        = link_to t('.records_and_stats'), my_stats_path
 
   %div.row
 
@@ -23,7 +25,7 @@
 
     %div.col-sm-6
 
-      %h2= link_to(t('lists.title.yearlist', year: ListsController::CURRENT_YEAR), list_path(year: ListsController::CURRENT_YEAR))
+      %h2= link_to(t('lists.title.yearlist', year: Quails::CURRENT_YEAR), list_path(year: Quails::CURRENT_YEAR))
 
       = render partial: "top5list", object: @list_current_year
 
@@ -32,9 +34,9 @@
     %div.col-sm-6
 
       %h2
-        = link_to(t('lists.title.usa'), list_path(locus: 'usa'))
+        = link_to(t('lists.title.ukraine'), list_path(locus: 'ukraine'))
 
-      = render partial: "top5list", object: @list_usa
+      = render partial: "top5list", object: @list_ukraine
 
     %div.col-sm-6
 
@@ -47,9 +49,9 @@
     -#%div.col-sm-6
     -#
     -#  %h2
-    -#    = link_to(t('lists.title.yearlist', year: 2014), list_path(year: 2014))
+    -#    = link_to(t('lists.title.yearlist', year: Quails::CURRENT_YEAR - 1), list_path(year: Quails::CURRENT_YEAR - 1))
     -#
-    -#  = render partial: "top5list", object: @list_prev_year.limit(5)
+    -#  = render partial: "top5list", object: @list_prev_year
 
 
   %div.row
@@ -57,8 +59,8 @@
     %div.col-sm-6
 
       %h2
-        = link_to(t('lists.title.ukraine'), list_path(locus: 'ukraine'))
-        (#{@list_ukraine.total_count})
+        = link_to(t('lists.title.usa'), list_path(locus: 'usa'))
+        (#{@list_usa.total_count})
 
       -#= render partial: "top5list", object: @list_ukraine
 

@@ -36,13 +36,14 @@ module Lifelist
         when "count"
           then "obs_count DESC"
         else
-          "observ_date DESC, to_timestamp(start_time, 'HH24:MI') DESC NULLS LAST"
+          "observ_date DESC, to_timestamp(start_time, 'HH24:MI') DESC NULLS LAST, created_at DESC"
       end
     end
 
     # TODO: preload locus ?
     def bare_relation
-      Observation.
+      MyObservation.
+          select("observations.*, species_id").
           where(id: preselected_observations)
 
     end
@@ -58,8 +59,9 @@ module Lifelist
     def build_relation
       # FIXME: Do not join on species when not on taxonomy sorting
       bare_relation.
-          joins(:species).
-          includes(:card, :species)
+          joins(:taxon, :card).
+          preload({:taxon => :species}, :card)
+      # NOTE: Do not use .includes(:taxon), it breaks species preloading, use .preload
     end
 
     def preselected_observations

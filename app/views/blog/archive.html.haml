@@ -2,7 +2,12 @@
 
 - @robots = 'NOINDEX'
 
-%h1= page_header
+- @jumbo_image = "https://farm3.staticflickr.com/2291/2363329689_52cf2d8a0d_o.jpg"
+
+- content_for :jumbo do
+
+  %h1= page_header
+
 
 = render 'filters/years'
 

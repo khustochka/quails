@@ -1,9 +1,13 @@
 module ResearchHelper
   def research_page_header
-    [link_to('Research', research_path), @page_title].join(' : ').html_safe
+    capture do
+      concat link_to('Research', research_path)
+      concat " : "
+      concat @page_title
+    end
   end
 
   def locus_check(loc)
-    image_tag('/img/check_16x13.png', title: loc, alt: loc)
+    content_tag(:span, "", class: "fa fa-check green-check", title: loc, alt: loc)
   end
 end

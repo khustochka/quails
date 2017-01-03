@@ -62,7 +62,7 @@ Rails.application.routes.draw do
   # just remember to delete public/index.html.
   root to: 'blog#home', as: 'blog'
 
-  constraints country: /ukraine|usa|united_kingdom|canada/ do
+  constraints country: /ukraine|usa|united_kingdom|canada|manitoba/ do
     get '/:country/checklist/edit' => 'checklist#edit'
     post '/:country/checklist/edit' => 'checklist#save'
     scope '(:locale)', locale: /en/ do
@@ -71,13 +71,18 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :species, except: [:index, :show, :destroy] do
+  resources :legacy_species, only: [:index, :edit, :update] do
+    collection do
+      get :mapping
+    end
+  end
+
+  resources :species, only: [:edit, :update] do
+    # index, show - declared localize
+    # new, create, destroy - not present
     collection do
       get 'admin', action: :index
-    end
-
-    member do
-      get 'review'
+      get :simple_search
     end
   end
 
@@ -149,9 +154,6 @@ Rails.application.routes.draw do
         sort: /by_taxonomy/
   end
 
-  # Static pages
-  get '/:id' => 'pages#show_public', constraints: {id: /links|about|winter/}, as: :show_page
-
   # Feeds and sitemap
   get '/blog.:format' => 'feeds#blog', constraints: {format: 'xml'}
   scope '(:locale)', locale: /en/ do
@@ -166,7 +168,7 @@ Rails.application.routes.draw do
     get 'photos' => redirect("/%{locale}")
   end
 
-# ADMINISTRATIVE PAGES
+  # ADMINISTRATIVE PAGES
 
   resources :posts, except: [:index, :show] do
     get :hidden, on: :collection
@@ -177,6 +179,10 @@ Rails.application.routes.draw do
     member do
       post :attach
     end
+  end
+
+  scope '/observations' do
+    resources :spuhs, only: [:index, :show, :update]
   end
 
   resources :observations, except: [:index, :new, :create, :edit] do
@@ -221,21 +227,33 @@ Rails.application.routes.draw do
   end
 
   resources :books do
-    resources :taxa, only: [:show, :update]
+    resources :legacy_taxa, only: [:show, :update]
   end
-  get '/books/:id/taxa' => redirect("/books/%{id}")
 
-  resources :pages
+  resources :taxa, except: [:new, :create, :destroy] do
+    get :search, on: :collection
+  end
+
+  resources :ebird_taxa, only: [:index, :show] do
+    member do
+      post :promote
+    end
+  end
 
   get '/settings' => 'settings#index'
   post '/settings/save' => 'settings#save'
 
   get '/media/unmapped' => 'media#unmapped'
 
-  get '/research(/:action)', controller: :research, as: :research
+  get '/research', controller: :research, action: :index, as: :research
 
-  get '/login' => 'login#login_page'
+  research_actions = %w(environ insights more_than_year topicture day uptoday compare by_countries stats voices charts month_targets)
+  research_actions.each do |name|
+    get "/research/#{name}", controller: :research, action: name
+  end
+
   constraints Quails.env.ssl? ? {protocol: 'https://'} : nil do
+    get '/login' => 'login#login_page'
     post '/login' => 'login#login_do'
   end
   get '/logout' => 'login#logout'

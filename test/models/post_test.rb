@@ -128,7 +128,31 @@ class PostTest < ActiveSupport::TestCase
 
     travel 1.minute
 
-    i.update({observation_ids: [o2.id]})
+    # Have to refind it to clear association cache
+    img = Image.find(i.id)
+
+    img.update({observation_ids: [o2.id]})
+
+    p.reload
+    assert p.updated_at.to_i > saved_date.to_i
+
+    travel_back
+  end
+
+  test 'destroying image should touch posts`s updated_at' do
+    p = create(:post)
+    saved_date = p.updated_at
+    card = create(:card, post: p)
+
+    o = create(:observation, card: card)
+    i = create(:image, observations: [o])
+
+    travel 1.minute
+
+    # Have to refind it to clear association cache
+    img = Image.find(i.id)
+
+    img.destroy
 
     p.reload
     assert p.updated_at.to_i > saved_date.to_i
@@ -144,8 +168,11 @@ class PostTest < ActiveSupport::TestCase
 
     travel 1.minute
 
-    card.post = nil
-    card.save!
+
+    # Have to refind it to clear association cache
+    c = Card.find card.id
+    c.post = nil
+    c.save!
 
     p.reload
     assert p.updated_at.to_i > saved_date.to_i
@@ -157,8 +184,8 @@ class PostTest < ActiveSupport::TestCase
   test 'proper post species list for observations attached to post' do
     p = create(:post)
     c = create(:card, post: p)
-    o = create(:observation, card: c, species_id: seed(:motfla).id)
-    o2 = create(:observation, post_id: p.id, species_id: seed(:motfel).id)
+    o = create(:observation, card: c, taxon: taxa(:hirrus))
+    o2 = create(:observation, post_id: p.id, taxon: taxa(:pasdom))
 
     assert_equal 2, p.species.to_a.size
   end
@@ -166,8 +193,8 @@ class PostTest < ActiveSupport::TestCase
   test 'proper post images list for observations attached to post' do
     p = create(:post)
     c = create(:card, post: p)
-    o = create(:observation, card: c, species_id: seed(:motfla).id)
-    o2 = create(:observation, post_id: p.id, species_id: seed(:motfel).id)
+    o = create(:observation, card: c, taxon: taxa(:hirrus))
+    o2 = create(:observation, post_id: p.id, taxon: taxa(:pasdom))
     create(:image, observations: [o])
     create(:image, observations: [o2])
 
@@ -176,11 +203,11 @@ class PostTest < ActiveSupport::TestCase
 
   test 'post images should not be duplicated (if multi-species)' do
     p = create(:post)
-    sp1 = seed(:lancol)
-    sp2 = seed(:jyntor)
+    tx1 = taxa(:pasdom)
+    tx2 = taxa(:hirrus)
     card = create(:card, observ_date: "2008-07-01", post: p)
-    obs1 = create(:observation, species: sp1, card: card)
-    obs2 = create(:observation, species: sp2, card: card)
+    obs1 = create(:observation, taxon: tx1, card: card)
+    obs2 = create(:observation, taxon: tx2, card: card)
     img = create(:image, slug: 'picture-of-the-shrike-and-the-wryneck', observations: [obs1, obs2])
 
     assert_equal 1, p.images.to_a.size
@@ -189,24 +216,38 @@ class PostTest < ActiveSupport::TestCase
   test "new species count should not be duplicated if new species was seen twice in a day" do
     p = create(:post)
     card1 = create(:card, observ_date: "2015-04-27", post: p)
-    obs1 = create(:observation, species: seed(:podgri), card: card1)
+    obs1 = create(:observation, taxon: taxa(:hirrus), card: card1)
     card2 = create(:card, observ_date: "2015-04-27", post: p)
-    obs2 = create(:observation, species: seed(:podgri), card: card2)
+    obs2 = create(:observation, taxon: taxa(:hirrus), card: card2)
     assert_equal 1, p.new_species_ids.size
   end
 
   test 'do not show on homepage the images that are already in post body' do
     p = create(:post, text: "First paragraph\n\n{{^image1}}\n\nLast paragraph")
-    sp1 = seed(:lancol)
-    sp2 = seed(:jyntor)
+    tx1 = taxa(:pasdom)
+    tx2 = taxa(:hirrus)
     card = create(:card, post: p)
-    obs1 = create(:observation, species: sp1, card: card)
-    obs2 = create(:observation, species: sp2, card: card)
+    obs1 = create(:observation, taxon: tx1, card: card)
+    obs2 = create(:observation, taxon: tx2, card: card)
     img1 = create(:image, observations: [obs1], slug: "image1")
     img2 = create(:image, observations: [obs2], slug: "image2")
 
     assert_equal 1, p.decorated.the_rest_of_images.size
     assert_equal "image2", p.decorated.the_rest_of_images[0].slug
+  end
+
+  test "properly sort post images" do
+    p = create(:post, text: "Text")
+    tx1 = taxa(:pasdom)
+    tx2 = taxa(:hirrus)
+    card1 = create(:card, start_time: "6:00", post: p)
+    card2 = create(:card, start_time: "7:00", post: p)
+    obs1 = create(:observation, taxon: tx1, card: card1)
+    obs2 = create(:observation, taxon: tx2, card: card2)
+    img1 = create(:image, observations: [obs1], slug: "image1")
+    img2 = create(:image, observations: [obs2], slug: "image2")
+
+    assert_equal [img1.id, img2.id], p.images.map(&:id)
   end
 
 end

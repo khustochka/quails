@@ -43,7 +43,7 @@ class ResearchController < ApplicationController
         item[:sp] = spcs[item[:sp_id]]
       end
     else
-      redirect_to(days: 365)
+      redirect_to(params.merge(days: 365))
     end
   end
 
@@ -106,6 +106,15 @@ class ResearchController < ApplicationController
   end
 
   def uptoday
+
+    @locations = Country.all
+
+    observations_filtered = MyObservation.joins(:card)
+    if params[:locus]
+      loc_filter = Locus.find_by!(slug: params[:locus]).subregion_ids
+      observations_filtered = observations_filtered.where('cards.locus_id' => loc_filter)
+    end
+
     @today = Date.today
     @this_day = if params[:day]
                   Date.parse("#{@today.year}-#{params[:day]}")
@@ -114,8 +123,7 @@ class ResearchController < ApplicationController
                 end
     @next_day = @this_day + 1
     @prev_day = @this_day - 1
-    @uptoday = MyObservation.
-        joins(:card).
+    @uptoday = observations_filtered.
         where(
             'EXTRACT(month FROM observ_date)::integer < ? OR
         (EXTRACT(month FROM observ_date)::integer = ?
@@ -142,7 +150,7 @@ class ResearchController < ApplicationController
                               Card.all
                             end
 
-      prespecies = Species.short.select('"order", family').distinct.joins(:cards).merge(MyObservation.all)
+      prespecies = Species.short.select('species."order", species.family').distinct.joins(:cards).merge(MyObservation.all)
 
       @species = prespecies.merge(observations_source).ordered_by_taxonomy.extend(SpeciesArray)
 
@@ -247,9 +255,10 @@ class ResearchController < ApplicationController
   end
 
   def voices
-    voiceful = "select species_id, COUNT(id) as voicenum from observations where voice group by species_id"
-    total = "select species_id, count(id) as totalnum from observations group by species_id"
-    @species = Species.find_by_sql("WITH voiceful AS (#{voiceful}), total AS (#{total})
+    base = Observation.joins(:taxon).where("species_id IS NOT NULL").group("species_id")
+    voiceful = base.select("species_id, COUNT(observations.id) as voicenum").where(voice: true)
+    total = base.select("species_id, count(observations.id) as totalnum")
+    @species = Species.find_by_sql("WITH voiceful AS (#{voiceful.to_sql}), total AS (#{total.to_sql})
                 SELECT species.*, 100.00 * voicenum / totalnum as percentage
                 FROM voiceful NATURAL JOIN total JOIN species on species_id = species.id
                 WHERE voicenum <> 0
@@ -258,14 +267,21 @@ class ResearchController < ApplicationController
   end
 
   def charts
-    current = ListsController::CURRENT_YEAR
+    @locations = Country.all
+
+    observations_filtered = MyObservation.joins(:card)
+    if params[:locus]
+      loc_filter = Locus.find_by!(slug: params[:locus]).subregion_ids
+      observations_filtered = observations_filtered.where('cards.locus_id' => loc_filter)
+    end
+
+    current = Quails::CURRENT_YEAR
     @data = {}
     @years = params[:years] ?
               Range.new(*params[:years].split("..")) :
               (current - 1)..current
     @years.each do |yr|
-      list = Observation.identified.
-          joins(:card).
+      list = observations_filtered.
           select('species_id, MIN(observ_date) as first_date').
           where("extract(year from observ_date) = #{yr}").
           group(:species_id)
@@ -275,6 +291,37 @@ class ResearchController < ApplicationController
         memo << [[dt.month, dt.day], (memo.last.try(&:last) || 0) + cnt]
       end
     end
+  end
+
+  def month_targets
+    @month = params[:month].to_i
+    unless @month > 0 && @month < 13
+      @month = Date.current.month
+    end
+    @locations = Locus.locs_for_lifelist
+    @locus = Locus.find_by_slug(params[:locus])
+    obs_base = Observation.all
+    if @locus
+      obs_base = obs_base.filter(locus: @locus.subregion_ids)
+    end
+
+    # Put prev & next months into [1..12] interval
+    @prev_and_next = [@month - 1, @month + 1].map {|n| (n - 1) % 12 + 1}
+    species_of_this_month = obs_base.
+        select("DISTINCT species_id").
+        joins(:taxon, :card).
+        where("EXTRACT(month from observ_date) = ?", @month).
+        where("species_id IS NOT NULL")
+    species_of_adjacent_months = obs_base.
+        select("species_id").
+        joins(:taxon, :card).
+        where("EXTRACT(month from observ_date) IN (?)", @prev_and_next).
+        where("species_id IS NOT NULL")
+    @species = Species.
+        where(id: species_of_adjacent_months).
+        where("species.id NOT IN (?)", species_of_this_month).
+        order("species.index_num").
+        extending(SpeciesArray)
   end
 
 end

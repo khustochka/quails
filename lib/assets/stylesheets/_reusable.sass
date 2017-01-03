@@ -21,6 +21,9 @@
 .nowrap
   white-space: nowrap
 
+.highlight
+  background-color: yellow
+
 // Clearfix
 
 /**
@@ -139,10 +142,19 @@ table.neat_table
 
 // Minor
 body
-  a.remove, a.destroy, a.remove:hover, a.destroy:hover, a.img, a.img:hover
+  a.remove, a.destroy, a.remove:hover, a.destroy:hover, a.img, a.img:hover, a.fa, a.fa:hover, a.force-link-color, a.force-link-color:hover
     background-color: inherit
     // IE6/7 do not understand inherit
     *background-color: white
+  a.fa
+    color: #383838
+  a.fa:hover
+    color: $link-color
+  a.force-link-color, a.force-link-color:hover
+    color: $link-color
+
+  a.remove, a.destroy, a.remove:hover, a.destroy:hover
+    color: red
 
 .grayout
   background-color: #efefef
@@ -178,6 +190,9 @@ body, .main
 .remove
   cursor: pointer
 
+.green-check
+  color: #55a532
+
 .loading
   background: #ffffff url('/img/loading.gif') no-repeat center
 
@@ -195,6 +210,18 @@ body, .main
   background-color: DodgerBlue
 
 .incidental
+  background-color: gray
+
+.tag_species
+  background-color: forestgreen
+
+.tag_issf
+  background-color: DodgerBlue
+
+.tag_slash, .tag_spuh, .tag_form
+  background-color: crimson
+
+.tag_domestic, .tag_intergrade, .tag_hybrid
   background-color: gray
 
 .orange_border
@@ -250,3 +277,6 @@ h3.family
     right: 10px
   //width: 155px
   //height: 200px
+
+.disabled-icon
+  color: #DED2D0

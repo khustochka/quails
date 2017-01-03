@@ -7,7 +7,7 @@ class ObservationsControllerTest < ActionController::TestCase
   test "get show" do
     observation = create(:observation)
     login_as_admin
-    get :show, id: observation.to_param
+    get :show, params: {id: observation.to_param}
     assert_response :success
   end
 
@@ -15,15 +15,23 @@ class ObservationsControllerTest < ActionController::TestCase
     observation = create(:observation)
     observ = attributes_for(:observation, {'place' => 'New place'})
     login_as_admin
-    put :update, id: observation.id, observation: observ
+    put :update, params: {id: observation.id, observation: observ}
     assert_redirected_to observation_path(assigns(:observation))
+  end
+
+  test "Invalid observation update" do
+    observation = create(:observation)
+    observ = attributes_for(:observation, {'taxon_id' => nil})
+    login_as_admin
+    put :update, params: {id: observation.id, observation: observ}
+    assert_select "div.observation_taxon.field_with_errors"
   end
 
   test "destroy observation" do
     observation = create(:observation)
     assert_difference('Observation.count', -1) do
       login_as_admin
-      delete :destroy, id: observation.to_param
+      delete :destroy, params: {id: observation.to_param}
     end
     assert_response :success
   end
@@ -36,7 +44,7 @@ class ObservationsControllerTest < ActionController::TestCase
 
     login_as_admin
     assert_difference('Card.count', 1) {
-      assert_difference('Observation.count', 0) { get :extract, obs: [obs1.id, obs2.id] }
+      assert_difference('Observation.count', 0) { get :extract, params: {obs: [obs1.id, obs2.id]} }
     }
 
     card.reload
@@ -50,37 +58,37 @@ class ObservationsControllerTest < ActionController::TestCase
 
   test 'protect show with authentication' do
     observation = create(:observation)
-    assert_raise(ActionController::RoutingError) { get :show, id: observation.to_param }
+    assert_raise(ActionController::RoutingError) { get :show, params: {id: observation.to_param} }
     #assert_response 404
   end
 
   test 'protect update with authentication' do
     observation = create(:observation)
     observation.place = 'New place'
-    assert_raise(ActionController::RoutingError) { put :update, id: observation.to_param, observation: observation.attributes }
+    assert_raise(ActionController::RoutingError) { put :update, params: {id: observation.to_param, observation: observation.attributes} }
     #assert_response 404
   end
 
   test 'protect destroy with authentication' do
     observation = create(:observation)
-    assert_raise(ActionController::RoutingError) { delete :destroy, id: observation.to_param }
+    assert_raise(ActionController::RoutingError) { delete :destroy, params: {id: observation.to_param} }
     #assert_response 404
   end
 
   test 'return observation search results in html' do
     login_as_admin
     observation = create(:observation)
-    get :search, q: {species_id: observation.species_id.to_s}
+    get :search, params: {q: {taxon_id: observation.taxon_id.to_s}}
     assert_response :success
-    assert_equal Mime::HTML, response.content_type
+    assert_equal Mime[:html], response.content_type
   end
 
-  test 'return observation search results that include Avis incognita in HTML' do
+  test 'return observation search results that include spuhs in HTML' do
     login_as_admin
-    observation = create(:observation, species_id: 0)
-    get :search, q: {observ_date: observation.card.observ_date.iso8601}
+    observation = create(:observation, taxon: taxa(:aves_sp))
+    get :search, params: {q: {observ_date: observation.card.observ_date.iso8601}}
     assert_response :success
-    assert_equal Mime::HTML, response.content_type
-    assert_includes response.body, 'Avis incognita'
+    assert_equal Mime[:html], response.content_type
+    assert_includes response.body, "Aves sp."
   end
 end

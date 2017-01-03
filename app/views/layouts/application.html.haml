@@ -61,7 +61,13 @@
 
       -# sitemap (index only)
 
-      -# favicon (index only?)
+      -# favicon and other icon-related stuff: http://realfavicongenerator.net/
+      %link{:href => "/apple-touch-icon.png", :rel => "apple-touch-icon", :sizes => "180x180"}/
+      %link{:href => "/favicon-32x32.png", :rel => "icon", :sizes => "32x32", :type => "image/png"}/
+      %link{:href => "/favicon-16x16.png", :rel => "icon", :sizes => "16x16", :type => "image/png"}/
+      %link{:href => "/manifest.json", :rel => "manifest"}/
+      %link{:color => "#5bbad5", :href => "/safari-pinned-tab.svg", :rel => "mask-icon"}/
+      %meta{:content => "#ffffff", :name => "theme-color"}/
 
     -# csfr meta
     = csrf_meta_tags
@@ -71,19 +77,27 @@
 
     = render 'partials/css_and_js'
 
-    = GoogleAnalytics.render(self)
+    = render_service_code(GoogleAnalytics)
 
   %body{class: @body_class, data: {'js-controller' => @js_controller, 'js-features' => @js_features.to_json}}
 
     - if @social_likes
       - cache :social_sdks do
-        = FacebookSdk.render(self)
-        = VkontakteSdk.render(self)
+        = render_service_code(FacebookSdk)
+        = render_service_code(VkontakteSdk)
         = render 'social/gplus_sdk'
 
     #above-footer
 
       = render 'partials/header'
+
+      - if content_for?(:jumbo)
+        %div.jumbo-bg{style: "background-image: url(#{@jumbo_image})"}
+          - if content_for?(:jumbo_side)
+            %div.jumbo-side
+              = content_for :jumbo_side
+          %div.jumbo
+            = content_for :jumbo
 
       - if !admin_layout? && $announcement
         %div.announcement

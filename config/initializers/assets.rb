@@ -15,4 +15,4 @@ LOOSE_APP_ASSETS = lambda do |logical_path, filename|
 end
 
 Rails.application.config.assets.precompile = [LOOSE_APP_ASSETS, /(?:\/|\\|\A)application\.(css|js)$/, "*.png",
-                                              /\.(?:svg|eot|woff|ttf)\z/, "html5.js"]
+                                              /\.(?:svg|eot|woff|ttf)\z/]

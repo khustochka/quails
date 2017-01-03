@@ -27,18 +27,21 @@ class Image < Media
     observations.preload(:post).map(&:post).uniq.each { |p| p.try(:touch) }
   end
 
-  after_destroy do
-    species.each(&:update_image)
-    cards.preload(:post).map(&:post).uniq.each { |p| p.try(:touch) }
-    observations.preload(:post).map(&:post).uniq.each { |p| p.try(:touch) }
+  before_destroy do
+    # Save observation ids to make after_destroy work properly
+    @cached_observation_ids = self.observation_ids
   end
 
-  def destroy
-    # If associations are not cached before, they are empty on destroy, so have to preload them for after_destroy hook
-    observations.to_a
-    cards.to_a
-    species.to_a
-    super
+  after_destroy do
+    base_obs = Observation.where(id: @cached_observation_ids)
+    species = Species.joins(:taxa).where(taxa: {id: base_obs.select(:taxon_id)})
+    species.each(&:update_image)
+
+    cards = Card.where(id: base_obs.select(:card_id)).preload(:post)
+    cards.map(&:post).uniq.each { |p| p.try(:touch) }
+
+    observations = base_obs.preload(:post)
+    observations.map(&:post).uniq.each { |p| p.try(:touch) }
   end
 
   # Scopes
@@ -53,7 +56,7 @@ class Image < Media
   def self.multiple_species
     rel = select(:media_id).from("media_observations").group(:media_id).having("COUNT(observation_id) > 1")
     select("DISTINCT media.*, observ_date").where(id: rel).
-        joins(:observations, :cards).preload(:species).order('observ_date ASC')
+        joins({:observations => :taxon}, :cards).preload(:species).order('observ_date ASC')
   end
 
   # Instance methods
@@ -74,11 +77,12 @@ class Image < Media
     species.count > 1
   end
 
-  ORDERING_COLUMNS = %w(cards.observ_date cards.locus_id index_num media.created_at media.id)
-  PREV_NEXT_ORDER = "ORDER BY #{ORDERING_COLUMNS.join(', ')}"
+  #ORDERING_COLUMNS = %w(cards.observ_date cards.locus_id species.index_num media.created_at media.id)
+  ORDERING_SINGLE_SPECIES = %w(cards.observ_date cards.locus_id media.created_at media.id)
+  PREV_NEXT_ORDER = "ORDER BY #{ORDERING_SINGLE_SPECIES.join(', ')}"
 
   def self.order_for_species
-    self.joins("INNER JOIN cards ON observations.card_id = cards.id").order(*ORDERING_COLUMNS)
+    self.joins("INNER JOIN cards ON observations.card_id = cards.id").order(*ORDERING_SINGLE_SPECIES)
   end
 
   def prev_by_species(sp)
@@ -108,10 +112,20 @@ class Image < Media
       return @prev_next[sp]
     end
     # Calculate row number for every image under partition
+    # FIXME: was joins(:taxa, :species, :cards), producting overcomplicated join (some tables joined 2-3 times)
+    # probably can be refactored taking into account media_observations automatic joins
     window =
-        Image.select("media.*, row_number() over (partition by species_id #{PREV_NEXT_ORDER}) as rn").
-            joins(:cards).
-            where("observations.species_id" => sp.id)
+        Image.select("media.*, row_number() over (partition by species.id #{PREV_NEXT_ORDER}) as rn").
+            joins(
+<<SQL
+            INNER JOIN "media_observations" ON "media_observations"."media_id" = "media"."id"
+            INNER JOIN "observations" ON "observations"."id" = "media_observations"."observation_id"
+            INNER JOIN "taxa" ON "taxa"."id" = "observations"."taxon_id"
+            INNER JOIN "cards" ON "cards"."id" = "observations"."card_id"
+            INNER JOIN "species" ON "species"."id" = "taxa"."species_id"
+SQL
+            ).
+            where("species.id = ?", sp.id)
     # Join ranked tables by neighbouring images
     # Select neighbours of the sought one, exclude duplication
     q = "with ranked as (#{window.to_sql})

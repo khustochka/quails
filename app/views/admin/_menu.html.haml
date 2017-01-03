@@ -1,32 +1,34 @@
 - if current_user.is_admin_session?
   %ul.admin_menu
-    %li.adder= link_to '+ Post', new_post_path(url_options_for_admin)
-    %li.adder= link_to '+ Card', new_card_path(url_options_for_admin)
-    %li.adder= link_to '+ Image', new_flickr_photo_path(url_options_for_admin)
-    %li= link_to 'Drafts', hidden_posts_path(url_options_for_admin)
-    %li= link_to 'Species', admin_species_index_path(url_options_for_admin)
-    %li= link_to 'Cards', cards_path(url_options_for_admin)
-    %li= link_to 'Comments', comments_path(url_options_for_admin)
-    %li= link_to 'Books', books_path(url_options_for_admin)
-    %li= link_to 'Locations', loci_path(url_options_for_admin)
-    %li= link_to 'Pages', pages_path(url_options_for_admin)
-    %li= link_to 'Videos', videos_path(url_options_for_admin)
-    %li= link_to 'Research', research_path(url_options_for_admin)
-    %li= link_to 'Map Edit', edit_map_path(url_options_for_admin)
+    %li.adder= link_to '+ Post', new_post_url(admin_pages_url_options)
+    %li.adder= link_to '+ Card', new_card_url(admin_pages_url_options)
+    %li.adder= link_to '+ Image', new_flickr_photo_url(admin_pages_url_options)
+    %li= link_to 'Drafts', hidden_posts_url(admin_pages_url_options)
+    %li= link_to 'Species', admin_species_index_url(admin_pages_url_options)
+    %li= link_to 'Cards', cards_url(admin_pages_url_options)
+    %li= link_to 'Ebird', ebird_files_url(admin_pages_url_options)
+    %li= link_to 'Comments', comments_url(admin_pages_url_options)
+    %li= link_to 'Books', books_url(admin_pages_url_options)
+    %li= link_to 'Locations', loci_url(admin_pages_url_options)
+    %li= link_to 'Videos', videos_url(admin_pages_url_options)
+    %li= link_to 'Research', research_url(admin_pages_url_options)
+    %li= link_to 'Map Edit', edit_map_url(admin_pages_url_options)
     \|
-    %li= link_to t('menu.checklist'), checklist_path({country: 'ukraine'}.merge(url_options_for_admin))
-    %li= link_to 'Photostream', images_path(url_options_for_admin)
-    %li= link_to 'Stats', research_path({action: 'stats'}.merge!(url_options_for_admin))
-    %li= link_to t('menu.lifelist'), advanced_list_path(url_options_for_admin)
+    %li= link_to 'Photostream', images_url(admin_pages_url_options)
+    %li= link_to 'Stats', research_stats_url(admin_pages_url_options)
+    %li= link_to t('menu.lifelist'), advanced_list_url(admin_pages_url_options)
 
-    - if Quails.env.ssl? && !request.ssl?
-      = link_to 'Admin`s', params.merge({only_path: false, protocol: 'https'})
+    - if Quails.env.ssl?
+      - if request.ssl?
+        = link_to 'Public’s', url_for(public_url_options) unless admin_layout?
+      - else
+        = link_to 'Admin’s', url_for(admin_url_options)
 
     %li
-      %i= link_to "**Logout", logout_path(locale: nil)
+      %i= link_to "**Logout", logout_url(locale: nil)
 
 - elsif current_user.has_trust_cookie?
 
   %ul.admin_menu
     %li.login_link
-      = link_to 'Login', login_path(url_options_for_admin)
+      = link_to 'Login', login_url(admin_pages_url_options)

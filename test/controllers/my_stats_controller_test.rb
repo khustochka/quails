@@ -2,11 +2,11 @@ require 'test_helper'
 
 class MyStatsControllerTest < ActionController::TestCase
   setup do
-    create(:observation, species: seed(:pasdom), card: create(:card, observ_date: "2011-06-20", locus: loci(:nyc)))
-    create(:observation, species: seed(:melgal), card: create(:card, observ_date: "2012-06-18"))
-    create(:observation, species: seed(:anapla), card: create(:card, observ_date: "2012-06-18"))
-    create(:observation, species: seed(:anacly), card: create(:card, observ_date: "2012-07-18", locus: loci(:brovary)))
-    create(:observation, species: seed(:embcit), card: create(:card, observ_date: "2011-08-09", locus: loci(:kiev)))
+    create(:observation, taxon: taxa(:pasdom), card: create(:card, observ_date: "2011-06-20", locus: loci(:nyc)))
+    create(:observation, taxon: taxa(:jyntor), card: create(:card, observ_date: "2012-06-18"))
+    create(:observation, taxon: taxa(:hirrus), card: create(:card, observ_date: "2012-06-18"))
+    create(:observation, taxon: taxa(:saxola), card: create(:card, observ_date: "2012-07-18", locus: loci(:brovary)))
+    create(:observation, taxon: taxa(:jyntor), card: create(:card, observ_date: "2011-08-09", locus: loci(:kiev)))
   end
 
   test 'shows My Statistics page' do

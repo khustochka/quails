@@ -1,0 +1,12 @@
+-# no_viewport is for very wide pages, e.g. with table
+- @no_viewport = true
+
+- @page_title = "Birds of Manitoba"
+
+%div.header-with-subheader
+  %h1.over-header
+    = page_header
+  %ul.subheader-menu
+    %li= render 'partials/translated'
+
+= render 'checklist'

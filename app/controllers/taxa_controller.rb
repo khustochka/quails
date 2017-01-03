@@ -2,23 +2,51 @@ class TaxaController < ApplicationController
 
   administrative
 
-  before_action :find_species, only: [:show, :update]
+  # before_action :find_species, only: [:show, :update]
 
-  def show
-    render :form
-  end
-
-  def update
-    if @taxon.update_attributes(params[:taxon])
-      redirect_to([@book, @taxon], :notice => 'Taxon was successfully updated.')
+  def index
+    #TODO : Filter by order, family, category
+    @term = params[:term]
+    @taxa = if @term.present?
+              Search::TaxonSearchUnweighted.new(Taxon.all, @term).find
+            else
+              Taxon.order(:index_num).page(params[:page]).per(50)
+            end
+    @taxa = @taxa.preload(:species)
+    if request.xhr?
+      render partial: "taxa/table", layout: false
     else
-      render :form
+      render
     end
   end
 
-  private
-  def find_species
-    @book = Book.find_by!(slug: params[:book_id])
-    @taxon = @book.taxa.find_by!(name_sci: Taxon.humanize(params[:id]))
+  def search
+    term = params[:term]
+    @taxa = Search::TaxonSearchWeighted.new(Taxon.weighted_by_abundance, term)
+    render json: @taxa.find
   end
+
+  def show
+    @taxon = Taxon.find_by_ebird_code(params[:id])
+    render :form
+  end
+
+  def edit
+    @taxon = Taxon.find_by_ebird_code(params[:id])
+    render :form
+  end
+
+  # def update
+  #   if @taxon.update_attributes(params[:taxon])
+  #     redirect_to([@book, @taxon], :notice => 'Taxon was successfully updated.')
+  #   else
+  #     render :form
+  #   end
+  # end
+  #
+  # private
+  # def find_species
+  #   @book = Book.find_by!(slug: params[:book_id])
+  #   @taxon = @book.taxa.find_by!(name_sci: Taxon.humanize(params[:id]))
+  # end
 end

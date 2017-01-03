@@ -1,0 +1,93 @@
+---
+pasdom:
+  name_sci: "Passer domesticus"
+  name_en: "House Sparrow"
+  category: species
+  index_num: 100
+  ebird_code: houspa
+  species: :pasdom
+  ebird_taxon: :pasdom
+
+hirrus:
+  name_sci: "Hirundo rustica"
+  name_en: "Barn Swallow"
+  category: "species"
+  index_num: 50
+  ebird_code: barswa
+  species: :hirrus
+  ebird_taxon: :hirrus
+
+jyntor:
+  name_sci: "Jynx torquilla"
+  name_en: "Wryneck"
+  category: "species"
+  index_num: 20
+  ebird_code: eurwry
+  species: :jyntor
+
+gargla:
+  name_sci: "Garrulus glandarius"
+  name_en: "Eurasian Jay"
+  category: "species"
+  index_num: 60
+  ebird_code: eurjay1
+  species: :gargla
+  ebird_taxon: :gargla
+
+gargla_eurasian:
+  name_sci: "Garrulus glandarius [glandarius Group]"
+  name_en: "Eurasian Jay (Eurasian)"
+  category: "issf"
+  index_num: 61
+  ebird_code: eurjay2
+  species: :gargla
+  ebird_taxon: :gargla_eurasian
+  parent: :gargla
+
+bomgar:
+  name_sci: "Bombycilla garrulus"
+  name_en: "Bohemian Waxwing"
+  category: "species"
+  index_num: 65
+  ebird_code: bohwax
+  species: :bomgar
+
+saxola:
+  name_sci: "Saxicola rubicola"
+  name_en: "European Stonechat"
+  category: "species"
+  index_num: 70
+  ebird_code: stonec4
+  species: :saxola
+
+motfel:
+  name_sci: "Motacilla feldegg"
+  name_en: "Black-headed Wagtail"
+  category: species
+  index_num: 14900
+  ebird_code: weywag6
+  species: :motfel
+  ebird_taxon: :motfel
+
+larheu:
+  name_sci: "Larus heuglini"
+  name_en: "Heuglin's Gull"
+  category: species
+  index_num: 10
+  ebird_code: lbbgul4
+  species: :larheu
+
+aves_sp:
+  name_sci: "Aves sp."
+  name_en: "bird sp."
+  category: "spuh"
+  index_num: 15000
+  ebird_code: bird1
+  ebird_taxon: :aves_sp
+
+unreported_bird_sp:
+ name_sci: "Unreported bird sp."
+ name_en: "Unreported bird sp."
+ index_num: 15001
+ category: "spuh"
+ ebird_code: "unrepbirdsp"

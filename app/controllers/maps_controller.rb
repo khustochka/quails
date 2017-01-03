@@ -15,16 +15,15 @@ class MapsController < ApplicationController
 
   # GET "/map/observations.json"
   def observations
-    preload_tables = [{:card => :locus}, :species, :spots, :images]
+    preload_tables = [{:card => :locus}, {:taxon => :species}, :spots, :images]
     json_methods = [:spots]
 
-    # Have to do outer join to preserve Avis incognita
     observs =
         params[:q] && params[:q].delete_if { |_, v| v.empty? }.present? ?
             ObservationSearch.new(params[:q]).observations.
-                joins("LEFT OUTER JOIN species ON species_id = species.id").
+                joins(:card, :taxon).
                 preload(preload_tables).
-                order('cards.observ_date', 'cards.locus_id', 'patch_id', 'species.index_num').limit(params[:limit] || 200) :
+                order('cards.observ_date', 'cards.locus_id', 'patch_id', 'taxa.index_num').limit(params[:limit] || 200) :
             []
 
     respond_to do |format|

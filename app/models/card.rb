@@ -1,4 +1,4 @@
-class Card < ActiveRecord::Base
+class Card < ApplicationRecord
 
   EFFORT_TYPES = %w(INCIDENTAL STATIONARY TRAVEL AREA HISTORICAL)
 
@@ -13,7 +13,7 @@ class Card < ActiveRecord::Base
   has_many :observations, -> { order('observations.id') }, dependent: :restrict_with_exception
   has_many :images, through: :observations
   has_many :videos, through: :observations
-  has_many :species, through: :observations
+  #has_many :species, through: :observations
   has_many :spots, through: :observations
 
   has_many :ebird_submissions, class_name: 'Ebird::Submission', dependent: :delete_all, inverse_of: :card
@@ -33,6 +33,10 @@ class Card < ActiveRecord::Base
                                 reject_if:
                                     proc { |attrs| attrs.all? { |k, v| v.blank? || k == 'voice' } }
 
+  def self.default_cards_order(asc_or_desc)
+    order("observ_date #{asc_or_desc}, to_timestamp(start_time, 'HH24:MI') #{asc_or_desc} NULLS LAST")
+  end
+
   def start_time=(str)
     if str.is_a?(String) && str.strip.empty?
       super(nil)
@@ -41,6 +45,9 @@ class Card < ActiveRecord::Base
     end
   end
 
+  def species
+    Species.where(id: observations.joins(:taxon).select(:species_id))
+  end
 
   def secondary_posts
     Post.distinct.joins(:observations).where('observations.card_id = ? AND observations.post_id <> ?', self.id, self.post_id)
@@ -60,8 +67,14 @@ class Card < ActiveRecord::Base
 
   # List of new species
   def new_species_ids
-    subquery = "select obs.id from observations obs join cards c on obs.card_id = c.id where observations.species_id = obs.species_id and '#{self.observ_date}' > c.observ_date"
+    subquery = "
+        select obs.id
+        from observations obs
+        join cards c on obs.card_id = c.id
+        join taxa tt ON obs.taxon_id = tt.id
+        where taxa.species_id = tt.species_id and '#{self.observ_date}' > c.observ_date"
     @new_species_ids ||= self.observations.
+        identified.
         where("NOT EXISTS(#{subquery})").
         pluck(:species_id)
   end
@@ -83,6 +96,21 @@ class Card < ActiveRecord::Base
 
   def ebird_id=(val)
     super(val.presence)
+  end
+
+  def self.first_unebirded_date
+    unebirded.order(:observ_date => :asc).first.try(:observ_date)
+  end
+
+  def self.last_unebirded_date
+    unebirded.order(:observ_date => :desc).first.try(:observ_date)
+  end
+
+  private
+
+  def self.unebirded
+    ebirded = Card.select(:id).joins(:ebird_files).where("ebird_files.status IN ('NEW', 'POSTED')")
+    self.where("id NOT IN (#{ebirded.to_sql})").where(ebird_id: nil)
   end
 
 end

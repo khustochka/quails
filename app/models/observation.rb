@@ -1,11 +1,21 @@
-class Observation < ActiveRecord::Base
+class Observation < ApplicationRecord
   include DecoratedModel
 
   invalidates CacheKey.lifelist
 
   belongs_to :card, touch: true
 
-  belongs_to :species
+  belongs_to :taxon
+  belongs_to :legacy_species
+
+  # FIXME: do not use this!! (See MyObservation for more comments)
+  #belongs_to :species
+  # NOTE: Do not use .includes(:taxon), it breaks species preloading, use .preload
+
+  def species
+    taxon.species
+  end
+
   belongs_to :post, -> { short_form }, touch: :updated_at
   has_and_belongs_to_many :media
   has_and_belongs_to_many :images, class_name: 'Image', association_foreign_key: :media_id
@@ -19,11 +29,11 @@ class Observation < ActiveRecord::Base
     end
   end
 
-  validates :species_id, :presence => true
+  validates :taxon_id, presence: true
 
   # Scopes
 
-  scope :identified, lambda { where('observations.species_id != 0') }
+  scope :identified, lambda { joins(:taxon).where("taxa.species_id IS NOT NULL") }
 
   def self.count_distinct_species
     self.count("DISTINCT species_id")
@@ -43,14 +53,6 @@ class Observation < ActiveRecord::Base
   end
 
   # Species
-
-  def species_with_incognita
-    species_id == 0 ?
-        Species::AVIS_INCOGNITA :
-        species_without_incognita
-  end
-
-  alias_method_chain :species, :incognita
 
   delegate :species_str, :when_where_str, to: :decorated
 

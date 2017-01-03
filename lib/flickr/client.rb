@@ -40,7 +40,7 @@ module Flickr
   class Client
 
     def self.new
-      if flickraw_configured?
+      if FlickRaw.configured?
         client = FlickRaw::Flickr.new
         admin = Settings.flickr_admin
         client.access_token = admin.access_token
@@ -48,21 +48,6 @@ module Flickr
         Flickr.result(client)
       else
         Flickr.error("No Flickr API key or secret defined!")
-      end
-    end
-
-    def self.reconfigure!
-      FlickRaw.configure(ENV['quails_flickr_app_key'], ENV['quails_flickr_app_secret'])
-    end
-
-    private
-
-    def self.flickraw_configured?
-      if FlickRaw.configured?
-        return true
-      else
-        reconfigure!
-        FlickRaw.configured?
       end
     end
 

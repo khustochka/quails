@@ -5,7 +5,7 @@ class CountriesController < ApplicationController
 
     @thumbs = case @country.slug
       when 'ukraine'
-        @country.checklist([:image, :species])
+        @country.checklist([:image])
 #      when 'usa'
 #        country_sps = Observation.joins(:card).select(:species_id).where("cards.locus_id" => @country.subregion_ids)
 #        Species.ordered_by_taxonomy.where("species.id" => country_sps).joins(:image).includes(:image)

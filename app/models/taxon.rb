@@ -1,33 +1,54 @@
-require 'species_parameterizer'
+#require 'species_parameterizer'
 
-class Taxon < ActiveRecord::Base
+class Taxon < ApplicationRecord
 
-  invalidates CacheKey.gallery
-  invalidates CacheKey.checklist
+  # invalidates CacheKey.gallery
+  # invalidates CacheKey.checklist
 
-  extend SpeciesParameterizer
+  # extend SpeciesParameterizer
 
-  include ActiveRecord::Localized
-  localize :name
+  localized_attr :name
 
-  validates :order, :presence => true
-  validates :family, :presence => true
-  validates :name_sci, :format => /\A[A-Z][a-z]+ [a-z]+\Z/, :uniqueness => {scope: :book_id}
-  validates :avibase_id, :format => /\A[\dA-F]{16}\Z/, :allow_blank => true
-  validates :species_id, uniqueness: {scope: :book_id}, :allow_blank => true
+  acts_as_ordered :index_num
 
-  acts_as_ordered :index_num, scope: :book_id
+  # validates :order, :presence => true
+  # validates :family, :presence => true
+  # validates :name_sci, :format => /\A[A-Z][a-z]+ [a-z]+\Z/, :uniqueness => {scope: :book_id}
+  # validates :avibase_id, :format => /\A[\dA-F]{16}\Z/, :allow_blank => true
+  # validates :species_id, uniqueness: {scope: :book_id}, :allow_blank => true
 
   # Associations
-
-  belongs_to :book
+  belongs_to :parent, class_name: "Taxon"
+  has_many :children, class_name: "Taxon", foreign_key: "parent_id", dependent: :restrict_with_exception
   belongs_to :species
-  has_one :image, through: :species
+  belongs_to :ebird_taxon
+
+  has_many :observations, dependent: :restrict_with_exception
+  has_many :images, through: :observations
+
+  scope :category_species, -> { where(category: "species") }
+
+  def self.weighted_by_abundance
+    obs = Observation.select("taxon_id, COUNT(observations.id) as weight").group(:taxon_id)
+    self.joins("LEFT OUTER JOIN (#{obs.to_sql}) obs on id = obs.taxon_id")
+  end
 
   # Parameters
 
   def to_param
-    Taxon.parameterize(name_sci_was)
+    ebird_code
+  end
+
+  def to_label
+    [name_sci, name_en].join(" - ")
+  end
+
+  def countable?
+    species_id.present?
+  end
+
+  def is_a_species?
+    category == "species"
   end
 
 end

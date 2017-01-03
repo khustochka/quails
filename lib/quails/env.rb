@@ -1,5 +1,7 @@
 module Quails
 
+  CURRENT_YEAR = 2017
+
   class Env
     def self.init
       new(ENV['QUAILS_ENV'])
@@ -7,7 +9,7 @@ module Quails
 
     def initialize(val)
       @raw = val
-      @arr = val.split(':') if @raw
+      @arr = val.split(':').inquiry if @raw
     end
 
     def rake?
@@ -26,14 +28,28 @@ module Quails
       @raw.to_s
     end
 
+    def puma_dev?
+      # It is set in .powenv which is only read by puma-dev
+      ENV["PUMADEV_ENV"].present?
+    end
+
+    def heroku?
+      # DYNO is a unique heroku env var (not seen through `heroku config`). You can also mimic it using QUAILS_ENV
+      ENV["DYNO"].present? || test_for("heroku")
+    end
+
     def ssl?
-      @ssl ||= real_prod? || heroku? || (@raw && @arr.include?('ssl'))
+      @ssl ||= real_prod? || heroku? || puma_dev? || test_for("ssl")
+    end
+
+    def test_for(key)
+      @raw && @arr.include?(key)
     end
 
     def method_missing(method, *args, &block)
       if /^(?<attr>.*)\?$/ =~ method.to_s
         if @raw
-          instance_variable_get("@#{attr}".to_sym) || instance_variable_set("@#{attr}".to_sym, @arr.include?(attr))
+          instance_variable_get("@#{attr}".to_sym) || instance_variable_set("@#{attr}".to_sym, @arr.send(method))
         else
           false
         end

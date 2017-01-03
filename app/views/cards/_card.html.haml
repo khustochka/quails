@@ -15,8 +15,11 @@
       - if card.observations.count == 0
         %small.voice.tag empty
     %li
+      Taxa:
+      %big= card.observations.merge(Observation.all).count("DISTINCT taxon_id")
+    %li
       Species:
-      %big= card.observations.merge(Observation.identified).count("DISTINCT species_id")
+      %big= card.observations.merge(MyObservation.all).count("DISTINCT taxa.species_id")
       - new_sp_size = card.new_species_ids.size
       - if new_sp_size > 0
         %span.new_sp{title: "Lifers"} &#8727;
@@ -46,6 +49,11 @@
       - unless card.resolved
         %small.draft.tag UNRESOLVED
 
+    %li.card_time
+      = card.start_time + ", " if card.start_time
+      = card.duration_minutes.to_s + " min, " if card.duration_minutes
+      = card.distance_kms.to_s + " km" if card.distance_kms
+
     - if params[:obs]
       = link_to 'Attach here', attach_card_path(card, obs: params[:obs]), class: 'pseudolink', data: {method: :post}
 
@@ -56,7 +64,8 @@
 
   = render card.errors.extend(GenericErrors)
 
-- if show_separate_observation_on_card_search?
+-# show separate observation on card search
+- if @observation_search.try(:observation_filtered?)
   %ul
     - card.observations.each do |obs|
       = render 'observation_row', obs: obs

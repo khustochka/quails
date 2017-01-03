@@ -37,7 +37,7 @@ class PostFormatter < ModelFormatter
 
   private
   def extract_image_slugs
-    @iiner_image_slugs ||= @model.text.scan(/\{\{\^([^}]*)\}\}/).flatten
+    @inner_image_slugs ||= @model.text.scan(/\{\{\^([^}]*)\}\}/).flatten
   end
 
 end

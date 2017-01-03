@@ -24,7 +24,7 @@
 %div
   %h1.species_name_h1= @species.name
   %h2.latin{lang: "la"}= @species.name_sci
-  %span.authority= @species.authority
+  -#%span.authority= @species.authority
 
 %dl.sp_translations
   - (ALL_LOCALES - [I18n.locale] + [:fr]).map do |lang|
@@ -33,12 +33,13 @@
         %dt= t("languages.#{lang}")
         %dd{lang: lang}= trans_name
 
-- if (similar = @species.similar_species).present?
-  %div.similar_species
-    %h3= t('.sections.similar_species')
+- if @species.url_synonyms.to_a.any?
+  %div.sp_synonyms
+    = t(".species_synonyms")
     %ul
-      - similar.each do |sp|
-        %li= species_link(sp)
+      - @species.url_synonyms.each do |syn|
+        %li
+          %i= syn.name_sci
 
 - @species.ordered_images.top_level.if_present do |images|
   %a{name: 'photos'}
@@ -47,7 +48,7 @@
     %div.thumbnails
       = render_justified images.map(&:to_thumbnail)
       - if current_user.admin?
-        = simple_form_for @species do |form|
+        = simple_form_for @species, format: :json, remote: true do |form|
           = form.simple_fields_for :species_image do |f2|
             = f2.input :image_id, as: :hidden
         %p

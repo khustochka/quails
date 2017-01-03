@@ -37,3 +37,5 @@
       %td.status-line
         = render partial: 'status_line', locals: {file: file}
       %td= default_destroy_link(file)
+
+= paginate @files

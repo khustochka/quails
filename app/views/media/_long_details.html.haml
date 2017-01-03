@@ -1,12 +1,10 @@
 - posts = media.posts.merge(current_user.available_posts)
 
 %p
-  = t('images.picture_taken')
-  = succeed ', ' do
+  %div
     %i<
       %time{datetime: media.observ_date.iso8601} #{l(media.observ_date, :format => :long)}
-
-  = succeed('.') do
+  %div
     = media.decorated.public_locus_full_name
 
 - if I18n.russian_locale?

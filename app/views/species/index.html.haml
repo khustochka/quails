@@ -1,57 +1,21 @@
 -# no_viewport is for very wide pages, e.g. with table
 - @no_viewport = true
+- @body_class = 'wider'
 
-- @page_title = 'Listing species'
+- @js_features = [:admin_instant_search]
 
-%h1 Listing species
+- provide :add_shortcuts do
+  %li= link_to "Legacy species", legacy_species_index_path
+  %li= link_to "Taxa", taxa_path
+  %li= link_to "EBird Taxa", ebird_taxa_path
+
+- @page_title = 'Species'
+
+%h1= page_header
 
 = render 'admin/shortcuts' if current_user.admin?
 
-%h5.errors Not reviewed:
+= render partial: "partials/admin_instant_search", locals: {url: admin_species_index_path}
 
-%ul.errors
-  %li #{@obs_not_reviewed.count} out of #{@observed.count} observed species
-  %li #{@ukr_not_reviewed.count} out of #{@ukrainian.count} Ukrainian species
-  %li.green #{@reviewed.count} species are reviewed!
-
-%table.neat_table
-  %tr
-    %th.align-right No
-    %th.align-center Code
-    %th Scientific name
-    %th
-    %th Names
-    %th.align-center Avibase id
-
-  - @species.group_by_taxonomy do |order, family, species_list|
-    %tr
-      %td
-      %td
-      %td{:colspan => 4}
-        %h2.order= render partial: 'species/taxonomy', locals: {rank: :order, value: order}
-        %h3.family= render partial: 'species/taxonomy', locals: {rank: :family, value: family}
-    - species_list.each do |species|
-      %tr
-        %td.align-right= species.index_num
-        %td.align-center
-          %b= species.code
-        %td
-          %i
-            %b= link_to(species.name_sci, edit_species_path(species))
-          = species.authority
-          %div
-            %small proto:
-            %i.less-important= species.protonym
-        %td.align-center
-          = link_to review_species_path(species), class: 'img' do
-            - if species.reviewed?
-              = image_tag("/img/check_16x13.png", alt: "reviewed", title: "reviewed")
-            - else
-              %span.oi.oi-circle-x.icon-danger{title: "not reviewed"}
-        %td
-          - %w(en ru uk fr).each do |lang|
-            %div
-              %i.less-important.monospace= "#{lang}:"
-              = species.send("name_#{lang}")
-        %td.align-center
-          %small= link_to species.avibase_id, avibase_species_url(species.avibase_id)
+.instant_search_container
+  = render "species/table"

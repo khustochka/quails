@@ -1,12 +1,10 @@
 class ListsController < ApplicationController
 
-  CURRENT_YEAR = 2016
-
   def index
     @list_life = Lifelist::FirstSeen.full
-    @list_current_year = Lifelist::FirstSeen.over(year: CURRENT_YEAR)
+    @list_current_year = Lifelist::FirstSeen.over(year: Quails::CURRENT_YEAR)
 
-    #@list_prev_year = NewLifelist::FirstSeen.over(year: CURRENT_YEAR - 1)
+    #@list_prev_year = Lifelist::FirstSeen.over(year: Quails::CURRENT_YEAR - 1)
 
     @list_canada = Lifelist::FirstSeen.over(locus: 'canada')
 
@@ -35,7 +33,7 @@ class ListsController < ApplicationController
     raise ActiveRecord::RecordNotFound if locus && !locus.in?(@locations.map(&:slug))
 
     @lifelist = Lifelist::FirstSeen.
-        over(params.slice(:year, :locus)).
+        over(params.permit(:year, :locus)).
         sort(sort_override)
 
     if I18n.russian_locale?
@@ -53,7 +51,7 @@ class ListsController < ApplicationController
     raise ActiveRecord::RecordNotFound if locus && !locus.in?(current_user.available_loci.map(&:slug))
 
     @lifelist = Lifelist::Advanced.
-        over(params.slice(:year, :month, :locus)).
+        over(params.permit(:year, :month, :locus)).
         sort(params[:sort])
 
     if I18n.russian_locale?

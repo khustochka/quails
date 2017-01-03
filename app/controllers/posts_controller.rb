@@ -72,6 +72,8 @@ class PostsController < ApplicationController
     redirect_to(blog_url)
   end
 
+  ALLOWED_COUNTRY_TAGS = %w(usa canada)
+
   # POST
   def lj_post
     user = LiveJournal::User.new(Settings.lj_user.name, Settings.lj_user.password)
@@ -93,6 +95,10 @@ class PostsController < ApplicationController
                   nil
                 end
               else
+                country_tag = @post.cards.first.locus.country.slug
+                if country_tag.in?(ALLOWED_COUNTRY_TAGS)
+                  entry.taglist = [country_tag.gsub("_", " ")]
+                end
                 LiveJournal::Request::PostEvent.new(user, entry)
               end
 

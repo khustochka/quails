@@ -134,8 +134,8 @@ $(function () {
   var theMap = $('#googleMap'),
       observCollection;
 
-  var GRAY_ICON = "http://maps.google.com/mapfiles/marker_white.png",
-      RED_ICON = "http://maps.google.com/mapfiles/marker.png";
+  var GRAY_ICON = "https://maps.google.com/mapfiles/marker_white.png",
+      RED_ICON = "https://maps.google.com/mapfiles/marker.png";
   // TODO: add shadow?
 
   var DEFAULT_MARKER_OPTIONS = {

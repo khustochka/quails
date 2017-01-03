@@ -1,16 +1,17 @@
 'en':
   checklist:
-    checklist:
+
+    ukraine:
       title:
         ukraine: Checklist of the birds of Ukraine
+      sources: Sources
+      legend: Legend
+
+    checklist:
 
       status:
         old: Registered before 1950s
         unsure: Reported but no photo, specimen or recoding.
-
-    ukraine:
-      sources: Sources
-      legend: Legend
 
 #      table:
 #        name: Name

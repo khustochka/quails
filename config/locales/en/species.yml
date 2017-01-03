@@ -8,12 +8,12 @@
       sections:
         photos: Photos
         videos: Videos
-        similar_species: Similar species
         posts: Latest posts
         stats: My observations
         monthly: By months
 
       total_observations: 'Observations total:'
+      species_synonyms: 'May have a different name in some sources:'
 
     flat_section:
       title: 'Species met'

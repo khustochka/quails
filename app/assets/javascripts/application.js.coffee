@@ -1,7 +1,7 @@
 #= require jquery
 #= require jquery_ujs
 #= require jquery-ui.user
-#= require jquery_pjax
+#= require jquery.pjax
 #= require search
 #= require base
 

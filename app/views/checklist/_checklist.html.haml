@@ -1,15 +1,4 @@
-- @page_title = t(".title.#{@country.slug}")
-
 - cache(key: CacheKey.checklist) do
-
-  = render 'partials/translated'
-
-  %div.header-with-subheader
-    %h1= page_header
-    %ul.subheader-menu
-      %li= link_to(t('menu.gallery'), country_path(country: @country.slug))
-      - if I18n.russian_locale?
-        %li= link_to("Зимующие птицы", show_page_path(:winter))
 
   %table.neat_table.checklist_table
 
@@ -26,8 +15,8 @@
         %tr
           %td.align-right= i += 1
           %td.names
-            %b= species_link(species.taxon)
-            = name_sci(species.taxon)
+            %b= species_link(species.species)
+            = name_sci(species.species)
           %td.status_column
             - case species.status
               - when "-"

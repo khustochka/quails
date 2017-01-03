@@ -49,7 +49,8 @@ $(function () {
   });
 
   $('form.flickr_edit').on('ajax:success', function () {
-    window.location.href = $('a.next_unflickred').attr('href');
+    if ($('a.next_unflickred').length > 0) window.location.href = $('a.next_unflickred').attr('href');
+    else $("<p></p>", {id: "notice", text: "Image updated"}).insertBefore(".flickr_search_table");
   });
 
   $('form.flickr_edit').on('ajax:error', function (e, xhr) {

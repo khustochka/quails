@@ -60,8 +60,14 @@ module JavaScriptTestCase
       def select_suggestion(value, hash)
         selector = ".ui-menu-item a:contains(\"#{value}\"):first"
         fill_in hash[:from], with: value
-        sleep(0.01)
+        sleep(0.05)
+        #raise "No element '#{value}' in the field #{hash[:from]}" unless page.has_selector?(:xpath, "//*[@class=\"ui-menu-item\"]//a[contains(text(), \"#{value}\")]")
         page.execute_script " $('#{selector}').trigger('mouseenter').click();"
+      end
+
+      # This is required for clicking font-awesome icon links (like .remove)
+      def click_icon_link(selector)
+        find(:css, selector).trigger('click')
       end
 
     end

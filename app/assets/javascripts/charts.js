@@ -29,6 +29,7 @@ $(function () {
           lineThickness: 1,
           name: key,
           showInLegend: true,
+          xValueFormatString: "MMM D",
           dataPoints: $.map(value, convertData)
         }
       })

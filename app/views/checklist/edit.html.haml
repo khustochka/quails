@@ -28,8 +28,8 @@
         %tr
           %td.align-right= i += 1
           %td.names
-            %b= species_link(species.taxon)
-            = name_sci(species.taxon)
+            %b= species_link(species.species)
+            = name_sci(species.species)
           %td.status_column
             = text_field_tag("s[][s]", species.status, size: 1)
             = hidden_field_tag("s[][id]", species.id)

@@ -1,8 +1,7 @@
-class Locus < ActiveRecord::Base
+class Locus < ApplicationRecord
   include DecoratedModel
 
-  include ActiveRecord::Localized
-  localize :name
+  localized_attr :name
 
   invalidates CacheKey.lifelist
 
@@ -46,12 +45,10 @@ class Locus < ActiveRecord::Base
   # Instance methods
 
   def checklist(to_include = [])
-    book_taxa = Taxon.where(book_id: 1) if slug == 'ukraine'
-
     local_species.
-        joins(:taxa => to_include).includes(:taxa => to_include).
-        merge(book_taxa).
-        order("taxa.index_num").
+        joins(species: to_include).
+        preload(species: to_include).
+        order("species.index_num").
         extending(SpeciesArray)
   end
 
@@ -69,7 +66,9 @@ class Locus < ActiveRecord::Base
   end
 
   def public_locus
-    path.where(private_loc: false, patch: false).last
+    # Rails' #last does not play well with the new ancestry gem COALESCE ordering.
+    # Had to rewrite the query to find the last (closest) public locus
+    path.where(private_loc: false, patch: false).reorder("COALESCE(ancestry, '') DESC").limit(1).first
   end
 
 end

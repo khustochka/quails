@@ -14,13 +14,22 @@ module SpeciesHelper
     "http://avibase.bsc-eoc.org/species.jsp?avibaseid=#{avibase_id}&lang=#{lang}"
   end
 
-  def species_for_select
-    @species_for_select ||= [Species::AVIS_INCOGNITA] + Species.by_abundance.to_a
+  def taxa_for_select
+    @taxa_for_select ||= Taxon.where(id: Observation.select("DISTINCT taxon_id")).select("id, name_sci, name_en")
   end
 
   def species_link(sp_obj, string = nil)
     @only_path = true if @only_path.nil?
-    link_to_unless(sp_obj.id.zero?, string || sp_obj.name, localized_species_url(id: sp_obj, only_path: @only_path), class: 'sp_link')
+    if sp_obj
+      link_to(string || sp_obj.name, localized_species_url(id: sp_obj, only_path: @only_path), class: 'sp_link')
+    else
+      "Bird sp."
+    end
+  end
+
+  def taxon_link(taxon, string = nil)
+    @only_path = true if @only_path.nil?
+    link_to(string || taxon.name, taxon_url(id: taxon, only_path: @only_path), class: taxon.countable? ? "tx_link" : "spuh_link")
   end
 
   def new_species_link(sp_obj, string = nil)
@@ -49,8 +58,12 @@ module SpeciesHelper
       # if distance is too far rely on automatic zoom
       zoom = nil if (lats.max - lats.min).abs > 5
     end
-    image_tag("http://maps.googleapis.com/maps/api/staticmap?zoom=#{zoom}&size=443x300&sensor=false&#{center}&markers=#{markers}",
+    image_tag("//maps.googleapis.com/maps/api/staticmap?key=#{ENV["quails_google_maps_api_key"]}&zoom=#{zoom}&size=443x300&#{center}&markers=#{markers}",
               alt: "#{country} map")
+  end
+
+  def term_highlight(string, term)
+    highlight(string, term, highlighter: content_tag(:span, '\1', class: "highlight"))
   end
 
 end

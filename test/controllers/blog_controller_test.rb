@@ -2,8 +2,6 @@ require 'test_helper'
 
 class BlogControllerTest < ActionController::TestCase
 
-  BlogController::POSTS_ON_FRONT_PAGE = 3
-
   # Front page
 
   test 'get home page' do
@@ -68,7 +66,7 @@ class BlogControllerTest < ActionController::TestCase
   test 'get posts list for a year' do
     blogpost1 = create(:post, face_date: '2007-12-06 13:14:15')
     blogpost2 = create(:post, face_date: '2008-11-06 13:14:15')
-    get :year, year: 2007
+    get :year, params: {year: 2007}
     assert_response :success
     assert_includes(assigns(:posts), blogpost1)
     assert_not_includes(assigns(:posts), blogpost2)
@@ -80,7 +78,7 @@ class BlogControllerTest < ActionController::TestCase
   test 'get posts list for a month' do
     blogpost1 = create(:post, face_date: '2007-12-06 13:14:15')
     blogpost2 = create(:post, face_date: '2007-11-06 13:14:15')
-    get :month, year: 2007, month: 12
+    get :month, params: {year: 2007, month: 12}
     assert_response :success
     assert_includes(assigns(:posts), blogpost1)
     assert_not_includes(assigns(:posts), blogpost2)
@@ -89,9 +87,9 @@ class BlogControllerTest < ActionController::TestCase
   test 'render month properly if there is no previous or next month' do
     blogpost1 = create(:post, face_date: '2007-12-06 13:14:15')
     blogpost2 = create(:post, face_date: '2008-11-06 13:14:15')
-    get :month, year: 2007, month: 12
+    get :month, params: {year: 2007, month: 12}
     assert_response :success
-    get :month, year: 2007, month: 11
+    get :month, params: {year: 2007, month: 11}
     assert_response :success
   end
 

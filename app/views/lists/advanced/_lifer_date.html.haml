@@ -1,5 +1,5 @@
 %time= post_link(l(life_observation.observ_date, format: :long), life_observation.main_post, true)
 - loc_name = life_observation.patch_or_locus.public_locus.decorated.full_name
-%span.glyphicon.glyphicon-map-marker.llc{title: loc_name, "data-title" => loc_name}
+%span.llc.fa.fa-map-marker{title: loc_name, "data-title" => loc_name}
 - if current_user.admin?
-  = link_to "", card_path(id: life_observation.card), class: "glyphicon glyphicon-list text-muted"
+  %a.cardlink.fa.fa-file-text-o{href: card_path(id: life_observation.card)}

@@ -25,17 +25,17 @@ $(function () {
     ukraine: new google.maps.LatLngBounds(
         new google.maps.LatLng(44.3864630, 22.13715890), new google.maps.LatLng(52.379581, 40.22858090)
     ),
-    usa: new google.maps.LatLngBounds(
-        new google.maps.LatLng(36.66, -81.73), new google.maps.LatLng(45.02, -71.06)
-    ),
-    europe: new google.maps.LatLngBounds(
-        new google.maps.LatLng(44.3864630, -2), new google.maps.LatLng(58, 40.22858090)
-    ),
+    // usa: new google.maps.LatLngBounds(
+    //     new google.maps.LatLng(36.66, -81.73), new google.maps.LatLng(45.02, -71.06)
+    // ),
+    // europe: new google.maps.LatLngBounds(
+    //     new google.maps.LatLng(44.3864630, -2), new google.maps.LatLng(58, 40.22858090)
+    // ),
     north_america: new google.maps.LatLngBounds(
-        new google.maps.LatLng(38, -98), new google.maps.LatLng(50.5, -71.06)
+        new google.maps.LatLng(29.2, -99), new google.maps.LatLng(50.5, -71.06)
     ),
     world: new google.maps.LatLngBounds(
-        new google.maps.LatLng(36.66, -98), new google.maps.LatLng(52.379581, 40.22858090)
+        new google.maps.LatLng(29.2, -99), new google.maps.LatLng(52.379581, 40.22858090)
     )
   };
 

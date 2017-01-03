@@ -13,13 +13,13 @@
   %dd
     %i= @book.description
 
-%h2= Species
+%h2 Species
 
 %table.neat_table
   %tr
     %th.align-right No
     %th Scientific name
-    %th Global species
+    %th Legacy species
     %th Names
     %th.align-right Avibase id
 
@@ -37,10 +37,9 @@
             %b= link_to(species.name_sci, [@book, species])
           %span.less-important= species.authority
         %td
-          - if species.species
-            = link_to(content_tag(:i, species_link(species.species, species.species.name_sci)), species.species)
-          - if species.species.nil? || species.name_sci != species.species.name_sci
-            %span.big-red *
+          - if species.legacy_species
+            = content_tag(:i, species.legacy_species.name_sci)
+
         %td
           - %w(en ru uk).each do |lang|
             %div

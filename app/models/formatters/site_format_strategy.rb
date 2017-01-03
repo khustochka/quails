@@ -20,9 +20,10 @@ class SiteFormatStrategy < FormattingStrategy
 
   def img_link(term)
     if image = Image.find_by(slug: term)
+      img_url = image_url(image, only_path: only_path?)
       %Q(<figure class="imageholder">
-        "!#{jpg_url(image)}([photo])!":#{image_path(image)}
-          <figcaption class="imagetitle"><a href="#{image_url(image, only_path: only_path?)}">#{image.decorated.title}</a></figcaption>
+        "!#{jpg_url(image)}([photo])!":#{img_url}
+          <figcaption class="imagetitle"><a href="#{img_url}">#{image.decorated.title}</a></figcaption>
           </figure>
         )
     end
@@ -31,7 +32,7 @@ class SiteFormatStrategy < FormattingStrategy
   def species_link(word, term, en)
     sp = @species[term]
     if sp
-      str = %Q("(sp_link). #{word or (en ? sp.name_en : sp.name_sci)}":#{sp.code})
+      str = %Q("(sp_link). #{word or (en ? sp.name_en : sp.name_sci)}":#{sp.code_or_slug})
       if en && word.present?
         str << " (#{sp.name_en})"
       end
@@ -51,7 +52,7 @@ class SiteFormatStrategy < FormattingStrategy
       end
 
       @spcs.each do |sp|
-        result << "\n[#{sp.code}]#{localized_species_url(id: sp, only_path: only_path?)}"
+        result << "\n[#{sp.code_or_slug}]#{localized_species_url(id: sp, only_path: only_path?)}"
       end
     end
 

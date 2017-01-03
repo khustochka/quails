@@ -15,8 +15,8 @@ class FormattersTest < ActionView::TestCase
   end
 
   test "Post with species link" do
-    post = build(:post, text: "This is a {{Blue Tut|parcae}}")
-    assert_equal "<p>This is a <a href=\"/species/Parus_caeruleus\" class=\"sp_link\">Blue Tut</a></p>",
+    post = build(:post, text: "This is a {{Wryneck|jyntor}}")
+    assert_equal "<p>This is a <a href=\"/species/Jynx_torquilla\" class=\"sp_link\">Wryneck</a></p>",
                  post.decorated.for_site.text
   end
 
@@ -60,8 +60,8 @@ class FormattersTest < ActionView::TestCase
   end
 
   test "LJ Post with species link" do
-    post = build(:post, text: "This is a {{Blue Tut|parcae}}")
-    assert_equal "<p>This is a <b title=\"Parus caeruleus\">Blue Tut</b></p>",
+    post = build(:post, text: "This is a {{Wryneck|jyntor}}")
+    assert_equal "<p>This is a <b title=\"Jynx torquilla\">Wryneck</b></p>",
                  post.decorated.for_lj.text
   end
 
@@ -110,8 +110,8 @@ class FormattersTest < ActionView::TestCase
   end
 
   test "do not strip wiki tags from comment" do
-    comment = build(:comment, text: "Aaa {{Blue Tit|parcae}}")
-    assert_equal "<p>Aaa <a href=\"/species/Parus_caeruleus\">Blue Tit</a></p>",
+    comment = build(:comment, text: "Aaa {{Wryneck|jyntor}}")
+    assert_equal "<p>Aaa <a href=\"/species/Jynx_torquilla\">Wryneck</a></p>",
                  comment.decorated.text
   end
 
@@ -128,8 +128,9 @@ class FormattersTest < ActionView::TestCase
   end
 
   test "Voron vs vorona" do
-    p = build(:post, text: "{{вОрон|Corvus corax}}")
-    assert_equal %Q(<p><a href=\"/species/Corvus_corax\" class=\"sp_link\">во&#769;рон</a></p>),
+    # Mimic sparrow as a raven not to create more fixtures
+    p = build(:post, text: "{{вОрон|Passer domesticus}}")
+    assert_equal %Q(<p><a href=\"/species/Passer_domesticus\" class=\"sp_link\">во&#769;рон</a></p>),
                  p.decorated.for_site.text
   end
 

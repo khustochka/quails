@@ -1,6 +1,6 @@
 module AssetsHelper
 
-  GMAP_API_URL = '//maps.googleapis.com/maps/api/js?v=3.17&sensor=false'
+  GMAP_API_URL = "//maps.googleapis.com/maps/api/js?key=#{ENV["quails_google_maps_api_key"]}"
 
   def stylesheet(*args)
     @stylesheets ||= []

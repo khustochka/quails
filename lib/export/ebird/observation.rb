@@ -28,11 +28,6 @@ class EbirdObservation
     ]
   end
 
-  def self.ebird_species_cache
-    @ebird_species_cache ||=
-        Taxon.where(book_id: Book.select(:id).where(slug: 'clements6')).index_by(&:species_id).merge(ADDITIONAL_SPECIES)
-  end
-
   PROTOCOL_MAPPING = {
       'UNSET' => 'incidental',
       'INCIDENTAL' => 'incidental',
@@ -45,7 +40,7 @@ class EbirdObservation
   private
 
   def common_name
-    try_name(:name_en)
+    ebird_taxon.name_en
   end
 
   def genus
@@ -53,12 +48,12 @@ class EbirdObservation
   end
 
   def latin_name
-    try_name(:name_sci)
+    ebird_taxon.name_sci
   end
 
   def count
     cnt = @obs.quantity[/(\d+(\s*\+\s*\d+)?)/, 1]
-    cnt && eval(cnt)
+    cnt && eval(cnt) || "X"
   end
 
   def comments
@@ -139,23 +134,17 @@ class EbirdObservation
 
   ## helpers
 
-  def try_name(method)
-    if @obs.species_id == 0
-      name_from_notes
-    else
-      sp = SPECIES_BY_COUNTRY[country.slug][@obs.species_id] || self.class.ebird_species_cache[@obs.species_id]
-      sp.send(method)
-    end
-  rescue => e
-    raise "Error with species id #{@obs.species_id}\n#{e.message}"
-  end
-
-  def name_from_notes
-    @name_from_notes ||= @obs.notes[0, 64]
-  end
 
   def voice_component
     @obs.voice? ? "Heard" : nil
+  end
+
+  def ebird_taxon
+    @ebird_taxon ||= taxon.ebird_taxon
+  end
+
+  def taxon
+    @taxon ||= @obs.taxon
   end
 
   def card
@@ -189,41 +178,5 @@ class EbirdObservation
       video_embed(media.slug, :medium).gsub("\n", ' ')
     end
   end
-
-  SpeciesTemplate = Struct.new(:name_sci, :name_en)
-
-  EUROPEAN_STONECHAT = SpeciesTemplate.new('Saxicola rubicola', 'European Stonechat')
-
-  FERAL_PIGEON = SpeciesTemplate.new('Columba livia (Feral Pigeon)', 'Rock Pigeon (Feral Pigeon)')
-
-  MOTACILLA_FELDEGG = SpeciesTemplate.new('Motacilla flava feldegg', 'Western Yellow Wagtail (Black-headed)')
-
-  ADDITIONAL_SPECIES = {
-      Species.where(code: 'colliv').pluck(:id).first => FERAL_PIGEON,
-      Species.where(code: 'saxtor').pluck(:id).first => EUROPEAN_STONECHAT,
-      Species.where(code: 'motfel').pluck(:id).first => MOTACILLA_FELDEGG
-  }
-
-  LARUS_FUSCUS_GRAELLSII = SpeciesTemplate.new('Larus fuscus graellsii', 'Lesser Black-backed Gull (graellsii)')
-
-  AMERICAN_BARN_SWALLOW = SpeciesTemplate.new('Hirundo rustica erythrogaster', 'Barn Swallow (American)')
-
-  AMERICAN_HERRING_GULL = SpeciesTemplate.new('Larus argentatus smithsonianus', 'Herring Gull (American)')
-
-  SPECIES_BY_COUNTRY = Hash.new({}).merge!({
-
-      'usa' => {
-          Species.where(code: 'hirrus').pluck(:id).first => AMERICAN_BARN_SWALLOW,
-          Species.where(code: 'lararg').pluck(:id).first => AMERICAN_HERRING_GULL
-      },
-
-      'united_kingdom' => {
-          Species.where(code: 'larfus').pluck(:id).first => LARUS_FUSCUS_GRAELLSII
-      },
-
-      'canada' => {
-          Species.where(code: 'hirrus').pluck(:id).first => AMERICAN_BARN_SWALLOW
-      }
-  })
 
 end

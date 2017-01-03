@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150507010417) do
+ActiveRecord::Schema.define(version: 20161225010312) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -81,6 +81,58 @@ ActiveRecord::Schema.define(version: 20150507010417) do
     t.integer "card_id",       null: false
   end
 
+  create_table "ebird_taxa", force: :cascade do |t|
+    t.string  "name_sci",            null: false
+    t.string  "name_en",             null: false
+    t.string  "name_ioc_en",         null: false
+    t.string  "category",            null: false
+    t.string  "ebird_code",          null: false
+    t.string  "order"
+    t.string  "family"
+    t.string  "ebird_order_num_str"
+    t.integer "index_num",           null: false
+    t.integer "parent_id"
+  end
+
+  create_table "legacy_species", force: :cascade do |t|
+    t.string  "code",       limit: 6
+    t.string  "name_sci",   limit: 255,                 null: false
+    t.string  "authority",  limit: 255
+    t.string  "name_en",    limit: 255,                 null: false
+    t.string  "name_ru",    limit: 255
+    t.string  "name_uk",    limit: 255
+    t.integer "index_num",                              null: false
+    t.string  "order",      limit: 255
+    t.string  "family",     limit: 255,                 null: false
+    t.string  "avibase_id", limit: 16
+    t.string  "protonym",   limit: 255
+    t.string  "name_fr",    limit: 255
+    t.boolean "reviewed",               default: false, null: false
+    t.text    "wikidata"
+    t.integer "species_id"
+  end
+
+  add_index "legacy_species", ["code"], name: "index_legacy_species_on_code", unique: true, using: :btree
+  add_index "legacy_species", ["index_num"], name: "index_legacy_species_on_index_num", using: :btree
+  add_index "legacy_species", ["name_sci"], name: "index_legacy_species_on_name_sci", unique: true, using: :btree
+
+  create_table "legacy_taxa", force: :cascade do |t|
+    t.integer "book_id",                       null: false
+    t.integer "legacy_species_id"
+    t.string  "name_sci",          limit: 255, null: false
+    t.string  "authority",         limit: 255, null: false
+    t.string  "name_en",           limit: 255, null: false
+    t.string  "name_ru",           limit: 255, null: false
+    t.string  "name_uk",           limit: 255, null: false
+    t.integer "index_num",                     null: false
+    t.string  "order",             limit: 255, null: false
+    t.string  "family",            limit: 255, null: false
+    t.string  "avibase_id",        limit: 16
+  end
+
+  add_index "legacy_taxa", ["book_id", "index_num"], name: "index_legacy_taxa_on_book_id_and_index_num", using: :btree
+  add_index "legacy_taxa", ["book_id", "name_sci"], name: "index_legacy_taxa_on_book_id_and_name_sci", using: :btree
+
   create_table "local_species", force: :cascade do |t|
     t.integer "locus_id",               null: false
     t.integer "species_id",             null: false
@@ -140,32 +192,22 @@ ActiveRecord::Schema.define(version: 20150507010417) do
   add_index "media_observations", ["observation_id"], name: "index_media_observations_on_observation_id", using: :btree
 
   create_table "observations", force: :cascade do |t|
-    t.integer "species_id",                                null: false
-    t.string  "quantity",      limit: 255
-    t.string  "private_notes", limit: 255, default: "",    null: false
-    t.string  "notes",                     default: "",    null: false
+    t.integer "legacy_species_id"
+    t.string  "quantity",          limit: 255
+    t.string  "private_notes",     limit: 255, default: "",    null: false
+    t.string  "notes",                         default: "",    null: false
     t.integer "post_id"
-    t.boolean "voice",                     default: false, null: false
+    t.boolean "voice",                         default: false, null: false
     t.integer "card_id"
     t.integer "patch_id"
-    t.string  "place",         limit: 255, default: "",    null: false
+    t.string  "place",             limit: 255, default: "",    null: false
+    t.integer "taxon_id"
   end
 
   add_index "observations", ["card_id"], name: "index_observations_on_card_id", using: :btree
+  add_index "observations", ["legacy_species_id"], name: "index_observations_on_legacy_species_id", using: :btree
   add_index "observations", ["post_id"], name: "index_observations_on_post_id", using: :btree
-  add_index "observations", ["species_id"], name: "index_observations_on_species_id", using: :btree
-
-  create_table "pages", force: :cascade do |t|
-    t.string   "slug",       limit: 255,                 null: false
-    t.string   "title",      limit: 255,                 null: false
-    t.text     "meta"
-    t.text     "text"
-    t.boolean  "public",                 default: false, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "pages", ["slug"], name: "index_pages_on_slug", unique: true, using: :btree
+  add_index "observations", ["taxon_id"], name: "index_observations_on_taxon_id", using: :btree
 
   create_table "posts", force: :cascade do |t|
     t.string   "slug",         limit: 64
@@ -188,25 +230,19 @@ ActiveRecord::Schema.define(version: 20150507010417) do
   end
 
   create_table "species", force: :cascade do |t|
-    t.string  "code",       limit: 6
-    t.string  "name_sci",   limit: 255,                 null: false
-    t.string  "authority",  limit: 255
-    t.string  "name_en",    limit: 255,                 null: false
-    t.string  "name_ru",    limit: 255
-    t.string  "name_uk",    limit: 255
-    t.integer "index_num",                              null: false
-    t.string  "order",      limit: 255
-    t.string  "family",     limit: 255,                 null: false
-    t.string  "avibase_id", limit: 16
-    t.string  "protonym",   limit: 255
-    t.string  "name_fr",    limit: 255
-    t.boolean "reviewed",               default: false, null: false
-    t.text    "wikidata"
+    t.string  "name_sci",                              null: false
+    t.string  "name_en",                               null: false
+    t.string  "name_ru"
+    t.string  "name_uk"
+    t.string  "name_fr"
+    t.string  "code",        limit: 6
+    t.string  "legacy_code", limit: 6
+    t.string  "order",                                 null: false
+    t.string  "family",                                null: false
+    t.string  "authority"
+    t.boolean "reviewed",              default: false, null: false
+    t.integer "index_num",                             null: false
   end
-
-  add_index "species", ["code"], name: "index_species_on_code", unique: true, using: :btree
-  add_index "species", ["index_num"], name: "index_species_on_index_num", using: :btree
-  add_index "species", ["name_sci"], name: "index_species_on_name_sci", unique: true, using: :btree
 
   create_table "species_images", force: :cascade do |t|
     t.integer "species_id", null: false
@@ -228,20 +264,22 @@ ActiveRecord::Schema.define(version: 20150507010417) do
   add_index "spots", ["observation_id"], name: "index_spots_on_observation_id", using: :btree
 
   create_table "taxa", force: :cascade do |t|
-    t.integer "book_id",                null: false
+    t.string  "name_sci",       null: false
+    t.string  "name_en",        null: false
+    t.string  "name_ru"
+    t.string  "category",       null: false
+    t.string  "order"
+    t.string  "family"
+    t.integer "index_num",      null: false
+    t.string  "ebird_code",     null: false
+    t.integer "parent_id"
     t.integer "species_id"
-    t.string  "name_sci",   limit: 255, null: false
-    t.string  "authority",  limit: 255, null: false
-    t.string  "name_en",    limit: 255, null: false
-    t.string  "name_ru",    limit: 255, null: false
-    t.string  "name_uk",    limit: 255, null: false
-    t.integer "index_num",              null: false
-    t.string  "order",      limit: 255, null: false
-    t.string  "family",     limit: 255, null: false
-    t.string  "avibase_id", limit: 16
+    t.integer "ebird_taxon_id"
   end
 
-  add_index "taxa", ["book_id", "index_num"], name: "index_taxa_on_book_id_and_index_num", using: :btree
-  add_index "taxa", ["book_id", "name_sci"], name: "index_taxa_on_book_id_and_name_sci", using: :btree
+  create_table "url_synonyms", force: :cascade do |t|
+    t.string  "name_sci"
+    t.integer "species_id"
+  end
 
 end

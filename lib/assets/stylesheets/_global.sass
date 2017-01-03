@@ -1,5 +1,7 @@
 @import 'mixins', 'reusable', 'header', 'admin_menu', 'jquery-ui'
 
+@import "font-awesome-sprockets", "font-awesome"
+
 // Very global styles
 
 p
@@ -8,6 +10,8 @@ p
 table
   margin: 0 0 20px 0
   padding: 0
+  border-collapse: collapse
+  border-spacing: 0
 
 // Big deal
 
@@ -27,6 +31,14 @@ body.wider
     max-width: $main-width * 1.25
   #menucontainer, .bannercontainer
     max-width: $main-width * 1.25
+
+body.full_width
+  .main
+    max-width: 100%
+    width: 100%
+  //#menucontainer, .bannercontainer
+  //  width: 100%
+  //  max-width: 100%
 
 // Footer
 
@@ -121,12 +133,13 @@ nav
   a
     @include deep-bordered-link($link-color)
   .page
-    display: inline-block
+    @include inline-block
     width: 30px
+    line-height: 1.7em
 
 // Translated pages
 nav.translated
-  display: inline-block
+  @include inline-block
   margin-bottom: -20px
   margin-top: -20px
   //font-weight: 100
@@ -158,13 +171,6 @@ span.error
   display: block
 
 
-// Social
-
-div.db-like, div#vk_like
-  display: inline-block
-
-
-
 // Administrative
 
 
@@ -194,4 +200,52 @@ div.db-like, div#vk_like
     border-top: 1px solid lightgray
     font-size: 14px
     color: grey
+
+  .card_time
+    font-family: monospace
+    font-size: 14px
+
+// Taxa
+
+.tx_link
+  color: darkorange !important
+  &:hover
+    color: white !important
+    background-color: darkorange !important
+
+.spuh_link
+  color: yellowgreen !important
+  &:hover
+    color: white !important
+    background-color: yellowgreen !important
+
+// Progress bar
+
+html.progress:before
+  display: block
+  position: fixed
+  content: ""
+  z-index: 99
+  top: 0
+  left: -200px
+  width: 200px
+  height: 4px
+  animation: progress 2s linear infinite
+  background-color: orange
+
+
+@keyframes progress
+  from
+    left: -200px
+    width: 30%
+  50%
+    width: 30%
+  70%
+    width: 70%
+  80%
+    left: 50%
+  95%
+    left: 120%
+  to
+    left: 100%
 

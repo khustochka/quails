@@ -1,0 +1,35 @@
+%table.neat_table
+  %tr
+    %th.align-right No
+    %th Scientific name
+    %th Common names
+    %th EBird
+    %th Taxonomy
+    %th Species
+
+  - @taxa.each do |taxon|
+    %tr
+      %td.align-right
+        = taxon.index_num
+      %td
+        %b
+          %i
+            = term_highlight(taxon_link(taxon, taxon.name_sci), @term)
+        %small{class: [:tag, "tag_#{taxon.category}"]}= taxon.category
+      %td
+        %div= term_highlight(taxon.name_en, @term)
+        - if taxon.name_ru
+          %div= term_highlight(taxon.name_ru, @term)
+      %td
+        = taxon.ebird_code
+      %td
+        %div= taxon.order
+        %div= taxon.family
+      %td
+        - if sp = taxon.species
+          = link_to sp do
+            = term_highlight(sp.name_sci, @term)
+
+
+- if @taxa.kind_of?(Kaminari::ActiveRecordRelationMethods)
+  = paginate @taxa

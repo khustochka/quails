@@ -1,0 +1,31 @@
+- months = t("date.month_names", locale: :en)
+- @page_title = "Month targets for #{months[@month]}"
+- if @locus
+  - @page_title << " (#{@locus.name_en})"
+
+%h1= page_header
+
+%ul.horiz-list.filter-list
+  %strong= t('lists.menus.filter.months')
+  %li= filtering_link_to_all(:month)
+  - 1.upto(12) do |m|
+    %li
+      = link_to_or_span(t("date.abbr_month_names", locale: :en)[m], params.merge(:month => m))
+
+
+= render partial: 'filters/loci', locals: {loci_filter_label: "Locations:"}
+
+%h3
+  Species seen in
+  = @prev_and_next.map{|m| months[m]}.join(" and ")
+  but not in
+  = months[@month]
+
+%ol
+  - @species.group_by_taxonomy do |order, family, species_list|
+    %h2.order= render partial: 'species/taxonomy', locals: {rank: :order, value: order}
+    %h3.family= render partial: 'species/taxonomy', locals: {rank: :family, value: family}
+    - species_list.each do |sp|
+      %li
+        = species_link(sp)
+        = name_sci(sp)

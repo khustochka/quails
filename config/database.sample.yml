@@ -12,7 +12,7 @@
 DEFAULT: &DEFAULT
   adapter: postgresql
   encoding: utf-8
-  pool: 5
+  pool: <%= ENV['RAILS_MAX_THREADS'] || 5 %>
   username: <%= `whoami`.chomp rescue 'quails' %>
 #  password:
 

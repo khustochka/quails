@@ -22,33 +22,34 @@ class SpeciesImageTest < ActiveSupport::TestCase
     img = Image.find(img_id)
     img.destroy
     sp.reload
-    assert_equal nil, sp.image
+    assert_nil sp.image
   end
 
   test 'removing the active species image links another one to the species' do
     img = create(:image)
     img2 = create(:image)
-    sps = img.species
+    sps = img.species.first
     img.destroy
-    assert_equal [img2.id], sps.map {|sp| sp.image.id}
+    sps.reload
+    assert_equal img2.id, sps.image.id
   end
 
   test 'species images should not be duplicated (if multi-species)' do
-    sp1 = seed(:lancol)
-    sp2 = seed(:jyntor)
+    tx1 = taxa(:saxola)
+    tx2 = taxa(:jyntor)
     card = create(:card, observ_date: "2008-07-01")
-    obs1 = create(:observation, species: sp1, card: card)
-    obs2 = create(:observation, species: sp2, card: card)
+    obs1 = create(:observation, taxon: tx1, card: card)
+    obs2 = create(:observation, taxon: tx2, card: card)
     img = create(:image, slug: 'picture-of-the-shrike-and-the-wryneck', observations: [obs1, obs2])
 
-    assert_equal 1, sp1.ordered_images.to_a.size
+    assert_equal 1, tx1.species.ordered_images.to_a.size
   end
 
   # Relinking a main species image to another species is very unlikely,
   # and association callbacks are harder, so skipping for now
 
   #test 'switching the only species image to another sp should clear image_id' do
-  #  obs = create(:observation, species: seed('larrid'))
+  #  obs = create(:observation, species: species('larrid'))
   #  img = create(:image)
   #  sps = img.species
   #  img.update_with_observations(nil, [obs.id])
@@ -56,7 +57,7 @@ class SpeciesImageTest < ActiveSupport::TestCase
   #end
   #
   #test 'switching the active species image to another sp links another one to the species' do
-  #  obs = create(:observation, species_id: seed('larrid').id)
+  #  obs = create(:observation, species_id: species('larrid').id)
   #  img = create(:image)
   #  img2 = create(:image)
   #  sps = img.species

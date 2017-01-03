@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :observation do
     association :card
-    species_id { Species.find_by!(code: 'pasdom').id }
+    taxon_id { Taxon.find_by_ebird_code("houspa").id }
     quantity "several"
     place "near the lake"
     notes "masc, fem"

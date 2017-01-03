@@ -5,11 +5,11 @@ class LifelistPostsTest < ActionController::TestCase
 
   setup do
     @obs = [
-        create(:observation, species: seed(:pasdom), card: create(:card, observ_date: "2010-06-20", locus: loci(:nyc))),
-        create(:observation, species: seed(:anacly), card: create(:card, observ_date: "2007-07-18", locus: loci(:brovary))),
-        create(:observation, species: seed(:embcit), card: create(:card, observ_date: "2009-08-09", locus: loci(:kiev))),
-        create(:observation, species: seed(:anapla), card: create(:card, observ_date: "2010-06-18")),
-        create(:observation, species: seed(:anapla), card: create(:card, observ_date: "2009-06-18"))
+        create(:observation, taxon: taxa(:pasdom), card: create(:card, observ_date: "2010-06-20", locus: loci(:nyc))),
+        create(:observation, taxon: taxa(:hirrus), card: create(:card, observ_date: "2007-07-18", locus: loci(:brovary))),
+        create(:observation, taxon: taxa(:saxola), card: create(:card, observ_date: "2009-08-09", locus: loci(:kiev))),
+        create(:observation, taxon: taxa(:jyntor), card: create(:card, observ_date: "2010-06-18")),
+        create(:observation, taxon: taxa(:jyntor), card: create(:card, observ_date: "2009-06-18"))
     ]
   end
 
@@ -26,16 +26,16 @@ class LifelistPostsTest < ActionController::TestCase
   test 'do show post link if locale is not Russian' do
     @obs[1].post = create(:post)
     @obs[1].save!
-    get :basic, locale: :en
+    get :basic, params: {locale: :en}
     assert_response :success
     lifers = assigns(:lifelist)
-    assert_equal nil, lifers.to_a.find {|s| s.species.code == 'anacly'}.main_post
+    assert_nil lifers.to_a.find {|s| s.species.code == 'hirrus'}.main_post
   end
 
   test 'show post link on lifelist ordered by taxonomy if post is associated' do
     @obs[1].post = create(:post)
     @obs[1].save!
-    get :basic, sort: :by_taxonomy
+    get :basic, params: {sort: :by_taxonomy}
     assert_response :success
     lifers = assigns(:lifelist)
     assert_equal 1, lifers.to_a.map(&:post).compact.size
@@ -48,7 +48,7 @@ class LifelistPostsTest < ActionController::TestCase
     get :basic
     assert_response :success
     lifers = assigns(:lifelist)
-    assert_equal nil, lifers.to_a.find {|s| s.species.code == 'anapla'}.post
+    assert_nil lifers.to_a.find {|s| s.species.code == 'jyntor'}.post
   end
 
   test 'do not show hidden post link to common visitor' do

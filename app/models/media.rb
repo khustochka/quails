@@ -1,9 +1,10 @@
-class Media < ActiveRecord::Base
+class Media < ApplicationRecord
   has_and_belongs_to_many :observations
 
   serialize :assets_cache, ImageAssetsArray
 
-  has_many :species, through: :observations
+  has_many :taxa, through: :observations
+  has_many :species, through: :taxa
 
   # TODO: try to make it 'card', because image should belong to observations of the same card
   has_many :cards, through: :observations
@@ -71,6 +72,10 @@ class Media < ActiveRecord::Base
 
   delegate :observ_date, :locus, :locus_id, to: :card
 
+  def species
+    taxa.map(&:species).compact.uniq
+  end
+
   def card
     first_observation.card
   end
@@ -126,7 +131,7 @@ class Media < ActiveRecord::Base
         joins("JOIN loci as card_locus ON card_locus.id=cards.locus_id").
         joins("LEFT OUTER JOIN (#{Locus.non_private.to_sql}) as parent_locus ON card_locus.ancestry LIKE CONCAT(parent_locus.ancestry, '/', parent_locus.id)").
         where("spots.lat IS NOT NULL OR patches.lat IS NOT NULL OR public_locus.lat IS NOT NULL OR parent_locus.lat IS NOT NULL").
-        uniq
+        distinct
   end
 
 end

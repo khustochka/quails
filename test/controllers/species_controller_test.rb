@@ -1,4 +1,3 @@
-# encoding: utf-8
 require 'test_helper'
 
 class SpeciesControllerTest < ActionController::TestCase
@@ -15,10 +14,20 @@ class SpeciesControllerTest < ActionController::TestCase
     assert_not_nil assigns(:species)
   end
 
+  test "search species for admin index page" do
+    login_as_admin
+    get :index, xhr: true, params: {term: "gar"}
+    assert_response :success
+    species = assigns(:species)
+    assert_not_nil species
+    assert_template "species/_table"
+    assert_template layout: false
+  end
+
   test "get gallery" do
     # Setup main image for species
     @image = create(:image)
-    assert seed(:pasdom).image
+    assert species(:pasdom).image
     @obs = @image.observations.first
 
     get :gallery
@@ -30,15 +39,15 @@ class SpeciesControllerTest < ActionController::TestCase
   test "show link to multiple species on gallery" do
     # Setup main image for species
     @image = create(:image)
-    assert seed(:pasdom).image
+    assert species(:pasdom).image
     @obs = @image.observations.first
 
     # Setup photo of several species
-    sp1 = seed(:lancol)
-    sp2 = seed(:jyntor)
+    sp1 = taxa(:saxola)
+    sp2 = taxa(:jyntor)
     card = create(:card, observ_date: "2008-07-01")
-    obs1 = create(:observation, species: sp1, card: card)
-    obs2 = create(:observation, species: sp2, card: card)
+    obs1 = create(:observation, taxon: sp1, card: card)
+    obs2 = create(:observation, taxon: sp2, card: card)
     img = create(:image, slug: 'picture-of-the-shrike-and-the-wryneck', observations: [obs1, obs2])
 
     get :gallery
@@ -48,11 +57,12 @@ class SpeciesControllerTest < ActionController::TestCase
 
   test "species index properly ordered" do
     # Dummy swap of two species
+    min_index = Species.minimum(:index_num)
     max_index = Species.maximum(:index_num)
-    sp1 = Species.find_by(index_num: 10)
+    sp1 = Species.find_by(index_num: min_index)
     sp2 = Species.find_by(index_num: max_index)
-    sp1.update_attributes(index_num: max_index)
-    sp2.update_attributes(index_num: 10)
+    sp1.update_attributes!(index_num: max_index)
+    sp2.update_attributes!(index_num: min_index)
 
     login_as_admin
     get :index
@@ -61,71 +71,77 @@ class SpeciesControllerTest < ActionController::TestCase
   end
 
   test "show species" do
-    species = seed(:melgal)
-    get :show, id: species.to_param
+    species = species(:jyntor)
+    get :show, params: {id: species.to_param}
     assert_response :success
   end
 
   test "species with main image correctly rendered to admin" do
     login_as_admin
     im = create(:image)
-    species = seed(:pasdom)
+    species = species(:pasdom)
 
-    get :show, id: species.to_param
+    get :show, params: {id: species.to_param}
     assert_response :success
   end
 
   test "show species with image" do
-    species = seed(:melgal)
-    create(:image, observations: [create(:observation, species: species)])
-    get :show, id: species.to_param
+    tx = taxa(:jyntor)
+    create(:image, observations: [create(:observation, taxon: tx)])
+    get :show, params: {id: tx.species.to_param}
     assert_response :success
   end
 
   test "show species with video" do
-    species = seed(:melgal)
-    create(:video, observations: [create(:observation, species: species)])
-    get :show, id: species.to_param
+    tx = taxa(:jyntor)
+    create(:video, observations: [create(:observation, taxon: tx)])
+    get :show, params: {id: tx.species.to_param}
     assert_response :success
   end
 
   test "get edit" do
-    species = seed(:melgal)
+    species = species(:jyntor)
     login_as_admin
-    get :edit, id: species.to_param
+    get :edit, params: {id: species.to_param}
     assert_response :success
   end
 
-  test "update species" do
-    species = seed(:corbra)
-    species.name_ru = 'Американская ворона'
+  test "normal update species should get back to edit form" do
+    species = species(:bomgar)
+    species.name_ru = 'Богемский свиристель'
     login_as_admin
-    put :update, id: species.to_param, species: species.attributes
-    assert_redirected_to species_path(assigns(:species))
+    put :update, params: {id: species.to_param, species: species.attributes}
+    assert_redirected_to edit_species_path(assigns(:species))
   end
 
   test "update species via JSON" do
-    species = seed(:corbra)
+    species = species(:bomgar)
     login_as_admin
-    put :update, id: species.to_param, species: {name_ru: 'Американская ворона'}, format: :json
+    put :update, params: {id: species.to_param, species: {name_ru: 'Богемский свиристель'}}, format: :json
     assert_response :success
-    assert_equal Mime::JSON, response.content_type
+    assert_equal Mime[:json], response.content_type
   end
 
   test "do not update species with invalid name_sci" do
-    species = seed(:corbra)
+    species = species(:bomgar)
     sp_attr = species.attributes
     old_id = species.to_param
     sp_attr['name_sci'] = '$!#@'
     login_as_admin
-    put :update, id: old_id, species: sp_attr
+    put :update, params: {id: old_id, species: sp_attr}
     assert_template :form
     assert_select "form[action='#{species_path(species)}']"
   end
 
-  test "redirect species to correct URL " do
-    get :show, id: 'Corvus cornix'
-    assert_redirected_to species_path(id: 'Corvus_cornix')
+  test "correct spaces in species URL" do
+    get :show, params: {id: 'Saxicola rubicola'}
+    assert_redirected_to species_path(id: 'Saxicola_rubicola')
+    assert_response 301
+  end
+
+  test "redirect old synonym to the new species URL" do
+    get :show, params: {id: 'Saxicola torquata'}
+    assert_redirected_to species_path(id: 'Saxicola_rubicola')
     assert_response 301
   end
 
@@ -137,50 +153,33 @@ class SpeciesControllerTest < ActionController::TestCase
   end
 
   test 'protect edit with authentication' do
-    species = seed(:melgal)
-    assert_raise(ActionController::RoutingError) { get :edit, id: species.to_param }
+    species = species(:jyntor)
+    assert_raise(ActionController::RoutingError) { get :edit, params: {id: species.to_param} }
     #assert_response 404
   end
 
   test 'protect update with authentication' do
-    species = seed(:corbra)
-    species.name_ru = 'Американская ворона'
-    assert_raise(ActionController::RoutingError) { put :update, id: species.to_param, species: species.attributes }
+    species = species(:bomgar)
+    species.name_ru = 'Богемский свиристель'
+    assert_raise(ActionController::RoutingError) { put :update, params: {id: species.to_param, species: species.attributes} }
     #assert_response 404
   end
 
   test "search" do
-    create(:observation, species: seed(:bomgar))
-    get :search, term: 'gar', format: :json
+    create(:observation, taxon: taxa(:bomgar))
+    get :search, params: {term: 'gar'}, format: :json
     assert_response :success
-    assert_equal Mime::JSON, response.content_type
+    assert_equal Mime[:json], response.content_type
     assert response.body.include?('garrulus')
   end
 
   test "search localized" do
-    create(:observation, species: seed(:bomgar))
-    get :search, term: 'gar', locale: 'en', format: :json
+    create(:observation, taxon: taxa(:bomgar))
+    get :search, params: {term: 'gar', locale: 'en'}, format: :json
     assert_response :success
-    assert_equal Mime::JSON, response.content_type
+    assert_equal Mime[:json], response.content_type
     assert response.body.include?('Waxwing')
     assert response.body.include?('/en/species/Bombycilla')
   end
 
-  test "get new" do
-    login_as_admin
-    get :new
-    assert_response :success
-  end
-
-  test "create species should insert properly" do
-    login_as_admin
-    old_species = Species.where(index_num: 2).first
-    assert_difference('Species.count') do
-      put :create, species: {name_sci: 'Apteryx australis', code: 'aptaus', index_num: 2, family: 'Apterygidae',
-                              name_en: 'Southern brown kiwi' }
-    end
-    assert_redirected_to species_path(Species.find_by(code: 'aptaus'))
-    old_species.reload
-    assert_equal 3, old_species.index_num
-  end
 end

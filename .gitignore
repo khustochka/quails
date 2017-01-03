@@ -7,6 +7,8 @@
 !.keep
 !.env
 !.env.test
+!.env.development
+!.powenv
 .bundle
 db/*.sqlite3
 db/seed

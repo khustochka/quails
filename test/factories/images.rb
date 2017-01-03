@@ -13,6 +13,11 @@ FactoryGirl.define do
 
     factory :image_on_flickr do
       flickr_id '123456'
+      assets_cache { ImageAssetsArray.new (
+                                              [
+                                                  ImageAssetItem.new(:flickr, 800, 600, "http://localhost:3333/#{slug}.jpg")
+                                              ]
+                                          ) }
     end
 
   end

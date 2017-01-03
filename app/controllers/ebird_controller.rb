@@ -5,7 +5,7 @@ class EbirdController < ApplicationController
   administrative
 
   def index
-    @files = Ebird::File.order(:created_at).preload(:cards)
+    @files = Ebird::File.preload(:cards).order(:created_at => :desc).page(params[:page])
   end
 
   def show
@@ -13,8 +13,20 @@ class EbirdController < ApplicationController
   end
 
   def new
-    @file = Ebird::File.new
-    @observation_search = Ebird::ObsSearch.new
+    search_params = params[:q] || {observ_date: Card.first_unebirded_date, end_date: Card.last_unebirded_date}
+    @observation_search = Ebird::ObsSearch.new(search_params)
+
+    @cards = @observation_search.cards.default_cards_order(:asc).preload(:locus, :post)
+
+    name = if @cards.present?
+             [
+                 @cards.first.locus.country.slug,
+                 @observation_search.observ_date.try(:strftime, "%Y%m%d"),
+                 @observation_search.end_date.try(:strftime, "%Y%m%d")
+             ].compact.uniq.join("-")
+           end
+
+    @file = Ebird::File.new(cards: @cards, name: name)
   end
 
   def create
@@ -60,7 +72,7 @@ class EbirdController < ApplicationController
         result = Exporter.ebird(@file.name, cards_rel).export
       else
         # FIXME: this is hack. For some reason errors on cards are not preserved after validation.
-        @file.cards.each {|c| c.valid?(:ebird_post)}
+        @file.cards.each { |c| c.valid?(:ebird_post) }
         result = false
       end
 
