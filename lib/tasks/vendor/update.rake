@@ -1,10 +1,10 @@
 desc 'Update vendor assets'
 namespace :vendor do
 
-  namespace :update do
+  desc 'Update vendored JS and CSS'
+  task :update => %w(update:javascripts update:css)
 
-    desc 'Update vendored JS and CSS'
-    task :assets => [:javascripts, :css]
+  namespace :update do
 
     #desc 'Update Javascripts'
     task :javascripts do
@@ -22,6 +22,9 @@ namespace :vendor do
       system "curl https://raw.githubusercontent.com/bestiejs/json3/gh-pages/lib/json3.js -o vendor/assets/javascripts/json3.js"
       puts "\n=== Getting Gmap3 ==="
       system "curl https://raw.githubusercontent.com/khustochka/gmap3/quails_gmap3_v6/dist/gmap3.js -o vendor/assets/javascripts/gmap3.js"
+      puts "\n=== Getting Likely ==="
+      system "curl https://raw.githubusercontent.com/ilyabirman/Likely/master/release/likely.js -o vendor/assets/javascripts/likely.js"
+      system "curl https://raw.githubusercontent.com/ilyabirman/Likely/master/release/likely.css -o vendor/assets/stylesheets/likely.css"
     end
 
     #desc 'Update CSS'
