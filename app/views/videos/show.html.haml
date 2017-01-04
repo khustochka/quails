@@ -2,7 +2,7 @@
 
 - #@meta_thumbnail = thumbnail_item(@video).try(:url)
 - @meta_description = @video.decorated.meta_description
-- @canonical = localize_url(@video, only_path: false, protocol: 'http')
+- @canonical = localize_url(@video, public_url_options)
 - #@og_type = 'birdwatchua:video'
 
 - @js_features = [:videoQuality]
