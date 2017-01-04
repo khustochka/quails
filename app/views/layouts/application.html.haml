@@ -81,11 +81,6 @@
 
   %body{class: @body_class, data: {'js-controller' => @js_controller, 'js-features' => @js_features.to_json}}
 
-    - if @social_likes
-      - cache :social_sdks do
-        = render_service_code(FacebookSdk)
-        = render_service_code(VkontakteSdk)
-        = render 'social/gplus_sdk'
 
     #above-footer
 
