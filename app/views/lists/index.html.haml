@@ -5,11 +5,11 @@
 - @jumbo_image = "https://c2.staticflickr.com/2/1648/25088028401_efeaaa65dd_o.jpg"
 
 - content_for :jumbo do
+  = render 'partials/translated'
   %h1= @page_title
 
 - content_for :jumbo_side do
   %ul.subheader-menu
-    %li= render 'partials/translated'
     %li
       = link_to t('.records_and_stats'), my_stats_path
 
