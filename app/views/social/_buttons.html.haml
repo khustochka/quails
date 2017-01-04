@@ -1,16 +1,7 @@
-- @social_likes = true
-
-- cache :social_buttons do
-
-  %div.social_buttons
-
-    - if FacebookSdk.configured?
-      %div.soc-btn
-        = render 'social/fb_like'
-
-    %div.soc-btn
-      = render 'social/gplus_like'
-
-    - if VkontakteSdk.configured?
-      %div.soc-btn
-        = render 'social/vk_like'
+.likely{"data-url": @canonical.presence}
+  .facebook Share
+  .twitter Tweet
+  .gplus Plus
+  .vkontakte Share
+  - if @meta_thumbnail
+    .pinterest{"data-media": @meta_thumbnail} Pin

@@ -4,6 +4,7 @@
 #= require jquery.pjax
 #= require search
 #= require base
+#= require likely
 
 $ ->
   jsController = $("body").data("js-controller")

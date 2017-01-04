@@ -27,9 +27,6 @@
       %meta{ property: "fb:app_id", content: FacebookSdk.config.code }
       %meta{ property: "fb:admins", content: "1567280817" }
 
-    - if VkontakteSdk.configured?
-      %meta{ property: "vk:app_id", content: VkontakteSdk.config.code }
-
     %title= page_title
 
     -# mobile viewport
@@ -81,11 +78,6 @@
 
   %body{class: @body_class, data: {'js-controller' => @js_controller, 'js-features' => @js_features.to_json}}
 
-    - if @social_likes
-      - cache :social_sdks do
-        = render_service_code(FacebookSdk)
-        = render_service_code(VkontakteSdk)
-        = render 'social/gplus_sdk'
 
     #above-footer
 
