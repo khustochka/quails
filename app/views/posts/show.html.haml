@@ -3,6 +3,7 @@
 - @js_features = [:videoQuality]
 
 - javascript 'post_show_admin' if current_user.admin?
+- javascript 'facebook_comments' if FacebookSdk.configured?
 
 -# @meta_thumbnail = thumbnail_item(@post.images.to_a.first).try(:url) if @post.images.present?
 - @canonical = public_post_url(@post, public_url_options)
@@ -22,6 +23,9 @@
 - unless @post.lj_data.blank?
   - provide :add_shortcuts do
     %li= link_to 'LJ Post', @post.lj_url
+
+- if FacebookSdk.configured?
+  = render "social/facebook_sdk"
 
 = render 'admin/shortcuts' if current_user.admin?
 
