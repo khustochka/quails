@@ -20,7 +20,7 @@ class CommentersController < ApplicationController
           auth_hash: auth_hash.to_h.with_indifferent_access
       )
       session[:commenter_id] = @commenter.id
-      render partial: "commenters/#{provider}", locals: {commenter: @commenter}, layout: false
+      render partial: "commenters/form/#{provider}", locals: {commenter: @commenter}, layout: false
     else
       render status: 404
     end

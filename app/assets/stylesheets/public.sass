@@ -72,11 +72,6 @@ nav.front_page_prev
   background-color: #eeeeee
   border-left: 4px solid #407FBF
   border-bottom: 1px solid #407FBF
-  h6
-    margin: 0
-    margin-right: 5px
-    font-size: 16px
-    @include inline-block
   time
     font-family: Verdana, Tahoma, sans-serif
     font-size: 11px
@@ -100,20 +95,31 @@ nav.front_page_prev
   .comment_author, .comment_footer
     padding: 10px
     background-color: #CCCCCC
-  .userpic-holder
-    width: 40px
-    height: 40px
-    display: inline-block
-    border: 1px solid #999999
-    border-radius: 3px
-    float: left
-    text-align: center
-    img
-      max-width: 100%
-      height: auto
-    .fa
-      font-size: 36px
-      color: #888888
+  .comment_admin_area
+    float: right
+
+.userpic-holder
+  width: 40px
+  height: 40px
+  display: inline-block
+  border: 1px solid #999999
+  border-radius: 3px
+  float: left
+  text-align: center
+  img
+    max-width: 100%
+    height: auto
+  .fa
+    font-size: 36px
+    color: #888888
+.name_area
+  float: left
+  margin: 0 10px
+  h6
+    margin: 0
+    margin-right: 5px
+    font-size: 16px
+    @include inline-block
   .facebook-commenter
     font-size: 14px
     h6
@@ -127,11 +133,6 @@ nav.front_page_prev
       text-decoration: none
     a:hover
       text-decoration: underline
-  .name_area
-    float: left
-    margin: 0 10px
-  .comment_admin_area
-    float: right
 
 .comment_box.hidden-comment
   background-color: pink

@@ -1,0 +1,10 @@
+.userpic-holder
+  = image_tag(commenter.image, alt: "Userpic")
+
+.name_area
+  %div
+    .facebook-commenter
+      %a.fa.fa-facebook-official.fb-logo{href: commenter.url, target: "_blank, rel: :nofollow "}
+      %h6= link_to commenter.name, commenter.url, target: "_blank", rel: :nofollow
+
+.cf

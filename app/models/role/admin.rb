@@ -33,7 +33,7 @@ module Role
 
     private
     def commenter
-      @commenter ||= Commenter.where(is_admin: true).first
+      @commenter ||= Commenter.where(provider: "admin").first
     end
 
   end

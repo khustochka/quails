@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170101010255) do
+ActiveRecord::Schema.define(version: 20170105030639) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,7 +48,6 @@ ActiveRecord::Schema.define(version: 20170101010255) do
   create_table "commenters", force: :cascade do |t|
     t.string   "email",      limit: 255
     t.string   "name",       limit: 255
-    t.boolean  "is_admin",               default: false
     t.string   "provider"
     t.text     "auth_hash"
     t.string   "uid"
