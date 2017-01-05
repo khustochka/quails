@@ -1,24 +1,36 @@
 .comment_box{id: "comment#{comment.id}", class: comment.approved ? nil : 'hidden-comment'}
-  %div.header-with-subheader
-    - if comment.commenter && comment.commenter.provider
-      = render partial: "commenters/#{comment.commenter.provider}", locals: {commenter: comment.commenter}
-    - else
-      - author_classes = %w(name)
-      - if admin_commenter_id && comment.commenter_id == admin_commenter_id
-        - author_classes += %w(tag admin_comment)
-        - popup_title = 'Administrator'
-      %h6{class: author_classes, title: popup_title}= link_to_if(comment.sane_url.present?, comment.decorated.name, comment.sane_url, :rel => 'nofollow')
-    %i
-      %time= link_to(l(comment.created_at, :format => :long), public_comment_path(comment, @post))
-    - if current_user.admin?
-      = default_destroy_link(comment) if action_name != 'reply'
-      %i= comment.ip
+  %div.comment_author
+    .userpic-holder
+      - if comment.commenter && comment.commenter.image
+        = image_tag(comment.commenter.image, alt: "Userpic")
+      - else
+        %span.fa.fa-user
+    .name_area
+      %div
+        - if comment.commenter && comment.commenter.provider
+          = render partial: "commenters/#{comment.commenter.provider}", locals: {commenter: comment.commenter}
+        - else
+          - author_classes = %w(name)
+          - if admin_commenter_id && comment.commenter_id == admin_commenter_id
+            - author_classes += %w(tag admin_comment)
+            - popup_title = 'Administrator'
+          %h6{class: author_classes, title: popup_title}= link_to_if(comment.sane_url.present?, comment.decorated.name, comment.sane_url, :rel => 'nofollow')
+      %div
+        %i
+          %time= link_to(l(comment.created_at, :format => :long), public_comment_path(comment, @post))
+    .cf
   .comment_body
     = comment.decorated.text
 
-  - if action_name != 'reply'
-    %ul.reply
-      %li= link_to(t('.reply_link'), reply_comment_path(comment), data: {comment_id: comment.id})
+  .comment_footer
+    - if action_name != 'reply'
+      %ul.reply
+        %li= link_to(t('.reply_link'), reply_comment_path(comment), data: {comment_id: comment.id})
+    - if current_user.admin?
+      .comment_admin_area
+        %i= comment.ip
+        = default_destroy_link(comment) if action_name != 'reply'
+    %div.cf
 
 - subcomments = @comments.try(:[], comment.id)
 

@@ -69,12 +69,11 @@ nav.front_page_prev
 
 .comment_box
   margin-bottom: 10px
-  padding: 10px
   background-color: #eeeeee
   border-left: 4px solid #407FBF
   border-bottom: 1px solid #407FBF
   h6
-    margin-top: 0
+    margin: 0
     margin-right: 5px
     font-size: 16px
     @include inline-block
@@ -84,7 +83,7 @@ nav.front_page_prev
     font-style: italic
     @include inline-block
     margin-bottom: 4px
-    vertical-align: 1px
+    margin-top: 3px
   .comment_body, ul.reply
     font-family: Verdana, Tahoma, sans-serif
     font-size: 13px
@@ -92,10 +91,47 @@ nav.front_page_prev
       line-height: 1.4
   ul.reply
     @include horiz-list
-    margin-bottom: 0
+    margin: 0
     font-weight: bold
+    float: left
   .comment_body
-    margin-left: 30px
+    //margin-left: 30px
+    padding: 10px
+  .comment_author, .comment_footer
+    padding: 10px
+    background-color: #CCCCCC
+  .userpic-holder
+    width: 40px
+    height: 40px
+    display: inline-block
+    border: 1px solid #999999
+    border-radius: 3px
+    float: left
+    text-align: center
+    img
+      max-width: 100%
+      height: auto
+    .fa
+      font-size: 36px
+      color: #888888
+  .facebook-commenter
+    font-size: 14px
+    h6
+      font-size: 14px
+    .fb-logo
+      color: #3b5998
+    a, a:hover
+      color: #3b5899
+      background-color: #cccccc
+    a
+      text-decoration: none
+    a:hover
+      text-decoration: underline
+  .name_area
+    float: left
+    margin: 0 10px
+  .comment_admin_area
+    float: right
 
 .comment_box.hidden-comment
   background-color: pink
