@@ -213,6 +213,8 @@ Rails.application.routes.draw do
     get :reply, on: :member
   end
 
+  resources :commenters, only: [:index]
+
   get '/auth/:provider/callback', to: 'commenters#login', provider: "facebook"
 
   scope '(:locale)', locale: /en/ do

@@ -1,5 +1,7 @@
 class CommentersController < ApplicationController
 
+  administrative only: [:index]
+
   PROVIDER_URL_KEY = {
       facebook: "Facebook",
       flickr: "Photos"
@@ -22,6 +24,10 @@ class CommentersController < ApplicationController
     else
       render status: 404
     end
+  end
+
+  def index
+    @commenters = Commenter.order(:id)
   end
 
   protected

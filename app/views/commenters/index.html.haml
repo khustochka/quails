@@ -1,0 +1,21 @@
+- @page_title = 'Commenters'
+
+%h1= page_header
+
+%table.neat_table
+  %tr
+    %th Id
+    %th Name
+    %th Email
+    %th Is admin?
+    %th Provider
+    %th UID
+
+  - @commenters.each do |commenter|
+    %tr
+      %td= commenter.id
+      %td= commenter.name
+      %td= commenter.email
+      %td= commenter.is_admin?
+      %td= commenter.provider
+      %td= commenter.uid
