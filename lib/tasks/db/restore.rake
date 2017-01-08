@@ -9,6 +9,7 @@ namespace :db do
       puts "You will destroy production DB!\nIf sure, type\n  #{cli}"
     else
       system cli
+      Rake::Task["db:environment:set"].invoke
     end
   end
 
