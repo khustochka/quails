@@ -1,5 +1,5 @@
 $(function() {
-  $(".facebook-login").click(function(e) {
+  $(document).on("click", ".facebook-login", function(e) {
     e.preventDefault();
     FB.login(function(response) {
       if (response.authResponse) {
@@ -25,8 +25,8 @@ $(function() {
 //                    FB.api('/me', function(response) {
 //                        console.log('Successful login for: ' + JSON.stringify(response));
 //                    });
-          $("#comment_author_panel").html(data);
-          console.log(data);
+          $(".comment_author_panel").html(data);
+          //console.log(data);
           $("<input>", {type: "hidden", name: "commenter[provider]", value: "facebook"}).appendTo($("#new_comment"));
         });
       }

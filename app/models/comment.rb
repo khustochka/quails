@@ -12,7 +12,7 @@ class Comment < ApplicationRecord
   belongs_to :post, touch: :commented_at
   has_many :subcomments, class_name: 'Comment', foreign_key: :parent_id, dependent: :destroy, inverse_of: :parent_comment
   belongs_to :parent_comment, class_name: 'Comment', foreign_key: :parent_id, inverse_of: :subcomments
-  belongs_to :commenter
+  belongs_to :commenter, required: true
 
   default_scope { order(:created_at) }
 
@@ -23,15 +23,6 @@ class Comment < ApplicationRecord
   def like_spam?
     @likespam ||= self.text =~ /#{STOP_WORDS.join('|')}/i ||
         self.text.scan(/href=/i).size > 4
-  end
-
-  def sane_url
-    uri = Addressable::URI.heuristic_parse(url)
-    if uri && uri.scheme.in?(%w[http https])
-      uri.to_str
-    else
-      nil
-    end
   end
 
 end

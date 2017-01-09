@@ -16,8 +16,4 @@ class CommentFormatter < ModelFormatter
     )
   end
 
-  def name
-    strip_tags(@model.name)
-  end
-
 end

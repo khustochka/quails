@@ -26,7 +26,6 @@ module Role
     def prepopulate_comment(comment)
       if commenter
         comment.commenter = commenter
-        comment.name = commenter.name
         comment.send_email = true
       end
     end

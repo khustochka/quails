@@ -27,7 +27,12 @@ class CommentersController < ApplicationController
   end
 
   def index
-    @commenters = Commenter.order(:id)
+    commenters = Commenter.order(:id)
+    @commenters = if params[:guests]
+                    commenters.where(provider: :guest)
+                  else
+                    commenters.where("provider <> ?", :guest)
+                  end
   end
 
   protected

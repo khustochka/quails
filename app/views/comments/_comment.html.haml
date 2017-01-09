@@ -1,16 +1,13 @@
 .comment_box{id: "comment#{comment.id}", class: comment.approved ? nil : 'hidden-comment'}
   %div.comment_author
     .userpic-holder
-      - if comment.commenter && comment.commenter.image
+      - if comment.commenter.image
         = image_tag(comment.commenter.image, alt: "Userpic")
       - else
         %span.fa.fa-user
     .name_area
       %div
-        - if comment.commenter && comment.commenter.provider
-          = render partial: "commenters/#{comment.commenter.provider}", locals: {commenter: comment.commenter}
-        - else
-          %h6{class: "name"}= link_to_if(comment.sane_url.present?, comment.decorated.name, comment.sane_url, :rel => 'nofollow')
+        = render partial: "commenters/#{comment.commenter.provider}", locals: {commenter: comment.commenter}
       %div
         %i
           %time= link_to(l(comment.created_at, :format => :long), public_comment_path(comment, @post))

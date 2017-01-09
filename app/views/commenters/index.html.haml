@@ -2,11 +2,17 @@
 
 %h1= page_header
 
+%ul.horiz-list.admin-shortcuts
+  %li= link_to "Identified", guests: nil
+  %li= link_to "Guests", guests: true
+
+
 %table.neat_table
   %tr
     %th Id
     %th Name
     %th Email
+    %th URL
     %th Provider
     %th UID
 
@@ -15,5 +21,8 @@
       %td= commenter.id
       %td= commenter.name
       %td= commenter.email
+      %td
+        - if commenter.url.present?
+          = link_to (commenter.provider == "guest" ? commenter.url : "Url"), commenter.url
       %td= commenter.provider
       %td= commenter.uid
