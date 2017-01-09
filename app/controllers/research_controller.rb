@@ -183,6 +183,7 @@ class ResearchController < ApplicationController
   end
 
   def stats
+    @allowed_params = [:year, :locus]
     @years = [nil] + MyObservation.years
     @locations = Country.all
 
