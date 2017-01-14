@@ -25,8 +25,8 @@ gem 'rails-i18n'
 
 # Old rails functionality
 gem "actionpack-page_caching",
-    git: "https://github.com/kord-as/actionpack-page_caching",
-    branch: "rails5"
+    git: "https://github.com/rails/actionpack-page_caching",
+    branch: "master"
 gem "rails-controller-testing"
 
 # AR utils
