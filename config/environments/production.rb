@@ -85,5 +85,9 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # Folder for page_caching
-  config.action_controller.page_cache_directory = "#{Rails.root.to_s}/public"
+  config.action_controller.page_cache_directory = Rails.public_path
+
+  # Route error pages through custom middleware
+  require 'quails/public_exceptions'
+  config.exceptions_app = Quails::PublicExceptions.new(Rails.public_path)
 end
