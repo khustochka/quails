@@ -41,4 +41,14 @@ class CardTest < ActiveSupport::TestCase
     assert_equal card3.observ_date, Card.last_unebirded_date
   end
 
+  test "ebird_eligible scope" do
+    card1 = create(:card, effort_type: "TRAVEL")
+    card2 = create(:card, effort_type: "TRAVEL")
+    obs1 = create(:observation, quantity: "2-3", card: card1)
+    obs2 = create(:observation, quantity: "a lot", card: card2)
+    ee = Card.ebird_eligible.to_a
+    assert_includes ee, card1
+    assert_not_includes ee, card2
+  end
+
 end

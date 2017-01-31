@@ -253,6 +253,8 @@ class ResearchController < ApplicationController
             select('DISTINCT locus_id, observ_date, card_id').
             where("observ_date IN (?)", dates).
             preload(card: :locus).group_by(&:observ_date)
+
+    @ebird_eligible_this_year = Card.ebird_eligible.in_year(params[:year] || Quails::CURRENT_YEAR).count
   end
 
   def voices

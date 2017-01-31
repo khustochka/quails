@@ -1,6 +1,7 @@
 class Card < ApplicationRecord
 
   EFFORT_TYPES = %w(INCIDENTAL STATIONARY TRAVEL AREA HISTORICAL)
+  NON_INCIDENTAL = EFFORT_TYPES - %w(INCIDENTAL HISTORICAL)
 
   include DecoratedModel
 
@@ -32,6 +33,14 @@ class Card < ApplicationRecord
   accepts_nested_attributes_for :observations,
                                 reject_if:
                                     proc { |attrs| attrs.all? { |k, v| v.blank? || k == 'voice' } }
+
+  # Eligible for ebird challenge: full non-incidental checklist without X's (all quantities in numbers)
+  scope :ebird_eligible, -> {
+    where(effort_type: NON_INCIDENTAL).
+        where("NOT EXISTS (select id from observations where card_id = cards.id and quantity !~ '\\A\\d+')")
+  }
+
+  scope :in_year, ->(year) { where("EXTRACT(year FROM observ_date) = ?", year) }
 
   def self.default_cards_order(asc_or_desc)
     order("observ_date #{asc_or_desc}, to_timestamp(start_time, 'HH24:MI') #{asc_or_desc} NULLS LAST")
@@ -86,7 +95,7 @@ class Card < ApplicationRecord
   end
 
   def non_incidental?
-    effort_type.in? %w(TRAVEL AREA STATIONARY)
+    effort_type.in? NON_INCIDENTAL
   end
 
   # HISTORICAL is neither incidental, nor non-incidental
