@@ -1,6 +1,8 @@
 class Video < Media
   include DecoratedModel
 
+  invalidates CacheKey.gallery
+
   NORMAL_PARAMS = [:slug, :title, :youtube_id, :description]
 
   default_scope -> { where(media_type: 'video') }
