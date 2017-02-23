@@ -48,6 +48,8 @@ class ResearchController < ApplicationController
   end
 
   def topicture
+    @species_with_media = Media.joins(:observations, :taxa).count("DISTINCT species_id")
+
     unpic_rel = MyObservation.select('species_id, COUNT(observations.id) AS cnt').where(
         "species_id NOT IN (%s)" %
             MyObservation.select('DISTINCT species_id').
