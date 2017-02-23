@@ -4,6 +4,12 @@
 
 - @page_title = @file.name
 
+- content_for :add_shortcuts do
+  %li
+    = link_to "http://ebird.org/ebird/import/upload.form?theme=ebird", target: "_blank" do
+      %span.fa.fa-external-link
+      Ebird Import Data
+
 %h1= @page_title
 
 = render 'admin/shortcuts' if current_user.admin?
