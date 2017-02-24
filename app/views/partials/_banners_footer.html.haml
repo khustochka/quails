@@ -1,5 +1,5 @@
 - unless admin_layout? || controller_name == 'maps'
-  = cache :banners_footer do
+  = cache [:banners_footer, admin: current_user.admin?] do
     %div.banners_footer
       - if Birdingtop.configured?
         %div.banner_holder.birdingtop_holder
