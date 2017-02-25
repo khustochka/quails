@@ -105,5 +105,5 @@
 
         = yield
 
-    - cache [:footer, birdingtop: current_user.admin? || controller_name == 'maps'] do
+    - cache [:footer, hide_banners: admin_layout? || controller_name == 'maps'] do
       = render 'partials/footer'
