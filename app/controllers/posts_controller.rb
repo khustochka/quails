@@ -76,7 +76,8 @@ class PostsController < ApplicationController
 
   # POST
   def lj_post
-    user = LiveJournal::User.new(Settings.lj_user.name, Settings.lj_user.password)
+    server = LiveJournal::Server.new("Dreamwidth", "https://www.dreamwidth.org")
+    user = LiveJournal::User.new(Settings.lj_user.name, Settings.lj_user.password, server)
 
     entry = LiveJournal::Entry.new
     entry.preformatted = true
@@ -88,28 +89,36 @@ class PostsController < ApplicationController
 
     request = if @post.lj_data.url.present?
                 if Quails.env.real_prod?
-                  entry.itemid = @post.lj_data.post_id
-                  LiveJournal::Request::EditEvent.new(user, entry)
+                  if @post.lj_data.url =~ /dreamwidth\.org/
+                    entry.itemid = @post.lj_data.post_id
+                    LiveJournal::Request::EditEvent.new(user, entry)
+                  else
+                     flash.alert = "This entry is on LiveJournal, cannot edit via DreamWidth."
+                     nil
+                  end
                 else
-                  flash.alert = "Editing LJ entries is prohibited in not real production"
-                  nil
+                 flash.alert = "Editing LJ/DW entries is prohibited when not on real production."
+                 nil
                 end
               else
-                country_tag = @post.cards.first.locus.country.slug
-                if country_tag.in?(ALLOWED_COUNTRY_TAGS)
-                  entry.taglist = [country_tag.gsub("_", " ")]
+                any_card = @post.cards.first
+                if any_card
+                  country_tag = any_card.locus.country.slug
+                  if country_tag.in?(ALLOWED_COUNTRY_TAGS)
+                    entry.taglist = [country_tag.gsub("_", " ")]
+                  end
                 end
                 LiveJournal::Request::PostEvent.new(user, entry)
               end
 
     if request
       request.run
-      flash.notice = 'Posted to LJ'
+      flash.notice = 'Posted to DreamWidth'
 
       if entry.itemid
         @post.lj_data.post_id = entry.itemid
         if entry.anum
-          @post.lj_data.url = "http://#{Settings.lj_user.name}.livejournal.com/#{entry.display_itemid}.html"
+          @post.lj_data.url = "https://#{Settings.lj_user.name}.dreamwidth.org/#{entry.display_itemid}.html"
         end
         @post.save!
       end
