@@ -55,4 +55,12 @@ module ApplicationHelper
     service_class.render(self)
   end
 
+  def hide_banners?
+    admin_layout? || controller_name == 'maps'
+  end
+
+  def hide_birdingtop?
+    current_user.admin? || controller_name == 'maps'
+  end
+
 end

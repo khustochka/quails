@@ -1,4 +1,4 @@
-- unless admin_layout? || controller_name == 'maps'
+- unless hide_banners?
   = cache [:banners_footer, admin: current_user.admin?] do
     %div.banners_footer
       - if Birdingtop.configured?
