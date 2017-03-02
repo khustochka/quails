@@ -2,8 +2,8 @@ source 'https://rubygems.org/'
 
 ruby '2.4.0'
 
-#gem 'rails', '5.0.1'
-VERSION = "5.0.1"
+#gem 'rails', '5.0.2'
+VERSION = "5.0.2"
 gem "activesupport", VERSION
 gem "actionpack",    VERSION
 gem "actionview",    VERSION
