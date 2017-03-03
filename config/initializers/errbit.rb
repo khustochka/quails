@@ -4,6 +4,6 @@ if ENV['errbit_api_key'] && ENV['errbit_host']
     config.project_key = ENV['errbit_api_key']
     config.host = "https://#{ENV['errbit_host']}"
     config.environment = Rails.env
-    config.ignore_environments = %w(development test)
+    config.ignore_environments = %w(test)
   end
 end
