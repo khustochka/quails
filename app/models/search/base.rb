@@ -19,12 +19,12 @@ module Search
     end
 
     def starts_with_condition(column_name)
-      @base.klass.send(:sanitize_conditions, ["#{column_name} ILIKE '%s%%'", regexp_escaped_term])
+      @base.klass.send(:sanitize_sql, ["#{column_name} ILIKE '%s%%'", regexp_escaped_term])
     end
 
     def full_blown_condition(column_name)
       @base.klass.send(
-          :sanitize_conditions,
+          :sanitize_sql,
           ["#{column_name} ~* '(^| |\\(|-|\\/)%s'", regexp_escaped_term]
       )
     end

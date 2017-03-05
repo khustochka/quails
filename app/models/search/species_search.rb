@@ -14,7 +14,7 @@ module Search
           order("rank ASC NULLS LAST, weight DESC NULLS LAST").
           limit(5)
 
-      if rel.size < 5
+      if rel.to_a.size < 5
         primary_condition2 = starts_with_condition("url_synonyms.name_sci")
         secondary_condition = full_blown_condition("url_synonyms.name_sci")
         rel2 = @base.
