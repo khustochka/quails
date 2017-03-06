@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/khustochka/livejournal.git
-  revision: 6c601c43b26d645df708f56bdd5e0332bbe98fcc
+  revision: 06b3d406be5f05a41129d0babf33ad59ec7abc7f
   branch: alt-server
   specs:
     livejournal (0.3.10)
@@ -97,7 +97,7 @@ GEM
     factory_girl_rails (4.8.0)
       factory_girl (~> 4.8.0)
       railties (>= 3.0.0)
-    ffi (1.9.17)
+    ffi (1.9.18)
     flickraw (0.9.9)
     font-awesome-sass (4.7.0)
       sass (>= 3.2)
@@ -231,7 +231,7 @@ GEM
     tilt (2.0.6)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
-    uglifier (3.1.3)
+    uglifier (3.1.4)
       execjs (>= 0.3.0, < 3)
     websocket (1.2.4)
     xpath (2.0.0)
@@ -295,4 +295,4 @@ RUBY VERSION
    ruby 2.4.0p0
 
 BUNDLED WITH
-   1.14.5
+   1.14.6
