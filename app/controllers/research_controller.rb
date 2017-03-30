@@ -295,6 +295,14 @@ class ResearchController < ApplicationController
       @data[yr] = dates.inject([]) do |memo, (dt, cnt)|
         memo << [[dt.month, dt.day], (memo.last.try(&:last) || 0) + cnt]
       end
+      last_day = Date.new(yr, 12, 31)
+      if last_day > Date.today
+        last_day = Date.today
+      end
+      last_day2 = [last_day.month, last_day.day]
+      if @data[yr].last.first != last_day2
+        @data[yr] << [last_day2, @data[yr].last.second]
+      end
     end
   end
 
