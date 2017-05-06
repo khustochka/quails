@@ -32,7 +32,7 @@ gem 'ancestry'
 gem 'ordered-active-record'
 
 # Templating
-gem "haml", "~> 4.0.4"
+gem "haml"
 gem 'haml-rails'
 gem 'haml-contrib'
 gem 'RedCloth'
