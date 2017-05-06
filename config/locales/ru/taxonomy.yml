@@ -6,10 +6,12 @@
     Gaviiformes: Гагарообразные
     Podicipediformes: Поганкообразные
     Procellariiformes: Буревестникообразные
+    Suliformes: Олушеобразные
     Pelecaniformes: Пеликанообразные
     Ciconiiformes: Аистообразные
     Phoenicopteriformes: Фламингообразные
     Anseriformes: Гусеобразные
+    Accipitriformes: Ястребообразные
     Falconiformes: Соколообразные
     Galliformes: Курообразные
     Gruiformes: Журавлеобразные
@@ -96,12 +98,14 @@
     Paradoxornithidae: Суторовые
     Aegithalidae: Длиннохвостые синицы
     Paridae: Синицевые
+    Remizidae: Ремезовые
     Sittidae: Поползневые
     Certhiidae: Пищуховые
     Vireonidae: Виреоновые
     Parulidae: Древесницевые
     Passeridae: Воробьиные
     Icteridae: Трупиаловые
+    Calcariidae: Подорожниковые
     Fringillidae: Вьюрковые
     Emberizidae: Овсянковые
     Cardinalidae: Кардиналовые
