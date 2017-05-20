@@ -2,8 +2,8 @@ source 'https://rubygems.org/'
 
 ruby '2.4.1'
 
-#gem 'rails', '5.0.2'
-VERSION = "5.0.2"
+VERSION = "5.1.1"
+#gem 'rails', VERSION
 gem "activesupport", VERSION
 gem "actionpack",    VERSION
 gem "actionview",    VERSION
@@ -60,7 +60,7 @@ gem 'newrelic_rpm'
 gem "sprockets-rails"
 gem 'jquery-rails'
 gem 'pjax_rails', git: "https://github.com/khustochka/pjax_rails.git", branch: "trailing-ampersand-fix"
-gem 'respond-js-rails'
+#gem 'respond-js-rails'
 gem 'sass-rails', '~> 5.0'
 gem 'coffee-rails'
 gem 'font-awesome-sass'
