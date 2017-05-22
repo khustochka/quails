@@ -1,6 +1,5 @@
 module Quails
   class PublicExceptions
-
     attr_accessor :public_path
 
     def initialize(public_path)
@@ -9,11 +8,10 @@ module Quails
 
     def call(env)
       @env = env
-      exception    = env["action_dispatch.exception"]
-      status       = env["PATH_INFO"][1..-1]
       request      = ActionDispatch::Request.new(env)
+      status       = request.path_info[1..-1].to_i
       content_type = request.formats.first
-      body         = { :status => status, :error => exception.message }
+      body         = { status: status, error: Rack::Utils::HTTP_STATUS_CODES.fetch(status, Rack::Utils::HTTP_STATUS_CODES[500]) }
 
       render(status, content_type, body)
     end
@@ -21,7 +19,7 @@ module Quails
     private
 
     def render(status, content_type, body)
-      format = content_type && "to_#{content_type.to_sym}"
+      format = "to_#{content_type.to_sym}" if content_type
       if format && body.respond_to?(format)
         render_format(status, content_type, body.public_send(format))
       else
@@ -30,17 +28,16 @@ module Quails
     end
 
     def render_format(status, content_type, body)
-      [status, {'Content-Type' => "#{content_type}; charset=#{ActionDispatch::Response.default_charset}",
-                'Content-Length' => body.bytesize.to_s}, [body]]
+      [status, { "Content-Type" => "#{content_type}; charset=#{ActionDispatch::Response.default_charset}",
+                 "Content-Length" => body.bytesize.to_s }, [body]]
     end
 
     def render_html(status)
-      found = false
-      path = "#{public_path}/#{status}.#{I18n.locale}.html" if I18n.locale
-      path = "#{public_path}/#{status}.html" unless path && (found = File.exist?(path))
+      path = "#{public_path}/#{status}.#{I18n.locale}.html"
+      path = "#{public_path}/#{status}.html" unless (found = File.exist?(path))
 
       if found || File.exist?(path)
-        render_format(status, 'text/html', File.read(path))
+        render_format(status, "text/html", File.read(path))
       else
         ErrorsController.action(:show).call(@env)
       end
