@@ -18,7 +18,7 @@
     %li= link_to 'Stats', research_stats_url(admin_pages_url_options)
     %li= link_to t('menu.lifelist'), advanced_list_url(admin_pages_url_options)
 
-    - if Quails.env.ssl?
+    - if Quails.env.ssl? && controller_name != "errors"
       - if request.ssl?
         = link_to 'Public’s', url_for(public_url_options) unless admin_layout?
       - else
