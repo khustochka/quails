@@ -108,6 +108,12 @@ class VideosControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "show: invalid video slug should return 404" do
+    assert_raise ActiveRecord::RecordNotFound do
+      get :show, params: {id: "zzzzz"}
+    end
+  end
+
   test "get edit" do
     login_as_admin
     get :edit, params: {id: @video.to_param}

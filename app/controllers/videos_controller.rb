@@ -1,5 +1,5 @@
 class VideosController < ApplicationController
-  before_action :set_video, only: [:show, :edit, :update, :destroy, :map_edit, :patch]
+  find_record by: :slug, before: [:show, :edit, :update, :destroy, :map_edit, :patch]
 
   administrative except: [:index, :show]
 
@@ -82,10 +82,6 @@ class VideosController < ApplicationController
   end
 
   private
-  # Use callbacks to share common setup or constraints between actions.
-  def set_video
-    @video = Video.find_by(slug: params[:id])
-  end
 
   def video_params
     @video_params ||= params.require(:video).permit(*Video::NORMAL_PARAMS).merge(observation_ids: params[:obs] || [])
