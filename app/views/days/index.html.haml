@@ -1,0 +1,10 @@
+- @page_title = "Days"
+
+%h1= page_title
+
+%ul
+  - @days.each do |day|
+    - date = day.observ_date
+    %li= link_to date, day_path(date)
+
+= paginate @days

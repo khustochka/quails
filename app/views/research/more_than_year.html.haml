@@ -14,6 +14,6 @@
   - @list.each do |el|
     %tr
       %td= species_link(el[:sp])
-      %td= el[:date1]
-      %td= el[:date2]
+      %td= link_to el[:date1], day_path(el[:date1])
+      %td= link_to el[:date2], day_path(el[:date2])
       %td.align-right= el[:days]

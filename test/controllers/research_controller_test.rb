@@ -13,13 +13,13 @@ class ResearchControllerTest < ActionController::TestCase
     #assert_response 404
   end
 
-  test "admin sees Research/day" do
+  test "admin sees Research/this_day" do
     p = create(:post)
     o = create(:observation, card: create(:card, observ_date: Time.now, post: p))
     create(:image, observations: [o])
 
     login_as_admin
-    get :day
+    get :this_day
     assert_response :success
   end
 

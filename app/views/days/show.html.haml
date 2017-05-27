@@ -1,0 +1,46 @@
+- stylesheet 'public'
+
+- @page_title = l(@day.date, format: :long)
+
+%h1= page_header
+
+%ul.horiz-list
+  %li
+    = link_to day_path(@day.prev) do
+      &larr;
+      = l(@day.prev, format: :long)
+
+  %li
+    = link_to day_path(@day.next) do
+      = l(@day.next, format: :long)
+      &rarr;
+
+= render partial: 'species/flat_section', object: @day
+
+- @day.images.if_present do |images|
+  %div.photos
+    %h3 Photos
+    %div.thumbnails
+      = render_justified images.map(&:to_thumbnail)
+
+- @day.posts.if_present do |posts|
+  %h3 Posts
+  %ul
+    - posts.each do |post|
+      %li= post_link(post.decorated.title, post, true)
+
+- @day.cards.if_present do |cards|
+  %h3 Cards
+  %ul.cards_list
+    = render cards.default_cards_order(:asc).preload(:post, :locus)
+
+
+
+- @day.observations.load.if_present do |observations|
+  %h3
+    Observations
+    = surround "(", ")" do
+      = @day.observations.size
+  %ol
+    - observations.preload(:taxon => :species).each do |obs|
+      = render 'cards/observation_row', obs: obs

@@ -56,7 +56,7 @@
 
   - @day_by_obs.each do |row|
     %tr
-      %td.nowrap= l(row.observ_date, format: :long)
+      %td.nowrap= link_to l(row.observ_date, format: :long), day_path(row.observ_date)
       %td= row.count_obs
       %td= @locs_for_day_by_obs[row.observ_date].map {|c| c.locus.name}.join(", ")
 
@@ -71,7 +71,7 @@
 
   - @day_by_species.each do |row|
     %tr
-      %td.nowrap= l(row.observ_date, format: :long)
+      %td.nowrap= link_to l(row.observ_date, format: :long), day_path(row.observ_date)
       %td= row.count_species
       %td= @locs_for_day_by_species[row.observ_date].map {|c| c.locus.name}.join(", ")
 
@@ -86,7 +86,7 @@
 
   - @day_and_loc_by_species.each do |row|
     %tr
-      %td.nowrap= l(row.observ_date, format: :long)
+      %td.nowrap= link_to l(row.observ_date, format: :long), day_path(row.observ_date)
       %td= row.count_species
       %td= @preloaded_locs[row.locus_id].name
 
@@ -101,7 +101,7 @@
 
   - (@day_by_new_species || []).each do |row|
     %tr
-      %td.nowrap= l(row.observ_date, format: :long)
+      %td.nowrap= link_to l(row.observ_date, format: :long), day_path(row.observ_date)
       %td= row.count_species
       %td= @locs_for_day_by_new_species[row.observ_date].map {|c| c.card.locus.name}.join(", ")
 

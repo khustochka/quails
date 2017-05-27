@@ -14,4 +14,7 @@
   %p
     %i= img.species.map(&:name_sci) * ', '
   %p= image_tag(jpg_url(img))
-  %p= post_link([l(img.observ_date, :format => :long), img.locus.name] * ', ', img.posts.first, true)
+  %p
+    = succeed ", " do
+      = link_to l(img.observ_date, :format => :long), day_path(img.observ_date)
+    = img.locus.name

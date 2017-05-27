@@ -2,8 +2,10 @@
   %ul.card_cell
     %li
       = hidden_field_tag("card_id[]", card.id)
-      = link_to card.observ_date, card
-      = surround('[ ', ' ]') do
+      = link_to card.observ_date, day_path(card.observ_date)
+      = surround('[', ']') do
+        = link_to 'show', card_path(card), class: 'pseudolink'
+      = surround('[', ']') do
         %b= link_to 'edit', edit_card_path(card), class: 'pseudolink'
     %li
       %small

@@ -1,6 +1,6 @@
 - stylesheet 'public'
 
-- @page_title = "#{l(@card.observ_date, format: :long)}, #{@card.locus.name}"
+- @page_title = "#{link_to l(@card.observ_date, format: :long), day_path(@card.observ_date)}, #{@card.locus.name}".html_safe
 
 - provide :add_shortcuts do
   %li= link_to @card.mapped? ? 'Edit map' : '<b>MAP IT!</b>'.html_safe, edit_map_path(q: {card_id: @card.id})

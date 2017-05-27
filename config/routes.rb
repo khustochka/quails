@@ -181,6 +181,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :days, only: [:index, :show]
+
   scope '/observations' do
     resources :spuhs, only: [:index, :show, :update]
   end
@@ -247,7 +249,7 @@ Rails.application.routes.draw do
 
   get '/research', controller: :research, action: :index, as: :research
 
-  research_actions = %w(environ insights more_than_year topicture day uptoday compare by_countries stats voices charts month_targets)
+  research_actions = %w(environ insights more_than_year topicture this_day uptoday compare by_countries stats voices charts month_targets)
   research_actions.each do |name|
     get "/research/#{name}", controller: :research, action: name
   end

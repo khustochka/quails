@@ -8,7 +8,7 @@
 - @js_features = [:taxaAutosuggest, :wikiFields]
 - @js_controller = :cards
 
-- @page_title = @card.persisted? ? "Edit: #{l(@card.observ_date, format: :long)}, #{@card.locus.name}" : "New card"
+- @page_title = @card.persisted? ? "Edit: #{link_to l(@card.observ_date, format: :long), day_path(@card.observ_date)}, #{@card.locus.name}".html_safe : "New card"
 
 - if @card.persisted?
 
