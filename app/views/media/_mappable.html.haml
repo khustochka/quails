@@ -25,13 +25,13 @@
 
 = render 'spots/form'
 
-.mapContainer
+.mapContainer{data: {marks: mappable.spots.to_json(only: [:lat, :lng, :id])}}
   #googleMap
 
 :javascript
   var patch_url = "#{url_for(action: :patch, format: :json)}",
       media_type = '#{mappable.class.to_s.downcase}',
-      marks = #{mappable.spots.to_json(only: [:lat, :lng, :id])},
+      marks = $(".mapContainer").data("marks"),
       max_zoom = #{mappable.spots.map(&:zoom).max || "null"},
       selected_spot, locusLatLng;
   #{"selected_spot = #{mappable.spot_id};" if mappable.spot_id}
