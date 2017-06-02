@@ -5,6 +5,9 @@
 
 %h1= page_header
 
+- if notice
+  %p#notice= notice
+
 = render 'admin/shortcuts' if current_user.admin?
 
 = simple_form_for @locus do |form|
