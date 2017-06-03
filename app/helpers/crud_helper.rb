@@ -5,8 +5,9 @@ module CrudHelper
   end
 
   def default_submit_button(form, options = {})
-    default_option = {:value => t('.save_button', :default => 'Save'), data: {disable_with: 'Saving...'}, :id => 'save_button'}
-    form.button :submit, default_option.merge!(options)
+    default_value = options.delete(:value) || t('.save_button', :default => 'Save')
+    default_options = {data: {disable_with: 'Saving...'}, :id => 'save_button'}
+    form.button :submit, *[default_value, default_options.merge!(options)].compact
   end
 
   def default_destroy_link(rec)

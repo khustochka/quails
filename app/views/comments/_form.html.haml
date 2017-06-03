@@ -24,4 +24,4 @@
     = form.input :approved, label: 'Approved'
     %b= @comment.ip
   .buttons
-    = default_submit_button(form)
+    = default_submit_button(form, data: {disable_with: 'Sending...'})
