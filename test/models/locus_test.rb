@@ -29,8 +29,9 @@ class LocusTest < ActiveSupport::TestCase
     loc = create(:locus, slug: :arabat_spit, parent: loci("ukraine"))
     loc1 = create(:locus, slug: :arabat_spit_kherson, parent: loci("ukraine"))
     loc2 = create(:locus, slug: :arabat_spit_krym, parent: loci("ukraine"))
+    loc3 = create(:locus, slug: :hen_horka, parent: loc1)
     actual = loc.subregion_ids
-    assert_equal [loc.id, loc1.id, loc2.id], actual
+    assert_equal [loc.id, loc1.id, loc2.id, loc3.id].to_set, actual.to_set
   end
 
   test 'do not destroy locus if it has child locations' do

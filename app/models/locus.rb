@@ -55,7 +55,7 @@ class Locus < ApplicationRecord
   def subregion_ids
     # Hack for Arabat Spit
     if slug == 'arabat_spit'
-      Locus.where("slug LIKE 'arabat%'").pluck(:id)
+      Locus.where("slug LIKE 'arabat%'").flat_map(&:subtree_ids)
     else
       subtree_ids
     end
