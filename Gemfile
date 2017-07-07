@@ -2,7 +2,7 @@ source 'https://rubygems.org/'
 
 ruby '2.4.1'
 
-VERSION = "5.1.1"
+VERSION = "5.1.2"
 #gem 'rails', VERSION
 gem "activesupport", VERSION
 gem "actionpack",    VERSION
