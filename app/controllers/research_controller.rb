@@ -283,7 +283,7 @@ class ResearchController < ApplicationController
     current = Quails::CURRENT_YEAR
     @data = {}
     @years = params[:years] ?
-              Range.new(*params[:years].split("..")) :
+              Range.new(*params[:years].split("..").map(&:to_i)) :
               (current - 1)..current
     @years.each do |yr|
       list = observations_filtered.
@@ -300,7 +300,7 @@ class ResearchController < ApplicationController
         last_day = Date.today
       end
       last_day2 = [last_day.month, last_day.day]
-      if @data[yr].last.first != last_day2
+      if @data[yr].any? && @data[yr].last.first != last_day2
         @data[yr] << [last_day2, @data[yr].last.second]
       end
     end

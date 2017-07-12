@@ -93,4 +93,14 @@ class ResearchControllerTest < ActionController::TestCase
     get :more_than_year, params: {sort: :days}
     assert_redirected_to controller: :research, action: :more_than_year, days: 365, sort: :days
   end
+
+  test "charts work" do
+    login_as_admin
+    get :charts
+  end
+
+  test "charts work with years parameter" do
+    login_as_admin
+    get :charts, params: {years: "2015..2017"}
+  end
 end
