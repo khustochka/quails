@@ -36,7 +36,7 @@ class ObservationsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test 'extract observation to the new card' do
+  test 'extract observations to the new card' do
     card = create(:card)
     obs1 = create(:observation, card: card)
     obs2 = create(:observation, card: card)
@@ -52,6 +52,17 @@ class ObservationsControllerTest < ActionController::TestCase
 
     assert_equal 1, card.observations.size
     assert card != obs1.card
+  end
+
+  test 'move observations to another card' do
+    card = create(:card)
+    obs1 = create(:observation, card: card)
+    obs2 = create(:observation, card: card)
+    create(:observation, card: card)
+
+    login_as_admin
+    get :move, params: {obs: [obs1.id, obs2.id]}
+    assert_response :success
   end
 
   # auth tests

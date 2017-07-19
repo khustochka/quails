@@ -56,7 +56,7 @@ class ObservationsController < ApplicationController
   end
 
   def move
-    @observations = Observation.where(id: params[:obs]).preload(:species)
+    @observations = Observation.where(id: params[:obs]).preload(:taxon => :species)
     @card = @observations[0].card
     @observation_search = ObservationSearch.new(observ_date: @card.observ_date, locus_id: @card.locus_id)
   end

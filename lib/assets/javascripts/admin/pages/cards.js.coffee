@@ -14,8 +14,9 @@ Quails.pages.cards =
     @initRemoveAndDestroy()
     @initFastSpeciesLinks()
     @initQuickAdd()
-    @inittaxaAutosuggest()
+    @initTaxaAutosuggest()
     @initMarkAsVoice()
+    @initExtractorAndMover()
 
   initObservationRows: ->
     $(".card_observations_private_notes").hide()
@@ -123,7 +124,7 @@ Quails.pages.cards =
       checkbox.prop 'checked', !checkbox.prop('checked')
       return
 
-  inittaxaAutosuggest: ->
+  initTaxaAutosuggest: ->
     @initTaxonSuggestField ".sp-light"
 
   addNewRow: ->
