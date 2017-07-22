@@ -14,6 +14,8 @@ class CardsController < ApplicationController
 
     if !request.xhr? || pjax_request?
       @cards = @cards.page(params[:page]).per(10)
+    else
+      @cards = @cards.limit(30)
     end
 
 
