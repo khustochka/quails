@@ -249,6 +249,7 @@ class ResearchController < ApplicationController
         group('observ_date').except(:order).
         order('COUNT(species_id) DESC, observ_date ASC').limit(10)
 
+    # FIXME: wrong locus may be shown if lifer is on several cards a day
     dates = @day_by_new_species.except(:select).select(:observ_date)
     @locs_for_day_by_new_species =
         lifelist_filtered.except(:select).
