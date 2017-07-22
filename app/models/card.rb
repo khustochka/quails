@@ -81,7 +81,24 @@ class Card < ApplicationRecord
         from observations obs
         join cards c on obs.card_id = c.id
         join taxa tt ON obs.taxon_id = tt.id
-        where taxa.species_id = tt.species_id and '#{self.observ_date}' > c.observ_date"
+        where taxa.species_id = tt.species_id and
+        ('#{self.observ_date}' > c.observ_date
+         " +
+    (if self.start_time.blank?
+      "OR ('#{self.observ_date}' = c.observ_date
+              AND c.start_time IS NOT NULL
+              )
+      OR ('#{self.observ_date}' = c.observ_date
+              AND c.start_time IS NULL
+              AND c.id < #{self.id}
+              )"
+    else
+      "OR ('#{self.observ_date}' = c.observ_date
+              AND to_timestamp('#{self.start_time}', 'HH24:MI') > to_timestamp(c.start_time, 'HH24:MI')
+              )"
+     end
+      ) +
+          ")"
     @new_species_ids ||= self.observations.
         identified.
         where("NOT EXISTS(#{subquery})").
