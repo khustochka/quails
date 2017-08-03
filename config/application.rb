@@ -16,8 +16,7 @@ require "rails/test_unit/railtie"
 Bundler.require(*Rails.groups)
 
 # Workaround for haml + textile + new tilt
-# New tilt fails to load maruku and does not try textile
-require 'tilt/redcloth'
+# haml fails to load maruku and does not try textile
 require "haml/filters/textile"
 
 module Quails
