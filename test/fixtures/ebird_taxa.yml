@@ -6,6 +6,7 @@ pasdom:
   category: species
   index_num: 100
   ebird_code: houspa
+  ebird_version: 2016
 
 hirrus:
   name_sci: "Hirundo rustica"
@@ -14,6 +15,7 @@ hirrus:
   category: "species"
   index_num: 50
   ebird_code: barswa
+  ebird_version: 2016
 
 #saxola:
 #  name_sci: "Saxicola rubicola"
@@ -36,6 +38,7 @@ gargla:
   category: "species"
   index_num: 60
   ebird_code: eurjay1
+  ebird_version: 2016
 
 gargla_eurasian:
   name_sci: "Garrulus glandarius [glandarius Group]"
@@ -45,6 +48,7 @@ gargla_eurasian:
   index_num: 61
   ebird_code: eurjay2
   parent: :gargla
+  ebird_version: 2016
 #
 #bomgar:
 #  name_sci: "Bombycilla garrulus"
@@ -60,6 +64,7 @@ motfel:
   category: issf
   index_num: 14900
   ebird_code: weywag6
+  ebird_version: 2016
 
 aves_sp:
   name_sci: "Aves sp."
@@ -68,6 +73,7 @@ aves_sp:
   category: "spuh"
   index_num: 15000
   ebird_code: bird1
+  ebird_version: 2016
 
 # Ebird taxa to test promotion:
 
@@ -78,6 +84,7 @@ some_spuh:
   category: "spuh"
   index_num: 18
   ebird_code: tinamu1
+  ebird_version: 2016
 
 some_species:
   name_sci: "Tinamus solitarius"
@@ -88,6 +95,7 @@ some_species:
   family: "Tinamidae (Tinamous)"
   index_num: 14
   ebird_code: soltin1
+  ebird_version: 2016
 
 barn_swallow_subspecies:
   name_sci: "Hirundo rustica erythrogaster"
@@ -97,6 +105,7 @@ barn_swallow_subspecies:
   index_num: 51
   ebird_code: barswa5
   parent: :hirrus
+  ebird_version: 2016
 
 some_tinamu_subspecies:
   name_sci: "Tinamus solitarius noveboracensis"
@@ -108,5 +117,6 @@ some_tinamu_subspecies:
   index_num: 15
   ebird_code: soltin99
   parent: :some_species
+  ebird_version: 2016
 
 # ===== END OF Ebird taxa to test promotion
