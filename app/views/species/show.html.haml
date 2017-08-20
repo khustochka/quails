@@ -49,6 +49,13 @@
         - splits.each do |syn|
           %li
             %i= syn.name_sci
+    - lumps = @species.url_synonyms.lumps
+    - if lumps.any?
+      = t(".lumps_synonyms")
+      %ul
+        - lumps.each do |syn|
+          %li
+            %i= syn.name_sci
 
 - @species.ordered_images.top_level.if_present do |images|
   %a{name: 'photos'}

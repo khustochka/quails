@@ -15,6 +15,7 @@
       total_observations: 'Observations total:'
       species_synonyms: 'May have a different name in some sources:'
       splits_synonyms: 'May be listed as a subspecies of the following species:'
+      lumps_synonyms: 'The following taxa were lumped into this species:'
 
     flat_section:
       title: 'Species met'
