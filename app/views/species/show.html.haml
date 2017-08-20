@@ -33,7 +33,9 @@
         %dt= t("languages.#{lang}")
         %dd{lang: lang}= trans_name
 
-- if @species.url_synonyms.to_a.any?
+- supersp = @species.superspecies
+- subsp = @species.subspecies
+- if @species.url_synonyms.to_a.any? || supersp || subsp
   %div.sp_synonyms
     - name_synonyms = @species.url_synonyms.different_name
     - if name_synonyms.any?
@@ -56,6 +58,20 @@
         - lumps.each do |syn|
           %li
             %i= syn.name_sci
+    - if supersp.any?
+      = t(".split_from_another_sp")
+      %ul
+        - supersp.each do |ssp|
+          %li
+            = species_link(ssp)
+            = name_sci(ssp)
+    - if subsp.any?
+      = t(".species_split_from_this")
+      %ul
+        - subsp.each do |ssp|
+          %li
+            = species_link(ssp)
+            = name_sci(ssp)
 
 - @species.ordered_images.top_level.if_present do |images|
   %a{name: 'photos'}

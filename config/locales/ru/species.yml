@@ -16,6 +16,8 @@
       species_synonyms: 'В некоторых источниках может иметь другое название:'
       splits_synonyms: 'Может рассматриваться как подвид вида:'
       lumps_synonyms: 'В этот вид были включены такие таксоны:'
+      split_from_another_sp: 'Этот вид был выделен из вида:'
+      species_split_from_this: 'Из этого вида были выделены:'
 
     flat_section:
       title: 'Встреченные виды'

@@ -86,6 +86,8 @@ Rails.application.routes.draw do
 
       get "synonyms" => "synonyms#index"
       patch "synonyms/:id" => "synonyms#update"
+
+      get "splits" => "species_splits#index"
     end
   end
 

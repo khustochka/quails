@@ -35,6 +35,12 @@ class Species < ApplicationRecord
   has_many :local_species
   has_many :url_synonyms
 
+  has_many :splits_super, class_name: "SpeciesSplit", foreign_key: "superspecies_id"
+  has_many :splits_sub, class_name: "SpeciesSplit", foreign_key: "subspecies_id"
+
+  has_many :superspecies, through: :splits_sub, primary_key: "superspecies_id"
+  has_many :subspecies, through: :splits_super, primary_key: "subspecies_id"
+
   # Scopes
 
   scope :short, lambda { select("species.id, species.name_sci, species.name_en, species.name_ru, species.name_uk, species.index_num") }

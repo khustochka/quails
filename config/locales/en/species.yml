@@ -16,6 +16,8 @@
       species_synonyms: 'May have a different name in some sources:'
       splits_synonyms: 'May be listed as a subspecies of the following species:'
       lumps_synonyms: 'The following taxa were lumped into this species:'
+      split_from_another_sp: 'This species was split from:'
+      species_split_from_this: 'The following species were split from this one:'
 
     flat_section:
       title: 'Species met'

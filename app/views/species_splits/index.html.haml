@@ -1,0 +1,22 @@
+- @page_title = "Species splits"
+
+%h1= page_header
+
+- provide :add_shortcuts do
+  %li= link_to "Species", admin_species_index_path
+
+= render 'admin/shortcuts' if current_user.admin?
+
+%table.neat_table
+  %tr
+    %th From this name
+    %th Was extracted this one
+
+  - @splits.each do |split|
+    %tr
+      %td
+        = species_link(split.superspecies)
+        = name_sci(split.superspecies)
+      %td
+        = species_link(split.subspecies)
+        = name_sci(split.subspecies)
