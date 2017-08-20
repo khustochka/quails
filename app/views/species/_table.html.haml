@@ -32,10 +32,13 @@
             = term_highlight(species.send("name_#{lang}"), @term)
       %td
         - taxon = species.high_level_taxon
-        %div
-          %b= taxon_link(taxon)
-        %div
-          = name_sci(taxon)
+        - if taxon
+          %div
+            %b= taxon_link(taxon)
+          %div
+            = name_sci(taxon)
+        - else
+          %div.errors No taxon. Please revise.
       -#%small.tag{class: "tag_#{taxon.category}"}= taxon.category
       %td.align-center
         %div
