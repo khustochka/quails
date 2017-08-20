@@ -83,6 +83,9 @@ Rails.application.routes.draw do
     collection do
       get 'admin', action: :index
       get :simple_search
+
+      get "synonyms" => "synonyms#index"
+      patch "synonyms/:id" => "synonyms#update"
     end
   end
 

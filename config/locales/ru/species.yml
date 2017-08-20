@@ -14,6 +14,7 @@
 
       total_observations: 'Всего встреч:'
       species_synonyms: 'В некоторых источниках может иметь другое название:'
+      splits_synonyms: 'Может рассматриваться как подвид вида:'
 
     flat_section:
       title: 'Встреченные виды'
