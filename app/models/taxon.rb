@@ -26,7 +26,7 @@ class Taxon < ApplicationRecord
   has_many :observations, dependent: :restrict_with_exception
   has_many :images, through: :observations
 
-  scope :category_species, -> { where(category: "species") }
+  scope :category_species, -> {where(category: "species")}
 
   def self.weighted_by_abundance
     obs = Observation.select("taxon_id, COUNT(observations.id) as weight").group(:taxon_id)
@@ -49,6 +49,60 @@ class Taxon < ApplicationRecord
 
   def is_a_species?
     category == "species"
+  end
+
+  # 1. This is mostly used when promoting ebird taxon to taxon (and further to species)
+  # 2. But it also can be called separately to create a species after taxon category is
+  # manually changed to species (like Motacilla feldegg).
+  # 3. It also contains additional logic to fix an existing species relation after taxonomy update,
+  # when lump or split occurred:
+  #     a. Lump: Species is linked to a nominative subspecies(taxon-issf) that was formerly a species. It should be
+  #        relinked to a newly promoted taxon-species (superspecies), and also to its children (who are the
+  #        lumped taxa).
+  #     b. Split: Species is linked to a slash or spuh taxon that was formerly a (super)species. It should be relinked
+  #        to a newly promoted or existing nominative taxon-species (that was formerly a taxon-subspecies)
+  def lift_to_species
+    if category == "species"
+      new_species = species
+
+      ActiveRecord::Base.transaction do
+
+        if new_species.nil?
+          new_species = Species.find_by_name_sci(name_sci)
+          # Unlink old taxa
+          if new_species
+            new_species.taxa.each {|tx| tx.update_attributes(species_id: nil)}
+          end
+        end
+
+        if new_species.nil?
+          prev_sp_index_num =
+              Species.
+                  joins("INNER JOIN taxa on species.id = taxa.species_id").
+                  where(taxa: {category: "species"}).
+                  where("taxa.index_num < ?", index_num).order("species.index_num DESC").
+                  limit(1).pluck("species.index_num").first
+          new_sp_index_num = prev_sp_index_num ? prev_sp_index_num + 1 : 1
+          new_species = self.build_species(
+              index_num: new_sp_index_num
+          )
+        end
+
+        new_species.update_attributes!(
+            name_sci: name_sci,
+            name_en: name_en,
+            order: order,
+            family: family.match(/^\w+dae/)[0]
+        )
+
+        self.species_id = new_species.id # Necessary for species that existed already!
+        save!
+
+        self.children.each {|tx| tx.update_attributes(species_id: new_species.id)}
+
+      end
+      new_species
+    end
   end
 
 end
