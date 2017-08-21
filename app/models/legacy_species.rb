@@ -58,7 +58,7 @@ class LegacySpecies < ApplicationRecord
 
   scope :short, lambda { select("legacy_species.id, name_sci, name_en, name_ru, name_uk, legacy_species.index_num") }
 
-  scope :ordered_by_taxonomy, lambda { uniq.reorder("legacy_species.index_num") }
+  scope :ordered_by_taxonomy, lambda { distinct.reorder("legacy_species.index_num") }
 
   scope :alphabetic, lambda { order(:name_sci) }
 
