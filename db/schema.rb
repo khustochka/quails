@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170820164938) do
+ActiveRecord::Schema.define(version: 20170821231855) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -90,6 +90,9 @@ ActiveRecord::Schema.define(version: 20170820164938) do
     t.integer "index_num", null: false
     t.integer "parent_id"
     t.integer "ebird_version", limit: 2, null: false
+    t.index ["ebird_code"], name: "index_ebird_taxa_on_ebird_code"
+    t.index ["index_num"], name: "index_ebird_taxa_on_index_num"
+    t.index ["parent_id"], name: "index_ebird_taxa_on_parent_id"
   end
 
   create_table "legacy_species", id: :serial, force: :cascade do |t|
@@ -232,11 +235,14 @@ ActiveRecord::Schema.define(version: 20170820164938) do
     t.string "authority"
     t.boolean "reviewed", default: false, null: false
     t.integer "index_num", null: false
+    t.index ["index_num"], name: "index_species_on_index_num"
+    t.index ["name_sci"], name: "index_species_on_name_sci"
   end
 
   create_table "species_images", id: :serial, force: :cascade do |t|
     t.integer "species_id", null: false
     t.integer "image_id", null: false
+    t.index ["image_id"], name: "index_species_images_on_image_id"
     t.index ["species_id"], name: "index_species_images_on_species_id", unique: true
   end
 
@@ -270,12 +276,17 @@ ActiveRecord::Schema.define(version: 20170820164938) do
     t.integer "parent_id"
     t.integer "species_id"
     t.integer "ebird_taxon_id"
+    t.index ["ebird_code"], name: "index_taxa_on_ebird_code"
+    t.index ["index_num"], name: "index_taxa_on_index_num"
+    t.index ["parent_id"], name: "index_taxa_on_parent_id"
+    t.index ["species_id"], name: "index_taxa_on_species_id"
   end
 
   create_table "url_synonyms", id: :serial, force: :cascade do |t|
     t.string "name_sci"
     t.integer "species_id"
     t.string "reason"
+    t.index ["name_sci"], name: "index_url_synonyms_on_name_sci"
   end
 
 end
