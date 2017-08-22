@@ -6,6 +6,13 @@ GIT
     livejournal (0.3.10)
 
 GIT
+  remote: https://github.com/khustochka/ordered-active-record.git
+  revision: 787c8e44438a2ddfd7bac274b58643cd602b126d
+  specs:
+    ordered-active-record (0.9.10)
+      activerecord (>= 3)
+
+GIT
   remote: https://github.com/khustochka/pjax_rails.git
   revision: e84b5d399b8ac93b70b02ac00cb15b197cf78e40
   branch: trailing-ampersand-fix
@@ -63,7 +70,7 @@ GEM
     arel (8.0.0)
     benchmark-ips (2.7.2)
     builder (3.2.3)
-    byebug (9.0.6)
+    byebug (9.1.0)
     capybara (2.13.0)
       addressable
       mime-types (>= 1.16)
@@ -157,8 +164,6 @@ GEM
     newrelic_rpm (4.3.0.335)
     nokogiri (1.8.0)
       mini_portile2 (~> 2.2.0)
-    ordered-active-record (0.9.10)
-      activerecord (>= 3)
     pg (0.21.0)
     pry (0.10.4)
       coderay (~> 1.1.0)
@@ -278,7 +283,7 @@ DEPENDENCIES
   livejournal!
   newrelic_rpm
   nokogiri
-  ordered-active-record
+  ordered-active-record!
   pg
   pjax_rails!
   pry-byebug
@@ -300,4 +305,4 @@ RUBY VERSION
    ruby 2.4.1p111
 
 BUNDLED WITH
-   1.15.3
+   1.15.4

@@ -29,7 +29,7 @@ gem "rails-controller-testing"
 
 # AR utils
 gem 'ancestry'
-gem 'ordered-active-record'
+gem 'ordered-active-record', git: "https://github.com/khustochka/ordered-active-record.git"
 
 # Templating
 gem "haml"
