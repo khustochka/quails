@@ -35,7 +35,7 @@
 
 - supersp = @species.superspecies
 - subsp = @species.subspecies
-- if @species.url_synonyms.to_a.any? || supersp || subsp
+- if @species.url_synonyms.to_a.any? || supersp.any? || subsp.any?
   %div.sp_synonyms
     - name_synonyms = @species.url_synonyms.different_name
     - if name_synonyms.any?
