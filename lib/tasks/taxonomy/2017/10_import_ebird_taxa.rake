@@ -14,7 +14,12 @@ namespace :tax do
 
       codes = {}
 
-      EbirdTaxon.update_all(index_num: 0) #workaround
+
+      # Why we need this workaround? Because we cache the taxa. And then we change their order.
+      # But the index_num's in the cached models are different from the real ones (after previous taxa are moved up or down.)
+      # This causes problems, duplicated and missing indices.
+      # TODO: This may need rework after we switch from ordered-active-record to acts-as-positioned
+      EbirdTaxon.update_all(index_num: 0)
 
       all_etaxa = EbirdTaxon.all.index_by(&:ebird_code)
 

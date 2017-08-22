@@ -39,11 +39,13 @@ namespace :tax do
 
       changes = {
           "Circus hudsonius" => {
+              code: "cirhud",
               authority: "(Linnaeus, 1766)",
               name_ru: "Американский лунь",
               name_fr: "Busard des marais"
           },
           "Lanius borealis" => {
+              code: "lanbor",
               authority: "Vieillot, 1808",
               name_ru: "Северный сорокопут",
               name_fr: "Pie-grièche boréale"
