@@ -13,14 +13,17 @@ Rails.application.configure do
   config.consider_all_requests_local = true
 
   # Enable/disable caching. By default caching is disabled.
-  if ENV['DEV_CACHING']
+  if Rails.root.join('tmp/caching-dev.txt').exist? || ENV['DEV_CACHING']
     # Clear cache
     FileUtils.rm_rf(Dir['tmp/cache/[^.]*'])
     config.action_controller.perform_caching = true
+
     # Folder for page_caching
     config.action_controller.page_cache_directory = "#{Rails.root.to_s}/public"
+
+    # config.cache_store = :memory_store
     config.public_file_server.headers = {
-      'Cache-Control' => 'public, max-age=172800'
+      'Cache-Control' => "public, max-age=#{2.days.seconds.to_i}"
     }
   else
     config.action_controller.perform_caching = false
