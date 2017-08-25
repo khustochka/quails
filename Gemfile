@@ -3,14 +3,14 @@ source 'https://rubygems.org/'
 ruby '2.4.1'
 
 VERSION = "5.1.3"
-#gem 'rails', VERSION
-gem "activesupport", VERSION
-gem "actionpack",    VERSION
-gem "actionview",    VERSION
-gem "activemodel",   VERSION
-gem "activerecord",  VERSION
-gem "actionmailer",  VERSION
-gem "railties",      VERSION
+gem 'rails', VERSION
+# gem "activesupport", VERSION
+# gem "actionpack",    VERSION
+# gem "actionview",    VERSION
+# gem "activemodel",   VERSION
+# gem "activerecord",  VERSION
+# gem "actionmailer",  VERSION
+# gem "railties",      VERSION
 
 gem 'pg', platforms: [:ruby, :mingw]
 #gem "activerecord-jdbcpostgresql-adapter", platforms: :jruby
