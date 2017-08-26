@@ -9,6 +9,7 @@
 !.env.test
 !.env.development
 !.powenv
+!.babelrc
 .bundle
 db/*.sqlite3
 db/seed
@@ -22,3 +23,9 @@ tmp/**/*
 *~
 public/assets
 coverage/*
+# React on Rails
+npm-debug.log*
+node_modules
+
+# Generated js bundles
+/public/webpack/*
