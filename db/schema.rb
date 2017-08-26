@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170821231855) do
+ActiveRecord::Schema.define(version: 20170826160039) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -187,7 +187,6 @@ ActiveRecord::Schema.define(version: 20170821231855) do
   end
 
   create_table "observations", id: :serial, force: :cascade do |t|
-    t.integer "legacy_species_id"
     t.string "quantity", limit: 255
     t.string "private_notes", limit: 255, default: "", null: false
     t.string "notes", default: "", null: false
@@ -198,7 +197,6 @@ ActiveRecord::Schema.define(version: 20170821231855) do
     t.string "place", limit: 255, default: "", null: false
     t.integer "taxon_id"
     t.index ["card_id"], name: "index_observations_on_card_id"
-    t.index ["legacy_species_id"], name: "index_observations_on_legacy_species_id"
     t.index ["post_id"], name: "index_observations_on_post_id"
     t.index ["taxon_id"], name: "index_observations_on_taxon_id"
   end
