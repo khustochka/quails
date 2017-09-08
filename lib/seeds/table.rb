@@ -15,7 +15,7 @@ module Seeds
       quoted_column_names = column_names.map { |column| ActiveRecord::Base.connection.quote_column_name(column) }.join(',')
 
       records.each_slice(1000) do |bunch|
-        quoted_values = bunch.map { |rec| "(#{rec.each_with_index.map { |v, i| ActiveRecord::Base.connection.quote(v, columns[i]) }.join(',')})" }.join(',')
+        quoted_values = bunch.map { |rec| "(#{rec.map { |v| ActiveRecord::Base.connection.quote(v) }.join(',')})" }.join(',')
         ActiveRecord::Base.connection.execute("INSERT INTO #@quoted_table_name (#{quoted_column_names}) VALUES #{quoted_values}")
       end
     end
