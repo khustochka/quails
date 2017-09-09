@@ -7,3 +7,8 @@
 -# scripts
 - scripts = @scripts.try(:compact) || []
 = javascript_include_tag(*scripts.unshift('application'))
+
+
+-# Webpacker bundles
+- if @web_bundles
+  = javascript_pack_tag *@web_bundles

@@ -1,0 +1,7 @@
+- @web_bundles = "logbook-bundle"
+
+- @page_title = "Logbook"
+
+%h1= page_header
+
+= react_component("LogbookApp", props: @card_props, prerender: false)

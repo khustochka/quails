@@ -187,6 +187,8 @@ Rails.application.routes.draw do
     end
   end
 
+  get "/logbook(/:id)" => "logbook#app"
+
   resources :days, only: [:index, :show]
 
   scope '/observations' do
