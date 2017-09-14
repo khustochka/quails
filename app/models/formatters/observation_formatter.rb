@@ -8,7 +8,11 @@ class ObservationFormatter < ModelFormatter
   end
 
   def when_where_str
-    [@model.card.observ_date, "<b>#{@model.patch_or_locus.name_en}</b>", @model.place, @model.private_notes].delete_if(&:'blank?').join(', ').html_safe
+    date_time = [
+        @model.card.observ_date,
+        @model.card.start_time ? "(#{@model.card.start_time})" : nil
+    ].compact.join(" ")
+    [date_time, "<b>#{@model.patch_or_locus.name_en}</b>", @model.place, @model.private_notes].delete_if(&:'blank?').join(', ').html_safe
   end
 
 end
