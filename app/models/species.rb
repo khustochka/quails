@@ -99,6 +99,10 @@ class Species < ApplicationRecord
     end
   end
 
+  def the_rest_of_images
+    images.where("media.id <> ?", self.image.id)
+  end
+
   def self.thumbnails
     all.map(&:to_thumbnail)
   end

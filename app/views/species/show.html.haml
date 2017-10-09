@@ -8,6 +8,10 @@
 
 - if current_user.admin?
   - javascript 'species_image'
+  - content_for :add_shortcuts do
+    %li
+      Code:
+      %b= @species.code
   = render 'admin/shortcuts'
 
 = render 'partials/translated'
@@ -26,54 +30,64 @@
   %h2.latin{lang: "la"}= @species.name_sci
   -#%span.authority= @species.authority
 
-%dl.sp_translations
-  - (ALL_LOCALES - [I18n.locale] + [:fr]).map do |lang|
-    - if (trans_name = @species.send("name_#{lang}")).present?
-      %div
-        %dt= t("languages.#{lang}")
-        %dd{lang: lang}= trans_name
+%div.sp_row_with_image
+  %div{class: @species.image ? "one_third" : nil}
+    %dl.sp_translations
+      - (ALL_LOCALES - [I18n.locale] + [:fr]).map do |lang|
+        - if (trans_name = @species.send("name_#{lang}")).present?
+          %div
+            %dt= t("languages.#{lang}")
+            %dd{lang: lang}= trans_name
 
-- supersp = @species.superspecies
-- subsp = @species.subspecies
-- if @species.url_synonyms.to_a.any? || supersp.any? || subsp.any?
-  %div.sp_synonyms
-    - name_synonyms = @species.url_synonyms.different_name
-    - if name_synonyms.any?
-      = t(".species_synonyms")
-      %ul
-        - name_synonyms.each do |syn|
-          %li
-            %i= syn.name_sci
-    - splits = @species.url_synonyms.splits
-    - if splits.any?
-      = t(".splits_synonyms")
-      %ul
-        - splits.each do |syn|
-          %li
-            %i= syn.name_sci
-    - lumps = @species.url_synonyms.lumps
-    - if lumps.any?
-      = t(".lumps_synonyms")
-      %ul
-        - lumps.each do |syn|
-          %li
-            %i= syn.name_sci
-    - if supersp.any?
-      = t(".split_from_another_sp")
-      %ul
-        - supersp.each do |ssp|
-          %li
-            = species_link(ssp)
-            = name_sci(ssp)
-    - if subsp.any?
-      = t(".species_split_from_this")
-      %ul
-        - subsp.each do |ssp|
-          %li
-            = species_link(ssp)
-            = name_sci(ssp)
+    - supersp = @species.superspecies
+    - subsp = @species.subspecies
+    - if @species.url_synonyms.to_a.any? || supersp.any? || subsp.any?
+      %div.sp_synonyms
+        - name_synonyms = @species.url_synonyms.different_name
+        - if name_synonyms.any?
+          = t(".species_synonyms")
+          %ul
+            - name_synonyms.each do |syn|
+              %li
+                %i= syn.name_sci
+        - splits = @species.url_synonyms.splits
+        - if splits.any?
+          = t(".splits_synonyms")
+          %ul
+            - splits.each do |syn|
+              %li
+                %i= syn.name_sci
+        - lumps = @species.url_synonyms.lumps
+        - if lumps.any?
+          = t(".lumps_synonyms")
+          %ul
+            - lumps.each do |syn|
+              %li
+                %i= syn.name_sci
+        - if supersp.any?
+          = t(".split_from_another_sp")
+          %ul
+            - supersp.each do |ssp|
+              %li
+                = species_link(ssp)
+                = name_sci(ssp)
+        - if subsp.any?
+          = t(".species_split_from_this")
+          %ul
+            - subsp.each do |ssp|
+              %li
+                = species_link(ssp)
+                = name_sci(ssp)
 
-- @species.ordered_images.top_level.if_present do |images|
+  - if @species.image
+    %div.two_thirds
+      %div.image_canvas
+        = link_to @species.image do
+          = image_tag(jpg_url(@species.image))
+
+.cf
+
+- @species.the_rest_of_images.order_for_species.top_level.if_present do |images|
   %a{name: 'photos'}
   %div.photos
     %h3= t('.sections.photos')
