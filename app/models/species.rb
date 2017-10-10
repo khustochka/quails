@@ -100,7 +100,7 @@ class Species < ApplicationRecord
   end
 
   def the_rest_of_images
-    images.where("media.id <> ?", self.image.id)
+    images.where("media.id NOT IN (?)", SpeciesImage.where(species: self).select(:image_id))
   end
 
   def self.thumbnails
