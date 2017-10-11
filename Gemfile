@@ -54,7 +54,7 @@ gem 'roman-numerals'
 
 # Monitoring
 gem 'airbrake'
-gem 'newrelic_rpm'
+gem 'newrelic_rpm', '4.4.0.336'
 
 # Assets
 gem "sprockets-rails"

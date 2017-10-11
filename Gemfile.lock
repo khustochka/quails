@@ -167,7 +167,7 @@ GEM
     mime-types-data (3.2016.0521)
     mini_portile2 (2.3.0)
     minitest (5.10.3)
-    newrelic_rpm (4.5.0.337)
+    newrelic_rpm (4.4.0.336)
     nio4r (2.1.0)
     nokogiri (1.8.1)
       mini_portile2 (~> 2.3.0)
@@ -295,7 +295,7 @@ DEPENDENCIES
   kaminari
   launchy
   livejournal!
-  newrelic_rpm
+  newrelic_rpm (= 4.4.0.336)
   nokogiri
   ordered-active-record!
   pg
