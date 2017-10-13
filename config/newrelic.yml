@@ -3,7 +3,7 @@
 # .NET, PHP, Python and Node applications with deep visibility and low
 # overhead.  For more information, visit www.newrelic.com.
 #
-# Generated December 22, 2015
+# Generated October 13, 2017
 #
 # For full documentation of agent configuration options, please refer to
 # https://docs.newrelic.com/docs/agents/ruby-agent/installation-configuration/ruby-agent-configuration
@@ -33,6 +33,8 @@ development:
   # NOTE: There is substantial overhead when running in developer mode.
   # Do not use for production or load testing.
   #developer_mode: true
+
+  # Do not report from dev mode.
   monitor_mode: false
 
 test:
