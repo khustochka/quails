@@ -3,10 +3,10 @@ class Observation < ApplicationRecord
 
   invalidates CacheKey.lifelist
 
-  belongs_to :card, touch: true
+  belongs_to :card, touch: true, inverse_of: :observations
 
   belongs_to :taxon
-  belongs_to :legacy_species
+  belongs_to :legacy_species, optional: true
 
   # FIXME: do not use this!! (See MyObservation for more comments)
   #belongs_to :species
@@ -16,12 +16,12 @@ class Observation < ApplicationRecord
     taxon.species
   end
 
-  belongs_to :post, -> { short_form }, touch: :updated_at
+  belongs_to :post, -> { short_form }, touch: :updated_at, optional: true
   has_and_belongs_to_many :media
   has_and_belongs_to_many :images, class_name: 'Image', association_foreign_key: :media_id
   has_and_belongs_to_many :videos, class_name: 'Video', association_foreign_key: :media_id
   has_many :spots, dependent: :delete_all
-  belongs_to :patch, class_name: 'Locus', foreign_key: 'patch_id'
+  belongs_to :patch, class_name: 'Locus', foreign_key: 'patch_id', optional: true
 
   before_destroy do
     if images.present?

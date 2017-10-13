@@ -18,10 +18,10 @@ class Taxon < ApplicationRecord
   # validates :species_id, uniqueness: {scope: :book_id}, :allow_blank => true
 
   # Associations
-  belongs_to :parent, class_name: "Taxon"
+  belongs_to :parent, class_name: "Taxon", optional: true
   has_many :children, class_name: "Taxon", foreign_key: "parent_id", dependent: :restrict_with_exception
-  belongs_to :species
-  belongs_to :ebird_taxon
+  belongs_to :species, optional: true
+  belongs_to :ebird_taxon, optional: true
 
   has_many :observations, dependent: :restrict_with_exception
   has_many :images, through: :observations

@@ -44,7 +44,9 @@ class CardsControllerTest < ActionController::TestCase
   end
 
   test "create card with observations" do
-    observ_attrs = [{taxon_id: 2}, {taxon_id: 4}, {taxon_id: 6}]
+    taxa = Taxon.limit(3).pluck(:id)
+    observ_attrs = taxa.map {|tx| {taxon_id: tx}}
+    assert_equal 3, observ_attrs.size
     assert_difference('Observation.count', 3) do
       post :create, params: {card: attributes_for(:card).merge(observations_attributes: observ_attrs)}
     end

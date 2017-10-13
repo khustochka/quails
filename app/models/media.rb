@@ -10,7 +10,7 @@ class Media < ApplicationRecord
   has_many :cards, through: :observations
 
   has_many :spots, through: :observations
-  belongs_to :spot
+  belongs_to :spot, optional: true
 
   validate :consistent_observations
 

@@ -12,7 +12,7 @@ class EbirdTaxon < ApplicationRecord
 
   # Associations
 
-  belongs_to :parent, class_name: "EbirdTaxon"
+  belongs_to :parent, class_name: "EbirdTaxon", optional: true
   has_many :children, class_name: "EbirdTaxon", foreign_key: "parent_id"
   has_one :taxon
 
