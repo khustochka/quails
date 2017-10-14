@@ -395,23 +395,28 @@ table.neat_table.checklist_table
   @include inline-block
   border: 1px dotted lightgrey
   background-color: lightgoldenrodyellow
-  padding: 10px 10px 0 10px
+  padding: 10px 0
   border-radius: 2px
 
-.one_third
-  width: 33%
-  float: left
-  margin-right: 20px
-
 .two_thirds
-  width: 64%
-  float: right
-  margin-bottom: 30px
-  img
-    max-width: 100%
-    max-height: 580px
-  .image_canvas
+  margin-top: 20px
+
+@media only all and (min-width: 630px)
+
+  .one_third
+    width: 33%
+    float: left
+    margin-right: 20px
+
+  .two_thirds
+    width: 64%
     float: right
+    margin-bottom: 30px
+    img
+      max-width: 100%
+      max-height: 580px
+    .image_canvas
+      float: right
 
 .obs_maps
   img

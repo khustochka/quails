@@ -31,6 +31,13 @@
   -#%span.authority= @species.authority
 
 %div.sp_row_with_image
+
+  - if @species.image
+    %div.two_thirds
+      %div.image_canvas
+        = link_to @species.image do
+          = image_tag(jpg_url(@species.image))
+
   %div{class: @species.image ? "one_third" : nil}
     %dl.sp_translations
       - (ALL_LOCALES - [I18n.locale] + [:fr]).map do |lang|
@@ -78,12 +85,6 @@
               %li
                 = species_link(ssp)
                 = name_sci(ssp)
-
-  - if @species.image
-    %div.two_thirds
-      %div.image_canvas
-        = link_to @species.image do
-          = image_tag(jpg_url(@species.image))
 
 .cf
 
