@@ -80,7 +80,7 @@ group :development, :test do
   gem 'pry-rails'
   gem 'pry-byebug'
   # in dev group for generators
-  gem 'factory_girl_rails', '~> 4.0'
+  gem 'factory_bot_rails'
 end
 
 group :test do

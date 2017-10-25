@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :taxon do
     name_sci "Crex crex"
     name_en "Corn Crake"

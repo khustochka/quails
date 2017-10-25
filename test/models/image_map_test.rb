@@ -3,32 +3,32 @@ require 'test_helper'
 class ImageMapTest < ActiveSupport::TestCase
 
   setup do
-    @public_spot = FactoryGirl.create(:spot, public: true, lat: 1)
-    @private_spot = FactoryGirl.create(:spot, public: false, lat: 2)
+    @public_spot = FactoryBot.create(:spot, public: true, lat: 1)
+    @private_spot = FactoryBot.create(:spot, public: false, lat: 2)
 
     @country = loci(:ukraine)
-    @overlocus = FactoryGirl.create(:locus, private_loc: false, lat: 3, parent: @country)
-    @overlocus_no_geo = FactoryGirl.create(:locus, private_loc: false, lat: nil, lon: nil, parent: @country)
+    @overlocus = FactoryBot.create(:locus, private_loc: false, lat: 3, parent: @country)
+    @overlocus_no_geo = FactoryBot.create(:locus, private_loc: false, lat: nil, lon: nil, parent: @country)
 
-    @public_locus = FactoryGirl.create(:locus, private_loc: false, lat: 4, parent: @overlocus)
-    @private_locus = FactoryGirl.create(:locus, private_loc: true, lat: 5, parent: @overlocus)
-    @public_locus_no_geo = FactoryGirl.create(:locus, private_loc: false, lat: nil, parent: @overlocus)
+    @public_locus = FactoryBot.create(:locus, private_loc: false, lat: 4, parent: @overlocus)
+    @private_locus = FactoryBot.create(:locus, private_loc: true, lat: 5, parent: @overlocus)
+    @public_locus_no_geo = FactoryBot.create(:locus, private_loc: false, lat: nil, parent: @overlocus)
 
-    @public_patch = FactoryGirl.create(:locus, private_loc: false, lat: 6, parent: @public_locus)
-    @private_patch_of_public_locus = FactoryGirl.create(:locus, private_loc: true, lat: 7, parent: @public_locus)
-    @private_patch_of_private_locus = FactoryGirl.create(:locus, private_loc: true, lat: 8, parent: @private_locus)
+    @public_patch = FactoryBot.create(:locus, private_loc: false, lat: 6, parent: @public_locus)
+    @private_patch_of_public_locus = FactoryBot.create(:locus, private_loc: true, lat: 7, parent: @public_locus)
+    @private_patch_of_private_locus = FactoryBot.create(:locus, private_loc: true, lat: 8, parent: @private_locus)
 
-    @public_patch_no_geo_of_public_locus = FactoryGirl.create(:locus, private_loc: false, lat: nil, parent: @public_locus)
-    @public_patch_no_geo_of_private_locus = FactoryGirl.create(:locus, private_loc: false, lat: nil, parent: @private)
+    @public_patch_no_geo_of_public_locus = FactoryBot.create(:locus, private_loc: false, lat: nil, parent: @public_locus)
+    @public_patch_no_geo_of_private_locus = FactoryBot.create(:locus, private_loc: false, lat: nil, parent: @private)
 
   end
 
   def private_spot(args = {})
-    FactoryGirl.create(:spot, {public: false, lat: 2}.merge(args))
+    FactoryBot.create(:spot, {public: false, lat: 2}.merge(args))
   end
 
   def public_spot(args = {})
-    FactoryGirl.create(:spot, {public: true, lat: 1}.merge(args))
+    FactoryBot.create(:spot, {public: true, lat: 1}.merge(args))
   end
 
   def megafactory(card_locus, observation_patch, spot_factory)

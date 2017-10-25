@@ -9,7 +9,7 @@ require 'capybara_drivers'
 # before opening the browser (using visit or login_as_admin)
 # TODO: override factory's create method to check if browser is open!
 
-# To enable FactoryGirl (and probably transactions) for tests run via selenium
+# To enable FactoryBot (and probably transactions) for tests run via selenium
 # https://groups.google.com/forum/#!msg/ruby-capybara/JI6JrirL9gM/R6YiXj4gi_UJ
 class ActiveRecord::Base
   mattr_accessor :shared_connection

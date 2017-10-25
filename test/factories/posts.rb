@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :post do
     sequence(:slug) {|n| "post_#{n}" }
     title "Test Post"

@@ -37,7 +37,7 @@ module Quails
     # Configure generators values. Many other options are available, be sure to check the documentation.
     config.generators do |g|
       g.template_engine :haml
-      g.fixture_replacement :factory_girl
+      g.fixture_replacement :factory_bot
     end
 
     # Use SQL instead of Active Record's schema dumper when creating the database.

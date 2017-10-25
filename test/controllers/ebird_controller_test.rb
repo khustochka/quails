@@ -3,8 +3,8 @@ require 'test_helper'
 class EbirdControllerTest < ActionController::TestCase
 
   test "should get list of ebird files" do
-    obs = FactoryGirl.create(:observation)
-    FactoryGirl.create(:ebird_file, cards: [obs.card])
+    obs = FactoryBot.create(:observation)
+    FactoryBot.create(:ebird_file, cards: [obs.card])
     login_as_admin
     get :index
     assert_response :success
@@ -18,8 +18,8 @@ class EbirdControllerTest < ActionController::TestCase
   end
 
   test 'new ebird with search' do
-    card1 = FactoryGirl.create(:card, observ_date: "2016-01-01")
-    card2 = FactoryGirl.create(:card, observ_date: "2016-01-03")
+    card1 = FactoryBot.create(:card, observ_date: "2016-01-01")
+    card2 = FactoryBot.create(:card, observ_date: "2016-01-03")
     login_as_admin
     get :new, params: {q: {observ_date: "2016-01-01", end_date: "2016-01-03"}}
     assert_response :success
@@ -28,8 +28,8 @@ class EbirdControllerTest < ActionController::TestCase
   end
 
   test "create ebird file object with valid params" do
-    card1 = FactoryGirl.create(:observation).card
-    card2 = FactoryGirl.create(:observation).card
+    card1 = FactoryBot.create(:observation).card
+    card2 = FactoryBot.create(:observation).card
     login_as_admin
 
     assert_difference("Ebird::File.count", 1) do
@@ -40,8 +40,8 @@ class EbirdControllerTest < ActionController::TestCase
   end
 
   test "do not create ebird file object without name" do
-    card1 = FactoryGirl.create(:card)
-    card2 = FactoryGirl.create(:card)
+    card1 = FactoryBot.create(:card)
+    card2 = FactoryBot.create(:card)
     login_as_admin
     assert_difference("Ebird::File.count", 0) do
       get :create, params: {ebird_file: {name: ""}, card_id: [card1.id, card2.id]}

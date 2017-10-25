@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :observation do
     association :card
     taxon_id { Taxon.find_by_ebird_code("houspa").id }

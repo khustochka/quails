@@ -1,12 +1,12 @@
-# Read about factories at https://github.com/thoughtbot/factory_girl
+# Read about factories at https://github.com/thoughtbot/factory_bot
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :video, class: Video do
     sequence(:slug) {|n| "video_#{n}" }
     title "MyString"
     youtube_id "kdf83e7aks"
     description "MyText"
-    observations { [FactoryGirl.create(:observation)] }
+    observations { [FactoryBot.create(:observation)] }
     assets_cache { ImageAssetsArray.new (
                                             [
                                                 ImageAssetItem.new(:youtube, 800, 600, "#{slug}.jpg")

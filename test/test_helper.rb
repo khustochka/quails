@@ -18,7 +18,7 @@ class ActiveSupport::TestCase
 
   fixtures :all
 
-  include FactoryGirl::Syntax::Methods
+  include FactoryBot::Syntax::Methods
 
   delegate :public_post_path, :public_comment_path, :url_for, to: :@controller
 

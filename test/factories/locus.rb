@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :locus do
     sequence(:slug) {|n| "locus_#{(n % 26 + 65).chr}" }
     parent_id nil
