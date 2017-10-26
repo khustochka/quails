@@ -83,4 +83,11 @@ class CardTest < ActiveSupport::TestCase
     assert_includes card1.new_species_ids, species.id
     assert_not_includes card2.new_species_ids, species.id
   end
+
+   test 'card is unlinked from post when post is destroyed' do
+     p = create(:post)
+     card = create(:card, post_id: p.id)
+     p.destroy
+     assert_nil card.reload.post_id
+   end
 end

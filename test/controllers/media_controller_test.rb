@@ -4,6 +4,7 @@ class MediaControllerTest < ActionController::TestCase
   setup do
     @image = create(:image)
     @video = create(:video)
+    @spot = create(:spot)
     #assert species(:pasdom).image
     #@obs = @image.observations.first
   end
@@ -14,7 +15,7 @@ class MediaControllerTest < ActionController::TestCase
   end
 
   test 'unmapped' do
-    image2 = create(:image, spot_id: 999)
+    image2 = create(:image, spot_id: @spot.id)
     login_as_admin
     get :unmapped
     result = assigns(:media).map(&:id)
@@ -24,7 +25,7 @@ class MediaControllerTest < ActionController::TestCase
   end
 
   test 'half-mapped' do
-    image2 = create(:image, spot_id: 999)
+    image2 = create(:image, spot_id: @spot.id)
     login_as_admin
     get :unmapped, params: {half: true}
     # result = assigns(:media).map(&:id)
