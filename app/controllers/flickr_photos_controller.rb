@@ -62,7 +62,7 @@ class FlickrPhotosController < ApplicationController
     top = top.to_i if top
     all = Flickr::Result.new([])
     begin
-      result = flickr.photos.search(
+      result = flickr.call("flickr.photos.search",
           DEFAULT_SEARCH_PARAMS.merge({user_id: flickr_admin.user_id, per_page: 500, page: (page += 1)})
       ).to_a
       filtered_result = result.reject { |x| used.include?(x.id) }
@@ -87,7 +87,7 @@ class FlickrPhotosController < ApplicationController
     search_params = {license: '1,2,3,4,5,6', group_id: '615480@N22', extras: 'owner_name,license'}
     all = Flickr::Result.new([])
     begin
-      result = flickr.photos.search(
+      result = flickr.call("flickr.photos.search",
           search_params.merge({per_page: 500, page: (page += 1)})
       ).to_a
       filtered_result = result.reject { |x| x.owner == flickr_admin.user_id }
@@ -106,7 +106,7 @@ class FlickrPhotosController < ApplicationController
       date_param = Date.parse(date)
       new_params.merge!({min_taken_date: date_param - 1, max_taken_date: date_param + 1})
     end
-    @flickr_imgs = flickr.photos.search(DEFAULT_SEARCH_PARAMS.merge(new_params))
+    @flickr_imgs = flickr.call("flickr.photos.search", DEFAULT_SEARCH_PARAMS.merge(new_params))
     render @flickr_imgs
   end
 

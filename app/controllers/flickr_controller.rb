@@ -18,7 +18,7 @@ class FlickrController < ApplicationController
     if @auth_token.blank?
       if params[:oauth_verifier]
         flickr.get_access_token($token['oauth_token'], $token['oauth_token_secret'], params[:oauth_verifier])
-        flickr.test.login
+        flickr.call("flickr.test.login")
         @auth_token = flickr.access_token
         @auth_secret = flickr.access_secret
         $token = nil
