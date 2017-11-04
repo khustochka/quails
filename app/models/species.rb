@@ -17,6 +17,8 @@ class Species < ApplicationRecord
   #validates :avibase_id, format: /\A[\dA-F]{16}\Z/, allow_blank: true
   validates :index_num, presence: true
 
+  validate :code_and_legacy_code_uniqueness
+
   acts_as_ordered :index_num
 
   has_one :species_image
@@ -126,6 +128,17 @@ class Species < ApplicationRecord
 
   def destroy
     raise "Destroying species not allowed!"
+  end
+
+  # Validations
+
+  def code_and_legacy_code_uniqueness
+    if self.legacy_code.present? && Species.where("id != ?", self.id).exists?(code: self.legacy_code)
+      errors.add(:legacy_code, "already exists as a code")
+    end
+    if self.code.present? && Species.where("id != ?", self.id).exists?(legacy_code: self.code)
+      errors.add(:code, "already exists as a legacy code")
+    end
   end
 
 end

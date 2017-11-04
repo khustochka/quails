@@ -44,6 +44,7 @@ saxola:
   name_en: "European Stonechat"
   index_num: 70
   code: saxola
+  legacy_code: saxtor
   order: Passeriformes
   family: Muscicapidae
 

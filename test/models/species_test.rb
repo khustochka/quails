@@ -27,6 +27,25 @@ class SpeciesTest < ActiveSupport::TestCase
     assert_raise(ActiveRecord::RecordInvalid) { sp.save! }
   end
 
+  test 'legacy code should not be equal to another species code' do
+    sp = Species.find_by!(code: :hirrus)
+    sp.legacy_code = 'saxola'
+    assert_raise(ActiveRecord::RecordInvalid) { sp.save! }
+  end
+
+  test 'code should not be equal to another species legacy code' do
+    sp = Species.find_by!(code: :hirrus)
+    sp.code = 'saxtor'
+    assert_raise(ActiveRecord::RecordInvalid) { sp.save! }
+  end
+
+  test 'One species can have the same code and legacy code' do
+    sp = Species.find_by!(code: :saxola)
+    sp.legacy_code = 'saxtor'
+    sp.code = 'saxtor'
+    sp.save!
+  end
+
   test "Species posts" do
     blogpost1 = create(:post)
     blogpost2 = create(:post)
