@@ -26,7 +26,7 @@ class FlickrPhoto
 
   def upload(params)
     if File.exist?(local_url)
-      @flickr_id = flickr.upload_photo(local_url, DEFAULT_PARAMS.merge(own_params).merge(sanitize(params))).get
+      @flickr_id = flickr_client.upload_photo(local_url, DEFAULT_PARAMS.merge(own_params).merge(sanitize(params))).get
       bind_with_flickr!(@flickr_id)
     else
       @errors.add(:base, "File does not exist (#{local_url})")
@@ -65,7 +65,7 @@ class FlickrPhoto
 
   def refresh
     return false unless @flickr_id
-    sizes_array = flickr.call("flickr.photos.getSizes", photo_id: @flickr_id).get
+    sizes_array = flickr_client.call("flickr.photos.getSizes", photo_id: @flickr_id).get
     @image.assets_cache.swipe(:flickr)
     sizes_array.each do |fp|
       @image.assets_cache << ImageAssetItem.new(:flickr, fp["width"].to_i, fp["height"].to_i, fp["source"])
@@ -98,10 +98,10 @@ class FlickrPhoto
   def update(params)
     new_date = params[:date_taken]
     if new_date
-      flickr.call("flickr.photos.setDates", {photo_id: @flickr_id, date_taken: new_date})
+      flickr_client.call("flickr.photos.setDates", {photo_id: @flickr_id, date_taken: new_date})
     else
-      flickr.call("flickr.photos.setMeta", {photo_id: @flickr_id, title: params[:title], description: params[:description]})
-      flickr.call("flickr.photos.setTags", {photo_id: @flickr_id, tags: params[:tags]})
+      flickr_client.call("flickr.photos.setMeta", {photo_id: @flickr_id, title: params[:title], description: params[:description]})
+      flickr_client.call("flickr.photos.setTags", {photo_id: @flickr_id, tags: params[:tags]})
     end
   end
 
@@ -110,12 +110,12 @@ class FlickrPhoto
   end
 
   private
-  def flickr
-    @flickr ||= Flickr::Client.new
+  def flickr_client
+    @flickr_client ||= Flickr::Client.new
   end
 
   def get_info
-    data = flickr.call("flickr.photos.getInfo", {photo_id: @flickr_id}).get
+    data = flickr_client.call("flickr.photos.getInfo", {photo_id: @flickr_id}).get
     Data.new(
         data.title,
         data.description,

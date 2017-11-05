@@ -42,7 +42,7 @@
         = hidden_field_tag("id", @image.slug)
         = hidden_field_tag("flickr_id")
     %td.flickr_search
-      - if flickr.valid?
+      - if flickr_client.valid?
         %input.string.short#user_id{name: 'user_id', type: 'hidden', value: flickr_admin.user_id}
         %div.input.string
           %label.string Text:

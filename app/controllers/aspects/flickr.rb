@@ -4,11 +4,11 @@ module Aspects
   module Flickr
 
     def self.included(klass)
-      klass.helper_method :flickr, :flickr_admin
+      klass.helper_method :flickr_client, :flickr_admin
     end
 
-    def flickr
-      @flickr ||= ::Flickr::Client.new
+    def flickr_client
+      @flickr_client ||= ::Flickr::Client.new
     end
 
     def flickr_admin
