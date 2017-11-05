@@ -67,7 +67,7 @@ class FlickrPhotosController < ApplicationController
           DEFAULT_SEARCH_PARAMS.merge({user_id: flickr_admin.user_id, per_page: 500, page: (page += 1)})
       ).to_a
       filtered_result = result.reject { |x| used.include?(x.id) }
-      all = Either.sequence(all, filtered_result)
+      all = all.concat(filtered_result)
     end until all.error? || result.get.size < 500 || (top && all.get.size >= top)
     @diff = all
     if top
@@ -93,7 +93,7 @@ class FlickrPhotosController < ApplicationController
           search_params.merge({per_page: 500, page: (page += 1)})
       ).to_a
       filtered_result = result.reject { |x| x.owner == flickr_admin.user_id }
-      all = Either.sequence(all, filtered_result)
+      all = all.concat(filtered_result)
     end until all.error? || result.get.size < 500
     @diff = all
   end

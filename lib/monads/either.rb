@@ -14,17 +14,6 @@ module Either
 
   end
 
-  def self.sequence(*args)
-    args.inject do |memo, obj|
-      if obj.error?
-        return obj
-      else
-        memo.concat(obj.get)
-      end
-    end
-
-  end
-
   module Value
     def initialize(value)
       @value = value
