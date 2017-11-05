@@ -1,5 +1,5 @@
-require 'monads/either'
-require 'flickraw-cached'
+require "functional/either"
+require "flickraw-cached"
 
 module Flickr
 

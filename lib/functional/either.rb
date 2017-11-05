@@ -65,6 +65,10 @@ module Either
       end
     end
 
+    class EitherErrorException < StandardError
+
+    end
+
     def initialize(msg)
       @msg = msg
       @errors = ActiveModel::Errors.new(self)
@@ -80,7 +84,7 @@ module Either
     end
 
     def get
-      raise @msg
+      raise EitherErrorException.new(@msg)
     end
 
     def method_missing(method, *args, &block)
