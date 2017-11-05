@@ -16,6 +16,9 @@
       %label User id
       %input.string{name: 's[flickr_admin][user_id]', type: :text, value: Settings.flickr_admin.user_id}
 
+    %div.input
+      = link_to "Reauthenticate", flickr_auth_path
+
   %div.input.string
     %label Access token
     %input.string.medium{name: 's[flickr_admin][access_token]', type: :text, value: Settings.flickr_admin.access_token}

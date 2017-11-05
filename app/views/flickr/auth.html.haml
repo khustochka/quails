@@ -3,16 +3,16 @@
 %h1= page_header
 
 - if @auth_token.present?
-  %p Your access token is the following:
+  %p Your access token as follows:
   %h4= @auth_token
-  %p Your access secret is the following:
+  %p Your access secret is as follows:
   %h4= @auth_secret
 
-- if @auth_url
+- if @auth_url && @auth_url.valid?
   %p To authenticate please follow the auth URL:
-  %h4= link_to('Authenticate', @auth_url)
+  %h4= link_to('Authenticate', @auth_url.get)
   %p And then go back to this page.
-- elsif $token
+- elsif @token
   %form{action: flickr_auth_path, method: 'GET'}
     %label{for: 'verifier'} Verifier:
     %input.verifier{name: 'oauth_verifier'}

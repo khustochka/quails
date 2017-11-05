@@ -13,18 +13,20 @@ class FlickrController < ApplicationController
   end
 
   def auth
-    @auth_token = flickr.access_token
-    @auth_secret = flickr.access_secret
+    @auth_token = flickr.access_token.get
+    @auth_secret = flickr.access_secret.get
     if @auth_token.blank?
-      if params[:oauth_verifier]
-        flickr.get_access_token($token['oauth_token'], $token['oauth_token_secret'], params[:oauth_verifier])
+      @token = session[:flickr_auth_token]
+      if params[:oauth_verifier] && @token
+        flickr.get_access_token(@token['oauth_token'], @token['oauth_token_secret'], params[:oauth_verifier])
         flickr.call("flickr.test.login")
-        @auth_token = flickr.access_token
-        @auth_secret = flickr.access_secret
-        $token = nil
-      elsif !$token
-        $token = flickr.get_request_token
-        @auth_url = flickr.get_authorize_url($token['oauth_token'])
+        @auth_token = flickr.access_token.get
+        @auth_secret = flickr.access_secret.get
+        session[:flickr_auth_token] = nil
+      elsif !@token
+        @token = flickr.get_request_token.get
+        session[:flickr_auth_token] = @token
+        @auth_url = flickr.get_authorize_url(@token['oauth_token'])
       end
     end
   end

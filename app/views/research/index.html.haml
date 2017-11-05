@@ -29,6 +29,9 @@
   %li= link_to('Flickr "Birds of Ukraine" photos with CC license', flickr_bou_cc_path)
   %li= link_to('Flickr search', flickr_path)
 
-%h3= link_to('Environment', action: :environ)
-
-%h3= link_to('Insights', action: :insights)
+%h3
+  = link_to('Environment', action: :environ)
+  &bull;
+  = link_to('Insights', action: :insights)
+  &bull;
+  = link_to('Settings', settings_path)
