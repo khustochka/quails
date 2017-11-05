@@ -15,6 +15,22 @@ module Either
   end
 
   module Value
+
+    class Applicator
+      def initialize(obj)
+        @obj = obj
+      end
+
+      def method_missing(method, *args, &block)
+        arg = args.first
+        if arg.error?
+          arg
+        else
+          @obj.class.new(@obj.get.send(method, arg.get))
+        end
+      end
+    end
+
     def initialize(value)
       @value = value
     end
@@ -30,10 +46,24 @@ module Either
     def get
       @value
     end
+
+    def apply
+      self.class::Applicator.new(self)
+    end
   end
 
   module Error
     attr_reader :errors
+
+    class Applicator
+      def initialize(obj)
+        @obj = obj
+      end
+
+      def method_missing(method, *args, &block)
+        @obj
+      end
+    end
 
     def initialize(msg)
       @msg = msg
@@ -55,6 +85,10 @@ module Either
 
     def method_missing(method, *args, &block)
       self
+    end
+
+    def apply
+      self.class::Applicator.new(self)
     end
 
   end

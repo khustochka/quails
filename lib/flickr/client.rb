@@ -15,14 +15,6 @@ module Flickr
     include Either::Value
     include ResultPartialPath
 
-    def concat(either)
-      if either.error?
-        either
-      else
-        Result.new(@value.concat(either.get))
-      end
-    end
-
     def method_missing(method, *args, &block)
       begin
         Result.new(@value.send(method, *args, &block))
