@@ -113,7 +113,7 @@ class ImagesController < ApplicationController
   def update
     if @image.update(image_params)
       if @image.mapped?
-        redirect_to(image_path(@image), notice: 'Image was successfully updated.')
+        redirect_to(image_path(@image))
       else
         redirect_to(edit_map_image_path(@image), notice: 'Image was successfully updated. Map it now!')
       end

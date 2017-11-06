@@ -10,9 +10,6 @@
 - @page_header = @page_title = @image.decorated.title
 -# @page_title = "#{@page_header} // #{t("countries.gallery.title.#{@image.locus.country.slug}")}"
 
-- if notice
-  %p#notice= notice
-
 - provide :add_shortcuts do
   %li= link_to @image.mapped? ? 'Edit map' : '<b>MAP IT!</b>'.html_safe, action: :map_edit
   %li

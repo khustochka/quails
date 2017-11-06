@@ -6,6 +6,9 @@
 
 = render 'admin/shortcuts' if current_user.admin?
 
+- if notice
+  %p#notice= notice
+
 = simple_form_for @species do |form|
   %div
     = form.input :code, input_html: {class: 'short larger'}
