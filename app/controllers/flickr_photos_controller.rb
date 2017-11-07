@@ -57,26 +57,15 @@ class FlickrPhotosController < ApplicationController
 
   def unused
     used = Image.where("external_id IS NOT NULL").pluck(:external_id)
-    page = 0
-    top = params[:top]
-    top = top.to_i if top
-    all = Flickr::Result.new([])
-    begin
-      result = flickr_client.call(
-          "flickr.photos.search",
-          DEFAULT_SEARCH_PARAMS.merge({user_id: flickr_admin.user_id, per_page: 500, page: (page += 1)})
-      ).to_a
-      filtered_result = result.reject { |x| used.include?(x.id) }
-      all = all.apply.concat(filtered_result)
-    end until all.error? || result.get.size < 500 || (top && all.get.size >= top)
-    @diff = all
-    if top
-      @diff = @diff.take(top)
+    top = params[:top]&.to_i
+    search_params = DEFAULT_SEARCH_PARAMS.merge({user_id: flickr_admin.user_id})
+    @flickr_result = flickr_client.search_and_filter_photos(search_params, top) do |collection|
+      collection.reject {|x| used.include?(x.id)}
     end
     @flickr_img_url_lambda = ->(img) { new_image_path(i: {flickr_id: img.id}) }
 
     if request.xhr?
-      render @diff
+      render @flickr_result
     else
       render :unused
     end
@@ -84,18 +73,10 @@ class FlickrPhotosController < ApplicationController
   end
 
   def bou_cc
-    page = 0
     search_params = {license: '1,2,3,4,5,6', group_id: '615480@N22', extras: 'owner_name,license'}
-    all = Flickr::Result.new([])
-    begin
-      result = flickr_client.call(
-          "flickr.photos.search",
-          search_params.merge({per_page: 500, page: (page += 1)})
-      ).to_a
-      filtered_result = result.reject { |x| x.owner == flickr_admin.user_id }
-      all = all.apply.concat(filtered_result)
-    end until all.error? || result.get.size < 500
-    @diff = all
+    @flickr_result = flickr_client.search_and_filter_photos(search_params) do |collection|
+      collection.reject { |x| x.owner == flickr_admin.user_id }
+    end
   end
 
   DEFAULT_SEARCH_PARAMS = {content_type: 1, extras: 'owner_name'}

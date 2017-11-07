@@ -23,6 +23,28 @@ module Flickr
       end
     end
 
+    def search_and_filter_photos(conditions, top = nil, &filter)
+      all = Flickr::Result.new([])
+      page = 0
+      begin
+        set = search_and_get_page(conditions, page += 1)
+        filtered_result = filter.call(set)
+        all = all.apply.concat(filtered_result)
+      end until all.error? || set.get.size < 500 || (top && all.get.size >= top)
+      result = all
+      if top
+        result = all.take(top)
+      end
+      result
+    end
+
+    def search_and_get_page(conditions, page)
+      call(
+          "flickr.photos.search",
+          conditions.merge(page: page, per_page: 500)
+      )
+    end
+
   end
 
   class Error
