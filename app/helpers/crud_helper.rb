@@ -22,6 +22,6 @@ module CrudHelper
   end
 
   def default_destroy_button
-    button_to('DELETE', {action: :destroy}, {method: :delete, data: {confirm: 'Object will be DESTROYED!'}})
+    button_to('DELETE', {action: :destroy}, {class: "btn btn-danger", method: :delete, data: {confirm: 'Object will be DESTROYED!'}})
   end
 end

@@ -3,50 +3,56 @@
 - javascript 'post_form'
 - @js_features = [:wikiFields]
 
+- bootstrap true
+
 - stylesheet 'forms'
 
-%h1= page_header
+.container
 
-= render 'admin/shortcuts' if current_user.admin?
+  %h1= page_header
 
-- if notice
-  %p#notice= notice
+  = render 'admin/shortcuts' if current_user.admin?
 
-- if alert
-  %p.errors= alert
+  - if notice
+    %p#notice= notice
 
-= simple_form_for @post do |form|
+  - if alert
+    %p.errors= alert
 
-  %div
-    = form.input :slug
-    = form.input :face_date, label: 'Post date', input_html: {value: @post.face_date.strftime("%F %T")}, as: :string unless @post.new_record?
-  %div
-    = form.input :title, input_html: {class: 'long'}
-  = form.input :text, label: false, input_html: {rows: 20, class: 'wiki_field'}
-  %div
-    = form.input :topic, collection: Post::TOPICS, input_html: {size: '3'}, include_blank: false
-    = form.input :status, collection: Post::STATES, input_html: {size: '3'}, include_blank: false
-  .buttons
-    = default_submit_button(form)
+  = simple_form_for @post do |form|
 
-- if @post.persisted?
+    .row
+      .col-md-3.col-sm-6.col-xs-6
+        = form.input :slug
+      .col-md-3.col-sm-6.col-xs-6
+        = form.input :face_date, label: 'Post date', input_html: {value: @post.face_date.strftime("%F %T")}, as: :string unless @post.new_record?
+      .col-md-3.col-sm-6.col-lg-3
+        = form.input :topic, collection: Post::TOPICS, as: :radio_buttons, item_label_class: "radio-inline", item_wrapper_tag: false, collection_wrapper_tag: 'div'
+      .col-md-3.col-sm-6.col-lg-3
+        = form.input :status, collection: Post::STATES, as: :radio_buttons, item_label_class: "radio-inline", item_wrapper_tag: false, collection_wrapper_tag: 'div'
 
-  %p= default_destroy_button
+    = form.input :title
 
-  %h3#card_attach Attach cards
+    = form.input :text, label: false, input_html: {rows: 17, class: 'wiki_field'}
+    .buttons
+      = default_submit_button(form)
+      - if @post.persisted?
+        = default_destroy_button
 
-  = simple_form_for @observation_search, url: cards_path, method: :get, remote: true, html: {class: 'search'} do |form|
-    = render 'observations/search_fields', form: form
-    = hidden_field_tag("new_post_id", @post.id)
+    %h3#card_attach Attach cards
 
-  %ul.cards_list#search-results
+    = simple_form_for @observation_search, url: cards_path, method: :get, remote: true, html: {class: 'search'} do |form|
+      = render 'observations/search_fields', form: form
+      = hidden_field_tag("new_post_id", @post.id)
 
-  %h3 Dreamwidth / LJ
-  %ul
-    %li#lj_url_li
-      - if @post.lj_data.blank?
-        Not yet on Dreamwidth
-      - else
-        = link_to(@post.lj_url, @post.lj_url)
+    %ul.cards_list#search-results
 
-    %li= button_to('Post to Dreamwidth', {action: :lj_post}, {form: {id: 'lj_post'}})
+    %h3 Dreamwidth / LJ
+    %ul
+      %li#lj_url_li
+        - if @post.lj_data.blank?
+          Not yet on Dreamwidth
+        - else
+          = link_to(@post.lj_url, @post.lj_url)
+
+      %li= button_to('Post to Dreamwidth', {action: :lj_post}, {form: {id: 'lj_post'}, class: "btn btn-primary"})

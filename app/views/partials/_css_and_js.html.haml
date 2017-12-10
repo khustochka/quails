@@ -1,4 +1,7 @@
-= stylesheet_link_tag(*@stylesheets.compact) if @stylesheets.present?
+- if @bootstrap
+  = stylesheet_link_tag("new/app")
+- else
+  = stylesheet_link_tag(*@stylesheets.compact) if @stylesheets.present?
 
 -# enable HTML5 and media queries in IE
 /[if lt IE 9]

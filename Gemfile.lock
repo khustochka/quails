@@ -72,7 +72,12 @@ GEM
     ancestry (3.0.1)
       activerecord (>= 3.2.0)
     arel (8.0.0)
+    autoprefixer-rails (7.2.2)
+      execjs
     benchmark-ips (2.7.2)
+    bootstrap-sass (3.3.7)
+      autoprefixer-rails (>= 5.2.1)
+      sass (>= 3.3.4)
     builder (3.2.3)
     byebug (9.1.0)
     capybara (2.13.0)
@@ -280,6 +285,7 @@ DEPENDENCIES
   airbrake
   ancestry
   benchmark-ips
+  bootstrap-sass
   capybara
   capybara-webkit
   coffee-rails

@@ -11,4 +11,8 @@ module AssetsHelper
     @scripts ||= []
     @scripts.concat args
   end
+
+  def bootstrap(on = true)
+    @bootstrap = on
+  end
 end
