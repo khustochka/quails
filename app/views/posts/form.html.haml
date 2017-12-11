@@ -34,10 +34,11 @@
     = form.input :title
 
     = form.input :text, label: false, input_html: {rows: 17, class: 'wiki_field'}
-    .buttons
+    %div
       = default_submit_button(form)
       - if @post.persisted?
-        = default_destroy_button
+        .pull-right
+          = default_destroy_button(class: "btn btn-danger pull-right")
 
     %h3#card_attach Attach cards
 

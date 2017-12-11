@@ -4,27 +4,31 @@ Quails.features.wikiFields =
     sp_insert_button = $("<button>",
       text: "{{species}}"
       id: "insert_sp_tag"
-      type: "button"
+      type: "button",
+      class: "btn btn-default"
     )
     img_insert_button = $("<button>",
       text: "{{^image}}"
       id: "insert_img_tag"
-      type: "button"
+      type: "button",
+      class: "btn btn-default"
     )
     video_insert_button = $("<button>",
       text: "{{&video}}"
       id: "insert_video_tag"
-      type: "button"
+      type: "button",
+      class: "btn btn-default"
     )
     post_insert_button = $("<button>",
       text: "{{#post}}"
       id: "insert_post_tag"
-      type: "button"
+      type: "button",
+      class: "btn btn-default"
     )
 
     # Add a button
     $("<div>",
-      class: "edit_tools"
+      class: "edit_tools btn-group"
     ).insertBefore textarea
 
     sp_insert_button.click =>
