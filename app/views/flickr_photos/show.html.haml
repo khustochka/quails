@@ -25,7 +25,7 @@
     = form_tag flickr_photos_path do
       = hidden_field_tag("id", @image.slug)
       = hidden_field_tag("public", "0")
-      %div.input.flat
+      %div.form-group.flat
         %label
           = check_box_tag 'public', 1, true
           Public
@@ -44,10 +44,10 @@
     %td.flickr_search
       - if flickr_client.valid?
         %input.string.short#user_id{name: 'user_id', type: 'hidden', value: flickr_admin.user_id}
-        %div.input.string
+        %div.form-group.string
           %label.string Text:
           %input.string#text{name: 'text', type: 'text', value: @image.species.map(&:name_sci).join(' ')}
-        %div.input.string
+        %div.form-group.string
           %label.string Date:
           %input.string.short#flickr_date{name: 'flickr_date', maxlength: '10', type: 'date', value: @image.observ_date}
         %button.flickr_search_btn{type: 'button'} Search

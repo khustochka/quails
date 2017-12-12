@@ -48,9 +48,13 @@ div.form-group.flat label
 div.boolean.flat label
   margin-left: 4px
 
+.checkbox label.boolean input
+  margin-right: 6px
+
 // Radios
 div.form-group span
-  display: block
+  //  display: block
+  //It breaks required * wrapped in span. See how radios work in bootstrap
   label
     display: inline
     margin-left: 4px
@@ -87,11 +91,11 @@ div.buttons
   button, input, a, span
     margin-right: 20px
 
-input.button, button
+input.btn, button
   min-width: 130px
   height: 40px
 
-.ebird_obs_search input.button, button
+.ebird_obs_search input.btn, button
   min-width: 100px
   margin-right: 0
 

@@ -12,30 +12,30 @@
   %h2 Flickr Admin
 
   %div
-    %div.input.string
+    %div.form-group.string
       %label User id
       %input.string{name: 's[flickr_admin][user_id]', type: :text, value: Settings.flickr_admin.user_id}
 
-    %div.input
+    %div.form-group
       = link_to "Reauthenticate", flickr_auth_path
 
-  %div.input.string
+  %div.form-group.string
     %label Access token
     %input.string.medium{name: 's[flickr_admin][access_token]', type: :text, value: Settings.flickr_admin.access_token}
 
-  %div.input.string
+  %div.form-group.string
     %label Access secret
     %input.string{name: 's[flickr_admin][access_secret]', type: :text, value: Settings.flickr_admin.access_secret}
 
   %h2 Livejournal User
 
-  %div.input.string
+  %div.form-group.string
     %label User name
     %input.string{name: 's[lj_user][name]', type: :text, value: Settings.lj_user.name}
 
-  %div.input.string
+  %div.form-group.string
     %label Password
     %input.string{name: 's[lj_user][password]', type: :password, value: Settings.lj_user.password}
 
   %div.buttons
-    %input.button#save_button{:type => :submit, :value => 'Save'}
+    %input.btn#save_button{:type => :submit, :value => 'Save'}

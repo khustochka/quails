@@ -24,7 +24,7 @@ class ObservationsControllerTest < ActionController::TestCase
     observ = attributes_for(:observation, {'taxon_id' => nil})
     login_as_admin
     put :update, params: {id: observation.id, observation: observ}
-    assert_select "div.observation_taxon.field_with_errors"
+    assert_select "div.observation_taxon.has-error"
   end
 
   test "destroy observation" do

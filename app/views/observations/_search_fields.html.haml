@@ -1,21 +1,17 @@
-%div.input.taxon_fieldset
+%div.form-group.taxon_fieldset
   = form.input :taxon_id, label: 'Taxon:', collection: taxa_for_select, required: false,
     input_html: {class: 'suggest-combo'}
   %br
-  %label
-    = form.input_field :exclude_subtaxa, as: :boolean, unchecked_value: false
-    Exclude subspecies
+  = form.input :exclude_subtaxa, as: :boolean, unchecked_value: false, label: "Exclude subspecies"
 = render partial: form.object.dates_fieldset, locals: {form: form}
-%div.input.locus_fieldset
+%div.form-group.locus_fieldset
   = form.input :locus_id, label: 'Location:', collection: Locus.suggestion_order, required: false,
       input_html: {class: 'suggest-combo'}
   %br
-  %label
-    = form.input_field :include_subregions, as: :boolean, unchecked_value: false
-    Include subregions
+  = form.input :include_subregions, as: :boolean, unchecked_value: false, label: "Include subregions"
 = render partial: form.object.voice_fieldset, locals: {form: form}
 - if form.object.card_id
-  %div.input.optional
+  %div.form-group.optional
     = form.input :card_id, as: :boolean, label: link_to("Card #{form.object.card_id}", card_path(form.object.card_id)),
                             checked_value: form.object.card_id, unchecked_value: ''
 

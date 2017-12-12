@@ -8,7 +8,7 @@
   - if @comment.persisted?
     = form.input :url
   - else
-    %div.input.string.required.comment_nmaee<
+    %div.form-group.string.required.comment_nmaee<
       %label.string.required{for: CommentsHelper::REAL_NAME_FIELD}= t('simple_form.labels.comment.name')
       = text_field_tag CommentsHelper::REAL_NAME_FIELD, @comment.name, required: true, class: 'string required'
 
