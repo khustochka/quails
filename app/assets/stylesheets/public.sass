@@ -128,11 +128,11 @@ form.comment
   .commenter_email
     margin-left: 10px
 
-  div.input
+  div.form-group
     display: block
     margin-bottom: 10px
 
-  div.input.comment_name
+  div.form-group.comment_name
     display: none
 
   input.string
@@ -141,28 +141,27 @@ form.comment
   textarea
     width: 600px
 
-  div.buttons
-    //margin-top: 10px
-    input.button
-      width: 130px
-      height: 40px
+  #save_button
+    width: 130px
+    height: 40px
 
   input.string, textarea
     border: 2px solid #888888
     padding: 5px
 
-  .input
-    .hint
+  .form-group
+    .help-block
       color: #777777
       font-size: 15px
       font-style: italic
       font-weight: normal
       font-family: Arial, sans-serif
-  .input.comment_text .hint
+      margin: 0
+  .form-group.comment_text .help-block
     width: 612px
     text-align: right
     display: block
-  .input.commenter_email .hint
+  .form-group.commenter_email .help-block
     font-size: 12px
 
 
@@ -460,13 +459,13 @@ li.feed_li .fa
 
 @media only all and (max-width: 580px)
   form.comment
-    .input.commenter_email, .input.comment_nmaee
+    .form-group.commenter_email, .form-group.comment_nmaee
       width: 100%
       margin-left: 0px
     textarea, input.string,
-    .input.comment_text .hint,
-    .input.commenter_email input.string,
-    .input.comment_nmaee input.string
+    .form-group.comment_text .help-block,
+    .form-group.commenter_email input.string,
+    .form-group.comment_nmaee input.string
       width: 100%
 
 
