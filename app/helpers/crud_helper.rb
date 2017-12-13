@@ -23,6 +23,6 @@ module CrudHelper
 
   def default_destroy_button(options = {})
     default_options = {class: "btn btn-danger", method: :delete, data: {confirm: 'Object will be DESTROYED!'}}
-    button_to('DELETE', {action: :destroy}, default_options.merge(options))
+    link_to('DELETE', {action: :destroy}, default_options.merge(options))
   end
 end

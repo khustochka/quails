@@ -38,8 +38,9 @@
       = default_submit_button(form)
       - if @post.persisted?
         .pull-right
-          = default_destroy_button(class: "btn btn-danger pull-right")
+          = default_destroy_button
 
+  - if @post.persisted?
     %h3#card_attach Attach cards
 
     = simple_form_for @observation_search, url: cards_path, method: :get, remote: true, html: {class: 'search'} do |form|

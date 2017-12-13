@@ -11,8 +11,8 @@ class UIPostsTest < ActionDispatch::IntegrationTest
     fill_in('Slug', with: 'new-post')
     fill_in('Title', with: 'Test post')
     fill_in('post_text', with: 'Post text.')
-    select('OPEN', from: 'Status')
-    select('OBSR', from: 'Topic')
+    choose('OPEN')
+    choose('OBSR')
     click_button('Save')
     blogpost = Post.find_by(slug: 'new-post')
     assert_equal show_post_path(blogpost.to_url_params), current_path
