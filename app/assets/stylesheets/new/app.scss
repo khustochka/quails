@@ -1,6 +1,11 @@
-//$font-size-base: 16px;
+@import "new/bootstrap-overrides";
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
 @import "new/header2";
+@import "new/footer2";
+
+@import "new/forms2";
+
+@import "new/post_form";

@@ -1,0 +1,15 @@
+div.footer {
+  padding: 0 20px 5px 20px;
+  margin-top: 3em;
+  border-top: 1px dotted #407FBF;
+  background-color: #fdfdff;
+  color: #333366;
+  p {
+    margin: {
+      top: 1em;
+      bottom: 0.5em;
+    }
+    //@include arial-font;
+    font-size: 14px;
+  }
+}

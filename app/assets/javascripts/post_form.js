@@ -9,7 +9,7 @@ $(function () {
   lj_post_form.attr('action', lj_post_form.attr('action') + '.json');
 
   lj_post_form.bind('ajax:beforeSend', function () {
-    $("li#lj_url_li").append("<img src='/img/loading_small.gif' id='spinner'>");
+    $(".lj-url").append("<img src='/img/loading_small.gif' id='spinner'>");
   });
 
   lj_post_form.bind("ajax:error", function (e, xhr) {
@@ -19,7 +19,7 @@ $(function () {
 
   lj_post_form.bind("ajax:success", function (e, data) {
     var url = data.url;
-    $("li#lj_url_li").html($("<a>", {text: url, href: url}));
+    $(".lj-url").html($("<a>", {text: url, href: url}));
   });
 });
 
