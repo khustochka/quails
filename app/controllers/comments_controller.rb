@@ -74,8 +74,12 @@ class CommentsController < ApplicationController
 
       respond_to do |format|
         if @comment.save
-          CommentMailer.notify_admin(@comment, request.host).deliver_now
-          if @comment.parent_comment && @comment.parent_comment.send_email? && @comment.approved
+          # Do not notify admin if he is the commenter, or if he will receive a reply notification anyway
+          unless @comment.commenter&.is_admin? ||
+              (@comment.parent_comment&.commenter&.is_admin? && @comment.parent_comment&.send_email? && @comment.approved)
+            CommentMailer.notify_admin(@comment, request.host).deliver_now
+          end
+          if @comment.parent_comment&.send_email? && @comment.approved
             CommentMailer.notify_parent_author(@comment, request.host).deliver_now
           end
 
