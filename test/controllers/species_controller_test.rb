@@ -92,6 +92,14 @@ class SpeciesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "main image link should be localized" do
+    tx = taxa(:jyntor)
+    img = create(:image, observations: [create(:observation, taxon: tx)])
+    get :show, params: {id: tx.species.to_param, locale: :en}
+    assert_response :success
+    assert_select "a[href='/en/photos/#{img.slug}']"
+  end
+
   test "show species with video" do
     tx = taxa(:jyntor)
     create(:video, observations: [create(:observation, taxon: tx)])
