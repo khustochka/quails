@@ -3,7 +3,7 @@ module JustifyHelper
   INCREASE_ENABLED = true
 
   def render_justified(array)
-    render 'images/justified', array: array
+    render "images/justified", array: array
   end
 
   def justify(thumbs)

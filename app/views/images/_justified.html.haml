@@ -1,2 +1,6 @@
-- justify(array).each do |thumbs|
-  %div.thumbs_row= render thumbs
+- justified = justify(array)
+
+= render partial: "images/inline_styles", object: justified.flatten
+- justified.each do |thumbs|
+  %div.thumbs_row
+    = render thumbs

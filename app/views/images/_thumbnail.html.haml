@@ -1,6 +1,3 @@
-- h = thumbnail.height
-- w = thumbnail.width
-
 - extra_data = current_user.admin? && request.format == 'text/html'
 
 - data = extra_data ? thumbnail.data : nil
@@ -12,7 +9,9 @@
   -#  %span.flickr_badge
   -#    = link_to image_tag(on_flickr[0], alt: on_flickr[1]), flickr_photo_path(thumbnail.image), title: on_flickr[1]
 
-  = link_to image_tag(thumbnail.asset_url, alt: t('images.alt_photo'), height: h, width: w), localize_url(thumbnail.url, only_path: true)
+  - img_attrs = {alt: t('images.alt_photo'), class: "thumb_#{thumbnail.width}x#{thumbnail.height}"}
+  - img_attrs.merge!({width: thumbnail.width, height: thumbnail.height}) if @strip
+  = link_to image_tag(thumbnail.asset_url, img_attrs), localize_url(thumbnail.url, only_path: true)
   %figcaption.imagetitle
     = link_to localize_url(thumbnail.url, only_path: true) do
       - if thumbnail.title.is_a? String
