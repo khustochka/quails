@@ -40,7 +40,6 @@ module Lifelist
       end
     end
 
-    # TODO: preload locus ?
     def bare_relation
       MyObservation.
           select("observations.*, species_id").
@@ -60,7 +59,7 @@ module Lifelist
       # FIXME: Do not join on species when not on taxonomy sorting
       bare_relation.
           joins(:taxon, :card).
-          preload({:taxon => :species}, :card)
+          preload(:patch, {:taxon => :species}, {:card => :locus})
       # NOTE: Do not use .includes(:taxon), it breaks species preloading, use .preload
     end
 
