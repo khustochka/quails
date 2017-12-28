@@ -269,6 +269,11 @@ h3.family
 //td
 //  vertical-align: top
 
+.winter_photo_table
+  img
+    width: 150px
+    height: 150px
+
 .flickr_result_cell
   vertical-align: top
   @include inline-block
@@ -280,3 +285,10 @@ h3.family
 
 .disabled-icon
   color: #DED2D0
+
+li.starred
+  list-style: none
+  text-indent: -1.3em
+  &:before
+    content: "★"
+    color: gold

@@ -35,7 +35,7 @@
       - else
         %i.less-important.grayout No post
       - if card.ebird_id
-        %p= link_to "eBird Checklist", "http://ebird.org/ebird/view/checklist?subID=#{card.ebird_id}"
+        %p= link_to "eBird Checklist", "https://ebird.org/ebird/view/checklist?subID=#{card.ebird_id}"
     - if @post
       %li= attach_detach_link(card)
   %ul.card_cell
