@@ -86,7 +86,7 @@ end
 group :test do
   gem 'capybara'
   # This is a driver for headless JS tests (default).
-  gem 'capybara-webkit'
+  gem 'capybara-webkit', "~> 1.14"
   # And this one is if you want to see it in a real browser.
   gem 'selenium-webdriver'
 #  gem 'poltergeist', platforms: [:mri], require: false
