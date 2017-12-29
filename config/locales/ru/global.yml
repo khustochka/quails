@@ -29,7 +29,7 @@
   license:
     text: >
             Все фотографии и текст распространяются под лицензией
-            <b><a href="https://creativecommons.org/licenses/by-nc/3.0/" rel="nofollow license">CC-BY-NC</a></b>:
+            <b><a href="%{link}" rel="nofollow license">CC BY-NC-SA</a></b>:
             разрешено использование с некоммерческой целью и указанием авторства (ссылкой на сайт).
 
   misc:
