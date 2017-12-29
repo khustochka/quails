@@ -8,7 +8,7 @@
       window_title: Birdwatching in Ukraine and beyond
       title: Bird photos
       species_gallery: Species gallery
-      last_updated: Last updated on %{date}.
+      last_updated: ! "Last updated: %{date}."
 
     multiple_species:
       title: Photos of multiple species
@@ -20,7 +20,7 @@
       next_image: "Next image >>"
       more_photos_of_multiple_species: More photos of multiple species
 
-    picture_taken: Picture taken
+    picture_taken: Picture '%{title}' taken
 
   videos:
     index:

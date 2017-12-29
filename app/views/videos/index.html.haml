@@ -21,7 +21,7 @@
 
 - unless params[:page] || @videos.empty?
   %h3
-    %i= t('images.index.last_updated', date: l(@videos.first.created_at, format: :long))
+    %i= t('images.index.last_updated', date: l(@videos.first.created_at.to_date, format: :long))
 
 %div
   = render @videos

@@ -8,7 +8,7 @@
       window_title: Последние добавленные фотографии
       title: Последние добавленные фотографии
       species_gallery: Галерея видов
-      last_updated: Последнее обновление %{date}.
+      last_updated: ! "Последнее обновление: %{date}."
 
     multiple_species:
       title: Разные виды на одном фото
@@ -20,7 +20,7 @@
       next_image: "Следующее фото >>"
       more_photos_of_multiple_species: Еще фото нескольких видов
 
-    picture_taken: Снято
+    picture_taken: Фотография '%{title}' снятая
 
   videos:
     index:
