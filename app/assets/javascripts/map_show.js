@@ -196,21 +196,5 @@ $(function () {
     return false;
   });
 
-  //if (google.maps.version.substr(0, 4) == '3.17') {
-  //  $(".mapContainer").append($("<div>", {class: 'error-overlay'}));
-  //  $(".error-overlay").
-  //      append($("<p>",
-  //          {text: 'We are sorry, the map is not working properly now. We are working to fix this issue.'}));
-  //  var textNode = document.createTextNode("Извините, карта временно не работает. Мы трудимся над решением этой проблемы.");
-  //  $(".error-overlay p").append($("<br>")).append(textNode);
-  //  $(".error-overlay").
-  //      attr("style",
-  //      "position: absolute; height: 100%; width: 100%; top: 0; left: 0; " +
-  //      "background-color: grey; opacity: 0.8; ");
-  //  $(".error-overlay p").attr("style",
-  //      "text-align: center; position: relative; top: 36px; " +
-  //      "color: black; font-size: 26px; font-weight: bold;");
-  //}
-
 
 });
