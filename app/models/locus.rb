@@ -29,7 +29,9 @@ class Locus < ApplicationRecord
   end
 
   def to_label
-    name_en
+    I18n.with_locale(:en) do
+      decorated.short_full_name
+    end
   end
 
   # Scopes

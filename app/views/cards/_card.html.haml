@@ -9,7 +9,7 @@
         %b= link_to 'edit', edit_card_path(card), class: 'pseudolink'
     %li
       %small
-        %i= card.locus.name
+        %i= card.locus.decorated.short_full_name
   %ul.card_cell
     %li
       Obs:

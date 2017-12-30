@@ -102,4 +102,26 @@ class LocusTest < ActiveSupport::TestCase
     end
   end
 
+  test "short name should strip everything after city" do
+    kiev = loci(:kiev)
+    troeshina = FactoryBot.create(:locus, slug: "troya", name_en: "Troya", parent: kiev, name_format: "%self, %city, %oblast, %country")
+    I18n.with_locale(:en) do
+      assert_equal "Troya, Kiev City", troeshina.decorated.short_full_name
+    end
+  end
+
+  test "short name should strip country if city not defined" do
+    brvr = loci(:brovary)
+    I18n.with_locale(:en) do
+      assert_equal "Brovary, Kiev oblast", brvr.decorated.short_full_name
+    end
+  end
+
+  test "short preserve self" do
+    ua = loci(:ukraine)
+    I18n.with_locale(:en) do
+      assert_equal "Ukraine", ua.decorated.short_full_name
+    end
+  end
+
 end

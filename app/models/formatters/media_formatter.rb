@@ -16,7 +16,7 @@ class MediaFormatter < ModelFormatter
   end
 
   def meta_description
-    descr = "#{I18n.t("images.picture_taken", title: title)} #{l(@model.observ_date, format: :long)}, #{@model.locus.name}."
+    descr = "#{I18n.t("images.picture_taken", title: title)} #{l(@model.observ_date, format: :long)}, #{public_locus_full_name}."
     if I18n.russian_locale? && description.present?
       descr << "\n"
       descr << strip_tags(description)

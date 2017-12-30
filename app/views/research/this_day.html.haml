@@ -17,4 +17,4 @@
   %p
     = succeed ", " do
       = link_to l(img.observ_date, :format => :long), day_path(img.observ_date)
-    = img.locus.name
+    = img.locus.decorated.short_full_name
