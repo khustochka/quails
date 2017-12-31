@@ -13,6 +13,7 @@ class FeedsController < ApplicationController
   def sitemap
     @posts = Post.indexable.select("slug, face_date, updated_at")
     @images = Image.indexable.select("id, slug, created_at")
+    @videos = Video.select("id, slug, created_at")
     @species = Species.where(id: Observation.joins(:taxon).select(:species_id)).select("id, name_sci")
 
     # TODO: take into account only the posts shown on home page

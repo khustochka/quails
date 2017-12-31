@@ -96,6 +96,18 @@
       %lastmod= img.created_at.iso8601
       %changefreq yearly
 
+  -# videos
+  - @videos.each do |vid|
+    %url
+      %loc= video_url(vid)
+      %lastmod= vid.created_at.iso8601
+      %changefreq yearly
+
+    %url
+      %loc= localize_url(vid, locale: :en, only_path: false)
+      %lastmod= vid.created_at.iso8601
+      %changefreq yearly
+
   -# species
   - @species.each do |sp|
     %url
