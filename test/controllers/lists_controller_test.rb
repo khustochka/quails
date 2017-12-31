@@ -20,4 +20,8 @@ class ListsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test 'shows My Statistics page' do
+    get :stats
+  end
+
 end

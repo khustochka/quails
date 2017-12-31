@@ -145,15 +145,15 @@ Rails.application.routes.draw do
 
   scope '(:locale)', locale: /en/ do
 
-    get '/my' => 'my_stats#index', as: :my_stats
+    get '/lists' => 'lists#index'
 
-    get '/my/lists' => 'lists#index'
+    get '/lists/advanced' => 'lists#advanced', as: :advanced_list
 
-    get '/my/lists/advanced' => 'lists#advanced', as: :advanced_list
+    get '/lists/stats' => 'lists#stats'
 
-    get '/my/lists/life(/:sort)' => 'lists#basic', as: :lifelist
+    get '/lists/life(/:sort)' => 'lists#basic', as: :lifelist
 
-    get '/my/lists(/:locus)(/:year)(/:sort)' => 'lists#basic', as: :list,
+    get '/lists(/:locus)(/:year)(/:sort)' => 'lists#basic', as: :list,
         locus: /(?!by_)\D[^\/]+/, # negative look-ahead: not starting with 'by_'
         year: /\d{4}/,
         sort: /by_taxonomy/

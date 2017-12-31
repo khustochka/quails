@@ -1,7 +1,6 @@
 "en":
-  my_stats:
-    index:
-    index:
+  lists:
+    stats:
       title: My stats
 
       total: total

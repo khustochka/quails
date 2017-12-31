@@ -28,26 +28,26 @@ class RoutingTest < ActionDispatch::IntegrationTest
     assert_routing '/species/admin', {controller: 'species', action: 'index'}
   end
 
-  test 'route `/my` correctly' do
-    assert_routing '/my', {controller: 'my_stats', action: 'index'}
+  test 'route stats correctly' do
+    assert_routing '/lists/stats', {controller: 'lists', action: 'stats'}
   end
 
   test 'route lists correctly' do
-    assert_routing '/my/lists', {controller: "lists", action: "index"}
+    assert_routing '/lists', {controller: "lists", action: "index"}
   end
 
   test 'route lifelist correctly' do
-    assert_routing '/my/lists/life', {controller: "lists", action: "basic"}
-    assert_routing '/my/lists/advanced', {controller: "lists", action: 'advanced'}
-    assert_routing '/my/lists/life/by_taxonomy', {controller: "lists", action: "basic", sort: 'by_taxonomy'}
-    assert_routing '/my/lists/2008', {controller: "lists", action: "basic", year: '2008'}
-    assert_routing '/my/lists/2008/by_taxonomy', {controller: "lists", action: "basic", sort: 'by_taxonomy', year: '2008'}
-    assert_routing '/my/lists/kiev/2010', {controller: "lists", action: "basic", year: '2010', locus: 'kiev'}
-    assert_routing '/my/lists/kherson_obl', {controller: "lists", action: "basic", locus: 'kherson_obl'}
-    assert_routing '/my/lists/kherson_obl/by_taxonomy', {controller: "lists", action: "basic", sort: 'by_taxonomy', locus: 'kherson_obl'}
-    assert_routing '/my/lists/kiev/2010/by_taxonomy', {controller: "lists", action: "basic", sort: 'by_taxonomy', year: '2010', locus: 'kiev'}
+    assert_routing '/lists/life', {controller: "lists", action: "basic"}
+    assert_routing '/lists/advanced', {controller: "lists", action: 'advanced'}
+    assert_routing '/lists/life/by_taxonomy', {controller: "lists", action: "basic", sort: 'by_taxonomy'}
+    assert_routing '/lists/2008', {controller: "lists", action: "basic", year: '2008'}
+    assert_routing '/lists/2008/by_taxonomy', {controller: "lists", action: "basic", sort: 'by_taxonomy', year: '2008'}
+    assert_routing '/lists/kiev/2010', {controller: "lists", action: "basic", year: '2010', locus: 'kiev'}
+    assert_routing '/lists/kherson_obl', {controller: "lists", action: "basic", locus: 'kherson_obl'}
+    assert_routing '/lists/kherson_obl/by_taxonomy', {controller: "lists", action: "basic", sort: 'by_taxonomy', locus: 'kherson_obl'}
+    assert_routing '/lists/kiev/2010/by_taxonomy', {controller: "lists", action: "basic", sort: 'by_taxonomy', year: '2010', locus: 'kiev'}
     # have 'by_' inside locus
-    assert_routing '/my/lists/druzhby_obl/by_taxonomy', {controller: "lists", action: "basic", sort: 'by_taxonomy', locus: 'druzhby_obl'}
+    assert_routing '/lists/druzhby_obl/by_taxonomy', {controller: "lists", action: "basic", sort: 'by_taxonomy', locus: 'druzhby_obl'}
   end
 
   test 'route images correctly' do
@@ -108,14 +108,14 @@ class RoutingTest < ActionDispatch::IntegrationTest
   end
 
   test 'English lifelists routing' do
-    assert_routing '/en/my/lists', {controller: 'lists', action: 'index', locale: 'en'}
-    assert_routing '/en/my/lists/2009', {controller: 'lists', action: 'basic', locale: 'en', year: '2009'}
-    assert_routing '/en/my/lists/usa', {controller: 'lists', action: 'basic', locale: 'en', locus: 'usa'}
-    assert_routing '/en/my/lists/usa/2011', {controller: 'lists', action: 'basic', locale: 'en', locus: 'usa', year: '2011'}
+    assert_routing '/en/lists', {controller: 'lists', action: 'index', locale: 'en'}
+    assert_routing '/en/lists/2009', {controller: 'lists', action: 'basic', locale: 'en', year: '2009'}
+    assert_routing '/en/lists/usa', {controller: 'lists', action: 'basic', locale: 'en', locus: 'usa'}
+    assert_routing '/en/lists/usa/2011', {controller: 'lists', action: 'basic', locale: 'en', locus: 'usa', year: '2011'}
   end
 
   test 'English my stats routing' do
-    assert_routing '/en/my', {controller: 'my_stats', action: 'index', locale: 'en'}
+    assert_routing '/en/lists/stats', {controller: 'lists', action: 'stats', locale: 'en'}
   end
 
 

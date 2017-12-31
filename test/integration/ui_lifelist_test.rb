@@ -9,10 +9,10 @@ class UILifelistTest < ActionDispatch::IntegrationTest
     create(:observation, taxon: taxa(:bomgar), card: create(:card, observ_date: "2009-06-18", locus: loci(:nyc)))
     # Driver adds HTTP_ before header name
     page.driver.header("X_PJAX", 'true')
-    visit "/my/lists/advanced?year=2009&_pjax=main"
+    visit "/lists/advanced?year=2009&_pjax=main"
     assert_equal 200, page.driver.response.status
     #save_and_open_page
-    assert page.has_no_css?("a[href='/my/lists/advanced?year=2009']")
+    assert page.has_no_css?("a[href='/lists/advanced?year=2009']")
   end
 
 end

@@ -1,6 +1,6 @@
 "ru":
-  my_stats:
-    index:
+  lists:
+    stats:
       title: Моя статистика
 
       total: всего
