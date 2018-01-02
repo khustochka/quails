@@ -76,7 +76,7 @@ class PostsController < ApplicationController
 
   # POST
   def lj_post
-    server = LiveJournal::Server.new("Dreamwidth", "https://www.dreamwidth.org")
+    server = LiveJournal::Server.new("Livejournal", "https://www.livejournal.com")
     user = LiveJournal::User.new(Settings.lj_user.name, Settings.lj_user.password, server)
 
     entry = LiveJournal::Entry.new
@@ -89,11 +89,11 @@ class PostsController < ApplicationController
 
     request = if @post.lj_data.url.present?
                 if Quails.env.real_prod?
-                  if @post.lj_data.url =~ /dreamwidth\.org/
+                  if @post.lj_data.url =~ /livejournal\.org/
                     entry.itemid = @post.lj_data.post_id
                     LiveJournal::Request::EditEvent.new(user, entry)
                   else
-                     flash.alert = "This entry is on LiveJournal, cannot edit via DreamWidth."
+                     flash.alert = "This entry is on Dreamwidth, cannot edit via LiveJournal."
                      nil
                   end
                 else
@@ -113,12 +113,12 @@ class PostsController < ApplicationController
 
     if request
       request.run
-      flash.notice = 'Posted to DreamWidth'
+      flash.notice = 'Posted to LJ'
 
       if entry.itemid
         @post.lj_data.post_id = entry.itemid
         if entry.anum
-          @post.lj_data.url = "https://#{Settings.lj_user.name}.dreamwidth.org/#{entry.display_itemid}.html"
+          @post.lj_data.url = "https://#{Settings.lj_user.name}.livejournal.com/#{entry.display_itemid}.html"
         end
         @post.save!
       end
