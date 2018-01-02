@@ -9,14 +9,14 @@ class LJFormatStrategy < FormattingStrategy
     %Q(<lj user="#{user}">)
   end
 
-  def post_link(word, term)
+  def post_tag(word, term)
     post = @posts[term]
     post.nil? || post.lj_url.nil? ?
         word :
         %Q("#{word || post.decorated.title}":#{term})
   end
 
-  def img_link(term)
+  def img_tag(term)
     if image = Image.find_by(slug: term)
       real_image_tag(image)
     end
@@ -32,7 +32,7 @@ class LJFormatStrategy < FormattingStrategy
         )
   end
 
-  def species_link(word, term, en)
+  def species_tag(word, term, en)
     sp = @species[term]
     if sp
       str = %Q(<b title="#{sp.name_sci}">#{word or (en ? sp.name_en : sp.name_sci)}</b>)

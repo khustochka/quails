@@ -10,7 +10,10 @@ class FeedFormatStrategy < SiteFormatStrategy
   private
 
   def only_path?
-    false
+    if @only_path.nil?
+      @only_path = false
+    end
+    @only_path
   end
 
   # FIXME: this omits the port!

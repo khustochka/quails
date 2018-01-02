@@ -16,7 +16,7 @@ class FormattersTest < ActionView::TestCase
 
   test "Post with species link" do
     post = build(:post, text: "This is a {{Wryneck|jyntor}}")
-    assert_equal "<p>This is a <a href=\"/species/Jynx_torquilla\" class=\"sp_link\">Wryneck</a></p>",
+    assert_equal "<p>This is a <a class=\"sp_link\" href=\"/species/Jynx_torquilla\">Wryneck</a></p>",
                  post.decorated.for_site.text
   end
 
@@ -130,7 +130,7 @@ class FormattersTest < ActionView::TestCase
   test "Voron vs vorona" do
     # Mimic sparrow as a raven not to create more fixtures
     p = build(:post, text: "{{вОрон|Passer domesticus}}")
-    assert_equal %Q(<p><a href=\"/species/Passer_domesticus\" class=\"sp_link\">во&#769;рон</a></p>),
+    assert_equal %Q(<p><a class=\"sp_link\" href=\"/species/Passer_domesticus\">во&#769;рон</a></p>),
                  p.decorated.for_site.text
   end
 

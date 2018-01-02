@@ -19,9 +19,9 @@ class FormattingStrategy
             lj_user(word)
           end
         when '#' then
-          post_link(word, term)
+          post_tag(word, term)
         when '^' then
-          img_link(term)
+          img_tag(term)
         when '&' then
           video_embed(term)
         when '' then
@@ -30,7 +30,7 @@ class FormattingStrategy
             word = nil
             en = "en"
           end
-          species_link(word, term, en)
+          species_tag(word, term, en)
       end
     end
 
@@ -73,7 +73,7 @@ class FormattingStrategy
   end
 
   def only_path?
-    true
+    @only_path ||= true
   end
 
 end
