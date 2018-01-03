@@ -4,7 +4,7 @@ class User
 
   def self.from_session(request)
     user = new(request)
-    if ssl_gate(request) && user.is_admin_session?
+    if user.is_admin_session?
       user.extend(Role::Admin)
     else
       user.extend(Role::User)

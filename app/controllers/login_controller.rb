@@ -1,10 +1,5 @@
 class LoginController < ApplicationController
 
-  if Quails.env.ssl?
-    force_ssl only: :login_page
-    skip_before_action :force_http
-  end
-
   # User can get to login page in 3 ways:
   # 1. Redirect from admin path accessed when not logged in (sets session[:ret])
   # 2. Clicking Login on any page when not logged in (we try to go back to the referrer after login)

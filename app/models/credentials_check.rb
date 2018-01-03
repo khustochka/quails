@@ -32,9 +32,4 @@ module CredentialsCheck
     username == @options.username &&
         (Digest::SHA1.hexdigest(password) == @options.password || (!Rails.env.production? && password == @options.password))
   end
-
-  private
-  def ssl_gate(request)
-    !Quails.env.ssl? || request.ssl?
-  end
 end

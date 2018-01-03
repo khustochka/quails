@@ -3,12 +3,6 @@ module Aspects
     def self.included(klass)
       klass.extend ClassMethods
       klass.helper_method :current_user
-
-      #force HTTP
-      if Quails.env.ssl?
-        klass.before_action :force_http
-      end
-
     end
 
     module ClassMethods
@@ -33,18 +27,6 @@ module Aspects
     private
     def current_user
       @current_user ||= User.from_session(request)
-    end
-
-    def force_http
-      if request.ssl? && !current_user.has_trust_cookie?
-        redirect_to(public_url_options, status: 301)
-      end
-    end
-
-    def force_ssl_for_admin
-      if !request.ssl? && current_user.has_trust_cookie?
-        redirect_to(admin_url_options, status: 301)
-      end
     end
   end
 end

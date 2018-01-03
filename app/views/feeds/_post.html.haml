@@ -1,4 +1,6 @@
-= post.decorated({host: request.host}).for_feed.text
+- @only_path = false
+
+= post.decorated({host: request.host, port: request.port}).for_feed.text
 
 = render partial: "blog/image", collection: post.decorated.the_rest_of_images, formats: :html
 

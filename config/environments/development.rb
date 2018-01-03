@@ -56,4 +56,11 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+
+  if Quails.env.puma_dev?
+    # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
+    config.force_ssl = true
+    # Pumadev ssl port is 9283
+    config.ssl_options = {redirect: {port: 9283}}
+  end
 end

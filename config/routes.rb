@@ -259,10 +259,9 @@ Rails.application.routes.draw do
     get "/research/#{name}", controller: :research, action: name
   end
 
-  constraints Quails.env.ssl? ? {protocol: 'https://'} : nil do
-    get '/login' => 'login#login_page'
-    post '/login' => 'login#login_do'
-  end
+  get '/login' => 'login#login_page'
+  post '/login' => 'login#login_do'
+
   get '/logout' => 'login#logout'
 
   get '/flickr' => 'flickr#index'
