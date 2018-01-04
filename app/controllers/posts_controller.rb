@@ -89,7 +89,7 @@ class PostsController < ApplicationController
 
     request = if @post.lj_data.url.present?
                 if Quails.env.real_prod?
-                  if @post.lj_data.url =~ /livejournal\.org/
+                  if @post.lj_data.url =~ /livejournal\.com/
                     entry.itemid = @post.lj_data.post_id
                     LiveJournal::Request::EditEvent.new(user, entry)
                   else
