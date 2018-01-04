@@ -67,8 +67,11 @@ class CommentsController < ApplicationController
       @comment.send_email = commenter_email.present?
 
       if @comment.send_email
-        commenter = Commenter.find_by(email: commenter_email) ||
+        commenter = Commenter.find_by(email: commenter_email, is_admin: current_user.admin?) ||
             Commenter.create!(name: @comment.name, email: commenter_email)
+        if !commenter.is_admin? && Commenter.where(email: commenter_email, is_admin: true).any?
+          @comment.approved = false
+        end
         @comment.commenter = commenter
       end
 

@@ -37,7 +37,7 @@ class CommentsControllerTest < ActionController::TestCase
     assert_equal "Vasya", comment.name
   end
 
-  test "autohide comment with negative captcha" do
+  test "reject comment with negative captcha" do
     invalid_attrs = valid_comment_params(name: 'Vasya')
     assert_difference('Comment.count', 0) do
       post :create, params: invalid_attrs
@@ -105,5 +105,43 @@ class CommentsControllerTest < ActionController::TestCase
   test "user does not see reply page to hidden post" do
     comment = create(:comment, post: create(:post, status: 'PRIV'))
     assert_raise(ActiveRecord::RecordNotFound) { get :reply, params: {id: comment.to_param} }
+  end
+
+  test "user can create comment with his email" do
+    user_commenter = Commenter.create!(is_admin: false, name: "Vasya", email: "user@example.org")
+    email = user_commenter.email
+    blogpost = create(:post)
+    post :create, params: valid_comment_params(post_id: blogpost.id).merge(commenter: {email: email})
+    comment = assigns(:comment)
+    assert_equal user_commenter, comment.commenter
+  end
+
+  test "admin can create comment with their email" do
+    login_as_admin
+    admin_commenter = Commenter.create!(is_admin: true, name: "Admin", email: "admin@example.org")
+    email = admin_commenter.email
+    blogpost = create(:post)
+    post :create, params: valid_comment_params(post_id: blogpost.id).merge(commenter: {email: email})
+    comment = assigns(:comment)
+    assert_equal admin_commenter, comment.commenter
+  end
+
+  test "user cannot create comment with admin's email" do
+    admin_commenter = Commenter.create!(is_admin: true, name: "Admin", email: "admin@example.org")
+    email = admin_commenter.email
+    blogpost = create(:post)
+    post :create, params: valid_comment_params(post_id: blogpost.id).merge(commenter: {email: email})
+    comment = assigns(:comment)
+    assert_not_nil comment.commenter
+    assert_not_equal admin_commenter, comment.commenter
+  end
+
+  test "hide comment with admin's email created by public user" do
+    admin_commenter = Commenter.create!(is_admin: true, name: "Admin", email: "admin@example.org")
+    email = admin_commenter.email
+    blogpost = create(:post)
+    post :create, params: valid_comment_params(post_id: blogpost.id).merge(commenter: {email: email})
+    comment = assigns(:comment)
+    refute comment.approved
   end
 end
