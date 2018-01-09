@@ -17,6 +17,11 @@ class PostTest < ActiveSupport::TestCase
     assert_raise(ActiveRecord::RecordInvalid) { blogpost.save! }
   end
 
+  test 'slug cannot contain space' do
+    blogpost = build(:post, slug: 'kiev observations')
+    assert_raise(ActiveRecord::RecordInvalid) { blogpost.save! }
+  end
+
   test 'do not save post with empty title' do
     blogpost = build(:post, title: '')
     assert_raise(ActiveRecord::RecordInvalid) { blogpost.save! }

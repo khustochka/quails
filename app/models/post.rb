@@ -15,7 +15,7 @@ class Post < ApplicationRecord
 
   serialize :lj_data, LJData
 
-  validates :slug, :uniqueness => true, :presence => true, :length => {:maximum => 64}
+  validates :slug, :uniqueness => true, :presence => true, :length => {:maximum => 64}, format: /\A[\w\-]+\Z/
   validates :title, :presence => true
   validates :topic, :inclusion => TOPICS, :presence => true, :length => {:maximum => 4}
   validates :status, :inclusion => STATES, :presence => true, :length => {:maximum => 4}
