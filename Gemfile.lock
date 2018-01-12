@@ -66,7 +66,7 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
-    airbrake (7.1.1)
+    airbrake (7.2.0)
       airbrake-ruby (~> 2.5)
     airbrake-ruby (2.7.1)
     ancestry (3.0.1)
@@ -168,7 +168,7 @@ GEM
     mime-types-data (3.2016.0521)
     mini_mime (1.0.0)
     mini_portile2 (2.3.0)
-    minitest (5.11.1)
+    minitest (5.10.3)
     newrelic_rpm (4.7.1.340)
     nio4r (2.2.0)
     nokogiri (1.8.1)
@@ -297,10 +297,11 @@ DEPENDENCIES
   kaminari
   launchy
   livejournal!
+  minitest (= 5.10.3)
   newrelic_rpm
   nokogiri
   ordered-active-record!
-  pg
+  pg (~> 0.18)
   pjax_rails!
   pry-byebug
   pry-rails
