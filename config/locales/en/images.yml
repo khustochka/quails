@@ -20,9 +20,11 @@
       next_image: "Next image >>"
       more_photos_of_multiple_species: More photos of multiple species
 
-    picture_taken: Picture '%{title}' taken
+    taken_clause: Picture '%{title}' taken
 
   videos:
     index:
       window_title: Bird videos
       title: Videos
+
+    taken_clause: Video '%{title}' recorded
