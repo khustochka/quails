@@ -49,6 +49,10 @@ module JavaScriptTestCase
     klass.class_eval do
       include CapybaraTestCase
 
+      # We potentially can use this instead of setup/teardown
+      # but is slightly slower and also messes with UI_ tests
+      # driven_by :webkit
+
       setup do
         Capybara.current_driver = ENV['JS_DRIVER'].try(:to_sym) || Capybara.javascript_driver
       end
