@@ -1,4 +1,4 @@
-Quails.features.videoQuality =
+Quails.features.videoResize =
   init: ->
 
     tag = document.createElement("script")
@@ -9,10 +9,6 @@ Quails.features.videoQuality =
     # Had to embed plain JS to access global value onYouTubeIframeAPIReady
     `onYouTubeIframeAPIReady = this.apiReady`
 
-    $.onPlayerReady = (event) ->
-      event.target.setPlaybackQuality "hd720"
-      return
-
     $.onStateChange = (event) ->
       if event.data == YT.PlayerState.UNSTARTED
         event.target.setSize 853, 480
@@ -22,7 +18,6 @@ Quails.features.videoQuality =
     $('.video-container iframe').each ->
       new YT.Player(this, {
         events: {
-          'onReady': $.onPlayerReady,
           'onStateChange': $.onStateChange
         }
       })
