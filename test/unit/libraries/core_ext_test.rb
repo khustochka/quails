@@ -11,15 +11,15 @@ class CoreExtTest < ActiveSupport::TestCase
   end
 
   test "nil is not meaningful" do
-    assert_not nil.meaningful?
+    assert_not_predicate nil, :meaningful?
   end
 
   test "empty string is not meaningful" do
-    assert_not "".meaningful?
+    assert_not_predicate "", :meaningful?
   end
 
   test "false is meaningful" do
-    assert false.meaningful?
+    assert_predicate false, :meaningful?
   end
 
 end

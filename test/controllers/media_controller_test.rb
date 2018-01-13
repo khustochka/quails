@@ -18,9 +18,9 @@ class MediaControllerTest < ActionController::TestCase
     login_as_admin
     get :unmapped
     result = assigns(:media).map(&:id)
-    assert result.include?(@image.id)
+    assert_includes result, @image.id
     assert result.include?(@video.id)
-    assert_not result.include?(image2.id)
+    assert_not_includes result, image2.id
   end
 
   test 'half-mapped' do
@@ -30,7 +30,7 @@ class MediaControllerTest < ActionController::TestCase
     # result = assigns(:media).map(&:id)
     # assert result.include?(@image.id)
     # assert result.include?(@video.id)
-    # assert_not result.include?(image2.id)
+    # assert_not_includes result, image2.id
   end
 
 end

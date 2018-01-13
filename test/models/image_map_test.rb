@@ -101,6 +101,6 @@ class ImageMapTest < ActiveSupport::TestCase
 
   test "image with no spot, no patch and locus with no latlng and parent with no latlng" do
     @image = megafactory(@overlocus_no_geo, nil, nil)
-    assert result.nil?
+    assert_nil result
   end
 end

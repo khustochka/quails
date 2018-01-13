@@ -70,7 +70,7 @@ class ImageObservValidationTest < ActiveSupport::TestCase
     assert_difference('Image.count', 0) do
       img.update(new_attr)
     end
-    assert img.errors.present?
+    assert_predicate img.errors, :present?
   end
 
   test 'does not create image with inconsistent observations (different loc)' do
@@ -82,7 +82,7 @@ class ImageObservValidationTest < ActiveSupport::TestCase
         assert_difference('Image.count', 0) do
       img.update(new_attr)
     end
-    assert img.errors.present?
+    assert_predicate img.errors, :present?
   end
 
   test 'does not update image with inconsistent observations' do

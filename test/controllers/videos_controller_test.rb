@@ -66,7 +66,7 @@ class VideosControllerTest < ActionController::TestCase
     assert_difference('Video.count') do
       post :create, params: {video: new_attr, obs: [@obs.id, obs2.id, obs3.id]}
       video = assigns(:video)
-      assert_not video.errors.any?
+      assert_empty video.errors
     end
     assert_redirected_to edit_map_video_path(assigns(:video))
   end

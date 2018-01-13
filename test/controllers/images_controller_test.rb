@@ -75,7 +75,7 @@ class ImagesControllerTest < ActionController::TestCase
     assert_difference('Image.count') do
       post :create, params: {image: new_attr, obs: [@obs.id, obs2.id, obs3.id]}
       image = assigns(:image)
-      assert_not image.errors.any?
+      assert_empty image.errors
     end
     assert_redirected_to edit_map_image_path(assigns(:image))
   end

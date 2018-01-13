@@ -15,7 +15,7 @@ class VideoTest < ActiveSupport::TestCase
   test 'create thumbnail when video is created' do
     obs = create(:observation)
     video = Video.create!(slug: 'video2', external_id: 'Aaaa1111', observations: [obs])
-    assert video.assets_cache.externals.present?
+    assert_predicate video.assets_cache.externals, :present?
   end
 
   test 'change thumbnail when youtube id is updated' do

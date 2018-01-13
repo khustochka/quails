@@ -70,7 +70,7 @@ class VideoObservValidationTest < ActiveSupport::TestCase
     assert_difference('Video.count', 0) do
       video.update(new_attr)
     end
-    assert video.errors.present?
+    assert_predicate video.errors, :present?
   end
 
   test 'does not create video with inconsistent observations (different loc)' do
@@ -82,7 +82,7 @@ class VideoObservValidationTest < ActiveSupport::TestCase
         assert_difference('Video.count', 0) do
       video.update(new_attr)
     end
-    assert video.errors.present?
+    assert_predicate video.errors, :present?
   end
 
   test 'does not update video with inconsistent observations' do

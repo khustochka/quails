@@ -52,7 +52,7 @@ class ObservationSearchTest < ActiveSupport::TestCase
 
   test 'search voice: false means filter by `seen only`' do
     ob3 = create(:observation, voice: true)
-    assert_not ObservationSearch.new(voice: false).observations.include?(ob3)
+    assert_not_includes ObservationSearch.new(voice: false).observations, ob3
   end
 
   test 'search cards by locus exclusive' do

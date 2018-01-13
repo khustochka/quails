@@ -36,8 +36,8 @@ class EbirdTaxonTest < ActiveSupport::TestCase
 
     etx.reload
     assert_equal etx.taxon, @result
-    assert etx.taxon.species.present?
-    assert etx.taxon.species.taxa.present?
+    assert_predicate etx.taxon.species, :present?
+    assert_predicate etx.taxon.species.taxa, :present?
   end
 
   test "promote taxon with parent already promoted" do
@@ -65,7 +65,7 @@ class EbirdTaxonTest < ActiveSupport::TestCase
     etx.reload
     assert_equal etx.taxon, @result
     assert_equal etx.parent.taxon, @result.parent
-    assert etx.parent.taxon.species.present?
+    assert_predicate etx.parent.taxon.species, :present?
     assert_equal etx.parent.taxon.species, @result.species
   end
 

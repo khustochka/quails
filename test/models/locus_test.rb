@@ -43,7 +43,7 @@ class LocusTest < ActiveSupport::TestCase
   test 'do not destroy locus if it has associated cards (and no child loci)' do
     loc = loci(:brovary)
     observation = create(:observation, card: create(:card, locus: loc))
-    assert loc.descendants.empty?
+    assert_predicate loc.descendants, :empty?
     assert_raise(ActiveRecord::DeleteRestrictionError) { loc.destroy }
     assert observation.reload
     assert_equal loc, observation.card.locus
@@ -52,7 +52,7 @@ class LocusTest < ActiveSupport::TestCase
   test 'do not destroy locus if it has associated observations (patch) and no cards' do
     loc = loci(:brovary)
     observation = create(:observation, card: create(:card, locus: loci(:kiev_obl)), patch: loc)
-    assert loc.cards.empty?
+    assert_predicate loc.cards, :empty?
     assert_raise(ActiveRecord::DeleteRestrictionError) { loc.destroy }
   end
 
