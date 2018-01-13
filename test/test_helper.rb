@@ -12,6 +12,8 @@ require 'rails/test_help'
 
 Capybara::Webkit.configure do |config|
   config.block_unknown_urls
+  # Don't load images
+  config.skip_image_loading
 end
 
 class ActiveSupport::TestCase
