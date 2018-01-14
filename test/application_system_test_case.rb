@@ -9,7 +9,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
                 Selenium::WebDriver::Remote::Capabilities.chrome(chromeOptions: {args: ["--headless"]})
         }
       else
-        nil
+        {}
       end
 
   driven_by :selenium, using: :chrome, screen_size: [1400, 1400], options: opts
