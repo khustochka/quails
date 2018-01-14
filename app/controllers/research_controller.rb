@@ -289,7 +289,7 @@ class ResearchController < ApplicationController
     @years.each do |yr|
       list = observations_filtered.
           select('species_id, MIN(observ_date) as first_date').
-          where("extract(year from observ_date) = #{yr}").
+          where("extract(year from observ_date) = ?", yr).
           group(:species_id)
       dates = Observation.from(list).order('first_date').
                   group(:first_date).pluck("first_date, COUNT(species_id) as cnt")
