@@ -3,11 +3,16 @@ namespace :db do
 
   desc 'Restore local db from existing dump'
   task :restore => 'helper:load_locals' do
-    cli = %Q(pg_restore -v -d #{ENV['DATABASE_NAME'] || @db_spec['database']} -O -x -n public --clean -U #{@db_spec['username']} #{@folder}/prod/prod_db_dump)
+    custom_db = ENV['DATABASE_NAME']
+    cli = %Q(pg_restore -v -d #{custom_db || @db_spec['database']} -O -x -n public #{custom_db ? "--clean" : ""} -U #{@db_spec['username']} #{@folder}/prod/prod_db_dump)
 
-    if ENV['RAILS_ENV'] == 'production'
-      puts "You will destroy production DB!\nIf sure, type\n  #{cli}"
+    # Testing for production db is done by Rails.
+    if custom_db
+      puts "Trying to restore a custom DB. You may need to drop/recreate it."
+      system cli
     else
+      Rake::Task["db:drop"].invoke
+      Rake::Task["db:create"].invoke
       system cli
       Rake::Task["db:environment:set"].invoke
     end
