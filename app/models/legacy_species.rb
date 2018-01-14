@@ -4,9 +4,6 @@ class LegacySpecies < ApplicationRecord
 
   extend SpeciesParameterizer
 
-  invalidates CacheKey.gallery
-  invalidates CacheKey.lifelist
-
   localized_attr :name
 
   serialize :wikidata, Hash
@@ -20,27 +17,12 @@ class LegacySpecies < ApplicationRecord
 
   acts_as_ordered :index_num
 
-  has_many :observations, dependent: :restrict_with_exception
-  has_many :cards, through: :observations
-  has_many :loci, through: :cards
-  has_many :images, through: :observations
-  has_many :videos, through: :observations
-  has_many :taxa
-  has_many :posts, -> { order(face_date: :desc).uniq }, through: :observations
-
-  has_one :species_image
-  has_one :image, through: :species_image
-
   belongs_to :species
-
-  #has_one :ebird_species, -> { where(book_id: Book.find_by(slug: 'clements6')) }, class_name: 'Taxon'
 
   AVIS_INCOGNITA = Struct.new(:id, :name_sci, :to_label, :name).
       new(0, '- Avis incognita', '- Avis incognita', '- Avis incognita')
 
   # Parameters
-
-  accepts_nested_attributes_for :species_image
 
   def to_param
     LegacySpecies.parameterize(name_sci_was)
@@ -62,55 +44,10 @@ class LegacySpecies < ApplicationRecord
 
   scope :alphabetic, lambda { order(:name_sci) }
 
-  def self.by_abundance
-    select('species.id, name_sci').left_outer_joins(:observations).
-        group('species.id').order('COUNT(observations.id) DESC, name_sci')
-  end
-
-  def ordered_images
-    images.order_for_species
-  end
-
-  def posts
-    p1 = Post.select("posts.id").joins(:observations).where('observations.id' => self.observation_ids).to_sql
-
-    p2 = Post.connection.unprepared_statement do
-      Post.select("posts.id").joins(:cards).where("cards.id" => self.cards).to_sql
-    end
-
-    Post.uniq.where("posts.id IN (#{p1}) OR posts.id IN (#{p2})").order(face_date: :desc)
-  end
-
-  def grouped_loci
-    countries = Country.select(:id, :slug, :ancestry).to_a
-    loci.uniq.group_by do |locus|
-      countries.find {|c| locus.id.in?(c.subregion_ids)}.slug
-    end
-  end
-
-  def update_image
-    self.reload
-    if !image
-      self.image = self.images.first || nil
-      save!
-    end
-  end
-
   # Wikidata
 
   def wikidata
     Hashie::Mash.new(read_attribute('wikidata'))
-  end
-
-  def similar_species
-    arr = (wikidata.similar_species || '').split(',').map(&:strip)
-    LegacySpecies.where(code: arr).order(:index_num)
-  end
-
-  # Formatting
-
-  def to_thumbnail
-    Thumbnail.new(self, {partial: 'species/thumb_title'}, self.image)
   end
 
 end

@@ -71,7 +71,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :legacy_species, only: [:index, :edit, :update] do
+  resources :legacy_species, only: [:index, :edit, :show, :update] do
     collection do
       get :mapping
     end

@@ -29,7 +29,7 @@
     $(".edit_legacy_species").on "ajax:success", (e, data, xhr) ->
       if data.species_id
         td = $(this).closest("td")
-        td.prev().html("<img src='/img/check_16x13.png'>")
+        td.prev().html("<span class='fa fa-check'></span>")
 
 
 %h1 Mapping species

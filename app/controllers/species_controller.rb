@@ -77,7 +77,9 @@ class SpeciesController < ApplicationController
 
   # TODO: remove when removing legacy mapping
   def simple_search
-    result = Species.where("name_sci ILIKE '#{params[:term]}%' OR name_sci ILIKE '% #{params[:term]}%'").map do |sp|
+    result = Species.
+        where("name_sci ILIKE ? OR name_sci ILIKE ?", "#{params[:term]}%", "% #{params[:term]}%").
+        map do |sp|
       {
           value: sp.name_sci,
           label: sp.name_sci,

@@ -28,19 +28,8 @@ class LegacySpeciesController < ApplicationController
     end
   end
 
-  # PUT /species
-  def create
-
-    @species = Species.new(params[:species])
-    respond_to do |format|
-      if @species.save
-        format.html { redirect_to(@species, notice: 'Species was successfully created.') }
-        format.json { render json: @species }
-      else
-        format.html { render :form }
-        format.json { render json: @species.errors, status: :unprocessable_entity }
-      end
-    end
+  def show
+    redirect_to edit_legacy_species_path
   end
 
   def mapping
@@ -50,8 +39,7 @@ class LegacySpeciesController < ApplicationController
     in_posts_sps = LegacySpecies.where("code IN (?) OR name_sci IN (?)", in_posts_codes, in_posts_codes).pluck(:id)
 
     full = LegacySpecies.
-        where("id IN (?) OR id IN (?) OR id IN (?)",
-              Observation.select(:legacy_species_id),
+        where("id IN (?) OR id IN (?)",
               fesenko.legacy_taxa.select(:species_id),
               in_posts_sps)
     @undecided = full.where(species_id: nil)
