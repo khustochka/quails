@@ -71,18 +71,13 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :legacy_species, only: [:index, :edit, :show, :update] do
-    collection do
-      get :mapping
-    end
-  end
+  resources :legacy_species, only: [:index, :show]
 
   resources :species, only: [:edit, :update] do
     # index, show - declared localize
     # new, create, destroy - not present
     collection do
       get 'admin', action: :index
-      get :simple_search
 
       get "synonyms" => "synonyms#index"
       patch "synonyms/:id" => "synonyms#update"
