@@ -10,7 +10,7 @@ class UIObservationsTest < ActionDispatch::IntegrationTest
     login_as_admin
     visit observation_path(observation)
     assert_equal 1, all('.obs-row').size
-    assert page.has_checked_field?('Voice?')
+    assert_checked_field 'Voice?'
     uncheck('Voice?')
     assert_difference('Observation.count', 0) { click_button('Save') }
     observation.reload
@@ -31,7 +31,7 @@ class UIObservationsTest < ActionDispatch::IntegrationTest
 
     card.reload
     obs1.reload
-    assert_equal edit_card_path(obs1.card), current_path
+    assert_current_path edit_card_path(obs1.card)
 
     assert_equal 2, card.observations.size
     assert card != obs1.card

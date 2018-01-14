@@ -1,4 +1,5 @@
 require 'capybara/rails'
+require 'capybara/minitest'
 require 'capybara_drivers'
 
 #Capybara.default_wait_time = 5
@@ -27,6 +28,7 @@ require 'capybara_drivers'
 
 module CapybaraTestCase
   include Capybara::DSL
+  include Capybara::Minitest::Assertions
 
   TEST_CREDENTIALS = {username: ENV['admin_username'], password: ENV['admin_password']}
 

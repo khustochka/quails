@@ -16,8 +16,8 @@ class JSCommentsTest < ActionDispatch::IntegrationTest
       click_button("save_button")
     end
 
-    assert_equal show_post_path(blogpost.to_url_params), current_path
-    assert page.has_content?("Vasya")
+    assert_current_path show_post_path(blogpost.to_url_params)
+    assert_content "Vasya"
     assert_equal 1, comment.subcomments.size
   end
 

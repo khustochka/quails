@@ -22,7 +22,7 @@ class JSObservationsTest < ActionDispatch::IntegrationTest
 
   def save_and_check
     click_button('Save')
-    assert page.has_css?("#save_button[value=Save]")
+    assert_css "#save_button[value=Save]"
   end
   private :save_and_check
 

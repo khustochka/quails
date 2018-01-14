@@ -12,7 +12,7 @@ class UILifelistTest < ActionDispatch::IntegrationTest
     visit "/lists/advanced?year=2009&_pjax=main"
     assert_equal 200, page.driver.response.status
     #save_and_open_page
-    assert page.has_no_css?("a[href='/lists/advanced?year=2009']")
+    assert_no_css "a[href='/lists/advanced?year=2009']"
   end
 
 end

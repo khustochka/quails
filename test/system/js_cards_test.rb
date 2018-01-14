@@ -3,7 +3,7 @@ require "application_system_test_case"
 class JSCardsTest < ApplicationSystemTestCase
   def save_and_check
     click_button('Save')
-    assert page.has_css?("#save_button[value=Save]")
+    assert_css "#save_button[value=Save]"
   end
 
   def select_date(value)
@@ -23,7 +23,7 @@ class JSCardsTest < ApplicationSystemTestCase
       save_and_check
     end
     card = Card.first
-    assert_equal edit_card_path(card), current_path
+    assert_current_path edit_card_path(card)
   end
 
   test "Create card with observations" do
@@ -111,7 +111,7 @@ class JSCardsTest < ApplicationSystemTestCase
 
     visit edit_card_path(@card)
 
-    assert page.has_css?('.obs-row div a', text: o.id.to_s)
+    assert_css '.obs-row div a', text: o.id.to_s
 
     assert_difference('Observation.count', -1) do
       within(:xpath, "//div[contains(@class,'obs-row')][1]") do
@@ -120,8 +120,8 @@ class JSCardsTest < ApplicationSystemTestCase
         end
       end
 
-      assert_equal edit_card_path(@card), current_path
-      assert page.has_no_css?('.obs-row div a', text: o.id.to_s)
+      assert_current_path edit_card_path(@card)
+      assert_no_css '.obs-row div a', text: o.id.to_s
     end
     assert_equal 0, all('.obs-row').size
   end
@@ -141,12 +141,12 @@ class JSCardsTest < ApplicationSystemTestCase
       end
     end
 
-    assert page.has_no_css?('.obs-row div a', text: o.id.to_s)
-    assert page.has_no_css?("input[value='#{o.id.to_s}'][type=hidden]")
+    assert_no_css '.obs-row div a', text: o.id.to_s
+    assert_no_css "input[value='#{o.id.to_s}'][type=hidden]"
 
     save_and_check
 
-    assert_equal edit_card_path(@card), current_path
+    assert_current_path edit_card_path(@card)
   end
 
   test 'Species autosuggest box should have spuhs and be able to add them' do
@@ -194,7 +194,7 @@ class JSCardsTest < ApplicationSystemTestCase
     visit show_post_path(blogpost.to_url_params)
     click_link 'Add new card'
 
-    assert page.has_css?('label a', text: blogpost.title)
+    assert_css 'label a', text: blogpost.title
 
     select_suggestion('Brovary', from: 'Location')
     select_date('2011-04-09')
@@ -224,7 +224,7 @@ class JSCardsTest < ApplicationSystemTestCase
     visit show_post_path(blogpost.to_url_params)
     click_link 'Add new card'
 
-    assert page.has_css?('label a', text: blogpost.title)
+    assert_css 'label a', text: blogpost.title
 
     select_suggestion('Brovary', from: 'Location')
     select_date('2011-04-09')
@@ -248,7 +248,7 @@ class JSCardsTest < ApplicationSystemTestCase
     visit show_post_path(blogpost.to_url_params)
     click_link 'Add new card'
 
-    assert page.has_css?('label a', text: blogpost.title)
+    assert_css 'label a', text: blogpost.title
 
     select_suggestion('Brovary', from: 'Location')
     select_date('2011-04-09')
@@ -282,13 +282,13 @@ class JSCardsTest < ApplicationSystemTestCase
 
     click_button('Search')
 
-    assert page.has_css?('li.observ_card')
+    assert_css 'li.observ_card'
 
     accept_confirm do
       page.find('li.observ_card').click_link('Attach to this post')
     end
 
-    assert page.has_no_css?('.loading')
+    assert_no_css '.loading'
 
     assert_equal 1, p.cards.size
   end

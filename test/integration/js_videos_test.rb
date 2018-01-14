@@ -8,7 +8,7 @@ class JSVideosTest < ActionDispatch::IntegrationTest
   def save_and_check
     click_button('Save')
     #save_and_open_page
-    assert page.has_text?("Video was successfully")
+    assert_text "Video was successfully"
   end
   private :save_and_check
 
@@ -27,7 +27,7 @@ class JSVideosTest < ActionDispatch::IntegrationTest
 
     assert_difference('Video.count', 0) { save_and_check }
     video.reload
-    assert_equal edit_map_video_path(video), current_path
+    assert_current_path edit_map_video_path(video)
     assert_equal 2, video.observations.size
     assert_equal 'test-video-capybara', video.slug
   end
@@ -41,7 +41,7 @@ class JSVideosTest < ActionDispatch::IntegrationTest
     visit edit_video_path(video)
 
     assert_difference('Video.count', 0) { save_and_check }
-    assert_equal edit_map_video_path(video), current_path
+    assert_current_path edit_map_video_path(video)
     video.reload
     assert_equal 2, video.observations.size
   end
@@ -67,7 +67,7 @@ class JSVideosTest < ActionDispatch::IntegrationTest
 
     assert_difference('Video.count', 1) { save_and_check }
     video = Video.find_by_slug('test-video-capybara')
-    assert_equal edit_map_video_path(video), current_path
+    assert_current_path edit_map_video_path(video)
   end
 
   test "Video save does not use all found observations" do

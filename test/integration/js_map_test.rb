@@ -14,7 +14,7 @@ class JSMapTest < ActionDispatch::IntegrationTest
     visit edit_map_path
     fill_in('Date', with: '2011-01-02')
     click_button('Search')
-    assert page.has_css?(".obs-list li")
+    assert_css ".obs-list li"
     assert_equal 2, all('.obs-list li').size
   end
 
