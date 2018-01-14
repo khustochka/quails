@@ -54,13 +54,10 @@ class Species < ApplicationRecord
   end
 
   def posts
-    p1 = Post.select("posts.id").joins(:observations).where('observations.id' => self.observations.select(:id)).to_sql
-
-    p2 = Post.connection.unprepared_statement do
-      Post.select("posts.id").joins(:cards).where("cards.id" => self.cards).to_sql
-    end
-
-    Post.distinct.where("posts.id IN (#{p1}) OR posts.id IN (#{p2})").order(face_date: :desc)
+    p1 = observations.select(:post_id)
+    p2 = cards.select(:post_id)
+    
+    Post.short_form.distinct.where("posts.id IN (?) OR posts.id IN (?)", p1, p2).order(face_date: :desc)
   end
 
   def high_level_taxon
