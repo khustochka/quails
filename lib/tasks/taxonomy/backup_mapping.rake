@@ -5,7 +5,7 @@ namespace :tax do
 
     res = LegacySpecies.where("species_id IS NOT NULL").includes(:species).pluck("legacy_species.id, species.name_sci")
 
-    File.open("sp_map.yml", "w") do |file|
+    File.open("./data/sp_map.yml", "w") do |file|
       file.write(Hash[res].to_yaml)
     end
   end

@@ -3,7 +3,7 @@ namespace :tax do
   desc "Restore mapping of legacy species to species saved in the YAML file"
   task :restore_mapping => :environment do
 
-    mapping = YAML::load_file("sp_map.yml")
+    mapping = YAML::load_file("./data/sp_map.yml")
     ids = mapping.keys
     errors = []
     LegacySpecies.where(id: ids).each do |sp|
