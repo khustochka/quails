@@ -18,7 +18,11 @@ namespace :tax do
       # Why we need this workaround? Because we cache the taxa. And then we change their order.
       # But the index_num's in the cached models are different from the real ones (after previous taxa are moved up or down.)
       # This causes problems, duplicated and missing indices.
-      # TODO: This may need rework after we switch from ordered-active-record to acts-as-positioned
+      # TODO: This may need rework after we switch from ordered-active-record to acts_as_positioned
+      # TODO 2018: I have switched to acts_as_list gem, which can be disabled for mass update:
+      # TodoItem.acts_as_list_no_update do
+      #   .....
+      # end
       EbirdTaxon.update_all(index_num: 0)
 
       all_etaxa = EbirdTaxon.all.index_by(&:ebird_code)

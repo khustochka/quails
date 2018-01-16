@@ -2,7 +2,7 @@ class EbirdTaxon < ApplicationRecord
 
   localized_attr :name
 
-  acts_as_ordered :index_num
+  acts_as_list column: :index_num
 
   # validates :order, :presence => true
   # validates :family, :presence => true

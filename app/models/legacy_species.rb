@@ -15,7 +15,7 @@ class LegacySpecies < ApplicationRecord
   validates :avibase_id, format: /\A[\dA-F]{16}\Z/, allow_blank: true
   validates :index_num, presence: true
 
-  acts_as_ordered :index_num
+  acts_as_list column: :index_num
 
   belongs_to :species
 

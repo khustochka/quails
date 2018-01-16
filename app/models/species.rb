@@ -19,7 +19,7 @@ class Species < ApplicationRecord
 
   validate :code_and_legacy_code_uniqueness
 
-  acts_as_ordered :index_num
+  acts_as_list column: :index_num
 
   has_one :species_image
   has_one :image, through: :species_image
