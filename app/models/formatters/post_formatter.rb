@@ -1,7 +1,7 @@
 class PostFormatter < ModelFormatter
 
   def title
-    OneLineFormatter.apply(@model.title)
+    OneLineFormatter.apply(@model.title_or_date)
   end
 
   def for_site

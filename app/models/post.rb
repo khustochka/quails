@@ -11,12 +11,12 @@ class Post < ApplicationRecord
   self.skip_time_zone_conversion_for_attributes = [:face_date]
 
   TOPICS = %w(OBSR NEWS SITE)
-  STATES = %w(OPEN PRIV NIDX)
+  STATES = %w(OPEN PRIV SHOT NIDX)
 
   serialize :lj_data, LJData
 
   validates :slug, :uniqueness => true, :presence => true, :length => {:maximum => 64}, format: /\A[\w\-]+\Z/
-  validates :title, :presence => true
+  validates :title, presence: true, unless: :shout?
   validates :topic, :inclusion => TOPICS, :presence => true, :length => {:maximum => 4}
   validates :status, :inclusion => STATES, :presence => true, :length => {:maximum => 4}
 
@@ -54,7 +54,7 @@ class Post < ApplicationRecord
   # FIXME: be careful with merging these - last scope overwrites the previous
   scope :public_posts, lambda { where("posts.status <> 'PRIV'") }
   scope :hidden, lambda { where(status: 'PRIV') }
-  scope :indexable, lambda { public_posts.where("status <> 'NIDX'") }
+  scope :indexable, lambda { public_posts.where("status NOT IN ('NIDX', 'SHOT')") }
   scope :short_form, -> { select(:id, :slug, :face_date, :title, :status) }
 
   def self.year(year)
@@ -100,6 +100,10 @@ class Post < ApplicationRecord
     status != 'PRIV'
   end
 
+  def shout?
+    status == "SHOT"
+  end
+
   def year
     face_date.year.to_s
   end
@@ -110,6 +114,10 @@ class Post < ApplicationRecord
 
   def to_month_url
     {month: month, year: year}
+  end
+
+  def title_or_date
+    title.presence || I18n.localize(face_date, format: :long)
   end
 
   def day

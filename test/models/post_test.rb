@@ -27,6 +27,11 @@ class PostTest < ActiveSupport::TestCase
     assert_raise(ActiveRecord::RecordInvalid) { blogpost.save! }
   end
 
+  test 'shout can have an empty title' do
+    blogpost = build(:post, title: '', status: "SHOT")
+    assert blogpost.save
+  end
+
   test "set post's face_date to current (equal to updated_at) when creating" do
     blogpost = create(:post)
     assert_equal blogpost.updated_at.strftime('%F %T'), blogpost.face_date.strftime('%F %T')
