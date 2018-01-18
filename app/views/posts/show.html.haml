@@ -28,8 +28,9 @@
   %div.post{id: "post-#{@post.slug}"}
     %div.header-with-subheader
       %h1= @post.decorated.title
-      %i
-        %time{datetime: @post.face_date.iso8601}= l(@post.face_date, format: :long)
+      - unless @post.shout?
+        %i
+          %time{datetime: @post.face_date.iso8601}= l(@post.face_date, format: :long)
       - unless @post.public?
         %span.tag.draft Draft
 

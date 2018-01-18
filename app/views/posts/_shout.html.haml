@@ -1,0 +1,31 @@
+- post = shout
+
+- cache ['blog', post, admin: current_user.admin?] do
+
+  %div.post-box.shout-box{id: "post-#{post.slug}"}
+    %div.post.shout
+      %h2
+
+        %time{datetime: post.face_date.iso8601}  
+
+          = link_to(l(post.face_date.to_date, format: :long), public_post_path(post))
+
+          %i
+            = post.face_date.strftime("%H:%M")
+
+      = post.decorated.for_site.text
+      -#- post.decorated.the_rest_of_images.if_present do |images|
+      -#  %div.thumbnails
+      -#    = render_justified images.map(&:to_thumbnail)
+
+    - cache ['comment', post, post.comments.count, admin: current_user.admin?] do
+
+      .comment_links
+        - post.comments.approved.size.tap do |cmt_count|
+          - if cmt_count > 0
+            = link_to public_post_path(post, anchor: 'comments') do
+              %span.num_comments= cmt_count
+                
+        = link_to public_post_path(post, anchor: 'add_comment'), title: t('posts.post.add_comment') do
+          %i.fa.fa-comment
+

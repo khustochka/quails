@@ -49,6 +49,14 @@ class Post < ApplicationRecord
     slug_was
   end
 
+  def to_partial_path
+    if shout?
+      "posts/shout"
+    else
+      "posts/post"
+    end
+  end
+
   # Scopes
 
   # FIXME: be careful with merging these - last scope overwrites the previous
