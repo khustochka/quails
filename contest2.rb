@@ -52,12 +52,17 @@ SPCS = Hash[Species.all.map { |s| [s.id, s.name_sci] }]
 
 year = ENV['YEAR'] || Quails::CURRENT_YEAR
 
-obs = MyObservation.joins(:card).
-    select('DISTINCT observ_date, species_id').
+obs_rel = MyObservation.joins(:card).
     where('EXTRACT(year FROM observ_date)::integer = ?', year).
-    #where("observ_date <= '2012-01-16'").
-    order("observ_date").map { |o| [o.observ_date, o.species_id] }.
-    group_by(&:first).values.map { |e| e.map(&:second) }
+    order("observ_date").
+    pluck('DISTINCT observ_date, species_id').
+    group_by(&:first).transform_values { |v| v.map(&:second) }
+
+obs = []
+
+obs_rel.each do |date, obss|
+  obs[date.yday-1] = obss
+end
 
 # p obs.flatten.size
 
@@ -65,7 +70,7 @@ $year_size = obs.size
 
 # Use species met only in one day
 def cleanup(obs)
-  obs = obs.take_while {|x| !x.empty? }
+  obs = obs.take_while {|x| x.present? }
   begin
     counts = obs.flatten.inject(Hash.new(0)) { |h, i| h[i] += 1 if i.is_a?(Integer); h }
     singles = counts.to_a.select { |e| e[1] == 1 }.map(&:first)
