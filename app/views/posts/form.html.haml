@@ -19,7 +19,7 @@
 
   %div
     = form.input :slug
-    = form.input :face_date, label: 'Post date', input_html: {value: @post.face_date.strftime("%F %T")}, as: :string unless @post.new_record?
+    = form.input :face_date, label: 'Post date', input_html: {value: @post.face_date.strftime("%F %T")}, as: :string
   %div
     = form.input :title, input_html: {class: 'long', required: false}
   = form.input :text, label: false, input_html: {rows: 20, class: 'wiki_field'}
