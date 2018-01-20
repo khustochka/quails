@@ -38,6 +38,12 @@ class Post < ApplicationRecord
     end
   end
 
+  before_validation do
+    if shout? && slug.blank?
+      self.slug = "shout-#{face_date.strftime("%Y%m%d%H%M")}"
+    end
+  end
+
   # Convert "timezone-less" face_date to local time zone because AR treats it as UTC (especially necessary for feed updated time)
   def face_date
    Time.zone.parse(self.read_attribute(:face_date).strftime("%F %T"))
