@@ -24,6 +24,8 @@ class PostTest < ActiveSupport::TestCase
     blogpost1.save!
     blogpost2.save!
     assert_not_equal blogpost1.slug, blogpost2.slug
+
+    travel_back
   end
 
   test 'do not save post with existing slug' do

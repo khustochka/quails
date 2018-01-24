@@ -16,7 +16,7 @@ class ObservationTest < ActiveSupport::TestCase
     before = @observation.card.updated_at
     @observation.update_attribute(:taxon_id, taxa('hirrus').id)
     after = @observation.card.updated_at
-    assert after > before
+    assert_operator after, :>, before
   end
 
   test "locus filter should filter by observations patch too" do
