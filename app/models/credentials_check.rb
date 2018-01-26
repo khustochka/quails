@@ -1,7 +1,7 @@
 module CredentialsCheck
 
-  TRUST_COOKIE_NAME = 'quails_visit'
-  TRUST_COOKIE_VALUE = 'I believe you'
+  TRUST_COOKIE_NAME = -"quails_visit"
+  TRUST_COOKIE_VALUE = -"I believe you"
 
   CredentialsOptions = Struct.new(:username, :password, :cookie_value)
 

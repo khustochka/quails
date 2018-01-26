@@ -2,7 +2,7 @@ require 'service_code/service_code'
 
 class Birdingtop < ServiceCode
 
-  CODE_ENV_VAR = 'quails_birdingtop_code'.freeze
+  CODE_ENV_VAR = -"quails_birdingtop_code"
 
   def render
     cache [:birdingtop_code, show: is_admin? || map?] do

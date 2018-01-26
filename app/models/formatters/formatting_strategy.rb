@@ -1,6 +1,6 @@
 class FormattingStrategy
 
-  WIKI_PREFIXES = "@|#|\\^|&"
+  WIKI_PREFIXES = -"@|#|\\^|&"
 
   def initialize(text, metadata = {})
     @text = text

@@ -79,7 +79,7 @@ class Image < Media
 
   #ORDERING_COLUMNS = %w(cards.observ_date cards.locus_id species.index_num media.created_at media.id)
   ORDERING_SINGLE_SPECIES = %w(cards.observ_date cards.locus_id media.created_at media.id)
-  PREV_NEXT_ORDER = "ORDER BY #{ORDERING_SINGLE_SPECIES.join(', ')}"
+  PREV_NEXT_ORDER = -"ORDER BY #{ORDERING_SINGLE_SPECIES.join(', ')}"
 
   def self.order_for_species
     self.joins("INNER JOIN cards ON observations.card_id = cards.id").order(*ORDERING_SINGLE_SPECIES)

@@ -2,7 +2,7 @@ require 'service_code/service_code'
 
 class FacebookSdk < ServiceCode
 
-  CODE_ENV_VAR = 'quails_facebook_app_id'.freeze
+  CODE_ENV_VAR = -"quails_facebook_app_id"
 
   def render
     unless Rails.env.test? || config.code.blank?

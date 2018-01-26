@@ -2,7 +2,7 @@ require 'service_code/service_code'
 
 class GoogleAnalytics < ServiceCode
 
-  CODE_ENV_VAR = 'quails_ga_code'.freeze
+  CODE_ENV_VAR = -"quails_ga_code"
 
   def render
     cache [:ga_code, admin: may_be_admin?] do
