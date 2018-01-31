@@ -43,7 +43,8 @@ class Card < ApplicationRecord
   scope :in_year, ->(year) { where("EXTRACT(year FROM observ_date) = ?", year) }
 
   def self.default_cards_order(asc_or_desc)
-    order("observ_date #{asc_or_desc}, to_timestamp(start_time, 'HH24:MI') #{asc_or_desc} NULLS LAST")
+    order(:observ_date => asc_or_desc).
+        order(Arel.sql("to_timestamp(start_time, 'HH24:MI') #{asc_or_desc} NULLS LAST"))
   end
 
   def start_time=(str)

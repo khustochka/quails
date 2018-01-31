@@ -27,6 +27,7 @@ class Taxon < ApplicationRecord
   has_many :images, through: :observations
 
   scope :category_species, -> {where(category: "species")}
+  scope :listable, -> { where.not(species_id: nil) }
 
   def self.weighted_by_abundance
     obs = Observation.select("taxon_id, COUNT(observations.id) as weight").group(:taxon_id)

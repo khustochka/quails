@@ -168,7 +168,8 @@ class Post < ApplicationRecord
         joins(:card).
         where("observations.post_id = ? or cards.post_id = ?", self.id, self.id).
         where("NOT EXISTS(#{subquery})").
-        pluck("DISTINCT species_id")
+        distinct.
+        pluck(:species_id)
   end
 
   def face_date=(new_date)

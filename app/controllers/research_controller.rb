@@ -152,7 +152,7 @@ class ResearchController < ApplicationController
                               Card.all
                             end
 
-      prespecies = Species.short.select('species."order", species.family').distinct.joins(:cards).merge(MyObservation.all)
+      prespecies = Species.short.select('species."order", species.family').distinct.joins(:cards).merge(Taxon.listable)
 
       @species = prespecies.merge(observations_source).ordered_by_taxonomy.extend(SpeciesArray)
 
@@ -172,7 +172,7 @@ class ResearchController < ApplicationController
 
     @countries.each do |cnt|
 
-      list = Species.joins(:cards).merge(Observation.identified).where("cards.locus_id" => cnt.subregion_ids).pluck("DISTINCT species.id")
+      list = Species.joins(:cards).merge(Taxon.listable).where("cards.locus_id" => cnt.subregion_ids).pluck("DISTINCT species.id")
       list.each do |sp_id|
         by_sps[sp_id] ||= []
         by_sps[sp_id] << cnt

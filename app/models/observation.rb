@@ -33,7 +33,7 @@ class Observation < ApplicationRecord
 
   # Scopes
 
-  scope :identified, lambda { joins(:taxon).where("taxa.species_id IS NOT NULL") }
+  scope :identified, lambda { joins(:taxon).merge(Taxon.listable) }
 
   def self.count_distinct_species
     self.count("DISTINCT species_id")
