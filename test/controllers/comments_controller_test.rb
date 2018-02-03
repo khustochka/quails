@@ -126,14 +126,15 @@ class CommentsControllerTest < ActionController::TestCase
     assert_equal admin_commenter, comment.commenter
   end
 
-  test "user cannot create comment with admin's email" do
+  test "user cannot create comment posing as admin (using admin email)" do
     admin_commenter = Commenter.create!(is_admin: true, name: "Admin", email: "admin@example.org")
     email = admin_commenter.email
     blogpost = create(:post)
     post :create, params: valid_comment_params(post_id: blogpost.id).merge(commenter: {email: email})
     comment = assigns(:comment)
-    assert_not_nil comment.commenter
+    assert_nil comment.commenter
     assert_not_equal admin_commenter, comment.commenter
+    refute comment.send_email
   end
 
   test "hide comment with admin's email created by public user" do
@@ -143,5 +144,14 @@ class CommentsControllerTest < ActionController::TestCase
     post :create, params: valid_comment_params(post_id: blogpost.id).merge(commenter: {email: email})
     comment = assigns(:comment)
     refute comment.approved
+  end
+
+  test "hide comment if email is in restricted domain" do
+    blogpost = create(:post)
+    post :create, params: valid_comment_params(post_id: blogpost.id).merge(commenter: {email: "vasya@localhost.localdomain"})
+    comment = assigns(:comment)
+    assert_not_nil comment.commenter
+    refute comment.approved
+    refute comment.send_email
   end
 end

@@ -1,3 +1,5 @@
+require "mail"
+
 class CommentsController < ApplicationController
 
   administrative except: [:create, :reply]
@@ -64,14 +66,25 @@ class CommentsController < ApplicationController
 
       commenter_email = params[:commenter].try(:[], :email)
 
-      @comment.send_email = commenter_email.present?
+      if commenter_email
+        commenter = Commenter.find_by(email: commenter_email)
 
-      if @comment.send_email
-        commenter = Commenter.find_by(email: commenter_email, is_admin: current_user.admin?) ||
-            Commenter.create!(name: @comment.name, email: commenter_email)
-        if !commenter.is_admin? && Commenter.where(email: commenter_email, is_admin: true).any?
+        if commenter
+          if commenter.is_admin? && !current_user.admin?
+            commenter = nil
+            @comment.approved = false
+            @comment.text += "\n\n======\n\nTried to use admin email: #{commenter_email}"
+          end
+        else
+          commenter = Commenter.create!(name: @comment.name, email: commenter_email)
+        end
+
+        if !allowed_email?(commenter_email)
           @comment.approved = false
         end
+
+        @comment.send_email = @comment.approved && commenter
+
         @comment.commenter = commenter
       end
 
@@ -132,4 +145,13 @@ class CommentsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  private
+
+  RESTRICTED_DOMAINS = %w( localhost localhost.localdomain brevipes.clientvm.vps.ua )
+
+  def allowed_email?(email)
+    !Mail::Address.new(email).domain.in?(RESTRICTED_DOMAINS)
+  end
+
 end
