@@ -2,10 +2,17 @@
 
 %h1= research_page_header
 
+%p
+  - if @exclude_low_num
+    = link_to "Include low number species", exclude_low_num: nil
+  - else
+    = link_to "Exclude low number species", exclude_low_num: true
+
 %table.neat_table
   %tr
     %th
     %th Species
+    %th
     %th Voice / Total
   - @species.each_with_index do |sp, i|
     %tr
@@ -15,4 +22,28 @@
       %td.align-right
         %i= sprintf "%.2f" % sp.percentage.to_f
         \%
+      %td.align-right
+        %small
+          = sp.voicenum
+          \/
+          = sp.totalnum
 
+%h2 By month
+
+%table.neat_table
+  %tr
+    %th Month
+    %th
+    %th Voice / Total
+
+  - @month_data.each do |row|
+    %tr
+      %td= t('date.month_names')[row.month.to_i]
+      %td.align-right
+        %i= sprintf "%.2f" % row.percentage.to_f
+        \%
+      %td.align-right
+        %small
+          = row.voicenum
+          \/
+          = row.totalnum

@@ -261,15 +261,26 @@ class ResearchController < ApplicationController
   end
 
   def voices
+    @exclude_low_num = params[:exclude_low_num]
     base = Observation.joins(:taxon).where("species_id IS NOT NULL").group("species_id")
     voiceful = base.select("species_id, COUNT(observations.id) as voicenum").where(voice: true)
     total = base.select("species_id, count(observations.id) as totalnum")
     @species = Species.find_by_sql("WITH voiceful AS (#{voiceful.to_sql}), total AS (#{total.to_sql})
-                SELECT species.*, 100.00 * voicenum / totalnum as percentage
+                SELECT species.*, voicenum, totalnum, 100.00 * voicenum / totalnum as percentage
                 FROM voiceful NATURAL JOIN total JOIN species on species_id = species.id
-                WHERE voicenum <> 0
+                WHERE voicenum <> 0 #{@exclude_low_num.presence && "AND totalnum > 10"}
                 ORDER BY percentage DESC
                 LIMIT 20")
+
+    base = Observation.joins(:card).group("EXTRACT(month FROM observ_date)")
+    voiceful = base.select("EXTRACT(month FROM observ_date) AS month, COUNT(observations.id) as voicenum").where(voice: true)
+    total = base.select("EXTRACT(month FROM observ_date) AS month, count(observations.id) as totalnum")
+
+    @month_data = Observation.find_by_sql("WITH voiceful AS (#{voiceful.to_sql}), total AS (#{total.to_sql})
+                SELECT total.month, voicenum, totalnum, 100.00 * voicenum / totalnum as percentage
+                FROM voiceful NATURAL JOIN total
+                WHERE totalnum <> 0
+                ORDER BY month ASC")
   end
 
   def charts
