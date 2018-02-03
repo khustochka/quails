@@ -41,20 +41,33 @@ class UIPostsTest < ActionDispatch::IntegrationTest
     assert_current_path show_post_path(blogpost.to_url_params)
   end
 
-  test "Add comment to post" do
+  test "Add comment to post (no JS)" do
+
+    ActionController::Base.allow_forgery_protection = true
+
     blogpost = create(:post)
     visit show_post_path(blogpost.to_url_params)
     within("form#new_comment") do
       fill_in(CommentsHelper::REAL_NAME_FIELD, with: 'Vasya')
       fill_in('comment_text', with: 'Some text')
     end
-    click_button("save_button")
-
+    assert_difference "Comment.count", 1 do
+      click_button("save_button")
+    end
+    
     assert_content "Vasya"
 
   end
 
+  # In case the test fails
+  teardown do
+    ActionController::Base.allow_forgery_protection = false
+  end
+
   test "Add reply to comment (no JS)" do
+
+    ActionController::Base.allow_forgery_protection = true
+
     comment = create(:comment)
     blogpost = comment.post
     visit show_post_path(blogpost.to_url_params)
@@ -68,6 +81,7 @@ class UIPostsTest < ActionDispatch::IntegrationTest
     assert_current_path show_post_path(blogpost.to_url_params)
     assert_content "Vasya"
     assert_equal 1, comment.subcomments.size
+
   end
 
   test "Try to post invalid comment (no JS)" do
