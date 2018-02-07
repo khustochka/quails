@@ -64,9 +64,9 @@ class CommentsController < ApplicationController
       @comment.approved = !@comment.like_spam?
       @comment.ip = request.remote_ip
 
-      commenter_email = params[:commenter].try(:[], :email)
+      commenter_email = params[:commenter].try(:[], :email)&.strip
 
-      if commenter_email
+      if commenter_email.present?
         commenter = Commenter.find_by(email: commenter_email)
 
         if commenter

@@ -33,7 +33,7 @@ class CommentsControllerTest < ActionController::TestCase
 
     comment = assigns(:comment)
     assert_redirected_to public_comment_path(comment)
-    assert_equal true, comment.approved
+    assert_predicate comment, :approved
     assert_equal "Vasya", comment.name
   end
 
@@ -153,5 +153,13 @@ class CommentsControllerTest < ActionController::TestCase
     assert_not_nil comment.commenter
     refute comment.approved
     refute comment.send_email
+  end
+
+  test "empty email should not trigger send_email" do
+    post :create, params: valid_comment_params.merge(commenter: {email: " "})
+
+    comment = assigns(:comment)
+    assert_redirected_to public_comment_path(comment)
+    assert_not_predicate comment, :send_email
   end
 end
