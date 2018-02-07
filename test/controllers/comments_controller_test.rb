@@ -162,4 +162,21 @@ class CommentsControllerTest < ActionController::TestCase
     assert_redirected_to public_comment_path(comment)
     assert_not_predicate comment, :send_email
   end
+
+  test "valid response when comment invalid (No JS)" do
+    assert_difference('Comment.count', 0) do
+      post :create, params: valid_comment_params(text: "")
+    end
+
+    assert_response :success
+    assert_template "comments/reply"
+  end
+
+  test "valid response when comment invalid (xhr)" do
+    assert_difference('Comment.count', 0) do
+      post :create, params: valid_comment_params(text: "") , xhr: true
+    end
+
+    assert_response 422
+  end
 end

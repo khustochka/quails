@@ -118,7 +118,11 @@ class CommentsController < ApplicationController
         else
           format.html {
             @parent_comment = @comment.parent_comment
-            render :action => "reply"
+            if request.xhr?
+              render plain: @comment.errors.full_messages.to_sentence, status: :unprocessable_entity
+            else
+              render :action => "reply"
+            end
           }
         end
       end
