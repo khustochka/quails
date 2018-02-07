@@ -21,10 +21,10 @@ class PostsController < ApplicationController
     @comments = current_user.available_comments(@post).group_by(&:parent_id)
 
     screened = flash[:screened]
-    screened_id = screened && screened.keys.first
+    screened_id = screened && screened.keys.first.to_i
     if screened_id
       @comments[screened_id] ||= []
-      @comments[screened_id].push(CommentScreened.new(screened[screened_id]))
+      @comments[screened_id].push(CommentScreened.new(screened.values.first))
     end
 
     @comment = @post.comments.new(:parent_id => 0)

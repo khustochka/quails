@@ -47,12 +47,12 @@ class CommentsControllerTest < ActionController::TestCase
     assert_response 422
   end
 
-  test "autohide comment with stop word in the body" do
+  test "screen comment with stop word in the body" do
     post :create, params: valid_comment_params(text: "Hi friend. Buy #{Comment::STOP_WORDS.sample}. Thanks")
 
     comment = assigns(:comment)
     assert_redirected_to public_comment_path(comment)
-    assert_equal false, comment.approved
+    assert_not_predicate comment, :approved
   end
 
   test "show comment" do
@@ -174,7 +174,7 @@ class CommentsControllerTest < ActionController::TestCase
 
   test "valid response when comment invalid (xhr)" do
     assert_difference('Comment.count', 0) do
-      post :create, params: valid_comment_params(text: "") , xhr: true
+      post :create, params: valid_comment_params(text: ""), xhr: true
     end
 
     assert_response 422

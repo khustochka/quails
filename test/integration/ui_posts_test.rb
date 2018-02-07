@@ -112,4 +112,18 @@ class UIPostsTest < ActionDispatch::IntegrationTest
     assert_equal 'Some text', find('#comment_text').value
   end
 
+  test "Screened comment should show a message (no JS)" do
+    blogpost = create(:post)
+    visit show_post_path(blogpost.to_url_params)
+    within("form#new_comment") do
+      fill_in(CommentsHelper::REAL_NAME_FIELD, with: 'Vasya')
+      fill_in('comment_text', with: 'Cialis')
+    end
+    assert_difference "Comment.count", 1 do
+      click_button("save_button")
+    end
+
+    assert_selector "p.comment_screened"
+  end
+
 end
