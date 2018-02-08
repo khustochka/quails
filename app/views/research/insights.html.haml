@@ -15,6 +15,10 @@
           %li public: #{Post.public_posts.count}
           %li indexable: #{@index_posts}
       %li
+        Approved comments: #{@comments}
+        %ul.no-margin-list
+          %li not by admin: #{@user_comments}
+      %li
         Images: #{Image.count}
         %ul.no-margin-list
           %li indexable: #{@index_images}

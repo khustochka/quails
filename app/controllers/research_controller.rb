@@ -14,6 +14,11 @@ class ResearchController < ApplicationController
     @index_posts = Post.indexable.count
     @index_images = Image.indexable.count
     @index_species = Observation.identified.select(:species_id).distinct.count
+    @comments = Comment.approved.count
+    @user_comments = Comment.approved.
+        joins("LEFT OUTER JOIN commenters ON comments.commenter_id = commenters.id").
+        where("is_admin = 'f' OR commenters.id IS NULL").
+        count                                                
   end
 
   def index
