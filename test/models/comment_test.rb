@@ -20,4 +20,16 @@ class CommentTest < ActiveSupport::TestCase
     end
     assert_empty Comment.where(post_id: blogpost.id)
   end
+
+  test "conflicting post id and parent id" do
+    comment1 = FactoryBot.create(:comment)
+    post1 = comment1.post
+    comment2 = FactoryBot.create(:comment)
+    post2 = comment2.post
+    subcomment = Comment.create(
+        name: "Vasya", text: "Hello", approved: true,
+        post_id: post1.id, parent_id: comment2.id
+    )
+    assert_not_predicate subcomment, :valid?
+  end
 end
