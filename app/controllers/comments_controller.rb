@@ -49,13 +49,13 @@ class CommentsController < ApplicationController
   # POST /comments.json
   def create
 
-    if params[:comment][:name].present?
+    if params[:comment].delete(:name).present?
 
       render plain: 'Error', status: 422
 
     else
 
-      @post = current_user.available_posts.find_by!(id: params[:comment][:post_id])
+      @post = current_user.available_posts.find_by!(id: params[:comment].delete(:post_id))
       comment_attrs = params.require(:comment).permit(*Comment::ALLOWED_PARAMETERS)
       comment_attrs[:name] = params[CommentsHelper::REAL_NAME_FIELD]
 
@@ -99,7 +99,6 @@ class CommentsController < ApplicationController
             # Do not fail if error happened when sending email.
             Airbrake.notify(e)
           end
-
           format.html {
             if request.xhr?
               object_to_render = @comment
