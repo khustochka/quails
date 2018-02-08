@@ -13,6 +13,8 @@ class Comment < ApplicationRecord
   # But parent_id is not optional.
   validates :parent_id, :presence => true
 
+  validate :consistent_post_and_parent
+
   belongs_to :post, touch: :commented_at
   has_many :subcomments, class_name: 'Comment', foreign_key: :parent_id, dependent: :destroy, inverse_of: :parent_comment
   belongs_to :parent_comment, class_name: 'Comment', foreign_key: :parent_id, inverse_of: :subcomments, optional: true
@@ -35,6 +37,14 @@ class Comment < ApplicationRecord
       uri.to_str
     else
       nil
+    end
+  end
+
+  private
+
+  def consistent_post_and_parent
+    if parent_comment && parent_comment.post_id != post_id
+      errors.add(:parent_comment, 'must belong to the same post')
     end
   end
 
