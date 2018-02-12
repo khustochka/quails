@@ -7,24 +7,25 @@ class Comment < ApplicationRecord
 
   include DecoratedModel
 
-  validates :text, :name, :post_id, :presence => true
-
-  # Parent comment is marked as optional, because there is no comment with id = 0.
-  # But parent_id is not optional.
-  validates :parent_id, :presence => true
-
-  validate :consistent_post_and_parent
-
   belongs_to :post, touch: :commented_at
   has_many :subcomments, class_name: 'Comment', foreign_key: :parent_id, dependent: :destroy, inverse_of: :parent_comment
   belongs_to :parent_comment, class_name: 'Comment', foreign_key: :parent_id, inverse_of: :subcomments, optional: true
   belongs_to :commenter, optional: true
 
+
+  validates :text, :name, :post_id, :presence => true
+  validates :parent_id, numericality: true, allow_blank: true
+
+  validate :consistent_post_and_parent
+
+
   default_scope { order(:created_at) }
 
-  scope :approved, lambda { where(approved: true) }
+  scope :approved, -> { where(approved: true) }
 
-  scope :unapproved, lambda { where(approved: false) }
+  scope :unapproved, -> { where(approved: false) }
+
+  scope :top_level, -> { where(parent_id: nil) }
 
   def like_spam?
     @likespam ||= self.text =~ /#{STOP_WORDS.join('|')}/i ||

@@ -123,7 +123,9 @@ class UIPostsTest < ActionDispatch::IntegrationTest
       click_button("save_button")
     end
 
-    assert_selector "p.comment_screened"
+    comment = Comment.last
+
+    assert_selector "p.comment_screened#comment#{comment.id}"
   end
 
 end

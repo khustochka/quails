@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :comment do
-    parent_id 0
+    parent_id nil
     name 'Commenter'
     text 'Ahhaha!'
     association :post

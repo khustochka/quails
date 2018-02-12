@@ -107,8 +107,8 @@ class CommentsController < ApplicationController
               end
               render object_to_render, layout: false
             else
-              flash[:screened] = {
-                  @comment.parent_id => {id: @comment.id, path: public_comment_path(@comment)}
+              session[:screened] = {
+                  parent_id: @comment.parent_id, id: @comment.id, path: public_comment_path(@comment)
               } unless @comment.approved
 
               redirect_to public_comment_path(@comment)

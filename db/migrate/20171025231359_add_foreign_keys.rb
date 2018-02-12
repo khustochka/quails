@@ -28,6 +28,4 @@ class AddForeignKeys < ActiveRecord::Migration[5.1]
     add_foreign_key "taxa", "taxa", column: "parent_id", on_delete: :restrict
     add_foreign_key "taxa", "ebird_taxa", on_delete: :restrict
   end
-
-  # TODO: get rid of 0 value as NullObject: comments.parent_id
 end

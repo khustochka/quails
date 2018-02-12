@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180205183958) do
+ActiveRecord::Schema.define(version: 20180210031229) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(version: 20180205183958) do
 
   create_table "comments", id: :serial, force: :cascade do |t|
     t.integer "post_id", null: false
-    t.integer "parent_id", null: false
+    t.integer "parent_id"
     t.string "name", limit: 255, null: false
     t.string "url", limit: 255
     t.text "text", null: false
@@ -290,6 +290,7 @@ ActiveRecord::Schema.define(version: 20180205183958) do
   add_foreign_key "cards", "loci", on_delete: :restrict
   add_foreign_key "cards", "posts", on_delete: :nullify
   add_foreign_key "comments", "commenters", on_delete: :restrict
+  add_foreign_key "comments", "comments", column: "parent_id", on_delete: :cascade
   add_foreign_key "comments", "posts", on_delete: :cascade
   add_foreign_key "ebird_submissions", "cards", on_delete: :cascade
   add_foreign_key "ebird_submissions", "ebird_files", on_delete: :cascade
