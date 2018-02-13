@@ -1,32 +1,45 @@
 # See https://gist.github.com/NARKOZ/1179915
+# requires GNU sed
 namespace :whitespace do
 
-  EXCLUDE = "-e '.git/' -e '.idea/' -e 'public/' -e 'db/seed' -e 'vendor/' -e '.png' -e 'log/' -e 'tmp/' -e 'coverage'"
+  EXCLUDE = [".git",  ".idea",  "./public",  "./db/seed",  "./vendor",  "./log",  "./tmp",  "./coverage", "node_modules"]
+  EXCLUDE_STR = EXCLUDE.map {|p| "grep -v #{p} "}.join("| ")
+
+  task  :detect_sed do
+    # MacOS has BSD version by default, GNU can be installed with brew install gnu-sed as 'gsed'
+    # TODO: detect
+    @sed = "gsed"
+  end
 
   desc 'Removes trailing whitespace'
-  task :cleanup do
-    sh %{for f in `find . -type f | grep -v #{EXCLUDE}`;
-          do sed -i 's/[ \t]*$//' $f; echo -n .;
-        done}
+  task :cleanup => :detect_sed do
+    sh %{for f in `find . -type f | #{EXCLUDE_STR} | egrep ".(rb|js|haml|html|css|sass)"`;
+          do #{@sed} -i 's/[ \t]*$//' $f;
+        done}, {:verbose => false}
+    puts "Task cleanup done"
   end
+
   desc 'Converts hard-tabs into two-space soft-tabs'
-  task :retab do
-    sh %{for f in `find . -type f | grep -v #{EXCLUDE}`;
-          do sed -i 's/\t/  /g' $f; echo -n .;
-        done}
+  task :retab => :detect_sed do
+    sh %{for f in `find . -type f | #{EXCLUDE_STR} | egrep ".(rb|js|haml|html|css|sass)"`;
+          do #{@sed} -i 's/\t/  /g' $f;
+        done}, {:verbose => false}
+    puts "Task retab done"
   end
+
   desc 'Remove consecutive blank lines'
-  task :scrub_gratuitous_newlines do
-    sh %{for f in `find . -type f | grep -v #{EXCLUDE}`;
-          do sed -i '/./,/^$/!d' $f; echo -n .;
-        done }
+  task :scrub_gratuitous_newlines => :detect_sed do
+    sh %{for f in `find . -type f | #{EXCLUDE_STR} | egrep ".(rb|js|haml|html|css|sass)"`;
+          do #{@sed} -i '/./,/^$/!d' $f;
+        done}, {:verbose => false}
+    puts "Task scrub_gratuitous_newlines done"
   end
 
   desc 'Add newline to file end'
-  task :newline do
-    sh %{for f in `find . -type f | grep -v #{EXCLUDE}`;
-          do sed -i -e '$a\\' $f; echo -n .;
-        done}
+  task :newline => :detect_sed do
+    sh %{for f in `find . -type f | #{EXCLUDE_STR} | egrep ".(rb|js|haml|html|css|sass)"`;
+          do #{@sed} -i -e '$a\\' $f;
+        done}, {:verbose => false}
+    puts "Task newline done"
   end
-
 end
