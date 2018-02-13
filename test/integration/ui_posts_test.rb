@@ -54,7 +54,7 @@ class UIPostsTest < ActionDispatch::IntegrationTest
     assert_difference "Comment.count", 1 do
       click_button("save_button")
     end
-    
+
     assert_content "Vasya"
 
   end

@@ -153,7 +153,7 @@ class CommentsController < ApplicationController
       format.json { head :no_content }
     end
   end
-  
+
   private
 
   RESTRICTED_DOMAINS = %w( localhost localhost.localdomain brevipes.clientvm.vps.ua )

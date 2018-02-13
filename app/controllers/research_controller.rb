@@ -18,7 +18,7 @@ class ResearchController < ApplicationController
     @user_comments = Comment.approved.
         joins("LEFT OUTER JOIN commenters ON comments.commenter_id = commenters.id").
         where("is_admin = 'f' OR commenters.id IS NULL").
-        count                                                
+        count
   end
 
   def index

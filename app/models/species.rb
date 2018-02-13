@@ -56,7 +56,7 @@ class Species < ApplicationRecord
   def posts
     p1 = observations.select(:post_id)
     p2 = cards.select(:post_id)
-    
+
     Post.short_form.distinct.where("posts.id IN (?) OR posts.id IN (?)", p1, p2).order(face_date: :desc)
   end
 

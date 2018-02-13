@@ -19,7 +19,7 @@ class PostsController < ApplicationController
 
     @robots = 'NOINDEX' if @post.status == 'NIDX'
     @comments = current_user.available_comments(@post).group_by(&:parent_id)
-    
+
     screened = session[:screened]
     if screened
       screened = screened.with_indifferent_access
