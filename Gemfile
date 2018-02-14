@@ -20,6 +20,9 @@ gem 'pg', "~> 0.18", platforms: [:ruby, :mingw]
 gem "puma"
 gem 'dotenv-rails'
 
+# Secure password
+gem 'bcrypt', '~> 3.1.7'
+
 # Translations
 gem 'rails-i18n'
 
