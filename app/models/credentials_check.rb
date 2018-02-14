@@ -30,6 +30,7 @@ module CredentialsCheck
 
   def check_credentials(username, password)
     username == @options.username &&
-        (Digest::SHA1.hexdigest(password) == @options.password || (!Rails.env.production? && password == @options.password))
+        (BCrypt::Password.valid_hash?(@options.password) && BCrypt::Password.new(@options.password).is_password?(password)) ||
+        (!Rails.env.production? && password == @options.password)
   end
 end
