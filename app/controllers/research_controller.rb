@@ -108,8 +108,9 @@ class ResearchController < ApplicationController
         where("to_char(observ_date, 'MM-DD') > '#@month-#@day'").
         order("to_char(observ_date, 'MM-DD') ASC").first
     @next_day = [next_day[:imon], next_day[:iday]].join('-') rescue nil
-    @images = Image.joins(:observations, :cards).
-        where('EXTRACT(day from observ_date)::integer = ? AND EXTRACT(month from observ_date)::integer = ?', @day, @month)
+    @images = Image.select("media.*, cards.observ_date").distinct.joins(:observations, :cards).
+        where('EXTRACT(day from observ_date)::integer = ? AND EXTRACT(month from observ_date)::integer = ?', @day, @month).
+        order("cards.observ_date ASC")
   end
 
   def uptoday
