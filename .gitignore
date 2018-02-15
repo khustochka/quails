@@ -18,7 +18,6 @@ config/local.yml
 config/security.yml
 config/deploy*
 *.log
-tmp/*
 tmp/**/*
 *~
 public/assets
