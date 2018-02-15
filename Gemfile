@@ -2,7 +2,7 @@ source 'https://rubygems.org/'
 
 ruby '2.5.0'
 
-VERSION = "5.1.4"
+VERSION = "5.1.5"
 gem 'rails', VERSION
 # gem "activesupport", VERSION
 # gem "actionpack",    VERSION
@@ -12,7 +12,7 @@ gem 'rails', VERSION
 # gem "actionmailer",  VERSION
 # gem "railties",      VERSION
 
-gem 'pg', "~> 0.18", platforms: [:ruby, :mingw]
+gem 'pg', "~> 1.0", platforms: [:ruby, :mingw]
 #gem "activerecord-jdbcpostgresql-adapter", platforms: :jruby
 
 # Deployment
@@ -98,5 +98,4 @@ group :test do
 #  gem 'database_cleaner', '~> 1.3.0', require: false
   gem 'launchy' # So you can do Then show me the page
   gem 'simplecov', require: false, platforms: [:ruby, :mingw]
-  gem "minitest", "5.10.3" # TEMPORARY
 end
