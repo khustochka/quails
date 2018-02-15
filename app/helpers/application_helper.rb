@@ -9,7 +9,7 @@ module ApplicationHelper
   end
 
   def page_title
-    strip_tags(@page_title).try(:html_safe) || default_page_title
+    strip_tags(@page_title).try(:html_safe).strip || default_page_title
   end
 
   def page_header
