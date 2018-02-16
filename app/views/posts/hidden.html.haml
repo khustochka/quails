@@ -1,4 +1,3 @@
-- @js_features = ['pjaxPagination']
 - stylesheet 'public'
 
 - @page_title = 'Hidden and draft posts'
@@ -7,4 +6,5 @@
 
 = render @posts
 
-= paginate @posts
+%div{data: {turbolinks: "true"}}
+  = paginate @posts

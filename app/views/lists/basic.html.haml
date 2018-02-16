@@ -15,20 +15,18 @@
 
   %h1= page_header
 
-  - @years = @lifelist.years
-  = render 'filters/years'
+  %div{data: {turbolinks: "true"}}
+    = render "lists/menus"
 
-  = render partial: 'filters/loci', locals: {loci_filter_label: t('.filter.places')}
-
-  - unless @lifelist.blank?
-    %ul.horiz-list.filter-list
-      %strong= t('.filter.sort_by')
-      - [nil, :by_taxonomy].each do |sort|
-        %li= link_to_or_span(t(sort || :by_date, scope: 'lists.menus.sort_option'), significant_params.merge(:sort => sort))
-      %li
-        %b= link_to t('lists.menus.advanced'),
-                    significant_params.slice(:year, :locus).merge(action: :advanced),
-                    class: 'advanced'
+    - unless @lifelist.blank?
+      %ul.horiz-list.filter-list
+        %strong= t('.filter.sort_by')
+        - [nil, :by_taxonomy].each do |sort|
+          %li= link_to_or_span(t(sort || :by_date, scope: 'lists.menus.sort_option'), significant_params.merge(:sort => sort))
+        %li
+          %b= link_to t('lists.menus.advanced'),
+                      significant_params.slice(:year, :locus).merge(action: :advanced),
+                      class: 'advanced'
 
 
   - if @lifelist.blank?

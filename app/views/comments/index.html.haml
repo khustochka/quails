@@ -1,5 +1,3 @@
-- @js_features = ['pjaxPagination']
-
 - @page_title = 'Listing comments'
 
 %h1= page_header
@@ -39,4 +37,6 @@
                 = form.hidden_field :commenter_id, value: admin_commenter_id
                 = form.submit 'adminify'
 
-= paginate @comments unless params[:sort] == 'by_post'
+
+%div{data: {turbolinks: "true"}}
+  = paginate @comments unless params[:sort] == 'by_post'

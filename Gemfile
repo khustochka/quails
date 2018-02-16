@@ -66,6 +66,7 @@ gem 'pjax_rails', git: "https://github.com/khustochka/pjax_rails.git", branch: "
 #gem 'respond-js-rails'
 gem 'sass-rails', '~> 5.0'
 gem 'coffee-rails'
+gem "turbolinks"
 gem 'font-awesome-sass', "~> 4.7.0"
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes

@@ -1,7 +1,6 @@
 -# @body_class = 'wider'
 
 - stylesheet 'public'
-- @js_features = ['pjaxPagination']
 
 - @page_title = 'Unflickred photos'
 
@@ -12,4 +11,5 @@
 %div.thumbnails
   = render_justified @images.map {|im| Thumbnail.new(flickr_photo_path(im), im.decorated.title, im)}
 
-= paginate @images
+%div{data: {turbolinks: "true"}}
+  = paginate @images

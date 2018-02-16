@@ -1,7 +1,6 @@
 -# @body_class = 'wider'
 
 - stylesheet 'public'
-- @js_features = ['pjaxPagination']
 
 - @page_title = @half ? 'Half-mapped media' : 'Unmapped media'
 
@@ -14,4 +13,5 @@
 %div.thumbnails
   = render_justified @media.map(&:extend_with_class).map {|me| Thumbnail.new(url_for(id: me.slug, controller: me.class.to_s.downcase.pluralize, action: 'map_edit'), me.decorated.title, me)}
 
-= paginate @media
+%div{data: {turbolinks: "true"}}
+  = paginate @media
