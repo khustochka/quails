@@ -4,6 +4,9 @@
 /[if lt IE 9]
   = javascript_include_tag "ie_fix"
 
+-# packs
+= javascript_pack_tag 'application'
+
 -# scripts
 - scripts = @scripts.try(:compact) || []
 = javascript_include_tag(*scripts.unshift("application", "modern_scripts"))

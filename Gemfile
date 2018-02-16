@@ -63,6 +63,7 @@ source 'https://rails-assets.org' do
 end
 
 # Assets
+gem 'webpacker', '~> 3.2'
 gem "sprockets-rails"
 gem 'jquery-rails'
 gem 'pjax_rails', git: "https://github.com/khustochka/pjax_rails.git", branch: "trailing-ampersand-fix"
