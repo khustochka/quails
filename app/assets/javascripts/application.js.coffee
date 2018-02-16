@@ -5,6 +5,7 @@
 #= require search
 #= require base
 #= require likely
+#= require airbrake-js-setup.js
 
 $ ->
   jsController = $("body").data("js-controller")
@@ -15,4 +16,5 @@ $ ->
   if (jsFeatures)
     for feature in jsFeatures
       Quails.features[feature].init()
+
 

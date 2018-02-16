@@ -58,6 +58,9 @@ gem 'roman-numerals'
 # Monitoring
 gem 'airbrake'
 gem 'newrelic_rpm'
+source 'https://rails-assets.org' do
+  gem 'rails-assets-airbrake-js-client'
+end
 
 # Assets
 gem "sprockets-rails"
