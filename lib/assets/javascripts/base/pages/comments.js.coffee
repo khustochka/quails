@@ -1,11 +1,13 @@
 Quails.pages.comments =
   init: ->
+    $("#new_comment").data("remote", true)
     form = $("#new_comment").clone()
 
     $(".main").on "click", ".reply a", ->
       new_form = form.clone()
       $("#comment_parent_id", new_form).val $(this).data("comment-id")
       new_form.attr("id", "reply" + $(this).data("comment-id")).insertAfter $(this).closest(".reply")
+      new_form.data("remote", true)
       false
 
     $(".main").on "ajax:before", "form.comment", (e, data) ->
