@@ -55,7 +55,7 @@ class UIPostsTest < ActionDispatch::IntegrationTest
       click_button("save_button")
     end
 
-    assert_content "Vasya"
+    assert_css "h6.name", text: "Vasya"
 
   end
 
@@ -79,7 +79,7 @@ class UIPostsTest < ActionDispatch::IntegrationTest
     click_button("save_button")
 
     assert_current_path show_post_path(blogpost.to_url_params)
-    assert_content "Vasya"
+    assert_css "h6.name", text: "Vasya"
     assert_equal 1, comment.subcomments.size
 
   end
