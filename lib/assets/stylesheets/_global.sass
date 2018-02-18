@@ -162,8 +162,8 @@ div.footer
   margin-right: -20px
 
 .banner_holder
+  @include inline-block()
   margin: 5px 10px
-  display: inline-block
   vertical-align: top
   width: 150px
   height: 56px
@@ -184,9 +184,13 @@ div.footer
   background-color: #3b5998
   a
     background-image: image-url("FB-f-Logo__blue_50.png")
+    // required for ie 7
+    background-color: #3b5998 !important
     background-position: -15px 5px
     background-repeat: no-repeat
   a, a:hover
+    // required for ie 7
+    background-color: #3b5998 !important
     color: #ffffff
     font-size: 20px
   .inner
@@ -200,7 +204,7 @@ div.footer
   a, a:hover
     color: #333333
     font-family: "Times New Roman", serif
-    font-size: 20px
+    font-size: 18px
     line-height: 15px
     letter-spacing: 0.5px
 
