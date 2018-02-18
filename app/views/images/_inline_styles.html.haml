@@ -1,6 +1,4 @@
 - if inline_styles&.any?
   %style
-    @media only all and (min-width: 580px) {
     - inline_styles.each do |thumb|
       img.thumb_#{thumb.width}x#{thumb.height} {width: #{thumb.width}px;height: #{thumb.height}px;}
-    }
