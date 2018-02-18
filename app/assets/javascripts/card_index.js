@@ -11,6 +11,7 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require suggest_over_combo
+//= require jquery.pjax
 
 $(function () {
   // default timeout is causing page reload on heavy pages, like lifelist
