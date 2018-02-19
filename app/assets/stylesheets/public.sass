@@ -361,6 +361,8 @@ h5.first_seen
       padding-bottom: 10px !important
     tr
       padding-top: 15px
+    thead tr
+      padding-top: 0
     td
       padding-top: 0 !important
       padding-bottom: 0 !important
@@ -404,11 +406,16 @@ h5.first_seen
     font-size: 15px
   th.count-column-header
     width: 5em
+    text-align: right
   .designation
     display: none
   .count_cell b
     font-weight: normal
     font-size: 17px
+  td.num_cell, td.count_cell
+    text-align: right
+  td.comb_date, td.single_date
+    text-align: center
 
 // Checklist table
 

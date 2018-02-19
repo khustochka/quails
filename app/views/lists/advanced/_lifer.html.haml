@@ -7,14 +7,14 @@
       = lifer.species.name_en
 
 - if lifer.same_date?
-  %td.align-center.comb_date{colspan: 2}
+  %td.comb_date{colspan: 2}
     %span.dashes &mdash;&ensp;
     = render "lists/advanced/lifer_date", life_observation: lifer.first_seen, designation: nil
     %span.dashes &ensp;&mdash;
 - else
   - [:first_seen, :last_seen].each do |method|
-    %td.align-right.single_date
+    %td.single_date
       = render "lists/advanced/lifer_date", life_observation: lifer.send(method), designation: method
-%td.align-right.count_cell
+%td.count_cell
   %span.designation Encounters:
   %b= lifer.obs_count
