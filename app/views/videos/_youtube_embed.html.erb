@@ -1,2 +1,5 @@
 <div class="video-container"><iframe width="<%= youtube_embed.width %>" height="<%= youtube_embed.height %>"
         src="<%= youtube_embed.url %>" frameborder="0" allowfullscreen></iframe></div>
+<span class="yt_link">
+  <a href="<%= youtube_embed.direct_url %>" rel="nofollow" target="_blank"><%= t("videos.watch_on_youtube") %> <b>▶</b></a>
+</span>

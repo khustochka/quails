@@ -26,5 +26,6 @@
     index:
       window_title: Видео с птицами
       title: Видео
+    watch_on_youtube: Это видео на Youtube
 
     taken_clause: Видео '%{title}' снято

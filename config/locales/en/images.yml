@@ -26,5 +26,6 @@
     index:
       window_title: Bird videos
       title: Videos
+    watch_on_youtube: Watch this video on Youtube
 
     taken_clause: Video '%{title}' recorded
