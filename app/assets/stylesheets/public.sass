@@ -345,17 +345,55 @@ h5.first_seen
       padding-top: 0
       text-align: right
       padding-bottom: 20px
+  #lifelist.advanced
+    width: auto
+    thead, tbody, tr, th, .sort_by_label, td.comb_date, td.single_date, td.count_cell
+      display: block
+    .empty_cell
+      display: none
+    .sort_by_label
+      padding-bottom: 10px
+    th
+      padding: 5px 15px !important
+      text-align: left !important
+    th.count-column-header
+      width: auto !important
+      padding-bottom: 10px !important
+    tr
+      padding-top: 15px
+    td
+      padding-top: 0 !important
+      padding-bottom: 0 !important
+      h5.first_seen
+        margin-bottom: 5px
+        margin-top: 20px
+    td.num_cell
+      vertical-align: top
+    td.comb_date
+      text-align: right !important
+    td.count_cell
+      margin-bottom: 15px
+    td.comb_date, td.single_date, td.count_cell
+      font-size: 15px
+      height: 1.3em
+      span.designation
+        display: inline
+        color: #777777
+        font-style: italic
+      .dashes
+        display: none
+
 
 #lifelist.advanced
   width: 100%
-  td, th
-    //border: 1px solid #CCCCCC
   td
-    height: 2.2em
-  span.llc
-    //padding: 0 3px
+    //height: 2.2em
+    padding-top: 12px
+    padding-bottom: 12px
   .sort_by_label
     font-weight: normal
+  span.llc
+    font-size: 18px
   span.llc:hover
     cursor: pointer
   a.cardlink, span.fa-sort
@@ -366,12 +404,11 @@ h5.first_seen
     font-size: 15px
   th.count-column-header
     width: 5em
-  tr
-    position: relative
-  .spinner-img
-    position: absolute
-    left: 50%
-    padding-top: 12px
+  .designation
+    display: none
+  .count_cell b
+    font-weight: normal
+    font-size: 17px
 
 // Checklist table
 

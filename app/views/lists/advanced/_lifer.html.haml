@@ -1,17 +1,20 @@
 %td
-  = species_link(lifer.species)
+  %b
+    = species_link(lifer.species)
   = name_sci(lifer.species)
   - if I18n.russian_locale?
     %span.lifer_en
       = lifer.species.name_en
 
 - if lifer.same_date?
-  %td.align-center{colspan: 2}
-    &mdash;&ensp;
-    = render "lists/advanced/lifer_date", life_observation: lifer.first_seen
-    &ensp;&mdash;
+  %td.align-center.comb_date{colspan: 2}
+    %span.dashes &mdash;&ensp;
+    = render "lists/advanced/lifer_date", life_observation: lifer.first_seen, designation: nil
+    %span.dashes &ensp;&mdash;
 - else
-  - [:first_seen, :last_seen].map{|s| lifer.send(s)}.each do |life_obs|
-    %td.align-right
-      = render "lists/advanced/lifer_date", life_observation: life_obs
-%td.align-right= lifer.obs_count
+  - [:first_seen, :last_seen].each do |method|
+    %td.align-right.single_date
+      = render "lists/advanced/lifer_date", life_observation: lifer.send(method), designation: method
+%td.align-right.count_cell
+  %span.designation Encounters:
+  %b= lifer.obs_count

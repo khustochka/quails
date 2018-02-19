@@ -1,6 +1,4 @@
 - @body_class = 'wider'
--# no_viewport is for very wide pages, e.g. with table
-- @no_viewport = true
 
 - @robots = 'NOINDEX'
 - javascript 'lifelist'
@@ -41,7 +39,7 @@
     %table#lifelist.neat_table.advanced
       %thead{data: {turbolinks: "true"}}
         %tr
-          %th &nbsp;
+          %th.empty_cell &nbsp;
           %th
             %i.sort_by_label= t('lists.basic.filter.sort_by')
             = sorting_link_to(:class, "Classification")
