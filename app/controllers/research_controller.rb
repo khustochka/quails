@@ -192,16 +192,16 @@ class ResearchController < ApplicationController
 
   def stats
     @allowed_params = [:year, :locus]
-    @years = [nil] + MyObservation.years
+    @years = [nil] + Observation.years
     @locations = Country.all
 
-    #FIXME: not counting unidentified species for now, and seem we cannot do it easily without splitting queries
     observations_filtered = Observation.filter(year: params[:year]).joins(:card)
     if params[:locus]
       loc_filter = Locus.find_by!(slug: params[:locus]).subregion_ids
       observations_filtered = observations_filtered.where('cards.locus_id' => loc_filter)
     end
     identified_observations = observations_filtered.identified
+    obs_with_taxon = observations_filtered.joins(:taxon)
     lifelist_filtered = LiferObservation.all
     lifelist_filtered = lifelist_filtered.where('EXTRACT(year from observ_date)::integer = ?', params[:year]) if params[:year]
     if params[:locus]
@@ -209,7 +209,7 @@ class ResearchController < ApplicationController
       lifelist_filtered = lifelist_filtered.where("locus_id IN (?)", loc_filter)
     end
 
-    @year_data = identified_observations.select('EXTRACT(year FROM observ_date)::integer as year,
+    @year_data = obs_with_taxon.select('EXTRACT(year FROM observ_date)::integer as year,
                                       COUNT(observations.id) as count_obs,
                                       COUNT(DISTINCT observ_date) as count_days,
                                       COUNT(DISTINCT species_id) as count_species').
@@ -218,14 +218,13 @@ class ResearchController < ApplicationController
     @first_sp_by_year =
         lifelist_filtered.group('EXTRACT(year FROM observ_date)::integer').count(:all)
 
-    @month_data = identified_observations.select('EXTRACT(month FROM observ_date)::integer as month,
+    @month_data = obs_with_taxon.select('EXTRACT(month FROM observ_date)::integer as month,
                                       COUNT(observations.id) as count_obs,
                                       COUNT(DISTINCT species_id) as count_species').
         group('EXTRACT(month FROM observ_date)').order('month')
     @first_sp_by_month =
         lifelist_filtered.group('EXTRACT(month FROM observ_date)::integer').count(:all)
-
-    #NOTICE: we use all observations (including unidentified) only here
+    
     @day_by_obs = observations_filtered.joins(:card).select('observ_date, COUNT(observations.id) as count_obs').
         group('observ_date').
         order('COUNT(observations.id) DESC, observ_date ASC').limit(10)
