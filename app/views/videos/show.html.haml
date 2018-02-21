@@ -14,7 +14,8 @@
 
 = render 'admin/shortcuts' if current_user.admin?
 
-= render 'partials/translated'
+- content_for :translated do
+  = render 'partials/translated'
 
 %h1= page_header
 

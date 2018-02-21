@@ -3,7 +3,8 @@
 
 - @page_title = "Birds of Manitoba"
 
-= render 'partials/translated'
+- content_for :translated do
+  = render 'partials/translated'
 
 %div.header-with-subheader
   %h1.over-header

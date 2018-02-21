@@ -83,6 +83,10 @@
 
       = render 'partials/header'
 
+      - if content_for?(:translated)
+        = content_for(:translated)
+
+
       - if content_for?(:jumbo)
         %div.jumbo-bg{style: "background-image: url(#{@jumbo_image})"}
           %div.jumbo

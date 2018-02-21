@@ -14,7 +14,8 @@
       %b= @species.code
   = render 'admin/shortcuts'
 
-= render 'partials/translated'
+- content_for :translated do
+  = render 'partials/translated'
 
 %p.taxonomy
   = t("taxonomy.order")

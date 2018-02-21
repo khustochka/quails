@@ -5,7 +5,8 @@
 
 - @robots = 'NOINDEX' if I18n.russian_locale?
 
-= render 'partials/translated'
+- content_for :translated do
+  = render 'partials/translated'
 
 %div.header-with-subheader
   %h1

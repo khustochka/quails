@@ -1,6 +1,7 @@
 - @page_title = t('.title')
 
-= render partial: 'partials/translated'
+- content_for :translated do
+  = render partial: 'partials/translated'
 
 %div.header-with-subheader
   %h1= page_header
