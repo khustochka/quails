@@ -24,6 +24,10 @@
         one: '1 комментарий'
         few: '%{count} комментария'
         many: '%{count} комментариев'
+      comment_declension:
+        one: 'комментарий'
+        few: 'комментария'
+        many: 'комментариев'
       add_comment: Комментировать
 
   comments:

@@ -23,6 +23,9 @@
       comments:
         one: '1 comment'
         other: '%{count} comments'
+      comment_declension:
+        one: 'comment'
+        other: 'comments'
       add_comment: Add comment
 
   comments:

@@ -25,7 +25,11 @@
           - if cmt_count > 0
             = link_to public_post_path(post, anchor: 'comments') do
               %span.num_comments= cmt_count
+              %span.comment_text_for_ie
+                = t("posts.post.comment_declension", count: cmt_count)
+                \|
 
         = link_to public_post_path(post, anchor: 'add_comment'), title: t('posts.post.add_comment') do
           %i.fa.fa-comment
+          %span.comment_text_for_ie Комментировать
 
