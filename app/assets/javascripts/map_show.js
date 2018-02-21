@@ -97,7 +97,7 @@ $(function () {
     $.ajax(photo_strip_url,
         {
           method: 'POST',
-          data: JSON.stringify(image_ids),
+          data: "[" + image_ids.join(",") + "]",
           processData: false,
           contentType: "application/json; charset=utf-8",
           success: function (body) {
