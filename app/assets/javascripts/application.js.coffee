@@ -1,11 +1,8 @@
 #= require jquery
 #= require jquery_ujs
 #= require jquery-ui.user
-#= require turbolinks
 #= require search
 #= require base
-#= require likely
-#= require airbrake-js-setup.js
 
 $ ->
   jsController = $("body").data("js-controller")

@@ -6,4 +6,4 @@
 
 -# scripts
 - scripts = @scripts.try(:compact) || []
-= javascript_include_tag(*scripts.unshift('application'))
+= javascript_include_tag(*scripts.unshift("application", "modern_scripts"))
