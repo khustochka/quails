@@ -7,7 +7,7 @@ class Media < ApplicationRecord
   has_many :species, through: :taxa
 
   # FIXME: try to make it 'card', because image should belong to observations of the same card
-  has_many :cards, through: :observations
+  has_many :cards, -> {distinct}, through: :observations
 
   has_many :spots, through: :observations
   belongs_to :spot, optional: true
@@ -77,7 +77,7 @@ class Media < ApplicationRecord
   end
 
   def card
-    first_observation.card
+    cards.first
   end
 
   def public_title
@@ -93,7 +93,7 @@ class Media < ApplicationRecord
   end
 
   def posts
-    posts_id = [first_observation.post_id, cards.first.post_id].uniq.compact
+    posts_id = observations.map(&:post_id).append(cards.first.post_id).uniq.compact
     Post.where(id: posts_id)
   end
 
@@ -108,10 +108,6 @@ class Media < ApplicationRecord
         errors.add(:observations, 'must belong to the same card')
       end
     end
-  end
-
-  def first_observation
-    observations[0]
   end
 
   def update_spot
