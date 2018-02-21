@@ -61,7 +61,6 @@ class PostsControllerTest < ActionController::TestCase
     assert_select ".comment_box h6.name a", 0
   end
 
-  # TODO: Unreliable test?
   test "species list in the post properly ordered" do
     # Dummy swap of two species
     max_index = Species.maximum(:index_num)

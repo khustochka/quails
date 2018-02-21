@@ -34,7 +34,7 @@ class SpeciesController < ApplicationController
     if @species
       if params[:id] != @species.to_param
         redirect_to @species, :status => 301
-        # TODO: set canonical, set NOINDEX
+        # TODO: maybe show as a page but set different canonical, NOINDEX. Or redirect but show "redirected from" Like Wikipedia.
       else
         if @species.observations.any?
           @posts = @species.posts.limit(10).merge(current_user.available_posts)

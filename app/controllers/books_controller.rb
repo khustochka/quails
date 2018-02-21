@@ -47,7 +47,6 @@ class BooksController < ApplicationController
   # DELETE /books/1
   def destroy
     @book.destroy
-    #TODO: rescue ActiveRecord::DeleteRestrictionError showing a notice and later - options for substitution
     redirect_to(books_url)
   end
 end

@@ -16,7 +16,6 @@ class FeedsController < ApplicationController
     @videos = Video.select("id, slug, created_at")
     @species = Species.where(id: Observation.joins(:taxon).select(:species_id)).select("id, name_sci")
 
-    # TODO: take into account only the posts shown on home page
     @root_lastmod = Post.public_posts.order(updated_at: :desc).first.updated_at.iso8601 rescue nil
   end
 end

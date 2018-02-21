@@ -65,7 +65,6 @@ class Post < ApplicationRecord
 
   # Scopes
 
-  # FIXME: be careful with merging these - last scope overwrites the previous
   scope :public_posts, lambda { where("posts.status <> 'PRIV'") }
   scope :hidden, lambda { where(status: 'PRIV') }
   scope :indexable, lambda { public_posts.where("status NOT IN ('NIDX', 'SHOT')") }

@@ -22,8 +22,7 @@ module ImagesHelper
       img.assets_cache.locals.thumbnail
     end
   end
-
-  # TODO: Use Addressable::URI to parse and generate urls (better than stdlib's URI)
+  
   def self.image_host=(host)
     @image_host = host
   end

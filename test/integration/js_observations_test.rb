@@ -9,7 +9,7 @@ class JSObservationsTest < ActionDispatch::IntegrationTest
     observation = create(:observation, voice: true)
 
     # FIXME: this is a hack to make HirRus available in the form (it only shows already observed taxa)
-    # TODO: switch to JS
+    # TODO: switch observation edit page to Ajax species search.
     create(:observation, taxon: taxa(:hirrus))
 
     login_as_admin
