@@ -10,8 +10,6 @@
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
 //
-// TODO: move json3 into ie_fix with html5shiv ?
-//= require json3
 //= require map_init
 
 $(function () {
