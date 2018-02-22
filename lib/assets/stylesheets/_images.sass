@@ -65,8 +65,14 @@ figure.imageholder figcaption
 
   figure.image_thumb
     @include auto-width
-    img
+    img:not(.map_strip_img)
       @include auto-width
+    img
+      max-width: 100%
+      height: auto
+      *width: auto
+      width: auto\9
+      
 
 .flickr_badge
   position: absolute

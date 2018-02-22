@@ -9,7 +9,9 @@
   -#  %span.flickr_badge
   -#    = link_to image_tag(on_flickr[0], alt: on_flickr[1]), flickr_photo_path(thumbnail.image), title: on_flickr[1]
 
-  - img_attrs = {alt: t('images.alt_photo'), class: "thumb_#{thumbnail.width}x#{thumbnail.height}"}
+  - img_class = ["thumb_#{thumbnail.width}x#{thumbnail.height}"]
+  - img_class << "map_strip_img" if @strip
+  - img_attrs = {alt: t('images.alt_photo'), class: img_class}
   - img_attrs.merge!({width: thumbnail.width, height: thumbnail.height}) if @strip
   = link_to image_tag(thumbnail.asset_url, img_attrs), localize_url(thumbnail.url, only_path: true)
   %figcaption.imagetitle
