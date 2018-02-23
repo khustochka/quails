@@ -46,10 +46,14 @@ class FormattersTest < ActionView::TestCase
   test "Post with video by slug" do
     video = create(:video)
     post = build(:post, text: "{{&#{video.slug}}}")
-    assert_includes post.decorated.for_site.text,
+    txt = post.decorated.for_site.text
+    assert_includes txt,
                     "<div class=\"video-container\"><iframe"
-    assert_includes post.decorated.for_site.text,
+    assert_includes txt,
                     "src=\"#{video.large.url}\""
+    assert_includes txt, "Youtube"
+    # No linebreak after span, meaning html was properly processed by textile.
+    assert_not_includes txt, "<span class=\"yt_link\"><br"
 
   end
 

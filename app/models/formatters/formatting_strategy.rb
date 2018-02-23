@@ -23,7 +23,7 @@ class FormattingStrategy
         when '^' then
           img_tag(term)
         when '&' then
-          video_embed(term)
+          "notextile. " + video_embed(term)
         when '' then
           if term == "en"
             term = word
