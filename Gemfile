@@ -58,18 +58,15 @@ gem 'roman-numerals'
 # Monitoring
 gem 'airbrake'
 gem 'newrelic_rpm'
-source 'https://rails-assets.org' do
-  gem 'rails-assets-airbrake-js-client'
-end
 
 # Assets
+gem 'webpacker', '~> 3.2'
 gem "sprockets-rails"
 gem 'jquery-rails'
 gem 'pjax_rails', git: "https://github.com/khustochka/pjax_rails.git", branch: "trailing-ampersand-fix"
 #gem 'respond-js-rails'
 gem 'sass-rails', '~> 5.0'
 gem 'coffee-rails'
-gem "turbolinks"
 gem 'font-awesome-sass', "~> 4.7.0"
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
