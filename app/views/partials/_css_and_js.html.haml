@@ -1,12 +1,14 @@
-= stylesheet_link_tag(*@stylesheets.compact) if @stylesheets.present?
-
 -# enable HTML5 and media queries in IE
 /[if lt IE 9]
   = javascript_include_tag "ie_fix"
 
 -# packs
-= javascript_pack_tag 'application'
+= javascript_pack_tag 'modern_scripts'
+= stylesheet_pack_tag 'modern_scripts'
+
+-# styles
+= stylesheet_link_tag(*@stylesheets.compact) if @stylesheets.present?
 
 -# scripts
 - scripts = @scripts.try(:compact) || []
-= javascript_include_tag(*scripts.unshift("application", "modern_scripts"))
+= javascript_include_tag(*scripts.unshift("application"))
