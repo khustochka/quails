@@ -19,7 +19,7 @@ Quails.features.taxaAutosuggest =
       input.each (i) ->
         $(this).data("ui-autocomplete")._renderItem = (ul, item) ->
           $('<li></li>').
-          data('item.autocomplete', item).
+          data('ui-autocomplete-item', item).
           append("<a>#{item.label} <small class=\"tag tag_#{item.cat}\">#{item.cat}</small></a>").
           appendTo ul
         return
