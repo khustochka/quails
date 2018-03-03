@@ -1,13 +1,41 @@
+<div style="text-align: center;">
+<style>
+  a, a:hover {color: #448044;text-decoration: none;border-bottom: 1px solid #448044;}
+</style>
+<div
+    style="margin: 5px auto; text-align: left; max-width: 800px; border: 1px solid #cccccc; padding: 0;
+        font-family: Helvetica, Arial, sans-serif; font-size: 14px;">
+  <div style="font-size:23px;font-weight:bold;padding:30px 40px;background-color:#eeeeee;">
+    <%= link_to "birdwatch.org.ua", blog_url(only_path: false, host: @host)%>
+        </div>
+<div style="padding: 20px 40px;">
 <p>
-  На ваш комментарий к записи "<%= link_to @comment.post.decorated.title,
+  На ваш комментарий к записи «<%= link_to @comment.post.decorated.title,
                                            show_post_url(@comment.post.to_url_params.merge(only_path: false, host: @host))
-  %>" получен
-  <%= link_to "ответ",
-               show_post_url(@comment.post.to_url_params.merge(anchor: "comment#{@comment.id}", only_path: false, host: @host))
-  %>:
+  %>» получен ответ:
 </p>
 
-<blockquote>
-  <b><%= @comment.decorated.name %></b>:
+<div style="padding: 10px 0 10px 0;">
+<div style="padding: 10px 5px 1px 15px; border-left: 4px solid lightskyblue;background-color: #eeeeee;">
+  <b><%= @comment.parent_comment.decorated.name %></b>
+  <small>(<%= link_to(I18n.l(@comment.parent_comment.created_at, format: :long), show_post_url(@comment.post.to_url_params.merge(anchor: "comment#{@comment.parent_comment.id}", only_path: false, host: @host))) %>)</small>
+
+  <%= @comment.parent_comment.decorated.text %>
+</div>
+</div>
+
+<div style="padding: 0 0 10px 40px;">
+  <div style="padding: 10px 5px 1px 15px; border-left: 4px solid lightskyblue;background-color: #eeeeee;">
+  <b><%= @comment.decorated.name %></b>
+  <small>(<%= link_to(I18n.l(@comment.parent_comment.created_at, format: :long), show_post_url(@comment.post.to_url_params.merge(anchor: "comment#{@comment.id}", only_path: false, host: @host))) %>)</small>
   <%= @comment.decorated.text %>
-</blockquote>
+  </div>
+</div>
+
+<p>
+  Вы можете <b><a href="<%= show_post_url(@comment.post.to_url_params.merge(anchor: "comment#{@comment.parent_comment.id}", only_path: false, host: @host)) %>">ответить</a></b> на этот комментарий на странице записи.
+</p>
+
+</div>
+</div>
+</div>
