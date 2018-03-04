@@ -138,7 +138,25 @@ h3
 // Links
 .green_links, .footer
   a
-    @include basic-link($link-color)
+    &, &:hover
+      text-decoration: none
+      border-bottom-width: 1px
+      border-bottom-style: solid
+    &
+      color: $link-color
+      border-bottom-color: transparentize($link-color, 0.55)
+    &:hover
+      background-color: $link-color
+      color: #ffffff
+      //color: darken($link-color, 8%)
+      border-bottom-color: $link-color
+  h1 a, h2 a
+    &, &:hover
+      border-bottom-width: 2px
+    &
+      border-bottom-color: transparentize($link-color, 0.3)
+    &:hover
+      border-bottom-color: $link-color
 
 // Footer
 
@@ -363,9 +381,10 @@ html.progress:before
   a, a:hover
     background-color: #eeeeee
     text-decoration: none
+    border-bottom: none
   a
     color: #666666
   a:hover
     color: #222222
-    //text-decoration: underline
+    border-bottom: 1px solid #666666
 

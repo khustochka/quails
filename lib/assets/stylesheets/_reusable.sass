@@ -63,7 +63,7 @@
 .header-with-subheader
   margin-bottom: 21px
   h1, h2, h3, h4, h5, h6
-    margin-bottom: 0
+    margin-bottom: 2px
 
 .subheader-menu
   @include horiz-list
@@ -114,14 +114,15 @@ table p img
   margin-top: -5px
   li
     margin: 3px
-    padding: 0 3px
-    background-color: #EBEBCF
-    border-bottom: 1px dotted #777
-    a, a:hover
+    a, a:hover, span
       background-color: #EBEBCF
+      border-bottom: 1px dotted #777
+      padding: 1px 3px 1px 3px
+    a, a:hover
       color: $link-color
       text-decoration: none
-      padding: 0
+    a:hover
+      border-bottom: 1px solid $link-color
 
 .no-margin-list
   margin: 0
@@ -149,6 +150,7 @@ body
     background-color: inherit
     // IE6/7 do not understand inherit
     *background-color: white
+    border-bottom: none
   a.fa
     color: #383838
   a.fa:hover
