@@ -16,9 +16,9 @@
         %time.op-modified{:datetime => "#{$restart_time.iso8601}"}= $restart_time
         %address
           = t('author.name')
-        -#%figure
-        -#  %img{:alt => "#{article.cover_description}", :src => "#{article.cover_url}"}/
-        -#  %figcaption= article.cover_description
+        - if img_url = post.cover_image_url
+          %figure
+            %img{src: img_url}/
       = render partial: "article_body", locals: {post: post}
       -#%footer
       -#  %aside
