@@ -71,6 +71,7 @@ class Post < ApplicationRecord
   scope :hidden, lambda { where(status: 'PRIV') }
   scope :indexable, lambda { public_posts.where("status NOT IN ('NIDX', 'SHOT')") }
   scope :short_form, -> { select(:id, :slug, :face_date, :title, :status) }
+  scope :facebook_publishable, -> { public_posts.where(publish_to_facebook: true) }
 
   def self.year(year)
     select('id, slug, title, face_date, status').where('EXTRACT(year from face_date)::integer = ?', year).order(face_date: :asc)
