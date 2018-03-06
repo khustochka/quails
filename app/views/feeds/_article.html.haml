@@ -10,7 +10,6 @@
     %article
       %header
         %h1= post.decorated.title
-        %h3.op-kicker birdwatch.org.ua
         %time.op-published{:datetime => "#{post.face_date.iso8601}"}
           = I18n.l(post.face_date, format: :long)
         %time.op-modified{:datetime => "#{$restart_time.iso8601}"}= $restart_time
