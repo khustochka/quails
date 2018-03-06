@@ -20,6 +20,8 @@ class Post < ApplicationRecord
   validates :topic, :inclusion => TOPICS, :presence => true, :length => {:maximum => 4}
   validates :status, :inclusion => STATES, :presence => true, :length => {:maximum => 4}
 
+  validate :check_cover_image_slug_or_url
+
   has_many :comments, dependent: :destroy
   has_many :cards, -> {order('observ_date ASC, locus_id')}, dependent: :nullify
   has_many :observations, dependent: :nullify # only those attached directly
@@ -176,6 +178,18 @@ class Post < ApplicationRecord
       super(Time.current.strftime("%F %T"))
     else
       super
+    end
+  end
+
+  private
+
+  def check_cover_image_slug_or_url
+    if cover_image_slug.present?
+      if !(cover_image_slug =~ /\Ahttps?:\/\//)
+        if Image.find_by_slug(cover_image_slug).nil?
+          errors.add(:cover_image_slug, "should be image slug or external URL.")
+        end
+      end
     end
   end
 

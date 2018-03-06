@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180210031229) do
+ActiveRecord::Schema.define(version: 20180306032145) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -211,6 +211,8 @@ ActiveRecord::Schema.define(version: 20180210031229) do
     t.datetime "updated_at", null: false
     t.datetime "commented_at"
     t.text "lj_data"
+    t.string "cover_image_slug"
+    t.boolean "publish_to_facebook", default: false, null: false
     t.index ["face_date"], name: "index_posts_on_face_date"
     t.index ["slug"], name: "index_posts_on_slug", unique: true
   end
