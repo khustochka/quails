@@ -31,6 +31,8 @@ class SiteFormatStrategy < FormattingStrategy
   end
 
   def species_tag(word, term, en)
+    # FIXME: Refactor url helpers, only_path, and especially species_link!
+    @only_path = only_path?
     sp = @species[term]
     if sp
       #str = %Q("(sp_link). #{word or (en ? sp.name_en : sp.name_sci)}":#{sp.code_or_slug})
