@@ -1,0 +1,25 @@
+!!!
+%html{:lang => "ru", :prefix => "op: http://media.facebook.com/op#"}
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title= post.decorated.title
+    %meta{:charset => "utf-8"}/
+    %link{:href => "#{public_post_url(post, only_path: false)}", :rel => "canonical"}/
+    %meta{:content => "v1.0", :property => "op:markup_version"}/
+  %body
+    %article
+      %header
+        %h1= post.decorated.title
+        %h3.op-kicker birdwatch.org.ua
+        %time.op-published{:datetime => "#{post.face_date.iso8601}"}
+          = I18n.l(post.face_date, format: :long)
+        %time.op-modified{:datetime => "#{$restart_time.iso8601}"}= $restart_time
+        %address
+          = t('author.name')
+        -#%figure
+        -#  %img{:alt => "#{article.cover_description}", :src => "#{article.cover_url}"}/
+        -#  %figcaption= article.cover_description
+      = render partial: "article_body", locals: {post: post}
+      -#%footer
+      -#  %aside
+      -#    %p= t('author.name')
