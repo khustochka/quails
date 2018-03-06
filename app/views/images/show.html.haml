@@ -1,6 +1,6 @@
 - @body_class = "full_width"
 
-- @meta_thumbnail = thumbnail_item(@image).try(:url)
+- @meta_thumbnail = jpg_url(@image)
 - @meta_description = @image.decorated.meta_description
 - @canonical = localize_url(@image)
 - @og_type = 'birdwatchua:photo'
