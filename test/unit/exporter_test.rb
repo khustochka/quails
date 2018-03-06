@@ -2,7 +2,7 @@ require 'test_helper'
 
 require "export/exporter"
 
-class ExporterTest < ActionView::TestCase
+class ExporterTest < ActiveSupport::TestCase
 
   test "card is successfuly exported if contains Unreported bird sp" do
     card = FactoryBot.create(:card)
