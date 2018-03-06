@@ -156,6 +156,7 @@ Rails.application.routes.draw do
 
   # Feeds and sitemap
   get '/blog.:format' => 'feeds#blog', constraints: {format: 'xml'}
+  get '/instant_articles.:format' => 'feeds#instant_articles', constraints: {format: 'xml'}
   scope '(:locale)', locale: /en/ do
     get '/photos.:format' => 'feeds#photos', constraints: {format: 'xml'}
   end

@@ -6,6 +6,10 @@ class FeedsController < ApplicationController
     @posts = Post.public_posts.order(face_date: :desc).limit(10)
   end
 
+  def instant_articles
+    @posts = Post.public_posts.order(face_date: :desc).limit(10)
+  end
+
   def photos
     @media = Media.order(created_at: :desc).preload(:species, :observations => {:card => :locus}).limit(15)
   end

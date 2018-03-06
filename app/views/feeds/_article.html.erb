@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en" prefix="op: http://media.facebook.com/op#">
+<head>
+  <title>My Blog | <%= post.decorated.title %></title>
+  <meta charset="utf-8">
+  <link rel="canonical" href="<%= public_post_url(post, only_path: false) %>">
+  <meta property="op:markup_version" content="v1.0">
+</head>
+<body>
+<article>
+  <header>
+    <h1><%= post.decorated.title %></h1>
+    <!--h2><%#= article.subtitle %></h2-->
+    <time class="op-published" datetime="<%= post.face_date.iso8601 %>">
+      <%= post.face_date %>
+    </time>
+<!--    <address>-->
+      <%#= link_to article.author.name, article.author %>
+<!--    </address>-->
+<!--    <figure>-->
+<!--      <img src="<%#= article.cover_url %>" alt="<%#= article.cover_description %>">-->
+<!--      <figcaption><%#= article.cover_description %></figcaption>-->
+<!--    </figure>-->
+<!--    <h3 class="op-kicker"><%#= article.kicker %></h3>-->
+  </header>
+  <%= render partial: "article_body", locals: {post: post} %>
+  <footer>
+    <aside>
+      <p><%= t('author.name') %></p>
+    </aside>
+  </footer>
+</article>
+</body>
+</html>

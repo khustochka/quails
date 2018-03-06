@@ -1,8 +1,7 @@
 class FeedFormatStrategy < SiteFormatStrategy
 
   def initialize(text, metadata = {})
-    port = metadata[:port].presence
-    port = port && port != 80 && port != 443
+    port = extract_port(metadata)
     port = port ? ":#{port}" : ""
     new_text = text.
         gsub(/(href|src)=("|')\//, "\\1=\\2https://#{metadata[:host]}#{port}/").
@@ -17,9 +16,12 @@ class FeedFormatStrategy < SiteFormatStrategy
   end
 
   def default_url_options
-    port = @metadata[:port].presence
-    port = port && port != 80 && port != 443
-    {host: @metadata[:host], port: port, protocol: "https"}
+    {host: @metadata[:host], port: extract_port(@metadata), protocol: "https"}
+  end
+
+  def extract_port(metadata)
+    port = metadata[:port].presence
+    port = nil if port.in?([80, 443])
   end
 
 end

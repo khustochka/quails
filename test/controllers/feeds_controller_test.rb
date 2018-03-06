@@ -74,4 +74,31 @@ class FeedsControllerTest < ActionController::TestCase
     assert_equal 2, assigns(:posts).size
   end
 
+  test 'instant articles feed' do
+    create(:post)
+    create(:post)
+    get :instant_articles, format: :xml
+    assert_response :success
+    assert_equal Mime[:xml], response.content_type
+  end
+
+  test 'instant article feed with images' do
+    create(:post)
+    create(:post)
+    create(:image, observations: [create(:observation, card: create(:card, post: create(:post)))])
+    get :instant_articles, format: :xml
+    assert_response :success
+    assert_equal Mime[:xml], response.content_type
+  end
+
+  test 'instant article feed with embedded images' do
+    post1 = create(:post)
+    create(:post)
+    img = create(:image, observations: [create(:observation, card: create(:card, post: create(:post)))])
+    post1.update_attributes(text: post1.text + "\n{{^#{img.slug}}}\n")
+    get :instant_articles, format: :xml
+    assert_response :success
+    assert_equal Mime[:xml], response.content_type
+  end
+
 end
