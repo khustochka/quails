@@ -7,6 +7,7 @@ class FeedsController < ApplicationController
   end
 
   def instant_articles
+    @dev = params[:dev]
     @posts = Post.facebook_publishable.order(face_date: :desc).limit(15)
   end
 
