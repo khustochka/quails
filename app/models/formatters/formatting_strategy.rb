@@ -3,8 +3,8 @@ class FormattingStrategy
   WIKI_PREFIXES = -"@|#|\\^|&"
 
   def initialize(text, metadata = {})
-    @text = text
     @metadata = metadata
+    @text = preprocess(text)
   end
 
   def apply
@@ -74,6 +74,11 @@ class FormattingStrategy
 
   def only_path?
     @only_path ||= true
+  end
+
+  def preprocess(text)
+    # Having \r breaks matching /^..$/
+    text.gsub("\r\n", "\n")
   end
 
 end
