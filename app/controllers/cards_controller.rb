@@ -126,5 +126,6 @@ class CardsController < ApplicationController
   def cache_expire
     expire_photo_feeds
     expire_page controller: :feeds, action: :blog, format: 'xml'
+    expire_page controller: :feeds, action: :instant_articles, format: 'xml'
   end
 end

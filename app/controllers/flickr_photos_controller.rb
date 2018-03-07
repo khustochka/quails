@@ -103,6 +103,7 @@ class FlickrPhotosController < ApplicationController
 
   def cache_expire
     expire_page controller: :feeds, action: :blog, format: 'xml'
+    expire_page controller: :feeds, action: :instant_articles, format: 'xml'
     expire_photo_feeds
   end
 
