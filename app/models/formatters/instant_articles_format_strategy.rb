@@ -1,4 +1,20 @@
 class InstantArticlesFormatStrategy < FeedFormatStrategy
+  
+  def img_tag(term)
+    if image = Image.find_by(slug: term)
+      real_image_tag(image)
+    end
+  end
+
+  def real_image_tag(image)
+    %Q(<figure class="imageholder">
+          !#{jpg_url(image)}([photo])!
+          <figcaption class="imagetitle">
+          #{image.decorated.title} __(#{image.species.map(&:name_sci).join(', ')})__
+          </figcaption>
+        </figure>
+        )
+  end
 
   private
 
