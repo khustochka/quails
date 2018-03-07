@@ -1,0 +1,5 @@
+class InstantArticlesFormatStrategy < FeedFormatStrategy
+
+
+
+end

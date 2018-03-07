@@ -15,6 +15,11 @@ class WikiFormatter
     apply.html_safe
   end
 
+  def for_instant_articles
+    @strategy = InstantArticlesFormatStrategy.new(@text, @metadata)
+    apply.html_safe
+  end
+
   def for_lj
     @strategy = LJFormatStrategy.new(@text, @metadata)
     apply
