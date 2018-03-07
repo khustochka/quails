@@ -16,6 +16,20 @@ class InstantArticlesFormatStrategy < FeedFormatStrategy
         )
   end
 
+  def post_scriptum
+    result = '\n\n'
+
+    images = @metadata[:images]
+    if images.any?
+      result << "\n\n"
+      images.each do |img|
+        result << "#{real_image_tag(img)}\n\n"
+      end
+    end
+
+    result + super
+  end
+
   private
 
   def preprocess(text)
