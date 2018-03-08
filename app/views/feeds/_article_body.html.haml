@@ -5,4 +5,4 @@
 - if GoogleAnalytics.configured? && !@dev
   %figure.op-tracker
     %iframe
-      = render_service_code(GoogleAnalytics)
+      = render partial: 'partials/ga_code', object: GoogleAnalytics.config.code, as: :code
