@@ -1,3 +1,8 @@
 - @only_path = false
 
 = post.decorated({host: request.host, port: request.port}).for_instant_articles.text
+
+- if GoogleAnalytics.configured? && !@dev
+  %figure.op-tracker
+    %iframe
+      = render_service_code(GoogleAnalytics)
