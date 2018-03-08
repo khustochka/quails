@@ -1,0 +1,27 @@
+- @page_title = 'Posted as Facebook instant articles'
+
+%h1= page_header
+
+%ul
+  %li= link_to "FB Instant Articles", "https://www.facebook.com/birdwatch.org.ua/publishing_tools/?section=INSTANT_ARTICLES"
+
+%table.ia_table
+  %tbody
+    - @posts.each do |post|
+      %tr
+        %td.cover
+          - if post.cover_image_url
+            = image_tag(post.cover_image_url)
+        %td
+          %h2
+            = link_to post.decorated.title, public_post_path(post)
+          %ul
+            %li
+              %i.less-important Published:
+              = post.face_date
+            %li
+              %i.less-important Modified:
+              = post.updated_at
+
+%div{data: {turbolinks: "true"}}
+  = paginate @posts

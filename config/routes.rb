@@ -172,7 +172,10 @@ Rails.application.routes.draw do
   # ADMINISTRATIVE PAGES
 
   resources :posts, except: [:index, :show] do
-    get :hidden, on: :collection
+    collection do
+      get :hidden
+      get :facebook
+    end
     post :lj_post, on: :member
   end
 

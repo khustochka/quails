@@ -11,6 +11,10 @@ class PostsController < ApplicationController
     @posts = Post.hidden.order(face_date: :desc).page(params[:page]).per(20)
   end
 
+  def facebook
+    @posts = Post.facebook_publishable.order(face_date: :desc).page(params[:page]).per(20)
+  end
+
   # GET /posts/1
   def show
     if @post.month != params[:month].to_s || @post.year != params[:year].to_s
