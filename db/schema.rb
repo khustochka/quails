@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180306032145) do
+ActiveRecord::Schema.define(version: 20180309034109) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -158,6 +158,7 @@ ActiveRecord::Schema.define(version: 20180306032145) do
     t.string "loc_type", limit: 255
     t.string "name_format", limit: 255, default: "", null: false
     t.string "ancestry", limit: 255
+    t.boolean "five_mile_radius", default: false, null: false
     t.index ["ancestry"], name: "index_loci_on_ancestry"
     t.index ["slug"], name: "index_loci_on_slug", unique: true
   end
