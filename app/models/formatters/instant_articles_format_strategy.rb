@@ -17,7 +17,7 @@ class InstantArticlesFormatStrategy < FeedFormatStrategy
   end
 
   def post_scriptum
-    result = '\n\n'
+    result = ""
 
     images = @metadata[:images]
     if images.any?
