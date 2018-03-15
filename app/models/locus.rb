@@ -37,7 +37,7 @@ class Locus < ApplicationRecord
   # Scopes
 
   def self.suggestion_order
-    sort_by_ancestry(Locus.all).reverse
+    sort_by_ancestry(self.all).reverse
   end
 
   scope :locs_for_lifelist, lambda { where('public_index IS NOT NULL').order(:public_index) }
