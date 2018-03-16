@@ -84,7 +84,9 @@ class CommentsController < ApplicationController
         end
 
         @comment.send_email = @comment.approved && commenter
-
+        if @comment.send_email
+          @comment.update_attribute(:unsubscribe_token, SecureRandom.urlsafe_base64(20 * 3 / 4))
+        end
         @comment.commenter = commenter
       end
 
