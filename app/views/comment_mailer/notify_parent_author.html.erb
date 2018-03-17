@@ -37,7 +37,11 @@
 <p>
   Вы можете <b><a href="<%= show_post_url(@comment.post.to_url_params.merge(anchor: "comment#{@comment.parent_comment.id}", only_path: false, host: @host)) %>" style="color:#448044;text-decoration:none;border-bottom:1px solid #448044;">ответить</a></b> на этот комментарий на странице записи.
 </p>
+</div>
 
+<div style="padding:20px 10px;background-color:#eeeeee;font-size: 11px; color: #777777;">
+  Отказаться от получения уведомлений об ответе на этот комментарий:
+  <a href="<%= unsubscribe_request_comments_url(token: @comment.parent_comment.unsubscribe_token, host: @host) %>" rel="unsubscribe">отписаться</a>.
 </div>
 </div>
 </div>
