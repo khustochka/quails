@@ -4,4 +4,7 @@
 require File.expand_path('../config/application', __FILE__)
 require 'rake'
 
+require 'resque/tasks'
+task 'resque:setup' => :environment
+
 Quails::Application.load_tasks

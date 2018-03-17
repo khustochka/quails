@@ -93,9 +93,9 @@ class CommentsController < ApplicationController
       respond_to do |format|
         if @comment.save
           begin
-            CommentMailer.notify_admin(@comment, request.host).deliver_now
+            CommentMailer.notify_admin(@comment, request.host).deliver_later
             if @comment.parent_comment&.send_email? && @comment.approved
-              CommentMailer.notify_parent_author(@comment, request.host).deliver_now
+              CommentMailer.notify_parent_author(@comment, request.host).deliver_later
             end
           rescue => e
             # Do not fail if error happened when sending email.

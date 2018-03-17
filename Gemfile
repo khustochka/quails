@@ -9,11 +9,13 @@ gem 'rails', VERSION
 # gem "actionview",    VERSION
 # gem "activemodel",   VERSION
 # gem "activerecord",  VERSION
+# gem "activejob",     VERSION
 # gem "actionmailer",  VERSION
 # gem "railties",      VERSION
 
 gem 'pg', "~> 1.0", platforms: [:ruby, :mingw]
 #gem "activerecord-jdbcpostgresql-adapter", platforms: :jruby
+gem 'resque'
 
 # Deployment
 #gem 'unicorn', require: false, platforms: :ruby

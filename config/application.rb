@@ -3,7 +3,7 @@ require_relative 'boot'
 require "rails"
 # Pick the frameworks you want:
 require "active_model/railtie"
-# require "active_job/railtie"
+require "active_job/railtie"
 require "active_record/railtie"
 #require "active_storage/engine"
 require "action_controller/railtie"
@@ -56,5 +56,7 @@ module Quails
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '{en,ru,uk}','*.{rb,yml}').to_s]
     config.i18n.default_locale = :ru
+
+    config.active_job.queue_adapter = :resque
   end
 end
