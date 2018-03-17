@@ -179,4 +179,20 @@ class CommentsControllerTest < ActionController::TestCase
 
     assert_response 422
   end
+
+  test "request unsubscribe" do
+    comment = FactoryBot.create(:comment, send_email: true, unsubscribe_token: "Aaaaaaa")
+    get :unsubscribe_request, params: {token: "Aaaaaaa"}
+    assert_response :success
+    assert assigns(:comment)
+  end
+
+  test "post unsubscribe" do
+    FactoryBot.create(:comment, send_email: true, unsubscribe_token: "Aaaaaaa")
+    post :unsubscribe_submit, params: {token: "Aaaaaaa"}
+    assert_response :success
+    comment =  assigns(:comment)
+    refute comment.send_email
+  end
+
 end

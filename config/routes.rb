@@ -217,6 +217,10 @@ Rails.application.routes.draw do
 
   resources :comments, except: :new do
     get :reply, on: :member
+    collection do
+      get :unsubscribe, to: "comments#unsubscribe_request", as: :unsubscribe_request
+          post :unsubscribe, to: "comments#unsubscribe_submit", as: :unsubscribe_submit
+    end
   end
 
   scope '(:locale)', locale: /en/ do

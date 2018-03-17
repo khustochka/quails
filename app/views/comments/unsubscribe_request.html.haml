@@ -1,0 +1,14 @@
+- @page_title = "Отписаться от уведомлений"
+
+- @robots = "NOINDEX,NOFOLLOW"
+
+%h2= @page_title
+
+- if !@comment.send_email
+  %p
+    Если верить нашим записям, вы уже не подписаны на ответы на этот комментарий. Но вы все равно можете попробовать еще раз.
+
+%p
+  Пожалуйста, подтвердите, что вы хотите отписаться от уведомлений об ответах на ваш комментарий:
+
+= button_to "Отписаться", unsubscribe_submit_comments_path, params: {token: @token}, method: :post, class: "unsubscribe_btn"

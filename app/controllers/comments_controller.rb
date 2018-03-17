@@ -2,7 +2,7 @@ require "mail"
 
 class CommentsController < ApplicationController
 
-  administrative except: [:create, :reply]
+  administrative except: [:create, :reply, :unsubscribe_request, :unsubscribe_submit]
 
   find_record before: [:show, :edit, :update, :destroy, :reply]
 
@@ -153,6 +153,29 @@ class CommentsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to public_post_path(@comment.post, :anchor => "comments") }
       format.json { head :no_content }
+    end
+  end
+
+  def unsubscribe_request
+    @token = params[:token]
+    raise ActiveRecord::RecordNotFound unless @token.present?
+    @comment = Comment.where(unsubscribe_token: @token).first
+    if @comment
+      render "comments/unsubscribe_request"
+    else
+      render "comments/unsubscribe_not_found", status: 404
+    end
+  end
+
+  def unsubscribe_submit
+    @token = params[:token]
+    raise ActiveRecord::RecordNotFound unless @token.present?
+    @comment = Comment.where(unsubscribe_token: @token).first
+    if @comment
+      @comment.update_attribute(:send_email, false)
+      render "comments/unsubscribe_done"
+    else
+      render "comments/unsubscribe_not_found", status: 404
     end
   end
 
