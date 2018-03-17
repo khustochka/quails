@@ -8,11 +8,11 @@
 
     gtag('js', new Date());
 
-    <%- if defined?(fb) && fb %>
-      gtag('set', 'page_title', 'FBIA: ' + ia_document.title);
-      gtag('set', 'campaignSource', 'Facebook');
-      gtag('set', 'campaignMedium', 'Social Instant Article');
-    <%- end %>
-
     gtag('config', '<%= code %>');
+
+    <%- if defined?(fb) && fb %>
+      gtag('set', {'page_title': 'FBIA: ' + ia_document.title});
+      gtag('set', {'campaignSource': 'Facebook'});
+      gtag('set', {'campaignMedium': 'Social Instant Article'});
+    <%- end %>
 </script>
