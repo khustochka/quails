@@ -60,7 +60,7 @@ gem 'airbrake'
 gem 'newrelic_rpm'
 
 # Assets
-gem 'webpacker', '~> 3.3.1'
+gem 'webpacker', '~> 3.4.1'
 gem "sprockets-rails"
 gem 'jquery-rails'
 gem 'pjax_rails', git: "https://github.com/khustochka/pjax_rails.git", branch: "trailing-ampersand-fix"
