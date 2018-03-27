@@ -21,7 +21,7 @@
     - cache ['comment', post, post.comments.count, admin: current_user.admin?] do
 
       .comment_links
-        - post.comments.approved.size.tap do |cmt_count|
+        - post.comments.approved.size.yield_self do |cmt_count|
           - if cmt_count > 0
             = link_to public_post_path(post, anchor: 'comments') do
               %span.num_comments= cmt_count

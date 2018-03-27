@@ -1,2 +1,2 @@
-- image.decorated.title.tap do |img_title|
+- image.decorated.title.yield_self do |img_title|
   %p= link_to image_tag(jpg_url(image), alt: img_title), localize_url(image, only_path: @only_path), title: img_title

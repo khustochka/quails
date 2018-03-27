@@ -43,7 +43,7 @@
       %td.align-center
         %div
           %b= species.code
-        - species.legacy_code.tap do |code|
+        - species.legacy_code.yield_self do |code|
           - if code.present?
             %div.less-important
               = surround '(', ')' do

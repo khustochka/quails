@@ -17,11 +17,11 @@
     - cache ['comment', post, post.comments.count, admin: current_user.admin?] do
 
       %ul.comment_links
-        - post.comments.approved.size.tap do |cmt_count|
+        - post.comments.approved.size.yield_self do |cmt_count|
           - if cmt_count > 0
             %li.num_comments= link_to t('.comments', count: cmt_count), public_post_path(post, anchor: 'comments')
         - if current_user.admin?
-          - post.comments.unapproved.size.tap do |cmt_count|
+          - post.comments.unapproved.size.yield_self do |cmt_count|
             - if cmt_count > 0
               %li.num_comments
                 = link_to "#{cmt_count} hidden comment(s)", public_post_path(post, anchor: 'comments'), class: "tag draft"
