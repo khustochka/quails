@@ -2,7 +2,6 @@
   images:
 
     alt_photo: '[фото]'
-    series_photos_num: фото
 
     index:
       window_title: Последние добавленные фотографии

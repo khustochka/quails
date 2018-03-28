@@ -28,12 +28,12 @@ class ImagesController < ApplicationController
 
   # Photos of multiple species
   def multiple_species
-    @images = Image.multiple_species.top_level
+    @images = Image.multiple_species
   end
 
   # GET /photos/1
   def show
-    @robots = 'NOINDEX' if @image.status == 'NOINDEX' || @image.parent_id
+    @robots = 'NOINDEX' if @image.status == 'NOINDEX'
   end
 
   # GET /photos/new
@@ -152,7 +152,7 @@ class ImagesController < ApplicationController
   def parent_edit
     @similar_images = Image.distinct.joins(:observations).
         where('observations.id' => @image.observation_ids).
-        where("images.id <> #{@image.id}").basic_order
+        where("media.id <> #{@image.id}").basic_order
   end
 
   def parent_update

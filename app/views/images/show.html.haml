@@ -32,18 +32,6 @@
     %div.image_canvas
       = image_tag(jpg_url(@image), alt: t('images.alt_photo'))
 
-    - @image.children.each do |sub_img|
-
-      %h2{id: sub_img.slug}= sub_img.decorated.title
-
-      - if current_user.admin?
-        %ul.horiz-list.admin-shortcuts
-          %li= link_to 'Edit this one', edit_image_path(sub_img.slug)
-
-      %div.image_canvas= image_tag(jpg_url(sub_img), alt: t('images.alt_photo'))
-
-      = sub_img.decorated.description
-
   %div.image_info_pane
 
     = render 'partials/translated'
