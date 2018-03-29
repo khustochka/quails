@@ -1,6 +1,6 @@
 source 'https://rubygems.org/'
 
-ruby '2.5.0'
+ruby '2.5.1'
 
 VERSION = "5.1.5"
 gem 'rails', VERSION
