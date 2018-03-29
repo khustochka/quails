@@ -11,6 +11,7 @@ class Media < ApplicationRecord
 
   has_many :spots, through: :observations
   belongs_to :spot, optional: true
+  belongs_to :media_series, optional: true
 
   validate :consistent_observations
 
