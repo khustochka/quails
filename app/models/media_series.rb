@@ -1,4 +1,4 @@
-class MediaSeries
+class MediaSeries < ApplicationRecord
 
   has_many :media
 
