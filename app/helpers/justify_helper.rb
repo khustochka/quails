@@ -75,39 +75,40 @@ module JustifyHelper
       end
     end
 
-    border_sum = num_thumbs * (BORDER * 2)
-    ratio = (max_width.to_f - border_sum) / (sum_width - border_sum)
+    if current_row.any?
+      border_sum = num_thumbs * (BORDER * 2)
+      ratio = (max_width.to_f - border_sum) / (sum_width - border_sum)
 
-    if ratio < 1.2
-      new_height = (ImagesHelper::THUMBNAIL_HEIGHT * ratio).to_i
-      new_widths = current_row.map { |th| (th.width * ratio).to_i }
+      if ratio < 1.2
+        new_height = (ImagesHelper::THUMBNAIL_HEIGHT * ratio).to_i
+        new_widths = current_row.map { |th| (th.width * ratio).to_i }
 
-      new_width = new_widths.sum + (BORDER * 2 * current_row.size)
+        new_width = new_widths.sum + (BORDER * 2 * current_row.size)
 
-      Rails.logger.debug "new_width=#{new_width}"
+        Rails.logger.debug "new_width=#{new_width}"
 
-      # Pixel adjustment
-      if new_width != max_width
-        delta = (max_width - new_width)
-        pixel = delta / delta.abs
+        # Pixel adjustment
+        if new_width != max_width
+          delta = (max_width - new_width)
+          pixel = delta / delta.abs
 
-        new_height += (delta * pixel / new_widths.size * 0.75).to_i
-        (0..new_widths.size - 1).cycle do |idx|
-          break if new_width == max_width
-          new_widths[idx] += pixel
-          new_width += pixel
+          new_height += (delta * pixel / new_widths.size * 0.75).to_i
+          (0..new_widths.size - 1).cycle do |idx|
+            break if new_width == max_width
+            new_widths[idx] += pixel
+            new_width += pixel
+          end
         end
+
+        current_row.each_with_index do |el, idx|
+          el.force_dimensions(width: new_widths[idx], height: new_height)
+        end
+
+        Rails.logger.debug "adjusted_width=#{width(current_row)}"
       end
 
-      current_row.each_with_index do |el, idx|
-        el.force_dimensions(width: new_widths[idx], height: new_height)
-      end
-
-      Rails.logger.debug "adjusted_width=#{width(current_row)}"
+      result << current_row
     end
-
-    result << current_row
-
     result
   end
 
