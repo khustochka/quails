@@ -98,6 +98,12 @@ class Media < ApplicationRecord
     Post.where(id: posts_id)
   end
 
+  def series_siblings
+    if media_series_id
+      Media.where(media_series_id: media_series_id).where.not(id: id).order(:created_at, :id)
+    end
+  end
+
   private
 
   def consistent_observations

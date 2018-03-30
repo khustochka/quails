@@ -19,12 +19,13 @@ body
   padding: 0 1em
 
 .main
-  margin: auto
-  max-width: $main-width
+  @include default-main-width
 
 .bannercontainer
-  margin: auto
-  max-width: $main-width
+  @include default-main-width
+
+.default-centered-main
+  @include default-main-width
 
 body.wider
   .main
@@ -387,4 +388,18 @@ html.progress:before
   a:hover
     color: #222222
     border-bottom: 1px solid #666666
+
+
+div.thumbs_strip
+  .image_thumb
+    img
+      height: 218px
+
+.series-container
+  background-color: #dfdfdf
+  margin: 30px -20px
+  padding: 20px
+  h3
+    margin-top: 0
+    color: #333333
 

@@ -34,6 +34,7 @@ class ImagesController < ApplicationController
   # GET /photos/1
   def show
     @robots = 'NOINDEX' if @image.status == 'NOINDEX'
+    @strip_media = @image.series_siblings
   end
 
   # GET /photos/new
