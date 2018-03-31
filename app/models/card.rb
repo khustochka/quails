@@ -10,7 +10,7 @@ class Card < ApplicationRecord
   invalidates CacheKey.lifelist
 
   belongs_to :locus
-  belongs_to :post, -> { short_form }, touch: :updated_at, optional: true
+  belongs_to :post, -> { short_form }, touch: true, optional: true
   has_many :observations, -> { order('observations.id') }, dependent: :restrict_with_exception, inverse_of: :card
   has_many :images, through: :observations
   has_many :videos, through: :observations
