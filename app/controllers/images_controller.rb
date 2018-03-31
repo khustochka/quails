@@ -150,29 +150,6 @@ class ImagesController < ApplicationController
     render json: observs, only: :id, methods: [:species_str, :when_where_str]
   end
 
-  def parent_edit
-    @similar_images = Image.distinct.joins(:observations).
-        where('observations.id' => @image.observation_ids).
-        where("media.id <> #{@image.id}").basic_order
-  end
-
-  def parent_update
-    new_id = params[:parent_id]
-    if new_id
-      new_parent = Image.find(new_id)
-      if new_parent.parent_id
-        raise "This is a child image"
-      end
-    end
-
-    Image.connection.transaction do
-      @image.children.update_all(parent_id: new_id)
-      @image.update_attribute(:parent_id, new_id)
-    end
-    head :no_content
-
-  end
-
   def series
     rel =
         Observation.

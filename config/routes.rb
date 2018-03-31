@@ -96,8 +96,6 @@ Rails.application.routes.draw do
   resources :photos, controller: 'images', as: 'images', except: [:index, :show] do
     member do
       get 'edit/map', action: :map_edit
-      get 'edit/parent', action: :parent_edit
-      post 'parent', action: :parent_update
       post 'patch'
       get 'observations'
     end

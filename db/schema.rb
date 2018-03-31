@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180329020115) do
+ActiveRecord::Schema.define(version: 20180330040504) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -175,7 +175,6 @@ ActiveRecord::Schema.define(version: 20180329020115) do
     t.boolean "has_old_thumbnail", default: false
     t.text "assets_cache", default: ""
     t.string "status", limit: 16, default: "PUBLIC"
-    t.integer "parent_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer "media_series_id"
@@ -308,7 +307,6 @@ ActiveRecord::Schema.define(version: 20180329020115) do
   add_foreign_key "ebird_taxa", "ebird_taxa", column: "parent_id", on_delete: :restrict
   add_foreign_key "local_species", "loci", on_delete: :cascade
   add_foreign_key "local_species", "species", on_delete: :cascade
-  add_foreign_key "media", "media", column: "parent_id", on_delete: :nullify
   add_foreign_key "media", "media_series", on_delete: :nullify
   add_foreign_key "media", "spots", on_delete: :nullify
   add_foreign_key "media_observations", "media", on_delete: :cascade
