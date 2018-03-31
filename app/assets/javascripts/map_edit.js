@@ -23,6 +23,7 @@ $(function () {
     $('.map-side-panel').height(clientHeight - upper - 2);
     $('div.mapContainer').height(clientHeight - upper).width(clientWidth - leftmost)
         .css('top', upper).css('left', leftmost);
+    if (typeof(gmap) !== 'undefined' && gmap !== null) google.maps.event.trigger(gmap, 'resize');
   }
 
   function closeInfoWindows() {

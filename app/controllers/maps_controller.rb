@@ -39,4 +39,12 @@ class MapsController < ApplicationController
     render json: Media.for_the_map
   end
 
+  def global
+    
+  end
+
+  def loci
+    render json: Card.joins(:locus).where.not(loci: {lat: nil}).distinct.pluck(:lat, :lon)
+  end
+
 end

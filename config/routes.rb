@@ -230,6 +230,8 @@ Rails.application.routes.draw do
   resource :map, only: [:edit] do
     get 'media' => 'maps#media'
     get 'observations', on: :collection
+    get 'global'
+    get 'loci'
   end
 
   resources :spots, only: :destroy do
