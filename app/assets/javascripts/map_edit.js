@@ -15,6 +15,9 @@
 
 $(function () {
 
+  var theMap = $('#googleMap'),
+      observCollection;
+
   function adjustSizes() {
     var clientHeight = $(window).height(),
         clientWidth = $(window).width(),
@@ -23,7 +26,11 @@ $(function () {
     $('.map-side-panel').height(clientHeight - upper - 2);
     $('div.mapContainer').height(clientHeight - upper).width(clientWidth - leftmost)
         .css('top', upper).css('left', leftmost);
-    if (typeof(gmap) !== 'undefined' && gmap !== null) google.maps.event.trigger(gmap, 'resize');
+    try {
+        var gmap = theMap.gmap3("get");
+        if (typeof(gmap) !== 'undefined' && gmap !== null) google.maps.event.trigger(gmap, 'resize');
+    }
+    catch (e) {}
   }
 
   function closeInfoWindows() {
@@ -131,9 +138,6 @@ $(function () {
   searchForm.submit();
 
   // the Map
-
-  var theMap = $('#googleMap'),
-      observCollection;
 
   var GRAY_ICON = "https://maps.google.com/mapfiles/marker_white.png",
       RED_ICON = "https://maps.google.com/mapfiles/marker.png";

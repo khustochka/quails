@@ -69,8 +69,10 @@ $(function () {
         lower = $('div.footer:visible').outerHeight() || 0;
     $('div.mapContainer').height(clientHeight - upper - lower).width(clientWidth)
         .css('top', upper);
-    var gmap = theMap.gmap3("get");
-    if (typeof(gmap) !== 'undefined' && gmap !== null) google.maps.event.trigger(gmap, 'resize');
+    try {
+        var gmap = theMap.gmap3("get");
+        if (typeof(gmap) !== 'undefined' && gmap !== null) google.maps.event.trigger(gmap, 'resize');
+    } catch(e) {}
     if ($(".gallery_window:visible").length > 0) {
       $(".gallery_window").css('bottom', lower + "px");
     }
