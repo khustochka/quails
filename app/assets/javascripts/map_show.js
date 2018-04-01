@@ -129,15 +129,7 @@ $(function () {
 //    }
 //  });
 
-  theMap.gmap3({
-    panel: {
-      options: {
-        content: $(".gray-panel").detach(),
-        top: true,
-        left: 350
-      }
-    }
-  });
+  theMap.gmap3();
 
   $.get('/map/media', function (rdata, textStatus, jqXHR) {
     marks = [];
