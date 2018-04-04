@@ -2,7 +2,7 @@
   "name": "Quails",
   "license": "MIT",
   "dependencies": {
-    "@rails/webpacker": "^3.4.1",
+    "@rails/webpacker": "^3.4.3",
     "airbrake-js": "^1.0.5",
     "ilyabirman-likely": "^2.3.0",
     "rails-erb-loader": "^5.2.1",
