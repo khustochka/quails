@@ -33,7 +33,7 @@ class PostFormatter < ModelFormatter
   end
 
   def the_rest_of_images
-    rel = @model.images.top_level.preload(:children)
+    rel = @model.images
     if extract_image_slugs.present?
       rel = rel.where("slug NOT IN (?)", extract_image_slugs)
     end

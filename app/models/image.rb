@@ -46,9 +46,7 @@ class Image < Media
 
   # Scopes
 
-  scope :indexable, lambda { where("status <> 'NOINDEX'").top_level }
-
-  scope :top_level, -> { where(parent_id: nil) }
+  scope :indexable, lambda { where("status <> 'NOINDEX'") }
 
   scope :basic_order, -> { order(:index_num, 'media.created_at', 'media.id') }
 
@@ -97,10 +95,6 @@ class Image < Media
 
   def to_thumbnail
     title = self.decorated.title
-    child_num = children.size
-    if child_num > 0
-      title = "#{title} (#{child_num + 1} #{I18n.t('images.series_photos_num')})"
-    end
     Thumbnail.new(self, title, self, {image: {id: id}})
   end
 

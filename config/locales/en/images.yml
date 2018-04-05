@@ -2,7 +2,6 @@
   images:
 
     alt_photo: '[photo]'
-    series_photos_num: photos
 
     index:
       window_title: Birdwatching in Ukraine and beyond
@@ -19,6 +18,7 @@
       prev_image: "<< Previous image"
       next_image: "Next image >>"
       more_photos_of_multiple_species: More photos of multiple species
+      in_the_series: "In the same series:"
 
     taken_clause: Picture '%{title}' taken
 

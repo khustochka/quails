@@ -117,8 +117,10 @@ class ImagesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "show image with children" do
-    img = create(:image, children: [@image])
+  test "show image in the series" do
+    img = create(:image)
+    img2 = create(:image)
+    MediaSeries.create(media: [img, img2])
     get :show, params: {id: img.to_param}
     assert_response :success
   end

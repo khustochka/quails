@@ -11,7 +11,7 @@ class MediaControllerTest < ActionController::TestCase
 
   test 'media strip with photos and videos (for the map)' do
     post :strip, xhr: true, params: {_json: [@image.id, @video.id]}
-    assert assigns(:media)
+    assert assigns(:strip_media)
   end
 
   test 'unmapped' do

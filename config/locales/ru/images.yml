@@ -2,7 +2,6 @@
   images:
 
     alt_photo: '[фото]'
-    series_photos_num: фото
 
     index:
       window_title: Последние добавленные фотографии
@@ -19,6 +18,7 @@
       prev_image: "<< Предыдущее фото"
       next_image: "Следующее фото >>"
       more_photos_of_multiple_species: Еще фото нескольких видов
+      in_the_series: "Из той же серии:"
 
     taken_clause: Фотография '%{title}' снятая
 
