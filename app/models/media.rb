@@ -55,7 +55,20 @@ class Media < ApplicationRecord
   end
 
   def extend_with_class
-    self.becomes(AVAILABLE_CLASSES[media_type].constantize)
+    become = self.becomes(AVAILABLE_CLASSES[media_type].constantize)
+
+    # Becomes does not copy preloaded association. Do this manually.
+    # TODO: check for single assocs.
+    [:taxa, :species, :cards, :observations, :spots].each do |assoc_name|
+      association = self.association(assoc_name)
+      if association.loaded?
+        new_assoc = become.association(assoc_name)
+        new_assoc.loaded!
+        new_assoc.target.concat(self.send(assoc_name))
+      end
+    end
+
+    become
   end
 
   def to_thumbnail
