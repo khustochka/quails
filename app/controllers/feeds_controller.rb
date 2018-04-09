@@ -13,7 +13,7 @@ class FeedsController < ApplicationController
   end
 
   def photos
-    @media = Media.order(created_at: :desc).preload(:species, :observations => {:card => :locus}).limit(15)
+    @media = Media.order(created_at: :desc).preload(:species, :cards, :observations => {:card => :locus}).limit(15)
   end
 
   def sitemap

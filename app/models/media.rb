@@ -49,7 +49,7 @@ class Media < ApplicationRecord
   end
 
   def self.half_mapped
-    Media.preload(:species).joins(:observations).
+    Media.preload(:taxa => :species).joins(:observations).
         where(spot_id: nil).where("observation_id in (select observation_id from spots)").
         order(created_at: :asc)
   end
@@ -107,6 +107,7 @@ class Media < ApplicationRecord
   end
 
   def posts
+    # TODO: implement preload_posts
     posts_id = observations.map(&:post_id).append(cards.first.post_id).uniq.compact
     Post.where(id: posts_id)
   end
