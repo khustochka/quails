@@ -19,6 +19,7 @@ gem 'pg', "~> 1.0", platforms: [:ruby, :mingw]
 #gem 'unicorn', require: false, platforms: :ruby
 gem "puma"
 gem 'dotenv-rails'
+gem 'bootsnap', require: false
 
 # Secure password
 gem 'bcrypt', '~> 3.1.7'
