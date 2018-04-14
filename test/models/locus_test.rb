@@ -43,7 +43,9 @@ class LocusTest < ActiveSupport::TestCase
   test 'do not destroy locus if it has associated cards (and no child loci)' do
     loc = loci(:brovary)
     observation = create(:observation, card: create(:card, locus: loc))
-    assert_predicate loc.descendants, :empty?
+    ActiveSupport::Deprecation.silence do
+      assert_predicate loc.descendants, :empty?
+    end
     assert_raise(ActiveRecord::DeleteRestrictionError) { loc.destroy }
     assert observation.reload
     assert_equal loc, observation.card.locus

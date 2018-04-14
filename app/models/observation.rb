@@ -48,7 +48,7 @@ class Observation < ApplicationRecord
   end
 
   def self.years
-    joins(:card).order('year').pluck('DISTINCT EXTRACT(year from observ_date)::integer AS year')
+    joins(:card).order('year').pluck(Arel.sql('DISTINCT EXTRACT(year from observ_date)::integer AS year'))
   end
 
   # Species

@@ -25,9 +25,10 @@
       %small.tag.alert private
 
   %td
-    - if locus.descendants.any? || locus.observations.any? || locus.patch_observations.any?
-      = disabled_destroy_icon
-    - else
-      = default_destroy_link(locus)
+    - ActiveSupport::Deprecation.silence do
+      - if locus.descendants.any? || locus.observations.any? || locus.patch_observations.any?
+        = disabled_destroy_icon
+      - else
+        = default_destroy_link(locus)
 
 = render partial: 'locus_tree', collection: locus_tree[1].to_a, locals: {indent: indent + 1}

@@ -22,7 +22,7 @@ module Lifelist
     end
 
     def relation
-      @relation ||= build_relation.order(ordering)
+      @relation ||= build_relation.order(Arel.sql(ordering))
     end
 
     def base

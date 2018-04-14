@@ -94,7 +94,7 @@ class Post < ApplicationRecord
   end
 
   def self.years
-    order('year').pluck('DISTINCT EXTRACT(year from face_date)::integer AS year')
+    order('year').pluck(Arel.sql('DISTINCT EXTRACT(year from face_date)::integer AS year'))
   end
 
   # Associations

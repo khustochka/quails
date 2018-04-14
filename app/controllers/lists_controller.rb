@@ -66,7 +66,7 @@ class ListsController < ApplicationController
     lifelist_filtered = LiferObservation.all
 
     @year_data = identified_observations.group('EXTRACT(year FROM observ_date)::integer').
-        order('EXTRACT(year FROM observ_date)::integer')
+        order(Arel.sql('EXTRACT(year FROM observ_date)::integer'))
 
     @first_sp_by_year = lifelist_filtered.group('EXTRACT(year FROM observ_date)::integer').
         except(:order)

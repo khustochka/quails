@@ -102,11 +102,11 @@ class ResearchController < ApplicationController
     @month, @day = (params[:day].try(:split, '-') || [Time.current.month, Time.current.day]).map { |n| "%02d" % n.to_i }
     prev_day = Image.joins(:observations, :cards).select("to_char(observ_date, 'DD') as iday, to_char(observ_date, 'MM') as imon").
         where("to_char(observ_date, 'MM-DD') < '#@month-#@day'").
-        order("to_char(observ_date, 'MM-DD') DESC").first
+        order(Arel.sql("to_char(observ_date, 'MM-DD') DESC")).first
     @prev_day = [prev_day[:imon], prev_day[:iday]].join('-') rescue nil
     next_day = Image.joins(:observations, :cards).select("to_char(observ_date, 'DD') as iday, to_char(observ_date, 'MM') as imon").
         where("to_char(observ_date, 'MM-DD') > '#@month-#@day'").
-        order("to_char(observ_date, 'MM-DD') ASC").first
+        order(Arel.sql("to_char(observ_date, 'MM-DD') ASC")).first
     @next_day = [next_day[:imon], next_day[:iday]].join('-') rescue nil
     @images = Image.select("media.*, cards.observ_date").distinct.joins(:observations, :cards).
         where('EXTRACT(day from observ_date)::integer = ? AND EXTRACT(month from observ_date)::integer = ?', @day, @month).
@@ -138,7 +138,7 @@ class ResearchController < ApplicationController
         AND EXTRACT(day FROM observ_date)::integer <= ?)',
             @this_day.month, @this_day.month, @this_day.day
         ).
-        order('EXTRACT(year FROM observ_date)::integer').
+        order(Arel.sql('EXTRACT(year FROM observ_date)::integer')).
         group('EXTRACT(year FROM observ_date)::integer').
         count('DISTINCT species_id')
     @max = @uptoday.map(&:second).max
@@ -178,7 +178,7 @@ class ResearchController < ApplicationController
 
     @countries.each do |cnt|
 
-      list = Species.joins(:cards).merge(Taxon.listable).where("cards.locus_id" => cnt.subregion_ids).pluck("DISTINCT species.id")
+      list = Species.joins(:cards).merge(Taxon.listable).where("cards.locus_id" => cnt.subregion_ids).pluck(Arel.sql("DISTINCT species.id"))
       list.each do |sp_id|
         by_sps[sp_id] ||= []
         by_sps[sp_id] << cnt
@@ -227,7 +227,7 @@ class ResearchController < ApplicationController
     
     @day_by_obs = observations_filtered.joins(:card).select('observ_date, COUNT(observations.id) as count_obs').
         group('observ_date').
-        order('COUNT(observations.id) DESC, observ_date ASC').limit(10)
+        order(Arel.sql('COUNT(observations.id) DESC, observ_date ASC')).limit(10)
 
     dates = @day_by_obs.except(:select).select(:observ_date)
     @locs_for_day_by_obs =
@@ -235,7 +235,7 @@ class ResearchController < ApplicationController
 
     @day_by_species = identified_observations.select('observ_date, COUNT(DISTINCT species_id) as count_species').
         group('observ_date').
-        order('COUNT(DISTINCT species_id) DESC, observ_date ASC').limit(10)
+        order(Arel.sql('COUNT(DISTINCT species_id) DESC, observ_date ASC')).limit(10)
 
     dates = @day_by_species.except(:select).select(:observ_date)
     @locs_for_day_by_species =
@@ -243,7 +243,7 @@ class ResearchController < ApplicationController
 
     @day_and_loc_by_species = identified_observations.select('observ_date, locus_id, COUNT(DISTINCT species_id) as count_species').
         group('observ_date, locus_id').
-        order('COUNT(DISTINCT species_id) DESC, observ_date ASC').
+        order(Arel.sql('COUNT(DISTINCT species_id) DESC, observ_date ASC')).
         limit(10)
 
     locs = @day_and_loc_by_species.except(:select).select(:locus_id)
@@ -252,7 +252,7 @@ class ResearchController < ApplicationController
     @day_by_new_species = lifelist_filtered.
         except(:select).select('observ_date, COUNT(species_id) as count_species').
         group('observ_date').except(:order).
-        order('COUNT(species_id) DESC, observ_date ASC').limit(10)
+        order(Arel.sql('COUNT(species_id) DESC, observ_date ASC')).limit(10)
 
     # FIXME: wrong locus may be shown if lifer is on several cards a day
     dates = @day_by_new_species.except(:select).select(:observ_date)
@@ -308,7 +308,7 @@ class ResearchController < ApplicationController
           where("extract(year from observ_date) = ?", yr).
           group(:species_id)
       dates = Observation.from(list).order('first_date').
-                  group(:first_date).pluck("first_date, COUNT(species_id) as cnt")
+                  group(:first_date).pluck(Arel.sql("first_date, COUNT(species_id) as cnt"))
       @data[yr] = dates.inject([]) do |memo, (dt, cnt)|
         memo << [[dt.month, dt.day], (memo.last.try(&:last) || 0) + cnt]
       end

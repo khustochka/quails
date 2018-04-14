@@ -50,7 +50,7 @@ class CardsController < ApplicationController
   # GET /cards/new.json
   def new
     @card = Card.new(params[:card])
-    last_date = Card.pluck('MAX(observ_date)').first
+    last_date = Card.pluck(Arel.sql('MAX(observ_date)')).first
     if last_date
       @card.observ_date ||= last_date + 1
     end
