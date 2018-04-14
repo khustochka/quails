@@ -253,7 +253,10 @@ Rails.application.routes.draw do
   get '/settings' => 'settings#index'
   post '/settings/save' => 'settings#save'
 
-  get '/media/unmapped' => 'media#unmapped'
+  scope "/media" do
+    get "unmapped" => "media#unmapped"
+    resources :series, controller: "media_series"
+  end
 
   get '/research', controller: :research, action: :index, as: :research
 
