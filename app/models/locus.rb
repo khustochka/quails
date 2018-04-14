@@ -55,30 +55,24 @@ class Locus < ApplicationRecord
   end
 
   def subregion_ids
-    ActiveSupport::Deprecation.silence do
-      # Hack for Arabat Spit
-      if slug == 'arabat_spit'
-        Locus.where("slug LIKE 'arabat%'").flat_map(&:subtree_ids)
-      elsif slug == '5MR'
-        Locus.where(five_mile_radius: true).map(&:id)
-      else
-        subtree_ids
-      end
+    # Hack for Arabat Spit
+    if slug == 'arabat_spit'
+      Locus.where("slug LIKE 'arabat%'").flat_map(&:subtree_ids)
+    elsif slug == '5MR'
+      Locus.where(five_mile_radius: true).map(&:id)
+    else
+      subtree_ids
     end
   end
 
   def country
-    ActiveSupport::Deprecation.silence do
-      path.where(loc_type: 'country').first
-    end
+    path.where(loc_type: 'country').first
   end
 
   def public_locus
     # Rails' #last does not play well with the new ancestry gem COALESCE ordering.
     # Had to rewrite the query to find the last (closest) public locus
-    ActiveSupport::Deprecation.silence do
-      path.where(private_loc: false, patch: false).reorder(Arel.sql("COALESCE(ancestry, '') DESC")).limit(1).first
-    end
+    path.where(private_loc: false, patch: false).reorder(Arel.sql("COALESCE(ancestry, '') DESC")).limit(1).first
   end
 
 end

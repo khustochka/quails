@@ -1,4 +1,11 @@
 GIT
+  remote: https://github.com/khustochka/ancestry.git
+  revision: 87397c771adb4fcb23d440ffbd246433065e80e9
+  specs:
+    ancestry (3.0.1)
+      activerecord (>= 3.2.0)
+
+GIT
   remote: https://github.com/khustochka/livejournal.git
   revision: 06b3d406be5f05a41129d0babf33ad59ec7abc7f
   branch: alt-server
@@ -68,8 +75,6 @@ GEM
     airbrake (7.2.1)
       airbrake-ruby (~> 2.5)
     airbrake-ruby (2.8.3)
-    ancestry (3.0.1)
-      activerecord (>= 3.2.0)
     arel (9.0.0)
     bcrypt (3.1.11)
     benchmark-ips (2.7.2)
@@ -295,7 +300,7 @@ DEPENDENCIES
   acts_as_list
   addressable
   airbrake
-  ancestry
+  ancestry!
   bcrypt (~> 3.1.7)
   benchmark-ips
   bootsnap

@@ -22,11 +22,7 @@ class LocusFormatter < ModelFormatter
   end
 
   def apply_format(format)
-    # FIXME: ancestry!
-    pre_ancestors = nil
-    ActiveSupport::Deprecation.silence do
-      pre_ancestors = @model.ancestors
-    end
+    pre_ancestors = @model.ancestors
     ancestors = pre_ancestors.index_by(&:loc_type)
     ancestors['self'] = @model
     ancestors['parent'] = pre_ancestors.last
