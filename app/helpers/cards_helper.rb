@@ -24,7 +24,7 @@ module CardsHelper
         Date.today => ['Today'],
         Date.yesterday => ['Yesterday']
     }
-    last_date = Card.pluck(Arel.sql('MAX(observ_date)')).first
+    last_date = Card.maximum(:observ_date)
     if last_date
       prelim[last_date + 1] = ['Last unreported']
     end

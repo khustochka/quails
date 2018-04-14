@@ -178,7 +178,12 @@ class ResearchController < ApplicationController
 
     @countries.each do |cnt|
 
-      list = Species.joins(:cards).merge(Taxon.listable).where("cards.locus_id" => cnt.subregion_ids).pluck(Arel.sql("DISTINCT species.id"))
+      list = Species.
+          joins(:cards).
+          merge(Taxon.listable).
+          where("cards.locus_id" => cnt.subregion_ids).
+          distinct.
+          ids
       list.each do |sp_id|
         by_sps[sp_id] ||= []
         by_sps[sp_id] << cnt
@@ -308,7 +313,7 @@ class ResearchController < ApplicationController
           where("extract(year from observ_date) = ?", yr).
           group(:species_id)
       dates = Observation.from(list).order('first_date').
-                  group(:first_date).pluck(Arel.sql("first_date, COUNT(species_id) as cnt"))
+                  group(:first_date).count(:species_id)
       @data[yr] = dates.inject([]) do |memo, (dt, cnt)|
         memo << [[dt.month, dt.day], (memo.last.try(&:last) || 0) + cnt]
       end

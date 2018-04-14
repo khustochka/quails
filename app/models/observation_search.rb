@@ -180,7 +180,7 @@ class ObservationSearch
       taxa = if exclude_subtaxa
                taxon_id
              else
-               [taxon_id.to_i] + Taxon.where("taxa.parent_id" => taxon_id).pluck(:id)
+               [taxon_id.to_i] + Taxon.where("taxa.parent_id" => taxon_id).ids
              end
       obs_scope.where(taxon_id: taxa)
     else

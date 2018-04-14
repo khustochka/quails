@@ -55,7 +55,8 @@ year = ENV['YEAR'] || Quails::CURRENT_YEAR
 obs_rel = MyObservation.joins(:card).
     where('EXTRACT(year FROM observ_date)::integer = ?', year).
     order("observ_date").
-    pluck('DISTINCT observ_date, species_id').
+    distinct.
+    pluck('observ_date, species_id').
     group_by(&:first).transform_values { |v| v.map(&:second) }
 
 obs = []

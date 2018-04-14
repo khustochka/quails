@@ -39,7 +39,8 @@ class Day
         joins(:card).
         merge(cards).
         where("NOT EXISTS(#{subquery})").
-        pluck(Arel.sql("DISTINCT species_id"))
+        distinct.
+        pluck(:species_id)
   end
 
   def images
@@ -49,8 +50,8 @@ class Day
   end
 
   def posts
-    posts_id = cards.where("post_id IS NOT NULL").pluck(Arel.sql("DISTINCT post_id")) +
-        observations.where("observations.post_id IS NOT NULL").pluck(Arel.sql("DISTINCT observations.post_id"))
+    posts_id = cards.where("post_id IS NOT NULL").distinct.pluck(:post_id) +
+        observations.where("observations.post_id IS NOT NULL").distinct.pluck(:post_id)
     Post.distinct.where(id: posts_id)
   end
 

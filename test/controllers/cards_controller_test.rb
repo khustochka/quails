@@ -44,7 +44,7 @@ class CardsControllerTest < ActionController::TestCase
   end
 
   test "create card with observations" do
-    taxa = Taxon.limit(3).pluck(:id)
+    taxa = Taxon.limit(3).ids
     observ_attrs = taxa.map {|tx| {taxon_id: tx}}
     assert_equal 3, observ_attrs.size
     assert_difference('Observation.count', 3) do

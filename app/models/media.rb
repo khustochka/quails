@@ -79,7 +79,7 @@ class Media < ApplicationRecord
     date = params[:date]
     ObservationSearch.new(
         new_record? ?
-            {observ_date: date || Card.pluck(Arel.sql('MAX(observ_date)')).first} :
+            {observ_date: date || Card.maximum(:observ_date)} :
             {observ_date: observ_date, locus_id: locus.id}
     )
   end
