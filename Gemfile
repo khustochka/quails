@@ -2,7 +2,7 @@ source 'https://rubygems.org/'
 
 ruby '2.5.1'
 
-VERSION = "5.1.6"
+VERSION = "5.2.0"
 gem 'rails', VERSION
 # gem "activesupport", VERSION
 # gem "actionpack",    VERSION
@@ -43,7 +43,7 @@ gem 'rinku'
 
 # Improved functionality utils
 gem 'kaminari'
-gem 'simple_form'
+gem 'simple_form', "~> 4.0"
 gem "high_voltage"
 
 # External services
