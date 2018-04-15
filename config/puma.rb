@@ -1,6 +1,6 @@
 rails_env = ENV['RACK_ENV'] || ENV['RAILS_ENV'] || 'development'
 
-workers Integer(ENV['WEB_CONCURRENCY'] || (rails_env == "production" ? 3 : 0))
+workers Integer(ENV['WEB_CONCURRENCY'] || (rails_env == "production" ? 2 : 0))
 
 threads_count = Integer(ENV['RAILS_MAX_THREADS'] || 5)
 threads 0, threads_count
@@ -71,5 +71,8 @@ end
 on_worker_boot do
   if defined?(::ActiveRecord) && defined?(::ActiveRecord::Base)
     ActiveRecord::Base.establish_connection
+  end
+  if defined?(Resque)
+    require File.expand_path("../initializers/resque_connection", __FILE__)
   end
 end

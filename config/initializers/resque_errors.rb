@@ -1,9 +1,3 @@
-if ENV["REDISTOGO_URL"]
-  Resque.redis = Redis.new(url: ENV["REDISTOGO_URL"])
-else
-  Resque.redis = {:host => 'localhost', :port => 6379, :db => 0}
-end
-
 if ENV['errbit_api_key'] && ENV['errbit_host']
   require 'resque/failure/multiple'
   require 'resque/failure/redis'
