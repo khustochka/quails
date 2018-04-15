@@ -277,4 +277,17 @@ Rails.application.routes.draw do
     post :regenerate, on: :member
   end
 
+  # Resque web front
+
+  require 'resque/server'
+
+  resque_web_constraint = lambda do |request|
+    current_user ||= User.from_session(request)
+    current_user.admin?
+  end
+
+  constraints resque_web_constraint do
+    mount Resque::Server.new => "/resque"
+  end
+
 end
