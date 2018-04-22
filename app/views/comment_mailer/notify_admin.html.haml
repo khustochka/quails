@@ -1,0 +1,23 @@
+%div{:style => "padding: 20px 40px;"}
+  %p
+    %b= @comment.decorated.name
+    posted new comment to
+    = succeed ":" do
+      = link_to @comment.post.decorated.title, show_post_url(@comment.post.to_url_params.merge(anchor: "comment#{@comment.id}", only_path: false, host: @host))
+
+  - unless @comment.approved
+    %p ⚠ Comment was hidden. Please review.
+
+  %div{:style => "padding: 10px 0 10px 0;"}
+    %div{:style => "padding: 10px 5px 1px 15px; border-left: 4px solid lightskyblue;background-color: #eeeeee;"}
+      %b= @comment.decorated.name
+      %small
+        (#{link_to(I18n.l(@comment.created_at, format: :long), show_post_url(@comment.post.to_url_params.merge(anchor: "comment#{@comment.id}", only_path: false, host: @host)), style: "color:#448044;text-decoration:none;border-bottom:1px solid #448044;")})
+      = @comment.decorated.text
+
+
+  - parent = @comment.parent_comment
+  - if parent && parent.send_email? && @comment.approved
+    %p
+      = parent.name
+      (#{Rinku.auto_link(parent.commenter.email).html_safe}) should receive email notification.

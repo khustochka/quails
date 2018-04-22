@@ -1,0 +1,20 @@
+%div{:style => "text-align: center;"}
+
+  :css
+    a, a:hover {color:#448044;text-decoration:none;border-bottom:1px solid #448044;}
+    p {margin: 14px 0 !important;}
+
+  %div{style: "margin: 5px auto; text-align: left; max-width: 800px; border: 1px solid #cccccc; padding: 0;font-family: Helvetica, Arial, sans-serif; font-size: 14px;"}
+
+    %div{style: "font-size:23px;font-weight:bold;padding:30px 40px;background-color:#eeeeee;"}
+
+      = link_to "birdwatch.org.ua", blog_url(only_path: false, host: @host),
+                style: "color:#448044;text-decoration:none;border-bottom:1px solid #448044;"
+
+    = yield
+
+
+
+- if !Quails.env.real_prod?
+  %br/
+  THIS IS A TEST. NOT A REAL PRODUCTION ENVIRONMENT.
