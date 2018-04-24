@@ -1,11 +1,4 @@
 GIT
-  remote: https://github.com/khustochka/ancestry.git
-  revision: 87397c771adb4fcb23d440ffbd246433065e80e9
-  specs:
-    ancestry (3.0.1)
-      activerecord (>= 3.2.0)
-
-GIT
   remote: https://github.com/khustochka/livejournal.git
   revision: 06b3d406be5f05a41129d0babf33ad59ec7abc7f
   branch: alt-server
@@ -75,6 +68,8 @@ GEM
     airbrake (7.2.1)
       airbrake-ruby (~> 2.5)
     airbrake-ruby (2.8.3)
+    ancestry (3.0.2)
+      activerecord (>= 3.2.0)
     arel (9.0.0)
     bcrypt (3.1.11)
     benchmark-ips (2.7.2)
@@ -106,9 +101,9 @@ GEM
     concurrent-ruby (1.0.5)
     crass (1.0.4)
     docile (1.3.0)
-    dotenv (2.3.0)
-    dotenv-rails (2.3.0)
-      dotenv (= 2.3.0)
+    dotenv (2.4.0)
+    dotenv-rails (2.4.0)
+      dotenv (= 2.4.0)
       railties (>= 3.2, < 6.0)
     erubi (1.7.1)
     erubis (2.7.0)
@@ -196,7 +191,7 @@ GEM
       pry (>= 0.10.4)
     public_suffix (3.0.2)
     puma (3.11.4)
-    rack (2.0.4)
+    rack (2.0.5)
     rack-protection (2.0.1)
       rack
     rack-proxy (0.6.4)
@@ -321,7 +316,7 @@ DEPENDENCIES
   acts_as_list
   addressable
   airbrake
-  ancestry!
+  ancestry (>= 3.0.2)
   bcrypt (~> 3.1.7)
   benchmark-ips
   bootsnap

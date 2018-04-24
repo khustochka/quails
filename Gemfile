@@ -34,7 +34,7 @@ gem "actionpack-page_caching", "~> 1.1"
 gem "rails-controller-testing"
 
 # AR utils
-gem 'ancestry', git: "https://github.com/khustochka/ancestry.git"
+gem 'ancestry', ">= 3.0.2"
 gem "acts_as_list"
 
 # Templating
