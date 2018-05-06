@@ -18,8 +18,8 @@ class FeedsController < ApplicationController
 
   def sitemap
     @posts = Post.indexable.select("slug, face_date, updated_at")
-    @images = Image.indexable.select("id, slug, created_at")
-    @videos = Video.select("id, slug, created_at")
+    @images = Image.indexable.select("id, slug, updated_at")
+    @videos = Video.select("id, slug, updated_at")
     @species = Species.where(id: Observation.joins(:taxon).select(:species_id)).select("id, name_sci")
 
     @root_lastmod = Post.public_posts.order(updated_at: :desc).first.updated_at.iso8601 rescue nil

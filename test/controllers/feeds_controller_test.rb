@@ -74,6 +74,13 @@ class FeedsControllerTest < ActionController::TestCase
     assert_equal 2, assigns(:posts).size
   end
 
+  test 'sitemap with images' do
+    FactoryBot.create(:image)
+    get :sitemap, format: :xml
+    assert_response :success
+    assert_equal Mime[:xml], response.content_type
+  end
+
   test 'instant articles feed' do
     create(:post, publish_to_facebook: true)
     create(:post, publish_to_facebook: true)
