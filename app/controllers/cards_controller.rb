@@ -1,5 +1,13 @@
 class CardsController < ApplicationController
 
+  PROTOCOL_TO_EFFORT = {
+      "Traveling" => "TRAVEL",
+      "Incidental" => "INCIDENTAL",
+      "Stationary" => "STATIONARY",
+      "Area" => "AREA",
+      "Historical" => "HISTORICAL"
+  }
+
   administrative
 
   after_action :cache_expire, only: [:create, :update, :destroy, :attach]
@@ -119,6 +127,79 @@ class CardsController < ApplicationController
     card.observations << observations
 
     redirect_to card, notice: "#{observations.size} observations successfully moved"
+  end
+
+  def import
+    ebird_id = params[:ebird_id]
+    uri = URI.parse("https://ebird.org/view/checklist/#{ebird_id}")
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = true
+    request = Net::HTTP::Get.new(uri.request_uri)
+    response = http.request(request)
+    
+    cookie = response["set-cookie"].match(/^(EBIRD_SESSIONID=[0-9A-F]*);/)[1]
+
+    request = Net::HTTP::Get.new(uri.request_uri, {"Cookie" => cookie})
+    response = http.request(request)
+
+    body = response.body
+    doc = Nokogiri::HTML(body, nil, "UTF-8")
+
+    @card = Card.new
+
+    @card.ebird_id = ebird_id
+
+    datetime = doc.css("h5.rep-obs-date").text
+    dt = Time.zone.parse(datetime)
+
+    @card.observ_date = dt.to_date
+    @card.start_time = dt.strftime("%R") # = %H:%M
+
+    protocol = doc.xpath("//dl[dt[text()='Protocol:']]/dd").text
+
+    @card.effort_type = PROTOCOL_TO_EFFORT[protocol]
+
+    # todo: hours?
+    duration = doc.xpath("//dl[dt[text()='Duration:']]/dd").text
+
+    @card.duration_minutes = duration[/^\d+/].to_i
+
+    # todo: miles?
+    distance = doc.xpath("//dl[dt[text()='Distance:']]/dd").text
+
+    @card.distance_kms = distance[/^[\d.]+/].to_f
+
+    comments = doc.css("dl.report-comments dd").text
+
+    unless comments == "N/A"
+      @card.notes = comments
+    end
+
+    # fixme: not working properly 
+    location = doc.css("h5.obs-loc").text
+    @card.locus = Locus.where("'#{location}' LIKE (name_en||'%')").first
+
+    doc.css(".spp-entry").each do |row|
+      count = row.css(".se-count").text
+      count = nil if count == "X"
+
+      taxon = row.css("h5.se-name").text
+      tx = Taxon.find_by_name_en(taxon)
+
+      voice = false
+
+      notes = row.css(".obs-comments").text
+      if notes.downcase == "v"
+        notes = ""
+        voice = true
+      end
+
+      @card.observations << Observation.new(taxon: tx, quantity: count, notes: notes, voice: voice)
+
+    end
+
+    render "form"
+
   end
 
   private

@@ -181,6 +181,9 @@ Rails.application.routes.draw do
     member do
       post :attach
     end
+    collection do
+      get :import
+    end
   end
 
   resources :days, only: [:index, :show]
