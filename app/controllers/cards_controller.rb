@@ -131,77 +131,82 @@ class CardsController < ApplicationController
 
   def import
     ebird_id = params[:ebird_id]
-    uri = URI.parse("https://ebird.org/view/checklist/#{ebird_id}")
-    http = Net::HTTP.new(uri.host, uri.port)
-    http.use_ssl = true
-    request = Net::HTTP::Get.new(uri.request_uri)
-    response = http.request(request)
-    
-    cookie = response["set-cookie"].match(/^(EBIRD_SESSIONID=[0-9A-F]*);/)[1]
-
-    request = Net::HTTP::Get.new(uri.request_uri, {"Cookie" => cookie})
-    response = http.request(request)
-
-    body = response.body
-    doc = Nokogiri::HTML(body, nil, "UTF-8")
 
     @card = Card.new
 
-    @card.ebird_id = ebird_id
+    if ebird_id.present?
+      uri = URI.parse("https://ebird.org/view/checklist/#{ebird_id}")
+      http = Net::HTTP.new(uri.host, uri.port)
+      http.use_ssl = true
+      request = Net::HTTP::Get.new(uri.request_uri)
+      response = http.request(request)
 
-    datetime = doc.css("h5.rep-obs-date").text
-    dt = Time.zone.parse(datetime)
+      cookie = response["set-cookie"].match(/^(EBIRD_SESSIONID=[0-9A-F]*);/)[1]
 
-    @card.observ_date = dt.to_date
-    @card.start_time = dt.strftime("%R") # = %H:%M
+      request = Net::HTTP::Get.new(uri.request_uri, {"Cookie" => cookie})
+      response = http.request(request)
 
-    protocol = doc.xpath("//dl[dt[text()='Protocol:']]/dd").text
+      body = response.body
+      doc = Nokogiri::HTML(body, nil, "UTF-8")
 
-    @card.effort_type = PROTOCOL_TO_EFFORT[protocol]
+      @card.ebird_id = ebird_id
 
-    duration = doc.xpath("//dl[dt[text()='Duration:']]/dd").text
-    md = duration.match(/^(?:(\d+) hour\(s\), )?(\d+) minute\(s\)$/)
+      datetime = doc.css("h5.rep-obs-date").text
+      dt = Time.zone.parse(datetime)
 
-    @card.duration_minutes = md[1].to_i * 60 + md[2].to_i
+      @card.observ_date = dt.to_date
+      @card.start_time = dt.strftime("%R") # = %H:%M
+
+      protocol = doc.xpath("//dl[dt[text()='Protocol:']]/dd").text
+
+      @card.effort_type = PROTOCOL_TO_EFFORT[protocol]
+
+      duration = doc.xpath("//dl[dt[text()='Duration:']]/dd").text
+      md = duration.match(/^(?:(\d+) hour\(s\), )?(\d+) minute\(s\)$/)
+
+      @card.duration_minutes = md[1].to_i * 60 + md[2].to_i
 
 
-    distance = doc.xpath("//dl[dt[text()='Distance:']]/dd").text
+      distance = doc.xpath("//dl[dt[text()='Distance:']]/dd").text
 
-    dm = distance.match(/^([\d.]+) (.*)$/)
-    val = dm[1].to_f
-    if dm[2] == "mile(s)"
-      val = val * 1.609344
-    end
-
-    @card.distance_kms = val
-
-    comments = doc.css("dl.report-comments dd").text
-
-    unless comments == "N/A"
-      @card.notes = comments
-    end
-
-    # fixme: not working properly 
-    location = doc.css("h5.obs-loc").text
-    @card.locus = Locus.where("'#{location}' LIKE (name_en||'%')").first
-
-    doc.css(".spp-entry").each do |row|
-      count = row.css(".se-count").text
-      count = nil if count == "X"
-
-      taxon = row.css("h5.se-name").text
-      tx = Taxon.find_by_name_en(taxon)
-
-      voice = false
-
-      notes = row.css(".obs-comments").text
-      if notes.downcase == "v"
-        notes = ""
-        voice = true
+      dm = distance.match(/^([\d.]+) (.*)$/)
+      val = dm[1].to_f
+      if dm[2] == "mile(s)"
+        val = val * 1.609344
       end
 
-      @card.observations << Observation.new(taxon: tx, quantity: count, notes: notes, voice: voice)
+      @card.distance_kms = val
 
+      comments = doc.css("dl.report-comments dd").text
+
+      unless comments == "N/A"
+        @card.notes = comments
+      end
+
+      # fixme: not working properly
+      location = doc.css("h5.obs-loc").text
+      @card.locus = Locus.where("'#{location}' LIKE (name_en||'%')").first
+
+      doc.css(".spp-entry").each do |row|
+        count = row.css(".se-count").text
+        count = nil if count == "X"
+
+        taxon = row.css("h5.se-name").text
+        tx = Taxon.find_by_name_en(taxon)
+
+        voice = false
+
+        notes = row.css(".obs-comments").text
+        if notes.downcase == "v"
+          notes = ""
+          voice = true
+        end
+
+        @card.observations << Observation.new(taxon: tx, quantity: count, notes: notes, voice: voice)
+
+      end
+    else
+      flash.now[:alert] = "Missing ebird checklist id."
     end
 
     render "form"
