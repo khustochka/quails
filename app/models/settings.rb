@@ -1,7 +1,7 @@
 class Settings < ApplicationRecord
   validates :key, uniqueness: true
 
-  SETTING_KEYS = [:flickr_admin, :lj_user]
+  SETTING_KEYS = [:flickr_admin, :lj_user, :ebird_user]
 
   serialize :value
 

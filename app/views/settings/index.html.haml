@@ -37,5 +37,15 @@
     %label Password
     %input.string{name: 's[lj_user][password]', type: :password, value: Settings.lj_user.password}
 
+  %h2 eBird User
+
+  %div.input.string
+    %label User name
+    %input.string{name: 's[ebird_user][name]', type: :text, value: Settings.ebird_user.name}
+
+  %div.input.string
+    %label Password
+    %input.string{name: 's[ebird_user][password]', type: :password, value: Settings.ebird_user.password}
+
   %div.buttons
     %input.button#save_button{:type => :submit, :value => 'Save'}
