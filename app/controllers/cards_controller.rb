@@ -162,20 +162,23 @@ class CardsController < ApplicationController
       @card.effort_type = PROTOCOL_TO_EFFORT[protocol]
 
       duration = doc.xpath("//dl[dt[text()='Duration:']]/dd").text
-      md = duration.match(/^(?:(\d+) hour\(s\), )?(\d+) minute\(s\)$/)
+      if duration
+        md = duration.match(/^(?:(\d+) hour\(s\), )?(\d+) minute\(s\)$/)
 
-      @card.duration_minutes = md[1].to_i * 60 + md[2].to_i
-
+        @card.duration_minutes = md[1].to_i * 60 + md[2].to_i
+      end
 
       distance = doc.xpath("//dl[dt[text()='Distance:']]/dd").text
 
       dm = distance.match(/^([\d.]+) (.*)$/)
-      val = dm[1].to_f
-      if dm[2] == "mile(s)"
-        val = val * 1.609344
-      end
+      if dm
+        val = dm[1].to_f
+        if dm[2] == "mile(s)"
+          val = val * 1.609344
+        end
 
-      @card.distance_kms = val
+        @card.distance_kms = val
+      end
 
       comments = doc.css("dl.report-comments dd").text
 
