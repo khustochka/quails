@@ -29,6 +29,7 @@ class Card < ApplicationRecord
   validates :start_time, :duration_minutes, :distance_kms, presence: true, on: :travel
   validates :start_time, :duration_minutes, :area_acres, presence: true, on: :area
   validates :start_time, :duration_minutes, presence: true, on: :stationary
+  validates :ebird_id, uniqueness: true, allow_blank: true
 
   accepts_nested_attributes_for :observations,
                                 reject_if:
