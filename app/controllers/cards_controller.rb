@@ -187,8 +187,8 @@ class CardsController < ApplicationController
       end
 
       # fixme: not working properly
-      location = doc.css("h5.obs-loc").text
-      @card.locus = Locus.where("'#{location}' LIKE (name_en||'%')").first
+      @ebird_location = doc.css("h5.obs-loc").text
+      @card.locus = Locus.where("'#{@ebird_location}' LIKE (name_en||'%')").first
 
       doc.css(".spp-entry").each do |row|
         count = row.css(".se-count").text
