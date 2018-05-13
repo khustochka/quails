@@ -162,7 +162,7 @@ class CardsController < ApplicationController
       @card.effort_type = PROTOCOL_TO_EFFORT[protocol]
 
       duration = doc.xpath("//dl[dt[text()='Duration:']]/dd").text
-      if duration
+      if duration.present?
         md = duration.match(/^(?:(\d+) hour\(s\), )?(\d+) minute\(s\)$/)
 
         @card.duration_minutes = md[1].to_i * 60 + md[2].to_i
