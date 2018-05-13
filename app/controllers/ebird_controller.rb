@@ -83,7 +83,7 @@ class EbirdController < ApplicationController
         if @file.persisted?
           @file.destroy
         end
-        @observation_search = ObservationSearch.new
+        @observation_search = Ebird::ObsSearch.new
         flash.alert = "Export failed"
         render :new
       end
