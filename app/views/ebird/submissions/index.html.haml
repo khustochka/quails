@@ -23,7 +23,7 @@
   - @files.each do |file|
     %tr
       %td= file.id
-      %td= link_to file.name, file
+      %td= link_to file.name, ebird_submission_path(file.id)
       %td= link_to "[csv]", file.download_url
       %td= file.created_at.strftime("%F %R")
       %td
@@ -36,6 +36,9 @@
         %nobr= file.cards.maximum(:observ_date)
       %td.status-line
         = render partial: 'status_line', locals: {file: file}
-      %td= default_destroy_link(file)
+      %td
+        = link_to(tag(:span, class: "fa fa-times-circle destroy-icon fa-lg", title: 'Destroy', alt: 'Destroy'),
+              ebird_submission_path(file.id), data: {confirm: 'Object will be DESTROYED!'},
+              method: :delete, class: 'destroy')
 
 = paginate @files

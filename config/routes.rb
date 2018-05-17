@@ -276,8 +276,10 @@ Rails.application.routes.draw do
   get '/flickr' => 'flickr#index'
   get '/flickr/auth' => 'flickr#auth'
 
-  resources :ebird, as: :ebird_files, controller: :ebird, except: [:edit] do
-    post :regenerate, on: :member
+  namespace :ebird do
+    resources :submissions, except: [:edit] do
+      post :regenerate, on: :member
+    end
   end
 
   # Resque web front

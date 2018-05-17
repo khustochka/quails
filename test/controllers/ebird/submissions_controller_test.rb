@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class EbirdControllerTest < ActionController::TestCase
+class Ebird::SubmissionsControllerTest < ActionController::TestCase
 
   test "should get list of ebird files" do
     obs = FactoryBot.create(:observation)
@@ -36,7 +36,7 @@ class EbirdControllerTest < ActionController::TestCase
       get :create, params: {ebird_file: {name: "fileAAA"}, card_id: [card1.id, card2.id]}
     end
 
-    assert_redirected_to controller: :ebird, action: :show, id: Ebird::File.last
+    assert_redirected_to controller: :submissions, action: :show, id: Ebird::File.last
   end
 
   test "do not create ebird file object without name" do
