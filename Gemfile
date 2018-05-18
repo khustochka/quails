@@ -76,6 +76,9 @@ gem 'font-awesome-sass', "~> 4.7.0"
 
 gem 'uglifier', '>= 1.3.0'
 
+# HTTP client
+gem "mechanize"
+
 group :development do
   gem 'nokogiri', platforms: [:ruby, :mingw], require: false
   gem 'benchmark-ips'

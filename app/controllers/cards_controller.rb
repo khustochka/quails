@@ -1,12 +1,6 @@
-class CardsController < ApplicationController
+require "ebird/ebird_checklist"
 
-  PROTOCOL_TO_EFFORT = {
-      "Traveling" => "TRAVEL",
-      "Incidental" => "INCIDENTAL",
-      "Stationary" => "STATIONARY",
-      "Area" => "AREA",
-      "Historical" => "HISTORICAL"
-  }
+class CardsController < ApplicationController
 
   administrative
 
@@ -135,79 +129,13 @@ class CardsController < ApplicationController
     @card = Card.new
 
     if ebird_id.present?
-      uri = URI.parse("https://ebird.org/view/checklist/#{ebird_id}")
-      http = Net::HTTP.new(uri.host, uri.port)
-      http.use_ssl = true
-      request = Net::HTTP::Get.new(uri.request_uri)
-      response = http.request(request)
 
-      cookie = response["set-cookie"].match(/^(EBIRD_SESSIONID=[0-9A-F]*);/)[1]
+      checklist = EbirdChecklist.new(ebird_id).fetch!
 
-      request = Net::HTTP::Get.new(uri.request_uri, {"Cookie" => cookie})
-      response = http.request(request)
+      @card = checklist.to_card
 
-      body = response.body
-      doc = Nokogiri::HTML(body, nil, "UTF-8")
+      @ebird_location = checklist.location_string
 
-      @card.ebird_id = ebird_id
-
-      datetime = doc.css("h5.rep-obs-date").text
-      dt = Time.zone.parse(datetime)
-
-      @card.observ_date = dt.to_date
-      @card.start_time = dt.strftime("%R") # = %H:%M
-
-      protocol = doc.xpath("//dl[dt[text()='Protocol:']]/dd").text
-
-      @card.effort_type = PROTOCOL_TO_EFFORT[protocol]
-
-      duration = doc.xpath("//dl[dt[text()='Duration:']]/dd").text
-      if duration.present?
-        md = duration.match(/^(?:(\d+) hour\(s\), )?(\d+) minute\(s\)$/)
-
-        @card.duration_minutes = md[1].to_i * 60 + md[2].to_i
-      end
-
-      distance = doc.xpath("//dl[dt[text()='Distance:']]/dd").text
-
-      dm = distance.match(/^([\d.]+) (.*)$/)
-      if dm
-        val = dm[1].to_f
-        if dm[2] == "mile(s)"
-          val = val * 1.609344
-        end
-
-        @card.distance_kms = val
-      end
-
-      comments = doc.css("dl.report-comments dd").text
-
-      unless comments == "N/A"
-        @card.notes = comments
-      end
-
-      # fixme: not working properly
-      @ebird_location = doc.css("h5.obs-loc").text
-      @card.locus = Locus.where("'#{@ebird_location}' LIKE (name_en||'%')").first
-
-      doc.css(".spp-entry").each do |row|
-        count = row.css(".se-count").text
-        count = nil if count == "X"
-
-        taxon = row.css("h5.se-name").text
-        tx = Taxon.find_by_name_en(taxon)
-
-        voice = false
-
-        notes = row.css(".obs-comments").text
-        if notes.downcase == "v"
-          notes = ""
-          voice = true
-        end
-
-        @card.observations << Observation.new(taxon: tx, quantity: count, notes: notes, voice: voice)
-
-      end
     else
       flash.now[:alert] = "Missing ebird checklist id."
     end

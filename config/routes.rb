@@ -280,6 +280,7 @@ Rails.application.routes.draw do
     resources :submissions, except: [:edit] do
       post :regenerate, on: :member
     end
+    resources :imports
   end
 
   # Resque web front
