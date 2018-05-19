@@ -36,7 +36,7 @@ class EbirdChecklist
             effort_type: effort_type,
             duration_minutes: duration_minutes,
             distance_kms: distance_kms,
-            notes: notes,
+            notes: notes || "",
             #locus: locus,
             observations: observations.map {|obs| Observation.new(obs)}
     )

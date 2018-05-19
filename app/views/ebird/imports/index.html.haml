@@ -4,11 +4,13 @@
 
 %h1= page_header
 
+- if notice
+  %p= notice
 
 = form_tag ebird_imports_path, method: :get, class: "simple_form" do
   = label_tag :date
   = date_field_tag :date
-  = submit_tag "Submit"
+  = submit_tag "Fetch"
 
 - if @checklists
   = form_tag ebird_imports_path do
@@ -31,7 +33,7 @@
           %td= list[:location]
           %td= list[:county]
           %td= list[:state_prov]
-          %td
+          %td.ebird-locus-select-td
             = select_tag "c[][locus_id]",
                 options_from_collection_for_select(Locus.suggestion_order, :id, :to_label, Locus.find_by_name_en(list[:location])&.id),
                 include_blank: true, class: "locus_select"
