@@ -277,6 +277,7 @@ Rails.application.routes.draw do
   get '/flickr/auth' => 'flickr#auth'
 
   namespace :ebird do
+    get '/' => "portal#index"
     resources :submissions, except: [:edit] do
       post :regenerate, on: :member
     end
