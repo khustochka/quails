@@ -3,7 +3,8 @@ require "ebird/ebird_client"
 class EbirdChecklist
 
   attr_reader :ebird_id
-  attr_accessor :observ_date, :start_time, :effort_type, :duration_minutes, :distance_kms, :notes, :location_string, :observations
+  attr_accessor :observ_date, :start_time, :effort_type, :duration_minutes, :distance_kms, :notes,
+                :observers, :location_string, :observations
 
   PROTOCOL_TO_EFFORT = {
       "Traveling" => "TRAVEL",
@@ -40,6 +41,7 @@ class EbirdChecklist
             effort_type: effort_type,
             duration_minutes: duration_minutes,
             distance_kms: distance_kms,
+            observers: observers,
             notes: notes || "",
             #locus: locus,
             observations: observations.map {|obs| Observation.new(obs)}
@@ -54,7 +56,9 @@ class EbirdChecklist
     dt = Time.zone.parse(datetime)
 
     self.observ_date = dt.to_date
-    self.start_time = dt.strftime("%R") # = %H:%M
+    if dt =~ /\d\d:\d\d$/
+      self.start_time = dt.strftime("%R") # = %H:%M
+    end
 
     protocol = page.xpath("//dl[dt[text()='Protocol:']]/dd").text
 
@@ -79,15 +83,19 @@ class EbirdChecklist
       self.distance_kms = val
     end
 
+    party = page.xpath("//dl[dt[text()='Party Size:']]/dd").text
+    if party != "1"
+      self.observers = party
+      #self.observers = page.xpath("//dl[dt[text()='Observers:']]/dd").text. TODO: beautify the text
+    end
+
     comments = page.css("dl.report-comments dd").text
 
     unless comments == "N/A"
       self.notes = comments
     end
 
-    # fixme: not working properly
     self.location_string = page.css("h5.obs-loc").text
-    #@card.locus = Locus.where("'#{@ebird_location}' LIKE (name_en||'%')").first
 
     self.observations = []
 
