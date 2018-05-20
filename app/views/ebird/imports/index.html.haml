@@ -1,5 +1,7 @@
 - stylesheet "forms"
 
+- javascript "ebird_imports"
+
 - @page_title = "eBird Imports"
 
 %h1= page_header
@@ -9,7 +11,7 @@
 
 = form_tag ebird_imports_path, method: :get, class: "simple_form" do
   = label_tag :date
-  = date_field_tag :date
+  = date_field_tag :date, Card.maximum(:observ_date) + 1, required: true
   = submit_tag "Fetch"
 
 - if @checklists
@@ -44,9 +46,3 @@
                     include_blank: true, class: "locus_select"
     = submit_tag "Import"
 
-:javascript
-  $(function() {
-      $("select.locus_select").combobox();
-    // Mark autocomplete locus field as required
-    $('input#c__locus_id').prop('required', true);
-    })
