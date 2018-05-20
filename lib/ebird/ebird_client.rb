@@ -31,9 +31,8 @@ class EbirdClient
     end
   end
 
-  def get_checklist(ebird_id)
-    url = "https://ebird.org/view/checklist/#{ebird_id}"
-    @agent.get(url)
+  def fetch_checklist(checklist)
+    @agent.get(checklist.url)
   end
 
 end

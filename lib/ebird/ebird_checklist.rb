@@ -18,10 +18,14 @@ class EbirdChecklist
     @ebird_id = ebird_id
   end
 
+  def url
+    "https://ebird.org/view/checklist/#{ebird_id}"
+  end
+
   def fetch!(client = nil)
     agent = client || EbirdClient.new
 
-    page = agent.get_checklist(ebird_id)
+    page = agent.fetch_checklist(self)
 
     parse!(page)
 
@@ -44,10 +48,6 @@ class EbirdChecklist
   end
 
   private
-
-  def url
-    "https://ebird.org/view/checklist/#{ebird_id}"
-  end
 
   def parse!(page)
     datetime = page.css("h5.rep-obs-date").text
