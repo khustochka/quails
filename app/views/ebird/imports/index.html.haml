@@ -27,16 +27,21 @@
         %tr
           %td
             = list[:ebird_id]
-            = hidden_field_tag "c[][ebird_id]", list[:ebird_id]
+            - unless list[:card]
+              = hidden_field_tag "c[][ebird_id]", list[:ebird_id]
           %td
             %nobr= list[:time]
           %td= list[:location]
           %td= list[:county]
           %td= list[:state_prov]
           %td.ebird-locus-select-td
-            = select_tag "c[][locus_id]",
-                options_from_collection_for_select(Locus.suggestion_order, :id, :to_label, Locus.find_by_name_en(list[:location])&.id),
-                include_blank: true, class: "locus_select"
+            - if list[:card]
+              %span.fa.fa-check.green-check
+              = link_to "Card", list[:card]
+            - else
+              = select_tag "c[][locus_id]",
+                    options_from_collection_for_select(Locus.suggestion_order, :id, :to_label, Locus.find_by_name_en(list[:location])&.id),
+                    include_blank: true, class: "locus_select"
     = submit_tag "Import"
 
 :javascript
