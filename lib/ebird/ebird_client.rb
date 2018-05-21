@@ -34,6 +34,7 @@ class EbirdClient
   end
 
   def fetch_checklist(checklist)
+    authenticate unless @authenticated
     @agent.get(checklist.url)
   end
 
