@@ -3,8 +3,8 @@ require "ebird/ebird_client"
 class EbirdChecklist
 
   attr_reader :ebird_id
-  attr_accessor :observ_date, :start_time, :effort_type, :duration_minutes, :distance_kms, :notes,
-                :observers, :location_string, :observations
+  attr_accessor :observ_date, :start_time, :effort_type, :duration_minutes, :distance_kms, :area_acres,
+                :notes, :observers, :location_string, :observations
 
   PROTOCOL_TO_EFFORT = {
       "Traveling" => "TRAVEL",
@@ -41,6 +41,7 @@ class EbirdChecklist
             effort_type: effort_type,
             duration_minutes: duration_minutes,
             distance_kms: distance_kms,
+            area_acres: area_acres,
             observers: observers,
             notes: notes || "",
             #locus: locus,
@@ -81,6 +82,11 @@ class EbirdChecklist
       end
 
       self.distance_kms = val
+    end
+
+    area = page.css("div.bd").text.match(/Area:\s+([\d.]+) ac/)
+    if area
+      self.area_acres = area[1]
     end
 
     party = page.xpath("//dl[dt[text()='Party Size:']]/dd").text
