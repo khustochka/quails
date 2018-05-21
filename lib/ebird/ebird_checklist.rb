@@ -56,7 +56,7 @@ class EbirdChecklist
     dt = Time.zone.parse(datetime)
 
     self.observ_date = dt.to_date
-    if dt =~ /\d\d:\d\d$/
+    if datetime =~ /\d:\d\d( (AM|PM))?[\s]*$/
       self.start_time = dt.strftime("%R") # = %H:%M
     end
 
