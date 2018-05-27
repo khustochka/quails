@@ -30,7 +30,7 @@ class EbirdClient
           ebird_id: ebird_id,
           card: Card.find_by_ebird_id(ebird_id)
       }
-    end
+    end.reverse
   end
 
   def fetch_checklist(checklist)
