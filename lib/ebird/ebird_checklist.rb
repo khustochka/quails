@@ -115,7 +115,7 @@ class EbirdChecklist
       voice = false
 
       notes = row.css(".obs-comments").text
-      if notes.downcase == "v"
+      if notes.downcase == "v" || notes.downcase == "heard"
         notes = ""
         voice = true
       end
