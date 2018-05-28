@@ -11,7 +11,7 @@
 
 = form_tag ebird_imports_path, method: :get, class: "simple_form" do
   = label_tag :date
-  = date_field_tag :date, Card.maximum(:observ_date) + 1, required: true
+  = date_field_tag :date, params[:date].presence || Card.maximum(:observ_date) + 1, required: true
   = submit_tag "Fetch"
 
 - if @checklists
