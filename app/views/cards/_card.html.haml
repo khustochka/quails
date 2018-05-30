@@ -4,12 +4,18 @@
       = hidden_field_tag("card_id[]", card.id)
       = link_to card.observ_date, day_path(card.observ_date)
       = surround('[', ']') do
-        = link_to 'show', card_path(card), class: 'pseudolink'
-      = surround('[', ']') do
         %b= link_to 'edit', edit_card_path(card), class: 'pseudolink'
     %li
       %small
         %i= card.locus.decorated.short_full_name
+    %li
+      %small
+        = surround('[', ']') do
+          = link_to 'show', card_path(card), class: 'pseudolink'
+        = surround('[ ', ' ]') do
+          = link_to edit_map_path(q: {card_id: card.id}), class: 'pseudolink' do
+            = "map (#{card.mapped_percentage})"
+            = image_tag("/img/kml_logo.png", width: 16) if card.kml_url.present?
   %ul.card_cell
     %li
       Obs:
@@ -34,22 +40,19 @@
         %small= post_link(card.post.decorated.title, card.post)
       - else
         %i.less-important.grayout No post
-      - if card.ebird_id
-        %p= link_to "eBird Checklist", "https://ebird.org/ebird/view/checklist?subID=#{card.ebird_id}"
     - if @post
       %li= attach_detach_link(card)
   %ul.card_cell
     %li
-      = surround('[ ', ' ]') do
-        = link_to edit_map_path(q: {card_id: card.id}), class: 'pseudolink' do
-          = card.mapped? ? "edit map (<b>#{card.mapped_percentage}</b>)".html_safe : '<b>MAP IT!</b>'.html_safe
-          = image_tag("/img/kml_logo.png", width: 16) if card.kml_url.present?
 
       - tag_class = card.effort_type.downcase
       %small{class: "#{tag_class} tag"}= card.effort_type
 
       - unless card.resolved
         %small.draft.tag UNRESOLVED
+
+      - if card.ebird_id
+        %small= link_to "eBird", "https://ebird.org/ebird/view/checklist?subID=#{card.ebird_id}"
 
     %li.card_time
       = card.start_time + ", " if card.start_time
