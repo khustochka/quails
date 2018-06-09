@@ -24,11 +24,11 @@
 
   %dt Order
   %dd
-    %i= @taxon.order
+    = @taxon.order
 
   %dt Family
   %dd
-    %i= @taxon.family
+    = @taxon.family
 
 
 = simple_form_for [@book, @taxon] do |form|
