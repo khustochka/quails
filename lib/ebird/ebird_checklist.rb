@@ -14,6 +14,8 @@ class EbirdChecklist
       "Historical" => "HISTORICAL"
   }
 
+  DURATION_REGEX = /^(?:(\d+) hour\(s\)(?:, )?)?(?:(\d+) minute\(s\))?$/
+
 
   def initialize(ebird_id)
     @ebird_id = ebird_id
@@ -67,7 +69,7 @@ class EbirdChecklist
 
     duration = page.xpath("//dl[dt[text()='Duration:']]/dd").text
     if duration.present?
-      md = duration.match(/^(?:(\d+) hour\(s\), )?(\d+) minute\(s\)$/)
+      md = duration.match(DURATION_REGEX)
 
       self.duration_minutes = md[1].to_i * 60 + md[2].to_i
     end
