@@ -14,6 +14,15 @@ GIT
       jquery-rails
       railties (>= 3.2, < 6.0)
 
+GIT
+  remote: https://github.com/thoughtbot/capybara-webkit.git
+  revision: 778ec7f43cd1e8de272c2fc7023ce9d52fa74f9d
+  ref: 778ec7f43cd1e8de272c2fc7023ce9d52fa74f9d
+  specs:
+    capybara-webkit (1.15.0)
+      capybara (>= 2.3, < 4.0)
+      json
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -67,7 +76,7 @@ GEM
       public_suffix (>= 2.0.2, < 4.0)
     airbrake (7.3.4)
       airbrake-ruby (~> 2.10)
-    airbrake-ruby (2.10.0)
+    airbrake-ruby (2.11.0)
     ancestry (3.0.2)
       activerecord (>= 3.2.0)
     arel (9.0.0)
@@ -78,16 +87,13 @@ GEM
       msgpack (~> 1.0)
     builder (3.2.3)
     byebug (10.0.2)
-    capybara (2.18.0)
+    capybara (3.3.1)
       addressable
       mini_mime (>= 0.1.3)
-      nokogiri (>= 1.3.3)
-      rack (>= 1.0.0)
-      rack-test (>= 0.5.4)
-      xpath (>= 2.0, < 4.0)
-    capybara-webkit (1.15.0)
-      capybara (>= 2.3, < 4.0)
-      json
+      nokogiri (~> 1.8)
+      rack (>= 1.6.0)
+      rack-test (>= 0.6.3)
+      xpath (~> 3.1)
     childprocess (0.9.0)
       ffi (~> 1.0, >= 1.0.11)
     coderay (1.1.2)
@@ -279,7 +285,7 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
-    selenium-webdriver (3.12.0)
+    selenium-webdriver (3.13.0)
       childprocess (~> 0.5)
       rubyzip (~> 1.2)
     sexp_processor (4.11.0)
@@ -345,8 +351,8 @@ DEPENDENCIES
   bcrypt (~> 3.1.7)
   benchmark-ips
   bootsnap
-  capybara (~> 2.18)
-  capybara-webkit (~> 1.14)
+  capybara
+  capybara-webkit!
   coffee-rails
   dotenv-rails
   factory_bot_rails

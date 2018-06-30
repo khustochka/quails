@@ -96,9 +96,9 @@ group :development, :test do
 end
 
 group :test do
-  gem 'capybara', '~> 2.18'
+  gem 'capybara'
   # This is a driver for headless JS tests (default).
-  gem 'capybara-webkit', "~> 1.14"
+  gem 'capybara-webkit', git: "https://github.com/thoughtbot/capybara-webkit.git", ref: "778ec7f43cd1e8de272c2fc7023ce9d52fa74f9d"
   # And this one is if you want to see it in a real browser.
   gem 'selenium-webdriver'
 #  gem 'poltergeist', platforms: [:mri], require: false
