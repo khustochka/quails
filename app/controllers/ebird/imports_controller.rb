@@ -6,12 +6,13 @@ class Ebird::ImportsController < ApplicationController
 
   def index
     date = params[:date]
+    client = EbirdClient.new
+    client.authenticate
     if date.present?
-      client = EbirdClient.new
-      client.authenticate
       @checklists = client.get_checklists_for_date(date)
-    elsif date == ""
-      flash.now.notice = "Select date."
+    else
+      last_date = Card.maximum(:observ_date) || Time.now.to_date
+      @checklists = client.get_checklists_after_date(last_date)
     end
 
   end
