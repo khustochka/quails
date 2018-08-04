@@ -1,0 +1,55 @@
+.mail-centered {
+  text-align: center;
+}
+
+a, a:hover {
+  color: #448044;
+  text-decoration: none;
+  border-bottom: 1px solid #448044;
+}
+
+p {
+  margin: 14px 0 !important;
+}
+
+.mail-wrapper {
+  margin: 5px auto;
+  text-align: left;
+  max-width: 800px;
+  border: 1px solid #cccccc;
+  padding: 0;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 14px;
+}
+
+.mail-header {
+  font-size: 23px;
+  font-weight: bold;
+  padding: 30px 40px;
+  background-color: #eeeeee;
+}
+
+.mail-inner-body {
+  padding: 20px 40px;
+}
+
+.mail-top-comment-wrapper {
+  padding: 10px 0 10px 0;
+}
+
+.mail-child-comment-wrapper {
+  padding: 0 0 10px 40px;
+}
+
+.mail-comment-panel {
+  padding: 10px 5px 1px 15px;
+  border-left: 4px solid lightskyblue;
+  background-color: #eeeeee;
+}
+
+.mail-footer {
+  padding: 20px 10px;
+  background-color: #eeeeee;
+  font-size: 11px;
+  color: #777777;
+}

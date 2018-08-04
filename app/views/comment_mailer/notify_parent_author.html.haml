@@ -1,24 +1,24 @@
-%div{:style => "padding: 20px 40px;"}
+%div.mail-inner-body
   %p
-    На ваш комментарий к записи «#{link_to @comment.post.decorated.title, show_post_url(@comment.post.to_url_params.merge(only_path: false, host: @host)), style: "color:#448044;text-decoration:none;border-bottom:1px solid #448044;"}» получен ответ:
-  %div{:style => "padding: 10px 0 10px 0;"}
-    %div{:style => "padding: 10px 5px 1px 15px; border-left: 4px solid lightskyblue;background-color: #eeeeee;"}
+    На ваш комментарий к записи «#{link_to @comment.post.decorated.title, show_post_url(@comment.post.to_url_params.merge(only_path: false, host: @host))}» получен ответ:
+  %div.mail-top-comment-wrapper
+    %div.mail-comment-panel
       %b= @comment.parent_comment.decorated.name
       %small
-        (#{link_to(I18n.l(@comment.parent_comment.created_at, format: :long), show_post_url(@comment.post.to_url_params.merge(anchor: "comment#{@comment.parent_comment.id}", only_path: false, host: @host)), style: "color:#448044;text-decoration:none;border-bottom:1px solid #448044;")})
+        (#{link_to(I18n.l(@comment.parent_comment.created_at, format: :long), show_post_url(@comment.post.to_url_params.merge(anchor: "comment#{@comment.parent_comment.id}", only_path: false, host: @host)))})
       = @comment.parent_comment.decorated.text
-  %div{:style => "padding: 0 0 10px 40px;"}
-    %div{:style => "padding: 10px 5px 1px 15px; border-left: 4px solid lightskyblue;background-color: #eeeeee;"}
+  %div.mail-child-comment-wrapper
+    %div.mail-comment-panel
       %b= @comment.decorated.name
       %small
-        (#{link_to(I18n.l(@comment.parent_comment.created_at, format: :long), show_post_url(@comment.post.to_url_params.merge(anchor: "comment#{@comment.id}", only_path: false, host: @host)), style: "color:#448044;text-decoration:none;border-bottom:1px solid #448044;")})
+        (#{link_to(I18n.l(@comment.parent_comment.created_at, format: :long), show_post_url(@comment.post.to_url_params.merge(anchor: "comment#{@comment.id}", only_path: false, host: @host)))})
       = @comment.decorated.text
   %p
     Вы можете
     %b
-      %a{:href => "#{show_post_url(@comment.post.to_url_params.merge(anchor: "comment#{@comment.parent_comment.id}", only_path: false, host: @host))}", :style => "color:#448044;text-decoration:none;border-bottom:1px solid #448044;"} ответить
+      %a{:href => "#{show_post_url(@comment.post.to_url_params.merge(anchor: "comment#{@comment.parent_comment.id}", only_path: false, host: @host))}"} ответить
     на этот комментарий на странице записи.
-%div{:style => "padding:20px 10px;background-color:#eeeeee;font-size: 11px; color: #777777;"}
+%div.mail-footer
   Отказаться от получения уведомлений об ответах на этот комментарий:
   = succeed "." do
-    %a{:href => "#{unsubscribe_request_comments_url(token: @comment.parent_comment.unsubscribe_token, host: @host)}", :rel => "unsubscribe", :style => "color:#448044;text-decoration:none;border-bottom:1px solid #448044;"} отписаться
+    %a{:href => "#{unsubscribe_request_comments_url(token: @comment.parent_comment.unsubscribe_token, host: @host)}", :rel => "unsubscribe"} отписаться
