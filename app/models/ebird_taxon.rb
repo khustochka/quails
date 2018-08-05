@@ -68,4 +68,6 @@ class EbirdTaxon < ApplicationRecord
 
   end
 
+  alias_method :find_or_promote_to_taxon, :promote
+
 end
