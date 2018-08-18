@@ -70,10 +70,11 @@ class Taxon < ApplicationRecord
 
         if new_species.nil?
           new_species = Species.find_by_name_sci(name_sci)
-          # Unlink old taxa
-          if new_species
-            new_species.taxa.each {|tx| tx.update_attributes(species_id: nil)}
-          end
+        end
+
+        # Unlink old taxa
+        if new_species
+          new_species.taxa.where.not(id: self.id).each {|tx| tx.update_attributes(species_id: nil)}
         end
 
         if new_species.nil?
@@ -96,8 +97,7 @@ class Taxon < ApplicationRecord
             family: family.match(/^\w+dae/)[0]
         )
 
-        self.species_id = new_species.id # Necessary for species that existed already!
-        save!
+        self.update_attributes!(species_id: new_species.id)
 
         self.children.each {|tx| tx.update_attributes(species_id: new_species.id)}
 
