@@ -1,9 +1,9 @@
 FactoryBot.define do
   factory :comment do
-    parent_id nil
-    name 'Commenter'
-    text 'Ahhaha!'
+    parent_id { nil }
+    name { 'Commenter' }
+    text { 'Ahhaha!' }
     association :post
-    approved true
+    approved { true }
   end
 end

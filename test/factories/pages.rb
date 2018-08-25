@@ -2,8 +2,8 @@
 
 FactoryBot.define do
   factory :page do
-    title "MyString"
-    text "MyText"
-    public true
+    title { "MyString" }
+    text { "MyText" }
+    public { true }
   end
 end
