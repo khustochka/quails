@@ -139,12 +139,9 @@ class FormattersTest < ActionDispatch::IntegrationTest
   end
 
   test "Feed entry with species link" do
-    skip
-    # does not work
-    Rails.application.routes.default_url_options[:host] = 'localhost'
     post = build(:post, text: "This is a {{Wryneck|jyntor}}")
     assert_equal "<p>This is a <a class=\"sp_link\" href=\"https://localhost:3011/species/Jynx_torquilla\">Wryneck</a></p>",
-                 post.decorated.for_feed.text
+                 post.decorated({host: "localhost", port: 3011}).for_feed.text
   end
 
 end
