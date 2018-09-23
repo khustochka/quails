@@ -16,6 +16,8 @@ class Locus < ApplicationRecord
 
   has_many :local_species
 
+  belongs_to :ebird_location, optional: true
+
   after_save do |record|
     Rails.cache.delete("records/loci/country/#{record.slug}")
   end

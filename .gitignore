@@ -12,6 +12,7 @@
 !.babelrc
 !.postcssrc.yml
 .bundle
+data/checklists
 db/*.sqlite3
 db/seed
 config/database.yml
