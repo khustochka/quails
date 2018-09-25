@@ -21,9 +21,6 @@ Rails.application.configure do
     FileUtils.rm_rf(Dir['tmp/cache/[^.]*'])
     config.action_controller.perform_caching = true
 
-    # Folder for page_caching
-    config.action_controller.page_cache_directory = "#{Rails.root.to_s}/public"
-
     # config.cache_store = :memory_store
     config.public_file_server.headers = {
       'Cache-Control' => "public, max-age=#{2.days.to_i}"
