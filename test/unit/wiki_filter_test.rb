@@ -19,6 +19,11 @@ class WikiFilterTest < ActionDispatch::IntegrationTest
                  transform('{{Wryneck|jyntor}}')
   end
 
+  test 'properly parse species by legacy code {{Stonechat|saxtor}}' do
+    assert_equal %Q(<a class="sp_link" href="/species/Saxicola_rubicola">Stonechat</a>),
+                 transform('{{Stonechat|saxtor}}')
+  end
+
   test 'properly parse species by bare code {{jyntor}}' do
     assert_equal %Q(<a class="sp_link" href="/species/Jynx_torquilla">Jynx torquilla</a>),
                  transform('{{jyntor}}')
