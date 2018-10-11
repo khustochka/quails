@@ -16,10 +16,10 @@ GIT
 
 GIT
   remote: https://github.com/thoughtbot/capybara-webkit.git
-  revision: 778ec7f43cd1e8de272c2fc7023ce9d52fa74f9d
-  ref: 778ec7f43cd1e8de272c2fc7023ce9d52fa74f9d
+  revision: 77fdac424cd6fdb5aa266b229a888cc58da8e95e
+  ref: 77fdac424cd6fdb5aa266b229a888cc58da8e95e
   specs:
-    capybara-webkit (1.15.0)
+    capybara-webkit (1.15.1)
       capybara (>= 2.3, < 4.0)
       json
 
@@ -87,7 +87,7 @@ GEM
       msgpack (~> 1.0)
     builder (3.2.3)
     byebug (10.0.2)
-    capybara (3.8.2)
+    capybara (3.9.0)
       addressable
       mini_mime (>= 0.1.3)
       nokogiri (~> 1.8)
@@ -207,7 +207,7 @@ GEM
       connection_pool (~> 2.2)
     newrelic_rpm (5.4.0.347)
     nio4r (2.3.1)
-    nokogiri (1.8.4)
+    nokogiri (1.8.5)
       mini_portile2 (~> 2.3.0)
     ntlm-http (0.1.1)
     pg (1.1.3)
@@ -295,9 +295,9 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
-    selenium-webdriver (3.14.0)
+    selenium-webdriver (3.14.1)
       childprocess (~> 0.5)
-      rubyzip (~> 1.2)
+      rubyzip (~> 1.2, >= 1.2.2)
     sexp_processor (4.11.0)
     simple_form (4.0.1)
       actionpack (>= 5.0)
@@ -406,4 +406,4 @@ RUBY VERSION
    ruby 2.5.1p57
 
 BUNDLED WITH
-   1.16.5
+   1.16.6
