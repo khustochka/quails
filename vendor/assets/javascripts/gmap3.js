@@ -1290,7 +1290,7 @@ function InternalClusterer($container, map, raw) {
   // async the delay function
   function delayRedraw() {
     clearTimeout(timer);
-    timer = setTimeout(redraw, 25);
+    timer = setTimeout(redraw, 250);
   }
 
   // generate bounds extended by radius
