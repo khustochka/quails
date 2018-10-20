@@ -1197,8 +1197,11 @@ function InternalClusterer($container, map, raw) {
       return;
     }
     ready = true;
-    events.push(gm.event.addListener(map, "zoom_changed", delayRedraw));
-    events.push(gm.event.addListener(map, "bounds_changed", delayRedraw));
+    // events.push(gm.event.addListener(map, "zoom_changed", delayRedraw));
+    // events.push(gm.event.addListener(map, "bounds_changed", delayRedraw));
+    // V. Khustochka: my change over original.
+    // idle: This event is fired when the map becomes idle after panning or zooming.
+    events.push(gm.event.addListener(map, "idle", delayRedraw));
     redraw();
   }
 
@@ -1290,7 +1293,7 @@ function InternalClusterer($container, map, raw) {
   // async the delay function
   function delayRedraw() {
     clearTimeout(timer);
-    timer = setTimeout(redraw, 250);
+    timer = setTimeout(redraw, 25);
   }
 
   // generate bounds extended by radius
