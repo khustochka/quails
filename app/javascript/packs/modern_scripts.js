@@ -3,6 +3,12 @@
 // will not interfere with other scripts.
 
 import Turbolinks from 'turbolinks';
+
+// import * as ActiveStorage from "activestorage";
+// import "../utils/direct_uploads.js"
+//
+// ActiveStorage.start();
+
 import Likely from 'ilyabirman-likely';
 require("ilyabirman-likely/release/likely.css");
 
