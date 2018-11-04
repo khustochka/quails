@@ -63,6 +63,9 @@ gem 'roman-numerals'
 gem 'airbrake'
 gem 'newrelic_rpm'
 
+# Image processing
+gem "mini_magick"
+
 # Assets
 gem 'webpacker', '~> 3.5.2'
 gem "sprockets-rails"
