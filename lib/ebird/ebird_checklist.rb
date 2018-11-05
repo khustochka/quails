@@ -111,7 +111,8 @@ class EbirdChecklist
       count = row.css(".se-count").text
       count = nil if count == "X"
 
-      taxon = row.css("h5.se-name a").children[0].text.strip
+      species_part = row.css("h5.se-name a").presence || row.css("h5.se-name")
+      taxon = species_part.children[0].text.strip
       ebird_taxon = EbirdTaxon.find_by_name_en(taxon)
 
       tx = ebird_taxon.find_or_promote_to_taxon
