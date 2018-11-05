@@ -104,6 +104,15 @@ class Image < Media
     Thumbnail.new(self, title, self, {image: {id: id}})
   end
 
+  def source_image_to_asset_item
+    ImageAssetItem.new(
+        "a",
+        source_image.metadata[:width],
+        source_image.metadata[:height],
+        Rails.application.routes.url_helpers.rails_blob_path(source_image, only_path: true)
+    )
+  end
+
   private
 
   def prev_next_by(sp)

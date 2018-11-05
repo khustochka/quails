@@ -56,7 +56,9 @@ class Thumbnail
 
   private
   def image_asset
-    if @image.external_id
+    if @image.on_s3?
+      @image.source_image_to_asset_item
+    elsif @image.external_id
       @image.assets_cache.externals.find_max_size(height: [@height || THUMBNAIL_HEIGHT, 436].max)
     else
       @image.assets_cache.locals.find_max_size(height: [@height || THUMBNAIL_HEIGHT, 436].max)
