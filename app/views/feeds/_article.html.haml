@@ -16,7 +16,7 @@
         %time.op-modified{:datetime => "#{mod_time.iso8601}"}= mod_time
         %address
           = t('author.name')
-        - if img_url = post.cover_image_url
+        - if img_url = post_cover_image_url(post)
           %figure
             %img{src: img_url}/
       = render partial: "article_body", locals: {post: post}

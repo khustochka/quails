@@ -10,8 +10,8 @@
     - @posts.each do |post|
       %tr
         %td.cover
-          - if post.cover_image_url
-            = image_tag(post.cover_image_url)
+          - if post_cover_image_url(post)
+            = image_tag(post_cover_image_url(post))
         %td
           %h2
             = link_to post.decorated.title, public_post_path(post)

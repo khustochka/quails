@@ -9,4 +9,15 @@ module PostsHelper
     end
   end
 
+  def post_cover_image_url(post)
+    if post.cover_image_slug.present?
+      if post.cover_image_slug =~ /\Ahttps?:\/\//
+        post.cover_image_slug
+      elsif img = Image.find_by_slug(post.cover_image_slug)
+        jpg_url(img)
+      end
+    end
+
+  end
+
 end

@@ -182,16 +182,6 @@ class Post < ApplicationRecord
     end
   end
 
-  def cover_image_url
-    if cover_image_slug.present?
-      if cover_image_slug =~ /\Ahttps?:\/\//
-        cover_image_slug
-      elsif img = Image.find_by_slug(cover_image_slug)
-        img.jpg_url
-      end
-    end
-  end
-
   private
 
   def check_cover_image_slug_or_url

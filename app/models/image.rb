@@ -98,14 +98,6 @@ class Image < Media
     Thumbnail.new(self, title, self, {image: {id: id}})
   end
 
-  def jpg_url()
-    if on_flickr?
-      assets_cache.externals.main_image.full_url
-    else
-      assets_cache.locals.main_image.try(:full_url) || "#{ImagesHelper.image_host}/#{img.slug}.jpg"
-    end
-  end
-
   private
 
   def prev_next_by(sp)
