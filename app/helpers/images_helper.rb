@@ -6,7 +6,9 @@ module ImagesHelper
   }
 
   def jpg_url(img)
-    if img.on_flickr?
+    if img.on_s3?
+      rails_blob_url(img.source_image)
+    elsif img.on_flickr?
       img.assets_cache.externals.main_image.full_url
     else
       img.assets_cache.locals.main_image.try(:full_url) || legacy_image_url("#{img.slug}.jpg")

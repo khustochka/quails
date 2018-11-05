@@ -46,6 +46,10 @@ class Video < Media
     Thumbnail.new(self, title, self, {video: {id: id}})
   end
 
+  def on_s3?
+    false
+  end
+
   private
 
   def update_thumbnail

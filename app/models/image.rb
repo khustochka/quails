@@ -11,6 +11,8 @@ class Image < Media
 
   has_many :children, -> { basic_order }, class_name: 'Image', foreign_key: 'parent_id'
 
+  has_one_attached :source_image
+
   validates :external_id, uniqueness: true, allow_nil: true, exclusion: {in: ['']}
   validates :status, inclusion: STATES, presence: true, length: {maximum: 16}
 
@@ -69,6 +71,10 @@ class Image < Media
 
   def on_flickr?
     flickr_id.present?
+  end
+
+  def on_s3?
+    source_image.attachment.present?
   end
 
   def multi?
