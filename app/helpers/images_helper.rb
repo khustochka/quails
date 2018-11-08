@@ -7,7 +7,7 @@ module ImagesHelper
 
   def jpg_url(img)
     if img.on_s3?
-      rails_blob_url(img.source_image)
+      rails_blob_url(img.source_image, only_path: true)
     elsif img.on_flickr?
       img.assets_cache.externals.main_image.full_url
     else

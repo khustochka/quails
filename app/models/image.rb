@@ -7,14 +7,14 @@ class Image < Media
 
   STATES = %w(PUBLIC NOINDEX POST_ONLY EBIRD_ONLY PRIVATE)
 
-  default_scope -> { where(media_type: 'photo') }
-
   has_many :children, -> { basic_order }, class_name: 'Image', foreign_key: 'parent_id'
 
   has_one_attached :source_image
 
   validates :external_id, uniqueness: true, allow_nil: true, exclusion: {in: ['']}
   validates :status, inclusion: STATES, presence: true, length: {maximum: 16}
+
+  default_scope -> { where(media_type: 'photo').preload(:source_image_attachment) }
 
   scope :unflickred, -> { where(external_id: nil) }
 
@@ -109,8 +109,17 @@ class Image < Media
         "a",
         source_image.metadata[:width],
         source_image.metadata[:height],
-        Rails.application.routes.url_helpers.rails_blob_path(source_image, only_path: true)
+        source_image_thumbnail_variant
     )
+  end
+
+  def source_image_thumbnail_variant
+    resize = if source_image.metadata[:width] >= source_image.metadata[:height]
+      "800x>"
+    else
+      "x600>"
+             end
+    source_image.variant(resize: resize)
   end
 
   private
