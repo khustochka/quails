@@ -73,8 +73,6 @@ gem 'coffee-rails'
 gem 'font-awesome-sass', "~> 4.7.0"
 gem "premailer-rails"
 
-gem "sass", "3.6.0" # Later versions mess with \9 IE hack (in production)
-
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 
 gem 'uglifier', '>= 1.3.0'

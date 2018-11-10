@@ -206,7 +206,7 @@ GEM
     net-http-digest_auth (1.4.1)
     net-http-persistent (3.0.0)
       connection_pool (~> 2.2)
-    newrelic_rpm (5.4.0.347)
+    newrelic_rpm (5.5.0.348)
     nio4r (2.3.1)
     nokogiri (1.8.5)
       mini_portile2 (~> 2.3.0)
@@ -286,7 +286,7 @@ GEM
     ruby_parser (3.11.0)
       sexp_processor (~> 4.9)
     rubyzip (1.2.2)
-    sass (3.6.0)
+    sass (3.7.2)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
       rb-fsevent (~> 0.9, >= 0.9.4)
@@ -395,7 +395,6 @@ DEPENDENCIES
   resque
   rinku
   roman-numerals
-  sass (= 3.6.0)
   sass-rails (~> 5.0)
   selenium-webdriver
   simple_form (~> 4.0)
