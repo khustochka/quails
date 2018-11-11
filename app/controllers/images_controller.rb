@@ -39,12 +39,7 @@ class ImagesController < ApplicationController
 
   # GET /photos/new
   def new
-    @image = Image.new(params[:i])
-    @photo = FlickrPhoto.new(@image)
-    if @image.on_flickr? && !@image.persisted?
-      @flickr_id_in_use = Image.where(external_id: @image.flickr_id).first
-    end
-
+    @image = Image.new
     render 'form'
   end
 
@@ -82,32 +77,38 @@ class ImagesController < ApplicationController
 
   # POST /photos
   def create
-    @image = Image.new
+    @image = Image.new(image_params)
 
     flickr_id = params[:image][:flickr_id]
 
     @photo = FlickrPhoto.new(@image)
     @photo.bind_with_flickr(flickr_id)
 
-    if @image.update(image_params)
-
-      if params[:new_on_flickr]
-        @photo.update!
-      end
-
-      if ImagesHelper.local_image_path && !Rails.env.test?
-        full_path = File.join(ImagesHelper.local_image_path, "#{image_params[:slug]}.jpg")
-        if File.exist?(full_path)
-          w, h = `identify -format "%Wx%H" #{full_path}`.split('x').map(&:to_i)
-          @image.assets_cache << ImageAssetItem.new(:local, w, h, "#{image_params[:slug]}.jpg")
-          @image.save!
-        end
-      end
-
+    if @image.save
       redirect_to(edit_map_image_path(@image), :notice => 'Image was successfully created. Map it now!')
     else
-      render 'form'
+      render "form"
     end
+
+    # if @image.update(image_params)
+    #
+    #   if params[:new_on_flickr]
+    #     @photo.update!
+    #   end
+    #
+    #   if ImagesHelper.local_image_path && !Rails.env.test?
+    #     full_path = File.join(ImagesHelper.local_image_path, "#{image_params[:slug]}.jpg")
+    #     if File.exist?(full_path)
+    #       w, h = `identify -format "%Wx%H" #{full_path}`.split('x').map(&:to_i)
+    #       @image.assets_cache << ImageAssetItem.new(:local, w, h, "#{image_params[:slug]}.jpg")
+    #       @image.save!
+    #     end
+    #   end
+    #
+    #   redirect_to(edit_map_image_path(@image), :notice => 'Image was successfully created. Map it now!')
+    # else
+    #   render 'form'
+    # end
   end
 
   # PUT /photos/1
@@ -169,8 +170,10 @@ class ImagesController < ApplicationController
 
   private
 
+  ACCEPTED_PARAMS = [:slug, :title, :description, :index_num, :has_old_thumbnail, :status, :source_image]
+
   def image_params
-    @image_params ||= params.require(:image).permit(*Image::NORMAL_PARAMS).merge(observation_ids: params[:obs] || [])
+    @image_params ||= params.require(:image).permit(*ACCEPTED_PARAMS).merge(observation_ids: params[:obs] || [])
   end
 
   def cache_expire

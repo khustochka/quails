@@ -3,8 +3,6 @@ class Image < Media
 
   invalidates CacheKey.gallery
 
-  NORMAL_PARAMS = [:slug, :title, :description, :index_num, :has_old_thumbnail, :status]
-
   STATES = %w(PUBLIC NOINDEX POST_ONLY EBIRD_ONLY PRIVATE)
 
   has_many :children, -> { basic_order }, class_name: 'Image', foreign_key: 'parent_id'
@@ -114,12 +112,7 @@ class Image < Media
   end
 
   def source_image_thumbnail_variant
-    resize = if source_image.metadata[:width] >= source_image.metadata[:height]
-      "800x>"
-    else
-      "x600>"
-             end
-    source_image.variant(resize: resize)
+    source_image.variant(resize: "800x600>")
   end
 
   private

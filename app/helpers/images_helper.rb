@@ -22,7 +22,9 @@ module ImagesHelper
   THUMBNAIL_HEIGHT = 218
 
   def thumbnail_item(img)
-    if img.on_flickr?
+    if img.on_s3?
+      img.source_image_to_asset_item
+    elsif img.on_flickr?
       img.assets_cache.externals.thumbnail
     else
       img.assets_cache.locals.thumbnail

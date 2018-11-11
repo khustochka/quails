@@ -19,24 +19,13 @@
 
 %p
   - if @image.on_flickr?
-
-    - if @flickr_id_in_use
-      %span.errors
-        The
-        = link_to "flickr photo", @photo.page_url
-        is already linked to the
-        = link_to "image", @flickr_id_in_use
-    - else
-      This image is
-      %b= link_to "linked to flickr photo", @photo.page_url
+    This image is
+    %b= link_to "linked to flickr photo", @photo.page_url
 
   - elsif @image.persisted?
     This image is not linked to flickr photo.
 
   = link_to('Edit flickr link', flickr_photo_path(@image)) if @image.persisted?
-
-- if @image.persisted?
-  %p= image_tag(thumbnail_item(@image).try(:full_url), class: 'image_pic')
 
 - if flash[:alert]
   %div.errors= flash[:alert]
@@ -48,6 +37,15 @@
 
 = simple_form_for @image, html: {class: 'image with_observations'} do |form|
 
+
+  - if @image.persisted? || @image.on_s3?
+    %p= image_tag(thumbnail_item(@image).try(:full_url), class: 'image_pic')
+    - if @image.on_s3?
+      = form.input :source_image, as: :hidden, input_html: {value: @image.source_image.blob.signed_id}
+  - else
+    %div
+      = form.input :source_image
+
   %div
     = form.input :slug
     = form.input :title
@@ -56,9 +54,6 @@
   = render partial: 'media/obs_draggable', locals: {media: @image}
 
   %div
-    - unless @image.persisted?
-      = form.input :flickr_id, as: :hidden
-      = hidden_field_tag(:new_on_flickr, "true") if params[:new_on_flickr]
     = form.input :description, input_html: {rows: 7, class: 'wiki_field'}
     = form.input :index_num, input_html: { size: 10, type: :text }
     = form.input :status, collection: Image::STATES, input_html: {size: '5'}, include_blank: false

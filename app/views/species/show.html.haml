@@ -1,4 +1,4 @@
-- @meta_thumbnail = thumbnail_item(@species.image).url if @species.image
+- @meta_thumbnail = url_for(thumbnail_item(@species.image).url) if @species.image
 
 - @canonical = localize_url(@species)
 
