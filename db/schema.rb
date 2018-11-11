@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_23_184011) do
+ActiveRecord::Schema.define(version: 2018_11_11_201914) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -213,6 +213,8 @@ ActiveRecord::Schema.define(version: 2018_09_23_184011) do
     t.integer "patch_id"
     t.string "place", limit: 255, default: "", null: false
     t.integer "taxon_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.index ["card_id"], name: "index_observations_on_card_id"
     t.index ["post_id"], name: "index_observations_on_post_id"
     t.index ["taxon_id"], name: "index_observations_on_taxon_id"
