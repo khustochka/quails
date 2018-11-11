@@ -1,3 +1,5 @@
+require "ebird/ebird_checklist"
+
 class ImportEbirdChecklistJob < ApplicationJob
   queue_as :default
 
