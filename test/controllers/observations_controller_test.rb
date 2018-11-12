@@ -13,7 +13,7 @@ class ObservationsControllerTest < ActionController::TestCase
 
   test "update observation" do
     observation = create(:observation)
-    observ = attributes_for(:observation, {'place' => 'New place'})
+    observ = attributes_for(:observation, {'notes' => 'New notes'})
     login_as_admin
     put :update, params: {id: observation.id, observation: observ}
     assert_redirected_to observation_path(assigns(:observation))
@@ -75,7 +75,7 @@ class ObservationsControllerTest < ActionController::TestCase
 
   test 'protect update with authentication' do
     observation = create(:observation)
-    observation.place = 'New place'
+    observation.notes = 'New notes'
     assert_raise(ActionController::RoutingError) { put :update, params: {id: observation.to_param, observation: observation.attributes} }
     #assert_response 404
   end

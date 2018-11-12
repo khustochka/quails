@@ -66,8 +66,7 @@ class EbirdObservation
   def notes_and_place
     [
         voice_component,
-        transliterate(@obs.notes),
-        transliterate(@obs.place)
+        transliterate(@obs.notes)
     ].
         delete_if(&:blank?).join("; ")
   end
