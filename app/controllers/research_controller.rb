@@ -65,7 +65,7 @@ class ResearchController < ApplicationController
         joins("INNER JOIN (#{unpic_rel.to_sql}) AS obs ON species.id=obs.species_id").order('cnt DESC').
         where("cnt > 1")
 
-    new_pic = MyObservation.joins(:images).select("species_id, MIN(created_at) as add_date").
+    new_pic = MyObservation.joins(:images).select("species_id, MIN(media.created_at) as add_date").
         group(:species_id)
     @new_pics = Species.select('*').joins("INNER JOIN (#{new_pic.to_sql}) AS obs ON species.id=obs.species_id").
         limit(15).order('add_date DESC')
