@@ -19,7 +19,6 @@ Quails.pages.cards =
     @initExtractorAndMover()
 
   initObservationRows: ->
-    $(".card_observations_private_notes").hide()
     @last_row_num = $('.obs-row').length - 1
     @sample_row_html = $('.obs-row:last')[0].outerHTML
     @tmpl_regex = new RegExp("(_|\\[)#{@last_row_num}(_|\\])", "g")

@@ -7,7 +7,6 @@
   %small.tag{class: "tag_#{obs.taxon.category}"}= obs.taxon.category
   = obs.quantity
   = obs.notes
-  = obs.place
   (#{obs.private_notes})
   %b= post_link('POST >>', obs.post)
   - if @post
