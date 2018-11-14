@@ -41,10 +41,10 @@
   - if @image.persisted? || @image.on_s3?
     %p= image_tag(thumbnail_item(@image).try(:full_url), class: 'image_pic')
     - if @image.on_s3?
-      = form.input :source_image, as: :hidden, input_html: {value: @image.source_image.blob.signed_id}
+      = form.input :stored_image, as: :hidden, input_html: {value: @image.stored_image.blob.signed_id}
   - else
     %div
-      = form.input :source_image
+      = form.input :stored_image
 
   %div
     = form.input :slug

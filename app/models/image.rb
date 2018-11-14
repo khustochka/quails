@@ -7,12 +7,12 @@ class Image < Media
 
   has_many :children, -> { basic_order }, class_name: 'Image', foreign_key: 'parent_id'
 
-  has_one_attached :source_image
+  has_one_attached :stored_image
 
   validates :external_id, uniqueness: true, allow_nil: true, exclusion: {in: ['']}
   validates :status, inclusion: STATES, presence: true, length: {maximum: 16}
 
-  default_scope -> { where(media_type: 'photo').preload(:source_image_attachment) }
+  default_scope -> { where(media_type: 'photo').preload(:stored_image_attachment) }
 
   scope :unflickred, -> { where(external_id: nil) }
 
@@ -72,7 +72,7 @@ class Image < Media
   end
 
   def on_s3?
-    source_image.attachment.present?
+    stored_image.attachment.present?
   end
 
   def multi?
@@ -102,17 +102,17 @@ class Image < Media
     Thumbnail.new(self, title, self, {image: {id: id}})
   end
 
-  def source_image_to_asset_item
+  def stored_image_to_asset_item
     ImageAssetItem.new(
         "a",
-        source_image.metadata[:width],
-        source_image.metadata[:height],
-        source_image_thumbnail_variant
+        stored_image.metadata[:width],
+        stored_image.metadata[:height],
+        stored_image_thumbnail_variant
     )
   end
 
-  def source_image_thumbnail_variant
-    source_image.variant(resize: "800x600>")
+  def stored_image_thumbnail_variant
+    stored_image.variant(resize: "800x600>")
   end
 
   private

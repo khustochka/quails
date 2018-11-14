@@ -170,7 +170,7 @@ class ImagesController < ApplicationController
 
   private
 
-  ACCEPTED_PARAMS = [:slug, :title, :description, :index_num, :has_old_thumbnail, :status, :source_image]
+  ACCEPTED_PARAMS = [:slug, :title, :description, :index_num, :has_old_thumbnail, :status, :stored_image]
 
   def image_params
     @image_params ||= params.require(:image).permit(*ACCEPTED_PARAMS).merge(observation_ids: params[:obs] || [])
