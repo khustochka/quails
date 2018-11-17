@@ -12,6 +12,10 @@ class Image < Media
   validates :external_id, uniqueness: true, allow_nil: true, exclusion: {in: ['']}
   validates :status, inclusion: STATES, presence: true, length: {maximum: 16}
 
+  # TODO: Validate: has attached image
+  # TODO: Validate: blob uniqueness
+  # TODO: Validate: blob content type
+
   default_scope -> { where(media_type: 'photo').preload(:stored_image_attachment) }
 
   scope :unflickred, -> { where(external_id: nil) }

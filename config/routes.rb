@@ -200,6 +200,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :blobs, only: [:create, :show]
+
   scope '/flickr' do
     get 'unflickred' => 'flickr_photos#unflickred', as: 'unflickred_photos'
     get 'unused' => 'flickr_photos#unused', as: 'flickr_unused'
