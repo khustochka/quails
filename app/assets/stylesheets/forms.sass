@@ -310,3 +310,59 @@ ul.obs-list
 
 .ebird-locus-select-td input
   width: 220px
+
+// Drag and drop file upload
+.dropsection
+  margin: 20px 5px
+
+.droparea
+  display: none
+  background-color: white
+  outline: 2px dashed #777777
+  height: 200px
+  margin: 10px 0
+  padding: 10px
+  text-align: center
+
+  span.drop__text
+    display: block
+    margin-top: 90px
+    label
+      display: inline-block
+      text-decoration: underline
+      cursor: pointer
+    &, & label
+      font-size: 20px
+      color: #555555
+
+.drop__uploading, .drop__success, .drop__error, .drop__analyzing
+  display: none
+
+form.has-advanced-upload
+
+  div.input.image_stored_image
+    display: none
+
+  .droparea
+    display: block
+
+form.is-dragover
+  .droparea
+    background-color: #bbccdd
+
+
+form.is-uploading
+  .droparea
+    visibility: hidden
+
+  .drop__uploading
+    display: block
+
+form.upload-error
+  .drop_error
+    display: block
+
+.drop__preview
+  img
+    max-width: 600px
+    max-height: 400px

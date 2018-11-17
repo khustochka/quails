@@ -44,8 +44,17 @@
     - if @image.on_s3?
       = form.input :stored_image, as: :hidden, input_html: {value: @image.stored_image.blob.signed_id}
   - else
-    %div
-      = form.input :stored_image
+    = form.input :stored_image
+    .dropsection
+      .droparea
+        %span.drop__text
+          Drop a file or <label for="image_stored_image" class="pseudilink dropfallback">select from dialog</label>.
+
+      .drop__preview
+      .drop__uploading Uploading&hellip;
+      .drop__analyzing Analyzing&hellip;
+      .drop__success Success
+      .drop__error Error
 
   %div
     = form.input :slug
