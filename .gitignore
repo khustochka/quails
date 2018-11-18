@@ -28,6 +28,7 @@ coverage/*
 # React on Rails
 npm-debug.log*
 node_modules
+storage/
 
 # Generated js bundles
 /public/webpack/*
