@@ -81,7 +81,7 @@ Quails.features.observDragger =
         return
 
     $("form.with_observations").submit ->
-      $(".observation_search").empty()
+      $("input, select, button", ".observation_search").prop('disabled', true)
       found_obs.empty()
       return
 
