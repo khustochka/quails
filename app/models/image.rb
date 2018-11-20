@@ -13,6 +13,7 @@ class Image < Media
   validates :status, inclusion: STATES, presence: true, length: {maximum: 16}
 
   validate :has_attached_image
+  validate :stored_image_valid_content_type
 
   # TODO: Validate: blob uniqueness
   # TODO: Validate: blob content type
@@ -153,10 +154,16 @@ SQL
   end
 
   def has_attached_image
-
     has_image = flickr_id || assets_cache.any? || stored_image_attachment
     if !has_image
       errors.add(:base, "should have image attached")
+    end
+  end
+
+  def stored_image_valid_content_type
+    # Convoluted because not all associations are created for unsaved image
+    if stored_image_attachment&.blob && !stored_image&.blob.image?
+      errors.add(:stored_image, "should have image content type")
     end
   end
 
