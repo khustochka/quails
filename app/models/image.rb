@@ -12,7 +12,8 @@ class Image < Media
   validates :external_id, uniqueness: true, allow_nil: true, exclusion: {in: ['']}
   validates :status, inclusion: STATES, presence: true, length: {maximum: 16}
 
-  # TODO: Validate: has attached image
+  validate :has_attached_image
+
   # TODO: Validate: blob uniqueness
   # TODO: Validate: blob content type
 
@@ -149,6 +150,14 @@ SQL
       join ranked this on that.rn between this.rn-1 and this.rn+1
       where this.id='#{self.id}' and this.rn <> that.rn"
     @prev_next[sp] = Image.find_by_sql(q).index_by(&:diff)
+  end
+
+  def has_attached_image
+
+    has_image = flickr_id || assets_cache.any? || stored_image_attachment
+    if !has_image
+      errors.add(:base, "should have image attached")
+    end
   end
 
 end

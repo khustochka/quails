@@ -1,6 +1,12 @@
 require 'test_helper'
 
 class ImagesControllerTest < ActionController::TestCase
+
+  def valid_image_attributes(attrs = {})
+    default = {stored_image: fixture_file_upload(Rails.root.join('public', 'apple-touch-icon.png'))}
+    attributes_for(:image, default.merge(attrs))
+  end
+
   setup do
     @image = create(:image)
     assert species(:pasdom).image
@@ -59,7 +65,7 @@ class ImagesControllerTest < ActionController::TestCase
 
   test "create image with one observation" do
     login_as_admin
-    new_attr = attributes_for(:image, slug: 'new_img_slug').except(:observations)
+    new_attr = valid_image_attributes(slug: 'new_img_slug').except(:observations)
     assert_difference('Image.count') do
       post :create, params: {image: new_attr, obs: [@obs.id]}
     end
@@ -71,7 +77,7 @@ class ImagesControllerTest < ActionController::TestCase
     login_as_admin
     obs2 = create(:observation, taxon: taxa(:pasdom), card: @obs.card)
     obs3 = create(:observation, taxon: taxa(:hirrus), card: @obs.card)
-    new_attr = attributes_for(:image, slug: 'new_img_slug').except(:observations)
+    new_attr = valid_image_attributes(slug: 'new_img_slug').except(:observations)
     assert_difference('Image.count') do
       post :create, params: {image: new_attr, obs: [@obs.id, obs2.id, obs3.id]}
       image = assigns(:image)
@@ -82,7 +88,7 @@ class ImagesControllerTest < ActionController::TestCase
 
   test "do not save image without slug" do
     login_as_admin
-    new_attr = attributes_for(:image, slug: '')
+    new_attr = valid_image_attributes(slug: '')
     assert_difference('Image.count', 0) do
       post :create, params: {image: new_attr, obs: [@obs.id]}
     end
@@ -92,7 +98,7 @@ class ImagesControllerTest < ActionController::TestCase
 
   test "do not save image with no observations" do
     login_as_admin
-    new_attr = attributes_for(:image, slug: 'new_img_slug')
+    new_attr = valid_image_attributes(slug: 'new_img_slug')
     assert_difference('Image.count', 0) do
       post :create, params: {image: new_attr, obs: []}
     end
