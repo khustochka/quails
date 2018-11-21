@@ -17,4 +17,14 @@ class ImagesAssociationsTest < ActiveSupport::TestCase
     assert_includes img.errors.full_messages, "Stored image should have image content type"
   end
 
+  test "validate blob uniqueness among images" do
+    img1 = Image.create(slug: "testimg1", observations: [FactoryBot.create(:observation)],
+                     stored_image: fixture_file_upload(Rails.root.join('public', 'apple-touch-icon.png')))
+
+    img2 = Image.new(slug: "testimg", observations: [FactoryBot.create(:observation)],
+                    stored_image: img1.stored_image.signed_id)
+    assert_not img2.valid?
+    assert_includes img2.errors.full_messages, "Stored image blob already in use by another image"
+  end
+
 end

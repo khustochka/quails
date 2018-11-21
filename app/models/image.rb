@@ -14,9 +14,7 @@ class Image < Media
 
   validate :has_attached_image
   validate :stored_image_valid_content_type
-
-  # TODO: Validate: blob uniqueness
-  # TODO: Validate: blob content type
+  validate :blob_uniqueness
 
   default_scope -> { where(media_type: 'photo').preload(:stored_image_attachment) }
 
@@ -164,6 +162,15 @@ SQL
     # Convoluted because not all associations are created for unsaved image
     if stored_image_attachment&.blob && !stored_image&.blob.image?
       errors.add(:stored_image, "should have image content type")
+    end
+  end
+
+  def blob_uniqueness
+    blob = stored_image_attachment&.blob
+    if blob
+      if Image.joins(:stored_image_attachment).where(active_storage_attachments: {blob_id: blob.id}).where.not(id: self.id).exists?
+        errors.add(:stored_image, "blob already in use by another image")
+      end
     end
   end
 
