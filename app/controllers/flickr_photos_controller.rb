@@ -43,9 +43,10 @@ class FlickrPhotosController < ApplicationController
   def destroy
     @photo.detach!
     if @photo.errors.any?
+      @image.reload
       render :show
     else
-      render json: @photo
+      render :show
     end
   end
 

@@ -78,13 +78,9 @@ class FlickrPhoto
   end
 
   def detach!
-    if @image.assets_cache.locals.any?
-      @image.assets_cache.swipe(:flickr)
-      @image.flickr_id = nil
-      save_with_caution
-    else
-      @errors.add(:base, "Photo has no local assets, cannot detach from flickr")
-    end
+    @image.assets_cache.swipe(:flickr)
+    @image.flickr_id = nil
+    save_with_caution
   end
 
   def page_url
