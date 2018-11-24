@@ -85,7 +85,7 @@ class ImagesController < ApplicationController
     @photo.bind_with_flickr(flickr_id)
 
     if @image.save
-      FlickrUploadJob.perform_later(@image)
+      FlickrUploadJob.perform_later(@image) if params[:upload_to_flickr]
       redirect_to(edit_map_image_path(@image), :notice => 'Image was successfully created. Map it now!')
     else
       render "form"
