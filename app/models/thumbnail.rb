@@ -39,6 +39,10 @@ class Thumbnail
     @width ||= (image_asset.width * (height.to_f / image_asset.height)).to_i
   end
 
+  def dummy_dimensions?
+    image_asset.dummy_dimensions?
+  end
+
   def force_width(value)
     @width = value
     @height = nil

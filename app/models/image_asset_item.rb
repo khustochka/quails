@@ -24,4 +24,17 @@ class ImageAssetItem < Struct.new(:type, :width, :height, :url)
     end
   end
 
+
+  def width
+    super || 600
+  end
+
+  def height
+    super || 400
+  end
+
+  def dummy_dimensions?
+    !self[:width] || !self[:height]
+  end
+
 end

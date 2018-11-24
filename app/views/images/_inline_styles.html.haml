@@ -1,4 +1,4 @@
 - if inline_styles&.any?
   %style
     - inline_styles.map{|t| [t.width, t.height]}.uniq.each do |w, h|
-      img.thumb_#{w}x#{h} {width: #{w}px;height: #{h}px;}
+      = ".thumb_#{w}x#{h} {width: #{w}px;height: #{h}px;}"
