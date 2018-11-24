@@ -75,7 +75,7 @@ class Image < Media
     flickr_id.present?
   end
 
-  def on_s3?
+  def on_storage?
     stored_image.attachment.present?
   end
 

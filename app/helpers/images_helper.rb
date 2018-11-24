@@ -6,7 +6,7 @@ module ImagesHelper
   }
 
   def jpg_url(img)
-    if img.on_s3?
+    if img.on_storage?
       rails_blob_url(img.stored_image, only_path: helper_only_path?)
     elsif img.on_flickr?
       img.assets_cache.externals.main_image.full_url
@@ -22,7 +22,7 @@ module ImagesHelper
   THUMBNAIL_HEIGHT = 218
 
   def thumbnail_item(img)
-    if img.on_s3?
+    if img.on_storage?
       img.stored_image_to_asset_item
     elsif img.on_flickr?
       img.assets_cache.externals.thumbnail

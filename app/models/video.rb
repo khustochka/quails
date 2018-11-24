@@ -46,7 +46,7 @@ class Video < Media
     Thumbnail.new(self, title, self, {video: {id: id}})
   end
 
-  def on_s3?
+  def on_storage?
     false
   end
 
