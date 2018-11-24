@@ -75,7 +75,8 @@ class FlickrUpload
 
   def privacy_options
     public = !@options.has_key?(:public) || @options[:public]
-    {is_public: public && Quails.env.real_prod?}
+    is_public_value = public && Quails.env.real_prod? ? 1 : 0
+    {is_public: is_public_value}
   end
 
   def blob
