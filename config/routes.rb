@@ -208,6 +208,7 @@ Rails.application.routes.draw do
     get 'bou_cc' => 'flickr_photos#bou_cc', as: 'flickr_bou_cc'
     resources :photos, controller: 'flickr_photos', as: 'flickr_photos' do
       post :search, on: :collection
+      post :push_to_storage, on: :member
     end
   end
 

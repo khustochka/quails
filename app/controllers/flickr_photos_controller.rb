@@ -4,7 +4,7 @@ class FlickrPhotosController < ApplicationController
 
   include Aspects::Flickr
 
-  before_action :find_image, only: [:show, :create, :edit, :update, :destroy]
+  before_action :find_image, only: [:show, :create, :edit, :update, :destroy, :push_to_storage]
 
   after_action :cache_expire, only: [:create, :destroy]
 
@@ -48,6 +48,12 @@ class FlickrPhotosController < ApplicationController
     else
       render :show
     end
+  end
+
+  def push_to_storage
+    FlickrToStorageJob.perform_later(@image)
+    flash[:job] = "Job is enqueued."
+    redirect_to action: :show
   end
 
   # Collection actions
