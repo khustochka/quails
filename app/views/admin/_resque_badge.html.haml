@@ -1,0 +1,5 @@
+- failed_jobs = Resque.info[:failed]
+- pending_jobs = Resque.info[:pending]
+
+- if failed_jobs > 0
+  = link_to failed_jobs, "/resque/failed", target: "_blank", class: "resque_badge tag alert"
