@@ -36,12 +36,12 @@
   - else
     %p
       This image is not stored in Active Storage.
-
-    - if flash[:job]
-      %p= flash[:job]
     - if @image.on_flickr?
       = form_tag push_to_storage_flickr_photo_path(@image) do
         = submit_tag("Push to storage")
+
+  - if flash[:job]
+    %p= flash[:job]
 
 
 %h3 Find a picture:
