@@ -3,7 +3,7 @@ require 'test_helper'
 class ImagesControllerTest < ActionController::TestCase
 
   def valid_image_attributes(attrs = {})
-    default = {stored_image: fixture_file_upload(Rails.root.join('public', 'apple-touch-icon.png'))}
+    default = {stored_image: fixture_file_upload("files/tules.jpg")}
     attributes_for(:image, default.merge(attrs))
   end
 

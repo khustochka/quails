@@ -77,6 +77,13 @@ module JavaScriptTestCase
         find(:css, selector).trigger('click')
       end
 
+      # Standard capybara attach_file make_visible option does not work for me
+      def with_element_visible(jquery_selector)
+        page.execute_script "$('#{jquery_selector}').show();"
+        yield
+        page.execute_script "$('#{jquery_selector}').hide();"
+      end
+
     end
 
   end

@@ -19,7 +19,7 @@ class ImagesAssociationsTest < ActiveSupport::TestCase
 
   test "validate blob uniqueness among images" do
     img1 = Image.create(slug: "testimg1", observations: [FactoryBot.create(:observation)],
-                     stored_image: fixture_file_upload(Rails.root.join('public', 'apple-touch-icon.png')))
+                     stored_image: fixture_file_upload("files/tules.jpg"))
 
     img2 = Image.new(slug: "testimg", observations: [FactoryBot.create(:observation)],
                     stored_image: img1.stored_image.signed_id)

@@ -53,8 +53,14 @@ class JSImagesTest < ActionDispatch::IntegrationTest
     login_as_admin
     visit new_image_path
 
-    fill_in('Slug', with: 'test-img-capybara')
     fill_in('Title', with: 'Capybara test image')
+
+    with_element_visible("form.has-advanced-upload div.input.image_stored_image") do
+      attach_file("Stored image", Rails.root.join("test/fixtures/files/tules.jpg"))
+    end
+
+    # Fill in slug after image upload
+    fill_in('Slug', with: 'test-img-capybara')
 
     within('.observation_search') do
       # Temporarily disable because of Chrome super clever date picker
@@ -76,8 +82,14 @@ class JSImagesTest < ActionDispatch::IntegrationTest
     login_as_admin
     visit new_image_path
 
-    fill_in('Slug', with: 'test-img-capybara')
     fill_in('Title', with: 'Capybara test image')
+
+    with_element_visible("form.has-advanced-upload div.input.image_stored_image") do
+      attach_file("Stored image", Rails.root.join("test/fixtures/files/tules.jpg"))
+    end
+
+    # Fill in slug after image upload
+    fill_in('Slug', with: 'test-img-capybara')
 
     within('.observation_search') do
       click_button 'Search'
