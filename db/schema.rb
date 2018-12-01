@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_12_025000) do
+ActiveRecord::Schema.define(version: 2018_12_01_020635) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -202,7 +202,6 @@ ActiveRecord::Schema.define(version: 2018_11_12_025000) do
     t.text "description"
     t.integer "spot_id"
     t.integer "index_num", default: 1000
-    t.boolean "has_old_thumbnail", default: false
     t.text "assets_cache", default: ""
     t.string "status", limit: 16, default: "PUBLIC"
     t.datetime "created_at"

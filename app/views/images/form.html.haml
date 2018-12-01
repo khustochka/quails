@@ -58,7 +58,6 @@
   %div
     = form.input :slug
     = form.input :title
-    = form.input :has_old_thumbnail
     - unless @image.flickr_id
       %div.input.boolean
         = check_box_tag "upload_to_flickr"
