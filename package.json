@@ -4,7 +4,8 @@
   "dependencies": {
     "@rails/webpacker": "^3.5.5",
     "activestorage": "^5.2.1",
-    "airbrake-js": "^1.0.5",
+    "airbrake-js": "^1.6.2",
+    "cross-fetch": "^3.0.0",
     "ilyabirman-likely": "^2.3.0",
     "rails-erb-loader": "^5.2.1",
     "turbolinks": "^5.1.1"
