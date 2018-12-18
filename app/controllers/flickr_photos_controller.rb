@@ -27,7 +27,7 @@ class FlickrPhotosController < ApplicationController
       @photo.bind_with_flickr!(new_flickr_id)
     else
       options = {}.tap do |opts|
-        opts[:public] = params[:public] == 1
+        opts[:public] = params[:public].to_i == 1
       end
       FlickrUploadJob.perform_later(@image, options)
       flash.now[:job] = "Job is enqueued."
