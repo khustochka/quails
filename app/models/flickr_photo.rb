@@ -84,7 +84,7 @@ class FlickrPhoto
   end
 
   def page_url
-    "https://www.flickr.com/photo.gne?id=#{@flickr_id}"
+    "https://www.flickr.com/photos/phenolog/#{@flickr_id}"
   end
 
   def info
