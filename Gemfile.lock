@@ -100,6 +100,7 @@ GEM
     bindex (0.5.0)
     bootsnap (1.3.2)
       msgpack (~> 1.0)
+    bson (4.3.0)
     builder (3.2.3)
     byebug (10.0.2)
     capybara (3.12.0)
@@ -216,6 +217,11 @@ GEM
     mini_mime (1.0.1)
     mini_portile2 (2.4.0)
     minitest (5.11.3)
+    mongo (2.6.2)
+      bson (>= 4.3.0, < 5.0.0)
+    mongoid (7.0.2)
+      activemodel (>= 5.1, < 6.0.0)
+      mongo (>= 2.5.1, < 3.0.0)
     mono_logger (1.1.0)
     msgpack (1.2.4)
     multi_json (1.13.1)
@@ -400,6 +406,7 @@ DEPENDENCIES
   livejournal!
   mechanize
   mini_magick
+  mongoid (~> 7.0)
   newrelic_rpm
   nokogiri
   pg (~> 1.0)

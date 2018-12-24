@@ -287,6 +287,9 @@ Rails.application.routes.draw do
     resources :imports
   end
 
+  get '/ebirdfix' => 'ebird_fix#index'
+  post '/update/:id' => 'ebird_fix#update', as: "fixstatusupdate"
+
   # Resque web front
 
   require 'resque/server'

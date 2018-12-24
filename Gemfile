@@ -16,6 +16,7 @@ gem 'rails', VERSION
 gem 'pg', "~> 1.0", platforms: [:ruby, :mingw]
 #gem "activerecord-jdbcpostgresql-adapter", platforms: :jruby
 gem 'resque'
+gem 'mongoid', '~> 7.0'
 
 # Deployment
 #gem 'unicorn', require: false, platforms: :ruby

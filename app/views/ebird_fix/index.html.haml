@@ -1,0 +1,41 @@
+%p &nbsp;
+
+%table.neat_table
+  %thead
+  %tbody
+    - @checklists.each_with_index do |(date, checklistId, country, location), i|
+      %tr
+        %td
+          = i + 1
+        %td
+          = date
+        %td
+          = checklistId
+        %td
+          = country
+        %td
+          = location
+        %td
+          = link_to "Open", "#", class: "open", data: {id: checklistId}
+        %td.statechange
+          - state = @states[checklistId]&.state
+          - if state
+            %b= state
+          - else
+            = link_to "good", fixstatusupdate_path(id: checklistId, state: "Good", format: :json), remote: true, method: :post
+            = link_to "fixed", fixstatusupdate_path(id: checklistId, state: "Fixed", format: :json), remote: true, method: :post
+
+:javascript
+  $(function() {
+    $(".open").click(function(e) {
+      e.preventDefault();
+      var id = $(this).data("id");
+      window.open("http://localhost:8000/"+id+".html",'_blank');
+      window.open("https://ebird.org/view/checklist/"+id,'_blank');
+    });
+
+    $("td.statechange a").on("ajax:success", function(xhr, data, s) {
+      $(this).closest("td.statechange").html("<b>" + data.state + "</b>");
+    });
+
+  });
