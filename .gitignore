@@ -12,7 +12,8 @@
 !.babelrc
 !.postcssrc.yml
 .bundle
-data/checklists
+data/checklists*/
+data/MyEBirdData*
 db/*.sqlite3
 db/seed
 config/database.yml
@@ -24,6 +25,7 @@ config/master.key
 tmp/**/*
 *~
 public/assets
+public/csv
 coverage/*
 # React on Rails
 npm-debug.log*
