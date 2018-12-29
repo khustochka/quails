@@ -2,6 +2,8 @@ module Search
 
   class SpeciesSearch < Weighted
 
+    DEFAULT_LIMIT = 5
+
     def find
       return [] if @term.blank?
       rel = @base.
@@ -12,9 +14,9 @@ module Search
                           END as rank").
           where(filter_clause).
           order("rank ASC NULLS LAST, weight DESC NULLS LAST").
-          limit(5)
+          limit(results_limit)
 
-      if rel.to_a.size < 5
+      if rel.to_a.size < results_limit
         primary_condition2 = starts_with_condition("url_synonyms.name_sci")
         secondary_condition = full_blown_condition("url_synonyms.name_sci")
         rel2 = @base.
@@ -26,7 +28,7 @@ module Search
                           END as rank").
             where(secondary_condition).
             order("rank ASC NULLS LAST, weight DESC NULLS LAST").
-            limit(5 - rel.size)
+            limit(results_limit - rel.size)
         rel = rel.to_a.concat(rel2.to_a)
       end
 
@@ -49,7 +51,6 @@ module Search
       end
     end
 
-    private
     def searchable_fields
       %w(name_sci name_ru name_en name_uk)
     end

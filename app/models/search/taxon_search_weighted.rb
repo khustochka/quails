@@ -2,6 +2,8 @@ module Search
 
   class TaxonSearchWeighted < Weighted
 
+    DEFAULT_LIMIT = 15
+
     def find
       return [] if @term.blank?
       rel = @base.
@@ -12,7 +14,7 @@ module Search
                           END as rank").
           where(filter_clause).
           order("rank ASC NULLS LAST, weight DESC NULLS LAST").
-          limit(15)
+          limit(results_limit)
 
       rel.map do |tx|
         {

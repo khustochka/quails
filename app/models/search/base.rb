@@ -1,9 +1,12 @@
 module Search
   class Base
 
-    def initialize(base, term)
+    DEFAULT_LIMIT = 5
+
+    def initialize(base, term, opts = {})
       @base = base
       @term = term.downcase.strip
+      @options = opts
     end
 
     private
@@ -31,6 +34,10 @@ module Search
 
     def regexp_escaped_term
       Regexp.escape(@term)
+    end
+
+    def results_limit
+      (@options[:limit].presence || self.class::DEFAULT_LIMIT).to_i
     end
 
   end

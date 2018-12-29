@@ -12,7 +12,7 @@ module Search
                           END as rank").
           where(filter_clause).
           order("rank ASC NULLS LAST, taxa.index_num").
-          limit(50)
+          limit(results_limit)
 
     end
 
