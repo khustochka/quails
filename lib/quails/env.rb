@@ -1,6 +1,6 @@
 module Quails
 
-  CURRENT_YEAR = 2018
+  CURRENT_YEAR = 2019
 
   class Env
     def self.init

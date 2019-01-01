@@ -4,7 +4,7 @@ class ListsController < ApplicationController
     @list_life = Lifelist::FirstSeen.full
     @list_current_year = Lifelist::FirstSeen.over(year: Quails::CURRENT_YEAR)
 
-    #@list_prev_year = Lifelist::FirstSeen.over(year: Quails::CURRENT_YEAR - 1)
+    @list_prev_year = Lifelist::FirstSeen.over(year: Quails::CURRENT_YEAR - 1)
 
     @list_canada = Lifelist::FirstSeen.over(locus: 'canada')
 
