@@ -71,9 +71,12 @@ class SpeciesController < ApplicationController
   end
 
   def search
-    options = current_user.admin? ?
-                  params.slice(:limit) :
-                  {}
+    result = Search::PublicSpeciesSearch.new(current_user.searchable_species, params[:term]).find
+    render json: result
+  end
+
+  def admin_search
+    options = params.slice(:limit)
     result = Search::SpeciesSearch.new(current_user.searchable_species, params[:term], options).find
     render json: result
   end

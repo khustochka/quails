@@ -4,6 +4,8 @@ module Search
 
     DEFAULT_LIMIT = 5
 
+    SEARCH_RESULT_CLASS = SpeciesSearchResult
+
     def find
       return [] if @term.blank?
       rel = @base.
@@ -32,7 +34,7 @@ module Search
         rel = rel.to_a.concat(rel2.to_a)
       end
 
-      rel.map { |sp| SpeciesSearchResult.new(sp.name_sci, detect_name(sp)) }
+      rel.map { |sp| self.class::SEARCH_RESULT_CLASS.new(sp.name_sci, detect_name(sp)) }
     end
 
     private
