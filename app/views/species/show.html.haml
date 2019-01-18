@@ -49,37 +49,37 @@
 
     - supersp = @species.superspecies
     - subsp = @species.subspecies
-    - if @species.url_synonyms.to_a.any? || supersp.any? || subsp.any?
+    - if @species.url_synonyms.present? || supersp.present? || subsp.present?
       %div.sp_synonyms
-        - name_synonyms = @species.url_synonyms.different_name
-        - if name_synonyms.any?
+        - name_synonyms = @species.url_synonyms.select {|s| s.reason.nil? }
+        - if name_synonyms.present?
           = t(".species_synonyms")
           %ul
             - name_synonyms.each do |syn|
               %li
                 %i= syn.name_sci
-        - splits = @species.url_synonyms.splits
-        - if splits.any?
+        - splits = @species.url_synonyms.select {|s| s.reason == "split" }
+        - if splits.present?
           = t(".splits_synonyms")
           %ul
             - splits.each do |syn|
               %li
                 %i= syn.name_sci
-        - lumps = @species.url_synonyms.lumps
-        - if lumps.any?
+        - lumps = @species.url_synonyms.select {|s| s.reason == "lump" }
+        - if lumps.present?
           = t(".lumps_synonyms")
           %ul
             - lumps.each do |syn|
               %li
                 %i= syn.name_sci
-        - if supersp.any?
+        - if supersp.present?
           = t(".split_from_another_sp")
           %ul
             - supersp.each do |ssp|
               %li
                 = species_link(ssp)
                 = name_sci(ssp)
-        - if subsp.any?
+        - if subsp.present?
           = t(".species_split_from_this")
           %ul
             - subsp.each do |ssp|
@@ -110,12 +110,12 @@
 
 
 
-- if @species.observations.any?
+- if @species.observations.size > 0
   %a{name: 'observations'}
   %h3= t('.sections.stats')
   %p
     = t('.total_observations')
-    %strong= @species.observations.count
+    %strong= @species.observations.size
 
   - grouped_loci = @species.grouped_loci
 

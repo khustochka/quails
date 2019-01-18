@@ -38,7 +38,7 @@
   &bull;
   = link_to parent.name_sci, parent
 
-- if @taxon.children.any?
+- if @taxon.children.present?
   %h3 Children
   %ul
     - @taxon.children.each do |tx|

@@ -80,7 +80,7 @@ class Image < Media
   end
 
   def multi?
-    species.count > 1
+    species.size > 1
   end
 
   #ORDERING_COLUMNS = %w(cards.observ_date cards.locus_id species.index_num media.created_at media.id)

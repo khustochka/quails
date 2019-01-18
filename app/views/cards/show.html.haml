@@ -14,7 +14,7 @@
 
 = @card.decorated.notes
 
-- if @card.post || @card.secondary_posts.any?
+- if @card.post || @card.secondary_posts.present?
   %h3 Posts
   %ul
     - if @card.post

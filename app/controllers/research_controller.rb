@@ -11,14 +11,14 @@ class ResearchController < ApplicationController
   end
 
   def insights
-    @index_posts = Post.indexable.count
-    @index_images = Image.indexable.count
-    @index_species = Observation.identified.select(:species_id).distinct.count
-    @comments = Comment.approved.count
+    @index_posts = Post.indexable.size
+    @index_images = Image.indexable.size
+    @index_species = Observation.identified.select(:species_id).distinct.size
+    @comments = Comment.approved.size
     @user_comments = Comment.approved.
         left_outer_joins(:commenter).
         where("is_admin = 'f' OR commenters.id IS NULL").
-        count
+        size
   end
 
   def index
@@ -267,7 +267,7 @@ class ResearchController < ApplicationController
             where("observ_date IN (?)", dates).
             preload(card: :locus).group_by(&:observ_date)
 
-    @ebird_eligible_this_year = Card.ebird_eligible.in_year(params[:year] || Quails::CURRENT_YEAR).count
+    @ebird_eligible_this_year = Card.ebird_eligible.in_year(params[:year] || Quails::CURRENT_YEAR).size
   end
 
   def voices

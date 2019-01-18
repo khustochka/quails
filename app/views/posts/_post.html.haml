@@ -14,7 +14,7 @@
         %div.thumbnails
           = render_justified images.map(&:to_thumbnail)
 
-    - cache ['comment', post, post.comments.count, admin: current_user.admin?] do
+    - cache ['comment', post, post.comments.size, admin: current_user.admin?] do
 
       %ul.comment_links
         - post.comments.approved.size.yield_self do |cmt_count|

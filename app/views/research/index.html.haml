@@ -20,7 +20,7 @@
 %ul
   %li
     = link_to('Half-mapped media', {controller: :media, action: :unmapped, half: true})
-    %b (#{Media.half_mapped.count})
+    %b (#{Media.half_mapped.size})
     \/
     = link_to('Unmapped media', {controller: :media, action: :unmapped})
   %li= link_to('Unflickred images', unflickred_photos_path)

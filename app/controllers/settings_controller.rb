@@ -12,7 +12,7 @@ class SettingsController < ApplicationController
   def save
     params[:s].each do |key, value|
       setting = Settings.where(key: key)
-      if setting.any?
+      if setting.present?
         setting.update_all(value: value)
       else
         Settings.create!(key: key, value: value)

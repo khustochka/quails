@@ -73,7 +73,7 @@ class Card < ApplicationRecord
   end
 
   def mapped_percentage
-    number_to_percentage(mapped_observations.count * 100.0 / observations.count, precision: 0)
+    number_to_percentage(mapped_observations.size * 100.0 / observations.size, precision: 0)
   end
 
   # List of new species
