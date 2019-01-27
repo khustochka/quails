@@ -3,7 +3,8 @@
   = javascript_include_tag "ie_fix"
 
 -# packs
-= javascript_pack_tag 'modern_scripts'
+- packs = @packs.try(:compact) || []
+= javascript_pack_tag *packs.unshift('modern_scripts')
 = stylesheet_pack_tag 'modern_scripts'
 
 -# styles

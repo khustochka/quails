@@ -1,7 +1,6 @@
 #= require jquery-ui.addon
 #= require suggest_over_combo
 #= require card_observ_form_shared
-#= require keypress
 
 Quails.pages.cards =
 
