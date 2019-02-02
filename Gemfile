@@ -61,7 +61,6 @@ gem 'roman-numerals'
 
 # Monitoring
 gem 'airbrake'
-gem 'newrelic_rpm'
 
 # Image processing
 gem "mini_magick"
