@@ -102,10 +102,8 @@ end
 
 group :test do
   gem 'capybara'
-  # This is a driver for headless JS tests (default).
-  gem 'capybara-webkit', git: "https://github.com/thoughtbot/capybara-webkit.git", ref: "77fdac424cd6fdb5aa266b229a888cc58da8e95e"
-  # And this one is if you want to see it in a real browser.
   gem 'selenium-webdriver'
+  gem 'chromedriver-helper'
 #  gem 'poltergeist', platforms: [:mri], require: false
 #  gem 'database_cleaner', '~> 1.3.0', require: false
   gem 'launchy' # So you can do Then show me the page

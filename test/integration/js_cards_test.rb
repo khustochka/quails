@@ -282,7 +282,7 @@ class JSCardsTest < ActionDispatch::IntegrationTest
 
     login_as_admin
     visit edit_post_path(p)
-    fill_in('Date:', with: "2010-06-18")
+    fill_in('Date:', with: "2010\t0618")
 
     click_button('Search')
 

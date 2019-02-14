@@ -10,11 +10,11 @@ ENV["RAILS_ENV"] ||= "test"
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 
-Capybara::Webkit.configure do |config|
-  config.block_unknown_urls
-  # Don't load images
-  config.skip_image_loading
-end
+# Capybara::Webkit.configure do |config|
+#   config.block_unknown_urls
+#   # Don't load images
+#   config.skip_image_loading
+# end
 
 class ActiveSupport::TestCase
 

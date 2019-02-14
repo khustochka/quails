@@ -12,7 +12,7 @@ class JSMapTest < ActionDispatch::IntegrationTest
     create(:observation, card: card2)
     login_as_admin
     visit edit_map_path
-    fill_in('Date', with: '2011-01-02')
+    fill_in('Date', with: "2011\t0102")
     click_button('Search')
     assert_css ".obs-list li"
     assert_equal 2, all('.obs-list li').size

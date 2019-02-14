@@ -74,7 +74,7 @@ module JavaScriptTestCase
 
       # This is required for clicking font-awesome icon links (like .remove)
       def click_icon_link(selector)
-        find(:css, selector).trigger('click')
+        find(:css, selector).click
       end
 
       # Standard capybara attach_file make_visible option does not work for me
