@@ -7,7 +7,7 @@ FactoryBot.define do
     observations { [FactoryBot.create(:observation)] }
     assets_cache { ImageAssetsArray.new (
                                             [
-                                                ImageAssetItem.new(:local, 800, 600, "#{slug}.jpg")
+                                                ImageAssetItem.new(:local, 800, 600, "/photos/#{slug}.jpg")
                                             ]
                                         ) }
 
