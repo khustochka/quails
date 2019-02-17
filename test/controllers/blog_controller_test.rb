@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class BlogControllerTest < ActionController::TestCase
+class BlogControllerTest < ActionDispatch::IntegrationTest
 
   # Front page
 
@@ -8,45 +8,44 @@ class BlogControllerTest < ActionController::TestCase
     blogpost1 = create(:post, face_date: '2007-12-06 13:14:15')
     blogpost2 = create(:post, face_date: '2008-11-06 13:14:15')
     create(:comment)
-    get :home
+    get blog_path
     assert_response :success
     assert_includes(assigns(:posts), blogpost1)
     assert_includes(assigns(:posts), blogpost2)
   end
 
-  test 'get home page with strange format' do
+  test "get home page with strange format - IE sometimes sends it" do
     skip
     blogpost1 = create(:post, face_date: '2007-12-06 13:14:15')
-    @request.env["HTTP_ACCEPT"] = "image/gif, image/x-xbitmap, image/jpeg,image/pjpeg, application/x-shockwave-flash,application/vnd.ms-excel,application/vnd.ms-powerpoint,application/msword"
-    get :home
+    get blog_path, headers: {"HTTP_ACCEPT" => "image/gif, image/x-xbitmap, image/jpeg,image/pjpeg, application/x-shockwave-flash,application/vnd.ms-excel,application/vnd.ms-powerpoint,application/msword"}
     assert_response :success
   end
 
   test "get home page with images" do
     blogpost = create(:post)
     create(:image, observations: [create(:observation, card: create(:card, post: blogpost))])
-    get :home
+    get blog_path
     assert_response :success
   end
 
   test 'get archive' do
     blogpost1 = create(:post, face_date: '2007-12-06 13:14:15')
     blogpost2 = create(:post, face_date: '2008-11-06 13:14:15')
-    get :archive
+    get archive_path
     assert_response :success
   end
 
   test 'do not show hidden posts on front page' do
     blogpost1 = create(:post, face_date: '2007-12-06 13:14:15', status: 'PRIV')
     blogpost2 = create(:post, face_date: '2008-11-06 13:14:15')
-    get :home
+    get blog_path
     assert_includes(assigns(:posts), blogpost2)
     assert_not_includes(assigns(:posts), blogpost1)
   end
 
   test 'show NOINDEX post on front page' do
     blogpost = create(:post, status: 'NIDX')
-    get :home
+    get blog_path
     assert_response :success
     assert_includes(assigns(:posts), blogpost)
   end
@@ -58,7 +57,7 @@ class BlogControllerTest < ActionController::TestCase
     blogpost4 = create(:post, face_date: '2007-10-04 13:14:15')
     blogpost5 = create(:post, face_date: '2007-10-03 13:14:15')
     blogpost6 = create(:post, face_date: '2007-09-03 13:14:15')
-    get :home
+    get blog_path
     assert_response :success
     assert_equal 5, assigns(:posts).size
     assert_includes(assigns(:posts), blogpost1)
@@ -74,7 +73,7 @@ class BlogControllerTest < ActionController::TestCase
   test 'get posts list for a year' do
     blogpost1 = create(:post, face_date: '2007-12-06 13:14:15')
     blogpost2 = create(:post, face_date: '2008-11-06 13:14:15')
-    get :year, params: {year: 2007}
+    get year_path(year: 2007)
     assert_response :success
     assert_includes(assigns(:posts), blogpost1)
     assert_not_includes(assigns(:posts), blogpost2)
@@ -86,7 +85,7 @@ class BlogControllerTest < ActionController::TestCase
   test 'get posts list for a month' do
     blogpost1 = create(:post, face_date: '2007-12-06 13:14:15')
     blogpost2 = create(:post, face_date: '2007-11-06 13:14:15')
-    get :month, params: {year: 2007, month: 12}
+    get month_path(year: 2007, month: 12)
     assert_response :success
     assert_includes(assigns(:posts), blogpost1)
     assert_not_includes(assigns(:posts), blogpost2)
@@ -95,9 +94,9 @@ class BlogControllerTest < ActionController::TestCase
   test 'render month properly if there is no previous or next month' do
     blogpost1 = create(:post, face_date: '2007-12-06 13:14:15')
     blogpost2 = create(:post, face_date: '2008-11-06 13:14:15')
-    get :month, params: {year: 2007, month: 12}
+    get month_path(year: 2007, month: 12)
     assert_response :success
-    get :month, params: {year: 2007, month: 11}
+    get month_path(year: 2007, month: 11)
     assert_response :success
   end
 
