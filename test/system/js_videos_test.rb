@@ -1,9 +1,6 @@
-require 'test_helper'
-require 'capybara_helper'
+require "application_system_test_case"
 
-class JSVideosTest < ActionDispatch::IntegrationTest
-
-  include JavaScriptTestCase
+class JSVideosTest < ApplicationSystemTestCase
 
   def save_and_check
     click_button('Save')

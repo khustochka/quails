@@ -1,6 +1,5 @@
 require 'capybara/rails'
 require 'capybara/minitest'
-require 'capybara_drivers'
 
 #Capybara.default_wait_time = 5
 
@@ -44,47 +43,5 @@ module CapybaraTestCase
     fill_in 'username', with: TEST_CREDENTIALS[:username]
     fill_in 'password', with: TEST_CREDENTIALS[:password]
     click_button "Login"
-  end
-end
-
-module JavaScriptTestCase
-  def self.included(klass)
-    klass.class_eval do
-      include CapybaraTestCase
-
-      # We potentially can use this instead of setup/teardown
-      # but is slightly slower and also messes with UI_ tests
-      # driven_by :webkit
-
-      setup do
-        Capybara.current_driver = ENV['JS_DRIVER'].try(:to_sym) || Capybara.javascript_driver
-      end
-
-      teardown do
-        Capybara.use_default_driver
-      end
-
-      def select_suggestion(value, hash)
-        selector = ".ui-menu-item a:contains(\"#{value}\"):first"
-        fill_in hash[:from], with: value
-        sleep(0.05)
-        #raise "No element '#{value}' in the field #{hash[:from]}" unless page.has_selector?(:xpath, "//*[@class=\"ui-menu-item\"]//a[contains(text(), \"#{value}\")]")
-        page.execute_script " $('#{selector}').trigger('mouseenter').click();"
-      end
-
-      # This is required for clicking font-awesome icon links (like .remove)
-      def click_icon_link(selector)
-        find(:css, selector).click
-      end
-
-      # Standard capybara attach_file make_visible option does not work for me
-      def with_element_visible(jquery_selector)
-        page.execute_script "$('#{jquery_selector}').show();"
-        yield
-        page.execute_script "$('#{jquery_selector}').hide();"
-      end
-
-    end
-
   end
 end

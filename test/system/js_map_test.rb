@@ -1,9 +1,6 @@
-require 'test_helper'
-require 'capybara_helper'
+require "application_system_test_case"
 
-class JSMapTest < ActionDispatch::IntegrationTest
-
-  include JavaScriptTestCase
+class JSMapTest < ApplicationSystemTestCase
 
   test 'Ajax observation search works on map edit' do
     create(:observation, card: create(:card, observ_date: '2011-01-01'))
@@ -12,7 +9,7 @@ class JSMapTest < ActionDispatch::IntegrationTest
     create(:observation, card: card2)
     login_as_admin
     visit edit_map_path
-    fill_in('Date', with: "2011\t0102")
+    fill_in_date('Date', "2011-01-02")
     click_button('Search')
     assert_css ".obs-list li"
     assert_equal 2, all('.obs-list li').size

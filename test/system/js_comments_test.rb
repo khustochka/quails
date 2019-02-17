@@ -1,9 +1,6 @@
-require 'test_helper'
-require 'capybara_helper'
+require "application_system_test_case"
 
-class JSCommentsTest < ActionDispatch::IntegrationTest
-
-  include JavaScriptTestCase
+class JSCommentsTest < ApplicationSystemTestCase
 
   test "Add comment to post (JS form)" do
     # No way to check that ajax request was sent...

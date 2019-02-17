@@ -2,17 +2,23 @@ require "test_helper"
 
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
-  opts =
-      if ENV["headless"]
-        {
-            desired_capabilities:
-                Selenium::WebDriver::Remote::Capabilities.chrome(chromeOptions: {args: ["--headless"]})
-        }
-      else
-        {}
-      end
+  driver = ENV["DRIVER"]&.to_sym || :selenium
+  using = ENV["USING"]&.to_sym || (driver == :selenium && :headless_chrome)
 
-  driven_by :selenium, using: :chrome, screen_size: [1400, 1400], options: opts
+  opts =
+      # if ENV["headless"]
+      #   {
+      #       desired_capabilities:
+      #           Selenium::WebDriver::Remote::Capabilities.chrome(chromeOptions: {args: ["--headless"]})
+      #   }
+      # else
+        {}
+      # end
+
+  args = {screen_size: [1400, 1400], options: opts}
+  args[:using] = using if using
+
+  driven_by driver, args
 
   TEST_CREDENTIALS = {username: ENV['admin_username'], password: ENV['admin_password']}
 
@@ -38,6 +44,13 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
   def fill_in_date(field, date)
     fill_in(field, with: date.sub(/(\d\d\d\d)-(\d\d)-(\d\d)/, "\\1\t\\2\\3"))
+  end
+
+  # Standard capybara attach_file make_visible option does not work for me
+  def with_element_visible(jquery_selector)
+    page.execute_script "$('#{jquery_selector}').show();"
+    yield
+    page.execute_script "$('#{jquery_selector}').hide();"
   end
 
 end

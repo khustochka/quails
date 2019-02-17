@@ -1,9 +1,6 @@
-require 'test_helper'
-require 'capybara_helper'
+require "application_system_test_case"
 
-class JSObservationsTest < ActionDispatch::IntegrationTest
-
-  include JavaScriptTestCase
+class JSObservationsTest < ApplicationSystemTestCase
 
   test 'Edit observation - change species' do
     observation = create(:observation, voice: true)
