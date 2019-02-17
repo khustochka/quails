@@ -2,23 +2,34 @@ require "test_helper"
 
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
-  driver = ENV["DRIVER"]&.to_sym || :selenium
-  using = ENV["USING"]&.to_sym || (driver == :selenium && :headless_chrome)
+  Capybara.javascript_driver = :selenium_chrome_headless
 
-  opts =
-      # if ENV["headless"]
-      #   {
-      #       desired_capabilities:
-      #           Selenium::WebDriver::Remote::Capabilities.chrome(chromeOptions: {args: ["--headless"]})
-      #   }
-      # else
-        {}
-      # end
+  # driver = ENV["DRIVER"]&.to_sym || :selenium
+  # using = ENV["USING"]&.to_sym || (driver == :selenium && :headless_chrome)
+  #
+  # opts =
+  #     # if ENV["headless"]
+  #     #   {
+  #     #       desired_capabilities:
+  #     #           Selenium::WebDriver::Remote::Capabilities.chrome(chromeOptions: {args: ["--headless"]})
+  #     #   }
+  #     # else
+  #       {}
+  #     # end
+  #
+  # args = {screen_size: [1400, 1400], options: opts}
+  # args[:using] = using if using
 
-  args = {screen_size: [1400, 1400], options: opts}
-  args[:using] = using if using
+  #driven_by driver, args
 
-  driven_by driver, args
+  setup do
+    Capybara.current_driver = ENV['JS_DRIVER'].try(:to_sym) || Capybara.javascript_driver
+  end
+
+  teardown do
+    Capybara.use_default_driver
+  end
+
 
   TEST_CREDENTIALS = {username: ENV['admin_username'], password: ENV['admin_password']}
 
