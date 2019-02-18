@@ -1,8 +1,22 @@
 require "test_helper"
 
-class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
+# :selenium_chrome_headless unfortunately is slower
+DEFAULT_JS_DRIVER = :webkit
 
-  Capybara.javascript_driver = :selenium_chrome_headless
+env_js_driver = ENV['JS_DRIVER']&.to_sym || DEFAULT_JS_DRIVER
+
+if env_js_driver == :webkit
+  require "capybara/webkit"
+  Capybara::Webkit.configure do |config|
+    config.block_unknown_urls
+    # Don't load images
+    config.skip_image_loading
+  end
+end
+
+Capybara.javascript_driver = env_js_driver || :selenium_chrome_headless
+
+class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
   # driver = ENV["DRIVER"]&.to_sym || :selenium
   # using = ENV["USING"]&.to_sym || (driver == :selenium && :headless_chrome)
@@ -54,7 +68,11 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   end
 
   def fill_in_date(field, date)
-    fill_in(field, with: date.sub(/(\d\d\d\d)-(\d\d)-(\d\d)/, "\\1\t\\2\\3"))
+    if chrome_driver?
+      fill_in(field, with: date.sub(/(\d\d\d\d)-(\d\d)-(\d\d)/, "\\1\t\\2\\3"))
+    else
+      fill_in(field, with: date)
+    end
   end
 
   # Standard capybara attach_file make_visible option does not work for me
@@ -62,6 +80,10 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     page.execute_script "$('#{jquery_selector}').show();"
     yield
     page.execute_script "$('#{jquery_selector}').hide();"
+  end
+
+  def chrome_driver?
+    Capybara.current_driver.to_s =~ /chrome/
   end
 
 end

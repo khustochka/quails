@@ -103,6 +103,7 @@ end
 group :test do
   gem 'capybara'
   gem 'selenium-webdriver'
+  gem 'capybara-webkit', git: "https://github.com/thoughtbot/capybara-webkit.git", ref: "77fdac424cd6fdb5aa266b229a888cc58da8e95e"
   gem 'chromedriver-helper'
 #  gem 'poltergeist', platforms: [:mri], require: false
 #  gem 'database_cleaner', '~> 1.3.0', require: false
