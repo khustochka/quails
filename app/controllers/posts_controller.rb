@@ -64,7 +64,7 @@ class PostsController < ApplicationController
   # PUT /posts/1
   def update
     @extra_params = @post.to_url_params
-    if @post.update_attributes(params[:post])
+    if @post.update(params[:post])
       redirect_to(public_post_path(@post))
     else
       @observation_search = ObservationSearch.new

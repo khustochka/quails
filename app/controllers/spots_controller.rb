@@ -5,7 +5,7 @@ class SpotsController < ApplicationController
   # POST "/spots/save.json"
   def save
     spot = Spot.find_or_initialize_by(id: params[:spot][:id])
-    spot.update_attributes!(params[:spot])
+    spot.update!(params[:spot])
     render json: spot
   end
 

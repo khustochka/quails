@@ -93,7 +93,7 @@ class CardsController < ApplicationController
     params[:card][:resolved] = true if params[:resolve]
 
     respond_to do |format|
-      if @card.update_attributes(params[:card])
+      if @card.update(params[:card])
         format.html { redirect_to edit_card_path(@card), notice: 'Card was successfully updated.' }
         format.json { head :no_content }
       else

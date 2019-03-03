@@ -53,11 +53,11 @@ namespace :tax do
       aba_locs = %w(usa canada).map {|slug| Locus.find_by_slug(slug).subregion_ids}.inject(:+)
 
       hen_harrier.species.local_species.where(locus_id: aba_locs).each do |loc_sp|
-        loc_sp.update_attributes(species: nor_harrier.species)
+        loc_sp.update(species: nor_harrier.species)
       end
 
       gg_shrike.species.local_species.where(locus_id: aba_locs).each do |loc_sp|
-        loc_sp.update_attributes(species: nor_shrike.species)
+        loc_sp.update(species: nor_shrike.species)
       end
 
       SpeciesSplit.create!(superspecies: hen_harrier.species, subspecies: nor_harrier.species)
@@ -71,7 +71,7 @@ namespace :tax do
       Species.joins(:high_level_taxa).preload(:high_level_taxa).order("taxa.index_num").each_with_index do |species, idx|
         tx = species.high_level_taxon
 
-        species.update_attributes!(
+        species.update!(
             order: tx.order,
             family: tx.family.match(/^\w+dae/)[0]
         )
@@ -94,10 +94,10 @@ namespace :tax do
       euro_observations = old_harrier.observations.joins(:card).where("cards.locus_id NOT IN (?)", aba_locs)
 
       aba_observations.each do |obs|
-        obs.update_attributes(taxon: nor_harrier)
+        obs.update(taxon: nor_harrier)
       end
       euro_observations.each do |obs|
-        obs.update_attributes(taxon: hen_harrier)
+        obs.update(taxon: hen_harrier)
       end
 
       # GREAT GREY/NORTHERN SHRIKE split
@@ -110,10 +110,10 @@ namespace :tax do
       euro_observations = old_shrike.observations.joins(:card).where("cards.locus_id NOT IN (?)", aba_locs)
 
       aba_observations.each do |obs|
-        obs.update_attributes(taxon: nor_shrike)
+        obs.update(taxon: nor_shrike)
       end
       euro_observations.each do |obs|
-        obs.update_attributes(taxon: gg_shrike)
+        obs.update(taxon: gg_shrike)
       end
 
     end

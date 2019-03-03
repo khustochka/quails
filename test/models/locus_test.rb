@@ -80,7 +80,7 @@ class LocusTest < ActiveSupport::TestCase
 
   test "default locus full name if name format is not set" do
     brvr = loci(:brovary)
-    brvr.update_attributes(name_format: "")
+    brvr.update(name_format: "")
     I18n.with_locale(:en) do
       assert_equal "Brovary, Ukraine", brvr.decorated.full_name
     end
@@ -88,7 +88,7 @@ class LocusTest < ActiveSupport::TestCase
 
   test "use name format to show full name" do
     brvr = loci(:brovary)
-    brvr.update_attributes(name_format: "%self, %oblast, %country")
+    brvr.update(name_format: "%self, %oblast, %country")
     I18n.with_locale(:en) do
       assert_equal "Brovary, Kiev oblast, Ukraine", brvr.decorated.full_name
     end
@@ -96,7 +96,7 @@ class LocusTest < ActiveSupport::TestCase
 
   test "%parent pattern in name_format" do
     brvr = loci(:brovary)
-    brvr.update_attributes(name_format: "%self, %parent, %country")
+    brvr.update(name_format: "%self, %parent, %country")
     I18n.with_locale(:en) do
       assert_equal "Brovary, Kiev oblast, Ukraine", brvr.decorated.full_name
     end

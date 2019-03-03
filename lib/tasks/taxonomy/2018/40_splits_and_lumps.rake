@@ -61,7 +61,7 @@ namespace :tax do
       aba_locs = %w(usa canada).map {|slug| Locus.find_by_slug(slug).subregion_ids}.inject(:+)
 
       whitewinged_scoter.species.local_species.where(locus_id: aba_locs).each do |loc_sp|
-        loc_sp.update_attributes(species: velvet_scoter.species)
+        loc_sp.update(species: velvet_scoter.species)
       end
 
       SpeciesSplit.create!(superspecies: velvet_scoter.species, subspecies: whitewinged_scoter.species)
@@ -85,7 +85,7 @@ namespace :tax do
         Species.joins(:high_level_taxa).preload(:high_level_taxa).order("taxa.index_num").each_with_index do |species, idx|
           tx = species.high_level_taxon
 
-          species.update_attributes!(
+          species.update!(
               order: tx.order,
               family: tx.family.match(/^\w+dae/)[0],
               index_num: idx + 1
@@ -121,7 +121,7 @@ namespace :tax do
         observations = old_taxon.observations.joins(:card)
 
         observations.each do |obs|
-          obs.update_attributes(taxon: new_taxon)
+          obs.update(taxon: new_taxon)
         end
       end
 
@@ -134,7 +134,7 @@ namespace :tax do
 
       not_tx_az_observations = old_mallard.observations.joins(:card).where.not(cards: {locus_id: tx_az_locs})
       not_tx_az_observations.each do |obs|
-        obs.update_attributes(taxon: new_mallard)
+        obs.update(taxon: new_mallard)
       end
     end
 

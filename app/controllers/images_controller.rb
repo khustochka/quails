@@ -129,7 +129,7 @@ class ImagesController < ApplicationController
   def patch
     new_params = params[:image]
     respond_to do |format|
-      if @image.update_attributes(new_params)
+      if @image.update(new_params)
         format.html { redirect_to action: :show }
         format.json { head :no_content }
       else

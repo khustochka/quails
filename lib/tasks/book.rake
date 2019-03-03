@@ -152,7 +152,7 @@ namespace :book do
 
     Species.select {|s| s.authority.blank? }.each do |sp|
       puts "Fetching details for #{sp.name_sci}"
-      sp.update_attributes!(BookImport.fetch_details(sp))
+      sp.update!(BookImport.fetch_details(sp))
     end
 
   end

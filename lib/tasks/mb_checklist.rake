@@ -19,7 +19,7 @@ task :mb_checklist => :environment do
 
     ls = mb.local_species.find_or_create_by!(species_id: sp.id)
 
-    ls.update_attributes(status: comment)
+    ls.update(status: comment)
 
   end
 

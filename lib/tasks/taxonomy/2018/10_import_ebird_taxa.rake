@@ -30,7 +30,7 @@ namespace :tax do
 
         data.each_with_index do |(ebird_order, category, code, name_en, name_sci, order, family, _, report_as), idx|
           e_taxon = all_etaxa[code] || EbirdTaxon.new(ebird_code: code)
-          e_taxon.update_attributes!(
+          e_taxon.update!(
               name_sci: name_sci,
               name_en: name_en,
               category: category,
@@ -62,7 +62,7 @@ namespace :tax do
 
     task :fix_taxa_links_to_ebird => :environment do
       common_firecrest = EbirdTaxon.find_by(ebird_code: "firecr1")
-      Taxon.find_by(ebird_code: "firecr2").update_attributes!(
+      Taxon.find_by(ebird_code: "firecr2").update!(
           ebird_code: "firecr1",
           ebird_taxon: common_firecrest
       )

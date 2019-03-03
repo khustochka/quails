@@ -21,7 +21,7 @@ namespace :tax do
           )
         end
 
-        taxon.update_attributes!(
+        taxon.update!(
             order: ebtx.order,
             family: ebtx.family
         )

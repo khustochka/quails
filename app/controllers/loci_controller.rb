@@ -41,7 +41,7 @@ class LociController < ApplicationController
 
   # PUT /locus/1
   def update
-    if @locus.update_attributes(params[:locus])
+    if @locus.update(params[:locus])
       if params[:commit] == "Save and next >>"
         nextloc = Locus.where(ebird_location_id: nil).where("id > ?", @locus.id).order(:id => :asc).limit(1).first
         redirect_to(edit_locus_path(nextloc), notice: 'Sucess. Next one:')

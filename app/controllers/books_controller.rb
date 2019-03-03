@@ -37,7 +37,7 @@ class BooksController < ApplicationController
 
   # PUT /books/1
   def update
-    if @book.update_attributes(params[:book])
+    if @book.update(params[:book])
       redirect_to(@book, :notice => 'Book was successfully updated.')
     else
       render :form

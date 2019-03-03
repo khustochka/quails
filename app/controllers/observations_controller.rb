@@ -13,7 +13,7 @@ class ObservationsController < ApplicationController
   # PUT /observations/1
   def update
     respond_to do |format|
-      if @observation.update_attributes(params[:observation])
+      if @observation.update(params[:observation])
         format.html { redirect_to observation_path(@observation), notice: 'Observation was successfully updated.' }
         format.json { head :no_content }
       else

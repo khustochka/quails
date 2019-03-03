@@ -41,7 +41,7 @@ module Ebird
 
     def update
       @file = Ebird::File.find(params[:id])
-      @file.update_attributes(params[:file])
+      @file.update(params[:file])
       render json: {status_line: render_to_string(partial: 'status_line', formats: [:html], locals: {file: @file})}
     end
 

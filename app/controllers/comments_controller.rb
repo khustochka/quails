@@ -135,7 +135,7 @@ class CommentsController < ApplicationController
   # PUT /comments/1.json
   def update
     respond_to do |format|
-      if @comment.update_attributes(params[:comment])
+      if @comment.update(params[:comment])
         format.html { redirect_to @comment, :notice => 'Comment was successfully updated.' }
         format.json { head :no_content }
       else

@@ -14,7 +14,7 @@ class CreatePatches < ActiveRecord::Migration
       p = Patch.create(name: loc.name_en, lat: loc.lat, lng: loc.lon)
       obs = Observation.joins(:card).where('cards.locus_id' => loc.id)
       obs.update_all(patch_id: p.id)
-      #obs.map(&:card).each {|card| card.update_attributes(locus_id: loc.parent_id) }
+      #obs.map(&:card).each {|card| card.update(locus_id: loc.parent_id) }
     end
 
   end

@@ -56,7 +56,7 @@ namespace :tax do
         ["Motacilla flava feldegg", "Motacilla feldegg", "Black-headed Wagtail", "eaywag"]
     ].each do |ssp_name, sp_name, en_name, idx_next|
       motfel = Taxon.find_by_name_sci(ssp_name)
-      motfel.update_attributes(
+      motfel.update(
           name_sci: sp_name,
           name_en: en_name,
           category: "species",

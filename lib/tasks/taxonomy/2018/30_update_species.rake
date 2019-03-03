@@ -47,7 +47,7 @@ namespace :tax do
         if reverse_synonym
           reverse_synonym.destroy_all
         end
-        sp.update_attributes!(name_sci: new_name)
+        sp.update!(name_sci: new_name)
         # Create new synonym
         UrlSynonym.create(name_sci: old_name, species: sp)
         puts "#{old_name} renamed to #{new_name}"
@@ -66,7 +66,7 @@ namespace :tax do
         if old_name.sub(/\A(.*) ([^ ]+)\Z/, '\1-\2') == new_name || old_name == "Rough-legged Buzzard"
           puts "            -- No change #{old_name} to #{new_name}"
         else
-          sp.update_attributes!(name_en: new_name)
+          sp.update!(name_en: new_name)
           puts "#{old_name} renamed to #{new_name}"
         end
       end

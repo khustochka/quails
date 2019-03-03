@@ -71,7 +71,7 @@ class VideosController < ApplicationController
   def patch
     new_params = params[:video]
     respond_to do |format|
-      if @video.update_attributes(new_params)
+      if @video.update(new_params)
         format.html { redirect_to action: :show }
         format.json { head :no_content }
       else

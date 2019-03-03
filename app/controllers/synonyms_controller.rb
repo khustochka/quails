@@ -9,7 +9,7 @@ class SynonymsController < ApplicationController
 
   def update
     @synonym = UrlSynonym.find(params[:id])
-    @synonym.update_attributes(params[:url_synonym])
+    @synonym.update(params[:url_synonym])
   end
 
 end

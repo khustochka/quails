@@ -8,7 +8,7 @@ namespace :tax do
       if sp.name_sci == sp.species.name_sci
         attrs.merge!(authority: sp.authority)
       end
-      sp.species.update_attributes(attrs)
+      sp.species.update(attrs)
     end
 
   end

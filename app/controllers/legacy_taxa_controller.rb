@@ -9,7 +9,7 @@ class LegacyTaxaController < ApplicationController
   end
 
   def update
-    if @taxon.update_attributes(params[:taxon])
+    if @taxon.update(params[:taxon])
       redirect_to([@book, @taxon], :notice => 'Taxon was successfully updated.')
     else
       render :form

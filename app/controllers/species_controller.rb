@@ -60,7 +60,7 @@ class SpeciesController < ApplicationController
   def update
 
     respond_to do |format|
-      if @species.update_attributes(params[:species])
+      if @species.update(params[:species])
         format.html { redirect_to(edit_species_url(@species), notice: 'Species was successfully updated.') }
         format.json { render json: @species }
       else

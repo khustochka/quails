@@ -67,8 +67,8 @@ class PostsControllerTest < ActionController::TestCase
     min_index = Species.minimum(:index_num)
     sp1 = Species.find_by(index_num: min_index)
     sp2 = Species.find_by(index_num: max_index)
-    sp1.update_attributes(index_num: max_index)
-    sp2.update_attributes(index_num: min_index)
+    sp1.update(index_num: max_index)
+    sp2.update(index_num: min_index)
 
     blogpost = create(:post)
     create(:observation, taxon: sp2.main_taxon, post: blogpost)

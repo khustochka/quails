@@ -74,7 +74,7 @@ class Taxon < ApplicationRecord
 
         # Unlink old taxa
         if new_species
-          new_species.taxa.where.not(id: self.id).each {|tx| tx.update_attributes(species_id: nil)}
+          new_species.taxa.where.not(id: self.id).each {|tx| tx.update(species_id: nil)}
         end
 
         if new_species.nil?
@@ -90,16 +90,16 @@ class Taxon < ApplicationRecord
           )
         end
 
-        new_species.update_attributes!(
+        new_species.update!(
             name_sci: name_sci,
             name_en: name_en,
             order: order,
             family: family.match(/^\w+dae/)[0]
         )
 
-        self.update_attributes!(species_id: new_species.id)
+        self.update!(species_id: new_species.id)
 
-        self.children.each {|tx| tx.update_attributes(species_id: new_species.id)}
+        self.children.each {|tx| tx.update(species_id: new_species.id)}
 
       end
       new_species

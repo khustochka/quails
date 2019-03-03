@@ -33,7 +33,7 @@ namespace :tax do
       data.shift # skip headers
       data.each_with_index do |(ebird_order, category, code, name_en, name_sci, order, family, _, report_as), idx|
         e_taxon = all_etaxa[code] || EbirdTaxon.new(ebird_code: code)
-        e_taxon.update_attributes!(
+        e_taxon.update!(
             name_sci: name_sci,
             name_en: name_en,
             # ioc name was removed from the csv

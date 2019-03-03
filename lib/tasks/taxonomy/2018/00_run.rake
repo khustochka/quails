@@ -24,7 +24,7 @@ namespace :tax do
       puts "\n\nUpdating Authority, French, Russian names:\n"
 
       changes.each do |nm, attr|
-        Species.find_by_name_sci(nm).update_attributes(attr)
+        Species.find_by_name_sci(nm).update(attr)
         puts nm
       end
 

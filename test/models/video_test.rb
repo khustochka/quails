@@ -21,7 +21,7 @@ class VideoTest < ActiveSupport::TestCase
   test 'change thumbnail when youtube id is updated' do
     video = create(:video)
 
-    video.update_attributes(youtube_id: 'Zzzzz33333')
+    video.update(youtube_id: 'Zzzzz33333')
 
     assert video.assets_cache.externals.first.url.include?('Zzzzz33333')
   end
