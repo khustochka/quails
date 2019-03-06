@@ -7,7 +7,7 @@
     - @checklist.group_by_taxonomy do |order, family, species_list|
       %tr.family_row
         %td
-        %td{:colspan => 2}
+        %td{:colspan => 3}
           %h2.order= render partial: 'species/taxonomy', locals: {rank: :order, value: order}
           %h3.family= render partial: 'species/taxonomy', locals: {rank: :family, value: family}
 
@@ -17,12 +17,13 @@
           %td.names
             %b= species_link(species.species)
             = name_sci(species.species)
-          %td.status_column
+          %td.status_marker
             - case species.status
-              - when "-"
-                %span.status-old{title: t('.status.old')} x
-              - when "?"
-                %span.status-unsure{title: t('.status.unsure')} ?
+            - when "-"
+              %span.status-old{title: t('.status.old')} x
+            - when "?"
+              %span.status-unsure{title: t('.status.unsure')} ?
+          %td.status_text
             = convert_status(species.notes)
             - if species.reference.present?
               %small

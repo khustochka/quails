@@ -454,11 +454,22 @@ table.neat_table.checklist_table
       @include arial-font
       font-weight: bold
       font-size: 16px
-  td.status_column
+  td.status_text
     width: 66%
     font-style: italic
     font-size: 87%
     color: #444
+
+@media only all and (max-width: 500px)
+  table.neat_table.checklist_table
+    td
+      padding: 5px 10px 5px 0
+      display: inline-block
+    .status_marker
+      padding-left: 15px
+    .status_text
+      display: block
+      padding-left: 25px
 
 .status-old, .status-unsure
   font-style: italic
