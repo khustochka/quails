@@ -10,8 +10,4 @@ environment.config.output.devtoolModuleFilenameTemplate = function(info) {
         return `webpack:///${rel}`
 }
 
-// Enable source map.
-// Will be default in the next Rails.
-environment.config.merge({devtool: 'source-map'})
-
 module.exports = environment.toWebpackConfig()
