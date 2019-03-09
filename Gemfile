@@ -66,7 +66,7 @@ gem 'airbrake'
 gem "mini_magick"
 
 # Assets
-gem 'webpacker', '~> 3.5.2'
+gem 'webpacker', '~> 4.0'
 gem "sprockets-rails"
 gem 'jquery-rails'
 gem 'pjax_rails', git: "https://github.com/khustochka/pjax_rails.git", branch: "trailing-ampersand-fix"
