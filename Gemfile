@@ -1,6 +1,6 @@
 source 'https://rubygems.org/'
 
-ruby '2.6.1'
+ruby '2.6.2'
 
 VERSION = "5.2.2.1"
 gem 'rails', VERSION
