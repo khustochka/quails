@@ -146,15 +146,17 @@ table p img
 
 // Minor
 body
-  a.remove, a.destroy, a.remove:hover, a.destroy:hover, a.img, a.img:hover, a.fa, a.fa:hover, a.force-link-color, a.force-link-color:hover
+  a.remove, a.destroy, a.remove:hover, a.destroy:hover, a.img, a.img:hover,
+  a.fa, a.fa:hover, a.fas, a.far, a.fab, a.fas:hover, a.far:hover, a.fab:hover,
+  a.force-link-color, a.force-link-color:hover
     background-color: inherit
     // IE6/7 do not understand inherit
     *background-color: white
     border-bottom: none
-  a.fa
+  a.fa, a.fas, a.far, a.fab
     color: #383838
-  a.fa:hover
-    color: $link-color
+    &:hover
+      color: $link-color
   a.force-link-color, a.force-link-color:hover
     color: $link-color
 

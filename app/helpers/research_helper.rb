@@ -8,6 +8,6 @@ module ResearchHelper
   end
 
   def locus_check(loc)
-    content_tag(:span, "", class: "fa fa-check green-check", title: loc, alt: loc)
+    content_tag(:span, "", class: "fas fa-check green-check", title: loc, alt: loc)
   end
 end

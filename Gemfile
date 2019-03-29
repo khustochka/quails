@@ -71,9 +71,9 @@ gem "sprockets-rails"
 gem 'jquery-rails'
 gem 'pjax_rails', git: "https://github.com/khustochka/pjax_rails.git", branch: "trailing-ampersand-fix"
 #gem 'respond-js-rails'
-gem 'sass-rails', '~> 5.0'
+gem 'sassc-rails'
 gem 'coffee-rails'
-gem 'font-awesome-sass', "~> 4.7.0"
+gem 'font-awesome-sass', "~> 5.8"
 gem "premailer-rails"
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
@@ -109,4 +109,5 @@ group :test do
 #  gem 'database_cleaner', '~> 1.3.0', require: false
   gem 'launchy' # So you can do Then show me the page
   gem 'simplecov', require: false, platforms: [:ruby, :mingw]
+  gem "sass-rails", require: false
 end

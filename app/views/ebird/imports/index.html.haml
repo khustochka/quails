@@ -38,7 +38,7 @@
           %td= list[:state_prov]
           %td.ebird-locus-select-td
             - if list[:card]
-              %span.fa.fa-check.green-check
+              %span.fas.fa-check.green-check
               = link_to "Card", list[:card]
             - else
               = select_tag "c[][locus_id]",
