@@ -12,25 +12,25 @@ module Seeds
     seed_init_if_necessary!
 
     dirname = SEED_DIR
+    ActiveRecord::Base.connection.disable_referential_integrity do
+      SEED_TABLES.each do |table_name|
+        filename = "#{dirname}/#{table_name}.yml"
 
-    SEED_TABLES.each do |table_name|
-      filename = "#{dirname}/#{table_name}.yml"
+        raw = YAML.load(File.new(filename), "r")
 
-      raw = YAML.load(File.new(filename), "r")
+        data = raw[table_name]
 
-      data = raw[table_name]
+        table = Seeds::Table.new(table_name)
+        table.cleanup
 
-      table = Seeds::Table.new(table_name)
-      table.cleanup
+        column_names = data['columns']
+        records = data['records']
 
-      column_names = data['columns']
-      records = data['records']
+        table.fill(column_names, records)
 
-      table.fill(column_names, records)
-
-      table.reset_pk_sequence!
+        table.reset_pk_sequence!
+      end
     end
-
   end
 
   def self.dump_all
