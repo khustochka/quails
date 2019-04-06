@@ -11,7 +11,7 @@
 
 = form_tag ebird_imports_path, method: :get, class: "simple_form" do
   = label_tag :date
-  = date_field_tag :date, params[:date].presence || Card.maximum(:observ_date) + 1, required: true
+  = date_field_tag :date, params[:date].presence || Card.maximum(:observ_date).try(:+, 1) || Date.today, required: true
   = submit_tag "Fetch"
 
 - if @checklists
@@ -45,4 +45,3 @@
                     options_from_collection_for_select(Locus.suggestion_order, :id, :to_label, Locus.find_by_name_en(list[:location])&.id),
                     include_blank: true, class: "locus_select"
     = submit_tag "Import"
-
