@@ -5,7 +5,7 @@ module Seeds
   SEED_TABLES = %w(ebird_taxa taxa species species_splits url_synonyms loci local_species books legacy_species legacy_taxa)
 
   SEED_DIR = File.join(ENV["HOME"], 'bwseed')
-  SEED_REPO = -"https://gist.github.com/8771462.git"
+  SEED_REPO = -"https://gist.github.com/2697b86d7f7d1ca8e93a74c593237068.git"
 
   def self.load_all
 
