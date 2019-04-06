@@ -1,4 +1,4 @@
-class SwitchObservationsToTaxon < ActiveRecord::Migration
+class SwitchObservationsToTaxon < ActiveRecord::Migration[4.2]
   def change
     add_column :observations, :taxon_id, :integer, null: true
     rename_column :observations, :species_id, :legacy_species_id

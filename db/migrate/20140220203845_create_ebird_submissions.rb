@@ -1,4 +1,4 @@
-class CreateEbirdSubmissions < ActiveRecord::Migration
+class CreateEbirdSubmissions < ActiveRecord::Migration[4.2]
   def change
     create_table :ebird_submissions do |t|
       t.integer :ebird_file_id, null: false

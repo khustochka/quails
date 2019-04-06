@@ -1,4 +1,4 @@
-class NoDefaultForObservationMine < ActiveRecord::Migration
+class NoDefaultForObservationMine < ActiveRecord::Migration[4.2]
   def up
     change_column_default(:observations, :mine, nil)
   end

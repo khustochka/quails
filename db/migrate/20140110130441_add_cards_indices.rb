@@ -1,4 +1,4 @@
-class AddCardsIndices < ActiveRecord::Migration
+class AddCardsIndices < ActiveRecord::Migration[4.2]
   def change
     add_index "cards", ["locus_id"]
     add_index "cards", ["post_id"]

@@ -1,9 +1,9 @@
-class EaseTheNullRestrictionsForSpecies < ActiveRecord::Migration
+class EaseTheNullRestrictionsForSpecies < ActiveRecord::Migration[4.2]
   def self.up
-    change_column :species, :authority, :string, :null => true
-    change_column :species, :name_ru, :string, :null => true
-    change_column :species, :name_uk, :string, :null => true
-    change_column :species, :order, :string, :null => true
+    change_column :species, :authority, :string, :null => true, limit: 255
+    change_column :species, :name_ru, :string, :null => true, limit: 255
+    change_column :species, :name_uk, :string, :null => true, limit: 255
+    change_column :species, :order, :string, :null => true, limit: 255
     change_column :species, :avibase_id, :string, :limit => 16, :null => true
   end
 

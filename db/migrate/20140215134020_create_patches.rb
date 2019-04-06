@@ -1,4 +1,4 @@
-class CreatePatches < ActiveRecord::Migration
+class CreatePatches < ActiveRecord::Migration[4.2]
   def change
     create_table :patches do |t|
       t.string :name, null: false, unique: true

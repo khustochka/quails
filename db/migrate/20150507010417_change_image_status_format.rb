@@ -1,4 +1,4 @@
-class ChangeImageStatusFormat < ActiveRecord::Migration
+class ChangeImageStatusFormat < ActiveRecord::Migration[4.2]
   def change
     change_column :media, :status, :string, limit: 16, default: "PUBLIC"
 

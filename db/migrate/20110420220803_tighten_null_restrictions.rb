@@ -1,4 +1,4 @@
-class TightenNullRestrictions < ActiveRecord::Migration
+class TightenNullRestrictions < ActiveRecord::Migration[4.2]
   def self.up
     change_column :observations, :species_id, :integer, :null => false
     change_column :observations, :locus_id, :integer, :null => false

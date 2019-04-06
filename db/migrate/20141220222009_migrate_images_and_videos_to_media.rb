@@ -1,4 +1,4 @@
-class MigrateImagesAndVideosToMedia < ActiveRecord::Migration
+class MigrateImagesAndVideosToMedia < ActiveRecord::Migration[4.2]
 
   class OldImage < ActiveRecord::Base
     self.table_name = 'images'

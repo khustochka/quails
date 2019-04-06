@@ -1,4 +1,4 @@
-class AddMediaTable < ActiveRecord::Migration
+class AddMediaTable < ActiveRecord::Migration[4.2]
   def change
     create_table "media", force: true do |t|
       t.string "slug", limit: 64, null: false

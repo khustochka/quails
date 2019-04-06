@@ -1,4 +1,4 @@
-class RemoveUnnecessaryIndices < ActiveRecord::Migration
+class RemoveUnnecessaryIndices < ActiveRecord::Migration[4.2]
   def up
     remove_index "posts", :name => "index_posts_on_status"
     remove_index "posts", :name => "index_posts_on_topic"

@@ -1,4 +1,4 @@
-class DefaultEmptyForObservNotes < ActiveRecord::Migration
+class DefaultEmptyForObservNotes < ActiveRecord::Migration[4.2]
   def change
     change_column :observations, "private_notes", :string, limit: 255, null: false, default: ""
     change_column :observations, "notes", :string, limit: nil, null: false, default: ""

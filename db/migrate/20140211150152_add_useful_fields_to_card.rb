@@ -1,4 +1,4 @@
-class AddUsefulFieldsToCard < ActiveRecord::Migration
+class AddUsefulFieldsToCard < ActiveRecord::Migration[4.2]
   def change
     add_column :cards, :effort_type, :string
     add_column :cards, :duration_minutes, :integer

@@ -1,4 +1,4 @@
-class RemoveImagesAndVideosTables < ActiveRecord::Migration
+class RemoveImagesAndVideosTables < ActiveRecord::Migration[4.2]
   def change
     drop_table :images
     drop_table :videos

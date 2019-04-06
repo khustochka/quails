@@ -1,4 +1,4 @@
-class CreateVideos < ActiveRecord::Migration
+class CreateVideos < ActiveRecord::Migration[4.2]
   def change
     create_table :videos do |t|
       t.string :slug,              limit: 64,                   null: false

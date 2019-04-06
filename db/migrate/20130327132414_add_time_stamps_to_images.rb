@@ -1,4 +1,9 @@
-class AddTimeStampsToImages < ActiveRecord::Migration
+class AddTimeStampsToImages < ActiveRecord::Migration[4.2]
+
+  class Image < ActiveRecord::Base
+
+  end
+
   def up
     add_column :images, :updated_at, :timestamp
 

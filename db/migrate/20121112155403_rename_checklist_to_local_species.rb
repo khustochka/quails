@@ -1,4 +1,4 @@
-class RenameChecklistToLocalSpecies < ActiveRecord::Migration
+class RenameChecklistToLocalSpecies < ActiveRecord::Migration[4.2]
 
   class Checklist < ActiveRecord::Base
   end
@@ -10,7 +10,7 @@ class RenameChecklistToLocalSpecies < ActiveRecord::Migration
     create_table "local_species" do |t|
       t.integer "locus_id",   :null => false
       t.integer "species_id", :null => false
-      t.string  "status"
+      t.string  "status", limit: 255
       t.string  "notes_en"
       t.string  "notes_ru"
       t.string  "notes_uk"

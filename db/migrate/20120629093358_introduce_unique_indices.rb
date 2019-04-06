@@ -1,4 +1,4 @@
-class IntroduceUniqueIndices < ActiveRecord::Migration
+class IntroduceUniqueIndices < ActiveRecord::Migration[4.2]
   def up
     # remove existing
     remove_index "images", :name => "index_images_on_slug"

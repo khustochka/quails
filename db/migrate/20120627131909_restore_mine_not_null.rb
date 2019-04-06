@@ -1,4 +1,4 @@
-class RestoreMineNotNull < ActiveRecord::Migration
+class RestoreMineNotNull < ActiveRecord::Migration[4.2]
   def up
     change_column :observations, :mine, :boolean, null: false
   end

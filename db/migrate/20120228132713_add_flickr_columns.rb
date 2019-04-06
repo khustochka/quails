@@ -1,4 +1,4 @@
-class AddFlickrColumns < ActiveRecord::Migration
+class AddFlickrColumns < ActiveRecord::Migration[4.2]
   def up
     add_column :images, :flickr_id, :string, limit: 64
     add_column :images, :flickr_data, :text

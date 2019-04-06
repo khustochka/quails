@@ -1,6 +1,6 @@
-class AddAncestryToLoci < ActiveRecord::Migration
+class AddAncestryToLoci < ActiveRecord::Migration[4.2]
   def change
-    add_column :loci, :ancestry, :string
+    add_column :loci, :ancestry, :string, limit: 255
     add_index :loci, :ancestry
 
     Locus.build_ancestry_from_parent_ids!

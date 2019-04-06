@@ -1,4 +1,4 @@
-class AddLegacySlugToSpecies < ActiveRecord::Migration
+class AddLegacySlugToSpecies < ActiveRecord::Migration[4.2]
   def change
     add_column :species, :legacy_slug, :string
 

@@ -1,4 +1,4 @@
-class SetLengthLimits < ActiveRecord::Migration
+class SetLengthLimits < ActiveRecord::Migration[4.2]
   def self.up
     change_column :locus, :code, :string, :limit => 32
     change_column :locus, :loc_type, :string, :limit => 8

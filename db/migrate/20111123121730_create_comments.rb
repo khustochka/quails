@@ -1,4 +1,4 @@
-class CreateComments < ActiveRecord::Migration
+class CreateComments < ActiveRecord::Migration[4.2]
   def change
     create_table :comments do |t|
       t.references :post
@@ -7,7 +7,7 @@ class CreateComments < ActiveRecord::Migration
       t.string :uid
       t.string :name
       t.string :email
-      t.string :url
+      t.string :url, limit: 255
       t.text :text
       t.boolean :approved
 

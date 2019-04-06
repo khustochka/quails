@@ -1,4 +1,4 @@
-class LociIsPluralForLocus < ActiveRecord::Migration
+class LociIsPluralForLocus < ActiveRecord::Migration[4.2]
   def self.up
     rename_table :locus, :loci
   end

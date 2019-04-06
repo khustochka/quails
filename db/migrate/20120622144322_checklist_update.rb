@@ -1,4 +1,4 @@
-class ChecklistUpdate < ActiveRecord::Migration
+class ChecklistUpdate < ActiveRecord::Migration[4.2]
   def up
     remove_index :checklists, :name => "index_checklists_on_locus_id_and_species_id"
     add_index :checklists, :locus_id

@@ -1,4 +1,4 @@
-class VideosObservationsJoinTable < ActiveRecord::Migration
+class VideosObservationsJoinTable < ActiveRecord::Migration[4.2]
   def change
     create_join_table :videos, :observations, table_name: 'videos_observations'
 

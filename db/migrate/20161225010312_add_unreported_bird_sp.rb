@@ -1,9 +1,9 @@
-class AddUnreportedBirdSp < ActiveRecord::Migration
+class AddUnreportedBirdSp < ActiveRecord::Migration[4.2]
   def up
     Taxon.create!(
              name_sci: "Unreported bird sp.",
              name_en: "Unreported bird sp.",
-             index_num: Taxon.maximum(:index_num) + 1,
+             index_num: (Taxon.maximum(:index_num) || 0) + 1,
              category: "spuh",
              ebird_code: "unrepbirdsp"
     )

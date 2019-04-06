@@ -1,4 +1,4 @@
-class CreateChecklists < ActiveRecord::Migration
+class CreateChecklists < ActiveRecord::Migration[4.2]
   def change
     create_table :checklists, id: false do |t|
       t.integer :locus_id

@@ -1,4 +1,4 @@
-class RenameCreatedAtToFaceDate < ActiveRecord::Migration
+class RenameCreatedAtToFaceDate < ActiveRecord::Migration[4.2]
   def self.up
     rename_column :posts, :created_at, :face_date
   end

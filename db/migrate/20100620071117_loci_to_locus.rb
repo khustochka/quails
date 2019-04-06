@@ -1,4 +1,4 @@
-class LociToLocus < ActiveRecord::Migration
+class LociToLocus < ActiveRecord::Migration[4.2]
   def self.up
     rename_table :loci, :locus
   end

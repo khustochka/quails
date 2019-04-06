@@ -8,7 +8,7 @@ class SpeciesImage < ActiveRecord::Base
   belongs_to :image
 end
 
-class ExtractSpeciesImages < ActiveRecord::Migration
+class ExtractSpeciesImages < ActiveRecord::Migration[4.2]
   def up
     create_table :species_images do |t|
       t.integer :species_id, null: false

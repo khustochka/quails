@@ -1,4 +1,4 @@
-class CreateUrlSynonyms < ActiveRecord::Migration
+class CreateUrlSynonyms < ActiveRecord::Migration[4.2]
   def change
     create_table :url_synonyms do |t|
       t.string "name_sci"

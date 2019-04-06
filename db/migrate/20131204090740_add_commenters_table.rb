@@ -1,4 +1,4 @@
-class AddCommentersTable < ActiveRecord::Migration
+class AddCommentersTable < ActiveRecord::Migration[4.2]
   def change
     remove_column :comments, :uid
     remove_column :comments, :provider
@@ -6,8 +6,8 @@ class AddCommentersTable < ActiveRecord::Migration
     add_column :comments, :send_email, :boolean, default: 'f'
 
     create_table :commenters do |t|
-      t.string :email
-      t.string :name
+      t.string :email, limit: 255
+      t.string :name, limit: 255
       t.boolean :is_admin, default: 'f'
     end
 

@@ -1,4 +1,4 @@
-class AddIndices < ActiveRecord::Migration
+class AddIndices < ActiveRecord::Migration[4.2]
   def self.up
     add_index :species, :name_sci
     add_index :species, :code
