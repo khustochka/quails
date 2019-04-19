@@ -14,8 +14,7 @@ class EbirdChecklist
       "Historical" => "HISTORICAL"
   }
 
-  DURATION_REGEX = /^(?:(\d+) hour\(s\)(?:, )?)?(?:(\d+) minute\(s\))?$/
-
+  DURATION_REGEX = /^Duration: (?:(\d+) hour\(s\)(?:, )?)?(?:(\d+) minute\(s\))?$/
 
   def initialize(ebird_id)
     @ebird_id = ebird_id
@@ -55,28 +54,28 @@ class EbirdChecklist
   private
 
   def parse!(page)
-    datetime = page.css("h5.rep-obs-date").text
-    dt = Time.zone.parse(datetime)
+    datetime = page.at_css("div.SectionHeading-heading time")[:datetime]
+    dt = Time.parse(datetime)
 
     self.observ_date = dt.to_date
-    if datetime =~ /\d:\d\d( (AM|PM))?[\s]*$/
+    if datetime.include?("T")
       self.start_time = dt.strftime("%R") # = %H:%M
     end
 
-    protocol = page.xpath("//dl[dt[text()='Protocol:']]/dd").text
+    protocol = page.at_xpath("//span[contains(@title, 'Protocol:')]").text
 
     self.effort_type = PROTOCOL_TO_EFFORT[protocol]
 
-    duration = page.xpath("//dl[dt[text()='Duration:']]/dd").text
+    duration = page.at_xpath("//span[contains(@title, 'Duration:')]").try(:[], :title)
     if duration.present?
       md = duration.match(DURATION_REGEX)
 
       self.duration_minutes = md[1].to_i * 60 + md[2].to_i
     end
 
-    distance = page.xpath("//dl[dt[text()='Distance:']]/dd").text
+    distance = page.at_xpath("//span[contains(@title, 'Distance:')]").try(:[], :title)
 
-    dm = distance.match(/^([\d.]+) (.*)$/)
+    dm = distance&.match(/^Distance: ([\d.]+) (.*)$/)
     if dm
       val = dm[1].to_f
       if dm[2] == "mile(s)"
@@ -86,43 +85,46 @@ class EbirdChecklist
       self.distance_kms = val
     end
 
-    area = page.css("div.bd").text.match(/Area:\s+([\d.]+) ac/)
+    area = page.css("div.Observation-meta-item").text.match(/Area:\s+([\d.]+) ac/)
     if area
       self.area_acres = area[1]
     end
 
-    party = page.xpath("//dl[dt[text()='Party Size:']]/dd").text
+    party = page.at_xpath("//span[contains(@title, 'Observers:')]")[:title].match(/^Observers: (\d+)$/)[1]
     if party != "1"
       self.observers = party
       #self.observers = page.xpath("//dl[dt[text()='Observers:']]/dd").text. TODO: beautify the text
     end
 
-    comments = page.css("dl.report-comments dd").text
+    comments = page.at_xpath("//section[h6[text()='Comments']]/p[contains(@class, 'u-constrainBody')]")&.text
 
     unless comments == "N/A"
       self.notes = comments
     end
 
-    self.location_string = page.css("h5.obs-loc").text
+    self.location_string = page.at_xpath("//div[h6[text()='Location']]//span").text
 
     self.observations = []
 
-    page.css(".spp-entry").each do |row|
-      count = row.css(".se-count").text
+    page.css("main ol li").each do |row|
+      count = row.css("div.Observation-numberObserved span span")[1].text
       count = nil if count == "X"
 
-      species_part = row.css("h5.se-name a").presence || row.css("h5.se-name")
-      taxon = species_part.children[0].text.strip
-      ebird_taxon = EbirdTaxon.find_by_name_en(taxon)
+      taxon = row.at_css("section")[:id]
+      ebird_taxon = EbirdTaxon.find_by_ebird_code(taxon)
 
       tx = ebird_taxon.find_or_promote_to_taxon
 
       voice = false
 
-      notes = row.css(".obs-comments").text
-      if notes.downcase == "v" || notes.downcase.start_with?("heard")
-        notes = ""
-        voice = true
+      comments = row.at_css("div.Observation-comments")
+      notes = ""
+      if comments
+        notes = comments.at_css("p").children[1].text
+        if notes.downcase == "v" || notes.downcase.start_with?("heard")
+          notes = ""
+          voice = true
+        end
       end
 
       self.observations << {taxon: tx, quantity: count, notes: notes, voice: voice}
