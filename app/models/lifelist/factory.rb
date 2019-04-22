@@ -40,7 +40,7 @@ module Lifelist
     def normalized_filter
       @normalized_filter ||= @filter.dup.tap do |filter|
         if filter[:locus]
-          filter[:locus] = Locus.find_by!(slug: filter[:locus]).subregion_ids
+          filter[:locus] = locus&.subregion_ids
         end
       end
     end
