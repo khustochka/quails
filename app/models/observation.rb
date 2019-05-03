@@ -39,7 +39,7 @@ class Observation < ApplicationRecord
     self.count("DISTINCT species_id")
   end
 
-  def self.filter(options = {})
+  def self.refine(options = {})
     rel = self.all
     rel = rel.joins(:card).where('EXTRACT(year from cards.observ_date)::integer = ?', options[:year]) unless options[:year].blank?
     rel = rel.joins(:card).where('EXTRACT(month from cards.observ_date)::integer = ?', options[:month]) unless options[:month].blank?

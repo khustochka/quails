@@ -200,7 +200,7 @@ class ResearchController < ApplicationController
     @years = [nil] + Observation.years
     @locations = Country.all
 
-    observations_filtered = Observation.filter(year: params[:year]).joins(:card)
+    observations_filtered = Observation.refine(year: params[:year]).joins(:card)
     if params[:locus]
       loc_filter = Locus.find_by!(slug: params[:locus]).subregion_ids
       observations_filtered = observations_filtered.where('cards.locus_id' => loc_filter)
@@ -337,7 +337,7 @@ class ResearchController < ApplicationController
     @locus = Locus.find_by_slug(params[:locus])
     obs_base = Observation.all
     if @locus
-      obs_base = obs_base.filter(locus: @locus.subregion_ids)
+      obs_base = obs_base.refine(locus: @locus.subregion_ids)
     end
 
     # Put prev & next months into [1..12] interval

@@ -26,7 +26,7 @@ module Lifelist
     end
 
     def base
-      MyObservation.filter(normalized_filter).joins(:card)
+      MyObservation.refine(normalized_filter).joins(:card)
     end
 
     def ordering

@@ -2,7 +2,7 @@ desc 'Quick benchmark'
 task :benchmark => :environment do
   require 'benchmark/ips'
 
-  @base = MyObservation.filter({}).joins(:card)
+  @base = MyObservation.refine({}).joins(:card)
   @dates =
 
   Benchmark.ips do |bench|
