@@ -60,7 +60,7 @@ class Locus < ApplicationRecord
     # Hack for Arabat Spit
     if slug == 'arabat_spit'
       Locus.where("slug LIKE 'arabat%'").flat_map(&:subtree_ids)
-    elsif slug == '5MR'
+    elsif slug == '5mr'
       Locus.where(five_mile_radius: true).map(&:id)
     else
       subtree_ids
