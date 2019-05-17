@@ -1,5 +1,7 @@
 class FormattingStrategy
 
+  include Rails.application.routes.url_helpers
+
   WIKI_PREFIXES = -"@|#|\\^|&"
 
   def initialize(text, metadata = {})

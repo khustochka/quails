@@ -1,7 +1,6 @@
 class SiteFormatStrategy < FormattingStrategy
   include VideoEmbedder
 
-  include Rails.application.routes.url_helpers
   include SpeciesHelper
   include ImagesHelper
   include ActionView::Helpers::TagHelper

@@ -102,6 +102,16 @@ class FormattersTest < ActionDispatch::IntegrationTest
                     "<figcaption class=\"imagetitle\">\nHouse Sparrow <i>(Passer domesticus)</i>\n</figcaption>"
   end
 
+  test "LJ Post with S3 images" do
+    image = create(:image,
+                   stored_image: fixture_file_upload("files/tules.jpg"))
+    post = build(:post, text: "{{^#{image.slug}}}")
+    assert_includes post.decorated.for_lj.text,
+                    "<img src=\"#{jpg_url(image)}\" title=\"[photo]\" alt=\"[photo]\" />"
+    assert_includes post.decorated.for_lj.text,
+                    "<figcaption class=\"imagetitle\">\nHouse Sparrow <i>(Passer domesticus)</i>\n</figcaption>"
+  end
+
   test "LJ Post with images" do
     p = create(:post, text: "AAA")
     image = create(:image)
