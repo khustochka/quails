@@ -10,21 +10,21 @@
 
     %ul
       %li
-        Posts: #{Post.size}
+        Posts: #{Post.count}
         %ul.no-margin-list
-          %li public: #{Post.public_posts.size}
+          %li public: #{Post.public_posts.count}
           %li indexable: #{@index_posts}
       %li
         Approved comments: #{@comments}
         %ul.no-margin-list
           %li not by admin: #{@user_comments}
       %li
-        Images: #{Image.size}
+        Images: #{Image.count}
         %ul.no-margin-list
           %li indexable: #{@index_images}
-      %li Cards: #{Card.size}
-      %li Observations: #{Observation.size}
-      %li Spots: #{Spot.size}
+      %li Cards: #{Card.count}
+      %li Observations: #{Observation.count}
+      %li Spots: #{Spot.count}
       %li Indexed species: #{@index_species}
       %li
         %b
