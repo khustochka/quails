@@ -1818,7 +1818,7 @@ core-js-pure@3.1.2:
   resolved "https://registry.yarnpkg.com/core-js-pure/-/core-js-pure-3.1.2.tgz#62fc435f35b7374b9b782013cdcb2f97e9f6dffa"
   integrity sha512-5ckIdBF26B3ldK9PM177y2ZcATP2oweam9RskHSoqfZCrJ2As6wVg8zJ1zTriFsZf6clj/N1ThDFRGaomMsh9w==
 
-core-js@^2.6.5:
+core-js@2, core-js@^2.6.5:
   version "2.6.8"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.6.8.tgz#dc3a1e633a04267944e0cb850d3880f340248139"
   integrity sha512-RWlREFU74TEkdXzyl1bka66O3kYp8jeTXrvJZDzVVMH8AiHUSOFpL1yfhQJ+wHocAm1m+4971W1PPzfLuCv1vg==
@@ -1880,11 +1880,11 @@ create-hmac@^1.1.0, create-hmac@^1.1.2, create-hmac@^1.1.4:
     sha.js "^2.4.8"
 
 cross-fetch@^3.0.0:
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/cross-fetch/-/cross-fetch-3.0.2.tgz#b7136491967031949c7f86b15903aef4fa3f1768"
-  integrity sha512-a4Z0EJ5Nck6QtMy9ZqloLfpvu2uMV3sBfMCR+CgSBCZc6z5KR4bfEiD3dkepH8iZgJMXQpTqf8FjMmvu/GMFkg==
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/cross-fetch/-/cross-fetch-3.0.3.tgz#b988beab275939cb77ad4e362c873f7fa8a221a5"
+  integrity sha512-mplYkc4CopHu+AdHK8wxjJcPskUxp5CvPTdtDij3MUgVNBa0xOb9CQqbbn1zO23qISM4WLxIBociyEVQL7WQAg==
   dependencies:
-    node-fetch "2.3.0"
+    node-fetch "2.6.0"
     whatwg-fetch "3.0.0"
 
 cross-spawn@^3.0.0:
@@ -4197,10 +4197,10 @@ nice-try@^1.0.4:
   resolved "https://registry.yarnpkg.com/nice-try/-/nice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"
   integrity sha512-1nh45deeb5olNY7eX82BkPO7SSxR5SSYJiPTrTdFUVYwAl8CKMA5N9PjTYkHiRjisVcxcQ1HXdLhx2qxxJzLNQ==
 
-node-fetch@2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.3.0.tgz#1a1d940bbfb916a1d3e0219f037e89e71f8c5fa5"
-  integrity sha512-MOd8pV3fxENbryESLgVIeaGKrdl+uaYhCSSVkjeOb/31/njTpcis5aWfdqgNlHIrKOLRbMnfPINPOML2CIFeXA==
+node-fetch@2.6.0:
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.0.tgz#e633456386d4aa55863f676a7ab0daa8fdecb0fd"
+  integrity sha512-8dG4H5ujfvFiqDmVu9fQ5bOHUC15JMjMY/Zumv26oOvvVJjM67KF8koCWIabKQ1GJIa9r2mMZscBq/TbdOcmNA==
 
 node-forge@0.7.5:
   version "0.7.5"
