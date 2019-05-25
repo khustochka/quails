@@ -1,5 +1,2 @@
-if ENV["REDISTOGO_URL"]
-  Resque.redis = Redis.new(url: ENV["REDISTOGO_URL"])
-else
-  Resque.redis = {:host => 'localhost', :port => 6379, :db => 0}
-end
+url = ENV["REDISTOGO_URL"] || "redis://localhost:6379/0"
+Resque.redis = Redis.new(url: url, driver: "hiredis")
