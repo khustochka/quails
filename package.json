@@ -2,10 +2,10 @@
   "name": "Quails",
   "license": "MIT",
   "dependencies": {
-    "@rails/webpacker": "^4.0.2",
+    "@rails/webpacker": "^4.0.4",
     "activestorage": "^5.2.1",
     "airbrake-js": "^1.6.2",
-    "core-js": "2",
+    "core-js": "3",
     "cross-fetch": "^3.0.0",
     "ilyabirman-likely": "^2.3.0",
     "keypress.js": "^2.1.5",
@@ -13,6 +13,6 @@
     "turbolinks": "^5.1.1"
   },
   "devDependencies": {
-    "webpack-dev-server": "^3.1.14"
+    "webpack-dev-server": "^3.5.0"
   }
 }
