@@ -1,2 +1,2 @@
-url = ENV["REDISTOGO_URL"] || "redis://localhost:6379/0"
+url = ENV["REDISTOGO_URL"] || ENV["REDIS_RESQUE_URL"]
 Resque.redis = Redis.new(url: url, driver: "hiredis")

@@ -17,17 +17,15 @@ Rails.application.configure do
 
   # Enable/disable caching. By default caching is disabled.
   if Rails.root.join('tmp/caching-dev.txt').exist? || ENV['DEV_CACHING']
-    # Clear cache
-    FileUtils.rm_rf(Dir['tmp/cache/[^.]*'])
     config.action_controller.perform_caching = true
 
-    # config.cache_store = :memory_store
     config.public_file_server.headers = {
       'Cache-Control' => "public, max-age=#{2.days.to_i}"
     }
+
+    config.cache_store = :redis_cache_store, { url: ENV["REDIS_CACHE_URL"] }
   else
     config.action_controller.perform_caching = false
-
     config.cache_store = :null_store
   end
 
