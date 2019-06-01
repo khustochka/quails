@@ -32,14 +32,14 @@
 - else
   = button_to "Promote to taxon", promote_ebird_taxon_path(@taxon)
 
-- if parent = @taxon.parent
+- @taxon.parent.if_present do |parent|
   %h3 Parent
 
   &bull;
   = link_to parent.name_sci, parent
 
-- if @taxon.children.present?
+- @taxon.children.if_present do |chd|
   %h3 Children
   %ul
-    - @taxon.children.each do |tx|
+    - chd.each do |tx|
       %li= link_to tx.name_sci, tx

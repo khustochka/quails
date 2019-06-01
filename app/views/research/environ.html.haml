@@ -12,7 +12,7 @@
   %dt Rack release
   %dd= Rack.release
 
-  - if server_software = request.env['SERVER_SOFTWARE']
+  - request.env['SERVER_SOFTWARE'].if_present do |server_software|
     %dt Server Software
     %dd= server_software
 

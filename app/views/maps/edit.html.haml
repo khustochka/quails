@@ -21,6 +21,6 @@
 .mapContainer
   #googleMap
 
-- if @observation_search.card_id
+- @observation_search.card_id.if_present do |id|
   :javascript
-    var card_kml = "#{Card.find(@observation_search.card_id).kml_url}"
+    var card_kml = "#{Card.find(id).kml_url}"

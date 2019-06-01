@@ -11,7 +11,7 @@
 - species_rarity = @thumbs.group_by {|s| s.status.match(/\?|\-/).nil? }
 
 - [true, false].each do |common|
-  - if sps = species_rarity[common]
+  - species_rarity[common].if_present do |sps|
     - unless common
       %h2= t(".not_common")
 

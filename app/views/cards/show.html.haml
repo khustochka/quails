@@ -17,10 +17,10 @@
 - if @card.post || @card.secondary_posts.present?
   %h3 Posts
   %ul
-    - if @card.post
+    - @card.post.if_present do |post|
       %li
         %big
-          %b= post_link(@card.post.decorated.title, @card.post)
+          %b= post_link(post.decorated.title, post)
 
     - @card.secondary_posts.if_present do |ps|
       - ps.each do |p|

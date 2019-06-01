@@ -25,7 +25,7 @@
               %span.status-unsure{title: t('.status.unsure')} ?
           %td.status_text
             = convert_status(species.notes)
-            - if species.reference.present?
+            - species.reference.if_present do |ref|
               %small
                 = surround("[", "]") do
-                  %a{href: "##{species.reference}"}= species.reference
+                  %a{href: "##{ref}"}= ref

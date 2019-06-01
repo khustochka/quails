@@ -14,10 +14,10 @@
     = form.input_field :include_subregions, as: :boolean, unchecked_value: false
     Include subregions
 = render partial: form.object.voice_fieldset, locals: {form: form}
-- if form.object.card_id
+- form.object.card_id.if_present do |card_id|
   %div.input.optional
-    = form.input :card_id, as: :boolean, label: link_to("Card #{form.object.card_id}", card_path(form.object.card_id)),
-                            checked_value: form.object.card_id, unchecked_value: ''
+    = form.input :card_id, as: :boolean, label: link_to("Card #{card_id}", card_path(card_id)),
+                            checked_value: card_id, unchecked_value: ''
 
 .buttons
   = form.button :submit, "Search", name: nil

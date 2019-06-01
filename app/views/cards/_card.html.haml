@@ -58,12 +58,12 @@
       = card.start_time + ", " if card.start_time
       = card.duration_minutes.to_s + " min, " if card.duration_minutes
       = card.distance_kms.to_s + " km" if card.distance_kms
-      - if card.observers.present?
+      - card.observers.if_present do |observers|
         &bull;
-        %b= card.observers
+        %b= observers
 
-    - if params[:obs]
-      = link_to 'Attach here', attach_card_path(card, obs: params[:obs]), class: 'pseudolink', data: {method: :post}
+    - params[:obs].if_present do |obs|
+      = link_to 'Attach here', attach_card_path(card, obs: obs), class: 'pseudolink', data: {method: :post}
 
   - if card.notes.present?
     -#%span.ui-icon.ui-icon-comment.inline-block.notes-tooltip{"data-title" => card.decorated.notes}
