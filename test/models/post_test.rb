@@ -48,9 +48,11 @@ class PostTest < ActiveSupport::TestCase
     assert blogpost.save
   end
 
-  test "set post's face_date to current (equal to updated_at) when creating" do
-    blogpost = create(:post)
-    assert_equal blogpost.updated_at.strftime('%F %T'), blogpost.face_date.strftime('%F %T')
+  test "set post's face_date to current when creating" do
+    time, blogpost = freeze_time do
+     [Time.zone.now, create(:post)]
+    end
+    assert_equal time.strftime('%F %T'), blogpost.face_date.strftime('%F %T')
   end
 
   test "set post's face_date to current (equal to updated_at) when saving with empty value" do
