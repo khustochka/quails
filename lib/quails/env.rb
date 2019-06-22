@@ -1,15 +1,13 @@
+require "active_support/core_ext/array/inquiry.rb"
+
 module Quails
 
   CURRENT_YEAR = 2019
 
   class Env
-    def self.init
-      new(ENV['QUAILS_ENV'])
-    end
-
-    def initialize(val)
-      @raw = val
-      @arr = val.split(':').inquiry if @raw
+    def initialize
+      @raw = ENV['QUAILS_ENV'] || ""
+      @arr = @raw.split(':').inquiry
     end
 
     def rake?
@@ -68,6 +66,6 @@ module Quails
   end
 
   def self.env
-    @env ||= Env.init
+    @env ||= Env.new
   end
 end
