@@ -5,6 +5,6 @@
   - noredis = true
 
 - if defined?(noredis) && noredis
-  = link_to "X", "/resque/failed", target: "_blank", class: "resque_badge tag alert"
+  = link_to "X", "/resque", target: "_blank", class: "resque_badge tag alert"
 - elsif defined?(failed_jobs) && failed_jobs > 0
   = link_to failed_jobs, "/resque/failed", target: "_blank", class: "resque_badge tag alert"
