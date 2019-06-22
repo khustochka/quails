@@ -67,6 +67,6 @@ Rails.application.configure do
     # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
     config.force_ssl = true
     # Pumadev ssl port is 9283
-    config.ssl_options = {redirect: {port: 9283}}
+    config.ssl_options = {redirect: {port: 9283}, hsts: false}
   end
 end
