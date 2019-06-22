@@ -48,7 +48,7 @@ Rails.application.configure do
   config.force_ssl = Quails.env.ssl?
 
   # If we want the browsers to forget HSTS setting
-  if !Quails.env.no_hsts?
+  if Quails.env.no_hsts?
     config.ssl_options = {hsts: false}
   end
 
