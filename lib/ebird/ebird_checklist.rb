@@ -127,7 +127,9 @@ class EbirdChecklist
         end
       end
 
-      self.observations << {taxon: tx, quantity: count, notes: notes, voice: voice}
+      ebird_obs_id = row.at_css("a.Observation-tools-item")['data-obsid']
+
+      self.observations << {taxon: tx, quantity: count, notes: notes, voice: voice, ebird_obs_id: ebird_obs_id}
 
     end
 

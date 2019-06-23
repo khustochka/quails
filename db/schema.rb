@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_01_020635) do
+ActiveRecord::Schema.define(version: 2019_06_23_163906) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -234,6 +234,7 @@ ActiveRecord::Schema.define(version: 2018_12_01_020635) do
     t.integer "taxon_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string "ebird_obs_id"
     t.index ["card_id"], name: "index_observations_on_card_id"
     t.index ["post_id"], name: "index_observations_on_post_id"
     t.index ["taxon_id"], name: "index_observations_on_taxon_id"
