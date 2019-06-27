@@ -1,17 +1,7 @@
-.*
-!.gitignore
-!.gitkeep
-!.gitmodules
-!.ruby-version
-!.ruby-gemset
-!.keep
-!.env
-!.env.test
-!.env.development
-!.powenv
-!.babelrc
-!.postcssrc.yml
 .bundle
+.env.local
+.env.production
+.*/
 data/checklists*/
 data/MyEBirdData*
 db/*.sqlite3
@@ -29,16 +19,14 @@ public/csv
 coverage/*
 # React on Rails
 npm-debug.log*
-node_modules
 storage/
-
-# Generated js bundles
-/public/webpack/*
-/public/packs
-/public/packs-test
-/node_modules
-yarn-debug.log*
-.yarn-integrity
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+/public/packs
+/public/packs-test
+/node_modules
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity
