@@ -1,7 +1,7 @@
 namespace :helper do
 
   task :load_locals do
-    @db_spec = YAML.load_file('config/database.yml')[ENV['RAILS_ENV'] || 'development']
+    @db_spec = YAML.load(ERB.new(File.read('config/database.yml')).result)[ENV['RAILS_ENV'] || 'development']
     begin
       @local_opts = YAML.load_file('config/local.yml')
       @folder = @local_opts["repo"]
