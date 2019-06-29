@@ -114,4 +114,5 @@ group :test do
 #  gem 'database_cleaner', '~> 1.3.0', require: false
   gem 'launchy' # So you can do Then show me the page
   gem 'simplecov', require: false, platforms: [:ruby, :mingw]
+  gem 'minitest-reporters'
 end
