@@ -1,7 +1,15 @@
 if ENV['COVERAGE'] == 'true'
   begin
     require 'simplecov'
-    SimpleCov.start 'rails'
+    SimpleCov.start 'rails' do
+      if ENV['TEAMCITY_VERSION']
+        at_exit do
+          SimpleCov::Formatter::TeamcitySummaryFormatter.new.format(SimpleCov.result)
+          # SimpleCov.result.format! # uncomment for additional detailed HTML report for TeamCity artifacts
+        end
+      end
+    end
+    Rails.application.eager_load!
   rescue LoadError, RuntimeError
   end
 end

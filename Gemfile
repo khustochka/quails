@@ -115,4 +115,5 @@ group :test do
   gem 'launchy' # So you can do Then show me the page
   gem 'simplecov', require: false, platforms: [:ruby, :mingw]
   gem 'minitest-reporters'
+  gem 'simplecov-teamcity-summary'
 end
