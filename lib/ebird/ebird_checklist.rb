@@ -120,10 +120,12 @@ class EbirdChecklist
       comments = row.at_css("div.Observation-comments")
       notes = ""
       if comments
-        notes = comments.at_css("p").children[1].text
-        if notes.downcase == "v" || notes.downcase.start_with?("heard")
-          notes = ""
+        notes = comments.at_css("p").children[1].text.strip
+        if notes.downcase.strip == "v" || notes.downcase.start_with?("heard")
           voice = true
+          if notes.downcase.strip == "v"
+            notes = ""
+          end
         end
       end
 
