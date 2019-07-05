@@ -120,12 +120,10 @@ class EbirdChecklist
       comments = row.at_css("div.Observation-comments")
       notes = ""
       if comments
-        notes = comments.at_css("p").children[1].text.strip
-        if notes.downcase.strip == "v" || notes.downcase.start_with?("heard")
+        notes = comments.at_css("p").children[1].text&.strip
+        if notes.downcase == "v" || notes.downcase.start_with?("heard")
           voice = true
-          if notes.downcase.strip == "v"
-            notes = ""
-          end
+          notes.gsub!(/^\s*V\s*$\n*/i, "") # Remove V if it is the single letter in a line
         end
       end
 
