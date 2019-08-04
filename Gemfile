@@ -78,6 +78,8 @@ gem 'pjax_rails', git: "https://github.com/khustochka/pjax_rails.git", branch: "
 gem 'sassc-rails'
 gem 'coffee-rails'
 gem 'font-awesome-sass', "~> 5.8"
+gem 'bootstrap', '~> 4.3'
+
 gem "premailer-rails"
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
