@@ -1,3 +1,4 @@
+- @shorter_width = true
 - @page_title = t('.title')
 
 - @jumbo_image = "https://c1.staticflickr.com/9/8345/8198280055_0391dba330_b.jpg"
@@ -14,9 +15,14 @@
 
 - cache [@posts, admin: current_user.admin?] do
 
-  = render @posts
+  .row
+    .col-lg-10.col-md-12.shorter-width
+      = render @posts
 
-  - if @prev_month
-    %nav.front_page_prev
-      = link_to t('.previous_posts'), month_path(@prev_month)
-      (#{[t('date.month_names')[@prev_month[:month].to_i], @prev_month[:year]] * ' '})
+      - if @prev_month
+        %nav.front_page_prev
+          = link_to t('.previous_posts'), month_path(@prev_month)
+          (#{[t('date.month_names')[@prev_month[:month].to_i], @prev_month[:year]] * ' '})
+
+    .col-lg-2.col-md-12
+      Sidebar data
