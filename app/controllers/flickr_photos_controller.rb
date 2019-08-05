@@ -70,7 +70,7 @@ class FlickrPhotosController < ApplicationController
     used = Image.where("external_id IS NOT NULL").pluck(:external_id)
     top = params[:top]&.to_i
     search_params = DEFAULT_SEARCH_PARAMS.merge({user_id: flickr_admin.user_id})
-    @flickr_result = flickr_client.search_and_filter_photos(search_params, top) do |collection|
+    @flickr_result = _FlickrClient.search_and_filter_photos(search_params, top) do |collection|
       collection.reject {|x| used.include?(x.id)}
     end
     @flickr_img_url_lambda = ->(img) { new_image_path(i: {flickr_id: img.id}) }
@@ -85,7 +85,7 @@ class FlickrPhotosController < ApplicationController
 
   def bou_cc
     search_params = {license: '1,2,3,4,5,6', group_id: '615480@N22', extras: 'owner_name,license'}
-    @flickr_result = flickr_client.search_and_filter_photos(search_params) do |collection|
+    @flickr_result = _FlickrClient.search_and_filter_photos(search_params) do |collection|
       collection.reject { |x| x.owner == flickr_admin.user_id }
     end
   end
@@ -100,7 +100,7 @@ class FlickrPhotosController < ApplicationController
       date_param = Date.parse(date)
       new_params.merge!({min_taken_date: date_param - 1, max_taken_date: date_param + 1})
     end
-    @flickr_imgs = flickr_client.call("flickr.photos.search", DEFAULT_SEARCH_PARAMS.merge(new_params))
+    @flickr_imgs = _FlickrClient.call("flickr.photos.search", DEFAULT_SEARCH_PARAMS.merge(new_params))
     render @flickr_imgs
   end
 

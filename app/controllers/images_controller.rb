@@ -63,7 +63,7 @@ class ImagesController < ApplicationController
     exif_date = `identify -format "%[EXIF:DateTimeOriginal]" "#{filename}"`.chomp[0..9].tr(":", "-")
     image_attributes[:exif_date] = exif_date if exif_date.present?
     if to_flickr
-      flickr_id = flickr_client.upload_photo(filename, FlickrPhoto::DEFAULT_PARAMS.merge(params[:flickr])).get
+      flickr_id = _FlickrClient.upload_photo(filename, FlickrPhoto::DEFAULT_PARAMS.merge(params[:flickr])).get
       image_attributes[:i][:flickr_id] = flickr_id
       image_attributes[:new_on_flickr] = true
     end
