@@ -27,6 +27,7 @@ class BlogController < ApplicationController
         @prev_month = Post.public_posts.prev_month(post_last[:year], post_last[:month])
       end
     end
+    @list_current_year = Lifelist::FirstSeen.over(year: Quails::CURRENT_YEAR)
   end
 
   def archive

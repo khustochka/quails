@@ -15,30 +15,30 @@
 
 - cache(key: CacheKey.lifelist) do
 
-  %div.fluid-row
+  .row
 
-    %div.fluid-column
+    .col-sm-12.col-md-6
 
       %h2= link_to('Lifelist', lifelist_path)
 
       = render partial: "top5list", object: @list_life
 
-    %div.fluid-column
+    .col-sm-12.col-md-6
 
       %h2= link_to(t('lists.title.yearlist', year: Quails::CURRENT_YEAR), list_path(year: Quails::CURRENT_YEAR))
 
       = render partial: "top5list", object: @list_current_year
 
-  %div.fluid-row
+  .row
 
-    %div.fluid-column
+    .col-sm-12.col-md-6
 
       %h2
         = link_to(t('lists.title.canada'), list_path(locus: 'canada'))
 
       = render partial: "top5list", object: @list_canada
 
-    %div.fluid-column
+    .col-sm-12.col-md-6
 
       %h2
         = link_to(t('lists.title.ukraine'), list_path(locus: 'ukraine'))
@@ -46,7 +46,7 @@
       = render partial: "top5list", object: @list_ukraine
 
     -# Temporary previous year list
-    -#%div.fluid-column
+    -#.col-sm-12.col-md-6
     -#
     -#  %h2
     -#    = link_to(t('lists.title.yearlist', year: Quails::CURRENT_YEAR - 1), list_path(year: Quails::CURRENT_YEAR - 1))
@@ -54,22 +54,22 @@
     -#  = render partial: "top5list", object: @list_prev_year
 
 
-  %div.fluid-row
+  .row
 
-    -#%div.fluid-column
+    -#.col-sm-12.col-md-6
     -#
     -#  %h2
     -#    = link_to(t('lists.title.ukraine'), list_path(locus: 'ukraine'))
     -#    (#{@list_ukraine.total_count})
 
-    %div.fluid-column
+    .col-sm-12.col-md-6
 
       %h2
         = link_to(t('lists.title.usa'), list_path(locus: 'usa'))
         (#{@list_usa.total_count})
 
 
-    %div.fluid-column
+    .col-sm-12.col-md-6
 
       %h2
         = link_to(t('lists.title.gb'), list_path(locus: 'united_kingdom'))

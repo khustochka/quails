@@ -5,3 +5,9 @@ $footer-margin: 145px;
   margin-bottom: ($footer-margin + 40px);
   margin-top: 30px;
 }
+
+.sidebar_list {
+  & {
+    font-size: 90%;
+  }
+}

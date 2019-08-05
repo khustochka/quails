@@ -16,7 +16,7 @@
 - cache [@posts, admin: current_user.admin?] do
 
   .row
-    .col-lg-10.col-md-12.shorter-width
+    .col-lg-9.col-md-12.shorter-width
       = render @posts
 
       - if @prev_month
@@ -24,5 +24,8 @@
           = link_to t('.previous_posts'), month_path(@prev_month)
           (#{[t('date.month_names')[@prev_month[:month].to_i], @prev_month[:year]] * ' '})
 
-    .col-lg-2.col-md-12
-      Sidebar data
+    .col-lg-3.col-md-12
+      .sidebar_list
+        %h5= link_to(t('lists.title.yearlist', year: Quails::CURRENT_YEAR), list_path(year: Quails::CURRENT_YEAR))
+
+        = render partial: "lists/top5list", object: @list_current_year
