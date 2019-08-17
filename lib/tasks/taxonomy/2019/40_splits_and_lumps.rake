@@ -2,7 +2,7 @@ namespace :tax do
 
   namespace :update2019 do
 
-    task :fix_splits_and_lumps => [:fix_lumps, :implement_splits, :validate_splits_and_lumps, :update_order_family_sorting, :fix_observations]
+    task :fix_splits_and_lumps => [:fix_lumps, :implement_splits, :validate_species, :update_order_family_sorting, :fix_observations]
 
     task :fix_lumps => :environment do
 
@@ -42,37 +42,46 @@ namespace :tax do
 
     task :implement_splits => :environment do
 
-      # VIREO OLIVACEUS split
+      # BASIC SPLITS
 
       # Find new subspecies and promote
+      # Cercotrichas galactotes
+      EbirdTaxon.find_by_ebird_code("rutscr1").promote
 
-      vireo_olivaceus = EbirdTaxon.find_by_ebird_code("reevir1").promote
+      # Picus viridis
+      euro_green_woodpecker = EbirdTaxon.find_by_ebird_code("eugwoo2").promote
+      ibero_green_woodpecker = EbirdTaxon.find_by_ebird_code("grnwoo3").promote
+
+      SpeciesSplit.create!(superspecies: euro_green_woodpecker.species, subspecies: ibero_green_woodpecker.species)
+
+      # Melanitta deglandi
+      EbirdTaxon.find_by_ebird_code("whwsco2").promote
 
       # MALLARD
 
       #mallard = EbirdTaxon.find_by_ebird_code("mallar3").promote
       # Because former subspecies and now species-taxon already exists, promoting it will not unlink
       # species from former species-now slash. That is why we need to do this separately:
-      Taxon.find_by_ebird_code("mallar3").lift_to_species
+      #Taxon.find_by_ebird_code("mallar3").lift_to_species
 
       # VELVET/WHITE-WINGED SCOTER split
 
-      velvet_scoter = EbirdTaxon.find_by_ebird_code("whwsco3").promote
-      whitewinged_scoter = EbirdTaxon.find_by_ebird_code("whwsco4").promote
+      # velvet_scoter = EbirdTaxon.find_by_ebird_code("whwsco3").promote
+      # whitewinged_scoter = EbirdTaxon.find_by_ebird_code("whwsco4").promote
+      #
+      # # Update local species
+      #
+      # aba_locs = %w(usa canada).map {|slug| Locus.find_by_slug(slug).subregion_ids}.inject(:+)
+      #
+      # whitewinged_scoter.species.local_species.where(locus_id: aba_locs).each do |loc_sp|
+      #   loc_sp.update(species: velvet_scoter.species)
+      # end
 
-      # Update local species
-
-      aba_locs = %w(usa canada).map {|slug| Locus.find_by_slug(slug).subregion_ids}.inject(:+)
-
-      whitewinged_scoter.species.local_species.where(locus_id: aba_locs).each do |loc_sp|
-        loc_sp.update(species: velvet_scoter.species)
-      end
-
-      SpeciesSplit.create!(superspecies: velvet_scoter.species, subspecies: whitewinged_scoter.species)
+      # SpeciesSplit.create!(superspecies: velvet_scoter.species, subspecies: whitewinged_scoter.species)
 
     end
 
-    task :validate_splits_and_lumps => :environment do
+    task :validate_species => :environment do
       # Check that all species match taxa-species
 
       species_rank = Species.
@@ -82,6 +91,8 @@ namespace :tax do
       if species_rank.count > 0
         puts "Species with invalid rank:"
         puts species_rank.map(&:name_sci).join(", ")
+      else
+        puts "All species valid."
       end
     end
 
@@ -114,11 +125,24 @@ namespace :tax do
 
       # aba_locs = %w(usa canada).map {|slug| Locus.find_by_slug(slug).subregion_ids}.inject(:+)
 
-      # Basic promotions
+
+      #
+      # # Leave MALLARD slash in TX and AZ
+      #
+      # tx_az_locs = aba_locs = %w(texas arizona).map {|slug| Locus.find_by_slug(slug).subregion_ids}.inject(:+)
+      #
+      # old_mallard = Taxon.find_by_ebird_code("mallar")
+      # new_mallard = Taxon.find_by_ebird_code("mallar3")
+      #
+      # not_tx_az_observations = old_mallard.observations.joins(:card).where.not(cards: {locus_id: tx_az_locs})
+      # not_tx_az_observations.each do |obs|
+      #   obs.update(taxon: new_mallard)
+      # end
+
+      # Show that I saw Sylvia curruca, not some weird issf
 
       {
-          "reevir" => "reevir1",
-          "whwsco" => "whwsco3"
+          "leswhi1" => "leswhi4"
       }.each do |old, new|
 
         old_taxon = Taxon.find_by_ebird_code(old)
@@ -131,17 +155,6 @@ namespace :tax do
         end
       end
 
-      # Leave MALLARD slash in TX and AZ
-
-      tx_az_locs = aba_locs = %w(texas arizona).map {|slug| Locus.find_by_slug(slug).subregion_ids}.inject(:+)
-
-      old_mallard = Taxon.find_by_ebird_code("mallar")
-      new_mallard = Taxon.find_by_ebird_code("mallar3")
-
-      not_tx_az_observations = old_mallard.observations.joins(:card).where.not(cards: {locus_id: tx_az_locs})
-      not_tx_az_observations.each do |obs|
-        obs.update(taxon: new_mallard)
-      end
     end
 
   end
