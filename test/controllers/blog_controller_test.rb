@@ -14,12 +14,11 @@ class BlogControllerTest < ActionDispatch::IntegrationTest
     assert_includes(assigns(:posts), blogpost2)
   end
 
-  test "get home page with strange format - IE sometimes sends it" do
-    skip
-    blogpost1 = create(:post, face_date: '2007-12-06 13:14:15')
-    get blog_path, headers: {"HTTP_ACCEPT" => "image/gif, image/x-xbitmap, image/jpeg,image/pjpeg, application/x-shockwave-flash,application/vnd.ms-excel,application/vnd.ms-powerpoint,application/msword"}
-    assert_response :success
-  end
+  # test "get home page with strange format - IE sometimes sends it" do
+  #   blogpost1 = create(:post, face_date: '2007-12-06 13:14:15')
+  #   get blog_path, headers: {"HTTP_ACCEPT" => "image/gif, image/x-xbitmap, image/jpeg,image/pjpeg, application/x-shockwave-flash,application/vnd.ms-excel,application/vnd.ms-powerpoint,application/msword"}
+  #   assert_response :success
+  # end
 
   test "get home page with images" do
     blogpost = create(:post)
