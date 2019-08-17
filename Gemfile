@@ -4,7 +4,7 @@ if ENV['CUSTOM_RUBY_VERSION']
   ruby ENV['CUSTOM_RUBY_VERSION']
 end
 
-VERSION = "5.2.3"
+VERSION = "6.0.0"
 gem 'rails', VERSION
 # gem "activesupport", VERSION
 # gem "actionpack",    VERSION
@@ -24,7 +24,7 @@ gem "resque"
 # Deployment
 #gem 'unicorn', require: false, platforms: :ruby
 gem "puma"
-gem 'dotenv-rails'
+gem 'dotenv-rails', '~> 2.7'
 gem 'bootsnap', require: false
 
 # Secure password
@@ -34,7 +34,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'rails-i18n'
 
 # Old rails functionality
-gem "actionpack-page_caching", "~> 1.1"
+gem "actionpack-page_caching", git: "https://github.com/rails/actionpack-page_caching"
 gem "rails-controller-testing"
 
 # AR utils
@@ -67,7 +67,7 @@ gem 'roman-numerals'
 gem 'airbrake'
 
 # Image processing
-gem "mini_magick"
+gem "image_processing"
 
 # Assets
 gem 'webpacker', '~> 4.0'
@@ -90,7 +90,7 @@ gem "mechanize"
 group :development do
   gem 'nokogiri', platforms: [:ruby, :mingw], require: false
   gem 'benchmark-ips'
-  gem "foreman"
+  #gem "foreman" # FIXME: rails 6 compat
   gem "bundler-audit", require: false
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'web-console', '>= 3.3.0'
