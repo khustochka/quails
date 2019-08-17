@@ -9,7 +9,7 @@ module Search
     def find
       return [] if @term.blank?
       rel = @base.
-          select("DISTINCT name_sci, name_en, name_ru, name_uk, weight,
+          select("DISTINCT id, name_sci, name_en, name_ru, name_uk, weight,
                           CASE WHEN weight IS NULL THEN NULL
                               WHEN #{primary_condition} THEN 1
                               ELSE 2
@@ -19,6 +19,7 @@ module Search
           limit(results_limit)
 
       if rel.to_a.size < results_limit
+        found_ids = Species.from(rel).pluck(:id)
         primary_condition2 = starts_with_condition("url_synonyms.name_sci")
         secondary_condition = full_blown_condition("url_synonyms.name_sci")
         rel2 = @base.
@@ -29,6 +30,7 @@ module Search
                               ELSE 2
                           END as rank").
             where(secondary_condition).
+            where.not(url_synonyms: {species_id: found_ids}).
             order("rank ASC NULLS LAST, weight DESC NULLS LAST").
             limit(results_limit - rel.size)
         rel = rel.to_a.concat(rel2.to_a)

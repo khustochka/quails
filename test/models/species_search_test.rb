@@ -36,9 +36,7 @@ class Search::SpeciesSearchTest < ActionView::TestCase
     assert_equal ["Saxicola torquata"], result.map(&:name_sci)
   end
 
-  test 'legacy name should not be duplicated' do
-    # Or maybe it is ok to duplicate, for people expecting to see the old name.
-    skip
+  test 'legacy name should not be duplicated if new name is present too' do
     create(:observation, taxon: taxa(:saxola))
 
     result = Search::SpeciesSearch.new(User.from_session(controller.request).searchable_species, 'Saxicola').find
