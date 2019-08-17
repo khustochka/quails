@@ -60,7 +60,7 @@ class ImagesControllerTest < ActionController::TestCase
     login_as_admin
     get :observations, params: {id: @image.id}, format: :json
     assert_response :success
-    assert_equal Mime[:json], response.content_type
+    assert_equal Mime[:json], response.media_type
   end
 
   test "create image with one observation" do

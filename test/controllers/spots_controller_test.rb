@@ -18,7 +18,7 @@ class SpotsControllerTest < ActionController::TestCase
     login_as_admin
     assert_difference('Spot.count', -1) { delete :destroy, params: {id: spot.id}, format: :json }
     assert_response :success
-    assert_equal Mime[:json], response.content_type
+    assert_equal Mime[:json], response.media_type
   end
 
 end
