@@ -1,6 +1,6 @@
 class ImagesController < ApplicationController
 
-  include Aspects::Flickr
+  include FlickrConcern
 
   administrative except: [:index, :multiple_species, :show, :gallery, :country]
 

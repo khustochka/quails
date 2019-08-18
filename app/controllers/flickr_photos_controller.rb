@@ -2,7 +2,7 @@ class FlickrPhotosController < ApplicationController
 
   administrative
 
-  include Aspects::Flickr
+  include FlickrConcern
 
   before_action :find_image, only: [:show, :create, :edit, :update, :destroy, :push_to_storage]
 
