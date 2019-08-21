@@ -1,36 +1,16 @@
 module CredentialsCheck
 
-  TRUST_COOKIE_NAME = -"quails_visit"
-  TRUST_COOKIE_VALUE = -"I believe you"
-
-  CredentialsOptions = Struct.new(:username, :password, :cookie_value)
-
-  def self.extended(klass)
-    klass.configure
+  def self.check_credentials(username, password)
+    username == __username &&
+        (BCrypt::Password.valid_hash?(__password) && BCrypt::Password.new(__password).is_password?(password)) ||
+        (!Rails.env.production? && password == __password)
   end
 
-  def configure
-    @options = CredentialsOptions.new(
-        ENV['admin_username'],
-        ENV['admin_password'],
-        ENV['admin_cookie_value']
-    )
-    unless (@options.username && @options.password) || Quails.env.rake?
-      raise ArgumentError, "You have to specify admin username and password"
-    end
+  def self.__username
+    @@username ||= ENV['admin_username']
   end
 
-  def cookie_value
-    @options.cookie_value
-  end
-
-  def cookie_name
-    :is_admin
-  end
-
-  def check_credentials(username, password)
-    username == @options.username &&
-        (BCrypt::Password.valid_hash?(@options.password) && BCrypt::Password.new(@options.password).is_password?(password)) ||
-        (!Rails.env.production? && password == @options.password)
+  def self.__password
+    @@password ||= ENV['admin_password']
   end
 end

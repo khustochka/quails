@@ -1,6 +1,6 @@
 class ErrorsController < ApplicationController
 
-  caches_page :show, gzip: true, unless: -> { current_user.admin? || current_user.has_trust_cookie? }
+  caches_page :show, gzip: true, unless: -> { current_user.admin? || has_trust_cookie? }
 
   def show
     @code = request.path_info[1..-1].to_i

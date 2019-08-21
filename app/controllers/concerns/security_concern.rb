@@ -1,7 +1,9 @@
 module SecurityConcern
+
   def self.included(klass)
     klass.extend ClassMethods
     klass.helper_method :current_user
+    klass.helper_method :has_trust_cookie?
   end
 
   module ClassMethods
@@ -10,7 +12,7 @@ module SecurityConcern
       options = args.extract_options!
       before_action options do
         unless current_user.admin?
-          if current_user.has_trust_cookie?
+          if has_trust_cookie?
             session[:ret] = params
             redirect_to login_path
           else
@@ -20,13 +22,27 @@ module SecurityConcern
       end
     end
 
-
   end
 
   private
 
+  TRUST_COOKIE_NAME = -"quails_visit"
+  TRUST_COOKIE_VALUE = -"I believe you"
+
   def current_user
-    @current_user ||= User.from_session(request)
+    @current_user ||= user_from_session
+  end
+
+  def has_trust_cookie?
+    cookies.signed[TRUST_COOKIE_NAME] == TRUST_COOKIE_VALUE
+  end
+
+  def user_from_session
+    if session[:admin] == true
+      Admin.new
+    else
+      User.new
+    end
   end
 end
 
