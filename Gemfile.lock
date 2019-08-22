@@ -83,7 +83,7 @@ GEM
     ansi (1.5.0)
     arel (9.0.0)
     aws-eventstream (1.0.3)
-    aws-partitions (1.203.0)
+    aws-partitions (1.205.0)
     aws-sdk-core (3.64.0)
       aws-eventstream (~> 1.0, >= 1.0.2)
       aws-partitions (~> 1.0)
@@ -259,7 +259,7 @@ GEM
     puma (4.1.0)
       nio4r (~> 2.0)
     rack (2.0.7)
-    rack-protection (2.0.5)
+    rack-protection (2.0.7)
       rack
     rack-proxy (0.6.5)
       rack
@@ -336,10 +336,10 @@ GEM
     simplecov-html (0.10.2)
     simplecov-teamcity-summary (1.0.0)
       simplecov
-    sinatra (2.0.5)
+    sinatra (2.0.7)
       mustermann (~> 1.0)
       rack (~> 2.0)
-      rack-protection (= 2.0.5)
+      rack-protection (= 2.0.7)
       tilt (~> 2.0)
     spring (2.1.0)
     sprockets (3.7.2)
