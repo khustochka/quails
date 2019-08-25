@@ -2,8 +2,6 @@ require 'flickr/client'
 
 class FlickrUpload
 
-  include ActiveStorage::Downloading
-
   DEFAULT_PARAMS = {safety_level: 1, content_type: 1}
 
   def initialize(img, options = {})
@@ -15,7 +13,7 @@ class FlickrUpload
   def perform
     raise "Already on Flickr!" if @image.flickr_id
 
-    flickr_id = download_blob_to_tempfile do |file|
+    flickr_id = blob.open do |file|
       flickr_client.upload_photo(file, DEFAULT_PARAMS.merge(own_params).merge(privacy_options)).get
     end
     update_image(flickr_id)
