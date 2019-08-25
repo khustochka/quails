@@ -101,8 +101,8 @@ GEM
       activerecord (>= 3.2.0)
     ansi (1.5.0)
     aws-eventstream (1.0.3)
-    aws-partitions (1.203.0)
-    aws-sdk-core (3.63.0)
+    aws-partitions (1.205.0)
+    aws-sdk-core (3.64.0)
       aws-eventstream (~> 1.0, >= 1.0.2)
       aws-partitions (~> 1.0)
       aws-sigv4 (~> 1.1)
@@ -278,7 +278,7 @@ GEM
     puma (4.1.0)
       nio4r (~> 2.0)
     rack (2.0.7)
-    rack-protection (2.0.5)
+    rack-protection (2.0.7)
       rack
     rack-proxy (0.6.5)
       rack
@@ -337,9 +337,8 @@ GEM
     ruby_parser (3.13.1)
       sexp_processor (~> 4.9)
     rubyzip (1.2.3)
-    sassc (2.0.1)
+    sassc (2.1.0)
       ffi (~> 1.9)
-      rake
     sassc-rails (2.1.2)
       railties (>= 4.0.0)
       sassc (>= 2.0)
@@ -360,10 +359,10 @@ GEM
     simplecov-html (0.10.2)
     simplecov-teamcity-summary (1.0.0)
       simplecov
-    sinatra (2.0.5)
+    sinatra (2.0.7)
       mustermann (~> 1.0)
       rack (~> 2.0)
-      rack-protection (= 2.0.5)
+      rack-protection (= 2.0.7)
       tilt (~> 2.0)
     spring (2.1.0)
     sprockets (3.7.2)

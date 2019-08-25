@@ -294,8 +294,7 @@ Rails.application.routes.draw do
   require 'resque/server'
 
   resque_web_constraint = lambda do |request|
-    current_user ||= User.from_session(request)
-    current_user.admin?
+    request.session[:admin] == true
   end
 
   constraints resque_web_constraint do

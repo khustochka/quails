@@ -17,7 +17,7 @@
 
 - unless params[:page] || @images.empty?
   %h3
-    %i= t('.last_updated', date: l(@images.first.created_at.to_date, format: :long))
+    %i= t('.last_updated', date: l(@images.unscope(:includes).first.created_at.to_date, format: :long))
 
 %div.thumbnails
   = render_justified @images.map(&:to_thumbnail)

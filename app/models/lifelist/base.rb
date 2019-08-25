@@ -88,13 +88,23 @@ module Lifelist
           to_sql
     end
 
+    # FIXME: it is not good that we assign values to `post` that may be different from the original post assoc.
+    # (in this case nil if post is private and user is not admin). Better solution would be to maintain some
+    # kind of identity map for posts.
+    # Also, Rails preloader with scope is not working the way we need since Rails 6.
     def preload_posts(records)
-      post_preloader.preload(records, :post, posts_scope)
-      post_preloader.preload(records.map(&:card), :post, posts_scope)
-    end
+      cards = records.map(&:card)
+      post_ids = records.map(&:post_id)
+      card_post_ids = cards.map(&:post_id)
 
-    def post_preloader
-      ActiveRecord::Associations::Preloader.new
+      posts = posts_scope.where(id: (post_ids + card_post_ids)).index_by(&:id)
+      records.each do |rec|
+        rec.post = posts[rec.post_id]
+      end
+
+      cards.each do |card|
+        card.post = posts[card.post_id]
+      end
     end
 
     def posts_scope
