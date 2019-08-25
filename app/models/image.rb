@@ -16,7 +16,7 @@ class Image < Media
   validate :stored_image_valid_content_type
   validate :blob_uniqueness
 
-  default_scope -> { where(media_type: 'photo').preload(:stored_image_attachment) }
+  default_scope -> { where(media_type: 'photo').with_attached_stored_image }
 
   scope :unflickred, -> { where(external_id: nil) }
 
