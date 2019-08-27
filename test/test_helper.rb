@@ -37,7 +37,7 @@ class ActiveSupport::TestCase
   delegate :public_post_path, :public_comment_path, :url_for, to: :@controller
 
   def login_as_admin
-    @request.session[User.cookie_name] = User.cookie_value
+    @request.session[:admin] = true
   end
 
   # current path that preserves arguments after ? and # (unlike current_path)

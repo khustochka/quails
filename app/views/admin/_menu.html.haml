@@ -1,4 +1,4 @@
-- if current_user.is_admin_session?
+- if current_user.admin?
   %ul.admin_menu
     %li.adder= link_to '+ Post', new_post_url(admin_pages_url_options)
     %li.adder= link_to '+ Card', new_card_url(admin_pages_url_options)
@@ -31,7 +31,7 @@
     %li
       %i= link_to "**Logout", logout_url(locale: nil)
 
-- elsif current_user.has_trust_cookie?
+- elsif has_trust_cookie?
 
   %ul.admin_menu
     %li.login_link

@@ -127,7 +127,7 @@ class SpeciesControllerTest < ActionController::TestCase
     login_as_admin
     put :update, params: {id: species.to_param, species: {name_ru: 'Богемский свиристель'}}, format: :json
     assert_response :success
-    assert_equal Mime[:json], response.content_type
+    assert_equal Mime[:json], response.media_type
   end
 
   test "do not update species with invalid name_sci" do
@@ -177,7 +177,7 @@ class SpeciesControllerTest < ActionController::TestCase
     create(:observation, taxon: taxa(:bomgar))
     get :search, params: {term: 'gar'}, format: :json
     assert_response :success
-    assert_equal Mime[:json], response.content_type
+    assert_equal Mime[:json], response.media_type
     assert response.body.include?('garrulus')
   end
 
@@ -185,7 +185,7 @@ class SpeciesControllerTest < ActionController::TestCase
     create(:observation, taxon: taxa(:bomgar))
     get :search, params: {term: 'gar', locale: 'en'}, format: :json
     assert_response :success
-    assert_equal Mime[:json], response.content_type
+    assert_equal Mime[:json], response.media_type
     assert response.body.include?('Waxwing')
     assert response.body.include?('/en/species/Bombycilla')
   end

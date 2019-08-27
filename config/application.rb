@@ -24,7 +24,7 @@ require "haml/filters/textile"
 module Quails
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 5.1
+    config.load_defaults 5.2
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
@@ -61,5 +61,8 @@ module Quails
 
     # Will I need this prefixing at some point?
     config.action_view.prefix_partial_path_with_controller_namespace = false
+
+    require 'core_ext/active_storage/exif_date_image_analyzer'
+    config.active_storage.analyzers = [ActiveStorage::Analyzer::ExifDateImageAnalyzer]
   end
 end

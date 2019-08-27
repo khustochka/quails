@@ -5,7 +5,7 @@ class FeedsControllerTest < ActionController::TestCase
   test 'empty blog atom feed is not failing' do
     get :blog, format: :xml
     assert_response :success
-    assert_equal Mime[:xml], response.content_type
+    assert_equal Mime[:xml], response.media_type
   end
 
   test 'get blog atom feed with images' do
@@ -14,7 +14,7 @@ class FeedsControllerTest < ActionController::TestCase
     create(:image, observations: [create(:observation, card: create(:card, post: create(:post)))])
     get :blog, format: :xml
     assert_response :success
-    assert_equal Mime[:xml], response.content_type
+    assert_equal Mime[:xml], response.media_type
   end
 
   test 'feed updated time should be correct (in local TZ)' do
@@ -30,7 +30,7 @@ class FeedsControllerTest < ActionController::TestCase
   test 'empty photos atom feed is not failing' do
     get :photos, format: :xml
     assert_response :success
-    assert_equal Mime[:xml], response.content_type
+    assert_equal Mime[:xml], response.media_type
   end
 
   test 'get photos atom feed' do
@@ -40,7 +40,7 @@ class FeedsControllerTest < ActionController::TestCase
 
     get :photos, format: :xml
     assert_response :success
-    assert_equal Mime[:xml], response.content_type
+    assert_equal Mime[:xml], response.media_type
   end
 
   test 'photos feed should include photos and videos' do
@@ -50,7 +50,7 @@ class FeedsControllerTest < ActionController::TestCase
 
     get :photos, format: :xml
     assert_response :success
-    assert_equal Mime[:xml], response.content_type
+    assert_equal Mime[:xml], response.media_type
     assert_select "link[href='#{url_for(im1)}']"
     assert_select "link[href='#{url_for(im2)}']"
     assert_select "link[href='#{url_for(vi1)}']"
@@ -59,7 +59,7 @@ class FeedsControllerTest < ActionController::TestCase
   test 'empty sitemap is not failing' do
     get :sitemap, format: :xml
     assert_response :success
-    assert_equal Mime[:xml], response.content_type
+    assert_equal Mime[:xml], response.media_type
   end
 
   test 'get sitemap, do not include PRIVATE and NOINDEX posts' do
@@ -70,7 +70,7 @@ class FeedsControllerTest < ActionController::TestCase
 
     get :sitemap, format: :xml
     assert_response :success
-    assert_equal Mime[:xml], response.content_type
+    assert_equal Mime[:xml], response.media_type
     assert_equal 2, assigns(:posts).size
   end
 
@@ -78,7 +78,7 @@ class FeedsControllerTest < ActionController::TestCase
     FactoryBot.create(:image)
     get :sitemap, format: :xml
     assert_response :success
-    assert_equal Mime[:xml], response.content_type
+    assert_equal Mime[:xml], response.media_type
   end
 
   test 'instant articles feed' do
@@ -86,7 +86,7 @@ class FeedsControllerTest < ActionController::TestCase
     create(:post, publish_to_facebook: true)
     get :instant_articles, format: :xml
     assert_response :success
-    assert_equal Mime[:xml], response.content_type
+    assert_equal Mime[:xml], response.media_type
   end
 
   test 'instant article feed with images' do
@@ -95,7 +95,7 @@ class FeedsControllerTest < ActionController::TestCase
     create(:image, observations: [create(:observation, card: create(:card, post: create(:post)))])
     get :instant_articles, format: :xml
     assert_response :success
-    assert_equal Mime[:xml], response.content_type
+    assert_equal Mime[:xml], response.media_type
   end
 
   test 'instant article feed with embedded images' do
@@ -105,7 +105,7 @@ class FeedsControllerTest < ActionController::TestCase
     post1.update(text: post1.text + "\n{{^#{img.slug}}}\n")
     get :instant_articles, format: :xml
     assert_response :success
-    assert_equal Mime[:xml], response.content_type
+    assert_equal Mime[:xml], response.media_type
   end
 
 end

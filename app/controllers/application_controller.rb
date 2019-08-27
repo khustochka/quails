@@ -4,12 +4,12 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :null_session
 
-  include Aspects::Security
-  include Aspects::Localization
-  include Aspects::Administrative
-  include Aspects::PublicPaths
-  include Aspects::UrlBuilder
-  include Aspects::RecordFinder
+  include SecurityConcern
+  include LocalizationConcern
+  include AdministrativeConcern
+  include PublicPaths
+  include UrlBuilder
+  include RecordFinder
 
   private
 

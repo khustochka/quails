@@ -36,14 +36,14 @@ class LociControllerTest < ActionController::TestCase
     login_as_admin
     get :show, params: {id: 'brovary'}, format: :json
     assert_response :success
-    assert_equal Mime[:json], response.content_type
+    assert_equal Mime[:json], response.media_type
   end
 
   test "get locus in JSON by id" do
     login_as_admin
     get :show, params: {id: loci(:brovary).id}, format: :json
     assert_response :success
-    assert_equal Mime[:json], response.content_type
+    assert_equal Mime[:json], response.media_type
   end
 
   test "get edit" do

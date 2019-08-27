@@ -16,7 +16,7 @@ class Image < Media
   validate :stored_image_valid_content_type
   validate :blob_uniqueness
 
-  default_scope -> { where(media_type: 'photo').preload(:stored_image_attachment) }
+  default_scope -> { where(media_type: 'photo').with_attached_stored_image }
 
   scope :unflickred, -> { where(external_id: nil) }
 
@@ -152,7 +152,7 @@ SQL
   end
 
   def has_attached_image
-    has_image = flickr_id || assets_cache.any? || stored_image_attachment
+    has_image = flickr_id || assets_cache.any? || stored_image.attachment
     if !has_image
       errors.add(:base, "should have image attached")
     end
@@ -160,13 +160,13 @@ SQL
 
   def stored_image_valid_content_type
     # Convoluted because not all associations are created for unsaved image
-    if stored_image_attachment&.blob && !stored_image&.blob.image?
+    if stored_image.attachment&.blob && !stored_image&.blob.image?
       errors.add(:stored_image, "should have image content type")
     end
   end
 
   def blob_uniqueness
-    blob = stored_image_attachment&.blob
+    blob = stored_image.attachment&.blob
     if blob
       if Image.joins(:stored_image_attachment).where(active_storage_attachments: {blob_id: blob.id}).where.not(id: self.id).exists?
         errors.add(:stored_image, "blob already in use by another image")

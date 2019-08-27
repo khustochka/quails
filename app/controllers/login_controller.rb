@@ -17,9 +17,9 @@ class LoginController < ApplicationController
   def login_do
     ret = session[:ret]
     reset_session
-    if User.check_credentials(params[:username], params[:password])
-      current_user.set_trust_cookie
-      current_user.set_admin_session
+    if CredentialsCheck.check_credentials(params[:username], params[:password])
+      set_trust_cookie
+      set_admin_session
       return_url = if ret
         url_for(ret.merge(admin_pages_url_options))
       else
@@ -54,6 +54,15 @@ class LoginController < ApplicationController
         nil
       end
     end
+  end
+
+  def set_admin_session
+    session[:admin] = true
+  end
+
+  def set_trust_cookie
+    cookies.signed[TRUST_COOKIE_NAME] =
+        {value: TRUST_COOKIE_VALUE, expires: 1.month.from_now, httponly: true}
   end
 
 end
