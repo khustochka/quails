@@ -1,7 +1,7 @@
 module ApplicationHelper
 
   def main_classes
-    @main_classes ||= ['container', 'main-b', 'green_links']
+    @main_classes ||= ['container-fluid', 'main-b', 'green_links']
     if @special_styling
       @main_classes.delete('green_links')
     end
