@@ -31,7 +31,7 @@ class ImageAssetsArray < Array
   end
 
   def main_image
-    find_max_size(width: 1110, height: 768)
+    find_max_size(width: 1170, height: 768)
   end
 
   def thumbnail

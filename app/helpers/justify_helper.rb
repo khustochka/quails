@@ -10,7 +10,7 @@ module JustifyHelper
     result = []
     current_row = []
 
-    max_width = @shorter_width ? 825 : 1110
+    max_width = @shorter_width ? 870 : 1170
 
     sum_width = 0
     temp_el = nil
