@@ -1,31 +1,41 @@
 // Imageholder
 
 figure.image_thumb, figure.imageholder
-  box-sizing: content-box
-  @include inline-block
   position: relative
-  margin: 0 6px 6px 0
-  // vertical-align: top is necessary for IE7
-  vertical-align: top
-  border: 1px solid #ccc
-  a img
-    border: none
-    vertical-align: text-top
-    // overwrite margin in .post a img
-    margin-bottom: 0
-    // to remove 1px high line above image in Firefox
-    display: block
+//  box-sizing: content-box
+//  @include inline-block
+//  margin: 0 6px 6px 0
+//  // vertical-align: top is necessary for IE7
+//  vertical-align: top
+//  border: 1px solid #ccc
+//  a img
+//    border: none
+//    vertical-align: text-top
+//    // overwrite margin in .post a img
+//    margin-bottom: 0
+//    // to remove 1px high line above image in Firefox
+//    display: block
+//
+//figure.image_thumb
+//  text-align: center
+//  img.fake_dimensions
+//    max-width: 100%
+//    max-height: 100%
+
+//figure.imageholder
+//  @include auto-width
+//  img
+//    @include auto-width
 
 figure.image_thumb
-  text-align: center
-  img.fake_dimensions
-    max-width: 100%
-    max-height: 100%
-
-figure.imageholder
-  @include auto-width
+  display: inline-block
+  margin: 0 4px 6px 0
   img
-    @include auto-width
+    width: 100%
+    height: auto
+  @media (max-width: 767.98px)
+    width: 100%
+    margin-right: 0
 
 figcaption.imagetitle
   @include inline-block
@@ -65,26 +75,26 @@ figure.image_thumb figcaption
 figure.imageholder figcaption
   font-size: 16px
 
-.shorter-width .thumbs_row
-  width: 870px
+//.shorter-width .thumbs_row
+//  width: 870px
+//
+//.thumbs_row
+//  width: 1170px
 
-.thumbs_row
-  width: 1170px
-
-@media only all and (max-width: 580px)
-  .thumbs_row
-    width: auto
-    text-align: center
-
-  figure.image_thumb
-    @include auto-width
-    img:not(.map_strip_img)
-      @include auto-width
-    img
-      max-width: 100%
-      height: auto
-      *width: auto
-      width: auto\9
+//@media only all and (max-width: 580px)
+//  .thumbs_row
+//    width: auto
+//    text-align: center
+//
+//  figure.image_thumb
+//    @include auto-width
+//    img:not(.map_strip_img)
+//      @include auto-width
+//    img
+//      max-width: 100%
+//      height: auto
+//      *width: auto
+//      width: auto\9
       
 
 .flickr_badge
