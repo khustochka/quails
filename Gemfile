@@ -76,6 +76,7 @@ gem 'jquery-rails'
 gem 'pjax_rails', git: "https://github.com/khustochka/pjax_rails.git", branch: "trailing-ampersand-fix"
 #gem 'respond-js-rails'
 gem 'sassc-rails'
+gem 'sassc', '= 2.1.0'
 gem 'coffee-rails'
 gem 'font-awesome-sass', "~> 5.8"
 gem "premailer-rails"
