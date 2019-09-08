@@ -1,7 +1,4 @@
 Rails.application.configure do
-  # Verifies that versions and hashed value of the package contents in the project's package.json
-  config.webpacker.check_yarn_integrity = true
-
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded on
@@ -16,20 +13,22 @@ Rails.application.configure do
   config.consider_all_requests_local = true
 
   # Enable/disable caching. By default caching is disabled.
-  if Rails.root.join('tmp/caching-dev.txt').exist? || ENV['DEV_CACHING']
+  # Run rails dev:cache to toggle caching.
+  if Rails.root.join('tmp', 'caching-dev.txt').exist? || ENV['DEV_CACHING']
     config.action_controller.perform_caching = true
+    config.action_controller.enable_fragment_cache_logging = true
 
+    config.cache_store = :redis_cache_store, { url: ENV["REDIS_CACHE_URL"] }
     config.public_file_server.headers = {
       'Cache-Control' => "public, max-age=#{2.days.to_i}"
     }
-
-    config.cache_store = :redis_cache_store, { url: ENV["REDIS_CACHE_URL"] }
   else
     config.action_controller.perform_caching = false
+
     config.cache_store = :null_store
   end
 
-  # Store uploaded files on the local file system (see config/storage.yml for options)
+  # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = ENV["DEV_S3"].present? ? :"amazon-dev" : (ENV["PROD_S3"].present? ? :amazon : :local)
 
   # Don't care if the mailer can't send.
@@ -56,7 +55,7 @@ Rails.application.configure do
   # Suppress logger output for asset requests.
   config.assets.quiet = true
 
-  # Raises error for missing translations
+  # Raises error for missing translations.
   config.action_view.raise_on_missing_translations = true
 
   # Use an evented file watcher to asynchronously detect changes in source code,
