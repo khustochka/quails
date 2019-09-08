@@ -22,13 +22,9 @@ require 'minitest/reporters'
 
 MiniTest::Reporters.use!
 
-# Capybara::Webkit.configure do |config|
-#   config.block_unknown_urls
-#   # Don't load images
-#   config.skip_image_loading
-# end
-
 class ActiveSupport::TestCase
+
+  parallelize(workers: 4)
 
   fixtures :all
 
