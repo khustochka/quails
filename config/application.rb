@@ -59,8 +59,6 @@ module Quails
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '{en,ru,uk}','*.{rb,yml}').to_s]
     config.i18n.default_locale = :ru
 
-    config.active_job.queue_adapter = :resque
-
     # Will I need this prefixing at some point?
     config.action_view.prefix_partial_path_with_controller_namespace = false
 
