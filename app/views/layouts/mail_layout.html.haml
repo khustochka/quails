@@ -6,6 +6,7 @@
 
     %div.mail-header
 
+      - #FIXME: port
       = link_to "birdwatch.org.ua", blog_url(only_path: false, host: @host)
 
     = yield
@@ -15,3 +16,5 @@
 - if !Quails.env.real_prod?
   %br/
   THIS IS A TEST. NOT A REAL PRODUCTION ENVIRONMENT.
+  = link_to "See all letters.", "http://#{@host}:3000/letter_opener"
+  - #FIXME: port
