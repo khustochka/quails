@@ -14,9 +14,9 @@ class CommentMailer < ActionMailer::Base
   end
 
   def notify_parent_author
-    to = comment.parent_comment.commenter.email
+    to = @comment.parent_comment.commenter.email
     if (Rails.env.production? && Quails.env.real_prod?) ||
-            (Rails.env.development? && !perform_deliveries) &&
+            (Rails.env.development? && (!perform_deliveries || delivery_method == :letter_opener)) &&
             self.class.default_params[:from] && to.present?
       mail subject: "Ответ на ваш комментарий на сайте birdwatch.org.ua (\"#{@comment.post.decorated.title}\")", to: to
     end
@@ -26,12 +26,10 @@ class CommentMailer < ActionMailer::Base
 
   def set_params
     @comment = params[:comment]
-    @host = params[:host]
-    @port = params[:port]
-    @protocol = params[:protocol]
+    @link_options = params[:link_options]
   end
 
   def default_url_options
-    { host: @host, port: @port, protocol: @protocol }
+    @link_options
   end
 end

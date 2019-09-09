@@ -1,24 +1,24 @@
 %div.mail-inner-body
   %p
-    На ваш комментарий к записи «#{link_to @comment.post.decorated.title, show_post_url(@comment.post.to_url_params.merge(only_path: false, host: @host))}» получен ответ:
+    На ваш комментарий к записи «#{link_to @comment.post.decorated.title, show_post_url(@comment.post.to_url_params)}» получен ответ:
   %div.mail-top-comment-wrapper
     %div.mail-comment-panel
       %b= @comment.parent_comment.decorated.name
       %small
-        (#{link_to(I18n.l(@comment.parent_comment.created_at, format: :long), show_post_url(@comment.post.to_url_params.merge(anchor: "comment#{@comment.parent_comment.id}", only_path: false, host: @host)))})
+        (#{link_to(I18n.l(@comment.parent_comment.created_at, format: :long), show_post_url(@comment.post.to_url_params.merge(anchor: "comment#{@comment.parent_comment.id}")))})
       = @comment.parent_comment.decorated.text
   %div.mail-child-comment-wrapper
     %div.mail-comment-panel
       %b= @comment.decorated.name
       %small
-        (#{link_to(I18n.l(@comment.parent_comment.created_at, format: :long), show_post_url(@comment.post.to_url_params.merge(anchor: "comment#{@comment.id}", only_path: false, host: @host)))})
+        (#{link_to(I18n.l(@comment.parent_comment.created_at, format: :long), show_post_url(@comment.post.to_url_params.merge(anchor: "comment#{@comment.id}")))})
       = @comment.decorated.text
   %p
     Вы можете
     %b
-      %a{:href => "#{show_post_url(@comment.post.to_url_params.merge(anchor: "comment#{@comment.parent_comment.id}", only_path: false, host: @host))}"} ответить
+      %a{:href => "#{show_post_url(@comment.post.to_url_params.merge(anchor: "comment#{@comment.parent_comment.id}"))}"} ответить
     на этот комментарий на странице записи.
 %div.mail-footer
   Отказаться от получения уведомлений об ответах на этот комментарий:
   = succeed "." do
-    %a{:href => "#{unsubscribe_request_comments_url(token: @comment.parent_comment.unsubscribe_token, host: @host)}", :rel => "unsubscribe"} отписаться
+    %a{:href => "#{unsubscribe_request_comments_url(token: @comment.parent_comment.unsubscribe_token)}", :rel => "unsubscribe"} отписаться

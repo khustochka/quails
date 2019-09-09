@@ -93,9 +93,10 @@ class CommentsController < ApplicationController
       respond_to do |format|
         if @comment.save
           begin
-            CommentMailer.with(comment: @comment, host: request.host, port: request.port, protocol: request.protocol).notify_admin.deliver_later
+            mailer = CommentMailer.with(comment: @comment, link_options: mailer_link_options)
+            mailer.notify_admin.deliver_later
             if @comment.parent_comment&.send_email? && @comment.approved
-              CommentMailer.with(comment: @comment, host: request.host, port: request.port, protocol: request.protocol).notify_parent_author.deliver_later
+              mailer.notify_parent_author.deliver_later
             end
           rescue => e
             # Do not fail if error happened when sending email.
@@ -180,6 +181,10 @@ class CommentsController < ApplicationController
   end
 
   private
+
+  def mailer_link_options
+    {host: request.host, port: request.port, protocol: request.protocol}
+  end
 
   RESTRICTED_DOMAINS = %w( localhost localhost.localdomain brevipes.clientvm.vps.ua )
 
