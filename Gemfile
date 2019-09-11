@@ -73,7 +73,6 @@ gem "image_processing"
 gem 'webpacker', '~> 4.0'
 gem "sprockets-rails"
 gem 'jquery-rails'
-gem 'pjax_rails', git: "https://github.com/khustochka/pjax_rails.git", branch: "trailing-ampersand-fix"
 #gem 'respond-js-rails'
 gem 'sassc-rails'
 gem 'sassc', '= 2.1.0'

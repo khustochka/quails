@@ -14,7 +14,7 @@ class CardsController < ApplicationController
     @cards = @observation_search.cards.
         default_cards_order(:desc).preload(:locus, :post)
 
-    if !request.xhr? || pjax_request?
+    if !request.xhr?
       @cards = @cards.page(params[:page]).per(10)
     else
       @cards = @cards.limit(30)
@@ -25,9 +25,7 @@ class CardsController < ApplicationController
 
     respond_to do |format|
       format.html {
-        if pjax_request?
-          render '_search_results'
-        elsif request.xhr?
+        if request.xhr?
           render @cards, layout: false
         else
           render 'index'

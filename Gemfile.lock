@@ -6,15 +6,6 @@ GIT
     livejournal (0.3.10)
 
 GIT
-  remote: https://github.com/khustochka/pjax_rails.git
-  revision: 2bd677f7a8082a375a664c02b32664adef887218
-  branch: trailing-ampersand-fix
-  specs:
-    pjax_rails (0.5.0)
-      jquery-rails
-      railties (>= 3.2)
-
-GIT
   remote: https://github.com/rails/actionpack-page_caching
   revision: f5931b6c8907c1fb2a810bb93fb3cb22a072fc14
   ref: f5931b6c8907c1fb2a810bb93fb3cb22a072fc14
@@ -461,7 +452,6 @@ DEPENDENCIES
   minitest-reporters
   nokogiri
   pg (~> 1.0)
-  pjax_rails!
   premailer-rails
   pry-byebug
   pry-rails

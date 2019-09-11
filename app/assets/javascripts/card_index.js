@@ -11,31 +11,3 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require suggest_over_combo
-//= require jquery.pjax
-
-$(function () {
-  // default timeout is causing page reload on heavy pages, like lifelist
-  $('#cards_search_results').pjax('nav.pagination a');
-
-  Quails.features.pjaxSpinner.init();
-
-  //$(document).tooltip({
-  //  items: ".notes-tooltip",
-  //  content: function () {
-  //    return $(this).data("title");
-  //  },
-  //  position: {
-  //    my: "center bottom-20",
-  //    at: "center top",
-  //    using: function (position, feedback) {
-  //      $(this).css(position);
-  //      $("<div>")
-  //          .addClass("arrow")
-  //          .addClass(feedback.vertical)
-  //          .addClass(feedback.horizontal)
-  //          .appendTo(this);
-  //    }
-  //  }
-  //});
-
-});
