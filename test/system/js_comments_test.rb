@@ -34,7 +34,7 @@ class JSCommentsTest < ApplicationSystemTestCase
     assert_equal 1, comment.subcomments.size
   end
 
-  test "Reply from reply page (JS on)" do
+  test "Reply from reply page - JS on" do
     comment = create(:comment)
     blogpost = comment.post
     visit reply_comment_path(comment)

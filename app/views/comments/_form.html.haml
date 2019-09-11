@@ -1,4 +1,4 @@
-= simple_form_for @comment, html: {class: 'comment'} do |form|
+= simple_form_for @comment, remote: (action_name != 'reply'), html: {class: 'comment'} do |form|
 
   = render @comment.errors.extend(CommentErrors)
 
