@@ -8,6 +8,8 @@ require "active_record/railtie"
 require "active_storage/engine"
 require "action_controller/railtie"
 require "action_mailer/railtie"
+# require "action_mailbox/engine"
+# require "action_text/engine"
 require "action_view/railtie"
 # require "action_cable/engine"
 require "sprockets/railtie"
@@ -56,8 +58,6 @@ module Quails
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '{en,ru,uk}','*.{rb,yml}').to_s]
     config.i18n.default_locale = :ru
-
-    config.active_job.queue_adapter = :resque
 
     # Will I need this prefixing at some point?
     config.action_view.prefix_partial_path_with_controller_namespace = false

@@ -301,4 +301,7 @@ Rails.application.routes.draw do
     mount Resque::Server.new => "/resque"
   end
 
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
+  end
 end

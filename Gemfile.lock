@@ -103,8 +103,8 @@ GEM
     autoprefixer-rails (9.6.1)
       execjs
     aws-eventstream (1.0.3)
-    aws-partitions (1.210.0)
-    aws-sdk-core (3.66.0)
+    aws-partitions (1.211.0)
+    aws-sdk-core (3.67.0)
       aws-eventstream (~> 1.0, >= 1.0.2)
       aws-partitions (~> 1.0)
       aws-sigv4 (~> 1.1)
@@ -223,6 +223,16 @@ GEM
     kaminari-core (1.1.1)
     launchy (2.4.3)
       addressable (~> 2.3)
+    letter_opener (1.7.0)
+      launchy (~> 2.2)
+    letter_opener_web (1.3.4)
+      actionmailer (>= 3.2)
+      letter_opener (~> 1.0)
+      railties (>= 3.2)
+    listen (3.1.5)
+      rb-fsevent (~> 0.9, >= 0.9.4)
+      rb-inotify (~> 0.9, >= 0.9.7)
+      ruby_dep (~> 1.2)
     loofah (2.2.3)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -282,7 +292,7 @@ GEM
     pry-rails (0.3.9)
       pry (>= 0.10.4)
     public_suffix (4.0.1)
-    puma (4.1.0)
+    puma (4.1.1)
       nio4r (~> 2.0)
     rack (2.0.7)
     rack-protection (2.0.7)
@@ -325,6 +335,9 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.20.3, < 2.0)
     rake (12.3.3)
+    rb-fsevent (0.10.3)
+    rb-inotify (0.10.0)
+      ffi (~> 1.0)
     rbtree3 (0.5.0)
     redis (4.1.2)
     redis-namespace (1.6.0)
@@ -339,8 +352,9 @@ GEM
     rinku (2.0.6)
     roman-numerals (0.3.0)
     ruby-progressbar (1.10.1)
-    ruby-vips (2.0.14)
+    ruby-vips (2.0.15)
       ffi (~> 1.9)
+    ruby_dep (1.5.0)
     ruby_parser (3.13.1)
       sexp_processor (~> 4.9)
     rubyzip (1.2.4)
@@ -446,6 +460,9 @@ DEPENDENCIES
   jquery-rails
   kaminari
   launchy
+  letter_opener
+  letter_opener_web
+  listen
   livejournal!
   mechanize
   minitest-reporters
