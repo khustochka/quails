@@ -32,8 +32,4 @@ class ApplicationController < ActionController::Base
     expire_page controller: :feeds, action: :photos, format: 'xml', locale: 'en'
   end
 
-  def pjax_layout
-    "pjax"
-  end
-
 end
