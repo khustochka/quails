@@ -3272,10 +3272,8 @@ ignore-walk@^3.0.1:
   dependencies:
     minimatch "^3.0.4"
 
-ilyabirman-likely@^2.3.0:
-  version "2.3.1"
-  resolved "https://registry.yarnpkg.com/ilyabirman-likely/-/ilyabirman-likely-2.3.1.tgz#ce8278be47c241d060de9ff12c3699f24f3ac1e6"
-  integrity sha512-V9idKn70YvYXryUQWdJ/A8Z6VkRCACXmv3rDGAKCFZv+1Pf3rO8JzrW4D/nN8WWZsJhN47EVAFkxAwTl+srTag==
+"ilyabirman-likely@file:vendor/likely":
+  version "2.3.2"
 
 import-cwd@^2.0.0:
   version "2.1.0"
