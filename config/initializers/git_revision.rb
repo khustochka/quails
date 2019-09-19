@@ -1,15 +1,15 @@
-# TODO: read from repo folder (used by Capistrano3)
-
 begin
-  if File.directory?(File.join(Rails.root, ".git"))
-    $revision, $commit = `git show -s --format=%H%n%n%B`.split("\n\n", 2)
-  else
-    revision_file = File.join(Rails.root, "REVISION")
-    if File.exist?(revision_file)
-      $revision = File.read(revision_file)
-      # In repo folder:
-      # $commit = `git show -s --format=%B #{$revision}`
+  revision_file = File.join(Rails.root, "REVISION")
+  if File.exist?(revision_file)
+    $revision = File.read(revision_file)
+    repo_folder = File.join(Rails.root, "../../repo")
+    if File.directory?(repo_folder)
+      Dir.chdir(repo_folder) do
+        $commit = `git show -s --format=%B #{$revision}`
+      end
     end
+  elsif File.directory?(File.join(Rails.root, ".git"))
+    $revision, $commit = `git show -s --format=%H%n%n%B`.split("\n\n", 2)
   end
 rescue
 end
