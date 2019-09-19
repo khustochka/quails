@@ -33,7 +33,7 @@ class ImageTest < ActiveSupport::TestCase
   test "prev and next image by species should be correct if even created_at is the same" do
     o = create(:observation)
     s = o.species
-    tm = Time.now
+    tm = Time.current
     im1 = create(:image, observations: [o], created_at: tm)
     im2 = create(:image, observations: [o], created_at: tm)
     assert_equal im1, im2.prev_by_species(s)

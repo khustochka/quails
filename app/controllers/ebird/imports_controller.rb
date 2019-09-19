@@ -11,7 +11,7 @@ class Ebird::ImportsController < ApplicationController
     if date.present?
       @checklists = client.get_checklists_for_date(date)
     else
-      last_date = Card.maximum(:observ_date) || Time.now.to_date
+      last_date = Card.maximum(:observ_date) || Time.current.to_date
       @checklists = client.get_checklists_after_date(last_date)
     end
 

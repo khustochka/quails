@@ -15,7 +15,7 @@ class ResearchControllerTest < ActionController::TestCase
 
   test "admin sees Research/this_day" do
     p = create(:post)
-    o = create(:observation, card: create(:card, observ_date: Time.now, post: p))
+    o = create(:observation, card: create(:card, observ_date: Time.current, post: p))
     create(:image, observations: [o])
 
     login_as_admin
