@@ -33,11 +33,12 @@ class Post < ApplicationRecord
   #  },
   #           through: :observations
 
-  def initialize(*args)
-    super
-    unless read_attribute(:face_date)
-      self.face_date = ''
-    end
+  after_initialize do
+    set_face_date
+  end
+
+  before_validation do
+    set_face_date
   end
 
   before_validation do
@@ -174,15 +175,13 @@ class Post < ApplicationRecord
         pluck(:species_id)
   end
 
-  def face_date=(new_date)
-    if new_date.blank?
-      super(Time.current.strftime("%F %T"))
-    else
-      super
+  private
+
+  def set_face_date
+    if read_attribute(:face_date).blank?
+      self.face_date = Time.current.strftime("%F %T")
     end
   end
-
-  private
 
   def check_cover_image_slug_or_url
     if cover_image_slug.present?
