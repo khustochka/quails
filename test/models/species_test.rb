@@ -5,7 +5,7 @@ class SpeciesTest < ActiveSupport::TestCase
   test 'do not save species with empty Latin name' do
     sp = Species.find_by!(code: :hirrus)
     sp.name_sci = ''
-    assert_raise(ActiveRecord::RecordInvalid) { sp.save! }
+    assert_not sp.save, "Record saved while expected to fail."
   end
 
   test 'empty code should be turned into nil' do
@@ -18,25 +18,25 @@ class SpeciesTest < ActiveSupport::TestCase
   test 'not be saved with existing Latin name' do
     sp = Species.find_by!(code: :hirrus)
     sp.name_sci = species(:saxola).name_sci
-    assert_raise(ActiveRecord::RecordInvalid) { sp.save! }
+    assert_not sp.save, "Record saved while expected to fail."
   end
 
   test 'do not save species with existing code' do
     sp = Species.find_by!(code: :hirrus)
     sp.code = 'saxola'
-    assert_raise(ActiveRecord::RecordInvalid) { sp.save! }
+    assert_not sp.save, "Record saved while expected to fail."
   end
 
   test 'legacy code should not be equal to another species code' do
     sp = Species.find_by!(code: :hirrus)
     sp.legacy_code = 'saxola'
-    assert_raise(ActiveRecord::RecordInvalid) { sp.save! }
+    assert_not sp.save, "Record saved while expected to fail."
   end
 
   test 'code should not be equal to another species legacy code' do
     sp = Species.find_by!(code: :hirrus)
     sp.code = 'saxtor'
-    assert_raise(ActiveRecord::RecordInvalid) { sp.save! }
+    assert_not sp.save, "Record saved while expected to fail."
   end
 
   test 'One species can have the same code and legacy code' do

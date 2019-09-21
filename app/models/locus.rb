@@ -18,6 +18,8 @@ class Locus < ApplicationRecord
 
   belongs_to :ebird_location, optional: true
 
+  before_validation :generate_slug
+
   after_save do |record|
     Rails.cache.delete("records/loci/country/#{record.slug}")
   end
@@ -75,6 +77,14 @@ class Locus < ApplicationRecord
     # Rails' #last does not play well with the new ancestry gem COALESCE ordering.
     # Had to rewrite the query to find the last (closest) public locus
     path.where(private_loc: false, patch: false).reorder(Arel.sql("COALESCE(ancestry, '') DESC")).limit(1).first
+  end
+
+  private
+
+  def generate_slug
+    if slug.blank?
+      self.slug = name_en.downcase.gsub(?', '').gsub(' - ', ?_).gsub('--', ?_).gsub(/[^\d\w_]+/, ?_)
+    end
   end
 
 end

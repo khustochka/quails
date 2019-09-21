@@ -12,7 +12,7 @@
 
 = simple_form_for @locus do |form|
   %div
-    = form.input :slug
+    = form.input :slug, required: false
     = form.input :parent_id, label: 'Parent', collection: (Locus.where.not(id: @locus).suggestion_order),
           input_html: {class: 'suggest-combo'}
     = form.input :iso_code, label: 'ISO code'

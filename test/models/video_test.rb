@@ -4,7 +4,7 @@ class VideoTest < ActiveSupport::TestCase
 
   test 'do not save video without youtube id' do
     video = build(:video, youtube_id: '')
-    assert_raise(ActiveRecord::RecordInvalid) { video.save! }
+    assert_not video.save, "Record saved while expected to fail."
   end
 
   test 'properly dump and load thumbnail' do

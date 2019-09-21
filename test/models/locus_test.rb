@@ -6,14 +6,15 @@ class LocusTest < ActiveSupport::TestCase
     create(:locus)
   end
 
-  test 'do not save locus with empty slug' do
+  test 'autogenerate slug if empty' do
     loc = build(:locus, slug: '')
-    assert_raise(ActiveRecord::RecordInvalid) { loc.save! }
+    assert loc.save
+    assert_not_empty loc.slug
   end
 
   test 'do not save locus with existing slug' do
     loc = build(:locus, slug: 'kiev')
-    assert_raise(ActiveRecord::RecordInvalid) { loc.save! }
+    assert_not loc.save, "Record saved while expected to fail."
   end
 
   test 'properly find all locus subregions' do
