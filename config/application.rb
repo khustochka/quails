@@ -31,7 +31,6 @@ module Quails
 
     # Custom directories with classes and modules you want to be autoloadable.
     # config.autoload_paths += %W(#{config.root}/app/presenters)
-    config.autoload_paths += %W( #{config.root}/app/models/formatters )
 
     # Configure generators values. Many other options are available, be sure to check the documentation.
     config.generators do |g|
