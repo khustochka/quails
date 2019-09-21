@@ -74,9 +74,7 @@ class Locus < ApplicationRecord
   end
 
   def public_locus
-    # Rails' #last does not play well with the new ancestry gem COALESCE ordering.
-    # Had to rewrite the query to find the last (closest) public locus
-    path.where(private_loc: false, patch: false).reorder(Arel.sql("COALESCE(ancestry, '') DESC")).limit(1).first
+    path.where(private_loc: false, patch: false).last
   end
 
   private
