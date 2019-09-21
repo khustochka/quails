@@ -20,7 +20,7 @@ class LociController < ApplicationController
 
   # GET /locus/new
   def new
-    @locus = Locus.new
+    @locus = Locus.new(params[:locus])
     render :form
   end
 

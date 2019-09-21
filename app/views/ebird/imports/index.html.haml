@@ -41,7 +41,10 @@
               %span.fas.fa-check.green-check
               = link_to "Card", list[:card]
             - else
+              - locus_id = Locus.find_by_name_en(list[:location])&.id
+              - parent_id = Locus.find_by_name_en(list[:county])&.id
               = select_tag "c[][locus_id]",
-                    options_from_collection_for_select(Locus.suggestion_order, :id, :to_label, Locus.find_by_name_en(list[:location])&.id),
+                    options_from_collection_for_select(Locus.suggestion_order, :id, :to_label, locus_id),
                     include_blank: true, class: "locus_select"
+              = link_to "Create new", new_locus_path(locus: {name_en: list[:location], parent_id: parent_id})
     = submit_tag "Import"

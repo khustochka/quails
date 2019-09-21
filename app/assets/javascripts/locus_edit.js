@@ -5,6 +5,16 @@ $(function () {
 
   var theMap = $('#googleMap');
 
+  function panToLocus(loc_id) {
+    $.get('/loci/' + loc_id + '.json', function (data) {
+      var lat = data['lat'], lon = data['lon'];
+      if (lat != null && lon != null) {
+        theMap.gmap3("get").setCenter(new google.maps.LatLng(lat, lon));
+        theMap.gmap3("get").setZoom(13);
+      }
+    });
+  }
+
   theMap.height("250px");
 
   theMap.gmap3({
@@ -50,6 +60,9 @@ $(function () {
     theMap.gmap3({
       autofit: {maxZoom: 13}
     });
+  } else {
+    var parentLocId = $("select#locus_parent_id").val();
+    if (parentLocId) panToLocus(parentLocId);
   }
 
   var oldselect = $("input#locus_parent_id").data("ui-autocomplete").options.select;
@@ -58,14 +71,7 @@ $(function () {
     oldselect(event, ui);
     var loc_id = ui.item.option.value;
     if (loc_id.length > 0) {
-      $.get('/loci/' + loc_id + '.json', function (data) {
-        var lat = data['lat'], lon = data['lon'];
-        if (lat != null && lon != null) {
-          theMap.gmap3("get").setCenter(new google.maps.LatLng(lat, lon));
-          theMap.gmap3("get").setZoom(13);
-        }
-
-      });
+      panToLocus(loc_id);
     }
   } );
 

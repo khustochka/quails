@@ -18,6 +18,8 @@ class Locus < ApplicationRecord
 
   belongs_to :ebird_location, optional: true
 
+  after_initialize :prepopulate, unless: :persisted?
+
   before_validation :generate_slug
 
   after_save do |record|
@@ -80,8 +82,14 @@ class Locus < ApplicationRecord
   private
 
   def generate_slug
-    if slug.blank?
-      self.slug = name_en.downcase.gsub(?', '').gsub(' - ', ?_).gsub('--', ?_).gsub(/[^\d\w_]+/, ?_)
+    slug.presence or self.slug = name_en.downcase.gsub(?', '').gsub(' - ', ?_).gsub('--', ?_).gsub(/[^\d\w_]+/, ?_)
+  end
+
+  def prepopulate
+    if name_en.present?
+      generate_slug
+      name_ru.presence or self.name_ru = name_en
+      name_uk.presence or self.name_uk = name_en
     end
   end
 
