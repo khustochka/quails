@@ -4,6 +4,8 @@
 
 import Turbolinks from 'turbolinks';
 
+Turbolinks.start();
+
 // import * as ActiveStorage from "activestorage";
 // import "../utils/direct_uploads.js"
 //
@@ -11,8 +13,6 @@ import Turbolinks from 'turbolinks';
 
 import Likely from 'ilyabirman-likely';
 require("ilyabirman-likely/release/likely.css");
-
-Turbolinks.start();
 
 // TODO: do not load likely in IE <10. IE9 does not support classList
 // I failed to use caniuse/browserlist. Bowser fails in IE!
