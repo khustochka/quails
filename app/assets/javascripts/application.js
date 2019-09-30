@@ -3,6 +3,7 @@
 //= require jquery-ui.user
 //= require search
 //= require base
+//= require lifelist
 
 $(function () {
     var $body = $("body"),

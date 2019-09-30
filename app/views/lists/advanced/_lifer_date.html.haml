@@ -7,6 +7,6 @@
     Seen:
 %time= post_link(l(life_observation.observ_date, format: :long), life_observation.main_post, true)
 - loc_name = life_observation.patch_or_locus.public_locus.decorated.full_name
-%span.llc.fas.fa-map-marker-alt{title: loc_name, "data-title" => loc_name}
+%span.lifer-locus-icon.fas.fa-map-marker-alt{title: loc_name, "data-title" => loc_name}
 - if current_user.admin?
   %a.cardlink.far.fa-file-alt{href: card_path(id: life_observation.card)}
