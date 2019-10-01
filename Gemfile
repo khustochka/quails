@@ -50,7 +50,7 @@ gem 'rinku'
 
 # Improved functionality utils
 gem 'kaminari'
-gem 'simple_form', "~> 4.0"
+gem 'simple_form'
 gem "high_voltage"
 
 # External services
