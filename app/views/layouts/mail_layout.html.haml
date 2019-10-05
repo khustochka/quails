@@ -15,4 +15,5 @@
 - if !Quails.env.real_prod?
   %br/
   THIS IS A TEST. NOT A REAL PRODUCTION ENVIRONMENT.
-  = link_to "See all letters.", letter_opener_web_url, target: :blank
+  - if Rails.env.development?
+    = link_to "See all letters.", letter_opener_web_url, target: :blank
