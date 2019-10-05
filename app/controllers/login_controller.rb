@@ -16,6 +16,7 @@ class LoginController < ApplicationController
 
   def login_do
     ret = session[:ret]
+    csrf_token = session[:_csrf_token]
     reset_session
     if CredentialsCheck.check_credentials(params[:username], params[:password])
       set_trust_cookie
@@ -27,8 +28,10 @@ class LoginController < ApplicationController
       end
       redirect_to return_url, status: 303
     else
-      # Restore ret value for retries
+      # Restore ret value for retries,
+      # Restore csrf token to allow using form on the previous page
       session[:ret] = ret
+      session[:_csrf_token] = csrf_token
       render plain: "403 Forbidden", status: 403
     end
   end
