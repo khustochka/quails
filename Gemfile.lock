@@ -6,6 +6,13 @@ GIT
     livejournal (0.3.10)
 
 GIT
+  remote: https://github.com/puma/puma.git
+  revision: 0593cef9dec659a5febccebe03e7a1bc5c73fd5e
+  specs:
+    puma (4.2.0)
+      nio4r (~> 2.0)
+
+GIT
   remote: https://github.com/rails/actionpack-page_caching
   revision: f5931b6c8907c1fb2a810bb93fb3cb22a072fc14
   ref: f5931b6c8907c1fb2a810bb93fb3cb22a072fc14
@@ -275,8 +282,6 @@ GEM
     pry-rails (0.3.9)
       pry (>= 0.10.4)
     public_suffix (4.0.1)
-    puma (4.2.0)
-      nio4r (~> 2.0)
     rack (2.0.7)
     rack-protection (2.0.7)
       rack
@@ -452,7 +457,7 @@ DEPENDENCIES
   premailer-rails
   pry-byebug
   pry-rails
-  puma
+  puma!
   rails (= 6.0.0)
   rails-controller-testing
   rails-i18n
