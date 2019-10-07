@@ -23,7 +23,7 @@ gem "resque"
 
 # Deployment
 #gem 'unicorn', require: false, platforms: :ruby
-gem "puma", git: "https://github.com/puma/puma.git"
+gem "puma", "~> 4.2.1"
 gem 'dotenv-rails', '~> 2.7'
 gem 'bootsnap', require: false
 

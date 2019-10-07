@@ -6,13 +6,6 @@ GIT
     livejournal (0.3.10)
 
 GIT
-  remote: https://github.com/puma/puma.git
-  revision: 0593cef9dec659a5febccebe03e7a1bc5c73fd5e
-  specs:
-    puma (4.2.0)
-      nio4r (~> 2.0)
-
-GIT
   remote: https://github.com/rails/actionpack-page_caching
   revision: f5931b6c8907c1fb2a810bb93fb3cb22a072fc14
   ref: f5931b6c8907c1fb2a810bb93fb3cb22a072fc14
@@ -249,7 +242,7 @@ GEM
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
     minitest (5.12.2)
-    minitest-reporters (1.3.8)
+    minitest-reporters (1.4.0)
       ansi
       builder
       minitest (>= 5.0)
@@ -282,6 +275,8 @@ GEM
     pry-rails (0.3.9)
       pry (>= 0.10.4)
     public_suffix (4.0.1)
+    puma (4.2.1)
+      nio4r (~> 2.0)
     rack (2.0.7)
     rack-protection (2.0.7)
       rack
@@ -311,8 +306,8 @@ GEM
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
-    rails-html-sanitizer (1.2.0)
-      loofah (~> 2.2, >= 2.2.2)
+    rails-html-sanitizer (1.3.0)
+      loofah (~> 2.3)
     rails-i18n (6.0.0)
       i18n (>= 0.7, < 2)
       railties (>= 6.0.0, < 7)
@@ -457,7 +452,7 @@ DEPENDENCIES
   premailer-rails
   pry-byebug
   pry-rails
-  puma!
+  puma (~> 4.2.1)
   rails (= 6.0.0)
   rails-controller-testing
   rails-i18n
