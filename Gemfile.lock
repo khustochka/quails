@@ -249,7 +249,7 @@ GEM
       ruby-progressbar
     mono_logger (1.1.0)
     msgpack (1.3.1)
-    multi_json (1.14.0)
+    multi_json (1.14.1)
     mustermann (1.0.3)
     net-http-digest_auth (1.4.1)
     net-http-persistent (3.1.0)
