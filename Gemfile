@@ -75,7 +75,7 @@ gem "sprockets-rails"
 gem 'jquery-rails'
 #gem 'respond-js-rails'
 gem 'sassc-rails'
-if ENV['OLD_UBUNTU'] == true
+if ENV['OLD_UBUNTU'] == "true"
   # https://github.com/sass/sassc-ruby/issues/151
   gem 'sassc', '= 2.1.0'
 end
