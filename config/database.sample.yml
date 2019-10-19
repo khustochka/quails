@@ -24,7 +24,7 @@ DEFAULT: &DEFAULT
 
 development:
   <<: *DEFAULT
-  database: quails_development
+  database: <%= ENV["DATABASE_URL"] || "quails_development" %>
 
   # Schema search path. The server defaults to $user,public
   #schema_search_path: myapp,sharedapp,public
