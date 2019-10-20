@@ -12,6 +12,13 @@ class ObservationTest < ActiveSupport::TestCase
     assert_equal [img], @observation.images.to_a
   end
 
+  test 'do not destroy observation if having associated videos' do
+    video = create(:video, observations: [@observation])
+    assert_raise(ActiveRecord::DeleteRestrictionError) { @observation.destroy }
+    assert @observation.reload
+    assert_equal [video], @observation.videos.to_a
+  end
+
   test 'updating observation touches card' do
     before = @observation.card.updated_at
     @observation.update_attribute(:taxon_id, taxa('hirrus').id)

@@ -27,6 +27,9 @@ class Observation < ApplicationRecord
     if images.present?
       raise ActiveRecord::DeleteRestrictionError.new(self.class.reflections[:images])
     end
+    if videos.present?
+      raise ActiveRecord::DeleteRestrictionError.new(self.class.reflections[:videos])
+    end
   end
 
   validates :taxon_id, presence: true
