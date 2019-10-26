@@ -56,6 +56,28 @@ class FeedsControllerTest < ActionController::TestCase
     assert_select "link[href='#{url_for(vi1)}']"
   end
 
+  test 'photos feed should contain full urls for S3 images' do
+    im1 = create(:image, stored_image: fixture_file_upload("files/tules.jpg"))
+
+    get :photos, format: :xml
+    assert_response :success
+    doc = Nokogiri::XML(response.body)
+    html = Nokogiri::HTML(doc.css("entry content").text)
+    src = html.css('img').first[:src]
+    assert_match /^http/, src
+  end
+
+  test 'photos feed should contain full url to species page' do
+    im1 = create(:image, stored_image: fixture_file_upload("files/tules.jpg"))
+
+    get :photos, format: :xml
+    assert_response :success
+    doc = Nokogiri::XML(response.body)
+    html = Nokogiri::HTML(doc.css("entry content").text)
+    src = html.css('a.sp_link').first[:href]
+    assert_match /^http/, src
+  end
+
   test 'empty sitemap is not failing' do
     get :sitemap, format: :xml
     assert_response :success
