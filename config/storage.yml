@@ -13,6 +13,8 @@ amazon:
   secret_access_key: <%= ENV["quails_aws_secret_access_key"] %>
   region: us-east-1
   bucket: birdwatchorgua
+  upload:
+    cache_control: max-age=604800
 
 amazon-dev:
   service: S3
@@ -20,6 +22,8 @@ amazon-dev:
   secret_access_key: <%= ENV["quails_aws_secret_access_key"] %>
   region: us-east-1
   bucket: bworgua-test
+  upload:
+    cache_control: max-age=604800
 
 # Remember not to checkin your GCS keyfile to a repository
 # google:
