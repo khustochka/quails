@@ -14,7 +14,7 @@ amazon:
   secret_access_key: <%= ENV["quails_aws_secret_access_key"] %>
   public: true
   region: us-east-1
-  bucket: birdwatchorgua
+  bucket: <%= ENV["quails_s3_prod_bucket"] %>
   upload:
     cache_control: max-age=604800
 
@@ -24,7 +24,7 @@ amazon-dev:
   secret_access_key: <%= ENV["quails_aws_secret_access_key"] %>
   public: true
   region: us-east-1
-  bucket: bworgua-test
+  bucket: <%= ENV["quails_s3_dev_bucket"] %>
   upload:
     cache_control: max-age=604800
 <% end %>
