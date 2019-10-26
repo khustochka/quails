@@ -16,7 +16,7 @@ module ImagesHelper
   end
 
   def helper_only_path?
-    @only_path ||= true
+    @only_path.nil? ?  @only_path = true : @only_path
   end
 
   THUMBNAIL_HEIGHT = 218

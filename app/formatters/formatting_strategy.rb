@@ -76,7 +76,7 @@ class FormattingStrategy
   end
 
   def only_path?
-    @only_path ||= true
+    @only_path.nil? ?  @only_path = true : @only_path
   end
 
   def preprocess(text)
