@@ -6,10 +6,10 @@ module ImagesHelper
   }
 
   def jpg_url(img)
-    if img.on_flickr?
-      img.assets_cache.externals.main_image.full_url
-    elsif img.on_storage?
+    if img.on_storage?
       rails_blob_url(img.stored_image, only_path: helper_only_path?)
+    elsif img.on_flickr?
+      img.assets_cache.externals.main_image.full_url
     else
       img.assets_cache.locals.main_image.try(:full_url) || legacy_image_url("#{img.slug}.jpg")
     end
@@ -22,15 +22,15 @@ module ImagesHelper
   THUMBNAIL_HEIGHT = 218
 
   def thumbnail_item(img)
-    if img.on_flickr?
-      img.assets_cache.externals.thumbnail
-    elsif img.on_storage?
+    if img.on_storage?
       img.stored_image_to_asset_item
+    elsif img.on_flickr?
+      img.assets_cache.externals.thumbnail
     else
       img.assets_cache.locals.thumbnail
     end
   end
-  
+
   def self.image_host=(host)
     @image_host = host
   end
