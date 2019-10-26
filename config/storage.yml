@@ -19,6 +19,7 @@ amazon-dev:
   service: S3
   access_key_id: <%= ENV["quails_aws_access_key_id"] %>
   secret_access_key: <%= ENV["quails_aws_secret_access_key"] %>
+  public: true
   region: us-east-1
   bucket: bworgua-test
 <% end %>
