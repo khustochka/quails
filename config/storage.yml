@@ -16,7 +16,7 @@ amazon:
   region: us-east-1
   bucket: <%= ENV["quails_s3_prod_bucket"] %>
   upload:
-    cache_control: max-age=604800
+    cache_control: "public, max-age=604800"
     acl: public-read
 
 amazon-dev:
@@ -27,7 +27,7 @@ amazon-dev:
   region: us-east-1
   bucket: <%= ENV["quails_s3_dev_bucket"] %>
   upload:
-    cache_control: max-age=604800
+    cache_control: "public, max-age=604800"
     acl: public-read
 <% end %>
 
