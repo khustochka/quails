@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_25_235002) do
+ActiveRecord::Schema.define(version: 2019_10_30_150402) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -82,7 +82,7 @@ ActiveRecord::Schema.define(version: 2019_10_25_235002) do
     t.boolean "approved", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "ip", limit: 15
+    t.string "ip", limit: 45
     t.boolean "send_email", default: false
     t.integer "commenter_id"
     t.string "unsubscribe_token"
