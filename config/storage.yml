@@ -6,8 +6,6 @@ local:
   service: Disk
   root: <%= Rails.root.join("storage") %>
 
-# Use rails credentials:edit to set the AWS secrets (as aws:access_key_id|secret_access_key)
-<% if ENV["quails_aws_access_key_id"] %>
 amazon:
   service: S3
   access_key_id: <%= ENV["quails_aws_access_key_id"] %>
@@ -29,7 +27,6 @@ amazon-dev:
   upload:
     cache_control: "public, max-age=604800"
     acl: public-read
-<% end %>
 
 # Remember not to checkin your GCS keyfile to a repository
 # google:
