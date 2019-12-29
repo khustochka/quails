@@ -6,7 +6,7 @@ end
 
 VERSION = "6.0.0"
 #gem 'rails', VERSION
-gem 'rails', git: "https://github.com/rails/rails", ref: "709cee9c9a01b1c567b377f961d2e336f9443467"
+gem 'rails', git: "https://github.com/rails/rails", ref: "fe3db2a14ef10779771038dc6d0f7b96fccff7e9"
 # gem "activesupport", VERSION
 # gem "actionpack",    VERSION
 # gem "actionview",    VERSION
@@ -92,7 +92,7 @@ gem "mechanize"
 group :development do
   gem 'nokogiri', platforms: [:ruby, :mingw], require: false
   gem 'benchmark-ips'
-  gem "bundler-audit", require: false
+  #gem "bundler-audit", require: false
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'web-console', '>= 3.3.0'
   gem "spring"
