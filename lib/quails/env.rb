@@ -2,7 +2,7 @@ require "active_support/core_ext/array/inquiry.rb"
 
 module Quails
 
-  CURRENT_YEAR = 2019
+  CURRENT_YEAR = 2020
 
   class Env
     def initialize
