@@ -29,7 +29,7 @@
     = form.input :status, collection: Post::STATES, input_html: {size: '3'}, include_blank: false
     = form.input :cover_image_slug
     = form.input :publish_to_facebook
-    
+
   .buttons
     = default_submit_button(form)
 
@@ -47,6 +47,7 @@
 
   %h3 Livejournal
   %ul
+    %li= link_to 'Show LJ version', for_lj_post_path(@post)
     %li#lj_url_li
       - if @post.lj_data.blank?
         Not yet on Livejournal

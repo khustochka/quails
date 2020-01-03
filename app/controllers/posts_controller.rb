@@ -2,7 +2,7 @@ class PostsController < ApplicationController
 
   administrative except: [:show]
 
-  before_action :find_post, only: [:edit, :update, :destroy, :show, :lj_post]
+  before_action :find_post, only: [:edit, :update, :destroy, :show, :for_lj, :lj_post]
 
   after_action :cache_expire, only: [:create, :update, :destroy]
 
@@ -79,6 +79,11 @@ class PostsController < ApplicationController
   end
 
   ALLOWED_COUNTRY_TAGS = %w(usa canada)
+
+  def for_lj
+    # Just render LJ version
+    render body: @post.decorated.for_lj.text
+  end
 
   # POST
   def lj_post

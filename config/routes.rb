@@ -176,7 +176,11 @@ Rails.application.routes.draw do
       get :hidden
       get :facebook
     end
-    post :lj_post, on: :member
+    member do
+      get :for_lj
+      post :lj_post
+    end
+
   end
 
   resources :cards do
