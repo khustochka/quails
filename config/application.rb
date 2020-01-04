@@ -59,5 +59,6 @@ module Quails
 
     require 'core_ext/active_storage/exif_date_image_analyzer'
     config.active_storage.analyzers = [ActiveStorage::Analyzer::ExifDateImageAnalyzer]
+    config.active_storage.track_variants = true
   end
 end
