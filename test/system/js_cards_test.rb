@@ -15,7 +15,7 @@ class JSCardsTest < ApplicationSystemTestCase
     login_as_admin
     visit new_card_path
 
-    find(:xpath, "//span[text()='Add new row']").click
+    click_add_new_row
 
     select_suggestion('Brovary', from: 'Location')
     select_date('2011-04-08')
@@ -33,9 +33,9 @@ class JSCardsTest < ApplicationSystemTestCase
     select_suggestion('Brovary', from: 'Location')
     select_date('2011-04-08')
 
-    find(:xpath, "//span[text()='Add new row']").click
+    click_add_new_row
 
-    find(:xpath, "//span[text()='Add new row']").click
+    click_add_new_row
 
     within(:xpath, "//div[contains(@class,'obs-row')][1]") do
       select_suggestion('Passer domesticus', from: 'Taxon')
@@ -55,7 +55,7 @@ class JSCardsTest < ApplicationSystemTestCase
     select_suggestion('Brovary', from: 'Location')
     select_date('2011-04-08')
 
-    find(:xpath, "//span[text()='Add new row']").click
+    click_add_new_row
 
     assert_equal 1, all('.obs-row').size
 
@@ -63,7 +63,7 @@ class JSCardsTest < ApplicationSystemTestCase
       select_suggestion('Passer domesticus', from: 'Taxon')
     end
 
-    find(:xpath, "//span[text()='Add new row']").click
+    click_add_new_row
 
     within(:xpath, "//div[contains(@class,'obs-row')][2]") do
       select_suggestion('Hirundo rustica', from: 'Taxon')
@@ -91,9 +91,9 @@ class JSCardsTest < ApplicationSystemTestCase
     login_as_admin
     visit new_card_path
 
-    find(:xpath, "//span[text()='Add new row']").click
+    click_add_new_row
 
-    find(:xpath, "//span[text()='Add new row']").click
+    click_add_new_row
 
     within(:xpath, "//div[contains(@class,'obs-row')][1]") do
       click_icon_link(".remove")
@@ -155,7 +155,7 @@ class JSCardsTest < ApplicationSystemTestCase
     select_suggestion('Brovary', from: 'Location')
     select_date('2011-04-08')
 
-    find(:xpath, "//span[text()='Add new row']").click
+    click_add_new_row
 
     within(:xpath, "//div[contains(@class,'obs-row')][1]") do
       select_suggestion('Aves sp.', from: 'Taxon')
@@ -172,11 +172,11 @@ class JSCardsTest < ApplicationSystemTestCase
     select_suggestion('Brovary', from: 'Location')
     select_date('2011-04-09')
 
-    find(:xpath, "//span[text()='Add new row']").click
+    click_add_new_row
 
-    find(:xpath, "//span[text()='Add new row']").click
+    click_add_new_row
 
-    find(:xpath, "//span[text()='Add new row']").click
+    click_add_new_row
 
     within(:xpath, "//div[contains(@class,'obs-row')][3]") do
       find('label', text: 'Voice?').click
@@ -199,9 +199,9 @@ class JSCardsTest < ApplicationSystemTestCase
     select_suggestion('Brovary', from: 'Location')
     select_date('2011-04-09')
 
-    find(:xpath, "//span[text()='Add new row']").click
+    click_add_new_row
 
-    find(:xpath, "//span[text()='Add new row']").click
+    click_add_new_row
 
     within(:xpath, "//div[contains(@class,'obs-row')][1]") do
       select_suggestion('Passer domesticus', from: 'Taxon')
@@ -230,7 +230,7 @@ class JSCardsTest < ApplicationSystemTestCase
     select_date('2011-04-09')
     uncheck('card_post_id')
 
-    find(:xpath, "//span[text()='Add new row']").click
+    click_add_new_row
 
     within(:xpath, "//div[contains(@class,'obs-row')][1]") do
       select_suggestion('Passer domesticus', from: 'Taxon')
@@ -253,7 +253,7 @@ class JSCardsTest < ApplicationSystemTestCase
     select_suggestion('Brovary', from: 'Location')
     select_date('2011-04-09')
 
-    find(:xpath, "//span[text()='Add new row']").click
+    click_add_new_row
 
     within(:xpath, "//div[contains(@class,'obs-row')][1]") do
       select_suggestion('Passer domesticus', from: 'Taxon')

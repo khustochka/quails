@@ -62,6 +62,11 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     page.execute_script " $('#{selector}').trigger('mouseenter').click();"
   end
 
+  def click_add_new_row
+    find(:xpath, "//span[text()='Add new row']").click
+    sleep(0.05)
+  end
+
   # This is required for clicking font-awesome icon links (like .remove)
   def click_icon_link(selector)
     find(:css, selector).click
