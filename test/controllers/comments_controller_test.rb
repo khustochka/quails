@@ -89,9 +89,7 @@ class CommentsControllerTest < ActionController::TestCase
 
   test "user cannot create comment to hidden post" do
     assert_raise(ActiveRecord::RecordNotFound) do
-      assert_difference('Comment.count', 0) do
-        post :create, params: {comment: valid_comment_params(post_id: create(:post, status: 'PRIV').id)}
-      end
+      post :create, params: {comment: valid_comment_params(post_id: create(:post, status: 'PRIV').id)}
     end
   end
 
