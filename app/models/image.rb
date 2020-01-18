@@ -108,7 +108,7 @@ class Image < Media
 
   def stored_image_to_asset_item
     ImageAssetItem.new(
-        "a",
+        :amazon,
         stored_image.metadata[:width],
         stored_image.metadata[:height],
         stored_image_thumbnail_variant
