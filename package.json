@@ -1,5 +1,5 @@
 {
-  "name": "Quails",
+  "name": "quails",
   "license": "MIT",
   "dependencies": {
     "@airbrake/browser": "^1.0.6",
