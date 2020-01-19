@@ -4,12 +4,12 @@
   "dependencies": {
     "@airbrake/browser": "^1.0.6",
     "@rails/webpacker": "^4.2.2",
-    "activestorage": "^5.2.1",
+    "activestorage": "^5.2.4-1",
     "cross-fetch": "^3.0.0",
     "ilyabirman-likely": "^2.4.0",
     "keypress.js": "^2.1.5",
-    "rails-erb-loader": "^5.2.1",
-    "turbolinks": "^5.1.1",
+    "rails-erb-loader": "^5.5.2",
+    "turbolinks": "^5.2.0",
     "webpack": "^4.0.0"
   },
   "devDependencies": {

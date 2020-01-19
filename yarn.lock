@@ -1011,10 +1011,10 @@ acorn@^6.2.1:
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-6.4.0.tgz#b659d2ffbafa24baf5db1cdbb2c94a983ecd2784"
   integrity sha512-gac8OEcQ2Li1dxIEWGZzsp2BitJxwkwcOm0zHAJLcPJaVvm58FRnk6RkuLRpU1EujipU2ZFODv2P9DLMfnV8mw==
 
-activestorage@^5.2.1:
-  version "5.2.4"
-  resolved "https://registry.yarnpkg.com/activestorage/-/activestorage-5.2.4.tgz#758650e01cbb2ce0e3e80e4b20a7641a021a5412"
-  integrity sha512-3HDU9nCt/wn4yisSdS7wd32YPZgKRfwq2BE4kA7yuAQYKn+/X2S1sM8nAtnfPQRZIWarabIvGjbVzJNsERAb5Q==
+activestorage@^5.2.4-1:
+  version "5.2.4-1"
+  resolved "https://registry.yarnpkg.com/activestorage/-/activestorage-5.2.4-1.tgz#f57d0fb331f8963b883127acaed23a0316f11e75"
+  integrity sha512-yKzo63uwQahYvETkOgDJ2iWpMGAnU76yQrIBShmp1FXhPgSptO6sryXYXxsd174h+7p+RSbHJflAKbRdZuqYYQ==
   dependencies:
     spark-md5 "^3.0.0"
 
@@ -5957,7 +5957,7 @@ querystringify@^2.1.1:
   resolved "https://registry.yarnpkg.com/querystringify/-/querystringify-2.1.1.tgz#60e5a5fd64a7f8bfa4d2ab2ed6fdf4c85bad154e"
   integrity sha512-w7fLxIRCRT7U8Qu53jQnJyPkYZIaR4n5151KMfcJlO/A9397Wxb1amJvROTK6TOnp7PfoAmg/qXiNHI+08jRfA==
 
-rails-erb-loader@^5.2.1:
+rails-erb-loader@^5.5.2:
   version "5.5.2"
   resolved "https://registry.yarnpkg.com/rails-erb-loader/-/rails-erb-loader-5.5.2.tgz#db3fa8ac89600f09d179a1a70a2ca18c592576ea"
   integrity sha512-cjQH9SuSvRPhnWkvjmmAW/S4AFVDfAtYnQO4XpKJ8xpRdZayT73iXoE+IPc3VzN03noZXhVmyvsCvKvHj4LY6w==
@@ -7101,7 +7101,7 @@ tunnel-agent@^0.6.0:
   dependencies:
     safe-buffer "^5.0.1"
 
-turbolinks@^5.1.1:
+turbolinks@^5.2.0:
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/turbolinks/-/turbolinks-5.2.0.tgz#e6877a55ea5c1cb3bb225f0a4ae303d6d32ff77c"
   integrity sha512-pMiez3tyBo6uRHFNNZoYMmrES/IaGgMhQQM+VFF36keryjb5ms0XkVpmKHkfW/4Vy96qiGW3K9bz0tF5sK9bBw==
