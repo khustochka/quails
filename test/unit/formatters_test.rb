@@ -97,7 +97,7 @@ class FormattersTest < ActionDispatch::IntegrationTest
     image = create(:image)
     post = build(:post, text: "{{^#{image.slug}}}")
     assert_includes post.decorated({host: "localhost", port: 3011}).for_lj.text,
-                    "<img src=\"#{jpg_url(image)}\" title=\"[photo]\" alt=\"[photo]\" />"
+                    "<img src=\"https://localhost:3011/photos/#{image.slug}.jpg\" title=\"[photo]\" alt=\"[photo]\" />"
     assert_includes post.decorated({host: "localhost", port: 3011}).for_lj.text,
                     "<figcaption class=\"imagetitle\">\nHouse Sparrow <i>(Passer domesticus)</i>\n</figcaption>"
   end
@@ -107,17 +107,9 @@ class FormattersTest < ActionDispatch::IntegrationTest
                    stored_image: fixture_file_upload("files/tules.jpg"))
     post = build(:post, text: "{{^#{image.slug}}}")
     assert_includes post.decorated({host: "localhost", port: 3011}).for_lj.text,
-                    "<img src=\"https://localhost:3011#{jpg_url(image)}\" title=\"[photo]\" alt=\"[photo]\" />"
+                    "<img src=\"https://localhost:3011/photos/#{image.slug}.jpg\" title=\"[photo]\" alt=\"[photo]\" />"
     assert_includes post.decorated({host: "localhost", port: 3011}).for_lj.text,
                     "<figcaption class=\"imagetitle\">\nHouse Sparrow <i>(Passer domesticus)</i>\n</figcaption>"
-  end
-
-  test "LJ Post with S3 images should include fully qualified URL" do
-    image = create(:image,
-                   stored_image: fixture_file_upload("files/tules.jpg"))
-    post = build(:post, text: "{{^#{image.slug}}}")
-    assert_match /<img src="https?:\/\/.*tules.*" title="\[photo\]" alt="\[photo\]" \/>/,
-                 post.decorated({host: "localhost", port: 3011}).for_lj.text
   end
 
   test "LJ Post with images" do
@@ -125,8 +117,8 @@ class FormattersTest < ActionDispatch::IntegrationTest
     image = create(:image)
     image.card.update_column(:post_id, p.id)
     assert_includes p.decorated({host: "localhost", port: 3011}).for_lj.text,
-                    "<img src=\"#{jpg_url(image)}\" title=\"[photo]\" alt=\"[photo]\" />"
-    assert_includes p.decorated.for_lj.text,
+                    "<img src=\"https://localhost:3011/photos/#{image.slug}.jpg\" title=\"[photo]\" alt=\"[photo]\" />"
+    assert_includes p.decorated({host: "localhost", port: 3011}).for_lj.text,
                     "<figcaption class=\"imagetitle\">\nHouse Sparrow <i>(Passer domesticus)</i>\n</figcaption>"
 
   end
@@ -146,7 +138,7 @@ class FormattersTest < ActionDispatch::IntegrationTest
   test "LJ user in LJ post" do
     p = build(:post, text: "LJ user {{@stonechat|lj}}")
     assert_equal %Q(<p>LJ user <lj user="stonechat"></p>),
-                 p.decorated().for_lj.text
+                 p.decorated.for_lj.text
   end
 
   test "Voron vs vorona" do

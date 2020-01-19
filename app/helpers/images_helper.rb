@@ -15,6 +15,10 @@ module ImagesHelper
     end
   end
 
+  def static_jpg_url(img)
+    image_url(img, format: :jpg, only_path: helper_only_path?)
+  end
+
   def helper_only_path?
     @only_path.nil? ?  @only_path = true : @only_path
   end
