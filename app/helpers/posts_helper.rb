@@ -14,7 +14,7 @@ module PostsHelper
       if post.cover_image_slug =~ /\Ahttps?:\/\//
         post.cover_image_slug
       elsif img = Image.find_by_slug(post.cover_image_slug)
-        jpg_url(img)
+        static_jpg_url(img, {only_path: false})
       end
     end
 

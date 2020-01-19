@@ -42,8 +42,7 @@ class ImagesController < ApplicationController
         @strip_media = @image.series_siblings
       end
       format.jpeg do
-        external_url = jpg_url(@image)
-        redirect_to external_url
+        redirect_to jpg_url(@image)
       end
     end
   end
