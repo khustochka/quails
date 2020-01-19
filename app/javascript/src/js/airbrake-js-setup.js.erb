@@ -1,14 +1,12 @@
-import airbrakeJsClient from 'airbrake-js';
+import { Notifier } from '@airbrake/browser';
 
 <% if ENV['errbit_api_key'] && ENV['errbit_host'] %>
 
-var airbrake = new airbrakeJsClient({
+const airbrake = new Notifier({
     projectId: 1,
     projectKey: '<%= ENV['errbit_api_key'] %>',
-    host: "https://<%= ENV['errbit_host'] %>"});
-airbrake.addFilter(function(notice) {
-    notice.context.environment = "<%= Rails.env %>";
-    return notice;
+    environment: '<%= Rails.env %>',
+    host: "https://<%= ENV['errbit_host'] %>"
 });
 
 <% end %>
