@@ -7,12 +7,7 @@ module ImagesHelper
 
   def jpg_url(img)
     if img.on_storage?
-      # For local (disk) and test services stored_image.url is invalid, rails_blob_url is direct url to the file.
-      if img.stored_image.service_name.in? %w(local test)
-        rails_blob_url(img.stored_image, only_path: helper_only_path?)
-      else
-        img.stored_image.url
-      end
+      img.stored_image.url
     elsif img.on_flickr?
       img.assets_cache.externals.main_image.full_url
     else

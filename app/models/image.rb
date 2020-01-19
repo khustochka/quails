@@ -111,12 +111,23 @@ class Image < Media
         :amazon,
         stored_image.metadata[:width],
         stored_image.metadata[:height],
-        stored_image_thumbnail_variant
+        stored_image_thumbnail_variant.url
     )
   end
 
   def stored_image_thumbnail_variant
     stored_image.variant(resize: "800x600>")
+  end
+
+  # FIXME: another duplication...
+  def thumbnail_variant
+    if on_storage?
+      stored_image_thumbnail_variant
+    elsif on_flickr?
+      assets_cache.externals.thumbnail.full_url
+    else
+      assets_cache.locals.thumbnail.full_url
+    end
   end
 
   private

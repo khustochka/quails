@@ -11,6 +11,8 @@ class ApplicationController < ActionController::Base
   include UrlBuilder
   include RecordFinder
 
+  include ActiveStorage::SetCurrent
+
   private
 
   def allow_params(*list)
