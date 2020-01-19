@@ -2,6 +2,9 @@ class ImagesController < ApplicationController
 
   include FlickrConcern
 
+  # FIXME: rework later
+  include ImagesHelper
+
   administrative except: [:index, :multiple_species, :show, :gallery, :country]
 
   find_record by: :slug, before: [:show, :edit,
@@ -33,8 +36,16 @@ class ImagesController < ApplicationController
 
   # GET /photos/1
   def show
-    @robots = 'NOINDEX' if @image.status == 'NOINDEX'
-    @strip_media = @image.series_siblings
+    respond_to do |format|
+      format.html do
+        @robots = 'NOINDEX' if @image.status == 'NOINDEX'
+        @strip_media = @image.series_siblings
+      end
+      format.jpeg do
+        external_url = jpg_url(@image)
+        redirect_to external_url
+      end
+    end
   end
 
   # GET /photos/new

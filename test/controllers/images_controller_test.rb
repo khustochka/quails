@@ -123,6 +123,11 @@ class ImagesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "respond with JPG image" do
+    get :show, params: {id: @image.to_param, format: :jpg}
+    assert_response :redirect
+  end
+
   test "show image in the series" do
     img = create(:image)
     img2 = create(:image)
