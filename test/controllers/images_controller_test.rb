@@ -262,4 +262,14 @@ class ImagesControllerTest < ActionController::TestCase
     get :show, params: {id: @image.to_param}
     assert_select "a[href='#{public_post_path(blogpost)}']"
   end
+
+  test "show image in another locale" do
+    get :show, params: {id: @image.to_param, locale: :en}
+    assert_response :success
+  end
+
+  test "image in another locale - correct canonical link" do
+    get :show, params: {id: @image.to_param, locale: :en}
+    assert_equal localized_image_url(locale: :en, id: @image.to_param), css_select("head link[rel=canonical]").attribute("href").value
+  end
 end

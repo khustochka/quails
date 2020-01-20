@@ -87,7 +87,7 @@
   -# images
   - @images.each do |img|
     %url
-      %loc= image_url(img)
+      %loc= localize_url(img, locale: nil, only_path: false)
       %lastmod= img.updated_at.iso8601
       %changefreq yearly
 
@@ -99,7 +99,7 @@
   -# videos
   - @videos.each do |vid|
     %url
-      %loc= video_url(vid)
+      %loc= localize_url(vid, locale: nil, only_path: false)
       %lastmod= vid.updated_at.iso8601
       %changefreq yearly
 
@@ -111,7 +111,7 @@
   -# species
   - @species.each do |sp|
     %url
-      %loc= species_url(sp)
+      %loc= localize_url(sp, locale: nil, only_path: false)
       -# %lastmod=
       %changefreq monthly
 
