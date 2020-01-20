@@ -8,7 +8,6 @@ class ApplicationController < ActionController::Base
   include LocalizationConcern
   include AdministrativeConcern
   include PublicPaths
-  include UrlBuilder
   include RecordFinder
 
   include ActiveStorage::SetCurrent

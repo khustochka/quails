@@ -22,9 +22,9 @@ class LoginController < ApplicationController
       set_trust_cookie
       set_admin_session
       return_url = if ret
-        url_for(ret.merge(admin_pages_url_options))
+        url_for(ret)
       else
-        root_url(admin_pages_url_options)
+        root_url
       end
       redirect_to return_url, status: 303
     else

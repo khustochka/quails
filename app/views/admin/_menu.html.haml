@@ -1,31 +1,31 @@
 - if current_user.admin?
   %ul.admin_menu
-    %li.adder= link_to '+ Post', new_post_path(admin_pages_url_options)
-    %li.adder= link_to '+ Card', new_card_path(admin_pages_url_options)
-    %li.adder= link_to '+ Image', new_image_path(admin_pages_url_options)
-    %li= link_to 'Drafts', hidden_posts_path(admin_pages_url_options)
-    %li= link_to 'Species', admin_species_index_path(admin_pages_url_options)
-    %li= link_to 'Cards', cards_path(admin_pages_url_options)
-    %li= link_to 'Ebird', ebird_imports_path(admin_pages_url_options)
-    %li= link_to 'Comments', comments_path(admin_pages_url_options)
-    %li= link_to 'Locations', loci_path(admin_pages_url_options)
-    %li= link_to 'Videos', videos_path(admin_pages_url_options)
-    %li= link_to 'Research', research_path(admin_pages_url_options)
-    %li= link_to 'Map Edit', edit_map_path(admin_pages_url_options)
+    %li.adder= link_to '+ Post', new_post_path
+    %li.adder= link_to '+ Card', new_card_path
+    %li.adder= link_to '+ Image', new_image_path
+    %li= link_to 'Drafts', hidden_posts_path
+    %li= link_to 'Species', admin_species_index_path
+    %li= link_to 'Cards', cards_path
+    %li= link_to 'Ebird', ebird_imports_path
+    %li= link_to 'Comments', comments_path
+    %li= link_to 'Locations', loci_path
+    %li= link_to 'Videos', videos_path
+    %li= link_to 'Research', research_path
+    %li= link_to 'Map Edit', edit_map_path
     %li
       = link_to 'Resque', "/resque"
       = render "admin/resque_badge"
 
     \|
-    %li= link_to 'Photostream', images_path(admin_pages_url_options)
-    %li= link_to 'Stats', research_stats_path(admin_pages_url_options)
-    %li= link_to t('menu.lifelist'), advanced_list_path(admin_pages_url_options)
+    %li= link_to 'Photostream', images_path
+    %li= link_to 'Stats', research_stats_path
+    %li= link_to t('menu.lifelist'), advanced_list_path(locale: nil)
 
     %li
-      %i= link_to "**Logout", logout_path(locale: nil)
+      %i= link_to "**Logout", logout_path
 
 - elsif has_trust_cookie?
 
   %ul.admin_menu
     %li.login_link
-      = link_to 'Login', login_path(admin_pages_url_options)
+      = link_to 'Login', login_path

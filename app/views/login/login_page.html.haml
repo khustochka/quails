@@ -2,7 +2,7 @@
 
 - @robots = "NOINDEX,NOFOLLOW"
 
-= form_tag(url_for({action: 'login_do'}.merge(admin_pages_url_options)), method: :post) do
+= form_tag(url_for({action: 'login_do'}), method: :post) do
   = text_field_tag :username
   = password_field_tag
   = submit_tag("Login", class: 'submit')
