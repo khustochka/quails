@@ -136,6 +136,15 @@ Rails.application.routes.draw do
     end
   end
 
+  direct :public_post do |post, options|
+    route_for(:show_post, post.year, post.month, post.to_param, options)
+  end
+
+  direct :public_comment do |comment, post = nil, options|
+    post ||= comment.post
+    route_for(:show_post, post.year, post.month, post.to_param, options.merge(anchor: "comment#{comment.id}"))
+  end
+
   get '/archive' => 'blog#archive'
 
   scope '(:locale)', locale: /en/ do

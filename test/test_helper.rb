@@ -30,7 +30,7 @@ class ActiveSupport::TestCase
 
   include FactoryBot::Syntax::Methods
 
-  delegate :public_post_path, :public_comment_path, :url_for, to: :@controller
+  delegate :url_for, to: :@controller
 
   def login_as_admin
     @request.session[:admin] = true
