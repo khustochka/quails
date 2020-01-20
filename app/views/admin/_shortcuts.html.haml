@@ -1,10 +1,10 @@
 %ul.horiz-list.admin-shortcuts
   - if action_name.in?(%w{edit update map_edit}) && controller.respond_to?(:show)
-    %li= link_to 'Show this one', significant_params.merge({action: :show, locale: nil}).merge(@extra_params || {})
-  - if action_name.in?(%w{show map_edit show_public}) && controller.respond_to?(:edit)
-    %li= link_to 'Edit this one', ({:controller => controller_name, :action => :edit, :id => params[:id], locale: nil})
+    %li= link_to 'Show this one', significant_params.merge({action: :show}).merge(@extra_params || {})
+  - if action_name.in?(%w{show map_edit}) && controller.respond_to?(:edit)
+    %li= link_to 'Edit this one', ({:controller => controller_name, :action => :edit, :id => params[:id]})
   - if controller.respond_to?(:new)
-    %li= link_to 'Create new', action: :new, locale: nil
+    %li= link_to 'Create new', action: :new
   - if action_name != 'index' && controller.respond_to?(:index)
-    %li= link_to 'Index', action: :index, locale: nil
+    %li= link_to 'Index', action: :index
   = yield :add_shortcuts
