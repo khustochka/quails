@@ -3,8 +3,8 @@
   "license": "MIT",
   "dependencies": {
     "@airbrake/browser": "^1.0.6",
-    "@rails/webpacker": "^4.2.2",
     "@rails/activestorage": "^6.0.2-1",
+    "@rails/webpacker": "^4.2.2",
     "cross-fetch": "^3.0.0",
     "ilyabirman-likely": "^2.4.0",
     "keypress.js": "^2.1.5",
