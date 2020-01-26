@@ -103,8 +103,7 @@ class FormattersTest < ActionDispatch::IntegrationTest
   end
 
   test "LJ Post with S3 image" do
-    image = create(:image,
-                   stored_image: fixture_file_upload("files/tules.jpg"))
+    image = create(:image_on_storage)
     post = build(:post, text: "{{^#{image.slug}}}")
     assert_includes post.decorated({host: "localhost", port: 3011}).for_lj.text,
                     "<img src=\"https://localhost:3011/photos/#{image.slug}.jpg\" title=\"[photo]\" alt=\"[photo]\" />"

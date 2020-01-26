@@ -57,7 +57,7 @@ class FeedsControllerTest < ActionController::TestCase
   end
 
   test 'photos feed should contain full urls for S3 images' do
-    im1 = create(:image, stored_image: fixture_file_upload("files/tules.jpg"))
+    im1 = create(:image_on_storage)
 
     get :photos, format: :xml
     assert_response :success
@@ -68,7 +68,7 @@ class FeedsControllerTest < ActionController::TestCase
   end
 
   test 'photos feed should contain full url to species page' do
-    im1 = create(:image, stored_image: fixture_file_upload("files/tules.jpg"))
+    im1 = create(:image_on_storage)
 
     get :photos, format: :xml
     assert_response :success

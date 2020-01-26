@@ -1,5 +1,2 @@
-- asset_method = image.on_flickr? ? :externals : :locals
-- image_asset= image.assets_cache.send(asset_method).find_max_size(height: 100, width: 100)
-
 %figure<>
-  = link_to image_tag(image_asset.full_url), image
+  = link_to image_tag(image.thumbnail_variant), image

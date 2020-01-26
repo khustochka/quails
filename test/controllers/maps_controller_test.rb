@@ -113,4 +113,13 @@ class MapsControllerTest < ActionController::TestCase
     assert_equal 1, JSON.parse(response.body).size
   end
 
+  test "properly find observations with S3 images" do
+    img = create(:image_on_storage)
+    obs1 = img.observations.first
+    login_as_admin
+    get :observations, params: {q: {observ_date: obs1.card.observ_date}}, format: :json
+    assert_response :success
+    assert_equal Mime[:json], response.media_type
+  end
+
 end
