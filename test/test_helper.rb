@@ -25,7 +25,7 @@ end
 
 class ActiveSupport::TestCase
 
-  parallelize(workers: 4)
+  parallelize(workers: ENV["COVERAGE"] ? 1 : 4)
 
   fixtures :all
 
