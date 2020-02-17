@@ -6,14 +6,6 @@ GIT
     livejournal (0.3.10)
 
 GIT
-  remote: https://github.com/rails/actionpack-page_caching
-  revision: f5931b6c8907c1fb2a810bb93fb3cb22a072fc14
-  ref: f5931b6c8907c1fb2a810bb93fb3cb22a072fc14
-  specs:
-    actionpack-page_caching (1.1.1)
-      actionpack (>= 5.0.0)
-
-GIT
   remote: https://github.com/rails/rails
   revision: 99f18b618b990fd271fcb6f6beb0052dd55064f9
   ref: 99f18b618b990fd271fcb6f6beb0052dd55064f9
@@ -111,6 +103,8 @@ GEM
   remote: https://rubygems.org/
   specs:
     RedCloth (4.3.2)
+    actionpack-page_caching (1.2.0)
+      actionpack (>= 5.0.0)
     acts_as_list (1.0.0)
       activerecord (>= 4.2)
     addressable (2.7.0)
@@ -123,7 +117,7 @@ GEM
       activerecord (>= 3.2.0)
     ansi (1.5.0)
     aws-eventstream (1.0.3)
-    aws-partitions (1.273.0)
+    aws-partitions (1.274.0)
     aws-sdk-core (3.90.1)
       aws-eventstream (~> 1.0, >= 1.0.2)
       aws-partitions (~> 1, >= 1.239.0)
@@ -421,7 +415,7 @@ PLATFORMS
 
 DEPENDENCIES
   RedCloth
-  actionpack-page_caching!
+  actionpack-page_caching
   acts_as_list
   addressable
   airbrake

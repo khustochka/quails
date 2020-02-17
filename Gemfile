@@ -35,7 +35,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'rails-i18n'
 
 # Old rails functionality
-gem "actionpack-page_caching", git: "https://github.com/rails/actionpack-page_caching", ref: "f5931b6c8907c1fb2a810bb93fb3cb22a072fc14"
+gem "actionpack-page_caching"
 gem "rails-controller-testing"
 
 # AR utils
