@@ -3,6 +3,8 @@ require 'capybara/minitest'
 
 #Capybara.default_wait_time = 5
 
+Capybara.server = :puma, {Silent: true}
+
 # Seems like all the commented out stuff below is NOT VALID since Rails 5.1
 
 # There are problems with transactional fixtures in Selenium tests, because
