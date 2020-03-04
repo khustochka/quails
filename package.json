@@ -9,7 +9,7 @@
     "keypress.js": "^2.1.5",
     "rails-erb-loader": "^5.5.2",
     "turbolinks": "^5.2.0",
-    "webpack": "^4.41.6"
+    "webpack": "^4.42.0"
   },
   "devDependencies": {
     "webpack-dev-server": "^3.10.1"
