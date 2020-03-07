@@ -4,7 +4,7 @@ class BlogController < ApplicationController
     @feed = 'blog'
   end
 
-  POSTS_ON_FRONT_PAGE = 5
+  POSTS_ON_FRONT_PAGE = 3
 
   # GET /
   def home
