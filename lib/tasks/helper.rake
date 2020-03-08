@@ -3,10 +3,8 @@ namespace :helper do
   task :load_locals do
     @db_spec = Rails.configuration.database_configuration[Rails.env]
     begin
-      @local_opts = YAML.load_file('config/local.yml')
-      @folder = @local_opts["repo"]
-    rescue
-      raise "DB backup folder should be at `repo` key in `config/local.yml`"
+      @folder = ENV['DATA_REPO']
+      raise "DB backup folder should be set with DATA_REPO env var" unless @folder.present?
     end
   end
 
