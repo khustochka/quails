@@ -14,36 +14,26 @@ if env_js_driver == :webkit
   end
 end
 
+$driver, $browser = case env_js_driver
+                  when /\Aselenium(?:_(.*))?/
+                    [:selenium, $1 || :firefox]
+                  else
+                    [env_js_driver, nil]
+                  end
+
 Capybara.javascript_driver = env_js_driver || :selenium_chrome_headless
 
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
-  # driver = ENV["DRIVER"]&.to_sym || :selenium
-  # using = ENV["USING"]&.to_sym || (driver == :selenium && :headless_chrome)
-  #
-  # opts =
-  #     # if ENV["headless"]
-  #     #   {
-  #     #       desired_capabilities:
-  #     #           Selenium::WebDriver::Remote::Capabilities.chrome(chromeOptions: {args: ["--headless"]})
-  #     #   }
-  #     # else
-  #       {}
-  #     # end
-  #
-  # args = {screen_size: [1400, 1400], options: opts}
-  # args[:using] = using if using
+  driven_by $driver, using: $browser
 
-  #driven_by driver, args
-
+  # This stuff is required so that JS tests do not mess up the UI integration tests (which use rack-test)
   setup do
     Capybara.current_driver = ENV['JS_DRIVER'].try(:to_sym) || Capybara.javascript_driver
   end
-
   teardown do
     Capybara.use_default_driver
   end
-
 
   TEST_CREDENTIALS = {username: ENV['admin_username'], password: ENV['admin_password']}
 
