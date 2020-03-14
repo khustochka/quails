@@ -3,6 +3,7 @@ require "application_system_test_case"
 class JSCardsTest < ApplicationSystemTestCase
   def save_and_check
     click_button('Save')
+    sleep 0.5 # Chrome driver needs pretty high values TODO: diff values for Chrome and Capy-webkit
     assert_css "#save_button[value=Save]"
   end
 

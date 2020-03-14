@@ -57,7 +57,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   def select_suggestion(value, hash)
     selector = ".ui-menu-item a:contains(\"#{value}\"):first"
     fill_in hash[:from], with: value
-    sleep(0.05)
+    sleep(0.5) # Chrome driver needs pretty high values TODO: diff values for Chrome and Capy-webkit
     #raise "No element '#{value}' in the field #{hash[:from]}" unless page.has_selector?(:xpath, "//*[@class=\"ui-menu-item\"]//a[contains(text(), \"#{value}\")]")
     page.execute_script " $('#{selector}').trigger('mouseenter').click();"
   end
