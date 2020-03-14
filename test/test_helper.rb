@@ -23,6 +23,9 @@ unless ENV["RM_INFO"]
   MiniTest::Reporters.use!
 end
 
+
+Capybara.server = :puma, {Silent: true}
+
 class ActiveSupport::TestCase
 
   parallelize(workers: ENV["COVERAGE"] ? 1 : 4)
