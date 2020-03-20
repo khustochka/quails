@@ -1,5 +1,10 @@
 class WikiFormatter
 
+  ParagraphPipeline = HTML::Pipeline.new [
+                                             HTML::Pipeline::TextileFilter,
+                                             HTML::Pipeline::AutolinkFilter
+                                         ]
+
   def initialize(text, metadata = {})
     @text = text
     @metadata = metadata
@@ -26,10 +31,9 @@ class WikiFormatter
   end
 
   private
+
   def apply
-    ParagraphFormatter.apply(
-        @strategy.apply
-    )
+    ParagraphPipeline.call(@strategy.apply)[:output].to_s
   end
 
 end

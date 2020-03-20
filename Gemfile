@@ -48,6 +48,7 @@ gem 'haml-rails'
 gem 'haml-contrib'
 gem 'RedCloth'
 gem 'rinku'
+gem 'html-pipeline'
 
 # Improved functionality utils
 gem 'kaminari'
