@@ -14,9 +14,12 @@ figure.image_thumb, figure.imageholder
     // to remove 1px high line above image in Firefox
     display: block
 
+figure.imageholder
+  border: 1px solid #eeeeee
+
 .thumbs_strip
   figure.image_thumb, figure.imageholder
-    border: 1px solid #ccc
+    border: 1px solid #eeeeee
 
 figure.image_thumb
   text-align: center
@@ -82,7 +85,7 @@ figure.imageholder figcaption
     text-align: center
 
   figure.image_thumb
-    border: 1px solid #CCCCCC
+    border: 1px solid #eeeeee
     @include auto-width
     img:not(.map_strip_img)
       @include auto-width

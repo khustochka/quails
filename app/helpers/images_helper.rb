@@ -24,7 +24,7 @@ module ImagesHelper
     @only_path.nil? ?  @only_path = true : @only_path
   end
 
-  THUMBNAIL_HEIGHT = 218
+  THUMBNAIL_HEIGHT = 280
 
   def thumbnail_item(img)
     if img.on_storage?
