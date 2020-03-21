@@ -1,4 +1,8 @@
 - if inline_styles&.any?
+  - max_width = (@body_class == 'wider') ? 1120 : 896
   %style
+    @media (min-width: 768px) {
     - inline_styles.map{|t| [t.width, t.height]}.uniq.each do |w, h|
-      = ".thumb_#{w}x#{h} {width: #{w}px;height: #{h}px;}"
+      - ww = 100.0 * w / max_width
+      = ".thumb_#{w}x#{h} {width: #{ww}%;height: auto;}"
+    }

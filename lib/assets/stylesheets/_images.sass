@@ -6,7 +6,6 @@ figure.image_thumb, figure.imageholder
   margin: 0 6px 6px 0
   // vertical-align: top is necessary for IE7
   vertical-align: top
-  border: 1px solid #ccc
   a img
     border: none
     vertical-align: text-top
@@ -15,11 +14,21 @@ figure.image_thumb, figure.imageholder
     // to remove 1px high line above image in Firefox
     display: block
 
+.thumbs_strip
+  figure.image_thumb, figure.imageholder
+    border: 1px solid #ccc
+
 figure.image_thumb
   text-align: center
+  img:not(.map_strip_img)
+    width: 100%
   img.fake_dimensions
     max-width: 100%
     max-height: 100%
+
+.thumbs_strip figure.image_thumb
+  img
+    width: initial
 
 figure.imageholder
   @include auto-width
@@ -64,15 +73,16 @@ figure.image_thumb figcaption
 figure.imageholder figcaption
   font-size: 16px
 
-.thumbs_row
-  width: $main-width
+//.thumbs_row
+//  width: $main-width
 
-@media only all and (max-width: 580px)
+@media only all and (max-width: 768px)
   .thumbs_row
     width: auto
     text-align: center
 
   figure.image_thumb
+    border: 1px solid #CCCCCC
     @include auto-width
     img:not(.map_strip_img)
       @include auto-width
@@ -81,7 +91,7 @@ figure.imageholder figcaption
       height: auto
       *width: auto
       width: auto\9
-      
+
 
 .flickr_badge
   position: absolute
