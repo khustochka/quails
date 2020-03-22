@@ -6,9 +6,9 @@ GIT
     livejournal (0.3.10)
 
 GIT
-  remote: https://github.com/rails/rails
-  revision: 99f18b618b990fd271fcb6f6beb0052dd55064f9
-  ref: 99f18b618b990fd271fcb6f6beb0052dd55064f9
+  remote: https://github.com/khustochka/rails
+  revision: ebae80547d9690cf6eb582a6ec879491b3ebb63b
+  branch: fix-38679-dup-options
   specs:
     actioncable (6.1.0.alpha)
       actionpack (= 6.1.0.alpha)
@@ -294,9 +294,9 @@ GEM
     pry (0.13.0)
       coderay (~> 1.1)
       method_source (~> 1.0)
-    pry-byebug (3.8.0)
+    pry-byebug (3.9.0)
       byebug (~> 11.0)
-      pry (~> 0.10)
+      pry (~> 0.13.0)
     pry-rails (0.3.9)
       pry (>= 0.10.4)
     pry-stack_explorer (0.4.9.3)
