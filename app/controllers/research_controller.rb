@@ -230,7 +230,7 @@ class ResearchController < ApplicationController
         group('EXTRACT(month FROM observ_date)').order('month')
     @first_sp_by_month =
         lifelist_filtered.group('EXTRACT(month FROM observ_date)::integer').count(:all)
-    
+
     @day_by_obs = observations_filtered.joins(:card).select('observ_date, COUNT(observations.id) as count_obs').
         group('observ_date').
         order(Arel.sql('COUNT(observations.id) DESC, observ_date ASC')).limit(10)

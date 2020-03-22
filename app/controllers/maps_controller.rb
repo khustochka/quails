@@ -40,7 +40,7 @@ class MapsController < ApplicationController
   end
 
   def global
-    
+
   end
 
   def loci
