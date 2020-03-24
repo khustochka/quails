@@ -1,5 +1,5 @@
 module JustifyHelper
-  BORDER = 6
+  BORDER = 4
   INCREASE_ENABLED = true
 
   def render_justified(array)
