@@ -6,7 +6,7 @@ end
 
 VERSION = "6.0.0"
 #gem 'rails', VERSION
-gem 'rails', git: "https://github.com/khustochka/rails", branch: "fix-38679-dup-options"
+gem 'rails', git: "https://github.com/rails/rails", ref: "9d8763bceb5b08a91d7fe532dd5e329fd5e1b716"
 # gem "activesupport", VERSION
 # gem "actionpack",    VERSION
 # gem "actionview",    VERSION
