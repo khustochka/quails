@@ -106,7 +106,7 @@ class EbirdChecklist
 
     self.observations = []
 
-    page.css("main ol li").each do |row|
+    page.css("main ol li[data-observation]").each do |row|
       count = row.css("div.Observation-numberObserved span span")[1].text
       count = nil if count == "X"
 
