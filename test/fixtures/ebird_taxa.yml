@@ -75,7 +75,7 @@ aves_sp:
   ebird_code: bird1
   ebird_version: 2016
 
-# Ebird taxa to test promotion:
+# eBird taxa to test promotion:
 
 some_spuh:
   name_sci: "Tinamus sp."
@@ -119,4 +119,4 @@ some_tinamu_subspecies:
   parent: :some_species
   ebird_version: 2016
 
-# ===== END OF Ebird taxa to test promotion
+# ===== END OF eBird taxa to test promotion
