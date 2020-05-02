@@ -5,14 +5,14 @@
 %h3= link_to('Statistics', action: :stats)
 
 %ul
-  %li= link_to('Number of species up to day', {action: :uptoday})
+  %li= link_to('Number of species year to date', {action: :uptoday})
+  %li= link_to('Yearly chart', {action: :charts})
   %li= link_to('Find species seen after more than a year', {action: :more_than_year})
   %li= link_to('Pictured species stats', {action: :topicture})
   %li= link_to('Species mostly recorded by voice', {action: :voices})
   %li= link_to('Images and posts of this day', {action: :this_day})
   %li= link_to('Compare lists of two regions', {action: :compare})
-  %li= link_to('By countries', {action: :by_countries})
-  %li= link_to('Charts', {action: :charts})
+  %li= link_to('Species by number of countries', {action: :by_countries})
   %li= link_to('Month targets', {action: :month_targets})
 
 %h3 Review tasks:
@@ -33,6 +33,6 @@
 %h3
   = link_to('Environment', action: :environ)
   &bull;
-  = link_to('Insights', action: :insights)
+  = link_to('DB Insights', action: :insights)
   &bull;
   = link_to('Settings', settings_path)
