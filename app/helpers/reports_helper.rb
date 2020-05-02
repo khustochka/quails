@@ -1,7 +1,7 @@
-module ResearchHelper
-  def research_page_header
+module ReportsHelper
+  def reports_page_header
     capture do
-      concat link_to('Research', research_path)
+      concat link_to('Reports', reports_path)
       concat " : "
       concat @page_title
     end

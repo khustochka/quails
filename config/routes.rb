@@ -279,11 +279,11 @@ Rails.application.routes.draw do
     resources :series, controller: "media_series"
   end
 
-  get '/research', controller: :research, action: :index, as: :research
+  get '/reports', controller: :reports, action: :index, as: :reports
 
-  research_actions = %w(environ insights more_than_year topicture this_day uptoday compare by_countries stats voices charts month_targets)
-  research_actions.each do |name|
-    get "/research/#{name}", controller: :research, action: name
+  reports_actions = %w(environ insights more_than_year topicture this_day uptoday compare by_countries stats voices charts month_targets)
+  reports_actions.each do |name|
+    get "/reports/#{name}", controller: :reports, action: name
   end
 
   get '/login' => 'login#login_page'

@@ -1,4 +1,4 @@
-class ResearchController < ApplicationController
+class ReportsController < ApplicationController
 
   administrative
 

@@ -1,19 +1,19 @@
 require 'test_helper'
 
-class ResearchControllerTest < ActionController::TestCase
-  test "admin sees Research/index" do
+class ReportsControllerTest < ActionController::TestCase
+  test "admin sees reports/index" do
     login_as_admin
     get :index
     assert_response :success
     assert_template 'index'
   end
 
-  test "user does not see Research/index" do
+  test "user does not see reports/index" do
     assert_raise(ActionController::RoutingError) { get :index }
     #assert_response 404
   end
 
-  test "admin sees Research/this_day" do
+  test "admin sees reports/this_day" do
     p = create(:post)
     o = create(:observation, card: create(:card, observ_date: Time.current, post: p))
     create(:image, observations: [o])
@@ -23,7 +23,7 @@ class ResearchControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "admin sees Research/more_than_year" do
+  test "admin sees reports/more_than_year" do
     create(:observation, card: create(:card, observ_date: "2007-06-18"))
     create(:observation, card: create(:card, observ_date: "2009-06-18"))
     login_as_admin
@@ -31,7 +31,7 @@ class ResearchControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "admin sees Research/topicture" do
+  test "admin sees reports/topicture" do
     o = create(:observation, card: create(:card, observ_date: "2007-06-18"))
     create(:image, observations: [o])
     login_as_admin
@@ -39,25 +39,25 @@ class ResearchControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "admin sees Research/compare" do
+  test "admin sees reports/compare" do
     login_as_admin
     get :compare, params: {loc1: 'kiev', loc2: 'brovary'}
     assert_response :success
   end
 
-  test "admin sees Research/by_countries" do
+  test "admin sees reports/by_countries" do
     login_as_admin
     get :by_countries
     assert_response :success
   end
 
-  test "admin sees Research/uptoday" do
+  test "admin sees reports/uptoday" do
     login_as_admin
     get :uptoday
     assert_response :success
   end
 
-  test "admin sees Research/stats" do
+  test "admin sees reports/stats" do
     create(:observation, card: create(:card, observ_date: "2007-06-18"))
     create(:observation, card: create(:card, observ_date: "2009-06-18"))
     login_as_admin
@@ -65,7 +65,7 @@ class ResearchControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "admin sees Research/voices" do
+  test "admin sees reports/voices" do
     create(:observation, card: create(:card, observ_date: "2007-06-18"), voice: true)
     create(:observation, card: create(:card, observ_date: "2009-06-18"), voice: false)
     create(:observation, card: create(:card, observ_date: "2009-06-18"), voice: false, taxon: taxa(:hirrus))
@@ -74,7 +74,7 @@ class ResearchControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "admin sees Research/environment" do
+  test "admin sees reports/environment" do
     login_as_admin
     get :environ
     assert_response :success
@@ -86,12 +86,12 @@ class ResearchControllerTest < ActionController::TestCase
     get :month_targets
   end
 
-  test "correct redirect for Research/more_than_year" do
+  test "correct redirect for reports/more_than_year" do
     create(:observation, card: create(:card, observ_date: "2007-06-18"))
     create(:observation, card: create(:card, observ_date: "2009-06-18"))
     login_as_admin
     get :more_than_year, params: {sort: :days}
-    assert_redirected_to controller: :research, action: :more_than_year, days: 365, sort: :days
+    assert_redirected_to controller: :reports, action: :more_than_year, days: 365, sort: :days
   end
 
   test "charts work" do
