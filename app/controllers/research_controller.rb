@@ -86,7 +86,7 @@ class ResearchController < ApplicationController
       sp, imgs = imgdata
 
       img = imgs.each_cons(2).select do |im1, im2|
-        im2.created_at > Date.new(2015).beginning_of_year && (im2.created_at - im1.created_at) >= TWO_YEARS
+        im2.created_at > 1.year.ago.beginning_of_year && (im2.created_at - im1.created_at) >= TWO_YEARS
       end
       collection.concat(
           img.map do |im1, im2|
