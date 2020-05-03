@@ -71,7 +71,7 @@ gem 'airbrake'
 gem "image_processing"
 
 # Assets
-gem 'webpacker', '~> 4.0'
+gem 'webpacker', '~> 5.0'
 gem "sprockets-rails"
 gem 'jquery-rails'
 #gem 'respond-js-rails'
