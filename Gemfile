@@ -56,7 +56,7 @@ gem "high_voltage"
 
 # External services
 gem 'flickraw', '~> 0.9.7'
-gem 'livejournal', git: "https://github.com/khustochka/livejournal.git", branch: "alt-server"
+gem 'livejournal', git: "https://github.com/khustochka/livejournal.git", branch: "further-fixes"
 gem "aws-sdk-s3", require: false
 
 # Small utils
