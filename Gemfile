@@ -93,7 +93,6 @@ group :development do
   #gem "bundler-audit", require: false
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'web-console', '>= 3.3.0'
-  gem "spring"
   gem "letter_opener"
   gem "letter_opener_web"
   gem "listen"
