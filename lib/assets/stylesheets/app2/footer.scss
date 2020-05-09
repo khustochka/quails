@@ -1,0 +1,15 @@
+footer.page_footer {
+  @extend .container-fluid;
+  border-top: 1px solid $gray-400;
+
+  .banners_footer {
+    vertical-align: top;
+
+    .banner_holder {
+      @extend .d-inline-block;
+      width: 140px;
+      height: 56px;
+      border: 1px solid lightgray;
+    }
+  }
+}

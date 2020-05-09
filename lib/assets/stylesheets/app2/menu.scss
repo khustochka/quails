@@ -1,6 +1,6 @@
 .main-menu {
   @extend .p-2;
-  border-bottom: 1px solid #ced4da;
+  border-bottom: 1px solid $gray-400;
 
   ul {
     @extend .list-inline;
