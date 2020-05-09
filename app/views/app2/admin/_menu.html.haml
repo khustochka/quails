@@ -23,8 +23,7 @@
       %li= link_to 'Stats', reports_stats_path
       %li= link_to t('menu.lifelist'), advanced_list_path(locale: nil)
 
-      %li
-        %i= link_to "**Logout", logout_path
+      %li= link_to "Logout", logout_path, class: "logout_btn"
 
 - elsif has_trust_cookie?
   %nav.admin-menu

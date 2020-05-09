@@ -9,11 +9,20 @@
   font-weight: bold;
   font-size: small;
 
-  a {
+  a:not(.logout_btn) {
     color: #cccccc;
     &:hover {
       color: white;
     }
+  }
+
+  a.logout_btn {
+    @extend .btn;
+    @extend .btn-light;
+    @extend .btn-sm;
+    @extend .py-0;
+    font-size: small;
+    font-family: Helvetica, Arial, sans-serif;
   }
 
   .admin-menu-list {
