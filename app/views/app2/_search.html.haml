@@ -1,0 +1,14 @@
+.search-section
+  = form_tag search.form_url, method: :get, authenticity_token: false do
+    .form-row.justify-content-end
+      = label_tag "cse-search", "Search website content", class: "col-form-label sr-only"
+      .col-auto
+        - if search.configured?
+          = hidden_field_tag "cx", search.config.code
+        - else
+          = hidden_field_tag "as_sitesearch", "birdwatch.org.ua"
+        = hidden_field_tag "ie", "UTF-8"
+        = hidden_field_tag "lr", "lang_#{I18n.locale}"
+        = search_field_tag "q", nil, id: "cse-search", class: "form-control", autocomplete: "off"
+      .col-auto
+        = submit_tag t("partials.search.search_button"), name: "sa", class: "btn btn-outline-primary"
