@@ -73,10 +73,11 @@ gem "image_processing"
 # Assets
 gem 'webpacker', '~> 5.0'
 gem "sprockets-rails"
+gem 'coffee-rails'
 gem 'jquery-rails'
 #gem 'respond-js-rails'
 gem 'sassc-rails'
-gem 'coffee-rails'
+gem "autoprefixer-rails"
 gem 'font-awesome-sass', "~> 5.8"
 gem "premailer-rails"
 gem 'bootstrap', '~> 4.4.1'
