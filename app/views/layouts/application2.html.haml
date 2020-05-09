@@ -1,0 +1,20 @@
+!!!
+%html{lang: I18n.locale}
+  %head
+    %meta{ :content => "text/html; charset=UTF-8", "http-equiv" => "content-type" }
+    %meta{ name: 'viewport', content: 'width=device-width'}
+
+    = stylesheet_link_tag "application2"
+
+    %title= page_title
+
+%body
+
+  = render partial: 'app2/admin/menu'
+
+  = render partial: 'app2/menu'
+
+  %main
+    = yield
+
+  = render partial: 'app2/footer'

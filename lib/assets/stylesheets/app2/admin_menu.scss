@@ -1,0 +1,37 @@
+.admin-menu {
+  //@extend .container-fluid;
+  @extend .d-print-none;
+  @extend .text-center;
+  @extend .py-1;
+  background-color: #2d2d2d;
+  color: #cccccc;
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: bold;
+  font-size: small;
+
+  a {
+    color: #cccccc;
+    &:hover {
+      color: white;
+    }
+  }
+
+  .admin-menu-list {
+    @extend .list-inline;
+    @extend .mb-0;
+    li {
+      @extend .list-inline-item;
+    }
+    .adder {
+      font-size: 0.875rem;
+      text-transform: uppercase;
+    }
+  }
+
+  .resque_badge {
+    color: white;
+    font-size: 0.75rem;
+    @extend .badge;
+    @extend .badge-danger;
+  }
+}

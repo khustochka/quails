@@ -1,0 +1,16 @@
+%ul#site_menu.horiz-list(role="menubar")
+
+  %li(role="menuitem")= link_to t('menu.blog'), blog_path
+
+  %li(role="menuitem")= link_to t('menu.birds_ukraine'), country_path(country: 'ukraine')
+
+  %li(role="menuitem")= link_to t('menu.gallery'), gallery_path
+
+  %li(role="menuitem")= link_to t('menu.map'), map_path
+
+  %li(role="menuitem")= link_to t('menu.lifelist'), lists_path
+
+  %li(role="menuitem")= link_to t('menu.links'), page_path(:links)
+
+  %li(role="menuitem" class="trans-menu")
+    = link_to t('menu.english'), localized_root_path(locale: :en), lang: :en, hreflang: :en
