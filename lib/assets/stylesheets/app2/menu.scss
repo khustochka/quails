@@ -1,0 +1,12 @@
+.main-menu {
+  @extend .p-2;
+  border-bottom: 1px solid #ced4da;
+
+  ul {
+    @extend .list-inline;
+    @extend .mb-0;
+    li {
+      @extend .list-inline-item;
+    }
+  }
+}

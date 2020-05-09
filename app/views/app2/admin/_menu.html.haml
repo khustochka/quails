@@ -1,5 +1,5 @@
 - if current_user.admin?
-  .admin-menu
+  %nav.admin-menu
     %ul.admin-menu-list
       %li.adder= link_to '+Post', new_post_path
       %li.adder= link_to '+Card', new_card_path
@@ -27,7 +27,7 @@
         %i= link_to "**Logout", logout_path
 
 - elsif has_trust_cookie?
-  .admin-menu
+  %nav.admin-menu
     %ul.admin-menu-list
       %li
         = link_to 'Login', login_path
