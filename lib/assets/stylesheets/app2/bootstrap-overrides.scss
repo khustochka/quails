@@ -13,7 +13,7 @@ $container-max-widths: (
         md: 959px, // 720px
         lg: 1139px, // 960px
         xl: 1140px
-) !default;
+);
 
 // Smaller margins on fullscreen. Default: 30px
 $grid-gutter-width: 24px !default;
