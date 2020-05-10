@@ -1,8 +1,17 @@
+// Just for reference.
+//$grid-breakpoints: (
+//        xs: 0,
+//        sm: 576px,
+//        md: 768px,
+//        lg: 992px,
+//        xl: 1200px
+//) !default;
+
 // Make all containers full-width, up to XL screen. (Equivalent to .container-lg).
 $container-max-widths: (
-        sm: 1140px, // 540px
-        md: 1140px, // 720px
-        lg: 1140px, // 960px
+        sm: 719px, // 540px
+        md: 959px, // 720px
+        lg: 1139px, // 960px
         xl: 1140px
 ) !default;
 
