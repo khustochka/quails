@@ -1,9 +1,16 @@
 body {
   min-height: 100vh;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-}
+  display: flex;
+  flex-direction: column;
 
+  > main {
+    flex-grow: 1;
+  }
+
+  > .header, > footer {
+    flex-shrink: 0;
+  }
+}
 
 //// Hacky
 //.container, .container-fluid, .container-sm, .container-md, .container-lg, .container-xl {
