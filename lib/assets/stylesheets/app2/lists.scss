@@ -1,3 +1,12 @@
 ul.straighten-list {
   padding-left: 24px;
 }
+
+li.starred {
+  list-style: none;
+  text-indent: -1.3rem;
+  &:before {
+    content: "★";
+    color: gold;
+  }
+}
