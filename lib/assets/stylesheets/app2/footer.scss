@@ -3,6 +3,7 @@ footer.page_footer {
   border-top: 1px solid $gray-400;
 
   .banners_footer {
+    @extend .d-print-none;
     vertical-align: top;
 
     .banner_holder {

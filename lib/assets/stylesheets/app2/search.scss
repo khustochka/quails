@@ -1,5 +1,6 @@
 .search-section {
   @extend .container-fluid;
   @extend .py-2;
+  @extend .d-print-none;
   border-bottom: 1px solid $gray-400;
 }
