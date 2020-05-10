@@ -3,4 +3,14 @@
   @extend .py-2;
   @extend .d-print-none;
   border-bottom: 1px solid $gray-400;
+
+  input#cse-search {
+    width: 223px !important;
+    border-color: $gray-500;
+    border-radius: 0;
+  }
+
+  input#submit-search {
+    font-weight: bold;
+  }
 }

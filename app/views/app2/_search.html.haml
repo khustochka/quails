@@ -9,6 +9,6 @@
           = hidden_field_tag "as_sitesearch", "birdwatch.org.ua"
         = hidden_field_tag "ie", "UTF-8"
         = hidden_field_tag "lr", "lang_#{I18n.locale}"
-        = search_field_tag "q", nil, id: "cse-search", class: "form-control", autocomplete: "off"
+        = search_field_tag "q", nil, id: "cse-search", class: "form-control form-control-sm", autocomplete: "off"
       .col-auto
-        = submit_tag t("partials.search.search_button"), name: "sa", class: "btn btn-outline-primary"
+        = submit_tag t("partials.search.search_button"), name: "sa", id: "submit-search", class: "btn btn-outline-primary btn-sm"
