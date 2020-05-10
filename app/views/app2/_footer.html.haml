@@ -1,8 +1,9 @@
 %footer.page_footer
   = render "partials/banners_footer"
-  %p
-    = succeed "," do
-      %b= t('author.name')
-    2007&ndash;#{Quails::CURRENT_YEAR}
-    %br
-    %em= t("license.text", link: "https://creativecommons.org/licenses/by-nc-sa/4.0/").html_safe
+  .footer-text
+    %p
+      = succeed "," do
+        %b= t('author.name')
+      2007&ndash;#{Quails::CURRENT_YEAR}
+      %br
+      %em= t("license.text", link: "https://creativecommons.org/licenses/by-nc-sa/4.0/").html_safe
