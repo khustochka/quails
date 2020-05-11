@@ -14,6 +14,6 @@
       %span.lifer_en
         = lifer.species.name_en
   %td.place_td
-    = post_link(content_tag(:time, l(lifer.card.observ_date, :format => :long)), lifer.main_post || lifer.post, true)
+    = post_link(content_tag(:time, l(lifer.card.observ_date, :format => :long), {datetime: new_lifer.card.observ_date.iso8601}), lifer.main_post || lifer.post, true)
     %span.lifer_locus= lifer.patch_or_locus.public_locus.decorated.full_name
 
