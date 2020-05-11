@@ -37,7 +37,7 @@
       %td.status-line
         = render partial: 'status_line', locals: {file: file}
       %td
-        = link_to(tag(:span, class: "fas fa-times-circle destroy-icon fa-lg", title: 'Destroy', alt: 'Destroy'),
+        = link_to(tag.span(class: "fas fa-times-circle destroy-icon fa-lg", title: 'Destroy', alt: 'Destroy'),
               ebird_submission_path(file.id), data: {confirm: 'Object will be DESTROYED!'},
               method: :delete, class: 'destroy')
 

@@ -5,7 +5,7 @@
     Last seen:
   - else
     Seen:
-%time= post_link(l(life_observation.observ_date, format: :long), life_observation.main_post, true)
+%time{datetime: life_observation.observ_date.iso8601}= post_link(l(life_observation.observ_date, format: :long), life_observation.main_post, true)
 - loc_name = life_observation.patch_or_locus.public_locus.decorated.full_name
 %span.lifer-locus-icon.fas.fa-map-marker-alt{title: loc_name, "data-title" => loc_name}
 - if current_user.admin?

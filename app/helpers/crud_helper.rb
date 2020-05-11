@@ -11,14 +11,13 @@ module CrudHelper
   end
 
   def default_destroy_link(rec)
-    link_to(
-      tag(:span, class: "fas fa-times-circle destroy-icon fa-lg", title: 'Destroy', alt: 'Destroy'),
-        rec, data: {confirm: 'Object will be DESTROYED!'}, method: :delete, class: 'destroy'
-    )
+    link_to rec, data: {confirm: 'Object will be DESTROYED!'}, method: :delete, class: 'destroy' do
+      tag.span(class: "fas fa-times-circle destroy-icon fa-lg", title: 'Destroy', alt: 'Destroy')
+    end
   end
 
   def disabled_destroy_icon
-    tag(:span, class: "fas fa-times-circle disabled-icon fa-lg", title: 'Destroy disabled due to existing associations', alt: 'Destroy disabled')
+    tag.span(class: "fas fa-times-circle disabled-icon fa-lg", title: 'Destroy disabled due to existing associations', alt: 'Destroy disabled')
   end
 
   def default_destroy_button
