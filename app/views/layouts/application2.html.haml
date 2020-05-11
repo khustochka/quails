@@ -6,10 +6,16 @@
 
     = stylesheet_link_tag "application2", media: "all"
 
+    -# See https://github.com/coliff/bootstrap-ie8
+    /[if IE 9]
+      = stylesheet_link_tag "bootstrap-ie9", media: "all"
+    /[if lte IE 8]
+      = stylesheet_link_tag "bootstrap-ie8", media: "all"
+
     -# enable HTML5 and media queries in IE
     -# html5shiv and respond.js should be included after any stylesheets!
     /[if lt IE 9]
-    = javascript_include_tag "ie_fix"
+      = javascript_include_tag "ie_fix"
 
     %title= page_title
 
