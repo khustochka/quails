@@ -1,5 +1,5 @@
 %li.feed_li
   - feed_url = url_for(:controller => :feeds, :action => @feed, :format => :xml)
   = link_to(feed_url) do
-    = image_tag("/img/rss_16x16.png")
+    = image_tag("/img/rss_16x16.png", alt: "")
     RSS

@@ -40,8 +40,8 @@ module ApplicationHelper
     capture do
       concat link_to_unless(current_sort, text, updated_params)
       concat "\n"
-      icon = link_to_unless(current_sort, tag(:span, class: %w(fas fa-sort)), updated_params, class: "force-link-color") do
-        tag(:span, class: %w(fas fa-caret-down))
+      icon = link_to_unless(current_sort, tag.span(class: %w(fas fa-sort)), updated_params, class: "force-link-color") do
+        tag.span(class: %w(fas fa-caret-down))
       end
       concat icon
     end

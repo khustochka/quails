@@ -286,6 +286,8 @@ Rails.application.routes.draw do
     get "/reports/#{name}", controller: :reports, action: name
   end
 
+  post "/clear_cache" => "reports#clear_cache"
+
   get '/login' => 'login#login_page'
   post '/login' => 'login#login_do'
 

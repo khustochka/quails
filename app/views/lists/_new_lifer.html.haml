@@ -6,4 +6,4 @@
   = name_sci(new_lifer.species)
   %span
     = surround'(', ')' do
-      = content_tag(:time, l(new_lifer.card.observ_date, format: :long))
+      = content_tag(:time, l(new_lifer.card.observ_date, format: :long), {datetime: new_lifer.card.observ_date.iso8601})
