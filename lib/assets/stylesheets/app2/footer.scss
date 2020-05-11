@@ -91,9 +91,19 @@ footer.page_footer {
     color: #333333;
     font-family: "Times New Roman", serif;
     font-size: 18px;
+    text-decoration: none;
+  }
+  img {
+    width: 45%;
+  }
+  .inner {
+    margin: 5px;
+  }
+  .inner > span {
+    display: block;
     line-height: 15px;
     letter-spacing: 0.5px;
-    text-decoration: none;
+    margin-left: 6px;
   }
 }
 

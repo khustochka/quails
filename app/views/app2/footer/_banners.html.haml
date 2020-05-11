@@ -7,8 +7,9 @@
             = render_service_code(Birdingtop)
         %div.banner_holder.ebird_banner
           = link_to "https://ebird.org/ebird/profile/MjEzNjU4/world", target: "_blank", rel: "me nofollow" do
-            = image_tag("ebird-logo.png", width: "45%", alt: "eBird")
-            %div profile
+            %span.inner
+              = image_tag("ebird-logo.png", alt: "eBird")
+              %span profile
 
       .banner-group
         %div.banner_holder.fb_banner
