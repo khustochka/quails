@@ -1,16 +1,16 @@
 -# packs
 - packs = @packs.try(:compact) || []
 = javascript_pack_tag *packs.unshift('modern_scripts')
-= stylesheet_pack_tag 'modern_scripts'
+= stylesheet_pack_tag 'modern_scripts', media: "all"
 
 -# styles
-= stylesheet_link_tag(*@stylesheets.compact) if @stylesheets.present?
+= stylesheet_link_tag(*@stylesheets.compact, media: "all") if @stylesheets.present?
 
 -# scripts
 - scripts = @scripts.try(:compact) || []
 = javascript_include_tag(*scripts.unshift("application"))
 
 -# enable HTML5 and media queries in IE
--# html5ahiv and respond.js should be included after any stylesheets!
+-# html5shiv and respond.js should be included after any stylesheets!
 /[if lt IE 9]
   = javascript_include_tag "ie_fix"
