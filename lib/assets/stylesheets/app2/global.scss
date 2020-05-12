@@ -10,6 +10,11 @@ body {
   > .header, > footer {
     flex-shrink: 0;
   }
+
+  // Unbreaking underline! Investigate other options.
+  a, a:hover {
+    text-decoration-skip-ink: none !important;
+  }
 }
 
 //// Hacky

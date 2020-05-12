@@ -132,3 +132,12 @@ footer.page_footer {
     text-align: left;
   }
 }
+
+.license-text {
+  font-style: italic;
+  color: #333366;
+  a {
+    @extend .text-reset;
+    text-decoration: underline;
+  }
+}

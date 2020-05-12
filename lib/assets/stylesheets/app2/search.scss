@@ -6,11 +6,11 @@
 
   input#cse-search {
     width: 223px !important;
-    border-color: $gray-500;
-    border-radius: 0;
+    //border-color: $gray-500;
   }
 
   input#submit-search {
+    @include button-variant($gray-700, $gray-700);
     font-weight: bold;
   }
 }
