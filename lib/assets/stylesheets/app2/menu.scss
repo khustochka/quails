@@ -2,18 +2,24 @@
   @extend .py-2;
   border-bottom: 1px solid $gray-400;
   background-color: #f7f7f1;
+  @extend .text-center;
 
   ul {
     @extend .list-inline;
     @extend .mb-0;
     li {
       @extend .list-inline-item;
+      margin-right: 0.5rem;
+      margin-left: 0.5rem;
     }
-    li:not(:last-child) {
-      margin-right: 0.7rem;
+    //li:not(:last-child) {
+    //  margin-right: 0.7rem;
+    //}
+    @media (min-width: 650px) {
+      li {
+        margin-left: 0;
+      }
     }
-    // Hack to wrap the line more nicely
-    padding-right: 8px;
   }
 
   a {
