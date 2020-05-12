@@ -25,16 +25,6 @@ body {
   }
 }
 
-//// Hacky
-//.container, .container-fluid, .container-sm, .container-md, .container-lg, .container-xl {
-//  padding-left: 8px;
-//  padding-right: 8px;
-//}
-//.row { // May need to add more classes
-//  margin-left: -8px;
-//  margin-right: -8px;
-//} // not working properly
-
 .text-reset-link {
   @extend .text-reset;
   text-decoration: underline;
