@@ -2,7 +2,14 @@
   .container
     %ul
 
-      %li= link_to t('menu.blog'), blog_path
+      %li
+        = link_to blog_path, class: "home-link" do
+          %i.fas.fa-home
+          .sr-only Home
+
+      %li
+        = link_to blog_path do
+          %span= t('menu.blog')
 
       %li= link_to t('menu.birds_ukraine'), country_path(country: 'ukraine')
 

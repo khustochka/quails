@@ -133,11 +133,16 @@ footer.page_footer {
   }
 }
 
-.license-text {
-  font-style: italic;
+.footer-text {
+  background-color: #fdfdff;
   color: #333366;
-  a {
-    @extend .text-reset;
-    text-decoration: underline;
+
+  .license-text {
+    font-style: italic;
+
+    a {
+      @extend .text-reset;
+      text-decoration: underline;
+    }
   }
 }

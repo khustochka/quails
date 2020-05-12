@@ -1,6 +1,7 @@
 .main-menu {
   @extend .py-2;
   border-bottom: 1px solid $gray-400;
+  background-color: #f7f7f1;
 
   ul {
     @extend .list-inline;
@@ -8,11 +9,23 @@
     li {
       @extend .list-inline-item;
     }
+    li:not(:last-child) {
+      margin-right: 0.7rem;
+    }
+    // Hack to wrap the line more nicely
+    padding-right: 8px;
   }
 
   a {
      font-family: Rubik, $font-family-sans-serif;
      font-weight: 500;
      font-size: 1.2rem;
-   }
+
+    color: #407FBF;
+
+    @include hover() {
+      color: #306faf;
+    }
+
+  }
 }

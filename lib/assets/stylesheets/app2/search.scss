@@ -3,6 +3,7 @@
   @extend .py-2;
   @extend .d-print-none;
   border-bottom: 1px solid $gray-400;
+  background-color: #f7f7f1;
 
   input#cse-search {
     width: 223px !important;
