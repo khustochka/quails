@@ -2,20 +2,16 @@ footer.page_footer {
   @extend .mt-3;
   border-top: 1px solid $gray-400;
 
-  .banners_footer {
+  .footer_banners {
     @extend .container-fluid;
     @extend .d-print-none;
     @extend .py-2;
-    @extend .d-flex;
     background-color: #f5f5f5;
     border-bottom: 1px dotted #407FBF;
-    flex-direction: column;
-    align-items: center;
+    text-align: center;
     @media (min-width: 768px) {
-      flex-direction: row;
-      justify-content: center;
-      .banner-group {
-          margin-left: 4px;
+     .banner-group {
+        display: inline-block;
       }
     }
 
@@ -25,9 +21,9 @@ footer.page_footer {
       width: 145px;
       height: 56px;
       border: 1px solid lightgray;
-      margin: 2.5px auto;
+      margin: 2px 0;
       @media (min-width: 768px) {
-        margin: 2.5px 8px;
+        margin: 2px 10px;
       }
       a {
         @extend .block-reset-link;
