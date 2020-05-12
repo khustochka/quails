@@ -15,6 +15,14 @@ body {
   a, a:hover {
     text-decoration-skip-ink: none !important;
   }
+
+  a {
+    border-bottom: 1px solid rgba(39,131,78,0.45);
+
+    @include hover() {
+      border-bottom: 1px solid rgba(39,131,78, 1);
+    }
+  }
 }
 
 //// Hacky
@@ -26,3 +34,13 @@ body {
 //  margin-left: -8px;
 //  margin-right: -8px;
 //} // not working properly
+
+.text-reset-link {
+  @extend .text-reset;
+  text-decoration: underline;
+  border-bottom: none;
+}
+
+.block-reset-link {
+  border-bottom: none;
+}

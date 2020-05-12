@@ -22,9 +22,11 @@
      font-size: calc(1rem + 0.5vw);
 
     color: #407FBF;
+    border-bottom: none;
 
     @include hover() {
       color: #306faf;
+      border-bottom: 2px solid rgba(64,127,191,0.6);
     }
 
   }

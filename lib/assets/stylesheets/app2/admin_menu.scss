@@ -11,8 +11,11 @@
 
   a:not(.logout_btn) {
     color: #cccccc;
+    border-bottom: none;
     &:hover {
+      border-bottom: none;
       color: white;
+      text-decoration: underline;
     }
   }
 

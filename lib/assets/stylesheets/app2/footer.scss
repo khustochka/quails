@@ -29,6 +29,9 @@ footer.page_footer {
       @media (min-width: 768px) {
         margin: 2.5px 8px;
       }
+      a {
+        @extend .block-reset-link;
+      }
     }
   }
 
@@ -141,8 +144,7 @@ footer.page_footer {
     font-style: italic;
 
     a {
-      @extend .text-reset;
-      text-decoration: underline;
+      @extend .text-reset-link;
     }
   }
 }

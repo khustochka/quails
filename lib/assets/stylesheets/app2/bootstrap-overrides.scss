@@ -22,9 +22,11 @@ $enable-responsive-font-sizes: true;
 
 $enable-rounded: false;
 //$enable-shadows: true;
-$input-focus-border-color: #ffa500;
-$input-btn-focus-color: #ffa500;
-$input-btn-focus-width: 2px;
 
 $link-color: #27834e;
 $link-hover-color: darken($link-color, 10%);
+$link-hover-decoration: none;
+
+$input-focus-border-color: #ffa500;
+$input-btn-focus-color: #ffa500;
+$input-btn-focus-width: 2px;
