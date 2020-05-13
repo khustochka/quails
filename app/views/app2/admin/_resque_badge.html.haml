@@ -1,10 +1,10 @@
 - begin
-  - failed_jobs = Resque.info[:failed]
+  - failed_jobs = ENV["FAKE_REDIS_NUMBER"].yield_self{|n| n.to_i if n} || Resque.info[:failed]
   - pending_jobs = Resque.info[:pending]
 - rescue Redis::CannotConnectError
   - noredis = true
 
-- if defined?(noredis) && noredis
+- if !ENV["FAKE_REDIS_NUMBER"] && defined?(noredis) && noredis
   = link_to "X", "/resque", target: "_blank", class: "resque_badge"
 - elsif defined?(failed_jobs) && failed_jobs > 0
   = link_to failed_jobs, "/resque/failed", target: "_blank", class: "resque_badge"
