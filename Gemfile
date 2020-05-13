@@ -91,7 +91,7 @@ gem "mechanize"
 
 group :development do
   gem 'nokogiri', platforms: [:ruby, :mingw], require: false
-  gem 'benchmark-ips', '2.7.2'
+  gem 'benchmark-ips'
   #gem "bundler-audit", require: false
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'web-console', '>= 3.3.0'

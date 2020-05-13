@@ -119,7 +119,7 @@ GEM
     autoprefixer-rails (9.7.6)
       execjs
     aws-eventstream (1.1.0)
-    aws-partitions (1.312.0)
+    aws-partitions (1.313.0)
     aws-sdk-core (3.95.0)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.239.0)
@@ -135,7 +135,7 @@ GEM
     aws-sigv4 (1.1.3)
       aws-eventstream (~> 1.0, >= 1.0.2)
     bcrypt (3.1.13)
-    benchmark-ips (2.7.2)
+    benchmark-ips (2.8.2)
     bindex (0.8.1)
     binding_of_caller (0.8.0)
       debug_inspector (>= 0.0.1)
@@ -436,7 +436,7 @@ DEPENDENCIES
   autoprefixer-rails
   aws-sdk-s3
   bcrypt (~> 3.1.7)
-  benchmark-ips (= 2.7.2)
+  benchmark-ips
   bootsnap
   bootstrap (~> 4.4.1)
   capybara
