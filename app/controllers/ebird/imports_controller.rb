@@ -5,16 +5,8 @@ class Ebird::ImportsController < ApplicationController
   administrative
 
   def index
-    date = params[:date]
-    client = EbirdClient.new
-    client.authenticate
-    if date.present?
-      @checklists = client.get_checklists_for_date(date)
-    else
-      last_date = Card.maximum(:observ_date) || Time.current.to_date
-      @checklists = client.get_checklists_after_date(last_date)
-    end
-
+    @last_preload = Rails.cache.read("ebird/last_preload")
+    @checklists = Rails.cache.read("ebird/preloaded_checklists")
   end
 
   def create
@@ -22,12 +14,20 @@ class Ebird::ImportsController < ApplicationController
     checklists = params.fetch(:c, nil)
     if checklists
       checklists.each do |cl|
-        ImportEbirdChecklistJob.perform_later(cl[:ebird_id], cl[:locus_id])
+        EbirdImportChecklistJob.perform_later(cl[:ebird_id], cl[:locus_id])
       end
+      Rails.cache.delete("ebird/preloaded_checklists")
+      Rails.cache.delete("ebird/last_preload")
       flash.notice = "Import jobs enqueued."
     else
       flash.notice = "No checklists to import."
     end
+    redirect_to ebird_imports_path
+  end
+
+  def refresh
+    EbirdPreloadJob.perform_later
+    flash.notice = "Preload job enqueued."
     redirect_to ebird_imports_path
   end
 

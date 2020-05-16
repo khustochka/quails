@@ -9,12 +9,14 @@
 - if notice
   %p= notice
 
-= form_tag ebird_imports_path, method: :get, class: "simple_form" do
-  = label_tag :date
-  = date_field_tag :date, params[:date].presence || Card.maximum(:observ_date).try(:+, 1) || Date.today, required: true
-  = submit_tag "Fetch"
+%p
+  Last time preloaded:
+  = @last_preload.presence || "never"
 
-- if @checklists
+  = button_to "Schedule preload", refresh_ebird_imports_path, method: :post, class: "button"
+
+
+- @checklists.if_present do |checklists|
   = form_tag ebird_imports_path do
     %table.neat_table
       %tr
@@ -25,26 +27,25 @@
         %th State/Prov
         %th Select locus
 
-      - @checklists.each do |list|
+      - checklists.each do |list|
         %tr
           %td
-            = list[:ebird_id]
-            - unless list[:card]
-              = hidden_field_tag "c[][ebird_id]", list[:ebird_id]
+            = list.ebird_id
+            - unless list.card
+              = hidden_field_tag "c[][ebird_id]", list.ebird_id
           %td
-            %nobr= list[:time]
-          %td= list[:location]
-          %td= list[:county]
-          %td= list[:state_prov]
+            %nobr= list.time
+          %td= list.location
+          %td= list.county
+          %td= list.state_prov
           %td.ebird-locus-select-td
-            - if list[:card]
+            - if list.card
               %span.fas.fa-check.green-check
-              = link_to "Card", list[:card]
+              = link_to "Card", list.card
             - else
-              - locus_id = Locus.find_by_name_en(list[:location])&.id
-              - parent_id = Locus.find_by_name_en(list[:county])&.id
               = select_tag "c[][locus_id]",
-                    options_from_collection_for_select(Locus.suggestion_order, :id, :to_label, locus_id),
+                    options_from_collection_for_select(Locus.suggestion_order, :id, :to_label, list.locus_id),
                     include_blank: true, class: "locus_select"
-              = link_to "Create new", new_locus_path(locus: {name_en: list[:location], parent_id: parent_id})
+              = link_to "Create new", new_locus_path(locus: {name_en: list.location, parent_id: list.parent_id})
     = submit_tag "Import"
+
