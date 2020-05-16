@@ -1,7 +1,7 @@
 class Object
   def if_present(&block)
     unless blank?
-      tap &block
+      yield_self &block
     end
   end
 
