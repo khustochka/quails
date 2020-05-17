@@ -27,7 +27,7 @@ class Day
         Species.distinct.joins(:cards, :observations).merge(cards).order(:index_num)
   end
 
-  def new_species_ids
+  def lifer_species_ids
     subquery = "
       select obs.id
           from observations obs
@@ -35,7 +35,7 @@ class Day
           join taxa tt ON obs.taxon_id = tt.id
           where taxa.species_id = tt.species_id
           and cards.observ_date > c.observ_date"
-    @new_species_ids ||= MyObservation.
+    @lifer_species_ids ||= MyObservation.
         joins(:card).
         merge(cards).
         where("NOT EXISTS(#{subquery})").

@@ -66,8 +66,8 @@ class Card < ApplicationRecord
     number_to_percentage(mapped_observations.size * 100.0 / observations.size, precision: 0)
   end
 
-  # List of new species
-  def new_species_ids
+  # List of lifer species
+  def lifer_species_ids
     subquery = "
         select obs.id
         from observations obs
@@ -91,7 +91,7 @@ class Card < ApplicationRecord
      end
       ) +
           ")"
-    @new_species_ids ||= self.observations.
+    @lifer_species_ids ||= self.observations.
         identified.
         where("NOT EXISTS(#{subquery})").
         pluck(:species_id)
