@@ -9,8 +9,9 @@ if ENV['COVERAGE'] != nil && ENV['COVERAGE'] != "false" && ENV['COVERAGE'] != ""
         end
       end
     end
-    Rails.application.eager_load!
-  rescue LoadError, RuntimeError
+    # if spring is used app needs to be preloaded - also may need to be moved after File.expand_path('../../config/environment', __FILE__)
+    # see https://github.com/colszowka/simplecov/issues/381#issuecomment-435356201
+    # Rails.application.eager_load!
   end
 end
 
