@@ -15,9 +15,12 @@ class Card < ApplicationRecord
   belongs_to :locus
   belongs_to :post, -> { short_form }, touch: true, optional: true
   has_many :observations, -> { order('observations.id') }, dependent: :restrict_with_exception, inverse_of: :card
+  has_many :mapped_observations, -> { joins(:spots).distinct }, class_name: "Observation", inverse_of: :card
+
+  has_many :taxa, through: :observations
+  has_many :species, through: :taxa
   has_many :images, through: :observations, inverse_of: :cards
   has_many :videos, through: :observations, inverse_of: :cards
-  #has_many :species, through: :observations
   has_many :spots, through: :observations, inverse_of: :cards
 
   has_many :ebird_submissions, class_name: 'Ebird::Submission', dependent: :delete_all, inverse_of: :card
@@ -46,14 +49,10 @@ class Card < ApplicationRecord
 
   scope :in_year, ->(year) { where("EXTRACT(year FROM observ_date) = ?", year) }
 
-  def self.default_cards_order(asc_or_desc)
+  scope :default_cards_order, -> (asc_or_desc) {
     order(:observ_date => asc_or_desc).
         order(Arel.sql("to_timestamp(start_time, 'HH24:MI') #{asc_or_desc} NULLS LAST"))
-  end
-
-  def species
-    Species.where(id: observations.joins(:taxon).select(:species_id))
-  end
+  }
 
   def secondary_posts
     Post.distinct.joins(:observations).where('observations.card_id = ? AND observations.post_id <> ?', self.id, self.post_id)
@@ -61,10 +60,6 @@ class Card < ApplicationRecord
 
   def mapped?
     spots.any?
-  end
-
-  def mapped_observations
-    self.observations.joins(:spots).distinct
   end
 
   def mapped_percentage
