@@ -1,5 +1,8 @@
 class Card < ApplicationRecord
 
+  attribute :ebird_id, :nullable_string
+  attribute :start_time, :nullable_string
+
   EFFORT_TYPES = %w(INCIDENTAL STATIONARY TRAVEL AREA HISTORICAL)
   NON_INCIDENTAL = EFFORT_TYPES - %w(INCIDENTAL HISTORICAL)
 
@@ -12,10 +15,10 @@ class Card < ApplicationRecord
   belongs_to :locus
   belongs_to :post, -> { short_form }, touch: true, optional: true
   has_many :observations, -> { order('observations.id') }, dependent: :restrict_with_exception, inverse_of: :card
-  has_many :images, through: :observations
-  has_many :videos, through: :observations
+  has_many :images, through: :observations, inverse_of: :cards
+  has_many :videos, through: :observations, inverse_of: :cards
   #has_many :species, through: :observations
-  has_many :spots, through: :observations
+  has_many :spots, through: :observations, inverse_of: :cards
 
   has_many :ebird_submissions, class_name: 'Ebird::Submission', dependent: :delete_all, inverse_of: :card
   has_many :ebird_files, class_name: 'Ebird::File', through: :ebird_submissions, inverse_of: :cards
@@ -46,14 +49,6 @@ class Card < ApplicationRecord
   def self.default_cards_order(asc_or_desc)
     order(:observ_date => asc_or_desc).
         order(Arel.sql("to_timestamp(start_time, 'HH24:MI') #{asc_or_desc} NULLS LAST"))
-  end
-
-  def start_time=(str)
-    if str.is_a?(String) && str.strip.empty?
-      super(nil)
-    else
-      super(str)
-    end
   end
 
   def species
@@ -120,10 +115,6 @@ class Card < ApplicationRecord
   # HISTORICAL is neither incidental, nor non-incidental
   def incidental?
     effort_type == "INCIDENTAL"
-  end
-
-  def ebird_id=(val)
-    super(val.presence)
   end
 
   def self.first_unebirded_date
