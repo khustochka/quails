@@ -2,8 +2,8 @@ class Day
 
   attr_reader :date
 
-  def initialize(str)
-    @date = Date.parse(str)
+  def initialize(date)
+    @date = date
   end
 
   def prev

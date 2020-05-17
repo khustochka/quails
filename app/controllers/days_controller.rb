@@ -7,7 +7,8 @@ class DaysController < ApplicationController
   end
 
   def show
-    @day = Day.new(params[:id])
+    date = Date.parse(params[:id])
+    @day = Day.new(date)
   end
 
 end
