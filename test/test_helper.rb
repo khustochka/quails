@@ -1,4 +1,4 @@
-if ENV['COVERAGE'] == 'true'
+if ENV['COVERAGE'].present?
   begin
     require 'simplecov'
     SimpleCov.start 'rails' do
@@ -18,6 +18,7 @@ ENV["RAILS_ENV"] ||= "test"
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 
+# Failing in RubyMine
 unless ENV["RM_INFO"]
   require 'minitest/reporters'
   MiniTest::Reporters.use!
