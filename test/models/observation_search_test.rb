@@ -5,7 +5,7 @@ class ObservationSearchTest < ActiveSupport::TestCase
   setup do
     @cards = [
         create(:card, observ_date: '2013-05-18', locus: loci(:brovary), ebird_id: "S123456789"),
-        create(:card, observ_date: '2013-05-18', locus: loci(:kiev)),
+        create(:card, observ_date: '2013-05-18', locus: loci(:kiev), resolved: false),
         create(:card, observ_date: '2013-05-19', locus: loci(:kiev))
     ]
     create(:observation, taxon: taxa(:pasdom), card: @cards[0])
@@ -67,6 +67,13 @@ class ObservationSearchTest < ActiveSupport::TestCase
     obs_search = ObservationSearch.new(card_id: @cards.first.id)
     assert_equal 3, obs_search.observations.to_a.size
     assert_equal @cards.first.locus_id, obs_search.locus_id
+  end
+
+  test 'search unresolved cards' do
+    search = ObservationSearch.new(resolved: false).cards.to_a
+    assert_includes search, @cards[1]
+    assert_not_includes search, @cards[0]
+    assert_not_includes search, @cards[2]
   end
 
 end

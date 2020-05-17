@@ -1,4 +1,4 @@
-if ENV['COVERAGE'].present?
+if ENV['COVERAGE'] != nil && ENV['COVERAGE'] != "false" && ENV['COVERAGE'] != ""
   begin
     require 'simplecov'
     SimpleCov.start 'rails' do
