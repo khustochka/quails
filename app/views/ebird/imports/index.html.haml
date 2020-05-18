@@ -11,9 +11,9 @@
 
 %p
   Last time preloaded:
-  = @last_preload.presence || "never"
+  = @last_preload.presence&.in_time_zone || "never"
 
-  = button_to "Schedule preload", refresh_ebird_imports_path, method: :post, class: "button"
+  = button_to "Enqueue preload", refresh_ebird_imports_path, method: :post, class: "button"
 
 
 - @checklists.if_present do |checklists|
