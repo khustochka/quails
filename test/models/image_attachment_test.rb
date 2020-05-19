@@ -19,10 +19,10 @@ class ImagesAssociationsTest < ActiveSupport::TestCase
 
   test "validate blob uniqueness among images" do
     img1 = Image.create(slug: "testimg1", observations: [FactoryBot.create(:observation)],
-                     stored_image: fixture_file_upload("files/tules.jpg"))
+                     stored_image: fixture_file_upload("tules.jpg"))
 
     img2 = Image.new(slug: "testimg", observations: [FactoryBot.create(:observation)],
-                    stored_image: img1.stored_image.signed_id)
+                    stored_image: img1.stored_image.blob.signed_id)
     assert_not img2.valid?
     assert_includes img2.errors.full_messages, "Stored image blob already in use by another image"
   end
