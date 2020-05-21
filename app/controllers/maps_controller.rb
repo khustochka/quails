@@ -19,7 +19,9 @@ class MapsController < ApplicationController
     json_methods = [:spots]
 
     observs =
-        params[:q] && params[:q].delete_if { |_, v| v.empty? }.present? ?
+        #TODO: the goal is to avoid loading all observations (thousands!) if all filters are empty
+        # Needs refactoring to only take into account meaningful fields (not "exclude subspecies")
+        params[:q] && params[:q].values.any?(&:present?) ?
             ObservationSearch.new(params[:q]).observations.
                 joins(:card, :taxon).
                 preload(preload_tables).
