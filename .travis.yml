@@ -7,4 +7,5 @@ before_install:
   - sudo apt-get update
   - sudo apt-get install qt5-default libqt5webkit5-dev
 before_script:
+  - psql -c 'create database travis_ci_test;' -U postgres
   - cp config/database.travis.yml config/database.yml
