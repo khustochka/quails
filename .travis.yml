@@ -9,3 +9,6 @@ before_install:
 before_script:
   - psql -c 'create database travis_ci_test;' -U postgres
   - cp config/database.travis.yml config/database.yml
+script:
+  - ./bin/webpack
+  - xvfb-run bundle exec rake  
