@@ -1,6 +1,10 @@
 language: ruby
 rvm:
   - 2.6.6
+services:
+  - postgresql
 before_install:
   - sudo apt-get update
   - sudo apt-get install qt5-default libqt5webkit5-dev
+before_script:
+  - cp config/database.travis.yml config/database.yml
