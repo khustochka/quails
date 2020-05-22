@@ -13,6 +13,7 @@
 !.postcssrc.yml
 !.browserslistrc
 !.dockerignore
+!.travis.yml
 .bundle
 data/checklists*/
 data/MyEBirdData*
