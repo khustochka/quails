@@ -1,5 +1,8 @@
 class Card < ApplicationRecord
 
+  attribute :ebird_id, :nullable_string
+  attribute :start_time, :nullable_string
+
   EFFORT_TYPES = %w(INCIDENTAL STATIONARY TRAVEL AREA HISTORICAL)
   NON_INCIDENTAL = EFFORT_TYPES - %w(INCIDENTAL HISTORICAL)
 
@@ -12,10 +15,13 @@ class Card < ApplicationRecord
   belongs_to :locus
   belongs_to :post, -> { short_form }, touch: true, optional: true
   has_many :observations, -> { order('observations.id') }, dependent: :restrict_with_exception, inverse_of: :card
-  has_many :images, through: :observations
-  has_many :videos, through: :observations
-  #has_many :species, through: :observations
-  has_many :spots, through: :observations
+  has_many :mapped_observations, -> { joins(:spots).distinct }, class_name: "Observation", inverse_of: :card
+
+  has_many :taxa, through: :observations
+  has_many :species, through: :taxa
+  has_many :images, through: :observations, inverse_of: :cards
+  has_many :videos, through: :observations, inverse_of: :cards
+  has_many :spots, through: :observations, inverse_of: :cards
 
   has_many :ebird_submissions, class_name: 'Ebird::Submission', dependent: :delete_all, inverse_of: :card
   has_many :ebird_files, class_name: 'Ebird::File', through: :ebird_submissions, inverse_of: :cards
@@ -43,22 +49,10 @@ class Card < ApplicationRecord
 
   scope :in_year, ->(year) { where("EXTRACT(year FROM observ_date) = ?", year) }
 
-  def self.default_cards_order(asc_or_desc)
+  scope :default_cards_order, -> (asc_or_desc) {
     order(:observ_date => asc_or_desc).
         order(Arel.sql("to_timestamp(start_time, 'HH24:MI') #{asc_or_desc} NULLS LAST"))
-  end
-
-  def start_time=(str)
-    if str.is_a?(String) && str.strip.empty?
-      super(nil)
-    else
-      super(str)
-    end
-  end
-
-  def species
-    Species.where(id: observations.joins(:taxon).select(:species_id))
-  end
+  }
 
   def secondary_posts
     Post.distinct.joins(:observations).where('observations.card_id = ? AND observations.post_id <> ?', self.id, self.post_id)
@@ -68,16 +62,12 @@ class Card < ApplicationRecord
     spots.any?
   end
 
-  def mapped_observations
-    self.observations.joins(:spots).distinct
-  end
-
   def mapped_percentage
     number_to_percentage(mapped_observations.size * 100.0 / observations.size, precision: 0)
   end
 
-  # List of new species
-  def new_species_ids
+  # List of lifer species
+  def lifer_species_ids
     subquery = "
         select obs.id
         from observations obs
@@ -101,7 +91,7 @@ class Card < ApplicationRecord
      end
       ) +
           ")"
-    @new_species_ids ||= self.observations.
+    @lifer_species_ids ||= self.observations.
         identified.
         where("NOT EXISTS(#{subquery})").
         pluck(:species_id)
@@ -120,10 +110,6 @@ class Card < ApplicationRecord
   # HISTORICAL is neither incidental, nor non-incidental
   def incidental?
     effort_type == "INCIDENTAL"
-  end
-
-  def ebird_id=(val)
-    super(val.presence)
   end
 
   def self.first_unebirded_date

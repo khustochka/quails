@@ -3,10 +3,8 @@ require 'simple_partial'
 class ObservationSearch
 
   # This makes it act as Model usable to build form
-
-  extend ActiveModel::Naming
-  include ActiveModel::Conversion
-  include ActiveModel::AttributeAssignment
+  include ActiveModel::Model
+  include ActiveModel::Attributes
 
   def self.model_name
     ActiveModel::Name.new(self, nil, "Q")
@@ -20,36 +18,23 @@ class ObservationSearch
   OBSERVATION_ATTRIBUTES = [:taxon_id, :voice, :exclude_subtaxa, :card_id]
   ALL_ATTRIBUTES = CARD_ATTRIBUTES + OBSERVATION_ATTRIBUTES
 
-  ALL_ATTRIBUTES.each do |attr|
-    attr_accessor attr
-  end
+  attribute :observ_date, :date
+  attribute :end_date, :date
+  attribute :locus_id, :integer
+  attribute :resolved, :boolean
+  attribute :include_subregions, :boolean
 
+  attribute :taxon_id, :integer
+  attribute :voice, :boolean
+  attribute :exclude_subtaxa, :boolean
+  attribute :card_id, :integer
 
   def initialize(conditions = {})
     conditions2 = conditions.to_h || {}
     all_conditions = conditions2.slice(*ALL_ATTRIBUTES).select { |_, v| v.meaningful? }
 
-    assign_attributes(all_conditions)
-
+    super(all_conditions)
     extend_attributes
-  end
-
-  # Overriden accessor methods
-
-  def observ_date=(date)
-    @observ_date = if date.presence.is_a?(String)
-                     Date.parse(date)
-                   else
-                     date.presence
-                   end
-  end
-
-  def end_date=(date)
-    @end_date = if date.presence.is_a?(String)
-                  Date.parse(date)
-                else
-                  date.presence
-                end
   end
 
   def extend_attributes
@@ -160,7 +145,7 @@ class ObservationSearch
   end
 
   def apply_resolved_filter(cards_scope)
-    if resolved
+    if resolved.meaningful?
       cards_scope.where(resolved: resolved)
     else
       cards_scope

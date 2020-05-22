@@ -3,7 +3,7 @@
     input_html: {class: 'suggest-combo'}
   %br
   %label
-    = form.input_field :exclude_subtaxa, as: :boolean, unchecked_value: false
+    = form.input_field :exclude_subtaxa, as: :boolean, unchecked_value: nil
     Exclude subspecies
 = render partial: form.object.dates_fieldset, locals: {form: form}
 %div.input.locus_fieldset
@@ -11,13 +11,13 @@
       input_html: {class: 'suggest-combo'}
   %br
   %label
-    = form.input_field :include_subregions, as: :boolean, unchecked_value: false
+    = form.input_field :include_subregions, as: :boolean, unchecked_value: nil
     Include subregions
 = render partial: form.object.voice_fieldset, locals: {form: form}
 - form.object.card_id.if_present do |card_id|
   %div.input.optional
     = form.input :card_id, as: :boolean, label: link_to("Card #{card_id}", card_path(card_id)),
-                            checked_value: card_id, unchecked_value: ''
+                            checked_value: card_id, unchecked_value: nil
 
 .buttons
   = form.button :submit, "Search", name: nil

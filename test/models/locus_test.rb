@@ -35,6 +35,14 @@ class LocusTest < ActiveSupport::TestCase
     assert_equal [loc.id, loc1.id, loc2.id, loc3.id].to_set, actual.to_set
   end
 
+  test "5-MR regions" do
+    loc = create(:locus, slug: '5mr')
+    loc1 = create(:locus, slug: :area1, parent: loci("usa"), five_mile_radius: true)
+    loc2 = create(:locus, slug: :area2, parent: loci("usa"))
+    actual = loc.subregion_ids
+    assert_equal [loc1.id].to_set, actual.to_set
+  end
+
   test 'do not destroy locus if it has child locations' do
     loc = loci(:ukraine)
     assert_raise(Ancestry::AncestryException) { loc.destroy }

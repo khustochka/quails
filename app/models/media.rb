@@ -7,7 +7,7 @@ class Media < ApplicationRecord
   has_many :species, through: :taxa
 
   # FIXME: try to make it 'card', because image should belong to observations of the same card
-  has_many :cards, -> {distinct}, through: :observations
+  has_many :cards, -> {distinct}, through: :observations, inverse_of: :images
 
   has_many :spots, through: :observations
   belongs_to :spot, optional: true

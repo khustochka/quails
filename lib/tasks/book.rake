@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 require 'web_page_cache'
-require 'checklists_helper'
+require 'legacy_checklists_helper'
 require 'import/book_import'
 
 desc 'Tasks for importing species lists'
@@ -12,7 +12,7 @@ namespace :book do
   desc 'Fetch from web or html file, parse it and save to yaml'
   task :fetch => :environment do
 
-    include ChecklistsHelper
+    include LegacyChecklistsHelper
 
     @cache = WebPageCache.new("tmp/")
 

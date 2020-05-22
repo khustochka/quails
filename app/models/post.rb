@@ -158,8 +158,8 @@ class Post < ApplicationRecord
     "#{self.class.model_name.cache_key}-#{id}-#{date}"
   end
 
-  # List of new species
-  def new_species_ids
+  # List of lifer species
+  def lifer_species_ids
     subquery = "
       select obs.id
           from observations obs
@@ -167,7 +167,7 @@ class Post < ApplicationRecord
           join taxa tt ON obs.taxon_id = tt.id
           where taxa.species_id = tt.species_id
           and cards.observ_date > c.observ_date"
-    @new_species_ids ||= MyObservation.
+    @lifer_species_ids ||= MyObservation.
         joins(:card).
         where("observations.post_id = ? or cards.post_id = ?", self.id, self.id).
         where("NOT EXISTS(#{subquery})").

@@ -23,6 +23,12 @@ class LifelistBasicTest < ActionController::TestCase
     end
   end
 
+  test "lifelist fails on invalid sort option" do
+    assert_raise ActionController::RoutingError do
+      get :basic, params: {sort: 'by_moon_phase'}
+    end
+  end
+
   test "show default lifelist" do
     get :basic
     assert_response :success

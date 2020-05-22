@@ -247,7 +247,7 @@ class PostTest < ActiveSupport::TestCase
     obs1 = create(:observation, taxon: taxa(:hirrus), card: card1)
     card2 = create(:card, observ_date: "2015-04-27", post: p)
     obs2 = create(:observation, taxon: taxa(:hirrus), card: card2)
-    assert_equal 1, p.new_species_ids.size
+    assert_equal 1, p.lifer_species_ids.size
   end
 
   test 'do not show on homepage the images that are already in post body' do

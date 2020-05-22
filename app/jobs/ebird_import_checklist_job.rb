@@ -1,6 +1,6 @@
 require "ebird/ebird_checklist"
 
-class ImportEbirdChecklistJob < ApplicationJob
+class EbirdImportChecklistJob < ApplicationJob
   queue_as :default
 
   def perform(ebird_id, locus_id)

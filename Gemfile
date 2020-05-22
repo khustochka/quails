@@ -6,7 +6,7 @@ end
 
 VERSION = "6.0.0"
 #gem 'rails', VERSION
-gem 'rails', git: "https://github.com/rails/rails", ref: "36901e6edbc3bfdf2760c356bc812c4b0b42172a"
+gem 'rails', git: "https://github.com/rails/rails", ref: "1ab0e6b6d8070f30b2a02254070c6dd07fa56ec4"
 # gem "activesupport", VERSION
 # gem "actionpack",    VERSION
 # gem "actionview",    VERSION
@@ -17,16 +17,15 @@ gem 'rails', git: "https://github.com/rails/rails", ref: "36901e6edbc3bfdf2760c3
 # gem "railties",      VERSION
 
 gem 'pg', "~> 1.0", platforms: [:ruby, :mingw]
-#gem "activerecord-jdbcpostgresql-adapter", platforms: :jruby
 gem "redis"
 gem "hiredis"
 gem "resque"
 
 # Deployment
-#gem 'unicorn', require: false, platforms: :ruby
 gem "puma"
 gem 'dotenv-rails', '~> 2.7'
-gem 'bootsnap', require: false
+# Intentionally disabled in production
+#gem 'bootsnap', require: false
 
 # Secure password
 gem 'bcrypt', '~> 3.1.7'
@@ -89,6 +88,9 @@ gem 'uglifier', '>= 1.3.0'
 # HTTP client
 gem "mechanize"
 
+# Profiling
+gem 'rack-mini-profiler'
+
 group :development do
   gem 'nokogiri', platforms: [:ruby, :mingw], require: false
   gem 'benchmark-ips'
@@ -102,6 +104,7 @@ end
 
 
 group :development, :test do
+  gem 'bootsnap', require: false
   gem 'pry-rails'
   gem 'pry-byebug'
   gem 'pry-stack_explorer'
@@ -114,8 +117,6 @@ group :test do
   gem 'selenium-webdriver'
   gem 'capybara-webkit', git: "https://github.com/thoughtbot/capybara-webkit.git", ref: "77fdac424cd6fdb5aa266b229a888cc58da8e95e"
   gem 'webdrivers'
-#  gem 'poltergeist', platforms: [:mri], require: false
-#  gem 'database_cleaner', '~> 1.3.0', require: false
   gem 'launchy' # So you can do Then show me the page
   gem 'simplecov', require: false, platforms: [:ruby, :mingw]
   gem 'minitest-reporters'

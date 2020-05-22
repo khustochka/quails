@@ -1,4 +1,4 @@
-if ENV['COVERAGE'] == 'true'
+if ENV['COVERAGE'] != nil && ENV['COVERAGE'] != "false" && ENV['COVERAGE'] != ""
   begin
     require 'simplecov'
     SimpleCov.start 'rails' do
@@ -9,8 +9,9 @@ if ENV['COVERAGE'] == 'true'
         end
       end
     end
-    Rails.application.eager_load!
-  rescue LoadError, RuntimeError
+    # if spring is used app needs to be preloaded - also may need to be moved after File.expand_path('../../config/environment', __FILE__)
+    # see https://github.com/colszowka/simplecov/issues/381#issuecomment-435356201
+    # Rails.application.eager_load!
   end
 end
 
@@ -18,6 +19,7 @@ ENV["RAILS_ENV"] ||= "test"
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 
+# Failing in RubyMine
 unless ENV["RM_INFO"]
   require 'minitest/reporters'
   MiniTest::Reporters.use!

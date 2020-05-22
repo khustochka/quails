@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 require 'web_page_cache'
-require 'checklists_helper'
+require 'legacy_checklists_helper'
 require 'import/book_import'
 
 REGION_TO_AVIBASE = {'ukraine' => 'ua', 'usa' => 'us'}
@@ -12,7 +12,7 @@ namespace :checklist do
   desc 'Import checklist'
   task :import => :environment do
 
-    include ChecklistsHelper
+    include LegacyChecklistsHelper
 
     if country = ENV['COUNTRY']
 

@@ -22,7 +22,7 @@ class Ebird::File < ApplicationRecord
 
   has_many :ebird_submissions, class_name: 'Ebird::Submission', foreign_key: 'ebird_file_id',
            dependent: :delete_all, inverse_of: :ebird_file
-  has_many :cards, -> { order(:observ_date) }, through: :ebird_submissions
+  has_many :cards, -> { order(:observ_date) }, through: :ebird_submissions, inverse_of: :ebird_files
 
   def download_url
     "/csv/#{name}.csv"

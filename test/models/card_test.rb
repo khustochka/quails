@@ -51,37 +51,37 @@ class CardTest < ActiveSupport::TestCase
     assert_not_includes ee, card2
   end
 
-  test "#new_species_ids should return result only on the first card of the day" do
+  test "#lifer_species_ids should return result only on the first card of the day" do
     # If a life was seen on a several cards of one day, if should only be reported on one
     card1 = create(:card, observ_date: "2016-01-01", start_time: "8:00")
     card2 = create(:card, observ_date: "2016-01-01", start_time: "11:30")
     obs1 = create(:observation, card: card1)
     obs2 = create(:observation, card: card2)
     species = obs1.taxon.species
-    assert_includes card1.new_species_ids, species.id
-    assert_not_includes card2.new_species_ids, species.id
+    assert_includes card1.lifer_species_ids, species.id
+    assert_not_includes card2.lifer_species_ids, species.id
   end
 
-  test "#new_species_ids should prefer cards with time to cards without time" do
+  test "#lifer_species_ids should prefer cards with time to cards without time" do
     # If a life was seen on a several cards of one day, if should only be reported on one
     card1 = create(:card, observ_date: "2016-01-01")
     card2 = create(:card, observ_date: "2016-01-01", start_time: "11:30")
     obs1 = create(:observation, card: card1)
     obs2 = create(:observation, card: card2)
     species = obs1.taxon.species
-    assert_includes card2.new_species_ids, species.id
-    assert_not_includes card1.new_species_ids, species.id
+    assert_includes card2.lifer_species_ids, species.id
+    assert_not_includes card1.lifer_species_ids, species.id
   end
 
-  test "#new_species_ids should still work for cards with no time" do
+  test "#lifer_species_ids should still work for cards with no time" do
     # If a life was seen on a several cards of one day, if should only be reported on one
     card1 = create(:card, observ_date: "2016-01-01")
     obs1 = create(:observation, card: card1)
     card2 = create(:card, observ_date: "2016-01-01")
     obs2 = create(:observation, card: card2)
     species = obs1.taxon.species
-    assert_includes card1.new_species_ids, species.id
-    assert_not_includes card2.new_species_ids, species.id
+    assert_includes card1.lifer_species_ids, species.id
+    assert_not_includes card2.lifer_species_ids, species.id
   end
 
    test 'card is unlinked from post when post is destroyed' do

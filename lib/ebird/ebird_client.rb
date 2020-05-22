@@ -1,3 +1,5 @@
+require "ebird/ebird_checklist_meta"
+
 class EbirdClient
 
   def initialize
@@ -17,44 +19,62 @@ class EbirdClient
 
   end
 
-  def get_checklists_for_date(date)
-    page = @agent.get("https://ebird.org/eBirdReports?cmd=SubReport&currentRow=1&rowsPerPage=1000&sortBy=date&order=desc")
-    list_rows = page.xpath("//tr[td[1][starts-with(text(), '#{date}')]]")
-    list_rows.map do |row|
-      ebird_id = row.xpath("td/a[text()='View or edit']").first[:href].scan(/checklist\/(.*)\/?$/)[0][0]
-      {
-          time: row.xpath("td[1]").text,
-          location: row.xpath("td[2]").text,
-          county: row.xpath("td[3]").text,
-          state_prov: row.xpath("td[4]").text,
-          ebird_id: ebird_id,
-          card: Card.find_by_ebird_id(ebird_id)
-      }
-    end.reverse
-  end
+  # def get_checklists_for_date(date)
+  #   page = @agent.get("https://ebird.org/eBirdReports?cmd=SubReport&currentRow=1&rowsPerPage=1000&sortBy=date&order=desc")
+  #   list_rows = page.xpath("//tr[td[1][starts-with(text(), '#{date}')]]")
+  #   list_rows.map do |row|
+  #     ebird_id = row.xpath("td/a[text()='View or edit']").first[:href].scan(/checklist\/(.*)\/?$/)[0][0]
+  #     {
+  #         time: row.xpath("td[1]").text,
+  #         location: row.xpath("td[2]").text,
+  #         county: row.xpath("td[3]").text,
+  #         state_prov: row.xpath("td[4]").text,
+  #         ebird_id: ebird_id,
+  #         card: Card.find_by_ebird_id(ebird_id)
+  #     }
+  #   end.reverse
+  # end
 
-  def get_checklists_after_date(date)
+  # def get_checklists_after_date(date)
+  #   page = @agent.get("https://ebird.org/eBirdReports?cmd=SubReport&currentRow=1&rowsPerPage=1000&sortBy=date&order=desc")
+  #   list_rows = page.xpath("//div[@id='content']/table/tr[starts-with(@class, 'spec')]")
+  #   list_rows.to_a.take_while do |row|
+  #     row.xpath("./td[1]").text >= date.to_s
+  #   end.
+  #       map do |row|
+  #         ebird_id = row.xpath("./td/a[text()='View or edit']").first[:href].scan(/checklist\/(.*)\/?$/)[0][0]
+  #         unless Card.exists?(ebird_id: ebird_id)
+  #           {
+  #               time: row.xpath("./td[1]").text,
+  #               location: row.xpath("./td[2]").text,
+  #               county: row.xpath("./td[3]").text,
+  #               state_prov: row.xpath("./td[4]").text,
+  #               ebird_id: ebird_id,
+  #               card: Card.find_by_ebird_id(ebird_id)
+  #           }
+  #         else
+  #           nil
+  #         end
+  #   end.compact.reverse
+  # end
+
+  def get_unsubmitted_checklists
     page = @agent.get("https://ebird.org/eBirdReports?cmd=SubReport&currentRow=1&rowsPerPage=1000&sortBy=date&order=desc")
     list_rows = page.xpath("//div[@id='content']/table/tr[starts-with(@class, 'spec')]")
-    list_rows.to_a.take_while do |row|
-      row.xpath("./td[1]").text >= date.to_s
-    end.
-        map do |row|
-          ebird_id = row.xpath("./td/a[text()='View or edit']").first[:href].scan(/checklist\/(.*)\/?$/)[0][0]
-          unless Card.exists?(ebird_id: ebird_id)
-            {
-                time: row.xpath("./td[1]").text,
-                location: row.xpath("./td[2]").text,
-                county: row.xpath("./td[3]").text,
-                state_prov: row.xpath("./td[4]").text,
-                ebird_id: ebird_id,
-                card: Card.find_by_ebird_id(ebird_id)
-            }
-          else
-            nil
-          end
-    end.compact.reverse
-
+    first100 = list_rows.to_a.take(100).map do |row|
+      ebird_id = row.xpath("./td/a[text()='View or edit']").first[:href].scan(/checklist\/(.*)\/?$/)[0][0]
+      EbirdChecklistMeta.new(
+          ebird_id: ebird_id,
+          time: row.xpath("./td[1]").text,
+          location: row.xpath("./td[2]").text,
+          county: row.xpath("./td[3]").text,
+          state_prov: row.xpath("./td[4]").text
+      )
+    end
+    ebird_ids = first100.map(&:ebird_id)
+    cards = Card.where(ebird_id: ebird_ids)
+    posted_ids = cards.pluck(:ebird_id)
+    first100.reject! {|list| list.ebird_id.in?(posted_ids)}
   end
 
   def fetch_checklist(checklist)

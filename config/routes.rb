@@ -301,7 +301,11 @@ Rails.application.routes.draw do
     resources :submissions, except: [:edit] do
       post :regenerate, on: :member
     end
-    resources :imports
+    resources :imports, only: [:index, :create] do
+      collection do
+        post :refresh
+      end
+    end
   end
 
   # Resque web front
