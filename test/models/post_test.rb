@@ -55,11 +55,15 @@ class PostTest < ActiveSupport::TestCase
     assert_equal time.strftime('%F %T'), blogpost.face_date.strftime('%F %T')
   end
 
-  test "set post's face_date to current (equal to updated_at) when saving with empty value" do
+  test "set post's face_date to current when saving with empty value" do
     blogpost = create(:post, updated_at: '2008-01-01 02:02:02', face_date: "2008-01-01")
-    blogpost.update(face_date: "")
+
+    time = freeze_time do
+      blogpost.update(face_date: "")
+      Time.current
+    end
     blogpost.reload
-    assert_equal blogpost.updated_at.strftime('%F %T'), blogpost.face_date.strftime('%F %T')
+    assert_equal time.strftime('%F %T'), blogpost.face_date.strftime('%F %T')
   end
 
   test 'calculate previous month correctly (one having posts) even for month with no posts' do
