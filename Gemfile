@@ -79,7 +79,7 @@ gem 'sassc-rails'
 gem "autoprefixer-rails"
 gem 'font-awesome-sass', "~> 5.8"
 gem "premailer-rails"
-gem 'bootstrap', '~> 4.4.1'
+gem 'bootstrap', '~> 4.5'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 
