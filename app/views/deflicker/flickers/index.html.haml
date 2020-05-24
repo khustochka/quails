@@ -69,9 +69,12 @@
             %span.tag.alert Removed
         %div
           - if photo.slug
-            %span.tag.good On site
+            %span.tag.good.orange_border On site
           - else
-            %span.tag.alert Not site
+            %span.tag.alert Not on site
+        - if photo.slug && photo.on_s3?
+          %div
+            %span.tag.tag_species S3
 
 - I18n.with_locale :en do
   = paginate @photos
