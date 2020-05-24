@@ -118,6 +118,14 @@ class Media < ApplicationRecord
     end
   end
 
+  def image?
+    media_type == "photo"
+  end
+
+  def video?
+    media_type == "video"
+  end
+
   private
 
   def consistent_observations
