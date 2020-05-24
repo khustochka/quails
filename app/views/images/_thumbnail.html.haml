@@ -13,7 +13,7 @@
     - img_class << size_class
   - img_attrs = {alt: t('images.alt_photo'), class: img_class}
   - img_attrs.merge!({width: thumbnail.width, height: thumbnail.height}) if @strip && !thumbnail.dummy_dimensions?
-  = link_to image_tag(thumbnail.asset_url, img_attrs), localize_url(thumbnail.url, only_path: true)
+  = link_to image_tag(thumbnail.image.thumbnail_variant, img_attrs), localize_url(thumbnail.url, only_path: true)
   %figcaption.imagetitle
     = link_to localize_url(thumbnail.url, only_path: true) do
       - if thumbnail.title.is_a? String

@@ -44,7 +44,7 @@
   - @photos.each do |photo|
     %tr
       %td
-        = link_to "https://www.flickr.com/photos/phenolog/#{photo.flickr_id}/", class: "img", target: :blank do
+        = link_to "https://www.flickr.com/photos/phenolog/#{photo.flickr_id}/", class: "img", target: :_blank do
           = image_tag(photo.url_s)
       %td
         %div
@@ -58,7 +58,7 @@
         - if photo.slug
           %div
             &bull;
-            = link_to "/photos/#{photo.slug}", target: :blank do
+            = link_to "/photos/#{photo.slug}", target: :_blank do
               %b= photo.slug
 
         - if photo.machine_tags.present?

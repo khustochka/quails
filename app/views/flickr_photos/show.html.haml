@@ -49,7 +49,7 @@
 %table.with_search.flickr_search_table
   %tr
     %td{rowspan: 2, valign: 'top'}
-      = image_tag(thumbnail_item(@image).try(:full_url), class: 'image_pic')
+      = image_tag(@image.thumbnail_variant, class: 'image_pic')
       = form_tag flickr_photos_path(format: :json), class: "flickr_edit", remote: true do
         = hidden_field_tag("id", @image.slug)
         = hidden_field_tag("flickr_id")
