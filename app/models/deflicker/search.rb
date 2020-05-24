@@ -5,6 +5,7 @@ module Deflicker
     include ActiveModel::Attributes
 
     attribute :public, :boolean
+    attribute :removed, :boolean, default: false
 
     def self.model_name
       ActiveModel::Name.new(self, nil, "Q")
@@ -15,7 +16,7 @@ module Deflicker
     end
 
     def result
-      base = Flicker.all
+      base = Flicker.where(removed: removed)
       unless public.nil?
         base = base.where(public: public)
       end

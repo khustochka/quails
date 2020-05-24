@@ -6,6 +6,7 @@ module Deflicker
     field :flickr_id, type: String
     field :public, type: Boolean
     field :uploaded_at, type: Time
+    field :removed, type: Boolean
 
     def public?
       public
