@@ -10,6 +10,14 @@
   - I18n.with_locale :en do
     = page_entries_info @photos, entry_name: "photo"
 
+= simple_form_for @search, as: "", url: deflicker_path, method: :get do |f|
+  = f.input :public, as: :radio_buttons,
+            label: "Privacy",
+            collection: [["All", ""], ["Public", true], ["Private", false]],
+            include_hidden: false
+
+  = f.submit "Filter", name: nil, class: "button"
+
 %table.neat_table{style: "width: 100%;"}
   -#%tr
   -#  %th

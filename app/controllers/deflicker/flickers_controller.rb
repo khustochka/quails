@@ -4,12 +4,19 @@ module Deflicker
     administrative
 
     def index
-      @photos = Flicker.order_by(:uploaded_at => :asc).page(params[:page]).per(10)
+      @search = Deflicker::Search.new(search_params)
+      @photos = @search.result.order_by(:uploaded_at => :asc).page(params[:page]).per(10)
     end
 
     def refresh
       FlickrLoadJob.perform_later
       redirect_to deflicker_path
+    end
+
+    private
+
+    def search_params
+      params.slice(*Deflicker::Search.attribute_names)
     end
 
   end
