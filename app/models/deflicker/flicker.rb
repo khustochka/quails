@@ -4,10 +4,19 @@ module Deflicker
     include Mongoid::Attributes::Dynamic
 
     field :flickr_id, type: String
-    field :ispublic, type: Integer
+    field :public, type: Boolean
+    field :uploaded_at, type: Time
 
     def public?
-      ispublic != 0
+      public
+    end
+
+    def ispublic=(val)
+      self.public = val != 0
+    end
+
+    def dateupload=(val)
+      self.uploaded_at = Time.at(val.to_i)
     end
   end
 end

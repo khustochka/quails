@@ -4,7 +4,7 @@ module Deflicker
     administrative
 
     def index
-      @photos = Flicker.page(params[:page])
+      @photos = Flicker.order_by(:uploaded_at => :asc).page(params[:page]).per(10)
     end
 
     def refresh

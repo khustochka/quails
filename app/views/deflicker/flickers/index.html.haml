@@ -1,3 +1,4 @@
+- stylesheet "forms"
 - @page_title = "Deflicker"
 
 %h1 Flickr photos
@@ -5,25 +6,36 @@
 %p
   = button_to "Refresh", deflicker_refresh_path, class: "button"
 
-%table.neat_table
-  %tr
-    %th
-      Id
-    %th
-      Title
-    %th
-      Uploaded
-    %th
-      Public
+%p
+  - I18n.with_locale :en do
+    = page_entries_info @photos, entry_name: "photo"
+
+%table.neat_table{style: "width: 100%;"}
+  -#%tr
+  -#  %th
+  -#
+  -#  %th
+  -#
   - @photos.each do |photo|
     %tr
       %td
-        = photo.flickr_id
+        = link_to "https://www.flickr.com/photos/phenolog/#{photo.flickr_id}/", class: "img", target: :blank do
+          = image_tag(photo.url_s)
       %td
-        = photo.title
+        %div
+          %b= photo.title
+        %div
+          Uploaded:
+          = photo.uploaded_at.strftime("%F %T")
+        %div
+          Views:
+          = photo.views
       %td
-        = Time.at(photo.dateupload.to_i)
-      %td
-        = photo.public?
+        %div
+          - if photo.public?
+            %span.tag.good Public
+          - else
+            %span.tag.alert Private
 
-= paginate @photos
+- I18n.with_locale :en do
+  = paginate @photos
