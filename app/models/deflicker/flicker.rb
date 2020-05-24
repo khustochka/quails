@@ -7,6 +7,7 @@ module Deflicker
     field :public, type: Boolean
     field :uploaded_at, type: Time
     field :removed, type: Boolean
+    field :slug, type: String
 
     def public?
       public
