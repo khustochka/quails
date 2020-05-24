@@ -327,6 +327,7 @@ Rails.application.routes.draw do
   namespace "deflicker" do
     get "/" => "flickers#index"
     post "refresh" => "flickers#refresh"
+    post "rematch" => "flickers#rematch"
   end
 
 

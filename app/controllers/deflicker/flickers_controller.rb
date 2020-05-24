@@ -13,6 +13,11 @@ module Deflicker
       redirect_to deflicker_path
     end
 
+    def rematch
+      SiteMatchJob.perform_later
+      redirect_to deflicker_path
+    end
+
     private
 
     def search_params

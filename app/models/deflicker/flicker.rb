@@ -8,6 +8,7 @@ module Deflicker
     field :uploaded_at, type: Time
     field :removed, type: Boolean
     field :slug, type: String
+    field :on_s3, type: Boolean
 
     def ispublic=(val)
       self.public = val != 0
@@ -19,10 +20,6 @@ module Deflicker
 
     def image
       Image.find_by(slug: slug)
-    end
-
-    def on_s3?
-      image.on_storage?
     end
   end
 end
