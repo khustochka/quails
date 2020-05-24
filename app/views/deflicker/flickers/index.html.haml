@@ -1,0 +1,29 @@
+- @page_title = "Deflicker"
+
+%h1 Flickr photos
+
+%p
+  = button_to "Refresh", deflicker_refresh_path, class: "button"
+
+%table.neat_table
+  %tr
+    %th
+      Id
+    %th
+      Title
+    %th
+      Uploaded
+    %th
+      Public
+  - @photos.each do |photo|
+    %tr
+      %td
+        = photo.flickr_id
+      %td
+        = photo.title
+      %td
+        = Time.at(photo.dateupload.to_i)
+      %td
+        = photo.public?
+
+= paginate @photos

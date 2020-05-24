@@ -323,4 +323,11 @@ Rails.application.routes.draw do
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
   end
+
+  namespace "deflicker" do
+    get "/" => "flickers#index"
+    post "refresh" => "flickers#refresh"
+  end
+
+
 end
