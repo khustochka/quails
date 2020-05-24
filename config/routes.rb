@@ -330,5 +330,11 @@ Rails.application.routes.draw do
     post "rematch" => "flickers#rematch"
   end
 
+  # High Voltage routes are specified manually to bypass HighVoltage Constraints for unrelated paths
+  # (e.g. ActiveStorage)
+  get "/:id" => 'high_voltage/pages#show',
+      :as => :page,
+      :format => false,
+      :constraints => {id: /about|links|winter/}
 
 end
