@@ -6,7 +6,7 @@
       - popup_title = 'Administrator'
     %h6{class: author_classes, title: popup_title}= link_to_if(comment.sane_url.present?, comment.decorated.name, comment.sane_url, :rel => 'nofollow')
     %i
-      = link_to public_comment_path(comment, @post) do
+      = link_to public_comment_path(comment) do
         %time{datetime: comment.created_at.iso8601}= l(comment.created_at, :format => :long)
     - if current_user.admin?
       = default_destroy_link(comment) if action_name != 'reply'

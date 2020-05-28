@@ -140,8 +140,8 @@ Rails.application.routes.draw do
     route_for(:show_post, blogpost.year, blogpost.month, blogpost.to_param, options)
   end
 
-  direct :public_comment do |comment, blogpost = nil, options|
-    blogpost ||= comment.post
+  direct :public_comment do |comment, options|
+    blogpost = comment.post
     route_for(:show_post, blogpost.year, blogpost.month, blogpost.to_param, options.merge(anchor: "comment#{comment.id}"))
   end
 
