@@ -141,6 +141,7 @@ Rails.application.routes.draw do
   end
 
   direct :public_comment do |comment, options|
+    # This line breaks Brakeman (post is a http verb)
     blogpost = comment.post
     route_for(:show_post, blogpost.year, blogpost.month, blogpost.to_param, options.merge(anchor: "comment#{comment.id}"))
   end
