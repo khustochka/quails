@@ -1,0 +1,99 @@
+- stylesheet "forms"
+- @page_title = "Deflicker"
+
+%h1 Flickr photos
+
+= button_to "Refresh from Flickr", deflicker_refresh_path, class: "button", form: {style: "display: inline-block;"}
+
+= button_to "Rematch", deflicker_rematch_path, class: "button", form: {style: "display: inline-block;"}
+
+= simple_form_for @search, as: "", url: deflicker_path, method: :get do |f|
+  %table{style: "width: 100%; border: 1px solid #777777; margin: 20px 0;"}
+    %tr
+      %td{style: "vertical-align: top; padding: 10px;"}
+        = f.input :public, as: :radio_buttons,
+                  label: "Privacy",
+                  collection: [["All", ""], ["Public", true], ["Private", false]],
+                  include_hidden: false
+
+      %td{style: "vertical-align: top;; padding: 10px;"}
+        = f.input :removed, as: :radio_buttons,
+                  label: "Status",
+                  collection: [["On flickr", false], ["Removed", true]],
+                  include_hidden: false
+
+      %td{style: "vertical-align: top;; padding: 10px;"}
+        = f.input :on_site, as: :radio_buttons,
+                  label: "Site status",
+                  collection: [["All", ""], ["On the site", true], ["Not on site", false]],
+                  include_hidden: false
+    %tr
+      %td{style: "text-align: right; padding: 10px;", colspan: 3}
+        = f.submit "Filter", name: nil, class: "button"
+
+%p
+  - I18n.with_locale :en do
+    = page_entries_info @photos, entry_name: "photo"
+
+%table.neat_table{style: "width: 100%;"}
+  -#%tr
+  -#  %th
+  -#
+  -#  %th
+  -#
+  - @photos.each do |photo|
+    %tr
+      %td
+        = link_to "https://www.flickr.com/photos/phenolog/#{photo.flickr_id}/", class: "img", target: :_blank do
+          = image_tag(photo.url_s)
+      %td
+        %div
+          %b= photo.title
+        %div
+          Uploaded:
+          = photo.uploaded_at.strftime("%F %T")
+        %div
+          Views:
+          = photo.views
+        - if photo.slug
+          %div
+            &bull;
+            = link_to "/photos/#{photo.slug}", target: :_blank do
+              %b= photo.slug
+
+        - if photo.machine_tags.present?
+          %div
+            %code
+              %u= photo.machine_tags
+      %td
+        %div
+          - if photo.public?
+            %span.tag.good Public
+          - else
+            %span.tag.alert Private
+        %div
+          - if photo.removed?
+            %span.tag.alert Removed
+        %div
+          - if photo.slug
+            %span.tag.good.orange_border On site
+          - else
+            %span.tag.alert Not on site
+        - if photo.slug
+          - if photo.on_s3?
+            %div
+              %span.tag.tag_species S3
+          - else
+            = button_to "Push to storage", "/flickr/photos/#{photo.slug}/push_to_storage", remote: true, form_class: "push_form"
+
+- I18n.with_locale :en do
+  = paginate @photos
+
+:javascript
+  $(function() {
+
+    $(document).on("ajax:success", "form.push_form", function(e) {
+      $(e.target).replaceWith("<div>Enqueued</div>");
+    });
+
+  });

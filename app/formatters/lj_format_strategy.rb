@@ -70,7 +70,7 @@ class LJFormatStrategy < FormattingStrategy
       result << "\n"
 
       @posts.each do |slug, post|
-        result << "\n[#{slug}]#{post.lj_url}" if post && post.lj_url
+        result << "\n[#{slug}]#{post.lj_url}" if post&.lj_url
       end
     end
 

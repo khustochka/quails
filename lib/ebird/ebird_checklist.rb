@@ -66,14 +66,14 @@ class EbirdChecklist
 
     self.effort_type = PROTOCOL_TO_EFFORT[protocol]
 
-    duration = page.at_xpath("//span[contains(@title, 'Duration:')]").try(:[], :title)
+    duration = page.at_xpath("//span[contains(@title, 'Duration:')]")&.attr(:title)
     if duration.present?
       md = duration.match(DURATION_REGEX)
 
       self.duration_minutes = md[1].to_i * 60 + md[2].to_i
     end
 
-    distance = page.at_xpath("//span[contains(@title, 'Distance:')]").try(:[], :title)
+    distance = page.at_xpath("//span[contains(@title, 'Distance:')]")&.attr(:title)
 
     dm = distance&.match(/^Distance: ([\d.]+) (.*)$/)
     if dm

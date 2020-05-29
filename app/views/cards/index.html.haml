@@ -9,7 +9,7 @@
 
 - provide :add_shortcuts do
   %li
-    - if params[:q].try(:[], :resolved).to_s == 'false'
+    - if params.dig(:q, :resolved).to_s == 'false'
       - @page_title = 'Unresolved cards'
       = link_to 'Show all', cards_path
     - else

@@ -91,6 +91,10 @@ gem "mechanize"
 # Profiling
 gem 'rack-mini-profiler'
 
+# Deflicker
+gem "mongoid"
+gem "kaminari-mongoid"
+
 group :development do
   gem 'nokogiri', platforms: [:ruby, :mingw], require: false
   gem 'benchmark-ips'

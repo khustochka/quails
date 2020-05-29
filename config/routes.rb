@@ -136,13 +136,14 @@ Rails.application.routes.draw do
     end
   end
 
-  direct :public_post do |post, options|
-    route_for(:show_post, post.year, post.month, post.to_param, options)
+  direct :public_post do |blogpost, options|
+    route_for(:show_post, blogpost.year, blogpost.month, blogpost.to_param, options)
   end
 
-  direct :public_comment do |comment, post = nil, options|
-    post ||= comment.post
-    route_for(:show_post, post.year, post.month, post.to_param, options.merge(anchor: "comment#{comment.id}"))
+  direct :public_comment do |comment, options|
+    # This line breaks Brakeman (post is a http verb)
+    blogpost = comment.post
+    route_for(:show_post, blogpost.year, blogpost.month, blogpost.to_param, options.merge(anchor: "comment#{comment.id}"))
   end
 
   get '/archive' => 'blog#archive'
@@ -323,4 +324,18 @@ Rails.application.routes.draw do
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
   end
+
+  namespace "deflicker" do
+    get "/" => "flickers#index"
+    post "refresh" => "flickers#refresh"
+    post "rematch" => "flickers#rematch"
+  end
+
+  # High Voltage routes are specified manually to bypass HighVoltage Constraints for unrelated paths
+  # (e.g. ActiveStorage)
+  get "/:id" => 'high_voltage/pages#show',
+      :as => :page,
+      :format => false,
+      :constraints => {id: /about|links|winter/}
+
 end
