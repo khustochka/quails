@@ -1,4 +1,12 @@
 GIT
+  remote: https://github.com/khustochka/actionpack-page_caching
+  revision: 561f87cf95178d1d132481377472ab3446279d9e
+  branch: fix-eager-load
+  specs:
+    actionpack-page_caching (1.2.2)
+      actionpack (>= 5.0.0)
+
+GIT
   remote: https://github.com/khustochka/livejournal.git
   revision: ac44777e7f22337d8793b4f2bbdf11e8cc265f98
   branch: further-fixes
@@ -7,8 +15,8 @@ GIT
 
 GIT
   remote: https://github.com/rails/rails
-  revision: 1ab0e6b6d8070f30b2a02254070c6dd07fa56ec4
-  ref: 1ab0e6b6d8070f30b2a02254070c6dd07fa56ec4
+  revision: 787b991c940532e1ef4b5036e26ac9dc97e514a8
+  ref: 787b991c940532e1ef4b5036e26ac9dc97e514a8
   specs:
     actioncable (6.1.0.alpha)
       actionpack (= 6.1.0.alpha)
@@ -103,8 +111,6 @@ GEM
   remote: https://rubygems.org/
   specs:
     RedCloth (4.3.2)
-    actionpack-page_caching (1.2.2)
-      actionpack (>= 5.0.0)
     acts_as_list (1.0.1)
       activerecord (>= 4.2)
     addressable (2.7.0)
@@ -432,7 +438,7 @@ PLATFORMS
 
 DEPENDENCIES
   RedCloth
-  actionpack-page_caching
+  actionpack-page_caching!
   acts_as_list
   addressable
   airbrake
