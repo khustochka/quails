@@ -75,13 +75,13 @@
                   = c.name
                 %span.count= link_to count, list_path(locus: c.slug)
 
-  - day_with_max_species = Date.new(2017, 7, 16)
-  - max_species_for_day = 74
-  - post_for_day_with_max_species = show_post_path(2017, "08", "southwestern-trip")
+  - day_with_max_species = Date.new(2020, 5, 30)
+  - max_species_for_day = 79
+  - post_for_day_with_max_species = nil #show_post_path(2017, "08", "southwestern-trip")
 
-  - day_with_max_new_species = Date.new(2010, 8, 14)
-  - max_new_species_for_day = 15
-  - post_for_day_with_max_new_species = show_post_path(2010, "08", "jamaica-bay-herons-et-al")
+  - day_with_max_lifers = Date.new(2010, 8, 14)
+  - max_lifers_for_day = 15
+  - post_for_day_with_max_lifers = show_post_path(2010, "08", "jamaica-bay-herons-et-al")
 
   %table.nice_stats.records
     %tr
@@ -90,13 +90,13 @@
 
     %tr
       %td.day= link_to_if I18n.russian_locale? && post_for_day_with_max_species, l(day_with_max_species, format: :long), post_for_day_with_max_species
-      %td.place Turtle Mountain Provincial Park, Whitewater Lake, Shilo Area, Criddle/Vane Homestead, Manitoba, Canada
+      %td.place Winnipeg & Shoal Lakes, Manitoba, Canada
       %td.count_sp= max_species_for_day
       %td.count_sp_label= t('misc.species_count', count: max_species_for_day)
 
     %tr
-      %td.day= link_to_if I18n.russian_locale?, l(day_with_max_new_species, format: :long), post_for_day_with_max_new_species
+      %td.day= link_to_if I18n.russian_locale?, l(day_with_max_lifers, format: :long), post_for_day_with_max_lifers
       %td.place Jamaica Bay Wildlife Refuge, New York City, USA
-      %td.count_new_big= max_new_species_for_day
+      %td.count_new_big= max_lifers_for_day
       %td.count_new_label
-        = t('lists.stats.new_count_species', count: max_new_species_for_day)
+        = t('lists.stats.new_count_species', count: max_lifers_for_day)
