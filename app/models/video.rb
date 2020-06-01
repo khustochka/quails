@@ -42,8 +42,7 @@ class Video < Media
   end
 
   def to_thumbnail
-    title = self.decorated.title + " (video)"
-    Thumbnail.new(self, title, self, {video: {id: id}})
+    Thumbnail.new(self, self.decorated.title, self, {video: {id: id}})
   end
 
   def on_storage?

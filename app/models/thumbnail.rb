@@ -58,6 +58,10 @@ class Thumbnail
     'images/thumbnail'
   end
 
+  def video?
+    @image.video?
+  end
+
   private
   def image_asset
 
