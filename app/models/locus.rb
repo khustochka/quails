@@ -22,10 +22,6 @@ class Locus < ApplicationRecord
 
   before_validation :generate_slug
 
-  after_save do |record|
-    Rails.cache.delete("records/loci/country/#{record.slug}")
-  end
-
   TYPES = %w(continent country subcountry state oblast raion city)
 
   # Parameters
