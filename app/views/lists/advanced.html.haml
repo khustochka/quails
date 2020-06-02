@@ -37,7 +37,6 @@
   - if @lifelist.blank?
     %p No species
   - else
-    - sort = params[:sort]
     %table#lifelist.neat_table.advanced
       %thead{data: {turbolinks: "true"}}
         %tr
@@ -52,4 +51,4 @@
           %th.count-column-header
             = sorting_link_to(:count, "Count")
       %tbody
-        = render sort.nil? || sort == 'last' ? "lists/advanced/by_date" : "lists/advanced/by_#{sort}"
+        = render sorted_list_partial(params[:sort])

@@ -50,6 +50,7 @@ class Card < ApplicationRecord
   scope :in_year, ->(year) { where("EXTRACT(year FROM observ_date) = ?", year) }
 
   scope :default_cards_order, -> (asc_or_desc) {
+    raise "Invalid order (only ASC and DESC accepted)." unless asc_or_desc.to_s.downcase.in? %w(asc desc)
     order(:observ_date => asc_or_desc).
         order(Arel.sql("to_timestamp(start_time, 'HH24:MI') #{asc_or_desc} NULLS LAST"))
   }
