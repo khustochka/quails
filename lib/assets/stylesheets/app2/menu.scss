@@ -36,4 +36,13 @@
     }
 
   }
+
+  a.translation {
+    color: #ee7711;
+
+    @include hover() {
+      color: #f58200;
+      border-bottom: 2px solid rgba(238, 119, 17, 0.6);
+    }
+  }
 }
