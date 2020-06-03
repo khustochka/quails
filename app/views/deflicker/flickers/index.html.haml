@@ -65,6 +65,9 @@
           %div
             %code
               %u= photo.machine_tags
+        %ul
+          - photo.journal_entries.each do |en|
+            %li= link_to "#{en.user}/#{en.display_itemid}", en.url
       %td
         %div
           - if photo.public?

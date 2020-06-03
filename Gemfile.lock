@@ -8,7 +8,7 @@ GIT
 
 GIT
   remote: https://github.com/khustochka/livejournal.git
-  revision: ac44777e7f22337d8793b4f2bbdf11e8cc265f98
+  revision: 1b55d5c590e90a05cfab01db1c644fe1b849e0cc
   branch: further-fixes
   specs:
     livejournal (0.3.10)

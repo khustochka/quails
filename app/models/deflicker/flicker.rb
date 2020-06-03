@@ -21,5 +21,9 @@ module Deflicker
     def image
       Image.find_by(slug: slug)
     end
+
+    def journal_entries
+      Deflicker::JournalEntry.where(flickr_ids: flickr_id).to_a
+    end
   end
 end
