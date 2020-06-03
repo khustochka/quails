@@ -10,6 +10,8 @@ module Deflicker
     field :slug, type: String
     field :on_s3, type: Boolean
 
+    has_and_belongs_to_many :journal_entries
+
     def ispublic=(val)
       self.public = val != 0
     end
@@ -20,10 +22,6 @@ module Deflicker
 
     def image
       Image.find_by(slug: slug)
-    end
-
-    def journal_entries
-      Deflicker::JournalEntry.where(flickr_ids: flickr_id).to_a
     end
   end
 end

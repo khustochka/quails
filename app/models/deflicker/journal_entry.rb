@@ -12,6 +12,8 @@ module Deflicker
     field :images, type: Array, default: []
     field :flickr_ids, type: Array, default: []
 
+    has_and_belongs_to_many :flickers
+
     def url
       "https://#{user}.#{server}/#{display_itemid}.html"
     end
@@ -28,6 +30,15 @@ module Deflicker
         m[1]
       end
       update(images: imgs, flickr_ids: ids)
+      ids.each do |fid|
+        flicker = Flicker.find_by(flickr_id: fid) rescue nil
+        if flicker
+          self.flickers << flicker
+        else
+          puts "Not found: flicker #{fid}, entry #{url}"
+        end
+      end
+      save
     end
   end
 end

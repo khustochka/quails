@@ -16,19 +16,25 @@
                   collection: [["All", ""], ["Public", true], ["Private", false]],
                   include_hidden: false
 
-      %td{style: "vertical-align: top;; padding: 10px;"}
+      %td{style: "vertical-align: top; padding: 10px;"}
         = f.input :removed, as: :radio_buttons,
                   label: "Status",
                   collection: [["On flickr", false], ["Removed", true]],
                   include_hidden: false
 
-      %td{style: "vertical-align: top;; padding: 10px;"}
+      %td{style: "vertical-align: top; padding: 10px;"}
         = f.input :on_site, as: :radio_buttons,
                   label: "Site status",
                   collection: [["All", ""], ["On the site", true], ["Not on site", false]],
                   include_hidden: false
+
+      %td{style: "vertical-align: top; padding: 10px;"}
+        = f.input :with_journal_entries, as: :radio_buttons,
+                  label: "Journal entries",
+                  collection: [["All", ""], ["With entries", true], ["Without entries", false]],
+                  include_hidden: false
     %tr
-      %td{style: "text-align: right; padding: 10px;", colspan: 3}
+      %td{style: "text-align: right; padding: 10px;", colspan: 4}
         = f.submit "Filter", name: nil, class: "button"
 
 %p
