@@ -24,9 +24,9 @@ class ChecklistController < ApplicationController
   private
   def fetch_checklist
     @country = if params[:country] == "manitoba"
-                 Locus.find_by_slug("manitoba")
+                 Locus.find_by!(slug: "manitoba")
                else
-                 Country.quick_find(params[:country])
+                 Country.find_by!(slug: params[:country])
                end
 
     if @country.slug.in? %w(ukraine manitoba)

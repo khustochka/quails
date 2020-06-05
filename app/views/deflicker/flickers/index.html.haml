@@ -3,6 +3,12 @@
 
 %h1 Flickr photos
 
+- if flash.alert
+  %div.errors= flash.alert.html_safe
+
+- if flash.notice
+  %div.notice= flash.notice.html_safe
+
 = button_to "Refresh from Flickr", deflicker_refresh_path, class: "button", form: {style: "display: inline-block;"}
 
 = button_to "Rematch", deflicker_rematch_path, class: "button", form: {style: "display: inline-block;"}
@@ -16,19 +22,25 @@
                   collection: [["All", ""], ["Public", true], ["Private", false]],
                   include_hidden: false
 
-      %td{style: "vertical-align: top;; padding: 10px;"}
+      %td{style: "vertical-align: top; padding: 10px;"}
         = f.input :removed, as: :radio_buttons,
                   label: "Status",
                   collection: [["On flickr", false], ["Removed", true]],
                   include_hidden: false
 
-      %td{style: "vertical-align: top;; padding: 10px;"}
+      %td{style: "vertical-align: top; padding: 10px;"}
         = f.input :on_site, as: :radio_buttons,
                   label: "Site status",
                   collection: [["All", ""], ["On the site", true], ["Not on site", false]],
                   include_hidden: false
+
+      %td{style: "vertical-align: top; padding: 10px;"}
+        = f.input :with_journal_entries, as: :radio_buttons,
+                  label: "Journal entries",
+                  collection: [["All", ""], ["With entries", true], ["Without entries", false]],
+                  include_hidden: false
     %tr
-      %td{style: "text-align: right; padding: 10px;", colspan: 3}
+      %td{style: "text-align: right; padding: 10px;", colspan: 4}
         = f.submit "Filter", name: nil, class: "button"
 
 %p
@@ -44,7 +56,7 @@
   - @photos.each do |photo|
     %tr
       %td
-        = link_to "https://www.flickr.com/photos/phenolog/#{photo.flickr_id}/", class: "img", target: :_blank do
+        = link_to photo.url, class: "img", target: :_blank do
           = image_tag(photo.url_s)
       %td
         %div
@@ -55,7 +67,7 @@
         %div
           Views:
           = photo.views
-        - if photo.slug
+        - if photo.on_site?
           %div
             &bull;
             = link_to "/photos/#{photo.slug}", target: :_blank do
@@ -65,6 +77,9 @@
           %div
             %code
               %u= photo.machine_tags
+        %ul
+          - photo.journal_entries.each do |en|
+            %li= link_to "#{en.user}/#{en.display_itemid}", en.url
       %td
         %div
           - if photo.public?
@@ -75,23 +90,24 @@
           - if photo.removed?
             %span.tag.alert Removed
         %div
-          - if photo.slug
+          - if photo.on_site?
             %span.tag.good.orange_border On site
           - else
             %span.tag.alert Not on site
-        - if photo.slug
+        - if photo.on_site?
           - if photo.on_s3?
             %div
               %span.tag.tag_species S3
           - else
             = button_to "Push to storage", "/flickr/photos/#{photo.slug}/push_to_storage", remote: true, form_class: "push_form"
+        - if !photo.removed? && photo.allow_delete?
+          = button_to "Destroy", "/deflicker/#{photo.flickr_id}", method: :delete, data: {confirm: "Are you sure you want to remove?"}
 
 - I18n.with_locale :en do
   = paginate @photos
 
 :javascript
   $(function() {
-
     $(document).on("ajax:success", "form.push_form", function(e) {
       $(e.target).replaceWith("<div>Enqueued</div>");
     });
