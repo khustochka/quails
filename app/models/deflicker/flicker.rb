@@ -23,5 +23,19 @@ module Deflicker
     def image
       Image.find_by(slug: slug)
     end
+
+    def url
+      "https://www.flickr.com/photos/phenolog/#{flickr_id}/"
+    end
+
+    def on_site?
+      slug.present?
+    end
+
+    def allow_delete?
+      journal_entry_ids.none? && (
+          (on_site? && on_s3?) || (!on_site? && !public)
+      )
+    end
   end
 end
