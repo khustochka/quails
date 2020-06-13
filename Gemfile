@@ -6,7 +6,7 @@ end
 
 VERSION = "6.0.0"
 #gem 'rails', VERSION
-gem 'rails', git: "https://github.com/rails/rails", ref: "787b991c940532e1ef4b5036e26ac9dc97e514a8"
+gem 'rails', git: "https://github.com/rails/rails", ref: "49baf092439fc74fc3377b12e3334c3dd9d0752f"
 # gem "activesupport", VERSION
 # gem "actionpack",    VERSION
 # gem "actionview",    VERSION
@@ -34,7 +34,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'rails-i18n'
 
 # Old rails functionality
-gem "actionpack-page_caching", git: "https://github.com/khustochka/actionpack-page_caching", branch: "fix-eager-load"
+gem "actionpack-page_caching"
 gem "rails-controller-testing"
 
 # AR utils

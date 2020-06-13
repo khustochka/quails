@@ -6,7 +6,7 @@ class Ebird::ImportsController < ApplicationController
 
   def index
     @last_preload = Rails.cache.read("ebird/last_preload")
-    @checklists = Rails.cache.read("ebird/preloaded_checklists")
+    @checklists = Rails.cache.read("ebird/preloaded_checklists")&.reverse
   end
 
   def create

@@ -1,12 +1,4 @@
 GIT
-  remote: https://github.com/khustochka/actionpack-page_caching
-  revision: 561f87cf95178d1d132481377472ab3446279d9e
-  branch: fix-eager-load
-  specs:
-    actionpack-page_caching (1.2.2)
-      actionpack (>= 5.0.0)
-
-GIT
   remote: https://github.com/khustochka/livejournal.git
   revision: 1b55d5c590e90a05cfab01db1c644fe1b849e0cc
   branch: further-fixes
@@ -15,8 +7,8 @@ GIT
 
 GIT
   remote: https://github.com/rails/rails
-  revision: 787b991c940532e1ef4b5036e26ac9dc97e514a8
-  ref: 787b991c940532e1ef4b5036e26ac9dc97e514a8
+  revision: 49baf092439fc74fc3377b12e3334c3dd9d0752f
+  ref: 49baf092439fc74fc3377b12e3334c3dd9d0752f
   specs:
     actioncable (6.1.0.alpha)
       actionpack (= 6.1.0.alpha)
@@ -73,7 +65,7 @@ GIT
     activesupport (6.1.0.alpha)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 1.6, < 2)
-      minitest (~> 5.1)
+      minitest (>= 5.1)
       tzinfo (~> 2.0)
       zeitwerk (~> 2.3)
     rails (6.1.0.alpha)
@@ -111,6 +103,8 @@ GEM
   remote: https://rubygems.org/
   specs:
     RedCloth (4.3.2)
+    actionpack-page_caching (1.2.3)
+      actionpack (>= 5.0.0)
     acts_as_list (1.0.1)
       activerecord (>= 4.2)
     addressable (2.7.0)
@@ -125,17 +119,17 @@ GEM
     autoprefixer-rails (9.7.6)
       execjs
     aws-eventstream (1.1.0)
-    aws-partitions (1.326.0)
-    aws-sdk-core (3.98.0)
+    aws-partitions (1.329.0)
+    aws-sdk-core (3.99.2)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.239.0)
       aws-sigv4 (~> 1.1)
       jmespath (~> 1.0)
-    aws-sdk-kms (1.33.0)
-      aws-sdk-core (~> 3, >= 3.71.0)
+    aws-sdk-kms (1.34.1)
+      aws-sdk-core (~> 3, >= 3.99.0)
       aws-sigv4 (~> 1.1)
-    aws-sdk-s3 (1.67.1)
-      aws-sdk-core (~> 3, >= 3.96.1)
+    aws-sdk-s3 (1.68.1)
+      aws-sdk-core (~> 3, >= 3.99.0)
       aws-sdk-kms (~> 1)
       aws-sigv4 (~> 1.1)
     aws-sigv4 (1.1.4)
@@ -151,7 +145,7 @@ GEM
       autoprefixer-rails (>= 9.1.0)
       popper_js (>= 1.14.3, < 2)
       sassc-rails (>= 2.0.0)
-    bson (4.9.1)
+    bson (4.9.2)
     builder (3.2.4)
     byebug (11.1.3)
     capybara (3.32.2)
@@ -192,7 +186,7 @@ GEM
     factory_bot_rails (5.2.0)
       factory_bot (~> 5.2.0)
       railties (>= 4.2.0)
-    ffi (1.13.0)
+    ffi (1.13.1)
     flickraw (0.9.10)
     font-awesome-sass (5.13.0)
       sassc (>= 1.11)
@@ -353,10 +347,10 @@ GEM
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     rbtree3 (0.6.0)
-    redis (4.1.4)
+    redis (4.2.1)
     redis-namespace (1.7.0)
       redis (>= 3.0.4)
-    regexp_parser (1.7.0)
+    regexp_parser (1.7.1)
     resque (2.0.0)
       mono_logger (~> 1.0)
       multi_json (~> 1.0)
@@ -384,7 +378,7 @@ GEM
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
     semantic_range (2.3.0)
-    sexp_processor (4.14.1)
+    sexp_processor (4.15.0)
     simple_form (5.0.2)
       actionpack (>= 5.0)
       activemodel (>= 5.0)
@@ -445,7 +439,7 @@ PLATFORMS
 
 DEPENDENCIES
   RedCloth
-  actionpack-page_caching!
+  actionpack-page_caching
   acts_as_list
   addressable
   airbrake
