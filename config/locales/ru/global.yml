@@ -21,7 +21,7 @@
   partials:
     search:
       search_button: Поиск
-      fallback_text: Найти больше
+      fallback_text: Найти больше...
 
   author:
     name: Виталий Хусточка

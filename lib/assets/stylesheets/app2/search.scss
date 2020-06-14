@@ -15,3 +15,77 @@
     font-weight: bold;
   }
 }
+
+#search-ui-front {
+  ul {
+    border-radius: 0;
+    padding: 0;
+  }
+  li.ui-menu-item {
+    font-family: $font-family-base;
+    border-bottom: 1px solid #CCCCCC;
+
+    a {
+      @extend .text-reset-link;
+      text-decoration: none;
+      border-radius: 0;
+      .sci_name {
+        color: #808080;
+        font-weight: normal;
+        font-size: 16px;
+      }
+      &, &:hover {
+        border-bottom: none;
+      }
+
+      b, i {
+        display: block;
+      }
+    }
+
+    &.fallback_item {
+      border-bottom: none;
+      cursor: pointer;
+      a {
+        font-style: italic;
+      }
+    }
+
+    a.ui-state-focus {
+      border: none;
+      margin: 0;
+    }
+  }
+
+  em {
+    font-style: normal;
+    background-color: yellow;
+    border: 1px solid gold;
+    border-radius: 4px;
+  }
+  i em {
+    font-style: italic;
+  }
+}
+
+//li.ui-menu-item
+//border-bottom: 1px solid #ccc
+//                a
+//                display: block
+//                b, i
+//display: block
+//i
+//font-size: 16px
+//             &.fallback_item
+//             border-bottom: none
+//             cursor: pointer
+//             a
+//             font-weight: bold
+//             font-style: italic
+//             em
+//             font-style: normal
+//             background-color: yellow
+//             border: 1px solid gold
+//                      border-radius: 4px
+//                                      i em
+//                                      font-style: italic
