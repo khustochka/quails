@@ -74,7 +74,7 @@ class EbirdClient
     ebird_ids = first100.map(&:ebird_id)
     cards = Card.where(ebird_id: ebird_ids)
     posted_ids = cards.pluck(:ebird_id)
-    first100.reject! {|list| list.ebird_id.in?(posted_ids)}
+    first100.delete_if {|list| list.ebird_id.in?(posted_ids)}
   end
 
   def fetch_checklist(checklist)
