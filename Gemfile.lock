@@ -6,9 +6,9 @@ GIT
     livejournal (0.3.10)
 
 GIT
-  remote: https://github.com/rails/rails
-  revision: 49baf092439fc74fc3377b12e3334c3dd9d0752f
-  ref: 49baf092439fc74fc3377b12e3334c3dd9d0752f
+  remote: https://github.com/khustochka/rails
+  revision: dc44fd5ca91ba23096eb937b43f1a2c9a74cf71f
+  branch: fix-symbol
   specs:
     actioncable (6.1.0.alpha)
       actionpack (= 6.1.0.alpha)
