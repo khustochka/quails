@@ -91,6 +91,16 @@ GIT
       thor (~> 1.0)
 
 GIT
+  remote: https://github.com/rails/sprockets-rails.git
+  revision: c269f5e01fdffa5c41350e855183d94ff33d318a
+  ref: c269f5e01fdffa5c41350e855183d94ff33d318a
+  specs:
+    sprockets-rails (3.2.1)
+      actionpack (>= 4.0)
+      activesupport (>= 4.0)
+      sprockets (>= 3.0.0)
+
+GIT
   remote: https://github.com/thoughtbot/capybara-webkit.git
   revision: 77fdac424cd6fdb5aa266b229a888cc58da8e95e
   ref: 77fdac424cd6fdb5aa266b229a888cc58da8e95e
@@ -396,10 +406,6 @@ GEM
     sprockets (4.0.2)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
-    sprockets-rails (3.2.1)
-      actionpack (>= 4.0)
-      activesupport (>= 4.0)
-      sprockets (>= 3.0.0)
     temple (0.8.2)
     thor (1.0.1)
     tilt (2.0.10)
@@ -495,7 +501,7 @@ DEPENDENCIES
   simple_form
   simplecov
   simplecov-teamcity-summary
-  sprockets-rails
+  sprockets-rails!
   uglifier (>= 1.3.0)
   web-console (>= 3.3.0)
   webdrivers
