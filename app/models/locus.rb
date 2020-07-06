@@ -81,9 +81,20 @@ class Locus < ApplicationRecord
     slug.presence or self.slug = name_en.downcase.gsub(?', '').gsub(' - ', ?_).gsub('--', ?_).gsub(/[^\d\w_]+/, ?_)
   end
 
+  def generate_lat_lon
+    unless lat & lon
+      num = /-?\d+(?:\.\d+)?/
+      if m = name_en.match(/(#{num})[,;]\s*(#{num})/)
+        self.lat = m[1].to_f
+        self.lon = m[2].to_f
+      end
+    end
+  end
+
   def prepopulate
     if name_en.present?
       generate_slug
+      generate_lat_lon
       name_ru.presence or self.name_ru = name_en
       name_uk.presence or self.name_uk = name_en
     end
