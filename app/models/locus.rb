@@ -82,7 +82,7 @@ class Locus < ApplicationRecord
   end
 
   def generate_lat_lon
-    unless lat & lon
+    unless lat && lon
       num = /-?\d+(?:\.\d+)?/
       if m = name_en.match(/(#{num})[,;]\s*(#{num})/)
         self.lat = m[1].to_f
