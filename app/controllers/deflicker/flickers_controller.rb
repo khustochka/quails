@@ -3,6 +3,8 @@ module Deflicker
 
     administrative
 
+    include FlickrConcern
+
     def index
       @search = Deflicker::Search.new(search_params)
       @photos = @search.result.order_by(:uploaded_at => :asc).page(params[:page]).per(10)
@@ -19,7 +21,6 @@ module Deflicker
     end
 
     def destroy
-      raise "Destroy not yet implemented!"
       flicker = Flicker.find_by(flickr_id: params[:id])
       if flicker.removed?
         flash[:alert] = "Already removed"
@@ -32,9 +33,9 @@ module Deflicker
                 fp.detach! if Rails.env.production?
               end
               if Rails.env.production?
-                # TODO: Actually remove
+                _FlickrClient.call("flickr.photos.delete", photo_id: flicker.flickr_id)
               else
-                # "Fake remove"
+                flash[:alert] = "Fake removed"
               end
               flicker.update(removed: true) if Rails.env.production?
               flash[:notice] = "Removed! #{helpers.link_to "Flickr", flicker.url, target: :_blank}
