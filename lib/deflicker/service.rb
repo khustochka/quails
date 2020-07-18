@@ -23,7 +23,8 @@ module Deflicker
       images.each do |img|
         Flicker.where(flickr_id: img.external_id).first.update(slug: img.slug, on_s3: img.on_storage?)
       end
-      unused = Flicker.all.pluck(:flickr_id) - site_ids
+      # Only clear slugs from not removed images
+      unused = Flicker.where(removed: false).pluck(:flickr_id) - site_ids
       Flicker.in(flickr_id: unused).update_all(slug: nil, on_s3: false)
     end
 
