@@ -44,10 +44,9 @@ module Deflicker
 
     def store(photos)
       photos.each do |photo|
-        photo = photo.to_hash
-        flickr_id = photo.delete("id")
-        flicker = Flicker.find_or_create_by(flickr_id: flickr_id)
-        flicker.update(photo.merge(removed: false))
+        photo1 = photo.to_hash
+        flicker = Flicker.find_or_create_by(flickr_id: photo1["id"])
+        flicker.update(photo1.except("id").merge(removed: false))
       end
       detect_deleted(photos)
       match_to_site
