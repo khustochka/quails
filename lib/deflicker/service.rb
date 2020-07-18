@@ -24,7 +24,7 @@ module Deflicker
         Flicker.where(flickr_id: img.external_id).first.update(slug: img.slug, on_s3: img.on_storage?)
       end
       unused = Flicker.all.pluck(:flickr_id) - site_ids
-      Flicker.where(flickr_id: unused).update_all(slug: nil, on_s3: false)
+      Flicker.in(flickr_id: unused).update_all(slug: nil, on_s3: false)
     end
 
     private
@@ -57,7 +57,7 @@ module Deflicker
       current_ids = photos.map {|p| p["id"]}
       my_ids = Flicker.all.pluck(:flickr_id)
       removed_ids = my_ids - current_ids
-      Flicker.where(flickr_id: removed_ids).update_all(removed: true)
+      Flicker.in(flickr_id: removed_ids).update_all(removed: true)
       # There should not be ids in the API that are not present in the DB
       raise "Inconsistent data" if (current_ids - my_ids).any?
     end
