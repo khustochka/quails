@@ -39,7 +39,7 @@ module Deflicker
                   flash[:notice] = "Removed! #{helpers.link_to "Flickr", flicker.url, target: :_blank}
                                   #{helpers.link_to "Image", flicker.image, target: :_blank}"
                 else
-                  flash[:alert] = result.full_messages.join(" ")
+                  flash[:alert] = result.errors.full_messages.join(" ")
                 end
               else
                 flash[:alert] = "Fake removed"
