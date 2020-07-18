@@ -79,7 +79,7 @@
               %u= photo.machine_tags
         %ul
           - photo.journal_entries.each do |en|
-            %li= link_to "#{en.user}/#{en.display_itemid}", en.url
+            %li= link_to "#{en.journal}/#{en.display_itemid}", en.url
       %td
         %div
           - if photo.public?

@@ -4,6 +4,7 @@ module Deflicker
 
     field :user, type: String
     field :server, type: String
+    field :journal, type: String
     field :event, type: String
     field :anum, type: Integer
     field :itemid, type: Integer
@@ -16,7 +17,7 @@ module Deflicker
     has_and_belongs_to_many :flickers
 
     def url
-      "https://#{user}.#{server}/#{display_itemid}.html"
+      "https://#{journal}.#{server}/#{display_itemid}.html"
     end
 
     def display_itemid
