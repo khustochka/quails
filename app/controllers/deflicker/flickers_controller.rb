@@ -28,18 +28,22 @@ module Deflicker
         if flicker.journal_entry_ids.empty?
           Image.transaction do
             if flicker.allow_delete?
-              if flicker.on_site?
-                fp = FlickrPhoto.new(flicker.image)
-                fp.detach! if Rails.env.production?
-              end
               if Rails.env.production?
-                _FlickrClient.call("flickr.photos.delete", photo_id: flicker.flickr_id)
+                result = _FlickrClient.call("flickr.photos.delete", photo_id: flicker.flickr_id)
+                if result.valid?
+                  if flicker.on_site?
+                    fp = FlickrPhoto.new(flicker.image)
+                    fp.detach! if Rails.env.production?
+                  end
+                  flicker.update(removed: true) if Rails.env.production?
+                  flash[:notice] = "Removed! #{helpers.link_to "Flickr", flicker.url, target: :_blank}
+                                  #{helpers.link_to "Image", flicker.image, target: :_blank}"
+                else
+                  flash[:alert] = result.full_messages
+                end
               else
                 flash[:alert] = "Fake removed"
               end
-              flicker.update(removed: true) if Rails.env.production?
-              flash[:notice] = "Removed! #{helpers.link_to "Flickr", flicker.url, target: :_blank}
-                                #{helpers.link_to "Image", flicker.image, target: :_blank}"
             else
               flash[:alert] = "Not yet on S3"
             end
