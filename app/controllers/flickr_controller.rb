@@ -26,7 +26,7 @@ class FlickrController < ApplicationController
       elsif !@token
         @token = _FlickrClient.get_request_token.get
         session[:flickr_auth_token] = @token
-        @auth_url = _FlickrClient.get_authorize_url(@token['oauth_token'])
+        @auth_url = _FlickrClient.get_authorize_url(@token['oauth_token'], perms: 'delete')
       end
     end
   end
