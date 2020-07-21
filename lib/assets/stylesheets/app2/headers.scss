@@ -7,6 +7,9 @@ h6, .h6 { color: $gray-600; }
 
 .simple-page-header {
   margin: 40px 0;
+  h1 {
+    font-family: Rubik, $font-family-sans-serif;
+  }
 }
 
 @media (max-width: 767.98px) {
@@ -16,8 +19,7 @@ h6, .h6 { color: $gray-600; }
     padding-bottom: 15px;
     border-bottom: 1px solid #dddddd;
     h1 {
-      font-size: 2.5rem;
-      font-family: serif;
+      font-size: calc(1.325rem + 5vw);
     }
   }
 }
