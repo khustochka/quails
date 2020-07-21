@@ -51,7 +51,11 @@ module Deflicker
         else
           flash[:alert] = "Still has journal entries"
         end
-        redirect_to deflicker_path
+        if request.xhr?
+          head :ok
+        else
+          redirect_to deflicker_path
+        end
       end
     end
 

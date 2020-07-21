@@ -101,7 +101,9 @@
           - else
             = button_to "Push to storage", "/flickr/photos/#{photo.slug}/push_to_storage", remote: true, form_class: "push_form"
         - if !photo.removed? && photo.allow_delete?
-          = button_to "Destroy", "/deflicker/#{photo.flickr_id}", method: :delete, data: {confirm: "Are you sure you want to remove?"}
+          = button_to "Destroy", "/deflicker/#{photo.flickr_id}", method: :delete, remote: true,
+                      data: {confirm: "Are you sure you want to remove this image from Flickr?"},
+                      form_class: "destroy_button"
 
 - I18n.with_locale :en do
   = paginate @photos
@@ -110,6 +112,9 @@
   $(function() {
     $(document).on("ajax:success", "form.push_form", function(e) {
       $(e.target).replaceWith("<div>Enqueued</div>");
+    });
+    $(document).on("ajax:success", "form.destroy_button", function(e) {
+      document.location.reload();
     });
 
   });
