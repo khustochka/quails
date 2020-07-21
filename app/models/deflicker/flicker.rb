@@ -33,6 +33,7 @@ module Deflicker
     end
 
     def allow_delete?
+      machine_tags.none? {|t| t.match(/nodelete|donotdelete/)} &&
       journal_entry_ids.none? && (
           (on_site? && on_s3?) || (!on_site? && !public)
       )
