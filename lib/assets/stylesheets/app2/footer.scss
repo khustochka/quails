@@ -23,12 +23,16 @@ footer.page_footer {
       width: 152px;
       height: 56px;
       border: 1px solid lightgray;
-      margin: 2px 0;
+      margin: 6px 4px;
       @media (min-width: 768px) {
-        margin: 2px 10px;
+        margin: 2px 4px;
       }
       a {
         @extend .block-reset-link;
+      }
+      // Super super small devices
+      @media (max-width: 374.98px) {
+        margin: 2px 0;
       }
     }
   }
