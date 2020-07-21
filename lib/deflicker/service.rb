@@ -19,7 +19,7 @@ module Deflicker
       my_ids = Flicker.where(removed: false).pluck(:flickr_id)
       images = Image.where.not(external_id: nil)
       site_ids = images.pluck(:external_id)
-      raise "Invalid flickr ids in images table!" if (site_ids - my_ids).any?
+      raise "Invalid flickr ids in images table: #{(site_ids - my_ids)}!" if (site_ids - my_ids).any? && !Rails.env.development?
       images.each do |img|
         Flicker.where(flickr_id: img.external_id).first.update(slug: img.slug, on_s3: img.on_storage?)
       end
