@@ -4,3 +4,20 @@ h3, .h3 { color: $gray-700; }
 h4, .h4 { color: $gray-600; }
 h5, .h5 { color: $gray-600; }
 h6, .h6 { color: $gray-600; }
+
+.simple-page-header {
+  margin: 40px 0;
+}
+
+@media (max-width: 767.98px) {
+  .simple-page-header {
+    text-align: center;
+    margin: 20px 0;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #dddddd;
+    h1 {
+      font-size: 2.5rem;
+      font-family: serif;
+    }
+  }
+}
