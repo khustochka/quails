@@ -20,6 +20,11 @@
         margin-left: 0;
       }
     }
+    @media (min-width: 992px) {
+      li {
+        margin-right: 1.2rem !important;
+      }
+    }
   }
 
   a {
