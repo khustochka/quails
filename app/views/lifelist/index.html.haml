@@ -11,7 +11,7 @@
 - content_for :jumbo_side do
   %ul.subheader-menu
     %li
-      = link_to t('.records_and_stats'), lists_stats_path
+      = link_to t('.records_and_stats'), lifelist_stats_path
 
 - cache(key: CacheKey.lifelist) do
 
@@ -25,7 +25,7 @@
 
     %div.fluid-column
 
-      %h2= link_to(t('lists.title.yearlist', year: Quails::CURRENT_YEAR), list_path(year: Quails::CURRENT_YEAR))
+      %h2= link_to(t('lifelist.title.yearlist', year: Quails::CURRENT_YEAR), list_path(year: Quails::CURRENT_YEAR))
 
       = render partial: "top5list", object: @list_current_year
 
@@ -34,14 +34,14 @@
     %div.fluid-column
 
       %h2
-        = link_to(t('lists.title.canada'), list_path(locus: 'canada'))
+        = link_to(t('lifelist.title.canada'), list_path(locus: 'canada'))
 
       = render partial: "top5list", object: @list_canada
 
     %div.fluid-column
 
       %h2
-        = link_to(t('lists.title.ukraine'), list_path(locus: 'ukraine'))
+        = link_to(t('lifelist.title.ukraine'), list_path(locus: 'ukraine'))
 
       = render partial: "top5list", object: @list_ukraine
 
@@ -50,7 +50,7 @@
     -#%div.fluid-column
     -#
     -#  %h2
-    -#    = link_to(t('lists.title.yearlist', year: Quails::CURRENT_YEAR - 1), list_path(year: Quails::CURRENT_YEAR - 1))
+    -#    = link_to(t('lifelist.title.yearlist', year: Quails::CURRENT_YEAR - 1), list_path(year: Quails::CURRENT_YEAR - 1))
     -#
     -#  = render partial: "top5list", object: @list_prev_year
 
@@ -60,18 +60,18 @@
     -#%div.fluid-column
     -#
     -#  %h2
-    -#    = link_to(t('lists.title.ukraine'), list_path(locus: 'ukraine'))
+    -#    = link_to(t('lifelist.title.ukraine'), list_path(locus: 'ukraine'))
     -#    (#{@list_ukraine.total_count})
 
     %div.fluid-column
 
       %h2
-        = link_to(t('lists.title.usa'), list_path(locus: 'usa'))
+        = link_to(t('lifelist.title.usa'), list_path(locus: 'usa'))
         (#{@list_usa.total_count})
 
 
     %div.fluid-column
 
       %h2
-        = link_to(t('lists.title.gb'), list_path(locus: 'united_kingdom'))
+        = link_to(t('lifelist.title.gb'), list_path(locus: 'united_kingdom'))
         (#{@list_uk.total_count})

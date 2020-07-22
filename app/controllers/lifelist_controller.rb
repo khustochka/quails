@@ -1,4 +1,4 @@
-class ListsController < ApplicationController
+class LifelistController < ApplicationController
 
   def index
     @list_life = Lifelist::FirstSeen.full
@@ -82,7 +82,6 @@ class ListsController < ApplicationController
 
     @grouped_by_year_and_country = identified_observations.
         group('EXTRACT(year FROM observ_date)::integer', country_sql)
-
 
   end
 end

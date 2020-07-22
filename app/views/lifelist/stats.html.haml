@@ -15,10 +15,10 @@
 
   %ul.subheader-menu
     %li= link_to('Lifelist', lifelist_path)
-    %li= link_to(t('lists.title.ukraine'), list_path(locus: 'ukraine'))
-    %li= link_to(t('lists.title.usa'), list_path(locus: 'usa'))
-    %li= link_to(t('lists.title.gb'), list_path(locus: 'united_kingdom'))
-    %li= link_to(t('lists.title.canada'), list_path(locus: 'canada'))
+    %li= link_to(t('lifelist.title.ukraine'), list_path(locus: 'ukraine'))
+    %li= link_to(t('lifelist.title.usa'), list_path(locus: 'usa'))
+    %li= link_to(t('lifelist.title.gb'), list_path(locus: 'united_kingdom'))
+    %li= link_to(t('lifelist.title.canada'), list_path(locus: 'canada'))
 
 - cache(key: CacheKey.lifelist) do
 
@@ -99,4 +99,4 @@
       %td.place Jamaica Bay Wildlife Refuge, New York City, USA
       %td.count_new_big= max_lifers_for_day
       %td.count_new_label
-        = t('lists.stats.new_count_species', count: max_lifers_for_day)
+        = t('lifelist.stats.new_count_species', count: max_lifers_for_day)

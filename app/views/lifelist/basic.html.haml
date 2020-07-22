@@ -2,11 +2,11 @@
 
 - @page_title = capture do
   - if params[:year]
-    = [t('lists.title.yearlist', year: params[:year]), params[:locus] ? "(#{@lifelist.locus.name})" : nil] * ' '
+    = [t('lifelist.title.yearlist', year: params[:year]), params[:locus] ? "(#{@lifelist.locus.name})" : nil] * ' '
   - elsif params[:locus]
-    = t('lists.title.countrylist', country: @lifelist.locus.name)
+    = t('lifelist.title.countrylist', country: @lifelist.locus.name)
   - else
-    = t('lists.title.lifelist')
+    = t('lifelist.title.lifelist')
 
 - content_for :translated do
   = render partial: 'partials/translated', locals: {url: significant_params}
@@ -16,15 +16,15 @@
   %h1= page_header
 
   %div{data: {turbolinks: "true"}}
-    = render "lists/menus"
+    = render "lifelist/menus"
 
     - unless @lifelist.blank?
       %ul.horiz-list.filter-list
         %strong= t('.filter.sort_by')
         - [nil, :by_taxonomy].each do |sort|
-          %li= link_to_or_span(t(sort || :by_date, scope: 'lists.menus.sort_option'), significant_params.merge(:sort => sort))
+          %li= link_to_or_span(t(sort || :by_date, scope: 'lifelist.menus.sort_option'), significant_params.merge(:sort => sort))
         %li
-          %b= link_to t('lists.menus.advanced'),
+          %b= link_to t('lifelist.menus.advanced'),
                       significant_params.slice(:year, :locus).merge(action: :advanced),
                       class: 'advanced'
 
@@ -32,4 +32,4 @@
   - if @lifelist.blank?
     %p No species
   - else
-    = render "lists/basic/#{params[:sort] || 'by_date'}"
+    = render "lifelist/basic/#{params[:sort] || 'by_date'}"

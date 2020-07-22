@@ -9,12 +9,12 @@
 - if lifer.same_date?
   %td.comb_date{colspan: 2}
     %span.dashes &mdash;&ensp;
-    = render "lists/advanced/lifer_date", life_observation: lifer.first_seen, designation: nil
+    = render "lifelist/advanced/lifer_date", life_observation: lifer.first_seen, designation: nil
     %span.dashes &ensp;&mdash;
 - else
   - [:first_seen, :last_seen].each do |method|
     %td.single_date
-      = render "lists/advanced/lifer_date", life_observation: lifer.send(method), designation: method
+      = render "lifelist/advanced/lifer_date", life_observation: lifer.send(method), designation: method
 %td.count_cell
   %span.designation Encounters:
   %b= lifer.obs_count
