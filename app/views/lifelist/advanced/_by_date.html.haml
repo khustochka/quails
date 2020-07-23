@@ -5,8 +5,8 @@
     %tr
       %td.empty_cell
       %td{:colspan => 5}
-        %h5.first_seen{id: "first_seen_#{year}"}= t("lists.by_date.seen_in.#{params[:sort] ? 'last' : 'first'}", year: year)
+        %h5.first_seen{id: "first_seen_#{year}"}= t("lifelist.by_date.seen_in.#{params[:sort] ? 'last' : 'first'}", year: year)
   - species_list.each do |sp|
     %tr
       %td.num_cell= "#{i -= 1}."
-      = render partial: 'lists/advanced/lifer', object: sp
+      = render partial: 'lifelist/advanced/lifer', object: sp

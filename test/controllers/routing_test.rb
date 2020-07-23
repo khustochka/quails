@@ -29,25 +29,25 @@ class RoutingTest < ActionDispatch::IntegrationTest
   end
 
   test 'route stats correctly' do
-    assert_routing '/lists/stats', {controller: 'lists', action: 'stats'}
+    assert_routing '/lifelist/stats', {controller: "lifelist", action: 'stats'}
   end
 
   test 'route lists correctly' do
-    assert_routing '/lists', {controller: "lists", action: "index"}
+    assert_routing '/lifelist/overview', {controller: "lifelist", action: "index"}
   end
 
   test 'route lifelist correctly' do
-    assert_routing '/lists/life', {controller: "lists", action: "basic"}
-    assert_routing '/lists/advanced', {controller: "lists", action: 'advanced'}
-    assert_routing '/lists/life/by_taxonomy', {controller: "lists", action: "basic", sort: 'by_taxonomy'}
-    assert_routing '/lists/2008', {controller: "lists", action: "basic", year: '2008'}
-    assert_routing '/lists/2008/by_taxonomy', {controller: "lists", action: "basic", sort: 'by_taxonomy', year: '2008'}
-    assert_routing '/lists/kiev/2010', {controller: "lists", action: "basic", year: '2010', locus: 'kiev'}
-    assert_routing '/lists/kherson_obl', {controller: "lists", action: "basic", locus: 'kherson_obl'}
-    assert_routing '/lists/kherson_obl/by_taxonomy', {controller: "lists", action: "basic", sort: 'by_taxonomy', locus: 'kherson_obl'}
-    assert_routing '/lists/kiev/2010/by_taxonomy', {controller: "lists", action: "basic", sort: 'by_taxonomy', year: '2010', locus: 'kiev'}
+    assert_routing '/lifelist', {controller: "lifelist", action: "basic"}
+    assert_routing '/lifelist/advanced', {controller: "lifelist", action: 'advanced'}
+    assert_routing '/lifelist/by_taxonomy', {controller: "lifelist", action: "basic", sort: 'by_taxonomy'}
+    assert_routing '/lifelist/2008', {controller: "lifelist", action: "basic", year: '2008'}
+    assert_routing '/lifelist/2008/by_taxonomy', {controller: "lifelist", action: "basic", sort: 'by_taxonomy', year: '2008'}
+    assert_routing '/lifelist/kiev/2010', {controller: "lifelist", action: "basic", year: '2010', locus: 'kiev'}
+    assert_routing '/lifelist/kherson_obl', {controller: "lifelist", action: "basic", locus: 'kherson_obl'}
+    assert_routing '/lifelist/kherson_obl/by_taxonomy', {controller: "lifelist", action: "basic", sort: 'by_taxonomy', locus: 'kherson_obl'}
+    assert_routing '/lifelist/kiev/2010/by_taxonomy', {controller: "lifelist", action: "basic", sort: 'by_taxonomy', year: '2010', locus: 'kiev'}
     # have 'by_' inside locus
-    assert_routing '/lists/druzhby_obl/by_taxonomy', {controller: "lists", action: "basic", sort: 'by_taxonomy', locus: 'druzhby_obl'}
+    assert_routing '/lifelist/druzhby_obl/by_taxonomy', {controller: "lifelist", action: "basic", sort: 'by_taxonomy', locus: 'druzhby_obl'}
   end
 
   test 'route images correctly' do
@@ -108,14 +108,15 @@ class RoutingTest < ActionDispatch::IntegrationTest
   end
 
   test 'English lifelists routing' do
-    assert_routing '/en/lists', {controller: 'lists', action: 'index', locale: 'en'}
-    assert_routing '/en/lists/2009', {controller: 'lists', action: 'basic', locale: 'en', year: '2009'}
-    assert_routing '/en/lists/usa', {controller: 'lists', action: 'basic', locale: 'en', locus: 'usa'}
-    assert_routing '/en/lists/usa/2011', {controller: 'lists', action: 'basic', locale: 'en', locus: 'usa', year: '2011'}
+    assert_routing '/en/lifelist/overview', {controller: "lifelist", action: 'index', locale: 'en'}
+    assert_routing '/en/lifelist', {controller: "lifelist", action: 'basic', locale: 'en'}
+    assert_routing '/en/lifelist/2009', {controller: "lifelist", action: 'basic', locale: 'en', year: '2009'}
+    assert_routing '/en/lifelist/usa', {controller: "lifelist", action: 'basic', locale: 'en', locus: 'usa'}
+    assert_routing '/en/lifelist/usa/2011', {controller: "lifelist", action: 'basic', locale: 'en', locus: 'usa', year: '2011'}
   end
 
   test 'English my stats routing' do
-    assert_routing '/en/lists/stats', {controller: 'lists', action: 'stats', locale: 'en'}
+    assert_routing '/en/lifelist/stats', {controller: "lifelist", action: 'stats', locale: 'en'}
   end
 
 

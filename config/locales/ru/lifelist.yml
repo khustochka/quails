@@ -1,8 +1,8 @@
 "ru":
-  lists:
+  lifelist:
     title:
       all: Списки
-      lifelist: Полный список (lifelist)
+      lifelist: Мой список (lifelist)
       yearlist: Список %{year} года
       monthlist: Список за %{month}
       yearsublist: '%{year} года'

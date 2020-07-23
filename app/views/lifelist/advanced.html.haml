@@ -4,15 +4,15 @@
 
 - @page_title = capture do
   - if params[:month]
-    = [ t('lists.title.monthlist', month: t('date.month_names')[params[:month].to_i]),
-        params[:year] ? t('lists.title.yearsublist', year: params[:year]) : nil,
+    = [ t('lifelist.title.monthlist', month: t('date.month_names')[params[:month].to_i]),
+        params[:year] ? t('lifelist.title.yearsublist', year: params[:year]) : nil,
         params[:locus] ? "(#{@lifelist.locus.name})" : nil ] * ' '
   - elsif params[:year]
-    = [t('lists.title.yearlist', year: params[:year]), params[:locus] ? "(#{@lifelist.locus.name})" : nil] * ' '
+    = [t('lifelist.title.yearlist', year: params[:year]), params[:locus] ? "(#{@lifelist.locus.name})" : nil] * ' '
   - elsif params[:locus]
-    = t('lists.title.locationlist', location: @lifelist.locus.name)
+    = t('lifelist.title.locationlist', location: @lifelist.locus.name)
   - else
-    = t('lists.title.lifelist')
+    = t('lifelist.title.lifelist')
 
 - content_for :translated do
   = render partial: 'partials/translated', locals: {url: significant_params}
@@ -25,10 +25,10 @@
 
   %div{data: {turbolinks: "true"}}
 
-    = render "lists/menus"
+    = render "lifelist/menus"
 
     %ul.horiz-list.filter-list
-      %strong= t('lists.menus.filter.months')
+      %strong= t('lifelist.menus.filter.months')
       %li= filtering_link_to_all(:month)
       - 1.upto(12) do |m|
         %li
@@ -42,7 +42,7 @@
         %tr
           %th.empty_cell &nbsp;
           %th
-            %i.sort_by_label= t('lists.basic.filter.sort_by')
+            %i.sort_by_label= t('lifelist.basic.filter.sort_by')
             = sorting_link_to(:class, "Taxonomy")
           %th.align-center
             = sorting_link_to(nil, "First seen")

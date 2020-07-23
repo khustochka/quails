@@ -3,7 +3,7 @@
   %h3
     = t('.title')
     - arr = [spcs.size]
-    - arr << "из них #{new_species.size} #{t('lists.stats.new_count_species', count: new_species.size)}" if new_species.size > 0
+    - arr << "из них #{new_species.size} #{t('lifelist.stats.new_count_species', count: new_species.size)}" if new_species.size > 0
     = surround '(', ')' do
       = arr.join(", ")
   %p

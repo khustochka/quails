@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ListsControllerTest < ActionController::TestCase
+class LifelistControllerTest < ActionController::TestCase
 
   setup do
     @obs = [
