@@ -1,18 +1,13 @@
 class LocusFormatter < ModelFormatter
 
   def full_name
-    format = detect_name_format
-    apply_format(format)
+    [@model, @model.cached_parent, @model.city, @model.subdivision, @model.country].
+        compact.uniq.map(&:name).join(", ")
   end
 
   def short_full_name
-    format = detect_name_format
-    if format =~ /%city/
-      format.sub!(/%city(.*)$/, "%city")
-    else
-      format.sub!(/, %country$/, "")
-    end
-    apply_format(format)
+    [@model, @model.cached_parent, @model.city, @model.subdivision].
+        compact.uniq.map(&:name).join(", ")
   end
 
   private

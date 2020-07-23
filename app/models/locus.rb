@@ -7,8 +7,10 @@ class Locus < ApplicationRecord
 
   has_ancestry orphan_strategy: :restrict
 
-  validates :slug, :format => /\A[a-z_0-9]+\Z/i, :uniqueness => true, :presence => true, :length => {:maximum => 32}
-  validates :name_en, :name_ru, :name_uk, :uniqueness => true
+  belongs_to :cached_parent, class_name: "Locus", optional: true
+  belongs_to :city, class_name: "Locus", optional: true
+  belongs_to :subdivision, class_name: "Locus", optional: true
+  belongs_to :country, class_name: "Locus", optional: true
 
   has_many :cards, dependent: :restrict_with_exception
   has_many :observations, through: :cards
@@ -17,6 +19,9 @@ class Locus < ApplicationRecord
   has_many :local_species
 
   belongs_to :ebird_location, optional: true
+
+  validates :slug, :format => /\A[a-z_0-9]+\Z/i, :uniqueness => true, :presence => true, :length => {:maximum => 32}
+  validates :name_en, :name_ru, :name_uk, :uniqueness => true
 
   after_initialize :prepopulate, unless: :persisted?
   before_validation :generate_slug
@@ -39,8 +44,10 @@ class Locus < ApplicationRecord
 
   # Scopes
 
+  scope :cached_ancestry_preload, -> { preload(:cached_parent, :city, :subdivision, :country) }
+
   def self.suggestion_order
-    sort_by_ancestry(self.all).reverse
+    sort_by_ancestry(self.all.cached_ancestry_preload).reverse
   end
 
   scope :locs_for_lifelist, lambda { where('public_index IS NOT NULL').order(:public_index) }
@@ -68,12 +75,16 @@ class Locus < ApplicationRecord
     end
   end
 
-  def country
-    path.where(loc_type: 'country').first
-  end
-
   def public_locus
-    path.where(private_loc: false, patch: false).last
+    if !private_loc && !patch
+      self
+    else
+      if !parent.private_loc && !parent.patch
+        parent
+      else
+        city || subdivision || country
+      end
+    end
   end
 
   private
@@ -103,6 +114,10 @@ class Locus < ApplicationRecord
 
   def cache_parent_loci
     self.cached_parent_id = self.parent_id
+    anc = self.ancestors.to_a
+    self.city_id = anc.find {|l| l.loc_type == "city"}&.id
+    self.subdivision_id = anc.find {|l| l.loc_type.in? %w(state oblast)}&.id
+    self.country_id = anc.find {|l| l.loc_type == "country"}&.id
   end
 
   def refresh_descendants_cache
