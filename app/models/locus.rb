@@ -19,8 +19,9 @@ class Locus < ApplicationRecord
   belongs_to :ebird_location, optional: true
 
   after_initialize :prepopulate, unless: :persisted?
-
   before_validation :generate_slug
+  before_save :cache_parent_loci
+  after_save :refresh_descendants_cache
 
   TYPES = %w(continent country subcountry state oblast raion city)
 
@@ -98,6 +99,14 @@ class Locus < ApplicationRecord
       name_ru.presence or self.name_ru = name_en
       name_uk.presence or self.name_uk = name_en
     end
+  end
+
+  def cache_parent_loci
+    self.cached_parent_id = self.parent_id
+  end
+
+  def refresh_descendants_cache
+
   end
 
 end

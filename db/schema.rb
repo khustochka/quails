@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_04_005323) do
+ActiveRecord::Schema.define(version: 2020_07_23_003348) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -197,6 +197,10 @@ ActiveRecord::Schema.define(version: 2020_01_04_005323) do
     t.string "ancestry", limit: 255
     t.boolean "five_mile_radius", default: false, null: false
     t.integer "ebird_location_id"
+    t.bigint "cached_parent_id"
+    t.bigint "city_id"
+    t.bigint "subdivision_id"
+    t.bigint "country_id"
     t.index ["ancestry"], name: "index_loci_on_ancestry"
     t.index ["slug"], name: "index_loci_on_slug", unique: true
   end
