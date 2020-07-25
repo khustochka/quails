@@ -7,7 +7,7 @@ GIT
 
 GIT
   remote: https://github.com/khustochka/rails
-  revision: b964ecf750c9d14543f650af159b755a48f8405e
+  revision: 1a94a524651f6836414d8af2824266a9bc200547
   branch: fix-symbol
   specs:
     actioncable (6.1.0.alpha)
