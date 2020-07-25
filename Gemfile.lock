@@ -7,7 +7,7 @@ GIT
 
 GIT
   remote: https://github.com/khustochka/rails
-  revision: 1a94a524651f6836414d8af2824266a9bc200547
+  revision: 5b6aa8c20a3abfd6274c83f196abf73cacb3400b
   branch: fix-symbol
   specs:
     actioncable (6.1.0.alpha)
@@ -224,7 +224,7 @@ GEM
     htmlentities (4.3.4)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
-    i18n (1.8.4)
+    i18n (1.8.5)
       concurrent-ruby (~> 1.0)
     image_processing (1.11.0)
       mini_magick (>= 4.9.5, < 5)
