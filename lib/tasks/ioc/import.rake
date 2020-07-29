@@ -7,8 +7,10 @@ namespace :ioc do
     version = -"10.2"
     current_species = nil
     idx = 0
+    ioc_file = ENV["IOC_NAMES_CSV"]
+    raise "Set env var IOC_NAMES_CSV to the file path." unless ioc_file
     IocTaxon.acts_as_list_no_update do
-      CSV.foreach('/Users/vitalii/IOC_Names_File_Plus-10.2_full_ssp.csv') do |row|
+      CSV.foreach(ioc_file) do |row|
         rank = row[1]
         next unless rank.in?(%w(Species ssp))
         idx += 1
