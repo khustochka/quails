@@ -26,6 +26,14 @@ class EbirdTaxon < ApplicationRecord
     ebird_code
   end
 
+  def nearest_species
+    if category == "species"
+      self
+    else
+      parent
+    end
+  end
+
   def promote
     return taxon if taxon
 

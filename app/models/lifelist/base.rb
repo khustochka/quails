@@ -44,7 +44,6 @@ module Lifelist
       MyObservation.
           select("observations.*, species_id").
           where(id: preselected_observations)
-
     end
 
     def short_to_a
