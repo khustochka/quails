@@ -1,0 +1,4 @@
+- total_count = @lifelist.size
+
+%table.neat_table.lifelist_table
+  = render partial: 'lifelist/ebird/lifer', collection: @lifelist.to_a, locals: {total_count: total_count}

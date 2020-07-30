@@ -22,7 +22,8 @@
 
       %span.tag.good
         eBird/Clements Lifelist:
-        = ebird_lifelist.count
+        = link_to lifelist_ebird_path do
+          = ebird_lifelist.count
 
   %div.fluid-row
 

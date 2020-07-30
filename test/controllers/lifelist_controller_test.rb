@@ -24,4 +24,8 @@ class LifelistControllerTest < ActionController::TestCase
     get :stats
   end
 
+  test "eBird Lifelist page" do
+    get :ebird
+  end
+
 end

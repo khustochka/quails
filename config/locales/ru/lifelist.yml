@@ -1,7 +1,6 @@
 "ru":
   lifelist:
     title:
-      all: Списки
       lifelist: Мой список (lifelist)
       yearlist: Список %{year} года
       monthlist: Список за %{month}
@@ -18,11 +17,17 @@
       see_also: См. также
       records_and_stats: Рекорды и статистика
 
+    ebird:
+      title: Lifelist - систематика eBird/Clements
+      subtitle: Систематика eBird/Clements
+
+
     basic:
 
       filter:
         places: 'Страны:'
         sort_by: 'Сортировка:'
+      no_species: 'Нет видов'
 
     by_date:
       seen_in:
@@ -40,3 +45,4 @@
         by_taxonomy: по классификации
 
       advanced: Больше возможностей
+      basic: Моя систематика

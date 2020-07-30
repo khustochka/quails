@@ -1,0 +1,37 @@
+- @robots = 'NOINDEX'
+
+- @page_title = t(".title")
+
+- content_for :translated do
+  = render partial: 'partials/translated', locals: {url: significant_params}
+
+- cache significant_params.merge(admin: current_user.admin?, key: CacheKey.lifelist, locale: I18n.locale) do
+
+  %h1 Lifelist
+  %h3
+    = t(".subtitle")
+    = @lifelist.version
+
+  %div{data: {turbolinks: "true"}}
+    - unless @lifelist.blank?
+      %ul.horiz-list.filter-list
+        %strong= t('lifelist.basic.filter.sort_by')
+        - [nil, :by_taxonomy].each do |sort|
+          - label_text = t(sort || :by_date, scope: 'lifelist.menus.sort_option')
+          %li
+            = link_to_unless(params[:sort].to_s == sort.to_s, label_text, significant_params.merge(:sort => sort)) do
+              %span= label_text
+        %li
+          %b= link_to t('lifelist.menus.basic'),
+                      significant_params.slice(:year, :locus).merge(action: :basic),
+                      class: 'advanced'
+          %b= link_to t('lifelist.menus.advanced'),
+                      significant_params.slice(:year, :locus).merge(action: :advanced),
+                      class: 'advanced'
+
+
+    - if @lifelist.blank?
+      %ul
+        %li= t('lifelist.basic.no_species')
+    - else
+      = render "lifelist/ebird/#{params[:sort] || 'by_date'}"

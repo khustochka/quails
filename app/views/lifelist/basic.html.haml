@@ -30,6 +30,7 @@
 
 
   - if @lifelist.blank?
-    %p No species
+    %ul
+      %li= t('lifelist.basic.no_species')
   - else
     = render "lifelist/basic/#{params[:sort] || 'by_date'}"

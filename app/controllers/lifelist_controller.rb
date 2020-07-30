@@ -60,6 +60,11 @@ class LifelistController < ApplicationController
 
   end
 
+  def ebird
+    allow_params(:year, :locus, :sort)
+    @lifelist = Lifelist::Ebird.new(sort: params[:sort])
+  end
+
   def stats
     observations_filtered = Observation.joins(:card)
     identified_observations = observations_filtered.identified

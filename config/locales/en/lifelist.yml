@@ -14,14 +14,18 @@
 
     index:
       title: The Lists
-      see_also: See also
       records_and_stats: Stats and achievements
+
+    ebird:
+      title: Lifelist - eBird/Clements taxonomy
+      subtitle: eBird/Clements taxonomy
 
     basic:
 
       filter:
         places: 'Countries:'
         sort_by: 'Order by:'
+      no_species: 'No species'
 
     by_date:
       seen_in:
@@ -37,4 +41,5 @@
         by_date: date
         by_taxonomy: taxonomy
 
-      advanced: Advanced lifelist
+      advanced: Advanced options
+      basic: My taxonomy

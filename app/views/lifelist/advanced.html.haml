@@ -35,7 +35,7 @@
           = link_to_or_span(t('date.abbr_month_names')[m], significant_params.merge(:month => m))
 
   - if @lifelist.blank?
-    %p No species
+    %p= t('lifelist.basic.no_species')
   - else
     %table#lifelist.neat_table.advanced
       %thead{data: {turbolinks: "true"}}

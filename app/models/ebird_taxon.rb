@@ -16,6 +16,9 @@ class EbirdTaxon < ApplicationRecord
   has_many :children, class_name: "EbirdTaxon", foreign_key: "parent_id"
   has_one :taxon
 
+  # Scopes
+  scope :category_species, -> { where(category: "species") }
+
   # Parameters
 
   # temporarily using ebird code

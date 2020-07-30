@@ -156,6 +156,8 @@ Rails.application.routes.draw do
 
     get '/lifelist/stats' => 'lifelist#stats'
 
+    get '/lifelist/ebird' => 'lifelist#ebird'
+
     get '/lifelist' => 'lifelist#basic', as: :lifelist
 
     get '/lifelist(/:locus)(/:year)(/:sort)' => 'lifelist#basic', as: :list,

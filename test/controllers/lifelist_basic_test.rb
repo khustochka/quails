@@ -88,7 +88,7 @@ class LifelistBasicTest < ActionController::TestCase
     get :basic, params: {year: 1899}
     assert_select '.main' do
       assert_select 'ol', false
-      assert_select 'p', 'No species', 'No proper message found (saying no species in the list)'
+      assert_select 'li', I18n.t("lifelist.basic.no_species"), 'No proper message found (saying no species in the list)'
     end
   end
 
