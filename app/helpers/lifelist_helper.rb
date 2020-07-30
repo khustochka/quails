@@ -11,4 +11,8 @@ module LifelistHelper
       nil
     end
   end
+
+  def ebird_lifelist
+    Lifelist::Ebird.new
+  end
 end
