@@ -12,15 +12,13 @@
     - seen_sp = lifer.taxon.species
     %b= lifer.taxon.ebird_taxon.nearest_species.name_en
     = name_sci(lifer.taxon.ebird_taxon.nearest_species)
-    %br
-    %small
-      %small.tag.incidental MY
-    %small= species_link(canonical_sp)
+    %div
+      %small.tag.tag-crow.fas.fa-crow{title: "My species"}
+      %small= species_link(canonical_sp)
     - if seen_sp != canonical_sp
-      %br
-      %small
-        %small.tag.good SEEN
-      %small= species_link(seen_sp)
+      %div
+        %small.tag.tag-eye.fas.fa-eye{title: "Actually seen"}
+        %small= species_link(seen_sp)
 
   %td.place_td
     = post_link(content_tag(:time, l(lifer.card.observ_date, :format => :long), {datetime: lifer.card.observ_date.iso8601}), lifer.main_post || lifer.post, true)
