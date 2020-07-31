@@ -29,9 +29,18 @@
                       significant_params.slice(:year, :locus).merge(action: :advanced),
                       class: 'advanced'
 
-
     - if @lifelist.blank?
       %ul
         %li= t('lifelist.basic.no_species')
     - else
       = render "lifelist/ebird/#{params[:sort] || 'by_date'}"
+
+      %p
+      %a.tag-link{name: "my"}
+        %small.tag.tag-crow.fas.fa-crow{title: "My species"}
+      Lorem ipsum
+
+      %p
+        %a.tag-link{name: "seen"}
+          %small.tag.tag-eye.fas.fa-eye{title: "Actually seen"}
+        Lorem ipsum

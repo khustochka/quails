@@ -13,11 +13,13 @@
     %b= lifer.taxon.ebird_taxon.nearest_species.name_en
     = name_sci(lifer.taxon.ebird_taxon.nearest_species)
     %div
-      %small.tag.tag-crow.fas.fa-crow{title: "My species"}
+      %a.tag-link{href: "#my", data: {turbolinks: "false"}}
+        %small.tag.tag-crow.fas.fa-crow{title: "My species"}
       %small= species_link(canonical_sp)
     - if seen_sp != canonical_sp
       %div
-        %small.tag.tag-eye.fas.fa-eye{title: "Actually seen"}
+        %a.tag-link{href: "#seen", data: {turbolinks: "false"}}
+          %small.tag.tag-eye.fas.fa-eye{title: "Actually seen"}
         %small= species_link(seen_sp)
 
   %td.place_td
