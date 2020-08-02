@@ -15,16 +15,6 @@
 
 - cache(key: CacheKey.lifelist) do
 
-
-  %div.fluid-row
-
-    %div.fluid-column
-
-      %span.tag.good
-        eBird/Clements Lifelist:
-        = link_to lifelist_ebird_path do
-          = ebird_lifelist.count
-
   %div.fluid-row
 
     %div.fluid-column
@@ -85,3 +75,12 @@
       %h2
         = link_to(t('lifelist.title.gb'), list_path(locus: 'united_kingdom'))
         (#{@list_uk.total_count})
+
+
+  %div.fluid-row
+
+    %div.fluid-column
+
+      %h3
+        = link_to('eBird/Clements Lifelist', lifelist_ebird_path)
+        (#{ebird_lifelist.count})

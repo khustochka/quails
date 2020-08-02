@@ -7,10 +7,11 @@
 
 - cache significant_params.merge(admin: current_user.admin?, key: CacheKey.lifelist, locale: I18n.locale) do
 
-  %h1 Lifelist
-  %h3
-    = t(".subtitle")
-    = @lifelist.version
+  %div.header-with-subheader
+    %h1 Lifelist
+    %h3.lifelist-subtitle
+      = t(".subtitle")
+      = @lifelist.version
 
   %div{data: {turbolinks: "true"}}
     - unless @lifelist.blank?
