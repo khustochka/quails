@@ -76,7 +76,6 @@ gem 'coffee-rails'
 gem 'jquery-rails'
 #gem 'respond-js-rails'
 gem 'sassc-rails'
-gem "autoprefixer-rails"
 gem 'font-awesome-sass', "~> 5.8"
 gem "premailer-rails"
 gem 'bootstrap', '~> 4.5'
