@@ -13,7 +13,10 @@
       = t(".subtitle")
       = @lifelist.version
 
-  %div{data: {turbolinks: "true"}}
+  = render partial: "lifelist/ebird/notes"
+
+  -# Turbolinks play bad with anchor links (when going back)
+  %div{data: {turbolinks: "false"}}
     - unless @lifelist.blank?
       %ul.horiz-list.filter-list
         %strong= t('lifelist.basic.filter.sort_by')

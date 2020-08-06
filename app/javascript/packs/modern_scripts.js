@@ -2,9 +2,9 @@
 // the rest of JS to work (e.g. search autosuggest). I extracted them to a separate file so that their failure
 // will not interfere with other scripts.
 
-import Turbolinks from 'turbolinks';
+// import Turbolinks from 'turbolinks';
 
-Turbolinks.start();
+// Turbolinks.start();
 
 // import * as ActiveStorage from "activestorage";
 // import "../utils/direct_uploads.js"
