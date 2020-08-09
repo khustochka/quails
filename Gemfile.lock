@@ -129,7 +129,7 @@ GEM
     autoprefixer-rails (9.8.6.1)
       execjs
     aws-eventstream (1.1.0)
-    aws-partitions (1.349.0)
+    aws-partitions (1.353.0)
     aws-sdk-core (3.104.3)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.239.0)
@@ -138,7 +138,7 @@ GEM
     aws-sdk-kms (1.36.0)
       aws-sdk-core (~> 3, >= 3.99.0)
       aws-sigv4 (~> 1.1)
-    aws-sdk-s3 (1.75.0)
+    aws-sdk-s3 (1.76.0)
       aws-sdk-core (~> 3, >= 3.104.1)
       aws-sdk-kms (~> 1)
       aws-sigv4 (~> 1.1)
@@ -175,7 +175,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
-    concurrent-ruby (1.1.6)
+    concurrent-ruby (1.1.7)
     connection_pool (2.2.3)
     crass (1.0.6)
     css_parser (1.7.1)
@@ -310,7 +310,7 @@ GEM
     ntlm-http (0.1.1)
     pg (1.2.3)
     popper_js (1.16.0)
-    premailer (1.12.1)
+    premailer (1.13.1)
       addressable
       css_parser (>= 1.6.0)
       htmlentities (>= 4.0.0)
@@ -332,7 +332,7 @@ GEM
     puma (4.3.5)
       nio4r (~> 2.0)
     rack (2.2.3)
-    rack-mini-profiler (2.0.3)
+    rack-mini-profiler (2.0.4)
       rack (>= 1.2.0)
     rack-protection (2.0.8.1)
       rack
@@ -449,7 +449,7 @@ DEPENDENCIES
   acts_as_list
   addressable
   airbrake
-  ancestry (>= 3.0.2)
+  ancestry (~> 3.0.7)
   aws-sdk-s3
   bcrypt (~> 3.1.7)
   benchmark-ips
