@@ -1,5 +1,13 @@
 const { environment } = require('@rails/webpacker')
-const erb =  require('./loaders/erb')
 
-environment.loaders.append('erb', erb)
+const Dotenv = require('dotenv-webpack');
+
+const nodeEnv = process.env.NODE_ENV || "development"
+
+environment.plugins.prepend('Dotenv',
+    // Dotenv by default reads only .env file.
+    // Replacing this with .env.{environment}, because this is where the errbit vars are
+    new Dotenv({path: "./.env." + nodeEnv})
+)
+
 module.exports = environment
