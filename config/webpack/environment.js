@@ -1,13 +1,16 @@
 const { environment } = require('@rails/webpacker')
 
-const Dotenv = require('dotenv-webpack');
+const railsEnv = process.env.RAILS_ENV || process.env.NODE_ENV || "development"
 
-const nodeEnv = process.env.RAILS_ENV || process.env.NODE_ENV || "development"
+const webpack = require("webpack")
+require('dotenv').config({ path: "./.env." + railsEnv })
 
-environment.plugins.prepend('Dotenv',
-    // Dotenv by default reads only .env file.
-    // Replacing this with .env.{environment}, because this is where the errbit vars are
-    new Dotenv({path: "./.env." + nodeEnv})
+environment.plugins.prepend('Define',
+    new webpack.DefinePlugin({
+      "process.env.errbit_api_key": JSON.stringify(process.env.errbit_api_key),
+      "process.env.errbit_host": JSON.stringify(process.env.errbit_host),
+      ERRBIT_CONFIGURED: !!process.env.errbit_api_key && !!process.env.errbit_host
+    })
 )
 
 module.exports = environment
