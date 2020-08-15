@@ -2,7 +2,7 @@ const { environment } = require('@rails/webpacker')
 
 const Dotenv = require('dotenv-webpack');
 
-const nodeEnv = process.env.NODE_ENV || "development"
+const nodeEnv = process.env.RAILS_ENV || process.env.NODE_ENV || "development"
 
 environment.plugins.prepend('Dotenv',
     // Dotenv by default reads only .env file.
