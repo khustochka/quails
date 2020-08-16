@@ -19,8 +19,6 @@
     %small= latlon(locus)
   %td.align-right
     = locus.public_index
-    - if locus.patch
-      %small.tag.good patch
     - if locus.private_loc
       %small.tag.alert private
 

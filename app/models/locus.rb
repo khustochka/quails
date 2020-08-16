@@ -72,7 +72,7 @@ class Locus < ApplicationRecord
   end
 
   def public_locus
-    path.where(private_loc: false, patch: false).last
+    path.where(private_loc: false).last
   end
 
   private
