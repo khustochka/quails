@@ -76,10 +76,10 @@ class Locus < ApplicationRecord
   end
 
   def public_locus
-    if !private_loc && !patch
+    if !private_loc
       self
     else
-      if !parent.private_loc && !parent.patch
+      if !parent.private_loc
         parent
       else
         city || subdivision || country

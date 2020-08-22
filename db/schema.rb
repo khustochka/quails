@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_23_003348) do
+ActiveRecord::Schema.define(version: 2020_08_16_213539) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -132,6 +132,18 @@ ActiveRecord::Schema.define(version: 2020_07_23_003348) do
     t.index ["parent_id"], name: "index_ebird_taxa_on_parent_id"
   end
 
+  create_table "ioc_taxa", force: :cascade do |t|
+    t.string "rank", null: false
+    t.boolean "extinct", default: false, null: false
+    t.string "name_en"
+    t.string "name_sci", null: false
+    t.string "authority"
+    t.string "breeding_range"
+    t.bigint "ioc_species_id"
+    t.integer "index_num"
+    t.string "version", null: false
+  end
+
   create_table "legacy_species", id: :serial, force: :cascade do |t|
     t.string "code", limit: 6
     t.string "name_sci", limit: 255, null: false
@@ -190,7 +202,6 @@ ActiveRecord::Schema.define(version: 2020_07_23_003348) do
     t.float "lon"
     t.integer "public_index"
     t.string "iso_code", limit: 3
-    t.boolean "patch", default: false, null: false
     t.boolean "private_loc", default: false, null: false
     t.string "loc_type", limit: 255
     t.string "name_format", limit: 255, default: "", null: false

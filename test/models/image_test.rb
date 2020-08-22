@@ -74,13 +74,4 @@ class ImageTest < ActiveSupport::TestCase
     assert_equal brvr, img.public_locus
   end
 
-  test "image public locus should not be patch" do
-    brvr = loci(:brovary)
-    loc = create(:locus, parent_id: brvr.id, patch: true)
-    card = create(:card, locus: loc)
-    obs1 = create(:observation, card: card)
-    img = create(:image, observations: [obs1])
-    assert_equal brvr, img.public_locus
-  end
-
 end

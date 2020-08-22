@@ -1,5 +1,8 @@
 -# no_viewport is for very wide pages, e.g. with table
 - @no_viewport = true
+- @body_class = 'wider'
+
+- @js_features = [:admin_instant_search]
 
 - @page_title = 'Locations'
 
@@ -10,13 +13,7 @@
 
 = render 'admin/shortcuts' if current_user.admin?
 
-%table.neat_table.loci_index
-  %tr
-    %th Slug
-    %th Names
-    %th List
-    %th.align-center LatLon
-    %th Public #
-    %th
+= render partial: "partials/admin_instant_search", locals: {url: loci_path}
 
-  = render partial: 'locus_tree', collection: @loci.to_a, locals: {indent: 0}
+.instant_search_container
+  = render "loci/table"

@@ -1,3 +1,3 @@
 import Keypress from "keypress.js";
 
-window.keypress = Keypress;
+global.keypress = Keypress;

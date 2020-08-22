@@ -6,7 +6,19 @@ class LociController < ApplicationController
 
   # GET /locus
   def index
-    @loci = Locus.all.preload(:observations, :patch_observations).arrange
+    @term = params[:term]
+    @loci = if @term.present?
+                 Search::LociSearch.new(Locus.all, @term).find
+               else
+                 Locus.order(:id).page(params[:page])
+               end
+    @loci = @loci.preload(:observations, :patch_observations)
+    if request.xhr?
+      render partial: "loci/table", layout: false
+    else
+      render
+    end
+    # @loci = Locus.order(:id).preload(:observations, :patch_observations).page(params[:page])
   end
 
   # GET /locus/1
