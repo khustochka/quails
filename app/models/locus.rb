@@ -7,6 +7,7 @@ class Locus < ApplicationRecord
 
   has_ancestry orphan_strategy: :restrict
 
+  # NOTE: These methods are purely for presentation. They are not updated automatically if ancestry is updated!
   belongs_to :cached_parent, class_name: "Locus", optional: true
   belongs_to :city, class_name: "Locus", optional: true
   belongs_to :subdivision, class_name: "Locus", optional: true
@@ -25,8 +26,6 @@ class Locus < ApplicationRecord
 
   after_initialize :prepopulate, unless: :persisted?
   before_validation :generate_slug
-  before_save :cache_parent_loci
-  after_save :refresh_descendants_cache
 
   TYPES = %w(continent country subcountry state oblast raion city)
 
@@ -82,7 +81,7 @@ class Locus < ApplicationRecord
       if !parent.private_loc
         parent
       else
-        city || subdivision || country
+        parent.public_locus
       end
     end
   end
@@ -112,16 +111,12 @@ class Locus < ApplicationRecord
     end
   end
 
-  def cache_parent_loci
-    self.cached_parent_id = self.parent_id
-    anc = self.ancestors.to_a
-    self.city_id = anc.find {|l| l.loc_type == "city"}&.id
-    self.subdivision_id = anc.find {|l| l.loc_type.in? %w(state oblast)}&.id
-    self.country_id = anc.find {|l| l.loc_type == "country"}&.id
-  end
-
-  def refresh_descendants_cache
-
-  end
+  # def cache_parent_loci
+  #   self.cached_parent_id = self.parent_id
+  #   anc = self.ancestors.to_a
+  #   self.city_id = anc.find {|l| l.loc_type == "city"}&.id
+  #   self.subdivision_id = anc.find {|l| l.loc_type.in? %w(state oblast)}&.id
+  #   self.country_id = anc.find {|l| l.loc_type == "country"}&.id
+  # end
 
 end

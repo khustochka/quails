@@ -84,7 +84,7 @@ class LocusTest < ActiveSupport::TestCase
 
   test "#country for country should be self" do
     ukr = loci(:ukraine)
-    assert_equal 'ukraine', ukr.country.slug
+    assert_equal ukr, ukr.country
   end
 
   test "default locus full name if name format is not set" do

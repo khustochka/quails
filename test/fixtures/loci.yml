@@ -26,6 +26,7 @@
     loc_type: oblast
     name_format: ''
     ancestry: 1
+    country_id: 1
 
 - brovary:
     id: 3
@@ -41,6 +42,8 @@
     loc_type: ''
     name_format: "%self, %oblast, %country"
     ancestry: 1/2
+    subdivision_id: 2
+    country_id: 1
 
 - kiev:
     id: 7
@@ -56,6 +59,7 @@
     loc_type: city
     name_format: "%self, %country"
     ancestry: 1/2
+    country_id: 1
 
 - usa:
     id: 4
@@ -86,6 +90,7 @@
     loc_type: state
     name_format: ''
     ancestry: 4
+    country_id: 4
 
 - nyc:
     id: 6
@@ -101,3 +106,5 @@
     loc_type: city
     name_format: ''
     ancestry: 4/5
+    country_id: 4
+    subdivision_id: 5
