@@ -7,8 +7,8 @@ GIT
 
 GIT
   remote: https://github.com/rails/rails.git
-  revision: 580eefe1bc5d7241a4b2f3ee863523c5b8fd2f80
-  ref: 580eefe1bc5d7241a4b2f3ee863523c5b8fd2f80
+  revision: 99a0254effded3144bb3373f6ab1a0498609f892
+  ref: 99a0254effded3144bb3373f6ab1a0498609f892
   specs:
     actioncable (6.1.0.alpha)
       actionpack (= 6.1.0.alpha)
@@ -129,7 +129,7 @@ GEM
     autoprefixer-rails (9.8.6.3)
       execjs
     aws-eventstream (1.1.0)
-    aws-partitions (1.365.0)
+    aws-partitions (1.368.0)
     aws-sdk-core (3.105.0)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.239.0)
@@ -138,7 +138,7 @@ GEM
     aws-sdk-kms (1.37.0)
       aws-sdk-core (~> 3, >= 3.99.0)
       aws-sigv4 (~> 1.1)
-    aws-sdk-s3 (1.79.1)
+    aws-sdk-s3 (1.80.0)
       aws-sdk-core (~> 3, >= 3.104.3)
       aws-sdk-kms (~> 1)
       aws-sigv4 (~> 1.1)
@@ -304,7 +304,7 @@ GEM
     net-http-digest_auth (1.4.1)
     net-http-persistent (4.0.0)
       connection_pool (~> 2.2)
-    nio4r (2.5.2)
+    nio4r (2.5.3)
     nokogiri (1.10.10)
       mini_portile2 (~> 2.4.0)
     ntlm-http (0.1.1)
@@ -357,7 +357,7 @@ GEM
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     rbtree3 (0.6.0)
-    redis (4.2.1)
+    redis (4.2.2)
     redis-namespace (1.8.0)
       redis (>= 3.0.4)
     regexp_parser (1.7.1)
