@@ -71,7 +71,7 @@ gem "image_processing"
 
 # Assets
 gem 'webpacker', '~> 5.0'
-gem "sprockets-rails", git: "https://github.com/rails/sprockets-rails.git", ref: "c269f5e01fdffa5c41350e855183d94ff33d318a"
+gem "sprockets-rails", "~> 3.2", ">= 3.2.2"
 gem 'coffee-rails'
 gem 'jquery-rails'
 #gem 'respond-js-rails'
