@@ -6,7 +6,7 @@ end
 
 VERSION = "6.0.0"
 #gem 'rails', VERSION
-gem 'rails', git: "https://github.com/rails/rails.git", ref: "a22df786262a67a436c90c10e295b91960fd7a37"
+gem 'rails', git: "https://github.com/rails/rails.git", ref: "99a0254effded3144bb3373f6ab1a0498609f892"
 # gem "activesupport", VERSION
 # gem "actionpack",    VERSION
 # gem "actionview",    VERSION
@@ -71,7 +71,7 @@ gem "image_processing"
 
 # Assets
 gem 'webpacker', '~> 5.0'
-gem "sprockets-rails", git: "https://github.com/rails/sprockets-rails.git", ref: "c269f5e01fdffa5c41350e855183d94ff33d318a"
+gem "sprockets-rails", "~> 3.2", ">= 3.2.2"
 gem 'coffee-rails'
 gem 'jquery-rails'
 #gem 'respond-js-rails'
