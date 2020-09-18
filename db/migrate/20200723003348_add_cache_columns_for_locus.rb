@@ -1,6 +1,8 @@
 class AddCacheColumnsForLocus < ActiveRecord::Migration[6.1]
 
   class Locus < ActiveRecord::Base
+
+    has_ancestry orphan_strategy: :restrict
     def cache_parent_loci
       anc = self.ancestors.to_a
       cnt_id = anc.find {|l| l.loc_type == "country" && !l.private_loc}&.id
