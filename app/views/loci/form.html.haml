@@ -19,6 +19,16 @@
   %div
     = form.input :loc_type, label: 'Locus type', as: :select, collection: Locus::TYPES
   %div
+    .less-important These fields are presentational, they should be modified separately from ancestry
+    = form.input :cached_parent_id, collection: (Locus.where.not(id: @locus).suggestion_order),
+          input_html: {class: 'suggest-combo'}
+    = form.input :cached_city_id, collection: (Locus.where.not(id: @locus).suggestion_order),
+          input_html: {class: 'suggest-combo'}
+    = form.input :cached_subdivision_id, collection: (Locus.where.not(id: @locus).suggestion_order),
+          input_html: {class: 'suggest-combo'}
+    = form.input :cached_country_id, collection: (Locus.where.not(id: @locus).suggestion_order),
+          input_html: {class: 'suggest-combo'}
+  %div
     Full name:
     = @locus.decorated.full_name
   %div

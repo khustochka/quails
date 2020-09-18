@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_17_234655) do
+ActiveRecord::Schema.define(version: 2020_09_18_001558) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -204,7 +204,6 @@ ActiveRecord::Schema.define(version: 2020_09_17_234655) do
     t.string "iso_code", limit: 3
     t.boolean "private_loc", default: false, null: false
     t.string "loc_type", limit: 255
-    t.string "name_format", limit: 255, default: "", null: false
     t.string "ancestry", limit: 255
     t.boolean "five_mile_radius", default: false, null: false
     t.integer "ebird_location_id"
