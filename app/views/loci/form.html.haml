@@ -18,7 +18,6 @@
     = form.input :iso_code, label: 'ISO code'
   %div
     = form.input :loc_type, label: 'Locus type', as: :select, collection: Locus::TYPES
-    = form.input :name_format
   %div
     Full name:
     = @locus.decorated.full_name

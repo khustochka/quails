@@ -9,9 +9,9 @@ class Locus < ApplicationRecord
 
   # NOTE: These methods are purely for presentation. They are not updated automatically if ancestry is updated!
   belongs_to :cached_parent, class_name: "Locus", optional: true
-  belongs_to :city, class_name: "Locus", optional: true
-  belongs_to :subdivision, class_name: "Locus", optional: true
-  belongs_to :country, class_name: "Locus", optional: true
+  belongs_to :cached_city, class_name: "Locus", optional: true
+  belongs_to :cached_subdivision, class_name: "Locus", optional: true
+  belongs_to :cached_country, class_name: "Locus", optional: true
 
   has_many :cards, dependent: :restrict_with_exception
   has_many :observations, through: :cards
@@ -43,7 +43,7 @@ class Locus < ApplicationRecord
 
   # Scopes
 
-  scope :cached_ancestry_preload, -> { preload(:cached_parent, :city, :subdivision, :country) }
+  scope :cached_ancestry_preload, -> { preload(:cached_parent, :cached_city, :cached_subdivision, :cached_country) }
 
   def self.suggestion_order
     sort_by_ancestry(self.all.cached_ancestry_preload).reverse
@@ -72,6 +72,10 @@ class Locus < ApplicationRecord
     else
       subtree_ids
     end
+  end
+
+  def country
+    path.where(loc_type: 'country').first
   end
 
   def public_locus
