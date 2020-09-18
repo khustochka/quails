@@ -9,7 +9,6 @@
     iso_code: UA
     private_loc: false
     loc_type: country
-    name_format: ''
     ancestry:
 
 - kiev_obl:
@@ -24,8 +23,8 @@
     iso_code: '32'
     private_loc: false
     loc_type: oblast
-    name_format: ''
     ancestry: 1
+    cached_country_id: 1
 
 - brovary:
     id: 3
@@ -39,8 +38,9 @@
     iso_code: ''
     private_loc: false
     loc_type: ''
-    name_format: "%self, %oblast, %country"
     ancestry: 1/2
+    cached_subdivision_id: 2
+    cached_country_id: 1
 
 - kiev:
     id: 7
@@ -54,8 +54,8 @@
     iso_code: '30'
     private_loc: false
     loc_type: city
-    name_format: "%self, %country"
     ancestry: 1/2
+    cached_country_id: 1
 
 - usa:
     id: 4
@@ -69,7 +69,6 @@
     iso_code: US
     private_loc: false
     loc_type: country
-    name_format: ''
     ancestry:
 
 - new_york:
@@ -84,8 +83,8 @@
     iso_code: NY
     private_loc: false
     loc_type: state
-    name_format: ''
     ancestry: 4
+    cached_country_id: 4
 
 - nyc:
     id: 6
@@ -99,5 +98,6 @@
     iso_code: ''
     private_loc: false
     loc_type: city
-    name_format: ''
     ancestry: 4/5
+    cached_country_id: 4
+    cached_subdivision_id: 5

@@ -1,25 +1,16 @@
 class LocusFormatter < ModelFormatter
 
   def full_name
-    format = detect_name_format
-    apply_format(format)
+    [@model, @model.cached_parent, @model.cached_city, @model.cached_subdivision, @model.cached_country].
+        compact.uniq.map(&:name).join(", ")
   end
 
   def short_full_name
-    format = detect_name_format
-    if format =~ /%city/
-      format.sub!(/%city(.*)$/, "%city")
-    else
-      format.sub!(/, %country$/, "")
-    end
-    apply_format(format)
+    [@model, @model.cached_parent, @model.cached_city, @model.cached_subdivision].
+        compact.uniq.map(&:name).join(", ")
   end
 
   private
-
-  def detect_name_format
-    @model.name_format.presence || "%self, %country"
-  end
 
   def apply_format(format)
     pre_ancestors = @model.ancestors
