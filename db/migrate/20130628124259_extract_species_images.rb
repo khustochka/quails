@@ -1,14 +1,14 @@
-class Species < ActiveRecord::Base
-  has_one :species_image
-  has_one :image, through: :species_image
-end
-
-class SpeciesImage < ActiveRecord::Base
-  belongs_to :species
-  belongs_to :image
-end
-
 class ExtractSpeciesImages < ActiveRecord::Migration[4.2]
+  class Species < ActiveRecord::Base
+    has_one :species_image
+    has_one :image, through: :species_image
+  end
+
+  class SpeciesImage < ActiveRecord::Base
+    belongs_to :species
+    belongs_to :image
+  end
+
   def up
     create_table :species_images do |t|
       t.integer :species_id, null: false
