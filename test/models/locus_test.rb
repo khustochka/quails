@@ -87,10 +87,21 @@ class LocusTest < ActiveSupport::TestCase
     assert_equal ukr, ukr.country
   end
 
-  test "default locus full name using cached data" do
+  test "locus full name using cached data" do
     brvr = loci(:brovary)
     I18n.with_locale(:en) do
       assert_equal "Brovary, Kiev oblast, Ukraine", brvr.decorated.full_name
+    end
+  end
+
+  test "locus full name for patch should prepend it with parent name" do
+    ohm = create(:locus,
+        slug: "ohm", name_en: "Oak Hammock Marsh", cached_country: loci(:ukraine))
+    centre = FactoryBot.create(:locus,
+                                 slug: "centre", name_en: "Interpretive Centre", patch: true,
+                                 parent: ohm, cached_parent: ohm, cached_country: loci(:ukraine))
+    I18n.with_locale(:en) do
+      assert_equal "Oak Hammock Marsh - Interpretive Centre, Ukraine", centre.decorated.full_name
     end
   end
 
