@@ -1,0 +1,40 @@
+%table.neat_table{data: {term: @term}}
+  %tr
+    %th Id
+    %th Slug
+    %th Names
+    %th Parent
+    %th.align-center LatLon
+    %th Public #
+
+  - @loci.each do |locus|
+    %tr
+      %td
+        = locus.id
+      %td
+        = link_to locus.slug, edit_locus_path(locus.slug)
+        - if locus.iso_code.present?
+          (<b>#{locus.iso_code}</b>)
+        - if locus.loc_type.present?
+          %small.tag.good= locus.loc_type
+      %td
+        - %w(en ru uk).each do |lang|
+          %div
+            %i.less-important.monospace= "#{lang}:"
+            = term_highlight(locus.send("name_#{lang}"), @term)
+            - I18n.with_locale(lang) do
+              - loc_name = locus.decorated.full_name
+              %i.less-important.fas.fa-globe.full_name_icon{title: loc_name, "data-title": loc_name}
+      %td
+        - if locus.parent_id
+          = link_to locus.parent.name_en, edit_locus_path(locus.parent_id)
+      %td.align-center
+        %small= latlon(locus)
+      %td.align-right
+        = locus.public_index
+        - if locus.private_loc
+          %small.tag.alert private
+
+
+- if @loci.kind_of?(Kaminari::ActiveRecordRelationMethods)
+  = paginate @loci

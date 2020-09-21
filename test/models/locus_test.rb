@@ -84,36 +84,30 @@ class LocusTest < ActiveSupport::TestCase
 
   test "#country for country should be self" do
     ukr = loci(:ukraine)
-    assert_equal 'ukraine', ukr.country.slug
+    assert_equal ukr, ukr.country
   end
 
-  test "default locus full name if name format is not set" do
+  test "locus full name using cached data" do
     brvr = loci(:brovary)
-    brvr.update(name_format: "")
-    I18n.with_locale(:en) do
-      assert_equal "Brovary, Ukraine", brvr.decorated.full_name
-    end
-  end
-
-  test "use name format to show full name" do
-    brvr = loci(:brovary)
-    brvr.update(name_format: "%self, %oblast, %country")
     I18n.with_locale(:en) do
       assert_equal "Brovary, Kiev oblast, Ukraine", brvr.decorated.full_name
     end
   end
 
-  test "%parent pattern in name_format" do
-    brvr = loci(:brovary)
-    brvr.update(name_format: "%self, %parent, %country")
+  test "locus full name for patch should prepend it with parent name" do
+    ohm = create(:locus,
+        slug: "ohm", name_en: "Oak Hammock Marsh", cached_country: loci(:ukraine))
+    centre = FactoryBot.create(:locus,
+                                 slug: "centre", name_en: "Interpretive Centre", patch: true,
+                                 parent: ohm, cached_parent: ohm, cached_country: loci(:ukraine))
     I18n.with_locale(:en) do
-      assert_equal "Brovary, Kiev oblast, Ukraine", brvr.decorated.full_name
+      assert_equal "Oak Hammock Marsh - Interpretive Centre, Ukraine", centre.decorated.full_name
     end
   end
 
   test "short name should strip everything after city" do
     kiev = loci(:kiev)
-    troeshina = FactoryBot.create(:locus, slug: "troya", name_en: "Troya", parent: kiev, name_format: "%self, %city, %oblast, %country")
+    troeshina = FactoryBot.create(:locus, slug: "troya", name_en: "Troya", parent: kiev, cached_city: kiev, cached_country: loci(:ukraine))
     I18n.with_locale(:en) do
       assert_equal "Troya, Kiev City", troeshina.decorated.short_full_name
     end

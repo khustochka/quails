@@ -6,9 +6,9 @@ GIT
     livejournal (0.3.10)
 
 GIT
-  remote: https://github.com/rails/rails
-  revision: e2cc2d1dfca51d15567671f2634fc28025480c1b
-  ref: e2cc2d1dfca51d15567671f2634fc28025480c1b
+  remote: https://github.com/rails/rails.git
+  revision: 99a0254effded3144bb3373f6ab1a0498609f892
+  ref: 99a0254effded3144bb3373f6ab1a0498609f892
   specs:
     actioncable (6.1.0.alpha)
       actionpack (= 6.1.0.alpha)
@@ -80,7 +80,7 @@ GIT
       activerecord (= 6.1.0.alpha)
       activestorage (= 6.1.0.alpha)
       activesupport (= 6.1.0.alpha)
-      bundler (>= 1.3.0)
+      bundler (>= 1.15.0)
       railties (= 6.1.0.alpha)
       sprockets-rails (>= 2.0.0)
     railties (6.1.0.alpha)
@@ -89,16 +89,6 @@ GIT
       method_source
       rake (>= 0.8.7)
       thor (~> 1.0)
-
-GIT
-  remote: https://github.com/rails/sprockets-rails.git
-  revision: c269f5e01fdffa5c41350e855183d94ff33d318a
-  ref: c269f5e01fdffa5c41350e855183d94ff33d318a
-  specs:
-    sprockets-rails (3.2.1)
-      actionpack (>= 4.0)
-      activesupport (>= 4.0)
-      sprockets (>= 3.0.0)
 
 GIT
   remote: https://github.com/thoughtbot/capybara-webkit.git
@@ -115,43 +105,43 @@ GEM
     RedCloth (4.3.2)
     actionpack-page_caching (1.2.3)
       actionpack (>= 5.0.0)
-    acts_as_list (1.0.1)
+    acts_as_list (1.0.2)
       activerecord (>= 4.2)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
-    airbrake (10.0.5)
-      airbrake-ruby (~> 4.13)
-    airbrake-ruby (4.15.0)
+    airbrake (11.0.0)
+      airbrake-ruby (~> 5.0)
+    airbrake-ruby (5.0.2)
       rbtree3 (~> 0.5)
     ancestry (3.0.7)
       activerecord (>= 3.2.0)
     ansi (1.5.0)
-    autoprefixer-rails (9.8.5)
+    autoprefixer-rails (10.0.0.2)
       execjs
     aws-eventstream (1.1.0)
-    aws-partitions (1.345.0)
-    aws-sdk-core (3.104.3)
+    aws-partitions (1.373.0)
+    aws-sdk-core (3.107.0)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.239.0)
       aws-sigv4 (~> 1.1)
       jmespath (~> 1.0)
-    aws-sdk-kms (1.36.0)
+    aws-sdk-kms (1.38.0)
       aws-sdk-core (~> 3, >= 3.99.0)
       aws-sigv4 (~> 1.1)
-    aws-sdk-s3 (1.75.0)
-      aws-sdk-core (~> 3, >= 3.104.1)
+    aws-sdk-s3 (1.81.0)
+      aws-sdk-core (~> 3, >= 3.104.3)
       aws-sdk-kms (~> 1)
       aws-sigv4 (~> 1.1)
-    aws-sigv4 (1.2.1)
+    aws-sigv4 (1.2.2)
       aws-eventstream (~> 1, >= 1.0.2)
-    bcrypt (3.1.15)
-    benchmark-ips (2.8.2)
+    bcrypt (3.1.16)
+    benchmark-ips (2.8.3)
     bindex (0.8.1)
     binding_of_caller (0.8.0)
       debug_inspector (>= 0.0.1)
-    bootsnap (1.4.7)
+    bootsnap (1.4.8)
       msgpack (~> 1.0)
-    bootstrap (4.5.0)
+    bootstrap (4.5.2)
       autoprefixer-rails (>= 9.1.0)
       popper_js (>= 1.14.3, < 2)
       sassc-rails (>= 2.0.0)
@@ -175,7 +165,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
-    concurrent-ruby (1.1.6)
+    concurrent-ruby (1.1.7)
     connection_pool (2.2.3)
     crass (1.0.6)
     css_parser (1.7.1)
@@ -261,7 +251,7 @@ GEM
     listen (3.2.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
-    loofah (2.6.0)
+    loofah (2.7.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mail (2.7.1)
@@ -285,13 +275,13 @@ GEM
     mini_magick (4.10.1)
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
-    minitest (5.14.1)
+    minitest (5.14.2)
     minitest-reporters (1.4.2)
       ansi
       builder
       minitest (>= 5.0)
       ruby-progressbar
-    mongo (2.12.2)
+    mongo (2.13.0)
       bson (>= 4.8.2, < 5.0.0)
     mongoid (7.1.2)
       activemodel (>= 5.1, < 6.1)
@@ -304,13 +294,13 @@ GEM
     net-http-digest_auth (1.4.1)
     net-http-persistent (4.0.0)
       connection_pool (~> 2.2)
-    nio4r (2.5.2)
+    nio4r (2.5.4)
     nokogiri (1.10.10)
       mini_portile2 (~> 2.4.0)
     ntlm-http (0.1.1)
     pg (1.2.3)
     popper_js (1.16.0)
-    premailer (1.12.1)
+    premailer (1.13.1)
       addressable
       css_parser (>= 1.6.0)
       htmlentities (>= 4.0.0)
@@ -328,13 +318,13 @@ GEM
     pry-stack_explorer (0.5.1)
       binding_of_caller (~> 0.7)
       pry (~> 0.13)
-    public_suffix (4.0.5)
-    puma (4.3.5)
+    public_suffix (4.0.6)
+    puma (5.0.0)
       nio4r (~> 2.0)
     rack (2.2.3)
-    rack-mini-profiler (2.0.2)
+    rack-mini-profiler (2.1.0)
       rack (>= 1.2.0)
-    rack-protection (2.0.8.1)
+    rack-protection (2.1.0)
       rack
     rack-proxy (0.6.5)
       rack
@@ -357,8 +347,8 @@ GEM
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     rbtree3 (0.6.0)
-    redis (4.2.1)
-    redis-namespace (1.7.0)
+    redis (4.2.2)
+    redis-namespace (1.8.0)
       redis (>= 3.0.4)
     regexp_parser (1.7.1)
     resque (2.0.0)
@@ -373,7 +363,7 @@ GEM
     ruby-vips (2.0.17)
       ffi (~> 1.9)
     ruby2_keywords (0.0.2)
-    ruby_parser (3.14.2)
+    ruby_parser (3.15.0)
       sexp_processor (~> 4.9)
     rubyzip (2.3.0)
     sassc (2.4.0)
@@ -388,24 +378,28 @@ GEM
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
     semantic_range (2.3.0)
-    sexp_processor (4.15.0)
+    sexp_processor (4.15.1)
     simple_form (5.0.2)
       actionpack (>= 5.0)
       activemodel (>= 5.0)
-    simplecov (0.18.5)
+    simplecov (0.19.0)
       docile (~> 1.1)
       simplecov-html (~> 0.11)
     simplecov-html (0.12.2)
     simplecov-teamcity-summary (1.0.0)
       simplecov
-    sinatra (2.0.8.1)
+    sinatra (2.1.0)
       mustermann (~> 1.0)
-      rack (~> 2.0)
-      rack-protection (= 2.0.8.1)
+      rack (~> 2.2)
+      rack-protection (= 2.1.0)
       tilt (~> 2.0)
     sprockets (4.0.2)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
+    sprockets-rails (3.2.2)
+      actionpack (>= 4.0)
+      activesupport (>= 4.0)
+      sprockets (>= 3.0.0)
     temple (0.8.2)
     thor (1.0.1)
     tilt (2.0.10)
@@ -427,7 +421,7 @@ GEM
       nokogiri (~> 1.6)
       rubyzip (>= 1.3.0)
       selenium-webdriver (>= 3.0, < 4.0)
-    webpacker (5.1.1)
+    webpacker (5.2.1)
       activesupport (>= 5.2)
       rack-proxy (>= 0.6.1)
       railties (>= 5.2)
@@ -449,8 +443,7 @@ DEPENDENCIES
   acts_as_list
   addressable
   airbrake
-  ancestry (>= 3.0.2)
-  autoprefixer-rails
+  ancestry (~> 3.0.7)
   aws-sdk-s3
   bcrypt (~> 3.1.7)
   benchmark-ips
@@ -501,7 +494,7 @@ DEPENDENCIES
   simple_form
   simplecov
   simplecov-teamcity-summary
-  sprockets-rails!
+  sprockets-rails (~> 3.2, >= 3.2.2)
   uglifier (>= 1.3.0)
   web-console (>= 3.3.0)
   webdrivers

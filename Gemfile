@@ -6,7 +6,7 @@ end
 
 VERSION = "6.0.0"
 #gem 'rails', VERSION
-gem 'rails', git: "https://github.com/rails/rails", ref: "e2cc2d1dfca51d15567671f2634fc28025480c1b"
+gem 'rails', git: "https://github.com/rails/rails.git", ref: "99a0254effded3144bb3373f6ab1a0498609f892"
 # gem "activesupport", VERSION
 # gem "actionpack",    VERSION
 # gem "actionview",    VERSION
@@ -38,7 +38,7 @@ gem "actionpack-page_caching"
 gem "rails-controller-testing"
 
 # AR utils
-gem 'ancestry', ">= 3.0.2"
+gem 'ancestry', "~> 3.0.7"
 gem "acts_as_list"
 
 # Templating
@@ -71,12 +71,11 @@ gem "image_processing"
 
 # Assets
 gem 'webpacker', '~> 5.0'
-gem "sprockets-rails", git: "https://github.com/rails/sprockets-rails.git", ref: "c269f5e01fdffa5c41350e855183d94ff33d318a"
+gem "sprockets-rails", "~> 3.2", ">= 3.2.2"
 gem 'coffee-rails'
 gem 'jquery-rails'
 #gem 'respond-js-rails'
 gem 'sassc-rails'
-gem "autoprefixer-rails"
 gem 'font-awesome-sass', "~> 5.8"
 gem "premailer-rails"
 gem 'bootstrap', '~> 4.5'

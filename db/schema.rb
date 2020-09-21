@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_29_014740) do
+ActiveRecord::Schema.define(version: 2020_09_19_031235) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -202,13 +202,16 @@ ActiveRecord::Schema.define(version: 2020_07_29_014740) do
     t.float "lon"
     t.integer "public_index"
     t.string "iso_code", limit: 3
-    t.boolean "patch", default: false, null: false
     t.boolean "private_loc", default: false, null: false
     t.string "loc_type", limit: 255
-    t.string "name_format", limit: 255, default: "", null: false
     t.string "ancestry", limit: 255
     t.boolean "five_mile_radius", default: false, null: false
     t.integer "ebird_location_id"
+    t.bigint "cached_parent_id"
+    t.bigint "cached_city_id"
+    t.bigint "cached_subdivision_id"
+    t.bigint "cached_country_id"
+    t.boolean "patch", default: false, null: false
     t.index ["ancestry"], name: "index_loci_on_ancestry"
     t.index ["slug"], name: "index_loci_on_slug", unique: true
   end

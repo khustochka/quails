@@ -18,7 +18,16 @@
     = form.input :iso_code, label: 'ISO code'
   %div
     = form.input :loc_type, label: 'Locus type', as: :select, collection: Locus::TYPES
-    = form.input :name_format
+  %div
+    .less-important These fields are presentational, they should be modified separately from ancestry
+    = form.input :cached_parent_id, collection: (Locus.where.not(id: @locus).suggestion_order),
+          input_html: {class: 'suggest-combo'}
+    = form.input :cached_city_id, collection: (Locus.where.not(id: @locus).suggestion_order),
+          input_html: {class: 'suggest-combo'}
+    = form.input :cached_subdivision_id, collection: (Locus.where.not(id: @locus).suggestion_order),
+          input_html: {class: 'suggest-combo'}
+    = form.input :cached_country_id, collection: (Locus.where.not(id: @locus).suggestion_order),
+          input_html: {class: 'suggest-combo'}
   %div
     Full name:
     = @locus.decorated.full_name
@@ -32,8 +41,8 @@
 
     = form.input :public_index, input_html: { size: 10, type: :text }
     = form.input :private_loc
-    = form.input :patch
     = form.input :five_mile_radius, label: "5MR"
+    = form.input :patch
     = form.input :ebird_location_id, label: 'eBird Location', collection: EbirdLocation.all,
           input_html: {class: 'suggest-combo'}
 

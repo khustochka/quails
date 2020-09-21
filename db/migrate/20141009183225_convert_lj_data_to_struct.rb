@@ -1,4 +1,4 @@
-class ConvertLjDataToStruct < ActiveRecord::Migration[4.2]
+class ConvertLJDataToStruct < ActiveRecord::Migration[4.2]
   def up
     rename_column :posts, :lj_data, :lj_data_old
     add_column :posts, :lj_data, :text
