@@ -13,10 +13,9 @@
       = t(".subtitle")
       = @lifelist.version
 
-  = render partial: "lifelist/ebird/notes"
+  = render partial: "lifelist/ebird/preface"
 
-  -# Turbolinks play bad with anchor links (when going back)
-  %div{data: {turbolinks: "false"}}
+  %div
     - unless @lifelist.blank?
       %ul.horiz-list.filter-list
         %strong= t('lifelist.basic.filter.sort_by')
@@ -39,12 +38,4 @@
     - else
       = render "lifelist/ebird/#{params[:sort] || 'by_date'}"
 
-      %p
-      %a.tag-link{name: "my"}
-        %small.tag.tag-crow.fas.fa-crow{title: "My species"}
-      Lorem ipsum
-
-      %p
-        %a.tag-link{name: "seen"}
-          %small.tag.tag-eye.fas.fa-eye{title: "Actually seen"}
-        Lorem ipsum
+      = render "lifelist/ebird/footnotes"
