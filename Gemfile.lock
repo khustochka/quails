@@ -113,14 +113,14 @@ GEM
       airbrake-ruby (~> 5.0)
     airbrake-ruby (5.0.2)
       rbtree3 (~> 0.5)
-    ancestry (3.0.7)
-      activerecord (>= 3.2.0)
+    ancestry (3.2.1)
+      activerecord (>= 4.2.0)
     ansi (1.5.0)
     autoprefixer-rails (10.0.0.2)
       execjs
     aws-eventstream (1.1.0)
-    aws-partitions (1.375.0)
-    aws-sdk-core (3.107.0)
+    aws-partitions (1.376.0)
+    aws-sdk-core (3.108.0)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.239.0)
       aws-sigv4 (~> 1.1)
@@ -128,7 +128,7 @@ GEM
     aws-sdk-kms (1.38.0)
       aws-sdk-core (~> 3, >= 3.99.0)
       aws-sigv4 (~> 1.1)
-    aws-sdk-s3 (1.81.0)
+    aws-sdk-s3 (1.81.1)
       aws-sdk-core (~> 3, >= 3.104.3)
       aws-sdk-kms (~> 1)
       aws-sigv4 (~> 1.1)
@@ -443,7 +443,7 @@ DEPENDENCIES
   acts_as_list
   addressable
   airbrake
-  ancestry (~> 3.0.7)
+  ancestry (>= 3.2.1)
   aws-sdk-s3
   bcrypt (~> 3.1.7)
   benchmark-ips
