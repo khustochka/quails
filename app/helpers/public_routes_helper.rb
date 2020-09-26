@@ -1,5 +1,6 @@
 module PublicRoutesHelper
 
+  private
   def localize_url(string_or_obj, args = {})
     new_args = args.merge({id: string_or_obj})
     case string_or_obj

@@ -1,4 +1,6 @@
 module PublicPaths
+  include PublicRoutesHelper
+
   def self.included(klass)
     klass.helper_method(
         :root_path, :root_url
@@ -6,8 +8,6 @@ module PublicPaths
   end
 
   private
-
-  include PublicRoutesHelper
 
   def root_path(*args)
     blog_path(*args)
