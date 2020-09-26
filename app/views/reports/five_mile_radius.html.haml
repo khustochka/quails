@@ -1,0 +1,39 @@
+- @page_title = '5MR Review'
+
+%h1= reports_page_header
+
+%p
+  Data is refreshed daily. To refresh it manually, run
+  %code
+    MYLOC=&lt;lat&gt;,&lt;lon&gt; bin/rake five_mr:refresh
+
+%h2 5MR Candidates
+
+%table.neat_table
+  %tr
+    %th
+      Name
+    %th
+      Distance (miles)
+  - @candidates_5mr.each do |candidate|
+    %tr
+      %td
+        = link_to candidate[:locus].name_en, edit_locus_path(candidate[:locus])
+      %td
+        = "%.3f" % candidate[:distance]
+
+
+%h2 Candidates for removal from 5MR
+
+%table.neat_table
+  %tr
+    %th
+      Name
+    %th
+      Distance (miles )
+  - @candidates_removal.each do |candidate|
+    %tr
+      %td
+        = link_to candidate[:locus].name_en, edit_locus_path(candidate[:locus])
+      %td
+        = "%.3f" % candidate[:distance]

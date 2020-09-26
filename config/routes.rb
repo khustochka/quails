@@ -284,7 +284,8 @@ Rails.application.routes.draw do
 
   get '/reports', controller: :reports, action: :index, as: :reports
 
-  reports_actions = %w(environ insights more_than_year topicture this_day uptoday compare by_countries stats voices charts month_targets)
+  reports_actions = %w(environ insights more_than_year topicture this_day uptoday compare by_countries
+                        stats voices charts month_targets five_mile_radius)
   reports_actions.each do |name|
     get "/reports/#{name}", controller: :reports, action: name
   end
