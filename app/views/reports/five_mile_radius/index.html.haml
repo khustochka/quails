@@ -9,31 +9,44 @@
 
 %h2 5MR Candidates
 
-%table.neat_table
-  %tr
-    %th
-      Name
-    %th
-      Distance (miles)
-  - @candidates_5mr.each do |candidate|
+%form{action: reports_five_mile_radius_path, method: :post}
+  %table.neat_table
     %tr
-      %td
-        = link_to candidate[:locus].name_en, edit_locus_path(candidate[:locus])
-      %td
-        = "%.3f" % candidate[:distance]
+      %th
+        Name
+      %th
+        Distance (miles)
+      %th
+        Make 5MR
+    - @candidates_5mr.each do |candidate|
+      %tr
+        %td
+          = link_to candidate[:locus].name_en, edit_locus_path(candidate[:locus])
+        %td
+          = "%.3f" % candidate[:distance]
+        %td
+          = check_box_tag("locus_id[]", candidate[:locus].id)
+  = submit_tag("Confirm")
 
 
 %h2 Candidates for removal from 5MR
 
-%table.neat_table
-  %tr
-    %th
-      Name
-    %th
-      Distance (miles )
-  - @candidates_removal.each do |candidate|
+%form{action: reports_five_mile_radius_path, method: :post}
+  %table.neat_table
     %tr
-      %td
-        = link_to candidate[:locus].name_en, edit_locus_path(candidate[:locus])
-      %td
-        = "%.3f" % candidate[:distance]
+      %th
+        Name
+      %th
+        Distance (miles )
+      %th
+        Drop 5MR
+    - @candidates_removal.each do |candidate|
+      %tr
+        %td
+          = link_to candidate[:locus].name_en, edit_locus_path(candidate[:locus])
+        %td
+          = "%.3f" % candidate[:distance]
+        %td
+          = check_box_tag("locus_id[]", candidate[:locus].id)
+
+  = submit_tag("Remove")
