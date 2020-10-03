@@ -102,7 +102,6 @@ group :development do
   gem 'web-console', '>= 3.3.0'
   gem "letter_opener"
   gem "letter_opener_web"
-  gem "listen"
 end
 
 

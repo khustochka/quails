@@ -248,9 +248,6 @@ GEM
       actionmailer (>= 3.2)
       letter_opener (~> 1.0)
       railties (>= 3.2)
-    listen (3.2.1)
-      rb-fsevent (~> 0.10, >= 0.10.3)
-      rb-inotify (~> 0.9, >= 0.9.10)
     loofah (2.7.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -343,9 +340,6 @@ GEM
       i18n (>= 0.7, < 2)
       railties (>= 6.0.0, < 7)
     rake (13.0.1)
-    rb-fsevent (0.10.4)
-    rb-inotify (0.10.1)
-      ffi (~> 1.0)
     rbtree3 (0.6.0)
     redis (4.2.2)
     redis-namespace (1.8.0)
@@ -469,7 +463,6 @@ DEPENDENCIES
   launchy
   letter_opener
   letter_opener_web
-  listen
   livejournal!
   mechanize
   minitest-reporters
