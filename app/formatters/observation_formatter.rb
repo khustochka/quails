@@ -3,7 +3,7 @@ class ObservationFormatter < ModelFormatter
   def species_str
     str = [["<b>#{@model.taxon.name}</b>", @model.taxon.name_sci].join(' '), @model.quantity, @model.notes].
         delete_if(&:blank?).join(', ')
-    str += " <small class='voice tag'>voice</small>" if @model.voice
+    str << " <small class='voice tag'>voice</small>" if @model.voice
     str.html_safe
   end
 

@@ -5,10 +5,8 @@ module App2::LinksHelper
     html_options2 = (html_options.dup || {}).stringify_keys!
     klass = html_options2["class"]
     case klass
-    when String
-      html_options2["class"] += -" external"
-    when Array
-      html_options2["class"] << -"external"
+    when String, Array
+      html_options2["class"] << -" external"
     when NilClass
       html_options2["class"] = -"external"
     end
