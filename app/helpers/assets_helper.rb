@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module AssetsHelper
 
   GMAP_API_URL = -"//maps.googleapis.com/maps/api/js?key=#{ENV["quails_google_maps_api_key"]}&v=3.37"

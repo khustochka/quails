@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module VideoEmbedder
 
   def video_embed(term, size = :large)

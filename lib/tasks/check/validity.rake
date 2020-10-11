@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 desc 'Service tasks'
 namespace :check do
 

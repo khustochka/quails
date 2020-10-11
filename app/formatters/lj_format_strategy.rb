@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class LJFormatStrategy < FormattingStrategy
   include VideoEmbedder
 
@@ -42,7 +44,7 @@ class LJFormatStrategy < FormattingStrategy
   def species_tag(word, term, en)
     sp = @species[term]
     if sp
-      str = %Q(<b title="#{sp.name_sci}">#{word or (en ? sp.name_en : sp.name_sci)}</b>)
+      str = String.new %Q(<b title="#{sp.name_sci}">#{word or (en ? sp.name_en : sp.name_sci)}</b>)
       #%Q("(sp_link). #{word || sp.name_sci}":#{sp.code})
       if en && word.present?
         str << " (#{sp.name_en})"
@@ -54,7 +56,7 @@ class LJFormatStrategy < FormattingStrategy
   end
 
   def post_scriptum
-    result = ''
+    result = String.new ''
 
     images = @metadata[:images]
     if images.any?

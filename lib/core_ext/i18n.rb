@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'core_ext/i18n/config'
 
 module I18n

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MyObservation < Observation
 
   # FIXME: no need in separate class, or rename

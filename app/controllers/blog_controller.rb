@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class BlogController < ApplicationController
 
   before_action only: [:home, :year, :month] do

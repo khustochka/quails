@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# frozen_string_literal: true
 
 # Context-based month name and day name switching for Russian
 #

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CommentFormatter < ModelFormatter
 
   include ActionView::Helpers::SanitizeHelper

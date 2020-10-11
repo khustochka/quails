@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SiteFormatStrategy < FormattingStrategy
   include VideoEmbedder
 
@@ -34,8 +36,7 @@ class SiteFormatStrategy < FormattingStrategy
     @only_path = only_path?
     sp = @species[term]
     if sp
-      #str = %Q("(sp_link). #{word or (en ? sp.name_en : sp.name_sci)}":#{sp.code_or_slug})
-      str = species_link(sp, word.presence || (en ? sp.name_en : sp.name_sci))
+      str = String.new species_link(sp, word.presence || (en ? sp.name_en : sp.name_sci))
       if en && word.present?
         str << " (#{sp.name_en})"
       end
@@ -46,7 +47,7 @@ class SiteFormatStrategy < FormattingStrategy
   end
 
   def post_scriptum
-    result = ''
+    result = String.new ''
     if @posts.any?
       result << "\n"
 

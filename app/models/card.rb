@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Card < ApplicationRecord
 
   attribute :ebird_id, :nullable_string

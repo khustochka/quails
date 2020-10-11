@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ErrorsController < ApplicationController
 
   caches_page :show, gzip: true, unless: -> { current_user.admin? || has_trust_cookie? }

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :deflicker do
 
   desc "Fetch entries from three livejournals"

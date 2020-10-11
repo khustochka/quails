@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class YoutubeVideo < Struct.new(:video_id, :width, :height)
 
   def to_partial_path

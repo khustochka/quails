@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class EbirdTaxon < ApplicationRecord
 
   localized_attr :name

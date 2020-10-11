@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SpeciesController < ApplicationController
 
   administrative :except => [:gallery, :show, :search]

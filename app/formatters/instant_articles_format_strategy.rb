@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class InstantArticlesFormatStrategy < FeedFormatStrategy
 
   def img_tag(term)
@@ -17,7 +19,7 @@ class InstantArticlesFormatStrategy < FeedFormatStrategy
   end
 
   def post_scriptum
-    result = ""
+    result = String.new ""
 
     images = @metadata[:images]
     if images.any?

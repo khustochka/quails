@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :images do
 
   namespace :dump do

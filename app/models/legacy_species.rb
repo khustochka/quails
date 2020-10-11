@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'species_parameterizer'
 
 class LegacySpecies < ApplicationRecord

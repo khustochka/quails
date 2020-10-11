@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module JustifyHelper
   BORDER = 4
   INCREASE_ENABLED = true

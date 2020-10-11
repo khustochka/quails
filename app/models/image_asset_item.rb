@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ImageAssetItem < Struct.new(:type, :width, :height, :url)
 
   TYPE_TO_STR = {local: "l", flickr: "f", youtube: "y", amazon: "a"} # "a" not used

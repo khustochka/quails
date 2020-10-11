@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module FullPathMethods
   def default_url_options
     {host: @metadata[:host], port: extract_port, protocol: "https"}

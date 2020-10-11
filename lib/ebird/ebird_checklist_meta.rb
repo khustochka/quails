@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class EbirdChecklistMeta
   # Represents imported checklist row
   include ActiveModel::Model

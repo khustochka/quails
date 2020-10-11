@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class LocusFormatter < ModelFormatter
 
   def full_name

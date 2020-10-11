@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class LiferObservation < Observation
 
   default_scope do

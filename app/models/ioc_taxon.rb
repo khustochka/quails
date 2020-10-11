@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class IocTaxon < ApplicationRecord
   SPECIES_RANK = -"Species"
   SUBSPECIES_RANK = -"ssp"

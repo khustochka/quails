@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Customize RedCloth: no_span_caps by default, and use Russian double quotes
 module RedCloth::Formatters::HTML
 

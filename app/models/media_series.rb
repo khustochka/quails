@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MediaSeries < ApplicationRecord
 
   has_many :media

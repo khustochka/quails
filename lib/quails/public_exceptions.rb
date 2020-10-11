@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Quails
   class PublicExceptions
     attr_accessor :public_path

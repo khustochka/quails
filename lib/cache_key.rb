@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CacheKey
 
   def initialize(topic)

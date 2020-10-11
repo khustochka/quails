@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # if you ever need to restore DB
 # use Rake::TestTask.new('test:flickr' => 'test:prepare')
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :tax do
 
   desc "Map all observations from legacy species to new taxa"

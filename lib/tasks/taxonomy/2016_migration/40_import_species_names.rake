@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :tax do
 
   desc "Move legacy species names/codes to the new species"

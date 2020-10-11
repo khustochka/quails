@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CommentMailer < ActionMailer::Base
 
   default from: ENV['quails_comment_sender']

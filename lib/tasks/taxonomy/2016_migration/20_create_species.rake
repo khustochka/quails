@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :tax do
 
   desc "Creates species from taxa"

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 desc "import Manitoba checklist"
 task :mb_checklist => :environment do
 

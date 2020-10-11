@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Lifelist
   class Base < Factory
 

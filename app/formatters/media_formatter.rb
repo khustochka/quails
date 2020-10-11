@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MediaFormatter < ModelFormatter
 
   include ActionView::Helpers::SanitizeHelper
@@ -16,7 +18,7 @@ class MediaFormatter < ModelFormatter
   end
 
   def meta_description
-    descr = "#{I18n.t("#{@model.class.to_s.tableize}.taken_clause", title: title)} #{l(@model.observ_date, format: :long)}, #{public_locus_full_name}."
+    descr = String.new "#{I18n.t("#{@model.class.to_s.tableize}.taken_clause", title: title)} #{l(@model.observ_date, format: :long)}, #{public_locus_full_name}."
     if I18n.russian_locale? && description.present?
       descr << "\n"
       descr << strip_tags(description)

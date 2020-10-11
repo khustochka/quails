@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SpeciesHelper
 
   STATIC_MAP_CENTER = {

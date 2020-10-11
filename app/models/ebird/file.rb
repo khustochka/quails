@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Ebird::File < ApplicationRecord
 
   STATUSES = %w( NEW POSTED REMOVED INVALID )

@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# -- encoding: utf-8 --
-
 require 'test_helper'
 
 class FormattersTest < ActionDispatch::IntegrationTest
@@ -19,6 +17,12 @@ class FormattersTest < ActionDispatch::IntegrationTest
   test "Post with species link" do
     post = build(:post, text: "This is a {{Wryneck|jyntor}}")
     assert_equal "<p>This is a <a class=\"sp_link\" href=\"/species/Jynx_torquilla\">Wryneck</a></p>",
+                 post.decorated.for_site.text
+  end
+
+  test "Post with species link and English translation" do
+    post = build(:post, text: "This is a {{Вертишейка|jyntor|en}}")
+    assert_equal "<p>This is a <a class=\"sp_link\" href=\"/species/Jynx_torquilla\">Вертишейка</a> (Wryneck)</p>",
                  post.decorated.for_site.text
   end
 

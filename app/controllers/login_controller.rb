@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class LoginController < ApplicationController
 
   # User can get to login page in 3 ways:

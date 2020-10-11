@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SecurityConcern
 
   def self.included(klass)

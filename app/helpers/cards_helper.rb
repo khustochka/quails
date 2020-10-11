@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module CardsHelper
 
   #FAST_LOCI = %w(geologorozvidka kiev brovary les_i_pole)

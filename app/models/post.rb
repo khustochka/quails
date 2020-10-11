@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Post < ApplicationRecord
 
   class LJData < Struct.new(:post_id, :url)

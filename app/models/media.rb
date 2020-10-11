@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Media < ApplicationRecord
   has_and_belongs_to_many :observations
 

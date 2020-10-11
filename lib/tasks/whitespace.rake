@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # See https://gist.github.com/NARKOZ/1179915
 # requires GNU sed
 namespace :whitespace do

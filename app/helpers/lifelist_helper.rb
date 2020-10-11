@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module LifelistHelper
   def sorted_list_partial(sort)
     case sort

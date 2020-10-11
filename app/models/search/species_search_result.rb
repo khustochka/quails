@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Search
 
   class SpeciesSearchResult < Struct.new(:name_sci, :name)

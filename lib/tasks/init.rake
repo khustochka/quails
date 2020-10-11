@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 desc 'Init application. Copy necessary configuration files'
 multitask :init => ["config/database.yml"]
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CommentScreened
   attr_reader :path, :id
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 desc "Flickraw tasks"
 namespace :flickraw do
 

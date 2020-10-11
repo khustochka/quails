@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Deflicker
   class Flicker
     include Mongoid::Document

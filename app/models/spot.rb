@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Spot < ApplicationRecord
 
   EXACTNESS = %w(precise exact rough)

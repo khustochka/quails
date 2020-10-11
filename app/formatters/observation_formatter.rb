@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ObservationFormatter < ModelFormatter
 
   def species_str

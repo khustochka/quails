@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CountriesController < ApplicationController
 
   def gallery

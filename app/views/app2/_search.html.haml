@@ -1,3 +1,4 @@
+-# frozen_string_literal: true
 .search-section{data: {search_url: search_localized_species_index_path(format: :json), fallback_text: t("partials.search.fallback_text")}}
   = form_tag search.form_url, method: :get, authenticity_token: false do
     .d-flex.justify-content-end

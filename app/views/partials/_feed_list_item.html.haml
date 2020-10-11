@@ -1,3 +1,4 @@
+-# frozen_string_literal: true
 %li.feed_li
   - feed_url = url_for(:controller => :feeds, :action => @feed, :format => :xml)
   = link_to(feed_url) do

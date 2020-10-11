@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :tax do
 
   desc "Import ebird taxa to taxa and ebird_taxa tables"

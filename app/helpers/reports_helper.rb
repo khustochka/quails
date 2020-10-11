@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ReportsHelper
   def reports_page_header
     capture do

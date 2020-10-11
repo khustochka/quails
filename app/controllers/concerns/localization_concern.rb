@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module LocalizationConcern
   def self.included(klass)
     klass.before_action :set_locale

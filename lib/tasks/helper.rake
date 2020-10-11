@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :helper do
 
   task :load_locals do

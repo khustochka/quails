@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 desc 'DB restore data tasks'
 namespace :db do
 

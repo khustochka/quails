@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :ebird do
   namespace :location do
 

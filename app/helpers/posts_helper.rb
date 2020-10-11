@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module PostsHelper
 
   def post_link(text, blogpost, show_text_if_no_post = false)

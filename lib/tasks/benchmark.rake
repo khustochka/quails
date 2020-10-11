@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 desc 'Quick benchmark'
 task :benchmark => :environment do
   require 'benchmark/ips'

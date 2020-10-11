@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "ebird/ebird_client"
 
 class Ebird::ImportsController < ApplicationController

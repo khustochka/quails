@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Enumerable
   def fast_index_by
     if block_given?

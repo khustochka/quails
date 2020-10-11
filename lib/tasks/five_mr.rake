@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :five_mr do
 
   desc "Detect 5MR candidates"

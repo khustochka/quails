@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class GeoDistance
   # Haversine formula
   # https://www.movable-type.co.uk/scripts/latlong.html

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class VideosController < ApplicationController
   find_record by: :slug, before: [:show, :edit, :update, :destroy, :map_edit, :patch]
 

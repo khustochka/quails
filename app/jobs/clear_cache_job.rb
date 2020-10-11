@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ClearCacheJob < ApplicationJob
   queue_as :default
 

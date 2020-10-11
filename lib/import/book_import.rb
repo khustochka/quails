@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class BookImport
   def self.parse_list(io)
 

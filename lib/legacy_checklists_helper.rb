@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module LegacyChecklistsHelper
 
   def avibase_list_url(region, list = 'clements', lang = 'EN')

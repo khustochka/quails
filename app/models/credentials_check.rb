@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module CredentialsCheck
 
   def self.check_credentials(username, password)

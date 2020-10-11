@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :tax do
 
   desc "Restore mapping of legacy species to species saved in the YAML file"

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'service_code/service_code'
 
 class GoogleAnalytics < ServiceCode

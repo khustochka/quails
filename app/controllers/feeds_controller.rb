@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FeedsController < ApplicationController
 
   caches_page :blog, :photos, :sitemap, gzip: true

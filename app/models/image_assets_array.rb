@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ImageAssetsArray < Array
   def self.dump(arr)
     arr.map do |el|

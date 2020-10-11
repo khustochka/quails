@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module App2::LinksHelper
 
   #FIXME: This method is not exactly compatible with link_to. No block argument!

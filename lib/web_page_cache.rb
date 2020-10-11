@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class WebPageCache < ActiveSupport::Cache::FileStore
 
   # Simply caching web pages in FileStore

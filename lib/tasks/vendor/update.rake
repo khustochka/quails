@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 desc 'Update vendor assets'
 namespace :vendor do
 

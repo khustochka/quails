@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Thumbnail
 
   class Title < Struct.new(:object, :to_partial_path)

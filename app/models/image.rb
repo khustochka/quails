@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Image < Media
   include DecoratedModel
 
