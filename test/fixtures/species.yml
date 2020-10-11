@@ -7,6 +7,15 @@ pasdom:
   order: Passeriformes
   family: Passeridae
 
+# This is for sorting test
+passan:
+  name_sci: "Passerculus sandwichensis"
+  name_en: "Savannah Sparrow"
+  index_num: 110
+  code: passan
+  order: Passeriformes
+  family: Passerellidae
+
 hirrus:
   name_sci: "Hirundo rustica"
   name_en: "Barn Swallow"

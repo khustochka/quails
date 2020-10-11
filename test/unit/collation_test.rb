@@ -3,9 +3,9 @@
 require 'test_helper'
 
 class CollationTest < ActiveSupport::TestCase
-
-  test 'collation should be C' do
-    assert_match /^C/, ActiveRecord::Base.connection.select_rows("SHOW LC_COLLATE")[0][0]
+  test 'proper sorting (collation)' do
+    sps = Species.order(:name_sci).where("name_sci LIKE 'Passer%'")
+    correct = sps.index { |s| s.name_sci == 'Passer domesticus' } < sps.index { |s| s.name_sci == 'Passerculus sandwichensis' }
+    assert correct, 'Incorrect species sorting order (collation should be "C")'
   end
-
 end
