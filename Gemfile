@@ -97,6 +97,7 @@ gem "mongoid"
 gem "kaminari-mongoid"
 
 group :development do
+  gem "listen" # required for tracking file chnages in development
   gem 'nokogiri', platforms: [:ruby, :mingw], require: false
   gem 'benchmark-ips'
   # gem "bundler-audit", require: false
