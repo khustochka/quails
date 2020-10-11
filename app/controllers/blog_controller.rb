@@ -1,6 +1,6 @@
 class BlogController < ApplicationController
 
-  before_action :only => [:home, :year, :month] do
+  before_action only: [:home, :year, :month] do
     @feed = 'blog'
   end
 

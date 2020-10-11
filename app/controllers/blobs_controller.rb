@@ -12,8 +12,8 @@ class BlobsController < ApplicationController
   def show
     blob = ActiveStorage::Blob.find_signed!(params[:id])
     render json: blob.as_json(only: [:filename, :metadata], methods: [:signed_id]).merge(
-        {src: rails_blob_url(blob), url: blob_url(blob.signed_id)}
-    )
+          {src: rails_blob_url(blob), url: blob_url(blob.signed_id)}
+      )
   end
 
 end

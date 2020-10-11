@@ -1,0 +1,11 @@
+Style/StringLiterals:
+  Enabled: false
+
+Bundler/OrderedGems:
+  Enabled: false
+
+Layout/SpaceInsideHashLiteralBraces:
+  Enabled: false
+
+Layout/DotPosition:
+  Enabled: false

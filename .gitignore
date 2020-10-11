@@ -13,6 +13,7 @@
 !.postcssrc.yml
 !.browserslistrc
 !.dockerignore
+!.rubocop.yml
 .bundle
 data/checklists*/
 data/MyEBirdData*
