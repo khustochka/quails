@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 if ENV['MAILTRAP_API_TOKEN']
   require 'json'
   require "net/http"

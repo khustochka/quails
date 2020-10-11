@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This setting makes remote forms work with JavaScript off.
 # It is false by default to make remote forms work when cached.
 

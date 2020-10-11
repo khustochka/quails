@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :locus do
     sequence(:slug) {|n| "locus_#{(n % 26 + 65).chr}" }

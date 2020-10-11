@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CommentMailerPreview < ActionMailer::Preview
 
   def notify_parent_author

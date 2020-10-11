@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :card do
     locus_id { Locus.find_by!(slug: 'brovary').id }

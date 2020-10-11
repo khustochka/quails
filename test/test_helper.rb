@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 if ENV['COVERAGE'] != nil && ENV['COVERAGE'] != "false" && ENV['COVERAGE'] != ""
   begin
     require 'simplecov'

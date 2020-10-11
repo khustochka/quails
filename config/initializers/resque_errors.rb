@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 if ENV['errbit_api_key'] && ENV['errbit_host']
   require 'resque/failure/multiple'
   require 'resque/failure/redis'

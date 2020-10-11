@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 begin
   revision_file = File.join(Rails.root, "REVISION")
   if File.exist?(revision_file)

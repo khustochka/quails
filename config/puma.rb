@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 rails_env = ENV['RACK_ENV'] || ENV['RAILS_ENV'] || 'development'
 is_production = (rails_env == "production")
 

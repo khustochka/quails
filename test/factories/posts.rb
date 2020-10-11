@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :post do
     sequence(:slug) {|n| "post_#{n}" }

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :image, class: Image do
     sequence(:slug) { |n| "image_#{n}" }

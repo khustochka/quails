@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 # use ActionDispatch::IntegrationTest to access paths helpers

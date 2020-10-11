@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 if ENV['errbit_api_key'] && ENV['errbit_host']
   Airbrake.configure do |config|
     config.project_id = "1" # Not needed for errbit
