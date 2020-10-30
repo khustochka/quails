@@ -61,16 +61,16 @@ class EbirdClient
   # end
 
   def get_unsubmitted_checklists
-    page = @agent.get("https://ebird.org/eBirdReports?cmd=SubReport&currentRow=1&rowsPerPage=1000&sortBy=date&order=desc")
-    list_rows = page.xpath("//div[@id='content']/table/tr[starts-with(@class, 'spec')]")
+    page = @agent.get("https://ebird.org/mychecklists?currentRow=1&rowsPerPage=100&sortBy=date&order=desc")
+    list_rows = page.xpath("//ol[@id='place-species-observed-results']/li")
     first100 = list_rows.to_a.take(100).map do |row|
-      ebird_id = row.xpath("./td/a[text()='View or edit']").first[:href].scan(/checklist\/(.*)\/?$/)[0][0]
+      ebird_id = row[:id].scan(/checklist-(.*)$/)[0][0]
       EbirdChecklistMeta.new(
           ebird_id: ebird_id,
-          time: row.xpath("./td[1]").text,
-          location: row.xpath("./td[2]").text,
-          county: row.xpath("./td[3]").text,
-          state_prov: row.xpath("./td[4]").text
+          time: row.xpath("./div[@class='ResultsStats-title']").text.strip.gsub(/\s+/, " "),
+          location: row.xpath("./div[@class='ResultsStats-details']/div/div/div[1]/div[contains(@class, 'ResultsStats-details-location')]").first.text,
+          county: row.xpath("./div[@class='ResultsStats-details']/div/div/div[2]/div[contains(@class, 'ResultsStats-details-county')]").first.text,
+          state_prov: row.xpath("./div[@class='ResultsStats-details']/div/div/div[3]/div[contains(@class, 'ResultsStats-details-stateCountry')]").first.text
       )
     end
     ebird_ids = first100.map(&:ebird_id)
