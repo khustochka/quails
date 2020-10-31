@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
-require 'resque/tasks'
-task 'resque:setup' => :environment do
-
+require "resque/tasks"
+task "resque:setup" => :environment do
   Resque.before_fork = Proc.new do |job|
     ActiveRecord::Base.connection.disconnect!
   end
@@ -10,5 +9,4 @@ task 'resque:setup' => :environment do
   Resque.after_fork = Proc.new do |job|
     ActiveRecord::Base.establish_connection
   end
-
 end

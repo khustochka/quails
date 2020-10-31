@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 class FormattersTest < ActionDispatch::IntegrationTest
 
@@ -11,7 +11,7 @@ class FormattersTest < ActionDispatch::IntegrationTest
   end
 
   test "Russian double quotes" do
-    assert_equal 'Новый «лайфер»', OneLineFormatter.apply('Новый "лайфер"')
+    assert_equal "Новый «лайфер»", OneLineFormatter.apply('Новый "лайфер"')
   end
 
   test "Post with species link" do
@@ -46,7 +46,6 @@ class FormattersTest < ActionDispatch::IntegrationTest
                     "<a href=\"/photos/#{image.slug}\"><img src=\"#{jpg_url(image)}\" title=\"[photo]\" alt=\"[photo]\" /></a>"
     assert_includes post.decorated.for_site.text,
                     "<figcaption class=\"imagetitle\"><a href=\"/photos/#{image.slug}\">House Sparrow</a></figcaption>"
-
   end
 
   test "Post with video by slug" do
@@ -60,7 +59,6 @@ class FormattersTest < ActionDispatch::IntegrationTest
     assert_includes txt, "Youtube"
     # No linebreak after span, meaning html was properly processed by textile.
     assert_not_includes txt, "<span class=\"yt_link\"><br"
-
   end
 
   test "Invalid image wiki tag should not raise exception" do
@@ -82,7 +80,7 @@ class FormattersTest < ActionDispatch::IntegrationTest
   end
 
   test "LJ Post with link to another post in LJ" do
-    Settings.create(key: 'lj_user', value: {name: 'stonechat'})
+    Settings.create(key: "lj_user", value: {name: "stonechat"})
     url = "http://stonechat.livejournal.com/1111.html"
     post1 = create(:post,
                    slug: "post_for_link",
@@ -125,7 +123,6 @@ class FormattersTest < ActionDispatch::IntegrationTest
                     "<img src=\"https://localhost:3011/photos/#{image.slug}.jpg\" title=\"[photo]\" alt=\"[photo]\" />"
     assert_includes p.decorated({host: "localhost", port: 3011}).for_lj.text,
                     "<figcaption class=\"imagetitle\">\nHouse Sparrow <i>(Passer domesticus)</i>\n</figcaption>"
-
   end
 
   test "do not strip wiki tags from comment" do
@@ -136,20 +133,20 @@ class FormattersTest < ActionDispatch::IntegrationTest
 
   test "LJ user in site post" do
     p = build(:post, text: "LJ user {{@stonechat|lj}}")
-    assert_equal %Q(<p>LJ user <span class="ljuser" style="white-space: nowrap;"><a href="https://stonechat.livejournal.com/profile" rel="nofollow"><img src="http://p-stat.livejournal.com/img/userinfo.gif" alt="info" width="17" height="17" style="vertical-align: bottom; border: 0; padding-right: 1px;" /></a><a href="http://stonechat.livejournal.com/" rel="nofollow"><b>stonechat</b></a></span></p>),
+    assert_equal '<p>LJ user <span class="ljuser" style="white-space: nowrap;"><a href="https://stonechat.livejournal.com/profile" rel="nofollow"><img src="http://p-stat.livejournal.com/img/userinfo.gif" alt="info" width="17" height="17" style="vertical-align: bottom; border: 0; padding-right: 1px;" /></a><a href="http://stonechat.livejournal.com/" rel="nofollow"><b>stonechat</b></a></span></p>',
                  p.decorated.for_site.text
   end
 
   test "LJ user in LJ post" do
     p = build(:post, text: "LJ user {{@stonechat|lj}}")
-    assert_equal %Q(<p>LJ user <lj user="stonechat"></p>),
+    assert_equal '<p>LJ user <lj user="stonechat"></p>',
                  p.decorated.for_lj.text
   end
 
   test "Voron vs vorona" do
     # Mimic sparrow as a raven not to create more fixtures
     p = build(:post, text: "{{вОрон|Passer domesticus}}")
-    assert_equal %Q(<p><a class=\"sp_link\" href=\"/species/Passer_domesticus\">во&#769;рон</a></p>),
+    assert_equal '<p><a class="sp_link" href="/species/Passer_domesticus">во&#769;рон</a></p>',
                  p.decorated.for_site.text
   end
 

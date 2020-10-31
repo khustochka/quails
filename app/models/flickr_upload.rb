@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'flickr/client'
+require "flickr/client"
 
 class FlickrUpload
 
@@ -56,7 +56,7 @@ class FlickrUpload
   end
 
   def title
-    @image.species.map {|s| "#{s.name_en}; #{s.name_sci}"}.join('; ')
+    @image.species.map {|s| "#{s.name_en}; #{s.name_sci}"}.join("; ")
   end
 
   def description

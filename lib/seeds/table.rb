@@ -14,10 +14,10 @@ module Seeds
     def fill(column_names, records)
       columns = column_names.map { |cn| ActiveRecord::Base.connection.columns(@table_name).detect { |c| c.name == cn } }
 
-      quoted_column_names = column_names.map { |column| ActiveRecord::Base.connection.quote_column_name(column) }.join(',')
+      quoted_column_names = column_names.map { |column| ActiveRecord::Base.connection.quote_column_name(column) }.join(",")
 
       records.each_slice(1000) do |bunch|
-        quoted_values = bunch.map { |rec| "(#{rec.map { |v| ActiveRecord::Base.connection.quote(v) }.join(',')})" }.join(',')
+        quoted_values = bunch.map { |rec| "(#{rec.map { |v| ActiveRecord::Base.connection.quote(v) }.join(',')})" }.join(",")
         ActiveRecord::Base.connection.execute("INSERT INTO #@quoted_table_name (#{quoted_column_names}) VALUES #{quoted_values}")
       end
     end
@@ -28,7 +28,7 @@ module Seeds
       records = ActiveRecord::Base.connection.select_rows(klass.order(:id).to_sql)
 
       io.write("\n")
-      io.write({ @table_name => { 'columns' => column_names, 'records' => records } }.to_yaml)
+      io.write({ @table_name => { "columns" => column_names, "records" => records } }.to_yaml)
     end
 
     def reset_pk_sequence!

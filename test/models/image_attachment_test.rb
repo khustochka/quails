@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 class ImagesAssociationsTest < ActiveSupport::TestCase
 
@@ -14,7 +14,7 @@ class ImagesAssociationsTest < ActiveSupport::TestCase
 
   test "validate content type is image" do
     img = Image.new(slug: "testimg", observations: [FactoryBot.create(:observation)],
-                    stored_image: fixture_file_upload(Rails.root.join('public', 'robots.txt')))
+                    stored_image: fixture_file_upload(Rails.root.join("public", "robots.txt")))
     assert_not img.valid?
     assert_includes img.errors.full_messages, "Stored image should have image content type"
   end

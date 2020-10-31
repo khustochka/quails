@@ -3,7 +3,7 @@
 class Object
   def if_present(&block)
     unless blank?
-      yield_self &block
+      yield_self(&block)
     end
   end
 

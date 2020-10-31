@@ -16,4 +16,3 @@ module LocalizationConcern
                   end
   end
 end
-

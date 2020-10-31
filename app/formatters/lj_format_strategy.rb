@@ -56,7 +56,7 @@ class LJFormatStrategy < FormattingStrategy
   end
 
   def post_scriptum
-    result = String.new ''
+    result = String.new ""
 
     images = @metadata[:images]
     if images.any?
@@ -65,7 +65,7 @@ class LJFormatStrategy < FormattingStrategy
         result << "<lj-cut text=\"#{images[1..-1].map(&:public_title).to_sentence.capitalize}\">\n\n" if i == 1
         result << "#{real_image_tag(img)}\n\n"
       end
-      result << '</lj-cut>' if images.size > 1
+      result << "</lj-cut>" if images.size > 1
     end
 
     if @posts.any? || @spcs.any?

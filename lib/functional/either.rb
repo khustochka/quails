@@ -3,7 +3,6 @@
 module Either
 
   def Either.included(klass)
-
     class << klass
       def value(value)
         self::VALUE_CLASS.new(value)
@@ -13,7 +12,6 @@ module Either
         self::ERROR_CLASS.new(msg)
       end
     end
-
   end
 
   module Value

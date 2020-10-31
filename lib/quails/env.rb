@@ -8,8 +8,8 @@ module Quails
 
   class Env
     def initialize
-      @raw = ENV['QUAILS_ENV'] || ""
-      @arr = @raw.split(':').inquiry
+      @raw = ENV["QUAILS_ENV"] || ""
+      @arr = @raw.split(":").inquiry
     end
 
     def rake?
@@ -59,7 +59,7 @@ module Quails
     end
 
     def respond_to?(method)
-      if /^.*\?$/ =~ method.to_s
+      if /^.*\?$/.match?(method.to_s)
         true
       else
         super

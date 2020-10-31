@@ -24,7 +24,7 @@ class GeoDistance
     end
   end
 
-  def self.distance(point1: , point2: )
+  def self.distance(point1:, point2:)
     lat1, lon1 = point1
     lat2, lon2 = point2
     latR1 = lat1 * Math::PI/180

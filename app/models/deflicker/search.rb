@@ -25,7 +25,7 @@ module Deflicker
         base = base.where(public: public)
       end
       unless on_site.nil?
-        condition = on_site ? {:slug.ne => nil} : {:slug => nil}
+        condition = on_site ? {:slug.ne => nil} : {slug: nil}
         base = base.where(condition)
       end
       unless with_journal_entries.nil?

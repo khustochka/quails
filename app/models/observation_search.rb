@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'simple_partial'
+require "simple_partial"
 
 class ObservationSearch
 
@@ -72,11 +72,11 @@ class ObservationSearch
   # Rendering
 
   def dates_fieldset
-    SimplePartial.new('observations/search/dates_fieldset')
+    SimplePartial.new("observations/search/dates_fieldset")
   end
 
   def voice_fieldset
-    SimplePartial.new('observations/search/voice_fieldset')
+    SimplePartial.new("observations/search/voice_fieldset")
   end
 
   private
@@ -84,7 +84,7 @@ class ObservationSearch
   def build_cards_relation
     cards_rel = bare_cards_relation
     if observation_filtered?
-      cards_rel = cards_rel.includes(:observations).references(:observations).merge(bare_obs_relation).preload(observations: {:taxon => :species})
+      cards_rel = cards_rel.includes(:observations).references(:observations).merge(bare_obs_relation).preload(observations: {taxon: :species})
     end
     cards_rel
   end
@@ -130,7 +130,6 @@ class ObservationSearch
     else
       cards_scope
     end
-
   end
 
   def apply_locus_filter(cards_scope)

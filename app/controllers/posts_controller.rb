@@ -20,10 +20,10 @@ class PostsController < ApplicationController
   # GET /posts/1
   def show
     if @post.month != params[:month].to_s || @post.year != params[:year].to_s
-      redirect_to public_post_path(@post), :status => 301
+      redirect_to public_post_path(@post), status: 301
     end
 
-    @robots = 'NOINDEX' if @post.status == 'NIDX'
+    @robots = "NOINDEX" if @post.status == "NIDX"
     @comments = current_user.available_comments(@post).group_by(&:parent_id)
 
     screened = session[:screened]
@@ -41,15 +41,15 @@ class PostsController < ApplicationController
 
   # GET /posts/new
   def new
-    @post = Post.new(topic: 'OBSR', status: 'PRIV')
-    render 'form'
+    @post = Post.new(topic: "OBSR", status: "PRIV")
+    render "form"
   end
 
   # GET /posts/1/edit
   def edit
     @extra_params = @post.to_url_params
     @observation_search = ObservationSearch.new
-    render 'form'
+    render "form"
   end
 
   # POST /posts
@@ -59,7 +59,7 @@ class PostsController < ApplicationController
     if @post.save
       redirect_to(public_post_path(@post))
     else
-      render 'form'
+      render "form"
     end
   end
 
@@ -70,7 +70,7 @@ class PostsController < ApplicationController
       redirect_to(public_post_path(@post))
     else
       @observation_search = ObservationSearch.new
-      render 'form'
+      render "form"
     end
   end
 
@@ -102,7 +102,7 @@ class PostsController < ApplicationController
 
     request = if @post.lj_data.url.present?
                 if Quails.env.real_prod?
-                  if @post.lj_data.url =~ /livejournal\.com/
+                  if /livejournal\.com/.match?(@post.lj_data.url)
                     entry.itemid = @post.lj_data.post_id
                     LiveJournal::Request::EditEvent.new(user, entry)
                   else
@@ -126,7 +126,7 @@ class PostsController < ApplicationController
 
     if request
       request.run
-      flash.notice = 'Posted to LJ'
+      flash.notice = "Posted to LJ"
 
       if entry.itemid
         @post.lj_data.post_id = entry.itemid
@@ -144,7 +144,6 @@ class PostsController < ApplicationController
         flash.discard
       end
     end
-
   end
 
   private
@@ -154,10 +153,10 @@ class PostsController < ApplicationController
   end
 
   def cache_expire
-    expire_page controller: :feeds, action: :blog, format: 'xml'
-    expire_page controller: :feeds, action: :instant_articles, format: 'xml'
+    expire_page controller: :feeds, action: :blog, format: "xml"
+    expire_page controller: :feeds, action: :instant_articles, format: "xml"
     expire_photo_feeds
-    expire_page controller: :feeds, action: :sitemap, format: 'xml'
+    expire_page controller: :feeds, action: :sitemap, format: "xml"
   end
 
 end

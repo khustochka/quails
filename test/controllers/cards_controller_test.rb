@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 class CardsControllerTest < ActionController::TestCase
   setup do
@@ -23,11 +23,11 @@ class CardsControllerTest < ActionController::TestCase
 
   test "new card should accept locus, date, and post" do
     p = create(:post)
-    get :new, params: {card: {locus_id: loci(:brovary).id, observ_date: '2013-04-26', post_id: p.id}}
+    get :new, params: {card: {locus_id: loci(:brovary).id, observ_date: "2013-04-26", post_id: p.id}}
     assert_response :success
     card = assigns(:card)
     assert_equal loci(:brovary), card.locus
-    assert_equal '2013-04-26', card.observ_date.iso8601
+    assert_equal "2013-04-26", card.observ_date.iso8601
     assert_equal p, card.post
   end
 
@@ -38,7 +38,7 @@ class CardsControllerTest < ActionController::TestCase
   end
 
   test "should create card" do
-    assert_difference('Card.count') do
+    assert_difference("Card.count") do
       post :create, params: {card: attributes_for(:card)}
     end
 
@@ -49,7 +49,7 @@ class CardsControllerTest < ActionController::TestCase
     taxa = Taxon.limit(3).ids
     observ_attrs = taxa.map {|tx| {taxon_id: tx}}
     assert_equal 3, observ_attrs.size
-    assert_difference('Observation.count', 3) do
+    assert_difference("Observation.count", 3) do
       post :create, params: {card: attributes_for(:card).merge(observations_attributes: observ_attrs)}
     end
 
@@ -88,11 +88,10 @@ class CardsControllerTest < ActionController::TestCase
 
     assert_equal 5, @card.observations.size
     assert_equal 1, card2.observations.size
-
   end
 
   test "should not destroy card which is not empty" do
-    assert_difference('Card.count', 0) do
+    assert_difference("Card.count", 0) do
       assert_raise(ActiveRecord::DeleteRestrictionError) { delete :destroy, params: {id: @card} }
     end
   end
@@ -100,7 +99,7 @@ class CardsControllerTest < ActionController::TestCase
   test "should destroy empty card" do
     @card.observations.each {|o| o.destroy }
 
-    assert_difference('Card.count', -1) do
+    assert_difference("Card.count", -1) do
       delete :destroy, params: {id: @card}
     end
 

@@ -2,9 +2,8 @@
 
 namespace :ebird do
   namespace :location do
-
     desc "Bulk reassign locations, to get rid of State-level alert"
-    task :reassign => :environment do
+    task reassign: :environment do
       require "csv"
       require "ebird/ebird_client"
 
@@ -26,6 +25,5 @@ namespace :ebird do
         sleep 1.1
       end
     end
-
   end
 end

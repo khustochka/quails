@@ -16,7 +16,7 @@ class Card < ApplicationRecord
 
   belongs_to :locus, -> { cached_ancestry_preload }
   belongs_to :post, -> { short_form }, touch: true, optional: true
-  has_many :observations, -> { order('observations.id') }, dependent: :restrict_with_exception, inverse_of: :card
+  has_many :observations, -> { order("observations.id") }, dependent: :restrict_with_exception, inverse_of: :card
   has_many :mapped_observations, -> { joins(:spots).distinct }, class_name: "Observation", inverse_of: :card
 
   has_many :taxa, through: :observations
@@ -25,8 +25,8 @@ class Card < ApplicationRecord
   has_many :videos, through: :observations, inverse_of: :cards
   has_many :spots, through: :observations, inverse_of: :cards
 
-  has_many :ebird_submissions, class_name: 'Ebird::Submission', dependent: :delete_all, inverse_of: :card
-  has_many :ebird_files, class_name: 'Ebird::File', through: :ebird_submissions, inverse_of: :cards
+  has_many :ebird_submissions, class_name: "Ebird::Submission", dependent: :delete_all, inverse_of: :card
+  has_many :ebird_files, class_name: "Ebird::File", through: :ebird_submissions, inverse_of: :cards
 
   validates :locus_id, :observ_date, presence: true
   validates :effort_type, inclusion: EFFORT_TYPES, allow_blank: false
@@ -41,7 +41,7 @@ class Card < ApplicationRecord
 
   accepts_nested_attributes_for :observations,
                                 reject_if:
-                                    proc { |attrs| attrs.all? { |k, v| v.blank? || k == 'voice' } }
+                                    proc { |attrs| attrs.all? { |k, v| v.blank? || k == "voice" } }
 
   # Eligible for ebird challenge: full non-incidental checklist without X's (all quantities in numbers)
   scope :ebird_eligible, -> {
@@ -53,12 +53,12 @@ class Card < ApplicationRecord
 
   scope :default_cards_order, -> (asc_or_desc) {
     raise "Invalid order (only ASC and DESC accepted)." unless asc_or_desc.to_s.downcase.in? %w(asc desc)
-    order(:observ_date => asc_or_desc).
+    order(observ_date: asc_or_desc).
         order(Arel.sql("to_timestamp(start_time, 'HH24:MI') #{asc_or_desc} NULLS LAST"))
   }
 
   def secondary_posts
-    Post.distinct.joins(:observations).where('observations.card_id = ? AND observations.post_id <> ?', self.id, self.post_id)
+    Post.distinct.joins(:observations).where("observations.card_id = ? AND observations.post_id <> ?", self.id, self.post_id)
   end
 
   def mapped?
@@ -116,11 +116,11 @@ class Card < ApplicationRecord
   end
 
   def self.first_unebirded_date
-    unebirded.order(:observ_date => :asc).first.try(:observ_date)
+    unebirded.order(observ_date: :asc).first.try(:observ_date)
   end
 
   def self.last_unebirded_date
-    unebirded.order(:observ_date => :desc).first.try(:observ_date)
+    unebirded.order(observ_date: :desc).first.try(:observ_date)
   end
 
   private

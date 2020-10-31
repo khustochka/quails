@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 class EbirdTaxonTest < ActiveSupport::TestCase
 
@@ -8,7 +8,7 @@ class EbirdTaxonTest < ActiveSupport::TestCase
     etx = ebird_taxa(:pasdom)
     tx = etx.taxon
 
-    assert_difference 'Taxon.count', 0 do
+    assert_difference "Taxon.count", 0 do
       @result = etx.promote
     end
 
@@ -18,7 +18,7 @@ class EbirdTaxonTest < ActiveSupport::TestCase
   test "should elevate detached taxon" do
     etx = ebird_taxa(:some_spuh)
 
-    assert_difference 'Taxon.count', 1 do
+    assert_difference "Taxon.count", 1 do
       @result = etx.promote
     end
 
@@ -30,8 +30,8 @@ class EbirdTaxonTest < ActiveSupport::TestCase
     etx = ebird_taxa(:some_species)
 
 
-    assert_difference 'Species.count', 1 do
-      assert_difference 'Taxon.count', 1 do
+    assert_difference "Species.count", 1 do
+      assert_difference "Taxon.count", 1 do
         @result = etx.promote
       end
     end
@@ -45,7 +45,7 @@ class EbirdTaxonTest < ActiveSupport::TestCase
   test "promote taxon with parent already promoted" do
     etx = ebird_taxa(:barn_swallow_subspecies)
 
-    assert_difference 'Taxon.count', 1 do
+    assert_difference "Taxon.count", 1 do
       @result = etx.promote
     end
 
@@ -58,8 +58,8 @@ class EbirdTaxonTest < ActiveSupport::TestCase
   test "promote taxon with parent not yet promoted should promote parent" do
     etx = ebird_taxa(:some_tinamu_subspecies)
 
-    assert_difference 'Species.count', 1 do
-      assert_difference 'Taxon.count', 2 do
+    assert_difference "Species.count", 1 do
+      assert_difference "Taxon.count", 2 do
         @result = etx.promote
       end
     end

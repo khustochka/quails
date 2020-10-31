@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'flickr/client'
+require "flickr/client"
 
 class FlickrPhoto
 
@@ -36,7 +36,7 @@ class FlickrPhoto
   end
 
   def title
-    @image.species.map { |s| "#{s.name_en}; #{s.name_sci}" }.join('; ')
+    @image.species.map { |s| "#{s.name_en}; #{s.name_sci}" }.join("; ")
   end
 
   def description

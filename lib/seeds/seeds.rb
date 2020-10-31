@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'seeds/table'
+require "seeds/table"
 
 module Seeds
 
@@ -8,11 +8,10 @@ module Seeds
                    loci
                    books legacy_species legacy_taxa)
 
-  SEED_DIR = File.join(ENV["HOME"], 'bwseed')
+  SEED_DIR = File.join(ENV["HOME"], "bwseed")
   SEED_REPO = -"https://gist.github.com/2697b86d7f7d1ca8e93a74c593237068.git"
 
   def self.load_all
-
     seed_init_if_necessary!
 
     dirname = SEED_DIR
@@ -27,8 +26,8 @@ module Seeds
         table = Seeds::Table.new(table_name)
         table.cleanup
 
-        column_names = data['columns']
-        records = data['records']
+        column_names = data["columns"]
+        records = data["records"]
 
         table.fill(column_names, records)
 
@@ -38,7 +37,6 @@ module Seeds
   end
 
   def self.dump_all
-
     seed_init_if_necessary!
 
     dirname = SEED_DIR
@@ -52,7 +50,6 @@ module Seeds
     end
 
     commit_or_diff!
-
   end
 
   private

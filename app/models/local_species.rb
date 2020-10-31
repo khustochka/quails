@@ -13,7 +13,7 @@ class LocalSpecies < ApplicationRecord
   # Formatting
 
   def to_thumbnail
-    Thumbnail.new(species, {partial: 'species/thumb_title'}, species.image)
+    Thumbnail.new(species, {partial: "species/thumb_title"}, species.image)
   end
 
 end

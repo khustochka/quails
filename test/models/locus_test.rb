@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 class LocusTest < ActiveSupport::TestCase
   test "locus factory is valid" do
@@ -8,24 +8,24 @@ class LocusTest < ActiveSupport::TestCase
     create(:locus)
   end
 
-  test 'autogenerate slug if empty' do
-    loc = build(:locus, slug: '')
+  test "autogenerate slug if empty" do
+    loc = build(:locus, slug: "")
     assert loc.save
     assert_not_empty loc.slug
   end
 
-  test 'do not save locus with existing slug' do
-    loc = build(:locus, slug: 'kiev')
+  test "do not save locus with existing slug" do
+    loc = build(:locus, slug: "kiev")
     assert_not loc.save, "Record saved while expected to fail."
   end
 
-  test 'properly find all locus subregions' do
+  test "properly find all locus subregions" do
     loc = loci(:ukraine)
     actual = loc.subregion_ids
-    expected = Locus.where(slug: ['ukraine', 'kiev_obl', 'kiev', 'brovary']).ids
-    not_expected = Locus.where(slug: ['usa', 'new_york', 'nyc']).ids
-    assert_equal [], expected - actual, 'Some expected values are not included'
-    assert_equal [], not_expected & actual, 'Some unexpected values are included'
+    expected = Locus.where(slug: ["ukraine", "kiev_obl", "kiev", "brovary"]).ids
+    not_expected = Locus.where(slug: ["usa", "new_york", "nyc"]).ids
+    assert_equal [], expected - actual, "Some expected values are not included"
+    assert_equal [], not_expected & actual, "Some unexpected values are included"
   end
 
   test "subregions of the Arabat Spit" do
@@ -38,20 +38,20 @@ class LocusTest < ActiveSupport::TestCase
   end
 
   test "5-MR regions" do
-    loc = create(:locus, slug: '5mr')
+    loc = create(:locus, slug: "5mr")
     loc1 = create(:locus, slug: :area1, parent: loci("usa"), five_mile_radius: true)
     loc2 = create(:locus, slug: :area2, parent: loci("usa"))
     actual = loc.subregion_ids
     assert_equal [loc1.id].to_set, actual.to_set
   end
 
-  test 'do not destroy locus if it has child locations' do
+  test "do not destroy locus if it has child locations" do
     loc = loci(:ukraine)
     assert_raise(Ancestry::AncestryException) { loc.destroy }
     assert loc
   end
 
-  test 'do not destroy locus if it has associated cards (and no child loci)' do
+  test "do not destroy locus if it has associated cards (and no child loci)" do
     loc = loci(:brovary)
     observation = create(:observation, card: create(:card, locus: loc))
     assert_predicate loc.descendants, :empty?
@@ -60,7 +60,7 @@ class LocusTest < ActiveSupport::TestCase
     assert_equal loc, observation.card.locus
   end
 
-  test 'do not destroy locus if it has associated observations (patch) and no cards' do
+  test "do not destroy locus if it has associated observations (patch) and no cards" do
     loc = loci(:brovary)
     observation = create(:observation, card: create(:card, locus: loci(:kiev_obl)), patch: loc)
     assert_predicate loc.cards, :empty?
@@ -81,7 +81,7 @@ class LocusTest < ActiveSupport::TestCase
 
   test "#country" do
     brvr = loci(:brovary)
-    assert_equal 'ukraine', brvr.country.slug
+    assert_equal "ukraine", brvr.country.slug
   end
 
   test "#country for country should be self" do

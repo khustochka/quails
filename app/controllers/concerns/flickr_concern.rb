@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'flickr/client'
+require "flickr/client"
 
 module FlickrConcern
 
@@ -19,4 +19,3 @@ module FlickrConcern
   end
 
 end
-

@@ -1,13 +1,10 @@
 # frozen_string_literal: true
 
 namespace :tax do
-
   namespace :update2018 do
+    task fix_splits_and_lumps: [:fix_lumps, :implement_splits, :update_order_family_sorting, :fix_observations]
 
-    task :fix_splits_and_lumps => [:fix_lumps, :implement_splits, :update_order_family_sorting, :fix_observations]
-
-    task :fix_lumps => :environment do
-
+    task fix_lumps: :environment do
       # # Larus thayeri was lumped into Larus glaucoides
       #
       # larus_thayeri = Species.find_by_name_sci("Larus thayeri")
@@ -35,11 +32,9 @@ namespace :tax do
       #
       # # 4. Create url synonym
       # larus_glaucoides.url_synonyms.create!(name_sci: "Larus thayeri", reason: "lump")
-
     end
 
-    task :implement_splits => :environment do
-
+    task implement_splits: :environment do
       # VIREO OLIVACEUS split
 
       # Find new subspecies and promote
@@ -78,12 +73,10 @@ namespace :tax do
         puts "Species with invalid rank:"
         puts species_rank.map(&:name_sci).join(", ")
       end
-
     end
 
-    task :update_order_family_sorting => :environment do
+    task update_order_family_sorting: :environment do
       Species.acts_as_list_no_update do
-
         Species.joins(:high_level_taxa).preload(:high_level_taxa).order("taxa.index_num").each_with_index do |species, idx|
           tx = species.high_level_taxon
 
@@ -106,8 +99,7 @@ namespace :tax do
       end
     end
 
-    task :fix_observations => :environment do
-
+    task fix_observations: :environment do
       # aba_locs = %w(usa canada).map {|slug| Locus.find_by_slug(slug).subregion_ids}.inject(:+)
 
       # Basic promotions
@@ -116,7 +108,6 @@ namespace :tax do
           "reevir" => "reevir1",
           "whwsco" => "whwsco3"
       }.each do |old, new|
-
         old_taxon = Taxon.find_by_ebird_code(old)
         new_taxon = Taxon.find_by_ebird_code(new)
 
@@ -139,7 +130,5 @@ namespace :tax do
         obs.update(taxon: new_mallard)
       end
     end
-
   end
-
 end

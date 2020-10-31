@@ -17,14 +17,14 @@ class Locus < ApplicationRecord
 
   has_many :cards, dependent: :restrict_with_exception
   has_many :observations, through: :cards
-  has_many :patch_observations, class_name: 'Observation', foreign_key: 'patch_id', dependent: :restrict_with_exception
+  has_many :patch_observations, class_name: "Observation", foreign_key: "patch_id", dependent: :restrict_with_exception
 
   has_many :local_species
 
   belongs_to :ebird_location, optional: true
 
-  validates :slug, :format => /\A[a-z_0-9]+\Z/i, :uniqueness => true, :presence => true, :length => {:maximum => 32}
-  validates :name_en, :name_ru, :name_uk, :uniqueness => true
+  validates :slug, format: /\A[a-z_0-9]+\Z/i, uniqueness: true, presence: true, length: {maximum: 32}
+  validates :name_en, :name_ru, :name_uk, uniqueness: true
 
   after_initialize :prepopulate, unless: :persisted?
   before_validation :generate_slug
@@ -51,7 +51,7 @@ class Locus < ApplicationRecord
     sort_by_ancestry(self.all.cached_ancestry_preload).reverse
   end
 
-  scope :locs_for_lifelist, lambda { where('public_index IS NOT NULL').order(:public_index) }
+  scope :locs_for_lifelist, lambda { where("public_index IS NOT NULL").order(:public_index) }
 
   scope :non_private, lambda { where("private_loc = 'f'") }
 
@@ -67,9 +67,9 @@ class Locus < ApplicationRecord
 
   def subregion_ids
     # Hack for Arabat Spit
-    if slug == 'arabat_spit'
+    if slug == "arabat_spit"
       Locus.where("slug LIKE 'arabat%'").flat_map(&:subtree_ids)
-    elsif slug == '5mr'
+    elsif slug == "5mr"
       Locus.where(five_mile_radius: true).map(&:id)
     else
       subtree_ids
@@ -77,7 +77,7 @@ class Locus < ApplicationRecord
   end
 
   def country
-    path.where(loc_type: 'country').first
+    path.where(loc_type: "country").first
   end
 
   def public_locus
@@ -95,7 +95,7 @@ class Locus < ApplicationRecord
   private
 
   def generate_slug
-    slug.presence or self.slug = name_en.downcase.gsub(?', '').gsub(' - ', ?_).gsub('--', ?_).gsub(/[^\d\w_]+/, ?_)
+    slug.presence or self.slug = name_en.downcase.gsub(?', "").gsub(" - ", ?_).gsub("--", ?_).gsub(/[^\d\w_]+/, ?_)
   end
 
   def generate_lat_lon

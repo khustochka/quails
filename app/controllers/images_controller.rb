@@ -22,7 +22,7 @@ class ImagesController < ApplicationController
     else
       page = (params[:page] || 1).to_i
       @images = Image.preload(:species).order(created_at: :desc).page(page).per(24)
-      @feed = 'photos'
+      @feed = "photos"
       if @images.empty? && page != 1
         raise ActiveRecord::RecordNotFound
       else
@@ -40,7 +40,7 @@ class ImagesController < ApplicationController
   def show
     respond_to do |format|
       format.html do
-        @robots = 'NOINDEX' if @image.status == 'NOINDEX'
+        @robots = "NOINDEX" if @image.status == "NOINDEX"
         @strip_media = @image.series_siblings
       end
       format.jpeg do
@@ -52,13 +52,13 @@ class ImagesController < ApplicationController
   # GET /photos/new
   def new
     @image = Image.new
-    render 'form'
+    render "form"
   end
 
   # GET /photos/1/edit
   def edit
     @photo = FlickrPhoto.new(@image)
-    render 'form'
+    render "form"
   end
 
   # TODO: Probably merge with flickr_photo#create
@@ -67,10 +67,10 @@ class ImagesController < ApplicationController
     uploaded_io = params[:image]
     path = to_flickr ? ImagesHelper.temp_image_path : ImagesHelper.local_image_path
     filename = File.join(path, uploaded_io.original_filename)
-    File.open(filename, 'wb') do |file|
+    File.open(filename, "wb") do |file|
       file.write(uploaded_io.read)
     end
-    new_slug = File.basename(uploaded_io.original_filename, '.*')
+    new_slug = File.basename(uploaded_io.original_filename, ".*")
     image_attributes = {i: {slug: new_slug}}
     exif_date = `identify -format "%[EXIF:DateTimeOriginal]" "#{filename}"`.chomp[0..9].tr(":", "-")
     image_attributes[:exif_date] = exif_date if exif_date.present?
@@ -98,7 +98,7 @@ class ImagesController < ApplicationController
 
     if @image.save
       FlickrUploadJob.perform_later(@image, {public: true}) if params[:upload_to_flickr]
-      redirect_to(edit_map_image_path(@image), :notice => 'Image was successfully created. Map it now!')
+      redirect_to(edit_map_image_path(@image), notice: "Image was successfully created. Map it now!")
     else
       render "form"
     end
@@ -130,10 +130,10 @@ class ImagesController < ApplicationController
       if @image.mapped?
         redirect_to(image_path(@image))
       else
-        redirect_to(edit_map_image_path(@image), notice: 'Image was successfully updated. Map it now!')
+        redirect_to(edit_map_image_path(@image), notice: "Image was successfully updated. Map it now!")
       end
     else
-      render 'form'
+      render "form"
     end
   end
 
@@ -145,8 +145,8 @@ class ImagesController < ApplicationController
         format.html { redirect_to action: :show }
         format.json { head :no_content }
       else
-        format.html { render 'form' }
-        format.json { render :json => @image.errors, :status => :unprocessable_entity }
+        format.html { render "form" }
+        format.json { render json: @image.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -160,7 +160,7 @@ class ImagesController < ApplicationController
   # Used for photo mapping
   # GET /photos/1/observations
   def observations
-    observs = Image.find_by(id: params[:id]).observations.preload(:taxon => :species, :card => :locus)
+    observs = Image.find_by(id: params[:id]).observations.preload(taxon: :species, card: :locus)
     render json: observs, only: :id, methods: [:species_str, :when_where_str]
   end
 
@@ -177,7 +177,7 @@ class ImagesController < ApplicationController
         where(id: rel).
         joins(:card).
         preload(:images).
-        order('observ_date DESC').
+        order("observ_date DESC").
         page(params[:page])
   end
 
@@ -190,9 +190,9 @@ class ImagesController < ApplicationController
   end
 
   def cache_expire
-    expire_page controller: :feeds, action: :blog, format: 'xml'
-    expire_page controller: :feeds, action: :instant_articles, format: 'xml'
+    expire_page controller: :feeds, action: :blog, format: "xml"
+    expire_page controller: :feeds, action: :instant_articles, format: "xml"
     expire_photo_feeds
-    expire_page controller: :feeds, action: :sitemap, format: 'xml'
+    expire_page controller: :feeds, action: :sitemap, format: "xml"
   end
 end

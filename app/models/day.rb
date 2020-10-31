@@ -48,7 +48,7 @@ class Day
   def images
     Image.joins(:observations, :cards).includes(:cards, :taxa).merge(cards).
         merge(Card.default_cards_order("ASC")).
-        order('media.index_num, taxa.index_num').preload(:species)
+        order("media.index_num, taxa.index_num").preload(:species)
   end
 
   def posts

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 class Ebird::FileTest < ActiveSupport::TestCase
 
@@ -11,7 +11,7 @@ class Ebird::FileTest < ActiveSupport::TestCase
   end
 
   test "travel card with not enough data should be invalid" do
-    cards = create(:card, effort_type: 'TRAVEL')
+    cards = create(:card, effort_type: "TRAVEL")
     file = Ebird::File.new(name: "newfile", cards: [cards])
     assert_predicate file, :invalid?
   end

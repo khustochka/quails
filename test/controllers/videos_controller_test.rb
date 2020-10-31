@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 class VideosControllerTest < ActionController::TestCase
   setup do
@@ -52,8 +52,8 @@ class VideosControllerTest < ActionController::TestCase
 
   test "create video with one observation" do
     login_as_admin
-    new_attr = attributes_for(:video, slug: 'new_video_slug').except(:observations)
-    assert_difference('Video.count') do
+    new_attr = attributes_for(:video, slug: "new_video_slug").except(:observations)
+    assert_difference("Video.count") do
       post :create, params: {video: new_attr, obs: [@obs.id]}
     end
 
@@ -64,8 +64,8 @@ class VideosControllerTest < ActionController::TestCase
     login_as_admin
     obs2 = create(:observation, taxon: taxa(:pasdom), card: @obs.card)
     obs3 = create(:observation, taxon: taxa(:hirrus), card: @obs.card)
-    new_attr = attributes_for(:video, slug: 'new_video_slug').except(:observations)
-    assert_difference('Video.count') do
+    new_attr = attributes_for(:video, slug: "new_video_slug").except(:observations)
+    assert_difference("Video.count") do
       post :create, params: {video: new_attr, obs: [@obs.id, obs2.id, obs3.id]}
       video = assigns(:video)
       assert_empty video.errors
@@ -75,8 +75,8 @@ class VideosControllerTest < ActionController::TestCase
 
   test "do not save video without slug" do
     login_as_admin
-    new_attr = attributes_for(:video, slug: '')
-    assert_difference('Video.count', 0) do
+    new_attr = attributes_for(:video, slug: "")
+    assert_difference("Video.count", 0) do
       post :create, params: {video: new_attr, obs: [@obs.id]}
     end
 
@@ -85,8 +85,8 @@ class VideosControllerTest < ActionController::TestCase
 
   test "do not save video with no observations" do
     login_as_admin
-    new_attr = attributes_for(:video, slug: 'new_video_slug')
-    assert_difference('Video.count', 0) do
+    new_attr = attributes_for(:video, slug: "new_video_slug")
+    assert_difference("Video.count", 0) do
       post :create, params: {video: new_attr, obs: []}
     end
 
@@ -97,8 +97,8 @@ class VideosControllerTest < ActionController::TestCase
     login_as_admin
     obs2 = create(:observation, card: create(:card, locus: loci(:kiev)))
     obs3 = create(:observation, card: create(:card, locus: loci(:brovary)))
-    new_attr = attributes_for(:video, slug: 'new_video_slug')
-    assert_difference('Video.count', 0) do
+    new_attr = attributes_for(:video, slug: "new_video_slug")
+    assert_difference("Video.count", 0) do
       post :create, params: {video: new_attr, obs: [obs2.id, obs3.id]}
     end
 
@@ -131,7 +131,7 @@ class VideosControllerTest < ActionController::TestCase
   test "update video" do
     login_as_admin
     new_attr = @video.attributes
-    new_attr['slug'] = 'new_slug'
+    new_attr["slug"] = "new_slug"
     put :update, params: {id: @video.to_param, video: new_attr, obs: @video.observation_ids}
     assert_redirected_to edit_map_video_path(assigns(:video))
   end
@@ -200,7 +200,7 @@ class VideosControllerTest < ActionController::TestCase
 
   test "destroy video" do
     login_as_admin
-    assert_difference('Video.count', -1) do
+    assert_difference("Video.count", -1) do
       delete :destroy, params: {id: @video.to_param}
     end
 

@@ -7,7 +7,7 @@ class Video < Media
 
   NORMAL_PARAMS = [:slug, :title, :youtube_id, :description]
 
-  default_scope -> { where(media_type: 'video') }
+  default_scope -> { where(media_type: "video") }
 
   validates :external_id, presence: true
 

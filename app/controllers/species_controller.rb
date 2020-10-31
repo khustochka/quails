@@ -2,7 +2,7 @@
 
 class SpeciesController < ApplicationController
 
-  administrative :except => [:gallery, :show, :search]
+  administrative except: [:gallery, :show, :search]
 
   before_action :find_species, only: [:edit, :update]
 
@@ -26,7 +26,7 @@ class SpeciesController < ApplicationController
   # GET /species
   def gallery
     @species = Species.joins(:image).includes(:image).ordered_by_taxonomy
-    @feed = 'photos'
+    @feed = "photos"
   end
 
   # GET /species/1
@@ -35,7 +35,7 @@ class SpeciesController < ApplicationController
     @species = Species.find_by(name_sci: id_humanized) || UrlSynonym.find_by(name_sci: id_humanized).try(:species)
     if @species
       if params[:id] != @species.to_param
-        redirect_to @species, :status => 301
+        redirect_to @species, status: 301
         # TODO: maybe show as a page but set different canonical, NOINDEX. Or redirect but show "redirected from" Like Wikipedia.
       else
         if @species.observations.any?
@@ -45,7 +45,7 @@ class SpeciesController < ApplicationController
             memo[country.slug] = @species.cards.except(:order).where(locus_id: country.subregion_ids).distinct.pluck(Arel.sql("EXTRACT(month FROM observ_date)::integer"))
           end
         else
-          @robots = 'NOINDEX'
+          @robots = "NOINDEX"
         end
       end
     else
@@ -60,10 +60,9 @@ class SpeciesController < ApplicationController
 
   # PUT /species/1
   def update
-
     respond_to do |format|
       if @species.update(params[:species])
-        format.html { redirect_to(edit_species_url(@species), notice: 'Species was successfully updated.') }
+        format.html { redirect_to(edit_species_url(@species), notice: "Species was successfully updated.") }
         format.json { render json: @species }
       else
         format.html { render :form }

@@ -40,7 +40,6 @@ class EbirdTaxon < ApplicationRecord
     return taxon if taxon
 
     ActiveRecord::Base.transaction do
-
       # If parent exists promote it
       promoted_parent = if parent
                           parent.promote
@@ -57,7 +56,7 @@ class EbirdTaxon < ApplicationRecord
               where("ebird_taxa.index_num < ?", index_num).order("taxa.index_num DESC").
               limit(1).pluck("taxa.index_num").first
       new_index_num = prev_index_num ? prev_index_num + 1 : 1
-      attr_hash.merge!({index_num: new_index_num})
+      attr_hash[:index_num] = new_index_num
       if promoted_parent
         attr_hash.merge!({parent_id: promoted_parent.id, species_id: promoted_parent.species_id})
       end
@@ -78,7 +77,6 @@ class EbirdTaxon < ApplicationRecord
       # Return the taxon
       new_taxon
     end
-
   end
 
   alias_method :find_or_promote_to_taxon, :promote

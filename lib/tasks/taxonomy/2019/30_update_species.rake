@@ -1,12 +1,10 @@
 # frozen_string_literal: true
 
 namespace :tax do
-
   namespace :update2019 do
+    task update_species: [:update_species_name_sci, :update_species_name_en]
 
-    task :update_species => [:update_species_name_sci, :update_species_name_en]
-
-    task :find_species_changes => :environment do
+    task find_species_changes: :environment do
       species_rank = Species.
           joins("LEFT OUTER JOIN (SELECT * FROM taxa WHERE taxa.category = 'species') as taxa2 on taxa2.species_id = species.id").
           where("taxa2.id IS NULL")
@@ -36,7 +34,7 @@ namespace :tax do
       end
     end
 
-    task :update_species_name_sci => :environment do
+    task update_species_name_sci: :environment do
       changed = Species.joins(:high_level_taxa).includes(:high_level_taxa).where("taxa.name_sci != species.name_sci")
 
       puts "\nRENAMED:\n\n"
@@ -54,10 +52,9 @@ namespace :tax do
         UrlSynonym.create(name_sci: old_name, species: sp)
         puts "#{old_name} renamed to #{new_name}"
       end
-
     end
 
-    task :update_species_name_en => :environment do
+    task update_species_name_en: :environment do
       changed = Species.joins(:high_level_taxa).includes(:high_level_taxa).where("taxa.name_en != species.name_en")
 
       changed.each do |sp|
@@ -72,9 +69,6 @@ namespace :tax do
           puts "#{old_name} renamed to #{new_name}"
         end
       end
-
     end
-
   end
-
 end

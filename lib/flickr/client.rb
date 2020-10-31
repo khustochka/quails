@@ -9,7 +9,7 @@ module Flickr
 
   module ResultPartialPath
     def to_partial_path
-      'flickr_photos/result'
+      "flickr_photos/result"
     end
   end
 
@@ -18,11 +18,9 @@ module Flickr
     include ResultPartialPath
 
     def method_missing(method, *args, &block)
-      begin
-        Result.new(@value.send(method, *args, &block))
-      rescue FlickRaw::Error => e
-        Error.new(e.message)
-      end
+      Result.new(@value.send(method, *args, &block))
+    rescue FlickRaw::Error => e
+      Error.new(e.message)
     end
 
     def search_and_filter_photos(conditions, top = nil, &filter)

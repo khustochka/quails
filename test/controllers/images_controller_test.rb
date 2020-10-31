@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 class ImagesControllerTest < ActionController::TestCase
 
@@ -23,9 +23,9 @@ class ImagesControllerTest < ActionController::TestCase
     assert_select "a[href='#{image_path(@image)}']"
   end
 
-  test 'get front page in English' do
+  test "get front page in English" do
     create(:comment)
-    get :index, params: {locale: 'en'}
+    get :index, params: {locale: "en"}
     assert_response :success
     assert_not_empty assigns(:images)
     assert_select "figcaption", text: @image.species[0].name_en
@@ -43,7 +43,7 @@ class ImagesControllerTest < ActionController::TestCase
     card = create(:card, observ_date: "2008-07-01")
     obs1 = create(:observation, taxon: tx1, card: card)
     obs2 = create(:observation, taxon: tx2, card: card)
-    img = create(:image, slug: 'picture-of-the-shrike-and-the-wryneck', observations: [obs1, obs2])
+    img = create(:image, slug: "picture-of-the-shrike-and-the-wryneck", observations: [obs1, obs2])
 
     get :multiple_species
     assert_response :success
@@ -67,8 +67,8 @@ class ImagesControllerTest < ActionController::TestCase
 
   test "create image with one observation" do
     login_as_admin
-    new_attr = valid_image_attributes(slug: 'new_img_slug').except(:observations)
-    assert_difference('Image.count') do
+    new_attr = valid_image_attributes(slug: "new_img_slug").except(:observations)
+    assert_difference("Image.count") do
       post :create, params: {image: new_attr, obs: [@obs.id]}
     end
 
@@ -79,8 +79,8 @@ class ImagesControllerTest < ActionController::TestCase
     login_as_admin
     obs2 = create(:observation, taxon: taxa(:pasdom), card: @obs.card)
     obs3 = create(:observation, taxon: taxa(:hirrus), card: @obs.card)
-    new_attr = valid_image_attributes(slug: 'new_img_slug').except(:observations)
-    assert_difference('Image.count') do
+    new_attr = valid_image_attributes(slug: "new_img_slug").except(:observations)
+    assert_difference("Image.count") do
       post :create, params: {image: new_attr, obs: [@obs.id, obs2.id, obs3.id]}
       image = assigns(:image)
       assert_empty image.errors
@@ -90,8 +90,8 @@ class ImagesControllerTest < ActionController::TestCase
 
   test "do not save image without slug" do
     login_as_admin
-    new_attr = valid_image_attributes(slug: '')
-    assert_difference('Image.count', 0) do
+    new_attr = valid_image_attributes(slug: "")
+    assert_difference("Image.count", 0) do
       post :create, params: {image: new_attr, obs: [@obs.id]}
     end
 
@@ -100,8 +100,8 @@ class ImagesControllerTest < ActionController::TestCase
 
   test "do not save image with no observations" do
     login_as_admin
-    new_attr = valid_image_attributes(slug: 'new_img_slug')
-    assert_difference('Image.count', 0) do
+    new_attr = valid_image_attributes(slug: "new_img_slug")
+    assert_difference("Image.count", 0) do
       post :create, params: {image: new_attr, obs: []}
     end
 
@@ -112,8 +112,8 @@ class ImagesControllerTest < ActionController::TestCase
     login_as_admin
     obs2 = create(:observation, card: create(:card, locus: loci(:kiev)))
     obs3 = create(:observation, card: create(:card, locus: loci(:brovary)))
-    new_attr = build(:image, slug: 'new_img_slug').attributes.except('assets_cache')
-    assert_difference('Image.count', 0) do
+    new_attr = build(:image, slug: "new_img_slug").attributes.except("assets_cache")
+    assert_difference("Image.count", 0) do
       post :create, params: {image: new_attr, obs: [obs2.id, obs3.id]}
     end
 
@@ -153,7 +153,7 @@ class ImagesControllerTest < ActionController::TestCase
   test "update image" do
     login_as_admin
     new_attr = @image.attributes
-    new_attr['slug'] = 'new_slug'
+    new_attr["slug"] = "new_slug"
     put :update, params: {id: @image.to_param, image: new_attr, obs: @image.observation_ids}
     assert_redirected_to edit_map_image_path(assigns(:image))
   end
@@ -222,16 +222,16 @@ class ImagesControllerTest < ActionController::TestCase
 
   test "destroy image" do
     login_as_admin
-    assert_difference('Image.count', -1) do
+    assert_difference("Image.count", -1) do
       delete :destroy, params: {id: @image.to_param}
     end
 
     assert_redirected_to images_path
   end
 
-  test 'Image page can be shown for spuhs as well' do
+  test "Image page can be shown for spuhs as well" do
     observation = create(:observation, taxon: taxa(:aves_sp))
-    img = create(:image, slug: 'picture-of-the-unknown', observations: [observation])
+    img = create(:image, slug: "picture-of-the-unknown", observations: [observation])
     get :show, params: {id: img}
   end
 
@@ -249,15 +249,15 @@ class ImagesControllerTest < ActionController::TestCase
     assert assigns(:observations).none?
   end
 
-  test 'do not show link to private post to public user on image page' do
-    blogpost = create(:post, status: 'PRIV')
+  test "do not show link to private post to public user on image page" do
+    blogpost = create(:post, status: "PRIV")
     @obs.post = blogpost
     @obs.save!
     get :show, params: {id: @image}
     assert_select "a[href='#{public_post_path(blogpost)}']", false
   end
 
-  test 'show link to public post to public user on image page' do
+  test "show link to public post to public user on image page" do
     blogpost = create(:post)
     @obs.post = blogpost
     @obs.save!

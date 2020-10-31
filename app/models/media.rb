@@ -17,13 +17,13 @@ class Media < ApplicationRecord
 
   validate :consistent_observations
 
-  validates :slug, uniqueness: true, presence: true, length: {:maximum => 64}
+  validates :slug, uniqueness: true, presence: true, length: {maximum: 64}
 
   after_update :update_spot
 
   AVAILABLE_CLASSES = {
-      'photo' => 'Image',
-      'video' => 'Video'
+      "photo" => "Image",
+      "video" => "Video"
   }
 
   # Parameters
@@ -46,12 +46,12 @@ class Media < ApplicationRecord
         Media.for_the_map_query.to_sql
     ).each_with_object({}) do |(im_id, lat, lon), memo|
       key = [lat, lon].map { |x| (x.to_f * 100000).round / 100000.0 }
-      (memo[key.join(',')] ||= []).push(im_id.to_i)
+      (memo[key.join(",")] ||= []).push(im_id.to_i)
     end
   end
 
   def self.half_mapped
-    Media.preload(:taxa => :species).joins(:observations).
+    Media.preload(taxa: :species).joins(:observations).
         where(spot_id: nil).where("observation_id in (select observation_id from spots)").
         order(created_at: :asc)
   end
@@ -100,7 +100,7 @@ class Media < ApplicationRecord
     if I18n.russian_locale? && title.present?
       title
     else
-      species.map(&:name).join(', ')
+      species.map(&:name).join(", ")
     end
   end
 
@@ -133,10 +133,10 @@ class Media < ApplicationRecord
   def consistent_observations
     obs = Observation.where(id: observation_ids)
     if obs.blank?
-      errors.add(:observations, 'must not be empty')
+      errors.add(:observations, "must not be empty")
     else
       if obs.map(&:card_id).uniq.size > 1
-        errors.add(:observations, 'must belong to the same card')
+        errors.add(:observations, "must belong to the same card")
       end
     end
   end

@@ -9,7 +9,7 @@ module Deflicker
 
     def index
       @search = Deflicker::Search.new(search_params)
-      @photos = @search.result.order_by(:uploaded_at => :asc).page(params[:page]).per(10)
+      @photos = @search.result.order_by(uploaded_at: :asc).page(params[:page]).per(10)
     end
 
     def refresh

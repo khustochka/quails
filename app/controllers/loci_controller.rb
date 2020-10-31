@@ -47,7 +47,7 @@ class LociController < ApplicationController
   def create
     @locus = Locus.new(params[:locus])
     if @locus.save
-      redirect_to(edit_locus_path(@locus), notice: 'Locus was successfully created.')
+      redirect_to(edit_locus_path(@locus), notice: "Locus was successfully created.")
     else
       render :form
     end
@@ -57,10 +57,10 @@ class LociController < ApplicationController
   def update
     if @locus.update(params[:locus])
       if params[:commit] == "Save and next >>"
-        nextloc = Locus.where(ebird_location_id: nil).where("id > ?", @locus.id).order(:id => :asc).limit(1).first
-        redirect_to(edit_locus_path(nextloc), notice: 'Sucess. Next one:')
+        nextloc = Locus.where(ebird_location_id: nil).where("id > ?", @locus.id).order(id: :asc).limit(1).first
+        redirect_to(edit_locus_path(nextloc), notice: "Sucess. Next one:")
       else
-        redirect_to(edit_locus_path(@locus), notice: 'Locus was successfully updated.')
+        redirect_to(edit_locus_path(@locus), notice: "Locus was successfully updated.")
       end
     else
       render :form
@@ -76,7 +76,7 @@ class LociController < ApplicationController
 
   def public
     @locs_public = Locus.locs_for_lifelist
-    @locs_other = Locus.sort_by_ancestry(Locus.where('public_index IS NULL'))
+    @locs_other = Locus.sort_by_ancestry(Locus.where("public_index IS NULL"))
   end
 
   def save_order

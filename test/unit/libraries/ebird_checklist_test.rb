@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'test_helper'
-require 'ebird/ebird_checklist'
+require "test_helper"
+require "ebird/ebird_checklist"
 
 class EbirdChecklistTest < ActiveSupport::TestCase
 

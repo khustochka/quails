@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'export/rubirds/observation'
+require "export/rubirds/observation"
 
 class RubirdsStrategy
 
@@ -13,7 +13,7 @@ class RubirdsStrategy
   end
 
   def observations
-    Observation.identified.where(card_id: @cards).preload(:species, :spots, :card => :locus)
+    Observation.identified.where(card_id: @cards).preload(:species, :spots, card: :locus)
   end
 
 end

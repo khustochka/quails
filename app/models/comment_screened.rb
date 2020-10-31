@@ -9,6 +9,6 @@ class CommentScreened
   end
 
   def to_partial_path
-    'comments/screened'
+    "comments/screened"
   end
 end

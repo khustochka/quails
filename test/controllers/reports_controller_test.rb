@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 class ReportsControllerTest < ActionController::TestCase
   test "admin sees reports/index" do
     login_as_admin
     get :index
     assert_response :success
-    assert_template 'index'
+    assert_template "index"
   end
 
   test "user does not see reports/index" do
@@ -43,7 +43,7 @@ class ReportsControllerTest < ActionController::TestCase
 
   test "admin sees reports/compare" do
     login_as_admin
-    get :compare, params: {loc1: 'kiev', loc2: 'brovary'}
+    get :compare, params: {loc1: "kiev", loc2: "brovary"}
     assert_response :success
   end
 
@@ -80,7 +80,7 @@ class ReportsControllerTest < ActionController::TestCase
     login_as_admin
     get :environ
     assert_response :success
-    assert_template 'environ'
+    assert_template "environ"
   end
 
   test "month targets work" do

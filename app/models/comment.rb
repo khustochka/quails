@@ -10,12 +10,12 @@ class Comment < ApplicationRecord
   include DecoratedModel
 
   belongs_to :post, touch: :commented_at
-  has_many :subcomments, class_name: 'Comment', foreign_key: :parent_id, dependent: :destroy, inverse_of: :parent_comment
-  belongs_to :parent_comment, class_name: 'Comment', foreign_key: :parent_id, inverse_of: :subcomments, optional: true
+  has_many :subcomments, class_name: "Comment", foreign_key: :parent_id, dependent: :destroy, inverse_of: :parent_comment
+  belongs_to :parent_comment, class_name: "Comment", foreign_key: :parent_id, inverse_of: :subcomments, optional: true
   belongs_to :commenter, optional: true
 
 
-  validates :text, :name, :post_id, :presence => true
+  validates :text, :name, :post_id, presence: true
   validates :parent_id, numericality: true, allow_blank: true
 
   validate :consistent_post_and_parent
@@ -47,7 +47,7 @@ class Comment < ApplicationRecord
 
   def consistent_post_and_parent
     if parent_comment && parent_comment.post_id != post_id
-      errors.add(:parent_comment, 'must belong to the same post')
+      errors.add(:parent_comment, "must belong to the same post")
     end
   end
 

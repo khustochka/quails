@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 # Interactive depatch
-task :depatch => :environment do
-
+task depatch: :environment do
   cards = Card.
       where(id: Observation.select(:card_id).
           where.not(patch_id: nil)).order(:observ_date).
@@ -75,7 +74,7 @@ task :depatch => :environment do
         break
       end
     end
-    if patches.size == 1 and patches[0][0] != nil
+    if patches.size == 1 && patches[0][0] != nil
       puts "Will switch locus to patch: card #{card.id}"
       card.observations.each do |ob|
         puts "#{ob.id}: Priv: #{ob.private_notes % "%30s"}, Notes: #{ob.notes % "%30s"}"
@@ -96,6 +95,5 @@ task :depatch => :environment do
       puts "Press any key"
       x = STDIN.gets.strip
     end
-
   end
 end

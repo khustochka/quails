@@ -2,6 +2,6 @@
 
 module Ebird
   def self.table_name_prefix
-    'ebird_'
+    "ebird_"
   end
 end

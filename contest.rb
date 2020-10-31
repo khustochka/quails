@@ -1,4 +1,4 @@
-require './config/environment'
+require "./config/environment"
 
 def calculate(result, therest)
   #puts "-- for the day #{result.size}"
@@ -20,7 +20,7 @@ def calculate(result, therest)
         #puts "Trying #{SPCS[sp_id]}"
         calculate(result + [SPCS[sp_id]], temprest2)
       end
-      return false
+      false
     else
       temprest2 = Marshal.load(Marshal.dump(therest[1..-1]))
       calculate(result + [day], temprest2)
@@ -30,13 +30,13 @@ end
 
 SPCS = Hash[Species.all.map { |s| [s.id, s.name_sci] }]
 
-year = ENV['YEAR'] || Quails::CURRENT_YEAR
+year = ENV["YEAR"] || Quails::CURRENT_YEAR
 
 obs = MyObservation.joins(:card).
-    select('DISTINCT observ_date, species_id').
-    where('EXTRACT(year FROM observ_date)::integer = ?', year).
+    select("DISTINCT observ_date, species_id").
+    where("EXTRACT(year FROM observ_date)::integer = ?", year).
     #where("observ_date <= '2013-01-19'").
-    order('observ_date').map { |o| [o.observ_date, o.species_id] }.
+    order("observ_date").map { |o| [o.observ_date, o.species_id] }.
     group_by(&:first).values.map { |e| e.map(&:second) }
 
 # p obs.flatten.size

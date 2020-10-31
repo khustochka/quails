@@ -37,8 +37,8 @@ class ApplicationController < ActionController::Base
   helper_method :significant_params
 
   def expire_photo_feeds
-    expire_page controller: :feeds, action: :photos, format: 'xml'
-    expire_page controller: :feeds, action: :photos, format: 'xml', locale: 'en'
+    expire_page controller: :feeds, action: :photos, format: "xml"
+    expire_page controller: :feeds, action: :photos, format: "xml", locale: "en"
   end
 
 end

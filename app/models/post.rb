@@ -17,15 +17,15 @@ class Post < ApplicationRecord
 
   serialize :lj_data, LJData
 
-  validates :slug, :uniqueness => true, :presence => true, :length => {:maximum => 64}, format: /\A[\w\-]+\Z/
+  validates :slug, uniqueness: true, presence: true, length: {maximum: 64}, format: /\A[\w\-]+\Z/
   validates :title, presence: true, unless: :shout?
-  validates :topic, :inclusion => TOPICS, :presence => true, :length => {:maximum => 4}
-  validates :status, :inclusion => STATES, :presence => true, :length => {:maximum => 4}
+  validates :topic, inclusion: TOPICS, presence: true, length: {maximum: 4}
+  validates :status, inclusion: STATES, presence: true, length: {maximum: 4}
 
   validate :check_cover_image_slug_or_url
 
   has_many :comments, dependent: :destroy
-  has_many :cards, -> {order('observ_date ASC, locus_id')}, dependent: :nullify
+  has_many :cards, -> {order("observ_date ASC, locus_id")}, dependent: :nullify
   has_many :observations, dependent: :nullify # only those attached directly
   #  has_many :species, -> { order(:index_num).distinct }, through: :observations
   #  has_many :images, -> {
@@ -71,52 +71,52 @@ class Post < ApplicationRecord
   # Scopes
 
   scope :public_posts, lambda { where("posts.status <> 'PRIV'") }
-  scope :hidden, lambda { where(status: 'PRIV') }
+  scope :hidden, lambda { where(status: "PRIV") }
   scope :indexable, lambda { public_posts.where("status NOT IN ('NIDX', 'SHOT')") }
   scope :short_form, -> { select(:id, :slug, :face_date, :title, :status) }
   scope :facebook_publishable, -> { public_posts.where(publish_to_facebook: true) }
 
   def self.year(year)
-    select('id, slug, title, face_date, status').where('EXTRACT(year from face_date)::integer = ?', year).order(face_date: :asc)
+    select("id, slug, title, face_date, status").where("EXTRACT(year from face_date)::integer = ?", year).order(face_date: :asc)
   end
 
   def self.month(year, month)
-    year(year).except(:select).where('EXTRACT(month from face_date)::integer = ?', month)
+    year(year).except(:select).where("EXTRACT(month from face_date)::integer = ?", month)
   end
 
   def self.prev_month(year, month)
     date = Time.new(year, month, 1).beginning_of_month.strftime("%F %T") # No Time.zone is OK!
-    rec = select('face_date').where('face_date < ?', date).order(face_date: :desc).first
+    rec = select("face_date").where("face_date < ?", date).order(face_date: :desc).first
     rec.try(:to_month_url)
   end
 
   def self.next_month(year, month)
     date = Time.new(year, month, 1).end_of_month.strftime("%F %T.%N") # No Time.zone is OK!
-    rec = select('face_date').where('face_date > ?', date).order(face_date: :asc).first
+    rec = select("face_date").where("face_date > ?", date).order(face_date: :asc).first
     rec.try(:to_month_url)
   end
 
   def self.years
-    order('year').distinct.pluck(Arel.sql('EXTRACT(year from face_date)::integer AS year'))
+    order("year").distinct.pluck(Arel.sql("EXTRACT(year from face_date)::integer AS year"))
   end
 
   # Associations
 
   def species
-    Species.distinct.joins(:cards, :observations).where('cards.post_id = ? OR observations.post_id = ?', id, id).
+    Species.distinct.joins(:cards, :observations).where("cards.post_id = ? OR observations.post_id = ?", id, id).
         order(:index_num)
   end
 
   def images
-    Image.joins(:observations, :cards).includes(:cards, :taxa).where('cards.post_id = ? OR observations.post_id = ?', id, id).
+    Image.joins(:observations, :cards).includes(:cards, :taxa).where("cards.post_id = ? OR observations.post_id = ?", id, id).
         merge(Card.default_cards_order("ASC")).
-        order('media.index_num, taxa.index_num').preload(:species)
+        order("media.index_num, taxa.index_num").preload(:species)
   end
 
   # Instance methods
 
   def public?
-    status != 'PRIV'
+    status != "PRIV"
   end
 
   def shout?
@@ -128,7 +128,7 @@ class Post < ApplicationRecord
   end
 
   def month
-    '%02d' % face_date.month
+    "%02d" % face_date.month
   end
 
   def to_month_url
@@ -144,7 +144,7 @@ class Post < ApplicationRecord
   end
 
   def to_url_params
-    {:id => slug, :year => year, :month => month}
+    {id: slug, year: year, month: month}
   end
 
   def lj_url

@@ -1,20 +1,17 @@
 # frozen_string_literal: true
 
 namespace :tax do
-
   namespace :update2018 do
+    task import_ebird_taxa: [:import_ebird_csv, :fix_taxa_links_to_ebird, :clean_ebird_taxa]
 
-    task :import_ebird_taxa => [:import_ebird_csv, :fix_taxa_links_to_ebird, :clean_ebird_taxa]
-
-    task :import_ebird_csv => :environment do
-
-      filename = ENV['CSV'] || "./data/eBird_Taxonomy_v2018_14Aug2018.csv"
+    task import_ebird_csv: :environment do
+      filename = ENV["CSV"] || "./data/eBird_Taxonomy_v2018_14Aug2018.csv"
 
       raise "*** Provide path to ebird CSV as CSV env var." if filename.blank?
 
       puts "\n********** Importing EBird taxa from `#{filename}`"
 
-      require 'csv'
+      require "csv"
 
       codes = {}
 
@@ -29,7 +26,6 @@ namespace :tax do
       # But the index_num's in the cached models are different from the real ones (after previous taxa are moved up or down.)
       # This causes problems, duplicated and missing indices.
       EbirdTaxon.acts_as_list_no_update do
-
         data.each_with_index do |(ebird_order, category, code, name_en, name_sci, order, family, _, report_as), idx|
           e_taxon = all_etaxa[code] || EbirdTaxon.new(ebird_code: code)
           e_taxon.update!(
@@ -45,7 +41,6 @@ namespace :tax do
           )
           codes[code] = e_taxon.id
         end
-
       end
 
       old_etaxa = EbirdTaxon.where(ebird_version: 2017)
@@ -62,7 +57,7 @@ namespace :tax do
       end
     end
 
-    task :fix_taxa_links_to_ebird => :environment do
+    task fix_taxa_links_to_ebird: :environment do
       common_firecrest = EbirdTaxon.find_by(ebird_code: "firecr1")
       Taxon.find_by(ebird_code: "firecr2").update!(
           ebird_code: "firecr1",
@@ -70,8 +65,7 @@ namespace :tax do
       )
     end
 
-    task :clean_ebird_taxa => :environment do
-
+    task clean_ebird_taxa: :environment do
       old_etaxa = EbirdTaxon.where(ebird_version: 2017)
       to_fix = Taxon.joins(:ebird_taxon).merge(old_etaxa)
       num_to_fix = to_fix.count
@@ -86,9 +80,6 @@ namespace :tax do
         puts to_fix.map(&:name_sci).join(", ")
         puts "Fix the taxa in `fix_taxa` task"
       end
-
     end
-
   end
-
 end

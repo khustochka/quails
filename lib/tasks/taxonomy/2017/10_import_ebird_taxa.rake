@@ -1,18 +1,15 @@
 # frozen_string_literal: true
 
 namespace :tax do
-
   namespace :update2017 do
-
-    task :import_ebird_taxa => :environment do
-
-      filename = ENV['CSV'] || "./data/eBird_Taxonomy_v2017_18Aug2017.csv"
+    task import_ebird_taxa: :environment do
+      filename = ENV["CSV"] || "./data/eBird_Taxonomy_v2017_18Aug2017.csv"
 
       raise "*** Provide path to ebird CSV as CSV env var." if filename.blank?
 
       puts "\n********** Importing EBird taxa from `#{filename}`"
 
-      require 'csv'
+      require "csv"
 
       codes = {}
 
@@ -62,7 +59,7 @@ namespace :tax do
       end
     end
 
-    task :find_discrepancies => :environment do
+    task find_discrepancies: :environment do
       taxa_rank = Taxon.joins(:ebird_taxon).includes(:ebird_taxon).where("taxa.category != ebird_taxa.category")
 
       puts "RANK CHANGED:\n\n"
@@ -90,7 +87,5 @@ namespace :tax do
         puts "               - changed to #{tx.ebird_taxon.name_sci} (#{tx.ebird_taxon.name_en})"
       end
     end
-
   end
-
 end

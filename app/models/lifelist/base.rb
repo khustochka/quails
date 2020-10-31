@@ -33,9 +33,9 @@ module Lifelist
 
     def ordering
       case @sorting
-        when "class"
+      when "class"
           then "index_num ASC"
-        when "count"
+      when "count"
           then "obs_count DESC"
         else
           "observ_date DESC, to_timestamp(start_time, 'HH24:MI') DESC NULLS LAST, created_at DESC"
@@ -60,7 +60,7 @@ module Lifelist
       # FIXME: Do not join on species when not on taxonomy sorting
       bare_relation.
           joins(:taxon, :card).
-          preload(:patch, {:taxon => :species}, {:card => :locus})
+          preload(:patch, {taxon: :species}, {card: :locus})
       # NOTE: Do not use .includes(:taxon), it breaks species preloading, use .preload
     end
 
@@ -78,7 +78,6 @@ module Lifelist
           ORDER BY observ_date #{preselect_ordering}, to_timestamp(start_time, 'HH24:MI') #{preselect_ordering} NULLS LAST)"
       ).
           where("(observ_date, species_id) IN (#{life_dates_sql})")
-
     end
 
 

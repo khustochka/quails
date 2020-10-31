@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 class LifelistPostsTest < ActionController::TestCase
   tests LifelistController
@@ -15,7 +15,7 @@ class LifelistPostsTest < ActionController::TestCase
     ]
   end
 
-  test 'show post link on default lifelist if post is associated' do
+  test "show post link on default lifelist if post is associated" do
     @obs[1].post = create(:post)
     @obs[1].save!
     get :basic
@@ -25,16 +25,16 @@ class LifelistPostsTest < ActionController::TestCase
     assert_select "a[href='#{public_post_path(@obs[1].post)}']"
   end
 
-  test 'do show post link if locale is not Russian' do
+  test "do show post link if locale is not Russian" do
     @obs[1].post = create(:post)
     @obs[1].save!
     get :basic, params: {locale: :en}
     assert_response :success
     lifers = assigns(:lifelist)
-    assert_nil lifers.to_a.find {|s| s.species.code == 'hirrus'}.main_post
+    assert_nil lifers.to_a.find {|s| s.species.code == "hirrus"}.main_post
   end
 
-  test 'show post link on lifelist ordered by taxonomy if post is associated' do
+  test "show post link on lifelist ordered by taxonomy if post is associated" do
     @obs[1].post = create(:post)
     @obs[1].save!
     get :basic, params: {sort: :by_taxonomy}
@@ -44,17 +44,17 @@ class LifelistPostsTest < ActionController::TestCase
     assert_select "a[href='#{public_post_path(@obs[1].post)}']"
   end
 
-  test 'do not show post link if no post is associated' do
+  test "do not show post link if no post is associated" do
     @obs[3].post = create(:post)
     @obs[3].save!
     get :basic
     assert_response :success
     lifers = assigns(:lifelist)
-    assert_nil lifers.to_a.find {|s| s.species.code == 'jyntor'}.post
+    assert_nil lifers.to_a.find {|s| s.species.code == "jyntor"}.post
   end
 
-  test 'do not show hidden post link to common visitor' do
-    @obs[1].post = create(:post, status: 'PRIV')
+  test "do not show hidden post link to common visitor" do
+    @obs[1].post = create(:post, status: "PRIV")
     @obs[1].save!
     get :basic
     assert_response :success
@@ -62,8 +62,8 @@ class LifelistPostsTest < ActionController::TestCase
     assert_empty lifers.to_a.map(&:post).compact
   end
 
-  test 'show hidden post link to administrator' do
-    @obs[1].post = create(:post, status: 'PRIV')
+  test "show hidden post link to administrator" do
+    @obs[1].post = create(:post, status: "PRIV")
     @obs[1].save!
     login_as_admin
     get :basic

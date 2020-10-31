@@ -12,23 +12,22 @@ class FormattingStrategy
   end
 
   def apply
-
     prepare
 
     result = @text.gsub(/\{\{(#{WIKI_PREFIXES}|)(?:([^\}]*?)\|)?([^\}]*?)(\|en)?\}\}/) do |_|
       tag, word, term, en = $1, $2.try(:html_safe), $3, $4
       case tag
-        when '@' then
+      when "@" then
           if term == "lj"
             lj_user(word)
           end
-        when '#' then
+      when "#" then
           post_tag(word, term)
-        when '^' then
+      when "^" then
           img_tag(term)
-        when '&' then
+      when "&" then
           "notextile. " + video_embed(term)
-        when '' then
+      when "" then
           if term == "en"
             term = word
             word = nil

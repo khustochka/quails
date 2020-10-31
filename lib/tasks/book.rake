@@ -1,24 +1,22 @@
 # frozen_string_literal: true
 
-require 'web_page_cache'
-require 'legacy_checklists_helper'
-require 'import/book_import'
+require "web_page_cache"
+require "legacy_checklists_helper"
+require "import/book_import"
 
-desc 'Tasks for importing species lists'
+desc "Tasks for importing species lists"
 namespace :book do
-
   regions = %w( wpa NA1 )
 
-  desc 'Fetch from web or html file, parse it and save to yaml'
-  task :fetch => :environment do
-
+  desc "Fetch from web or html file, parse it and save to yaml"
+  task fetch: :environment do
     include LegacyChecklistsHelper
 
     @cache = WebPageCache.new("tmp/")
 
-    puts 'Fetching Holarctic checklist'
-    author = 'clements'
-    source = @cache.fetch("holarctic_#{author}_real.html", avibase_list_url('hol', author), verbose: true)
+    puts "Fetching Holarctic checklist"
+    author = "clements"
+    source = @cache.fetch("holarctic_#{author}_real.html", avibase_list_url("hol", author), verbose: true)
     holarctic = BookImport.parse_list(source)
 
     desired = regions.map do |reg|
@@ -58,11 +56,10 @@ namespace :book do
     #end
     #
     #File.new("clements_#{regions.join('_')}.yml", 'w').write(desired_ordered.to_yaml)
-
   end
 
-  desc 'Merge to DB'
-  task :merge_to_db => :environment do
+  desc "Merge to DB"
+  task merge_to_db: :environment do
     records = File.open("clements_#{regions.join('_')}.yml") do |f|
       YAML.load(f.read)
     end
@@ -73,12 +70,12 @@ namespace :book do
         if nsp = Species.find_by(name_en: rec[:name_en])
           puts "  But there is '#{nsp.name_sci}' with the same name (#{nsp.name_en}). Code: #{nsp.code}"
         end
-        _, nomen = rec[:name_sci].split(' ')
+        _, nomen = rec[:name_sci].split(" ")
         if sps = Species.where("name_sci LIKE '%#{nomen}'")
           sps.each { |s| puts "  But there is '#{s.name_sci}' with different genus. Code: #{s.code}" }
         end
 
-        gen, spn = rec[:name_sci].downcase.split(' ')
+        gen, spn = rec[:name_sci].downcase.split(" ")
         new_code = gen[0, 3] + (gen != spn || gen.length < 6 ? spn[0, 3] : spn[-3, 3])
         puts "New code would be: #{new_code}"
 
@@ -107,10 +104,9 @@ namespace :book do
       else
         rec.merge!({code: code})
       end
-
     end
 
-    final = Species.ordered_by_taxonomy.map{|sp| sp.attributes.slice('name_sci', 'id', 'code') }
+    final = Species.ordered_by_taxonomy.map{|sp| sp.attributes.slice("name_sci", "id", "code") }
 
     collected = []
     records.each_with_index do |rec, i|
@@ -118,7 +114,7 @@ namespace :book do
         collected.push(rec)
         if records[i + 1][:id]
           puts "Inserting #{collected.map{|a| a[:name_sci]}.join(', ')} before #{records[i + 1][:name_sci]}"
-          index_next = final.index { |el| el['name_sci'] == records[i + 1][:name_sci] }
+          index_next = final.index { |el| el["name_sci"] == records[i + 1][:name_sci] }
           final.insert(index_next, *collected)
           collected = []
         end
@@ -131,8 +127,8 @@ namespace :book do
     end
 
     final.each_with_index do |sp, i|
-      if sp['id']
-        spc = Species.find_by(id: sp['id'])
+      if sp["id"]
+        spc = Species.find_by(id: sp["id"])
       else
         spc = Species.new(sp)
       end
@@ -141,20 +137,16 @@ namespace :book do
     end
 
     #File.new("clements_#{regions.join('_')}.yml", 'w').write(records.to_yaml)
-
   end
 
-  desc 'Fetch details for species where they are missing'
-  task :update_missing_details => :environment do
-
+  desc "Fetch details for species where they are missing"
+  task update_missing_details: :environment do
     include SpeciesHelper
-    require 'nokogiri'
+    require "nokogiri"
 
     Species.select {|s| s.authority.blank? }.each do |sp|
       puts "Fetching details for #{sp.name_sci}"
       sp.update!(BookImport.fetch_details(sp))
     end
-
   end
-
 end

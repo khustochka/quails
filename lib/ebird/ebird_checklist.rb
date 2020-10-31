@@ -32,11 +32,9 @@ class EbirdChecklist
     page = agent.fetch_checklist(self)
 
     parse!(page)
-
   end
 
   def to_card
-
     Card.new(
             ebird_id: ebird_id,
             observ_date: observ_date,
@@ -50,7 +48,6 @@ class EbirdChecklist
             #locus: locus,
             observations: observations.map {|obs| Observation.new(obs)}
     )
-
   end
 
   private
@@ -129,10 +126,9 @@ class EbirdChecklist
         end
       end
 
-      ebird_obs_id = row.at_css("a.Observation-tools-item")['data-obsid']
+      ebird_obs_id = row.at_css("a.Observation-tools-item")["data-obsid"]
 
       self.observations << {taxon: tx, quantity: count, notes: notes, voice: voice, ebird_obs_id: ebird_obs_id}
-
     end
 
     self

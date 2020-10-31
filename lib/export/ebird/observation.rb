@@ -31,12 +31,12 @@ class EbirdObservation
   end
 
   PROTOCOL_MAPPING = {
-      'UNSET' => 'incidental',
-      'INCIDENTAL' => 'incidental',
-      'TRAVEL' => 'traveling',
-      'AREA' => 'area',
-      'HISTORICAL' => 'historical',
-      'STATIONARY' => 'stationary'
+      "UNSET" => "incidental",
+      "INCIDENTAL" => "incidental",
+      "TRAVEL" => "traveling",
+      "AREA" => "area",
+      "HISTORICAL" => "historical",
+      "STATIONARY" => "stationary"
   }
 
   private
@@ -79,11 +79,9 @@ class EbirdObservation
   end
 
   def latitude
-
   end
 
   def longtitude
-
   end
 
   def date
@@ -95,7 +93,6 @@ class EbirdObservation
   end
 
   def state_iso_code
-
   end
 
   def country_iso_code
@@ -107,7 +104,7 @@ class EbirdObservation
   end
 
   def number_of_observers
-    n = card.observers.to_s.split(',').size
+    n = card.observers.to_s.split(",").size
     n = 1 if n == 0
     n
   end
@@ -130,7 +127,6 @@ class EbirdObservation
   end
 
   def checklist_comment
-
   end
 
   ## helpers
@@ -168,7 +164,7 @@ class EbirdObservation
 
   def polymorfic_media_render(media)
     media = media.extend_with_class
-    if media.media_type == 'photo'
+    if media.media_type == "photo"
       if media.on_flickr?
         ff = FlickrPhoto.new(media)
         link_to image_tag(media.assets_cache.externals.find_max_size(width: 600).full_url, alt: nil), ff.page_url
@@ -176,7 +172,7 @@ class EbirdObservation
         image_tag(media.assets_cache.locals.find_max_size(width: 600).try(:full_url) || legacy_image_url("#{media.slug}.jpg"), alt: nil)
       end
     else
-      video_embed(media.slug, :medium).gsub("\n", ' ')
+      video_embed(media.slug, :medium).gsub("\n", " ")
     end
   end
 

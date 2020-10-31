@@ -3,8 +3,8 @@
 module SpeciesHelper
 
   STATIC_MAP_CENTER = {
-      'ukraine' => '48.6,31.2',
-      'united_kingdom' => '54.8,-1.5'
+      "ukraine" => "48.6,31.2",
+      "united_kingdom" => "54.8,-1.5"
   }
 
   NEW_SPECIES_LINK_METHOD = {
@@ -12,7 +12,7 @@ module SpeciesHelper
       false => :species_link
   }
 
-  def avibase_species_url(avibase_id, lang = 'EN')
+  def avibase_species_url(avibase_id, lang = "EN")
     "http://avibase.bsc-eoc.org/species.jsp?avibaseid=#{avibase_id}&lang=#{lang}"
   end
 
@@ -23,7 +23,7 @@ module SpeciesHelper
   def species_link(sp_obj, string = nil)
     @only_path = true if @only_path.nil?
     if sp_obj
-      link_to(string || sp_obj.name, localized_species_url(id: sp_obj, only_path: @only_path), class: 'sp_link')
+      link_to(string || sp_obj.name, localized_species_url(id: sp_obj, only_path: @only_path), class: "sp_link")
     else
       "Bird sp."
     end
@@ -44,16 +44,16 @@ module SpeciesHelper
   end
 
   def name_sci(sp_obj)
-    content_tag(:i, sp_obj.name_sci, class: 'sci_name', lang: "la")
+    content_tag(:i, sp_obj.name_sci, class: "sci_name", lang: "la")
   end
 
   def unknown_species(text, name_sci)
-    text.present? ? content_tag(:span, text, title: name_sci) : content_tag(:i, name_sci, class: 'sci_name')
+    text.present? ? content_tag(:span, text, title: name_sci) : content_tag(:i, name_sci, class: "sci_name")
   end
 
   def species_map(country, loci)
     center = "center=#{STATIC_MAP_CENTER[country]}"
-    markers = loci.map { |l| l.lat and "#{l.lat},#{l.lon}" }.compact.join('|')
+    markers = loci.map { |l| l.lat and "#{l.lat},#{l.lon}" }.compact.join("|")
     zoom = 5
     if !country.in?(STATIC_MAP_CENTER.keys)
       lats = loci.map(&:lat).compact

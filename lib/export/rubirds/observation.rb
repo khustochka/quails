@@ -26,7 +26,7 @@ class RubirdsObservation
 
   def self.rubirds_species_cache
     @rubirds_species_cache ||=
-        Taxon.where(book_id: Book.select(:id).where(slug: 'koblik-redkin')).index_by(&:species_id)
+        Taxon.where(book_id: Book.select(:id).where(slug: "koblik-redkin")).index_by(&:species_id)
   end
 
   def date
@@ -34,27 +34,27 @@ class RubirdsObservation
   end
 
   def region
-    @obs.card.locus.ancestors.where(loc_type: 'oblast').first.name_ru
+    @obs.card.locus.ancestors.where(loc_type: "oblast").first.name_ru
   end
 
   def district
-    ''
+    ""
   end
 
   def route
-    ''
+    ""
   end
 
   def biotope
-    ''
+    ""
   end
 
   def weather
-    ''
+    ""
   end
 
   def observers
-    'Хусточка Виталий'
+    "Хусточка Виталий"
   end
 
   def species_ru
@@ -76,7 +76,7 @@ class RubirdsObservation
   end
 
   def notes
-    ''
+    ""
   end
 
 end

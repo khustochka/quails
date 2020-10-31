@@ -2,8 +2,8 @@
 
 class CommentMailer < ActionMailer::Base
 
-  default from: ENV['quails_comment_sender']
-  default to: ENV['quails_comment_reader']
+  default from: ENV["quails_comment_sender"]
+  default to: ENV["quails_comment_reader"]
 
   layout "mail_layout"
 

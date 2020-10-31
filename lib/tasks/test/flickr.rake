@@ -5,8 +5,8 @@
 
 require "rake/testtask"
 
-Rake::TestTask.new('test:flickr') do |t|
-  t.libs << 'test'
-  t.pattern = 'test/flickr/**/*_test.rb'
+Rake::TestTask.new("test:flickr") do |t|
+  t.libs << "test"
+  t.pattern = "test/flickr/**/*_test.rb"
 end
-Rake::Task['test:flickr'].comment = "Test flickr functionality"
+Rake::Task["test:flickr"].comment = "Test flickr functionality"

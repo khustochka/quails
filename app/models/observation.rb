@@ -20,10 +20,10 @@ class Observation < ApplicationRecord
 
   belongs_to :post, -> { short_form }, touch: true, optional: true
   has_and_belongs_to_many :media
-  has_and_belongs_to_many :images, class_name: 'Image', association_foreign_key: :media_id
-  has_and_belongs_to_many :videos, class_name: 'Video', association_foreign_key: :media_id
+  has_and_belongs_to_many :images, class_name: "Image", association_foreign_key: :media_id
+  has_and_belongs_to_many :videos, class_name: "Video", association_foreign_key: :media_id
   has_many :spots, dependent: :delete_all
-  belongs_to :patch, class_name: 'Locus', foreign_key: 'patch_id', optional: true
+  belongs_to :patch, class_name: "Locus", foreign_key: "patch_id", optional: true
 
   before_destroy do
     if images.present?
@@ -46,14 +46,14 @@ class Observation < ApplicationRecord
 
   def self.refine(options = {})
     rel = self.all
-    rel = rel.joins(:card).where('EXTRACT(year from cards.observ_date)::integer = ?', options[:year]) unless options[:year].blank?
-    rel = rel.joins(:card).where('EXTRACT(month from cards.observ_date)::integer = ?', options[:month]) unless options[:month].blank?
-    rel = rel.joins(:card).where('cards.locus_id IN (?) OR observations.patch_id IN (?)', options[:locus], options[:locus]) unless options[:locus].blank?
+    rel = rel.joins(:card).where("EXTRACT(year from cards.observ_date)::integer = ?", options[:year]) unless options[:year].blank?
+    rel = rel.joins(:card).where("EXTRACT(month from cards.observ_date)::integer = ?", options[:month]) unless options[:month].blank?
+    rel = rel.joins(:card).where("cards.locus_id IN (?) OR observations.patch_id IN (?)", options[:locus], options[:locus]) unless options[:locus].blank?
     rel
   end
 
   def self.years
-    joins(:card).order('year').distinct.pluck(Arel.sql('EXTRACT(year from observ_date)::integer AS year'))
+    joins(:card).order("year").distinct.pluck(Arel.sql("EXTRACT(year from observ_date)::integer AS year"))
   end
 
   # Species

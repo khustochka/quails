@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
 namespace :tax do
-
   namespace :update2018 do
-
-    task :list_taxa_changes => :environment do
+    task list_taxa_changes: :environment do
       taxa_rank = Taxon.joins(:ebird_taxon).includes(:ebird_taxon).where("taxa.category != ebird_taxa.category")
 
       puts "RANK CHANGED:\n\n"
@@ -33,14 +31,13 @@ namespace :tax do
       end
     end
 
-    task :update_taxa => :environment do
+    task update_taxa: :environment do
       exceptions = %w(weywag6 lbbgul4 bewswa1)
 
       codes = {}
 
       Taxon.acts_as_list_no_update do
-
-        Taxon.joins(:ebird_taxon).preload(:ebird_taxon => :parent).order("ebird_taxa.index_num").each_with_index do |taxon, idx|
+        Taxon.joins(:ebird_taxon).preload(ebird_taxon: :parent).order("ebird_taxa.index_num").each_with_index do |taxon, idx|
           ebtx = taxon.ebird_taxon
 
           unless taxon.ebird_code.in?(exceptions)
@@ -62,7 +59,6 @@ namespace :tax do
         end
 
         Taxon.find_by_ebird_code("unrepbirdsp").update_column(:index_num, Taxon.count)
-
       end
 
       order_valid =
@@ -74,9 +70,6 @@ namespace :tax do
       else
         raise "Taxa ordering invalid!"
       end
-
     end
-
   end
-
 end

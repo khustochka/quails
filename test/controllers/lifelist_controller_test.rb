@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 class LifelistControllerTest < ActionController::TestCase
 
@@ -14,7 +14,7 @@ class LifelistControllerTest < ActionController::TestCase
     ]
   end
 
-  test 'get index' do
+  test "get index" do
     %w(united_kingdom canada).each do |sl|
       create(:locus, slug: sl, loc_type: "country")
     end
@@ -22,7 +22,7 @@ class LifelistControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test 'shows My Statistics page' do
+  test "shows My Statistics page" do
     get :stats
   end
 

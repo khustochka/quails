@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
 namespace :five_mr do
-
   desc "Detect 5MR candidates"
-  task :refresh => :environment do
-
+  task refresh: :environment do
     home = ENV["MYLOC"]&.split(",").map {|n| n.strip.to_f}
     unless home
       puts "Provide your coordinates as MYLOC=<lat>,<lon>"
@@ -27,7 +25,5 @@ namespace :five_mr do
 
     Rails.cache.write("5mr/candidates", candidates)
     Rails.cache.write("5mr/removal", removal)
-
   end
-
 end

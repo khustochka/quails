@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 class SpeciesControllerTest < ActionController::TestCase
 
@@ -50,7 +50,7 @@ class SpeciesControllerTest < ActionController::TestCase
     card = create(:card, observ_date: "2008-07-01")
     obs1 = create(:observation, taxon: sp1, card: card)
     obs2 = create(:observation, taxon: sp2, card: card)
-    img = create(:image, slug: 'picture-of-the-shrike-and-the-wryneck', observations: [obs1, obs2])
+    img = create(:image, slug: "picture-of-the-shrike-and-the-wryneck", observations: [obs1, obs2])
 
     get :gallery
     assert_response :success
@@ -118,7 +118,7 @@ class SpeciesControllerTest < ActionController::TestCase
 
   test "normal update species should get back to edit form" do
     species = species(:bomgar)
-    species.name_ru = 'Богемский свиристель'
+    species.name_ru = "Богемский свиристель"
     login_as_admin
     put :update, params: {id: species.to_param, species: species.attributes}
     assert_redirected_to edit_species_path(assigns(:species))
@@ -127,7 +127,7 @@ class SpeciesControllerTest < ActionController::TestCase
   test "update species via JSON" do
     species = species(:bomgar)
     login_as_admin
-    put :update, params: {id: species.to_param, species: {name_ru: 'Богемский свиристель'}}, format: :json
+    put :update, params: {id: species.to_param, species: {name_ru: "Богемский свиристель"}}, format: :json
     assert_response :success
     assert_equal Mime[:json], response.media_type
   end
@@ -136,7 +136,7 @@ class SpeciesControllerTest < ActionController::TestCase
     species = species(:bomgar)
     sp_attr = species.attributes
     old_id = species.to_param
-    sp_attr['name_sci'] = '$!#@'
+    sp_attr["name_sci"] = '$!#@'
     login_as_admin
     put :update, params: {id: old_id, species: sp_attr}
     assert_template :form
@@ -144,52 +144,52 @@ class SpeciesControllerTest < ActionController::TestCase
   end
 
   test "correct spaces in species URL" do
-    get :show, params: {id: 'Saxicola rubicola'}
-    assert_redirected_to species_path(id: 'Saxicola_rubicola')
+    get :show, params: {id: "Saxicola rubicola"}
+    assert_redirected_to species_path(id: "Saxicola_rubicola")
     assert_response 301
   end
 
   test "redirect old synonym to the new species URL" do
-    get :show, params: {id: 'Saxicola torquata'}
-    assert_redirected_to species_path(id: 'Saxicola_rubicola')
+    get :show, params: {id: "Saxicola torquata"}
+    assert_redirected_to species_path(id: "Saxicola_rubicola")
     assert_response 301
   end
 
   # auth tests
 
-  test 'protect index with authentication' do
+  test "protect index with authentication" do
     assert_raise(ActionController::RoutingError) { get :index }
     #assert_response 404
   end
 
-  test 'protect edit with authentication' do
+  test "protect edit with authentication" do
     species = species(:jyntor)
     assert_raise(ActionController::RoutingError) { get :edit, params: {id: species.to_param} }
     #assert_response 404
   end
 
-  test 'protect update with authentication' do
+  test "protect update with authentication" do
     species = species(:bomgar)
-    species.name_ru = 'Богемский свиристель'
+    species.name_ru = "Богемский свиристель"
     assert_raise(ActionController::RoutingError) { put :update, params: {id: species.to_param, species: species.attributes} }
     #assert_response 404
   end
 
   test "search" do
     create(:observation, taxon: taxa(:bomgar))
-    get :search, params: {term: 'gar'}, format: :json
+    get :search, params: {term: "gar"}, format: :json
     assert_response :success
     assert_equal Mime[:json], response.media_type
-    assert response.body.include?('garrulus')
+    assert response.body.include?("garrulus")
   end
 
   test "search localized" do
     create(:observation, taxon: taxa(:bomgar))
-    get :search, params: {term: 'gar', locale: 'en'}, format: :json
+    get :search, params: {term: "gar", locale: "en"}, format: :json
     assert_response :success
     assert_equal Mime[:json], response.media_type
-    assert response.body.include?('Waxwing')
-    assert response.body.include?('/en/species/Bombycilla')
+    assert response.body.include?("Waxwing")
+    assert response.body.include?("/en/species/Bombycilla")
   end
 
 end

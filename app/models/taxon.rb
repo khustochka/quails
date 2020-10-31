@@ -69,7 +69,6 @@ class Taxon < ApplicationRecord
       new_species = species
 
       ActiveRecord::Base.transaction do
-
         if new_species.nil?
           new_species = Species.find_by_name_sci(name_sci)
         end
@@ -102,7 +101,6 @@ class Taxon < ApplicationRecord
         self.update!(species_id: new_species.id)
 
         self.children.each {|tx| tx.update(species_id: new_species.id)}
-
       end
       new_species
     end

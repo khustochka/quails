@@ -7,18 +7,18 @@ class Image < Media
 
   STATES = %w(PUBLIC NOINDEX POST_ONLY EBIRD_ONLY PRIVATE)
 
-  has_many :children, -> { basic_order }, class_name: 'Image', foreign_key: 'parent_id'
+  has_many :children, -> { basic_order }, class_name: "Image", foreign_key: "parent_id"
 
   has_one_attached :stored_image
 
-  validates :external_id, uniqueness: true, allow_nil: true, exclusion: {in: ['']}
+  validates :external_id, uniqueness: true, allow_nil: true, exclusion: {in: [""]}
   validates :status, inclusion: STATES, presence: true, length: {maximum: 16}
 
   validate :has_attached_image
   validate :stored_image_valid_content_type
   validate :blob_uniqueness
 
-  default_scope -> { where(media_type: 'photo').with_attached_stored_image }
+  default_scope -> { where(media_type: "photo").with_attached_stored_image }
 
   scope :unflickred, -> { where(external_id: nil) }
 
@@ -54,13 +54,13 @@ class Image < Media
 
   scope :indexable, lambda { where("status <> 'NOINDEX'") }
 
-  scope :basic_order, -> { order(:index_num, 'media.created_at', 'media.id') }
+  scope :basic_order, -> { order(:index_num, "media.created_at", "media.id") }
 
   # Photos with several species
   def self.multiple_species
     rel = select(:media_id).from("media_observations").group(:media_id).having("COUNT(observation_id) > 1")
     select("DISTINCT media.*, observ_date").where(id: rel).
-        joins({:observations => :taxon}, :cards).preload(:species).order('observ_date ASC')
+        joins({observations: :taxon}, :cards).preload(:species).order("observ_date ASC")
   end
 
   # Instance methods

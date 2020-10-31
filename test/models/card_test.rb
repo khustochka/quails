@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 class CardTest < ActiveSupport::TestCase
 
@@ -86,10 +86,10 @@ class CardTest < ActiveSupport::TestCase
     assert_not_includes card2.lifer_species_ids, species.id
   end
 
-   test 'card is unlinked from post when post is destroyed' do
-     p = create(:post)
-     card = create(:card, post_id: p.id)
-     p.destroy
-     assert_nil card.reload.post_id
-   end
+  test "card is unlinked from post when post is destroyed" do
+    p = create(:post)
+    card = create(:card, post_id: p.id)
+    p.destroy
+    assert_nil card.reload.post_id
+  end
 end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'capybara/rails'
-require 'capybara/minitest'
+require "capybara/rails"
+require "capybara/minitest"
 
 #Capybara.default_wait_time = 5
 
@@ -31,19 +31,18 @@ module CapybaraTestCase
   include Capybara::DSL
   include Capybara::Minitest::Assertions
 
-  TEST_CREDENTIALS = {username: ENV['admin_username'], password: ENV['admin_password']}
+  TEST_CREDENTIALS = {username: ENV["admin_username"], password: ENV["admin_password"]}
 
   def self.included(klass)
-
     klass.teardown do
       Capybara.reset_sessions!
     end
   end
 
   def login_as_admin
-    visit '/login'
-    fill_in 'username', with: TEST_CREDENTIALS[:username]
-    fill_in 'password', with: TEST_CREDENTIALS[:password]
+    visit "/login"
+    fill_in "username", with: TEST_CREDENTIALS[:username]
+    fill_in "password", with: TEST_CREDENTIALS[:password]
     click_button "Login"
   end
 end

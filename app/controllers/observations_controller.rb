@@ -16,7 +16,7 @@ class ObservationsController < ApplicationController
   def update
     respond_to do |format|
       if @observation.update(params[:observation])
-        format.html { redirect_to observation_path(@observation), notice: 'Observation was successfully updated.' }
+        format.html { redirect_to observation_path(@observation), notice: "Observation was successfully updated." }
         format.json { head :no_content }
       else
         format.html { render :show }
@@ -34,18 +34,18 @@ class ObservationsController < ApplicationController
 
   # GET /observations/search
   def search
-    preload_tables = [{:card => :locus}, :taxon]
+    preload_tables = [{card: :locus}, :taxon]
 
     observs =
         params[:q] && params[:q].values.any?(&:present?) ?
             ObservationSearch.new(params[:q]).observations.
                 joins(:card, :taxon).
                 preload(preload_tables).
-                order('cards.observ_date', 'cards.locus_id', 'taxa.index_num').limit(params[:limit] || 200) :
+                order("cards.observ_date", "cards.locus_id", "taxa.index_num").limit(params[:limit] || 200) :
             []
 
     respond_to do |format|
-      format.html { render partial: 'observations/obs_item', collection: observs }
+      format.html { render partial: "observations/obs_item", collection: observs }
     end
   end
 
@@ -58,7 +58,7 @@ class ObservationsController < ApplicationController
   end
 
   def move
-    @observations = Observation.where(id: params[:obs]).preload(:taxon => :species)
+    @observations = Observation.where(id: params[:obs]).preload(taxon: :species)
     @card = @observations[0].card
     @observation_search = ObservationSearch.new(observ_date: @card.observ_date, locus_id: @card.locus_id)
   end
@@ -67,7 +67,7 @@ class ObservationsController < ApplicationController
 
   def cache_expire
     expire_photo_feeds
-    expire_page controller: :feeds, action: :blog, format: 'xml'
-    expire_page controller: :feeds, action: :instant_articles, format: 'xml'
+    expire_page controller: :feeds, action: :blog, format: "xml"
+    expire_page controller: :feeds, action: :instant_articles, format: "xml"
   end
 end

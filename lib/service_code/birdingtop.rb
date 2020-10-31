@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'service_code/service_code'
+require "service_code/service_code"
 
 class Birdingtop < ServiceCode
 
@@ -10,7 +10,7 @@ class Birdingtop < ServiceCode
     cache [:birdingtop_code, show: is_admin? || map?] do
       unless is_admin? || config.code.blank? || map?
         if Rails.env.production? && Quails.env.real_prod?
-          @view.render partial: 'partials/birdingtop_code', object: config.code, as: :code
+          @view.render partial: "partials/birdingtop_code", object: config.code, as: :code
         else
           @view.content_tag(:span, "Here be BirdingTop banner.")
         end
@@ -21,7 +21,7 @@ class Birdingtop < ServiceCode
   private
 
   def map?
-    @view.controller_name == 'maps'
+    @view.controller_name == "maps"
   end
 
 end

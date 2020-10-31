@@ -14,7 +14,6 @@ module Search
           where(filter_clause).
           order("rank ASC NULLS LAST, ebird_taxa.index_num").
           limit(results_limit)
-
     end
 
     private

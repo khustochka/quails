@@ -18,7 +18,7 @@ module App2::LinksHelper
       nofollow = html_options2.delete(-"nofollow")
     end
     if nofollow
-      html_options2.merge!(rel: -"nofollow")
+      html_options2[:rel] = -"nofollow"
     end
     link_to(name, options, html_options2)
   end

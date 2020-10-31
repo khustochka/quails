@@ -8,12 +8,12 @@ class LifelistController < ApplicationController
 
     @list_prev_year = Lifelist::FirstSeen.over(year: Quails::CURRENT_YEAR - 1)
 
-    @list_canada = Lifelist::FirstSeen.over(locus: 'canada')
+    @list_canada = Lifelist::FirstSeen.over(locus: "canada")
 
-    @list_ukraine = Lifelist::FirstSeen.over(locus: 'ukraine')
+    @list_ukraine = Lifelist::FirstSeen.over(locus: "ukraine")
 
-    @list_usa = Lifelist::FirstSeen.over(locus: 'usa')
-    @list_uk = Lifelist::FirstSeen.over(locus: 'united_kingdom')
+    @list_usa = Lifelist::FirstSeen.over(locus: "usa")
+    @list_uk = Lifelist::FirstSeen.over(locus: "united_kingdom")
   end
 
   def basic
@@ -21,10 +21,10 @@ class LifelistController < ApplicationController
 
     sort_override =
         case params[:sort]
-          when nil
+        when nil
             nil
-          when 'by_taxonomy'
-            'class'
+        when "by_taxonomy"
+            "class"
           else
             raise ActionController::RoutingError, "Illegal argument sort=#{params[:sort]}"
         end
@@ -59,7 +59,6 @@ class LifelistController < ApplicationController
     if I18n.russian_locale?
       @lifelist.set_posts_scope(current_user.available_posts)
     end
-
   end
 
   def ebird
@@ -72,10 +71,10 @@ class LifelistController < ApplicationController
     identified_observations = observations_filtered.identified
     lifelist_filtered = LiferObservation.all
 
-    @year_data = identified_observations.group('EXTRACT(year FROM observ_date)::integer').
-        order(Arel.sql('EXTRACT(year FROM observ_date)::integer'))
+    @year_data = identified_observations.group("EXTRACT(year FROM observ_date)::integer").
+        order(Arel.sql("EXTRACT(year FROM observ_date)::integer"))
 
-    @first_sp_by_year = lifelist_filtered.group('EXTRACT(year FROM observ_date)::integer').
+    @first_sp_by_year = lifelist_filtered.group("EXTRACT(year FROM observ_date)::integer").
         except(:order)
 
     @countries = Country.all
@@ -88,7 +87,6 @@ class LifelistController < ApplicationController
     @grouped_by_country = identified_observations.group(country_sql)
 
     @grouped_by_year_and_country = identified_observations.
-        group('EXTRACT(year FROM observ_date)::integer', country_sql)
-
+        group("EXTRACT(year FROM observ_date)::integer", country_sql)
   end
 end

@@ -47,7 +47,7 @@ class SiteFormatStrategy < FormattingStrategy
   end
 
   def post_scriptum
-    result = String.new ''
+    result = String.new ""
     if @posts.any?
       result << "\n"
 

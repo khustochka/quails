@@ -2,11 +2,10 @@
 
 class MapsController < ApplicationController
 
-  administrative :except => [:show, :media]
+  administrative except: [:show, :media]
 
   # GET "/map"
   def show
-
   end
 
   # GET "/map/edit"
@@ -17,7 +16,7 @@ class MapsController < ApplicationController
 
   # GET "/map/observations.json"
   def observations
-    preload_tables = [{:card => :locus}, {:taxon => :species}, :spots, :images]
+    preload_tables = [{card: :locus}, {taxon: :species}, :spots, :images]
     json_methods = [:spots]
 
     observs =
@@ -27,13 +26,13 @@ class MapsController < ApplicationController
             ObservationSearch.new(params[:q]).observations.
                 joins(:card, :taxon).
                 preload(preload_tables).
-                order('cards.observ_date', 'cards.locus_id', 'patch_id', 'taxa.index_num').limit(params[:limit] || 200) :
+                order("cards.observ_date", "cards.locus_id", "patch_id", "taxa.index_num").limit(params[:limit] || 200) :
             []
 
     respond_to do |format|
       format.json { render json:
                                { json: observs.as_json(only: :id, methods: json_methods),
-                                 html: render_to_string(partial: 'maps/observation', collection: observs, formats: [:html]) }
+                                 html: render_to_string(partial: "maps/observation", collection: observs, formats: [:html]) }
       }
     end
   end
@@ -44,7 +43,6 @@ class MapsController < ApplicationController
   end
 
   def global
-
   end
 
   def loci

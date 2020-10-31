@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 class SpeciesTest < ActiveSupport::TestCase
 
-  test 'do not destroy taxon if it has associated observations' do
+  test "do not destroy taxon if it has associated observations" do
     hirrus = taxa(:hirrus)
     observation = create(:observation, taxon: hirrus)
     assert_raise(ActiveRecord::DeleteRestrictionError) { hirrus.destroy }

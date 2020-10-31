@@ -3,7 +3,7 @@
 class YoutubeVideo < Struct.new(:video_id, :width, :height)
 
   def to_partial_path
-    'videos/youtube_embed'
+    "videos/youtube_embed"
   end
 
   def url

@@ -11,7 +11,7 @@ module VideoEmbedder
 
   private
   def self.erb_template
-    @template ||= ERB.new File.new(Rails.root.join('app/views/videos/_youtube_embed.html.erb')).read, nil, "%"
+    @template ||= ERB.new File.new(Rails.root.join("app/views/videos/_youtube_embed.html.erb")).read, nil, "%"
   end
 
 end

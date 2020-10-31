@@ -41,11 +41,11 @@ module Lifelist
 
     def primary_key
       @primary_key ||= case @sorting
-        when nil, "class"
+                       when nil, "class"
           then :first_seen
-        when "last"
+                       when "last"
           then :last_seen
-        when "count"
+                       when "count"
           then :obs_count
         else
           raise "Invalid sorting key."
@@ -56,11 +56,11 @@ module Lifelist
       @all_lists ||= {}
       return @all_lists[key] if @all_lists[key]
       list = case key
-                            when :first_seen
+             when :first_seen
                               then Lifelist::FirstSeen.over(@filter)
-                            when :last_seen
+             when :last_seen
                               then Lifelist::LastSeen.over(@filter)
-                            when :obs_count
+             when :obs_count
                               then Lifelist::Count.over(@filter)
              end
       list.set_posts_scope(@posts_scope)

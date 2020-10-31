@@ -1,17 +1,15 @@
 # frozen_string_literal: true
 
 namespace :tax do
-
   namespace :update2017 do
-
-    task :update_taxa => :environment do
+    task update_taxa: :environment do
       exceptions = %w(weywag6 lbbgul4 bewswa1)
 
       codes = {}
 
       Taxon.update_all(index_num: 0) # workaround
 
-      Taxon.joins(:ebird_taxon).preload(:ebird_taxon => :parent).order("ebird_taxa.index_num").each_with_index do |taxon, idx|
+      Taxon.joins(:ebird_taxon).preload(ebird_taxon: :parent).order("ebird_taxa.index_num").each_with_index do |taxon, idx|
         ebtx = taxon.ebird_taxon
 
         unless taxon.ebird_code.in?(exceptions)
@@ -33,10 +31,9 @@ namespace :tax do
       end
 
       Taxon.find_by_ebird_code("unrepbirdsp").update_column(:index_num, Taxon.count)
-
     end
 
-    task :find_species_problems => :environment do
+    task find_species_problems: :environment do
       species_rank = Species.joins(:high_level_taxa).includes(:high_level_taxa).where("taxa.category != 'species'")
 
       puts "RANK CHANGED:\n\n"
@@ -64,7 +61,5 @@ namespace :tax do
         puts "               - changed to #{sp.high_level_taxon.name_sci} (#{sp.high_level_taxon.name_en})"
       end
     end
-
   end
-
 end

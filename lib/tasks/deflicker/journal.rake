@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
 namespace :deflicker do
-
   desc "Fetch entries from three livejournals"
-  task :fetch_entries => :environment do
-
+  task fetch_entries: :environment do
     # For Dreamwidth you need to use not the real password but the API key
     # which can be found/generated here: https://www.dreamwidth.org/manage/emailpost
     [
@@ -45,9 +43,6 @@ namespace :deflicker do
         end
         break if entries.empty? || (preventries > 0 && entries.size > preventries) || oldlastsync == lastsync
       end
-
     end
-
   end
-
 end

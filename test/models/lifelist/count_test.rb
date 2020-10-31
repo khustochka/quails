@@ -18,7 +18,6 @@ module Lifelist
       list = Lifelist::Count.full.sort("count").to_a
 
       assert_equal tx1.species, list.first.species
-
     end
 
 

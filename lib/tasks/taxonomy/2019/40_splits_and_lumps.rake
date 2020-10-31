@@ -1,13 +1,10 @@
 # frozen_string_literal: true
 
 namespace :tax do
-
   namespace :update2019 do
+    task fix_splits_and_lumps: [:fix_lumps, :implement_splits, :validate_species, :update_order_family_sorting, :fix_observations]
 
-    task :fix_splits_and_lumps => [:fix_lumps, :implement_splits, :validate_species, :update_order_family_sorting, :fix_observations]
-
-    task :fix_lumps => :environment do
-
+    task fix_lumps: :environment do
       # Lumped several ssp into one. Only nominative was in the list
       eb_sylvia_curruca = EbirdTaxon.find_by_name_sci("Sylvia curruca")
       eb_sylvia_curruca.promote
@@ -39,11 +36,9 @@ namespace :tax do
       #
       # # 4. Create url synonym
       # larus_glaucoides.url_synonyms.create!(name_sci: "Larus thayeri", reason: "lump")
-
     end
 
-    task :implement_splits => :environment do
-
+    task implement_splits: :environment do
       # BASIC SPLITS
 
       # Find new subspecies and promote
@@ -80,10 +75,9 @@ namespace :tax do
       # end
 
       # SpeciesSplit.create!(superspecies: velvet_scoter.species, subspecies: whitewinged_scoter.species)
-
     end
 
-    task :validate_species => :environment do
+    task validate_species: :environment do
       # Check that all species match taxa-species
 
       species_rank = Species.
@@ -98,9 +92,8 @@ namespace :tax do
       end
     end
 
-    task :update_order_family_sorting => :environment do
+    task update_order_family_sorting: :environment do
       Species.acts_as_list_no_update do
-
         Species.joins(:high_level_taxa).preload(:high_level_taxa).order("taxa.index_num").each_with_index do |species, idx|
           tx = species.high_level_taxon
 
@@ -123,8 +116,7 @@ namespace :tax do
       end
     end
 
-    task :fix_observations => :environment do
-
+    task fix_observations: :environment do
       # aba_locs = %w(usa canada).map {|slug| Locus.find_by_slug(slug).subregion_ids}.inject(:+)
 
 
@@ -146,7 +138,6 @@ namespace :tax do
       {
           "leswhi1" => "leswhi4"
       }.each do |old, new|
-
         old_taxon = Taxon.find_by_ebird_code(old)
         new_taxon = Taxon.find_by_ebird_code(new)
 
@@ -156,9 +147,6 @@ namespace :tax do
           obs.update(taxon: new_taxon)
         end
       end
-
     end
-
   end
-
 end

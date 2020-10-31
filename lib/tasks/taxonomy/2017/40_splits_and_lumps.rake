@@ -1,13 +1,10 @@
 # frozen_string_literal: true
 
 namespace :tax do
-
   namespace :update2017 do
+    task fix_splits_and_lumps: [:fix_larus_thayeri_lump, :implement_splits, :update_order_family_sorting, :fix_observations]
 
-    task :fix_splits_and_lumps => [:fix_larus_thayeri_lump, :implement_splits, :update_order_family_sorting, :fix_observations]
-
-    task :fix_larus_thayeri_lump => :environment do
-
+    task fix_larus_thayeri_lump: :environment do
       # Larus thayeri was lumped into Larus glaucoides
 
       larus_thayeri = Species.find_by_name_sci("Larus thayeri")
@@ -35,11 +32,9 @@ namespace :tax do
 
       # 4. Create url synonym
       larus_glaucoides.url_synonyms.create!(name_sci: "Larus thayeri", reason: "lump")
-
     end
 
-    task :implement_splits => :environment do
-
+    task implement_splits: :environment do
       # HEN/NORTHERN HARRIER split
 
       hen_harrier = EbirdTaxon.find_by_ebird_code("norhar1").promote
@@ -64,10 +59,9 @@ namespace :tax do
 
       SpeciesSplit.create!(superspecies: hen_harrier.species, subspecies: nor_harrier.species)
       SpeciesSplit.create!(superspecies: gg_shrike.species, subspecies: nor_shrike.species)
-
     end
 
-    task :update_order_family_sorting => :environment do
+    task update_order_family_sorting: :environment do
       Species.update_all(index_num: 0) # workaround
 
       Species.joins(:high_level_taxa).preload(:high_level_taxa).order("taxa.index_num").each_with_index do |species, idx|
@@ -82,8 +76,7 @@ namespace :tax do
       end
     end
 
-    task :fix_observations => :environment do
-
+    task fix_observations: :environment do
       aba_locs = %w(usa canada).map {|slug| Locus.find_by_slug(slug).subregion_ids}.inject(:+)
 
       # HEN/NORTHERN HARRIER split
@@ -117,9 +110,6 @@ namespace :tax do
       euro_observations.each do |obs|
         obs.update(taxon: gg_shrike)
       end
-
     end
-
   end
-
 end

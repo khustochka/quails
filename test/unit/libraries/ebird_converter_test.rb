@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'test_helper'
-require 'export/ebird/observation'
+require "test_helper"
+require "export/ebird/observation"
 
 class EbirdConverterTest < ActiveSupport::TestCase
 
@@ -10,7 +10,7 @@ class EbirdConverterTest < ActiveSupport::TestCase
   end
 
   def travel_card
-    FactoryBot.create(:card, effort_type: 'TRAVEL', distance_kms: 1.1)
+    FactoryBot.create(:card, effort_type: "TRAVEL", distance_kms: 1.1)
   end
 
   test "that distance in miles is used" do
@@ -20,12 +20,12 @@ class EbirdConverterTest < ActiveSupport::TestCase
   end
 
   test "properly sum count" do
-    obs = FactoryBot.create(:observation, quantity: '5 + 1')
+    obs = FactoryBot.create(:observation, quantity: "5 + 1")
     assert_equal 6, ebird_observation(obs).send(:count)
   end
 
   test "X mark if count is a string" do
-    obs = FactoryBot.create(:observation, quantity: 'many')
+    obs = FactoryBot.create(:observation, quantity: "many")
     assert_equal "X", ebird_observation(obs).send(:count)
   end
 
@@ -35,7 +35,7 @@ class EbirdConverterTest < ActiveSupport::TestCase
   end
 
   test "that date is properly formatted (American format)" do
-    card = FactoryBot.create(:card, observ_date: '2014-02-12')
+    card = FactoryBot.create(:card, observ_date: "2014-02-12")
     obs = FactoryBot.create(:observation, card: card)
     assert_equal "02/12/2014", ebird_observation(obs).send(:date)
   end
@@ -53,15 +53,15 @@ class EbirdConverterTest < ActiveSupport::TestCase
   end
 
   test "patch locus should not be shown for travel card" do
-    card = FactoryBot.create(:card, locus: loci(:kiev_obl), effort_type: 'TRAVEL')
+    card = FactoryBot.create(:card, locus: loci(:kiev_obl), effort_type: "TRAVEL")
     obs = FactoryBot.create(:observation, card: card, patch: loci(:kiev))
     assert_equal "Kiev oblast", ebird_observation(obs).send(:location_name)
   end
 
   test "should include images" do
     obs = FactoryBot.create(:observation)
-    img1 = FactoryBot.create(:image, slug: 'img1', observation_ids: [obs.id])
-    img2 = FactoryBot.create(:image, slug: 'img2', observation_ids: [obs.id])
+    img1 = FactoryBot.create(:image, slug: "img1", observation_ids: [obs.id])
+    img2 = FactoryBot.create(:image, slug: "img2", observation_ids: [obs.id])
     comments = ebird_observation(obs).send(:comments)
     assert_includes comments, img1.slug
     assert_includes comments, img2.slug

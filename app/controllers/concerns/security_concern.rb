@@ -47,4 +47,3 @@ module SecurityConcern
     end
   end
 end
-

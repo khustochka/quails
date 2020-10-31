@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
 namespace :tax do
-
   desc "Import ebird taxa to taxa and ebird_taxa tables"
-  task :import_ebird_taxa => :environment do
-
-    filename = ENV['CSV'] || "./data/eBird_Taxonomy_v2016.csv"
+  task import_ebird_taxa: :environment do
+    filename = ENV["CSV"] || "./data/eBird_Taxonomy_v2016.csv"
 
     raise "*** Provide path to ebird CSV as CSV env var." if filename.blank?
 
@@ -15,7 +13,7 @@ namespace :tax do
       raise "Taxa tables not empty"
     end
 
-    require 'csv'
+    require "csv"
 
     codes = {}
 
@@ -66,8 +64,5 @@ namespace :tax do
           index_num: Taxon.find_by_ebird_code(idx_next).index_num - 1
       )
     end
-
-
   end
-
 end

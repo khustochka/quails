@@ -3,7 +3,7 @@
 module CommentErrors
 
   def to_partial_path
-    'comments/errors'
+    "comments/errors"
   end
 
 end

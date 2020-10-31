@@ -15,7 +15,7 @@ module Lifelist
 
     def to_a
       if @sort == "by_taxonomy"
-        build_relation.joins(:taxon => :ebird_taxon).order(Arel.sql("ebird_taxa.index_num"))
+        build_relation.joins(taxon: :ebird_taxon).order(Arel.sql("ebird_taxa.index_num"))
       else
         build_relation.order(default_order("DESC"))
       end
@@ -52,14 +52,14 @@ module Lifelist
       Observation.
           where(id: observation_ids).
           joins(:taxon, :card).
-          preload(:patch, {:taxon => [:species, {:ebird_taxon => :parent}]}, {:card => :locus})
+          preload(:patch, {taxon: [:species, {ebird_taxon: :parent}]}, {card: :locus})
     end
 
     def observation_ids
       idx = Observation.
           joins(:card).
           order(default_order("ASC")).
-          preload(:taxon => {:ebird_taxon => :parent}).
+          preload(taxon: {ebird_taxon: :parent}).
           to_a.
           fast_index_by {|obs| obs.taxon.ebird_taxon&.nearest_species}
       idx.delete(nil)

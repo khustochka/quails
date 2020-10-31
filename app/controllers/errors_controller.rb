@@ -6,7 +6,7 @@ class ErrorsController < ApplicationController
 
   def show
     @code = request.path_info[1..-1].to_i
-    render @code.to_s, layout: 'error', formats: [:html], status: @code
+    render @code.to_s, layout: "error", formats: [:html], status: @code
   end
 
   private

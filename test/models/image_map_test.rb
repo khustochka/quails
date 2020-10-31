@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 class ImageMapTest < ActiveSupport::TestCase
 
@@ -22,7 +22,6 @@ class ImageMapTest < ActiveSupport::TestCase
 
     @public_patch_no_geo_of_public_locus = FactoryBot.create(:locus, private_loc: false, lat: nil, parent: @public_locus)
     @public_patch_no_geo_of_private_locus = FactoryBot.create(:locus, private_loc: false, lat: nil, parent: @private)
-
   end
 
   def private_spot(args = {})

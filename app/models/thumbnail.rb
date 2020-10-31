@@ -18,9 +18,9 @@ class Thumbnail
 
   def title
     case @title_or_partial
-      when String
+    when String
         @title_or_partial
-      when Hash
+    when Hash
         @cached_title = Title.new(@url, @title_or_partial[:partial])
     end
   end
@@ -57,7 +57,7 @@ class Thumbnail
   end
 
   def to_partial_path
-    'images/thumbnail'
+    "images/thumbnail"
   end
 
   def video?
@@ -66,7 +66,6 @@ class Thumbnail
 
   private
   def image_asset
-
     if @image.on_storage?
       @image.stored_image_to_asset_item
     elsif @image.external_id

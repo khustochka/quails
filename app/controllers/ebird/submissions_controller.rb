@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'export/exporter'
+require "export/exporter"
 
 module Ebird
   class SubmissionsController < ApplicationController
@@ -8,7 +8,7 @@ module Ebird
     administrative
 
     def index
-      @files = Ebird::File.preload(:cards).order(:created_at => :desc).page(params[:page])
+      @files = Ebird::File.preload(:cards).order(created_at: :desc).page(params[:page])
     end
 
     def show
@@ -38,13 +38,13 @@ module Ebird
 
     def regenerate
       @file = Ebird::File.find(params[:id])
-      create_ebird_file({name: @file.name.sub(/(\-test)?\-\d+$/, '')}, @file.card_ids)
+      create_ebird_file({name: @file.name.sub(/(\-test)?\-\d+$/, "")}, @file.card_ids)
     end
 
     def update
       @file = Ebird::File.find(params[:id])
       @file.update(params[:file])
-      render json: {status_line: render_to_string(partial: 'status_line', formats: [:html], locals: {file: @file})}
+      render json: {status_line: render_to_string(partial: "status_line", formats: [:html], locals: {file: @file})}
     end
 
     def destroy
@@ -56,45 +56,42 @@ module Ebird
 
     def test_prefix
       if Quails.env.real_prod?
-        ''
+        ""
       else
-        'test-'
+        "test-"
       end
     end
 
     def create_ebird_file(file_params, card_ids)
-      begin
-        @file = Ebird::File.new(file_params)
+      @file = Ebird::File.new(file_params)
 
-        cards_rel = Card.where(id: card_ids)
+      cards_rel = Card.where(id: card_ids)
 
-        @file.cards = cards_rel
+      @file.cards = cards_rel
 
-        if @file.save
-          @file.update_attribute(:name, "#{@file.name}-#{test_prefix}#{@file.id}")
-          result = Exporter.ebird(@file.name, cards_rel).export
-        else
-          # FIXME: this is hack. For some reason errors on cards are not preserved after validation.
-          @file.cards.each {|c| c.valid?(:ebird_post)}
-          result = false
-        end
-
-        if result
-          flash.notice = "Successfully created CSV file #{ActionController::Base.helpers.link_to(@file.name, @file.download_url)}".html_safe
-          redirect_to ebird_submission_url(@file.id)
-        else
-          if @file.persisted?
-            @file.destroy
-          end
-          @observation_search = Ebird::ObsSearch.new
-          flash.alert = "Export failed"
-          render :new
-        end
-      rescue
-        @file.destroy
-        raise
+      if @file.save
+        @file.update_attribute(:name, "#{@file.name}-#{test_prefix}#{@file.id}")
+        result = Exporter.ebird(@file.name, cards_rel).export
+      else
+        # FIXME: this is hack. For some reason errors on cards are not preserved after validation.
+        @file.cards.each {|c| c.valid?(:ebird_post)}
+        result = false
       end
 
+      if result
+        flash.notice = "Successfully created CSV file #{ActionController::Base.helpers.link_to(@file.name, @file.download_url)}".html_safe
+        redirect_to ebird_submission_url(@file.id)
+      else
+        if @file.persisted?
+          @file.destroy
+        end
+        @observation_search = Ebird::ObsSearch.new
+        flash.alert = "Export failed"
+        render :new
+      end
+    rescue
+      @file.destroy
+      raise
     end
 
   end

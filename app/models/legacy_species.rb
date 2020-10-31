@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'species_parameterizer'
+require "species_parameterizer"
 
 class LegacySpecies < ApplicationRecord
 
@@ -22,7 +22,7 @@ class LegacySpecies < ApplicationRecord
   belongs_to :species
 
   AVIS_INCOGNITA = Struct.new(:id, :name_sci, :to_label, :name).
-      new(0, '- Avis incognita', '- Avis incognita', '- Avis incognita')
+      new(0, "- Avis incognita", "- Avis incognita", "- Avis incognita")
 
   # Parameters
 
@@ -35,7 +35,7 @@ class LegacySpecies < ApplicationRecord
   end
 
   def code=(val)
-    super(val == '' ? nil : val)
+    super(val == "" ? nil : val)
   end
 
   # Scopes
@@ -49,7 +49,7 @@ class LegacySpecies < ApplicationRecord
   # Wikidata
 
   def wikidata
-    Hashie::Mash.new(read_attribute('wikidata'))
+    Hashie::Mash.new(read_attribute("wikidata"))
   end
 
 end

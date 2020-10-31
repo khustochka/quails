@@ -26,4 +26,3 @@ module Lifelist
 
   end
 end
-

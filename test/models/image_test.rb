@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 class ImageTest < ActiveSupport::TestCase
   setup do
@@ -54,7 +54,7 @@ class ImageTest < ActiveSupport::TestCase
     assert_equal im3, im2.next_by_species(s)
   end
 
-  test 'prevent duplication of multi-species image in prev next function' do
+  test "prevent duplication of multi-species image in prev next function" do
     tx1 = taxa(:saxola)
     tx2 = taxa(:jyntor)
     sp1 = tx1.species
@@ -62,7 +62,7 @@ class ImageTest < ActiveSupport::TestCase
     card = create(:card, observ_date: "2008-07-01")
     obs1 = create(:observation, taxon: tx1, card: card)
     obs2 = create(:observation, taxon: tx2, card: card)
-    img = create(:image, slug: 'picture-of-the-shrike-and-the-wryneck', observations: [obs1, obs2])
+    img = create(:image, slug: "picture-of-the-shrike-and-the-wryneck", observations: [obs1, obs2])
     assert_nil img.prev_by_species(sp1)
     assert_nil img.next_by_species(sp1)
   end

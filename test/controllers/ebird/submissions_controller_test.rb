@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 class Ebird::SubmissionsControllerTest < ActionController::TestCase
 
@@ -12,14 +12,14 @@ class Ebird::SubmissionsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test 'new ebird action' do
+  test "new ebird action" do
     login_as_admin
     get :new
     assert assigns(:file)
     assert_response :success
   end
 
-  test 'new ebird with search' do
+  test "new ebird with search" do
     card1 = FactoryBot.create(:card, observ_date: "2016-01-01")
     card2 = FactoryBot.create(:card, observ_date: "2016-01-03")
     login_as_admin
@@ -56,9 +56,8 @@ class Ebird::SubmissionsControllerTest < ActionController::TestCase
       get :create, params: {ebird_file: {name: "fileBBB"}}
     end
 
-    assert_template 'new'
+    assert_template "new"
     assert flash[:alert].present?
-
   end
 
 end

@@ -30,7 +30,7 @@ class CardsController < ApplicationController
         if request.xhr?
           render @cards, layout: false
         else
-          render 'index'
+          render "index"
         end
       }
       format.json { render json: @cards }
@@ -77,7 +77,7 @@ class CardsController < ApplicationController
 
     respond_to do |format|
       if @card.save
-        format.html { redirect_to edit_card_path(@card), notice: 'Card was successfully created.' }
+        format.html { redirect_to edit_card_path(@card), notice: "Card was successfully created." }
         format.json { render json: @card, status: :created, location: @card }
       else
         format.html { render :form }
@@ -94,7 +94,7 @@ class CardsController < ApplicationController
 
     respond_to do |format|
       if @card.update(params[:card])
-        format.html { redirect_to edit_card_path(@card), notice: 'Card was successfully updated.' }
+        format.html { redirect_to edit_card_path(@card), notice: "Card was successfully updated." }
         format.json { head :no_content }
       else
         format.html { render :form }
@@ -141,14 +141,13 @@ class CardsController < ApplicationController
     end
 
     render "form"
-
   end
 
   private
 
   def cache_expire
     expire_photo_feeds
-    expire_page controller: :feeds, action: :blog, format: 'xml'
-    expire_page controller: :feeds, action: :instant_articles, format: 'xml'
+    expire_page controller: :feeds, action: :blog, format: "xml"
+    expire_page controller: :feeds, action: :instant_articles, format: "xml"
   end
 end

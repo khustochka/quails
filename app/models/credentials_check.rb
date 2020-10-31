@@ -9,10 +9,10 @@ module CredentialsCheck
   end
 
   def self.__username
-    @@username ||= ENV['admin_username']
+    @@username ||= ENV["admin_username"]
   end
 
   def self.__password
-    @@password ||= ENV['admin_password']
+    @@password ||= ENV["admin_password"]
   end
 end

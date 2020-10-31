@@ -1,20 +1,18 @@
 # frozen_string_literal: true
 
-require 'web_page_cache'
-require 'legacy_checklists_helper'
-require 'import/book_import'
+require "web_page_cache"
+require "legacy_checklists_helper"
+require "import/book_import"
 
-REGION_TO_AVIBASE = {'ukraine' => 'ua', 'usa' => 'us'}
+REGION_TO_AVIBASE = {"ukraine" => "ua", "usa" => "us"}
 
-desc 'Tasks for checklists'
+desc "Tasks for checklists"
 namespace :checklist do
-
-  desc 'Import checklist'
-  task :import => :environment do
-
+  desc "Import checklist"
+  task import: :environment do
     include LegacyChecklistsHelper
 
-    if country = ENV['COUNTRY']
+    if country = ENV["COUNTRY"]
 
       reg = REGION_TO_AVIBASE[country]
       id = Locus.find_by(slug: country).id
@@ -22,7 +20,7 @@ namespace :checklist do
       @cache = WebPageCache.new("tmp/")
 
       puts "Fetching #{country} checklist"
-      source = @cache.fetch("list_#{reg}.html", avibase_list_url(reg, 'clements'), verbose: true)
+      source = @cache.fetch("list_#{reg}.html", avibase_list_url(reg, "clements"), verbose: true)
 
       LocalSpecies.where(locus_id: id).delete_all
 
@@ -40,6 +38,5 @@ namespace :checklist do
     else
       puts "Set COUNTRY env var, one of: #{REGION_TO_AVIBASE.keys.join(',')}"
     end
-
   end
 end

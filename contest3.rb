@@ -1,4 +1,4 @@
-require './config/environment'
+require "./config/environment"
 
 class MaxDateReached < Exception
 
@@ -6,11 +6,11 @@ end
 
 SPCS = Hash[Species.all.map { |s| [s.id, s.name_sci] }]
 
-year = (ENV['YEAR'] || Quails::CURRENT_YEAR).to_i
+year = (ENV["YEAR"] || Quails::CURRENT_YEAR).to_i
 
 $obs = MyObservation.joins(:card).
-    select('DISTINCT observ_date, species_id').
-    where('EXTRACT(year FROM observ_date)::integer = ?', year).
+    select("DISTINCT observ_date, species_id").
+    where("EXTRACT(year FROM observ_date)::integer = ?", year).
     order("observ_date").group_by(&:observ_date)
 
 $obs.each do |d, el|

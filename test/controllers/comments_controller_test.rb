@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 class CommentsControllerTest < ActionController::TestCase
   setup do
@@ -8,7 +8,7 @@ class CommentsControllerTest < ActionController::TestCase
   end
 
   def valid_comment_params(args = {})
-    attrs = attributes_for(:comment, {name: '', post_id: @comment.post.id}.merge(args))
+    attrs = attributes_for(:comment, {name: "", post_id: @comment.post.id}.merge(args))
     name = "Vasya"
     {CommentsHelper::REAL_NAME_FIELD => name, comment: attrs}
   end
@@ -23,13 +23,13 @@ class CommentsControllerTest < ActionController::TestCase
 
   test "get index sorted by post" do
     login_as_admin
-    get :index, params: {sort: 'by_post'}
+    get :index, params: {sort: "by_post"}
     assert_response :success
     assert_not_nil assigns(:comments)
   end
 
   test "create comment" do
-    assert_difference('Comment.count') do
+    assert_difference("Comment.count") do
       post :create, params: valid_comment_params
     end
 
@@ -40,8 +40,8 @@ class CommentsControllerTest < ActionController::TestCase
   end
 
   test "reject comment with negative captcha" do
-    invalid_attrs = valid_comment_params(name: 'Vasya')
-    assert_difference('Comment.count', 0) do
+    invalid_attrs = valid_comment_params(name: "Vasya")
+    assert_difference("Comment.count", 0) do
       post :create, params: invalid_attrs
     end
 
@@ -82,28 +82,28 @@ class CommentsControllerTest < ActionController::TestCase
 
   test "destroy comment" do
     login_as_admin
-    assert_difference('Comment.count', -1) do
+    assert_difference("Comment.count", -1) do
       delete :destroy, params: {id: @comment.to_param}
     end
 
-    assert_redirected_to public_post_path(@comment.post, anchor: 'comments')
+    assert_redirected_to public_post_path(@comment.post, anchor: "comments")
   end
 
   test "user cannot create comment to hidden post" do
     assert_raise(ActiveRecord::RecordNotFound) do
-      post :create, params: {comment: valid_comment_params(post_id: create(:post, status: 'PRIV').id)}
+      post :create, params: {comment: valid_comment_params(post_id: create(:post, status: "PRIV").id)}
     end
   end
 
   test "admin can create comment to hidden post" do
     login_as_admin
-    assert_difference('Comment.count', 1) do
-      post :create, params: valid_comment_params(post_id: create(:post, status: 'PRIV').id)
+    assert_difference("Comment.count", 1) do
+      post :create, params: valid_comment_params(post_id: create(:post, status: "PRIV").id)
     end
   end
 
   test "user does not see reply page to hidden post" do
-    comment = create(:comment, post: create(:post, status: 'PRIV'))
+    comment = create(:comment, post: create(:post, status: "PRIV"))
     assert_raise(ActiveRecord::RecordNotFound) { get :reply, params: {id: comment.to_param} }
   end
 
@@ -134,7 +134,7 @@ class CommentsControllerTest < ActionController::TestCase
     comment = assigns(:comment)
     assert_nil comment.commenter
     assert_not_equal admin_commenter, comment.commenter
-    refute comment.send_email
+    assert_not comment.send_email
   end
 
   test "hide comment with admin's email created by public user" do
@@ -143,7 +143,7 @@ class CommentsControllerTest < ActionController::TestCase
     blogpost = create(:post)
     post :create, params: valid_comment_params(post_id: blogpost.id).merge(commenter: {email: email})
     comment = assigns(:comment)
-    refute comment.approved
+    assert_not comment.approved
   end
 
   test "hide comment if email is in restricted domain" do
@@ -151,8 +151,8 @@ class CommentsControllerTest < ActionController::TestCase
     post :create, params: valid_comment_params(post_id: blogpost.id).merge(commenter: {email: "vasya@localhost.localdomain"})
     comment = assigns(:comment)
     assert_not_nil comment.commenter
-    refute comment.approved
-    refute comment.send_email
+    assert_not comment.approved
+    assert_not comment.send_email
   end
 
   test "empty email should not trigger send_email" do
@@ -164,7 +164,7 @@ class CommentsControllerTest < ActionController::TestCase
   end
 
   test "valid response when comment invalid (No JS)" do
-    assert_difference('Comment.count', 0) do
+    assert_difference("Comment.count", 0) do
       post :create, params: valid_comment_params(text: "")
     end
 
@@ -173,7 +173,7 @@ class CommentsControllerTest < ActionController::TestCase
   end
 
   test "valid response when comment invalid (xhr)" do
-    assert_difference('Comment.count', 0) do
+    assert_difference("Comment.count", 0) do
       post :create, params: valid_comment_params(text: ""), xhr: true
     end
 
@@ -192,7 +192,7 @@ class CommentsControllerTest < ActionController::TestCase
     post :unsubscribe_submit, params: {token: "Aaaaaaa"}
     assert_response :success
     comment =  assigns(:comment)
-    refute comment.send_email
+    assert_not comment.send_email
   end
 
 end

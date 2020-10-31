@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 module Lifelist
 
   class PostsAndSortingTest < ActiveSupport::TestCase
 
-    test 'Properly associate card post with lifer' do
+    test "Properly associate card post with lifer" do
       post = FactoryBot.create(:post)
       card = FactoryBot.create(:card, post: post)
       obs = FactoryBot.create(:observation, card: card)
@@ -15,7 +15,7 @@ module Lifelist
       assert_equal post, list.first.main_post
     end
 
-    test 'Properly associate observation post with lifer' do
+    test "Properly associate observation post with lifer" do
       post = FactoryBot.create(:post)
       obs = FactoryBot.create(:observation, post: post)
       list = Lifelist::FirstSeen.full

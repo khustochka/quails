@@ -3,7 +3,7 @@
 module ReportsHelper
   def reports_page_header
     capture do
-      concat link_to('Reports', reports_path)
+      concat link_to("Reports", reports_path)
       concat " : "
       concat @page_title
     end

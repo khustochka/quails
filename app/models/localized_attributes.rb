@@ -22,7 +22,7 @@ module LocalizedAttributes
   def get_localized_attribute(attr_name)
     fb = FALLBACK.dup.drop_while { |el| el.intern != I18n.locale }
 
-    nm = read_attribute("#{attr_name.to_s}_#{fb.shift}") while nm.blank? && fb.any?
+    nm = read_attribute("#{attr_name}_#{fb.shift}") while nm.blank? && fb.any?
     nm
   end
 end

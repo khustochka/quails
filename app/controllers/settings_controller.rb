@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'flickr/client'
+require "flickr/client"
 
 class SettingsController < ApplicationController
 
@@ -20,7 +20,7 @@ class SettingsController < ApplicationController
         Settings.create!(key: key, value: value)
       end
     end
-    redirect_to :settings, :notice => "Setings saved"
+    redirect_to :settings, notice: "Setings saved"
   end
 
 end

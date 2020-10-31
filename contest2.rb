@@ -1,4 +1,4 @@
-require './config/environment'
+require "./config/environment"
 
 $deepest = 0
 
@@ -45,18 +45,18 @@ def calculate(therest)
       longest = [day] + calculate(temprest2)
     end
   end
-  return longest
+  longest
 end
 
 SPCS = Hash[Species.all.map { |s| [s.id, s.name_sci] }]
 
-year = ENV['YEAR'] || Quails::CURRENT_YEAR
+year = ENV["YEAR"] || Quails::CURRENT_YEAR
 
 obs_rel = MyObservation.joins(:card).
-    where('EXTRACT(year FROM observ_date)::integer = ?', year).
+    where("EXTRACT(year FROM observ_date)::integer = ?", year).
     order("observ_date").
     distinct.
-    pluck('observ_date, species_id').
+    pluck("observ_date, species_id").
     group_by(&:first).transform_values { |v| v.map(&:second) }
 
 obs = []

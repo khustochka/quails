@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'service_code/service_code'
+require "service_code/service_code"
 
 class GoogleSearch < ServiceCode
 
@@ -12,7 +12,7 @@ class GoogleSearch < ServiceCode
   end
 
   def render
-    @view.render partial: 'partials/search', object: self
+    @view.render partial: "partials/search", object: self
   end
 
   def form_url

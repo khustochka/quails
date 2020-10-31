@@ -2,16 +2,15 @@
 
 class BookImport
   def self.parse_list(io)
+    require "nokogiri"
 
-    require 'nokogiri'
-
-    doc = Nokogiri::HTML(io, nil, 'utf-8')
+    doc = Nokogiri::HTML(io, nil, "utf-8")
 
     order = family = nil
 
-    doc.xpath('/html/body/table[2]/tr/td/table[2]/tr/td/table/tr').inject([]) do |list, row|
+    doc.xpath("/html/body/table[2]/tr/td/table[2]/tr/td/table/tr").inject([]) do |list, row|
       if /(?:(?<order1>[A-Z]+FORMES): )?(?<family1>[A-Z]+dae)\s*$/i =~ row.content
-        order = order1.nil? ? '' : order1.strip.downcase.capitalize
+        order = order1.nil? ? "" : order1.strip.downcase.capitalize
         family = family1.strip.downcase.capitalize
       else
         if family
@@ -19,7 +18,7 @@ class BookImport
           name_en = sp_data[0].content
           name_sci = sp_data[1].content
           status = sp_data[2].content
-          avb_id = sp_data[1].at('a')['href'].match(/^species\.jsp\?avibaseid=([\dA-F]+)$/)[1]
+          avb_id = sp_data[1].at("a")["href"].match(/^species\.jsp\?avibaseid=([\dA-F]+)$/)[1]
           list.push({
                         name_sci: name_sci,
                         name_en: name_en,
@@ -32,7 +31,6 @@ class BookImport
       end
       list
     end
-
   end
 
   def self.fetch_details(sp)
@@ -42,13 +40,13 @@ class BookImport
 
     avibase_id = sp.avibase_id
 
-    file_ru = cache.fetch("#{avibase_id}_RU.html", avibase_species_url(avibase_id, 'RU'), verbose: true)
-    file_uk = cache.fetch("#{avibase_id}_UK.html", avibase_species_url(avibase_id, 'UK'), verbose: true)
-    file_fr = cache.fetch("#{avibase_id}_FR.html", avibase_species_url(avibase_id, 'FR'), verbose: true)
+    file_ru = cache.fetch("#{avibase_id}_RU.html", avibase_species_url(avibase_id, "RU"), verbose: true)
+    file_uk = cache.fetch("#{avibase_id}_UK.html", avibase_species_url(avibase_id, "UK"), verbose: true)
+    file_fr = cache.fetch("#{avibase_id}_FR.html", avibase_species_url(avibase_id, "FR"), verbose: true)
 
-    doc_ru = Nokogiri::HTML(file_ru, nil, 'utf-8')
-    doc_uk = Nokogiri::HTML(file_uk, nil, 'utf-8')
-    doc_fr = Nokogiri::HTML(file_fr, nil, 'utf-8')
+    doc_ru = Nokogiri::HTML(file_ru, nil, "utf-8")
+    doc_uk = Nokogiri::HTML(file_uk, nil, "utf-8")
+    doc_fr = Nokogiri::HTML(file_fr, nil, "utf-8")
 
     header_regex = /^([^(]+) (\([^)]+\)) (\(?([^()]+)\)?)$/
 
@@ -61,7 +59,7 @@ class BookImport
     authority = if sp.name_sci == data_fr[2].strip
                   data_fr[3].strip
                 else
-                  proto_parts = protonym.split(' ')
+                  proto_parts = protonym.split(" ")
                   sp.name_sci != "#{proto_parts.first} #{proto_parts.last}".downcase.capitalize ?
                       "(#{data_fr[4]})" :
                       "#{data_fr[4]}"
@@ -69,9 +67,9 @@ class BookImport
     name_ru = doc_ru.at("//td[@class='AVBHeader']").content.match(header_regex)[1].strip
     name_uk = doc_uk.at("//td[@class='AVBHeader']").content.match(header_regex)[1].strip
 
-    name_ru = '' if name_ru.downcase.eql?(sp.name_en.downcase)
-    name_uk = '' if name_uk.downcase.eql?(sp.name_en.downcase)
-    name_fr = '' if name_fr.downcase.eql?(sp.name_en.downcase)
+    name_ru = "" if name_ru.downcase.eql?(sp.name_en.downcase)
+    name_uk = "" if name_uk.downcase.eql?(sp.name_en.downcase)
+    name_fr = "" if name_fr.downcase.eql?(sp.name_en.downcase)
     {
         protonym: protonym,
         authority: authority,
@@ -82,18 +80,18 @@ class BookImport
   end
 
   STATUS_CONVERSIONS = {
-      'Introduced species' => 'INT',
-      'Rare/Accidental' => 'RAR',
-      'Near-threatened' => 'NT',
-      'Vulnerable' => 'VU',
-      'Endangered' => 'EN',
-      'Critically endangered' => 'CR',
-      'Extinct' => 'EX'
+      "Introduced species" => "INT",
+      "Rare/Accidental" => "RAR",
+      "Near-threatened" => "NT",
+      "Vulnerable" => "VU",
+      "Endangered" => "EN",
+      "Critically endangered" => "CR",
+      "Extinct" => "EX"
   }
 
   def self.convert_status(st)
     STATUS_CONVERSIONS.each_with_object(st.strip) do |kv, result|
-      k,v = kv
+      k, v = kv
       result.sub!(k, v)
     end
   end

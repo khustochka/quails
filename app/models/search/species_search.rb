@@ -44,13 +44,13 @@ module Search
     private
     def detect_name(sp)
       @regex ||= /(^| |-|\()#{@term}/i
-      if sp.name_sci =~ @regex
+      if sp.name_sci&.match?(@regex)
         sp.name
-      elsif sp.name_en =~ @regex
+      elsif sp.name_en&.match?(@regex)
         sp.name_en
-      elsif sp.name_ru =~ @regex
+      elsif sp.name_ru&.match?(@regex)
         sp.name_ru
-      elsif sp.name_uk =~ @regex
+      elsif sp.name_uk&.match?(@regex)
         sp.name_uk
       else
         raise "Not able to detect name #{sp.name_sci}"

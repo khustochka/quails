@@ -14,7 +14,7 @@ class EbirdTaxaController < ApplicationController
             else
               EbirdTaxon.order(:index_num).page(params[:page]).per(50)
             end
-    @taxa = @taxa.preload(:taxon => :species)
+    @taxa = @taxa.preload(taxon: :species)
     if request.xhr?
       render partial: "ebird_taxa/table", layout: false
     else

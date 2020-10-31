@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 class MediaControllerTest < ActionController::TestCase
   setup do
@@ -11,12 +11,12 @@ class MediaControllerTest < ActionController::TestCase
     #@obs = @image.observations.first
   end
 
-  test 'media strip with photos and videos (for the map)' do
+  test "media strip with photos and videos (for the map)" do
     post :strip, xhr: true, params: {_json: [@image.id, @video.id]}
     assert assigns(:strip_media)
   end
 
-  test 'unmapped' do
+  test "unmapped" do
     image2 = create(:image, spot_id: @spot.id)
     login_as_admin
     get :unmapped
@@ -26,7 +26,7 @@ class MediaControllerTest < ActionController::TestCase
     assert_not_includes result, image2.id
   end
 
-  test 'half-mapped' do
+  test "half-mapped" do
     image2 = create(:image, spot_id: @spot.id)
     login_as_admin
     get :unmapped, params: {half: true}

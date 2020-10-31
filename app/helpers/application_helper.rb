@@ -3,9 +3,9 @@
 module ApplicationHelper
 
   def main_classes
-    @main_classes ||= ['main', 'green_links']
+    @main_classes ||= ["main", "green_links"]
     if @special_styling
-      @main_classes.delete('green_links')
+      @main_classes.delete("green_links")
     end
     @main_classes
   end
@@ -19,7 +19,7 @@ module ApplicationHelper
   end
 
   def default_page_title
-    Rails.env.development? ? '!!! - Set the window caption / quails' : request.host
+    Rails.env.development? ? "!!! - Set the window caption / quails" : request.host
   end
 
   def link_to_or_span(name, options = {}, html_options = {})
@@ -30,9 +30,9 @@ module ApplicationHelper
 
   def filtering_link_to_all(parameter)
     if params[parameter].nil?
-      content_tag(:span, t('misc.all'))
+      content_tag(:span, t("misc.all"))
     else
-      link_to(t('misc.all'), significant_params.merge(parameter => nil))
+      link_to(t("misc.all"), significant_params.merge(parameter => nil))
     end
   end
 
@@ -50,7 +50,7 @@ module ApplicationHelper
   end
 
   def feed_list_item
-    render 'partials/feed_list_item'
+    render "partials/feed_list_item"
   end
 
   def render_service_code(service_class)
@@ -58,11 +58,11 @@ module ApplicationHelper
   end
 
   def hide_banners?
-    admin_layout? || controller_name == 'maps'
+    admin_layout? || controller_name == "maps"
   end
 
   def hide_birdingtop?
-    current_user.admin? || controller_name == 'maps'
+    current_user.admin? || controller_name == "maps"
   end
 
 end

@@ -5,15 +5,15 @@ class Ebird::File < ApplicationRecord
   STATUSES = %w( NEW POSTED REMOVED INVALID )
 
   TRANSITIONS = {
-      'NEW' => %w( POSTED REMOVED INVALID ),
-      'POSTED' => %w( REMOVED INVALID ),
-      'REMOVED' => %w( POSTED INVALID ),
-      'INVALID' => []
+      "NEW" => %w( POSTED REMOVED INVALID ),
+      "POSTED" => %w( REMOVED INVALID ),
+      "REMOVED" => %w( POSTED INVALID ),
+      "INVALID" => []
   }
 
   class Transition < Struct.new(:file_id, :status)
     def to_partial_path
-      'transition'
+      "transition"
     end
   end
 
@@ -22,7 +22,7 @@ class Ebird::File < ApplicationRecord
   validates :cards, presence: true
   validate :cards_effort, on: :create
 
-  has_many :ebird_submissions, class_name: 'Ebird::Submission', foreign_key: 'ebird_file_id',
+  has_many :ebird_submissions, class_name: "Ebird::Submission", foreign_key: "ebird_file_id",
            dependent: :delete_all, inverse_of: :ebird_file
   has_many :cards, -> { order(:observ_date) }, through: :ebird_submissions, inverse_of: :ebird_files
 
@@ -32,7 +32,7 @@ class Ebird::File < ApplicationRecord
 
   # Is there any card updated after file generation
   def outdated?
-    cards.where('updated_at > ?', self.created_at).exists?
+    cards.where("updated_at > ?", self.created_at).exists?
   end
 
   def transitions

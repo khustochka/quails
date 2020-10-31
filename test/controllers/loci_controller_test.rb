@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 class LociControllerTest < ActionController::TestCase
   setup do
@@ -20,7 +20,7 @@ class LociControllerTest < ActionController::TestCase
   end
 
   test "create locus" do
-    assert_difference('Locus.count') do
+    assert_difference("Locus.count") do
       login_as_admin
       post :create, params: {locus: attributes_for(:locus)}
     end
@@ -29,13 +29,13 @@ class LociControllerTest < ActionController::TestCase
 
   test "show locus" do
     login_as_admin
-    get :show, params: {id: 'brovary'}
+    get :show, params: {id: "brovary"}
     assert_response :success
   end
 
   test "get locus in JSON" do
     login_as_admin
-    get :show, params: {id: 'brovary'}, format: :json
+    get :show, params: {id: "brovary"}, format: :json
     assert_response :success
     assert_equal Mime[:json], response.media_type
   end
@@ -49,22 +49,22 @@ class LociControllerTest < ActionController::TestCase
 
   test "get edit" do
     login_as_admin
-    get :edit, params: {id: 'brovary'}
+    get :edit, params: {id: "brovary"}
     assert_response :success
   end
 
   test "update locus" do
     locus = loci(:brovary)
-    locus.name_ru = 'Браворы'
+    locus.name_ru = "Браворы"
     login_as_admin
     put :update, params: {id: locus.to_param, locus: locus.attributes}
     assert_redirected_to edit_locus_path(assigns(:locus))
   end
 
   test "destroy locus" do
-    assert_difference('Locus.count', -1) do
+    assert_difference("Locus.count", -1) do
       login_as_admin
-      delete :destroy, params: {id: 'brovary'}
+      delete :destroy, params: {id: "brovary"}
     end
 
     assert_redirected_to loci_path
@@ -86,39 +86,39 @@ class LociControllerTest < ActionController::TestCase
 
   # auth tests
 
-  test 'protect index with authentication' do
+  test "protect index with authentication" do
     assert_raise(ActionController::RoutingError) { get :index }
     #assert_response 404
   end
 
-  test 'protect show with authentication' do
-    assert_raise(ActionController::RoutingError) { get :show, params: {id: 'krym'} }
+  test "protect show with authentication" do
+    assert_raise(ActionController::RoutingError) { get :show, params: {id: "krym"} }
     #assert_response 404
   end
 
-  test 'protect new with authentication' do
+  test "protect new with authentication" do
     assert_raise(ActionController::RoutingError) { get :new }
     #assert_response 404
   end
 
-  test 'protect edit with authentication' do
-    assert_raise(ActionController::RoutingError) { get :edit, params: {id: 'krym'} }
+  test "protect edit with authentication" do
+    assert_raise(ActionController::RoutingError) { get :edit, params: {id: "krym"} }
     #assert_response 404
   end
 
-  test 'protect create with authentication' do
+  test "protect create with authentication" do
     assert_raise(ActionController::RoutingError) { post :create, params: {locus: attributes_for(:locus)} }
     #assert_response 404
   end
 
-  test 'protect update with authentication' do
+  test "protect update with authentication" do
     locus = loci(:brovary)
     assert_raise(ActionController::RoutingError) { put :update, params: {id: locus.to_param, locus: locus.attributes} }
     #assert_response 404
   end
 
-  test 'protect destroy with authentication' do
-    assert_raise(ActionController::RoutingError) { delete :destroy, params: {id: 'krym'} }
+  test "protect destroy with authentication" do
+    assert_raise(ActionController::RoutingError) { delete :destroy, params: {id: "krym"} }
     #assert_response 404
   end
 end

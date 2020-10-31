@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'species_parameterizer'
+require "species_parameterizer"
 
 class Species < ApplicationRecord
 
@@ -83,11 +83,11 @@ class Species < ApplicationRecord
   end
 
   def code=(val)
-    super(val == '' ? nil : val)
+    super(val == "" ? nil : val)
   end
 
   def legacy_code=(val)
-    super(val == '' ? nil : val)
+    super(val == "" ? nil : val)
   end
 
   # Methods
@@ -122,7 +122,7 @@ class Species < ApplicationRecord
   # Formatting
 
   def to_thumbnail
-    Thumbnail.new(self, {partial: 'species/thumb_title'}, self.image)
+    Thumbnail.new(self, {partial: "species/thumb_title"}, self.image)
   end
 
   def destroy

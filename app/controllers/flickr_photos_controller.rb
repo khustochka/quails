@@ -14,11 +14,10 @@ class FlickrPhotosController < ApplicationController
   end
 
   def show
-    @next = Image.unflickred.where('created_at < ?', @image.created_at).order(created_at: :desc).first
+    @next = Image.unflickred.where("created_at < ?", @image.created_at).order(created_at: :desc).first
   end
 
   def edit
-
   end
 
   # This is flickr upload and attach to flickr
@@ -82,17 +81,16 @@ class FlickrPhotosController < ApplicationController
     else
       render :unused
     end
-
   end
 
   def bou_cc
-    search_params = {license: '1,2,3,4,5,6', group_id: '615480@N22', extras: 'owner_name,license'}
+    search_params = {license: "1,2,3,4,5,6", group_id: "615480@N22", extras: "owner_name,license"}
     @flickr_result = _FlickrClient.search_and_filter_photos(search_params) do |collection|
       collection.reject { |x| x.owner == flickr_admin.user_id }
     end
   end
 
-  DEFAULT_SEARCH_PARAMS = {content_type: 1, extras: 'owner_name'}
+  DEFAULT_SEARCH_PARAMS = {content_type: 1, extras: "owner_name"}
 
   def search
     new_params = params
@@ -115,8 +113,8 @@ class FlickrPhotosController < ApplicationController
   private
 
   def cache_expire
-    expire_page controller: :feeds, action: :blog, format: 'xml'
-    expire_page controller: :feeds, action: :instant_articles, format: 'xml'
+    expire_page controller: :feeds, action: :blog, format: "xml"
+    expire_page controller: :feeds, action: :instant_articles, format: "xml"
     expire_photo_feeds
   end
 

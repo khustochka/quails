@@ -13,7 +13,7 @@ class LoginController < ApplicationController
   # - use a separate cookie?
   def login_page
     session[:ret] = safe_referrer_params || session[:ret]
-    render layout: 'login'
+    render layout: "login"
   end
 
   def login_do

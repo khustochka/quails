@@ -3,7 +3,7 @@
 module GenericErrors
 
   def to_partial_path
-    'partials/errors'
+    "partials/errors"
   end
 
 end

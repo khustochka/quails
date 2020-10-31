@@ -3,7 +3,7 @@
 class BlogController < ApplicationController
 
   before_action only: [:home, :year, :month] do
-    @feed = 'blog'
+    @feed = "blog"
   end
 
   POSTS_ON_FRONT_PAGE = 3
@@ -37,8 +37,8 @@ class BlogController < ApplicationController
         select("EXTRACT(year FROM face_date)::integer as raw_year,
                 EXTRACT(month FROM face_date)::integer as raw_month,
                 COUNT(id) as posts_count").
-        group('raw_year, raw_month').
-        order('raw_year, raw_month').
+        group("raw_year, raw_month").
+        order("raw_year, raw_month").
         chunk(&:raw_year)
   end
 

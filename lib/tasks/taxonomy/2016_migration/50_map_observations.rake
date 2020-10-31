@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
 namespace :tax do
-
   desc "Map all observations from legacy species to new taxa"
-  task :map_observations => :environment do
-
+  task map_observations: :environment do
     base = Observation.where(taxon_id: nil).joins(:card)
 
     # Specific subtaxa
@@ -26,7 +24,7 @@ namespace :tax do
     old_anacre = LegacySpecies.find_by_code "anacre"
     anacre_amer = Taxon.find_by_name_sci("Anas crecca carolinensis")
     anacre_euro = Taxon.find_by_name_sci("Anas crecca crecca/nimia")
-    base.where(legacy_species_id: old_anacre.id, "cards.locus_id" => aba_locs).update_all(taxon_id: anacre_amer.id)    
+    base.where(legacy_species_id: old_anacre.id, "cards.locus_id" => aba_locs).update_all(taxon_id: anacre_amer.id)
     base.where(legacy_species_id: old_anacre.id).where("cards.locus_id NOT IN (?)", aba_locs).update_all(taxon_id: anacre_euro.id)
 
     old_lararg = LegacySpecies.find_by_code "lararg"
@@ -55,8 +53,5 @@ namespace :tax do
     if obs.any?
       raise "There are still #{obs.size} observations not mapped to taxa!"
     end
-
   end
-
-
 end

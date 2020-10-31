@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'csv'
-require 'export/strategies'
+require "csv"
+require "export/strategies"
 
 class Exporter
 
@@ -37,13 +37,11 @@ class Exporter
   private
 
   def save_to_file(array)
-
     CSV.open(local_file_name, "w+") do |csv|
       array.each do |row|
         csv << row
       end
     end
-
   end
 
   def local_file_name
@@ -51,7 +49,7 @@ class Exporter
   end
 
   def local_path
-    path = ENV['quails_ebird_csv_path'] || "#{Rails.root}/public/csv"
+    path = ENV["quails_ebird_csv_path"] || "#{Rails.root}/public/csv"
     FileUtils.mkdir_p(path)
     path
   end

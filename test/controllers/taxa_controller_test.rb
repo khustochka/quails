@@ -7,14 +7,14 @@ class TaxaControllerTest < ActionController::TestCase
     @taxon = taxa(:jyntor)
   end
 
-  test 'show index' do
+  test "show index" do
     login_as_admin
     get :index
     assert_response :success
     assert_not_nil assigns(:taxa)
   end
 
-  test 'show taxon' do
+  test "show taxon" do
     login_as_admin
     get :show, params: {id: @taxon.ebird_code}
     assert_response :success

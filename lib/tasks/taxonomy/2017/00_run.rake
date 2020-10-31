@@ -1,12 +1,10 @@
 # frozen_string_literal: true
 
 namespace :tax do
-
   namespace :update2017 do
+    task run: [:import_ebird_taxa, :update_taxa, :update_species, :fix_splits_and_lumps, :final_touch, :final_comments]
 
-    task :run => [:import_ebird_taxa, :update_taxa, :update_species, :fix_splits_and_lumps, :final_touch, :final_comments]
-
-    task :final_comments => :environment do
+    task final_comments: :environment do
       puts "\n\nWHAT TO DO NEXT:\n\n"
 
       puts "1. Check everything."
@@ -21,11 +19,9 @@ namespace :tax do
       posts.each do |post|
         puts "#{post.face_date}: #{post.slug}"
       end
-
     end
 
-    task :final_touch => :environment do
-
+    task final_touch: :environment do
       # Update images
 
       hen_harrier = Species.find_by_name_sci("Circus cyaneus")
@@ -96,9 +92,6 @@ namespace :tax do
         Species.find_by_name_sci(nm).update(attr)
         puts nm
       end
-
     end
-
   end
-
 end

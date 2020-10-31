@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 class FlickrPhotosControllerTest < ActionController::TestCase
 
@@ -22,14 +22,14 @@ class FlickrPhotosControllerTest < ActionController::TestCase
     get :unflickred
   end
 
-  test '#show for unflickred image' do
+  test "#show for unflickred image" do
     img1 = create(:image)
 
     login_as_admin
     get :show, params: {id: img1.slug}
   end
 
-  test '#show for flickred image' do
+  test "#show for flickred image" do
     img1 = create(:image_on_flickr)
 
     login_as_admin

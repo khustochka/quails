@@ -18,7 +18,6 @@ class EbirdClient
     page = @agent.submit(form)
 
     @authenticated = page.xpath("//a[contains(@class, 'HeaderEbird-link')]/span[contains(text(),'(#{Settings.ebird_user.name})')]").any?
-
   end
 
   # def get_checklists_for_date(date)

@@ -5,7 +5,7 @@ require "test_helper"
 # :selenium_chrome_headless unfortunately is slower
 DEFAULT_JS_DRIVER = :webkit
 
-env_js_driver = ENV['JS_DRIVER']&.to_sym || DEFAULT_JS_DRIVER
+env_js_driver = ENV["JS_DRIVER"]&.to_sym || DEFAULT_JS_DRIVER
 
 if env_js_driver == :webkit
   require "capybara/webkit"
@@ -17,7 +17,7 @@ if env_js_driver == :webkit
 end
 
 $driver, $browser = case env_js_driver
-                  when /\Aselenium(?:_(.*))?/
+                    when /\Aselenium(?:_(.*))?/
                     [:selenium, $1 || :firefox]
                   else
                     [env_js_driver, nil]
@@ -31,18 +31,18 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
   # This stuff is required so that JS tests do not mess up the UI integration tests (which use rack-test)
   setup do
-    Capybara.current_driver = ENV['JS_DRIVER'].try(:to_sym) || Capybara.javascript_driver
+    Capybara.current_driver = ENV["JS_DRIVER"].try(:to_sym) || Capybara.javascript_driver
   end
   teardown do
     Capybara.use_default_driver
   end
 
-  TEST_CREDENTIALS = {username: ENV['admin_username'], password: ENV['admin_password']}
+  TEST_CREDENTIALS = {username: ENV["admin_username"], password: ENV["admin_password"]}
 
   def login_as_admin
-    visit '/login'
-    fill_in 'username', with: TEST_CREDENTIALS[:username]
-    fill_in 'password', with: TEST_CREDENTIALS[:password]
+    visit "/login"
+    fill_in "username", with: TEST_CREDENTIALS[:username]
+    fill_in "password", with: TEST_CREDENTIALS[:password]
     click_button "Login"
   end
 

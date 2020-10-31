@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 class SearchCardsControllerTest < ActionController::TestCase
 
@@ -41,7 +41,7 @@ class SearchCardsControllerTest < ActionController::TestCase
     assert_not_nil cards
     assert cards.find { |c| (c.observations.find { |o| o.taxon_id == aves_sp_id }).present? }.present?,
            "Expected to include Bird sp."
-    assert_select 'li b', 'bird sp.'
+    assert_select "li b", "bird sp."
   end
 
 end

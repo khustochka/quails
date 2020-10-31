@@ -3,9 +3,8 @@
 require "csv"
 
 namespace :ioc do
-
   desc "Import IOC taxa"
-  task :import => :environment do
+  task import: :environment do
     version = -"10.2"
     current_species = nil
     idx = 0
@@ -32,5 +31,4 @@ namespace :ioc do
       end
     end
   end
-
 end

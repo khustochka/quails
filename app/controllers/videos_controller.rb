@@ -28,12 +28,12 @@ class VideosController < ApplicationController
   # GET /videos/new
   def new
     @video = Video.new
-    render 'form'
+    render "form"
   end
 
   # GET /videos/1/edit
   def edit
-    render 'form'
+    render "form"
   end
 
   # POST /videos
@@ -41,9 +41,9 @@ class VideosController < ApplicationController
     @video = Video.new(video_params)
 
     if @video.save
-      redirect_to edit_map_video_path(@video), notice: 'Video was successfully created. Now map it!'
+      redirect_to edit_map_video_path(@video), notice: "Video was successfully created. Now map it!"
     else
-      render 'form'
+      render "form"
     end
   end
 
@@ -51,19 +51,19 @@ class VideosController < ApplicationController
   def update
     if @video.update(video_params)
       if @video.mapped?
-        redirect_to video_path(@video), notice: 'Video was successfully updated.'
+        redirect_to video_path(@video), notice: "Video was successfully updated."
       else
-        redirect_to edit_map_video_path(@video), notice: 'Video was successfully updated. Now map it!'
+        redirect_to edit_map_video_path(@video), notice: "Video was successfully updated. Now map it!"
       end
     else
-      render 'form'
+      render "form"
     end
   end
 
   # DELETE /videos/1
   def destroy
     @video.destroy
-    redirect_to videos_url, notice: 'Video was successfully destroyed.'
+    redirect_to videos_url, notice: "Video was successfully destroyed."
   end
 
   def map_edit
@@ -77,7 +77,7 @@ class VideosController < ApplicationController
         format.html { redirect_to action: :show }
         format.json { head :no_content }
       else
-        format.html { render 'form' }
+        format.html { render "form" }
         format.json { render json: @video.errors, status: :unprocessable_entity }
       end
     end
