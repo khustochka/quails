@@ -8,7 +8,7 @@ end
 
 VERSION = "6.0.0"
 # gem 'rails', VERSION
-gem "rails", git: "https://github.com/rails/rails.git", ref: "82ab90365330e22614c73a5900f12dbc6e9c352b"
+gem "rails", "6.1.0.rc1"
 # gem "activesupport", VERSION
 # gem "actionpack",    VERSION
 # gem "actionview",    VERSION
