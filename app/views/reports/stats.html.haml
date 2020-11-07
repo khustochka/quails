@@ -59,7 +59,7 @@
     %tr
       %td.nowrap= link_to l(row.observ_date, format: :long), day_path(row.observ_date)
       %td= row.count_obs
-      %td= @locs_for_day_by_obs[row.observ_date].map {|c| c.locus.name}.join(", ")
+      %td= @locs_for_day_by_obs[row.observ_date].map {|c| c.locus.short_name}.join(", ")
 
 %h3
   %i — По количеству видов за день
@@ -74,7 +74,7 @@
     %tr
       %td.nowrap= link_to l(row.observ_date, format: :long), day_path(row.observ_date)
       %td= row.count_species
-      %td= @locs_for_day_by_species[row.observ_date].map {|c| c.locus.name}.join(", ")
+      %td= @locs_for_day_by_species[row.observ_date].map {|c| c.locus.short_name}.join(", ")
 
 %h3
   %i — По количеству видов в одной местности
@@ -89,7 +89,7 @@
     %tr
       %td.nowrap= link_to l(row.observ_date, format: :long), day_path(row.observ_date)
       %td= row.count_species
-      %td= @preloaded_locs[row.locus_id].name
+      %td= @preloaded_locs[row.locus_id].short_name
 
 %h3
   %i — По количеству новых видов за день
@@ -104,5 +104,5 @@
     %tr
       %td.nowrap= link_to l(row.observ_date, format: :long), day_path(row.observ_date)
       %td= row.count_species
-      %td= @locs_for_day_by_new_species[row.observ_date].map {|c| c.card.locus.name}.join(", ")
+      %td= @locs_for_day_by_new_species[row.observ_date].map {|c| c.card.locus.short_name}.join(", ")
 

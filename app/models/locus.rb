@@ -92,6 +92,14 @@ class Locus < ApplicationRecord
     end
   end
 
+  def short_name
+    if patch
+      [cached_parent, self].compact.uniq.map(&:name).join(" - ")
+    else
+      name
+    end
+  end
+
   private
 
   def generate_slug

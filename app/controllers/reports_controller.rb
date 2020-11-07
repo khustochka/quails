@@ -234,7 +234,7 @@ class ReportsController < ApplicationController
 
     dates = @day_by_obs.except(:select).select(:observ_date)
     @locs_for_day_by_obs =
-        Card.select("DISTINCT locus_id, observ_date").where(observ_date: dates).preload(:locus).group_by(&:observ_date)
+        Card.select("DISTINCT locus_id, observ_date").where(observ_date: dates).preload(:locus => :cached_parent).group_by(&:observ_date)
 
     @day_by_species = identified_observations.select("observ_date, COUNT(DISTINCT species_id) as count_species").
         group("observ_date").
@@ -242,7 +242,7 @@ class ReportsController < ApplicationController
 
     dates = @day_by_species.except(:select).select(:observ_date)
     @locs_for_day_by_species =
-        Card.select("DISTINCT locus_id, observ_date").where(observ_date: dates).preload(:locus).group_by(&:observ_date)
+        Card.select("DISTINCT locus_id, observ_date").where(observ_date: dates).preload(:locus => :cached_parent).group_by(&:observ_date)
 
     @day_and_loc_by_species = identified_observations.select("observ_date, locus_id, COUNT(DISTINCT species_id) as count_species").
         group("observ_date, locus_id").
@@ -250,7 +250,7 @@ class ReportsController < ApplicationController
         limit(10)
 
     locs = @day_and_loc_by_species.except(:select).select(:locus_id)
-    @preloaded_locs = Locus.where(id: locs).index_by(&:id)
+    @preloaded_locs = Locus.where(id: locs).preload(:cached_parent).index_by(&:id)
 
     @day_by_new_species = lifelist_filtered.
         except(:select).select("observ_date, COUNT(species_id) as count_species").
@@ -263,7 +263,7 @@ class ReportsController < ApplicationController
         lifelist_filtered.except(:select).
             select("DISTINCT locus_id, observ_date, card_id").
             where("observ_date IN (?)", dates).
-            preload(card: :locus).group_by(&:observ_date)
+            preload(card: {locus: :cached_parent}).group_by(&:observ_date)
 
     @ebird_eligible_this_year = Card.ebird_eligible.in_year(params[:year] || Quails::CURRENT_YEAR).size
   end
