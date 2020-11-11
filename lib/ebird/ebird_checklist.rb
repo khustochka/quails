@@ -88,11 +88,13 @@ class EbirdChecklist
     if area
       self.area_acres = area[1]
     end
-
-    party = page.at_xpath("//span[contains(@title, 'Observers:')]")[:title].match(/^Observers: (\d+)$/)[1]
-    if party != "1"
-      self.observers = party
-      #self.observers = page.xpath("//dl[dt[text()='Observers:']]/dd").text. TODO: beautify the text
+    observers = page.at_xpath("//span[contains(@title, 'Observers:')]")
+    if observers
+      party = observers[:title].match(/^Observers: (\d+)$/)[1]
+      if party != "1"
+        self.observers = party
+        #self.observers = page.xpath("//dl[dt[text()='Observers:']]/dd").text. TODO: beautify the text
+      end
     end
 
     comments = page.at_xpath("//section[h6[text()='Comments']]/p[contains(@class, 'u-constrainBody')]")&.text
