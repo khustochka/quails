@@ -8,7 +8,7 @@ end
 
 VERSION = "6.0.0"
 # gem 'rails', VERSION
-gem "rails", "6.1.0.rc1"
+gem "rails", "6.1.0.rc2"
 # gem "activesupport", VERSION
 # gem "actionpack",    VERSION
 # gem "actionview",    VERSION
