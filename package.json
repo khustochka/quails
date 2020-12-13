@@ -9,7 +9,7 @@
     "ilyabirman-likely": "^2.4.0",
     "keypress.js": "^2.1.5",
     "turbolinks": "^5.2.0",
-    "webpack": "^5.8.0"
+    "webpack": "^4.0.0"
   },
   "devDependencies": {
     "webpack-dev-server": "^3.10.1"
