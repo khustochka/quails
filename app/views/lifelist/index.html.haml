@@ -38,31 +38,31 @@
         = link_to(t('lifelist.title.canada'), list_path(locus: 'canada'))
 
       = render partial: "top5list", object: @list_canada
+    -#
+    -# %div.fluid-column
+    -#
+    -#   %h2
+    -#     = link_to(t('lifelist.title.ukraine'), list_path(locus: 'ukraine'))
+    -#
+    -#   = render partial: "top5list", object: @list_ukraine
+
+    -# Temporary previous year list
+
+    %div.fluid-column
+
+      %h2
+        = link_to(t('lifelist.title.yearlist', year: Quails::CURRENT_YEAR - 1), list_path(year: Quails::CURRENT_YEAR - 1))
+
+      = render partial: "top5list", object: @list_prev_year
+
+
+  %div.fluid-row
 
     %div.fluid-column
 
       %h2
         = link_to(t('lifelist.title.ukraine'), list_path(locus: 'ukraine'))
-
-      = render partial: "top5list", object: @list_ukraine
-
-    -# Temporary previous year list
-
-    -#%div.fluid-column
-    -#
-    -#  %h2
-    -#    = link_to(t('lifelist.title.yearlist', year: Quails::CURRENT_YEAR - 1), list_path(year: Quails::CURRENT_YEAR - 1))
-    -#
-    -#  = render partial: "top5list", object: @list_prev_year
-
-
-  %div.fluid-row
-
-    -#%div.fluid-column
-    -#
-    -#  %h2
-    -#    = link_to(t('lifelist.title.ukraine'), list_path(locus: 'ukraine'))
-    -#    (#{@list_ukraine.total_count})
+        (#{@list_ukraine.total_count})
 
     %div.fluid-column
 
