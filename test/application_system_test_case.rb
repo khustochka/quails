@@ -9,6 +9,7 @@ env_js_driver = ENV["JS_DRIVER"]&.to_sym || DEFAULT_JS_DRIVER
 
 if env_js_driver == :webkit
   require "capybara/webkit"
+  require "core_ext/capybara/webkit/node"
   Capybara::Webkit.configure do |config|
     config.block_unknown_urls
     # Don't load images

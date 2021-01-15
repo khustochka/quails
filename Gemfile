@@ -119,7 +119,7 @@ end
 group :test do
   gem "capybara"
   gem "selenium-webdriver"
-  gem "capybara-webkit", git: "https://github.com/thoughtbot/capybara-webkit.git", ref: "77fdac424cd6fdb5aa266b229a888cc58da8e95e"
+  gem "capybara-webkit"
   # gem 'webdrivers'
   gem "launchy" # So you can do Then show me the page
   gem "simplecov", require: false, platforms: [:ruby, :mingw]
