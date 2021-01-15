@@ -1,7 +1,6 @@
 GIT
-  remote: https://github.com/khustochka/livejournal.git
+  remote: https://github.com/khustochka/vk-livejournal.git
   revision: 1b55d5c590e90a05cfab01db1c644fe1b849e0cc
-  branch: further-fixes
   specs:
     livejournal (0.3.10)
 
@@ -498,4 +497,4 @@ DEPENDENCIES
   webpacker (~> 5.0)
 
 BUNDLED WITH
-   2.2.3
+   2.2.5
