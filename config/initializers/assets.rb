@@ -14,9 +14,3 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
 # Rails.application.config.assets.precompile += %w( admin.js admin.css )
-
-# LOOSE_APP_ASSETS = lambda do |logical_path, filename|
-#   filename.start_with?(::Rails.root.join("app/assets").to_s)
-# end
-#
-# Rails.application.config.assets.precompile = [LOOSE_APP_ASSETS, /(?:\/|\\|\A)application\.(css|js)$/, "*.png"]
