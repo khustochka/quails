@@ -120,6 +120,7 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem "capybara-webkit"
+  gem "webrick" # needed for capybara-webkit on Ruby 3.0
   # gem 'webdrivers'
   gem "launchy" # So you can do Then show me the page
   gem "simplecov", require: false, platforms: [:ruby, :mingw]
