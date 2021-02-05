@@ -61,7 +61,6 @@ gem "livejournal", git: "https://github.com/khustochka/vk-livejournal.git"
 gem "aws-sdk-s3", require: false
 
 # Small utils
-gem "hashie"
 gem "addressable", require: "addressable/uri"
 gem "roman-numerals"
 

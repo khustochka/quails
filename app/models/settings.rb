@@ -13,7 +13,7 @@ class Settings < ApplicationRecord
 
   def self.method_missing(method_id, *arguments, &block)
     if SETTING_KEYS.include?(method_id)
-      Hashie::Mash.new(find_by(key: method_id).try(:value) || {})
+      OpenStruct.new(find_by(key: method_id).try(:value) || {})
     else
       super
     end

@@ -46,10 +46,4 @@ class LegacySpecies < ApplicationRecord
 
   scope :alphabetic, lambda { order(:name_sci) }
 
-  # Wikidata
-
-  def wikidata
-    Hashie::Mash.new(read_attribute("wikidata"))
-  end
-
 end
