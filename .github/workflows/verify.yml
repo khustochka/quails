@@ -23,8 +23,8 @@ jobs:
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
-      - name: Install Qt
-        uses: jurplel/install-qt-action@v2
+      - name: Install Qt5
+        run: sudo apt-get update && sudo apt-get install g++ qt5-default libqt5webkit5-dev gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-x
       - name: Ruby gem cache
         uses: actions/cache@v1
         with:
