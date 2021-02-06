@@ -54,7 +54,8 @@ jobs:
       - name: Install packages
         run: |
           yarn install --pure-lockfile
-
+      - name: DB config
+        run: cp config/database.sample.yml config/database.yml
       - name: Setup test database
         env:
           RAILS_ENV: test
