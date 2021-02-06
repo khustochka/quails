@@ -63,7 +63,8 @@ jobs:
           DATABASE_URL: postgresql://quails:quails@localhost/quails_test?pool=5
         run: |
           bin/rails db:setup
-
+      - name: Create dir for XDG_RUNTIME_DIR
+        run: mkdir -p /tmp/runtime-runner; chmod 0777 /tmp/runtime-runner
       - name: Run tests
         env:
           # To prevent ugly xvfb warning
