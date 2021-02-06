@@ -63,8 +63,10 @@ jobs:
         run: |
           bin/rails db:setup
 
-      - name: Run tests (except system)
+      - name: Run tests
+        uses: GabrielBB/xvfb-action@v1
         env:
           RAILS_ENV: test
           DATABASE_URL: postgresql://quails:quails@localhost/quails_test?pool=5
-        run: bin/rake test
+        with:
+          run: bin/rake test:all
