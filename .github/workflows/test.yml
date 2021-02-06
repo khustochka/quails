@@ -61,12 +61,12 @@ jobs:
       - name: Setup test database
         env:
           RAILS_ENV: test
-          DATABASE_URL: postgresql://localhost/quails:quails@quails_test?pool=5
+          DATABASE_URL: postgresql://quails:quails@localhost/quails_test?pool=5
         run: |
           bin/rails db:setup
 
       - name: Run tests
         env:
           RAILS_ENV: test
-          DATABASE_URL: postgresql://localhost/quails:quails@quails_test?pool=5
+          DATABASE_URL: postgresql://quails:quails@localhost/quails_test?pool=5
         run: bin/rake test:all
