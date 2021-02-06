@@ -13,6 +13,7 @@ jobs:
           POSTGRES_USER: quails
           POSTGRES_DB: quails_test
           POSTGRES_PASSWORD: "quails"
+          LC_COLLATE: C
         ports: ["5432:5432"]
         options: >-
           --health-cmd pg_isready
@@ -64,9 +65,7 @@ jobs:
           bin/rails db:setup
 
       - name: Run tests
-        uses: GabrielBB/xvfb-action@v1
         env:
           RAILS_ENV: test
           DATABASE_URL: postgresql://quails:quails@localhost/quails_test?pool=5
-        with:
-          run: bin/rake test:all
+        run: xvfb-run bin/rake test:all
