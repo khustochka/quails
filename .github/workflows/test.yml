@@ -1,6 +1,6 @@
 # Put this in the file: .github/workflows/verify.yml
 
-name: Verify
+name: Test
 on: [push]
 
 jobs:
@@ -12,8 +12,8 @@ jobs:
       postgres:
         image: postgres:13
         env:
-          POSTGRES_USER: myapp
-          POSTGRES_DB: myapp_test
+          POSTGRES_USER: quails
+          POSTGRES_DB: quails_test
           POSTGRES_PASSWORD: ""
         ports: ["5432:5432"]
 
@@ -60,7 +60,7 @@ jobs:
         env:
           RAILS_ENV: test
           PGHOST: localhost
-          PGUSER: myapp
+          PGUSER: quails
         run: |
           bin/rails db:setup
 
