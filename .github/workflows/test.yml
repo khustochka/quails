@@ -66,6 +66,8 @@ jobs:
 
       - name: Run tests
         env:
+          # To prevent ugly xvfb warning
+          XDG_RUNTIME_DIR: '/tmp/runtime-runner'
           RAILS_ENV: test
           DATABASE_URL: postgresql://quails:quails@localhost/quails_test?pool=5
         run: xvfb-run bin/rake test:all
