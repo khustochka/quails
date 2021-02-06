@@ -42,7 +42,6 @@ test: &TEST
   <<: *DEFAULT
   database: quails_test
   min_messages: warning
-  username: <%= ENV['PGUSER'] || `whoami`.chomp rescue 'quails' %>
 
 production:
   <<: *DEFAULT

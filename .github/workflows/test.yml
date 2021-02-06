@@ -14,7 +14,7 @@ jobs:
         env:
           POSTGRES_USER: quails
           POSTGRES_DB: quails_test
-          POSTGRES_PASSWORD: ""
+          POSTGRES_PASSWORD: "quails"
         ports: ["5432:5432"]
         options: >-
           --health-cmd pg_isready
@@ -58,15 +58,15 @@ jobs:
       - name: Install packages
         run: |
           yarn install --pure-lockfile
-      - name: DB config
-        run: cp config/database.sample.yml config/database.yml
       - name: Setup test database
         env:
           RAILS_ENV: test
-          PGHOST: localhost
-          PGUSER: quails
+          DATABASE_URL: postgresql://localhost/quails:quails@quails_test?pool=5
         run: |
           bin/rails db:setup
 
       - name: Run tests
+        env:
+          RAILS_ENV: test
+          DATABASE_URL: postgresql://localhost/quails:quails@quails_test?pool=5
         run: bin/rake test:all
