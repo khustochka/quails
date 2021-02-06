@@ -1,5 +1,3 @@
-# Put this in the file: .github/workflows/verify.yml
-
 name: Test
 on: [push]
 
@@ -65,8 +63,8 @@ jobs:
         run: |
           bin/rails db:setup
 
-      - name: Run tests
+      - name: Run tests (except system)
         env:
           RAILS_ENV: test
           DATABASE_URL: postgresql://quails:quails@localhost/quails_test?pool=5
-        run: bin/rake test:all
+        run: bin/rake test
