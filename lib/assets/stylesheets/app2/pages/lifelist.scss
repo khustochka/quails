@@ -1,11 +1,11 @@
 .top5-list-header {
   @extend .fancy-header;
-  @extend .mb-3;
+  @extend .mb-2;
   //margin-left: 50px;
 }
 
 .lifers_list {
-  @extend .mb-4;
+  @extend .mb-3;
   font-size: 0.85rem;
   @extend .text-black-50;
 
