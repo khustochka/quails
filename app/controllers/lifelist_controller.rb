@@ -2,6 +2,8 @@
 
 class LifelistController < ApplicationController
 
+  layout "application2", only: [:index]
+
   def index
     @list_life = Lifelist::FirstSeen.full
     @list_current_year = Lifelist::FirstSeen.over(year: Quails::CURRENT_YEAR)
