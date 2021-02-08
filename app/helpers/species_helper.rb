@@ -20,6 +20,14 @@ module SpeciesHelper
     @taxa_for_select ||= Taxon.where(id: Observation.select("DISTINCT taxon_id")).select("id, name_sci, name_en")
   end
 
+  def species_link_long(species)
+    tag.span class: "sp_link_long" do
+      concat species_link(species)
+      concat " "
+      concat name_sci(species)
+    end
+  end
+
   def species_link(sp_obj, string = nil)
     @only_path = true if @only_path.nil?
     if sp_obj

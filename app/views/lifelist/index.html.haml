@@ -5,6 +5,9 @@
 
 - @jumbo_image = "https://bwua-static.s3.eu-central-1.amazonaws.com/pauraque-jumbo.jpg"
 
+- content_for :translated do
+  = render 'app2/shared/translated'
+
 - content_for :jumbo do
   = render 'partials/translated'
   %h1= @page_title
@@ -16,72 +19,79 @@
 
 - cache(key: CacheKey.lifelist) do
 
-  %div.fluid-row
+  .container
 
-    %div.fluid-column
+    = content_for :translated
 
-      %h2= link_to('Lifelist', lifelist_path)
+    %header.simple-page-header
+      %h1= @page_title
 
-      = render partial: "top5list", object: @list_life
+    .row
 
-    %div.fluid-column
+      .col-sm-12.col-md-6
 
-      %h2= link_to(t('lifelist.title.yearlist', year: Quails::CURRENT_YEAR), list_path(year: Quails::CURRENT_YEAR))
+        %h2.h3.top5-list-header= link_to('Lifelist', lifelist_path)
 
-      = render partial: "top5list", object: @list_current_year
+        = render partial: "top5list", object: @list_life
 
-  %div.fluid-row
+      .col-sm-12.col-md-6
 
-    %div.fluid-column
+        %h2.h3.top5-list-header= link_to(t('lifelist.title.yearlist', year: Quails::CURRENT_YEAR), list_path(year: Quails::CURRENT_YEAR))
 
-      %h2
-        = link_to(t('lifelist.title.canada'), list_path(locus: 'canada'))
+        = render partial: "top5list", object: @list_current_year
 
-      = render partial: "top5list", object: @list_canada
+    .row
+
+      .col-sm-12.col-md-6
+
+        %h2.h3.top5-list-header
+          = link_to(t('lifelist.title.yearlist', year: Quails::CURRENT_YEAR - 1), list_path(year: Quails::CURRENT_YEAR - 1))
+
+        = render partial: "top5list", object: @list_prev_year
+
+      .col-sm-12.col-md-6.order-sm-first
+
+        %h2.h3.top5-list-header
+          = link_to(t('lifelist.title.canada'), list_path(locus: 'canada'))
+
+        = render partial: "top5list", object: @list_canada
+      -#
+      -# .col-sm-12.col-md-6
+      -#
+      -#   %h2.h3.top5-list-header
+      -#     = link_to(t('lifelist.title.ukraine'), list_path(locus: 'ukraine'))
+      -#
+      -#   = render partial: "top5list", object: @list_ukraine
+
+      -# Temporary previous year list
+
+
+    .row
+
+      .col-sm-12.col-md-6
+
+        %h2.h3.top5-list-header
+          = link_to(t('lifelist.title.ukraine'), list_path(locus: 'ukraine'))
+          (#{@list_ukraine.total_count})
+
+      .col-sm-12.col-md-6
+
+        %h2.h3.top5-list-header
+          = link_to(t('lifelist.title.usa'), list_path(locus: 'usa'))
+          (#{@list_usa.total_count})
+
+
+      .col-sm-12.col-md-6
+
+        %h2.h3.top5-list-header
+          = link_to(t('lifelist.title.gb'), list_path(locus: 'united_kingdom'))
+          (#{@list_uk.total_count})
+
+
+    -#%div
     -#
-    -# %div.fluid-column
+    -#  %div
     -#
-    -#   %h2
-    -#     = link_to(t('lifelist.title.ukraine'), list_path(locus: 'ukraine'))
-    -#
-    -#   = render partial: "top5list", object: @list_ukraine
-
-    -# Temporary previous year list
-
-    %div.fluid-column
-
-      %h2
-        = link_to(t('lifelist.title.yearlist', year: Quails::CURRENT_YEAR - 1), list_path(year: Quails::CURRENT_YEAR - 1))
-
-      = render partial: "top5list", object: @list_prev_year
-
-
-  %div.fluid-row
-
-    %div.fluid-column
-
-      %h2
-        = link_to(t('lifelist.title.ukraine'), list_path(locus: 'ukraine'))
-        (#{@list_ukraine.total_count})
-
-    %div.fluid-column
-
-      %h2
-        = link_to(t('lifelist.title.usa'), list_path(locus: 'usa'))
-        (#{@list_usa.total_count})
-
-
-    %div.fluid-column
-
-      %h2
-        = link_to(t('lifelist.title.gb'), list_path(locus: 'united_kingdom'))
-        (#{@list_uk.total_count})
-
-
-  -#%div.fluid-row
-  -#
-  -#  %div.fluid-column
-  -#
-  -#    %h3
-  -#      = link_to('eBird/Clements Lifelist', lifelist_ebird_path)
-  -#      (#{ebird_lifelist.count})
+    -#    %h2.h4.top5-list-header
+    -#      = link_to('eBird/Clements Lifelist', lifelist_ebird_path)
+    -#      (#{ebird_lifelist.count})
