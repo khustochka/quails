@@ -71,4 +71,15 @@ jobs:
           XDG_RUNTIME_DIR: '/tmp/runtime-runner'
           RAILS_ENV: test
           DATABASE_URL: postgresql://quails:quails@localhost/quails_test?pool=5
+          COVERAGE: 1
         run: xvfb-run bin/rake test:all
+      - name: Code coverage results
+        uses: actions/upload-artifact@v2
+        with:
+          name: Coverage
+          path: coverage/
+      - name: Screenshots
+        uses: actions/upload-artifact@v2
+        with:
+          name: Screenshots
+          path: tmp/screenshots
