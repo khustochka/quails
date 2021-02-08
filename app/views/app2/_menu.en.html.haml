@@ -4,13 +4,13 @@
     %ul
 
       %li
-        = link_to blog_path, class: "home-link" do
+        = link_to localized_root_path, class: "home-link" do
           %i.fas.fa-home
           .sr-only Home
 
       %li
-        = link_to blog_path do
-          %span= t('menu.blog')
+        = link_to localized_root_path do
+          %span= t('menu.home')
 
       %li= link_to t('menu.birds_ukraine'), country_path(country: 'ukraine')
 
@@ -20,7 +20,5 @@
 
       %li= link_to t('menu.lifelist'), lists_overview_path
 
-      %li= link_to t('menu.links'), page_path(:links)
-
       %li.trans-menu
-        = link_to t('menu.english'), localized_root_path(locale: :en), lang: :en, hreflang: :en, class: "translation"
+        = link_to t('menu.russian'), root_path, lang: nil, hreflang: :ru, class: "translation"
