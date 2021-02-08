@@ -5,6 +5,9 @@
 
 - @jumbo_image = "https://bwua-static.s3.eu-central-1.amazonaws.com/pauraque-jumbo.jpg"
 
+- content_for :translated do
+  = render 'app2/shared/translated'
+
 - content_for :jumbo do
   = render 'partials/translated'
   %h1= @page_title
@@ -17,6 +20,9 @@
 - cache(key: CacheKey.lifelist) do
 
   .container
+
+    = content_for :translated
+
     %header.simple-page-header
       %h1= @page_title
 
