@@ -8,7 +8,6 @@ class ReportsController < ApplicationController
 
   def environ
     #@env = ENV
-    @lc_collate = ActiveRecord::Base.connection.select_rows("SHOW LC_COLLATE")[0][0]
     @lc_ctype = ActiveRecord::Base.connection.select_rows("SHOW LC_CTYPE")[0][0]
     @pg_version = ActiveRecord::Base.connection.select_rows("SELECT version();")[0][0]
   end
