@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_19_031235) do
+ActiveRecord::Schema.define(version: 2021_02_10_030119) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -284,7 +284,7 @@ ActiveRecord::Schema.define(version: 2020_09_19_031235) do
   end
 
   create_table "species", id: :serial, force: :cascade do |t|
-    t.string "name_sci", null: false
+    t.string "name_sci", null: false, collation: "C"
     t.string "name_en", null: false
     t.string "name_ru"
     t.string "name_uk"
@@ -344,7 +344,7 @@ ActiveRecord::Schema.define(version: 2020_09_19_031235) do
   end
 
   create_table "url_synonyms", id: :serial, force: :cascade do |t|
-    t.string "name_sci"
+    t.string "name_sci", collation: "C"
     t.integer "species_id"
     t.string "reason"
     t.index ["name_sci"], name: "index_url_synonyms_on_name_sci"
