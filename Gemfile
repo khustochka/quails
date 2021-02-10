@@ -6,17 +6,17 @@ if ENV["CUSTOM_RUBY_VERSION"]
   ruby ENV["CUSTOM_RUBY_VERSION"]
 end
 
-VERSION = "6.1.1"
-# gem 'rails', VERSION
-gem "rails", VERSION
-# gem "activesupport", VERSION
-# gem "actionpack",    VERSION
-# gem "actionview",    VERSION
-# gem "activemodel",   VERSION
-# gem "activerecord",  VERSION
-# gem "activejob",     VERSION
-# gem "actionmailer",  VERSION
-# gem "railties",      VERSION
+VERSION = "6.1.2"
+# gem "rails", VERSION
+gem "activemodel",   VERSION
+gem "activejob",     VERSION
+gem "activerecord",  VERSION
+gem "activestorage", VERSION
+gem "activesupport", VERSION
+gem "actionpack",    VERSION
+gem "actionmailer",  VERSION
+gem "actionview",    VERSION
+gem "railties",      VERSION
 
 gem "pg", "~> 1.0", platforms: [:ruby, :mingw]
 gem "redis"
