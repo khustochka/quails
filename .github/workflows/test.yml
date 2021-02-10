@@ -13,7 +13,6 @@ jobs:
           POSTGRES_USER: quails
           POSTGRES_DB: quails_test
           POSTGRES_PASSWORD: "quails"
-          LC_COLLATE: C
         ports: ["5432:5432"]
         options: >-
           --health-cmd pg_isready
