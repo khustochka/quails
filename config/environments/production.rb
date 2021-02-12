@@ -133,5 +133,7 @@ Rails.application.configure do
 
   if Quails.env.real_prod?
     config.hosts << "birdwatch.org.ua"
+
+    config.host_authorization = { response_app: -> (_) { [403, {}, ["Incorrect host name"]] } }
   end
 end
