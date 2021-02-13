@@ -6,4 +6,4 @@
   = species_link_long(new_lifer.species)
   %span.lifer_date
     = icon(:far, :"calendar-check")
-    = tag.time l(new_lifer.card.observ_date, format: :long), {datetime: new_lifer.card.observ_date.iso8601}
+    = tag.time(l(new_lifer.card.observ_date, format: :long), datetime: new_lifer.card.observ_date.iso8601)
