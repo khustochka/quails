@@ -8,44 +8,44 @@ GEM
   remote: https://rubygems.org/
   specs:
     RedCloth (4.3.2)
-    actionmailer (6.1.2.1)
-      actionpack (= 6.1.2.1)
-      actionview (= 6.1.2.1)
-      activejob (= 6.1.2.1)
-      activesupport (= 6.1.2.1)
+    actionmailer (6.1.3)
+      actionpack (= 6.1.3)
+      actionview (= 6.1.3)
+      activejob (= 6.1.3)
+      activesupport (= 6.1.3)
       mail (~> 2.5, >= 2.5.4)
       rails-dom-testing (~> 2.0)
-    actionpack (6.1.2.1)
-      actionview (= 6.1.2.1)
-      activesupport (= 6.1.2.1)
+    actionpack (6.1.3)
+      actionview (= 6.1.3)
+      activesupport (= 6.1.3)
       rack (~> 2.0, >= 2.0.9)
       rack-test (>= 0.6.3)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.2.0)
     actionpack-page_caching (1.2.3)
       actionpack (>= 5.0.0)
-    actionview (6.1.2.1)
-      activesupport (= 6.1.2.1)
+    actionview (6.1.3)
+      activesupport (= 6.1.3)
       builder (~> 3.1)
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.1, >= 1.2.0)
-    activejob (6.1.2.1)
-      activesupport (= 6.1.2.1)
+    activejob (6.1.3)
+      activesupport (= 6.1.3)
       globalid (>= 0.3.6)
-    activemodel (6.1.2.1)
-      activesupport (= 6.1.2.1)
-    activerecord (6.1.2.1)
-      activemodel (= 6.1.2.1)
-      activesupport (= 6.1.2.1)
-    activestorage (6.1.2.1)
-      actionpack (= 6.1.2.1)
-      activejob (= 6.1.2.1)
-      activerecord (= 6.1.2.1)
-      activesupport (= 6.1.2.1)
+    activemodel (6.1.3)
+      activesupport (= 6.1.3)
+    activerecord (6.1.3)
+      activemodel (= 6.1.3)
+      activesupport (= 6.1.3)
+    activestorage (6.1.3)
+      actionpack (= 6.1.3)
+      activejob (= 6.1.3)
+      activerecord (= 6.1.3)
+      activesupport (= 6.1.3)
       marcel (~> 0.3.1)
       mimemagic (~> 0.3.2)
-    activesupport (6.1.2.1)
+    activesupport (6.1.3)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
@@ -65,7 +65,7 @@ GEM
     autoprefixer-rails (10.2.4.0)
       execjs
     aws-eventstream (1.1.0)
-    aws-partitions (1.427.0)
+    aws-partitions (1.429.0)
     aws-sdk-core (3.112.0)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.239.0)
@@ -74,7 +74,7 @@ GEM
     aws-sdk-kms (1.42.0)
       aws-sdk-core (~> 3, >= 3.112.0)
       aws-sigv4 (~> 1.1)
-    aws-sdk-s3 (1.88.1)
+    aws-sdk-s3 (1.88.2)
       aws-sdk-core (~> 3, >= 3.112.0)
       aws-sdk-kms (~> 1)
       aws-sigv4 (~> 1.1)
@@ -91,6 +91,7 @@ GEM
       autoprefixer-rails (>= 9.1.0)
       popper_js (>= 1.14.3, < 2)
       sassc-rails (>= 2.0.0)
+    bson (4.12.0)
     builder (3.2.4)
     bundler-audit (0.7.0.1)
       bundler (>= 1.2.0, < 3)
@@ -187,6 +188,9 @@ GEM
       activerecord
       kaminari-core (= 1.2.1)
     kaminari-core (1.2.1)
+    kaminari-mongoid (1.0.1)
+      kaminari-core (~> 1.0)
+      mongoid
     launchy (2.5.0)
       addressable (~> 2.7)
     letter_opener (1.7.0)
@@ -223,12 +227,17 @@ GEM
     mini_magick (4.11.0)
     mini_mime (1.0.2)
     mini_portile2 (2.5.0)
-    minitest (5.14.3)
+    minitest (5.14.4)
     minitest-reporters (1.4.3)
       ansi
       builder
       minitest (>= 5.0)
       ruby-progressbar
+    mongo (2.14.0)
+      bson (>= 4.8.2, < 5.0.0)
+    mongoid (7.2.1)
+      activemodel (>= 5.1, < 6.2)
+      mongo (>= 2.10.5, < 3.0.0)
     mono_logger (1.1.0)
     msgpack (1.4.2)
     multi_json (1.15.0)
@@ -289,9 +298,9 @@ GEM
     rails-i18n (6.0.0)
       i18n (>= 0.7, < 2)
       railties (>= 6.0.0, < 7)
-    railties (6.1.2.1)
-      actionpack (= 6.1.2.1)
-      activesupport (= 6.1.2.1)
+    railties (6.1.3)
+      actionpack (= 6.1.3)
+      activesupport (= 6.1.3)
       method_source
       rake (>= 0.8.7)
       thor (~> 1.0)
@@ -303,7 +312,7 @@ GEM
     redis (4.2.5)
     redis-namespace (1.8.1)
       redis (>= 3.0.4)
-    regexp_parser (2.0.3)
+    regexp_parser (2.1.1)
     resque (2.0.0)
       mono_logger (~> 1.0)
       multi_json (~> 1.0)
@@ -390,15 +399,15 @@ PLATFORMS
 
 DEPENDENCIES
   RedCloth
-  actionmailer (= 6.1.2.1)
-  actionpack (= 6.1.2.1)
+  actionmailer (= 6.1.3)
+  actionpack (= 6.1.3)
   actionpack-page_caching
-  actionview (= 6.1.2.1)
-  activejob (= 6.1.2.1)
-  activemodel (= 6.1.2.1)
-  activerecord (= 6.1.2.1)
-  activestorage (= 6.1.2.1)
-  activesupport (= 6.1.2.1)
+  actionview (= 6.1.3)
+  activejob (= 6.1.3)
+  activemodel (= 6.1.3)
+  activerecord (= 6.1.3)
+  activestorage (= 6.1.3)
+  activesupport (= 6.1.3)
   acts_as_list
   addressable
   airbrake
@@ -424,6 +433,7 @@ DEPENDENCIES
   image_processing
   jquery-rails
   kaminari
+  kaminari-mongoid
   launchy
   letter_opener
   letter_opener_web
@@ -431,6 +441,7 @@ DEPENDENCIES
   livejournal!
   mechanize
   minitest-reporters
+  mongoid
   nokogiri
   pg (~> 1.0)
   premailer-rails
@@ -441,7 +452,7 @@ DEPENDENCIES
   rack-mini-profiler
   rails-controller-testing
   rails-i18n
-  railties (= 6.1.2.1)
+  railties (= 6.1.3)
   redis
   resque
   rexml
@@ -459,4 +470,4 @@ DEPENDENCIES
   webrick
 
 BUNDLED WITH
-   2.2.9
+   2.2.11

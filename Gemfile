@@ -6,7 +6,7 @@ if ENV["CUSTOM_RUBY_VERSION"]
   ruby ENV["CUSTOM_RUBY_VERSION"]
 end
 
-VERSION = "6.1.2.1"
+VERSION = "6.1.3"
 # gem "rails", VERSION
 gem "activemodel",   VERSION
 gem "activejob",     VERSION
@@ -92,8 +92,8 @@ gem "mechanize"
 gem "rack-mini-profiler"
 
 # Deflicker
-#gem "mongoid"
-#gem "kaminari-mongoid"
+gem "mongoid"
+gem "kaminari-mongoid"
 
 group :development do
   gem "listen" # required for tracking file chnages in development
