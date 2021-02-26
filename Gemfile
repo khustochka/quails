@@ -92,8 +92,8 @@ gem "mechanize"
 gem "rack-mini-profiler"
 
 # Deflicker
-#gem "mongoid"
-#gem "kaminari-mongoid"
+gem "mongoid"
+gem "kaminari-mongoid"
 
 group :development do
   gem "listen" # required for tracking file chnages in development
