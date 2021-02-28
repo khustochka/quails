@@ -5,6 +5,12 @@
   border-bottom: 1px solid $gray-400;
   background-color: #f7f7f1;
 
+  @include media-breakpoint-up(xl) {
+    position: absolute;
+    width: auto;
+    right: 0;
+  }
+
   input#cse-query-box {
     width: 223px !important;
     //border-color: $gray-500;

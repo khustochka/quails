@@ -1,8 +1,19 @@
-.main-menu {
-  @extend .py-2;
-  border-bottom: 1px solid $gray-400;
+.user-menu {
   background-color: #f7f7f1;
-  @extend .text-center;
+  @include media-breakpoint-up(xl) {
+    position: relative;
+  }
+}
+
+.main-menu {
+  padding-top: 12px;
+  padding-bottom: 11px;
+  border-bottom: 1px solid $gray-400;
+  text-align: center;
+
+  @include media-breakpoint-up(xl) {
+    text-align: left;
+  }
 
   ul {
     @extend .list-inline;
@@ -31,6 +42,10 @@
      font-family: Rubik, $font-family-sans-serif;
      font-weight: 500;
      font-size: calc(1rem + 0.5vw);
+
+    @include media-breakpoint-up(xl) {
+      font-size: 1.3rem;
+    }
 
     color: #407FBF;
     border-bottom: none;

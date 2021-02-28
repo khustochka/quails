@@ -1,5 +1,6 @@
 -# frozen_string_literal: true
 .header
   = render partial: 'app2/admin/menu'
-  = render partial: 'app2/search', object: GoogleSearch.new(nil)
-  = render partial: 'app2/menu'
+  .user-menu
+    = render partial: 'app2/search', object: GoogleSearch.new(nil)
+    = render partial: 'app2/menu'
