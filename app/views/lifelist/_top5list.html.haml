@@ -1,3 +1,6 @@
 -# frozen_string_literal: true
-%ol.lifers_list
-  = render partial: 'new_lifer', collection: top5list.top(5), locals: {total_count: top5list.total_count}
+%table.table.lifers_list
+  %caption
+    %h2.h3.top5-list-header= link
+  %tbody
+    = render partial: 'new_lifer', collection: top5list.top(5), locals: {total_count: top5list.total_count}
