@@ -11,5 +11,6 @@ if ENV['errbit_api_key'] && ENV['errbit_host']
     config.job_stats = false
     config.query_stats = false
     config.performance_stats = false
+    config.remote_config = false
   end
 end
