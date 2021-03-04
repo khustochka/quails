@@ -1,26 +1,15 @@
 .top5-list-header {
   @extend .fancy-header;
-  //@extend .mb-2;
+  @extend .mb-2;
   //margin-left: 50px;
-  text-align: center;
 }
 
 .lifers_list {
   @extend .mb-3;
   font-size: 0.85rem;
   @extend .text-black-50;
-  border-bottom: 1px solid $border-color;
-  border-right: 1px solid $border-color;
-  border-left: 1px solid $border-color;
-  caption {
-    caption-side: top;
-    padding-bottom: 0;
-    a, a:hover {
-      border-bottom: none;
-    }
-  }
 
-  .lifer_row {
+  li.lifer_row {
     padding-left: 10px;
     margin-bottom: 0.5rem;
 

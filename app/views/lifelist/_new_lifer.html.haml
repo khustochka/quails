@@ -2,12 +2,8 @@
 - if defined?(total_count)
   - i = total_count - new_lifer_counter
 
-%tr.lifer_row
-  %td
-    = succeed "." do
-      = i
-  %td
-    = species_link_long(new_lifer.species)
-  %td.lifer_date
+%li.lifer_row{value: i}
+  = species_link_long(new_lifer.species)
+  %span.lifer_date
     = icon(:far, :"calendar-check")
     = tag.time(l(new_lifer.card.observ_date, format: :long), datetime: new_lifer.card.observ_date.iso8601)

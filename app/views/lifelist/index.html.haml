@@ -30,25 +30,38 @@
 
       .col-sm-12.col-md-6
 
-        = render partial: "top5list", object: @list_life, locals: {link: link_to('Lifelist', lifelist_path)}
+        %h2.h3.top5-list-header= link_to('Lifelist', lifelist_path)
+
+        = render partial: "top5list", object: @list_life
 
       .col-sm-12.col-md-6
 
-        = render partial: "top5list", object: @list_current_year, locals: {link: link_to(t('lifelist.title.yearlist', year: Quails::CURRENT_YEAR), list_path(year: Quails::CURRENT_YEAR))}
+        %h2.h3.top5-list-header= link_to(t('lifelist.title.yearlist', year: Quails::CURRENT_YEAR), list_path(year: Quails::CURRENT_YEAR))
+
+        = render partial: "top5list", object: @list_current_year
 
     .row
 
       .col-sm-12.col-md-6
 
-        = render partial: "top5list", object: @list_prev_year, locals: {link: link_to(t('lifelist.title.yearlist', year: Quails::CURRENT_YEAR - 1), list_path(year: Quails::CURRENT_YEAR - 1))}
+        %h2.h3.top5-list-header
+          = link_to(t('lifelist.title.yearlist', year: Quails::CURRENT_YEAR - 1), list_path(year: Quails::CURRENT_YEAR - 1))
+
+        = render partial: "top5list", object: @list_prev_year
 
       .col-sm-12.col-md-6.order-sm-first
 
-        = render partial: "top5list", object: @list_canada, locals: {link: link_to(t('lifelist.title.canada'), list_path(locus: 'canada'))}
+        %h2.h3.top5-list-header
+          = link_to(t('lifelist.title.canada'), list_path(locus: 'canada'))
+
+        = render partial: "top5list", object: @list_canada
       -#
       -# .col-sm-12.col-md-6
       -#
-      -#   = render partial: "top5list", object: @list_ukraine, locals: {link: link_to(t('lifelist.title.ukraine'), list_path(locus: 'ukraine'))}
+      -#   %h2.h3.top5-list-header
+      -#     = link_to(t('lifelist.title.ukraine'), list_path(locus: 'ukraine'))
+      -#
+      -#   = render partial: "top5list", object: @list_ukraine
 
       -# Temporary previous year list
 
