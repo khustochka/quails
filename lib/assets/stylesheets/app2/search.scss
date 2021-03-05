@@ -35,6 +35,7 @@
       @extend .text-reset-link;
       text-decoration: none;
       border-radius: 0;
+      display: block;
       .sci_name {
         color: #808080;
         font-weight: normal;
@@ -47,6 +48,12 @@
       b, i {
         display: block;
       }
+      b {
+        font-weight: 600;
+      }
+      &.ui-state-active b {
+        font-weight: inherit;
+      }
     }
 
     &.fallback_item {
@@ -57,9 +64,18 @@
       }
     }
 
-    a.ui-state-focus {
+    a.ui-state-active {
+      background: #ccd232 url("images/ui-bg_diagonals-small_75_ccd232_40x40.png") 50% 50% repeat;
       border: none;
       margin: 0;
+
+      .fallback_link, b {
+        font-weight: 600;
+      }
+    }
+
+    .fallback_link {
+      font-weight: 600;
     }
   }
 
