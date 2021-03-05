@@ -20,7 +20,7 @@
 
   partials:
     search:
-      search_button: Поиск
+      search_button: Найти
       fallback_text: Найти больше...
 
   author:
