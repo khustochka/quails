@@ -10,8 +10,10 @@
   padding-bottom: 11px;
   border-bottom: 1px solid $gray-400;
   text-align: center;
+  line-height: 1.8;
 
   @include media-breakpoint-up(xl) {
+    line-height: 1.5;
     text-align: left;
   }
 
@@ -41,7 +43,11 @@
   a {
      font-family: Rubik, $font-family-sans-serif;
      font-weight: 500;
-     font-size: calc(1rem + 0.5vw);
+     font-size: calc(1.1rem + 0.8vw);
+
+    @include media-breakpoint-up(md) {
+      font-size: 1.25rem;
+    }
 
     @include media-breakpoint-up(xl) {
       font-size: 1.3rem;
