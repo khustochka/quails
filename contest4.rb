@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "./config/environment"
 
 SPCS = Hash[Species.all.map { |s| [s.id, s.name_sci] }]

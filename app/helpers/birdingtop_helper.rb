@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module BirdingtopHelper
   def include_birdingtop_button
     if hide_birdingtop?

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GoogleAnalyticsHelper
   def include_google_analytics
     # for some reason 'cache' inside helpers works only with concat

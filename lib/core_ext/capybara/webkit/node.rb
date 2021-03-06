@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Deprecation message fix for Capybara webkit.
 # The project was discontinued and the fix was not released.
 
