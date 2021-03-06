@@ -4,6 +4,7 @@
 - @canonical = localize_url(@species)
 
 - @page_title = "#{@species.name} (#{@species.name_sci})"
+- @meta_description = t(".meta_description", name: @species.name, name_sci: @species.name_sci)
 
 - @js_features = [:videoResize]
 

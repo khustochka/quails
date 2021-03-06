@@ -3,8 +3,10 @@
     gallery:
       title: Фотографии птиц
       window_title: Фотографии птиц
+      meta_description: Галерея снимков птиц
 
     show:
+      meta_description: "Описание вида птицы '%{name}' (%{name_sci})"
       sections:
         photos: Фотографии
         videos: Видео

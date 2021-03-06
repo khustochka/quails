@@ -6,6 +6,7 @@
     index:
       window_title: Последние добавленные фотографии
       title: Последние добавленные фотографии
+      meta_description: "Новые фотографии птиц"
       species_gallery: Галерея видов
       last_updated: ! "Последнее обновление: %{date}."
 

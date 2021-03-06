@@ -6,6 +6,7 @@
     index:
       window_title: Birdwatching in Ukraine and beyond
       title: Bird photos
+      meta_description: "Latest bird photos and birding statistics"
       species_gallery: Species gallery
       last_updated: ! "Last updated: %{date}."
 

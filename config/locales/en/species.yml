@@ -3,8 +3,10 @@
     gallery:
       window_title: Bird photos by species
       title: Bird photos by species
+      meta_description: Photo gallery of birds
 
     show:
+      meta_description: "Description of the bird species %{name} (%{name_sci})"
       sections:
         photos: Photos
         videos: Videos
