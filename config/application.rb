@@ -58,8 +58,5 @@ module Quails
 
     # Will I need this prefixing at some point?
     config.action_view.prefix_partial_path_with_controller_namespace = false
-
-    require 'core_ext/active_storage/exif_date_image_analyzer'
-    config.active_storage.analyzers = [ActiveStorage::Analyzer::ExifDateImageAnalyzer]
   end
 end
