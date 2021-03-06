@@ -53,10 +53,6 @@ module ApplicationHelper
     render "partials/feed_list_item"
   end
 
-  def render_service_code(service_class)
-    service_class.render(self)
-  end
-
   def hide_banners?
     admin_layout? || controller_name == "maps"
   end

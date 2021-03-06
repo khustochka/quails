@@ -1,11 +1,11 @@
 -# frozen_string_literal: true
 .search-section{data: {search_url: search_localized_species_index_path(format: :json), fallback_text: t("partials.search.fallback_text")}}
-  = form_tag search.form_url, method: :get, authenticity_token: false do
+  = form_tag google_search_form_url, method: :get, authenticity_token: false do
     .d-flex.justify-content-end
       = label_tag "cse-query-box", "Search website content", class: "form-label mr-2 sr-only"
       .search-form-section
-        - if search.configured?
-          = hidden_field_tag "cx", search.config.code
+        - if google_cse
+          = hidden_field_tag "cx", google_cse
         - else
           = hidden_field_tag "as_sitesearch", "birdwatch.org.ua"
         = hidden_field_tag "ie", "UTF-8"

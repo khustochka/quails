@@ -1,7 +1,7 @@
 <div id="cse-wrapper" data-search-url="<%= search_localized_species_index_path(format: :json) %>" data-fallback-text="<%= t(".fallback_text") %>">
-<form action="<%= search.form_url %>" id="cse-search-box">
-  <%- if search.configured? %>
-    <input name="cx" type="hidden" value="<%= search.config.code %>" />
+<form action="<%= google_search_form_url %>" id="cse-search-box">
+  <%- if google_cse %>
+    <input name="cx" type="hidden" value="<%= google_cse %>" />
   <%- else %>
     <input name="as_sitesearch" type="hidden" value="birdwatch.org.ua" />
   <%- end %>

@@ -2,5 +2,6 @@
 .header
   = render partial: 'app2/admin/menu'
   .user-menu
-    = render partial: 'app2/search', object: GoogleSearch.new(nil)
+    - cache [:google_search, locale: I18n.locale] do
+      = render partial: 'app2/search'
     = render partial: 'app2/menu'
