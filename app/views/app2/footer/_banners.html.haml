@@ -7,17 +7,17 @@
           - if Birdingtop.configured?
             = render_service_code(Birdingtop)
         %div.banner_holder.ebird_banner
-          = link_to "https://ebird.org/ebird/profile/MjEzNjU4/world", target: "_blank", rel: "me nofollow" do
+          = link_to "https://ebird.org/ebird/profile/MjEzNjU4/world", target: "_blank", rel: "me nofollow noopener" do
             %span.inner
-              = image_tag("ebird-logo.png", alt: "eBird")
+              = image_tag("ebird-logo.png", alt: "eBird", width: 63, height: 27)
               %span profile
 
       .banner-group
         %div.banner_holder.fb_banner
-          = link_to "https://www.facebook.com/birdwatch.org.ua/", class: "img", target: "_blank", rel: "nofollow" do
+          = link_to "https://www.facebook.com/birdwatch.org.ua/", class: "img", target: "_blank", rel: "nofollow noopener" do
             %span.inner
               facebook page
         %div.banner_holder.flickr_banner
-          = link_to "https://www.flickr.com/photos/phenolog/", class: "img", target: "_blank", rel: "me nofollow" do
+          = link_to "https://www.flickr.com/photos/phenolog/", class: "img", target: "_blank", rel: "me nofollow noopener" do
             %span.inner
               My Flickr

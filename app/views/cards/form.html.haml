@@ -96,7 +96,7 @@
         %span.pseudolink#add-row Add new row
 
       .ebird-link-row
-        = link_to "Find eBird taxon to promote", ebird_taxa_path, target: "_blank"
+        = link_to "Find eBird taxon to promote", ebird_taxa_path, target: "_blank", rel: :noopener
 
     .buttons
       = form.input :resolved

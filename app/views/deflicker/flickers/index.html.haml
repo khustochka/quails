@@ -57,7 +57,7 @@
   - @photos.each do |photo|
     %tr
       %td
-        = link_to photo.url, class: "img", target: :_blank do
+        = link_to photo.url, class: "img", target: :_blank, rel: :noopener do
           = image_tag(photo.url_s)
       %td
         %div
@@ -71,7 +71,7 @@
         - if photo.on_site?
           %div
             &bull;
-            = link_to "/photos/#{photo.slug}", target: :_blank do
+            = link_to "/photos/#{photo.slug}", target: :_blank, rel: :noopener do
               %b= photo.slug
 
         - if photo.machine_tags.present?
