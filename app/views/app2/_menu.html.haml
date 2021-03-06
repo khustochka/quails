@@ -3,10 +3,13 @@
   .container
     %ul
 
-      %li
+      %li.d-none.d-print-block.print-only-logo
+        birdwatch.org.ua
+
+      %li.d-print-none
         = link_to blog_path, class: "home-link" do
           %i.fas.fa-home
-          .sr-only Home
+          .sr-only= t('menu.home-sr-only')
 
       %li
         = link_to blog_path do

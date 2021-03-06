@@ -1,5 +1,6 @@
 "ru":
   menu:
+    home-sr-only: Главная страница
     blog: Блог
     archive: Архив
     birds_ukraine: Птицы Украины
@@ -29,7 +30,7 @@
   license:
     text: >
             Все фотографии и текст распространяются под лицензией
-            <b><a href="%{link}" rel="nofollow license">CC BY-NC-SA</a></b>:
+            <a href="%{link}" rel="nofollow license" class="license-link">CC BY-NC-SA</a>:
             разрешено использование с некоммерческой целью и указанием авторства (ссылкой на сайт).
 
   misc:

@@ -2,9 +2,9 @@
 %footer.page_footer
   = render "app2/footer/banners"
   .footer-text
-    %p
+    %p.footer-attribution
       = succeed "," do
-        %b= t('author.name')
+        = t('author.name')
       2007&ndash;#{Quails::CURRENT_YEAR}
-      %br
-      %span.license-text= t("license.text", link: "https://creativecommons.org/licenses/by-nc-sa/4.0/").html_safe
+    %p.footer-license
+      = t("license.text", link: "https://creativecommons.org/licenses/by-nc-sa/4.0/").html_safe

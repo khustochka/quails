@@ -1,5 +1,6 @@
 "en":
   menu:
+    home-sr-only: Home page
     blog: Blog
     archive: Archive
     birds_ukraine: Birds of Ukraine
@@ -32,7 +33,7 @@
   license:
     text: >
             All the text and photographs are licensed under
-            <b><a href="%{link}" rel="nofollow license">CC BY-NC-SA</a></b>:
+            <a href="%{link}" rel="nofollow license" class="license-link">CC BY-NC-SA</a>:
             non-commercial usage is allowed with appropriate credit (link to the site).
 
   misc:
