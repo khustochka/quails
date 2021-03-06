@@ -1,7 +1,11 @@
 <%# Be aware this can be rendered outside of the view, be careful with using view helpers, e.g. use I18n.t, not just `t` %>
-<div class="video-container"><iframe width="<%= youtube_embed.width %>" height="<%= youtube_embed.height %>"
-        src="<%= youtube_embed.url %>" frameborder="0" allowfullscreen></iframe>
+<div class="video-container">
+  <iframe title="<%= I18n.t("videos.iframe_title", title: youtube_embed.title) %>"
+          width="<%= youtube_embed.width %>" height="<%= youtube_embed.height %>"
+          src="<%= youtube_embed.url %>" frameborder="0" allowfullscreen></iframe>
 </div>
 <span class="yt_link">
-  <a href="<%= youtube_embed.direct_url %>" rel="nofollow" target="_blank" rel="nofollow noopener"><%= I18n.t("videos.watch_on_youtube") %> <b>▶</b></a>
+  <a href="<%= youtube_embed.direct_url %>" target="_blank" rel="nofollow noopener">
+    <%= I18n.t("videos.watch_on_youtube") %>
+    <b><i class="fab fa-youtube"></i></b></a>
 </span>

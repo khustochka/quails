@@ -32,15 +32,15 @@ class Video < Media
   end
 
   def small
-    YoutubeVideo.new(youtube_id, 560, 315)
+    YoutubeVideo.new(youtube_id, self.decorated.title, 560, 315)
   end
 
   def medium
-    YoutubeVideo.new(youtube_id, 640, 360)
+    YoutubeVideo.new(youtube_id, self.decorated.title, 640, 360)
   end
 
   def large
-    YoutubeVideo.new(youtube_id, 853, 480)
+    YoutubeVideo.new(youtube_id, self.decorated.title, 853, 480)
   end
 
   def to_thumbnail

@@ -27,5 +27,6 @@
       window_title: Видео с птицами
       title: Видео
     watch_on_youtube: Это видео на Youtube
+    iframe_title: "Видео: %{title}"
 
     taken_clause: Видео '%{title}' снято

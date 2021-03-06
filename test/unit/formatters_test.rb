@@ -52,8 +52,7 @@ class FormattersTest < ActionDispatch::IntegrationTest
     video = create(:video)
     post = build(:post, text: "{{&#{video.slug}}}")
     txt = post.decorated.for_site.text
-    assert_includes txt,
-                    "<div class=\"video-container\"><iframe"
+    assert_match /<div class=\"video-container\">\s*<iframe/, txt
     assert_includes txt,
                     "src=\"#{video.large.url}\""
     assert_includes txt, "Youtube"

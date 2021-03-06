@@ -27,5 +27,6 @@
       window_title: Bird videos
       title: Videos
     watch_on_youtube: Watch this video on Youtube
+    iframe_title: "Video: %{title}"
 
     taken_clause: Video '%{title}' recorded
