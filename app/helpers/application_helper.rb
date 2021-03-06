@@ -61,4 +61,8 @@ module ApplicationHelper
     admin_layout? || controller_name == "maps"
   end
 
+  def may_be_admin?
+    has_trust_cookie? || current_user.admin?
+  end
+
 end
