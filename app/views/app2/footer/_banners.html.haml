@@ -1,6 +1,6 @@
 -# frozen_string_literal: true
 - unless hide_banners?
-  = cache [:banners_footer, admin: current_user.admin?] do
+  - cache [:banners_footer, admin: current_user.admin?] do
     %div.footer_banners
       .banner-group
         %div.banner_holder.birdingtop_holder
