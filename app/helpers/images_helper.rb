@@ -86,4 +86,16 @@ module ImagesHelper
     end
   end
 
+  def srcset(image)
+    representer = image.representer
+    if image.on_storage?
+      max_width = image.stored_image.metadata[:width]
+      new_sizes = [640, 1200].select { |size| size < max_width }
+      srcset = new_sizes.map { |size| [url_for(representer.variant(size)), "#{size}w"] }
+      srcset << [url_for(image.stored_image), "#{max_width}w"]
+      srcset
+    elsif image.on_flickr?
+      representer.flickr_srcset
+    end
+  end
 end

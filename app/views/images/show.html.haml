@@ -31,7 +31,8 @@
   %div.image_canvas_container
 
     %div.image_canvas
-      = image_tag(jpg_url(@image), alt: t('images.alt_photo'))
+      - @image.representer.yield_self do |rep|
+        = image_tag(rep.large, sizes: rep.fullscreen_sizes, srcset: srcset(@image))
 
   %div.image_info_pane
 

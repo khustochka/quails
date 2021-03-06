@@ -132,6 +132,10 @@ class Image < Media
     end
   end
 
+  def representer
+    @representer ||= ImageRepresenter.new(self)
+  end
+
   private
 
   def prev_next_by(sp)
