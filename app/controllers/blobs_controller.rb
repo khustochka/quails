@@ -6,7 +6,9 @@ class BlobsController < ApplicationController
 
   def create
     uploaded_io = params[:stored_image]
-    blob = ActiveStorage::Blob.create_and_upload!(io: uploaded_io, filename: uploaded_io.original_filename, key: uploaded_io.original_filename)
+    name1, ext = uploaded_io.original_filename.split(/\.([^.]*)\Z/)
+    new_key = "%s-%s.%s" % [name1, SecureRandom.base36(12), ext]
+    blob = ActiveStorage::Blob.create_and_upload!(io: uploaded_io, filename: uploaded_io.original_filename, key: new_key)
     blob.analyze_later
     redirect_to blob_url(blob.signed_id)
   end
