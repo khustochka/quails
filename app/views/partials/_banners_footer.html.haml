@@ -2,9 +2,8 @@
 - unless hide_banners?
   = cache [:banners_footer, admin: current_user.admin?] do
     %div.banners_footer
-      - if Birdingtop.configured?
-        %div.banner_holder.birdingtop_holder
-          = render_service_code(Birdingtop)
+      %div.banner_holder.birdingtop_holder
+        = include_birdingtop_button
       %div.banner_holder.ebird_banner
         = link_to "https://ebird.org/ebird/profile/MjEzNjU4/world", class: "img", target: "_blank", rel: "me nofollow noopener" do
           %span.inner

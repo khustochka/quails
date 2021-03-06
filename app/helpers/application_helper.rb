@@ -61,8 +61,4 @@ module ApplicationHelper
     admin_layout? || controller_name == "maps"
   end
 
-  def hide_birdingtop?
-    current_user.admin? || controller_name == "maps"
-  end
-
 end

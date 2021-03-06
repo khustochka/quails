@@ -4,8 +4,7 @@
     %div.footer_banners
       .banner-group
         %div.banner_holder.birdingtop_holder
-          - if Birdingtop.configured?
-            = render_service_code(Birdingtop)
+          = include_birdingtop_button
         %div.banner_holder.ebird_banner
           = link_to "https://ebird.org/ebird/profile/MjEzNjU4/world", target: "_blank", rel: "me nofollow noopener" do
             %span.inner
