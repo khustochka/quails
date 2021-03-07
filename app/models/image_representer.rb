@@ -22,7 +22,20 @@ class ImageRepresenter
 
   # For large images they usually take whole almost viewport
   def fullscreen_sizes
-    "(min-width:1200px) 1200px, 100vw"
+    "(min-width: #{fullscreen_max_width}px) #{fullscreen_max_width}px, 100vw"
+  end
+
+  def fullscreen_max_width
+    # If we always set "(min-width: 1200px) 1200px" it will stretch smaller images.
+    [1200, max_width].compact.min
+  end
+
+  def max_width
+    if image.on_storage?
+      image.stored_image.metadata[:width]
+    else
+      relevant_assets_cache.map(&:width).max
+    end
   end
   
   def srcset
@@ -40,7 +53,6 @@ class ImageRepresenter
   end
 
   def storage_srcset
-    max_width = image.stored_image.metadata[:width]
     # We need larger sizes because Retina displays will require 2x size images.
     # E.g. for 1200px (default) it will try to find at least 2400px wide image
     # Similarly, for a thumbnail taking 1/3 column (appr. 380px) it will ask for 760px (thus I prepare 900px)
