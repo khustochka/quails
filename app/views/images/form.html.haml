@@ -33,7 +33,7 @@
 - if flash[:alert]
   %div.errors= flash[:alert]
 
-= render @image.errors.extend(GenericErrors)
+= render partial: 'partials/errors', object: @image.errors
 
 - if params[:exif_date]
   %p#notice Date taken from EXIF, may be incorrect

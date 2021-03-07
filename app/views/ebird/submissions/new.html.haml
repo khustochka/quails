@@ -15,7 +15,7 @@
 
 = simple_form_for @file, url: {action: :create} do |form|
 
-  = render @file.errors.extend(GenericErrors)
+  = render partial: 'partials/errors', object: @file.errors
 
   = form.input :name
 

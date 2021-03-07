@@ -71,7 +71,7 @@
     %div.card-notes
       = card.decorated.notes
 
-  = render card.errors.extend(GenericErrors)
+  = render partial: 'partials/errors', object: card.errors
 
 -# show separate observation on card search
 - if @observation_search.try(:observation_filtered?)

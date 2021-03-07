@@ -11,7 +11,7 @@
   %li= link_to('Flickr link', flickr_photo_path(@image))
   %li= link_to('Map', edit_map_image_path(@image))
 
-= render @photo.errors.extend(GenericErrors)
+= render partial: 'partials/errors', object: @photo.errors
 
 %p
   = link_to @photo.page_url, class: "img" do
