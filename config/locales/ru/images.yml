@@ -20,6 +20,7 @@
       next_image: "Следующее фото >>"
       more_photos_of_multiple_species: Еще фото нескольких видов
       in_the_series: "Из той же серии:"
+      main_img_alt: "Фотография '%{title}'"
 
     taken_clause: Фотография '%{title}' снятая
 
