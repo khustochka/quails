@@ -6,7 +6,6 @@
 - @js_features = [:admin_instant_search]
 
 - provide :add_shortcuts do
-  %li= link_to "Legacy species", legacy_species_index_path
   %li= link_to "Taxa", taxa_path
   %li= link_to "EBird Taxa", ebird_taxa_path
   %li= link_to "Species redirects", synonyms_species_index_path

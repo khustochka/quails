@@ -8,7 +8,6 @@ class Observation < ApplicationRecord
   belongs_to :card, touch: true, inverse_of: :observations
 
   belongs_to :taxon
-  belongs_to :legacy_species, optional: true
 
   # FIXME: do not use this!! (See MyObservation for more comments)
   #belongs_to :species

@@ -73,8 +73,6 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :legacy_species, only: [:index, :show]
-
   resources :species, only: [:edit, :update] do
     # index, show - declared localize
     # new, create, destroy - not present
@@ -260,10 +258,6 @@ Rails.application.routes.draw do
 
   resources :spots, only: :destroy do
     post :save, on: :collection
-  end
-
-  resources :books do
-    resources :legacy_taxa, only: [:show, :update]
   end
 
   resources :taxa, except: [:new, :create, :destroy] do

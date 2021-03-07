@@ -6,12 +6,6 @@ class EbirdTaxon < ApplicationRecord
 
   acts_as_list column: :index_num
 
-  # validates :order, :presence => true
-  # validates :family, :presence => true
-  # validates :name_sci, :format => /\A[A-Z][a-z]+ [a-z]+\Z/, :uniqueness => {scope: :book_id}
-  # validates :avibase_id, :format => /\A[\dA-F]{16}\Z/, :allow_blank => true
-  # validates :species_id, uniqueness: {scope: :book_id}, :allow_blank => true
-
   # Associations
 
   belongs_to :parent, class_name: "EbirdTaxon", optional: true

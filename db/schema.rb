@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_10_030119) do
+ActiveRecord::Schema.define(version: 2021_03_07_225009) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,12 +41,6 @@ ActiveRecord::Schema.define(version: 2021_02_10_030119) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
-  end
-
-  create_table "books", id: :serial, force: :cascade do |t|
-    t.string "slug", limit: 32, null: false
-    t.string "name", limit: 255
-    t.text "description"
   end
 
   create_table "cards", id: :serial, force: :cascade do |t|
@@ -142,43 +136,6 @@ ActiveRecord::Schema.define(version: 2021_02_10_030119) do
     t.bigint "ioc_species_id"
     t.integer "index_num"
     t.string "version", null: false
-  end
-
-  create_table "legacy_species", id: :serial, force: :cascade do |t|
-    t.string "code", limit: 6
-    t.string "name_sci", limit: 255, null: false
-    t.string "authority", limit: 255
-    t.string "name_en", limit: 255, null: false
-    t.string "name_ru", limit: 255
-    t.string "name_uk", limit: 255
-    t.integer "index_num", null: false
-    t.string "order", limit: 255
-    t.string "family", limit: 255, null: false
-    t.string "avibase_id", limit: 16
-    t.string "protonym", limit: 255
-    t.string "name_fr", limit: 255
-    t.boolean "reviewed", default: false, null: false
-    t.text "wikidata"
-    t.integer "species_id"
-    t.index ["code"], name: "index_legacy_species_on_code", unique: true
-    t.index ["index_num"], name: "index_legacy_species_on_index_num"
-    t.index ["name_sci"], name: "index_legacy_species_on_name_sci", unique: true
-  end
-
-  create_table "legacy_taxa", id: :serial, force: :cascade do |t|
-    t.integer "book_id", null: false
-    t.integer "legacy_species_id"
-    t.string "name_sci", limit: 255, null: false
-    t.string "authority", limit: 255, null: false
-    t.string "name_en", limit: 255, null: false
-    t.string "name_ru", limit: 255, null: false
-    t.string "name_uk", limit: 255, null: false
-    t.integer "index_num", null: false
-    t.string "order", limit: 255, null: false
-    t.string "family", limit: 255, null: false
-    t.string "avibase_id", limit: 16
-    t.index ["book_id", "index_num"], name: "index_legacy_taxa_on_book_id_and_index_num"
-    t.index ["book_id", "name_sci"], name: "index_legacy_taxa_on_book_id_and_name_sci"
   end
 
   create_table "local_species", id: :serial, force: :cascade do |t|
