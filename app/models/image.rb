@@ -118,7 +118,7 @@ class Image < Media
   end
 
   def stored_image_thumbnail_variant
-    stored_image.variant(resize: "800x600>")
+    stored_image.variant(resize: "900x>")
   end
 
   # FIXME: another duplication...
