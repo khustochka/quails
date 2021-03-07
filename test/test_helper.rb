@@ -19,12 +19,9 @@ ENV["RAILS_ENV"] ||= "test"
 require File.expand_path("../../config/environment", __FILE__)
 require "rails/test_help"
 
-# Failing in RubyMine
-# In TeamCity it works only if not parallelized
-unless ENV["RM_INFO"]
-  require "minitest/reporters"
-  MiniTest::Reporters.use!
-end
+# In TeamCity it works only if not parallelized (?)
+require "minitest/reporters"
+MiniTest::Reporters.use!
 
 
 Capybara.server = :puma, {Silent: true}
