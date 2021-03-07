@@ -2,6 +2,8 @@
 
 class ImageRepresenter
   include Rails.application.routes.url_helpers
+  
+  attr_reader :image
 
   def initialize(image)
     @image = image
@@ -11,10 +13,10 @@ class ImageRepresenter
 
   # Large is an image representation with maximum width 1200px
   def large
-    if @image.on_storage?
+    if image.on_storage?
       variant(1200)
-    elsif @image.on_flickr?
-      @image.assets_cache.externals.select {|item| item.width <= 1200}.sort_by(&:width).last.url
+    else
+      relevant_assets_cache.select {|item| item.width <= 1200}.sort_by(&:width).last.url
     end
   end
 
@@ -22,15 +24,36 @@ class ImageRepresenter
   def fullscreen_sizes
     "(min-width:1200px) 1200px, 100vw"
   end
+  
+  def srcset
+    if image.on_storage?
+      storage_srcset
+    else
+      static_srcset
+    end
+  end
 
-  def flickr_srcset
+  def static_srcset
     # Remove smallest thumbnails, some of which are cropped
-    items = @image.assets_cache.externals.delete_if {|item| item.width <= 150}
+    items = relevant_assets_cache.delete_if {|item| item.width <= 150}
     items.map {|item| [item.url, "#{item.width}w"]}
   end
 
+  def storage_srcset
+    max_width = image.stored_image.metadata[:width]
+    # We need larger sizes because Retina displays will require 2x size images.
+    # E.g. for 1200px (default) it will try to find at least 2400px wide image
+    # Similarly, for a thumbnail taking 1/3 column (appr. 380px) it will ask for 760px (thus I prepare 900px)
+    # P.S. If width is unknown (test or identification failure) - we just request variants
+    new_sizes = [640, 900, 1200, 2400]
+    new_sizes = new_sizes.select { |size| size < max_width } if max_width
+    srcset = new_sizes.map { |size| [variant(size), "#{size}w"] }
+    srcset << [image.stored_image, "#{max_width}w"] if max_width
+    srcset
+  end
+
   def variant(width)
-    @image.stored_image.variant(resize_and_save_space("#{width}x>"))
+    image.stored_image.variant(resize_and_save_space("#{width}x>"))
   end
 
   private
@@ -40,5 +63,9 @@ class ImageRepresenter
     {resize: resizing, quality: "85%", strip: true, interlace: "Plane"}
   end
 
+  def relevant_assets_cache
+    key = image.on_flickr? ? :externals : :locals
+    image.assets_cache.send(key)
+  end
 
 end

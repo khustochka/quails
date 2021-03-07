@@ -86,19 +86,9 @@ module ImagesHelper
     end
   end
 
-  def srcset(image)
-    representer = image.representer
-    if image.on_storage?
-      max_width = image.stored_image.metadata[:width]
-      # We need larger sizes because Retina displays will require 2x size images.
-      # E.g. for 1200px (default) it will try to find at least 2400px wide image
-      # Similarly, for a thumbnail taking 1/3 column (appr. 380px) it will ask for 760px (thus I prepare 900px)
-      new_sizes = [640, 900, 1200, 2400].select { |size| size < max_width }
-      srcset = new_sizes.map { |size| [url_for(representer.variant(size)), "#{size}w"] }
-      srcset << [url_for(image.stored_image), "#{max_width}w"]
-      srcset
-    elsif image.on_flickr?
-      representer.flickr_srcset
+  def srcset_convert_urls(srcset)
+    srcset.map do |url, size|
+      [url_for(url), size]
     end
   end
 end

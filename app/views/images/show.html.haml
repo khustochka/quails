@@ -32,7 +32,7 @@
 
     %div.image_canvas
       - @image.representer.yield_self do |rep|
-        = image_tag(rep.large, sizes: rep.fullscreen_sizes, srcset: srcset(@image), alt: t(".main_img_alt", title: @image.decorated.title))
+        = image_tag(rep.large, sizes: rep.fullscreen_sizes, srcset: srcset_convert_urls(rep.srcset), alt: t(".main_img_alt", title: @image.decorated.title))
 
   %div.image_info_pane
 
