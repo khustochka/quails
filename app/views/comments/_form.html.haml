@@ -1,7 +1,7 @@
 -# frozen_string_literal: true
 = simple_form_for @comment, remote: (action_name != 'reply'), html: {class: 'comment'} do |form|
 
-  = render @comment.errors.extend(CommentErrors)
+  = render partial: "comments/errors", object: @comment.errors
 
   = form.input :post_id, as: :hidden
   = form.input :parent_id, as: :hidden
