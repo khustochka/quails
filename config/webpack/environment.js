@@ -4,6 +4,7 @@ const railsEnv = process.env.RAILS_ENV || process.env.NODE_ENV || "development"
 
 const webpack = require("webpack")
 require('dotenv').config({ path: "./.env." + railsEnv })
+// Note dotenv JS only reads .env.<railsEnv> file, this is where you should put errbit config vars
 
 environment.plugins.prepend('Define',
     new webpack.DefinePlugin({

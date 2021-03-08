@@ -13,4 +13,11 @@ if (ERRBIT_CONFIGURED) {
         queryStats: false,
         queueStats: false
     });
+
+    airbrake.addFilter((notice) => {
+        if (notice.errors[0].message === "Illegal invocation" && notice.context.url.includes("?fbclid=")) {
+            return null;
+        }
+        return notice;
+    });
 }
