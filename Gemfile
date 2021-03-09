@@ -16,6 +16,7 @@ gem "activesupport", VERSION
 gem "actionpack",    VERSION
 gem "actionmailer",  VERSION
 gem "actionview",    VERSION
+gem "actioncable",   VERSION
 gem "railties",      VERSION
 
 gem "pg", "~> 1.0", platforms: [:ruby, :mingw]
