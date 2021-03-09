@@ -66,7 +66,7 @@ module ImagesHelper
   end
 
   def legacy_image_url(file_name)
-    "#{ImagesHelper.image_host}/#{file_name}"
+    "#{ImagesHelper.image_host}#{file_name}"
   end
 
   def flickr_img_format
