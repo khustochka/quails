@@ -10,4 +10,4 @@
   %em
     %time{datetime: post.face_date.iso8601}= l(post.face_date, format: :long)
     \|
-    = link_to "+ #{t('posts.post.add_comment')}", public_post_url(post, anchor: 'add_comment', only_path: false)
+    = link_to "+ #{t('posts.post.add_comment')}", public_post_url(post, anchor: 'add_comment')

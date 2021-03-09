@@ -31,7 +31,8 @@ class PostFormatter < ModelFormatter
   end
 
   def metadata
-    @metadata.merge!({images: the_rest_of_images})
+    @metadata.merge!({images: the_rest_of_images}) unless @metadata.has_key?(:images)
+    @metadata
   end
 
   def the_rest_of_images

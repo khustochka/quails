@@ -78,11 +78,4 @@ class LJFormatStrategy < FormattingStrategy
 
     result
   end
-
-  private
-
-
-  def default_url_options
-    {host: @metadata[:host], port: extract_port, protocol: "https"}
-  end
 end
