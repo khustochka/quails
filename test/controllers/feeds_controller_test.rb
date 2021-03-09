@@ -35,6 +35,14 @@ class FeedsControllerTest < ActionController::TestCase
     assert_equal Mime[:xml], response.media_type
   end
 
+  test "blog feed does not contain relative links" do
+    create(:post)
+    create(:post)
+    create(:image, observations: [create(:observation, card: create(:card, post: create(:post)))])
+    get :blog, format: :xml
+    assert_not_includes response.body, "=\"/"
+  end
+
   test "get photos atom feed" do
     create(:image)
     create(:image)
@@ -43,6 +51,15 @@ class FeedsControllerTest < ActionController::TestCase
     get :photos, format: :xml
     assert_response :success
     assert_equal Mime[:xml], response.media_type
+  end
+
+  test "photos feed does not contain relative links" do
+    create(:image)
+    create(:image)
+    create(:image)
+
+    get :photos, format: :xml
+    assert_not_includes response.body, "=\"/"
   end
 
   test "photos feed should include photos and videos" do
@@ -105,12 +122,28 @@ class FeedsControllerTest < ActionController::TestCase
     assert_equal Mime[:xml], response.media_type
   end
 
+  test "sitemap feed does not contain relative links" do
+    create(:post)
+    FactoryBot.create(:image)
+
+    get :sitemap, format: :xml
+    assert_not_includes response.body, "=\"/"
+  end
+
   test "instant articles feed" do
     create(:post, publish_to_facebook: true)
     create(:post, publish_to_facebook: true)
     get :instant_articles, format: :xml
     assert_response :success
     assert_equal Mime[:xml], response.media_type
+  end
+
+  test "instant articles feed does not contain relative links" do
+    create(:post, publish_to_facebook: true)
+    create(:post, publish_to_facebook: true)
+    get :instant_articles, format: :xml
+    assert_response :success
+    assert_not_includes response.body, "=\"/"
   end
 
   test "instant article feed with images" do
