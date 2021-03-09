@@ -76,10 +76,6 @@ class FormattingStrategy
     end
   end
 
-  def only_path?
-    @only_path.nil? ?  @only_path = true : @only_path
-  end
-
   def preprocess(text)
     # Having \r breaks matching /^..$/
     text.gsub("\r\n", "\n")

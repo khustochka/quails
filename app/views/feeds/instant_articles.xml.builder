@@ -10,11 +10,11 @@ xml.rss version: "2.0", "xmlns:content" => "http://purl.org/rss/1.0/modules/cont
     @posts.each do |post|
       xml.item do
         xml.title post.decorated.title
-        xml.link public_post_url(post, only_path: false)
+        xml.link public_post_url(post)
         xml.content :encoded do
           xml.cdata! render(partial: "feeds/article", locals: { post: post }, formats: :html, layout: false)
         end
-        xml.guid public_post_url(post, only_path: false)
+        xml.guid public_post_url(post)
         xml.pubDate post.face_date.iso8601
         xml.author t("author.name")
       end

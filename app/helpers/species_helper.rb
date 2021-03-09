@@ -28,18 +28,32 @@ module SpeciesHelper
     end
   end
 
-  def species_link(sp_obj, string = nil)
-    @only_path = true if @only_path.nil?
+  # FIXME: provide alternative string as a block? Or, better, as an option key: alt_text.
+  def species_link(sp_obj, string = nil, options = {})
+    str = string.dup
+    opts = options.dup
+    # If string is not provided, and options are the second argument
+    if str.is_a?(Hash)
+      str = nil
+      opts = string
+    end
     if sp_obj
-      link_to(string || sp_obj.name, localized_species_url(id: sp_obj, only_path: @only_path), class: "sp_link")
+      link_to(str || sp_obj.name, localized_species_url(id: sp_obj, **opts), class: "sp_link")
     else
       "Bird sp."
     end
   end
 
-  def taxon_link(taxon, string = nil)
-    @only_path = true if @only_path.nil?
-    link_to(string || taxon.name, taxon_url(id: taxon, only_path: @only_path), class: taxon.countable? ? "tx_link" : "spuh_link")
+  # FIXME: provide alternative string as a block? Or, better, as an option key: alt_text.
+  def taxon_link(taxon, string = nil, options = {})
+    str = string.dup
+    opts = options.dup
+    # If string is not provided, and options are the second argument
+    if str.is_a?(Hash)
+      str = nil
+      opts = string
+    end
+    link_to(str || taxon.name, taxon_url(taxon, opts), class: taxon.countable? ? "tx_link" : "spuh_link")
   end
 
   def new_species_link(sp_obj, string = nil)

@@ -6,10 +6,6 @@ class FeedFormatStrategy < SiteFormatStrategy
 
   private
 
-  def only_path?
-    @only_path = false
-  end
-
   # Fixing the user-inserted host-less links
   def preprocess(text)
     url_prefix = "https://#{@metadata[:host]}#{extract_port}/"

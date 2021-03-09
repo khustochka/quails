@@ -94,5 +94,11 @@ module Ebird
       raise
     end
 
+    private
+
+    def default_url_options
+      {only_path: false}
+    end
+
   end
 end

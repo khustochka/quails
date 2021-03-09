@@ -11,7 +11,6 @@ class LJFormatStrategy < FormattingStrategy
 
   def initialize(text, metadata = {})
     super
-    @only_path = false
   end
 
   def lj_user(user)

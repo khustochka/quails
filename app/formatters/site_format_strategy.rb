@@ -22,7 +22,7 @@ class SiteFormatStrategy < FormattingStrategy
 
   def img_tag(term)
     if image = Image.find_by(slug: term)
-      img_url = image_url(image, only_path: only_path?)
+      img_url = image_url(image)
       %Q(<figure class="imageholder">
         "!#{jpg_url(image)}([photo])!":#{img_url}
           <figcaption class="imagetitle"><a href="#{img_url}">#{image.decorated.title}</a></figcaption>
@@ -33,7 +33,6 @@ class SiteFormatStrategy < FormattingStrategy
 
   def species_tag(word, term, en)
     # FIXME: Refactor url helpers, only_path, and especially species_link!
-    @only_path = only_path?
     sp = @species[term]
     if sp
       str = String.new species_link(sp, word.presence || (en ? sp.name_en : sp.name_sci))
@@ -52,10 +51,14 @@ class SiteFormatStrategy < FormattingStrategy
       result << "\n"
 
       @posts.each do |slug, post|
-        result << "\n[#{slug}]#{public_post_url(post, only_path: only_path?)}" if post
+        result << "\n[#{slug}]#{public_post_url(post)}" if post
       end
     end
 
     result
+  end
+
+  def default_url_options
+    {only_path: true}
   end
 end

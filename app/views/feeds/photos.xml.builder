@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 atom_feed(id: "tag:#{request.host},2008-03-24:/gallery",
-          root_url: url_for({action: "index", controller: "images", only_path: false}),
+          root_url: url_for({action: "index", controller: "images"}),
           language: I18n.locale,
           schema_date: "2008") do |feed|
   feed.title(t(".title"))
@@ -13,8 +13,8 @@ atom_feed(id: "tag:#{request.host},2008-03-24:/gallery",
   @media.each do |original_media|
     media = original_media.extend_with_class
     feed.entry(media,
-               url: localize_url(media, only_path: false),
-               id: "tag:#{request.host},#{media.created_at.strftime('%F')}:#{localize_url(media, only_path: true)}") do |entry|
+               url: localize_url(media),
+               id: "tag:#{request.host},#{media.created_at.strftime('%F')}:#{localize_path(media)}") do |entry|
       entry.title(media.decorated.title, type: "html")
       entry.content(
           render(partial: "media", formats: :html, object: media), type: "html"

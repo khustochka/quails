@@ -2,7 +2,7 @@
 
 module FullPathMethods
   def default_url_options
-    {host: @metadata[:host], port: extract_port, protocol: "https"}
+    {only_path: false, host: @metadata[:host], port: extract_port, protocol: "https"}
   end
 
   def extract_port
