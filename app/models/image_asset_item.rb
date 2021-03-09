@@ -20,7 +20,7 @@ class ImageAssetItem < Struct.new(:type, :width, :height, :url)
 
   def full_url
     if type == :local
-      "#{ImagesHelper.image_host}/#{url}"
+      "#{ImagesHelper.image_host}#{url}"
     else
       url
     end
