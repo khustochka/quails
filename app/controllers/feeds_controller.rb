@@ -26,10 +26,4 @@ class FeedsController < ApplicationController
 
     @root_lastmod = Post.public_posts.order(updated_at: :desc).first.updated_at.iso8601 rescue nil
   end
-
-  private
-
-  def default_url_options
-    {only_path: false}
-  end
 end
