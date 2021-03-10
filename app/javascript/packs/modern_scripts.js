@@ -11,6 +11,8 @@
 //
 // ActiveStorage.start();
 
+require("channels")
+
 import Likely from 'ilyabirman-likely';
 require("ilyabirman-likely/release/likely.css");
 
@@ -18,3 +20,5 @@ require("ilyabirman-likely/release/likely.css");
 document.addEventListener('DOMContentLoaded', function () {Likely.initiate()});
 
 import '../src/js/airbrake-js-setup';
+
+import '../src/js/ebird_importer';

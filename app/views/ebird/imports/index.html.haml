@@ -14,7 +14,9 @@
   Last time preloaded:
   = @last_preload.presence&.in_time_zone || "never"
 
-  = button_to "Enqueue preload", refresh_ebird_imports_path, method: :post, class: "button"
+  = button_to "Enqueue preload", refresh_ebird_imports_path,
+              method: :post, remote: true,
+              class: "button", form: {id: :ebird_refresh_form}
 
 
 - @checklists.if_present do |checklists|

@@ -29,8 +29,12 @@ class Ebird::ImportsController < ApplicationController
 
   def refresh
     EbirdPreloadJob.perform_later
-    flash.notice = "Preload job enqueued."
-    redirect_to ebird_imports_path
+    if request.xhr?
+      render json: {}
+    else
+      flash.notice = "Preload job enqueued."
+      redirect_to ebird_imports_path
+    end
   end
 
 end

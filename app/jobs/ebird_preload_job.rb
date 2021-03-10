@@ -12,5 +12,6 @@ class EbirdPreloadJob < ApplicationJob
     checklists = client.get_unsubmitted_checklists
     Rails.cache.write("ebird/preloaded_checklists", checklists)
     Rails.cache.write("ebird/last_preload", time)
+    EbirdImportsChannel.broadcast_to(:ebird_imports, [time, checklists])
   end
 end
