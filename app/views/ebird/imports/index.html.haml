@@ -1,8 +1,6 @@
 -# frozen_string_literal: true
 - stylesheet "forms"
 
-- javascript "ebird_imports"
-
 - @page_title = "eBird Imports"
 
 %h1= page_header
@@ -10,45 +8,9 @@
 - if notice
   %p= notice
 
-%p
-  Last time preloaded:
-  = @last_preload.presence&.in_time_zone || "never"
+= button_to "Enqueue preload", refresh_ebird_imports_path,
+            method: :post, remote: true,
+            class: "button", form: {id: :ebird_refresh_form}
 
-  = button_to "Enqueue preload", refresh_ebird_imports_path,
-              method: :post, remote: true,
-              class: "button", form: {id: :ebird_refresh_form}
-
-
-- @checklists.if_present do |checklists|
-  = form_tag ebird_imports_path do
-    %table.neat_table
-      %tr
-        %th eBird id
-        %th Date/time
-        %th Location
-        %th County
-        %th State/Prov
-        %th Select locus
-
-      - checklists.each do |list|
-        %tr
-          %td
-            = list.ebird_id
-            - unless list.card
-              = hidden_field_tag "c[][ebird_id]", list.ebird_id
-          %td
-            %nobr= list.time
-          %td= list.location
-          %td= list.county
-          %td= list.state_prov
-          %td.ebird-locus-select-td
-            - if list.card
-              %span.fas.fa-check.green-check
-              = link_to "Card", list.card
-            - else
-              = select_tag "c[][locus_id]",
-                    options_from_collection_for_select(Locus.suggestion_order, :id, :to_label, list.locus_id),
-                    include_blank: true, class: "locus_select"
-              = link_to "Create new", new_locus_path(locus: {name_en: list.location, parent_id: list.parent_id})
-    = submit_tag "Import"
+= render partial: "ebird/imports/preloaded"
 
