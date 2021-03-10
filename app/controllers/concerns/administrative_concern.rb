@@ -20,7 +20,9 @@ module AdministrativeConcern
       before_action options do
         @admin_layout = true
         @scripts ||= []
+        @packs ||= []
         @scripts.push "administrative"
+        @packs.push "administrative"
         params.permit!
       end
     end

@@ -14,4 +14,6 @@ environment.plugins.prepend('Define',
     })
 )
 
+environment.splitChunks()
+
 module.exports = environment

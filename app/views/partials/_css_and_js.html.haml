@@ -1,8 +1,8 @@
 -# frozen_string_literal: true
 -# packs
 - packs = @packs.try(:compact) || []
-= javascript_pack_tag *packs.unshift('modern_scripts')
-= stylesheet_pack_tag 'modern_scripts', media: "all"
+= javascript_packs_with_chunks_tag *packs.unshift('visitor')
+= stylesheet_packs_with_chunks_tag 'visitor', media: "all"
 
 -# styles
 = stylesheet_link_tag(*@stylesheets.compact, media: "all") if @stylesheets.present?
