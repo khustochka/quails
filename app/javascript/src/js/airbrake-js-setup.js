@@ -1,3 +1,7 @@
+// IMPORTANT NOTE: errbit_api_key and host env vars need to be available at compile time.
+// JS dotenv is unreliable (reads only one file). The solution is:
+// to load dotenv in bin/webpack-dev-server and bin/webpack
+
 if (ERRBIT_CONFIGURED) {
     const Airbrake = require('@airbrake/browser')
 
