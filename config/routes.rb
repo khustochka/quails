@@ -205,10 +205,6 @@ Rails.application.routes.draw do
 
   resources :days, only: [:index, :show]
 
-  scope '/observations' do
-    resources :spuhs, only: [:index, :show, :update]
-  end
-
   resources :observations, except: [:index, :new, :create, :edit] do
     collection do
       get 'search', action: :search, as: 'search'
