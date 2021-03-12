@@ -2,5 +2,5 @@
 %li
   %input{:type => :hidden, :value => obs_item.id, :name => 'obs[]'}
   %span.remove.fas.fa-times.fa-2x
-  %div= obs_item.decorated.species_str
-  %div= obs_item.decorated.when_where_str
+  %div= render partial: "observations/short/species_line", locals: {observation: obs_item}
+  %div= render partial: "observations/short/when_where_line", locals: {observation: obs_item}

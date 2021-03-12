@@ -157,13 +157,6 @@ class ImagesController < ApplicationController
     redirect_to(images_url)
   end
 
-  # Used for photo mapping
-  # GET /photos/1/observations
-  def observations
-    observs = Image.find_by(id: params[:id]).observations.preload(taxon: :species, card: :locus)
-    render json: observs, only: :id, methods: [:species_str, :when_where_str]
-  end
-
   def series
     rel =
         Observation.

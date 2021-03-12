@@ -99,7 +99,6 @@ Rails.application.routes.draw do
     member do
       get 'edit/map', action: :map_edit
       post 'patch'
-      get 'observations'
     end
     collection do
       get 'series'

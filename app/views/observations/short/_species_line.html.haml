@@ -1,0 +1,4 @@
+%b= observation.taxon.name
+= observation.taxon.name_sci
+= surround("(", ")") { observation.quantity } if observation.quantity.present?
+= precede(" > ") { observation.notes } if observation.notes.present?

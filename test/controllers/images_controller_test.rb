@@ -58,13 +58,6 @@ class ImagesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "get observations for an image" do
-    login_as_admin
-    get :observations, params: {id: @image.id}, format: :json
-    assert_response :success
-    assert_equal Mime[:json], response.media_type
-  end
-
   test "create image with one observation" do
     login_as_admin
     new_attr = valid_image_attributes(slug: "new_img_slug").except(:observations)

@@ -49,15 +49,6 @@ $(function () {
     var hoverText, el;
 
     var marks = $(data).map(function () {
-//      observCollection[this.id] =
-//          $("<li>").data('obs-id', this.id).append(
-//              $('<span class="mapped_indicator" title="Is mapped">'),
-//              $('<div>').html(this.species_str),
-//              $('<div>').html(this.when_where_str)
-//          )
-//              .data('obs-count', this.spots.length)
-//              .toggleClass( 'is_mapped',  this.spots.length > 0)
-//              .appendTo($('ul.obs-list'));
       el = $('li[data-obs-id=' + this.id + ']', 'ul.obs-list');
       el.toggleClass('is_mapped', el.data('obs-count') > 0);
 

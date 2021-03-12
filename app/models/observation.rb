@@ -57,8 +57,6 @@ class Observation < ApplicationRecord
 
   # Species
 
-  delegate :species_str, :when_where_str, to: :decorated
-
   def observ_date
     read_attribute(:observ_date) || card.observ_date
   end
