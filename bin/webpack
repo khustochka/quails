@@ -9,6 +9,13 @@ ENV["BUNDLE_GEMFILE"] ||= File.expand_path("../../Gemfile",
 
 require "bundler/setup"
 
+# This part is here to load .env.<*> files and provide errbit-related env vars
+# when compiling airbrake-js-setup
+require "active_support"
+require "rails"
+require "dotenv/rails"
+Dotenv::Railtie.load
+
 require "webpacker"
 require "webpacker/webpack_runner"
 
