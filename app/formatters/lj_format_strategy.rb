@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class LJFormatStrategy < FormattingStrategy
-  include VideoEmbedder
+  include VideoEmbedderHelper
 
   include SpeciesHelper
   include ImagesHelper
