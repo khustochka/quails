@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 atom_feed(id: "tag:#{request.host},2008-03-24:/gallery",
-          root_url: url_for({action: "index", controller: "images"}),
+          root_url: url_for(action: "index", controller: "images", only_path: false),
           language: I18n.locale,
           schema_date: "2008") do |feed|
   feed.title(t(".title"))
