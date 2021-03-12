@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class SiteFormatStrategy < FormattingStrategy
-  include VideoEmbedder
+  include VideoEmbedderHelper
 
   include SpeciesHelper
   include ImagesHelper

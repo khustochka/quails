@@ -160,7 +160,7 @@ class EbirdObservation
   include ActionView::Helpers::UrlHelper
 
   include ActiveSupport::Inflector
-  include VideoEmbedder
+  include VideoEmbedderHelper
 
   def polymorfic_media_render(media)
     media = media.extend_with_class
