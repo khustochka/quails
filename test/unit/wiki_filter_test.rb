@@ -9,7 +9,7 @@ class WikiFilterTest < ActionDispatch::IntegrationTest
   include PublicPaths
 
   def transform(text)
-    SiteFormatStrategy.new(text).apply
+    FormatStrategy::Site.new(text).apply
   end
 
   # Screening - no need
