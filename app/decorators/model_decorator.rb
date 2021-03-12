@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ModelFormatter
+class ModelDecorator
   def initialize(model, metadata = {})
     @model = model
     @metadata = metadata

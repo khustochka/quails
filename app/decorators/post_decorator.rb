@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class PostFormatter < ModelFormatter
+class PostDecorator < ModelDecorator
 
   def title
     OneLineFormatter.apply(@model.title_or_date)

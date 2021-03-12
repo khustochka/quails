@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ObservationFormatter < ModelFormatter
+class ObservationDecorator < ModelDecorator
 
   def species_str
     str = [["<b>#{@model.taxon.name}</b>", @model.taxon.name_sci].join(" "), @model.quantity, @model.notes].

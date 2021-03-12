@@ -29,9 +29,7 @@ class WikiFormatter
 
   private
   def apply
-    ParagraphFormatter.apply(
-        @strategy.apply
-    )
+    ParagraphFormatter.apply(@strategy.apply)
   end
 
 end

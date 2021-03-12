@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CardFormatter < ModelFormatter
+class CardDecorator < ModelDecorator
 
   def notes
     WikiFormatter.new(@model.notes).for_site
