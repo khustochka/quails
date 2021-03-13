@@ -29,7 +29,6 @@ class EbirdTaxonTest < ActiveSupport::TestCase
   test "if taxon is a species should also create a species" do
     etx = ebird_taxa(:some_species)
 
-
     assert_difference "Species.count", 1 do
       assert_difference "Taxon.count", 1 do
         @result = etx.promote

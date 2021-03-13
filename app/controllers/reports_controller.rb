@@ -78,7 +78,6 @@ class ReportsController < ApplicationController
     @long_time = Species.select("*").
         joins("INNER JOIN (#{long_rel.to_sql}) AS obs ON species.id=obs.species_id").order("lastphoto")
 
-
     sort_col = :date2
 
     @recent_2yrs = Image.joins(:observations).order(:created_at).preload(:species).merge(MyObservation.all).

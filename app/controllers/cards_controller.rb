@@ -22,7 +22,6 @@ class CardsController < ApplicationController
       @cards = @cards.limit(30)
     end
 
-
     @post = Post.where(id: params[:new_post_id]).first
 
     respond_to do |format|

@@ -131,7 +131,6 @@ class EbirdObservation
 
   ## helpers
 
-
   def voice_component
     @obs.voice? ? "Heard" : nil
   end

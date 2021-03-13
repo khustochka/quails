@@ -20,7 +20,6 @@ module Lifelist
       assert_equal tx1.species, list.first.species
     end
 
-
   end
 
 end

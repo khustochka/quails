@@ -45,7 +45,6 @@ class JSImagesTest < ApplicationSystemTestCase
     assert_equal 2, img.observations.size
   end
 
-
   test "Adding new image" do
     create(:observation, card: create(:card, observ_date: "2008-07-01"))
     create(:observation, card: create(:card, observ_date: "2008-07-01"))

@@ -26,7 +26,6 @@ class ImageAssetItem < Struct.new(:type, :width, :height, :url)
     end
   end
 
-
   def width
     super || 600
   end

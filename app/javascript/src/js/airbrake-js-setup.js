@@ -19,7 +19,8 @@ if (ERRBIT_CONFIGURED) {
     });
 
     airbrake.addFilter((notice) => {
-        if (notice.errors[0].message === "Illegal invocation" && notice.context.url.includes("?fbclid=")) {
+        if ((notice.errors[0].message === "Illegal invocation" || notice.errors[0].message === "Cannot read property 'value' of undefined")
+            && notice.context.url.includes("?fbclid=")) {
             return null;
         }
         return notice;
