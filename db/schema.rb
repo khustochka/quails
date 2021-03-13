@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_07_225009) do
+ActiveRecord::Schema.define(version: 2021_03_13_034033) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,7 +78,7 @@ ActiveRecord::Schema.define(version: 2021_03_07_225009) do
     t.integer "parent_id"
     t.string "name", limit: 255, null: false
     t.string "url", limit: 255
-    t.text "text", null: false
+    t.text "body", null: false
     t.boolean "approved", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -222,7 +222,7 @@ ActiveRecord::Schema.define(version: 2021_03_07_225009) do
   create_table "posts", id: :serial, force: :cascade do |t|
     t.string "slug", limit: 64
     t.string "title", limit: 255, null: false
-    t.text "text", null: false
+    t.text "body", null: false
     t.string "topic", limit: 4
     t.string "status", limit: 4
     t.datetime "face_date", null: false

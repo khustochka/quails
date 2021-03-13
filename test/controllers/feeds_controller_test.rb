@@ -163,7 +163,7 @@ class FeedsControllerTest < ActionController::TestCase
     post1 = create(:post, publish_to_facebook: true)
     create(:post, publish_to_facebook: true)
     img = create(:image, observations: [create(:observation, card: create(:card, post: create(:post)))])
-    post1.update(text: post1.text + "\n{{^#{img.slug}}}\n")
+    post1.update(body: post1.body + "\n{{^#{img.slug}}}\n")
     get :instant_articles, format: :xml
     assert_response :success
     assert_equal Mime[:xml], response.media_type

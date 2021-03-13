@@ -7,7 +7,7 @@ class RemoveUnusedTaxa < ActiveRecord::Migration[4.2]
 
     # Species in posts:
     rx = /\{\{(?:([^@#\\^&][^\}]*?)\|)?([^@#\\^&][^\}]*?)(\|en)?\}\}/
-    in_posts_codes = Post.all.map { |p| p.text.scan(rx).map(&:second) }.inject(:+)&.uniq
+    in_posts_codes = Post.all.map { |p| p.body.scan(rx).map(&:second) }.inject(:+)&.uniq
     in_posts_sps = Species.where("code IN (?) OR name_sci IN (?)", in_posts_codes, in_posts_codes).preload(:high_level_taxa)
     taxa_in_posts = in_posts_sps.map(&:high_level_taxon)
 

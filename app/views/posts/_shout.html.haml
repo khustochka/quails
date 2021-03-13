@@ -14,7 +14,7 @@
           %i
             = post.face_date.strftime("%H:%M")
 
-      = post.decorated.for_site.text
+      = post.decorated.for_site.body
       -#- post.decorated.the_rest_of_images.if_present do |images|
       -#  %div.thumbnails
       -#    = render_justified images.map(&:to_thumbnail)
@@ -33,4 +33,3 @@
         = link_to public_post_path(post, anchor: 'add_comment'), title: t('posts.post.add_comment') do
           %i.fas.fa-comment
           %span.comment_text_for_ie Комментировать
-

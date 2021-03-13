@@ -84,7 +84,7 @@ class PostsController < ApplicationController
 
   def for_lj
     # Just render LJ version
-    render body: @post.decorated({host: request.host, port: request.port}).for_lj.text
+    render body: @post.decorated({host: request.host, port: request.port}).for_lj.body
   end
 
   # POST
@@ -95,10 +95,10 @@ class PostsController < ApplicationController
     entry = LiveJournal::Entry.new
     entry.preformatted = true
     entry.security = :private unless Quails.env.real_prod?
-    # SafeBuffer breaks 'livejournal' gem, so we are not applying it to 'for_lj.text'
+    # SafeBuffer breaks 'livejournal' gem, so we are not applying it to 'for_lj.body'
     # And `unsafing` the title with 'to_str'
     entry.subject = @post.decorated.title.to_str
-    entry.event = @post.decorated({host: request.host, port: request.port}).for_lj.text
+    entry.event = @post.decorated({host: request.host, port: request.port}).for_lj.body
 
     request = if @post.lj_data.url.present?
                 if Quails.env.real_prod?

@@ -17,7 +17,7 @@
     = f2.input :email, label: 'Email:',
                 hint: @comment.persisted? ? nil : 'Если хотите получить уведомление об ответах.'
 
-  = form.input :text, label: false, input_html: {rows: 10, class: 'wiki_field'},
+  = form.input :body, label: false, input_html: {rows: 10, class: 'wiki_field'},
                 hint: 'Немного HTML разрешено, включая &lt;a&gt;, &lt;img&gt;.'.html_safe
 
   - if @comment.persisted?

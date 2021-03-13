@@ -10,9 +10,9 @@ class CommentDecorator < ModelDecorator
 
   ALLOWED_ATTRIBUTES = %w(href src width height alt cite datetime title name abbr)
 
-  def text
+  def body
     sanitize(
-        WikiFormatter.new(@model.text).for_site,
+        WikiFormatter.new(@model.body).for_site,
         tags: ALLOWED_TAGS,
         attributes: ALLOWED_ATTRIBUTES
     )

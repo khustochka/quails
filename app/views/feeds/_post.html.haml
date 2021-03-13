@@ -1,6 +1,6 @@
 -# frozen_string_literal: true
 
-= post.decorated({host: request.host, port: request.port}).for_feed.text
+= post.decorated({host: request.host, port: request.port}).for_feed.body
 
 = render partial: "blog/image", collection: post.decorated.the_rest_of_images, formats: :html
 

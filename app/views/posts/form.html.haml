@@ -23,7 +23,7 @@
     = form.input :face_date, label: 'Post date', input_html: {value: @post.face_date.strftime("%F %T")}, as: :string
   %div
     = form.input :title, input_html: {class: 'long', required: false}
-  = form.input :text, label: false, input_html: {rows: 20, class: 'wiki_field'}
+  = form.input :body, label: false, input_html: {rows: 20, class: 'wiki_field'}
   %div
     = form.input :topic, collection: Post::TOPICS, input_html: {size: '3'}, include_blank: false
     = form.input :status, collection: Post::STATES, input_html: {size: '3'}, include_blank: false

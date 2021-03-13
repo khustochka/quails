@@ -74,7 +74,7 @@ class CommentsController < ApplicationController
           if commenter.is_admin? && !current_user.admin?
             commenter = nil
             @comment.approved = false
-            @comment.text << "\n\n======\n\nTried to use admin email: #{commenter_email}"
+            @comment.body << "\n\n======\n\nTried to use admin email: #{commenter_email}"
           end
         else
           commenter = Commenter.create!(name: @comment.name, email: commenter_email)

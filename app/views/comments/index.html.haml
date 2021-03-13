@@ -26,7 +26,7 @@
         %td= link_to comment.id, edit_comment_path(comment)
         %td= comment.parent_id
         %td= comment.name
-        %td= comment.decorated.text
+        %td= comment.decorated.body
         %td
           = default_destroy_link(comment)
           - if admin_commenter_id
