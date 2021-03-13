@@ -79,7 +79,7 @@ module Ebird
       end
 
       if result
-        flash.notice = "Successfully created CSV file #{ActionController::Base.helpers.link_to(@file.name, @file.download_url)}".html_safe
+        flash.notice = "Successfully created CSV file #{helpers.link_to(@file.name, @file.download_url)}".html_safe
         redirect_to ebird_submission_url(@file.id)
       else
         if @file.persisted?

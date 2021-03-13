@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module PublicPaths
-  include PublicRoutesHelper
 
   def self.included(klass)
     klass.helper_method(

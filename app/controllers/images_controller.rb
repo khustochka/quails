@@ -4,9 +4,6 @@ class ImagesController < ApplicationController
 
   include FlickrConcern
 
-  # FIXME: rework later
-  include ImagesHelper
-
   administrative except: [:index, :multiple_species, :show, :gallery, :country]
 
   find_record by: :slug, before: [:show, :edit,
@@ -44,7 +41,7 @@ class ImagesController < ApplicationController
         @strip_media = @image.series_siblings
       end
       format.jpeg do
-        redirect_to jpg_url(@image)
+        redirect_to helpers.jpg_url(@image)
       end
     end
   end
@@ -65,7 +62,7 @@ class ImagesController < ApplicationController
   def upload
     to_flickr = params[:to_flickr]
     uploaded_io = params[:image]
-    path = to_flickr ? ImagesHelper.temp_image_path : ImagesHelper.local_image_path
+    path = to_flickr ? helpers.temp_image_path : helpers.local_image_path
     filename = File.join(path, uploaded_io.original_filename)
     File.open(filename, "wb") do |file|
       file.write(uploaded_io.read)
@@ -109,8 +106,8 @@ class ImagesController < ApplicationController
     #     @photo.update!
     #   end
     #
-    #   if ImagesHelper.local_image_path && !Rails.env.test?
-    #     full_path = File.join(ImagesHelper.local_image_path, "#{image_params[:slug]}.jpg")
+    #   if helpers.local_image_path && !Rails.env.test?
+    #     full_path = File.join(helpers.local_image_path, "#{image_params[:slug]}.jpg")
     #     if File.exist?(full_path)
     #       w, h = `identify -format "%Wx%H" #{full_path}`.split('x').map(&:to_i)
     #       @image.assets_cache << ImageAssetItem.new(:local, w, h, "#{image_params[:slug]}.jpg")
