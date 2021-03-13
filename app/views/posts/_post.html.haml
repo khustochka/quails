@@ -10,7 +10,7 @@
         - unless post.public?
           %span.tag.draft Draft
 
-      = post.decorated.for_site.text
+      = post.decorated.for_site.body
       - post.decorated.the_rest_of_images.if_present do |images|
         %div.thumbnails
           = render_justified images.map(&:to_thumbnail)

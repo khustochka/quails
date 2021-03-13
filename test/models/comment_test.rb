@@ -29,7 +29,7 @@ class CommentTest < ActiveSupport::TestCase
     comment2 = FactoryBot.create(:comment)
     post2 = comment2.post
     subcomment = Comment.create(
-        name: "Vasya", text: "Hello", approved: true,
+        name: "Vasya", body: "Hello", approved: true,
         post_id: post1.id, parent_id: comment2.id
     )
     assert_not_predicate subcomment, :valid?

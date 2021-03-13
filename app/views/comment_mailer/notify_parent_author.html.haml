@@ -7,13 +7,13 @@
       %b= @comment.parent_comment.decorated.name
       %small
         (#{link_to(I18n.l(@comment.parent_comment.created_at, format: :long), show_post_url(@comment.post.to_url_params.merge(anchor: "comment#{@comment.parent_comment.id}")))})
-      = @comment.parent_comment.decorated.text
+      = @comment.parent_comment.decorated.body
   %div.mail-child-comment-wrapper
     %div.mail-comment-panel
       %b= @comment.decorated.name
       %small
         (#{link_to(I18n.l(@comment.parent_comment.created_at, format: :long), show_post_url(@comment.post.to_url_params.merge(anchor: "comment#{@comment.id}")))})
-      = @comment.decorated.text
+      = @comment.decorated.body
   %p
     Вы можете
     %b

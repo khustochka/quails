@@ -50,7 +50,7 @@ class CommentsControllerTest < ActionController::TestCase
   end
 
   test "screen comment with stop word in the body" do
-    post :create, params: valid_comment_params(text: "Hi friend. Buy #{Comment::STOP_WORDS.sample}. Thanks")
+    post :create, params: valid_comment_params(body: "Hi friend. Buy #{Comment::STOP_WORDS.sample}. Thanks")
 
     comment = assigns(:comment)
     assert_redirected_to public_comment_path(comment)
@@ -165,7 +165,7 @@ class CommentsControllerTest < ActionController::TestCase
 
   test "valid response when comment invalid (No JS)" do
     assert_difference("Comment.count", 0) do
-      post :create, params: valid_comment_params(text: "")
+      post :create, params: valid_comment_params(body: "")
     end
 
     assert_response :success
@@ -174,7 +174,7 @@ class CommentsControllerTest < ActionController::TestCase
 
   test "valid response when comment invalid (xhr)" do
     assert_difference("Comment.count", 0) do
-      post :create, params: valid_comment_params(text: ""), xhr: true
+      post :create, params: valid_comment_params(body: ""), xhr: true
     end
 
     assert_response 422

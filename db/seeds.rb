@@ -11,5 +11,3 @@
 require 'seeds/seeds'
 
 Seeds.load_all
-
-#Page.create(slug: 'links', title: "Links", public: true, text: "Lorem ipsum")

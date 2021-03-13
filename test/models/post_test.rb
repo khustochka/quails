@@ -247,7 +247,7 @@ class PostTest < ActiveSupport::TestCase
   end
 
   test "do not show on homepage the images that are already in post body" do
-    p = create(:post, text: "First paragraph\n\n{{^image1}}\n\nLast paragraph")
+    p = create(:post, body: "First paragraph\n\n{{^image1}}\n\nLast paragraph")
     tx1 = taxa(:pasdom)
     tx2 = taxa(:hirrus)
     card = create(:card, post: p)
@@ -261,7 +261,7 @@ class PostTest < ActiveSupport::TestCase
   end
 
   test "properly sort post images" do
-    p = create(:post, text: "Text")
+    p = create(:post, body: "Text")
     tx1 = taxa(:pasdom)
     tx2 = taxa(:hirrus)
     card1 = create(:card, start_time: "6:00", post: p)

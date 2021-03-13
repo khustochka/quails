@@ -10,7 +10,7 @@ class JSCommentsTest < ApplicationSystemTestCase
     visit show_post_path(blogpost.to_url_params)
     within("form#new_comment") do
       fill_in(CommentsHelper::REAL_NAME_FIELD, with: "Vasya")
-      fill_in("comment_text", with: "Some text")
+      fill_in("comment_body", with: "Some text")
       assert_difference "Comment.count", 1 do
         click_button("save_button")
         assert_css "#save_button:not([disabled])"
@@ -26,7 +26,7 @@ class JSCommentsTest < ApplicationSystemTestCase
     first(".reply a").click
     within("form#reply#{comment.id}") do
       fill_in(CommentsHelper::REAL_NAME_FIELD, with: "Vasya")
-      fill_in("comment_text", with: "Some text")
+      fill_in("comment_body", with: "Some text")
       click_button("save_button")
     end
 
@@ -41,7 +41,7 @@ class JSCommentsTest < ApplicationSystemTestCase
     visit reply_comment_path(comment)
     within("form#new_comment") do
       fill_in(CommentsHelper::REAL_NAME_FIELD, with: "Vasya")
-      fill_in("comment_text", with: "Some text")
+      fill_in("comment_body", with: "Some text")
       click_button("save_button")
     end
 

@@ -14,7 +14,7 @@
       %b= @comment.decorated.name
       %small
         (#{link_to(I18n.l(@comment.created_at, format: :long), show_post_url(@comment.post.to_url_params.merge(anchor: "comment#{@comment.id}")))})
-      = @comment.decorated.text
+      = @comment.decorated.body
 
 
   - parent = @comment.parent_comment

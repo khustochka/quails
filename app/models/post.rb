@@ -19,6 +19,7 @@ class Post < ApplicationRecord
 
   validates :slug, uniqueness: true, presence: true, length: {maximum: 64}, format: /\A[\w\-]+\Z/
   validates :title, presence: true, unless: :shout?
+  validates :body, presence: true
   validates :topic, inclusion: TOPICS, presence: true, length: {maximum: 4}
   validates :status, inclusion: STATES, presence: true, length: {maximum: 4}
 

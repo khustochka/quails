@@ -13,7 +13,7 @@
       = default_destroy_link(comment) if action_name != 'reply'
       %i= comment.ip
   .comment_body
-    = comment.decorated.text
+    = comment.decorated.body
 
   - if action_name != 'reply'
     %ul.reply

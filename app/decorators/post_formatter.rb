@@ -26,8 +26,8 @@ class PostFormatter < ModelFormatter
     self
   end
 
-  def text
-    WikiFormatter.new(@model.text, metadata).send(@formatting_method)
+  def body
+    WikiFormatter.new(@model.body, metadata).send(@formatting_method)
   end
 
   def metadata
@@ -45,7 +45,7 @@ class PostFormatter < ModelFormatter
 
   private
   def extract_image_slugs
-    @inner_image_slugs ||= @model.text.scan(/\{\{\^([^}]*)\}\}/).flatten
+    @inner_image_slugs ||= @model.body.scan(/\{\{\^([^}]*)\}\}/).flatten
   end
 
 end

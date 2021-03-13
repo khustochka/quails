@@ -5,7 +5,7 @@ class Comment < ApplicationRecord
   STOP_WORDS = %w( replica vuitton generic zithromax cheap cialis payday loans pharmacy url=http link=http
                     viagra tricor accutane seroquel retin lasix )
 
-  ALLOWED_PARAMETERS = [:text, :parent_id]
+  ALLOWED_PARAMETERS = [:body, :parent_id]
 
   include DecoratedModel
 
@@ -14,7 +14,7 @@ class Comment < ApplicationRecord
   belongs_to :parent_comment, class_name: "Comment", foreign_key: :parent_id, inverse_of: :subcomments, optional: true
   belongs_to :commenter, optional: true
 
-  validates :text, :name, :post_id, presence: true
+  validates :body, :name, :post_id, presence: true
   validates :parent_id, numericality: true, allow_blank: true
 
   validate :consistent_post_and_parent
@@ -28,8 +28,8 @@ class Comment < ApplicationRecord
   scope :top_level, -> { where(parent_id: nil) }
 
   def like_spam?
-    @likespam ||= self.text =~ /#{STOP_WORDS.join('|')}/i ||
-        self.text.scan(/href=/i).size > 4
+    @likespam ||= self.body =~ /#{STOP_WORDS.join('|')}/i ||
+        self.body.scan(/href=/i).size > 4
   end
 
   def sane_url
