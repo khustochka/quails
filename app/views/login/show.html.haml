@@ -3,7 +3,7 @@
 
 - @robots = "NOINDEX,NOFOLLOW"
 
-= form_tag(url_for({action: 'login_do'}), method: :post) do
+= form_tag(login_path, method: :post) do
   = text_field_tag :username
   = password_field_tag
   = submit_tag("Login", class: 'submit')
