@@ -8,7 +8,6 @@ class SynonymsController < ApplicationController
     @synonyms = UrlSynonym.order(:name_sci).preload(:species)
   end
 
-
   def update
     @synonym = UrlSynonym.find(params[:id])
     @synonym.update(params[:url_synonym])

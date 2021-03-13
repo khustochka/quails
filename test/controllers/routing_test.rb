@@ -121,6 +121,4 @@ class RoutingTest < ActionDispatch::IntegrationTest
     assert_routing "/en/lifelist/stats", {controller: "lifelist", action: "stats", locale: "en"}
   end
 
-
-
 end

@@ -23,7 +23,6 @@ require "rails/test_help"
 require "minitest/reporters"
 MiniTest::Reporters.use!
 
-
 Capybara.server = :puma, {Silent: true}
 
 class ActiveSupport::TestCase

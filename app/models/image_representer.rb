@@ -2,7 +2,7 @@
 
 class ImageRepresenter
   include Rails.application.routes.url_helpers
-  
+
   attr_reader :image
 
   def initialize(image)
@@ -37,7 +37,7 @@ class ImageRepresenter
       relevant_assets_cache.map(&:width).max
     end
   end
-  
+
   def srcset
     if image.on_storage?
       storage_srcset

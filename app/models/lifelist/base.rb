@@ -80,7 +80,6 @@ module Lifelist
           where("(observ_date, species_id) IN (#{life_dates_sql})")
     end
 
-
     def life_dates_sql
       base.
           select("#{aggregation_operator}(observ_date) as first_seen, species_id").
@@ -110,7 +109,6 @@ module Lifelist
     def posts_scope
       @posts_scope ||= Post.none
     end
-
 
   end
 end
