@@ -2,6 +2,14 @@
 
 module PublicRoutesHelper
 
+  def localized_images_url(*args)
+    if I18n.default_locale?
+      images_url(*args)
+    else
+      localized_root_url(*args)
+    end
+  end
+
   private
   def localize_url(string_or_obj, args = {})
     new_args = args.merge({id: string_or_obj})

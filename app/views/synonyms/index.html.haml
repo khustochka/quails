@@ -25,7 +25,7 @@
         = surround "(", ")" do
           = species_link(syn.species)
 
-      = simple_form_for syn, url: url_for(action: "update", id: syn.id), remote: true do |f|
+      = simple_form_for syn, url: { action: "update", id: syn.id }, remote: true do |f|
         %td
           = f.input :reason, as: :select, collection: UrlSynonym::REASONS, label: false, wrapper_html: {class: "inline-block"}
         %td

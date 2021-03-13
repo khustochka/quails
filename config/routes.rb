@@ -291,8 +291,8 @@ Rails.application.routes.draw do
 
   post "/clear_cache" => "reports#clear_cache"
 
-  get '/login' => 'login#login_page'
-  post '/login' => 'login#login_do'
+  get '/login' => 'login#show'
+  post '/login' => 'login#login'
 
   get '/logout' => 'login#logout'
 

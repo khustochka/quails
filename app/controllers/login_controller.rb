@@ -11,12 +11,12 @@ class LoginController < ApplicationController
   # This is annoying but minor issue. Leaving it for now. Possible solutions:
   # - cleanup session[:ret] in before_action for all actions except login? (too much)
   # - use a separate cookie?
-  def login_page
+  def show
     session[:ret] = safe_referrer_params || session[:ret]
     render layout: "login"
   end
 
-  def login_do
+  def login
     ret = session[:ret]
     csrf_token = session[:_csrf_token]
     reset_session
