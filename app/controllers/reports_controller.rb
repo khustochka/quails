@@ -27,9 +27,10 @@ class ReportsController < ApplicationController
   end
 
   def more_than_year
-    if params[:days]
-      sort_col = params[:sort].try(:to_sym) || :date2
-      @period = params[:days].to_i
+    @period = params[:days].to_i
+    sort_val = params[:sort].try(:to_sym)
+    if @period >= 30
+      sort_col = sort_val || :date2
       query = MyObservation.joins(:card).select("species_id, observ_date").order("observ_date").to_sql
       @list = Observation.connection.select_rows(query).group_by(&:first).each_with_object([]) do |obsdata, collection|
         sp, obss = obsdata
@@ -50,7 +51,7 @@ class ReportsController < ApplicationController
         item[:sp] = spcs[item[:sp_id]]
       end
     else
-      redirect_to(params.merge(days: 365))
+      redirect_to(days: 365, sort: sort_val)
     end
   end
 
