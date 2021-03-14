@@ -17,7 +17,6 @@
         %b= link_to('Make back indexable', {action: :update, post: {status: 'OPEN'}}, method: :put)
 
 - @page_title = @post.decorated.title
--# FIXME: in the future this should be cached, to not reformat the whole body
 - @meta_description = truncate(strip_tags(@post.decorated.for_site.body), length: 150, :separator=>" ").gsub(/\s+/, " ")
 
 - unless @post.lj_data.blank?
