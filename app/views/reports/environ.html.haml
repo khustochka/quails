@@ -29,10 +29,8 @@
   %dt LC_CTYPE (should be "en_US.UTF8")
   %dd= @lc_ctype
 
-  - if $revision
+  - if defined?($revision) && $revision.present?
     %dt Revision
     %dd
-      - if defined?($revision) && $revision.present?
-        = link_to $revision[0..7], "https://bitbucket.org/khustochka/quails/commits/#{$revision}"
-        = simple_format($commit)
-
+      = link_to $revision[0..7], "https://bitbucket.org/khustochka/quails/commits/#{$revision}"
+      = simple_format($commit)
