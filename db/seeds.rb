@@ -8,6 +8,6 @@
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Daley', :city => cities.first)
 
-require 'seeds/seeds'
+#require 'seeds/seeds'
 
-Seeds.load_all
+#Seeds.load_all
