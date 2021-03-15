@@ -730,19 +730,20 @@ table.nice_stats.records
 // Tooltip
 
 .ui-tooltip, .arrow:after
-  background: #333333
+  background: rgba(0, 0, 0, 0.8)
   //border: 2px solid white
   border: none
 
 .ui-tooltip
   padding: 5px 10px
   color: white
-  //border-radius: 20px
-  border-radius: 0
+  border-radius: 4px
   font: normal 13px "Helvetica Neue", Arial, sans-serif
-  //box-shadow: 0 0 7px black
-  box-shadow: none
+  box-shadow: 0 4px 4px -2px #999999
+  //box-shadow: none
   max-width: 200px
+  &.ui-widget.ui-widget-content
+    border: none
 
 //.arrow
 //  width: 70px
