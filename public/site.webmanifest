@@ -1,0 +1,14 @@
+{
+    "name": "Birdwatch.org.ua",
+    "short_name": "Birdwatch.org.ua",
+    "icons": [
+        {
+            "src": "/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#2fa2ba",
+    "background_color": "#2fa2ba",
+    "display": "standalone"
+}
