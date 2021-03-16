@@ -29,6 +29,8 @@ class WikiFormatter
 
   private
   def apply
+    # TODO: if you want first to apply Textile, and then strategy formatting, do this firt:
+    # post.body.gsub(/^\{\{(\^|&)[^}]+\}\}\s*$/, 'notextile. \&')
     ParagraphFormatter.apply(@strategy.apply)
   end
 
