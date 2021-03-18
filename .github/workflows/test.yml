@@ -74,6 +74,7 @@ jobs:
         run: xvfb-run bin/rake test:all
       - name: Code coverage results
         uses: actions/upload-artifact@v2
+        if: ${{ true }}
         with:
           name: Coverage
           path: coverage/
