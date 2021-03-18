@@ -1,4 +1,5 @@
 -# frozen_string_literal: true
+
 - javascript AssetsHelper::GMAP_API_URL, 'media_mappable'
 - @body_class = 'map-page'
 - stylesheet 'map_edit'
@@ -39,4 +40,3 @@
   if (typeof google === 'object') {
     #{"locusLatLng = new google.maps.LatLng(#{mappable.locus.lat}, #{mappable.locus.lon});" if mappable.locus.lat}
   }
-
