@@ -3,7 +3,7 @@
 require "test_helper"
 
 # :selenium_chrome_headless unfortunately is slower
-DEFAULT_JS_DRIVER = :webkit
+DEFAULT_JS_DRIVER = :selenium_chrome_headless
 
 env_js_driver = ENV["JS_DRIVER"]&.to_sym || DEFAULT_JS_DRIVER
 
