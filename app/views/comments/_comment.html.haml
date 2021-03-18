@@ -12,7 +12,7 @@
     - if current_user.admin?
       = default_destroy_link(comment) if action_name != 'reply'
       %i= comment.ip
-  .comment_body
+  .comment_body_text
     = comment.decorated.body
 
   - if action_name != 'reply'

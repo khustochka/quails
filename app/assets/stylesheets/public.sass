@@ -146,7 +146,7 @@ nav.front_page_prev
     @include inline-block
     margin-bottom: 4px
     vertical-align: 1px
-  .comment_body, ul.reply
+  .comment_body_text, ul.reply
     font-family: Verdana, Tahoma, sans-serif
     font-size: 13px
     p
@@ -155,7 +155,7 @@ nav.front_page_prev
     @include horiz-list
     margin-bottom: 0
     font-weight: bold
-  .comment_body
+  .comment_body_text
     margin-left: 30px
 
 .comment_box.hidden-comment
@@ -598,7 +598,7 @@ li.feed_li:before
   form.comment
     .input.commenter_email, .input.comment_nmaee
       width: 100%
-      margin-left: 0px
+      margin-left: 0
     textarea, input.string,
     .input.comment_body .hint,
     .input.commenter_email input.string,
