@@ -66,6 +66,7 @@ jobs:
           COVERAGE: 1
           JS_DRIVER: selenium_chrome_headless
           MINITEST_REPORTER: Minitest::Reporters::SpecReporter
+          GITHUB_ACTIONS: true
         run: xvfb-run bin/rake test:all
       - name: Code coverage results
         uses: actions/upload-artifact@v2
