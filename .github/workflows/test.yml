@@ -27,13 +27,13 @@ jobs:
         uses: ruby/setup-ruby@v1
       - name: Install Qt5
         run: sudo apt-get update && sudo apt-get install g++ qt5-default libqt5webkit5-dev gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-x
-#      - name: Ruby gem cache
-#        uses: actions/cache@v1
-#        with:
-#          path: vendor/bundle
-#          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}-upd1
-#          restore-keys: |
-#            ${{ runner.os }}-gems-
+      - name: Ruby gem cache
+        uses: actions/cache@v1
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gems-rb3-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gems-rb3-
       - name: Install gems
         run: |
           bundle config path vendor/bundle
@@ -79,6 +79,7 @@ jobs:
           path: coverage/
       - name: Screenshots
         uses: actions/upload-artifact@v2
+        if: failure()
         with:
           name: Screenshots
           path: tmp/screenshots
