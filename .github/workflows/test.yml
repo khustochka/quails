@@ -65,6 +65,7 @@ jobs:
           DATABASE_URL: postgresql://quails:quails@localhost/quails_test?pool=5
           COVERAGE: 1
           JS_DRIVER: selenium_chrome_headless
+          MINITEST_REPORTER: Minitest::Reporters::SpecReporter
         run: xvfb-run bin/rake test:all
       - name: Code coverage results
         uses: actions/upload-artifact@v2
