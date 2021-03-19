@@ -2,12 +2,20 @@
 
 require "test_helper"
 
+begin
+  require "capybara/webkit"
+rescue LoadError
+  puts "[NOTE] capybara-webkit not available"
+end
+
 # :selenium_chrome_headless unfortunately is slower
-DEFAULT_JS_DRIVER = :webkit
+DEFAULT_JS_DRIVER = defined?(Capybara::Webkit) ? :webkit : :selenium_chrome_headless
 
 env_js_driver = ENV["JS_DRIVER"]&.to_sym || DEFAULT_JS_DRIVER
 
-if env_js_driver =~ /\Awebkit/
+puts "[NOTE] Using driver: #{env_js_driver}"
+
+if env_js_driver =~ /\Awebkit/ && defined?(Capybara::Webkit)
   require "core_ext/capybara/webkit/node"
   Capybara::Webkit.configure do |config|
     config.block_unknown_urls
