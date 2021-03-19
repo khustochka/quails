@@ -66,11 +66,13 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   end
 
   def fill_in_date(field, date)
+    # As a workaround for Chrome we convert the date field to text
+    # Field is required to have id!
     if chrome_driver?
-      fill_in(field, with: date.sub(/(\d\d\d\d)-(\d\d)-(\d\d)/, "\\1\t\\2\\3"))
-    else
-      fill_in(field, with: date)
+      f = find(:fillable_field, field)
+      execute_script("$('##{f[:id]}').attr('type', 'text')")
     end
+    fill_in(field, with: date)
   end
 
   # Standard capybara attach_file make_visible option does not work for me
