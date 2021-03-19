@@ -27,7 +27,7 @@ $(function () {
   function adjustSizes() {
     var clientHeight = $(window).height(),
         clientWidth = $(window).width(),
-        upper = $('#header').outerHeight(true) + $('form.search').outerHeight(),
+        upper = $('#header').outerHeight(true),
         leftmost = $('.map-side-panel').outerWidth(true);
     $('.map-side-panel').height(clientHeight - upper - 2);
     $('div.mapContainer').height(clientHeight - upper).width(clientWidth - leftmost)
