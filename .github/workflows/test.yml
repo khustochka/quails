@@ -7,12 +7,11 @@ jobs:
     name: Tests
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         include:
-          -
-            js_driver: webkit
-          -
-            js_driver: selenium_chrome_headless
+          - js_driver: webkit
+          - js_driver: selenium_chrome_headless
     services:
       postgres:
         image: postgres:13
