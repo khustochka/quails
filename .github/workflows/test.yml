@@ -79,9 +79,9 @@ jobs:
         with:
           name: Coverage
           path: coverage/
-      - name: Screenshots-${{ matrix.js_driver }}
+      - name: Screenshots
         uses: actions/upload-artifact@v2
         if: failure()
         with:
-          name: Screenshots
+          name: Screenshots-${{ matrix.js_driver }}
           path: tmp/screenshots
