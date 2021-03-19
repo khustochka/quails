@@ -11,7 +11,9 @@ jobs:
       matrix:
         include:
           - js_driver: webkit
+            bundle_without: ""
           - js_driver: selenium_chrome_headless
+            bundle_without: "webkit"
     services:
       postgres:
         image: postgres:13
@@ -29,9 +31,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Install Qt5
+        if: ${{ matrix.js_driver == 'webkit' }}
         run: sudo apt-get update && sudo apt-get install g++ qt5-default libqt5webkit5-dev gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-x
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
+        env:
+          BUNDLE_WITHOUT: ${{ matrix.bundle_without }}
         with:
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
 #      - name: Install gems
