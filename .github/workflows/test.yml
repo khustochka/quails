@@ -6,6 +6,13 @@ jobs:
   tests:
     name: Tests
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          -
+            js_driver: webkit
+          -
+            js_driver: selenium_chrome_headless
     services:
       postgres:
         image: postgres:13
@@ -65,7 +72,7 @@ jobs:
           DATABASE_URL: postgresql://quails:quails@localhost/quails_test?pool=5
           COVERAGE: 1
           MINITEST_REPORTER: Minitest::Reporters::SpecReporter
-          #JS_DRIVER: selenium_chrome_headless
+          JS_DRIVER: ${{ matrix.js_driver }}
         run: xvfb-run bin/rake test:all
       - name: Code coverage results
         uses: actions/upload-artifact@v2
