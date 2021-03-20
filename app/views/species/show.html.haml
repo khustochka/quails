@@ -39,7 +39,7 @@
     %div.two_thirds
       %div.image_canvas
         = link_to localized_image_path(id: @species.image) do
-          = image_tag(jpg_url(@species.image))
+          = image_tag(jpg_url(@species.image), alt: @species.name)
 
   %div{class: @species.image ? "one_third" : nil}
     %dl.sp_translations
