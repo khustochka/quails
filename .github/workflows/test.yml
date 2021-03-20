@@ -55,6 +55,7 @@ jobs:
           RAILS_ENV: test
           DATABASE_URL: postgresql://quails:quails@localhost/quails_test?pool=5
           COVERAGE: 1
+          PARALLEL_WORKERS: 1
           MINITEST_REPORTER: Minitest::Reporters::SpecReporter
         run: bin/rake test
       - name: Code coverage results

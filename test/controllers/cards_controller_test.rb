@@ -16,6 +16,12 @@ class CardsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:cards)
   end
 
+  test "should get index (xhr)" do
+    get :index, xhr: true
+    assert_response :success
+    assert_not_nil assigns(:cards)
+  end
+
   test "should get new" do
     get :new
     assert_response :success

@@ -39,6 +39,17 @@ class CommentsControllerTest < ActionController::TestCase
     assert_equal "Vasya", comment.name
   end
 
+  test "create comment via Ajax" do
+    assert_difference("Comment.count") do
+      post :create, params: valid_comment_params, xhr: true
+    end
+
+    comment = assigns(:comment)
+    assert_response :success
+    assert_predicate comment, :approved
+    assert_equal "Vasya", comment.name
+  end
+
   test "reject comment with negative captcha" do
     invalid_attrs = valid_comment_params(name: "Vasya")
     assert_difference("Comment.count", 0) do
