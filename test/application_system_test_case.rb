@@ -2,18 +2,26 @@
 
 require "test_helper"
 
+begin
+  require "capybara/webkit"
+rescue LoadError
+  puts "[NOTE] capybara-webkit not available"
+end
+
 # :selenium_chrome_headless unfortunately is slower
-DEFAULT_JS_DRIVER = :webkit
+DEFAULT_JS_DRIVER = defined?(Capybara::Webkit) ? :webkit : :selenium_chrome_headless
 
 env_js_driver = ENV["JS_DRIVER"]&.to_sym || DEFAULT_JS_DRIVER
 
-if env_js_driver == :webkit
-  require "capybara/webkit"
+puts "[NOTE] Using driver: #{env_js_driver}"
+
+if env_js_driver =~ /\Awebkit/ && defined?(Capybara::Webkit)
   require "core_ext/capybara/webkit/node"
   Capybara::Webkit.configure do |config|
     config.block_unknown_urls
     # Don't load images
     config.skip_image_loading
+    #config.raise_javascript_errors = true
   end
 end
 
@@ -66,11 +74,13 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   end
 
   def fill_in_date(field, date)
+    # As a workaround for Chrome we convert the date field to text
+    # Field is required to have id!
     if chrome_driver?
-      fill_in(field, with: date.sub(/(\d\d\d\d)-(\d\d)-(\d\d)/, "\\1\t\\2\\3"))
-    else
-      fill_in(field, with: date)
+      f = find(:fillable_field, field)
+      execute_script("$('##{f[:id]}').attr('type', 'text')")
     end
+    fill_in(field, with: date)
   end
 
   # Standard capybara attach_file make_visible option does not work for me

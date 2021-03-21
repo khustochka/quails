@@ -27,10 +27,10 @@ $(function () {
     $('div.mapContainer').height(clientHeight - upper).width(clientWidth - leftmost)
         .css('top', upper).css('left', leftmost);
     try {
-        var gmap = theMap.gmap3("get");
-        if (typeof(gmap) !== 'undefined' && gmap !== null) google.maps.event.trigger(gmap, 'resize');
+      var gmap = theMap.gmap3("get");
+      if (typeof (gmap) !== 'undefined' && gmap !== null) google.maps.event.trigger(gmap, 'resize');
+    } catch (e) {
     }
-    catch (e) {}
   }
 
   function closeInfoWindows() {
@@ -57,7 +57,7 @@ $(function () {
 
       observCollection[this.id] = el;
 
-      return($.map(this.spots, function (spot, i) {
+      return ($.map(this.spots, function (spot, i) {
         spotsStore[spot.id] = spot;
         return {
           lat: spot.lat,
@@ -69,7 +69,10 @@ $(function () {
       }));
     });
 
-    theMap.gmap3({clear: {name: ['marker', 'infowindow']}});
+    try {
+      theMap.gmap3({clear: {name: ['marker', 'infowindow']}});
+    } catch (e) {
+    }
 
     if (data.length > 0) {
 
@@ -78,20 +81,25 @@ $(function () {
         var markerOptions = jQuery.extend(true, {}, DEFAULT_MARKER_OPTIONS);
         markerOptions.values = marks;
 
-        theMap.gmap3({
-              marker: markerOptions
-            },
-            'autofit' // Zooms and moves to see all markers
-        );
-      }
-      else {
+        try {
+          theMap.gmap3({
+                marker: markerOptions
+              },
+              'autofit' // Zooms and moves to see all markers
+          );
+        } catch (e) {
+        }
+      } else {
         var loc_id = $('#q_locus_id').val();
         if (loc_id.length > 0) {
           $.get('/loci/' + loc_id + '.json', function (data) {
             var lat = data['lat'], lon = data['lon'];
             if (lat != null && lon != null) {
-              theMap.gmap3("get").setCenter(new google.maps.LatLng(lat, lon));
-              theMap.gmap3("get").setZoom(13);
+              try {
+                theMap.gmap3("get").setCenter(new google.maps.LatLng(lat, lon));
+                theMap.gmap3("get").setZoom(13);
+              } catch (e) {
+              }
             }
 
           });
@@ -177,7 +185,8 @@ $(function () {
             anchor: marker,
             options: {
               content: wndContent
-            }}
+            }
+          }
         });
       },
       dragstart: function (marker, event, data) {
@@ -193,13 +202,15 @@ $(function () {
             spotData = spotsStore[data_id];
         $.post(
             $('form', spotForm).attr('action'),
-            {spot: {
-              id: data_id,
-              lat: marker.getPosition().lat(),
-              lng: marker.getPosition().lng(),
-              // Change zoom only if it was increased
-              zoom: Math.max(spotData.zoom, marker.getMap().zoom)
-            }}
+            {
+              spot: {
+                id: data_id,
+                lat: marker.getPosition().lat(),
+                lng: marker.getPosition().lng(),
+                // Change zoom only if it was increased
+                zoom: Math.max(spotData.zoom, marker.getMap().zoom)
+              }
+            }
         );
       }
     }
@@ -246,56 +257,58 @@ $(function () {
   });
 
   // Starting hardcore map stuff
-
-  theMap.gmap3({
-    panel: {
-      options: {
-        content: '<div class="map-panel">' +
-            '<span class="pseudolink load_kml">Load KML</span> &nbsp; ' +
-            '<span class="pseudolink clear_kml">clear KML</span>' +
-            (typeof(card_kml) !== "undefined" && card_kml != "" ? ' &nbsp; <span class="pseudolink card_kml"><b>Card KML</b></span>' : "") +
-            '</div>',
-        top: true,
-        left: 150
-      }
-    },
-    map: {
-      options: {
-        draggableCursor: 'pointer',
-        center: [48.2837, 31.62962],
-        zoom: 6
+  try {
+    theMap.gmap3({
+      panel: {
+        options: {
+          content: '<div class="map-panel">' +
+              '<span class="pseudolink load_kml">Load KML</span> &nbsp; ' +
+              '<span class="pseudolink clear_kml">clear KML</span>' +
+              (typeof (card_kml) !== "undefined" && card_kml != "" ? ' &nbsp; <span class="pseudolink card_kml"><b>Card KML</b></span>' : "") +
+              '</div>',
+          top: true,
+          left: 150
+        }
       },
-      events: {
-        click: function (map, event) {
-          var newForm = spotForm.clone(),
-              wndContent,
-              selectedObs = $('li.selected_obs');
+      map: {
+        options: {
+          draggableCursor: 'pointer',
+          center: [48.2837, 31.62962],
+          zoom: 6
+        },
+        events: {
+          click: function (map, event) {
+            var newForm = spotForm.clone(),
+                wndContent,
+                selectedObs = $('li.selected_obs');
 
-          closeInfoWindows();
+            closeInfoWindows();
 
-          if (selectedObs.length == 0) wndContent = "<p>No observation selected</p>";
-          else {
-            $('#spot_lat', newForm).val(event.latLng.lat());
-            $('#spot_lng', newForm).val(event.latLng.lng());
-            $('#spot_zoom', newForm).val(map.zoom);
-            $('#spot_exactness_1', newForm).attr('checked', true); // Check the "exact" value
-            $('#spot_observation_id', newForm).val(selectedObs.data('obs-id'));
-            if (defaultPublicity) $('#spot_public', newForm).attr('checked', 'checked');
-            else $('#spot_public', newForm).attr('checked', null);
-            wndContent = newForm.html();
-          }
-          theMap.gmap3({
-            infowindow: {
-              latLng: event.latLng,
-              options: {
-                content: wndContent
-              }
+            if (selectedObs.length == 0) wndContent = "<p>No observation selected</p>";
+            else {
+              $('#spot_lat', newForm).val(event.latLng.lat());
+              $('#spot_lng', newForm).val(event.latLng.lng());
+              $('#spot_zoom', newForm).val(map.zoom);
+              $('#spot_exactness_1', newForm).attr('checked', true); // Check the "exact" value
+              $('#spot_observation_id', newForm).val(selectedObs.data('obs-id'));
+              if (defaultPublicity) $('#spot_public', newForm).attr('checked', 'checked');
+              else $('#spot_public', newForm).attr('checked', null);
+              wndContent = newForm.html();
             }
-          });
+            theMap.gmap3({
+              infowindow: {
+                latLng: event.latLng,
+                options: {
+                  content: wndContent
+                }
+              }
+            });
+          }
         }
       }
-    }
-  });
+    });
+  } catch (e) {
+  }
 
   // Change default state of `public`
   $(document).on('change', '#spot_public', function () {
@@ -366,7 +379,7 @@ $(function () {
 
   // Load KML
 
-  if (typeof(card_kml) !== "undefined" && card_kml != "") loadKML(card_kml);
+  if (typeof (card_kml) !== "undefined" && card_kml != "") loadKML(card_kml);
 
   $(".load_kml").click(function () {
     var kml_url = prompt("Enter KML url:");

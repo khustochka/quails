@@ -33,8 +33,16 @@ class TaxaController < ApplicationController
     render :form
   end
 
-  def edit
-    @taxon = Taxon.find_by_ebird_code(params[:id])
-    render :form
-  end
+  # def edit
+  #   @taxon = Taxon.find_by_ebird_code(params[:id])
+  #   render :form
+  # end
+  #
+  # def update
+  #   if @taxon.update(params[:taxon])
+  #     redirect_to(@taxon, :notice => 'Taxon was successfully updated.')
+  #   else
+  #     render :form
+  #   end
+  # end
 end

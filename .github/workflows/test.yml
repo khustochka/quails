@@ -1,11 +1,80 @@
-name: Test
+name: Testing
 on: [push]
 
 jobs:
-
   tests:
     name: Tests
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:13
+        env:
+          POSTGRES_USER: quails
+          POSTGRES_DB: quails_test
+          POSTGRES_PASSWORD: "quails"
+        ports: [ "5432:5432" ]
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        env:
+          BUNDLE_WITHOUT: webkit
+        with:
+          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.20.1
+      - name: Find yarn cache location
+        id: yarn-cache
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name: JS package cache
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.yarn-cache.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+      - name: Install packages
+        run: |
+          yarn install --pure-lockfile
+      - name: Setup test database
+        env:
+          RAILS_ENV: test
+          DATABASE_URL: postgresql://quails:quails@localhost/quails_test?pool=5
+        run: |
+          bin/rails db:setup
+      - name: Run tests
+        env:
+          RAILS_ENV: test
+          DATABASE_URL: postgresql://quails:quails@localhost/quails_test?pool=5
+          COVERAGE: 1
+          PARALLEL_WORKERS: 1
+          MINITEST_REPORTER: Minitest::Reporters::SpecReporter
+        run: bin/rake test
+      - name: Code coverage results
+        uses: actions/upload-artifact@v2
+        if: ${{ always() }}
+        with:
+          name: Coverage
+          path: coverage/
+  system_tests:
+    name: System tests
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - js_driver: webkit
+            bundle_without: ""
+          - js_driver: selenium_chrome_headless
+            bundle_without: "webkit"
     services:
       postgres:
         image: postgres:13
@@ -22,23 +91,19 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
+      - name: Install Qt5
+        if: ${{ matrix.js_driver == 'webkit' }}
+        run: sudo apt-get update && sudo apt-get install g++ qt5-default libqt5webkit5-dev gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-x
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
-      - name: Install Qt5
-        run: sudo apt-get update && sudo apt-get install g++ qt5-default libqt5webkit5-dev gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-x
-      - name: Ruby gem cache
-        uses: actions/cache@v1
+        env:
+          BUNDLE_WITHOUT: ${{ matrix.bundle_without }}
         with:
-          path: vendor/bundle
-          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-gems-
-      - name: Install gems
-        run: |
-          bundle config path vendor/bundle
-          bundle install --jobs 4 --retry 3
-
+          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+#      - name: Install gems
+#        run: |
+#          bundle config path vendor/bundle
+#          bundle install --jobs 4 --retry 3
       - name: Setup Node
         uses: actions/setup-node@v1
         with:
@@ -71,14 +136,12 @@ jobs:
           RAILS_ENV: test
           DATABASE_URL: postgresql://quails:quails@localhost/quails_test?pool=5
           COVERAGE: 1
-        run: xvfb-run bin/rake test:all
-      - name: Code coverage results
-        uses: actions/upload-artifact@v2
-        with:
-          name: Coverage
-          path: coverage/
+          MINITEST_REPORTER: Minitest::Reporters::SpecReporter
+          JS_DRIVER: ${{ matrix.js_driver }}
+        run: xvfb-run bin/rake test:system
       - name: Screenshots
         uses: actions/upload-artifact@v2
+        if: failure()
         with:
-          name: Screenshots
+          name: Screenshots-${{ matrix.js_driver }}
           path: tmp/screenshots
