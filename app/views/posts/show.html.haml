@@ -16,8 +16,8 @@
       %li
         %b= link_to('Make back indexable', {action: :update, post: {status: 'OPEN'}}, method: :put)
 
-- @page_title = @post.decorated.title
-- @meta_description = truncate(strip_tags(@post.decorated.for_site.body), length: 150, :separator=>" ").gsub(/\s+/, " ")
+- @page_title = @decorated_post.title
+- @meta_description = truncate(strip_tags(@decorated_post.body), length: 150, :separator=>" ").gsub(/\s+/, " ")
 
 - unless @post.lj_data.blank?
   - provide :add_shortcuts do
@@ -29,14 +29,14 @@
 
   %div.post{id: "post-#{@post.slug}"}
     %div.header-with-subheader
-      %h1= @post.decorated.title
+      %h1= @decorated_post.title
       - unless @post.shout?
         %i
           %time{datetime: @post.face_date.iso8601}= l(@post.face_date, format: :long)
       - unless @post.public?
         %span.tag.draft Draft
 
-    = @post.decorated.for_site.body
+    = @decorated_post.body
 
     = render 'posts/sections/photos'
 

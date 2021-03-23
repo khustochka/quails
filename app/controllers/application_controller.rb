@@ -15,6 +15,7 @@ class ApplicationController < ActionController::Base
   include SecurityConcern
   include LocalizationConcern
   include AdministrativeConcern
+  include DecorationConcern
   include PublicPaths
   include RecordFinder
 

@@ -23,6 +23,7 @@ class PostsController < ApplicationController
       redirect_to public_post_path(@post), status: 301
     end
 
+    @decorated_post = decorated(@post)
     @robots = "NOINDEX" if @post.status == "NIDX"
     @comments = current_user.available_comments(@post).group_by(&:parent_id)
 
