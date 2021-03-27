@@ -2,12 +2,18 @@
 
 module PostsHelper
 
-  def post_link(text, blogpost, show_text_if_no_post = false)
-    @only_path = true if @only_path.nil?
+  def post_link(text, blogpost, show_text_if_no_post = false, options = {})
+    force_text = show_text_if_no_post.dup
+    opts = options.dup
+    # In case options are the 3rd parameter
+    if show_text_if_no_post.is_a?(Hash)
+      force_text = false
+      opts = show_text_if_no_post
+    end
     if blogpost
-      link_to(text, public_post_url(blogpost, only_path: @only_path), title: blogpost.decorated.title, class: ("grayout" unless blogpost.public?))
+      link_to(text, public_post_url(blogpost, opts), title: blogpost.decorated.title, class: ("grayout" unless blogpost.public?))
     else
-      show_text_if_no_post ? text : nil
+      force_text ? text : nil
     end
   end
 

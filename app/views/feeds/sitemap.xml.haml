@@ -81,42 +81,42 @@
   -# posts
   - @posts.each do |post|
     %url
-      %loc= public_post_url(post, only_path: false)
+      %loc= public_post_url(post)
       %lastmod= post.updated_at.iso8601
       %changefreq yearly
 
   -# images
   - @images.each do |img|
     %url
-      %loc= localize_url(img, locale: nil, only_path: false)
+      %loc= localize_url(img, locale: nil)
       %lastmod= img.updated_at.iso8601
       %changefreq yearly
 
     %url
-      %loc= localize_url(img, locale: :en, only_path: false)
+      %loc= localize_url(img, locale: :en)
       %lastmod= img.updated_at.iso8601
       %changefreq yearly
 
   -# videos
   - @videos.each do |vid|
     %url
-      %loc= localize_url(vid, locale: nil, only_path: false)
+      %loc= localize_url(vid, locale: nil)
       %lastmod= vid.updated_at.iso8601
       %changefreq yearly
 
     %url
-      %loc= localize_url(vid, locale: :en, only_path: false)
+      %loc= localize_url(vid, locale: :en)
       %lastmod= vid.updated_at.iso8601
       %changefreq yearly
 
   -# species
   - @species.each do |sp|
     %url
-      %loc= localize_url(sp, locale: nil, only_path: false)
+      %loc= localize_url(sp, locale: nil)
       -# %lastmod=
       %changefreq monthly
 
     %url
-      %loc= localize_url(sp, locale: :en, only_path: false)
+      %loc= localize_url(sp, locale: :en)
       -# %lastmod=
       %changefreq monthly

@@ -18,12 +18,7 @@ module ImagesHelper
   end
 
   def static_jpg_url(img, options = {})
-    opts = {only_path: helper_only_path?}.merge!(options).merge({format: :jpg})
-    image_url(img, opts)
-  end
-
-  def helper_only_path?
-    @only_path.nil? ?  @only_path = true : @only_path
+    image_url(img, options.merge({format: :jpg}))
   end
 
   THUMBNAIL_HEIGHT = 280

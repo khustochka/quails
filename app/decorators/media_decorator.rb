@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class MediaFormatter < ModelFormatter
+class MediaDecorator < ModelDecorator
 
   include ActionView::Helpers::SanitizeHelper
   include ActionView::Helpers::TranslationHelper

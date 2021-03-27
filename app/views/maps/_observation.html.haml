@@ -3,8 +3,10 @@
 
 %li{data: {obs_id: observation.id, obs_count: observation.spots.size}}
   %span.mapped_indicator{title: "Is mapped"}
-  %div= observation.decorated.species_str
-  %div= observation.decorated.when_where_str
+  %div
+    = render partial: "observations/short/species_line", locals: {observation: observation}
+  %div
+    = render partial: "observations/short/when_where_line", locals: {observation: observation}
   - if img_count > 0
     %div.obs_item_photos
       %span.images_count= img_count

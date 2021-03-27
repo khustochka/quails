@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class LocusFormatter < ModelFormatter
+class LocusDecorator < ModelDecorator
 
   def full_name
     tail = [@model.cached_city, @model.cached_subdivision, @model.cached_country].

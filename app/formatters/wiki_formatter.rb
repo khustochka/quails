@@ -8,30 +8,30 @@ class WikiFormatter
   end
 
   def for_site
-    @strategy = SiteFormatStrategy.new(@text, @metadata)
+    @strategy = FormatStrategy::Site.new(@text, @metadata)
     apply.html_safe
   end
 
   def for_feed
-    @strategy = FeedFormatStrategy.new(@text, @metadata)
+    @strategy = FormatStrategy::Feed.new(@text, @metadata)
     apply.html_safe
   end
 
   def for_instant_articles
-    @strategy = InstantArticlesFormatStrategy.new(@text, @metadata)
+    @strategy = FormatStrategy::InstantArticle.new(@text, @metadata)
     apply.html_safe
   end
 
   def for_lj
-    @strategy = LJFormatStrategy.new(@text, @metadata)
+    @strategy = FormatStrategy::LiveJournal.new(@text, @metadata)
     apply
   end
 
   private
   def apply
-    ParagraphFormatter.apply(
-        @strategy.apply
-    )
+    # TODO: if you want first to apply Textile, and then strategy formatting, do this firt:
+    # post.body.gsub(/^\{\{(\^|&)[^}]+\}\}\s*$/, 'notextile. \&')
+    ParagraphFormatter.apply(@strategy.apply)
   end
 
 end

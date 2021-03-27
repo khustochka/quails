@@ -99,7 +99,6 @@ Rails.application.routes.draw do
     member do
       get 'edit/map', action: :map_edit
       post 'patch'
-      get 'observations'
     end
     collection do
       get 'series'
@@ -205,10 +204,6 @@ Rails.application.routes.draw do
   end
 
   resources :days, only: [:index, :show]
-
-  scope '/observations' do
-    resources :spuhs, only: [:index, :show, :update]
-  end
 
   resources :observations, except: [:index, :new, :create, :edit] do
     collection do
