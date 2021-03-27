@@ -255,7 +255,7 @@ class ImagesControllerTest < ActionController::TestCase
     @obs.post = blogpost
     @obs.save!
     get :show, params: {id: @image.to_param}
-    assert_select "a[href='#{public_post_path(blogpost)}']"
+    assert_select "a[href*='#{public_post_path(blogpost)}']"
   end
 
   test "show image in another locale" do

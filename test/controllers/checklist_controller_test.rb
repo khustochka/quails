@@ -9,7 +9,7 @@ class ChecklistControllerTest < ActionController::TestCase
     get :show, params: {country: "ukraine"}
     assert_response :success
     assert assigns(:checklist).present?
-    assert_select "a[href='#{species_path(species(:pasdom))}']"
+    assert_select "a[href*='#{species_path(species(:pasdom))}']"
   end
 
   test "edit checklist for Ukraine" do
