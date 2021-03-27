@@ -22,7 +22,7 @@ class LifelistPostsTest < ActionController::TestCase
     assert_response :success
     lifers = assigns(:lifelist)
     assert_equal 1, lifers.to_a.map(&:post).compact.size
-    assert_select "a[href='#{public_post_path(@obs[1].post)}']"
+    assert_select "a[href*='#{public_post_path(@obs[1].post)}']"
   end
 
   test "do show post link if locale is not Russian" do
@@ -41,7 +41,7 @@ class LifelistPostsTest < ActionController::TestCase
     assert_response :success
     lifers = assigns(:lifelist)
     assert_equal 1, lifers.to_a.map(&:post).compact.size
-    assert_select "a[href='#{public_post_path(@obs[1].post)}']"
+    assert_select "a[href*='#{public_post_path(@obs[1].post)}']"
   end
 
   test "do not show post link if no post is associated" do
@@ -70,6 +70,6 @@ class LifelistPostsTest < ActionController::TestCase
     assert_response :success
     lifers = assigns(:lifelist)
     assert_equal 1, lifers.to_a.map(&:post).compact.size
-    assert_select "a[href='#{public_post_path(@obs[1].post)}']"
+    assert_select "a[href*='#{public_post_path(@obs[1].post)}']"
   end
 end
