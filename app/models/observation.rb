@@ -47,6 +47,7 @@ class Observation < ApplicationRecord
     rel = self.all
     rel = rel.joins(:card).where("EXTRACT(year from cards.observ_date)::integer = ?", options[:year]) unless options[:year].blank?
     rel = rel.joins(:card).where("EXTRACT(month from cards.observ_date)::integer = ?", options[:month]) unless options[:month].blank?
+    rel = rel.joins(:card).where("EXTRACT(day from cards.observ_date)::integer = ?", options[:day]) unless options[:day].blank? || options[:month].blank?
     rel = rel.joins(:card).where("cards.locus_id IN (?) OR observations.patch_id IN (?)", options[:locus], options[:locus]) unless options[:locus].blank?
     rel
   end

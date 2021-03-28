@@ -3,7 +3,8 @@
     title:
       lifelist: Lifelist
       yearlist: '%{year} Year List'
-      monthlist: List for %{month}
+      monthlist: 'List for %{month}'
+      daylist: 'List for %{day} %{month}'
       yearsublist: '%{year}'
       countrylist: '%{country} Life List'
       locationlist: '%{location} Life List'

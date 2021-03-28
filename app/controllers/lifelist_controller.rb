@@ -46,7 +46,7 @@ class LifelistController < ApplicationController
   end
 
   def advanced
-    allow_params(:year, :locus, :sort, :month)
+    allow_params(:year, :locus, :sort, :month, :day)
 
     @locations = Locus.locs_for_lifelist
 
@@ -55,7 +55,7 @@ class LifelistController < ApplicationController
     raise ActiveRecord::RecordNotFound if locus && !locus.in?(current_user.available_loci.map(&:slug))
 
     @lifelist = Lifelist::Advanced.
-        over(params.permit(:year, :month, :locus)).
+        over(params.permit(:year, :month, :day, :locus)).
         sort(params[:sort])
 
     if I18n.russian_locale?

@@ -4,7 +4,12 @@
 - @robots = 'NOINDEX'
 
 - @page_title = capture do
-  - if params[:month]
+  - if params[:month] && params[:day]
+    - month_finder = I18n.russian_locale? ? "common_month_names" : "month_names"
+    = [ t('lifelist.title.daylist', day: params[:day], month: t("date.#{month_finder}")[params[:month].to_i]),
+        params[:year] ? t('lifelist.title.yearsublist', year: params[:year]) : nil,
+        params[:locus] ? "(#{@lifelist.locus.name})" : nil ] * ' '
+  - elsif params[:month]
     = [ t('lifelist.title.monthlist', month: t('date.month_names')[params[:month].to_i]),
         params[:year] ? t('lifelist.title.yearsublist', year: params[:year]) : nil,
         params[:locus] ? "(#{@lifelist.locus.name})" : nil ] * ' '
@@ -33,7 +38,7 @@
       %li= filtering_link_to_all(:month)
       - 1.upto(12) do |m|
         %li
-          = link_to_or_span(t('date.abbr_month_names')[m], significant_params.merge(:month => m))
+          = link_to_or_span(t('date.abbr_month_names')[m], significant_params.except(:day).merge(:month => m))
 
   - if @lifelist.blank?
     %p= t('lifelist.basic.no_species')

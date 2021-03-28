@@ -32,7 +32,9 @@ module ApplicationHelper
     if params[parameter].nil?
       content_tag(:span, t("misc.all"))
     else
-      link_to(t("misc.all"), significant_params.merge(parameter => nil))
+      filtered = significant_params
+      filtered = filtered.except(:day) if parameter.to_sym == :month
+      link_to(t("misc.all"), filtered.merge(parameter => nil))
     end
   end
 

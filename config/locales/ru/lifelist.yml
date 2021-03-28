@@ -4,6 +4,7 @@
       lifelist: Мой список (lifelist)
       yearlist: Список %{year} года
       monthlist: Список за %{month}
+      daylist: Список за %{day} %{month}
       yearsublist: '%{year} года'
       countrylist: 'Список страны: %{country}'
       locationlist: 'Местный список: %{location}'
