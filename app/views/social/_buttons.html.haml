@@ -1,7 +1,11 @@
 -# frozen_string_literal: true
-.likely{"data-url": @canonical.presence}
-  .facebook Share
-  .twitter Tweet
-  - if @meta_thumbnail
-    .pinterest{"data-media": @meta_thumbnail} Pin it
-  .telegram Send
+
+- unless Rails.env.test?
+  -# Disable counter requests to facebook and pinterest if the user is not admin
+  - counter = current_user.admin? ? nil : 0
+  .likely{"data-url": @canonical.presence}
+    .facebook{data: {counter: counter}} Share
+    .twitter Tweet
+    - if @meta_thumbnail
+      .pinterest{data: {counter: counter, media: @meta_thumbnail}} Pin it
+    .telegram Send
