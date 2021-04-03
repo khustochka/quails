@@ -9,7 +9,7 @@ jobs:
       matrix:
         include:
           - os: ubuntu-latest
-          - os: [self-hosted, linux, ARM64]
+          - os: [self-hosted, Linux, ARM64]
     services:
       postgres:
         image: postgres:13
