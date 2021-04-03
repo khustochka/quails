@@ -4,7 +4,12 @@ on: [push]
 jobs:
   tests:
     name: Tests
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        includes:
+          - os: ubuntu-latest
+          - os: [self-hosted, linux, ARM64]
     services:
       postgres:
         image: postgres:13
