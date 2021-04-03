@@ -7,7 +7,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        includes:
+        include:
           - os: ubuntu-latest
           - os: [self-hosted, linux, ARM64]
     services:
