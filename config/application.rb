@@ -55,5 +55,9 @@ module Quails
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '{en,ru,uk}','*.{rb,yml}').to_s]
     config.i18n.default_locale = :ru
+
+    config.before_configuration do
+      require 'quails/env'
+    end
   end
 end
