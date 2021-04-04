@@ -13,7 +13,7 @@
         %h1= post.decorated.title
         %time.op-published{:datetime => "#{post.face_date.iso8601}"}
           = I18n.l(post.face_date, format: :long)
-        - mod_time = @dev ? $restart_time : post.updated_at
+        - mod_time = @dev ? Rails.application.config.restart_time : post.updated_at
         %time.op-modified{:datetime => "#{mod_time.iso8601}"}= mod_time
         %address
           = t('author.name')

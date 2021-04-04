@@ -96,8 +96,9 @@ class Media < ApplicationRecord
     cards.first
   end
 
+  # FIXME: refactor, use decorator
   def public_title
-    if I18n.russian_locale? && title.present?
+    if I18n.locale == :ru && title.present?
       title
     else
       species.map(&:name).join(", ")

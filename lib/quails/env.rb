@@ -12,10 +12,6 @@ module Quails
       @arr = @raw.split(":").inquiry
     end
 
-    def rake?
-      defined?(Rake)
-    end
-
     def nil?
       @raw.nil?
     end

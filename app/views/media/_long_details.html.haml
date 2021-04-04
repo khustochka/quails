@@ -8,7 +8,7 @@
   %div
     = media.decorated.public_locus_full_name
 
-- if I18n.russian_locale?
+- if russian_locale?
   = media.decorated.description
 
   - if posts.present?
@@ -16,4 +16,3 @@
     %ul
       - posts.each do |post|
         %li= post_link(post.decorated.title, post, true)
-

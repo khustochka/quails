@@ -3,7 +3,7 @@
 module PublicRoutesHelper
 
   def localized_images_url(*args)
-    if I18n.default_locale?
+    if default_locale?
       images_url(*args)
     else
       localized_root_url(*args)

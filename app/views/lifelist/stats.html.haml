@@ -90,13 +90,13 @@
         %h2= t('.records')
 
     %tr
-      %td.day= link_to_if I18n.russian_locale? && post_for_day_with_max_species, l(day_with_max_species, format: :long), post_for_day_with_max_species
+      %td.day= link_to_if russian_locale? && post_for_day_with_max_species, l(day_with_max_species, format: :long), post_for_day_with_max_species
       %td.place Winnipeg & Shoal Lakes, Manitoba, Canada
       %td.count_sp= max_species_for_day
       %td.count_sp_label= t('misc.species_count', count: max_species_for_day)
 
     %tr
-      %td.day= link_to_if I18n.russian_locale?, l(day_with_max_lifers, format: :long), post_for_day_with_max_lifers
+      %td.day= link_to_if russian_locale?, l(day_with_max_lifers, format: :long), post_for_day_with_max_lifers
       %td.place Jamaica Bay Wildlife Refuge, New York City, USA
       %td.count_new_big= max_lifers_for_day
       %td.count_new_label

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# May be used on heroku
 if ENV['MAILTRAP_API_TOKEN']
   require 'json'
   require "net/http"

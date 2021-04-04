@@ -16,7 +16,7 @@
   = succeed('.') do
     = video.decorated.public_locus_full_name
 
-- if I18n.russian_locale?
+- if russian_locale?
   = video.decorated.description
 
 = render video.small

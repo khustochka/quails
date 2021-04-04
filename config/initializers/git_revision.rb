@@ -20,6 +20,3 @@ if Rails.env.production?
   rescue
   end
 end
-
-# FIXME: used by instant articles development feed
-$restart_time = Time.now
