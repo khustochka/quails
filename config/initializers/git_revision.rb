@@ -10,7 +10,7 @@ unless Rails.env.test?
         repo_folder = File.join(Rails.root, "../../repo")
         if File.directory?(repo_folder)
           Dir.chdir(repo_folder) do
-            Rails.application.config.x.revision.message = `git show -s --format=%B #{sha}`
+            message = `git show -s --format=%B #{sha}`
           end
         end
       end
