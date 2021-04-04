@@ -14,12 +14,16 @@ module GoogleAnalyticsHelper
   end
 
   def show_ga?
-    ga_code.present? && !may_be_admin?
+    ga_analytics? && ga_code.present? && !may_be_admin?
   end
 
   private
 
   def ga_code
     @@ga_code ||= ENV["quails_ga_code"]
+  end
+
+  def ga_analytics?
+    Rails.configuration.analytics == "ga"
   end
 end
