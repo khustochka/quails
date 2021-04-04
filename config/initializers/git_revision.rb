@@ -9,8 +9,8 @@ unless Rails.env.test?
         sha = rev.strip
         repo_folder = File.join(Rails.root, "../../repo")
         if File.directory?(repo_folder)
-          Dir.chdir(repo_folder) do
-            message = `git show -s --format=%B #{sha}`
+          message = Dir.chdir(repo_folder) do
+            `git show -s --format=%B #{sha}`
           end
         end
       end
