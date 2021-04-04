@@ -29,8 +29,9 @@
   %dt LC_CTYPE (should be "en_US.UTF8")
   %dd= @lc_ctype
 
-  - if defined?($revision) && $revision.present?
+  - revision = Rails.application.config.x.respond_to?(:revision) && Rails.application.config.x.revision
+  - if revision.present?
     %dt Revision
     %dd
-      = link_to $revision[0..7], "https://bitbucket.org/khustochka/quails/commits/#{$revision}"
-      = simple_format($commit)
+      = link_to revision.sha[0..7], "https://bitbucket.org/khustochka/quails/commits/#{revision.sha}"
+      = simple_format(revision.message)
