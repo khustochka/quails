@@ -7,14 +7,14 @@ module ShynetHelper
     cache [:shynet, show_shynet: show_shynet?] do
       concat(
         if show_shynet?
-          render partial: "partials/shynet_code", locals: {host: shynet_host, key: shynet_key, user_key: user_key}
+          render partial: "partials/shynet_code", locals: {host: shynet_host, key: shynet_key}
         end
       )
     end
   end
 
   def show_shynet?
-    shynet_analytics? && shynet_host.present? && shynet_key.present?
+    shynet_analytics? && shynet_host.present? && shynet_key.present? && !may_be_admin?
   end
 
   private
