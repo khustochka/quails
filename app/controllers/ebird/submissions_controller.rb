@@ -13,6 +13,13 @@ module Ebird
 
     def show
       @file = Ebird::File.find(params[:id])
+      respond_to do |format|
+        format.html {
+        }
+        format.csv {
+          send_file ::File.join(local_csv_path, "#{@file.name}.csv")
+        }
+      end
     end
 
     def new
@@ -79,7 +86,7 @@ module Ebird
       end
 
       if result
-        flash.notice = "Successfully created CSV file #{helpers.link_to(@file.name, @file.download_url)}".html_safe
+        flash.notice = "Successfully created CSV file #{helpers.link_to(@file.name, ebird_submission_path(id: @file.id, format: :csv))}".html_safe
         redirect_to ebird_submission_url(@file.id)
       else
         if @file.persisted?
@@ -92,6 +99,10 @@ module Ebird
     rescue
       @file.destroy
       raise
+    end
+
+    def local_csv_path
+      ENV["quails_ebird_csv_path"] || "tmp/csv"
     end
 
   end

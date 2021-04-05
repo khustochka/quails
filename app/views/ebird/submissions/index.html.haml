@@ -25,7 +25,7 @@
     %tr
       %td= file.id
       %td= link_to file.name, ebird_submission_path(file.id)
-      %td= link_to "[csv]", file.download_url
+      %td= link_to "[csv]", ebird_submission_path(id: file.id, format: :csv)
       %td= file.created_at.strftime("%F %R")
       %td
         = file.cards.size

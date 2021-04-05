@@ -20,7 +20,7 @@
 
 %dl
   %dt CSV
-  %dd= link_to "[download]", @file.download_url
+  %dd= link_to "[download]", ebird_submission_path(id: @file.id, format: :csv)
 
   %dt Created
   %dd= @file.created_at.strftime("%F %R")
@@ -49,4 +49,4 @@
   %dt Expired (any valid ebird file for the same cards)
   %dd Not implemented
 
-= render @file.cards
+= render partial: "cards/card", collection: @file.cards

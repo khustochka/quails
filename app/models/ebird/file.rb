@@ -26,10 +26,6 @@ class Ebird::File < ApplicationRecord
            dependent: :delete_all, inverse_of: :ebird_file
   has_many :cards, -> { order(:observ_date) }, through: :ebird_submissions, inverse_of: :ebird_files
 
-  def download_url
-    "/csv/#{name}.csv"
-  end
-
   # Is there any card updated after file generation
   def outdated?
     cards.where("updated_at > ?", self.created_at).exists?

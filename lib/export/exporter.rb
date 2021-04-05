@@ -49,7 +49,7 @@ class Exporter
   end
 
   def local_path
-    path = ENV["quails_ebird_csv_path"] || "#{Rails.root}/public/csv"
+    path = ENV["quails_ebird_csv_path"] || "tmp/csv"
     FileUtils.mkdir_p(path)
     path
   end
