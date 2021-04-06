@@ -7,9 +7,7 @@ local:
   root: <%= Rails.root.join("storage") %>
 
 amazon:
-  # Block Production S3 access unless real production, or ACCESS_PROD_S3 allowed (save S3 bandwidth)
-  service: <%= Quails.env.real_prod? || ENV["ACCESS_PROD_S3"] ? "S3" : "Disk" %>
-  root: <%= Quails.env.real_prod? || ENV["ACCESS_PROD_S3"] ? nil : Rails.root.join("storage") %>
+  service: S3
   access_key_id: <%= ENV["quails_aws_access_key_id"] %>
   secret_access_key: <%= ENV["quails_aws_secret_access_key"] %>
   public: true
