@@ -3,7 +3,7 @@ module GoogleSearchHelper
   def include_google_search
     # for some reason 'cache' inside helpers works only with concat
     # This may be related to calling = include_google_analytics vs - include_google_analytics
-    cache [:google_search_old, locale: I18n.locale] do
+    cache [:google_search_old, google_cse, locale: I18n.locale] do
       concat(
         render partial: "partials/search"
       )

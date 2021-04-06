@@ -2,10 +2,10 @@
 
 module BirdingtopHelper
   def include_birdingtop_button
-    if hide_birdingtop?
-      content_tag(:span, "Here be BirdingTop banner.")
-    else
-      render partial: "partials/birdingtop_code"
+    cache [:birdingtop, hide_birdingtop?] do
+      concat(
+        render partial: "partials/birdingtop_code"
+      )
     end
   end
 

@@ -4,29 +4,19 @@ desc "Quick benchmark"
 task benchmark: :environment do
   require "benchmark/ips"
 
-  @base = MyObservation.refine({}).joins(:card)
-  @dates =
+  def func
+    false
+  end
 
   Benchmark.ips do |bench|
-    bench.report("preselect") do
-      @base.select(
-          "first_value(observations.id)
-          OVER (PARTITION BY species_id
-          ORDER BY observ_date ASC, to_timestamp(start_time, 'HH24:MI') ASC NULLS LAST)"
-      ).
-          where("(species_id, observ_date) IN
-                (select species_id, MAX(observ_date)
-                  from observations join cards on card_id=cards.id
-                group by species_id)").
-          to_a
+    bench.report("cache read") do
+      "views/layouts/application:4ff8ef6c2bed23a819e4feaffde9b18e/shynet/show_shynet=#{func}"
     end
 
-    bench.report("full") do
-      @base.select(
-          "first_value(observations.id)
-          OVER (PARTITION BY species_id
-          ORDER BY observ_date ASC, to_timestamp(start_time, 'HH24:MI') ASC NULLS LAST)"
-      ).to_a
+    bench.report("if") do
+      if func
+        puts "This never happens"
+      end
     end
 
     bench.compare!

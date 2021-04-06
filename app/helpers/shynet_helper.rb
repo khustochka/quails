@@ -4,12 +4,14 @@ module ShynetHelper
   def include_shynet
     # for some reason 'cache' inside helpers works only with concat
     # This may be related to calling = include_google_analytics vs - include_google_analytics
-    cache [:shynet, show_shynet: show_shynet?] do
-      concat(
-        if show_shynet?
-          render partial: "partials/shynet_code", locals: {host: shynet_host, key: shynet_key}
-        end
-      )
+    if show_shynet?
+      cache [:shynet, shynet_host, shynet_key] do
+        concat(
+          if show_shynet?
+            render partial: "partials/shynet_code", locals: {host: shynet_host, key: shynet_key}
+          end
+        )
+      end
     end
   end
 

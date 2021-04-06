@@ -3,6 +3,7 @@
   - cache [:banners_footer, admin: current_user.admin?] do
     %div.banners_footer
       %div.banner_holder.birdingtop_holder
+        -# Template Dependency: partials/birdingtop_code
         = include_birdingtop_button
       %div.banner_holder.ebird_banner
         = link_to "https://ebird.org/ebird/profile/MjEzNjU4/world", class: "img", target: "_blank", rel: "me nofollow noopener" do

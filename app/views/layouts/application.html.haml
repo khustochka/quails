@@ -76,6 +76,7 @@
 
     = render 'partials/css_and_js'
 
+    -# Template Dependency: partials/ga_code
     = include_google_analytics
 
   %body{class: @body_class, data: {turbolinks: "false", 'js-controller' => @js_controller, 'js-features' => @js_features.to_json}}
@@ -114,4 +115,5 @@
     - cache [:footer, hide_banners: hide_banners?, hide_birdingtop: hide_birdingtop? ] do
       = render 'partials/footer'
 
+    -# Template Dependency: partials/shynet_code
     = include_shynet

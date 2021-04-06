@@ -1,6 +1,10 @@
 <a href="//www.birdingtop500.com/">
-  <img src="//www.birdingtop500.com/button.php?u=vkhust"
-       alt="Fatbirder's Top 1000 Birding Websites"
-       width="150" height="56"
-    />
+  <% if hide_birdingtop? %>
+    <span class="birdingtop_placeholder">Birdingtop</span>
+  <% else %>
+    <img src="//www.birdingtop500.com/button.php?u=vkhust"
+         alt="Fatbirder's Top 1000 Birding Websites"
+         width="150" height="56"
+      />
+  <% end %>
 </a>

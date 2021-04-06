@@ -51,6 +51,7 @@
 
     = javascript_include_tag "application2"
 
+    -# Template Dependency: partials/ga_code
     = include_google_analytics
 
     %title= page_title
@@ -64,4 +65,5 @@
 
     = render partial: 'app2/footer'
 
+    -# Template Dependency: partials/shynet_code
     = include_shynet

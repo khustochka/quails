@@ -4,12 +4,14 @@ module GoogleAnalyticsHelper
   def include_google_analytics
     # for some reason 'cache' inside helpers works only with concat
     # This may be related to calling = include_google_analytics vs - include_google_analytics
-    cache [:ga, show_ga: show_ga?] do
-      concat(
-        if show_ga?
-          render partial: "partials/ga_code", object: ga_code, as: :code
-        end
-      )
+    if show_ga?
+      cache [:ga, ga_code] do
+        concat(
+          if show_ga?
+            render partial: "partials/ga_code", object: ga_code, as: :code
+          end
+        )
+      end
     end
   end
 
