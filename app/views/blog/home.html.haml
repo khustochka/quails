@@ -15,7 +15,7 @@
 - content_for :jumbo_side do
   %ul.subheader-menu
     %li= link_to(t('menu.archive'), action: :archive)
-    = feed_list_item
+    = render "partials/feed_list_item"
 
 - cache [@posts, admin: current_user.admin?] do
 

@@ -15,7 +15,7 @@
     = page_header
   %ul.subheader-menu
     %li= link_to t('.species_gallery'), gallery_path
-    = feed_list_item
+    = render "partials/feed_list_item"
 
 - unless params[:page] || @images.empty?
   %h3

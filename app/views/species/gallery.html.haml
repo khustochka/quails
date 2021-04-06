@@ -20,7 +20,7 @@
       %li= link_to(t("countries.gallery.title.canada"), country_path(country: 'canada'))
       %li= link_to t('menu.videos'), {action: 'index', controller: 'videos'}
       %li= link_to t('menu.photos'), {action: 'index', controller: 'images'}
-      = feed_list_item
+      = render "partials/feed_list_item"
 
 
   - thumbnails = @species.thumbnails

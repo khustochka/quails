@@ -51,10 +51,6 @@ module ApplicationHelper
     end
   end
 
-  def feed_list_item
-    render "partials/feed_list_item"
-  end
-
   def hide_banners?
     admin_layout? || controller_name == "maps"
   end
