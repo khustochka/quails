@@ -94,14 +94,14 @@ class PostsController < ApplicationController
 
     entry = LiveJournal::Entry.new
     entry.preformatted = true
-    entry.security = :private unless Quails.env.real_prod?
+    entry.security = :private unless Quails.env.live?
     # SafeBuffer breaks 'livejournal' gem, so we are not applying it to 'for_lj.body'
     # And `unsafing` the title with 'to_str'
     entry.subject = @post.decorated.title.to_str
     entry.event = @post.decorated({host: request.host, port: request.port}).for_lj.body
 
     request = if @post.lj_data.url.present?
-                if Quails.env.real_prod?
+                if Quails.env.live?
                   if /livejournal\.com/.match?(@post.lj_data.url)
                     entry.itemid = @post.lj_data.post_id
                     LiveJournal::Request::EditEvent.new(user, entry)

@@ -35,7 +35,7 @@ module Quails
     end
 
     def ssl?
-      @ssl ||= real_prod? || heroku? || puma_dev? || test_for("ssl")
+      @ssl ||= live? || heroku? || puma_dev? || test_for("ssl")
     end
 
     def test_for(key)

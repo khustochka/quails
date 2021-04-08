@@ -10,6 +10,6 @@ module BirdingtopHelper
   end
 
   def hide_birdingtop?
-    !(Rails.env.production? && Quails.env.real_prod?) || current_user.admin? || controller_name == "maps"
+    !(Rails.env.production? && Quails.env.live?) || current_user.admin? || controller_name == "maps"
   end
 end

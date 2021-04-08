@@ -13,7 +13,7 @@
 
 
 
-- if !Quails.env.real_prod?
+- if !Quails.env.live?
   %br/
   THIS IS A TEST. NOT A REAL PRODUCTION ENVIRONMENT.
   - if Rails.env.development?

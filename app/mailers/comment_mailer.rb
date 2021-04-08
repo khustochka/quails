@@ -17,7 +17,7 @@ class CommentMailer < ActionMailer::Base
 
   def notify_parent_author
     to = @comment.parent_comment.commenter.email
-    if (Rails.env.production? && Quails.env.real_prod?) ||
+    if (Rails.env.production? && Quails.env.live?) ||
             (Rails.env.development? && (!perform_deliveries || delivery_method == :letter_opener)) &&
             self.class.default_params[:from] && to.present?
       mail subject: "Ответ на ваш комментарий на сайте birdwatch.org.ua (\"#{@comment.post.decorated.title}\")", to: to

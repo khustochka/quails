@@ -72,7 +72,7 @@ Rails.application.configure do
 
   # Use a real queuing backend for Active Job (and separate queues per environment).
   config.active_job.queue_adapter     = :resque
-  config.active_job.queue_name_prefix = "quails_#{Quails.env.real_prod? ? "REAL_" : ""}#{Rails.env}"
+  config.active_job.queue_name_prefix = "quails_#{Quails.env.live? ? "REAL_" : ""}#{Rails.env}"
 
   config.action_mailer.perform_caching = false
 
@@ -134,7 +134,7 @@ Rails.application.configure do
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
 
-  if Quails.env.real_prod?
+  if Quails.env.live?
     config.hosts << "birdwatch.org.ua"
 
     config.host_authorization = { response_app: -> (_) { [403, {}, ["Incorrect host name"]] } }

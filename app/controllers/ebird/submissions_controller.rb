@@ -62,7 +62,7 @@ module Ebird
     private
 
     def test_prefix
-      if Quails.env.real_prod?
+      if Quails.env.live?
         ""
       else
         "test-"
