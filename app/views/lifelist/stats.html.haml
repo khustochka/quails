@@ -76,9 +76,9 @@
                   = c.name
                 %span.count= link_to count, list_path(locus: c.slug)
 
-  - day_with_max_species = Date.new(2020, 5, 30)
-  - max_species_for_day = 79
-  - post_for_day_with_max_species = show_post_path(2020, "06", "record-day-may-june-2020")
+  - day_with_max_species = Date.new(2020, 7, 4)
+  - max_species_for_day = 92
+  - post_for_day_with_max_species = show_post_path(2021, "04", "second-western-trip-day-1")
 
   - day_with_max_lifers = Date.new(2010, 8, 14)
   - max_lifers_for_day = 15
@@ -90,13 +90,17 @@
         %h2= t('.records')
 
     %tr
-      %td.day= link_to_if russian_locale? && post_for_day_with_max_species, l(day_with_max_species, format: :long), post_for_day_with_max_species
-      %td.place Winnipeg & Shoal Lakes, Manitoba, Canada
+      %td.day
+        %nobr= link_to_if russian_locale? && post_for_day_with_max_species, l(day_with_max_species, format: :long), post_for_day_with_max_species
+      %td.place
+        Winnipeg, Cypress River, Manitoba SW Corner, Saskatchewan SE Corner, Whitewater Lake,
+        Duck Mountain Provincial Park &ndash; Canada
       %td.count_sp= max_species_for_day
       %td.count_sp_label= t('misc.species_count', count: max_species_for_day)
 
     %tr
-      %td.day= link_to_if russian_locale?, l(day_with_max_lifers, format: :long), post_for_day_with_max_lifers
+      %td.day
+        %nobr= link_to_if russian_locale?, l(day_with_max_lifers, format: :long), post_for_day_with_max_lifers
       %td.place Jamaica Bay Wildlife Refuge, New York City, USA
       %td.count_new_big= max_lifers_for_day
       %td.count_new_label
