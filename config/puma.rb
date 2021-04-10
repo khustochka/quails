@@ -1,86 +1,60 @@
-# frozen_string_literal: true
+# Puma can serve each request in a thread from an internal thread pool.
+# The `threads` method setting takes two numbers: a minimum and maximum.
+# Any libraries that use thread pools should be configured to match
+# the maximum value specified for Puma. Default is set to 5 threads for minimum
+# and maximum; this matches the default thread size of Active Record.
+#
+max_threads_count = ENV.fetch("RAILS_MAX_THREADS") { 2 }
+min_threads_count = ENV.fetch("RAILS_MIN_THREADS") { max_threads_count }
+threads min_threads_count, max_threads_count
 
-rails_env = ENV['RACK_ENV'] || ENV['RAILS_ENV'] || 'development'
-is_production = (rails_env == "production")
+# Specifies the `worker_timeout` threshold that Puma will use to wait before
+# terminating a worker in development environments.
+#
+worker_timeout 3600 if ENV.fetch("RAILS_ENV", "development") == "development"
 
-workers_num = Integer(ENV['WEB_CONCURRENCY'] || (is_production ? 2 : 0))
-
-threads_count = Integer(ENV['RAILS_MAX_THREADS'] || 5)
-threads 0, threads_count
-
+# Specifies the `environment` that Puma will run in.
+rails_env = ENV.fetch("RAILS_ENV") { "development" }
 environment rails_env
 
 app_port = ENV['PORT']
 
-# Run on socket in production if port is not specified
+# Run on a socket in production if port is not specified
 # To run in production locally just specify PORT=3000
-if is_production && !app_port
-  deploy_dir = File.expand_path("../../../..", __FILE__)
-  shared_dir = "#{deploy_dir}/shared"
+if rails_env == "production" && !app_port
 
-  # Keep an eye on this. May be an issue.
-  directory "#{deploy_dir}/current"
-
-  bind "unix://#{shared_dir}/tmp/sockets/puma.sock"
-
-  # Do not switch log/pid/state to current dir related path. Supposedly this was the cause of failed restarts.
-  # (Would be good to test though).
-
-# Logging
-  #stdout_redirect "#{shared_dir}/log/puma.stdout.log", "#{shared_dir}/log/puma.stderr.log", true
-
-# Set master PID and state locations
-  pidfile "#{shared_dir}/tmp/pids/puma.pid"
-  state_path "#{shared_dir}/tmp/pids/puma.state"
+  bind "unix:///var/run/quails/puma.sock"
 else
+  # Specifies the `port` that Puma will listen on to receive requests; default is 3000.
+  #
   port app_port || 3000
 end
+# Specifies the `pidfile` that Puma will use.
+pidfile ENV.fetch("PIDFILE") { "tmp/pids/server.pid" }
 
-if !(Puma.jruby? || Puma.windows?) && workers_num > 1
+# Specifies the number of `workers` to boot in clustered mode.
+# Workers are forked web server processes. If using threads and workers together
+# the concurrency of the application would be max `threads` * `workers`.
+# Workers do not work on JRuby or Windows (both of which do not support
+# processes).
+#
+workers ENV.fetch("WEB_CONCURRENCY") { 2 }
+
 # Use the `preload_app!` method when specifying a `workers` number.
 # This directive tells Puma to first boot the application and load code
 # before forking the application. This takes advantage of Copy On Write
-# process behavior so workers use less memory. If you use this option
-# you need to make sure to reconnect any threads in the `on_worker_boot`
-# block.
+# process behavior so workers use less memory.
+#
+preload_app!
 
-  workers workers_num
-  preload_app!
+# Allow puma to be restarted by `rails restart` command.
+plugin :tmp_restart
 
-  # PRESUMABLY NOT NECESSARY IN RAILS 5.2+
-  # If you are preloading your application and using Active Record, it's
-  # recommended that you close any connections to the database before workers
-  # are forked to prevent connection leakage.
-
-  # before_fork do
-  #   if defined?(::ActiveRecord) && defined?(::ActiveRecord::Base)
-  #     ActiveRecord::Base.connection_pool.disconnect!
-  #   end
+on_worker_boot do
+  # if defined?(::ActiveRecord) && defined?(::ActiveRecord::Base)
+  #   ActiveRecord::Base.establish_connection
   # end
-
-  # You should place code to close global log files, redis connections, etc in this block so that their
-  # file descriptors don't leak into the restarted process. Failure to do so will result in slowly
-  # running out of descriptors and eventually obscure crashes as the server is restarted many times.
-
-  # on_restart do
-  #   if defined?(::ActiveRecord) && defined?(::ActiveRecord::Base)
-  #     ActiveRecord::Base.connection_pool.disconnect!
-  #   end
-  # end
-
-  # The code in the `on_worker_boot` will be called if you are using
-  # clustered mode by specifying a number of `workers`. After each worker
-  # process is booted, this block will be run. If you are using the `preload_app!`
-  # option, you will want to use this block to reconnect to any threads
-  # or connections that may have been created at application boot, as Ruby
-  # cannot share connections between processes.
-
-  on_worker_boot do
-    # if defined?(::ActiveRecord) && defined?(::ActiveRecord::Base)
-    #   ActiveRecord::Base.establish_connection
-    # end
-    if defined?(Resque)
-      require File.expand_path("../initializers/resque_connection", __FILE__)
-    end
+  if defined?(Resque)
+    require File.expand_path("../initializers/resque_connection", __FILE__)
   end
 end
