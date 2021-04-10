@@ -47,8 +47,13 @@ workers ENV.fetch("WEB_CONCURRENCY") { 2 }
 #
 preload_app!
 
+# Based on the work of Koichi Sasada and Aaron Patterson, this option may decrease memory utilization
+# of preload-enabled cluster-mode Pumas. It will also increase time to boot and fork. See your logs for
+# details on how much time this adds to your boot process. For most apps, it will be less than one second.
+nakayoshi_fork
+
 # Allow puma to be restarted by `rails restart` command.
-plugin :tmp_restart
+# plugin :tmp_restart
 
 on_worker_boot do
   # if defined?(::ActiveRecord) && defined?(::ActiveRecord::Base)
