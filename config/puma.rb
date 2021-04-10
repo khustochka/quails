@@ -23,7 +23,7 @@ app_port = ENV['PORT']
 # To run in production locally just specify PORT=3000
 if rails_env == "production" && !app_port
 
-  bind "unix:///var/run/quails/puma.sock"
+  bind "unix:///run/quails/puma.sock"
 else
   # Specifies the `port` that Puma will listen on to receive requests; default is 3000.
   #
