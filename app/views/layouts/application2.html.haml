@@ -22,8 +22,8 @@
       %meta{ property: "fb:admins", content: "1567280817" }
     %meta{ property: "fb:pages", content: "129929083830909" }
 
-    = javascript_packs_with_chunks_tag *packs.unshift('visitor')
-    = stylesheet_packs_with_chunks_tag "visitor", media: "all"
+    = javascript_pack_tag *packs.unshift('visitor')
+    = stylesheet_pack_tag "visitor", media: "all"
 
     %link{rel: "preconnect", href: "https://fonts.gstatic.com"}
     = stylesheet_link_tag "https://fonts.googleapis.com/css2?family=Rubik:wght@500&display=swap", media: "all"

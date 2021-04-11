@@ -1,15 +1,13 @@
 process.env.NODE_ENV = process.env.NODE_ENV || 'production'
 
-const environment = require('./environment')
+const webpackConfig = require('./base')
 
-const path = require('path')
-const context = "../.."
-
+// Check if it is still needed
 // prevent exposing full path:
 // https://github.com/webpack/webpack/issues/3603
-environment.config.output.devtoolModuleFilenameTemplate = function(info) {
-        const rel = path.relative(context, info.absoluteResourcePath)
-        return `webpack:///${rel}`
+webpackConfig.config.output.devtoolModuleFilenameTemplate = function(info) {
+    const rel = path.relative(context, info.absoluteResourcePath)
+    return `webpack:///${rel}`
 }
 
-module.exports = environment.toWebpackConfig()
+module.exports = webpackConfig
