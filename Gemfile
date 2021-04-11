@@ -29,6 +29,8 @@ gem "puma"
 gem "dotenv-rails", "~> 2.7"
 # Intentionally disabled in production
 # gem 'bootsnap', require: false
+# For puma systemd integration
+gem "sd_notify"
 
 # Secure password
 gem "bcrypt", "~> 3.1.7"

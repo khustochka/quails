@@ -336,6 +336,7 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
+    sd_notify (0.1.1)
     selenium-webdriver (3.142.7)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
@@ -466,6 +467,7 @@ DEPENDENCIES
   rinku
   roman-numerals
   sassc-rails
+  sd_notify
   selenium-webdriver
   simple_form
   simplecov
