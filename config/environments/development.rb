@@ -89,7 +89,7 @@ Rails.application.configure do
   if Quails.env.puma_dev?
     # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
     config.force_ssl = true
-    # Pumadev ssl port is 9283
-    config.ssl_options = {redirect: {port: 9283}, hsts: false}
+    # Pumadev ssl port is 9283, HSTS expires in 1 minute
+    config.ssl_options = { redirect: { port: 9283 }, hsts: { expires: 60 } }
   end
 end
