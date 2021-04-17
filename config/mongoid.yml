@@ -108,7 +108,7 @@ development:
         # The file containing concatenated certificate authority certificates
         # used to validate certs passed from the other end of the connection.
         # ssl_ca_cert: /path/to/ca.cert
-        
+
         # Whether to truncate long log lines. (default: true)
         # truncate_logs: true
 
@@ -119,18 +119,18 @@ development:
     # exceed 128 bytes. It is also used as the database name if the
     # database name is not explicitly defined. (default: nil)
     # app_name: MyApplicationName
-    
+
     # Create indexes in background by default. (default: false)
     # background_indexing: false
-    
+
     # Mark belongs_to associations as required by default, so that saving a
     # model with a missing belongs_to association will trigger a validation
     # error. (default: true)
     # belongs_to_required_by_default: true
-    
+
     # Raise an exception when a field is redefined. (default: false)
     # duplicate_fields_exception: false
-    
+
     # Include the root model name in json serialization. (default: false)
     # include_root_in_json: false
 
@@ -144,7 +144,7 @@ development:
     # Set the Mongoid and Ruby driver log levels when Mongoid is not using
     # Ruby on Rails logger instance. (default: :info)
     # log_level: :info
-    
+
     # Preload all models in development, needed when models use
     # inheritance. (default: false)
     # preload_models: false
@@ -177,3 +177,12 @@ test:
         read:
           mode: :primary
         max_pool_size: 1
+
+production:
+  # Configure available database clients. (required)
+  clients:
+    # Defines the default client. (required)
+    default:
+      # Mongoid can connect to a URI accepted by the driver:
+      # uri: mongodb://user:password@mongodb.domain.com:27017/db_name
+      uri: <%= ENV["MONGODB_URL"] || "mongodb://localhost:27017/deflicker_production" %>
