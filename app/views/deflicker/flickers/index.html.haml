@@ -57,8 +57,9 @@
   - @photos.each do |photo|
     %tr
       %td
+        - image_url = (photo.removed && photo.slug) ? "/photos/#{photo.slug}.jpg" : photo.url_s
         = link_to photo.url, class: "img", target: :_blank, rel: :noopener do
-          = image_tag(photo.url_s)
+          = image_tag(image_url, class: ["thumb_deflicker_table", photo.removed && photo.slug ? "thumb_deflicker_removed" : ""])
       %td
         %div
           %b= photo.title
