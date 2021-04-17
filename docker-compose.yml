@@ -1,13 +1,15 @@
 services:
   web:
     container_name: quails_web
-    image: quails-app
+    image: quails-app:alpine
     environment:
       RAILS_ENV: production
       DATABASE_URL: postgres://postgres:${POSTGRES_PASSWORD}@database/quails_docker
       RAILS_SERVE_STATIC_FILES: "true"
       REDIS_CACHE_URL: redis://cache
+    # Another approach - copy .env.production nad rely on dotenv
     env_file:
+      # In the env file do not use quotes (neither single nor double)!!!
       - .env.production
     command: .docker/entrypoint.sh
     ports:
@@ -45,10 +47,10 @@ services:
   cache:
     container_name: quails_cache
     image: redis:5-alpine
-    command: redis-server /usr/local/etc/redis/redis.conf
+    # This is cache
+    command: redis-server --maxmemory 25mb --maxmemory-policy allkeys-lru --save 120 1
     # It is beneficial to preserve cache between deploys, but it can be cleared
     volumes:
-      - ./.docker/redis-cache.conf:/usr/local/etc/redis/redis.conf
       - cache_data:/data
 
 # Declare the volumes that our application uses.
