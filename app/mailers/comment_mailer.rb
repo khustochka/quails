@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
-class CommentMailer < ActionMailer::Base
+class CommentMailer < ApplicationMailer
 
   default from: ENV["quails_comment_sender"]
   default to: ENV["quails_comment_reader"]
-
-  layout "mail_layout"
 
   before_action :set_params
 
