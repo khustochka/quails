@@ -26,9 +26,10 @@ MiniTest::Reporters.use!
 Capybara.server = :puma, {Silent: true}
 
 class ActiveSupport::TestCase
+  # Run tests in parallel with specified workers
+  parallelize(workers: ENV["COVERAGE"] ? 1 : :number_of_processors)
 
-  parallelize(workers: ENV["COVERAGE"] ? 1 : 4)
-
+  # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
 
   include FactoryBot::Syntax::Methods
