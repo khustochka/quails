@@ -47,7 +47,6 @@
 !/.rubocop.yml
 !/.ruby-gemset
 !/.ruby-version
-!/.docker
 *~
 AppleDouble
 

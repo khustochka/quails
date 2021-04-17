@@ -6,7 +6,7 @@ WORKDIR /app
 COPY Gemfile /app/Gemfile
 COPY Gemfile.lock /app/Gemfile.lock
 
-ENV RAILS_ENV=production BUNDLE_WITHOUT=development:test:webkit BUNDLE_FROZEN=1
+ENV RAILS_ENV=production DOCKER_ENV=1 BUNDLE_WITHOUT=development:test:webkit BUNDLE_FROZEN=1
 RUN apk update && \
     apk add --no-cache tzdata postgresql-libs && \
 	apk add --no-cache --virtual .build-depends build-base postgresql-dev  && \
@@ -36,4 +36,4 @@ ARG PORT=3000
 EXPOSE ${PORT}
 ENV PORT=${PORT}
 
-CMD ["./.docker/entrypoint.sh"]
+CMD ["./docker-entrypoint.sh"]

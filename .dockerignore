@@ -70,7 +70,6 @@ AppleDouble
 # ADDITIONS
 
 !/.env.production
-!/.docker
 /data
 /doc
 /test
