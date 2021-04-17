@@ -36,7 +36,7 @@ Capybara.javascript_driver = env_js_driver || :selenium_chrome_headless
 
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
-  driven_by $driver, using: $browser
+  driven_by $driver, using: $browser, screen_size: [1400, 1400]
 
   # This stuff is required so that JS tests do not mess up the UI integration tests (which use rack-test)
   setup do
