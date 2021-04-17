@@ -1,0 +1,57 @@
+services:
+  web:
+    container_name: quails_app
+    image: quails-app
+    environment:
+      RAILS_ENV: production
+      DATABASE_URL: postgres://postgres:${POSTGRES_PASSWORD}@database/quails_docker
+      RAILS_SERVE_STATIC_FILES: "true"
+      REDIS_CACHE_URL: redis://cache:6380
+    env_file:
+      - .env.production
+    command: puma -C config/puma.rb
+    ports:
+      - "3001:3000"
+    depends_on:
+      - database
+      - cache
+
+  database:
+    container_name: quails_database
+    image: postgres:13-alpine
+    environment:
+      - "POSTGRES_PASSWORD=${POSTGRES_PASSWORD}"
+    # Temporarily to seed database
+    #    ports:
+    #      - "5499:5432"
+    expose:
+      - 5432
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+      # This copies our init.sql into our container, to
+      # a special file called
+      # /docker-entrypoint-initdb.d/init.sql. Anything
+      # at this location will get executed one per
+      # container, i.e. it will get executed the first
+      # time the container is created but not again.
+      #
+      # The init.sql file is a one-line that creates a
+      # user called (arbitrarily) boats_development.
+      #      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  cache:
+    container_name: quails_cache
+    image: redis:5-alpine
+    command: redis-server /usr/local/etc/redis/redis.conf
+    expose:
+      - 6380
+    # It is beneficial to preserve cache between deploys, but it can be cleared
+    volumes:
+      - ./.docker/redis-cache.conf:/usr/local/etc/redis/redis.conf
+      - cache_data:/data
+
+# Declare the volumes that our application uses.
+volumes:
+  db_data:
+  cache_data:
