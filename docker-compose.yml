@@ -1,6 +1,6 @@
 services:
   web:
-    container_name: quails_app
+    container_name: quails_web
     image: quails-app
     environment:
       RAILS_ENV: production
@@ -9,9 +9,11 @@ services:
       REDIS_CACHE_URL: redis://cache:6380
     env_file:
       - .env.production
-    command: puma -C config/puma.rb
+    command: .docker/entrypoint.sh
     ports:
       - "3001:3000"
+    volumes:
+      - ./log/docker-production.log:/app/log/production.log
     depends_on:
       - database
       - cache

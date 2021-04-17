@@ -69,13 +69,13 @@ AppleDouble
 
 # ADDITIONS
 
-!.env.production
+!/.env.production
+!/.docker
 /data
 /doc
 /test
 /.env
 /.env.local
-/.docker
 /.github
 /config/master.key
 /config/database.yml
