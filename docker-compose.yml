@@ -6,7 +6,7 @@ services:
       RAILS_ENV: production
       DATABASE_URL: postgres://postgres:${POSTGRES_PASSWORD}@database/quails_docker
       RAILS_SERVE_STATIC_FILES: "true"
-      REDIS_CACHE_URL: redis://cache:6380
+      REDIS_CACHE_URL: redis://cache
     env_file:
       - .env.production
     command: .docker/entrypoint.sh
@@ -46,8 +46,6 @@ services:
     container_name: quails_cache
     image: redis:5-alpine
     command: redis-server /usr/local/etc/redis/redis.conf
-    expose:
-      - 6380
     # It is beneficial to preserve cache between deploys, but it can be cleared
     volumes:
       - ./.docker/redis-cache.conf:/usr/local/etc/redis/redis.conf
