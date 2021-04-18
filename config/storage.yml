@@ -17,7 +17,7 @@ amazon:
     cache_control: "public, max-age=2592000"
     acl: public-read
 
-amazon-dev:
+amazon_dev:
   service: S3
   access_key_id: <%= ENV["quails_aws_access_key_id"] %>
   secret_access_key: <%= ENV["quails_aws_secret_access_key"] %>
