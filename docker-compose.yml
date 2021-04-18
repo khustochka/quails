@@ -7,6 +7,7 @@ services:
       DATABASE_URL: postgres://postgres:${POSTGRES_PASSWORD}@database/quails_docker
       RAILS_SERVE_STATIC_FILES: "true"
       REDIS_CACHE_URL: redis://cache
+      REDIS_RESQUE_URL: redis://resque-redis
     # Another approach - copy .env.production nad rely on dotenv
     env_file:
       # In the env file do not use quotes (neither single nor double)!!!
@@ -19,6 +20,7 @@ services:
     depends_on:
       - database
       - cache
+      - resque-redis
 
   database:
     container_name: quails_database
@@ -53,7 +55,16 @@ services:
     volumes:
       - cache_data:/data
 
+  resque-redis:
+    container_name: quails_resque_redis
+    image: redis:5-alpine
+    command: redis-server --save 120 1
+    # Preserve resque data
+    volumes:
+      - resque_jobs_data:/data
+
 # Declare the volumes that our application uses.
 volumes:
   db_data:
   cache_data:
+  resque_jobs_data:
