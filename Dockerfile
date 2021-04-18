@@ -19,7 +19,10 @@ RUN apk update && \
 #RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 #RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 #RUN apt-get update && apt-get install -y nodejs yarn
-RUN apk --no-cache add nodejs yarn && \
+ARG SECRET_KEY_BASE
+ENV SECRET_KEY_BASE=${SECRET_KEY_BASE}
+RUN test -n "${SECRET_KEY_BASE}" || (echo "SECRET_KEY_BASE should be set" && exit 1) && \
+    apk --no-cache add nodejs yarn && \
     yarn install --check-files && \
     bin/rake assets:precompile && \
     yarn cache clean && \

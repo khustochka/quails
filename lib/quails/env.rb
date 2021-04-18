@@ -29,6 +29,10 @@ module Quails
       ENV["PWD"] =~ %r{/.puma-dev/quails\Z}
     end
 
+    def docker?
+      ENV["DOCKER_ENV"].present? || test_for("docker")
+    end
+
     def heroku?
       # DYNO is a unique heroku env var (not seen through `heroku config`). You can also mimic it using QUAILS_ENV
       ENV["DYNO"].present? || test_for("heroku")
