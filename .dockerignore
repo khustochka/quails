@@ -69,7 +69,8 @@ AppleDouble
 
 # ADDITIONS
 
-!/.env.production
+# Do not put any .env files inside the image, they may contain secrets!
+/.env*
 /data
 /doc
 /test
