@@ -4,7 +4,8 @@ FROM ruby:${RUBY_VERSION}-alpine AS quails-app
 WORKDIR /app
 COPY . /app
 
-ENV RAILS_ENV=production DOCKER_ENV=1 BUNDLE_WITHOUT=development:test:webkit BUNDLE_FROZEN=1
+ENV RAILS_ENV=production DOCKER_ENV=1 RAILS_LOG_TO_STDOUT=1
+ENV BUNDLE_WITHOUT=development:test:webkit BUNDLE_FROZEN=1
 RUN apk update && \
     apk add --no-cache tzdata postgresql-libs imagemagick && \
 	apk add --no-cache --virtual .build-depends build-base postgresql-dev  && \

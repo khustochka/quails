@@ -15,8 +15,6 @@ services:
     command: ./docker-entrypoint.sh
     ports:
       - "3001:3000"
-    volumes:
-      - ./log/docker-production.log:/app/log/production.log
     depends_on:
       - database
       - cache
@@ -39,8 +37,6 @@ services:
     env_file:
       # In the env file do not use quotes (neither single nor double)!!!
       - .env.production
-    volumes:
-      - ./log/docker-resque-production.log:/app/log/production.log
     command: bin/rake resque:workers
     depends_on:
       - database
