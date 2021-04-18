@@ -6,7 +6,7 @@ COPY . /app
 
 ENV RAILS_ENV=production DOCKER_ENV=1 BUNDLE_WITHOUT=development:test:webkit BUNDLE_FROZEN=1
 RUN apk update && \
-    apk add --no-cache tzdata postgresql-libs && \
+    apk add --no-cache tzdata postgresql-libs imagemagick && \
 	apk add --no-cache --virtual .build-depends build-base postgresql-dev  && \
     bundle install && \
     rm -rf /usr/local/bundle/cache && \
