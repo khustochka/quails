@@ -2,9 +2,7 @@ ARG RUBY_VERSION=3.0.1
 FROM ruby:${RUBY_VERSION}-alpine AS quails-source
 
 WORKDIR /app
-
-COPY Gemfile /app/Gemfile
-COPY Gemfile.lock /app/Gemfile.lock
+COPY . /app
 
 ENV RAILS_ENV=production DOCKER_ENV=1 BUNDLE_WITHOUT=development:test:webkit BUNDLE_FROZEN=1
 RUN apk update && \
@@ -14,8 +12,6 @@ RUN apk update && \
     rm -rf /usr/local/bundle/cache && \
     rm -rf /root/src /tmp/* /usr/share/man /var/cache/apk/* && \
     apk --purge del .build-depends
-
-COPY . /app
 
 FROM quails-source AS quails-app
 
