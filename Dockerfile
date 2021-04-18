@@ -1,5 +1,5 @@
 ARG RUBY_VERSION=3.0.1
-FROM ruby:${RUBY_VERSION}-alpine AS quails-source
+FROM ruby:${RUBY_VERSION}-alpine AS quails-app
 
 WORKDIR /app
 COPY . /app
@@ -12,8 +12,6 @@ RUN apk update && \
     rm -rf /usr/local/bundle/cache && \
     rm -rf /root/src /tmp/* /usr/share/man /var/cache/apk/* && \
     apk --purge del .build-depends
-
-FROM quails-source AS quails-app
 
 #ARG NODE_VERSION=14
 #RUN curl -fsSL https://deb.nodesource.com/setup_${NODE_VERSION}.x | bash -
