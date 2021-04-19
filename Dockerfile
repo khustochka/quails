@@ -1,5 +1,5 @@
 ARG RUBY_VERSION=3.0.1
-FROM ruby:${RUBY_VERSION}-alpine AS quails-app
+FROM ruby:${RUBY_VERSION}-alpine AS quails-base
 
 WORKDIR /app
 COPY . /app
@@ -13,21 +13,22 @@ RUN apk update && \
     rm -rf /usr/local/bundle/cache && \
     rm -rf /root/src /tmp/* /usr/share/man /var/cache/apk/* && \
     apk --purge del .build-depends
+RUN apk --no-cache add nodejs
 
-#ARG NODE_VERSION=14
-#RUN curl -fsSL https://deb.nodesource.com/setup_${NODE_VERSION}.x | bash -
-#RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-#RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-#RUN apt-get update && apt-get install -y nodejs yarn
+FROM quails-base AS builder
+
 ARG SECRET_KEY_BASE
 ENV SECRET_KEY_BASE=${SECRET_KEY_BASE}
 RUN test -n "${SECRET_KEY_BASE}" || (echo "SECRET_KEY_BASE should be set" && exit 1) && \
-    apk --no-cache add nodejs yarn && \
+    apk --no-cache add yarn && \
     yarn install --check-files && \
-    bin/rake assets:precompile && \
-    yarn cache clean && \
-    apk del yarn
+    bin/rake assets:precompile
 # Cannot remove nodejs because some useless gems need it.
+
+FROM quails-base
+
+COPY --from=builder /app/public/assets /app/public/assets
+COPY --from=builder /app/public/packs /app/public/packs
 
 ARG PORT=3000
 
