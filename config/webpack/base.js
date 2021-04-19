@@ -3,9 +3,9 @@ const { webpackConfig, merge } = require('@rails/webpacker')
 const webpack = require("webpack")
 
 const definePlugin = new webpack.DefinePlugin({
-    "process.env.errbit_api_key": JSON.stringify(process.env.errbit_api_key),
-    "process.env.errbit_host": JSON.stringify(process.env.errbit_host),
-    ERRBIT_CONFIGURED: !!process.env.errbit_api_key && !!process.env.errbit_host
+    "process.env.AIRBRAKE_API_KEY": JSON.stringify(process.env.AIRBRAKE_API_KEY),
+    "process.env.AIRBRAKE_HOST": JSON.stringify(process.env.AIRBRAKE_HOST),
+    ERRBIT_CONFIGURED: !!process.env.AIRBRAKE_API_KEY && !!process.env.AIRBRAKE_HOST
 })
 
 // Optional?

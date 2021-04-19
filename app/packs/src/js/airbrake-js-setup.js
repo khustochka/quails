@@ -1,4 +1,4 @@
-// IMPORTANT NOTE: errbit_api_key and host env vars need to be available at compile time.
+// IMPORTANT NOTE: AIRBRAKE_API_KEY and host env vars need to be available at compile time.
 // JS dotenv is unreliable (reads only one file). The solution is:
 // to load dotenv in bin/webpack-dev-server and bin/webpack
 
@@ -9,9 +9,9 @@ if (ERRBIT_CONFIGURED) {
 
     const airbrake = new Airbrake.Notifier({
         projectId: 1,
-        projectKey: process.env.errbit_api_key,
+        projectKey: process.env.AIRBRAKE_API_KEY,
         environment: railsEnv,
-        host: "https://" + process.env.errbit_host,
+        host: "https://" + process.env.AIRBRAKE_HOST,
         remoteConfig: false,
         performanceStats: false,
         queryStats: false,
