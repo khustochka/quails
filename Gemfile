@@ -107,8 +107,6 @@ group :development do
   gem "web-console", ">= 3.3.0"
   gem "letter_opener"
   gem "letter_opener_web"
-  # letter_opener_web requires it
-  gem "rexml"
 end
 
 group :development, :test do
@@ -118,6 +116,8 @@ group :development, :test do
   gem "pry-stack_explorer"
   # in dev group for generators
   gem "factory_bot_rails"
+  # letter_opener_web, webdrivers require it
+  gem "rexml"
 end
 
 group :test do
