@@ -7,7 +7,25 @@
 
     -# meta tags
     -# encoding
-    %meta{ :content => "text/html; charset=UTF-8", "http-equiv" => "content-type" }
+    -# CACHEABLE (depends on facebook_app_id)
+    - cache ["html_head", facebook_app_id] do
+      %meta{ :content => "text/html; charset=UTF-8", "http-equiv" => "content-type" }
+
+      - if facebook_app_id
+        %meta{ property: "fb:app_id", content: facebook_app_id }
+        %meta{ property: "fb:admins", content: "1567280817" }
+
+      %meta{ property: "fb:pages", content: "129929083830909" }
+
+      -# favicon and other icon-related stuff: http://realfavicongenerator.net/
+      %link{href: "/apple-touch-icon.png", rel: "apple-touch-icon", sizes: "180x180"}/
+      %link{href: "/favicon-32x32.png", rel: "icon", sizes: "32x32", type: "image/png"}/
+      %link{href: "/favicon-16x16.png", rel: "icon", sizes: "16x16", type: "image/png"}/
+      %link{href: "/site.webmanifest", rel: "manifest"}/
+      %link{color: "#5bbad5", href: "/safari-pinned-tab.svg", rel: "mask-icon"}/
+      %meta{name: "msapplication-TileColor", content: "#da532c"}/
+      %meta{content: "#27834e", name: "theme-color"}/
+      -# END CACHEABLE
 
     %title= page_title
     %meta{ property: "og:title", content: page_title }
@@ -27,12 +45,6 @@
 
       - if @og_type
         %meta{ property: "og:type", content: @og_type }
-
-    - if facebook_app_id
-      %meta{ property: "fb:app_id", content: facebook_app_id }
-      %meta{ property: "fb:admins", content: "1567280817" }
-
-    %meta{ property: "fb:pages", content: "129929083830909" }
 
     -# mobile viewport
     - unless @no_viewport
@@ -58,15 +70,6 @@
         = auto_discovery_link_tag(:atom, {:controller => :feeds, :action => @feed, :format => :xml}, :title => @feed)
 
       -# sitemap (index only)
-
-      -# favicon and other icon-related stuff: http://realfavicongenerator.net/
-      %link{href: "/apple-touch-icon.png", rel: "apple-touch-icon", sizes: "180x180"}/
-      %link{href: "/favicon-32x32.png", rel: "icon", sizes: "32x32", type: "image/png"}/
-      %link{href: "/favicon-16x16.png", rel: "icon", sizes: "16x16", type: "image/png"}/
-      %link{href: "/site.webmanifest", rel: "manifest"}/
-      %link{color: "#5bbad5", href: "/safari-pinned-tab.svg", rel: "mask-icon"}/
-      %meta{name: "msapplication-TileColor", content: "#da532c"}/
-      %meta{content: "#27834e", name: "theme-color"}/
 
     -# csfr meta
     = csrf_meta_tags

@@ -2,7 +2,27 @@
 !!!
 %html{lang: I18n.locale}
   %head
-    %meta{ :content => "text/html; charset=UTF-8", "http-equiv" => "content-type" }
+    -# CACHEABLE (depends on facebook_app_id)
+    - cache ["html_head", facebook_app_id] do
+      %meta{ :content => "text/html; charset=UTF-8", "http-equiv" => "content-type" }
+
+      - if facebook_app_id
+        %meta{ property: "fb:app_id", content: facebook_app_id }
+        %meta{ property: "fb:admins", content: "1567280817" }
+
+      %meta{ property: "fb:pages", content: "129929083830909" }
+
+      -# favicon and other icon-related stuff: http://realfavicongenerator.net/
+      %link{href: "/apple-touch-icon.png", rel: "apple-touch-icon", sizes: "180x180"}/
+      %link{href: "/favicon-32x32.png", rel: "icon", sizes: "32x32", type: "image/png"}/
+      %link{href: "/favicon-16x16.png", rel: "icon", sizes: "16x16", type: "image/png"}/
+      %link{href: "/site.webmanifest", rel: "manifest"}/
+      %link{color: "#5bbad5", href: "/safari-pinned-tab.svg", rel: "mask-icon"}/
+      %meta{name: "msapplication-TileColor", content: "#da532c"}/
+      %meta{content: "#27834e", name: "theme-color"}/
+      -# END CACHEABLE
+
+    -# We do not cache this yet, because of the old application layout
     %meta{ name: 'viewport', content: 'width=device-width'}
 
     - if @meta_thumbnail
@@ -17,26 +37,12 @@
     - if @og_type
       %meta{ property: "og:type", content: @og_type }
 
-    - if facebook_app_id
-      %meta{ property: "fb:app_id", content: facebook_app_id }
-      %meta{ property: "fb:admins", content: "1567280817" }
-    %meta{ property: "fb:pages", content: "129929083830909" }
-
     = javascript_pack_tag *packs.unshift('visitor')
     = stylesheet_pack_tag "visitor", media: "all"
 
     %link{rel: "preconnect", href: "https://fonts.gstatic.com"}
     = stylesheet_link_tag "https://fonts.googleapis.com/css2?family=Rubik:wght@500&display=swap", media: "all"
     = stylesheet_link_tag "application2", media: "all"
-
-    -# favicon and other icon-related stuff: http://realfavicongenerator.net/
-    %link{href: "/apple-touch-icon.png", rel: "apple-touch-icon", sizes: "180x180"}/
-    %link{href: "/favicon-32x32.png", rel: "icon", sizes: "32x32", type: "image/png"}/
-    %link{href: "/favicon-16x16.png", rel: "icon", sizes: "16x16", type: "image/png"}/
-    %link{href: "/site.webmanifest", rel: "manifest"}/
-    %link{color: "#5bbad5", href: "/safari-pinned-tab.svg", rel: "mask-icon"}/
-    %meta{name: "msapplication-TileColor", content: "#da532c"}/
-    %meta{content: "#27834e", name: "theme-color"}/
 
     -# See https://github.com/coliff/bootstrap-ie8
     /[if IE 9]
