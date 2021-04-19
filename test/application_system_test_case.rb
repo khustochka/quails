@@ -27,10 +27,10 @@ end
 
 $driver, $browser = case env_js_driver
                     when /\Aselenium(?:_(.*))?/
-                    [:selenium, $1 || :firefox]
-                  else
-                    [env_js_driver, nil]
-                  end
+                      [:selenium, $1 || :firefox]
+                    else
+                      [env_js_driver, nil]
+                    end
 
 Capybara.javascript_driver = env_js_driver || :selenium_chrome_headless
 

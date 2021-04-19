@@ -45,7 +45,7 @@ Rails.application.configure do
   end
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
-  config.active_storage.service = :amazon
+  config.active_storage.service = Quails.env.live? || ENV["PROD_S3"] ? :amazon : :amazon_dev
 
   # Mount Action Cable outside main process or domain.
   # config.action_cable.mount_path = nil
