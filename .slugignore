@@ -1,0 +1,4 @@
+# Slugignore does not support exclusions
+/data
+/doc
+/test
