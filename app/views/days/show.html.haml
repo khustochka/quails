@@ -33,6 +33,7 @@
 - @day.cards.if_present do |cards|
   %h3 Cards
   %ul.cards_list
+    -# Template Dependency: cards/card
     = render cards.default_cards_order(:asc).preload(:post, :locus)
 
 

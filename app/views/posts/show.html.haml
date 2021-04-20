@@ -56,6 +56,7 @@
   %p= link_to('Attach existing cards / observations', edit_post_path(@post, anchor: 'card_attach'))
 
   %ul.cards_list
+    -# Template Dependency: cards/card
     = render @post.cards.default_cards_order(:asc).preload(:post, :locus)
 
     %ul
