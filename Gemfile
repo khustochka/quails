@@ -98,17 +98,21 @@ gem "rack-mini-profiler"
 gem "mongoid"
 gem "kaminari-mongoid"
 
+# Fixes
+# rexml is a bundled gem since ruby 3.0. This means it is not available by default.
+# The following gems depend on it, but have not yet require is as a dependency:
+# aws-sdk-core, coderay (?), letter_opener_web, livejournal2, selenium-webdriver
+gem "rexml"
+
 group :development do
-  gem "listen" # required for tracking file chnages in development
-  gem "nokogiri", platforms: [:ruby, :mingw], require: false
+  gem "listen" # required for tracking file changes in development
+  gem "nokogiri"
   gem "benchmark-ips"
   gem "bundler-audit", require: false
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem "web-console", ">= 3.3.0"
   gem "letter_opener"
   gem "letter_opener_web"
-  # letter_opener_web requires it
-  gem "rexml"
 end
 
 group :development, :test do
@@ -122,7 +126,7 @@ end
 
 group :test do
   gem "capybara"
-  gem "selenium-webdriver"
+  gem "selenium-webdriver", "~> 4.0.0.beta3"
   gem 'webdrivers'
   gem "launchy" # So you can do Then show me the page
   gem "simplecov", require: false, platforms: [:ruby, :mingw]

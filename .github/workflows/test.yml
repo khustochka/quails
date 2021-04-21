@@ -24,13 +24,13 @@ jobs:
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         env:
-          BUNDLE_WITHOUT: webkit
+          BUNDLE_WITHOUT: development:webkit
         with:
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
       - name: Setup Node
         uses: actions/setup-node@v1
         with:
-          node-version: 12.20.1
+          node-version: 14
       - name: Find yarn cache location
         id: yarn-cache
         run: echo "::set-output name=dir::$(yarn cache dir)"
@@ -72,9 +72,9 @@ jobs:
       matrix:
         include:
           - js_driver: webkit
-            bundle_without: ""
+            bundle_without: "development"
           - js_driver: selenium_chrome_headless
-            bundle_without: "webkit"
+            bundle_without: "development:webkit"
     services:
       postgres:
         image: postgres:13
@@ -107,7 +107,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v1
         with:
-          node-version: 12.20.1
+          node-version: 14
       - name: Find yarn cache location
         id: yarn-cache
         run: echo "::set-output name=dir::$(yarn cache dir)"

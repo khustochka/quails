@@ -6,6 +6,7 @@
   %h2#comments= t('.title')
 
   - if top_level_comments
+    -# Template Dependency: comments/comment
     = render top_level_comments
 
 %h3#add_comment= t('.add_comment')

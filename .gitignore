@@ -47,6 +47,7 @@
 !/.rubocop.yml
 !/.ruby-gemset
 !/.ruby-version
+!/.slugignore
 *~
 AppleDouble
 
@@ -64,4 +65,4 @@ AppleDouble
 /coverage
 /public/storage
 
-yarn-error.log
+/yarn-error.log
