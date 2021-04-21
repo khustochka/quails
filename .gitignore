@@ -36,7 +36,7 @@
 # Do not need any hidden files
 .*
 !.keep
-!/.env
+!/.env.TEMPLATE
 !/.env.test
 !/.env.development
 !/.powenv
