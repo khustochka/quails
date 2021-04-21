@@ -30,9 +30,7 @@ FROM quails-base
 COPY --from=builder /app/public/assets /app/public/assets
 COPY --from=builder /app/public/packs /app/public/packs
 
-ARG PORT=3000
-
+ENV PORT=3000
 EXPOSE ${PORT}
-ENV PORT=${PORT}
 
 CMD ["./docker-entrypoint.sh"]

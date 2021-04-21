@@ -37,14 +37,9 @@
 # Do not need any hidden files
 .*
 !.keep
-!/.env
-!/.env.test
-!/.env.development
-!/.powenv
 !/.gitignore
 !/.gitattributes
 !/.gitmodules
-!/.github
 !/.rubocop.yml
 !/.ruby-gemset
 !/.ruby-version
@@ -52,9 +47,6 @@
 AppleDouble
 
 /node_modules
-
-/data/checklists*/
-/data/MyEBirdData*
 
 /config/database.yml
 
@@ -71,11 +63,11 @@ AppleDouble
 
 # Do not put any .env files inside the image, they may contain secrets!
 /.env*
+!/.env.development
+!/.env.test
 /data
 /doc
 /test
-/.env
-/.env.local
 /.github
 /config/master.key
 /config/database.yml
