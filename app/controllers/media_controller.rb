@@ -5,7 +5,7 @@ class MediaController < ApplicationController
   administrative except: [:strip]
 
   # Do not check csrf token for photostrip on the map
-  skip_before_action :verify_authenticity_token, only: :strip
+  skip_forgery_protection only: :strip
 
   def strip
     @strip = true

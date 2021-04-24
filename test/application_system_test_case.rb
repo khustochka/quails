@@ -41,9 +41,11 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   # This stuff is required so that JS tests do not mess up the UI integration tests (which use rack-test)
   setup do
     Capybara.current_driver = ENV["JS_DRIVER"].try(:to_sym) || Capybara.javascript_driver
+    ActionController::Base.allow_forgery_protection = true
   end
   teardown do
     Capybara.use_default_driver
+    ActionController::Base.allow_forgery_protection = false
   end
 
   TEST_CREDENTIALS = {username: ENV["admin_username"], password: ENV["admin_password"]}

@@ -34,7 +34,11 @@ module CapybaraTestCase
   TEST_CREDENTIALS = {username: ENV["admin_username"], password: ENV["admin_password"]}
 
   def self.included(klass)
+    klass.setup do
+      ActionController::Base.allow_forgery_protection = true
+    end
     klass.teardown do
+      ActionController::Base.allow_forgery_protection = false
       Capybara.reset_sessions!
     end
   end
