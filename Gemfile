@@ -74,7 +74,7 @@ gem "airbrake"
 gem "image_processing"
 
 # Assets
-gem "webpacker", "6.0.0.beta.6"
+gem "webpacker", "6.0.0.beta.7"
 gem "sprockets-rails", "~> 3.2", ">= 3.2.2"
 gem "coffee-rails"
 gem "jquery-rails"
