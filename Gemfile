@@ -92,7 +92,7 @@ gem "uglifier", ">= 1.3.0"
 gem "mechanize"
 
 # Profiling
-gem "rack-mini-profiler"
+gem "rack-mini-profiler", require: false # false is required to be able to disable
 
 # Deflicker
 gem "mongoid"

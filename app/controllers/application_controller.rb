@@ -2,9 +2,11 @@
 
 class ApplicationController < ActionController::Base
 
-  before_action do
-    if current_user.admin?
-      Rack::MiniProfiler.authorize_request
+  if Rails.application.config.x.features.rack_profiler
+    before_action do
+      if current_user.admin?
+        Rack::MiniProfiler.authorize_request
+      end
     end
   end
 
