@@ -28,7 +28,7 @@
     = form.input :topic, collection: Post::TOPICS, input_html: {size: '3'}, include_blank: false
     = form.input :status, collection: Post::STATES, input_html: {size: '3'}, include_blank: false
     = form.input :cover_image_slug
-    = form.input :publish_to_facebook
+    = form.input :publish_to_facebook, label: "Publish to Facebook Instant Articles"
 
   .buttons
     = default_submit_button(form)
