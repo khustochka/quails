@@ -61,7 +61,7 @@ class EbirdChecklist
       self.start_time = dt.strftime("%R") # = %H:%M
     end
 
-    protocol = page.at_xpath("//span[contains(@title, 'Protocol:')]").text
+    protocol = page.at_xpath("//div[contains(@title, 'Protocol:')]/span[2]").text
 
     self.effort_type = PROTOCOL_TO_EFFORT[protocol]
 
@@ -103,7 +103,7 @@ class EbirdChecklist
       self.notes = comments
     end
 
-    self.location_string = page.at_xpath("//div[h6[text()='Location']]//span").text
+    self.location_string = page.at_xpath("//div[@data-locationname]").text
 
     self.observations = []
 
@@ -121,7 +121,7 @@ class EbirdChecklist
       comments = row.at_css("div.Observation-comments")
       notes = ""
       if comments
-        notes = comments.at_css("p").children[1].text&.strip
+        notes = comments.at_css("p").text&.strip
         if notes.downcase == "v" || notes.downcase.start_with?("heard")
           voice = true
           notes.gsub!(/^\s*V\s*$\n*/i, "") # Remove V if it is the single letter in a line
