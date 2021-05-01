@@ -1,6 +1,6 @@
 require("channels")
 
-import '../src/js/ebird_importer';
+import '../src/js/admin/ebird_importer';
 
 // Keypress
 import Keypress from "keypress.js";
