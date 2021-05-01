@@ -3,8 +3,6 @@
 - @no_viewport = true
 - @body_class = 'wider'
 
-- @js_features = [:admin_instant_search]
-
 - @page_title = 'EBird Taxonomy'
 
 - provide :add_shortcuts do
@@ -17,5 +15,5 @@
 
 = render partial: "partials/admin_instant_search", locals: {url: ebird_taxa_path}
 
-.instant_search_container
+.instant_search_results
   = render "ebird_taxa/table"

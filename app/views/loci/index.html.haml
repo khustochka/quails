@@ -5,8 +5,6 @@
 
 - javascript 'loci_index'
 
-- @js_features = [:admin_instant_search]
-
 - @page_title = 'Locations'
 
 %h1= page_header
@@ -18,5 +16,5 @@
 
 = render partial: "partials/admin_instant_search", locals: {url: loci_path}
 
-.instant_search_container
+.instant_search_results
   = render "loci/table"
