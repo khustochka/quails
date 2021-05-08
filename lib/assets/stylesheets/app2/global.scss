@@ -12,7 +12,7 @@ body {
   }
 
   // Unbreaking underline! Investigate other options.
-  a, a:hover {
+  * {
     text-decoration-skip-ink: none !important;
   }
 
