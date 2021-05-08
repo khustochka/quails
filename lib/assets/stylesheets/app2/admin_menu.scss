@@ -44,6 +44,6 @@
     color: white;
     font-size: 0.75rem;
     @extend .badge;
-    @extend .badge-danger;
+    @extend .bg-danger;
   }
 }

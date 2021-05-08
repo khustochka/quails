@@ -86,9 +86,9 @@ GEM
       debug_inspector (>= 0.0.1)
     bootsnap (1.7.5)
       msgpack (~> 1.0)
-    bootstrap (4.6.0)
+    bootstrap (5.0.0)
       autoprefixer-rails (>= 9.1.0)
-      popper_js (>= 1.14.3, < 2)
+      popper_js (>= 2.9.2, < 3)
       sassc-rails (>= 2.0.0)
     bson (4.12.0)
     builder (3.2.4)
@@ -245,7 +245,7 @@ GEM
     nokogiri (1.11.3-x86_64-darwin)
       racc (~> 1.4)
     pg (1.2.3)
-    popper_js (1.16.0)
+    popper_js (2.9.2)
     premailer (1.14.3)
       addressable
       css_parser (>= 1.6.0)
@@ -420,7 +420,7 @@ DEPENDENCIES
   bcrypt (~> 3.1.7)
   benchmark-ips
   bootsnap
-  bootstrap (~> 4.5)
+  bootstrap (~> 5.0)
   bundler-audit
   capybara
   capybara-webkit

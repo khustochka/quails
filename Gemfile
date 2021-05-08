@@ -82,7 +82,7 @@ gem "jquery-rails"
 gem "sassc-rails"
 gem "font-awesome-sass", "~> 5.8"
 gem "premailer-rails"
-gem "bootstrap", "~> 4.5"
+gem "bootstrap", "~> 5.0"
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 

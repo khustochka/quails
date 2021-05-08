@@ -19,7 +19,7 @@ body {
   a {
     border-bottom: 1px solid rgba(39,131,78,0.45);
 
-    @include hover() {
+    &:hover {
       border-bottom: 1px solid rgba(39,131,78, 1);
     }
   }

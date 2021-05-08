@@ -56,7 +56,7 @@
     color: #407FBF;
     border-bottom: none;
 
-    @include hover() {
+    &:hover {
       color: #306faf;
       border-bottom: 2px solid rgba(64,127,191,0.6);
     }
@@ -73,7 +73,7 @@
   a.translation {
     color: #ee7711;
 
-    @include hover() {
+    &:hover {
       color: #f58200;
       border-bottom: 2px solid rgba(238, 119, 17, 0.6);
     }
