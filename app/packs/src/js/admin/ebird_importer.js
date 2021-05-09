@@ -26,6 +26,9 @@ document.addEventListener('DOMContentLoaded', function () {
         container.html(data);
         this.unsubscribe();
         refreshComboboxes();
+        var paramName = document.querySelector('meta[name=csrf-param]').content,
+          csrfToken = document.querySelector('meta[name=csrf-token]').content;
+        $("input[name=" + paramName + "]", container).val(csrfToken);
       }
     });
     container.html("<p><i class=\"fas fa-spinner fa-spin\"></i> Please wait, refreshing the checklists</p>");
