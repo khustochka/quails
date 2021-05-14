@@ -68,7 +68,7 @@ class JSImagesTest < ApplicationSystemTestCase
     end
 
     # Chrome and Firefox often fail here without the delay.
-    sleep 0.3 if $driver =~ /\Aselenium/
+    sleep 0.3 if $js_driver =~ /\Aselenium/
     find(:xpath, "//ul[contains(@class,'found-obs')]/li[1]").drag_to find(".observation_list")
 
     assert_difference("Image.count", 1) { save_and_check }

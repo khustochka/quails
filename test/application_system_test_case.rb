@@ -9,13 +9,15 @@ rescue LoadError
 end
 
 # :selenium_chrome_headless unfortunately is slower
-DEFAULT_JS_DRIVER = defined?(Capybara::Webkit) ? :webkit : :selenium_chrome_headless
+DEFAULT_JS_DRIVER = defined?(Capybara::Webkit) ? :webkit : :selenium
+$js_driver = ENV["JS_DRIVER"]&.to_sym || DEFAULT_JS_DRIVER
 
-env_js_driver = ENV["JS_DRIVER"]&.to_sym || DEFAULT_JS_DRIVER
+DEFAULT_JS_BROWSER = $js_driver == :selenium ? :headless_chrome : nil
+$js_browser = ENV["JS_BROWSER"]&.to_sym || DEFAULT_JS_BROWSER
 
-puts "[NOTE] Using driver: #{env_js_driver}"
+puts "[NOTE] Using driver: #{$js_driver}" + ($js_browser ? ", browser: #{$js_browser}" : "")
 
-if env_js_driver =~ /\Awebkit/ && defined?(Capybara::Webkit)
+if $js_driver =~ /\Awebkit/ && defined?(Capybara::Webkit)
   require "core_ext/capybara/webkit/node"
   Capybara::Webkit.configure do |config|
     config.block_unknown_urls
@@ -25,28 +27,9 @@ if env_js_driver =~ /\Awebkit/ && defined?(Capybara::Webkit)
   end
 end
 
-$driver, $browser = case env_js_driver
-                    when /\Aselenium(?:_(.*))?/
-                      [:selenium, $1 || :firefox]
-                    else
-                      [env_js_driver, nil]
-                    end
-
-Capybara.javascript_driver = env_js_driver || :selenium_chrome_headless
-
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
-  driven_by $driver, using: $browser, screen_size: [1400, 1400]
-
-  # This stuff is required so that JS tests do not mess up the UI integration tests (which use rack-test)
-  setup do
-    Capybara.current_driver = ENV["JS_DRIVER"].try(:to_sym) || Capybara.javascript_driver
-    ActionController::Base.allow_forgery_protection = true
-  end
-  teardown do
-    Capybara.use_default_driver
-    ActionController::Base.allow_forgery_protection = false
-  end
+  driven_by $js_driver, using: $js_browser
 
   TEST_CREDENTIALS = {username: ENV["admin_username"], password: ENV["admin_password"]}
 
@@ -93,7 +76,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   end
 
   def chrome_driver?
-    Capybara.current_driver.to_s =~ /chrome/
+    $js_browser.to_s =~ /chrome/
   end
 
 end

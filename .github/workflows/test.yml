@@ -72,8 +72,10 @@ jobs:
       matrix:
         include:
           - js_driver: webkit
+            js_browser: nil
             bundle_without: "development"
-          - js_driver: selenium_chrome_headless
+          - js_driver: selenium
+            js_browser: headless_chrome
             bundle_without: "development:webkit"
     services:
       postgres:
@@ -138,10 +140,11 @@ jobs:
           COVERAGE: 1
           MINITEST_REPORTER: Minitest::Reporters::SpecReporter
           JS_DRIVER: ${{ matrix.js_driver }}
+          JS_BROWSER: ${{ matrix.js_browser }}
         run: xvfb-run bin/rake test:system
       - name: Screenshots
         uses: actions/upload-artifact@v2
         if: failure()
         with:
-          name: Screenshots-${{ matrix.js_driver }}
+          name: Screenshots-${{ matrix.js_driver }}-${{ matrix.js_browser }}
           path: tmp/screenshots
