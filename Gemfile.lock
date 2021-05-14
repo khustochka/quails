@@ -107,7 +107,7 @@ GEM
     capybara-webkit (1.15.1)
       capybara (>= 2.3, < 4.0)
       json
-    childprocess (4.0.0)
+    childprocess (3.0.0)
     coderay (1.1.3)
     concurrent-ruby (1.1.8)
     connection_pool (2.2.5)
@@ -330,11 +330,9 @@ GEM
       sprockets-rails
       tilt
     sd_notify (0.1.1)
-    selenium-webdriver (4.0.0.beta3)
-      childprocess (>= 0.5, < 5.0)
-      rexml (~> 3.2)
+    selenium-webdriver (3.142.7)
+      childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
-      websocket (~> 1.0)
     semantic_range (3.0.0)
     sexp_processor (4.15.2)
     simple_form (5.1.0)
@@ -388,7 +386,6 @@ GEM
       semantic_range (>= 2.3.0)
     webrick (1.7.0)
     webrobots (0.1.2)
-    websocket (1.2.9)
     websocket-driver (0.7.3)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -463,7 +460,7 @@ DEPENDENCIES
   roman-numerals
   sassc-rails
   sd_notify
-  selenium-webdriver (~> 4.0.0.beta3)
+  selenium-webdriver (~> 3.142)
   simple_form
   simplecov
   simplecov-teamcity-summary
