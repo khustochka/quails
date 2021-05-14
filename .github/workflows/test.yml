@@ -77,6 +77,9 @@ jobs:
           - js_driver: selenium
             js_browser: headless_chrome
             bundle_without: "development:webkit"
+          - js_driver: selenium
+            js_browser: headless_firefox
+            bundle_without: "development:webkit"
     services:
       postgres:
         image: postgres:13
