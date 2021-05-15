@@ -76,15 +76,11 @@ gem "image_processing"
 # Assets
 gem "webpacker", "6.0.0.beta.7"
 gem "sprockets-rails", "~> 3.2", ">= 3.2.2"
-#gem "coffee-rails"
 gem "jquery-rails"
-# gem 'respond-js-rails'
 gem "sassc-rails"
 gem "font-awesome-sass", "~> 5.8"
 gem "premailer-rails"
 gem "bootstrap", "~> 5.0"
-
-# See https://github.com/sstephenson/execjs#readme for more supported runtimes
 
 gem "uglifier", ">= 1.3.0"
 
