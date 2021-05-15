@@ -71,13 +71,16 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - js_driver: webkit
+          - name: Webkit
+            js_driver: webkit
             js_browser: nil
             bundle_without: "development"
-          - js_driver: selenium
+          - name: Chrome
+            js_driver: selenium
             js_browser: headless_chrome
             bundle_without: "development:webkit"
-          - js_driver: selenium
+          - name: Firefox
+            js_driver: selenium
             js_browser: headless_firefox
             bundle_without: "development:webkit"
     services:
