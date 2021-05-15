@@ -36,6 +36,9 @@ module CapybaraTestCase
   def self.included(klass)
     klass.setup do
       ActionController::Base.allow_forgery_protection = true
+      # When all tests are run, systems tests mess with Capybara by switching the driver.
+      # Here we force UI tests to use default driver (rack_test).
+      Capybara.current_driver = Capybara.default_driver
     end
     klass.teardown do
       ActionController::Base.allow_forgery_protection = false
