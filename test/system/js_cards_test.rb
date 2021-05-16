@@ -272,7 +272,7 @@ class JSCardsTest < ApplicationSystemTestCase
     assert_nil card.reload.post_id
   end
 
-  test "Attach card to the post" do
+  test "Attach card to post" do
     create(:card, observ_date: "2010-06-18")
 
     p = create(:post)
@@ -282,6 +282,8 @@ class JSCardsTest < ApplicationSystemTestCase
     fill_in_date("Date:", "2010-06-18")
 
     click_button("Search")
+
+    sleep 0.1
 
     assert_css "li.observ_card"
 
