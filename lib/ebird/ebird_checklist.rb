@@ -26,12 +26,22 @@ class EbirdChecklist
     "https://ebird.org/view/checklist/#{ebird_id}"
   end
 
+  def edit_url
+    "https://ebird.org/edit/checklist?subID=#{ebird_id}"
+  end
+
   def fetch!(client = nil)
     agent = client || EbirdClient.new
 
     page = agent.fetch_checklist(self)
 
     parse!(page)
+  end
+
+  def fix!(client = nil)
+    agent = client || EbirdClient.new
+
+    agent.fix_checklist(self)
   end
 
   def to_card
