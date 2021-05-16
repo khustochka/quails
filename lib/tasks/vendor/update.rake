@@ -10,12 +10,6 @@ namespace :vendor do
 
     #desc 'Update Javascripts'
     task :javascripts do
-      #require './config/initializers/jquery'
-
-      # puts "\n=== Getting JQuery #{JQUERY_CDN.scan(/\d\.\d\.\d/)[0]} ==="
-      # system "curl http:#{JQUERY_CDN} -o vendor/assets/javascripts/jquery.min.js"
-      # puts "\n=== Getting latest JQuery-ujs ==="
-      # system "curl https://raw.githubusercontent.com/rails/jquery-ujs/master/src/rails.js -o vendor/assets/javascripts/jquery_ujs.js"
       puts "\n=== Getting latest HTML5shiv for IE ==="
       system "curl https://raw.githubusercontent.com/aFarkas/html5shiv/master/src/html5shiv.js -o vendor/assets/javascripts/html5.js"
       #puts "\n=== Getting latest JSON3 parser for IE ==="
