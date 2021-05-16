@@ -8,12 +8,13 @@ rescue LoadError
   puts "[NOTE] capybara-webkit not available"
 end
 
-# :selenium_chrome_headless unfortunately is slower
-DEFAULT_JS_DRIVER = defined?(Capybara::Webkit) ? :webkit : :selenium
-$js_driver = ENV["JS_DRIVER"]&.to_sym || DEFAULT_JS_DRIVER
+default_driver = defined?(Capybara::Webkit) ? :webkit : :selenium
+$js_driver = ENV["JS_DRIVER"]&.to_sym ||
+  (ENV["JS_BROWSER"].present? ? :selenium : default_driver)
 
-DEFAULT_JS_BROWSER = $js_driver == :selenium ? :headless_chrome : nil
-$js_browser = ENV["JS_BROWSER"]&.to_sym || DEFAULT_JS_BROWSER
+# Browsers are: chrome, firefox, headless_chrome, headless_firefox
+$js_browser = ENV["JS_BROWSER"]&.to_sym ||
+  ($js_driver == :selenium ? :headless_chrome : nil)
 
 puts "[NOTE] Using driver: #{$js_driver}" + ($js_browser ? ", browser: #{$js_browser}" : "")
 
