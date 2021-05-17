@@ -11,6 +11,6 @@ class EbirdImportChecklistJob < ApplicationJob
     card.locus_id = locus_id
     card.resolved = true
     card.save!
-    EbirdImportChecklistJob.perform_later(ebird_id)
+    EbirdChecklistFixJob.perform_later(ebird_id)
   end
 end
