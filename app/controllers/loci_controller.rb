@@ -15,6 +15,7 @@ class LociController < ApplicationController
                  Locus.order(:id).cached_ancestry_preload.page(params[:page])
                end
     @loci = @loci.preload(:observations, :patch_observations)
+    preload_parent(@loci)
     if request.xhr?
       render partial: "loci/table", layout: false
     else
@@ -88,5 +89,14 @@ class LociController < ApplicationController
       end
     end
     head :no_content
+  end
+
+  private
+  def preload_parent(loci)
+    parent_ids = loci.map(&:parent_id)
+    parents = Locus.where(id: parent_ids).index_by(&:id)
+    loci.each do |loc|
+      loc.send(:set_parent, parents[loc.parent_id])
+    end
   end
 end

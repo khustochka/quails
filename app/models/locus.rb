@@ -57,6 +57,15 @@ class Locus < ApplicationRecord
 
   # Instance methods
 
+  # Override ancestry method, memoize
+  def parent
+    return @__parent if @parent_loaded
+    super.tap do |parent_loc|
+      @__parent = parent_loc
+      @parent_loaded = true
+    end
+  end
+
   def checklist(to_include = [])
     local_species.
         joins(species: to_include).
@@ -101,6 +110,16 @@ class Locus < ApplicationRecord
   end
 
   private
+
+  def set_parent(p)
+    if p.kind_of?(Locus)
+      @__parent = p
+      @parent_loaded = true
+      @__parent
+    else
+      nil
+    end
+  end
 
   def generate_slug
     slug.presence or self.slug = name_en.downcase.gsub(?', "").gsub(" - ", ?_).gsub("--", ?_).gsub(/[^\d\w_]+/, ?_)

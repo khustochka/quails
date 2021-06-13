@@ -4,6 +4,8 @@ module Search
 
   class LociSearch < Unweighted
 
+    DEFAULT_LIMIT = 20
+
     def find
       return Locus.none if @term.blank?
       rel = @base.
