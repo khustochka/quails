@@ -15,6 +15,9 @@
 
 = @card.decorated.notes
 
+- if @card.motorless
+  %h3 &bull; Motorless
+
 - if @card.post || @card.secondary_posts.present?
   %h3 Posts
   %ul

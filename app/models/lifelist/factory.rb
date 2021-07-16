@@ -28,7 +28,7 @@ module Lifelist
     end
 
     def years
-      @years ||= [nil] + MyObservation.refine(normalized_filter.merge({year: nil})).years
+      @years ||= [nil] + MyObservation.refine(normalized_filter.merge({year: nil, motorless: nil})).years
     end
 
     def locus

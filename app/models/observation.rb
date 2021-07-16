@@ -49,6 +49,7 @@ class Observation < ApplicationRecord
     rel = rel.joins(:card).where("EXTRACT(month from cards.observ_date)::integer = ?", options[:month]) unless options[:month].blank?
     rel = rel.joins(:card).where("EXTRACT(day from cards.observ_date)::integer = ?", options[:day]) unless options[:day].blank? || options[:month].blank?
     rel = rel.joins(:card).where("cards.locus_id IN (?) OR observations.patch_id IN (?)", options[:locus], options[:locus]) unless options[:locus].blank?
+    rel = rel.joins(:card).where(cards: { motorless: true }) if options[:motorless]
     rel
   end
 

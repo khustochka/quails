@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_13_034033) do
+ActiveRecord::Schema.define(version: 2021_07_15_233820) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,6 +68,7 @@ ActiveRecord::Schema.define(version: 2021_03_13_034033) do
     t.float "area_acres"
     t.boolean "resolved", default: false, null: false
     t.string "ebird_id"
+    t.boolean "motorless", default: false, null: false
     t.index ["locus_id"], name: "index_cards_on_locus_id"
     t.index ["observ_date"], name: "index_cards_on_observ_date"
     t.index ["post_id"], name: "index_cards_on_post_id"

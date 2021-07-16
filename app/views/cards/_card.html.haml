@@ -56,12 +56,12 @@
         %small= link_to "eBird", "https://ebird.org/ebird/view/checklist?subID=#{card.ebird_id}"
 
     %li.card_time
-      = card.start_time + ", " if card.start_time
-      = card.duration_minutes.to_s + " min, " if card.duration_minutes
-      = card.distance_kms.to_s + " km" if card.distance_kms
+      = [card.start_time, card.duration_minutes.to_s, card.distance_kms.to_s].zip(["", " min", " km"]).delete_if {|v, m| v.blank?}.map(&:join).join(", ")
       - card.observers.if_present do |observers|
         &bull;
         %b= observers
+    - if card.motorless?
+      %b Motorless
 
     - params[:obs].if_present do |obs|
       = link_to 'Attach here', attach_card_path(card, obs: obs), class: 'pseudolink', data: {method: :post}
