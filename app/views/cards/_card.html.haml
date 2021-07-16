@@ -53,7 +53,7 @@
         %small.draft.tag UNRESOLVED
 
       - if card.ebird_id
-        %small= link_to "eBird", "https://ebird.org/ebird/view/checklist?subID=#{card.ebird_id}"
+        %small= link_to "eBird", "https://ebird.org/checklist/#{card.ebird_id}"
 
     %li.card_time
       = [card.start_time, card.duration_minutes.to_s, card.distance_kms.to_s].zip(["", " min", " km"]).delete_if {|v, m| v.blank?}.map(&:join).join(", ")
