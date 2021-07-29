@@ -28,7 +28,7 @@
               %i.less-important.fas.fa-globe.full_name_icon{title: loc_name, "data-title": loc_name}
       %td
         - if locus.parent_id
-          = link_to locus.parent.name_en, edit_locus_path(locus.parent_id)
+          = link_to locus.parent.name_en, edit_locus_path(locus.parent.slug)
       %td.align-center
         %small= latlon(locus)
       %td.align-right
