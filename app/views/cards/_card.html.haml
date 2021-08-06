@@ -62,6 +62,10 @@
         %b= observers
     - if card.motorless?
       %b Motorless
+    - else
+      = link_to 'Mark motorless',
+                {action: :update, id: card.id, card: {motorless: true}, format: :json}, method: :put,
+                remote: true, class: 'pseudolink mark_motorless'
 
     - params[:obs].if_present do |obs|
       = link_to 'Attach here', attach_card_path(card, obs: obs), class: 'pseudolink', data: {method: :post}
