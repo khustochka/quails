@@ -45,6 +45,10 @@ class EbirdChecklist
   end
 
   def to_card
+    ml = !!(notes =~ /^ML/i)
+    if notes =~ /\AML\s*\Z/
+      notes = ""
+    end
     Card.new(
             ebird_id: ebird_id,
             observ_date: observ_date,
@@ -56,6 +60,7 @@ class EbirdChecklist
             observers: observers,
             notes: notes || "",
             #locus: locus,
+            motorless: ml,
             observations: observations.map {|obs| Observation.new(obs)}
     )
   end
@@ -107,7 +112,7 @@ class EbirdChecklist
       end
     end
 
-    comments = page.at_xpath("//section[h6[text()='Comments']]/p[contains(@class, 'u-constrainBody')]")&.text
+    comments = page.at_xpath("//section[h3[text()='Checklist Comments']]/p[contains(@class, 'u-constrainBody')]")&.text
 
     unless comments == "N/A"
       self.notes = comments
