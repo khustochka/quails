@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_15_233820) do
+ActiveRecord::Schema.define(version: 2021_08_21_022834) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -229,8 +229,6 @@ ActiveRecord::Schema.define(version: 2021_07_15_233820) do
     t.string "status", limit: 16, default: "PUBLIC"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer "media_series_id"
-    t.index ["media_series_id"], name: "index_media_on_media_series_id"
     t.index ["slug"], name: "index_media_on_slug", unique: true
   end
 
@@ -239,11 +237,6 @@ ActiveRecord::Schema.define(version: 2021_07_15_233820) do
     t.integer "observation_id", null: false
     t.index ["media_id"], name: "index_media_observations_on_media_id"
     t.index ["observation_id"], name: "index_media_observations_on_observation_id"
-  end
-
-  create_table "media_series", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "observations", id: :serial, force: :cascade do |t|
@@ -363,7 +356,6 @@ ActiveRecord::Schema.define(version: 2021_07_15_233820) do
   add_foreign_key "ebird_taxa", "ebird_taxa", column: "parent_id", on_delete: :restrict
   add_foreign_key "local_species", "loci", on_delete: :cascade
   add_foreign_key "local_species", "species", on_delete: :cascade
-  add_foreign_key "media", "media_series", on_delete: :nullify
   add_foreign_key "media", "spots", on_delete: :nullify
   add_foreign_key "media_observations", "media", on_delete: :cascade
   add_foreign_key "media_observations", "observations", on_delete: :restrict

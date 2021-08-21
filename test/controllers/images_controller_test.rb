@@ -123,14 +123,6 @@ class ImagesControllerTest < ActionController::TestCase
     assert_response :redirect
   end
 
-  test "show image in the series" do
-    img = create(:image)
-    img2 = create(:image)
-    MediaSeries.create(media: [img, img2])
-    get :show, params: {id: img.to_param}
-    assert_response :success
-  end
-
   test "get edit" do
     login_as_admin
     get :edit, params: {id: @image.to_param}
@@ -226,20 +218,6 @@ class ImagesControllerTest < ActionController::TestCase
     observation = create(:observation, taxon: taxa(:aves_sp))
     img = create(:image, slug: "picture-of-the-unknown", observations: [observation])
     get :show, params: {id: img}
-  end
-
-  test "get series page" do
-    create(:image, observations: [@obs])
-    login_as_admin
-    get :series
-    assert assigns(:observations).any?
-  end
-
-  test "image and video should not be considered series" do
-    create(:video, observations: [@obs])
-    login_as_admin
-    get :series
-    assert assigns(:observations).none?
   end
 
   test "do not show link to private post to public user on image page" do

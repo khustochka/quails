@@ -101,7 +101,6 @@ Rails.application.routes.draw do
       post 'patch'
     end
     collection do
-      get 'series'
       post 'upload'
     end
   end
@@ -270,7 +269,6 @@ Rails.application.routes.draw do
 
   scope "/media" do
     get "unmapped" => "media#unmapped"
-    resources :series, controller: "media_series"
   end
 
   get '/reports', controller: :reports, action: :index, as: :reports
