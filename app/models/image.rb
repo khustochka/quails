@@ -7,8 +7,6 @@ class Image < Media
 
   STATES = %w(PUBLIC NOINDEX POST_ONLY EBIRD_ONLY PRIVATE)
 
-  has_many :children, -> { basic_order }, class_name: "Image", foreign_key: "parent_id"
-
   has_one_attached :stored_image
 
   validates :external_id, uniqueness: true, allow_nil: true, exclusion: {in: [""]}
