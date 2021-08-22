@@ -56,8 +56,6 @@ AppleDouble
 /data/checklists*/
 /data/MyEBirdData*
 
-/config/database.yml
-
 /public/csv
 /public/packs
 /public/packs-test
