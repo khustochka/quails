@@ -14,11 +14,17 @@ class Media < ApplicationRecord
   has_many :spots, through: :observations
   belongs_to :spot, optional: true
 
+  has_one :external_asset, inverse_of: :media
+
   validate :consistent_observations
 
   validates :slug, uniqueness: true, presence: true, length: {maximum: 64}
 
   after_update :update_spot
+
+  %w[ photo video ].each do |key|
+    scope "#{key}s".to_sym, -> { where(media_type: key) }
+  end
 
   AVAILABLE_CLASSES = {
       "photo" => "Image",
@@ -122,7 +128,22 @@ class Media < ApplicationRecord
     media_type == "video"
   end
 
+  def representation(**args)
+    @representation ||= representation_class.new(self, **args)
+  end
+
   private
+
+  def representation_class
+    case media_type
+    when "photo"
+      Medias::PhotoRepresentation
+    when "video"
+      Medias::VideoRepresentation
+    else
+      raise "No representation class for media type '#{media_type}'."
+    end
+  end
 
   def consistent_observations
     obs = Observation.where(id: observation_ids)
