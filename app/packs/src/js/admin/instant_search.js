@@ -14,7 +14,7 @@ class InstantSearch {
     this.container.on("input", ".instant_search_input", function () {
       let value = $(this).prop("value");
       if (_this.requestTimeout) window.clearTimeout(_this.requestTimeout);
-      this.requestTimeout = window.setTimeout(function () {
+      _this.requestTimeout = window.setTimeout(function () {
         _this.sendRequest(value)
       }, 500)
     });
