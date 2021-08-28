@@ -78,9 +78,9 @@ Rails.application.routes.draw do
     # new, create, destroy - not present
     collection do
       get 'admin', action: :index
-
       get "admin/search", action: :admin_search
 
+      get :review
       get "synonyms" => "synonyms#index"
       patch "synonyms/:id" => "synonyms#update"
 

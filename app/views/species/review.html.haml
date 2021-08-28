@@ -1,0 +1,10 @@
+- @page_title = "Species that need review"
+
+%h1= page_header
+
+= render 'admin/shortcuts' if current_user.admin?
+
+%ul
+  - @species.each do |sp|
+    %li
+      = link_to sp.name_sci, edit_species_path(sp)
