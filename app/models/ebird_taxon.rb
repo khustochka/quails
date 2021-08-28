@@ -30,13 +30,13 @@ class EbirdTaxon < ApplicationRecord
     end
   end
 
-  def promote
+  def promote(species: nil)
     return taxon if taxon
 
     ActiveRecord::Base.transaction do
       # If parent exists promote it
       promoted_parent = if parent
-                          parent.promote
+                          parent.promote(species: species)
                         else
                           nil
                         end
@@ -65,7 +65,7 @@ class EbirdTaxon < ApplicationRecord
       # Create or update species if necessary
 
       if category == "species"
-        new_taxon.lift_to_species
+        new_taxon.lift_to_species(species: species)
       end
 
       # Return the taxon
