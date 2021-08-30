@@ -82,6 +82,10 @@ class SpeciesController < ApplicationController
     render json: result
   end
 
+  def review
+    @species = Species.where(needs_review: true)
+  end
+
   private
   def find_species
     @species = Species.find_by!(name_sci: Species.humanize(params[:id]))

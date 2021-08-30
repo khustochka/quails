@@ -125,10 +125,6 @@ class Species < ApplicationRecord
     Thumbnail.new(self, {partial: "species/thumb_title"}, self.image)
   end
 
-  def destroy
-    raise "Destroying species not allowed!"
-  end
-
   # Validations
 
   def code_and_legacy_code_uniqueness

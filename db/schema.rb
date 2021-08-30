@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_23_012225) do
+ActiveRecord::Schema.define(version: 2021_08_28_181836) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -264,8 +264,11 @@ ActiveRecord::Schema.define(version: 2021_08_23_012225) do
     t.string "order", null: false
     t.string "family", null: false
     t.string "authority"
-    t.boolean "reviewed", default: false, null: false
     t.integer "index_num", null: false
+    t.boolean "name_en_overwritten", default: false, null: false
+    t.boolean "needs_review", default: false, null: false
+    t.datetime "created_at", precision: 6
+    t.datetime "updated_at", precision: 6
     t.index ["index_num"], name: "index_species_on_index_num"
     t.index ["name_sci"], name: "index_species_on_name_sci"
   end
