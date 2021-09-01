@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module VideoEmbedderHelper
-  def video_embed(term, size = :large)
+  def video_embed(term, size = :full_size)
     if video = Video.find_by(slug: term)
       embed = video.representation(privacy: false).send(size)
       VideoEmbedderHelper.erb_template.result(binding)

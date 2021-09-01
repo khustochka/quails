@@ -34,7 +34,7 @@
   -#    - @image.representer.yield_self do |rep|
   -#      = image_tag(rep.large, sizes: rep.fullscreen_sizes, srcset: srcset_convert_urls(rep.srcset), alt: t(".main_img_alt", title: @image.decorated.title))
 
-  = media_for_main_page(@image)
+  = full_size_media(@image)
 
   %div.image_info_pane
 
