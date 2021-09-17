@@ -64,7 +64,8 @@
       %b Motorless
     - else
       = link_to 'Mark motorless',
-                {action: :update, id: card.id, card: {motorless: true}, format: :json}, method: :put,
+                card_path(card.id, {card: {motorless: true}, format: :json}),
+                method: :put,
                 remote: true, class: 'pseudolink mark_motorless'
 
     - params[:obs].if_present do |obs|
