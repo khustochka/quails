@@ -144,6 +144,10 @@ Rails.application.routes.draw do
     route_for(:show_post, blogpost.year, blogpost.month, blogpost.to_param, options.merge(anchor: "comment#{comment.id}"))
   end
 
+  direct :external_asset_variant do |variant|
+    variant.url
+  end
+
   get '/archive' => 'blog#archive'
 
   scope '(:locale)', locale: /en/ do

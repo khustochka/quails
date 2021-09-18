@@ -18,11 +18,12 @@ module PostsHelper
   end
 
   def post_cover_image_url(post)
-    if post.cover_image_slug.present?
-      if /\Ahttps?:\/\//.match?(post.cover_image_slug)
-        post.cover_image_slug
-      elsif img = Image.find_by_slug(post.cover_image_slug)
-        static_jpg_url(img, {only_path: false})
+    slug_or_url = post.cover_image_slug
+    if slug_or_url.present?
+      if /\Ahttps?:\/\//.match?(slug_or_url)
+        slug_or_url
+      elsif img = Image.find_by_slug(slug_or_url)
+        polymorphic_url(img.representation.webpage_thumb.imagetaggable)
       end
     end
   end

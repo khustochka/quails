@@ -1,5 +1,6 @@
 <%# Be aware this can be rendered outside of the view, be careful with using view helpers, e.g. use I18n.t, not just `t` %>
-<iframe title="<%= I18n.t("videos.iframe_title", title: embed.title) %>"
+<iframe title="<%= I18n.t("videos.iframe_title", title: embed.title) %>" src="<%= embed.url(privacy: privacy) %>"
         width="<%= embed.width %>" height="<%= embed.height %>"
-        src="<%= embed.url %>" frameborder="0" allowfullscreen></iframe>
+        frameborder="0" allowfullscreen>
+</iframe>
 

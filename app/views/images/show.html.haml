@@ -1,7 +1,7 @@
 -# frozen_string_literal: true
 - @body_class = "full_width"
 
-- @meta_thumbnail = jpg_url(@image)
+- @meta_thumbnail = polymorphic_url(@image.representation.webpage_thumb.imagetaggable)
 - @meta_description = @image.decorated.meta_description
 - @canonical = localize_url(@image)
 - @og_type = 'birdwatchua:photo'
@@ -34,7 +34,8 @@
   -#    - @image.representer.yield_self do |rep|
   -#      = image_tag(rep.large, sizes: rep.fullscreen_sizes, srcset: srcset_convert_urls(rep.srcset), alt: t(".main_img_alt", title: @image.decorated.title))
 
-  = full_size_media(@image)
+  .new_image_canvas
+    = render "photos/site/photo", representation: @image.representation.full_size, options: { alt: "" }
 
   %div.image_info_pane
 

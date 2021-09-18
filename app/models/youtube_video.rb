@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-class YoutubeVideo < Struct.new(:video_id, :title, :width, :height, :privacy)
+class YoutubeVideo < Struct.new(:video_id, :title, :width, :height)
   def to_partial_path
     "videos/youtube_embed"
   end
 
-  def url
-    "https://#{host}/embed/#{video_id}?enablejsapi=1&rel=0&vq=hd720"
+  def url(privacy: false)
+    "https://#{host(privacy: privacy)}/embed/#{video_id}?enablejsapi=1&rel=0&vq=hd720"
   end
 
   def page_url
@@ -15,7 +15,7 @@ class YoutubeVideo < Struct.new(:video_id, :title, :width, :height, :privacy)
 
   private
 
-  def host
+  def host(privacy: false)
     "www.youtube#{"-nocookie" if privacy}.com"
   end
 end

@@ -26,7 +26,7 @@
       %b= species_link(sp)
       = name_sci(sp)
 
-= full_size_media(@video)
+= render "videos/site/video", embed: @video.representation.full_size, privacy: true
 
 =# render 'social/buttons'
 

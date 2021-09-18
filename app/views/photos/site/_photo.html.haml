@@ -1,0 +1,5 @@
+-# frozen_string_literal: true
+
+= image_tag representation.imagetaggable,
+            { width: representation.width, height: representation.height,
+            sizes: representation.sizes, srcset: srcset_convert_urls(representation.srcset) }.merge(options)

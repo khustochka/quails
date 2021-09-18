@@ -1,8 +1,8 @@
 -# frozen_string_literal: true
 
-- media.representation.full_size.yield_self do |embed|
+.video-block
   .video-container
-    = render "videos/youtube_embed", embed: embed
+    = render "videos/youtube_embed", embed: embed, privacy: privacy
   .yt_link
     = link_to embed.page_url, target: :_blank, rel: "nofollow noopener" do
       = I18n.t("videos.watch_on_youtube")
