@@ -40,7 +40,7 @@ class ImagesController < ApplicationController
         @robots = "NOINDEX" if @image.status == "NOINDEX"
       end
       format.jpeg do
-        redirect_to helpers.jpg_url(@image)
+        redirect_to polymorphic_url(@image.representation.full_size.imagetaggable)
       end
     end
   end

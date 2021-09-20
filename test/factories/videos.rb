@@ -5,14 +5,16 @@
 FactoryBot.define do
   factory :video, class: Video do
     sequence(:slug) {|n| "video_#{n}" }
-    title { "MyString" }
+    title { "Video of a bird" }
     youtube_id { "kdf83e7aks" }
-    description { "MyText" }
+    description { "This is a video" }
     observations { [FactoryBot.create(:observation)] }
-    assets_cache { ImageAssetsArray.new (
-                                            [
-                                                ImageAssetItem.new(:youtube, 800, 600, "#{slug}.jpg")
-                                            ]
-                                        ) }
+    transient do
+      asset_trait { :youtube_asset }
+    end
+
+    after(:create) do |video, evaluator|
+      create(:external_asset, evaluator.asset_trait, media: video)
+    end
   end
 end

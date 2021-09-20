@@ -1,3 +1,5 @@
 -# frozen_string_literal: true
 - image.decorated.title.yield_self do |img_title|
-  %p= link_to image_tag(jpg_url(image), alt: img_title), localize_url(image), title: img_title
+  %p
+    = link_to localize_url(image), title: img_title do
+      = render "photos/site/photo", representation: image.representation.full_size, options: { alt: "" }
