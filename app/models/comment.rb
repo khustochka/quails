@@ -28,7 +28,7 @@ class Comment < ApplicationRecord
   scope :top_level, -> { where(parent_id: nil) }
 
   def like_spam?
-    @likespam ||= self.body =~ /#{STOP_WORDS.join('|')}/i ||
+    @likespam ||= self.body.match?(/#{STOP_WORDS.join('|')}/i) ||
         self.body.scan(/href=/i).size > 4
   end
 

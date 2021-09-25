@@ -26,7 +26,7 @@ module Quails
 
     def puma_dev?
       # This is to detect puma-dev. Another way is to puts some env var into .powenv which is only read by puma-dev.
-      ENV["PWD"] =~ %r{/.puma-dev/quails\Z}
+      ENV["PWD"].match?(%r{/.puma-dev/quails\Z})
     end
 
     def heroku?

@@ -5,16 +5,28 @@ task benchmark: :environment do
   require "benchmark/ips"
 
   Benchmark.ips do |bench|
-    bench.report("fetch with arg") do
-      ENV.fetch("AIRBRAKE_PROJECT_ID", "1")
+    bench.report("=~ positive") do
+      "Abcdefghijk" =~ /jk$/
     end
 
-    bench.report("fetch with block") do
-      ENV.fetch("AIRBRAKE_PROJECT_ID") { 1 }
+    bench.report("=~ negative") do
+      "Abcdefghijk" =~ /cz$/
     end
 
-    bench.report("or-or") do
-      ENV["AIRBRAKE_PROJECT_ID"] || "1"
+    bench.report("match? positive") do
+      "Abcdefghijk".match?(/jk$/)
+    end
+
+    bench.report("match? negative") do
+      "Abcdefghijk".match?(/cz$/)
+    end
+
+    bench.report("regex match? positive") do
+      /jk$/.match?("Abcdefghijk")
+    end
+
+    bench.report("regex match? negative") do
+      /cz$/.match?("Abcdefghijk")
     end
 
     bench.compare!
