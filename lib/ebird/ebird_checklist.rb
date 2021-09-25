@@ -59,7 +59,7 @@ class EbirdChecklist
       area_acres: area_acres,
       observers: observers,
       notes: notes || "",
-      #locus: locus,
+      # locus: locus,
       motorless: ml,
       observations: observations.map {|obs| Observation.new(obs)}
     )
@@ -108,7 +108,7 @@ class EbirdChecklist
       party = observers[:title].match(/^Observers: (\d+)$/)[1]
       if party != "1"
         self.observers = party
-        #self.observers = page.xpath("//dl[dt[text()='Observers:']]/dd").text. TODO: beautify the text
+        # self.observers = page.xpath("//dl[dt[text()='Observers:']]/dd").text. TODO: beautify the text
       end
     end
 

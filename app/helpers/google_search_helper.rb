@@ -14,7 +14,7 @@ module GoogleSearchHelper
   def google_cse
     # FIXME: temporarily disable CSE: in does not work in IE7/8 (JS) and standard Google search actually looks better.
     nil
-    #@@google_cse ||= ENV["quails_google_cse"]
+    # @@google_cse ||= ENV["quails_google_cse"]
   end
 
   def google_search_form_url

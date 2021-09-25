@@ -7,7 +7,7 @@ class EbirdTaxaController < ApplicationController
   # before_action :find_species, only: [:show, :update]
 
   def index
-    #TODO : Filter by order, family, category
+    # TODO : Filter by order, family, category
     @term = params[:term]
     @taxa = if @term.present?
               Search::EbirdTaxonSearchUnweighted.new(EbirdTaxon.all, @term).find

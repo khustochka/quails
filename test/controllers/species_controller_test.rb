@@ -159,20 +159,20 @@ class SpeciesControllerTest < ActionController::TestCase
 
   test "protect index with authentication" do
     assert_raise(ActionController::RoutingError) { get :index }
-    #assert_response 404
+    # assert_response 404
   end
 
   test "protect edit with authentication" do
     species = species(:jyntor)
     assert_raise(ActionController::RoutingError) { get :edit, params: {id: species.to_param} }
-    #assert_response 404
+    # assert_response 404
   end
 
   test "protect update with authentication" do
     species = species(:bomgar)
     species.name_ru = "Богемский свиристель"
     assert_raise(ActionController::RoutingError) { put :update, params: {id: species.to_param, species: species.attributes} }
-    #assert_response 404
+    # assert_response 404
   end
 
   test "search" do

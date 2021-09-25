@@ -77,7 +77,7 @@ class UIPostsTest < ActionDispatch::IntegrationTest
     blogpost = create(:post)
     visit show_post_path(blogpost.to_url_params)
     within("form#new_comment") do
-      #fill_in('comment_name', with: 'Vasya')
+      # fill_in('comment_name', with: 'Vasya')
       fill_in("comment_body", with: "Some text")
     end
     click_button("save_button")
@@ -92,7 +92,7 @@ class UIPostsTest < ActionDispatch::IntegrationTest
     visit show_post_path(blogpost.to_url_params)
     first(".reply a").click
     within("form#new_comment") do
-      #fill_in('comment_name', with: 'Vasya')
+      # fill_in('comment_name', with: 'Vasya')
       fill_in("comment_body", with: "Some text")
     end
     click_button("save_button")

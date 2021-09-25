@@ -50,21 +50,21 @@ class SpeciesImageTest < ActiveSupport::TestCase
   # Relinking a main species image to another species is very unlikely,
   # and association callbacks are harder, so skipping for now
 
-  #test 'switching the only species image to another sp should clear image_id' do
+  # test 'switching the only species image to another sp should clear image_id' do
   #  obs = create(:observation, species: species('larrid'))
   #  img = create(:image)
   #  sps = img.species
   #  img.update_with_observations(nil, [obs.id])
   #  assert_equal [nil], sps.map(&:reload).map(&:image_id)
-  #end
+  # end
   #
-  #test 'switching the active species image to another sp links another one to the species' do
+  # test 'switching the active species image to another sp links another one to the species' do
   #  obs = create(:observation, species_id: species('larrid').id)
   #  img = create(:image)
   #  img2 = create(:image)
   #  sps = img.species
   #  img.update_with_observations(nil, [obs.id])
   #  assert_equal [img2.id], sps.map(&:reload).map(&:image_id)
-  #end
+  # end
 
 end

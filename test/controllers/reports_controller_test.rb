@@ -12,7 +12,7 @@ class ReportsControllerTest < ActionController::TestCase
 
   test "user does not see reports/index" do
     assert_raise(ActionController::RoutingError) { get :index }
-    #assert_response 404
+    # assert_response 404
   end
 
   test "admin sees reports/this_day" do

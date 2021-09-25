@@ -8,7 +8,7 @@ class FlickrUpload
 
   def initialize(img, options = {})
     @image = img
-    #@errors = ActiveModel::Errors.new(self)
+    # @errors = ActiveModel::Errors.new(self)
     @options = options
   end
 

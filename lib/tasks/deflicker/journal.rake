@@ -26,7 +26,7 @@ namespace :deflicker do
         req = LiveJournal::Request::GetEvents.new(user, lastsync: lastsync)
         res = req.run
         entries = res.values
-        lastsync = entries.map(&:time).max #.try(:+, 1.minute)
+        lastsync = entries.map(&:time).max # .try(:+, 1.minute)
         entries.each do |entry|
           en = Deflicker::JournalEntry.find_or_create_by(user: u, itemid: entry.itemid)
           en.update(

@@ -24,7 +24,7 @@ if $js_driver.start_with?("webkit") && defined?(Capybara::Webkit)
     config.block_unknown_urls
     # Don't load images
     config.skip_image_loading
-    #config.raise_javascript_errors = true
+    # config.raise_javascript_errors = true
   end
 end
 
@@ -45,7 +45,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     selector = ".ui-menu-item a:contains(\"#{value}\"):first"
     fill_in hash[:from], with: value
     sleep(0.5) # Chrome driver needs pretty high values TODO: diff values for Chrome and Capy-webkit
-    #raise "No element '#{value}' in the field #{hash[:from]}" unless page.has_selector?(:xpath, "//*[@class=\"ui-menu-item\"]//a[contains(text(), \"#{value}\")]")
+    # raise "No element '#{value}' in the field #{hash[:from]}" unless page.has_selector?(:xpath, "//*[@class=\"ui-menu-item\"]//a[contains(text(), \"#{value}\")]")
     page.execute_script " $('#{selector}').trigger('mouseenter').click();"
   end
 

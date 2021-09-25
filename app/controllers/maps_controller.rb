@@ -20,7 +20,7 @@ class MapsController < ApplicationController
     json_methods = [:spots]
 
     observs =
-        #TODO: the goal is to avoid loading all observations (thousands!) if all filters are empty
+        # TODO: the goal is to avoid loading all observations (thousands!) if all filters are empty
         # Needs refactoring to only take into account meaningful fields (not "exclude subspecies")
         params[:q] && params[:q].values.any?(&:present?) ?
             ObservationSearch.new(params[:q]).observations.

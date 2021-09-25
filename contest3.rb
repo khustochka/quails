@@ -25,7 +25,7 @@ def calculate(date, result, the_rest)
   depth = result.size
   if $deepest < date - 1
     puts "Deepest #{date - 1}"
-    puts result.map.with_index { |s, i| "#{i+1}. #{SPCS[s]}" }
+    puts result.map.with_index { |s, i| "#{i + 1}. #{SPCS[s]}" }
     puts "\n"
     $deepest = date - 1
     $best = result
@@ -38,11 +38,11 @@ def calculate(date, result, the_rest)
   end
   left = the_rest[date] - result
   if left.empty?
-    #puts "Last day reached #{date - 1}"
+    # puts "Last day reached #{date - 1}"
   else
     total = left.size
     left.each_with_index do |sp, index|
-      #puts ("--" * depth) + " trying #{index + 1} of #{total}"
+      # puts ("--" * depth) + " trying #{index + 1} of #{total}"
       new_rest = {}
       the_rest.each do |day, list|
         if day > date
@@ -93,4 +93,4 @@ begin
 rescue MaxDateReached
 end
 
-#puts $best.map.with_index { |s, i| "#{i+1}. #{SPCS[s]}" }
+# puts $best.map.with_index { |s, i| "#{i+1}. #{SPCS[s]}" }

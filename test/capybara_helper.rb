@@ -3,7 +3,7 @@
 require "capybara/rails"
 require "capybara/minitest"
 
-#Capybara.default_wait_time = 5
+# Capybara.default_wait_time = 5
 
 # Seems like all the commented out stuff below is NOT VALID since Rails 5.1
 
@@ -25,7 +25,7 @@ require "capybara/minitest"
 
 # Forces all threads to share the same connection. This works on
 # Capybara because it starts the web server in a thread.
-#ActiveRecord::Base.shared_connection = ActiveRecord::Base.connection
+# ActiveRecord::Base.shared_connection = ActiveRecord::Base.connection
 
 module CapybaraTestCase
   include Capybara::DSL

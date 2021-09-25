@@ -88,37 +88,37 @@ class LociControllerTest < ActionController::TestCase
 
   test "protect index with authentication" do
     assert_raise(ActionController::RoutingError) { get :index }
-    #assert_response 404
+    # assert_response 404
   end
 
   test "protect show with authentication" do
     assert_raise(ActionController::RoutingError) { get :show, params: {id: "krym"} }
-    #assert_response 404
+    # assert_response 404
   end
 
   test "protect new with authentication" do
     assert_raise(ActionController::RoutingError) { get :new }
-    #assert_response 404
+    # assert_response 404
   end
 
   test "protect edit with authentication" do
     assert_raise(ActionController::RoutingError) { get :edit, params: {id: "krym"} }
-    #assert_response 404
+    # assert_response 404
   end
 
   test "protect create with authentication" do
     assert_raise(ActionController::RoutingError) { post :create, params: {locus: attributes_for(:locus)} }
-    #assert_response 404
+    # assert_response 404
   end
 
   test "protect update with authentication" do
     locus = loci(:brovary)
     assert_raise(ActionController::RoutingError) { put :update, params: {id: locus.to_param, locus: locus.attributes} }
-    #assert_response 404
+    # assert_response 404
   end
 
   test "protect destroy with authentication" do
     assert_raise(ActionController::RoutingError) { delete :destroy, params: {id: "krym"} }
-    #assert_response 404
+    # assert_response 404
   end
 end

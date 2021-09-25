@@ -7,7 +7,7 @@ class ReportsController < ApplicationController
   TWO_YEARS = 365 * 2 * 24 * 60 * 60
 
   def environ
-    #@env = ENV
+    # @env = ENV
     @lc_ctype = ActiveRecord::Base.connection.select_rows("SHOW LC_CTYPE")[0][0]
     @pg_version = ActiveRecord::Base.connection.select_rows("SELECT version();")[0][0]
   end

@@ -8,7 +8,7 @@ class SpeciesController < ApplicationController
 
   # GET /species/admin
   def index
-    #TODO : Filter by order, family
+    # TODO : Filter by order, family
     @term = params[:term]
     @species = if @term.present?
                  Search::SpeciesSearchUnweighted.new(Species.all, @term).find

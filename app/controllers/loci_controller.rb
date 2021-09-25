@@ -71,7 +71,7 @@ class LociController < ApplicationController
   # DELETE /locus/1
   def destroy
     @locus.destroy
-    #TODO: rescue ActiveRecord::DeleteRestrictionError showing a notice and later - options for substitution
+    # TODO: rescue ActiveRecord::DeleteRestrictionError showing a notice and later - options for substitution
     redirect_to(loci_url)
   end
 

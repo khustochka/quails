@@ -45,7 +45,7 @@ module FormatStrategy
       sp = @species[term]
       if sp
         str = +%Q(<b title="#{sp.name_sci}">#{word or (en ? sp.name_en : sp.name_sci)}</b>)
-        #%Q("(sp_link). #{word || sp.name_sci}":#{sp.code})
+        # %Q("(sp_link). #{word || sp.name_sci}":#{sp.code})
         if en && word.present?
           str << " (#{sp.name_en})"
         end

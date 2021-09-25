@@ -6,7 +6,7 @@ class JSImagesTest < ApplicationSystemTestCase
 
   def save_and_check
     click_button("Save")
-    #save_and_open_page
+    # save_and_open_page
     assert_text "Image was successfully"
   end
   private :save_and_check
@@ -62,7 +62,7 @@ class JSImagesTest < ApplicationSystemTestCase
 
     within(".observation_search") do
       # Temporarily disable because of Chrome super clever date picker
-      #fill_in('Date', with: '2008-07-01')
+      # fill_in('Date', with: '2008-07-01')
       select_suggestion("Brovary", from: "Location")
       click_button "Search"
     end
