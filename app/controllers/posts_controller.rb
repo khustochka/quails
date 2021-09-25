@@ -105,12 +105,12 @@ class PostsController < ApplicationController
                     entry.itemid = @post.lj_data.post_id
                     LiveJournal::Request::EditEvent.new(user, entry)
                   else
-                     flash.alert = "This entry is on Dreamwidth, cannot edit via LiveJournal."
-                     nil
+                    flash.alert = "This entry is on Dreamwidth, cannot edit via LiveJournal."
+                    nil
                   end
                 else
-                 flash.alert = "Editing LJ/DW entries is prohibited when not on real production."
-                 nil
+                  flash.alert = "Editing LJ/DW entries is prohibited when not on real production."
+                  nil
                 end
               else
                 any_card = @post.cards.first

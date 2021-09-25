@@ -79,7 +79,7 @@ class Card < ApplicationRecord
         ('#{self.observ_date}' > c.observ_date
          " +
     (if self.start_time.blank?
-      "OR ('#{self.observ_date}' = c.observ_date
+       "OR ('#{self.observ_date}' = c.observ_date
               AND c.start_time IS NOT NULL
               )
       OR ('#{self.observ_date}' = c.observ_date
