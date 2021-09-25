@@ -52,7 +52,8 @@ class EbirdTaxon < ApplicationRecord
       new_index_num = prev_index_num ? prev_index_num + 1 : 1
       attr_hash[:index_num] = new_index_num
       if promoted_parent
-        attr_hash.merge!({parent_id: promoted_parent.id, species_id: promoted_parent.species_id})
+        attr_hash[:parent_id] = promoted_parent.id
+        attr_hash[:species_id] = promoted_parent.species_id
       end
 
       new_taxon = self.create_taxon!(attr_hash)

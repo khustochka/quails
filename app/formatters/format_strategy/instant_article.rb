@@ -19,7 +19,7 @@ module FormatStrategy
     end
 
     def post_scriptum
-      result = String.new ""
+      result = +""
 
       images = @metadata[:images]
       if images.any?

@@ -31,7 +31,7 @@ class PostDecorator < ModelDecorator
   end
 
   def metadata
-    @metadata.merge!({images: the_rest_of_images}) unless @metadata.has_key?(:images)
+    @metadata[:images] = the_rest_of_images unless @metadata.has_key?(:images)
     @metadata
   end
 

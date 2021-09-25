@@ -47,7 +47,7 @@ module FormatStrategy
     end
 
     def post_scriptum
-      result = String.new ""
+      result = +""
       if @posts.any?
         result << "\n"
 

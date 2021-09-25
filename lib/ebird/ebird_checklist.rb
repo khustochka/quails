@@ -46,7 +46,7 @@ class EbirdChecklist
 
   def to_card
     ml = !!(notes =~ /^ML/i)
-    if notes =~ /\AML\s*\Z/
+    if /\AML\s*\Z/.match?(notes)
       notes = ""
     end
     Card.new(

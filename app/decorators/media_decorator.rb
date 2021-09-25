@@ -18,7 +18,7 @@ class MediaDecorator < ModelDecorator
   end
 
   def meta_description
-    descr = String.new "#{I18n.t("#{@model.class.to_s.tableize}.taken_clause", title: title)} #{l(@model.observ_date, format: :long)}, #{public_locus_full_name}."
+    descr = +"#{I18n.t("#{@model.class.to_s.tableize}.taken_clause", title: title)} #{l(@model.observ_date, format: :long)}, #{public_locus_full_name}."
     # FIXME: refactor, use view context
     if I18n.locale == :ru && description.present?
       descr << "\n"

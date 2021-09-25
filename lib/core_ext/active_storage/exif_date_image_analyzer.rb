@@ -11,9 +11,11 @@ module ActiveStorage
               mdata[:exif_date] = exif_date.split(":", 3).join("-")
             end
             if rotated_image?(image)
-              mdata.merge!({width: image.height, height: image.width})
+              mdata[:width] = image.height
+              mdata[:height] = image.width
             else
-              mdata.merge!({width: image.width, height: image.height})
+              mdata[:width] = image.width
+              mdata[:height] = image.height
             end
             mdata
           end
