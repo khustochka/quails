@@ -2,7 +2,6 @@
 
 module Lifelist
   class LastSeen < Base
-
     def preselect_ordering
       "DESC"
     end
@@ -10,6 +9,5 @@ module Lifelist
     def aggregation_operator
       "MAX"
     end
-
   end
 end

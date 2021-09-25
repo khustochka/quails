@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module Search
-
   class SpeciesSearchResult < Struct.new(:name_sci, :name)
     include ActiveModel::Serializers::JSON
     include ActiveModel::Attributes
@@ -26,10 +25,8 @@ module Search
     end
 
     private
-
     def json_default_options
       {only: [:name], methods: [:label]}
     end
-
   end
 end

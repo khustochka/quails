@@ -2,7 +2,6 @@
 
 module Lifelist
   class FullLifer
-
     attr_accessor :species, :first_seen, :last_seen, :obs_count
 
     def initialize(sp)
@@ -23,6 +22,5 @@ module Lifelist
     def same_date?
       first_seen.observ_date == last_seen.observ_date
     end
-
   end
 end

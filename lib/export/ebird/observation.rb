@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class EbirdObservation
-
   def initialize(obs)
     @obs = obs
   end
@@ -40,7 +39,6 @@ class EbirdObservation
   }
 
   private
-
   def common_name
     ebird_taxon.name_en
   end
@@ -174,5 +172,4 @@ class EbirdObservation
       video_embed(media.slug, :medium).gsub("\n", " ")
     end
   end
-
 end

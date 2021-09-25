@@ -3,7 +3,6 @@
 require "test_helper"
 
 class FeedsControllerTest < ActionController::TestCase
-
   test "empty blog atom feed is not failing" do
     get :blog, format: :xml
     assert_response :success
@@ -168,5 +167,4 @@ class FeedsControllerTest < ActionController::TestCase
     assert_response :success
     assert_equal Mime[:xml], response.media_type
   end
-
 end

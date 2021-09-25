@@ -3,9 +3,7 @@
 require "test_helper"
 
 module Lifelist
-
   class PostsAndSortingTest < ActiveSupport::TestCase
-
     test "Properly associate card post with lifer" do
       post = FactoryBot.create(:post)
       card = FactoryBot.create(:card, post: post)
@@ -83,6 +81,5 @@ module Lifelist
       list = Lifelist::FirstSeen.full.to_a
       assert_equal "9:00", list.first.card.start_time
     end
-
   end
 end

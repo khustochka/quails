@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class EbirdTaxon < ApplicationRecord
-
   localized_attr :name
 
   acts_as_list column: :index_num
@@ -52,7 +51,8 @@ class EbirdTaxon < ApplicationRecord
       new_index_num = prev_index_num ? prev_index_num + 1 : 1
       attr_hash[:index_num] = new_index_num
       if promoted_parent
-        attr_hash.merge!({parent_id: promoted_parent.id, species_id: promoted_parent.species_id})
+        attr_hash[:parent_id] = promoted_parent.id
+        attr_hash[:species_id] = promoted_parent.species_id
       end
 
       new_taxon = self.create_taxon!(attr_hash)
@@ -74,5 +74,4 @@ class EbirdTaxon < ApplicationRecord
   end
 
   alias_method :find_or_promote_to_taxon, :promote
-
 end

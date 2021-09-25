@@ -2,7 +2,6 @@
 
 module Lifelist
   class Count < Base
-
     def bare_relation
       base.select("species_id, COUNT(DISTINCT observations.id) AS obs_count").group("species_id")
     end
@@ -19,7 +18,6 @@ module Lifelist
     end
 
     private
-
     def species_preload(records)
       sp_ids = records.map(&:species_id)
       spcs = Species.where(id: sp_ids).index_by(&:id)
@@ -27,6 +25,5 @@ module Lifelist
         rec.taxon = Taxon.new(species: spcs[rec.species_id])
       end
     end
-
   end
 end

@@ -3,7 +3,6 @@
 require "test_helper"
 
 class RoutingTest < ActionDispatch::IntegrationTest
-
   test "route index correctly" do
     assert_routing "/", {controller: "blog", action: "home"}
   end
@@ -120,5 +119,4 @@ class RoutingTest < ActionDispatch::IntegrationTest
   test "English my stats routing" do
     assert_routing "/en/lifelist/stats", {controller: "lifelist", action: "stats", locale: "en"}
   end
-
 end

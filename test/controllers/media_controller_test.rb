@@ -7,8 +7,8 @@ class MediaControllerTest < ActionController::TestCase
     @image = create(:image)
     @video = create(:video)
     @spot = create(:spot)
-    #assert species(:pasdom).image
-    #@obs = @image.observations.first
+    # assert species(:pasdom).image
+    # @obs = @image.observations.first
   end
 
   test "media strip with photos and videos (for the map)" do
@@ -35,5 +35,4 @@ class MediaControllerTest < ActionController::TestCase
     # assert result.include?(@video.id)
     # assert_not_includes result, image2.id
   end
-
 end

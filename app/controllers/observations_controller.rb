@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class ObservationsController < ApplicationController
-
   administrative
 
   find_record before: [:show, :update, :destroy]
@@ -64,7 +63,6 @@ class ObservationsController < ApplicationController
   end
 
   private
-
   def cache_expire
     expire_photo_feeds
     expire_page controller: :feeds, action: :blog, format: "xml"

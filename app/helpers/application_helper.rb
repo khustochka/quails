@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module ApplicationHelper
-
   def main_classes
     @main_classes ||= ["main", "green_links"]
     if @special_styling
@@ -58,5 +57,4 @@ module ApplicationHelper
   def may_be_admin?
     has_trust_cookie? || current_user.admin?
   end
-
 end

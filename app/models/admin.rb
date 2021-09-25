@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Admin
-
   def admin?
     true
   end
@@ -33,9 +32,7 @@ class Admin
   end
 
   private
-
   def commenter
     @commenter ||= Commenter.where(is_admin: true).first
   end
-
 end

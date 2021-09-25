@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 module Search
-
   class SpeciesSearchUnweighted < Unweighted
-
     def find
       return Species.none if @term.blank?
       rel = @base.
@@ -21,6 +19,5 @@ module Search
     def searchable_fields
       %w(name_sci name_ru name_en name_uk)
     end
-
   end
 end

@@ -3,7 +3,6 @@
 require "test_helper"
 
 class SpeciesTest < ActiveSupport::TestCase
-
   test "do not save species with empty Latin name" do
     sp = Species.find_by!(code: :hirrus)
     sp.name_sci = ""
@@ -65,5 +64,4 @@ class SpeciesTest < ActiveSupport::TestCase
     assert posts.include?(blogpost1)
     assert posts.include?(blogpost2)
   end
-
 end

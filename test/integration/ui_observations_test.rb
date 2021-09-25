@@ -4,7 +4,6 @@ require "test_helper"
 require "capybara_helper"
 
 class UIObservationsTest < ActionDispatch::IntegrationTest
-
   include CapybaraTestCase
 
   test "Edit observation - uncheck voice only" do
@@ -38,5 +37,4 @@ class UIObservationsTest < ActionDispatch::IntegrationTest
     assert_equal 2, card.observations.size
     assert card != obs1.card
   end
-
 end

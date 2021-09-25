@@ -3,7 +3,6 @@
 require "test_helper"
 
 class CoreExtTest < ActiveSupport::TestCase
-
   test "get common values of the hash" do
     y = [{a: 1, b: 3}, {a: 2, b: 3}, {a: 1, b: 3}]
     assert_equal({b: 3}, y.inject(:&))
@@ -23,5 +22,4 @@ class CoreExtTest < ActiveSupport::TestCase
   test "false is meaningful" do
     assert_predicate false, :meaningful?
   end
-
 end

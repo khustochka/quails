@@ -44,11 +44,11 @@ class TaxaControllerTest < ActionController::TestCase
   #   assert assigns(:taxon).errors.present?
   # end
 
-  #test 'allowed to use Latin name taken in another book' do
+  # test 'allowed to use Latin name taken in another book' do
   #  login_as_admin
   #  new_values = {name_sci: "Cardinalis cardinalis"}
   #  get :update, book_id: @book, id: 'Gavia_stellata', taxon: new_values
   # assert_redirected_to book_taxon_path(@book, assigns(:taxon))
   #  assert_equal "Cardinalis cardinalis", assigns(:taxon).name_sci
-  #end
+  # end
 end

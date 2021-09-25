@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class FlickrPhotosController < ApplicationController
-
   administrative
 
   include FlickrConcern
@@ -98,7 +97,8 @@ class FlickrPhotosController < ApplicationController
     @flickr_img_format = new_params.delete(:flickr_img_format)
     if date.present?
       date_param = Date.parse(date)
-      new_params.merge!({min_taken_date: date_param - 1, max_taken_date: date_param + 1})
+      new_params[:min_taken_date] = date_param - 1
+      new_params[:max_taken_date] = date_param + 1
     end
     @flickr_imgs = _FlickrClient.call("flickr.photos.search", DEFAULT_SEARCH_PARAMS.merge(new_params))
     render @flickr_imgs
@@ -111,11 +111,9 @@ class FlickrPhotosController < ApplicationController
   end
 
   private
-
   def cache_expire
     expire_page controller: :feeds, action: :blog, format: "xml"
     expire_page controller: :feeds, action: :instant_articles, format: "xml"
     expire_photo_feeds
   end
-
 end

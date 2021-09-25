@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class User
-
   def admin?
     false
   end
@@ -27,5 +26,4 @@ class User
   def prepopulate_comment(comment)
     # No action
   end
-
 end

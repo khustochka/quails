@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class CacheKey
-
   def initialize(topic)
     @topic = topic
   end
@@ -21,7 +20,6 @@ class CacheKey
   end
 
   module ClassMethods
-
     def gallery
       keys[:gallery] ||= new(:gallery)
     end
@@ -43,5 +41,4 @@ class CacheKey
   class << self
     include ClassMethods
   end
-
 end

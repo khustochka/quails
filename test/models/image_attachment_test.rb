@@ -3,7 +3,6 @@
 require "test_helper"
 
 class ImagesAssociationsTest < ActiveSupport::TestCase
-
   include ActionDispatch::TestProcess::FixtureFile
 
   test "do not save unless either flickr id or blob present" do
@@ -28,5 +27,4 @@ class ImagesAssociationsTest < ActiveSupport::TestCase
     assert_not img2.valid?
     assert_includes img2.errors.full_messages, "Stored image blob already in use by another image"
   end
-
 end

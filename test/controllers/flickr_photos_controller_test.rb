@@ -3,7 +3,6 @@
 require "test_helper"
 
 class FlickrPhotosControllerTest < ActionController::TestCase
-
   # test "should not allow duplicated flickr id" do
   #
   #   img1 = create(:image, flickr_id: "aaa111")
@@ -35,5 +34,4 @@ class FlickrPhotosControllerTest < ActionController::TestCase
     login_as_admin
     get :show, params: {id: img1.slug}
   end
-
 end

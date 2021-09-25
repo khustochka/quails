@@ -4,7 +4,6 @@ require "test_helper"
 require "capybara_helper"
 
 class UICardsTest < ActionDispatch::IntegrationTest
-
   include CapybaraTestCase
 
   test "Searching and showing spuh observations" do
@@ -54,5 +53,4 @@ class UICardsTest < ActionDispatch::IntegrationTest
     click_button("Search")
     assert_equal 2, all(".observ_card").count
   end
-
 end

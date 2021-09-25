@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class ImageAssetItem < Struct.new(:type, :width, :height, :url)
-
   TYPE_TO_STR = {local: "l", flickr: "f", youtube: "y", amazon: "a"} # "a" not used
   STR_TO_TYPE = TYPE_TO_STR.invert
 
@@ -37,5 +36,4 @@ class ImageAssetItem < Struct.new(:type, :width, :height, :url)
   def dummy_dimensions?
     !self[:width] || !self[:height]
   end
-
 end

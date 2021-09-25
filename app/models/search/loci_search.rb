@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 module Search
-
   class LociSearch < Unweighted
-
     DEFAULT_LIMIT = 20
 
     def find
@@ -27,6 +25,5 @@ module Search
     def primary_condition
       starts_with_condition(:name_en)
     end
-
   end
 end

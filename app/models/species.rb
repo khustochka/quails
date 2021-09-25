@@ -3,7 +3,6 @@
 require "species_parameterizer"
 
 class Species < ApplicationRecord
-
   extend SpeciesParameterizer
 
   invalidates CacheKey.gallery
@@ -16,7 +15,7 @@ class Species < ApplicationRecord
   validates :name_sci, presence: true, format: /\A[A-Z][a-z]+ [a-z]+\Z/, uniqueness: true
   validates :code, format: /\A[a-z]{6}\Z/, uniqueness: true, allow_nil: true, allow_blank: false
   validates :legacy_code, format: /\A[a-z]{6}\Z/, uniqueness: true, allow_nil: true, allow_blank: false
-  #validates :avibase_id, format: /\A[\dA-F]{16}\Z/, allow_blank: true
+  # validates :avibase_id, format: /\A[\dA-F]{16}\Z/, allow_blank: true
   validates :index_num, presence: true
 
   validate :code_and_legacy_code_uniqueness
@@ -34,7 +33,7 @@ class Species < ApplicationRecord
   has_many :loci, through: :cards
   has_many :images, through: :observations
   has_many :videos, through: :observations
-  #has_many :posts, -> { order(face_date: :desc).distinct }, through: :observations
+  # has_many :posts, -> { order(face_date: :desc).distinct }, through: :observations
 
   has_many :local_species
   has_many :url_synonyms
@@ -135,5 +134,4 @@ class Species < ApplicationRecord
       errors.add(:code, "already exists as a legacy code")
     end
   end
-
 end

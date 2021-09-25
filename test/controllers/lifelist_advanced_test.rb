@@ -70,5 +70,4 @@ class LifelistAdvancedTest < ActionController::TestCase
     assert_response :success
     assert_select "a[href='#{advanced_list_path(locus: 'usa', year: 2009, locale: :en)}']"
   end
-
 end

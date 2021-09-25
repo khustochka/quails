@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module Either
-
   def Either.included(klass)
     class << klass
       def value(value)
@@ -15,7 +14,6 @@ module Either
   end
 
   module Value
-
     class Applicator
       def initialize(obj)
         @obj = obj
@@ -66,7 +64,6 @@ module Either
     end
 
     class EitherErrorException < StandardError
-
     end
 
     def initialize(msg)
@@ -94,7 +91,5 @@ module Either
     def apply
       self.class::Applicator.new(self)
     end
-
   end
-
 end

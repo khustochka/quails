@@ -2,9 +2,7 @@
 
 module Types
   class NullableString < ActiveModel::Type::String
-
     private
-
     # Converts empty string into nil
     def cast_value(value)
       # Need to exclude nil because super converts it to ""

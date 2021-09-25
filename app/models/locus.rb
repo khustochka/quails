@@ -110,7 +110,6 @@ class Locus < ApplicationRecord
   end
 
   private
-
   def set_parent(p)
     if p.kind_of?(Locus)
       @__parent = p
@@ -155,5 +154,4 @@ class Locus < ApplicationRecord
     self.cached_subdivision_id = sub_id
     self.cached_country_id = cnt_id
   end
-
 end

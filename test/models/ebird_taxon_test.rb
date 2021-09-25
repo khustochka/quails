@@ -3,7 +3,6 @@
 require "test_helper"
 
 class EbirdTaxonTest < ActiveSupport::TestCase
-
   test "if already promoted should return taxon" do
     etx = ebird_taxa(:pasdom)
     tx = etx.taxon
@@ -72,9 +71,9 @@ class EbirdTaxonTest < ActiveSupport::TestCase
 
   test "index num is set up properly" do
     # normalize indexing
-    EbirdTaxon.order(:index_num).each_with_index { |tx, i| tx.update_column(:index_num, i+1) }
-    Taxon.order(:index_num).each_with_index { |tx, i| tx.update_column(:index_num, i+1) }
-    Species.order(:index_num).each_with_index { |sp, i| sp.update_column(:index_num, i+1) }
+    EbirdTaxon.order(:index_num).each_with_index { |tx, i| tx.update_column(:index_num, i + 1) }
+    Taxon.order(:index_num).each_with_index { |tx, i| tx.update_column(:index_num, i + 1) }
+    Species.order(:index_num).each_with_index { |sp, i| sp.update_column(:index_num, i + 1) }
     first_taxon = Taxon.order(:index_num).first
     first_sp = Species.order(:index_num).first
     etx = ebird_taxa(:some_tinamu_subspecies)
@@ -87,5 +86,4 @@ class EbirdTaxonTest < ActiveSupport::TestCase
     assert_equal 3, first_taxon.index_num
     assert_equal 2, first_sp.index_num
   end
-
 end

@@ -2,11 +2,9 @@
 
 module FormatStrategy
   class Feed < Site
-
     include FullPathMethods
 
     private
-
     # Fixing the user-inserted host-less links
     def preprocess(text)
       url_prefix = "https://#{@metadata[:host]}#{extract_port}/"
@@ -15,5 +13,4 @@ module FormatStrategy
         gsub(/:\/(?!\/)/, ":#{url_prefix}")
     end
   end
-
 end

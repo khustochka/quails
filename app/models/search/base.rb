@@ -2,7 +2,6 @@
 
 module Search
   class Base
-
     DEFAULT_LIMIT = 5
 
     def initialize(base, term, opts = {})
@@ -12,7 +11,6 @@ module Search
     end
 
     private
-
     def filter_clause
       searchable_fields.map do |field|
         full_blown_condition(field)
@@ -29,7 +27,7 @@ module Search
 
     def full_blown_condition(column_name)
       @base.klass.send(
-          :sanitize_sql,
+        :sanitize_sql,
           ["#{column_name} ~* '(^| |\\(|-|\\/)%s'", regexp_escaped_term]
       )
     end
@@ -41,6 +39,5 @@ module Search
     def results_limit
       (@options[:limit].presence || self.class::DEFAULT_LIMIT).to_i
     end
-
   end
 end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
+
 module FormatStrategy
   class InstantArticle < Feed
-
     def img_tag(term)
       if image = Image.find_by(slug: term)
         real_image_tag(image)
@@ -19,7 +19,7 @@ module FormatStrategy
     end
 
     def post_scriptum
-      result = String.new ""
+      result = +""
 
       images = @metadata[:images]
       if images.any?
@@ -33,7 +33,6 @@ module FormatStrategy
     end
 
     private
-
     def preprocess(text)
       new_text = super(text)
       # Replace h3 with h2, h4-6 with strong

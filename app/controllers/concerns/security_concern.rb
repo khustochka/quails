@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module SecurityConcern
-
   def self.included(klass)
     klass.extend ClassMethods
     klass.helper_method :current_user
@@ -9,7 +8,6 @@ module SecurityConcern
   end
 
   module ClassMethods
-
     def requires_admin_authorized(*args)
       options = args.extract_options!
       before_action options do
@@ -23,11 +21,9 @@ module SecurityConcern
         end
       end
     end
-
   end
 
   private
-
   TRUST_COOKIE_NAME = -"quails_visit"
   TRUST_COOKIE_VALUE = -"I believe you"
 

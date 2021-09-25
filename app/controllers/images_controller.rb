@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class ImagesController < ApplicationController
-
   include FlickrConcern
 
   administrative except: [:index, :multiple_species, :show, :gallery, :country]
@@ -154,7 +153,6 @@ class ImagesController < ApplicationController
   end
 
   private
-
   ACCEPTED_PARAMS = [:slug, :title, :description, :index_num, :status, :stored_image]
 
   def image_params

@@ -17,15 +17,15 @@ namespace :ioc do
         idx += 1
         current_species = nil if rank == -"Species"
         taxon = IocTaxon.create!(
-            rank: rank,
-            extinct: row[2] == -"†",
-            name_en: row[3].presence,
-            name_sci: row[5].presence,
-            authority: row[6],
-            breeding_range: row[7],
-            index_num: idx,
-            ioc_species: current_species,
-            version: version
+          rank: rank,
+          extinct: row[2] == -"†",
+          name_en: row[3].presence,
+          name_sci: row[5].presence,
+          authority: row[6],
+          breeding_range: row[7],
+          index_num: idx,
+          ioc_species: current_species,
+          version: version
         )
         current_species = taxon if rank == -"Species"
       end

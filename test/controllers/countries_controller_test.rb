@@ -36,5 +36,4 @@ class CountriesControllerTest < ActionController::TestCase
     assert assigns(:thumbs).present?
     assert_select "a[href='#{image_path(img)}']"
   end
-
 end

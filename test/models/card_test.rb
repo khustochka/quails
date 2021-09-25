@@ -3,7 +3,6 @@
 require "test_helper"
 
 class CardTest < ActiveSupport::TestCase
-
   test "#first_unebirded_date" do
     card1 = create(:card, observ_date: "2016-01-01")
     card2 = create(:card, observ_date: "2016-01-02")

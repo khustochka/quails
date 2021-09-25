@@ -3,7 +3,6 @@
 require "test_helper"
 
 class SettingsControllerTest < ActionController::TestCase
-
   test "admin can see settings" do
     login_as_admin
     get :index
@@ -22,5 +21,4 @@ class SettingsControllerTest < ActionController::TestCase
     post :save, params: {s: {old_setting: "new value"}}
     assert_equal "new value", Settings.find_by(key: :old_setting).value
   end
-
 end

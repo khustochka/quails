@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class CommentMailer < ApplicationMailer
-
   default from: ENV["quails_comment_sender"]
   default to: ENV["quails_comment_reader"]
 
@@ -23,7 +22,6 @@ class CommentMailer < ApplicationMailer
   end
 
   private
-
   def set_params
     @comment = params[:comment]
     @link_options = params[:link_options]

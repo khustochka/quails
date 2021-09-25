@@ -3,7 +3,6 @@
 require "ebird/ebird_client"
 
 class EbirdChecklist
-
   attr_reader :ebird_id
   attr_accessor :observ_date, :start_time, :effort_type, :duration_minutes, :distance_kms, :area_acres,
                 :notes, :observers, :location_string, :observations
@@ -45,28 +44,27 @@ class EbirdChecklist
   end
 
   def to_card
-    ml = !!(notes =~ /^ML/i)
-    if notes =~ /\AML\s*\Z/
+    ml = notes.match?(/^ML/i)
+    if /\AML\s*\Z/.match?(notes)
       notes = ""
     end
     Card.new(
-            ebird_id: ebird_id,
-            observ_date: observ_date,
-            start_time: start_time,
-            effort_type: effort_type,
-            duration_minutes: duration_minutes,
-            distance_kms: distance_kms,
-            area_acres: area_acres,
-            observers: observers,
-            notes: notes || "",
-            #locus: locus,
-            motorless: ml,
-            observations: observations.map {|obs| Observation.new(obs)}
+      ebird_id: ebird_id,
+      observ_date: observ_date,
+      start_time: start_time,
+      effort_type: effort_type,
+      duration_minutes: duration_minutes,
+      distance_kms: distance_kms,
+      area_acres: area_acres,
+      observers: observers,
+      notes: notes || "",
+      # locus: locus,
+      motorless: ml,
+      observations: observations.map {|obs| Observation.new(obs)}
     )
   end
 
   private
-
   def parse!(page)
     datetime = page.at_css("div.SectionHeading-heading time")[:datetime]
     dt = Time.parse(datetime)
@@ -108,7 +106,7 @@ class EbirdChecklist
       party = observers[:title].match(/^Observers: (\d+)$/)[1]
       if party != "1"
         self.observers = party
-        #self.observers = page.xpath("//dl[dt[text()='Observers:']]/dd").text. TODO: beautify the text
+        # self.observers = page.xpath("//dl[dt[text()='Observers:']]/dd").text. TODO: beautify the text
       end
     end
 
@@ -150,5 +148,4 @@ class EbirdChecklist
 
     self
   end
-
 end

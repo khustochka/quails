@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class BlogController < ApplicationController
-
   before_action only: [:home, :year, :month] do
     @feed = "blog"
   end
@@ -23,8 +22,8 @@ class BlogController < ApplicationController
       else
         # we fetch and show all the rest of posts
         @posts.concat(
-            Post.public_posts.month(post_last[:year], post_last[:month]).
-                reorder(face_date: :desc).where("id NOT IN (?)", @posts.map(&:id))
+          Post.public_posts.month(post_last[:year], post_last[:month]).
+              reorder(face_date: :desc).where("id NOT IN (?)", @posts.map(&:id))
         )
         @prev_month = Post.public_posts.prev_month(post_last[:year], post_last[:month])
       end
@@ -53,5 +52,4 @@ class BlogController < ApplicationController
     @months = @posts.chunk(&:month)
     @years = current_user.available_posts.years
   end
-
 end

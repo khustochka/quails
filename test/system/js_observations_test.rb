@@ -3,7 +3,6 @@
 require "application_system_test_case"
 
 class JSObservationsTest < ApplicationSystemTestCase
-
   test "Edit observation - change species" do
     observation = create(:observation, voice: true)
 
@@ -24,5 +23,4 @@ class JSObservationsTest < ApplicationSystemTestCase
     assert_css "#save_button[value=Save]"
   end
   private :save_and_check
-
 end

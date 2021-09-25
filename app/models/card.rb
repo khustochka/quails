@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Card < ApplicationRecord
-
   attribute :ebird_id, :nullable_string
   attribute :start_time, :nullable_string
 
@@ -124,10 +123,8 @@ class Card < ApplicationRecord
   end
 
   private
-
   def self.unebirded
     ebirded = Card.select(:id).joins(:ebird_files).where("ebird_files.status IN ('NEW', 'POSTED')")
     self.where("id NOT IN (#{ebirded.to_sql})").where(ebird_id: nil)
   end
-
 end

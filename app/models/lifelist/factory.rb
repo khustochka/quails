@@ -2,7 +2,6 @@
 
 module Lifelist
   class Factory
-
     include Enumerable
 
     def self.over(options)
@@ -46,6 +45,5 @@ module Lifelist
         end
       end
     end
-
   end
 end

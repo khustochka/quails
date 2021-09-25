@@ -18,18 +18,17 @@ $js_browser = ENV["JS_BROWSER"]&.to_sym ||
 
 puts "[NOTE] Using driver: #{$js_driver}" + ($js_browser ? ", browser: #{$js_browser}" : "")
 
-if $js_driver =~ /\Awebkit/ && defined?(Capybara::Webkit)
+if $js_driver.start_with?("webkit") && defined?(Capybara::Webkit)
   require "core_ext/capybara/webkit/node"
   Capybara::Webkit.configure do |config|
     config.block_unknown_urls
     # Don't load images
     config.skip_image_loading
-    #config.raise_javascript_errors = true
+    # config.raise_javascript_errors = true
   end
 end
 
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
-
   driven_by $js_driver, using: $js_browser
 
   TEST_CREDENTIALS = {username: ENV["admin_username"], password: ENV["admin_password"]}
@@ -45,7 +44,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     selector = ".ui-menu-item a:contains(\"#{value}\"):first"
     fill_in hash[:from], with: value
     sleep(0.5) # Chrome driver needs pretty high values TODO: diff values for Chrome and Capy-webkit
-    #raise "No element '#{value}' in the field #{hash[:from]}" unless page.has_selector?(:xpath, "//*[@class=\"ui-menu-item\"]//a[contains(text(), \"#{value}\")]")
+    # raise "No element '#{value}' in the field #{hash[:from]}" unless page.has_selector?(:xpath, "//*[@class=\"ui-menu-item\"]//a[contains(text(), \"#{value}\")]")
     page.execute_script " $('#{selector}').trigger('mouseenter').click();"
   end
 
@@ -77,7 +76,6 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   end
 
   def chrome_driver?
-    $js_browser.to_s =~ /chrome/
+    $js_browser.to_s.include?("chrome")
   end
-
 end

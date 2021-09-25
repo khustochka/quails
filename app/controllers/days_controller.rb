@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class DaysController < ApplicationController
-
   administrative
 
   def index
@@ -12,5 +11,4 @@ class DaysController < ApplicationController
     date = Date.parse(params[:id])
     @day = Day.new(date)
   end
-
 end

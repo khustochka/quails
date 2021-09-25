@@ -3,9 +3,7 @@
 require "test_helper"
 
 module Lifelist
-
   class AdvancedTest < ActiveSupport::TestCase
-
     test "it should have species" do
       obs = FactoryBot.create(:observation)
 
@@ -57,7 +55,5 @@ module Lifelist
       list.set_posts_scope(Post.public_posts)
       assert_equal post, list.first.first_seen.main_post
     end
-
   end
-
 end

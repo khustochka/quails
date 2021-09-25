@@ -3,9 +3,7 @@
 require "test_helper"
 
 module Lifelist
-
   class CountTest < ActiveSupport::TestCase
-
     test "list by count is properly sorted" do
       tx1 = taxa(:pasdom)
       tx2 = taxa(:jyntor)
@@ -19,7 +17,5 @@ module Lifelist
 
       assert_equal tx1.species, list.first.species
     end
-
   end
-
 end

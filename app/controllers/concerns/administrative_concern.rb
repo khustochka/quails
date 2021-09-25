@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module AdministrativeConcern
-
   def self.included(klass)
     klass.extend ClassMethods
     klass.helper_method :admin_layout?
@@ -14,7 +13,6 @@ module AdministrativeConcern
   private :admin_layout?
 
   module ClassMethods
-
     def administrative(options = {})
       requires_admin_authorized options
       before_action options do
@@ -26,6 +24,5 @@ module AdministrativeConcern
         params.permit!
       end
     end
-
   end
 end

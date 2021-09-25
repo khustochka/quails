@@ -2,7 +2,6 @@
 
 module Lifelist
   class Base < Factory
-
     delegate :each, :map, :size, :blank?, to: :to_a
 
     def total_count
@@ -55,7 +54,6 @@ module Lifelist
     end
 
     private
-
     def build_relation
       # FIXME: Do not join on species when not on taxonomy sorting
       bare_relation.
@@ -73,7 +71,7 @@ module Lifelist
       #     where("(observ_date, start_time, species_id) IN (#{life_dates_sql})")
 
       base.select(
-          "first_value(observations.id)
+        "first_value(observations.id)
           OVER (PARTITION BY species_id
           ORDER BY observ_date #{preselect_ordering}, to_timestamp(start_time, 'HH24:MI') #{preselect_ordering} NULLS LAST)"
       ).
@@ -109,6 +107,5 @@ module Lifelist
     def posts_scope
       @posts_scope ||= Post.none
     end
-
   end
 end

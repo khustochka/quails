@@ -4,7 +4,6 @@ require "export/exporter"
 
 module Ebird
   class SubmissionsController < ApplicationController
-
     administrative
 
     def index
@@ -60,7 +59,6 @@ module Ebird
     end
 
     private
-
     def test_prefix
       if Quails.env.live?
         ""
@@ -104,6 +102,5 @@ module Ebird
     def local_csv_path
       ENV["quails_ebird_csv_path"] || "tmp/csv"
     end
-
   end
 end

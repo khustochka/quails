@@ -3,7 +3,6 @@
 require "test_helper"
 
 class PostsControllerTest < ActionController::TestCase
-
   test "get new" do
     login_as_admin
     get :new
@@ -134,32 +133,32 @@ class PostsControllerTest < ActionController::TestCase
 
   test "protect new with authentication" do
     assert_raise(ActionController::RoutingError) { get :new }
-    #assert_response 404
+    # assert_response 404
   end
 
   test "protect edit with authentication" do
     blogpost = create(:post)
     assert_raise(ActionController::RoutingError) { get :edit, params: {id: blogpost.to_param} }
-    #assert_response 404
+    # assert_response 404
   end
 
   test "protect create with authentication" do
     blogpost = create(:post)
     assert_raise(ActionController::RoutingError) { post :create, params: {post: blogpost.attributes} }
-    #assert_response 404
+    # assert_response 404
   end
 
   test "protect update with authentication" do
     blogpost = create(:post)
     blogpost.title = "Changed title"
     assert_raise(ActionController::RoutingError) { put :update, params: {id: blogpost.to_param, post: blogpost.attributes} }
-    #assert_response 404
+    # assert_response 404
   end
 
   test "protect destroy with authentication" do
     blogpost = create(:post)
     assert_raise(ActionController::RoutingError) { delete :destroy, params: {id: blogpost.to_param} }
-    #assert_response 404
+    # assert_response 404
   end
 
   test "proper link options" do

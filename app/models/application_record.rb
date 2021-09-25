@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class ApplicationRecord < ActiveRecord::Base
-
   self.abstract_class = true
 
   include LocalizedAttributes
@@ -11,5 +10,4 @@ class ApplicationRecord < ActiveRecord::Base
     self.after_save { cache_key.invalidate }
     self.after_destroy { cache_key.invalidate }
   end
-
 end

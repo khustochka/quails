@@ -5,7 +5,7 @@ unless Rails.env.test?
     revision_file = File.join(Rails.root, "REVISION")
     if File.exist?(revision_file)
       rev = File.read(revision_file)
-      if rev =~ /\A\h{40}\Z/
+      if rev.match?(/\A\h{40}\Z/)
         sha = rev.strip
         repo_folder = File.join(Rails.root, "../../repo")
         if File.directory?(repo_folder)

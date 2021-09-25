@@ -3,7 +3,6 @@
 require "ebird/ebird_client"
 
 class Ebird::ImportsController < ApplicationController
-
   administrative
 
   def index
@@ -36,5 +35,4 @@ class Ebird::ImportsController < ApplicationController
       redirect_to ebird_imports_path
     end
   end
-
 end

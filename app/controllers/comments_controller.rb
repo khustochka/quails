@@ -3,7 +3,6 @@
 require "mail"
 
 class CommentsController < ApplicationController
-
   administrative except: [:create, :reply, :unsubscribe_request, :unsubscribe_submit]
 
   find_record before: [:show, :edit, :update, :destroy, :reply]
@@ -182,7 +181,6 @@ class CommentsController < ApplicationController
   end
 
   private
-
   def mailer_link_options
     {host: request.host, port: request.port, protocol: request.protocol}
   end
@@ -192,5 +190,4 @@ class CommentsController < ApplicationController
   def allowed_email?(email)
     !Mail::Address.new(email).domain.in?(RESTRICTED_DOMAINS)
   end
-
 end

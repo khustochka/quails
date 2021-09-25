@@ -10,7 +10,7 @@ class Observation < ApplicationRecord
   belongs_to :taxon
 
   # FIXME: do not use this!! (See MyObservation for more comments)
-  #belongs_to :species
+  # belongs_to :species
   # NOTE: Do not use .includes(:taxon), it breaks species preloading, use .preload
 
   def species
@@ -79,5 +79,4 @@ class Observation < ApplicationRecord
       self
     end
   end
-
 end

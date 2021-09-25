@@ -23,5 +23,4 @@ class IocTaxon < ApplicationRecord
   def fallback_species
     species? ? self : ioc_species
   end
-
 end

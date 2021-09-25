@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class PostsController < ApplicationController
-
   administrative except: [:show]
 
   before_action :find_post, only: [:edit, :update, :destroy, :show, :for_lj, :lj_post]
@@ -147,7 +146,6 @@ class PostsController < ApplicationController
   end
 
   private
-
   def find_post
     @post = current_user.available_posts.find_by!(slug: params[:id])
   end
@@ -158,5 +156,4 @@ class PostsController < ApplicationController
     expire_photo_feeds
     expire_page controller: :feeds, action: :sitemap, format: "xml"
   end
-
 end

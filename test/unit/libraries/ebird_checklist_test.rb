@@ -4,7 +4,6 @@ require "test_helper"
 require "ebird/ebird_checklist"
 
 class EbirdChecklistTest < ActiveSupport::TestCase
-
   def parse_duration(str)
     str.match(EbirdChecklist::DURATION_REGEX)
   end
@@ -26,5 +25,4 @@ class EbirdChecklistTest < ActiveSupport::TestCase
     assert_equal 1, md[1].to_i
     assert_equal 8, md[2].to_i
   end
-
 end

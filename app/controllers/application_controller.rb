@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
-
   if Rails.application.config.x.features.rack_profiler
     before_action do
       if current_user.admin?
@@ -23,7 +22,6 @@ class ApplicationController < ActionController::Base
   include ActiveStorage::SetCurrent
 
   private
-
   def allow_params(*list)
     @allowed_params = list + [:action, :controller]
   end
@@ -46,5 +44,4 @@ class ApplicationController < ActionController::Base
   # def default_url_options
   #   {only_path: true}
   # end
-
 end
