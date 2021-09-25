@@ -155,5 +155,4 @@ class Locus < ApplicationRecord
     self.cached_subdivision_id = sub_id
     self.cached_country_id = cnt_id
   end
-
 end

@@ -2,7 +2,6 @@
 
 module FormatStrategy
   class Base
-
     include Rails.application.routes.url_helpers
 
     WIKI_PREFIXES = -"@|#|\\^|&"
@@ -82,5 +81,4 @@ module FormatStrategy
       text.gsub("\r\n", "\n")
     end
   end
-
 end

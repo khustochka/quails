@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class TaxaController < ApplicationController
-
   administrative
 
   # before_action :find_species, only: [:show, :update]

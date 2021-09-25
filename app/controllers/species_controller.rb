@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class SpeciesController < ApplicationController
-
   administrative except: [:gallery, :show, :search]
 
   before_action :find_species, only: [:edit, :update]

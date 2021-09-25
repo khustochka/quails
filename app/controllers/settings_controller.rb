@@ -3,7 +3,6 @@
 require "flickr/client"
 
 class SettingsController < ApplicationController
-
   administrative
 
   # GET /settings
@@ -22,5 +21,4 @@ class SettingsController < ApplicationController
     end
     redirect_to :settings, notice: "Setings saved"
   end
-
 end

@@ -4,7 +4,6 @@ require "flickr/client"
 
 module Deflicker
   class Service
-
     def load_data
       res = []
       photos = []

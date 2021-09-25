@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class ReportsController < ApplicationController
-
   administrative
 
   TWO_YEARS = 365 * 2 * 24 * 60 * 60
@@ -360,5 +359,4 @@ class ReportsController < ApplicationController
     ClearCacheJob.perform_later
     redirect_to reports_path
   end
-
 end

@@ -2,7 +2,6 @@
 
 module FormatStrategy
   class Feed < Site
-
     include FullPathMethods
 
     private
@@ -15,5 +14,4 @@ module FormatStrategy
         gsub(/:\/(?!\/)/, ":#{url_prefix}")
     end
   end
-
 end

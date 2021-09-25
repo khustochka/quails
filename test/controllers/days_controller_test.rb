@@ -3,7 +3,6 @@
 require "test_helper"
 
 class DaysControllerTest < ActionController::TestCase
-
   test "should get index" do
     create(:card)
     login_as_admin
@@ -17,5 +16,4 @@ class DaysControllerTest < ActionController::TestCase
     get :show, params: {id: card.observ_date.iso8601}
     assert_response :success
   end
-
 end

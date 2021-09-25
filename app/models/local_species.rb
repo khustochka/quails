@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class LocalSpecies < ApplicationRecord
-
   localized_attr :notes
 
   delegate :order, :family, to: :species
@@ -15,5 +14,4 @@ class LocalSpecies < ApplicationRecord
   def to_thumbnail
     Thumbnail.new(species, {partial: "species/thumb_title"}, species.image)
   end
-
 end

@@ -79,5 +79,4 @@ class Observation < ApplicationRecord
       self
     end
   end
-
 end

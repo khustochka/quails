@@ -3,7 +3,6 @@
 require "test_helper"
 
 class SpotsControllerTest < ActionController::TestCase
-
   test "Create spot" do
     login_as_admin
     assert_difference("Spot.count", 1) { post :save, params: {spot: attributes_for(:spot, observation_id: create(:observation).id)}, format: :json }
@@ -22,5 +21,4 @@ class SpotsControllerTest < ActionController::TestCase
     assert_response :success
     assert_equal Mime[:json], response.media_type
   end
-
 end

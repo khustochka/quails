@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class PostDecorator < ModelDecorator
-
   def title
     OneLineFormatter.apply(@model.title_or_date)
   end
@@ -47,5 +46,4 @@ class PostDecorator < ModelDecorator
   def extract_image_slugs
     @inner_image_slugs ||= @model.body.scan(/\{\{\^([^}]*)\}\}/).flatten
   end
-
 end

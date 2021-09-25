@@ -3,7 +3,6 @@
 require "test_helper"
 
 class Search::SpeciesSearchTest < ActionView::TestCase
-
   test "simple search by scientific name for user should not include unseen species" do
     create(:observation, taxon: taxa(:gargla))
 
@@ -50,5 +49,4 @@ class Search::SpeciesSearchTest < ActionView::TestCase
     assert true
     # assert noting raise
   end
-
 end

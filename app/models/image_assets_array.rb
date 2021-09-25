@@ -64,5 +64,4 @@ class ImageAssetsArray < Array
       end
     end
   end
-
 end

@@ -154,5 +154,4 @@ class Media < ApplicationRecord
         where("spots.lat IS NOT NULL OR patches.lat IS NOT NULL OR public_locus.lat IS NOT NULL OR parent_locus.lat IS NOT NULL").
         distinct
   end
-
 end

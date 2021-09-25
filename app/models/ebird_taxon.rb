@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class EbirdTaxon < ApplicationRecord
-
   localized_attr :name
 
   acts_as_list column: :index_num
@@ -75,5 +74,4 @@ class EbirdTaxon < ApplicationRecord
   end
 
   alias_method :find_or_promote_to_taxon, :promote
-
 end

@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class CommentMailerPreview < ActionMailer::Preview
-
   def notify_parent_author
     comment = Comment.
         joins(parent_comment: :commenter).
@@ -19,5 +18,4 @@ class CommentMailerPreview < ActionMailer::Preview
         first
     CommentMailer.notify_admin(comment, "birdwatch.org.ua")
   end
-
 end

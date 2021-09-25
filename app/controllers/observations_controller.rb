@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class ObservationsController < ApplicationController
-
   administrative
 
   find_record before: [:show, :update, :destroy]

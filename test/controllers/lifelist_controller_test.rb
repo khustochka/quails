@@ -3,7 +3,6 @@
 require "test_helper"
 
 class LifelistControllerTest < ActionController::TestCase
-
   setup do
     @obs = [
         create(:observation, taxon: taxa(:pasdom), card: create(:card, observ_date: "2010-06-20", locus: loci(:nyc))),
@@ -29,5 +28,4 @@ class LifelistControllerTest < ActionController::TestCase
   test "eBird Lifelist page" do
     get :ebird
   end
-
 end

@@ -3,7 +3,6 @@
 require "test_helper"
 
 class SpeciesControllerTest < ActionController::TestCase
-
   include ImagesHelper
 
   setup do
@@ -191,5 +190,4 @@ class SpeciesControllerTest < ActionController::TestCase
     assert response.body.include?("Waxwing")
     assert response.body.include?("/en/species/Bombycilla")
   end
-
 end

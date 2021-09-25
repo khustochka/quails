@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class ImagesController < ApplicationController
-
   include FlickrConcern
 
   administrative except: [:index, :multiple_species, :show, :gallery, :country]

@@ -3,7 +3,6 @@
 require "ebird/ebird_checklist_meta"
 
 class EbirdClient
-
   def initialize
     @agent = Mechanize.new
     @authenticated = false
@@ -94,5 +93,4 @@ class EbirdClient
     @agent.submit(form)
 
   end
-
 end

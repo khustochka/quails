@@ -2,7 +2,6 @@
 
 module Lifelist
   class Base < Factory
-
     delegate :each, :map, :size, :blank?, to: :to_a
 
     def total_count
@@ -109,6 +108,5 @@ module Lifelist
     def posts_scope
       @posts_scope ||= Post.none
     end
-
   end
 end

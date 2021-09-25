@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class YoutubeVideo < Struct.new(:video_id, :title, :width, :height)
-
   def to_partial_path
     "videos/youtube_embed"
   end
@@ -13,5 +12,4 @@ class YoutubeVideo < Struct.new(:video_id, :title, :width, :height)
   def direct_url
     "https://www.youtube.com/watch?v=#{video_id}"
   end
-
 end

@@ -3,7 +3,6 @@
 require "seeds/table"
 
 module Seeds
-
   SEED_TABLES = %w(ebird_taxa taxa species species_splits url_synonyms ioc_taxa local_species
                    loci)
 
@@ -76,5 +75,4 @@ module Seeds
       end
     end
   end
-
 end

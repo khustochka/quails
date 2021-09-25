@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Reports::FiveMileRadiusController < ApplicationController
-
   administrative
 
   def index

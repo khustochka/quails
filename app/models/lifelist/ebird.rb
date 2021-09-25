@@ -2,7 +2,6 @@
 
 module Lifelist
   class Ebird
-
     def initialize(sort: "by_date")
       @sort = sort || "by_date"
     end
@@ -65,6 +64,5 @@ module Lifelist
       idx.delete(nil)
       idx.values
     end
-
   end
 end

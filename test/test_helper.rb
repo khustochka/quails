@@ -51,5 +51,4 @@ class ActiveSupport::TestCase
   setup do
     I18n.locale = I18n.default_locale
   end
-
 end

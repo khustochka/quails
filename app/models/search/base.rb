@@ -2,7 +2,6 @@
 
 module Search
   class Base
-
     DEFAULT_LIMIT = 5
 
     def initialize(base, term, opts = {})
@@ -41,6 +40,5 @@ module Search
     def results_limit
       (@options[:limit].presence || self.class::DEFAULT_LIMIT).to_i
     end
-
   end
 end

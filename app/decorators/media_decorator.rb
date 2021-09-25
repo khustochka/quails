@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class MediaDecorator < ModelDecorator
-
   include ActionView::Helpers::SanitizeHelper
   include ActionView::Helpers::TranslationHelper
 
@@ -26,5 +25,4 @@ class MediaDecorator < ModelDecorator
     end
     descr
   end
-
 end

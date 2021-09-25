@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class EbirdObservation
-
   def initialize(obs)
     @obs = obs
   end
@@ -174,5 +173,4 @@ class EbirdObservation
       video_embed(media.slug, :medium).gsub("\n", " ")
     end
   end
-
 end

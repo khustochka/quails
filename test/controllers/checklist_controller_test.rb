@@ -3,7 +3,6 @@
 require "test_helper"
 
 class ChecklistControllerTest < ActionController::TestCase
-
   test "shows checklist for Ukraine" do
     LocalSpecies.create(locus: loci(:ukraine), species: species(:pasdom))
     get :show, params: {country: "ukraine"}
@@ -40,5 +39,4 @@ class ChecklistControllerTest < ActionController::TestCase
   #  get :save, country: 'ukraine'
   #  assert_response :success
   # end
-
 end

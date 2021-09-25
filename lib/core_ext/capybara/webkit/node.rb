@@ -5,7 +5,6 @@
 
 module Capybara::Webkit
   class Node < Capybara::Driver::Node
-
     def visible_text
       text = invoke(:text).to_s
       if Capybara::VERSION.to_f < 3.0
@@ -32,6 +31,5 @@ module Capybara::Webkit
             .tr("\u00a0", " ")
       end
     end
-
   end
 end

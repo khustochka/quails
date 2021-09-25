@@ -4,7 +4,6 @@ require "test_helper"
 require "capybara_helper"
 
 class UIPostsTest < ActionDispatch::IntegrationTest
-
   include CapybaraTestCase
 
   test "Adding post" do
@@ -116,5 +115,4 @@ class UIPostsTest < ActionDispatch::IntegrationTest
 
     assert_selector "p.comment_screened#comment#{comment.id}"
   end
-
 end

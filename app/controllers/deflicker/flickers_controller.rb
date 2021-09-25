@@ -2,7 +2,6 @@
 
 module Deflicker
   class FlickersController < ApplicationController
-
     administrative
 
     include FlickrConcern
@@ -66,6 +65,5 @@ module Deflicker
     def search_params
       params.slice(*Deflicker::Search.attribute_names)
     end
-
   end
 end

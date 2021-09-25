@@ -3,7 +3,6 @@
 require "test_helper"
 
 class EbirdTaxonTest < ActiveSupport::TestCase
-
   test "if already promoted should return taxon" do
     etx = ebird_taxa(:pasdom)
     tx = etx.taxon
@@ -87,5 +86,4 @@ class EbirdTaxonTest < ActiveSupport::TestCase
     assert_equal 3, first_taxon.index_num
     assert_equal 2, first_sp.index_num
   end
-
 end

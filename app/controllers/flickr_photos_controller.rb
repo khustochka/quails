@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class FlickrPhotosController < ApplicationController
-
   administrative
 
   include FlickrConcern
@@ -118,5 +117,4 @@ class FlickrPhotosController < ApplicationController
     expire_page controller: :feeds, action: :instant_articles, format: "xml"
     expire_photo_feeds
   end
-
 end

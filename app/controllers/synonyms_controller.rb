@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class SynonymsController < ApplicationController
-
   administrative
 
   def index
@@ -12,5 +11,4 @@ class SynonymsController < ApplicationController
     @synonym = UrlSynonym.find(params[:id])
     @synonym.update(params[:url_synonym])
   end
-
 end

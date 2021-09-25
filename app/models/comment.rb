@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Comment < ApplicationRecord
-
   STOP_WORDS = %w( replica vuitton generic zithromax cheap cialis payday loans pharmacy url=http link=http
                     viagra tricor accutane seroquel retin lasix )
 
@@ -48,5 +47,4 @@ class Comment < ApplicationRecord
       errors.add(:parent_comment, "must belong to the same post")
     end
   end
-
 end

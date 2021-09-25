@@ -50,5 +50,4 @@ class ObservationTest < ActiveSupport::TestCase
       assert_includes img_slugs, img.slug
     end
   end
-
 end

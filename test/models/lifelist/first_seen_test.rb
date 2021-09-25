@@ -4,7 +4,6 @@ require "test_helper"
 
 module Lifelist
   class FirstSeenTest < ActiveSupport::TestCase
-
     setup do
       @obs = [
           create(:observation, taxon: taxa(:hirrus), card: create(:card, observ_date: "2008-05-22")),

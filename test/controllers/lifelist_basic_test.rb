@@ -93,5 +93,4 @@ class LifelistBasicTest < ActionController::TestCase
       assert_select "li", I18n.t("lifelist.basic.no_species"), "No proper message found (saying no species in the list)"
     end
   end
-
 end

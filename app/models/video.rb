@@ -64,5 +64,4 @@ class Video < Media
   def thumbnail_url_template
     "//img.youtube.com/vi/#{youtube_id}/hqdefault.jpg"
   end
-
 end

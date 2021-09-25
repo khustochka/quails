@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class CommentMailer < ApplicationMailer
-
   default from: ENV["quails_comment_sender"]
   default to: ENV["quails_comment_reader"]
 

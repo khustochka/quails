@@ -4,7 +4,6 @@ require "csv"
 require "export/strategies"
 
 class Exporter
-
   def initialize(strategy, filename, cards)
     @strategy = strategy
     @filename = filename
@@ -53,5 +52,4 @@ class Exporter
     FileUtils.mkdir_p(path)
     path
   end
-
 end

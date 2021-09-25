@@ -3,7 +3,6 @@
 require "species_parameterizer"
 
 class Species < ApplicationRecord
-
   extend SpeciesParameterizer
 
   invalidates CacheKey.gallery
@@ -135,5 +134,4 @@ class Species < ApplicationRecord
       errors.add(:code, "already exists as a legacy code")
     end
   end
-
 end

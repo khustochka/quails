@@ -3,7 +3,6 @@
 require "application_system_test_case"
 
 class JSCommentsTest < ApplicationSystemTestCase
-
   test "Add comment to post (JS form)" do
     # No way to check that ajax request was sent...
     blogpost = create(:post)
@@ -49,5 +48,4 @@ class JSCommentsTest < ApplicationSystemTestCase
     assert_css "h6.name", text: "Vasya"
     assert_equal 1, comment.subcomments.size
   end
-
 end

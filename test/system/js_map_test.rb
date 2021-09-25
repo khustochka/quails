@@ -3,7 +3,6 @@
 require "application_system_test_case"
 
 class JSMapTest < ApplicationSystemTestCase
-
   test "Ajax observation search works on map edit" do
     create(:observation, card: create(:card, observ_date: "2011-01-01"))
     card2 = create(:card, observ_date: "2011-01-02")
@@ -16,5 +15,4 @@ class JSMapTest < ApplicationSystemTestCase
     assert_css ".obs-list li"
     assert_equal 2, all(".obs-list li").size
   end
-
 end

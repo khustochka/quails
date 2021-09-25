@@ -3,7 +3,6 @@
 require "active_support/core_ext/array/inquiry.rb"
 
 module Quails
-
   CURRENT_YEAR = 2021
 
   class Env

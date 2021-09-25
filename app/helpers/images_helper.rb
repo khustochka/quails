@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module ImagesHelper
-
   ON_FLICKR_IMG = {
       true => ["https://s.yimg.com/pw/images/goodies/white-small-chiclet.png", "On flickr"],
       false => ["https://s.yimg.com/pw/images/goodies/black-small-chiclet.png", "Not on flickr"]

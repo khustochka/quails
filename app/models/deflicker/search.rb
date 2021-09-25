@@ -2,7 +2,6 @@
 
 module Deflicker
   class Search
-
     include ActiveModel::Model
     include ActiveModel::Attributes
 
@@ -33,6 +32,5 @@ module Deflicker
       end
       base
     end
-
   end
 end

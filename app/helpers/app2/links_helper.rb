@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module App2::LinksHelper
-
   # FIXME: This method is not exactly compatible with link_to. No block argument!
   def external_link(name = nil, options = nil, html_options = nil)
     html_options2 = (html_options.dup || {}).stringify_keys!
@@ -22,5 +21,4 @@ module App2::LinksHelper
     end
     link_to(name, options, html_options2)
   end
-
 end

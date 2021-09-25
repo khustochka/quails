@@ -3,7 +3,6 @@
 require "flickr/client"
 
 class FlickrPhoto
-
   Data = Struct.new(:title, :description, :date_taken, :tags)
 
   DEFAULT_PARAMS = {safety_level: 1, content_type: 1}
@@ -146,5 +145,4 @@ class FlickrPhoto
     @image.save
     @errors = @image.errors
   end
-
 end

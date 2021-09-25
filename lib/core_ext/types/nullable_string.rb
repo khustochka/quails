@@ -2,7 +2,6 @@
 
 module Types
   class NullableString < ActiveModel::Type::String
-
     private
 
     # Converts empty string into nil

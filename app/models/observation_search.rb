@@ -3,7 +3,6 @@
 require "simple_partial"
 
 class ObservationSearch
-
   # This makes it act as Model usable to build form
   include ActiveModel::Model
   include ActiveModel::Attributes
@@ -181,5 +180,4 @@ class ObservationSearch
       obs_scope
     end
   end
-
 end

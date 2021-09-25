@@ -273,5 +273,4 @@ class PostTest < ActiveSupport::TestCase
 
     assert_equal [img1.id, img2.id], p.images.map(&:id)
   end
-
 end

@@ -2,7 +2,6 @@
 
 module Lifelist
   class Advanced < Factory
-
     KEYS = [
         :first_seen,
         :last_seen,
@@ -70,6 +69,5 @@ module Lifelist
       @secondary_list ||= {}
       @secondary_list[key] ||= all_lists(key).short_to_a.index_by {|ob| ob.species_id }
     end
-
   end
 end

@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class FlickrController < ApplicationController
-
   administrative
 
   include FlickrConcern
@@ -35,5 +34,4 @@ class FlickrController < ApplicationController
   rescue_from FlickRaw::FailedResponse do |e|
     render html: "<h2>Error</h2>\n#{e.message}", layout: true
   end
-
 end

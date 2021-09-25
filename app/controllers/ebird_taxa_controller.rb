@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class EbirdTaxaController < ApplicationController
-
   administrative
 
   # before_action :find_species, only: [:show, :update]
@@ -31,5 +30,4 @@ class EbirdTaxaController < ApplicationController
     @taxon.promote
     redirect_to ebird_taxon_path(@taxon)
   end
-
 end

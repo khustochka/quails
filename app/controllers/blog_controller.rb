@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class BlogController < ApplicationController
-
   before_action only: [:home, :year, :month] do
     @feed = "blog"
   end
@@ -53,5 +52,4 @@ class BlogController < ApplicationController
     @months = @posts.chunk(&:month)
     @years = current_user.available_posts.years
   end
-
 end

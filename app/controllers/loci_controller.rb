@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class LociController < ApplicationController
-
   administrative
 
   find_record by: :slug, before: [:edit, :update, :destroy]

@@ -2,7 +2,6 @@
 
 module Lifelist
   class Count < Base
-
     def bare_relation
       base.select("species_id, COUNT(DISTINCT observations.id) AS obs_count").group("species_id")
     end
@@ -27,6 +26,5 @@ module Lifelist
         rec.taxon = Taxon.new(species: spcs[rec.species_id])
       end
     end
-
   end
 end

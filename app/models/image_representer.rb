@@ -79,5 +79,4 @@ class ImageRepresenter
     key = image.on_flickr? ? :externals : :locals
     image.assets_cache.send(key)
   end
-
 end

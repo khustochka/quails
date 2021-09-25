@@ -3,7 +3,6 @@
 require "test_helper"
 
 class SearchCardsControllerTest < ActionController::TestCase
-
   tests CardsController
 
   test "get index (no search)" do
@@ -43,5 +42,4 @@ class SearchCardsControllerTest < ActionController::TestCase
            "Expected to include Bird sp."
     assert_select "li b", "bird sp."
   end
-
 end

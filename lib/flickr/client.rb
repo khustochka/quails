@@ -4,7 +4,6 @@ require "functional/either"
 require "flickraw-cached"
 
 module Flickr
-
   include Either
 
   module ResultPartialPath
@@ -44,7 +43,6 @@ module Flickr
           conditions.merge(page: page, per_page: 500)
       )
     end
-
   end
 
   class Error
@@ -60,7 +58,6 @@ module Flickr
   end
 
   class Client
-
     def self.new
       if FlickRaw.configured?
         client = FlickRaw::Flickr.new
@@ -72,7 +69,5 @@ module Flickr
         Flickr.error("No Flickr API key or secret defined!")
       end
     end
-
   end
-
 end

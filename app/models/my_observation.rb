@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class MyObservation < Observation
-
   # FIXME: no need in separate class, or rename
   # This class represents only observations that are identified
 
@@ -16,5 +15,4 @@ class MyObservation < Observation
     # for now argument should be :min, :max or :count
     select("species_id, #{args[0]}(observ_date)").group(:species_id)
   end
-
 end

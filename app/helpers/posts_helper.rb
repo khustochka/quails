@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module PostsHelper
-
   def post_link(text, blogpost, show_text_if_no_post = false, options = {})
     force_text = show_text_if_no_post.dup
     opts = options.dup
@@ -26,5 +25,4 @@ module PostsHelper
       end
     end
   end
-
 end

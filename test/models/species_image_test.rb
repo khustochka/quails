@@ -3,7 +3,6 @@
 require "test_helper"
 
 class SpeciesImageTest < ActiveSupport::TestCase
-
   test "first species image should be attached to it automatically" do
     img = create(:image)
     assert_equal [img.id], img.species.map {|sp| sp.image.id}
@@ -66,5 +65,4 @@ class SpeciesImageTest < ActiveSupport::TestCase
   #  img.update_with_observations(nil, [obs.id])
   #  assert_equal [img2.id], sps.map(&:reload).map(&:image_id)
   # end
-
 end

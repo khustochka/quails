@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class MapsController < ApplicationController
-
   administrative except: [:show, :media]
 
   # GET "/map"
@@ -48,5 +47,4 @@ class MapsController < ApplicationController
   def loci
     render json: Card.joins(:locus).where.not(loci: {lat: nil}).distinct.pluck(:lat, :lon)
   end
-
 end

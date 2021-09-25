@@ -35,5 +35,4 @@ class MediaControllerTest < ActionController::TestCase
     # assert result.include?(@video.id)
     # assert_not_includes result, image2.id
   end
-
 end

@@ -3,7 +3,6 @@
 require "test_helper"
 
 class Ebird::SubmissionsControllerTest < ActionController::TestCase
-
   test "should get list of ebird files" do
     obs = FactoryBot.create(:observation)
     FactoryBot.create(:ebird_file, cards: [obs.card])
@@ -59,5 +58,4 @@ class Ebird::SubmissionsControllerTest < ActionController::TestCase
     assert_template "new"
     assert flash[:alert].present?
   end
-
 end

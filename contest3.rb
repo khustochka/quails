@@ -3,7 +3,6 @@
 require "./config/environment"
 
 class MaxDateReached < Exception
-
 end
 
 SPCS = Hash[Species.all.map { |s| [s.id, s.name_sci] }]

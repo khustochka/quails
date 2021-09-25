@@ -4,7 +4,6 @@ require "test_helper"
 require "export/ebird/observation"
 
 class EbirdConverterTest < ActiveSupport::TestCase
-
   def ebird_observation(obs)
     EbirdObservation.new(obs)
   end
@@ -91,5 +90,4 @@ class EbirdConverterTest < ActiveSupport::TestCase
     assert_equal "Motacilla flava feldegg", ebird_observation(obs).send(:latin_name)
     assert_equal "Western Yellow Wagtail (Black-headed)", ebird_observation(obs).send(:common_name)
   end
-
 end

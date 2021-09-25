@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class PostsController < ApplicationController
-
   administrative except: [:show]
 
   before_action :find_post, only: [:edit, :update, :destroy, :show, :for_lj, :lj_post]
@@ -158,5 +157,4 @@ class PostsController < ApplicationController
     expire_photo_feeds
     expire_page controller: :feeds, action: :sitemap, format: "xml"
   end
-
 end

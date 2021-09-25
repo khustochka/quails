@@ -3,7 +3,6 @@
 require "application_system_test_case"
 
 class JSImagesTest < ApplicationSystemTestCase
-
   def save_and_check
     click_button("Save")
     # save_and_open_page
@@ -135,5 +134,4 @@ class JSImagesTest < ApplicationSystemTestCase
 
     assert_equal 2, all(".current-obs li").size
   end
-
 end

@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module PublicPaths
-
   def self.included(klass)
     klass.helper_method(
       :root_path, :root_url
@@ -17,5 +16,4 @@ module PublicPaths
   def root_url(*args)
     blog_url(*args)
   end
-
 end

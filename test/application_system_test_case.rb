@@ -29,7 +29,6 @@ if $js_driver.start_with?("webkit") && defined?(Capybara::Webkit)
 end
 
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
-
   driven_by $js_driver, using: $js_browser
 
   TEST_CREDENTIALS = {username: ENV["admin_username"], password: ENV["admin_password"]}
@@ -79,5 +78,4 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   def chrome_driver?
     $js_browser.to_s.include?("chrome")
   end
-
 end

@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Ebird::ObsSearch < ObservationSearch
-
   # Rendering
 
   def dates_fieldset
@@ -17,5 +16,4 @@ class Ebird::ObsSearch < ObservationSearch
   def base_cards
     Card.unebirded
   end
-
 end

@@ -3,7 +3,6 @@
 require "ebird/ebird_checklist"
 
 class CardsController < ApplicationController
-
   administrative
 
   after_action :cache_expire, only: [:create, :update, :destroy, :attach]

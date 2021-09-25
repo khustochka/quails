@@ -3,7 +3,6 @@
 require "test_helper"
 
 class MapsControllerTest < ActionController::TestCase
-
   test "admin sees Map" do
     login_as_admin
     get :show
@@ -123,5 +122,4 @@ class MapsControllerTest < ActionController::TestCase
     assert_response :success
     assert_equal Mime[:json], response.media_type
   end
-
 end

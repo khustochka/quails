@@ -3,7 +3,6 @@
 require "ebird/ebird_client"
 
 class EbirdChecklist
-
   attr_reader :ebird_id
   attr_accessor :observ_date, :start_time, :effort_type, :duration_minutes, :distance_kms, :area_acres,
                 :notes, :observers, :location_string, :observations
@@ -150,5 +149,4 @@ class EbirdChecklist
 
     self
   end
-
 end

@@ -3,7 +3,6 @@
 require "flickr/client"
 
 class FlickrUpload
-
   DEFAULT_PARAMS = {safety_level: 1, content_type: 1}
 
   def initialize(img, options = {})

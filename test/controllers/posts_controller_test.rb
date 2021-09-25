@@ -3,7 +3,6 @@
 require "test_helper"
 
 class PostsControllerTest < ActionController::TestCase
-
   test "get new" do
     login_as_admin
     get :new

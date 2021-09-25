@@ -2,7 +2,6 @@
 
 module Lifelist
   class FirstSeen < Base
-
     def preselect_ordering
       "ASC"
     end
@@ -10,6 +9,5 @@ module Lifelist
     def aggregation_operator
       "MIN"
     end
-
   end
 end

@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class LifelistController < ApplicationController
-
   layout "application2", only: [:index]
 
   def index

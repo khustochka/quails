@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class CountriesController < ApplicationController
-
   def gallery
     @country = Country.find_by!(slug: params[:country])
 
@@ -21,5 +20,4 @@ class CountriesController < ApplicationController
         raise ActiveRecord::RecordNotFound
     end
   end
-
 end

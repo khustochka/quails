@@ -2,7 +2,6 @@
 
 # Customize RedCloth
 module RedCloth::Formatters::HTML
-
   # Set no_span_caps by default
   def caps(opts)
     opts[:text]
@@ -21,5 +20,4 @@ module RedCloth::Formatters::HTML
   # def endash(opts)
   #   " – "
   # end
-
 end

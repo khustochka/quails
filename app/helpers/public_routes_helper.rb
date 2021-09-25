@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module PublicRoutesHelper
-
   def localized_images_url(*args)
     if default_locale?
       images_url(*args)
@@ -28,5 +27,4 @@ module PublicRoutesHelper
   def localize_path(string_or_obj, opts = {})
     localize_url(string_or_obj, opts.merge(only_path: true))
   end
-
 end

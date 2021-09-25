@@ -5,7 +5,6 @@ require "test_helper"
 require "export/exporter"
 
 class ExporterTest < ActiveSupport::TestCase
-
   test "card is successfuly exported if contains Unreported bird sp" do
     card = FactoryBot.create(:card)
     obs1 = FactoryBot.create(:observation, taxon: taxa(:pasdom), card: card)
@@ -14,5 +13,4 @@ class ExporterTest < ActiveSupport::TestCase
     result = Exporter.ebird("Ebird_file", Card.where(id: card.id)).export
     assert result
   end
-
 end

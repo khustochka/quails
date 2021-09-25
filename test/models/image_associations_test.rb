@@ -3,7 +3,6 @@
 require "test_helper"
 
 class ImagesAssociationsTest < ActiveSupport::TestCase
-
   setup do
     @obs = create(:observation)
     @image = create(:image, observations: [@obs])
@@ -42,5 +41,4 @@ class ImagesAssociationsTest < ActiveSupport::TestCase
     assert @obs.reload
     assert_equal 0, @obs.images.size
   end
-
 end

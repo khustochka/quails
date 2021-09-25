@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Day
-
   attr_reader :date
 
   def initialize(date)
@@ -56,5 +55,4 @@ class Day
         observations.where("observations.post_id IS NOT NULL").distinct.pluck(:post_id)
     Post.distinct.where(id: posts_id)
   end
-
 end

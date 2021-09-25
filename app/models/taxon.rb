@@ -3,7 +3,6 @@
 # require 'species_parameterizer'
 
 class Taxon < ApplicationRecord
-
   # invalidates CacheKey.gallery
   # invalidates CacheKey.checklist
 
@@ -116,5 +115,4 @@ class Taxon < ApplicationRecord
     children.each {|tx| tx.update!(species_id: sp.id)}
     update!(species_id: sp.id)
   end
-
 end

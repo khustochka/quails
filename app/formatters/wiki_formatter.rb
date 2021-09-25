@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class WikiFormatter
-
   def initialize(text, metadata = {})
     @text = text
     @metadata = metadata
@@ -33,5 +32,4 @@ class WikiFormatter
     # post.body.gsub(/^\{\{(\^|&)[^}]+\}\}\s*$/, 'notextile. \&')
     ParagraphFormatter.apply(@strategy.apply)
   end
-
 end

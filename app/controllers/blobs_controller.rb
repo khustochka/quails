@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class BlobsController < ApplicationController
-
   administrative
 
   def create
@@ -19,5 +18,4 @@ class BlobsController < ApplicationController
       {src: rails_blob_url(blob), url: blob_url(blob.signed_id)}
       )
   end
-
 end
