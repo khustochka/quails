@@ -18,9 +18,9 @@ class Thumbnail
   def title
     case @title_or_partial
     when String
-        @title_or_partial
+      @title_or_partial
     when Hash
-        @cached_title = Title.new(@url, @title_or_partial[:partial])
+      @cached_title = Title.new(@url, @title_or_partial[:partial])
     end
   end
 
