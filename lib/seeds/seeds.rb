@@ -51,7 +51,6 @@ module Seeds
   end
 
   private
-
   def self.seed_init_if_necessary!
     unless seed_inited?
       system("git clone #{SEED_REPO} #{SEED_DIR}")

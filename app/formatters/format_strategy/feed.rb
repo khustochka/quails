@@ -5,7 +5,6 @@ module FormatStrategy
     include FullPathMethods
 
     private
-
     # Fixing the user-inserted host-less links
     def preprocess(text)
       url_prefix = "https://#{@metadata[:host]}#{extract_port}/"

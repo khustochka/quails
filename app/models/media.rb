@@ -123,7 +123,6 @@ class Media < ApplicationRecord
   end
 
   private
-
   def consistent_observations
     obs = Observation.where(id: observation_ids)
     if obs.blank?

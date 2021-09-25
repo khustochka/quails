@@ -54,7 +54,6 @@ module Lifelist
     end
 
     private
-
     def build_relation
       # FIXME: Do not join on species when not on taxonomy sorting
       bare_relation.

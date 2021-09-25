@@ -41,7 +41,6 @@ class Comment < ApplicationRecord
   end
 
   private
-
   def consistent_post_and_parent
     if parent_comment && parent_comment.post_id != post_id
       errors.add(:parent_comment, "must belong to the same post")

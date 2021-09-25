@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module FormatStrategy
   class InstantArticle < Feed
     def img_tag(term)
@@ -32,7 +33,6 @@ module FormatStrategy
     end
 
     private
-
     def preprocess(text)
       new_text = super(text)
       # Replace h3 with h2, h4-6 with strong

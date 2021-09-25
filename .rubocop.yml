@@ -25,7 +25,11 @@ Performance:
 
 Layout:
   Exclude:
-    - 'lib/tasks/taxonomy/**/*'    
+    - 'lib/tasks/taxonomy/**/*'
+
+Style:
+  Exclude:
+    - 'lib/tasks/taxonomy/**/*'
 
 # Prefer assert_not over assert !
 Rails/AssertNot:

@@ -59,7 +59,6 @@ module Ebird
     end
 
     private
-
     def test_prefix
       if Quails.env.live?
         ""

@@ -88,9 +88,8 @@ class EbirdClient
     form = page.form_with(id: "cl-content")
 
     page.xpath("//textarea[contains(@class, 'spp-comments') and text()='\r\nV']").each do |el|
-      form.field_with(:id => el[:id]).value = "Heard"
+      form.field_with(id: el[:id]).value = "Heard"
     end
     @agent.submit(form)
-
   end
 end

@@ -69,7 +69,6 @@ class ImageRepresenter
   end
 
   private
-
   # TODO: Make adjustments for images already saved with worse quality?
   def resize_and_save_space(resizing)
     {resize: resizing, quality: "85%", strip: true, interlace: "Plane"}

@@ -45,7 +45,6 @@ module ImagesHelper
   end
 
   private
-
   def self.image_host
     @image_host ||= ENV["quails_image_host"]
   end

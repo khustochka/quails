@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module GoogleSearchHelper
   def include_google_search
     # for some reason 'cache' inside helpers works only with concat

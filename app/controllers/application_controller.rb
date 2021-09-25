@@ -22,7 +22,6 @@ class ApplicationController < ActionController::Base
   include ActiveStorage::SetCurrent
 
   private
-
   def allow_params(*list)
     @allowed_params = list + [:action, :controller]
   end

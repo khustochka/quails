@@ -153,7 +153,6 @@ class ImagesController < ApplicationController
   end
 
   private
-
   ACCEPTED_PARAMS = [:slug, :title, :description, :index_num, :status, :stored_image]
 
   def image_params

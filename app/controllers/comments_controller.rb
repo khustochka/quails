@@ -181,7 +181,6 @@ class CommentsController < ApplicationController
   end
 
   private
-
   def mailer_link_options
     {host: request.host, port: request.port, protocol: request.protocol}
   end

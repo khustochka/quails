@@ -39,7 +39,6 @@ class EbirdObservation
   }
 
   private
-
   def common_name
     ebird_taxon.name_en
   end

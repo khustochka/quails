@@ -11,7 +11,6 @@ module Search
     end
 
     private
-
     def filter_clause
       searchable_fields.map do |field|
         full_blown_condition(field)

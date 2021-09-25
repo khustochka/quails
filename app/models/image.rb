@@ -135,7 +135,6 @@ class Image < Media
   end
 
   private
-
   def prev_next_by(sp)
     @prev_next ||= {}
     if @prev_next[sp]

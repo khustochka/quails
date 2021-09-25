@@ -61,7 +61,6 @@ module Deflicker
     end
 
     private
-
     def search_params
       params.slice(*Deflicker::Search.attribute_names)
     end

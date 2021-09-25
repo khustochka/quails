@@ -19,7 +19,7 @@ module Lifelist
           create(:observation, taxon: taxa(:pasdom), card: create(:card, observ_date: "2010-04-16", locus: loci(:nyc))),
           create(:observation, taxon: taxa(:hirrus), card: create(:card, observ_date: "2010-07-27", locus: loci(:nyc))),
           create(:observation, taxon: taxa(:pasdom), card: create(:card, observ_date: "2010-09-10")),
-          # create(:observation, taxon: taxa(:carlis), card: create(:card, observ_date: "2010-10-13"))
+        # create(:observation, taxon: taxa(:carlis), card: create(:card, observ_date: "2010-10-13"))
       ]
     end
 

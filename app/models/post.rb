@@ -178,7 +178,6 @@ class Post < ApplicationRecord
   end
 
   private
-
   def set_face_date
     if read_attribute(:face_date).blank?
       self.face_date = Time.current.strftime("%F %T")

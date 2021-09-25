@@ -146,7 +146,6 @@ class PostsController < ApplicationController
   end
 
   private
-
   def find_post
     @post = current_user.available_posts.find_by!(slug: params[:id])
   end

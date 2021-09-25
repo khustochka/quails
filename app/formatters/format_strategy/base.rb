@@ -45,7 +45,6 @@ module FormatStrategy
     end
 
     private
-
     def prepare
       @posts = Hash.new do |hash, term|
         hash[term] = Post.find_by(slug: term.downcase)

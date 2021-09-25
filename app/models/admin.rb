@@ -32,7 +32,6 @@ class Admin
   end
 
   private
-
   def commenter
     @commenter ||= Commenter.where(is_admin: true).first
   end

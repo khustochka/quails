@@ -52,7 +52,6 @@ class Video < Media
   end
 
   private
-
   def update_thumbnail
     self.assets_cache = ImageAssetsArray.new (
                                             [

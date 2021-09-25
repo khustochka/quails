@@ -8,7 +8,6 @@ module PublicPaths
   end
 
   private
-
   def root_path(*args)
     blog_path(*args)
   end

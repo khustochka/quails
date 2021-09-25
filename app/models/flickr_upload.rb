@@ -31,7 +31,6 @@ class FlickrUpload
   end
 
   private
-
   def flickr_client
     @flickr_client ||= Flickr::Client.new
   end

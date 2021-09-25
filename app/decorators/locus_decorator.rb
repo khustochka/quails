@@ -14,7 +14,6 @@ class LocusDecorator < ModelDecorator
   end
 
   private
-
   def self_and_parent
     if @model.patch
       [@model.cached_parent, @model].compact.uniq.map(&:name).join(" - ")

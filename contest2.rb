@@ -78,7 +78,7 @@ def cleanup(obs)
     counts = obs.flatten.inject(Hash.new(0)) { |h, i| h[i] += 1 if i.is_a?(Integer); h }
     singles = counts.to_a.select { |e| e[1] == 1 }.map(&:first)
 
-#  p singles.map {|u| SPCS[u]}
+    #  p singles.map {|u| SPCS[u]}
 
     obs.map! do |day|
       if day.is_a? Array

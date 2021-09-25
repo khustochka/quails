@@ -22,7 +22,6 @@ class CommentMailer < ApplicationMailer
   end
 
   private
-
   def set_params
     @comment = params[:comment]
     @link_options = params[:link_options]

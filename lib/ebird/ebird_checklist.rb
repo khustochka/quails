@@ -65,7 +65,6 @@ class EbirdChecklist
   end
 
   private
-
   def parse!(page)
     datetime = page.at_css("div.SectionHeading-heading time")[:datetime]
     dt = Time.parse(datetime)

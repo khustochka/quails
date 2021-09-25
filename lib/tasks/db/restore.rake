@@ -3,7 +3,7 @@
 desc "DB restore data tasks"
 namespace :db do
   desc "Restore local db from existing dump"
-  task :restore => :environment do
+  task restore: :environment do
     custom_db = ENV["DATABASE_NAME"]
     dump_file = ENV["DB_DUMP"]
     if dump_file.blank?

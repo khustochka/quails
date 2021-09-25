@@ -79,7 +79,6 @@ class ObservationSearch
   end
 
   private
-
   def build_cards_relation
     cards_rel = bare_cards_relation
     if observation_filtered?
