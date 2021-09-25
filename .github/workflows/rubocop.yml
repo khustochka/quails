@@ -10,7 +10,8 @@ jobs:
         uses: actions/checkout@v2
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
-        bundler: 'none'
+        with:
+          bundler: 'none'
       - name: Install rubocop
         run: |
           gem install rubocop-rails rubocop-performance rubocop-packaging
