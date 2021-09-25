@@ -40,7 +40,7 @@ module Flickr
 
     def search_and_get_page(conditions, page)
       call(
-          "flickr.photos.search",
+        "flickr.photos.search",
           conditions.merge(page: page, per_page: 500)
       )
     end

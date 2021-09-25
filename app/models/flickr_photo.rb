@@ -115,7 +115,7 @@ class FlickrPhoto
   def get_info
     data = flickr_client.call("flickr.photos.getInfo", {photo_id: @flickr_id}).get
     Data.new(
-        data.title,
+      data.title,
         data.description,
         data.dates.taken,
         data.tags.map { |t| t.raw }

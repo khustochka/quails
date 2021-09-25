@@ -50,18 +50,18 @@ class EbirdChecklist
       notes = ""
     end
     Card.new(
-            ebird_id: ebird_id,
-            observ_date: observ_date,
-            start_time: start_time,
-            effort_type: effort_type,
-            duration_minutes: duration_minutes,
-            distance_kms: distance_kms,
-            area_acres: area_acres,
-            observers: observers,
-            notes: notes || "",
-            #locus: locus,
-            motorless: ml,
-            observations: observations.map {|obs| Observation.new(obs)}
+      ebird_id: ebird_id,
+      observ_date: observ_date,
+      start_time: start_time,
+      effort_type: effort_type,
+      duration_minutes: duration_minutes,
+      distance_kms: distance_kms,
+      area_acres: area_acres,
+      observers: observers,
+      notes: notes || "",
+      #locus: locus,
+      motorless: ml,
+      observations: observations.map {|obs| Observation.new(obs)}
     )
   end
 

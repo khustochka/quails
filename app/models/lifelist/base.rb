@@ -73,7 +73,7 @@ module Lifelist
       #     where("(observ_date, start_time, species_id) IN (#{life_dates_sql})")
 
       base.select(
-          "first_value(observations.id)
+        "first_value(observations.id)
           OVER (PARTITION BY species_id
           ORDER BY observ_date #{preselect_ordering}, to_timestamp(start_time, 'HH24:MI') #{preselect_ordering} NULLS LAST)"
       ).

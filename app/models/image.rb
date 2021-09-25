@@ -108,7 +108,7 @@ class Image < Media
 
   def stored_image_to_asset_item
     ImageAssetItem.new(
-        :storage,
+      :storage,
         stored_image.metadata[:width],
         stored_image.metadata[:height],
         stored_image_thumbnail_variant.url
@@ -147,7 +147,7 @@ class Image < Media
     window =
         Image.select("media.*, row_number() over (partition by species.id #{PREV_NEXT_ORDER}) as rn").
             joins(
-<<SQL
+              <<SQL
             INNER JOIN "media_observations" ON "media_observations"."media_id" = "media"."id"
             INNER JOIN "observations" ON "observations"."id" = "media_observations"."observation_id"
             INNER JOIN "taxa" ON "taxa"."id" = "observations"."taxon_id"

@@ -42,7 +42,7 @@ class Media < ApplicationRecord
   # Mapped photos and vidoes
   def self.for_the_map
     Media.connection.select_rows(
-        Media.for_the_map_query.to_sql
+      Media.for_the_map_query.to_sql
     ).each_with_object({}) do |(im_id, lat, lon), memo|
       key = [lat, lon].map { |x| (x.to_f * 100000).round / 100000.0 }
       (memo[key.join(",")] ||= []).push(im_id.to_i)
@@ -79,9 +79,9 @@ class Media < ApplicationRecord
   def search_applicable_observations(params = {})
     date = params[:date]
     ObservationSearch.new(
-        new_record? ?
-            {observ_date: date || Card.maximum(:observ_date)} :
-            {observ_date: observ_date, locus_id: locus.id}
+      new_record? ?
+          {observ_date: date || Card.maximum(:observ_date)} :
+          {observ_date: observ_date, locus_id: locus.id}
     )
   end
 

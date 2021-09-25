@@ -10,9 +10,9 @@ module FormatStrategy
 
     include FullPathMethods
 
-  def initialize(text, metadata = {})
-    super
-  end
+    def initialize(text, metadata = {})
+      super
+    end
 
     def lj_user(user)
       %Q(<lj user="#{user}">)

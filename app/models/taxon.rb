@@ -91,13 +91,13 @@ class Taxon < ApplicationRecord
                   limit(1).pluck("species.index_num").first
           new_sp_index_num = prev_sp_index_num ? prev_sp_index_num + 1 : 1
           new_species = self.create_species!(
-              index_num: new_sp_index_num,
-              name_sci: name_sci,
-              name_en: name_en,
-              authority: nil,
-              order: order,
-              family: family.match(/^\w+dae/)[0],
-              needs_review: true
+            index_num: new_sp_index_num,
+            name_sci: name_sci,
+            name_en: name_en,
+            authority: nil,
+            order: order,
+            family: family.match(/^\w+dae/)[0],
+            needs_review: true
           )
         end
         # The idea is that if species exists it is reattached but not modified (this will be done by taxonomy update)

@@ -30,14 +30,14 @@ namespace :deflicker do
         entries.each do |entry|
           en = Deflicker::JournalEntry.find_or_create_by(user: u, itemid: entry.itemid)
           en.update(
-              itemid: entry.itemid,
-              anum: entry.anum,
-              user: u,
-              journal: j,
-              server: s,
-              event: entry.event,
-              subject: entry.subject&.force_encoding("UTF-8"),
-              time: entry.time
+            itemid: entry.itemid,
+            anum: entry.anum,
+            user: u,
+            journal: j,
+            server: s,
+            event: entry.event,
+            subject: entry.subject&.force_encoding("UTF-8"),
+            time: entry.time
           )
           en.extract_images_links
         end

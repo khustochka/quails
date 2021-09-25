@@ -12,7 +12,7 @@ class CommentDecorator < ModelDecorator
 
   def body
     sanitize(
-        WikiFormatter.new(@model.body).for_site,
+      WikiFormatter.new(@model.body).for_site,
         tags: ALLOWED_TAGS,
         attributes: ALLOWED_ATTRIBUTES
     )

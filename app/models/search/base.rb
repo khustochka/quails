@@ -29,7 +29,7 @@ module Search
 
     def full_blown_condition(column_name)
       @base.klass.send(
-          :sanitize_sql,
+        :sanitize_sql,
           ["#{column_name} ~* '(^| |\\(|-|\\/)%s'", regexp_escaped_term]
       )
     end

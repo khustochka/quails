@@ -7,10 +7,10 @@ module FormatStrategy
 
     WIKI_PREFIXES = -"@|#|\\^|&"
 
-  def initialize(text, metadata = {})
-    @metadata = metadata
-    @text = preprocess(text)
-  end
+    def initialize(text, metadata = {})
+      @metadata = metadata
+      @text = preprocess(text)
+    end
 
     def apply
       prepare

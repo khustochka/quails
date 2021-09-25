@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module GoogleSearchHelper
 
   def include_google_search

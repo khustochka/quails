@@ -19,7 +19,7 @@ ENV["RAILS_ENV"] ||= "test"
 require File.expand_path("../../config/environment", __FILE__)
 require "rails/test_help"
 
-unless ENV['RM_INFO']
+unless ENV["RM_INFO"]
   require "minitest/reporters"
   MiniTest::Reporters.use!
 end

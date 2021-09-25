@@ -38,12 +38,12 @@ class ReportsController < ApplicationController
           (ob2 - ob1) >= @period
         end
         collection.concat(
-            obs.map do |ob1, ob2|
-              {sp_id: sp.to_i,
-               date1: ob1,
-               date2: ob2,
-               days: (ob2 - ob1).to_i}
-            end
+          obs.map do |ob1, ob2|
+            {sp_id: sp.to_i,
+             date1: ob1,
+             date2: ob2,
+             days: (ob2 - ob1).to_i}
+          end
         )
       end.sort { |a, b| b[sort_col] <=> a[sort_col] }
       spcs = Species.where(id: @list.map { |i| i[:sp_id] }).index_by(&:id)
@@ -59,9 +59,9 @@ class ReportsController < ApplicationController
     @species_with_media = Media.joins(:observations, :taxa).count("DISTINCT species_id")
 
     unpic_rel = MyObservation.select("species_id, COUNT(observations.id) AS cnt").where(
-        "species_id NOT IN (%s)" %
-            MyObservation.select("DISTINCT species_id").
-                joins("INNER JOIN media_observations as im on (observations.id = im.observation_id)").to_sql
+      "species_id NOT IN (%s)" %
+          MyObservation.select("DISTINCT species_id").
+              joins("INNER JOIN media_observations as im on (observations.id = im.observation_id)").to_sql
     ).group(:species_id)
 
     @no_photo = Species.select("*").
@@ -89,11 +89,11 @@ class ReportsController < ApplicationController
         im2.created_at > 1.year.ago.beginning_of_year && (im2.created_at - im1.created_at) >= TWO_YEARS
       end
       collection.concat(
-          img.map do |im1, im2|
-            {sp: sp,
-             date1: im1.created_at.to_date,
-             date2: im2.created_at.to_date}
-          end
+        img.map do |im1, im2|
+          {sp: sp,
+           date1: im1.created_at.to_date,
+           date2: im2.created_at.to_date}
+        end
       )
     end.sort { |a, b| b[sort_col] <=> a[sort_col] }
   end
@@ -132,7 +132,7 @@ class ReportsController < ApplicationController
     @prev_day = @this_day - 1
     @uptoday = observations_filtered.
         where(
-            'EXTRACT(month FROM observ_date)::integer < ? OR
+          'EXTRACT(month FROM observ_date)::integer < ? OR
         (EXTRACT(month FROM observ_date)::integer = ?
         AND EXTRACT(day FROM observ_date)::integer <= ?)',
             @this_day.month, @this_day.month, @this_day.day

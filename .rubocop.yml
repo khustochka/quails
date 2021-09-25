@@ -13,9 +13,6 @@ AllCops:
     - '**/tmp/**/*'
     - '**/templates/**/*'
     - '**/vendor/**/*'
-    - 'actionpack/lib/action_dispatch/journey/parser.rb'
-    - 'actionmailbox/test/dummy/**/*'
-    - 'actiontext/test/dummy/**/*'
     - '**/node_modules/**/*'
     # Additional exclude files by rubocop-rails_config
     - 'bin/**/*'
@@ -25,6 +22,10 @@ AllCops:
 Performance:
   Exclude:
     - '**/test/**/*'
+
+Layout:
+  Exclude:
+    - 'lib/tasks/taxonomy/**/*'    
 
 # Prefer assert_not over assert !
 Rails/AssertNot:
@@ -100,7 +101,7 @@ Layout/FirstArgumentIndentation:
 # extra level of indentation.
 Layout/IndentationConsistency:
   Enabled: true
-  EnforcedStyle: indented_internal_methods
+  EnforcedStyle: normal
 
 # Two spaces, no tabs (for indentation).
 Layout/IndentationWidth:
@@ -147,14 +148,7 @@ Style/FrozenStringLiteralComment:
   Enabled: true
   EnforcedStyle: always
   Exclude:
-    - 'actionview/test/**/*.builder'
-    - 'actionview/test/**/*.ruby'
-    - 'actionpack/test/**/*.builder'
-    - 'actionpack/test/**/*.ruby'
-    - 'activestorage/db/migrate/**/*.rb'
-    - 'activestorage/db/update_migrate/**/*.rb'
-    - 'actionmailbox/db/migrate/**/*.rb'
-    - 'actiontext/db/migrate/**/*.rb'
+    - 'config.ru'
 
 Style/RedundantFreeze:
   Enabled: true
