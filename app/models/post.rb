@@ -186,7 +186,7 @@ class Post < ApplicationRecord
 
   def check_cover_image_slug_or_url
     if cover_image_slug.present?
-      if !(cover_image_slug.match?(/\Ahttps?:\/\//))
+      if !(cover_image_slug.to_s.match?(/\Ahttps?:\/\//))
         if Image.find_by_slug(cover_image_slug).nil?
           errors.add(:cover_image_slug, "should be image slug or external URL.")
         end

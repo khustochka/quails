@@ -44,7 +44,7 @@ class EbirdChecklist
   end
 
   def to_card
-    ml = notes.match?(/^ML/i)
+    ml = notes.to_s.match?(/^ML/i)
     if /\AML\s*\Z/.match?(notes)
       notes = ""
     end
