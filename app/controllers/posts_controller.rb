@@ -110,7 +110,7 @@ class PostsController < ApplicationController
                   end
                 else
                   flash.alert = "Editing LJ/DW entries is prohibited when not on real production."
-                  test/models/post_test.rbnil
+                  nil
                 end
               else
                 any_card = @post.cards.first
