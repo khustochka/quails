@@ -12,3 +12,4 @@ vendor/* linguist-vendored
 /data export-ignore
 /doc export-ignore
 /test export-ignore
+/.github export-ignore
