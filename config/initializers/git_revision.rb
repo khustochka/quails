@@ -17,8 +17,10 @@ unless Rails.env.test?
     elsif File.directory?(File.join(Rails.root, ".git"))
       sha, message = `git show -s --format=%H%n%n%B`.split("\n\n", 2)
     end
+    if sha && message
+      Rails.application.config.x.revision.sha = sha
+      Rails.application.config.x.revision.message = message
+    end
   rescue
   end
-  Rails.application.config.x.revision.sha = sha
-  Rails.application.config.x.revision.message = message
 end
