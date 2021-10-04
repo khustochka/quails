@@ -13,6 +13,10 @@ task benchmark: :environment do
       SecureRandom.hex(16)
     end
 
+    bench.report("urlsafe") do
+      SecureRandom.urlsafe_base64(20 * 3 / 4)
+    end
+
     bench.compare!
   end
 end

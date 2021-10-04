@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_28_181836) do
+ActiveRecord::Schema.define(version: 2021_10_04_031152) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -86,7 +86,7 @@ ActiveRecord::Schema.define(version: 2021_08_28_181836) do
     t.string "ip", limit: 45
     t.boolean "send_email", default: false
     t.integer "commenter_id"
-    t.string "unsubscribe_token"
+    t.string "unsubscribe_token", limit: 25
     t.index ["post_id"], name: "index_comments_on_post_id"
   end
 
@@ -125,6 +125,25 @@ ActiveRecord::Schema.define(version: 2021_08_28_181836) do
     t.index ["ebird_code"], name: "index_ebird_taxa_on_ebird_code"
     t.index ["index_num"], name: "index_ebird_taxa_on_index_num"
     t.index ["parent_id"], name: "index_ebird_taxa_on_parent_id"
+  end
+
+  create_table "external_asset_variants", force: :cascade do |t|
+    t.bigint "external_asset_id", null: false
+    t.string "variation_key", null: false
+    t.text "metadata"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["external_asset_id"], name: "index_external_asset_variants_on_external_asset_id"
+  end
+
+  create_table "external_assets", force: :cascade do |t|
+    t.bigint "media_id", null: false
+    t.string "service_name", null: false
+    t.string "external_key", null: false
+    t.text "metadata"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["media_id"], name: "index_external_assets_on_media_id"
   end
 
   create_table "ioc_taxa", force: :cascade do |t|
