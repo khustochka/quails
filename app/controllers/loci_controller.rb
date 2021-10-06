@@ -9,10 +9,10 @@ class LociController < ApplicationController
   def index
     @term = params[:term]
     @loci = if @term.present?
-                 Search::LociSearch.new(Locus.cached_ancestry_preload, @term).find
-               else
-                 Locus.order(:id).cached_ancestry_preload.page(params[:page])
-               end
+              Search::LociSearch.new(Locus.cached_ancestry_preload, @term).find
+            else
+              Locus.order(:id).cached_ancestry_preload.page(params[:page])
+            end
     @loci = @loci.preload(:observations, :patch_observations)
     preload_parent(@loci)
     if request.xhr?

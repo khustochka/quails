@@ -65,11 +65,10 @@ Layout/CommentIndentation:
 Layout/ElseAlignment:
   Enabled: true
 
-# Align `end` with the matching keyword or starting expression except for
-# assignments, where it should be aligned with the LHS.
+# Align `end` with the matching keyword
 Layout/EndAlignment:
   Enabled: true
-  EnforcedStyleAlignWith: variable
+  EnforcedStyleAlignWith: keyword
   AutoCorrect: true
 
 Layout/EmptyLineAfterMagicComment:

@@ -86,7 +86,7 @@ class Card < ApplicationRecord
               AND c.start_time IS NULL
               AND c.id < #{self.id}
               )"
-    else
+     else
       "OR ('#{self.observ_date}' = c.observ_date
               AND to_timestamp('#{self.start_time}', 'HH24:MI') > to_timestamp(c.start_time, 'HH24:MI')
               )"

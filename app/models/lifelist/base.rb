@@ -33,11 +33,11 @@ module Lifelist
     def ordering
       case @sorting
       when "class"
-          then "index_num ASC"
+        "index_num ASC"
       when "count"
-          then "obs_count DESC"
-        else
-          "observ_date DESC, to_timestamp(start_time, 'HH24:MI') DESC NULLS LAST, created_at DESC"
+        "obs_count DESC"
+      else
+        "observ_date DESC, to_timestamp(start_time, 'HH24:MI') DESC NULLS LAST, created_at DESC"
       end
     end
 
