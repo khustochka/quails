@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "active_support/core_ext/array/inquiry.rb"
+require "quails/revision"
 
 module Quails
   CURRENT_YEAR = 2021
@@ -25,7 +26,7 @@ module Quails
 
     def puma_dev?
       # This is to detect puma-dev. Another way is to puts some env var into .powenv which is only read by puma-dev.
-      ENV["PWD"].match?(%r{/.puma-dev/quails\Z})
+      ENV["PWD"] =~ %r{/.puma-dev/quails\Z}
     end
 
     def heroku?
@@ -64,5 +65,13 @@ module Quails
 
   def self.env
     @env ||= Env.new
+  end
+
+  def self.revision
+    @revision ||= Revision.get
+  end
+
+  def self.unique_key
+    Rails.application.config.x.unique_key
   end
 end

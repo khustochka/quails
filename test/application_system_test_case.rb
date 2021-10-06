@@ -18,7 +18,7 @@ $js_browser = ENV["JS_BROWSER"]&.to_sym ||
 
 puts "[NOTE] Using driver: #{$js_driver}" + ($js_browser ? ", browser: #{$js_browser}" : "")
 
-if $js_driver.start_with?("webkit") && defined?(Capybara::Webkit)
+if $js_driver.to_s.start_with?("webkit") && defined?(Capybara::Webkit)
   require "core_ext/capybara/webkit/node"
   Capybara::Webkit.configure do |config|
     config.block_unknown_urls

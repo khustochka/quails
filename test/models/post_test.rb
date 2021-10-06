@@ -52,7 +52,7 @@ class PostTest < ActiveSupport::TestCase
 
   test "set post's face_date to current when creating" do
     time, blogpost = freeze_time do
-     [Time.current, create(:post)]
+      [Time.current, create(:post)]
     end
     assert_equal time.strftime("%F %T"), blogpost.face_date.strftime("%F %T")
   end
