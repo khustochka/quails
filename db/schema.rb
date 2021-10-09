@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_28_181836) do
+ActiveRecord::Schema.define(version: 2021_10_04_031152) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -86,7 +86,7 @@ ActiveRecord::Schema.define(version: 2021_08_28_181836) do
     t.string "ip", limit: 45
     t.boolean "send_email", default: false
     t.integer "commenter_id"
-    t.string "unsubscribe_token"
+    t.string "unsubscribe_token", limit: 25
     t.index ["post_id"], name: "index_comments_on_post_id"
   end
 

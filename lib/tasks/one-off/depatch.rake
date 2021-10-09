@@ -90,7 +90,7 @@ task depatch: :environment do
         end
       end
       if x.to_i == 1 || x.to_i == 2
-          card.observations.update_all(private_notes: "")
+        card.observations.update_all(private_notes: "")
       end
       puts "Press any key"
       x = STDIN.gets.strip

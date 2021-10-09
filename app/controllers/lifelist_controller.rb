@@ -23,11 +23,11 @@ class LifelistController < ApplicationController
     sort_override =
         case params[:sort]
         when nil
-            nil
+          nil
         when "by_taxonomy"
-            "class"
-          else
-            raise ActionController::RoutingError, "Illegal argument sort=#{params[:sort]}"
+          "class"
+        else
+          raise ActionController::RoutingError, "Illegal argument sort=#{params[:sort]}"
         end
 
     locus = params[:locus]

@@ -5,28 +5,16 @@ task benchmark: :environment do
   require "benchmark/ips"
 
   Benchmark.ips do |bench|
-    bench.report("=~ positive") do
-      "Abcdefghijk" =~ /jk$/
+    bench.report("uuid") do
+      SecureRandom.uuid
     end
 
-    bench.report("=~ negative") do
-      "Abcdefghijk" =~ /cz$/
+    bench.report("16 hex bytes") do
+      SecureRandom.hex(16)
     end
 
-    bench.report("match? positive") do
-      "Abcdefghijk".match?(/jk$/)
-    end
-
-    bench.report("match? negative") do
-      "Abcdefghijk".match?(/cz$/)
-    end
-
-    bench.report("regex match? positive") do
-      /jk$/.match?("Abcdefghijk")
-    end
-
-    bench.report("regex match? negative") do
-      /cz$/.match?("Abcdefghijk")
+    bench.report("urlsafe") do
+      SecureRandom.urlsafe_base64(20 * 3 / 4)
     end
 
     bench.compare!
