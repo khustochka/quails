@@ -107,11 +107,12 @@ p img, video
 
 
 /* http://webdesignerwall.com/tutorials/css-elastic-videos */
-//@media only all and (max-width: 767.98px)
+// No need in media query if .video-block has appropriate max-width
+//@media only all and (max-width: 890px)
 .video-container
   position: relative
-  padding-bottom: 56.25%
-  padding-top: 30px
+  padding-bottom: 55.20%
+  padding-top: 0
   height: 0
   overflow: hidden
   iframe

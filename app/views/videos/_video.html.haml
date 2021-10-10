@@ -19,4 +19,4 @@
 - if russian_locale?
   = video.decorated.description
 
-= render video.small
+= render "videos/site/video", embed: video.representation.full_size

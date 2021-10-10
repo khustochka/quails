@@ -4,9 +4,8 @@ module Medias
   class VideoRepresentation
     attr_reader :media
 
-    def initialize(media, privacy: true)
+    def initialize(media)
       @media = media
-      @privacy = privacy
     end
 
     # Flow_thumbnail?
