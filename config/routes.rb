@@ -144,6 +144,19 @@ Rails.application.routes.draw do
     route_for(:show_post, blogpost.year, blogpost.month, blogpost.to_param, options.merge(anchor: "comment#{comment.id}"))
   end
 
+  direct :localize do |obj, options|
+    case obj
+    when Image
+      route_for(:localized_image, options.merge(id: obj.to_param))
+    when Video
+      route_for(:localized_video, options.merge(id: obj.to_param))
+    when Species
+      route_for(:localized_species, options.merge(id: obj.to_param))
+    else
+      obj # May be string
+    end
+  end
+
   get '/archive' => 'blog#archive'
 
   scope '(:locale)', locale: /en/ do
