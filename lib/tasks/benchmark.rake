@@ -4,17 +4,17 @@ desc "Quick benchmark"
 task benchmark: :environment do
   require "benchmark/ips"
 
+  video = Video.last
+
   Benchmark.ips do |bench|
-    bench.report("uuid") do
-      SecureRandom.uuid
+    bench.report("ActionView") do
+      embed = video.representation.full_size
+      ActionView::Base.with_empty_template_cache.with_view_paths(["app/views"], {}).render "videos/youtube_embed", embed: embed, privacy: true
     end
 
-    bench.report("16 hex bytes") do
-      SecureRandom.hex(16)
-    end
-
-    bench.report("urlsafe") do
-      SecureRandom.urlsafe_base64(20 * 3 / 4)
+    bench.report("ActiveController::Rendered") do
+      embed = video.representation.full_size
+      ApplicationController.renderer.new.render partial: "videos/youtube_embed", locals: { embed: embed, privacy: true }
     end
 
     bench.compare!
