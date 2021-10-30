@@ -133,7 +133,6 @@ class Media < ApplicationRecord
   end
 
   private
-
   def representation_class
     case media_type
     when "photo"

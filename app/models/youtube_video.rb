@@ -10,7 +10,6 @@ class YoutubeVideo < Struct.new(:video_id, :title, :width, :height)
   end
 
   private
-
   def host(privacy: false)
     "www.youtube#{"-nocookie" if privacy}.com"
   end

@@ -34,6 +34,6 @@ module StoredImage
   end
 
   def size_variants
-    portrait? ? SIZE_VARIANTS.map{|w| (w * 0.66).round} : SIZE_VARIANTS
+    portrait? ? SIZE_VARIANTS.map {|w| (w * 0.66).round} : SIZE_VARIANTS
   end
 end

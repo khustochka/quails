@@ -25,7 +25,6 @@ class PhotoEmbed
   end
 
   private
-
   def max_possible_width
     imagetaggable.width
   end

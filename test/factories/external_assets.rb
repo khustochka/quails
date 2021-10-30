@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-#
+
 FactoryBot.define do
   factory :external_asset, class: ExternalAsset do
     trait :youtube_asset do
