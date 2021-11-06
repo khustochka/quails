@@ -10,7 +10,7 @@ class LifelistAdvancedTest < ActionController::TestCase
         create(:observation, taxon: taxa(:pasdom), card: create(:card, observ_date: "2010-06-20", locus: loci(:nyc))),
         create(:observation, taxon: taxa(:hirrus), card: create(:card, observ_date: "2010-06-18", locus: loci(:nyc))),
         create(:observation, taxon: taxa(:bomgar), card: create(:card, observ_date: "2009-06-18", locus: loci(:nyc))),
-        create(:observation, taxon: taxa(:saxola), card: create(:card, observ_date: "2007-07-18")),
+        create(:observation, taxon: taxa(:saxola), card: create(:card, observ_date: "2007-07-18"), voice: true),
         create(:observation, taxon: taxa(:jyntor), card: create(:card, observ_date: "2009-08-09", locus: loci(:brovary)))
     ]
   end
@@ -69,5 +69,11 @@ class LifelistAdvancedTest < ActionController::TestCase
     get :advanced, params: {locus: "usa", year: 2009}
     assert_response :success
     assert_select "a[href='#{advanced_list_path(locus: 'usa', year: 2009, locale: :en)}']"
+  end
+
+  test "show lifelist with only seen species" do
+    get :advanced, params: { seen: true }
+    assert_response :success
+    assert_select "a", { text: taxa(:saxola).species.name, count: 0 }, "Heard only species should not be shown"
   end
 end
