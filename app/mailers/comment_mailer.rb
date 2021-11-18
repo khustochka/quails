@@ -1,23 +1,22 @@
 # frozen_string_literal: true
 
 class CommentMailer < ApplicationMailer
+  include ActionView::Helpers::SanitizeHelper
+
   default from: ENV["quails_comment_sender"]
   default to: ENV["quails_comment_reader"]
 
   before_action :set_params
 
   def notify_admin
-    if self.class.default_params[:to] && self.class.default_params[:from]
-      mail subject: "Comment posted to \"#{@comment.post.decorated.title}\""
-    end
+    mail from: params[:from], to: params[:to], subject: "Comment posted to \"#{sanitized_comment_title}\""
   end
 
   def notify_parent_author
     to = @comment.parent_comment.commenter.email
     if (Rails.env.production? && Quails.env.live?) ||
-            (Rails.env.development? && (!perform_deliveries || delivery_method == :letter_opener)) &&
-            self.class.default_params[:from] && to.present?
-      mail subject: "Ответ на ваш комментарий на сайте birdwatch.org.ua (\"#{@comment.post.decorated.title}\")", to: to
+            (!Rails.env.production? && (!perform_deliveries || delivery_method.in?([:letter_opener, :test]))) && to.present?
+      mail from: params[:from], to: to, subject: "Ответ на ваш комментарий на сайте birdwatch.org.ua (\"#{sanitized_comment_title}\")"
     end
   end
 
@@ -29,5 +28,9 @@ class CommentMailer < ApplicationMailer
 
   def default_url_options
     @link_options
+  end
+
+  def sanitized_comment_title
+    sanitize(@comment.post.decorated.title, tags: [])
   end
 end
