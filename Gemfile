@@ -122,7 +122,7 @@ end
 
 group :test do
   gem "capybara"
-  gem "selenium-webdriver", "~> 3.142"
+  gem "selenium-webdriver"
   gem "webdrivers"
   gem "launchy" # So you can do Then show me the page
   gem "simplecov", require: false, platforms: [:ruby, :mingw]
