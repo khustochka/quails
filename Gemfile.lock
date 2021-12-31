@@ -61,7 +61,7 @@ GEM
     ancestry (4.1.0)
       activerecord (>= 5.2.6)
     ansi (1.5.0)
-    autoprefixer-rails (10.3.3.0)
+    autoprefixer-rails (10.4.0.0)
       execjs (~> 2)
     aws-eventstream (1.2.0)
     aws-partitions (1.543.0)
@@ -169,19 +169,19 @@ GEM
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
     json (2.6.1)
-    kaminari (1.2.1)
+    kaminari (1.2.2)
       activesupport (>= 4.1.0)
-      kaminari-actionview (= 1.2.1)
-      kaminari-activerecord (= 1.2.1)
-      kaminari-core (= 1.2.1)
-    kaminari-actionview (1.2.1)
+      kaminari-actionview (= 1.2.2)
+      kaminari-activerecord (= 1.2.2)
+      kaminari-core (= 1.2.2)
+    kaminari-actionview (1.2.2)
       actionview
-      kaminari-core (= 1.2.1)
-    kaminari-activerecord (1.2.1)
+      kaminari-core (= 1.2.2)
+    kaminari-activerecord (1.2.2)
       activerecord
-      kaminari-core (= 1.2.1)
-    kaminari-core (1.2.1)
-    kaminari-mongoid (1.0.1)
+      kaminari-core (= 1.2.2)
+    kaminari-core (1.2.2)
+    kaminari-mongoid (1.0.2)
       kaminari-core (~> 1.0)
       mongoid
     launchy (2.5.0)
@@ -396,7 +396,7 @@ GEM
     websocket-extensions (0.1.5)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.5.1)
+    zeitwerk (2.5.3)
 
 PLATFORMS
   ruby
@@ -477,4 +477,4 @@ DEPENDENCIES
   webrick
 
 BUNDLED WITH
-   2.2.32
+   2.3.3
