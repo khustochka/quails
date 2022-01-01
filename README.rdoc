@@ -19,4 +19,4 @@ Actually 'rails' are birds as well. They are members of the _Rallidae_ family as
 
 == License
 
-Copyright (c) 2007–2021 Vitalii Khustochka
+Copyright (c) 2007–2022 Vitalii Khustochka
