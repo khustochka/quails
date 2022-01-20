@@ -12,9 +12,6 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           bundler: 'none'
-      - name: Install rubocop
-        run: |
-          gem install rubocop-rails rubocop-performance rubocop-packaging
       - name: 'Run Rubocop'
         run: |
           rubocop --format github

@@ -104,11 +104,14 @@ group :development do
   gem "listen" # required for tracking file changes in development
   gem "nokogiri"
   gem "benchmark-ips"
-  gem "bundler-audit", require: false
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem "web-console", ">= 3.3.0"
   gem "letter_opener"
   gem "letter_opener_web"
+  gem "bundler-audit", require: false
+  gem "rubocop-rails", require: false
+  gem "rubocop-performance", require: false
+  gem "rubocop-packaging", require: false
 end
 
 group :development, :test do
