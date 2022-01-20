@@ -63,7 +63,7 @@ end
 raise_exception_on_sigterm false
 
 # Allow puma to be restarted by `rails restart` command.
-# plugin :tmp_restart
+plugin :tmp_restart
 
 on_worker_boot do
   # if defined?(::ActiveRecord) && defined?(::ActiveRecord::Base)
