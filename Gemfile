@@ -99,6 +99,10 @@ gem "kaminari-mongoid"
 # The following gems depend on it, but do not yet require is as a dependency:
 # aws-sdk-core, coderay (?), letter_opener_web, livejournal2, selenium-webdriver
 gem "rexml"
+gem "net-smtp"
+
+# Fixes the issue with premailer-rails: https://github.com/ruby-concurrency/concurrent-ruby/issues/931
+gem "concurrent-ruby", git: "https://github.com/aaronjensen/concurrent-ruby.git", branch: "local-jump-error"
 
 group :development do
   gem "listen" # required for tracking file changes in development
