@@ -7,7 +7,7 @@ class CommentMailerPreview < ActionMailer::Preview
         where.not(commenters: {email: ""}).
         where(parent_comments_comments: {send_email: true}).
         first
-    CommentMailer.notify_parent_author(comment, "birdwatch.org.ua")
+    CommentMailer.with(comment: comment, link_options: {host: "birdwatch.org.ua"}).notify_parent_author
   end
 
   def notify_admin
@@ -16,6 +16,6 @@ class CommentMailerPreview < ActionMailer::Preview
         where.not(commenters: {email: ""}).
         where(parent_comments_comments: {send_email: true}).
         first
-    CommentMailer.notify_admin(comment, "birdwatch.org.ua")
+    CommentMailer.with(comment: comment, link_options: {host: "birdwatch.org.ua"}).notify_admin
   end
 end
