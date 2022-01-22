@@ -100,6 +100,7 @@ gem "kaminari-mongoid"
 # aws-sdk-core, coderay (?), letter_opener_web, livejournal2, selenium-webdriver
 gem "rexml"
 gem "net-smtp"
+gem "net-pop"
 
 # Fixes the issue with premailer-rails: https://github.com/ruby-concurrency/concurrent-ruby/issues/931
 gem "concurrent-ruby", git: "https://github.com/aaronjensen/concurrent-ruby.git", branch: "local-jump-error"
