@@ -26,7 +26,7 @@ module Search
 
     private
     def json_default_options
-      {only: [:name], methods: [:label]}
+      {methods: [:name, :label]}
     end
   end
 end
