@@ -359,4 +359,8 @@ class ReportsController < ApplicationController
     ClearCacheJob.perform_later
     redirect_to reports_path
   end
+
+  def server_error
+    raise "Intentionally produced Server Error"
+  end
 end
