@@ -2,10 +2,10 @@
 
 module Quails
   class PublicExceptions
-    attr_accessor :public_path
+    attr_accessor :cache_dir
 
-    def initialize(public_path)
-      @public_path = public_path
+    def initialize(cache_dir)
+      @cache_dir = cache_dir
     end
 
     def call(env)
@@ -38,8 +38,8 @@ module Quails
     end
 
     def render_html(status)
-      path = "#{public_path}/#{status}.#{I18n.locale}.html"
-      path = "#{public_path}/#{status}.html" unless (found = File.exist?(path))
+      path = "#{cache_dir}/#{status}.#{I18n.locale}.html"
+      path = "#{cache_dir}/#{status}.html" unless (found = File.exist?(path))
 
       if found || File.exist?(path)
         render_format(status, "text/html", File.read(path))
