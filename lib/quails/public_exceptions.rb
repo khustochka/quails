@@ -2,10 +2,10 @@
 
 module Quails
   class PublicExceptions
-    attr_accessor :cache_dir
+    attr_accessor :public_path
 
-    def initialize(cache_dir)
-      @cache_dir = cache_dir
+    def initialize(public_path)
+      @public_path = public_path
     end
 
     def call(env)
@@ -38,8 +38,10 @@ module Quails
     end
 
     def render_html(status)
-      path = "#{cache_dir}/#{status}.#{I18n.locale}.html"
-      path = "#{cache_dir}/#{status}.html" unless (found = File.exist?(path))
+      # FIXME: On production cached {404,500}.html will not be in public folder,
+      # but 422, 503 are. The best solution is to implement static 404, 500 pages.
+      path = "#{public_path}/#{status}.#{I18n.locale}.html"
+      path = "#{public_path}/#{status}.html" unless (found = File.exist?(path))
 
       if found || File.exist?(path)
         render_format(status, "text/html", File.read(path))

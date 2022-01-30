@@ -109,6 +109,10 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
+  # Route error pages through custom middleware
+  require 'quails/public_exceptions'
+  config.exceptions_app = Quails::PublicExceptions.new(Rails.public_path)
+
   # Inserts middleware to perform automatic connection switching.
   # The `database_selector` hash is used to pass options to the DatabaseSelector
   # middleware. The `delay` is used to determine how long to wait after a write
@@ -138,8 +142,4 @@ Rails.application.configure do
   # Alternative location for page caching
   # App user should be able to write to this location, but we do not want it to write to 'public'
   config.action_controller.page_cache_directory = Rails.root.join("tmp", "cached_pages")
-
-  # Route error pages through custom middleware
-  require 'quails/public_exceptions'
-  config.exceptions_app = Quails::PublicExceptions.new(config.action_controller.page_cache_directory)
 end
