@@ -39,10 +39,10 @@ Rails.application.configure do
   # config.asset_host = 'http://assets.example.com'
 
   # Specifies the header that your server uses for sending files.
-  if !Quails.env.heroku?
-    # config.action_dispatch.x_sendfile_header = 'X-Sendfile' # for Apache
-    config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for NGINX
-  end
+  # if !Quails.env.heroku?
+  #   # config.action_dispatch.x_sendfile_header = 'X-Sendfile' # for Apache
+  #   config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for NGINX
+  # end
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = Quails.env.live? || ENV["PROD_S3"] ? :amazon : :amazon_dev
