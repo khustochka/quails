@@ -47,13 +47,13 @@ jobs:
       - name: Setup test database
         env:
           RAILS_ENV: test
-          DATABASE_URL: postgresql://quails:quails@localhost/quails_test?pool=5
+          DATABASE_URL: postgresql://quails:quails@localhost/quails_test
         run: |
           bin/rails db:setup
       - name: Run tests
         env:
           RAILS_ENV: test
-          DATABASE_URL: postgresql://quails:quails@localhost/quails_test?pool=5
+          DATABASE_URL: postgresql://quails:quails@localhost/quails_test
           COVERAGE: 1
           PARALLEL_WORKERS: 1
           MINITEST_REPORTER: Minitest::Reporters::SpecReporter
@@ -132,7 +132,7 @@ jobs:
       - name: Setup test database
         env:
           RAILS_ENV: test
-          DATABASE_URL: postgresql://quails:quails@localhost/quails_test?pool=5
+          DATABASE_URL: postgresql://quails:quails@localhost/quails_test
         run: |
           bin/rails db:setup
       - name: Create dir for XDG_RUNTIME_DIR
@@ -142,7 +142,7 @@ jobs:
           # To prevent ugly xvfb warning
           XDG_RUNTIME_DIR: '/tmp/runtime-runner'
           RAILS_ENV: test
-          DATABASE_URL: postgresql://quails:quails@localhost/quails_test?pool=5
+          DATABASE_URL: postgresql://quails:quails@localhost/quails_test
           COVERAGE: 1
           MINITEST_REPORTER: Minitest::Reporters::SpecReporter
           JS_DRIVER: ${{ matrix.js_driver }}
