@@ -42,11 +42,21 @@ pidfile ENV.fetch("PIDFILE") { "tmp/pids/server.pid" }
 # Allow puma to be restarted by `rails restart` command.
 plugin :tmp_restart
 
+if ENV["RAILS_ENV"] == "production"
+  # Based on the work of Koichi Sasada and Aaron Patterson, this option may decrease memory utilization
+  # of preload-enabled cluster-mode Pumas. It will also increase time to boot and fork. See your logs for
+  # details on how much time this adds to your boot process. For most apps, it will be less than one second.
+  nakayoshi_fork unless ENV["DYNO"] || ENV["PWD"] =~ %r{/.puma-dev/quails\Z}
+end
+
+# Do not raise error when restarted
+raise_exception_on_sigterm false
+
 on_worker_boot do
   # if defined?(::ActiveRecord) && defined?(::ActiveRecord::Base)
   #   ActiveRecord::Base.establish_connection
   # end
   if defined?(Resque)
-    require File.expand_path("../initializers/resque_connection", __FILE__)
+    require File.expand_path("../initializers/resque", __FILE__)
   end
 end
