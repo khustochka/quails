@@ -82,11 +82,11 @@ class Species < ApplicationRecord
   end
 
   def code=(val)
-    super(val == "" ? nil : val)
+    super(val.presence)
   end
 
   def legacy_code=(val)
-    super(val == "" ? nil : val)
+    super(val.presence)
   end
 
   # Methods
