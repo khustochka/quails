@@ -7,59 +7,59 @@ GIT
 
 GIT
   remote: https://github.com/khustochka/puma
-  revision: 88b2b5acaf5be020f91b5da2f6edcc9d0341e54f
+  revision: d00ed6a7e38983380b2317f64c9abcd3a5aef6f3
   branch: usr2_stop_unix_socket_removed
   specs:
-    puma (5.6.1)
+    puma (5.6.2)
       nio4r (~> 2.0)
 
 GEM
   remote: https://rubygems.org/
   specs:
     RedCloth (4.3.2)
-    actioncable (6.1.4.4)
-      actionpack (= 6.1.4.4)
-      activesupport (= 6.1.4.4)
+    actioncable (6.1.4.6)
+      actionpack (= 6.1.4.6)
+      activesupport (= 6.1.4.6)
       nio4r (~> 2.0)
       websocket-driver (>= 0.6.1)
-    actionmailer (6.1.4.4)
-      actionpack (= 6.1.4.4)
-      actionview (= 6.1.4.4)
-      activejob (= 6.1.4.4)
-      activesupport (= 6.1.4.4)
+    actionmailer (6.1.4.6)
+      actionpack (= 6.1.4.6)
+      actionview (= 6.1.4.6)
+      activejob (= 6.1.4.6)
+      activesupport (= 6.1.4.6)
       mail (~> 2.5, >= 2.5.4)
       rails-dom-testing (~> 2.0)
-    actionpack (6.1.4.4)
-      actionview (= 6.1.4.4)
-      activesupport (= 6.1.4.4)
+    actionpack (6.1.4.6)
+      actionview (= 6.1.4.6)
+      activesupport (= 6.1.4.6)
       rack (~> 2.0, >= 2.0.9)
       rack-test (>= 0.6.3)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.2.0)
     actionpack-page_caching (1.2.4)
       actionpack (>= 4.0.0)
-    actionview (6.1.4.4)
-      activesupport (= 6.1.4.4)
+    actionview (6.1.4.6)
+      activesupport (= 6.1.4.6)
       builder (~> 3.1)
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.1, >= 1.2.0)
-    activejob (6.1.4.4)
-      activesupport (= 6.1.4.4)
+    activejob (6.1.4.6)
+      activesupport (= 6.1.4.6)
       globalid (>= 0.3.6)
-    activemodel (6.1.4.4)
-      activesupport (= 6.1.4.4)
-    activerecord (6.1.4.4)
-      activemodel (= 6.1.4.4)
-      activesupport (= 6.1.4.4)
-    activestorage (6.1.4.4)
-      actionpack (= 6.1.4.4)
-      activejob (= 6.1.4.4)
-      activerecord (= 6.1.4.4)
-      activesupport (= 6.1.4.4)
+    activemodel (6.1.4.6)
+      activesupport (= 6.1.4.6)
+    activerecord (6.1.4.6)
+      activemodel (= 6.1.4.6)
+      activesupport (= 6.1.4.6)
+    activestorage (6.1.4.6)
+      actionpack (= 6.1.4.6)
+      activejob (= 6.1.4.6)
+      activerecord (= 6.1.4.6)
+      activesupport (= 6.1.4.6)
       marcel (~> 1.0.0)
       mini_mime (>= 1.1.0)
-    activesupport (6.1.4.4)
+    activesupport (6.1.4.6)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
@@ -252,7 +252,7 @@ GEM
       mongo (>= 2.10.5, < 3.0.0)
       ruby2_keywords (~> 0.0.5)
     mono_logger (1.1.1)
-    msgpack (1.4.4)
+    msgpack (1.4.5)
     multi_json (1.15.0)
     mustermann (1.1.1)
       ruby2_keywords (~> 0.0.1)
@@ -308,7 +308,7 @@ GEM
     rack (2.2.3)
     rack-mini-profiler (2.3.3)
       rack (>= 1.2.0)
-    rack-protection (2.1.0)
+    rack-protection (2.2.0)
       rack
     rack-proxy (0.7.2)
       rack
@@ -326,9 +326,9 @@ GEM
     rails-i18n (7.0.2)
       i18n (>= 0.7, < 2)
       railties (>= 6.0.0, < 8)
-    railties (6.1.4.4)
-      actionpack (= 6.1.4.4)
-      activesupport (= 6.1.4.4)
+    railties (6.1.4.6)
+      actionpack (= 6.1.4.6)
+      activesupport (= 6.1.4.6)
       method_source
       rake (>= 0.13)
       thor (~> 1.0)
@@ -405,10 +405,10 @@ GEM
     simplecov-teamcity-summary (1.0.0)
       simplecov
     simplecov_json_formatter (0.1.4)
-    sinatra (2.1.0)
+    sinatra (2.2.0)
       mustermann (~> 1.0)
       rack (~> 2.2)
-      rack-protection (= 2.1.0)
+      rack-protection (= 2.2.0)
       tilt (~> 2.0)
     sprockets (4.0.2)
       concurrent-ruby (~> 1.0)
@@ -461,16 +461,16 @@ PLATFORMS
 
 DEPENDENCIES
   RedCloth
-  actioncable (= 6.1.4.4)
-  actionmailer (= 6.1.4.4)
-  actionpack (= 6.1.4.4)
+  actioncable (= 6.1.4.6)
+  actionmailer (= 6.1.4.6)
+  actionpack (= 6.1.4.6)
   actionpack-page_caching
-  actionview (= 6.1.4.4)
-  activejob (= 6.1.4.4)
-  activemodel (= 6.1.4.4)
-  activerecord (= 6.1.4.4)
-  activestorage (= 6.1.4.4)
-  activesupport (= 6.1.4.4)
+  actionview (= 6.1.4.6)
+  activejob (= 6.1.4.6)
+  activemodel (= 6.1.4.6)
+  activerecord (= 6.1.4.6)
+  activestorage (= 6.1.4.6)
+  activesupport (= 6.1.4.6)
   acts_as_list
   addressable
   airbrake
@@ -518,7 +518,7 @@ DEPENDENCIES
   rack-mini-profiler
   rails-controller-testing
   rails-i18n
-  railties (= 6.1.4.4)
+  railties (= 6.1.4.6)
   redis
   resque
   rexml
