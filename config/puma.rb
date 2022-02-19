@@ -37,7 +37,8 @@ workers ENV.fetch("WEB_CONCURRENCY") { 0 }
 # before forking the application. This takes advantage of Copy On Write
 # process behavior so workers use less memory.
 #
-# preload_app!
+preload_app! false
+prune_bundler true
 
 # Allow puma to be restarted by `rails restart` command.
 plugin :tmp_restart
