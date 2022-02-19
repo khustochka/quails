@@ -25,7 +25,7 @@ gem "hiredis"
 gem "resque"
 
 # Deployment
-gem "puma", git: "https://github.com/khustochka/puma", branch: "usr2_stop_unix_socket_removed"
+gem "puma", git: "https://github.com/khustochka/puma", branch: "usr2_stop_unix_socket_removed-stable"
 gem "dotenv-rails", "~> 2.7"
 # Intentionally disabled in production
 # gem 'bootsnap', require: false

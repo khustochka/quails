@@ -7,8 +7,8 @@ GIT
 
 GIT
   remote: https://github.com/khustochka/puma
-  revision: d00ed6a7e38983380b2317f64c9abcd3a5aef6f3
-  branch: usr2_stop_unix_socket_removed
+  revision: 131ee8d1a9e88fc934d52e7694c82676cd7d2634
+  branch: usr2_stop_unix_socket_removed-stable
   specs:
     puma (5.6.2)
       nio4r (~> 2.0)
@@ -80,8 +80,8 @@ GEM
     autoprefixer-rails (10.4.2.0)
       execjs (~> 2)
     aws-eventstream (1.2.0)
-    aws-partitions (1.554.0)
-    aws-sdk-core (3.126.1)
+    aws-partitions (1.555.0)
+    aws-sdk-core (3.126.2)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.525.0)
       aws-sigv4 (~> 1.1)
@@ -96,7 +96,7 @@ GEM
     aws-sigv4 (1.4.0)
       aws-eventstream (~> 1, >= 1.0.2)
     bcrypt (3.1.16)
-    benchmark-ips (2.9.3)
+    benchmark-ips (2.10.0)
     bindex (0.8.1)
     binding_of_caller (1.0.0)
       debug_inspector (>= 0.0.1)
