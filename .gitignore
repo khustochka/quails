@@ -59,6 +59,7 @@ AppleDouble
 
 /coverage
 /public/storage
+/public/system
 /vendor/bundle
 
 /public/packs
