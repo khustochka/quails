@@ -6,7 +6,7 @@ if ENV["CUSTOM_RUBY_VERSION"]
   ruby ENV["CUSTOM_RUBY_VERSION"]
 end
 
-VERSION = "6.1.4.6"
+VERSION = "6.1.4.7"
 # gem "rails", VERSION
 gem "activemodel",   VERSION
 gem "activejob",     VERSION
