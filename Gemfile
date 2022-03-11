@@ -6,7 +6,7 @@ if ENV["CUSTOM_RUBY_VERSION"]
   ruby ENV["CUSTOM_RUBY_VERSION"]
 end
 
-VERSION = "6.1.4.7"
+VERSION = "6.1.5"
 # gem "rails", VERSION
 gem "activemodel",   VERSION
 gem "activejob",     VERSION
@@ -102,6 +102,9 @@ gem "rexml"
 gem "net-smtp"
 gem "net-pop"
 gem "net-imap"
+
+# Temporarily to avoid deprecation messages
+gem "redis-namespace", "1.8.1"
 
 group :development do
   gem "listen" # required for tracking file changes in development
