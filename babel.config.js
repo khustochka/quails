@@ -1,4 +1,4 @@
-const { moduleExists } = require('@rails/webpacker')
+const { moduleExists } = require('shakapacker')
 
 module.exports = function config(api) {
   const validEnv = ['development', 'test', 'production']

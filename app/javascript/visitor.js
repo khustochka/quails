@@ -17,4 +17,4 @@ require("ilyabirman-likely/release/likely.css");
 // TODO: do not load likely in IE <10. IE9 does not support classList
 document.addEventListener('DOMContentLoaded', function () {Likely.initiate()});
 
-import '../src/js/airbrake-js-setup';
+import './src/js/airbrake-js-setup';
