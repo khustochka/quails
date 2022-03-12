@@ -15,6 +15,9 @@ default: &default
   # Reload manifest.json on all requests so we reload latest compiled packs
   cache_manifest: false
 
+  # Select loader to use, available options are 'babel' (default), 'swc' or 'esbuild'
+  webpack_loader: 'babel'
+
 development:
   <<: *default
   compile: true
@@ -26,6 +29,8 @@ development:
     port: 3035
     # Hot Module Replacement updates modules while the application is running without a full reload
     hmr: false
+    # Defaults to the inverse of hmr. Uncomment to manually set this.
+    # live_reload: true
     client:
       # Should we show a full-screen overlay in the browser when there are compiler errors or warnings?
       overlay: true
