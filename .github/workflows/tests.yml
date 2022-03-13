@@ -71,7 +71,7 @@ jobs:
           path: coverage/
 
   system_test:
-    name: System tests
+    name: ${{ matrix.name }} system tests
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
