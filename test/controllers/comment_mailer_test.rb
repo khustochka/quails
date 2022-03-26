@@ -39,14 +39,14 @@ class CommentMailerTest < ActionMailer::TestCase
 
   # FIXME: Sanitization that fixes en dash from HTML entity also converts '&' to HTML entity
   # This is acceptable for now since dash is much more common in post titles.
-  test "`notify_admin` email correctly renders ampersand in the subject" do
-    skip "Ampersand in email subject fell victim of en dash"
-    @comment = create(:comment)
-    @comment.post.update(title: "This & that 2021")
-    email = deliver_notify_admin_email
-    assert_includes email.subject, " & "
-    assert_not_includes email.subject, "&amp;"
-  end
+  # test "`notify_admin` email correctly renders ampersand in the subject" do
+  #   skip "Ampersand in email subject fell victim of en dash"
+  #   @comment = create(:comment)
+  #   @comment.post.update(title: "This & that 2021")
+  #   email = deliver_notify_admin_email
+  #   assert_includes email.subject, " & "
+  #   assert_not_includes email.subject, "&amp;"
+  # end
 
   test "`notify_admin` email removes HTML tags from subject" do
     @comment = create(:comment)
@@ -67,14 +67,14 @@ class CommentMailerTest < ActionMailer::TestCase
 
   # FIXME: Sanitization that fixes en dash from HTML entity also converts '&' to HTML entity
   # This is acceptable for now since dash is much more common in post titles.
-  test "`notify_parent_author` email correctly renders ampersand in the subject" do
-    create_comment_with_parent
-    skip "Ampersand in email subject fell victim of en dash"
-    @comment.post.update(title: "This & that 2021")
-    email = deliver_notify_parent_author_email
-    assert_includes email.subject, " & "
-    assert_not_includes email.subject, "&amp;"
-  end
+  # test "`notify_parent_author` email correctly renders ampersand in the subject" do
+  #   create_comment_with_parent
+  #   skip "Ampersand in email subject fell victim of en dash"
+  #   @comment.post.update(title: "This & that 2021")
+  #   email = deliver_notify_parent_author_email
+  #   assert_includes email.subject, " & "
+  #   assert_not_includes email.subject, "&amp;"
+  # end
 
   test "`notify_parent_author` email removes HTML tags from subject" do
     create_comment_with_parent
