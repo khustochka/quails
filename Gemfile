@@ -82,7 +82,7 @@ gem "font-awesome-sass", "~> 5.8"
 gem "premailer-rails"
 gem "bootstrap", "~> 5.0"
 
-gem "uglifier", ">= 1.3.0"
+#gem "uglifier", ">= 1.3.0"
 
 # HTTP client
 gem "mechanize"
