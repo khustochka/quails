@@ -67,7 +67,7 @@ Rails.application.routes.draw do
   constraints country: /ukraine|usa|united_kingdom|canada|manitoba/ do
     get '/:country/checklist/edit' => 'checklist#edit'
     post '/:country/checklist/edit' => 'checklist#save'
-    scope '(:locale)', locale: /en/ do
+    scope '(:locale)', locale: /en|ru/ do
       get '/:country' => 'countries#gallery', as: "country"
       get '/:country/checklist' => 'checklist#show', as: "checklist"
     end
@@ -88,7 +88,7 @@ Rails.application.routes.draw do
     end
   end
 
-  scope '(:locale)', locale: /en/ do
+  scope '(:locale)', locale: /en|ru/ do
     resources :species, only: [:show], as: :localized_species do
       get 'search', on: :collection
     end
@@ -117,7 +117,7 @@ Rails.application.routes.draw do
   get '/photos(/page/:page)' => 'images#index', page: /[^0]\d*/,
       constraints: {format: 'html'}
 
-  scope '(:locale)', locale: /en/ do
+  scope '(:locale)', locale: /en|ru/ do
     get '/photos/multiple_species' => 'images#multiple_species'
     get 'photos/:id' => 'images#show', as: 'localized_image'
     get '/videos(/page/:page)' => 'videos#index', page: /[^0]\d*/,
@@ -159,7 +159,7 @@ Rails.application.routes.draw do
 
   get '/archive' => 'blog#archive'
 
-  scope '(:locale)', locale: /en/ do
+  scope '(:locale)', locale: /en|ru/ do
 
     get '/lifelist/overview' => 'lifelist#index', as: :lists_overview
 
@@ -180,14 +180,14 @@ Rails.application.routes.draw do
   # Feeds and sitemap
   get '/blog.:format' => 'feeds#blog', constraints: {format: 'xml'}
   get '/instant_articles(.:dev).:format' => 'feeds#instant_articles', constraints: {format: 'xml', dev: "dev"}
-  scope '(:locale)', locale: /en/ do
+  scope '(:locale)', locale: /en|ru/ do
     get '/photos.:format' => 'feeds#photos', constraints: {format: 'xml'}
   end
   get '/sitemap.:format' => 'feeds#sitemap', constraints: {format: 'xml'}
 
   # TRANSLATED:
 
-  scope ':locale', locale: /en/ do
+  scope ':locale', locale: /en|ru/ do
     get '(/page/:page)' => 'images#index', page: /[^0]\d*/, as: :localized_root
     get 'photos' => redirect("/%{locale}")
   end
@@ -252,7 +252,7 @@ Rails.application.routes.draw do
     end
   end
 
-  scope '(:locale)', locale: /en/ do
+  scope '(:locale)', locale: /en|ru/ do
     resource :map, only: [:show]
   end
 

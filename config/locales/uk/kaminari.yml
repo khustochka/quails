@@ -1,0 +1,8 @@
+"uk":
+  views:
+    pagination:
+      first: "&laquo; Початок"
+      last: "Кінець &raquo;"
+      previous: "&lsaquo; поперед."
+      next: "наступ. &rsaquo;"
+      truncate: "..."

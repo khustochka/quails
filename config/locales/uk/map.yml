@@ -1,0 +1,12 @@
+"uk":
+  maps:
+    show:
+      title: Карта
+
+      world: Весь світ
+      ukraine: Україна
+      usa: США
+      europe: Європа
+      north_america: Півн. Америка
+
+      close: Закрити

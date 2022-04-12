@@ -1,0 +1,52 @@
+"uk":
+  blog:
+    home:
+      title: "Щоденник спостережень\u00a0за птахами"
+      previous_posts: << Раніше
+      meta_description: "Блог про птахів України і Канада, фото і відео птахів, інформація про бьординг"
+
+    year:
+      year: Рік
+
+    month:
+      previous: Попередній місяць
+      next: Наступний місяць
+
+  posts:
+    sections:
+      photos:
+        title: Фотографії
+      comments:
+        title: Коментарі
+        add_comment: Додати коментар
+
+    post:
+      comments:
+        one: '1 коментар'
+        few: '%{count} коментаря'
+        many: '%{count} коментарів'
+      comment_declension:
+        one: 'коментар'
+        few: 'коментаря'
+        many: 'коментарів'
+      add_comment: Комментировать
+
+    show:
+      meta_description: "Запис у блозі '%{title}', опублікована %{date}"
+
+  comments:
+    comment:
+      reply_link: відповісти
+    form:
+      save_button: Відправити
+    reply:
+      reply_title: Відповідь на коментар до запису
+      comment_title: Відповідь на запис
+
+  simple_form:
+    labels:
+      comment:
+        name: 'Імʼя:'
+        send_email: 'Надіслати відповідь електронною поштою:'
+        email: 'Email:'
+        url: 'URL:'

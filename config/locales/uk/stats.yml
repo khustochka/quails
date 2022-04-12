@@ -1,0 +1,16 @@
+"uk":
+  lifelist:
+    stats:
+      title: Моя статистика
+
+      total: всього
+
+      species_met: 'Видів'
+      lifers_met: "нових"
+
+      records: 'Рекорди:'
+
+      new_count_species:
+        one: 'новий вид'
+        few: 'нових види'
+        many: 'нових видів'
