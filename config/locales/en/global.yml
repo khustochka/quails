@@ -44,10 +44,11 @@
     feed: Feed
 
   translated:
-    ru: Русский язык
+    uk: Українська
+    ru: RU
 
   languages:
     en: in English
-    ru: in Russian
     uk: in Ukrainian
     fr: in French
+    ru: in Russian

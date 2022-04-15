@@ -45,7 +45,8 @@
     feed: Підписка
 
   translated:
-    en: English version
+    en: English
+    ru: RU
 
   languages:
     en: англійською

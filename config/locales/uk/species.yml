@@ -15,7 +15,7 @@
         monthly: За місяцями
 
       total_observations: 'Всього зустрічей:'
-      species_synonyms: 'У деякиї джерелах може мати іншу назву:'
+      species_synonyms: 'У деяких джерелах може мати іншу назву:'
       splits_synonyms: 'Може розглядатися як підвид виду:'
       lumps_synonyms: 'У цей вид були додані такі таксони:'
       split_from_another_sp: 'Цей вид було виділено з виду:'

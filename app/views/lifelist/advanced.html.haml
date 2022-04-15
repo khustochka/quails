@@ -5,7 +5,7 @@
 
 - @page_title = capture do
   - if params[:month] && params[:day]
-    - month_finder = russian_locale? ? "common_month_names" : "month_names"
+    - month_finder = cyrillic_locale? ? "common_month_names" : "month_names"
     = [ t('lifelist.title.daylist', day: params[:day], month: t("date.#{month_finder}")[params[:month].to_i]),
         params[:year] ? t('lifelist.title.yearsublist', year: params[:year]) : nil,
         params[:locus] ? "(#{@lifelist.locus.name})" : nil ] * ' '
