@@ -379,7 +379,7 @@ GEM
       rubyzip (>= 1.2.2)
     semantic_range (3.0.0)
     sexp_processor (4.16.1)
-    shakapacker (6.1.1)
+    shakapacker (6.2.0)
       activesupport (>= 5.2)
       rack-proxy (>= 0.6.1)
       railties (>= 5.2)
@@ -511,7 +511,7 @@ DEPENDENCIES
   sassc-rails
   sd_notify
   selenium-webdriver
-  shakapacker (= 6.1.1)
+  shakapacker (= 6.2.0)
   simple_form
   simplecov
   simplecov-teamcity-summary
@@ -521,4 +521,4 @@ DEPENDENCIES
   webrick
 
 BUNDLED WITH
-   2.3.9
+   2.3.11
