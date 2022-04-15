@@ -91,7 +91,7 @@
 
     %tr
       %td.day
-        %nobr= link_to_if russian_locale? && post_for_day_with_max_species, l(day_with_max_species, format: :long), post_for_day_with_max_species
+        %nobr= link_to_unless blogless_locale? && post_for_day_with_max_species, l(day_with_max_species, format: :long), post_for_day_with_max_species
       %td.place
         Winnipeg, Cypress River, Manitoba SW Corner, Saskatchewan SE Corner, Whitewater Lake,
         Duck Mountain Provincial Park &ndash; Canada
@@ -100,7 +100,7 @@
 
     %tr
       %td.day
-        %nobr= link_to_if russian_locale?, l(day_with_max_lifers, format: :long), post_for_day_with_max_lifers
+        %nobr= link_to_unless blogless_locale?, l(day_with_max_lifers, format: :long), post_for_day_with_max_lifers
       %td.place Jamaica Bay Wildlife Refuge, New York City, USA
       %td.count_new_big= max_lifers_for_day
       %td.count_new_label
