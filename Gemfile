@@ -74,7 +74,7 @@ gem "airbrake"
 gem "image_processing"
 
 # Assets
-gem "shakapacker", "6.2.0"
+gem "shakapacker", "6.2.1"
 gem "sprockets-rails", "~> 3.2", ">= 3.2.2"
 gem "jquery-rails"
 gem "sassc-rails"
