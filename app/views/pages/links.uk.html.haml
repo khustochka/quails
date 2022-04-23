@@ -1,70 +1,68 @@
 -# frozen_string_literal: true
-- @page_title = "Ссылки"
+- @page_title = "Посилання"
 - @meta_thumbnail = "https://birdwatch.org.ua/photos/crestedtit6592.jpg"
-- @meta_description = "Ссылки на ресурсы посвященные птицам: определители, справочники, литература, организации, сообщества, форумы, блоги, личтные страницы. Рекомендации создателя сайта birdwatch.org.ua."
+- @meta_description = "Посилання на ресурси про птахів: визначники, довідники, література, організації, спільноти, форуми, блоги, приватні сторінки. Рекомендації автора сайту birdwatch.org.ua."
 
 -# @robots = 'NOINDEX'
 
 .container
   %header.simple-page-header
-    %h1 Ссылки
+    %h1 Посилання
   .row
     .col-md
-      %h2.h4 Сообщества, наблюдения
+      %h2.h4 Спільноти, спостереження
       %ul.links-list
         %li
-          = external_link "Сообщество украинских бердвочеров", "https://uabirds.org/"
+          = external_link "Спільнота українських бьордерів", "https://uabirds.org/"
         %li
           Facebook:
-          = external_link "группа «Бердвочинг в Украине»", "https://www.facebook.com/groups/birdwatching.ua/"
+          = external_link "група «Бьордвочинг в Україні»", "https://www.facebook.com/groups/birdwatching.ua/"
 
         %li
           Facebook:
-          = external_link "группа «Птахи України»", "https://www.facebook.com/groups/314374912088175/"
+          = external_link "група «Птахи України»", "https://www.facebook.com/groups/314374912088175/"
         %li
-          Flickr: группа
+          Flickr: група
           = external_link "Birds of Ukraine", "https://www.flickr.com/groups/birdsofukraine/"
         %li
           %strong
             = external_link "eBird.org", "https://ebird.org/home?lang=ru"
-          — Регистрация наблюдений, статистика, карты
-          %small.text-muted (доступны английский, русский, украинский языки)
+          — Реєстрація спостережень, статистика, карти
+          %small.text-muted (доступні англійська, українська мови)
         %li
           = external_link "birdforum.net", "https://www.birdforum.net/"
-          — Крупнейший международный форум бердвочеров
+          — Найбільший міжнародний форум бьордерів
           %small.text-muted (English)
 
     .col-md
-      %h2.h4 Личные блоги, галереи
+      %h2.h4 Приватні блоги, галереї
       %ul.links-list
         %li.starred{title: "Recommended"}
           %strong
             = external_link "bird-hobby.com.ua", "https://bird-hobby.com.ua", nofollow: false
-          — Сайт Виктора Мороза (блог, фотографии)
+          — Сайт Віктора Мороза (блог, фотографії)
         %li
           = external_link "mns.ks.ua", "https://mns.ks.ua/", nofollow: false
           — Блог Юрія Москаленка (Чорноморський біосферний заповідник)
-        %li
-          = external_link "ЖЖ-блог Ильи Уколова", "https://glav-ryba.livejournal.com/"
 
   .row
     .col-md
-      %h2.h4 Определители, ресурсы
+      %h2.h4 Визначники, ресурси
       %ul.links-list
         %li
           = external_link "Птахи України", "http://aves.land.kiev.ua/"
-          — Видовые очерки из определителя Г. В. Фесенко, А. А. Бокотея
+          — Видові нариси з визначника Г. В. Фесенка, А. А. Бокотея
         %li
-          = external_link "Птицы Великобритании",
+          = external_link "Птахи Великої Британії",
                           "https://www.rspb.org.uk/birds-and-wildlife/wildlife-guides/bird-a-z/"
           %small.text-muted (English)
         %li
           = external_link "allaboutbirds.org", "https://www.allaboutbirds.org/guide/browse/taxonomy"
-          — Птицы Северной Америки
+          — Птахи Північної Америки
           %small.text-muted (English)
         %li
           = external_link "xeno-canto", "https://www.xeno-canto.org/"
-          — Всемирная библиотека голосов птиц
+          — Всесвітня бібліотека пташиних голосів
           %small.text-muted (English)
 
 
@@ -72,11 +70,11 @@
       %h2.h4 Наука
       %ul.links-list
         %li
-          = external_link "Украинский центр исследований хищных птиц", "https://raptors.org.ua"
+          = external_link "Український центр досліджень хижих птахів", "https://raptors.org.ua"
 
         %li
           = external_link "«Беркут»", "http://aetos.kiev.ua"
-          — украинский орнитологический журнал (можно скачать статьи в PDF)
+          — український орнітологічний журнал (можна скачати статті в PDF)
         -#%li
         -#  = external_link "Key to Scientific Names in Ornithology",
         -#                  "https://www.hbw.com/dictionary/key-to-scientific-names-in-ornithology"
@@ -86,7 +84,7 @@
 
   .row
     .col-md
-      %h2.h4 Прочее
+      %h2.h4 Інше
       %ul.links-list
 
         -#%li
@@ -94,19 +92,19 @@
         -#  — Українське товариство охорони птахів
         %li
           = external_link "birdwatch.by", "https://birdwatch.by"
-          — Сообщество белорусских бердвочеров
+          — Спільнота білоруських бьордерів
 
     .col-md
-      %h2.h4 Мои страницы
+      %h2.h4 Мої сторінки
       %ul.links-list
         %li
           = external_link "phenolog", "https://www.flickr.com/photos/phenolog/"
-          — Моя страница на Фликре
+          — Моя сторінка на Флікрі
         %li
           = external_link "stonechat", "https://stonechat.livejournal.com/"
-          — Зеркало блога в LiveJournal
+          — Дзеркало блога в LiveJournal
         %li
           = external_link "whinchat", "https://whinchat.dreamwidth.org/"
-          — Зеркало блога в DreamWidth
+          — Дзеркало блога в DreamWidth
         %li
-          = external_link "Страница моего блога в Facebook", "https://www.facebook.com/birdwatch.org.ua/"
+          = external_link "Сторінка мого блога в Facebook", "https://www.facebook.com/birdwatch.org.ua/"

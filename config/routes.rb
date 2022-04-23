@@ -342,9 +342,24 @@ Rails.application.routes.draw do
 
   # High Voltage routes are specified manually to bypass HighVoltage Constraints for unrelated paths
   # (e.g. ActiveStorage)
-  get "/:id" => 'high_voltage/pages#show',
-      :as => :page,
-      :format => false,
-      :constraints => {id: /about|links|winter/}
+
+  scope '(:locale)', locale: /en|ru/ do
+    get "about" => 'high_voltage/pages#show',
+        as: :about,
+        format: false,
+        id: "about"
+  end
+  scope '(:locale)', locale: /ru/ do
+    get "links" => 'high_voltage/pages#show',
+        as: :links,
+        format: false,
+        id: "links"
+  end
+  scope 'ru', locale: "ru" do
+    get "winter" => 'high_voltage/pages#show',
+        as: :winter,
+        format: false,
+        id: "winter"
+  end
 
 end
