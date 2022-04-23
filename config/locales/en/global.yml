@@ -15,6 +15,7 @@
     lifelist: Lifelist
     english: English
     russian: По-русски
+    ukrainian: Українською
 
   filters:
     years:
