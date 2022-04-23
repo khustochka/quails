@@ -29,7 +29,9 @@
         one: 'коментар'
         few: 'коментаря'
         many: 'коментарів'
-      add_comment: Комментировать
+      add_comment: Коментувати
+      if_you_wish_to_receive_notification: Якщо хочете отримати повідомлення про відповідь.
+      some_html_allowed: Дозволено трохи HTML, включно з <a>, <img>.
 
     show:
       meta_description: "Запис у блозі '%{title}', опублікована %{date}"

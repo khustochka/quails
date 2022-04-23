@@ -2,3 +2,7 @@
   feeds:
     photos:
       title: "Фотографии птиц - birdwatch.org.ua"
+    blog:
+      title: "Дневник наблюдений за птицами - birdwatch.org.ua"
+    post:
+      published: "Опубликовано"

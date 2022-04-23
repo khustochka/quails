@@ -30,6 +30,8 @@
         few: 'комментария'
         many: 'комментариев'
       add_comment: Комментировать
+      if_you_wish_to_receive_notification: Если хотите получить уведомление об ответах.
+      some_html_allowed: Немного HTML разрешено, включая <a>, <img>.
 
     show:
       meta_description: "Запись в блоге '%{title}', опубликованная %{date}"

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-atom_feed(id: "tag:#{request.host},2008-03-24:/blog", language: :ru, schema_date: "2008") do |feed|
-  feed.title("Дневник наблюдений за птицами - birdwatch.org.ua")
+atom_feed(id: "tag:#{request.host},2008-03-24:/blog", language: I18n.locale, schema_date: "2008") do |feed|
+  feed.title(t(".title"))
   feed.updated(@posts.max_by(&:updated_at).updated_at) if @posts.present?
   feed.author do |a|
     a.name t("author.name")
