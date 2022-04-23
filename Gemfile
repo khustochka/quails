@@ -6,7 +6,7 @@ if ENV["CUSTOM_RUBY_VERSION"]
   ruby ENV["CUSTOM_RUBY_VERSION"]
 end
 
-VERSION = "6.1.5"
+VERSION = "7.0.2.3"
 # gem "rails", VERSION
 gem "activemodel",   VERSION
 gem "activejob",     VERSION
@@ -74,7 +74,7 @@ gem "airbrake"
 gem "image_processing"
 
 # Assets
-gem "shakapacker", "6.1.1"
+gem "shakapacker", "6.2.1"
 gem "sprockets-rails", "~> 3.2", ">= 3.2.2"
 gem "jquery-rails"
 gem "sassc-rails"
@@ -82,7 +82,7 @@ gem "font-awesome-sass", "~> 5.8"
 gem "premailer-rails"
 gem "bootstrap", "~> 5.0"
 
-#gem "uglifier", ">= 1.3.0"
+# gem "uglifier", ">= 1.3.0"
 
 # HTTP client
 gem "mechanize"
