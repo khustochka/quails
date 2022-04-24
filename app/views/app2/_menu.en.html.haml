@@ -7,12 +7,12 @@
         birdwatch.org.ua
 
       %li.d-print-none
-        = link_to localized_root_path, class: "home-link" do
+        = link_to alternative_root_path, class: "home-link" do
           %i.fas.fa-home
           .sr-only= t('menu.home-sr-only')
 
       %li
-        = link_to localized_root_path do
+        = link_to alternative_root_path do
           %span= t('menu.home')
 
       %li= link_to t('menu.birds_ukraine'), country_path(country: 'ukraine')

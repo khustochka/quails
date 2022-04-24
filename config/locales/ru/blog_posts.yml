@@ -12,6 +12,9 @@
       previous: Предыдущий месяц
       next: Следующий месяц
 
+    archive:
+      title: Архив блога
+
   posts:
     sections:
       photos:

@@ -26,4 +26,4 @@
       %li= link_to t('menu.links'), links_path
 
       %li.trans-menu
-        = link_to t('menu.english'), localized_root_path(locale: :en), lang: :en, hreflang: :en, class: "translation"
+        = link_to t('menu.english'), alternative_root_path(locale: :en), lang: :en, hreflang: :en, class: "translation"
