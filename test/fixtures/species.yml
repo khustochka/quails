@@ -19,6 +19,8 @@ passan:
 hirrus:
   name_sci: "Hirundo rustica"
   name_en: "Barn Swallow"
+  name_uk: Ластівка сільська
+  name_ru: Деревенская ласточка
   index_num: 50
   code: hirrus
   order: Passeriformes
