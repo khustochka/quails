@@ -4,6 +4,9 @@
 
 - @robots = 'NOINDEX'
 
+- content_for :translated do
+  = render 'partials/translated', locals: { blog: true }
+
 %h1.over-header<= page_header
 
 = render @posts

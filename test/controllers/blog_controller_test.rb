@@ -35,6 +35,13 @@ class BlogControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "archive should not show a link to English locale" do
+    get archive_path
+    assert_response :success
+    assert_select "a[href='#{archive_path(locale: :ru)}']"
+    assert_select "a[href='#{archive_path(locale: :en)}']", false
+  end
+
   test "do not show hidden posts on front page" do
     blogpost1 = create(:post, face_date: "2007-12-06 13:14:15", status: "PRIV")
     blogpost2 = create(:post, face_date: "2008-11-06 13:14:15")
