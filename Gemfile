@@ -122,9 +122,7 @@ end
 
 group :development, :test do
   gem "bootsnap", require: false
-  gem "pry-rails"
-  gem "pry-byebug"
-  gem "pry-stack_explorer"
+  gem "debug", ">= 1.0.0"
   # in dev group for generators
   gem "factory_bot_rails"
 end
