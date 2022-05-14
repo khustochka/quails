@@ -2,11 +2,9 @@
 
 source "https://rubygems.org/"
 
-if ENV["CUSTOM_RUBY_VERSION"]
-  ruby ENV["CUSTOM_RUBY_VERSION"]
-end
+ruby `cat ./.ruby-version`.strip.match(/\d\.\d.\d/).to_s
 
-VERSION = "7.0.2.4"
+VERSION = "7.0.3"
 # gem "rails", VERSION
 gem "activemodel",   VERSION
 gem "activejob",     VERSION
