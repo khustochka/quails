@@ -104,6 +104,8 @@ gem "net-imap"
 # Temporarily to avoid deprecation messages
 gem "redis-namespace", "1.8.1"
 
+gem 'ddtrace', require: 'ddtrace/auto_instrument'
+
 group :development do
   gem "listen" # required for tracking file changes in development
   gem "nokogiri"
