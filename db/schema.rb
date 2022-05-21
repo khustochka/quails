@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_14_211948) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_20_142414) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -224,7 +224,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_14_211948) do
     t.text "lj_data"
     t.string "cover_image_slug"
     t.boolean "publish_to_facebook", default: false, null: false
-    t.string "lang", limit: 2
+    t.string "lang", limit: 2, null: false
     t.index ["face_date"], name: "index_posts_on_face_date"
     t.index ["slug"], name: "index_posts_on_slug", unique: true
   end

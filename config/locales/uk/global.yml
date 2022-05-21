@@ -54,6 +54,12 @@
     uk: українською
     fr: французькою
 
+  in_lang_names:
+    en: англійською
+    ru: російською
+    uk: українською
+    fr: французькою 
+
   errors:
     template:
       header:

@@ -11,5 +11,6 @@ It must be multiline.
 TEXT
     topic { "OBSR" }
     status { "OPEN" }
+    lang { "uk" }
   end
 end

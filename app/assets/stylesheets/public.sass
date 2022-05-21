@@ -41,6 +41,8 @@
 
 
 .post
+  padding: 0 5px
+  margin: 0 -6px
 
   .header-with-subheader time
     color: #666666
@@ -61,6 +63,28 @@
     padding-left: 30px
     li
       line-height: 1.56
+
+.post.diff_lang
+  border: 1px dashed #E67E22
+
+.diff_lang_notice, .diff_lang_expand_notice
+  border-bottom: 1px dashed #E67E22
+  background-color: #FAD7A0
+  margin: 0 -5px
+  p
+    padding: 10px
+    margin: 0
+    font-size: 14px
+    color: #E67E22
+
+.diff_lang_expand_notice
+  border-top: 1px dashed #E67E22
+  .pseudolink, .pseudolink:hover
+    color: #E67E22
+    border-color: #E67E22
+
+.other_lang_expand
+  display: none
 
 .post.shout
   background-color: white

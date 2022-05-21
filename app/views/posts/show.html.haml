@@ -27,7 +27,8 @@
 
 - cache @post do
 
-  %div.post{id: "post-#{@post.slug}"}
+  %div.post{id: "post-#{@post.slug}", class: post_lang_classes(@post), lang: @post.lang}
+    = render partial: "posts/other_lang_notice", locals: {post: @post}
     %div.header-with-subheader
       %h1= @post.decorated.title
       - unless @post.shout?
