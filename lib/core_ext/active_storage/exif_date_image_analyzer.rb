@@ -2,7 +2,7 @@
 
 module ActiveStorage
   class Analyzer
-    class ExifDateImageAnalyzer < ImageAnalyzer::ImageMagick
+    class ExifDateImageAnalyzer < ImageAnalyzer
       def metadata
         read_image do |image|
           mdata = {}
