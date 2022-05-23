@@ -4,7 +4,7 @@ source "https://rubygems.org/"
 
 ruby `cat ./.ruby-version`.strip.match(/\d\.\d.\d/).to_s
 
-VERSION = "6.1.6"
+VERSION = "7.0.3"
 # gem "rails", VERSION
 gem "activemodel",   VERSION
 gem "activejob",     VERSION
