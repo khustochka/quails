@@ -5,11 +5,11 @@ Datadog.configure do |c|
   if Dir.pwd.match(/releases\/(\d{14})$/)
     c.version = $1
   end
-  c.tracing.instrument :rails, service_name: "quails"
-  c.tracing.instrument :resque
-  c.tracing.instrument :action_cable
-  c.tracing.instrument :aws
-  c.tracing.instrument :mongo
-  c.diagnostics.startup_logs.enabled = false
-  c.tracing.report_hostname = true
+  c.use :rails, service_name: "quails"
+  c.use :resque
+  c.use :action_cable
+  c.use :aws
+  c.use :mongo
+  #c.diagnostics.startup_logs.enabled = false
+  c.report_hostname = true
 end
