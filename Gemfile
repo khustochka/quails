@@ -4,6 +4,8 @@ source "https://rubygems.org/"
 
 ruby `cat ./.ruby-version`.strip.match(/\d\.\d.\d/).to_s
 
+gem 'ddtrace', "0.54.2", require: 'ddtrace/auto_instrument'
+
 VERSION = "7.0.3"
 # gem "rails", VERSION
 gem "activemodel",   VERSION
@@ -103,8 +105,6 @@ gem "net-imap"
 
 # Temporarily to avoid deprecation messages
 gem "redis-namespace", "1.8.1"
-
-gem 'ddtrace', "0.54.2", require: 'ddtrace/auto_instrument'
 
 group :development do
   gem "listen" # required for tracking file changes in development
