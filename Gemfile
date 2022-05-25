@@ -4,7 +4,7 @@ source "https://rubygems.org/"
 
 ruby `cat ./.ruby-version`.strip.match(/\d\.\d.\d/).to_s
 
-gem 'ddtrace', "0.54.2", require: 'ddtrace/auto_instrument'
+gem 'ddtrace', require: 'ddtrace/auto_instrument'
 
 VERSION = "7.0.3"
 # gem "rails", VERSION
