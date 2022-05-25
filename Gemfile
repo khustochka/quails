@@ -4,8 +4,6 @@ source "https://rubygems.org/"
 
 ruby `cat ./.ruby-version`.strip.match(/\d\.\d.\d/).to_s
 
-gem 'ddtrace', require: 'ddtrace/auto_instrument'
-
 VERSION = "7.0.3"
 # gem "rails", VERSION
 gem "activemodel",   VERSION
@@ -69,6 +67,7 @@ gem "roman-numerals"
 
 # Monitoring
 gem "airbrake"
+gem 'ddtrace', "1.0.0", require: 'ddtrace/auto_instrument'
 
 # Image processing
 gem "image_processing"
