@@ -1,6 +1,11 @@
 services:
   web:
     container_name: quails_web
+    build:
+      context: .
+      args:
+        SECRET_KEY_BASE: ${SECRET_KEY_BASE}
+        POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     image: quails-app:alpine
     environment:
       RAILS_ENV: production
@@ -8,7 +13,7 @@ services:
       RAILS_SERVE_STATIC_FILES: "true"
       REDIS_CACHE_URL: redis://cache
       REDIS_RESQUE_URL: redis://resque-redis
-    # Another approach - copy .env.production nad rely on dotenv
+    # Another approach - copy .env.production and rely on dotenv
     env_file:
       # In the env file do not use quotes (neither single nor double)!!!
       - .env.docker
@@ -23,6 +28,11 @@ services:
 
   resque:
     container_name: quails_resque
+    build:
+      context: .
+      args:
+        SECRET_KEY_BASE: ${SECRET_KEY_BASE}
+        POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     image: quails-app:alpine
     environment:
       RAILS_ENV: production

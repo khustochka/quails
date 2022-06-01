@@ -1,4 +1,4 @@
-ARG RUBY_VERSION=3.0.1
+ARG RUBY_VERSION=3.1.2
 FROM ruby:${RUBY_VERSION}-alpine AS quails-base
 
 WORKDIR /app
@@ -11,9 +11,13 @@ RUN apk update && \
 	apk add --no-cache --virtual .build-depends build-base postgresql-dev  && \
     bundle install && \
     rm -rf /usr/local/bundle/cache && \
+    rm -rf /usr/local/bundle/bundler/gems/*/.git && \
+    find /usr/local/bundle/gems/ -name '*.c' -delete && \
+    find /usr/local/bundle/gems/ -name '*.o' -delete && \
     rm -rf /root/src /tmp/* /usr/share/man /var/cache/apk/* && \
     apk --purge del .build-depends
 RUN apk --no-cache add nodejs
+
 
 FROM quails-base AS builder
 

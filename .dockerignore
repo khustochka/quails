@@ -15,17 +15,13 @@
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*
-!/log/.keep
-!/tmp/.keep
 
 # Ignore pidfiles, but keep the directory.
 /tmp/pids/*
 !/tmp/pids/
-!/tmp/pids/.keep
 
 # Ignore uploaded files in development.
 /storage/*
-!/storage/.keep
 
 /public/assets
 .byebug_history
@@ -36,13 +32,7 @@
 # Custom ignores
 # Do not need any hidden files
 .*
-!.keep
-!/.gitignore
-!/.gitattributes
-!/.gitmodules
-!/.rubocop.yml
-!/.ruby-gemset
-!/.ruby-version
+!.ruby-version
 *~
 AppleDouble
 
@@ -63,8 +53,8 @@ AppleDouble
 
 # Do not put any .env files inside the image, they may contain secrets!
 /.env*
-!/.env.development
-!/.env.test
+/.env.development
+/.env.test
 /data
 /doc
 /test
