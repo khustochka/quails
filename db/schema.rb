@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_13_034033) do
+ActiveRecord::Schema.define(version: 2022_01_23_043353) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 2021_03_13_034033) do
     t.string "content_type"
     t.text "metadata"
     t.bigint "byte_size", null: false
-    t.string "checksum", null: false
+    t.string "checksum"
     t.datetime "created_at", null: false
     t.string "service_name", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
@@ -41,12 +41,6 @@ ActiveRecord::Schema.define(version: 2021_03_13_034033) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
-  end
-
-  create_table "books", id: :serial, force: :cascade do |t|
-    t.string "slug", limit: 32, null: false
-    t.string "name", limit: 255
-    t.text "description"
   end
 
   create_table "cards", id: :serial, force: :cascade do |t|
@@ -68,6 +62,7 @@ ActiveRecord::Schema.define(version: 2021_03_13_034033) do
     t.float "area_acres"
     t.boolean "resolved", default: false, null: false
     t.string "ebird_id"
+    t.boolean "motorless", default: false, null: false
     t.index ["locus_id"], name: "index_cards_on_locus_id"
     t.index ["observ_date"], name: "index_cards_on_observ_date"
     t.index ["post_id"], name: "index_cards_on_post_id"
@@ -91,7 +86,7 @@ ActiveRecord::Schema.define(version: 2021_03_13_034033) do
     t.string "ip", limit: 45
     t.boolean "send_email", default: false
     t.integer "commenter_id"
-    t.string "unsubscribe_token"
+    t.string "unsubscribe_token", limit: 25
     t.index ["post_id"], name: "index_comments_on_post_id"
   end
 
@@ -144,43 +139,6 @@ ActiveRecord::Schema.define(version: 2021_03_13_034033) do
     t.string "version", null: false
   end
 
-  create_table "legacy_species", id: :serial, force: :cascade do |t|
-    t.string "code", limit: 6
-    t.string "name_sci", limit: 255, null: false
-    t.string "authority", limit: 255
-    t.string "name_en", limit: 255, null: false
-    t.string "name_ru", limit: 255
-    t.string "name_uk", limit: 255
-    t.integer "index_num", null: false
-    t.string "order", limit: 255
-    t.string "family", limit: 255, null: false
-    t.string "avibase_id", limit: 16
-    t.string "protonym", limit: 255
-    t.string "name_fr", limit: 255
-    t.boolean "reviewed", default: false, null: false
-    t.text "wikidata"
-    t.integer "species_id"
-    t.index ["code"], name: "index_legacy_species_on_code", unique: true
-    t.index ["index_num"], name: "index_legacy_species_on_index_num"
-    t.index ["name_sci"], name: "index_legacy_species_on_name_sci", unique: true
-  end
-
-  create_table "legacy_taxa", id: :serial, force: :cascade do |t|
-    t.integer "book_id", null: false
-    t.integer "legacy_species_id"
-    t.string "name_sci", limit: 255, null: false
-    t.string "authority", limit: 255, null: false
-    t.string "name_en", limit: 255, null: false
-    t.string "name_ru", limit: 255, null: false
-    t.string "name_uk", limit: 255, null: false
-    t.integer "index_num", null: false
-    t.string "order", limit: 255, null: false
-    t.string "family", limit: 255, null: false
-    t.string "avibase_id", limit: 16
-    t.index ["book_id", "index_num"], name: "index_legacy_taxa_on_book_id_and_index_num"
-    t.index ["book_id", "name_sci"], name: "index_legacy_taxa_on_book_id_and_name_sci"
-  end
-
   create_table "local_species", id: :serial, force: :cascade do |t|
     t.integer "locus_id", null: false
     t.integer "species_id", null: false
@@ -228,8 +186,6 @@ ActiveRecord::Schema.define(version: 2021_03_13_034033) do
     t.string "status", limit: 16, default: "PUBLIC"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer "media_series_id"
-    t.index ["media_series_id"], name: "index_media_on_media_series_id"
     t.index ["slug"], name: "index_media_on_slug", unique: true
   end
 
@@ -238,11 +194,6 @@ ActiveRecord::Schema.define(version: 2021_03_13_034033) do
     t.integer "observation_id", null: false
     t.index ["media_id"], name: "index_media_observations_on_media_id"
     t.index ["observation_id"], name: "index_media_observations_on_observation_id"
-  end
-
-  create_table "media_series", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "observations", id: :serial, force: :cascade do |t|
@@ -294,8 +245,11 @@ ActiveRecord::Schema.define(version: 2021_03_13_034033) do
     t.string "order", null: false
     t.string "family", null: false
     t.string "authority"
-    t.boolean "reviewed", default: false, null: false
     t.integer "index_num", null: false
+    t.boolean "name_en_overwritten", default: false, null: false
+    t.boolean "needs_review", default: false, null: false
+    t.datetime "created_at", precision: 6
+    t.datetime "updated_at", precision: 6
     t.index ["index_num"], name: "index_species_on_index_num"
     t.index ["name_sci"], name: "index_species_on_name_sci"
   end
@@ -362,7 +316,6 @@ ActiveRecord::Schema.define(version: 2021_03_13_034033) do
   add_foreign_key "ebird_taxa", "ebird_taxa", column: "parent_id", on_delete: :restrict
   add_foreign_key "local_species", "loci", on_delete: :cascade
   add_foreign_key "local_species", "species", on_delete: :cascade
-  add_foreign_key "media", "media_series", on_delete: :nullify
   add_foreign_key "media", "spots", on_delete: :nullify
   add_foreign_key "media_observations", "media", on_delete: :cascade
   add_foreign_key "media_observations", "observations", on_delete: :restrict

@@ -293,5 +293,4 @@ class JSCardsTest < ApplicationSystemTestCase
 
     assert_equal 1, p.cards.size
   end
-
 end

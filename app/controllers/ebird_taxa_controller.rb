@@ -1,13 +1,12 @@
 # frozen_string_literal: true
 
 class EbirdTaxaController < ApplicationController
-
   administrative
 
   # before_action :find_species, only: [:show, :update]
 
   def index
-    #TODO : Filter by order, family, category
+    # TODO : Filter by order, family, category
     @term = params[:term]
     @taxa = if @term.present?
               Search::EbirdTaxonSearchUnweighted.new(EbirdTaxon.all, @term).find
@@ -31,5 +30,4 @@ class EbirdTaxaController < ApplicationController
     @taxon.promote
     redirect_to ebird_taxon_path(@taxon)
   end
-
 end

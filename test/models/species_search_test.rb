@@ -3,7 +3,6 @@
 require "test_helper"
 
 class Search::SpeciesSearchTest < ActionView::TestCase
-
   test "simple search by scientific name for user should not include unseen species" do
     create(:observation, taxon: taxa(:gargla))
 
@@ -46,9 +45,8 @@ class Search::SpeciesSearchTest < ActionView::TestCase
   end
 
   test "escape regex specific symbols" do
-    result = Search::SpeciesSearch.new(User.new.searchable_species, '\\').find
+    result = Search::SpeciesSearch.new(User.new.searchable_species, "\\").find
     assert true
     # assert noting raise
   end
-
 end

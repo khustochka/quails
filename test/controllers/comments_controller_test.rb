@@ -205,5 +205,4 @@ class CommentsControllerTest < ActionController::TestCase
     comment =  assigns(:comment)
     assert_not comment.send_email
   end
-
 end

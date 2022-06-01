@@ -17,7 +17,7 @@ atom_feed(id: "tag:#{request.host},2008-03-24:/gallery",
                id: "tag:#{request.host},#{media.created_at.strftime('%F')}:#{localize_path(media)}") do |entry|
       entry.title(media.decorated.title, type: "html")
       entry.content(
-          render(partial: "media", formats: :html, object: media), type: "html"
+        render(partial: "media", formats: :html, object: media), type: "html"
       )
     end
   end

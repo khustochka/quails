@@ -3,7 +3,6 @@
 require "test_helper"
 
 class VideoObservValidationTest < ActiveSupport::TestCase
-
   setup do
     @obs = create(:observation)
     @video = create(:video, observation_ids: [@obs.id])
@@ -106,5 +105,4 @@ end
     assert @video.errors.present?
     assert_equal "newslug", @video.slug
   end
-
 end

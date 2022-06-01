@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class LoginController < ApplicationController
-
   # User can get to login page in 3 ways:
   # 1. Redirect from admin path accessed when not logged in (sets session[:ret])
   # 2. Clicking Login on any page when not logged in (we try to go back to the referrer after login)
@@ -24,10 +23,10 @@ class LoginController < ApplicationController
       set_trust_cookie
       set_admin_session
       return_url = if ret
-        url_for(ret)
-      else
-        root_url
-      end
+                     url_for(ret)
+                   else
+                     root_url
+                   end
       redirect_to return_url, status: 303
     else
       # Restore ret value for retries,
@@ -67,7 +66,6 @@ class LoginController < ApplicationController
 
   def set_trust_cookie
     cookies.signed[TRUST_COOKIE_NAME] =
-        {value: TRUST_COOKIE_VALUE, expires: 1.month.from_now, httponly: true}
+      { value: TRUST_COOKIE_VALUE, expires: 1.month.from_now, httponly: true }
   end
-
 end

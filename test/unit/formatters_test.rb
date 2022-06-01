@@ -3,7 +3,6 @@
 require "test_helper"
 
 class FormattersTest < ActionDispatch::IntegrationTest
-
   include ImagesHelper
 
   test "no span_caps by default" do
@@ -52,7 +51,7 @@ class FormattersTest < ActionDispatch::IntegrationTest
     video = create(:video)
     post = build(:post, body: "{{&#{video.slug}}}")
     txt = post.decorated.for_site.body
-    assert_match /<div class=\"video-container\">\s*<iframe/, txt
+    assert_match(/<div class=\"video-container\">\s*<iframe/, txt)
     assert_includes txt,
                     "src=\"#{video.large.url}\""
     assert_includes txt, "Youtube"
@@ -154,5 +153,4 @@ class FormattersTest < ActionDispatch::IntegrationTest
     assert_equal "<p>This is a <a class=\"sp_link\" href=\"https://localhost:3011/species/Jynx_torquilla\">Wryneck</a></p>",
                  post.decorated({host: "localhost", port: 3011}).for_feed.body
   end
-
 end

@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
-#require 'species_parameterizer'
+# require 'species_parameterizer'
 
 class Taxon < ApplicationRecord
-
   # invalidates CacheKey.gallery
   # invalidates CacheKey.checklist
 
@@ -64,13 +63,17 @@ class Taxon < ApplicationRecord
   #        lumped taxa).
   #     b. Split: Species is linked to a slash or spuh taxon that was formerly a (super)species. It should be relinked
   #        to a newly promoted or existing nominative taxon-species (that was formerly a taxon-subspecies)
-  def lift_to_species
+  def lift_to_species(species: nil)
     if category == "species"
-      new_species = species
+      new_species = species || self.species
 
       ActiveRecord::Base.transaction do
+        # This will fall if scientific name has also changed!!!!!!!
         if new_species.nil?
           new_species = Species.find_by_name_sci(name_sci)
+        end
+        if new_species.nil?
+          new_species = children.map(&:species).compact.first
         end
 
         # Unlink old taxa
@@ -86,24 +89,30 @@ class Taxon < ApplicationRecord
                   where("taxa.index_num < ?", index_num).order("species.index_num DESC").
                   limit(1).pluck("species.index_num").first
           new_sp_index_num = prev_sp_index_num ? prev_sp_index_num + 1 : 1
-          new_species = self.build_species(
-              index_num: new_sp_index_num
-          )
-        end
-
-        new_species.update!(
+          new_species = self.create_species!(
+            index_num: new_sp_index_num,
             name_sci: name_sci,
             name_en: name_en,
+            authority: nil,
             order: order,
-            family: family.match(/^\w+dae/)[0]
-        )
-
-        self.update!(species_id: new_species.id)
-
-        self.children.each {|tx| tx.update(species_id: new_species.id)}
+            family: family.match(/^\w+dae/)[0],
+            needs_review: true
+          )
+        end
+        # The idea is that if species exists it is reattached but not modified (this will be done by taxonomy update)
+        attach_species(new_species)
       end
       new_species
     end
   end
 
+  def detach_species
+    self.children.each {|tx| tx.update!(species_id: nil)}
+    self.update!(species_id: nil)
+  end
+
+  def attach_species(sp)
+    children.each {|tx| tx.update!(species_id: sp.id)}
+    update!(species_id: sp.id)
+  end
 end

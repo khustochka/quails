@@ -35,7 +35,7 @@ class LifelistBasicTest < ActionController::TestCase
     get :basic
     assert_response :success
     assert_select ".main" do
-#      assert_select 'h5' # should show "First time seen in..."
+      #      assert_select 'h5' # should show "First time seen in..."
       assert_select "a[href='#{lifelist_path}']", false
       assert_select "a[href='#{url_for(sort: :by_taxonomy, only_path: true)}']"
     end
@@ -93,5 +93,4 @@ class LifelistBasicTest < ActionController::TestCase
       assert_select "li", I18n.t("lifelist.basic.no_species"), "No proper message found (saying no species in the list)"
     end
   end
-
 end

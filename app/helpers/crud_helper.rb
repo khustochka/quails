@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module CrudHelper
-
   def new_or_edit_label(obj)
     obj.persisted? ? "Edit" : "New"
   end

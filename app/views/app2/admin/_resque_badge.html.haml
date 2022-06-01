@@ -7,7 +7,7 @@
   - begin
     - failed_jobs = Resque.info[:failed]
     - pending_jobs = Resque.info[:pending]
-  - rescue Redis::CannotConnectError
+  - rescue Redis::CannotConnectError, Errno::ECONNRESET
     - noredis = true
 
 - if defined?(noredis) && noredis

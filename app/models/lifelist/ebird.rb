@@ -2,7 +2,6 @@
 
 module Lifelist
   class Ebird
-
     def initialize(sort: "by_date")
       @sort = sort || "by_date"
     end
@@ -26,7 +25,6 @@ module Lifelist
     end
 
     private
-
     def default_order(asc_desc)
       Arel.sql("observ_date #{asc_desc}, to_timestamp(start_time, 'HH24:MI') #{asc_desc} NULLS LAST, observations.created_at #{asc_desc}")
     end
@@ -65,6 +63,5 @@ module Lifelist
       idx.delete(nil)
       idx.values
     end
-
   end
 end

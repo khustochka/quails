@@ -2,7 +2,6 @@
 
 module Lifelist
   class Factory
-
     include Enumerable
 
     def self.over(options)
@@ -28,7 +27,7 @@ module Lifelist
     end
 
     def years
-      @years ||= [nil] + MyObservation.refine(normalized_filter.merge({year: nil})).years
+      @years ||= [nil] + MyObservation.refine(normalized_filter.merge({year: nil, motorless: nil, seen: nil})).years
     end
 
     def locus
@@ -46,6 +45,5 @@ module Lifelist
         end
       end
     end
-
   end
 end

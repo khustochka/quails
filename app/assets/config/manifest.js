@@ -1,6 +1,5 @@
 //= link_tree ../../../lib/assets/images
 //= link_tree ../../../vendor/assets/images
-//= link_directory ../javascripts .js
+// For some reason with shakapacker stylesheets should be above javascripts
 //= link_directory ../stylesheets .css
-//= link bootstrap-ie8
-//= link bootstrap-ie9
+//= link_directory ../javascripts .js

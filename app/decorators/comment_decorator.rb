@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class CommentDecorator < ModelDecorator
-
   include ActionView::Helpers::SanitizeHelper
 
   ALLOWED_TAGS = %w(strong em b i p pre tt sub
@@ -12,7 +11,7 @@ class CommentDecorator < ModelDecorator
 
   def body
     sanitize(
-        WikiFormatter.new(@model.body).for_site,
+      WikiFormatter.new(@model.body).for_site,
         tags: ALLOWED_TAGS,
         attributes: ALLOWED_ATTRIBUTES
     )
@@ -21,5 +20,4 @@ class CommentDecorator < ModelDecorator
   def name
     strip_tags(@model.name)
   end
-
 end

@@ -4,19 +4,17 @@ desc "Quick benchmark"
 task benchmark: :environment do
   require "benchmark/ips"
 
-  def func
-    false
-  end
-
   Benchmark.ips do |bench|
-    bench.report("cache read") do
-      "views/layouts/application:4ff8ef6c2bed23a819e4feaffde9b18e/shynet/show_shynet=#{func}"
+    bench.report("uuid") do
+      SecureRandom.uuid
     end
 
-    bench.report("if") do
-      if func
-        puts "This never happens"
-      end
+    bench.report("16 hex bytes") do
+      SecureRandom.hex(16)
+    end
+
+    bench.report("urlsafe") do
+      SecureRandom.urlsafe_base64(20 * 3 / 4)
     end
 
     bench.compare!

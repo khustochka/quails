@@ -3,12 +3,11 @@
 require "flickr/client"
 
 class FlickrUpload
-
   DEFAULT_PARAMS = {safety_level: 1, content_type: 1}
 
   def initialize(img, options = {})
     @image = img
-    #@errors = ActiveModel::Errors.new(self)
+    # @errors = ActiveModel::Errors.new(self)
     @options = options
   end
 
@@ -32,7 +31,6 @@ class FlickrUpload
   end
 
   private
-
   def flickr_client
     @flickr_client ||= Flickr::Client.new
   end

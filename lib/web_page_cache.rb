@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class WebPageCache < ActiveSupport::Cache::FileStore
-
   # Simply caching web pages in FileStore
   def fetch(name, url, options = {})
     verbose = options.delete(:verbose)
@@ -11,5 +10,4 @@ class WebPageCache < ActiveSupport::Cache::FileStore
       open(url).read
     end
   end
-
 end

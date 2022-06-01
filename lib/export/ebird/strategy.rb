@@ -3,7 +3,6 @@
 require "export/ebird/observation"
 
 class EbirdStrategy
-
   def initialize(cards)
     @cards = cards
   end
@@ -18,5 +17,4 @@ class EbirdStrategy
         joins(taxon: :ebird_taxon).
         preload(:images, taxon: :ebird_taxon, card: :locus)
   end
-
 end

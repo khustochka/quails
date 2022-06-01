@@ -12,7 +12,7 @@ class VideosController < ApplicationController
     else
       page = (params[:page] || 1).to_i
       @videos = Video.preload(:species).order(created_at: :desc).page(page).per(10)
-      #@feed = 'photos'
+      # @feed = 'photos'
       if @videos.empty? && page != 1
         raise ActiveRecord::RecordNotFound
       else
@@ -84,7 +84,6 @@ class VideosController < ApplicationController
   end
 
   private
-
   def video_params
     @video_params ||= params.require(:video).permit(*Video::NORMAL_PARAMS).merge(observation_ids: params[:obs] || [])
   end

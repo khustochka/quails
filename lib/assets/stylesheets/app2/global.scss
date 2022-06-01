@@ -12,15 +12,24 @@ body {
   }
 
   // Unbreaking underline! Investigate other options.
-  a, a:hover {
+  * {
     text-decoration-skip-ink: none !important;
   }
 
   a {
     border-bottom: 1px solid rgba(39,131,78,0.45);
 
-    @include hover() {
+    &:hover {
       border-bottom: 1px solid rgba(39,131,78, 1);
+    }
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    a {
+      border-bottom: none;
+      &:hover {
+        border-bottom: 1px solid rgba(39,131,78, 1);
+      }
     }
   }
 }

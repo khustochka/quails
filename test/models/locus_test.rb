@@ -128,5 +128,4 @@ class LocusTest < ActiveSupport::TestCase
       assert_equal "Ukraine", ua.decorated.short_full_name
     end
   end
-
 end

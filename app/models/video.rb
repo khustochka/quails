@@ -52,7 +52,6 @@ class Video < Media
   end
 
   private
-
   def update_thumbnail
     self.assets_cache = ImageAssetsArray.new (
                                             [
@@ -64,5 +63,4 @@ class Video < Media
   def thumbnail_url_template
     "//img.youtube.com/vi/#{youtube_id}/hqdefault.jpg"
   end
-
 end

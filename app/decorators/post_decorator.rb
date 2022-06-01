@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class PostDecorator < ModelDecorator
-
   def title
     OneLineFormatter.apply(@model.title_or_date)
   end
@@ -31,7 +30,7 @@ class PostDecorator < ModelDecorator
   end
 
   def metadata
-    @metadata.merge!({images: the_rest_of_images}) unless @metadata.has_key?(:images)
+    @metadata[:images] = the_rest_of_images unless @metadata.has_key?(:images)
     @metadata
   end
 
@@ -47,5 +46,4 @@ class PostDecorator < ModelDecorator
   def extract_image_slugs
     @inner_image_slugs ||= @model.body.scan(/\{\{\^([^}]*)\}\}/).flatten
   end
-
 end

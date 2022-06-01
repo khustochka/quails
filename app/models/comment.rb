@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Comment < ApplicationRecord
-
   STOP_WORDS = %w( replica vuitton generic zithromax cheap cialis payday loans pharmacy url=http link=http
                     viagra tricor accutane seroquel retin lasix )
 
@@ -28,7 +27,7 @@ class Comment < ApplicationRecord
   scope :top_level, -> { where(parent_id: nil) }
 
   def like_spam?
-    @likespam ||= self.body =~ /#{STOP_WORDS.join('|')}/i ||
+    @likespam ||= self.body.match?(/#{STOP_WORDS.join('|')}/i) ||
         self.body.scan(/href=/i).size > 4
   end
 
@@ -42,11 +41,9 @@ class Comment < ApplicationRecord
   end
 
   private
-
   def consistent_post_and_parent
     if parent_comment && parent_comment.post_id != post_id
       errors.add(:parent_comment, "must belong to the same post")
     end
   end
-
 end

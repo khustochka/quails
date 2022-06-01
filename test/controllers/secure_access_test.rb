@@ -3,7 +3,6 @@
 require "test_helper"
 
 class SecureAccessTest < ActionController::TestCase
-
   tests BlogController
 
   test "show administrative panel to admin when he is logged in" do
@@ -16,5 +15,4 @@ class SecureAccessTest < ActionController::TestCase
     get :home
     assert_select ".admin_panel", false
   end
-
 end

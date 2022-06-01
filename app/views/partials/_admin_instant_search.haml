@@ -1,4 +1,6 @@
 -# frozen_string_literal: true
-%div.admin_instant_search_container{data: {url: url}}
+%div.instant_search_container{data: {url: url}}
   Search:
-  %input{type: "text", id: "admin_instant_search"}
+  %input{type: "text", class: "instant_search_input"}
+
+  = content_for(:instant_search_results)

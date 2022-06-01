@@ -3,7 +3,6 @@
 require "test_helper"
 
 class BlogControllerTest < ActionDispatch::IntegrationTest
-
   # Front page
 
   test "get home page" do
@@ -100,5 +99,4 @@ class BlogControllerTest < ActionDispatch::IntegrationTest
     get month_path(year: 2007, month: 11)
     assert_response :success
   end
-
 end

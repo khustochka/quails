@@ -19,11 +19,12 @@ ENV["RAILS_ENV"] ||= "test"
 require File.expand_path("../../config/environment", __FILE__)
 require "rails/test_help"
 
-# In TeamCity it works only if not parallelized (?)
-require "minitest/reporters"
-MiniTest::Reporters.use!
+unless ENV["RM_INFO"]
+  require "minitest/reporters"
+  MiniTest::Reporters.use!
+end
 
-Capybara.server = :puma, {Silent: true}
+Capybara.server = :puma, { Silent: true }
 
 class ActiveSupport::TestCase
   # Run tests in parallel with specified workers
@@ -50,5 +51,4 @@ class ActiveSupport::TestCase
   setup do
     I18n.locale = I18n.default_locale
   end
-
 end

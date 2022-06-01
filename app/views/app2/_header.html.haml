@@ -1,6 +1,7 @@
 -# frozen_string_literal: true
 .header
   = render partial: 'app2/admin/menu'
+  = render "shared/banner"
   .user-menu
     - cache [:google_search, locale: I18n.locale] do
       = render partial: 'app2/search'

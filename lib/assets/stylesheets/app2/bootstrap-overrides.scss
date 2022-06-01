@@ -15,17 +15,13 @@ $container-max-widths: (
         xl: 1140px
 );
 
-// Smaller margins on fullscreen. Default: 30px
-$grid-gutter-width: 24px !default;
-
-$enable-responsive-font-sizes: true;
-
 $enable-rounded: false;
 //$enable-shadows: true;
 
 $link-color: #27834e;
-$link-hover-color: darken($link-color, 10%);
-$link-hover-decoration: none;
+//$link-hover-color: darken($link-color, 10%);
+$link-decoration: none;
+//$link-hover-decoration: none;
 
 //$input-focus-border-color: #ffa500;
 //$input-btn-focus-color: #ffa500;

@@ -78,9 +78,9 @@ Rails.application.routes.draw do
     # new, create, destroy - not present
     collection do
       get 'admin', action: :index
-
       get "admin/search", action: :admin_search
 
+      get :review
       get "synonyms" => "synonyms#index"
       patch "synonyms/:id" => "synonyms#update"
 
@@ -101,7 +101,6 @@ Rails.application.routes.draw do
       post 'patch'
     end
     collection do
-      get 'series'
       post 'upload'
     end
   end
@@ -143,6 +142,19 @@ Rails.application.routes.draw do
     # This line breaks Brakeman (post is a http verb)
     blogpost = comment.post
     route_for(:show_post, blogpost.year, blogpost.month, blogpost.to_param, options.merge(anchor: "comment#{comment.id}"))
+  end
+
+  direct :localize do |obj, options|
+    case obj
+    when Image
+      route_for(:localized_image, options.merge(id: obj.to_param))
+    when Video
+      route_for(:localized_video, options.merge(id: obj.to_param))
+    when Species
+      route_for(:localized_species, options.merge(id: obj.to_param))
+    else
+      obj # May be string
+    end
   end
 
   get '/archive' => 'blog#archive'
@@ -270,13 +282,12 @@ Rails.application.routes.draw do
 
   scope "/media" do
     get "unmapped" => "media#unmapped"
-    resources :series, controller: "media_series"
   end
 
   get '/reports', controller: :reports, action: :index, as: :reports
 
   reports_actions = %w(environ insights more_than_year topicture this_day uptoday compare by_countries
-                        stats voices charts month_targets)
+                        stats voices charts month_targets server_error)
   reports_actions.each do |name|
     get "/reports/#{name}", controller: :reports, action: name
   end

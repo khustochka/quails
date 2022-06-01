@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Ebird::File < ApplicationRecord
-
   STATUSES = %w( NEW POSTED REMOVED INVALID )
 
   TRANSITIONS = {
@@ -41,5 +40,4 @@ class Ebird::File < ApplicationRecord
       errors.add(:cards, "some are invalid")
     end
   end
-
 end

@@ -19,6 +19,10 @@
     = t('lifelist.title.locationlist', location: @lifelist.locus.name)
   - else
     = t('lifelist.title.lifelist')
+  - if params[:motorless]
+    = " - Motorless"
+  - if params[:seen]
+    = " - Only seen"
 
 - content_for :translated do
   = render partial: 'partials/translated', locals: {url: significant_params}

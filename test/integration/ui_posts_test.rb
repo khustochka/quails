@@ -4,7 +4,6 @@ require "test_helper"
 require "capybara_helper"
 
 class UIPostsTest < ActionDispatch::IntegrationTest
-
   include CapybaraTestCase
 
   test "Adding post" do
@@ -44,8 +43,6 @@ class UIPostsTest < ActionDispatch::IntegrationTest
   end
 
   test "Add comment to post (no JS)" do
-    ActionController::Base.allow_forgery_protection = true
-
     blogpost = create(:post)
     visit show_post_path(blogpost.to_url_params)
     within("form#new_comment") do
@@ -59,14 +56,7 @@ class UIPostsTest < ActionDispatch::IntegrationTest
     assert_css "h6.name", text: "Vasya"
   end
 
-  # In case the test fails
-  teardown do
-    ActionController::Base.allow_forgery_protection = false
-  end
-
   test "Add reply to comment (no JS)" do
-    ActionController::Base.allow_forgery_protection = true
-
     comment = create(:comment)
     blogpost = comment.post
     visit show_post_path(blogpost.to_url_params)
@@ -86,7 +76,7 @@ class UIPostsTest < ActionDispatch::IntegrationTest
     blogpost = create(:post)
     visit show_post_path(blogpost.to_url_params)
     within("form#new_comment") do
-      #fill_in('comment_name', with: 'Vasya')
+      # fill_in('comment_name', with: 'Vasya')
       fill_in("comment_body", with: "Some text")
     end
     click_button("save_button")
@@ -101,7 +91,7 @@ class UIPostsTest < ActionDispatch::IntegrationTest
     visit show_post_path(blogpost.to_url_params)
     first(".reply a").click
     within("form#new_comment") do
-      #fill_in('comment_name', with: 'Vasya')
+      # fill_in('comment_name', with: 'Vasya')
       fill_in("comment_body", with: "Some text")
     end
     click_button("save_button")
@@ -125,5 +115,4 @@ class UIPostsTest < ActionDispatch::IntegrationTest
 
     assert_selector "p.comment_screened#comment#{comment.id}"
   end
-
 end

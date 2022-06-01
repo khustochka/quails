@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Thumbnail
-
   class Title < Struct.new(:object, :to_partial_path)
   end
 
@@ -19,9 +18,9 @@ class Thumbnail
   def title
     case @title_or_partial
     when String
-        @title_or_partial
+      @title_or_partial
     when Hash
-        @cached_title = Title.new(@url, @title_or_partial[:partial])
+      @cached_title = Title.new(@url, @title_or_partial[:partial])
     end
   end
 
@@ -78,5 +77,4 @@ class Thumbnail
   def dimensions_set?
     @width || @height
   end
-
 end

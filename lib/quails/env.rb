@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 require "active_support/core_ext/array/inquiry.rb"
+require "quails/revision"
 
 module Quails
-
-  CURRENT_YEAR = 2021
+  CURRENT_YEAR = 2022
 
   class Env
     def initialize
@@ -69,5 +69,13 @@ module Quails
 
   def self.env
     @env ||= Env.new
+  end
+
+  def self.revision
+    @revision ||= Revision.get
+  end
+
+  def self.unique_key
+    Rails.application.config.x.unique_key
   end
 end

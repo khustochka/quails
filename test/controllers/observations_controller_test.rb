@@ -72,20 +72,20 @@ class ObservationsControllerTest < ActionController::TestCase
   test "protect show with authentication" do
     observation = create(:observation)
     assert_raise(ActionController::RoutingError) { get :show, params: {id: observation.to_param} }
-    #assert_response 404
+    # assert_response 404
   end
 
   test "protect update with authentication" do
     observation = create(:observation)
     observation.notes = "New notes"
     assert_raise(ActionController::RoutingError) { put :update, params: {id: observation.to_param, observation: observation.attributes} }
-    #assert_response 404
+    # assert_response 404
   end
 
   test "protect destroy with authentication" do
     observation = create(:observation)
     assert_raise(ActionController::RoutingError) { delete :destroy, params: {id: observation.to_param} }
-    #assert_response 404
+    # assert_response 404
   end
 
   test "return observation search results in html" do

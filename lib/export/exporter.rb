@@ -4,7 +4,6 @@ require "csv"
 require "export/strategies"
 
 class Exporter
-
   def initialize(strategy, filename, cards)
     @strategy = strategy
     @filename = filename
@@ -35,7 +34,6 @@ class Exporter
   end
 
   private
-
   def save_to_file(array)
     CSV.open(local_file_name, "w+") do |csv|
       array.each do |row|
@@ -53,5 +51,4 @@ class Exporter
     FileUtils.mkdir_p(path)
     path
   end
-
 end

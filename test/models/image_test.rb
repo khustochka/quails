@@ -75,5 +75,4 @@ class ImageTest < ActiveSupport::TestCase
     img = create(:image, observations: [obs1])
     assert_equal brvr, img.public_locus
   end
-
 end

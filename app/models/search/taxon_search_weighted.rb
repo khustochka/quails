@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 module Search
-
   class TaxonSearchWeighted < Weighted
-
     DEFAULT_LIMIT = 15
 
     def find
@@ -31,7 +29,5 @@ module Search
     def searchable_fields
       %w(name_sci name_en)
     end
-
   end
-
 end

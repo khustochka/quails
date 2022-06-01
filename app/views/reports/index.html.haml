@@ -26,7 +26,6 @@
     \/
     = link_to('Unmapped media', {controller: :media, action: :unmapped})
   %li= link_to('Unflickred images', unflickred_photos_path)
-  %li= link_to('Potential series', {controller: :images, action: :series})
   %li= link_to('Unused flickr images', flickr_unused_path)
   %li= link_to('Flickr "Birds of Ukraine" photos with CC license', flickr_bou_cc_path)
   %li= link_to('Flickr search', flickr_path)
@@ -40,3 +39,6 @@
   = link_to('Settings', settings_path)
   &bull;
   = link_to('Clear cache', clear_cache_path, method: :post)
+
+%ul
+  %li= link_to('Intentionally produced Server Error', reports_server_error_path)

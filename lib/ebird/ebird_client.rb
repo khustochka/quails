@@ -3,7 +3,6 @@
 require "ebird/ebird_checklist_meta"
 
 class EbirdClient
-
   def initialize
     @agent = Mechanize.new
     @authenticated = false
@@ -65,11 +64,11 @@ class EbirdClient
     first100 = list_rows.to_a.take(100).map do |row|
       ebird_id = row[:id].scan(/checklist-(.*)$/)[0][0]
       EbirdChecklistMeta.new(
-          ebird_id: ebird_id,
-          time: row.xpath("./div[@class='ResultsStats-title']").text.strip.gsub(/\s+/, " "),
-          location: row.xpath("./div[@class='ResultsStats-details']/div/div/div[1]/div[contains(@class, 'ResultsStats-details-location')]").first.text,
-          county: row.xpath("./div[@class='ResultsStats-details']/div/div/div[2]/div[contains(@class, 'ResultsStats-details-county')]").first.text,
-          state_prov: row.xpath("./div[@class='ResultsStats-details']/div/div/div[3]/div[contains(@class, 'ResultsStats-details-stateCountry')]").first.text
+        ebird_id: ebird_id,
+        time: row.xpath("./div[@class='ResultsStats-title']").text.strip.gsub(/\s+/, " "),
+        location: row.xpath("./div[@class='ResultsStats-details']/div/div/div[1]/div[contains(@class, 'ResultsStats-details-location')]").first.text,
+        county: row.xpath("./div[@class='ResultsStats-details']/div/div/div[2]/div[contains(@class, 'ResultsStats-details-county')]").first.text,
+        state_prov: row.xpath("./div[@class='ResultsStats-details']/div/div/div[3]/div[contains(@class, 'ResultsStats-details-stateCountry')]").first.text
       )
     end
     ebird_ids = first100.map(&:ebird_id)
@@ -83,4 +82,14 @@ class EbirdClient
     @agent.get(checklist.url)
   end
 
+  def fix_checklist(checklist)
+    authenticate unless @authenticated
+    page = @agent.get(checklist.edit_url)
+    form = page.form_with(id: "cl-content")
+
+    page.xpath("//textarea[contains(@class, 'spp-comments') and text()='\r\nV']").each do |el|
+      form.field_with(id: el[:id]).value = "Heard"
+    end
+    @agent.submit(form)
+  end
 end

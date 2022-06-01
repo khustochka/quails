@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 module CardsHelper
-
-  #FAST_LOCI = %w(geologorozvidka kiev brovary les_i_pole)
+  # FAST_LOCI = %w(geologorozvidka kiev brovary les_i_pole)
   FAST_LOCI = %w(harbourview_south winnipeg_regent terracon_pl dugald_rd winnipeg)
 
   def attach_detach_link(item) # Card or observation
@@ -39,5 +38,4 @@ module CardsHelper
   def fast_loci
     @fast_loci ||= Locus.where(slug: FAST_LOCI).index_by(&:slug)
   end
-
 end

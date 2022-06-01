@@ -3,7 +3,6 @@
 require "flickr/client"
 
 class FlickrPhoto
-
   Data = Struct.new(:title, :description, :date_taken, :tags)
 
   DEFAULT_PARAMS = {safety_level: 1, content_type: 1}
@@ -115,7 +114,7 @@ class FlickrPhoto
   def get_info
     data = flickr_client.call("flickr.photos.getInfo", {photo_id: @flickr_id}).get
     Data.new(
-        data.title,
+      data.title,
         data.description,
         data.dates.taken,
         data.tags.map { |t| t.raw }
@@ -146,5 +145,4 @@ class FlickrPhoto
     @image.save
     @errors = @image.errors
   end
-
 end

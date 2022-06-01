@@ -4,7 +4,6 @@ require "flickr/client"
 
 module Deflicker
   class Service
-
     def load_data
       res = []
       photos = []
@@ -31,7 +30,6 @@ module Deflicker
     end
 
     private
-
     def flickr_client
       @flickr_client ||= Flickr::Client.new
     end

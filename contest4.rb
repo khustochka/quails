@@ -16,7 +16,7 @@ obs = MyObservation.joins(:card).
 obs_arr = []
 
 obs.each do |date, obss|
-  obs_arr[date.yday-1] = obss
+  obs_arr[date.yday - 1] = obss
 end
 
 def num_days(obs)
@@ -55,7 +55,7 @@ def strip_not_enough_species(obs)
   obs2 = extract_singles(obs)
 
   while num_days(obs2) > num_species(obs2)
-    obs2 = obs2[0..num_species(obs2)-1]
+    obs2 = obs2[0..num_species(obs2) - 1]
     obs2 = extract_singles(obs2)
   end
 

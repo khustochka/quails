@@ -20,7 +20,6 @@ module ShynetHelper
   end
 
   private
-
   def shynet_host
     @@shynet_host ||= ENV["quails_shynet_host"]
   end

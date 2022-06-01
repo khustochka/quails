@@ -6,6 +6,7 @@ local:
   service: Disk
   root: <%= Rails.root.join("storage") %>
 
+<% if Quails.env.live? || ENV["ACCESS_PROD_S3"] || ENV["PROD_S3"] %>
 amazon:
   service: S3
   access_key_id: <%= ENV["quails_aws_access_key_id"] %>
@@ -16,6 +17,11 @@ amazon:
   upload:
     cache_control: "public, max-age=2592000"
     acl: public-read
+<% else %>
+amazon:
+  service: Disk
+  root: <%= Rails.root.join("storage") %>
+<% end %>
 
 amazon_dev:
   service: S3

@@ -3,7 +3,7 @@
 require "capybara/rails"
 require "capybara/minitest"
 
-#Capybara.default_wait_time = 5
+# Capybara.default_wait_time = 5
 
 # Seems like all the commented out stuff below is NOT VALID since Rails 5.1
 
@@ -25,7 +25,7 @@ require "capybara/minitest"
 
 # Forces all threads to share the same connection. This works on
 # Capybara because it starts the web server in a thread.
-#ActiveRecord::Base.shared_connection = ActiveRecord::Base.connection
+# ActiveRecord::Base.shared_connection = ActiveRecord::Base.connection
 
 module CapybaraTestCase
   include Capybara::DSL
@@ -34,7 +34,14 @@ module CapybaraTestCase
   TEST_CREDENTIALS = {username: ENV["admin_username"], password: ENV["admin_password"]}
 
   def self.included(klass)
+    klass.setup do
+      ActionController::Base.allow_forgery_protection = true
+      # When all tests are run, systems tests mess with Capybara by switching the driver.
+      # Here we force UI tests to use default driver (rack_test).
+      Capybara.current_driver = Capybara.default_driver
+    end
     klass.teardown do
+      ActionController::Base.allow_forgery_protection = false
       Capybara.reset_sessions!
     end
   end

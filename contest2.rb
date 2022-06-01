@@ -28,11 +28,11 @@ def calculate(therest)
           end
         end
         if temprest2.take($deepest - current_day).any? { |el| el.empty? }
-          #puts "Cutoff"
+          # puts "Cutoff"
           next
         end
         cleanup(temprest2)
-        #puts "Trying #{SPCS[sp_id]}"
+        # puts "Trying #{SPCS[sp_id]}"
         result = if temprest2[0].blank?
                    [SPCS[sp_id]]
                  else
@@ -64,7 +64,7 @@ obs_rel = MyObservation.joins(:card).
 obs = []
 
 obs_rel.each do |date, obss|
-  obs[date.yday-1] = obss
+  obs[date.yday - 1] = obss
 end
 
 # p obs.flatten.size
@@ -78,7 +78,7 @@ def cleanup(obs)
     counts = obs.flatten.inject(Hash.new(0)) { |h, i| h[i] += 1 if i.is_a?(Integer); h }
     singles = counts.to_a.select { |e| e[1] == 1 }.map(&:first)
 
-#  p singles.map {|u| SPCS[u]}
+    #  p singles.map {|u| SPCS[u]}
 
     obs.map! do |day|
       if day.is_a? Array
@@ -95,9 +95,9 @@ def cleanup(obs)
 end
 
 cleanup(obs)
-#puts "Start"
+# puts "Start"
 # p obs.size
 
 result = calculate(obs)
 
-puts result.map.with_index { |s, i| "#{i+1}. #{s}" }
+puts result.map.with_index { |s, i| "#{i + 1}. #{s}" }

@@ -3,7 +3,6 @@
 require "test_helper"
 
 class VideoTest < ActiveSupport::TestCase
-
   test "do not save video without youtube id" do
     video = build(:video, youtube_id: "")
     assert_not video.save, "Record saved while expected to fail."
@@ -27,5 +26,4 @@ class VideoTest < ActiveSupport::TestCase
 
     assert video.assets_cache.externals.first.url.include?("Zzzzz33333")
   end
-
 end

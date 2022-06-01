@@ -3,7 +3,6 @@
 require "test_helper"
 
 class ImageObservValidationTest < ActiveSupport::TestCase
-
   setup do
     @obs = create(:observation)
     @image = create(:image, observation_ids: [@obs.id])
@@ -106,5 +105,4 @@ end
     assert @image.errors.present?
     assert_equal "newslug", @image.slug
   end
-
 end

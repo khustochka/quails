@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Post < ApplicationRecord
-
   class LJData < Struct.new(:post_id, :url)
     def blank?
       post_id.blank? || url.blank?
@@ -52,7 +51,7 @@ class Post < ApplicationRecord
 
   # Convert "timezone-less" face_date to local time zone because AR treats it as UTC (especially necessary for feed updated time)
   def face_date
-   Time.zone.parse(self.read_attribute(:face_date).strftime("%F %T"))
+    Time.zone.parse(self.read_attribute(:face_date).strftime("%F %T"))
   end
 
   # Parameters
@@ -179,7 +178,6 @@ class Post < ApplicationRecord
   end
 
   private
-
   def set_face_date
     if read_attribute(:face_date).blank?
       self.face_date = Time.current.strftime("%F %T")
@@ -188,12 +186,11 @@ class Post < ApplicationRecord
 
   def check_cover_image_slug_or_url
     if cover_image_slug.present?
-      if !(cover_image_slug =~ /\Ahttps?:\/\//)
+      if !(cover_image_slug.to_s.match?(/\Ahttps?:\/\//))
         if Image.find_by_slug(cover_image_slug).nil?
           errors.add(:cover_image_slug, "should be image slug or external URL.")
         end
       end
     end
   end
-
 end

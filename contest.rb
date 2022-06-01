@@ -3,9 +3,9 @@
 require "./config/environment"
 
 def calculate(result, therest)
-  #puts "-- for the day #{result.size}"
+  # puts "-- for the day #{result.size}"
   if therest.empty?
-    puts result.map.with_index { |s, i| "#{i+1}. #{s}" }
+    puts result.map.with_index { |s, i| "#{i + 1}. #{s}" }
     exit
   else
     day = therest.first
@@ -19,7 +19,7 @@ def calculate(result, therest)
         end
         next if temprest2.any? { |el| el.empty? }
         cleanup(temprest2)
-        #puts "Trying #{SPCS[sp_id]}"
+        # puts "Trying #{SPCS[sp_id]}"
         calculate(result + [SPCS[sp_id]], temprest2)
       end
       false
@@ -37,7 +37,7 @@ year = ENV["YEAR"] || Quails::CURRENT_YEAR
 obs = MyObservation.joins(:card).
     select("DISTINCT observ_date, species_id").
     where("EXTRACT(year FROM observ_date)::integer = ?", year).
-    #where("observ_date <= '2013-01-19'").
+    # where("observ_date <= '2013-01-19'").
     order("observ_date").map { |o| [o.observ_date, o.species_id] }.
     group_by(&:first).values.map { |e| e.map(&:second) }
 
@@ -51,7 +51,7 @@ def cleanup(obs)
     counts = obs.flatten.inject(Hash.new(0)) { |h, i| h[i] += 1 if i.is_a?(Integer); h }
     singles = counts.to_a.select { |e| e[1] == 1 }.map(&:first) - prev_singles
 
-#  p singles.map {|u| SPCS[u]}
+    #  p singles.map {|u| SPCS[u]}
 
     obs.map! do |day|
       if day.is_a? Array
@@ -70,7 +70,7 @@ def cleanup(obs)
 end
 
 cleanup(obs)
-#puts "Start"
+# puts "Start"
 # p obs.flatten.size
 
 calculate([], obs)

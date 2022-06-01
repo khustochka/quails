@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class SpotsController < ApplicationController
-
   administrative
 
   # POST "/spots/save.json"

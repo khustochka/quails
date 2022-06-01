@@ -3,7 +3,6 @@
 require "ebird/ebird_client"
 
 class EbirdChecklist
-
   attr_reader :ebird_id
   attr_accessor :observ_date, :start_time, :effort_type, :duration_minutes, :distance_kms, :area_acres,
                 :notes, :observers, :location_string, :observations
@@ -26,6 +25,10 @@ class EbirdChecklist
     "https://ebird.org/view/checklist/#{ebird_id}"
   end
 
+  def edit_url
+    "https://ebird.org/edit/checklist?subID=#{ebird_id}"
+  end
+
   def fetch!(client = nil)
     agent = client || EbirdClient.new
 
@@ -34,24 +37,34 @@ class EbirdChecklist
     parse!(page)
   end
 
+  def fix!(client = nil)
+    agent = client || EbirdClient.new
+
+    agent.fix_checklist(self)
+  end
+
   def to_card
+    ml = notes.to_s.match?(/^ML/i)
+    if /\AML\s*\Z/.match?(notes)
+      notes = ""
+    end
     Card.new(
-            ebird_id: ebird_id,
-            observ_date: observ_date,
-            start_time: start_time,
-            effort_type: effort_type,
-            duration_minutes: duration_minutes,
-            distance_kms: distance_kms,
-            area_acres: area_acres,
-            observers: observers,
-            notes: notes || "",
-            #locus: locus,
-            observations: observations.map {|obs| Observation.new(obs)}
+      ebird_id: ebird_id,
+      observ_date: observ_date,
+      start_time: start_time,
+      effort_type: effort_type,
+      duration_minutes: duration_minutes,
+      distance_kms: distance_kms,
+      area_acres: area_acres,
+      observers: observers,
+      notes: notes || "",
+      # locus: locus,
+      motorless: ml,
+      observations: observations.map {|obs| Observation.new(obs)}
     )
   end
 
   private
-
   def parse!(page)
     datetime = page.at_css("div.SectionHeading-heading time")[:datetime]
     dt = Time.parse(datetime)
@@ -61,7 +74,7 @@ class EbirdChecklist
       self.start_time = dt.strftime("%R") # = %H:%M
     end
 
-    protocol = page.at_xpath("//span[contains(@title, 'Protocol:')]").text
+    protocol = page.at_xpath("//div[contains(@title, 'Protocol:')]/span[2]").text
 
     self.effort_type = PROTOCOL_TO_EFFORT[protocol]
 
@@ -93,17 +106,17 @@ class EbirdChecklist
       party = observers[:title].match(/^Observers: (\d+)$/)[1]
       if party != "1"
         self.observers = party
-        #self.observers = page.xpath("//dl[dt[text()='Observers:']]/dd").text. TODO: beautify the text
+        # self.observers = page.xpath("//dl[dt[text()='Observers:']]/dd").text. TODO: beautify the text
       end
     end
 
-    comments = page.at_xpath("//section[h6[text()='Comments']]/p[contains(@class, 'u-constrainBody')]")&.text
+    comments = page.at_xpath("//section[h3[text()='Checklist Comments']]/p[contains(@class, 'u-constrainBody')]")&.text
 
     unless comments == "N/A"
       self.notes = comments
     end
 
-    self.location_string = page.at_xpath("//div[h6[text()='Location']]//span").text
+    self.location_string = page.at_xpath("//div[@data-locationname]").text
 
     self.observations = []
 
@@ -121,7 +134,7 @@ class EbirdChecklist
       comments = row.at_css("div.Observation-comments")
       notes = ""
       if comments
-        notes = comments.at_css("p").children[1].text&.strip
+        notes = comments.at_css("p").text&.strip
         if notes.downcase == "v" || notes.downcase.start_with?("heard")
           voice = true
           notes.gsub!(/^\s*V\s*$\n*/i, "") # Remove V if it is the single letter in a line
@@ -135,5 +148,4 @@ class EbirdChecklist
 
     self
   end
-
 end

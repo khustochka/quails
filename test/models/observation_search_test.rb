@@ -3,7 +3,6 @@
 require "test_helper"
 
 class ObservationSearchTest < ActiveSupport::TestCase
-
   setup do
     @cards = [
         create(:card, observ_date: "2013-05-18", locus: loci(:brovary), ebird_id: "S123456789"),
@@ -77,5 +76,4 @@ class ObservationSearchTest < ActiveSupport::TestCase
     assert_not_includes search, @cards[0]
     assert_not_includes search, @cards[2]
   end
-
 end

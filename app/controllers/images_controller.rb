@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class ImagesController < ApplicationController
-
   include FlickrConcern
 
   administrative except: [:index, :multiple_species, :show, :gallery, :country]
@@ -38,7 +37,6 @@ class ImagesController < ApplicationController
     respond_to do |format|
       format.html do
         @robots = "NOINDEX" if @image.status == "NOINDEX"
-        @strip_media = @image.series_siblings
       end
       format.jpeg do
         redirect_to helpers.jpg_url(@image)
@@ -154,25 +152,7 @@ class ImagesController < ApplicationController
     redirect_to(images_url)
   end
 
-  def series
-    rel =
-        Observation.
-            select(:observation_id).
-            joins(:media).
-            where(media: {media_type: "photo"}).
-            group(:observation_id).
-            having("COUNT(media_id) > 1")
-    @observations = Observation.
-        select("DISTINCT observations.*, observ_date").
-        where(id: rel).
-        joins(:card).
-        preload(:images).
-        order("observ_date DESC").
-        page(params[:page])
-  end
-
   private
-
   ACCEPTED_PARAMS = [:slug, :title, :description, :index_num, :status, :stored_image]
 
   def image_params

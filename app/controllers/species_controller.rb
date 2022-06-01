@@ -1,14 +1,13 @@
 # frozen_string_literal: true
 
 class SpeciesController < ApplicationController
-
   administrative except: [:gallery, :show, :search]
 
   before_action :find_species, only: [:edit, :update]
 
   # GET /species/admin
   def index
-    #TODO : Filter by order, family
+    # TODO : Filter by order, family
     @term = params[:term]
     @species = if @term.present?
                  Search::SpeciesSearchUnweighted.new(Species.all, @term).find
@@ -80,6 +79,10 @@ class SpeciesController < ApplicationController
     options = params.slice(:limit)
     result = Search::SpeciesSearch.new(current_user.searchable_species, params[:term], options).find
     render json: result
+  end
+
+  def review
+    @species = Species.where(needs_review: true)
   end
 
   private

@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module SpeciesHelper
-
   STATIC_MAP_CENTER = {
       "ukraine" => "48.6,31.2",
       "united_kingdom" => "54.8,-1.5"
@@ -90,5 +89,4 @@ module SpeciesHelper
   def term_highlight(string, term)
     highlight(string, term, highlighter: content_tag(:span, '\1', class: "highlight"))
   end
-
 end

@@ -137,5 +137,4 @@ class WikiFilterTest < ActionDispatch::IntegrationTest
   #    assert_equal '', transform('{{@|}}')
   #    assert_equal '', transform('{{#|}}')
   #  end
-
 end

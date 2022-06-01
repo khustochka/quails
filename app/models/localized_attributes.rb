@@ -6,7 +6,6 @@ module LocalizedAttributes
   end
 
   module ClassMethods
-
     def localized_attr(*attributes)
       attributes.each do |attr_name|
         define_method attr_name.intern do
@@ -14,7 +13,6 @@ module LocalizedAttributes
         end
       end
     end
-
   end
 
   FALLBACK = %w(uk ru en)

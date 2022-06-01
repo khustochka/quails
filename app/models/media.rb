@@ -13,7 +13,6 @@ class Media < ApplicationRecord
 
   has_many :spots, through: :observations
   belongs_to :spot, optional: true
-  belongs_to :media_series, optional: true
 
   validate :consistent_observations
 
@@ -43,7 +42,7 @@ class Media < ApplicationRecord
   # Mapped photos and vidoes
   def self.for_the_map
     Media.connection.select_rows(
-        Media.for_the_map_query.to_sql
+      Media.for_the_map_query.to_sql
     ).each_with_object({}) do |(im_id, lat, lon), memo|
       key = [lat, lon].map { |x| (x.to_f * 100000).round / 100000.0 }
       (memo[key.join(",")] ||= []).push(im_id.to_i)
@@ -80,9 +79,9 @@ class Media < ApplicationRecord
   def search_applicable_observations(params = {})
     date = params[:date]
     ObservationSearch.new(
-        new_record? ?
-            {observ_date: date || Card.maximum(:observ_date)} :
-            {observ_date: observ_date, locus_id: locus.id}
+      new_record? ?
+          {observ_date: date || Card.maximum(:observ_date)} :
+          {observ_date: observ_date, locus_id: locus.id}
     )
   end
 
@@ -115,12 +114,6 @@ class Media < ApplicationRecord
     Post.where(id: posts_id)
   end
 
-  def series_siblings
-    if media_series_id
-      Media.where(media_series_id: media_series_id).where.not(id: id).order(:created_at, :id)
-    end
-  end
-
   def image?
     media_type == "photo"
   end
@@ -130,7 +123,6 @@ class Media < ApplicationRecord
   end
 
   private
-
   def consistent_observations
     obs = Observation.where(id: observation_ids)
     if obs.blank?
@@ -161,5 +153,4 @@ class Media < ApplicationRecord
         where("spots.lat IS NOT NULL OR patches.lat IS NOT NULL OR public_locus.lat IS NOT NULL OR parent_locus.lat IS NOT NULL").
         distinct
   end
-
 end

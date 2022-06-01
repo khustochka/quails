@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Card < ApplicationRecord
-
   attribute :ebird_id, :nullable_string
   attribute :start_time, :nullable_string
 
@@ -80,15 +79,15 @@ class Card < ApplicationRecord
         ('#{self.observ_date}' > c.observ_date
          " +
     (if self.start_time.blank?
-      "OR ('#{self.observ_date}' = c.observ_date
+       "OR ('#{self.observ_date}' = c.observ_date
               AND c.start_time IS NOT NULL
               )
       OR ('#{self.observ_date}' = c.observ_date
               AND c.start_time IS NULL
               AND c.id < #{self.id}
               )"
-    else
-      "OR ('#{self.observ_date}' = c.observ_date
+     else
+       "OR ('#{self.observ_date}' = c.observ_date
               AND to_timestamp('#{self.start_time}', 'HH24:MI') > to_timestamp(c.start_time, 'HH24:MI')
               )"
      end
@@ -124,10 +123,8 @@ class Card < ApplicationRecord
   end
 
   private
-
   def self.unebirded
     ebirded = Card.select(:id).joins(:ebird_files).where("ebird_files.status IN ('NEW', 'POSTED')")
     self.where("id NOT IN (#{ebirded.to_sql})").where(ebird_id: nil)
   end
-
 end

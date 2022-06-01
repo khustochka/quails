@@ -3,7 +3,6 @@
 require "species_parameterizer"
 
 class Species < ApplicationRecord
-
   extend SpeciesParameterizer
 
   invalidates CacheKey.gallery
@@ -16,7 +15,7 @@ class Species < ApplicationRecord
   validates :name_sci, presence: true, format: /\A[A-Z][a-z]+ [a-z]+\Z/, uniqueness: true
   validates :code, format: /\A[a-z]{6}\Z/, uniqueness: true, allow_nil: true, allow_blank: false
   validates :legacy_code, format: /\A[a-z]{6}\Z/, uniqueness: true, allow_nil: true, allow_blank: false
-  #validates :avibase_id, format: /\A[\dA-F]{16}\Z/, allow_blank: true
+  # validates :avibase_id, format: /\A[\dA-F]{16}\Z/, allow_blank: true
   validates :index_num, presence: true
 
   validate :code_and_legacy_code_uniqueness
@@ -34,7 +33,7 @@ class Species < ApplicationRecord
   has_many :loci, through: :cards
   has_many :images, through: :observations
   has_many :videos, through: :observations
-  #has_many :posts, -> { order(face_date: :desc).distinct }, through: :observations
+  # has_many :posts, -> { order(face_date: :desc).distinct }, through: :observations
 
   has_many :local_species
   has_many :url_synonyms
@@ -83,11 +82,11 @@ class Species < ApplicationRecord
   end
 
   def code=(val)
-    super(val == "" ? nil : val)
+    super(val.presence)
   end
 
   def legacy_code=(val)
-    super(val == "" ? nil : val)
+    super(val.presence)
   end
 
   # Methods
@@ -110,8 +109,9 @@ class Species < ApplicationRecord
 
   def grouped_loci
     countries = Country.select(:id, :slug, :ancestry).to_a
+    subregions = Hash[ countries.map {|c| [c, c.subregion_ids]} ]
     loci.distinct.group_by do |locus|
-      countries.find {|c| locus.id.in?(c.subregion_ids)}.slug
+      countries.find {|c| locus.id.in?(subregions[c])}.slug
     end
   end
 
@@ -125,10 +125,6 @@ class Species < ApplicationRecord
     Thumbnail.new(self, {partial: "species/thumb_title"}, self.image)
   end
 
-  def destroy
-    raise "Destroying species not allowed!"
-  end
-
   # Validations
 
   def code_and_legacy_code_uniqueness
@@ -139,5 +135,4 @@ class Species < ApplicationRecord
       errors.add(:code, "already exists as a legacy code")
     end
   end
-
 end

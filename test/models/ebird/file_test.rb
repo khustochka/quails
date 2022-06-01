@@ -3,7 +3,6 @@
 require "test_helper"
 
 class Ebird::FileTest < ActiveSupport::TestCase
-
   test "file with no cards should be invalid" do
     cards_rel = Card.none
     file = Ebird::File.new(name: "newfile", cards: cards_rel)
@@ -15,5 +14,4 @@ class Ebird::FileTest < ActiveSupport::TestCase
     file = Ebird::File.new(name: "newfile", cards: [cards])
     assert_predicate file, :invalid?
   end
-
 end

@@ -19,7 +19,6 @@
       prev_image: "<< Previous image"
       next_image: "Next image >>"
       more_photos_of_multiple_species: More photos of multiple species
-      in_the_series: "In the same series:"
       main_img_alt: "Photograph titled '%{title}'"
 
     taken_clause: Picture '%{title}' taken

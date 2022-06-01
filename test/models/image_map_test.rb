@@ -3,7 +3,6 @@
 require "test_helper"
 
 class ImageMapTest < ActiveSupport::TestCase
-
   setup do
     @public_spot = FactoryBot.create(:spot, public: true, lat: 1)
     @private_spot = FactoryBot.create(:spot, public: false, lat: 2)

@@ -2,7 +2,6 @@
 
 module Lifelist
   class Advanced < Factory
-
     KEYS = [
         :first_seen,
         :last_seen,
@@ -42,14 +41,14 @@ module Lifelist
     def primary_key
       @primary_key ||= case @sorting
                        when nil, "class"
-          then :first_seen
+                         :first_seen
                        when "last"
-          then :last_seen
+                         :last_seen
                        when "count"
-          then :obs_count
-        else
-          raise "Invalid sorting key."
-      end
+                         :obs_count
+                       else
+                         raise "Invalid sorting key."
+                       end
     end
 
     def all_lists(key)
@@ -57,11 +56,11 @@ module Lifelist
       return @all_lists[key] if @all_lists[key]
       list = case key
              when :first_seen
-                              then Lifelist::FirstSeen.over(@filter)
+               Lifelist::FirstSeen.over(@filter)
              when :last_seen
-                              then Lifelist::LastSeen.over(@filter)
+               Lifelist::LastSeen.over(@filter)
              when :obs_count
-                              then Lifelist::Count.over(@filter)
+               Lifelist::Count.over(@filter)
              end
       list.set_posts_scope(@posts_scope)
     end
@@ -70,6 +69,5 @@ module Lifelist
       @secondary_list ||= {}
       @secondary_list[key] ||= all_lists(key).short_to_a.index_by {|ob| ob.species_id }
     end
-
   end
 end

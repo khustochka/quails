@@ -2,15 +2,14 @@
 
 module FormatStrategy
   class Base
-
     include Rails.application.routes.url_helpers
 
     WIKI_PREFIXES = -"@|#|\\^|&"
 
-  def initialize(text, metadata = {})
-    @metadata = metadata
-    @text = preprocess(text)
-  end
+    def initialize(text, metadata = {})
+      @metadata = metadata
+      @text = preprocess(text)
+    end
 
     def apply
       prepare
@@ -46,7 +45,6 @@ module FormatStrategy
     end
 
     private
-
     def prepare
       @posts = Hash.new do |hash, term|
         hash[term] = Post.find_by(slug: term.downcase)
@@ -82,5 +80,4 @@ module FormatStrategy
       text.gsub("\r\n", "\n")
     end
   end
-
 end
