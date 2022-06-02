@@ -4,9 +4,8 @@ services:
     build:
       context: .
       args:
-        SECRET_KEY_BASE: ${SECRET_KEY_BASE}
         POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-    image: quails-app:alpine
+    image: quails-app
     environment:
       RAILS_ENV: production
       DATABASE_URL: postgres://postgres:${POSTGRES_PASSWORD}@database/quails_docker
@@ -19,21 +18,19 @@ services:
       - .env.docker
     command: ./docker-entrypoint.sh
     ports:
-      - "3001:3000"
+      - "5000:3000"
     depends_on:
       - database
       - cache
       - resque-redis
       - resque
+    volumes:
+      - rails_app_tmp:/app/tmp
+      - rails_app_storage:/app/storage
 
   resque:
     container_name: quails_resque
-    build:
-      context: .
-      args:
-        SECRET_KEY_BASE: ${SECRET_KEY_BASE}
-        POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-    image: quails-app:alpine
+    image: quails-app
     environment:
       RAILS_ENV: production
       DATABASE_URL: postgres://postgres:${POSTGRES_PASSWORD}@database/quails_docker
@@ -52,17 +49,19 @@ services:
       - database
       - cache
       - resque-redis
+    volumes:
+      - rails_app_pids:/app/tmp/pids
+      - rails_app_tmp:/app/tmp
+      - rails_app_storage:/app/storage
 
   database:
     container_name: quails_database
-    image: postgres:13-alpine
+    image: postgres:14-alpine
     environment:
       - "POSTGRES_PASSWORD=${POSTGRES_PASSWORD}"
     # Temporarily to seed database
     #    ports:
     #      - "5499:5432"
-    expose:
-      - 5432
     volumes:
       - db_data:/var/lib/postgresql/data
 
@@ -99,3 +98,9 @@ volumes:
   db_data:
   cache_data:
   resque_jobs_data:
+  rails_app_storage:
+  rails_app_pids:
+  rails_app_tmp:
+    driver_opts:
+      type: tmpfs
+      device: tmpfs

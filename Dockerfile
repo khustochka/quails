@@ -21,15 +21,13 @@ RUN apk --no-cache add nodejs
 
 FROM quails-base AS builder
 
-ARG SECRET_KEY_BASE
-ENV SECRET_KEY_BASE=${SECRET_KEY_BASE}
-RUN test -n "${SECRET_KEY_BASE}" || (echo "SECRET_KEY_BASE should be set" && exit 1) && \
-    apk --no-cache add yarn && \
+# SECRET_KEY_BASE is required to start the app, but does not affect the asset compilation output.
+RUN apk --no-cache add yarn && \
     yarn install --check-files && \
-    bin/rake assets:precompile
-# Cannot remove nodejs because some useless gems need it.
+    SECRET_KEY_BASE=1 bin/rake assets:precompile
+# Cannot remove nodejs because some useless gem needs it.
 
-FROM quails-base
+FROM quails-base AS quails-app
 
 COPY --from=builder /app/public/assets /app/public/assets
 COPY --from=builder /app/public/packs /app/public/packs
