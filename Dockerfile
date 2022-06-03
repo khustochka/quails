@@ -1,6 +1,8 @@
 ARG RUBY_VERSION=3.1.2
 FROM ruby:${RUBY_VERSION}-alpine AS quails-base
 
+RUN gem update --system
+
 WORKDIR /app
 COPY . /app
 
@@ -35,4 +37,4 @@ COPY --from=builder /app/public/packs /app/public/packs
 ENV PORT=3000
 EXPOSE ${PORT}
 
-CMD ["./docker-entrypoint.sh"]
+CMD ["/bin/sh"]

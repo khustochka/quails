@@ -3,8 +3,6 @@ services:
     container_name: quails_web
     build:
       context: .
-      args:
-        POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     image: quails-app
     environment:
       RAILS_ENV: production
@@ -16,7 +14,7 @@ services:
     env_file:
       # In the env file do not use quotes (neither single nor double)!!!
       - .env.docker
-    command: ./docker-entrypoint.sh
+    command: bundle exec puma -C config/puma.rb
     ports:
       - "5000:3000"
     depends_on:
@@ -58,23 +56,12 @@ services:
     container_name: quails_database
     image: postgres:14-alpine
     environment:
-      - "POSTGRES_PASSWORD=${POSTGRES_PASSWORD}"
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     # Temporarily to seed database
     #    ports:
     #      - "5499:5432"
     volumes:
       - db_data:/var/lib/postgresql/data
-
-      # This copies our init.sql into our container, to
-      # a special file called
-      # /docker-entrypoint-initdb.d/init.sql. Anything
-      # at this location will get executed one per
-      # container, i.e. it will get executed the first
-      # time the container is created but not again.
-      #
-      # The init.sql file is a one-line that creates a
-      # user called (arbitrarily) boats_development.
-      #      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 
   cache:
     container_name: quails_cache

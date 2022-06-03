@@ -24,7 +24,6 @@
 /storage/*
 
 /public/assets
-.byebug_history
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
@@ -44,6 +43,7 @@ AppleDouble
 
 /coverage
 /public/storage
+/public/system
 
 /yarn-error.log
 
@@ -57,6 +57,4 @@ AppleDouble
 /doc
 /test
 /.github
-/config/master.key
-/config/database.yml
 
