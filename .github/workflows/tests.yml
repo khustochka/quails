@@ -10,7 +10,7 @@ on:
 jobs:
   test:
     name: Tests
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     services:
       postgres:
         image: postgres:14-alpine
@@ -72,7 +72,7 @@ jobs:
 
   system_test:
     name: ${{ matrix.name }} system tests
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     strategy:
       fail-fast: false
       matrix:
@@ -155,7 +155,7 @@ jobs:
           path: tmp/screenshots
 
 #  lint:
-#    runs-on: ubuntu-latest
+#    runs-on: ubuntu-20.04
 #    env:
 #      BUNDLE_WITHOUT: webkit
 #    steps:
