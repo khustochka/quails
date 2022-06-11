@@ -9,8 +9,11 @@ on:
   - push
 jobs:
   test:
+    strategy:
+      matrix:
+        os: [ubuntu-20.04, [self-hosted, linux, ARM64]]
     name: Tests
-    runs-on: ubuntu-20.04
+    runs-on: ${{ matrix.os }}
     services:
       postgres:
         image: postgres:14-alpine
@@ -72,10 +75,11 @@ jobs:
 
   system_test:
     name: ${{ matrix.name }} system tests
-    runs-on: ubuntu-20.04
+    runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
+        os: [ ubuntu-20.04, [ self-hosted, linux, ARM64 ] ]
         include:
           - name: Webkit
             js_driver: webkit
