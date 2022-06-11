@@ -11,7 +11,9 @@ jobs:
   test:
     strategy:
       matrix:
-        os: [ubuntu-20.04, [self-hosted, linux, ARM64]]
+        os:
+          - ubuntu-20.04
+          - [self-hosted, linux, ARM64]
     name: Tests
     runs-on: ${{ matrix.os }}
     services:
@@ -42,16 +44,16 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 14
-      - name: Find yarn cache location
-        id: yarn-cache
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-      - name: JS package cache
-        uses: actions/cache@v1
-        with:
-          path: ${{ steps.yarn-cache.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+#      - name: Find yarn cache location
+#        id: yarn-cache
+#        run: echo "::set-output name=dir::$(yarn cache dir)"
+#      - name: JS package cache
+#        uses: actions/cache@v1
+#        with:
+#          path: ${{ steps.yarn-cache.outputs.dir }}
+#          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+#          restore-keys: |
+#            ${{ runner.os }}-yarn-
       - name: Install packages
         run: |
           yarn install --pure-lockfile
@@ -79,7 +81,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ ubuntu-20.04, [ self-hosted, linux, ARM64 ] ]
+        os:
+          - ubuntu-20.04
+          - [self-hosted, linux, ARM64]
         include:
           - name: Webkit
             js_driver: webkit
@@ -122,16 +126,16 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 14
-      - name: Find yarn cache location
-        id: yarn-cache
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-      - name: JS package cache
-        uses: actions/cache@v1
-        with:
-          path: ${{ steps.yarn-cache.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+#      - name: Find yarn cache location
+#        id: yarn-cache
+#        run: echo "::set-output name=dir::$(yarn cache dir)"
+#      - name: JS package cache
+#        uses: actions/cache@v1
+#        with:
+#          path: ${{ steps.yarn-cache.outputs.dir }}
+#          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+#          restore-keys: |
+#            ${{ runner.os }}-yarn-
       - name: Install packages
         run: |
           yarn install --pure-lockfile
