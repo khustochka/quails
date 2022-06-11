@@ -44,6 +44,8 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 14
+      - name: Install Yarn
+        run: npm install -g yarn
 #      - name: Find yarn cache location
 #        id: yarn-cache
 #        run: echo "::set-output name=dir::$(yarn cache dir)"
@@ -126,6 +128,8 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 14
+      - name: Install Yarn
+        run: npm install -g yarn
 #      - name: Find yarn cache location
 #        id: yarn-cache
 #        run: echo "::set-output name=dir::$(yarn cache dir)"
