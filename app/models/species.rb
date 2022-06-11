@@ -109,8 +109,9 @@ class Species < ApplicationRecord
 
   def grouped_loci
     countries = Country.select(:id, :slug, :ancestry).to_a
+    subregions = Hash[ countries.map {|c| [c, c.subregion_ids]} ]
     loci.distinct.group_by do |locus|
-      countries.find {|c| locus.id.in?(c.subregion_ids)}.slug
+      countries.find {|c| locus.id.in?(subregions[c])}.slug
     end
   end
 
