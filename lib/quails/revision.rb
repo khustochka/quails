@@ -16,22 +16,21 @@ module Quails
     def self.read_revision
       unless Rails.env.test?
         begin
+          sha = message = nil
           revision_file = File.join(Rails.root, "REVISION")
-          if File.exist?(revision_file)
-            rev = File.read(revision_file)
-            if rev.match?(/\A\h{40}\Z/)
-              sha = rev.strip
-              repo_folder = File.join(Rails.root, "../../repo")
-              if File.directory?(repo_folder)
-                message = Dir.chdir(repo_folder) do
-                  `git show -s --format=%B #{sha}`
-                end
+          rev = ENV["GIT_REVISION"] || (File.exist?(revision_file) && File.read(revision_file))
+          if rev&.match?(/\A\h{40}\Z/) || rev&.match?(/\A\h{8}\Z/)
+            sha = rev.strip
+            repo_folder = File.join(Rails.root, "../../repo")
+            if File.directory?(repo_folder)
+              message = Dir.chdir(repo_folder) do
+                `git show -s --format=%B #{sha}`
               end
             end
           elsif File.directory?(File.join(Rails.root, ".git"))
             sha, message = `git show -s --format=%H%n%n%B`.split("\n\n", 2)
           end
-          if sha && message
+          if sha
             self.new(sha: sha, message: message)
           end
         rescue
