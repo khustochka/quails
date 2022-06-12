@@ -1,10 +1,16 @@
 ARG RUBY_VERSION=3.1.2
 FROM ruby:${RUBY_VERSION}-alpine AS quails-base
 
+ARG GIT_COMMIT=unspecified
+LABEL org.opencontainers.image.revision=$GIT_COMMIT
+ENV GIT_REVISION=$GIT_COMMIT
+
 RUN gem update --system
 
 WORKDIR /app
 COPY . /app
+
+RUN echo $GIT_COMMIT > REVISION
 
 ENV RAILS_ENV=production DOCKER_ENV=1 RAILS_LOG_TO_STDOUT=1
 ENV BUNDLE_WITHOUT=development:test:webkit BUNDLE_FROZEN=1
