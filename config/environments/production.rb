@@ -42,7 +42,7 @@ Rails.application.configure do
   # end
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
-  config.active_storage.service = Quails.env.live? || ENV["PROD_S3"] ? :amazon : :amazon_dev
+  config.active_storage.service = (Quails.env.live? || ENV["PROD_S3"]) ? :amazon : :amazon_dev
 
   # Mount Action Cable outside main process or domain.
   # config.action_cable.mount_path = nil
@@ -101,7 +101,7 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # Route error pages through custom middleware
-  require 'quails/public_exceptions'
+  require "quails/public_exceptions"
   config.exceptions_app = Quails::PublicExceptions.new(Rails.public_path)
 
   if Quails.env.live?

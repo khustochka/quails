@@ -55,6 +55,7 @@ gem "rinku"
 gem "kaminari"
 gem "simple_form"
 gem "high_voltage"
+gem "health_check"
 
 # External services
 gem "flickraw", "~> 0.9.7"
