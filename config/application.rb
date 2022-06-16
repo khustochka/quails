@@ -47,18 +47,18 @@ module Quails
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
-    config.time_zone = 'Kyiv'
+    config.time_zone = "Kyiv"
     # THIS APP SPECIFIC NOTE: if you ever have to change the time zone take into account that 'posts.facedate'
     # is not a timezone dependent timestamp but rather a carved in stone time and should be shown the same to everyone
     # so you'll have to convert it in the DB
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
-    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '{en,ru,uk}','*.{rb,yml}').to_s]
+    config.i18n.load_path += Dir[Rails.root.join("config", "locales", "{en,ru,uk}", "*.{rb,yml}").to_s]
     config.i18n.default_locale = :ru
     config.i18n.available_locales = [:en, :ru, :uk]
 
     config.before_configuration do
-      require 'quails/env'
+      require "quails/env"
     end
   end
 end

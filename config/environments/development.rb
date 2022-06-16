@@ -21,7 +21,7 @@ Rails.application.configure do
 
   # Enable/disable caching. By default caching is disabled.
   # Run rails dev:cache to toggle caching.
-  if Rails.root.join("tmp/caching-dev.txt").exist? || ENV['DEV_CACHING']
+  if Rails.root.join("tmp/caching-dev.txt").exist? || ENV["DEV_CACHING"]
     config.action_controller.perform_caching = true
     config.action_controller.enable_fragment_cache_logging = true
 
@@ -35,7 +35,7 @@ Rails.application.configure do
     config.cache_store = :null_store
   end
 
-  if ENV['DEV_RESQUE']
+  if ENV["DEV_RESQUE"]
     config.active_job.queue_adapter     = :resque
     config.active_job.queue_name_prefix = "quails_#{Rails.env}"
   end

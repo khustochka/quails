@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 # May be used on heroku
-if ENV['MAILTRAP_API_TOKEN']
-  require 'json'
+if ENV["MAILTRAP_API_TOKEN"]
+  require "json"
   require "net/http"
 
   uri = URI.parse("https://mailtrap.io/api/v1/inboxes.json?api_token=#{ENV['MAILTRAP_API_TOKEN']}")
@@ -17,11 +17,11 @@ if ENV['MAILTRAP_API_TOKEN']
 
   ActionMailer::Base.delivery_method = :smtp
   ActionMailer::Base.smtp_settings = {
-      :user_name => first_inbox['username'],
-      :password => first_inbox['password'],
-      :address => first_inbox['domain'],
-      :domain => first_inbox['domain'],
-      :port => first_inbox['smtp_ports'][0],
-      :authentication => :plain
+      user_name: first_inbox["username"],
+      password: first_inbox["password"],
+      address: first_inbox["domain"],
+      domain: first_inbox["domain"],
+      port: first_inbox["smtp_ports"][0],
+      authentication: :plain
   }
 end
