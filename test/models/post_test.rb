@@ -273,4 +273,11 @@ class PostTest < ActiveSupport::TestCase
 
     assert_equal [img1.id, img2.id], p.images.map(&:id)
   end
+
+  test "cache key is changed after commenting on post" do
+    p = create(:post, body: "Text")
+    key1 = p.cache_key
+    comment = create(:comment, post: p)
+    assert_not_equal p.reload.cache_key, key1
+  end
 end
