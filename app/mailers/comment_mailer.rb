@@ -9,14 +9,14 @@ class CommentMailer < ApplicationMailer
   before_action :set_params
 
   def notify_admin
-    mail from: params[:from], to: params[:to], subject: "Comment posted to \"#{sanitized_comment_title}\""
+    mail subject: "Comment posted to \"#{sanitized_comment_title}\""
   end
 
   def notify_parent_author
     to = @comment.parent_comment.commenter.email
     if (Rails.env.production? && Quails.env.live?) ||
             (!Rails.env.production? && (!perform_deliveries || delivery_method.in?([:letter_opener, :test]))) && to.present?
-      mail from: params[:from], to: to, subject: "Ответ на ваш комментарий на сайте birdwatch.org.ua (\"#{sanitized_comment_title}\")"
+      mail to: to, subject: "Ответ на ваш комментарий на сайте birdwatch.org.ua (\"#{sanitized_comment_title}\")"
     end
   end
 
