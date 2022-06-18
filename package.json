@@ -2,6 +2,7 @@
   "name": "quails",
   "license": "MIT",
   "private": true,
+  "version": "0.1.0",
   "dependencies": {
     "@airbrake/browser": "^2.1.3",
     "@babel/core": "7.18.0",
@@ -29,7 +30,9 @@
     "webpack-merge": "5",
     "webpack-sources": "^3.2.3"
   },
-  "version": "0.1.0",
+  "devDependencies": {
+    "webpack-dev-server": "^4.7.4"
+  },
   "babel": {
     "presets": [
       "./node_modules/shakapacker/package/babel/preset.js"
@@ -37,8 +40,5 @@
   },
   "browserslist": [
     "defaults"
-  ],
-  "devDependencies": {
-    "webpack-dev-server": "^4.7.4"
-  }
+  ]
 }
