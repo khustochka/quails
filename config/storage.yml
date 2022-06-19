@@ -9,11 +9,9 @@ local:
 <% if Quails.env.live? || ENV["ACCESS_PROD_S3"] || ENV["PROD_S3"] %>
 amazon:
   service: S3
-  access_key_id: <%= ENV["quails_aws_access_key_id"] %>
-  secret_access_key: <%= ENV["quails_aws_secret_access_key"] %>
   public: true
   region: us-east-1
-  bucket: <%= ENV["quails_s3_prod_bucket"] %>
+  bucket: <%= ENV["S3_PROD_BUCKET"] %>
   upload:
     cache_control: "public, max-age=2592000"
     acl: public-read
@@ -25,11 +23,9 @@ amazon:
 
 amazon_dev:
   service: S3
-  access_key_id: <%= ENV["quails_aws_access_key_id"] %>
-  secret_access_key: <%= ENV["quails_aws_secret_access_key"] %>
   public: true
   region: us-east-1
-  bucket: <%= ENV["quails_s3_dev_bucket"] %>
+  bucket: <%= ENV["S3_DEV_BUCKET"] %>
   upload:
     cache_control: "public, max-age=2592000"
     acl: public-read
