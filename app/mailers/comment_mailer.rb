@@ -3,8 +3,8 @@
 class CommentMailer < ApplicationMailer
   include ActionView::Helpers::SanitizeHelper
 
-  default from: ENV["quails_comment_sender"]
-  default to: ENV["quails_comment_reader"]
+  default from: ENV["COMMENT_EMAIL_SENDER"]
+  default to: ENV["ADMIN_NOTIFICATIONS_EMAIL"]
 
   before_action :set_params
 

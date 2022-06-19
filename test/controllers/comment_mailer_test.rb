@@ -18,7 +18,7 @@ class CommentMailerTest < ActionMailer::TestCase
     email
   end
 
-  # NOTE: these tests require `quails_comment_sender` and `quails_comment_reader` env vars
+  # NOTE: these tests require `COMMENT_EMAIL_SENDER` and `ADMIN_NOTIFICATIONS_EMAIL` env vars
   # to be set in .env.test.
   def deliver_notify_parent_author_email
     email = CommentMailer.
