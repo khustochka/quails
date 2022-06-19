@@ -10,7 +10,7 @@ local:
 amazon:
   service: S3
   public: true
-  region: <%= ENV["DEFAULT_AWS_REGION"] %>
+  region: <%= ENV["S3_BUCKET_REGION"] || ENV["AWS_REGION"] %>
   bucket: <%= ENV["S3_PROD_BUCKET"] %>
   upload:
     cache_control: "public, max-age=2592000"
@@ -24,7 +24,7 @@ amazon:
 amazon_dev:
   service: S3
   public: true
-  region: <%= ENV["DEFAULT_AWS_REGION"] %>
+  region: <%= ENV["S3_BUCKET_REGION"] || ENV["AWS_REGION"] %>
   bucket: <%= ENV["S3_DEV_BUCKET"] %>
   upload:
     cache_control: "public, max-age=2592000"
