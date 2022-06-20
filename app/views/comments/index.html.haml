@@ -12,7 +12,7 @@
 %table.neat_table
   %tr
     %th Id
-    %th Parent
+    %th Date
     %th Name
     %th Text
     %th
@@ -23,8 +23,13 @@
         %h4= post_link(post.decorated.title, post)
     - comments.each do |comment|
       %tr
-        %td= link_to comment.id, edit_comment_path(comment)
-        %td= comment.parent_id
+        %td
+          = link_to comment.id, edit_comment_path(comment)
+          - if comment.parent_id
+            %b{title: "Response"} Resp.
+        %td
+          %nobr
+            = l(comment.created_at, format: :long)
         %td= comment.name
         %td= comment.decorated.body
         %td
