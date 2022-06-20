@@ -91,7 +91,7 @@ $(function () {
 
   $(window).resize(adjustSizes);
 
-  if (typeof google === "object") {
+  if (window.mapEnabled && typeof google === "object") {
 
     theMap.gmap3({
       map: {
@@ -162,7 +162,7 @@ $(function () {
   marker_options.values = marks;
 
 
-  if (typeof google === "object") {
+  if (window.mapEnabled && typeof google === "object") {
     if (marks.length > 0) {
       theMap.gmap3(
           {marker: marker_options},
