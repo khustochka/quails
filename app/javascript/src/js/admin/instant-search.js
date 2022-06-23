@@ -1,4 +1,4 @@
-Quails.InstantSearch = class {
+class InstantSearch {
   constructor(container) {
     this.container = $(container);
     this.dataUrl = this.container.data("url");
@@ -32,7 +32,7 @@ Quails.InstantSearch = class {
 
 document.addEventListener('DOMContentLoaded', function () {
   $(".instant_search_container").each(function (i, el) {
-    const instantSearch = new Quails.InstantSearch(el);
+    const instantSearch = new InstantSearch(el);
     instantSearch.register();
   });
 })

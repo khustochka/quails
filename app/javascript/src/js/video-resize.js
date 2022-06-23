@@ -1,4 +1,4 @@
-Quails.VideoResize = class {
+class VideoResize {
   constructor() {
     this.selector = '.video-container[data-resizable] iframe'
     this.enable = $(this.selector).length > 0;
@@ -39,7 +39,9 @@ Quails.VideoResize = class {
 
 export default {
   init: () => {
-    const videoResize = new Quails.VideoResize();
-    videoResize.init()
+    $(() => {
+      const videoResize = new VideoResize();
+      videoResize.init()
+    });
   }
 }
