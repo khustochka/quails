@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 module VideoEmbedderHelper
-  def video_embed(term, size = :large)
+  def video_embed(term, size = :large, _video_resizable = false)
     if video = Video.find_by(slug: term)
       youtube_embed = video.send(size)
+      video_resizable = _video_resizable
       VideoEmbedderHelper.erb_template.result(binding)
     end
   end

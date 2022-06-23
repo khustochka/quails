@@ -6,8 +6,6 @@
 - @page_title = "#{@species.name} (#{@species.name_sci})"
 - @meta_description = t(".meta_description", name: @species.name, name_sci: @species.name_sci)
 
-- @js_features = [:videoResize]
-
 - if current_user.admin?
   - javascript 'species_image'
   - content_for :add_shortcuts do
@@ -108,9 +106,7 @@
   %a{name: 'videos'}
   %div.videos
     %h3= t('.sections.videos')
-    = render videos.map(&:small)
-
-
+    = render videos.map(&:small), video_resizable: true
 
 - if @species.observations.size > 0
   %a{name: 'observations'}
