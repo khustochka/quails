@@ -27,7 +27,7 @@ class Ebird::ImportsController < ApplicationController
   end
 
   def refresh
-    EbirdPreloadJob.perform_later
+    EbirdPreloadJob.set(queue: :default).perform_later
     if request.xhr?
       render json: {}
     else

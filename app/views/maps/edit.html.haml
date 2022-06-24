@@ -20,7 +20,7 @@
     -#= render :partial => 'observations/obs_item', :collection => @observations
 
 .mapContainer
-  #googleMap
+  #googleMap{data: {map_enabled: map_enabled}}
 
 - @observation_search.card_id.if_present do |id|
   :javascript

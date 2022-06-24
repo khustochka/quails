@@ -28,7 +28,7 @@ class Video < Media
   end
 
   def youtube_url
-    "//www.youtube.com/watch?v=#{youtube_id}"
+    "https://www.youtube.com/watch?v=#{youtube_id}"
   end
 
   def small

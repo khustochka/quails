@@ -151,11 +151,12 @@ class Post < ApplicationRecord
     @lj_url ||= lj_data.url
   end
 
+  # TODO: look at cache versioning
   def cache_key
     updated = self[:updated_at].utc
-    commented = self[:commented_at].utc rescue nil
+    commented = self[:commented_at]&.utc
 
-    date = [updated, commented].compact.max.to_s(cache_timestamp_format)
+    date = [updated, commented].compact.max.to_fs(cache_timestamp_format)
 
     "#{self.class.model_name.cache_key}-#{id}-#{date}"
   end

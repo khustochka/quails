@@ -2,7 +2,8 @@
 
 HealthCheck.setup do |config|
   # bucket names to test connectivity - required only if s3 check used, access permissions can be mixed
-  # config.buckets = {'bucket_name' => [:R, :W, :D]}
+  buckets = [ENV["S3_DEV_BICKET"], ENV["S3_PROD_BICKET"]] .map(&:presence).compact
+  config.buckets = Hash[buckets.map { |b| [b, [:R, :W, :D]]}]
 
   # You can customize which checks happen on a standard health check, eg to set an explicit list use:
   config.standard_checks = [ "database", "migrations", "custom" ]
@@ -12,6 +13,6 @@ HealthCheck.setup do |config|
 
   # When redis url/password is non-standard
   config.redis_url = ENV["REDISCLOUD_URL"] || ENV["REDIS_RESQUE_URL"] # default ENV['REDIS_URL']
-  # Only included if set, as url can optionally include passwords as well
-  # config.redis_password = 'redis_password' # default ENV['REDIS_PASSWORD']
+  # Has to be nil to fall back to password in the URL
+  config.redis_password = nil
 end

@@ -61,6 +61,7 @@ gem "health_check"
 gem "flickraw", "~> 0.9.7"
 gem "livejournal2"
 gem "aws-sdk-s3", require: false
+gem "aws-sdk-rails"
 
 # Small utils
 gem "addressable", require: "addressable/uri"

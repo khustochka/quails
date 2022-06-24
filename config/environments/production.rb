@@ -69,7 +69,7 @@ Rails.application.configure do
 
   # Use a real queuing backend for Active Job (and separate queues per environment).
   config.active_job.queue_adapter     = :resque
-  config.active_job.queue_name_prefix = "quails_#{Quails.env.live?.presence && "REAL_"}#{Rails.env}"
+  config.active_job.queue_name_prefix = "quails_#{Quails.env.live? ? "LIVE" : Rails.env}"
 
   config.action_mailer.perform_caching = false
 
@@ -82,7 +82,9 @@ Rails.application.configure do
   config.i18n.fallbacks = false
 
   # Send deprecation notices to registered listeners.
-  config.active_support.deprecation = :notify
+  # config.active_support.deprecation = :notify
+
+  config.active_support.deprecation = :log
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new

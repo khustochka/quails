@@ -3,8 +3,6 @@
 
 $(function () {
 
-  var theMap = $('#googleMap');
-
   function panToLocus(loc_id) {
     $.get('/loci/' + loc_id + '.json', function (data) {
       var lat = data['lat'], lon = data['lon'];
@@ -15,24 +13,8 @@ $(function () {
     });
   }
 
-  theMap.height("250px");
-
-  theMap.gmap3({
-    map: {
-      events: {
-        click: function (map, event) {
-          var latLng = event.latLng,
-              marker = theMap.gmap3({get: "marker"});
-          if (typeof(marker) != 'undefined') marker.setMap(null);
-          addMarker(latLng);
-          updateGeoFields(latLng);
-        }
-      }
-    }
-  });
-
   var lat = $("#locus_lat").val(),
-      lng = $("#locus_lon").val();
+    lng = $("#locus_lon").val();
 
   function updateGeoFields(latLng) {
     $("#locus_lat").val(latLng.lat());
@@ -55,24 +37,43 @@ $(function () {
     });
   }
 
-  if (lat && lng) {
-    addMarker(new google.maps.LatLng(lat, lng));
+  var theMap = $('#googleMap');
+
+  theMap.height("250px");
+
+  if (window.mapEnabled) {
     theMap.gmap3({
-      autofit: {maxZoom: 13}
+      map: {
+        events: {
+          click: function (map, event) {
+            var latLng = event.latLng,
+              marker = theMap.gmap3({get: "marker"});
+            if (typeof (marker) != 'undefined') marker.setMap(null);
+            addMarker(latLng);
+            updateGeoFields(latLng);
+          }
+        }
+      }
     });
-  } else {
-    var parentLocId = $("select#locus_parent_id").val();
-    if (parentLocId) panToLocus(parentLocId);
-  }
 
-  var oldselect = $("input#locus_parent_id").data("ui-autocomplete").options.select;
-
-  $("input#locus_parent_id").on( "autocompleteselect", function( event, ui ) {
-    oldselect(event, ui);
-    var loc_id = ui.item.option.value;
-    if (loc_id.length > 0) {
-      panToLocus(loc_id);
+    if (lat && lng) {
+      addMarker(new google.maps.LatLng(lat, lng));
+      theMap.gmap3({
+        autofit: {maxZoom: 13}
+      });
+    } else {
+      var parentLocId = $("select#locus_parent_id").val();
+      if (parentLocId) panToLocus(parentLocId);
     }
-  } );
 
+    var oldselect = $("input#locus_parent_id").data("ui-autocomplete").options.select;
+
+    $("input#locus_parent_id").on("autocompleteselect", function (event, ui) {
+      oldselect(event, ui);
+      var loc_id = ui.item.option.value;
+      if (loc_id.length > 0) {
+        panToLocus(loc_id);
+      }
+    });
+  }
 });
