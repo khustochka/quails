@@ -1,4 +1,4 @@
-name: Build and push Docker images
+name: Build Docker image
 on:
   - workflow_dispatch
   - push
@@ -14,6 +14,7 @@ jobs:
           images: |
             public.ecr.aws/m7x1i1o0/quails-app
           tags: |
+            type=raw,value=latest
             type=sha
 
       - name: Set up QEMU
@@ -34,6 +35,4 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          cache-from: type=registry,ref=m7x1i1o0/quails-app:buildcache
-          cache-to: type=registry,ref=m7x1i1o0/quails-app:buildcache,mode=max
           tags: ${{ steps.meta.outputs.tags }}
