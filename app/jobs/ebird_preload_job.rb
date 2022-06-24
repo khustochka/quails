@@ -3,7 +3,7 @@
 require "ebird/ebird_client"
 
 class EbirdPreloadJob < ApplicationJob
-  queue_as :default
+  queue_as :low
 
   def perform
     client = EbirdClient.new
