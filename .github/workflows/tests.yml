@@ -116,9 +116,6 @@ jobs:
       - name: Install Qt5
         if: ${{ matrix.js_driver == 'webkit' }}
         run: sudo apt-get install g++ qt5-default libqt5webkit5-dev gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-x
-      - name: Install chromedriver
-        run: sudo gem install webdrivers && ruby -rwebdrivers `which rake` webdrivers:chromedriver:update
-        if: ${{ matrix.js_browser == 'headless_chrome' }}
       - name: Setup Node
         uses: actions/setup-node@v1
         with:
@@ -136,15 +133,15 @@ jobs:
       - name: Install packages
         run: |
           yarn install --pure-lockfile
-      # Add or replace dependency steps here
       - name: Install Ruby and gems
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
-      # Add or replace database setup steps here
+      - name: Install chromedriver
+        run: gem install webdrivers --no-document && ruby -rwebdrivers `which rake` webdrivers:chromedriver:update
+        if: ${{ matrix.js_browser == 'headless_chrome' }}
       - name: Set up database schema
         run: bin/rails db:schema:load
-      # Add or replace test runners here
       - name: Run tests
         env:
           # To prevent ugly xvfb warning

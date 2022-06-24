@@ -14,7 +14,7 @@ jobs:
           bundler: 'none'
       - name: Install rubocop
         run: |
-          gem install rubocop-rails rubocop-performance rubocop-packaging
+          gem install rubocop-rails rubocop-performance rubocop-packaging --no-document
       - name: 'Run Rubocop'
         run: |
           rubocop --format github
