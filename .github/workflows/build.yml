@@ -31,9 +31,14 @@ jobs:
         env:
           AWS_REGION: us-east-1
 
+      - name: Checkout code
+        uses: actions/checkout@v2
+
       - name: Build and push
         uses: docker/build-push-action@v3
         with:
+          # Path context is required for .dockerignore to work.
+          context: .
           build-args: |
             GIT_COMMIT=${{ github.sha }}
           push: true
