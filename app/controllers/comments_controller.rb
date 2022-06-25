@@ -100,7 +100,7 @@ class CommentsController < ApplicationController
             end
           rescue => e
             # Do not fail if error happened when sending email.
-            Airbrake.notify(e)
+            report_error(e)
           end
           format.html {
             if request.xhr?
