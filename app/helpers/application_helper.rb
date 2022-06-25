@@ -57,4 +57,13 @@ module ApplicationHelper
   def may_be_admin?
     has_trust_cookie? || current_user.admin?
   end
+
+  def open_uri_or_path(uri)
+    obj = if /\Ahttps?:\/\//.match?(uri)
+            URI.parse(uri).open
+          else
+            File.open(uri)
+          end
+    yield obj
+  end
 end
