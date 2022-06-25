@@ -19,9 +19,9 @@ module GoogleSearchHelper
 
   def google_search_form_url
     if google_cse
-      "//www.google.com/cse"
+      "https://www.google.com/cse"
     else
-      "//www.google.com/search"
+      "https://www.google.com/search"
     end
   end
 end
