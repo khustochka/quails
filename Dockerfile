@@ -30,9 +30,9 @@ RUN echo $GIT_COMMIT > REVISION
 
 FROM quails-base AS builder
 
-# SECRET_KEY_BASE is required to start the app, but does not affect the asset compilation output.
+# SECRET_KEY_BASE is required to load the env (rake), but does not affect the asset compilation output.
 RUN apk --no-cache add yarn && \
-    yarn install --check-files && \
+    yarn install --check-files --frozen-lockfile && \
     SECRET_KEY_BASE=1 bin/rake assets:precompile && \
     apk --purge del yarn
 # Cannot remove nodejs because some useless gem needs it.
