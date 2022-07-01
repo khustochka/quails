@@ -35,19 +35,19 @@ class EbirdTaxon < ApplicationRecord
     ActiveRecord::Base.transaction do
       # If parent exists promote it
       promoted_parent = if parent
-                          parent.promote(species: species)
-                        else
-                          nil
-                        end
+        parent.promote(species: species)
+      else
+        nil
+      end
 
       # Creating taxon
 
       attr_hash = attributes.slice("name_sci", "name_en", "ebird_code", "category", "order", "family")
       prev_index_num =
-          Taxon.
-              joins("INNER JOIN ebird_taxa on ebird_taxa.id = taxa.ebird_taxon_id").
-              where("ebird_taxa.index_num < ?", index_num).order("taxa.index_num DESC").
-              limit(1).pluck("taxa.index_num").first
+        Taxon.
+          joins("INNER JOIN ebird_taxa on ebird_taxa.id = taxa.ebird_taxon_id").
+          where("ebird_taxa.index_num < ?", index_num).order("taxa.index_num DESC").
+          limit(1).pluck("taxa.index_num").first
       new_index_num = prev_index_num ? prev_index_num + 1 : 1
       attr_hash[:index_num] = new_index_num
       if promoted_parent
@@ -60,7 +60,7 @@ class EbirdTaxon < ApplicationRecord
 
       # For taxonomy update (lumps): if there were already promoted children taxa of unpromoted parent.
 
-      children.map(&:taxon).compact.each {|tx| tx.update(parent_id: new_taxon.id)}
+      children.map(&:taxon).compact.each { |tx| tx.update(parent_id: new_taxon.id) }
 
       # Create or update species if necessary
 

@@ -44,7 +44,7 @@ class Video < Media
   end
 
   def to_thumbnail
-    Thumbnail.new(self, self.decorated.title, self, {video: {id: id}})
+    Thumbnail.new(self, self.decorated.title, self, { video: { id: id } })
   end
 
   def on_storage?
@@ -52,12 +52,13 @@ class Video < Media
   end
 
   private
+
   def update_thumbnail
     self.assets_cache = ImageAssetsArray.new (
-                                            [
-                                                ImageAssetItem.new(:youtube, 480, 360, thumbnail_url_template)
-                                            ]
-                                        )
+      [
+        ImageAssetItem.new(:youtube, 480, 360, thumbnail_url_template),
+      ]
+    )
   end
 
   def thumbnail_url_template

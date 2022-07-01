@@ -32,8 +32,8 @@ class GeoDistance
     dLat = (lat2 - lat1) * Math::PI / 180
     dLon = (lon2 - lon1) * Math::PI / 180
     a = (Math.sin(dLat / 2)**2) +
-        (Math.cos(latR1) * Math.cos(latR2) *
-            Math.sin(dLon / 2)**2)
+      (Math.cos(latR1) * Math.cos(latR2) *
+          Math.sin(dLon / 2)**2)
     c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
     Distance.new(c)
   end

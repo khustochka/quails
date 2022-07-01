@@ -35,7 +35,7 @@ module FormatStrategy
       %Q(<figure class="imageholder">
           !#{static_jpg_url(image)}([photo])!
           <figcaption class="imagetitle">
-          #{image.decorated.title} __(#{image.species.map(&:name_sci).join(', ')})__
+          #{image.decorated.title} __(#{image.species.map(&:name_sci).join(", ")})__
           </figcaption>
         </figure>
         )

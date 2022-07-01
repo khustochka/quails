@@ -115,6 +115,7 @@ module JustifyHelper
   end
 
   private
+
   def width(thumbs)
     thumbs.inject(0) { |memo, t| memo + t.width + (BORDER * 2) }
   end

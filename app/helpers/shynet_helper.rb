@@ -8,7 +8,7 @@ module ShynetHelper
       cache [:shynet, shynet_host, shynet_key] do
         concat(
           if show_shynet?
-            render partial: "partials/shynet_code", locals: {host: shynet_host, key: shynet_key}
+            render partial: "partials/shynet_code", locals: { host: shynet_host, key: shynet_key }
           end
         )
       end
@@ -20,6 +20,7 @@ module ShynetHelper
   end
 
   private
+
   def shynet_host
     @@shynet_host ||= ENV["quails_shynet_host"]
   end

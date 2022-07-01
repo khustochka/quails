@@ -34,6 +34,7 @@ class Exporter
   end
 
   private
+
   def save_to_file(array)
     CSV.open(local_file_name, "w+") do |csv|
       array.each do |row|

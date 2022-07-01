@@ -25,7 +25,7 @@ class Day
 
   def species
     @species ||=
-        Species.distinct.joins(:cards, :observations).merge(cards).order(:index_num)
+      Species.distinct.joins(:cards, :observations).merge(cards).order(:index_num)
   end
 
   def lifer_species_ids
@@ -37,22 +37,22 @@ class Day
           where taxa.species_id = tt.species_id
           and cards.observ_date > c.observ_date"
     @lifer_species_ids ||= MyObservation.
-        joins(:card).
-        merge(cards).
-        where("NOT EXISTS(#{subquery})").
-        distinct.
-        pluck(:species_id)
+      joins(:card).
+      merge(cards).
+      where("NOT EXISTS(#{subquery})").
+      distinct.
+      pluck(:species_id)
   end
 
   def images
     Image.joins(:observations, :cards).includes(:cards, :taxa).merge(cards).
-        merge(Card.default_cards_order("ASC")).
-        order("media.index_num, taxa.index_num").preload(:species)
+      merge(Card.default_cards_order("ASC")).
+      order("media.index_num, taxa.index_num").preload(:species)
   end
 
   def posts
     posts_id = cards.where("post_id IS NOT NULL").distinct.pluck(:post_id) +
-        observations.where("observations.post_id IS NOT NULL").distinct.pluck(:post_id)
+      observations.where("observations.post_id IS NOT NULL").distinct.pluck(:post_id)
     Post.distinct.where(id: posts_id)
   end
 end

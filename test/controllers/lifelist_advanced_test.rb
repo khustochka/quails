@@ -7,11 +7,11 @@ class LifelistAdvancedTest < ActionController::TestCase
 
   setup do
     @obs = [
-        create(:observation, taxon: taxa(:pasdom), card: create(:card, observ_date: "2010-06-20", locus: loci(:nyc))),
-        create(:observation, taxon: taxa(:hirrus), card: create(:card, observ_date: "2010-06-18", locus: loci(:nyc))),
-        create(:observation, taxon: taxa(:bomgar), card: create(:card, observ_date: "2009-06-18", locus: loci(:nyc))),
-        create(:observation, taxon: taxa(:saxola), card: create(:card, observ_date: "2007-07-18"), voice: true),
-        create(:observation, taxon: taxa(:jyntor), card: create(:card, observ_date: "2009-08-09", locus: loci(:brovary)))
+      create(:observation, taxon: taxa(:pasdom), card: create(:card, observ_date: "2010-06-20", locus: loci(:nyc))),
+      create(:observation, taxon: taxa(:hirrus), card: create(:card, observ_date: "2010-06-18", locus: loci(:nyc))),
+      create(:observation, taxon: taxa(:bomgar), card: create(:card, observ_date: "2009-06-18", locus: loci(:nyc))),
+      create(:observation, taxon: taxa(:saxola), card: create(:card, observ_date: "2007-07-18"), voice: true),
+      create(:observation, taxon: taxa(:jyntor), card: create(:card, observ_date: "2009-08-09", locus: loci(:brovary))),
     ]
   end
 
@@ -68,7 +68,7 @@ class LifelistAdvancedTest < ActionController::TestCase
   test "lifelist should show correct link to localized page (including filters)" do
     get :advanced, params: {locus: "usa", year: 2009}
     assert_response :success
-    assert_select "a[href='#{advanced_list_path(locus: 'usa', year: 2009, locale: :en)}']"
+    assert_select "a[href='#{advanced_list_path(locus: "usa", year: 2009, locale: :en)}']"
   end
 
   test "show lifelist with only seen species" do

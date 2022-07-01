@@ -2,8 +2,8 @@
 
 module ImagesHelper
   ON_FLICKR_IMG = {
-      true => ["https://s.yimg.com/pw/images/goodies/white-small-chiclet.png", "On flickr"],
-      false => ["https://s.yimg.com/pw/images/goodies/black-small-chiclet.png", "Not on flickr"]
+    true => ["https://s.yimg.com/pw/images/goodies/white-small-chiclet.png", "On flickr"],
+    false => ["https://s.yimg.com/pw/images/goodies/black-small-chiclet.png", "Not on flickr"],
   }
 
   def jpg_url(img)
@@ -17,7 +17,7 @@ module ImagesHelper
   end
 
   def static_jpg_url(img, options = {})
-    image_url(img, options.merge({format: :jpg}))
+    image_url(img, options.merge({ format: :jpg }))
   end
 
   THUMBNAIL_HEIGHT = 280
@@ -45,6 +45,7 @@ module ImagesHelper
   end
 
   private
+
   def self.image_host
     @image_host ||= ENV["quails_image_host"]
   end

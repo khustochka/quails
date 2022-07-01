@@ -11,7 +11,7 @@ class RoutingTest < ActionDispatch::IntegrationTest
     assert_routing "/2008", {controller: "blog", action: "year", year: "2008"}
     assert_routing "/2010/04", {controller: "blog", action: "month", year: "2010", month: "04"}
     assert_routing "/2009/07/some-post", {controller: "posts", action: "show",
-                                          year: "2009", month: "07", id: "some-post"}
+                                          year: "2009", month: "07", id: "some-post", }
   end
 
   test "route species correctly" do
@@ -21,7 +21,7 @@ class RoutingTest < ActionDispatch::IntegrationTest
 
   test "route species search correctly" do
     assert_routing "/species/search.json",
-                   {controller: "species", action: "search", format: "json"}
+      {controller: "species", action: "search", format: "json"}
   end
 
   test "route species index and gallery" do
@@ -53,17 +53,17 @@ class RoutingTest < ActionDispatch::IntegrationTest
 
   test "route images correctly" do
     assert_routing "/photos/lesser_spotted_eagle",
-                   {controller: "images", action: "show", id: "lesser_spotted_eagle"}
+      {controller: "images", action: "show", id: "lesser_spotted_eagle"}
   end
 
   test "route to photos of several species" do
     assert_routing "/photos/multiple_species",
-                   {controller: "images", action: "multiple_species"}
+      {controller: "images", action: "multiple_species"}
   end
 
   test "photos paging" do
     assert_routing "/photos/page/2",
-                   {controller: "images", action: "index", page: "2"}
+      {controller: "images", action: "index", page: "2"}
   end
 
   test "route feeds and sitemap correctly" do

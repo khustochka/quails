@@ -15,7 +15,7 @@
 - else
   - [:first_seen, :last_seen].each do |method|
     %td.single_date
-      = render "lifelist/advanced/lifer_date", life_observation: lifer.send(method), designation: method
+      = render "lifelist/advanced/lifer_date", life_observation: lifer.public_send(method), designation: method
 %td.count_cell
   %span.designation Encounters:
   %b= lifer.obs_count

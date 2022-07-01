@@ -16,16 +16,16 @@ class Post < ApplicationRecord
 
   serialize :lj_data, LJData
 
-  validates :slug, uniqueness: true, presence: true, length: {maximum: 64}, format: /\A[\w\-]+\Z/
+  validates :slug, uniqueness: true, presence: true, length: { maximum: 64 }, format: /\A[\w\-]+\Z/
   validates :title, presence: true, unless: :shout?
   validates :body, presence: true
-  validates :topic, inclusion: TOPICS, presence: true, length: {maximum: 4}
-  validates :status, inclusion: STATES, presence: true, length: {maximum: 4}
+  validates :topic, inclusion: TOPICS, presence: true, length: { maximum: 4 }
+  validates :status, inclusion: STATES, presence: true, length: { maximum: 4 }
 
   validate :check_cover_image_slug_or_url
 
   has_many :comments, dependent: :destroy
-  has_many :cards, -> {order("observ_date ASC, locus_id")}, dependent: :nullify
+  has_many :cards, -> { order("observ_date ASC, locus_id") }, dependent: :nullify
   has_many :observations, dependent: :nullify # only those attached directly
   #  has_many :species, -> { order(:index_num).distinct }, through: :observations
   #  has_many :images, -> {
@@ -104,13 +104,13 @@ class Post < ApplicationRecord
 
   def species
     Species.distinct.joins(:cards, :observations).where("cards.post_id = ? OR observations.post_id = ?", id, id).
-        order(:index_num)
+      order(:index_num)
   end
 
   def images
     Image.joins(:observations, :cards).includes(:cards, :taxa).where("cards.post_id = ? OR observations.post_id = ?", id, id).
-        merge(Card.default_cards_order("ASC")).
-        order("media.index_num, taxa.index_num").preload(:species)
+      merge(Card.default_cards_order("ASC")).
+      order("media.index_num, taxa.index_num").preload(:species)
   end
 
   # Instance methods
@@ -132,7 +132,7 @@ class Post < ApplicationRecord
   end
 
   def to_month_url
-    {month: month, year: year}
+    { month: month, year: year }
   end
 
   def title_or_date
@@ -144,7 +144,7 @@ class Post < ApplicationRecord
   end
 
   def to_url_params
-    {id: slug, year: year, month: month}
+    { id: slug, year: year, month: month }
   end
 
   def lj_url
@@ -171,14 +171,15 @@ class Post < ApplicationRecord
           where taxa.species_id = tt.species_id
           and cards.observ_date > c.observ_date"
     @lifer_species_ids ||= MyObservation.
-        joins(:card).
-        where("observations.post_id = ? or cards.post_id = ?", self.id, self.id).
-        where("NOT EXISTS(#{subquery})").
-        distinct.
-        pluck(:species_id)
+      joins(:card).
+      where("observations.post_id = ? or cards.post_id = ?", self.id, self.id).
+      where("NOT EXISTS(#{subquery})").
+      distinct.
+      pluck(:species_id)
   end
 
   private
+
   def set_face_date
     if read_attribute(:face_date).blank?
       self.face_date = Time.current.strftime("%F %T")

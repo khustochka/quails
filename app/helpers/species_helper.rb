@@ -2,13 +2,13 @@
 
 module SpeciesHelper
   STATIC_MAP_CENTER = {
-      "ukraine" => "48.6,31.2",
-      "united_kingdom" => "54.8,-1.5"
+    "ukraine" => "48.6,31.2",
+    "united_kingdom" => "54.8,-1.5",
   }
 
   NEW_SPECIES_LINK_METHOD = {
-      true => :new_species_link,
-      false => :species_link
+    true => :new_species_link,
+    false => :species_link,
   }
 
   def avibase_species_url(avibase_id, lang = "EN")
@@ -61,7 +61,7 @@ module SpeciesHelper
 
   def species_link_in_flat_section(sp_obj, post_or_card, string = nil)
     method = NEW_SPECIES_LINK_METHOD[sp_obj.id.in?(post_or_card.lifer_species_ids)]
-    self.send(method, sp_obj, string)
+    self.public_send(method, sp_obj, string)
   end
 
   def name_sci(sp_obj)
@@ -83,7 +83,7 @@ module SpeciesHelper
       zoom = nil if (lats.max - lats.min).abs > 10 || (lons.max - lons.min).abs > 12
     end
     image_tag("https://maps.googleapis.com/maps/api/staticmap?key=#{ENV["quails_google_maps_api_key"]}&zoom=#{zoom}&size=443x300&#{center}&markers=#{markers}",
-              alt: "#{country} map", size: "443x300")
+      alt: "#{country} map", size: "443x300")
   end
 
   def term_highlight(string, term)

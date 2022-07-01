@@ -5,14 +5,14 @@ require "ebird/ebird_client"
 class EbirdChecklist
   attr_reader :ebird_id
   attr_accessor :observ_date, :start_time, :effort_type, :duration_minutes, :distance_kms, :area_acres,
-                :notes, :observers, :location_string, :observations
+    :notes, :observers, :location_string, :observations
 
   PROTOCOL_TO_EFFORT = {
-      "Traveling" => "TRAVEL",
-      "Incidental" => "INCIDENTAL",
-      "Stationary" => "STATIONARY",
-      "Area" => "AREA",
-      "Historical" => "HISTORICAL"
+    "Traveling" => "TRAVEL",
+    "Incidental" => "INCIDENTAL",
+    "Stationary" => "STATIONARY",
+    "Area" => "AREA",
+    "Historical" => "HISTORICAL",
   }
 
   DURATION_REGEX = /^Duration: (?:(\d+) hour\(s\)(?:, )?)?(?:(\d+) minute\(s\))?$/
@@ -65,6 +65,7 @@ class EbirdChecklist
   end
 
   private
+
   def parse!(page)
     datetime = page.at_css("div.SectionHeading-heading time")[:datetime]
     dt = Time.parse(datetime)

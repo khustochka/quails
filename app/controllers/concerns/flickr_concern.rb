@@ -8,6 +8,7 @@ module FlickrConcern
   end
 
   private
+
   def _FlickrClient
     @flickr_client ||= ::Flickr::Client.new
   end

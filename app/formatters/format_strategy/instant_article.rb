@@ -12,7 +12,7 @@ module FormatStrategy
       %Q(<figure class="imageholder">
           !#{static_jpg_url(image)}([photo])!
           <figcaption class="imagetitle">
-          #{image.decorated.title} __(#{image.species.map(&:name_sci).join(', ')})__
+          #{image.decorated.title} __(#{image.species.map(&:name_sci).join(", ")})__
           </figcaption>
         </figure>
         )
@@ -33,6 +33,7 @@ module FormatStrategy
     end
 
     private
+
     def preprocess(text)
       new_text = super(text)
       # Replace h3 with h2, h4-6 with strong

@@ -23,7 +23,7 @@ class Locus < ApplicationRecord
 
   belongs_to :ebird_location, optional: true
 
-  validates :slug, format: /\A[a-z_0-9]+\Z/i, uniqueness: true, presence: true, length: {maximum: 32}
+  validates :slug, format: /\A[a-z_0-9]+\Z/i, uniqueness: true, presence: true, length: { maximum: 32 }
   validates :name_en, :name_ru, :name_uk, uniqueness: true
 
   after_initialize :prepopulate, unless: :persisted?
@@ -68,10 +68,10 @@ class Locus < ApplicationRecord
 
   def checklist(to_include = [])
     local_species.
-        joins(species: to_include).
-        preload(species: to_include).
-        order("species.index_num").
-        extending(SpeciesArray)
+      joins(species: to_include).
+      preload(species: to_include).
+      order("species.index_num").
+      extending(SpeciesArray)
   end
 
   def subregion_ids
@@ -110,6 +110,7 @@ class Locus < ApplicationRecord
   end
 
   private
+
   def set_parent(p)
     if p.kind_of?(Locus)
       @__parent = p
@@ -146,9 +147,9 @@ class Locus < ApplicationRecord
   # Use when necessary
   def cache_parent_loci
     anc = self.ancestors.to_a
-    cnt_id = anc.find {|l| l.loc_type == "country" && !l.private_loc}&.id
-    sub_id = anc.find {|l| l.loc_type.in?(%w(state oblast)) && !l.private_loc}&.id
-    city_id = anc.find {|l| l.loc_type == "city" && !l.private_loc}&.id
+    cnt_id = anc.find { |l| l.loc_type == "country" && !l.private_loc }&.id
+    sub_id = anc.find { |l| l.loc_type.in?(%w(state oblast)) && !l.private_loc }&.id
+    city_id = anc.find { |l| l.loc_type == "city" && !l.private_loc }&.id
     self.cached_parent_id = self.parent_id unless self.parent_id.in?([cnt_id, sub_id, city_id]) || self.parent.private_loc
     self.cached_city_id = city_id
     self.cached_subdivision_id = sub_id

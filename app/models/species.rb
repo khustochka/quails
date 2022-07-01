@@ -26,7 +26,7 @@ class Species < ApplicationRecord
   has_one :image, through: :species_image
 
   has_many :taxa
-  has_many :high_level_taxa, -> { where(taxa: {category: "species"}) }, class_name: "Taxon"
+  has_many :high_level_taxa, -> { where(taxa: { category: "species" }) }, class_name: "Taxon"
   has_many :observations, through: :taxa
 
   has_many :cards, through: :observations
@@ -109,9 +109,9 @@ class Species < ApplicationRecord
 
   def grouped_loci
     countries = Country.select(:id, :slug, :ancestry).to_a
-    subregions = Hash[ countries.map {|c| [c, c.subregion_ids]} ]
+    subregions = Hash[countries.map { |c| [c, c.subregion_ids] }]
     loci.distinct.group_by do |locus|
-      countries.find {|c| locus.id.in?(subregions[c])}.slug
+      countries.find { |c| locus.id.in?(subregions[c]) }.slug
     end
   end
 
@@ -122,7 +122,7 @@ class Species < ApplicationRecord
   # Formatting
 
   def to_thumbnail
-    Thumbnail.new(self, {partial: "species/thumb_title"}, self.image)
+    Thumbnail.new(self, { partial: "species/thumb_title" }, self.image)
   end
 
   # Validations

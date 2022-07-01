@@ -5,9 +5,9 @@ require "test_helper"
 class ObservationSearchTest < ActiveSupport::TestCase
   setup do
     @cards = [
-        create(:card, observ_date: "2013-05-18", locus: loci(:brovary), ebird_id: "S123456789"),
-        create(:card, observ_date: "2013-05-18", locus: loci(:kiev), resolved: false),
-        create(:card, observ_date: "2013-05-19", locus: loci(:kiev))
+      create(:card, observ_date: "2013-05-18", locus: loci(:brovary), ebird_id: "S123456789"),
+      create(:card, observ_date: "2013-05-18", locus: loci(:kiev), resolved: false),
+      create(:card, observ_date: "2013-05-19", locus: loci(:kiev)),
     ]
     create(:observation, taxon: taxa(:pasdom), card: @cards[0])
     create(:observation, taxon: taxa(:hirrus), card: @cards[0])

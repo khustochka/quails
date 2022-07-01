@@ -59,16 +59,17 @@ module ApplicationHelper
   end
 
   def open_uri_or_path(uri)
-    obj = begin
-            if /\Ahttps?:\/\//.match?(uri)
-              URI.parse(uri).open
-            else
-              File.open(uri)
-            end
-          rescue => e
-            report_error(e)
-            StringIO.new("")
-          end
+    obj =
+      begin
+        if /\Ahttps?:\/\//.match?(uri)
+          URI.parse(uri).open
+        else
+          File.open(uri)
+        end
+      rescue => e
+        report_error(e)
+        StringIO.new("")
+      end
     yield obj
   end
 end

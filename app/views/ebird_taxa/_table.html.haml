@@ -19,7 +19,7 @@
                 = term_highlight(taxon.name_sci, @term)
           %small{class: [:tag, "tag_#{taxon.category}"]}= taxon.category
         %div
-          - name_str = [:name_en, :name_ioc_en].map {|m| taxon.send(m)}.uniq.compact.join(", ")
+          - name_str = [:name_en, :name_ioc_en].map {|m| taxon.public_send(m)}.uniq.compact.join(", ")
           = term_highlight(name_str, @term)
       %td
         = taxon.ebird_code

@@ -26,7 +26,7 @@ class PostDecorator < ModelDecorator
   end
 
   def body
-    WikiFormatter.new(@model.body, metadata).send(@formatting_method)
+    WikiFormatter.new(@model.body, metadata).public_send(@formatting_method)
   end
 
   def metadata
@@ -43,6 +43,7 @@ class PostDecorator < ModelDecorator
   end
 
   private
+
   def extract_image_slugs
     @inner_image_slugs ||= @model.body.scan(/\{\{\^([^}]*)\}\}/).flatten
   end

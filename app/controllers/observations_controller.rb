@@ -33,15 +33,15 @@ class ObservationsController < ApplicationController
 
   # GET /observations/search
   def search
-    preload_tables = [{card: :locus}, :taxon]
+    preload_tables = [{ card: :locus }, :taxon]
 
     observs =
-        params[:q] && params[:q].values.any?(&:present?) ?
-            ObservationSearch.new(params[:q]).observations.
-                joins(:card, :taxon).
-                preload(preload_tables).
-                order("cards.observ_date", "cards.locus_id", "taxa.index_num").limit(params[:limit] || 200) :
-            []
+      params[:q] && params[:q].values.any?(&:present?) ?
+        ObservationSearch.new(params[:q]).observations.
+          joins(:card, :taxon).
+          preload(preload_tables).
+          order("cards.observ_date", "cards.locus_id", "taxa.index_num").limit(params[:limit] || 200) :
+        []
 
     respond_to do |format|
       format.html { render partial: "observations/obs_item", collection: observs }
@@ -63,6 +63,7 @@ class ObservationsController < ApplicationController
   end
 
   private
+
   def cache_expire
     expire_photo_feeds
     expire_page controller: :feeds, action: :blog, format: "xml"

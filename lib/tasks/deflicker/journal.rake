@@ -6,10 +6,10 @@ namespace :deflicker do
     # For Dreamwidth you need to use not the real password but the API key
     # which can be found/generated here: https://www.dreamwidth.org/manage/emailpost
     [
-        ["livejournal.com", "stonechat", "stonechat"],
-        ["livejournal.com", "phenolog", "phenolog"],
-        ["livejournal.com", "phenolog", "birdlife_ua"],
-        ["dreamwidth.org", "whinchat", "whinchat"]
+      ["livejournal.com", "stonechat", "stonechat"],
+      ["livejournal.com", "phenolog", "phenolog"],
+      ["livejournal.com", "phenolog", "birdlife_ua"],
+      ["dreamwidth.org", "whinchat", "whinchat"],
     ].each do |s, u, j|
       server = LiveJournal::Server.new(s, "https://#{s}")
       puts "Enter password for user #{u}@#{s}:"

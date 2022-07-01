@@ -39,7 +39,7 @@ class SearchCardsControllerTest < ActionController::TestCase
     cards = assigns(:cards)
     assert_not_nil cards
     assert cards.find { |c| (c.observations.find { |o| o.taxon_id == aves_sp_id }).present? }.present?,
-           "Expected to include Bird sp."
+      "Expected to include Bird sp."
     assert_select "li b", "bird sp."
   end
 end

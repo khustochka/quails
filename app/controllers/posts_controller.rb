@@ -83,7 +83,7 @@ class PostsController < ApplicationController
 
   def for_lj
     # Just render LJ version
-    render body: @post.decorated({host: request.host, port: request.port}).for_lj.body
+    render body: @post.decorated({ host: request.host, port: request.port }).for_lj.body
   end
 
   # POST
@@ -97,31 +97,31 @@ class PostsController < ApplicationController
     # SafeBuffer breaks 'livejournal' gem, so we are not applying it to 'for_lj.body'
     # And `unsafing` the title with 'to_str'
     entry.subject = @post.decorated.title.to_str
-    entry.event = @post.decorated({host: request.host, port: request.port}).for_lj.body
+    entry.event = @post.decorated({ host: request.host, port: request.port }).for_lj.body
 
     request = if @post.lj_data.url.present?
-                if Quails.env.live?
-                  if /livejournal\.com/.match?(@post.lj_data.url)
-                    entry.itemid = @post.lj_data.post_id
-                    LiveJournal::Request::EditEvent.new(user, entry)
-                  else
-                    flash.alert = "This entry is on Dreamwidth, cannot edit via LiveJournal."
-                    nil
-                  end
-                else
-                  flash.alert = "Editing LJ/DW entries is prohibited when not on real production."
-                  nil
-                end
-              else
-                any_card = @post.cards.first
-                if any_card
-                  country_tag = any_card.locus.country.slug
-                  if country_tag.in?(ALLOWED_COUNTRY_TAGS)
-                    entry.taglist = [country_tag.gsub("_", " ")]
-                  end
-                end
-                LiveJournal::Request::PostEvent.new(user, entry)
-              end
+      if Quails.env.live?
+        if /livejournal\.com/.match?(@post.lj_data.url)
+          entry.itemid = @post.lj_data.post_id
+          LiveJournal::Request::EditEvent.new(user, entry)
+        else
+          flash.alert = "This entry is on Dreamwidth, cannot edit via LiveJournal."
+          nil
+        end
+      else
+        flash.alert = "Editing LJ/DW entries is prohibited when not on real production."
+        nil
+      end
+    else
+      any_card = @post.cards.first
+      if any_card
+        country_tag = any_card.locus.country.slug
+        if country_tag.in?(ALLOWED_COUNTRY_TAGS)
+          entry.taglist = [country_tag.gsub("_", " ")]
+        end
+      end
+      LiveJournal::Request::PostEvent.new(user, entry)
+    end
 
     if request
       request.run
@@ -146,6 +146,7 @@ class PostsController < ApplicationController
   end
 
   private
+
   def find_post
     @post = current_user.available_posts.find_by!(slug: params[:id])
   end

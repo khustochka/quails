@@ -17,7 +17,7 @@ module Flickr
     include ResultPartialPath
 
     def method_missing(method, *args, &block)
-      Result.new(@value.send(method, *args, &block))
+      Result.new(@value.public_send(method, *args, &block))
     rescue FlickRaw::Error => e
       Error.new(e.message)
     end
@@ -40,7 +40,7 @@ module Flickr
     def search_and_get_page(conditions, page)
       call(
         "flickr.photos.search",
-          conditions.merge(page: page, per_page: 500)
+        conditions.merge(page: page, per_page: 500)
       )
     end
   end
@@ -54,7 +54,7 @@ module Flickr
   Flickr::ERROR_CLASS = Error
 
   class << Flickr
-    self.send(:alias_method, :result, :value)
+    self.__send__(:alias_method, :result, :value)
   end
 
   class Client

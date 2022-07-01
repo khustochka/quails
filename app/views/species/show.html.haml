@@ -42,7 +42,7 @@
   %div{class: @species.image ? "one_third" : nil}
     %dl.sp_translations
       - (I18n.available_locales - [I18n.locale] + [:fr]).map do |lang|
-        - if (trans_name = @species.send("name_#{lang}")).present?
+        - if (trans_name = @species.public_send("name_#{lang}")).present?
           %div
             %dt= t("languages.#{lang}")
             %dd{lang: lang}= trans_name

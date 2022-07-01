@@ -114,13 +114,13 @@ Rails.application.routes.draw do
   end
 
   get "/photos(/page/:page)" => "images#index", page: /[^0]\d*/,
-      constraints: {format: "html"}
+    constraints: {format: "html"}
 
   scope "(:locale)", locale: /en/ do
     get "/photos/multiple_species" => "images#multiple_species"
     get "photos/:id" => "images#show", as: "localized_image"
     get "/videos(/page/:page)" => "videos#index", page: /[^0]\d*/,
-        constraints: {format: "html"}
+      constraints: {format: "html"}
     get "videos/:id" => "videos#show", as: "localized_video"
     post "media/strip" => "media#strip"
   end
@@ -170,9 +170,9 @@ Rails.application.routes.draw do
     get "/lifelist" => "lifelist#basic", as: :lifelist
 
     get "/lifelist(/:locus)(/:year)(/:sort)" => "lifelist#basic", as: :list,
-        locus: /(?!by_)\D[^\/]+/, # negative look-ahead: not starting with 'by_'
-        year: /\d{4}/,
-        sort: /by_taxonomy/
+      locus: /(?!by_)\D[^\/]+/, # negative look-ahead: not starting with 'by_'
+      year: /\d{4}/,
+      sort: /by_taxonomy/
   end
 
   # Feeds and sitemap
@@ -284,7 +284,7 @@ Rails.application.routes.draw do
   get "/reports", controller: :reports, action: :index, as: :reports
 
   reports_actions = %w(environ insights more_than_year topicture this_day uptoday compare by_countries
-                        stats voices charts month_targets server_error)
+    stats voices charts month_targets server_error)
   reports_actions.each do |name|
     get "/reports/#{name}", controller: :reports, action: name
   end
@@ -340,7 +340,7 @@ Rails.application.routes.draw do
   # High Voltage routes are specified manually to bypass HighVoltage Constraints for unrelated paths
   # (e.g. ActiveStorage)
   get "/:id" => "high_voltage/pages#show",
-      :as => :page,
-      :format => false,
-      :constraints => {id: /about|links|winter/}
+    :as => :page,
+    :format => false,
+    :constraints => {id: /about|links|winter/}
 end

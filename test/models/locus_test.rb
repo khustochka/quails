@@ -98,10 +98,10 @@ class LocusTest < ActiveSupport::TestCase
 
   test "locus full name for patch should prepend it with parent name" do
     ohm = create(:locus,
-        slug: "ohm", name_en: "Oak Hammock Marsh", cached_country: loci(:ukraine))
+      slug: "ohm", name_en: "Oak Hammock Marsh", cached_country: loci(:ukraine))
     centre = FactoryBot.create(:locus,
-                                 slug: "centre", name_en: "Interpretive Centre", patch: true,
-                                 parent: ohm, cached_parent: ohm, cached_country: loci(:ukraine))
+      slug: "centre", name_en: "Interpretive Centre", patch: true,
+      parent: ohm, cached_parent: ohm, cached_country: loci(:ukraine))
     I18n.with_locale(:en) do
       assert_equal "Oak Hammock Marsh - Interpretive Centre, Ukraine", centre.decorated.full_name
     end

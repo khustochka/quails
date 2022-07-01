@@ -3,9 +3,9 @@
 module Lifelist
   class Advanced < Factory
     KEYS = [
-        :first_seen,
-        :last_seen,
-        :obs_count
+      :first_seen,
+      :last_seen,
+      :obs_count,
     ]
 
     delegate :each, :size, :blank?, to: :to_a
@@ -34,40 +34,43 @@ module Lifelist
     include SpeciesArray
 
     private
+
     def primary_list
       @primary_list ||= all_lists(primary_key).sort(@sorting)
     end
 
     def primary_key
-      @primary_key ||= case @sorting
-                       when nil, "class"
-                         :first_seen
-                       when "last"
-                         :last_seen
-                       when "count"
-                         :obs_count
-                       else
-                         raise "Invalid sorting key."
-                       end
+      @primary_key ||=
+        case @sorting
+        when nil, "class"
+          :first_seen
+        when "last"
+          :last_seen
+        when "count"
+          :obs_count
+        else
+          raise "Invalid sorting key."
+        end
     end
 
     def all_lists(key)
       @all_lists ||= {}
       return @all_lists[key] if @all_lists[key]
-      list = case key
-             when :first_seen
-               Lifelist::FirstSeen.over(@filter)
-             when :last_seen
-               Lifelist::LastSeen.over(@filter)
-             when :obs_count
-               Lifelist::Count.over(@filter)
-             end
+      list =
+        case key
+        when :first_seen
+          Lifelist::FirstSeen.over(@filter)
+        when :last_seen
+          Lifelist::LastSeen.over(@filter)
+        when :obs_count
+          Lifelist::Count.over(@filter)
+        end
       list.set_posts_scope(@posts_scope)
     end
 
     def secondary_list(key)
       @secondary_list ||= {}
-      @secondary_list[key] ||= all_lists(key).short_to_a.index_by {|ob| ob.species_id }
+      @secondary_list[key] ||= all_lists(key).short_to_a.index_by { |ob| ob.species_id }
     end
   end
 end

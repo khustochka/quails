@@ -37,8 +37,8 @@ class ImageMapTest < ActiveSupport::TestCase
     obs_args = {patch: observation_patch, card: @card}.compact
     @observation = create(:observation, obs_args)
     @spot = if spot_factory
-              send(spot_factory, observation: @observation)
-            end
+      public_send(spot_factory, observation: @observation)
+    end
     create(:image, observations: [@observation], spot: @spot)
   end
 

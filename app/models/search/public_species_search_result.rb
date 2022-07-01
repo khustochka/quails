@@ -3,8 +3,9 @@
 module Search
   class PublicSpeciesSearchResult < SpeciesSearchResult
     private
+
     def json_default_options
-      {methods: [:name, :label, :url]}
+      { methods: [:name, :label, :url] }
     end
   end
 end

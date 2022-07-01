@@ -9,7 +9,7 @@ FactoryBot.define do
     observations { [FactoryBot.create(:observation)] }
     assets_cache { ImageAssetsArray.new(
       [
-          ImageAssetItem.new(:local, 800, 600, "/photos/#{slug}.jpg")
+        ImageAssetItem.new(:local, 800, 600, "/photos/#{slug}.jpg"),
       ]
                                         ) }
 
@@ -17,7 +17,7 @@ FactoryBot.define do
       flickr_id { "123456" }
       assets_cache { ImageAssetsArray.new(
         [
-            ImageAssetItem.new(:flickr, 800, 600, "http://localhost:3333/#{slug}.jpg")
+          ImageAssetItem.new(:flickr, 800, 600, "http://localhost:3333/#{slug}.jpg"),
         ]
                                           ) }
     end

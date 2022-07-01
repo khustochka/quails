@@ -16,8 +16,9 @@ AllCops:
     - '**/node_modules/**/*'
     # Additional exclude files by rubocop-rails_config
     - 'bin/**/*'
-#    - 'config/**/*'
+    #  - 'config/**/*'
     - 'db/**/*'
+    - "lib/flickraw-cached.rb"
 
 Performance:
   Exclude:
@@ -54,6 +55,7 @@ Style/AndOr:
 # Align `when` with `case`.
 Layout/CaseIndentation:
   Enabled: true
+  EnforcedStyle: end
 
 Layout/ClosingHeredocIndentation:
   Enabled: true
@@ -68,7 +70,7 @@ Layout/ElseAlignment:
 # Align `end` with the matching keyword
 Layout/EndAlignment:
   Enabled: true
-  EnforcedStyleAlignWith: keyword
+  EnforcedStyleAlignWith: variable
   AutoCorrect: true
 
 Layout/EmptyLineAfterMagicComment:
@@ -76,7 +78,6 @@ Layout/EmptyLineAfterMagicComment:
 
 Layout/EmptyLinesAroundAccessModifier:
   Enabled: true
-  EnforcedStyle: only_before
 
 Layout/EmptyLinesAroundBlockBody:
   Enabled: true
@@ -177,6 +178,9 @@ Style/StringLiterals:
   Enabled: true
   EnforcedStyle: double_quotes
 
+Style/StringLiteralsInInterpolation:
+  EnforcedStyle: double_quotes
+
 # Detect hard tabs, no hard tabs.
 Layout/IndentationStyle:
   Enabled: true
@@ -274,3 +278,41 @@ Performance/DeletePrefix:
 
 Performance/DeleteSuffix:
   Enabled: true
+
+Layout/ArgumentAlignment:
+  EnforcedStyle: with_fixed_indentation
+
+Layout/FirstArrayElementIndentation:
+  EnforcedStyle: consistent
+
+Layout/FirstHashElementIndentation:
+  EnforcedStyle: consistent
+
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: consistent_comma
+
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: consistent_comma
+
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+  IndentationWidth: 2
+
+Layout/MultilineOperationIndentation:
+  EnforcedStyle: indented
+
+Layout/ParameterAlignment:
+  EnforcedStyle: with_fixed_indentation
+
+Style/QuotedSymbols:
+  Enabled: true
+
+Style/Send:
+  Enabled: true
+
+Layout/HashAlignment:
+  Enabled: true
+
+Layout/ArrayAlignment:
+  Enabled: true
+  EnforcedStyle: with_fixed_indentation

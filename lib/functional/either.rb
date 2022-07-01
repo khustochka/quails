@@ -24,7 +24,7 @@ module Either
         if arg.error?
           arg
         else
-          @obj.class.new(@obj.get.send(method, arg.get))
+          @obj.class.new(@obj.get.public_send(method, arg.get))
         end
       end
     end

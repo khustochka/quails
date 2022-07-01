@@ -18,57 +18,57 @@ class WikiFilterTest < ActionDispatch::IntegrationTest
 
   test "properly parse species by code {{Wryneck|jyntor}}" do
     assert_equal '<a class="sp_link" href="/species/Jynx_torquilla">Wryneck</a>',
-                 transform("{{Wryneck|jyntor}}")
+      transform("{{Wryneck|jyntor}}")
   end
 
   test "properly parse species by legacy code {{Stonechat|saxtor}}" do
     assert_equal '<a class="sp_link" href="/species/Saxicola_rubicola">Stonechat</a>',
-                 transform("{{Stonechat|saxtor}}")
+      transform("{{Stonechat|saxtor}}")
   end
 
   test "properly parse species by bare code {{jyntor}}" do
     assert_equal '<a class="sp_link" href="/species/Jynx_torquilla">Jynx torquilla</a>',
-                 transform("{{jyntor}}")
+      transform("{{jyntor}}")
   end
 
   test "properly parse species by scientific name {{Wrynecks|Jynx torquilla}}" do
     assert_equal '<a class="sp_link" href="/species/Jynx_torquilla">Wryneck</a>',
-                 transform("{{Wryneck|Jynx torquilla}}")
+      transform("{{Wryneck|Jynx torquilla}}")
   end
 
   test "properly parse species by scientific name when species has no code" do
     assert_equal "<a class=\"sp_link\" href=\"/species/Larus_heuglini\">Heuglin's Gull</a>",
-                 transform("{{Heuglin's Gull|Larus heuglini}}")
+      transform("{{Heuglin's Gull|Larus heuglini}}")
   end
 
   test "properly parse species by legacy scientific name" do
     assert_equal "<a class=\"sp_link\" href=\"/species/Saxicola_rubicola\">Stonechat</a>",
-                 transform("{{Stonechat|Saxicola torquata}}")
+      transform("{{Stonechat|Saxicola torquata}}")
   end
 
   test "properly parse species by bare scientific name {{Jynx torquilla}}" do
     assert_equal '<a class="sp_link" href="/species/Jynx_torquilla">Jynx torquilla</a>',
-                 transform("{{Jynx torquilla}}")
+      transform("{{Jynx torquilla}}")
   end
 
   test "properly parse species name with undescore {{Wryneck|Jynx_torquilla}}" do
     assert_equal '<a class="sp_link" href="/species/Jynx_torquilla">Wryneck</a>',
-                 transform("{{Wryneck|Jynx torquilla}}")
+      transform("{{Wryneck|Jynx torquilla}}")
   end
 
   test "properly parse species in the string" do
     assert_equal 'Those were <a class="sp_link" href="/species/Jynx_torquilla">Wrynecks</a>!',
-                 transform("Those were {{Wrynecks|jyntor}}!")
+      transform("Those were {{Wrynecks|jyntor}}!")
   end
 
   test "Add English name after species link" do
     assert_equal '<a class="sp_link" href="/species/Jynx_torquilla">Вертишейка</a> (Wryneck)',
-                 transform("{{Вертишейка|jyntor|en}}")
+      transform("{{Вертишейка|jyntor|en}}")
   end
 
   test "Use English name if no word specified" do
     assert_equal '<a class="sp_link" href="/species/Jynx_torquilla">Wryneck</a>',
-                 transform("{{jyntor|en}}")
+      transform("{{jyntor|en}}")
   end
 
   # Posts
@@ -76,7 +76,7 @@ class WikiFilterTest < ActionDispatch::IntegrationTest
   test "properly parse post by code {{#see this|some-post}}" do
     blogpost = Post.create!(slug: "some-post", title: "Some post", topic: "OBSR", status: "OPEN", body: "Aaaa")
     assert_equal "\"see this\":some-post\n\n[some-post]#{public_post_path(blogpost)}",
-                 transform("{{#see this|some-post}}")
+      transform("{{#see this|some-post}}")
   end
 
   # Allowed fallbacks
@@ -108,14 +108,14 @@ class WikiFilterTest < ActionDispatch::IntegrationTest
     blogpost = create(:post)
     slug = blogpost.slug
     assert_equal %Q(""Test Post"":#{slug} has <a class="sp_link" href="/species/Jynx_torquilla">Wrynecks</a>\n\n[#{slug}]#{public_post_path(blogpost)}),
-                 transform("{{##{slug}}} has {{Wrynecks|jyntor}}")
+      transform("{{##{slug}}} has {{Wrynecks|jyntor}}")
   end
 
   # HTML entities
 
   test "preserve HTML entities" do
     assert_equal "<a class=\"sp_link\" href=\"/species/Bombycilla_garrulus\">Linotte m&eacute;lodieuse</a>",
-                 transform("{{Linotte m&eacute;lodieuse|bomgar}}")
+      transform("{{Linotte m&eacute;lodieuse|bomgar}}")
   end
 
   # Erroneous

@@ -15,9 +15,9 @@ class CommentsController < ApplicationController
   # GET /comments.json
   def index
     @comments =
-        params[:sort] == "by_post" ?
-            Comment.preload(:post) :
-            Comment.preload(:post).reorder(created_at: :desc).page(params[:page]).per(20)
+      params[:sort] == "by_post" ?
+        Comment.preload(:post) :
+        Comment.preload(:post).reorder(created_at: :desc).page(params[:page]).per(20)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -106,12 +106,12 @@ class CommentsController < ApplicationController
             if request.xhr?
               object_to_render = @comment
               unless @comment.approved
-                object_to_render = CommentScreened.new({id: @comment.id, path: public_comment_path(@comment)})
+                object_to_render = CommentScreened.new({ id: @comment.id, path: public_comment_path(@comment) })
               end
               render object_to_render, layout: false
             else
               session[:screened] = {
-                  parent_id: @comment.parent_id, id: @comment.id, path: public_comment_path(@comment)
+                parent_id: @comment.parent_id, id: @comment.id, path: public_comment_path(@comment),
               } unless @comment.approved
 
               redirect_to public_comment_path(@comment)
@@ -181,8 +181,9 @@ class CommentsController < ApplicationController
   end
 
   private
+
   def mailer_link_options
-    {host: request.host, port: request.port, protocol: request.protocol}
+    { host: request.host, port: request.port, protocol: request.protocol }
   end
 
   RESTRICTED_DOMAINS = %w( localhost localhost.localdomain brevipes.clientvm.vps.ua )

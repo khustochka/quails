@@ -30,17 +30,18 @@ module Deflicker
     end
 
     private
+
     def flickr_client
       @flickr_client ||= Flickr::Client.new
     end
 
     def load_page(page)
       flickr_client.photos.search({
-                             user_id: "me",
-                             per_page: 500,
-                             page: page,
-                             extras: "description, license, date_upload, date_taken, owner_name, icon_server, original_format, last_update, geo, tags, machine_tags, o_dims, views, media, path_alias, url_sq, url_t, url_s, url_q, url_m, url_n, url_z, url_c, url_l, url_o"
-                         }).get
+        user_id: "me",
+        per_page: 500,
+        page: page,
+        extras: "description, license, date_upload, date_taken, owner_name, icon_server, original_format, last_update, geo, tags, machine_tags, o_dims, views, media, path_alias, url_sq, url_t, url_s, url_q, url_m, url_n, url_z, url_c, url_l, url_o",
+      }).get
     end
 
     def store(photos)

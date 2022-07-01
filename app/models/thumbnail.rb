@@ -30,10 +30,10 @@ class Thumbnail
 
   def height
     @height ||= if @width
-                  (image_asset.height * (@width.to_f / image_asset.width)).to_i
-                else
-                  THUMBNAIL_HEIGHT
-                end
+      (image_asset.height * (@width.to_f / image_asset.width)).to_i
+    else
+      THUMBNAIL_HEIGHT
+    end
   end
 
   def width
@@ -64,6 +64,7 @@ class Thumbnail
   end
 
   private
+
   def image_asset
     if @image.on_storage?
       @image.stored_image_to_asset_item

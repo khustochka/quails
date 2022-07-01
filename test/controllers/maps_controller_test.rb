@@ -33,9 +33,11 @@ class MapsControllerTest < ActionController::TestCase
   test "return observation search results (no cards filter)" do
     login_as_admin
     # Try to create observation in random order
-    obss = [create(:observation, taxon: taxa(:hirrus)),
-            create(:observation, taxon: taxa(:pasdom)),
-            create(:observation, taxon: taxa(:saxola))]
+    obss = [
+      create(:observation, taxon: taxa(:hirrus)),
+      create(:observation, taxon: taxa(:pasdom)),
+      create(:observation, taxon: taxa(:saxola)),
+    ]
     get :observations, params: {q: {taxon_id: obss.first.taxon_id.to_s}}, format: "json"
     assert_response :success
     result = JSON.parse(response.body)["json"]
@@ -44,9 +46,11 @@ class MapsControllerTest < ActionController::TestCase
 
   test "return observation selected by card_id" do
     login_as_admin
-    obss = [create(:observation, taxon: taxa(:hirrus)),
-            create(:observation, taxon: taxa(:pasdom)),
-            create(:observation, taxon: taxa(:saxola))]
+    obss = [
+      create(:observation, taxon: taxa(:hirrus)),
+      create(:observation, taxon: taxa(:pasdom)),
+      create(:observation, taxon: taxa(:saxola)),
+    ]
     get :observations, params: {q: {card_id: obss.first.card_id.to_s}}, format: "json"
     assert_response :success
     result = JSON.parse(response.body)["json"]
@@ -56,9 +60,11 @@ class MapsControllerTest < ActionController::TestCase
   test "return observation search results sorted by taxonomy" do
     login_as_admin
     # Try to create observation in random order
-    obss = [create(:observation, taxon: taxa(:hirrus)),
-            create(:observation, taxon: taxa(:pasdom)),
-            create(:observation, taxon: taxa(:saxola))]
+    obss = [
+      create(:observation, taxon: taxa(:hirrus)),
+      create(:observation, taxon: taxa(:pasdom)),
+      create(:observation, taxon: taxa(:saxola)),
+    ]
     get :observations, params: {q: {observ_date: obss[0].card.observ_date.iso8601}}, format: "json"
     assert_response :success
     result = JSON.parse(response.body)["json"]

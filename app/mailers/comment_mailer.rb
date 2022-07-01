@@ -14,13 +14,13 @@ class CommentMailer < ApplicationMailer
 
   def notify_parent_author
     to = @comment.parent_comment.commenter.email
-    if (Rails.env.production? && Quails.env.live?) ||
-            (!Rails.env.production? && (!perform_deliveries || delivery_method.in?([:letter_opener, :test]))) && to.present?
+    if send_email_to_users? && to.present?
       mail to: to, subject: "Ответ на ваш комментарий на сайте birdwatch.org.ua (\"#{sanitized_comment_title}\")"
     end
   end
 
   private
+
   def set_params
     @comment = params[:comment]
     @link_options = params[:link_options]
@@ -32,5 +32,11 @@ class CommentMailer < ApplicationMailer
 
   def sanitized_comment_title
     sanitize(@comment.post.decorated.title, tags: [])
+  end
+
+  def send_email_to_users?
+    !perform_deliveries ||
+      delivery_method.in?([:letter_opener, :test]) ||
+      (Rails.env.production? && Quails.env.live?)
   end
 end

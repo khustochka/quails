@@ -13,7 +13,7 @@ class CardsController < ApplicationController
     @observation_search = ObservationSearch.new(params[:q])
 
     @cards = @observation_search.cards.
-        default_cards_order(:desc).preload(:locus, :post)
+      default_cards_order(:desc).preload(:locus, :post)
 
     if !request.xhr?
       @cards = @cards.page(params[:page]).per(10)
@@ -142,6 +142,7 @@ class CardsController < ApplicationController
   end
 
   private
+
   def cache_expire
     expire_photo_feeds
     expire_page controller: :feeds, action: :blog, format: "xml"

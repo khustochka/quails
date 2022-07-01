@@ -5,8 +5,8 @@ require "test_helper"
 class Ebird::ObsSearchTest < ActiveSupport::TestCase
   setup do
     @cards = [
-        create(:card, observ_date: "2013-05-18", locus: loci(:kiev)),
-        create(:card, observ_date: "2013-05-19", locus: loci(:kiev))
+      create(:card, observ_date: "2013-05-18", locus: loci(:kiev)),
+      create(:card, observ_date: "2013-05-19", locus: loci(:kiev)),
     ]
   end
 

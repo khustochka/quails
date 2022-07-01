@@ -12,6 +12,7 @@ class Ebird::ObsSearch < ObservationSearch
   end
 
   private
+
   def base_cards
     Card.unebirded
   end

@@ -14,10 +14,10 @@ def calculate(therest)
   longest = []
   if therest.take($deepest - current_day + 1).any? { |el| el.empty? }
     longest = if day.is_a? Array
-                [day.map { |c| SPCS[c] }.join(", ")]
-              else
-                [day]
-              end
+      [day.map { |c| SPCS[c] }.join(", ")]
+    else
+      [day]
+    end
   else
     if day.is_a? Array
       day.each do |sp_id|
@@ -34,10 +34,10 @@ def calculate(therest)
         cleanup(temprest2)
         # puts "Trying #{SPCS[sp_id]}"
         result = if temprest2[0].blank?
-                   [SPCS[sp_id]]
-                 else
-                   [SPCS[sp_id]] + calculate(temprest2)
-                 end
+          [SPCS[sp_id]]
+        else
+          [SPCS[sp_id]] + calculate(temprest2)
+        end
         if result.size > longest.size
           longest = result
         end
@@ -55,11 +55,11 @@ SPCS = Hash[Species.all.map { |s| [s.id, s.name_sci] }]
 year = ENV["YEAR"] || Quails::CURRENT_YEAR
 
 obs_rel = MyObservation.joins(:card).
-    where("EXTRACT(year FROM observ_date)::integer = ?", year).
-    order("observ_date").
-    distinct.
-    pluck("observ_date, species_id").
-    group_by(&:first).transform_values { |v| v.map(&:second) }
+  where("EXTRACT(year FROM observ_date)::integer = ?", year).
+  order("observ_date").
+  distinct.
+  pluck("observ_date, species_id").
+  group_by(&:first).transform_values { |v| v.map(&:second) }
 
 obs = []
 

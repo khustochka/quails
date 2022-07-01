@@ -1,7 +1,7 @@
 -# frozen_string_literal: true
 - i = @lifelist.size + 1
 - sorter = params[:sort].nil? ? :first_seen : :last_seen
-- @lifelist.chunk {|s| s.send(sorter).observ_date.year}.each do |year, species_list|
+- @lifelist.chunk {|s| s.public_send(sorter).observ_date.year}.each do |year, species_list|
   - if params[:year].blank?
     %tr
       %td.empty_cell

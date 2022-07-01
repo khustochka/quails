@@ -33,6 +33,7 @@ class CacheKey
     end
 
     private
+
     def keys
       @keys ||= {}
     end

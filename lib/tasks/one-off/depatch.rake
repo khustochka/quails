@@ -3,12 +3,12 @@
 # Interactive depatch
 task depatch: :environment do
   cards = Card.
-      where(id: Observation.select(:card_id).
-          where.not(patch_id: nil)).order(:observ_date).
-      where.not(effort_type: "TRAVEL").
-      where(ebird_id: nil).
-      where(start_time: nil).
-      preload(:locus, :observations)
+    where(id: Observation.select(:card_id).where.not(patch_id: nil)).
+    order(:observ_date).
+    where.not(effort_type: "TRAVEL").
+    where(ebird_id: nil).
+    where(start_time: nil).
+    preload(:locus, :observations)
 
   puts "There are #{cards.count} cards with patches"
 

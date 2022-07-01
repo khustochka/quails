@@ -9,6 +9,7 @@ module Quails
     end
 
     private
+
     def self.rev_cache_key
       @rev_cache_key ||= "quails_revision_#{Quails.unique_key}"
     end
