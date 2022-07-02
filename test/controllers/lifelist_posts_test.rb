@@ -9,7 +9,7 @@ class LifelistPostsTest < ActionController::TestCase
     @obs = [
       create(:observation, taxon: taxa(:pasdom), card: create(:card, observ_date: "2010-06-20", locus: loci(:nyc))),
       create(:observation, taxon: taxa(:hirrus), card: create(:card, observ_date: "2007-07-18", locus: loci(:brovary))),
-      create(:observation, taxon: taxa(:saxola), card: create(:card, observ_date: "2009-08-09", locus: loci(:kiev))),
+      create(:observation, taxon: taxa(:saxola), card: create(:card, observ_date: "2009-08-09", locus: loci(:kyiv))),
       create(:observation, taxon: taxa(:jyntor), card: create(:card, observ_date: "2010-06-18")),
       create(:observation, taxon: taxa(:jyntor), card: create(:card, observ_date: "2009-06-18")),
     ]

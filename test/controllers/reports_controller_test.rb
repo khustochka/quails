@@ -43,7 +43,7 @@ class ReportsControllerTest < ActionController::TestCase
 
   test "admin sees reports/compare" do
     login_as_admin
-    get :compare, params: {loc1: "kiev", loc2: "brovary"}
+    get :compare, params: {loc1: "kyiv", loc2: "brovary"}
     assert_response :success
   end
 

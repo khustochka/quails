@@ -75,7 +75,7 @@ class ImageObservValidationTest < ActiveSupport::TestCase
   end
 
   test "does not create image with inconsistent observations (different loc)" do
-    obs1 = create(:observation, card: create(:card, locus: loci(:kiev)))
+    obs1 = create(:observation, card: create(:card, locus: loci(:kyiv)))
     obs2 = create(:observation, card: create(:card, locus: loci(:nyc)))
     new_attr = build(:image).attributes
     img = Image.new

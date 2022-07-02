@@ -30,13 +30,13 @@ class PostTest < ActiveSupport::TestCase
   end
 
   test "do not save post with existing slug" do
-    create(:post, slug: "kiev-observations")
-    blogpost = build(:post, slug: "kiev-observations")
+    create(:post, slug: "kyiv-observations")
+    blogpost = build(:post, slug: "kyiv-observations")
     assert_not_predicate blogpost, :valid?
   end
 
   test "slug cannot contain space" do
-    blogpost = build(:post, slug: "kiev observations")
+    blogpost = build(:post, slug: "kyiv observations")
     assert_not_predicate blogpost, :valid?
   end
 

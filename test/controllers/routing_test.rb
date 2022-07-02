@@ -43,10 +43,10 @@ class RoutingTest < ActionDispatch::IntegrationTest
     assert_routing "/lifelist/by_taxonomy", {controller: "lifelist", action: "basic", sort: "by_taxonomy"}
     assert_routing "/lifelist/2008", {controller: "lifelist", action: "basic", year: "2008"}
     assert_routing "/lifelist/2008/by_taxonomy", {controller: "lifelist", action: "basic", sort: "by_taxonomy", year: "2008"}
-    assert_routing "/lifelist/kiev/2010", {controller: "lifelist", action: "basic", year: "2010", locus: "kiev"}
+    assert_routing "/lifelist/kyiv/2010", {controller: "lifelist", action: "basic", year: "2010", locus: "kyiv"}
     assert_routing "/lifelist/kherson_obl", {controller: "lifelist", action: "basic", locus: "kherson_obl"}
     assert_routing "/lifelist/kherson_obl/by_taxonomy", {controller: "lifelist", action: "basic", sort: "by_taxonomy", locus: "kherson_obl"}
-    assert_routing "/lifelist/kiev/2010/by_taxonomy", {controller: "lifelist", action: "basic", sort: "by_taxonomy", year: "2010", locus: "kiev"}
+    assert_routing "/lifelist/kyiv/2010/by_taxonomy", {controller: "lifelist", action: "basic", sort: "by_taxonomy", year: "2010", locus: "kyiv"}
     # have 'by_' inside locus
     assert_routing "/lifelist/druzhby_obl/by_taxonomy", {controller: "lifelist", action: "basic", sort: "by_taxonomy", locus: "druzhby_obl"}
   end

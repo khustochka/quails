@@ -95,7 +95,7 @@ class VideosControllerTest < ActionController::TestCase
 
   test "do not save video with conflicting observations" do
     login_as_admin
-    obs2 = create(:observation, card: create(:card, locus: loci(:kiev)))
+    obs2 = create(:observation, card: create(:card, locus: loci(:kyiv)))
     obs3 = create(:observation, card: create(:card, locus: loci(:brovary)))
     new_attr = attributes_for(:video, slug: "new_video_slug")
     assert_difference("Video.count", 0) do

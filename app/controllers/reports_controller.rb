@@ -163,7 +163,7 @@ class ReportsController < ApplicationController
       @loc1_species = prespecies.merge(Card.where(locus_id: @loc1.subregion_ids)).to_a
       @loc2_species = prespecies.merge(Card.where(locus_id: @loc2.subregion_ids)).to_a
     else
-      l1 ||= "kiev"
+      l1 ||= "kyiv"
       l2 ||= "brovary"
       redirect_to(loc1: l1, loc2: l2)
     end

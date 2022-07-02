@@ -6,8 +6,8 @@ class ObservationSearchTest < ActiveSupport::TestCase
   setup do
     @cards = [
       create(:card, observ_date: "2013-05-18", locus: loci(:brovary), ebird_id: "S123456789"),
-      create(:card, observ_date: "2013-05-18", locus: loci(:kiev), resolved: false),
-      create(:card, observ_date: "2013-05-19", locus: loci(:kiev)),
+      create(:card, observ_date: "2013-05-18", locus: loci(:kyiv), resolved: false),
+      create(:card, observ_date: "2013-05-19", locus: loci(:kyiv)),
     ]
     create(:observation, taxon: taxa(:pasdom), card: @cards[0])
     create(:observation, taxon: taxa(:hirrus), card: @cards[0])
@@ -57,7 +57,7 @@ class ObservationSearchTest < ActiveSupport::TestCase
   end
 
   test "search cards by locus exclusive" do
-    assert_equal 2, ObservationSearch.new(locus_id: loci(:kiev).id).cards.to_a.size
+    assert_equal 2, ObservationSearch.new(locus_id: loci(:kyiv).id).cards.to_a.size
   end
 
   test "search cards by locus inclusive" do
