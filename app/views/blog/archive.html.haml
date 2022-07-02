@@ -20,5 +20,5 @@
       %ul
         - months.each do |month|
           %li
-            = link_to t('date.month_names')[month.raw_month.to_i], month_path(year: year, month: "%02d" % month.raw_month)
-            (#{month.posts_count})
+            = link_to t('date.month_names')[month["raw_month"]], month_path(year: year, month: "%02d" % month["raw_month"])
+            (#{month["posts_count"]})
