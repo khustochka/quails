@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Either
-  def Either.included(klass)
+  def self.included(klass)
     class << klass
       def value(value)
         self::VALUE_CLASS.new(value)
@@ -81,7 +81,7 @@ module Either
     end
 
     def get
-      raise EitherErrorException.new(@msg)
+      raise EitherErrorException, @msg
     end
 
     def method_missing(method, *args, &block)

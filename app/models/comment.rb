@@ -27,16 +27,14 @@ class Comment < ApplicationRecord
   scope :top_level, -> { where(parent_id: nil) }
 
   def like_spam?
-    @likespam ||= self.body.match?(/#{STOP_WORDS.join('|')}/i) ||
-      self.body.scan(/href=/i).size > 4
+    @likespam ||= body.match?(/#{STOP_WORDS.join('|')}/i) ||
+      body.scan(/href=/i).size > 4
   end
 
   def sane_url
     uri = Addressable::URI.heuristic_parse(url)
-    if uri && uri.scheme.in?(%w[http https])
+    if uri&.scheme&.in?(%w[http https])
       uri.to_str
-    else
-      nil
     end
   end
 

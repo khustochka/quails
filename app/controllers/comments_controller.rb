@@ -160,6 +160,7 @@ class CommentsController < ApplicationController
   def unsubscribe_request
     @token = params[:token]
     raise ActiveRecord::RecordNotFound unless @token.present?
+
     @comment = Comment.where(unsubscribe_token: @token).first
     if @comment
       render "comments/unsubscribe_request"
@@ -171,6 +172,7 @@ class CommentsController < ApplicationController
   def unsubscribe_submit
     @token = params[:token]
     raise ActiveRecord::RecordNotFound unless @token.present?
+
     @comment = Comment.where(unsubscribe_token: @token).first
     if @comment
       @comment.update_attribute(:send_email, false)
@@ -186,7 +188,7 @@ class CommentsController < ApplicationController
     { host: request.host, port: request.port, protocol: request.protocol }
   end
 
-  RESTRICTED_DOMAINS = %w( localhost localhost.localdomain brevipes.clientvm.vps.ua )
+  RESTRICTED_DOMAINS = %w(localhost localhost.localdomain)
 
   def allowed_email?(email)
     !Mail::Address.new(email).domain.in?(RESTRICTED_DOMAINS)

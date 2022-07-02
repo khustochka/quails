@@ -7,7 +7,7 @@ namespace :check do
     [Species, Locus, Observation, Post, Image, Book, Comment, Spot, Taxon].each do |model|
       puts "Checking #{model} records in the DB for validity..."
       model.to_a.each do |record|
-        raise(ActiveRecord::RecordInvalid.new(record)) if record.invalid?
+        raise ActiveRecord::RecordInvalid, record if record.invalid?
       end
       puts "    done."
     end

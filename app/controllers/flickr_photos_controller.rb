@@ -48,10 +48,8 @@ class FlickrPhotosController < ApplicationController
     @photo.detach!
     if @photo.errors.any?
       @image.reload
-      render :show
-    else
-      render :show
     end
+    render :show
   end
 
   def push_to_storage
@@ -110,8 +108,6 @@ class FlickrPhotosController < ApplicationController
     @image = Image.find_by(slug: params[:id])
     @photo = FlickrPhoto.new(@image)
   end
-
-  private
 
   def cache_expire
     expire_page controller: :feeds, action: :blog, format: "xml"

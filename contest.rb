@@ -17,7 +17,7 @@ def calculate(result, therest)
             d.reject! { |s| s == sp_id }
           end
         end
-        next if temprest2.any? { |el| el.empty? }
+        next if temprest2.any?(&:empty?)
         cleanup(temprest2)
         # puts "Trying #{SPCS[sp_id]}"
         calculate(result + [SPCS[sp_id]], temprest2)

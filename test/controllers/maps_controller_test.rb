@@ -21,7 +21,7 @@ class MapsControllerTest < ActionController::TestCase
     create(:spot, observation: obs1)
     create(:spot, observation: obs2)
     login_as_admin
-    get :observations, params: {q: {observ_date: "2010-07-24"}}, format: :json
+    get :observations, params: { q: { observ_date: "2010-07-24" } }, format: :json
     assert_response :success
     assert_equal Mime[:json], response.media_type
     result = JSON.parse(response.body)["json"]
@@ -38,7 +38,7 @@ class MapsControllerTest < ActionController::TestCase
       create(:observation, taxon: taxa(:pasdom)),
       create(:observation, taxon: taxa(:saxola)),
     ]
-    get :observations, params: {q: {taxon_id: obss.first.taxon_id.to_s}}, format: "json"
+    get :observations, params: { q: { taxon_id: obss.first.taxon_id.to_s } }, format: "json"
     assert_response :success
     result = JSON.parse(response.body)["json"]
     assert_equal 1, result.size
@@ -51,7 +51,7 @@ class MapsControllerTest < ActionController::TestCase
       create(:observation, taxon: taxa(:pasdom)),
       create(:observation, taxon: taxa(:saxola)),
     ]
-    get :observations, params: {q: {card_id: obss.first.card_id.to_s}}, format: "json"
+    get :observations, params: { q: { card_id: obss.first.card_id.to_s } }, format: "json"
     assert_response :success
     result = JSON.parse(response.body)["json"]
     assert_equal 1, result.size
@@ -65,7 +65,7 @@ class MapsControllerTest < ActionController::TestCase
       create(:observation, taxon: taxa(:pasdom)),
       create(:observation, taxon: taxa(:saxola)),
     ]
-    get :observations, params: {q: {observ_date: obss[0].card.observ_date.iso8601}}, format: "json"
+    get :observations, params: { q: { observ_date: obss[0].card.observ_date.iso8601 } }, format: "json"
     assert_response :success
     result = JSON.parse(response.body)["json"]
     assert_equal 3, result.size
@@ -74,7 +74,7 @@ class MapsControllerTest < ActionController::TestCase
   test "return observation search results that include spuhs in JSON" do
     login_as_admin
     observation = create(:observation, taxon: taxa(:aves_sp))
-    get :observations, params: {q: {observ_date: observation.card.observ_date.iso8601}}, format: "json"
+    get :observations, params: { q: { observ_date: observation.card.observ_date.iso8601 } }, format: "json"
     assert_response :success
     assert_equal Mime[:json], response.media_type
     result = JSON.parse(response.body)["json"]
@@ -124,7 +124,7 @@ class MapsControllerTest < ActionController::TestCase
     img = create(:image_on_storage)
     obs1 = img.observations.first
     login_as_admin
-    get :observations, params: {q: {observ_date: obs1.card.observ_date}}, format: :json
+    get :observations, params: { q: { observ_date: obs1.card.observ_date } }, format: :json
     assert_response :success
     assert_equal Mime[:json], response.media_type
   end

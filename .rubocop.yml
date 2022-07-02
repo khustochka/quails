@@ -8,10 +8,9 @@ inherit_gem:
 
 AllCops:
   # rubocop-rails_config still supports Ruby 2.4
-  TargetRubyVersion: 3.0
-  # RuboCop has a bunch of cops enabled by default. This setting tells RuboCop
-  # to ignore them, so only the ones explicitly set in this file are enabled.
-  DisabledByDefault: true
+  TargetRubyVersion: 3.1
+  DisabledByDefault: false
+  NewCops: enable
   Exclude:
     - '**/tmp/**/*'
     - '**/templates/**/*'
@@ -23,7 +22,9 @@ AllCops:
     - 'db/**/*'
     - "lib/flickraw-cached.rb"
     - 'lib/tasks/taxonomy/**/*'
+    - 'lib/tasks/one-off/**/*'
     - config.ru
+    - contest*.rb
 
 Performance:
   Exclude:
@@ -56,13 +57,30 @@ Performance/DeletePrefix:
 Performance/DeleteSuffix:
   Enabled: true
 
-# FIXME: temporary!
+# FIXME: revisit and fix!
 Style/MethodCallWithArgsParentheses:
   Enabled: false
 Layout/LineLength:
   Enabled: false
+Layout/DotPosition:
+  Enabled: false
+# end: revisit and fix!
 
 # - My modification -
+Style/PreferredHashMethods:
+  Enabled: false
+
+Style/FormatString:
+  Enabled: false
+
+Style/MultilineTernaryOperator:
+  Enabled: false
+
+Style/BarePercentLiterals:
+  Enabled: false
+
+Style/BlockDelimiters :
+  Enabled: false
 
 Style/WordArray:
   Enabled: false
@@ -87,6 +105,31 @@ Style/Semicolon:
 Style/Send:
   Enabled: true
 
+Style/GlobalVars:
+  Exclude:
+    - test/**/*.rb
+
+Style/ClassAndModuleChildren:
+  Exclude:
+    - '**/test/**/*'
+    - 'lib/core_ext/**/*.rb'
+
+# FIXME: look into enabling
+Style/ClassVars:
+  Enabled: false
+
+# FIXME: look into enabling
+Style/MissingRespondToMissing:
+  Enabled: false
+
+# Improved readability, but look into refactoring
+Style/IfInsideElse:
+  Enabled: false
+
+# Improved readability
+Style/NegatedIf:
+  Enabled: false
+
 Layout/ClosingHeredocIndentation:
   Enabled: true
 
@@ -103,6 +146,10 @@ Layout/ArrayAlignment:
   Enabled: true
   EnforcedStyle: with_fixed_indentation
 
+# Readability
+Layout/SpaceInsideArrayLiteralBrackets:
+  Enabled: false
+
 Lint/ErbNewArguments:
   Enabled: true
 
@@ -111,3 +158,10 @@ Lint/ShadowingOuterLocalVariable:
 
 Lint/UriEscapeUnescape:
   Enabled: true
+
+# Readability, but maybe leave only in tests
+Lint/UselessAssignment:
+  Enabled: false
+#  Exclude:
+#    - test/**/*.rb
+

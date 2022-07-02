@@ -11,7 +11,7 @@ class CommentMailerTest < ActionMailer::TestCase
 
   def deliver_notify_admin_email
     email = CommentMailer.
-      with(comment: @comment, link_options: {host: "example.org"}).notify_admin
+      with(comment: @comment, link_options: { host: "example.org" }).notify_admin
     assert_emails 1 do
       email.deliver_now
     end
@@ -22,8 +22,8 @@ class CommentMailerTest < ActionMailer::TestCase
   # to be set in .env.test.
   def deliver_notify_parent_author_email
     email = CommentMailer.
-      with(comment: @comment, link_options: {host: "example.org"}
-      ).notify_parent_author
+      with(comment: @comment, link_options: { host: "example.org" }).
+      notify_parent_author
     assert_emails 1 do
       email.deliver_now
     end

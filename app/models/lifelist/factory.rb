@@ -33,8 +33,6 @@ module Lifelist
     def locus
       @locus ||= if @filter[:locus]
         Locus.find_by_slug(@filter[:locus])
-      else
-        nil
       end
     end
 

@@ -6,7 +6,7 @@ module GoogleSearchHelper
     # This may be related to calling = include_google_analytics vs - include_google_analytics
     cache [:google_search_old, google_cse, locale: I18n.locale] do
       concat(
-        render partial: "partials/search"
+        render(partial: "partials/search")
       )
     end
   end

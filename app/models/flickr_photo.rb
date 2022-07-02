@@ -54,6 +54,7 @@ class FlickrPhoto
 
   def bind_with_flickr(new_flickr_id)
     return false if new_flickr_id.blank?
+
     @flickr_id = new_flickr_id
     @image.flickr_id = @flickr_id
     refresh
@@ -66,6 +67,7 @@ class FlickrPhoto
 
   def refresh
     return false unless @flickr_id
+
     sizes_array = flickr_client.call("flickr.photos.getSizes", photo_id: @flickr_id).get
     @image.assets_cache.swipe(:flickr)
     sizes_array.each do |fp|
@@ -118,7 +120,7 @@ class FlickrPhoto
       data.title,
       data.description,
       data.dates.taken,
-      data.tags.map { |t| t.raw }
+      data.tags.map(&:raw)
     )
   end
 
@@ -132,9 +134,9 @@ class FlickrPhoto
 
   def own_params
     {
-      title: self.title,
-      description: self.description,
-      tags: self.tags,
+      title: title,
+      description: description,
+      tags: tags,
     }
   end
 

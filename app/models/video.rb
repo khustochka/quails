@@ -32,19 +32,19 @@ class Video < Media
   end
 
   def small
-    YoutubeVideo.new(youtube_id, self.decorated.title, 560, 315)
+    YoutubeVideo.new(youtube_id, decorated.title, 560, 315)
   end
 
   def medium
-    YoutubeVideo.new(youtube_id, self.decorated.title, 640, 360)
+    YoutubeVideo.new(youtube_id, decorated.title, 640, 360)
   end
 
   def large
-    YoutubeVideo.new(youtube_id, self.decorated.title, 853, 480)
+    YoutubeVideo.new(youtube_id, decorated.title, 853, 480)
   end
 
   def to_thumbnail
-    Thumbnail.new(self, self.decorated.title, self, { video: { id: id } })
+    Thumbnail.new(self, decorated.title, self, { video: { id: id } })
   end
 
   def on_storage?
@@ -54,7 +54,7 @@ class Video < Media
   private
 
   def update_thumbnail
-    self.assets_cache = ImageAssetsArray.new (
+    self.assets_cache = ImageAssetsArray.new(
       [
         ImageAssetItem.new(:youtube, 480, 360, thumbnail_url_template),
       ]

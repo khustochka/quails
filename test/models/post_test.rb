@@ -73,18 +73,18 @@ class PostTest < ActiveSupport::TestCase
     blogpost2 = create(:post, face_date: "2009-11-06 13:14:15")
     blogpost3 = create(:post, face_date: "2009-10-06 13:14:15")
     assert_nil Post.prev_month("2009", "10")
-    assert_equal({month: "11", year: "2009"}, Post.prev_month("2009", "12"))
-    assert_equal({month: "11", year: "2009"}, Post.prev_month("2010", "01"))
-    assert_equal({month: "11", year: "2009"}, Post.prev_month("2010", "02"))
+    assert_equal({ month: "11", year: "2009" }, Post.prev_month("2009", "12"))
+    assert_equal({ month: "11", year: "2009" }, Post.prev_month("2010", "01"))
+    assert_equal({ month: "11", year: "2009" }, Post.prev_month("2010", "02"))
   end
 
   test "calculate next month correctly (one having posts) even for month with no posts" do
     blogpost1 = create(:post, face_date: "2010-02-06 13:14:15")
     blogpost2 = create(:post, face_date: "2009-11-06 13:14:15")
     blogpost1 = create(:post, face_date: "2010-03-06 13:14:15")
-    assert_equal({month: "02", year: "2010"}, Post.next_month("2009", "11"))
-    assert_equal({month: "02", year: "2010"}, Post.next_month("2009", "12"))
-    assert_equal({month: "02", year: "2010"}, Post.next_month("2010", "01"))
+    assert_equal({ month: "02", year: "2010" }, Post.next_month("2009", "11"))
+    assert_equal({ month: "02", year: "2010" }, Post.next_month("2009", "12"))
+    assert_equal({ month: "02", year: "2010" }, Post.next_month("2010", "01"))
     assert_nil Post.next_month("2010", "03")
   end
 
@@ -108,15 +108,15 @@ class PostTest < ActiveSupport::TestCase
     create(:post, face_date: "2011-01-31 23:53:00") # last day and risky time
     create(:post, face_date: "2011-02-01 00:30:00") # risky time (different days in GMT and EEST)
     create(:post, face_date: "2011-02-15 12:53:00")
-    assert_equal({month: "02", year: "2011"}, Post.next_month("2011", "01"))
-    assert_equal({month: "01", year: "2011"}, Post.prev_month("2011", "02"))
+    assert_equal({ month: "02", year: "2011" }, Post.next_month("2011", "01"))
+    assert_equal({ month: "01", year: "2011" }, Post.prev_month("2011", "02"))
   end
 
   test "adding image to post should touch posts`s updated_at" do
     p = create(:post)
     saved_date = p.updated_at
 
-    travel 1.minute   do
+    travel 1.minute do
       @obs = create(:observation, post: p)
     end
 
@@ -162,7 +162,7 @@ class PostTest < ActiveSupport::TestCase
       # Have to refind it to clear association cache
       img = Image.find(i.id)
 
-      img.update({observation_ids: [o2.id]})
+      img.update({ observation_ids: [o2.id] })
 
       p.reload
       assert p.updated_at.to_i > saved_date.to_i

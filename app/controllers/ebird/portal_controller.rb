@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
-class Ebird::PortalController < ApplicationController
-  administrative
+module Ebird
+  class PortalController < ApplicationController
+    administrative
 
-  def index
+    def index
+    end
   end
 end

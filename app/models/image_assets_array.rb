@@ -9,6 +9,7 @@ class ImageAssetsArray < Array
 
   def self.load(str)
     return nil if str.nil?
+
     ImageAssetsArray.new(
       str.split("\n").map do |line|
         ImageAssetItem.load(line)

@@ -13,7 +13,7 @@ namespace :deflicker do
     ].each do |s, u, j|
       server = LiveJournal::Server.new(s, "https://#{s}")
       puts "Enter password for user #{u}@#{s}:"
-      passwd = STDIN.gets.strip
+      passwd = $stdin.gets.strip
       user = LiveJournal::User.new(u, passwd, server)
       user.usejournal = j
 

@@ -56,6 +56,7 @@ module Lifelist
     def all_lists(key)
       @all_lists ||= {}
       return @all_lists[key] if @all_lists[key]
+
       list =
         case key
         when :first_seen
@@ -70,7 +71,7 @@ module Lifelist
 
     def secondary_list(key)
       @secondary_list ||= {}
-      @secondary_list[key] ||= all_lists(key).short_to_a.index_by { |ob| ob.species_id }
+      @secondary_list[key] ||= all_lists(key).short_to_a.index_by(&:species_id)
     end
   end
 end

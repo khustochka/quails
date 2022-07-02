@@ -49,14 +49,15 @@ class Card < ApplicationRecord
 
   scope :in_year, ->(year) { where("EXTRACT(year FROM observ_date) = ?", year) }
 
-  scope :default_cards_order, -> (asc_or_desc) {
+  scope :default_cards_order, ->(asc_or_desc) {
     raise "Invalid order (only ASC and DESC accepted)." unless asc_or_desc.to_s.downcase.in? %w(asc desc)
+
     order(observ_date: asc_or_desc).
       order(Arel.sql("to_timestamp(start_time, 'HH24:MI') #{asc_or_desc} NULLS LAST"))
   }
 
   def secondary_posts
-    Post.distinct.joins(:observations).where("observations.card_id = ? AND observations.post_id <> ?", self.id, self.post_id)
+    Post.distinct.joins(:observations).where("observations.card_id = ? AND observations.post_id <> ?", id, post_id)
   end
 
   def mapped?
@@ -75,25 +76,25 @@ class Card < ApplicationRecord
         join cards c on obs.card_id = c.id
         join taxa tt ON obs.taxon_id = tt.id
         where taxa.species_id = tt.species_id and
-        ('#{self.observ_date}' > c.observ_date
+        ('#{observ_date}' > c.observ_date
          " +
       (
-        if self.start_time.blank?
-          "OR ('#{self.observ_date}' = c.observ_date
+        if start_time.blank?
+          "OR ('#{observ_date}' = c.observ_date
                 AND c.start_time IS NOT NULL
                 )
-        OR ('#{self.observ_date}' = c.observ_date
+        OR ('#{observ_date}' = c.observ_date
                 AND c.start_time IS NULL
-                AND c.id < #{self.id}
+                AND c.id < #{id}
                 )"
         else
-          "OR ('#{self.observ_date}' = c.observ_date
-                AND to_timestamp('#{self.start_time}', 'HH24:MI') > to_timestamp(c.start_time, 'HH24:MI')
+          "OR ('#{observ_date}' = c.observ_date
+                AND to_timestamp('#{start_time}', 'HH24:MI') > to_timestamp(c.start_time, 'HH24:MI')
                 )"
         end
       ) +
       ")"
-    @lifer_species_ids ||= self.observations.
+    @lifer_species_ids ||= observations.
       identified.
       where("NOT EXISTS(#{subquery})").
       pluck(:species_id)
@@ -101,7 +102,7 @@ class Card < ApplicationRecord
 
   def check_effort
     if non_incidental?
-      self.valid?(effort_type.downcase.to_sym)
+      valid?(effort_type.downcase.to_sym)
     end
   end
 
@@ -114,18 +115,20 @@ class Card < ApplicationRecord
     effort_type == "INCIDENTAL"
   end
 
-  def self.first_unebirded_date
-    unebirded.order(observ_date: :asc).first.try(:observ_date)
-  end
+  class << self
+    def first_unebirded_date
+      unebirded.order(observ_date: :asc).first.try(:observ_date)
+    end
 
-  def self.last_unebirded_date
-    unebirded.order(observ_date: :desc).first.try(:observ_date)
-  end
+    def last_unebirded_date
+      unebirded.order(observ_date: :desc).first.try(:observ_date)
+    end
 
-  private
+    private
 
-  def self.unebirded
-    ebirded = Card.select(:id).joins(:ebird_files).where("ebird_files.status IN ('NEW', 'POSTED')")
-    self.where("id NOT IN (#{ebirded.to_sql})").where(ebird_id: nil)
+    def unebirded
+      ebirded = Card.select(:id).joins(:ebird_files).where("ebird_files.status IN ('NEW', 'POSTED')")
+      where("id NOT IN (#{ebirded.to_sql})").where(ebird_id: nil)
+    end
   end
 end

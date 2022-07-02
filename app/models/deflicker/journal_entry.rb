@@ -41,9 +41,9 @@ module Deflicker
       ids = (ids1 + ids2.compact).uniq
       update(images: imgs, links: links, flickr_ids: ids)
       ids.each do |fid|
-        flicker = Flicker.find_by(flickr_id: fid) rescue nil
+        flicker = Flicker.find_by(flickr_id: fid)
         if flicker
-          self.flickers << flicker
+          flickers << flicker
         else
           puts "Not found: flicker #{fid}, entry #{url}"
         end

@@ -36,7 +36,7 @@ class ObservationsController < ApplicationController
     preload_tables = [{ card: :locus }, :taxon]
 
     observs =
-      params[:q] && params[:q].values.any?(&:present?) ?
+      params[:q]&.values&.any?(&:present?) ?
         ObservationSearch.new(params[:q]).observations.
           joins(:card, :taxon).
           preload(preload_tables).

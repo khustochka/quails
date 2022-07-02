@@ -23,6 +23,6 @@ class FeedsController < ApplicationController
     @videos = Video.select("id, slug, updated_at")
     @species = Species.where(id: Observation.joins(:taxon).select(:species_id)).select("id, name_sci")
 
-    @root_lastmod = Post.public_posts.order(updated_at: :desc).first.updated_at.iso8601 rescue nil
+    @root_lastmod = Post.public_posts.order(updated_at: :desc).first&.updated_at&.iso8601
   end
 end

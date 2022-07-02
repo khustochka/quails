@@ -4,6 +4,7 @@ module Search
   class EbirdTaxonSearchUnweighted < Unweighted
     def find
       return EbirdTaxon.none if @term.blank?
+
       rel = @base.
         select("ebird_taxa.*,
                           CASE

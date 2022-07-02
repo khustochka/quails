@@ -26,10 +26,10 @@ class Observation < ApplicationRecord
 
   before_destroy do
     if images.present?
-      raise ActiveRecord::DeleteRestrictionError.new(self.class.reflections[:images])
+      raise ActiveRecord::DeleteRestrictionError, self.class.reflections[:images]
     end
     if videos.present?
-      raise ActiveRecord::DeleteRestrictionError.new(self.class.reflections[:videos])
+      raise ActiveRecord::DeleteRestrictionError, self.class.reflections[:videos]
     end
   end
 
@@ -40,11 +40,11 @@ class Observation < ApplicationRecord
   scope :identified, lambda { joins(:taxon).merge(Taxon.listable) }
 
   def self.count_distinct_species
-    self.count("DISTINCT species_id")
+    count("DISTINCT species_id")
   end
 
   def self.refine(options = {})
-    rel = self.all
+    rel = all
     rel = rel.joins(:card).where("EXTRACT(year from cards.observ_date)::integer = ?", options[:year]) unless options[:year].blank?
     rel = rel.joins(:card).where("EXTRACT(month from cards.observ_date)::integer = ?", options[:month]) unless options[:month].blank?
     rel = rel.joins(:card).where("EXTRACT(day from cards.observ_date)::integer = ?", options[:day]) unless options[:day].blank? || options[:month].blank?

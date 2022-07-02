@@ -12,7 +12,7 @@ def calculate(therest)
   print "Current day %3d\r" % current_day
   day = therest.first
   longest = []
-  if therest.take($deepest - current_day + 1).any? { |el| el.empty? }
+  if therest.take($deepest - current_day + 1).any?(&:empty?)
     longest = if day.is_a? Array
       [day.map { |c| SPCS[c] }.join(", ")]
     else
@@ -27,7 +27,7 @@ def calculate(therest)
             d.reject! { |s| s == sp_id }
           end
         end
-        if temprest2.take($deepest - current_day).any? { |el| el.empty? }
+        if temprest2.take($deepest - current_day).any?(&:empty?)
           # puts "Cutoff"
           next
         end
@@ -73,7 +73,7 @@ $year_size = obs.size
 
 # Use species met only in one day
 def cleanup(obs)
-  obs = obs.take_while {|x| x.present? }
+  obs = obs.take_while(&:present?)
   begin
     counts = obs.flatten.inject(Hash.new(0)) { |h, i| h[i] += 1 if i.is_a?(Integer); h }
     singles = counts.to_a.select { |e| e[1] == 1 }.map(&:first)

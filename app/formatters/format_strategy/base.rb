@@ -15,6 +15,7 @@ module FormatStrategy
       prepare
 
       result = @text.gsub(/\{\{(#{WIKI_PREFIXES}|)(?:([^\}]*?)\|)?([^\}]*?)(\|en)?\}\}/) do |_|
+        # rubocop:disable Style/ParallelAssignment, Style/PerlBackrefs
         tag, word, term, en = $1, $2.try(:html_safe), $3, $4
         case tag
         when "@" then

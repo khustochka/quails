@@ -36,12 +36,18 @@ Rails.application.configure do
   end
 
   if ENV["DEV_RESQUE"]
-    config.active_job.queue_adapter     = :resque
+    config.active_job.queue_adapter = :resque
     config.active_job.queue_name_prefix = "quails_#{Rails.env}"
   end
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
-  config.active_storage.service = ENV["DEV_S3"].present? ? :"amazon_dev" : (ENV["PROD_S3"].present? ? :amazon : :local)
+  config.active_storage.service = if ENV["DEV_S3"].present?
+    :amazon_dev
+  elsif ENV["PROD_S3"].present?
+    :amazon
+  else
+    :local
+  end
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false

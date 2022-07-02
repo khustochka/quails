@@ -34,14 +34,9 @@ class EbirdTaxon < ApplicationRecord
 
     ActiveRecord::Base.transaction do
       # If parent exists promote it
-      promoted_parent = if parent
-        parent.promote(species: species)
-      else
-        nil
-      end
+      promoted_parent = parent&.promote(species: species)
 
       # Creating taxon
-
       attr_hash = attributes.slice("name_sci", "name_en", "ebird_code", "category", "order", "family")
       prev_index_num =
         Taxon.
@@ -55,8 +50,8 @@ class EbirdTaxon < ApplicationRecord
         attr_hash[:species_id] = promoted_parent.species_id
       end
 
-      new_taxon = self.create_taxon!(attr_hash)
-      self.save!
+      new_taxon = create_taxon!(attr_hash)
+      save!
 
       # For taxonomy update (lumps): if there were already promoted children taxa of unpromoted parent.
 

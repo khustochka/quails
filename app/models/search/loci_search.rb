@@ -6,6 +6,7 @@ module Search
 
     def find
       return Locus.none if @term.blank?
+
       rel = @base.
         select("loci.*,
                           CASE

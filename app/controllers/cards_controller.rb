@@ -15,10 +15,10 @@ class CardsController < ApplicationController
     @cards = @observation_search.cards.
       default_cards_order(:desc).preload(:locus, :post)
 
-    if !request.xhr?
-      @cards = @cards.page(params[:page]).per(10)
+    @cards = if !request.xhr?
+      @cards.page(params[:page]).per(10)
     else
-      @cards = @cards.limit(30)
+      @cards.limit(30)
     end
 
     @post = Post.where(id: params[:new_post_id]).first

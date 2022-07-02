@@ -92,9 +92,9 @@ class Species < ApplicationRecord
   # Methods
 
   def update_image
-    self.reload
+    reload
     if !image
-      self.image = self.images.first || nil
+      self.image = images.first || nil
       save!
     end
   end
@@ -122,16 +122,16 @@ class Species < ApplicationRecord
   # Formatting
 
   def to_thumbnail
-    Thumbnail.new(self, { partial: "species/thumb_title" }, self.image)
+    Thumbnail.new(self, { partial: "species/thumb_title" }, image)
   end
 
   # Validations
 
   def code_and_legacy_code_uniqueness
-    if self.legacy_code.present? && Species.where("id != ?", self.id).exists?(code: self.legacy_code)
+    if legacy_code.present? && Species.where("id != ?", id).exists?(code: legacy_code)
       errors.add(:legacy_code, "already exists as a code")
     end
-    if self.code.present? && Species.where("id != ?", self.id).exists?(legacy_code: self.code)
+    if code.present? && Species.where("id != ?", id).exists?(legacy_code: code)
       errors.add(:code, "already exists as a legacy code")
     end
   end

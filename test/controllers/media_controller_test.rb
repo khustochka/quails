@@ -12,7 +12,7 @@ class MediaControllerTest < ActionController::TestCase
   end
 
   test "media strip with photos and videos (for the map)" do
-    post :strip, xhr: true, params: {_json: [@image.id, @video.id]}
+    post :strip, xhr: true, params: { _json: [@image.id, @video.id] }
     assert assigns(:strip_media)
   end
 
@@ -29,7 +29,7 @@ class MediaControllerTest < ActionController::TestCase
   test "half-mapped" do
     image2 = create(:image, spot_id: @spot.id)
     login_as_admin
-    get :unmapped, params: {half: true}
+    get :unmapped, params: { half: true }
     # result = assigns(:media).map(&:id)
     # assert result.include?(@image.id)
     # assert result.include?(@video.id)

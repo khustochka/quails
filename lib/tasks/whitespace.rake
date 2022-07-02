@@ -3,7 +3,7 @@
 # See https://gist.github.com/NARKOZ/1179915
 # requires GNU sed
 namespace :whitespace do
-  EXCLUDE = [".git",  ".idea",  "./public",  "./db/seed",  "./vendor",  "./log",  "./tmp",  "./coverage", "node_modules"]
+  EXCLUDE = [".git",  ".idea", "./public", "./db/seed", "./vendor", "./log", "./tmp", "./coverage", "node_modules"]
   EXCLUDE_STR = EXCLUDE.map {|p| "grep -v #{p} "}.join("| ")
 
   task :detect_sed do
@@ -16,7 +16,7 @@ namespace :whitespace do
   task cleanup: :detect_sed do
     sh %{for f in `find . -type f | #{EXCLUDE_STR} | egrep ".(rb|js|haml|html|css|sass)"`;
           do #{@sed} -i 's/[ \t]*$//' $f;
-        done}, {verbose: false}
+        done}, { verbose: false }
     puts "Task cleanup done"
   end
 
@@ -24,7 +24,7 @@ namespace :whitespace do
   task retab: :detect_sed do
     sh %{for f in `find . -type f | #{EXCLUDE_STR} | egrep ".(rb|js|haml|html|css|sass)"`;
           do #{@sed} -i 's/\t/  /g' $f;
-        done}, {verbose: false}
+        done}, { verbose: false }
     puts "Task retab done"
   end
 
@@ -32,7 +32,7 @@ namespace :whitespace do
   task scrub_gratuitous_newlines: :detect_sed do
     sh %{for f in `find . -type f | #{EXCLUDE_STR} | egrep ".(rb|js|haml|html|css|sass)"`;
           do #{@sed} -i '/./,/^$/!d' $f;
-        done}, {verbose: false}
+        done}, { verbose: false }
     puts "Task scrub_gratuitous_newlines done"
   end
 
@@ -40,7 +40,7 @@ namespace :whitespace do
   task newline: :detect_sed do
     sh %{for f in `find . -type f | #{EXCLUDE_STR} | egrep ".(rb|js|haml|html|css|sass)"`;
           do #{@sed} -i -e '$a\\' $f;
-        done}, {verbose: false}
+        done}, { verbose: false }
     puts "Task newline done"
   end
 end

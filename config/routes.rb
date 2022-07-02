@@ -56,7 +56,6 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
 
-
   # PUBLIC PAGES
 
   # You can have the root of your site routed with "root"
@@ -114,13 +113,13 @@ Rails.application.routes.draw do
   end
 
   get "/photos(/page/:page)" => "images#index", page: /[^0]\d*/,
-    constraints: {format: "html"}
+    constraints: { format: "html" }
 
   scope "(:locale)", locale: /en/ do
     get "/photos/multiple_species" => "images#multiple_species"
     get "photos/:id" => "images#show", as: "localized_image"
     get "/videos(/page/:page)" => "videos#index", page: /[^0]\d*/,
-      constraints: {format: "html"}
+      constraints: { format: "html" }
     get "videos/:id" => "videos#show", as: "localized_video"
     post "media/strip" => "media#strip"
   end
@@ -176,12 +175,12 @@ Rails.application.routes.draw do
   end
 
   # Feeds and sitemap
-  get "/blog.:format" => "feeds#blog", constraints: {format: "xml"}
-  get "/instant_articles(.:dev).:format" => "feeds#instant_articles", constraints: {format: "xml", dev: "dev"}
+  get "/blog.:format" => "feeds#blog", constraints: { format: "xml" }
+  get "/instant_articles(.:dev).:format" => "feeds#instant_articles", constraints: { format: "xml", dev: "dev" }
   scope "(:locale)", locale: /en/ do
-    get "/photos.:format" => "feeds#photos", constraints: {format: "xml"}
+    get "/photos.:format" => "feeds#photos", constraints: { format: "xml" }
   end
-  get "/sitemap.:format" => "feeds#sitemap", constraints: {format: "xml"}
+  get "/sitemap.:format" => "feeds#sitemap", constraints: { format: "xml" }
 
   # TRANSLATED:
 
@@ -342,5 +341,5 @@ Rails.application.routes.draw do
   get "/:id" => "high_voltage/pages#show",
     :as => :page,
     :format => false,
-    :constraints => {id: /about|links|winter/}
+    :constraints => { id: /about|links|winter/ }
 end

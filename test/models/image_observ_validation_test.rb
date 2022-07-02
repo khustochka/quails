@@ -81,8 +81,8 @@ class ImageObservValidationTest < ActiveSupport::TestCase
     img = Image.new
     new_attr[:observation_ids] = [obs1.id, obs2.id]
     assert_difference("Image.count", 0) do
-  img.update(new_attr)
-end
+      img.update(new_attr)
+    end
     assert_predicate img.errors, :present?
   end
 

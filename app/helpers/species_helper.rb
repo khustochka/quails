@@ -61,7 +61,7 @@ module SpeciesHelper
 
   def species_link_in_flat_section(sp_obj, post_or_card, string = nil)
     method = NEW_SPECIES_LINK_METHOD[sp_obj.id.in?(post_or_card.lifer_species_ids)]
-    self.public_send(method, sp_obj, string)
+    public_send(method, sp_obj, string)
   end
 
   def name_sci(sp_obj)

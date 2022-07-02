@@ -24,17 +24,17 @@ class ImageMapTest < ActiveSupport::TestCase
   end
 
   def private_spot(args = {})
-    FactoryBot.create(:spot, {public: false, lat: 2}.merge(args))
+    FactoryBot.create(:spot, { public: false, lat: 2 }.merge(args))
   end
 
   def public_spot(args = {})
-    FactoryBot.create(:spot, {public: true, lat: 1}.merge(args))
+    FactoryBot.create(:spot, { public: true, lat: 1 }.merge(args))
   end
 
   def megafactory(card_locus, observation_patch, spot_factory)
-    card_args = {locus: card_locus}.compact
+    card_args = { locus: card_locus }.compact
     @card = create(:card, card_args)
-    obs_args = {patch: observation_patch, card: @card}.compact
+    obs_args = { patch: observation_patch, card: @card }.compact
     @observation = create(:observation, obs_args)
     @spot = if spot_factory
       public_send(spot_factory, observation: @observation)

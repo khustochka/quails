@@ -51,7 +51,7 @@ class Post < ApplicationRecord
 
   # Convert "timezone-less" face_date to local time zone because AR treats it as UTC (especially necessary for feed updated time)
   def face_date
-    Time.zone.parse(self.read_attribute(:face_date).strftime("%F %T"))
+    Time.zone.parse(read_attribute(:face_date).strftime("%F %T"))
   end
 
   # Parameters
@@ -172,7 +172,7 @@ class Post < ApplicationRecord
           and cards.observ_date > c.observ_date"
     @lifer_species_ids ||= MyObservation.
       joins(:card).
-      where("observations.post_id = ? or cards.post_id = ?", self.id, self.id).
+      where("observations.post_id = ? or cards.post_id = ?", id, id).
       where("NOT EXISTS(#{subquery})").
       distinct.
       pluck(:species_id)
@@ -188,7 +188,7 @@ class Post < ApplicationRecord
 
   def check_cover_image_slug_or_url
     if cover_image_slug.present?
-      if !(cover_image_slug.to_s.match?(%r{\Ahttps?://}))
+      if !cover_image_slug.to_s.match?(%r{\Ahttps?://})
         if Image.find_by_slug(cover_image_slug).nil?
           errors.add(:cover_image_slug, "should be image slug or external URL.")
         end

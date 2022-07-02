@@ -21,7 +21,7 @@ class MapsController < ApplicationController
     observs =
       # TODO: the goal is to avoid loading all observations (thousands!) if all filters are empty
       # Needs refactoring to only take into account meaningful fields (not "exclude subspecies")
-      params[:q] && params[:q].values.any?(&:present?) ?
+      params[:q]&.values&.any?(&:present?) ?
         ObservationSearch.new(params[:q]).observations.
           joins(:card, :taxon).
           preload(preload_tables).
@@ -29,7 +29,8 @@ class MapsController < ApplicationController
         []
 
     respond_to do |format|
-      format.json { render json:
+      format.json {
+        render json:
         { json: observs.as_json(only: :id, methods: json_methods),
           html: render_to_string(partial: "maps/observation", collection: observs, formats: [:html]), }
       }

@@ -32,37 +32,35 @@ module ImagesHelper
     end
   end
 
-  def self.image_host=(host)
-    @image_host = host
-  end
+  class << self
+    attr_writer :image_host
+    attr_writer :local_image_path
+    attr_writer :temp_image_path
 
-  def self.local_image_path=(dir)
-    @local_image_path = dir
-  end
+    private
 
-  def self.temp_image_path=(dir)
-    @temp_image_path = dir
+    def image_host
+      @image_host ||= ENV["quails_image_host"]
+    end
+
+    def local_image_path
+      return @local_image_path if @local_image_path
+
+      @local_image_path = ENV["quails_local_image_path"]
+      FileUtils.mkdir_p(@local_image_path) if @local_image_path
+      @local_image_path
+    end
+
+    def temp_image_path
+      return @temp_image_path if @temp_image_path
+
+      @temp_image_path = ENV["quails_temp_image_path"]
+      FileUtils.mkdir_p(@temp_image_path) if @temp_image_path
+      @temp_image_path
+    end
   end
 
   private
-
-  def self.image_host
-    @image_host ||= ENV["quails_image_host"]
-  end
-
-  def self.local_image_path
-    return @local_image_path if @local_image_path
-    @local_image_path = ENV["quails_local_image_path"]
-    FileUtils.mkdir_p(@local_image_path) if @local_image_path
-    @local_image_path
-  end
-
-  def self.temp_image_path
-    return @temp_image_path if @temp_image_path
-    @temp_image_path = ENV["quails_temp_image_path"]
-    FileUtils.mkdir_p(@temp_image_path) if @temp_image_path
-    @temp_image_path
-  end
 
   def legacy_image_url(file_name)
     "#{ImagesHelper.image_host}#{file_name}"

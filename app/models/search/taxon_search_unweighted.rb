@@ -4,6 +4,7 @@ module Search
   class TaxonSearchUnweighted < Unweighted
     def find
       return Taxon.none if @term.blank?
+
       rel = @base.
         select("taxa.*,
                           CASE

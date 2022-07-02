@@ -13,7 +13,7 @@ class DaysControllerTest < ActionController::TestCase
   test "should get show" do
     card = create(:card)
     login_as_admin
-    get :show, params: {id: card.observ_date.iso8601}
+    get :show, params: { id: card.observ_date.iso8601 }
     assert_response :success
   end
 end

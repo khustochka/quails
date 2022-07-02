@@ -60,7 +60,7 @@ module Lifelist
       obs = FactoryBot.create(:observation, taxon: taxa(:pasdom))
       obs2 = FactoryBot.create(:observation, taxon: taxa(:jyntor), voice: true)
 
-      list = Lifelist::Advanced.over({seen: true}).sort(nil)
+      list = Lifelist::Advanced.over({ seen: true }).sort(nil)
 
       assert_not_includes list.to_a.map(&:species).map(&:name_sci), taxa(:jyntor).species.name_sci
     end

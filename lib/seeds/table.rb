@@ -8,7 +8,7 @@ module Seeds
     end
 
     def cleanup
-      ActiveRecord::Base.connection.execute("DELETE FROM #@quoted_table_name")
+      ActiveRecord::Base.connection.execute("DELETE FROM #{@quoted_table_name}")
     end
 
     def fill(column_names, records)
@@ -18,7 +18,7 @@ module Seeds
 
       records.each_slice(1000) do |bunch|
         quoted_values = bunch.map { |rec| "(#{rec.map { |v| ActiveRecord::Base.connection.quote(v) }.join(",")})" }.join(",")
-        ActiveRecord::Base.connection.execute("INSERT INTO #@quoted_table_name (#{quoted_column_names}) VALUES #{quoted_values}")
+        ActiveRecord::Base.connection.execute("INSERT INTO #{@quoted_table_name} (#{quoted_column_names}) VALUES #{quoted_values}")
       end
     end
 
@@ -40,7 +40,7 @@ module Seeds
     private
 
     def table_column_names
-      ActiveRecord::Base.connection.columns(@table_name).map { |c| c.name }
+      ActiveRecord::Base.connection.columns(@table_name).map(&:name)
     end
   end
 end

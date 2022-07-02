@@ -8,6 +8,7 @@ module Search
 
     def find
       return [] if @term.blank?
+
       rel = @base.
         select("DISTINCT id, name_sci, name_en, name_ru, name_uk, weight,
                           CASE WHEN weight IS NULL THEN NULL

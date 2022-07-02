@@ -51,7 +51,7 @@ class Thumbnail
 
   def force_dimensions(value)
     value.each do |key, val|
-      self.instance_variable_set("@#{key}".to_sym, val)
+      instance_variable_set("@#{key}".to_sym, val)
     end
   end
 

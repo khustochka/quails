@@ -80,33 +80,43 @@ class ReportsController < ApplicationController
 
     sort_col = :date2
 
-    @recent_2yrs = Image.joins(:observations).order(:created_at).preload(:species).merge(MyObservation.all).
-      group_by { |i| i.species.first }.each_with_object([]) do |imgdata, collection|
-      sp, imgs = imgdata
+    @recent_2yrs =
+      Image.joins(:observations).order(:created_at).preload(:species).merge(MyObservation.all).
+        group_by { |i| i.species.first }.
+        each_with_object([]) do |imgdata, collection|
+          sp, imgs = imgdata
 
-      img = imgs.each_cons(2).select do |im1, im2|
-        im2.created_at > 1.year.ago.beginning_of_year && (im2.created_at - im1.created_at) >= TWO_YEARS
-      end
-      collection.concat(
-        img.map do |im1, im2|
-          { sp: sp,
-            date1: im1.created_at.to_date,
-            date2: im2.created_at.to_date, }
-        end
-      )
-    end.sort { |a, b| b[sort_col] <=> a[sort_col] }
+          img = imgs.each_cons(2).select do |im1, im2|
+            im2.created_at > 1.year.ago.beginning_of_year && (im2.created_at - im1.created_at) >= TWO_YEARS
+          end
+          collection.concat(
+            img.map do |im1, im2|
+              { sp: sp,
+                date1: im1.created_at.to_date,
+                date2: im2.created_at.to_date, }
+            end
+          )
+        end.sort { |a, b| b[sort_col] <=> a[sort_col] }
   end
 
   def this_day
     @month, @day = (params[:day].try(:split, "-") || [Time.current.month, Time.current.day]).map { |n| "%02d" % n.to_i }
     prev_day = Image.joins(:observations, :cards).select("to_char(observ_date, 'DD') as iday, to_char(observ_date, 'MM') as imon").
-      where("to_char(observ_date, 'MM-DD') < '#@month-#@day'").
+      where("to_char(observ_date, 'MM-DD') < '#{@month}-#{@day}'").
       order(Arel.sql("to_char(observ_date, 'MM-DD') DESC")).first
-    @prev_day = [prev_day[:imon], prev_day[:iday]].join("-") rescue nil
+    @prev_day = begin
+      [prev_day[:imon], prev_day[:iday]].join("-")
+    rescue
+      nil
+    end
     next_day = Image.joins(:observations, :cards).select("to_char(observ_date, 'DD') as iday, to_char(observ_date, 'MM') as imon").
-      where("to_char(observ_date, 'MM-DD') > '#@month-#@day'").
+      where("to_char(observ_date, 'MM-DD') > '#{@month}-#{@day}'").
       order(Arel.sql("to_char(observ_date, 'MM-DD') ASC")).first
-    @next_day = [next_day[:imon], next_day[:iday]].join("-") rescue nil
+    @next_day = begin
+      [next_day[:imon], next_day[:iday]].join("-")
+    rescue
+      nil
+    end
     @images = Image.select("media.*, cards.observ_date").distinct.joins(:observations, :cards).
       where("EXTRACT(day from observ_date)::integer = ? AND EXTRACT(month from observ_date)::integer = ?", @day, @month).
       order("cards.observ_date ASC")

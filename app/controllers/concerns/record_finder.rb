@@ -9,6 +9,7 @@ module RecordFinder
     def find_record(options = {})
       only = options[:before]
       raise ArgumentError, "Please define actions explicitly for record finder" unless only
+
       column = options[:by] || :id
       before_action only: only do
         instance_variable_set(

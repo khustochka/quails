@@ -4,6 +4,7 @@ module Search
   class SpeciesSearchUnweighted < Unweighted
     def find
       return Species.none if @term.blank?
+
       rel = @base.
         select("species.*,
                           CASE

@@ -46,7 +46,7 @@ class EbirdChecklist
   def to_card
     ml = notes.to_s.match?(/^ML/i)
     if /\AML\s*\Z/.match?(notes)
-      notes = ""
+      self.notes = ""
     end
     Card.new(
       ebird_id: ebird_id,
@@ -92,6 +92,7 @@ class EbirdChecklist
     if dm
       val = dm[1].to_f
       if dm[2] == "mile(s)"
+        # rubocop:disable Style/SelfAssignment
         val = val * 1.609344
       end
 
@@ -144,7 +145,7 @@ class EbirdChecklist
 
       ebird_obs_id = row.at_css("a.Observation-tools-item")["data-obsid"]
 
-      self.observations << {taxon: tx, quantity: count, notes: notes, voice: voice, ebird_obs_id: ebird_obs_id}
+      observations << { taxon: tx, quantity: count, notes: notes, voice: voice, ebird_obs_id: ebird_obs_id }
     end
 
     self

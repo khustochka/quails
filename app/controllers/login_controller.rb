@@ -52,8 +52,6 @@ class LoginController < ApplicationController
         # We consider it valid if it was recognized and host is the same
         if uri.host == request.host
           Rails.application.routes.recognize_path(ref)
-        else
-          nil
         end
       rescue ActionController::RoutingError, URI::InvalidURIError
         nil

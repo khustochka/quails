@@ -3,7 +3,7 @@
 module FormatStrategy
   class InstantArticle < Feed
     def img_tag(term)
-      if image = Image.find_by(slug: term)
+      if (image = Image.find_by(slug: term))
         real_image_tag(image)
       end
     end

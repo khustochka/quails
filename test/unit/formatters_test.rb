@@ -78,7 +78,7 @@ class FormattersTest < ActionDispatch::IntegrationTest
   end
 
   test "LJ Post with link to another post in LJ" do
-    Settings.create(key: "lj_user", value: {name: "stonechat"})
+    Settings.create(key: "lj_user", value: { name: "stonechat" })
     url = "http://stonechat.livejournal.com/1111.html"
     post1 = create(:post,
       slug: "post_for_link",
@@ -98,18 +98,18 @@ class FormattersTest < ActionDispatch::IntegrationTest
   test "LJ Post with photo by slug" do
     image = create(:image)
     post = build(:post, body: "{{^#{image.slug}}}")
-    assert_includes post.decorated({host: "localhost", port: 3011}).for_lj.body,
+    assert_includes post.decorated({ host: "localhost", port: 3011 }).for_lj.body,
       "<img src=\"https://localhost:3011/photos/#{image.slug}.jpg\" title=\"[photo]\" alt=\"[photo]\" />"
-    assert_includes post.decorated({host: "localhost", port: 3011}).for_lj.body,
+    assert_includes post.decorated({ host: "localhost", port: 3011 }).for_lj.body,
       "<figcaption class=\"imagetitle\">\nHouse Sparrow <i>(Passer domesticus)</i>\n</figcaption>"
   end
 
   test "LJ Post with S3 image" do
     image = create(:image_on_storage)
     post = build(:post, body: "{{^#{image.slug}}}")
-    assert_includes post.decorated({host: "localhost", port: 3011}).for_lj.body,
+    assert_includes post.decorated({ host: "localhost", port: 3011 }).for_lj.body,
       "<img src=\"https://localhost:3011/photos/#{image.slug}.jpg\" title=\"[photo]\" alt=\"[photo]\" />"
-    assert_includes post.decorated({host: "localhost", port: 3011}).for_lj.body,
+    assert_includes post.decorated({ host: "localhost", port: 3011 }).for_lj.body,
       "<figcaption class=\"imagetitle\">\nHouse Sparrow <i>(Passer domesticus)</i>\n</figcaption>"
   end
 
@@ -117,9 +117,9 @@ class FormattersTest < ActionDispatch::IntegrationTest
     p = create(:post, body: "AAA")
     image = create(:image)
     image.card.update_column(:post_id, p.id)
-    assert_includes p.decorated({host: "localhost", port: 3011}).for_lj.body,
+    assert_includes p.decorated({ host: "localhost", port: 3011 }).for_lj.body,
       "<img src=\"https://localhost:3011/photos/#{image.slug}.jpg\" title=\"[photo]\" alt=\"[photo]\" />"
-    assert_includes p.decorated({host: "localhost", port: 3011}).for_lj.body,
+    assert_includes p.decorated({ host: "localhost", port: 3011 }).for_lj.body,
       "<figcaption class=\"imagetitle\">\nHouse Sparrow <i>(Passer domesticus)</i>\n</figcaption>"
   end
 
@@ -151,6 +151,6 @@ class FormattersTest < ActionDispatch::IntegrationTest
   test "Feed entry with species link" do
     post = build(:post, body: "This is a {{Wryneck|jyntor}}")
     assert_equal "<p>This is a <a class=\"sp_link\" href=\"https://localhost:3011/species/Jynx_torquilla\">Wryneck</a></p>",
-      post.decorated({host: "localhost", port: 3011}).for_feed.body
+      post.decorated({ host: "localhost", port: 3011 }).for_feed.body
   end
 end

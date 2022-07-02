@@ -25,11 +25,12 @@ module Flickr
     def search_and_filter_photos(conditions, top = nil, &filter)
       all = Flickr::Result.new([])
       page = 0
-      begin
+      loop do
         set = search_and_get_page(conditions, page += 1)
         filtered_result = filter.call(set)
         all = all.apply.concat(filtered_result)
-      end until all.error? || set.get.size < 500 || (top && all.get.size >= top)
+        break if all.error? || set.get.size < 500 || (top && all.get.size >= top)
+      end
       result = all
       if top
         result = all.take(top)
@@ -54,7 +55,7 @@ module Flickr
   Flickr::ERROR_CLASS = Error
 
   class << Flickr
-    self.__send__(:alias_method, :result, :value)
+    __send__(:alias_method, :result, :value)
   end
 
   class Client
