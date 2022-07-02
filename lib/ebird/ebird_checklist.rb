@@ -127,7 +127,7 @@ class EbirdChecklist
       count = nil if count == "X"
 
       taxon = row.at_css("section")[:id]
-      ebird_taxon = EbirdTaxon.find_by_ebird_code(taxon)
+      ebird_taxon = EbirdTaxon.find_by(ebird_code: taxon)
 
       tx = ebird_taxon.find_or_promote_to_taxon
 

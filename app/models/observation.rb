@@ -22,7 +22,7 @@ class Observation < ApplicationRecord
   has_and_belongs_to_many :images, class_name: "Image", association_foreign_key: :media_id
   has_and_belongs_to_many :videos, class_name: "Video", association_foreign_key: :media_id
   has_many :spots, dependent: :delete_all
-  belongs_to :patch, class_name: "Locus", foreign_key: "patch_id", optional: true
+  belongs_to :patch, class_name: "Locus", optional: true
 
   before_destroy do
     if images.present?
@@ -32,8 +32,6 @@ class Observation < ApplicationRecord
       raise ActiveRecord::DeleteRestrictionError, self.class.reflections[:videos]
     end
   end
-
-  validates :taxon_id, presence: true
 
   # Scopes
 

@@ -16,7 +16,7 @@ class Card < ApplicationRecord
   belongs_to :locus, -> { cached_ancestry_preload }
   belongs_to :post, -> { short_form }, touch: true, optional: true
   has_many :observations, -> { order("observations.id") }, dependent: :restrict_with_exception, inverse_of: :card
-  has_many :mapped_observations, -> { joins(:spots).distinct }, class_name: "Observation", inverse_of: :card
+  has_many :mapped_observations, -> { joins(:spots).distinct }, class_name: "Observation", inverse_of: :card, dependent: nil
 
   has_many :taxa, through: :observations
   has_many :species, through: :taxa
@@ -27,7 +27,7 @@ class Card < ApplicationRecord
   has_many :ebird_submissions, class_name: "Ebird::Submission", dependent: :delete_all, inverse_of: :card
   has_many :ebird_files, class_name: "Ebird::File", through: :ebird_submissions, inverse_of: :cards
 
-  validates :locus_id, :observ_date, presence: true
+  validates :observ_date, presence: true
   validates :effort_type, inclusion: EFFORT_TYPES, allow_blank: false
   validate :check_effort, on: :ebird_post
   validates :start_time, format: /\A(\d{1,2}:\d\d)\Z/, allow_blank: false, allow_nil: true

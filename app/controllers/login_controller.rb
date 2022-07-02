@@ -27,19 +27,19 @@ class LoginController < ApplicationController
       else
         root_url
       end
-      redirect_to return_url, status: 303
+      redirect_to return_url, status: :see_other
     else
       # Restore ret value for retries,
       # Restore csrf token to allow using form on the previous page
       session[:ret] = ret
       session[:_csrf_token] = csrf_token
-      render plain: "403 Forbidden", status: 403
+      render plain: "403 Forbidden", status: :forbidden
     end
   end
 
   def logout
     reset_session
-    redirect_to request.referrer || root_url, status: 303
+    redirect_to request.referrer || root_url, status: :see_other
   end
 
   private

@@ -70,7 +70,7 @@ class Taxon < ApplicationRecord
       ActiveRecord::Base.transaction do
         # This will fall if scientific name has also changed!!!!!!!
         if new_species.nil?
-          new_species = Species.find_by_name_sci(name_sci)
+          new_species = Species.find_by(name_sci: name_sci)
         end
         if new_species.nil?
           new_species = children.filter_map(&:species).first

@@ -278,7 +278,7 @@ class ReportsController < ApplicationController
 
   def voices
     @exclude_low_num = params[:exclude_low_num]
-    base = Observation.joins(:taxon).where("species_id IS NOT NULL").group("species_id")
+    base = Observation.joins(:taxon).where.not(species_id: nil).group("species_id")
     voiceful = base.select("species_id, COUNT(observations.id) as voicenum").where(voice: true)
     total = base.select("species_id, count(observations.id) as totalnum")
     @species = Species.find_by_sql("WITH voiceful AS (#{voiceful.to_sql}), total AS (#{total.to_sql})
@@ -341,7 +341,7 @@ class ReportsController < ApplicationController
       @month = Date.current.month
     end
     @locations = Locus.locs_for_lifelist
-    @locus = Locus.find_by_slug(params[:locus])
+    @locus = Locus.find_by(slug: params[:locus])
     obs_base = Observation.all
     if @locus
       obs_base = obs_base.refine(locus: @locus.subregion_ids)
@@ -353,15 +353,15 @@ class ReportsController < ApplicationController
       select("DISTINCT species_id").
       joins(:taxon, :card).
       where("EXTRACT(month from observ_date) = ?", @month).
-      where("species_id IS NOT NULL")
+      where.not(species_id: nil)
     species_of_adjacent_months = obs_base.
       select("species_id").
       joins(:taxon, :card).
       where("EXTRACT(month from observ_date) IN (?)", @prev_and_next).
-      where("species_id IS NOT NULL")
+      where.not(species_id: nil)
     @species = Species.
       where(id: species_of_adjacent_months).
-      where("species.id NOT IN (?)", species_of_this_month).
+      where.not(species: { id: species_of_this_month }).
       order("species.index_num").
       extending(SpeciesArray)
   end

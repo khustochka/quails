@@ -13,7 +13,7 @@ class Comment < ApplicationRecord
   belongs_to :parent_comment, class_name: "Comment", foreign_key: :parent_id, inverse_of: :subcomments, optional: true
   belongs_to :commenter, optional: true
 
-  validates :body, :name, :post_id, presence: true
+  validates :body, :name, presence: true
   validates :parent_id, numericality: true, allow_blank: true
 
   validate :consistent_post_and_parent

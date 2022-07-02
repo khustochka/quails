@@ -65,7 +65,7 @@ class FlickrPhotosController < ApplicationController
   end
 
   def unused
-    used = Image.where("external_id IS NOT NULL").pluck(:external_id)
+    used = Image.where.not(external_id: nil).pluck(:external_id)
     top = params[:top]&.to_i
     search_params = DEFAULT_SEARCH_PARAMS.merge({ user_id: flickr_admin.user_id })
     @flickr_result = _FlickrClient.search_and_filter_photos(search_params, top) do |collection|

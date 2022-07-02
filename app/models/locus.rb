@@ -19,7 +19,7 @@ class Locus < ApplicationRecord
   has_many :observations, through: :cards
   has_many :patch_observations, class_name: "Observation", foreign_key: "patch_id", dependent: :restrict_with_exception
 
-  has_many :local_species
+  has_many :local_species, dependent: :delete_all
 
   belongs_to :ebird_location, optional: true
 
@@ -51,7 +51,7 @@ class Locus < ApplicationRecord
     sort_by_ancestry(all.cached_ancestry_preload).reverse
   end
 
-  scope :locs_for_lifelist, lambda { where("public_index IS NOT NULL").order(:public_index) }
+  scope :locs_for_lifelist, lambda { where.not(public_index: nil).order(:public_index) }
 
   scope :non_private, lambda { where("private_loc = 'f'") }
 

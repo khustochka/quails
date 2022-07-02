@@ -34,7 +34,7 @@ class SpeciesController < ApplicationController
     @species = Species.find_by(name_sci: id_humanized) || UrlSynonym.find_by(name_sci: id_humanized).try(:species)
     if @species
       if params[:id] != @species.to_param
-        redirect_to @species, status: 301
+        redirect_to @species, status: :moved_permanently
         # TODO: maybe show as a page but set different canonical, NOINDEX. Or redirect but show "redirected from" Like Wikipedia.
       else
         if @species.observations.any?

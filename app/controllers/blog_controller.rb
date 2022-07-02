@@ -23,7 +23,7 @@ class BlogController < ApplicationController
         # we fetch and show all the rest of posts
         @posts.concat(
           Post.public_posts.month(post_last[:year], post_last[:month]).
-            reorder(face_date: :desc).where("id NOT IN (?)", @posts.map(&:id))
+            reorder(face_date: :desc).where.not(id: @posts.map(&:id))
         )
         @prev_month = Post.public_posts.prev_month(post_last[:year], post_last[:month])
       end

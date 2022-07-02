@@ -51,7 +51,7 @@ class CommentsController < ApplicationController
   def create
     if params[:comment].delete(:name).present?
 
-      render plain: "Error", status: 422
+      render plain: "Error", status: :unprocessable_entity
 
     else
 
@@ -165,7 +165,7 @@ class CommentsController < ApplicationController
     if @comment
       render "comments/unsubscribe_request"
     else
-      render "comments/unsubscribe_not_found", status: 404
+      render "comments/unsubscribe_not_found", status: :not_found
     end
   end
 
@@ -178,7 +178,7 @@ class CommentsController < ApplicationController
       @comment.update_attribute(:send_email, false)
       render "comments/unsubscribe_done"
     else
-      render "comments/unsubscribe_not_found", status: 404
+      render "comments/unsubscribe_not_found", status: :not_found
     end
   end
 

@@ -23,7 +23,7 @@ module JustifyHelper
       pre_sum_width = sum_width
       sum_width += thumb.width + (BORDER * 2)
       num_thumbs += 1
-      Rails.logger.debug "sum_width=#{sum_width}"
+      Rails.logger.debug { "sum_width=#{sum_width}" }
       next unless sum_width > max_width
 
       border_sum = num_thumbs * (BORDER * 2)
@@ -43,7 +43,7 @@ module JustifyHelper
 
       new_width = new_widths.sum + (BORDER * 2 * current_row.size)
 
-      Rails.logger.debug "new_width=#{new_width}"
+      Rails.logger.debug { "new_width=#{new_width}" }
 
       # Pixel adjustment
       if new_width != max_width
@@ -63,7 +63,7 @@ module JustifyHelper
         el.force_dimensions(width: new_widths[idx], height: new_height)
       end
 
-      Rails.logger.debug "adjusted_width=#{width(current_row)}"
+      Rails.logger.debug { "adjusted_width=#{width(current_row)}" }
 
       result << current_row
       current_row = []
@@ -87,7 +87,7 @@ module JustifyHelper
 
         new_width = new_widths.sum + (BORDER * 2 * current_row.size)
 
-        Rails.logger.debug "new_width=#{new_width}"
+        Rails.logger.debug { "new_width=#{new_width}" }
 
         # Pixel adjustment
         if new_width != max_width
@@ -107,7 +107,7 @@ module JustifyHelper
           el.force_dimensions(width: new_widths[idx], height: new_height)
         end
 
-        Rails.logger.debug "adjusted_width=#{width(current_row)}"
+        Rails.logger.debug { "adjusted_width=#{width(current_row)}" }
       end
 
       result << current_row

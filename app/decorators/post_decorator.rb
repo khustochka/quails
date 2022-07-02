@@ -37,7 +37,7 @@ class PostDecorator < ModelDecorator
   def the_rest_of_images
     rel = @model.images
     if extract_image_slugs.present?
-      rel = rel.where("slug NOT IN (?)", extract_image_slugs)
+      rel = rel.where.not(slug: extract_image_slugs)
     end
     rel
   end

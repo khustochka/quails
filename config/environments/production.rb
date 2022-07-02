@@ -113,5 +113,5 @@ Rails.application.configure do
 
   # Alternative location for page caching
   # App user should be able to write to this location, but we do not want it to write to 'public'
-  config.action_controller.page_cache_directory = Rails.root.join("tmp", "cached_pages")
+  config.action_controller.page_cache_directory = Rails.root.join("tmp/cached_pages")
 end

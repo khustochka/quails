@@ -28,7 +28,7 @@ class TaxaController < ApplicationController
   end
 
   def show
-    @taxon = Taxon.find_by_ebird_code(params[:id])
+    @taxon = Taxon.find_by(ebird_code: params[:id])
     render :form
   end
 

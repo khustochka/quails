@@ -22,11 +22,11 @@ class Species < ApplicationRecord
 
   acts_as_list column: :index_num
 
-  has_one :species_image
+  has_one :species_image, dependent: :nullify
   has_one :image, through: :species_image
 
-  has_many :taxa
-  has_many :high_level_taxa, -> { where(taxa: { category: "species" }) }, class_name: "Taxon"
+  has_many :taxa, dependent: :restrict_with_exception
+  has_many :high_level_taxa, -> { where(taxa: { category: "species" }) }, class_name: "Taxon", dependent: nil
   has_many :observations, through: :taxa
 
   has_many :cards, through: :observations
@@ -35,11 +35,11 @@ class Species < ApplicationRecord
   has_many :videos, through: :observations
   # has_many :posts, -> { order(face_date: :desc).distinct }, through: :observations
 
-  has_many :local_species
-  has_many :url_synonyms
+  has_many :local_species, dependent: :delete_all
+  has_many :url_synonyms, dependent: :delete_all
 
-  has_many :splits_super, class_name: "SpeciesSplit", foreign_key: "superspecies_id"
-  has_many :splits_sub, class_name: "SpeciesSplit", foreign_key: "subspecies_id"
+  has_many :splits_super, class_name: "SpeciesSplit", foreign_key: "superspecies_id", dependent: :delete_all
+  has_many :splits_sub, class_name: "SpeciesSplit", foreign_key: "subspecies_id", dependent: :delete_all
 
   has_many :superspecies, through: :splits_sub, primary_key: "superspecies_id"
   has_many :subspecies, through: :splits_super, primary_key: "subspecies_id"
@@ -100,7 +100,7 @@ class Species < ApplicationRecord
   end
 
   def the_rest_of_images
-    images.where("media.id NOT IN (?)", SpeciesImage.where(species: self).select(:image_id))
+    images.where.not(media: { id: SpeciesImage.where(species: self).select(:image_id) })
   end
 
   def self.thumbnails
@@ -128,10 +128,10 @@ class Species < ApplicationRecord
   # Validations
 
   def code_and_legacy_code_uniqueness
-    if legacy_code.present? && Species.where("id != ?", id).exists?(code: legacy_code)
+    if legacy_code.present? && Species.where.not(id: id).exists?(code: legacy_code)
       errors.add(:legacy_code, "already exists as a code")
     end
-    if code.present? && Species.where("id != ?", id).exists?(legacy_code: code)
+    if code.present? && Species.where.not(id: id).exists?(legacy_code: code)
       errors.add(:code, "already exists as a legacy code")
     end
   end

@@ -22,11 +22,11 @@ class EbirdTaxaController < ApplicationController
   end
 
   def show
-    @taxon = EbirdTaxon.find_by_ebird_code(params[:id])
+    @taxon = EbirdTaxon.find_by(ebird_code: params[:id])
   end
 
   def promote
-    @taxon = EbirdTaxon.find_by_ebird_code(params[:id])
+    @taxon = EbirdTaxon.find_by(ebird_code: params[:id])
     @taxon.promote
     redirect_to ebird_taxon_path(@taxon)
   end
