@@ -117,7 +117,7 @@ class PostsController < ApplicationController
       if any_card
         country_tag = any_card.locus.country.slug
         if country_tag.in?(ALLOWED_COUNTRY_TAGS)
-          entry.taglist = [country_tag.gsub("_", " ")]
+          entry.taglist = [country_tag.tr("_", " ")]
         end
       end
       LiveJournal::Request::PostEvent.new(user, entry)

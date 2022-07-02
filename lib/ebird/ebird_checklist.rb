@@ -137,7 +137,7 @@ class EbirdChecklist
       notes = ""
       if comments
         notes = comments.at_css("p").text&.strip
-        if notes.downcase == "v" || notes.downcase.start_with?("heard")
+        if notes.casecmp("v").zero? || notes.downcase.start_with?("heard")
           voice = true
           notes.gsub!(/^\s*V\s*$\n*/i, "") # Remove V if it is the single letter in a line
         end

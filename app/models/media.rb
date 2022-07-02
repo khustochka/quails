@@ -88,7 +88,7 @@ class Media < ApplicationRecord
   delegate :observ_date, :locus, :locus_id, to: :card
 
   def species
-    taxa.map(&:species).compact.uniq
+    taxa.filter_map(&:species).uniq
   end
 
   def card

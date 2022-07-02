@@ -55,7 +55,7 @@ class EbirdTaxon < ApplicationRecord
 
       # For taxonomy update (lumps): if there were already promoted children taxa of unpromoted parent.
 
-      children.map(&:taxon).compact.each { |tx| tx.update(parent_id: new_taxon.id) }
+      children.filter_map(&:taxon).each { |tx| tx.update(parent_id: new_taxon.id) }
 
       # Create or update species if necessary
 

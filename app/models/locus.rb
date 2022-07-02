@@ -123,7 +123,7 @@ class Locus < ApplicationRecord
   end
 
   def generate_slug
-    slug.presence || (self.slug = name_en.downcase.gsub("'", "").gsub(" - ", "_").gsub("--", "_").gsub(/[^\d\w_]+/, "_"))
+    slug.presence || (self.slug = name_en.downcase.delete("'").gsub(" - ", "_").gsub("--", "_").gsub(/[^\d\w_]+/, "_"))
   end
 
   def generate_lat_lon

@@ -10,7 +10,7 @@ module Capybara::Webkit
       if Capybara::VERSION.to_f < 3.0
         Capybara::Helpers.normalize_whitespace(text)
       else
-        text.gsub(/\ +/, " ")
+        text.squeeze(" ")
           .gsub(/[\ \n]*\n[\ \n]*/, "\n")
           .gsub(/\A[[:space:]&&[^\u00a0]]+/, "")
           .gsub(/[[:space:]&&[^\u00a0]]+\z/, "")

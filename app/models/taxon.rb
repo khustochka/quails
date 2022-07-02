@@ -73,7 +73,7 @@ class Taxon < ApplicationRecord
           new_species = Species.find_by_name_sci(name_sci)
         end
         if new_species.nil?
-          new_species = children.map(&:species).compact.first
+          new_species = children.filter_map(&:species).first
         end
 
         # Unlink old taxa

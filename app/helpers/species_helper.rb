@@ -74,11 +74,11 @@ module SpeciesHelper
 
   def species_map(country, loci)
     center = "center=#{STATIC_MAP_CENTER[country]}"
-    markers = loci.map { |l| l.lat && "#{l.lat},#{l.lon}" }.compact.join("|")
+    markers = loci.filter_map { |l| l.lat && "#{l.lat},#{l.lon}" }.join("|")
     zoom = 5
     if !country.in?(STATIC_MAP_CENTER.keys)
-      lats = loci.map(&:lat).compact
-      lons = loci.map(&:lon).compact
+      lats = loci.filter_map(&:lat)
+      lons = loci.filter_map(&:lon)
       # if distance is too far rely on automatic zoom
       zoom = nil if (lats.max - lats.min).abs > 10 || (lons.max - lons.min).abs > 12
     end

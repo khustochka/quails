@@ -20,42 +20,12 @@ AllCops:
     - 'bin/**/*'
     #  - 'config/**/*'
     - 'db/**/*'
+    - lib/tasks/flickraw.rake
     - "lib/flickraw-cached.rb"
     - 'lib/tasks/taxonomy/**/*'
     - 'lib/tasks/one-off/**/*'
     - config.ru
     - contest*.rb
-
-Performance:
-  Exclude:
-    - '**/test/**/*'
-
-Performance/FlatMap:
-  Enabled: true
-
-Performance/RedundantMerge:
-  Enabled: true
-
-Performance/StartWith:
-  Enabled: true
-
-Performance/EndWith:
-  Enabled: true
-
-Performance/RegexpMatch:
-  Enabled: true
-
-Performance/ReverseEach:
-  Enabled: true
-
-Performance/UnfreezeString:
-  Enabled: true
-
-Performance/DeletePrefix:
-  Enabled: true
-
-Performance/DeleteSuffix:
-  Enabled: true
 
 # FIXME: revisit and fix!
 Style/MethodCallWithArgsParentheses:
@@ -165,3 +135,13 @@ Lint/UselessAssignment:
 #  Exclude:
 #    - test/**/*.rb
 
+Performance:
+  Exclude:
+    - '**/test/**/*'
+
+Naming/VariableName:
+  Enabled: false
+
+# TODO: maybe revisit and try to fix
+Naming/AccessorMethodName:
+  Enabled: false

@@ -27,7 +27,7 @@ module Flickr
       page = 0
       loop do
         set = search_and_get_page(conditions, page += 1)
-        filtered_result = filter.call(set)
+        filtered_result = yield(set)
         all = all.apply.concat(filtered_result)
         break if all.error? || set.get.size < 500 || (top && all.get.size >= top)
       end

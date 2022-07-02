@@ -52,6 +52,8 @@ class EbirdObservation
 
   def count
     cnt = @obs.quantity[/(\d+(\s*\+\s*\d+)?)/, 1]
+    # Unused. Also need to rethink what is going on here.
+    # rubocop:disable Security/Eval
     cnt && eval(cnt) || "X"
   end
 
@@ -168,7 +170,7 @@ class EbirdObservation
         image_tag(media.assets_cache.locals.find_max_size(width: 600).try(:full_url) || legacy_image_url("#{media.slug}.jpg"), alt: nil)
       end
     else
-      video_embed(media.slug, :medium).gsub("\n", " ")
+      video_embed(media.slug, :medium).tr("\n", " ")
     end
   end
 end
