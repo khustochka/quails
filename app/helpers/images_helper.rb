@@ -37,11 +37,11 @@ module ImagesHelper
     attr_writer :local_image_path
     attr_writer :temp_image_path
 
-    private
-
     def image_host
       @image_host ||= ENV["quails_image_host"]
     end
+
+    private
 
     def local_image_path
       return @local_image_path if @local_image_path

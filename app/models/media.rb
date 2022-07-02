@@ -39,10 +39,10 @@ class Media < ApplicationRecord
     spot_id
   end
 
-  # Mapped photos and vidoes
+  # Mapped photos and videos
   def self.for_the_map
-    Media.connection.select_rows(
-      Media.for_the_map_query.to_sql
+    connection.select_rows(
+      for_the_map_query.to_sql
     ).each_with_object({}) do |(im_id, lat, lon), memo|
       key = [lat, lon].map { |x| (x.to_f * 100000).round / 100000.0 }
       (memo[key.join(",")] ||= []).push(im_id.to_i)
@@ -50,7 +50,7 @@ class Media < ApplicationRecord
   end
 
   def self.half_mapped
-    Media.preload(taxa: :species).joins(:observations).
+    preload(taxa: :species).joins(:observations).
       where(spot_id: nil).where("observation_id in (select observation_id from spots)").
       order(created_at: :asc)
   end
@@ -126,7 +126,7 @@ class Media < ApplicationRecord
     private
 
     def for_the_map_query
-      Media.select("media.id,
+      self.select("media.id,
                   COALESCE(spots.lat, patches.lat, public_locus.lat, parent_locus.lat) AS lat,
                   COALESCE(spots.lng, patches.lon, public_locus.lon, parent_locus.lon) AS lng").
         joins(:cards).

@@ -6,7 +6,6 @@ class LiferObservation < Observation
   end
 
   class << self
-    private
 
     def life_observ_relation
       select("DISTINCT ON (species_id) *").
@@ -14,6 +13,7 @@ class LiferObservation < Observation
         where("(observ_date, species_id) IN (#{life_dates_sql})")
     end
 
+    private
     def life_dates_sql
       Observation.
         identified.

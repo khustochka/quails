@@ -124,8 +124,6 @@ class Card < ApplicationRecord
       unebirded.order(observ_date: :desc).first.try(:observ_date)
     end
 
-    private
-
     def unebirded
       ebirded = Card.select(:id).joins(:ebird_files).where("ebird_files.status IN ('NEW', 'POSTED')")
       where("id NOT IN (#{ebirded.to_sql})").where(ebird_id: nil)

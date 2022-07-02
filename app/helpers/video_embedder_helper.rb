@@ -9,11 +9,7 @@ module VideoEmbedderHelper
     end
   end
 
-  class << self
-    private
-
-    def erb_template
-      @template ||= ERB.new File.new(Rails.root.join("app/views/videos/_youtube_embed.html.erb")).read, trim_mode: "%"
-    end
+  def self.erb_template
+    @template ||= ERB.new File.new(Rails.root.join("app/views/videos/_youtube_embed.html.erb")).read, trim_mode: "%"
   end
 end

@@ -278,12 +278,12 @@ class ReportsController < ApplicationController
 
   def voices
     @exclude_low_num = params[:exclude_low_num]
-    base = Observation.joins(:taxon).where.not(species_id: nil).group("species_id")
-    voiceful = base.select("species_id, COUNT(observations.id) as voicenum").where(voice: true)
-    total = base.select("species_id, count(observations.id) as totalnum")
+    base = Observation.joins(:taxon).where.not(taxa: { species_id: nil }).group("species_id")
+    voiceful = base.select("taxa.species_id, COUNT(observations.id) as voicenum").where(voice: true)
+    total = base.select("taxa.species_id, count(observations.id) as totalnum")
     @species = Species.find_by_sql("WITH voiceful AS (#{voiceful.to_sql}), total AS (#{total.to_sql})
                 SELECT species.*, voicenum, totalnum, 100.00 * voicenum / totalnum as percentage
-                FROM voiceful NATURAL JOIN total JOIN species on species_id = species.id
+                FROM voiceful NATURAL JOIN total JOIN species on total.species_id = species.id
                 WHERE voicenum <> 0 #{@exclude_low_num.presence && "AND totalnum > 10"}
                 ORDER BY percentage DESC
                 LIMIT 20")
@@ -350,15 +350,15 @@ class ReportsController < ApplicationController
     # Put prev & next months into [1..12] interval
     @prev_and_next = [@month - 1, @month + 1].map { |n| (n - 1) % 12 + 1 }
     species_of_this_month = obs_base.
-      select("DISTINCT species_id").
+      select("DISTINCT taxa.species_id").
       joins(:taxon, :card).
       where("EXTRACT(month from observ_date) = ?", @month).
-      where.not(species_id: nil)
+      where.not(taxa: { species_id: nil })
     species_of_adjacent_months = obs_base.
       select("species_id").
       joins(:taxon, :card).
       where("EXTRACT(month from observ_date) IN (?)", @prev_and_next).
-      where.not(species_id: nil)
+      where.not(taxa: { species_id: nil })
     @species = Species.
       where(id: species_of_adjacent_months).
       where.not(species: { id: species_of_this_month }).
