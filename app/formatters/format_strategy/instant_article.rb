@@ -39,9 +39,9 @@ module FormatStrategy
       # Replace h3 with h2, h4-6 with strong
       new_text.
         gsub(/^h3\./i, "h2.").
-        gsub(/<(\/?)h3/i, '<\1h2').
+        gsub(%r{<(/?)h3}i, '<\1h2').
         gsub(/^h[4-6]\.\s+(.*)$/i, '*\1*').
-        gsub(/<(\/?)h[4-6]/i, '<\1strong').
+        gsub(%r{<(/?)h[4-6]}i, '<\1strong').
         # Replace textile footnotes with small text in brackets.
         gsub(/(\[\d+\])/, ' <notextile><small>\1</small></notextile>').
         gsub(/fn(\d+)\. /, '<notextile><small>[\1]</small></notextile> ').

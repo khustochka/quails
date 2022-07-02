@@ -49,7 +49,7 @@ class Taxon < ApplicationRecord
     species_id.present?
   end
 
-  def is_a_species?
+  def full_species?
     category == "species"
   end
 

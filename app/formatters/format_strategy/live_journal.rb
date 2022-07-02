@@ -44,7 +44,7 @@ module FormatStrategy
     def species_tag(word, term, en)
       sp = @species[term]
       if sp
-        str = +%Q(<b title="#{sp.name_sci}">#{word or (en ? sp.name_en : sp.name_sci)}</b>)
+        str = +%Q(<b title="#{sp.name_sci}">#{word || (en ? sp.name_en : sp.name_sci)}</b>)
         # %Q("(sp_link). #{word || sp.name_sci}":#{sp.code})
         if en && word.present?
           str << " (#{sp.name_en})"

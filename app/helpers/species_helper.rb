@@ -74,7 +74,7 @@ module SpeciesHelper
 
   def species_map(country, loci)
     center = "center=#{STATIC_MAP_CENTER[country]}"
-    markers = loci.map { |l| l.lat and "#{l.lat},#{l.lon}" }.compact.join("|")
+    markers = loci.map { |l| l.lat && "#{l.lat},#{l.lon}" }.compact.join("|")
     zoom = 5
     if !country.in?(STATIC_MAP_CENTER.keys)
       lats = loci.map(&:lat).compact

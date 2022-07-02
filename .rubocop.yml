@@ -3,6 +3,9 @@ require:
   - rubocop-performance
   - rubocop-rails
 
+inherit_gem:
+  rubocop-shopify: rubocop.yml
+
 AllCops:
   # rubocop-rails_config still supports Ruby 2.4
   TargetRubyVersion: 3.0
@@ -19,238 +22,12 @@ AllCops:
     #  - 'config/**/*'
     - 'db/**/*'
     - "lib/flickraw-cached.rb"
+    - 'lib/tasks/taxonomy/**/*'
+    - config.ru
 
 Performance:
   Exclude:
     - '**/test/**/*'
-
-Layout:
-  Exclude:
-    - 'lib/tasks/taxonomy/**/*'
-
-Style:
-  Exclude:
-    - 'lib/tasks/taxonomy/**/*'
-
-# Prefer assert_not over assert !
-Rails/AssertNot:
-  Include:
-    - '**/test/**/*'
-
-# Prefer assert_not_x over refute_x
-Rails/RefuteMethods:
-  Include:
-    - '**/test/**/*'
-
-Rails/IndexBy:
-  Enabled: true
-
-Rails/IndexWith:
-  Enabled: true
-
-# Prefer &&/|| over and/or.
-Style/AndOr:
-  Enabled: true
-
-# Align `when` with `case`.
-Layout/CaseIndentation:
-  Enabled: true
-  EnforcedStyle: end
-
-Layout/ClosingHeredocIndentation:
-  Enabled: true
-
-# Align comments with method definitions.
-Layout/CommentIndentation:
-  Enabled: true
-
-Layout/ElseAlignment:
-  Enabled: true
-
-# Align `end` with the matching keyword
-Layout/EndAlignment:
-  Enabled: true
-  EnforcedStyleAlignWith: variable
-  AutoCorrect: true
-
-Layout/EmptyLineAfterMagicComment:
-  Enabled: true
-
-Layout/EmptyLinesAroundAccessModifier:
-  Enabled: true
-
-Layout/EmptyLinesAroundBlockBody:
-  Enabled: true
-
-# In a regular class definition, no empty lines around the body.
-Layout/EmptyLinesAroundClassBody:
-  Enabled: true
-
-# In a regular method definition, no empty lines around the body.
-Layout/EmptyLinesAroundMethodBody:
-  Enabled: true
-
-# In a regular module definition, no empty lines around the body.
-Layout/EmptyLinesAroundModuleBody:
-  Enabled: true
-
-# Use Ruby >= 1.9 syntax for hashes. Prefer { a: :b } over { :a => :b }.
-Style/HashSyntax:
-  Enabled: true
-
-Layout/FirstArgumentIndentation:
-  Enabled: true
-
-# Method definitions after `private` or `protected` isolated calls need one
-# extra level of indentation.
-Layout/IndentationConsistency:
-  Enabled: true
-  EnforcedStyle: normal
-
-# Two spaces, no tabs (for indentation).
-Layout/IndentationWidth:
-  Enabled: true
-
-Layout/LeadingCommentSpace:
-  Enabled: true
-
-Layout/SpaceAfterColon:
-  Enabled: true
-
-Layout/SpaceAfterComma:
-  Enabled: true
-
-Layout/SpaceAfterSemicolon:
-  Enabled: true
-
-Layout/SpaceAroundEqualsInParameterDefault:
-  Enabled: true
-
-Layout/SpaceAroundKeyword:
-  Enabled: true
-
-Layout/SpaceAroundOperators:
-  Enabled: true
-
-Layout/SpaceBeforeComma:
-  Enabled: true
-
-Layout/SpaceBeforeComment:
-  Enabled: true
-
-Layout/SpaceBeforeFirstArg:
-  Enabled: true
-
-Style/DefWithParentheses:
-  Enabled: true
-
-# Defining a method with parameters needs parentheses.
-Style/MethodDefParentheses:
-  Enabled: true
-
-Style/FrozenStringLiteralComment:
-  Enabled: true
-  EnforcedStyle: always
-  Exclude:
-    - 'config.ru'
-
-Style/RedundantFreeze:
-  Enabled: true
-
-# Use `foo {}` not `foo{}`.
-Layout/SpaceBeforeBlockBraces:
-  Enabled: true
-
-# Use `foo { bar }` not `foo {bar}`.
-Layout/SpaceInsideBlockBraces:
-  Enabled: false
-  EnforcedStyleForEmptyBraces: space
-
-# Use `{ a: 1 }` not `{a:1}`.
-Layout/SpaceInsideHashLiteralBraces:
-  Enabled: false
-
-Layout/SpaceInsideParens:
-  Enabled: true
-
-# Check quotes usage according to lint rule below.
-Style/StringLiterals:
-  Enabled: true
-  EnforcedStyle: double_quotes
-
-Style/StringLiteralsInInterpolation:
-  EnforcedStyle: double_quotes
-
-# Detect hard tabs, no hard tabs.
-Layout/IndentationStyle:
-  Enabled: true
-
-# Empty lines should not have any spaces.
-Layout/TrailingEmptyLines:
-  Enabled: true
-
-# No trailing whitespace.
-Layout/TrailingWhitespace:
-  Enabled: true
-
-# Use quotes for string literals when they are enough.
-Style/RedundantPercentQ:
-  Enabled: true
-
-Lint/AmbiguousOperator:
-  Enabled: true
-
-Lint/AmbiguousRegexpLiteral:
-  Enabled: true
-
-Lint/ErbNewArguments:
-  Enabled: true
-
-# Use my_method(my_arg) not my_method( my_arg ) or my_method my_arg.
-Lint/RequireParentheses:
-  Enabled: true
-
-Lint/ShadowingOuterLocalVariable:
-  Enabled: true
-
-Lint/RedundantStringCoercion:
-  Enabled: true
-
-Lint/UriEscapeUnescape:
-  Enabled: true
-
-Lint/UselessAssignment:
-  Enabled: false
-
-Lint/DeprecatedClassMethods:
-  Enabled: true
-
-Style/ParenthesesAroundCondition:
-  Enabled: true
-
-Style/HashTransformKeys:
-  Enabled: true
-
-Style/HashTransformValues:
-  Enabled: true
-
-Style/RedundantBegin:
-  Enabled: true
-
-Style/RedundantReturn:
-  Enabled: true
-  AllowMultipleReturnValues: true
-
-Style/Semicolon:
-  Enabled: true
-  AllowAsExpressionSeparator: true
-
-# Prefer Foo.method over Foo::method
-Style/ColonMethodCall:
-  Enabled: true
-
-Style/TrivialAccessors:
-  Enabled: true
 
 Performance/FlatMap:
   Enabled: true
@@ -279,40 +56,58 @@ Performance/DeletePrefix:
 Performance/DeleteSuffix:
   Enabled: true
 
-Layout/ArgumentAlignment:
-  EnforcedStyle: with_fixed_indentation
+# FIXME: temporary!
+Style/MethodCallWithArgsParentheses:
+  Enabled: false
+Layout/LineLength:
+  Enabled: false
 
-Layout/FirstArrayElementIndentation:
-  EnforcedStyle: consistent
+# - My modification -
 
-Layout/FirstHashElementIndentation:
-  EnforcedStyle: consistent
+Style/WordArray:
+  Enabled: false
 
-Style/TrailingCommaInArrayLiteral:
-  EnforcedStyleForMultiline: consistent_comma
+Style/CommandLiteral:
+  Enabled: false
 
-Style/TrailingCommaInHashLiteral:
-  EnforcedStyleForMultiline: consistent_comma
-
-Layout/MultilineMethodCallIndentation:
-  EnforcedStyle: indented
-  IndentationWidth: 2
-
-Layout/MultilineOperationIndentation:
-  EnforcedStyle: indented
-
-Layout/ParameterAlignment:
-  EnforcedStyle: with_fixed_indentation
-
-Style/QuotedSymbols:
+Style/HashTransformKeys:
   Enabled: true
+
+Style/HashTransformValues:
+  Enabled: true
+
+Style/RedundantReturn:
+  Enabled: true
+  AllowMultipleReturnValues: true
+
+Style/Semicolon:
+  Enabled: true
+  AllowAsExpressionSeparator: true
 
 Style/Send:
   Enabled: true
 
-Layout/HashAlignment:
+Layout/ClosingHeredocIndentation:
   Enabled: true
+
+Layout/EndAlignment:
+  Enabled: true
+  EnforcedStyleAlignWith: variable
+  AutoCorrect: true
+
+Layout/SpaceInsideBlockBraces:
+  Enabled: false
+  EnforcedStyleForEmptyBraces: space
 
 Layout/ArrayAlignment:
   Enabled: true
   EnforcedStyle: with_fixed_indentation
+
+Lint/ErbNewArguments:
+  Enabled: true
+
+Lint/ShadowingOuterLocalVariable:
+  Enabled: true
+
+Lint/UriEscapeUnescape:
+  Enabled: true

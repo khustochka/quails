@@ -30,12 +30,12 @@ module Deflicker
       doc = Nokogiri::HTML(event)
       imgs = doc.search("img").map { |el| el.attr(:src) }.uniq
       ids1 = imgs.grep(/flickr\.com/) do |url|
-        m = url.match(/flickr\.com\/(?:\d+\/)?\d+\/(\d+)_/)
+        m = url.match(%r{flickr\.com/(?:\d+/)?\d+/(\d+)_})
         m[1]
       end
       links = doc.search("a").map { |el| el.attr(:href) }.uniq
       ids2 = links.grep(/flickr\.com/) do |url|
-        m = url.match(/flickr\.com\/(?:\d+\/)?\d+\/(\d+)_/) || url.match(/flickr\.com\/photos\/[^\/]*\/(\d+)\/?/)
+        m = url.match(%r{flickr\.com/(?:\d+/)?\d+/(\d+)_}) || url.match(%r{flickr\.com/photos/[^/]*/(\d+)/?})
         m.try(:[], 1)
       end
       ids = (ids1 + ids2.compact).uniq

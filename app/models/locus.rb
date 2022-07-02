@@ -122,7 +122,7 @@ class Locus < ApplicationRecord
   end
 
   def generate_slug
-    slug.presence or self.slug = name_en.downcase.gsub(?', "").gsub(" - ", ?_).gsub("--", ?_).gsub(/[^\d\w_]+/, ?_)
+    slug.presence || (self.slug = name_en.downcase.gsub(?', "").gsub(" - ", ?_).gsub("--", ?_).gsub(/[^\d\w_]+/, ?_))
   end
 
   def generate_lat_lon
@@ -139,8 +139,8 @@ class Locus < ApplicationRecord
     if name_en.present?
       generate_slug
       generate_lat_lon
-      name_ru.presence or self.name_ru = name_en
-      name_uk.presence or self.name_uk = name_en
+      name_ru.presence || (self.name_ru = name_en)
+      name_uk.presence || (self.name_uk = name_en)
     end
   end
 

@@ -61,7 +61,7 @@ module ApplicationHelper
   def open_uri_or_path(uri)
     obj =
       begin
-        if /\Ahttps?:\/\//.match?(uri)
+        if %r{\Ahttps?://}.match?(uri)
           URI.parse(uri).open
         else
           File.open(uri)

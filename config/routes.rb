@@ -170,7 +170,7 @@ Rails.application.routes.draw do
     get "/lifelist" => "lifelist#basic", as: :lifelist
 
     get "/lifelist(/:locus)(/:year)(/:sort)" => "lifelist#basic", as: :list,
-      locus: /(?!by_)\D[^\/]+/, # negative look-ahead: not starting with 'by_'
+      locus: %r{(?!by_)\D[^/]+}, # negative look-ahead: not starting with 'by_'
       year: /\d{4}/,
       sort: /by_taxonomy/
   end
