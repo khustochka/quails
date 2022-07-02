@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-if !([nil, "false", ""]).include?(ENV["COVERAGE"])
+if ActiveModel::Type::Boolean.cast(ENV["COVERAGE"])
   require "simplecov"
   SimpleCov.start "rails" do
     if ENV["TEAMCITY_VERSION"]

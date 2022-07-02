@@ -45,7 +45,7 @@ module Deflicker
         if flicker
           flickers << flicker
         else
-          puts "Not found: flicker #{fid}, entry #{url}"
+          Rails.logger.warn { "Not found: flicker #{fid}, entry #{url}" }
         end
       end
       save

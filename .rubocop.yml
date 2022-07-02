@@ -175,6 +175,8 @@ Rails/Delegate:
 # Need to revisit carefully
 Rails/TimeZone:
   Enabled: false
+Rails/Date:
+  Enabled: false
 
 # Grammar!
 Rails/RequestReferer:

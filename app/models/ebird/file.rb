@@ -28,7 +28,7 @@ module Ebird
 
     # Is there any card updated after file generation
     def outdated?
-      cards.where("updated_at > ?", created_at).exists?
+      cards.exists?(["updated_at > ?", created_at])
     end
 
     def transitions
