@@ -78,7 +78,7 @@ class Taxon < ApplicationRecord
 
         # Unlink old taxa
         if new_species
-          new_species.taxa.where.not(id: id).each { |tx| tx.update(species_id: nil) }
+          new_species.taxa.where.not(id: id).find_each { |tx| tx.update(species_id: nil) }
         end
 
         if new_species.nil?

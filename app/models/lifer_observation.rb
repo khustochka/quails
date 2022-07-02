@@ -6,7 +6,6 @@ class LiferObservation < Observation
   end
 
   class << self
-
     def life_observ_relation
       select("DISTINCT ON (species_id) *").
         joins(:card, :taxon).
@@ -14,6 +13,7 @@ class LiferObservation < Observation
     end
 
     private
+
     def life_dates_sql
       Observation.
         identified.

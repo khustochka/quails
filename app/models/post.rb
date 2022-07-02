@@ -136,7 +136,7 @@ class Post < ApplicationRecord
   end
 
   def title_or_date
-    title.presence || I18n.localize(face_date, format: :long)
+    title.presence || I18n.l(face_date, format: :long)
   end
 
   def day

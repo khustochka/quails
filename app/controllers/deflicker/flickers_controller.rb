@@ -38,7 +38,7 @@ module Deflicker
                   end
                   flicker.update(removed: true) if Rails.env.production?
                   flash[:notice] =
-                    "Removed! #{helpers.link_to "Flickr", flicker.url, target: :_blank}
+                    "Removed! #{helpers.link_to "Flickr", flicker.url, target: :_blank, rel: :noopener}
                     #{helpers.link_to "Image", flicker.image, target: :_blank, rel: :noopener}"
                 else
                   flash[:alert] = result.errors.full_messages.join(" ")

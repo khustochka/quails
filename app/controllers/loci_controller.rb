@@ -76,7 +76,7 @@ class LociController < ApplicationController
 
   def public
     @locs_public = Locus.locs_for_lifelist
-    @locs_other = Locus.sort_by_ancestry(Locus.where("public_index IS NULL"))
+    @locs_other = Locus.sort_by_ancestry(Locus.where(public_index: nil))
   end
 
   def save_order

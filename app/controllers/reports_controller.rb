@@ -45,7 +45,7 @@ class ReportsController < ApplicationController
           end
         )
       end.sort { |a, b| b[sort_col] <=> a[sort_col] }
-      spcs = Species.where(id: @list.map { |i| i[:sp_id] }).index_by(&:id)
+      spcs = Species.where(id: @list.pluck(:sp_id)).index_by(&:id)
       @list.each do |item|
         item[:sp] = spcs[item[:sp_id]]
       end
@@ -217,7 +217,7 @@ class ReportsController < ApplicationController
     lifelist_filtered = lifelist_filtered.where("EXTRACT(year from observ_date)::integer = ?", params[:year]) if params[:year]
     if params[:locus]
       loc_filter = Locus.find_by!(slug: params[:locus]).subregion_ids
-      lifelist_filtered = lifelist_filtered.where("locus_id IN (?)", loc_filter)
+      lifelist_filtered = lifelist_filtered.where(locus_id: loc_filter)
     end
 
     @year_data = obs_with_taxon.select('EXTRACT(year FROM observ_date)::integer as year,
@@ -270,7 +270,7 @@ class ReportsController < ApplicationController
     @locs_for_day_by_new_species =
       lifelist_filtered.except(:select).
         select("DISTINCT locus_id, observ_date, card_id").
-        where("observ_date IN (?)", dates).
+        where(subquery: { observ_date: dates }).
         preload(card: { locus: :cached_parent }).group_by(&:observ_date)
 
     @ebird_eligible_this_year = Card.ebird_eligible.in_year(params[:year] || Quails::CURRENT_YEAR).size

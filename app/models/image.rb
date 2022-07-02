@@ -156,7 +156,7 @@ class Image < Media
             INNER JOIN "species" ON "species"."id" = "taxa"."species_id"
           SQL
         ).
-        where("species.id = ?", sp.id)
+        where(species: { id: sp.id })
     # Join ranked tables by neighbouring images
     # Select neighbours of the sought one, exclude duplication
     q = "with ranked as (#{window.to_sql})

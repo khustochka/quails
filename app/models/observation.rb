@@ -43,10 +43,10 @@ class Observation < ApplicationRecord
 
   def self.refine(options = {})
     rel = all
-    rel = rel.joins(:card).where("EXTRACT(year from cards.observ_date)::integer = ?", options[:year]) unless options[:year].blank?
-    rel = rel.joins(:card).where("EXTRACT(month from cards.observ_date)::integer = ?", options[:month]) unless options[:month].blank?
+    rel = rel.joins(:card).where("EXTRACT(year from cards.observ_date)::integer = ?", options[:year]) if options[:year].present?
+    rel = rel.joins(:card).where("EXTRACT(month from cards.observ_date)::integer = ?", options[:month]) if options[:month].present?
     rel = rel.joins(:card).where("EXTRACT(day from cards.observ_date)::integer = ?", options[:day]) unless options[:day].blank? || options[:month].blank?
-    rel = rel.joins(:card).where("cards.locus_id IN (?) OR observations.patch_id IN (?)", options[:locus], options[:locus]) unless options[:locus].blank?
+    rel = rel.joins(:card).where("cards.locus_id IN (?) OR observations.patch_id IN (?)", options[:locus], options[:locus]) if options[:locus].present?
     rel = rel.joins(:card).where(cards: { motorless: true }) if options[:motorless]
     rel = rel.joins(:card).where(voice: false) if options[:seen]
     rel
@@ -72,7 +72,7 @@ class Observation < ApplicationRecord
 
   def significant_value_for_lifelist
     # If it were observation count it's significant value is the count otherwise it is observation itself
-    if read_attribute(:obs_count)
+    if self[:obs_count]
       obs_count
     else
       self

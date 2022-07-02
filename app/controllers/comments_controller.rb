@@ -37,7 +37,7 @@ class CommentsController < ApplicationController
   # GET /comments/1/reply
   def reply
     @parent_comment = @comment
-    @post = current_user.available_posts.find_by!(id: @parent_comment.post_id)
+    @post = current_user.available_posts.find(@parent_comment.post_id)
     @comment = @parent_comment.subcomments.new(post: @post)
     current_user.prepopulate_comment(@comment)
   end
@@ -55,7 +55,7 @@ class CommentsController < ApplicationController
 
     else
 
-      @post = current_user.available_posts.find_by!(id: params[:comment].delete(:post_id))
+      @post = current_user.available_posts.find(params[:comment].delete(:post_id))
       comment_attrs = params.require(:comment).permit(*Comment::ALLOWED_PARAMETERS)
       comment_attrs[:name] = params[CommentsHelper::REAL_NAME_FIELD]
 
@@ -159,7 +159,7 @@ class CommentsController < ApplicationController
 
   def unsubscribe_request
     @token = params[:token]
-    raise ActiveRecord::RecordNotFound unless @token.present?
+    raise ActiveRecord::RecordNotFound if @token.blank?
 
     @comment = Comment.where(unsubscribe_token: @token).first
     if @comment
@@ -171,7 +171,7 @@ class CommentsController < ApplicationController
 
   def unsubscribe_submit
     @token = params[:token]
-    raise ActiveRecord::RecordNotFound unless @token.present?
+    raise ActiveRecord::RecordNotFound if @token.blank?
 
     @comment = Comment.where(unsubscribe_token: @token).first
     if @comment

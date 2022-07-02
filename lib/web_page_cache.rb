@@ -4,7 +4,7 @@ class WebPageCache < ActiveSupport::Cache::FileStore
   # Simply caching web pages in FileStore
   def fetch(name, url, options = {})
     # Essentially unused.
-    # rubocop:disable Security/Open
+    # rubocop:disable Security/Open, Rails/Output
     verbose = options.delete(:verbose)
     puts "... Probing the cache" if verbose
     super(name, options) do

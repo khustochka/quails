@@ -175,3 +175,11 @@ Rails/Delegate:
 # Need to revisit carefully
 Rails/TimeZone:
   Enabled: false
+
+# Grammar!
+Rails/RequestReferer:
+  Enabled: false
+
+# Need to revisit carefully
+Rails/OutputSafety:
+  Enabled: false
