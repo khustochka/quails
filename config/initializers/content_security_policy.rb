@@ -8,23 +8,23 @@
 
 Rails.application.configure do
   config.content_security_policy do |policy|
-#     policy.default_src :self, :https
-#     policy.font_src    :self, :https, :data
-#     policy.img_src     :self, :https, :data
-#     policy.object_src  :none
-#     policy.script_src  :self, :https
-#     policy.style_src   :self, :https
+    #     policy.default_src :self, :https
+    #     policy.font_src    :self, :https, :data
+    #     policy.img_src     :self, :https, :data
+    #     policy.object_src  :none
+    #     policy.script_src  :self, :https
+    #     policy.style_src   :self, :https
     # If you are using webpack-dev-server then specify webpack-dev-server host
     policy.connect_src :self, :https, "http://localhost:3035", "ws://localhost:3035" if Rails.env.development?
-#     # Specify URI for violation reports
-#     # policy.report_uri "/csp-violation-report-endpoint"
+    #     # Specify URI for violation reports
+    #     # policy.report_uri "/csp-violation-report-endpoint"
   end
 
   # Generate session nonces for permitted importmap and inline scripts
   config.content_security_policy_nonce_generator = ->(request) { request.session.id.to_s }
   config.content_security_policy_nonce_directives = %w(script-src)
 
-#   # Report CSP violations to a specified URI. See:
-#   # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy-Report-Only
-#   # config.content_security_policy_report_only = true
+  #   # Report CSP violations to a specified URI. See:
+  #   # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy-Report-Only
+  #   # config.content_security_policy_report_only = true
 end

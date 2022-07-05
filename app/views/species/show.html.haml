@@ -6,8 +6,6 @@
 - @page_title = "#{@species.name} (#{@species.name_sci})"
 - @meta_description = t(".meta_description", name: @species.name, name_sci: @species.name_sci)
 
-- @js_features = [:videoResize]
-
 - if current_user.admin?
   - javascript 'species_image'
   - content_for :add_shortcuts do
@@ -44,7 +42,7 @@
   %div{class: @species.image ? "one_third" : nil}
     %dl.sp_translations
       - species_name_locales.map do |lang|
-        - if (trans_name = @species.send("name_#{lang}")).present?
+        - if (trans_name = @species.public_send("name_#{lang}")).present?
           %div
             %dt= t("languages.#{lang}")
             %dd{lang: lang}= trans_name
@@ -108,9 +106,7 @@
   %a{name: 'videos'}
   %div.videos
     %h3= t('.sections.videos')
-    = render videos.map(&:small)
-
-
+    = render videos.map(&:small), video_resizable: true
 
 - if @species.observations.size > 0
   %a{name: 'observations'}

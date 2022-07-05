@@ -22,7 +22,7 @@ module FormatStrategy
     end
 
     def img_tag(term)
-      if image = Image.find_by(slug: term)
+      if (image = Image.find_by(slug: term))
         img_url = image_url(image)
         %Q(<figure class="imageholder">
         "!#{jpg_url(image)}([photo])!":#{img_url}

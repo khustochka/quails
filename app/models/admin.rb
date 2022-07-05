@@ -20,7 +20,7 @@ class Admin
   def searchable_species
     obs = Observation.identified.select("species_id, COUNT(observations.id) as weight").group(:species_id)
     Species.
-        joins("LEFT OUTER JOIN (#{obs.to_sql}) obs on species.id = obs.species_id")
+      joins("LEFT OUTER JOIN (#{obs.to_sql}) obs on species.id = obs.species_id")
   end
 
   def prepopulate_comment(comment)
@@ -32,6 +32,7 @@ class Admin
   end
 
   private
+
   def commenter
     @commenter ||= Commenter.where(is_admin: true).first
   end

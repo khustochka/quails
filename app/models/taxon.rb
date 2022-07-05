@@ -27,12 +27,12 @@ class Taxon < ApplicationRecord
   has_many :observations, dependent: :restrict_with_exception
   has_many :images, through: :observations
 
-  scope :category_species, -> {where(category: "species")}
+  scope :category_species, -> { where(category: "species") }
   scope :listable, -> { where.not(species_id: nil) }
 
   def self.weighted_by_abundance
     obs = Observation.select("taxon_id, COUNT(observations.id) as weight").group(:taxon_id)
-    self.joins("LEFT OUTER JOIN (#{obs.to_sql}) obs on id = obs.taxon_id")
+    joins("LEFT OUTER JOIN (#{obs.to_sql}) obs on id = obs.taxon_id")
   end
 
   # Parameters
@@ -49,7 +49,7 @@ class Taxon < ApplicationRecord
     species_id.present?
   end
 
-  def is_a_species?
+  def full_species?
     category == "species"
   end
 
@@ -70,26 +70,26 @@ class Taxon < ApplicationRecord
       ActiveRecord::Base.transaction do
         # This will fall if scientific name has also changed!!!!!!!
         if new_species.nil?
-          new_species = Species.find_by_name_sci(name_sci)
+          new_species = Species.find_by(name_sci: name_sci)
         end
         if new_species.nil?
-          new_species = children.map(&:species).compact.first
+          new_species = children.filter_map(&:species).first
         end
 
         # Unlink old taxa
         if new_species
-          new_species.taxa.where.not(id: self.id).each {|tx| tx.update(species_id: nil)}
+          new_species.taxa.where.not(id: id).find_each { |tx| tx.update(species_id: nil) }
         end
 
         if new_species.nil?
           prev_sp_index_num =
-              Species.
-                  joins("INNER JOIN taxa on species.id = taxa.species_id").
-                  where(taxa: {category: "species"}).
-                  where("taxa.index_num < ?", index_num).order("species.index_num DESC").
-                  limit(1).pluck("species.index_num").first
+            Species.
+              joins("INNER JOIN taxa on species.id = taxa.species_id").
+              where(taxa: { category: "species" }).
+              where("taxa.index_num < ?", index_num).order("species.index_num DESC").
+              limit(1).pluck("species.index_num").first
           new_sp_index_num = prev_sp_index_num ? prev_sp_index_num + 1 : 1
-          new_species = self.create_species!(
+          new_species = create_species!(
             index_num: new_sp_index_num,
             name_sci: name_sci,
             name_en: name_en,
@@ -107,12 +107,12 @@ class Taxon < ApplicationRecord
   end
 
   def detach_species
-    self.children.each {|tx| tx.update!(species_id: nil)}
-    self.update!(species_id: nil)
+    children.each { |tx| tx.update!(species_id: nil) }
+    update!(species_id: nil)
   end
 
   def attach_species(sp)
-    children.each {|tx| tx.update!(species_id: sp.id)}
+    children.each { |tx| tx.update!(species_id: sp.id) }
     update!(species_id: sp.id)
   end
 end

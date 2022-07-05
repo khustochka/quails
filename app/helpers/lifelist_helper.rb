@@ -9,8 +9,6 @@ module LifelistHelper
       "lifelist/advanced/by_class"
     when "count"
       "lifelist/advanced/by_count"
-    else
-      nil
     end
   end
 

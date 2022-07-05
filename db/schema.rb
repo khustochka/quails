@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_20_142414) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_04_002737) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -62,6 +62,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_20_142414) do
     t.boolean "resolved", default: false, null: false
     t.string "ebird_id"
     t.boolean "motorless", default: false, null: false
+    t.index ["ebird_id"], name: "index_cards_on_ebird_id", unique: true, where: "(ebird_id IS NOT NULL)"
     t.index ["locus_id"], name: "index_cards_on_locus_id"
     t.index ["observ_date"], name: "index_cards_on_observ_date"
     t.index ["post_id"], name: "index_cards_on_post_id"
@@ -232,6 +233,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_20_142414) do
   create_table "settings", id: false, force: :cascade do |t|
     t.string "key", limit: 255, null: false
     t.string "value", limit: 255, null: false
+    t.index ["key"], name: "index_settings_on_key", unique: true
   end
 
   create_table "species", id: :serial, force: :cascade do |t|
@@ -250,8 +252,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_20_142414) do
     t.boolean "needs_review", default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["code"], name: "index_species_on_code", unique: true
     t.index ["index_num"], name: "index_species_on_index_num"
-    t.index ["name_sci"], name: "index_species_on_name_sci"
+    t.index ["legacy_code"], name: "index_species_on_legacy_code", unique: true
+    t.index ["name_sci"], name: "index_species_on_name_sci", unique: true
   end
 
   create_table "species_images", id: :serial, force: :cascade do |t|
@@ -301,7 +305,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_20_142414) do
     t.string "name_sci", collation: "C"
     t.integer "species_id"
     t.string "reason"
-    t.index ["name_sci"], name: "index_url_synonyms_on_name_sci"
+    t.index ["name_sci"], name: "index_url_synonyms_on_name_sci", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

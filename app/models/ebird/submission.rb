@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-class Ebird::Submission < ApplicationRecord
-  belongs_to :ebird_file, class_name: "Ebird::File", foreign_key: "ebird_file_id", inverse_of: :ebird_submissions
-  belongs_to :card
+module Ebird
+  class Submission < ApplicationRecord
+    belongs_to :ebird_file, class_name: "Ebird::File", inverse_of: :ebird_submissions
+    belongs_to :card
+  end
 end

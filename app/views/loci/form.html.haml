@@ -47,7 +47,7 @@
     = form.input :ebird_location_id, label: 'eBird Location', collection: EbirdLocation.all,
           input_html: {class: 'suggest-combo'}
 
-  %div#googleMap
+  %div#googleMap{data: {map_enabled: map_enabled}}
 
   .buttons
     = default_submit_button(form)

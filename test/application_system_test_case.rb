@@ -31,7 +31,7 @@ end
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   driven_by $js_driver, using: $js_browser
 
-  TEST_CREDENTIALS = {username: ENV["admin_username"], password: ENV["admin_password"]}
+  TEST_CREDENTIALS = { username: ENV["admin_username"], password: ENV["admin_password"] }
 
   def login_as_admin
     visit "/login"

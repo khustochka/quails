@@ -20,6 +20,7 @@ module GoogleAnalyticsHelper
   end
 
   private
+
   def ga_code
     @@ga_code ||= ENV["quails_ga_code"]
   end

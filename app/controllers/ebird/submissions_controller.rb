@@ -22,18 +22,18 @@ module Ebird
     end
 
     def new
-      search_params = params[:q] || {observ_date: Card.first_unebirded_date, end_date: Card.last_unebirded_date}
+      search_params = params[:q] || { observ_date: Card.first_unebirded_date, end_date: Card.last_unebirded_date }
       @observation_search = Ebird::ObsSearch.new(search_params)
 
       @cards = @observation_search.cards.default_cards_order(:asc).preload(:locus, :post)
 
       name = if @cards.present?
-               [
-                   @cards.first.locus.country.slug,
-                   @observation_search.observ_date.try(:strftime, "%Y%m%d"),
-                   @observation_search.end_date.try(:strftime, "%Y%m%d")
-               ].compact.uniq.join("-")
-             end
+        [
+          @cards.first.locus.country.slug,
+          @observation_search.observ_date.try(:strftime, "%Y%m%d"),
+          @observation_search.end_date.try(:strftime, "%Y%m%d"),
+        ].compact.uniq.join("-")
+      end
 
       @file = Ebird::File.new(cards: @cards, name: name)
     end
@@ -44,13 +44,13 @@ module Ebird
 
     def regenerate
       @file = Ebird::File.find(params[:id])
-      create_ebird_file({name: @file.name.sub(/(\-test)?\-\d+$/, "")}, @file.card_ids)
+      create_ebird_file({ name: @file.name.sub(/(\-test)?\-\d+$/, "") }, @file.card_ids)
     end
 
     def update
       @file = Ebird::File.find(params[:id])
       @file.update(params[:file])
-      render json: {status_line: render_to_string(partial: "status_line", formats: [:html], locals: {file: @file})}
+      render json: { status_line: render_to_string(partial: "status_line", formats: [:html], locals: { file: @file }) }
     end
 
     def destroy
@@ -59,6 +59,7 @@ module Ebird
     end
 
     private
+
     def test_prefix
       if Quails.env.live?
         ""
@@ -79,7 +80,7 @@ module Ebird
         result = Exporter.ebird(@file.name, cards_rel).export
       else
         # FIXME: this is hack. For some reason errors on cards are not preserved after validation.
-        @file.cards.each {|c| c.valid?(:ebird_post)}
+        @file.cards.each { |c| c.valid?(:ebird_post) }
         result = false
       end
 

@@ -16,16 +16,16 @@ class Post < ApplicationRecord
 
   serialize :lj_data, LJData
 
-  validates :slug, uniqueness: true, presence: true, length: {maximum: 64}, format: /\A[\w\-]+\Z/
+  validates :slug, uniqueness: true, presence: true, length: { maximum: 64 }, format: /\A[\w\-]+\Z/
   validates :title, presence: true, unless: :shout?
   validates :body, presence: true
-  validates :topic, inclusion: TOPICS, presence: true, length: {maximum: 4}
-  validates :status, inclusion: STATES, presence: true, length: {maximum: 4}
+  validates :topic, inclusion: TOPICS, presence: true, length: { maximum: 4 }
+  validates :status, inclusion: STATES, presence: true, length: { maximum: 4 }
 
   validate :check_cover_image_slug_or_url
 
   has_many :comments, dependent: :destroy
-  has_many :cards, -> {order("observ_date ASC, locus_id")}, dependent: :nullify
+  has_many :cards, -> { order("observ_date ASC, locus_id") }, dependent: :nullify
   has_many :observations, dependent: :nullify # only those attached directly
   #  has_many :species, -> { order(:index_num).distinct }, through: :observations
   #  has_many :images, -> {
@@ -51,7 +51,7 @@ class Post < ApplicationRecord
 
   # Convert "timezone-less" face_date to local time zone because AR treats it as UTC (especially necessary for feed updated time)
   def face_date
-    Time.zone.parse(self.read_attribute(:face_date).strftime("%F %T"))
+    Time.zone.parse(read_attribute(:face_date).strftime("%F %T"))
   end
 
   # Parameters
@@ -104,13 +104,13 @@ class Post < ApplicationRecord
 
   def species
     Species.distinct.joins(:cards, :observations).where("cards.post_id = ? OR observations.post_id = ?", id, id).
-        order(:index_num)
+      order(:index_num)
   end
 
   def images
     Image.joins(:observations, :cards).includes(:cards, :taxa).where("cards.post_id = ? OR observations.post_id = ?", id, id).
-        merge(Card.default_cards_order("ASC")).
-        order("media.index_num, taxa.index_num").preload(:species)
+      merge(Card.default_cards_order("ASC")).
+      order("media.index_num, taxa.index_num").preload(:species)
   end
 
   # Instance methods
@@ -132,11 +132,11 @@ class Post < ApplicationRecord
   end
 
   def to_month_url
-    {month: month, year: year}
+    { month: month, year: year }
   end
 
   def title_or_date
-    title.presence || I18n.localize(face_date, format: :long)
+    title.presence || I18n.l(face_date, format: :long)
   end
 
   def day
@@ -144,18 +144,19 @@ class Post < ApplicationRecord
   end
 
   def to_url_params
-    {id: slug, year: year, month: month}
+    { id: slug, year: year, month: month }
   end
 
   def lj_url
     @lj_url ||= lj_data.url
   end
 
+  # TODO: look at cache versioning
   def cache_key
     updated = self[:updated_at].utc
-    commented = self[:commented_at].utc rescue nil
+    commented = self[:commented_at]&.utc
 
-    date = [updated, commented].compact.max.to_s(cache_timestamp_format)
+    date = [updated, commented].compact.max.to_fs(cache_timestamp_format)
 
     "#{self.class.model_name.cache_key}-#{id}-#{date}"
   end
@@ -170,24 +171,25 @@ class Post < ApplicationRecord
           where taxa.species_id = tt.species_id
           and cards.observ_date > c.observ_date"
     @lifer_species_ids ||= MyObservation.
-        joins(:card).
-        where("observations.post_id = ? or cards.post_id = ?", self.id, self.id).
-        where("NOT EXISTS(#{subquery})").
-        distinct.
-        pluck(:species_id)
+      joins(:card).
+      where("observations.post_id = ? or cards.post_id = ?", id, id).
+      where("NOT EXISTS(#{subquery})").
+      distinct.
+      pluck(:species_id)
   end
 
   private
+
   def set_face_date
-    if read_attribute(:face_date).blank?
+    if self[:face_date].blank?
       self.face_date = Time.current.strftime("%F %T")
     end
   end
 
   def check_cover_image_slug_or_url
     if cover_image_slug.present?
-      if !(cover_image_slug.to_s.match?(/\Ahttps?:\/\//))
-        if Image.find_by_slug(cover_image_slug).nil?
+      if !cover_image_slug.to_s.match?(%r{\Ahttps?://})
+        if Image.find_by(slug: cover_image_slug).nil?
           errors.add(:cover_image_slug, "should be image slug or external URL.")
         end
       end

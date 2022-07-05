@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 module CardsHelper
-  # FAST_LOCI = %w(geologorozvidka kiev brovary les_i_pole)
+  # FAST_LOCI = %w(geologorozvidka kyiv brovary les_i_pole)
   FAST_LOCI = %w(harbourview_south winnipeg_regent terracon_pl dugald_rd winnipeg)
 
-  def attach_detach_link(item) # Card or observation
+  # item: Card or observation
+  def attach_detach_link(item)
     if @post.id == item.post_id
       text = "Detach from this post"
       post_id = nil
@@ -16,13 +17,13 @@ module CardsHelper
     url = url_for(controller: item.class.to_s.tableize, action: :update, id: item.id, format: :json)
 
     link_to text, url, class: "card_post_op pseudolink", remote: true,
-            method: :put, data: {confirm: "Are you sure?", params: "#{item.class.to_s.downcase}[post_id]=#{post_id}"}
+      method: :put, data: { confirm: "Are you sure?", params: "#{item.class.to_s.downcase}[post_id]=#{post_id}" }
   end
 
   def suggested_dates
     prelim = {
-        Date.today => ["Today"],
-        Date.yesterday => ["Yesterday"]
+      Date.today => ["Today"],
+      Date.yesterday => ["Yesterday"],
     }
     last_date = Card.maximum(:observ_date)
     if last_date

@@ -21,13 +21,13 @@ Rails.application.configure do
 
   # Enable/disable caching. By default caching is disabled.
   # Run rails dev:cache to toggle caching.
-  if Rails.root.join("tmp/caching-dev.txt").exist? || ENV['DEV_CACHING']
+  if Rails.root.join("tmp/caching-dev.txt").exist? || ENV["DEV_CACHING"]
     config.action_controller.perform_caching = true
     config.action_controller.enable_fragment_cache_logging = true
 
     config.cache_store = :redis_cache_store, { url: ENV["REDIS_CACHE_URL"] }
     config.public_file_server.headers = {
-      "Cache-Control" => "public, max-age=#{2.days.to_i}"
+      "Cache-Control" => "public, max-age=#{2.days.to_i}",
     }
   else
     config.action_controller.perform_caching = false
@@ -35,13 +35,19 @@ Rails.application.configure do
     config.cache_store = :null_store
   end
 
-  if ENV['DEV_RESQUE']
-    config.active_job.queue_adapter     = :resque
+  if ENV["DEV_RESQUE"]
+    config.active_job.queue_adapter = :resque
     config.active_job.queue_name_prefix = "quails_#{Rails.env}"
   end
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
-  config.active_storage.service = ENV["DEV_S3"].present? ? :"amazon_dev" : (ENV["PROD_S3"].present? ? :amazon : :local)
+  config.active_storage.service = if ENV["DEV_S3"].present?
+    :amazon_dev
+  elsif ENV["PROD_S3"].present?
+    :amazon
+  else
+    :local
+  end
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false

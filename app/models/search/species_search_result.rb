@@ -20,13 +20,14 @@ module Search
 
     def url
       # FIXME: Do not rely on I18n. There must be some decorator
-      locale_prefix = (I18n.locale == I18n.default_locale) ? "" : "/#{I18n.locale}"
+      locale_prefix = I18n.locale == I18n.default_locale ? "" : "/#{I18n.locale}"
       "#{locale_prefix}/species/#{Species.parameterize(name_sci)}"
     end
 
     private
+
     def json_default_options
-      {methods: [:name, :label]}
+      { methods: [:name, :label] }
     end
   end
 end

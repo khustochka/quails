@@ -1,3 +1,4 @@
 - cache :top_banner do
-  - if File.exist?("public/system/banner.html")
-    = render html: File.read(Rails.root.join("public/system/banner.html")).html_safe
+  -# TODO: ideally this should be tested to never fail
+  - ENV["BANNER_LOCATION"].if_present do |location|
+    = open_uri_or_path(location) { |f| f.read }.html_safe

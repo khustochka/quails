@@ -15,12 +15,12 @@ module LocalizedAttributes
     end
   end
 
-  FALLBACK = {en: [], uk: %w(en ru), ru: %w(uk en)}
+  FALLBACK = { en: [], uk: %w(en ru), ru: %w(uk en) }
 
   def get_localized_attribute(attr_name)
     fb = FALLBACK[I18n.locale.to_sym].dup.unshift(I18n.locale)
-
-    nm = read_attribute("#{attr_name}_#{fb.shift}") while nm.blank? && fb.any?
+    nm = nil
+    nm = self["#{attr_name}_#{fb.shift}"] while nm.blank? && fb.any?
     nm
   end
 end

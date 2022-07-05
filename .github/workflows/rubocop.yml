@@ -1,5 +1,5 @@
 name: Rubocop
-on: [push]
+on: [ push ]
 
 jobs:
   rubocop:
@@ -14,7 +14,7 @@ jobs:
           bundler: 'none'
       - name: Install rubocop
         run: |
-          gem install rubocop-rails rubocop-performance rubocop-packaging
+          gem install rubocop-rails rubocop-performance rubocop-packaging rubocop-shopify
       - name: 'Run Rubocop'
         run: |
           rubocop --format github

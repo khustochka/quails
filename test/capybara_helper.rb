@@ -31,7 +31,7 @@ module CapybaraTestCase
   include Capybara::DSL
   include Capybara::Minitest::Assertions
 
-  TEST_CREDENTIALS = {username: ENV["admin_username"], password: ENV["admin_password"]}
+  TEST_CREDENTIALS = { username: ENV["admin_username"], password: ENV["admin_password"] }
 
   def self.included(klass)
     klass.setup do

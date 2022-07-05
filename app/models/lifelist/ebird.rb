@@ -25,21 +25,22 @@ module Lifelist
     end
 
     private
+
     def default_order(asc_desc)
       Arel.sql("observ_date #{asc_desc}, to_timestamp(start_time, 'HH24:MI') #{asc_desc} NULLS LAST, observations.created_at #{asc_desc}")
     end
 
     def ebird_species_ids
       ebird_taxa.
-          select("COALESCE(ebird_taxa.parent_id, ebird_taxa.id)").
-          where("ebird_taxa.category = 'species' OR ebird_taxa.parent_id IS NOT NULL").
-          distinct
+        select("COALESCE(ebird_taxa.parent_id, ebird_taxa.id)").
+        where("ebird_taxa.category = 'species' OR ebird_taxa.parent_id IS NOT NULL").
+        distinct
     end
 
     def ebird_taxa
       EbirdTaxon.
-          joins(:taxon).
-          merge(taxa)
+        joins(:taxon).
+        merge(taxa)
     end
 
     def taxa
@@ -48,18 +49,18 @@ module Lifelist
 
     def build_relation
       Observation.
-          where(id: observation_ids).
-          joins(:taxon, :card).
-          preload(:patch, {taxon: [:species, {ebird_taxon: :parent}]}, {card: :locus})
+        where(id: observation_ids).
+        joins(:taxon, :card).
+        preload(:patch, { taxon: [:species, { ebird_taxon: :parent }] }, { card: :locus })
     end
 
     def observation_ids
       idx = Observation.
-          joins(:card).
-          order(default_order("ASC")).
-          preload(taxon: {ebird_taxon: :parent}).
-          to_a.
-          fast_index_by {|obs| obs.taxon.ebird_taxon&.nearest_species}
+        joins(:card).
+        order(default_order("ASC")).
+        preload(taxon: { ebird_taxon: :parent }).
+        to_a.
+        fast_index_by { |obs| obs.taxon.ebird_taxon&.nearest_species }
       idx.delete(nil)
       idx.values
     end

@@ -5,6 +5,8 @@ module FormatStrategy
     include Rails.application.routes.url_helpers
 
     WIKI_PREFIXES = -"@|#|\\^|&"
+    WIKI_TAGS_REGEX = /\{\{(#{WIKI_PREFIXES}|)(?:([^\}]*?)\|)?([^\}]*?)(\|en)?\}\}/
+    SPECIES_CODES_REGEX = /\{\{(?!#{WIKI_PREFIXES})(?:([^\}]*?)\|)?(.+?)(\|en)?\}\}/
 
     def initialize(text, metadata = {})
       @metadata = metadata
@@ -14,7 +16,8 @@ module FormatStrategy
     def apply
       prepare
 
-      result = @text.gsub(/\{\{(#{WIKI_PREFIXES}|)(?:([^\}]*?)\|)?([^\}]*?)(\|en)?\}\}/) do |_|
+      result = @text.gsub(WIKI_TAGS_REGEX) do |_|
+        # rubocop:disable Style/ParallelAssignment, Style/PerlBackrefs
         tag, word, term, en = $1, $2.try(:html_safe), $3, $4
         case tag
         when "@" then
@@ -45,12 +48,13 @@ module FormatStrategy
     end
 
     private
+
     def prepare
       @posts = Hash.new do |hash, term|
         hash[term] = Post.find_by(slug: term.downcase)
       end
 
-      sp_codes = @text.scan(/\{\{(?!#{WIKI_PREFIXES})(?:([^\}]*?)\|)?(.+?)(\|en)?\}\}/).map do |word, term|
+      sp_codes = @text.scan(SPECIES_CODES_REGEX).map do |word, term|
         if term && term != "en"
           term
         else

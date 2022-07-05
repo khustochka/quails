@@ -15,9 +15,9 @@ class CommentsController < ApplicationController
   # GET /comments.json
   def index
     @comments =
-        params[:sort] == "by_post" ?
-            Comment.preload(:post) :
-            Comment.preload(:post).reorder(created_at: :desc).page(params[:page]).per(20)
+      params[:sort] == "by_post" ?
+        Comment.preload(:post) :
+        Comment.preload(:post).reorder(created_at: :desc).page(params[:page]).per(20)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -37,7 +37,7 @@ class CommentsController < ApplicationController
   # GET /comments/1/reply
   def reply
     @parent_comment = @comment
-    @post = current_user.available_posts.find_by!(id: @parent_comment.post_id)
+    @post = current_user.available_posts.find(@parent_comment.post_id)
     @comment = @parent_comment.subcomments.new(post: @post)
     current_user.prepopulate_comment(@comment)
   end
@@ -51,11 +51,11 @@ class CommentsController < ApplicationController
   def create
     if params[:comment].delete(:name).present?
 
-      render plain: "Error", status: 422
+      render plain: "Error", status: :unprocessable_entity
 
     else
 
-      @post = current_user.available_posts.find_by!(id: params[:comment].delete(:post_id))
+      @post = current_user.available_posts.find(params[:comment].delete(:post_id))
       comment_attrs = params.require(:comment).permit(*Comment::ALLOWED_PARAMETERS)
       comment_attrs[:name] = params[CommentsHelper::REAL_NAME_FIELD]
 
@@ -100,18 +100,18 @@ class CommentsController < ApplicationController
             end
           rescue => e
             # Do not fail if error happened when sending email.
-            Airbrake.notify(e)
+            report_error(e)
           end
           format.html {
             if request.xhr?
               object_to_render = @comment
               unless @comment.approved
-                object_to_render = CommentScreened.new({id: @comment.id, path: public_comment_path(@comment)})
+                object_to_render = CommentScreened.new({ id: @comment.id, path: public_comment_path(@comment) })
               end
               render object_to_render, layout: false
             else
               session[:screened] = {
-                  parent_id: @comment.parent_id, id: @comment.id, path: public_comment_path(@comment)
+                parent_id: @comment.parent_id, id: @comment.id, path: public_comment_path(@comment),
               } unless @comment.approved
 
               redirect_to public_comment_path(@comment)
@@ -159,33 +159,36 @@ class CommentsController < ApplicationController
 
   def unsubscribe_request
     @token = params[:token]
-    raise ActiveRecord::RecordNotFound unless @token.present?
+    raise ActiveRecord::RecordNotFound if @token.blank?
+
     @comment = Comment.where(unsubscribe_token: @token).first
     if @comment
       render "comments/unsubscribe_request"
     else
-      render "comments/unsubscribe_not_found", status: 404
+      render "comments/unsubscribe_not_found", status: :not_found
     end
   end
 
   def unsubscribe_submit
     @token = params[:token]
-    raise ActiveRecord::RecordNotFound unless @token.present?
+    raise ActiveRecord::RecordNotFound if @token.blank?
+
     @comment = Comment.where(unsubscribe_token: @token).first
     if @comment
       @comment.update_attribute(:send_email, false)
       render "comments/unsubscribe_done"
     else
-      render "comments/unsubscribe_not_found", status: 404
+      render "comments/unsubscribe_not_found", status: :not_found
     end
   end
 
   private
+
   def mailer_link_options
-    {host: request.host, port: request.port, protocol: request.protocol}
+    { host: request.host, port: request.port, protocol: request.protocol }
   end
 
-  RESTRICTED_DOMAINS = %w( localhost localhost.localdomain brevipes.clientvm.vps.ua )
+  RESTRICTED_DOMAINS = %w(localhost localhost.localdomain)
 
   def allowed_email?(email)
     !Mail::Address.new(email).domain.in?(RESTRICTED_DOMAINS)

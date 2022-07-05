@@ -81,8 +81,8 @@ class VideoObservValidationTest < ActiveSupport::TestCase
     video = Video.new
     new_attr[:observation_ids] = [obs1.id, obs2.id]
     assert_difference("Video.count", 0) do
-  video.update(new_attr)
-end
+      video.update(new_attr)
+    end
     assert_predicate video.errors, :present?
   end
 

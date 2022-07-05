@@ -1,7 +1,5 @@
 //= require map_init
 
-
-
 $(function () {
 
     var marks,
@@ -22,54 +20,54 @@ $(function () {
 
     }
 
-
     adjustSizes();
 
     $(window).resize(adjustSizes);
 
-    theMap.gmap3();
+    if (window.mapEnabled) {
+        theMap.gmap3();
 
-    $.get('/map/loci', function (rdata, textStatus, jqXHR) {
-        marks = [];
-        var latLng;
+        $.get('/map/loci', function (rdata, textStatus, jqXHR) {
+            marks = [];
+            var latLng;
 
-        for (latLng in rdata) {
-            marks.push({latLng: rdata[latLng], data: rdata[latLng]});
-        }
-
-        theMap.gmap3({
-                marker: {
-                    values: marks,
-                    // cluster: {
-                    //     force: true,
-                    //     radius: 40,
-                    //     // This style will be used for clusters with more than 0 markers
-                    //     0: {
-                    //         content: template.replace('SIZE', 'small'),
-                    //         width: 25,
-                    //         height: 25
-                    //     },
-                    //     10: {
-                    //         content: template.replace('SIZE', 'medium'),
-                    //         width: 30,
-                    //         height: 30
-                    //     },
-                    //     100: {
-                    //         content: template.replace('SIZE', 'large'),
-                    //         width: 35,
-                    //         height: 35
-                    //     },
-                    //     calculator: function (vals) {
-                    //         var i, sum = 0;
-                    //         for (i in vals) {
-                    //             sum = sum + vals[i].data.length;
-                    //         }
-                    //         return sum;
-                    //     }
-                    // }
-                }
+            for (latLng in rdata) {
+                marks.push({latLng: rdata[latLng], data: rdata[latLng]});
             }
-        );
-    });
 
+            theMap.gmap3({
+                  marker: {
+                      values: marks,
+                      // cluster: {
+                      //     force: true,
+                      //     radius: 40,
+                      //     // This style will be used for clusters with more than 0 markers
+                      //     0: {
+                      //         content: template.replace('SIZE', 'small'),
+                      //         width: 25,
+                      //         height: 25
+                      //     },
+                      //     10: {
+                      //         content: template.replace('SIZE', 'medium'),
+                      //         width: 30,
+                      //         height: 30
+                      //     },
+                      //     100: {
+                      //         content: template.replace('SIZE', 'large'),
+                      //         width: 35,
+                      //         height: 35
+                      //     },
+                      //     calculator: function (vals) {
+                      //         var i, sum = 0;
+                      //         for (i in vals) {
+                      //             sum = sum + vals[i].data.length;
+                      //         }
+                      //         return sum;
+                      //     }
+                      // }
+                  }
+              }
+            );
+        });
+    }
 });

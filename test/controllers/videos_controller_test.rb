@@ -18,7 +18,7 @@ class VideosControllerTest < ActionController::TestCase
 
   test "crazy page number should return 404" do
     assert_raise ActiveRecord::RecordNotFound do
-      get :index, params: {page: 7262}
+      get :index, params: { page: 7262 }
     end
   end
 
@@ -54,7 +54,7 @@ class VideosControllerTest < ActionController::TestCase
     login_as_admin
     new_attr = attributes_for(:video, slug: "new_video_slug").except(:observations)
     assert_difference("Video.count") do
-      post :create, params: {video: new_attr, obs: [@obs.id]}
+      post :create, params: { video: new_attr, obs: [@obs.id] }
     end
 
     assert_redirected_to edit_map_video_path(assigns(:video))
@@ -66,7 +66,7 @@ class VideosControllerTest < ActionController::TestCase
     obs3 = create(:observation, taxon: taxa(:hirrus), card: @obs.card)
     new_attr = attributes_for(:video, slug: "new_video_slug").except(:observations)
     assert_difference("Video.count") do
-      post :create, params: {video: new_attr, obs: [@obs.id, obs2.id, obs3.id]}
+      post :create, params: { video: new_attr, obs: [@obs.id, obs2.id, obs3.id] }
       video = assigns(:video)
       assert_empty video.errors
     end
@@ -77,7 +77,7 @@ class VideosControllerTest < ActionController::TestCase
     login_as_admin
     new_attr = attributes_for(:video, slug: "")
     assert_difference("Video.count", 0) do
-      post :create, params: {video: new_attr, obs: [@obs.id]}
+      post :create, params: { video: new_attr, obs: [@obs.id] }
     end
 
     assert_template :form
@@ -87,7 +87,7 @@ class VideosControllerTest < ActionController::TestCase
     login_as_admin
     new_attr = attributes_for(:video, slug: "new_video_slug")
     assert_difference("Video.count", 0) do
-      post :create, params: {video: new_attr, obs: []}
+      post :create, params: { video: new_attr, obs: [] }
     end
 
     assert_template :form
@@ -95,36 +95,36 @@ class VideosControllerTest < ActionController::TestCase
 
   test "do not save video with conflicting observations" do
     login_as_admin
-    obs2 = create(:observation, card: create(:card, locus: loci(:kiev)))
+    obs2 = create(:observation, card: create(:card, locus: loci(:kyiv)))
     obs3 = create(:observation, card: create(:card, locus: loci(:brovary)))
     new_attr = attributes_for(:video, slug: "new_video_slug")
     assert_difference("Video.count", 0) do
-      post :create, params: {video: new_attr, obs: [obs2.id, obs3.id]}
+      post :create, params: { video: new_attr, obs: [obs2.id, obs3.id] }
     end
 
     assert_template :form
   end
 
   test "show video" do
-    get :show, params: {id: @video.to_param}
+    get :show, params: { id: @video.to_param }
     assert_response :success
   end
 
   test "show: invalid video slug should return 404" do
     assert_raise ActiveRecord::RecordNotFound do
-      get :show, params: {id: "zzzzz"}
+      get :show, params: { id: "zzzzz" }
     end
   end
 
   test "get edit" do
     login_as_admin
-    get :edit, params: {id: @video.to_param}
+    get :edit, params: { id: @video.to_param }
     assert_response :success
   end
 
   test "get map_edit" do
     login_as_admin
-    get :map_edit, params: {id: @video.to_param}
+    get :map_edit, params: { id: @video.to_param }
     assert_response :success
   end
 
@@ -132,7 +132,7 @@ class VideosControllerTest < ActionController::TestCase
     login_as_admin
     new_attr = @video.attributes
     new_attr["slug"] = "new_slug"
-    put :update, params: {id: @video.to_param, video: new_attr, obs: @video.observation_ids}
+    put :update, params: { id: @video.to_param, video: new_attr, obs: @video.observation_ids }
     assert_redirected_to edit_map_video_path(assigns(:video))
   end
 
@@ -143,7 +143,7 @@ class VideosControllerTest < ActionController::TestCase
     @video.save!
     new_attr = @video.attributes
     obs = create(:observation)
-    put :update, params: {id: @video.to_param, video: new_attr, obs: [obs.id]}
+    put :update, params: { id: @video.to_param, video: new_attr, obs: [obs.id] }
     @video.reload
     assert_not @video.spot_id, "Spot id should be nil"
   end
@@ -154,7 +154,7 @@ class VideosControllerTest < ActionController::TestCase
     @video.spot_id = spot.id
     @video.save!
     new_attr = @video.attributes
-    put :update, params: {id: @video.to_param, video: new_attr, obs: @video.observation_ids}
+    put :update, params: { id: @video.to_param, video: new_attr, obs: @video.observation_ids }
     @video.reload
     assert @video.spot_id, "Spot id is nil"
   end
@@ -166,7 +166,7 @@ class VideosControllerTest < ActionController::TestCase
     @video.save!
     new_attr = @video.attributes
     obs = create(:observation, card: @obs.card)
-    put :update, params: {id: @video.to_param, video: new_attr, obs: @video.observation_ids.push(obs.id)}
+    put :update, params: { id: @video.to_param, video: new_attr, obs: @video.observation_ids.push(obs.id) }
     assert assigns(:video).errors.blank?
     @video.reload
     assert @video.spot_id, "Spot id is nil"
@@ -180,7 +180,7 @@ class VideosControllerTest < ActionController::TestCase
     new_attr = @video.attributes
     obs1 = create(:observation)
     obs2 = create(:observation)
-    put :update, params: {id: @video.to_param, video: new_attr, obs: [obs1.id, obs2.id]}
+    put :update, params: { id: @video.to_param, video: new_attr, obs: [obs1.id, obs2.id] }
     assert assigns(:video).errors.present?
     @video.reload
     assert @video.spot_id, "Spot id is nil"
@@ -192,7 +192,7 @@ class VideosControllerTest < ActionController::TestCase
     video = create(:video, observation_ids: [obs.id], spot: spot)
     spot2 = create(:spot, observation: obs)
     login_as_admin
-    post :patch, params: {id: video.to_param, video: {spot_id: spot2.id}}, format: :json
+    post :patch, params: { id: video.to_param, video: { spot_id: spot2.id } }, format: :json
     video.reload
     assert_equal spot2.id, video.spot_id
     assert_response :no_content
@@ -201,7 +201,7 @@ class VideosControllerTest < ActionController::TestCase
   test "destroy video" do
     login_as_admin
     assert_difference("Video.count", -1) do
-      delete :destroy, params: {id: @video.to_param}
+      delete :destroy, params: { id: @video.to_param }
     end
 
     assert_redirected_to videos_path

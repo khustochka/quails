@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -57,21 +56,20 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
 
-
   # PUBLIC PAGES
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   scope "(:locale)", locale: /ru/ do
-    root to: 'blog#home', as: 'blog'
+    root to: "blog#home", as: "blog"
   end
 
   constraints country: /ukraine|usa|united_kingdom|canada|manitoba/ do
-    get '/:country/checklist/edit' => 'checklist#edit'
-    post '/:country/checklist/edit' => 'checklist#save'
-    scope '(:locale)', locale: /en|ru/ do
-      get '/:country' => 'countries#gallery', as: "country"
-      get '/:country/checklist' => 'checklist#show', as: "checklist"
+    get "/:country/checklist/edit" => "checklist#edit"
+    post "/:country/checklist/edit" => "checklist#save"
+    scope "(:locale)", locale: /en|ru/ do
+      get "/:country" => "countries#gallery", as: "country"
+      get "/:country/checklist" => "checklist#show", as: "checklist"
     end
   end
 
@@ -79,7 +77,7 @@ Rails.application.routes.draw do
     # index, show - declared localize
     # new, create, destroy - not present
     collection do
-      get 'admin', action: :index
+      get "admin", action: :index
       get "admin/search", action: :admin_search
 
       get :review
@@ -90,59 +88,59 @@ Rails.application.routes.draw do
     end
   end
 
-  scope '(:locale)', locale: /en|ru/ do
+  scope "(:locale)", locale: /en|ru/ do
     resources :species, only: [:show], as: :localized_species do
-      get 'search', on: :collection
+      get "search", on: :collection
     end
-    get 'species' => 'species#gallery', as: 'gallery'
+    get "species" => "species#gallery", as: "gallery"
   end
 
-  resources :photos, controller: 'images', as: 'images', except: [:index, :show] do
+  resources :photos, controller: "images", as: "images", except: [:index, :show] do
     member do
-      get 'edit/map', action: :map_edit
-      post 'patch'
+      get "edit/map", action: :map_edit
+      post "patch"
     end
     collection do
-      post 'upload'
+      post "upload"
     end
   end
 
   resources :videos, except: [:index, :show] do
     member do
-      get 'edit/map', action: :map_edit
-      post 'patch'
+      get "edit/map", action: :map_edit
+      post "patch"
     end
   end
 
   # This toute should be before the proper 'photos' route
-  scope ':locale', locale: /en/ do
-    get '(/page/:page)' => 'images#index', page: /[^0]\d*/, as: :alternative_root
-    get 'photos' => redirect("/%{locale}")
+  scope ":locale", locale: /en/ do
+    get "(/page/:page)" => "images#index", page: /[^0]\d*/, as: :alternative_root
+    get "photos" => redirect("/%{locale}")
   end
 
-  scope '(:locale)', locale: /ru/ do
-    get '/photos(/page/:page)' => 'images#index', page: /[^0]\d*/,
-        constraints: {format: 'html'}
+  scope "(:locale)", locale: /ru/ do
+    get "/photos(/page/:page)" => "images#index", page: /[^0]\d*/,
+      constraints: { format: "html" }
   end
 
-  scope '(:locale)', locale: /en|ru/ do
-    get '/photos/multiple_species' => 'images#multiple_species'
-    get 'photos/:id' => 'images#show', as: 'localized_image'
-    get '/videos(/page/:page)' => 'videos#index', page: /[^0]\d*/,
-        constraints: {format: 'html'}
-    get 'videos/:id' => 'videos#show', as: 'localized_video'
-    post 'media/strip' => 'media#strip'
+  scope "(:locale)", locale: /en|ru/ do
+    get "/photos/multiple_species" => "images#multiple_species"
+    get "photos/:id" => "images#show", as: "localized_image"
+    get "/videos(/page/:page)" => "videos#index", page: /[^0]\d*/,
+      constraints: { format: "html" }
+    get "videos/:id" => "videos#show", as: "localized_video"
+    post "media/strip" => "media#strip"
   end
 
-  scope '(:locale)', locale: /ru/ do
+  scope "(:locale)", locale: /ru/ do
     constraints year: /20\d\d/ do
-      get '/:year' => 'blog#year', as: 'year'
+      get "/:year" => "blog#year", as: "year"
       constraints month: /(0[1-9])|(1[0-2])/ do
-        get '/:year/:month' => 'blog#month', as: 'month'
-        get '/:year/:month/:id' => 'posts#show', as: 'show_post'
+        get "/:year/:month" => "blog#month", as: "month"
+        get "/:year/:month/:id" => "posts#show", as: "show_post"
       end
     end
-    get '/archive' => 'blog#archive'
+    get "/archive" => "blog#archive"
   end
 
   direct :public_post do |blogpost, options|
@@ -168,31 +166,30 @@ Rails.application.routes.draw do
     end
   end
 
-  scope '(:locale)', locale: /en|ru/ do
+  scope "(:locale)", locale: /en|ru/ do
+    get "/lifelist/overview" => "lifelist#index", as: :lists_overview
 
-    get '/lifelist/overview' => 'lifelist#index', as: :lists_overview
+    get "/lifelist/advanced" => "lifelist#advanced", as: :advanced_list
 
-    get '/lifelist/advanced' => 'lifelist#advanced', as: :advanced_list
+    get "/lifelist/stats" => "lifelist#stats"
 
-    get '/lifelist/stats' => 'lifelist#stats'
+    get "/lifelist/ebird" => "lifelist#ebird"
 
-    get '/lifelist/ebird' => 'lifelist#ebird'
+    get "/lifelist" => "lifelist#basic", as: :lifelist
 
-    get '/lifelist' => 'lifelist#basic', as: :lifelist
-
-    get '/lifelist(/:locus)(/:year)(/:sort)' => 'lifelist#basic', as: :list,
-        locus: /(?!by_)\D[^\/]+/, # negative look-ahead: not starting with 'by_'
-        year: /\d{4}/,
-        sort: /by_taxonomy/
+    get "/lifelist(/:locus)(/:year)(/:sort)" => "lifelist#basic", as: :list,
+      locus: %r{(?!by_)\D[^/]+}, # negative look-ahead: not starting with 'by_'
+      year: /\d{4}/,
+      sort: /by_taxonomy/
   end
 
   # Feeds and sitemap
-  get '/blog.:format' => 'feeds#blog', constraints: {format: 'xml'}
-  get '/instant_articles(.:dev).:format' => 'feeds#instant_articles', constraints: {format: 'xml', dev: "dev"}
-  scope '(:locale)', locale: /en|ru/ do
-    get '/photos.:format' => 'feeds#photos', constraints: {format: 'xml'}
+  get "/blog.:format" => "feeds#blog", constraints: { format: "xml" }
+  get "/instant_articles(.:dev).:format" => "feeds#instant_articles", constraints: { format: "xml", dev: "dev" }
+  scope "(:locale)", locale: /en|ru/ do
+    get "/photos.:format" => "feeds#photos", constraints: { format: "xml" }
   end
-  get '/sitemap.:format' => 'feeds#sitemap', constraints: {format: 'xml'}
+  get "/sitemap.:format" => "feeds#sitemap", constraints: { format: "xml" }
 
   # ADMINISTRATIVE PAGES
 
@@ -205,7 +202,6 @@ Rails.application.routes.draw do
       get :for_lj
       post :lj_post
     end
-
   end
 
   resources :cards do
@@ -221,19 +217,19 @@ Rails.application.routes.draw do
 
   resources :observations, except: [:index, :new, :create, :edit] do
     collection do
-      get 'search', action: :search, as: 'search'
-      get 'extract'
-      get 'move'
+      get "search", action: :search, as: "search"
+      get "extract"
+      get "move"
     end
   end
 
   resources :blobs, only: [:create, :show]
 
-  scope '/flickr' do
-    get 'unflickred' => 'flickr_photos#unflickred', as: 'unflickred_photos'
-    get 'unused' => 'flickr_photos#unused', as: 'flickr_unused'
-    get 'bou_cc' => 'flickr_photos#bou_cc', as: 'flickr_bou_cc'
-    resources :photos, controller: 'flickr_photos', as: 'flickr_photos' do
+  scope "/flickr" do
+    get "unflickred" => "flickr_photos#unflickred", as: "unflickred_photos"
+    get "unused" => "flickr_photos#unused", as: "flickr_unused"
+    get "bou_cc" => "flickr_photos#bou_cc", as: "flickr_bou_cc"
+    resources :photos, controller: "flickr_photos", as: "flickr_photos" do
       post :search, on: :collection
       post :push_to_storage, on: :member
     end
@@ -250,19 +246,19 @@ Rails.application.routes.draw do
     get :reply, on: :member
     collection do
       get :unsubscribe, to: "comments#unsubscribe_request", as: :unsubscribe_request
-          post :unsubscribe, to: "comments#unsubscribe_submit", as: :unsubscribe_submit
+      post :unsubscribe, to: "comments#unsubscribe_submit", as: :unsubscribe_submit
     end
   end
 
-  scope '(:locale)', locale: /en|ru/ do
+  scope "(:locale)", locale: /en|ru/ do
     resource :map, only: [:show]
   end
 
   resource :map, only: [:edit] do
-    get 'media' => 'maps#media'
-    get 'observations', on: :collection
-    get 'global'
-    get 'loci'
+    get "media" => "maps#media"
+    get "observations", on: :collection
+    get "global"
+    get "loci"
   end
 
   resources :spots, only: :destroy do
@@ -279,17 +275,17 @@ Rails.application.routes.draw do
     end
   end
 
-  get '/settings' => 'settings#index'
-  post '/settings/save' => 'settings#save'
+  get "/settings" => "settings#index"
+  post "/settings/save" => "settings#save"
 
   scope "/media" do
     get "unmapped" => "media#unmapped"
   end
 
-  get '/reports', controller: :reports, action: :index, as: :reports
+  get "/reports", controller: :reports, action: :index, as: :reports
 
   reports_actions = %w(environ insights more_than_year topicture this_day uptoday compare by_countries
-                        stats voices charts month_targets server_error)
+    stats voices charts month_targets server_error)
   reports_actions.each do |name|
     get "/reports/#{name}", controller: :reports, action: name
   end
@@ -299,16 +295,16 @@ Rails.application.routes.draw do
 
   post "/clear_cache" => "reports#clear_cache"
 
-  get '/login' => 'login#new'
-  post '/login' => 'login#login'
+  get "/login" => "login#new"
+  post "/login" => "login#login"
 
-  get '/logout' => 'login#logout'
+  get "/logout" => "login#logout"
 
-  get '/flickr' => 'flickr#index'
-  get '/flickr/auth' => 'flickr#auth'
+  get "/flickr" => "flickr#index"
+  get "/flickr/auth" => "flickr#auth"
 
   namespace :ebird do
-    get '/' => "portal#index"
+    get "/" => "portal#index"
     resources :submissions, except: [:edit] do
       post :regenerate, on: :member
     end
@@ -321,7 +317,7 @@ Rails.application.routes.draw do
 
   # Resque web front
 
-  require 'resque/server'
+  require "resque/server"
 
   resque_web_constraint = lambda do |request|
     request.session[:admin] == true
@@ -345,23 +341,22 @@ Rails.application.routes.draw do
   # High Voltage routes are specified manually to bypass HighVoltage Constraints for unrelated paths
   # (e.g. ActiveStorage)
 
-  scope '(:locale)', locale: /en|ru/ do
-    get "about" => 'high_voltage/pages#show',
-        as: :about,
-        format: false,
-        id: "about"
+  scope "(:locale)", locale: /en|ru/ do
+    get "about" => "high_voltage/pages#show",
+      as: :about,
+      format: false,
+      id: "about"
   end
-  scope '(:locale)', locale: /ru/ do
-    get "links" => 'high_voltage/pages#show',
-        as: :links,
-        format: false,
-        id: "links"
+  scope "(:locale)", locale: /ru/ do
+    get "links" => "high_voltage/pages#show",
+      as: :links,
+      format: false,
+      id: "links"
   end
-  scope 'ru', locale: "ru" do
-    get "winter" => 'high_voltage/pages#show',
-        as: :winter,
-        format: false,
-        id: "winter"
+  scope "ru", locale: "ru" do
+    get "winter" => "high_voltage/pages#show",
+      as: :winter,
+      format: false,
+      id: "winter"
   end
-
 end

@@ -6,19 +6,19 @@ module Lifelist
   class FirstSeenTest < ActiveSupport::TestCase
     setup do
       @obs = [
-          create(:observation, taxon: taxa(:hirrus), card: create(:card, observ_date: "2008-05-22")),
-          create(:observation, taxon: taxa(:jyntor), card: create(:card, observ_date: "2008-10-18")),
-          create(:observation, taxon: taxa(:hirrus), card: create(:card, observ_date: "2008-11-01")),
-          create(:observation, taxon: taxa(:saxola), card: create(:card, observ_date: "2009-01-01")),
-          create(:observation, taxon: taxa(:pasdom), card: create(:card, observ_date: "2009-01-01")),
-          create(:observation, taxon: taxa(:hirrus), card: create(:card, observ_date: "2009-10-18")),
-          create(:observation, taxon: taxa(:saxola), card: create(:card, observ_date: "2009-11-01")),
-          create(:observation, taxon: taxa(:pasdom), card: create(:card, observ_date: "2009-12-01", locus: loci(:nyc))),
-          create(:observation, taxon: taxa(:saxola), card: create(:card, observ_date: "2009-12-31")),
-          create(:observation, taxon: taxa(:hirrus), card: create(:card, observ_date: "2010-03-10", locus: loci(:nyc))),
-          create(:observation, taxon: taxa(:pasdom), card: create(:card, observ_date: "2010-04-16", locus: loci(:nyc))),
-          create(:observation, taxon: taxa(:hirrus), card: create(:card, observ_date: "2010-07-27", locus: loci(:nyc))),
-          create(:observation, taxon: taxa(:pasdom), card: create(:card, observ_date: "2010-09-10")),
+        create(:observation, taxon: taxa(:hirrus), card: create(:card, observ_date: "2008-05-22")),
+        create(:observation, taxon: taxa(:jyntor), card: create(:card, observ_date: "2008-10-18")),
+        create(:observation, taxon: taxa(:hirrus), card: create(:card, observ_date: "2008-11-01")),
+        create(:observation, taxon: taxa(:saxola), card: create(:card, observ_date: "2009-01-01")),
+        create(:observation, taxon: taxa(:pasdom), card: create(:card, observ_date: "2009-01-01")),
+        create(:observation, taxon: taxa(:hirrus), card: create(:card, observ_date: "2009-10-18")),
+        create(:observation, taxon: taxa(:saxola), card: create(:card, observ_date: "2009-11-01")),
+        create(:observation, taxon: taxa(:pasdom), card: create(:card, observ_date: "2009-12-01", locus: loci(:nyc))),
+        create(:observation, taxon: taxa(:saxola), card: create(:card, observ_date: "2009-12-31")),
+        create(:observation, taxon: taxa(:hirrus), card: create(:card, observ_date: "2010-03-10", locus: loci(:nyc))),
+        create(:observation, taxon: taxa(:pasdom), card: create(:card, observ_date: "2010-04-16", locus: loci(:nyc))),
+        create(:observation, taxon: taxa(:hirrus), card: create(:card, observ_date: "2010-07-27", locus: loci(:nyc))),
+        create(:observation, taxon: taxa(:pasdom), card: create(:card, observ_date: "2010-09-10")),
         # create(:observation, taxon: taxa(:carlis), card: create(:card, observ_date: "2010-10-13"))
       ]
     end

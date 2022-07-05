@@ -45,7 +45,7 @@ module Quails
     def method_missing(method, *args, &block)
       if /^(?<attr>.*)\?$/ =~ method.to_s
         if @raw
-          instance_variable_get("@#{attr}".to_sym) || instance_variable_set("@#{attr}".to_sym, @arr.send(method))
+          instance_variable_get("@#{attr}".to_sym) || instance_variable_set("@#{attr}".to_sym, @arr.public_send(method))
         else
           false
         end

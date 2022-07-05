@@ -10,10 +10,12 @@ namespace :ioc do
     idx = 0
     ioc_file = ENV["IOC_NAMES_CSV"]
     raise "Set env var IOC_NAMES_CSV to the file path." unless ioc_file
+
     IocTaxon.acts_as_list_no_update do
       CSV.foreach(ioc_file) do |row|
         rank = row[1]
         next unless rank.in?(%w(Species ssp))
+
         idx += 1
         current_species = nil if rank == -"Species"
         taxon = IocTaxon.create!(

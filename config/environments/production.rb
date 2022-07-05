@@ -42,7 +42,7 @@ Rails.application.configure do
   # end
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
-  config.active_storage.service = Quails.env.live? || ENV["PROD_S3"] ? :amazon : :amazon_dev
+  config.active_storage.service = (Quails.env.live? || ENV["PROD_S3"] ? :amazon : :amazon_dev)
 
   # Mount Action Cable outside main process or domain.
   # config.action_cable.mount_path = nil
@@ -54,7 +54,7 @@ Rails.application.configure do
 
   # If we want the browsers to forget HSTS setting
   if Quails.env.no_hsts?
-    config.ssl_options = {hsts: false}
+    config.ssl_options = { hsts: false }
   end
 
   # Include generic and useful information about system operation, but avoid logging too much
@@ -69,7 +69,7 @@ Rails.application.configure do
 
   # Use a real queuing backend for Active Job (and separate queues per environment).
   config.active_job.queue_adapter     = :resque
-  config.active_job.queue_name_prefix = "quails_#{Quails.env.live?.presence && "REAL_"}#{Rails.env}"
+  config.active_job.queue_name_prefix = "quails_#{Quails.env.live? ? "LIVE" : Rails.env}"
 
   config.action_mailer.perform_caching = false
 
@@ -82,7 +82,9 @@ Rails.application.configure do
   config.i18n.fallbacks = false
 
   # Send deprecation notices to registered listeners.
-  config.active_support.deprecation = :notify
+  # config.active_support.deprecation = :notify
+
+  config.active_support.deprecation = :log
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
@@ -92,7 +94,7 @@ Rails.application.configure do
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new "app-name")
 
   if ENV["RAILS_LOG_TO_STDOUT"].present?
-    logger           = ActiveSupport::Logger.new(STDOUT)
+    logger           = ActiveSupport::Logger.new($stdout)
     logger.formatter = config.log_formatter
     config.logger    = ActiveSupport::TaggedLogging.new(logger)
   end
@@ -101,15 +103,15 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # Route error pages through custom middleware
-  require 'quails/public_exceptions'
+  require "quails/public_exceptions"
   config.exceptions_app = Quails::PublicExceptions.new(Rails.public_path)
 
   if Quails.env.live?
     config.hosts << "birdwatch.org.ua"
-    config.host_authorization = { response_app: -> (_) { [403, {}, ["Incorrect host name"]] } }
+    config.host_authorization = { response_app: ->(_) { [403, {}, ["Incorrect host name"]] } }
   end
 
   # Alternative location for page caching
   # App user should be able to write to this location, but we do not want it to write to 'public'
-  config.action_controller.page_cache_directory = Rails.root.join("tmp", "cached_pages")
+  config.action_controller.page_cache_directory = Rails.root.join("tmp/cached_pages")
 end

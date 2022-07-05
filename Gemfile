@@ -55,11 +55,13 @@ gem "rinku"
 gem "kaminari"
 gem "simple_form"
 gem "high_voltage"
+gem "health_check"
 
 # External services
 gem "flickraw", "~> 0.9.7"
 gem "livejournal2"
 gem "aws-sdk-s3", require: false
+gem "aws-sdk-rails"
 
 # Small utils
 gem "addressable", require: "addressable/uri"
@@ -72,7 +74,7 @@ gem "airbrake"
 gem "image_processing"
 
 # Assets
-gem "shakapacker", "6.4.1"
+gem "shakapacker", "6.5.0"
 gem "sprockets-rails", "~> 3.2", ">= 3.2.2"
 gem "jquery-rails"
 gem "sassc-rails"
@@ -116,6 +118,7 @@ group :development do
   gem "rubocop-rails", require: false
   gem "rubocop-performance", require: false
   gem "rubocop-packaging", require: false
+  gem "rubocop-shopify", require: false
 end
 
 group :development, :test do

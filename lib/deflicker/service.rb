@@ -8,7 +8,7 @@ module Deflicker
       res = []
       photos = []
       page = 1
-      until page > 1 && res.size < 500 do
+      until page > 1 && res.size < 500
         res = load_page(page).to_a
         page += 1
         photos.concat(res)
@@ -20,7 +20,8 @@ module Deflicker
       my_ids = Flicker.where(removed: false).pluck(:flickr_id)
       images = Image.where.not(external_id: nil)
       site_ids = images.pluck(:external_id)
-      raise "Invalid flickr ids in images table: #{(site_ids - my_ids)}!" if (site_ids - my_ids).any? && !Rails.env.development?
+      raise "Invalid flickr ids in images table: #{site_ids - my_ids}!" if (site_ids - my_ids).any? && !Rails.env.development?
+
       images.each do |img|
         Flicker.where(flickr_id: img.external_id).first.update(slug: img.slug, on_s3: img.on_storage?)
       end
@@ -30,17 +31,18 @@ module Deflicker
     end
 
     private
+
     def flickr_client
       @flickr_client ||= Flickr::Client.new
     end
 
     def load_page(page)
       flickr_client.photos.search({
-                             user_id: "me",
-                             per_page: 500,
-                             page: page,
-                             extras: "description, license, date_upload, date_taken, owner_name, icon_server, original_format, last_update, geo, tags, machine_tags, o_dims, views, media, path_alias, url_sq, url_t, url_s, url_q, url_m, url_n, url_z, url_c, url_l, url_o"
-                         }).get
+        user_id: "me",
+        per_page: 500,
+        page: page,
+        extras: "description, license, date_upload, date_taken, owner_name, icon_server, original_format, last_update, geo, tags, machine_tags, o_dims, views, media, path_alias, url_sq, url_t, url_s, url_q, url_m, url_n, url_z, url_c, url_l, url_o",
+      }).get
     end
 
     def store(photos)

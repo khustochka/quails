@@ -9,6 +9,7 @@ class ErrorsController < ApplicationController
   end
 
   private
+
   def caching_allowed?
     if @error_status
       request.get? || request.head?

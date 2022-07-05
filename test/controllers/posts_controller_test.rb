@@ -12,7 +12,7 @@ class PostsControllerTest < ActionController::TestCase
   test "create post" do
     assert_difference("Post.count") do
       login_as_admin
-      post :create, params: {post: attributes_for(:post)}
+      post :create, params: { post: attributes_for(:post) }
     end
     assert_redirected_to public_post_path(assigns(:post))
   end
@@ -82,7 +82,7 @@ class PostsControllerTest < ActionController::TestCase
   test "get edit" do
     blogpost = create(:post)
     login_as_admin
-    get :edit, params: {id: blogpost.to_param}
+    get :edit, params: { id: blogpost.to_param }
     assert_response :success
     assert_select "a[href='#{public_post_path(blogpost)}']", true
   end
@@ -91,7 +91,7 @@ class PostsControllerTest < ActionController::TestCase
     blogpost = create(:post)
     blogpost.title = "Changed title"
     login_as_admin
-    put :update, params: {id: blogpost.to_param, post: blogpost.attributes.except("lj_data")}
+    put :update, params: { id: blogpost.to_param, post: blogpost.attributes.except("lj_data") }
     assert_redirected_to public_post_path(assigns(:post))
   end
 
@@ -99,7 +99,7 @@ class PostsControllerTest < ActionController::TestCase
     blogpost = create(:post)
     blogpost.title = ""
     login_as_admin
-    put :update, params: {id: blogpost.to_param, post: blogpost.attributes.except("lj_data")}
+    put :update, params: { id: blogpost.to_param, post: blogpost.attributes.except("lj_data") }
     assert_template :form
   end
 
@@ -108,7 +108,7 @@ class PostsControllerTest < ActionController::TestCase
     post_attr = blogpost.attributes.except("lj_data")
     post_attr["slug"] = ""
     login_as_admin
-    put :update, params: {id: blogpost.slug, post: post_attr}
+    put :update, params: { id: blogpost.slug, post: post_attr }
     assert_template :form
     assert_select "form[action='#{post_path(blogpost)}']"
   end
@@ -117,14 +117,14 @@ class PostsControllerTest < ActionController::TestCase
     blogpost = create(:post)
     assert_difference("Post.count", -1) do
       login_as_admin
-      delete :destroy, params: {id: blogpost.to_param}
+      delete :destroy, params: { id: blogpost.to_param }
     end
     assert_redirected_to blog_url
   end
 
   test "redirect post to correct URL if year and month are incorrect" do
     blogpost = create(:post, face_date: "2007-12-06 13:14:15")
-    get :show, params: {id: blogpost.slug, year: 2010, month: "01"}
+    get :show, params: { id: blogpost.slug, year: 2010, month: "01" }
     assert_redirected_to public_post_path(blogpost)
     assert_response 301
   end
@@ -138,32 +138,32 @@ class PostsControllerTest < ActionController::TestCase
 
   test "protect edit with authentication" do
     blogpost = create(:post)
-    assert_raise(ActionController::RoutingError) { get :edit, params: {id: blogpost.to_param} }
+    assert_raise(ActionController::RoutingError) { get :edit, params: { id: blogpost.to_param } }
     # assert_response 404
   end
 
   test "protect create with authentication" do
     blogpost = create(:post)
-    assert_raise(ActionController::RoutingError) { post :create, params: {post: blogpost.attributes} }
+    assert_raise(ActionController::RoutingError) { post :create, params: { post: blogpost.attributes } }
     # assert_response 404
   end
 
   test "protect update with authentication" do
     blogpost = create(:post)
     blogpost.title = "Changed title"
-    assert_raise(ActionController::RoutingError) { put :update, params: {id: blogpost.to_param, post: blogpost.attributes} }
+    assert_raise(ActionController::RoutingError) { put :update, params: { id: blogpost.to_param, post: blogpost.attributes } }
     # assert_response 404
   end
 
   test "protect destroy with authentication" do
     blogpost = create(:post)
-    assert_raise(ActionController::RoutingError) { delete :destroy, params: {id: blogpost.to_param} }
+    assert_raise(ActionController::RoutingError) { delete :destroy, params: { id: blogpost.to_param } }
     # assert_response 404
   end
 
   test "proper link options" do
     blogpost = create(:post)
-    assert_equal show_post_path(blogpost.to_url_params.merge({anchor: "comments"})), public_post_path(blogpost, anchor: "comments")
+    assert_equal show_post_path(blogpost.to_url_params.merge({ anchor: "comments" })), public_post_path(blogpost, anchor: "comments")
   end
 
   test "show draft posts page to admin" do

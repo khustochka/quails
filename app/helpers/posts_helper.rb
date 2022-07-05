@@ -18,10 +18,10 @@ module PostsHelper
 
   def post_cover_image_url(post)
     if post.cover_image_slug.present?
-      if /\Ahttps?:\/\//.match?(post.cover_image_slug)
+      if %r{\Ahttps?://}.match?(post.cover_image_slug)
         post.cover_image_slug
-      elsif img = Image.find_by_slug(post.cover_image_slug)
-        static_jpg_url(img, {only_path: false})
+      elsif (img = Image.find_by(slug: post.cover_image_slug))
+        static_jpg_url(img, { only_path: false })
       end
     end
   end
@@ -37,5 +37,4 @@ module PostsHelper
       :other_lang_expand
     end
   end
-
 end

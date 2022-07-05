@@ -22,6 +22,7 @@ class ApplicationController < ActionController::Base
   include ActiveStorage::SetCurrent
 
   private
+
   def allow_params(*list)
     @allowed_params = list + [:action, :controller]
   end
@@ -40,6 +41,14 @@ class ApplicationController < ActionController::Base
     expire_page controller: :feeds, action: :photos, format: "xml"
     expire_page controller: :feeds, action: :photos, format: "xml", locale: "en"
   end
+
+  # Report a rescued error
+  def report_error(exception, params = {}, &block)
+    # TODO: log to Rails log
+    notify_airbrake(exception, params, &block)
+  end
+
+  helper_method :report_error
 
   # def default_url_options
   #   {only_path: true}

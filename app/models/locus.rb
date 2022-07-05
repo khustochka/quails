@@ -19,11 +19,11 @@ class Locus < ApplicationRecord
   has_many :observations, through: :cards
   has_many :patch_observations, class_name: "Observation", foreign_key: "patch_id", dependent: :restrict_with_exception
 
-  has_many :local_species
+  has_many :local_species, dependent: :delete_all
 
   belongs_to :ebird_location, optional: true
 
-  validates :slug, format: /\A[a-z_0-9]+\Z/i, uniqueness: true, presence: true, length: {maximum: 32}
+  validates :slug, format: /\A[a-z_0-9]+\Z/i, uniqueness: true, presence: true, length: { maximum: 32 }
   validates :name_en, :name_ru, :name_uk, uniqueness: true
 
   after_initialize :prepopulate, unless: :persisted?
@@ -48,10 +48,10 @@ class Locus < ApplicationRecord
   scope :cached_ancestry_preload, -> { preload(:cached_parent, :cached_city, :cached_subdivision, :cached_country) }
 
   def self.suggestion_order
-    sort_by_ancestry(self.all.cached_ancestry_preload).reverse
+    sort_by_ancestry(all.cached_ancestry_preload).reverse
   end
 
-  scope :locs_for_lifelist, lambda { where("public_index IS NOT NULL").order(:public_index) }
+  scope :locs_for_lifelist, lambda { where.not(public_index: nil).order(:public_index) }
 
   scope :non_private, lambda { where("private_loc = 'f'") }
 
@@ -60,6 +60,7 @@ class Locus < ApplicationRecord
   # Override ancestry method, memoize
   def parent
     return @__parent if @parent_loaded
+
     super.tap do |parent_loc|
       @__parent = parent_loc
       @parent_loaded = true
@@ -68,10 +69,10 @@ class Locus < ApplicationRecord
 
   def checklist(to_include = [])
     local_species.
-        joins(species: to_include).
-        preload(species: to_include).
-        order("species.index_num").
-        extending(SpeciesArray)
+      joins(species: to_include).
+      preload(species: to_include).
+      order("species.index_num").
+      extending(SpeciesArray)
   end
 
   def subregion_ids
@@ -110,24 +111,25 @@ class Locus < ApplicationRecord
   end
 
   private
+
   def set_parent(p)
+    # rubocop:disable Style/ClassCheck
+    # Can be Country
     if p.kind_of?(Locus)
       @__parent = p
       @parent_loaded = true
       @__parent
-    else
-      nil
     end
   end
 
   def generate_slug
-    slug.presence or self.slug = name_en.downcase.gsub(?', "").gsub(" - ", ?_).gsub("--", ?_).gsub(/[^\d\w_]+/, ?_)
+    slug.presence || (self.slug = name_en.downcase.delete("'").gsub(" - ", "_").gsub("--", "_").gsub(/[^\d\w_]+/, "_"))
   end
 
   def generate_lat_lon
     unless lat && lon
       num = /-?\d+(?:\.\d+)?/
-      if m = name_en.match(/(#{num})[,;]\s*(#{num})/)
+      if (m = name_en.match(/(#{num})[,;]\s*(#{num})/))
         self.lat = m[1].to_f
         self.lon = m[2].to_f
       end
@@ -138,18 +140,18 @@ class Locus < ApplicationRecord
     if name_en.present?
       generate_slug
       generate_lat_lon
-      name_ru.presence or self.name_ru = name_en
-      name_uk.presence or self.name_uk = name_en
+      name_ru.presence || (self.name_ru = name_en)
+      name_uk.presence || (self.name_uk = name_en)
     end
   end
 
   # Use when necessary
   def cache_parent_loci
-    anc = self.ancestors.to_a
-    cnt_id = anc.find {|l| l.loc_type == "country" && !l.private_loc}&.id
-    sub_id = anc.find {|l| l.loc_type.in?(%w(state oblast)) && !l.private_loc}&.id
-    city_id = anc.find {|l| l.loc_type == "city" && !l.private_loc}&.id
-    self.cached_parent_id = self.parent_id unless self.parent_id.in?([cnt_id, sub_id, city_id]) || self.parent.private_loc
+    anc = ancestors.to_a
+    cnt_id = anc.find { |l| l.loc_type == "country" && !l.private_loc }&.id
+    sub_id = anc.find { |l| l.loc_type.in?(%w(state oblast)) && !l.private_loc }&.id
+    city_id = anc.find { |l| l.loc_type == "city" && !l.private_loc }&.id
+    self.cached_parent_id = parent_id unless parent_id.in?([cnt_id, sub_id, city_id]) || parent.private_loc
     self.cached_city_id = city_id
     self.cached_subdivision_id = sub_id
     self.cached_country_id = cnt_id

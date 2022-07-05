@@ -2,10 +2,10 @@
 
 module PublicRoutesHelper
   def localized_images_url(*args)
-    unless blogless_locale?
-      images_url(*args)
-    else
+    if blogless_locale?
       alternative_root_url(*args)
+    else
+      images_url(*args)
     end
   end
 end

@@ -25,13 +25,13 @@ class FlickrPhotosControllerTest < ActionController::TestCase
     img1 = create(:image)
 
     login_as_admin
-    get :show, params: {id: img1.slug}
+    get :show, params: { id: img1.slug }
   end
 
   test "#show for flickred image" do
     img1 = create(:image_on_flickr)
 
     login_as_admin
-    get :show, params: {id: img1.slug}
+    get :show, params: { id: img1.slug }
   end
 end

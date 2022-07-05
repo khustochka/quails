@@ -2,75 +2,78 @@
 
 require "seeds/table"
 
+# rubocop:disable Rails/Output
 module Seeds
-  SEED_TABLES = %w(ebird_taxa taxa species species_splits url_synonyms ioc_taxa local_species
-                   loci)
+  SEED_TABLES = %w(ebird_taxa taxa species species_splits url_synonyms ioc_taxa local_species loci)
 
   SEED_DIR = File.join(ENV["HOME"], "bwseed")
   SEED_REPO = -"https://gist.github.com/2697b86d7f7d1ca8e93a74c593237068.git"
 
-  def self.load_all
-    seed_init_if_necessary!
+  class << self
+    def load_all
+      seed_init_if_necessary!
 
-    dirname = SEED_DIR
-    ActiveRecord::Base.connection.disable_referential_integrity do
-      SEED_TABLES.each do |table_name|
-        filename = "#{dirname}/#{table_name}.yml"
+      dirname = SEED_DIR
+      ActiveRecord::Base.connection.disable_referential_integrity do
+        SEED_TABLES.each do |table_name|
+          filename = "#{dirname}/#{table_name}.yml"
 
-        raw = YAML.load(File.new(filename), "r")
+          raw = YAML.load(File.new(filename), "r")
 
-        data = raw[table_name]
+          data = raw[table_name]
 
-        table = Seeds::Table.new(table_name)
-        table.cleanup
+          table = Seeds::Table.new(table_name)
+          table.cleanup
 
-        column_names = data["columns"]
-        records = data["records"]
+          column_names = data["columns"]
+          records = data["records"]
 
-        table.fill(column_names, records)
+          table.fill(column_names, records)
 
-        table.reset_pk_sequence!
+          table.reset_pk_sequence!
+        end
       end
     end
-  end
 
-  def self.dump_all
-    seed_init_if_necessary!
+    def dump_all
+      seed_init_if_necessary!
 
-    dirname = SEED_DIR
+      dirname = SEED_DIR
 
-    SEED_TABLES.each do |table_name|
-      puts "Dumping '#{table_name}'..."
-      io = File.new File.join(dirname, "#{table_name}.yml"), "w"
-      table = Seeds::Table.new(table_name)
-      table.dump(io)
-      io.close
+      SEED_TABLES.each do |table_name|
+        puts "Dumping '#{table_name}'..."
+        io = File.new File.join(dirname, "#{table_name}.yml"), "w"
+        table = Seeds::Table.new(table_name)
+        table.dump(io)
+        io.close
+      end
+
+      commit_or_diff!
     end
 
-    commit_or_diff!
-  end
+    private
 
-  private
-  def self.seed_init_if_necessary!
-    unless seed_inited?
-      system("git clone #{SEED_REPO} #{SEED_DIR}")
+    def seed_init_if_necessary!
+      unless seed_inited?
+        system("git clone #{SEED_REPO} #{SEED_DIR}")
+      end
     end
-  end
 
-  def self.seed_inited?
-    File.exist?(SEED_DIR)
-  end
+    def seed_inited?
+      File.exist?(SEED_DIR)
+    end
 
-  def self.commit_or_diff!
-    msg = "Seed update #{Time.now}"
+    def commit_or_diff!
+      msg = "Seed update #{Time.now}"
 
-    Dir.chdir(SEED_DIR) do
-      if ENV["DEBUG"].nil? || ENV["DEBUG"] == "false"
-        system("git add *.yml")
-        system("git commit -m '#{msg}'")
-        system("git push origin master")
-      else
-        system "git diff"
+      Dir.chdir(SEED_DIR) do
+        if ENV["DEBUG"].nil? || ENV["DEBUG"] == "false"
+          system("git add *.yml")
+          system("git commit -m '#{msg}'")
+          system("git push origin master")
+        else
+          system "git diff"
+        end
       end
     end
   end

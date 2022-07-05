@@ -257,57 +257,59 @@ $(function () {
   });
 
   // Starting hardcore map stuff
-  try {
-    theMap.gmap3({
-      panel: {
-        options: {
-          content: '<div class="map-panel">' +
+  if (window.mapEnabled) {
+    try {
+      theMap.gmap3({
+        panel: {
+          options: {
+            content: '<div class="map-panel">' +
               '<span class="pseudolink load_kml">Load KML</span> &nbsp; ' +
               '<span class="pseudolink clear_kml">clear KML</span>' +
               (typeof (card_kml) !== "undefined" && card_kml != "" ? ' &nbsp; <span class="pseudolink card_kml"><b>Card KML</b></span>' : "") +
               '</div>',
-          top: true,
-          left: 150
-        }
-      },
-      map: {
-        options: {
-          draggableCursor: 'pointer',
-          center: [48.2837, 31.62962],
-          zoom: 6
+            top: true,
+            left: 150
+          }
         },
-        events: {
-          click: function (map, event) {
-            var newForm = spotForm.clone(),
+        map: {
+          options: {
+            draggableCursor: 'pointer',
+            center: [48.2837, 31.62962],
+            zoom: 6
+          },
+          events: {
+            click: function (map, event) {
+              var newForm = spotForm.clone(),
                 wndContent,
                 selectedObs = $('li.selected_obs');
 
-            closeInfoWindows();
+              closeInfoWindows();
 
-            if (selectedObs.length == 0) wndContent = "<p>No observation selected</p>";
-            else {
-              $('#spot_lat', newForm).val(event.latLng.lat());
-              $('#spot_lng', newForm).val(event.latLng.lng());
-              $('#spot_zoom', newForm).val(map.zoom);
-              $('#spot_exactness_1', newForm).attr('checked', true); // Check the "exact" value
-              $('#spot_observation_id', newForm).val(selectedObs.data('obs-id'));
-              if (defaultPublicity) $('#spot_public', newForm).attr('checked', 'checked');
-              else $('#spot_public', newForm).attr('checked', null);
-              wndContent = newForm.html();
-            }
-            theMap.gmap3({
-              infowindow: {
-                latLng: event.latLng,
-                options: {
-                  content: wndContent
-                }
+              if (selectedObs.length == 0) wndContent = "<p>No observation selected</p>";
+              else {
+                $('#spot_lat', newForm).val(event.latLng.lat());
+                $('#spot_lng', newForm).val(event.latLng.lng());
+                $('#spot_zoom', newForm).val(map.zoom);
+                $('#spot_exactness_1', newForm).attr('checked', true); // Check the "exact" value
+                $('#spot_observation_id', newForm).val(selectedObs.data('obs-id'));
+                if (defaultPublicity) $('#spot_public', newForm).attr('checked', 'checked');
+                else $('#spot_public', newForm).attr('checked', null);
+                wndContent = newForm.html();
               }
-            });
+              theMap.gmap3({
+                infowindow: {
+                  latLng: event.latLng,
+                  options: {
+                    content: wndContent
+                  }
+                }
+              });
+            }
           }
         }
-      }
-    });
-  } catch (e) {
+      });
+    } catch (e) {
+    }
   }
 
   // Change default state of `public`
@@ -394,6 +396,5 @@ $(function () {
     for (i in kmls) kmls[i].setMap(null);
     kmls = [];
   });
-
 
 });

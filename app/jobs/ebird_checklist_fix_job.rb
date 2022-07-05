@@ -3,7 +3,7 @@
 require "ebird/ebird_checklist"
 
 class EbirdChecklistFixJob < ApplicationJob
-  queue_as :storage_low_priority
+  queue_as :low
 
   def perform(ebird_id)
     cards = Card.where(ebird_id: ebird_id)

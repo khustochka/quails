@@ -22,7 +22,7 @@ class Ebird::SubmissionsControllerTest < ActionController::TestCase
     card1 = FactoryBot.create(:card, observ_date: "2016-01-01")
     card2 = FactoryBot.create(:card, observ_date: "2016-01-03")
     login_as_admin
-    get :new, params: {q: {observ_date: "2016-01-01", end_date: "2016-01-03"}}
+    get :new, params: { q: { observ_date: "2016-01-01", end_date: "2016-01-03" } }
     assert_response :success
     file = assigns(:file)
     assert_equal "ukraine-20160101-20160103", file.name
@@ -34,7 +34,7 @@ class Ebird::SubmissionsControllerTest < ActionController::TestCase
     login_as_admin
 
     assert_difference("Ebird::File.count", 1) do
-      get :create, params: {ebird_file: {name: "fileAAA"}, card_id: [card1.id, card2.id]}
+      get :create, params: { ebird_file: { name: "fileAAA" }, card_id: [card1.id, card2.id] }
     end
 
     assert_redirected_to controller: :submissions, action: :show, id: Ebird::File.last
@@ -45,14 +45,14 @@ class Ebird::SubmissionsControllerTest < ActionController::TestCase
     card2 = FactoryBot.create(:card)
     login_as_admin
     assert_difference("Ebird::File.count", 0) do
-      get :create, params: {ebird_file: {name: ""}, card_id: [card1.id, card2.id]}
+      get :create, params: { ebird_file: { name: "" }, card_id: [card1.id, card2.id] }
     end
   end
 
   test "do not create ebird file object without cards" do
     login_as_admin
     assert_difference("Ebird::File.count", 0) do
-      get :create, params: {ebird_file: {name: "fileBBB"}}
+      get :create, params: { ebird_file: { name: "fileBBB" } }
     end
 
     assert_template "new"
