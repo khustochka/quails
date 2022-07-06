@@ -1,7 +1,7 @@
 -# frozen_string_literal: true
 - post = shout
 
-- cache ['blog', post, admin: current_user.admin?] do
+- cache ['blog', post, admin: current_user.admin?, locale: I18n.locale] do
 
   %div.post-box.shout-box{id: "post-#{post.slug}"}
     %div.post.shout

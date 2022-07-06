@@ -17,7 +17,7 @@
     %li= link_to(t('menu.archive'), action: :archive)
     = render "partials/feed_list_item"
 
-- cache [@posts, admin: current_user.admin?] do
+- cache [@posts, admin: current_user.admin?, locale: I18n.locale] do
 
   = render @posts
 

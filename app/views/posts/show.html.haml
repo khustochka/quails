@@ -28,7 +28,7 @@
 
 = render 'admin/shortcuts' if current_user.admin?
 
-- cache @post do
+- cache @post, locale: I18n.locale do
 
   %div.post{id: "post-#{@post.slug}", class: post_lang_classes(@post), lang: @post.lang}
     = render partial: "posts/other_lang_notice", locals: {post: @post}
