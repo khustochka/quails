@@ -24,4 +24,4 @@
       %li= link_to t('menu.lifelist'), lists_overview_path
 
       %li.trans-menu
-        = link_to t('menu.ukrainian'), root_path, lang: :uk, hreflang: :uk, class: "translation"
+        = link_to t('menu.ukrainian'), root_path(locale: nil), lang: :uk, hreflang: :uk, class: "translation"
