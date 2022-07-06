@@ -87,6 +87,14 @@ class BlogControllerTest < ActionDispatch::IntegrationTest
     assert_includes(assigns(:months).map(&:first), "12")
   end
 
+  test "year view does not show a link to English locale" do
+    blogpost1 = create(:post, face_date: "2007-12-06 13:14:15")
+    blogpost2 = create(:post, face_date: "2008-11-06 13:14:15")
+    get year_path(year: 2007)
+    assert_select "a[href='#{year_path(year: 2007, locale: :ru)}']"
+    assert_select "a[href='#{year_path(year: 2007, locale: :en)}']", false
+  end
+
   # Month view
 
   test "get posts list for a month" do
@@ -105,5 +113,13 @@ class BlogControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     get month_path(year: 2007, month: 11)
     assert_response :success
+  end
+
+  test "month view does not show a link to English locale" do
+    blogpost1 = create(:post, face_date: "2007-12-06 13:14:15")
+    blogpost2 = create(:post, face_date: "2007-11-06 13:14:15")
+    get month_path(year: 2007, month: 12)
+    assert_select "a[href='#{month_path(year: 2007, month: 12, locale: :ru)}']"
+    assert_select "a[href='#{month_path(year: 2007, month: 12, locale: :en)}']", false
   end
 end

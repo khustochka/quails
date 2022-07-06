@@ -7,6 +7,9 @@
 - @canonical = public_post_url(@post)
 - @og_type = 'article'
 
+- content_for :translated do
+  = render partial: 'partials/translated', locals: { blog: true }
+
 - if @post.public?
   - provide :add_shortcuts do
     - if @post.status == 'OPEN'
