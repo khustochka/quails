@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-if ENV["COVERAGE"].present?
+# In some situations Rails is not yet loaded here, so present? will not work.
+if ENV["COVERAGE"] && ENV["COVERAGE"] != ""
   require "simplecov"
   SimpleCov.start "rails" do
     if ENV["TEAMCITY_VERSION"]
