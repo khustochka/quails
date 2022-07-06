@@ -3,7 +3,7 @@
   %b
     = species_link(lifer.species)
   = name_sci(lifer.species)
-  - if russian_locale?
+  - if I18n.locale != :en
     %span.lifer_en
       = lifer.species.name_en
 

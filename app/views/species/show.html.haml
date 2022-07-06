@@ -41,7 +41,7 @@
 
   %div{class: @species.image ? "one_third" : nil}
     %dl.sp_translations
-      - (I18n.available_locales - [I18n.locale] + [:fr]).map do |lang|
+      - species_name_locales.map do |lang|
         - if (trans_name = @species.public_send("name_#{lang}")).present?
           %div
             %dt= t("languages.#{lang}")
@@ -130,7 +130,7 @@
               - month_class, tag = @months[country].include?(m) ? ["seen_this_month", :strong] : [nil, :span]
               %td{class: month_class, title: t('date.month_names')[m]}= content_tag(tag, RomanNumerals.to_roman(m))
 
-- if russian_locale?
+- unless blogless_locale?
   - @posts.if_present do |posts|
     %h3= t('.sections.posts')
     %ul

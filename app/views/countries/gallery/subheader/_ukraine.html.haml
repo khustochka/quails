@@ -2,4 +2,4 @@
 %ul.subheader-menu
   %li= link_to('Checklist', checklist_path(country: @country))
   - if russian_locale?
-    %li= link_to("Зимующие птицы", page_path(:winter))
+    %li= link_to("Зимующие птицы", winter_path)

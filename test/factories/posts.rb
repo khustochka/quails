@@ -11,5 +11,6 @@ FactoryBot.define do
     TEXT
     topic { "OBSR" }
     status { "OPEN" }
+    lang { "uk" }
   end
 end

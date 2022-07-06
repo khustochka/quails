@@ -8,7 +8,7 @@
 - @jumbo_image = "https://bwua-static.s3.eu-central-1.amazonaws.com/whitethroat-jumbo.jpg"
 
 - content_for :jumbo do
-  = render partial: 'partials/translated', locals: {url: {controller: :images, action: :index}}
+  = render partial: 'partials/translated'
   %h1
     = page_header
 

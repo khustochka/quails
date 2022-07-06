@@ -3,6 +3,10 @@
 
 - @robots = 'NOINDEX'
 
+- content_for :translated do
+
+  = render partial: 'partials/translated', locals: { blog: true }
+
 %h1= page_header
 
 = render 'filters/years'

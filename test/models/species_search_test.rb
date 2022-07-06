@@ -26,6 +26,7 @@ class Search::SpeciesSearchTest < ActionView::TestCase
 
   test "search for the name in brackets, e.g. Russian name for bobolink" do
     user = Admin.new
+    # NOTE: In the fixtures the word (Bohemian) is in brackets
     result = Search::SpeciesSearch.new(user.searchable_species, "Bohemian").find
     assert_equal ["Bombycilla garrulus"], result.map(&:name_sci)
   end
@@ -48,5 +49,19 @@ class Search::SpeciesSearchTest < ActionView::TestCase
     result = Search::SpeciesSearch.new(User.new.searchable_species, "\\").find
     assert true
     # assert noting raise
+  end
+
+  test "prioritize Ukrainian over Russian when locale not set" do
+    create(:observation, taxon: taxa(:hirrus))
+
+    result = Search::SpeciesSearch.new(User.new.searchable_species, "ласт").find
+    assert_equal "Ластівка сільська", result.first.name
+  end
+
+  test "prioritize provided locale" do
+    create(:observation, taxon: taxa(:hirrus))
+
+    result = Search::SpeciesSearch.new(User.new.searchable_species, "ласт", locale: :ru).find
+    assert_equal "Деревенская ласточка", result.first.name
   end
 end

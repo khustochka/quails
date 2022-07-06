@@ -15,10 +15,10 @@ module LocalizedAttributes
     end
   end
 
-  FALLBACK = %w(uk ru en)
+  FALLBACK = { en: [], uk: %w(en ru), ru: %w(uk en) }
 
   def get_localized_attribute(attr_name)
-    fb = FALLBACK.dup.drop_while { |el| el.intern != I18n.locale }
+    fb = FALLBACK[I18n.locale.to_sym].dup.unshift(I18n.locale)
     nm = nil
     nm = self["#{attr_name}_#{fb.shift}"] while nm.blank? && fb.any?
     nm

@@ -8,7 +8,7 @@
   %div
     = media.decorated.public_locus_full_name
 
-- if russian_locale?
+- unless blogless_locale?
   = media.decorated.description
 
   - if posts.present?

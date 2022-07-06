@@ -20,6 +20,7 @@ module App2
       if nofollow
         html_options2[:rel] = -"nofollow"
       end
+      html_options2 = { target: :_blank }.merge(html_options2)
       link_to(name, options, html_options2)
     end
   end

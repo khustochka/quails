@@ -5,7 +5,7 @@
 - @page_header = t(".title")
 - @meta_description = t(".meta_description")
 
-- @robots = 'NOINDEX' if russian_locale?
+- @robots = 'NOINDEX' unless blogless_locale?
 
 - content_for :translated do
   = render 'partials/translated'

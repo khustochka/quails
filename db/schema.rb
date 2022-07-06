@@ -225,6 +225,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_04_002737) do
     t.text "lj_data"
     t.string "cover_image_slug"
     t.boolean "publish_to_facebook", default: false, null: false
+    t.string "lang", limit: 2, null: false
     t.index ["face_date"], name: "index_posts_on_face_date"
     t.index ["slug"], name: "index_posts_on_slug", unique: true
   end

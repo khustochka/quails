@@ -1,0 +1,68 @@
+"uk":
+  menu:
+    home-sr-only: Головна сторінка
+    blog: Блог
+    archive: Архів
+    birds_ukraine: Птахи України
+    checklist: Чекліст
+    gallery: Фотогалерея
+    map: Карта
+    links: Посилання
+    photos: Останні додані
+    videos: Відео
+    my_stats: Моя статистика
+    lifelist: Lifelist
+    english: English
+    russian: По-русски
+    ukrainian: Українською
+
+  filters:
+    years:
+      years: 'Рік:'
+
+  partials:
+    search:
+      search_button: Знайти
+      fallback_text: Знайти більше...
+
+  author:
+    name: Віталій Хусточка
+
+  license:
+    text: >
+            Всі фотографії і текст розповсюджуються під ліцензією
+            <a href="%{link}" rel="nofollow license" class="license-link">CC BY-NC-SA</a>:
+            дозволене використання з некомерційною метою і за умови вказівки авторства (посилання на сайт).
+
+  misc:
+    all: Всі
+
+    species_count:
+      one: 'вид'
+      few: 'види'
+      many: 'видів'
+
+    feed: Підписка
+
+  translated:
+    en: English
+    ru: Russian
+
+  languages:
+    en: англійською
+    ru: російською
+    uk: українською
+    fr: французькою
+
+  in_lang_names:
+    en: англійською
+    ru: російською
+    uk: українською
+    fr: французькою 
+
+  errors:
+    template:
+      header:
+        one: ! 'Зберегти не вдалося через помилку:'
+        few: ! 'Зберегти не вдалося через %{count} помилок:'
+        many: ! 'Зберегти не вдалося через %{count} помилок:'

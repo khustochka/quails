@@ -1,0 +1,32 @@
+-# frozen_string_literal: true
+%nav.main-menu
+  .container
+    %ul
+
+      %li.d-none.d-print-block.print-only-logo
+        birdwatch.org.ua
+
+      %li.d-print-none
+        = link_to blog_path, class: "home-link" do
+          %i.fas.fa-home
+          .sr-only= t('menu.home-sr-only')
+
+      %li
+        = link_to blog_path do
+          %span= t('menu.blog')
+
+      %li= link_to t('menu.birds_ukraine'), country_path(country: 'ukraine')
+
+      %li= link_to t('menu.gallery'), gallery_path
+
+      %li= link_to t('menu.map'), map_path
+
+      %li= link_to t('menu.lifelist'), lists_overview_path
+
+      %li= link_to t('menu.links'), links_path
+
+      %li.trans-menu
+        = link_to t('menu.english'), alternative_root_path(locale: :en), lang: :en, hreflang: :en, class: "translation"
+
+      %li.trans-menu
+        = link_to t('menu.ukrainian'), root_path, lang: :uk, hreflang: :uk, class: "translation"

@@ -25,4 +25,16 @@ module PostsHelper
       end
     end
   end
+
+  def post_lang_classes(post)
+    if post.lang.to_sym != I18n.locale
+      :diff_lang
+    end
+  end
+
+  def other_lang_unwrap(post)
+    if post.lang.to_sym != I18n.locale
+      :other_lang_expand
+    end
+  end
 end

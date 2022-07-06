@@ -6,6 +6,8 @@ module Search
 
     SEARCH_RESULT_CLASS = SpeciesSearchResult
 
+    DEFAULT_LOCALE_PRIORITY = [:en, :uk, :ru]
+
     def find
       return [] if @term.blank?
 
@@ -43,22 +45,28 @@ module Search
     private
 
     def detect_name(sp)
+      locale_priority = DEFAULT_LOCALE_PRIORITY.dup
+      @options[:locale]&.to_sym.yield_self do |set_locale|
+        if set_locale
+          locale_priority.delete(set_locale)
+          locale_priority.unshift(set_locale)
+        end
+      end
       @regex ||= /(^| |-|\()#{@term}/i
       if sp.name_sci&.match?(@regex)
         sp.name
-      elsif sp.name_en&.match?(@regex)
-        sp.name_en
-      elsif sp.name_ru&.match?(@regex)
-        sp.name_ru
-      elsif sp.name_uk&.match?(@regex)
-        sp.name_uk
       else
-        raise "Not able to detect name #{sp.name_sci}"
+        loc = locale_priority.find {|lang| sp[:"name_#{lang}"]&.match?(@regex)}
+        if loc
+          sp[:"name_#{loc}"]
+        else
+          raise "Not able to detect name #{sp.name_sci}"
+        end
       end
     end
 
     def searchable_fields
-      %w(name_sci name_ru name_en name_uk)
+      %w(name_sci name_uk name_en name_ru)
     end
   end
 end

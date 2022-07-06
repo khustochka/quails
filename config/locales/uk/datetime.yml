@@ -1,0 +1,50 @@
+"uk":
+  date:
+    formats:
+      # Форматы указываются в виде, поддерживаемом strftime.
+      # По умолчанию используется default.
+      # Можно добавлять собственные форматы
+      #
+      #
+      # Use the strftime parameters for formats.
+      # When no format has been given, it uses default.
+      # You can provide other formats here if you like!
+      default: "%d.%m.%Y"
+      short: "%-d %b"
+      long: "%-d %B %Y"
+
+    # Названия дней недели -- контекстные и отдельностоящие
+    common_day_names: [неділя, понеділок, вівторок, середа, четвер, п’ятниця, субота]
+    standalone_day_names: [Неділя, Понеділок, Вівторок, Середа, Четвер, П’ятниця, Субота]
+    common_abbr_day_names: [Нд, Пн, Вт, Ср, Чт, Пт, Сб]
+    standalone_abbr_day_names: [нд, пн, вт, ср, чт, пт, сб]
+
+    # Названия месяцев -- сокращенные и полные, плюс отдельностоящие.
+    # Не забудьте nil в начале массиве (~)
+    #
+    #
+    # Don't forget the nil at the beginning; there's no such thing as a 0th month
+    common_month_names: [~, січня, лютого, березня, квітня, травня, червня, липня, серпня, вересня, жовтня, листопада, грудня]
+    standalone_month_names: [~, Січень, Лютий, Березень, Квітень, Травень, Червень, Липень, Серпень, Вересень, Жовтень, Листопад, Грудень]
+    common_abbr_month_names: [~, січ., лют., бер., квіт., трав., черв., лип., серп., вер., жовт., лист., груд.]
+    standalone_abbr_month_names: [~, січ., лют., бер., квіт., трав., черв., лип., серп., вер., жовт., лист., груд.]
+
+    # Порядок компонентов даты для хелперов
+    #
+    #
+    # Used in date_select and datime_select.
+    order:
+      - :day
+      - :month
+      - :year
+
+  time:
+    # Форматы времени
+    formats:
+      default: "%a, %d %b %Y, %H:%M:%S %z"
+      short: "%-d %b, %H:%M"
+      long: "%-d %B %Y, %H:%M"
+
+    # am/pm решено перевести как "утра/вечера" :)
+    am: "ранку"
+    pm: "вечора"

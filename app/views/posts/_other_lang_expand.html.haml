@@ -1,0 +1,5 @@
+- if post.lang.to_sym != I18n.locale
+  %div.diff_lang_expand_notice
+    %p
+      = t("posts.other_lang_notice.notice_text", in_language: t(post.lang, scope: "in_lang_names"))
+      %span.pseudolink.lang_expand_link= t(".expand")

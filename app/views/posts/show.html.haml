@@ -7,6 +7,9 @@
 - @canonical = public_post_url(@post)
 - @og_type = 'article'
 
+- content_for :translated do
+  = render partial: 'partials/translated', locals: { blog: true }
+
 - if @post.public?
   - provide :add_shortcuts do
     - if @post.status == 'OPEN'
@@ -27,7 +30,8 @@
 
 - cache @post do
 
-  %div.post{id: "post-#{@post.slug}"}
+  %div.post{id: "post-#{@post.slug}", class: post_lang_classes(@post), lang: @post.lang}
+    = render partial: "posts/other_lang_notice", locals: {post: @post}
     %div.header-with-subheader
       %h1= @post.decorated.title
       - unless @post.shout?

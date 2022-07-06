@@ -1,0 +1,4 @@
+- if post.lang.to_sym != I18n.locale
+  %div.diff_lang_notice
+    %p
+      = t(".notice_text", in_language: t(post.lang, scope: "in_lang_names"))

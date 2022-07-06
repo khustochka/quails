@@ -89,4 +89,17 @@ module SpeciesHelper
   def term_highlight(string, term)
     highlight(string, term, highlighter: content_tag(:span, '\1', class: "highlight"))
   end
+
+  def species_name_locales
+    case I18n.locale
+    when :uk
+      %w(en fr ru)
+    when :en
+      %w(uk fr ru)
+    when :ru
+      %w(uk en fr)
+    else
+      %w(uk en fr ru)
+    end
+  end
 end

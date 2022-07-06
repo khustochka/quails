@@ -20,7 +20,7 @@
 
         %ul#site_menu.horiz-list(role="menubar")
 
-          %li(role="menuitem")= link_to t('menu.home'), localized_root_path
+          %li(role="menuitem")= link_to t('menu.home'), alternative_root_path
 
           %li(role="menuitem")= link_to t('menu.birds_ukraine'), country_path(country: 'ukraine')
 
@@ -31,4 +31,4 @@
           %li(role="menuitem")= link_to t('menu.lifelist'), lists_overview_path
 
           %li(role="menuitem" class="trans-menu")
-            = link_to t('menu.russian'), root_path(locale: nil), lang: :ru, hreflang: :ru
+            = link_to t('menu.ukrainian'), root_path(locale: nil), lang: :uk, hreflang: :uk

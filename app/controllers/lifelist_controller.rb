@@ -39,7 +39,7 @@ class LifelistController < ApplicationController
       over(params.permit(:year, :locus)).
       sort(sort_override)
 
-    if helpers.russian_locale?
+    unless helpers.blogless_locale?
       @lifelist.set_posts_scope(current_user.available_posts)
     end
   end
@@ -57,7 +57,7 @@ class LifelistController < ApplicationController
       over(params.permit(:year, :month, :day, :locus, :motorless, :seen)).
       sort(params[:sort])
 
-    if helpers.russian_locale?
+    unless helpers.blogless_locale?
       @lifelist.set_posts_scope(current_user.available_posts)
     end
   end
