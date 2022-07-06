@@ -12,7 +12,7 @@ module Search
       return [] if @term.blank?
 
       rel = @base.
-        select("DISTINCT id, name_sci, name_en, name_ru, name_uk, weight,
+        select("DISTINCT id, name_sci, name_en, name_uk, name_ru, weight,
                           CASE WHEN weight IS NULL THEN NULL
                               WHEN #{primary_condition} THEN 1
                               ELSE 2
