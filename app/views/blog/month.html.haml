@@ -1,6 +1,7 @@
 -# frozen_string_literal: true
 - @page_title = capture do
-  #{t('date.month_names')[@month.to_i]} #{link_to(@year, year_path(@year))}
+  = t('date.month_names')[@month.to_i]
+  = link_to(@year, year_path(year: @year))
 
 - @robots = 'NOINDEX'
 
