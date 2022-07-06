@@ -7,15 +7,15 @@ module Search
     def find
       return [] if @term.blank?
 
-      rel = @base.
-        select("DISTINCT id, name_sci, name_en, category, weight,
+      rel = @base
+        .select("DISTINCT id, name_sci, name_en, category, weight,
                           CASE WHEN weight IS NULL THEN NULL
                               WHEN #{primary_condition} THEN 1
                               ELSE 2
-                          END as rank").
-        where(filter_clause).
-        order("rank ASC NULLS LAST, weight DESC NULLS LAST").
-        limit(results_limit)
+                          END as rank")
+        .where(filter_clause)
+        .order("rank ASC NULLS LAST, weight DESC NULLS LAST")
+        .limit(results_limit)
 
       rel.map do |tx|
         {

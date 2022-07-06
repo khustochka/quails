@@ -65,14 +65,14 @@ module FormatStrategy
       # TODO: use already calculated species of the post! the rest will be ok with separate requests?
       if sp_codes.any?
         @spcs1 = Species.where("code IN (?) OR legacy_code IN (?) OR species.name_sci IN (?)", sp_codes, sp_codes, sp_codes)
-        @spcs_syn = Species.select("species.*, url_synonyms.species_id, url_synonyms.name_sci AS synonym_name_sci").
-          joins(:url_synonyms).where("url_synonyms.name_sci" => sp_codes)
+        @spcs_syn = Species.select("species.*, url_synonyms.species_id, url_synonyms.name_sci AS synonym_name_sci")
+          .joins(:url_synonyms).where("url_synonyms.name_sci" => sp_codes)
         @spcs = @spcs1 + @spcs_syn
-        @species = {}.
-          merge!(@spcs.index_by(&:code_or_slug)).
-          merge!(@spcs.index_by(&:legacy_code)).
-          merge!(@spcs1.index_by(&:name_sci)).
-          merge!(@spcs_syn.index_by(&:synonym_name_sci))
+        @species = {}
+          .merge!(@spcs.index_by(&:code_or_slug))
+          .merge!(@spcs.index_by(&:legacy_code))
+          .merge!(@spcs1.index_by(&:name_sci))
+          .merge!(@spcs_syn.index_by(&:synonym_name_sci))
       else
         @spcs = []
         @species = {}

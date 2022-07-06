@@ -42,9 +42,9 @@ module Lifelist
     end
 
     def bare_relation
-      MyObservation.
-        select("observations.*, species_id").
-        where(id: preselected_observations)
+      MyObservation
+        .select("observations.*, species_id")
+        .where(id: preselected_observations)
     end
 
     def short_to_a
@@ -57,9 +57,9 @@ module Lifelist
 
     def build_relation
       # FIXME: Do not join on species when not on taxonomy sorting
-      bare_relation.
-        joins(:taxon, :card).
-        preload(:patch, { taxon: :species }, { card: :locus })
+      bare_relation
+        .joins(:taxon, :card)
+        .preload(:patch, { taxon: :species }, { card: :locus })
       # NOTE: Do not use .includes(:taxon), it breaks species preloading, use .preload
     end
 
@@ -75,15 +75,15 @@ module Lifelist
         "first_value(observations.id)
           OVER (PARTITION BY species_id
           ORDER BY observ_date #{preselect_ordering}, to_timestamp(start_time, 'HH24:MI') #{preselect_ordering} NULLS LAST)"
-      ).
-        where("(observ_date, species_id) IN (#{life_dates_sql})")
+      )
+        .where("(observ_date, species_id) IN (#{life_dates_sql})")
     end
 
     def life_dates_sql
-      base.
-        select("#{aggregation_operator}(observ_date) as first_seen, species_id").
-        group(:species_id).
-        to_sql
+      base
+        .select("#{aggregation_operator}(observ_date) as first_seen, species_id")
+        .group(:species_id)
+        .to_sql
     end
 
     # FIXME: it is not good that we assign values to `post` that may be different from the original post assoc.

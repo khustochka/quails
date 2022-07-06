@@ -36,18 +36,18 @@ class Day
           join taxa tt ON obs.taxon_id = tt.id
           where taxa.species_id = tt.species_id
           and cards.observ_date > c.observ_date"
-    @lifer_species_ids ||= MyObservation.
-      joins(:card).
-      merge(cards).
-      where("NOT EXISTS(#{subquery})").
-      distinct.
-      pluck(:species_id)
+    @lifer_species_ids ||= MyObservation
+      .joins(:card)
+      .merge(cards)
+      .where("NOT EXISTS(#{subquery})")
+      .distinct
+      .pluck(:species_id)
   end
 
   def images
-    Image.joins(:observations, :cards).includes(:cards, :taxa).merge(cards).
-      merge(Card.default_cards_order("ASC")).
-      order("media.index_num, taxa.index_num").preload(:species)
+    Image.joins(:observations, :cards).includes(:cards, :taxa).merge(cards)
+      .merge(Card.default_cards_order("ASC"))
+      .order("media.index_num, taxa.index_num").preload(:species)
   end
 
   def posts

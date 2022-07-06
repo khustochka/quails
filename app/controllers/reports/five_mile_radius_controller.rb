@@ -9,14 +9,14 @@ module Reports
       candidates_removal = Rails.cache.read("5mr/removal") || []
       loci_ids = (candidates_5mr + candidates_removal).pluck(:locus_id)
       loci = Locus.where(id: loci_ids).index_by(&:id)
-      @candidates_5mr = candidates_5mr.
-        select { |rec| !loci[rec[:locus_id]].five_mile_radius }.
-        each { |rec| rec[:locus] = loci[rec[:locus_id]] }.
-        sort_by { |e| e[:distance] }
-      @candidates_removal = candidates_removal.
-        select { |rec| loci[rec[:locus_id]].five_mile_radius }.
-        each { |rec| rec[:locus] = loci[rec[:locus_id]] }.
-        sort_by { |e| e[:distance] }
+      @candidates_5mr = candidates_5mr
+        .select { |rec| !loci[rec[:locus_id]].five_mile_radius }
+        .each { |rec| rec[:locus] = loci[rec[:locus_id]] }
+        .sort_by { |e| e[:distance] }
+      @candidates_removal = candidates_removal
+        .select { |rec| loci[rec[:locus_id]].five_mile_radius }
+        .each { |rec| rec[:locus] = loci[rec[:locus_id]] }
+        .sort_by { |e| e[:distance] }
     end
 
     def update

@@ -7,15 +7,15 @@ module Search
     def find
       return Locus.none if @term.blank?
 
-      rel = @base.
-        select("loci.*,
+      rel = @base
+        .select("loci.*,
                           CASE
                               WHEN #{primary_condition} THEN 1
                               ELSE 2
-                          END as rank").
-        where(filter_clause).
-        order("rank ASC NULLS LAST, loci.id").
-        limit(results_limit)
+                          END as rank")
+        .where(filter_clause)
+        .order("rank ASC NULLS LAST, loci.id")
+        .limit(results_limit)
     end
 
     private

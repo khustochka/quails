@@ -31,16 +31,16 @@ module Lifelist
     end
 
     def ebird_species_ids
-      ebird_taxa.
-        select("COALESCE(ebird_taxa.parent_id, ebird_taxa.id)").
-        where("ebird_taxa.category = 'species' OR ebird_taxa.parent_id IS NOT NULL").
-        distinct
+      ebird_taxa
+        .select("COALESCE(ebird_taxa.parent_id, ebird_taxa.id)")
+        .where("ebird_taxa.category = 'species' OR ebird_taxa.parent_id IS NOT NULL")
+        .distinct
     end
 
     def ebird_taxa
-      EbirdTaxon.
-        joins(:taxon).
-        merge(taxa)
+      EbirdTaxon
+        .joins(:taxon)
+        .merge(taxa)
     end
 
     def taxa
@@ -48,19 +48,19 @@ module Lifelist
     end
 
     def build_relation
-      Observation.
-        where(id: observation_ids).
-        joins(:taxon, :card).
-        preload(:patch, { taxon: [:species, { ebird_taxon: :parent }] }, { card: :locus })
+      Observation
+        .where(id: observation_ids)
+        .joins(:taxon, :card)
+        .preload(:patch, { taxon: [:species, { ebird_taxon: :parent }] }, { card: :locus })
     end
 
     def observation_ids
-      idx = Observation.
-        joins(:card).
-        order(default_order("ASC")).
-        preload(taxon: { ebird_taxon: :parent }).
-        to_a.
-        fast_index_by { |obs| obs.taxon.ebird_taxon&.nearest_species }
+      idx = Observation
+        .joins(:card)
+        .order(default_order("ASC"))
+        .preload(taxon: { ebird_taxon: :parent })
+        .to_a
+        .fast_index_by { |obs| obs.taxon.ebird_taxon&.nearest_species }
       idx.delete(nil)
       idx.values
     end

@@ -43,8 +43,8 @@ class Card < ApplicationRecord
 
   # Eligible for ebird challenge: full non-incidental checklist without X's (all quantities in numbers)
   scope :ebird_eligible, -> {
-    where(effort_type: NON_INCIDENTAL).
-      where("NOT EXISTS (select id from observations where card_id = cards.id and quantity !~ '\\A\\d+')")
+    where(effort_type: NON_INCIDENTAL)
+      .where("NOT EXISTS (select id from observations where card_id = cards.id and quantity !~ '\\A\\d+')")
   }
 
   scope :in_year, ->(year) { where("EXTRACT(year FROM observ_date) = ?", year) }
@@ -52,8 +52,8 @@ class Card < ApplicationRecord
   scope :default_cards_order, ->(asc_or_desc) {
     raise "Invalid order (only ASC and DESC accepted)." unless asc_or_desc.to_s.downcase.in? %w(asc desc)
 
-    order(observ_date: asc_or_desc).
-      order(Arel.sql("to_timestamp(start_time, 'HH24:MI') #{asc_or_desc} NULLS LAST"))
+    order(observ_date: asc_or_desc)
+      .order(Arel.sql("to_timestamp(start_time, 'HH24:MI') #{asc_or_desc} NULLS LAST"))
   }
 
   def secondary_posts
@@ -94,10 +94,10 @@ class Card < ApplicationRecord
         end
       ) +
       ")"
-    @lifer_species_ids ||= observations.
-      identified.
-      where("NOT EXISTS(#{subquery})").
-      pluck(:species_id)
+    @lifer_species_ids ||= observations
+      .identified
+      .where("NOT EXISTS(#{subquery})")
+      .pluck(:species_id)
   end
 
   def check_effort

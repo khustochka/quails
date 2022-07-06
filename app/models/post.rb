@@ -103,14 +103,14 @@ class Post < ApplicationRecord
   # Associations
 
   def species
-    Species.distinct.joins(:cards, :observations).where("cards.post_id = ? OR observations.post_id = ?", id, id).
-      order(:index_num)
+    Species.distinct.joins(:cards, :observations).where("cards.post_id = ? OR observations.post_id = ?", id, id)
+      .order(:index_num)
   end
 
   def images
-    Image.joins(:observations, :cards).includes(:cards, :taxa).where("cards.post_id = ? OR observations.post_id = ?", id, id).
-      merge(Card.default_cards_order("ASC")).
-      order("media.index_num, taxa.index_num").preload(:species)
+    Image.joins(:observations, :cards).includes(:cards, :taxa).where("cards.post_id = ? OR observations.post_id = ?", id, id)
+      .merge(Card.default_cards_order("ASC"))
+      .order("media.index_num, taxa.index_num").preload(:species)
   end
 
   # Instance methods
@@ -170,12 +170,12 @@ class Post < ApplicationRecord
           join taxa tt ON obs.taxon_id = tt.id
           where taxa.species_id = tt.species_id
           and cards.observ_date > c.observ_date"
-    @lifer_species_ids ||= MyObservation.
-      joins(:card).
-      where("observations.post_id = ? or cards.post_id = ?", id, id).
-      where("NOT EXISTS(#{subquery})").
-      distinct.
-      pluck(:species_id)
+    @lifer_species_ids ||= MyObservation
+      .joins(:card)
+      .where("observations.post_id = ? or cards.post_id = ?", id, id)
+      .where("NOT EXISTS(#{subquery})")
+      .distinct
+      .pluck(:species_id)
   end
 
   private

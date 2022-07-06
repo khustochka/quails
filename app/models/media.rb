@@ -50,9 +50,9 @@ class Media < ApplicationRecord
   end
 
   def self.half_mapped
-    preload(taxa: :species).joins(:observations).
-      where(spot_id: nil).where("observation_id in (select observation_id from spots)").
-      order(created_at: :asc)
+    preload(taxa: :species).joins(:observations)
+      .where(spot_id: nil).where("observation_id in (select observation_id from spots)")
+      .order(created_at: :asc)
   end
 
   def extend_with_class
@@ -128,15 +128,15 @@ class Media < ApplicationRecord
     def for_the_map_query
       self.select("media.id,
                   COALESCE(spots.lat, patches.lat, public_locus.lat, parent_locus.lat) AS lat,
-                  COALESCE(spots.lng, patches.lon, public_locus.lon, parent_locus.lon) AS lng").
-        joins(:cards).
-        joins("LEFT OUTER JOIN (#{Spot.public_spots.to_sql}) as spots ON spots.id=media.spot_id").
-        joins("LEFT OUTER JOIN (#{Locus.non_private.to_sql}) as patches ON patches.id=observations.patch_id").
-        joins("LEFT OUTER JOIN (#{Locus.non_private.to_sql}) as public_locus ON public_locus.id=cards.locus_id").
-        joins("JOIN loci as card_locus ON card_locus.id=cards.locus_id").
-        joins("LEFT OUTER JOIN (#{Locus.non_private.to_sql}) as parent_locus ON card_locus.ancestry LIKE CONCAT(parent_locus.ancestry, '/', parent_locus.id)").
-        where("spots.lat IS NOT NULL OR patches.lat IS NOT NULL OR public_locus.lat IS NOT NULL OR parent_locus.lat IS NOT NULL").
-        distinct
+                  COALESCE(spots.lng, patches.lon, public_locus.lon, parent_locus.lon) AS lng")
+        .joins(:cards)
+        .joins("LEFT OUTER JOIN (#{Spot.public_spots.to_sql}) as spots ON spots.id=media.spot_id")
+        .joins("LEFT OUTER JOIN (#{Locus.non_private.to_sql}) as patches ON patches.id=observations.patch_id")
+        .joins("LEFT OUTER JOIN (#{Locus.non_private.to_sql}) as public_locus ON public_locus.id=cards.locus_id")
+        .joins("JOIN loci as card_locus ON card_locus.id=cards.locus_id")
+        .joins("LEFT OUTER JOIN (#{Locus.non_private.to_sql}) as parent_locus ON card_locus.ancestry LIKE CONCAT(parent_locus.ancestry, '/', parent_locus.id)")
+        .where("spots.lat IS NOT NULL OR patches.lat IS NOT NULL OR public_locus.lat IS NOT NULL OR parent_locus.lat IS NOT NULL")
+        .distinct
     end
   end
 

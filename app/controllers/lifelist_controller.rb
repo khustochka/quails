@@ -35,9 +35,9 @@ class LifelistController < ApplicationController
 
     raise ActiveRecord::RecordNotFound if locus && !locus.in?(@locations.map(&:slug))
 
-    @lifelist = Lifelist::FirstSeen.
-      over(params.permit(:year, :locus)).
-      sort(sort_override)
+    @lifelist = Lifelist::FirstSeen
+      .over(params.permit(:year, :locus))
+      .sort(sort_override)
 
     unless helpers.blogless_locale?
       @lifelist.set_posts_scope(current_user.available_posts)
@@ -53,9 +53,9 @@ class LifelistController < ApplicationController
 
     raise ActiveRecord::RecordNotFound if locus && !locus.in?(current_user.available_loci.map(&:slug))
 
-    @lifelist = Lifelist::Advanced.
-      over(params.permit(:year, :month, :day, :locus, :motorless, :seen)).
-      sort(params[:sort])
+    @lifelist = Lifelist::Advanced
+      .over(params.permit(:year, :month, :day, :locus, :motorless, :seen))
+      .sort(params[:sort])
 
     unless helpers.blogless_locale?
       @lifelist.set_posts_scope(current_user.available_posts)
@@ -72,11 +72,11 @@ class LifelistController < ApplicationController
     identified_observations = observations_filtered.identified
     lifelist_filtered = LiferObservation.all
 
-    @year_data = identified_observations.group("EXTRACT(year FROM observ_date)::integer").
-      order(Arel.sql("EXTRACT(year FROM observ_date)::integer"))
+    @year_data = identified_observations.group("EXTRACT(year FROM observ_date)::integer")
+      .order(Arel.sql("EXTRACT(year FROM observ_date)::integer"))
 
-    @first_sp_by_year = lifelist_filtered.group("EXTRACT(year FROM observ_date)::integer").
-      except(:order)
+    @first_sp_by_year = lifelist_filtered.group("EXTRACT(year FROM observ_date)::integer")
+      .except(:order)
 
     @countries = Country.all
 
@@ -87,7 +87,7 @@ class LifelistController < ApplicationController
 
     @grouped_by_country = identified_observations.group(country_sql)
 
-    @grouped_by_year_and_country = identified_observations.
-      group("EXTRACT(year FROM observ_date)::integer", country_sql)
+    @grouped_by_year_and_country = identified_observations
+      .group("EXTRACT(year FROM observ_date)::integer", country_sql)
   end
 end

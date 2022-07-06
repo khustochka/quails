@@ -22,10 +22,10 @@ class MapsController < ApplicationController
       # TODO: the goal is to avoid loading all observations (thousands!) if all filters are empty
       # Needs refactoring to only take into account meaningful fields (not "exclude subspecies")
       params[:q]&.values&.any?(&:present?) ?
-        ObservationSearch.new(params[:q]).observations.
-          joins(:card, :taxon).
-          preload(preload_tables).
-          order("cards.observ_date", "cards.locus_id", "patch_id", "taxa.index_num").limit(params[:limit] || 200) :
+        ObservationSearch.new(params[:q]).observations
+          .joins(:card, :taxon)
+          .preload(preload_tables)
+          .order("cards.observ_date", "cards.locus_id", "patch_id", "taxa.index_num").limit(params[:limit] || 200) :
         []
 
     respond_to do |format|

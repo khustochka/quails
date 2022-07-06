@@ -68,11 +68,11 @@ class Locus < ApplicationRecord
   end
 
   def checklist(to_include = [])
-    local_species.
-      joins(species: to_include).
-      preload(species: to_include).
-      order("species.index_num").
-      extending(SpeciesArray)
+    local_species
+      .joins(species: to_include)
+      .preload(species: to_include)
+      .order("species.index_num")
+      .extending(SpeciesArray)
   end
 
   def subregion_ids

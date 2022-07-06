@@ -57,8 +57,8 @@ class Image < Media
   # Photos with several species
   def self.multiple_species
     rel = select(:media_id).from("media_observations").group(:media_id).having("COUNT(observation_id) > 1")
-    select("DISTINCT media.*, observ_date").where(id: rel).
-      joins({ observations: :taxon }, :cards).preload(:species).order("observ_date ASC")
+    select("DISTINCT media.*, observ_date").where(id: rel)
+      .joins({ observations: :taxon }, :cards).preload(:species).order("observ_date ASC")
   end
 
   # Instance methods
@@ -146,8 +146,8 @@ class Image < Media
     # FIXME: was joins(:taxa, :species, :cards), producting overcomplicated join (some tables joined 2-3 times)
     # probably can be refactored taking into account media_observations automatic joins
     window =
-      Image.select("media.*, row_number() over (partition by species.id #{PREV_NEXT_ORDER}) as rn").
-        joins(
+      Image.select("media.*, row_number() over (partition by species.id #{PREV_NEXT_ORDER}) as rn")
+        .joins(
           <<~SQL.squish
             INNER JOIN "media_observations" ON "media_observations"."media_id" = "media"."id"
             INNER JOIN "observations" ON "observations"."id" = "media_observations"."observation_id"
@@ -155,8 +155,8 @@ class Image < Media
             INNER JOIN "cards" ON "cards"."id" = "observations"."card_id"
             INNER JOIN "species" ON "species"."id" = "taxa"."species_id"
           SQL
-        ).
-        where(species: { id: sp.id })
+        )
+        .where(species: { id: sp.id })
     # Join ranked tables by neighbouring images
     # Select neighbours of the sought one, exclude duplication
     q = "with ranked as (#{window.to_sql})

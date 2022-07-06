@@ -5,15 +5,15 @@ module Search
     def find
       return Species.none if @term.blank?
 
-      rel = @base.
-        select("species.*,
+      rel = @base
+        .select("species.*,
                           CASE
                               WHEN #{primary_condition} THEN 1
                               ELSE 2
-                          END as rank").
-        where(filter_clause).
-        order("rank ASC NULLS LAST, species.index_num").
-        limit(results_limit)
+                          END as rank")
+        .where(filter_clause)
+        .order("rank ASC NULLS LAST, species.index_num")
+        .limit(results_limit)
     end
 
     private

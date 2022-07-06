@@ -12,9 +12,9 @@ class EbirdStrategy
   end
 
   def observations
-    Observation.
-      where(card_id: @cards).
-      joins(taxon: :ebird_taxon).
-      preload(:images, taxon: :ebird_taxon, card: :locus)
+    Observation
+      .where(card_id: @cards)
+      .joins(taxon: :ebird_taxon)
+      .preload(:images, taxon: :ebird_taxon, card: :locus)
   end
 end

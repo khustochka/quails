@@ -8,8 +8,8 @@ class MediaController < ApplicationController
 
   def strip
     @strip = true
-    @strip_media = Media.where(id: params[:_json]).includes(:cards, :species).
-      order("cards.observ_date, cards.locus_id, media.index_num, species.index_num")
+    @strip_media = Media.where(id: params[:_json]).includes(:cards, :species)
+      .order("cards.observ_date, cards.locus_id, media.index_num, species.index_num")
     render layout: false
   end
 
