@@ -7,7 +7,6 @@ inherit_gem:
   rubocop-shopify: rubocop.yml
 
 AllCops:
-  # rubocop-rails_config still supports Ruby 2.4
   TargetRubyVersion: 3.1
   DisabledByDefault: false
   NewCops: enable
@@ -81,10 +80,6 @@ Style/ClassAndModuleChildren:
   Exclude:
     - '**/test/**/*'
     - 'lib/core_ext/**/*.rb'
-
-# FIXME: look into enabling
-Style/ClassVars:
-  Enabled: false
 
 # FIXME: look into enabling
 Style/MissingRespondToMissing:
