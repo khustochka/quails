@@ -166,7 +166,3 @@ Rails/TimeZone:
   Enabled: false
 Rails/Date:
   Enabled: false
-
-# Need to revisit carefully
-Rails/OutputSafety:
-  Enabled: false
