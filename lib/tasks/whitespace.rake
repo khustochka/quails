@@ -2,11 +2,12 @@
 
 # See https://gist.github.com/NARKOZ/1179915
 # requires GNU sed
+
+# rubocop:disable Rails/RakeEnvironment, Lint/MissingCopEnableDirective
 namespace :whitespace do
   EXCLUDE = [".git",  ".idea", "./public", "./db/seed", "./vendor", "./log", "./tmp", "./coverage", "node_modules"]
   EXCLUDE_STR = EXCLUDE.map {|p| "grep -v #{p} "}.join("| ")
 
-  # rubocop:disable Rails/RakeEnvironment
   task :detect_sed do
     # MacOS has BSD version by default, GNU can be installed with brew install gnu-sed as 'gsed'
     # TODO: detect

@@ -6,22 +6,20 @@ class WikiFormatter
     @metadata = metadata
   end
 
-  # rubocop:disable Rails/OutputSafety
   def for_site
     @strategy = FormatStrategy::Site.new(@text, @metadata)
-    apply.html_safe
+    apply.html_safe # rubocop:disable Rails/OutputSafety
   end
 
   def for_feed
     @strategy = FormatStrategy::Feed.new(@text, @metadata)
-    apply.html_safe
+    apply.html_safe # rubocop:disable Rails/OutputSafety
   end
 
   def for_instant_articles
     @strategy = FormatStrategy::InstantArticle.new(@text, @metadata)
-    apply.html_safe
+    apply.html_safe # rubocop:disable Rails/OutputSafety
   end
-  # rubocop:enable Rails/OutputSafety
 
   def for_lj
     @strategy = FormatStrategy::LiveJournal.new(@text, @metadata)

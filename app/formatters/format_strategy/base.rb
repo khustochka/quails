@@ -17,8 +17,7 @@ module FormatStrategy
       prepare
 
       result = @text.gsub(WIKI_TAGS_REGEX) do |_|
-        # rubocop:disable Style/ParallelAssignment, Style/PerlBackrefs
-        tag, word, term, en = $1, $2.try(:html_safe), $3, $4
+        tag, word, term, en = $1, $2.try(:html_safe), $3, $4 # rubocop:disable Style/ParallelAssignment, Style/PerlBackrefs
         case tag
         when "@" then
           if term == "lj"

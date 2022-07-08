@@ -25,6 +25,7 @@ AllCops:
     - 'lib/tasks/one-off/**/*'
     - config.ru
     - contest*.rb
+    - config/boot.rb
 
 # FIXME: revisit and fix!
 Style/MethodCallWithArgsParentheses:
@@ -166,3 +167,14 @@ Rails/TimeZone:
   Enabled: false
 Rails/Date:
   Enabled: false
+
+Lint/MissingCopEnableDirective:
+  Enabled: true
+  # Maximum number of consecutive lines the cop can be disabled for.
+  # 0 allows only single-line disables
+  # 1 would mean the maximum allowed is the following:
+  #   # rubocop:disable SomeCop
+  #   a = 1
+  #   # rubocop:enable SomeCop
+  # .inf for any size
+  MaximumRangeSize: 4

@@ -52,9 +52,8 @@ class EbirdObservation
 
   def count
     cnt = @obs.quantity[/(\d+(\s*\+\s*\d+)?)/, 1]
-    # Unused. Also need to rethink what is going on here.
-    # rubocop:disable Security/Eval
-    cnt && eval(cnt) || "X"
+    # FIXME: Unused. Also need to rethink what is going on here.
+    cnt && eval(cnt) || "X" # rubocop:disable Security/Eval
   end
 
   def comments

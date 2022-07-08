@@ -16,7 +16,6 @@ module Quails
       end
 
       def read_revision
-        # rubocop:disable Lint/SuppressedException
         unless Rails.env.test?
           begin
             sha = message = nil
@@ -36,7 +35,7 @@ module Quails
             if sha
               new(sha: sha, message: message)
             end
-          rescue RuntimeError
+          rescue RuntimeError # rubocop:disable Lint/SuppressedException
           end
         end
       end

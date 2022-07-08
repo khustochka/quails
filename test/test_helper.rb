@@ -51,8 +51,7 @@ module ActiveSupport
     # Reset locale to default. (There was a rarely happening failure caused by incorrect path was accessed because of
     # English locale leaking - probably due to multi-threading?)
     setup do
-      # rubocop:disable Rails/I18nLocaleAssignment
-      I18n.locale = I18n.default_locale
+      I18n.locale = I18n.default_locale # rubocop:disable Rails/I18nLocaleAssignment
     end
   end
 end

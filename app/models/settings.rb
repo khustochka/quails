@@ -12,9 +12,8 @@ class Settings < ApplicationRecord
   end
 
   def self.method_missing(method_id, *arguments, &block)
-    # rubocop:disable Style/OpenStructUse
     if SETTING_KEYS.include?(method_id)
-      OpenStruct.new(find_by(key: method_id).try(:value) || {})
+      OpenStruct.new(find_by(key: method_id).try(:value) || {}) # rubocop:disable Style/OpenStructUse
     else
       super
     end

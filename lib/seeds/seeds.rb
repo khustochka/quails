@@ -2,7 +2,7 @@
 
 require "seeds/table"
 
-# rubocop:disable Rails/Output
+# rubocop:disable Rails/Output, Lint/MissingCopEnableDirective
 module Seeds
   SEED_TABLES = %w(ebird_taxa taxa species species_splits url_synonyms ioc_taxa local_species loci)
 

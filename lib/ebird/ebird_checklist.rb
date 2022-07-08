@@ -92,8 +92,7 @@ class EbirdChecklist
     if dm
       val = dm[1].to_f
       if dm[2] == "mile(s)"
-        # rubocop:disable Style/SelfAssignment
-        val = val * 1.609344
+        val = val * 1.609344 # rubocop:disable Style/SelfAssignment
       end
 
       self.distance_kms = val

@@ -2,7 +2,6 @@
 
 module OneLineFormatter
   def self.apply(str)
-    # rubocop:disable Rails/OutputSafety
-    RedCloth.new(str, [:lite_mode]).to_html.html_safe
+    RedCloth.new(str, [:lite_mode]).to_html.html_safe # rubocop:disable Rails/OutputSafety
   end
 end
