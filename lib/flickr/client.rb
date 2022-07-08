@@ -22,6 +22,10 @@ module Flickr
       Error.new(e.message)
     end
 
+    def respond_to_missing?(method_name, include_private = false)
+      @value.respond_to?(method_name) || super
+    end
+
     def search_and_filter_photos(conditions, top = nil, &filter)
       all = Flickr::Result.new([])
       page = 0

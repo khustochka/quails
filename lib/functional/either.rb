@@ -27,6 +27,10 @@ module Either
           @obj.class.new(@obj.get.public_send(method, arg.get))
         end
       end
+
+      def respond_to_missing?(method_name, include_private = false)
+        true
+      end
     end
 
     def initialize(value)
@@ -61,6 +65,10 @@ module Either
       def method_missing(method, *args, &block)
         @obj
       end
+
+      def respond_to_missing?(method_name, include_private = false)
+        true
+      end
     end
 
     class EitherErrorException < StandardError
@@ -86,6 +94,10 @@ module Either
 
     def method_missing(method, *args, &block)
       self
+    end
+
+    def respond_to_missing?(method_name, include_private = false)
+      true
     end
 
     def apply

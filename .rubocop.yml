@@ -82,10 +82,6 @@ Style/ClassAndModuleChildren:
     - '**/test/**/*'
     - 'lib/core_ext/**/*.rb'
 
-# FIXME: look into enabling
-Style/MissingRespondToMissing:
-  Enabled: false
-
 # Improved readability, but look into refactoring
 Style/IfInsideElse:
   Enabled: false
