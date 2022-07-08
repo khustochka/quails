@@ -114,6 +114,7 @@ class FlickrPhoto
     @flickr_client ||= Flickr::Client.new
   end
 
+  # rubocop:disable Naming/AccessorMethodName
   def get_info
     data = flickr_client.call("flickr.photos.getInfo", { photo_id: @flickr_id }).get
     Data.new(
@@ -123,6 +124,7 @@ class FlickrPhoto
       data.tags.map(&:raw)
     )
   end
+  # rubocop:enable Naming/AccessorMethodName
 
   def local_url
     @local_url ||= "#{local_path}/#{@image.slug}.jpg"

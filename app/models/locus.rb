@@ -112,8 +112,8 @@ class Locus < ApplicationRecord
 
   private
 
+  # rubocop:disable Style/ClassCheck, Naming/AccessorMethodName
   def set_parent(p)
-    # rubocop:disable Style/ClassCheck
     # Can be Country
     if p.kind_of?(Locus)
       @__parent = p

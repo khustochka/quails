@@ -66,7 +66,8 @@ module Lifelist
         when :obs_count
           Lifelist::Count.over(@filter)
         end
-      list.set_posts_scope(@posts_scope)
+      list.posts_scope = @posts_scope
+      list
     end
 
     def secondary_list(key)

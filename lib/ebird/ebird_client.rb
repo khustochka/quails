@@ -58,7 +58,7 @@ class EbirdClient
   #   end.compact.reverse
   # end
 
-  def get_unsubmitted_checklists
+  def fetch_unsubmitted_checklists
     page = @agent.get("https://ebird.org/mychecklists?currentRow=1&rowsPerPage=100&sortBy=date&order=desc")
     list_rows = page.xpath("//ol[@id='place-species-observed-results']/li")
     first100 = list_rows.to_a.take(100).map do |row|

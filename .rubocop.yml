@@ -135,22 +135,26 @@ Performance:
 Naming/VariableName:
   Enabled: false
 
-# TODO: maybe revisit and try to fix
-Naming/AccessorMethodName:
-  Enabled: false
-
 Metrics/BlockNesting:
   Enabled: false
 
 Rails/HasAndBelongsToMany:
   Enabled: false
 
-# FIXME: revisit and fix!
-Rails/HelperInstanceVariable:
-  Enabled: false
-
 # Mostly admin flashes
 Rails/I18nLocaleTexts:
+  Enabled: false
+
+# Readability
+Rails/Delegate:
+  Enabled: false
+
+# Grammar!
+Rails/RequestReferer:
+  Enabled: false
+
+# FIXME: revisit and fix!
+Rails/HelperInstanceVariable:
   Enabled: false
 
 # TODO: revisit and disable on case by case basis
@@ -161,18 +165,10 @@ Rails/SkipsModelValidations:
 Rails/InverseOf:
   Enabled: false
 
-# Readability
-Rails/Delegate:
-  Enabled: false
-
 # Need to revisit carefully
 Rails/TimeZone:
   Enabled: false
 Rails/Date:
-  Enabled: false
-
-# Grammar!
-Rails/RequestReferer:
   Enabled: false
 
 # Need to revisit carefully

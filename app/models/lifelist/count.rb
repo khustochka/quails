@@ -6,7 +6,7 @@ module Lifelist
       base.select("species_id, COUNT(DISTINCT observations.id) AS obs_count").group("species_id")
     end
 
-    def get_records
+    def load_records
       records = bare_relation.order(ordering).to_a
       # FIXME: workaround species preloader, because declaring species association on observation causes problems
       species_preload(records)

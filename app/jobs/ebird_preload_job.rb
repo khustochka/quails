@@ -9,7 +9,7 @@ class EbirdPreloadJob < ApplicationJob
     client = EbirdClient.new
     client.authenticate
     time = Time.now
-    checklists = client.get_unsubmitted_checklists
+    checklists = client.fetch_unsubmitted_checklists
     Rails.cache.write("ebird/preloaded_checklists", checklists)
     Rails.cache.write("ebird/last_preload", time)
     html = render_template(time, checklists)

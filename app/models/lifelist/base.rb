@@ -9,14 +9,14 @@ module Lifelist
     end
 
     def to_a
-      @records ||= get_records
+      @records ||= load_records
     end
 
     def top(num)
       relation.limit(num).to_a
     end
 
-    def get_records
+    def load_records
       records = relation.to_a
       preload_posts(records)
       records

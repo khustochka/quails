@@ -40,8 +40,10 @@ class LifelistController < ApplicationController
       .sort(sort_override)
 
     unless helpers.blogless_locale?
-      @lifelist.set_posts_scope(current_user.available_posts)
+      @lifelist.posts_scope = current_user.available_posts
     end
+
+    @lifelist
   end
 
   def advanced
@@ -58,8 +60,10 @@ class LifelistController < ApplicationController
       .sort(params[:sort])
 
     unless helpers.blogless_locale?
-      @lifelist.set_posts_scope(current_user.available_posts)
+      @lifelist.posts_scope = current_user.available_posts
     end
+
+    @lifelist
   end
 
   def ebird

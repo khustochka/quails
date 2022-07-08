@@ -44,7 +44,7 @@ module Lifelist
       card = FactoryBot.create(:card, post: post)
       obs = FactoryBot.create(:observation, card: card)
       list = Lifelist::Advanced.full
-      list.set_posts_scope(Post.public_posts)
+      list.posts_scope = Post.public_posts
       assert_equal post, list.first.first_seen.main_post
     end
 
@@ -52,7 +52,7 @@ module Lifelist
       post = FactoryBot.create(:post)
       obs = FactoryBot.create(:observation, post: post)
       list = Lifelist::Advanced.full
-      list.set_posts_scope(Post.public_posts)
+      list.posts_scope = Post.public_posts
       assert_equal post, list.first.first_seen.main_post
     end
 

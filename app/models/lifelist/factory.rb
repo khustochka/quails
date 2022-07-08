@@ -4,6 +4,8 @@ module Lifelist
   class Factory
     include Enumerable
 
+    attr_accessor :posts_scope
+
     def self.over(options)
       new(options)
     end
@@ -14,11 +16,6 @@ module Lifelist
 
     def initialize(options = {})
       @filter = options.to_h.with_indifferent_access
-    end
-
-    def set_posts_scope(posts_scope)
-      @posts_scope = posts_scope
-      self
     end
 
     def sort(sorting)

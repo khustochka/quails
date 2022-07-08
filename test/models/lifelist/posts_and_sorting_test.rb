@@ -9,7 +9,7 @@ module Lifelist
       card = FactoryBot.create(:card, post: post)
       obs = FactoryBot.create(:observation, card: card)
       list = Lifelist::FirstSeen.full
-      list.set_posts_scope(Post.public_posts)
+      list.posts_scope = Post.public_posts
       assert_equal post, list.first.main_post
     end
 
@@ -17,7 +17,7 @@ module Lifelist
       post = FactoryBot.create(:post)
       obs = FactoryBot.create(:observation, post: post)
       list = Lifelist::FirstSeen.full
-      list.set_posts_scope(Post.public_posts)
+      list.posts_scope = Post.public_posts
       assert_equal post, list.first.main_post
     end
 
@@ -25,7 +25,7 @@ module Lifelist
       post = FactoryBot.create(:post, status: "PRIV")
       obs = FactoryBot.create(:observation, post: post)
       list = Lifelist::FirstSeen.full
-      list.set_posts_scope(Post.public_posts)
+      list.posts_scope = Post.public_posts
       assert_nil list.first.main_post
     end
 
@@ -34,7 +34,7 @@ module Lifelist
       card = FactoryBot.create(:card, post: post)
       obs = FactoryBot.create(:observation, card: card)
       list = Lifelist::FirstSeen.full
-      list.set_posts_scope(Post.public_posts)
+      list.posts_scope = Post.public_posts
       assert_nil list.first.main_post
     end
 
