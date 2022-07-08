@@ -9,7 +9,7 @@ class EbirdTaxon < ApplicationRecord
 
   belongs_to :parent, class_name: "EbirdTaxon", optional: true
   # Careful when importing new species
-  has_many :children, class_name: "EbirdTaxon", foreign_key: "parent_id", dependent: :restrict_with_exception
+  has_many :children, class_name: "EbirdTaxon", foreign_key: "parent_id", dependent: :restrict_with_exception, inverse_of: :parent
   has_one :taxon, dependent: :restrict_with_exception
 
   # Scopes

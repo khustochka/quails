@@ -157,12 +157,8 @@ Rails/RequestReferer:
 Rails/HelperInstanceVariable:
   Enabled: false
 
-# TODO: revisit and disable on case by case basis
+# I do this intentionally
 Rails/SkipsModelValidations:
-  Enabled: false
-
-# Doesn't Rails guess inverse_of?
-Rails/InverseOf:
   Enabled: false
 
 # Need to revisit carefully

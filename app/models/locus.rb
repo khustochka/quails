@@ -17,7 +17,8 @@ class Locus < ApplicationRecord
 
   has_many :cards, dependent: :restrict_with_exception
   has_many :observations, through: :cards
-  has_many :patch_observations, class_name: "Observation", foreign_key: "patch_id", dependent: :restrict_with_exception
+
+  has_many :patch_observations, class_name: "Observation", foreign_key: "patch_id", dependent: :restrict_with_exception, inverse_of: :patch
 
   has_many :local_species, dependent: :delete_all
 

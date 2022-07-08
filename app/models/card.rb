@@ -13,8 +13,8 @@ class Card < ApplicationRecord
 
   invalidates CacheKey.lifelist
 
-  belongs_to :locus, -> { cached_ancestry_preload }
-  belongs_to :post, -> { short_form }, touch: true, optional: true
+  belongs_to :locus, -> { cached_ancestry_preload }, inverse_of: :cards
+  belongs_to :post, -> { short_form }, touch: true, optional: true, inverse_of: :cards
   has_many :observations, -> { order("observations.id") }, dependent: :restrict_with_exception, inverse_of: :card
   has_many :mapped_observations, -> { joins(:spots).distinct }, class_name: "Observation", inverse_of: :card, dependent: nil
 

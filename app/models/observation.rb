@@ -17,7 +17,7 @@ class Observation < ApplicationRecord
     taxon.species
   end
 
-  belongs_to :post, -> { short_form }, touch: true, optional: true
+  belongs_to :post, -> { short_form }, touch: true, optional: true, inverse_of: :observations
   has_and_belongs_to_many :media
   has_and_belongs_to_many :images, class_name: "Image", association_foreign_key: :media_id
   has_and_belongs_to_many :videos, class_name: "Video", association_foreign_key: :media_id
