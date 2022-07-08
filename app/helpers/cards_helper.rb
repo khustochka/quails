@@ -5,13 +5,13 @@ module CardsHelper
   FAST_LOCI = %w(harbourview_south winnipeg_regent terracon_pl dugald_rd winnipeg)
 
   # item: Card or observation
-  def attach_detach_link(item)
-    if @post.id == item.post_id
+  def post_attach_detach_link(item, post)
+    if post.id == item.post_id
       text = "Detach from this post"
       post_id = nil
     else
       text = "Attach to this post"
-      post_id = @post.id
+      post_id = post.id
     end
 
     url = url_for(controller: item.class.to_s.tableize, action: :update, id: item.id, format: :json)
@@ -20,7 +20,7 @@ module CardsHelper
       method: :put, data: { confirm: "Are you sure?", params: "#{item.class.to_s.downcase}[post_id]=#{post_id}" }
   end
 
-  def suggested_dates
+  def suggested_dates(card)
     prelim = {
       Date.today => ["Today"],
       Date.yesterday => ["Yesterday"],
@@ -29,9 +29,9 @@ module CardsHelper
     if last_date
       prelim[last_date + 1] = ["Last unreported"]
     end
-    if @card.persisted?
-      prelim[@card.observ_date] = ["Same day as this card"]
-      prelim[@card.observ_date + 1] = ["Next day to this card"]
+    if card.persisted?
+      prelim[card.observ_date] = ["Same day as this card"]
+      prelim[card.observ_date + 1] = ["Next day to this card"]
     end
     prelim
   end
