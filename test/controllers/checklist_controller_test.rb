@@ -7,7 +7,7 @@ class ChecklistControllerTest < ActionController::TestCase
     LocalSpecies.create(locus: loci(:ukraine), species: species(:pasdom))
     get :show, params: { country: "ukraine" }
     assert_response :success
-    assert assigns(:checklist).present?
+    assert_predicate assigns(:checklist), :present?
     assert_select "a[href*='#{species_path(species(:pasdom))}']"
   end
 
@@ -16,7 +16,7 @@ class ChecklistControllerTest < ActionController::TestCase
     LocalSpecies.create(locus: loci(:ukraine), species: species(:pasdom))
     get :edit, params: { country: "ukraine" }
     assert_response :success
-    assert assigns(:checklist).present?
+    assert_predicate assigns(:checklist), :present?
     assert_select "input"
   end
 

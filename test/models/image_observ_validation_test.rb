@@ -12,7 +12,7 @@ class ImageObservValidationTest < ActiveSupport::TestCase
     new_attr = attributes_for(:image, slug: "new_img_slug").except(:observations)
     new_attr[:observations] = []
     assert_not @image.update(new_attr)
-    assert @image.errors.present?
+    assert_predicate @image.errors, :present?
   end
 
   test "restores observation list if image was not saved due to its emptiness" do
@@ -92,7 +92,7 @@ class ImageObservValidationTest < ActiveSupport::TestCase
     new_attr = @image.attributes
     new_attr[:observation_ids] = [obs1.id, obs2.id]
     assert_not @image.update(new_attr)
-    assert @image.errors.present?
+    assert_predicate @image.errors, :present?
   end
 
   test "preserves changed values if image failed to update with inconsistent observations" do
@@ -102,7 +102,7 @@ class ImageObservValidationTest < ActiveSupport::TestCase
     new_attr[:slug] = "newslug"
     new_attr[:observation_ids] = [obs1.id, obs2.id]
     assert_not @image.update(new_attr)
-    assert @image.errors.present?
+    assert_predicate @image.errors, :present?
     assert_equal "newslug", @image.slug
   end
 end

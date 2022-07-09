@@ -173,7 +173,7 @@ class ImagesControllerTest < ActionController::TestCase
     new_attr = @image.attributes
     obs = create(:observation, card: @obs.card)
     put :update, params: { id: @image.to_param, image: new_attr, obs: @image.observation_ids.push(obs.id) }
-    assert assigns(:image).errors.blank?
+    assert_predicate assigns(:image).errors, :blank?
     @image.reload
     assert @image.spot_id, "Spot id is nil"
   end
@@ -187,7 +187,7 @@ class ImagesControllerTest < ActionController::TestCase
     obs1 = create(:observation)
     obs2 = create(:observation)
     put :update, params: { id: @image.to_param, image: new_attr, obs: [obs1.id, obs2.id] }
-    assert assigns(:image).errors.present?
+    assert_predicate assigns(:image).errors, :present?
     @image.reload
     assert @image.spot_id, "Spot id is nil"
   end

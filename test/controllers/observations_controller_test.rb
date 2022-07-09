@@ -53,7 +53,7 @@ class ObservationsControllerTest < ActionController::TestCase
     obs1.reload
 
     assert_equal 1, card.observations.size
-    assert card != obs1.card
+    assert_not_equal card, obs1.card
   end
 
   test "move observations to another card" do

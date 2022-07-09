@@ -24,8 +24,8 @@ class LocusTest < ActiveSupport::TestCase
     actual = loc.subregion_ids
     expected = Locus.where(slug: ["ukraine", "kiev_obl", "kyiv", "brovary"]).ids
     not_expected = Locus.where(slug: ["usa", "new_york", "nyc"]).ids
-    assert_equal [], expected - actual, "Some expected values are not included"
-    assert_equal [], not_expected & actual, "Some unexpected values are included"
+    assert_empty expected - actual, "Some expected values are not included"
+    assert_empty not_expected & actual, "Some unexpected values are included"
   end
 
   test "subregions of the Arabat Spit" do

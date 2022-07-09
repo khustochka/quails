@@ -179,7 +179,7 @@ class SpeciesControllerTest < ActionController::TestCase
     get :search, params: { term: "gar" }, format: :json
     assert_response :success
     assert_equal Mime[:json], response.media_type
-    assert response.body.include?("garrulus")
+    assert_includes response.body, "garrulus"
   end
 
   test "search localized" do
@@ -187,7 +187,7 @@ class SpeciesControllerTest < ActionController::TestCase
     get :search, params: { term: "gar", locale: "en" }, format: :json
     assert_response :success
     assert_equal Mime[:json], response.media_type
-    assert response.body.include?("Waxwing")
-    assert response.body.include?("/en/species/Bombycilla")
+    assert_includes response.body, "Waxwing"
+    assert_includes response.body, "/en/species/Bombycilla"
   end
 end

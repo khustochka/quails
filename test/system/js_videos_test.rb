@@ -3,13 +3,6 @@
 require "application_system_test_case"
 
 class JSVideosTest < ApplicationSystemTestCase
-  def save_and_check
-    click_button("Save")
-    # save_and_open_page
-    assert_text "Video was successfully"
-  end
-  private :save_and_check
-
   # NO JavaScript test
   test "Save changes to existing video if JavaScript is off" do
     Capybara.use_default_driver
@@ -120,5 +113,13 @@ class JSVideosTest < ApplicationSystemTestCase
     find("span", text: "Restore original").click
 
     assert_equal 2, all(".current-obs li").size
+  end
+
+  private
+
+  def save_and_check
+    click_button("Save")
+    # save_and_open_page
+    assert_text "Video was successfully"
   end
 end

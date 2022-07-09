@@ -56,6 +56,6 @@ class Ebird::SubmissionsControllerTest < ActionController::TestCase
     end
 
     assert_template "new"
-    assert flash[:alert].present?
+    assert_predicate flash[:alert], :present?
   end
 end

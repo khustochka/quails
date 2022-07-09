@@ -167,7 +167,7 @@ class VideosControllerTest < ActionController::TestCase
     new_attr = @video.attributes
     obs = create(:observation, card: @obs.card)
     put :update, params: { id: @video.to_param, video: new_attr, obs: @video.observation_ids.push(obs.id) }
-    assert assigns(:video).errors.blank?
+    assert_predicate assigns(:video).errors, :blank?
     @video.reload
     assert @video.spot_id, "Spot id is nil"
   end
@@ -181,7 +181,7 @@ class VideosControllerTest < ActionController::TestCase
     obs1 = create(:observation)
     obs2 = create(:observation)
     put :update, params: { id: @video.to_param, video: new_attr, obs: [obs1.id, obs2.id] }
-    assert assigns(:video).errors.present?
+    assert_predicate assigns(:video).errors, :present?
     @video.reload
     assert @video.spot_id, "Spot id is nil"
   end

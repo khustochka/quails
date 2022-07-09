@@ -13,7 +13,7 @@ class CountriesControllerTest < ActionController::TestCase
     LocalSpecies.create(locus: loci(:ukraine), species: species(:pasdom), status: "")
     get :gallery, params: { country: "ukraine" }
     assert_response :success
-    assert assigns(:thumbs).present?
+    assert_predicate assigns(:thumbs), :present?
     assert_select "a[href='#{species_path(@obs.species)}']"
   end
 
@@ -22,7 +22,7 @@ class CountriesControllerTest < ActionController::TestCase
     img = create(:image, observations: [obs])
     get :gallery, params: { country: "usa" }
     assert_response :success
-    assert assigns(:thumbs).present?, "Thumbnails must be present, were not."
+    assert_predicate assigns(:thumbs), :present?, "Thumbnails must be present, were not."
     assert_select "a[href='#{image_path(img)}']"
   end
 
@@ -33,7 +33,7 @@ class CountriesControllerTest < ActionController::TestCase
     img = create(:image, observations: [obs])
     get :gallery, params: { country: "united_kingdom" }
     assert_response :success
-    assert assigns(:thumbs).present?
+    assert_predicate assigns(:thumbs), :present?
     assert_select "a[href='#{image_path(img)}']"
   end
 end

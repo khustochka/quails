@@ -16,7 +16,7 @@ class EbirdPreloadJobTest < ActiveJob::TestCase
     )
     html = job.render_template(Time.zone.now, [checklist])
     doc = Nokogiri::HTML(html)
-    assert doc.css("form input[name=authenticity_token]").present?, "Authenticity token not rendered in the form"
+    assert_predicate doc.css("form input[name=authenticity_token]"), :present?, "Authenticity token not rendered in the form"
   ensure
     ActionController::Base.allow_forgery_protection = false
   end

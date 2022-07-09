@@ -43,12 +43,12 @@ class ObservationSearchTest < ActiveSupport::TestCase
   test "search observations by date" do
     obss = ObservationSearch.new(observ_date: "2013-05-18").observations.to_a
     assert_equal 5, obss.size
-    assert obss.first.respond_to?(:voice)
+    assert_respond_to(obss.first, :voice)
   end
 
   test "search voice: nil means do not filter by voice" do
     ob3 = create(:observation, voice: true)
-    assert ObservationSearch.new(voice: nil).observations.include?(ob3)
+    assert_includes ObservationSearch.new(voice: nil).observations, ob3
   end
 
   test "search voice: false means filter by `seen only`" do

@@ -58,21 +58,19 @@ class BlogControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "show full month and correct Earlier Posts link if the last month exceeds the limit" do
-    blogpost1 = create(:post, face_date: "2007-11-30 13:14:15")
-    blogpost2 = create(:post, face_date: "2007-11-06 13:14:15")
-    blogpost3 = create(:post, face_date: "2007-10-05 13:14:15")
-    blogpost4 = create(:post, face_date: "2007-10-04 13:14:15")
-    blogpost5 = create(:post, face_date: "2007-10-03 13:14:15")
-    blogpost6 = create(:post, face_date: "2007-09-03 13:14:15")
+    blogposts = [
+      create(:post, face_date: "2007-11-30 13:14:15"),
+      create(:post, face_date: "2007-11-06 13:14:15"),
+      create(:post, face_date: "2007-10-05 13:14:15"),
+      create(:post, face_date: "2007-10-04 13:14:15"),
+      create(:post, face_date: "2007-10-03 13:14:15"),
+      create(:post, face_date: "2007-09-03 13:14:15"),
+    ]
     get blog_path
     assert_response :success
     assert_equal 5, assigns(:posts).size
-    assert_includes(assigns(:posts), blogpost1)
-    assert_includes(assigns(:posts), blogpost2)
-    assert_includes(assigns(:posts), blogpost3)
-    assert_includes(assigns(:posts), blogpost4)
-    assert_includes(assigns(:posts), blogpost5)
-    assert_equal blogpost6.to_month_url, assigns(:prev_month)
+    assert_equal blogposts[0..4], assigns(:posts)
+    assert_equal blogposts.last.to_month_url, assigns(:prev_month)
   end
 
   # Year view

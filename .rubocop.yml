@@ -2,6 +2,8 @@ require:
   - rubocop-packaging
   - rubocop-performance
   - rubocop-rails
+  - rubocop-minitest
+  - rubocop-rake
 
 inherit_gem:
   rubocop-shopify: rubocop.yml
@@ -168,3 +170,6 @@ Lint/MissingCopEnableDirective:
   #   # rubocop:enable SomeCop
   # .inf for any size
   MaximumRangeSize: 4
+
+Minitest/MultipleAssertions:
+  Enabled: false

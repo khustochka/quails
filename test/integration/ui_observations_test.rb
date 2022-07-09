@@ -35,6 +35,6 @@ class UIObservationsTest < ActionDispatch::IntegrationTest
     assert_current_path edit_card_path(obs1.card)
 
     assert_equal 2, card.observations.size
-    assert card != obs1.card
+    assert_not_equal card, obs1.card
   end
 end

@@ -24,6 +24,6 @@ class VideoTest < ActiveSupport::TestCase
 
     video.update(youtube_id: "Zzzzz33333")
 
-    assert video.assets_cache.externals.first.url.include?("Zzzzz33333")
+    assert_includes video.assets_cache.externals.first.url, "Zzzzz33333"
   end
 end

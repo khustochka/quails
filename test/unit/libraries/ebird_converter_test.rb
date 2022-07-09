@@ -30,7 +30,7 @@ class EbirdConverterTest < ActiveSupport::TestCase
 
   test "correctly process empty distance" do
     obs = FactoryBot.create(:observation)
-    assert ebird_observation(obs).distance_miles.blank?
+    assert_predicate ebird_observation(obs).distance_miles, :blank?
   end
 
   test "that date is properly formatted (American format)" do

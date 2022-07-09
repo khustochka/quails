@@ -21,4 +21,5 @@ task benchmark: :environment do
   end
 end
 
+desc nil
 task bench: :benchmark

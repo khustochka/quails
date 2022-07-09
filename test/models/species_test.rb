@@ -61,7 +61,7 @@ class SpeciesTest < ActiveSupport::TestCase
     posts = obs1.species.posts.to_a
 
     assert_equal 2, posts.size
-    assert posts.include?(blogpost1)
-    assert posts.include?(blogpost2)
+    assert_includes posts, blogpost1
+    assert_includes posts, blogpost2
   end
 end

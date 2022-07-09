@@ -22,7 +22,7 @@ class MediaControllerTest < ActionController::TestCase
     get :unmapped
     result = assigns(:media).map(&:id)
     assert_includes result, @image.id
-    assert result.include?(@video.id)
+    assert_includes result, @video.id
     assert_not_includes result, image2.id
   end
 

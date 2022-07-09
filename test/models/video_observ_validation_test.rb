@@ -12,7 +12,7 @@ class VideoObservValidationTest < ActiveSupport::TestCase
     new_attr = attributes_for(:video, slug: "new_video_slug").except(:observations)
     new_attr[:observations] = []
     assert_not @video.update(new_attr)
-    assert @video.errors.present?
+    assert_predicate @video.errors, :present?
   end
 
   test "restores observation list if video was not saved due to its emptiness" do
@@ -92,7 +92,7 @@ class VideoObservValidationTest < ActiveSupport::TestCase
     new_attr = @video.attributes
     new_attr[:observation_ids] = [obs1.id, obs2.id]
     assert_not @video.update(new_attr)
-    assert @video.errors.present?
+    assert_predicate @video.errors, :present?
   end
 
   test "preserves changed values if video failed to update with inconsistent observations" do
@@ -102,7 +102,7 @@ class VideoObservValidationTest < ActiveSupport::TestCase
     new_attr[:slug] = "newslug"
     new_attr[:observation_ids] = [obs1.id, obs2.id]
     assert_not @video.update(new_attr)
-    assert @video.errors.present?
+    assert_predicate @video.errors, :present?
     assert_equal "newslug", @video.slug
   end
 end
