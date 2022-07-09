@@ -68,7 +68,7 @@ class EbirdChecklist
 
   def parse!(page)
     datetime = page.at_css("div.SectionHeading-heading time")[:datetime]
-    dt = Time.parse(datetime)
+    dt = Time.zone.parse(datetime)
 
     self.observ_date = dt.to_date
     if datetime.include?("T")

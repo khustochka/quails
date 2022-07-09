@@ -85,13 +85,13 @@ class Post < ApplicationRecord
   end
 
   def self.prev_month(year, month)
-    date = Time.new(year, month, 1).beginning_of_month.strftime("%F %T") # No Time.zone is OK!
+    date = Time.new(year, month, 1).in_time_zone.beginning_of_month.strftime("%F %T") # No Time.zone is OK!
     rec = select("face_date").where("face_date < ?", date).order(face_date: :desc).first
     rec.try(:to_month_url)
   end
 
   def self.next_month(year, month)
-    date = Time.new(year, month, 1).end_of_month.strftime("%F %T.%N") # No Time.zone is OK!
+    date = Time.new(year, month, 1).in_time_zone.end_of_month.strftime("%F %T.%N") # No Time.zone is OK!
     rec = select("face_date").where("face_date > ?", date).order(face_date: :asc).first
     rec.try(:to_month_url)
   end

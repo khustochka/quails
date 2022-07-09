@@ -19,7 +19,7 @@ module Deflicker
     end
 
     def dateupload=(val)
-      self.uploaded_at = Time.at(val.to_i)
+      self.uploaded_at = Time.at(val.to_i).utc
     end
 
     def image

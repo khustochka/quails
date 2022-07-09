@@ -64,7 +64,7 @@ module Seeds
     end
 
     def commit_or_diff!
-      msg = "Seed update #{Time.now}"
+      msg = "Seed update #{Time.zone.now}"
 
       Dir.chdir(SEED_DIR) do
         if ENV["DEBUG"].nil? || ENV["DEBUG"] == "false"

@@ -14,7 +14,7 @@ class EbirdPreloadJobTest < ActiveJob::TestCase
       county: "Winnipeg",
       state_prov: "Manitoba"
     )
-    html = job.render_template(Time.now, [checklist])
+    html = job.render_template(Time.zone.now, [checklist])
     doc = Nokogiri::HTML(html)
     assert doc.css("form input[name=authenticity_token]").present?, "Authenticity token not rendered in the form"
   ensure

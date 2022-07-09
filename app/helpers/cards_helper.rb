@@ -22,8 +22,8 @@ module CardsHelper
 
   def suggested_dates(card)
     prelim = {
-      Date.today => ["Today"],
-      Date.yesterday => ["Yesterday"],
+      Time.zone.today => ["Today"],
+      Time.zone.yesterday => ["Yesterday"],
     }
     last_date = Card.maximum(:observ_date)
     if last_date

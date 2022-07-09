@@ -131,7 +131,7 @@ class ReportsController < ApplicationController
       observations_filtered = observations_filtered.where("cards.locus_id" => loc_filter)
     end
 
-    @today = Date.today
+    @today = Time.zone.today
     @this_day = if params[:day]
       Date.parse("#{@today.year}-#{params[:day]}")
     else
@@ -324,10 +324,7 @@ class ReportsController < ApplicationController
       @data[yr] = dates.inject([]) do |memo, (dt, cnt)|
         memo << [[dt.month, dt.day], (memo.last.try(&:last) || 0) + cnt]
       end
-      last_day = Date.new(yr, 12, 31)
-      if last_day > Date.today
-        last_day = Date.today
-      end
+      last_day = [Date.new(yr, 12, 31), Time.zone.today].min
       last_day2 = [last_day.month, last_day.day]
       if @data[yr].any? && @data[yr].last.first != last_day2
         @data[yr] << [last_day2, @data[yr].last.second]
