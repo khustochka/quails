@@ -19,7 +19,7 @@ class LoginController < ApplicationController
     ret = session[:ret]
     csrf_token = session[:_csrf_token]
     reset_session
-    if CredentialsCheck.check_credentials(params[:username], params[:password])
+    if Quails::CredentialsCheck.check_credentials(params[:username], params[:password])
       set_trust_cookie
       set_admin_session
       return_url = if ret
