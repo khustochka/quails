@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "quails/credentials_check"
+
 class LoginController < ApplicationController
   # User can get to login page in 3 ways:
   # 1. Redirect from admin path accessed when not logged in (sets session[:ret])

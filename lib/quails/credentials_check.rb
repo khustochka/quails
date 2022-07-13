@@ -4,7 +4,7 @@ module Quails
   module CredentialsCheck
     class << self
       def check_credentials(username, password)
-        match_username(username) && match_password(password)
+        configured? && match_username(username) && match_password(password)
       end
 
       def configure
@@ -16,7 +16,11 @@ module Quails
       def __configure(username, password)
         @__username = username
         @__password = password
-        true
+        @__username.present? && @__password.present?
+      end
+
+      def configured?
+        @__configured ||= configure
       end
 
       def match_username(username)
