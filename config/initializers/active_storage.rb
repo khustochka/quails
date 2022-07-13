@@ -2,7 +2,9 @@
 
 require "core_ext/active_storage/exif_date_image_analyzer"
 
-Rails.application.config.active_storage.analyzers = [ActiveStorage::Analyzer::ExifDateImageAnalyzer]
-Rails.application.config.active_storage.service_urls_expire_in = 30.days
-Rails.application.config.active_storage.queues.purge = :storage
-Rails.application.config.active_storage.queues.mirror = :storage
+Rails.application.configure do
+  config.active_storage.analyzers = [ActiveStorage::Analyzer::ExifDateImageAnalyzer]
+  config.active_storage.service_urls_expire_in = 30.days
+  config.active_storage.queues.purge = :storage
+  config.active_storage.queues.mirror = :storage
+end
