@@ -9,10 +9,16 @@ class SettingsControllerTest < ActionController::TestCase
     assert_template "index"
   end
 
-  test "create new setting" do
+  test "create new setting as a string" do
     login_as_admin
     post :save, params: { s: { new_setting: "this value" } }
     assert_equal "this value", Settings.find_by(key: :new_setting).value
+  end
+
+  test "create new setting as a Hash" do
+    login_as_admin
+    post :save, params: { s: { new_setting: { key: 1234, secret: 9876 } } }
+    assert_equal({ "key" => "1234", "secret" => "9876" }, Settings.find_by(key: :new_setting).value)
   end
 
   test "update existing setting" do

@@ -11,7 +11,8 @@ class SettingsController < ApplicationController
 
   # POST /settings/save
   def save
-    params[:s].each do |key, value|
+    # Parameters -> HashWithIndifferentAccess -> Hash
+    params[:s].to_h.to_hash.each do |key, value|
       setting = Settings.where(key: key)
       if setting.present?
         setting.update_all(value: value)
