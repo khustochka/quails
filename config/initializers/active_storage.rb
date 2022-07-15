@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require "core_ext/active_storage/exif_date_image_analyzer"
+require "quails/exif_date_image_analyzer"
 
 Rails.application.configure do
-  config.active_storage.analyzers = [ActiveStorage::Analyzer::ExifDateImageAnalyzer]
+  config.active_storage.analyzers = [Quails::ExifDateImageAnalyzer]
   config.active_storage.service_urls_expire_in = 30.days
   config.active_storage.queues.purge = :storage
   config.active_storage.queues.mirror = :storage
