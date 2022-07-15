@@ -5,8 +5,8 @@ require "species_parameterizer"
 class Species < ApplicationRecord
   extend SpeciesParameterizer
 
-  invalidates CacheKey.gallery
-  invalidates CacheKey.lifelist
+  invalidates Quails::CacheKey.gallery
+  invalidates Quails::CacheKey.lifelist
 
   localized_attr :name
 

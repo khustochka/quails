@@ -3,7 +3,7 @@
 class Observation < ApplicationRecord
   include DecoratedModel
 
-  invalidates CacheKey.lifelist
+  invalidates Quails::CacheKey.lifelist
 
   belongs_to :card, touch: true, inverse_of: :observations
 

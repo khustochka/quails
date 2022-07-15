@@ -21,7 +21,7 @@
     %li= link_to(t('lifelist.title.gb'), list_path(locus: 'united_kingdom'))
     %li= link_to(t('lifelist.title.canada'), list_path(locus: 'canada'))
 
-- cache(key: CacheKey.lifelist) do
+- cache(key: Quails::CacheKey.lifelist) do
 
   - first_sp_by_year = @first_sp_by_year.count(:all)
   - grouped_by_year_and_country = @grouped_by_year_and_country.count_distinct_species

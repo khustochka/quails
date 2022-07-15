@@ -19,7 +19,7 @@ class ChecklistController < ApplicationController
       end
     end
     # Expire cache manually, because update_all skips callbacks
-    CacheKey.checklist.invalidate
+    Quails::CacheKey.checklist.invalidate
     redirect_to checklist_path(country: params[:country])
   end
 

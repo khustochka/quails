@@ -3,7 +3,7 @@
 class Video < Media
   include DecoratedModel
 
-  invalidates CacheKey.gallery
+  invalidates Quails::CacheKey.gallery
 
   NORMAL_PARAMS = [:slug, :title, :youtube_id, :description]
 

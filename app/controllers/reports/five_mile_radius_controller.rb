@@ -29,7 +29,7 @@ module Reports
         raise "Invalid commit action"
       end
       Locus.where(id: locs).update_all(five_mile_radius: approve)
-      CacheKey.lifelist.invalidate
+      Quails::CacheKey.lifelist.invalidate
       redirect_to reports_five_mile_radius_path
     end
   end

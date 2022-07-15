@@ -11,7 +11,7 @@ class Card < ApplicationRecord
 
   include ActiveSupport::NumberHelper
 
-  invalidates CacheKey.lifelist
+  invalidates Quails::CacheKey.lifelist
 
   belongs_to :locus, -> { cached_ancestry_preload }, inverse_of: :cards
   belongs_to :post, -> { short_form }, touch: true, optional: true, inverse_of: :cards

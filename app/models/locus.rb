@@ -5,7 +5,7 @@ class Locus < ApplicationRecord
 
   localized_attr :name
 
-  invalidates CacheKey.lifelist
+  invalidates Quails::CacheKey.lifelist
 
   has_ancestry orphan_strategy: :restrict
 

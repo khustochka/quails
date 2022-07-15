@@ -3,8 +3,8 @@
 # require 'species_parameterizer'
 
 class Taxon < ApplicationRecord
-  # invalidates CacheKey.gallery
-  # invalidates CacheKey.checklist
+  # invalidates Quails::CacheKey.gallery
+  # invalidates Quails::CacheKey.checklist
 
   # extend SpeciesParameterizer
 

@@ -3,7 +3,7 @@
 class Image < Media
   include DecoratedModel
 
-  invalidates CacheKey.gallery
+  invalidates Quails::CacheKey.gallery
 
   STATES = %w(PUBLIC NOINDEX POST_ONLY EBIRD_ONLY PRIVATE)
 

@@ -46,7 +46,7 @@
 
 = render 'social/buttons'
 
-- cache([:species_section, post_id: @post.id, key: CacheKey.lifelist, locale: I18n.locale]) do
+- cache([:species_section, post_id: @post.id, key: Quails::CacheKey.lifelist, locale: I18n.locale]) do
   = render partial: 'species/flat_section', object: @post
 
 = render 'posts/sections/comments'

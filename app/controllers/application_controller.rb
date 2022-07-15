@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "quails/cache_key"
+
 class ApplicationController < ActionController::Base
   if Rails.application.config.x.features.rack_profiler
     before_action do

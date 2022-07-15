@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "quails/cache_key"
+
 class ApplicationRecord < ActiveRecord::Base
   self.abstract_class = true
 
