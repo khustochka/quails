@@ -69,6 +69,7 @@ gem "roman-numerals"
 
 # Monitoring
 gem "airbrake"
+gem "lograge"
 
 # Image processing
 gem "image_processing"
