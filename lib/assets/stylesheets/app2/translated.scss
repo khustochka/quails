@@ -1,22 +1,21 @@
 nav.translated {
   @extend .d-print-none;
   text-align: right;
-  margin-top: 5px;
-  margin-bottom: -29px;
+  margin-top: 12px;
+  //margin-bottom: -14px;
 
   .translated-link {
     color: white;
     background-color: #ff8800;
     text-decoration: none;
     border: none;
-    padding: 4px;
-    padding-right: 8px;
-    border-radius: 15px;
-    font-size: 0.85rem;
+    padding: 8px 12px 8px 8px;
+    border-radius: 35px;
+    font-size: 1rem;
     margin-left: 10px;
   }
 
   .translated-link-ru {
-    padding-left: 8px;
+    padding-left: 12px;
   }
 }
