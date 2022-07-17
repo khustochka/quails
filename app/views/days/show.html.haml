@@ -37,8 +37,6 @@
     -# Template Dependency: cards/card
     = render cards.default_cards_order(:asc).preload(:post, :locus)
 
-
-
 - @day.observations.load.if_present do |observations|
   %h3
     Observations

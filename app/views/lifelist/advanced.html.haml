@@ -61,4 +61,5 @@
           %th.count-column-header
             = sorting_link_to(:count, "Count")
       %tbody
+        -# Template Dependency: lifelist/advanced/*
         = render sorted_list_partial(params[:sort])
