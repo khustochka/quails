@@ -5,8 +5,8 @@ namespace :five_mr do
   task refresh: :environment do
     home = ENV["MYLOC"]&.split(",")&.map {|n| n.strip.to_f}
     unless home
-      puts "Provide your coordinates as MYLOC=<lat>,<lon>"
-      exit
+      $stderr.puts "Provide your coordinates as MYLOC=<lat>,<lon>"
+      exit 1
     end
 
     require "geo_distance"
