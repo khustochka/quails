@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "ebird/ebird_client"
+require "ebird/client"
 
 class EbirdChecklist
   attr_reader :ebird_id
@@ -30,7 +30,7 @@ class EbirdChecklist
   end
 
   def fetch!(client = nil)
-    agent = client || EbirdClient.new
+    agent = client || Ebird::Client.new
 
     page = agent.fetch_checklist(self)
 
@@ -38,7 +38,7 @@ class EbirdChecklist
   end
 
   def fix!(client = nil)
-    agent = client || EbirdClient.new
+    agent = client || Ebird::Client.new
 
     agent.fix_checklist(self)
   end

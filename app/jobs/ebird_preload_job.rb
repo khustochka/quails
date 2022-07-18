@@ -1,17 +1,12 @@
 # frozen_string_literal: true
 
-require "ebird/ebird_client"
+require "ebird/service"
 
 class EbirdPreloadJob < ApplicationJob
   queue_as :low
 
   def perform
-    client = EbirdClient.new
-    client.authenticate
-    time = Time.current
-    checklists = client.fetch_unsubmitted_checklists
-    Rails.cache.write("ebird/preloaded_checklists", checklists)
-    Rails.cache.write("ebird/last_preload", time)
+    time, checklists = Ebird::Service.preload
     html = render_template(time, checklists)
     EbirdImportsChannel.broadcast_to(:ebird_imports, html)
   end

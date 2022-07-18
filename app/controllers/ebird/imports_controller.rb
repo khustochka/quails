@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "ebird/ebird_client"
+require "ebird/client"
 
 module Ebird
   class ImportsController < ApplicationController
