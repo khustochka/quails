@@ -9,7 +9,8 @@ module Ebird
     STORAGE_CONFIGS = {
       local: {
         service: "Disk",
-        root: Pathname("tmp/csv") },
+        root: Pathname("tmp/csv"),
+      },
       s3: {
         service: "S3",
         region: ENV["S3_BUCKET_REGION"] || ENV["AWS_REGION"],
@@ -31,7 +32,7 @@ module Ebird
           filename = params[:id]
           @file = Ebird::File.find_by(name: filename)
           if @file
-            redirect_to private_url("%s.csv" % filename)
+            redirect_to private_url(@file.full_name)
           else
             raise ActiveRecord::RecordNotFound
           end
@@ -62,7 +63,7 @@ module Ebird
 
     def regenerate
       @file = Ebird::File.find(params[:id])
-      create_ebird_file({ name: @file.name.sub(/(\-test)?\-\d+$/, "") }, @file.card_ids)
+      create_ebird_file({ name: @file.name.delete_prefix("test-").sub(/\-\d+$/, "") }, @file.card_ids)
     end
 
     def update
@@ -94,8 +95,8 @@ module Ebird
       @file.cards = cards_rel
 
       if @file.save
-        @file.update_attribute(:name, "#{@file.name}-#{test_prefix}#{@file.id}")
-        result = Exporter.ebird(@file.name, cards_rel).export
+        @file.update_attribute(:name, "#{test_prefix}#{@file.name}-#{@file.id}")
+        result = Exporter.ebird(filename: @file.name, cards: cards_rel, storage: storage_service).export
       else
         # FIXME: this is hack. For some reason errors on cards are not preserved after validation.
         @file.cards.each { |c| c.valid?(:ebird_post) }
@@ -105,7 +106,7 @@ module Ebird
       if result
         # rubocop:disable Rails/OutputSafety
         flash.notice =
-          "Successfully created CSV file #{helpers.link_to(@file.name, ebird_submission_path(id: @file.id, format: :csv))}".html_safe
+          "Successfully created CSV file #{helpers.link_to(@file.full_name, ebird_submission_path(id: @file.name, format: :csv))}".html_safe
         # rubocop:enable Rails/OutputSafety
         redirect_to ebird_submission_url(@file.id)
       else
@@ -121,13 +122,11 @@ module Ebird
       raise
     end
 
-    def local_csv_path
-      ENV["quails_ebird_csv_path"] || "tmp/csv"
-    end
-
     def private_url(fname)
-      storage_service.__send__(
-        :private_url, fname, expires_in: URL_EXPIRATION_SECONDS,
+      # Does not work for disk service, because services are not defined in storage.yml.
+      # Not fixing this because feature is not used.
+      storage_service.url(
+        fname, expires_in: URL_EXPIRATION_SECONDS,
         filename: ActiveStorage::Filename.new(fname), disposition: :attachment, content_type: "text/csv"
       )
     end

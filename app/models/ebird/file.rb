@@ -41,5 +41,9 @@ module Ebird
         errors.add(:cards, "some are invalid")
       end
     end
+
+    def full_name
+      "%s.csv" % name
+    end
   end
 end

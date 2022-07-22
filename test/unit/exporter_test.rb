@@ -10,7 +10,7 @@ class ExporterTest < ActiveSupport::TestCase
     obs1 = FactoryBot.create(:observation, taxon: taxa(:pasdom), card: card)
     obs2 = FactoryBot.create(:observation, taxon: taxa(:unreported_bird_sp), card: card)
     # Should not raise
-    result = Exporter.ebird("Ebird_file", Card.where(id: card.id)).export
+    result = Exporter.ebird(filename: "Ebird_file", cards: Card.where(id: card.id), storage: nil).to_csv
     assert result
   end
 end
