@@ -6,17 +6,35 @@ module Ebird
   class SubmissionsController < ApplicationController
     administrative
 
+    STORAGE_CONFIGS = {
+      local: {
+        service: "Disk",
+        root: Pathname("tmp/csv") },
+      s3: {
+        service: "S3",
+        region: ENV["S3_BUCKET_REGION"] || ENV["AWS_REGION"],
+        bucket: ENV["EBIRD_CSV_BUCKET"],
+      },
+    }
+    URL_EXPIRATION_SECONDS = 600
+
     def index
       @files = Ebird::File.preload(:cards).order(created_at: :desc).page(params[:page])
     end
 
     def show
-      @file = Ebird::File.find(params[:id])
       respond_to do |format|
         format.html {
+          @file = Ebird::File.find(params[:id])
         }
         format.csv {
-          send_file ::File.join(local_csv_path, "#{@file.name}.csv")
+          filename = params[:id]
+          @file = Ebird::File.find_by(name: filename)
+          if @file
+            redirect_to private_url("%s.csv" % filename)
+          else
+            raise ActiveRecord::RecordNotFound
+          end
         }
       end
     end
@@ -105,6 +123,25 @@ module Ebird
 
     def local_csv_path
       ENV["quails_ebird_csv_path"] || "tmp/csv"
+    end
+
+    def private_url(fname)
+      storage_service.__send__(
+        :private_url, fname, expires_in: URL_EXPIRATION_SECONDS,
+        filename: ActiveStorage::Filename.new(fname), disposition: :attachment, content_type: "text/csv"
+      )
+    end
+
+    def storage_service
+      @storage_service ||= ActiveStorage::Service.configure(storage_key, STORAGE_CONFIGS)
+    end
+
+    def storage_key
+      if Rails.env.production? || ENV["EBIRD_CSV_BUCKET"]
+        :s3
+      else
+        :local
+      end
     end
   end
 end

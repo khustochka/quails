@@ -60,7 +60,7 @@ gem "health_check"
 # External services
 gem "flickraw", "~> 0.9.7"
 gem "livejournal2"
-gem "aws-sdk-s3", require: false
+gem "aws-sdk-s3"
 gem "aws-sdk-rails"
 
 # Small utils
