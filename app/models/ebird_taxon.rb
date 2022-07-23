@@ -10,7 +10,7 @@ class EbirdTaxon < ApplicationRecord
   belongs_to :parent, class_name: "EbirdTaxon", optional: true
   # Careful when importing new species
   has_many :children, class_name: "EbirdTaxon", foreign_key: "parent_id", dependent: :restrict_with_exception, inverse_of: :parent
-  has_one :taxon, dependent: :restrict_with_exception
+  belongs_to :taxon
 
   # Scopes
   scope :category_species, -> { where(category: "species") }
@@ -41,7 +41,7 @@ class EbirdTaxon < ApplicationRecord
       attr_hash = attributes.slice("name_sci", "name_en", "ebird_code", "category", "order", "family")
       prev_index_num =
         Taxon
-          .joins("INNER JOIN ebird_taxa on ebird_taxa.id = taxa.ebird_taxon_id")
+          .joins("INNER JOIN ebird_taxa on ebird_taxa.taxon_id = taxa.id")
           .where("ebird_taxa.index_num < ?", index_num).order("taxa.index_num DESC")
           .limit(1).pluck("taxa.index_num").first
       new_index_num = prev_index_num ? prev_index_num + 1 : 1

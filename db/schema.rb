@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_15_013557) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_23_163132) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -122,9 +122,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_15_013557) do
     t.integer "index_num", null: false
     t.integer "parent_id"
     t.integer "ebird_version", limit: 2, null: false
+    t.bigint "taxon_id"
     t.index ["ebird_code"], name: "index_ebird_taxa_on_ebird_code"
     t.index ["index_num"], name: "index_ebird_taxa_on_index_num"
     t.index ["parent_id"], name: "index_ebird_taxa_on_parent_id"
+    t.index ["taxon_id"], name: "index_ebird_taxa_on_taxon_id"
   end
 
   create_table "ioc_taxa", force: :cascade do |t|
@@ -294,7 +296,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_15_013557) do
     t.string "ebird_code", null: false
     t.integer "parent_id"
     t.integer "species_id"
-    t.integer "ebird_taxon_id"
     t.index ["ebird_code"], name: "index_taxa_on_ebird_code"
     t.index ["index_num"], name: "index_taxa_on_index_num"
     t.index ["parent_id"], name: "index_taxa_on_parent_id"
@@ -318,6 +319,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_15_013557) do
   add_foreign_key "ebird_submissions", "cards", on_delete: :cascade
   add_foreign_key "ebird_submissions", "ebird_files", on_delete: :cascade
   add_foreign_key "ebird_taxa", "ebird_taxa", column: "parent_id", on_delete: :restrict
+  add_foreign_key "ebird_taxa", "taxa", on_delete: :nullify
   add_foreign_key "local_species", "loci", on_delete: :cascade
   add_foreign_key "local_species", "species", on_delete: :cascade
   add_foreign_key "media", "spots", on_delete: :nullify
@@ -332,7 +334,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_15_013557) do
   add_foreign_key "species_splits", "species", column: "subspecies_id", on_delete: :cascade
   add_foreign_key "species_splits", "species", column: "superspecies_id", on_delete: :cascade
   add_foreign_key "spots", "observations", on_delete: :cascade
-  add_foreign_key "taxa", "ebird_taxa", on_delete: :restrict
   add_foreign_key "taxa", "species", on_delete: :nullify
   add_foreign_key "taxa", "taxa", column: "parent_id", on_delete: :restrict
 end

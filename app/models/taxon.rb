@@ -22,7 +22,7 @@ class Taxon < ApplicationRecord
   belongs_to :parent, class_name: "Taxon", optional: true
   has_many :children, class_name: "Taxon", foreign_key: "parent_id", dependent: :restrict_with_exception, inverse_of: :parent
   belongs_to :species, optional: true, inverse_of: :taxa
-  belongs_to :ebird_taxon, optional: true
+  has_one :ebird_taxon, dependent: :nullify
 
   has_many :observations, dependent: :restrict_with_exception
   has_many :images, through: :observations
