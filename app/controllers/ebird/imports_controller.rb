@@ -16,7 +16,7 @@ module Ebird
       checklists = params.fetch(:c, nil)
       if checklists
         checklists.each do |cl|
-          EbirdImportChecklistJob.perform_later(cl[:ebird_id], cl[:locus_id])
+          Ebird::ChecklistImportJob.perform_later(cl[:ebird_id], cl[:locus_id])
         end
         Rails.cache.delete("ebird/preloaded_checklists")
         Rails.cache.delete("ebird/last_preload")
@@ -28,7 +28,7 @@ module Ebird
     end
 
     def refresh
-      EbirdPreloadJob.set(queue: :default).perform_later
+      Ebird::ChecklistPreloadJob.set(queue: :default).perform_later
       if request.xhr?
         render json: {}
       else
