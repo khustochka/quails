@@ -7,7 +7,7 @@ module EBird
     queue_as :low
 
     def perform
-      time, checklists = EBird::Service.preload
+      time, checklists = EBird::Service.preload_checklists
       html = render_template(time, checklists)
       EBirdImportsChannel.broadcast_to(:ebird_imports, html)
     end

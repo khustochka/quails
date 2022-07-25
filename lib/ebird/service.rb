@@ -5,7 +5,7 @@ require "ebird/client"
 module EBird
   class Service
     class << self
-      def preload
+      def preload_checklists
         client = EBird::Client.new
         client.authenticate
         [Time.current, client.fetch_unsubmitted_checklists].tap do |time, checklists|
