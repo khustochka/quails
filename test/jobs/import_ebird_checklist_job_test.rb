@@ -2,7 +2,7 @@
 
 require "test_helper"
 
-class ImportEbirdChecklistJobTest < ActiveJob::TestCase
+class ImportEBirdChecklistJobTest < ActiveJob::TestCase
   # test "the truth" do
   #   assert true
   # end

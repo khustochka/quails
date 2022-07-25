@@ -128,7 +128,7 @@ class CardsController < ApplicationController
 
     if ebird_id.present?
 
-      checklist = EbirdChecklist.new(ebird_id).fetch!
+      checklist = EBirdChecklist.new(ebird_id).fetch!
 
       @card = checklist.to_card
 

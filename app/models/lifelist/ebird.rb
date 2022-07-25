@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Lifelist
-  class Ebird
+  class EBird
     def initialize(sort: "by_date")
       @sort = sort || "by_date"
     end
@@ -21,7 +21,7 @@ module Lifelist
     end
 
     def version
-      "v%s" % [EbirdTaxon.maximum(:ebird_version)]
+      "v%s" % [EBirdTaxon.maximum(:ebird_version)]
     end
 
     private
@@ -38,7 +38,7 @@ module Lifelist
     end
 
     def ebird_taxa
-      EbirdTaxon
+      EBirdTaxon
         .joins(:taxon)
         .merge(taxa)
     end

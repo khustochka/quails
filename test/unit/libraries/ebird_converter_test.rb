@@ -3,9 +3,9 @@
 require "test_helper"
 require "export/ebird/observation"
 
-class EbirdConverterTest < ActiveSupport::TestCase
+class EBirdConverterTest < ActiveSupport::TestCase
   def ebird_observation(obs)
-    EbirdObservation.new(obs)
+    EBirdObservation.new(obs)
   end
 
   def travel_card

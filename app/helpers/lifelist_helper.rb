@@ -13,6 +13,6 @@ module LifelistHelper
   end
 
   def ebird_lifelist
-    Lifelist::Ebird.new
+    Lifelist::EBird.new
   end
 end

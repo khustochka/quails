@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 module Search
-  class EbirdTaxonSearchUnweighted < Unweighted
+  class EBirdTaxonSearchUnweighted < Unweighted
     def find
-      return EbirdTaxon.none if @term.blank?
+      return EBirdTaxon.none if @term.blank?
 
       rel = @base
         .select("ebird_taxa.*,

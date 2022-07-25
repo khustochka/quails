@@ -13,7 +13,7 @@ namespace :tax do
       # Promote Larus glaucoides ebird taxon to taxon-species. This will link the taxon-species to an existing
       # lar. gl. species, and all its taxa-children (including thayeri subsp)
 
-      eb_larus_glaucoides = EbirdTaxon.find_by_name_sci("Larus glaucoides")
+      eb_larus_glaucoides = EBirdTaxon.find_by_name_sci("Larus glaucoides")
       eb_larus_glaucoides.promote
 
       # Remove Larus thayeri from local_species
@@ -37,13 +37,13 @@ namespace :tax do
     task implement_splits: :environment do
       # HEN/NORTHERN HARRIER split
 
-      hen_harrier = EbirdTaxon.find_by_ebird_code("norhar1").promote
-      nor_harrier = EbirdTaxon.find_by_ebird_code("norhar2").promote
+      hen_harrier = EBirdTaxon.find_by_ebird_code("norhar1").promote
+      nor_harrier = EBirdTaxon.find_by_ebird_code("norhar2").promote
 
       # GREAT GREY/NORTHERN SHRIKE split
 
-      gg_shrike = EbirdTaxon.find_by_ebird_code("norshr1").promote
-      nor_shrike = EbirdTaxon.find_by_ebird_code("norshr4").promote
+      gg_shrike = EBirdTaxon.find_by_ebird_code("norshr1").promote
+      nor_shrike = EBirdTaxon.find_by_ebird_code("norshr4").promote
 
       # Update local species
 

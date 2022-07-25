@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Ebird
+module EBird
   class ObsSearch < ObservationSearch
     # Rendering
     def dates_fieldset

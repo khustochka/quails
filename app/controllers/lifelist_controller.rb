@@ -68,7 +68,7 @@ class LifelistController < ApplicationController
 
   def ebird
     allow_params(:year, :locus, :sort)
-    @lifelist = Lifelist::Ebird.new(sort: params[:sort])
+    @lifelist = Lifelist::EBird.new(sort: params[:sort])
   end
 
   def stats

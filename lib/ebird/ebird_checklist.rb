@@ -2,7 +2,7 @@
 
 require "ebird/client"
 
-class EbirdChecklist
+class EBirdChecklist
   attr_reader :ebird_id
   attr_accessor :observ_date, :start_time, :effort_type, :duration_minutes, :distance_kms, :area_acres,
     :notes, :observers, :location_string, :observations
@@ -30,7 +30,7 @@ class EbirdChecklist
   end
 
   def fetch!(client = nil)
-    agent = client || Ebird::Client.new
+    agent = client || EBird::Client.new
 
     page = agent.fetch_checklist(self)
 
@@ -38,7 +38,7 @@ class EbirdChecklist
   end
 
   def fix!(client = nil)
-    agent = client || Ebird::Client.new
+    agent = client || EBird::Client.new
 
     agent.fix_checklist(self)
   end
@@ -126,7 +126,7 @@ class EbirdChecklist
       count = nil if count == "X"
 
       taxon = row.at_css("section")[:id]
-      ebird_taxon = EbirdTaxon.find_by(ebird_code: taxon)
+      ebird_taxon = EBirdTaxon.find_by(ebird_code: taxon)
 
       tx = ebird_taxon.find_or_promote_to_taxon
 

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class EbirdTaxaController < ApplicationController
+class EBirdTaxaController < ApplicationController
   administrative
 
   # before_action :find_species, only: [:show, :update]
@@ -9,9 +9,9 @@ class EbirdTaxaController < ApplicationController
     # TODO : Filter by order, family, category
     @term = params[:term]
     @taxa = if @term.present?
-      Search::EbirdTaxonSearchUnweighted.new(EbirdTaxon.all, @term).find
+      Search::EBirdTaxonSearchUnweighted.new(EBirdTaxon.all, @term).find
     else
-      EbirdTaxon.order(:index_num).page(params[:page]).per(50)
+      EBirdTaxon.order(:index_num).page(params[:page]).per(50)
     end
     @taxa = @taxa.preload(taxon: :species)
     if request.xhr?
@@ -22,11 +22,11 @@ class EbirdTaxaController < ApplicationController
   end
 
   def show
-    @taxon = EbirdTaxon.find_by(ebird_code: params[:id])
+    @taxon = EBirdTaxon.find_by(ebird_code: params[:id])
   end
 
   def promote
-    @taxon = EbirdTaxon.find_by(ebird_code: params[:id])
+    @taxon = EBirdTaxon.find_by(ebird_code: params[:id])
     @taxon.promote
     redirect_to ebird_taxon_path(@taxon)
   end

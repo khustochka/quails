@@ -2,7 +2,7 @@
 
 require "test_helper"
 
-class Ebird::SubmissionsControllerTest < ActionController::TestCase
+class EBird::SubmissionsControllerTest < ActionController::TestCase
   test "should get list of ebird files" do
     obs = FactoryBot.create(:observation)
     FactoryBot.create(:ebird_file, cards: [obs.card])
@@ -33,25 +33,25 @@ class Ebird::SubmissionsControllerTest < ActionController::TestCase
     card2 = FactoryBot.create(:observation).card
     login_as_admin
 
-    assert_difference("Ebird::File.count", 1) do
+    assert_difference("EBird::File.count", 1) do
       get :create, params: { ebird_file: { name: "fileAAA" }, card_id: [card1.id, card2.id] }
     end
 
-    assert_redirected_to controller: :submissions, action: :show, id: Ebird::File.last
+    assert_redirected_to controller: :submissions, action: :show, id: EBird::File.last
   end
 
   test "do not create ebird file object without name" do
     card1 = FactoryBot.create(:card)
     card2 = FactoryBot.create(:card)
     login_as_admin
-    assert_difference("Ebird::File.count", 0) do
+    assert_difference("EBird::File.count", 0) do
       get :create, params: { ebird_file: { name: "" }, card_id: [card1.id, card2.id] }
     end
   end
 
   test "do not create ebird file object without cards" do
     login_as_admin
-    assert_difference("Ebird::File.count", 0) do
+    assert_difference("EBird::File.count", 0) do
       get :create, params: { ebird_file: { name: "fileBBB" } }
     end
 

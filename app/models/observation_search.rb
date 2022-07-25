@@ -54,7 +54,7 @@ class ObservationSearch
     CARD_ATTRIBUTES.any? { |key| public_send(key).meaningful? }
   end
 
-  # Overwritten in Ebird::ObsSearch
+  # Overwritten in EBird::ObsSearch
   def base_cards
     Card.all
   end

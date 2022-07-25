@@ -2,13 +2,13 @@
 
 require "export/ebird/observation"
 
-class EbirdStrategy
+class EBirdStrategy
   def initialize(cards)
     @cards = cards
   end
 
   def wrap(obs)
-    EbirdObservation.new(obs)
+    EBirdObservation.new(obs)
   end
 
   def observations

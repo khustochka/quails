@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Ebird
+module EBird
   class File < ApplicationRecord
     STATUSES = %w(NEW POSTED REMOVED INVALID)
 
@@ -22,7 +22,7 @@ module Ebird
     validates :cards, presence: true
     validate :cards_effort, on: :create
 
-    has_many :ebird_submissions, class_name: "Ebird::Submission", foreign_key: "ebird_file_id",
+    has_many :ebird_submissions, class_name: "EBird::Submission", foreign_key: "ebird_file_id",
       dependent: :delete_all, inverse_of: :ebird_file
     has_many :cards, -> { order(:observ_date) }, through: :ebird_submissions, inverse_of: :ebird_files
 

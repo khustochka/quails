@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Why it does not work without jQuery?
   if (form) $(form).on("ajax:success", form, function () {
-    consumer.subscriptions.create({ channel: "EbirdImportsChannel" }, {
+    consumer.subscriptions.create({ channel: "EBirdImportsChannel" }, {
       received(data) {
         container.html(data);
         this.unsubscribe();

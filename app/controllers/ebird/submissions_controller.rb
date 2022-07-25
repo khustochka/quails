@@ -2,7 +2,7 @@
 
 require "export/exporter"
 
-module Ebird
+module EBird
   class SubmissionsController < ApplicationController
     administrative
 
@@ -20,17 +20,17 @@ module Ebird
     URL_EXPIRATION_SECONDS = 600
 
     def index
-      @files = Ebird::File.preload(:cards).order(created_at: :desc).page(params[:page])
+      @files = EBird::File.preload(:cards).order(created_at: :desc).page(params[:page])
     end
 
     def show
       respond_to do |format|
         format.html {
-          @file = Ebird::File.find(params[:id])
+          @file = EBird::File.find(params[:id])
         }
         format.csv {
           filename = params[:id]
-          @file = Ebird::File.find_by(name: filename)
+          @file = EBird::File.find_by(name: filename)
           if @file
             redirect_to private_url(@file.full_name)
           else
@@ -42,7 +42,7 @@ module Ebird
 
     def new
       search_params = params[:q] || { observ_date: Card.first_unebirded_date, end_date: Card.last_unebirded_date }
-      @observation_search = Ebird::ObsSearch.new(search_params)
+      @observation_search = EBird::ObsSearch.new(search_params)
 
       @cards = @observation_search.cards.default_cards_order(:asc).preload(:locus, :post)
 
@@ -54,7 +54,7 @@ module Ebird
         ].compact.uniq.join("-")
       end
 
-      @file = Ebird::File.new(cards: @cards, name: name)
+      @file = EBird::File.new(cards: @cards, name: name)
     end
 
     def create
@@ -62,18 +62,18 @@ module Ebird
     end
 
     def regenerate
-      @file = Ebird::File.find(params[:id])
+      @file = EBird::File.find(params[:id])
       create_ebird_file({ name: @file.name.delete_prefix("test-").sub(/\-\d+$/, "") }, @file.card_ids)
     end
 
     def update
-      @file = Ebird::File.find(params[:id])
+      @file = EBird::File.find(params[:id])
       @file.update(params[:file])
       render json: { status_line: render_to_string(partial: "status_line", formats: [:html], locals: { file: @file }) }
     end
 
     def destroy
-      Ebird::File.find(params[:id]).destroy
+      EBird::File.find(params[:id]).destroy
       redirect_to action: :index
     end
 
@@ -88,7 +88,7 @@ module Ebird
     end
 
     def create_ebird_file(file_params, card_ids)
-      @file = Ebird::File.new(file_params)
+      @file = EBird::File.new(file_params)
 
       cards_rel = Card.where(id: card_ids)
 
@@ -113,7 +113,7 @@ module Ebird
         if @file.persisted?
           @file.destroy
         end
-        @observation_search = Ebird::ObsSearch.new
+        @observation_search = EBird::ObsSearch.new
         flash.alert = "Export failed"
         render :new
       end

@@ -2,7 +2,7 @@
 
 require "ebird/client"
 
-module Ebird
+module EBird
   class ImportsController < ApplicationController
     administrative
 
@@ -16,7 +16,7 @@ module Ebird
       checklists = params.fetch(:c, nil)
       if checklists
         checklists.each do |cl|
-          Ebird::ChecklistImportJob.perform_later(cl[:ebird_id], cl[:locus_id])
+          EBird::ChecklistImportJob.perform_later(cl[:ebird_id], cl[:locus_id])
         end
         Rails.cache.delete("ebird/preloaded_checklists")
         Rails.cache.delete("ebird/last_preload")
@@ -28,7 +28,7 @@ module Ebird
     end
 
     def refresh
-      Ebird::ChecklistPreloadJob.set(queue: :default).perform_later
+      EBird::ChecklistPreloadJob.set(queue: :default).perform_later
       if request.xhr?
         render json: {}
       else

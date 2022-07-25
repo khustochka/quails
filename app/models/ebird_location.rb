@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class EbirdLocation < ApplicationRecord
+class EBirdLocation < ApplicationRecord
   has_many :loci, dependent: :nullify
 
   def to_label

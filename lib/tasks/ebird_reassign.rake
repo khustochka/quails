@@ -12,7 +12,7 @@ namespace :ebird do
       oldloc = ENV["OLDLOC"]
       list = hash.select { |(_id, loc), _obs| loc == oldloc }
 
-      client = Ebird::Client.new
+      client = EBird::Client.new
       client.authenticate
       agent = client.instance_variable_get(:@agent)
       list.to_a.each do |(id, _loc), obs|

@@ -41,9 +41,9 @@ namespace :tax do
         synonym_type = nil
         # Special case - code was left for the Grass Wren, so we have to manually move over the species
         if sp.name_en == "Sedge Wren"
-          ebtx = EbirdTaxon.find_by_ebird_code("sedwre1")
+          ebtx = EBirdTaxon.find_by_ebird_code("sedwre1")
           tx = ebtx.promote(species: sp)
-          EbirdTaxon.find_by_ebird_code("sedwre").taxon.observations.each {|obs| obs.update(taxon: tx)}
+          EBirdTaxon.find_by_ebird_code("sedwre").taxon.observations.each {|obs| obs.update(taxon: tx)}
           sp.high_level_taxa.reload
           synonym_type = "split"
           puts "*** #{sp.name_sci} split into #{sp.high_level_taxon.name_sci}."
@@ -54,21 +54,21 @@ namespace :tax do
           if ranks.include?("slash")
             case sp.name_sci
             when "Sylvia cantillans"
-              ebtx = EbirdTaxon.find_by_ebird_code("easwar1")
+              ebtx = EBirdTaxon.find_by_ebird_code("easwar1")
               ebtx.promote(species: sp)
               sp.high_level_taxa.reload
               # Nominative species remains the same
               puts "*** #{sp.name_sci} split into #{sp.high_level_taxon.name_sci}."
             when "Alaudala rufescens"
-              ebtx = EbirdTaxon.find_by_ebird_code("tstlar1")
+              ebtx = EBirdTaxon.find_by_ebird_code("tstlar1")
               ebtx.promote(species: sp)
               sp.high_level_taxa.reload
               synonym_type = "split"
               puts "*** #{sp.name_sci} split into #{sp.high_level_taxon.name_sci}."
             when "Oenanthe hispanica"
-              ebtx = EbirdTaxon.find_by_ebird_code("bkewhe2")
+              ebtx = EBirdTaxon.find_by_ebird_code("bkewhe2")
               tx = ebtx.promote(species: sp)
-              EbirdTaxon.find_by_ebird_code("blewhe1").taxon.observations.each {|obs| obs.update(taxon: tx)}
+              EBirdTaxon.find_by_ebird_code("blewhe1").taxon.observations.each {|obs| obs.update(taxon: tx)}
               sp.high_level_taxa.reload
               synonym_type = "split"
               puts "*** #{sp.name_sci} split into #{sp.high_level_taxon.name_sci}."
@@ -79,7 +79,7 @@ namespace :tax do
           elsif ranks.include?("issf")
             case sp.name_sci
             when "Caracara cheriway"
-              ebtx = EbirdTaxon.find_by_ebird_code("y00678")
+              ebtx = EBirdTaxon.find_by_ebird_code("y00678")
               ebtx.promote(species: sp)
               sp.high_level_taxa.reload
               synonym_type = "lump"

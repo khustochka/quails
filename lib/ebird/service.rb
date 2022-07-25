@@ -2,11 +2,11 @@
 
 require "ebird/client"
 
-module Ebird
+module EBird
   class Service
     class << self
       def preload
-        client = Ebird::Client.new
+        client = EBird::Client.new
         client.authenticate
         [Time.current, client.fetch_unsubmitted_checklists].tap do |time, checklists|
           Rails.cache.write("ebird/last_preload", time)

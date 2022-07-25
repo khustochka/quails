@@ -2,7 +2,7 @@
 
 require "ebird/ebird_checklist_meta"
 
-module Ebird
+module EBird
   class Client
     def initialize
       @agent = Mechanize.new
@@ -17,7 +17,7 @@ module Ebird
       form.password = Settings.ebird_user.password
       page = @agent.submit(form)
 
-      @authenticated = page.xpath("//a[contains(@class, 'HeaderEbird-link')]/span[contains(text(),'(#{Settings.ebird_user.name})')]").any?
+      @authenticated = page.xpath("//a[contains(@class, 'HeaderEBird-link')]/span[contains(text(),'(#{Settings.ebird_user.name})')]").any?
     end
 
     # def get_checklists_for_date(date)
@@ -64,7 +64,7 @@ module Ebird
       list_rows = page.xpath("//ol[@id='place-species-observed-results']/li")
       first100 = list_rows.to_a.take(100).map do |row|
         ebird_id = row[:id].scan(/checklist-(.*)$/)[0][0]
-        EbirdChecklistMeta.new(
+        EBirdChecklistMeta.new(
           ebird_id: ebird_id,
           time: row.xpath("./div[@class='ResultsStats-title']").text.strip.gsub(/\s+/, " "),
           location: row.xpath("./div[@class='ResultsStats-details']/div/div/div[1]/div[contains(@class, 'ResultsStats-details-location')]").first.text,

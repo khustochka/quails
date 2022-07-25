@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
-class EbirdTaxon < ApplicationRecord
+class EBirdTaxon < ApplicationRecord
   localized_attr :name
 
   acts_as_list column: :index_num
 
   # Associations
 
-  belongs_to :parent, class_name: "EbirdTaxon", optional: true
+  belongs_to :parent, class_name: "EBirdTaxon", optional: true
   # Careful when importing new species
-  has_many :children, class_name: "EbirdTaxon", foreign_key: "parent_id", dependent: :restrict_with_exception, inverse_of: :parent
+  has_many :children, class_name: "EBirdTaxon", foreign_key: "parent_id", dependent: :restrict_with_exception, inverse_of: :parent
   belongs_to :taxon
 
   # Scopes

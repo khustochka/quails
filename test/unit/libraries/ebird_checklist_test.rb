@@ -3,9 +3,9 @@
 require "test_helper"
 require "ebird/ebird_checklist"
 
-class EbirdChecklistTest < ActiveSupport::TestCase
+class EBirdChecklistTest < ActiveSupport::TestCase
   def parse_duration(str)
-    str.match(EbirdChecklist::DURATION_REGEX)
+    str.match(EBirdChecklist::DURATION_REGEX)
   end
 
   test "properly parse minutes only duration" do

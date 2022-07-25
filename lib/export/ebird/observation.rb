@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class EbirdObservation
+class EBirdObservation
   def initialize(obs)
     @obs = obs
   end

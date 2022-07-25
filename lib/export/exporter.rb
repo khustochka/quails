@@ -12,7 +12,7 @@ class Exporter
   end
 
   def self.ebird(filename:, cards:, storage:)
-    new(EbirdStrategy.new(cards), filename, cards, storage)
+    new(EBirdStrategy.new(cards), filename, cards, storage)
   end
 
   # def self.rubirds(filename:, cards:, storage:)
