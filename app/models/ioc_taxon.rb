@@ -7,7 +7,7 @@ class IocTaxon < ApplicationRecord
   acts_as_list column: :index_num
 
   belongs_to :ioc_species, class_name: "IocTaxon", optional: true
-  has_many :ioc_subspecies, class_name: "IocTaxon", foreign_key: :ioc_species_id
+  has_many :ioc_subspecies, class_name: "IocTaxon", foreign_key: :ioc_species_id, dependent: :restrict_with_exception, inverse_of: :ioc_species
 
   scope :species, -> { where(rank: SPECIES_RANK) }
   scope :subspecies, -> { where(rank: SUBSPECIES_RANK) }

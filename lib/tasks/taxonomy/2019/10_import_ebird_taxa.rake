@@ -15,9 +15,9 @@ namespace :tax do
 
       codes = {}
 
-      all_etaxa = EbirdTaxon.all.index_by(&:ebird_code)
+      all_etaxa = EBirdTaxon.all.index_by(&:ebird_code)
 
-      # Ebird File is in some Mac encoding, and not all of them are convertable to UTF-8.
+      # EBird File is in some Mac encoding, and not all of them are convertable to UTF-8.
       # This one works for now (check Rüppell's Warbler)
       # I have fixed encoding in RubyMine (selected Mac Central European)
       #data = CSV.read(filename, encoding: "macRoman:UTF-8")
@@ -27,9 +27,9 @@ namespace :tax do
       # Why we need this workaround? Because we cache the taxa. And then we change their order.
       # But the index_num's in the cached models are different from the real ones (after previous taxa are moved up or down.)
       # This causes problems, duplicated and missing indices.
-      EbirdTaxon.acts_as_list_no_update do
+      EBirdTaxon.acts_as_list_no_update do
         data.each_with_index do |(ebird_order, category, code, name_en, name_sci, order, family, _, report_as), idx|
-          e_taxon = all_etaxa[code] || EbirdTaxon.new(ebird_code: code)
+          e_taxon = all_etaxa[code] || EBirdTaxon.new(ebird_code: code)
           e_taxon.update!(
               name_sci: name_sci,
               name_en: name_en,
@@ -45,7 +45,7 @@ namespace :tax do
         end
       end
 
-      old_etaxa = EbirdTaxon.where(ebird_version: 2018)
+      old_etaxa = EBirdTaxon.where(ebird_version: 2018)
       to_fix = Taxon.joins(:ebird_taxon).merge(old_etaxa)
       num_to_fix = to_fix.count
       puts "\n\nREPORT:"
@@ -62,7 +62,7 @@ namespace :tax do
     # This is necessary in case some taxon was removed from ebird, in this case
     # firecr2: formerly Firecrest, after split would be "Common/Madeiran Firecrest", but it was removed
     task fix_taxa_links_to_ebird: :environment do
-      # common_firecrest = EbirdTaxon.find_by(ebird_code: "firecr1")
+      # common_firecrest = EBirdTaxon.find_by(ebird_code: "firecr1")
       # Taxon.find_by(ebird_code: "firecr2").update!(
       #     ebird_code: "firecr1",
       #     ebird_taxon: common_firecrest
@@ -70,7 +70,7 @@ namespace :tax do
     end
 
     task clean_ebird_taxa: :environment do
-      old_etaxa = EbirdTaxon.where(ebird_version: 2018)
+      old_etaxa = EBirdTaxon.where(ebird_version: 2018)
       to_fix = Taxon.joins(:ebird_taxon).merge(old_etaxa)
       num_to_fix = to_fix.count
       puts "\n\nREPORT:"

@@ -4,7 +4,7 @@ source "https://rubygems.org/"
 
 ruby `cat ./.ruby-version`.strip.match(/\d\.\d.\d/).to_s
 
-VERSION = "7.0.3"
+VERSION = "7.0.3.1"
 # gem "rails", VERSION
 gem "activemodel",   VERSION
 gem "activejob",     VERSION
@@ -60,7 +60,7 @@ gem "health_check"
 # External services
 gem "flickraw", "~> 0.9.7"
 gem "livejournal2"
-gem "aws-sdk-s3", require: false
+gem "aws-sdk-s3"
 gem "aws-sdk-rails"
 
 # Small utils
@@ -69,12 +69,13 @@ gem "roman-numerals"
 
 # Monitoring
 gem "airbrake"
+gem "lograge"
 
 # Image processing
 gem "image_processing"
 
 # Assets
-gem "shakapacker", "6.4.1"
+gem "shakapacker", "6.5.0"
 gem "sprockets-rails", "~> 3.2", ">= 3.2.2"
 gem "jquery-rails"
 gem "sassc-rails"
@@ -118,6 +119,9 @@ group :development do
   gem "rubocop-rails", require: false
   gem "rubocop-performance", require: false
   gem "rubocop-packaging", require: false
+  gem "rubocop-shopify", require: false
+  gem "rubocop-minitest", require: false
+  gem "rubocop-rake", require: false
 end
 
 group :development, :test do

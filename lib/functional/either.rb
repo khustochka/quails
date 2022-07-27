@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Either
-  def Either.included(klass)
+  def self.included(klass)
     class << klass
       def value(value)
         self::VALUE_CLASS.new(value)
@@ -24,8 +24,12 @@ module Either
         if arg.error?
           arg
         else
-          @obj.class.new(@obj.get.send(method, arg.get))
+          @obj.class.new(@obj.get.public_send(method, arg.get))
         end
+      end
+
+      def respond_to_missing?(method_name, include_private = false)
+        true
       end
     end
 
@@ -61,6 +65,10 @@ module Either
       def method_missing(method, *args, &block)
         @obj
       end
+
+      def respond_to_missing?(method_name, include_private = false)
+        true
+      end
     end
 
     class EitherErrorException < StandardError
@@ -81,11 +89,15 @@ module Either
     end
 
     def get
-      raise EitherErrorException.new(@msg)
+      raise EitherErrorException, @msg
     end
 
     def method_missing(method, *args, &block)
       self
+    end
+
+    def respond_to_missing?(method_name, include_private = false)
+      true
     end
 
     def apply

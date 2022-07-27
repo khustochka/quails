@@ -17,7 +17,7 @@ def calculate(result, therest)
             d.reject! { |s| s == sp_id }
           end
         end
-        next if temprest2.any? { |el| el.empty? }
+        next if temprest2.any?(&:empty?)
         cleanup(temprest2)
         # puts "Trying #{SPCS[sp_id]}"
         calculate(result + [SPCS[sp_id]], temprest2)
@@ -35,11 +35,11 @@ SPCS = Hash[Species.all.map { |s| [s.id, s.name_sci] }]
 year = ENV["YEAR"] || Quails::CURRENT_YEAR
 
 obs = MyObservation.joins(:card).
-    select("DISTINCT observ_date, species_id").
-    where("EXTRACT(year FROM observ_date)::integer = ?", year).
-    # where("observ_date <= '2013-01-19'").
-    order("observ_date").map { |o| [o.observ_date, o.species_id] }.
-    group_by(&:first).values.map { |e| e.map(&:second) }
+  select("DISTINCT observ_date, species_id").
+  where("EXTRACT(year FROM observ_date)::integer = ?", year).
+  # where("observ_date <= '2013-01-19'").
+  order("observ_date").map { |o| [o.observ_date, o.species_id] }.
+  group_by(&:first).values.map { |e| e.map(&:second) }
 
 # p obs.flatten.size
 

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# TODO: only for web
 Rails.application.config.x.features.rack_profiler = !!YAML.load(ENV["RACK_PROFILER"].to_s)
 
 if Rails.application.config.x.features.rack_profiler

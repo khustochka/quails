@@ -1,8 +1,12 @@
 -# frozen_string_literal: true
-- new_locale = Set.new([:en, :ru]).delete(I18n.locale).first
+- new_locales = Set.new([:uk, :en, :ru]).delete(I18n.locale).to_a
 - url = defined?(url) ? url : {}
+- blog = defined?(blog) ? blog : false
 - new_params = url.kind_of?(Hash) ? url : significant_params
-- link_hash = new_params.merge({locale: new_locale == :ru ? nil : new_locale})
 
 %nav.translated
-  = link_to t("translated.#{new_locale}"), link_hash, lang: new_locale, hreflang: new_locale, rel: :alternate
+  - new_locales.each do |new_locale|
+    - unless blog && new_locale.in?(LocaleHelper::BLOGLESS_LOCALES)
+      - link_hash = new_params.merge({locale: new_locale == I18n.default_locale ? nil : new_locale})
+      = link_to link_hash, lang: new_locale, hreflang: new_locale, rel: :alternate, class: "translated-link translated-link-#{new_locale}" do
+        %span<>= t("translated.#{new_locale}")

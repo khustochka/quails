@@ -19,7 +19,7 @@ module Deflicker
     end
 
     def dateupload=(val)
-      self.uploaded_at = Time.at(val.to_i)
+      self.uploaded_at = Time.at(val.to_i).utc
     end
 
     def image
@@ -36,8 +36,8 @@ module Deflicker
 
     def allow_delete?
       machine_tags !~ /nodelete|donotdelete/ &&
-      journal_entry_ids.none? && (
-          (on_site? && on_s3?) || (!on_site? && !public)
+        journal_entry_ids.none? && (
+        (on_site? && on_s3?) || (!on_site? && !public)
       )
     end
   end

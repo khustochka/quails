@@ -11,6 +11,6 @@
   (#{obs.private_notes})
   %b= post_link('POST >>', obs.post)
   - if @post
-    %span= attach_detach_link(obs)
+    %span= post_attach_detach_link(obs, @post)
   - if obs.voice
     %small.voice.tag voice

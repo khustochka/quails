@@ -1,0 +1,49 @@
+"uk":
+  lifelist:
+    title:
+      lifelist: Мій список (lifelist)
+      yearlist: Список %{year} року
+      monthlist: Список за %{month}
+      daylist: Список за %{day} %{month}
+      yearsublist: '%{year} року'
+      countrylist: 'Список країни: %{country}'
+      locationlist: 'Список місцевості: %{location}'
+      ukraine: Список України
+      canada: Список Канади
+      usa: Список США
+      gb: Список Великої Британії
+
+    index:
+      title: Списки
+      see_also: Див. також
+      records_and_stats: Рекорди і статистика
+
+    ebird:
+      title: Lifelist - систематика eBird/Clements
+      subtitle: Систематика eBird/Clements
+
+
+    basic:
+
+      filter:
+        places: 'Країни:'
+        sort_by: 'Сортування:'
+      no_species: 'Немає видів'
+
+    by_date:
+      seen_in:
+        first: 'Перша зустріч %{year} року:'
+        last: 'Остання зустріч %{year} року:'
+
+
+    menus:
+      filter:
+        places: 'Регіони:'
+        months: 'Місяці:'
+
+      sort_option:
+        by_date: за датою першої зустрічі
+        by_taxonomy: за класифікацією
+
+      advanced: Більше можливостей
+      basic: Моя систематика

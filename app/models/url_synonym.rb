@@ -13,6 +13,7 @@ class UrlSynonym < ApplicationRecord
   validate :names_are_different
 
   private
+
   def names_are_different
     if name_sci == species.name_sci
       errors.add(:name_sci, "should be different from the species name.")

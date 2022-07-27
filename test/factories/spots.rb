@@ -7,6 +7,6 @@ FactoryBot.define do
     lng { 30.6 }
     zoom { 12 }
     exactness { 0 }
-    send(:public) { true }
+    __send__(:public) { true }
   end
 end

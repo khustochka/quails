@@ -1,0 +1,38 @@
+-# frozen_string_literal: true
+#header
+
+  = render 'admin/menu'
+
+  = render "shared/banner"
+
+  #userheader
+
+    -# Template Dependency: partials/search
+    = include_google_search
+
+    #search-ui-front
+
+    #menucontainer
+
+      - cache [:navigation_header, locale: I18n.locale] do
+
+        -#= link_to(image_tag('/img/logo.png'), root_path, :id => 'site_cap')
+
+        %ul#site_menu.horiz-list(role="menubar")
+          %li(role="menuitem")= link_to t('menu.blog'), blog_path
+
+          %li(role="menuitem")= link_to t('menu.birds_ukraine'), country_path(country: 'ukraine')
+
+          %li(role="menuitem")= link_to t('menu.gallery'), gallery_path
+
+          %li(role="menuitem")= link_to t('menu.map'), map_path
+
+          %li(role="menuitem")= link_to t('menu.lifelist'), lists_overview_path
+
+          %li(role="menuitem")= link_to t('menu.links'), links_path
+
+          %li(role="menuitem" class="trans-menu")
+            = link_to t('menu.english'), alternative_root_path(locale: :en), lang: :en, hreflang: :en
+
+          %li(role="menuitem" class="trans-menu")
+            = link_to t('menu.ukrainian'), root_path(locale: nil), lang: :uk, hreflang: :uk

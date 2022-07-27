@@ -23,6 +23,7 @@ module Quails
     end
 
     private
+
     def render(status, content_type, body)
       format = "to_#{content_type.to_sym}" if content_type
       if format && body.respond_to?(format)
@@ -34,7 +35,7 @@ module Quails
 
     def render_format(status, content_type, body)
       [status, { "Content-Type" => "#{content_type}; charset=#{ActionDispatch::Response.default_charset}",
-                "Content-Length" => body.bytesize.to_s }, [body]]
+                 "Content-Length" => body.bytesize.to_s, }, [body],]
     end
 
     def render_html(status)

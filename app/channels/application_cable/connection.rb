@@ -9,6 +9,7 @@ module ApplicationCable
     end
 
     protected
+
     def find_verified_user
       session = request.session
       if session[:admin] == true

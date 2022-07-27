@@ -2,13 +2,16 @@ require:
   - rubocop-packaging
   - rubocop-performance
   - rubocop-rails
+  - rubocop-minitest
+  - rubocop-rake
+
+inherit_gem:
+  rubocop-shopify: rubocop.yml
 
 AllCops:
-  # rubocop-rails_config still supports Ruby 2.4
-  TargetRubyVersion: 3.0
-  # RuboCop has a bunch of cops enabled by default. This setting tells RuboCop
-  # to ignore them, so only the ones explicitly set in this file are enabled.
-  DisabledByDefault: true
+  TargetRubyVersion: 3.1
+  DisabledByDefault: false
+  NewCops: enable
   Exclude:
     - '**/tmp/**/*'
     - '**/templates/**/*'
@@ -16,221 +19,49 @@ AllCops:
     - '**/node_modules/**/*'
     # Additional exclude files by rubocop-rails_config
     - 'bin/**/*'
-#    - 'config/**/*'
+    #  - 'config/**/*'
     - 'db/**/*'
-
-Performance:
-  Exclude:
-    - '**/test/**/*'
-
-Layout:
-  Exclude:
+    - lib/tasks/flickraw.rake
+    - "lib/flickraw-cached.rb"
     - 'lib/tasks/taxonomy/**/*'
+    - 'lib/tasks/one-off/**/*'
+    - config.ru
+    - contest*.rb
+    - config/boot.rb
 
-Style:
-  Exclude:
-    - 'lib/tasks/taxonomy/**/*'
-
-# Prefer assert_not over assert !
-Rails/AssertNot:
-  Include:
-    - '**/test/**/*'
-
-# Prefer assert_not_x over refute_x
-Rails/RefuteMethods:
-  Include:
-    - '**/test/**/*'
-
-Rails/IndexBy:
-  Enabled: true
-
-Rails/IndexWith:
-  Enabled: true
-
-# Prefer &&/|| over and/or.
-Style/AndOr:
-  Enabled: true
-
-# Align `when` with `case`.
-Layout/CaseIndentation:
-  Enabled: true
-
-Layout/ClosingHeredocIndentation:
-  Enabled: true
-
-# Align comments with method definitions.
-Layout/CommentIndentation:
-  Enabled: true
-
-Layout/ElseAlignment:
-  Enabled: true
-
-# Align `end` with the matching keyword
-Layout/EndAlignment:
-  Enabled: true
-  EnforcedStyleAlignWith: keyword
-  AutoCorrect: true
-
-Layout/EmptyLineAfterMagicComment:
-  Enabled: true
-
-Layout/EmptyLinesAroundAccessModifier:
-  Enabled: true
-  EnforcedStyle: only_before
-
-Layout/EmptyLinesAroundBlockBody:
-  Enabled: true
-
-# In a regular class definition, no empty lines around the body.
-Layout/EmptyLinesAroundClassBody:
-  Enabled: true
-
-# In a regular method definition, no empty lines around the body.
-Layout/EmptyLinesAroundMethodBody:
-  Enabled: true
-
-# In a regular module definition, no empty lines around the body.
-Layout/EmptyLinesAroundModuleBody:
-  Enabled: true
-
-# Use Ruby >= 1.9 syntax for hashes. Prefer { a: :b } over { :a => :b }.
-Style/HashSyntax:
-  Enabled: true
-
-Layout/FirstArgumentIndentation:
-  Enabled: true
-
-# Method definitions after `private` or `protected` isolated calls need one
-# extra level of indentation.
-Layout/IndentationConsistency:
-  Enabled: true
-  EnforcedStyle: normal
-
-# Two spaces, no tabs (for indentation).
-Layout/IndentationWidth:
-  Enabled: true
-
-Layout/LeadingCommentSpace:
-  Enabled: true
-
-Layout/SpaceAfterColon:
-  Enabled: true
-
-Layout/SpaceAfterComma:
-  Enabled: true
-
-Layout/SpaceAfterSemicolon:
-  Enabled: true
-
-Layout/SpaceAroundEqualsInParameterDefault:
-  Enabled: true
-
-Layout/SpaceAroundKeyword:
-  Enabled: true
-
-Layout/SpaceAroundOperators:
-  Enabled: true
-
-Layout/SpaceBeforeComma:
-  Enabled: true
-
-Layout/SpaceBeforeComment:
-  Enabled: true
-
-Layout/SpaceBeforeFirstArg:
-  Enabled: true
-
-Style/DefWithParentheses:
-  Enabled: true
-
-# Defining a method with parameters needs parentheses.
-Style/MethodDefParentheses:
-  Enabled: true
-
-Style/FrozenStringLiteralComment:
-  Enabled: true
-  EnforcedStyle: always
-  Exclude:
-    - 'config.ru'
-
-Style/RedundantFreeze:
-  Enabled: true
-
-# Use `foo {}` not `foo{}`.
-Layout/SpaceBeforeBlockBraces:
-  Enabled: true
-
-# Use `foo { bar }` not `foo {bar}`.
-Layout/SpaceInsideBlockBraces:
+# FIXME: revisit and fix!
+Style/MethodCallWithArgsParentheses:
   Enabled: false
-  EnforcedStyleForEmptyBraces: space
+Layout/LineLength:
+  Enabled: false
+# end: revisit and fix!
 
-# Use `{ a: 1 }` not `{a:1}`.
-Layout/SpaceInsideHashLiteralBraces:
+# - My modification -
+Style/PreferredHashMethods:
   Enabled: false
 
-Layout/SpaceInsideParens:
-  Enabled: true
-
-# Check quotes usage according to lint rule below.
-Style/StringLiterals:
-  Enabled: true
-  EnforcedStyle: double_quotes
-
-# Detect hard tabs, no hard tabs.
-Layout/IndentationStyle:
-  Enabled: true
-
-# Empty lines should not have any spaces.
-Layout/TrailingEmptyLines:
-  Enabled: true
-
-# No trailing whitespace.
-Layout/TrailingWhitespace:
-  Enabled: true
-
-# Use quotes for string literals when they are enough.
-Style/RedundantPercentQ:
-  Enabled: true
-
-Lint/AmbiguousOperator:
-  Enabled: true
-
-Lint/AmbiguousRegexpLiteral:
-  Enabled: true
-
-Lint/ErbNewArguments:
-  Enabled: true
-
-# Use my_method(my_arg) not my_method( my_arg ) or my_method my_arg.
-Lint/RequireParentheses:
-  Enabled: true
-
-Lint/ShadowingOuterLocalVariable:
-  Enabled: true
-
-Lint/RedundantStringCoercion:
-  Enabled: true
-
-Lint/UriEscapeUnescape:
-  Enabled: true
-
-Lint/UselessAssignment:
+Style/FormatString:
   Enabled: false
 
-Lint/DeprecatedClassMethods:
-  Enabled: true
+Style/MultilineTernaryOperator:
+  Enabled: false
 
-Style/ParenthesesAroundCondition:
-  Enabled: true
+Style/BarePercentLiterals:
+  Enabled: false
+
+Style/BlockDelimiters :
+  Enabled: false
+
+Style/WordArray:
+  Enabled: false
+
+Style/CommandLiteral:
+  Enabled: false
 
 Style/HashTransformKeys:
   Enabled: true
 
 Style/HashTransformValues:
-  Enabled: true
-
-Style/RedundantBegin:
   Enabled: true
 
 Style/RedundantReturn:
@@ -241,36 +72,104 @@ Style/Semicolon:
   Enabled: true
   AllowAsExpressionSeparator: true
 
-# Prefer Foo.method over Foo::method
-Style/ColonMethodCall:
+Style/Send:
   Enabled: true
 
-Style/TrivialAccessors:
+Style/GlobalVars:
+  Exclude:
+    - test/**/*.rb
+
+Style/ClassAndModuleChildren:
+  Exclude:
+    - '**/test/**/*'
+    - 'lib/core_ext/**/*.rb'
+
+# Improved readability, but look into refactoring
+Style/IfInsideElse:
+  Enabled: false
+
+# Improved readability
+Style/NegatedIf:
+  Enabled: false
+
+Layout/ClosingHeredocIndentation:
   Enabled: true
 
-Performance/FlatMap:
+Layout/EndAlignment:
+  Enabled: true
+  EnforcedStyleAlignWith: variable
+  AutoCorrect: true
+
+Layout/SpaceInsideBlockBraces:
+  Enabled: false
+  EnforcedStyleForEmptyBraces: space
+
+Layout/ArrayAlignment:
+  Enabled: true
+  EnforcedStyle: with_fixed_indentation
+
+# Readability
+Layout/SpaceInsideArrayLiteralBrackets:
+  Enabled: false
+
+Lint/ErbNewArguments:
   Enabled: true
 
-Performance/RedundantMerge:
+Lint/ShadowingOuterLocalVariable:
   Enabled: true
 
-Performance/StartWith:
+Lint/UriEscapeUnescape:
   Enabled: true
 
-Performance/EndWith:
-  Enabled: true
+# Readability, but maybe leave only in tests
+Lint/UselessAssignment:
+  Enabled: false
+#  Exclude:
+#    - test/**/*.rb
 
-Performance/RegexpMatch:
-  Enabled: true
+Performance:
+  Exclude:
+    - '**/test/**/*'
 
-Performance/ReverseEach:
-  Enabled: true
+Naming/VariableName:
+  Enabled: false
 
-Performance/UnfreezeString:
-  Enabled: true
+Metrics/BlockNesting:
+  Enabled: false
 
-Performance/DeletePrefix:
-  Enabled: true
+Rails/HasAndBelongsToMany:
+  Enabled: false
 
-Performance/DeleteSuffix:
+# Mostly admin flashes
+Rails/I18nLocaleTexts:
+  Enabled: false
+
+# Readability
+Rails/Delegate:
+  Enabled: false
+
+# Grammar!
+Rails/RequestReferer:
+  Enabled: false
+
+# FIXME: revisit and fix!
+Rails/HelperInstanceVariable:
+  Enabled: false
+
+# I do this intentionally
+Rails/SkipsModelValidations:
+  Enabled: false
+
+Lint/MissingCopEnableDirective:
   Enabled: true
+  # Maximum number of consecutive lines the cop can be disabled for.
+  # 0 allows only single-line disables
+  # 1 would mean the maximum allowed is the following:
+  #   # rubocop:disable SomeCop
+  #   a = 1
+  #   # rubocop:enable SomeCop
+  # .inf for any size
+  MaximumRangeSize: 4
+
+Minitest/MultipleAssertions:
+  Enabled: false

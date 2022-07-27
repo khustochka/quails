@@ -10,10 +10,10 @@ class SpeciesController < ApplicationController
     # TODO : Filter by order, family
     @term = params[:term]
     @species = if @term.present?
-                 Search::SpeciesSearchUnweighted.new(Species.all, @term).find
-               else
-                 Species.order(:index_num).page(params[:page]).per(50)
-               end
+      Search::SpeciesSearchUnweighted.new(Species.all, @term).find
+    else
+      Species.order(:index_num).page(params[:page]).per(50)
+    end
     @species = @species.preload(:high_level_taxa, :url_synonyms)
     if request.xhr?
       render partial: "species/table", layout: false
@@ -34,7 +34,7 @@ class SpeciesController < ApplicationController
     @species = Species.find_by(name_sci: id_humanized) || UrlSynonym.find_by(name_sci: id_humanized).try(:species)
     if @species
       if params[:id] != @species.to_param
-        redirect_to @species, status: 301
+        redirect_to @species, status: :moved_permanently
         # TODO: maybe show as a page but set different canonical, NOINDEX. Or redirect but show "redirected from" Like Wikipedia.
       else
         if @species.observations.any?
@@ -71,7 +71,7 @@ class SpeciesController < ApplicationController
   end
 
   def search
-    result = Search::PublicSpeciesSearch.new(current_user.searchable_species, params[:term]).find
+    result = Search::PublicSpeciesSearch.new(current_user.searchable_species, params[:term], locale: I18n.locale).find
     render json: result
   end
 
@@ -86,6 +86,7 @@ class SpeciesController < ApplicationController
   end
 
   private
+
   def find_species
     @species = Species.find_by!(name_sci: Species.humanize(params[:id]))
   end

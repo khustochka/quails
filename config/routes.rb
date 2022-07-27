@@ -56,17 +56,18 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
 
-
   # PUBLIC PAGES
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root to: "blog#home", as: "blog"
+  scope "(:locale)", locale: /ru/ do
+    root to: "blog#home", as: "blog"
+  end
 
   constraints country: /ukraine|usa|united_kingdom|canada|manitoba/ do
     get "/:country/checklist/edit" => "checklist#edit"
     post "/:country/checklist/edit" => "checklist#save"
-    scope "(:locale)", locale: /en/ do
+    scope "(:locale)", locale: /en|ru/ do
       get "/:country" => "countries#gallery", as: "country"
       get "/:country/checklist" => "checklist#show", as: "checklist"
     end
@@ -87,7 +88,7 @@ Rails.application.routes.draw do
     end
   end
 
-  scope "(:locale)", locale: /en/ do
+  scope "(:locale)", locale: /en|ru/ do
     resources :species, only: [:show], as: :localized_species do
       get "search", on: :collection
     end
@@ -109,38 +110,47 @@ Rails.application.routes.draw do
       get "edit/map", action: :map_edit
       post "patch"
     end
-    collection do
-    end
   end
 
-  get "/photos(/page/:page)" => "images#index", page: /[^0]\d*/,
-      constraints: {format: "html"}
+  # This toute should be before the proper 'photos' route
+  scope ":locale", locale: /en/ do
+    get "(/page/:page)" => "images#index", page: /[^0]\d*/, as: :alternative_root
+    get "photos" => redirect("/%{locale}")
+  end
 
-  scope "(:locale)", locale: /en/ do
+  scope "(:locale)", locale: /ru/ do
+    get "/photos(/page/:page)" => "images#index", page: /[^0]\d*/,
+      constraints: { format: "html" }
+  end
+
+  scope "(:locale)", locale: /en|ru/ do
     get "/photos/multiple_species" => "images#multiple_species"
     get "photos/:id" => "images#show", as: "localized_image"
     get "/videos(/page/:page)" => "videos#index", page: /[^0]\d*/,
-        constraints: {format: "html"}
+      constraints: { format: "html" }
     get "videos/:id" => "videos#show", as: "localized_video"
     post "media/strip" => "media#strip"
   end
 
-  constraints year: /20\d\d/ do
-    get "/:year" => "blog#year", as: "year"
-    constraints month: /(0[1-9])|(1[0-2])/ do
-      get "/:year/:month" => "blog#month", as: "month"
-      get "/:year/:month/:id" => "posts#show", as: "show_post"
+  scope "(:locale)", locale: /ru/ do
+    constraints year: /20\d\d/ do
+      get "/:year" => "blog#year", as: "year"
+      constraints month: /(0[1-9])|(1[0-2])/ do
+        get "/:year/:month" => "blog#month", as: "month"
+        get "/:year/:month/:id" => "posts#show", as: "show_post"
+      end
     end
+    get "/archive" => "blog#archive"
   end
 
   direct :public_post do |blogpost, options|
-    route_for(:show_post, blogpost.year, blogpost.month, blogpost.to_param, options)
+    route_for(:show_post, options.merge(year: blogpost.year, month: blogpost.month, id: blogpost.to_param))
   end
 
   direct :public_comment do |comment, options|
     # This line breaks Brakeman (post is a http verb)
     blogpost = comment.post
-    route_for(:show_post, blogpost.year, blogpost.month, blogpost.to_param, options.merge(anchor: "comment#{comment.id}"))
+    route_for(:show_post, options.merge(year: blogpost.year, month: blogpost.month, id: blogpost.to_param, anchor: "comment#{comment.id}"))
   end
 
   direct :localize do |obj, options|
@@ -156,9 +166,7 @@ Rails.application.routes.draw do
     end
   end
 
-  get "/archive" => "blog#archive"
-
-  scope "(:locale)", locale: /en/ do
+  scope "(:locale)", locale: /en|ru/ do
     get "/lifelist/overview" => "lifelist#index", as: :lists_overview
 
     get "/lifelist/advanced" => "lifelist#advanced", as: :advanced_list
@@ -170,25 +178,18 @@ Rails.application.routes.draw do
     get "/lifelist" => "lifelist#basic", as: :lifelist
 
     get "/lifelist(/:locus)(/:year)(/:sort)" => "lifelist#basic", as: :list,
-        locus: /(?!by_)\D[^\/]+/, # negative look-ahead: not starting with 'by_'
-        year: /\d{4}/,
-        sort: /by_taxonomy/
+      locus: %r{(?!by_)\D[^/]+}, # negative look-ahead: not starting with 'by_'
+      year: /\d{4}/,
+      sort: /by_taxonomy/
   end
 
   # Feeds and sitemap
-  get "/blog.:format" => "feeds#blog", constraints: {format: "xml"}
-  get "/instant_articles(.:dev).:format" => "feeds#instant_articles", constraints: {format: "xml", dev: "dev"}
-  scope "(:locale)", locale: /en/ do
-    get "/photos.:format" => "feeds#photos", constraints: {format: "xml"}
+  get "/blog.:format" => "feeds#blog", constraints: { format: "xml" }
+  get "/instant_articles(.:dev).:format" => "feeds#instant_articles", constraints: { format: "xml", dev: "dev" }
+  scope "(:locale)", locale: /en|ru/ do
+    get "/photos.:format" => "feeds#photos", constraints: { format: "xml" }
   end
-  get "/sitemap.:format" => "feeds#sitemap", constraints: {format: "xml"}
-
-  # TRANSLATED:
-
-  scope ":locale", locale: /en/ do
-    get "(/page/:page)" => "images#index", page: /[^0]\d*/, as: :localized_root
-    get "photos" => redirect("/%{locale}")
-  end
+  get "/sitemap.:format" => "feeds#sitemap", constraints: { format: "xml" }
 
   # ADMINISTRATIVE PAGES
 
@@ -249,7 +250,7 @@ Rails.application.routes.draw do
     end
   end
 
-  scope "(:locale)", locale: /en/ do
+  scope "(:locale)", locale: /en|ru/ do
     resource :map, only: [:show]
   end
 
@@ -284,7 +285,7 @@ Rails.application.routes.draw do
   get "/reports", controller: :reports, action: :index, as: :reports
 
   reports_actions = %w(environ insights more_than_year topicture this_day uptoday compare by_countries
-                        stats voices charts month_targets server_error)
+    stats voices charts month_targets server_error)
   reports_actions.each do |name|
     get "/reports/#{name}", controller: :reports, action: name
   end
@@ -339,8 +340,23 @@ Rails.application.routes.draw do
 
   # High Voltage routes are specified manually to bypass HighVoltage Constraints for unrelated paths
   # (e.g. ActiveStorage)
-  get "/:id" => "high_voltage/pages#show",
-      :as => :page,
-      :format => false,
-      :constraints => {id: /about|links|winter/}
+
+  scope "(:locale)", locale: /en|ru/ do
+    get "about" => "high_voltage/pages#show",
+      as: :about,
+      format: false,
+      id: "about"
+  end
+  scope "(:locale)", locale: /ru/ do
+    get "links" => "high_voltage/pages#show",
+      as: :links,
+      format: false,
+      id: "links"
+  end
+  scope "ru", locale: "ru" do
+    get "winter" => "high_voltage/pages#show",
+      as: :winter,
+      format: false,
+      id: "winter"
+  end
 end

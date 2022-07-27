@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "quails/credentials_check"
+
 class LoginController < ApplicationController
   # User can get to login page in 3 ways:
   # 1. Redirect from admin path accessed when not logged in (sets session[:ret])
@@ -19,30 +21,31 @@ class LoginController < ApplicationController
     ret = session[:ret]
     csrf_token = session[:_csrf_token]
     reset_session
-    if CredentialsCheck.check_credentials(params[:username], params[:password])
+    if Quails::CredentialsCheck.check_credentials(params[:username], params[:password])
       set_trust_cookie
       set_admin_session
       return_url = if ret
-                     url_for(ret)
-                   else
-                     root_url
-                   end
-      redirect_to return_url, status: 303
+        url_for(ret)
+      else
+        root_url
+      end
+      redirect_to return_url, status: :see_other
     else
       # Restore ret value for retries,
       # Restore csrf token to allow using form on the previous page
       session[:ret] = ret
       session[:_csrf_token] = csrf_token
-      render plain: "403 Forbidden", status: 403
+      render plain: "403 Forbidden", status: :forbidden
     end
   end
 
   def logout
     reset_session
-    redirect_to request.referrer || root_url, status: 303
+    redirect_to request.referrer || root_url, status: :see_other
   end
 
   private
+
   def safe_referrer_params
     ref = request.referrer
     if ref
@@ -51,8 +54,6 @@ class LoginController < ApplicationController
         # We consider it valid if it was recognized and host is the same
         if uri.host == request.host
           Rails.application.routes.recognize_path(ref)
-        else
-          nil
         end
       rescue ActionController::RoutingError, URI::InvalidURIError
         nil

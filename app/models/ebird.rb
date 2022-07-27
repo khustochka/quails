@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Ebird
+module EBird
   def self.table_name_prefix
     "ebird_"
   end

@@ -44,7 +44,7 @@
     = form.input :private_loc
     = form.input :five_mile_radius, label: "5MR"
     = form.input :patch
-    = form.input :ebird_location_id, label: 'eBird Location', collection: EbirdLocation.all,
+    = form.input :ebird_location_id, label: 'eBird Location', collection: EBirdLocation.all,
           input_html: {class: 'suggest-combo'}
 
   %div#googleMap{data: {map_enabled: map_enabled}}

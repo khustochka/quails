@@ -5,20 +5,25 @@ task benchmark: :environment do
   require "benchmark/ips"
 
   Benchmark.ips do |bench|
-    bench.report("uuid") do
-      SecureRandom.uuid
+    bench.report("real then test plaintext") do
+      Quails::CredentialsCheck.__send__(:match_password, "admin")
     end
 
-    bench.report("16 hex bytes") do
-      SecureRandom.hex(16)
+    bench.report("test then real plaintext") do
+      Quails::CredentialsCheck.__send__(:match_password1, "admin")
     end
 
-    bench.report("urlsafe") do
-      SecureRandom.urlsafe_base64(20 * 3 / 4)
+    bench.report("real then test incorrect") do
+      Quails::CredentialsCheck.__send__(:match_password, "abcde")
+    end
+
+    bench.report("test then real incorrect") do
+      Quails::CredentialsCheck.__send__(:match_password1, "abcde")
     end
 
     bench.compare!
   end
 end
 
+desc nil
 task bench: :benchmark

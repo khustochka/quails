@@ -28,24 +28,24 @@ module Deflicker
 
     def extract_images_links
       doc = Nokogiri::HTML(event)
-      imgs = doc.search("img").map {|el| el.attr(:src)}.uniq
+      imgs = doc.search("img").map { |el| el.attr(:src) }.uniq
       ids1 = imgs.grep(/flickr\.com/) do |url|
-        m = url.match(/flickr\.com\/(?:\d+\/)?\d+\/(\d+)_/)
+        m = url.match(%r{flickr\.com/(?:\d+/)?\d+/(\d+)_})
         m[1]
       end
-      links = doc.search("a").map {|el| el.attr(:href)}.uniq
+      links = doc.search("a").map { |el| el.attr(:href) }.uniq
       ids2 = links.grep(/flickr\.com/) do |url|
-        m = url.match(/flickr\.com\/(?:\d+\/)?\d+\/(\d+)_/) || url.match(/flickr\.com\/photos\/[^\/]*\/(\d+)\/?/)
+        m = url.match(%r{flickr\.com/(?:\d+/)?\d+/(\d+)_}) || url.match(%r{flickr\.com/photos/[^/]*/(\d+)/?})
         m.try(:[], 1)
       end
       ids = (ids1 + ids2.compact).uniq
       update(images: imgs, links: links, flickr_ids: ids)
       ids.each do |fid|
-        flicker = Flicker.find_by(flickr_id: fid) rescue nil
+        flicker = Flicker.find_by(flickr_id: fid)
         if flicker
-          self.flickers << flicker
+          flickers << flicker
         else
-          puts "Not found: flicker #{fid}, entry #{url}"
+          Rails.logger.warn { "Not found: flicker #{fid}, entry #{url}" }
         end
       end
       save

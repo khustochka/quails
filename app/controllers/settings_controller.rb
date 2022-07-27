@@ -11,14 +11,16 @@ class SettingsController < ApplicationController
 
   # POST /settings/save
   def save
-    params[:s].each do |key, value|
-      setting = Settings.where(key: key)
+    settings = Settings.all.index_by(&:key)
+    # Parameters -> HashWithIndifferentAccess -> Hash
+    params[:s].to_h.to_hash.each do |key, value|
+      setting = settings[key.to_s]
       if setting.present?
-        setting.update_all(value: value)
+        setting.update(value: value)
       else
         Settings.create!(key: key, value: value)
       end
     end
-    redirect_to :settings, notice: "Setings saved"
+    redirect_to :settings, notice: "Settings saved"
   end
 end

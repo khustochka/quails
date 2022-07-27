@@ -21,7 +21,7 @@
     "postcss": "^8.4.14",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-preset-env": "^7.6.0",
-    "shakapacker": "6.4.1",
+    "shakapacker": "6.5.0",
     "style-loader": "^3.3.1",
     "terser-webpack-plugin": "5",
     "webpack": "5",

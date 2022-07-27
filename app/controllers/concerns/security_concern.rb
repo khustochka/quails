@@ -24,6 +24,7 @@ module SecurityConcern
   end
 
   private
+
   TRUST_COOKIE_NAME = -"quails_visit"
   TRUST_COOKIE_VALUE = -"I believe you"
 

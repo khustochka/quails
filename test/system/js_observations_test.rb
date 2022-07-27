@@ -18,9 +18,10 @@ class JSObservationsTest < ApplicationSystemTestCase
     assert_equal "Hirundo rustica", observation.species.name_sci
   end
 
+  private
+
   def save_and_check
     click_button("Save")
     assert_css "#save_button[value=Save]"
   end
-  private :save_and_check
 end

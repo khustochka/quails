@@ -10,7 +10,7 @@
 
   -# English home page (photostream)
   %url
-    %loc= localized_root_url(locale: :en)
+    %loc= alternative_root_url(locale: :en)
     -# TODO: %lastmod=
     -#%changefreq weekly
 
@@ -72,11 +72,11 @@
 
   -# Links page
   %url
-    %loc= page_url(:links)
+    %loc= links_url
 
   -# Winter page
   %url
-    %loc= page_url(:winter)
+    %loc= winter_url
 
   -# posts
   - @posts.each do |post|

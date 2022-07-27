@@ -2,18 +2,19 @@
 
 class LocusDecorator < ModelDecorator
   def full_name
-    tail = [@model.cached_city, @model.cached_subdivision, @model.cached_country].
-        compact.uniq.map(&:name).join(", ")
-    [self_and_parent, tail].map(&:presence).compact.join(", ")
+    tail = [@model.cached_city, @model.cached_subdivision, @model.cached_country]
+      .compact.uniq.map(&:name).join(", ")
+    [self_and_parent, tail].filter_map(&:presence).join(", ")
   end
 
   def short_full_name
-    tail = [@model.cached_city, @model.cached_subdivision].
-        compact.uniq.map(&:name).join(", ")
-    [self_and_parent, tail].map(&:presence).compact.join(", ")
+    tail = [@model.cached_city, @model.cached_subdivision]
+      .compact.uniq.map(&:name).join(", ")
+    [self_and_parent, tail].filter_map(&:presence).join(", ")
   end
 
   private
+
   def self_and_parent
     if @model.patch
       [@model.cached_parent, @model].compact.uniq.map(&:name).join(" - ")

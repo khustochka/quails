@@ -26,7 +26,7 @@ class PostDecorator < ModelDecorator
   end
 
   def body
-    WikiFormatter.new(@model.body, metadata).send(@formatting_method)
+    WikiFormatter.new(@model.body, metadata).public_send(@formatting_method)
   end
 
   def metadata
@@ -37,12 +37,13 @@ class PostDecorator < ModelDecorator
   def the_rest_of_images
     rel = @model.images
     if extract_image_slugs.present?
-      rel = rel.where("slug NOT IN (?)", extract_image_slugs)
+      rel = rel.where.not(slug: extract_image_slugs)
     end
     rel
   end
 
   private
+
   def extract_image_slugs
     @inner_image_slugs ||= @model.body.scan(/\{\{\^([^}]*)\}\}/).flatten
   end

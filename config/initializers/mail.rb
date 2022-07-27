@@ -4,7 +4,7 @@ if ENV["MAILTRAP_API_TOKEN"]
   # require "json"
   # require "net/http"
 
-  uri = URI.parse("https://mailtrap.io/api/v1/inboxes.json?api_token=#{ENV['MAILTRAP_API_TOKEN']}")
+  uri = URI.parse("https://mailtrap.io/api/v1/inboxes.json?api_token=#{ENV["MAILTRAP_API_TOKEN"]}")
   http = Net::HTTP.new(uri.host, uri.port)
   http.use_ssl = true
   request = Net::HTTP::Get.new(uri.request_uri)
@@ -19,7 +19,7 @@ if ENV["MAILTRAP_API_TOKEN"]
     address: first_inbox["domain"],
     domain: first_inbox["domain"],
     port: first_inbox["smtp_ports"][0],
-    authentication: :plain
+    authentication: :plain,
   }
 elsif ENV["SENDGRID_API_KEY"]
   ActionMailer::Base.delivery_method = :smtp
@@ -30,7 +30,7 @@ elsif ENV["SENDGRID_API_KEY"]
     address: "smtp.sendgrid.net",
     port: 587,
     authentication: :plain,
-    enable_starttls_auto: true
+    enable_starttls_auto: true,
   }
 elsif Rails.env.production? || ENV["USE_SES"]
   ActionMailer::Base.delivery_method = :ses

@@ -6,8 +6,8 @@ class ImagesController < ApplicationController
   administrative except: [:index, :multiple_species, :show, :gallery, :country]
 
   find_record by: :slug, before: [:show, :edit,
-                                  :parent_edit, :parent_update,
-                                  :map_edit, :update, :patch, :destroy]
+    :parent_edit, :parent_update,
+    :map_edit, :update, :patch, :destroy,]
 
   after_action :cache_expire, only: [:create, :update, :destroy]
 
@@ -66,7 +66,7 @@ class ImagesController < ApplicationController
       file.write(uploaded_io.read)
     end
     new_slug = File.basename(uploaded_io.original_filename, ".*")
-    image_attributes = {i: {slug: new_slug}}
+    image_attributes = { i: { slug: new_slug } }
     exif_date = `identify -format "%[EXIF:DateTimeOriginal]" "#{filename}"`.chomp[0..9].tr(":", "-")
     image_attributes[:exif_date] = exif_date if exif_date.present?
     if to_flickr
@@ -92,7 +92,7 @@ class ImagesController < ApplicationController
     @photo.bind_with_flickr(flickr_id)
 
     if @image.save
-      FlickrUploadJob.perform_later(@image, {public: true}) if params[:upload_to_flickr]
+      FlickrUploadJob.perform_later(@image, { public: true }) if params[:upload_to_flickr]
       redirect_to(edit_map_image_path(@image), notice: "Image was successfully created. Map it now!")
     else
       render "form"
@@ -153,6 +153,7 @@ class ImagesController < ApplicationController
   end
 
   private
+
   ACCEPTED_PARAMS = [:slug, :title, :description, :index_num, :status, :stored_image]
 
   def image_params

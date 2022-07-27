@@ -10,6 +10,7 @@ require("ilyabirman-likely/release/likely.css");
 document.addEventListener('DOMContentLoaded', function () {Likely.initiate()});
 
 import './src/js/airbrake-js-setup';
+import './src/js/post_expand';
 
 import VideoResize from "./src/js/video-resize"
 VideoResize.init()

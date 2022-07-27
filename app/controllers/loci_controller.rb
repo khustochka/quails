@@ -9,10 +9,10 @@ class LociController < ApplicationController
   def index
     @term = params[:term]
     @loci = if @term.present?
-              Search::LociSearch.new(Locus.cached_ancestry_preload, @term).find
-            else
-              Locus.order(:id).cached_ancestry_preload.page(params[:page])
-            end
+      Search::LociSearch.new(Locus.cached_ancestry_preload, @term).find
+    else
+      Locus.order(:id).cached_ancestry_preload.page(params[:page])
+    end
     @loci = @loci.preload(:observations, :patch_observations)
     preload_parent(@loci)
     if request.xhr?
@@ -27,7 +27,7 @@ class LociController < ApplicationController
   def show
     @locus = Locus.find_by(id: params[:id]) || Locus.find_by!(slug: params[:id])
     respond_to do |format|
-      format.html {  }
+      format.html {}
       format.json { render json: @locus }
     end
   end
@@ -76,7 +76,7 @@ class LociController < ApplicationController
 
   def public
     @locs_public = Locus.locs_for_lifelist
-    @locs_other = Locus.sort_by_ancestry(Locus.where("public_index IS NULL"))
+    @locs_other = Locus.sort_by_ancestry(Locus.where(public_index: nil))
   end
 
   def save_order
@@ -91,11 +91,12 @@ class LociController < ApplicationController
   end
 
   private
+
   def preload_parent(loci)
     parent_ids = loci.map(&:parent_id)
     parents = Locus.where(id: parent_ids).index_by(&:id)
     loci.each do |loc|
-      loc.send(:set_parent, parents[loc.parent_id])
+      loc.__send__(:set_parent, parents[loc.parent_id])
     end
   end
 end

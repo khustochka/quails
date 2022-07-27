@@ -34,7 +34,7 @@
     %meta{ name: "title", content: page_title }
 
     -# FIXME: think if this can be cached for other pages?
-    - cache_if (controller_name == "posts" && action_name == "show"), [@post, :head_meta] do
+    - cache_if (controller_name == "posts" && action_name == "show"), [@post, :head_meta, { locale: I18n }] do
 
       - if @meta_thumbnail
         %meta{ property: "og:image", content: @meta_thumbnail }
@@ -113,7 +113,7 @@
       -#    - cache :winter_banner do
       -#      = render 'partials/winter_banner'
 
-      %div{class: main_classes}
+      %div{class: main_classes(special_styling: @special_styling)}
 
         = yield
 

@@ -24,7 +24,7 @@
   - if notice
     = notice
   %b Create new card:
-  - suggested_dates.each do |date, words|
+  - suggested_dates(@card).each do |date, words|
     = link_to words.join(", "), new_card_path(card: {observ_date: date}), class: 'suggest-date'
   \|
   %b Import from ebird:

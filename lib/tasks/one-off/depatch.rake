@@ -3,12 +3,12 @@
 # Interactive depatch
 task depatch: :environment do
   cards = Card.
-      where(id: Observation.select(:card_id).
-          where.not(patch_id: nil)).order(:observ_date).
-      where.not(effort_type: "TRAVEL").
-      where(ebird_id: nil).
-      where(start_time: nil).
-      preload(:locus, :observations)
+    where(id: Observation.select(:card_id).where.not(patch_id: nil)).
+    order(:observ_date).
+    where.not(effort_type: "TRAVEL").
+    where(ebird_id: nil).
+    where(start_time: nil).
+    preload(:locus, :observations)
 
   puts "There are #{cards.count} cards with patches"
 
@@ -32,7 +32,7 @@ task depatch: :environment do
           puts "#{i + 1}. #{patch&.name_en || "None"}: #{count}"
         end
         puts "Enter patch to extract: S to skip"
-        x = STDIN.gets.strip
+        x = $stdin.gets.strip
       end
 
 
@@ -47,7 +47,7 @@ task depatch: :environment do
         end
         puts "Extraxt this patch: 1. Clear priv notes. 2. Move priv notes to notes, 3. Leave notes as is"
         puts "S - skip, show patches"
-        x = STDIN.gets.strip
+        x = $stdin.gets.strip
         if x.to_i > 0 && x.to_i < 4
           new_card = card.dup
           new_card.locus = patch if patch
@@ -80,7 +80,7 @@ task depatch: :environment do
         puts "#{ob.id}: Priv: #{ob.private_notes % "%30s"}, Notes: #{ob.notes % "%30s"}"
       end
       puts "1. Clear priv notes. 2. Move priv notes to notes, 3. Leave notes as is"
-      x = STDIN.gets.strip
+      x = $stdin.gets.strip
       card.update! locus: patches[0][0]
 
       card.observations.update_all(patch_id: nil)
@@ -93,7 +93,7 @@ task depatch: :environment do
         card.observations.update_all(private_notes: "")
       end
       puts "Press any key"
-      x = STDIN.gets.strip
+      x = $stdin.gets.strip
     end
   end
 end

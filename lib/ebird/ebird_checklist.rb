@@ -1,18 +1,18 @@
 # frozen_string_literal: true
 
-require "ebird/ebird_client"
+require "ebird/client"
 
-class EbirdChecklist
+class EBirdChecklist
   attr_reader :ebird_id
   attr_accessor :observ_date, :start_time, :effort_type, :duration_minutes, :distance_kms, :area_acres,
-                :notes, :observers, :location_string, :observations
+    :notes, :observers, :location_string, :observations
 
   PROTOCOL_TO_EFFORT = {
-      "Traveling" => "TRAVEL",
-      "Incidental" => "INCIDENTAL",
-      "Stationary" => "STATIONARY",
-      "Area" => "AREA",
-      "Historical" => "HISTORICAL"
+    "Traveling" => "TRAVEL",
+    "Incidental" => "INCIDENTAL",
+    "Stationary" => "STATIONARY",
+    "Area" => "AREA",
+    "Historical" => "HISTORICAL",
   }
 
   DURATION_REGEX = /^Duration: (?:(\d+) hour\(s\)(?:, )?)?(?:(\d+) minute\(s\))?$/
@@ -30,7 +30,7 @@ class EbirdChecklist
   end
 
   def fetch!(client = nil)
-    agent = client || EbirdClient.new
+    agent = client || EBird::Client.new
 
     page = agent.fetch_checklist(self)
 
@@ -38,7 +38,7 @@ class EbirdChecklist
   end
 
   def fix!(client = nil)
-    agent = client || EbirdClient.new
+    agent = client || EBird::Client.new
 
     agent.fix_checklist(self)
   end
@@ -46,7 +46,7 @@ class EbirdChecklist
   def to_card
     ml = notes.to_s.match?(/^ML/i)
     if /\AML\s*\Z/.match?(notes)
-      notes = ""
+      self.notes = ""
     end
     Card.new(
       ebird_id: ebird_id,
@@ -65,9 +65,10 @@ class EbirdChecklist
   end
 
   private
+
   def parse!(page)
     datetime = page.at_css("div.SectionHeading-heading time")[:datetime]
-    dt = Time.parse(datetime)
+    dt = Time.zone.parse(datetime)
 
     self.observ_date = dt.to_date
     if datetime.include?("T")
@@ -91,7 +92,7 @@ class EbirdChecklist
     if dm
       val = dm[1].to_f
       if dm[2] == "mile(s)"
-        val = val * 1.609344
+        val = val * 1.609344 # rubocop:disable Style/SelfAssignment
       end
 
       self.distance_kms = val
@@ -125,7 +126,7 @@ class EbirdChecklist
       count = nil if count == "X"
 
       taxon = row.at_css("section")[:id]
-      ebird_taxon = EbirdTaxon.find_by_ebird_code(taxon)
+      ebird_taxon = EBirdTaxon.find_by(ebird_code: taxon)
 
       tx = ebird_taxon.find_or_promote_to_taxon
 
@@ -135,7 +136,7 @@ class EbirdChecklist
       notes = ""
       if comments
         notes = comments.at_css("p").text&.strip
-        if notes.downcase == "v" || notes.downcase.start_with?("heard")
+        if notes.casecmp("v").zero? || notes.downcase.start_with?("heard")
           voice = true
           notes.gsub!(/^\s*V\s*$\n*/i, "") # Remove V if it is the single letter in a line
         end
@@ -143,7 +144,7 @@ class EbirdChecklist
 
       ebird_obs_id = row.at_css("a.Observation-tools-item")["data-obsid"]
 
-      self.observations << {taxon: tx, quantity: count, notes: notes, voice: voice, ebird_obs_id: ebird_obs_id}
+      observations << { taxon: tx, quantity: count, notes: notes, voice: voice, ebird_obs_id: ebird_obs_id }
     end
 
     self

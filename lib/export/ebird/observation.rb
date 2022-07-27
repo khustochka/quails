@@ -1,44 +1,43 @@
 # frozen_string_literal: true
 
-class EbirdObservation
+class EBirdObservation
   def initialize(obs)
     @obs = obs
   end
 
   def to_a
     [
-        common_name,
-        genus,
-        latin_name,
-        count,
-        comments,
-        location_name,
-        latitude,
-        longtitude,
-        date,
-        start_time,
-        state_iso_code,
-        country_iso_code,
-        protocol,
-        number_of_observers,
-        duration_minutes,
-        all_observations?,
-        distance_miles,
-        area,
-        checklist_comment
+      common_name,
+      genus,
+      latin_name,
+      count,
+      comments,
+      location_name,
+      latitude,
+      longtitude,
+      date,
+      start_time,
+      state_iso_code,
+      country_iso_code,
+      protocol,
+      number_of_observers,
+      duration_minutes,
+      all_observations?,
+      distance_miles,
+      area,
+      checklist_comment,
     ]
   end
 
   PROTOCOL_MAPPING = {
-      "UNSET" => "incidental",
-      "INCIDENTAL" => "incidental",
-      "TRAVEL" => "traveling",
-      "AREA" => "area",
-      "HISTORICAL" => "historical",
-      "STATIONARY" => "stationary"
+    "UNSET" => "incidental",
+    "INCIDENTAL" => "incidental",
+    "TRAVEL" => "traveling",
+    "AREA" => "area",
+    "HISTORICAL" => "historical",
+    "STATIONARY" => "stationary",
   }
 
-  private
   def common_name
     ebird_taxon.name_en
   end
@@ -53,22 +52,23 @@ class EbirdObservation
 
   def count
     cnt = @obs.quantity[/(\d+(\s*\+\s*\d+)?)/, 1]
-    cnt && eval(cnt) || "X"
+    # FIXME: Unused. Also need to rethink what is going on here.
+    cnt && eval(cnt) || "X" # rubocop:disable Security/Eval
   end
 
   def comments
     (
-    [notes_and_place] +
+      [notes_and_place] +
         @obs.media.map { |i| polymorfic_media_render(i) }
     ).join(" ")
   end
 
   def notes_and_place
     [
-        voice_component,
-        transliterate(@obs.notes)
-    ].
-        delete_if(&:blank?).join("; ")
+      voice_component,
+      transliterate(@obs.notes),
+    ]
+      .delete_if(&:blank?).join("; ")
   end
 
   def location_name
@@ -169,7 +169,7 @@ class EbirdObservation
         image_tag(media.assets_cache.locals.find_max_size(width: 600).try(:full_url) || legacy_image_url("#{media.slug}.jpg"), alt: nil)
       end
     else
-      video_embed(media.slug, :medium).gsub("\n", " ")
+      video_embed(media.slug, :medium).tr("\n", " ")
     end
   end
 end

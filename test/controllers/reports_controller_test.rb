@@ -29,7 +29,7 @@ class ReportsControllerTest < ActionController::TestCase
     create(:observation, card: create(:card, observ_date: "2007-06-18"))
     create(:observation, card: create(:card, observ_date: "2009-06-18"))
     login_as_admin
-    get :more_than_year, params: {days: 365}
+    get :more_than_year, params: { days: 365 }
     assert_response :success
   end
 
@@ -43,7 +43,7 @@ class ReportsControllerTest < ActionController::TestCase
 
   test "admin sees reports/compare" do
     login_as_admin
-    get :compare, params: {loc1: "kiev", loc2: "brovary"}
+    get :compare, params: { loc1: "kyiv", loc2: "brovary" }
     assert_response :success
   end
 
@@ -92,7 +92,7 @@ class ReportsControllerTest < ActionController::TestCase
     create(:observation, card: create(:card, observ_date: "2007-06-18"))
     create(:observation, card: create(:card, observ_date: "2009-06-18"))
     login_as_admin
-    get :more_than_year, params: {sort: :days}
+    get :more_than_year, params: { sort: :days }
     assert_redirected_to reports_more_than_year_path(days: 365, sort: :days)
   end
 
@@ -103,6 +103,6 @@ class ReportsControllerTest < ActionController::TestCase
 
   test "charts work with years parameter" do
     login_as_admin
-    get :charts, params: {years: "2015..2017"}
+    get :charts, params: { years: "2015..2017" }
   end
 end

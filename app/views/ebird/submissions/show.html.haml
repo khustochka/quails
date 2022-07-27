@@ -20,7 +20,7 @@
 
 %dl
   %dt CSV
-  %dd= link_to "[download]", ebird_submission_path(id: @file.id, format: :csv)
+  %dd= link_to "[download]", ebird_submission_path(id: @file.name, format: :csv)
 
   %dt Created
   %dd= @file.created_at.strftime("%F %R")

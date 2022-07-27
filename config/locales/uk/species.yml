@@ -1,0 +1,26 @@
+"uk":
+  species:
+    gallery:
+      title: Фотографії птахів
+      window_title: Фотографії птахів
+      meta_description: Галерея знімків птахів
+
+    show:
+      meta_description: "Опис виду птаха '%{name}' (%{name_sci})"
+      sections:
+        photos: Фотографії
+        videos: Відео
+        posts: Найновіші записи
+        stats: Мої спостереження
+        monthly: За місяцями
+
+      total_observations: 'Всього зустрічей:'
+      species_synonyms: 'У деяких джерелах може мати іншу назву:'
+      splits_synonyms: 'Може розглядатися як підвид виду:'
+      lumps_synonyms: 'У цей вид були додані такі таксони:'
+      split_from_another_sp: 'Цей вид було виділено з виду:'
+      species_split_from_this: 'З цього виду були виділені:'
+
+    flat_section:
+      title: 'Зустрінуті види'
+      new_species: Новий вид!

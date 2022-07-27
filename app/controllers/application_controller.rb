@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "quails/cache_key"
+
 class ApplicationController < ActionController::Base
   if Rails.application.config.x.features.rack_profiler
     before_action do
@@ -22,6 +24,7 @@ class ApplicationController < ActionController::Base
   include ActiveStorage::SetCurrent
 
   private
+
   def allow_params(*list)
     @allowed_params = list + [:action, :controller]
   end
@@ -39,6 +42,7 @@ class ApplicationController < ActionController::Base
   def expire_photo_feeds
     expire_page controller: :feeds, action: :photos, format: "xml"
     expire_page controller: :feeds, action: :photos, format: "xml", locale: "en"
+    expire_page controller: :feeds, action: :photos, format: "xml", locale: "ru"
   end
 
   # Report a rescued error

@@ -22,16 +22,16 @@ namespace :tax do
       # TodoItem.acts_as_list_no_update do
       #   .....
       # end
-      EbirdTaxon.update_all(index_num: 0)
+      EBirdTaxon.update_all(index_num: 0)
 
-      all_etaxa = EbirdTaxon.all.index_by(&:ebird_code)
+      all_etaxa = EBirdTaxon.all.index_by(&:ebird_code)
 
-      # Ebird File is in some Mac encoding, and not all of them are convertable to UTF-8.
+      # EBird File is in some Mac encoding, and not all of them are convertable to UTF-8.
       # This one works for now (check Rüppell's Warbler)
       data = CSV.read(filename, encoding: "macRoman:UTF-8")
       data.shift # skip headers
       data.each_with_index do |(ebird_order, category, code, name_en, name_sci, order, family, _, report_as), idx|
-        e_taxon = all_etaxa[code] || EbirdTaxon.new(ebird_code: code)
+        e_taxon = all_etaxa[code] || EBirdTaxon.new(ebird_code: code)
         e_taxon.update!(
             name_sci: name_sci,
             name_en: name_en,
@@ -49,7 +49,7 @@ namespace :tax do
         codes[code] = e_taxon.id
       end
 
-      old_etaxa = EbirdTaxon.where(ebird_version: 2016)
+      old_etaxa = EBirdTaxon.where(ebird_version: 2016)
       num_to_fix = Taxon.joins(:ebird_taxon).merge(old_etaxa).count
       puts "\n\nREPORT:"
       puts "Number of 2016 taxa left: #{old_etaxa.count}"

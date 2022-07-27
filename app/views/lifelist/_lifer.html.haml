@@ -11,7 +11,7 @@
   %td
     %b= species_link(lifer.species)
     = name_sci(lifer.species)
-    - if russian_locale?
+    - if lifer.species.name != lifer.species.name_en
       %span.lifer_en
         = lifer.species.name_en
   %td.place_td

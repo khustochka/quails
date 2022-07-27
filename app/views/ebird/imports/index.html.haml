@@ -3,6 +3,11 @@
 
 - @page_title = "eBird Imports"
 
+- content_for :add_shortcuts do
+  %li= link_to "eBird Exports", ebird_submissions_path
+
+= render 'admin/shortcuts' if current_user.admin?
+
 %h1= page_header
 
 - if notice

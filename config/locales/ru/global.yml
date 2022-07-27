@@ -12,8 +12,9 @@
     videos: Видео
     my_stats: Моя статистика
     lifelist: Lifelist
-    english: English
+    english: ENG
     russian: По-русски
+    ukrainian: УКР
 
   filters:
     years:
@@ -44,7 +45,8 @@
     feed: Подписка
 
   translated:
-    en: English version
+    en: English
+    uk: Українська
 
   languages:
     en: по-английски

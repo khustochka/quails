@@ -15,6 +15,7 @@
     lifelist: Lifelist
     english: English
     russian: По-русски
+    ukrainian: Українською
 
   filters:
     years:
@@ -44,10 +45,11 @@
     feed: Feed
 
   translated:
-    ru: Русский язык
+    uk: Українська
+    ru: Russian
 
   languages:
     en: in English
-    ru: in Russian
     uk: in Ukrainian
     fr: in French
+    ru: in Russian

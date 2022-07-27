@@ -4,7 +4,7 @@ module BirdingtopHelper
   def include_birdingtop_button
     cache [:birdingtop, hide_birdingtop?] do
       concat(
-        render partial: "partials/birdingtop_code"
+        render(partial: "partials/birdingtop_code")
       )
     end
   end

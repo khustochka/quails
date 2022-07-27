@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 module ApplicationHelper
-  def main_classes
-    @main_classes ||= ["main", "green_links"]
-    if @special_styling
-      @main_classes.delete("green_links")
+  def main_classes(special_styling: false)
+    main_classes ||= ["main", "green_links"]
+    if special_styling
+      main_classes.delete("green_links")
     end
-    @main_classes
+    main_classes
   end
 
   def page_title
@@ -59,16 +59,17 @@ module ApplicationHelper
   end
 
   def open_uri_or_path(uri)
-    obj = begin
-            if /\Ahttps?:\/\//.match?(uri)
-              URI.parse(uri).open
-            else
-              File.open(uri)
-            end
-          rescue => e
-            report_error(e)
-            StringIO.new("")
-          end
+    obj =
+      begin
+        if %r{\Ahttps?://}.match?(uri)
+          URI.parse(uri).open
+        else
+          File.open(uri)
+        end
+      rescue => e
+        report_error(e)
+        StringIO.new("")
+      end
     yield obj
   end
 end

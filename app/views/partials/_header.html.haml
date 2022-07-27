@@ -29,7 +29,7 @@
 
           %li(role="menuitem")= link_to t('menu.lifelist'), lists_overview_path
 
-          %li(role="menuitem")= link_to t('menu.links'), page_path(:links)
+          %li(role="menuitem")= link_to t('menu.links'), links_path
 
           %li(role="menuitem" class="trans-menu")
-            = link_to t('menu.english'), localized_root_path(locale: :en), lang: :en, hreflang: :en
+            = link_to t('menu.english'), alternative_root_path(locale: :en), lang: :en, hreflang: :en

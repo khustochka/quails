@@ -11,7 +11,7 @@ namespace :tax do
     task implement_splits: :environment do
       aba_locs = %w(usa canada).map {|slug| Locus.find_by_slug(slug).subregion_ids}.inject(:+)
 
-      short_billed_gull = EbirdTaxon.find_by_ebird_code("mewgul2").promote
+      short_billed_gull = EBirdTaxon.find_by_ebird_code("mewgul2").promote
       common_gull = Taxon.find_by_ebird_code("mewgul")
 
       common_gull.observations.joins(:card).where(cards: { locus_id: aba_locs }).each {|obs| obs.update(taxon: short_billed_gull)}
@@ -20,8 +20,8 @@ namespace :tax do
 
       # VELVET/WHITE-WINGED SCOTER split
 
-      # velvet_scoter = EbirdTaxon.find_by_ebird_code("whwsco3").promote
-      # whitewinged_scoter = EbirdTaxon.find_by_ebird_code("whwsco4").promote
+      # velvet_scoter = EBirdTaxon.find_by_ebird_code("whwsco3").promote
+      # whitewinged_scoter = EBirdTaxon.find_by_ebird_code("whwsco4").promote
       #
       # # Update local species
       #

@@ -9,20 +9,20 @@ class Media < ApplicationRecord
   has_many :species, through: :taxa
 
   # FIXME: try to make it 'card', because image should belong to observations of the same card
-  has_many :cards, -> {distinct}, through: :observations, inverse_of: :images
+  has_many :cards, -> { distinct }, through: :observations, inverse_of: :images
 
   has_many :spots, through: :observations
   belongs_to :spot, optional: true
 
   validate :consistent_observations
 
-  validates :slug, uniqueness: true, presence: true, length: {maximum: 64}
+  validates :slug, uniqueness: true, presence: true, length: { maximum: 64 }
 
   after_update :update_spot
 
   AVAILABLE_CLASSES = {
-      "photo" => "Image",
-      "video" => "Video"
+    "photo" => "Image",
+    "video" => "Video",
   }
 
   # Parameters
@@ -39,10 +39,10 @@ class Media < ApplicationRecord
     spot_id
   end
 
-  # Mapped photos and vidoes
+  # Mapped photos and videos
   def self.for_the_map
-    Media.connection.select_rows(
-      Media.for_the_map_query.to_sql
+    connection.select_rows(
+      for_the_map_query.to_sql
     ).each_with_object({}) do |(im_id, lat, lon), memo|
       key = [lat, lon].map { |x| (x.to_f * 100000).round / 100000.0 }
       (memo[key.join(",")] ||= []).push(im_id.to_i)
@@ -50,23 +50,23 @@ class Media < ApplicationRecord
   end
 
   def self.half_mapped
-    Media.preload(taxa: :species).joins(:observations).
-        where(spot_id: nil).where("observation_id in (select observation_id from spots)").
-        order(created_at: :asc)
+    preload(taxa: :species).joins(:observations)
+      .where(spot_id: nil).where("observation_id in (select observation_id from spots)")
+      .order(created_at: :asc)
   end
 
   def extend_with_class
-    become = self.becomes(AVAILABLE_CLASSES[media_type].constantize)
+    become = becomes(AVAILABLE_CLASSES[media_type].constantize)
 
     # Becomes does not copy preloaded association. Do this manually.
     # TODO: check for single assocs.
     [:taxa, :species, :cards, :observations, :spots].each do |assoc_name|
       association = self.association(assoc_name)
-      if association.loaded?
-        new_assoc = become.association(assoc_name)
-        new_assoc.loaded!
-        new_assoc.target.concat(self.send(assoc_name))
-      end
+      next unless association.loaded?
+
+      new_assoc = become.association(assoc_name)
+      new_assoc.loaded!
+      new_assoc.target.concat(public_send(assoc_name))
     end
 
     become
@@ -80,15 +80,15 @@ class Media < ApplicationRecord
     date = params[:date]
     ObservationSearch.new(
       new_record? ?
-          {observ_date: date || Card.maximum(:observ_date)} :
-          {observ_date: observ_date, locus_id: locus.id}
+        { observ_date: date || Card.maximum(:observ_date) } :
+        { observ_date: observ_date, locus_id: locus.id }
     )
   end
 
   delegate :observ_date, :locus, :locus_id, to: :card
 
   def species
-    taxa.map(&:species).compact.uniq
+    taxa.filter_map(&:species).uniq
   end
 
   def card
@@ -122,7 +122,26 @@ class Media < ApplicationRecord
     media_type == "video"
   end
 
+  class << self
+    private
+
+    def for_the_map_query
+      self.select("media.id,
+                  COALESCE(spots.lat, patches.lat, public_locus.lat, parent_locus.lat) AS lat,
+                  COALESCE(spots.lng, patches.lon, public_locus.lon, parent_locus.lon) AS lng")
+        .joins(:cards)
+        .joins("LEFT OUTER JOIN (#{Spot.public_spots.to_sql}) as spots ON spots.id=media.spot_id")
+        .joins("LEFT OUTER JOIN (#{Locus.non_private.to_sql}) as patches ON patches.id=observations.patch_id")
+        .joins("LEFT OUTER JOIN (#{Locus.non_private.to_sql}) as public_locus ON public_locus.id=cards.locus_id")
+        .joins("JOIN loci as card_locus ON card_locus.id=cards.locus_id")
+        .joins("LEFT OUTER JOIN (#{Locus.non_private.to_sql}) as parent_locus ON card_locus.ancestry LIKE CONCAT(parent_locus.ancestry, '/', parent_locus.id)")
+        .where("spots.lat IS NOT NULL OR patches.lat IS NOT NULL OR public_locus.lat IS NOT NULL OR parent_locus.lat IS NOT NULL")
+        .distinct
+    end
+  end
+
   private
+
   def consistent_observations
     obs = Observation.where(id: observation_ids)
     if obs.blank?
@@ -136,21 +155,7 @@ class Media < ApplicationRecord
 
   def update_spot
     if spot_id && !spot.observation_id.in?(observation_ids)
-      self.update_column(:spot_id, nil)
+      update_column(:spot_id, nil)
     end
-  end
-
-  def self.for_the_map_query
-    Media.select("media.id,
-                  COALESCE(spots.lat, patches.lat, public_locus.lat, parent_locus.lat) AS lat,
-                  COALESCE(spots.lng, patches.lon, public_locus.lon, parent_locus.lon) AS lng").
-        joins(:cards).
-        joins("LEFT OUTER JOIN (#{Spot.public_spots.to_sql}) as spots ON spots.id=media.spot_id").
-        joins("LEFT OUTER JOIN (#{Locus.non_private.to_sql}) as patches ON patches.id=observations.patch_id").
-        joins("LEFT OUTER JOIN (#{Locus.non_private.to_sql}) as public_locus ON public_locus.id=cards.locus_id").
-        joins("JOIN loci as card_locus ON card_locus.id=cards.locus_id").
-        joins("LEFT OUTER JOIN (#{Locus.non_private.to_sql}) as parent_locus ON card_locus.ancestry LIKE CONCAT(parent_locus.ancestry, '/', parent_locus.id)").
-        where("spots.lat IS NOT NULL OR patches.lat IS NOT NULL OR public_locus.lat IS NOT NULL OR parent_locus.lat IS NOT NULL").
-        distinct
   end
 end

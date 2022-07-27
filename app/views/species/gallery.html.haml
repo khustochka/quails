@@ -8,7 +8,7 @@
 - content_for :translated do
   = render 'partials/translated'
 
-- cache(admin: current_user.admin?, key: CacheKey.gallery) do
+- cache(admin: current_user.admin?, key: Quails::CacheKey.gallery) do
 
   %div.header-with-subheader
     %h1.over-header

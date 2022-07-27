@@ -9,6 +9,7 @@ class ImageAssetsArray < Array
 
   def self.load(str)
     return nil if str.nil?
+
     ImageAssetsArray.new(
       str.split("\n").map do |line|
         ImageAssetItem.load(line)
@@ -48,15 +49,15 @@ class ImageAssetsArray < Array
   def find_max_size(options)
     dimensions = options.keys
     inject do |found, another|
-      if dimensions.all? { |d| found.send(d) < options[d] }
-        if dimensions.any? { |d| another.send(d) > found.send(d) }
+      if dimensions.all? { |d| found.public_send(d) < options[d] }
+        if dimensions.any? { |d| another.public_send(d) > found.public_send(d) }
           another
         else
           found
         end
       else
-        if dimensions.any? { |d| another.send(d) > options[d] } &&
-            dimensions.any? { |d| another.send(d) < found.send(d) }
+        if dimensions.any? { |d| another.public_send(d) > options[d] } &&
+            dimensions.any? { |d| another.public_send(d) < found.public_send(d) }
           another
         else
           found

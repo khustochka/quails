@@ -16,14 +16,14 @@ class TaxaControllerTest < ActionController::TestCase
 
   test "show taxon" do
     login_as_admin
-    get :show, params: {id: @taxon.ebird_code}
+    get :show, params: { id: @taxon.ebird_code }
     assert_response :success
     assert_not_nil assigns(:taxon)
   end
 
   test "search taxon" do
     login_as_admin
-    get :search, params: {term: "garr"}, xhr: true
+    get :search, params: { term: "garr" }, xhr: true
     assert_response :success
     assert assigns(:taxa).find.size > 1
   end

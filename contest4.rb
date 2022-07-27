@@ -7,11 +7,11 @@ SPCS = Hash[Species.all.map { |s| [s.id, s.name_sci] }]
 YEAR = ENV["YEAR"] || Quails::CURRENT_YEAR
 
 obs = MyObservation.joins(:card).
-    where("EXTRACT(year FROM observ_date)::integer = ?", YEAR).
-    order("observ_date").
-    distinct.
-    pluck("observ_date, species_id").
-    group_by(&:first).transform_values { |v| v.map(&:second) }
+  where("EXTRACT(year FROM observ_date)::integer = ?", YEAR).
+  order("observ_date").
+  distinct.
+  pluck("observ_date, species_id").
+  group_by(&:first).transform_values { |v| v.map(&:second) }
 
 obs_arr = []
 
