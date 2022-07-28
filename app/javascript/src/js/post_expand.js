@@ -1,7 +1,10 @@
 class PostExpander {
-  constructor(link) {
+  constructor(el) {
+    let link = $("<span class='pseudolink lang_expand_link'>" + $(el).data("expand-link") + "</span>");
+    $("p", el).append(link);
     this.link = $(link);
-    this.toExpand = $(link).closest(".diff_lang_expand_notice").siblings(".other_lang_expand");
+    this.toExpand = $(el).siblings(".other_lang_expand");
+    this.toExpand.hide();
   }
 
 register() {
@@ -15,7 +18,7 @@ register() {
 
 
 document.addEventListener('DOMContentLoaded', function () {
-  $(".lang_expand_link").each(function (i, el) {
+  $(".diff_lang_expand_notice[data-expand-link]").each(function (i, el) {
     const postExpander = new PostExpander(el);
     postExpander.register();
   });
