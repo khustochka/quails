@@ -4,9 +4,10 @@
 - blog = defined?(blog) ? blog : false
 - new_params = url.kind_of?(Hash) ? url : significant_params
 
-%nav.translated
+%ul.translated
   - new_locales.each do |new_locale|
     - unless blog && new_locale.in?(LocaleHelper::BLOGLESS_LOCALES)
-      - link_hash = new_params.merge({locale: new_locale == I18n.default_locale ? nil : new_locale})
-      = link_to link_hash, lang: new_locale, hreflang: new_locale, rel: :alternate, class: "translated-link translated-link-#{new_locale}" do
-        %span<>= t("translated.#{new_locale}")
+      %li
+        - link_hash = new_params.merge({locale: new_locale == I18n.default_locale ? nil : new_locale})
+        = link_to link_hash, lang: new_locale, hreflang: new_locale, rel: :alternate, class: "translated-link translated-link-#{new_locale}" do
+          %span<>= t("translated.#{new_locale}")

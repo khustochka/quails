@@ -1,8 +1,13 @@
-nav.translated {
+ul.translated {
   @extend .d-print-none;
   text-align: right;
   margin-top: 12px;
   //margin-bottom: -14px;
+  list-style: none;
+
+  li {
+    display: inline-block;
+  }
 
   .translated-link {
     color: white;

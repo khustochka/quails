@@ -1,6 +1,10 @@
 .truth-banner {
   background-color: black;
   color: white;
+  hr {
+    display: none;
+    margin: 0;
+  }
   div {
     line-height: normal;
   }
@@ -12,8 +16,9 @@
   }
   .truth-wording {
     padding: 10px 20px;
-    & > div {
-      margin-bottom: 15px;
+    p {
+      margin: 0 0 15px 0;
+      line-height: normal;
     }
   }
   .truth-heading {
