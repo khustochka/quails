@@ -96,7 +96,7 @@
 
 
       - if content_for?(:jumbo)
-        %div.jumbo-bg{style: "background-image: url(#{@jumbo_image})"}
+        %div.jumbo-bg{class: @jumbo_class}
           %div.jumbo
             = content_for :jumbo
           - if content_for?(:jumbo_side)
