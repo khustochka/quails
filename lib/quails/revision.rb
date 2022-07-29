@@ -12,7 +12,7 @@ module Quails
       private
 
       def rev_cache_key
-        @rev_cache_key ||= "quails_revision_#{Quails.unique_key}"
+        @rev_cache_key ||= "quails_revision_#{Quails.config.unique_key}"
       end
 
       def read_revision
