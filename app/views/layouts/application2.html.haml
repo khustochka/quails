@@ -39,8 +39,9 @@
     - if @og_type
       %meta{ property: "og:type", content: @og_type }
 
-    = javascript_pack_tag *packs.unshift('visitor')
-    = stylesheet_pack_tag "visitor", media: "all"
+    - packs "app2"
+    = javascript_pack_tag *packs.unshift("visitor")
+    = stylesheet_pack_tag *packs.unshift("visitor"), media: "all"
 
     %link{rel: "preconnect", href: "https://fonts.gstatic.com"}
     = stylesheet_link_tag "https://fonts.googleapis.com/css2?family=Rubik:wght@500&display=swap", media: "all"
