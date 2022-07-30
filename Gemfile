@@ -25,8 +25,6 @@ gem "resque"
 # Deployment
 gem "puma"
 gem "dotenv-rails", "~> 2.7"
-# Intentionally disabled in production
-# gem 'bootsnap', require: false
 # For puma systemd integration
 gem "sd_notify"
 
@@ -123,7 +121,6 @@ group :development do
 end
 
 group :development, :test do
-  gem "bootsnap", require: false
   gem "debug", ">= 1.0.0"
   # in dev group for generators
   gem "factory_bot_rails"

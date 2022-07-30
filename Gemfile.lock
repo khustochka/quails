@@ -104,8 +104,6 @@ GEM
     bcrypt (3.1.18)
     benchmark-ips (2.10.0)
     bindex (0.8.1)
-    bootsnap (1.13.0)
-      msgpack (~> 1.2)
     bson (4.15.0)
     builder (3.2.4)
     bundler-audit (0.9.1)
@@ -259,7 +257,6 @@ GEM
       mongo (>= 2.18.0, < 3.0.0)
       ruby2_keywords (~> 0.0.5)
     mono_logger (1.1.1)
-    msgpack (1.5.4)
     multi_json (1.15.0)
     mustermann (2.0.2)
       ruby2_keywords (~> 0.0.1)
@@ -484,7 +481,6 @@ DEPENDENCIES
   aws-sdk-s3
   bcrypt (~> 3.1.7)
   benchmark-ips
-  bootsnap
   bundler-audit
   capybara
   capybara-webkit
