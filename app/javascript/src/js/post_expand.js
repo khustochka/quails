@@ -1,24 +1,29 @@
 class PostExpander {
   constructor(el) {
-    let link = $("<span class='pseudolink lang_expand_link'>" + $(el).data("expand-link") + "</span>");
-    $("p", el).append(link);
-    this.link = $(link);
-    this.toExpand = $(el).siblings(".other_lang_expand");
-    this.toExpand.hide();
+    let linkText = el.getAttribute("data-expand-link");
+    let link = document.createElement("span");
+    link.textContent = linkText;
+    link.classList.add("pseudolink");
+    link.classList.add("lang_expand_link");
+    let pInsideEl = el.querySelector("p");
+    pInsideEl.appendChild(link);
+    this.link = link;
+    this.toExpand = el.parentElement.querySelectorAll(".other_lang_expand");
+    this.toExpand.forEach(box => { box.style.display = "none" })
   }
 
 register() {
     const _this = this;
-    this.link.on("click", function () {
-      _this.toExpand.show();
-      _this.link.hide();
+    this.link.addEventListener("click", function () {
+      _this.toExpand.forEach(box => { box.style.display = "block" });
+      _this.link.style.display = "none";
     });
   }
 }
 
 
 document.addEventListener('DOMContentLoaded', function () {
-  $(".diff_lang_expand_notice[data-expand-link]").each(function (i, el) {
+  document.querySelectorAll(".diff_lang_expand_notice[data-expand-link]").forEach(function (el) {
     const postExpander = new PostExpander(el);
     postExpander.register();
   });

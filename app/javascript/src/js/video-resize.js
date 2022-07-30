@@ -1,7 +1,7 @@
 class VideoResize {
   constructor() {
     this.selector = '.video-container[data-resizable] iframe'
-    this.enable = $(this.selector).length > 0;
+    this.enable = document.querySelectorAll(this.selector).length > 0;
   }
 
   init() {
@@ -26,8 +26,8 @@ class VideoResize {
 
   apiReady(selector, callback) {
     return function () {
-      $(selector).each(function () {
-        new YT.Player(this, {
+      document.querySelectorAll(selector).forEach(function (vid) {
+        new YT.Player(vid, {
           events: {
             'onStateChange': callback
           }
@@ -39,7 +39,7 @@ class VideoResize {
 
 export default {
   init: () => {
-    $(() => {
+    document.addEventListener('DOMContentLoaded', () => {
       const videoResize = new VideoResize();
       videoResize.init()
     });
