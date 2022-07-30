@@ -135,8 +135,3 @@ group :test do
   gem "minitest-reporters"
   gem "simplecov-teamcity-summary"
 end
-
-group :webkit do
-  gem "capybara-webkit"
-  gem "webrick" # needed for capybara-webkit on Ruby 3.0
-end

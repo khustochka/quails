@@ -2,31 +2,14 @@
 
 require "test_helper"
 
-begin
-  require "capybara/webkit"
-rescue LoadError
-  puts "[NOTE] capybara-webkit not available"
-end
-
-default_driver = defined?(Capybara::Webkit) ? :webkit : :selenium
-$js_driver = ENV["JS_DRIVER"]&.to_sym ||
-  (ENV["JS_BROWSER"].present? ? :selenium : default_driver)
+default_driver = :selenium
+$js_driver = ENV["JS_DRIVER"]&.to_sym || default_driver
 
 # Browsers are: chrome, firefox, headless_chrome, headless_firefox
 $js_browser = ENV["JS_BROWSER"]&.to_sym ||
   ($js_driver == :selenium ? :headless_chrome : nil)
 
 puts "[NOTE] Using driver: #{$js_driver}" + ($js_browser ? ", browser: #{$js_browser}" : "")
-
-if $js_driver.to_s.start_with?("webkit") && defined?(Capybara::Webkit)
-  require "core_ext/capybara/webkit/node"
-  Capybara::Webkit.configure do |config|
-    config.block_unknown_urls
-    # Don't load images
-    config.skip_image_loading
-    # config.raise_javascript_errors = true
-  end
-end
 
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   driven_by $js_driver, using: $js_browser
@@ -43,7 +26,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   def select_suggestion(value, hash)
     selector = ".ui-menu-item a:contains(\"#{value}\"):first"
     fill_in hash[:from], with: value
-    sleep(0.5) # Chrome driver needs pretty high values TODO: diff values for Chrome and Capy-webkit
+    sleep(0.5) # Chrome driver needs pretty high values
     # raise "No element '#{value}' in the field #{hash[:from]}" unless page.has_selector?(:xpath, "//*[@class=\"ui-menu-item\"]//a[contains(text(), \"#{value}\")]")
     page.execute_script " $('#{selector}').trigger('mouseenter').click();"
   end
