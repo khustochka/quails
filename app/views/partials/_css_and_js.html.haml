@@ -1,5 +1,7 @@
 -# frozen_string_literal: true
--# packs
+
+= javascript_include_tag("early")
+
 - packs = @packs.try(:compact) || []
 = javascript_pack_tag *packs.unshift('visitor')
 = stylesheet_pack_tag 'visitor', media: "all"
