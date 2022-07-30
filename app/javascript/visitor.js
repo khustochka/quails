@@ -4,7 +4,9 @@
 // ActiveStorage.start();
 
 import Likely from 'ilyabirman-likely';
-require("ilyabirman-likely/release/likely.css");
+import  "ilyabirman-likely/release/likely.css";
+
+import '@fortawesome/fontawesome-free/css/all.css'
 
 // TODO: do not load likely in IE <10. IE9 does not support classList
 document.addEventListener('DOMContentLoaded', function () {Likely.initiate()});

@@ -79,7 +79,6 @@ gem "shakapacker", "6.5.0"
 gem "sprockets-rails", "~> 3.2", ">= 3.2.2"
 gem "jquery-rails"
 gem "sassc-rails"
-gem "font-awesome-sass", "~> 5.8"
 gem "premailer-rails"
 
 # gem "uglifier", ">= 1.3.0"
