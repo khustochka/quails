@@ -49,6 +49,9 @@ gem "haml-contrib"
 gem "RedCloth"
 gem "rinku"
 
+# Parsing html
+gem "nokogiri"
+
 # Improved functionality utils
 gem "kaminari"
 gem "simple_form"
@@ -105,7 +108,6 @@ gem "redis-namespace", "1.8.1"
 
 group :development do
   gem "listen" # required for tracking file changes in development
-  gem "nokogiri"
   gem "benchmark-ips"
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem "web-console", ">= 3.3.0"
