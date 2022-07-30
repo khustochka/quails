@@ -3,6 +3,8 @@
 //
 // ActiveStorage.start();
 
+import '@csstools/normalize.css';
+
 import Likely from 'ilyabirman-likely';
 import  "ilyabirman-likely/release/likely.css";
 
