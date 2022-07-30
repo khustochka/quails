@@ -1,17 +1,15 @@
 //= require search
 //= require base
 
-$(function () {
-    var $body = $("body"),
-        jsController = $body.data("js-controller"),
-        jsFeatures = $body.data("js-features");
+document.addEventListener('DOMContentLoaded', function () {
+    const $body = document.querySelector("body"),
+        jsController = $body.getAttribute("data-js-controller"),
+        jsFeaturesStr = $body.getAttribute("data-js-features"),
+        jsFeatures = JSON.parse(jsFeaturesStr);
 
     if (jsController)
         Quails.pages[jsController].init();
 
-
     if (jsFeatures)
-        for (var i = 0, _len = jsFeatures.length; i < _len; i++) {
-            Quails.features[jsFeatures[i]].init()
-        }
+        jsFeatures.forEach(feature => Quails.features[feature].init())
 });
