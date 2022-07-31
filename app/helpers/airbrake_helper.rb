@@ -2,8 +2,15 @@
 
 module AirbrakeHelper
   def airbrake_config_meta_tag
-    if ENV["AIRBRAKE_API_KEY"] && ENV["AIRBRAKE_HOST"]
-      tag("meta", name: "airbrake-config", content: [ENV["AIRBRAKE_HOST"], ENV["AIRBRAKE_API_KEY"], ENV["AIRBRAKE_PROJECT_ID"]].join(":"))
+    if Airbrake.configured?
+      tag(
+        "meta",
+        name: "airbrake-config",
+        content: [
+          Airbrake::Config.instance.host,
+          Airbrake::Config.instance.project_key,
+          Airbrake::Config.instance.project_id,
+        ].join(":"))
     end
   end
 end
