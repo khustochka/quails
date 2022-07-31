@@ -359,4 +359,6 @@ Rails.application.routes.draw do
       format: false,
       id: "winter"
   end
+
+  get "/secret" => "secret#index"
 end
