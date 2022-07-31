@@ -8,7 +8,7 @@ WORKDIR /app
 COPY . /app
 
 ENV RAILS_ENV=production DOCKER_ENV=1 RAILS_LOG_TO_STDOUT=1
-ENV BUNDLE_WITHOUT=development:test:webkit BUNDLE_FROZEN=1
+ENV BUNDLE_WITHOUT=development:test BUNDLE_FROZEN=1
 RUN apk update && \
     apk add --no-cache tzdata postgresql-libs imagemagick && \
 	apk add --no-cache --virtual .build-depends build-base postgresql${PG_MAJOR}-dev  && \
@@ -19,7 +19,6 @@ RUN apk update && \
     find /usr/local/bundle/gems/ -name '*.o' -delete && \
     rm -rf /root/src /tmp/* /usr/share/man /var/cache/apk/* && \
     apk --purge del .build-depends
-RUN apk --no-cache add nodejs
 
 ARG GIT_COMMIT=unspecified
 LABEL org.opencontainers.image.revision=$GIT_COMMIT
@@ -31,11 +30,10 @@ RUN echo $GIT_COMMIT > REVISION
 FROM quails-base AS builder
 
 # SECRET_KEY_BASE is required to load the env (rake), but does not affect the asset compilation output.
-RUN apk --no-cache add yarn && \
+RUN apk --no-cache add nodejs yarn && \
     yarn install --check-files --frozen-lockfile && \
     SECRET_KEY_BASE=1 bin/rake assets:precompile && \
-    apk --purge del yarn
-# Cannot remove nodejs because some useless gem needs it.
+    apk --purge del yarn nodejs
 
 FROM quails-base AS quails-app
 
