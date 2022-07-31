@@ -20,7 +20,7 @@ class CommentsController < ApplicationController
         Comment.preload(:post).reorder(created_at: :desc).page(params[:page]).per(20)
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html # index.html.haml.erb
       format.json { render json: @comments }
     end
   end

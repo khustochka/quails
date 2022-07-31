@@ -1,19 +1,12 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  mode: 'jit',
-  purge: {
-    enabled: ["production", "staging"].includes(process.env.NODE_ENV),
-    content: [
-      './app/views/**/*.html',
-      './app/views/**/*.html.erb',
-      './app/views/**/*.html.haml',
-      './app/helpers/**/*.rb',
-      './app/javascript/**/*.js',
-    ],
-  },
-  content: [],
+  content: [
+    // CSS, SCSS ?
+    './app/views/**/*.html',
+    './app/views/**/*.html.{erb,haml}',
+    './app/helpers/**/*.rb',
+    './app/javascript/**/*.js',],
   presets: [],
-  darkMode: 'media', // or 'class'
   theme: {
     screens: {
       sm: '640px',

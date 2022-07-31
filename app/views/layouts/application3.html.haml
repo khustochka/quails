@@ -1,0 +1,14 @@
+-# frozen_string_literal: true
+!!!
+%html{lang: I18n.locale}
+  %head
+    %title= nil
+
+    = javascript_pack_tag "application3"
+
+    = stylesheet_pack_tag "application3"
+
+
+  %body
+
+    = yield
