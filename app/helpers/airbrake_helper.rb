@@ -7,10 +7,11 @@ module AirbrakeHelper
         "meta",
         name: "airbrake-config",
         content: [
-          Airbrake::Config.instance.host,
+          Airbrake::Config.instance.host.sub(%r{^https?://}, ""),
           Airbrake::Config.instance.project_key,
           Airbrake::Config.instance.project_id,
-        ].join(":"))
+        ].join(":")
+      )
     end
   end
 end
