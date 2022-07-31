@@ -39,16 +39,18 @@
     - if @og_type
       %meta{ property: "og:type", content: @og_type }
 
-    // Fonts preconnect
+    -# Fonts preconnect
     %link{rel: "preconnect", href: "https://fonts.gstatic.com"}
 
-    // Stylesheets
-    = javascript_pack_tag *packs.unshift("visitor", "app2")
+    -# Scripts
+    = javascript_include_tag "early"
+    = javascript_pack_tag "visitor", "app2"
     = javascript_include_tag "application2"
 
-    = stylesheet_pack_tag *packs.unshift("visitor"), media: "all"
+    -# Stylesheets
     = stylesheet_link_tag "https://fonts.googleapis.com/css2?family=Rubik:wght@500&display=swap", media: "all"
-    // This is last because it may use bootstrap classes and google fonts
+    = stylesheet_pack_tag "visitor", "app2", media: "all"
+    -# This is last because it may use bootstrap classes and google fonts
     = stylesheet_link_tag "application2", media: "all"
 
     -# Template Dependency: partials/ga_code
