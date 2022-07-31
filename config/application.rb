@@ -58,12 +58,8 @@ module Quails
     config.i18n.available_locales = [:uk, :en, :ru]
 
     config.before_configuration do
-      require "quails/env"
-
-      require "core_ext/object"
-      require "core_ext/enumerable"
-      require "core_ext/hash"
-      require "core_ext/redcloth/html"
+      require "quails"
+      require "core_ext"
     end
   end
 end

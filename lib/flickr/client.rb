@@ -16,14 +16,10 @@ module Flickr
     include Either::Value
     include ResultPartialPath
 
-    def method_missing(method, *args, &block)
+    def method_missing(method, *args, &block) # rubocop:disable Style/MissingRespondToMissing
       Result.new(@value.public_send(method, *args, &block))
     rescue FlickRaw::Error => e
       Error.new(e.message)
-    end
-
-    def respond_to_missing?(method_name, include_private = false)
-      @value.respond_to?(method_name) || super
     end
 
     def search_and_filter_photos(conditions, top = nil, &filter)

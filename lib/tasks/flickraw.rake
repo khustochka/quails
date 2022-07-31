@@ -4,15 +4,18 @@ desc "Flickraw tasks"
 namespace :flickraw do
   # Cache the current flickr methods
   task cache: :environment do
-    require "flickr/client"
+    api_methods = FlickRaw::Flickr.new.call('flickr.reflection.getMethods')
 
-    flickr = Flickr::Client.new
+    open("#{Rails.root}/lib/flickraw-cached.rb", "w") do |f|
+      f.puts <<~RUBY
+        require "flickraw"
 
-    open("#{Rails.root}/lib/flickraw-cached.rb", "w") {|f|
-      f.puts %{require 'flickraw'}
-      f.puts %{FlickRaw::VERSION << '.#{Time.now.strftime("%Y%m%d")}-cached'}
-      f.puts "ms = %w{" + flickr.reflection.getMethods.get.to_a.join(" ") + "}"
-      f.puts %{FlickRaw::Flickr.build(ms)}
-    }
+        if Flickr.flickr_objects.empty?
+          FlickRaw::VERSION << ".#{Time.now.strftime("%Y%m%d")}-cached"
+          api_methods = %w{#{api_methods.to_a.join(" ")}}
+          FlickRaw::Flickr.build(api_methods)
+        end
+      RUBY
+    end
   end
 end

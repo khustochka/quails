@@ -39,14 +39,17 @@
     - if @og_type
       %meta{ property: "og:type", content: @og_type }
 
-    = javascript_pack_tag *packs.unshift('visitor')
-    = stylesheet_pack_tag "visitor", media: "all"
-
+    // Fonts preconnect
     %link{rel: "preconnect", href: "https://fonts.gstatic.com"}
-    = stylesheet_link_tag "https://fonts.googleapis.com/css2?family=Rubik:wght@500&display=swap", media: "all"
-    = stylesheet_link_tag "application2", media: "all"
 
+    // Stylesheets
+    = javascript_pack_tag *packs.unshift("visitor", "app2")
     = javascript_include_tag "application2"
+
+    = stylesheet_pack_tag *packs.unshift("visitor"), media: "all"
+    = stylesheet_link_tag "https://fonts.googleapis.com/css2?family=Rubik:wght@500&display=swap", media: "all"
+    // This is last because it may use bootstrap classes and google fonts
+    = stylesheet_link_tag "application2", media: "all"
 
     -# Template Dependency: partials/ga_code
     = include_google_analytics

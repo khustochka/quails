@@ -1,11 +1,8 @@
 # frozen_string_literal: true
 
 require "active_support/core_ext/array/inquiry.rb"
-require "quails/revision"
 
 module Quails
-  CURRENT_YEAR = 2022
-
   class Env
     def initialize
       @raw = ENV["QUAILS_ENV"] || ""
@@ -61,17 +58,5 @@ module Quails
     def respond_to_missing?(method_name, include_private = false)
       /^\w+\?$/ =~ method_name.to_s || super
     end
-  end
-
-  def self.env
-    @env ||= Env.new
-  end
-
-  def self.revision
-    @revision ||= Revision.get
-  end
-
-  def self.unique_key
-    Rails.application.config.x.unique_key
   end
 end

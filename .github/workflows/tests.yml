@@ -26,7 +26,7 @@ jobs:
           POSTGRES_DB: quails_test
           POSTGRES_PASSWORD: "quails"
     env:
-      BUNDLE_WITHOUT: development:webkit
+      BUNDLE_WITHOUT: development
       RAILS_ENV: test
       DATABASE_URL: "postgres://quails:quails@localhost:5432/quails_test"
       MINITEST_REPORTER: Minitest::Reporters::SpecReporter
@@ -77,18 +77,14 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - name: Webkit
-            js_driver: webkit
-            js_browser: nil
-            bundle_without: "development"
           - name: Chrome
             js_driver: selenium
             js_browser: headless_chrome
-            bundle_without: "development:webkit"
+            bundle_without: "development"
           - name: Firefox
             js_driver: selenium
             js_browser: headless_firefox
-            bundle_without: "development:webkit"
+            bundle_without: "development"
     services:
       postgres:
         image: postgres:14-alpine
@@ -111,9 +107,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Install Qt5
-        if: ${{ matrix.js_driver == 'webkit' }}
-        run: sudo apt-get update && sudo apt-get install g++ qt5-default libqt5webkit5-dev gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-x
       - name: Setup Node
         uses: actions/setup-node@v1
         with:
@@ -156,8 +149,6 @@ jobs:
 
 #  lint:
 #    runs-on: ubuntu-20.04
-#    env:
-#      BUNDLE_WITHOUT: webkit
 #    steps:
 #      - name: Checkout code
 #        uses: actions/checkout@v2

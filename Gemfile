@@ -25,8 +25,6 @@ gem "resque"
 # Deployment
 gem "puma"
 gem "dotenv-rails", "~> 2.7"
-# Intentionally disabled in production
-# gem 'bootsnap', require: false
 # For puma systemd integration
 gem "sd_notify"
 
@@ -50,6 +48,9 @@ gem "haml-rails"
 gem "haml-contrib"
 gem "RedCloth"
 gem "rinku"
+
+# Parsing html
+gem "nokogiri"
 
 # Improved functionality utils
 gem "kaminari"
@@ -79,9 +80,7 @@ gem "shakapacker", "6.5.0"
 gem "sprockets-rails", "~> 3.2", ">= 3.2.2"
 gem "jquery-rails"
 gem "sassc-rails"
-gem "font-awesome-sass", "~> 5.8"
 gem "premailer-rails"
-gem "bootstrap", "~> 5.0"
 
 # gem "uglifier", ">= 1.3.0"
 
@@ -109,7 +108,6 @@ gem "redis-namespace", "1.8.1"
 
 group :development do
   gem "listen" # required for tracking file changes in development
-  gem "nokogiri"
   gem "benchmark-ips"
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem "web-console", ">= 3.3.0"
@@ -125,7 +123,6 @@ group :development do
 end
 
 group :development, :test do
-  gem "bootsnap", require: false
   gem "debug", ">= 1.0.0"
   # in dev group for generators
   gem "factory_bot_rails"
@@ -139,9 +136,4 @@ group :test do
   gem "simplecov", require: false, platforms: [:ruby, :mingw]
   gem "minitest-reporters"
   gem "simplecov-teamcity-summary"
-end
-
-group :webkit do
-  gem "capybara-webkit"
-  gem "webrick" # needed for capybara-webkit on Ruby 3.0
 end
