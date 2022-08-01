@@ -45,7 +45,11 @@ module.exports = function config(api) {
       ['@babel/plugin-proposal-class-properties', { loose: true }],
       ["@babel/plugin-proposal-private-methods", { "loose": true }],
       ["@babel/plugin-proposal-private-property-in-object", { "loose": true }],
-      ['@babel/plugin-transform-runtime', { helpers: false }],
+      ['@babel/plugin-transform-runtime', {
+        helpers: false,
+        regenerator: true,
+        corejs: false
+      }],
       isProductionEnv &&
       moduleExists('babel-plugin-transform-react-remove-prop-types') && [
         'babel-plugin-transform-react-remove-prop-types',

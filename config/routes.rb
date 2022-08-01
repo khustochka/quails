@@ -59,7 +59,7 @@ Rails.application.routes.draw do
   # PUBLIC PAGES
 
   # You can have the root of your site routed with "root"
-  # just remember to delete public/index.html.
+  # just remember to delete public/index.html.haml.
   scope "(:locale)", locale: /ru/ do
     root to: "blog#home", as: "blog"
   end
@@ -359,4 +359,6 @@ Rails.application.routes.draw do
       format: false,
       id: "winter"
   end
+
+  get "/secret" => "secret#index"
 end
