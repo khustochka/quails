@@ -31,7 +31,7 @@ FROM quails-base AS builder
 
 # SECRET_KEY_BASE is required to load the env (rake), but does not affect the asset compilation output.
 RUN apk --no-cache add nodejs yarn && \
-    yarn install --check-files --frozen-lockfile && \
+    bin/yarn install --check-files --frozen-lockfile && \
     SECRET_KEY_BASE=1 bin/rake assets:precompile && \
     apk --purge del yarn nodejs
 
