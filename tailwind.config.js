@@ -1,11 +1,13 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    // CSS, SCSS ?
-    './app/views/**/*.html',
-    './app/views/**/*.html.{erb,haml}',
+    // Limit to app3 folders initially
+    './app/views/app3/**/*.html',
+    './app/views/app3/**/*.html.{erb,haml}',
     './app/helpers/**/*.rb',
-    './app/javascript/**/*.js',],
+    './app/javascript/src/js/app3/**/*.js',
+    './app/javascript/src/css/app3/**/*.{css,scss}',
+  ],
   presets: [],
   theme: {
     screens: {
