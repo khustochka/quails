@@ -48,6 +48,7 @@
 !/.ruby-gemset
 !/.ruby-version
 !/.slugignore
+!/.tool-versions
 *~
 AppleDouble
 
