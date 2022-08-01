@@ -17,11 +17,11 @@
     = javascript_pack_tag "application3"
     = stylesheet_pack_tag "application3"
 
-  %body
+  %body.flex.flex-col.min-h-screen
     %header
       = render "shared/accessibility"
       = render "shared/menu"
-    %main#content
+    %main#content.flex-1
       = yield
     %footer
       = render "shared/footer"
