@@ -18,4 +18,10 @@
     = stylesheet_pack_tag "application3"
 
   %body
-    = yield
+    %header
+      = render "shared/accessibility"
+      = render "shared/menu"
+    %main#content
+      = yield
+    %footer
+      = render "shared/footer"
