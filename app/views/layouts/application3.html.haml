@@ -2,13 +2,20 @@
 !!!
 %html{lang: I18n.locale}
   %head
-    %title= nil
+    -# CACHEABLE (depends on facebook_app_id)
+    - cache ["html_head", facebook_app_id] do
+      %meta{ :content => "text/html; charset=UTF-8", "http-equiv" => "content-type" }
+      %meta{ name: 'viewport', content: 'width=device-width'}
+      - if facebook_app_id
+        %meta{ property: "fb:app_id", content: facebook_app_id }
+        %meta{ property: "fb:admins", content: "1567280817" }
+      %meta{ property: "fb:pages", content: "129929083830909" }
+      = airbrake_config_meta_tag
+      -# TODO: Favicons and stuff
+    -# END CACHEABLE
 
     = javascript_pack_tag "application3"
-
     = stylesheet_pack_tag "application3"
 
-
   %body
-
     = yield
