@@ -52,6 +52,6 @@
     ]
   },
   "browserslist": [
-    "defaults"
+    "last 5 years"
   ]
 }
