@@ -359,4 +359,6 @@ Rails.application.routes.draw do
       format: false,
       id: "winter"
   end
+
+  post "/csp-violation-report-endpoint" => "content_security#report"
 end

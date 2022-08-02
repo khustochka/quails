@@ -27,16 +27,13 @@
 
 = render 'spots/form'
 
-.mapContainer{data: {marks: mappable.spots.to_json(only: [:lat, :lng, :id])}}
+.mapContainer{data: {
+                marks: mappable.spots.to_json(only: [:lat, :lng, :id]),
+                patch_url: url_for(action: :patch, format: :json),
+                media_type: mappable.class.to_s.downcase,
+                max_zoom: mappable.spots.map(&:zoom).max,
+                selected_spot: mappable.spot_id,
+                locus_coords: mappable.locus.to_json(only: [:lat, :lng]),
+                }
+              }
   #googleMap{data: {map_enabled: map_enabled}}
-
-:javascript
-  var patch_url = "#{url_for(action: :patch, format: :json)}",
-      media_type = '#{mappable.class.to_s.downcase}',
-      marks = $(".mapContainer").data("marks"),
-      max_zoom = #{mappable.spots.map(&:zoom).max || "null"},
-      selected_spot, locusLatLng;
-  #{"selected_spot = #{mappable.spot_id};" if mappable.spot_id}
-  if (typeof google === 'object') {
-    #{"locusLatLng = new google.maps.LatLng(#{mappable.locus.lat}, #{mappable.locus.lon});" if mappable.locus.lat}
-  }
