@@ -284,6 +284,10 @@ Rails.application.routes.draw do
 
   get "/reports", controller: :reports, action: :index, as: :reports
 
+  resources :corrections, except: [:show] do
+    get :start, on: :member
+  end
+
   reports_actions = %w(environ insights more_than_year topicture this_day uptoday compare by_countries
     stats voices charts month_targets server_error)
   reports_actions.each do |name|
