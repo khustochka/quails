@@ -11,7 +11,7 @@ module FormatStrategy
     include PublicRoutesHelper
 
     def lj_user(user)
-      %Q(<span class="ljuser" style="white-space: nowrap;"><a href="https://#{user}.livejournal.com/profile" rel="nofollow"><img src="http://p-stat.livejournal.com/img/userinfo.gif" alt="info" width="17" height="17" style="vertical-align: bottom; border: 0; padding-right: 1px;" /></a><a href="http://#{user}.livejournal.com/" rel="nofollow"><b>#{user}</b></a></span>)
+      %Q(<span class="ljuser" style="white-space: nowrap;"><a href="https://#{user}.livejournal.com/profile" rel="nofollow"><img src="https://l-stat.livejournal.net/img/userinfo.gif" alt="info" width="17" height="17" style="vertical-align: bottom; border: 0; padding-right: 1px;" /></a><a href="https://#{user}.livejournal.com/" rel="nofollow"><b>#{user}</b></a></span>)
     end
 
     def post_tag(word, term)
