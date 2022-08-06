@@ -41,6 +41,13 @@ class CorrectionsControllerTest < ActionController::TestCase
     assert_redirected_to edit_post_path(post3, correction: @correction.id)
   end
 
+  test "when there are no records, start redirects you to the correction page with a flash message" do
+    login_as_admin
+    get :start, params: { id: @correction.id }
+    assert_redirected_to edit_correction_url(@correction)
+    assert_equal "You have reached the last record!", flash[:notice]
+  end
+
   test "should get edit" do
     login_as_admin
     get :edit, params: { id: @correction.id }

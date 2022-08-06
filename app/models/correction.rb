@@ -10,6 +10,10 @@ class Correction < ApplicationRecord
     records.count
   end
 
+  def next_after(record)
+    results.where("#{sort_column_with_table} > ? OR (#{sort_column_with_table} = ? AND #{table}.id > ?)", record[sort_column], record[sort_column], record.id).first
+  end
+
   private
 
   def model_class
@@ -18,5 +22,13 @@ class Correction < ApplicationRecord
 
   def records
     model_class.where(query)
+  end
+
+  def table
+    model_class.table_name
+  end
+
+  def sort_column_with_table
+    [table, sort_column].join(".")
   end
 end

@@ -11,7 +11,12 @@ class CorrectionsController < ApplicationController
   # GET /corrections/1/start
   def start
     object = @correction.results.first
-    redirect_to [:edit, object, { correction: @correction.id }]
+    if object
+      redirect_to [:edit, object, { correction: @correction.id }]
+    else
+      flash[:notice] = "You have reached the last record!"
+      redirect_to [:edit, @correction]
+    end
   end
 
   # GET /corrections/new

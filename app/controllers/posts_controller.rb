@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class PostsController < ApplicationController
+  include CorrectableConcern
+
   administrative except: [:show]
 
   before_action :find_post, only: [:edit, :update, :destroy, :show, :for_lj, :lj_post]
@@ -65,11 +67,13 @@ class PostsController < ApplicationController
   # PUT /posts/1
   def update
     @extra_params = @post.to_url_params
-    if @post.update(params[:post])
-      redirect_to(public_post_path(@post))
-    else
-      @observation_search = ObservationSearch.new
-      render "form"
+    process_correction_options(@post) do
+      if @post.update(params[:post])
+        redirect_to(redirect_after_update_path(@post))
+      else
+        @observation_search = ObservationSearch.new
+        render "form"
+      end
     end
   end
 
@@ -156,5 +160,9 @@ class PostsController < ApplicationController
     expire_page controller: :feeds, action: :instant_articles, format: "xml"
     expire_photo_feeds
     expire_page controller: :feeds, action: :sitemap, format: "xml"
+  end
+
+  def default_redirect_path(record)
+    public_post_path(record)
   end
 end
