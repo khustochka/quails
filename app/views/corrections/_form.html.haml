@@ -16,7 +16,7 @@
 
   .form-inputs
     %div
-      = f.input :model_classname
+      = f.input :model_classname, collection: Correction::CORRECTABLE_MODELS
       = f.input :sort_column
 
     %div

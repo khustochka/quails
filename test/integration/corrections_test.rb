@@ -19,7 +19,7 @@ class CorrectionsTest < ActionDispatch::IntegrationTest
     visit corrections_url
     click_on "Create new"
 
-    fill_in "Model classname", with: @correction.model_classname
+    select @correction.model_classname, from: "Model classname"
     fill_in "Query", with: @correction.query
     fill_in "Sort column", with: @correction.sort_column
     click_on "Save"
@@ -31,7 +31,7 @@ class CorrectionsTest < ActionDispatch::IntegrationTest
     login_as_admin
     visit edit_correction_url(@correction)
 
-    fill_in "Model classname", with: @correction.model_classname
+    select @correction.model_classname, from: "Model classname"
     fill_in "Query", with: @correction.query
     fill_in "Sort column", with: @correction.sort_column
     click_on "Save"

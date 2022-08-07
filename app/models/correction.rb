@@ -1,5 +1,9 @@
 class Correction < ApplicationRecord
+  # To add a model you need to modify the controller and form
+  CORRECTABLE_MODELS = %w(Post)
+
   validates :model_classname, :query, :sort_column, presence: true
+  validates :model_classname, inclusion: CORRECTABLE_MODELS
 
   def results
     # Adding id sorting for strict order
