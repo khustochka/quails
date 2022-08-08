@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Correction < ApplicationRecord
   # To add a model you need to modify the controller and form
   CORRECTABLE_MODELS = %w(Post)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module CorrectableConcern
   SKIP_VALUE = "Skip"
   SAVE_VALUE = "Save"
@@ -34,10 +36,6 @@ module CorrectableConcern
     else
       yield
     end
-  end
-
-  def correcting?
-    @correction
   end
 
   def default_redirect_path(_)

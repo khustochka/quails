@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class CorrectionsController < ApplicationController
   administrative
 
-  before_action :set_correction, only: %i[ start edit update destroy ]
+  before_action :set_correction, only: [:start, :edit, :update, :destroy]
 
   # GET /corrections
   def index

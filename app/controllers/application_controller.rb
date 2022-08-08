@@ -53,6 +53,13 @@ class ApplicationController < ActionController::Base
 
   helper_method :report_error
 
+  # This is required not only in correctable controllers
+  def correcting?
+    @correction
+  end
+
+  helper_method :correcting?
+
   # def default_url_options
   #   {only_path: true}
   # end
