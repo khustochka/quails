@@ -12,9 +12,9 @@
 
 = render 'admin/shortcuts' if current_user.admin?
 
-= simple_form_for(@video, html: {class: 'with_observations'}) do |f|
-  = f.error_notification
+= render partial: 'partials/errors', object: @video.errors
 
+= simple_form_for(@video, html: {class: 'with_observations'}) do |f|
   .form-inputs
     = f.input :slug
     = f.input :title

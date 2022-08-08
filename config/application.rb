@@ -38,6 +38,7 @@ module Quails
     config.generators do |g|
       g.template_engine :haml
       g.fixture_replacement :factory_bot
+      g.orm :active_record
     end
 
     # Use SQL instead of Active Record's schema dumper when creating the database.

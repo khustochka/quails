@@ -9,3 +9,5 @@
   - if action_name != 'index' && controller.respond_to?(:index)
     %li= link_to 'Index', action: :index
   = yield :add_shortcuts
+  - if correcting?
+    %li= link_to 'Correction', @correction

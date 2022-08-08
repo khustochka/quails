@@ -20,7 +20,7 @@ FactoryBot.define do
       assets_cache {
         ImageAssetsArray.new(
           [
-            ImageAssetItem.new(:flickr, 800, 600, "http://localhost:3333/#{slug}.jpg"),
+            ImageAssetItem.new(:flickr, 800, 600, "https://localhost:3333/#{slug}.jpg"),
           ]
         )
       }

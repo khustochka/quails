@@ -30,6 +30,7 @@
     = form.input :status, collection: Post::STATES, input_html: {size: '3'}, include_blank: false
     = form.input :cover_image_slug
     = form.input :publish_to_facebook, label: "Publish to Facebook Instant Articles"
+    = inject_correction_field
 
   .buttons
     = default_submit_button(form)
