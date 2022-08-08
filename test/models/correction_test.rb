@@ -23,6 +23,6 @@ class CorrectionTest < ActiveSupport::TestCase
     correction = build(:correction, sort_column: "nonexistent_column")
     assert_not_predicate correction, :valid?
     # This checks that there is no exception raised
-    assert_equal false, correction.save
+    assert_not correction.save
   end
 end

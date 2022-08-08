@@ -48,6 +48,7 @@ class PostsController < ApplicationController
 
   # GET /posts/1/edit
   def edit
+    set_correction_flash(@post)
     @extra_params = @post.to_url_params
     @observation_search = ObservationSearch.new
     render "form"

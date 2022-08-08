@@ -17,8 +17,12 @@ class Correction < ApplicationRecord
     records.count
   end
 
+  def after(record)
+    results.where("#{sort_column_with_table} > ? OR (#{sort_column_with_table} = ? AND #{table}.id > ?)", record[sort_column], record[sort_column], record.id)
+  end
+
   def next_after(record)
-    results.where("#{sort_column_with_table} > ? OR (#{sort_column_with_table} = ? AND #{table}.id > ?)", record[sort_column], record[sort_column], record.id).first
+    after(record).first
   end
 
   private

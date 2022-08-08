@@ -28,6 +28,7 @@ module CorrectableConcern
 
   def process_correction_options(record)
     if correcting?
+      set_correction_flash(record)
       if params[:commit] == SKIP_VALUE
         redirect_to next_path(record)
       else
@@ -49,5 +50,9 @@ module CorrectableConcern
       flash[:notice] = "You have reached the last record!"
       [:edit, @correction]
     end
+  end
+
+  def set_correction_flash(record) # rubocop:disable Naming/AccessorMethodName
+    flash.now.notice = "Remaining to be corrected: #{@correction.after(record).count}" if correcting?
   end
 end
