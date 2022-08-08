@@ -284,7 +284,7 @@ Rails.application.routes.draw do
 
   get "/reports", controller: :reports, action: :index, as: :reports
 
-  resources :corrections, except: [:show] do
+  resources :corrections do
     get :start, on: :member
   end
 

@@ -55,7 +55,7 @@ class ApplicationController < ActionController::Base
 
   # This is required not only in correctable controllers
   def correcting?
-    @correction
+    controller_name != "corrections" && @correction
   end
 
   helper_method :correcting?

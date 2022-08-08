@@ -3,11 +3,15 @@
 class CorrectionsController < ApplicationController
   administrative
 
-  before_action :set_correction, only: [:start, :edit, :update, :destroy]
+  before_action :set_correction, only: [:start, :show, :edit, :update, :destroy]
 
   # GET /corrections
   def index
     @corrections = Correction.all
+  end
+
+  def show
+    redirect_to({ action: :edit })
   end
 
   # GET /corrections/1/start
