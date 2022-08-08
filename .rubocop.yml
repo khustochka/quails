@@ -92,6 +92,9 @@ Style/IfInsideElse:
 Style/NegatedIf:
   Enabled: false
 
+Style/ClassMethodsDefinitions:
+  Enabled: false
+
 Layout/ClosingHeredocIndentation:
   Enabled: true
 
@@ -172,4 +175,11 @@ Lint/MissingCopEnableDirective:
   MaximumRangeSize: 4
 
 Minitest/MultipleAssertions:
+  Enabled: false
+
+# These two are causing errors:
+Packaging/RequireHardcodingLib:
+  Enabled: false
+
+Packaging/RequireRelativeHardcodingLib:
   Enabled: false
