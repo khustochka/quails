@@ -18,4 +18,11 @@ class CorrectionTest < ActiveSupport::TestCase
     post3 = create(:post, body: "Link http://flickr.com", face_date: "2022-07-29")
     assert_equal post1, correction.next_after(post3)
   end
+
+  test "validity of the resulting query is checked" do
+    correction = build(:correction, sort_column: "nonexistent_column")
+    assert_not_predicate correction, :valid?
+    # This checks that there is no exception raised
+    assert_equal false, correction.save
+  end
 end

@@ -11,9 +11,9 @@
 
 = render 'admin/shortcuts' if current_user.admin?
 
-= simple_form_for(@correction) do |f|
-  = f.error_notification
+= render partial: 'partials/errors', object: @correction.errors
 
+= simple_form_for(@correction) do |f|
   .form-inputs
     %div
       = f.input :model_classname, collection: Correction::CORRECTABLE_MODELS

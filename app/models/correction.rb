@@ -6,6 +6,7 @@ class Correction < ApplicationRecord
 
   validates :model_classname, :query, :sort_column, presence: true
   validates :model_classname, inclusion: CORRECTABLE_MODELS
+  validate :query_validity
 
   def results
     # Adding id sorting for strict order
@@ -36,5 +37,11 @@ class Correction < ApplicationRecord
 
   def sort_column_with_table
     [table, sort_column].join(".")
+  end
+
+  def query_validity
+    results.first
+  rescue ActiveRecord::StatementInvalid => e
+    errors.add(:base, "Resulting query is invalid: #{e.message}")
   end
 end
