@@ -89,12 +89,12 @@ class JSImagesTest < ApplicationSystemTestCase
 
     # Chrome and Firefox often fail here without the delay.
     sleep 0.5 if $js_driver.to_s.start_with?("selenium")
-    find(:xpath, "//ul[contains(@class,'found-obs')]/li[div[contains(text(),'Passer domesticus')]]").drag_to find(".observation_list")
+    find(:xpath, "//ul[contains(@class,'found-obs')]/li[1]").drag_to find(".observation_list")
 
     assert_difference("Image.count", 1) { save_and_check }
     img = Image.find_by(slug: "test-img-capybara")
 
-    assert_equal ["Passer domesticus"], img.species.map(&:name_sci)
+    assert_equal ["Hirundo rustica"], img.species.map(&:name_sci)
   end
 
   test "Remove an observation from image" do
