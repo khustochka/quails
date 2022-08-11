@@ -87,6 +87,8 @@ class JSImagesTest < ApplicationSystemTestCase
       click_button "Search"
     end
 
+    # Chrome and Firefox often fail here without the delay.
+    sleep 0.5 if $js_driver.to_s.start_with?("selenium")
     find(:xpath, "//ul[contains(@class,'found-obs')]/li[div[contains(text(),'Passer domesticus')]]").drag_to find(".observation_list")
 
     assert_difference("Image.count", 1) { save_and_check }
