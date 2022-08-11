@@ -3,4 +3,4 @@
   %strong= loci_filter_label
   %li= filtering_link_to_all(:locus)
   - @locations.each do |loc|
-    %li= link_to_or_span(loc.name, significant_params.merge(locus: loc.slug))
+    %li= link_to_or_span(loc.name, amended_params(locus: loc.slug))
