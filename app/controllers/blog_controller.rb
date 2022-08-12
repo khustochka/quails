@@ -5,7 +5,8 @@ class BlogController < ApplicationController
     @feed = "blog"
   end
 
-  localized only: [:home, :archive, :month, :year], locales: [:uk, :ru]
+  localized only: [:archive, :month, :year], locales: [:uk, :ru]
+  localized only: [:home], locales: [:uk, :en, :ru]
 
   POSTS_ON_FRONT_PAGE = 3
 
