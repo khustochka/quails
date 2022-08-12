@@ -2,6 +2,7 @@
 
 class MediaController < ApplicationController
   administrative except: [:strip]
+  localized only: [:strip]
 
   # Do not check csrf token for photostrip on the map
   skip_forgery_protection only: :strip

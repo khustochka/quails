@@ -30,7 +30,7 @@ class ImagesControllerTest < ActionController::TestCase
     assert_select "figcaption", text: @image.species[0].name_en
   end
 
-  test "crazy page number should return 404" do
+  test "too big page number should return 404" do
     assert_raise ActiveRecord::RecordNotFound do
       get :index, params: { page: 7262 }
     end

@@ -4,6 +4,7 @@ class ImagesController < ApplicationController
   include FlickrConcern
 
   administrative except: [:index, :multiple_species, :show, :gallery, :country]
+  localized only: [:index, :multiple_species, :show, :gallery, :country]
 
   find_record by: :slug, before: [:show, :edit,
     :parent_edit, :parent_update,

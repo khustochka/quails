@@ -2,6 +2,7 @@
 
 class MapsController < ApplicationController
   administrative except: [:show, :media]
+  localized only: [:show, :media]
 
   # GET "/map"
   def show

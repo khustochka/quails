@@ -4,6 +4,7 @@ class PostsController < ApplicationController
   include CorrectableConcern
 
   administrative except: [:show]
+  localized only: [:show], locales: [:uk, :ru]
 
   before_action :find_post, only: [:edit, :update, :destroy, :show, :for_lj, :lj_post]
 

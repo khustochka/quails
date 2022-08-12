@@ -2,6 +2,7 @@
 
 class ChecklistController < ApplicationController
   administrative except: [:show]
+  localized only: [:show]
 
   def show
     fetch_checklist

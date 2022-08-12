@@ -4,6 +4,8 @@ require "mail"
 
 class CommentsController < ApplicationController
   administrative except: [:create, :reply, :unsubscribe_request, :unsubscribe_submit]
+  # FIXME: not yet localized but should be!
+  # localized locales: [:uk, :ru], only: [:reply, :unsubscribe_request, :unsubscribe_submit]
 
   find_record before: [:show, :edit, :update, :destroy, :reply]
 
