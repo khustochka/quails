@@ -69,3 +69,4 @@ AppleDouble
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+definitions.rb

@@ -35,13 +35,15 @@ class BlogController < ApplicationController
 
   def archive
     @years = current_user.available_posts.years
-    archive_sql = current_user.available_posts
-                              .select("EXTRACT(year FROM face_date)::integer as raw_year,
+    archive_sql =
+      current_user
+        .available_posts
+        .select("EXTRACT(year FROM face_date)::integer as raw_year,
                 EXTRACT(month FROM face_date)::integer as raw_month,
                 COUNT(id) as posts_count")
-                              .group("raw_year, raw_month")
-                              .order("raw_year, raw_month")
-                              .to_sql
+        .group("raw_year, raw_month")
+        .order("raw_year, raw_month")
+        .to_sql
     @archive = ActiveRecord::Base.connection.select_all(archive_sql).chunk { |row| row["raw_year"] }
   end
 

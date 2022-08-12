@@ -8,7 +8,6 @@ module LocalizationConcern
   end
 
   module ClassMethods
-
     # Use `locales: []` if you want to extract locale from params, but there are no translations.
     def localized(options = {})
       opts = options.dup.symbolize_keys!
