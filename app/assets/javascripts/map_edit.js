@@ -4,7 +4,8 @@
 $(function () {
 
   var theMap = $('#googleMap'),
-      observCollection;
+      observCollection,
+      card_kml = theMap.data("card-kml");
 
   function adjustSizes() {
     var clientHeight = $(window).height(),

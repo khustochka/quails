@@ -20,8 +20,4 @@
     -#= render :partial => 'observations/obs_item', :collection => @observations
 
 .mapContainer
-  #googleMap{data: {map_enabled: map_enabled}}
-
-- @observation_search.card_id.if_present do |id|
-  :javascript
-    var card_kml = "#{Card.find(id).kml_url}"
+  #googleMap{data: {map_enabled: map_enabled, card_kml: @observation_search.load_card&.kml_url}}
