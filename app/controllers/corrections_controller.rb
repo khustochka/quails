@@ -3,7 +3,7 @@
 class CorrectionsController < ApplicationController
   administrative
 
-  before_action :set_correction, only: [:start, :show, :edit, :update, :destroy]
+  find_record before: [:start, :show, :edit, :update, :destroy]
 
   # GET /corrections
   def index
@@ -61,11 +61,6 @@ class CorrectionsController < ApplicationController
   end
 
   private
-
-  # Use callbacks to share common setup or constraints between actions.
-  def set_correction
-    @correction = Correction.find(params[:id])
-  end
 
   # Only allow a list of trusted parameters through.
   def correction_params

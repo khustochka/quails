@@ -4,6 +4,8 @@ class FeedsController < ApplicationController
   caches_page :blog, :photos, :sitemap, gzip: true
   caches_page :instant_articles, gzip: true, unless: -> { params[:dev] }
 
+  localized only: [:photos]
+
   def blog
     @posts = Post.public_posts.order(face_date: :desc).limit(10)
   end

@@ -346,19 +346,19 @@ Rails.application.routes.draw do
   # (e.g. ActiveStorage)
 
   scope "(:locale)", locale: /en|ru/ do
-    get "about" => "high_voltage/pages#show",
+    get "about" => "pages#show",
       as: :about,
       format: false,
       id: "about"
   end
   scope "(:locale)", locale: /ru/ do
-    get "links" => "high_voltage/pages#show",
+    get "links" => "pages#show",
       as: :links,
       format: false,
       id: "links"
   end
   scope "ru", locale: "ru" do
-    get "winter" => "high_voltage/pages#show",
+    get "winter" => "pages#show",
       as: :winter,
       format: false,
       id: "winter"

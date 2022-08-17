@@ -39,7 +39,7 @@ module ApplicationHelper
 
   def sorting_link_to(sort_value, text)
     current_sort = params[:sort].to_s == sort_value.to_s
-    updated_params = significant_params.merge(sort: sort_value)
+    updated_params = amended_params(sort: sort_value)
     capture do
       concat link_to_unless(current_sort, text, updated_params)
       concat "\n"

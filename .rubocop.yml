@@ -176,10 +176,3 @@ Lint/MissingCopEnableDirective:
 
 Minitest/MultipleAssertions:
   Enabled: false
-
-# These two are causing errors:
-Packaging/RequireHardcodingLib:
-  Enabled: false
-
-Packaging/RequireRelativeHardcodingLib:
-  Enabled: false

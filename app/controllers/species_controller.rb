@@ -2,6 +2,7 @@
 
 class SpeciesController < ApplicationController
   administrative except: [:gallery, :show, :search]
+  localized only: [:gallery, :show, :search]
 
   before_action :find_species, only: [:edit, :update]
 

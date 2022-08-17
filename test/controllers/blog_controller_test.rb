@@ -15,6 +15,13 @@ class BlogControllerTest < ActionDispatch::IntegrationTest
     assert_includes(assigns(:posts), blogpost2)
   end
 
+  test "home shows correct localized links" do
+    blogpost1 = create(:post, face_date: "2007-12-06 13:14:15")
+    get blog_path
+    assert_select "ul.translated a[href='#{blog_path(locale: :ru)}']"
+    assert_select "ul.translated a[href='#{alternative_root_path(locale: :en)}']"
+  end
+
   # test "get home page with strange format - IE sometimes sends it" do
   #   blogpost1 = create(:post, face_date: '2007-12-06 13:14:15')
   #   get blog_path, headers: {"HTTP_ACCEPT" => "image/gif, image/x-xbitmap, image/jpeg,image/pjpeg, application/x-shockwave-flash,application/vnd.ms-excel,application/vnd.ms-powerpoint,application/msword"}

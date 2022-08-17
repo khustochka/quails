@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class CountriesController < ApplicationController
+  localized only: [:gallery]
+
   def gallery
     @country = Country.find_by!(slug: params[:country])
 

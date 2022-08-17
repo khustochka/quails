@@ -78,6 +78,12 @@ class ObservationSearch
     SimplePartial.new("observations/search/voice_fieldset")
   end
 
+  def load_card
+    if card_id
+      Card.find(card_id)
+    end
+  end
+
   private
 
   def build_cards_relation

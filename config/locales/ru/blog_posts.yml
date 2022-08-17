@@ -38,6 +38,10 @@
 
     show:
       meta_description: "Запись в блоге '%{title}', опубликованная %{date}"
+    other_lang_notice:
+      notice_text: Эта запись на %{in_language} языке.
+    other_lang_expand:
+      expand: Показать
 
   comments:
     comment:

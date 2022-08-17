@@ -4,6 +4,7 @@ class VideosController < ApplicationController
   find_record by: :slug, before: [:show, :edit, :update, :destroy, :map_edit, :patch]
 
   administrative except: [:index, :show]
+  localized only: [:index, :show]
 
   # GET /videos
   def index
