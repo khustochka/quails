@@ -1,8 +1,12 @@
-%nav.sr-only
-  %h5 Switch to another language:
-  %ul
-    %li English
-    %li French
+- other_locales.if_present do |locales|
+  %nav.sr-only
+    %h5 Switch to another language:
+    %ul
+      - locales.each do |locale|
+        - link_hash = amended_params({locale: locale == I18n.default_locale ? nil : locale})
+        %li
+          = link_to link_hash, lang: locale, hreflang: locale, rel: :alternate do
+            = t("translated.#{locale}")
 
 %nav.sr-only
   %ul

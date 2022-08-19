@@ -366,5 +366,7 @@ Rails.application.routes.draw do
 
   post "/csp-violation-report-endpoint" => "content_security#report"
 
-  get "/secret" => "secret#index"
+  scope "(:locale)", locale: /en|ru/ do
+    get "/secret" => "secret#index"
+  end
 end
