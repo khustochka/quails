@@ -103,9 +103,6 @@ gem "net-smtp"
 gem "net-pop"
 gem "net-imap"
 
-# Temporarily to avoid deprecation messages
-gem "redis-namespace", "1.8.1"
-
 group :development do
   gem "listen" # required for tracking file changes in development
   gem "benchmark-ips"
