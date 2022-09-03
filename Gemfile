@@ -18,7 +18,7 @@ gem "actioncable",   VERSION
 gem "railties",      VERSION
 
 gem "pg", "~> 1.0", platforms: [:ruby, :mingw]
-gem "redis"
+gem "redis", "< 5" # Redis 5 not fully compatible
 gem "hiredis"
 gem "resque"
 
