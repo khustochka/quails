@@ -114,7 +114,6 @@ group :development do
   gem "rubocop-rails", require: false
   gem "rubocop-performance", require: false
   gem "rubocop-packaging", require: false
-  gem "rubocop-shopify", require: false
   gem "rubocop-minitest", require: false
   gem "rubocop-rake", require: false
 end
