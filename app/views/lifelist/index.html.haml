@@ -8,14 +8,14 @@
 - content_for :translated do
   = render 'app2/shared/translated'
 
-- content_for :jumbo do
-  = render 'partials/translated'
-  %h1= @page_title
+-# - content_for :jumbo do
+-#   = render 'partials/translated'
+-#   %h1= @page_title
 
-- content_for :jumbo_side do
-  %ul.subheader-menu
-    %li
-      = link_to t('.records_and_stats'), lifelist_stats_path
+-# - content_for :jumbo_side do
+-#   %ul.subheader-menu
+-#     %li
+-#       = link_to t('.records_and_stats'), lifelist_stats_path
 
 - cache(key: Quails::CacheKey.lifelist) do
 

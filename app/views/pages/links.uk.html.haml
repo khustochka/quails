@@ -5,7 +5,12 @@
 
 -# @robots = 'NOINDEX'
 
+- content_for :translated do
+  = render 'app2/shared/translated'
+
 .container
+  = content_for :translated
+
   %header.simple-page-header
     %h1 Посилання
   .row
@@ -50,7 +55,7 @@
       %h2.h4 Визначники, ресурси
       %ul.links-list
         %li
-          = external_link "Птахи України", "http://aves.land.kiev.ua/"
+          = external_link "Птахи України", "https://aves.land.kiev.ua/"
           — Видові нариси з визначника Г. В. Фесенка, А. А. Бокотея
         %li
           = external_link "Птахи Великої Британії",

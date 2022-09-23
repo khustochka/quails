@@ -19,6 +19,7 @@
 %h3 Review tasks:
 
 %ul
+  %li= link_to('Bulk review and correct', corrections_path)
   %li= link_to('5MR', reports_five_mile_radius_path)
   %li
     = link_to('Half-mapped media', {controller: :media, action: :unmapped, half: true})

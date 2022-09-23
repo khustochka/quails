@@ -79,10 +79,10 @@ class FormattersTest < ActionDispatch::IntegrationTest
 
   test "LJ Post with link to another post in LJ" do
     Settings.create(key: "lj_user", value: { name: "stonechat" })
-    url = "http://stonechat.livejournal.com/1111.html"
+    url = "https://stonechat.livejournal.com/1111.html"
     post1 = create(:post,
       slug: "post_for_link",
-      lj_data: Post::LJData.new("1111", "http://stonechat.livejournal.com/1111.html"))
+      lj_data: Post::LJData.new("1111", "https://stonechat.livejournal.com/1111.html"))
     post = build(:post, body: "This is a {{#post|post_for_link}}")
     assert_equal "<p>This is a <a href=\"#{url}\">post</a></p>",
       post.decorated.for_lj.body
@@ -131,7 +131,7 @@ class FormattersTest < ActionDispatch::IntegrationTest
 
   test "LJ user in site post" do
     p = build(:post, body: "LJ user {{@stonechat|lj}}")
-    assert_equal '<p>LJ user <span class="ljuser" style="white-space: nowrap;"><a href="https://stonechat.livejournal.com/profile" rel="nofollow"><img src="http://p-stat.livejournal.com/img/userinfo.gif" alt="info" width="17" height="17" style="vertical-align: bottom; border: 0; padding-right: 1px;" /></a><a href="http://stonechat.livejournal.com/" rel="nofollow"><b>stonechat</b></a></span></p>',
+    assert_equal '<p>LJ user <span class="ljuser" style="white-space: nowrap;"><a href="https://stonechat.livejournal.com/profile" rel="nofollow"><img src="https://l-stat.livejournal.net/img/userinfo.gif" alt="info" width="17" height="17" style="vertical-align: bottom; border: 0; padding-right: 1px;" /></a><a href="https://stonechat.livejournal.com/" rel="nofollow"><b>stonechat</b></a></span></p>',
       p.decorated.for_site.body
   end
 

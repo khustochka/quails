@@ -5,6 +5,9 @@ class BlogController < ApplicationController
     @feed = "blog"
   end
 
+  localized only: [:archive, :month, :year], locales: [:uk, :ru]
+  localized only: [:home], locales: [:uk, :en, :ru]
+
   POSTS_ON_FRONT_PAGE = 3
 
   # GET /
@@ -23,7 +26,7 @@ class BlogController < ApplicationController
         # we fetch and show all the rest of posts
         @posts.concat(
           Post.public_posts.month(post_last[:year], post_last[:month])
-            .reorder(face_date: :desc).where.not(id: @posts.map(&:id))
+              .reorder(face_date: :desc).where.not(id: @posts.map(&:id))
         )
         @prev_month = Post.public_posts.prev_month(post_last[:year], post_last[:month])
       end
@@ -32,13 +35,15 @@ class BlogController < ApplicationController
 
   def archive
     @years = current_user.available_posts.years
-    archive_sql = current_user.available_posts
-      .select("EXTRACT(year FROM face_date)::integer as raw_year,
+    archive_sql =
+      current_user
+        .available_posts
+        .select("EXTRACT(year FROM face_date)::integer as raw_year,
                 EXTRACT(month FROM face_date)::integer as raw_month,
                 COUNT(id) as posts_count")
-      .group("raw_year, raw_month")
-      .order("raw_year, raw_month")
-      .to_sql
+        .group("raw_year, raw_month")
+        .order("raw_year, raw_month")
+        .to_sql
     @archive = ActiveRecord::Base.connection.select_all(archive_sql).chunk { |row| row["raw_year"] }
   end
 

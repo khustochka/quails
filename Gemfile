@@ -4,7 +4,7 @@ source "https://rubygems.org/"
 
 ruby `cat ./.ruby-version`.strip.match(/\d\.\d.\d/).to_s
 
-VERSION = "7.0.3.1"
+VERSION = "7.0.4"
 # gem "rails", VERSION
 gem "activemodel",   VERSION
 gem "activejob",     VERSION
@@ -18,7 +18,7 @@ gem "actioncable",   VERSION
 gem "railties",      VERSION
 
 gem "pg", "~> 1.0", platforms: [:ruby, :mingw]
-gem "redis"
+gem "redis", "< 5" # Redis 5 not fully compatible
 gem "hiredis"
 gem "resque"
 
@@ -76,7 +76,7 @@ gem "lograge"
 gem "image_processing"
 
 # Assets
-gem "shakapacker", "6.5.0"
+gem "shakapacker", "6.5.2"
 gem "sprockets-rails", "~> 3.2", ">= 3.2.2"
 gem "jquery-rails"
 gem "sassc-rails"
@@ -103,9 +103,6 @@ gem "net-smtp"
 gem "net-pop"
 gem "net-imap"
 
-# Temporarily to avoid deprecation messages
-gem "redis-namespace", "1.8.1"
-
 group :development do
   gem "listen" # required for tracking file changes in development
   gem "benchmark-ips"
@@ -117,7 +114,6 @@ group :development do
   gem "rubocop-rails", require: false
   gem "rubocop-performance", require: false
   gem "rubocop-packaging", require: false
-  gem "rubocop-shopify", require: false
   gem "rubocop-minitest", require: false
   gem "rubocop-rake", require: false
 end

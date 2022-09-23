@@ -29,7 +29,7 @@ module Quails
                   `git show -s --format=%B #{sha}`
                 end
               end
-            elsif File.directory?(Rails.root.join(".git"))
+            elsif Rails.root.join(".git").directory?
               sha, message = `git show -s --format=%H%n%n%B`.split("\n\n", 2)
             end
             if sha

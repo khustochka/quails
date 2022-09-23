@@ -284,6 +284,10 @@ Rails.application.routes.draw do
 
   get "/reports", controller: :reports, action: :index, as: :reports
 
+  resources :corrections do
+    get :start, on: :member
+  end
+
   reports_actions = %w(environ insights more_than_year topicture this_day uptoday compare by_countries
     stats voices charts month_targets server_error)
   reports_actions.each do |name|
@@ -342,23 +346,27 @@ Rails.application.routes.draw do
   # (e.g. ActiveStorage)
 
   scope "(:locale)", locale: /en|ru/ do
-    get "about" => "high_voltage/pages#show",
+    get "about" => "pages#show",
       as: :about,
       format: false,
       id: "about"
   end
   scope "(:locale)", locale: /ru/ do
-    get "links" => "high_voltage/pages#show",
+    get "links" => "pages#show",
       as: :links,
       format: false,
       id: "links"
   end
   scope "ru", locale: "ru" do
-    get "winter" => "high_voltage/pages#show",
+    get "winter" => "pages#show",
       as: :winter,
       format: false,
       id: "winter"
   end
 
-  get "/secret" => "secret#index"
+  post "/csp-violation-report-endpoint" => "content_security#report"
+
+  scope "(:locale)", locale: /en|ru/ do
+    get "/secret" => "secret#index"
+  end
 end

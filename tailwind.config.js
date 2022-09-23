@@ -4,6 +4,7 @@ module.exports = {
     // Limit to app3 folders initially
     './app/views/app3/**/*.html',
     './app/views/app3/**/*.html.{erb,haml}',
+    './app/views/layouts/application3.html.{erb,haml}',
     './app/helpers/**/*.rb',
     './app/javascript/src/js/app3/**/*.js',
     './app/javascript/src/css/app3/**/*.{css,scss}',

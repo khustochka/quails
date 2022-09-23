@@ -1,0 +1,39 @@
+- @page_title = 'Bulk review and correct'
+
+%h1= page_header
+
+- if notice
+  %p#notice= notice
+
+= render 'admin/shortcuts' if current_user.admin?
+
+%table.neat_table
+  %thead
+    %tr
+      %th Id
+      %th Model name
+      %th Query
+      %th Sort column
+      %th Records
+      %th
+      %th
+      %th
+
+  %tbody
+    - @corrections.each do |correction|
+      %tr
+        %td= correction.id
+        %td
+          %b= correction.model_classname
+        %td= correction.query
+        %td
+          %i= correction.sort_column
+        %td
+          = correction.count
+        %td
+          %b= link_to 'Start >>', start_correction_path(correction)
+        %td
+          = link_to 'Edit', edit_correction_path(correction)
+        %td
+          = default_destroy_link(correction)
+
