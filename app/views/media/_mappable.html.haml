@@ -33,7 +33,7 @@
                 media_type: mappable.class.to_s.downcase,
                 max_zoom: mappable.spots.map(&:zoom).max,
                 selected_spot: mappable.spot_id,
-                locus_coords: mappable.locus.to_json(only: [:lat, :lng]),
+                locus_coords: mappable.locus.to_json(only: [:lat, :lon]),
                 }
               }
   #googleMap{data: {map_enabled: map_enabled}}
