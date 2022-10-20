@@ -62,7 +62,7 @@ module ApplicationHelper
     obj =
       begin
         if %r{\Ahttps?://}.match?(uri)
-          URI.parse(uri).open
+          URI.parse(uri).open(read_timeout: 2, open_timeout: 2)
         else
           File.open(uri)
         end
