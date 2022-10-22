@@ -160,6 +160,9 @@ Rails/HelperInstanceVariable:
 Rails/SkipsModelValidations:
   Enabled: false
 
+Rails/ActionControllerTestCase:
+  Enabled: false
+
 Lint/MissingCopEnableDirective:
   Enabled: true
   # Maximum number of consecutive lines the cop can be disabled for.

@@ -37,21 +37,21 @@ module Deflicker
                     fp.detach! if Rails.env.production?
                   end
                   flicker.update(removed: true) if Rails.env.production?
-                  flash[:notice] =
+                  flash.now[:notice] =
                     "Removed! #{helpers.link_to "Flickr", flicker.url, target: :_blank, rel: :noopener}
                     #{helpers.link_to "Image", flicker.image, target: :_blank, rel: :noopener}"
                 else
-                  flash[:alert] = result.errors.full_messages.join(" ")
+                  flash.now[:alert] = result.errors.full_messages.join(" ")
                 end
               else
-                flash[:alert] = "Fake removed"
+                flash.now[:alert] = "Fake removed"
               end
             else
-              flash[:alert] = "Not yet on S3"
+              flash.now[:alert] = "Not yet on S3"
             end
           end
         else
-          flash[:alert] = "Still has journal entries"
+          flash.now[:alert] = "Still has journal entries"
         end
         if request.xhr?
           head :ok
