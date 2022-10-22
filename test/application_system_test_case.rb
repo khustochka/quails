@@ -2,6 +2,8 @@
 
 require "test_helper"
 
+WebMock.disable_net_connect!(allow_localhost: true)
+
 default_driver = :selenium
 $js_driver = ENV["JS_DRIVER"]&.to_sym || default_driver
 
