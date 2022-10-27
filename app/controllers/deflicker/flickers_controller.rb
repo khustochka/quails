@@ -22,6 +22,9 @@ module Deflicker
     end
 
     def destroy
+      # rubocop:disable Lint/MissingCopEnableDirective
+      # The most likely action here is redirect
+      # rubocop:disable Rails/ActionControllerFlashBeforeRender
       flicker = Flicker.find_by(flickr_id: params[:id])
       if flicker.removed?
         flash[:alert] = "Already removed"
@@ -37,21 +40,21 @@ module Deflicker
                     fp.detach! if Rails.env.production?
                   end
                   flicker.update(removed: true) if Rails.env.production?
-                  flash.now[:notice] =
+                  flash[:notice] =
                     "Removed! #{helpers.link_to "Flickr", flicker.url, target: :_blank, rel: :noopener}
                     #{helpers.link_to "Image", flicker.image, target: :_blank, rel: :noopener}"
                 else
-                  flash.now[:alert] = result.errors.full_messages.join(" ")
+                  flash[:alert] = result.errors.full_messages.join(" ")
                 end
               else
-                flash.now[:alert] = "Fake removed"
+                flash[:alert] = "Fake removed"
               end
             else
-              flash.now[:alert] = "Not yet on S3"
+              flash[:alert] = "Not yet on S3"
             end
           end
         else
-          flash.now[:alert] = "Still has journal entries"
+          flash[:alert] = "Still has journal entries"
         end
         if request.xhr?
           head :ok
@@ -59,6 +62,8 @@ module Deflicker
           redirect_to deflicker_path
         end
       end
+      # rubocop:enable Rails/ActionControllerFlashBeforeRender
+      # rubocop:enable Lint/MissingCopEnableDirective
     end
 
     private
