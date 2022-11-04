@@ -864,3 +864,7 @@ Style/UnpackFirst:
 
 Style/YodaCondition:
   Enabled: false
+
+# Review:
+Minitest/EmptyLineBeforeAssertionMethods:
+  Enabled: false
