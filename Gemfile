@@ -2,7 +2,7 @@
 
 source "https://rubygems.org/"
 
-ruby `cat ./.ruby-version`.strip.match(/\d\.\d.\d/).to_s
+ruby "~> 3.1"
 
 VERSION = "7.0.4"
 # gem "rails", VERSION
