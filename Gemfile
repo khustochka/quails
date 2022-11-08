@@ -63,7 +63,8 @@ gem "health_check"
 gem "flickraw", "~> 0.9.7"
 gem "livejournal2"
 gem "aws-sdk-s3"
-gem "aws-sdk-rails"
+# Enable if you need to use SES for email delivery.
+# gem "aws-sdk-rails"
 
 # Small utils
 gem "addressable", require: "addressable/uri"
