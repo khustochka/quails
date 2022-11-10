@@ -24,7 +24,7 @@ gem "hiredis-client"
 gem "resque"
 
 # Deployment
-gem "puma", "< 6"
+gem "puma", "< 7"
 gem "dotenv-rails", "~> 2.7"
 # For puma systemd integration
 gem "sd_notify"
