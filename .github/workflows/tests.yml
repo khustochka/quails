@@ -77,11 +77,9 @@ jobs:
           - name: Chrome
             js_driver: selenium
             js_browser: headless_chrome
-            bundle_without: "development"
           - name: Firefox
             js_driver: selenium
             js_browser: headless_firefox
-            bundle_without: "development"
     services:
       postgres:
         image: postgres:14-alpine
@@ -97,7 +95,7 @@ jobs:
           POSTGRES_DB: quails_test
           POSTGRES_PASSWORD: "quails"
     env:
-      BUNDLE_WITHOUT: ${{ matrix.bundle_without }}
+      BUNDLE_WITHOUT: development
       RAILS_ENV: test
       DATABASE_URL: "postgres://quails:quails@localhost:5432/quails_test"
       MINITEST_REPORTER: Minitest::Reporters::SpecReporter
