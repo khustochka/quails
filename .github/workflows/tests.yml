@@ -6,6 +6,7 @@ jobs:
     name: Tests
     runs-on: ubuntu-20.04
     strategy:
+      fail-fast: false
       matrix:
         ruby: ['2.7', '3.0', '3.1.2', '3.1.3', '3.2.0-preview3']
     services:
@@ -66,7 +67,7 @@ jobs:
           path: coverage/
 
   system_test:
-    name: ${{ matrix.name }} system tests
+    name: ${{ matrix.name }} system tests (${{ matrix.ruby }})
     runs-on: ubuntu-20.04
     strategy:
       fail-fast: false
