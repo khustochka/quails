@@ -67,13 +67,13 @@ jobs:
           path: coverage/
 
   system_test:
-    name: ${{ matrix.name }} system tests (${{ matrix.ruby }})
+    name: ${{ matrix.driver.name }} system tests (${{ matrix.ruby }})
     runs-on: ubuntu-20.04
     strategy:
       fail-fast: false
       matrix:
         ruby: ['2.7', '3.0', '3.1.2', '3.2.0-preview3']
-        include:
+        driver:
           - name: Chrome
             js_driver: selenium
             js_browser: headless_chrome
@@ -131,14 +131,14 @@ jobs:
         env:
           # To prevent ugly xvfb warning
           XDG_RUNTIME_DIR: '/tmp/runtime-runner'
-          JS_DRIVER: ${{ matrix.js_driver }}
-          JS_BROWSER: ${{ matrix.js_browser }}
+          JS_DRIVER: ${{ matrix.driver.js_driver }}
+          JS_BROWSER: ${{ matrix.driver.js_browser }}
         run: xvfb-run bin/rake test:system
       - name: Screenshots
         uses: actions/upload-artifact@v2
         if: failure()
         with:
-          name: Screenshots-${{ matrix.js_driver }}-${{ matrix.js_browser }}
+          name: Screenshots-${{ matrix.driver.js_driver }}-${{ matrix.driver.js_browser }}
           path: tmp/screenshots
 
 #  lint:
