@@ -45,9 +45,6 @@
 !/.gitmodules
 !/.github
 !/.rubocop.yml
-!/.ruby-gemset
-!/.ruby-version
-!/.slugignore
 !/.tool-versions
 *~
 AppleDouble

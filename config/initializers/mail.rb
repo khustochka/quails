@@ -32,6 +32,7 @@ elsif ENV["SENDGRID_API_KEY"]
     authentication: :plain,
     enable_starttls_auto: true,
   }
-elsif Rails.env.production? || ENV["USE_SES"]
+elsif ENV["USE_SES"]
+  # Enable `aws-sdk-rails` gem if you need to use this.
   ActionMailer::Base.delivery_method = :ses
 end

@@ -44,13 +44,6 @@ workers ENV.fetch("WEB_CONCURRENCY") { 0 }
 # Allow puma to be restarted by `rails restart` command.
 plugin :tmp_restart
 
-if ENV["RAILS_ENV"] == "production"
-  # Based on the work of Koichi Sasada and Aaron Patterson, this option may decrease memory utilization
-  # of preload-enabled cluster-mode Pumas. It will also increase time to boot and fork. See your logs for
-  # details on how much time this adds to your boot process. For most apps, it will be less than one second.
-  nakayoshi_fork unless ENV["DYNO"] || ENV["PWD"] =~ %r{/.puma-dev/quails\Z} || ENV["DOCKER_ENV"]
-end
-
 # Do not raise error when restarted
 raise_exception_on_sigterm false
 

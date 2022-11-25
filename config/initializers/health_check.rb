@@ -13,7 +13,7 @@ HealthCheck.setup do |config|
   config.full_checks = ["database", "migrations", "custom", "email", "cache", "redis", "resque-redis", "s3"]
 
   # When redis url/password is non-standard
-  config.redis_url = ENV["REDISCLOUD_URL"] || ENV["REDIS_RESQUE_URL"] # default ENV['REDIS_URL']
+  config.redis_url = ENV["REDIS_RESQUE_URL"] # default ENV['REDIS_URL']
   # Has to be nil to fall back to password in the URL
   config.redis_password = nil
 end

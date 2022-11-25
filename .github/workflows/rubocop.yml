@@ -5,16 +5,15 @@ jobs:
   rubocop:
     name: Rubocop
     runs-on: ubuntu-20.04
+    env:
+      BUNDLE_WITHOUT: test
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Setup Ruby
+        uses: actions/checkout@v3
+      - name: Install Ruby and gems
         uses: ruby/setup-ruby@v1
         with:
-          bundler: 'none'
-      - name: Install rubocop
-        run: |
-          gem install rubocop-rails rubocop-performance rubocop-packaging rubocop-minitest rubocop-rake
+          bundler-cache: true
       - name: 'Run Rubocop'
         run: |
-          rubocop --format github
+          bundle exec rubocop --format github

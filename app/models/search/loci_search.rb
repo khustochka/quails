@@ -7,7 +7,7 @@ module Search
     def find
       return Locus.none if @term.blank?
 
-      rel = @base
+      @base
         .select("loci.*,
                           CASE
                               WHEN #{primary_condition} THEN 1

@@ -2,7 +2,7 @@
 
 source "https://rubygems.org/"
 
-ruby `cat ./.ruby-version`.strip.match(/\d\.\d.\d/).to_s
+ruby ">= 2.7"
 
 VERSION = "7.0.4"
 # gem "rails", VERSION
@@ -18,12 +18,13 @@ gem "actioncable",   VERSION
 gem "railties",      VERSION
 
 gem "pg", "~> 1.0", platforms: [:ruby, :mingw]
-gem "redis", "< 5" # Redis 5 not fully compatible
+gem "redis"
 gem "hiredis"
+gem "hiredis-client"
 gem "resque"
 
 # Deployment
-gem "puma"
+gem "puma", "< 7"
 gem "dotenv-rails", "~> 2.7"
 # For puma systemd integration
 gem "sd_notify"
@@ -43,7 +44,7 @@ gem "ancestry", ">= 3.2.1"
 gem "acts_as_list"
 
 # Templating
-gem "haml"
+gem "haml", "< 6"
 gem "haml-rails"
 gem "haml-contrib"
 gem "RedCloth"
@@ -62,7 +63,8 @@ gem "health_check"
 gem "flickraw", "~> 0.9.7"
 gem "livejournal2"
 gem "aws-sdk-s3"
-gem "aws-sdk-rails"
+# Enable if you need to use SES for email delivery.
+# gem "aws-sdk-rails"
 
 # Small utils
 gem "addressable", require: "addressable/uri"
@@ -76,7 +78,7 @@ gem "lograge"
 gem "image_processing"
 
 # Assets
-gem "shakapacker", "6.5.2"
+gem "shakapacker", "6.5.4"
 gem "sprockets-rails", "~> 3.2", ">= 3.2.2"
 gem "jquery-rails"
 gem "sassc-rails"
@@ -127,7 +129,7 @@ end
 group :test do
   gem "capybara"
   gem "selenium-webdriver"
-  gem "webdrivers"
+  gem "webmock"
   gem "launchy" # So you can do Then show me the page
   gem "simplecov", require: false, platforms: [:ruby, :mingw]
   gem "minitest-reporters"

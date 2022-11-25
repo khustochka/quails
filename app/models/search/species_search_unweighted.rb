@@ -5,7 +5,7 @@ module Search
     def find
       return Species.none if @term.blank?
 
-      rel = @base
+      @base
         .select("species.*,
                           CASE
                               WHEN #{primary_condition} THEN 1

@@ -15,8 +15,8 @@ $(function () {
       locusCoords = mapContainer.data("locus-coords"),
       locusLatLng;
 
-  if (locusCoords["lat"] && locusCoords["lng"] && typeof google === 'object') {
-    locusLatLng = new google.maps.LatLng(locusCoords["lat"], locusCoords["lng"])
+  if (locusCoords["lat"] && locusCoords["lon"] && typeof google === 'object') {
+    locusLatLng = new google.maps.LatLng(locusCoords["lat"], locusCoords["lon"])
   } else
     locusLatLng = null;
 

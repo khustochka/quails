@@ -4,8 +4,8 @@
     alt_photo: '[фото]'
 
     index:
-      window_title: Найновіші фотографій
-      title: Найновіші фотографій
+      window_title: Найновіші фотографії
+      title: Найновіші фотографії
       meta_description: "Нові фотографії птахів"
       species_gallery: Галерея видів
       last_updated: ! "Останнє оновлення: %{date}."

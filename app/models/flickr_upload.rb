@@ -65,7 +65,7 @@ class FlickrUpload
   end
 
   def tags
-    %Q(#{@image.species.map { |s| "\"#{s.name_en}\" \"#{s.name_sci}\"" }.join(" ")} bird \"#{@image.locus.country.name_en}\" #{@image.species.map(&:order).uniq.join(" ")} #{@image.species.map(&:family).uniq.join(" ")})
+    %Q(#{@image.species.map { |s| "\"#{s.name_en}\" \"#{s.name_sci}\"" }.join(" ")} bird "#{@image.locus.country.name_en}" #{@image.species.map(&:order).uniq.join(" ")} #{@image.species.map(&:family).uniq.join(" ")})
   end
 
   def date_taken

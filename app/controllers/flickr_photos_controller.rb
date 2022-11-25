@@ -9,11 +9,11 @@ class FlickrPhotosController < ApplicationController
 
   after_action :cache_expire, only: [:create, :destroy]
 
-  def new
-  end
-
   def show
     @next = Image.unflickred.where("created_at < ?", @image.created_at).order(created_at: :desc).first
+  end
+
+  def new
   end
 
   def edit

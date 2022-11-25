@@ -123,9 +123,9 @@ Lint/UriEscapeUnescape:
 
 # Readability, but maybe leave only in tests
 Lint/UselessAssignment:
-  Enabled: false
-#  Exclude:
-#    - test/**/*.rb
+  Enabled: true
+  Exclude:
+    - test/**/*.rb
 
 Performance:
   Exclude:
@@ -158,6 +158,9 @@ Rails/HelperInstanceVariable:
 
 # I do this intentionally
 Rails/SkipsModelValidations:
+  Enabled: false
+
+Rails/ActionControllerTestCase:
   Enabled: false
 
 Lint/MissingCopEnableDirective:
@@ -860,4 +863,8 @@ Style/UnpackFirst:
   Enabled: false
 
 Style/YodaCondition:
+  Enabled: false
+
+# Review:
+Minitest/EmptyLineBeforeAssertionMethods:
   Enabled: false
