@@ -34,14 +34,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Setup Node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: 16
       - name: Find yarn cache location
         id: yarn-cache
-        run: echo "::set-output name=dir::$(yarn cache dir)"
+        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
       - name: JS package cache
-        uses: actions/cache@v1
+        uses: actions/cache@v3
         with:
           path: ${{ steps.yarn-cache.outputs.dir }}
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
@@ -60,7 +60,7 @@ jobs:
       - name: Run tests
         run: bin/rake
       - name: Code coverage results
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         if: ${{ always() }}
         with:
           name: Coverage
@@ -104,14 +104,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Setup Node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: 16
       - name: Find yarn cache location
         id: yarn-cache
-        run: echo "::set-output name=dir::$(yarn cache dir)"
+        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
       - name: JS package cache
-        uses: actions/cache@v1
+        uses: actions/cache@v3
         with:
           path: ${{ steps.yarn-cache.outputs.dir }}
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
@@ -135,7 +135,7 @@ jobs:
           JS_BROWSER: ${{ matrix.driver.js_browser }}
         run: xvfb-run bin/rake test:system
       - name: Screenshots
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         if: failure()
         with:
           name: Screenshots-${{ matrix.driver.js_driver }}-${{ matrix.driver.js_browser }}
