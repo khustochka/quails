@@ -5,7 +5,7 @@ module Search
     def find
       return EBirdTaxon.none if @term.blank?
 
-      rel = @base
+      @base
         .select("ebird_taxa.*,
                           CASE
                               WHEN #{primary_condition} THEN 1

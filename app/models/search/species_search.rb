@@ -11,7 +11,7 @@ module Search
     def find
       return [] if @term.blank?
 
-      rel = @base
+      @base
         .select("DISTINCT id, name_sci, name_en, name_uk, name_ru, weight,
                           CASE WHEN weight IS NULL THEN NULL
                               WHEN #{primary_condition} THEN 1

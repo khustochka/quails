@@ -123,9 +123,9 @@ Lint/UriEscapeUnescape:
 
 # Readability, but maybe leave only in tests
 Lint/UselessAssignment:
-  Enabled: false
-#  Exclude:
-#    - test/**/*.rb
+  Enabled: true
+  Exclude:
+    - test/**/*.rb
 
 Performance:
   Exclude:

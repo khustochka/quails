@@ -21,7 +21,7 @@ namespace :ebird do
         page = agent.get("https://ebird.org/submit?edit=true&locID=#{locId}&subID=#{id}")
         form = page.form
         form.locID = ENV["NEWLOC"]
-        page = agent.submit(form)
+        agent.submit(form)
         sleep 1.1
       end
     end

@@ -5,7 +5,7 @@ module Search
     def find
       return Taxon.none if @term.blank?
 
-      rel = @base
+      @base
         .select("taxa.*,
                           CASE
                               WHEN #{primary_condition} THEN 1

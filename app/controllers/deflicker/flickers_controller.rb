@@ -22,9 +22,6 @@ module Deflicker
     end
 
     def destroy
-      # rubocop:disable Lint/MissingCopEnableDirective
-      # The most likely action here is redirect
-      # rubocop:disable Rails/ActionControllerFlashBeforeRender
       flicker = Flicker.find_by(flickr_id: params[:id])
       if flicker.removed?
         flash[:alert] = "Already removed"
@@ -62,8 +59,6 @@ module Deflicker
           redirect_to deflicker_path
         end
       end
-      # rubocop:enable Rails/ActionControllerFlashBeforeRender
-      # rubocop:enable Lint/MissingCopEnableDirective
     end
 
     private
