@@ -36,6 +36,7 @@
 # Do not need any hidden files
 .*
 !.keep
+!/.dockerignore
 !/.env.TEMPLATE
 !/.env.test
 !/.env.development
