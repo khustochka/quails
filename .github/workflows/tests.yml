@@ -41,7 +41,7 @@ jobs:
         run: bin/rake
       - name: Code coverage results
         uses: actions/upload-artifact@v3
-        if: ${{ always() }}
+        if: matrix.ruby == '3.1.2'
         with:
           name: Coverage (${{ matrix.ruby }})
           path: coverage/
