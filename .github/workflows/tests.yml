@@ -33,30 +33,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      - name: Setup Node
-        uses: actions/setup-node@v3
+      - name: Setup test environment
+        uses: ./.github/actions/setup
         with:
-          node-version: 16
-      - name: Find yarn cache location
-        id: yarn-cache
-        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
-      - name: JS package cache
-        uses: actions/cache@v3
-        with:
-          path: ${{ steps.yarn-cache.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
-      - name: Install packages
-        run: |
-          bin/yarn install --pure-lockfile
-      - name: Install Ruby and gems
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: ${{ matrix.ruby }}
-          bundler-cache: true
-      - name: Set up database schema
-        run: bin/rails db:schema:load
+          ruby: ${{ matrix.ruby }}
       - name: Run tests
         run: bin/rake
       - name: Code coverage results
@@ -103,30 +83,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      - name: Setup Node
-        uses: actions/setup-node@v3
+      - name: Setup test environment
+        uses: ./.github/actions/setup
         with:
-          node-version: 16
-      - name: Find yarn cache location
-        id: yarn-cache
-        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
-      - name: JS package cache
-        uses: actions/cache@v3
-        with:
-          path: ${{ steps.yarn-cache.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
-      - name: Install packages
-        run: |
-          bin/yarn install --pure-lockfile
-      - name: Install Ruby and gems
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: ${{ matrix.ruby }}
-          bundler-cache: true
-      - name: Set up database schema
-        run: bin/rails db:schema:load
+          ruby: ${{ matrix.ruby }}
       - name: Run tests
         env:
           # To prevent ugly xvfb warning
@@ -147,7 +107,7 @@ jobs:
 #      - name: Checkout code
 #        uses: actions/checkout@v3
 #      - name: Install Ruby and gems
-#        uses: ruby/setup-ruby@8f312efe1262fb463d906e9bf040319394c18d3e # v1.92
+#        uses: ruby/setup-ruby@v1
 #        with:
 #          bundler-cache: true
 #      # Add or replace any other lints here
