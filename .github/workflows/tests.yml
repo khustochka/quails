@@ -43,7 +43,7 @@ jobs:
         uses: actions/upload-artifact@v3
         if: ${{ always() }}
         with:
-          name: Coverage
+          name: Coverage (${{ matrix.ruby }})
           path: coverage/
 
   system_test:
@@ -98,7 +98,7 @@ jobs:
         uses: actions/upload-artifact@v3
         if: failure()
         with:
-          name: Screenshots-${{ matrix.driver.js_driver }}-${{ matrix.driver.js_browser }}
+          name: Screenshots-${{ matrix.ruby }}-${{ matrix.driver.js_driver }}-${{ matrix.driver.js_browser }}
           path: tmp/screenshots
 
 #  lint:
