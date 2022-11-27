@@ -217,7 +217,7 @@ class ReportsController < ApplicationController
     lifelist_filtered = lifelist_filtered.where("EXTRACT(year from observ_date)::integer = ?", params[:year]) if params[:year]
     if params[:locus]
       loc_filter = Locus.find_by!(slug: params[:locus]).subregion_ids
-      lifelist_filtered = lifelist_filtered.where(locus_id: loc_filter)
+      lifelist_filtered = lifelist_filtered.where(subquery: { locus_id: loc_filter })
     end
 
     @year_data = obs_with_taxon.select('EXTRACT(year FROM observ_date)::integer as year,
