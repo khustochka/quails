@@ -59,9 +59,9 @@ jobs:
           - name: Chrome
             js_driver: selenium
             js_browser: headless_chrome
-          - name: Firefox
-            js_driver: selenium
-            js_browser: headless_firefox
+#          - name: Firefox
+#            js_driver: selenium
+#            js_browser: headless_firefox
     services:
       postgres:
         image: postgres:14-alpine
