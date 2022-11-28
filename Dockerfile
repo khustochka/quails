@@ -103,7 +103,7 @@ RUN ${BUILD_COMMAND} && rm -rf /app/tmp/cache/assets
 FROM base
 
 # ARG DEPLOY_PACKAGES="postgresql-client file vim curl gzip bzip2 htop net-tools bind9-dnsutils"
-ARG DEPLOY_PACKAGES="postgresql-client file curl gzip bzip2 net-tools bind9-dnsutils"
+ARG DEPLOY_PACKAGES="postgresql-client file curl gzip bzip2 net-tools bind9-dnsutils procps"
 # ENV DEPLOY_PACKAGES=${DEPLOY_PACKAGES}
 
 RUN --mount=type=cache,id=prod-apt-cache,sharing=locked,target=/var/cache/apt \
