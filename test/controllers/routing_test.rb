@@ -72,6 +72,12 @@ class RoutingTest < ActionDispatch::IntegrationTest
     assert_routing "/sitemap.xml", { controller: "feeds", action: "sitemap", format: "xml" }
   end
 
+  test "route localized photos feed correctly" do
+    assert_routing "/ru/photos.xml", { controller: "feeds", action: "photos", format: "xml", locale: "ru" }
+    # This test does not work correctly:
+    assert_routing "/en/photos.xml", { controller: "feeds", action: "photos", format: "xml", locale: "en" }
+  end
+
   test "route countries correctly" do
     assert_routing "/ukraine", { controller: "countries", action: "gallery", country: "ukraine" }
     assert_routing "/ukraine/checklist", { controller: "checklist", action: "show", country: "ukraine" }

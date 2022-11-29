@@ -115,7 +115,7 @@ Rails.application.routes.draw do
   # This toute should be before the proper 'photos' route
   scope ":locale", locale: /en/ do
     get "(/page/:page)" => "images#index", page: /[^0]\d*/, as: :alternative_root
-    get "photos" => redirect("/%{locale}")
+    get "photos" => redirect("/%{locale}"), constraints: { format: "html" }
   end
 
   scope "(:locale)", locale: /ru/ do
