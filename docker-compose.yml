@@ -7,6 +7,9 @@ services:
     environment:
       RAILS_ENV: production
       SECRET_KEY_BASE: 8ed44e73d525a97a10e105cb585094e04975995dac921da790f3b7c1cdbc3b2c
+      QUAILS_ADMIN_USERNAME: admin
+      # Password: admin
+      QUAILS_ADMIN_PASSWORD: "$2a$12$2T5ypL1zWAsEc2FK/KMVKOQyZFgZPegUiL3u0/CLWHPiIeBG6cxLq"
       DATABASE_URL: postgres://quails:quails@database/quails_docker
       RAILS_SERVE_STATIC_FILES: "true"
       REDIS_CACHE_URL: redis://cache
@@ -62,8 +65,8 @@ services:
       POSTGRES_PASSWORD: quails
       POSTGRES_DB: quails_docker
     # Temporarily to seed database
-    #    ports:
-    #      - "5499:5432"
+    ports:
+      - "5499:5432"
     volumes:
       - db_data:/var/lib/postgresql/data
 
