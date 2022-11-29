@@ -15,12 +15,9 @@ amazon:
   upload:
     cache_control: "public, max-age=2592000"
     acl: public-read
-<% else %>
-amazon:
-  service: Disk
-  root: <%= Rails.root.join("storage") %>
 <% end %>
 
+<% if ENV["DEV_S3"] %>
 amazon_dev:
   service: S3
   public: true
@@ -29,7 +26,7 @@ amazon_dev:
   upload:
     cache_control: "public, max-age=2592000"
     acl: public-read
-
+<% end %>
 # Remember not to checkin your GCS keyfile to a repository
 # google:
 #   service: GCS

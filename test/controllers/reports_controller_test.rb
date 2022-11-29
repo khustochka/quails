@@ -67,6 +67,14 @@ class ReportsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "admin sees reports/stats filtered by location" do
+    create(:observation, card: create(:card, observ_date: "2007-06-18"))
+    create(:observation, card: create(:card, observ_date: "2009-06-18"))
+    login_as_admin
+    get :stats, params: { locus: "usa" }
+    assert_response :success
+  end
+
   test "admin sees reports/voices" do
     create(:observation, card: create(:card, observ_date: "2007-06-18"), voice: true)
     create(:observation, card: create(:card, observ_date: "2009-06-18"), voice: false)
