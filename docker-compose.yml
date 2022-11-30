@@ -59,7 +59,7 @@ services:
 
   database:
     container_name: quails_database
-    image: postgres:14-alpine
+    image: bitnami/postgresql:15-debian-11
     environment:
       POSTGRES_USER: quails
       POSTGRES_PASSWORD: quails
@@ -68,7 +68,7 @@ services:
     ports:
       - "5499:5432"
     volumes:
-      - db_data:/var/lib/postgresql/data
+      - db_data15:/var/lib/postgresql/data
 
   cache:
     container_name: quails_cache
@@ -89,7 +89,7 @@ services:
 
 # Declare the volumes that our application uses.
 volumes:
-  db_data:
+  db_data15:
   cache_data:
   resque_jobs_data:
   rails_app_storage:
