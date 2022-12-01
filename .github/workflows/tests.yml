@@ -103,6 +103,18 @@ jobs:
           name: Screenshots-${{ matrix.ruby }}-${{ matrix.driver.js_driver }}-${{ matrix.driver.js_browser }}
           path: tmp/screenshots
 
+  build_image:
+    name: "Docker image"
+    uses: ./.github/workflows/build.yml
+    secrets:
+      DOCKER_AWS_ACCESS_KEY_ID: ${{ secrets.DOCKER_AWS_ACCESS_KEY_ID }}
+      DOCKER_AWS_SECRET_ACCESS_KEY: ${{ secrets.DOCKER_AWS_SECRET_ACCESS_KEY }}
+    needs:
+      - test
+      - system_test
+    if: github.ref == 'refs/heads/dockerize-2022'
+
+
 #  lint:
 #    runs-on: ubuntu-20.04
 #    steps:
