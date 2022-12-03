@@ -19,8 +19,8 @@ jobs:
           images: |
             public.ecr.aws/m7x1i1o0/quails-app
           tags: |
-            type=raw,value=latest
-            type=sha
+            type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'main') }}
+            type=sha,prefix={{branch}}-
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
