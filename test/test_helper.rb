@@ -11,6 +11,7 @@ if ENV["COVERAGE"] && ENV["COVERAGE"] != ""
       end
     end
   end
+  # When running with COVERAGE=true consider also setting CI=true to eager load the code.
   # if spring is used app needs to be preloaded - also may need to be moved after File.expand_path('../../config/environment', __FILE__)
   # see https://github.com/colszowka/simplecov/issues/381#issuecomment-435356201
   # Rails.application.eager_load!
