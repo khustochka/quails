@@ -16,17 +16,17 @@ config/credentials/*.key
 
 node_modules
 
-*~
-AppleDouble
-.*
+**/*~
+**/AppleDouble
+**/.*
 definitions.rb
 Procfile.dev
 README.rdoc
-/coverage
-/data
+coverage
+data
 test
 public/csv
 public/storage
 public/system
 yarn-error.log
-/doc
+doc
