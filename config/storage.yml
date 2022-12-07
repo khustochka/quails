@@ -27,6 +27,13 @@ amazon_dev:
     cache_control: "public, max-age=2592000"
     acl: public-read
 <% end %>
+
+csv_s3:
+  service: "S3"
+  region: <%= ENV["S3_BUCKET_REGION"] || ENV["AWS_REGION"] %>
+  bucket: <%= ENV["EBIRD_CSV_BUCKET"] %>
+
+
 # Remember not to checkin your GCS keyfile to a repository
 # google:
 #   service: GCS
