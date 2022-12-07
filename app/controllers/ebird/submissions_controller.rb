@@ -6,17 +6,6 @@ module EBird
   class SubmissionsController < ApplicationController
     administrative
 
-    STORAGE_CONFIGS = {
-      local: {
-        service: "Disk",
-        root: Pathname("tmp/csv"),
-      },
-      s3: {
-        service: "S3",
-        region: ENV["S3_BUCKET_REGION"] || ENV["AWS_REGION"],
-        bucket: ENV["EBIRD_CSV_BUCKET"],
-      },
-    }
     URL_EXPIRATION_SECONDS = 600
 
     def index
@@ -132,12 +121,14 @@ module EBird
     end
 
     def storage_service
-      @storage_service ||= ActiveStorage::Service.configure(storage_key, STORAGE_CONFIGS)
+      @storage_service ||= ActiveStorage::Blob.services.fetch(storage_key)
     end
 
     def storage_key
       if Rails.env.production? || ENV["EBIRD_CSV_BUCKET"]
-        :s3
+        :csv_s3
+      elsif Rails.env.test?
+        :test
       else
         :local
       end
