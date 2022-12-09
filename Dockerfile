@@ -17,7 +17,7 @@
 # We recommend using the highest patch level for better security and
 # performance.
 
-ARG RUBY_VERSION=3.1.2
+ARG RUBY_VERSION=3.1.3
 ARG VARIANT=malloctrim-slim
 FROM quay.io/evl.ms/fullstaq-ruby:${RUBY_VERSION}-${VARIANT} as base
 
@@ -64,6 +64,9 @@ RUN --mount=type=cache,id=dev-apt-cache,sharing=locked,target=/var/cache/apt \
 # install gems
 
 FROM build_deps as gems
+
+# Create this directory because it is is not created when the rubygems version is the latest
+RUN mkdir -p /usr/local/bundle
 
 RUN gem update --system --no-document 
     # gem install -N bundler -v ${BUNDLER_VERSION}
@@ -133,7 +136,7 @@ RUN chmod +x /app/bin/* && \
     sed -i '/^#!/aDir.chdir File.expand_path("..", __dir__)' /app/bin/*
 
 ENV PORT 3000
-# Port is not exposed, and the command is not server, because this image can be used
+# Port is not exposed, and the command is not `rails server`, because this image can be used
 # for resque queues and cron jobs
 
 CMD ["/bin/bash"]
