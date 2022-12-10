@@ -16,4 +16,8 @@ HealthCheck.setup do |config|
   config.redis_url = ENV["REDIS_RESQUE_URL"] # default ENV['REDIS_URL']
   # Has to be nil to fall back to password in the URL
   config.redis_password = nil
+
+  config.on_failure do |checks, msg|
+    Airbrake.notify(msg)
+  end
 end
