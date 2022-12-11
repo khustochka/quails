@@ -10,7 +10,7 @@ class EBirdTaxon < ApplicationRecord
   belongs_to :parent, class_name: "EBirdTaxon", optional: true
   # Careful when importing new species
   has_many :children, class_name: "EBirdTaxon", foreign_key: "parent_id", dependent: :restrict_with_exception, inverse_of: :parent
-  belongs_to :taxon
+  belongs_to :taxon, optional: true
 
   # Scopes
   scope :category_species, -> { where(category: "species") }
