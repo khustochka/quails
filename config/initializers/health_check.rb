@@ -17,7 +17,7 @@ HealthCheck.setup do |config|
   # Has to be nil to fall back to password in the URL
   config.redis_password = nil
 
-  config.on_failure do |checks, msg|
+  config.on_failure do |_checks, msg|
     Airbrake.notify(msg)
   end
 end
