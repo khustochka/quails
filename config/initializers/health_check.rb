@@ -4,7 +4,7 @@
 HealthCheck.setup do |config|
   # bucket names to test connectivity - required only if s3 check used, access permissions can be mixed
   buckets = [ENV["S3_DEV_BUCKET"], ENV["S3_PROD_BUCKET"]].filter_map(&:presence)
-  config.buckets = Hash[buckets.map { |b| [b, [:R, :W, :D]]}]
+  config.buckets = buckets.index_with { |_b| [:R, :W, :D]}
 
   # You can customize which checks happen on a standard health check, eg to set an explicit list use:
   config.standard_checks = [ "database", "migrations", "custom" ]

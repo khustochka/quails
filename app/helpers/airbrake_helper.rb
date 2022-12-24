@@ -3,15 +3,12 @@
 module AirbrakeHelper
   def airbrake_config_meta_tag
     if Airbrake.configured?
-      tag(
-        "meta",
-        name: "airbrake-config",
+      tag.meta(name: "airbrake-config",
         content: [
           Airbrake::Config.instance.host.sub(%r{^https?://}, ""),
           Airbrake::Config.instance.project_key,
           Airbrake::Config.instance.project_id,
-        ].join(":")
-      )
+        ].join(":"))
     end
   end
 end

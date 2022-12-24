@@ -68,7 +68,7 @@ class EBirdObservation
       voice_component,
       transliterate(@obs.notes),
     ]
-      .delete_if(&:blank?).join("; ")
+      .compact_blank!.join("; ")
   end
 
   def location_name
