@@ -36,7 +36,7 @@ module Deflicker
       links = doc.search("a").map { |el| el.attr(:href) }.uniq
       ids2 = links.grep(/flickr\.com/) do |url|
         m = url.match(%r{flickr\.com/(?:\d+/)?\d+/(\d+)_}) || url.match(%r{flickr\.com/photos/[^/]*/(\d+)/?})
-        m.try(:[], 1)
+        m&.slice(1)
       end
       ids = (ids1 + ids2.compact).uniq
       update(images: imgs, links: links, flickr_ids: ids)
