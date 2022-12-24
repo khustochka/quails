@@ -17,7 +17,7 @@ module Quails
 
       def read_revision
         unless Rails.env.test?
-          begin
+          suppress RuntimeError do
             sha = message = nil
             revision_file = Rails.root.join("REVISION")
             rev = ENV["GIT_REVISION"] || (File.exist?(revision_file) && File.read(revision_file))
@@ -35,7 +35,6 @@ module Quails
             if sha
               new(sha: sha, message: message)
             end
-          rescue RuntimeError # rubocop:disable Lint/SuppressedException
           end
         end
       end
