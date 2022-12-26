@@ -31,6 +31,8 @@ jobs:
       MINITEST_REPORTER: Minitest::Reporters::SpecReporter
       COVERAGE: 1
       PARALLEL_WORKERS: 1
+      # Will only affect Ruby 3.2.0
+      RUBY_YJIT_ENABLE: 1
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -82,6 +84,8 @@ jobs:
       DATABASE_URL: "postgres://quails:quails@localhost:5432/quails_test"
       MINITEST_REPORTER: Minitest::Reporters::SpecReporter
       PARALLEL_WORKERS: 1
+      # Will only affect Ruby 3.2.0
+      RUBY_YJIT_ENABLE: 1
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
