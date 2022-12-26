@@ -10,6 +10,7 @@ import  "ilyabirman-likely/release/likely.css";
 
 import '@fortawesome/fontawesome-free/css/all.css';
 import './src/css/_banner.scss'
+import './src/css/_lifelist_chart.scss'
 
 document.addEventListener('DOMContentLoaded', function () {Likely.initiate()});
 

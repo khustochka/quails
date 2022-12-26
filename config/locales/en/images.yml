@@ -9,6 +9,7 @@
       meta_description: "Latest bird photos and birding statistics"
       species_gallery: Species gallery
       last_updated: ! "Last updated: %{date}."
+      year_summary: Year in review
 
     multiple_species:
       title: Photos of multiple species

@@ -96,4 +96,9 @@ class LifelistController < ApplicationController
     @grouped_by_year_and_country = identified_observations
       .group("EXTRACT(year FROM observ_date)::integer", country_sql)
   end
+
+  # def chart
+  #   year = params[:year]&.slice(/\d{4}/)&.to_i || Quails::CURRENT_YEAR
+  #   @cell = Cells::LifelistChart.new(year: year)
+  # end
 end

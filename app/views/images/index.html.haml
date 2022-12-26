@@ -10,6 +10,12 @@
 - content_for :translated do
   = render 'partials/translated'
 
+- if I18n.locale == :en
+  %h2= t(".year_summary")
+
+  .year-summary
+    = render @cell
+
 %div.header-with-subheader
   %h1
     = page_header

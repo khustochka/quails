@@ -1,0 +1,71 @@
+.lifelist-chart-container {
+  background-color: #eeeeee;
+  padding: 5px 10px;
+}
+
+.lifelist-chart-table {
+  width: 100%;
+
+  td, th {
+    padding: 5px 10px;
+  }
+
+  .lifelist-chart-bar-td {
+     font-size: 1.3em;
+     width: 100%;
+   }
+
+  .lifelist-chart-year-td {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #7f7f7f;
+    text-align: right;
+  }
+
+  .lifelist-chart-link-td {
+    a {
+      font-size: 1.2em;
+      font-weight: 600;
+      border-bottom: none;
+    }
+    text-align: right;
+  }
+
+  .lifelist-chart-th {
+    font-weight: normal;
+    text-align: right;
+    color: #666666;
+  }
+
+  .lifelist-chart-bar {
+    background-color: #80DEEA;
+    height: 1em;
+  }
+
+  tr.current_year {
+    .lifelist-chart-year-td {
+      font-size: 1.5em;
+      color: #6f6f6f;
+    }
+
+    .lifelist-chart-bar-td {
+      font-size: 1.5em;
+    }
+
+    .lifelist-chart-bar {
+      background-color: #20b2aa;
+    }
+
+    .lifelist-chart-link-td {
+      a {
+        font-size: 1.4em;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+.year-summary {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
