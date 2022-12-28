@@ -78,7 +78,7 @@ gem "lograge"
 gem "image_processing"
 
 # Assets
-gem "shakapacker", "6.5.4"
+gem "shakapacker", "6.5.5"
 gem "sprockets-rails", "~> 3.2", ">= 3.2.2"
 gem "jquery-rails"
 gem "sassc-rails"
