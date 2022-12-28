@@ -56,3 +56,4 @@
 
   lifelist_chart:
     number_of_species: Number of species
+    lifers_header: "Lifers:"

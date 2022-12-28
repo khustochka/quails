@@ -34,4 +34,8 @@ class LifelistChartCell
     end
     @all = pre_all
   end
+
+  def lifers
+    @lifers ||= LiferObservation.for_year(year).order(:observ_date).preload(taxon: :species)
+  end
 end

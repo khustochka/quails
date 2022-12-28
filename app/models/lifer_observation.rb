@@ -5,6 +5,8 @@ class LiferObservation < Observation
     select("*").from(life_observ_relation)
   end
 
+  scope :for_year, ->(year) { where("EXTRACT(year from observ_date)::integer = ?", year) }
+
   class << self
     def life_observ_relation
       select("DISTINCT ON (species_id) *")
