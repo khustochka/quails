@@ -99,6 +99,6 @@ class LifelistController < ApplicationController
 
   # def chart
   #   year = params[:year]&.slice(/\d{4}/)&.to_i || Quails::CURRENT_YEAR
-  #   @cell = Cells::LifelistChart.new(year: year)
+  #   @cell = LifelistChart.new(year: year)
   # end
 end

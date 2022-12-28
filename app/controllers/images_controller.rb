@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "cells/lifelist_chart"
-
 class ImagesController < ApplicationController
   include FlickrConcern
 
@@ -22,7 +20,7 @@ class ImagesController < ApplicationController
       page = (params[:page] || 1).to_i
       @images = Image.preload(:species).order(created_at: :desc).page(page).per(24)
       @feed = "photos"
-      @cell = Cells::LifelistChart.new(year: 2022)
+      @cell = LifelistChartCell.new(year: 2022)
       if @images.empty? && page != 1
         raise ActiveRecord::RecordNotFound
       else

@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 
 require "test_helper"
-require "cells/lifelist_chart"
 
-class Cells::LifelistChartTest < ActiveSupport::TestCase
+class LifelistChartCellTest < ActiveSupport::TestCase
   test "does not fail if there are no observations" do
-    cell = Cells::LifelistChart.new(year: 2022)
+    cell = LifelistChartCell.new(year: 2022)
     assert_equal ["0.00"] * 3, cell.all.pluck(:percentage)
   end
 
@@ -22,7 +21,7 @@ class Cells::LifelistChartTest < ActiveSupport::TestCase
     create(:observation, card: card3, taxon: taxa(:jyntor))
     create(:observation, card: card3, taxon: taxa(:bomgar))
 
-    cell = Cells::LifelistChart.new(year: 2022)
+    cell = LifelistChartCell.new(year: 2022)
     expected = [
       { year: 2022, count: 2, percentage: "66.67" },
       { year: 2021, count: 1, percentage: "33.33" },
@@ -32,7 +31,7 @@ class Cells::LifelistChartTest < ActiveSupport::TestCase
   end
 
   test "allows to set the number of years going back" do
-    cell = Cells::LifelistChart.new(year: 2022, back: 4)
+    cell = LifelistChartCell.new(year: 2022, back: 4)
     assert_equal 5, cell.all.size
   end
 end

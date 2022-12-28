@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "cells/lifelist_chart"
-
 class BlogController < ApplicationController
   before_action only: [:home, :year, :month] do
     @feed = "blog"
@@ -34,7 +32,7 @@ class BlogController < ApplicationController
       end
     end
 
-    @cell = Cells::LifelistChart.new(year: 2022)
+    @cell = LifelistChartCell.new(year: 2022)
   end
 
   def archive
