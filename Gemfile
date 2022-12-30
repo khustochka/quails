@@ -19,7 +19,6 @@ gem "railties",      VERSION
 
 gem "pg", "~> 1.0", platforms: [:ruby, :mingw]
 gem "redis"
-gem "hiredis"
 gem "hiredis-client"
 gem "resque"
 

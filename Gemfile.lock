@@ -73,7 +73,7 @@ GEM
     ansi (1.5.0)
     ast (2.4.2)
     aws-eventstream (1.2.0)
-    aws-partitions (1.684.0)
+    aws-partitions (1.686.0)
     aws-sdk-core (3.168.4)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.651.0)
@@ -110,7 +110,7 @@ GEM
     crack (0.4.5)
       rexml
     crass (1.0.6)
-    css_parser (1.12.0)
+    css_parser (1.13.0)
       addressable
     date (3.3.3)
     debug (1.7.1)
@@ -145,7 +145,6 @@ GEM
       railties (>= 5.1)
     hashdiff (1.0.1)
     high_voltage (3.1.2)
-    hiredis (0.6.3)
     hiredis-client (0.11.2)
       redis-client (= 0.11.2)
     htmlentities (4.3.4)
@@ -341,7 +340,7 @@ GEM
       rubocop-ast (>= 1.23.0, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 3.0)
-    rubocop-ast (1.24.0)
+    rubocop-ast (1.24.1)
       parser (>= 3.1.1.0)
     rubocop-minitest (0.25.1)
       rubocop (>= 0.90, < 2.0)
@@ -468,7 +467,6 @@ DEPENDENCIES
   haml-rails
   health_check!
   high_voltage
-  hiredis
   hiredis-client
   image_processing
   jquery-rails
