@@ -865,6 +865,9 @@ Style/UnpackFirst:
 Style/YodaCondition:
   Enabled: false
 
+Style/YodaExpression:
+  Enabled: false
+
 # Review:
 Minitest/EmptyLineBeforeAssertionMethods:
   Enabled: false
