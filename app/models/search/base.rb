@@ -23,18 +23,26 @@ module Search
     end
 
     def starts_with_condition(column_name)
-      @base.klass.__send__(:sanitize_sql, ["#{column_name} ILIKE '%s%%'", regexp_escaped_term])
+      @base.klass.__send__(:sanitize_sql, ["#{column_name} ILIKE '%s%%'", escaped_term])
     end
 
     def full_blown_condition(column_name)
       @base.klass.__send__(
         :sanitize_sql,
-        ["#{column_name} ~* '(^| |\\(|-|\\/)%s'", regexp_escaped_term]
+        ["#{column_name} ~* '#{regexp_template}'", escaped_term]
       )
     end
 
-    def regexp_escaped_term
+    def escaped_term
       Regexp.escape(@term)
+    end
+
+    def regexp_template
+      "(^| |\\(|-|\\/)%s"
+    end
+
+    def full_regexp_to_match
+      Regexp.new(regexp_template % escaped_term, "i")
     end
 
     def results_limit

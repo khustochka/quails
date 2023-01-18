@@ -52,11 +52,11 @@ module Search
           locale_priority.unshift(set_locale)
         end
       end
-      @regex ||= /(^| |-|\()#{@term}/i
-      if sp.name_sci&.match?(@regex)
+      regex = full_regexp_to_match
+      if sp.name_sci&.match?(regex)
         sp.name
       else
-        loc = locale_priority.find {|lang| sp[:"name_#{lang}"]&.match?(@regex)}
+        loc = locale_priority.find {|lang| sp[:"name_#{lang}"]&.match?(regex)}
         if loc
           sp[:"name_#{loc}"]
         else

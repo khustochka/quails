@@ -31,6 +31,13 @@ class Search::SpeciesSearchTest < ActionView::TestCase
     assert_equal ["Bombycilla garrulus"], result.map(&:name_sci)
   end
 
+  test "search for the name including brackets" do
+    user = Admin.new
+    # NOTE: In the fixtures the word (Bohemian) is in brackets
+    result = Search::SpeciesSearch.new(user.searchable_species, "(Bohemian").find
+    assert_equal ["Bombycilla garrulus"], result.map(&:name_sci)
+  end
+
   test "search by legacy scientific name" do
     create(:observation, taxon: taxa(:saxola))
 
@@ -43,12 +50,6 @@ class Search::SpeciesSearchTest < ActionView::TestCase
 
     result = Search::SpeciesSearch.new(User.new.searchable_species, "Saxicola").find
     assert_equal ["Saxicola rubicola"], result.map(&:name_sci)
-  end
-
-  test "escape regex specific symbols" do
-    result = Search::SpeciesSearch.new(User.new.searchable_species, "\\").find
-    assert true
-    # assert noting raise
   end
 
   test "prioritize Ukrainian over Russian when locale not set" do
