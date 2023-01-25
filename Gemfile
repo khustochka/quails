@@ -4,7 +4,7 @@ source "https://rubygems.org/"
 
 ruby ">= 2.7"
 
-VERSION = "7.0.4.1"
+VERSION = "7.0.4.2"
 # gem "rails", VERSION
 gem "activemodel",   VERSION
 gem "activejob",     VERSION
@@ -124,7 +124,7 @@ end
 
 group :test do
   gem "capybara"
-  gem "selenium-webdriver"
+  gem "selenium-webdriver", "< 4.8"
   gem "webmock"
   gem "launchy" # So you can do Then show me the page
   gem "simplecov", require: false, platforms: [:ruby, :mingw]
