@@ -4,12 +4,16 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-    allow: "all"
-    schedule.day: "friday"
+    allow:
+      - "all"
+    schedule:
+      day: "friday"
 updates:
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
       interval: "weekly"
-    allow: "all"
-    schedule.day: "friday"
+    allow: 
+      - "all"
+    schedule:
+      day: "friday"
