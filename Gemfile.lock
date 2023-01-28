@@ -131,7 +131,7 @@ GEM
       railties (>= 5.0.0)
     ffi (1.15.5)
     flickraw (0.9.10)
-    globalid (1.0.1)
+    globalid (1.1.0)
       activesupport (>= 5.0)
     haml (5.2.2)
       temple (>= 0.8.0)
