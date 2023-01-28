@@ -7,7 +7,6 @@ updates:
       day: "friday"
     allow:
       - dependency-type: "all"
-updates:
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
