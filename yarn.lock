@@ -3277,9 +3277,9 @@ pkg-dir@^4.1.0, pkg-dir@^4.2.0:
     find-up "^4.0.0"
 
 postcss-attribute-case-insensitive@^6.0.0:
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/postcss-attribute-case-insensitive/-/postcss-attribute-case-insensitive-6.0.0.tgz#2d090cc15174f6235e8221bfdf7bd7ce7ecdeddb"
-  integrity sha512-Bi5tVYe9rKjU1k1v9xzAAZqMzUrlb2sVbRyV7ZDdtLJVpxV+6db5Yd6ESe6CMl09brexIfDUrGPVB1IbVc7bQQ==
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/postcss-attribute-case-insensitive/-/postcss-attribute-case-insensitive-6.0.1.tgz#69f521cf99aa4fe280943290032c69e3b51df5c0"
+  integrity sha512-XNVoIdu/Pskb5OhkM+iHicEVuASeqAjOTCaW8Wcbrd1UVwRukOJr5+zWzFjYxJj55Z/67ViVm9n/1hwF7MGByQ==
   dependencies:
     postcss-selector-parser "^6.0.10"
 
