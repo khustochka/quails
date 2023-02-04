@@ -95,10 +95,10 @@ gem "rack-mini-profiler", require: false # false is required to be able to disab
 gem "mongoid"
 gem "kaminari-mongoid"
 
-# Fixes
+# Fixes:
 # rexml is a bundled gem since ruby 3.0. This means it is not available by default.
 # The following gems depend on it, but do not yet require is as a dependency:
-# aws-sdk-core, coderay (?), letter_opener_web, livejournal2, selenium-webdriver
+# aws-sdk-core, livejournal2
 gem "rexml"
 
 group :development do
