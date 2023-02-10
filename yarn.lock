@@ -3298,9 +3298,9 @@ postcss-color-functional-notation@^5.0.0:
     postcss-value-parser "^4.2.0"
 
 postcss-color-hex-alpha@^9.0.0:
-  version "9.0.1"
-  resolved "https://registry.yarnpkg.com/postcss-color-hex-alpha/-/postcss-color-hex-alpha-9.0.1.tgz#2dbb1b7a64428ee291465171601ffff0d057b455"
-  integrity sha512-1ZTJvmOZXTCsedKeY+Puqwx6AgoyB1KnzSD/CGDIl1NWvDfxi1jYky4R9konw2SAYw0SOeU33EU27ihE59Fp8Q==
+  version "9.0.2"
+  resolved "https://registry.yarnpkg.com/postcss-color-hex-alpha/-/postcss-color-hex-alpha-9.0.2.tgz#6d3ed50342802469880981a1999515d003ff7d79"
+  integrity sha512-SfPjgr//VQ/DOCf80STIAsdAs7sbIbxATvVmd+Ec7JvR8onz9pjawhq3BJM3Pie40EE3TyB0P6hft16D33Nlyg==
   dependencies:
     postcss-value-parser "^4.2.0"
 
