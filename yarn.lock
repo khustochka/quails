@@ -2075,9 +2075,9 @@ css-minimizer-webpack-plugin@^4.0.0:
     source-map "^0.6.1"
 
 css-prefers-color-scheme@^8.0.0:
-  version "8.0.1"
-  resolved "https://registry.yarnpkg.com/css-prefers-color-scheme/-/css-prefers-color-scheme-8.0.1.tgz#fc7217734df3d8e5337d614921e1fa1d10b1fa38"
-  integrity sha512-RPRyqJsk5KIjP2+WGhcGCaAJB8ojLbX1mVE8fG9127jQmnp1FNMfNMkERk/w6c4smgC/i5KxcY+Rtaa6/bMdKQ==
+  version "8.0.2"
+  resolved "https://registry.yarnpkg.com/css-prefers-color-scheme/-/css-prefers-color-scheme-8.0.2.tgz#a0671f54eb19ed0d30b952574c0af11ec355fb6d"
+  integrity sha512-OvFghizHJ45x7nsJJUSYLyQNTzsCU8yWjxAc/nhPQg1pbs18LMoET8N3kOweFDPy0JV0OSXN2iqRFhPBHYOeMA==
 
 css-select@^4.1.3:
   version "4.3.0"
