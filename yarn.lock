@@ -3424,9 +3424,9 @@ postcss-gap-properties@^4.0.0:
   integrity sha512-V5OuQGw4lBumPlwHWk/PRfMKjaq/LTGR4WDTemIMCaMevArVfCCA9wBJiL1VjDAd+rzuCIlkRoRvDsSiAaZ4Fg==
 
 postcss-image-set-function@^5.0.0:
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/postcss-image-set-function/-/postcss-image-set-function-5.0.1.tgz#115454817f5f4b795066640b646882effd0428af"
-  integrity sha512-JnmN9Wo7WjlvM7fg00wzC4d/1kOqau+6v6hteLLqEyBjCuzoFZUU0Te3JphDyxc65RtPNsCujDwYbbs6+vYxCQ==
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/postcss-image-set-function/-/postcss-image-set-function-5.0.2.tgz#088e0f535f43e74d6ea8033ff7b0482e2735ea6e"
+  integrity sha512-Sszjwo0ubETX0Fi5MvpYzsONwrsjeabjMoc5YqHvURFItXgIu3HdCjcVuVKGMPGzKRhgaknmdM5uVWInWPJmeg==
   dependencies:
     postcss-value-parser "^4.2.0"
 
