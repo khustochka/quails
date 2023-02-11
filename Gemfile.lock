@@ -125,8 +125,9 @@ GEM
     flickraw (0.9.10)
     globalid (1.1.0)
       activesupport (>= 5.0)
-    haml (5.2.2)
-      temple (>= 0.8.0)
+    haml (6.1.1)
+      temple (>= 0.8.2)
+      thor
       tilt
     haml-contrib (1.0.0.1)
       haml (>= 3.2.0.alpha.13)
@@ -454,7 +455,7 @@ DEPENDENCIES
   dotenv-rails (~> 2.7)
   factory_bot_rails
   flickraw (~> 0.9.7)
-  haml (< 6)
+  haml (< 7)
   haml-contrib
   haml-rails
   health_check
