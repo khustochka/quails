@@ -56,7 +56,7 @@ gem "nokogiri"
 gem "kaminari"
 gem "simple_form"
 gem "high_voltage"
-gem "health_check", git: "https://github.com/PCPS/health_check.git", ref: "32751bce81d48f983155f540e92806ef5c125e3f"
+gem "health_check"
 
 # External services
 gem "flickraw", "~> 0.9.7"

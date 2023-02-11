@@ -1,11 +1,3 @@
-GIT
-  remote: https://github.com/PCPS/health_check.git
-  revision: 32751bce81d48f983155f540e92806ef5c125e3f
-  ref: 32751bce81d48f983155f540e92806ef5c125e3f
-  specs:
-    health_check (3.1.0)
-      railties (>= 5.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -144,6 +136,8 @@ GEM
       haml (>= 4.0.6)
       railties (>= 5.1)
     hashdiff (1.0.1)
+    health_check (3.1.0)
+      railties (>= 5.0)
     high_voltage (3.1.2)
     hiredis-client (0.12.1)
       redis-client (= 0.12.1)
@@ -463,7 +457,7 @@ DEPENDENCIES
   haml (< 6)
   haml-contrib
   haml-rails
-  health_check!
+  health_check
   high_voltage
   hiredis-client
   image_processing
