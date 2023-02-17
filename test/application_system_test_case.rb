@@ -16,6 +16,9 @@ puts "[INFO] Using driver: #{$js_driver}" + ($js_browser ? ", browser: #{$js_bro
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   driven_by $js_driver, using: $js_browser
 
+  # Suppress deprecation message of :capabilities parameter
+  Selenium::WebDriver.logger(ignored: :capabilities)
+
   TEST_CREDENTIALS = { username: ENV["QUAILS_ADMIN_USERNAME"], password: ENV["QUAILS_ADMIN_PASSWORD"] }
 
   def login_as_admin
