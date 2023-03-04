@@ -82,7 +82,7 @@ class UIPostsTest < ActionDispatch::IntegrationTest
     click_button("save_button")
 
     assert_current_path comments_path
-    assert_equal "Some text", find("#comment_body").value
+    assert_equal "Some text", find_by_id("comment_body").value
   end
 
   test "Try to post invalid reply to comment (no JS)" do
@@ -97,7 +97,7 @@ class UIPostsTest < ActionDispatch::IntegrationTest
     click_button("save_button")
 
     assert_current_path comments_path
-    assert_equal "Some text", find("#comment_body").value
+    assert_equal "Some text", find_by_id("comment_body").value
   end
 
   test "Screened comment should show a message (no JS)" do

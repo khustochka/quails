@@ -4,6 +4,7 @@ require:
   - rubocop-rails
   - rubocop-minitest
   - rubocop-rake
+  - rubocop-capybara
 
 AllCops:
   TargetRubyVersion: 3.1

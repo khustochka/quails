@@ -114,6 +114,7 @@ group :development do
   gem "rubocop-packaging", require: false
   gem "rubocop-minitest", require: false
   gem "rubocop-rake", require: false
+  gem "rubocop-capybara", require: false
 end
 
 group :development, :test do
