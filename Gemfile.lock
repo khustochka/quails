@@ -60,7 +60,7 @@ GEM
       airbrake-ruby (~> 6.0)
     airbrake-ruby (6.2.0)
       rbtree3 (~> 0.5)
-    ancestry (4.2.0)
+    ancestry (4.3.0)
       activerecord (>= 5.2.6)
     ansi (1.5.0)
     ast (2.4.2)
@@ -218,7 +218,7 @@ GEM
     mime-types-data (3.2023.0218.1)
     mini_magick (4.12.0)
     mini_mime (1.1.2)
-    minitest (5.17.0)
+    minitest (5.18.0)
     minitest-reporters (1.6.0)
       ansi
       builder
