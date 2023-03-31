@@ -1092,9 +1092,9 @@
     "@csstools/css-tokenizer" "^2.0.1"
 
 "@csstools/postcss-text-decoration-shorthand@^2.0.0":
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/@csstools/postcss-text-decoration-shorthand/-/postcss-text-decoration-shorthand-2.2.1.tgz#1accf54487d74aa7ccade2e674c7290bb2ce10ae"
-  integrity sha512-Ow6/cWWdjjVvA83mkm3kLRvvWsbzoe1AbJCxkpC+c9ibUjyS8pifm+LpZslQUKcxRVQ69ztKHDBEbFGTDhNeUw==
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/@csstools/postcss-text-decoration-shorthand/-/postcss-text-decoration-shorthand-2.2.2.tgz#75539827b56905f7c2e8273c0358cc6fec5ca72d"
+  integrity sha512-aR9l/V7p0SkdrIyBysqlQWIbGXeGC7U4ccBAIlWMpVpG/MsGhxs1JvdBpjim4UDF3U+1VmF+MbvZFb7dL+d7XA==
   dependencies:
     "@csstools/color-helpers" "^1.0.0"
     postcss-value-parser "^4.2.0"
