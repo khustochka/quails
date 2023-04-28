@@ -18,7 +18,7 @@
     "bootstrap": "^5.2.0",
     "compression-webpack-plugin": "^10.0.0",
     "css-loader": "^6.7.1",
-    "css-minimizer-webpack-plugin": "^4.0.0",
+    "css-minimizer-webpack-plugin": "^5.0.0",
     "ilyabirman-likely": "^2.4.0",
     "keypress.js": "^2.1.5",
     "mini-css-extract-plugin": "^2.7.5",
