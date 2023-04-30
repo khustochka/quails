@@ -476,7 +476,7 @@ DEPENDENCIES
   minitest-reporters
   mongoid
   nokogiri
-  pg (~> 1.0)
+  pg (~> 1.4.6)
   premailer-rails
   puma (< 7)
   rack-mini-profiler
