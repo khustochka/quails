@@ -17,7 +17,7 @@ gem "actionview",    VERSION
 gem "actioncable",   VERSION
 gem "railties",      VERSION
 
-gem "pg", "~> 1.4.6", platforms: [:ruby, :mingw]
+gem "pg", "~> 1.5.3", platforms: [:ruby, :mingw]
 gem "redis"
 gem "hiredis-client"
 gem "resque"
