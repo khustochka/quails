@@ -17,7 +17,7 @@ module EBird
       form.password = Settings.ebird_user.password
       page = @agent.submit(form)
 
-      @authenticated = page.xpath("//a[contains(@class, 'HeaderEBird-link')]/span[contains(text(),'(#{Settings.ebird_user.name})')]").any?
+      @authenticated = page.xpath("//a/span/bdo[contains(text(),'(#{Settings.ebird_user.name})')]").any?
       unless @authenticated
         message = page.css("div#alert-badlogin > p").text
         raise "eBird client authentication failure: #{message}"
