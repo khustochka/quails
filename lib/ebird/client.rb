@@ -18,6 +18,11 @@ module EBird
       page = @agent.submit(form)
 
       @authenticated = page.xpath("//a[contains(@class, 'HeaderEBird-link')]/span[contains(text(),'(#{Settings.ebird_user.name})')]").any?
+      unless @authenticated
+        message = page.css("div#alert-badlogin > p").text
+        raise "eBird client authentication failure: #{message}"
+      end
+      @authenticated
     end
 
     # def get_checklists_for_date(date)
