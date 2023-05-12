@@ -38,7 +38,7 @@
     "webpack-sources": "^3.2.3"
   },
   "devDependencies": {
-    "webpack-dev-server": "^4.13.0"
+    "webpack-dev-server": "^4.15.0"
   },
   "babel": {
     "presets": [
