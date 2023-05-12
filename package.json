@@ -29,7 +29,7 @@
     "sass-loader": "^13.0.2",
     "shakapacker": "6.6.0",
     "style-loader": "^3.3.2",
-    "terser-webpack-plugin": "^5.3.7",
+    "terser-webpack-plugin": "^5.3.8",
     "tippy.js": "^6.3.7",
     "webpack": "^5.76.2",
     "webpack-assets-manifest": "^5.1.0",
