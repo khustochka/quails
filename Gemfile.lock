@@ -311,7 +311,7 @@ GEM
       connection_pool
     redis-namespace (1.11.0)
       redis (>= 4)
-    regexp_parser (2.8.0)
+    regexp_parser (2.8.1)
     reline (0.3.5)
       io-console (~> 0.5)
     request_store (1.5.1)

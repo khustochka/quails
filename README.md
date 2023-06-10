@@ -15,7 +15,7 @@ _Rallidae_ family, associated mostly with wetlands.
 ## Dependencies
 
 ### Ruby 
-Compatible with Ruby >= 2.7. See `.tool-versions` for the current development version.
+Compatible with Ruby >= 3. See `.tool-versions` for the current development version.
 
 ### PostgreSQL 
 Some queries are PostgreSQL-specific.
