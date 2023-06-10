@@ -30,8 +30,8 @@
 
     by_date:
       seen_in:
-        first: 'First seen in %{year}:'
-        last: 'Last seen in %{year}:'
+        first: 'First encounter in %{year}:'
+        last: 'Last encounter in %{year}:'
 
     menus:
       filter:

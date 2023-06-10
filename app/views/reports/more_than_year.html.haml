@@ -2,14 +2,14 @@
 -# no_viewport is for very wide pages, e.g. with table
 - @no_viewport = true
 
-- @page_title = "Species seen after #@period days"
+- @page_title = "Species found after #@period days"
 
 %h1= reports_page_header
 
 %table.neat_table
   %th Species
-  %th= sorting_link_to(:date1, "Last seen")
-  %th= sorting_link_to(nil, "Seen again")
+  %th= sorting_link_to(:date1, "Last encounter")
+  %th= sorting_link_to(nil, "Found again")
   %th= sorting_link_to(:days, "Days")
 
   - @list.each do |el|

@@ -44,7 +44,7 @@ class UICardsTest < ActionDispatch::IntegrationTest
     assert_equal 1, all(".observ_card").count
     assert find("ul.cards_list").has_content?("Passer domesticus")
     assert_not find("ul.cards_list").has_content?("Hirundo rustica")
-    choose("Voice only")
+    choose("Heard only")
     click_button("Search")
     assert_equal 1, all(".observ_card").count
     assert_not find("ul.cards_list").has_content?("Passer domesticus")

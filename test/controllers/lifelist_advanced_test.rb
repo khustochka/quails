@@ -72,7 +72,7 @@ class LifelistAdvancedTest < ActionController::TestCase
   end
 
   test "show lifelist with only seen species" do
-    get :advanced, params: { seen: true }
+    get :advanced, params: { exclude_heard_only: true }
     assert_response :success
     assert_select "a", { text: taxa(:saxola).species.name, count: 0 }, "Heard only species should not be shown"
   end

@@ -17,7 +17,7 @@
 = render partial: 'filters/loci', locals: {loci_filter_label: "Locations:"}
 
 %h3
-  Species seen in
+  Species found in
   = @prev_and_next.map{|m| months[m]}.join(" and ")
   but not in
   = months[@month]
