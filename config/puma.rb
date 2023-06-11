@@ -33,7 +33,7 @@ pidfile ENV.fetch("PIDFILE") { "tmp/pids/server.pid" }
 # processes).
 
 workers_num = ENV.fetch("WEB_CONCURRENCY") { 0 }
-workers workers_num
+workers workers_num.to_i
 
 # Use the `preload_app!` method when specifying a `workers` number.
 # This directive tells Puma to first boot the application and load code
@@ -48,7 +48,7 @@ plugin :tmp_restart
 # Do not raise error when restarted
 raise_exception_on_sigterm false
 
-if workers_num > 0
+if workers_num.to_i > 0
   on_worker_boot do
     # if defined?(::ActiveRecord) && defined?(::ActiveRecord::Base)
     #   ActiveRecord::Base.establish_connection
