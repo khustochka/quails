@@ -28,6 +28,12 @@
         sort_by: 'Order by:'
       no_species: 'No species'
 
+    sorting:
+      taxonomy: "Taxonomy"
+      first_encounter: "First encounter"
+      last_encounter: "Last encounter"
+      count: "Count"
+
     by_date:
       seen_in:
         first: 'First encounter in %{year}:'
@@ -44,3 +50,10 @@
 
       advanced: Advanced options
       basic: My taxonomy
+
+    lifer:
+      num_encounters: "Encounters:"
+      designation:
+        first_seen: "First:"
+        last_seen: "Last:"
+        both: "Date:"

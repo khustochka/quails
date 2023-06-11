@@ -53,13 +53,13 @@
           %th.empty_cell &nbsp;
           %th
             %i.sort_by_label= t('lifelist.basic.filter.sort_by')
-            = sorting_link_to(:class, "Taxonomy")
+            = sorting_link_to(:class, t('lifelist.sorting.taxonomy'))
           %th.align-center
-            = sorting_link_to(nil, "First seen")
+            = sorting_link_to(nil, t('lifelist.sorting.first_encounter'))
           %th.align-center
-            = sorting_link_to(:last, "Last seen")
+            = sorting_link_to(:last, t('lifelist.sorting.last_encounter'))
           %th.count-column-header
-            = sorting_link_to(:count, "Count")
+            = sorting_link_to(:count, t('lifelist.sorting.count'))
       %tbody
         -# Template Dependency: lifelist/advanced/*
         = render sorted_list_partial(params[:sort])

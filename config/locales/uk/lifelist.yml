@@ -30,6 +30,12 @@
         sort_by: 'Сортування:'
       no_species: 'Немає видів'
 
+    sorting:
+      taxonomy: "Класифікація"
+      first_encounter: "Перша зустріч"
+      last_encounter: "Остання зустріч"
+      count: "Разів"
+
     by_date:
       seen_in:
         first: 'Перша зустріч %{year} року:'
@@ -47,3 +53,10 @@
 
       advanced: Більше можливостей
       basic: Моя систематика
+
+    lifer:
+      num_encounters: "Зустрічей:"
+      designation:
+        first_seen: "Вперше:"
+        last_seen: "Востаннє:"
+        both: "Дата:"
