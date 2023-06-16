@@ -1,16 +1,16 @@
-version: 2
-updates:
-  - package-ecosystem: "bundler"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-      day: "friday"
-    allow:
-      - dependency-type: "all"
-  - package-ecosystem: "npm"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-      day: "friday"
-    allow: 
-      - dependency-type: "all"
+#version: 2
+#updates:
+#  - package-ecosystem: "bundler"
+#    directory: "/"
+#    schedule:
+#      interval: "weekly"
+#      day: "friday"
+#    allow:
+#      - dependency-type: "all"
+#  - package-ecosystem: "npm"
+#    directory: "/"
+#    schedule:
+#      interval: "weekly"
+#      day: "friday"
+#    allow:
+#      - dependency-type: "all"
