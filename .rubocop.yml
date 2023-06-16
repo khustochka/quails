@@ -5,6 +5,7 @@ require:
   - rubocop-minitest
   - rubocop-rake
   - rubocop-capybara
+  - rubocop-factory_bot
 
 AllCops:
   TargetRubyVersion: 3.1
