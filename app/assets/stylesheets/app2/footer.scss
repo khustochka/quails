@@ -91,7 +91,7 @@ footer.page_footer {
     width: 100%;
     height: 100%;
     background-color: #3b5998 !important;
-    background-image: url("../../../../lib/assets/images/FB-f-Logo__blue_50.png");
+    background-image: image-url("FB-f-Logo__blue_50.png");
     background-position: -15px 3px;
     background-repeat: no-repeat;
   }
@@ -147,7 +147,7 @@ footer.page_footer {
     display: block;
     width: 100%;
     height: 100%;
-    background-image: url("../../../../lib/assets/images/flickr-logo-png-55px.png");
+    background-image: image-url("flickr-logo-png-55px.png");
     background-position: left;
     background-repeat: no-repeat;
     padding-top: 15px;

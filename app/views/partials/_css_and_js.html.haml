@@ -11,5 +11,5 @@
 = javascript_include_tag(*scripts.unshift("application"))
 
 -# Packs should be first, because some styles can use bootstrap classes
-= stylesheet_pack_tag 'visitor', media: "all"
+= stylesheet_link_tag 'visitor', media: "all"
 = stylesheet_link_tag(*@stylesheets.compact, media: "all") if @stylesheets.present?

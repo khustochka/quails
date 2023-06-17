@@ -1,5 +1,4 @@
 import tippy from 'tippy.js';
-import 'tippy.js/dist/tippy.css';
 
 // Using tippy because bootstrap tooltip is unreliable
 
