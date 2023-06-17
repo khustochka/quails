@@ -1,4 +1,4 @@
-require("channels")
+import "./channels";
 
 import './src/js/admin/ebird-importer';
 import './src/js/admin/instant-search';

@@ -1,4 +1,4 @@
-const Airbrake = require('@airbrake/browser')
+import {Notifier} from '@airbrake/browser'
 
 const airbrakeMeta = document.querySelector("meta[name=airbrake-config]"),
       airbrakeConfig = airbrakeMeta && airbrakeMeta.content.split(":") || [];
@@ -7,7 +7,7 @@ if (airbrakeConfig[0] && airbrakeConfig[1]) {
 
   const railsEnv = process.env.NODE_ENV || "development"
 
-  const airbrake = new Airbrake.Notifier({
+  const airbrake = new Notifier({
     projectId: airbrakeConfig[2] || 1,
     projectKey: airbrakeConfig[1],
     environment: railsEnv,
