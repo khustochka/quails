@@ -20,7 +20,7 @@ module AdministrativeConcern
         @scripts ||= []
         @packs ||= []
         @scripts.push "administrative"
-        @packs.push "administrative"
+        @packs.push "administrativeX"
         params.permit!
       end
     end

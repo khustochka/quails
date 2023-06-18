@@ -16,9 +16,9 @@
     "babel-loader": "^9.1.0",
     "bootstrap": "^5.2.0",
     "compression-webpack-plugin": "^10.0.0",
+    "esbuild": "^0.18.4",
     "ilyabirman-likely": "^2.4.0",
     "keypress.js": "^2.1.5",
-    "shakapacker": "6.6.0",
     "terser-webpack-plugin": "^5.3.7",
     "tippy.js": "^6.3.7",
     "webpack": "^5.76.2",
@@ -26,15 +26,11 @@
     "webpack-cli": "^5.0.0",
     "webpack-merge": "^5.8.0"
   },
-  "devDependencies": {
-    "webpack-dev-server": "^4.13.0"
-  },
-  "babel": {
-    "presets": [
-      "./node_modules/shakapacker/package/babel/preset.js"
-    ]
-  },
+  "devDependencies": {},
   "browserslist": [
     "last 5 years"
-  ]
+  ],
+  "scripts": {
+    "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=assets"
+  }
 }

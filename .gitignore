@@ -69,3 +69,6 @@ AppleDouble
 yarn-debug.log*
 .yarn-integrity
 definitions.rb
+
+/app/assets/builds/*
+!/app/assets/builds/.keep
