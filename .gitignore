@@ -62,8 +62,6 @@ AppleDouble
 /public/system
 /vendor/bundle
 
-/public/packs
-/public/packs-test
 /node_modules
 /yarn-error.log
 yarn-debug.log*

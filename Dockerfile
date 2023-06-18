@@ -123,7 +123,6 @@ COPY --from=gems /usr/local/bundle /usr/local/bundle
 
 # copy precompiled assets
 COPY --from=assets /app/public/assets /app/public/assets
-COPY --from=assets /app/public/packs /app/public/packs
 
 #######################################################################
 
