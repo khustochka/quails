@@ -179,6 +179,9 @@ Lint/MissingCopEnableDirective:
 Minitest/MultipleAssertions:
   Enabled: false
 
+Minitest/RefuteFalse:
+  Enabled: false
+
 # -------- Imported
 
 Bundler/OrderedGems:
