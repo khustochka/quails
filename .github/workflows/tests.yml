@@ -39,7 +39,7 @@ jobs:
         with:
           ruby: ${{ matrix.ruby }}
       - name: Run tests
-        run: bin/rake
+        run: bin/rails test
       - name: Code coverage results
         uses: actions/upload-artifact@v3
         # Ideally default ruby should be the first in the matrix.
@@ -95,7 +95,7 @@ jobs:
           XDG_RUNTIME_DIR: '/tmp/runtime-runner'
           JS_DRIVER: ${{ matrix.driver.js_driver }}
           JS_BROWSER: ${{ matrix.driver.js_browser }}
-        run: xvfb-run bin/rake test:system
+        run: xvfb-run bin/rails test:system
       - name: Screenshots
         uses: actions/upload-artifact@v3
         if: failure()
