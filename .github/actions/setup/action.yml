@@ -29,6 +29,14 @@ runs:
       with:
         ruby-version: ${{ inputs.ruby }}
         bundler-cache: true
+    - name: Install packages
+      run: |
+        bin/yarn install --frozen-lockfile
+      shell: bash
+    - name: Bundle the assets
+      run: |
+        bin/yarn build
+      shell: bash
     - name: Set up database schema
       run: bin/rails db:schema:load
       shell: bash
