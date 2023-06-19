@@ -17,9 +17,15 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   driven_by $js_driver, using: $js_browser
 
   # Suppress deprecation message of :capabilities parameter
-  Selenium::WebDriver.logger(ignored: :capabilities)
+  # Selenium::WebDriver.logger(ignored: :capabilities)
 
   TEST_CREDENTIALS = { username: ENV["QUAILS_ADMIN_USERNAME"], password: ENV["QUAILS_ADMIN_PASSWORD"] }
+
+  # FIXME: try to fix those errors
+  IGNORED_JS_ERRORS = [
+    "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+    "The source list for the Content Security Policy directive 'script-src' contains an invalid source: ''nonce-''. It will be ignored.",
+  ]
 
   def login_as_admin
     visit "/login"
@@ -65,5 +71,20 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
   def chrome_driver?
     $js_browser.to_s.include?("chrome")
+  end
+
+  def check_js_errors
+    browser = page.driver.browser
+    if browser.respond_to?(:logs)
+      errors = browser.logs.get(:browser)
+      errors.each do |error|
+        severe_error = error.level == "SEVERE" && IGNORED_JS_ERRORS.none? {|line| error.message.include?(line)}
+        assert_not(severe_error, error.message)
+      end
+    end
+  end
+
+  teardown do
+    check_js_errors
   end
 end

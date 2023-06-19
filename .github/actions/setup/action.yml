@@ -22,7 +22,7 @@ runs:
           ${{ runner.os }}-yarn-
     - name: Install packages
       run: |
-        bin/yarn install --pure-lockfile
+        bin/yarn install --frozen-lockfile
       shell: bash
     - name: Install Ruby and gems
       uses: ruby/setup-ruby@v1
