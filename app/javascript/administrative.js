@@ -1,7 +1,7 @@
 import "./channels";
 
-import './src/js/admin/ebird-importer';
-import './src/js/admin/instant-search';
+import './src/admin/ebird-importer';
+import './src/admin/instant-search';
 
 // Keypress
 import Keypress from "keypress.js";

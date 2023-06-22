@@ -21,7 +21,6 @@ register() {
   }
 }
 
-
 document.addEventListener('DOMContentLoaded', function () {
   document.querySelectorAll(".diff_lang_expand_notice[data-expand-link]").forEach(function (el) {
     const postExpander = new PostExpander(el);

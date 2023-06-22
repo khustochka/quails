@@ -7,9 +7,9 @@ import Likely from 'ilyabirman-likely';
 
 document.addEventListener('DOMContentLoaded', function () {Likely.initiate()});
 
-import './src/js/airbrake-js-setup';
-import './src/js/post_expand';
-import './src/js/tooltips'
+import './src/airbrake-js-setup';
+import './src/post_expand';
+import './src/tooltips'
 
-import VideoResize from "./src/js/video-resize"
+import VideoResize from "./src/video-resize"
 VideoResize.init()
