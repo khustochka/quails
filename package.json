@@ -18,7 +18,7 @@
     "compression-webpack-plugin": "^10.0.0",
     "ilyabirman-likely": "^2.4.0",
     "keypress.js": "^2.1.5",
-    "shakapacker": "6.6.0",
+    "shakapacker": "7.0.0",
     "terser-webpack-plugin": "^5.3.7",
     "tippy.js": "^6.3.7",
     "webpack": "^5.87.0",
