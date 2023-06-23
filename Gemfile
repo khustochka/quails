@@ -29,7 +29,7 @@ gem "dotenv-rails", "~> 2.7"
 gem "sd_notify"
 
 # Secure password
-gem "bcrypt", "~> 3.1.7"
+gem "bcrypt", "~> 3.1.19"
 
 # Translations
 gem "rails-i18n"
