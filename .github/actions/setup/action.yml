@@ -1,7 +1,9 @@
 name: "Setup test environment"
+description: "Setup Node, Ruby, install JS packages and gems."
 inputs:
   ruby:
     required: true
+    description: "Ruby version"
 runs:
   using: "composite"
   steps:
@@ -29,10 +31,6 @@ runs:
       with:
         ruby-version: ${{ inputs.ruby }}
         bundler-cache: true
-    - name: Install packages
-      run: |
-        bin/yarn install --frozen-lockfile
-      shell: bash
     - name: Bundle the assets
       run: |
         bin/yarn build
