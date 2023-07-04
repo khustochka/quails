@@ -1,13 +1,15 @@
 class VideoResize {
-  constructor() {
+  constructor(sizeX, sizeY) {
     this.selector = '.video-container[data-resizable] iframe'
-    this.enable = document.querySelectorAll(this.selector).length > 0;
+    this.enable = document.querySelectorAll(this.selector).length > 0
+    this.sizeX = sizeX
+    this.sizeY = sizeY
   }
 
   init() {
     if (this.enable) {
       this.createScriptTag();
-      window.onYouTubeIframeAPIReady = this.apiReady(this.selector, this.onStateChange);
+      window.onYouTubeIframeAPIReady = this.apiReady(this.selector, this.onStateChangeCallback());
     }
   }
 
@@ -18,11 +20,14 @@ class VideoResize {
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
   }
 
-  onStateChange(event) {
-    if (event.data === YT.PlayerState.UNSTARTED) {
-      event.target.setSize(853, 480);
+  onStateChangeCallback() {
+    const self = this
+    return function(event) {
+      if (event.data === YT.PlayerState.UNSTARTED) {
+        event.target.setSize(self.sizeX, self.sizeY);
+      }
     }
-  };
+  }
 
   apiReady(selector, callback) {
     return function () {
@@ -38,9 +43,9 @@ class VideoResize {
 }
 
 export default {
-  init: () => {
+  init: (sizeX, sizeY) => {
     document.addEventListener('DOMContentLoaded', () => {
-      const videoResize = new VideoResize();
+      const videoResize = new VideoResize(sizeX, sizeY);
       videoResize.init()
     });
   }

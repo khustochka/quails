@@ -12,4 +12,5 @@ import './src/post_expand';
 import './src/tooltips'
 
 import VideoResize from "./src/video-resize"
-VideoResize.init()
+// Resize the video to these dimensions after it is started
+VideoResize.init(853, 480)
