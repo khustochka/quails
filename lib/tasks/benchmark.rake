@@ -5,20 +5,15 @@ task benchmark: :environment do
   require "benchmark/ips"
 
   Benchmark.ips do |bench|
-    bench.report("real then test plaintext") do
-      Quails::CredentialsCheck.__send__(:match_password, "admin")
+    bench.time = 5
+    bench.warmup = 2
+
+    bench.report("lateral join") do
+      Lifelist::FirstSeenLateral.over(year: 2019).to_a
     end
 
-    bench.report("test then real plaintext") do
-      Quails::CredentialsCheck.__send__(:match_password1, "admin")
-    end
-
-    bench.report("real then test incorrect") do
-      Quails::CredentialsCheck.__send__(:match_password, "abcde")
-    end
-
-    bench.report("test then real incorrect") do
-      Quails::CredentialsCheck.__send__(:match_password1, "abcde")
+    bench.report("partition") do
+      Lifelist::FirstSeen.over(year: 2019).to_a
     end
 
     bench.compare!

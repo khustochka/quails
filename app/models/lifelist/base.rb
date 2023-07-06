@@ -71,6 +71,9 @@ module Lifelist
       #     select("DISTINCT ON (species_id) observations.*, cards.observ_date").
       #     where("(observ_date, start_time, species_id) IN (#{life_dates_sql})")
 
+      # NOTE: 2023-07-06 I have tried LATERAL JOIN. It is also very slow, especially with no filters (full Lifelist)
+      # adding filters (e.g. year) makes it much faster, but still slower than the current method.
+
       base.select(
         "first_value(observations.id)
           OVER (PARTITION BY species_id
