@@ -17,11 +17,11 @@
 # We recommend using the highest patch level for better security and
 # performance.
 
-ARG RUBY_VERSION=3.2.1
+ARG RUBY_VERSION=3.2.2
 ARG VARIANT=malloctrim-slim
 FROM quay.io/evl.ms/fullstaq-ruby:${RUBY_VERSION}-${VARIANT} as base
 
-ARG NODE_VERSION=18.12.0
+ARG NODE_VERSION=18.17.0
 ARG YARN_VERSION=1.22.19
 # ARG BUNDLER_VERSION=2.3.25
 
