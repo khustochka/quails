@@ -5,6 +5,7 @@ const airbrakeMeta = document.querySelector("meta[name=airbrake-config]"),
 
 if (airbrakeConfig[0] && airbrakeConfig[1]) {
 
+  // FIXME: This does not work currently, making railsEnv always development.
   const railsEnv = process.env.NODE_ENV || "development"
 
   const airbrake = new Notifier({
