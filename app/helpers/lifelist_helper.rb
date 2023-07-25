@@ -15,4 +15,9 @@ module LifelistHelper
   def ebird_lifelist
     Lifelist::EBird.new
   end
+
+  # Used in charts, to visually represent 0 species as a 1px bar, as opposed to nothing
+  def percent_or_pixel(number)
+    number.to_f.zero? ? "1px" : "#{number}%"
+  end
 end

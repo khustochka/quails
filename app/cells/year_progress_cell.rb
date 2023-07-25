@@ -27,7 +27,7 @@ class YearProgressCell
     uptoday = up_to_day
     pre_all = years.map do |yr|
       list = Lifelist::FirstSeen.over(year: yr)
-      { year: yr, count: list.count, to_date: uptoday[yr] }
+      { year: yr, count: list.count, to_date: uptoday[yr] || 0 }
     end
     max_count = pre_all.pluck(:count).max
     pre_all.each do |el|
