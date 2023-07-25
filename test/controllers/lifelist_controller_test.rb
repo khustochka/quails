@@ -28,4 +28,9 @@ class LifelistControllerTest < ActionController::TestCase
   test "eBird Lifelist page" do
     get :ebird
   end
+
+  test "charts are rendered even with no observations" do
+    login_as_admin
+    get :chart
+  end
 end

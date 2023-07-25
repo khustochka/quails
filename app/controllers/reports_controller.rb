@@ -131,7 +131,7 @@ class ReportsController < ApplicationController
       observations_filtered = observations_filtered.where("cards.locus_id" => loc_filter)
     end
 
-    @today = Time.zone.today
+    @today = 8.hours.ago
     @this_day = if params[:day]
       Date.parse("#{@today.year}-#{params[:day]}")
     else
@@ -141,9 +141,9 @@ class ReportsController < ApplicationController
     @prev_day = @this_day - 1
     @uptoday = observations_filtered
       .where(
-        'EXTRACT(month FROM observ_date)::integer < ? OR
+        "EXTRACT(month FROM observ_date)::integer < ? OR
         (EXTRACT(month FROM observ_date)::integer = ?
-        AND EXTRACT(day FROM observ_date)::integer <= ?)',
+        AND EXTRACT(day FROM observ_date)::integer <= ?)",
         @this_day.month, @this_day.month, @this_day.day
       )
       .order(Arel.sql("EXTRACT(year FROM observ_date)::integer"))

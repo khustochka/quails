@@ -175,6 +175,8 @@ Rails.application.routes.draw do
 
     get "/lifelist/ebird" => "lifelist#ebird"
 
+    get "/lifelist/chart" => "lifelist#chart"
+
     get "/lifelist" => "lifelist#basic", as: :lifelist
 
     get "/lifelist(/:locus)(/:year)(/:sort)" => "lifelist#basic", as: :list,

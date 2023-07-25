@@ -2,9 +2,9 @@
 
 require "test_helper"
 
-class LifelistChartCellTest < ActiveSupport::TestCase
+class YearSummaryCellTest < ActiveSupport::TestCase
   test "does not fail if there are no observations" do
-    cell = LifelistChartCell.new(year: 2022)
+    cell = YearSummaryCell.new(year: 2022)
     assert_equal ["0.00"] * 3, cell.all.pluck(:percentage)
   end
 
@@ -21,7 +21,7 @@ class LifelistChartCellTest < ActiveSupport::TestCase
     create(:observation, card: card3, taxon: taxa(:jyntor))
     create(:observation, card: card3, taxon: taxa(:bomgar))
 
-    cell = LifelistChartCell.new(year: 2022)
+    cell = YearSummaryCell.new(year: 2022)
     expected = [
       { year: 2022, count: 2, percentage: "66.67" },
       { year: 2021, count: 1, percentage: "33.33" },
@@ -31,7 +31,7 @@ class LifelistChartCellTest < ActiveSupport::TestCase
   end
 
   test "allows to set the number of years going back" do
-    cell = LifelistChartCell.new(year: 2022, back: 4)
+    cell = YearSummaryCell.new(year: 2022, back: 4)
     assert_equal 5, cell.all.size
   end
 
@@ -44,7 +44,7 @@ class LifelistChartCellTest < ActiveSupport::TestCase
     create(:observation, card: card3, taxon: taxa(:bomgar))
     create(:observation, card: card3, taxon: taxa(:hirrus))
 
-    cell = LifelistChartCell.new(year: 2022)
+    cell = YearSummaryCell.new(year: 2022)
     assert_equal 2, cell.lifers.size
   end
 end

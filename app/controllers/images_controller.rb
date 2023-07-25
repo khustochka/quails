@@ -20,7 +20,8 @@ class ImagesController < ApplicationController
       page = (params[:page] || 1).to_i
       @images = Image.preload(:species).order(created_at: :desc).page(page).per(24)
       @feed = "photos"
-      @cell = LifelistChartCell.new(year: 2022)
+      @cell0 = YearSummaryCell.new(year: 2022)
+      @cell = YearProgressCell.new(year: Quails::CURRENT_YEAR)
       if @images.empty? && page != 1
         raise ActiveRecord::RecordNotFound
       else

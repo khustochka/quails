@@ -1,0 +1,17 @@
+- cache([:year_progress, year: year_progress.year, key: Quails::CacheKey.lifelist, locale: I18n.locale]) do
+  %div.lifelist-chart-container
+    .lifelist-chart-year-bars
+      %table.lifelist-chart-table
+        %thead
+          %tr
+            %th.lifelist-chart-th{colspan: 2}
+              %span.lifelist-chart-day
+                = l(year_progress.day, format: :short)
+            %th.lifelist-chart-th{colspan: 2}
+              = t("lifelist_chart.end_of_year")
+        %tbody
+          = render partial: "cells/year_progress/table_row",
+                   locals: {data: year_progress.all.first, current: true}
+          - year_progress.all[1..-1].each do |data|
+            = render partial: "cells/year_progress/table_row", locals: {data: data, current: false}
+    = render partial: "cells/lifers_cell", object: year_progress

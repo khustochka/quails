@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class LifelistChartCell
+class YearSummaryCell
   attr_reader :year
 
   def initialize(year:, back: 2)
@@ -9,7 +9,7 @@ class LifelistChartCell
   end
 
   def to_partial_path
-    "cells/lifelist_chart"
+    "cells/year_summary"
   end
 
   def current

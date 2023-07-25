@@ -3,6 +3,8 @@
 class LifelistController < ApplicationController
   layout "application2", only: [:index]
 
+  administrative only: [:chart]
+
   localized
 
   def index
@@ -97,8 +99,10 @@ class LifelistController < ApplicationController
       .group("EXTRACT(year FROM observ_date)::integer", country_sql)
   end
 
-  # def chart
-  #   year = params[:year]&.slice(/\d{4}/)&.to_i || Quails::CURRENT_YEAR
-  #   @cell = LifelistChart.new(year: year)
-  # end
+  def chart
+    @page_title = "Test the summary / progress charts"
+    year = params[:year]&.slice(/\d{4}/)&.to_i || Quails::CURRENT_YEAR
+    @cell0 = YearSummaryCell.new(year: year - 1)
+    @cell = YearProgressCell.new(year: year)
+  end
 end

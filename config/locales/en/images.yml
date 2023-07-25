@@ -10,6 +10,7 @@
       species_gallery: Species gallery
       last_updated: ! "Last updated: %{date}."
       year_summary: Year in review
+      year_progress: Year progress
 
     multiple_species:
       title: Photos of multiple species

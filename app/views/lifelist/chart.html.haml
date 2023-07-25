@@ -4,4 +4,13 @@
   %header.simple-page-header
     %h1 Chart
 
-  = render @cell
+  %h2= t("blog.home.year_progress")
+
+  .year-summary
+    = render @cell
+
+  %h2= t("blog.home.year_summary")
+
+  .year-summary
+    = render @cell0
+

@@ -14,9 +14,9 @@
   }
 
   .lifelist-chart-bar-td {
-     font-size: 1.5rem;
-     width: 100%;
-   }
+    font-size: 1.5rem;
+    width: 100%;
+  }
 
   .lifelist-chart-year-td {
     font-size: 1.3rem;
@@ -31,6 +31,7 @@
       font-weight: 600;
       border-bottom: none;
     }
+
     text-align: right;
   }
 
@@ -46,8 +47,22 @@
     height: 1em;
   }
 
+  .lifelist-chart-bar-outer {
+    background-color: #cccccc;
+    height: 1em;
+  }
+
   tr > td, tr > th {
     padding-bottom: 15px;
+  }
+
+  .lifelist-chart-day {
+    font-size: 1rem;
+  }
+
+  .no-link-count {
+    color: #555555;
+    font-size: 0.95rem;
   }
 
   tr.current_year {
@@ -92,12 +107,14 @@
     margin: 0;
     margin-top: 5px;
   }
+
   .lifers-count {
     text-align: center;
     font-size: 5rem;
     font-weight: bold;
     color: #20b2aa;
   }
+
   .lifers-list {
     font-size: 0.85rem;
   }

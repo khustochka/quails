@@ -32,7 +32,8 @@ class BlogController < ApplicationController
       end
     end
 
-    @cell = LifelistChartCell.new(year: 2022)
+    @cell0 = YearSummaryCell.new(year: 2022)
+    @cell = YearProgressCell.new(year: Quails::CURRENT_YEAR)
   end
 
   def archive

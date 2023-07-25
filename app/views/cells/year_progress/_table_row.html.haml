@@ -1,0 +1,15 @@
+%tr{class: current ? "current_year" : nil}
+  %td.lifelist-chart-year-td
+    = data[:year]
+  %td.lifelist-chart-link-td
+    - if current
+      = link_to data[:to_date], list_path(year: data[:year]), target: :_blank
+    - else
+      %span.no-link-count
+        = data[:to_date]
+  %td.lifelist-chart-bar-td
+    %div.lifelist-chart-bar-outer{style: "width: #{data[:percentage]}%"}
+      %div.lifelist-chart-bar{style: "width: #{data[:percentage1]}%"}
+  %td.lifelist-chart-link-td
+    - unless current
+      = link_to data[:count], list_path(year: data[:year]), target: :_blank
