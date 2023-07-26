@@ -1,6 +1,6 @@
 .lifelist-chart-container {
   background-color: #eeeeee;
-  padding: 5px 10px;
+  padding: 0.25rem 0.55rem;
 
   & > div {
   }
@@ -10,27 +10,26 @@
   width: 100%;
 
   td, th {
-    padding: 5px 10px 5px 5px;
+    //padding: 5px 10px 5px 5px;
+    padding: 0.25rem 0.55rem 0.25rem 0.25rem;
   }
 
   .lifelist-chart-bar-td {
     font-size: 1.5rem;
     width: 100%;
     padding-left: 0;
-    //border-right: 1px solid #bbbbbb;
   }
 
   .lifelist-chart-year-td {
-    font-size: 1.3rem;
+    font-size: 1rem;
     font-weight: bold;
     color: #7f7f7f;
     text-align: right;
-    //border-right: 1px solid #bbbbbb;
   }
 
   .lifelist-chart-link-td {
     a {
-      font-size: 1.3rem;
+      font-size: 1rem;
       font-weight: 600;
       border-bottom: none;
     }
@@ -41,40 +40,36 @@
     font-weight: normal;
     text-align: right;
     color: #666666;
-    font-size: 1.1rem;
+    font-size: 0.9rem;
   }
 
   .lifelist-chart-bar {
     background-color: #80DEEA;
-    height: 1.2rem;
+    height: 0.9rem;
   }
 
   .lifelist-chart-bar-outer {
     background-color: #cccccc;
-    height: 1.2rem;
+    height: 0.9rem;
   }
 
   tr > td, tr > th {
-    padding-bottom: 12px;
-  }
-
-  .lifelist-chart-day {
-    font-size: 1rem;
+    padding-bottom: 0.7rem;
   }
 
   .no-link-count {
     color: #555555;
-    font-size: 0.95rem;
+    font-size: 0.85rem;
   }
 
   tr.current_year {
     .lifelist-chart-year-td {
-      font-size: 1.5rem;
+      font-size: 1.2rem;
       color: #6f6f6f;
     }
 
     .lifelist-chart-bar-td {
-      font-size: 1.8rem;
+      font-size: 1.5rem;
     }
 
     .lifelist-chart-bar {
@@ -83,7 +78,7 @@
 
     .lifelist-chart-link-td {
       a {
-        font-size: 1.4rem;
+        font-size: 1.15rem;
         font-weight: bold;
       }
     }
@@ -105,20 +100,21 @@
     font-weight: 500;
     color: #666666;
     text-align: center;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     margin: 0;
     margin-top: 5px;
   }
 
   .lifers-count {
     text-align: center;
-    font-size: 5rem;
+    font-size: 4.5rem;
     font-weight: bold;
     color: #20b2aa;
   }
 
   .lifers-list {
     font-size: 0.85rem;
+    line-height: 1.3;
     margin-top: 0;
   }
 }
@@ -137,5 +133,61 @@
       margin-bottom: 0;
     }
 
+    .lifelist-chart-year-td {
+      font-size: 1.3rem;
+    }
+
+    .lifelist-chart-link-td {
+      font-size: 1.3rem;
+    }
+
+    .lifelist-chart-th {
+      font-size: 1rem;
+    }
+
+    .lifelist-chart-bar {
+      height: 1.2rem;
+    }
+
+    .lifelist-chart-bar-outer {
+      background-color: #cccccc;
+      height: 1.2rem;
+    }
+
+    .no-link-count {
+      color: #555555;
+      font-size: 0.95rem;
+    }
+
+    tr.current_year {
+      .lifelist-chart-year-td {
+        font-size: 1.5rem;
+      }
+
+      .lifelist-chart-bar-td {
+        font-size: 1.8rem;
+      }
+
+      .lifelist-chart-link-td {
+        a {
+          font-size: 1.35rem;
+        }
+      }
+    }
+
+    .lifelist-chart-lifers {
+      h5 {
+        font-size: 1.3rem;
+      }
+
+      .lifers-count {
+        font-size: 5rem;
+      }
+
+      .lifers-list {
+        font-size: 0.9rem;
+        line-height: 1.35;
+      }
+    }
   }
 }
