@@ -24,7 +24,7 @@ require "webmock/minitest"
 
 unless ENV["RM_INFO"]
   require "minitest/reporters"
-  MiniTest::Reporters.use!
+  Minitest::Reporters.use!
 end
 
 Capybara.server = :puma, { Silent: true }
