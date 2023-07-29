@@ -3,14 +3,38 @@
 class YearProgressCell
   attr_reader :year, :day
 
-  def initialize(year:, day: nil, back: 2)
+  def self.new(year:, day: nil, offset: 0, back: 2)
+    time =
+      case day
+      when Date, Time
+        day
+      when String
+        Time.zone.parse(day)
+      when nil
+        (Time.zone.now - offset)
+      else
+        raise "Invalid date format in YearProgressCell"
+      end
+    day1 = time.to_date
+    if day1.year > year
+      YearSummaryCell.new(year: year, back: back)
+    else
+      super(year: year, day: day1, back: back)
+    end
+  end
+
+  def initialize(year:, day:, back:)
     @year = year
+    @day = day
     @back = back
-    @day = (day ? Date.zone.parse(day) : 8.hours.ago).to_date
   end
 
   def to_partial_path
-    "cells/year_progress"
+    -"cells/year_progress"
+  end
+
+  def type
+    -"year_progress"
   end
 
   def current

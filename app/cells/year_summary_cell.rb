@@ -9,7 +9,11 @@ class YearSummaryCell
   end
 
   def to_partial_path
-    "cells/year_summary"
+    -"cells/year_summary"
+  end
+
+  def type
+    -"year_summary"
   end
 
   def current

@@ -103,6 +103,6 @@ class LifelistController < ApplicationController
     @page_title = "Test the summary / progress charts"
     year = params[:year]&.slice(/\d{4}/)&.to_i || Quails::CURRENT_YEAR
     @cell0 = YearSummaryCell.new(year: year - 1)
-    @cell = YearProgressCell.new(year: year)
+    @cell = YearProgressCell.new(year: year, offset: 8.hours)
   end
 end

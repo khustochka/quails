@@ -17,7 +17,7 @@
     %li= link_to(t('menu.archive'), action: :archive)
     = render "partials/feed_list_item"
 
-%h2= t(".year_progress")
+%h2= t(".#{@cell.type}")
 
 .year-summary
   = render @cell

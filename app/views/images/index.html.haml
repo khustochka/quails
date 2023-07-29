@@ -11,7 +11,7 @@
   = render 'partials/translated'
 
 - if I18n.locale == :en
-  %h2= t(".year_progress")
+  %h2= t(".#{@cell.type}")
 
   .year-summary
     = render @cell

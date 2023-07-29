@@ -32,8 +32,8 @@ class BlogController < ApplicationController
       end
     end
 
-    @cell0 = YearSummaryCell.new(year: 2022)
-    @cell = YearProgressCell.new(year: Quails::CURRENT_YEAR)
+    @cell0 = YearSummaryCell.new(year: Quails::CURRENT_YEAR - 1)
+    @cell = YearProgressCell.new(year: Quails::CURRENT_YEAR, offset: 8.hours)
   end
 
   def archive
