@@ -135,7 +135,7 @@ class ReportsController < ApplicationController
     @this_day = if params[:day]
       Date.parse("#{@today.year}-#{params[:day]}")
     else
-      @today
+      @today.to_date
     end
     @next_day = @this_day + 1
     @prev_day = @this_day - 1
