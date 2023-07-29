@@ -364,4 +364,10 @@ class ReportsController < ApplicationController
   def server_error
     raise "Intentionally produced Server Error"
   end
+
+  private
+
+  def perform_caching
+    false
+  end
 end

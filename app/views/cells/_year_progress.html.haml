@@ -1,4 +1,4 @@
-- cache([:year_progress, year: year_progress.year, day: year_progress.day, key: Quails::CacheKey.lifelist, locale: I18n.locale]) do
+- cache([:year_progress, { key: Quails::CacheKey.lifelist, locale: I18n.locale }.merge!(year_progress.cache_key)]) do
   %div.lifelist-chart-container
     .lifelist-chart-year-bars
       %table.lifelist-chart-table

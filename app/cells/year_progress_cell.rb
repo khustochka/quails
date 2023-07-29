@@ -68,6 +68,18 @@ class YearProgressCell
     @all = pre_all
   end
 
+  def cache_key
+    @cache_key ||=
+      {
+        year: year,
+        day: day,
+        back: @back,
+        include_lifers: include_lifers,
+        highlight_max: highlight_max,
+        observation_filter: @observation_filter,
+      }
+  end
+
   private
 
   def up_to_day

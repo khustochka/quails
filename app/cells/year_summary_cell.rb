@@ -34,4 +34,13 @@ class YearSummaryCell
     end
     @all = pre_all
   end
+
+  def cache_key
+    @cache_key ||=
+      {
+        year: year,
+        back: @back,
+        observation_filter: @observation_filter,
+      }
+  end
 end
