@@ -8,7 +8,7 @@ module YearBaseCell
   def years
     if @back == "all"
       # In case there are no years in the DB default to this year and 2 previous
-      min_year = observations.order(:observ_date).limit(1).pluck(Arel.sql("EXTRACT(year from observ_date)::integer")).first || year - 2
+      min_year = observations.order(:observ_date).limit(1).pick(Arel.sql("EXTRACT(year from observ_date)::integer")) || year - 2
       (min_year..year).to_a.reverse.presence
     else
       ((year - @back)..year).to_a.reverse
