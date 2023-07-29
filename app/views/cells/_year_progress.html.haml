@@ -12,5 +12,6 @@
           = render partial: "cells/year_progress/table_row",
                    locals: {data: year_progress.all.first, current: true}
           - year_progress.all[1..-1].each do |data|
-            = render partial: "cells/year_progress/table_row", locals: {data: data, current: false}
-    = render partial: "cells/lifers_cell", object: year_progress
+            = render partial: "cells/year_progress/table_row", locals: {data: data, current: false, highlight_max: year_progress.highlight_max}
+    - if year_progress.include_lifers
+      = render partial: "cells/lifers_cell", object: year_progress

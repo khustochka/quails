@@ -5,9 +5,10 @@ class YearSummaryCell
 
   attr_reader :year
 
-  def initialize(year:, back: 2)
+  def initialize(year:, back: 2, observation_filter: {})
     @year = year
     @back = back
+    @observation_filter = observation_filter
   end
 
   def to_partial_path

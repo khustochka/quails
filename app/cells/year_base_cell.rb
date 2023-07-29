@@ -6,7 +6,12 @@ module YearBaseCell
   end
 
   def years
-    ((year - @back)..year).to_a.reverse
+    if @back == "all"
+      # In case there are no years in the DB default to this year and 2 previous
+      observations.years.reverse.presence || ((year - 2)..year).to_a.reverse
+    else
+      ((year - @back)..year).to_a.reverse
+    end
   end
 
   def lifers
@@ -16,7 +21,7 @@ module YearBaseCell
   private
 
   def observations
-    MyObservation.joins(:card)
+    MyObservation.joins(:card).refine(@observation_filter)
   end
 
   def list_query

@@ -25,9 +25,9 @@ class YearProgressCellTest < ActiveSupport::TestCase
     create(:observation, card: card4, taxon: taxa(:bomgar))
 
     expected = [
-      { year: 2022, count: 2, percentage: "66.67", to_date: 2, percentage1: "100.00" },
-      { year: 2021, count: 1, percentage: "33.33", to_date: 1, percentage1: "100.00" },
-      { year: 2020, count: 3, percentage: "100.00", to_date: 2, percentage1: "66.67" },
+      { year: 2022, count: 2, percentage: "66.67", to_date: 2, to_date_percentage: "100.00", is_max: true },
+      { year: 2021, count: 1, percentage: "33.33", to_date: 1, to_date_percentage: "100.00" },
+      { year: 2020, count: 3, percentage: "100.00", to_date: 2, to_date_percentage: "66.67", is_max: true },
     ]
 
     travel_to "2022-03-23" do

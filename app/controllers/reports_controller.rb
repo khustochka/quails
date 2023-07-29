@@ -125,11 +125,13 @@ class ReportsController < ApplicationController
   def uptoday
     @locations = Country.all
 
-    observations_filtered = MyObservation.joins(:card)
-    if params[:locus]
-      loc_filter = Locus.find_by!(slug: params[:locus]).subregion_ids
-      observations_filtered = observations_filtered.where("cards.locus_id" => loc_filter)
-    end
+    obs_filter =
+      if params[:locus]
+        loc_filter = Locus.find_by!(slug: params[:locus]).subregion_ids
+        { locus: loc_filter }
+      else
+        {}
+      end
 
     @today = 8.hours.ago
     @this_day = if params[:day]
@@ -139,17 +141,8 @@ class ReportsController < ApplicationController
     end
     @next_day = @this_day + 1
     @prev_day = @this_day - 1
-    @uptoday = observations_filtered
-      .where(
-        "EXTRACT(month FROM observ_date)::integer < ? OR
-        (EXTRACT(month FROM observ_date)::integer = ?
-        AND EXTRACT(day FROM observ_date)::integer <= ?)",
-        @this_day.month, @this_day.month, @this_day.day
-      )
-      .order(Arel.sql("EXTRACT(year FROM observ_date)::integer"))
-      .group("EXTRACT(year FROM observ_date)::integer")
-      .count("DISTINCT species_id")
-    @max = @uptoday.map(&:second).max
+
+    @cell = YearProgressCell.new(day: @this_day, back: "all", include_lifers: false, highlight_max: true, observation_filter: obs_filter)
   end
 
   def compare
