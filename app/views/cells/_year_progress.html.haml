@@ -1,5 +1,5 @@
-- include_lifers = defined?(include_lifers) ? include_lifers : true
-- highlight_max = defined?(highlight_max) ? highlight_max : false
+- include_lifers = local_assigns.fetch(:include_lifers, true)
+- highlight_max = local_assigns.fetch(:highlight_max, false)
 
 - cache([:year_progress, { include_lifers: include_lifers, highlight_max: highlight_max, key: Quails::CacheKey.lifelist, locale: I18n.locale }.merge!(year_progress.cache_key)]) do
   %div.lifelist-chart-container

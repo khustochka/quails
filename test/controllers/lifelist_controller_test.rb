@@ -32,5 +32,7 @@ class LifelistControllerTest < ActionController::TestCase
   test "charts are rendered even with no observations" do
     login_as_admin
     get :chart
+    # Lifers section is present by default in both charts
+    assert_select ".lifelist-chart-lifers", 2
   end
 end

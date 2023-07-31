@@ -90,12 +90,9 @@
   margin-bottom: 20px;
 }
 
-.lifelist-chart-year-bars {
-  border-bottom: 1px solid #cccccc;
-  margin-bottom: 20px;
-}
-
 .lifelist-chart-lifers {
+  border-top: 1px solid #cccccc;
+  padding-top: 5px;
   h5 {
     font-weight: 500;
     color: #666666;
@@ -128,9 +125,11 @@
     }
 
     .lifelist-chart-year-bars {
-      border-bottom: none;
       flex-grow: 2;
-      margin-bottom: 0;
+    }
+
+    .lifelist-chart-lifers {
+      border-top: none;
     }
 
     .lifelist-chart-year-td {
