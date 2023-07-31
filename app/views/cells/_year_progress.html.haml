@@ -1,4 +1,7 @@
-- cache([:year_progress, { key: Quails::CacheKey.lifelist, locale: I18n.locale }.merge!(year_progress.cache_key)]) do
+- include_lifers = defined?(include_lifers) ? include_lifers : true
+- highlight_max = defined?(highlight_max) ? highlight_max : false
+
+- cache([:year_progress, { include_lifers: include_lifers, highlight_max: highlight_max, key: Quails::CacheKey.lifelist, locale: I18n.locale }.merge!(year_progress.cache_key)]) do
   %div.lifelist-chart-container
     .lifelist-chart-year-bars
       %table.lifelist-chart-table
@@ -12,6 +15,6 @@
           = render partial: "cells/year_progress/table_row",
                    locals: {data: year_progress.all.first, current: true}
           - year_progress.all[1..-1].each do |data|
-            = render partial: "cells/year_progress/table_row", locals: {data: data, current: false, highlight_max: year_progress.highlight_max}
-    - if year_progress.include_lifers
+            = render partial: "cells/year_progress/table_row", locals: {data: data, current: false, highlight_max: highlight_max}
+    - if include_lifers
       = render partial: "cells/lifers_cell", object: year_progress

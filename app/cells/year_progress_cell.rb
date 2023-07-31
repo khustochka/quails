@@ -3,9 +3,9 @@
 class YearProgressCell
   include YearBaseCell
 
-  attr_reader :year, :day, :include_lifers, :highlight_max
+  attr_reader :year, :day
 
-  def self.new(year: nil, day: nil, offset: 0, back: 2, include_lifers: true, highlight_max: false, observation_filter: {})
+  def self.new(year: nil, day: nil, offset: 0, back: 2, observation_filter: {})
     time =
       case day
       when Date, Time
@@ -23,16 +23,14 @@ class YearProgressCell
     if day1.year > year
       YearSummaryCell.new(year: year, back: back, observation_filter: observation_filter)
     else
-      super(year: year, day: day1, back: back, include_lifers: include_lifers, highlight_max: highlight_max, observation_filter: observation_filter)
+      super(year: year, day: day1, back: back, observation_filter: observation_filter)
     end
   end
 
-  def initialize(year:, day:, back:, include_lifers:, highlight_max:, observation_filter:)
+  def initialize(year:, day:, back:, observation_filter:)
     @year = year
     @day = day
     @back = back
-    @include_lifers = include_lifers
-    @highlight_max = highlight_max
     @observation_filter = observation_filter
   end
 
@@ -74,8 +72,6 @@ class YearProgressCell
         year: year,
         day: day,
         back: @back,
-        include_lifers: include_lifers,
-        highlight_max: highlight_max,
         observation_filter: @observation_filter,
       }
   end

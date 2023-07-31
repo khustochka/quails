@@ -142,7 +142,7 @@ class ReportsController < ApplicationController
     @next_day = @this_day + 1
     @prev_day = @this_day - 1
 
-    @cell = YearProgressCell.new(day: @this_day, back: "all", include_lifers: false, highlight_max: true, observation_filter: obs_filter)
+    @cell = YearProgressCell.new(day: @this_day, back: "all", observation_filter: obs_filter)
   end
 
   def compare

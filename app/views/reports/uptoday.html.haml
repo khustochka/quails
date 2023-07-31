@@ -10,4 +10,4 @@
   = l(@this_day, format: :long)
   = link_to ">", day: @next_day.strftime("%m-%d"), locus: params[:locus]
 
-= render @cell
+= render partial: @cell, locals: { include_lifers: false, highlight_max: true }
