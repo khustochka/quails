@@ -111,7 +111,7 @@ class Species < ApplicationRecord
     countries = Country.select(:id, :slug, :ancestry).to_a
     subregions = countries.index_with(&:subregion_ids)
     loci.distinct.group_by do |locus|
-      countries.find { |c| locus.id.in?(subregions[c]) }.slug
+      countries.find { |c| locus.id.in?(subregions[c]) }&.slug
     end
   end
 
