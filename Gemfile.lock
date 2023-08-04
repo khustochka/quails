@@ -54,7 +54,7 @@ GEM
       tzinfo (~> 2.0)
     acts_as_list (1.1.0)
       activerecord (>= 4.2)
-    addressable (2.8.4)
+    addressable (2.8.5)
       public_suffix (>= 2.0.2, < 6.0)
     airbrake (13.0.3)
       airbrake-ruby (~> 6.0)
@@ -65,7 +65,7 @@ GEM
     ansi (1.5.0)
     ast (2.4.2)
     aws-eventstream (1.2.0)
-    aws-partitions (1.795.0)
+    aws-partitions (1.798.0)
     aws-sdk-core (3.180.1)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.651.0)
@@ -123,7 +123,7 @@ GEM
       railties (>= 5.0.0)
     ffi (1.15.5)
     flickraw (0.9.10)
-    font-awesome-sass (6.4.0)
+    font-awesome-sass (6.4.2)
       sassc (~> 2.0)
     globalid (1.1.0)
       activesupport (>= 5.0)
@@ -141,8 +141,8 @@ GEM
     health_check (3.1.0)
       railties (>= 5.0)
     high_voltage (3.1.2)
-    hiredis-client (0.14.1)
-      redis-client (= 0.14.1)
+    hiredis-client (0.15.0)
+      redis-client (= 0.15.0)
     htmlentities (4.3.4)
     http-cookie (1.0.5)
       domain_name (~> 0.5)
@@ -277,7 +277,7 @@ GEM
       nio4r (~> 2.0)
     racc (1.7.1)
     rack (2.2.8)
-    rack-mini-profiler (3.1.0)
+    rack-mini-profiler (3.1.1)
       rack (>= 1.2.0)
     rack-protection (3.0.6)
       rack
@@ -287,7 +287,7 @@ GEM
       actionpack (>= 5.0.1.rc1)
       actionview (>= 5.0.1.rc1)
       activesupport (>= 5.0.1.rc1)
-    rails-dom-testing (2.1.1)
+    rails-dom-testing (2.2.0)
       activesupport (>= 5.0.0)
       minitest
       nokogiri (>= 1.6)
@@ -312,7 +312,7 @@ GEM
     rbtree3 (0.7.1)
     redis (5.0.6)
       redis-client (>= 0.9.0)
-    redis-client (0.14.1)
+    redis-client (0.15.0)
       connection_pool
     redis-namespace (1.11.0)
       redis (>= 4)
@@ -428,7 +428,7 @@ GEM
     websocket-extensions (0.1.5)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.6.10)
+    zeitwerk (2.6.11)
 
 PLATFORMS
   arm64-darwin-22
@@ -515,4 +515,4 @@ RUBY VERSION
    ruby 3.1.2p20
 
 BUNDLED WITH
-   2.4.17
+   2.4.18
