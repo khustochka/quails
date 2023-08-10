@@ -4,7 +4,7 @@ source "https://rubygems.org/"
 
 ruby ">= 3.0"
 
-VERSION = "7.0.6"
+VERSION = "7.0.7"
 # gem "rails", VERSION
 gem "activemodel",   VERSION
 gem "activejob",     VERSION
