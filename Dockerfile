@@ -92,7 +92,8 @@ RUN yarn install --check-files --frozen-lockfile
 COPY . .
 
 # The following enable assets to precompile on the build server. 
-ENV SECRET_KEY_BASE 1
+ENV SECRET_KEY_BASE=1
+ENV NODE_ENV=production
 # ENV AWS_ACCESS_KEY_ID=1
 # ENV AWS_SECRET_ACCESS_KEY=1
 
