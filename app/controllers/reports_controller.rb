@@ -125,10 +125,11 @@ class ReportsController < ApplicationController
   def uptoday
     @locations = Country.all
 
+    @locus = Locus.find_by(slug: params[:locus])
+
     obs_filter =
-      if params[:locus]
-        loc_filter = Locus.find_by!(slug: params[:locus]).subregion_ids
-        { locus: loc_filter }
+      if @locus
+        { locus: @locus.subregion_ids }
       else
         {}
       end

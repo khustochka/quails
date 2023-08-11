@@ -111,6 +111,10 @@ class Locus < ApplicationRecord
     end
   end
 
+  def country?
+    loc_type == "country"
+  end
+
   private
 
   def set_parent(p) # rubocop:disable Naming/AccessorMethodName
