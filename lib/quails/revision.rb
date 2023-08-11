@@ -20,7 +20,7 @@ module Quails
           suppress RuntimeError do
             sha = message = nil
             revision_file = Rails.root.join("REVISION")
-            rev = ENV["GIT_REVISION"] || (File.exist?(revision_file) && File.read(revision_file))
+            rev = ENV["GIT_REVISION"] || (File.exist?(revision_file).presence && File.read(revision_file))
             if rev&.match?(/\A\h{40}\Z/) || rev&.match?(/\A\h{8}\Z/)
               sha = rev.strip
               repo_folder = Rails.root.join("../../repo")
