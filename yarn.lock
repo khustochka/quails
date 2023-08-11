@@ -254,10 +254,10 @@ form-data@^2.5.0:
     combined-stream "^1.0.6"
     mime-types "^2.1.12"
 
-ilyabirman-likely@^2.4.0:
-  version "2.8.0"
-  resolved "https://registry.yarnpkg.com/ilyabirman-likely/-/ilyabirman-likely-2.8.0.tgz#b8f834451c76ad46fd3b843f0b4e61ec9bf64586"
-  integrity sha512-jtEQ1TNGbxGf4u57HJf5n1qtIzSQvZ/Z+ghI6paCg5MdEGDag2YfXLOzWfMhgnNQZA8oFG/xcnUFNzrjC/5lZQ==
+ilyabirman-likely@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/ilyabirman-likely/-/ilyabirman-likely-3.1.0.tgz#c7388681ca822cf5f61a70a7b4380649100fbcb7"
+  integrity sha512-ZEkDp6TK0NswjGv4bqlqRnUfaCfEdQsOhDbMEB4UcMbR1zh/7txsCmPdZX32So10urjNHLbl1HG7+EgreNPOkA==
 
 keypress.js@^2.1.5:
   version "2.1.5"
