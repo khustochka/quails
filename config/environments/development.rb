@@ -26,7 +26,9 @@ Rails.application.configure do
     config.action_controller.enable_fragment_cache_logging = true
 
     config.cache_store = if ENV["REDIS_CACHE_URL"]
-      [:redis_cache_store, { url: ENV["REDIS_CACHE_URL"] }]
+      config.cache_store = RailsBrotliCache::Store.new(
+        ActiveSupport::Cache::RedisCacheStore.new(url: ENV["REDIS_CACHE_URL"])
+      )
     else
       :memory_store
     end
