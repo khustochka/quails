@@ -36,7 +36,6 @@ gem "rails-i18n"
 
 # Old rails functionality
 gem "actionpack-page_caching"
-gem "rails-controller-testing"
 
 # AR utils
 gem "ancestry", ">= 3.2.1"
@@ -123,6 +122,7 @@ group :development, :test do
   gem "debug", ">= 1.0.0"
   # in dev group for generators
   gem "factory_bot_rails"
+  gem "rails-controller-testing"
 end
 
 group :test do
