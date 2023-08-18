@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/khustochka/rails-brotli-cache.git
-  revision: f30eb646d8fa87ece077c51cc24edb0d819d805e
+  revision: 742b30be7a5acd4552b2492d882ef8d66692543a
   branch: vk-remove-dependency-on-rails
   specs:
     rails-brotli-cache (0.4.6)
@@ -74,7 +74,7 @@ GEM
     ansi (1.5.0)
     ast (2.4.2)
     aws-eventstream (1.2.0)
-    aws-partitions (1.806.0)
+    aws-partitions (1.807.0)
     aws-sdk-core (3.180.3)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.651.0)
@@ -284,7 +284,7 @@ GEM
       net-smtp
       premailer (~> 1.7, >= 1.7.9)
     public_suffix (5.0.3)
-    puma (6.3.0)
+    puma (6.3.1)
       nio4r (~> 2.0)
     racc (1.7.1)
     rack (2.2.8)
