@@ -10,7 +10,7 @@
     "@rails/actioncable": "^7.0.7",
     "@rails/activestorage": "^7.0.7",
     "bootstrap": "^5.2.0",
-    "esbuild": "^0.19.1",
+    "esbuild": "^0.19.2",
     "ilyabirman-likely": "^2.4.0",
     "keypress.js": "^2.1.5",
     "tippy.js": "^6.3.7"
