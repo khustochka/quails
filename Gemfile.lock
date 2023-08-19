@@ -1,12 +1,3 @@
-GIT
-  remote: https://github.com/khustochka/rails-brotli-cache.git
-  revision: 742b30be7a5acd4552b2492d882ef8d66692543a
-  branch: vk-remove-dependency-on-rails
-  specs:
-    rails-brotli-cache (0.4.6)
-      activesupport
-      brotli
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -294,6 +285,9 @@ GEM
       rack (~> 2.2, >= 2.2.4)
     rack-test (2.1.0)
       rack (>= 1.3)
+    rails-brotli-cache (0.5.0)
+      activesupport
+      brotli
     rails-controller-testing (1.0.5)
       actionpack (>= 5.0.1.rc1)
       actionview (>= 5.0.1.rc1)
@@ -498,7 +492,7 @@ DEPENDENCIES
   premailer-rails
   puma (< 7)
   rack-mini-profiler
-  rails-brotli-cache!
+  rails-brotli-cache
   rails-controller-testing
   rails-i18n
   railties (= 7.0.7)

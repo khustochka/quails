@@ -21,7 +21,7 @@ gem "pg", platforms: [:ruby, :mingw]
 gem "redis"
 gem "hiredis-client"
 gem "resque"
-gem "rails-brotli-cache", git: "https://github.com/khustochka/rails-brotli-cache.git", branch: "vk-remove-dependency-on-rails"
+gem "rails-brotli-cache"
 
 # Deployment
 gem "puma", "< 7"
