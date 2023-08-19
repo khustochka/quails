@@ -26,7 +26,7 @@ module Deflicker
       if flicker.removed?
         flash[:alert] = "Already removed"
       else
-        if flicker.journal_entry_ids.empty?
+        if flicker.journal_entry_ids.empty? || flicker.journal_entries_fixed?
           Image.transaction do
             if flicker.allow_delete?
               if Rails.env.production?
