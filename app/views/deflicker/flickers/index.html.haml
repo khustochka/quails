@@ -84,6 +84,8 @@
         %ul
           - photo.journal_entries.each do |en|
             %li= link_to "#{en.journal}/#{en.display_itemid}", en.url
+          - if photo.journal_entries_fixed
+            %span.tag.good Entries fixed
       %td
         %div
           - if photo.public?
@@ -104,6 +106,10 @@
               %span.tag.tag_species S3
           - else
             = button_to "Push to storage", "/flickr/photos/#{photo.slug}/push_to_storage", remote: true, form_class: "push_form"
+        - if !photo.removed? && photo.journal_entries.any? && !photo.journal_entries_fixed?
+          = button_to "Mark journal entries fixed", "/deflicker/#{photo.flickr_id}/fixed", remote: true,
+            data: {confirm: "Are you sure you want to mark journal entries as fixed?"},
+            form_class: "destroy_button"
         - if !photo.removed? && photo.allow_delete?
           = button_to "Destroy", "/deflicker/#{photo.flickr_id}", method: :delete, remote: true,
                       data: {confirm: "Are you sure you want to remove this image from Flickr?"},

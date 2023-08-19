@@ -61,6 +61,11 @@ module Deflicker
       end
     end
 
+    def fixed
+      flicker = Flicker.find_by(flickr_id: params[:id])
+      flicker.update(journal_entries_fixed: true)
+    end
+
     private
 
     def search_params
