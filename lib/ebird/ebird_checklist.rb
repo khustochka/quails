@@ -125,8 +125,10 @@ class EBirdChecklist
       count = row.css("div.Observation-numberObserved span span")[1].text
       count = nil if count == "X"
 
-      taxon = row.at_css("section")[:id]
-      ebird_taxon = EBirdTaxon.find_by(ebird_code: taxon)
+      taxon_name = row.at_css("section .Observation-species .Heading .Heading-main").text&.strip
+      # This id is always a species code, even for subspecies, so we rely on name first
+      taxon_id = row.at_css("section")[:id]
+      ebird_taxon = EBirdTaxon.find_by(name_en: taxon_name) || EBirdTaxon.find_by(ebird_code: taxon_id)
 
       tx = ebird_taxon.find_or_promote_to_taxon
 
