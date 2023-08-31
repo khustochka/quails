@@ -102,6 +102,11 @@ gem "kaminari-mongoid"
 # aws-sdk-core, livejournal2
 gem "rexml"
 
+# Bundle some default gems to use newer versions.
+gem "psych"
+gem "stringio"
+gem "uri"
+
 group :development do
   gem "listen" # required for tracking file changes in development
   gem "benchmark-ips"
