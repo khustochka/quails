@@ -50,7 +50,7 @@ ENV GIT_REVISION ${GIT_REVISION}
 
 FROM base as build_deps
 
-ARG BUILD_PACKAGES="git build-essential libpq-dev wget curl gzip xz-utils libsqlite3-dev libssl-dev"
+ARG BUILD_PACKAGES="git build-essential libpq-dev wget curl gzip xz-utils libsqlite3-dev libssl-dev libyaml-dev"
 ENV BUILD_PACKAGES ${BUILD_PACKAGES}
 
 RUN --mount=type=cache,id=dev-apt-cache,sharing=locked,target=/var/cache/apt \
