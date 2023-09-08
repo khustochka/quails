@@ -286,10 +286,6 @@ Rails.application.routes.draw do
 
   get "/reports", controller: :reports, action: :index, as: :reports
 
-  resources :corrections do
-    get :start, on: :member
-  end
-
   reports_actions = %w(environ insights more_than_year topicture this_day uptoday compare by_countries
     stats voices charts month_targets server_error)
   reports_actions.each do |name|
@@ -299,7 +295,13 @@ Rails.application.routes.draw do
   get "/reports/five_mile_radius" => "reports/five_mile_radius#index"
   post "/reports/five_mile_radius" => "reports/five_mile_radius#update"
 
+  get "/depatching", controller: :depatching, action: :index, as: :depatching
+
   post "/clear_cache" => "reports#clear_cache"
+
+  resources :corrections do
+    get :start, on: :member
+  end
 
   get "/login" => "login#new"
   post "/login" => "login#login"
