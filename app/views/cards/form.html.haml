@@ -102,5 +102,5 @@
       = form.input :resolved
       = form.button :submit, "Resolve", data: {disable_with: 'Saving...'}, id: 'resolve_button', name: 'resolve'
       = default_submit_button(form)
-      = link_to 'Extract selected to the new card', extract_observations_path, class: 'pseudolink extractor'
+      = link_to 'Extract selected to a new card', extract_observations_path, class: 'pseudolink extractor'
       = link_to 'Move selected to another card', move_observations_path, class: 'pseudolink mover'
