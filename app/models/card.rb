@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class Card < ApplicationRecord
+  class UnsplittableCard < StandardError
+  end
+
   attribute :ebird_id, :nullable_string
   attribute :start_time, :nullable_string
 
@@ -113,6 +116,28 @@ class Card < ApplicationRecord
   # HISTORICAL is neither incidental, nor non-incidental
   def incidental?
     effort_type == "INCIDENTAL"
+  end
+
+  def autosplit
+    if effort_type == "TRAVEL" || start_time
+      raise UnsplittableCard, "Card id=#{id}. Cannot split card with start_time or TRAVEL card."
+    end
+
+    patch_ids = observations.except(:order).order("patch_id DESC NULLS LAST").pluck("DISTINCT patch_id")
+    patch_ids.each_with_index.map do |patch_id, i|
+      last_patch = i == patch_ids.size - 1
+      new_card =
+        if last_patch
+          self
+        else
+          self.dup # rubocop:disable Style/RedundantSelf
+        end
+      new_card.locus_id = patch_id unless patch_id.nil?
+      new_card.save!
+      obs = observations.where(patch_id: patch_id)
+      obs.update_all(card_id: new_card.id, patch_id: nil, updated_at: Time.zone.now)
+      new_card
+    end
   end
 
   class << self
