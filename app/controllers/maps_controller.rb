@@ -26,7 +26,7 @@ class MapsController < ApplicationController
         ObservationSearch.new(params[:q]).observations
           .joins(:card, :taxon)
           .preload(preload_tables)
-          .order("cards.observ_date", "cards.locus_id", "patch_id", "taxa.index_num").limit(params[:limit] || 200) :
+          .order("cards.observ_date", "cards.locus_id", "taxa.index_num").limit(params[:limit] || 200) :
         []
 
     respond_to do |format|
