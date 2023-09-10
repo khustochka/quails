@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_24_022734) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_10_035647) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -213,7 +213,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_24_022734) do
     t.integer "post_id"
     t.boolean "voice", default: false, null: false
     t.integer "card_id"
-    t.integer "patch_id"
     t.integer "taxon_id", null: false
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
@@ -334,7 +333,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_24_022734) do
   add_foreign_key "media_observations", "media", on_delete: :cascade
   add_foreign_key "media_observations", "observations", on_delete: :restrict
   add_foreign_key "observations", "cards", on_delete: :restrict
-  add_foreign_key "observations", "loci", column: "patch_id", on_delete: :nullify
   add_foreign_key "observations", "posts", on_delete: :nullify
   add_foreign_key "observations", "taxa", on_delete: :restrict
   add_foreign_key "species_images", "media", column: "image_id", on_delete: :cascade
