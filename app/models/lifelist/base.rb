@@ -59,7 +59,7 @@ module Lifelist
       # FIXME: Do not join on species when not on taxonomy sorting
       bare_relation
         .joins(:taxon, :card)
-        .preload(:patch, { taxon: :species }, { card: :locus })
+        .preload({ taxon: :species }, { card: :locus })
       # NOTE: Do not use .includes(:taxon), it breaks species preloading, use .preload
     end
 

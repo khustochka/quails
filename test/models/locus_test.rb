@@ -60,13 +60,6 @@ class LocusTest < ActiveSupport::TestCase
     assert_equal loc, observation.card.locus
   end
 
-  test "do not destroy locus if it has associated observations (patch) and no cards" do
-    loc = loci(:brovary)
-    observation = create(:observation, card: create(:card, locus: loci(:kiev_obl)), patch: loc)
-    assert_predicate loc.cards, :empty?
-    assert_raise(ActiveRecord::DeleteRestrictionError) { loc.destroy }
-  end
-
   test "proper public parent for a private locus" do
     brvr = loci(:brovary)
     loc = create(:locus, parent_id: brvr.id, private_loc: true)

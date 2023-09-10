@@ -13,14 +13,13 @@ class LociController < ApplicationController
     else
       Locus.order(:id).cached_ancestry_preload.page(params[:page])
     end
-    @loci = @loci.preload(:observations, :patch_observations)
+    @loci = @loci.preload(:observations)
     preload_parent(@loci)
     if request.xhr?
       render partial: "loci/table", layout: false
     else
       render
     end
-    # @loci = Locus.order(:id).preload(:observations, :patch_observations).page(params[:page])
   end
 
   # GET /locus/1

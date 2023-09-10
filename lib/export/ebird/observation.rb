@@ -72,8 +72,7 @@ class EBirdObservation
   end
 
   def location_name
-    loc = (!card.non_incidental? && @obs.patch) || locus
-    loc.ebird_location&.name || loc.name_en
+    locus.ebird_location&.name || locus.name_en
   end
 
   def latitude

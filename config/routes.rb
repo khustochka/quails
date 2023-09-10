@@ -295,8 +295,6 @@ Rails.application.routes.draw do
   get "/reports/five_mile_radius" => "reports/five_mile_radius#index"
   post "/reports/five_mile_radius" => "reports/five_mile_radius#update"
 
-  get "/depatching", controller: :depatching, action: :index, as: :depatching
-
   post "/clear_cache" => "reports#clear_cache"
 
   resources :corrections do

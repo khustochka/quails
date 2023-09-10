@@ -51,7 +51,7 @@ module Lifelist
       Observation
         .where(id: observation_ids)
         .joins(:taxon, :card)
-        .preload(:patch, { taxon: [:species, { ebird_taxon: :parent }] }, { card: :locus })
+        .preload({ taxon: [:species, { ebird_taxon: :parent }] }, { card: :locus })
     end
 
     def observation_ids

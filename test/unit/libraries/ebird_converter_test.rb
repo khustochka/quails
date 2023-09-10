@@ -45,18 +45,6 @@ class EBirdConverterTest < ActiveSupport::TestCase
     assert_equal "Kyiv City", ebird_observation(obs).location_name
   end
 
-  test "that patch locus is properly presented" do
-    card = FactoryBot.create(:card, locus: loci(:kiev_obl))
-    obs = FactoryBot.create(:observation, card: card, patch: loci(:kyiv))
-    assert_equal "Kyiv City", ebird_observation(obs).location_name
-  end
-
-  test "patch locus should not be shown for travel card" do
-    card = FactoryBot.create(:card, locus: loci(:kiev_obl), effort_type: "TRAVEL")
-    obs = FactoryBot.create(:observation, card: card, patch: loci(:kyiv))
-    assert_equal "Kyiv oblast", ebird_observation(obs).location_name
-  end
-
   test "should include images" do
     obs = FactoryBot.create(:observation)
     img1 = FactoryBot.create(:image, slug: "img1", observation_ids: [obs.id])

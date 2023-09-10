@@ -22,7 +22,6 @@ class Observation < ApplicationRecord
   has_and_belongs_to_many :images, class_name: "Image", association_foreign_key: :media_id
   has_and_belongs_to_many :videos, class_name: "Video", association_foreign_key: :media_id
   has_many :spots, dependent: :delete_all
-  belongs_to :patch, class_name: "Locus", optional: true
 
   before_destroy do
     if images.present?
@@ -46,7 +45,7 @@ class Observation < ApplicationRecord
     rel = rel.joins(:card).where("EXTRACT(year from cards.observ_date)::integer = ?", options[:year]) if options[:year].present?
     rel = rel.joins(:card).where("EXTRACT(month from cards.observ_date)::integer = ?", options[:month]) if options[:month].present?
     rel = rel.joins(:card).where("EXTRACT(day from cards.observ_date)::integer = ?", options[:day]) unless options[:day].blank? || options[:month].blank?
-    rel = rel.joins(:card).where("cards.locus_id IN (?) OR observations.patch_id IN (?)", options[:locus], options[:locus]) if options[:locus].present?
+    rel = rel.joins(:card).where(cards: { locus_id: options[:locus] }) if options[:locus].present?
     rel = rel.joins(:card).where(cards: { motorless: true }) if options[:motorless]
     rel = rel.joins(:card).where(voice: false) if options[:exclude_heard_only]
     rel
@@ -62,8 +61,8 @@ class Observation < ApplicationRecord
     read_attribute(:observ_date) || card.observ_date
   end
 
-  def patch_or_locus
-    patch || card.locus
+  def locus
+    card.locus
   end
 
   def main_post
