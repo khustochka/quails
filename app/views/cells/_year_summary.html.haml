@@ -7,7 +7,7 @@
             %th.lifelist-chart-th{colspan: 3}
               = t("lifelist_chart.number_of_species")
         %tbody
-          = render partial: "cells/year_summary/table_row", locals: {data: year_summary.all.first, row_class: "current_year"}
-          - year_summary.all[1..-1].each do |data|
+          = render partial: "cells/year_summary/table_row", locals: {data: year_summary.result.first, row_class: "current_year"}
+          - year_summary.result[1..-1].each do |data|
             = render partial: "cells/year_summary/table_row", locals: {data: data, row_class: nil}
     = render partial: "cells/lifers_cell", object: year_summary

@@ -19,8 +19,8 @@ class YearSummaryCell
     -"year_summary"
   end
 
-  def all
-    return @all if @all
+  def result
+    return @result if @result
 
     by_years = year_lists
 
@@ -32,7 +32,7 @@ class YearSummaryCell
       el[:percentage] =
         "%.2f" % (max_count.zero? ? 0.0 : (el[:count] * 100.0 / max_count))
     end
-    @all = pre_all
+    @result = pre_all
   end
 
   def cache_key

@@ -42,8 +42,8 @@ class YearProgressCell
     -"year_progress"
   end
 
-  def all
-    return @all if @all
+  def result
+    return @result if @result
 
     uptoday = up_to_day
     by_years = year_lists
@@ -63,7 +63,7 @@ class YearProgressCell
         el[:is_max] = true
       end
     end
-    @all = pre_all
+    @result = pre_all
   end
 
   def cache_key

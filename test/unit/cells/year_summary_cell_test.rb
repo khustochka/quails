@@ -5,7 +5,7 @@ require "test_helper"
 class YearSummaryCellTest < ActiveSupport::TestCase
   test "does not fail if there are no observations" do
     cell = YearSummaryCell.new(year: 2022)
-    assert_equal ["0.00"] * 3, cell.all.pluck(:percentage)
+    assert_equal ["0.00"] * 3, cell.result.pluck(:percentage)
   end
 
   test "generates correct count and percentage" do
@@ -27,12 +27,12 @@ class YearSummaryCellTest < ActiveSupport::TestCase
       { year: 2021, count: 1, percentage: "33.33" },
       { year: 2020, count: 3, percentage: "100.00" },
     ]
-    assert_equal expected, cell.all
+    assert_equal expected, cell.result
   end
 
   test "allows to set the number of years going back" do
     cell = YearSummaryCell.new(year: 2022, back: 4)
-    assert_equal 5, cell.all.size
+    assert_equal 5, cell.result.size
   end
 
   test "returns the list of lifers for the current year" do

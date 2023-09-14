@@ -58,7 +58,7 @@ module Deflicker
     def detect_deleted(photos)
       # This is not AR object
       current_ids = photos.map {|p| p["id"]} # rubocop:disable Rails/Pluck
-      my_ids = Flicker.all.pluck(:flickr_id)
+      my_ids = Flicker.pluck(:flickr_id)
       removed_ids = my_ids - current_ids
       Flicker.in(flickr_id: removed_ids).update_all(removed: true)
       # There should not be ids in the API that are not present in the DB

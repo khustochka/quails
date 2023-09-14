@@ -5,7 +5,7 @@ require "test_helper"
 class YearProgressCellTest < ActiveSupport::TestCase
   test "does not fail if there are no observations" do
     cell = YearProgressCell.new(year: 2022)
-    assert_equal ["0.00"] * 3, cell.all.pluck(:percentage)
+    assert_equal ["0.00"] * 3, cell.result.pluck(:percentage)
   end
 
   test "generates correct count and percentage" do
@@ -32,7 +32,7 @@ class YearProgressCellTest < ActiveSupport::TestCase
 
     travel_to "2022-03-23" do
       cell = YearProgressCell.new(year: 2022)
-      assert_equal expected, cell.all
+      assert_equal expected, cell.result
     end
   end
 
@@ -52,7 +52,7 @@ class YearProgressCellTest < ActiveSupport::TestCase
 
   test "allows to set the number of years going back" do
     cell = YearProgressCell.new(year: 2022, back: 4)
-    assert_equal 5, cell.all.size
+    assert_equal 5, cell.result.size
   end
 
   test "returns the list of lifers for the current year" do

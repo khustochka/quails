@@ -13,8 +13,8 @@
               = t("lifelist_chart.end_of_year")
         %tbody
           = render partial: "cells/year_progress/table_row",
-                   locals: {data: year_progress.all.first, current: true}
-          - year_progress.all[1..-1].each do |data|
+                   locals: {data: year_progress.result.first, current: true}
+          - year_progress.result[1..-1].each do |data|
             = render partial: "cells/year_progress/table_row", locals: {data: data, current: false, highlight_max: highlight_max}
     - if include_lifers
       = render partial: "cells/lifers_cell", object: year_progress

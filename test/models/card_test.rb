@@ -30,7 +30,7 @@ class CardTest < ActiveSupport::TestCase
   end
 
   test "#first_unebirded_date for no cards" do
-    assert_equal 0, Card.all.count
+    assert_equal 0, Card.count
     assert_nil Card.first_unebirded_date
   end
 
