@@ -165,6 +165,9 @@ Rails/SkipsModelValidations:
 Rails/ActionControllerTestCase:
   Enabled: false
 
+Rails/RedundantActiveRecordAllMethod:
+  Enabled: false
+
 Lint/MissingCopEnableDirective:
   Enabled: true
   # Maximum number of consecutive lines the cop can be disabled for.

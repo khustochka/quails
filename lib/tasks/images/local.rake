@@ -7,7 +7,7 @@ namespace :images do
       local_dir = ENV["LOCAL_DIR"]
       raise "Set LOCAL_DIR" unless local_dir
 
-      Image.all.each do |img|
+      Image.all.find_each do |img|
         slug = img.slug
         puts "Processing #{slug}"
 
