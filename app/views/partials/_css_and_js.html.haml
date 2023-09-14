@@ -1,14 +1,10 @@
 -# frozen_string_literal: true
 
-- packs = @packs&.compact || []
-- scripts = @scripts&.compact || []
-
--# 1. Early is first, because it declared jQuery which may be used by webpacked scripts
-= javascript_include_tag("early")
--# 2. Packs declare keypress.js that may be used by other scripts
-= javascript_include_tag *packs.unshift('visitor')
--# 3. The rest of the scripts
-= javascript_include_tag(*scripts.unshift("application"))
+-# Early is first, because it declared jQuery which may be used by other scripts
+= javascript_include_tag "early"
+= javascript_include_tag "visitor"
+= javascript_include_tag "application"
+= javascript_include_tag(*@scripts&.compact || [])
 
 -# Visitor should be first, because some styles can use bootstrap classes
 = stylesheet_link_tag 'visitor', media: "all"

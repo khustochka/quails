@@ -13,9 +13,4 @@ module AssetsHelper
     @scripts ||= []
     @scripts.concat args
   end
-
-  def packs(*args)
-    @packs ||= []
-    @packs.concat args
-  end
 end
