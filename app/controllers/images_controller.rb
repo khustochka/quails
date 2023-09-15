@@ -42,7 +42,7 @@ class ImagesController < ApplicationController
         @robots = "NOINDEX" if @image.status == "NOINDEX"
       end
       format.jpeg do
-        redirect_to helpers.jpg_url(@image)
+        redirect_to helpers.jpg_url(@image), allow_other_host: true
       end
     end
   end

@@ -24,7 +24,7 @@ Bundler.require(*Rails.groups)
 module Quails
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 6.1
+    config.load_defaults 7.0
 
     # Configuration for the application, engines, and railties goes here.
     #
@@ -59,10 +59,6 @@ module Quails
     config.i18n.available_locales = [:uk, :en, :ru]
 
     config.active_storage.variant_processor = :mini_magick
-
-    # 7.0 defaults
-    config.active_support.cache_format_version = 7.0
-    config.active_support.disable_to_s_conversion = true
 
     config.before_configuration do
       require "quails"
