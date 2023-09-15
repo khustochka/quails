@@ -10,7 +10,7 @@
 - content_for :translated do
   = render 'partials/translated'
 
-- if I18n.locale == :en
+- if I18n.locale == :en && params[:page].nil?
   %h2= t(".#{@cell.type}")
 
   .year-summary
