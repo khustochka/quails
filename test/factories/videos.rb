@@ -3,7 +3,7 @@
 # Read about factories at https://github.com/thoughtbot/factory_bot
 
 FactoryBot.define do
-  factory :video, class: Video do
+  factory :video, class: "Video" do
     sequence(:slug) { |n| "video_#{n}" }
     title { "MyString" }
     youtube_id { "kdf83e7aks" }

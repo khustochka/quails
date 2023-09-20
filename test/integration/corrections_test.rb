@@ -19,12 +19,12 @@ class CorrectionsTest < ActionDispatch::IntegrationTest
   test "should create correction" do
     login_as_admin
     visit corrections_url
-    click_on "Create new"
+    click_link "Create new"
 
     select @correction.model_classname, from: "Model classname"
     fill_in "Query", with: @correction.query
     fill_in "Sort column", with: @correction.sort_column
-    click_on "Save"
+    click_button "Save"
 
     assert_text "Correction was successfully created"
   end
@@ -36,7 +36,7 @@ class CorrectionsTest < ActionDispatch::IntegrationTest
     select @correction.model_classname, from: "Model classname"
     fill_in "Query", with: @correction.query
     fill_in "Sort column", with: @correction.sort_column
-    click_on "Save"
+    click_button "Save"
 
     assert_text "Correction was successfully updated"
   end

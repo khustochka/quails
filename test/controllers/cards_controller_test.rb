@@ -6,7 +6,7 @@ class CardsControllerTest < ActionController::TestCase
   setup do
     create(:observation)
     @card = create(:card)
-    3.times { create(:observation, card: @card) }
+    create_list(:observation, 3, card: @card)
     login_as_admin
   end
 
