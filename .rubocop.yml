@@ -182,6 +182,9 @@ Minitest/MultipleAssertions:
 Minitest/RefuteFalse:
   Enabled: false
 
+Minitest/AssertOperator:
+  Enabled: false
+
 # -------- Imported
 
 Bundler/OrderedGems:
