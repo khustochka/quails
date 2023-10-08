@@ -59,7 +59,7 @@ gem "high_voltage"
 gem "health_check"
 
 # External services
-gem "flickraw", "~> 0.9.7"
+gem "flickraw-cached"
 gem "livejournal2"
 gem "aws-sdk-s3"
 # Enable if you need to use SES for email delivery.

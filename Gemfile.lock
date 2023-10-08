@@ -125,6 +125,8 @@ GEM
       railties (>= 5.0.0)
     ffi (1.16.3)
     flickraw (0.9.10)
+    flickraw-cached (20120701)
+      flickraw (>= 0.9)
     font-awesome-sass (6.4.2)
       sassc (~> 2.0)
     globalid (1.2.1)
@@ -472,7 +474,7 @@ DEPENDENCIES
   debug (>= 1.0.0)
   dotenv-rails (~> 2.7)
   factory_bot_rails
-  flickraw (~> 0.9.7)
+  flickraw-cached
   font-awesome-sass (~> 6.4.0)
   haml (< 6)
   haml-contrib

@@ -21,7 +21,6 @@ AllCops:
     #  - 'config/**/*'
     - 'db/**/*'
     - lib/tasks/flickraw.rake
-    - "lib/flickraw-cached.rb"
     - 'lib/tasks/taxonomy/**/*'
     - 'lib/tasks/one-off/**/*'
     - config.ru
