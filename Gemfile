@@ -22,6 +22,7 @@ gem "redis"
 gem "hiredis-client"
 gem "resque"
 gem "rails-brotli-cache"
+gem "brotli"
 
 # Deployment
 gem "puma", "< 7"
