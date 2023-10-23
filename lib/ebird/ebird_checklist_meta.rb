@@ -11,6 +11,6 @@ class EBirdChecklistMeta
   end
 
   def parent_id
-    Locus.find_by(name_en: county)&.id
+    Locus.find_by(name_en: (county || state_prov))&.id
   end
 end

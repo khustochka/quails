@@ -73,7 +73,7 @@ module EBird
           ebird_id: ebird_id,
           time: row.xpath("./div[@class='ResultsStats-title']").text.strip.gsub(/\s+/, " "),
           location: row.xpath("./div[@class='ResultsStats-details']/div/div/div[1]/div[contains(@class, 'ResultsStats-details-location')]").first.text,
-          county: row.xpath("./div[@class='ResultsStats-details']/div/div/div[2]/div[contains(@class, 'ResultsStats-details-county')]").first.text,
+          county: row.xpath("./div[@class='ResultsStats-details']/div/div/div[2]/div[contains(@class, 'ResultsStats-details-county')]").first&.text,
           state_prov: row.xpath("./div[@class='ResultsStats-details']/div/div/div[3]/div[contains(@class, 'ResultsStats-details-stateCountry')]").first.text
         )
       end
