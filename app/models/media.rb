@@ -3,7 +3,7 @@
 class Media < ApplicationRecord
   has_and_belongs_to_many :observations
 
-  serialize :assets_cache, ImageAssetsArray
+  serialize :assets_cache, coder: ImageAssetsArray
 
   has_many :taxa, through: :observations
   has_many :species, through: :taxa

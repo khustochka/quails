@@ -2,7 +2,7 @@ class MigrateImagesAndVideosToMedia < ActiveRecord::Migration[4.2]
 
   class OldImage < ActiveRecord::Base
     self.table_name = 'images'
-    serialize :assets_cache, ImageAssetsArray
+    serialize :assets_cache, coder: ImageAssetsArray
     has_and_belongs_to_many :observations, join_table: 'images_observations', foreign_key: 'image_id'
   end
 
