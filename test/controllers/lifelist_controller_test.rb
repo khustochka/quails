@@ -18,6 +18,7 @@ class LifelistControllerTest < ActionController::TestCase
       create(:locus, slug: sl, loc_type: "country")
     end
     get :index
+    assert_select ".sp_link_long", "House Sparrow Passer domesticus"
     assert_response :success
   end
 
