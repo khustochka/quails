@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 require "test_helper"
-require "ebird/ebird_checklist_meta"
+require "ebird/checklist_meta"
 
 class EBirdPreloadJobTest < ActiveJob::TestCase
   test "form for importing checklists contains authenticity token" do
     ActionController::Base.allow_forgery_protection = true
     job = EBird::ChecklistPreloadJob.new
-    checklist = EBirdChecklistMeta.new(
+    checklist = EBird::ChecklistMeta.new(
       ebird_id: "S108423956",
       time: "29 Apr 2022 6:27 PM",
       location: "Cordite Trail",

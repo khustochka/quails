@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "ebird/ebird_checklist"
+require "ebird/checklist"
 
 module EBird
   class ChecklistFixJob < ApplicationJob
@@ -9,7 +9,7 @@ module EBird
     def perform(ebird_id)
       cards = Card.where(ebird_id: ebird_id)
       if cards.any?
-        EBirdChecklist.new(ebird_id).fix!
+        EBird::Checklist.new(ebird_id).fix!
       else
         raise "Should not fix checklist that is not imported! (#{ebird_id})"
       end

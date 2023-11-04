@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-require "ebird/ebird_checklist"
+require "ebird/checklist"
 
 module EBird
   class ChecklistImportJob < ApplicationJob
     queue_as :default
 
     def perform(ebird_id, locus_id)
-      checklist = EBirdChecklist.new(ebird_id).fetch!
+      checklist = EBird::Checklist.new(ebird_id).fetch!
       card = checklist.to_card
       card.locus_id = locus_id
       card.resolved = true

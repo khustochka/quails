@@ -3,11 +3,10 @@
 class ImagesController < ApplicationController
   include FlickrConcern
 
-  administrative except: [:index, :multiple_species, :show, :gallery, :country]
-  localized only: [:index, :multiple_species, :show, :gallery, :country]
+  administrative except: [:index, :multiple_species, :show]
+  localized only: [:index, :multiple_species, :show]
 
   find_record by: :slug, before: [:show, :edit,
-    :parent_edit, :parent_update,
     :map_edit, :update, :patch, :destroy,]
 
   after_action :cache_expire, only: [:create, :update, :destroy]

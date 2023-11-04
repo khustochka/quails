@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "ebird/ebird_checklist"
+require "ebird/checklist"
 
 class CardsController < ApplicationController
   administrative
@@ -128,7 +128,7 @@ class CardsController < ApplicationController
 
     if ebird_id.present?
 
-      checklist = EBirdChecklist.new(ebird_id).fetch!
+      checklist = EBird::Checklist.new(ebird_id).fetch!
 
       @card = checklist.to_card
 
