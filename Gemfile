@@ -44,9 +44,8 @@ gem "ancestry", ">= 3.2.1"
 gem "acts_as_list"
 
 # Templating
-gem "haml", "< 6"
+gem "haml", "~> 6.2"
 gem "haml-rails"
-gem "haml-contrib"
 gem "RedCloth"
 gem "rinku"
 

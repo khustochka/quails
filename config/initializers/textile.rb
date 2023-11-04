@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
-# Workaround for haml + textile
-# haml fails to load maruku and does not try textile
 require "haml/filters/textile"
+
+Haml::Filters.__send__(:register, :textile, Haml::Filters::Textile)
