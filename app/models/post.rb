@@ -14,7 +14,7 @@ class Post < ApplicationRecord
   TOPICS = %w(OBSR NEWS SITE)
   STATES = %w(OPEN PRIV SHOT NIDX)
 
-  serialize :lj_data, type: LJData
+  serialize :lj_data, type: LJData, coder: YAML
 
   validates :slug, uniqueness: true, presence: true, length: { maximum: 64 }, format: /\A[\w\-]+\Z/
   validates :title, presence: true, unless: :shout?

@@ -5,7 +5,7 @@ class Settings < ApplicationRecord
 
   SETTING_KEYS = [:flickr_admin, :lj_user, :ebird_user]
 
-  serialize :value
+  serialize :value, coder: YAML
 
   def self.to_hash
     Hash[to_a.map { |s| [s.key, s.value] }]
