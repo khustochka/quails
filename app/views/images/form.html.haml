@@ -39,7 +39,7 @@
 
 = simple_form_for @image, html: {class: 'image with_observations'} do |form|
 
-  - if @image.persisted? || @image.on_storage?
+  - if @image.persisted? || (@image.on_storage? && @image.stored_image.persisted?)
     %p= image_tag(@image.thumbnail_variant, class: 'image_pic')
     - if @image.on_storage?
       = form.input :stored_image, as: :hidden, input_html: {value: @image.stored_image.blob.signed_id}
