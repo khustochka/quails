@@ -31,7 +31,7 @@ jobs:
       MINITEST_REPORTER: Minitest::Reporters::SpecReporter
       # TEMP: looks like this option makes tests in Rails 7.1.1 hang
       # COVERAGE: 1
-      PARALLEL_WORKERS: 1
+      # PARALLEL_WORKERS: 1
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
