@@ -85,7 +85,7 @@ module EBird
 
       if @file.save
         @file.update_attribute(:name, "#{test_prefix}#{@file.name}-#{@file.id}")
-        result = Exporter.ebird(filename: @file.name, cards: cards_rel, storage: storage_service).export
+        result = Export::Exporter.ebird(filename: @file.name, cards: cards_rel, storage: storage_service).export
       else
         # FIXME: this is hack. For some reason errors on cards are not preserved after validation.
         @file.cards.each { |c| c.valid?(:ebird_post) }

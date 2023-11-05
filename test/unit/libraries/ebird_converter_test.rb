@@ -5,7 +5,7 @@ require "export/ebird/observation"
 
 class EBirdConverterTest < ActiveSupport::TestCase
   def ebird_observation(obs)
-    EBirdObservation.new(obs)
+    Export::EBird::Observation.new(obs)
   end
 
   def travel_card

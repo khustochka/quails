@@ -4,7 +4,7 @@ require "functional/either"
 require "flickraw-cached"
 
 module Flickr
-  include Either
+  include Functional::Either
 
   module ResultPartialPath
     def to_partial_path
@@ -13,7 +13,7 @@ module Flickr
   end
 
   class Result
-    include Either::Value
+    include Functional::Either::Value
     include ResultPartialPath
 
     def method_missing(method, *args, &block) # rubocop:disable Style/MissingRespondToMissing
@@ -47,7 +47,7 @@ module Flickr
   end
 
   class Error
-    include Either::Error
+    include Functional::Either::Error
     include ResultPartialPath
   end
 

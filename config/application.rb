@@ -30,7 +30,7 @@ module Quails
     # Please, add to the `ignore` list any other `lib` subdirectories that do
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
     # Common ones are `templates`, `generators`, or `middleware`, for example.
-    config.autoload_lib(ignore: %w(assets tasks templates))
+    config.autoload_lib(ignore: %w(assets core_ext core_ext.rb tasks templates))
 
     # Configuration for the application, engines, and railties goes here.
     #
@@ -68,7 +68,7 @@ module Quails
 
     config.before_configuration do
       require "quails"
-      require "core_ext"
+      require "./lib/core_ext"
     end
   end
 end
