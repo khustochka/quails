@@ -36,7 +36,7 @@ module Quails
       end
 
       def test_match_password(password)
-        (Rails.env.test? || Rails.env.development?) && password == @__password
+        Rails.env.local? && password == @__password
       end
     end
   end
