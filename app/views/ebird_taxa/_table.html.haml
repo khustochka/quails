@@ -3,7 +3,7 @@
   %tr
     %th.align-right No
     %th Name
-    %th EBird code
+    %th Code & Concept
     %th Taxonomy
     %th Taxon & Species
 
@@ -22,7 +22,9 @@
           - name_str = [:name_en, :name_ioc_en].map {|m| taxon.public_send(m)}.uniq.compact.join(", ")
           = term_highlight(name_str, @term)
       %td
-        = taxon.ebird_code
+        %div= taxon.ebird_code
+        %div
+          %small.less-important= taxon.taxon_concept_id
       %td
         %div= taxon.order
         %div= taxon.family

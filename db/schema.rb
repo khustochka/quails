@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_10_035647) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_10_014725) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -131,6 +131,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_10_035647) do
     t.integer "parent_id"
     t.integer "ebird_version", limit: 2, null: false
     t.bigint "taxon_id"
+    t.string "taxon_concept_id"
     t.index ["ebird_code"], name: "index_ebird_taxa_on_ebird_code"
     t.index ["index_num"], name: "index_ebird_taxa_on_index_num"
     t.index ["parent_id"], name: "index_ebird_taxa_on_parent_id"
@@ -303,6 +304,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_10_035647) do
     t.string "ebird_code", null: false
     t.integer "parent_id"
     t.integer "species_id"
+    t.string "taxon_concept_id"
     t.index ["ebird_code"], name: "index_taxa_on_ebird_code"
     t.index ["index_num"], name: "index_taxa_on_index_num"
     t.index ["parent_id"], name: "index_taxa_on_parent_id"

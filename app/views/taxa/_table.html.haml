@@ -4,7 +4,7 @@
     %th.align-right No
     %th Scientific name
     %th Common names
-    %th EBird
+    %th eBird code & concept
     %th Taxonomy
     %th Species
 
@@ -22,7 +22,9 @@
         - if taxon.name_ru
           %div= term_highlight(taxon.name_ru, @term)
       %td
-        = taxon.ebird_code
+        %div= taxon.ebird_code
+        %div
+          %small.less-important= taxon.taxon_concept_id
       %td
         %div= taxon.order
         %div= taxon.family
