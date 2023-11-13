@@ -16,7 +16,7 @@ module YearBaseCell
   end
 
   def lifers
-    @lifers ||= LiferObservation.for_year(year).order(:observ_date).preload(taxon: :species)
+    @lifers ||= LiferObservation.for_year(year).canonical_order(:asc).preload(taxon: :species)
   end
 
   private
