@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 namespace :tax do
-  desc "Map all observations from legacy species to new taxa"
+  # desc "Map all observations from legacy species to new taxa"
   task map_observations: :environment do
     base = Observation.where(taxon_id: nil).joins(:card)
 

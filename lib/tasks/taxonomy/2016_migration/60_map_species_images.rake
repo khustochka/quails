@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 namespace :tax do
-  desc "Map all species images from legacy species to new species"
+  # desc "Map all species images from legacy species to new species"
   task map_species_images: :environment do
     sp_images = SpeciesImage.pluck(:species_id, :image_id)
     SpeciesImage.destroy_all

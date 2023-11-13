@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 namespace :tax do
-  desc "Import ebird taxa to taxa and ebird_taxa tables"
+  # desc "Import ebird taxa to taxa and ebird_taxa tables"
   task import_ebird_taxa: :environment do
     filename = ENV["CSV"] || "./data/eBird_Taxonomy_v2016.csv"
 
