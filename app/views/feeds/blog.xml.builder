@@ -12,8 +12,8 @@ atom_feed(id: "tag:#{request.host},2008-03-24:/blog", language: I18n.locale, sch
       published: post.face_date,
       url: public_post_url(post),
       id: "tag:#{request.host},#{post.face_date.strftime("%F")}:#{public_post_path(post)}") do |entry|
-      entry.title(post.decorated.title, type: "html")
-      entry.content(render(partial: "post", formats: :html, object: post), type: "html")
+      entry.title(post.decorated.title, type: "html", "xml:lang": post.lang)
+      entry.content(render(partial: "post", formats: :html, object: post), type: "html", "xml:lang": post.lang)
     end
   end
 end
