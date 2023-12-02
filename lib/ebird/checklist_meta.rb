@@ -12,7 +12,7 @@ module EBird
     end
 
     def parent_id
-      Locus.find_by(name_en: (county || state_prov))&.id
+      Locus.find_by(name_en: county || state_prov)&.id
     end
   end
 end
