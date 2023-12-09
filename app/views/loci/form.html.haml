@@ -27,8 +27,9 @@
           input_html: {class: 'suggest-combo'}
     = form.input :cached_subdivision_id, collection: (Locus.where.not(id: @locus).suggestion_order),
           input_html: {class: 'suggest-combo'}
-    = form.input :cached_country_id, collection: (Locus.where.not(id: @locus).suggestion_order),
-          input_html: {class: 'suggest-combo'}
+    - if @locus.persisted?
+      = form.input :cached_country_id, as: :string,
+            input_html: {disabled: true, value: @locus.cached_country&.name_en}
   %div
     Full name:
     = @locus.decorated.full_name

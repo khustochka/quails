@@ -24,9 +24,11 @@ class Locus < ApplicationRecord
 
   validates :slug, format: /\A[a-z_0-9]+\Z/i, uniqueness: true, presence: true, length: { maximum: 32 }
   validates :name_en, :name_ru, :name_uk, uniqueness: true
+  validates :cached_country, presence: true, if: ->(loc) { loc.path.where(loc_type: "country").any? && loc.cached_country_id.nil? }
 
   after_initialize :prepopulate, unless: :persisted?
   before_validation :generate_slug
+  before_validation :set_country
 
   TYPES = %w(continent country subcountry state oblast raion city)
 
@@ -126,6 +128,12 @@ class Locus < ApplicationRecord
 
   def generate_slug
     slug.presence || (self.slug = name_en.downcase.delete("'").gsub(" - ", "_").gsub("--", "_").gsub(/[^\d\w_]+/, "_"))
+  end
+
+  def set_country
+    if !country?
+      self.cached_country_id = country&.id
+    end
   end
 
   def generate_lat_lon
