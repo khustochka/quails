@@ -13,7 +13,7 @@ module Lifelist
     end
 
     def set(key, val)
-      public_send("#{key}=", val)
+      public_send(:"#{key}=", val)
     end
 
     # Behave as species for taxonomy sorting
