@@ -116,6 +116,7 @@ GEM
     crass (1.0.6)
     css_parser (1.16.0)
       addressable
+    csv (3.2.6)
     date (3.3.4)
     debug (1.9.0)
       irb (~> 1.10)
@@ -237,6 +238,7 @@ GEM
     mime-types-data (3.2023.1205)
     mini_magick (4.12.0)
     mini_mime (1.1.5)
+    mini_portile2 (2.8.5)
     minitest (5.20.0)
     minitest-reporters (1.6.1)
       ansi
@@ -268,12 +270,11 @@ GEM
     net-smtp (0.4.0)
       net-protocol
     nio4r (2.7.0)
-    nokogiri (1.15.5-arm64-darwin)
+    nkf (0.1.2)
+    nokogiri (1.15.5)
+      mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
-    nokogiri (1.15.5-x86_64-darwin)
-      racc (~> 1.4)
-    nokogiri (1.15.5-x86_64-linux)
-      racc (~> 1.4)
+    observer (0.1.1)
     parallel (1.24.0)
     parser (3.2.2.4)
       ast (~> 2.4.1)
@@ -460,6 +461,7 @@ GEM
 
 PLATFORMS
   arm64-darwin-22
+  arm64-darwin-23
   x86_64-darwin-21
   x86_64-linux
 
@@ -482,11 +484,14 @@ DEPENDENCIES
   aws-sdk-s3
   bcrypt (~> 3.1.7)
   benchmark-ips
+  bigdecimal
   brotli
   bundler-audit
   capybara
+  csv
   debug (>= 1.0.0)
   dotenv-rails (~> 2.7)
+  drb
   factory_bot_rails
   flickraw-cached
   font-awesome-sass (~> 6.5.0)
@@ -509,7 +514,12 @@ DEPENDENCIES
   mechanize
   minitest-reporters
   mongoid
+  net-imap
+  net-pop
+  net-smtp
+  nkf
   nokogiri
+  observer
   pg
   premailer-rails
   psych
@@ -544,7 +554,7 @@ DEPENDENCIES
   webmock
 
 RUBY VERSION
-   ruby 3.2.2p53
+   ruby 3.3.0.rc1
 
 BUNDLED WITH
    2.5.1
