@@ -18,7 +18,7 @@
 # performance.
 
 ARG RUBY_VERSION=3.2.2
-ARG VARIANT=malloctrim-slim
+ARG VARIANT=jemalloc-bookworm-slim
 FROM quay.io/evl.ms/fullstaq-ruby:${RUBY_VERSION}-${VARIANT} as base
 
 ARG NODE_VERSION=18.17.0
