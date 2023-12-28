@@ -67,8 +67,6 @@ services:
     # Temporarily to seed database
     ports:
       - "5499:5432"
-    volumes:
-      - db_data15:/var/lib/postgresql/data
 
   cache:
     container_name: quails_cache
@@ -89,7 +87,7 @@ services:
 
 # Declare the volumes that our application uses.
 volumes:
-  db_data15:
+#  db_data15:
   cache_data:
   resque_jobs_data:
   rails_app_storage:
