@@ -1,0 +1,73 @@
+version: '3'
+
+services:
+  app:
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+
+    volumes:
+      - ..:/workspaces/quails:cached
+      - ../storage:/workspaces/quails/storage:cached
+      - bundle:/usr/local/bundle
+      - node_modules:/workspaces/quails/node_modules  
+      - packs:/workspaces/quails/public/packs
+      - packs-test:/workspaces/quails/public/packs-test
+      - rails_cache:/workspaces/quails/tmp/cache
+
+    environment:
+      DATABASE_URL: postgres://quails:quails@db 
+      JS_BROWSER: headless_firefox 
+
+    # Overrides default command so things don't shut down after the process ends.
+    command: sleep infinity
+
+    # Runs app on the same network as the database container, allows "forwardPorts" in devcontainer.json function.
+    network_mode: service:db
+
+    # Use "forwardPorts" in **devcontainer.json** to forward an app port locally.
+    # (Adding the "ports" property to this file will not forward from a Codespace.)
+
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: postgres:15
+    restart: unless-stopped
+    volumes:
+      - postgres-data-15:/var/lib/postgresql/data
+      - ./create-db-user.sql:/docker-entrypoint-initdb.d/create-db-user.sql
+    environment:
+      POSTGRES_USER: quails
+      POSTGRES_DB: postgres
+      POSTGRES_PASSWORD: quails
+      # Your config/database.yml should use the user and password you set here,
+      # and host "db" (as that's the name of this service). You can use whatever
+      # database name you want. Use `bin/rails db:prepare` to create the database.
+      #
+      # Example:
+      #
+      #  development:
+      #    <<: *default
+      #    host: db
+      #    username: postgres
+      #    password: postgres
+      #    database: myapp_development
+
+    # Add "forwardPorts": ["5432"] to **devcontainer.json** to forward PostgreSQL locally.
+    # (Adding the "ports" property to this file will not forward from a Codespace.)
+    ports:
+      - "5492:5432"  
+
+    healthcheck:
+      test: pg_isready -U postgres -h 127.0.0.1
+      interval: 5s
+
+volumes:
+  postgres-data-15:
+  bundle:
+  node_modules:
+  packs:
+  packs-test:
+  rails_cache:
