@@ -1,6 +1,6 @@
 #!/bin/bash
 
-gem install solargraph
+gem install solargraph --no-document
 
 bin/setup
 

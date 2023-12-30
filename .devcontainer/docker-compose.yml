@@ -8,12 +8,11 @@ services:
 
     volumes:
       - ..:/workspaces/quails:cached
-      - ../storage:/workspaces/quails/storage:cached
       - bundle:/usr/local/bundle
-      - node_modules:/workspaces/quails/node_modules  
-      - packs:/workspaces/quails/public/packs
-      - packs-test:/workspaces/quails/public/packs-test
-      - rails_cache:/workspaces/quails/tmp/cache
+      # - node_modules:/workspaces/quails/node_modules  
+      # - packs:/workspaces/quails/public/packs
+      # - packs-test:/workspaces/quails/public/packs-test
+      # - rails_cache:/workspaces/quails/tmp/cache
 
     environment:
       DATABASE_URL: postgres://quails:quails@db 
