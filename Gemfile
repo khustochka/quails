@@ -107,6 +107,16 @@ gem "psych"
 gem "stringio"
 gem "uri"
 
+# Extracted gems
+gem "bigdecimal"
+gem "csv"
+gem "drb"
+gem "net-imap"
+gem "net-pop"
+gem "net-smtp"
+gem "nkf"
+gem "observer"
+
 group :development do
   gem "listen" # required for tracking file changes in development
   gem "benchmark-ips"
