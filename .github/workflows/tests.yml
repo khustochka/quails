@@ -95,7 +95,7 @@ jobs:
           XDG_RUNTIME_DIR: '/tmp/runtime-runner'
           JS_DRIVER: ${{ matrix.driver.js_driver }}
           JS_BROWSER: ${{ matrix.driver.js_browser }}
-        run: xvfb-run bin/rails test:system
+        run: bin/rails test:system
       - name: Screenshots
         uses: actions/upload-artifact@v3
         if: failure()
