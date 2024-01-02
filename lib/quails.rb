@@ -4,7 +4,7 @@ require "quails/env"
 require "quails/revision"
 
 module Quails
-  CURRENT_YEAR = 2023
+  CURRENT_YEAR = 2024
 
   def self.env
     @env ||= Env.new

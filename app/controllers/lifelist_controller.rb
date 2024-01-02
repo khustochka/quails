@@ -14,11 +14,10 @@ class LifelistController < ApplicationController
     @list_prev_year = Lifelist::FirstSeen.over(year: Quails::CURRENT_YEAR - 1)
 
     @list_canada = Lifelist::FirstSeen.over(locus: "canada")
-
     @list_ukraine = Lifelist::FirstSeen.over(locus: "ukraine")
-
     @list_usa = Lifelist::FirstSeen.over(locus: "usa")
     @list_uk = Lifelist::FirstSeen.over(locus: "united_kingdom")
+    @list_pl = Lifelist::FirstSeen.over(locus: "poland")
   end
 
   def basic
