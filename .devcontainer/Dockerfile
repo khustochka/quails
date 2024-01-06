@@ -1,4 +1,4 @@
-ARG RUBY_VERSION=3.2.2
+ARG RUBY_VERSION=3.3.0
 ARG VARIANT=jemalloc-bookworm-slim
 FROM quay.io/evl.ms/fullstaq-ruby:${RUBY_VERSION}-${VARIANT}
 
@@ -13,10 +13,13 @@ ENV RAILS_DEVELOPMENT_HOSTS=".githubpreview.dev,.preview.app.github.dev,.app.git
 # [Optional] Uncomment this section to install additional OS packages.
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get -y install --no-install-recommends git ssh \
-    # to install firefox
-    software-properties-common python3-launchpadlib \
+    # for system tests
+    firefox-esr \
     build-essential libpq-dev wget curl gzip \
-    xz-utils libsqlite3-dev libssl-dev libyaml-dev
+    xz-utils libsqlite3-dev libssl-dev libyaml-dev \ 
+    # deploy packages
+    imagemagick postgresql-client file bzip2 net-tools bind9-dnsutils procps
+
 
 # [Optional] Uncomment this line to install additional gems.
 # RUN su vscode -c "gem install <your-gem-names-here>"
