@@ -25,4 +25,4 @@ Redis is used in production for caching and by Resque for background jobs
 
 ## License
 
-Copyright (c) 2007–2023 Vitalii Khustochka
+Copyright (c) 2007–2024 Vitalii Khustochka

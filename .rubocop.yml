@@ -875,6 +875,9 @@ Style/YodaCondition:
 Style/YodaExpression:
   Enabled: false
 
+Capybara/ClickLinkOrButtonStyle:
+  Enabled: false
+
 # Review:
 Minitest/EmptyLineBeforeAssertionMethods:
   Enabled: false
