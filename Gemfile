@@ -71,6 +71,7 @@ gem "roman-numerals"
 
 # Monitoring
 gem "airbrake"
+gem "honeybadger", "~> 5.4"
 gem "lograge"
 
 # Image processing

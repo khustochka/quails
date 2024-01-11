@@ -6,6 +6,12 @@
 # See the Securing Rails Applications Guide for more information:
 # https://guides.rubyonrails.org/security.html#content-security-policy-header
 
+report_uri = if (key = ENV["HONEYBADGER_API_KEY"])
+  "https://api.honeybadger.io/v1/browser/csp?api_key=#{key}"
+else
+  "/csp-violation-report-endpoint"
+end
+
 Rails.application.configure do
   config.content_security_policy do |policy|
     policy.default_src :self, :https
@@ -15,7 +21,7 @@ Rails.application.configure do
     policy.script_src  :self, :https
     policy.style_src   :self, :https, :unsafe_inline # Inline styles on justified views
     # Specify URI for violation reports
-    policy.report_uri "/csp-violation-report-endpoint"
+    policy.report_uri report_uri
   end
 
   # Generate session nonces for permitted importmap, inline scripts, and inline styles.
