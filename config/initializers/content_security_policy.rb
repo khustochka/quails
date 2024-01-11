@@ -7,7 +7,7 @@
 # https://guides.rubyonrails.org/security.html#content-security-policy-header
 
 report_uri = if (key = ENV["HONEYBADGER_API_KEY"])
-  "https://api.honeybadger.io/v1/browser/csp?api_key=#{key}"
+  "https://api.honeybadger.io/v1/browser/csp?api_key=#{key}&environment=#{Rails.env}"
 else
   "/csp-violation-report-endpoint"
 end
