@@ -276,7 +276,7 @@ GEM
       racc (~> 1.4)
     observer (0.1.2)
     parallel (1.24.0)
-    parser (3.3.0.0)
+    parser (3.3.0.3)
       ast (~> 2.4.1)
       racc
     pg (1.5.4)
