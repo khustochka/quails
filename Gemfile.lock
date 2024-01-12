@@ -276,7 +276,7 @@ GEM
       racc (~> 1.4)
     observer (0.1.2)
     parallel (1.24.0)
-    parser (3.3.0.0)
+    parser (3.3.0.3)
       ast (~> 2.4.1)
       racc
     pg (1.5.4)
@@ -345,7 +345,7 @@ GEM
       connection_pool
     redis-namespace (1.11.0)
       redis (>= 4)
-    regexp_parser (2.8.3)
+    regexp_parser (2.9.0)
     reline (0.4.2)
       io-console (~> 0.5)
     request_store (1.5.1)
@@ -373,8 +373,8 @@ GEM
       parser (>= 3.2.1.0)
     rubocop-capybara (2.20.0)
       rubocop (~> 1.41)
-    rubocop-factory_bot (2.25.0)
-      rubocop (~> 1.33)
+    rubocop-factory_bot (2.25.1)
+      rubocop (~> 1.41)
     rubocop-minitest (0.34.3)
       rubocop (>= 1.39, < 2.0)
       rubocop-ast (>= 1.30.0, < 2.0)
