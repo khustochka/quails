@@ -84,12 +84,21 @@ class YearContest
       # ====================
 
       list2 = list3
-      # If a day has only one species, and this species is not met before, it can be removed from all further sightings
-      list3 = process_single_species_days(list2)
+      # Cut off by the number of species (e.g. if there are 10 days ahead but only 8 species)
+      list3 = cutoff_by_species(list2)
       return false if no_gain?(list3, cur_best)
 
-      time_to_exit &&= list3 == list2
+      time_to_exit = list3 == list2
       # ====================
+
+      # Commented this, because it does not seem to give material gain (tested on long running data)
+      # list2 = list3
+      # # If a day has only one species, and this species is not met before, it can be removed from all further sightings
+      # list3 = process_single_species_days(list2)
+      # return false if no_gain?(list3, cur_best)
+
+      # time_to_exit &&= list3 == list2
+      # # ====================
 
       list2 = list3
       # If a day has a species that was not met before or after, all other species can be removed from this day
@@ -155,6 +164,16 @@ class YearContest
       else
         spcs
       end
+    end
+  end
+
+  def cutoff_by_species(list)
+    have_species = []
+    list.take_while.with_index do |sps, i|
+      have_species += sps
+      have_species.uniq!
+      # Need to have enough species to cover all days
+      have_species.size >= i + 1
     end
   end
 
