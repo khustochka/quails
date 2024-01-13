@@ -1,6 +1,6 @@
 #!/bin/bash
 
-gem install solargraph --no-document
+gem install ruby-lsp --no-document
 
 bin/setup
 
