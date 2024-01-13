@@ -16,7 +16,7 @@ class ImageRepresenter
     if image.on_storage?
       variant(1200)
     else
-      relevant_assets_cache.select { |item| item.width <= 1200 }.sort_by(&:width).last.url
+      relevant_assets_cache.select { |item| item.width <= 1200 }.max_by(&:width).url
     end
   end
 
