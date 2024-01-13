@@ -173,9 +173,9 @@ class YearContest
 
   def interactive_output(list, start_time)
     duration = ActiveSupport::Duration.build(Time.zone.now - start_time)
+    # FIXME: seconds incorrect
     str = "%02d:%02d:%06.3f" %
       [duration.in_hours.to_i, duration.in_minutes.to_i, duration.in_seconds.to_f]
-    puts "Time elapsed: #{str}"
-    puts "Best result so far: %3d" % list.size
+    print("Time elapsed: #{str} * Best result so far: #{"%3d" % list.size}}\r")
   end
 end
