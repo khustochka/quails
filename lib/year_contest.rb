@@ -61,23 +61,45 @@ class YearContest
 
     list2 = list.dup
 
-    list3 = trim_list(list2)
-    return false if no_gain?(list3, cur_best)
+    time_to_exit = true
 
-    first_species = list3.first
-    rest_species = list3[1..].flatten.uniq
+    loop do
+      time_to_exit = true
 
-    if (uniq_first_sp = first_species.find {|sp| !sp.in?(rest_species)})
-      list3[0] = [uniq_first_sp]
+      # Trim the list
+      list3 = trim_list(list2)
+      return false if no_gain?(list3, cur_best)
+
+      time_to_exit = list3 == list2
+      # ====================
+
+      list2 = list3
+      # If a day has only one species, and this species is not met before, it can be removed from all further sightings
+      list3 = process_single_species_days(list2)
+      return false if no_gain?(list3, cur_best)
+
+      time_to_exit &&= list3 == list2
+      # ====================
+
+      list2 = list3
+      # If a day has a species that was not met before or after, all other species can be removed from this day
+      list3 = process_unique_species_days(list2)
+      return false if no_gain?(list3, cur_best)
+
+      time_to_exit &&= list3 == list2
+      # ====================
+
+      list2 = list3
+      break if time_to_exit
     end
 
     new_best = 0
-    best_res = [list3.first.first]
-    list3.first.each do |selected_species|
+    best_res = [list2.first.first]
+    list2.first.each do |selected_species|
       # binding.break
 
       debg("= Selected Sp #{selected_species} on day #{day}", day)
-      new_list = list3[1..].map {|sps| sps.reject {|sp| sp == selected_species}}
+      new_list = list2[1..].map {|sps| sps.reject {|sp| sp == selected_species}}
       result = find_best(new_list, new_best, { day: day })
       next if result.blank? || result.size <= new_best
 
@@ -90,6 +112,34 @@ class YearContest
 
   def trim_list(list)
     list.take_while(&:present?)
+  end
+
+  def process_single_species_days(list)
+    seen_spcs = []
+    spcs_to_del = []
+    list.map do |spcs|
+      new_spcs = spcs - spcs_to_del
+      if new_spcs.size == 1
+        if !new_spcs.first.in?(seen_spcs)
+          spcs_to_del.push(new_spcs.first)
+        end
+      else
+        seen_spcs += new_spcs
+        seen_spcs.uniq!
+      end
+      new_spcs
+    end
+  end
+
+  def process_unique_species_days(list)
+    unique_species = list.flatten.tally.select {|_, val| val == 1}.map(&:first)
+    list.map do |spcs|
+      if (sp = unique_species.find {|el| el.in?(spcs)})
+        [sp]
+      else
+        spcs
+      end
+    end
   end
 
   def no_gain?(list, cur_best)
