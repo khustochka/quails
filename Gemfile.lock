@@ -289,6 +289,7 @@ GEM
       actionmailer (>= 3)
       net-smtp
       premailer (~> 1.7, >= 1.7.9)
+    prism (0.19.0)
     psych (5.1.2)
       stringio
     public_suffix (5.0.4)
@@ -391,6 +392,16 @@ GEM
       rubocop-ast (>= 1.30.0, < 2.0)
     rubocop-rake (0.6.0)
       rubocop (~> 1.0)
+    ruby-lsp (0.13.4)
+      language_server-protocol (~> 3.17.0)
+      prism (>= 0.19.0, < 0.20)
+      sorbet-runtime (>= 0.5.10782)
+    ruby-lsp-rails (0.2.8)
+      actionpack (>= 6.0)
+      activerecord (>= 6.0)
+      railties (>= 6.0)
+      ruby-lsp (>= 0.13.0, < 0.14.0)
+      sorbet-runtime (>= 0.5.9897)
     ruby-progressbar (1.13.0)
     ruby-vips (2.2.0)
       ffi (~> 1.12)
@@ -426,6 +437,7 @@ GEM
       rack (~> 2.2, >= 2.2.4)
       rack-protection (= 3.2.0)
       tilt (~> 2.0)
+    sorbet-runtime (0.5.11190)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -542,6 +554,7 @@ DEPENDENCIES
   rubocop-performance
   rubocop-rails
   rubocop-rake
+  ruby-lsp-rails
   sassc-rails
   sd_notify
   selenium-webdriver
