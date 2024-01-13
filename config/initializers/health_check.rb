@@ -18,6 +18,7 @@ HealthCheck.setup do |config|
   config.redis_password = nil
 
   config.on_failure do |_checks, msg|
-    Airbrake.notify(msg)
+    Honeybadger.notify(msg)
+    # Airbrake.notify(msg)
   end
 end

@@ -11,4 +11,12 @@ module AirbrakeHelper
         ].join(":"))
     end
   end
+
+  def honeybadger_config_meta_tag
+    key = Honeybadger::Agent.instance.config.env[:api_key]
+    if key.present?
+      tag.meta(name: "honeybadger-api-key",
+        content: key)
+    end
+  end
 end
