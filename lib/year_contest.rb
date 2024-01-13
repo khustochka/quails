@@ -9,8 +9,13 @@ class YearContest
   def interactive
     # interactive is incompatible with debug
     @debug = false
+    @best_so_far = []
     result = run(interactive: true)
+    puts "\n\n"
     puts generate_output(result)
+  rescue Interrupt
+    puts "\n\nUnfinished. Best so far:\n\n"
+    puts generate_output(@best_so_far)
   end
 
   def run(interactive: false)
@@ -110,6 +115,7 @@ class YearContest
 
       debg("= Selected Sp #{selected_species} on day #{day}", day)
       new_list = list2[1..].map {|sps| sps.reject {|sp| sp == selected_species}}
+      @best_so_far = new_best_so_far
       result = find_best(new_list, new_best, { day: day, chain_so_far: chain_so_far + [selected_species], best_so_far: new_best_so_far, start_time: start_time }, interactive: interactive)
       next if result.blank? || result.size <= new_best
 
@@ -174,7 +180,7 @@ class YearContest
   def interactive_output(list, start_time)
     duration = Time.zone.now - start_time
     str = "%02d:%02d:%06.3f" % divide_seconds(duration)
-    print("Time elapsed: #{str} * Best result so far: #{"%3d" % list.size}\r")
+    print("#{@year} * Time elapsed: #{str} * Best result so far: #{"%3d" % list.size}\r")
   end
 
   def divide_seconds(seconds)
