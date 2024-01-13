@@ -21,13 +21,11 @@ class YearContest
       obs_arr[date.yday - 1] = obss
     end
 
-    # binding.break
-
     run_on(obs_arr)
   end
 
   def run_on(list)
-    find_best(list, 0, { day: 1 }) || []
+    find_best(list, 0, { day: 0, chain_so_far: [], best_so_far: [] }) || []
   end
 
   def output
@@ -56,8 +54,10 @@ class YearContest
 
   def find_best_nonempty(list, cur_best, dbg_data)
     day = dbg_data[:day] + 1
+    chain_so_far = dbg_data[:chain_so_far]
+    best_so_far = dbg_data[:best_so_far]
 
-    debg("Starting Day #{day}", day)
+    debg("Trying Day #{day}, chain so far [#{chain_so_far.join(", ")}], best_so_far {#{best_so_far.join(", ")}} (size #{best_so_far.size})", day)
 
     list2 = list.dup
 
@@ -93,17 +93,22 @@ class YearContest
       break if time_to_exit
     end
 
+    new_best_so_far = best_so_far
     new_best = 0
     best_res = [list2.first.first]
     list2.first.each do |selected_species|
-      # binding.break
+      new_best_so_far = if (candidate = chain_so_far + best_res).size > new_best_so_far.size
+        candidate
+      else
+        new_best_so_far
+      end
 
       debg("= Selected Sp #{selected_species} on day #{day}", day)
       new_list = list2[1..].map {|sps| sps.reject {|sp| sp == selected_species}}
-      result = find_best(new_list, new_best, { day: day })
+      result = find_best(new_list, new_best, { day: day, chain_so_far: chain_so_far + [selected_species], best_so_far: new_best_so_far })
       next if result.blank? || result.size <= new_best
 
-      debg("= Good result received: length #{result.size} (#{result.join(", ")})", day)
+      debg(" > Good result received: length #{result.size} (#{result.join(", ")})", day)
       new_best = result.size
       best_res = [selected_species] + result
     end
