@@ -6,7 +6,14 @@ class YearContest
     @debug = debug
   end
 
-  def run
+  def interactive
+    # interactive is incompatible with debug
+    @debug = false
+    result = run(interactive: true)
+    puts generate_output(result)
+  end
+
+  def run(interactive: false)
     obs = MyObservation.joins(:card)
       .where("EXTRACT(year FROM observ_date)::integer = ?", @year)
       .order("observ_date")
@@ -21,21 +28,16 @@ class YearContest
       obs_arr[date.yday - 1] = obss
     end
 
-    run_on(obs_arr)
+    run_on(obs_arr, interactive: interactive)
   end
 
-  def run_on(list)
-    find_best(list, 0, { day: 0, chain_so_far: [], best_so_far: [] }) || []
+  def run_on(list, interactive: false)
+    find_best(list, 0, { day: 0, chain_so_far: [], best_so_far: [], start_time: Time.zone.now }, interactive: interactive) || []
   end
 
   def output
     result = run
-    if result.blank?
-      "No species"
-    else
-      species = fetch_species(result)
-      result.map.with_index { |s, i| "#{i + 1}. #{species[s]}" }
-    end
+    generate_output(result)
   end
 
   private
@@ -44,18 +46,21 @@ class YearContest
     Hash[Species.where(id: sp_ids).map { |s| [s.id, s.name_sci] }]
   end
 
-  def find_best(list, cur_best, dbg_data)
+  def find_best(list, cur_best, dbg_data, interactive: false)
     if list.empty?
       false
     else
-      find_best_nonempty(list, cur_best, dbg_data)
+      find_best_nonempty(list, cur_best, dbg_data, interactive: interactive)
     end
   end
 
-  def find_best_nonempty(list, cur_best, dbg_data)
+  def find_best_nonempty(list, cur_best, dbg_data, interactive: false)
     day = dbg_data[:day] + 1
     chain_so_far = dbg_data[:chain_so_far]
     best_so_far = dbg_data[:best_so_far]
+    start_time = dbg_data[:start_time]
+
+    interactive_output(best_so_far, start_time) if interactive
 
     debg("Trying Day #{day}, chain so far [#{chain_so_far.join(", ")}], best_so_far {#{best_so_far.join(", ")}} (size #{best_so_far.size})", day)
 
@@ -105,7 +110,7 @@ class YearContest
 
       debg("= Selected Sp #{selected_species} on day #{day}", day)
       new_list = list2[1..].map {|sps| sps.reject {|sp| sp == selected_species}}
-      result = find_best(new_list, new_best, { day: day, chain_so_far: chain_so_far + [selected_species], best_so_far: new_best_so_far })
+      result = find_best(new_list, new_best, { day: day, chain_so_far: chain_so_far + [selected_species], best_so_far: new_best_so_far, start_time: start_time }, interactive: interactive)
       next if result.blank? || result.size <= new_best
 
       debg(" > Good result received: length #{result.size} (#{result.join(", ")})", day)
@@ -155,5 +160,22 @@ class YearContest
     if @debug
       Rails.logger.debug((" " * 2 * (level - 1)) + text)
     end
+  end
+
+  def generate_output(result)
+    if result.blank?
+      "No species"
+    else
+      species = fetch_species(result)
+      result.map.with_index { |s, i| "#{i + 1}. #{species[s]}" }
+    end
+  end
+
+  def interactive_output(list, start_time)
+    duration = ActiveSupport::Duration.build(Time.zone.now - start_time)
+    str = "%02d:%02d:%06.3f" %
+      [duration.in_hours.to_i, duration.in_minutes.to_i, duration.in_seconds.to_f]
+    puts "Time elapsed: #{str}"
+    puts "Best result so far: %3d" % list.size
   end
 end
