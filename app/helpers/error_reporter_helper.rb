@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module AirbrakeHelper
+module ErrorReporterHelper
   def airbrake_config_meta_tag
     if Airbrake.configured?
       tag.meta(name: "airbrake-config",

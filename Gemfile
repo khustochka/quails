@@ -70,9 +70,9 @@ gem "addressable", require: "addressable/uri"
 gem "roman-numerals"
 
 # Monitoring
-gem "airbrake"
 gem "honeybadger", "~> 5.4"
 gem "lograge"
+# gem "airbrake"
 
 # Image processing
 gem "image_processing"
