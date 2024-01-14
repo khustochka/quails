@@ -357,6 +357,14 @@ class ReportsController < ApplicationController
       .extending(SpeciesArray)
   end
 
+  def year_contest
+    @year = params[:year] || Quails::CURRENT_YEAR
+    @years = Observation.years
+    result = YearContest.new(year: @year).run
+    species = Species.where(id: result).index_by(&:id)
+    @result = result.map { |id| species[id] }
+  end
+
   def clear_cache
     ClearCacheJob.perform_later
     redirect_to reports_path
