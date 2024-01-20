@@ -145,7 +145,7 @@ group :development, :test do
 end
 
 group :test do
-  gem "capybara"
+  gem "capybara", git: "https://github.com/teamcapybara/capybara", ref: "52eaecea6d154b7d664b0032cd1cbcad4788fe65"
   gem "selenium-webdriver"
   gem "webmock"
   gem "launchy" # So you can do Then show me the page
