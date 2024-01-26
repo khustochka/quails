@@ -367,5 +367,9 @@ Rails.application.routes.draw do
       id: "winter"
   end
 
+  namespace :api do
+    resources :loci, only: [:index]
+  end
+
   post "/csp-violation-report-endpoint" => "content_security#report"
 end
