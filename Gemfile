@@ -133,8 +133,6 @@ group :development do
   gem "rubocop-rake", require: false
   gem "rubocop-capybara", require: false
   gem "rubocop-factory_bot", require: false
-
-  gem "ruby-lsp-rails"
 end
 
 group :development, :test do
