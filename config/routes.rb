@@ -369,6 +369,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     resources :loci, only: [:index]
+    resources :cards, only: [:index]
   end
 
   post "/csp-violation-report-endpoint" => "content_security#report"
