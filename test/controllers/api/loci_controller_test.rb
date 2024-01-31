@@ -8,13 +8,14 @@ module API
       get api_loci_url, params: { format: :json }, headers: { "HTTP_AUTHORIZATION" => "Bearer test1234" }
 
       assert_response :success
-      assert_not response.parsed_body.empty?
+      assert_not_empty response.parsed_body[:rows]
     end
 
     test "pagination" do
       get api_loci_url, params: { format: :json, page: 2 }, headers: { "HTTP_AUTHORIZATION" => "Bearer test1234" }
 
-      assert_empty response.parsed_body
+      assert_empty response.parsed_body[:rows]
+      assert_not_empty response.parsed_body[:columns]
     end
   end
 end

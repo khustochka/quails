@@ -5,11 +5,12 @@ module API
     DEFAULT_PER_PAGE = 1000
 
     def index
-      @loci = Locus.order(:id).page(params[:page]).per(params[:per_page] || DEFAULT_PER_PAGE)
+      loci_sql = Locus.order(:id).page(params[:page]).per(params[:per_page] || DEFAULT_PER_PAGE).to_sql
+      loci = ActiveRecord::Base.connection.select_all(loci_sql)
 
       respond_to do |format|
         format.json {
-          render json: @loci
+          render json: { columns: loci.columns, rows: loci.rows }
         }
       end
     end
