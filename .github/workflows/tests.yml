@@ -33,7 +33,7 @@ jobs:
       PARALLEL_WORKERS: 1
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Setup test environment
         uses: ./.github/actions/setup
         with:
@@ -84,7 +84,7 @@ jobs:
       PARALLEL_WORKERS: 1
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Setup test environment
         uses: ./.github/actions/setup
         with:
@@ -119,7 +119,7 @@ jobs:
 #    runs-on: ubuntu-20.04
 #    steps:
 #      - name: Checkout code
-#        uses: actions/checkout@v3
+#        uses: actions/checkout@v4
 #      - name: Install Ruby and gems
 #        uses: ruby/setup-ruby@v1
 #        with:
