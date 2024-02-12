@@ -26,7 +26,7 @@ gem "brotli"
 
 # Deployment
 gem "puma", "< 7"
-gem "dotenv-rails", "~> 2.7"
+gem "dotenv", "~> 3.0"
 # For puma systemd integration
 gem "sd_notify"
 

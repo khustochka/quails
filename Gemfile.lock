@@ -120,10 +120,7 @@ GEM
       reline (>= 0.3.8)
     docile (1.4.0)
     domain_name (0.6.20240107)
-    dotenv (2.8.1)
-    dotenv-rails (2.8.1)
-      dotenv (= 2.8.1)
-      railties (>= 3.2)
+    dotenv (3.0.0)
     drb (2.2.0)
       ruby2_keywords
     erubi (1.12.0)
@@ -153,9 +150,9 @@ GEM
     health_check (3.1.0)
       railties (>= 5.0)
     high_voltage (3.1.2)
-    hiredis-client (0.19.1)
-      redis-client (= 0.19.1)
-    honeybadger (5.4.1)
+    hiredis-client (0.20.0)
+      redis-client (= 0.20.0)
+    honeybadger (5.5.0)
     htmlentities (4.3.4)
     http-cookie (1.0.5)
       domain_name (~> 0.5)
@@ -340,7 +337,7 @@ GEM
       psych (>= 4.0.0)
     redis (5.1.0)
       redis-client (>= 0.17.0)
-    redis-client (0.19.1)
+    redis-client (0.20.0)
       connection_pool
     redis-namespace (1.11.0)
       redis (>= 4)
@@ -489,7 +486,7 @@ DEPENDENCIES
   capybara
   csv
   debug (>= 1.0.0)
-  dotenv-rails (~> 2.7)
+  dotenv (~> 3.0)
   drb
   factory_bot_rails
   flickraw-cached
