@@ -1,17 +1,19 @@
 version: 2
 
-updates: []
-#  - package-ecosystem: "bundler"
-#    directory: "/"
-#    schedule:
-#      interval: "weekly"
-#      day: "friday"
-#    allow:
-#      - dependency-type: "all"
-#  - package-ecosystem: "npm"
-#    directory: "/"
-#    schedule:
-#      interval: "weekly"
-#      day: "friday"
-#    allow:
-#      - dependency-type: "all"
+updates:
+  - package-ecosystem: "bundler"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "friday"
+    allow:
+      - dependency-type: "all"
+    open-pull-requests-limit: 0
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "friday"
+    allow:
+      - dependency-type: "all"
+    open-pull-requests-limit: 0
