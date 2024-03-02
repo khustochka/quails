@@ -11,7 +11,7 @@ $js_driver = ENV["JS_DRIVER"]&.to_sym || default_driver
 $js_browser = ENV["JS_BROWSER"]&.to_sym ||
   ($js_driver == :selenium ? :headless_chrome : nil)
 
-puts "[INFO] Using driver: #{$js_driver}" + ($js_browser ? ", browser: #{$js_browser}" : "")
+Selenium::WebDriver.logger.info("Using driver: #{$js_driver}" + ($js_browser ? ", browser: #{$js_browser}" : ""))
 
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   driven_by $js_driver, using: $js_browser
