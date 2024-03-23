@@ -92,6 +92,16 @@ gem "mechanize"
 
 # Profiling
 gem "rack-mini-profiler", require: false # false is required to be able to disable
+# OTP incompatible with rack-profiler
+gem "opentelemetry-sdk", "~> 1.4"
+gem "opentelemetry-instrumentation-rails", "~> 0.30"
+gem "opentelemetry-instrumentation-pg"
+gem "opentelemetry-instrumentation-redis"
+gem "opentelemetry-instrumentation-resque"
+gem "opentelemetry-instrumentation-mongo"
+gem "opentelemetry-instrumentation-rake"
+gem "opentelemetry-instrumentation-aws_sdk"
+gem "opentelemetry-exporter-otlp", "~> 0.26.3"
 
 # Deflicker
 gem "mongoid"
