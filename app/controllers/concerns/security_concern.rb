@@ -37,7 +37,9 @@ module SecurityConcern
   end
 
   def user_from_session
+    current_span = Datadog::Tracing.active_span
     if session[:admin] == true
+      current_span.set_tag('admin', true) unless current_span.nil?
       Admin.new
     else
       User.new
