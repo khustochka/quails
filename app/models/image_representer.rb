@@ -16,7 +16,7 @@ class ImageRepresenter
     if image.on_storage?
       variant(1200)
     else
-      relevant_assets_cache.select {|item| item.width <= 1200}.sort_by(&:width).last.url
+      relevant_assets_cache.select { |item| item.width <= 1200 }.max_by(&:width).url
     end
   end
 
@@ -48,8 +48,8 @@ class ImageRepresenter
 
   def static_srcset
     # Remove smallest thumbnails, some of which are cropped
-    items = relevant_assets_cache.delete_if {|item| item.width <= 150}
-    items.map {|item| [item.url, "#{item.width}w"]}
+    items = relevant_assets_cache.delete_if { |item| item.width <= 150 }
+    items.map { |item| [item.url, "#{item.width}w"] }
   end
 
   def storage_srcset
@@ -69,13 +69,14 @@ class ImageRepresenter
   end
 
   private
+
   # TODO: Make adjustments for images already saved with worse quality?
   def resize_and_save_space(resizing)
-    {resize: resizing, quality: "85%", strip: true, interlace: "Plane"}
+    { resize: resizing, quality: "85%", strip: true, interlace: "Plane" }
   end
 
   def relevant_assets_cache
     key = image.on_flickr? ? :externals : :locals
-    image.assets_cache.send(key)
+    image.assets_cache.public_send(key)
   end
 end

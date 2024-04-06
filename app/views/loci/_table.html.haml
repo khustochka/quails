@@ -22,10 +22,10 @@
         - %w(en ru uk).each do |lang|
           %div
             %i.less-important.monospace= "#{lang}:"
-            = term_highlight(locus.send("name_#{lang}"), @term)
+            = term_highlight(locus.public_send("name_#{lang}"), @term)
             - I18n.with_locale(lang) do
               - loc_name = locus.decorated.full_name
-              %i.less-important.fas.fa-globe.full_name_icon{title: loc_name, "data-title": loc_name}
+              %i.less-important.fas.fa-globe{title: loc_name, "data-tooltip": true}
       %td
         - if locus.parent_id
           = link_to locus.parent.name_en, edit_locus_path(locus.parent.slug)

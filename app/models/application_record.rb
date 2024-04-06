@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "quails/cache_key"
+
 class ApplicationRecord < ActiveRecord::Base
   self.abstract_class = true
 
@@ -7,7 +9,7 @@ class ApplicationRecord < ActiveRecord::Base
 
   # Method for cache sweeping
   def self.invalidates(cache_key)
-    self.after_save { cache_key.invalidate }
-    self.after_destroy { cache_key.invalidate }
+    after_save { cache_key.invalidate }
+    after_destroy { cache_key.invalidate }
   end
 end

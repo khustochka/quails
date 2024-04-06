@@ -1,4 +1,4 @@
-class CreateEbirdFiles < ActiveRecord::Migration[4.2]
+class CreateEBirdFiles < ActiveRecord::Migration[4.2]
   def change
     create_table :ebird_files do |t|
       t.string :name, null: false, limit: 255

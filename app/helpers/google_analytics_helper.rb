@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 module GoogleAnalyticsHelper
+  mattr_accessor :ga_code
+
   def include_google_analytics
     # for some reason 'cache' inside helpers works only with concat
     # This may be related to calling = include_google_analytics vs - include_google_analytics
@@ -20,8 +22,9 @@ module GoogleAnalyticsHelper
   end
 
   private
+
   def ga_code
-    @@ga_code ||= ENV["quails_ga_code"]
+    GoogleAnalyticsHelper.ga_code ||= ENV["quails_ga_code"]
   end
 
   def ga_analytics?

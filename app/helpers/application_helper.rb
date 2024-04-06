@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 module ApplicationHelper
-  def main_classes
-    @main_classes ||= ["main", "green_links"]
-    if @special_styling
-      @main_classes.delete("green_links")
+  def main_classes(special_styling: false)
+    main_classes ||= ["main", "green_links"]
+    if special_styling
+      main_classes.delete("green_links")
     end
-    @main_classes
+    main_classes
   end
 
   def page_title
@@ -39,7 +39,7 @@ module ApplicationHelper
 
   def sorting_link_to(sort_value, text)
     current_sort = params[:sort].to_s == sort_value.to_s
-    updated_params = significant_params.merge(sort: sort_value)
+    updated_params = amended_params(sort: sort_value)
     capture do
       concat link_to_unless(current_sort, text, updated_params)
       concat "\n"
@@ -56,5 +56,20 @@ module ApplicationHelper
 
   def may_be_admin?
     has_trust_cookie? || current_user.admin?
+  end
+
+  def open_uri_or_path(uri)
+    obj =
+      begin
+        if %r{\Ahttps?://}.match?(uri)
+          URI.parse(uri).open(read_timeout: 2, open_timeout: 2)
+        else
+          File.open(uri)
+        end
+      rescue => e
+        report_error(e)
+        StringIO.new("")
+      end
+    yield obj
   end
 end

@@ -1,0 +1,106 @@
+-# frozen_string_literal: true
+- @page_title = "Посилання"
+- @meta_thumbnail = "https://birdwatch.org.ua/photos/crestedtit6592.jpg"
+- @meta_description = "Посилання на ресурси про птахів: визначники, довідники, література, організації, спільноти, форуми, блоги, приватні сторінки. Рекомендації автора сайту birdwatch.org.ua."
+
+-# @robots = 'NOINDEX'
+
+- content_for :translated do
+  = render 'app2/shared/translated'
+
+.container
+  = content_for :translated
+
+  %header.simple-page-header
+    %h1 Посилання
+  .row
+    .col-md
+      %h2.h4 Спільноти, спостереження
+      %ul.links-list
+        %li
+          = external_link "Спільнота українських бьордерів", "https://uabirds.org/"
+        %li
+          Facebook:
+          = external_link "група «Бьордвочинг в Україні»", "https://www.facebook.com/groups/birdwatching.ua/"
+
+        %li
+          Facebook:
+          = external_link "група «Птахи України»", "https://www.facebook.com/groups/314374912088175/"
+        %li
+          Flickr: група
+          = external_link "Birds of Ukraine", "https://www.flickr.com/groups/birdsofukraine/"
+        %li
+          %strong
+            = external_link "eBird.org", "https://ebird.org/home?lang=ru"
+          — Реєстрація спостережень, статистика, карти
+          %small.text-muted (доступні англійська, українська мови)
+        %li
+          = external_link "birdforum.net", "https://www.birdforum.net/"
+          — Найбільший міжнародний форум бьордерів
+          %small.text-muted (English)
+        -#%li
+        -#  = external_link "birdlife.org.ua", "http://birdlife.org.ua"
+        -#  — Українське товариство охорони птахів
+        -# %li
+        -#   = external_link "birdwatch.by", "https://birdwatch.by"
+        -#   — Спільнота білоруських бьордерів
+
+    .col-md
+      %h2.h4 Приватні блоги, галереї
+      %ul.links-list
+        %li.starred{title: "Recommended"}
+          %strong
+            = external_link "bird-hobby.com.ua", "https://bird-hobby.com.ua", nofollow: false
+          — Сайт Віктора Мороза (блог, фотографії)
+        -#%li
+        -#  = external_link "mns.ks.ua", "https://mns.ks.ua/", nofollow: false
+        -#  — Блог Юрія Москаленка (Чорноморський біосферний заповідник)
+
+      %h2.h4 Наука
+      %ul.links-list
+        %li
+          = external_link "Український центр досліджень хижих птахів", "https://raptors.org.ua"
+
+        %li
+          = external_link "«Беркут»", "http://aetos.kiev.ua"
+          — український орнітологічний журнал (можна скачати статті в PDF)
+        -#%li
+        -#  = external_link "Key to Scientific Names in Ornithology",
+        -#                  "https://www.hbw.com/dictionary/key-to-scientific-names-in-ornithology"
+        -#  — Этимология научных названий птиц
+        -#  %small.text-muted (English)
+
+  .row
+    .col-md
+      %h2.h4 Визначники, ресурси
+      %ul.links-list
+        %li
+          = external_link "Птахи України", "https://aves.land.kiev.ua/"
+          — Видові нариси з визначника Г. В. Фесенка, А. А. Бокотея
+        %li
+          = external_link "Птахи Великої Британії",
+                          "https://www.rspb.org.uk/birds-and-wildlife/wildlife-guides/bird-a-z/"
+          %small.text-muted (English)
+        %li
+          = external_link "allaboutbirds.org", "https://www.allaboutbirds.org/guide/browse/taxonomy"
+          — Птахи Північної Америки
+          %small.text-muted (English)
+        %li
+          = external_link "xeno-canto", "https://www.xeno-canto.org/"
+          — Всесвітня бібліотека пташиних голосів
+          %small.text-muted (English)
+
+    .col-md
+      %h2.h4 Мої сторінки
+      %ul.links-list
+        %li
+          = external_link "phenolog", "https://www.flickr.com/photos/phenolog/"
+          — Моя сторінка на Флікрі
+        -# %li
+        -#   = external_link "stonechat", "https://stonechat.livejournal.com/"
+        -#   — Дзеркало блога в LiveJournal
+        %li
+          = external_link "whinchat", "https://whinchat.dreamwidth.org/"
+          — Дзеркало блога в DreamWidth
+        %li
+          = external_link "Сторінка в Facebook", "https://www.facebook.com/birdwatch.org.ua/"

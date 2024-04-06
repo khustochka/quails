@@ -12,7 +12,7 @@ class SpotTest < ActiveSupport::TestCase
     spot_id = spot.id
     obs = spot.observation
     obs.destroy
-    assert Spot.where(id: spot_id).empty?, "Spot was not removed"
+    assert_predicate Spot.where(id: spot_id), :empty?, "Spot was not removed"
   end
 
   test "unlink image when spot is destroyed" do

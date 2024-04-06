@@ -10,11 +10,4 @@
   = l(@this_day, format: :long)
   = link_to ">", day: @next_day.strftime("%m-%d"), locus: params[:locus]
 
-%dl
-  - @uptoday.each do |year, number|
-    %dt
-      %b= link_to(year, list_path(year: year, locus: params[:locus]))
-      - if year.to_s == @today.year.to_s && @this_day > @today
-        %span.errors &mdash; This day is in the future.
-    %dd
-      = content_tag(number == @max ? :b : :span, number)
+= render partial: @cell, locals: { include_lifers: false, highlight_max: true }

@@ -9,14 +9,14 @@ module Lifelist
     end
 
     def to_a
-      @records ||= get_records
+      @records ||= load_records
     end
 
     def top(num)
       relation.limit(num).to_a
     end
 
-    def get_records
+    def load_records
       records = relation.to_a
       preload_posts(records)
       records
@@ -42,9 +42,9 @@ module Lifelist
     end
 
     def bare_relation
-      MyObservation.
-          select("observations.*, species_id").
-          where(id: preselected_observations)
+      MyObservation
+        .select("observations.*, species_id")
+        .where(id: preselected_observations)
     end
 
     def short_to_a
@@ -54,11 +54,12 @@ module Lifelist
     end
 
     private
+
     def build_relation
       # FIXME: Do not join on species when not on taxonomy sorting
-      bare_relation.
-          joins(:taxon, :card).
-          preload(:patch, {taxon: :species}, {card: :locus})
+      bare_relation
+        .joins(:taxon, :card)
+        .preload({ taxon: :species }, { card: :locus })
       # NOTE: Do not use .includes(:taxon), it breaks species preloading, use .preload
     end
 
@@ -70,19 +71,22 @@ module Lifelist
       #     select("DISTINCT ON (species_id) observations.*, cards.observ_date").
       #     where("(observ_date, start_time, species_id) IN (#{life_dates_sql})")
 
+      # NOTE: 2023-07-06 I have tried LATERAL JOIN. It is also very slow, especially with no filters (full Lifelist)
+      # adding filters (e.g. year) makes it much faster, but still slower than the current method.
+
       base.select(
         "first_value(observations.id)
           OVER (PARTITION BY species_id
           ORDER BY observ_date #{preselect_ordering}, to_timestamp(start_time, 'HH24:MI') #{preselect_ordering} NULLS LAST)"
-      ).
-          where("(observ_date, species_id) IN (#{life_dates_sql})")
+      )
+        .where("(observ_date, species_id) IN (#{life_dates_sql})")
     end
 
     def life_dates_sql
-      base.
-          select("#{aggregation_operator}(observ_date) as first_seen, species_id").
-          group(:species_id).
-          to_sql
+      base
+        .select("#{aggregation_operator}(observ_date) as first_seen, species_id")
+        .group(:species_id)
+        .to_sql
     end
 
     # FIXME: it is not good that we assign values to `post` that may be different from the original post assoc.

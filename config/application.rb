@@ -24,7 +24,12 @@ Bundler.require(*Rails.groups)
 module Quails
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 6.1
+    config.load_defaults 7.1
+
+    # Please, add to the `ignore` list any other `lib` subdirectories that do
+    # not contain `.rb` files, or that should not be reloaded or eager loaded.
+    # Common ones are `templates`, `generators`, or `middleware`, for example.
+    config.autoload_lib(ignore: %w(assets core_ext core_ext.rb tasks templates))
 
     # Configuration for the application, engines, and railties goes here.
     #
@@ -38,6 +43,7 @@ module Quails
     config.generators do |g|
       g.template_engine :haml
       g.fixture_replacement :factory_bot
+      g.orm :active_record
     end
 
     # Use SQL instead of Active Record's schema dumper when creating the database.
@@ -47,18 +53,21 @@ module Quails
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
-    config.time_zone = 'Kyiv'
+    config.time_zone = "Kyiv"
     # THIS APP SPECIFIC NOTE: if you ever have to change the time zone take into account that 'posts.facedate'
     # is not a timezone dependent timestamp but rather a carved in stone time and should be shown the same to everyone
     # so you'll have to convert it in the DB
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
-    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '{en,ru,uk}','*.{rb,yml}').to_s]
-    config.i18n.default_locale = :ru
-    config.i18n.available_locales = [:en, :ru, :uk]
+    config.i18n.load_path += Dir[Rails.root.join("config/locales/{en,ru,uk}/*.{rb,yml}").to_s]
+    config.i18n.default_locale = :uk
+    config.i18n.available_locales = [:uk, :en, :ru]
+
+    config.active_storage.variant_processor = :mini_magick
 
     config.before_configuration do
-      require 'quails/env'
+      require "quails"
+      require "./lib/core_ext"
     end
   end
 end

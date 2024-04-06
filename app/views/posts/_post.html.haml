@@ -1,8 +1,8 @@
 -# frozen_string_literal: true
-- cache ['blog', post, admin: current_user.admin?] do
+- cache ['blog', post, admin: current_user.admin?, locale: I18n.locale] do
 
   %div.post-box{id: "post-#{post.slug}"}
-    %div.post
+    %div.post{class: post_lang_classes(post), lang: post.lang}
       %div.header-with-subheader
         %h2= link_to(post.decorated.title, public_post_path(post))
         %i
@@ -10,12 +10,16 @@
         - unless post.public?
           %span.tag.draft Draft
 
-      = post.decorated.for_site.body
+      = render partial: "posts/other_lang_expand", locals: {post: post}
+
+      %div{class: other_lang_unwrap(post)}
+        = post.decorated.for_site.body
+
       - post.decorated.the_rest_of_images.if_present do |images|
         %div.thumbnails
           = render_justified images.map(&:to_thumbnail)
 
-    - cache ['comment', post, post.comments.size, admin: current_user.admin?] do
+    - cache ['comment', post, post.comments.size, admin: current_user.admin?, locale: I18n.locale] do
 
       %ul.comment_links
         - post.comments.approved.size.yield_self do |cmt_count|

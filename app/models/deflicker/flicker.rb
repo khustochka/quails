@@ -11,6 +11,7 @@ module Deflicker
     field :removed, type: Boolean
     field :slug, type: String
     field :on_s3, type: Boolean
+    field :journal_entries_fixed, type: Boolean
 
     has_and_belongs_to_many :journal_entries
 
@@ -19,7 +20,7 @@ module Deflicker
     end
 
     def dateupload=(val)
-      self.uploaded_at = Time.at(val.to_i)
+      self.uploaded_at = Time.at(val.to_i).utc
     end
 
     def image
@@ -36,8 +37,8 @@ module Deflicker
 
     def allow_delete?
       machine_tags !~ /nodelete|donotdelete/ &&
-      journal_entry_ids.none? && (
-          (on_site? && on_s3?) || (!on_site? && !public)
+        (journal_entry_ids.none? || journal_entries_fixed?) && (
+        (on_site? && on_s3?) || (!on_site? && !public)
       )
     end
   end

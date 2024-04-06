@@ -1,0 +1,16 @@
+
+.container
+
+  %header.simple-page-header
+    %h1 Chart
+
+  %h2= t("blog.home.#{@cell.type}")
+
+  .year-summary
+    = render @cell
+
+  %h2= t("blog.home.#{@cell0.type}")
+
+  .year-summary
+    = render @cell0
+

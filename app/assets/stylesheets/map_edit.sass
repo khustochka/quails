@@ -35,22 +35,26 @@ li.selected_obs
   right: 0
   .images_popup
     display: none
+    padding: 5px
+    border: 1px solid black
+    background-color: white
   &:hover .images_popup
     display: block
-    //position: absolute
+    z-index: 9999
+    position: absolute
     top: 5px
     right: 50%
     margin-left: -500px
-    max-width: 300px
+    max-width: 490px
     figure
       display: inline-block
       margin: 5px
-      width: 100px
-      height: 100px
+      width: 104px
       overflow: hidden
       img
-        max-width: 100%
+        width: 100px
         height: auto
+        border: 1px solid #555555
 
 .images_count
   font-weight: bold

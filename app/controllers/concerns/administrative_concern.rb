@@ -18,9 +18,9 @@ module AdministrativeConcern
       before_action options do
         @admin_layout = true
         @scripts ||= []
-        @packs ||= []
+        # "administrativeX" should be first because it loads keypress.js
+        @scripts.unshift "administrativeX"
         @scripts.push "administrative"
-        @packs.push "administrative"
         params.permit!
       end
     end

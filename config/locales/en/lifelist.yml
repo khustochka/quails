@@ -12,6 +12,7 @@
       canada: Canada List
       usa: USA List
       gb: UK List
+      poland: Poland List
 
     index:
       title: The Lists
@@ -28,10 +29,16 @@
         sort_by: 'Order by:'
       no_species: 'No species'
 
+    sorting:
+      taxonomy: "Taxonomy"
+      first_encounter: "First encounter"
+      last_encounter: "Last encounter"
+      count: "Count"
+
     by_date:
       seen_in:
-        first: 'First seen in %{year}:'
-        last: 'Last seen in %{year}:'
+        first: 'First encounter in %{year}:'
+        last: 'Last encounter in %{year}:'
 
     menus:
       filter:
@@ -44,3 +51,10 @@
 
       advanced: Advanced options
       basic: My taxonomy
+
+    lifer:
+      num_encounters: "Encounters:"
+      designation:
+        first_seen: "First:"
+        last_seen: "Last:"
+        both: "Date:"

@@ -1,15 +1,3 @@
-// This is a manifest file that'll be compiled into application.js, which will include all the files
-// listed below.
-//
-// Any JavaScript/Coffee file within this directory, lib/assets/javascripts, vendor/assets/javascripts,
-// or vendor/assets/javascripts of plugins, if any, can be referenced here using a relative path.
-//
-// It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
-// the compiled file.
-//
-// WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
-// GO AFTER THE REQUIRES BELOW.
-//
 //= require map_init
 
 $(function () {
@@ -18,6 +6,26 @@ $(function () {
       activeMarkers,
       marker_options,
       firstObserv = $('.obs-list li input').val();
+
+  var mapContainer = $(".mapContainer"),
+      patchUrl = mapContainer.data("patch-url"),
+      mediaType = mapContainer.data("media-type"),
+      maxZoom = mapContainer.data("max-zoom"),
+      selectedSpot = mapContainer.data("selected-spot"),
+      locusCoords = mapContainer.data("locus-coords"),
+      locusLatLng;
+
+  if (locusCoords["lat"] && locusCoords["lon"] && typeof google === 'object') {
+    locusLatLng = new google.maps.LatLng(locusCoords["lat"], locusCoords["lon"])
+  } else
+    locusLatLng = null;
+
+  var marksData = mapContainer.data("marks"),
+    marks = $.map(marksData, function (el) {
+      el.tag = el.id;
+      el.data = {id: el.id};
+      return el;
+    });
 
   function closeInfoWindows() {
     var infowindow = theMap.gmap3({get: {name: 'infowindow'}});
@@ -39,22 +47,22 @@ $(function () {
 
   function bindImageToMarker(marker, data) {
     var payload = {};
-    payload[media_type] = {'spot_id': data.id};
+    payload[mediaType] = {'spot_id': data.id};
 
-    $.post(patch_url, payload, function (data2) {
+    $.post(patchUrl, payload, function (data2) {
 
       var activeMarker = theMap.gmap3({
         get: {
           name: 'marker',
           first: true,
-          tag: selected_spot
+          tag: selectedSpot
         }
       });
 
       activeMarker.setIcon(GRAY_ICON);
       activeMarker.setZIndex($(marker).data['OrigZIndex']);
 
-      selected_spot = data.id;
+      selectedSpot = data.id;
 
       marker.setIcon(RED_ICON);
       $(marker).data['OrigZIndex'] = marker.getZIndex();
@@ -75,12 +83,6 @@ $(function () {
     }
   };
 
-  marks = $.map(marks, function (el) {
-    el.tag = el.id;
-    el.data = {id: el.id};
-    return el;
-  });
-
   // Spot edit form
 
   var spotForm = $('.spot_form_container').detach();
@@ -91,7 +93,7 @@ $(function () {
 
   $(window).resize(adjustSizes);
 
-  if (typeof google === "object") {
+  if (window.mapEnabled && typeof google === "object") {
 
     theMap.gmap3({
       map: {
@@ -162,26 +164,26 @@ $(function () {
   marker_options.values = marks;
 
 
-  if (typeof google === "object") {
+  if (window.mapEnabled && typeof google === "object") {
     if (marks.length > 0) {
       theMap.gmap3(
           {marker: marker_options},
-          {autofit: {maxZoom: max_zoom}} // Zooms and moves to see all markers
+          {autofit: {"maxZoom": maxZoom}} // Zooms and moves to see all markers
       )
     }
-    else if (typeof(locusLatLng) !== 'undefined') {
+    else if (typeof(locusLatLng) !== 'undefined' && locusLatLng) {
       theMap.gmap3("get").setCenter(locusLatLng);
       theMap.gmap3("get").setZoom(13);
     }
   }
 
-  if (selected_spot && typeof google === "object") {
+  if (selectedSpot && typeof google === "object") {
 
     activeMarkers = theMap.gmap3({
       get: {
         name: 'marker',
         all: true,
-        tag: selected_spot
+        tag: selectedSpot
       }
     });
 

@@ -21,7 +21,7 @@
     %li= link_to(t('lifelist.title.gb'), list_path(locus: 'united_kingdom'))
     %li= link_to(t('lifelist.title.canada'), list_path(locus: 'canada'))
 
-- cache(key: CacheKey.lifelist) do
+- cache(key: Quails::CacheKey.lifelist) do
 
   - first_sp_by_year = @first_sp_by_year.count(:all)
   - grouped_by_year_and_country = @grouped_by_year_and_country.count_distinct_species
@@ -78,11 +78,11 @@
 
   - day_with_max_species = Date.new(2020, 7, 4)
   - max_species_for_day = 92
-  - post_for_day_with_max_species = show_post_path(2021, "04", "second-western-trip-day-1")
+  - post_for_day_with_max_species = show_post_path(year: 2021, month: "04", id: "second-western-trip-day-1")
 
   - day_with_max_lifers = Date.new(2010, 8, 14)
   - max_lifers_for_day = 15
-  - post_for_day_with_max_lifers = show_post_path(2010, "08", "jamaica-bay-herons-et-al")
+  - post_for_day_with_max_lifers = show_post_path(year: 2010, month: "08", id: "jamaica-bay-herons-et-al")
 
   %table.nice_stats.records
     %tr
@@ -91,7 +91,7 @@
 
     %tr
       %td.day
-        %nobr= link_to_if russian_locale? && post_for_day_with_max_species, l(day_with_max_species, format: :long), post_for_day_with_max_species
+        %nobr= link_to_unless blogless_locale? && post_for_day_with_max_species, l(day_with_max_species, format: :long), post_for_day_with_max_species
       %td.place
         Winnipeg, Cypress River, Manitoba SW Corner, Saskatchewan SE Corner, Whitewater Lake,
         Duck Mountain Provincial Park &ndash; Canada
@@ -100,7 +100,7 @@
 
     %tr
       %td.day
-        %nobr= link_to_if russian_locale?, l(day_with_max_lifers, format: :long), post_for_day_with_max_lifers
+        %nobr= link_to_unless blogless_locale?, l(day_with_max_lifers, format: :long), post_for_day_with_max_lifers
       %td.place Jamaica Bay Wildlife Refuge, New York City, USA
       %td.count_new_big= max_lifers_for_day
       %td.count_new_label

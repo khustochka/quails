@@ -1,5 +1,5 @@
 = observation.observ_date
 = surround("(", ")") { observation.card.start_time } if observation.card.start_time.present?
-%b= observation.patch_or_locus.name_en
+%b= observation.locus.name_en
 - if observation.private_notes.present?
   %div= observation.private_notes

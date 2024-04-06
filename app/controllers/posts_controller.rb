@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
 class PostsController < ApplicationController
+  include CorrectableConcern
+
   administrative except: [:show]
+  localized only: [:show], locales: [:uk, :ru]
 
   before_action :find_post, only: [:edit, :update, :destroy, :show, :for_lj, :lj_post]
 
@@ -19,7 +22,7 @@ class PostsController < ApplicationController
   # GET /posts/1
   def show
     if @post.month != params[:month].to_s || @post.year != params[:year].to_s
-      redirect_to public_post_path(@post), status: 301
+      redirect_to public_post_path(@post), status: :moved_permanently
     end
 
     @robots = "NOINDEX" if @post.status == "NIDX"
@@ -46,6 +49,7 @@ class PostsController < ApplicationController
 
   # GET /posts/1/edit
   def edit
+    set_correction_flash(@post)
     @extra_params = @post.to_url_params
     @observation_search = ObservationSearch.new
     render "form"
@@ -65,11 +69,13 @@ class PostsController < ApplicationController
   # PUT /posts/1
   def update
     @extra_params = @post.to_url_params
-    if @post.update(params[:post])
-      redirect_to(public_post_path(@post))
-    else
-      @observation_search = ObservationSearch.new
-      render "form"
+    process_correction_options(@post) do
+      if @post.update(params[:post])
+        redirect_to(redirect_after_update_path(@post))
+      else
+        @observation_search = ObservationSearch.new
+        render "form"
+      end
     end
   end
 
@@ -83,7 +89,7 @@ class PostsController < ApplicationController
 
   def for_lj
     # Just render LJ version
-    render body: @post.decorated({host: request.host, port: request.port}).for_lj.body
+    render body: @post.decorated({ host: request.host, port: request.port }).for_lj.body
   end
 
   # POST
@@ -97,31 +103,31 @@ class PostsController < ApplicationController
     # SafeBuffer breaks 'livejournal' gem, so we are not applying it to 'for_lj.body'
     # And `unsafing` the title with 'to_str'
     entry.subject = @post.decorated.title.to_str
-    entry.event = @post.decorated({host: request.host, port: request.port}).for_lj.body
+    entry.event = @post.decorated({ host: request.host, port: request.port }).for_lj.body
 
     request = if @post.lj_data.url.present?
-                if Quails.env.live?
-                  if /livejournal\.com/.match?(@post.lj_data.url)
-                    entry.itemid = @post.lj_data.post_id
-                    LiveJournal::Request::EditEvent.new(user, entry)
-                  else
-                    flash.alert = "This entry is on Dreamwidth, cannot edit via LiveJournal."
-                    nil
-                  end
-                else
-                  flash.alert = "Editing LJ/DW entries is prohibited when not on real production."
-                  nil
-                end
-              else
-                any_card = @post.cards.first
-                if any_card
-                  country_tag = any_card.locus.country.slug
-                  if country_tag.in?(ALLOWED_COUNTRY_TAGS)
-                    entry.taglist = [country_tag.gsub("_", " ")]
-                  end
-                end
-                LiveJournal::Request::PostEvent.new(user, entry)
-              end
+      if Quails.env.live?
+        if @post.lj_data.url.include?("livejournal.com")
+          entry.itemid = @post.lj_data.post_id
+          LiveJournal::Request::EditEvent.new(user, entry)
+        else
+          flash.alert = "This entry is on Dreamwidth, cannot edit via LiveJournal."
+          nil
+        end
+      else
+        flash.alert = "Editing LJ/DW entries is prohibited when not on real production."
+        nil
+      end
+    else
+      any_card = @post.cards.first
+      if any_card
+        country_tag = any_card.locus.country.slug
+        if country_tag.in?(ALLOWED_COUNTRY_TAGS)
+          entry.taglist = [country_tag.tr("_", " ")]
+        end
+      end
+      LiveJournal::Request::PostEvent.new(user, entry)
+    end
 
     if request
       request.run
@@ -146,6 +152,7 @@ class PostsController < ApplicationController
   end
 
   private
+
   def find_post
     @post = current_user.available_posts.find_by!(slug: params[:id])
   end
@@ -155,5 +162,9 @@ class PostsController < ApplicationController
     expire_page controller: :feeds, action: :instant_articles, format: "xml"
     expire_photo_feeds
     expire_page controller: :feeds, action: :sitemap, format: "xml"
+  end
+
+  def default_redirect_path(record)
+    public_post_path(record)
   end
 end

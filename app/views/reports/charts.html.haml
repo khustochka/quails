@@ -8,7 +8,3 @@
 = render partial: 'filters/loci', locals: {loci_filter_label: 'Countries:'}
 
 %div#chartContainer{style: "height: 500px; width: 100%;", data: {series: @data.to_json}}
-
-:javascript
-
-  var data = $("#chartContainer").data("series");

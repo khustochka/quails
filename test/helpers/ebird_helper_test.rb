@@ -2,5 +2,5 @@
 
 require "test_helper"
 
-class EbirdHelperTest < ActionView::TestCase
+class EBirdHelperTest < ActionView::TestCase
 end

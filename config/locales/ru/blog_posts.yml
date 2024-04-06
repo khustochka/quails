@@ -4,6 +4,9 @@
       title: "Дневник наблюдений за\u00a0птицами"
       previous_posts: << Ранее
       meta_description: "Блог о птицах Украины и Канады, фото и видео птиц, прочие ресурсы для бердинга"
+      blog: Блог
+      year_summary: Итоги года
+      year_progress: Прогресс года
 
     year:
       year: Год
@@ -11,6 +14,9 @@
     month:
       previous: Предыдущий месяц
       next: Следующий месяц
+
+    archive:
+      title: Архив блога
 
   posts:
     sections:
@@ -30,9 +36,15 @@
         few: 'комментария'
         many: 'комментариев'
       add_comment: Комментировать
+      if_you_wish_to_receive_notification: Если хотите получить уведомление об ответах.
+      some_html_allowed: Немного HTML разрешено, включая <a>, <img>.
 
     show:
       meta_description: "Запись в блоге '%{title}', опубликованная %{date}"
+    other_lang_notice:
+      notice_text: Эта запись на %{in_language} языке.
+    other_lang_expand:
+      expand: Показать
 
   comments:
     comment:

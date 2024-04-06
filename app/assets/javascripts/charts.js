@@ -2,6 +2,8 @@
 
 
 $(function () {
+  var data = $("#chartContainer").data("series");
+
   function convertData(val) {
     // casting to a fake year because we want to show different years below one another
     return {x: new Date(2000, val[0][0] - 1, val[0][1]), y: parseInt(val[1])}
@@ -37,5 +39,5 @@ $(function () {
     chart.render();
   }
 
-  buildChart();
+  buildChart(data);
 });

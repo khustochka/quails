@@ -4,7 +4,7 @@ require "functional/either"
 require "flickraw-cached"
 
 module Flickr
-  include Either
+  include Functional::Either
 
   module ResultPartialPath
     def to_partial_path
@@ -13,11 +13,11 @@ module Flickr
   end
 
   class Result
-    include Either::Value
+    include Functional::Either::Value
     include ResultPartialPath
 
-    def method_missing(method, *args, &block)
-      Result.new(@value.send(method, *args, &block))
+    def method_missing(method, *args, &block) # rubocop:disable Style/MissingRespondToMissing
+      Result.new(@value.public_send(method, *args, &block))
     rescue FlickRaw::Error => e
       Error.new(e.message)
     end
@@ -25,11 +25,12 @@ module Flickr
     def search_and_filter_photos(conditions, top = nil, &filter)
       all = Flickr::Result.new([])
       page = 0
-      begin
+      loop do
         set = search_and_get_page(conditions, page += 1)
-        filtered_result = filter.call(set)
+        filtered_result = yield(set)
         all = all.apply.concat(filtered_result)
-      end until all.error? || set.get.size < 500 || (top && all.get.size >= top)
+        break if all.error? || set.get.size < 500 || (top && all.get.size >= top)
+      end
       result = all
       if top
         result = all.take(top)
@@ -40,13 +41,13 @@ module Flickr
     def search_and_get_page(conditions, page)
       call(
         "flickr.photos.search",
-          conditions.merge(page: page, per_page: 500)
+        conditions.merge(page: page, per_page: 500)
       )
     end
   end
 
   class Error
-    include Either::Error
+    include Functional::Either::Error
     include ResultPartialPath
   end
 
@@ -54,7 +55,7 @@ module Flickr
   Flickr::ERROR_CLASS = Error
 
   class << Flickr
-    self.send(:alias_method, :result, :value)
+    __send__(:alias_method, :result, :value)
   end
 
   class Client

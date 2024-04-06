@@ -25,7 +25,7 @@ class ImagesAssociationsTest < ActiveSupport::TestCase
 
     assert_equal img, tx1.images.first
     assert_equal img, tx2.images.first
-    assert_empty ([tx1, tx2] - img.taxa.to_a)
+    assert_empty [tx1, tx2] - img.taxa.to_a
   end
 
   test "properly link image and post" do

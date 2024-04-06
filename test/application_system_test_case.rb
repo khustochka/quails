@@ -2,36 +2,30 @@
 
 require "test_helper"
 
-begin
-  require "capybara/webkit"
-rescue LoadError
-  puts "[NOTE] capybara-webkit not available"
-end
+WebMock.disable_net_connect!(allow_localhost: true)
 
-default_driver = defined?(Capybara::Webkit) ? :webkit : :selenium
-$js_driver = ENV["JS_DRIVER"]&.to_sym ||
-  (ENV["JS_BROWSER"].present? ? :selenium : default_driver)
+default_driver = :selenium
+$js_driver = ENV["JS_DRIVER"]&.to_sym || default_driver
 
 # Browsers are: chrome, firefox, headless_chrome, headless_firefox
 $js_browser = ENV["JS_BROWSER"]&.to_sym ||
   ($js_driver == :selenium ? :headless_chrome : nil)
 
-puts "[NOTE] Using driver: #{$js_driver}" + ($js_browser ? ", browser: #{$js_browser}" : "")
-
-if $js_driver.to_s.start_with?("webkit") && defined?(Capybara::Webkit)
-  require "core_ext/capybara/webkit/node"
-  Capybara::Webkit.configure do |config|
-    config.block_unknown_urls
-    # Don't load images
-    config.skip_image_loading
-    # config.raise_javascript_errors = true
-  end
-end
+Selenium::WebDriver.logger.info("Using driver: #{$js_driver}" + ($js_browser ? ", browser: #{$js_browser}" : ""))
 
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   driven_by $js_driver, using: $js_browser
 
-  TEST_CREDENTIALS = {username: ENV["admin_username"], password: ENV["admin_password"]}
+  # Suppress deprecation message of :capabilities parameter
+  # Selenium::WebDriver.logger(ignored: :capabilities)
+
+  TEST_CREDENTIALS = { username: ENV["QUAILS_ADMIN_USERNAME"], password: ENV["QUAILS_ADMIN_PASSWORD"] }
+
+  # FIXME: try to fix those errors
+  IGNORED_JS_ERRORS = [
+    "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+    "The source list for the Content Security Policy directive 'script-src' contains an invalid source: ''nonce-''. It will be ignored.",
+  ]
 
   def login_as_admin
     visit "/login"
@@ -43,7 +37,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   def select_suggestion(value, hash)
     selector = ".ui-menu-item a:contains(\"#{value}\"):first"
     fill_in hash[:from], with: value
-    sleep(0.5) # Chrome driver needs pretty high values TODO: diff values for Chrome and Capy-webkit
+    sleep(0.5) # Chrome driver needs pretty high values
     # raise "No element '#{value}' in the field #{hash[:from]}" unless page.has_selector?(:xpath, "//*[@class=\"ui-menu-item\"]//a[contains(text(), \"#{value}\")]")
     page.execute_script " $('#{selector}').trigger('mouseenter').click();"
   end
@@ -77,5 +71,20 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
   def chrome_driver?
     $js_browser.to_s.include?("chrome")
+  end
+
+  def check_js_errors
+    browser = page.driver.browser
+    if browser.respond_to?(:logs)
+      errors = browser.logs.get(:browser)
+      errors.each do |error|
+        severe_error = error.level == "SEVERE" && IGNORED_JS_ERRORS.none? {|line| error.message.include?(line)}
+        assert_not(severe_error, error.message)
+      end
+    end
+  end
+
+  teardown do
+    check_js_errors
   end
 end

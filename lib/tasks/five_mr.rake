@@ -3,10 +3,10 @@
 namespace :five_mr do
   desc "Detect 5MR candidates"
   task refresh: :environment do
-    home = ENV["MYLOC"]&.split(",").map {|n| n.strip.to_f}
+    home = ENV["MYLOC"]&.split(",")&.map {|n| n.strip.to_f}
     unless home
-      puts "Provide your coordinates as MYLOC=<lat>,<lon>"
-      exit
+      $stderr.puts "Provide your coordinates as MYLOC=<lat>,<lon>"
+      exit 1
     end
 
     require "geo_distance"
@@ -17,9 +17,9 @@ namespace :five_mr do
     Locus.where.not(lat: nil).find_each do |loc|
       dist = GeoDistance.distance(point1: home, point2: [loc.lat, loc.lon]).to_miles
       if dist <= 5.0 && !loc.five_mile_radius
-        candidates << {locus_id: loc.id, distance: dist}
+        candidates << { locus_id: loc.id, distance: dist }
       elsif dist > 5.0 && loc.five_mile_radius
-        removal << {locus_id: loc.id, distance: dist}
+        removal << { locus_id: loc.id, distance: dist }
       end
     end
 

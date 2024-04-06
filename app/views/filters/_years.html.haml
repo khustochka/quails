@@ -5,7 +5,7 @@
     - if controller_name == 'blog'
       - year_path(year: year)
     - else
-      - significant_params.merge(year: year)
+      - amended_params(year: year)
 
   %ul.horiz-list.filter-list
     %strong= t('.years')

@@ -13,7 +13,7 @@ namespace :tax do
       # # Promote Larus glaucoides ebird taxon to taxon-species. This will link the taxon-species to an existing
       # # lar. gl. species, and all its taxa-children (including thayeri subsp)
       #
-      # eb_larus_glaucoides = EbirdTaxon.find_by_name_sci("Larus glaucoides")
+      # eb_larus_glaucoides = EBirdTaxon.find_by_name_sci("Larus glaucoides")
       # eb_larus_glaucoides.promote
       #
       # # Remove Larus thayeri from local_species
@@ -39,19 +39,19 @@ namespace :tax do
 
       # Find new subspecies and promote
 
-      vireo_olivaceus = EbirdTaxon.find_by_ebird_code("reevir1").promote
+      vireo_olivaceus = EBirdTaxon.find_by_ebird_code("reevir1").promote
 
       # MALLARD
 
-      #mallard = EbirdTaxon.find_by_ebird_code("mallar3").promote
+      #mallard = EBirdTaxon.find_by_ebird_code("mallar3").promote
       # Because former subspecies and now species-taxon already exists, promoting it will not unlink
       # species from former species-now slash. That is why we need to do this separately:
       Taxon.find_by_ebird_code("mallar3").lift_to_species
 
       # VELVET/WHITE-WINGED SCOTER split
 
-      velvet_scoter = EbirdTaxon.find_by_ebird_code("whwsco3").promote
-      whitewinged_scoter = EbirdTaxon.find_by_ebird_code("whwsco4").promote
+      velvet_scoter = EBirdTaxon.find_by_ebird_code("whwsco3").promote
+      whitewinged_scoter = EBirdTaxon.find_by_ebird_code("whwsco4").promote
 
       # Update local species
 

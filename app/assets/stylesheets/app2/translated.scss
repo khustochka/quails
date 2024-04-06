@@ -1,0 +1,26 @@
+ul.translated {
+  @extend .d-print-none;
+  text-align: right;
+  margin-top: 12px;
+  //margin-bottom: -14px;
+  list-style: none;
+
+  li {
+    display: inline-block;
+  }
+
+  .translated-link {
+    color: white;
+    background-color: #ff8800;
+    text-decoration: none;
+    border: none;
+    padding: 8px 12px 8px 8px;
+    border-radius: 35px;
+    font-size: 1rem;
+    margin-left: 10px;
+  }
+
+  .translated-link-ru {
+    padding-left: 12px;
+  }
+}

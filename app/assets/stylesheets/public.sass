@@ -1,4 +1,4 @@
-@import 'normalize', 'global', 'images'
+@import 'global', 'images', 'jumbo'
 
 .main
   padding-top: 10px
@@ -34,13 +34,9 @@
     a, a:hover, a:focus
       background-color: transparent
 
-.comment_text_for_ie
-  // IE7 hack
-  display: none
-  *display: inline
-
-
 .post
+  padding: 0 5px
+  margin: 0 -6px
 
   .header-with-subheader time
     color: #666666
@@ -61,6 +57,25 @@
     padding-left: 30px
     li
       line-height: 1.56
+
+.post.diff_lang
+  border: 1px dashed #E67E22
+
+.diff_lang_notice, .diff_lang_expand_notice
+  border-bottom: 1px dashed #E67E22
+  background-color: #FAD7A0
+  margin: 0 -5px
+  p
+    padding: 10px
+    margin: 0
+    font-size: 14px
+    color: #E67E22
+
+.diff_lang_expand_notice
+  border-top: 1px dashed #E67E22
+  .pseudolink, .pseudolink:hover
+    color: #E67E22
+    border-color: #E67E22
 
 .post.shout
   background-color: white
@@ -188,8 +203,6 @@ form.comment
     margin-right: 10px
   .commenter_email
     margin-left: 10px
-    // IE7 for some reason shows it misplaced
-    *margin-left: 5px
     & label, & span.hint
       *margin-left: 5px
 
@@ -258,7 +271,7 @@ $image-info-pane-width: 300px
   padding: 2px 10px 10px 10px
   h1
     font-size: 26px
-  nav.translated
+  ul.translated
     //margin-top: -12px
     margin-top: 0
     margin-right: -26px
@@ -267,7 +280,7 @@ $image-info-pane-width: 300px
     display: block
     padding: 20px 0
     margin: 0
-    nav.translated
+    ul.translated
       margin-top: 0
       margin-right: -16px
 
@@ -727,58 +740,6 @@ table.nice_stats.records
     width: auto
     vertical-align: baseline
 
-// Tooltip
-
-.ui-tooltip, .arrow:after
-  background: rgba(0, 0, 0, 0.8)
-  //border: 2px solid white
-  border: none
-
-.ui-tooltip
-  padding: 5px 10px
-  color: white
-  border-radius: 4px
-  font: normal 13px "Helvetica Neue", Arial, sans-serif
-  box-shadow: 0 4px 4px -2px #999999
-  //box-shadow: none
-  max-width: 200px
-  &.ui-widget.ui-widget-content
-    border: none
-
-//.arrow
-//  width: 70px
-//  height: 16px
-//  overflow: hidden
-//  position: absolute
-//  left: 50%
-//  margin-left: -35px
-//  bottom: -16px
-//
-//.arrow.top
-//  top: -16px
-//  bottom: auto
-//
-//.arrow.left
-//  left: 20%
-//
-//.arrow:after
-//  content: ""
-//  position: absolute
-//  left: 20px
-//  top: -20px
-//  width: 25px
-//  height: 25px
-//  box-shadow: 6px 5px 9px -9px black
-//  -webkit-transform: rotate(45deg)
-//  -moz-transform: rotate(45deg)
-//  -ms-transform: rotate(45deg)
-//  -o-transform: rotate(45deg)
-//  tranform: rotate(45deg)
-//
-//.arrow.top:after
-//  bottom: -20px
-//  top: auto
-
 .jumbo-bg
   //margin: -60px -1em 0 -1em
   margin: 0 -1em
@@ -803,6 +764,9 @@ table.nice_stats.records
       float: left
       @include inline-block
       margin: 0
+  ul.subheader-menu
+    li
+      margin-right: 10px
 
 .jumbo
   opacity: 1
@@ -818,12 +782,13 @@ table.nice_stats.records
     text-shadow: #000 0px 0px 10px
     font-size: 64px
     margin: auto
-  nav.translated
+  ul.translated
     margin-right: 0
     margin-top: 0
     a
       color: white
-      background-color: $trans-link-color
+      background-color: #f77700
+      border: 1px solid #dddddd
       opacity: 1 !important
 
 @media only all and (max-width: 960px)

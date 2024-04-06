@@ -1,0 +1,26 @@
+-# frozen_string_literal: true
+
+- stylesheet 'forms'
+
+- @page_title = "#{new_or_edit_label(@correction)} correction"
+
+%h1= page_header
+
+- if notice
+  %p#notice= notice
+
+= render 'admin/shortcuts' if current_user.admin?
+
+= render partial: 'partials/errors', object: @correction.errors
+
+= simple_form_for(@correction) do |f|
+  .form-inputs
+    %div
+      = f.input :model_classname, collection: Correction::CORRECTABLE_MODELS
+      = f.input :sort_column
+
+    %div
+      = f.input :query, input_html: {class: :long}
+
+  .form-actions
+    = default_submit_button(f)

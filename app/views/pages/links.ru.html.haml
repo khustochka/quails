@@ -1,0 +1,102 @@
+-# frozen_string_literal: true
+- @page_title = "Ссылки"
+- @meta_thumbnail = "https://birdwatch.org.ua/photos/crestedtit6592.jpg"
+- @meta_description = "Ссылки на ресурсы посвященные птицам: определители, справочники, литература, организации, сообщества, форумы, блоги, личные страницы. Рекомендации создателя сайта birdwatch.org.ua."
+
+-# @robots = 'NOINDEX'
+
+- content_for :translated do
+  = render 'app2/shared/translated'
+
+.container
+  = content_for :translated
+
+  %header.simple-page-header
+    %h1 Ссылки
+  .row
+    .col-md
+      %h2.h4 Сообщества, наблюдения
+      %ul.links-list
+        %li
+          = external_link "Сообщество украинских бердвочеров", "https://uabirds.org/"
+        %li
+          Facebook:
+          = external_link "группа «Бердвочинг в Украине»", "https://www.facebook.com/groups/birdwatching.ua/"
+
+        %li
+          Facebook:
+          = external_link "группа «Птахи України»", "https://www.facebook.com/groups/314374912088175/"
+        %li
+          Flickr: группа
+          = external_link "Birds of Ukraine", "https://www.flickr.com/groups/birdsofukraine/"
+        %li
+          %strong
+            = external_link "eBird.org", "https://ebird.org/home?lang=ru"
+          — Регистрация наблюдений, статистика, карты
+          %small.text-muted (доступны английский, русский, украинский языки)
+        %li
+          = external_link "birdforum.net", "https://www.birdforum.net/"
+          — Крупнейший международный форум бердвочеров
+          %small.text-muted (English)
+
+    .col-md
+      %h2.h4 Личные блоги, галереи
+      %ul.links-list
+        %li.starred{title: "Recommended"}
+          %strong
+            = external_link "bird-hobby.com.ua", "https://bird-hobby.com.ua", nofollow: false
+          — Сайт Виктора Мороза (блог, фотографии)
+        -#%li
+        -#  = external_link "mns.ks.ua", "https://mns.ks.ua/", nofollow: false
+        -#  — Блог Юрія Москаленка (Чорноморський біосферний заповідник)
+        -# %li
+        -#   = external_link "ЖЖ-блог Ильи Уколова", "https://glav-ryba.livejournal.com/"
+
+      %h2.h4 Наука
+      %ul.links-list
+        %li
+          = external_link "Украинский центр исследований хищных птиц", "https://raptors.org.ua"
+
+        %li
+          = external_link "«Беркут»", "http://aetos.kiev.ua"
+          — украинский орнитологический журнал (можно скачать статьи в PDF)
+        -#%li
+        -#  = external_link "Key to Scientific Names in Ornithology",
+        -#                  "https://www.hbw.com/dictionary/key-to-scientific-names-in-ornithology"
+        -#  — Этимология научных названий птиц
+        -#  %small.text-muted (English)
+
+  .row
+    .col-md
+      %h2.h4 Определители, ресурсы
+      %ul.links-list
+        %li
+          = external_link "Птахи України", "https://aves.land.kiev.ua/"
+          — Видовые очерки из определителя Г. В. Фесенко, А. А. Бокотея
+        %li
+          = external_link "Птицы Великобритании",
+                          "https://www.rspb.org.uk/birds-and-wildlife/wildlife-guides/bird-a-z/"
+          %small.text-muted (English)
+        %li
+          = external_link "allaboutbirds.org", "https://www.allaboutbirds.org/guide/browse/taxonomy"
+          — Птицы Северной Америки
+          %small.text-muted (English)
+        %li
+          = external_link "xeno-canto", "https://www.xeno-canto.org/"
+          — Всемирная библиотека голосов птиц
+          %small.text-muted (English)
+
+    .col-md
+      %h2.h4 Мои страницы
+      %ul.links-list
+        %li
+          = external_link "phenolog", "https://www.flickr.com/photos/phenolog/"
+          — Моя страница на Фликре
+        -# %li
+        -#   = external_link "stonechat", "https://stonechat.livejournal.com/"
+        -#   — Зеркало блога в LiveJournal
+        %li
+          = external_link "whinchat", "https://whinchat.dreamwidth.org/"
+          — Зеркало блога в DreamWidth
+        %li
+          = external_link "Страница в Facebook", "https://www.facebook.com/birdwatch.org.ua/"

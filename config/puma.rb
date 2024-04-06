@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Puma can serve each request in a thread from an internal thread pool.
 # The `threads` method setting takes two numbers: a minimum and maximum.
 # Any libraries that use thread pools should be configured to match
@@ -30,7 +32,8 @@ pidfile ENV.fetch("PIDFILE") { "tmp/pids/server.pid" }
 # Workers do not work on JRuby or Windows (both of which do not support
 # processes).
 
-workers ENV.fetch("WEB_CONCURRENCY") { 0 }
+workers_num = ENV.fetch("WEB_CONCURRENCY") { 0 }
+workers workers_num.to_i
 
 # Use the `preload_app!` method when specifying a `workers` number.
 # This directive tells Puma to first boot the application and load code
@@ -42,21 +45,16 @@ workers ENV.fetch("WEB_CONCURRENCY") { 0 }
 # Allow puma to be restarted by `rails restart` command.
 plugin :tmp_restart
 
-if ENV["RAILS_ENV"] == "production"
-  # Based on the work of Koichi Sasada and Aaron Patterson, this option may decrease memory utilization
-  # of preload-enabled cluster-mode Pumas. It will also increase time to boot and fork. See your logs for
-  # details on how much time this adds to your boot process. For most apps, it will be less than one second.
-  nakayoshi_fork unless ENV["DYNO"] || ENV["PWD"] =~ %r{/.puma-dev/quails\Z}
-end
-
 # Do not raise error when restarted
 raise_exception_on_sigterm false
 
-on_worker_boot do
-  # if defined?(::ActiveRecord) && defined?(::ActiveRecord::Base)
-  #   ActiveRecord::Base.establish_connection
-  # end
-  if defined?(Resque)
-    require File.expand_path("../initializers/resque", __FILE__)
+if workers_num.to_i > 0
+  on_worker_boot do
+    # if defined?(::ActiveRecord) && defined?(::ActiveRecord::Base)
+    #   ActiveRecord::Base.establish_connection
+    # end
+    if defined?(Resque)
+      require File.expand_path("../initializers/resque", __FILE__)
+    end
   end
 end

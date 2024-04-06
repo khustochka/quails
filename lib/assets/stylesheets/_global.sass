@@ -1,6 +1,4 @@
-@import 'mixins', 'reusable', 'header', 'admin_menu', 'jquery-ui', "banner"
-
-@import "font-awesome-sprockets", "font-awesome"
+@import 'mixins', 'reusable', 'header', 'admin_menu', 'jquery-ui'
 
 // Very global styles
 
@@ -51,6 +49,7 @@ div.footer
 
 // Override normalize.css & jquery-ui
 body
+  margin: 0 !important
   font-family: Arial, sans-serif
   font-size: 16px
   h1, h2, h3
@@ -80,9 +79,6 @@ html, body
   height: 100%
 #above-footer
   min-height: 100%
-// IE6
-* html #above-footer
-  height: 100%
 
 .main
   padding-bottom: ($footer-margin + 40px)
@@ -283,22 +279,33 @@ nav
     line-height: 1.7em
 
 // Translated pages
-nav.translated
+ul.translated
+  list-style: none
   margin-top: 20px
   margin-right: -16px
   text-align: right
   //font-weight: 100
   //text-transform: uppercase
-  font-size: 14px
-  font-style: italic
+  font-size: 16px
   a, a:hover
     text-align: left
     padding: 5px 15px
     border: 1px solid $trans-link-color
     color: white
     background-color: $trans-link-color
-    opacity: 0.86
-    text-decoration: underline
+    text-decoration: none
+    margin-left: 8px
+    font-weight: normal
+    text-transform: uppercase
+    text-shadow: white 0 0 0.5px
+  a:hover
+    text-shadow: white 0 0 1px
+  li
+    display: inline-block
+
+  a.translated-link-ru
+    font-size: 16px
+
 
 
 
@@ -423,3 +430,13 @@ div.thumbs_strip
     height: 218px
     img
       max-height: 100%
+
+.sr-only
+  border: 0
+  clip: rect(0, 0, 0, 0)
+  height: 1px
+  margin: -1px
+  overflow: hidden
+  padding: 0
+  position: absolute
+  width: 1px

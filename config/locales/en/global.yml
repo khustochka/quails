@@ -5,7 +5,7 @@
     archive: Archive
     birds_ukraine: Birds of Ukraine
     checklist: Checklist
-    gallery: Species gallery
+    gallery: Bird photos
     home: Home
     map: Map
     links: Links
@@ -15,6 +15,7 @@
     lifelist: Lifelist
     english: English
     russian: По-русски
+    ukrainian: Українською
 
   filters:
     years:
@@ -44,10 +45,16 @@
     feed: Feed
 
   translated:
-    ru: Русский язык
+    uk: Українська
+    ru: Russian
 
   languages:
     en: in English
-    ru: in Russian
     uk: in Ukrainian
     fr: in French
+    ru: in Russian
+
+  lifelist_chart:
+    number_of_species: Number of species
+    lifers_header: "Lifers:"
+    end_of_year: Total

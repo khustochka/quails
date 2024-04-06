@@ -3,7 +3,7 @@
 require "flickr/client"
 
 class FlickrUpload
-  DEFAULT_PARAMS = {safety_level: 1, content_type: 1}
+  DEFAULT_PARAMS = { safety_level: 1, content_type: 1 }
 
   def initialize(img, options = {})
     @image = img
@@ -31,6 +31,7 @@ class FlickrUpload
   end
 
   private
+
   def flickr_client
     @flickr_client ||= Flickr::Client.new
   end
@@ -47,14 +48,14 @@ class FlickrUpload
 
   def own_params
     {
-        title: title,
-        description: description,
-        tags: tags
+      title: title,
+      description: description,
+      tags: tags,
     }
   end
 
   def title
-    @image.species.map {|s| "#{s.name_en}; #{s.name_sci}"}.join("; ")
+    @image.species.map { |s| "#{s.name_en}; #{s.name_sci}" }.join("; ")
   end
 
   def description
@@ -64,7 +65,7 @@ class FlickrUpload
   end
 
   def tags
-    %Q(#{@image.species.map {|s| "\"#{s.name_en}\" \"#{s.name_sci}\""}.join(' ')} bird \"#{@image.locus.country.name_en}\" #{@image.species.map(&:order).uniq.join(' ')} #{@image.species.map(&:family).uniq.join(' ')})
+    %Q(#{@image.species.map { |s| "\"#{s.name_en}\" \"#{s.name_sci}\"" }.join(" ")} bird "#{@image.locus.country.name_en}" #{@image.species.map(&:order).uniq.join(" ")} #{@image.species.map(&:family).uniq.join(" ")})
   end
 
   def date_taken
@@ -74,7 +75,7 @@ class FlickrUpload
   def privacy_options
     public = !@options.has_key?(:public) || @options[:public]
     is_public_value = public && Quails.env.live? ? 1 : 0
-    {is_public: is_public_value}
+    { is_public: is_public_value }
   end
 
   def blob

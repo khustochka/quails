@@ -1,12 +1,12 @@
 -# frozen_string_literal: true
-- @page_title = "Архив блога"
+- @page_title = t(".title")
 
 - @robots = 'NOINDEX'
 
-- @jumbo_image = "https://bwua-static.s3.eu-central-1.amazonaws.com/mergus-jumbo.jpg"
+- @jumbo_class = "jumbo-archive"
 
 - content_for :jumbo do
-
+  = render partial: 'partials/translated', locals: { blog: true }
   %h1= page_header
 
 
@@ -20,5 +20,5 @@
       %ul
         - months.each do |month|
           %li
-            = link_to t('date.month_names')[month.raw_month.to_i], month_path(year: year, month: "%02d" % month.raw_month)
-            (#{month.posts_count})
+            = link_to t('date.month_names')[month["raw_month"]], month_path(year: year, month: "%02d" % month["raw_month"])
+            (#{month["posts_count"]})

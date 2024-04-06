@@ -4,6 +4,7 @@ class VideosController < ApplicationController
   find_record by: :slug, before: [:show, :edit, :update, :destroy, :map_edit, :patch]
 
   administrative except: [:index, :show]
+  localized only: [:index, :show]
 
   # GET /videos
   def index
@@ -84,6 +85,7 @@ class VideosController < ApplicationController
   end
 
   private
+
   def video_params
     @video_params ||= params.require(:video).permit(*Video::NORMAL_PARAMS).merge(observation_ids: params[:obs] || [])
   end

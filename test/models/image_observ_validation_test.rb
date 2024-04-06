@@ -12,7 +12,7 @@ class ImageObservValidationTest < ActiveSupport::TestCase
     new_attr = attributes_for(:image, slug: "new_img_slug").except(:observations)
     new_attr[:observations] = []
     assert_not @image.update(new_attr)
-    assert @image.errors.present?
+    assert_predicate @image.errors, :present?
   end
 
   test "restores observation list if image was not saved due to its emptiness" do
@@ -75,14 +75,14 @@ class ImageObservValidationTest < ActiveSupport::TestCase
   end
 
   test "does not create image with inconsistent observations (different loc)" do
-    obs1 = create(:observation, card: create(:card, locus: loci(:kiev)))
+    obs1 = create(:observation, card: create(:card, locus: loci(:kyiv)))
     obs2 = create(:observation, card: create(:card, locus: loci(:nyc)))
     new_attr = build(:image).attributes
     img = Image.new
     new_attr[:observation_ids] = [obs1.id, obs2.id]
     assert_difference("Image.count", 0) do
-  img.update(new_attr)
-end
+      img.update(new_attr)
+    end
     assert_predicate img.errors, :present?
   end
 
@@ -92,7 +92,7 @@ end
     new_attr = @image.attributes
     new_attr[:observation_ids] = [obs1.id, obs2.id]
     assert_not @image.update(new_attr)
-    assert @image.errors.present?
+    assert_predicate @image.errors, :present?
   end
 
   test "preserves changed values if image failed to update with inconsistent observations" do
@@ -102,7 +102,7 @@ end
     new_attr[:slug] = "newslug"
     new_attr[:observation_ids] = [obs1.id, obs2.id]
     assert_not @image.update(new_attr)
-    assert @image.errors.present?
+    assert_predicate @image.errors, :present?
     assert_equal "newslug", @image.slug
   end
 end

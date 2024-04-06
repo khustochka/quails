@@ -5,7 +5,7 @@ FactoryBot.define do
     parent_comment { nil }
     name { "Commenter" }
     body { "Ahhaha!" }
-    association :post
+    post
     approved { true }
   end
 end

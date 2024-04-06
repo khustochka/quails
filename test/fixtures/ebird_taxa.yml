@@ -7,6 +7,7 @@ pasdom:
   index_num: 100
   ebird_code: houspa
   ebird_version: 2016
+  taxon: :pasdom
 
 hirrus:
   name_sci: "Hirundo rustica"
@@ -16,6 +17,7 @@ hirrus:
   index_num: 50
   ebird_code: barswa
   ebird_version: 2016
+  taxon: :hirrus
 
 #saxola:
 #  name_sci: "Saxicola rubicola"
@@ -39,6 +41,7 @@ gargla:
   index_num: 60
   ebird_code: eurjay1
   ebird_version: 2016
+  taxon: :gargla
 
 gargla_eurasian:
   name_sci: "Garrulus glandarius [glandarius Group]"
@@ -49,6 +52,7 @@ gargla_eurasian:
   ebird_code: eurjay2
   parent: :gargla
   ebird_version: 2016
+  taxon: :gargla_eurasian
 #
 #bomgar:
 #  name_sci: "Bombycilla garrulus"
@@ -65,6 +69,7 @@ motfel:
   index_num: 14900
   ebird_code: weywag6
   ebird_version: 2016
+  taxon: :motfel
 
 aves_sp:
   name_sci: "Aves sp."
@@ -74,6 +79,7 @@ aves_sp:
   index_num: 15000
   ebird_code: bird1
   ebird_version: 2016
+  taxon: :aves_sp
 
 # eBird taxa to test promotion:
 

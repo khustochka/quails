@@ -8,7 +8,7 @@
 
       %li.d-print-none
         = link_to blog_path, class: "home-link" do
-          %i.fas.fa-home
+          %i.fas.fa-house-chimney
           .sr-only= t('menu.home-sr-only')
 
       %li
@@ -23,7 +23,7 @@
 
       %li= link_to t('menu.lifelist'), lists_overview_path
 
-      %li= link_to t('menu.links'), page_path(:links)
+      %li= link_to t('menu.links'), links_path
 
       %li.trans-menu
-        = link_to t('menu.english'), localized_root_path(locale: :en), lang: :en, hreflang: :en, class: "translation"
+        = link_to t('menu.english'), alternative_root_path(locale: :en), lang: :en, hreflang: :en, class: "translation"

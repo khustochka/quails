@@ -13,7 +13,6 @@
   = form.input :voice, label: 'Voice?'
   = form.input :private_notes
   = form.input :ebird_obs_id, as: :hidden
-  = form.association :patch, input_html: {class: 'short patch-suggest'}, label_method: :name_en
   - if obs.persisted?
     - if controller_name == 'cards'
       %div.bulk_select= check_box_tag('obs[]', obs.id)

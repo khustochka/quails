@@ -6,7 +6,7 @@
 - content_for :translated do
   = render partial: 'partials/translated', locals: {url: significant_params}
 
-- cache significant_params.merge(admin: current_user.admin?, key: CacheKey.lifelist, locale: I18n.locale) do
+- cache amended_params(admin: current_user.admin?, key: Quails::CacheKey.lifelist, locale: I18n.locale) do
 
   %div.header-with-subheader
     %h1 Lifelist
@@ -23,7 +23,7 @@
         - [nil, :by_taxonomy].each do |sort|
           - label_text = t(sort || :by_date, scope: 'lifelist.menus.sort_option')
           %li
-            = link_to_unless(params[:sort].to_s == sort.to_s, label_text, significant_params.merge(:sort => sort)) do
+            = link_to_unless(params[:sort].to_s == sort.to_s, label_text, amended_params(:sort => sort)) do
               %span= label_text
         %li
           %b= link_to t('lifelist.menus.basic'),

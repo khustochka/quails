@@ -26,7 +26,7 @@ module Deflicker
       if flicker.removed?
         flash[:alert] = "Already removed"
       else
-        if flicker.journal_entry_ids.empty?
+        if flicker.journal_entry_ids.empty? || flicker.journal_entries_fixed?
           Image.transaction do
             if flicker.allow_delete?
               if Rails.env.production?
@@ -37,8 +37,9 @@ module Deflicker
                     fp.detach! if Rails.env.production?
                   end
                   flicker.update(removed: true) if Rails.env.production?
-                  flash[:notice] = "Removed! #{helpers.link_to "Flickr", flicker.url, target: :_blank}
-                                  #{helpers.link_to "Image", flicker.image, target: :_blank, rel: :noopener}"
+                  flash[:notice] =
+                    "Removed! #{helpers.link_to "Flickr", flicker.url, target: :_blank, rel: :noopener}
+                    #{helpers.link_to "Image", flicker.image, target: :_blank, rel: :noopener}"
                 else
                   flash[:alert] = result.errors.full_messages.join(" ")
                 end
@@ -60,7 +61,13 @@ module Deflicker
       end
     end
 
+    def fixed
+      flicker = Flicker.find_by(flickr_id: params[:id])
+      flicker.update(journal_entries_fixed: true)
+    end
+
     private
+
     def search_params
       params.slice(*Deflicker::Search.attribute_names)
     end

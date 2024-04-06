@@ -1,17 +1,11 @@
 -# frozen_string_literal: true
--# packs
-- packs = @packs.try(:compact) || []
-= javascript_pack_tag *packs.unshift('visitor')
-= stylesheet_pack_tag 'visitor', media: "all"
 
--# styles
+-# Early is first, because it declared jQuery which may be used by other scripts
+= javascript_include_tag "early"
+= javascript_include_tag "visitor"
+= javascript_include_tag "application"
+= javascript_include_tag(*@scripts&.compact || [])
+
+-# Visitor should be first, because some styles can use bootstrap classes
+= stylesheet_link_tag 'visitor', media: "all"
 = stylesheet_link_tag(*@stylesheets.compact, media: "all") if @stylesheets.present?
-
--# scripts
-- scripts = @scripts.try(:compact) || []
-= javascript_include_tag(*scripts.unshift("application"))
-
--# enable HTML5 and media queries in IE
--# html5shiv and respond.js should be included after any stylesheets!
-/[if lt IE 9]
-  = javascript_include_tag "ie_fix"

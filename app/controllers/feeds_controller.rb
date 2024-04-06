@@ -4,6 +4,8 @@ class FeedsController < ApplicationController
   caches_page :blog, :photos, :sitemap, gzip: true
   caches_page :instant_articles, gzip: true, unless: -> { params[:dev] }
 
+  localized only: [:photos]
+
   def blog
     @posts = Post.public_posts.order(face_date: :desc).limit(10)
   end
@@ -14,7 +16,7 @@ class FeedsController < ApplicationController
   end
 
   def photos
-    @media = Media.order(created_at: :desc).preload(:species, :cards, observations: {card: :locus}).limit(15)
+    @media = Media.order(created_at: :desc).preload(:species, :cards, observations: { card: :locus }).limit(15)
   end
 
   def sitemap
@@ -23,6 +25,6 @@ class FeedsController < ApplicationController
     @videos = Video.select("id, slug, updated_at")
     @species = Species.where(id: Observation.joins(:taxon).select(:species_id)).select("id, name_sci")
 
-    @root_lastmod = Post.public_posts.order(updated_at: :desc).first.updated_at.iso8601 rescue nil
+    @root_lastmod = Post.public_posts.order(updated_at: :desc).first&.updated_at&.iso8601
   end
 end

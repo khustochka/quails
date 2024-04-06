@@ -1,0 +1,19 @@
+- advanced_lifelist = @locus && !@locus.country?
+- lifelist_method = advanced_lifelist ? :advanced_list_path : :list_path
+
+%tr{class: current ? "current_year" : nil}
+  %td.lifelist-chart-year-td
+    = data[:year]
+  %td.lifelist-chart-link-td
+    - if current
+      = link_to data[:to_date], public_send(lifelist_method, year: data[:year], locus: params[:locus]), target: :_blank
+    - else
+      %span.no-link-count<>
+        = content_tag(highlight_max && data[:is_max] ? :b : :span) do
+          = data[:to_date]
+  %td.lifelist-chart-bar-td
+    %div.lifelist-chart-bar-outer{style: "width: #{percent_or_pixel(data[:percentage])}"}
+      %div.lifelist-chart-bar{style: "width: #{percent_or_pixel(data[:to_date_percentage])}"}
+  %td.lifelist-chart-link-td
+    - unless current
+      = link_to data[:count], public_send(lifelist_method, year: data[:year], locus: params[:locus]), target: :_blank

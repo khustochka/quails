@@ -6,7 +6,7 @@ Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
-  config.cache_classes = true
+  config.enable_reloading = false
 
   # Eager load code on boot. This eager loads most of Rails and
   # your application in memory, allowing both threaded web servers
@@ -18,12 +18,11 @@ Rails.application.configure do
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
 
-  # Ensures that a master key has been made available in either ENV["RAILS_MASTER_KEY"]
-  # or in config/master.key. This key is used to decrypt credentials (and other encrypted files).
+  # Ensures that a master key has been made available in ENV["RAILS_MASTER_KEY"], config/master.key, or an environment
+  # key such as config/credentials/production.key. This key is used to decrypt credentials (and other encrypted files).
   # config.require_master_key = true
 
-  # Disable serving static files from the `/public` folder by default since
-  # Apache or NGINX already handles this.
+  # Enable static file serving from the `/public` folder (turn off if using NGINX/Apache for it).
   config.public_file_server.enabled = ENV["RAILS_SERVE_STATIC_FILES"].present?
 
   # Compress CSS using a preprocessor.
@@ -36,40 +35,57 @@ Rails.application.configure do
   # config.asset_host = "http://assets.example.com"
 
   # Specifies the header that your server uses for sending files.
-  # if !Quails.env.heroku?
-  #   # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for Apache
-  #   config.action_dispatch.x_sendfile_header = "X-Accel-Redirect" # for NGINX
-  # end
+  # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for Apache
+  # config.action_dispatch.x_sendfile_header = "X-Accel-Redirect" # for NGINX
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
-  config.active_storage.service = Quails.env.live? || ENV["PROD_S3"] ? :amazon : :amazon_dev
+  config.active_storage.service =
+    if Quails.env.live? || ENV["PROD_S3"]
+      :amazon
+    elsif ENV["DEV_S3"]
+      :amazon_dev
+    else
+      :local
+    end
 
   # Mount Action Cable outside main process or domain.
   # config.action_cable.mount_path = nil
   # config.action_cable.url = "wss://example.com/cable"
   # config.action_cable.allowed_request_origins = [ "http://example.com", /http:\/\/example.*/ ]
 
+  # Assume all access to the app is happening through a SSL-terminating reverse proxy.
+  # Can be used together with config.force_ssl for Strict-Transport-Security and secure cookies.
+  # config.assume_ssl = true
+
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   config.force_ssl = Quails.env.ssl?
 
   # If we want the browsers to forget HSTS setting
   if Quails.env.no_hsts?
-    config.ssl_options = {hsts: false}
+    config.ssl_options = { hsts: false }
   end
 
-  # Include generic and useful information about system operation, but avoid logging too much
-  # information to avoid inadvertent exposure of personally identifiable information (PII).
-  config.log_level = :info
+  # Log to STDOUT by default
+  config.logger = ActiveSupport::Logger.new($stdout)
+    .tap  { |logger| logger.formatter = Logger::Formatter.new }
+    .then { |logger| ActiveSupport::TaggedLogging.new(logger) }
 
   # Prepend all log lines with the following tags.
   config.log_tags = [ :request_id ]
 
+  # Info include generic and useful information about system operation, but avoids logging too much
+  # information to avoid inadvertent exposure of personally identifiable information (PII). If you
+  # want to log everything, set the level to "debug".
+  config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "info")
+
   # Use a different cache store in production.
-  config.cache_store = :redis_cache_store, { url: ENV["REDISTOGO_URL"] || ENV["REDIS_CACHE_URL"] }
+  config.cache_store = RailsBrotliCache::Store.new(
+    ActiveSupport::Cache::RedisCacheStore.new(url: ENV["REDIS_CACHE_URL"])
+  )
 
   # Use a real queuing backend for Active Job (and separate queues per environment).
   config.active_job.queue_adapter     = :resque
-  config.active_job.queue_name_prefix = "quails_#{Quails.env.live?.presence && "REAL_"}#{Rails.env}"
+  config.active_job.queue_name_prefix = "quails_#{Quails.env.live? ? "LIVE" : Rails.env}"
 
   config.action_mailer.perform_caching = false
 
@@ -81,18 +97,20 @@ Rails.application.configure do
   # the I18n.default_locale when a translation cannot be found).
   config.i18n.fallbacks = false
 
-  # Send deprecation notices to registered listeners.
-  config.active_support.deprecation = :notify
+  # Don't log any deprecations.
+  # config.active_support.report_deprecations = false
+
+  config.active_support.deprecation = :log
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
-  config.log_formatter = ::Logger::Formatter.new
+  config.log_formatter = Logger::Formatter.new
 
   # Use a different logger for distributed setups.
   # require "syslog/logger"
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new "app-name")
 
   if ENV["RAILS_LOG_TO_STDOUT"].present?
-    logger           = ActiveSupport::Logger.new(STDOUT)
+    logger           = ActiveSupport::Logger.new($stdout)
     logger.formatter = config.log_formatter
     config.logger    = ActiveSupport::TaggedLogging.new(logger)
   end
@@ -100,16 +118,24 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
+  # Enable DNS rebinding protection and other `Host` header attacks.
+  # config.hosts = [
+  #   "example.com",     # Allow requests from example.com
+  #   /.*\.example\.com/ # Allow requests from subdomains like `www.example.com`
+  # ]
+  # Skip DNS rebinding protection for the default health check endpoint.
+  # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
+
   # Route error pages through custom middleware
-  require 'quails/public_exceptions'
+  require "quails/public_exceptions"
   config.exceptions_app = Quails::PublicExceptions.new(Rails.public_path)
 
   if Quails.env.live?
     config.hosts << "birdwatch.org.ua"
-    config.host_authorization = { response_app: -> (_) { [403, {}, ["Incorrect host name"]] } }
+    config.host_authorization = { response_app: ->(_) { [403, {}, ["Incorrect host name"]] } }
   end
 
   # Alternative location for page caching
   # App user should be able to write to this location, but we do not want it to write to 'public'
-  config.action_controller.page_cache_directory = Rails.root.join("tmp", "cached_pages")
+  config.action_controller.page_cache_directory = Rails.root.join("tmp/cached_pages")
 end

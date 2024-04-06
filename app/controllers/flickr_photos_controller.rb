@@ -9,11 +9,11 @@ class FlickrPhotosController < ApplicationController
 
   after_action :cache_expire, only: [:create, :destroy]
 
-  def new
-  end
-
   def show
     @next = Image.unflickred.where("created_at < ?", @image.created_at).order(created_at: :desc).first
+  end
+
+  def new
   end
 
   def edit
@@ -48,10 +48,8 @@ class FlickrPhotosController < ApplicationController
     @photo.detach!
     if @photo.errors.any?
       @image.reload
-      render :show
-    else
-      render :show
     end
+    render :show
   end
 
   def push_to_storage
@@ -67,13 +65,13 @@ class FlickrPhotosController < ApplicationController
   end
 
   def unused
-    used = Image.where("external_id IS NOT NULL").pluck(:external_id)
+    used = Image.where.not(external_id: nil).pluck(:external_id)
     top = params[:top]&.to_i
-    search_params = DEFAULT_SEARCH_PARAMS.merge({user_id: flickr_admin.user_id})
+    search_params = DEFAULT_SEARCH_PARAMS.merge({ user_id: flickr_admin.user_id })
     @flickr_result = _FlickrClient.search_and_filter_photos(search_params, top) do |collection|
-      collection.reject {|x| used.include?(x.id)}
+      collection.reject { |x| used.include?(x.id) }
     end
-    @flickr_img_url_lambda = ->(img) { new_image_path(i: {flickr_id: img.id}) }
+    @flickr_img_url_lambda = ->(img) { new_image_path(i: { flickr_id: img.id }) }
 
     if request.xhr?
       render @flickr_result
@@ -83,13 +81,13 @@ class FlickrPhotosController < ApplicationController
   end
 
   def bou_cc
-    search_params = {license: "1,2,3,4,5,6", group_id: "615480@N22", extras: "owner_name,license"}
+    search_params = { license: "1,2,3,4,5,6", group_id: "615480@N22", extras: "owner_name,license" }
     @flickr_result = _FlickrClient.search_and_filter_photos(search_params) do |collection|
       collection.reject { |x| x.owner == flickr_admin.user_id }
     end
   end
 
-  DEFAULT_SEARCH_PARAMS = {content_type: 1, extras: "owner_name"}
+  DEFAULT_SEARCH_PARAMS = { content_type: 1, extras: "owner_name" }
 
   def search
     new_params = params
@@ -105,12 +103,12 @@ class FlickrPhotosController < ApplicationController
   end
 
   private
+
   def find_image
     @image = Image.find_by(slug: params[:id])
     @photo = FlickrPhoto.new(@image)
   end
 
-  private
   def cache_expire
     expire_page controller: :feeds, action: :blog, format: "xml"
     expire_page controller: :feeds, action: :instant_articles, format: "xml"

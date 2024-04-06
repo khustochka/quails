@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 require "test_helper"
-require "ebird/ebird_checklist"
+require "ebird/checklist"
 
-class EbirdChecklistTest < ActiveSupport::TestCase
+class EBirdChecklistTest < ActiveSupport::TestCase
   def parse_duration(str)
-    str.match(EbirdChecklist::DURATION_REGEX)
+    str.match(EBird::Checklist::DURATION_REGEX)
   end
 
   test "properly parse minutes only duration" do

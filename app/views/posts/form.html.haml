@@ -21,6 +21,7 @@
   %div
     = form.input :slug, required: false
     = form.input :face_date, label: 'Post date', input_html: {value: @post.face_date.strftime("%F %T")}, as: :string
+    = form.input :lang, as: :select, collection: I18n.available_locales, include_blank: false
   %div
     = form.input :title, input_html: {class: 'long', required: false}
   = form.input :body, label: false, input_html: {rows: 20, class: 'wiki_field'}
@@ -29,6 +30,7 @@
     = form.input :status, collection: Post::STATES, input_html: {size: '3'}, include_blank: false
     = form.input :cover_image_slug
     = form.input :publish_to_facebook, label: "Publish to Facebook Instant Articles"
+    = inject_correction_field
 
   .buttons
     = default_submit_button(form)

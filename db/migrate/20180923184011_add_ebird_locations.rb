@@ -1,4 +1,4 @@
-class AddEbirdLocations < ActiveRecord::Migration[5.2]
+class AddEBirdLocations < ActiveRecord::Migration[5.2]
   def change
     create_table :ebird_locations do |t|
       t.string :name, null: false

@@ -4,8 +4,8 @@ xml.rss version: "2.0", "xmlns:content" => "http://purl.org/rss/1.0/modules/cont
   xml.channel do
     xml.title "Birdwatch.org.ua"
     xml.link blog_url
-    xml.description "Дневник наблюдений за птицами"
-    xml.language "ru"
+    xml.description t("feeds.instant_articles.title")
+    xml.language I18n.locale.to_s
 
     @posts.each do |post|
       xml.item do

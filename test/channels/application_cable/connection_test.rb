@@ -4,8 +4,8 @@ require "test_helper"
 
 class ApplicationCable::ConnectionTest < ActionCable::Connection::TestCase
   test "connects with session" do
-    connect(session: {admin: true})
+    connect(session: { admin: true })
 
-    assert_equal connection.current_user, "admin"
+    assert_equal "admin", connection.current_user
   end
 end

@@ -21,12 +21,15 @@
   \|
   %b eBird code:
   = @taxon.ebird_code
+  \|
+  %b Taxon concept id:
+  = @taxon.taxon_concept_id
 
-- if tx = @taxon.taxon
+- if (tx = @taxon.taxon)
   %div
     %span.less-important Taxon:
     = taxon_link(tx, tx.name_sci)
-  - if tx.is_a_species? && sp = tx.species
+  - if tx.full_species? && (sp = tx.species)
     %div
       %span.less-important Species:
       = species_link(sp, sp.name_sci)

@@ -8,17 +8,17 @@ class WikiFormatter
 
   def for_site
     @strategy = FormatStrategy::Site.new(@text, @metadata)
-    apply.html_safe
+    apply.html_safe # rubocop:disable Rails/OutputSafety
   end
 
   def for_feed
     @strategy = FormatStrategy::Feed.new(@text, @metadata)
-    apply.html_safe
+    apply.html_safe # rubocop:disable Rails/OutputSafety
   end
 
   def for_instant_articles
     @strategy = FormatStrategy::InstantArticle.new(@text, @metadata)
-    apply.html_safe
+    apply.html_safe # rubocop:disable Rails/OutputSafety
   end
 
   def for_lj
@@ -27,6 +27,7 @@ class WikiFormatter
   end
 
   private
+
   def apply
     # TODO: if you want first to apply Textile, and then strategy formatting, do this firt:
     # post.body.gsub(/^\{\{(\^|&)[^}]+\}\}\s*$/, 'notextile. \&')

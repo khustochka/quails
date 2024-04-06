@@ -5,9 +5,9 @@ require "test_helper"
 class ObservationSearchTest < ActiveSupport::TestCase
   setup do
     @cards = [
-        create(:card, observ_date: "2013-05-18", locus: loci(:brovary), ebird_id: "S123456789"),
-        create(:card, observ_date: "2013-05-18", locus: loci(:kiev), resolved: false),
-        create(:card, observ_date: "2013-05-19", locus: loci(:kiev))
+      create(:card, observ_date: "2013-05-18", locus: loci(:brovary), ebird_id: "S123456789"),
+      create(:card, observ_date: "2013-05-18", locus: loci(:kyiv), resolved: false),
+      create(:card, observ_date: "2013-05-19", locus: loci(:kyiv)),
     ]
     create(:observation, taxon: taxa(:pasdom), card: @cards[0])
     create(:observation, taxon: taxa(:hirrus), card: @cards[0])
@@ -43,12 +43,12 @@ class ObservationSearchTest < ActiveSupport::TestCase
   test "search observations by date" do
     obss = ObservationSearch.new(observ_date: "2013-05-18").observations.to_a
     assert_equal 5, obss.size
-    assert obss.first.respond_to?(:voice)
+    assert_respond_to(obss.first, :voice)
   end
 
   test "search voice: nil means do not filter by voice" do
     ob3 = create(:observation, voice: true)
-    assert ObservationSearch.new(voice: nil).observations.include?(ob3)
+    assert_includes ObservationSearch.new(voice: nil).observations, ob3
   end
 
   test "search voice: false means filter by `seen only`" do
@@ -57,7 +57,7 @@ class ObservationSearchTest < ActiveSupport::TestCase
   end
 
   test "search cards by locus exclusive" do
-    assert_equal 2, ObservationSearch.new(locus_id: loci(:kiev).id).cards.to_a.size
+    assert_equal 2, ObservationSearch.new(locus_id: loci(:kyiv).id).cards.to_a.size
   end
 
   test "search cards by locus inclusive" do

@@ -10,17 +10,20 @@ class CommentMailerTest < ActionMailer::TestCase
   end
 
   def deliver_notify_admin_email
-    email = CommentMailer.
-      with(comment: @comment, link_options: {host: "example.org"}, from: "some@example.org", to: "admin@example.org").notify_admin
+    email = CommentMailer
+      .with(comment: @comment, link_options: { host: "example.org" }).notify_admin
     assert_emails 1 do
       email.deliver_now
     end
     email
   end
 
+  # NOTE: these tests require `COMMENT_EMAIL_SENDER` and `ADMIN_NOTIFICATIONS_EMAIL` env vars
+  # to be set in .env.test.
   def deliver_notify_parent_author_email
-    email = CommentMailer.
-      with(comment: @comment, link_options: {host: "example.org"}, from: "some@example.org").notify_parent_author
+    email = CommentMailer
+      .with(comment: @comment, link_options: { host: "example.org" })
+      .notify_parent_author
     assert_emails 1 do
       email.deliver_now
     end

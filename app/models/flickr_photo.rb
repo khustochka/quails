@@ -5,7 +5,7 @@ require "flickr/client"
 class FlickrPhoto
   Data = Struct.new(:title, :description, :date_taken, :tags)
 
-  DEFAULT_PARAMS = {safety_level: 1, content_type: 1}
+  DEFAULT_PARAMS = { safety_level: 1, content_type: 1 }
 
   attr_reader :errors
 
@@ -45,7 +45,7 @@ class FlickrPhoto
   end
 
   def tags
-    %Q(#{@image.species.map { |s| "\"#{s.name_en}\" \"#{s.name_sci}\"" }.join(' ')} bird \"#{@image.locus.country.name_en}\" #{@image.species.map(&:order).uniq.join(' ')} #{@image.species.map(&:family).uniq.join(' ')})
+    %Q(#{@image.species.map { |s| "\"#{s.name_en}\" \"#{s.name_sci}\"" }.join(" ")} bird "#{@image.locus.country.name_en}" #{@image.species.map(&:order).uniq.join(" ")} #{@image.species.map(&:family).uniq.join(" ")})
   end
 
   def date_taken
@@ -54,6 +54,7 @@ class FlickrPhoto
 
   def bind_with_flickr(new_flickr_id)
     return false if new_flickr_id.blank?
+
     @flickr_id = new_flickr_id
     @image.flickr_id = @flickr_id
     refresh
@@ -66,6 +67,7 @@ class FlickrPhoto
 
   def refresh
     return false unless @flickr_id
+
     sizes_array = flickr_client.call("flickr.photos.getSizes", photo_id: @flickr_id).get
     @image.assets_cache.swipe(:flickr)
     sizes_array.each do |fp|
@@ -95,10 +97,10 @@ class FlickrPhoto
   def update(params)
     new_date = params[:date_taken]
     if new_date
-      flickr_client.call("flickr.photos.setDates", {photo_id: @flickr_id, date_taken: new_date})
+      flickr_client.call("flickr.photos.setDates", { photo_id: @flickr_id, date_taken: new_date })
     else
-      flickr_client.call("flickr.photos.setMeta", {photo_id: @flickr_id, title: params[:title], description: params[:description]})
-      flickr_client.call("flickr.photos.setTags", {photo_id: @flickr_id, tags: params[:tags]})
+      flickr_client.call("flickr.photos.setMeta", { photo_id: @flickr_id, title: params[:title], description: params[:description] })
+      flickr_client.call("flickr.photos.setTags", { photo_id: @flickr_id, tags: params[:tags] })
     end
   end
 
@@ -107,17 +109,18 @@ class FlickrPhoto
   end
 
   private
+
   def flickr_client
     @flickr_client ||= Flickr::Client.new
   end
 
-  def get_info
-    data = flickr_client.call("flickr.photos.getInfo", {photo_id: @flickr_id}).get
+  def get_info # rubocop:disable Naming/AccessorMethodName
+    data = flickr_client.call("flickr.photos.getInfo", { photo_id: @flickr_id }).get
     Data.new(
       data.title,
-        data.description,
-        data.dates.taken,
-        data.tags.map { |t| t.raw }
+      data.description,
+      data.dates.taken,
+      data.tags.map(&:raw)
     )
   end
 
@@ -131,14 +134,14 @@ class FlickrPhoto
 
   def own_params
     {
-        title: self.title,
-        description: self.description,
-        tags: self.tags
+      title: title,
+      description: description,
+      tags: tags,
     }
   end
 
   def sanitize(params)
-    {is_public: params[:public]}
+    { is_public: params[:public] }
   end
 
   def save_with_caution

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "ebird/ebird_checklist"
+require "ebird/checklist"
 
 class CardsController < ApplicationController
   administrative
@@ -12,13 +12,13 @@ class CardsController < ApplicationController
   def index
     @observation_search = ObservationSearch.new(params[:q])
 
-    @cards = @observation_search.cards.
-        default_cards_order(:desc).preload(:locus, :post)
+    @cards = @observation_search.cards
+      .default_cards_order(:desc).preload(:locus, :post)
 
-    if !request.xhr?
-      @cards = @cards.page(params[:page]).per(10)
+    @cards = if !request.xhr?
+      @cards.page(params[:page]).per(10)
     else
-      @cards = @cards.limit(30)
+      @cards.limit(30)
     end
 
     @post = Post.where(id: params[:new_post_id]).first
@@ -128,7 +128,7 @@ class CardsController < ApplicationController
 
     if ebird_id.present?
 
-      checklist = EbirdChecklist.new(ebird_id).fetch!
+      checklist = EBird::Checklist.new(ebird_id).fetch!
 
       @card = checklist.to_card
 
@@ -142,6 +142,7 @@ class CardsController < ApplicationController
   end
 
   private
+
   def cache_expire
     expire_photo_feeds
     expire_page controller: :feeds, action: :blog, format: "xml"

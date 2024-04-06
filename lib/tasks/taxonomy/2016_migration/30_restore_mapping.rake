@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 namespace :tax do
-  desc "Restore mapping of legacy species to species saved in the YAML file"
+  # desc "Restore mapping of legacy species to species saved in the YAML file"
   task restore_mapping: :environment do
     mapping = YAML.load_file("./data/sp_map.yml")
     ids = mapping.keys

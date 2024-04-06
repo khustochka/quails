@@ -17,7 +17,7 @@ class SpeciesControllerTest < ActionController::TestCase
 
   test "search species for admin index page" do
     login_as_admin
-    get :index, xhr: true, params: {term: "gar"}
+    get :index, xhr: true, params: { term: "gar" }
     assert_response :success
     species = assigns(:species)
     assert_not_nil species
@@ -73,7 +73,7 @@ class SpeciesControllerTest < ActionController::TestCase
 
   test "show species" do
     species = species(:jyntor)
-    get :show, params: {id: species.to_param}
+    get :show, params: { id: species.to_param }
     assert_response :success
   end
 
@@ -82,21 +82,21 @@ class SpeciesControllerTest < ActionController::TestCase
     im = create(:image)
     species = species(:pasdom)
 
-    get :show, params: {id: species.to_param}
+    get :show, params: { id: species.to_param }
     assert_response :success
   end
 
   test "show species with image" do
     tx = taxa(:jyntor)
     create(:image, observations: [create(:observation, taxon: tx)])
-    get :show, params: {id: tx.species.to_param}
+    get :show, params: { id: tx.species.to_param }
     assert_response :success
   end
 
   test "main image link should be localized" do
     tx = taxa(:jyntor)
     img = create(:image, observations: [create(:observation, taxon: tx)])
-    get :show, params: {id: tx.species.to_param, locale: :en}
+    get :show, params: { id: tx.species.to_param, locale: :en }
     assert_response :success
     assert_select "a[href='/en/photos/#{img.slug}']"
   end
@@ -104,14 +104,14 @@ class SpeciesControllerTest < ActionController::TestCase
   test "show species with video" do
     tx = taxa(:jyntor)
     create(:video, observations: [create(:observation, taxon: tx)])
-    get :show, params: {id: tx.species.to_param}
+    get :show, params: { id: tx.species.to_param }
     assert_response :success
   end
 
   test "get edit" do
     species = species(:jyntor)
     login_as_admin
-    get :edit, params: {id: species.to_param}
+    get :edit, params: { id: species.to_param }
     assert_response :success
   end
 
@@ -119,14 +119,14 @@ class SpeciesControllerTest < ActionController::TestCase
     species = species(:bomgar)
     species.name_ru = "Богемский свиристель"
     login_as_admin
-    put :update, params: {id: species.to_param, species: species.attributes}
+    put :update, params: { id: species.to_param, species: species.attributes }
     assert_redirected_to edit_species_path(assigns(:species))
   end
 
   test "update species via JSON" do
     species = species(:bomgar)
     login_as_admin
-    put :update, params: {id: species.to_param, species: {name_ru: "Богемский свиристель"}}, format: :json
+    put :update, params: { id: species.to_param, species: { name_ru: "Богемский свиристель" } }, format: :json
     assert_response :success
     assert_equal Mime[:json], response.media_type
   end
@@ -137,19 +137,19 @@ class SpeciesControllerTest < ActionController::TestCase
     old_id = species.to_param
     sp_attr["name_sci"] = '$!#@'
     login_as_admin
-    put :update, params: {id: old_id, species: sp_attr}
+    put :update, params: { id: old_id, species: sp_attr }
     assert_template :form
     assert_select "form[action='#{species_path(species)}']"
   end
 
   test "correct spaces in species URL" do
-    get :show, params: {id: "Saxicola rubicola"}
+    get :show, params: { id: "Saxicola rubicola" }
     assert_redirected_to species_path(id: "Saxicola_rubicola")
     assert_response 301
   end
 
   test "redirect old synonym to the new species URL" do
-    get :show, params: {id: "Saxicola torquata"}
+    get :show, params: { id: "Saxicola torquata" }
     assert_redirected_to species_path(id: "Saxicola_rubicola")
     assert_response 301
   end
@@ -163,31 +163,31 @@ class SpeciesControllerTest < ActionController::TestCase
 
   test "protect edit with authentication" do
     species = species(:jyntor)
-    assert_raise(ActionController::RoutingError) { get :edit, params: {id: species.to_param} }
+    assert_raise(ActionController::RoutingError) { get :edit, params: { id: species.to_param } }
     # assert_response 404
   end
 
   test "protect update with authentication" do
     species = species(:bomgar)
     species.name_ru = "Богемский свиристель"
-    assert_raise(ActionController::RoutingError) { put :update, params: {id: species.to_param, species: species.attributes} }
+    assert_raise(ActionController::RoutingError) { put :update, params: { id: species.to_param, species: species.attributes } }
     # assert_response 404
   end
 
   test "search" do
     create(:observation, taxon: taxa(:bomgar))
-    get :search, params: {term: "gar"}, format: :json
+    get :search, params: { term: "gar" }, format: :json
     assert_response :success
     assert_equal Mime[:json], response.media_type
-    assert response.body.include?("garrulus")
+    assert_includes response.body, "garrulus"
   end
 
   test "search localized" do
     create(:observation, taxon: taxa(:bomgar))
-    get :search, params: {term: "gar", locale: "en"}, format: :json
+    get :search, params: { term: "gar", locale: "en" }, format: :json
     assert_response :success
     assert_equal Mime[:json], response.media_type
-    assert response.body.include?("Waxwing")
-    assert response.body.include?("/en/species/Bombycilla")
+    assert_includes response.body, "Waxwing"
+    assert_includes response.body, "/en/species/Bombycilla"
   end
 end

@@ -15,17 +15,28 @@ class LocusTest < ActiveSupport::TestCase
   end
 
   test "do not save locus with existing slug" do
-    loc = build(:locus, slug: "kiev")
-    assert_not loc.save, "Record saved while expected to fail."
+    loc = build(:locus, slug: "kyiv")
+    assert_not loc.valid?
+  end
+
+  test "cached country not set when there are no country in the ancestry" do
+    loc = create(:locus, slug: "peru", loc_type: "country")
+    assert_nil loc.cached_country
+  end
+
+  test "cached country is required if there is a country in the ancestry" do
+    peru = create(:locus, slug: "peru", loc_type: "country")
+    loc = create(:locus, slug: "lima", parent: peru)
+    assert_equal loc.cached_country, peru
   end
 
   test "properly find all locus subregions" do
     loc = loci(:ukraine)
     actual = loc.subregion_ids
-    expected = Locus.where(slug: ["ukraine", "kiev_obl", "kiev", "brovary"]).ids
+    expected = Locus.where(slug: ["ukraine", "kiev_obl", "kyiv", "brovary"]).ids
     not_expected = Locus.where(slug: ["usa", "new_york", "nyc"]).ids
-    assert_equal [], expected - actual, "Some expected values are not included"
-    assert_equal [], not_expected & actual, "Some unexpected values are included"
+    assert_empty expected - actual, "Some expected values are not included"
+    assert_empty not_expected & actual, "Some unexpected values are included"
   end
 
   test "subregions of the Arabat Spit" do
@@ -60,13 +71,6 @@ class LocusTest < ActiveSupport::TestCase
     assert_equal loc, observation.card.locus
   end
 
-  test "do not destroy locus if it has associated observations (patch) and no cards" do
-    loc = loci(:brovary)
-    observation = create(:observation, card: create(:card, locus: loci(:kiev_obl)), patch: loc)
-    assert_predicate loc.cards, :empty?
-    assert_raise(ActiveRecord::DeleteRestrictionError) { loc.destroy }
-  end
-
   test "proper public parent for a private locus" do
     brvr = loci(:brovary)
     loc = create(:locus, parent_id: brvr.id, private_loc: true)
@@ -92,33 +96,33 @@ class LocusTest < ActiveSupport::TestCase
   test "locus full name using cached data" do
     brvr = loci(:brovary)
     I18n.with_locale(:en) do
-      assert_equal "Brovary, Kiev oblast, Ukraine", brvr.decorated.full_name
+      assert_equal "Brovary, Kyiv oblast, Ukraine", brvr.decorated.full_name
     end
   end
 
   test "locus full name for patch should prepend it with parent name" do
     ohm = create(:locus,
-        slug: "ohm", name_en: "Oak Hammock Marsh", cached_country: loci(:ukraine))
+      slug: "ohm", name_en: "Oak Hammock Marsh")
     centre = FactoryBot.create(:locus,
-                                 slug: "centre", name_en: "Interpretive Centre", patch: true,
-                                 parent: ohm, cached_parent: ohm, cached_country: loci(:ukraine))
+      slug: "centre", name_en: "Interpretive Centre", patch: true,
+      parent: ohm, cached_parent: ohm)
     I18n.with_locale(:en) do
-      assert_equal "Oak Hammock Marsh - Interpretive Centre, Ukraine", centre.decorated.full_name
+      assert_equal "Oak Hammock Marsh - Interpretive Centre", centre.decorated.full_name
     end
   end
 
   test "short name should strip everything after city" do
-    kiev = loci(:kiev)
-    troeshina = FactoryBot.create(:locus, slug: "troya", name_en: "Troya", parent: kiev, cached_city: kiev, cached_country: loci(:ukraine))
+    kyiv = loci(:kyiv)
+    troeshina = FactoryBot.create(:locus, slug: "troya", name_en: "Troya", parent: kyiv, cached_city: kyiv, cached_country: loci(:ukraine))
     I18n.with_locale(:en) do
-      assert_equal "Troya, Kiev City", troeshina.decorated.short_full_name
+      assert_equal "Troya, Kyiv City", troeshina.decorated.short_full_name
     end
   end
 
   test "short name should strip country if city not defined" do
     brvr = loci(:brovary)
     I18n.with_locale(:en) do
-      assert_equal "Brovary, Kiev oblast", brvr.decorated.short_full_name
+      assert_equal "Brovary, Kyiv oblast", brvr.decorated.short_full_name
     end
   end
 

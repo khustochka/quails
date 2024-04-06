@@ -9,11 +9,11 @@ module Lifelist
     end
 
     def get(key)
-      send(key)
+      public_send(key)
     end
 
     def set(key, val)
-      send("#{key}=", val)
+      public_send(:"#{key}=", val)
     end
 
     # Behave as species for taxonomy sorting

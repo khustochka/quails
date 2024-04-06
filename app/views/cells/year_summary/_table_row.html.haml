@@ -1,0 +1,7 @@
+%tr{class: row_class}
+  %td.lifelist-chart-year-td
+    = data[:year]
+  %td.lifelist-chart-bar-td
+    %div.lifelist-chart-bar{style: "width: #{percent_or_pixel(data[:percentage])}"}
+  %td.lifelist-chart-link-td
+    = link_to data[:count], list_path(year: data[:year]), target: :_blank

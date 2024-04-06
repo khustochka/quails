@@ -54,7 +54,7 @@ class ObservationSearch
     CARD_ATTRIBUTES.any? { |key| public_send(key).meaningful? }
   end
 
-  # Overwritten in Ebird::ObsSearch
+  # Overwritten in EBird::ObsSearch
   def base_cards
     Card.all
   end
@@ -78,11 +78,18 @@ class ObservationSearch
     SimplePartial.new("observations/search/voice_fieldset")
   end
 
+  def load_card
+    if card_id
+      Card.find(card_id)
+    end
+  end
+
   private
+
   def build_cards_relation
     cards_rel = bare_cards_relation
     if observation_filtered?
-      cards_rel = cards_rel.includes(:observations).references(:observations).merge(bare_obs_relation).preload(observations: {taxon: :species})
+      cards_rel = cards_rel.includes(:observations).references(:observations).merge(bare_obs_relation).preload(observations: { taxon: :species })
     end
     cards_rel
   end
@@ -97,33 +104,33 @@ class ObservationSearch
 
   def bare_cards_relation
     @bare_cards_relation ||=
-        [
-            :apply_date_filter,
-            :apply_locus_filter,
-            :apply_resolved_filter
-        ].inject(base_cards) do |scope, filter|
-          send(filter, scope)
-        end
+      [
+        :apply_date_filter,
+        :apply_locus_filter,
+        :apply_resolved_filter,
+      ].inject(base_cards) do |scope, filter|
+        __send__(filter, scope)
+      end
   end
 
   def bare_obs_relation
     @bare_obs_relation ||=
-        [
-            :apply_card_id_filter,
-            :apply_taxon_filter,
-            :apply_voice_filter
-        ].inject(Observation.all) do |scope, filter|
-          send(filter, scope)
-        end
+      [
+        :apply_card_id_filter,
+        :apply_taxon_filter,
+        :apply_voice_filter,
+      ].inject(Observation.all) do |scope, filter|
+        __send__(filter, scope)
+      end
   end
 
   def apply_date_filter(cards_scope)
     if observ_date
       dates = if end_date
-                observ_date..end_date
-              else
-                observ_date
-              end
+        observ_date..end_date
+      else
+        observ_date
+      end
       cards_scope.where(observ_date: dates)
     else
       cards_scope
@@ -133,10 +140,10 @@ class ObservationSearch
   def apply_locus_filter(cards_scope)
     if locus_id
       loci = if include_subregions
-               Locus.find(locus_id).subregion_ids
-             else
-               locus_id
-             end
+        Locus.find(locus_id).subregion_ids
+      else
+        locus_id
+      end
       cards_scope.where(locus_id: loci)
     else
       cards_scope
@@ -162,10 +169,10 @@ class ObservationSearch
   def apply_taxon_filter(obs_scope)
     if taxon_id
       taxa = if exclude_subtaxa
-               taxon_id
-             else
-               [taxon_id.to_i] + Taxon.where("taxa.parent_id" => taxon_id).ids
-             end
+        taxon_id
+      else
+        [taxon_id.to_i] + Taxon.where("taxa.parent_id" => taxon_id).ids
+      end
       obs_scope.where(taxon_id: taxa)
     else
       obs_scope

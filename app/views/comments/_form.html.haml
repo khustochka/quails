@@ -15,10 +15,10 @@
 
   = simple_fields_for @comment.commenter || Commenter.new do |f2|
     = f2.input :email, label: 'Email:',
-                hint: @comment.persisted? ? nil : 'Если хотите получить уведомление об ответах.'
+                hint: @comment.persisted? ? nil : t('posts.post.if_you_wish_to_receive_notification')
 
   = form.input :body, label: false, input_html: {rows: 10, class: 'wiki_field'},
-                hint: 'Немного HTML разрешено, включая &lt;a&gt;, &lt;img&gt;.'.html_safe
+                hint: t('posts.post.some_html_allowed')
 
   - if @comment.persisted?
     = form.input :send_email, label: 'Send email?'

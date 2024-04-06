@@ -14,7 +14,7 @@
 - kiev_obl:
     id: 2
     slug: kiev_obl
-    name_en: Kiev oblast
+    name_en: Kyiv oblast
     name_ru: "Киевская обл."
     name_uk: "Київська обл."
     lat:
@@ -42,10 +42,10 @@
     cached_subdivision_id: 2
     cached_country_id: 1
 
-- kiev:
+- kyiv:
     id: 7
-    slug: kiev
-    name_en: Kiev City
+    slug: kyiv
+    name_en: Kyiv City
     name_ru: "Киев"
     name_uk: "Київ"
     lat: 50.44

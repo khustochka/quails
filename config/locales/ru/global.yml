@@ -12,8 +12,9 @@
     videos: Видео
     my_stats: Моя статистика
     lifelist: Lifelist
-    english: English
+    english: ENG
     russian: По-русски
+    ukrainian: УКР
 
   filters:
     years:
@@ -44,7 +45,8 @@
     feed: Подписка
 
   translated:
-    en: English version
+    en: English
+    uk: Українська
 
   languages:
     en: по-английски
@@ -52,9 +54,20 @@
     uk: по-украински
     fr: по-французски
 
+  in_lang_names:
+    en: английском
+    ru: русском
+    uk: украинском
+    fr: французском
+
   errors:
     template:
       header:
         one: ! 'Сохранение не удалось из-за ошибки:'
         few: ! 'Сохранение не удалось из-за %{count} ошибок:'
         many: ! 'Сохранение не удалось из-за %{count} ошибок:'
+
+  lifelist_chart:
+    number_of_species: Количество видов
+    lifers_header: "Лайферы:"
+    end_of_year: Всего

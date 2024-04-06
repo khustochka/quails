@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 module AssetsHelper
-  GMAP_API_URL = -"//maps.googleapis.com/maps/api/js?key=#{ENV["quails_google_maps_api_key"]}&v=3.43"
+  GMAP_API_VERSION = "3.53"
+  GMAP_API_URL = -"https://maps.googleapis.com/maps/api/js?key=#{ENV["quails_google_maps_api_key"]}&v=#{GMAP_API_VERSION}"
 
   def stylesheet(*args)
     @stylesheets ||= []
@@ -11,10 +12,5 @@ module AssetsHelper
   def javascript(*args)
     @scripts ||= []
     @scripts.concat args
-  end
-
-  def packs(*args)
-    @packs ||= []
-    @packs.concat args
   end
 end

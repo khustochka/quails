@@ -6,7 +6,11 @@ class YoutubeVideo < Struct.new(:video_id, :title, :width, :height)
   end
 
   def url
-    "https://www.youtube-nocookie.com/embed/#{video_id}?enablejsapi=1&rel=0&vq=hd720"
+    if Rails.env.test?
+      ""
+    else
+      "https://www.youtube-nocookie.com/embed/#{video_id}?enablejsapi=1&rel=0&vq=hd720"
+    end
   end
 
   def direct_url

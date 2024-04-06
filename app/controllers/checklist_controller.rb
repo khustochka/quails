@@ -2,6 +2,7 @@
 
 class ChecklistController < ApplicationController
   administrative except: [:show]
+  localized only: [:show]
 
   def show
     fetch_checklist
@@ -19,17 +20,18 @@ class ChecklistController < ApplicationController
       end
     end
     # Expire cache manually, because update_all skips callbacks
-    CacheKey.checklist.invalidate
+    Quails::CacheKey.checklist.invalidate
     redirect_to checklist_path(country: params[:country])
   end
 
   private
+
   def fetch_checklist
     @country = if params[:country] == "manitoba"
-                 Locus.find_by!(slug: "manitoba")
-               else
-                 Country.find_by!(slug: params[:country])
-               end
+      Locus.find_by!(slug: "manitoba")
+    else
+      Country.find_by!(slug: params[:country])
+    end
 
     if @country.slug.in? %w(ukraine manitoba)
       @checklist = @country.checklist

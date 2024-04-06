@@ -9,25 +9,24 @@ class LociController < ApplicationController
   def index
     @term = params[:term]
     @loci = if @term.present?
-              Search::LociSearch.new(Locus.cached_ancestry_preload, @term).find
-            else
-              Locus.order(:id).cached_ancestry_preload.page(params[:page])
-            end
-    @loci = @loci.preload(:observations, :patch_observations)
+      Search::LociSearch.new(Locus.cached_ancestry_preload, @term).find
+    else
+      Locus.order(:id).cached_ancestry_preload.page(params[:page])
+    end
+    @loci = @loci.preload(:observations)
     preload_parent(@loci)
     if request.xhr?
       render partial: "loci/table", layout: false
     else
       render
     end
-    # @loci = Locus.order(:id).preload(:observations, :patch_observations).page(params[:page])
   end
 
   # GET /locus/1
   def show
     @locus = Locus.find_by(id: params[:id]) || Locus.find_by!(slug: params[:id])
     respond_to do |format|
-      format.html {  }
+      format.html {}
       format.json { render json: @locus }
     end
   end
@@ -56,12 +55,7 @@ class LociController < ApplicationController
   # PUT /locus/1
   def update
     if @locus.update(params[:locus])
-      if params[:commit] == "Save and next >>"
-        nextloc = Locus.where(ebird_location_id: nil).where("id > ?", @locus.id).order(id: :asc).limit(1).first
-        redirect_to(edit_locus_path(nextloc), notice: "Sucess. Next one:")
-      else
-        redirect_to(edit_locus_path(@locus), notice: "Locus was successfully updated.")
-      end
+      redirect_to(edit_locus_path(@locus), notice: "Locus was successfully updated.")
     else
       render :form
     end
@@ -76,7 +70,7 @@ class LociController < ApplicationController
 
   def public
     @locs_public = Locus.locs_for_lifelist
-    @locs_other = Locus.sort_by_ancestry(Locus.where("public_index IS NULL"))
+    @locs_other = Locus.sort_by_ancestry(Locus.where(public_index: nil))
   end
 
   def save_order
@@ -91,11 +85,12 @@ class LociController < ApplicationController
   end
 
   private
+
   def preload_parent(loci)
     parent_ids = loci.map(&:parent_id)
     parents = Locus.where(id: parent_ids).index_by(&:id)
     loci.each do |loc|
-      loc.send(:set_parent, parents[loc.parent_id])
+      loc.__send__(:set_parent, parents[loc.parent_id])
     end
   end
 end

@@ -12,7 +12,7 @@
 - content_for :translated do
   = render partial: 'partials/translated', locals: {url: significant_params}
 
-- cache significant_params.merge(admin: current_user.admin?, key: CacheKey.lifelist, locale: I18n.locale) do
+- cache amended_params(admin: current_user.admin?, key: Quails::CacheKey.lifelist, locale: I18n.locale) do
 
   %h1= page_header
 
@@ -23,7 +23,7 @@
       %ul.horiz-list.filter-list
         %strong= t('.filter.sort_by')
         - [nil, :by_taxonomy].each do |sort|
-          %li= link_to_or_span(t(sort || :by_date, scope: 'lifelist.menus.sort_option'), significant_params.merge(:sort => sort))
+          %li= link_to_or_span(t(sort || :by_date, scope: 'lifelist.menus.sort_option'), amended_params(:sort => sort))
         %li
           %b= link_to t('lifelist.menus.advanced'),
                       significant_params.slice(:year, :locus).merge(action: :advanced),

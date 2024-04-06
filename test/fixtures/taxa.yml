@@ -6,7 +6,6 @@ pasdom:
   index_num: 100
   ebird_code: houspa
   species: :pasdom
-  ebird_taxon: :pasdom
 
 hirrus:
   name_sci: "Hirundo rustica"
@@ -15,7 +14,6 @@ hirrus:
   index_num: 50
   ebird_code: barswa
   species: :hirrus
-  ebird_taxon: :hirrus
 
 jyntor:
   name_sci: "Jynx torquilla"
@@ -32,7 +30,6 @@ gargla:
   index_num: 60
   ebird_code: eurjay1
   species: :gargla
-  ebird_taxon: :gargla
 
 gargla_eurasian:
   name_sci: "Garrulus glandarius [glandarius Group]"
@@ -41,7 +38,6 @@ gargla_eurasian:
   index_num: 61
   ebird_code: eurjay2
   species: :gargla
-  ebird_taxon: :gargla_eurasian
   parent: :gargla
 
 bomgar:
@@ -67,7 +63,6 @@ motfel:
   index_num: 14900
   ebird_code: weywag6
   species: :motfel
-  ebird_taxon: :motfel
 
 larheu:
   name_sci: "Larus heuglini"
@@ -83,7 +78,6 @@ aves_sp:
   category: "spuh"
   index_num: 15000
   ebird_code: bird1
-  ebird_taxon: :aves_sp
 
 unreported_bird_sp:
  name_sci: "Unreported bird sp."

@@ -1,13 +1,7 @@
 -# frozen_string_literal: true
-%span.designation
-  - if designation == :first_seen
-    First seen:
-  - elsif designation == :last_seen
-    Last seen:
-  - else
-    Seen:
+%span.designation= t(designation, scope: "lifelist.lifer.designation")
 %time{datetime: life_observation.observ_date.iso8601}= post_link(l(life_observation.observ_date, format: :long), life_observation.main_post, true)
-- loc_name = life_observation.patch_or_locus.public_locus.decorated.full_name
-%span.lifer-locus-icon.fas.fa-map-marker-alt{title: loc_name, "data-title" => loc_name}
+- loc_name = life_observation.locus.public_locus.decorated.full_name
+%span.lifer-locus-icon.fas.fa-location-dot{title: loc_name, "data-title" => loc_name}
 - if current_user.admin?
   %a.cardlink.far.fa-file-alt{href: card_path(id: life_observation.card)}

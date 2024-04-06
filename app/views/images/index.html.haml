@@ -5,10 +5,23 @@
 - @page_header = t(".title")
 - @meta_description = t(".meta_description")
 
-- @robots = 'NOINDEX' if russian_locale?
+- @robots = 'NOINDEX' unless blogless_locale?
 
 - content_for :translated do
   = render 'partials/translated'
+
+- if I18n.locale == :en && params[:page].nil?
+  %h2= t(".#{@cell.type}")
+
+  .year-summary
+    = render @cell
+
+  -# %h2
+  -#   = t(".#{@cell0.type}")
+  -#   = @cell0.year
+
+  -# .year-summary
+  -#   = render @cell0
 
 %div.header-with-subheader
   %h1

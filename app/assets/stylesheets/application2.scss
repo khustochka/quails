@@ -1,8 +1,7 @@
-@import "app2/bootstrap-overrides";
-@import "bootstrap";
-
-@import "font-awesome-sprockets", "font-awesome";
 @import "jquery-ui";
+
+@import "app2/bootstrap-overrides";
+@import "../../../node_modules/bootstrap/scss/bootstrap";
 
 @import "app2/print";
 @import "app2/global";
@@ -18,4 +17,3 @@
 
 @import "app2/pages/links";
 @import "app2/pages/lifelist";
-@import "banner";

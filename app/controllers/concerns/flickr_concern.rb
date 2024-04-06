@@ -8,7 +8,8 @@ module FlickrConcern
   end
 
   private
-  def _FlickrClient
+
+  def _FlickrClient # rubocop:disable Naming/MethodName
     @flickr_client ||= ::Flickr::Client.new
   end
 

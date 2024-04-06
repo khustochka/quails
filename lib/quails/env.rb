@@ -1,11 +1,8 @@
 # frozen_string_literal: true
 
 require "active_support/core_ext/array/inquiry.rb"
-require "quails/revision"
 
 module Quails
-  CURRENT_YEAR = 2022
-
   class Env
     def initialize
       @raw = ENV["QUAILS_ENV"] || ""
@@ -35,7 +32,7 @@ module Quails
     end
 
     def ssl?
-      @ssl ||= live? || heroku? || puma_dev? || test_for("ssl")
+      @ssl ||= heroku? || puma_dev? || test_for("ssl")
     end
 
     def test_for(key)
@@ -43,9 +40,9 @@ module Quails
     end
 
     def method_missing(method, *args, &block)
-      if /^(?<attr>.*)\?$/ =~ method.to_s
+      if /^(?<attr>\w+)\?$/ =~ method.to_s
         if @raw
-          instance_variable_get("@#{attr}".to_sym) || instance_variable_set("@#{attr}".to_sym, @arr.send(method))
+          instance_variable_get("@#{attr}".to_sym) || instance_variable_set("@#{attr}".to_sym, @arr.public_send(method))
         else
           false
         end
@@ -54,24 +51,8 @@ module Quails
       end
     end
 
-    def respond_to?(method)
-      if /^.*\?$/.match?(method.to_s)
-        true
-      else
-        super
-      end
+    def respond_to_missing?(method_name, include_private = false)
+      /^\w+\?$/ =~ method_name.to_s || super
     end
-  end
-
-  def self.env
-    @env ||= Env.new
-  end
-
-  def self.revision
-    @revision ||= Revision.get
-  end
-
-  def self.unique_key
-    Rails.application.config.x.unique_key
   end
 end

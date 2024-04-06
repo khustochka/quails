@@ -36,6 +36,7 @@
 # Do not need any hidden files
 .*
 !.keep
+!/.dockerignore
 !/.env.TEMPLATE
 !/.env.test
 !/.env.development
@@ -45,15 +46,14 @@
 !/.gitmodules
 !/.github
 !/.rubocop.yml
-!/.ruby-gemset
-!/.ruby-version
-!/.slugignore
+!/.tool-versions
 *~
 AppleDouble
 
 /data/checklists*/
 /data/MyEBirdData*
 /data/eBird_Taxonomy_v2021.csv
+/data/eBird_Taxonomy_v2022*
 
 /public/csv
 
@@ -62,9 +62,11 @@ AppleDouble
 /public/system
 /vendor/bundle
 
-/public/packs
-/public/packs-test
 /node_modules
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+definitions.rb
+
+/app/assets/builds/*
+!/app/assets/builds/.keep

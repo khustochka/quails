@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 namespace :tax do
-  desc "Import ebird taxa to taxa and ebird_taxa tables"
+  # desc "Import ebird taxa to taxa and ebird_taxa tables"
   task import_ebird_taxa: :environment do
     filename = ENV["CSV"] || "./data/eBird_Taxonomy_v2016.csv"
 
@@ -9,7 +9,7 @@ namespace :tax do
 
     puts "\n********** Import taxa from ebird from `#{filename}`"
 
-    if Taxon.count > 0 || EbirdTaxon.count > 0
+    if Taxon.count > 0 || EBirdTaxon.count > 0
       raise "Taxa tables not empty"
     end
 
@@ -17,13 +17,13 @@ namespace :tax do
 
     codes = {}
 
-    # Ebird File is in some Mac encoding, and not all of them are convertable to UTF-8.
+    # EBird File is in some Mac encoding, and not all of them are convertable to UTF-8.
     # This one works for now (check Rüppell's Warbler)
     # 2016: Fixed sci name for Red-billed Curassow to Crax blumenbachii
     data = CSV.read(filename, encoding: "macRoman:UTF-8")
     data.shift # skip headers
     data.each_with_index do |(ebird_order, category, code, name_en, name_ioc, name_sci, order, family, _, report_as), idx|
-      e_taxon = EbirdTaxon.create!(
+      e_taxon = EBirdTaxon.create!(
           name_sci: name_sci,
           name_en: name_en,
           name_ioc_en: name_ioc,

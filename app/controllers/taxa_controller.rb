@@ -9,10 +9,10 @@ class TaxaController < ApplicationController
     # TODO : Filter by order, family, category
     @term = params[:term]
     @taxa = if @term.present?
-              Search::TaxonSearchUnweighted.new(Taxon.all, @term).find
-            else
-              Taxon.order(:index_num).page(params[:page]).per(50)
-            end
+      Search::TaxonSearchUnweighted.new(Taxon.all, @term).find
+    else
+      Taxon.order(:index_num).page(params[:page]).per(50)
+    end
     @taxa = @taxa.preload(:species)
     if request.xhr?
       render partial: "taxa/table", layout: false
@@ -28,7 +28,7 @@ class TaxaController < ApplicationController
   end
 
   def show
-    @taxon = Taxon.find_by_ebird_code(params[:id])
+    @taxon = Taxon.find_by(ebird_code: params[:id])
     render :form
   end
 

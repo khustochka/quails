@@ -3,17 +3,6 @@
 require "application_system_test_case"
 
 class JSCardsTest < ApplicationSystemTestCase
-  def save_and_check
-    click_button("Save")
-    sleep 0.5 # Chrome driver needs pretty high values TODO: diff values for Chrome and Capy-webkit
-    assert_css "#save_button[value=Save]"
-  end
-
-  def select_date(value)
-    page.execute_script "$('.inline_date').datepicker( 'setDate', '#{value}' );"
-  end
-  private :save_and_check, :select_date
-
   test "Adding empty card" do
     login_as_admin
     visit new_card_path
@@ -292,5 +281,17 @@ class JSCardsTest < ApplicationSystemTestCase
     assert_no_css ".loading"
 
     assert_equal 1, p.cards.size
+  end
+
+  private
+
+  def save_and_check
+    click_button("Save")
+    sleep 0.5 # Chrome driver needs pretty high values
+    assert_css "#save_button[value=Save]"
+  end
+
+  def select_date(value)
+    page.execute_script "$('.inline_date').datepicker( 'setDate', '#{value}' );"
   end
 end

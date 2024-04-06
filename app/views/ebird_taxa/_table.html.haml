@@ -3,7 +3,7 @@
   %tr
     %th.align-right No
     %th Name
-    %th EBird code
+    %th Code & Concept
     %th Taxonomy
     %th Taxon & Species
 
@@ -19,10 +19,12 @@
                 = term_highlight(taxon.name_sci, @term)
           %small{class: [:tag, "tag_#{taxon.category}"]}= taxon.category
         %div
-          - name_str = [:name_en, :name_ioc_en].map {|m| taxon.send(m)}.uniq.compact.join(", ")
+          - name_str = [:name_en, :name_ioc_en].map {|m| taxon.public_send(m)}.uniq.compact.join(", ")
           = term_highlight(name_str, @term)
       %td
-        = taxon.ebird_code
+        %div= taxon.ebird_code
+        %div
+          %small.less-important= taxon.taxon_concept_id
       %td
         %div= taxon.order
         %div= taxon.family
@@ -31,7 +33,7 @@
           %div
             %span.less-important Taxon:
             = taxon_link(tx, tx.name_sci)
-          - if tx.is_a_species? && sp = tx.species
+          - if tx.full_species? && sp = tx.species
             %div
               %span.less-important Species:
               = species_link(sp, sp.name_sci)

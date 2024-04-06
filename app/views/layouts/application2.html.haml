@@ -12,7 +12,8 @@
 
       %meta{ property: "fb:pages", content: "129929083830909" }
 
-      = airbrake_config_meta_tag
+      -# = airbrake_config_meta_tag
+      = honeybadger_config_meta_tag
 
       -# favicon and other icon-related stuff: http://realfavicongenerator.net/
       %link{href: "/apple-touch-icon.png", rel: "apple-touch-icon", sizes: "180x180"}/
@@ -39,19 +40,19 @@
     - if @og_type
       %meta{ property: "og:type", content: @og_type }
 
-    = javascript_pack_tag *packs.unshift('visitor')
-    = stylesheet_pack_tag "visitor", media: "all"
-
+    -# Fonts preconnect
     %link{rel: "preconnect", href: "https://fonts.gstatic.com"}
-    = stylesheet_link_tag "https://fonts.googleapis.com/css2?family=Rubik:wght@500&display=swap", media: "all"
-    = stylesheet_link_tag "application2", media: "all"
 
-    -# enable HTML5 and media queries in IE
-    -# html5shiv and respond.js should be included after any stylesheets!
-    /[if lt IE 9]
-      = javascript_include_tag "ie_fix"
-
+    -# Scripts
+    = javascript_include_tag "early"
+    = javascript_include_tag "visitor", "app2"
     = javascript_include_tag "application2"
+
+    -# Stylesheets
+    = stylesheet_link_tag "https://fonts.googleapis.com/css2?family=Rubik:wght@500&display=swap", media: "all"
+    = stylesheet_link_tag "visitor", media: "all"
+    -# This is last because it may use bootstrap classes and google fonts
+    = stylesheet_link_tag "application2", media: "all"
 
     -# Template Dependency: partials/ga_code
     = include_google_analytics

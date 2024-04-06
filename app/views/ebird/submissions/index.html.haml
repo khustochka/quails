@@ -1,7 +1,10 @@
 -# frozen_string_literal: true
 - @js_features = ['ebirdTransitions']
 
-- @page_title = 'eBird submissions'
+- @page_title = 'eBird Submissions'
+
+- content_for :add_shortcuts do
+  %li= link_to "eBird Imports", ebird_imports_path
 
 %h1= page_header
 
@@ -25,7 +28,7 @@
     %tr
       %td= file.id
       %td= link_to file.name, ebird_submission_path(file.id)
-      %td= link_to "[csv]", ebird_submission_path(id: file.id, format: :csv)
+      %td= link_to "[csv]", ebird_submission_path(id: file.name, format: :csv)
       %td= file.created_at.strftime("%F %R")
       %td
         = file.cards.size

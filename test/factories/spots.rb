@@ -2,11 +2,11 @@
 
 FactoryBot.define do
   factory :spot do
-    association :observation
+    observation
     lat { 50.5 }
     lng { 30.6 }
     zoom { 12 }
     exactness { 0 }
-    send(:public) { true }
+    __send__(:public) { true }
   end
 end

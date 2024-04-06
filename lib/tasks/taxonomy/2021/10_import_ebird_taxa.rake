@@ -15,9 +15,9 @@ namespace :tax do
 
       codes = {}
 
-      all_etaxa = EbirdTaxon.all.index_by(&:ebird_code)
+      all_etaxa = EBirdTaxon.all.index_by(&:ebird_code)
 
-      # Ebird File is in some Mac encoding, and not all of them are convertable to UTF-8.
+      # EBird File is in some Mac encoding, and not all of them are convertable to UTF-8.
       # This one works for now (check Rüppell's Warbler)
       # I have fixed encoding in RubyMine (selected Mac Central European)
       #data = CSV.read(filename, encoding: "macRoman:UTF-8")
@@ -27,9 +27,9 @@ namespace :tax do
       # Why we need this workaround? Because we cache the taxa. And then we change their order.
       # But the index_num's in the cached models are different from the real ones (after previous taxa are moved up or down.)
       # This causes problems, duplicated and missing indices.
-      EbirdTaxon.acts_as_list_no_update do
+      EBirdTaxon.acts_as_list_no_update do
         data.each_with_index do |(ebird_order, category, code, name_en, name_sci, order, family, _, report_as), idx|
-          e_taxon = all_etaxa[code] || EbirdTaxon.new(ebird_code: code)
+          e_taxon = all_etaxa[code] || EBirdTaxon.new(ebird_code: code)
           e_taxon.update!(
               name_sci: name_sci,
               name_en: name_en,
@@ -79,14 +79,14 @@ namespace :tax do
     task :fix_removed_codes => :environment do
       # kinglet sp was removed - different name and code for the spuh which became slash
       old_king = Taxon.find_by(ebird_code: "kingle")
-      new_king = EbirdTaxon.find_by(ebird_code: "y00425").promote
+      new_king = EBirdTaxon.find_by(ebird_code: "y00425").promote
       old_king.observations.each {|obs| obs.update!(taxon: new_king)}
       old_king.destroy!
 
       # Eastern Whip-poor-will - code updated (could have just copied all data?)
       # But here species exists! So we just copy over the code and everything.
       old_whip = Taxon.find_by(ebird_code: "whip-p1")
-      new_whip = EbirdTaxon.find_by(ebird_code: "easwpw1")
+      new_whip = EBirdTaxon.find_by(ebird_code: "easwpw1")
       old_whip.update!(
         ebird_code: "easwpw1",
         ebird_taxon: new_whip
@@ -108,7 +108,7 @@ namespace :tax do
     end
 
     task clean_ebird_taxa: :environment do
-      old_etaxa = EbirdTaxon.where(ebird_version: 2019)
+      old_etaxa = EBirdTaxon.where(ebird_version: 2019)
       to_fix = Taxon.joins(:ebird_taxon).merge(old_etaxa)
       num_to_fix = to_fix.count
       puts "\n\nREPORT:"

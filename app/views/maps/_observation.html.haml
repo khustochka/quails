@@ -10,4 +10,4 @@
   - if img_count > 0
     %div.obs_item_photos
       %span.images_count= img_count
-      %div.images_popup.ui-tooltip= render partial: 'maps/image', collection: observation.images
+      %div.images_popup= render partial: 'maps/image', collection: observation.images

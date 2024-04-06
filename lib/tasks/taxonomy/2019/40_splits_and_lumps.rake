@@ -6,7 +6,7 @@ namespace :tax do
 
     task fix_lumps: :environment do
       # Lumped several ssp into one. Only nominative was in the list
-      eb_sylvia_curruca = EbirdTaxon.find_by_name_sci("Sylvia curruca")
+      eb_sylvia_curruca = EBirdTaxon.find_by_name_sci("Sylvia curruca")
       eb_sylvia_curruca.promote
 
       # # Larus thayeri was lumped into Larus glaucoides
@@ -17,7 +17,7 @@ namespace :tax do
       # # Promote Larus glaucoides ebird taxon to taxon-species. This will link the taxon-species to an existing
       # # lar. gl. species, and all its taxa-children (including thayeri subsp)
       #
-      # eb_larus_glaucoides = EbirdTaxon.find_by_name_sci("Larus glaucoides")
+      # eb_larus_glaucoides = EBirdTaxon.find_by_name_sci("Larus glaucoides")
       # eb_larus_glaucoides.promote
       #
       # # Remove Larus thayeri from local_species
@@ -43,28 +43,28 @@ namespace :tax do
 
       # Find new subspecies and promote
       # Cercotrichas galactotes
-      EbirdTaxon.find_by_ebird_code("rutscr1").promote
+      EBirdTaxon.find_by_ebird_code("rutscr1").promote
 
       # Picus viridis
-      euro_green_woodpecker = EbirdTaxon.find_by_ebird_code("eugwoo2").promote
-      ibero_green_woodpecker = EbirdTaxon.find_by_ebird_code("grnwoo3").promote
+      euro_green_woodpecker = EBirdTaxon.find_by_ebird_code("eugwoo2").promote
+      ibero_green_woodpecker = EBirdTaxon.find_by_ebird_code("grnwoo3").promote
 
       SpeciesSplit.create!(superspecies: euro_green_woodpecker.species, subspecies: ibero_green_woodpecker.species)
 
       # Melanitta deglandi
-      EbirdTaxon.find_by_ebird_code("whwsco2").promote
+      EBirdTaxon.find_by_ebird_code("whwsco2").promote
 
       # MALLARD
 
-      #mallard = EbirdTaxon.find_by_ebird_code("mallar3").promote
+      #mallard = EBirdTaxon.find_by_ebird_code("mallar3").promote
       # Because former subspecies and now species-taxon already exists, promoting it will not unlink
       # species from former species-now slash. That is why we need to do this separately:
       #Taxon.find_by_ebird_code("mallar3").lift_to_species
 
       # VELVET/WHITE-WINGED SCOTER split
 
-      # velvet_scoter = EbirdTaxon.find_by_ebird_code("whwsco3").promote
-      # whitewinged_scoter = EbirdTaxon.find_by_ebird_code("whwsco4").promote
+      # velvet_scoter = EBirdTaxon.find_by_ebird_code("whwsco3").promote
+      # whitewinged_scoter = EBirdTaxon.find_by_ebird_code("whwsco4").promote
       #
       # # Update local species
       #

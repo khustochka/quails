@@ -3,24 +3,24 @@
 class CommentMailer < ApplicationMailer
   include ActionView::Helpers::SanitizeHelper
 
-  default from: ENV["quails_comment_sender"]
-  default to: ENV["quails_comment_reader"]
+  default from: ENV["COMMENT_EMAIL_SENDER"]
+  default to: ENV["ADMIN_NOTIFICATIONS_EMAIL"]
 
   before_action :set_params
 
   def notify_admin
-    mail from: params[:from], to: params[:to], subject: "Comment posted to \"#{sanitized_comment_title}\""
+    mail subject: "Comment posted to \"#{sanitized_comment_title}\""
   end
 
   def notify_parent_author
     to = @comment.parent_comment.commenter.email
-    if (Rails.env.production? && Quails.env.live?) ||
-            (!Rails.env.production? && (!perform_deliveries || delivery_method.in?([:letter_opener, :test]))) && to.present?
-      mail from: params[:from], to: to, subject: "Ответ на ваш комментарий на сайте birdwatch.org.ua (\"#{sanitized_comment_title}\")"
+    if send_email_to_users? && to.present?
+      mail to: to, subject: "Ответ на ваш комментарий на сайте birdwatch.org.ua (\"#{sanitized_comment_title}\")"
     end
   end
 
   private
+
   def set_params
     @comment = params[:comment]
     @link_options = params[:link_options]
@@ -32,5 +32,11 @@ class CommentMailer < ApplicationMailer
 
   def sanitized_comment_title
     sanitize(@comment.post.decorated.title, tags: [])
+  end
+
+  def send_email_to_users?
+    !perform_deliveries ||
+      delivery_method.in?([:letter_opener, :test]) ||
+      (Rails.env.production? && Quails.env.live?)
   end
 end

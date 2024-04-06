@@ -5,20 +5,20 @@ task benchmark: :environment do
   require "benchmark/ips"
 
   Benchmark.ips do |bench|
-    bench.report("uuid") do
-      SecureRandom.uuid
+    bench.time = 5
+    bench.warmup = 2
+
+    bench.report("lateral join") do
+      Lifelist::FirstSeenLateral.over(year: 2019).to_a
     end
 
-    bench.report("16 hex bytes") do
-      SecureRandom.hex(16)
-    end
-
-    bench.report("urlsafe") do
-      SecureRandom.urlsafe_base64(20 * 3 / 4)
+    bench.report("partition") do
+      Lifelist::FirstSeen.over(year: 2019).to_a
     end
 
     bench.compare!
   end
 end
 
+desc nil
 task bench: :benchmark

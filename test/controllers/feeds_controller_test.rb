@@ -39,7 +39,7 @@ class FeedsControllerTest < ActionController::TestCase
     create(:post)
     create(:image, observations: [create(:observation, card: create(:card, post: create(:post)))])
     get :blog, format: :xml
-    links = response.body.scan(/\w+="\/[^"]+"/)
+    links = response.body.scan(%r{\w+="/[^"]+"})
     assert_empty links, "Relative links found: #{links.join(", ")}"
   end
 
@@ -59,7 +59,7 @@ class FeedsControllerTest < ActionController::TestCase
     create(:image)
 
     get :photos, format: :xml
-    links = response.body.scan(/\w+="\/[^"]+"/)
+    links = response.body.scan(%r{\w+="/[^"]+"})
     assert_empty links, "Relative links found: #{links.join(", ")}"
   end
 
@@ -128,7 +128,7 @@ class FeedsControllerTest < ActionController::TestCase
     FactoryBot.create(:image)
 
     get :sitemap, format: :xml
-    links = response.body.scan(/\w+="\/[^"]+"/)
+    links = response.body.scan(%r{\w+="/[^"]+"})
     assert_empty links, "Relative links found: #{links.join(", ")}"
   end
 
@@ -145,7 +145,7 @@ class FeedsControllerTest < ActionController::TestCase
     create(:post, publish_to_facebook: true)
     get :instant_articles, format: :xml
     assert_response :success
-    links = response.body.scan(/\w+="\/[^"]+"/)
+    links = response.body.scan(%r{\w+="/[^"]+"})
     assert_empty links, "Relative links found: #{links.join(", ")}"
   end
 

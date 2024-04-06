@@ -5,7 +5,7 @@
 = render partial: "blog/image", collection: post.decorated.the_rest_of_images, formats: :html
 
 %p
-  Опубликовано:
+  = t('feeds.post.published')
   %em
     %time{datetime: post.face_date.iso8601}= l(post.face_date, format: :long)
     \|

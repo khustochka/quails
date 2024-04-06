@@ -1,0 +1,33 @@
+"uk":
+  images:
+
+    alt_photo: '[фото]'
+
+    index:
+      window_title: Найновіші фотографії
+      title: Найновіші фотографії
+      meta_description: "Нові фотографії птахів"
+      species_gallery: Галерея видів
+      last_updated: ! "Останнє оновлення: %{date}."
+
+    multiple_species:
+      title: Кілька видів на одному фото
+
+    show:
+      prev: 'поперед.'
+      next: 'наступ.'
+      prev_image: "<< Попереднє фото"
+      next_image: "Наступне фото >>"
+      more_photos_of_multiple_species: Більше фото кількох видів
+      main_img_alt: "Фотографія '%{title}'"
+
+    taken_clause: Фотографія '%{title}' знята
+
+  videos:
+    index:
+      window_title: Відео птахів
+      title: Відео
+    watch_on_youtube: Це відео на Youtube
+    iframe_title: "Відео: %{title}"
+
+    taken_clause: Відео '%{title}' зняте

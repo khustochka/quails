@@ -1,0 +1,20 @@
+- include_lifers = local_assigns.fetch(:include_lifers, true)
+- highlight_max = local_assigns.fetch(:highlight_max, false)
+
+- cache([:year_progress, { include_lifers: include_lifers, highlight_max: highlight_max, key: Quails::CacheKey.lifelist, locale: I18n.locale }.merge!(year_progress.cache_key)]) do
+  %div.lifelist-chart-container
+    .lifelist-chart-year-bars
+      %table.lifelist-chart-table
+        %thead
+          %tr
+            %th.lifelist-chart-th{colspan: 2}
+              = l(year_progress.day, format: :short)
+            %th.lifelist-chart-th{colspan: 2}
+              = t("lifelist_chart.end_of_year")
+        %tbody
+          = render partial: "cells/year_progress/table_row",
+                   locals: {data: year_progress.result.first, current: true}
+          - year_progress.result[1..-1].each do |data|
+            = render partial: "cells/year_progress/table_row", locals: {data: data, current: false, highlight_max: highlight_max}
+    - if include_lifers
+      = render partial: "cells/lifers_cell", object: year_progress

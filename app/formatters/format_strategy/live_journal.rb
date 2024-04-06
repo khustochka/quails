@@ -26,7 +26,7 @@ module FormatStrategy
     end
 
     def img_tag(term)
-      if image = Image.find_by(slug: term)
+      if (image = Image.find_by(slug: term))
         real_image_tag(image)
       end
     end
@@ -35,7 +35,7 @@ module FormatStrategy
       %Q(<figure class="imageholder">
           !#{static_jpg_url(image)}([photo])!
           <figcaption class="imagetitle">
-          #{image.decorated.title} __(#{image.species.map(&:name_sci).join(', ')})__
+          #{image.decorated.title} __(#{image.species.map(&:name_sci).join(", ")})__
           </figcaption>
         </figure>
         )
@@ -44,7 +44,7 @@ module FormatStrategy
     def species_tag(word, term, en)
       sp = @species[term]
       if sp
-        str = +%Q(<b title="#{sp.name_sci}">#{word or (en ? sp.name_en : sp.name_sci)}</b>)
+        str = +%Q(<b title="#{sp.name_sci}">#{word || (en ? sp.name_en : sp.name_sci)}</b>)
         # %Q("(sp_link). #{word || sp.name_sci}":#{sp.code})
         if en && word.present?
           str << " (#{sp.name_en})"

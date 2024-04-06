@@ -1,0 +1,192 @@
+.lifelist-chart-container {
+  background-color: #eeeeee;
+  padding: 0.25rem 0.55rem;
+
+  & > div {
+  }
+}
+
+.lifelist-chart-table {
+  width: 100%;
+
+  td, th {
+    //padding: 5px 10px 5px 5px;
+    padding: 0.25rem 0.55rem 0.25rem 0.25rem;
+  }
+
+  .lifelist-chart-bar-td {
+    font-size: 1.5rem;
+    width: 100%;
+    padding-left: 0;
+  }
+
+  .lifelist-chart-year-td {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #7f7f7f;
+    text-align: right;
+  }
+
+  .lifelist-chart-link-td {
+    a {
+      font-size: 1rem;
+      font-weight: 600;
+      border-bottom: none;
+    }
+    text-align: right;
+  }
+
+  .lifelist-chart-th {
+    font-weight: normal;
+    text-align: right;
+    color: #666666;
+    font-size: 0.9rem;
+  }
+
+  .lifelist-chart-bar {
+    background-color: #80DEEA;
+    height: 0.9rem;
+  }
+
+  .lifelist-chart-bar-outer {
+    background-color: #cccccc;
+    height: 0.9rem;
+  }
+
+  tr > td, tr > th {
+    padding-bottom: 0.7rem;
+  }
+
+  .no-link-count {
+    color: #555555;
+    font-size: 0.85rem;
+  }
+
+  tr.current_year {
+    .lifelist-chart-year-td {
+      font-size: 1.2rem;
+      color: #6f6f6f;
+    }
+
+    .lifelist-chart-bar-td {
+      font-size: 1.5rem;
+    }
+
+    .lifelist-chart-bar {
+      background-color: #20b2aa;
+    }
+
+    .lifelist-chart-link-td {
+      a {
+        font-size: 1.15rem;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+.year-summary {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.lifelist-chart-lifers {
+  border-top: 1px solid #cccccc;
+  padding-top: 5px;
+  h5 {
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-weight: 500;
+    color: #666666;
+    text-align: center;
+    font-size: 1.2rem;
+    margin: 5px 0 0 0;
+  }
+
+  .lifers-count {
+    text-align: center;
+    font-size: 4.5rem;
+    font-weight: bold;
+    color: #20b2aa;
+  }
+
+  .lifers-list {
+    font-size: 0.85rem;
+    line-height: 1.3;
+    margin-top: 0;
+  }
+}
+
+@media (min-width: 768px) {
+  .lifelist-chart-container {
+    display: flex;
+
+    & > div {
+      padding: 5px 10px;
+    }
+
+    .lifelist-chart-year-bars {
+      flex-grow: 2;
+    }
+
+    .lifelist-chart-lifers {
+      border-top: none;
+    }
+
+    .lifelist-chart-year-td {
+      font-size: 1.3rem;
+    }
+
+    .lifelist-chart-link-td {
+      font-size: 1.3rem;
+    }
+
+    .lifelist-chart-th {
+      font-size: 1rem;
+    }
+
+    .lifelist-chart-bar {
+      height: 1.2rem;
+    }
+
+    .lifelist-chart-bar-outer {
+      background-color: #cccccc;
+      height: 1.2rem;
+    }
+
+    .no-link-count {
+      color: #555555;
+      font-size: 0.95rem;
+    }
+
+    tr.current_year {
+      .lifelist-chart-year-td {
+        font-size: 1.5rem;
+      }
+
+      .lifelist-chart-bar-td {
+        font-size: 1.8rem;
+      }
+
+      .lifelist-chart-link-td {
+        a {
+          font-size: 1.35rem;
+        }
+      }
+    }
+
+    .lifelist-chart-lifers {
+      h5 {
+        font-size: 1.3rem;
+      }
+
+      .lifers-count {
+        font-size: 5rem;
+      }
+
+      .lifers-list {
+        font-size: 0.9rem;
+        line-height: 1.35;
+      }
+    }
+  }
+}

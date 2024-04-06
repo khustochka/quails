@@ -12,6 +12,7 @@
       canada: Список Канады
       usa: Список США
       gb: Список Великобритании
+      poland: Список Польши
 
     index:
       title: Списки
@@ -30,6 +31,12 @@
         sort_by: 'Сортировка:'
       no_species: 'Нет видов'
 
+    sorting:
+      taxonomy: "Классификация"
+      first_encounter: "Первая встреча"
+      last_encounter: "Последняя встреча"
+      count: "Частота"
+
     by_date:
       seen_in:
         first: 'Впервые встречены в %{year} году:'
@@ -47,3 +54,10 @@
 
       advanced: Больше возможностей
       basic: Моя систематика
+
+    lifer:
+      num_encounters: "Встреч:"
+      designation:
+        first_seen: "Первая:"
+        last_seen: "Последняя:"
+        both: "Дата:"

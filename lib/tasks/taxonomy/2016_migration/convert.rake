@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 namespace :tax do
-  desc "Convert an old taxonomy DB into new taxonomy"
+  # desc "Convert an old taxonomy DB into new taxonomy"
   task convert: [
       "db:drop",
       "db:create",
@@ -16,7 +16,7 @@ namespace :tax do
       "tax:remap_local_species"
   ]
 
-  desc "Convert an old taxonomy DB into new taxonomy production"
+  # desc "Convert an old taxonomy DB into new taxonomy production"
   task convert_production: [
       "tax:import_ebird_taxa",
       "tax:create_species",
