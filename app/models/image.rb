@@ -55,10 +55,13 @@ class Image < Media
   scope :basic_order, -> { order(:index_num, "media.created_at", "media.id") }
 
   # Photos with several species
+  def self.multiple_species_query
+    rel = unscoped.where(media_type: "photo").select(:media_id).from("media_observations").group(:media_id).having("COUNT(observation_id) > 1")
+    select("DISTINCT media.*").where(id: rel)
+  end
+
   def self.multiple_species
-    rel = select(:media_id).from("media_observations").group(:media_id).having("COUNT(observation_id) > 1")
-    select("DISTINCT media.*, observ_date").where(id: rel)
-      .joins({ observations: :taxon }, :cards).preload(:species).order("observ_date ASC")
+    multiple_species_query.except(:select).select("DISTINCT media.*, observ_date").joins({ observations: :taxon }, :cards).preload(:species).order("observ_date ASC")
   end
 
   # Instance methods
