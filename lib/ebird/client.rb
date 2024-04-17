@@ -10,14 +10,14 @@ module EBird
     end
 
     def authenticate
-      page = @agent.get("https://ebird.org/")
-      page = page.link_with(text: "Sign in").click
+      page = @agent.get("https://ebird.org/home")
+      page = page.link_with(text: "Sign In").click
       form = page.form
       form.username = Settings.ebird_user.name
       form.password = Settings.ebird_user.password
       page = @agent.submit(form)
 
-      @authenticated = page.xpath("//a/span/bdo[contains(text(),'(#{Settings.ebird_user.name})')]").any?
+      @authenticated = page.xpath("//li/span/bdo[contains(text(),'(#{Settings.ebird_user.name})')]").any?
       unless @authenticated
         message = page.css("div#alert-badlogin > p").text
         raise "eBird client authentication failure: #{message}"
