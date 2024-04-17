@@ -56,7 +56,7 @@ class Image < Media
 
   # Photos with several species
   def self.multiple_species_query
-    rel = self.unscoped.where(media_type: "photo").select(:media_id).from("media_observations").group(:media_id).having("COUNT(observation_id) > 1")
+    rel = unscoped.where(media_type: "photo").select(:media_id).from("media_observations").group(:media_id).having("COUNT(observation_id) > 1")
     select("DISTINCT media.*").where(id: rel)
   end
 

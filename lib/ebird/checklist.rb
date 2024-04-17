@@ -145,7 +145,7 @@ module EBird
           end
         end
 
-        ebird_obs_id = row.at_css("a.Observation-tools-item")["data-obsid"]
+        ebird_obs_id = row.at_css("button.Observation-tools-item")["data-obsid"]
 
         observations << { taxon: tx, quantity: count, notes: notes, voice: voice, ebird_obs_id: ebird_obs_id }
       end
