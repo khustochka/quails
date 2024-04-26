@@ -17,7 +17,7 @@
 # We recommend using the highest patch level for better security and
 # performance.
 
-ARG RUBY_VERSION=3.3.0
+ARG RUBY_VERSION=3.3.1
 ARG VARIANT=slim-bookworm
 # Volta is only compatible with amd64.
 FROM --platform=linux/amd64 ruby:${RUBY_VERSION}-${VARIANT} as base
