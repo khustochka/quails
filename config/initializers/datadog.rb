@@ -4,7 +4,6 @@ if ENV["DD_ENABLED"]
   require "ddtrace/auto_instrument"
 
   Datadog.configure do |c|
-    c.env = Rails.env
     if Dir.pwd =~ %r{releases/(\d{14})$}
       c.version = Regexp.last_match(1)
     end
