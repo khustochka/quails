@@ -18,8 +18,9 @@
 # performance.
 
 ARG RUBY_VERSION=3.3.0
-ARG VARIANT=jemalloc-bookworm-slim
-FROM quay.io/evl.ms/fullstaq-ruby:${RUBY_VERSION}-${VARIANT} as base
+ARG VARIANT=slim-bookworm
+# Volta is only compatible with amd64.
+FROM --platform=linux/amd64 ruby:${RUBY_VERSION}-${VARIANT} as base
 
 ARG NODE_VERSION=18.17.0
 ARG YARN_VERSION=1.22.19
@@ -107,7 +108,7 @@ RUN ${BUILD_COMMAND} && rm -rf /app/tmp/cache/assets
 FROM base
 
 # ARG DEPLOY_PACKAGES="postgresql-client file vim curl gzip bzip2 htop net-tools bind9-dnsutils"
-ARG DEPLOY_PACKAGES="imagemagick postgresql-client file curl gzip bzip2 net-tools bind9-dnsutils procps"
+ARG DEPLOY_PACKAGES="imagemagick postgresql-client file curl gzip bzip2 net-tools bind9-dnsutils procps libjemalloc2"
 # ENV DEPLOY_PACKAGES=${DEPLOY_PACKAGES}
 
 RUN --mount=type=cache,id=prod-apt-cache,sharing=locked,target=/var/cache/apt \
@@ -117,13 +118,31 @@ RUN --mount=type=cache,id=prod-apt-cache,sharing=locked,target=/var/cache/apt \
     ${DEPLOY_PACKAGES} \
     && rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
-# copy installed gems
+ENV LD_PRELOAD="libjemalloc.so.2"
+ENV MALLOC_CONF="dirty_decay_ms:1000,narenas:2,background_thread:true,stats_print:false"
+ENV RUBY_YJIT_ENABLE="1"
+
+# copy with installed gems (in vendor folder)
 COPY --from=gems /app /app
-COPY --from=gems /usr/lib/fullstaq-ruby/versions /usr/lib/fullstaq-ruby/versions
-COPY --from=gems /usr/local/bundle /usr/local/bundle
+# commented out after switch from fullstaq. Explore if this is needed.
+# COPY --from=gems /usr/local/bin/ruby /usr/local/bin/ruby
+# COPY --from=gems /usr/local/bundle /usr/local/bundle
 
 # copy precompiled assets
 COPY --from=assets /app/public/assets /app/public/assets
+
+# Install supercronic
+
+# Latest releases available at https://github.com/aptible/supercronic/releases
+ENV SUPERCRONIC_URL=https://github.com/aptible/supercronic/releases/download/v0.2.29/supercronic-linux-amd64 \
+    SUPERCRONIC=supercronic-linux-amd64 \
+    SUPERCRONIC_SHA1SUM=cd48d45c4b10f3f0bfdd3a57d054cd05ac96812b
+
+RUN curl -fsSLO "$SUPERCRONIC_URL" \
+ && echo "${SUPERCRONIC_SHA1SUM}  ${SUPERCRONIC}" | sha1sum -c - \
+ && chmod +x "$SUPERCRONIC" \
+ && mv "$SUPERCRONIC" "/usr/local/bin/${SUPERCRONIC}" \
+ && ln -s "/usr/local/bin/${SUPERCRONIC}" /usr/local/bin/supercronic
 
 #######################################################################
 
