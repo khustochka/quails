@@ -70,7 +70,7 @@ gem "addressable", require: "addressable/uri"
 gem "roman-numerals"
 
 # Monitoring
-gem "ddtrace"
+gem "ddtrace", require: false
 gem "honeybadger", "~> 5.4"
 gem "lograge"
 # gem "airbrake"
