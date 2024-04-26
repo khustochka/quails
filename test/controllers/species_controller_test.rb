@@ -190,4 +190,11 @@ class SpeciesControllerTest < ActionController::TestCase
     assert_includes response.body, "Waxwing"
     assert_includes response.body, "/en/species/Bombycilla"
   end
+
+  test "search with empty params" do
+    get :search, params: {}, format: :json
+    assert_response :success
+    assert_equal Mime[:json], response.media_type
+    assert_equal "[]", response.body
+  end
 end

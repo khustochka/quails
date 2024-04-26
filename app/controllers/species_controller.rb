@@ -71,6 +71,7 @@ class SpeciesController < ApplicationController
     end
   end
 
+  # POST /species/search
   def search
     result = Search::PublicSpeciesSearch.new(current_user.searchable_species, params[:term], locale: I18n.locale).find
     render json: result
