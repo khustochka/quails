@@ -12,7 +12,6 @@ docker-compose.yml
 db/*.sqlite3
 db/*.sqlite3-*
 
-storage
 config/master.key
 config/credentials/*.key
 

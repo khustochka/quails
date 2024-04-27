@@ -152,6 +152,7 @@ COPY . .
 # Adopted from bitnami/nginx image    
 RUN chmod g+rwX /app/tmp   
 RUN chmod g+rwX /app/tmp/pids
+RUN chmod g+rwX /app/storage
 RUN find / -perm /6000 -type f -exec chmod a-s {} \; || true
 
 USER 1001
