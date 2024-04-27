@@ -21,7 +21,7 @@ module EBird
           filename = params[:id]
           @file = EBird::File.find_by(name: filename)
           if @file
-            redirect_to private_url(@file.full_name, allow_other_host: true)
+            redirect_to(private_url(@file.full_name), allow_other_host: true)
           else
             raise ActiveRecord::RecordNotFound
           end
