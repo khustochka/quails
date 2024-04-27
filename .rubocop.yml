@@ -19,7 +19,8 @@ AllCops:
     # Additional exclude files by rubocop-rails_config
     - 'bin/**/*'
     #  - 'config/**/*'
-    - 'db/**/*'
+    - 'db/migrate/*'
+    - 'db/schema.rb'
     - 'lib/tasks/taxonomy/**/*'
     - 'lib/tasks/one-off/**/*'
     - config.ru
