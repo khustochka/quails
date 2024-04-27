@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 Locus.transaction do
+  # rubocop:disable Lint/MissingCopEnableDirective
+  # rubocop:disable Lint/UselessAssignment
   europe = Locus.create!(name_en: "Europe", name_uk: "Європа", loc_type: "continent", public_index: 7)
   north_america = Locus.create!(name_en: "North America", name_uk: "Північна Америка", loc_type: "continent", public_index: 8)
 
@@ -21,4 +23,20 @@ Locus.transaction do
   winnipeg = Locus.create!(name_en: "Winnipeg", name_uk: "Вінніпег", loc_type: "city", parent: manitoba, public_index: 12)
 
   ny = Locus.create!(name_en: "New York", name_uk: "шт. Нью-Йорк", loc_type: "state", iso_code: "NY", parent: usa)
+
+  # rubocop:enable Lint/UselessAssignment
+  # rubocop:enable Lint/MissingCopEnableDirective
+
+  hosp = Taxon.create!(
+    name_sci: "Passer domesticus",
+    name_en: "House Sparrow",
+    category: "species",
+    order: "Passeriformes",
+    family: "Passeridae (Old World Sparrows)",
+    index_num: 1,
+    ebird_code: "houspa",
+    parent_id: nil,
+    taxon_concept_id: "avibase-240E3390",
+  )
+  hosp.lift_to_species
 end
