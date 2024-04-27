@@ -14,19 +14,19 @@ services:
       RAILS_SERVE_STATIC_FILES: "true"
       REDIS_CACHE_URL: redis://cache
       REDIS_RESQUE_URL: redis://resque-redis
-#    env_file:
-#      # In the env file do not use quotes (neither single nor double)!!!
-#      - .env.docker
+      # env_file:
+      #   - .env.docker
     command: bin/rails s
     ports:
-      - "5050:3000"
+      - "3005:3000"
     depends_on:
       - database
       - cache
       - resque-redis
       - resque
+    # Placing tmp on a volume is good for local dev, but not required for prod  
     volumes:
-      - rails_app_tmp:/app/tmp
+      # - rails_app_tmp:/app/tmp
       - rails_app_storage:/app/storage
 
   resque:
@@ -44,33 +44,33 @@ services:
       COUNT: 1
       INTERVAL: 5
       QUEUE: quails_production_default,quails_production_*
-#    env_file:
-#      # In the env file do not use quotes (neither single nor double)!!!
-#      - .env.docker
+      # env_file:
+      #   - .env.docker
     command: bin/rake resque:workers
     depends_on:
       - database
       - cache
       - resque-redis
     volumes:
-      - rails_app_pids:/app/tmp/pids
-      - rails_app_tmp:/app/tmp
+      # - rails_app_pids:/app/tmp/pids
+      # - rails_app_tmp:/app/tmp
       - rails_app_storage:/app/storage
 
   database:
     container_name: quails_database
-    image: bitnami/postgresql:15-debian-11
+    image: bitnami/postgresql:15-debian-12
     environment:
       POSTGRES_USER: quails
       POSTGRES_PASSWORD: quails
       POSTGRES_DB: quails_docker
-    # Temporarily to seed database
     ports:
       - "5499:5432"
+    volumes:
+      - db_data15:/bitnami/postgresql
 
   cache:
     container_name: quails_cache
-    image: redis:5-alpine
+    image: redis:7-alpine
     # This is cache
     command: redis-server --maxmemory 25mb --maxmemory-policy allkeys-lru --save 120 1
     # It is beneficial to preserve cache between deploys, but it can be cleared
@@ -79,7 +79,7 @@ services:
 
   resque-redis:
     container_name: quails_resque_redis
-    image: redis:5-alpine
+    image: redis:7-alpine
     command: redis-server --save 120 1
     # Preserve resque data
     volumes:
@@ -87,12 +87,12 @@ services:
 
 # Declare the volumes that our application uses.
 volumes:
-#  db_data15:
+  db_data15:
   cache_data:
   resque_jobs_data:
   rails_app_storage:
-  rails_app_pids:
-  rails_app_tmp:
-    driver_opts:
-      type: tmpfs
-      device: tmpfs
+  # rails_app_pids:
+  # rails_app_tmp:
+  #   driver_opts:
+  #     type: tmpfs
+  #     device: tmpfs

@@ -11,12 +11,6 @@
 
 #######################################################################
 
-# Learn more about the chosen Ruby stack, Fullstaq Ruby, here:
-#   https://github.com/evilmartians/fullstaq-ruby-docker.
-#
-# We recommend using the highest patch level for better security and
-# performance.
-
 ARG RUBY_VERSION=3.3.1
 ARG VARIANT=slim-bookworm
 # Volta is only compatible with amd64.
@@ -150,9 +144,17 @@ RUN curl -fsSLO "$SUPERCRONIC_URL" \
 COPY . .
 
 # Adjust binstubs to run on Linux and set current working directory
-RUN chmod +x /app/bin/* && \
-    sed -i 's/ruby.exe/ruby/' /app/bin/* && \
-    sed -i '/^#!/aDir.chdir File.expand_path("..", __dir__)' /app/bin/*
+# This seems unnecessary
+# RUN chmod +x /app/bin/* && \
+#     sed -i 's/ruby.exe/ruby/' /app/bin/* && \
+#     sed -i '/^#!/aDir.chdir File.expand_path("..", __dir__)' /app/bin/*
+
+# Adopted from bitnami/nginx image    
+RUN chmod g+rwX /app/tmp   
+RUN chmod g+rwX /app/tmp/pids
+RUN find / -perm /6000 -type f -exec chmod a-s {} \; || true
+
+USER 1001
 
 ENV PORT 3000
 # Port is not exposed, and the command is not `rails server`, because this image can be used
