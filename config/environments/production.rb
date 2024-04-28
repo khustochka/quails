@@ -130,7 +130,7 @@ Rails.application.configure do
   require "quails/public_exceptions"
   config.exceptions_app = Quails::PublicExceptions.new(Rails.public_path)
 
-  if Quails.env.live?
+  if Quails.env.live? && !Quails.env.mirror?
     config.hosts << "birdwatch.org.ua"
     config.host_authorization = { response_app: ->(_) { [403, {}, ["Incorrect host name"]] } }
   end
