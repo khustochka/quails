@@ -7,7 +7,7 @@ HealthCheck.setup do |config|
   config.buckets = buckets.index_with { |_b| [:R, :W, :D]}
 
   # You can customize which checks happen on a standard health check, eg to set an explicit list use:
-  config.standard_checks = [ "database", "migrations", "custom" ]
+  config.standard_checks = ["site", "database"]
 
   # You can set what tests are run with the 'full' or 'all' parameter
   config.full_checks = ["database", "migrations", "custom", "email", "cache", "redis", "resque-redis", "s3"]
