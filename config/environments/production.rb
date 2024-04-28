@@ -130,10 +130,16 @@ Rails.application.configure do
   require "quails/public_exceptions"
   config.exceptions_app = Quails::PublicExceptions.new(Rails.public_path)
 
-  if Quails.env.live? && !Quails.env.mirror?
-    config.hosts << "birdwatch.org.ua"
-    config.host_authorization = { response_app: ->(_) { [403, {}, ["Incorrect host name"]] } }
+  allowed_hostnames = ENV["ALLOWED_HOSTNAMES"].yield_self do |str|
+    str.present? ? str.split(",") : []
   end
+
+  if allowed_hostnames.any?
+    config.hosts += allowed_hostnames
+  elsif Quails.env.live?
+    config.hosts << "birdwatch.org.ua"
+  end
+  config.host_authorization = { response_app: ->(_) { [403, {}, ["Incorrect host name"]] } }
 
   # Alternative location for page caching
   # App user should be able to write to this location, but we do not want it to write to 'public'
