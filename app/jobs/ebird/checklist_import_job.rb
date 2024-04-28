@@ -12,7 +12,15 @@ module EBird
       card.locus_id = locus_id
       card.resolved = true
       card.save!
-      EBird::ChecklistFixJob.perform_later(ebird_id)
+      if fix_checklists?
+        EBird::ChecklistFixJob.perform_later(ebird_id)
+      end
+    end
+
+    private
+
+    def fix_checklists?
+      Quails.env.live? || ENV["ENABLE_CHECKLIST_FIXING"]
     end
   end
 end
