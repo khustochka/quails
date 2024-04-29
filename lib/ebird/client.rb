@@ -19,7 +19,7 @@ module EBird
 
       @authenticated = page.xpath("//li/span/bdo[contains(text(),'(#{Settings.ebird_user.name})')]").any?
       unless @authenticated
-        message = page.css("div#alert-badlogin > p").text
+        message = page.css("div#alert-badlogin p").text
         raise "eBird client authentication failure: #{message}"
       end
       @authenticated
