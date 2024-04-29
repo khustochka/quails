@@ -20,9 +20,9 @@ gem "railties",      VERSION
 gem "pg"
 gem "redis"
 gem "hiredis-client"
-gem "resque"
 gem "rails-brotli-cache"
 gem "brotli"
+gem "good_job"
 
 # Deployment
 gem "puma", "< 7"

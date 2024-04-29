@@ -159,6 +159,6 @@ USER 1001
 
 ENV PORT 3000
 # Port is not exposed, and the command is not `rails server`, because this image can be used
-# for resque queues and cron jobs
+# for background job workers etc
 
 CMD ["/bin/bash"]

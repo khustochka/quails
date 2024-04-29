@@ -321,16 +321,10 @@ Rails.application.routes.draw do
     end
   end
 
-  # Resque web front
+  # GoodJob web UI
 
-  require "resque/server"
-
-  resque_web_constraint = lambda do |request|
-    request.session[:admin] == true
-  end
-
-  constraints resque_web_constraint do
-    mount Resque::Server.new => "/resque"
+  constraints ->(request) { request.session[:admin] == true } do
+    mount GoodJob::Engine => "/jobs"
   end
 
   if Rails.env.development?

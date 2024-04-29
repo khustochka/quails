@@ -21,7 +21,7 @@ Compatible with Ruby >= 3. See `.tool-versions` for the current development vers
 Some queries are PostgreSQL-specific.
 
 ### Redis
-Redis is used in production for caching and by Resque for background jobs
+Redis is used in production for caching.
 
 ## Demo
 
