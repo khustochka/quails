@@ -17,7 +17,7 @@ gem "actionview",    VERSION
 gem "actioncable",   VERSION
 gem "railties",      VERSION
 
-gem "pg", platforms: [:ruby, :mingw]
+gem "pg"
 gem "redis"
 gem "hiredis-client"
 gem "resque"
@@ -28,7 +28,7 @@ gem "brotli"
 gem "puma", "< 7"
 gem "dotenv", "~> 3.0"
 # For puma systemd integration
-gem "sd_notify"
+# gem "sd_notify"
 
 # Secure password
 gem "bcrypt", "~> 3.1.7"
@@ -148,7 +148,7 @@ group :test do
   gem "selenium-webdriver"
   gem "webmock"
   gem "launchy" # So you can do Then show me the page
-  gem "simplecov", require: false, platforms: [:ruby, :mingw]
+  gem "simplecov", require: false
   gem "minitest-reporters"
   gem "simplecov-teamcity-summary"
 end

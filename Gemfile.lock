@@ -70,7 +70,7 @@ GEM
     ansi (1.5.0)
     ast (2.4.2)
     aws-eventstream (1.3.0)
-    aws-partitions (1.921.0)
+    aws-partitions (1.922.0)
     aws-sdk-core (3.193.0)
       aws-eventstream (~> 1, >= 1.3.0)
       aws-partitions (~> 1, >= 1.651.0)
@@ -359,7 +359,7 @@ GEM
     redis-namespace (1.11.0)
       redis (>= 4)
     regexp_parser (2.9.0)
-    reline (0.5.3)
+    reline (0.5.4)
       io-console (~> 0.5)
     request_store (1.6.0)
       rack (>= 1.4)
@@ -382,8 +382,8 @@ GEM
       rubocop-ast (>= 1.31.1, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 2.4.0, < 3.0)
-    rubocop-ast (1.31.2)
-      parser (>= 3.3.0.4)
+    rubocop-ast (1.31.3)
+      parser (>= 3.3.1.0)
     rubocop-capybara (2.20.0)
       rubocop (~> 1.41)
     rubocop-factory_bot (2.25.1)
@@ -417,7 +417,6 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    sd_notify (0.1.1)
     selenium-webdriver (4.20.1)
       base64 (~> 0.2)
       rexml (~> 3.2, >= 3.2.5)
@@ -557,7 +556,6 @@ DEPENDENCIES
   rubocop-rails
   rubocop-rake
   sassc-rails
-  sd_notify
   selenium-webdriver
   simple_form
   simplecov
