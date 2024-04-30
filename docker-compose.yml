@@ -39,7 +39,7 @@ services:
 
       # COUNT: 1
       # GOOD_JOB_POLL_INTERVAL: 5
-      GOOD_JOB_QUEUES: quails_production_default,quails_production_*
+      GOOD_JOB_QUEUES: "*"
       # env_file:
       #   - .env.docker
     command: bundle exec good_job start
