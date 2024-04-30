@@ -84,8 +84,8 @@ Rails.application.configure do
   )
 
   # Use a real queuing backend for Active Job (and separate queues per environment).
-  config.active_job.queue_adapter     = :good_job
-  config.active_job.queue_name_prefix = "quails_#{Quails.env.live? ? "LIVE" : Rails.env}"
+  config.active_job.queue_adapter = :good_job
+  # config.active_job.queue_name_prefix = "quails_#{Quails.env.live? ? "LIVE" : Rails.env}"
 
   config.action_mailer.perform_caching = false
 
@@ -126,10 +126,6 @@ Rails.application.configure do
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
 
-  # Route error pages through custom middleware
-  require "quails/public_exceptions"
-  config.exceptions_app = Quails::PublicExceptions.new(Rails.public_path)
-
   allowed_hostnames = ENV["ALLOWED_HOSTNAMES"].yield_self do |str|
     str.present? ? str.split(",") : []
   end
@@ -140,6 +136,10 @@ Rails.application.configure do
     config.hosts << "birdwatch.org.ua"
   end
   config.host_authorization = { response_app: ->(_) { [403, {}, ["Incorrect host name"]] } }
+
+  # Route error pages through custom middleware
+  require "quails/public_exceptions"
+  config.exceptions_app = Quails::PublicExceptions.new(Rails.public_path)
 
   # Alternative location for page caching
   # App user should be able to write to this location, but we do not want it to write to 'public'
