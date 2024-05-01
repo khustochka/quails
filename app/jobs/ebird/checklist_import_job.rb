@@ -4,9 +4,9 @@ require "ebird/checklist"
 
 module EBird
   class ChecklistImportJob < ApplicationJob
-    include GoodJob::ActiveJobExtensions::Concurrency
+    # include GoodJob::ActiveJobExtensions::Concurrency
 
-    good_job_control_concurrency_with perform_limit: 1, key: "ebird-task"
+    # good_job_control_concurrency_with perform_limit: 1, key: "ebird-task"
 
     queue_as :default
 
@@ -17,7 +17,7 @@ module EBird
       card.resolved = true
       card.save!
       if fix_checklists?
-        EBird::ChecklistFixJob.perform_later(ebird_id)
+        EBird::ChecklistFixJob.set(priority: 100).perform_later(ebird_id)
       end
     end
 

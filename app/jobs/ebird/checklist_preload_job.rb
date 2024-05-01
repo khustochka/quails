@@ -4,9 +4,9 @@ require "ebird/service"
 
 module EBird
   class ChecklistPreloadJob < ApplicationJob
-    include GoodJob::ActiveJobExtensions::Concurrency
+    # include GoodJob::ActiveJobExtensions::Concurrency
 
-    good_job_control_concurrency_with perform_limit: 1, key: "ebird-task"
+    # good_job_control_concurrency_with perform_limit: 1, key: "ebird-task"
 
     queue_as :low
 
