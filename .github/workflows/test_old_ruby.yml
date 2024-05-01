@@ -1,4 +1,4 @@
-name: "Quails Tests"
+name: "Quails Tests on old Rubies"
 on:
   - push
 jobs:
@@ -9,7 +9,7 @@ jobs:
       fail-fast: false
       matrix:
         # Keep default ruby version the first in the matrix.
-        ruby: ['3.3.1']
+        ruby: ['3.2', '3.1']
     services:
       postgres:
         image: postgres:15-alpine
@@ -54,7 +54,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        ruby: ['3.3.1']
+        ruby: ['3.2', '3.1']
         driver:
           - name: Chrome
             js_driver: selenium
@@ -102,18 +102,6 @@ jobs:
         with:
           name: Screenshots-${{ matrix.ruby }}-${{ matrix.driver.js_driver }}-${{ matrix.driver.js_browser }}
           path: tmp/screenshots
-
-  build_image:
-    name: "Docker image"
-    uses: ./.github/workflows/build.yml
-    secrets:
-      DOCKER_AWS_ACCESS_KEY_ID: ${{ secrets.DOCKER_AWS_ACCESS_KEY_ID }}
-      DOCKER_AWS_SECRET_ACCESS_KEY: ${{ secrets.DOCKER_AWS_SECRET_ACCESS_KEY }}
-    needs:
-      - test
-      - system_test
-    if: github.ref == 'refs/heads/main'
-
 
 #  lint:
 #    runs-on: ubuntu-20.04
