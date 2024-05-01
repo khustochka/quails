@@ -29,7 +29,6 @@ jobs:
       RAILS_ENV: test
       DATABASE_URL: "postgres://quails:quails@localhost:5432/quails_test"
       MINITEST_REPORTER: Minitest::Reporters::SpecReporter
-      COVERAGE: 1
       PARALLEL_WORKERS: 1
     steps:
       - name: Checkout code
@@ -40,13 +39,6 @@ jobs:
           ruby: ${{ matrix.ruby }}
       - name: Run tests
         run: bin/rails test
-      - name: Code coverage results
-        uses: actions/upload-artifact@v4
-        # Ideally default ruby should be the first in the matrix.
-        if: strategy.job-index == 0
-        with:
-          name: Coverage (${{ matrix.ruby }})
-          path: coverage/
 
   system_test:
     name: ${{ matrix.driver.name }} system tests (${{ matrix.ruby }})
