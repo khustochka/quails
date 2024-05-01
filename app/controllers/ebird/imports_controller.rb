@@ -15,8 +15,10 @@ module EBird
       params.permit(:c)
       checklists = params.fetch(:c, nil)
       if checklists
-        checklists.each do |cl|
-          EBird::ChecklistImportJob.perform_later(cl[:ebird_id], cl[:locus_id])
+        GoodJob::Batch.enqueue do
+          checklists.each do |cl|
+            EBird::ChecklistImportJob.perform_later(cl[:ebird_id], cl[:locus_id])
+          end
         end
         Rails.cache.delete("ebird/preloaded_checklists")
         Rails.cache.delete("ebird/last_preload")
