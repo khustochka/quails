@@ -35,6 +35,11 @@
   %dt LC_CTYPE
   %dd= @lc_ctype
 
+  - ENV["DOCKER_IMAGE"].yield_self do |docker_image|
+    - if docker_image
+      %dt Docker image
+      %dd= docker_image
+
   - Quails.revision.yield_self do |revision|
     - if revision.present?
       %dt Revision
