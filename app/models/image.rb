@@ -119,7 +119,7 @@ class Image < Media
   end
 
   def stored_image_thumbnail_variant
-    stored_image.variant(resize: "900x>")
+    stored_image.variant(ImageRepresenter.resize_and_save_space([900, nil]))
   end
 
   # FIXME: another duplication...

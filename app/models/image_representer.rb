@@ -65,15 +65,21 @@ class ImageRepresenter
   end
 
   def variant(width)
-    image.stored_image.variant(resize_and_save_space("#{width}x>"))
+    image.stored_image.variant(ImageRepresenter.resize_and_save_space([width, nil]))
+  end
+
+  # TODO: Make adjustments for images already saved with worse quality?
+  def self.resize_and_save_space(dimensions)
+    {
+      resize_to_limit: dimensions,
+      saver: {
+        quality: 85, strip: true, optimize_coding: true,
+        trellis_quant: true, quant_table: 3, keep: nil,
+      },
+    }
   end
 
   private
-
-  # TODO: Make adjustments for images already saved with worse quality?
-  def resize_and_save_space(resizing)
-    { resize: resizing, quality: "85%", strip: true, interlace: "Plane" }
-  end
 
   def relevant_assets_cache
     key = image.on_flickr? ? :externals : :locals
