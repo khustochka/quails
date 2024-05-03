@@ -9,7 +9,7 @@ services:
       QUAILS_ADMIN_USERNAME: admin
       # Password: admin
       QUAILS_ADMIN_PASSWORD: "$2a$12$2T5ypL1zWAsEc2FK/KMVKOQyZFgZPegUiL3u0/CLWHPiIeBG6cxLq"
-      DATABASE_URL: postgres://quails:quails@database/quails_docker
+      DATABASE_URL: postgres://quails:quails@database/quails_production
       RAILS_SERVE_STATIC_FILES: "true"
       REDIS_CACHE_URL: redis://redis-cache
     env_file:
@@ -22,7 +22,7 @@ services:
       - redis-cache
     # Placing tmp on a volume is good for local dev, but not required for prod  
     volumes:
-      # - rails_app_tmp:/app/tmp
+      - rails_app_tmp:/app/tmp
       - rails_app_storage:/app/storage
 
   good_job:
@@ -33,7 +33,7 @@ services:
       POSTGRES_PASSWORD: quails
       RAILS_ENV: production
       SECRET_KEY_BASE: 8ed44e73d525a97a10e105cb585094e04975995dac921da790f3b7c1cdbc3b2c
-      DATABASE_URL: postgres://quails:quails@database/quails_docker
+      DATABASE_URL: postgres://quails:quails@database/quails_production
       REDIS_CACHE_URL: redis://redis-cache
       # COUNT: 1
       # GOOD_JOB_POLL_INTERVAL: 5
@@ -45,8 +45,7 @@ services:
       - database
       - redis-cache
     volumes:
-      # - rails_app_pids:/app/tmp/pids
-      # - rails_app_tmp:/app/tmp
+      - rails_app_tmp:/app/tmp
       - rails_app_storage:/app/storage
 
   database:
@@ -54,7 +53,7 @@ services:
     environment:
       POSTGRES_USER: quails
       POSTGRES_PASSWORD: quails
-      POSTGRES_DB: quails_docker
+      POSTGRES_DB: quails_production
     ports:
       - "5499:5432"
     volumes:
@@ -73,8 +72,8 @@ volumes:
   db_data15:
   cache_data:
   rails_app_storage:
+  rails_app_tmp:
   # rails_app_pids:
-  # rails_app_tmp:
-  #   driver_opts:
-  #     type: tmpfs
-  #     device: tmpfs
+    # driver_opts:
+    #   type: tmpfs
+    #   device: tmpfs

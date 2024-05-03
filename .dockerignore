@@ -1,10 +1,12 @@
 .git
-tmp
-!tmp/pids
+tmp/**/*
+!tmp/pids/.keep
 log
 public/assets
 app/assets/builds/*
 .bundle
+storage/**/*
+!storage/.keep
 
 Dockerfile
 docker-compose.yml
