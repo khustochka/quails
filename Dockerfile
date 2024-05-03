@@ -146,11 +146,11 @@ COPY --from=assets /app/public/assets /app/public/assets
 # Deploy your application
 COPY . .
 
-# Adjust binstubs to run on Linux and set current working directory
-# This seems unnecessary
-# RUN chmod +x /app/bin/* && \
-#     sed -i 's/ruby.exe/ruby/' /app/bin/* && \
-#     sed -i '/^#!/aDir.chdir File.expand_path("..", __dir__)' /app/bin/*
+# # Adjust binstubs to run on Linux and set current working directory
+# # This seems unnecessary
+# # RUN chmod +x /app/bin/* && \
+# #     sed -i 's/ruby.exe/ruby/' /app/bin/* && \
+# #     sed -i '/^#!/aDir.chdir File.expand_path("..", __dir__)' /app/bin/*
 
 VOLUME ["/app/storage"]
 VOLUME ["/app/tmp"]
