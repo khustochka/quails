@@ -7,7 +7,7 @@ class ReportsController < ApplicationController
 
   def environ
     # @env = ENV
-    @lc_ctype = ActiveRecord::Base.connection.select_rows("SHOW LC_CTYPE")[0][0]
+    @collate = ActiveRecord::Base.connection.execute("SELECT datcollate, datctype FROM pg_database WHERE datname = current_database()").to_a.first
     @pg_version = ActiveRecord::Base.connection.select_rows("SELECT version();")[0][0]
   end
 
