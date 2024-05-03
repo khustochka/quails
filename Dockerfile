@@ -117,7 +117,7 @@ ENV MALLOC_CONF="dirty_decay_ms:1000,narenas:2,background_thread:true,stats_prin
 ENV RUBY_YJIT_ENABLE="1"
 
 # copy with installed gems (in vendor folder)
-COPY --from=gems /app /app
+COPY --from=gems /app/vendor/bundle /app/vendor/bundle
 # commented out after switch from fullstaq. Explore if this is needed.
 # COPY --from=gems /usr/local/bin/ruby /usr/local/bin/ruby
 # COPY --from=gems /usr/local/bundle /usr/local/bundle
@@ -143,13 +143,20 @@ COPY --from=assets /app/public/assets /app/public/assets
 # Deploy your application
 COPY . .
 
-# Adjust binstubs to run on Linux and set current working directory
-# This seems unnecessary
-# RUN chmod +x /app/bin/* && \
-#     sed -i 's/ruby.exe/ruby/' /app/bin/* && \
-#     sed -i '/^#!/aDir.chdir File.expand_path("..", __dir__)' /app/bin/*
+# # Adjust binstubs to run on Linux and set current working directory
+# # This seems unnecessary
+# # RUN chmod +x /app/bin/* && \
+# #     sed -i 's/ruby.exe/ruby/' /app/bin/* && \
+# #     sed -i '/^#!/aDir.chdir File.expand_path("..", __dir__)' /app/bin/*
 
-# Adopted from bitnami/nginx image    
+VOLUME ["/app/storage"]
+VOLUME ["/app/tmp"]
+
+RUN chown -R 1001 /app/storage
+RUN chown -R 1001 /app/tmp
+
+# Adopted from bitnami/nginx image 
+# Left for compatibility
 RUN chmod g+rwX /app/tmp   
 RUN chmod g+rwX /app/tmp/pids
 RUN chmod g+rwX /app/storage
