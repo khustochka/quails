@@ -82,7 +82,7 @@ RUN volta install node@${NODE_VERSION} yarn@${YARN_VERSION}
 
 COPY package*json ./
 COPY yarn.* ./
-RUN yarn install --check-files --frozen-lockfile
+RUN yarn install --check-files --frozen-lockfile --production
 
 COPY . .
 
