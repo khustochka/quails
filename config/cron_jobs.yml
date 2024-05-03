@@ -1,4 +1,4 @@
-common: &common
+common: &common {} 
   # frequent_task:
   #   cron: "*/15 * * * *", # cron-style scheduling format by fugit gem
   #   class: "ExampleJob", # name of the job class as a String; must reference an Active Job job class
