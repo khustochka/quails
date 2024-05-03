@@ -4,7 +4,7 @@ on:
 jobs:
   test:
     name: Tests
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     strategy:
       fail-fast: false
       matrix:
@@ -42,7 +42,7 @@ jobs:
 
   system_test:
     name: ${{ matrix.driver.name }} system tests (${{ matrix.ruby }})
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     strategy:
       fail-fast: false
       matrix:
@@ -96,7 +96,7 @@ jobs:
           path: tmp/screenshots
 
 #  lint:
-#    runs-on: ubuntu-20.04
+#    runs-on: ubuntu-22.04
 #    steps:
 #      - name: Checkout code
 #        uses: actions/checkout@v4
