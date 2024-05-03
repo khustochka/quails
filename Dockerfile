@@ -16,7 +16,7 @@ ARG VARIANT=slim-bookworm
 # Volta is only compatible with amd64.
 FROM --platform=linux/amd64 ruby:${RUBY_VERSION}-${VARIANT} as base
 
-ARG NODE_VERSION=18.17.0
+ARG NODE_VERSION=20.12.2
 ARG YARN_VERSION=1.22.19
 # ARG BUNDLER_VERSION=2.3.25
 
