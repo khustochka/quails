@@ -1,5 +1,5 @@
 services:
-  app:
+  backend:
     build:
       context: .
     image: quails-app
@@ -11,7 +11,7 @@ services:
       QUAILS_ADMIN_PASSWORD: "$2a$12$2T5ypL1zWAsEc2FK/KMVKOQyZFgZPegUiL3u0/CLWHPiIeBG6cxLq"
       DATABASE_URL: postgres://quails:quails@database/quails_docker
       RAILS_SERVE_STATIC_FILES: "true"
-      REDIS_CACHE_URL: redis://cache
+      REDIS_CACHE_URL: redis://redis-cache
     env_file:
       - .env.docker
     command: bin/rails s
@@ -19,8 +19,7 @@ services:
       - "3005:3000"
     depends_on:
       - database
-      - cache
-      - good_job
+      - redis-cache
     # Placing tmp on a volume is good for local dev, but not required for prod  
     volumes:
       # - rails_app_tmp:/app/tmp
@@ -35,8 +34,7 @@ services:
       RAILS_ENV: production
       SECRET_KEY_BASE: 8ed44e73d525a97a10e105cb585094e04975995dac921da790f3b7c1cdbc3b2c
       DATABASE_URL: postgres://quails:quails@database/quails_docker
-      REDIS_CACHE_URL: redis://cache
-
+      REDIS_CACHE_URL: redis://redis-cache
       # COUNT: 1
       # GOOD_JOB_POLL_INTERVAL: 5
       GOOD_JOB_QUEUES: "*"
@@ -45,7 +43,7 @@ services:
     command: bundle exec good_job start
     depends_on:
       - database
-      - cache
+      - redis-cache
     volumes:
       # - rails_app_pids:/app/tmp/pids
       # - rails_app_tmp:/app/tmp
@@ -62,7 +60,7 @@ services:
     volumes:
       - db_data15:/bitnami/postgresql
 
-  redis_cache:
+  redis-cache:
     image: redis:7-alpine
     # This is cache
     command: redis-server --maxmemory 25mb --maxmemory-policy allkeys-lru --save 120 1
