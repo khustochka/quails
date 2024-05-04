@@ -43,7 +43,9 @@ jobs:
         with:
           # Path context is required for .dockerignore to work.
           context: .
-          platforms: linux/amd64
+          platforms: |
+            linux/amd64
+            linux/arm64
           build-args: |
             GIT_REVISION=${{ github.sha }}
           push: true
