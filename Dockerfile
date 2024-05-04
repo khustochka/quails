@@ -39,6 +39,9 @@ ARG GIT_REVISION=unspecified
 LABEL org.opencontainers.image.revision=$GIT_REVISION
 ENV GIT_REVISION ${GIT_REVISION}
 
+ARG GIT_REPOSITORY_URL
+ENV DD_TAGS="git.repository_url:${GIT_REPOSITORY_URL},git.commit.sha:${GIT_REVISION}"
+
 #######################################################################
 
 # install packages only needed at build time

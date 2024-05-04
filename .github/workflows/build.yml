@@ -46,5 +46,6 @@ jobs:
           platforms: linux/amd64
           build-args: |
             GIT_REVISION=${{ github.sha }}
+            GIT_REPOSITORY_URL=${{ format('{0}/{1}', github.server_url, github.repository) }}
           push: true
           tags: ${{ steps.meta.outputs.tags }}
