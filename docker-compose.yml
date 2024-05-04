@@ -57,7 +57,7 @@ services:
     ports:
       - "5499:5432"
     volumes:
-      - db_data15:/bitnami/postgresql
+      - db_data16:/bitnami/postgresql
 
   redis-cache:
     image: redis:7-alpine
@@ -69,7 +69,7 @@ services:
 
 # Declare the volumes that our application uses.
 volumes:
-  db_data15:
+  db_data16:
   cache_data:
   rails_app_storage:
   rails_app_tmp:
