@@ -222,6 +222,8 @@ GEM
       rexml
     libdatadog (7.0.0.1.0)
     libdatadog (7.0.0.1.0-x86_64-linux)
+    libddwaf (1.14.0.0.0)
+      ffi (~> 1.0)
     libddwaf (1.14.0.0.0-arm64-darwin)
       ffi (~> 1.0)
     libddwaf (1.14.0.0.0-x86_64-linux)
@@ -291,6 +293,8 @@ GEM
       net-protocol
     nio4r (2.7.1)
     nkf (0.2.0)
+    nokogiri (1.16.4-arm-linux)
+      racc (~> 1.4)
     nokogiri (1.16.4-arm64-darwin)
       racc (~> 1.4)
     nokogiri (1.16.4-x86_64-linux)
@@ -467,6 +471,7 @@ GEM
 
 PLATFORMS
   arm64-darwin-23
+  arm64-linux
   x86_64-linux
 
 DEPENDENCIES
