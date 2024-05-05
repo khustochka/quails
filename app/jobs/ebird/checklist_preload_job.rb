@@ -8,7 +8,7 @@ module EBird
 
     # good_job_control_concurrency_with perform_limit: 1, key: "ebird-task"
 
-    queue_as :low
+    queue_as :ebird
 
     def perform
       time, checklists = EBird::Service.preload_checklists
