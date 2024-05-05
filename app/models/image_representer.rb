@@ -73,8 +73,7 @@ class ImageRepresenter
     {
       resize_to_limit: dimensions,
       saver: {
-        quality: 85, strip: true, optimize_coding: true,
-        trellis_quant: true, quant_table: 3, keep: nil,
+        quality: 85, strip: true, optimize_coding: true, keep: nil,
       },
     }
   end
