@@ -7,7 +7,12 @@ class Image < Media
 
   STATES = %w(PUBLIC NOINDEX POST_ONLY EBIRD_ONLY PRIVATE)
 
-  has_one_attached :stored_image
+  has_one_attached :stored_image do |attachable|
+    attachable.variant :small, ImageRepresenter.variant_format(:small).merge(preprocessed: true)
+    attachable.variant :thumbnail, ImageRepresenter.variant_format(:thumbnail).merge(preprocessed: true)
+    attachable.variant :medium, ImageRepresenter.variant_format(:medium)
+    attachable.variant :large, ImageRepresenter.variant_format(:large)
+  end
 
   validates :external_id, uniqueness: true, allow_nil: true, exclusion: { in: [""] }
   validates :status, inclusion: STATES, presence: true, length: { maximum: 16 }
@@ -119,7 +124,7 @@ class Image < Media
   end
 
   def stored_image_thumbnail_variant
-    stored_image.variant(ImageRepresenter.resize_and_save_space([900, nil]))
+    stored_image.variant(:thumbnail)
   end
 
   # FIXME: another duplication...

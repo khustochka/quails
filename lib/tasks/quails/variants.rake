@@ -19,7 +19,8 @@ namespace :quails do
 
         Rails.logger.info "[VARIANTS] Creating new variants for #{image.record.slug}: #{new_sizes}"
         new_sizes.each do |width|
-          image.blob.preprocessed(ImageRepresenter.resize_and_save_space([width, nil]))
+          variant_name = ImageRepresenter::WIDTH_TO_NAME[width]
+          image.blob.preprocessed(ImageRepresenter.variant_format(variant_name))
         end
       end
     end
