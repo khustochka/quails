@@ -37,7 +37,7 @@ services:
       REDIS_CACHE_URL: redis://redis-cache
       # COUNT: 1
       # GOOD_JOB_POLL_INTERVAL: 5
-      GOOD_JOB_QUEUES: "*"
+      GOOD_JOB_QUEUES: "ebird:1;-ebird:4"
       # env_file:
       #   - .env.docker
     command: bundle exec good_job start
