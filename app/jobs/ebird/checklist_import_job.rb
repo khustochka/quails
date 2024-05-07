@@ -8,7 +8,7 @@ module EBird
 
     # good_job_control_concurrency_with perform_limit: 1, key: "ebird-task"
 
-    queue_as :default
+    queue_as :ebird
 
     def perform(ebird_id, locus_id)
       checklist = EBird::Checklist.new(ebird_id).fetch!

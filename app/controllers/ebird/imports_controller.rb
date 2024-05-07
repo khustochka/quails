@@ -30,7 +30,7 @@ module EBird
     end
 
     def refresh
-      EBird::ChecklistPreloadJob.set(queue: :default).perform_later
+      EBird::ChecklistPreloadJob.perform_later
       if request.xhr?
         render json: {}
       else
