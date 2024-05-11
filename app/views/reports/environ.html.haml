@@ -43,6 +43,11 @@
       %dt Docker image
       %dd= docker_image
 
+  - ENV["ACTIVE_BACKEND"].yield_self do |active_backend|
+    - if active_backend
+      %dt Active backend
+      %dd= active_backend
+
   - Quails.revision.yield_self do |revision|
     - if revision.present?
       %dt Revision
