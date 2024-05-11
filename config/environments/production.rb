@@ -135,7 +135,10 @@ Rails.application.configure do
   elsif Quails.env.live?
     config.hosts << "birdwatch.org.ua"
   end
-  config.host_authorization = { response_app: ->(_) { [403, {}, ["Incorrect host name"]] } }
+  config.host_authorization = {
+    exclude: ->(request) { request.path.include?("/health_check") },
+    response_app: ->(_) { [403, {}, ["Incorrect host name"]] },
+  }
 
   # Route error pages through custom middleware
   require "quails/public_exceptions"
