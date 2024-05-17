@@ -86,7 +86,7 @@ class Post < ApplicationRecord
 
   def self.prev_month(year, month)
     date = Time.new(year, month, 1).in_time_zone.beginning_of_month.strftime("%F %T") # No Time.zone is OK!
-    rec = select("face_date").where("face_date < ?", date).order(face_date: :desc).first
+    rec = select("face_date").where(face_date: ...date).order(face_date: :desc).first
     rec.try(:to_month_url)
   end
 

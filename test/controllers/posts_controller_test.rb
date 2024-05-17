@@ -126,7 +126,7 @@ class PostsControllerTest < ActionController::TestCase
     blogpost = create(:post, face_date: "2007-12-06 13:14:15")
     get :show, params: { id: blogpost.slug, year: 2010, month: "01" }
     assert_redirected_to public_post_path(blogpost)
-    assert_response 301
+    assert_response :moved_permanently
   end
 
   # auth tests

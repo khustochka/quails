@@ -57,7 +57,7 @@ class CommentsControllerTest < ActionController::TestCase
     end
 
     comment = assigns(:comment)
-    assert_response 422
+    assert_response :unprocessable_entity
   end
 
   test "screen comment with stop word in the body" do
@@ -188,7 +188,7 @@ class CommentsControllerTest < ActionController::TestCase
       post :create, params: valid_comment_params(body: ""), xhr: true
     end
 
-    assert_response 422
+    assert_response :unprocessable_entity
   end
 
   test "request unsubscribe" do
