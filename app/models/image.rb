@@ -59,16 +59,6 @@ class Image < Media
 
   scope :basic_order, -> { order(:index_num, "media.created_at", "media.id") }
 
-  # Photos with several species
-  # def self.multiple_species_query
-  #   rel = unscoped.where(media_type: "photo").select(:media_id).from("media_observations").group(:media_id).having("COUNT(observation_id) > 1")
-  #   select("DISTINCT media.*").where(id: rel)
-  # end
-
-  # def self.multiple_species
-  #   multiple_species_query.except(:select).select("DISTINCT media.*, observ_date").joins({ observations: :taxon }, :cards).preload(:species).order("observ_date ASC")
-  # end
-
   # Instance methods
 
   def flickr_id
@@ -92,11 +82,11 @@ class Image < Media
   end
 
   # ORDERING_COLUMNS = %w(cards.observ_date cards.locus_id species.index_num media.created_at media.id)
-  ORDERING_SINGLE_SPECIES = %w(cards.observ_date cards.locus_id media.created_at media.id)
-  PREV_NEXT_ORDER = -"ORDER BY #{ORDERING_SINGLE_SPECIES.join(", ")}"
+  OBSERVED_ORDER = %w(cards.observ_date cards.locus_id media.created_at media.id)
+  PREV_NEXT_ORDER = -"ORDER BY #{OBSERVED_ORDER.join(", ")}"
 
-  def self.order_for_species
-    joins("INNER JOIN cards ON observations.card_id = cards.id").order(*ORDERING_SINGLE_SPECIES)
+  def self.observed_order
+    joins("INNER JOIN cards ON observations.card_id = cards.id").order(*OBSERVED_ORDER)
   end
 
   def prev_by_species(sp)

@@ -30,7 +30,7 @@ class ImagesController < ApplicationController
 
   # Photos of multiple species
   def multiple_species
-    @images = Image.multiple_species
+    @images = Image.multiple_species.joins(:observations).observed_order.uniq
   end
 
   # GET /photos/1

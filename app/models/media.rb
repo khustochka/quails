@@ -58,6 +58,11 @@ class Media < ApplicationRecord
       .order(created_at: :asc)
   end
 
+  # Media that are actually linked to multiple species (even if multi_species flag is not set)
+  def self.really_multiple_species_ids
+    unscoped.from("media_observations").group(:media_id).having("COUNT(observation_id) > 1").pluck(:media_id)
+  end
+
   def extend_with_class
     become = becomes(AVAILABLE_CLASSES[media_type].constantize)
 

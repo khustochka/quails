@@ -51,7 +51,7 @@ class Species < ApplicationRecord
   scope :ordered_by_taxonomy, lambda { distinct.reorder("species.index_num") }
 
   def ordered_images
-    images.order_for_species
+    images.observed_order
   end
 
   def posts
