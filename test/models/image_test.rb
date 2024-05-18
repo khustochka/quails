@@ -10,6 +10,17 @@ class ImageTest < ActiveSupport::TestCase
     create(:image)
   end
 
+  test "set multi-species flag on save" do
+    sp1 = taxa(:saxola)
+    sp2 = taxa(:jyntor)
+    card = create(:card, observ_date: "2008-07-01")
+    obs1 = create(:observation, taxon: sp1, card: card)
+    obs2 = create(:observation, taxon: sp2, card: card)
+    img = build(:image, slug: "picture-of-the-shrike-and-the-wryneck", observations: [obs1, obs2])
+    img.save
+    assert_predicate img, :multi_species?
+  end
+
   test "prev and next image by species should be correct for different days" do
     o1 = create(:observation, card: create(:card, observ_date: "2013-01-01"))
     o2 = create(:observation, card: create(:card, observ_date: "2013-02-01"))

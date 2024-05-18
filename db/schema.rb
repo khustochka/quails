@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_29_045144) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_18_042850) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -277,6 +277,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_29_045144) do
     t.string "status", limit: 16, default: "PUBLIC"
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
+    t.boolean "multi_species", default: false
     t.index ["slug"], name: "index_media_on_slug", unique: true
   end
 

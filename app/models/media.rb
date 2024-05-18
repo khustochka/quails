@@ -18,7 +18,10 @@ class Media < ApplicationRecord
 
   validates :slug, uniqueness: true, presence: true, length: { maximum: 64 }
 
+  before_save :set_multi_species
   after_update :update_spot
+
+  scope :multiple_species, lambda { where(multi_species: true) }
 
   AVAILABLE_CLASSES = {
     "photo" => "Image",
@@ -140,6 +143,11 @@ class Media < ApplicationRecord
   end
 
   private
+
+  def set_multi_species
+    sps = Species.joins(:observations).where(observations: { id: observation_ids }).distinct
+    self.multi_species = sps.count > 1
+  end
 
   def consistent_observations
     obs = Observation.where(id: observation_ids)
