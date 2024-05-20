@@ -8,15 +8,16 @@ services:
 
     volumes:
       - ..:/workspaces/quails:cached
-      - bundle:/usr/local/bundle
-      # - node_modules:/workspaces/quails/node_modules  
-      # - packs:/workspaces/quails/public/packs
-      # - packs-test:/workspaces/quails/public/packs-test
-      # - rails_cache:/workspaces/quails/tmp/cache
+      - bundle:/workspaces/quails/vendor/bundle
+      - node_modules:/workspaces/quails/node_modules  
+      - packs:/workspaces/quails/public/packs
+      - packs-test:/workspaces/quails/public/packs-test
+      - rails_cache:/workspaces/quails/tmp/cache
 
     environment:
       DATABASE_URL: postgres://quails:quails@db 
       JS_BROWSER: headless_firefox 
+      PARALLEL_WORKERS: 2
 
     # Overrides default command so things don't shut down after the process ends.
     command: sleep infinity
@@ -32,10 +33,10 @@ services:
         condition: service_healthy
 
   db:
-    image: postgres:15
+    image: postgres:16
     restart: unless-stopped
     volumes:
-      - postgres-data-15:/var/lib/postgresql/data
+      - postgres-data-16:/var/lib/postgresql/data
       - ./create-db-user.sql:/docker-entrypoint-initdb.d/create-db-user.sql
     environment:
       POSTGRES_USER: quails
@@ -64,7 +65,7 @@ services:
       interval: 5s
 
 volumes:
-  postgres-data-15:
+  postgres-data-16:
   bundle:
   node_modules:
   packs:
