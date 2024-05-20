@@ -7,7 +7,12 @@ class Image < Media
 
   STATES = %w(PUBLIC NOINDEX POST_ONLY EBIRD_ONLY PRIVATE)
 
-  has_one_attached :stored_image
+  has_one_attached :stored_image do |attachable|
+    attachable.variant :small, ImageRepresenter.variant_format(:small).merge(preprocessed: true)
+    attachable.variant :thumbnail, ImageRepresenter.variant_format(:thumbnail).merge(preprocessed: true)
+    attachable.variant :medium, ImageRepresenter.variant_format(:medium)
+    attachable.variant :large, ImageRepresenter.variant_format(:large)
+  end
 
   validates :external_id, uniqueness: true, allow_nil: true, exclusion: { in: [""] }
   validates :status, inclusion: STATES, presence: true, length: { maximum: 16 }
@@ -54,13 +59,6 @@ class Image < Media
 
   scope :basic_order, -> { order(:index_num, "media.created_at", "media.id") }
 
-  # Photos with several species
-  def self.multiple_species
-    rel = select(:media_id).from("media_observations").group(:media_id).having("COUNT(observation_id) > 1")
-    select("DISTINCT media.*, observ_date").where(id: rel)
-      .joins({ observations: :taxon }, :cards).preload(:species).order("observ_date ASC")
-  end
-
   # Instance methods
 
   def flickr_id
@@ -84,11 +82,11 @@ class Image < Media
   end
 
   # ORDERING_COLUMNS = %w(cards.observ_date cards.locus_id species.index_num media.created_at media.id)
-  ORDERING_SINGLE_SPECIES = %w(cards.observ_date cards.locus_id media.created_at media.id)
-  PREV_NEXT_ORDER = -"ORDER BY #{ORDERING_SINGLE_SPECIES.join(", ")}"
+  OBSERVED_ORDER = %w(cards.observ_date cards.locus_id media.created_at media.id)
+  PREV_NEXT_ORDER = -"ORDER BY #{OBSERVED_ORDER.join(", ")}"
 
-  def self.order_for_species
-    joins("INNER JOIN cards ON observations.card_id = cards.id").order(*ORDERING_SINGLE_SPECIES)
+  def self.observed_order
+    joins("INNER JOIN cards ON observations.card_id = cards.id").order(*OBSERVED_ORDER)
   end
 
   def prev_by_species(sp)
@@ -116,7 +114,7 @@ class Image < Media
   end
 
   def stored_image_thumbnail_variant
-    stored_image.variant(resize: "900x>")
+    stored_image.variant(:thumbnail)
   end
 
   # FIXME: another duplication...

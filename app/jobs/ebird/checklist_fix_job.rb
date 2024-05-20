@@ -4,7 +4,11 @@ require "ebird/checklist"
 
 module EBird
   class ChecklistFixJob < ApplicationJob
-    queue_as :low
+    # include GoodJob::ActiveJobExtensions::Concurrency
+
+    # good_job_control_concurrency_with perform_limit: 1, key: "ebird-task"
+
+    queue_as :ebird
 
     def perform(ebird_id)
       cards = Card.where(ebird_id: ebird_id)

@@ -42,12 +42,12 @@
 
     .row
 
-      .col-sm-12.col-md-6.mb-2
-
-        %h2.h2.top5-list-header
-          = link_to(t('lifelist.title.yearlist', year: Quails::CURRENT_YEAR - 1), list_path(year: Quails::CURRENT_YEAR - 1))
-
-        = render partial: "top5list", object: @list_prev_year
+      -# .col-sm-12.col-md-6.mb-2
+      -#
+      -#   %h2.h2.top5-list-header
+      -#     = link_to(t('lifelist.title.yearlist', year: Quails::CURRENT_YEAR - 1), list_path(year: Quails::CURRENT_YEAR - 1))
+      -#
+      -#   = render partial: "top5list", object: @list_prev_year
 
       .col-sm-12.col-md-6.mb-2.order-sm-first
 
@@ -56,19 +56,19 @@
 
         = render partial: "top5list", object: @list_canada
 
-      -# .col-sm-12.col-md-6
-      -#
-      -#   %h2.h2.top5-list-header
-      -#     = link_to(t('lifelist.title.ukraine'), list_path(locus: 'ukraine'))
-      -#
-      -#   = render partial: "top5list", object: @list_ukraine
-
-    .row
-      .col-sm-12.col-md-6.mb-2
+      .col-sm-12.col-md-6
 
         %h2.h2.top5-list-header
           = link_to(t('lifelist.title.ukraine'), list_path(locus: 'ukraine'))
-          (#{@list_ukraine.total_count})
+
+        = render partial: "top5list", object: @list_ukraine
+
+    .row
+      -# .col-sm-12.col-md-6.mb-2
+      -#
+      -#   %h2.h2.top5-list-header
+      -#     = link_to(t('lifelist.title.ukraine'), list_path(locus: 'ukraine'))
+      -#     (#{@list_ukraine.total_count})
 
       .col-sm-12.col-md-6.mb-2
 
@@ -76,13 +76,14 @@
           = link_to(t('lifelist.title.usa'), list_path(locus: 'usa'))
           (#{@list_usa.total_count})
 
-    .row
+
       .col-sm-12.col-md-6.mb-2
 
         %h2.h2.top5-list-header
           = link_to(t('lifelist.title.gb'), list_path(locus: 'united_kingdom'))
           (#{@list_uk.total_count})
 
+    .row
       .col-sm-12.col-md-6.mb-2
 
         %h2.h2.top5-list-header

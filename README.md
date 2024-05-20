@@ -21,7 +21,33 @@ Compatible with Ruby >= 3. See `.tool-versions` for the current development vers
 Some queries are PostgreSQL-specific.
 
 ### Redis
-Redis is used in production for caching and by Resque for background jobs
+Redis is used in production for caching.
+
+## Demo
+
+For a quick demo in Docker, run:
+
+```bash
+docker compose up --build
+```
+
+In a new terminal run the migrations:
+
+```bash
+docker compose exec web bin/rake db:migrate
+```
+
+Seed the DB:
+
+```bash
+docker compose exec web bin/rake db:seed
+```
+
+The app will be available at http://localhost:3005. 
+
+Login credentials: username `admin`, password `admin`.
+
+Database is exposed on port `5499`.
 
 ## License
 

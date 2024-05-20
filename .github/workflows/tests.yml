@@ -4,15 +4,15 @@ on:
 jobs:
   test:
     name: Tests
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     strategy:
       fail-fast: false
       matrix:
         # Keep default ruby version the first in the matrix.
-        ruby: ['3.3.0', '3.2', '3.1']
+        ruby: ['3.3.1']
     services:
       postgres:
-        image: postgres:15-alpine
+        image: postgres:16-alpine
         ports:
           - "5432:5432"
         options: >-
@@ -33,7 +33,7 @@ jobs:
       PARALLEL_WORKERS: 1
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Setup test environment
         uses: ./.github/actions/setup
         with:
@@ -41,7 +41,7 @@ jobs:
       - name: Run tests
         run: bin/rails test
       - name: Code coverage results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         # Ideally default ruby should be the first in the matrix.
         if: strategy.job-index == 0
         with:
@@ -50,11 +50,11 @@ jobs:
 
   system_test:
     name: ${{ matrix.driver.name }} system tests (${{ matrix.ruby }})
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     strategy:
       fail-fast: false
       matrix:
-        ruby: ['3.3.0', '3.2', '3.1']
+        ruby: ['3.3.1']
         driver:
           - name: Chrome
             js_driver: selenium
@@ -64,7 +64,7 @@ jobs:
 #            js_browser: headless_firefox
     services:
       postgres:
-        image: postgres:15-alpine
+        image: postgres:16-alpine
         ports:
           - "5432:5432"
         options: >-
@@ -84,7 +84,7 @@ jobs:
       PARALLEL_WORKERS: 1
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Setup test environment
         uses: ./.github/actions/setup
         with:
@@ -95,9 +95,9 @@ jobs:
           XDG_RUNTIME_DIR: '/tmp/runtime-runner'
           JS_DRIVER: ${{ matrix.driver.js_driver }}
           JS_BROWSER: ${{ matrix.driver.js_browser }}
-        run: xvfb-run bin/rails test:system
+        run: bin/rails test:system
       - name: Screenshots
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: Screenshots-${{ matrix.ruby }}-${{ matrix.driver.js_driver }}-${{ matrix.driver.js_browser }}
@@ -116,10 +116,10 @@ jobs:
 
 
 #  lint:
-#    runs-on: ubuntu-20.04
+#    runs-on: ubuntu-22.04
 #    steps:
 #      - name: Checkout code
-#        uses: actions/checkout@v3
+#        uses: actions/checkout@v4
 #      - name: Install Ruby and gems
 #        uses: ruby/setup-ruby@v1
 #        with:

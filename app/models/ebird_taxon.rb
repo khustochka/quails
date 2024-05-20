@@ -42,7 +42,7 @@ class EBirdTaxon < ApplicationRecord
       prev_index_num =
         Taxon
           .joins("INNER JOIN ebird_taxa on ebird_taxa.taxon_id = taxa.id")
-          .where("ebird_taxa.index_num < ?", index_num).order("taxa.index_num DESC")
+          .where(ebird_taxa: { index_num: ...index_num }).order("taxa.index_num DESC")
           .limit(1).pick("taxa.index_num")
       new_index_num = prev_index_num ? prev_index_num + 1 : 1
       attr_hash[:index_num] = new_index_num

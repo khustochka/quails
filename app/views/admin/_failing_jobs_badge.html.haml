@@ -1,0 +1,6 @@
+-# frozen_string_literal: true
+
+- failed_jobs = GoodJob::Job.discarded.count
+
+- if failed_jobs > 0
+  = link_to failed_jobs, "/jobs/jobs?locale=en&state=discarded", target: "_blank", class: "failing_jobs_badge tag alert", rel: :noopener

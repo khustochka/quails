@@ -64,6 +64,11 @@
         = check_box_tag "upload_to_flickr"
         %label
           %b Upload to Flickr
+    - if @image.persisted?
+      %div.input.boolean.disable
+        = check_box_tag "multi_species", disabled: true, checked: @image.multi_species?
+        %label
+          %b Multiple species
 
   = render partial: 'media/obs_draggable', locals: {media: @image}
 

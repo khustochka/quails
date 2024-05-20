@@ -63,7 +63,7 @@ module Quails
     config.i18n.default_locale = :uk
     config.i18n.available_locales = [:uk, :en, :ru]
 
-    config.active_storage.variant_processor = :mini_magick
+    config.active_storage.variant_processor = :vips
 
     config.before_configuration do
       require "quails"

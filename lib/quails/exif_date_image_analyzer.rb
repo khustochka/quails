@@ -1,13 +1,18 @@
 # frozen_string_literal: true
 
 module Quails
-  class ExifDateImageAnalyzer < ::ActiveStorage::Analyzer::ImageAnalyzer::ImageMagick
+  class ExifDateImageAnalyzer < ActiveStorage::Analyzer::ImageAnalyzer::Vips
     def metadata
       read_image do |image|
         mdata = {}
-        exif_date = image.exif["DateTimeOriginal"]
+        exif_date =
+          begin
+            image.get("exif-ifd2-DateTimeOriginal")
+          rescue ::Vips::Error
+            nil
+          end
         if exif_date.present?
-          mdata[:exif_date] = exif_date.split(":", 3).join("-")
+          mdata[:exif_date] = exif_date[0..18].split(":", 3).join("-")
         end
         if rotated_image?(image)
           mdata[:width] = image.height

@@ -4,7 +4,7 @@ source "https://rubygems.org/"
 
 ruby ">= 3.0"
 
-VERSION = "7.1.2"
+VERSION = "7.1.3.3"
 # gem "rails", VERSION
 gem "activemodel",   VERSION
 gem "activejob",     VERSION
@@ -17,18 +17,18 @@ gem "actionview",    VERSION
 gem "actioncable",   VERSION
 gem "railties",      VERSION
 
-gem "pg", platforms: [:ruby, :mingw]
+gem "pg"
 gem "redis"
 gem "hiredis-client"
-gem "resque"
 gem "rails-brotli-cache"
 gem "brotli"
+gem "good_job"
 
 # Deployment
 gem "puma", "< 7"
-gem "dotenv-rails", "~> 2.7"
+gem "dotenv", "~> 3.0"
 # For puma systemd integration
-gem "sd_notify"
+# gem "sd_notify"
 
 # Secure password
 gem "bcrypt", "~> 3.1.7"
@@ -70,9 +70,10 @@ gem "addressable", require: "addressable/uri"
 gem "roman-numerals"
 
 # Monitoring
-gem "airbrake"
+gem "ddtrace", require: false
 gem "honeybadger", "~> 5.4"
 gem "lograge"
+# gem "airbrake"
 
 # Image processing
 gem "image_processing"
@@ -133,8 +134,6 @@ group :development do
   gem "rubocop-rake", require: false
   gem "rubocop-capybara", require: false
   gem "rubocop-factory_bot", require: false
-
-  gem "ruby-lsp-rails"
 end
 
 group :development, :test do
@@ -149,7 +148,7 @@ group :test do
   gem "selenium-webdriver"
   gem "webmock"
   gem "launchy" # So you can do Then show me the page
-  gem "simplecov", require: false, platforms: [:ruby, :mingw]
+  gem "simplecov", require: false
   gem "minitest-reporters"
   gem "simplecov-teamcity-summary"
 end

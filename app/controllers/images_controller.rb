@@ -6,8 +6,7 @@ class ImagesController < ApplicationController
   administrative except: [:index, :multiple_species, :show]
   localized only: [:index, :multiple_species, :show]
 
-  find_record by: :slug, before: [:show, :edit,
-    :map_edit, :update, :patch, :destroy,]
+  find_record by: :slug, before: [:edit, :map_edit, :update, :patch, :destroy]
 
   after_action :cache_expire, only: [:create, :update, :destroy]
 
@@ -19,7 +18,7 @@ class ImagesController < ApplicationController
       page = (params[:page] || 1).to_i
       @images = Image.preload(:species).order(created_at: :desc).page(page).per(24)
       @feed = "photos"
-      @cell0 = YearSummaryCell.new(year: Quails::CURRENT_YEAR - 1)
+      # @cell0 = YearSummaryCell.new(year: Quails::CURRENT_YEAR - 1)
       @cell = YearProgressCell.new(year: Quails::CURRENT_YEAR, offset: 8.hours)
       if @images.empty? && page != 1
         raise ActiveRecord::RecordNotFound
@@ -31,17 +30,24 @@ class ImagesController < ApplicationController
 
   # Photos of multiple species
   def multiple_species
-    @images = Image.multiple_species
+    @images = Image.multiple_species.joins(:observations).observed_order.uniq
   end
 
   # GET /photos/1
   def show
+    slug = params[:id]
     respond_to do |format|
       format.html do
+        @image = Image.find_by!(slug: slug)
         @robots = "NOINDEX" if @image.status == "NOINDEX"
       end
       format.jpeg do
-        redirect_to helpers.jpg_url(@image), allow_other_host: true
+        @image = Image.find_by(slug: slug)
+        if @image
+          redirect_to helpers.jpg_url(@image), allow_other_host: true
+        else
+          redirect_to "https://bwua-static.s3.eu-central-1.amazonaws.com/photos/#{slug}.jpg", allow_other_host: true
+        end
       end
     end
   end

@@ -1,0 +1,113 @@
+name: "Quails Tests on old Rubies"
+on:
+  - push
+jobs:
+  test:
+    name: Tests
+    runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+      matrix:
+        # Keep default ruby version the first in the matrix.
+        ruby: ['3.2', '3.1']
+    services:
+      postgres:
+        image: postgres:16-alpine
+        ports:
+          - "5432:5432"
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        env:
+          POSTGRES_USER: quails
+          POSTGRES_DB: quails_test
+          POSTGRES_PASSWORD: "quails"
+    env:
+      BUNDLE_WITHOUT: development
+      RAILS_ENV: test
+      DATABASE_URL: "postgres://quails:quails@localhost:5432/quails_test"
+      MINITEST_REPORTER: Minitest::Reporters::SpecReporter
+      PARALLEL_WORKERS: 1
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup test environment
+        uses: ./.github/actions/setup
+        with:
+          ruby: ${{ matrix.ruby }}
+      - name: Run tests
+        run: bin/rails test
+
+  system_test:
+    name: ${{ matrix.driver.name }} system tests (${{ matrix.ruby }})
+    runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby: ['3.2', '3.1']
+        driver:
+          - name: Chrome
+            js_driver: selenium
+            js_browser: headless_chrome
+#          - name: Firefox
+#            js_driver: selenium
+#            js_browser: headless_firefox
+    services:
+      postgres:
+        image: postgres:16-alpine
+        ports:
+          - "5432:5432"
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        env:
+          POSTGRES_USER: quails
+          POSTGRES_DB: quails_test
+          POSTGRES_PASSWORD: "quails"
+    env:
+      BUNDLE_WITHOUT: development
+      RAILS_ENV: test
+      DATABASE_URL: "postgres://quails:quails@localhost:5432/quails_test"
+      MINITEST_REPORTER: Minitest::Reporters::SpecReporter
+      PARALLEL_WORKERS: 1
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup test environment
+        uses: ./.github/actions/setup
+        with:
+          ruby: ${{ matrix.ruby }}
+      - name: Run tests
+        env:
+          # To prevent ugly xvfb warning
+          XDG_RUNTIME_DIR: '/tmp/runtime-runner'
+          JS_DRIVER: ${{ matrix.driver.js_driver }}
+          JS_BROWSER: ${{ matrix.driver.js_browser }}
+        run: bin/rails test:system
+      - name: Screenshots
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: Screenshots-${{ matrix.ruby }}-${{ matrix.driver.js_driver }}-${{ matrix.driver.js_browser }}
+          path: tmp/screenshots
+
+#  lint:
+#    runs-on: ubuntu-22.04
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v4
+#      - name: Install Ruby and gems
+#        uses: ruby/setup-ruby@v1
+#        with:
+#          bundler-cache: true
+#      # Add or replace any other lints here
+#      - name: Security audit dependencies
+#        run: bin/bundler-audit --update
+#      - name: Security audit application code
+#        run: bin/brakeman -q -w2
+#      - name: Lint Ruby files
+#        run: bin/rubocop --parallel

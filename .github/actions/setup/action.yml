@@ -8,7 +8,7 @@ runs:
   using: "composite"
   steps:
     - name: Setup Node
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: 16
     - name: Find yarn cache location
@@ -16,7 +16,7 @@ runs:
       run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
       shell: bash
     - name: JS package cache
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ${{ steps.yarn-cache.outputs.dir }}
         key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
@@ -37,4 +37,9 @@ runs:
       shell: bash
     - name: Set up database schema
       run: bin/rails db:schema:load
-      shell: bash
+      shell: bash      
+    - name: Install libvips
+      uses: awalsh128/cache-apt-pkgs-action@v1.4.2
+      with:
+        packages: libvips42
+        version: 1.0

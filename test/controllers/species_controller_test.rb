@@ -145,13 +145,13 @@ class SpeciesControllerTest < ActionController::TestCase
   test "correct spaces in species URL" do
     get :show, params: { id: "Saxicola rubicola" }
     assert_redirected_to species_path(id: "Saxicola_rubicola")
-    assert_response 301
+    assert_response :moved_permanently
   end
 
   test "redirect old synonym to the new species URL" do
     get :show, params: { id: "Saxicola torquata" }
     assert_redirected_to species_path(id: "Saxicola_rubicola")
-    assert_response 301
+    assert_response :moved_permanently
   end
 
   # auth tests
@@ -189,5 +189,12 @@ class SpeciesControllerTest < ActionController::TestCase
     assert_equal Mime[:json], response.media_type
     assert_includes response.body, "Waxwing"
     assert_includes response.body, "/en/species/Bombycilla"
+  end
+
+  test "search with empty params" do
+    get :search, params: {}, format: :json
+    assert_response :success
+    assert_equal Mime[:json], response.media_type
+    assert_equal "[]", response.body
   end
 end

@@ -53,8 +53,8 @@ if workers_num.to_i > 0
     # if defined?(::ActiveRecord) && defined?(::ActiveRecord::Base)
     #   ActiveRecord::Base.establish_connection
     # end
-    if defined?(Resque)
-      require File.expand_path("../initializers/resque", __FILE__)
-    end
+    # if defined?(Resque)
+    #   require File.expand_path("../initializers/resque", __FILE__)
+    # end
   end
 end

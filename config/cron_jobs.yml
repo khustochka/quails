@@ -1,0 +1,16 @@
+common: &common {} 
+  # frequent_task:
+  #   cron: "*/15 * * * *", # cron-style scheduling format by fugit gem
+  #   class: "ExampleJob", # name of the job class as a String; must reference an Active Job job class
+  #   args: [42, "life"], # positional arguments to pass to the job; can also be a proc e.g. `-> { [Time.now] }`
+  #   kwargs: { name: "Alice" }, # keyword arguments to pass to the job; can also be a proc e.g. `-> { { name: NAMES.sample } }`
+  #   set: { priority: -10 }, # additional Active Job properties; can also be a lambda/proc e.g. `-> { { priority: [1,2].sample } }`
+  #   description: "Something helpful", # optional description that appears in Dashboard
+
+development:
+  <<: *common
+
+test:
+
+production:
+  <<: *common

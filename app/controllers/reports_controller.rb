@@ -7,7 +7,7 @@ class ReportsController < ApplicationController
 
   def environ
     # @env = ENV
-    @lc_ctype = ActiveRecord::Base.connection.select_rows("SHOW LC_CTYPE")[0][0]
+    @collate = ActiveRecord::Base.connection.execute("SELECT datcollate, datctype FROM pg_database WHERE datname = current_database()").to_a.first
     @pg_version = ActiveRecord::Base.connection.select_rows("SELECT version();")[0][0]
   end
 
@@ -355,6 +355,14 @@ class ReportsController < ApplicationController
       .where.not(species: { id: species_of_this_month })
       .order("species.index_num")
       .extending(SpeciesArray)
+  end
+
+  def year_contest
+    @year = params[:year] || Quails::CURRENT_YEAR
+    @years = Observation.years
+    result = YearContest.new(year: @year).run
+    species = Species.where(id: result).index_by(&:id)
+    @result = result.map { |id| species[id] }
   end
 
   def clear_cache

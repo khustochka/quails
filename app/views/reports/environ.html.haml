@@ -32,8 +32,21 @@
   %dt Database software version
   %dd= @pg_version
 
-  %dt LC_CTYPE (should be "en_US.UTF8")
-  %dd= @lc_ctype
+  %dt Collation / ctype
+  %dd
+    = @collate["datcollate"]
+    \/
+    = @collate["datctype"]
+
+  - ENV["DOCKER_IMAGE"].yield_self do |docker_image|
+    - if docker_image
+      %dt Docker image
+      %dd= docker_image
+
+  - ENV["ACTIVE_BACKEND"].yield_self do |active_backend|
+    - if active_backend
+      %dt Active backend
+      %dd= active_backend
 
   - Quails.revision.yield_self do |revision|
     - if revision.present?

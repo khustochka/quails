@@ -86,7 +86,7 @@ class Taxon < ApplicationRecord
             Species
               .joins("INNER JOIN taxa on species.id = taxa.species_id")
               .where(taxa: { category: "species" })
-              .where("taxa.index_num < ?", index_num).order("species.index_num DESC")
+              .where(taxa: { index_num: ...index_num }).order("species.index_num DESC")
               .limit(1).pick("species.index_num")
           new_sp_index_num = prev_sp_index_num ? prev_sp_index_num + 1 : 1
           new_species = create_species!(

@@ -1,6 +1,5 @@
 services:
-  web:
-    container_name: quails_web
+  backend:
     build:
       context: .
     image: quails-app
@@ -10,27 +9,23 @@ services:
       QUAILS_ADMIN_USERNAME: admin
       # Password: admin
       QUAILS_ADMIN_PASSWORD: "$2a$12$2T5ypL1zWAsEc2FK/KMVKOQyZFgZPegUiL3u0/CLWHPiIeBG6cxLq"
-      DATABASE_URL: postgres://quails:quails@database/quails_docker
+      DATABASE_URL: postgres://quails:quails@database/quails_production
       RAILS_SERVE_STATIC_FILES: "true"
-      REDIS_CACHE_URL: redis://cache
-      REDIS_RESQUE_URL: redis://resque-redis
-#    env_file:
-#      # In the env file do not use quotes (neither single nor double)!!!
-#      - .env.docker
+      REDIS_CACHE_URL: redis://redis-cache
+    env_file:
+      - .env.docker
     command: bin/rails s
     ports:
-      - "5050:3000"
+      - "3005:3000"
     depends_on:
       - database
-      - cache
-      - resque-redis
-      - resque
+      - redis-cache
+    # Placing tmp on a volume is good for local dev, but not required for prod  
     volumes:
       - rails_app_tmp:/app/tmp
       - rails_app_storage:/app/storage
 
-  resque:
-    container_name: quails_resque
+  good_job:
     build:
       context: .
     image: quails-app
@@ -38,61 +33,47 @@ services:
       POSTGRES_PASSWORD: quails
       RAILS_ENV: production
       SECRET_KEY_BASE: 8ed44e73d525a97a10e105cb585094e04975995dac921da790f3b7c1cdbc3b2c
-      DATABASE_URL: postgres://quails:quails@database/quails_docker
-      REDIS_CACHE_URL: redis://cache
-      REDIS_RESQUE_URL: redis://resque-redis
-      COUNT: 1
-      INTERVAL: 5
-      QUEUE: quails_production_default,quails_production_*
-#    env_file:
-#      # In the env file do not use quotes (neither single nor double)!!!
-#      - .env.docker
-    command: bin/rake resque:workers
+      DATABASE_URL: postgres://quails:quails@database/quails_production
+      REDIS_CACHE_URL: redis://redis-cache
+      # COUNT: 1
+      # GOOD_JOB_POLL_INTERVAL: 5
+      GOOD_JOB_QUEUES: "ebird:1;-ebird:4"
+      # env_file:
+      #   - .env.docker
+    command: bundle exec good_job start
     depends_on:
       - database
-      - cache
-      - resque-redis
+      - redis-cache
     volumes:
-      - rails_app_pids:/app/tmp/pids
       - rails_app_tmp:/app/tmp
       - rails_app_storage:/app/storage
 
   database:
-    container_name: quails_database
-    image: bitnami/postgresql:15-debian-11
+    image: bitnami/postgresql:16-debian-12
     environment:
       POSTGRES_USER: quails
       POSTGRES_PASSWORD: quails
-      POSTGRES_DB: quails_docker
-    # Temporarily to seed database
+      POSTGRES_DB: quails_production
     ports:
       - "5499:5432"
+    volumes:
+      - db_data16:/bitnami/postgresql
 
-  cache:
-    container_name: quails_cache
-    image: redis:5-alpine
+  redis-cache:
+    image: redis:7-alpine
     # This is cache
     command: redis-server --maxmemory 25mb --maxmemory-policy allkeys-lru --save 120 1
     # It is beneficial to preserve cache between deploys, but it can be cleared
     volumes:
       - cache_data:/data
 
-  resque-redis:
-    container_name: quails_resque_redis
-    image: redis:5-alpine
-    command: redis-server --save 120 1
-    # Preserve resque data
-    volumes:
-      - resque_jobs_data:/data
-
 # Declare the volumes that our application uses.
 volumes:
-#  db_data15:
+  db_data16:
   cache_data:
-  resque_jobs_data:
   rails_app_storage:
-  rails_app_pids:
   rails_app_tmp:
-    driver_opts:
-      type: tmpfs
-      device: tmpfs
+  # rails_app_pids:
+    # driver_opts:
+    #   type: tmpfs
+    #   device: tmpfs

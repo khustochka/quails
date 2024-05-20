@@ -79,10 +79,12 @@ module SpeciesHelper
     markers = loci.filter_map { |l| l.lat && "#{l.lat},#{l.lon}" }.join("|")
     zoom = 5
     if !country.in?(STATIC_MAP_CENTER.keys)
-      lats = loci.filter_map(&:lat)
-      lons = loci.filter_map(&:lon)
+      lats = loci.filter_map(&:lat).compact
+      lons = loci.filter_map(&:lon).compact
       # if distance is too far rely on automatic zoom
-      zoom = nil if (lats.max - lats.min).abs > 10 || (lons.max - lons.min).abs > 12
+      if lats.any? && lons.any? && ((lats.max - lats.min).abs > 10 || (lons.max - lons.min).abs > 12)
+        zoom = nil
+      end
     end
     image_tag("https://maps.googleapis.com/maps/api/staticmap?key=#{ENV["quails_google_maps_api_key"]}&zoom=#{zoom}&size=443x300&#{center}&markers=#{markers}",
       alt: "#{country} map", size: "443x300")

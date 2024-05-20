@@ -19,12 +19,11 @@ AllCops:
     # Additional exclude files by rubocop-rails_config
     - 'bin/**/*'
     #  - 'config/**/*'
-    - 'db/**/*'
-    - lib/tasks/flickraw.rake
+    - 'db/migrate/*'
+    - 'db/schema.rb'
     - 'lib/tasks/taxonomy/**/*'
     - 'lib/tasks/one-off/**/*'
     - config.ru
-    - contest*.rb
     - config/boot.rb
 
 # FIXME: revisit and fix!
@@ -163,6 +162,12 @@ Rails/SkipsModelValidations:
 
 Rails/ActionControllerTestCase:
   Enabled: false
+
+Rails/Output:
+  Enabled: true
+  Exclude: 
+    - lib/year_contest.rb
+
 
 Lint/MissingCopEnableDirective:
   Enabled: true

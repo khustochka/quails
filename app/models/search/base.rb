@@ -6,7 +6,7 @@ module Search
 
     def initialize(base, term, opts = {})
       @base = base
-      @term = term.downcase.strip
+      @term = (term || "").downcase.strip
       @options = opts
     end
 

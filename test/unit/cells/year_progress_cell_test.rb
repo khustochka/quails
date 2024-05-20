@@ -39,14 +39,14 @@ class YearProgressCellTest < ActiveSupport::TestCase
   test "when the day is in the future, returns YearSummaryCell" do
     travel_to "2023-01-02" do
       cell = YearProgressCell.new(year: 2022)
-      assert cell.is_a?(YearSummaryCell)
+      assert_kind_of YearSummaryCell, cell
     end
   end
 
   test "takes offset into account" do
     travel_to "2023-01-01 05:00:00" do
       cell = YearProgressCell.new(year: 2022, offset: 8.hours)
-      assert cell.is_a?(YearProgressCell)
+      assert_kind_of YearProgressCell, cell
     end
   end
 

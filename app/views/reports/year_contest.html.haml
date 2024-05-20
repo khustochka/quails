@@ -1,0 +1,17 @@
+-# frozen_string_literal: true
+- @page_title = "Year start contest"
+
+%h1= reports_page_header
+
+= render partial: "filters/years"
+
+%h2 Year #{@year}
+
+- if @result == []
+  %p No species.
+- else
+  %ol
+    - @result.each do |species|
+      %li
+        = species_link(species)
+        = name_sci(species)

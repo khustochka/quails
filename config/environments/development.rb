@@ -41,10 +41,8 @@ Rails.application.configure do
     config.cache_store = :null_store
   end
 
-  if ENV["DEV_RESQUE"]
-    config.active_job.queue_adapter = :resque
-    config.active_job.queue_name_prefix = "quails_#{Rails.env}"
-  end
+  config.active_job.queue_adapter = :good_job
+  config.active_job.queue_name_prefix = "quails_#{Rails.env}"
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = if ENV["DEV_S3"].present?

@@ -11,17 +11,12 @@
 
 #######################################################################
 
-# Learn more about the chosen Ruby stack, Fullstaq Ruby, here:
-#   https://github.com/evilmartians/fullstaq-ruby-docker.
-#
-# We recommend using the highest patch level for better security and
-# performance.
+ARG RUBY_VERSION=3.3.1
+ARG VARIANT=slim-bookworm
+# Volta is only compatible with amd64.
+FROM --platform=linux/amd64 ruby:${RUBY_VERSION}-${VARIANT} as base
 
-ARG RUBY_VERSION=3.3.0
-ARG VARIANT=jemalloc-bookworm-slim
-FROM quay.io/evl.ms/fullstaq-ruby:${RUBY_VERSION}-${VARIANT} as base
-
-ARG NODE_VERSION=18.17.0
+ARG NODE_VERSION=20.12.2
 ARG YARN_VERSION=1.22.19
 # ARG BUNDLER_VERSION=2.3.25
 
@@ -38,11 +33,14 @@ ENV BUNDLE_WITHOUT ${BUNDLE_WITHOUT}
 
 RUN mkdir /app
 WORKDIR /app
-RUN mkdir -p tmp/pids
+# RUN mkdir -p tmp/pids
 
 ARG GIT_REVISION=unspecified
 LABEL org.opencontainers.image.revision=$GIT_REVISION
 ENV GIT_REVISION ${GIT_REVISION}
+
+ARG GIT_REPOSITORY_URL
+ENV DD_TAGS="git.repository_url:${GIT_REPOSITORY_URL},git.commit.sha:${GIT_REVISION}"
 
 #######################################################################
 
@@ -87,15 +85,13 @@ RUN volta install node@${NODE_VERSION} yarn@${YARN_VERSION}
 
 COPY package*json ./
 COPY yarn.* ./
-RUN yarn install --check-files --frozen-lockfile
+RUN yarn install --check-files --frozen-lockfile --production
 
 COPY . .
 
 # The following enable assets to precompile on the build server. 
 ENV SECRET_KEY_BASE=1
 ENV NODE_ENV=production
-# ENV AWS_ACCESS_KEY_ID=1
-# ENV AWS_SECRET_ACCESS_KEY=1
 
 ARG BUILD_COMMAND="bin/rails assets:precompile"
 RUN ${BUILD_COMMAND} && rm -rf /app/tmp/cache/assets
@@ -107,7 +103,7 @@ RUN ${BUILD_COMMAND} && rm -rf /app/tmp/cache/assets
 FROM base
 
 # ARG DEPLOY_PACKAGES="postgresql-client file vim curl gzip bzip2 htop net-tools bind9-dnsutils"
-ARG DEPLOY_PACKAGES="imagemagick postgresql-client file curl gzip bzip2 net-tools bind9-dnsutils procps"
+ARG DEPLOY_PACKAGES="libvips42 libjpeg62-turbo-dev postgresql-client file curl gzip bzip2 net-tools netcat-openbsd bind9-dnsutils procps libjemalloc2"
 # ENV DEPLOY_PACKAGES=${DEPLOY_PACKAGES}
 
 RUN --mount=type=cache,id=prod-apt-cache,sharing=locked,target=/var/cache/apt \
@@ -117,26 +113,60 @@ RUN --mount=type=cache,id=prod-apt-cache,sharing=locked,target=/var/cache/apt \
     ${DEPLOY_PACKAGES} \
     && rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
-# copy installed gems
-COPY --from=gems /app /app
-COPY --from=gems /usr/lib/fullstaq-ruby/versions /usr/lib/fullstaq-ruby/versions
-COPY --from=gems /usr/local/bundle /usr/local/bundle
+ENV LD_PRELOAD="libjemalloc.so.2"
+ENV MALLOC_CONF="dirty_decay_ms:1000,narenas:2,background_thread:true,stats_print:false"
+ENV RUBY_YJIT_ENABLE="1"
+
+# copy with installed gems (in vendor folder)
+COPY --from=gems /app/vendor/bundle /app/vendor/bundle
+# commented out after switch from fullstaq. Explore if this is needed.
+# COPY --from=gems /usr/local/bin/ruby /usr/local/bin/ruby
+# COPY --from=gems /usr/local/bundle /usr/local/bundle
 
 # copy precompiled assets
 COPY --from=assets /app/public/assets /app/public/assets
+
+# Install supercronic (disabled)
+
+# Latest releases available at https://github.com/aptible/supercronic/releases
+# ENV SUPERCRONIC_URL=https://github.com/aptible/supercronic/releases/download/v0.2.29/supercronic-linux-amd64 \
+#     SUPERCRONIC=supercronic-linux-amd64 \
+#     SUPERCRONIC_SHA1SUM=cd48d45c4b10f3f0bfdd3a57d054cd05ac96812b
+
+# RUN curl -fsSLO "$SUPERCRONIC_URL" \
+#  && echo "${SUPERCRONIC_SHA1SUM}  ${SUPERCRONIC}" | sha1sum -c - \
+#  && chmod +x "$SUPERCRONIC" \
+#  && mv "$SUPERCRONIC" "/usr/local/bin/${SUPERCRONIC}" \
+#  && ln -s "/usr/local/bin/${SUPERCRONIC}" /usr/local/bin/supercronic
 
 #######################################################################
 
 # Deploy your application
 COPY . .
 
-# Adjust binstubs to run on Linux and set current working directory
-RUN chmod +x /app/bin/* && \
-    sed -i 's/ruby.exe/ruby/' /app/bin/* && \
-    sed -i '/^#!/aDir.chdir File.expand_path("..", __dir__)' /app/bin/*
+# # Adjust binstubs to run on Linux and set current working directory
+# # This seems unnecessary
+# # RUN chmod +x /app/bin/* && \
+# #     sed -i 's/ruby.exe/ruby/' /app/bin/* && \
+# #     sed -i '/^#!/aDir.chdir File.expand_path("..", __dir__)' /app/bin/*
+
+VOLUME ["/app/storage"]
+VOLUME ["/app/tmp"]
+
+RUN chown -R 1001 /app/storage
+RUN chown -R 1001 /app/tmp
+
+# Adopted from bitnami/nginx image 
+# Left for compatibility
+RUN chmod g+rwX /app/tmp   
+# RUN chmod g+rwX /app/tmp/pids
+RUN chmod g+rwX /app/storage
+RUN find / -perm /6000 -type f -exec chmod a-s {} \; || true
+
+USER 1001
 
 ENV PORT 3000
 # Port is not exposed, and the command is not `rails server`, because this image can be used
-# for resque queues and cron jobs
+# for background job workers etc
 
 CMD ["/bin/bash"]

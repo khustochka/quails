@@ -4,7 +4,11 @@ require "ebird/service"
 
 module EBird
   class ChecklistPreloadJob < ApplicationJob
-    queue_as :low
+    # include GoodJob::ActiveJobExtensions::Concurrency
+
+    # good_job_control_concurrency_with perform_limit: 1, key: "ebird-task"
+
+    queue_as :ebird
 
     def perform
       time, checklists = EBird::Service.preload_checklists

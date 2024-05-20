@@ -24,8 +24,9 @@
 
 
   - thumbnails = @species.thumbnails
-  - if Image.multiple_species.count("DISTINCT media.id") > 0
-    - thumbnails << Thumbnail.new(photos_multiple_species_path, t('images.multiple_species.title'), Image.multiple_species.first)
+  - multi_sp_image = Image.multiple_species.first
+  - if multi_sp_image
+    - thumbnails << Thumbnail.new(photos_multiple_species_path, t('images.multiple_species.title'), multi_sp_image)
 
   %div.thumbnails
     = render_justified thumbnails

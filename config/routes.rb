@@ -287,7 +287,7 @@ Rails.application.routes.draw do
   get "/reports", controller: :reports, action: :index, as: :reports
 
   reports_actions = %w(environ insights more_than_year topicture this_day uptoday compare by_countries
-    stats voices charts month_targets server_error)
+    stats voices charts month_targets year_contest server_error)
   reports_actions.each do |name|
     get "/reports/#{name}", controller: :reports, action: name
   end
@@ -321,16 +321,10 @@ Rails.application.routes.draw do
     end
   end
 
-  # Resque web front
+  # GoodJob web UI
 
-  require "resque/server"
-
-  resque_web_constraint = lambda do |request|
-    request.session[:admin] == true
-  end
-
-  constraints resque_web_constraint do
-    mount Resque::Server.new => "/resque"
+  constraints ->(request) { request.session[:admin] == true } do
+    mount GoodJob::Engine => "/jobs"
   end
 
   if Rails.env.development?
@@ -365,6 +359,12 @@ Rails.application.routes.draw do
       as: :winter,
       format: false,
       id: "winter"
+  end
+
+  namespace :api do
+    resources :loci, only: [:index]
+    resources :cards, only: [:index]
+    resources :observations, only: [:index]
   end
 
   post "/csp-violation-report-endpoint" => "content_security#report"
