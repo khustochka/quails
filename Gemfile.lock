@@ -65,6 +65,7 @@ GEM
       activerecord (>= 4.2)
     addressable (2.8.6)
       public_suffix (>= 2.0.2, < 6.0)
+    agoo (2.15.10)
     ancestry (4.3.3)
       activerecord (>= 5.2.6)
     ansi (1.5.0)
@@ -312,8 +313,6 @@ GEM
     psych (5.1.2)
       stringio
     public_suffix (5.0.5)
-    puma (6.4.2)
-      nio4r (~> 2.0)
     raabro (1.4.0)
     racc (1.7.3)
     rack (3.0.11)
@@ -485,6 +484,7 @@ DEPENDENCIES
   activesupport (= 7.1.3.3)
   acts_as_list
   addressable
+  agoo
   ancestry (>= 3.2.1)
   aws-sdk-s3
   bcrypt (~> 3.1.7)
@@ -531,7 +531,6 @@ DEPENDENCIES
   pg
   premailer-rails
   psych
-  puma (< 7)
   rack-mini-profiler
   rails-brotli-cache
   rails-controller-testing

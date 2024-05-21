@@ -25,7 +25,8 @@ gem "brotli"
 gem "good_job"
 
 # Deployment
-gem "puma", "< 7"
+# gem "puma", "< 7"
+gem "agoo"
 gem "dotenv", "~> 3.0"
 # For puma systemd integration
 # gem "sd_notify"

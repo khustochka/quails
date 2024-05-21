@@ -31,7 +31,8 @@ unless ENV["RM_INFO"]
   Minitest::Reporters.use!
 end
 
-Capybara.server = :puma, { Silent: true }
+# Capybara.server = :puma, { Silent: true }
+Capybara.server = :webrick
 
 module ActiveSupport
   class TestCase
