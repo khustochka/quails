@@ -1,6 +1,6 @@
 #!/bin/bash
 
-gem install ruby-lsp --no-document
+gem install ruby-lsp foreman --no-document
 
 bin/setup
 
