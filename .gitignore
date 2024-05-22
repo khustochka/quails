@@ -47,6 +47,7 @@
 !/.github
 !/.rubocop.yml
 !/.tool-versions
+!/.devcontainer
 *~
 AppleDouble
 
