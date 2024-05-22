@@ -10,7 +10,8 @@ services:
       - node_modules:/workspaces/quails/node_modules  
       - packs:/workspaces/quails/public/packs
       - packs-test:/workspaces/quails/public/packs-test
-      - rails_cache:/workspaces/quails/tmp/cache
+      - rails_tmp:/workspaces/quails/tmp
+      - rails_log:/workspaces/quails/log
 
     environment:
       DATABASE_URL: postgres://quails:quails@db 
@@ -68,4 +69,5 @@ volumes:
   node_modules:
   packs:
   packs-test:
-  rails_cache:
+  rails_tmp:
+  rails_log:
