@@ -35,7 +35,7 @@ module FormatStrategy
     private
 
     def preprocess(text)
-      new_text = super(text)
+      new_text = super
       # Replace h3 with h2, h4-6 with strong
       new_text
         .gsub(/^h3\./i, "h2.")
