@@ -35,6 +35,9 @@ RUN mkdir /app
 WORKDIR /app
 # RUN mkdir -p tmp/pids
 
+RUN gem update --system --no-document 
+# gem install -N bundler -v ${BUNDLER_VERSION}
+
 #######################################################################
 
 # install packages only needed at build time
@@ -58,9 +61,6 @@ FROM build_deps as gems
 
 # Create this directory because it is is not created when the rubygems version is the latest
 RUN mkdir -p /usr/local/bundle
-
-RUN gem update --system --no-document 
-    # gem install -N bundler -v ${BUNDLER_VERSION}
 
 COPY Gemfile* ./
 RUN bundle install && rm -rf vendor/bundle/ruby/*/cache
