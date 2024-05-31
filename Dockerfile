@@ -11,7 +11,7 @@
 
 #######################################################################
 
-ARG RUBY_VERSION=3.3.1
+ARG RUBY_VERSION=3.3.2
 ARG VARIANT=slim-bookworm
 # Volta is only compatible with amd64.
 FROM --platform=linux/amd64 ruby:${RUBY_VERSION}-${VARIANT} as base
