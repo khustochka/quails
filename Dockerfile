@@ -35,13 +35,6 @@ RUN mkdir /app
 WORKDIR /app
 # RUN mkdir -p tmp/pids
 
-ARG GIT_REVISION=unspecified
-LABEL org.opencontainers.image.revision=$GIT_REVISION
-ENV GIT_REVISION ${GIT_REVISION}
-
-ARG GIT_REPOSITORY_URL
-ENV DD_TAGS="git.repository_url:${GIT_REPOSITORY_URL},git.commit.sha:${GIT_REVISION}"
-
 #######################################################################
 
 # install packages only needed at build time
@@ -101,6 +94,17 @@ RUN ${BUILD_COMMAND} && rm -rf /app/tmp/cache/assets
 # install deployment packages
 
 FROM base
+
+# Labels 
+ARG GIT_REVISION=unspecified
+ARG GIT_REPOSITORY_URL=unspecified
+LABEL org.opencontainers.image.title="quails"
+LABEL org.opencontainers.image.revision=$GIT_REVISION
+LABEL org.opencontainers.image.source=$GIT_REPOSITORY_URL
+
+ENV GIT_REVISION ${GIT_REVISION}
+ENV GIT_REPOSITORY_URL ${GIT_REPOSITORY_URL}
+ENV DD_TAGS="git.repository_url:${GIT_REPOSITORY_URL},git.commit.sha:${GIT_REVISION}"
 
 # ARG DEPLOY_PACKAGES="postgresql-client file vim curl gzip bzip2 htop net-tools bind9-dnsutils"
 ARG DEPLOY_PACKAGES="libvips42 libjpeg62-turbo-dev postgresql-client file curl gzip bzip2 net-tools netcat-openbsd bind9-dnsutils procps libjemalloc2"
