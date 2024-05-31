@@ -5,6 +5,15 @@ class ImageRepresenter
 
   attr_reader :image
 
+  NAME_TO_WIDTH = {
+    small: 640,
+    thumbnail: 900,
+    medium: 1200,
+    large: 2400,
+  }
+
+  WIDTH_TO_NAME = NAME_TO_WIDTH.invert
+
   def initialize(image)
     @image = image
   end
@@ -14,7 +23,7 @@ class ImageRepresenter
   # Large is an image representation with maximum width 1200px
   def large
     if image.on_storage?
-      variant(1200)
+      variant(:medium)
     else
       relevant_assets_cache.select { |item| item.width <= 1200 }.max_by(&:width).url
     end
@@ -57,23 +66,30 @@ class ImageRepresenter
     # E.g. for 1200px (default) it will try to find at least 2400px wide image
     # Similarly, for a thumbnail taking 1/3 column (appr. 380px) it will ask for 760px (thus I prepare 900px)
     # P.S. If width is unknown (test or identification failure) - we just request variants
-    new_sizes = [640, 900, 1200, 2400]
+    new_sizes = WIDTH_TO_NAME.keys
     new_sizes = new_sizes.select { |size| size < max_width } if max_width
-    srcset = new_sizes.map { |size| [variant(size), "#{size}w"] }
+    srcset = new_sizes.map { |size| [variant(WIDTH_TO_NAME[size]), "#{size}w"] }
     srcset << [image.stored_image, "#{max_width}w"] if max_width
     srcset
   end
 
-  def variant(width)
-    image.stored_image.variant(resize_and_save_space("#{width}x>"))
+  def variant(name)
+    image.stored_image.variant(name)
+  end
+
+  def self.variant_format(name)
+    # This is the order in which "transformations" end up in the job. To avoid
+    # duplicating the variant the ordre should be followed. If any options need to be
+    # changed, one needs to check the resulting order in development.
+    {
+      saver: {
+        keep: nil, strip: true, quality: 85, optimize_coding: true,
+      },
+      resize_to_limit: [NAME_TO_WIDTH[name.to_sym], nil],
+    }
   end
 
   private
-
-  # TODO: Make adjustments for images already saved with worse quality?
-  def resize_and_save_space(resizing)
-    { resize: resizing, quality: "85%", strip: true, interlace: "Plane" }
-  end
 
   def relevant_assets_cache
     key = image.on_flickr? ? :externals : :locals

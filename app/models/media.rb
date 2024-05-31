@@ -18,7 +18,10 @@ class Media < ApplicationRecord
 
   validates :slug, uniqueness: true, presence: true, length: { maximum: 64 }
 
+  before_save :set_multi_species
   after_update :update_spot
+
+  scope :multiple_species, lambda { where(multi_species: true) }
 
   AVAILABLE_CLASSES = {
     "photo" => "Image",
@@ -53,6 +56,11 @@ class Media < ApplicationRecord
     preload(taxa: :species).joins(:observations)
       .where(spot_id: nil).where("observation_id in (select observation_id from spots)")
       .order(created_at: :asc)
+  end
+
+  # Media that are actually linked to multiple species (even if multi_species flag is not set)
+  def self.really_multiple_species_ids
+    unscoped.from("media_observations").group(:media_id).having("COUNT(observation_id) > 1").pluck(:media_id)
   end
 
   def extend_with_class
@@ -140,6 +148,11 @@ class Media < ApplicationRecord
   end
 
   private
+
+  def set_multi_species
+    sps = Species.joins(:observations).where(observations: { id: observation_ids }).distinct
+    self.multi_species = sps.count > 1
+  end
 
   def consistent_observations
     obs = Observation.where(id: observation_ids)

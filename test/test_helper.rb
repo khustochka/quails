@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 
+# Required to prevent vips issues on MacOS
+# See https://github.com/libvips/ruby-vips/issues/155
+require "vips"
+
 # In some situations Rails is not yet loaded here, so present? will not work.
 if ENV["COVERAGE"] && ENV["COVERAGE"] != ""
   require "simplecov"

@@ -19,7 +19,7 @@ module RecordFinder
       before_action only: before do
         instance_variable_set(
           variable,
-          model_name.constantize.public_send(:find_by!, { by => params[:id] })
+          model_name.constantize.find_by!({ by => params[:id] })
         )
       end
     end

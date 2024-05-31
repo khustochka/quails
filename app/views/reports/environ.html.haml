@@ -3,49 +3,78 @@
 
 %h1= page_title
 
-%dl
-  %dt Ruby version
-  %dd= RUBY_DESCRIPTION
+%table.neat_table
+  %tbody
+    %tr
+      %th Ruby version
+      %td= RUBY_DESCRIPTION
 
-  %dt Rubygems version
-  %dd= Gem::VERSION
+    %tr
+      %th Rubygems version
+      %td= Gem::VERSION
 
-  %dt Bundler version
-  %dd= Bundler::VERSION
+    %tr
+      %th Bundler version
+      %td= Bundler::VERSION
 
-  %dt Rails version
-  %dd= Rails.version
+    %tr
+      %th Rails version
+      %td= Rails.version
 
-  %dt Rack release
-  %dd= Rack.release
+    %tr
+      %th Rack release
+      %td= Rack.release
 
-  - request.env['SERVER_SOFTWARE'].if_present do |server_software|
-    %dt Server Software
-    %dd= server_software
+    - request.env['SERVER_SOFTWARE'].if_present do |server_software|
+      %tr
+        %th Server Software
+        %td= server_software
 
-  %dt Rails Environment
-  %dd= Rails.env
+    %tr
+      %th Rails Environment
+      %td= Rails.env
 
-  %dt Quails Environment
-  %dd= Quails.env
+    %tr
+      %th Quails Environment
+      %td= Quails.env
 
-  %dt Database software version
-  %dd= @pg_version
+    %tr
+      %th Database software version
+      %td= @pg_version
 
-  %dt Collation / ctype
-  %dd
-    = @collate["datcollate"]
-    \/
-    = @collate["datctype"]
+    %tr
+      %th Collation / ctype
+      %td
+        = @collate["datcollate"]
+        \/
+        = @collate["datctype"]
 
-  - ENV["DOCKER_IMAGE"].yield_self do |docker_image|
-    - if docker_image
-      %dt Docker image
-      %dd= docker_image
+    - ENV["DOCKER_IMAGE"].if_present do |docker_image|
+      %tr
+        %th Docker image
+        %td= docker_image
 
-  - Quails.revision.yield_self do |revision|
-    - if revision.present?
-      %dt Revision
-      %dd
-        = link_to revision.sha[0..7], "https://bitbucket.org/khustochka/quails/commits/#{revision.sha}"
-        = simple_format(revision.message)
+    - ENV["ACTIVE_BACKEND"].if_present do |active_backend|
+      %tr
+        %th Active backend
+        %td= active_backend
+
+    - Quails.revision.if_present do |revision|
+      %tr
+        %th Revision
+        %td
+          = link_to revision.sha[0..7], "https://bitbucket.org/khustochka/quails/commits/#{revision.sha}"
+          = simple_format(revision.message)
+
+%h2 Env vars
+
+%table.neat_table
+  %tbody
+    - ENV.keys.sort.each do |key|
+      %tr
+        %th= key
+        %td
+          - if [/secret/i, /passw/i, /_key/i, /token/i, /DATABASE_URL/i, /MYLOC/i].any? { |r| key =~ r }
+            %span.new_sp *****
+          - else
+            = ENV[key]

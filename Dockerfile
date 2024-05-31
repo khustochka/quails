@@ -11,7 +11,7 @@
 
 #######################################################################
 
-ARG RUBY_VERSION=3.3.1
+ARG RUBY_VERSION=3.3.2
 ARG VARIANT=slim-bookworm
 FROM ruby:${RUBY_VERSION}-${VARIANT} as base
 
@@ -32,11 +32,14 @@ ENV BUNDLE_WITHOUT ${BUNDLE_WITHOUT}
 
 RUN mkdir /app
 WORKDIR /app
-RUN mkdir -p tmp/pids
+# RUN mkdir -p tmp/pids
 
 ARG GIT_REVISION=unspecified
 LABEL org.opencontainers.image.revision=$GIT_REVISION
 ENV GIT_REVISION ${GIT_REVISION}
+
+ARG GIT_REPOSITORY_URL
+ENV DD_TAGS="git.repository_url:${GIT_REPOSITORY_URL},git.commit.sha:${GIT_REVISION}"
 
 #######################################################################
 
@@ -83,15 +86,13 @@ RUN npm install --global yarn
 
 COPY package*json ./
 COPY yarn.* ./
-RUN yarn install --check-files --frozen-lockfile
+RUN yarn install --check-files --frozen-lockfile --production
 
 COPY . .
 
 # The following enable assets to precompile on the build server. 
 ENV SECRET_KEY_BASE=1
 ENV NODE_ENV=production
-# ENV AWS_ACCESS_KEY_ID=1
-# ENV AWS_SECRET_ACCESS_KEY=1
 
 ARG BUILD_COMMAND="bin/rails assets:precompile"
 RUN ${BUILD_COMMAND} && rm -rf /app/tmp/cache/assets
@@ -103,7 +104,7 @@ RUN ${BUILD_COMMAND} && rm -rf /app/tmp/cache/assets
 FROM base
 
 # ARG DEPLOY_PACKAGES="postgresql-client file vim curl gzip bzip2 htop net-tools bind9-dnsutils"
-ARG DEPLOY_PACKAGES="imagemagick postgresql-client file curl gzip bzip2 net-tools bind9-dnsutils procps libjemalloc2"
+ARG DEPLOY_PACKAGES="libvips42 libjpeg62-turbo-dev postgresql-client file curl gzip bzip2 net-tools netcat-openbsd bind9-dnsutils procps libjemalloc2"
 # ENV DEPLOY_PACKAGES=${DEPLOY_PACKAGES}
 
 RUN --mount=type=cache,id=prod-apt-cache,sharing=locked,target=/var/cache/apt \
@@ -144,11 +145,11 @@ COPY --from=assets /app/public/assets /app/public/assets
 # Deploy your application
 COPY . .
 
-# Adjust binstubs to run on Linux and set current working directory
-# This seems unnecessary
-# RUN chmod +x /app/bin/* && \
-#     sed -i 's/ruby.exe/ruby/' /app/bin/* && \
-#     sed -i '/^#!/aDir.chdir File.expand_path("..", __dir__)' /app/bin/*
+# # Adjust binstubs to run on Linux and set current working directory
+# # This seems unnecessary
+# # RUN chmod +x /app/bin/* && \
+# #     sed -i 's/ruby.exe/ruby/' /app/bin/* && \
+# #     sed -i '/^#!/aDir.chdir File.expand_path("..", __dir__)' /app/bin/*
 
 VOLUME ["/app/storage"]
 VOLUME ["/app/tmp"]
@@ -159,7 +160,7 @@ RUN chown -R 1001 /app/tmp
 # Adopted from bitnami/nginx image 
 # Left for compatibility
 RUN chmod g+rwX /app/tmp   
-RUN chmod g+rwX /app/tmp/pids
+# RUN chmod g+rwX /app/tmp/pids
 RUN chmod g+rwX /app/storage
 RUN find / -perm /6000 -type f -exec chmod a-s {} \; || true
 

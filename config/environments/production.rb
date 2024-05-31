@@ -135,7 +135,10 @@ Rails.application.configure do
   elsif Quails.env.live?
     config.hosts << "birdwatch.org.ua"
   end
-  config.host_authorization = { response_app: ->(_) { [403, {}, ["Incorrect host name"]] } }
+  config.host_authorization = {
+    exclude: ->(request) { request.path.include?("/health_check") },
+    response_app: ->(_) { [403, {}, ["Incorrect host name"]] },
+  }
 
   # Route error pages through custom middleware
   require "quails/public_exceptions"
@@ -143,5 +146,9 @@ Rails.application.configure do
 
   # Alternative location for page caching
   # App user should be able to write to this location, but we do not want it to write to 'public'
+  # FIXME: files from this folder are not served by Rails. Nginx not yet setup to serve static files.
+  # And /public is not writable.
   config.action_controller.page_cache_directory = Rails.root.join("tmp/cached_pages")
+  # This does not work:
+  # config.paths["public"] << "tmp/cached_pages"
 end
