@@ -13,8 +13,7 @@
 
 ARG RUBY_VERSION=3.3.2
 ARG VARIANT=slim-bookworm
-# Volta is only compatible with amd64.
-FROM --platform=linux/amd64 ruby:${RUBY_VERSION}-${VARIANT} as base
+FROM ruby:${RUBY_VERSION}-${VARIANT} as base
 
 ARG NODE_VERSION=20.12.2
 ARG YARN_VERSION=1.22.19
@@ -71,10 +70,12 @@ RUN bundle install && rm -rf vendor/bundle/ruby/*/cache
 
 FROM gems as assets
 
-RUN curl https://get.volta.sh | bash
-ENV VOLTA_HOME /root/.volta
-ENV PATH $VOLTA_HOME/bin:/usr/local/bin:$PATH
-RUN volta install node@${NODE_VERSION} yarn@${YARN_VERSION}
+RUN  --mount=type=cache,id=dev-apt-cache,sharing=locked,target=/var/cache/apt \
+     --mount=type=cache,id=dev-apt-lib,sharing=locked,target=/var/lib/apt \
+    curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
+    apt-get install --no-install-recommends -y  nodejs \
+    && rm -rf /var/lib/apt/lists /var/cache/apt/archives
+RUN npm install --global yarn    
 
 COPY package*json ./
 COPY yarn.* ./
