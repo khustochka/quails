@@ -1,12 +1,28 @@
 name: "Build image"
 on:
   workflow_call:
+    inputs:
+      platforms:
+        type: string
     secrets:
       DOCKER_AWS_ACCESS_KEY_ID:
         required: true
       DOCKER_AWS_SECRET_ACCESS_KEY:
         required: true
   workflow_dispatch:
+    inputs:
+      platforms: 
+        default: |
+          linux/amd64
+          linux/arm64
+        required: true
+        description: "Platforms to build for"
+        type: choice
+        options:
+        - |
+          linux/amd64
+          linux/arm64
+        - linux/amd64
 jobs:
   build_and_push:
     name: "Build and push"

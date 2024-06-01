@@ -106,6 +106,8 @@ jobs:
   build_image:
     name: "Docker image"
     uses: ./.github/workflows/build.yml
+    with: 
+      platforms: linux/amd64
     secrets:
       DOCKER_AWS_ACCESS_KEY_ID: ${{ secrets.DOCKER_AWS_ACCESS_KEY_ID }}
       DOCKER_AWS_SECRET_ACCESS_KEY: ${{ secrets.DOCKER_AWS_SECRET_ACCESS_KEY }}
