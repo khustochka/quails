@@ -12,16 +12,12 @@ on:
   workflow_dispatch:
     inputs:
       platforms: 
-        default: |
-          linux/amd64
-          linux/arm64
+        default: linux/amd64,linux/arm64
         required: true
         description: "Platforms to build for"
         type: choice
         options:
-        - |
-          linux/amd64
-          linux/arm64
+        - linux/amd64,linux/arm64
         - linux/amd64
 jobs:
   build_and_push:
