@@ -59,11 +59,7 @@ jobs:
         with:
           # Path context is required for .dockerignore to work.
           context: .
-          platforms: |
-            linux/amd64
-          # platforms: |
-          #   linux/amd64
-          #   linux/arm64
+          platforms: ${{ inputs.platforms }}
           build-args: |
             GIT_REVISION=${{ github.sha }}
             GIT_REPOSITORY_URL=${{ format('{0}/{1}', github.server_url, github.repository) }}
