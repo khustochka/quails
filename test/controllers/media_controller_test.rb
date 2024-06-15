@@ -30,6 +30,7 @@ class MediaControllerTest < ActionController::TestCase
     image2 = create(:image, spot_id: @spot.id)
     login_as_admin
     get :unmapped, params: { half: true }
+    assert_response :success
     # result = assigns(:media).map(&:id)
     # assert result.include?(@image.id)
     # assert result.include?(@video.id)

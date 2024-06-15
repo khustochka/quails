@@ -24,15 +24,18 @@ class LifelistControllerTest < ActionController::TestCase
 
   test "shows My Statistics page" do
     get :stats
+    assert_response :success
   end
 
   test "eBird Lifelist page" do
     get :ebird
+    assert_response :success
   end
 
   test "charts are rendered even with no observations" do
     login_as_admin
     get :chart
+    assert_response :success
     # Lifers section is present by default in both charts
     assert_select ".lifelist-chart-lifers", 2
   end

@@ -4,8 +4,8 @@ require "test_helper"
 
 class LocusTest < ActiveSupport::TestCase
   test "locus factory is valid" do
-    create(:locus)
-    create(:locus)
+    assert_predicate create(:locus), :valid?
+    assert_predicate create(:locus), :valid?
   end
 
   test "autogenerate slug if empty" do

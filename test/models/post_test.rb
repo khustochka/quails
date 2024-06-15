@@ -4,8 +4,8 @@ require "test_helper"
 
 class PostTest < ActiveSupport::TestCase
   test "post factory is valid" do
-    create(:post)
-    create(:post)
+    assert_predicate create(:post), :valid?
+    assert_predicate create(:post), :valid?
   end
 
   test "do not save post with empty slug" do

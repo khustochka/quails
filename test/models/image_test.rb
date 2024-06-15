@@ -7,7 +7,7 @@ class ImageTest < ActiveSupport::TestCase
   end
 
   test "image factory is valid" do
-    create(:image)
+    assert_predicate create(:image), :valid?
   end
 
   test "set multi-species flag on save" do

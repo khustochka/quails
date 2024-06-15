@@ -19,6 +19,7 @@ class FlickrPhotosControllerTest < ActionController::TestCase
     img1 = create(:image)
     login_as_admin
     get :unflickred
+    assert_response :success
   end
 
   test "#show for unflickred image" do
@@ -26,6 +27,7 @@ class FlickrPhotosControllerTest < ActionController::TestCase
 
     login_as_admin
     get :show, params: { id: img1.slug }
+    assert_response :success
   end
 
   test "#show for flickred image" do
@@ -33,5 +35,6 @@ class FlickrPhotosControllerTest < ActionController::TestCase
 
     login_as_admin
     get :show, params: { id: img1.slug }
+    assert_response :success
   end
 end

@@ -94,6 +94,7 @@ class ReportsControllerTest < ActionController::TestCase
   test "month targets work" do
     login_as_admin
     get :month_targets
+    assert_response :success
   end
 
   test "correct redirect for reports/more_than_year" do
@@ -107,10 +108,12 @@ class ReportsControllerTest < ActionController::TestCase
   test "charts work" do
     login_as_admin
     get :charts
+    assert_response :success
   end
 
   test "charts work with years parameter" do
     login_as_admin
     get :charts, params: { years: "2015..2017" }
+    assert_response :success
   end
 end

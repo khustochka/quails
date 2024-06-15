@@ -44,6 +44,7 @@ class SpeciesTest < ActiveSupport::TestCase
     sp = Species.find_by!(code: :saxola)
     sp.legacy_code = "saxtor"
     sp.code = "saxtor"
+    assert_predicate sp, :valid?
     sp.save!
   end
 

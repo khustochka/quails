@@ -4,7 +4,7 @@ require "test_helper"
 
 class SpotTest < ActiveSupport::TestCase
   test "spot factory is valid" do
-    create(:spot)
+    assert_predicate create(:spot), :valid?
   end
 
   test "destroy spot when observation is destroyed" do
