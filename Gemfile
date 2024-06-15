@@ -68,9 +68,6 @@ gem "aws-sdk-s3"
 # Small utils
 gem "addressable", require: "addressable/uri"
 gem "roman-numerals"
-gem "csv"
-gem "uri"
-gem "stringio"
 
 # Monitoring
 gem "ddtrace", require: false
@@ -106,16 +103,20 @@ gem "kaminari-mongoid"
 # The following gems depend on it, but do not yet require is as a dependency:
 # aws-sdk-core, livejournal2
 gem "rexml"
-# activemailer
-gem "net-imap"
-gem "net-pop"
-gem "net-smtp"
 
 # Bundle some default gems to use newer versions.
 gem "psych"
+gem "stringio"
+gem "uri"
 
-# Not clear if still needed. drb references observer, but does not list it as a dependency
+# Extracted gems
+gem "bigdecimal"
+gem "csv"
 gem "drb"
+gem "net-imap"
+gem "net-pop"
+gem "net-smtp"
+gem "nkf"
 gem "observer"
 
 group :development do
