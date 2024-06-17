@@ -35,6 +35,7 @@ WORKDIR /app
 # RUN mkdir -p tmp/pids
 
 RUN gem update --system --no-document 
+RUN bundle config set deployment true
 # gem install -N bundler -v ${BUNDLER_VERSION}
 
 #######################################################################
