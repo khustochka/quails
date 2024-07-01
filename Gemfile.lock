@@ -71,8 +71,8 @@ GEM
     ansi (1.5.0)
     ast (2.4.2)
     aws-eventstream (1.3.0)
-    aws-partitions (1.947.0)
-    aws-sdk-core (3.199.0)
+    aws-partitions (1.949.0)
+    aws-sdk-core (3.200.0)
       aws-eventstream (~> 1, >= 1.3.0)
       aws-partitions (~> 1, >= 1.651.0)
       aws-sigv4 (~> 1.8)
@@ -80,7 +80,7 @@ GEM
     aws-sdk-kms (1.87.0)
       aws-sdk-core (~> 3, >= 3.199.0)
       aws-sigv4 (~> 1.1)
-    aws-sdk-s3 (1.154.0)
+    aws-sdk-s3 (1.155.0)
       aws-sdk-core (~> 3, >= 3.199.0)
       aws-sdk-kms (~> 1)
       aws-sigv4 (~> 1.8)
@@ -116,15 +116,12 @@ GEM
     css_parser (1.17.1)
       addressable
     csv (3.3.0)
-    datadog-ci (0.8.3)
-      msgpack
-    date (3.3.4)
-    ddtrace (1.23.2)
-      datadog-ci (~> 0.8.1)
+    datadog (2.1.0)
       debase-ruby_core_source (= 3.3.1)
-      libdatadog (~> 7.0.0.1.0)
+      libdatadog (~> 9.0.0.1.0)
       libddwaf (~> 1.14.0.0.0)
       msgpack
+    date (3.3.4)
     debase-ruby_core_source (3.3.1)
     debug (1.9.2)
       irb (~> 1.10)
@@ -223,9 +220,9 @@ GEM
       letter_opener (~> 1.9)
       railties (>= 6.1)
       rexml
-    libdatadog (7.0.0.1.0)
-    libdatadog (7.0.0.1.0-aarch64-linux)
-    libdatadog (7.0.0.1.0-x86_64-linux)
+    libdatadog (9.0.0.1.0)
+    libdatadog (9.0.0.1.0-aarch64-linux)
+    libdatadog (9.0.0.1.0-x86_64-linux)
     libddwaf (1.14.0.0.0-aarch64-linux)
       ffi (~> 1.0)
     libddwaf (1.14.0.0.0-arm64-darwin)
@@ -270,7 +267,7 @@ GEM
     mime-types-data (3.2024.0604)
     mini_magick (4.13.1)
     mini_mime (1.1.5)
-    minitest (5.24.0)
+    minitest (5.24.1)
     minitest-reporters (1.7.1)
       ansi
       builder
@@ -404,7 +401,7 @@ GEM
     rubocop-performance (1.21.1)
       rubocop (>= 1.48.1, < 2.0)
       rubocop-ast (>= 1.31.1, < 2.0)
-    rubocop-rails (2.25.0)
+    rubocop-rails (2.25.1)
       activesupport (>= 4.2.0)
       rack (>= 1.1)
       rubocop (>= 1.33.0, < 2.0)
@@ -453,7 +450,7 @@ GEM
     strscan (3.1.0)
     temple (0.10.3)
     thor (1.3.1)
-    tilt (2.3.0)
+    tilt (2.4.0)
     timeout (0.4.1)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
@@ -505,7 +502,7 @@ DEPENDENCIES
   bundler-audit
   capybara
   csv
-  ddtrace
+  datadog
   debug (>= 1.0.0)
   dotenv (~> 3.0)
   drb

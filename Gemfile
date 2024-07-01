@@ -73,7 +73,7 @@ gem "uri"
 gem "csv"
 
 # Monitoring
-gem "ddtrace", require: false
+gem "datadog", require: false
 gem "honeybadger", "~> 5.4"
 gem "lograge"
 # gem "airbrake"
