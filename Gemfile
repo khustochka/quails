@@ -22,7 +22,7 @@ gem "redis"
 gem "hiredis-client"
 gem "rails-brotli-cache"
 gem "brotli"
-gem "good_job"
+gem "good_job", "~> 3.99.0"
 
 # Deployment
 gem "puma", "< 7"
