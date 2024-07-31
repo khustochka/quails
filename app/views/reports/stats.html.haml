@@ -37,12 +37,13 @@
     %th Species
     %th Lifers
 
-  - @month_data.each do |row|
+  - (1..12).each do |month|
     %tr
-      %td= t('date.month_names')[row.month.to_i]
-      %td= row.count_obs
-      %td= row.count_species
-      %td= @first_sp_by_month[row.month] rescue nil
+      - @month_data[month].tap do |row|
+        %td= t('date.month_names')[month.to_i]
+        %td= row.count_obs rescue 0
+        %td= row.count_species rescue 0
+        %td= @first_sp_by_month[row.month] rescue nil
 
 %h2 Рекордные дни
 

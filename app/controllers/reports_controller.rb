@@ -223,10 +223,10 @@ class ReportsController < ApplicationController
     @first_sp_by_year =
       lifelist_filtered.group("EXTRACT(year FROM observ_date)::integer").count(:all)
 
-    @month_data = obs_with_taxon.select('EXTRACT(month FROM observ_date)::integer as month,
-                                      COUNT(observations.id) as count_obs,
-                                      COUNT(DISTINCT species_id) as count_species')
-      .group("EXTRACT(month FROM observ_date)").order("month")
+    @month_data = obs_with_taxon
+      .select("EXTRACT(month FROM observ_date)::integer AS month, COUNT(observations.id) as count_obs, COUNT(DISTINCT species_id) as count_species")
+      .group("EXTRACT(month FROM observ_date)::integer")
+      .index_by(&:month)
     @first_sp_by_month =
       lifelist_filtered.group("EXTRACT(month FROM observ_date)::integer").count(:all)
 
