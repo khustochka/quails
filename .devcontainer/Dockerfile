@@ -30,7 +30,7 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 # [Optional] Uncomment this line to install global node packages.
 # RUN su vscode -c "source /usr/local/share/nvm/nvm.sh && npm install -g <your-package-here>" 2>&1
 
-ARG NODE_VERSION=20.12.2
+ARG NODE_VERSION=20.16.0
 ARG YARN_VERSION=1.22.19
 RUN curl https://get.volta.sh | bash
 ENV VOLTA_HOME /root/.volta
