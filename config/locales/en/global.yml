@@ -54,6 +54,12 @@
     fr: in French
     ru: in Russian
 
+  in_lang_names:
+    en: English
+    ru: Russian
+    uk: Ukrainian
+    fr: French
+
   lifelist_chart:
     number_of_species: Number of species
     lifers_header: "Lifers:"

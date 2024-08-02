@@ -3,6 +3,10 @@
     home:
       title: Birdwatching blog
       previous_posts: << Previous posts
+      meta_description: "Blog about birds of Ukraine and Canada, birding, bird photography"
+      blog: Blog
+      year_summary: Year in review
+      year_progress: Year progress
 
     year:
       year: Year
@@ -27,6 +31,13 @@
         one: 'comment'
         other: 'comments'
       add_comment: Add comment
+
+    show:
+      meta_description: "Blog post '%{title}', published %{date}"
+    other_lang_notice:
+      notice_text: This is a post in the %{in_language} language.
+    other_lang_expand:
+      expand: Expand
 
   comments:
     comment:
