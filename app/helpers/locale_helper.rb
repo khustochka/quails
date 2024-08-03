@@ -2,6 +2,7 @@
 
 module LocaleHelper
   BLOGLESS_LOCALES = [:en]
+  CYRILLIC_LOCALES = [:uk, :ru]
 
   def default_locale?
     I18n.locale == I18n.default_locale
@@ -12,7 +13,7 @@ module LocaleHelper
   end
 
   def cyrillic_locale?
-    I18n.locale.in?(%w(uk ru))
+    I18n.locale.in?(CYRILLIC_LOCALES)
   end
 
   def blogless_locale?
