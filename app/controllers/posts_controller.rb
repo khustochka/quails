@@ -6,7 +6,7 @@ class PostsController < ApplicationController
   administrative except: [:show]
   localized only: [:show], locales: [:uk, :ru]
 
-  before_action :find_post, only: [:edit, :update, :destroy, :show, :for_lj, :lj_post]
+  before_action :find_post, only: [:edit, :update, :destroy, :for_lj, :lj_post]
 
   after_action :cache_expire, only: [:create, :update, :destroy]
 
@@ -21,6 +21,9 @@ class PostsController < ApplicationController
 
   # GET /posts/1
   def show
+    lang = helpers.cyrillic_locale? ? LocaleHelper::CYRILLIC_LOCALES : :en
+    @post = current_user.available_posts.where(lang: lang).find_by!(slug: params[:id])
+
     if @post.month != params[:month].to_s || @post.year != params[:year].to_s
       redirect_to public_post_path(@post), status: :moved_permanently
     end
