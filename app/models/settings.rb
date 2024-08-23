@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "ostruct"
+
 class Settings < ApplicationRecord
   validates :key, uniqueness: true
 

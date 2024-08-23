@@ -4,7 +4,7 @@ source "https://rubygems.org/"
 
 ruby ">= 3.0"
 
-VERSION = "7.1.3.4"
+VERSION = "7.2.1"
 # gem "rails", VERSION
 gem "activemodel",   VERSION
 gem "activejob",     VERSION
@@ -98,18 +98,14 @@ gem "mechanize"
 gem "rack-mini-profiler", require: false # false is required to be able to disable
 
 # Deflicker
-gem "mongoid"
-gem "kaminari-mongoid"
+# gem "mongoid"
+# gem "kaminari-mongoid"
 
 # Fixes:
 # rexml is a bundled gem since ruby 3.0. This means it is not available by default.
 # The following gems depend on it, but do not yet require is as a dependency:
 # aws-sdk-core, livejournal2
 gem "rexml"
-# activemailer
-gem "net-imap"
-gem "net-pop"
-gem "net-smtp"
 
 # Bundle some default gems to use newer versions.
 gem "psych"
