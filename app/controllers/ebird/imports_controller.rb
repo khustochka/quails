@@ -15,14 +15,23 @@ module EBird
       params.permit(:c)
       checklists = params.fetch(:c, nil)
       if checklists
+        no_locus = 0
         GoodJob::Batch.enqueue do
           checklists.each do |cl|
-            EBird::ChecklistImportJob.perform_later(cl[:ebird_id], cl[:locus_id])
+            if cl[:locus_id].present?
+              EBird::ChecklistImportJob.perform_later(cl[:ebird_id], cl[:locus_id])
+            else
+              no_locus += 1
+            end
           end
         end
         Rails.cache.delete("ebird/preloaded_checklists")
         Rails.cache.delete("ebird/last_preload")
-        flash.notice = "Import jobs enqueued."
+        notice = "Import jobs enqueued."
+        if no_locus > 0
+          notice += " #{no_locus} checklists without locus were skipped. Please refresh the preloaded lists."
+        end
+        flash.notice = notice
       else
         flash.notice = "No checklists to import."
       end
