@@ -20,7 +20,7 @@ module EBird
       # We need to provide rack.session. If session is missing (not enabled), the form is rendered without
       # the authentication token input.
       renderer = ActionController::Renderer.for(EBird::ImportsController, { "rack.session" => {} })
-      renderer.render :_preloaded, layout: nil, assigns: { last_preload: time, checklists: checklists }
+      renderer.render :_preloaded, layout: nil, assigns: { last_preload: time, checklists: checklists.reverse }
     end
   end
 end
