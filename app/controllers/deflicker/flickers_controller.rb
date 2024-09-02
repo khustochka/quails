@@ -24,7 +24,7 @@ module Deflicker
     def destroy
       flicker = Flicker.find_by(flickr_id: params[:id])
       if flicker.removed?
-        flash[:alert] = "Already removed"
+        flash.now[:alert] = "Already removed"
       else
         if flicker.journal_entry_ids.empty? || flicker.journal_entries_fixed?
           Image.transaction do
@@ -37,17 +37,17 @@ module Deflicker
                     fp.detach! if Rails.env.production?
                   end
                   flicker.update(removed: true) if Rails.env.production?
-                  flash[:notice] =
+                  flash.now[:notice] =
                     "Removed! #{helpers.link_to "Flickr", flicker.url, target: :_blank, rel: :noopener}
                     #{helpers.link_to "Image", flicker.image, target: :_blank, rel: :noopener}"
                 else
-                  flash[:alert] = result.errors.full_messages.join(" ")
+                  flash.now[:alert] = result.errors.full_messages.join(" ")
                 end
               else
                 flash[:alert] = "Fake removed"
               end
             else
-              flash[:alert] = "Not yet on S3"
+              flash.now[:alert] = "Not yet on S3"
             end
           end
         else
