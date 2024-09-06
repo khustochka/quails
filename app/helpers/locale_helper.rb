@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module LocaleHelper
-  BLOGLESS_LOCALES = [:en]
+  BLOGLESS_LOCALES = []
   CYRILLIC_LOCALES = [:uk, :ru]
 
   def default_locale?

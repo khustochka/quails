@@ -19,7 +19,7 @@ class BlogControllerTest < ActionDispatch::IntegrationTest
     blogpost1 = create(:post, face_date: "2007-12-06 13:14:15")
     get blog_path
     assert_select "ul.translated a[href='#{blog_path(locale: :ru)}']"
-    assert_select "ul.translated a[href='#{root_path(locale: :en)}']"
+    assert_select "ul.translated a[href='#{blog_path(locale: :en)}']"
   end
 
   # test "get home page with strange format - IE sometimes sends it" do
