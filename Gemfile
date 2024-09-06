@@ -109,6 +109,7 @@ gem "rexml"
 
 # Bundle some default gems to use newer versions.
 gem "psych"
+gem "ostruct"
 
 # drb references observer but does not list it as a dependency.
 gem "drb"
