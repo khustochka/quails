@@ -98,8 +98,8 @@ gem "mechanize"
 gem "rack-mini-profiler", require: false # false is required to be able to disable
 
 # Deflicker
-# gem "mongoid"
-# gem "kaminari-mongoid"
+gem "mongoid", "~> 9.0", ">= 9.0.2"
+gem "kaminari-mongoid"
 
 # Fixes:
 # rexml is a bundled gem since ruby 3.0. This means it is not available by default.
