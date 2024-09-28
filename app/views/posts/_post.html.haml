@@ -4,7 +4,7 @@
   %div.post-box{id: "post-#{post.slug}"}
     %div.post{class: post_lang_classes(post), lang: post.lang}
       %div.header-with-subheader
-        %h2= link_to(post.decorated.title, public_post_path(post))
+        %h2= link_to(post.decorated.title, universal_public_post_path(post))
         %i
           %time{datetime: post.face_date.iso8601}= l(post.face_date, format: :long)
         - unless post.public?

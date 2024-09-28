@@ -116,6 +116,10 @@ class Post < ApplicationRecord
 
   # Instance methods
 
+  def cyrillic?
+    lang.to_sym.in?(LocaleHelper::CYRILLIC_LOCALES)
+  end
+
   def public?
     status != "PRIV"
   end
