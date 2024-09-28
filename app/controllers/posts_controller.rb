@@ -2,6 +2,7 @@
 
 class PostsController < ApplicationController
   include CorrectableConcern
+  include PostsHelper
 
   administrative except: [:show]
   localized only: [:show]
@@ -169,6 +170,6 @@ class PostsController < ApplicationController
   end
 
   def default_redirect_path(record)
-    public_post_path(record)
+    universal_public_post_path(record)
   end
 end

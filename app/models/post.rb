@@ -14,6 +14,12 @@ class Post < ApplicationRecord
   TOPICS = %w(OBSR NEWS SITE)
   STATES = %w(OPEN PRIV SHOT NIDX)
 
+  COMPATIBLE_LANGUAGES = {
+    en: "en",
+    uk: %w(uk ru),
+    ru: %w(uk ru),
+  }
+
   serialize :lj_data, type: LJData, coder: YAML
 
   validates :slug, uniqueness: true, presence: true, length: { maximum: 64 }, format: /\A[\w\-]+\Z/
@@ -76,6 +82,10 @@ class Post < ApplicationRecord
   scope :indexable, lambda { public_posts.where("status NOT IN ('NIDX', 'SHOT')") }
   scope :short_form, -> { select(:id, :slug, :face_date, :title, :status) }
   scope :facebook_publishable, -> { public_posts.where(publish_to_facebook: true) }
+
+  def self.for_locale(locale)
+    where(lang: COMPATIBLE_LANGUAGES[locale])
+  end
 
   def self.year(year)
     select("id, slug, title, face_date, status").where("EXTRACT(year from face_date)::integer = ?", year).order(face_date: :asc)
