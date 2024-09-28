@@ -17,6 +17,7 @@ class LiferObservation < Observation
     def life_observ_relation
       select("DISTINCT ON (species_id) *")
         .joins(:card, :taxon)
+        .order(:species_id, Arel.sql("observ_date ASC, to_timestamp(start_time, 'HH24:MI') ASC NULLS LAST"))
         .where("(observ_date, species_id) IN (#{life_dates_sql})")
     end
 
