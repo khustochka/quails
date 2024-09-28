@@ -23,6 +23,7 @@ class Post < ApplicationRecord
   validates :status, inclusion: STATES, presence: true, length: { maximum: 4 }
 
   validate :check_cover_image_slug_or_url
+  validate :check_slug_suffix
 
   has_many :comments, dependent: :destroy
   has_many :cards, -> { order("observ_date ASC, locus_id") }, dependent: :nullify, inverse_of: :post
@@ -193,6 +194,15 @@ class Post < ApplicationRecord
           errors.add(:cover_image_slug, "should be image slug or external URL.")
         end
       end
+    end
+  end
+
+  def check_slug_suffix
+    eng_suffix = slug =~ /-en$/
+    if eng_suffix && lang != "en"
+      errors.add(:slug, "cannot end with '-en' for non-English posts.")
+    elsif !eng_suffix && lang == "en"
+      errors.add(:slug, "should end with '-en' for English posts.")
     end
   end
 end
