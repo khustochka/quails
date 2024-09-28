@@ -8,7 +8,14 @@
 - @og_type = 'article'
 
 - content_for :translated do
-  = render partial: 'partials/translated', locals: { blog: true }
+  %ul.translated
+    - other_locales.each do |new_locale|
+      - @localized_versions[new_locale].yield_self do |loc_post|
+        - if loc_post
+          %li
+            - link_hash = amended_params({id: loc_post.slug, locale: new_locale == I18n.default_locale ? nil : new_locale})
+            = link_to link_hash, lang: new_locale, hreflang: new_locale, rel: :alternate, class: "translated-link translated-link-#{new_locale}" do
+              %span<>= t("translated.#{new_locale}")
 
 - if @post.public?
   - provide :add_shortcuts do

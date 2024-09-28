@@ -4,7 +4,7 @@ class PostsController < ApplicationController
   include CorrectableConcern
 
   administrative except: [:show]
-  localized only: [:show], locales: [:uk, :ru]
+  localized only: [:show]
 
   before_action :find_post, only: [:edit, :update, :destroy, :for_lj, :lj_post]
 
@@ -28,6 +28,7 @@ class PostsController < ApplicationController
       redirect_to public_post_path(@post), status: :moved_permanently
     end
 
+    @localized_versions = @post.localized_versions
     @robots = "NOINDEX" if @post.status == "NIDX"
     @comments = current_user.available_comments(@post).group_by(&:parent_id)
 

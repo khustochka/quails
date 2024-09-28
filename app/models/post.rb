@@ -183,6 +183,27 @@ class Post < ApplicationRecord
       .pluck(:species_id)
   end
 
+  def sibling_post
+    sibling_slug =
+      if lang == "en"
+        slug.sub(/-en$/, "")
+      else
+        "#{slug}-en"
+      end
+
+    Post.find_by(slug: sibling_slug)
+  end
+
+  def localized_versions
+    return {} unless sibling_post
+
+    if lang == "en"
+      { ru: sibling_post, uk: sibling_post, en: self }
+    else
+      { en: sibling_post, ru: self, uk: self }
+    end
+  end
+
   private
 
   def set_face_date
