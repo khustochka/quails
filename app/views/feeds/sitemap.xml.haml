@@ -81,7 +81,7 @@
   -# posts
   - @posts.each do |post|
     %url
-      %loc= public_post_url(post)
+      %loc= default_public_post_url(post)
       %lastmod= post.updated_at.iso8601
       %changefreq yearly
 

@@ -20,7 +20,7 @@ class FeedsController < ApplicationController
   end
 
   def sitemap
-    @posts = Post.indexable.select("slug, face_date, updated_at")
+    @posts = Post.indexable.select("slug, lang, face_date, updated_at")
     @images = Image.unscoped.where(media_type: "photo").indexable.select("id, slug, updated_at")
     @videos = Video.select("id, slug, updated_at")
     @species = Species.where(id: Observation.joins(:taxon).select(:species_id)).select("id, name_sci")

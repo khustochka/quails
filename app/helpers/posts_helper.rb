@@ -40,13 +40,25 @@ module PostsHelper
 
   def universal_public_post_path(post)
     if administrative?
-      if post.cyrillic?
-        public_post_path(post, locale: nil)
-      else
-        public_post_path(post, locale: post.lang)
-      end
+      default_public_post_path(post)
     else
       public_post_path(post)
+    end
+  end
+
+  def default_public_post_url(post)
+    if post.cyrillic?
+      public_post_url(post, { locale: nil })
+    else
+      public_post_url(post, { locale: post.lang })
+    end
+  end
+
+  def default_public_post_path(post)
+    if post.cyrillic?
+      public_post_path(post, { locale: nil })
+    else
+      public_post_path(post, { locale: post.lang })
     end
   end
 end
