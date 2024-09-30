@@ -20,7 +20,6 @@
         %b= link_to('Make back indexable', {action: :update, post: {status: 'OPEN'}}, method: :put)
 
 - @page_title = @post.decorated.title
-- @meta_description = truncate(strip_tags(@post.decorated.for_site.body), length: 150, :separator=>" ").gsub(/\s+/, " ")
 
 - unless @post.lj_data.blank?
   - provide :add_shortcuts do
@@ -40,7 +39,7 @@
       - unless @post.public?
         %span.tag.draft Draft
 
-    = @post.decorated.for_site.body
+    = @post_body
 
     = render 'posts/sections/photos'
 
