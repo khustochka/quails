@@ -19,4 +19,12 @@ module LocaleHelper
   def blogless_locale?
     I18n.locale.in?(BLOGLESS_LOCALES)
   end
+
+  def locale_prefix(locale)
+    if locale == I18n.default_locale
+      nil
+    else
+      locale.to_s
+    end
+  end
 end

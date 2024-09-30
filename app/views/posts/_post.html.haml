@@ -13,7 +13,7 @@
       = render partial: "posts/other_lang_expand", locals: {post: post}
 
       %div{class: other_lang_unwrap(post)}
-        = post.decorated.for_site.body
+        = post.decorated(locale: I18n.locale).for_site.body
 
       - post.decorated.the_rest_of_images.if_present do |images|
         %div.thumbnails

@@ -205,12 +205,12 @@ class Post < ApplicationRecord
   end
 
   def localized_versions
-    return {} unless sibling_post
+    sibling = sibling_post
 
     if lang == "en"
-      { ru: sibling_post, uk: sibling_post, en: self }
+      { ru: sibling, uk: sibling, en: self }
     else
-      { en: sibling_post, ru: self, uk: self }
+      { en: sibling, ru: self, uk: self }
     end
   end
 
