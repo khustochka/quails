@@ -114,14 +114,18 @@ class Post < ApplicationRecord
   # Associations
 
   def species
-    Species.distinct.joins(:cards, :observations).where("cards.post_id = ? OR observations.post_id = ?", id, id)
+    Species.distinct.joins(:cards, :observations).where("cards.post_id = ? OR observations.post_id = ?", observation_post.id, observation_post.id)
       .order(:index_num)
   end
 
   def images
-    Image.joins(:observations, :cards).includes(:cards, :taxa).where("cards.post_id = ? OR observations.post_id = ?", id, id)
+    Image.joins(:observations, :cards).includes(:cards, :taxa).where("cards.post_id = ? OR observations.post_id = ?", observation_post.id, observation_post.id)
       .merge(Card.default_cards_order("ASC"))
       .order("media.index_num, taxa.index_num").preload(:species)
+  end
+
+  def observations
+    observation_post.association(:observations).target
   end
 
   # Instance methods
@@ -187,21 +191,32 @@ class Post < ApplicationRecord
           and cards.observ_date > c.observ_date"
     @lifer_species_ids ||= MyObservation
       .joins(:card)
-      .where("observations.post_id = ? or cards.post_id = ?", id, id)
+      .where("observations.post_id = ? or cards.post_id = ?", observation_post.id, observation_post.id)
       .where("NOT EXISTS(#{subquery})")
       .distinct
       .pluck(:species_id)
   end
 
   def sibling_post
+    return @sibling_post if defined?(@sibling_post)
+
     sibling_slug =
-      if lang == "en"
-        slug.sub(/-en$/, "")
-      else
+      if cyrillic?
         "#{slug}-en"
+      else
+        slug.sub(/-#{lang}$/, "")
       end
 
-    Post.find_by(slug: sibling_slug)
+    @sibling_post = Post.find_by(slug: sibling_slug)
+  end
+
+  def observation_post
+    @observation_post ||=
+      if cyrillic? || sibling_post.nil?
+        self
+      else
+        sibling_post
+      end
   end
 
   def localized_versions
