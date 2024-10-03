@@ -12,7 +12,7 @@
   = media.decorated.description
 
   - if posts.present?
-    %h3 Почитать:
+    %h3= t(".blog_posts")
     %ul
       - posts.each do |post|
         %li= post_link(post.decorated.title, post, true)
