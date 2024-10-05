@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 module LocaleHelper
-  BLOGLESS_LOCALES = []
+  # English is not blogless, but we do not show links to posts on Lifelist and Species pages
+  # in English locale, because it is implemented in a hacky way.
+  BLOGLESS_LOCALES = [:en]
   CYRILLIC_LOCALES = [:uk, :ru]
 
   def default_locale?
