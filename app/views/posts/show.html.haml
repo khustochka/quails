@@ -4,7 +4,7 @@
 - javascript 'post_show_admin' if current_user.admin?
 
 - @meta_thumbnail = post_cover_image_url(@post)
-- @canonical = public_post_url(@post)
+- @canonical = default_public_post_url(@post)
 - @og_type = 'article'
 
 - content_for :translated do

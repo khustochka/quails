@@ -46,11 +46,11 @@ module PostsHelper
     end
   end
 
-  def default_public_post_url(post)
+  def default_public_post_url(post, opts = {})
     if post.cyrillic?
-      public_post_url(post, { locale: nil })
+      public_post_url(post, { locale: nil }.merge!(opts))
     else
-      public_post_url(post, { locale: post.lang })
+      public_post_url(post, { locale: post.lang }.merge!(opts))
     end
   end
 
