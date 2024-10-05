@@ -31,7 +31,7 @@ class PostsController < ApplicationController
       redirect_to public_post_path(@post), status: :moved_permanently
     end
 
-    @localized_versions = @post.localized_versions
+    @localized_versions = @post.localized_versions(source: current_user.available_posts)
     @robots = "NOINDEX" if @post.status == "NIDX"
     @comments = current_user.available_comments(@post).group_by(&:parent_id)
 

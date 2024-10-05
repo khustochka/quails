@@ -197,30 +197,36 @@ class Post < ApplicationRecord
       .pluck(:species_id)
   end
 
-  def sibling_post
-    return @sibling_post if defined?(@sibling_post)
+  def sibling_post(source: Post.public_posts)
+    @sibling_post = source.find_by(slug: sibling_slug)
+  end
 
-    sibling_slug =
+  def sibling_slug
+    return @sibling_slug if defined?(@sibling_slug)
+
+    @sibling_slug =
       if cyrillic?
         "#{slug}-en"
       else
         slug.sub(/-#{lang}$/, "")
       end
-
-    @sibling_post = Post.find_by(slug: sibling_slug)
   end
 
   def observation_post
-    @observation_post ||=
-      if cyrillic? || sibling_post.nil?
-        self
-      else
-        sibling_post
-      end
+    return @observation_post if defined?(@observation_post)
+
+    if cyrillic?
+      @observation_post = self
+      return @observation_post
+    end
+
+    main_sibling_post = sibling_post(source: Post.all)
+
+    @observation_post = main_sibling_post || self
   end
 
-  def localized_versions
-    sibling = sibling_post
+  def localized_versions(source: Post.public_posts)
+    sibling = sibling_post(source: source)
 
     if lang == "en"
       { ru: sibling, uk: sibling, en: self }
