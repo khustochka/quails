@@ -33,7 +33,7 @@ class ReportsController < ApplicationController
       query = MyObservation.joins(:card).select("species_id, observ_date").order("observ_date").to_sql
       @list = Observation.connection.select_rows(query).group_by(&:first).each_with_object([]) do |obsdata, collection|
         sp, obss = obsdata
-        obs = obss.map { |_, d| Date.parse(d) }.each_cons(2).select do |ob1, ob2|
+        obs = obss.map(&:second).each_cons(2).select do |ob1, ob2|
           (ob2 - ob1) >= @period
         end
         collection.concat(
