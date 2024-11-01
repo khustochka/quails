@@ -34,13 +34,13 @@ docker compose up --build
 In a new terminal run the migrations:
 
 ```bash
-docker compose exec web bin/rake db:migrate
+docker compose exec backend bin/rake db:migrate
 ```
 
 Seed the DB:
 
 ```bash
-docker compose exec web bin/rake db:seed
+docker compose exec backend bin/rake db:seed
 ```
 
 The app will be available at http://localhost:3005. 
