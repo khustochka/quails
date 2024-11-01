@@ -49,7 +49,7 @@ services:
       - rails_app_storage:/app/storage
 
   database:
-    image: bitnami/postgresql:16-debian-12
+    image: bitnami/postgresql:17-debian-12
     environment:
       POSTGRES_USER: quails
       POSTGRES_PASSWORD: quails
@@ -57,7 +57,7 @@ services:
     ports:
       - "5499:5432"
     volumes:
-      - db_data16:/bitnami/postgresql
+      - db_data17:/bitnami/postgresql
 
   redis-cache:
     image: redis:7-alpine
@@ -69,7 +69,7 @@ services:
 
 # Declare the volumes that our application uses.
 volumes:
-  db_data16:
+  db_data17:
   cache_data:
   rails_app_storage:
   rails_app_tmp:
