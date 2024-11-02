@@ -11,7 +11,7 @@ jobs:
         ruby: ['3.2']
     services:
       postgres:
-        image: postgres:16-alpine
+        image: postgres:17-alpine
         ports:
           - "5432:5432"
         options: >-
@@ -55,7 +55,7 @@ jobs:
 #            js_browser: headless_firefox
     services:
       postgres:
-        image: postgres:16-alpine
+        image: postgres:17-alpine
         ports:
           - "5432:5432"
         options: >-
