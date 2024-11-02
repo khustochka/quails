@@ -9,8 +9,8 @@ class FormattersTest < ActionDispatch::IntegrationTest
     assert_equal "xxx ABC xxx", OneLineFormatter.apply("xxx ABC xxx")
   end
 
-  test "Russian double quotes" do
-    assert_equal "Новый «лайфер»", OneLineFormatter.apply('Новый "лайфер"')
+  test "Cyrillic double quotes" do
+    assert_equal "Новий «лайфер»", OneLineFormatter.apply('Новий "лайфер"')
   end
 
   test "Post with species link" do
@@ -20,8 +20,8 @@ class FormattersTest < ActionDispatch::IntegrationTest
   end
 
   test "Post with species link and English translation" do
-    post = build(:post, body: "This is a {{Вертишейка|jyntor|en}}")
-    assert_equal "<p>This is a <a class=\"sp_link\" href=\"/species/Jynx_torquilla\">Вертишейка</a> (Wryneck)</p>",
+    post = build(:post, body: "This is a {{Крутиголовка|jyntor|en}}")
+    assert_equal "<p>This is a <a class=\"sp_link\" href=\"/species/Jynx_torquilla\">Крутиголовка</a> (Wryneck)</p>",
       post.decorated.for_site.body
   end
 

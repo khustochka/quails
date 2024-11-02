@@ -1,7 +1,6 @@
 ARG RUBY_VERSION=3.3.5
 ARG VARIANT=slim-bookworm
-# Volta is only compatible with amd64.
-FROM --platform=linux/amd64 ruby:${RUBY_VERSION}-${VARIANT} as base
+FROM ruby:${RUBY_VERSION}-${VARIANT} as base
 
 # Install Rails
 # RUN su vscode -c "gem install rails webdrivers"
@@ -16,7 +15,7 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get -y install --no-install-recommends git ssh \
     # for system tests
     firefox-esr \
-    build-essential libpq-dev wget curl gzip \
+    build-essential libpq-dev wget curl gzip ragel \
     xz-utils libsqlite3-dev libssl-dev libyaml-dev \ 
     # deploy packages
     libvips42 postgresql-client file bzip2 net-tools bind9-dnsutils procps
@@ -32,10 +31,13 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 
 ARG NODE_VERSION=20.16.0
 ARG YARN_VERSION=1.22.19
-RUN curl https://get.volta.sh | bash
-ENV VOLTA_HOME /root/.volta
-ENV PATH $VOLTA_HOME/bin:/usr/local/bin:$PATH
-RUN volta install node@${NODE_VERSION} yarn@${YARN_VERSION}
+
+RUN  --mount=type=cache,id=dev-apt-cache,sharing=locked,target=/var/cache/apt \
+     --mount=type=cache,id=dev-apt-lib,sharing=locked,target=/var/lib/apt \
+    curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
+    apt-get install --no-install-recommends -y  nodejs \
+    && rm -rf /var/lib/apt/lists /var/cache/apt/archives
+RUN npm install --global yarn  
 
 # Setup Firefox to do system testing.
 # RUN add-apt-repository ppa:mozillateam/ppa

@@ -49,6 +49,10 @@ Login credentials: username `admin`, password `admin`.
 
 Database is exposed on port `5499`.
 
+## ARM64 issue with Cyrillic
+
+* https://github.com/jgarber/redcloth/issues/91
+
 ## License
 
 Copyright (c) 2007–2024 Vitalii Khustochka
