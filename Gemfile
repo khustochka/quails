@@ -68,7 +68,7 @@ gem "aws-sdk-s3"
 # Small utils
 gem "addressable", require: "addressable/uri"
 gem "roman-numerals"
-gem "stringio"
+gem "stringio", "~> 3.1.2"
 gem "uri"
 gem "csv"
 
