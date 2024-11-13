@@ -22,6 +22,9 @@ if ENV["COVERAGE"] && ENV["COVERAGE"] != ""
 end
 
 ENV["RAILS_ENV"] ||= "test"
+ENV["SE_AVOID_STATS"] = "true" # Disable Chromedriver telemetry (probably not working)
+# https://github.com/SeleniumHQ/selenium/pull/13173
+
 require File.expand_path("../../config/environment", __FILE__)
 require "rails/test_help"
 require "webmock/minitest"
