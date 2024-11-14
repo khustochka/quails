@@ -15,7 +15,7 @@ _Rallidae_ family, associated mostly with wetlands.
 ## Dependencies
 
 ### Ruby 
-Compatible with Ruby >= 3. See `.tool-versions` for the current development version.
+Compatible with Ruby >= 3.2. See `.tool-versions` for the current development version.
 
 ### PostgreSQL 
 Some queries are PostgreSQL-specific.
@@ -34,13 +34,13 @@ docker compose up --build
 In a new terminal run the migrations:
 
 ```bash
-docker compose exec web bin/rake db:migrate
+docker compose exec backend bin/rake db:migrate
 ```
 
 Seed the DB:
 
 ```bash
-docker compose exec web bin/rake db:seed
+docker compose exec backend bin/rake db:seed
 ```
 
 The app will be available at http://localhost:3005. 
@@ -48,6 +48,10 @@ The app will be available at http://localhost:3005.
 Login credentials: username `admin`, password `admin`.
 
 Database is exposed on port `5499`.
+
+## ARM64 issue with Cyrillic
+
+* https://github.com/jgarber/redcloth/issues/91
 
 ## License
 

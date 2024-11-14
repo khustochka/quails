@@ -4,7 +4,7 @@ source "https://rubygems.org/"
 
 ruby ">= 3.0"
 
-VERSION = "7.2.1"
+VERSION = "7.2.2"
 # gem "rails", VERSION
 gem "activemodel",   VERSION
 gem "activejob",     VERSION
@@ -68,7 +68,7 @@ gem "aws-sdk-s3"
 # Small utils
 gem "addressable", require: "addressable/uri"
 gem "roman-numerals"
-gem "stringio"
+gem "stringio", "~> 3.1.2"
 gem "uri"
 gem "csv"
 

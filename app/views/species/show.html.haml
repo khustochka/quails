@@ -96,6 +96,7 @@
     %div.thumbnails
       = render_justified images.map(&:to_thumbnail)
       - if current_user.admin?
+        - @species.build_species_image unless @species.image
         = simple_form_for @species, format: :json, remote: true do |form|
           = form.simple_fields_for :species_image do |f2|
             = f2.input :image_id, as: :hidden

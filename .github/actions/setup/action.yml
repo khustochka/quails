@@ -10,7 +10,7 @@ runs:
     - name: Setup Node
       uses: actions/setup-node@v4
       with:
-        node-version: 20
+        node-version: 22
     - name: Find yarn cache location
       id: yarn-cache
       run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
