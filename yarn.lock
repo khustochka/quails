@@ -149,15 +149,15 @@
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.11.8.tgz#6b79032e760a0899cd4204710beede972a3a185f"
   integrity sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==
 
-"@rails/actioncable@^7.2.200":
-  version "7.2.200"
-  resolved "https://registry.yarnpkg.com/@rails/actioncable/-/actioncable-7.2.200.tgz#7f56b3313762dbb85b64490aa33c5f431419aafd"
-  integrity sha512-gVmi3MabEa+Bkatvw0/k1Y3WTidcIf3qNbb9L8qc+AmT2UmkVqUZhJpSLvKmH10twCYIGzn7yySW/lOpg81Duw==
+"@rails/actioncable@^8.0.0":
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/@rails/actioncable/-/actioncable-8.0.0.tgz#b12d87d4c2bb152c4445e2c168df93b585068e7c"
+  integrity sha512-9IXyJeaBggOzlD3pF4/yWELdyUWZm/KTyKBRqxNf9laLBXPqxJt3t6fO+X4s0WajMR8cIhzkxvq1gxsXVbn3LA==
 
-"@rails/activestorage@^7.2.200":
-  version "7.2.200"
-  resolved "https://registry.yarnpkg.com/@rails/activestorage/-/activestorage-7.2.200.tgz#087ff24e675f56b7abc19d29690876dd0f21df95"
-  integrity sha512-NJX7T1Z4LuoNLGGVOoMiEK24BXkpH5QNLYOTD1Ll3IzYu5eMs/mbDL+azJGsTig6WV20O16Pdkj9Fgl9Mo5qxA==
+"@rails/activestorage@^8.0.0":
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/@rails/activestorage/-/activestorage-8.0.0.tgz#be5dd10acc141b95ffa2b3026e61790c36f1679c"
+  integrity sha512-qoA7U1gMcWXhDnImwDIyRQDXkQKzThT2lu2Xpim8CnTOCEeAgkQ5Co2kzodpAI2grF1JSDvwXSPYNWwVAswndA==
   dependencies:
     spark-md5 "^3.0.1"
 
@@ -212,16 +212,16 @@
   integrity sha512-/pyBZWSLD2n0dcHE3hq8s8ZvcETHtEuF+3E7XVt0Ig2nvsVQXdghHVcEkIWjy9A0wKfTn97a/PSDYohKIlnP/w==
 
 "@types/node@*":
-  version "22.8.6"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-22.8.6.tgz#e8a0c0871623283d8b3ef7d7b9b1bfdfd3028e22"
-  integrity sha512-tosuJYKrIqjQIlVCM4PEGxOmyg3FCPa/fViuJChnGeEIhjA46oy8FMVoF9su1/v8PNs2a8Q0iFNyOx0uOF91nw==
+  version "22.9.0"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-22.9.0.tgz#b7f16e5c3384788542c72dc3d561a7ceae2c0365"
+  integrity sha512-vuyHg81vvWA1Z1ELfvLko2c8f34gyA0zaic0+Rllc5lbCnbSyuvb2Oxpm6TAUAC/2xZN3QGqxBNggD1nNR2AfQ==
   dependencies:
     undici-types "~6.19.8"
 
 "@types/qs@*":
-  version "6.9.16"
-  resolved "https://registry.yarnpkg.com/@types/qs/-/qs-6.9.16.tgz#52bba125a07c0482d26747d5d4947a64daf8f794"
-  integrity sha512-7i+zxXdPD0T4cKDuxCUXJ4wHcsJLwENa6Z3dCu8cfCK743OGy5Nu1RmAGqDPsoTDINVEcdXKRvR/zre+P2Ku1A==
+  version "6.9.17"
+  resolved "https://registry.yarnpkg.com/@types/qs/-/qs-6.9.17.tgz#fc560f60946d0aeff2f914eb41679659d3310e1a"
+  integrity sha512-rX4/bPcfmvxHDv0XjfJELTTr+iB+tn032nPILqHm5wbthUUUuVtNGGqzhya9XUxjTP8Fpr0qYgSZZKxGY++svQ==
 
 "@types/range-parser@*":
   version "1.2.7"
