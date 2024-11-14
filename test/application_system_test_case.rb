@@ -24,6 +24,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   # FIXME: try to fix those errors
   IGNORED_JS_ERRORS = [
     "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+    "Failed to load resource: net::ERR_INTERNET_DISCONNECTED",
     "The source list for the Content Security Policy directive 'script-src' contains an invalid source: ''nonce-''. It will be ignored.",
   ]
 
