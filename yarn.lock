@@ -280,10 +280,10 @@ esbuild@^0.24.0:
     "@esbuild/win32-ia32" "0.24.0"
     "@esbuild/win32-x64" "0.24.0"
 
-ilyabirman-likely@^2.4.0:
-  version "2.8.0"
-  resolved "https://registry.yarnpkg.com/ilyabirman-likely/-/ilyabirman-likely-2.8.0.tgz#b8f834451c76ad46fd3b843f0b4e61ec9bf64586"
-  integrity sha512-jtEQ1TNGbxGf4u57HJf5n1qtIzSQvZ/Z+ghI6paCg5MdEGDag2YfXLOzWfMhgnNQZA8oFG/xcnUFNzrjC/5lZQ==
+ilyabirman-likely@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/ilyabirman-likely/-/ilyabirman-likely-3.2.0.tgz#ab6d3d2abd4a7aba5561eef88258ae845a92c240"
+  integrity sha512-uCk/fo1CpExHeHrZNa9hymRd0ztHeYsqrx9LTTyUm/1RsOVq62hRSlUYsbJZy3AdPdHQS63mk8GdUW9eULA7sQ==
 
 json-nd@^1.0.0:
   version "1.0.0"

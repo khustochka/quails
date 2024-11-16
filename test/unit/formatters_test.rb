@@ -44,7 +44,7 @@ class FormattersTest < ActionDispatch::IntegrationTest
     assert_includes post.decorated.for_site.body,
       "<a href=\"/photos/#{image.slug}\"><img src=\"#{jpg_url(image)}\" title=\"[photo]\" alt=\"[photo]\" /></a>"
     assert_includes post.decorated.for_site.body,
-      "<figcaption class=\"imagetitle\"><a href=\"/photos/#{image.slug}\">House Sparrow</a></figcaption>"
+      "<figcaption class=\"imagetitle\"><a href=\"/photos/#{image.slug}\" class=\"not-green\">House Sparrow</a></figcaption>"
   end
 
   test "Post with video by slug" do

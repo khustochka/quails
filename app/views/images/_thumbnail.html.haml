@@ -19,7 +19,7 @@
   - url_object = thumbnail.image.image? ? thumbnail.image.thumbnail_variant : thumbnail.asset_url
   = link_to image_tag(url_object, img_attrs), localize_path(thumbnail.url), class: "thumb-img-link"
   %figcaption.imagetitle
-    = link_to localize_path(thumbnail.url) do
+    = link_to localize_path(thumbnail.url), class: "not-green" do
       - if thumbnail.title.is_a? String
         = thumbnail.title
       - else

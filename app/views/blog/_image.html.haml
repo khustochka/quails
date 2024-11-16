@@ -3,5 +3,5 @@
   = link_to image_url(image) do
     = image_tag(jpg_url(image))
   %figcaption.imagetitle
-    = link_to image_url(image) do
+    = link_to image_url(image), class: "not-green" do
       = image.decorated.title

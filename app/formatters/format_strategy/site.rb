@@ -26,7 +26,7 @@ module FormatStrategy
         img_url = image_url(image)
         %Q(<figure class="imageholder">
         "!#{jpg_url(image)}([photo])!":#{img_url}
-          <figcaption class="imagetitle"><a href="#{img_url}">#{image.decorated.title}</a></figcaption>
+          <figcaption class="imagetitle"><a href="#{img_url}" class="not-green">#{image.decorated.title}</a></figcaption>
           </figure>
         )
       end
