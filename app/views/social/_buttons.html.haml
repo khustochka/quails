@@ -5,7 +5,6 @@
   - counter = current_user.admin? ? nil : 0
   .likely{"data-url": @canonical.presence}
     .facebook{data: {counter: counter}} Share
-    .twitter Tweet
     - if @meta_thumbnail
       .pinterest{data: {counter: counter, media: @meta_thumbnail}} Pin it
     .telegram Send
