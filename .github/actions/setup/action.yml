@@ -37,9 +37,11 @@ runs:
       shell: bash
     - name: Set up database schema
       run: bin/rails db:schema:load
-      shell: bash      
+      shell: bash
     - name: Install libvips
-      uses: awalsh128/cache-apt-pkgs-action@v1.4.2
-      with:
-        packages: libvips42
-        version: 1.0
+      run: sudo apt-get install libvips42
+      shell: bash
+      # uses: awalsh128/cache-apt-pkgs-action@v1.4.2
+      # with:
+      #   packages: libvips42
+      #   version: 2.0
