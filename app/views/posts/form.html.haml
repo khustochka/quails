@@ -8,7 +8,17 @@
 
 %h1= page_header
 
-= render 'admin/shortcuts' if current_user.admin?
+- if current_user.admin?
+  %ul.horiz-list.admin-shortcuts
+    - if action_name.in?(%w{edit update}) && controller.respond_to?(:show)
+      %li= link_to 'Show this one', universal_public_post_path(@post)
+    - if action_name.in?(%w{show}) && controller.respond_to?(:edit)
+      %li= link_to 'Edit this one', edit_post_path(@post)
+    - if controller.respond_to?(:new)
+      %li= link_to 'Create new', action: :new
+    = yield :add_shortcuts
+    - if correcting?
+      %li= link_to 'Correction', @correction
 
 - if notice
   %p#notice= notice

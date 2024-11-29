@@ -19,7 +19,7 @@ class BlogControllerTest < ActionDispatch::IntegrationTest
     blogpost1 = create(:post, face_date: "2007-12-06 13:14:15")
     get blog_path
     assert_select "ul.translated a[href='#{blog_path(locale: :ru)}']"
-    assert_select "ul.translated a[href='#{alternative_root_path(locale: :en)}']"
+    assert_select "ul.translated a[href='#{blog_path(locale: :en)}']"
   end
 
   # test "get home page with strange format - IE sometimes sends it" do
@@ -42,11 +42,10 @@ class BlogControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "archive should not show a link to English locale" do
+  test "archive should show a link to English locale" do
     get archive_path
     assert_response :success
-    assert_select "a[href='#{archive_path(locale: :ru)}']"
-    assert_select "a[href='#{archive_path(locale: :en)}']", false
+    assert_select "a[href='#{archive_path(locale: :en)}']"
   end
 
   test "do not show hidden posts on front page" do
@@ -92,12 +91,11 @@ class BlogControllerTest < ActionDispatch::IntegrationTest
     assert_includes(assigns(:months).map(&:first), "12")
   end
 
-  test "year view does not show a link to English locale" do
+  test "year view shows a link to English locale" do
     blogpost1 = create(:post, face_date: "2007-12-06 13:14:15")
     blogpost2 = create(:post, face_date: "2008-11-06 13:14:15")
     get year_path(year: 2007)
-    assert_select "a[href='#{year_path(year: 2007, locale: :ru)}']"
-    assert_select "a[href='#{year_path(year: 2007, locale: :en)}']", false
+    assert_select "a[href='#{year_path(year: 2007, locale: :en)}']"
   end
 
   # Month view
@@ -120,11 +118,10 @@ class BlogControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "month view does not show a link to English locale" do
+  test "month view shows a link to English locale" do
     blogpost1 = create(:post, face_date: "2007-12-06 13:14:15")
     blogpost2 = create(:post, face_date: "2007-11-06 13:14:15")
     get month_path(year: 2007, month: 12)
-    assert_select "a[href='#{month_path(year: 2007, month: 12, locale: :ru)}']"
-    assert_select "a[href='#{month_path(year: 2007, month: 12, locale: :en)}']", false
+    assert_select "a[href='#{month_path(year: 2007, month: 12, locale: :en)}']"
   end
 end

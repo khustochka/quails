@@ -5,15 +5,14 @@ class BlogController < ApplicationController
     @feed = "blog"
   end
 
-  localized only: [:archive, :month, :year], locales: [:uk, :ru]
-  localized only: [:home], locales: [:uk, :en, :ru]
+  localized only: [:home, :archive, :month, :year]
 
   POSTS_ON_FRONT_PAGE = 3
 
   # GET /
   def home
     # Read the desired number of posts + 1
-    @posts = Post.public_posts.order(face_date: :desc).limit(POSTS_ON_FRONT_PAGE + 1).to_a
+    @posts = Post.public_posts.for_locale(I18n.locale).order(face_date: :desc).limit(POSTS_ON_FRONT_PAGE + 1).to_a
     if @posts.size > POSTS_ON_FRONT_PAGE
       post_pre_last = @posts[-2].to_month_url
       post_last = @posts.last.to_month_url
@@ -37,10 +36,11 @@ class BlogController < ApplicationController
   end
 
   def archive
-    @years = current_user.available_posts.years
+    @years = current_user.available_posts.for_locale(I18n.locale).years
     archive_sql =
       current_user
         .available_posts
+        .for_locale(I18n.locale)
         .select("EXTRACT(year FROM face_date)::integer as raw_year,
                 EXTRACT(month FROM face_date)::integer as raw_month,
                 COUNT(id) as posts_count")
@@ -51,14 +51,14 @@ class BlogController < ApplicationController
   end
 
   def month
-    @posts = current_user.available_posts.month(@year = params[:year], @month = params[:month])
-    @prev_month = current_user.available_posts.prev_month(@year, @month)
-    @next_month = current_user.available_posts.next_month(@year, @month)
+    @posts = current_user.available_posts.for_locale(I18n.locale).month(@year = params[:year], @month = params[:month])
+    @prev_month = current_user.available_posts.for_locale(I18n.locale).prev_month(@year, @month)
+    @next_month = current_user.available_posts.for_locale(I18n.locale).next_month(@year, @month)
   end
 
   def year
-    @posts = current_user.available_posts.year(@year = params[:year])
+    @posts = current_user.available_posts.for_locale(I18n.locale).year(@year = params[:year])
     @months = @posts.chunk(&:month)
-    @years = current_user.available_posts.years
+    @years = current_user.available_posts.for_locale(I18n.locale).years
   end
 end

@@ -3,8 +3,9 @@
     photos:
       title: "Фотографії птахів - birdwatch.org.ua"
     blog:
-      title: "Щоденник спостережень за птахами - birdwatch.org.ua"
+      title: "birdwatch.org.ua"
+      author: Vitalii Khustochka
     post:
-      published: "Опубліковано"
+      published: "Published"
     instant_articles:
       title: "Щоденник спостережень за птахами"

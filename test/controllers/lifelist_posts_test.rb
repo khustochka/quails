@@ -25,7 +25,7 @@ class LifelistPostsTest < ActionController::TestCase
     assert_select "a[href*='#{public_post_path(@obs[1].post)}']"
   end
 
-  test "do show post link if locale is not Russian" do
+  test "do not show non-English post link in English locale" do
     @obs[1].post = create(:post)
     @obs[1].save!
     get :basic, params: { locale: :en }

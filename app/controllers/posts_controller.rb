@@ -2,13 +2,14 @@
 
 class PostsController < ApplicationController
   include CorrectableConcern
+  include PostsHelper
   include ActionView::Helpers::SanitizeHelper
   include ActionView::Helpers::TextHelper
 
   administrative except: [:show]
-  localized only: [:show], locales: [:uk, :ru]
+  localized only: [:show]
 
-  before_action :find_post, only: [:edit, :update, :destroy, :show, :for_lj, :lj_post]
+  before_action :find_post, only: [:edit, :update, :destroy, :for_lj, :lj_post]
 
   after_action :cache_expire, only: [:create, :update, :destroy]
 
@@ -23,10 +24,14 @@ class PostsController < ApplicationController
 
   # GET /posts/1
   def show
+    lang = helpers.cyrillic_locale? ? LocaleHelper::CYRILLIC_LOCALES : :en
+    @post = current_user.available_posts.where(lang: lang).find_by!(slug: params[:id])
+
     if @post.month != params[:month].to_s || @post.year != params[:year].to_s
       redirect_to public_post_path(@post), status: :moved_permanently
     end
 
+    @localized_versions = @post.localized_versions(source: current_user.available_posts)
     @robots = "NOINDEX" if @post.status == "NIDX"
     @comments = current_user.available_comments(@post).group_by(&:parent_id)
 
@@ -175,6 +180,6 @@ class PostsController < ApplicationController
   end
 
   def default_redirect_path(record)
-    public_post_path(record)
+    universal_public_post_path(record)
   end
 end

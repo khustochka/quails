@@ -4,11 +4,18 @@
 - javascript 'post_show_admin' if current_user.admin?
 
 - @meta_thumbnail = post_cover_image_url(@post)
-- @canonical = public_post_url(@post)
+- @canonical = default_public_post_url(@post)
 - @og_type = 'article'
 
 - content_for :translated do
-  = render partial: 'partials/translated', locals: { blog: true }
+  %ul.translated
+    - other_locales.each do |new_locale|
+      - @localized_versions[new_locale].yield_self do |loc_post|
+        - if loc_post
+          %li
+            - link_hash = amended_params({id: loc_post.slug, locale: new_locale == I18n.default_locale ? nil : new_locale})
+            = link_to link_hash, lang: new_locale, hreflang: new_locale, rel: :alternate, class: "translated-link translated-link-#{new_locale}" do
+              %span<>= t("translated.#{new_locale}")
 
 - if @post.public?
   - provide :add_shortcuts do
@@ -25,7 +32,17 @@
   - provide :add_shortcuts do
     %li= link_to 'LJ Post', @post.lj_url
 
-= render 'admin/shortcuts' if current_user.admin?
+- if current_user.admin?
+  %ul.horiz-list.admin-shortcuts
+    - if action_name.in?(%w{edit update}) && controller.respond_to?(:show)
+      %li= link_to 'Show this one', universal_public_post_path(@post)
+    - if action_name.in?(%w{show}) && controller.respond_to?(:edit)
+      %li= link_to 'Edit this one', edit_post_path(@post)
+    - if controller.respond_to?(:new)
+      %li= link_to 'Create new', action: :new
+    = yield :add_shortcuts
+    - if correcting?
+      %li= link_to 'Correction', @correction
 
 - cache [@post, { locale: I18n.locale }] do
 

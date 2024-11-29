@@ -1,8 +1,12 @@
-'en':
+"en":
   blog:
     home:
       title: Birdwatching blog
       previous_posts: << Previous posts
+      meta_description: "Blog about birds of Ukraine and Canada, birding, bird photography"
+      blog: Blog
+      year_summary: Year in review
+      year_progress: Year progress
 
     year:
       year: Year
@@ -10,6 +14,9 @@
     month:
       previous: Previous month
       next: Next month
+
+    archive:
+      title: Blog Archive
 
   posts:
     sections:
@@ -27,6 +34,15 @@
         one: 'comment'
         other: 'comments'
       add_comment: Add comment
+      if_you_wish_to_receive_notification: If you wish to receive response notifications.
+      some_html_allowed: Some HTML is allowed, including <a>, <img>.
+
+    show:
+      meta_description: "Blog post '%{title}', published %{date}"
+    other_lang_notice:
+      notice_text: This is a post in the %{in_language} language.
+    other_lang_expand:
+      expand: Expand
 
   comments:
     comment:
@@ -40,5 +56,6 @@
     labels:
       comment:
         name: 'Name:'
+        send_email: 'Send response by email:'
         email: 'Email:'
         url: 'URL:'

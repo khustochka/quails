@@ -8,9 +8,9 @@
     %lastmod= @root_lastmod
     %changefreq daily
 
-  -# English home page (photostream)
+  -# English home page
   %url
-    %loc= alternative_root_url(locale: :en)
+    %loc= blog_url(locale: :en)
     -# TODO: %lastmod=
     -#%changefreq weekly
 
@@ -81,7 +81,7 @@
   -# posts
   - @posts.each do |post|
     %url
-      %loc= public_post_url(post)
+      %loc= default_public_post_url(post)
       %lastmod= post.updated_at.iso8601
       %changefreq yearly
 

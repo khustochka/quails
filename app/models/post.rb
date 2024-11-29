@@ -14,6 +14,12 @@ class Post < ApplicationRecord
   TOPICS = %w(OBSR NEWS SITE)
   STATES = %w(OPEN PRIV SHOT NIDX)
 
+  COMPATIBLE_LANGUAGES = {
+    en: "en",
+    uk: %w(uk ru),
+    ru: %w(uk ru),
+  }
+
   serialize :lj_data, type: LJData, coder: YAML
 
   validates :slug, uniqueness: true, presence: true, length: { maximum: 64 }, format: /\A[\w\-]+\Z/
@@ -23,6 +29,7 @@ class Post < ApplicationRecord
   validates :status, inclusion: STATES, presence: true, length: { maximum: 4 }
 
   validate :check_cover_image_slug_or_url
+  validate :check_slug_suffix
 
   has_many :comments, dependent: :destroy
   has_many :cards, -> { order("observ_date ASC, locus_id") }, dependent: :nullify, inverse_of: :post
@@ -76,6 +83,10 @@ class Post < ApplicationRecord
   scope :short_form, -> { select(:id, :slug, :face_date, :title, :status) }
   scope :facebook_publishable, -> { public_posts.where(publish_to_facebook: true) }
 
+  def self.for_locale(locale)
+    where(lang: COMPATIBLE_LANGUAGES[locale])
+  end
+
   def self.year(year)
     select("id, slug, title, face_date, status").where("EXTRACT(year from face_date)::integer = ?", year).order(face_date: :asc)
   end
@@ -103,17 +114,25 @@ class Post < ApplicationRecord
   # Associations
 
   def species
-    Species.distinct.joins(:cards, :observations).where("cards.post_id = ? OR observations.post_id = ?", id, id)
+    Species.distinct.joins(:cards, :observations).where("cards.post_id = ? OR observations.post_id = ?", observation_post.id, observation_post.id)
       .order(:index_num)
   end
 
   def images
-    Image.joins(:observations, :cards).includes(:cards, :taxa).where("cards.post_id = ? OR observations.post_id = ?", id, id)
+    Image.joins(:observations, :cards).includes(:cards, :taxa).where("cards.post_id = ? OR observations.post_id = ?", observation_post.id, observation_post.id)
       .merge(Card.default_cards_order("ASC"))
       .order("media.index_num, taxa.index_num").preload(:species)
   end
 
+  def observations
+    observation_post.association(:observations).target
+  end
+
   # Instance methods
+
+  def cyrillic?
+    lang.to_sym.in?(LocaleHelper::CYRILLIC_LOCALES)
+  end
 
   def public?
     status != "PRIV"
@@ -172,10 +191,48 @@ class Post < ApplicationRecord
           and cards.observ_date > c.observ_date"
     @lifer_species_ids ||= MyObservation
       .joins(:card)
-      .where("observations.post_id = ? or cards.post_id = ?", id, id)
+      .where("observations.post_id = ? or cards.post_id = ?", observation_post.id, observation_post.id)
       .where("NOT EXISTS(#{subquery})")
       .distinct
       .pluck(:species_id)
+  end
+
+  def sibling_post(source: Post.public_posts)
+    @sibling_post = source.find_by(slug: sibling_slug)
+  end
+
+  def sibling_slug
+    return @sibling_slug if defined?(@sibling_slug)
+
+    @sibling_slug =
+      if cyrillic?
+        "#{slug}-en"
+      else
+        slug.sub(/-#{lang}$/, "")
+      end
+  end
+
+  def observation_post
+    return @observation_post if defined?(@observation_post)
+
+    if cyrillic?
+      @observation_post = self
+      return @observation_post
+    end
+
+    main_sibling_post = sibling_post(source: Post.all)
+
+    @observation_post = main_sibling_post || self
+  end
+
+  def localized_versions(source: Post.public_posts)
+    sibling = sibling_post(source: source)
+
+    if lang == "en"
+      { ru: sibling, uk: sibling, en: self }
+    else
+      { en: sibling, ru: self, uk: self }
+    end
   end
 
   private
@@ -193,6 +250,15 @@ class Post < ApplicationRecord
           errors.add(:cover_image_slug, "should be image slug or external URL.")
         end
       end
+    end
+  end
+
+  def check_slug_suffix
+    eng_suffix = slug =~ /-en$/
+    if eng_suffix && lang != "en"
+      errors.add(:slug, "cannot end with '-en' for non-English posts.")
+    elsif !eng_suffix && lang == "en"
+      errors.add(:slug, "should end with '-en' for English posts.")
     end
   end
 end

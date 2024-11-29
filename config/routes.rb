@@ -60,7 +60,7 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  scope "(:locale)", locale: /ru/ do
+  scope "(:locale)", locale: /en|ru/ do
     root to: "blog#home", as: "blog"
   end
 
@@ -112,13 +112,7 @@ Rails.application.routes.draw do
     end
   end
 
-  # This toute should be before the proper 'photos' route
-  scope ":locale", locale: /en/ do
-    get "(/page/:page)" => "images#index", page: /[^0]\d*/, as: :alternative_root
-    get "photos" => redirect("/%{locale}"), constraints: { format: "html" }
-  end
-
-  scope "(:locale)", locale: /ru/ do
+  scope "(:locale)", locale: /en|ru/ do
     get "/photos(/page/:page)" => "images#index", page: /[^0]\d*/,
       constraints: { format: "html" }
   end
@@ -132,7 +126,7 @@ Rails.application.routes.draw do
     post "media/strip" => "media#strip"
   end
 
-  scope "(:locale)", locale: /ru/ do
+  scope "(:locale)", locale: /en|ru/ do
     constraints year: /20\d\d/ do
       get "/:year" => "blog#year", as: "year"
       constraints month: /(0[1-9])|(1[0-2])/ do

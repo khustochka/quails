@@ -17,9 +17,4 @@ class PhotosRoutingTest < ActionDispatch::IntegrationTest
     visit "/ru/photos.xml"
     assert_current_path "/ru/photos.xml"
   end
-
-  test "English photos page is redirected to EN root" do
-    visit "/en/photos"
-    assert_current_path "/en"
-  end
 end

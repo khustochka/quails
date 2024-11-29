@@ -85,7 +85,7 @@ class RoutingTest < ActionDispatch::IntegrationTest
 
   # Localized routes
   test "English root routing" do
-    assert_routing "/en", { controller: "images", action: "index", locale: "en" }
+    assert_routing "/en", { controller: "blog", action: "home", locale: "en" }
   end
 
   test "English Birds of Ukraine, USA, checklist routing" do

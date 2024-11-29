@@ -37,4 +37,28 @@ module PostsHelper
       :other_lang_expand
     end
   end
+
+  def universal_public_post_path(post)
+    if administrative?
+      default_public_post_path(post)
+    else
+      public_post_path(post)
+    end
+  end
+
+  def default_public_post_url(post, opts = {})
+    if post.cyrillic?
+      public_post_url(post, { locale: nil }.merge!(opts))
+    else
+      public_post_url(post, { locale: post.lang }.merge!(opts))
+    end
+  end
+
+  def default_public_post_path(post)
+    if post.cyrillic?
+      public_post_path(post, { locale: nil })
+    else
+      public_post_path(post, { locale: post.lang })
+    end
+  end
 end

@@ -31,6 +31,7 @@ class PostDecorator < ModelDecorator
 
   def metadata
     @metadata[:images] = the_rest_of_images unless @metadata.has_key?(:images)
+    @metadata[:locale] ||= @model.cyrillic? ? I18n.default_locale : @model.lang.to_sym
     @metadata
   end
 

@@ -3,7 +3,7 @@
 %ul.translated
   - other_locales.each do |new_locale|
     %li
-      - link_hash = amended_params({locale: new_locale == I18n.default_locale ? nil : new_locale})
+      - link_hash = amended_params({locale: locale_prefix(new_locale)})
       = link_to link_hash, lang: new_locale, hreflang: new_locale, rel: :alternate, class: "not-green translated-link translated-link-#{new_locale}" do
         - unless new_locale == :ru
           %i.fas.fa-globe
