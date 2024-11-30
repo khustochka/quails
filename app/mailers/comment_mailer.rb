@@ -3,6 +3,8 @@
 class CommentMailer < ApplicationMailer
   include ActionView::Helpers::SanitizeHelper
 
+  helper :posts
+
   default from: ENV["COMMENT_EMAIL_SENDER"]
   default to: ENV["ADMIN_NOTIFICATIONS_EMAIL"]
 
@@ -15,7 +17,7 @@ class CommentMailer < ApplicationMailer
   def notify_parent_author
     to = @comment.parent_comment.commenter.email
     if send_email_to_users? && to.present?
-      mail to: to, subject: "Ответ на ваш комментарий на сайте birdwatch.org.ua (\"#{sanitized_comment_title}\")"
+      mail to: to, subject: "Response to your comment on birdwatch.org.ua (\"#{sanitized_comment_title}\")"
     end
   end
 

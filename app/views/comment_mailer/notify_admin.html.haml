@@ -4,7 +4,7 @@
     %b= @comment.decorated.name
     posted new comment to
     = succeed ":" do
-      = link_to @comment.post.decorated.title, show_post_url(@comment.post.to_url_params.merge(anchor: "comment#{@comment.id}"))
+      = link_to @comment.post.decorated.title, default_public_post_url(@comment.post, anchor: "comment#{@comment.id}")
 
   - unless @comment.approved
     %p ⚠ Comment was hidden. Please review.
@@ -13,7 +13,7 @@
     %div.mail-comment-panel
       %b= @comment.decorated.name
       %small
-        (#{link_to(I18n.l(@comment.created_at, format: :long), show_post_url(@comment.post.to_url_params.merge(anchor: "comment#{@comment.id}")))})
+        (#{link_to(I18n.l(@comment.created_at, format: :long), default_public_post_url(@comment.post, anchor: "comment#{@comment.id}"))})
       = @comment.decorated.body
 
 

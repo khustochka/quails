@@ -1,25 +1,25 @@
 -# frozen_string_literal: true
 %div.mail-inner-body
   %p
-    На ваш комментарий к записи «#{link_to @comment.post.decorated.title, show_post_url(@comment.post.to_url_params)}» получен ответ:
+    Someone replied to your comment to the post «#{link_to @comment.post.decorated.title, default_public_post_url(@comment.post)}»:
   %div.mail-top-comment-wrapper
     %div.mail-comment-panel
       %b= @comment.parent_comment.decorated.name
       %small
-        (#{link_to(I18n.l(@comment.parent_comment.created_at, format: :long), show_post_url(@comment.post.to_url_params.merge(anchor: "comment#{@comment.parent_comment.id}")))})
+        (#{link_to(I18n.l(@comment.parent_comment.created_at, format: :long), default_public_post_url(@comment.post, anchor: "comment#{@comment.parent_comment.id}"))})
       = @comment.parent_comment.decorated.body
   %div.mail-child-comment-wrapper
     %div.mail-comment-panel
       %b= @comment.decorated.name
       %small
-        (#{link_to(I18n.l(@comment.parent_comment.created_at, format: :long), show_post_url(@comment.post.to_url_params.merge(anchor: "comment#{@comment.id}")))})
+        (#{link_to(I18n.l(@comment.parent_comment.created_at, format: :long), default_public_post_url(@comment.post, anchor: "comment#{@comment.id}"))})
       = @comment.decorated.body
   %p
-    Вы можете
+    You can
     %b
-      %a{:href => "#{show_post_url(@comment.post.to_url_params.merge(anchor: "comment#{@comment.parent_comment.id}"))}"} ответить
-    на этот комментарий на странице записи.
+      %a{:href => "#{default_public_post_url(@comment.post, anchor: "comment#{@comment.parent_comment.id}")}"} reply
+    to this comment.
 %div.mail-footer
-  Отказаться от получения уведомлений об ответах на этот комментарий:
+  Unsubscribe from receiving email notifications about replies to your comment:
   = succeed "." do
-    %a{:href => "#{unsubscribe_request_comments_url(token: @comment.parent_comment.unsubscribe_token)}", :rel => "unsubscribe"} отписаться
+    %a{:href => "#{unsubscribe_request_comments_url(token: @comment.parent_comment.unsubscribe_token)}", :rel => "unsubscribe"} UNSUBSCRIBE
