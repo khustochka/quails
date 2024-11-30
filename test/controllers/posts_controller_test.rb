@@ -215,4 +215,20 @@ class PostsControllerTest < ActionController::TestCase
     assert_response :success
     assert_equal "NOINDEX", assigns(:robots)
   end
+
+  test "correct species link in post body (default locale)" do
+    blogpost = create(:post, status: "NIDX", body: "{{House Sparrow|Passer domesticus}}")
+    get :show, params: blogpost.to_url_params
+    html = Nokogiri::HTML(response.body)
+    link = html.css("a.sp_link").first
+    assert_equal "/species/Passer_domesticus", link[:href]
+  end
+
+  test "correct species link in post body (English locale)" do
+    blogpost = create(:post, slug: "post-en", status: "NIDX", body: "{{House Sparrow|Passer domesticus}}", lang: "en")
+    get :show, params: blogpost.to_url_params.merge(locale: :en)
+    html = Nokogiri::HTML(response.body)
+    link = html.css("a.sp_link").first
+    assert_equal "/en/species/Passer_domesticus", link[:href]
+  end
 end
