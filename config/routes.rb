@@ -239,7 +239,11 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :comments, except: :new do
+  scope "(:locale)", locale: /en|ru/ do
+    resources :comments, only: :create
+  end
+
+  resources :comments, except: [:new, :create] do
     get :reply, on: :member
     collection do
       get :unsubscribe, to: "comments#unsubscribe_request", as: :unsubscribe_request
