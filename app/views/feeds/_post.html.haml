@@ -2,11 +2,12 @@
 
 = post.decorated({host: request.host, port: request.port}).for_feed.body
 
-= render partial: "blog/image", collection: post.decorated.the_rest_of_images, formats: :html
+- I18n.with_locale(post.default_locale) do
+  = render partial: "blog/image", collection: post.decorated.the_rest_of_images, formats: :html, locals: { locale: locale_prefix(I18n.locale) }
 
-%p
-  = t('feeds.post.published')
-  %em
-    %time{datetime: post.face_date.iso8601}= l(post.face_date, format: :long)
-    \|
-    = link_to "+ #{t('posts.post.add_comment')}", default_public_post_url(post, anchor: 'add_comment')
+  %p
+    = t('feeds.post.published')
+    %em
+      %time{datetime: post.face_date.iso8601}= l(post.face_date, format: :long)
+      \|
+      = link_to "+ #{t('posts.post.add_comment')}", default_public_post_url(post, anchor: 'add_comment')

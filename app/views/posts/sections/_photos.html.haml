@@ -2,4 +2,4 @@
 - @post.decorated.the_rest_of_images.if_present do |images|
   %div.photos
     -#%h2= t('.title')
-    = render partial: "blog/image", collection: images
+    = render partial: "blog/image", collection: images, locals: { locale: locale_prefix(I18n.locale) }

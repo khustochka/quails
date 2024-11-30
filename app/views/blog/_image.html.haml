@@ -1,7 +1,7 @@
 -# frozen_string_literal: true
 %figure.imageholder
-  = link_to image_url(image) do
+  = link_to localized_image_url(image, locale: locale || nil) do
     = image_tag(jpg_url(image))
   %figcaption.imagetitle
-    = link_to image_url(image), class: "not-green" do
+    = link_to localized_image_url(image, locale: locale || nil), class: "not-green" do
       = image.decorated.title

@@ -134,6 +134,10 @@ class Post < ApplicationRecord
     lang.to_sym.in?(LocaleHelper::CYRILLIC_LOCALES)
   end
 
+  def default_locale
+    cyrillic? ? I18n.default_locale : lang.to_sym
+  end
+
   def public?
     status != "PRIV"
   end
