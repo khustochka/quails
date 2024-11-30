@@ -36,7 +36,7 @@ class PostsController < ApplicationController
     @comments = current_user.available_comments(@post).group_by(&:parent_id)
 
     @post_body = cache([@post, I18n.locale, :post_body]) do
-      @post.decorated(locale: I18n).for_site.body
+      @post.decorated(locale: I18n.locale).for_site.body
     end
 
     @meta_description = cache([@post, I18n.locale, :meta_description]) do
