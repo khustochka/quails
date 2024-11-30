@@ -3,6 +3,8 @@
 require "mail"
 
 class CommentsController < ApplicationController
+  include PostsHelper
+
   administrative except: [:create, :reply, :unsubscribe_request, :unsubscribe_submit]
   # FIXME: not yet localized but should be!
   # localized locales: [:uk, :ru], only: [:reply, :unsubscribe_request, :unsubscribe_submit]
@@ -154,7 +156,7 @@ class CommentsController < ApplicationController
     @comment.destroy
 
     respond_to do |format|
-      format.html { redirect_to public_post_path(@comment.post, anchor: "comments") }
+      format.html { redirect_to default_public_post_path(@comment.post, anchor: "comments") }
       format.json { head :no_content }
     end
   end

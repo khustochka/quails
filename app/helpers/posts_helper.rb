@@ -54,11 +54,11 @@ module PostsHelper
     end
   end
 
-  def default_public_post_path(post)
+  def default_public_post_path(post, opts = {})
     if post.cyrillic?
-      public_post_path(post, { locale: nil })
+      public_post_path(post, { locale: nil }.merge!(opts))
     else
-      public_post_path(post, { locale: post.lang })
+      public_post_path(post, { locale: post.lang }.merge!(opts))
     end
   end
 end
