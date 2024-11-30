@@ -20,7 +20,8 @@
   - @comments.chunk(&:post).each do |post, comments|
     %tr
       %td{:colspan => 5}
-        %h4= post_link(post.decorated.title, post)
+        %h4
+          = link_to(post.decorated.title, default_public_post_path(post), class: ("grayout" unless post.public?))
     - comments.each do |comment|
       %tr
         %td
