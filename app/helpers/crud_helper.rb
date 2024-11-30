@@ -20,7 +20,7 @@ module CrudHelper
   end
 
   def default_destroy_link(rec)
-    link_to rec, data: { confirm: "Object will be DESTROYED!" }, method: :delete, class: "destroy" do
+    link_to rec, data: { confirm: "Object will be DESTROYED!" }, method: :delete, class: "not-green destroy" do
       tag.span(class: "fas fa-times-circle destroy-icon fa-lg", title: "Destroy", alt: "Destroy")
     end
   end
