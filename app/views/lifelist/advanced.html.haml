@@ -1,10 +1,17 @@
 -# frozen_string_literal: true
 - @body_class = 'wider'
+- stylesheet 'public'
 
 - @robots = 'NOINDEX'
 
 - @page_title = capture do
-  - if params[:month] && params[:day]
+  - if action_name == "winter"
+    = t('lifelist.title.winter_list')
+    - if params[:year]
+      = sanitize("#{params[:year]}&ndash;#{params[:year].to_i + 1}")
+    - if params[:locus]
+      = "(#{@lifelist.locus.name})"
+  - elsif params[:month] && params[:day]
     - month_finder = cyrillic_locale? ? "common_month_names" : "month_names"
     = [ t('lifelist.title.daylist', day: params[:day], month: t("date.#{month_finder}")[params[:month].to_i]),
         params[:year] ? t('lifelist.title.yearsublist', year: params[:year]) : nil,
@@ -37,12 +44,13 @@
 
     = render "lifelist/menus"
 
-    %ul.horiz-list.filter-list
-      %strong= t('lifelist.menus.filter.months')
-      %li= filtering_link_to_all(:month)
-      - 1.upto(12) do |m|
-        %li
-          = link_to_or_span(t('date.abbr_month_names')[m], significant_params.except(:day).merge(:month => m))
+    - unless action_name == "winter"
+      %ul.horiz-list.filter-list
+        %strong= t('lifelist.menus.filter.months')
+        %li= filtering_link_to_all(:month)
+        - 1.upto(12) do |m|
+          %li
+            = link_to_or_span(t('date.abbr_month_names')[m], significant_params.except(:day).merge(:month => m))
 
   - if @lifelist.blank?
     %p= t('lifelist.basic.no_species')

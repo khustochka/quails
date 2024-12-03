@@ -166,6 +166,8 @@ Rails.application.routes.draw do
 
     get "/lifelist/advanced" => "lifelist#advanced", as: :advanced_list
 
+    get "/lifelist/winter" => "lifelist#winter", as: :winter_list
+
     get "/lifelist/stats" => "lifelist#stats"
 
     get "/lifelist/ebird" => "lifelist#ebird"

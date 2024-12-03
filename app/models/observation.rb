@@ -42,9 +42,19 @@ class Observation < ApplicationRecord
 
   def self.refine(options = {})
     rel = all
-    rel = rel.joins(:card).where("EXTRACT(year from cards.observ_date)::integer = ?", options[:year]) if options[:year].present?
-    rel = rel.joins(:card).where("EXTRACT(month from cards.observ_date)::integer = ?", options[:month]) if options[:month].present?
-    rel = rel.joins(:card).where("EXTRACT(day from cards.observ_date)::integer = ?", options[:day]) unless options[:day].blank? || options[:month].blank?
+    if options[:winter]
+      if (year = options[:year])
+        first_day = Date.new(year.to_i, 12, 1)
+        last_day = Date.new(year.to_i + 1, 3, 1) - 1.day
+        rel = rel.joins(:card).where("cards.observ_date BETWEEN ? AND ?", first_day, last_day)
+      else
+        rel = rel.joins(:card).where("EXTRACT(month from cards.observ_date)::integer IN (12, 1, 2)")
+      end
+    else
+      rel = rel.joins(:card).where("EXTRACT(year from cards.observ_date)::integer = ?", options[:year]) if options[:year].present?
+      rel = rel.joins(:card).where("EXTRACT(month from cards.observ_date)::integer = ?", options[:month]) if options[:month].present?
+      rel = rel.joins(:card).where("EXTRACT(day from cards.observ_date)::integer = ?", options[:day]) unless options[:day].blank? || options[:month].blank?
+    end
     rel = rel.joins(:card).where(cards: { locus_id: options[:locus] }) if options[:locus].present?
     rel = rel.joins(:card).where(cards: { motorless: true }) if options[:motorless]
     rel = rel.joins(:card).where(voice: false) if options[:exclude_heard_only]

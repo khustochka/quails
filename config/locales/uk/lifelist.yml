@@ -8,6 +8,7 @@
       yearsublist: '%{year} року'
       countrylist: 'Список країни: %{country}'
       locationlist: 'Список місцевості: %{location}'
+      winter_list: 'Зимовий список'
       ukraine: Список України
       canada: Список Канади
       usa: Список США

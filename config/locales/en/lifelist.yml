@@ -8,6 +8,7 @@
       yearsublist: '%{year}'
       countrylist: '%{country} Life List'
       locationlist: '%{location} Life List'
+      winter_list: 'Winter list'
       ukraine: Ukraine List
       canada: Canada List
       usa: United States List

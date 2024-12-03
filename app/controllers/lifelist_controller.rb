@@ -45,8 +45,6 @@ class LifelistController < ApplicationController
     unless helpers.blogless_locale?
       @lifelist.posts_scope = current_user.available_posts
     end
-
-    @lifelist
   end
 
   def advanced
@@ -65,8 +63,26 @@ class LifelistController < ApplicationController
     unless helpers.blogless_locale?
       @lifelist.posts_scope = current_user.available_posts
     end
+  end
 
-    @lifelist
+  def winter
+    allow_params(:year, :locus, :sort, :motorless, :exclude_heard_only)
+
+    @locations = Locus.locs_for_lifelist
+
+    locus = params[:locus]
+
+    raise ActiveRecord::RecordNotFound if locus && !locus.in?(current_user.available_loci.map(&:slug))
+
+    @lifelist = Lifelist::Advanced
+      .over(params.permit(:year, :locus, :motorless, :exclude_heard_only).merge({ winter: true }))
+      .sort(params[:sort])
+
+    unless helpers.blogless_locale?
+      @lifelist.posts_scope = current_user.available_posts
+    end
+
+    render "advanced"
   end
 
   def ebird
