@@ -4,4 +4,4 @@
 - loc_name = life_observation.locus.public_locus.decorated.full_name
 %span.lifer-locus-icon.fas.fa-location-dot{title: loc_name, "data-title" => loc_name}
 - if current_user.admin?
-  %a.cardlink.far.fa-file-alt{href: card_path(id: life_observation.card)}
+  %a.cardlink.far.fa-file-alt.not-green{href: card_path(id: life_observation.card)}
