@@ -12,6 +12,7 @@
   = form.input :notes
   = form.input :voice, label: 'Voice?'
   = form.input :private_notes
+  = form.input :hidden, label: 'Hidden'
   = form.input :ebird_obs_id, as: :hidden
   - if obs.persisted?
     - if controller_name == 'cards'

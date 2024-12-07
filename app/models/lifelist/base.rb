@@ -27,7 +27,7 @@ module Lifelist
     end
 
     def base
-      MyObservation.refine(normalized_filter).joins(:card)
+      MyObservation.merge(observation_scope).refine(normalized_filter).joins(:card)
     end
 
     def ordering
@@ -110,6 +110,10 @@ module Lifelist
 
     def posts_scope
       @posts_scope ||= Post.none
+    end
+
+    def observation_scope
+      @observation_scope ||= Observation.not_hidden
     end
   end
 end

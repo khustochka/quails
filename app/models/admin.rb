@@ -9,6 +9,10 @@ class Admin
     Post.all
   end
 
+  def available_obs
+    Observation.all
+  end
+
   def available_loci
     Locus.all
   end

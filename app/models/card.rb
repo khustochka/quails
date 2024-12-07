@@ -42,7 +42,7 @@ class Card < ApplicationRecord
   validates :ebird_id, uniqueness: true, allow_blank: true
 
   accepts_nested_attributes_for :observations,
-    reject_if: proc { |attrs| attrs.all? { |k, v| v.blank? || k == "voice" } }
+    reject_if: proc { |attrs| attrs.all? { |k, v| v.blank? || k.in?(%w(voice hidden)) } }
 
   # Eligible for ebird challenge: full non-incidental checklist without X's (all quantities in numbers)
   scope :ebird_eligible, -> {

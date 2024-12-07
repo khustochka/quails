@@ -9,6 +9,10 @@ class User
     Post.public_posts
   end
 
+  def available_obs
+    Observation.not_hidden
+  end
+
   def available_loci
     Locus.locs_for_lifelist
   end

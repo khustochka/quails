@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_11_23_035016) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_06_053846) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -308,6 +308,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_23_035016) do
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
     t.string "ebird_obs_id"
+    t.boolean "hidden", default: false, null: false
     t.index ["card_id"], name: "index_observations_on_card_id"
     t.index ["post_id"], name: "index_observations_on_post_id"
     t.index ["taxon_id"], name: "index_observations_on_taxon_id"

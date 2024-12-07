@@ -42,6 +42,8 @@ class LifelistController < ApplicationController
       .over(params.permit(:year, :locus))
       .sort(sort_override)
 
+    @lifelist.observation_scope = current_user.available_obs
+
     unless helpers.blogless_locale?
       @lifelist.posts_scope = current_user.available_posts
     end
@@ -60,6 +62,8 @@ class LifelistController < ApplicationController
       .over(params.permit(:year, :month, :day, :locus, :motorless, :exclude_heard_only))
       .sort(params[:sort])
 
+    @lifelist.observation_scope = current_user.available_obs
+
     unless helpers.blogless_locale?
       @lifelist.posts_scope = current_user.available_posts
     end
@@ -77,6 +81,8 @@ class LifelistController < ApplicationController
     @lifelist = Lifelist::Advanced
       .over(params.permit(:year, :locus, :motorless, :exclude_heard_only).merge({ winter: true }))
       .sort(params[:sort])
+
+    @lifelist.observation_scope = current_user.available_obs
 
     unless helpers.blogless_locale?
       @lifelist.posts_scope = current_user.available_posts

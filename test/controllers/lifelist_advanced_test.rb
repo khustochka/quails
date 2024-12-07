@@ -76,4 +76,21 @@ class LifelistAdvancedTest < ActionController::TestCase
     assert_response :success
     assert_select "a", { text: taxa(:saxola).species.name, count: 0 }, "Heard only species should not be shown"
   end
+
+  test "do not include hidden observations into public lifelist" do
+    create(:observation, taxon: taxa(:larheu), card: create(:card), hidden: true)
+    get :advanced
+    assert_response :success
+    lifers = assigns(:lifelist)
+    assert_equal 5, lifers.size
+  end
+
+  test "include hidden observations into lifelist for admin" do
+    create(:observation, taxon: taxa(:larheu), card: create(:card), hidden: true)
+    login_as_admin
+    get :advanced
+    assert_response :success
+    lifers = assigns(:lifelist)
+    assert_equal 6, lifers.size
+  end
 end

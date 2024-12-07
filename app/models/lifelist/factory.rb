@@ -4,7 +4,7 @@ module Lifelist
   class Factory
     include Enumerable
 
-    attr_accessor :posts_scope
+    attr_writer :posts_scope, :observation_scope
 
     def self.over(options)
       new(options)

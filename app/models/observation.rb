@@ -36,6 +36,8 @@ class Observation < ApplicationRecord
 
   scope :identified, lambda { joins(:taxon).merge(Taxon.listable) }
 
+  scope :not_hidden, -> { where(hidden: false) }
+
   def self.count_distinct_species
     count("DISTINCT species_id")
   end

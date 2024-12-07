@@ -67,6 +67,7 @@ module Lifelist
           Lifelist::Count.over(@filter)
         end
       list.posts_scope = @posts_scope
+      list.observation_scope = @observation_scope
       list
     end
 
