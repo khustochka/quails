@@ -8,7 +8,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        ruby: ['3.2']
+        ruby: ['3.2', '3.3']
     services:
       postgres:
         image: postgres:17-alpine
@@ -45,7 +45,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        ruby: ['3.2']
+        ruby: ['3.2', '3.3']
         driver:
           - name: Chrome
             js_driver: playwright
