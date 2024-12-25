@@ -4,6 +4,8 @@ require "test_helper"
 
 WebMock.disable_net_connect!(allow_localhost: true)
 
+# Playwright: https://justin.searls.co/posts/running-rails-system-tests-with-playwright-instead-of-selenium/
+
 default_driver = :playwright
 $js_driver = ENV["JS_DRIVER"]&.to_sym || default_driver
 

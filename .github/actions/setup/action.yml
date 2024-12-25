@@ -34,9 +34,11 @@ runs:
         key: playwright-browsers-${{ runner.os }}-${{ hashFiles('yarn.lock') }}
     - name: Install Playwright Chromium browser (with deps)
       if: steps.playwright-cache.outputs.cache-hit != 'true'
+      shell: bash
       run: yarn run playwright install --with-deps chromium
     - name: Install Playwright Chromium browser deps
       if: steps.playwright-cache.outputs.cache-hit == 'true'
+      shell: bash
       run: yarn run playwright install-deps chromium  
     - name: Install Ruby and gems
       uses: ruby/setup-ruby@v1
