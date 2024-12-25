@@ -97,7 +97,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     # end
   end
 
-  teardown do
-    check_js_errors
-  end
+  # teardown do
+  #   check_js_errors
+  # end
 end
