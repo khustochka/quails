@@ -48,11 +48,11 @@ jobs:
         ruby: ['3.2']
         driver:
           - name: Chrome
-            js_driver: selenium
-            js_browser: headless_chrome
+            js_driver: playwright
+            js_browser: chromium
 #          - name: Firefox
-#            js_driver: selenium
-#            js_browser: headless_firefox
+#            js_driver: playwright
+#            js_browser: firefox
     services:
       postgres:
         image: postgres:17-alpine
