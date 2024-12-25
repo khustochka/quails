@@ -12,6 +12,7 @@ class JSCommentsTest < ApplicationSystemTestCase
       fill_in("comment_body", with: "Some text")
       assert_difference "Comment.count", 1 do
         click_button("save_button")
+        sleep 0.01
         assert_css "#save_button:not([disabled])"
       end
     end

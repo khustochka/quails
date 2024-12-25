@@ -15,7 +15,9 @@
     "keypress.js": "^2.1.5",
     "tippy.js": "^6.3.7"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "playwright": "1.49.0"
+  },
   "browserslist": [
     "last 5 years"
   ],

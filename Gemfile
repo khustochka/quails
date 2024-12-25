@@ -141,7 +141,7 @@ end
 
 group :test do
   gem "capybara"
-  gem "selenium-webdriver"
+  gem "capybara-playwright-driver"
   gem "webmock"
   gem "launchy" # So you can do Then show me the page
   gem "simplecov", require: false
