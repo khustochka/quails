@@ -22,13 +22,13 @@
 .year-summary
   = render @cell
 
--# %h2
--#   = t("blog.home.#{@cell0.type}")
--#   &ndash;
--#   = @cell0.year
+%h2
+  = t("blog.home.#{@cell0.type}")
+  &ndash;
+  = @cell0.year
 
--# .year-summary
--#   = render @cell0
+.year-summary
+  = render @cell0
 
 - cache [@posts, admin: current_user.admin?, locale: I18n.locale] do
 

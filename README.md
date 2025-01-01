@@ -55,4 +55,4 @@ Database is exposed on port `5499`.
 
 ## License
 
-Copyright (c) 2007–2024 Vitalii Khustochka
+Copyright (c) 2007–2025 Vitalii Khustochka
