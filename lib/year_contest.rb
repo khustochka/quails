@@ -71,11 +71,7 @@ class YearContest
 
     list2 = list.dup
 
-    time_to_exit = true
-
     loop do
-      time_to_exit = true
-
       # Trim the list
       list3 = trim_list(list2)
       return false if no_gain?(list3, cur_best)
@@ -88,7 +84,7 @@ class YearContest
       list3 = cutoff_by_species(list2)
       return false if no_gain?(list3, cur_best)
 
-      time_to_exit = list3 == list2
+      time_to_exit &&= list3 == list2
       # ====================
 
       # Commented this, because it does not seem to give material gain (tested on long running data)
