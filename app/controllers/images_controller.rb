@@ -163,7 +163,7 @@ class ImagesController < ApplicationController
   ACCEPTED_PARAMS = [:slug, :title, :description, :index_num, :status, :stored_image]
 
   def image_params
-    @image_params ||= params.require(:image).permit(*ACCEPTED_PARAMS).merge(observation_ids: params[:obs] || [])
+    @image_params ||= params.expect(image: [*ACCEPTED_PARAMS]).merge(observation_ids: params[:obs] || [])
   end
 
   def cache_expire

@@ -87,6 +87,6 @@ class VideosController < ApplicationController
   private
 
   def video_params
-    @video_params ||= params.require(:video).permit(*Video::NORMAL_PARAMS).merge(observation_ids: params[:obs] || [])
+    @video_params ||= params.expect(video: [*Video::NORMAL_PARAMS]).merge(observation_ids: params[:obs] || [])
   end
 end

@@ -64,6 +64,6 @@ class CorrectionsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def correction_params
-    params.require(:correction).permit(:model_classname, :query, :sort_column)
+    params.expect(correction: [:model_classname, :query, :sort_column])
   end
 end

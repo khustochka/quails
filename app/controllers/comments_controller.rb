@@ -60,7 +60,7 @@ class CommentsController < ApplicationController
     else
 
       @post = current_user.available_posts.find(params[:comment].delete(:post_id))
-      comment_attrs = params.require(:comment).permit(*Comment::ALLOWED_PARAMETERS)
+      comment_attrs = params.expect(comment: [*Comment::ALLOWED_PARAMETERS])
       comment_attrs[:name] = params[CommentsHelper::REAL_NAME_FIELD]
 
       @comment = @post.comments.build(comment_attrs)
