@@ -53,7 +53,7 @@ runs:
       run: bin/rails db:schema:load
       shell: bash      
     - name: Install libvips
-      uses: awalsh128/cache-apt-pkgs-action@v1.4.2
+      uses: awalsh128/cache-apt-pkgs-action@v1.4.3
       with:
         packages: libvips42
         version: 1.0
