@@ -16,7 +16,7 @@ class ObservationSearch
   end
 
   CARD_ATTRIBUTES = [:observ_date, :end_date, :locus_id, :resolved, :include_subregions]
-  OBSERVATION_ATTRIBUTES = [:taxon_id, :voice, :exclude_subtaxa, :card_id]
+  OBSERVATION_ATTRIBUTES = [:taxon_id, :voice, :exclude_subtaxa, :card_id, :only_hidden]
   ALL_ATTRIBUTES = CARD_ATTRIBUTES + OBSERVATION_ATTRIBUTES
 
   attribute :observ_date, :date
@@ -28,6 +28,7 @@ class ObservationSearch
   attribute :taxon_id, :integer
   attribute :voice, :boolean
   attribute :exclude_subtaxa, :boolean
+  attribute :only_hidden, :boolean
   attribute :card_id, :integer
 
   def initialize(conditions = {})
@@ -119,6 +120,7 @@ class ObservationSearch
         :apply_card_id_filter,
         :apply_taxon_filter,
         :apply_voice_filter,
+        :apply_hidden_filter,
       ].inject(Observation.all) do |scope, filter|
         __send__(filter, scope)
       end
@@ -182,6 +184,14 @@ class ObservationSearch
   def apply_voice_filter(obs_scope)
     if !voice.nil?
       obs_scope.where(voice: voice)
+    else
+      obs_scope
+    end
+  end
+
+  def apply_hidden_filter(obs_scope)
+    if only_hidden
+      obs_scope.where(hidden: true)
     else
       obs_scope
     end
