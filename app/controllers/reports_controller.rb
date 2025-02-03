@@ -135,8 +135,11 @@ class ReportsController < ApplicationController
       end
 
     @today = 8.hours.ago
-    @this_day = if params[:day]
-      Date.parse("#{@today.year}-#{params[:day]}")
+    @this_day = if (day = params[:day])
+      if day == "02-29" && !Date.new(@today.year).leap?
+        day = "02-28"
+      end
+      Date.parse("#{@today.year}-#{day}")
     else
       @today.to_date
     end
