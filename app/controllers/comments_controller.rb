@@ -5,6 +5,9 @@ require "mail"
 class CommentsController < ApplicationController
   include PostsHelper
 
+  RESTRICTED_DOMAINS = %w(localhost localhost.localdomain)
+  private_constant :RESTRICTED_DOMAINS
+
   administrative except: [:create, :reply, :unsubscribe_request, :unsubscribe_submit]
   # FIXME: not yet localized but should be!
   # localized locales: [:uk, :ru], only: [:reply, :unsubscribe_request, :unsubscribe_submit]
@@ -191,8 +194,6 @@ class CommentsController < ApplicationController
   def mailer_link_options
     { host: request.host, port: request.port, protocol: request.protocol }
   end
-
-  RESTRICTED_DOMAINS = %w(localhost localhost.localdomain)
 
   def allowed_email?(email)
     !Mail::Address.new(email).domain.in?(RESTRICTED_DOMAINS)

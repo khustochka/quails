@@ -3,6 +3,9 @@
 class ImagesController < ApplicationController
   include FlickrConcern
 
+  ACCEPTED_PARAMS = [:slug, :title, :description, :index_num, :status, :stored_image]
+  private_constant :ACCEPTED_PARAMS
+
   administrative except: [:index, :multiple_species, :show]
   localized only: [:index, :multiple_species, :show]
 
@@ -159,8 +162,6 @@ class ImagesController < ApplicationController
   end
 
   private
-
-  ACCEPTED_PARAMS = [:slug, :title, :description, :index_num, :status, :stored_image]
 
   def image_params
     @image_params ||= params.expect(image: [*ACCEPTED_PARAMS]).merge(observation_ids: params[:obs] || [])

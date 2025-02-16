@@ -58,7 +58,7 @@ class YearProgressCell
       el[:percentage] =
         "%.2f" % (max_count.zero? ? 0.0 : (el[:count] * 100.0 / max_count))
       el[:to_date_percentage] =
-        "%.2f" % (el[:count].zero? ? 0.0 : ((el[:to_date]) * 100.0 / el[:count]))
+        "%.2f" % (el[:count].zero? ? 0.0 : (el[:to_date] * 100.0 / el[:count]))
       if el[:to_date] == max_to_date
         el[:is_max] = true
       end

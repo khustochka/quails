@@ -23,10 +23,12 @@ module SecurityConcern
     end
   end
 
-  private
-
   TRUST_COOKIE_NAME = -"quails_visit"
   TRUST_COOKIE_VALUE = -"I believe you"
+  private_constant :TRUST_COOKIE_NAME
+  private_constant :TRUST_COOKIE_VALUE
+
+  private
 
   def current_user
     @current_user ||= user_from_session
