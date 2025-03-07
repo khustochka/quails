@@ -1,13 +1,13 @@
 require:
   - rubocop-packaging
   - rubocop-capybara
-  - rubocop-factory_bot
 
 plugins:
   - rubocop-performance
   - rubocop-rails
   - rubocop-minitest
   - rubocop-rake
+  - rubocop-factory_bot
 
 
 AllCops:
