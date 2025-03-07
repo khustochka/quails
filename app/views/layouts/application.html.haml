@@ -104,10 +104,10 @@
             %div.jumbo-side
               = content_for :jumbo_side
 
-      - if !admin_layout? && $announcement
-        %div.announcement
-          :textile
-            #{$announcement}
+      -# - if !admin_layout? && $announcement
+      -#   %div.announcement
+      -#     :textile
+      -#       #{$announcement}
 
       -#- if !admin_layout? && !(controller_name == 'login')
       -#  .bannercontainer
