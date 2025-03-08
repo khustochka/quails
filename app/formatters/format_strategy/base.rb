@@ -39,7 +39,7 @@ module FormatStrategy
         end
       end
 
-      result.gsub!(/([Ввр])О([рн])/, '\1о&#769;\2')
+      result.gsub!(/([Ввр])О([рн])/, '\1о́\2')
 
       result << post_scriptum
 

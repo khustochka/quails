@@ -144,7 +144,7 @@ class FormattersTest < ActionDispatch::IntegrationTest
   test "Voron vs vorona" do
     # Mimic sparrow as a raven not to create more fixtures
     p = build(:post, body: "{{вОрон|Passer domesticus}}")
-    assert_equal '<p><a class="sp_link" href="/species/Passer_domesticus">во&#769;рон</a></p>',
+    assert_equal '<p><a class="sp_link" href="/species/Passer_domesticus">во́рон</a></p>',
       p.decorated.for_site.body
   end
 
