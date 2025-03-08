@@ -59,11 +59,11 @@
 
   %h3 Livejournal
   %ul
-    %li= link_to 'Show LJ version', for_lj_post_path(@post)
+    -# %li= link_to 'Show LJ version', for_lj_post_path(@post)
     %li#lj_url_li
       - if @post.lj_data.blank?
         Not yet on Livejournal
       - else
         = link_to(@post.lj_url, @post.lj_url)
-
-    %li= button_to('Post to LJ', {action: :lj_post}, {form: {id: 'lj_post'}})
+    %li Posting to Livejournal disabled.
+    -# %li= button_to('Post to LJ', {action: :lj_post}, {form: {id: 'lj_post'}})
