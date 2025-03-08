@@ -2,16 +2,8 @@
 
 require "test_helper"
 
-class FormattersTest < ActionDispatch::IntegrationTest
+class DecoratorsTest < ActionDispatch::IntegrationTest
   include ImagesHelper
-
-  test "no span_caps by default" do
-    assert_equal "xxx ABC xxx", OneLineFormatter.apply("xxx ABC xxx")
-  end
-
-  test "Cyrillic double quotes" do
-    assert_equal "Новий «лайфер»", OneLineFormatter.apply('Новий "лайфер"')
-  end
 
   test "Post with species link" do
     post = build(:post, body: "This is a {{Wryneck|jyntor}}")
@@ -80,7 +72,7 @@ class FormattersTest < ActionDispatch::IntegrationTest
   test "LJ Post with link to another post in LJ" do
     Settings.create(key: "lj_user", value: { name: "stonechat" })
     url = "https://stonechat.livejournal.com/1111.html"
-    post1 = create(:post,
+    _post1 = create(:post,
       slug: "post_for_link",
       lj_data: Post::LJData.new("1111", "https://stonechat.livejournal.com/1111.html"))
     post = build(:post, body: "This is a {{#post|post_for_link}}")
@@ -89,7 +81,7 @@ class FormattersTest < ActionDispatch::IntegrationTest
   end
 
   test "LJ Post with link to another post out of LJ" do
-    post1 = build(:post, slug: "post_for_link")
+    _post1 = build(:post, slug: "post_for_link")
     post = build(:post, body: "This is a {{#post|post_for_link}}")
     assert_equal "<p>This is a post</p>",
       post.decorated.for_lj.body

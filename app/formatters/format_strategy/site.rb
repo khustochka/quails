@@ -18,9 +18,12 @@ module FormatStrategy
 
     def post_tag(word, term)
       post = @posts[term]
-      post.nil? ?
-        word :
-        %Q("#{word || '"%s"' % post.decorated.title}":#{term})
+      if post.nil?
+        word
+      else
+        text = word || '"%s"' % post.decorated.title
+        %Q(<a href="#{default_public_post_path(post)}">#{text}</a>)
+      end
     end
 
     def img_tag(term)
@@ -49,16 +52,17 @@ module FormatStrategy
     end
 
     def post_scriptum
-      result = +""
-      if @posts.any?
-        result << "\n"
+      ""
+      # result = +""
+      # if @posts.any?
+      #   result << "\n"
 
-        @posts.each do |slug, post|
-          result << "\n[#{slug}]#{default_public_post_path(post)}" if post
-        end
-      end
+      #   @posts.each do |slug, post|
+      #     result << "\n[#{slug}]#{default_public_post_path(post)}" if post
+      #   end
+      # end
 
-      result
+      # result
     end
 
     def default_url_options
