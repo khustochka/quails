@@ -48,6 +48,7 @@ gem "haml", "~> 6.2"
 gem "haml-rails"
 gem "RedCloth"
 gem "kramdown", "~> 2.5"
+gem "kramdown-parser-gfm"
 gem "rinku"
 
 # Parsing html
