@@ -39,7 +39,7 @@ Capybara.server = :puma, { Silent: true }
 module ActiveSupport
   class TestCase
     # Run tests in parallel with specified workers
-    parallelize(workers: ENV["COVERAGE"] ? 1 : :number_of_processors)
+    parallelize(workers: ENV["COVERAGE"] ? 1 : :number_of_processors, threshold: 30)
 
     # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
     fixtures :all
