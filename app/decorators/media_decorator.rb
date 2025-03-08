@@ -5,7 +5,7 @@ class MediaDecorator < ModelDecorator
   include ActionView::Helpers::TranslationHelper
 
   def title
-    OneLineFormatter.apply(@model.public_title)
+    OneLineFormatter.apply(@model.public_title, Converter::Kramdown)
   end
 
   def description
