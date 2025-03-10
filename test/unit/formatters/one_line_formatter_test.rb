@@ -3,7 +3,6 @@
 require "test_helper"
 
 class OneLineFormatterTest < ActionDispatch::IntegrationTest
-
   test "no span_caps by default" do
     assert_equal "xxx ABC xxx", OneLineFormatter.apply("xxx ABC xxx")
   end

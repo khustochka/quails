@@ -134,7 +134,6 @@ class WikiFormatter::SiteStrategyTest < ActionDispatch::IntegrationTest
 
   # Videos TODO
 
-
   # HTML entities
 
   test "(textile) preserve HTML entities" do
@@ -258,9 +257,7 @@ class WikiFormatter::SiteStrategyTest < ActionDispatch::IntegrationTest
 
   # Images TODO
 
-
   # Videos TODO
-
 
   # HTML entities
 
