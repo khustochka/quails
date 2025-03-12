@@ -1,6 +1,5 @@
 require:
   - rubocop-packaging
-  - rubocop-capybara
 
 plugins:
   - rubocop-performance
@@ -8,6 +7,7 @@ plugins:
   - rubocop-minitest
   - rubocop-rake
   - rubocop-factory_bot
+  - rubocop-capybara
 
 
 AllCops:
