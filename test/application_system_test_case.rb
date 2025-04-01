@@ -17,7 +17,7 @@ Capybara.register_driver :playwright do |app|
   Capybara::Playwright::Driver.new(
     app,
     browser_type: $js_browser,
-    headless: !ENV["NOT_HEADLESS"]
+    headless: !ENV["NOT_HEADLESS"] # Does not work?
   )
 end
 
