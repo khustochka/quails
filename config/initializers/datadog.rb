@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-if ENV["DD_ENABLED"]
+if ENV["DD_ENABLED"].in?(["true", "1"])
   require "datadog/auto_instrument"
 
   TRACED_TASKS = ["quails:five_mr:refresh", "quails:ebird:checklists_preload", "quails:email:test"]
