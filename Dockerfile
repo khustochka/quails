@@ -13,7 +13,7 @@
 
 ARG RUBY_VERSION=3.4.2
 ARG VARIANT=slim-bookworm
-FROM ruby:${RUBY_VERSION}-${VARIANT} as base
+FROM ruby:${RUBY_VERSION}-${VARIANT} AS base
 
 ARG NODE_VERSION=22.14.0
 ARG YARN_VERSION=1.22.19
@@ -22,13 +22,13 @@ ARG YARN_VERSION=1.22.19
 ARG RAILS_ENV=production
 ENV RAILS_ENV=${RAILS_ENV}
 
-ENV RAILS_SERVE_STATIC_FILES true
-ENV RAILS_LOG_TO_STDOUT true
+ENV RAILS_SERVE_STATIC_FILES=true
+ENV RAILS_LOG_TO_STDOUT=true
 
 ARG BUNDLE_WITHOUT=development:test
 ARG BUNDLE_PATH=vendor/bundle
-ENV BUNDLE_PATH ${BUNDLE_PATH}
-ENV BUNDLE_WITHOUT ${BUNDLE_WITHOUT}
+ENV BUNDLE_PATH=${BUNDLE_PATH}
+ENV BUNDLE_WITHOUT=${BUNDLE_WITHOUT}
 
 RUN mkdir /app
 WORKDIR /app
@@ -42,10 +42,10 @@ RUN bundle config set deployment true
 
 # install packages only needed at build time
 
-FROM base as build_deps
+FROM base AS build_deps
 
 ARG BUILD_PACKAGES="git build-essential libpq-dev wget curl gzip xz-utils libsqlite3-dev libssl-dev libyaml-dev"
-ENV BUILD_PACKAGES ${BUILD_PACKAGES}
+ENV BUILD_PACKAGES=${BUILD_PACKAGES}
 
 RUN --mount=type=cache,id=dev-apt-cache,sharing=locked,target=/var/cache/apt \
     --mount=type=cache,id=dev-apt-lib,sharing=locked,target=/var/lib/apt \
@@ -57,7 +57,7 @@ RUN --mount=type=cache,id=dev-apt-cache,sharing=locked,target=/var/cache/apt \
 
 # install gems
 
-FROM build_deps as gems
+FROM build_deps AS gems
 
 # Create this directory because it is is not created when the rubygems version is the latest
 RUN mkdir -p /usr/local/bundle
@@ -69,10 +69,10 @@ RUN bundle install && rm -rf vendor/bundle/ruby/*/cache
 
 # install node modules and build assets
 
-FROM gems as assets
+FROM gems AS assets
 
 RUN  --mount=type=cache,id=dev-apt-cache,sharing=locked,target=/var/cache/apt \
-     --mount=type=cache,id=dev-apt-lib,sharing=locked,target=/var/lib/apt \
+    --mount=type=cache,id=dev-apt-lib,sharing=locked,target=/var/lib/apt \
     curl -fsSL https://deb.nodesource.com/setup_22.x | bash - && \
     apt-get install --no-install-recommends -y  nodejs \
     && rm -rf /var/lib/apt/lists /var/cache/apt/archives
@@ -104,8 +104,8 @@ LABEL org.opencontainers.image.title="quails"
 LABEL org.opencontainers.image.revision=$GIT_REVISION
 LABEL org.opencontainers.image.source=$GIT_REPOSITORY_URL
 
-ENV GIT_REVISION ${GIT_REVISION}
-ENV GIT_REPOSITORY_URL ${GIT_REPOSITORY_URL}
+ENV GIT_REVISION=${GIT_REVISION}
+ENV GIT_REPOSITORY_URL=${GIT_REPOSITORY_URL}
 ENV DD_TAGS="git.repository_url:${GIT_REPOSITORY_URL},git.commit.sha:${GIT_REVISION}"
 
 # ARG DEPLOY_PACKAGES="postgresql-client file vim curl gzip bzip2 htop net-tools bind9-dnsutils"
@@ -171,7 +171,7 @@ RUN find / -perm /6000 -type f -exec chmod a-s {} \; || true
 
 USER 1001
 
-ENV PORT 3000
+ENV PORT=3000
 # Port is not exposed, and the command is not `rails server`, because this image can be used
 # for background job workers etc
 

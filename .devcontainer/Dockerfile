@@ -1,6 +1,6 @@
 ARG RUBY_VERSION=3.4.2
 ARG VARIANT=slim-bookworm
-FROM ruby:${RUBY_VERSION}-${VARIANT} as base
+FROM ruby:${RUBY_VERSION}-${VARIANT} AS base
 
 # Install Rails
 # RUN su vscode -c "gem install rails webdrivers"
