@@ -332,14 +332,6 @@ Rails.application.routes.draw do
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
   end
 
-  namespace "deflicker" do
-    get "/" => "flickers#index"
-    post "refresh" => "flickers#refresh"
-    post "rematch" => "flickers#rematch"
-    delete "/:id" => "flickers#destroy"
-    post "/:id/fixed" => "flickers#fixed"
-  end
-
   # High Voltage routes are specified manually to bypass HighVoltage Constraints for unrelated paths
   # (e.g. ActiveStorage)
 
