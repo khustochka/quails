@@ -95,6 +95,7 @@ GEM
     bigdecimal (3.1.9)
     bindex (0.8.1)
     brotli (0.6.0)
+    bson (5.0.2)
     builder (3.3.0)
     bundler-audit (0.9.2)
       bundler (>= 1.2.0, < 3)
@@ -217,6 +218,9 @@ GEM
       activerecord
       kaminari-core (= 1.2.2)
     kaminari-core (1.2.2)
+    kaminari-mongoid (1.0.2)
+      kaminari-core (~> 1.0)
+      mongoid
     language_server-protocol (3.17.0.4)
     launchy (3.1.1)
       addressable (~> 2.8)
@@ -286,6 +290,12 @@ GEM
       builder
       minitest (>= 5.0)
       ruby-progressbar
+    mongo (2.21.0)
+      bson (>= 4.14.1, < 6.0.0)
+    mongoid (9.0.6)
+      activemodel (>= 5.1, < 8.1, != 7.0.0)
+      concurrent-ruby (>= 1.0.5, < 2.0)
+      mongo (>= 2.18.0, < 3.0.0)
     msgpack (1.8.0)
     net-http-digest_auth (1.4.1)
     net-http-persistent (4.0.5)
@@ -541,6 +551,7 @@ DEPENDENCIES
   jquery-rails
   jsbundling-rails
   kaminari
+  kaminari-mongoid
   launchy
   letter_opener
   letter_opener_web
@@ -549,6 +560,7 @@ DEPENDENCIES
   lograge
   mechanize
   minitest-reporters
+  mongoid (~> 9.0, >= 9.0.2)
   nokogiri
   observer
   ostruct

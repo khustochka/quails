@@ -1,0 +1,119 @@
+-# frozen_string_literal: true
+- stylesheet "forms"
+- javascript "deflicker"
+
+- @page_title = "Deflicker"
+
+%h1 Flickr photos
+
+- if flash.alert
+  %div.errors= flash.alert.html_safe
+
+- if flash.notice
+  %div.notice= flash.notice.html_safe
+
+= button_to "Refresh from Flickr", deflicker_refresh_path, class: "button", form: {style: "display: inline-block;"}
+
+= button_to "Rematch", deflicker_rematch_path, class: "button", form: {style: "display: inline-block;"}
+
+= simple_form_for @search, as: "", url: deflicker_path, method: :get do |f|
+  %table{style: "width: 100%; border: 1px solid #777777; margin: 20px 0;"}
+    %tr
+      %td{style: "vertical-align: top; padding: 10px;"}
+        = f.input :public, as: :radio_buttons,
+                  label: "Privacy",
+                  collection: [["All", ""], ["Public", true], ["Private", false]],
+                  include_hidden: false
+
+      %td{style: "vertical-align: top; padding: 10px;"}
+        = f.input :removed, as: :radio_buttons,
+                  label: "Status",
+                  collection: [["On flickr", false], ["Removed", true]],
+                  include_hidden: false
+
+      %td{style: "vertical-align: top; padding: 10px;"}
+        = f.input :on_site, as: :radio_buttons,
+                  label: "Site status",
+                  collection: [["All", ""], ["On the site", true], ["Not on site", false]],
+                  include_hidden: false
+
+      %td{style: "vertical-align: top; padding: 10px;"}
+        = f.input :with_journal_entries, as: :radio_buttons,
+                  label: "Journal entries",
+                  collection: [["All", ""], ["With entries", true], ["Without entries", false]],
+                  include_hidden: false
+    %tr
+      %td{style: "text-align: right; padding: 10px;", colspan: 4}
+        = f.submit "Filter", name: nil, class: "button"
+
+%p
+  - I18n.with_locale :en do
+    = page_entries_info @photos, entry_name: "photo"
+
+%table.neat_table{style: "width: 100%;"}
+  -#%tr
+  -#  %th
+  -#
+  -#  %th
+  -#
+  - @photos.each do |photo|
+    %tr
+      %td
+        - image_url = (photo.removed && photo.slug) ? "/photos/#{photo.slug}.jpg" : photo.url_s
+        = link_to photo.url, class: "img", target: :_blank, rel: :noopener do
+          = image_tag(image_url, class: ["thumb_deflicker_table", photo.removed && photo.slug ? "thumb_deflicker_removed" : ""])
+      %td
+        %div
+          %b= photo.title
+        %div
+          Uploaded:
+          = photo.uploaded_at.strftime("%F %T")
+        %div
+          Views:
+          = photo.views
+        - if photo.on_site?
+          %div
+            &bull;
+            = link_to "/photos/#{photo.slug}", target: :_blank, rel: :noopener do
+              %b= photo.slug
+
+        - if photo.machine_tags.present?
+          %div
+            %code
+              %u= photo.machine_tags
+        %ul
+          - photo.journal_entries.each do |en|
+            %li= link_to "#{en.journal}/#{en.display_itemid}", en.url
+          - if photo.journal_entries_fixed
+            %span.tag.good Entries fixed
+      %td
+        %div
+          - if photo.public?
+            %span.tag.good Public
+          - else
+            %span.tag.alert Private
+        %div
+          - if photo.removed?
+            %span.tag.alert Removed
+        %div
+          - if photo.on_site?
+            %span.tag.good.orange_border On site
+          - else
+            %span.tag.alert Not on site
+        - if photo.on_site?
+          - if photo.on_s3?
+            %div
+              %span.tag.tag_species S3
+          - else
+            = button_to "Push to storage", "/flickr/photos/#{photo.slug}/push_to_storage", remote: true, form_class: "push_form"
+        - if !photo.removed? && photo.journal_entries.any? && !photo.journal_entries_fixed?
+          = button_to "Mark journal entries fixed", "/deflicker/#{photo.flickr_id}/fixed", remote: true,
+            data: {confirm: "Are you sure you want to mark journal entries as fixed?"},
+            form_class: "destroy_button"
+        - if !photo.removed? && photo.allow_delete?
+          = button_to "Destroy", "/deflicker/#{photo.flickr_id}", method: :delete, remote: true,
+                      data: {confirm: "Are you sure you want to remove this image from Flickr?"},
+                      form_class: "destroy_button"
+
+- I18n.with_locale :en do
+  = paginate @photos
