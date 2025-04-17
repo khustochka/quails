@@ -1,0 +1,38 @@
+-# frozen_string_literal: true
+- stylesheet "forms"
+- @body_class = 'wider'
+-# - javascript "deflicker"
+
+- @page_title = "Fixing entry #{@journal}/#{@entry.display_itemid}"
+
+%p
+  = link_to("Journals", deflicker_journals_path)
+
+%h1= @page_title
+
+%p
+  = link_to("Entry", @entry.url, target: "_blank")
+  %br 
+  Flickr ids from history:
+  = @entry.flickr_ids  
+
+
+%table{style: "width: 100%;border: 1px solid black;border-collapse: collapse;"}
+  %tr
+    %td{style: "border: 1px solid black; width: 48%;padding:10px;"}
+      = @fix.body.html_safe
+    %td{style: "border: 1px solid black; width: 48%;padding:10px;"}
+      = @fix.body.html_safe
+  %tr
+    %td{style: "border: 1px solid black; width: 48%;padding:10px;"}
+      %textarea{rows: 20, style: "width: 100%;margin-top:20px;"}
+        = @fix.body
+      = form_with url: "/deflicker/journals/#{@journal}/entry/fixed", html: {style: "margin-top:10px;"} do |form|
+        = form.hidden_field :entry_id, value: @entry.id
+        = form.submit "Mark as fixed", {style: "height:31px;"}
+    %td{style: "border: 1px solid black; width: 48%;padding:10px;"}
+      = form_with url: "/deflicker/journals/#{@journal}/entry/submit", html: {style: "margin-top:10px;"} do |form|
+        = form.hidden_field :entry_id, value: @entry.id
+        = form.textarea :body, value: @fix.new_body, rows: 20, style: "width: 100%"
+        = form.submit "Submit new body", {style: "height:31px;"}
+

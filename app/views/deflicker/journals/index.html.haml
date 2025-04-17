@@ -2,9 +2,9 @@
 - stylesheet "forms"
 -# - javascript "deflicker"
 
-- @page_title = "Deflicker journal entries"
+- @page_title = "Journals"
 
-%h1 Journal entries
+%h1 Journals
 
 %p
   = link_to("Flickers", deflicker_path)
@@ -25,3 +25,7 @@
             = succeed ":" do
               = stat
             = val
+
+        = form_with url: "/deflicker/journals/#{journal}/start", html: {style: "margin-top:10px;"} do |form|
+          = form.password_field :passwd, {style: "height:25px"}
+          = form.submit "Start", {style: "height:31px;width:80px"}

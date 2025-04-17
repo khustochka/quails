@@ -21,6 +21,33 @@ module Deflicker
       @stats = Hash[stats]
     end
 
+    def start
+      journal = params["journal"]
+      passwd = params["passwd"]
+
+      session[:journal_passwd] = passwd
+
+      redirect_to deflicker_journal_entry_path(journal)
+    end
+
+    def entry
+      @journal = params["journal"]
+
+      @entry = Deflicker::JournalEntry.where(journal: @journal).where.not(fixed: true).where.not(flickr_ids: []).first
+
+      @fix = Deflicker::EntryFix.new(@entry, session[:journal_passwd])
+    end
+
+    def mark_as_fixed
+      @journal = params["journal"]
+
+      @entry = Deflicker::JournalEntry.where(journal: @journal).find(params["entry_id"])
+      @entry.fixed = true
+      @entry.save!
+
+      redirect_to deflicker_journal_entry_path(@journal)
+    end
+
     private
 
     def journals

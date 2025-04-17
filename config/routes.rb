@@ -340,6 +340,9 @@ Rails.application.routes.draw do
     post "/:id/fixed" => "flickers#fixed"
 
     get "/journals" => "journals#index"
+    post "/journals/:journal/start" => "journals#start"
+    get "/journals/:journal/entry" => "journals#entry", as: :journal_entry
+    post "/journals/:journal/entry/fixed" => "journals#mark_as_fixed"
   end
 
   # High Voltage routes are specified manually to bypass HighVoltage Constraints for unrelated paths
