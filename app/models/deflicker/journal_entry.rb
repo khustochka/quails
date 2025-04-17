@@ -15,6 +15,7 @@ module Deflicker
     field :images, type: Array, default: []
     field :links, type: Array, default: []
     field :flickr_ids, type: Array, default: []
+    field :fixed, type: Boolean
 
     has_and_belongs_to_many :flickers
 

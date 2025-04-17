@@ -1,0 +1,27 @@
+-# frozen_string_literal: true
+- stylesheet "forms"
+-# - javascript "deflicker"
+
+- @page_title = "Deflicker journal entries"
+
+%h1 Journal entries
+
+%p
+  = link_to("Flickers", deflicker_path)
+
+- if flash.alert
+  %div.errors= flash.alert.html_safe
+
+- if flash.notice
+  %div.notice= flash.notice.html_safe
+
+%div{style: "display:flex;width:100%;gap:20px;flex-wrap:wrap;"}
+  - @journals.each do |journal|
+    %div{style: "width:44%;text-align:center;padding:10px;border:1px solid lightgray;"}
+      %h2= journal
+      %ul{style: "list-style: none;padding-left:0;"}
+        - @stats[journal].each do |stat, val|
+          %li{style: "font-size:24px;color:#{if stat == "Fixed"; "green"; elsif stat == "Unfixed"; "red"; else "black"; end}"}
+            = succeed ":" do
+              = stat
+            = val

@@ -338,6 +338,8 @@ Rails.application.routes.draw do
     post "rematch" => "flickers#rematch"
     delete "/:id" => "flickers#destroy"
     post "/:id/fixed" => "flickers#fixed"
+
+    get "/journals" => "journals#index"
   end
 
   # High Voltage routes are specified manually to bypass HighVoltage Constraints for unrelated paths

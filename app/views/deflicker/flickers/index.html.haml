@@ -6,6 +6,9 @@
 
 %h1 Flickr photos
 
+%p
+  = link_to("Journal entries", deflicker_journals_path)
+
 - if flash.alert
   %div.errors= flash.alert.html_safe
 
