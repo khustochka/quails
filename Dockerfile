@@ -65,6 +65,10 @@ RUN mkdir -p /usr/local/bundle
 COPY Gemfile* ./
 RUN bundle install && rm -rf vendor/bundle/ruby/*/cache
 
+# Remove unnecessary musl build
+RUN rm -rf /app/vendor/bundle/ruby/3.4.0/gems/libdatadog-*-linux/vendor/libdatadog-*/*-linux-musl/
+RUN rm -rf /app/vendor/bundle/ruby/3.4.0/gems/libdatadog-*-linux/vendor/libdatadog-*/*-linux/libdatadog-*-unknown-linux-gnu/LICENSE-3rdparty.yml
+
 #######################################################################
 
 # install node modules and build assets
