@@ -71,18 +71,18 @@ GEM
     ansi (1.5.0)
     ast (2.4.3)
     aws-eventstream (1.3.2)
-    aws-partitions (1.1095.0)
-    aws-sdk-core (3.222.3)
+    aws-partitions (1.1097.0)
+    aws-sdk-core (3.223.0)
       aws-eventstream (~> 1, >= 1.3.0)
       aws-partitions (~> 1, >= 1.992.0)
       aws-sigv4 (~> 1.9)
       base64
       jmespath (~> 1, >= 1.6.1)
       logger
-    aws-sdk-kms (1.99.0)
+    aws-sdk-kms (1.100.0)
       aws-sdk-core (~> 3, >= 3.216.0)
       aws-sigv4 (~> 1.5)
-    aws-sdk-s3 (1.184.0)
+    aws-sdk-s3 (1.185.0)
       aws-sdk-core (~> 3, >= 3.216.0)
       aws-sdk-kms (~> 1)
       aws-sigv4 (~> 1.5)
@@ -181,7 +181,7 @@ GEM
     high_voltage (4.0.0)
     hiredis-client (0.24.0)
       redis-client (= 0.24.0)
-    honeybadger (5.27.4)
+    honeybadger (5.28.0)
       logger
       ostruct
     htmlentities (4.3.4)
@@ -329,7 +329,7 @@ GEM
       premailer (~> 1.7, >= 1.7.9)
     prettyprint (0.2.0)
     prism (1.4.0)
-    psych (5.2.3)
+    psych (5.2.4)
       date
       stringio
     public_suffix (6.0.2)
