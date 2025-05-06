@@ -2,6 +2,7 @@
   blog:
     home:
       title: Birdwatching blog
+      header: Birdwatching blog
       previous_posts: << Previous posts
       meta_description: "Blog about birds of Ukraine and Canada, birding, bird photography"
       blog: Blog
