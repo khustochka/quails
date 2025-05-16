@@ -10,14 +10,14 @@ if ENV["DD_ENABLED"].in?(["true", "1"])
       c.version = Regexp.last_match(1)
     end
 
-    c.tracing.instrument :rails, service_name: "quails"
-    c.tracing.instrument :active_record, service_name: "quails-postgres"
-    c.tracing.instrument :active_support, cache_service: "quails-rails-cache"
-    c.tracing.instrument :aws, service_name: "quails-aws"
-    c.tracing.instrument :mongo, service_name: "quails-mongo"
+    c.tracing.instrument :rails
+    c.tracing.instrument :active_record
+    c.tracing.instrument :active_support
+    c.tracing.instrument :aws
+    c.tracing.instrument :mongo
 
     if defined?(Rake)
-      c.tracing.instrument :rake, tasks: TRACED_TASKS, service_name: "quails-rake"
+      c.tracing.instrument :rake, tasks: TRACED_TASKS
     end
 
     # Use DD_TRACE_STARTUP_LOGS for startup logs

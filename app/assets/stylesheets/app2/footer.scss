@@ -31,9 +31,9 @@ footer.page_footer {
         @extend .block-reset-link;
       }
       // Super super small devices
-      @media (max-width: 374.98px) {
-        margin: 2px 0;
-      }
+      // @media (max-width: 374.98px) {
+      //   margin: 4px 0;
+      // }
     }
   }
 

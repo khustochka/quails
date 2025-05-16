@@ -9,14 +9,14 @@
     "@popperjs/core": "^2.11.5",
     "@rails/actioncable": "^8.0.100",
     "@rails/activestorage": "^8.0.100",
-    "bootstrap": "^5.3.5",
-    "esbuild": "^0.25.2",
+    "bootstrap": "^5.3.6",
+    "esbuild": "^0.25.4",
     "ilyabirman-likely": "^3.2.0",
     "keypress.js": "^2.1.5",
     "tippy.js": "^6.3.7"
   },
   "devDependencies": {
-    "playwright": "^1.50.1"
+    "playwright": "^1.52.0"
   },
   "browserslist": [
     "last 5 years"

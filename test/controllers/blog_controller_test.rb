@@ -15,6 +15,12 @@ class BlogControllerTest < ActionDispatch::IntegrationTest
     assert_includes(assigns(:posts), blogpost2)
   end
 
+  test "get English home page" do
+    get blog_path(locale: "en")
+    assert_response :success
+    assert_select "h1", "Birdwatching blog"
+  end
+
   test "home shows correct localized links" do
     blogpost1 = create(:post, face_date: "2007-12-06 13:14:15")
     get blog_path
