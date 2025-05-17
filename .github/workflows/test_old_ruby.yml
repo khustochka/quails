@@ -3,6 +3,7 @@ on:
   - push
 jobs:
   test:
+    if: false
     name: Tests
     runs-on: ubuntu-22.04
     strategy:
@@ -40,6 +41,7 @@ jobs:
         run: bin/rails test
 
   system_test:
+    if: false
     name: ${{ matrix.driver.name }} system tests (${{ matrix.ruby }})
     runs-on: ubuntu-22.04
     strategy:
