@@ -11,11 +11,11 @@
 
 #######################################################################
 
-ARG RUBY_VERSION=3.4.3
+ARG RUBY_VERSION=3.4.4
 ARG VARIANT=slim-bookworm
 FROM ruby:${RUBY_VERSION}-${VARIANT} AS base
 
-ARG NODE_VERSION=22.14.0
+ARG NODE_VERSION=22.15.1
 ARG YARN_VERSION=1.22.19
 # ARG BUNDLER_VERSION=2.3.25
 
