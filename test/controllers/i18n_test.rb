@@ -6,7 +6,7 @@ class I18NTest < ActionDispatch::IntegrationTest
   test "Use standalone month names in Ukrainian" do
     create(:post, face_date: "2011-01-09")
     get month_path(year: "2011", month: "01")
-    assert_select "h1", "Січень\n2011"
+    assert_select "h1", "Січень 2011"
   end
 
   # Blog is not localized
