@@ -30,7 +30,7 @@ class Locus < ApplicationRecord
   before_validation :generate_slug
   before_validation :set_country
 
-  TYPES = %w(continent country subcountry state oblast raion city)
+  TYPES = %w(continent country subregion raion city)
 
   # Parameters
 
@@ -159,7 +159,7 @@ class Locus < ApplicationRecord
   def cache_parent_loci
     anc = ancestors.to_a
     cnt_id = anc.find { |l| l.loc_type == "country" && !l.private_loc }&.id
-    sub_id = anc.find { |l| l.loc_type.in?(%w(state oblast)) && !l.private_loc }&.id
+    sub_id = anc.find { |l| l.loc_type == "subregion" && !l.private_loc }&.id
     city_id = anc.find { |l| l.loc_type == "city" && !l.private_loc }&.id
     self.cached_parent_id = parent_id unless parent_id.in?([cnt_id, sub_id, city_id]) || parent.private_loc
     self.cached_city_id = city_id
