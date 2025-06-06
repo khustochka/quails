@@ -515,11 +515,14 @@ Naming/MemoizedInstanceVariableName:
 Naming/MethodParameterName:
   Enabled: false
 
-Naming/PredicateName:
+Naming/PredicatePrefix:
   NamePrefix:
   - is_
   ForbiddenPrefixes:
   - is_
+
+Naming/PredicateMethod:
+  Enabled: false  
 
 Naming/RescuedExceptionsVariableName:
   Enabled: false

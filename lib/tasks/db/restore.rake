@@ -11,7 +11,7 @@ namespace :db do
       exit(1)
     end
     db_spec = Rails.configuration.database_configuration[Rails.env]
-    cli = %Q(pg_restore -v -d #{custom_db || db_spec["database"]} -O -x -n public #{custom_db ? "--clean" : ""} -U #{db_spec["username"]} #{dump_file})
+    cli = %Q(pg_restore -v -d #{custom_db || db_spec["database"]} -O -x -n public #{"--clean" if custom_db} -U #{db_spec["username"]} #{dump_file})
 
     # Testing for production db is done by Rails.
     if custom_db

@@ -32,7 +32,7 @@ class ObservationSearch
   attribute :card_id, :integer
 
   def initialize(conditions = {})
-    conditions2 = conditions.to_h || {}
+    conditions2 = conditions.to_h
     all_conditions = conditions2.slice(*ALL_ATTRIBUTES).select { |_, v| v.meaningful? }
 
     super(all_conditions)
