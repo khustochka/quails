@@ -151,7 +151,7 @@ class Media < ApplicationRecord
 
   def set_multi_species
     sps = Species.joins(:observations).where(observations: { id: observation_ids }).distinct
-    self.multi_species = sps.count > 1
+    self.multi_species = sps.many?
   end
 
   def consistent_observations

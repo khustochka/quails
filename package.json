@@ -9,7 +9,7 @@
     "@popperjs/core": "^2.11.5",
     "@rails/actioncable": "^8.0.100",
     "@rails/activestorage": "^8.0.100",
-    "bootstrap": "^5.3.6",
+    "bootstrap": "^5.3.7",
     "esbuild": "^0.25.5",
     "ilyabirman-likely": "^3.2.0",
     "keypress.js": "^2.1.5",
