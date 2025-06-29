@@ -34,7 +34,8 @@ class ApplicationController < ActionController::Base
 
   # Report a rescued error
   def report_error(exception)
-    Honeybadger.notify(exception, params)
+    # TODO: properly notify?
+    Honeybadger.notify(exception)
     # TODO: log to Rails log
     # notify_airbrake(exception, params, &block)
   end
