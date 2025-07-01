@@ -27,9 +27,9 @@
   - else
     = t('lifelist.title.lifelist')
   - if params[:motorless]
-    = " - Motorless"
+    = " – Motorless"
   - if params[:exclude_heard_only]
-    = " - Exclude heard only"
+    = " – Exclude heard only"
 
 - content_for :translated do
   = render partial: 'partials/translated', locals: {url: significant_params}
