@@ -16,7 +16,7 @@
     "tippy.js": "^6.3.7"
   },
   "devDependencies": {
-    "playwright": "1.52.0"
+    "playwright": "^1.52.0"
   },
   "browserslist": [
     "last 5 years"
