@@ -11,7 +11,7 @@
 
 #######################################################################
 
-ARG RUBY_VERSION=3.4.4
+ARG RUBY_VERSION=3.4.5
 ARG VARIANT=slim-bookworm
 FROM ruby:${RUBY_VERSION}-${VARIANT} AS base
 
