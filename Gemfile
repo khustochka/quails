@@ -74,7 +74,7 @@ gem "csv"
 
 # Monitoring
 gem "datadog", require: false
-gem "honeybadger", "~> 5.4"
+gem "honeybadger", "~> 6.0"
 gem "lograge"
 # gem "airbrake"
 
