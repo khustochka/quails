@@ -75,7 +75,7 @@ class PostsController < ApplicationController
     @post = Post.new(params[:post])
 
     if @post.save
-      redirect_to(public_post_path(@post))
+      redirect_to(universal_public_post_path(@post))
     else
       render "form"
     end
