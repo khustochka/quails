@@ -66,7 +66,7 @@ class SpeciesController < ApplicationController
         format.json { render json: @species }
       else
         format.html { render :form }
-        format.json { render json: @species.errors, status: :unprocessable_entity }
+        format.json { render json: @species.errors, status: :unprocessable_content }
       end
     end
   end

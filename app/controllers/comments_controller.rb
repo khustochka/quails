@@ -58,7 +58,7 @@ class CommentsController < ApplicationController
   def create
     if params[:comment].delete(:name).present?
 
-      render plain: "Error", status: :unprocessable_entity
+      render plain: "Error", status: :unprocessable_content
 
     else
 
@@ -128,7 +128,7 @@ class CommentsController < ApplicationController
           format.html {
             @parent_comment = @comment.parent_comment
             if request.xhr?
-              render plain: @comment.errors.full_messages.to_sentence, status: :unprocessable_entity
+              render plain: @comment.errors.full_messages.to_sentence, status: :unprocessable_content
             else
               render action: "reply"
             end
@@ -148,7 +148,7 @@ class CommentsController < ApplicationController
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
-        format.json { render json: @comment.errors, status: :unprocessable_entity }
+        format.json { render json: @comment.errors, status: :unprocessable_content }
       end
     end
   end

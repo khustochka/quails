@@ -19,7 +19,7 @@ class ObservationsController < ApplicationController
         format.json { head :no_content }
       else
         format.html { render :show }
-        format.json { render json: @observation.errors, status: :unprocessable_entity }
+        format.json { render json: @observation.errors, status: :unprocessable_content }
       end
     end
   end

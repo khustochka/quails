@@ -35,7 +35,7 @@ class FlickrPhotosController < ApplicationController
     if request.format.html?
       render :show
     else
-      render json: @photo.as_json(only: %w[image errors]), status: @photo.errors.any? ? :unprocessable_entity : :ok
+      render json: @photo.as_json(only: %w[image errors]), status: @photo.errors.any? ? :unprocessable_content : :ok
     end
   end
 
