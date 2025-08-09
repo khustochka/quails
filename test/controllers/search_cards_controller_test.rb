@@ -38,7 +38,7 @@ class SearchCardsControllerTest < ActionController::TestCase
     assert_response :success
     cards = assigns(:cards)
     assert_not_nil cards
-    assert_predicate cards.find { |c| (c.observations.find { |o| o.taxon_id == aves_sp_id }).present? }, :present?,
+    assert_predicate cards.find { |c| c.observations.find { |o| o.taxon_id == aves_sp_id }.present? }, :present?,
       "Expected to include Bird sp."
     assert_select "li b", "bird sp."
   end
