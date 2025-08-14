@@ -32,7 +32,7 @@ class Post < ApplicationRecord
   validate :check_slug_suffix
 
   has_many :comments, dependent: :destroy
-  has_many :cards, -> { order("observ_date ASC, locus_id") }, dependent: :nullify, inverse_of: :post
+  has_many :cards, -> { order(:observ_date, :locus_id) }, dependent: :nullify, inverse_of: :post
   has_many :observations, dependent: :nullify # only those attached directly
   #  has_many :species, -> { order(:index_num).distinct }, through: :observations
   #  has_many :images, -> {
@@ -108,7 +108,7 @@ class Post < ApplicationRecord
   end
 
   def self.years
-    order("year").distinct.pluck(Arel.sql("EXTRACT(year from face_date)::integer AS year"))
+    order(:year).distinct.pluck(Arel.sql("EXTRACT(year from face_date)::integer AS year"))
   end
 
   # Associations

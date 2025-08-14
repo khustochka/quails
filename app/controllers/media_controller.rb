@@ -22,6 +22,6 @@ class MediaController < ApplicationController
       else
         Media.where(spot_id: nil)
       end
-    @media = media.preload(taxa: :species).order("created_at DESC").page(params[:page].to_i).per(24)
+    @media = media.preload(taxa: :species).order(created_at: :desc).page(params[:page].to_i).per(24)
   end
 end

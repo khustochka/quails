@@ -21,7 +21,7 @@ class YearContest
   def run(interactive: false)
     obs = MyObservation.joins(:card)
       .where("EXTRACT(year FROM observ_date)::integer = ?", @year)
-      .order("observ_date")
+      .order(:observ_date)
       .distinct
       .pluck("observ_date, species_id")
       .group_by(&:first)

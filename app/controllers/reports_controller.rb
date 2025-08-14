@@ -30,7 +30,7 @@ class ReportsController < ApplicationController
     sort_val = params[:sort].try(:to_sym)
     if @period >= 30
       sort_col = sort_val || :date2
-      query = MyObservation.joins(:card).select("species_id, observ_date").order("observ_date").to_sql
+      query = MyObservation.joins(:card).select("species_id, observ_date").order(:observ_date).to_sql
       @list = Observation.connection.select_rows(query).group_by(&:first).each_with_object([]) do |obsdata, collection|
         sp, obss = obsdata
         obs = obss.map(&:second).each_cons(2).select do |ob1, ob2|
@@ -64,19 +64,19 @@ class ReportsController < ApplicationController
     ).group(:species_id)
 
     @no_photo = Species.select("*")
-      .joins("INNER JOIN (#{unpic_rel.to_sql}) AS obs ON species.id=obs.species_id").order("cnt DESC")
+      .joins("INNER JOIN (#{unpic_rel.to_sql}) AS obs ON species.id=obs.species_id").order(cnt: :desc)
       .where("cnt > 1")
 
     new_pic = MyObservation.joins(:images).select("species_id, MIN(media.created_at) as add_date")
       .group(:species_id)
     @new_pics = Species.select("*").joins("INNER JOIN (#{new_pic.to_sql}) AS obs ON species.id=obs.species_id")
-      .limit(15).order("add_date DESC")
+      .limit(15).order(add_date: :desc)
 
     long_rel = MyObservation.joins(:images, :card).select("species_id, MAX(observ_date) as lastphoto")
       .group(:species_id).having("MAX(observ_date) < (now() - interval '3 years')")
 
     @long_time = Species.select("*")
-      .joins("INNER JOIN (#{long_rel.to_sql}) AS obs ON species.id=obs.species_id").order("lastphoto")
+      .joins("INNER JOIN (#{long_rel.to_sql}) AS obs ON species.id=obs.species_id").order(:lastphoto)
 
     sort_col = :date2
 
@@ -221,7 +221,7 @@ class ReportsController < ApplicationController
                                       COUNT(observations.id) as count_obs,
                                       COUNT(DISTINCT observ_date) as count_days,
                                       COUNT(DISTINCT species_id) as count_species')
-      .group("EXTRACT(year FROM observ_date)").order("year")
+      .group("EXTRACT(year FROM observ_date)").order(:year)
 
     @first_sp_by_year =
       lifelist_filtered.group("EXTRACT(year FROM observ_date)::integer").count(:all)
@@ -316,7 +316,7 @@ class ReportsController < ApplicationController
         .select("species_id, MIN(observ_date) as first_date")
         .where("extract(year from observ_date) = ?", yr)
         .group(:species_id)
-      dates = Observation.from(list).order("first_date")
+      dates = Observation.from(list).order(:first_date)
         .group(:first_date).count(:species_id)
       @data[yr] = dates.inject([]) do |memo, (dt, cnt)|
         memo << [[dt.month, dt.day], (memo.last.try(&:last) || 0) + cnt]
