@@ -137,20 +137,20 @@
   resolved "https://registry.yarnpkg.com/@esbuild/win32-x64/-/win32-x64-0.25.9.tgz#585624dc829cfb6e7c0aa6c3ca7d7e6daa87e34f"
   integrity sha512-PPOl1mi6lpLNQxnGoyAfschAodRFYXJ+9fs6WHXz7CSWKbOqiMZsubC+BQsVKuul+3vKLuwTHsS2c2y9EoKwxQ==
 
-"@honeybadger-io/core@^6.7.1":
-  version "6.7.1"
-  resolved "https://registry.yarnpkg.com/@honeybadger-io/core/-/core-6.7.1.tgz#db781ae12ec3ecb6aaefa25e596ea907046ce377"
-  integrity sha512-SICua+JCAtJUip2bpbrRplv3RPhV2qmTzohsiQ8J1x259bKNAoE6GbGbKMpyBFRPK+GFDEEmCLzhbvQhbB/KJw==
+"@honeybadger-io/core@^6.7.2":
+  version "6.7.2"
+  resolved "https://registry.yarnpkg.com/@honeybadger-io/core/-/core-6.7.2.tgz#fdc120206dbff0382b7d21bd26dd34d5051975fe"
+  integrity sha512-4+hyrFI0S/Eni2cBgO40Lqyft5hyNXjgnuh1EbeH457kty8g4YatJYuHBffmrjwLiZHgFbWXRGv7SlG+NehC5Q==
   dependencies:
     json-nd "^1.0.0"
     stacktrace-parser "^0.1.10"
 
-"@honeybadger-io/js@^6.11.2":
-  version "6.11.2"
-  resolved "https://registry.yarnpkg.com/@honeybadger-io/js/-/js-6.11.2.tgz#5f2befff595f94c7406a5a6cde09fa90348d7985"
-  integrity sha512-nus9ytWiOuJEshgRnpYdxLGbCkMTMZS1SuNmjJfA/lf5RG1y855acWuczSDOCjdY9znqP1pC0lJ/dPb9RDlaAg==
+"@honeybadger-io/js@^6.11.3":
+  version "6.11.3"
+  resolved "https://registry.yarnpkg.com/@honeybadger-io/js/-/js-6.11.3.tgz#6c5aebf2af51e46f8af07e33b7f59ab368738370"
+  integrity sha512-5GpnGehR1vsZRttsJSnQC8aUx2C/t8r4uTzGtULeFbwKLbnAa57EWZpT+YCm7ypGkj1sHCxUg7uKrT/r0xXTBQ==
   dependencies:
-    "@honeybadger-io/core" "^6.7.1"
+    "@honeybadger-io/core" "^6.7.2"
     "@types/aws-lambda" "^8.10.89"
     "@types/express" "^5.0.3"
 
@@ -221,11 +221,11 @@
   integrity sha512-/pyBZWSLD2n0dcHE3hq8s8ZvcETHtEuF+3E7XVt0Ig2nvsVQXdghHVcEkIWjy9A0wKfTn97a/PSDYohKIlnP/w==
 
 "@types/node@*":
-  version "24.3.0"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-24.3.0.tgz#89b09f45cb9a8ee69466f18ee5864e4c3eb84dec"
-  integrity sha512-aPTXCrfwnDLj4VvXrm+UUCQjNEvJgNA8s5F1cvwQU+3KNltTOkBm1j30uNLyqqPNe7gE3KFzImYoZEfLhp4Yow==
+  version "24.4.0"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-24.4.0.tgz#4ca9168c016a55ab15b7765ad1674ab807489600"
+  integrity sha512-gUuVEAK4/u6F9wRLznPUU4WGUacSEBDPoC2TrBkw3GAnOLHBL45QdfHOXp1kJ4ypBGLxTOB+t7NJLpKoC3gznQ==
   dependencies:
-    undici-types "~7.10.0"
+    undici-types "~7.11.0"
 
 "@types/qs@*":
   version "6.14.0"
@@ -349,7 +349,7 @@ type-fest@^0.7.1:
   resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-0.7.1.tgz#8dda65feaf03ed78f0a3f9678f1869147f7c5c48"
   integrity sha512-Ne2YiiGN8bmrmJJEuTWTLJR32nh/JdL1+PSicowtNb0WFpn59GK8/lfD61bVtzguz7b3PBt74nxpv/Pw5po5Rg==
 
-undici-types@~7.10.0:
-  version "7.10.0"
-  resolved "https://registry.yarnpkg.com/undici-types/-/undici-types-7.10.0.tgz#4ac2e058ce56b462b056e629cc6a02393d3ff350"
-  integrity sha512-t5Fy/nfn+14LuOc2KNYg75vZqClpAiqscVvMygNnlsHBFpSXdJaYtXMcdNLpl/Qvc3P2cB3s6lOV51nqsFq4ag==
+undici-types@~7.11.0:
+  version "7.11.0"
+  resolved "https://registry.yarnpkg.com/undici-types/-/undici-types-7.11.0.tgz#075798115d0bbc4e4fc7c173f38727ca66bfb592"
+  integrity sha512-kt1ZriHTi7MU+Z/r9DOdAI3ONdaR3M3csEaRc6ewa4f4dTvX4cQCbJ4NkEn0ohE4hHtq85+PhPSTY+pO/1PwgA==
