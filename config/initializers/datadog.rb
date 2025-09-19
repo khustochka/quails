@@ -10,10 +10,10 @@ if ENV["DD_ENABLED"].in?(["true", "1"])
       c.version = Regexp.last_match(1)
     end
 
-    c.tracing.instrument :rails
-    c.tracing.instrument :active_record
-    c.tracing.instrument :active_support
-    c.tracing.instrument :aws
+    c.tracing.instrument :rails, service_name: "quails"
+    c.tracing.instrument :active_record, service_name: "quails-postgres"
+    c.tracing.instrument :active_support, cache_service: "quails-rails-cache"
+    c.tracing.instrument :aws # Autodetected
 
     if defined?(Rake)
       c.tracing.instrument :rake, tasks: TRACED_TASKS
