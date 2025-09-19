@@ -114,7 +114,7 @@ class Post < ApplicationRecord
   # Associations
 
   def species
-    Species.distinct.joins(:cards, :observations).where("cards.post_id = ? OR observations.post_id = ?", observation_post.id, observation_post.id)
+    Species.distinct.joins(:cards).where("cards.post_id = ? OR observations.post_id = ?", observation_post.id, observation_post.id)
       .order(:index_num)
   end
 

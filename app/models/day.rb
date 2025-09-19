@@ -25,7 +25,7 @@ class Day
 
   def species
     @species ||=
-      Species.distinct.joins(:cards, :observations).merge(cards).order(:index_num)
+      Species.distinct.joins(:cards).merge(cards).order(:index_num)
   end
 
   def lifer_species_ids
