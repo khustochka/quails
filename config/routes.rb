@@ -297,6 +297,7 @@ Rails.application.routes.draw do
   post "/reports/five_mile_radius" => "reports/five_mile_radius#update"
 
   post "/clear_cache" => "reports#clear_cache"
+  post "/send_test_email" => "reports#send_test_email"
 
   resources :corrections do
     get :start, on: :member

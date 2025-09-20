@@ -373,6 +373,11 @@ class ReportsController < ApplicationController
     redirect_to reports_path
   end
 
+  def send_test_email
+    EmailTestJob.perform_later
+    redirect_to reports_path
+  end
+
   def server_error
     raise "Intentionally produced Server Error"
   end
