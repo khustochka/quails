@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.configure do
-  config.lograge.enabled = !Rails.env.development?
+  config.lograge.enabled = Rails.env.production?
 
   config.lograge.custom_options = lambda do |event|
     exceptions = %w(controller action format id)

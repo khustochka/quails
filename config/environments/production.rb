@@ -72,6 +72,9 @@ Rails.application.configure do
   # Log to STDOUT by default
   config.logger = ActiveSupport::Logger.new($stdout)
 
+  # No coloring of logs in production env.
+  config.colorize_logging = false
+
   # Log to STDOUT with the current request id as a default log tag.
   config.log_tags = [ :request_id ]
 
