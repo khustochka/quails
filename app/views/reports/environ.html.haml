@@ -54,10 +54,10 @@
         %th Docker image
         %td= docker_image
 
-    - ENV["ACTIVE_BACKEND"].if_present do |active_backend|
+    - ENV["BACKEND_COLOR"].if_present do |color|
       %tr
-        %th Active backend
-        %td= active_backend
+        %th Backend color (Active backend)
+        %td= color
 
     - Quails.revision.if_present do |revision|
       %tr
