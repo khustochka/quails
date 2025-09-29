@@ -49,7 +49,7 @@ services:
       - rails_app_storage:/app/storage
 
   database:
-    image: postgres:17.6-bookworm
+    image: postgres:18.0-bookworm
     environment:
       POSTGRES_USER: quails
       POSTGRES_PASSWORD: quails
@@ -57,7 +57,7 @@ services:
     ports:
       - "5499:5432"
     volumes:
-      - db_data17:/var/lib/postgresql/data
+      - db_data:/var/lib/postgresql
 
   redis-cache:
     image: redis:8.2.1-bookworm
@@ -69,7 +69,7 @@ services:
 
 # Declare the volumes that our application uses.
 volumes:
-  db_data17:
+  db_data:
   cache_data:
   rails_app_storage:
   rails_app_tmp:

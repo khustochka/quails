@@ -32,10 +32,10 @@ services:
         condition: service_healthy
 
   db:
-    image: postgres:17.6-bookworm
+    image: postgres:18.0-bookworm
     restart: unless-stopped
     volumes:
-      - postgres-data-17:/var/lib/postgresql/data
+      - postgres-data:/var/lib/postgresql
       - ./create-db-user.sql:/docker-entrypoint-initdb.d/create-db-user.sql
     environment:
       POSTGRES_USER: quails
@@ -64,7 +64,7 @@ services:
       interval: 5s
 
 volumes:
-  postgres-data-17:
+  postgres-data:
   bundle:
   node_modules:
   packs:
