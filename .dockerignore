@@ -9,7 +9,8 @@ storage/**/*
 !storage/.keep
 
 Dockerfile
-docker-compose.yml
+compose.yml
+compose-full.yml
 
 db/*.sqlite3
 db/*.sqlite3-*
