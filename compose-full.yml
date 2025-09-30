@@ -55,7 +55,7 @@ services:
       POSTGRES_PASSWORD: quails
       POSTGRES_DB: quails_production
     ports:
-      - "5499:5432"
+      - "50499:5432"
     volumes:
       - db_data:/var/lib/postgresql
 

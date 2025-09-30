@@ -1,0 +1,15 @@
+services:
+  database_dev:
+    image: postgres:18.0-bookworm
+    environment:
+      POSTGRES_USER: quails
+      POSTGRES_PASSWORD: quails
+      POSTGRES_DB: quails_development
+    ports:
+      - "5499:5432"
+    volumes:
+      - db_data_dev:/var/lib/postgresql
+
+# Declare the volumes that our application uses.
+volumes:
+  db_data_dev:

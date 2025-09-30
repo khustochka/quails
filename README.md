@@ -23,12 +23,33 @@ Some queries are PostgreSQL-specific.
 ### Redis
 Redis is used in production for caching.
 
+## Development
+
+1. Start the DB in docker (in is exposed on port 5499):
+
+```bash
+docker compose up -d
+```
+
+2. Setup (install dependencies, create and migrate the DB):
+
+```bash
+bin/setup
+```
+
+3. Start the application:
+
+```bash
+bin/dev
+```
+
+
 ## Demo
 
 For a quick demo in Docker, run:
 
 ```bash
-docker compose up --build
+docker compose -f compose-full.yml up --build
 ```
 
 In a new terminal run the migrations:
@@ -46,8 +67,6 @@ docker compose exec backend bin/rake db:seed
 The app will be available at http://localhost:3005. 
 
 Login credentials: username `admin`, password `admin`.
-
-Database is exposed on port `5499`.
 
 ## ARM64 issue with Cyrillic
 
