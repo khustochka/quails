@@ -45,7 +45,7 @@ gem "acts_as_list"
 
 # Templating
 gem "haml", "~> 6.2"
-gem "haml-rails"
+gem "haml-rails", "< 3"
 gem "RedCloth"
 gem "rinku"
 
