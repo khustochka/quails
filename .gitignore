@@ -24,6 +24,9 @@
 /tmp/cached_pages/*
 !/tmp/cached_pages/
 !/tmp/cached_pages/.keep
+/tmp/storage/*
+!/tmp/storage/
+!/tmp/storage/.keep
 
 # Ignore uploaded files in development.
 /storage/*
