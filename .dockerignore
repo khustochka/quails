@@ -32,5 +32,8 @@ test
 public/csv
 public/storage
 public/system
+public/packs
+public/packs-test
+public/*.bak
 yarn-error.log
 doc
