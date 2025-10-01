@@ -116,6 +116,10 @@ ENV DD_TAGS="git.repository_url:${GIT_REPOSITORY_URL},git.commit.sha:${GIT_REVIS
 ARG DEPLOY_PACKAGES="libvips42 libjpeg62-turbo-dev postgresql-client file curl gzip bzip2 net-tools netcat-openbsd bind9-dnsutils procps libjemalloc2"
 # ENV DEPLOY_PACKAGES=${DEPLOY_PACKAGES}
 
+RUN set -x \
+    && groupadd --system --gid 101 quails \
+    && useradd --system --gid quails --no-create-home --home /nonexistent --comment "quails user" --shell /bin/false --uid 101 quails
+    
 RUN --mount=type=cache,id=prod-apt-cache,sharing=locked,target=/var/cache/apt \
     --mount=type=cache,id=prod-apt-lib,sharing=locked,target=/var/lib/apt \
     apt-get update -qq && \
@@ -163,8 +167,8 @@ COPY . .
 VOLUME ["/app/storage"]
 VOLUME ["/app/tmp"]
 
-RUN chown -R 1001 /app/storage
-RUN chown -R 1001 /app/tmp
+RUN chown -R 101 /app/storage
+RUN chown -R 101 /app/tmp
 
 # Adopted from bitnami/nginx image 
 # Left for compatibility
@@ -173,7 +177,7 @@ RUN chmod g+rwX /app/tmp
 RUN chmod g+rwX /app/storage
 RUN find / -perm /6000 -type f -exec chmod a-s {} \; || true
 
-USER 1001
+USER 101
 
 ENV PORT=3000
 # Port is not exposed, and the command is not `rails server`, because this image can be used
