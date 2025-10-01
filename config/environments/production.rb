@@ -153,9 +153,10 @@ Rails.application.configure do
 
   # Alternative location for page caching
   # App user should be able to write to this location, but we do not want it to write to 'public'
-  # FIXME: files from this folder are not served by Rails. Nginx not yet setup to serve static files.
-  # And /public is not writable.
-  config.action_controller.page_cache_directory = Rails.root.join("tmp/cached_pages")
-  # This does not work:
-  # config.paths["public"] << "tmp/cached_pages"
+  # To fully benefit from this, web server should be configured to serve cached pages from this location.
+  ENV["CACHED_PAGES_PATH"].yield_self do |path|
+    if path.present?
+      config.action_controller.page_cache_directory = path
+    end
+  end
 end
