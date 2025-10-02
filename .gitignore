@@ -21,9 +21,6 @@
 /tmp/pids/*
 !/tmp/pids/
 !/tmp/pids/.keep
-/tmp/cached_pages/*
-!/tmp/cached_pages/
-!/tmp/cached_pages/.keep
 
 # Ignore uploaded files in development.
 /storage/*

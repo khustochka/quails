@@ -32,7 +32,6 @@ ENV BUNDLE_WITHOUT=${BUNDLE_WITHOUT}
 
 RUN mkdir /app
 WORKDIR /app
-# RUN mkdir -p tmp/pids
 
 RUN gem update --system --no-document 
 RUN bundle config set deployment true
@@ -164,17 +163,22 @@ COPY . .
 # #     sed -i 's/ruby.exe/ruby/' /app/bin/* && \
 # #     sed -i '/^#!/aDir.chdir File.expand_path("..", __dir__)' /app/bin/*
 
+
+RUN mkdir -p /app/public_static
+
+RUN chown -R 101:101 /app/storage
+RUN chown -R 101:101 /app/tmp
+RUN chown -R 101:101 /app/public_static
+
 VOLUME ["/app/storage"]
 VOLUME ["/app/tmp"]
-
-RUN chown -R 101 /app/storage
-RUN chown -R 101 /app/tmp
+VOLUME ["/app/public_static"]
 
 # Adopted from bitnami/nginx image 
 # Left for compatibility
-RUN chmod g+rwX /app/tmp   
+RUN chmod -R g+rwX /app/tmp   
 # RUN chmod g+rwX /app/tmp/pids
-RUN chmod g+rwX /app/storage
+RUN chmod -R g+rwX /app/storage
 RUN find / -perm /6000 -type f -exec chmod a-s {} \; || true
 
 USER 101

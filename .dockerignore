@@ -2,7 +2,6 @@
 **/.*
 tmp/**/*
 !tmp/pids/.keep
-!tmp/cached_pages/.keep
 log
 public/assets
 app/assets/builds/*
