@@ -190,6 +190,10 @@ Rails.application.routes.draw do
   end
   get "/sitemap.:format" => "feeds#sitemap", constraints: { format: "xml" }
 
+  # Health checks
+  get "/up" => "health_check_rb/health_check#index", defaults: { checks: "site" }
+  get "/healthy" => "health_check_rb/health_check#index", defaults: { checks: "database" }
+
   # ADMINISTRATIVE PAGES
 
   resources :posts, except: [:index, :show] do

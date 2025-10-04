@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 # TODO: only for web?
-HealthCheck.setup do |config|
+HealthCheckRb.setup do |config|
+  config.declare_routes = false
+
   # bucket names to test connectivity - required only if s3 check used, access permissions can be mixed
   buckets = [ENV["S3_DEV_BUCKET"], ENV["S3_PROD_BUCKET"]].filter_map(&:presence)
   config.buckets = buckets.index_with { |_b| [:R, :W, :D]}

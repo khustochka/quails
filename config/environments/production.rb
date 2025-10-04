@@ -82,7 +82,7 @@ Rails.application.configure do
   config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "info")
 
   # Prevent health checks from clogging up the logs.
-  config.silence_healthcheck_path = "/health_check"
+  config.silence_healthcheck_path = "/healthy"
 
   # Don't log any deprecations.
   config.active_support.report_deprecations = false
@@ -143,7 +143,7 @@ Rails.application.configure do
     config.hosts << "birdwatch.org.ua"
   end
   config.host_authorization = {
-    exclude: ->(request) { request.path.include?("/health_check") },
+    exclude: ->(request) { request.path.include?("/healthy") || request.path.include?("/up") },
     response_app: ->(_) { [403, {}, ["Incorrect host name"]] },
   }
 

@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/khustochka/health_check_rb.git
+  revision: 773d63ac66563247ec623031eb9139f23b76ffdc
+  branch: skip-routes
+  specs:
+    health_check_rb (4.0.1.pre.main)
+      railties (>= 5.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -178,8 +186,6 @@ GEM
       haml (>= 4.0.6)
       railties (>= 5.1)
     hashdiff (1.2.1)
-    health_check (3.1.0)
-      railties (>= 5.0)
     high_voltage (4.0.0)
     hiredis-client (0.26.1)
       redis-client (= 0.26.1)
@@ -540,7 +546,7 @@ DEPENDENCIES
   good_job (~> 4.0)
   haml (~> 6.2)
   haml-rails (~> 3.0)
-  health_check
+  health_check_rb!
   high_voltage
   hiredis-client
   honeybadger (~> 6.0)
