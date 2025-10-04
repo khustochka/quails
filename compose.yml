@@ -10,6 +10,16 @@ services:
     volumes:
       - db_data_dev:/var/lib/postgresql
 
+  redis-cache-dev:
+    image: redis:8.2.1-bookworm
+    command: redis-server --maxmemory 25mb --maxmemory-policy allkeys-lru --save 120 1
+    ports:
+      - "6399:6379"
+    # It may be beneficial to preserve cache between deploys, but it can be cleared
+    volumes:
+      - cache_data:/data
+
 # Declare the volumes that our application uses.
 volumes:
   db_data_dev:
+  cache_data:
