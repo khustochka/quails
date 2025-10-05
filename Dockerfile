@@ -168,6 +168,7 @@ RUN mkdir -p /app/public_static
 
 RUN chown -R 101:101 /app/storage
 RUN chown -R 101:101 /app/tmp
+RUN chown -R 101:101 /app/public
 RUN chown -R 101:101 /app/public_static
 
 VOLUME ["/app/storage"]
