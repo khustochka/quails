@@ -14,7 +14,7 @@ services:
       - rails_log:/workspaces/quails/log
 
     environment:
-      DATABASE_URL: postgres://quails:quails@db 
+      DATABASE_URL: postgres://quails:quails@db:5432
       JS_BROWSER: headless_firefox 
       PARALLEL_WORKERS: 2
 
@@ -39,7 +39,7 @@ services:
       - ./create-db-user.sql:/docker-entrypoint-initdb.d/create-db-user.sql
     environment:
       POSTGRES_USER: quails
-      POSTGRES_DB: postgres
+      POSTGRES_DB: quails_development
       POSTGRES_PASSWORD: quails
       # Your config/database.yml should use the user and password you set here,
       # and host "db" (as that's the name of this service). You can use whatever
