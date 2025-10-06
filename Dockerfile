@@ -87,6 +87,11 @@ RUN yarn install --check-files --frozen-lockfile --production
 
 COPY . .
 
+# Fix for ARM64 RedCloth issue: https://github.com/jgarber/redcloth/issues/91
+# TODO: do this for ARM64 platform only.
+# TODO: resolve Ruby version in path
+RUN mv /app/lib/redcloth/redcloth_scan.so /app/vendor/bundle/ruby/3.4.0/gems/RedCloth-4.3.4/lib
+
 # The following enable assets to precompile on the build server. 
 ENV SECRET_KEY_BASE=1
 ENV NODE_ENV=production
