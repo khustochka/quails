@@ -46,7 +46,7 @@ gem "acts_as_list"
 # Templating
 gem "haml", "~> 6.2"
 gem "haml-rails", "~> 3.0"
-gem "RedCloth"
+gem "RedCloth", git: "https://github.com/moneybird/redcloth.git", ref: "ae8d6a91826734ad0a24dfed649e4c6c05283a59"
 gem "rinku"
 
 # Parsing html

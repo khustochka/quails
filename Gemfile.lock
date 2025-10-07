@@ -6,10 +6,16 @@ GIT
     health_check_rb (4.0.1.pre.main)
       railties (>= 5.0)
 
+GIT
+  remote: https://github.com/moneybird/redcloth.git
+  revision: ae8d6a91826734ad0a24dfed649e4c6c05283a59
+  ref: ae8d6a91826734ad0a24dfed649e4c6c05283a59
+  specs:
+    RedCloth (4.3.4)
+
 GEM
   remote: https://gem.coop/
   specs:
-    RedCloth (4.3.4)
     actioncable (8.0.3)
       actionpack (= 8.0.3)
       activesupport (= 8.0.3)
@@ -514,7 +520,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  RedCloth
+  RedCloth!
   actioncable (= 8.0.3)
   actionmailer (= 8.0.3)
   actionpack (= 8.0.3)
