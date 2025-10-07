@@ -14,7 +14,7 @@ services:
       - rails_log:/workspaces/quails/log
 
     environment:
-      DATABASE_URL: postgres://quails:quails@db 
+      DATABASE_URL: postgres://quails:quails@db:5432
       JS_BROWSER: headless_firefox 
       PARALLEL_WORKERS: 2
 
