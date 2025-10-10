@@ -56,7 +56,7 @@ gem "nokogiri"
 gem "kaminari"
 gem "simple_form"
 gem "high_voltage"
-gem "health_check_rb", git: "https://github.com/khustochka/health_check_rb.git", branch: "skip-routes"
+gem "health_check_rb", git: "https://github.com/khustochka/health_check_rb.git", ref: "773d63ac66563247ec623031eb9139f23b76ffdc"
 
 # External services
 gem "flickraw-cached"
