@@ -5,7 +5,9 @@ default: &default
   encoding: unicode
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
-  pool: <%= (ENV.fetch("RAILS_MAX_THREADS") { 5 }) %>
+  # Also GoodJob needs a specific number that is not equal to RAILS_MAX_THREADS
+  # See also: https://island94.org/2024/09/secret-to-rails-database-connection-pool-size
+  pool: <%= (ENV["DATABASE_POOL_SIZE"] || ENV.fetch("RAILS_MAX_THREADS") { 5 }) %>
 
 development:
   <<: *default
@@ -14,6 +16,8 @@ development:
   user: quails
   password: quails
   port: 5499
+  # https://github.com/bensheldon/good_job?tab=readme-ov-file#database-connections
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS", 5).to_i + 1 + 2 + ENV.fetch("GOOD_JOB_MAX_THREADS", 6).to_i %>
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
