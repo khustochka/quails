@@ -109,7 +109,8 @@ LABEL org.opencontainers.image.source=$GIT_REPOSITORY_URL
 
 ENV GIT_REVISION=${GIT_REVISION}
 ENV GIT_REPOSITORY_URL=${GIT_REPOSITORY_URL}
-ENV DD_TAGS="git.repository_url:${GIT_REPOSITORY_URL},git.commit.sha:${GIT_REVISION}"
+ENV DD_CONTAINER_LABELS_AS_TAGS='{"org.opencontainers.image.source":"git.repository_url","org.opencontainers.image.revision":"git.commit.sha"}'
+# ENV DD_TAGS="git.repository_url:${GIT_REPOSITORY_URL} git.commit.sha:${GIT_REVISION}"
 
 # Whether to install debug packages
 ARG DEBUG=false
