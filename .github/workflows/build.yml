@@ -67,3 +67,5 @@ jobs:
             GIT_REPOSITORY_URL=${{ format('{0}/{1}', github.server_url, github.repository) }}
           push: true
           tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          annotations: ${{ steps.meta.outputs.annotations }}
