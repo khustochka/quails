@@ -111,8 +111,11 @@ ENV GIT_REVISION=${GIT_REVISION}
 ENV GIT_REPOSITORY_URL=${GIT_REPOSITORY_URL}
 ENV DD_TAGS="git.repository_url:${GIT_REPOSITORY_URL},git.commit.sha:${GIT_REVISION}"
 
+# Whether to install debug packages
+ARG DEBUG=false
 # ARG DEPLOY_PACKAGES="postgresql-client file vim curl gzip bzip2 htop net-tools bind9-dnsutils"
-ARG DEPLOY_PACKAGES="libvips42 libjpeg62-turbo-dev postgresql-client file curl gzip bzip2 net-tools netcat-openbsd bind9-dnsutils procps libjemalloc2"
+ARG DEPLOY_PACKAGES="libvips42 libjpeg62-turbo-dev libjemalloc2 file curl gzip bzip2"
+ARG DEBUG_PACKAGES="postgresql-client net-tools netcat-openbsd bind9-dnsutils procps"
 # ENV DEPLOY_PACKAGES=${DEPLOY_PACKAGES}
 
 RUN set -x \
@@ -123,7 +126,7 @@ RUN --mount=type=cache,id=prod-apt-cache,sharing=locked,target=/var/cache/apt \
     --mount=type=cache,id=prod-apt-lib,sharing=locked,target=/var/lib/apt \
     apt-get update -qq && \
     apt-get install --no-install-recommends -y \
-    ${DEPLOY_PACKAGES} \
+    ${DEPLOY_PACKAGES} $(if [ "${DEBUG:-}" = "true" ]; then echo ${DEBUG_PACKAGES}; else echo ""; fi) \
     && rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 ENV LD_PRELOAD="libjemalloc.so.2"

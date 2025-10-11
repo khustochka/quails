@@ -19,6 +19,12 @@ on:
         options:
         - linux/amd64,linux/arm64
         - linux/amd64
+      debug:
+        default: false
+        required: false
+        description: "Include additional packages"
+        type: boolean
+
 jobs:
   build_and_push:
     name: "Build and push"
