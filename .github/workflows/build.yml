@@ -50,13 +50,14 @@ jobs:
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
-          username: khustochka
+          username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
         env:
           AWS_REGION: us-east-1
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Build and push
+        id: push
         uses: docker/build-push-action@v5
         with:
           # Path context is required for .dockerignore to work.
@@ -69,3 +70,9 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           annotations: ${{ steps.meta.outputs.annotations }}
+      - name: Generate artifact attestation
+        uses: actions/attest-build-provenance@v3
+        with:
+          subject-name: ghcr.io/khustochka/quails
+          subject-digest: ${{ steps.push.outputs.digest }}
+          push-to-registry: true
