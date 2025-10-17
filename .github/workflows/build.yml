@@ -35,7 +35,7 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: |
-            public.ecr.aws/m7x1i1o0/quails-app
+            ghcr.io/khustochka/quails
           tags: |
             type=raw,value=latest,suffix=${{inputs.debug && '-debug' || ''}},enable=${{ github.ref == format('refs/heads/{0}', 'main') }}
             # type=raw,value={{branch}}-latest,suffix=${{inputs.debug && '-debug' || ''}},enable=${{ github.ref != format('refs/heads/{0}', 'main') && startsWith(github.ref, 'refs/heads/') }}
@@ -49,9 +49,9 @@ jobs:
       - name: Login to Registry
         uses: docker/login-action@v3
         with:
-          registry: public.ecr.aws
-          username: ${{ secrets.DOCKER_AWS_ACCESS_KEY_ID }}
-          password: ${{ secrets.DOCKER_AWS_SECRET_ACCESS_KEY }}
+          registry: ghcr.io
+          username: khustochka
+          password: ${{ secrets.GITHUB_TOKEN }}
         env:
           AWS_REGION: us-east-1
       - name: Checkout code
