@@ -29,6 +29,11 @@ jobs:
   build_and_push:
     name: "Build and push"
     runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+      attestations: write
+      id-token: write
     steps:
       - name: Docker meta
         id: meta
