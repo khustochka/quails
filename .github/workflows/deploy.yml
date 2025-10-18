@@ -18,13 +18,17 @@ on:
         type: string
         required: true
         description: "Image tag"
+      deploy_env:
+        type: string
+        required: true
+        description: "Deployment environment"
 
 jobs:
   deploy:
     name: "Deploy"
     runs-on: ubuntu-latest
-    environment: production
-    concurrency: production
+    environment: ${{ inputs.deploy_env }}
+    concurrency: ${{ inputs.deploy_env }}
     steps:
       - name: Configure SSH
         run: |
