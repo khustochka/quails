@@ -41,6 +41,8 @@ jobs:
       - name: Configure SSH
         run: |
           mkdir -p ~/.ssh/
+          ssh-keyscan -H bitbucket.org >> ~/.ssh/known_hosts
+          ssh-keyscan -H $SSH_HOST >> ~/.ssh/known_hosts
           echo "$SSH_KEY" > ~/.ssh/private.key
           chmod 600 ~/.ssh/private.key
           cat >>~/.ssh/config <<END
@@ -48,7 +50,6 @@ jobs:
             HostName $SSH_HOST
             User $SSH_USER
             IdentityFile ~/.ssh/private.key
-            StrictHostKeyChecking no
           END
         shell: bash
         env:
