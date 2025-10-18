@@ -41,7 +41,5 @@ jobs:
           SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
 
       - name: Check out the source
-        run: ssh deploy_target 'export DEPLOY_DB_NAME=github-deploys.db && export DOCKER_IMAGE=${{ inputs.image_tag }} && cd $TARGET_DIR && git fetch && git reset --hard origin/main && ./deploy production'
+        run: ssh deploy_target 'export DEPLOY_DB_NAME=github-deploys.db && export DOCKER_IMAGE=${{ inputs.image_tag }} && cd ${{ secrets.DEPLOY_TARGET_DIR }} && git fetch && git reset --hard origin/main && ./deploy production'
         shell: bash
-        env:
-          TARGET_DIR: ${{ secrets.DEPLOY_TARGET_DIR }}
