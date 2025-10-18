@@ -50,6 +50,9 @@ jobs:
             HostName $SSH_HOST
             User $SSH_USER
             IdentityFile ~/.ssh/private.key
+          Host bitbucket.org
+            HostName bitbucket.org
+            IdentityFile ~/.ssh/private.key
           END
         shell: bash
         env:
