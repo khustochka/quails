@@ -7,8 +7,6 @@ on:
     secrets:
       DEPLOY_SSH_KEY:
         required: true
-      DEPLOY_SSH_USER:
-        required: true
       DEPLOY_SSH_HOST:
         required: true
       DEPLOY_TARGET_DIR:
@@ -43,7 +41,7 @@ jobs:
         shell: bash
         env:
           SSH_HOST: ${{ secrets.DEPLOY_SSH_HOST }}
-          SSH_USER: ${{ secrets.DEPLOY_SSH_USER }}
+          SSH_USER: ${{ vars.DEPLOY_SSH_USER }}
           SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
 
       - name: Check out the source
