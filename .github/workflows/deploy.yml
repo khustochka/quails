@@ -25,15 +25,15 @@ jobs:
       - name: Configure SSH
         run: |
           mkdir -p ~/.ssh/
-          echo "$SSH_KEY" > ~/.ssh/deploy.key
-          chmod 600 ~/.ssh/deploy.key
+          echo "$SSH_KEY" > ~/.ssh/private.key
+          chmod 600 ~/.ssh/private.key
           cat >>~/.ssh/config <<END
           Host deploy_target
             HostName $SSH_HOST
             User $SSH_USER
-            IdentityFile ~/.ssh/deploy.key
+            IdentityFile ~/.ssh/private.key
             StrictHostKeyChecking no
-          END  
+          END
         shell: bash
         env:
           SSH_HOST: ${{ secrets.DEPLOY_SSH_HOST }}
@@ -45,4 +45,3 @@ jobs:
         shell: bash
         env:
           TARGET_DIR: ${{ secrets.DEPLOY_TARGET_DIR }}
-
