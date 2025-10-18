@@ -83,5 +83,5 @@ jobs:
           push-to-registry: true
       - name: Outputs
         id: result
-        run: echo image_tag=${{ steps.meta.outputs.tags[0] }} >> "$GITHUB_OUTPUT"
+        run: echo image_tag=${{ steps.meta.outputs.tags }} >> "$GITHUB_OUTPUT"
         shell: bash
