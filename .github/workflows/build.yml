@@ -34,6 +34,8 @@ jobs:
       contents: read
       attestations: write
       id-token: write
+    outputs:
+      image_tag: ${{ steps.result.outputs.image_tag }}
     steps:
       - name: Docker meta
         id: meta
@@ -43,10 +45,8 @@ jobs:
             ghcr.io/khustochka/quails
           tags: |
             type=raw,value=latest,suffix=${{inputs.debug && '-debug' || ''}},enable=${{ github.ref == format('refs/heads/{0}', 'main') }}
-            # type=raw,value={{branch}}-latest,suffix=${{inputs.debug && '-debug' || ''}},enable=${{ github.ref != format('refs/heads/{0}', 'main') && startsWith(github.ref, 'refs/heads/') }}
             type=raw,priority=1000,value={{tag}},suffix=${{inputs.debug && '-debug' || ''}},enable=${{ startsWith(github.ref, 'refs/tags/') }}
             type=sha,priority=800,prefix={{branch}}-,suffix=${{inputs.debug && '-debug' || ''}},enable=${{ startsWith(github.ref, 'refs/heads/') }}
-            # type=sha,prefix={{tag}}-,suffix=${{inputs.debug && '-debug' || ''}},enable=${{ startsWith(github.ref, 'refs/tags/') }}
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
       - name: Set up Docker Buildx
@@ -81,6 +81,7 @@ jobs:
           subject-name: ghcr.io/khustochka/quails
           subject-digest: ${{ steps.push.outputs.digest }}
           push-to-registry: true
-      - name: Print tags
-        run: echo ${{ steps.meta.outputs.tags }}
+      - name: Outputs
+        id: result
+        run: echo image_tag=${{ steps.meta.outputs.tags[0] }} >> "$GITHUB_OUTPUT"
         shell: bash
