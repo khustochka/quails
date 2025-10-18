@@ -73,7 +73,7 @@ jobs:
 
       - name: Run deployment script
         shell: bash
-        run: docker --version
+        run: docker ps
         # run: cd deploy-scripts/quails && ./deploy ${{ inputs.deploy_env }}
         env:
           DOCKER_IMAGE: ${{ inputs.image_tag }}
