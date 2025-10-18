@@ -3,6 +3,10 @@ on:
   workflow_call:
     inputs:
       image_tag:
+        required: true
+        type: string
+      deploy_env:
+        required: true
         type: string
     secrets:
       DEPLOY_SSH_KEY:
