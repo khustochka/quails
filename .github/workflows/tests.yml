@@ -108,13 +108,24 @@ jobs:
     uses: ./.github/workflows/build.yml
     with: 
       platforms: linux/amd64
-    secrets:
-      DOCKER_AWS_ACCESS_KEY_ID: ${{ secrets.DOCKER_AWS_ACCESS_KEY_ID }}
-      DOCKER_AWS_SECRET_ACCESS_KEY: ${{ secrets.DOCKER_AWS_SECRET_ACCESS_KEY }}
+    # secrets:
+    #   DOCKER_AWS_ACCESS_KEY_ID: ${{ secrets.DOCKER_AWS_ACCESS_KEY_ID }}
+    #   DOCKER_AWS_SECRET_ACCESS_KEY: ${{ secrets.DOCKER_AWS_SECRET_ACCESS_KEY }}
     needs:
       - test
       - system_test
     if: github.ref == 'refs/heads/main'
+
+  deploy:
+    name: "Deploy"
+    uses: ./.github/workflows/deploy.yml
+    with: 
+      docker_image: ${{ needs.build_image.outputs.image_tag }}
+    # secrets:
+    #   DOCKER_AWS_ACCESS_KEY_ID: ${{ secrets.DOCKER_AWS_ACCESS_KEY_ID }}
+    #   DOCKER_AWS_SECRET_ACCESS_KEY: ${{ secrets.DOCKER_AWS_SECRET_ACCESS_KEY }}
+    needs:
+      - build_image
 
 
 #  lint:

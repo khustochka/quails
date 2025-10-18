@@ -1,0 +1,48 @@
+name: CI
+on:
+  workflow_call:
+    inputs:
+      image_tag:
+        type: string
+    secrets:
+      DOCKER_AWS_ACCESS_KEY_ID:
+        required: true
+      DOCKER_AWS_SECRET_ACCESS_KEY:
+        required: true
+
+  workflow_dispatch:
+    inputs:
+      image_tag:
+        type: string
+        required: true
+        description: "Image tag"
+
+jobs:
+  deploy:
+    name: "Deploy"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$SSH_KEY" > ~/.ssh/deploy.key
+          chmod 600 ~/.ssh/deploy.key
+          cat >>~/.ssh/config <<END
+          Host deploy_target
+            HostName $SSH_HOST
+            User $SSH_USER
+            IdentityFile ~/.ssh/deploy.key
+            StrictHostKeyChecking no
+          END  
+        shell: bash
+        env:
+          SSH_HOST: ${{ secrets.DEPLOY_SSH_HOST }}
+          SSH_USER: ${{ secrets.DEPLOY_SSH_USER }}
+          SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+
+      - name: Check out the source
+        run: ssh deploy_target 'export DEPLOY_DB_NAME=github-deploys.db && export DOCKER_IMAGE=${{ inputs.image_tag }} && cd $TARGET_DIR && git fetch && git reset --hard origin/main && ./deploy production'
+        shell: bash
+        env:
+          TARGET_DIR: ${{ secrets.TARGET_DIR }}
+
