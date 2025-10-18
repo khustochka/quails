@@ -4,11 +4,11 @@ on:
     inputs:
       platforms:
         type: string
-    secrets:
-      DOCKER_AWS_ACCESS_KEY_ID:
-        required: true
-      DOCKER_AWS_SECRET_ACCESS_KEY:
-        required: true
+    # secrets:
+    #   DOCKER_AWS_ACCESS_KEY_ID:
+    #     required: true
+    #   DOCKER_AWS_SECRET_ACCESS_KEY:
+    #     required: true
   workflow_dispatch:
     inputs:
       platforms: 
