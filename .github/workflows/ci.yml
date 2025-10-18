@@ -119,7 +119,7 @@ jobs:
     secrets:
       DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
       DEPLOY_SSH_HOST: ${{ secrets.DEPLOY_SSH_HOST }}
-      DEPLOY_TARGET_DIR: ${{ secrets.DEPLOY_TARGET_DIR }}
+      DEPLOY_SCRIPTS_REPO: ${{ secrets.DEPLOY_SCRIPTS_REPO }}
     needs:
       - build_image
 
