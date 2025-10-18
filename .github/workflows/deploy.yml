@@ -27,8 +27,8 @@ on:
         description: "Deployment environment"
         type: choice
         options:
-        - staging
-        - production
+          - staging
+          - production
         default: staging
 
 jobs:
@@ -56,6 +56,17 @@ jobs:
           SSH_USER: ${{ vars.DEPLOY_SSH_USER }}
           SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
 
-      - name: Run deployment script
-        run: ssh deploy_target 'cd ${{ secrets.DEPLOY_TARGET_DIR }} && git fetch && git reset --hard origin/main && ./deploy ${{ inputs.deploy_env }} ${{ inputs.image_tag }}'
+      - name: Checkout deployment scripts
         shell: bash
+        run: |
+          git clone --no-checkout --depth=1 --filter=tree:0 ${{ secrets.DEPLOY_SCRIPTS_REPO }} deploy-scripts
+          cd deploy-scripts
+          git sparse-checkout set --no-cone /quails
+          git checkout
+
+      - name: Run deployment script
+        shell: bash
+        run: ./deploy ${{ inputs.deploy_env }}
+        env:
+          DOCKER_IMAGE: ${{ inputs.image_tag }}
+          DOCKER_HOST: ssh://${{ vars.DEPLOY_SSH_USER }}@${{ secrets.DEPLOY_SSH_HOST }}
