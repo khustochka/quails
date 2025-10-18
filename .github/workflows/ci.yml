@@ -1,4 +1,4 @@
-name: "Quails Tests"
+name: "CI Pipeline"
 on:
   - push
 jobs:
@@ -115,6 +115,7 @@ jobs:
     uses: ./.github/workflows/deploy.yml
     with: 
       image_tag: ${{ needs.build_image.outputs.image_tag }}
+      deploy_env: ${{ github.ref == 'refs/heads/main' && 'production' || 'staging' }}
     secrets:
       DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
       DEPLOY_SSH_HOST: ${{ secrets.DEPLOY_SSH_HOST }}

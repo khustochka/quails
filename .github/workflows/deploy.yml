@@ -19,9 +19,13 @@ on:
         required: true
         description: "Image tag"
       deploy_env:
-        type: string
         required: true
         description: "Deployment environment"
+        type: choice
+        options:
+        - staging
+        - production
+        default: staging
 
 jobs:
   deploy:
