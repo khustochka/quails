@@ -50,10 +50,8 @@ jobs:
         ruby: ['3.2', '3.3']
         driver:
           - name: Chrome
-            js_driver: playwright
             js_browser: chromium
 #          - name: Firefox
-#            js_driver: playwright
 #            js_browser: firefox
     services:
       postgres:
@@ -86,14 +84,13 @@ jobs:
         env:
           # To prevent ugly xvfb warning
           XDG_RUNTIME_DIR: '/tmp/runtime-runner'
-          JS_DRIVER: ${{ matrix.driver.js_driver }}
           JS_BROWSER: ${{ matrix.driver.js_browser }}
         run: bin/rails test:system
       - name: Screenshots
         uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: Screenshots-${{ matrix.ruby }}-${{ matrix.driver.js_driver }}-${{ matrix.driver.js_browser }}
+          name: Screenshots-${{ matrix.ruby }}-${{ matrix.driver.js_browser }}
           path: tmp/screenshots
 
 #  lint:
