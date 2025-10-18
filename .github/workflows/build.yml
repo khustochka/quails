@@ -4,11 +4,10 @@ on:
     inputs:
       platforms:
         type: string
-    # secrets:
-    #   DOCKER_AWS_ACCESS_KEY_ID:
-    #     required: true
-    #   DOCKER_AWS_SECRET_ACCESS_KEY:
-    #     required: true
+    outputs:
+      image_tag:
+        description: "Docker image tag"
+        value: ${{ jobs.build_and_push.outputs.image_tag }}
   workflow_dispatch:
     inputs:
       platforms: 
