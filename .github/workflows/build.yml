@@ -81,3 +81,6 @@ jobs:
           subject-name: ghcr.io/khustochka/quails
           subject-digest: ${{ steps.push.outputs.digest }}
           push-to-registry: true
+      - name: Print tags
+        run: echo ${{ steps.meta.outputs.tags }}
+        shell: bash
