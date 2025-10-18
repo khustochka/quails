@@ -50,6 +50,9 @@ jobs:
             HostName $SSH_HOST
             User $SSH_USER
             IdentityFile ~/.ssh/private.key
+            ControlMaster auto
+            ControlPath ~/.ssh/control-%C
+            ControlPersist yes
           Host bitbucket.org
             HostName bitbucket.org
             IdentityFile ~/.ssh/private.key
@@ -70,7 +73,8 @@ jobs:
 
       - name: Run deployment script
         shell: bash
-        run: cd deploy-scripts/quails && ./deploy ${{ inputs.deploy_env }}
+        run: docker --version
+        # run: cd deploy-scripts/quails && ./deploy ${{ inputs.deploy_env }}
         env:
           DOCKER_IMAGE: ${{ inputs.image_tag }}
           DOCKER_HOST: ssh://${{ vars.DEPLOY_SSH_USER }}@${{ secrets.DEPLOY_SSH_HOST }}
