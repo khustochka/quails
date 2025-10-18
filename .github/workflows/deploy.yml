@@ -25,15 +25,15 @@ jobs:
       - name: Configure SSH
         run: |
           mkdir -p ~/.ssh/
-          echo "$SSH_KEY" > ~/.ssh/deploy.key
-          chmod 600 ~/.ssh/deploy.key
+          echo "$SSH_KEY" > ~/.ssh/private.key
+          chmod 600 ~/.ssh/private.key
           cat >>~/.ssh/config <<END
           Host deploy_target
             HostName $SSH_HOST
             User $SSH_USER
-            IdentityFile ~/.ssh/deploy.key
+            IdentityFile ~/.ssh/private.key
             StrictHostKeyChecking no
-          END  
+          END
         shell: bash
         env:
           SSH_HOST: ${{ secrets.DEPLOY_SSH_HOST }}
@@ -41,8 +41,5 @@ jobs:
           SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
 
       - name: Check out the source
-        run: ssh deploy_target 'export DEPLOY_DB_NAME=github-deploys.db && export DOCKER_IMAGE=${{ inputs.image_tag }} && cd $TARGET_DIR && git fetch && git reset --hard origin/main && ./deploy production'
+        run: ssh deploy_target 'export DEPLOY_DB_NAME=github-deploys.db && export DOCKER_IMAGE=${{ inputs.image_tag }} && cd ${{ secrets.DEPLOY_TARGET_DIR }} && git fetch && git reset --hard origin/main && ./deploy production'
         shell: bash
-        env:
-          TARGET_DIR: ${{ secrets.TARGET_DIR }}
-
