@@ -46,7 +46,7 @@ jobs:
           echo "$SSH_KEY" > ~/.ssh/private.key
           chmod 600 ~/.ssh/private.key
           cat >>~/.ssh/config <<END
-          Host deploy_target
+          Host $SSH_HOST
             HostName $SSH_HOST
             User $SSH_USER
             IdentityFile ~/.ssh/private.key
@@ -73,7 +73,7 @@ jobs:
 
       - name: Run deployment script
         shell: bash
-        run: docker ps
+        run: ssh 
         # run: cd deploy-scripts/quails && ./deploy ${{ inputs.deploy_env }}
         env:
           DOCKER_IMAGE: ${{ inputs.image_tag }}
