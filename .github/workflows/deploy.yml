@@ -4,11 +4,15 @@ on:
     inputs:
       image_tag:
         type: string
-    # secrets:
-    #   DOCKER_AWS_ACCESS_KEY_ID:
-    #     required: true
-    #   DOCKER_AWS_SECRET_ACCESS_KEY:
-    #     required: true
+    secrets:
+      DEPLOY_SSH_KEY:
+        required: true
+      DEPLOY_SSH_USER:
+        required: true
+      DEPLOY_SSH_HOST:
+        required: true
+      DEPLOY_TARGET_DIR:
+        required: true
 
   workflow_dispatch:
     inputs:
