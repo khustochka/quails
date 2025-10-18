@@ -4,7 +4,7 @@ on:
     inputs:
       image_tag:
         type: string
-    secrets:
+    # secrets:
     #   DOCKER_AWS_ACCESS_KEY_ID:
     #     required: true
     #   DOCKER_AWS_SECRET_ACCESS_KEY:
