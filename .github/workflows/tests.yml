@@ -120,7 +120,7 @@ jobs:
     name: "Deploy"
     uses: ./.github/workflows/deploy.yml
     with: 
-      docker_image: ${{ needs.build_image.outputs.image_tag }}
+      image_tag: ${{ needs.build_image.outputs.image_tag }}
     # secrets:
     #   DOCKER_AWS_ACCESS_KEY_ID: ${{ secrets.DOCKER_AWS_ACCESS_KEY_ID }}
     #   DOCKER_AWS_SECRET_ACCESS_KEY: ${{ secrets.DOCKER_AWS_SECRET_ACCESS_KEY }}
