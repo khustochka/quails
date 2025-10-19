@@ -28,13 +28,17 @@ env:
 jobs:
   build:
     name: "Build and push"
-    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        platform:
-          - linux/amd64
-          - linux/arm64
+        arch:
+          - name: "AMD64"
+            platform: linux/amd64
+            runner: ubuntu-24.04
+          - name: "ARM64"
+            platform: linux/arm64
+            runner: ubuntu-24.04-arm
+    runs-on: ${{ matrix.arch.runner }}
     permissions:
       packages: write
       contents: read
@@ -78,7 +82,7 @@ jobs:
             GIT_REVISION=${{ github.sha }}
             GIT_REPOSITORY_URL=${{ format('{0}/{1}', github.server_url, github.repository) }}
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: ${{ env.REGISTRY_IMAGE }}
           labels: ${{ steps.meta.outputs.labels }}
           annotations: ${{ steps.meta.outputs.annotations }}
           outputs: type=image,push-by-digest=true,name-canonical=true,push=true
