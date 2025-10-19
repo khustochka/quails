@@ -2,22 +2,16 @@ name: "Build image"
 on:
   workflow_call:
     inputs:
-      platforms:
-        type: string
+      debug:
+        default: false
+        required: false
+        type: boolean
     outputs:
       image_tag:
         description: "Docker image tag"
         value: ${{ jobs.merge.outputs.image_tag }}
   workflow_dispatch:
     inputs:
-      platforms:
-        default: linux/amd64,linux/arm64
-        required: true
-        description: "Platforms to build for"
-        type: choice
-        options:
-          - linux/amd64,linux/arm64
-          - linux/amd64
       debug:
         default: false
         required: false

@@ -104,7 +104,7 @@ jobs:
     name: "Docker image"
     uses: ./.github/workflows/build.yml
     with: 
-      platforms: linux/amd64
+      debug: false
     needs:
       - test
       - system_test
