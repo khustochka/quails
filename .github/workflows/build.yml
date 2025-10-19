@@ -38,8 +38,6 @@ jobs:
       contents: read
       attestations: write
       id-token: write
-    outputs:
-      image_tag: ${{ steps.result.outputs.image_tag }}
     steps:
       - name: Prepare
         run: |
@@ -102,6 +100,8 @@ jobs:
     runs-on: ubuntu-latest
     needs:
       - build
+    outputs:
+      image_tag: ${{ steps.result.outputs.image_tag }}  
     steps:
       - name: Download digests
         uses: actions/download-artifact@v4
