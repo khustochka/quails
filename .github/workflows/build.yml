@@ -7,27 +7,34 @@ on:
     outputs:
       image_tag:
         description: "Docker image tag"
-        value: ${{ jobs.build_and_push.outputs.image_tag }}
+        value: ${{ jobs.merge.outputs.image_tag }}
   workflow_dispatch:
     inputs:
-      platforms: 
+      platforms:
         default: linux/amd64,linux/arm64
         required: true
         description: "Platforms to build for"
         type: choice
         options:
-        - linux/amd64,linux/arm64
-        - linux/amd64
+          - linux/amd64,linux/arm64
+          - linux/amd64
       debug:
         default: false
         required: false
         description: "Install convenience packages (psql etc)"
         type: boolean
-
+env:
+  REGISTRY_IMAGE: ghcr.io/khustochka/quails
 jobs:
-  build_and_push:
+  build:
     name: "Build and push"
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        platform:
+          - linux/amd64
+          - linux/arm64
     permissions:
       packages: write
       contents: read
@@ -36,12 +43,16 @@ jobs:
     outputs:
       image_tag: ${{ steps.result.outputs.image_tag }}
     steps:
+      - name: Prepare
+        run: |
+          platform=${{ matrix.platform }}
+          echo "PLATFORM_PAIR=${platform//\//-}" >> $GITHUB_ENV
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@v5
         with:
           images: |
-            ghcr.io/khustochka/quails
+            ${{ env.REGISTRY_IMAGE }}
           tags: |
             type=raw,value=latest,suffix=${{inputs.debug && '-debug' || ''}},enable=${{ github.ref == format('refs/heads/{0}', 'main') }}
             type=raw,priority=1000,value={{tag}},suffix=${{inputs.debug && '-debug' || ''}},enable=${{ startsWith(github.ref, 'refs/tags/') }}
@@ -66,7 +77,7 @@ jobs:
         with:
           # Path context is required for .dockerignore to work.
           context: .
-          platforms: ${{ inputs.platforms }}
+          platforms: ${{ matrix.platform }}
           build-args: |
             GIT_REVISION=${{ github.sha }}
             GIT_REPOSITORY_URL=${{ format('{0}/{1}', github.server_url, github.repository) }}
@@ -74,12 +85,64 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           annotations: ${{ steps.meta.outputs.annotations }}
+          outputs: type=image,push-by-digest=true,name-canonical=true,push=true
       - name: Generate artifact attestation
         uses: actions/attest-build-provenance@v3
         with:
-          subject-name: ghcr.io/khustochka/quails
+          subject-name: ${{ env.REGISTRY_IMAGE }}
           subject-digest: ${{ steps.push.outputs.digest }}
           push-to-registry: true
+      - name: Export digest
+        run: |
+          mkdir -p ${{ runner.temp }}/digests
+          digest="${{ steps.build.outputs.digest }}"
+          touch "${{ runner.temp }}/digests/${digest#sha256:}"
+      - name: Upload digest
+        uses: actions/upload-artifact@v4
+        with:
+          name: digests-${{ env.PLATFORM_PAIR }}
+          path: ${{ runner.temp }}/digests/*
+          if-no-files-found: error
+          retention-days: 1
+  merge:
+    runs-on: ubuntu-latest
+    needs:
+      - build
+    steps:
+      - name: Download digests
+        uses: actions/download-artifact@v4
+        with:
+          path: ${{ runner.temp }}/digests
+          pattern: digests-*
+          merge-multiple: true
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Login to Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          AWS_REGION: us-east-1
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            ${{ env.REGISTRY_IMAGE }}
+          tags: |
+            type=raw,value=latest,suffix=${{inputs.debug && '-debug' || ''}},enable=${{ github.ref == format('refs/heads/{0}', 'main') }}
+            type=raw,priority=1000,value={{tag}},suffix=${{inputs.debug && '-debug' || ''}},enable=${{ startsWith(github.ref, 'refs/tags/') }}
+            type=sha,priority=800,prefix={{branch}}-,suffix=${{inputs.debug && '-debug' || ''}},enable=${{ startsWith(github.ref, 'refs/heads/') }}
+      - name: Create manifest list and push
+        working-directory: ${{ runner.temp }}/digests
+        run: |
+          docker buildx imagetools create $(jq -cr '.tags | map("-t " + .) | join(" ")' <<< "$DOCKER_METADATA_OUTPUT_JSON") \
+            $(printf '${{ env.REGISTRY_IMAGE }}@sha256:%s ' *)
+      - name: Inspect image
+        run: |
+          docker buildx imagetools inspect ${{ env.REGISTRY_IMAGE }}:${{ steps.meta.outputs.version }}
       - name: Outputs
         id: result
         run: echo image_tag=${{ fromJSON(steps.meta.outputs.json).tags[0] }} >> "$GITHUB_OUTPUT"
