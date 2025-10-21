@@ -6,6 +6,9 @@ on:
         default: false
         required: false
         type: boolean    
+      image_registry:
+        type: string
+        default: public.ecr.aws
     secrets:
       DOCKER_AWS_ACCESS_KEY_ID:
         required: true
@@ -22,8 +25,15 @@ on:
         required: false
         description: "Install convenience packages (psql etc)"
         type: boolean
+      image_registry:
+        description: Image Registry
+        type: choice
+        default: public.ecr.aws
+        options: 
+          - public.ecr.aws
+          - ghcr.io
 env:
-  REGISTRY_IMAGE: public.ecr.aws/m7x1i1o0/quails
+  REGISTRY_IMAGE: ${{ inputs.image_registry == 'ghcr.io' &&  'ghcr.io/khustochka/quails' || 'public.ecr.aws/m7x1i1o0/quails' }}
 jobs:
   build:
     name: "Build and push"
@@ -58,7 +68,8 @@ jobs:
         uses: docker/setup-qemu-action@v3
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-      - name: Login to Registry
+      - name: Login to AWS ECR Registry
+        if: ${{ inputs.image_registry == 'public.ecr.aws' }}
         uses: docker/login-action@v3
         with:
           registry: public.ecr.aws
@@ -66,6 +77,13 @@ jobs:
           password: ${{ secrets.DOCKER_AWS_SECRET_ACCESS_KEY }}
         env:
           AWS_REGION: us-east-1
+      - name: Login to Github Package Registry
+        if: ${{ inputs.image_registry == 'ghcr.io' }}
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Build and push
