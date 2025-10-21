@@ -105,6 +105,9 @@ jobs:
     uses: ./.github/workflows/build.yml
     with: 
       debug: false
+    secrets:
+      DOCKER_AWS_ACCESS_KEY_ID: ${{ secrets.DOCKER_AWS_ACCESS_KEY_ID }}
+      DOCKER_AWS_SECRET_ACCESS_KEY: ${{ secrets.DOCKER_AWS_SECRET_ACCESS_KEY }}  
     needs:
       - test
       - system_test
