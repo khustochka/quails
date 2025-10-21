@@ -1,5 +1,6 @@
 name: Rubocop
-on: [ push ]
+on: 
+  - workflow_call
 
 jobs:
   rubocop:
