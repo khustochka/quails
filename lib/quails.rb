@@ -14,7 +14,11 @@ module Quails
     @revision ||= Revision.get
   end
 
+  def self.unique_key
+    config[:unique_key]
+  end
+
   def self.config
-    @_config ||= Class.new(ActiveSupport::Configurable::Configuration).new
+    @config ||= {}
   end
 end
