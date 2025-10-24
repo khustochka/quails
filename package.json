@@ -5,7 +5,7 @@
   "version": "0.1.0",
   "dependencies": {
     "@csstools/normalize.css": "^12.0.0",
-    "@honeybadger-io/js": "^6.12.2",
+    "@honeybadger-io/js": "^6.12.3",
     "@popperjs/core": "^2.11.5",
     "@rails/actioncable": "^8.1.0",
     "@rails/activestorage": "^8.1.0",
