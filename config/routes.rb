@@ -331,6 +331,8 @@ Rails.application.routes.draw do
 
   constraints ->(request) { request.session[:admin] == true } do
     mount GoodJob::Engine => "/jobs"
+
+    mount RailsPgExtras::Web::Engine, at: "/pg_extras"
   end
 
   if Rails.env.development?

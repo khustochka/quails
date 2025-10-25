@@ -76,6 +76,7 @@ gem "csv"
 gem "datadog", require: false
 gem "honeybadger", "~> 6.0"
 gem "lograge"
+gem "rails-pg-extras"
 # gem "airbrake"
 
 # Image processing
