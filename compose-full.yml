@@ -49,7 +49,7 @@ services:
       - rails_app_storage:/app/storage
 
   database:
-    image: postgres:18.0-trixie
+    image: postgres:18.0-bookworm
     environment:
       POSTGRES_USER: quails
       POSTGRES_PASSWORD: quails
