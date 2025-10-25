@@ -41,5 +41,5 @@ runs:
     - name: Install libvips
       uses: awalsh128/cache-apt-pkgs-action@v1.4.3
       with:
-        packages: libvips42
+        packages: libvips42t64
         version: 1.0
