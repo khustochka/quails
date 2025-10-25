@@ -1,6 +1,6 @@
 services:
   database_dev:
-    image: postgres:18.0-bookworm
+    image: postgres:18.0-trixie
     environment:
       POSTGRES_USER: quails
       POSTGRES_PASSWORD: quails
