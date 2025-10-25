@@ -12,7 +12,7 @@ jobs:
         ruby: ['3.2', '3.3']
     services:
       postgres:
-        image: postgres:18.0-bookworm
+        image: postgres:18.0-trixie
         ports:
           - "5432:5432"
         options: >-
@@ -55,7 +55,7 @@ jobs:
 #            js_browser: firefox
     services:
       postgres:
-        image: postgres:18.0-bookworm
+        image: postgres:18.0-trixie
         ports:
           - "5432:5432"
         options: >-
