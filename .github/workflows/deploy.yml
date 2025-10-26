@@ -97,4 +97,5 @@ jobs:
           DOCKER_IMAGE: ${{ env.IMAGE_TAG }}
           DOCKER_HOST: ssh://${{ vars.DEPLOY_SSH_USER }}@${{ secrets.DEPLOY_SSH_HOST }}
           DOCKER_COMPOSE_PROGRESS: plain
+          COMPOSE_PARALLEL_LIMIT: 1 
         run: cd deploy-scripts/quails && ./deploy ${{ inputs.deploy_env }}
