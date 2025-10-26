@@ -14,11 +14,11 @@ ENV RAILS_DEVELOPMENT_HOSTS=".githubpreview.dev,.preview.app.github.dev,.app.git
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get -y install --no-install-recommends git ssh \
     # for system tests
-    firefox-esr \
+    # firefox-esr \
     build-essential libpq-dev wget curl gzip ragel \
     xz-utils libsqlite3-dev libssl-dev libyaml-dev \ 
     # deploy packages
-    libvips42 postgresql-client file bzip2 net-tools bind9-dnsutils procps
+    postgresql-client file bzip2 net-tools bind9-dnsutils procps
 
 
 # [Optional] Uncomment this line to install additional gems.
