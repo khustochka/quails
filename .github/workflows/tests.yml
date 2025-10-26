@@ -1,15 +1,20 @@
 name: "Tests"
-on:
-  - workflow_call
+on:  
+  workflow_call:
+    inputs:
+      ruby:
+        required: false
+        type: string
+  workflow_dispatch:
+    inputs:
+      ruby:
+        description: Ruby version
+        required: false
+        type: string      
 jobs:
   test:
     name: Tests
     runs-on: ubuntu-24.04
-    strategy:
-      fail-fast: false
-      matrix:
-        # Keep default ruby version the first in the matrix.
-        ruby: ['3.4.7']
     services:
       postgres:
         image: postgres:18.0-trixie
@@ -37,24 +42,21 @@ jobs:
       - name: Setup test environment
         uses: ./.github/actions/setup
         with:
-          ruby: ${{ matrix.ruby }}
+          ruby: ${{ inputs.ruby }}
       - name: Run tests
         run: bin/rails test
       - name: Code coverage results
         uses: actions/upload-artifact@v4
-        # Ideally default ruby should be the first in the matrix.
-        if: strategy.job-index == 0
         with:
-          name: Coverage (${{ matrix.ruby }})
+          name: Coverage
           path: coverage/
 
   system_test:
-    name: ${{ matrix.driver.name }} system tests (${{ matrix.ruby }})
+    name: ${{ matrix.driver.name }} system tests
     runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
       matrix:
-        ruby: ['3.4.7']
         driver:
           - name: Chrome
             js_browser: chromium
@@ -86,7 +88,7 @@ jobs:
       - name: Setup test environment
         uses: ./.github/actions/setup
         with:
-          ruby: ${{ matrix.ruby }}
+          ruby: ${{ inputs.ruby }}
       - name: Cache Playwright Chromium browser
         id: playwright-cache
         uses: actions/cache@v4
@@ -111,5 +113,5 @@ jobs:
         uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: Screenshots-${{ matrix.ruby }}-${{ matrix.driver.js_browser }}
+          name: Screenshots-${{ matrix.driver.js_browser }}
           path: tmp/screenshots

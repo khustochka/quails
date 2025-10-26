@@ -1,6 +1,16 @@
 name: Rubocop
-on: 
-  - workflow_call
+on:
+  workflow_call:
+    inputs:
+      ruby:
+        required: false
+        type: string
+  workflow_dispatch:
+    inputs:
+      ruby:
+        description: Ruby version
+        required: false
+        type: string
 
 jobs:
   rubocop:
@@ -14,7 +24,8 @@ jobs:
       - name: Install Ruby and gems
         uses: ruby/setup-ruby@v1
         with:
+          ruby-version: ${{ inputs.ruby }}
           bundler-cache: true
-      - name: 'Run Rubocop'
+      - name: "Run Rubocop"
         run: |
           bundle exec rubocop --format github

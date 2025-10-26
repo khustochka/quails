@@ -5,7 +5,7 @@ jobs:
   tests:
     name: "Tests"
     uses: ./.github/workflows/tests.yml
-    
+
   rubocop:
     name: "Rubocop"
     uses: ./.github/workflows/rubocop.yml
@@ -13,11 +13,11 @@ jobs:
   build_image:
     name: "Docker image"
     uses: ./.github/workflows/build.yml
-    with: 
+    with:
       debug: false
     secrets:
       DOCKER_AWS_ACCESS_KEY_ID: ${{ secrets.DOCKER_AWS_ACCESS_KEY_ID }}
-      DOCKER_AWS_SECRET_ACCESS_KEY: ${{ secrets.DOCKER_AWS_SECRET_ACCESS_KEY }}  
+      DOCKER_AWS_SECRET_ACCESS_KEY: ${{ secrets.DOCKER_AWS_SECRET_ACCESS_KEY }}
     needs:
       - tests
       - rubocop
@@ -26,7 +26,7 @@ jobs:
   deploy:
     name: "Deploy"
     uses: ./.github/workflows/deploy.yml
-    with: 
+    with:
       image_tag: ${{ needs.build_image.outputs.image_tag }}
       deploy_env: ${{ github.ref == 'refs/heads/main' && 'production' || 'staging' }}
     secrets:
@@ -35,8 +35,6 @@ jobs:
       DEPLOY_SCRIPTS_REPO: ${{ secrets.DEPLOY_SCRIPTS_REPO }}
     needs:
       - build_image
-
-
 #  lint:
 #    runs-on: ubuntu-24.04
 #    steps:

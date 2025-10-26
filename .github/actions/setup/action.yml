@@ -2,7 +2,8 @@ name: "Setup test environment"
 description: "Setup Node, Ruby, install JS packages and gems."
 inputs:
   ruby:
-    required: true
+    # If not set will use the version set in `.tool-version` by default
+    required: false
     description: "Ruby version"
 runs:
   using: "composite"
