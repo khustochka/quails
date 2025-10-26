@@ -20,13 +20,14 @@ on:
     inputs:
       image_tag:
         type: string
-        required: true
-        description: "Image tag"
+        description: "Image tag (leave empty for latest commit)"
       deploy_env:
         required: true
         description: "Deployment environment"
         type: environment
         default: staging
+env:
+  REGISTRY_IMAGE: public.ecr.aws/m7x1i1o0/quails
 
 jobs:
   deploy:
@@ -67,11 +68,34 @@ jobs:
           cd deploy-scripts
           git sparse-checkout set --no-cone /quails
           git checkout
+      - name: Set image tag from input
+        if: ${{ inputs.image_tag }}
+        shell: bash
+        run: |
+          echo "IMAGE_TAG=${{ inputs.image_tag }}" >> $GITHUB_ENV
+
+      - name: Docker meta
+        if: ${{ inputs.image_tag == '' }}
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            ${{ env.REGISTRY_IMAGE }}
+          tags: |
+            type=raw,value=latest,suffix=,enable=${{ github.ref == format('refs/heads/{0}', 'main') }}
+            type=raw,priority=1000,value={{tag}},suffix=,enable=${{ startsWith(github.ref, 'refs/tags/') }}
+            type=sha,priority=800,prefix={{branch}}-,suffix=,enable=${{ startsWith(github.ref, 'refs/heads/') }}
+
+      - name: Set image tag from meta
+        if: ${{ inputs.image_tag == '' }}
+        shell: bash
+        run: |
+          echo "IMAGE_TAG=${{ fromJSON(steps.meta.outputs.json).tags[0] }}" >> $GITHUB_ENV
 
       - name: Run deployment script
         shell: bash
         env:
-          DOCKER_IMAGE: ${{ inputs.image_tag }}
+          DOCKER_IMAGE: ${{ env.IMAGE_TAG }}
           DOCKER_HOST: ssh://${{ vars.DEPLOY_SSH_USER }}@${{ secrets.DEPLOY_SSH_HOST }}
           DOCKER_COMPOSE_PROGRESS: plain
         run: cd deploy-scripts/quails && ./deploy ${{ inputs.deploy_env }}
