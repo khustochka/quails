@@ -6,6 +6,7 @@ plugins:
   - rubocop-factory_bot
   - rubocop-capybara
   - rubocop-packaging
+  - rubocop-haml
 
 AllCops:
   TargetRubyVersion: 3.4
@@ -112,6 +113,11 @@ Layout/ArrayAlignment:
 Layout/SpaceInsideArrayLiteralBrackets:
   Enabled: false
 
+Layout/SpaceInsideHashLiteralBraces:
+  Enabled: true
+  Exclude:
+    - app/views/**/*.*.haml
+
 Lint/ErbNewArguments:
   Enabled: true
 
@@ -126,6 +132,7 @@ Lint/UselessAssignment:
   Enabled: true
   Exclude:
     - test/**/*.rb
+    - app/views/**/*.*.haml
 
 Performance:
   Exclude:
@@ -670,6 +677,8 @@ Style/HashLikeCase:
 
 Style/HashSyntax:
   EnforcedShorthandSyntax: either
+  Exclude:
+    - app/views/**/*.*.haml
 
 Style/IfUnlessModifier:
   Enabled: false
@@ -842,6 +851,8 @@ Style/StringConcatenation:
 
 Style/StringLiterals:
   EnforcedStyle: double_quotes
+  Exclude:
+    - app/views/**/*.*.haml
 
 Style/StringLiteralsInInterpolation:
   EnforcedStyle: double_quotes
