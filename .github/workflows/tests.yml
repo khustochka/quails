@@ -1,5 +1,5 @@
 name: "Tests"
-on:  
+on:
   workflow_call:
     inputs:
       ruby:
@@ -10,7 +10,7 @@ on:
       ruby:
         description: Ruby version
         required: false
-        type: string      
+        type: string
 jobs:
   test:
     name: Tests
@@ -60,8 +60,8 @@ jobs:
         driver:
           - name: Chrome
             js_browser: chromium
-#          - name: Firefox
-#            js_browser: firefox
+    #       - name: Firefox
+    #         js_browser: firefox
     services:
       postgres:
         image: postgres:18.0-trixie
@@ -102,11 +102,11 @@ jobs:
       - name: Install Playwright Chromium browser deps
         if: steps.playwright-cache.outputs.cache-hit == 'true'
         shell: bash
-        run: yarn run playwright install-deps chromium  
+        run: yarn run playwright install-deps chromium
       - name: Run tests
         env:
           # To prevent ugly xvfb warning
-          XDG_RUNTIME_DIR: '/tmp/runtime-runner'
+          XDG_RUNTIME_DIR: "/tmp/runtime-runner"
           JS_BROWSER: ${{ matrix.driver.js_browser }}
         run: bin/rails test:system
       - name: Screenshots

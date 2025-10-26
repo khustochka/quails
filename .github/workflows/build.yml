@@ -5,7 +5,7 @@ on:
       debug:
         default: false
         required: false
-        type: boolean    
+        type: boolean
       image_registry:
         type: string
         default: public.ecr.aws
@@ -29,7 +29,7 @@ on:
         description: Image Registry
         type: choice
         default: public.ecr.aws
-        options: 
+        options:
           - public.ecr.aws
           - ghcr.io
 env:
@@ -124,7 +124,7 @@ jobs:
     needs:
       - build
     outputs:
-      image_tag: ${{ steps.result.outputs.image_tag }}  
+      image_tag: ${{ steps.result.outputs.image_tag }}
     steps:
       - name: Download digests
         uses: actions/download-artifact@v5

@@ -7,23 +7,22 @@ plugins:
   - rubocop-capybara
   - rubocop-packaging
 
-
 AllCops:
   TargetRubyVersion: 3.4
   DisabledByDefault: false
   NewCops: enable
   Exclude:
-    - '**/tmp/**/*'
-    - '**/templates/**/*'
-    - '**/vendor/**/*'
-    - '**/node_modules/**/*'
+    - "**/tmp/**/*"
+    - "**/templates/**/*"
+    - "**/vendor/**/*"
+    - "**/node_modules/**/*"
     # Additional exclude files by rubocop-rails_config
-    - 'bin/**/*'
+    - "bin/**/*"
     #  - 'config/**/*'
-    - 'db/migrate/*'
-    - 'db/schema.rb'
-    - 'lib/tasks/taxonomy/**/*'
-    - 'lib/tasks/one-off/**/*'
+    - "db/migrate/*"
+    - "db/schema.rb"
+    - "lib/tasks/taxonomy/**/*"
+    - "lib/tasks/one-off/**/*"
     - config.ru
     - config/boot.rb
 
@@ -47,7 +46,7 @@ Style/MultilineTernaryOperator:
 Style/BarePercentLiterals:
   Enabled: false
 
-Style/BlockDelimiters :
+Style/BlockDelimiters:
   Enabled: false
 
 Style/WordArray:
@@ -79,8 +78,8 @@ Style/GlobalVars:
 
 Style/ClassAndModuleChildren:
   Exclude:
-    - '**/test/**/*'
-    - 'lib/core_ext/**/*.rb'
+    - "**/test/**/*"
+    - "lib/core_ext/**/*.rb"
 
 # Improved readability, but look into refactoring
 Style/IfInsideElse:
@@ -130,7 +129,7 @@ Lint/UselessAssignment:
 
 Performance:
   Exclude:
-    - '**/test/**/*'
+    - "**/test/**/*"
 
 Naming/VariableName:
   Enabled: false
@@ -166,9 +165,8 @@ Rails/ActionControllerTestCase:
 
 Rails/Output:
   Enabled: true
-  Exclude: 
+  Exclude:
     - lib/year_contest.rb
-
 
 Lint/MissingCopEnableDirective:
   Enabled: true
@@ -504,10 +502,10 @@ Naming/InclusiveLanguage:
         - leader
       AllowedRegex:
         - !ruby/regexp '/master[_\s\.]key/' # Rails master key
-        - 'blob/master/'
-        - 'origin/master'
-        - 'mastercard'
-        - 'webmaster'
+        - "blob/master/"
+        - "origin/master"
+        - "mastercard"
+        - "webmaster"
 
 Naming/MemoizedInstanceVariableName:
   Enabled: false
@@ -517,12 +515,12 @@ Naming/MethodParameterName:
 
 Naming/PredicatePrefix:
   NamePrefix:
-  - is_
+    - is_
   ForbiddenPrefixes:
-  - is_
+    - is_
 
 Naming/PredicateMethod:
-  Enabled: false  
+  Enabled: false
 
 Naming/RescuedExceptionsVariableName:
   Enabled: false
@@ -647,9 +645,10 @@ Style/FormatStringToken:
 
 Style/FrozenStringLiteralComment:
   SafeAutoCorrect: true
-  Details: 'Add `# frozen_string_literal: true` to the top of the file. Frozen string
+  Details:
+    "Add `# frozen_string_literal: true` to the top of the file. Frozen string
     literals will become the default in a future Ruby version, and we want to make
-    sure we''re ready.'
+    sure we're ready."
 
 Style/GuardClause:
   Enabled: false
