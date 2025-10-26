@@ -74,7 +74,7 @@ jobs:
         run: |
           echo "IMAGE_TAG=${{ inputs.image_tag }}" >> $GITHUB_ENV
 
-      - name: Docker meta
+      - name: Docker meta (for image tag)
         if: ${{ inputs.image_tag == '' }}
         id: meta
         uses: docker/metadata-action@v5
@@ -82,7 +82,6 @@ jobs:
           images: |
             ${{ env.REGISTRY_IMAGE }}
           tags: |
-            type=raw,value=latest,suffix=,enable=${{ github.ref == format('refs/heads/{0}', 'main') }}
             type=raw,priority=1000,value={{tag}},suffix=,enable=${{ startsWith(github.ref, 'refs/tags/') }}
             type=sha,priority=800,prefix={{branch}}-,suffix=,enable=${{ startsWith(github.ref, 'refs/heads/') }}
 
