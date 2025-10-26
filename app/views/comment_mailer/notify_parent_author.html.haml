@@ -17,9 +17,9 @@
   %p
     You can
     %b
-      %a{:href => "#{default_public_post_url(@comment.post, anchor: "comment#{@comment.parent_comment.id}")}"} reply
+      %a{:href => default_public_post_url(@comment.post, anchor: "comment#{@comment.parent_comment.id}").to_s} reply
     to this comment.
 %div.mail-footer
   Unsubscribe from receiving email notifications about replies to your comment:
   = succeed "." do
-    %a{:href => "#{unsubscribe_request_comments_url(token: @comment.parent_comment.unsubscribe_token)}", :rel => "unsubscribe"} UNSUBSCRIBE
+    %a{:href => unsubscribe_request_comments_url(token: @comment.parent_comment.unsubscribe_token).to_s, :rel => "unsubscribe"} UNSUBSCRIBE

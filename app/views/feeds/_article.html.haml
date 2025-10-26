@@ -5,16 +5,16 @@
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
     %title= post.decorated.title
     %meta{:charset => "utf-8"}/
-    %link{:href => "#{default_public_post_url(post)}", :rel => "canonical"}/
+    %link{:href => default_public_post_url(post).to_s, :rel => "canonical"}/
     %meta{:content => "v1.0", :property => "op:markup_version"}/
   %body
     %article
       %header
         %h1= post.decorated.title
-        %time.op-published{:datetime => "#{post.face_date.iso8601}"}
+        %time.op-published{:datetime => post.face_date.iso8601.to_s}
           = I18n.l(post.face_date, format: :long)
         - mod_time = @dev ? Rails.application.config.restart_time : post.updated_at
-        %time.op-modified{:datetime => "#{mod_time.iso8601}"}= mod_time
+        %time.op-modified{:datetime => mod_time.iso8601.to_s}= mod_time
         %address
           = t('author.name')
         - post_cover_image_url(post).if_present do |img_url|

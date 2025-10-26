@@ -21,7 +21,7 @@
     %li
       Obs:
       %big= card.observations.size
-      - if card.observations.size == 0
+      - if card.observations.empty?
         %small.voice.tag empty
     %li
       Taxa:
@@ -33,7 +33,7 @@
       - if new_sp_size > 0
         %span.new_sp{title: "Lifers"} &#8727;
         %small<>= new_sp_size
-      - if card.observations.size == 0
+      - if card.observations.empty?
         = default_destroy_link(card)
   %ul.card_cell
     %li

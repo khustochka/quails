@@ -109,7 +109,7 @@
     %h3= t('.sections.videos')
     = render videos.map(&:small), video_resizable: true
 
-- if @species.observations.size > 0
+- if !@species.observations.empty?
   %a{name: 'observations'}
   %h3= t('.sections.stats')
   %p
