@@ -34,5 +34,5 @@
             = term_highlight(sp.name_sci, @term)
 
 
-- if @taxa.kind_of?(Kaminari::ActiveRecordRelationMethods)
+- if @taxa.is_a?(Kaminari::ActiveRecordRelationMethods)
   = paginate @taxa

@@ -16,7 +16,7 @@
 
   - @archive.each do |year, months|
     %div.fluid-column.span_3
-      %h2= link_to("#{t('blog.year.year')} #{year}", year_path(year: year))
+      %h2= link_to("#{t("blog.year.year")} #{year}", year_path(year: year))
       %ul
         - months.each do |month|
           %li

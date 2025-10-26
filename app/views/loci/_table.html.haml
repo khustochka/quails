@@ -41,5 +41,5 @@
           %small.tag.alert private
 
 
-- if @loci.kind_of?(Kaminari::ActiveRecordRelationMethods)
+- if @loci.is_a?(Kaminari::ActiveRecordRelationMethods)
   = paginate @loci

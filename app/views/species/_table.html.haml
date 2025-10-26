@@ -22,7 +22,7 @@
           = species.authority
         %div
           %small
-            = %w(order family).map{|m| species.public_send(m)}.compact.join(" ◆ ")
+            = %w(order family).map {|m| species.public_send(m)}.compact.join(" ◆ ")
       -#%div
       -#  %small proto:
       -#  %i.less-important= species.protonym
@@ -54,5 +54,5 @@
           %div.less-important
             %i= syn.name_sci
 
-- if @species.kind_of?(Kaminari::ActiveRecordRelationMethods)
+- if @species.is_a?(Kaminari::ActiveRecordRelationMethods)
   = paginate @species

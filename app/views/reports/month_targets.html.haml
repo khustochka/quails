@@ -18,7 +18,7 @@
 
 %h3
   Species found in
-  = @prev_and_next.map{|m| months[m]}.join(" and ")
+  = @prev_and_next.map {|m| months[m]}.join(" and ")
   but not in
   = months[@month]
 

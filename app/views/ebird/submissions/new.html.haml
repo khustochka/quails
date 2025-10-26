@@ -24,4 +24,4 @@
   %ul.cards_list#search-results
 
     - validated = @file.cards.group_by {|c| c.valid?(:ebird_post)}
-    = render partial: "cards/card", collection: [false, true].map {|k| validated[k]}.compact.inject([], &:+)
+    = render partial: "cards/card", collection: [false, true].map {|k| validated[k]}.compact.sum([])

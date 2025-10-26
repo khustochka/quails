@@ -3,7 +3,7 @@
   - if action_name.in?(%w{edit update map_edit}) && controller.respond_to?(:show)
     %li= link_to 'Show this one', amended_params({action: :show}).merge(@extra_params || {})
   - if action_name.in?(%w{show map_edit}) && controller.respond_to?(:edit)
-    %li= link_to 'Edit this one', ({:controller => controller_name, :action => :edit, :id => params[:id]})
+    %li= link_to 'Edit this one', {:controller => controller_name, :action => :edit, :id => params[:id]}
   - if controller.respond_to?(:new)
     %li= link_to 'Create new', action: :new
   - if action_name != 'index' && controller.respond_to?(:index)

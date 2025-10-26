@@ -25,7 +25,7 @@
   %b Taxon concept id:
   = @taxon.taxon_concept_id
 
-- if (tx = @taxon.taxon)
+- if tx = @taxon.taxon
   %div
     %span.less-important Taxon:
     = taxon_link(tx, tx.name_sci)

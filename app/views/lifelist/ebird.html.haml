@@ -37,6 +37,6 @@
       %ul
         %li= t('lifelist.basic.no_species')
     - else
-      = render "lifelist/ebird/#{params[:sort] || 'by_date'}"
+      = render "lifelist/ebird/#{params[:sort] || "by_date"}"
 
       = render "lifelist/ebird/footnotes"

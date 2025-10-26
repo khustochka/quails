@@ -14,18 +14,18 @@
 = simple_form_for @locus do |form|
   %div
     = form.input :slug, required: false
-    = form.input :parent_id, label: 'Parent', collection: (Locus.where.not(id: @locus).suggestion_order),
+    = form.input :parent_id, label: 'Parent', collection: Locus.where.not(id: @locus).suggestion_order,
           input_html: {class: 'suggest-combo'}
     = form.input :iso_code, label: 'ISO code'
   %div
     = form.input :loc_type, label: 'Locus type', as: :select, collection: Locus::TYPES
   %div
     .less-important These fields are presentational, they should be modified separately from ancestry
-    = form.input :cached_parent_id, collection: (Locus.where.not(id: @locus).suggestion_order),
+    = form.input :cached_parent_id, collection: Locus.where.not(id: @locus).suggestion_order,
           input_html: {class: 'suggest-combo'}
-    = form.input :cached_city_id, collection: (Locus.where.not(id: @locus).suggestion_order),
+    = form.input :cached_city_id, collection: Locus.where.not(id: @locus).suggestion_order,
           input_html: {class: 'suggest-combo'}
-    = form.input :cached_subdivision_id, collection: (Locus.where.not(id: @locus).suggestion_order),
+    = form.input :cached_subdivision_id, collection: Locus.where.not(id: @locus).suggestion_order,
           input_html: {class: 'suggest-combo'}
     - if @locus.persisted?
       = form.input :cached_country_id, as: :string,

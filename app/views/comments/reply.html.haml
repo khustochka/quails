@@ -1,7 +1,7 @@
 -# frozen_string_literal: true
 - @robots = 'NOINDEX, NOFOLLOW'
 
-- @page_title = t( @parent_comment ? '.reply_title' : '.comment_title')
+- @page_title = t(@parent_comment ? '.reply_title' : '.comment_title')
 
 %h1 #{@page_title} #{post_link(@post.decorated.title, @post)}
 

@@ -42,5 +42,5 @@
 %h3 Observations
 
 %ol
-  - @card.observations.preload(:taxon => :species).each do |obs|
+  - @card.observations.preload(:taxon => :species).find_each do |obs|
     = render 'observation_row', obs: obs

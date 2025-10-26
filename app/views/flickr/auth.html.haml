@@ -9,7 +9,7 @@
   %p Your access secret is as follows:
   %h4= @auth_secret
 
-- if @auth_url && @auth_url.valid?
+- if @auth_url&.valid?
   %p To authenticate please follow the auth URL:
   %h4= link_to('Authenticate', @auth_url.get)
   %p And then go back to this page.

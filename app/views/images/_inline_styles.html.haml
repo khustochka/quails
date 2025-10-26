@@ -1,11 +1,11 @@
 -# frozen_string_literal: true
 - if inline_styles&.any?
-  - max_width = (@body_class == 'wider') ? 1120 : 896
+  - max_width = @body_class == 'wider' ? 1120 : 896
   %style
-    - inline_styles.map{|t| [t.width, t.height]}.uniq.each do |w, h|
+    - inline_styles.map {|t| [t.width, t.height]}.uniq.each do |w, h|
       = ".thumb_#{w}x#{h} {width: #{w}px;height: #{h}px;}"
     @media (min-width: 767.98px) and (max-width: #{max_width+46}px) {
-    - inline_styles.map{|t| [t.width, t.height]}.uniq.each do |w, h|
+    - inline_styles.map {|t| [t.width, t.height]}.uniq.each do |w, h|
       - ww = 100.0 * w / max_width
-      = ".thumb_#{w}x#{h} {width: #{ww-0.13}%;height: auto; border: none !important;}"
+      = ".thumb_#{w}x#{h} {width: #{ww - 0.13}%;height: auto; border: none !important;}"
     }

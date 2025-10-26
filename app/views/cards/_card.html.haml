@@ -56,7 +56,7 @@
         %small= link_to "eBird", "https://ebird.org/checklist/#{card.ebird_id}"
 
     %li.card_time
-      = [card.start_time, card.duration_minutes.to_s, card.distance_kms.to_s].zip(["", " min", " km"]).delete_if {|v, m| v.blank?}.map(&:join).join(", ")
+      = [card.start_time, card.duration_minutes.to_s, card.distance_kms.to_s].zip(["", " min", " km"]).delete_if {|v, _m| v.blank?}.map(&:join).join(", ")
       - card.observers.if_present do |observers|
         &bull;
         %b= observers

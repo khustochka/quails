@@ -41,5 +41,5 @@
           = button_to "Promote to taxon", promote_ebird_taxon_path(taxon)
 
 
-- if @taxa.kind_of?(Kaminari::ActiveRecordRelationMethods)
+- if @taxa.is_a?(Kaminari::ActiveRecordRelationMethods)
   = paginate @taxa
