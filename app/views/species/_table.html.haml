@@ -22,7 +22,7 @@
           = species.authority
         %div
           %small
-            = %w(order family).map {|m| species.public_send(m)}.compact.join(" ◆ ")
+            = %w(order family).filter_map {|m| species.public_send(m)}.join(" ◆ ")
       -#%div
       -#  %small proto:
       -#  %i.less-important= species.protonym

@@ -49,7 +49,7 @@
     = form.association :locus, label: 'Location:', collection: Locus.suggestion_order
     - unless @card.persisted?
       %div.fast-locus-container
-        - CardsHelper::FAST_LOCI.map {|slug| fast_loci[slug]}.compact.each do |loc|
+        - CardsHelper::FAST_LOCI.filter_map {|slug| fast_loci[slug]}.each do |loc|
           %span.pseudolink.fast_locus= loc.name_en
     - if @ebird_location
       %br
