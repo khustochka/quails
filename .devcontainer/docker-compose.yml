@@ -9,6 +9,7 @@ services:
       - node_modules:/workspaces/quails/node_modules
       - rails_tmp:/workspaces/quails/tmp
       - rails_log:/workspaces/quails/log
+      - playwright-cache:/root/.cache/ms-playwright
 
     environment:
       DATABASE_URL: postgres://quails:quails@db:5432
@@ -65,3 +66,4 @@ volumes:
   node_modules:
   rails_tmp:
   rails_log:
+  playwright-cache:
