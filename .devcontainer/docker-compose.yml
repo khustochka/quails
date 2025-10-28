@@ -6,16 +6,13 @@ services:
 
     volumes:
       - ..:/workspaces/quails:cached
-      - bundle:/workspaces/quails/vendor/bundle
-      - node_modules:/workspaces/quails/node_modules  
-      - packs:/workspaces/quails/public/packs
-      - packs-test:/workspaces/quails/public/packs-test
+      - node_modules:/workspaces/quails/node_modules
       - rails_tmp:/workspaces/quails/tmp
       - rails_log:/workspaces/quails/log
 
     environment:
       DATABASE_URL: postgres://quails:quails@db:5432
-      JS_BROWSER: headless_firefox 
+      JS_BROWSER: chromium
       PARALLEL_WORKERS: 2
 
     # Overrides default command so things don't shut down after the process ends.
@@ -57,7 +54,7 @@ services:
     # Add "forwardPorts": ["5432"] to **devcontainer.json** to forward PostgreSQL locally.
     # (Adding the "ports" property to this file will not forward from a Codespace.)
     ports:
-      - "5492:5432"  
+      - "5492:5432"
 
     healthcheck:
       test: pg_isready -U postgres -h 127.0.0.1
@@ -65,9 +62,6 @@ services:
 
 volumes:
   postgres-data:
-  bundle:
   node_modules:
-  packs:
-  packs-test:
   rails_tmp:
   rails_log:
