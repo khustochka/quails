@@ -17,6 +17,8 @@ require "action_cable/engine"
 require "sprockets/railtie"
 require "rails/test_unit/railtie"
 
+require "./lib/quails/middleware/reject_old_image_variations"
+
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
@@ -69,5 +71,7 @@ module Quails
       require "quails"
       require "./lib/core_ext"
     end
+
+    config.middleware.use Quails::Middleware::RejectOldImageVariations
   end
 end
