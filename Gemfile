@@ -4,7 +4,7 @@ source "https://gem.coop"
 
 ruby ">= 3.0"
 
-VERSION = "8.1.0"
+VERSION = "8.1.1"
 # gem "rails", VERSION
 gem "activemodel",   VERSION
 gem "activejob",     VERSION
@@ -44,7 +44,7 @@ gem "ancestry", ">= 3.2.1"
 gem "acts_as_list"
 
 # Templating
-gem "haml", "~> 6.2"
+gem "haml", "~> 7.0"
 gem "haml-rails", "~> 3.0"
 gem "RedCloth", git: "https://github.com/moneybird/redcloth.git", ref: "ae8d6a91826734ad0a24dfed649e4c6c05283a59"
 gem "rinku"
