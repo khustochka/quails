@@ -26,7 +26,7 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 # [Optional] Uncomment this line to install global node packages.
 # RUN su vscode -c "source /usr/local/share/nvm/nvm.sh && npm install -g <your-package-here>" 2>&1
 
-# ARG NODE_VERSION=22.21.0
+# ARG NODE_VERSION=24.11.0
 # ARG YARN_VERSION=1.22.19
 
 # RUN  --mount=type=cache,id=dev-apt-cache,sharing=locked,target=/var/cache/apt \

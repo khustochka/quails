@@ -15,7 +15,7 @@ ARG RUBY_VERSION=3.4.7
 ARG VARIANT=slim-bookworm
 FROM ruby:${RUBY_VERSION}-${VARIANT} AS base
 
-ARG NODE_VERSION=22.21.0
+ARG NODE_VERSION=24.11.0
 ARG YARN_VERSION=1.22.19
 # ARG BUNDLER_VERSION=2.3.25
 
@@ -76,7 +76,7 @@ FROM gems AS assets
 
 RUN  --mount=type=cache,id=dev-apt-cache,sharing=locked,target=/var/cache/apt \
     --mount=type=cache,id=dev-apt-lib,sharing=locked,target=/var/lib/apt \
-    curl -fsSL https://deb.nodesource.com/setup_22.x | bash - && \
+    curl -fsSL https://deb.nodesource.com/setup_24.x | bash - && \
     apt-get install --no-install-recommends -y  nodejs \
     && rm -rf /var/lib/apt/lists /var/cache/apt/archives
 RUN npm install --global yarn    
