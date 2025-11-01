@@ -127,7 +127,7 @@ jobs:
       image_tag: ${{ steps.result.outputs.image_tag }}
     steps:
       - name: Download digests
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v6
         with:
           path: ${{ runner.temp }}/digests
           pattern: digests-*
