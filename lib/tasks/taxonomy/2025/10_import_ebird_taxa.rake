@@ -5,7 +5,7 @@ namespace :tax do
     task import_ebird_taxa: [:import_ebird_csv, :list_rank_changes, :clean_ebird_taxa]
 
     task import_ebird_csv: :environment do
-      filename = ENV["CSV"] || "./data/eBird_Taxonomy_v2025.csv"
+      filename = ENV["CSV"] || "./data/eBird_taxonomy_v2025.csv"
 
       raise "*** Provide path to eBird CSV as CSV env var." if filename.blank?
 
