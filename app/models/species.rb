@@ -99,6 +99,12 @@ class Species < ApplicationRecord
     end
   end
 
+  def update_image!
+    reload
+    self.image = images.first || nil
+    save!
+  end
+
   def the_rest_of_images
     images.where.not(media: { id: SpeciesImage.where(species: self).select(:image_id) })
   end
