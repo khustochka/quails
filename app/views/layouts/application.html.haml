@@ -49,6 +49,9 @@
       - if @og_type
         %meta{ property: "og:type", content: @og_type }
 
+    - (@preloads || []).each do |url, as, fetchpriority|
+      %link{rel: "preload", href: url, as: as, fetchpriority: fetchpriority}
+
     -# mobile viewport
     - unless @no_viewport
       -# no_viewport is for very wide pages, e.g. with table

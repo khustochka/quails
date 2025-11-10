@@ -1,10 +1,11 @@
 -# frozen_string_literal: true
-- @page_title = t('.title')
-- @page_header = t('.header')
-- @meta_thumbnail = 'https://bwua-static.s3.eu-central-1.amazonaws.com/kingfisher-thumb.jpg'
+- @page_title = t(".title")
+- @page_header = t(".header")
+- @meta_thumbnail = "https://bwua-static.s3.eu-central-1.amazonaws.com/kingfisher-thumb.jpg"
 - @meta_description = t(".meta_description")
 - @canonical = root_url
 - @og_type = "website"
+- @preloads = [["https://bwua-static.s3.eu-central-1.amazonaws.com/whitethroat-jumbo.jpg", "image", "high"]]
 
 - @jumbo_class = "jumbo-home"
 
@@ -15,7 +16,7 @@
 
 - content_for :jumbo_side do
   %ul.subheader-menu
-    %li= link_to(t('menu.archive'), action: :archive)
+    %li= link_to(t("menu.archive"), action: :archive)
     = render "partials/feed_list_item"
 
 %h2= t(".#{@year_progress_cell.type}")
@@ -39,5 +40,5 @@
 
   - if @prev_month
     %nav.front_page_prev
-      = link_to t('.previous_posts'), month_path(@prev_month)
-      (#{[t('date.month_names')[@prev_month[:month].to_i], @prev_month[:year]] * ' '})
+      = link_to t(".previous_posts"), month_path(@prev_month)
+      (#{[t("date.month_names")[@prev_month[:month].to_i], @prev_month[:year]] * ' '})
