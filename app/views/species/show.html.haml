@@ -51,7 +51,7 @@
     - subsp = @species.subspecies
     - if @species.url_synonyms.present? || supersp.present? || subsp.present?
       %div.sp_synonyms
-        - name_synonyms = @species.url_synonyms.select {|s| s.reason.nil? }
+        - name_synonyms = @species.url_synonyms.select {|s| s.reason.blank? }
         - if name_synonyms.present?
           = t(".species_synonyms")
           %ul
