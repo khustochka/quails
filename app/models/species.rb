@@ -25,7 +25,7 @@ class Species < ApplicationRecord
   has_one :species_image, dependent: :nullify
   has_one :image, through: :species_image
 
-  has_many :taxa, dependent: :restrict_with_exception, inverse_of: :species
+  has_many :taxa, dependent: :nullify, inverse_of: :species
   has_many :high_level_taxa, -> { where(taxa: { category: "species" }) }, class_name: "Taxon", dependent: nil, inverse_of: :species
   has_many :observations, through: :taxa
 
@@ -38,11 +38,11 @@ class Species < ApplicationRecord
   has_many :local_species, dependent: :delete_all
   has_many :url_synonyms, dependent: :delete_all
 
-  has_many :splits_super, class_name: "SpeciesSplit", foreign_key: "superspecies_id", dependent: :delete_all, inverse_of: :superspecies
-  has_many :splits_sub, class_name: "SpeciesSplit", foreign_key: "subspecies_id", dependent: :delete_all, inverse_of: :subsepcies
+  has_many :splits_where_it_is_superspecies, class_name: "SpeciesSplit", foreign_key: "superspecies_id", dependent: :delete_all, inverse_of: :superspecies
+  has_many :splits_where_it_is_subspecies, class_name: "SpeciesSplit", foreign_key: "subspecies_id", dependent: :delete_all, inverse_of: :subspecies
 
-  has_many :superspecies, through: :splits_sub, primary_key: "superspecies_id"
-  has_many :subspecies, through: :splits_super, primary_key: "subspecies_id"
+  has_many :superspecies, through: :splits_where_it_is_subspecies, primary_key: "superspecies_id"
+  has_many :subspecies, through: :splits_where_it_is_superspecies, primary_key: "subspecies_id"
 
   # Scopes
 
