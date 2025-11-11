@@ -24,6 +24,12 @@ module Quails
             if variation.dig("_rails", "data", "resize").is_a?(String)
               # Cache response for 1 hour (in case we are blocking good requests). Increase after test.
               return [410, { "cache-control" => "max-age=3600" }, ["Gone"]]
+            elsif (message = variation.dig("_rails", "message"))
+              decoded_message = Base64.decode64(message)
+              # Old style resize looks like "1200x>", so checking for that
+              if decoded_message.include?("resize") && decoded_message.include?("x>")
+                return [410, { "cache-control" => "max-age=3600" }, ["Gone"]]
+              end
             end
           rescue
             # decoding error? just ignore, in case it is something legitimate
