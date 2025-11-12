@@ -5,6 +5,10 @@ class ReportsController < ApplicationController
 
   TWO_YEARS = 365 * 2 * 24 * 60 * 60
 
+  before_action do
+    I18n.locale = :en
+  end
+
   def environ
     # @env = ENV
     @collate = ActiveRecord::Base.connection.execute("SELECT datcollate, datctype FROM pg_database WHERE datname = current_database()").to_a.first
@@ -177,11 +181,11 @@ class ReportsController < ApplicationController
   end
 
   def by_countries
-    @countries = Country.all.to_a
+    countries = Country.all.to_a
 
     by_sps = {}
 
-    @countries.each do |cnt|
+    countries.each do |cnt|
       list = Species
         .joins(:cards)
         .merge(Taxon.listable)
@@ -193,9 +197,15 @@ class ReportsController < ApplicationController
         by_sps[sp_id] << cnt
       end
     end
-    @species = Species.where(id: by_sps.keys).index_by(&:id)
+    species = Species.where(id: by_sps.keys).index_by(&:id)
 
-    @result = by_sps.group_by { |_, cnts| cnts.size }.to_a.sort { |a, b| b.first <=> a.first }
+    @result = by_sps
+      .group_by { |_, cnts| cnts.size }
+      .to_a
+      .sort { |a, b| b.first <=> a.first }
+      .map do |count, sps|
+        [count, sps.map {|sp_id, _| species[sp_id]}.sort_by(&:index_num)]
+      end
   end
 
   def stats

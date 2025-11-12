@@ -7,8 +7,7 @@
   %h2= "Seen in #{num} countries (#{species.size} species)"
   - if num > 1
     %ul
-      - species.each do |sp_id, _|
+      - species.each do |sp|
         %li
-          - sp = @species[sp_id]
           = species_link(sp)
           = name_sci(sp)
