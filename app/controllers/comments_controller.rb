@@ -100,10 +100,12 @@ class CommentsController < ApplicationController
       respond_to do |format|
         if @comment.save
           begin
-            mailer = CommentMailer.with(comment: @comment, link_options: mailer_link_options)
-            mailer.notify_admin.deliver_later
-            if @comment.parent_comment&.send_email? && @comment.approved
-              mailer.notify_parent_author.deliver_later
+            if !Settings.disable_email
+              mailer = CommentMailer.with(comment: @comment, link_options: mailer_link_options)
+              mailer.notify_admin.deliver_later
+              if @comment.parent_comment&.send_email? && @comment.approved
+                mailer.notify_parent_author.deliver_later
+              end
             end
           rescue => e
             # Do not fail if error happened when sending email.

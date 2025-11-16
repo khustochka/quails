@@ -95,6 +95,8 @@ Rails.application.configure do
   config.active_job.queue_adapter = :good_job
   # config.active_job.queue_name_prefix = "quails_#{Quails.env.live? ? "LIVE" : Rails.env}"
 
+  config.action_mailer.perform_deliveries = true
+
   config.action_mailer.perform_caching = false
 
   # Ignore bad email addresses and do not raise email delivery errors.
