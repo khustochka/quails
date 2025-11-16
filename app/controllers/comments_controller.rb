@@ -8,6 +8,8 @@ class CommentsController < ApplicationController
   RESTRICTED_DOMAINS = %w(localhost localhost.localdomain)
   private_constant :RESTRICTED_DOMAINS
 
+  before_action :check_enabled, only: [:create, :reply]
+
   administrative except: [:create, :reply, :unsubscribe_request, :unsubscribe_submit]
   # FIXME: not yet localized but should be!
   # localized locales: [:uk, :ru], only: [:reply, :unsubscribe_request, :unsubscribe_submit]
@@ -192,6 +194,12 @@ class CommentsController < ApplicationController
   end
 
   private
+
+  def check_enabled
+    if Settings.disable_comments
+      render plain: "", status: :unauthorized
+    end
+  end
 
   def mailer_link_options
     { host: request.host, port: request.port, protocol: request.protocol }

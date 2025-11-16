@@ -30,4 +30,5 @@
             - if cmt_count > 0
               %li.num_comments
                 = link_to "#{cmt_count} hidden comment(s)", public_post_path(post, anchor: 'comments'), class: "tag draft"
-        %li.add_comment= link_to t('.add_comment'), public_post_path(post, anchor: 'add_comment')
+        - if !Settings.disable_comments                  
+          %li.add_comment= link_to t('.add_comment'), public_post_path(post, anchor: 'add_comment')

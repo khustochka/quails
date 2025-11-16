@@ -29,7 +29,7 @@
               %span.sr-only
                 = t("posts.post.comment_declension", count: cmt_count)
                 \|
-
-        = link_to public_post_path(post, anchor: 'add_comment'), title: t('posts.post.add_comment') do
-          %i.fas.fa-comment
-          %span.sr-only= t('posts.post.add_comment')
+        - if !Settings.disable_comments  
+          = link_to public_post_path(post, anchor: 'add_comment'), title: t('posts.post.add_comment') do
+            %i.fas.fa-comment
+            %span.sr-only= t('posts.post.add_comment')

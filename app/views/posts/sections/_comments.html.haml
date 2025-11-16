@@ -9,6 +9,7 @@
     -# Template Dependency: comments/comment
     = render top_level_comments
 
-%h3#add_comment= t('.add_comment')
+- if !Settings.disable_comments
+  %h3#add_comment= t('.add_comment')
 
-= render "comments/form"
+  = render "comments/form"
