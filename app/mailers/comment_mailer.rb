@@ -37,10 +37,13 @@ class CommentMailer < ApplicationMailer
   end
 
   def send_email_to_users?
-    delivery_method.in?([:test]) ||
+    delivery_method == :test ||
       perform_deliveries &&
-        Rails.env.production? &&
-        Quails.env.live? &&
-        !Settings.disable_email
+        (
+          delivery_method == :letter_opener ||
+          Rails.env.production? &&
+          Quails.env.live? &&
+          !Settings.disable_email
+        )
   end
 end
