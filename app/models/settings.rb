@@ -3,7 +3,9 @@
 class Settings < ApplicationRecord
   validates :key, uniqueness: true
 
-  SETTING_KEYS = [:flickr_admin, :lj_user, :ebird_user]
+  STRUCT_KEYS = [:flickr_admin, :lj_user, :ebird_user]
+  BOOLEAN_KEYS = [:disable_comments, :disable_email]
+  SETTING_KEYS = STRUCT_KEYS + BOOLEAN_KEYS
 
   serialize :value, coder: YAML
 
@@ -12,8 +14,10 @@ class Settings < ApplicationRecord
   end
 
   def self.method_missing(method_name, *arguments, &block)
-    if SETTING_KEYS.include?(method_name)
+    if STRUCT_KEYS.include?(method_name)
       OpenStruct.new(find_by(key: method_name).try(:value) || {}) # rubocop:disable Style/OpenStructUse
+    elsif BOOLEAN_KEYS.include?(method_name)
+      find_by(key: method_name).try(:value) == "1" || false
     else
       super
     end

@@ -48,5 +48,19 @@
     %label Password
     %input.string{name: 's[ebird_user][password]', type: :password, value: Settings.ebird_user.password}
 
+  %h2 Administration 
+
+  %div.input.checkbox
+    %input{name: 's[disable_comments]', type: :hidden, value: "0"}
+    %label 
+      %input.checkbox{name: 's[disable_comments]', type: :checkbox, value: "1", checked: Settings.disable_comments}
+      Disable comments
+
+  %div.input.checkbox
+    %input{name: 's[disable_email]', type: :hidden, value: "0"}
+    %label 
+      %input.checkbox{name: 's[disable_email]', type: :checkbox, value: "1", checked: Settings.disable_email}  
+      Disable email
+
   %div.buttons
     %input.button#save_button{:type => :submit, :value => 'Save'}
