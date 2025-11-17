@@ -147,7 +147,7 @@ class LifelistController < ApplicationController
       next if value.blank?
 
       if !(value.is_a?(String) && value =~ regex)
-        render plain: "", status: :unprocessable_content
+        render plain: "", status: :bad_request
       end
     end
   end

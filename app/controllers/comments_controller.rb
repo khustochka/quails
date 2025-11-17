@@ -60,7 +60,7 @@ class CommentsController < ApplicationController
   def create
     if params[:comment].delete(:name).present?
 
-      render plain: "Error", status: :unprocessable_content
+      render plain: "", status: :bad_request
 
     else
 
@@ -197,7 +197,7 @@ class CommentsController < ApplicationController
 
   def check_enabled
     if Settings.disable_comments
-      render plain: "", status: :unauthorized
+      render plain: "", status: :bad_request
     end
   end
 

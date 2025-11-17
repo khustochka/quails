@@ -57,7 +57,7 @@ class CommentsControllerTest < ActionController::TestCase
     end
 
     comment = assigns(:comment)
-    assert_response :unprocessable_content
+    assert_response :bad_request
   end
 
   test "screen comment with stop word in the body" do
