@@ -5,6 +5,8 @@ class LifelistController < ApplicationController
 
   administrative only: [:chart]
 
+  before_action :validate_params, only: [:advanced, :winter]
+
   localized
 
   def index
@@ -125,5 +127,28 @@ class LifelistController < ApplicationController
     year = params[:year]&.slice(/\d{4}/)&.to_i || Quails::CURRENT_YEAR
     @cell0 = YearSummaryCell.new(year: year - 1)
     @cell = YearProgressCell.new(year: year, offset: 8.hours)
+  end
+
+  private
+
+  def validate_params
+    allowed_params = {
+      year: /\A\d{4}\z/,
+      month: /\A(0?[1-9]|1[0-2])\z/,
+      day: /\A(0?[1-9]|[12][0-9]|3[01])\z/,
+      motorless: /\A(0|1|true|false)\z/,
+      exclude_heard_only: /\A(0|1|true|false)\z/,
+      locus: /\A[a-z0-9_\-]+\z/,
+      sort: /\A(class|last|count)?\z/,
+    }
+
+    allowed_params.each do |param, regex|
+      value = params[param]
+      next if value.blank?
+
+      if !(value.is_a?(String) && value =~ regex)
+        render plain: "", status: :unprocessable_content
+      end
+    end
   end
 end
