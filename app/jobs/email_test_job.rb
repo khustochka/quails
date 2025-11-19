@@ -4,13 +4,14 @@ class EmailTestJob < ApplicationJob
   queue_as :low
 
   def perform
-    ActionMailer::Base
+    ApplicationMailer
+      .new
       .mail(
         from: ENV["COMMENT_EMAIL_SENDER"],
         to: ENV["ADMIN_NOTIFICATIONS_EMAIL"],
         subject: "Comment mailer test",
         body: "This is a test of birdwatch.org.ua comment mailer."
       )
-      .deliver_now
+      .deliver
   end
 end
