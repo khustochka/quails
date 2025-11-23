@@ -27,7 +27,6 @@
   %p.errors= alert
 
 = simple_form_for @post do |form|
-
   %div
     = form.input :slug, required: false
     = form.input :face_date, label: 'Post date', input_html: {value: @post.face_date.strftime("%F %T")}, as: :string

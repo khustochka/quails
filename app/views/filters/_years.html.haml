@@ -1,5 +1,5 @@
 -# frozen_string_literal: true
-- unless @years.blank?
+- if @years.present?
 
   - url_builder = lambda do |year|
     - if controller_name == 'blog'

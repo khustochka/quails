@@ -2,7 +2,6 @@
 - post = shout
 
 - cache ['blog', post, admin: current_user.admin?, locale: I18n.locale] do
-
   %div.post-box.shout-box{id: "post-#{post.slug}"}
     %div.post.shout
       %h2
@@ -20,7 +19,6 @@
       -#    = render_justified images.map(&:to_thumbnail)
 
     - cache ['comment', post, post.comments.size, admin: current_user.admin?, locale: I18n.locale] do
-
       .comment_links
         - post.comments.approved.size.yield_self do |cmt_count|
           - if cmt_count > 0
@@ -29,7 +27,7 @@
               %span.sr-only
                 = t("posts.post.comment_declension", count: cmt_count)
                 \|
-        - if !Settings.disable_comments  
+        - if !Settings.disable_comments
           = link_to public_post_path(post, anchor: 'add_comment'), title: t('posts.post.add_comment') do
             %i.fas.fa-comment
             %span.sr-only= t('posts.post.add_comment')

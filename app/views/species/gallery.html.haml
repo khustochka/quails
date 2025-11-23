@@ -9,7 +9,6 @@
   = render 'partials/translated'
 
 - cache(admin: current_user.admin?, key: Quails::CacheKey.gallery) do
-
   %div.header-with-subheader
     %h1.over-header
       = page_header
@@ -21,7 +20,6 @@
       %li= link_to t('menu.videos'), {action: 'index', controller: 'videos'}
       %li= link_to t('menu.photos'), {action: 'index', controller: 'images'}
       = render "partials/feed_list_item"
-
 
   - thumbnails = @species.thumbnails
   - multi_sp_image = Image.multiple_species.first

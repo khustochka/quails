@@ -20,7 +20,6 @@
   = render @observation.card
 
 = simple_form_for @observation, html: {class: 'observation'} do |builder|
-
   = render partial: 'observation_fields', object: @observation, locals: {form: builder}
 
   .buttons

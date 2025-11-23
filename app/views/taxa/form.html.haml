@@ -34,7 +34,6 @@
   %dd
     = @taxon.family
 
-
 = simple_form_for [@book, @taxon] do |form|
   %div
     = form.input :name_sci, :label => 'Scientific name', :input_html => {:class => 'larger'}

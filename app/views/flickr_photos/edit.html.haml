@@ -17,11 +17,9 @@
   = link_to @photo.page_url, class: "img" do
     = image_tag(thumbnail_item(@image).try(:full_url), class: 'flickr_image')
 
-
 - if _FlickrClient.valid?
 
   = form_tag(flickr_photo_path(@photo), method: :put) do
-
     %table.neat_table.flickr_info
       %thead
         %tr
@@ -46,7 +44,6 @@
   %h2 Date taken:
 
   = form_tag(flickr_photo_path(@photo), method: :put) do
-
     %table.neat_table.flickr_info
       %tr
         %th Taken:

@@ -37,7 +37,6 @@
 -# Do not cache too many pages
 - do_not_cache = params[:month] && (params[:locus] || params[:sort] || params[:year])
 - cache_unless do_not_cache, amended_params(admin: current_user.admin?, key: Quails::CacheKey.lifelist, locale: I18n.locale) do
-
   %h1= page_header
 
   %div{data: {turbolinks: "true"}}

@@ -13,13 +13,12 @@
   = render partial: 'partials/translated', locals: {url: significant_params}
 
 - cache amended_params(admin: current_user.admin?, key: Quails::CacheKey.lifelist, locale: I18n.locale) do
-
   %h1= page_header
 
   %div{data: {turbolinks: "true"}}
     = render "lifelist/menus"
 
-    - unless @lifelist.blank?
+    - if @lifelist.present?
       %ul.horiz-list.filter-list
         %strong= t('.filter.sort_by')
         - [nil, :by_taxonomy].each do |sort|

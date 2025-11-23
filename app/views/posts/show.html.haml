@@ -28,7 +28,7 @@
 
 - @page_title = @post.decorated.title
 
-- unless @post.lj_data.blank?
+- if @post.lj_data.present?
   - provide :add_shortcuts do
     %li= link_to 'LJ Post', @post.lj_url
 
@@ -45,7 +45,6 @@
       %li= link_to 'Correction', @correction
 
 - cache [@post, { locale: I18n.locale }] do
-
   %div.post{id: "post-#{@post.slug}", class: post_lang_classes(@post), lang: @post.lang}
     = render partial: "posts/other_lang_notice", locals: {post: @post}
     %div.header-with-subheader

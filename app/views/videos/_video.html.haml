@@ -7,11 +7,10 @@
       %b= species_link(sp)
       = name_sci(sp)
 
-
 %p
   = succeed ', ' do
     %i<
-      %time{datetime: video.observ_date.iso8601} #{l(video.observ_date, format: :long)}
+      %time{datetime: video.observ_date.iso8601}= l(video.observ_date, format: :long)
 
   = succeed('.') do
     = video.decorated.public_locus_full_name

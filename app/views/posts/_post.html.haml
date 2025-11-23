@@ -1,6 +1,5 @@
 -# frozen_string_literal: true
 - cache ['blog', post, admin: current_user.admin?, locale: I18n.locale] do
-
   %div.post-box{id: "post-#{post.slug}"}
     %div.post{class: post_lang_classes(post), lang: post.lang}
       %div.header-with-subheader
@@ -20,7 +19,6 @@
           = render_justified images.map(&:to_thumbnail)
 
     - cache ['comment', post, post.comments.size, admin: current_user.admin?, locale: I18n.locale] do
-
       %ul.comment_links
         - post.comments.approved.size.yield_self do |cmt_count|
           - if cmt_count > 0
@@ -30,5 +28,5 @@
             - if cmt_count > 0
               %li.num_comments
                 = link_to "#{cmt_count} hidden comment(s)", public_post_path(post, anchor: 'comments'), class: "tag draft"
-        - if !Settings.disable_comments                  
+        - if !Settings.disable_comments
           %li.add_comment= link_to t('.add_comment'), public_post_path(post, anchor: 'add_comment')

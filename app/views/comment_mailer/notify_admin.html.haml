@@ -16,7 +16,6 @@
         (#{link_to(I18n.l(@comment.created_at, format: :long), default_public_post_url(@comment.post, anchor: "comment#{@comment.id}"))})
       = @comment.decorated.body
 
-
   - parent = @comment.parent_comment
   - if parent&.send_email? && @comment.approved
     %p

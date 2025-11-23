@@ -4,7 +4,6 @@
     Last preloaded at:
     = @last_preload.presence&.in_time_zone || "never"
 
-
   - @checklists.if_present do |checklists|
     = form_tag ebird_imports_path do
       %table.neat_table

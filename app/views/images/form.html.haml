@@ -38,7 +38,6 @@
   %p#notice Date taken from EXIF, may be incorrect
 
 = simple_form_for @image, html: {class: 'image with_observations'} do |form|
-
   - if @image.persisted? || (@image.on_storage? && @image.stored_image.persisted?)
     %p= image_tag(@image.thumbnail_variant, class: 'image_pic')
     - if @image.on_storage?

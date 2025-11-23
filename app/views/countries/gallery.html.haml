@@ -10,7 +10,6 @@
   = render 'partials/translated'
 
 - cache(admin: current_user.admin?, key: Quails::CacheKey.gallery) do
-
   %div.header-with-subheader
     %h1= page_header
     = render "countries/gallery/subheader/#{@country.slug}"

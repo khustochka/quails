@@ -36,7 +36,6 @@
 
     -# FIXME: think if this can be cached for other pages?
     - cache_if (controller_name == "posts" && action_name == "show"), [@post, :head_meta, { locale: I18n.locale }] do
-
       - if @meta_thumbnail
         %meta{ property: "og:image", content: @meta_thumbnail }
         %meta{ name: "thumbnail", content: @meta_thumbnail }
@@ -97,7 +96,6 @@
 
       - if content_for?(:translated)
         = content_for(:translated)
-
 
       - if content_for?(:jumbo)
         %div.jumbo-bg{class: @jumbo_class}

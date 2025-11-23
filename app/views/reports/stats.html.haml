@@ -106,4 +106,3 @@
       %td.nowrap= link_to l(row.observ_date, format: :long), day_path(row.observ_date)
       %td= row.count_species
       %td= @locs_for_day_by_new_species[row.observ_date].map {|c| c.card.locus.short_name}.join(", ")
-

@@ -33,7 +33,6 @@
 -#   = render partial: "cells/year_summary", object: @year_summary_cell
 
 - cache [@posts, admin: current_user.admin?, locale: I18n.locale] do
-
   %h2= t(".blog")
 
   = render @posts
@@ -41,4 +40,4 @@
   - if @prev_month
     %nav.front_page_prev
       = link_to t(".previous_posts"), month_path(@prev_month)
-      (#{[t("date.month_names")[@prev_month[:month].to_i], @prev_month[:year]] * ' '})
+      (#{[t("date.month_names")[@prev_month[:month].to_i], @prev_month[:year]].join(' ')})

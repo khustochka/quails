@@ -33,13 +33,12 @@
           %div
             %span.less-important Taxon:
             = taxon_link(tx, tx.name_sci)
-          - if tx.full_species? && sp = tx.species
+          - if tx.full_species? && (sp = tx.species)
             %div
               %span.less-important Species:
               = species_link(sp, sp.name_sci)
         - else
           = button_to "Promote to taxon", promote_ebird_taxon_path(taxon)
-
 
 - if @taxa.is_a?(Kaminari::ActiveRecordRelationMethods)
   = paginate @taxa

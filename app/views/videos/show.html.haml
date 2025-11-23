@@ -1,8 +1,8 @@
 -# frozen_string_literal: true
-- # @meta_thumbnail = thumbnail_item(@video).try(:url)
+-# @meta_thumbnail = thumbnail_item(@video).try(:url)
 - @meta_description = @video.decorated.meta_description
 - @canonical = localize_url(@video)
-- # @og_type = 'birdwatchua:video'
+-# @og_type = 'birdwatchua:video'
 
 - @page_header = @page_title = @video.decorated.title
 -# @page_title = "#{@page_header} // #{t("countries.gallery.title.#{@video.locus.country.slug}")}"
@@ -28,10 +28,9 @@
 
 = render @video.large
 
-=# render 'social/buttons'
+- # render 'social/buttons'
 
 = render partial: "media/long_details", locals: {media: @video}
-
 
 -#- if @video.multi?
 -#  %nav= link_to(t(".more_photos_of_multiple_species"), photos_multiple_species_path)

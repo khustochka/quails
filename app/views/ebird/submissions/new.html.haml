@@ -14,7 +14,6 @@
   = render 'observations/search_fields', form: form
 
 = simple_form_for @file, url: {action: :create} do |form|
-
   = render partial: 'partials/errors', object: @file.errors
 
   = form.input :name
