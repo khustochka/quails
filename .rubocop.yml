@@ -256,7 +256,7 @@ Layout/SpaceBeforeBrackets:
   Enabled: true
 
 Lint/AmbiguousAssignment:
-  Enabled: false
+  Enabled: true
 
 Lint/AmbiguousBlockAssociation:
   Enabled: false
@@ -897,6 +897,9 @@ Style/YodaCondition:
   Enabled: false
 
 Style/YodaExpression:
+  Enabled: false
+
+Style/RedundantParentheses:
   Enabled: false
 
 Capybara/ClickLinkOrButtonStyle:
