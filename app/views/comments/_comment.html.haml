@@ -5,7 +5,8 @@
     - if admin_commenter_id && comment.commenter_id == admin_commenter_id
       - author_classes += %w(tag admin_comment)
       - popup_title = 'Administrator'
-    %h6{class: author_classes, title: popup_title}= link_to_if(comment.sane_url.present?, comment.decorated.name, comment.sane_url, :rel => 'nofollow')
+    %h6{class: author_classes, title: popup_title}
+      = link_to_if(comment.sane_url.present?, comment.decorated.name, comment.sane_url, rel: :nofollow)
     %i
       = link_to public_comment_path(comment) do
         %time{datetime: comment.created_at.iso8601}= l(comment.created_at, :format => :long)
@@ -17,7 +18,8 @@
 
   - if action_name != 'reply' && !Settings.disable_comments
     %ul.reply
-      %li= link_to(t('.reply_link'), reply_comment_path(comment), data: {comment_id: comment.id})
+      %li
+        = link_to(t('.reply_link'), reply_comment_path(comment), data: {comment_id: comment.id}, rel: :nofollow)
 
 - subcomments = @comments&.dig(comment.id)
 
