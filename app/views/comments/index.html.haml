@@ -23,12 +23,12 @@
         %h4
           = link_to(post.decorated.title, default_public_post_path(post), class: ("grayout" unless post.public?))
     - comments.each do |comment|
-      %tr
+      %tr{class: comment.approved ? "" : "hidden-comment"}
         %td
           = link_to comment.id, edit_comment_path(comment)
           - if comment.parent_id
             %b{title: "Response"} Resp.
-        %td
+        %td.align-center
           %div
             %nobr
               = comment.created_at.strftime("%-d %b %Y")
@@ -40,8 +40,14 @@
           - if comment.commenter_id == admin_commenter_id
             %span.tag.admin_comment admin
         %td= comment.decorated.body
-        %td
-          = default_destroy_link(comment)
+        %td.align-center
+          %div
+            = default_destroy_link(comment)
+          - if !comment.approved  
+            %br  
+            = form_for comment, remote: false do |form|
+              = form.hidden_field :approved, value: true
+              = form.submit 'Approve'
 
 %div{data: {turbolinks: "true"}}
   = paginate @comments unless params[:sort] == 'by_post'
