@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_11_21_131447) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_05_222823) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -81,12 +81,12 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_21_131447) do
     t.text "body", null: false
     t.integer "commenter_id"
     t.datetime "created_at", precision: nil, null: false
+    t.datetime "email_sent_at", precision: nil
     t.string "ip", limit: 45
     t.string "name", limit: 255, null: false
-    t.boolean "needs_reply_release", default: false, null: false
+    t.boolean "needs_email_release", default: false, null: false
     t.integer "parent_id"
     t.integer "post_id", null: false
-    t.datetime "reply_released_at", precision: nil
     t.boolean "send_email", default: false
     t.string "unsubscribe_token", limit: 25
     t.datetime "updated_at", precision: nil, null: false
