@@ -18,6 +18,7 @@ class CommentMailer < ApplicationMailer
     to = @comment.parent_comment.commenter.email
     if send_email_to_users? && to.present?
       mail to: to, subject: "Response to your comment on birdwatch.org.ua (\"#{sanitized_comment_title}\")"
+      @comment.touch(:email_sent_at)
     end
   end
 

@@ -85,4 +85,10 @@ class CommentMailerTest < ActionMailer::TestCase
     email = deliver_notify_parent_author_email
     assert_includes email.subject, "This is rad!"
   end
+
+  test "`notify_parent_author` touches comment sent_at" do
+    create_comment_with_parent
+    deliver_notify_parent_author_email
+    assert_not_nil @comment.reload.email_sent_at
+  end
 end
