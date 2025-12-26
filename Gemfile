@@ -73,7 +73,7 @@ gem "uri"
 gem "csv"
 
 # Monitoring
-gem "datadog", require: false
+# gem "datadog", require: false
 gem "honeybadger", "~> 6.0"
 gem "lograge"
 gem "rails-pg-extras"

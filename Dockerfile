@@ -11,8 +11,8 @@
 
 #######################################################################
 
-ARG RUBY_VERSION=3.4.8
-ARG VARIANT=slim-bookworm
+ARG RUBY_VERSION=4.0.0
+ARG VARIANT=slim-trixie
 FROM ruby:${RUBY_VERSION}-${VARIANT} AS base
 
 ARG NODE_VERSION=24.11.0
