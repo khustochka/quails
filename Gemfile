@@ -94,6 +94,7 @@ gem "font-awesome-sass", "~> 6.7.2"
 
 # HTTP client
 gem "mechanize"
+gem "net-http-persistent", "~> 4.0" # Temporary
 
 # Profiling
 gem "rack-mini-profiler", require: false # false is required to be able to disable
