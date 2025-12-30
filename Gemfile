@@ -2,7 +2,7 @@
 
 source "https://gem.coop"
 
-ruby ">= 3.0"
+ruby ">= 3.2"
 
 VERSION = "8.1.1"
 # gem "rails", VERSION
