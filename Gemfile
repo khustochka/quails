@@ -113,6 +113,10 @@ gem "base64"
 gem "drb"
 gem "observer"
 
+# Temporary
+# Rails incompatible
+gem "connection_pool", "< 3"
+
 group :development do
   gem "listen" # required for tracking file changes in development
   gem "benchmark-ips"
