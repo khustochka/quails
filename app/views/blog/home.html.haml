@@ -22,7 +22,7 @@
 %h2= t(".#{@year_progress_cell.type}")
 
 .year-summary
-  = render partial: "cells/year_progress", object: @year_progress_cell
+  = render partial: "cells/#{@year_progress_cell.type}", object: @year_progress_cell
 
 -# %h2
 -#   = t("blog.home.#{@year_summary_cell.type}")
