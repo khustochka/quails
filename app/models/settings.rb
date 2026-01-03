@@ -5,6 +5,7 @@ class Settings < ApplicationRecord
 
   STRUCT_KEYS = [:flickr_admin, :lj_user, :ebird_user]
   BOOLEAN_KEYS = [:disable_comments, :disable_email, :new_year_mode]
+  CUSTOM_KEYS = [:current_year]
   SETTING_KEYS = STRUCT_KEYS + BOOLEAN_KEYS
 
   serialize :value, coder: YAML
@@ -20,6 +21,12 @@ class Settings < ApplicationRecord
       find_by(key: method_name).try(:value) == "1" || false
     else
       super
+    end
+  end
+
+  def self.current_year
+    find_by(key: :current_year).try(:value).yield_self do |val|
+      val.present? ? val.to_i : Quails::LICENSE_YEAR
     end
   end
 

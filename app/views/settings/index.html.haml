@@ -63,6 +63,11 @@
 
   %h2 Current year
 
+  %div.input.string
+    %label Current year
+    %input.string{name: 's[current_year]', type: :text, value: Settings.current_year}
+
+
   %div.input.checkbox
     %input{name: 's[new_year_mode]', type: :hidden, value: "0"}
     %label 

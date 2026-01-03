@@ -134,7 +134,7 @@ class BlogControllerTest < ActionDispatch::IntegrationTest
   test "sets current year progress when not in new year mode" do
     Settings.create(key: "new_year_mode", value: "0")
 
-    travel_to Date.new(Quails::CURRENT_YEAR, 10, 11) do
+    travel_to Date.new(Settings.current_year, 10, 11) do
       get blog_path
       assert_response :success
 
@@ -145,7 +145,7 @@ class BlogControllerTest < ActionDispatch::IntegrationTest
   test "sets current year summary when not in new year mode, but the year has ended" do
     Settings.create(key: "new_year_mode", value: "0")
 
-    travel_to Date.new(Quails::CURRENT_YEAR + 1, 1, 10) do
+    travel_to Date.new(Settings.current_year + 1, 1, 10) do
       get blog_path
       assert_response :success
 
@@ -156,7 +156,7 @@ class BlogControllerTest < ActionDispatch::IntegrationTest
   test "sets current year progress and previous year summary in new year mode" do
     Settings.create(key: "new_year_mode", value: "1")
 
-    travel_to Date.new(Quails::CURRENT_YEAR, 1, 10) do
+    travel_to Date.new(Settings.current_year, 1, 10) do
       get blog_path
       assert_response :success
 

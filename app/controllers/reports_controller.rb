@@ -280,7 +280,7 @@ class ReportsController < ApplicationController
         .where(subquery: { observ_date: dates })
         .preload(card: { locus: :cached_parent }).group_by(&:observ_date)
 
-    @ebird_eligible_this_year = Card.ebird_eligible.in_year(params[:year] || Quails::CURRENT_YEAR).size
+    @ebird_eligible_this_year = Card.ebird_eligible.in_year(params[:year] || Settings.current_year).size
   end
 
   def voices
@@ -315,7 +315,7 @@ class ReportsController < ApplicationController
       observations_filtered = observations_filtered.where("cards.locus_id" => loc_filter)
     end
 
-    current = Quails::CURRENT_YEAR
+    current = Settings.current_year
     @data = {}
     @years =
       params[:years] ?
@@ -371,7 +371,7 @@ class ReportsController < ApplicationController
   end
 
   def year_contest
-    @year = params[:year] || Quails::CURRENT_YEAR
+    @year = params[:year] || Settings.current_year
     @years = Observation.years
     result = YearContest.new(year: @year).run
     species = Species.where(id: result).index_by(&:id)

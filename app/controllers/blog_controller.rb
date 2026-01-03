@@ -31,9 +31,9 @@ class BlogController < ApplicationController
       end
     end
 
-    @year_progress_cell = YearProgressCell.new(year: Quails::CURRENT_YEAR, offset: 8.hours)
+    @year_progress_cell = YearProgressCell.new(year: Settings.current_year, offset: 8.hours)
     if Settings.new_year_mode
-      @year_summary_cell = YearSummaryCell.new(year: Quails::CURRENT_YEAR - 1)
+      @year_summary_cell = YearSummaryCell.new(year: Settings.current_year - 1)
     end
   end
 
