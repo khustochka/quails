@@ -6,6 +6,8 @@
       previous_posts: << Previous posts
       meta_description: "Blog about birds of Ukraine and Canada, birding, bird photography"
       blog: Blog
+
+    year_summaries:
       year_summary: Year in review
       year_progress: Year progress
 
@@ -29,11 +31,11 @@
 
     post:
       comments:
-        one: '1 comment'
-        other: '%{count} comments'
+        one: "1 comment"
+        other: "%{count} comments"
       comment_declension:
-        one: 'comment'
-        other: 'comments'
+        one: "comment"
+        other: "comments"
       add_comment: Add comment
       if_you_wish_to_receive_notification: If you wish to receive response notifications.
       some_html_allowed: Some HTML is allowed, including <a>, <img>.
@@ -56,7 +58,7 @@
   simple_form:
     labels:
       comment:
-        name: 'Name:'
-        send_email: 'Send response by email:'
-        email: 'Email:'
-        url: 'URL:'
+        name: "Name:"
+        send_email: "Send response by email:"
+        email: "Email:"
+        url: "URL:"

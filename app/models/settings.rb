@@ -4,7 +4,7 @@ class Settings < ApplicationRecord
   validates :key, uniqueness: true
 
   STRUCT_KEYS = [:flickr_admin, :lj_user, :ebird_user]
-  BOOLEAN_KEYS = [:disable_comments, :disable_email]
+  BOOLEAN_KEYS = [:disable_comments, :disable_email, :new_year_mode]
   SETTING_KEYS = STRUCT_KEYS + BOOLEAN_KEYS
 
   serialize :value, coder: YAML
