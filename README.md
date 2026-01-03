@@ -74,4 +74,4 @@ Login credentials: username `admin`, password `admin`.
 
 ## License
 
-Copyright (c) 2007–2025 Vitalii Khustochka
+Copyright (c) 2007–2026 Vitalii Khustochka
