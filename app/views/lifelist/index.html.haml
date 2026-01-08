@@ -35,7 +35,7 @@
 
       .col-sm-12.col-md-6.mb-2
 
-        %h2.h2.top5-list-header= link_to(t('lifelist.title.yearlist', year: Quails::CURRENT_YEAR), list_path(year: Quails::CURRENT_YEAR))
+        %h2.h2.top5-list-header= link_to(t('lifelist.title.yearlist', year: Settings.current_year), list_path(year: Settings.current_year))
 
         = render partial: "top5list", object: @list_current_year
 
@@ -44,7 +44,7 @@
       -# .col-sm-12.col-md-6.mb-2
       
       -#   %h2.h2.top5-list-header
-      -#     = link_to(t('lifelist.title.yearlist', year: Quails::CURRENT_YEAR - 1), list_path(year: Quails::CURRENT_YEAR - 1))
+      -#     = link_to(t('lifelist.title.yearlist', year: Settings.current_year - 1), list_path(year: Settings.current_year - 1))
       
       -#   = render partial: "top5list", object: @list_prev_year
 

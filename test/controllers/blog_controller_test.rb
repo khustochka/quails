@@ -130,4 +130,52 @@ class BlogControllerTest < ActionDispatch::IntegrationTest
     get month_path(year: 2007, month: 12)
     assert_select "a[href='#{month_path(year: 2007, month: 12, locale: :en)}']"
   end
+
+  test "sets current year progress when not in new year mode" do
+    Settings.create(key: "new_year_mode", value: "0")
+
+    travel_to Date.new(Settings.current_year, 10, 11) do
+      get blog_path
+      assert_response :success
+
+      assert_kind_of(YearProgressCell, assigns(:year_progress_cell))
+    end
+  end
+
+  test "sets current year summary when not in new year mode, but the year has ended" do
+    Settings.create(key: "new_year_mode", value: "0")
+
+    travel_to Date.new(Settings.current_year + 1, 1, 10) do
+      get blog_path
+      assert_response :success
+
+      assert_kind_of(YearSummaryCell, assigns(:year_progress_cell))
+    end
+  end
+
+  test "sets current year progress and previous year summary in new year mode" do
+    Settings.create(key: "new_year_mode", value: "1")
+
+    travel_to Date.new(Settings.current_year, 1, 10) do
+      get blog_path
+      assert_response :success
+
+      assert_kind_of(YearProgressCell, assigns(:year_progress_cell))
+      assert_kind_of(YearSummaryCell, assigns(:year_summary_cell))
+    end
+  end
+
+  test "rendering year summaries not in new year mode" do
+    Settings.create(key: "new_year_mode", value: "0")
+    get blog_path
+
+    assert_dom ".year-summary", 1
+  end
+
+  test "rendering year summaries in new year mode" do
+    Settings.create(key: "new_year_mode", value: "1")
+    get blog_path
+
+    assert_dom ".year-summary", 2
+  end
 end

@@ -11,9 +11,9 @@ class LifelistController < ApplicationController
 
   def index
     @list_life = Lifelist::FirstSeen.full
-    @list_current_year = Lifelist::FirstSeen.over(year: Quails::CURRENT_YEAR)
+    @list_current_year = Lifelist::FirstSeen.over(year: Settings.current_year)
 
-    @list_prev_year = Lifelist::FirstSeen.over(year: Quails::CURRENT_YEAR - 1)
+    @list_prev_year = Lifelist::FirstSeen.over(year: Settings.current_year - 1)
 
     @list_canada = Lifelist::FirstSeen.over(locus: "canada")
     @list_ukraine = Lifelist::FirstSeen.over(locus: "ukraine")
@@ -124,7 +124,7 @@ class LifelistController < ApplicationController
 
   def chart
     @page_title = "Test the summary / progress charts"
-    year = params[:year]&.slice(/\d{4}/)&.to_i || Quails::CURRENT_YEAR
+    year = params[:year]&.slice(/\d{4}/)&.to_i || Settings.current_year
     @cell0 = YearSummaryCell.new(year: year - 1)
     @cell = YearProgressCell.new(year: year, offset: 8.hours)
   end

@@ -1,4 +1,4 @@
-'ru':
+"ru":
   blog:
     home:
       title: "Дневник наблюдений за птицами"
@@ -6,6 +6,8 @@
       previous_posts: << Ранее
       meta_description: "Блог о птицах Украины и Канады, фото и видео птиц, прочие ресурсы для бердинга"
       blog: Блог
+
+    year_summaries:
       year_summary: Итоги года
       year_progress: Прогресс года
 
@@ -29,13 +31,13 @@
 
     post:
       comments:
-        one: '1 комментарий'
-        few: '%{count} комментария'
-        many: '%{count} комментариев'
+        one: "1 комментарий"
+        few: "%{count} комментария"
+        many: "%{count} комментариев"
       comment_declension:
-        one: 'комментарий'
-        few: 'комментария'
-        many: 'комментариев'
+        one: "комментарий"
+        few: "комментария"
+        many: "комментариев"
       add_comment: Комментировать
       if_you_wish_to_receive_notification: Если хотите получить уведомление об ответах.
       some_html_allowed: Немного HTML разрешено, включая <a>, <img>.
@@ -59,7 +61,7 @@
   simple_form:
     labels:
       comment:
-        name: 'Имя:'
-        send_email: 'Присылать ответ по электронной почте:'
-        email: 'Email:'
-        url: 'URL:'
+        name: "Имя:"
+        send_email: "Присылать ответ по электронной почте:"
+        email: "Email:"
+        url: "URL:"

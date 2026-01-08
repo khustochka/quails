@@ -19,18 +19,7 @@
     %li= link_to(t("menu.archive"), action: :archive)
     = render "partials/feed_list_item"
 
-%h2= t(".#{@year_progress_cell.type}")
-
-.year-summary
-  = render partial: "cells/year_progress", object: @year_progress_cell
-
--# %h2
--#   = t("blog.home.#{@year_summary_cell.type}")
--#   &ndash;
--#   = @year_summary_cell.year
-
--# .year-summary
--#   = render partial: "cells/year_summary", object: @year_summary_cell
+= render partial: "year_summaries", locals: { new_year_mode: Settings.new_year_mode }
 
 - cache [@posts, admin: current_user.admin?, locale: I18n.locale] do
   %h2= t(".blog")

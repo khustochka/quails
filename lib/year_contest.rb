@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class YearContest
-  def initialize(year: ENV["YEAR"] || Quails::CURRENT_YEAR, debug: false)
+  def initialize(year: ENV["YEAR"] || Settings.current_year, debug: false)
     @year = year
     @debug = debug
   end
