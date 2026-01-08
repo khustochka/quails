@@ -11,8 +11,8 @@
 
 #######################################################################
 
-ARG RUBY_VERSION=3.4.8
-ARG VARIANT=slim-bookworm
+ARG RUBY_VERSION=4.0.0
+ARG VARIANT=slim-trixie
 FROM ruby:${RUBY_VERSION}-${VARIANT} AS base
 
 ARG NODE_VERSION=24.11.0
@@ -116,6 +116,7 @@ ENV DD_TAGS="git.repository_url:github.com/khustochka/quails git.commit.sha:${GI
 # Whether to install debug packages
 ARG DEBUG=false
 # ARG DEPLOY_PACKAGES="postgresql-client file vim curl gzip bzip2 htop net-tools bind9-dnsutils"
+# May need to add libpq5 for new Ruby version if not yet supported by the pg gem.
 ARG DEPLOY_PACKAGES="libvips42 libjpeg62-turbo-dev libjemalloc2 file curl gzip bzip2"
 ARG DEBUG_PACKAGES="postgresql-client net-tools netcat-openbsd bind9-dnsutils procps"
 # ENV DEPLOY_PACKAGES=${DEPLOY_PACKAGES}

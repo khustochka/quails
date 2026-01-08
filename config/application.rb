@@ -55,7 +55,7 @@ module Quails
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
-    config.time_zone = "Kyiv"
+    config.time_zone = "Europe/Kyiv"
     # THIS APP SPECIFIC NOTE: if you ever have to change the time zone take into account that 'posts.facedate'
     # is not a timezone dependent timestamp but rather a carved in stone time and should be shown the same to everyone
     # so you'll have to convert it in the DB

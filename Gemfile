@@ -119,6 +119,7 @@ gem "connection_pool", "< 3"
 
 group :development do
   gem "listen" # required for tracking file changes in development
+  gem "benchmark"
   gem "benchmark-ips"
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem "web-console", ">= 3.3.0"
