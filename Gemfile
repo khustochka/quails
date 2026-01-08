@@ -73,7 +73,7 @@ gem "uri"
 gem "csv"
 
 # Monitoring
-# gem "datadog", require: false
+gem "datadog", require: false
 gem "honeybadger", "~> 6.0"
 gem "lograge"
 gem "rails-pg-extras"
@@ -94,7 +94,6 @@ gem "font-awesome-sass", "~> 6.7.2"
 
 # HTTP client
 gem "mechanize"
-gem "net-http-persistent", "~> 4.0" # Temporary
 
 # Profiling
 gem "rack-mini-profiler", require: false # false is required to be able to disable

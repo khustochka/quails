@@ -127,6 +127,7 @@ GEM
       addressable
       capybara
       playwright-ruby-client (>= 1.16.0)
+    cgi (0.5.1)
     childprocess (5.1.0)
       logger (~> 1.5)
     concurrent-ruby (1.3.6)
@@ -138,6 +139,14 @@ GEM
     css_parser (1.21.1)
       addressable
     csv (3.3.5)
+    datadog (2.24.0)
+      cgi
+      datadog-ruby_core_source (~> 3.4, >= 3.4.2)
+      libdatadog (~> 24.0.1.1.0)
+      libddwaf (~> 1.30.0.0.0)
+      logger
+      msgpack
+    datadog-ruby_core_source (3.5.0)
     date (3.5.1)
     debug (1.11.1)
       irb (~> 1.10)
@@ -244,6 +253,15 @@ GEM
       letter_opener (~> 1.9)
       railties (>= 6.1)
       rexml
+    libdatadog (24.0.1.1.0)
+    libdatadog (24.0.1.1.0-aarch64-linux)
+    libdatadog (24.0.1.1.0-x86_64-linux)
+    libddwaf (1.30.0.0.0-aarch64-linux)
+      ffi (~> 1.0)
+    libddwaf (1.30.0.0.0-arm64-darwin)
+      ffi (~> 1.0)
+    libddwaf (1.30.0.0.0-x86_64-linux)
+      ffi (~> 1.0)
     lint_roller (1.1.0)
     listen (3.9.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
@@ -292,6 +310,7 @@ GEM
       builder
       minitest (>= 5.0)
       ruby-progressbar
+    msgpack (1.8.0)
     net-http-digest_auth (1.4.1)
     net-http-persistent (4.0.8)
       connection_pool (>= 2.2.4, < 4)
@@ -553,6 +572,7 @@ DEPENDENCIES
   capybara-playwright-driver
   connection_pool (< 3)
   csv
+  datadog
   debug (>= 1.0.0)
   dotenv (~> 3.0)
   drb
@@ -580,7 +600,6 @@ DEPENDENCIES
   mechanize
   minitest (~> 5.27)
   minitest-reporters
-  net-http-persistent (~> 4.0)
   nokogiri
   observer
   ostruct
@@ -650,6 +669,7 @@ CHECKSUMS
   bundler-audit (0.9.3) sha256=81c8766c71e47d0d28a0f98c7eed028539f21a6ea3cd8f685eb6f42333c9b4e9
   capybara (3.40.0) sha256=42dba720578ea1ca65fd7a41d163dd368502c191804558f6e0f71b391054aeef
   capybara-playwright-driver (0.5.7) sha256=875a1928077d56be8b484f84674901a2374752d7842d93de2045bbede1aad242
+  cgi (0.5.1) sha256=e93fcafc69b8a934fe1e6146121fa35430efa8b4a4047c4893764067036f18e9
   childprocess (5.1.0) sha256=9a8d484be2fd4096a0e90a0cd3e449a05bc3aa33f8ac9e4d6dcef6ac1455b6ec
   concurrent-ruby (1.3.6) sha256=6b56837e1e7e5292f9864f34b69c5a2cbc75c0cf5338f1ce9903d10fa762d5ab
   connection_pool (2.5.5) sha256=e54ff92855753df1fd7c59fa04a398833355f27dd14c074f8c83a05f72a716ad
@@ -657,6 +677,8 @@ CHECKSUMS
   crass (1.0.6) sha256=dc516022a56e7b3b156099abc81b6d2b08ea1ed12676ac7a5657617f012bd45d
   css_parser (1.21.1) sha256=6cfd3ffc0a97333b39d2b1b49c95397b05e0e3b684d68f77ec471ba4ec2ef7c7
   csv (3.3.5) sha256=6e5134ac3383ef728b7f02725d9872934f523cb40b961479f69cf3afa6c8e73f
+  datadog (2.24.0) sha256=076af1858c2b2a128fe15ccfcae1f81971e1fc97c867dbe2e767ac41c2296b0d
+  datadog-ruby_core_source (3.5.0) sha256=5cf9924ac6d7e8b52d65aa25a9be0e8f981612bb85063b3dc3d425bf7de3c56e
   date (3.5.1) sha256=750d06384d7b9c15d562c76291407d89e368dda4d4fff957eb94962d325a0dc0
   debug (1.11.1) sha256=2e0b0ac6119f2207a6f8ac7d4a73ca8eb4e440f64da0a3136c30343146e952b6
   docile (1.4.1) sha256=96159be799bfa73cdb721b840e9802126e4e03dfc26863db73647204c727f21e
@@ -704,6 +726,12 @@ CHECKSUMS
   launchy (3.1.1) sha256=72b847b5cc961589dde2c395af0108c86ff0119f42d4648d25b5440ebb10059e
   letter_opener (1.10.0) sha256=2ff33f2e3b5c3c26d1959be54b395c086ca6d44826e8bf41a14ff96fdf1bdbb2
   letter_opener_web (3.0.0) sha256=3f391efe0e8b9b24becfab5537dfb17a5cf5eb532038f947daab58cb4b749860
+  libdatadog (24.0.1.1.0) sha256=5f911a5598deb11f8c4179077a46e50a57b778b87a152bf23859ae6e557b1751
+  libdatadog (24.0.1.1.0-aarch64-linux) sha256=aa1fad15d3fb1039164c5bbf481f76acc6f3d230e8ff160d3792bf9e87ba5075
+  libdatadog (24.0.1.1.0-x86_64-linux) sha256=d15aea8b2be3e45ecfd9dec4ebc53b4c178e8540dee59c40cf2500bed67aacde
+  libddwaf (1.30.0.0.0-aarch64-linux) sha256=b901cf0be4cc8a0c0fc34845f8f283b791a2fa0fc6a80d88992f111242813daa
+  libddwaf (1.30.0.0.0-arm64-darwin) sha256=b4997ab7e8a4c41fa3993b00d89c209dfbed4d5ac5c03fc1dd70464185ffe193
+  libddwaf (1.30.0.0.0-x86_64-linux) sha256=c8d7e1e097ed12bcdf5d4bcb716edcb98e72733c80dd884e0ee83a7cc43d6ae0
   lint_roller (1.1.0) sha256=2c0c845b632a7d172cb849cc90c1bce937a28c5c8ccccb50dfd46a485003cc87
   listen (3.9.0) sha256=db9e4424e0e5834480385197c139cb6b0ae0ef28cc13310cfd1ca78377d59c67
   livejournal2 (0.4.2) sha256=59844081fa177307400e0048dea9894d7caaa471fb34a867dc4fa2d1dbc9e598
@@ -720,6 +748,7 @@ CHECKSUMS
   mini_mime (1.1.5) sha256=8681b7e2e4215f2a159f9400b5816d85e9d8c6c6b491e96a12797e798f8bccef
   minitest (5.27.0) sha256=2d3b17f8a36fe7801c1adcffdbc38233b938eb0b4966e97a6739055a45fa77d5
   minitest-reporters (1.7.1) sha256=5060413a0c95b8c32fe73e0606f3631c173a884d7900e50013e15094eb50562c
+  msgpack (1.8.0) sha256=e64ce0212000d016809f5048b48eb3a65ffb169db22238fb4b72472fecb2d732
   net-http-digest_auth (1.4.1) sha256=4b8ad50ed8d180a58db5d6c49449b987dd0466fe01e24037945bc007562a08db
   net-http-persistent (4.0.8) sha256=ef3de8319d691537b329053fae3a33195f8b070bbbfae8bf1a58c796081960e6
   net-imap (0.6.2) sha256=08caacad486853c61676cca0c0c47df93db02abc4a8239a8b67eb0981428acc6
