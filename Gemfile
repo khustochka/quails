@@ -4,7 +4,7 @@ source "https://gem.coop"
 
 ruby ">= 3.2"
 
-VERSION = "8.1.1"
+VERSION = "8.1.2"
 # gem "rails", VERSION
 gem "activemodel",   VERSION
 gem "activejob",     VERSION
@@ -112,10 +112,6 @@ gem "base64"
 # drb references observer but does not list it as a dependency.
 gem "drb"
 gem "observer"
-
-# Temporary
-# Rails incompatible
-gem "connection_pool", "< 3"
 
 group :development do
   gem "listen" # required for tracking file changes in development
