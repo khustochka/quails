@@ -9,7 +9,7 @@ plugins:
   - rubocop-haml
 
 AllCops:
-  TargetRubyVersion: 3.4
+  TargetRubyVersion: 4.0
   DisabledByDefault: false
   NewCops: enable
   Exclude:
