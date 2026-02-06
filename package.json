@@ -7,16 +7,16 @@
     "@csstools/normalize.css": "^12.0.0",
     "@honeybadger-io/js": "^6.12.3",
     "@popperjs/core": "^2.11.5",
-    "@rails/actioncable": "^8.1.100",
-    "@rails/activestorage": "^8.1.100",
+    "@rails/actioncable": "^8.1.200",
+    "@rails/activestorage": "^8.1.200",
     "bootstrap": "^5.3.8",
-    "esbuild": "^0.27.2",
+    "esbuild": "^0.27.3",
     "ilyabirman-likely": "^3.2.0",
     "keypress.js": "^2.1.5",
     "tippy.js": "^6.3.7"
   },
   "devDependencies": {
-    "playwright": "^1.57.0"
+    "playwright": "^1.58.2"
   },
   "browserslist": [
     "last 5 years"
