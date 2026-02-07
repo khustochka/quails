@@ -34,5 +34,5 @@
                 = select_tag "c[][locus_id]",
                       options_from_collection_for_select(Locus.suggestion_order, :id, :to_label, list.locus_id),
                       include_blank: true, class: "locus_select"
-                = link_to "Create new", new_locus_path(locus: {name_en: list.location, parent_id: list.parent_id})
+                = link_to "Create new", new_locus_path(locus: {name_en: list.location, parent_id: list.parent_id}), target: :_blank, rel: :noopener
       = submit_tag "Import"
