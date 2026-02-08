@@ -4,7 +4,7 @@ require "quails/env"
 require "quails/revision"
 
 module Quails
-  CURRENT_YEAR = 2025
+  LICENSE_YEAR = 2026
 
   def self.env
     @env ||= Env.new

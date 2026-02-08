@@ -1,5 +1,5 @@
-ARG RUBY_VERSION=3.4.7
-ARG VARIANT=slim-bookworm
+ARG RUBY_VERSION=4.0.1
+ARG VARIANT=slim-trixie
 FROM ruby:${RUBY_VERSION}-${VARIANT} AS base
 
 # Default value to allow debug server to serve content over GitHub Codespace's port forwarding service

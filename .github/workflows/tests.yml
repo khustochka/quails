@@ -38,7 +38,7 @@ jobs:
       PARALLEL_WORKERS: 1
     steps:
       - name: Checkout code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - name: Setup test environment
         uses: ./.github/actions/setup
         with:
@@ -46,7 +46,7 @@ jobs:
       - name: Run tests
         run: bin/rails test
       - name: Code coverage results
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: Coverage
           path: coverage/
@@ -84,14 +84,14 @@ jobs:
       PARALLEL_WORKERS: 2
     steps:
       - name: Checkout code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - name: Setup test environment
         uses: ./.github/actions/setup
         with:
           ruby: ${{ inputs.ruby }}
       - name: Cache Playwright Chromium browser
         id: playwright-cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/.cache/ms-playwright
           key: playwright-browsers-${{ runner.os }}-${{ hashFiles('yarn.lock') }}
@@ -110,7 +110,7 @@ jobs:
           JS_BROWSER: ${{ matrix.driver.js_browser }}
         run: bin/rails test:system
       - name: Screenshots
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         if: failure()
         with:
           name: Screenshots-${{ matrix.driver.js_browser }}

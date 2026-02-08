@@ -2,9 +2,9 @@
 
 source "https://gem.coop"
 
-ruby ">= 3.0"
+ruby ">= 3.2"
 
-VERSION = "8.1.1"
+VERSION = "8.1.2"
 # gem "rails", VERSION
 gem "activemodel",   VERSION
 gem "activejob",     VERSION
@@ -68,7 +68,7 @@ gem "aws-sdk-s3"
 # Small utils
 gem "addressable", require: "addressable/uri"
 gem "roman-numerals"
-gem "stringio", "~> 3.1.2"
+gem "stringio", "~> 3.2.0"
 gem "uri"
 gem "csv"
 
@@ -115,6 +115,7 @@ gem "observer"
 
 group :development do
   gem "listen" # required for tracking file changes in development
+  gem "benchmark"
   gem "benchmark-ips"
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem "web-console", ">= 3.3.0"
@@ -130,6 +131,7 @@ group :development do
   gem "rubocop-factory_bot", require: false
   gem "rubocop-haml", require: false
   gem "haml_lint", require: false
+  gem "tidewave"
 end
 
 group :development, :test do
@@ -140,6 +142,7 @@ group :development, :test do
 end
 
 group :test do
+  gem "minitest"
   gem "capybara"
   gem "capybara-playwright-driver"
   gem "webmock"

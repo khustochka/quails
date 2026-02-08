@@ -6,6 +6,8 @@
       previous_posts: << Раніше
       meta_description: "Блог про птахів України і Канади, фото і відео птахів, інформація про бьординг"
       blog: Блог
+
+    year_summaries:
       year_summary: Підсумки року
       year_progress: Прогрес року
 
@@ -29,13 +31,13 @@
 
     post:
       comments:
-        one: '1 коментар'
-        few: '%{count} коментаря'
-        many: '%{count} коментарів'
+        one: "1 коментар"
+        few: "%{count} коментаря"
+        many: "%{count} коментарів"
       comment_declension:
-        one: 'коментар'
-        few: 'коментаря'
-        many: 'коментарів'
+        one: "коментар"
+        few: "коментаря"
+        many: "коментарів"
       add_comment: Коментувати
       if_you_wish_to_receive_notification: Якщо хочете отримати повідомлення про відповідь.
       some_html_allowed: Дозволено трохи HTML, включно з <a>, <img>.
@@ -59,7 +61,7 @@
   simple_form:
     labels:
       comment:
-        name: 'Імʼя:'
-        send_email: 'Надіслати відповідь електронною поштою:'
-        email: 'Email:'
-        url: 'URL:'
+        name: "Імʼя:"
+        send_email: "Надіслати відповідь електронною поштою:"
+        email: "Email:"
+        url: "URL:"

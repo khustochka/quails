@@ -1,8 +1,8 @@
 # Quails
 
-This is an application for keeping track of birdwatching activities and sharing them with the world. It allows to
-log bird observations, place them on the map, attach images, generate life-, year- or region lists,
-and blog about birds and birding.
+This is an application for tracking and sharing birdwatching activities. Log observations, put
+them on a map, attach photos, generate life, year, and region lists, and write blog posts about
+your birding adventures.
 
 ## Why the name
 
@@ -74,4 +74,4 @@ Login credentials: username `admin`, password `admin`.
 
 ## License
 
-Copyright (c) 2007–2025 Vitalii Khustochka
+Copyright (c) 2007–2026 Vitalii Khustochka
