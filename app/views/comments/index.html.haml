@@ -3,6 +3,9 @@
 
 %h1= page_header
 
+- if notice
+  %p#notice= notice
+
 %p
   - if params[:sort] == 'by_post'
     = link_to 'Show latest first', sort: nil
@@ -43,11 +46,14 @@
         %td.align-center
           %div
             = default_destroy_link(comment)
-          - if !comment.approved  
-            %br  
+          - if !comment.approved
+            %br
             = form_for comment, remote: false do |form|
               = form.hidden_field :approved, value: true
               = form.submit 'Approve'
+          - if comment.approved? && comment.needs_email_release? && comment.email_sent_at.nil?
+            %br
+            = button_to 'Release Email', release_email_comment_path(comment, page: params[:page]), method: :post
 
 %div{data: {turbolinks: "true"}}
   = paginate @comments unless params[:sort] == 'by_post'

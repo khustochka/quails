@@ -250,7 +250,10 @@ Rails.application.routes.draw do
   end
 
   resources :comments, except: [:new, :create] do
-    get :reply, on: :member
+    member do
+      get :reply
+      post :release_email
+    end
     collection do
       get :unsubscribe, to: "comments#unsubscribe_request", as: :unsubscribe_request
       post :unsubscribe, to: "comments#unsubscribe_submit", as: :unsubscribe_submit

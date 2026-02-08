@@ -205,4 +205,49 @@ class CommentsControllerTest < ActionController::TestCase
     comment =  assigns(:comment)
     assert_not comment.send_email
   end
+
+  test "release_email clears needs_email_release" do
+    login_as_admin
+    parent_commenter = Commenter.create!(name: "Parent", email: "parent@example.org")
+    parent_comment = create(:comment, send_email: true, commenter: parent_commenter)
+    comment = create(:comment, post: parent_comment.post, parent_comment: parent_comment, needs_email_release: true)
+
+    post :release_email, params: { id: comment.to_param }
+
+    assert_redirected_to comments_path
+    comment.reload
+    assert_not comment.needs_email_release
+  end
+
+  test "release_email does not clear needs_email_release if email already sent" do
+    login_as_admin
+    parent_commenter = Commenter.create!(name: "Parent", email: "parent@example.org")
+    parent_comment = create(:comment, send_email: true, commenter: parent_commenter)
+    comment = create(:comment, post: parent_comment.post, parent_comment: parent_comment, needs_email_release: true, email_sent_at: Time.current)
+
+    post :release_email, params: { id: comment.to_param }
+
+    assert_redirected_to comments_path
+    comment.reload
+    assert comment.needs_email_release
+  end
+
+  test "release_email requires admin" do
+    comment = create(:comment, needs_email_release: true)
+
+    assert_raises(ActionController::RoutingError) do
+      post :release_email, params: { id: comment.to_param }
+    end
+  end
+
+  test "release_email preserves page param in redirect" do
+    login_as_admin
+    parent_commenter = Commenter.create!(name: "Parent", email: "parent@example.org")
+    parent_comment = create(:comment, send_email: true, commenter: parent_commenter)
+    comment = create(:comment, post: parent_comment.post, parent_comment: parent_comment, needs_email_release: true)
+
+    post :release_email, params: { id: comment.to_param, page: 3 }
+
+    assert_redirected_to comments_path(page: 3)
+  end
 end

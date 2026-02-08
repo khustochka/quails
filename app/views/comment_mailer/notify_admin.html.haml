@@ -20,4 +20,4 @@
   - if parent&.send_email? && @comment.approved
     %p
       = parent.name
-      (#{Rinku.auto_link(parent.commenter.email).html_safe}) should receive email notification.
+      (#{Rinku.auto_link(parent.commenter.email).html_safe}) will receive email notification, if you approve it.

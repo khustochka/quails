@@ -14,7 +14,7 @@ class CommentsController < ApplicationController
   # FIXME: not yet localized but should be!
   # localized locales: [:uk, :ru], only: [:reply, :unsubscribe_request, :unsubscribe_submit]
 
-  find_record before: [:show, :edit, :update, :destroy, :reply]
+  find_record before: [:show, :edit, :update, :destroy, :reply, :release_email]
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -106,7 +106,7 @@ class CommentsController < ApplicationController
               mailer = CommentMailer.with(comment: @comment, link_options: mailer_link_options)
               mailer.notify_admin.deliver_later
               if @comment.parent_comment&.send_email? && @comment.approved
-                mailer.notify_parent_author.deliver_later
+                @comment.update_column(:needs_email_release, true)
               end
             end
           rescue => e
@@ -166,6 +166,16 @@ class CommentsController < ApplicationController
       format.html { redirect_to default_public_post_path(@comment.post, anchor: "comments") }
       format.json { head :no_content }
     end
+  end
+
+  # POST /comments/1/release_email
+  def release_email
+    if @comment.approved? && @comment.needs_email_release? && @comment.email_sent_at.nil?
+      mailer = CommentMailer.with(comment: @comment, link_options: mailer_link_options)
+      mailer.notify_parent_author.deliver_later
+      @comment.update!(needs_email_release: false)
+    end
+    redirect_to comments_path(page: params[:page]), notice: "Email released."
   end
 
   def unsubscribe_request
