@@ -131,6 +131,7 @@ group :development do
   gem "rubocop-factory_bot", require: false
   gem "rubocop-haml", require: false
   gem "haml_lint", require: false
+  gem "tidewave"
 end
 
 group :development, :test do
