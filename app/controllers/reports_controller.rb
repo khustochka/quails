@@ -109,18 +109,14 @@ class ReportsController < ApplicationController
     prev_day = Image.joins(:observations, :cards).select("to_char(observ_date, 'DD') as iday, to_char(observ_date, 'MM') as imon")
       .where("to_char(observ_date, 'MM-DD') < ?", month_day)
       .order(Arel.sql("to_char(observ_date, 'MM-DD') DESC")).first
-    @prev_day = begin
+    @prev_day = if prev_day
       [prev_day[:imon], prev_day[:iday]].join("-")
-    rescue
-      nil
     end
     next_day = Image.joins(:observations, :cards).select("to_char(observ_date, 'DD') as iday, to_char(observ_date, 'MM') as imon")
       .where("to_char(observ_date, 'MM-DD') > ?", month_day)
       .order(Arel.sql("to_char(observ_date, 'MM-DD') ASC")).first
-    @next_day = begin
+    @next_day = if next_day
       [next_day[:imon], next_day[:iday]].join("-")
-    rescue
-      nil
     end
     @images = Image.select("media.*, cards.observ_date").distinct.joins(:observations, :cards)
       .where("EXTRACT(day from observ_date)::integer = ? AND EXTRACT(month from observ_date)::integer = ?", @day, @month)

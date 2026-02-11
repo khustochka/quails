@@ -84,7 +84,7 @@ module EBird
       @file.cards = cards_rel
 
       if @file.save
-        @file.update_attribute(:name, "#{test_prefix}#{@file.name}-#{@file.id}")
+        @file.update_column(:name, "#{test_prefix}#{@file.name}-#{@file.id}")
         result = Export::Exporter.ebird(filename: @file.name, cards: cards_rel, storage: storage_service).export
       else
         # FIXME: this is hack. For some reason errors on cards are not preserved after validation.
@@ -106,7 +106,7 @@ module EBird
         flash.alert = "Export failed"
         render :new
       end
-    rescue
+    rescue StandardError
       @file.destroy
       raise
     end

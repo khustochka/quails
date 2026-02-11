@@ -94,7 +94,7 @@ class CommentsController < ApplicationController
 
         @comment.send_email = @comment.approved && commenter
         if @comment.send_email
-          @comment.update_attribute(:unsubscribe_token, SecureRandom.urlsafe_base64(20 * 3 / 4))
+          @comment.unsubscribe_token = SecureRandom.urlsafe_base64(20 * 3 / 4)
         end
         @comment.commenter = commenter
       end
@@ -196,7 +196,7 @@ class CommentsController < ApplicationController
 
     @comment = Comment.where(unsubscribe_token: @token).first
     if @comment
-      @comment.update_attribute(:send_email, false)
+      @comment.update_column(:send_email, false)
       render "comments/unsubscribe_done"
     else
       render "comments/unsubscribe_not_found", status: :not_found
