@@ -157,11 +157,12 @@ class Image < Media
         .where(species: { id: sp.id })
     # Join ranked tables by neighbouring images
     # Select neighbours of the sought one, exclude duplication
+    quoted_id = self.class.connection.quote(id)
     q = "with ranked as (#{window.to_sql})
       select that.*, that.rn - this.rn as diff
       from ranked that
       join ranked this on that.rn between this.rn-1 and this.rn+1
-      where this.id='#{id}' and this.rn <> that.rn"
+      where this.id=#{quoted_id} and this.rn <> that.rn"
     @prev_next[sp] = Image.find_by_sql(q).index_by(&:diff)
   end
 
