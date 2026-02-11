@@ -18,7 +18,7 @@ class User
   end
 
   def available_comments(post)
-    post.comments.approved
+    post.comments.approved.chronological
   end
 
   def searchable_species

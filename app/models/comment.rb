@@ -18,7 +18,7 @@ class Comment < ApplicationRecord
 
   validate :consistent_post_and_parent
 
-  default_scope { order(:created_at) }
+  scope :chronological, -> { order(:created_at) }
 
   scope :approved, -> { where(approved: true) }
 

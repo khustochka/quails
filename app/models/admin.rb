@@ -18,7 +18,7 @@ class Admin
   end
 
   def available_comments(post)
-    post.comments
+    post.comments.chronological
   end
 
   def searchable_species
