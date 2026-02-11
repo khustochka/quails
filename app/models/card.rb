@@ -73,30 +73,32 @@ class Card < ApplicationRecord
 
   # List of lifer species
   def lifer_species_ids
+    quoted_date = self.class.connection.quote(observ_date)
+    quoted_id = self.class.connection.quote(id)
+
+    time_clause = if start_time.blank?
+      "OR (#{quoted_date} = c.observ_date
+            AND c.start_time IS NOT NULL
+            )
+      OR (#{quoted_date} = c.observ_date
+            AND c.start_time IS NULL
+            AND c.id < #{quoted_id}
+            )"
+    else
+      quoted_time = self.class.connection.quote(start_time)
+      "OR (#{quoted_date} = c.observ_date
+            AND to_timestamp(#{quoted_time}, 'HH24:MI') > to_timestamp(c.start_time, 'HH24:MI')
+            )"
+    end
+
     subquery = "
         select obs.id
         from observations obs
         join cards c on obs.card_id = c.id
         join taxa tt ON obs.taxon_id = tt.id
         where taxa.species_id = tt.species_id and
-        ('#{observ_date}' > c.observ_date
-         " +
-      (
-        if start_time.blank?
-          "OR ('#{observ_date}' = c.observ_date
-                AND c.start_time IS NOT NULL
-                )
-        OR ('#{observ_date}' = c.observ_date
-                AND c.start_time IS NULL
-                AND c.id < #{id}
-                )"
-        else
-          "OR ('#{observ_date}' = c.observ_date
-                AND to_timestamp('#{start_time}', 'HH24:MI') > to_timestamp(c.start_time, 'HH24:MI')
-                )"
-        end
-      ) +
-      ")"
+        (#{quoted_date} > c.observ_date
+         #{time_clause})"
     @lifer_species_ids ||= observations
       .identified
       .where("NOT EXISTS(#{subquery})")

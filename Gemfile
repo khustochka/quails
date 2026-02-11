@@ -108,6 +108,7 @@ gem "rexml"
 gem "psych"
 gem "ostruct"
 gem "base64"
+gem "shellwords"
 
 # drb references observer but does not list it as a dependency.
 gem "drb"

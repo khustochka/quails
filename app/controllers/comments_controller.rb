@@ -216,6 +216,7 @@ class CommentsController < ApplicationController
   end
 
   def allowed_email?(email)
-    !Mail::Address.new(email).domain.in?(RESTRICTED_DOMAINS)
+    domain = Mail::Address.new(email).domain
+    domain.present? && !domain.in?(RESTRICTED_DOMAINS)
   end
 end

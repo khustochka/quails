@@ -105,8 +105,9 @@ class ReportsController < ApplicationController
 
   def this_day
     @month, @day = (params[:day].try(:split, "-") || [Time.current.month, Time.current.day]).map { |n| "%02d" % n.to_i }
+    month_day = "#{@month}-#{@day}"
     prev_day = Image.joins(:observations, :cards).select("to_char(observ_date, 'DD') as iday, to_char(observ_date, 'MM') as imon")
-      .where("to_char(observ_date, 'MM-DD') < '#{@month}-#{@day}'")
+      .where("to_char(observ_date, 'MM-DD') < ?", month_day)
       .order(Arel.sql("to_char(observ_date, 'MM-DD') DESC")).first
     @prev_day = begin
       [prev_day[:imon], prev_day[:iday]].join("-")
@@ -114,7 +115,7 @@ class ReportsController < ApplicationController
       nil
     end
     next_day = Image.joins(:observations, :cards).select("to_char(observ_date, 'DD') as iday, to_char(observ_date, 'MM') as imon")
-      .where("to_char(observ_date, 'MM-DD') > '#{@month}-#{@day}'")
+      .where("to_char(observ_date, 'MM-DD') > ?", month_day)
       .order(Arel.sql("to_char(observ_date, 'MM-DD') ASC")).first
     @next_day = begin
       [next_day[:imon], next_day[:iday]].join("-")

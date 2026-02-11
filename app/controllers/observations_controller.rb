@@ -50,7 +50,9 @@ class ObservationsController < ApplicationController
 
   def extract
     observations = Observation.where(id: params[:obs])
-    card = observations[0].card.dup
+    raise ActiveRecord::RecordNotFound, "No observations found" if observations.empty?
+
+    card = observations.first.card.dup
     card.observations << observations
     card.save!
     redirect_to edit_card_path(card), notice: "New card is extracted and saved. Edit if necessary."
@@ -58,7 +60,9 @@ class ObservationsController < ApplicationController
 
   def move
     @observations = Observation.where(id: params[:obs]).preload(taxon: :species)
-    @card = @observations[0].card
+    raise ActiveRecord::RecordNotFound, "No observations found" if @observations.empty?
+
+    @card = @observations.first.card
     @observation_search = ObservationSearch.new(observ_date: @card.observ_date, locus_id: @card.locus_id)
   end
 

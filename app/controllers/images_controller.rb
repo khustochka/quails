@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "shellwords"
+
 class ImagesController < ApplicationController
   include FlickrConcern
 
@@ -76,7 +78,7 @@ class ImagesController < ApplicationController
     end
     new_slug = File.basename(uploaded_io.original_filename, ".*")
     image_attributes = { i: { slug: new_slug } }
-    exif_date = `identify -format "%[EXIF:DateTimeOriginal]" "#{filename}"`.chomp[0..9].tr(":", "-")
+    exif_date = `identify -format "%[EXIF:DateTimeOriginal]" #{Shellwords.shellescape(filename)}`.chomp[0..9].tr(":", "-")
     image_attributes[:exif_date] = exif_date if exif_date.present?
     if to_flickr
       flickr_id = _FlickrClient.upload_photo(filename, FlickrPhoto::DEFAULT_PARAMS.merge(params[:flickr])).get
