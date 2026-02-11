@@ -83,13 +83,15 @@ module EBird
 
       @file.cards = cards_rel
 
-      if @file.save
-        @file.update_column(:name, "#{test_prefix}#{@file.name}-#{@file.id}")
-        result = Export::Exporter.ebird(filename: @file.name, cards: cards_rel, storage: storage_service).export
-      else
-        # FIXME: this is hack. For some reason errors on cards are not preserved after validation.
-        @file.cards.each { |c| c.valid?(:ebird_post) }
-        result = false
+      result = EBird::File.transaction do
+        if @file.save
+          @file.update_column(:name, "#{test_prefix}#{@file.name}-#{@file.id}")
+          Export::Exporter.ebird(filename: @file.name, cards: cards_rel, storage: storage_service).export
+        else
+          # FIXME: this is hack. For some reason errors on cards are not preserved after validation.
+          @file.cards.each { |c| c.valid?(:ebird_post) }
+          false
+        end
       end
 
       if result
@@ -99,15 +101,13 @@ module EBird
         # rubocop:enable Rails/OutputSafety
         redirect_to ebird_submission_url(@file.id)
       else
-        if @file.persisted?
-          @file.destroy
-        end
+        @file.destroy if @file.persisted?
         @observation_search = EBird::ObsSearch.new
         flash.alert = "Export failed"
         render :new
       end
     rescue StandardError
-      @file.destroy
+      @file.destroy if @file&.persisted?
       raise
     end
 
