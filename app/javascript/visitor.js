@@ -3,6 +3,9 @@
 //
 // ActiveStorage.start();
 
+import Rails from '@rails/ujs';
+Rails.start();
+
 import Likely from 'ilyabirman-likely';
 
 document.addEventListener('DOMContentLoaded', function () {Likely.initiate()});

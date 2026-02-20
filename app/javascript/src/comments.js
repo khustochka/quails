@@ -15,18 +15,19 @@ function initReplyLinks() {
 }
 
 function initCommentForms() {
-  const $ = window.$;
-
-  $(".main").on("ajax:before", "form.comment", function () {
-    $("p.errors", this).remove();
+  document.querySelector(".main").addEventListener("ajax:before", function (e) {
+    if (!e.target.matches("form.comment")) return;
+    e.target.querySelectorAll("p.errors").forEach(p => p.remove());
   });
 
-  $(".main").on("ajax:success", "form.comment", function (_e, data) {
-    const formEl = this;
-    const newComment = $(data)[0];
+  document.querySelector(".main").addEventListener("ajax:success", function (e) {
+    if (!e.target.matches("form.comment")) return;
+    const formEl = e.target;
+    const doc = e.detail[0];
+    const newComment = doc.body.firstElementChild;
     if ("commentForm" in formEl.dataset) {
       document.getElementById("add_comment").before(newComment);
-      $(formEl).replaceWith(form.cloneNode(true));
+      formEl.replaceWith(form.cloneNode(true));
     } else {
       const parent = formEl.closest(".comment_box");
       let subcomments = parent.nextElementSibling;
@@ -42,11 +43,14 @@ function initCommentForms() {
     window.location.hash = newComment.id;
   });
 
-  $(".main").on("ajax:error", "form.comment", function (_e, xhr) {
+  document.querySelector(".main").addEventListener("ajax:error", function (e) {
+    if (!e.target.matches("form.comment")) return;
+    const formEl = e.target;
+    const xhr = e.detail[0];
     const p = document.createElement("p");
     p.className = "errors";
     p.textContent = xhr.status === 422 ? xhr.responseText : "Извините, произошла ошибка.";
-    this.before(p);
+    formEl.before(p);
   });
 }
 

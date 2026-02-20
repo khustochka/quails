@@ -1,23 +1,26 @@
-$(function () {
+document.addEventListener('DOMContentLoaded', function () {
 
-  var current_image_id_field = $('#species_species_image_attributes_image_id');
+  const currentImageIdField = document.getElementById('species_species_image_attributes_image_id');
 
-  $('.edit_main_image').click(function () {
-    $('div.thumbnails').css({border: "2px solid green", padding: "10px"});
+  document.querySelector('.edit_main_image').addEventListener('click', function () {
+    const thumbnails = document.querySelector('div.thumbnails');
+    thumbnails.style.border = '2px solid green';
+    thumbnails.style.padding = '10px';
 
-    $('.image_thumb[data-image-id="' + current_image_id_field.val() + '"]', 'div.thumbnails')
-        .addClass('orange_border');
+    thumbnails.querySelector('.image_thumb[data-image-id="' + currentImageIdField.value + '"]')
+      ?.classList.add('orange_border');
 
-    $('form', 'div.thumbnails').on("ajax:success", function() {
+    thumbnails.addEventListener('ajax:success', function () {
       location.reload();
     });
 
-    $('img', 'div.thumbnails').click(function (event) {
-      event.preventDefault();
-      current_image_id_field.val($(this).closest('figure').data('image-id'));
-      $('form', 'div.thumbnails').submit();
+    thumbnails.querySelectorAll('img').forEach(function (img) {
+      img.addEventListener('click', function (event) {
+        event.preventDefault();
+        currentImageIdField.value = img.closest('figure').dataset.imageId;
+        thumbnails.querySelector('form').requestSubmit();
+      });
     });
-
   });
 
 });
