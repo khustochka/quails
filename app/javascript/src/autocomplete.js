@@ -7,9 +7,10 @@ export default class Autocomplete {
   //   onFallback() -> void           — called when the fallback item is selected (optional)
   //   minLength: int (default 0)     — minimum chars before fetching
   //   debounce: int (default 200)    — ms to wait after typing before fetching
+  //   autoFocus: bool (default false) — automatically highlight first item after each fetch
   constructor(input, options) {
     this.input = input;
-    this.options = Object.assign({ minLength: 0, debounce: 200 }, options);
+    this.options = Object.assign({ minLength: 0, debounce: 200, autoFocus: false }, options);
     this.items = [];
     this.activeIndex = -1;
     this.currentTerm = null;
@@ -88,7 +89,7 @@ export default class Autocomplete {
     } else if (e.key === "ArrowUp") {
       e.preventDefault();
       this._setActive((this.activeIndex - 1 + total) % total);
-    } else if (e.key === "Enter") {
+    } else if (e.key === "Enter" || e.key === "Tab") {
       if (this.activeIndex >= 0) {
         e.preventDefault();
         this.dropdown.children[this.activeIndex].click();
@@ -109,6 +110,8 @@ export default class Autocomplete {
       li.addEventListener("click", () => this.options.onSelect(item));
       this.dropdown.appendChild(li);
     });
+
+    if (this.options.autoFocus && this.items.length > 0) this._setActive(0);
 
     if (this.options.renderFallback) {
       const li = document.createElement("li");

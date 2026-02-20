@@ -48,11 +48,13 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   end
 
   def select_suggestion(value, hash)
-    selector = ".ui-menu-item a:contains(\"#{value}\"):first"
     fill_in hash[:from], with: value
-    sleep(0.5) # Chrome driver needs pretty high values
-    # raise "No element '#{value}' in the field #{hash[:from]}" unless page.has_selector?(:xpath, "//*[@class=\"ui-menu-item\"]//a[contains(text(), \"#{value}\")]")
-    page.execute_script " $('#{selector}').trigger('mouseenter').click();"
+    if page.document.has_css?(".ac-dropdown a", text: value, wait: 2)
+      first(".ac-dropdown a", text: value).click
+    else
+      sleep(0.5) # Chrome driver needs pretty high values for jQuery UI
+      page.execute_script "$('.ui-menu-item a:contains(\"#{value}\"):first').trigger('mouseenter').click();"
+    end
   end
 
   def click_add_new_row
