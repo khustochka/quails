@@ -53,7 +53,10 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     fill_in hash[:from], with: value
     sleep(0.5) # Chrome driver needs some time
     if page.document.has_css?(".ac-dropdown a", text: value, wait: 2)
-      page.execute_script "Array.from(document.querySelectorAll('.ac-dropdown')).find(el => el.style.display !== 'none').querySelector('a').click();"
+      page.execute_script <<~JS
+        const dropdown = Array.from(document.querySelectorAll('.ac-dropdown')).find(el => el.style.display !== 'none');
+        Array.from(dropdown.querySelectorAll('a')).find(a => a.textContent.includes(#{value.to_json})).click();
+      JS
     else
       page.execute_script "$('.ui-menu-item a:contains(\"#{value}\"):first').trigger('mouseenter').click();"
     end
