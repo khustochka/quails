@@ -1,7 +1,5 @@
 -# frozen_string_literal: true
 
--# Early is first, because it declared jQuery which may be used by other scripts
-= javascript_include_tag "early"
 = javascript_include_tag "common"
 = javascript_include_tag "application"
 - if admin_layout?
