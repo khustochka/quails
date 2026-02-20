@@ -1,16 +1,24 @@
+export function highlight(text, term) {
+  if (!term) return text;
+  const escaped = term.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+  return text.replace(new RegExp("(" + escaped + ")", "gi"), "<em>$1</em>");
+}
+
 export default class Autocomplete {
   // options:
   //   source(term) -> Promise<Array<{label, value, ...}>>
-  //   renderItem(li, item) -> void   — populate a <li> for a result item
+  //   renderItem(li, item, term) -> void — populate a <li> for a result item; term is the current query string
   //   renderFallback(li) -> void     — populate a <li> for the fallback item (optional)
   //   onSelect(item) -> void         — called when a result item is selected
   //   onFallback() -> void           — called when the fallback item is selected (optional)
   //   minLength: int (default 0)     — minimum chars before fetching
   //   debounce: int (default 200)    — ms to wait after typing before fetching
   //   autoFocus: bool (default false) — automatically highlight first item after each fetch
+  //   autoWidth: bool (default false) — use min-width instead of width, allowing dropdown to exceed input width
+  //   dropdownClass: string (default null) — extra CSS class added to the dropdown <ul>
   constructor(input, options) {
     this.input = input;
-    this.options = Object.assign({ minLength: 0, debounce: 200, autoFocus: false }, options);
+    this.options = Object.assign({ minLength: 0, debounce: 200, autoFocus: false, autoWidth: false }, options);
     this.items = [];
     this.activeIndex = -1;
     this.currentTerm = null;
@@ -21,7 +29,7 @@ export default class Autocomplete {
 
   _buildDropdown() {
     this.dropdown = document.createElement("ul");
-    this.dropdown.className = "ac-dropdown";
+    this.dropdown.className = "ac-dropdown" + (this.options.dropdownClass ? " " + this.options.dropdownClass : "");
     this.dropdown.style.display = "none";
 
     document.body.appendChild(this.dropdown);
@@ -39,10 +47,11 @@ export default class Autocomplete {
 
   _positionDropdown() {
     const rect = this.input.getBoundingClientRect();
+    const widthProp = this.options.autoWidth ? "minWidth" : "width";
     Object.assign(this.dropdown.style, {
       top: (rect.bottom + window.scrollY) + "px",
       left: (rect.left + window.scrollX) + "px",
-      width: rect.width + "px",
+      [widthProp]: rect.width + "px",
     });
   }
 
@@ -106,7 +115,7 @@ export default class Autocomplete {
 
     this.items.forEach((item, i) => {
       const li = document.createElement("li");
-      this.options.renderItem(li, item);
+      this.options.renderItem(li, item, this.currentTerm);
       li.addEventListener("mouseenter", () => this._setActive(i));
       li.addEventListener("click", () => this.options.onSelect(item));
       this.dropdown.appendChild(li);

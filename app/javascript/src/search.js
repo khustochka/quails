@@ -20,6 +20,7 @@ function initSearch(root) {
 
   new Autocomplete(input, {
     minLength: 0,
+    dropdownClass: "ac-search-dropdown",
 
     source(term) {
       termRegex = new RegExp("(?!<^| |-)(" + escapeRegex(term) + ")", "i");

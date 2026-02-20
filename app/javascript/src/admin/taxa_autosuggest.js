@@ -1,4 +1,4 @@
-import Autocomplete from '../autocomplete';
+import Autocomplete, { highlight } from '../autocomplete';
 
 function initTaxonSuggestField(elements, onSelect) {
   var inputs = typeof elements === 'string'
@@ -9,13 +9,14 @@ function initTaxonSuggestField(elements, onSelect) {
       minLength: 2,
       debounce: 0,
       autoFocus: true,
+      autoWidth: true,
       source(term) {
         return fetch('/taxa/search.json?term=' + encodeURIComponent(term))
           .then(r => r.json());
       },
-      renderItem(li, item) {
+      renderItem(li, item, term) {
         const a = document.createElement('a');
-        a.innerHTML = item.value + ' <small class="tag tag_' + item.cat + '">' + item.cat + '</small>';
+        a.innerHTML = highlight(item.value, term) + ' <small class="tag tag_' + item.cat + '">' + item.cat + '</small>';
         li.appendChild(a);
       },
       onSelect: onSelect ? function (item) { onSelect(input, item); } : function (item) {

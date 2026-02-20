@@ -1,5 +1,4 @@
 //= require map_init
-//= require suggest_over_combo
 
 $(function () {
 

@@ -3,6 +3,7 @@ import "./channels";
 import './src/admin/ebird-importer';
 import './src/admin/ebird-transitions';
 import './src/admin/instant-search';
+import './src/admin/suggest-combo';
 
 import { initTaxonSuggestField } from './src/admin/taxa_autosuggest';
 window.Quails = window.Quails || {};

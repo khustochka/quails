@@ -1,4 +1,4 @@
-import Autocomplete from '../autocomplete';
+import Autocomplete, { highlight } from '../autocomplete';
 
 // Replaces a <select> with a text input + autocomplete dropdown.
 // Returns an object with selectByText(text) for programmatic selection.
@@ -28,10 +28,11 @@ export function selectCombobox(select) {
     minLength,
     autoFocus: true,
     debounce: 0,
+    autoWidth: true,
     source: term => Promise.resolve(filterOptions(term)),
-    renderItem(li, item) {
+    renderItem(li, item, term) {
       const a = document.createElement('a');
-      a.innerHTML = item.label;
+      a.innerHTML = highlight(item.label, term);
       li.appendChild(a);
     },
     onSelect(item) {
