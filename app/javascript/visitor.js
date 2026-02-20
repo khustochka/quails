@@ -12,3 +12,6 @@ import './src/post_expand';
 import VideoResize from "./src/video-resize"
 // Resize the video to these dimensions after it is started
 VideoResize.init(853, 480)
+
+import Comments from './src/comments';
+Comments.init();

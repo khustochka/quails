@@ -1,5 +1,5 @@
 -# frozen_string_literal: true
-= simple_form_for @comment, remote: (action_name != 'reply'), html: {class: 'comment'} do |form|
+= simple_form_for @comment, remote: (action_name != 'reply'), html: {class: 'comment', data: {'comment-form': true}} do |form|
   = render partial: "comments/errors", object: @comment.errors
 
   = form.input :post_id, as: :hidden

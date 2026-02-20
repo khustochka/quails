@@ -1,5 +1,9 @@
 //= require search
-//= require base
+
+this.Quails = {
+  pages: {},
+  features: {}
+};
 
 document.addEventListener('DOMContentLoaded', function () {
     const $body = document.querySelector("body"),
