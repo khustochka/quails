@@ -113,17 +113,18 @@ $(function () {
 
   var searchForm = $('form.search');
 
-  searchForm.on('ajax:beforeSend', function () {
+  searchForm[0].addEventListener('ajax:beforeSend', function () {
     $('ul.obs-list').empty();
     //$('.observation_options').addClass('loading');
   });
 
-  searchForm.on('ajax:success', function (e, data) {
+  searchForm[0].addEventListener('ajax:success', function (e) {
+    var data = e.detail[0];
     $('ul.obs-list').html(data.html);
     buildObservations(data.json);
   });
 
-  searchForm.submit();
+  searchForm[0].requestSubmit();
 
   // the Map
 
@@ -306,8 +307,9 @@ $(function () {
     defaultPublicity = $(this).is(':checked');
   });
 
-  $(document).on('ajax:success', '#new_spot', function (e, data) {
-    var infowindow = theMap.gmap3({get: {name: 'infowindow'}}),
+  $(document).on('ajax:success', '#new_spot', function (e) {
+    var data = e.detail[0],
+        infowindow = theMap.gmap3({get: {name: 'infowindow'}}),
         selectedObs = $('li.selected_obs'),
         markerOptions = jQuery.extend(true, {}, DEFAULT_MARKER_OPTIONS);
     // Add new marker only if spot_id was empty
@@ -332,12 +334,12 @@ $(function () {
     infowindow.close();
   });
 
-  $(document).on('ajax:error', '#new_spot', function (e, data) {
+  $(document).on('ajax:error', '#new_spot', function () {
     alert("Error submitting form");
   });
 
   // Destroy
-  $(document).on('ajax:success', '#new_spot .destroy', function (e, data) {
+  $(document).on('ajax:success', '#new_spot .destroy', function (e) {
     theLastMarker.setMap(null);
     closeInfoWindows();
 

@@ -1,7 +1,11 @@
 //= require suggest_over_combo
 
 $(function() {
-  $("a.mark_motorless").on("ajax:success", function() {
-    $(this).replaceWith($("<b>Motorless</b>"));
+  document.querySelectorAll("a.mark_motorless").forEach(function(el) {
+    el.addEventListener("ajax:success", function() {
+      var b = document.createElement("b");
+      b.textContent = "Motorless";
+      el.replaceWith(b);
+    });
   });
 });

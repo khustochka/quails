@@ -6,7 +6,7 @@
 
 %h1= page_header
 
-%form{"data-remote" => true, "action" => "/flickr/photos/search", "method" => :post}
+%form{"data-remote" => true, "data-type" => "html", "action" => "/flickr/photos/search", "method" => :post}
   %div.input.string
     %label.string Search string:
     %input.string#flickr_text{name: 'text', type: 'text'}

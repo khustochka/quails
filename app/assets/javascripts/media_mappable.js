@@ -129,9 +129,9 @@ $(function () {
 
   }
 
-  $(document).on('ajax:success', '#new_spot', function (e, data) {
-    var infowindow = theMap.gmap3({get: {name: 'infowindow'}}),
-
+  $(document).on('ajax:success', '#new_spot', function (e) {
+    var data = e.detail[0],
+        infowindow = theMap.gmap3({get: {name: 'infowindow'}}),
         markerOptions = jQuery.extend(true, {}, DEFAULT_MARKER_OPTIONS);
 
     markerOptions['data'] = {id: data.id};
@@ -156,7 +156,7 @@ $(function () {
     bindImageToMarker(addedMarker, {id: data.id});
   });
 
-  $(document).on('ajax:error', '#new_spot', function (e, data) {
+  $(document).on('ajax:error', '#new_spot', function () {
     alert("Error submitting form");
   });
 

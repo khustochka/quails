@@ -1,15 +1,15 @@
 $(function () {
   $('#spinner').hide();
 
-  $('form').on("ajax:send", function() {
+  var flickrForm = document.querySelector('form[action="/flickr/photos/search"]');
+
+  flickrForm.addEventListener("ajax:send", function () {
     $('.flickr_result').html("");
     $('#spinner').show();
   });
 
-  $('form').on("ajax:success", function(e, data) {
+  flickrForm.addEventListener("ajax:success", function (e) {
     $('#spinner').hide();
-    $('.flickr_result').html(data);
+    $('.flickr_result').html(e.detail[0].body.innerHTML);
   });
-
-
 });

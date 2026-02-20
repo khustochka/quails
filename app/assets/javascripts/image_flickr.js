@@ -36,13 +36,14 @@ $(function () {
     return false;
   });
 
-  $('form.flickr_edit').on('ajax:success', function () {
+  document.querySelector('form.flickr_edit').addEventListener('ajax:success', function () {
     if ($('a.next_unflickred').length > 0) window.location.href = $('a.next_unflickred').attr('href');
     else $("<p></p>", {id: "notice", text: "Image updated"}).insertBefore(".flickr_search_table");
   });
 
-  $('form.flickr_edit').on('ajax:error', function (e, xhr) {
-    alert(JSON.stringify($.parseJSON(xhr.responseText).errors));
+  document.querySelector('form.flickr_edit').addEventListener('ajax:error', function (e) {
+    var xhr = e.detail[0];
+    alert(JSON.stringify(JSON.parse(xhr.responseText).errors));
   });
 
   searchOnFlickr();

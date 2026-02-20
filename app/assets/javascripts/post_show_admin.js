@@ -1,9 +1,6 @@
-//= require post_cards
-
-// TODO: will not work without comments.js or other script with jquery-ujs
-
-function reloadCardsSearch() {
-  // TODO: call cards search with post_id ?
-  // TODO: $(".observ_card .loading").detach(); - does not work
-  location.reload();
-}
+document.addEventListener('ajax:success', function (e) {
+  if (e.target.matches('.card_post_op')) {
+    var card = e.target.closest('li.observ_card');
+    if (card) card.remove();
+  }
+});

@@ -279,8 +279,10 @@ class JSCardsTest < ApplicationSystemTestCase
     end
 
     assert_no_css ".loading"
+    assert_current_path edit_post_path(p)
+    assert_css "li.observ_card a", text: "Detach from this post"
 
-    assert_equal 1, p.cards.size
+    assert_equal 1, p.reload.cards.size
   end
 
   private
