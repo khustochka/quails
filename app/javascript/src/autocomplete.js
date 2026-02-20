@@ -91,8 +91,9 @@ export default class Autocomplete {
       this._setActive((this.activeIndex - 1 + total) % total);
     } else if (e.key === "Enter" || e.key === "Tab") {
       if (this.activeIndex >= 0) {
-        e.preventDefault();
+        if (e.key === "Enter") e.preventDefault();
         this.dropdown.children[this.activeIndex].click();
+        this._close();
       }
     } else if (e.key === "Escape") {
       this._close();
