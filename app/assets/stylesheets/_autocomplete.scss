@@ -18,14 +18,11 @@
       padding: 3px 1em 3px .4em;
       line-height: 1.5;
       color: #2c4359;
+      font-size: 1.2em;
 
-      b {
-        font-size: 1.2em;
+      em {
+        font-style: normal;
         font-weight: bold;
-      }
-
-      i {
-        font-weight: normal;
       }
 
       &.active {

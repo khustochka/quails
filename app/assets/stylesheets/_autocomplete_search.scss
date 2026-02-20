@@ -1,0 +1,61 @@
+.ac-search-dropdown {
+  font-family: var(--bs-font-sans-serif);
+
+  li {
+    border-bottom: 1px solid #CCCCCC;
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      border-bottom: none;
+      border-radius: 0;
+      .sci_name {
+        color: #808080;
+        font-weight: normal;
+        font-size: 16px;
+      }
+      &, &:hover {
+        border-bottom: none;
+      }
+      em {
+        font-style: normal;
+        font-weight: inherit;
+        background-color: yellow;
+        border: 1px solid gold;
+        border-radius: 4px;
+      }
+      i em {
+        font-style: italic;
+      }
+      b, i {
+        display: block;
+      }
+      b {
+        font-weight: 600;
+      }
+      &.active i {
+        font-weight: normal;
+      }
+    }
+
+    &.fallback_item {
+      border-bottom: none;
+      a {
+        font-style: italic;
+      }
+    }
+
+    a.active {
+      background: #ccd232 image-url("ui-bg_diagonals-small_75_ccd232_40x40.png") repeat 50% 50%;
+      border: none;
+      margin: 0;
+      .fallback_link, b {
+        font-weight: 600;
+      }
+    }
+
+    .fallback_link {
+      font-weight: 600;
+    }
+  }
+}
