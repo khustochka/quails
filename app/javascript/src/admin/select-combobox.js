@@ -41,6 +41,11 @@ export function selectCombobox(select) {
     },
   });
 
+  // Clear select value as soon as input is emptied
+  input.addEventListener('input', () => {
+    if (!input.value) select.value = '';
+  });
+
   // On blur, clear input if text doesn't match any option
   input.addEventListener('blur', () => {
     const match = options.find(o => o.text.toLowerCase() === input.value.toLowerCase());
