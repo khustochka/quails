@@ -5,4 +5,5 @@
 
 // import './src/airbrake-js-setup';
 import './src/honeybadger-js-setup';
-import './src/tooltips'
+import './src/tooltips';
+import './src/search';

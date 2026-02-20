@@ -1,0 +1,44 @@
+.ac-dropdown {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: block;
+  background: #ffffff;
+  border: 1px solid #aaaaaa;
+  color: #2c4359;
+  cursor: default;
+
+  li {
+    margin: 0;
+    cursor: pointer;
+
+    a {
+      display: block;
+      text-decoration: none;
+      padding: 3px 1em 3px .4em;
+      line-height: 1.5;
+      color: #2c4359;
+
+      b {
+        font-size: 1.2em;
+        font-weight: bold;
+      }
+
+      i {
+        font-weight: normal;
+      }
+
+      &.active {
+        background: #ccd232;
+        color: #212121;
+
+        b { font-weight: bold; }
+        i { font-weight: normal; }
+      }
+    }
+
+    &.fallback_item a {
+      font-size: 1.2em;
+    }
+  }
+}

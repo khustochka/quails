@@ -31,20 +31,15 @@
   }
 }
 
-#search-ui-front {
-  ul {
-    border-radius: 0;
-    padding: 0;
-  }
-  li.ui-menu-item {
-    font-family: $font-family-base;
+.ac-dropdown {
+  font-family: $font-family-base;
+
+  li {
     border-bottom: 1px solid #CCCCCC;
 
     a {
       @extend .text-reset-link;
-      text-decoration: none;
       border-radius: 0;
-      display: block;
       .sci_name {
         color: #808080;
         font-weight: normal;
@@ -53,31 +48,28 @@
       &, &:hover {
         border-bottom: none;
       }
-
       b, i {
         display: block;
       }
       b {
         font-weight: 600;
       }
-      &.ui-state-active b {
-        font-weight: inherit;
+      &.active i {
+        font-weight: normal;
       }
     }
 
     &.fallback_item {
       border-bottom: none;
-      cursor: pointer;
       a {
         font-style: italic;
       }
     }
 
-    a.ui-state-active {
+    a.active {
       background: #ccd232 image-url("ui-bg_diagonals-small_75_ccd232_40x40.png") repeat 50% 50%;
       border: none;
       margin: 0;
-
       .fallback_link, b {
         font-weight: 600;
       }

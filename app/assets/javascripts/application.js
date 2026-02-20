@@ -1,4 +1,3 @@
-//= require search
 
 this.Quails = {
   pages: {},
