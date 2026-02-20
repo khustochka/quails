@@ -51,10 +51,10 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
   def select_suggestion(value, hash)
     fill_in hash[:from], with: value
+    sleep(0.5) # Chrome driver needs some time
     if page.document.has_css?(".ac-dropdown a", text: value, wait: 2)
       page.execute_script "Array.from(document.querySelectorAll('.ac-dropdown')).find(el => el.style.display !== 'none').querySelector('a').click();"
     else
-      sleep(0.5) # Chrome driver needs pretty high values for jQuery UI
       page.execute_script "$('.ui-menu-item a:contains(\"#{value}\"):first').trigger('mouseenter').click();"
     end
   end
