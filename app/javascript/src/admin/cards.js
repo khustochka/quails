@@ -1,5 +1,6 @@
 import { initTaxonSuggestField } from './taxa_autosuggest';
 import { selectCombobox } from './select-combobox';
+import { inlineDatepicker } from './inline-datepicker';
 
 document.addEventListener('DOMContentLoaded', function () {
   if (!document.querySelector('form[data-card-form]')) return;
@@ -15,18 +16,15 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function initDatepicker() {
-    const datefield = $('#card_observ_date');
-    const currentDate = datefield.val();
-    datefield.attr('type', 'hidden');
-    datefield.parent().hide();
-    $('<div class="inline_date"></div>').prependTo('form.simple_form');
-    $('.inline_date').datepicker({
-      dateFormat: 'yy-mm-dd',
-      firstDay: 1,
-      altField: datefield,
-      altFormat: 'yy-mm-dd',
-      defaultDate: currentDate
-    });
+    const datefield = document.getElementById('card_observ_date');
+    datefield.type = 'hidden';
+    datefield.parentElement.style.display = 'none';
+    const wrapper = document.createElement('div');
+    wrapper.className = 'inline_date';
+    const container = document.createElement('div');
+    wrapper.appendChild(container);
+    document.querySelector('form.simple_form').prepend(wrapper);
+    inlineDatepicker(container, datefield, { firstDay: 1 });
   }
 
   function initLocusAutocomplete() {

@@ -294,6 +294,10 @@ class JSCardsTest < ApplicationSystemTestCase
   end
 
   def select_date(value)
-    page.execute_script "$('.inline_date').datepicker( 'setDate', '#{value}' );"
+    page.execute_script <<~JS
+      const input = document.getElementById('card_observ_date');
+      input.value = '#{value}';
+      input.dispatchEvent(new Event('change', { bubbles: true }));
+    JS
   end
 end
