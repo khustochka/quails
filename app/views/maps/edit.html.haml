@@ -17,7 +17,7 @@
 
 .map-side-panel
   %ul.obs-list
-    -#= render :partial => 'observations/obs_item', :collection => @observations
+    -# = render :partial => 'observations/obs_item', :collection => @observations
 
 .mapContainer
   #googleMap{data: {map_enabled: map_enabled, card_kml: @observation_search.load_card&.kml_url}}

@@ -4,7 +4,7 @@
 %h1= reports_page_header
 
 - @result.each do |num, species|
-  %h2= "Seen in #{num} countries (#{species.size} species)"
+  %h2 Seen in #{num} countries (#{species.size} species)
   - if num > 1
     %ul
       - species.each do |sp|

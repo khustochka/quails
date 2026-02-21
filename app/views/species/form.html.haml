@@ -18,7 +18,7 @@
     = form.input :name_sci, label: 'Scientific name', input_html: {class: 'larger'}
     = form.input :index_num, label: 'Index number', input_html: {disabled: @species.persisted?, size: 10, type: :text }
   %div
-    -#= form.input :protonym
+    -# = form.input :protonym
     = form.input :authority
     = form.input :name_en_overwritten, label: "Overwritten English name"
   %div
@@ -32,9 +32,9 @@
     = form.input :family, input_html: {disabled: @species.persisted?}
   %div
     = form.input :needs_review
-  -#%div
-  -#  = form.input :avibase_id, label: 'Avibase ID'
-  -#  = link_to @species.avibase_id, avibase_species_url(@species.avibase_id) if @species.avibase_id.present?
+  -# %div
+  -# = form.input :avibase_id, label: 'Avibase ID'
+  -# = link_to @species.avibase_id, avibase_species_url(@species.avibase_id) if @species.avibase_id.present?
 
   .buttons
     = default_submit_button(form)

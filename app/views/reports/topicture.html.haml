@@ -18,7 +18,7 @@
 
       - @no_photo.each_with_index do |sp, i|
         %tr
-          %td.align-right= "#{i + 1}."
+          %td.align-right #{i + 1}.
           %td= species_link(sp)
           %td.align-right= sp.cnt
 
@@ -32,7 +32,7 @@
 
       - @new_pics.each_with_index do |sp, i|
         %tr
-          %td.align-right= "#{i + 1}."
+          %td.align-right #{i + 1}.
           %td= species_link(sp)
           %td.align-right= sp.add_date
 
@@ -47,7 +47,7 @@
 
       - @long_time.each_with_index do |sp, i|
         %tr
-          %td.align-right= "#{i + 1}."
+          %td.align-right #{i + 1}.
           %td= species_link(sp)
           %td.align-right= sp.lastphoto
 
@@ -63,7 +63,7 @@
 
       - @recent_2yrs.each_with_index do |el, i|
         %tr
-          %td.align-right= "#{i + 1}."
+          %td.align-right #{i + 1}.
           %td= species_link(el[:sp])
           %td= el[:date1]
           %td= el[:date2]

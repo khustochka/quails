@@ -7,6 +7,7 @@
     %th Taxonomy
     %th Taxon & Species
 
+  - name_fields = [:name_en, :name_ioc_en]
   - @taxa.each do |taxon|
     %tr
       %td.align-right
@@ -19,7 +20,7 @@
                 = term_highlight(taxon.name_sci, @term)
           %small{class: [:tag, "tag_#{taxon.category}"]}= taxon.category
         %div
-          - name_str = [:name_en, :name_ioc_en].map {|m| taxon.public_send(m)}.uniq.compact.join(", ")
+          - name_str = name_fields.map {|m| taxon.public_send(m)}.uniq.compact.join(", ")
           = term_highlight(name_str, @term)
       %td
         %div= taxon.ebird_code
@@ -29,7 +30,7 @@
         %div= taxon.order
         %div= taxon.family
       %td
-        - if tx = taxon.taxon
+        - if (tx = taxon.taxon)
           %div
             %span.less-important Taxon:
             = taxon_link(tx, tx.name_sci)

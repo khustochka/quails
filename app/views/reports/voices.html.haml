@@ -17,7 +17,7 @@
     %th Voice / Total
   - @species.each_with_index do |sp, i|
     %tr
-      %td.align-right= "#{i + 1}."
+      %td.align-right #{i + 1}.
       %td
         = species_link(sp)
       %td.align-right

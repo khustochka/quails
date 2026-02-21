@@ -2,5 +2,5 @@
 - i = 0
 - @lifelist.each do |sp|
   %tr
-    %td.num_cell= "#{i += 1}."
+    %td.num_cell #{i += 1}.
     = render partial: 'lifelist/advanced/lifer', object: sp

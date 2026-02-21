@@ -22,7 +22,6 @@
     %li= link_to(t('lifelist.title.canada'), list_path(locus: 'canada'))
 
 - cache(key: Quails::CacheKey.lifelist) do
-
   - first_sp_by_year = @first_sp_by_year.count(:all)
   - grouped_by_year_and_country = @grouped_by_year_and_country.count_distinct_species
   - grouped_by_country = @grouped_by_country.count_distinct_species
@@ -37,7 +36,6 @@
       %th &nbsp;
 
     - @year_data.count_distinct_species.each do |year, count_species|
-
       %tr
         %td.year= year
 
@@ -47,7 +45,7 @@
         %td.count_new<>
           - new_sp = first_sp_by_year[year.to_i]
           - if new_sp && new_sp > 0
-            -#\/
+            -# \/
             %small<>
               = link_to advanced_list_path(anchor: "first_seen_#{year}") do
                 =  new_sp

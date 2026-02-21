@@ -52,7 +52,7 @@
       - @image.species.each do |sp|
         %tr
           %td
-            - if prev_image = @image.prev_by_species(sp)
+            - if (prev_image = @image.prev_by_species(sp))
               = link_to("&lt;".html_safe, localized_image_path(id: prev_image), class: 'img_prev_next')
             - else
               %span.img_prev_next &minus;
@@ -63,7 +63,7 @@
             = name_sci(sp)
 
           %td
-            - if next_image = @image.next_by_species(sp)
+            - if (next_image = @image.next_by_species(sp))
               = link_to("&gt;".html_safe, localized_image_path(id: next_image), class: 'img_prev_next')
             - else
               %span.img_prev_next &minus;

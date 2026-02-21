@@ -1,0 +1,21 @@
+linters:
+  ImplicitDiv:
+    enabled: false
+
+  LineLength:
+    enabled: false
+
+  ConsecutiveSilentScripts:
+    enabled: false
+
+  ConsecutiveComments:
+    enabled: false
+
+  SpaceInsideHashAttributes:
+    enabled: false
+
+  IdNames:
+    enabled: false
+
+  ViewLength:
+    enabled: false

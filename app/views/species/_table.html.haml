@@ -8,6 +8,7 @@
     %th.align-center Code
     %th Url synonyms
 
+  - ranks = %w(order family)
   - @species.each do |species|
     %tr
       %td.align-right= species.index_num
@@ -22,14 +23,14 @@
           = species.authority
         %div
           %small
-            = %w(order family).filter_map {|m| species.public_send(m)}.join(" ◆ ")
-      -#%div
-      -#  %small proto:
-      -#  %i.less-important= species.protonym
+            = ranks.filter_map {|m| species.public_send(m)}.join(" ◆ ")
+      -# %div
+      -# %small proto:
+      -# %i.less-important= species.protonym
       %td
-        - %w(en ru uk).each do |lang|
+        - LocaleHelper::NAMING_LOCALE_PRIORITY.each do |lang|
           %div
-            %i.less-important.monospace= "#{lang}:"
+            %i.less-important.monospace #{lang}:
             = term_highlight(species.public_send("name_#{lang}"), @term)
       %td
         - taxon = species.high_level_taxon
@@ -40,7 +41,7 @@
             = name_sci(taxon)
         - else
           %div.errors No taxon. Please revise.
-      -#%small.tag{class: "tag_#{taxon.category}"}= taxon.category
+      -# %small.tag{class: "tag_#{taxon.category}"}= taxon.category
       %td.align-center
         %div
           %b= species.code

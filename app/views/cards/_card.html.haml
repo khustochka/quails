@@ -15,7 +15,7 @@
           = link_to 'show', card_path(card), class: 'pseudolink'
         = surround('[ ', ' ]') do
           = link_to edit_map_path(q: {card_id: card.id}), class: 'pseudolink' do
-            = "map (#{card.mapped_percentage})"
+            map (#{card.mapped_percentage})
             = image_tag("/img/kml_logo.png", width: 16) if card.kml_url.present?
   %ul.card_cell
     %li
@@ -72,7 +72,7 @@
       = link_to 'Attach here', attach_card_path(card, obs: obs), class: 'pseudolink', data: {method: :post}
 
   - if card.notes.present?
-    -#%span.ui-icon.ui-icon-comment.inline-block.notes-tooltip{"data-title" => card.decorated.notes}
+    -# %span.ui-icon.ui-icon-comment.inline-block.notes-tooltip{"data-title" => card.decorated.notes}
     %div.card-notes
       = card.decorated.notes
 

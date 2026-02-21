@@ -19,9 +19,9 @@
         - if locus.loc_type.present?
           %small.tag{class: locus.loc_type}= locus.loc_type
       %td
-        - %w(en ru uk).each do |lang|
+        - LocaleHelper::NAMING_LOCALE_PRIORITY.each do |lang|
           %div
-            %i.less-important.monospace= "#{lang}:"
+            %i.less-important.monospace #{lang}:
             = term_highlight(locus.public_send("name_#{lang}"), @term)
             - I18n.with_locale(lang) do
               - loc_name = locus.decorated.full_name
