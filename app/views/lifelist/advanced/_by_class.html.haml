@@ -8,5 +8,5 @@
       %h3.family= render partial: 'species/taxonomy', locals: {rank: :family, value: family}
   - species_list.each do |sp|
     %tr
-      %td.num_cell= "#{i += 1}."
+      %td.num_cell #{i += 1}.
       = render partial: 'lifelist/advanced/lifer', object: sp

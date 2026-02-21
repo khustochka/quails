@@ -29,7 +29,7 @@
         %div= taxon.order
         %div= taxon.family
       %td
-        - if sp = taxon.species
+        - if (sp = taxon.species)
           = link_to sp do
             = term_highlight(sp.name_sci, @term)
 

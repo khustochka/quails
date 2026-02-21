@@ -15,9 +15,9 @@
     #menucontainer
 
       - cache [:navigation_header, locale: I18n.locale] do
-        -#= link_to(image_tag('/img/logo.png'), root_path, :id => 'site_cap')
+        -# = link_to(image_tag('/img/logo.png'), root_path, :id => 'site_cap')
 
-        %ul#site_menu.horiz-list(role="menubar")
+        %ul.horiz-list#site_menu(role="menubar")
           %li(role="menuitem")= link_to t('menu.blog'), blog_path
 
           %li(role="menuitem")= link_to t('menu.birds_ukraine'), country_path(country: 'ukraine')

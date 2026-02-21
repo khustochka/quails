@@ -4,7 +4,7 @@
 %p
   %div
     %i<
-      %time{datetime: media.observ_date.iso8601} #{l(media.observ_date, :format => :long)}
+      %time{ datetime: media.observ_date.iso8601 }= l(media.observ_date, format: :long)
   %div
     = media.decorated.public_locus_full_name
 

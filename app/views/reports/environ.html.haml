@@ -68,13 +68,14 @@
 
 %h2 Env vars
 
+- secret_vars = [/secret/i, /passw/i, /_key/i, /token/i, /DATABASE_URL/i, /MYLOC/i]
 %table.neat_table
   %tbody
     - ENV.keys.sort.each do |key|
       %tr
         %th= key
         %td
-          - if [/secret/i, /passw/i, /_key/i, /token/i, /DATABASE_URL/i, /MYLOC/i].any? { |r| key =~ r }
+          - if secret_vars.any? { |r| key =~ r }
             %span.new_sp *****
           - else
             = ENV[key]

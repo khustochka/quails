@@ -1,5 +1,5 @@
 -# frozen_string_literal: true
 - @post.decorated.the_rest_of_images.if_present do |images|
   %div.photos
-    -#%h2= t('.title')
+    -# %h2= t('.title')
     = render partial: "blog/image", collection: images, locals: { locale: locale_prefix(I18n.locale) }

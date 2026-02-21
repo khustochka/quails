@@ -8,19 +8,19 @@
 
 -# @page_title = t(".title")
 
--#%div.map-panel
--#  %a.pseudolink.pan(href="#world")= t(".world")
--#  %a.pseudolink.pan(href="#ukraine")= t(".ukraine")
--#  %a.pseudolink.pan(href="#north_america")= t(".north_america")
+-# %div.map-panel
+-# %a.pseudolink.pan(href="#world")= t(".world")
+-# %a.pseudolink.pan(href="#ukraine")= t(".ukraine")
+-# %a.pseudolink.pan(href="#north_america")= t(".north_america")
 -#
--#= render partial: 'partials/translated'
+-# = render partial: 'partials/translated'
 
 .mapContainer
   #googleMap{data: {map_enabled: map_enabled}}
 
--#.gallery_window{data: {strip_url: media_strip_path}}
--#  .wnd_close
+-# .gallery_window{data: {strip_url: media_strip_path}}
+-# .wnd_close
 -#    %span.close
 -#      %span.fas.fa-times.fa-2x
 -#      %span.pseudolink= t(".close")
--#  .gallery_container
+-# .gallery_container

@@ -36,13 +36,13 @@
 = simple_form_for [@book, @taxon] do |form|
   %div
     = form.input :name_sci, :label => 'Scientific name', :input_html => {:class => 'larger'}
-    -#= form.input :authority
+    -# = form.input :authority
   %div
     = form.input :name_en, :label => 'English name'
     = form.input :name_ru, :label => 'Russian name'
-    -#= form.input :name_uk, :label => 'Ukrainian name'
+    -# = form.input :name_uk, :label => 'Ukrainian name'
   %div
-    -#= form.input :avibase_id, :label => 'Avibase ID'
+    -# = form.input :avibase_id, :label => 'Avibase ID'
     = form.input :index_num, :label => 'Index number', :input_html => {:disabled => true, :size => 10, :type => :text }
   .buttons
     = default_submit_button(form)

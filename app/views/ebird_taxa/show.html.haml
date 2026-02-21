@@ -25,7 +25,7 @@
   %b Taxon concept id:
   = @taxon.taxon_concept_id
 
-- if tx = @taxon.taxon
+- if (tx = @taxon.taxon)
   %div
     %span.less-important Taxon:
     = taxon_link(tx, tx.name_sci)
@@ -45,5 +45,5 @@
 - @taxon.children.if_present do |chd|
   %h3 Children
   %ul
-    - chd.each do |tx|
-      %li= link_to tx.name_sci, tx
+    - chd.each do |child_tx|
+      %li= link_to tx.name_sci, child_tx

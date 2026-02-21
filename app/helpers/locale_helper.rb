@@ -6,6 +6,8 @@ module LocaleHelper
   BLOGLESS_LOCALES = [:en]
   CYRILLIC_LOCALES = [:uk, :ru]
 
+  NAMING_LOCALE_PRIORITY = [:en, :uk, :ru]
+
   def default_locale?
     I18n.locale == I18n.default_locale
   end

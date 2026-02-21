@@ -14,8 +14,8 @@
             = post.face_date.strftime("%H:%M")
 
       = post.decorated(locale: I18n.locale).for_site.body
-      -#- post.decorated.the_rest_of_images.if_present do |images|
-      -#  %div.thumbnails
+      -# - post.decorated.the_rest_of_images.if_present do |images|
+      -# %div.thumbnails
       -#    = render_justified images.map(&:to_thumbnail)
 
     - cache ['comment', post, post.comments.size, admin: current_user.admin?, locale: I18n.locale] do

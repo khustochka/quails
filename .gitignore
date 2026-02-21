@@ -45,6 +45,7 @@
 !/.gitattributes
 !/.gitmodules
 !/.github
+!/.haml-lint.yml
 !/.rubocop.yml
 !/.tool-versions
 !/.devcontainer

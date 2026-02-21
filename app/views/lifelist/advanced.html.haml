@@ -27,9 +27,9 @@
   - else
     = t('lifelist.title.lifelist')
   - if params[:motorless]
-    = " – Motorless"
+    – Motorless
   - if params[:exclude_heard_only]
-    = " – Exclude heard only"
+    – Exclude heard only
 
 - content_for :translated do
   = render partial: 'partials/translated', locals: {url: significant_params}
@@ -54,7 +54,7 @@
   - if @lifelist.blank?
     %p= t('lifelist.basic.no_species')
   - else
-    %table#lifelist.neat_table.advanced
+    %table.neat_table.advanced#lifelist
       %thead{data: {turbolinks: "true"}}
         %tr
           %th.empty_cell &nbsp;

@@ -2,7 +2,7 @@
 - title = flickr_image.title
 - author = flickr_image.ownername
 %div.flickr_result_cell<
-  %a{href: flickr_img_url_function(flickr_image), class: "img", title: "#{title} by #{author}, on Flickr"}<
+  %a.img{href: flickr_img_url_function(flickr_image), title: "#{title} by #{author}, on Flickr"}<
     %img{:src => FlickRaw.public_send(flickr_img_format, flickr_image), data: {id: flickr_image.id} }
   %span.flickr_subscr<
     = link_to title, FlickRaw.url_photopage(flickr_image)

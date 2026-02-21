@@ -8,6 +8,5 @@
     = surround '(', ')' do
       = arr.join(", ")
   %p
-    
+
     = (spcs.map { |sp| species_link_in_flat_section(sp, flat_section) }.join(",\n") << ".").html_safe
-    
