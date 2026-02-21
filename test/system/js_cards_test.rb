@@ -72,7 +72,7 @@ class JSCardsTest < ApplicationSystemTestCase
 
     assert_equal 1, all(".obs-row").size
 
-    field = find(:xpath, "//div[contains(@class,'obs-row')][1]//input[contains(@class, 'sp-light')]")
+    field = find(:xpath, "//div[contains(@class,'obs-row')][1]//input[@data-taxon-autosuggest]")
 
     assert_equal "Passer domesticus - House Sparrow", field.value
 

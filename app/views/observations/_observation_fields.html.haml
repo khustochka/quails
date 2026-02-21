@@ -2,7 +2,7 @@
 %div.obs-row
   - obs = form.object
   = form.input :taxon do
-    = form.input_field :taxon, as: :string, required: false, name: '', value: obs.taxon.try(:to_label), class: 'sp-light'
+    = form.input_field :taxon, as: :string, required: false, name: '', value: obs.taxon.try(:to_label), class: 'sp-light', data: {"taxon-autosuggest": true}
     = form.input_field :taxon_id, required: false, as: :hidden
   = form.input :quantity, input_html: {class: :short}
   = form.input :notes
