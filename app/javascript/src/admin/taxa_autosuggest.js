@@ -7,7 +7,6 @@ function initTaxonSuggestField(elements, onSelect) {
   Array.from(inputs).forEach(function (input) {
     new Autocomplete(input, {
       minLength: 2,
-      debounce: 0,
       autoFocus: true,
       autoWidth: true,
       source(term) {
