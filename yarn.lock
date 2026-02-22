@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@canvasjs/charts@^3.15.9":
+  version "3.15.9"
+  resolved "https://registry.yarnpkg.com/@canvasjs/charts/-/charts-3.15.9.tgz#46b2e87151f8d5ceac8f4db3a70ed82f5afd1262"
+  integrity sha512-KEWYjaaDQrQy/0jfR9PF4uyHs/08YVt9d3lQVfahDylb5wRUWUdBQeWGlEafKWy7BhRutC9LbOexOnfJLaunLQ==
+
 "@csstools/normalize.css@^12.0.0":
   version "12.1.1"
   resolved "https://registry.yarnpkg.com/@csstools/normalize.css/-/normalize.css-12.1.1.tgz#f0ad221b7280f3fc814689786fd9ee092776ef8f"
