@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
-
   const currentImageIdField = document.getElementById('species_species_image_attributes_image_id');
+  if (!currentImageIdField) return;
 
   document.querySelector('.edit_main_image').addEventListener('click', function () {
     const thumbnails = document.querySelector('div.thumbnails');
@@ -22,5 +22,4 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     });
   });
-
 });
