@@ -17,7 +17,7 @@ class SpeciesControllerTest < ActionController::TestCase
 
   test "search species for admin index page" do
     login_as_admin
-    get :index, xhr: true, params: { term: "gar" }
+    get :index, params: { term: "gar", instant_search: 1 }
     assert_response :success
     species = assigns(:species)
     assert_not_nil species

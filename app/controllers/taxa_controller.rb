@@ -14,7 +14,7 @@ class TaxaController < ApplicationController
       Taxon.order(:index_num).page(params[:page]).per(50)
     end
     @taxa = @taxa.preload(:species)
-    if request.xhr?
+    if params[:instant_search]
       render partial: "taxa/table", layout: false
     else
       render

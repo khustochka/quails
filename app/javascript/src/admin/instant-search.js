@@ -1,38 +1,32 @@
 class InstantSearch {
   constructor(container) {
-    this.container = $(container);
-    this.dataUrl = this.container.data("url");
-    let resultContainer = this.container.data("result-container");
-    if (!resultContainer || resultContainer.length === 0) resultContainer = $(".instant_search_results", this.container);
-    if (!resultContainer || resultContainer.length === 0) resultContainer = this.container.next(".instant_search_results");
-    this.resultContainer = resultContainer;
+    this.container = container;
+    this.dataUrl = container.dataset.url;
+    const resultSelector = container.dataset.resultContainer;
+    this.resultContainer = (resultSelector && document.querySelector(resultSelector)) ||
+                           container.querySelector('.instant_search_results') ||
+                           container.nextElementSibling;
     this.requestTimeout = null;
   }
 
   register() {
-    const _this = this;
-    this.container.on("input", ".instant_search_input", function () {
-      let value = $(this).prop("value");
-      if (_this.requestTimeout) window.clearTimeout(_this.requestTimeout);
-      _this.requestTimeout = window.setTimeout(function () {
-        _this.sendRequest(value)
-      }, 500)
+    this.container.addEventListener('input', (e) => {
+      if (!e.target.matches('.instant_search_input')) return;
+      const value = e.target.value;
+      if (this.requestTimeout) clearTimeout(this.requestTimeout);
+      this.requestTimeout = setTimeout(() => this.sendRequest(value), 500);
     });
   }
 
   sendRequest(value) {
-    const _this = this;
-    $.ajax(_this.dataUrl + "?term=" + value, {
-      success: function (data, status, xhr) {
-        $(_this.resultContainer).html(data)
-      }
-    })
+    fetch(`${this.dataUrl}?term=${encodeURIComponent(value)}&instant_search=1`)
+      .then(r => r.text())
+      .then(html => { this.resultContainer.innerHTML = html; });
   }
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-  $(".instant_search_container").each(function (i, el) {
-    const instantSearch = new InstantSearch(el);
-    instantSearch.register();
+  document.querySelectorAll('.instant_search_container').forEach(el => {
+    new InstantSearch(el).register();
   });
-})
+});

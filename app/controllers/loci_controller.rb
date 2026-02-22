@@ -15,7 +15,7 @@ class LociController < ApplicationController
     end
     @loci = @loci.preload(:observations)
     preload_parent(@loci)
-    if request.xhr?
+    if params[:instant_search]
       render partial: "loci/table", layout: false
     else
       render
