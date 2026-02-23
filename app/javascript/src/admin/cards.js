@@ -1,6 +1,6 @@
 import { initTaxonSuggestField } from './taxa_autosuggest';
-import { selectCombobox } from './select-combobox';
-import { inlineDatepicker } from './inline-datepicker';
+import { selectCombobox } from '../utils/select-combobox';
+import { inlineDatepicker } from '../utils/inline-datepicker';
 
 document.addEventListener('DOMContentLoaded', function () {
   if (!document.querySelector('form[data-card-form]')) return;

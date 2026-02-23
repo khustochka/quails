@@ -1,1 +1,1 @@
-import './src/admin/species-image';
+import './src/admin_public/species-image';

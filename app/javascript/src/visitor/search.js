@@ -1,4 +1,4 @@
-import Autocomplete from './autocomplete';
+import Autocomplete from '../utils/autocomplete';
 
 function escapeRegex(str) {
   return str.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");

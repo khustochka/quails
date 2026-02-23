@@ -1,4 +1,4 @@
-import Autocomplete, { highlight } from '../autocomplete';
+import Autocomplete, { highlight } from './autocomplete';
 
 // Replaces a <select> with a text input + autocomplete dropdown.
 // Returns an object with selectByText(text) for programmatic selection.

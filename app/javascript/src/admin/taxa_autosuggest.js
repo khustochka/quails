@@ -1,4 +1,4 @@
-import Autocomplete, { highlight } from '../autocomplete';
+import Autocomplete, { highlight } from '../utils/autocomplete';
 
 function initTaxonSuggestField(elements, onSelect) {
   var inputs = typeof elements === 'string'
