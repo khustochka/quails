@@ -1,11 +1,18 @@
 -# frozen_string_literal: true
 
--# Early is first, because it declared jQuery which may be used by other scripts
-= javascript_include_tag "early"
-= javascript_include_tag "visitor"
+= javascript_include_tag "common"
 = javascript_include_tag "application"
+- if admin_layout?
+  -# "administrativeX" should be first because it loads keypress.js
+  = javascript_include_tag "administrativeX"
+  = javascript_include_tag "administrative"
+- else
+  = javascript_include_tag "visitor"
 = javascript_include_tag(*@scripts&.compact || [])
 
+-# stylesheets
+- stylesheet admin_layout? ? "admin" : "public"
+
 -# Visitor should be first, because some styles can use bootstrap classes
-= stylesheet_link_tag 'visitor', media: "all"
+= stylesheet_link_tag "visitor", media: "all"
 = stylesheet_link_tag(*@stylesheets.compact, media: "all") if @stylesheets.present?

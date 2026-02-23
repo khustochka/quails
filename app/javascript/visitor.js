@@ -7,11 +7,11 @@ import Likely from 'ilyabirman-likely';
 
 document.addEventListener('DOMContentLoaded', function () {Likely.initiate()});
 
-// import './src/airbrake-js-setup';
-import './src/honeybadger-js-setup';
-import './src/post_expand';
-import './src/tooltips'
+import './src/visitor/post_expand';
 
-import VideoResize from "./src/video-resize"
+import VideoResize from "./src/visitor/video-resize"
 // Resize the video to these dimensions after it is started
 VideoResize.init(853, 480)
+
+import Comments from './src/visitor/comments';
+Comments.init();

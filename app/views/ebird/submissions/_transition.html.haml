@@ -2,4 +2,4 @@
 
 %small= link_to transition.status,
   {action: :update, id: transition.file_id, format: :json},
-  {class: 'pseudolink ebird-trans', remote: true, method: :put, data: {params: {file: {status: transition.status}}}}
+  {class: 'pseudolink ebird-trans', remote: true, method: :put, data: {params: "file[status]=#{transition.status}"}}

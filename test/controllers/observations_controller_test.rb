@@ -35,7 +35,7 @@ class ObservationsControllerTest < ActionController::TestCase
       login_as_admin
       delete :destroy, params: { id: observation.to_param }
     end
-    assert_response :success
+    assert_redirected_to edit_card_path(observation.card)
   end
 
   test "extract observations to the new card" do

@@ -72,7 +72,7 @@ class JSCardsTest < ApplicationSystemTestCase
 
     assert_equal 1, all(".obs-row").size
 
-    field = find(:xpath, "//div[contains(@class,'obs-row')][1]//input[contains(@class, 'sp-light')]")
+    field = find(:xpath, "//div[contains(@class,'obs-row')][1]//input[@data-taxon-autosuggest]")
 
     assert_equal "Passer domesticus - House Sparrow", field.value
 
@@ -279,8 +279,10 @@ class JSCardsTest < ApplicationSystemTestCase
     end
 
     assert_no_css ".loading"
+    assert_current_path edit_post_path(p)
+    assert_css "li.observ_card a", text: "Detach from this post"
 
-    assert_equal 1, p.cards.size
+    assert_equal 1, p.reload.cards.size
   end
 
   private
@@ -292,6 +294,10 @@ class JSCardsTest < ApplicationSystemTestCase
   end
 
   def select_date(value)
-    page.execute_script "$('.inline_date').datepicker( 'setDate', '#{value}' );"
+    page.execute_script <<~JS
+      const input = document.getElementById('card_observ_date');
+      input.value = '#{value}';
+      input.dispatchEvent(new Event('change', { bubbles: true }));
+    JS
   end
 end

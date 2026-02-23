@@ -1,13 +1,9 @@
 -# frozen_string_literal: true
 %div.obs-row
   - obs = form.object
-  - if @light_species_selector
-    = form.input :taxon do
-      = form.input_field :taxon, as: :string, required: false, name: '', value: obs.taxon.try(:to_label), class: 'sp-light'
-      = form.input_field :taxon_id, required: false, as: :hidden
-  - else
-    = form.association :taxon, collection: taxa_for_select,
-        include_blank: true, required: false, input_html: {class: 'sp-suggest'}
+  = form.input :taxon do
+    = form.input_field :taxon, as: :string, required: false, name: '', value: obs.taxon.try(:to_label), class: 'sp-light', data: {"taxon-autosuggest": true}
+    = form.input_field :taxon_id, required: false, as: :hidden
   = form.input :quantity, input_html: {class: :short}
   = form.input :notes
   = form.input :voice, label: 'Voice?'

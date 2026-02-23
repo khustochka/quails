@@ -3,11 +3,8 @@
 -# no_viewport is for very wide pages, e.g. with table
 - @no_viewport = true
 
-- @light_species_selector = true
-
 - stylesheet 'forms'
-- @js_features = [:taxaAutosuggest, :wikiFields]
-- @js_controller = :cards
+- @js_features = [:wikiFields]
 
 - @page_title = @card.persisted? ? "Edit: #{link_to l(@card.observ_date, format: :long), day_path(@card.observ_date)}, #{@card.locus.decorated.short_full_name}".html_safe : "New card"
 
@@ -39,7 +36,7 @@
 -# Always add one blank observation
 - @card.observations.build
 
-= simple_form_for(@card) do |form|
+= simple_form_for(@card, html: {"data-card-form": true}) do |form|
   = form.error_notification
 
   %div

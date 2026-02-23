@@ -1,5 +1,4 @@
-@import 'mixins', 'reusable', 'header', 'admin_menu', 'jquery-ui'
-
+@import 'mixins', 'reusable', 'header', 'admin_menu', 'jquery-ui', 'autocomplete', 'autocomplete_search'
 // Very global styles
 
 p
@@ -440,3 +439,18 @@ div.thumbs_strip
   padding: 0
   position: absolute
   width: 1px
+
+// ui menu overrides
+
+.ui-menu .ui-menu-item a
+  display: block
+  text-decoration: none
+  padding: 2px .4em
+  line-height: 1.5
+  min-height: 0
+  font-weight: normal
+  &.ui-state-active
+    background: #ccd232 image-url("ui-bg_diagonals-small_75_ccd232_40x40.png") 50% 50% repeat
+    border: none
+    margin: 0
+    color: black

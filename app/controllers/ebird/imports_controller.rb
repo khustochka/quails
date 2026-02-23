@@ -15,7 +15,7 @@ module EBird
       params.permit(:c)
       checklists = params.fetch(:c, nil)
       if checklists
-        preloaded = Rails.cache.read("ebird/preloaded_checklists")
+        preloaded = Rails.cache.read("ebird/preloaded_checklists") || []
         GoodJob::Batch.enqueue do
           checklists.each do |cl|
             if cl[:locus_id].present?

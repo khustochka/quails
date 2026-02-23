@@ -26,9 +26,13 @@ class ObservationsController < ApplicationController
 
   # DELETE /observations/1
   def destroy
+    card = @observation.card
     @observation.destroy
 
-    head :no_content
+    respond_to do |format|
+      format.html { redirect_to edit_card_path(card), notice: "Observation destroyed." }
+      format.json { head :no_content }
+    end
   end
 
   # GET /observations/search

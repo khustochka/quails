@@ -15,6 +15,7 @@ class PostsController < ApplicationController
 
   # This is rendered in public layout, just raising exception when no posts are found (the case for regular user)
   def hidden
+    @admin_layout = false
     @posts = Post.hidden.order(face_date: :desc).page(params[:page]).per(20)
   end
 

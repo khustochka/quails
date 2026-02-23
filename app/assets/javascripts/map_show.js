@@ -1,3 +1,4 @@
+//= require jquery3
 //= require map_init
 
 $(function () {

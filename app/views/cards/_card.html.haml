@@ -62,7 +62,8 @@
         %b= observers
     - if card.motorless?
       %b Motorless
-    - else
+    - elsif !@post
+      -# So that the link does not show on post page
       = link_to 'Mark motorless',
                 card_path(card.id, {card: {motorless: true}, format: :json}),
                 method: :put,

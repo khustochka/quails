@@ -6,10 +6,6 @@ class JSObservationsTest < ApplicationSystemTestCase
   test "Edit observation - change species" do
     observation = create(:observation, voice: true)
 
-    # FIXME: this is a hack to make HirRus available in the form (it only shows already observed taxa)
-    # TODO: switch observation edit page to Ajax species search.
-    create(:observation, taxon: taxa(:hirrus))
-
     login_as_admin
     visit observation_path(observation)
     select_suggestion("Hirundo rustica", from: "Taxon")

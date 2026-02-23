@@ -3,6 +3,9 @@
 @import "app2/bootstrap-overrides";
 @import "../../../node_modules/bootstrap/scss/bootstrap";
 
+@import "autocomplete";
+@import "autocomplete_search";
+
 @import "app2/print";
 @import "app2/global";
 @import "app2/admin_menu";

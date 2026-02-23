@@ -7,13 +7,15 @@ WebMock.disable_net_connect!(allow_localhost: true)
 # Playwright: https://justin.searls.co/posts/running-rails-system-tests-with-playwright-instead-of-selenium/
 # To install: yarn run playwright install
 
-default_driver = :playwright
+default_driver = :playwright_test
 $js_driver = ENV["JS_DRIVER"]&.to_sym || default_driver
 
 # Browsers are: chromium, firefox, webkit
 $js_browser = ENV["JS_BROWSER"]&.to_sym || :chromium
 
-Capybara.register_driver :playwright do |app|
+# Renaming the driver is needed for the 'headless' option to work:
+# https://github.com/YusukeIwaki/capybara-playwright-driver/issues/93
+Capybara.register_driver :playwright_test do |app|
   Capybara::Playwright::Driver.new(
     app,
     browser_type: $js_browser,
@@ -48,11 +50,16 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   end
 
   def select_suggestion(value, hash)
-    selector = ".ui-menu-item a:contains(\"#{value}\"):first"
     fill_in hash[:from], with: value
-    sleep(0.5) # Chrome driver needs pretty high values
-    # raise "No element '#{value}' in the field #{hash[:from]}" unless page.has_selector?(:xpath, "//*[@class=\"ui-menu-item\"]//a[contains(text(), \"#{value}\")]")
-    page.execute_script " $('#{selector}').trigger('mouseenter').click();"
+    sleep(0.5) # Chrome driver needs some time
+    if page.document.has_css?(".ac-dropdown a", text: value, wait: 2)
+      page.execute_script <<~JS
+        const dropdown = Array.from(document.querySelectorAll('.ac-dropdown')).find(el => el.style.display !== 'none');
+        Array.from(dropdown.querySelectorAll('a')).find(a => a.textContent.includes(#{value.to_json})).click();
+      JS
+    else
+      page.execute_script "$('.ui-menu-item a:contains(\"#{value}\"):first').trigger('mouseenter').click();"
+    end
   end
 
   def click_add_new_row
