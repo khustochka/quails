@@ -38,6 +38,7 @@ export function selectCombobox(select) {
     onSelect(item) {
       input.value = item.value;
       item.option.selected = true;
+      select.dispatchEvent(new Event('change', { bubbles: true }));
     },
   });
 

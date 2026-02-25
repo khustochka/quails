@@ -61,18 +61,13 @@ $(function () {
         autofit: {maxZoom: 13}
       });
     } else {
-      var parentLocId = $("select#locus_parent_id").val();
+      var parentLocId = document.querySelector("select[name='locus[parent_id]']").value;
       if (parentLocId) panToLocus(parentLocId);
     }
 
-    var oldselect = $("input#locus_parent_id").data("ui-autocomplete").options.select;
-
-    $("input#locus_parent_id").on("autocompleteselect", function (event, ui) {
-      oldselect(event, ui);
-      var loc_id = ui.item.option.value;
-      if (loc_id.length > 0) {
-        panToLocus(loc_id);
-      }
+    document.querySelector("select[name='locus[parent_id]']").addEventListener("change", function () {
+      var loc_id = this.value;
+      if (loc_id.length > 0) panToLocus(loc_id);
     });
   }
 });
