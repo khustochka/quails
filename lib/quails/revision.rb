@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Quails
-  class Revision < Struct.new(:sha, :message, keyword_init: true)
+  class Revision < Struct.new(:sha, :message)
     class << self
       def get
         Rails.cache.fetch(rev_cache_key) do

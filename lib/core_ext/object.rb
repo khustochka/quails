@@ -13,7 +13,7 @@ class Object
   end
 end
 
-class FalseClass
+class FalseClass # rubocop:disable Style/OneClassPerFile
   def meaningful?
     true
   end

@@ -1,4 +1,4 @@
 - cache :top_banner do
   -# TODO: ideally this should be tested to never fail
   - ENV["BANNER_LOCATION"].if_present do |location|
-    = open_uri_or_path(location, &:read).html_safe
+    = read_uri_or_path(location).html_safe

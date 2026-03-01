@@ -9,7 +9,7 @@ class YearContestTest < ActiveSupport::TestCase
 
   test "empty list" do
     result = @contest.run_on([])
-    assert_equal [], result # rubocop:disable Minitest/AssertEmptyLiteral
+    assert_equal [], result
   end
 
   test "one value in first day" do

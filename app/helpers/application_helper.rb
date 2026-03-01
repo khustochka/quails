@@ -58,18 +58,14 @@ module ApplicationHelper
     has_trust_cookie? || current_user.admin?
   end
 
-  def open_uri_or_path(uri)
-    obj =
-      begin
-        if %r{\Ahttps?://}.match?(uri)
-          URI.parse(uri).open(read_timeout: 2, open_timeout: 2)
-        else
-          File.open(uri)
-        end
-      rescue => e
-        report_error(e)
-        StringIO.new("")
-      end
-    yield obj
+  def read_uri_or_path(uri)
+    if %r{\Ahttps?://}.match?(uri)
+      URI.parse(uri).open(read_timeout: 2, open_timeout: 2).read
+    else
+      File.open(uri, &:read)
+    end
+  rescue => e
+    report_error(e)
+    ""
   end
 end

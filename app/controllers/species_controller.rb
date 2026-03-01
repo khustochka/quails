@@ -41,8 +41,8 @@ class SpeciesController < ApplicationController
         if @species.observations.any?
           @posts = @species.posts.limit(10).merge(current_user.available_posts)
           countries = Country.select(:id, :slug, :ancestry).to_a
-          @months = countries.each_with_object({}) do |country, memo|
-            memo[country.slug] = @species.cards.except(:order).where(locus_id: country.subregion_ids).distinct.pluck(Arel.sql("EXTRACT(month FROM observ_date)::integer"))
+          @months = countries.to_h do |country|
+            [country.slug, @species.cards.except(:order).where(locus_id: country.subregion_ids).distinct.pluck(Arel.sql("EXTRACT(month FROM observ_date)::integer"))]
           end
         else
           @robots = "NOINDEX"
