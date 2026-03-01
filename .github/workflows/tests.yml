@@ -46,7 +46,7 @@ jobs:
       - name: Run tests
         run: bin/rails test
       - name: Code coverage results
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: Coverage
           path: coverage/
@@ -110,7 +110,7 @@ jobs:
           JS_BROWSER: ${{ matrix.driver.js_browser }}
         run: bin/rails test:system
       - name: Screenshots
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         if: failure()
         with:
           name: Screenshots-${{ matrix.driver.js_browser }}
