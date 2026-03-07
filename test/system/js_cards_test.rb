@@ -289,7 +289,6 @@ class JSCardsTest < ApplicationSystemTestCase
 
   def save_and_check
     click_button("Save")
-    sleep 0.5 # Chrome driver needs pretty high values
     assert_css "#save_button[value=Save]"
   end
 

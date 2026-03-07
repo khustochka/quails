@@ -51,7 +51,6 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
   def select_suggestion(value, hash)
     fill_in hash[:from], with: value
-    sleep(0.5) # Chrome driver needs some time
     if page.document.has_css?(".ac-dropdown a", text: value, wait: 2)
       page.execute_script <<~JS
         const dropdown = Array.from(document.querySelectorAll('.ac-dropdown')).find(el => el.style.display !== 'none');
@@ -63,8 +62,9 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   end
 
   def click_add_new_row
+    prev_count = all(".obs-row").size
     find(:xpath, "//span[text()='Add new row']").click
-    sleep(0.05)
+    assert_selector ".obs-row", minimum: prev_count + 1
   end
 
   # This is required for clicking font-awesome icon links (like .remove)
