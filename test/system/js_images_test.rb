@@ -59,10 +59,7 @@ class JSImagesTest < ApplicationSystemTestCase
       click_button "Search"
     end
 
-    find(:xpath, "//ul[contains(@class,'found-obs')]/li[1][contains(@class,'ui-draggable')]")
-    find(:xpath, "//ul[contains(@class,'found-obs')]/li[1]").drag_to find(".observation_list")
-    assert_selector ".current-obs li", minimum: 1
-
+    drop_first_found_obs
     assert_difference("Image.count", 1) { save_and_check }
     img = Image.find_by(slug: "test-img-capybara")
     assert_current_path edit_map_image_path(img)
@@ -88,9 +85,7 @@ class JSImagesTest < ApplicationSystemTestCase
       click_button "Search"
     end
 
-    find(:xpath, "//ul[contains(@class,'found-obs')]/li[1][contains(@class,'ui-draggable')]")
-    find(:xpath, "//ul[contains(@class,'found-obs')]/li[1]").drag_to find(".observation_list")
-    assert_selector ".current-obs li", minimum: 1
+    drop_first_found_obs
 
     assert_difference("Image.count", 1) { save_and_check }
     img = Image.find_by(slug: "test-img-capybara")
@@ -132,6 +127,12 @@ class JSImagesTest < ApplicationSystemTestCase
   end
 
   private
+
+  def drop_first_found_obs
+    source = find(:xpath, "//ul[contains(@class,'found-obs')]/li[1][contains(@class,'ui-draggable')]")
+    drag_and_drop(source, find(".observation_list"))
+    assert_selector ".current-obs li", minimum: 1
+  end
 
   def save_and_check
     click_button("Save")
