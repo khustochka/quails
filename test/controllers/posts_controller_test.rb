@@ -225,10 +225,23 @@ class PostsControllerTest < ActionController::TestCase
   end
 
   test "correct species link in post body (English locale)" do
-    blogpost = create(:post, slug: "post-en", status: "NIDX", body: "{{House Sparrow|Passer domesticus}}", lang: "en")
+    blogpost = create(:post, slug: "some-post", status: "NIDX", body: "{{House Sparrow|Passer domesticus}}", lang: "en")
     get :show, params: blogpost.to_url_params.merge(locale: :en)
     html = Nokogiri::HTML(response.body)
     link = html.css("a.sp_link").first
     assert_equal "/en/species/Passer_domesticus", link[:href]
+  end
+
+  test "redirect legacy -en slug to canonical slug with 301" do
+    blogpost = create(:post, slug: "kyiv-trip", legacy_slug: "kyiv-trip-en", lang: "en")
+    get :show, params: { id: "kyiv-trip-en", year: blogpost.year, month: blogpost.month, locale: :en }
+    assert_redirected_to public_post_path(blogpost)
+    assert_response :moved_permanently
+  end
+
+  test "show post by canonical slug when legacy slug also exists" do
+    blogpost = create(:post, slug: "kyiv-trip", legacy_slug: "kyiv-trip-en", lang: "en")
+    get :show, params: blogpost.to_url_params.merge(locale: :en)
+    assert_response :success
   end
 end

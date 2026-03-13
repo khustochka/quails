@@ -51,7 +51,7 @@ test/
 - **Species**: Bird species with taxonomy
 - **Taxon**: Taxonomic classification
 - **Locus**: Geographic location (hierarchical via ancestry gem)
-- **Post**: Blog posts about birding
+- **Post**: Blog posts about birding (multilingual — `uk`/`ru` and `en` versions share the same slug, scoped unique by `[slug, lang]`
 - **Image/Video/Media**: Attached media files
 - **EbirdTaxon**: eBird taxonomy integration
 

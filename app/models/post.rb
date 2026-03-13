@@ -22,14 +22,13 @@ class Post < ApplicationRecord
 
   serialize :lj_data, type: LJData, coder: YAML
 
-  validates :slug, uniqueness: true, presence: true, length: { maximum: 64 }, format: /\A[\w\-]+\Z/
+  validates :slug, uniqueness: { scope: :lang }, presence: true, length: { maximum: 64 }, format: /\A[\w\-]+\Z/
   validates :title, presence: true, unless: :shout?
   validates :body, presence: true
   validates :topic, inclusion: TOPICS, presence: true, length: { maximum: 4 }
   validates :status, inclusion: STATES, presence: true, length: { maximum: 4 }
 
   validate :check_cover_image_slug_or_url
-  validate :check_slug_suffix
 
   has_many :comments, dependent: :destroy
   has_many :cards, -> { order(:observ_date, :locus_id) }, dependent: :nullify, inverse_of: :post
@@ -202,18 +201,14 @@ class Post < ApplicationRecord
   end
 
   def sibling_post(source: Post.public_posts)
-    @sibling_post = source.find_by(slug: sibling_slug)
+    sibling_langs = cyrillic? ? "en" : COMPATIBLE_LANGUAGES[:uk]
+    scoped = source.where(lang: sibling_langs)
+    @sibling_post = scoped.find_by(slug: sibling_slug) ||
+      scoped.find_by(legacy_slug: sibling_slug)
   end
 
   def sibling_slug
-    return @sibling_slug if defined?(@sibling_slug)
-
-    @sibling_slug =
-      if cyrillic?
-        "#{slug}-en"
-      else
-        slug.sub(/-#{lang}$/, "")
-      end
+    @sibling_slug ||= slug
   end
 
   def observation_post
@@ -254,15 +249,6 @@ class Post < ApplicationRecord
           errors.add(:cover_image_slug, "should be image slug or external URL.")
         end
       end
-    end
-  end
-
-  def check_slug_suffix
-    eng_suffix = slug =~ /-en$/
-    if eng_suffix && lang != "en"
-      errors.add(:slug, "cannot end with '-en' for non-English posts.")
-    elsif !eng_suffix && lang == "en"
-      errors.add(:slug, "should end with '-en' for English posts.")
     end
   end
 end

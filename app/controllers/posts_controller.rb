@@ -26,7 +26,14 @@ class PostsController < ApplicationController
   # GET /posts/1
   def show
     lang = helpers.cyrillic_locale? ? LocaleHelper::CYRILLIC_LOCALES : :en
-    @post = current_user.available_posts.where(lang: lang).find_by!(slug: params[:id])
+    scoped = current_user.available_posts.where(lang: lang)
+    @post = scoped.find_by(slug: params[:id])
+
+    if @post.nil?
+      legacy_post = scoped.find_by!(legacy_slug: params[:id])
+      redirect_to public_post_path(legacy_post), status: :moved_permanently
+      return
+    end
 
     if @post.month != params[:month].to_s || @post.year != params[:year].to_s
       redirect_to public_post_path(@post), status: :moved_permanently

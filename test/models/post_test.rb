@@ -29,10 +29,45 @@ class PostTest < ActiveSupport::TestCase
     end
   end
 
-  test "do not save post with existing slug" do
-    create(:post, slug: "kyiv-observations")
-    blogpost = build(:post, slug: "kyiv-observations")
+  test "do not save post with existing slug in the same language" do
+    create(:post, slug: "kyiv-observations", lang: "uk")
+    blogpost = build(:post, slug: "kyiv-observations", lang: "uk")
     assert_not_predicate blogpost, :valid?
+  end
+
+  test "allow same slug in different languages" do
+    create(:post, slug: "kyiv-observations", lang: "uk")
+    blogpost = build(:post, slug: "kyiv-observations", lang: "en")
+    assert_predicate blogpost, :valid?
+  end
+
+  test "sibling_post finds translation by matching slug" do
+    uk_post = create(:post, slug: "kyiv-trip", lang: "uk")
+    en_post = create(:post, slug: "kyiv-trip", lang: "en")
+    assert_equal en_post, uk_post.sibling_post
+  end
+
+  test "sibling_post returns nil when no translation exists (cyrillic post)" do
+    uk_post = create(:post, slug: "kyiv-trip", lang: "uk")
+    assert_nil uk_post.sibling_post
+  end
+
+  test "sibling_post returns nil when no translation exists (English post)" do
+    en_post = create(:post, slug: "kyiv-trip", lang: "en")
+    assert_nil en_post.sibling_post
+  end
+
+  test "localized_versions does not include self as sibling" do
+    uk_post = create(:post, slug: "kyiv-trip", lang: "uk")
+    versions = uk_post.localized_versions
+    assert_nil versions[:en]
+  end
+
+  test "sibling_post finds legacy English translation by legacy_slug" do
+    uk_post = create(:post, slug: "kyiv-trip", lang: "uk")
+    en_post = create(:post, slug: "kyiv-trip", legacy_slug: "kyiv-trip-en", lang: "en")
+    # Sibling slug is "kyiv-trip" — finds by slug directly
+    assert_equal en_post, uk_post.sibling_post
   end
 
   test "slug cannot contain space" do
