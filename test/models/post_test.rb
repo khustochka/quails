@@ -63,6 +63,30 @@ class PostTest < ActiveSupport::TestCase
     assert_nil versions[:en]
   end
 
+  test "localized_versions returns dedicated uk and ru posts when both exist" do
+    uk_post = create(:post, slug: "kyiv-trip", lang: "uk")
+    ru_post = create(:post, slug: "kyiv-trip", lang: "ru")
+    en_post = create(:post, slug: "kyiv-trip", lang: "en")
+    versions = uk_post.localized_versions
+    assert_equal uk_post, versions[:uk]
+    assert_equal ru_post, versions[:ru]
+    assert_equal en_post, versions[:en]
+  end
+
+  test "localized_versions falls back to ru post when no uk post exists" do
+    ru_post = create(:post, slug: "kyiv-trip", lang: "ru")
+    versions = ru_post.localized_versions
+    assert_equal ru_post, versions[:uk]
+    assert_equal ru_post, versions[:ru]
+  end
+
+  test "localized_versions falls back to uk post when no ru post exists" do
+    uk_post = create(:post, slug: "kyiv-trip", lang: "uk")
+    versions = uk_post.localized_versions
+    assert_equal uk_post, versions[:uk]
+    assert_equal uk_post, versions[:ru]
+  end
+
   test "sibling_post finds legacy English translation by legacy_slug" do
     uk_post = create(:post, slug: "kyiv-trip", lang: "uk")
     en_post = create(:post, slug: "kyiv-trip", legacy_slug: "kyiv-trip-en", lang: "en")

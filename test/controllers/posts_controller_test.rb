@@ -244,4 +244,17 @@ class PostsControllerTest < ActionController::TestCase
     get :show, params: blogpost.to_url_params.merge(locale: :en)
     assert_response :success
   end
+
+  test "show dedicated uk post when uk locale requested" do
+    uk_post = create(:post, slug: "kyiv-trip", lang: "uk")
+    ru_post = create(:post, slug: "kyiv-trip", lang: "ru")
+    get :show, params: uk_post.to_url_params.merge(locale: :uk)
+    assert_equal uk_post, assigns(:post)
+  end
+
+  test "fall back to ru post when uk locale requested but only ru exists" do
+    ru_post = create(:post, slug: "kyiv-trip", lang: "ru")
+    get :show, params: ru_post.to_url_params
+    assert_equal ru_post, assigns(:post)
+  end
 end
