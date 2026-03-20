@@ -7,7 +7,7 @@ import Likely from 'ilyabirman-likely';
 
 document.addEventListener('DOMContentLoaded', function () {Likely.initiate()});
 
-import './src/visitor/post_expand';
+import './src/visitor/post-expand';
 
 import VideoResize from "./src/visitor/video-resize"
 // Resize the video to these dimensions after it is started

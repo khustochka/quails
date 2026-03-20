@@ -1,51 +1,27 @@
-class VideoResize {
-  constructor(sizeX, sizeY) {
-    this.selector = '.video-container[data-resizable] iframe'
-    this.enable = document.querySelectorAll(this.selector).length > 0
-    this.sizeX = sizeX
-    this.sizeY = sizeY
-  }
+function initVideoResize(sizeX, sizeY) {
+  document.addEventListener("DOMContentLoaded", () => {
+    const selector = ".video-container[data-resizable] iframe";
+    const iframes = document.querySelectorAll(selector);
+    if (iframes.length === 0) return;
 
-  init() {
-    if (this.enable) {
-      this.createScriptTag();
-      window.onYouTubeIframeAPIReady = this.apiReady(this.selector, this.onStateChangeCallback());
-    }
-  }
-
-  createScriptTag() {
     const tag = document.createElement("script");
     tag.src = "https://www.youtube.com/iframe_api";
     document.head.appendChild(tag);
-  }
 
-  onStateChangeCallback() {
-    const self = this
-    return function(event) {
-      if (event.data === YT.PlayerState.UNSTARTED) {
-        event.target.setSize(self.sizeX, self.sizeY);
-      }
-    }
-  }
-
-  apiReady(selector, callback) {
-    return function () {
-      document.querySelectorAll(selector).forEach(function (vid) {
+    window.onYouTubeIframeAPIReady = () => {
+      iframes.forEach(vid => {
         new YT.Player(vid, {
           events: {
-            'onStateChange': callback
+            onStateChange(event) {
+              if (event.data === YT.PlayerState.UNSTARTED) {
+                event.target.setSize(sizeX, sizeY);
+              }
+            }
           }
         });
       });
-    }
-  }
+    };
+  });
 }
 
-export default {
-  init: (sizeX, sizeY) => {
-    document.addEventListener('DOMContentLoaded', () => {
-      const videoResize = new VideoResize(sizeX, sizeY);
-      videoResize.init()
-    });
-  }
-}
+export default { init: initVideoResize };
