@@ -1,11 +1,11 @@
 class PostExpander {
   constructor(el) {
-    let linkText = el.getAttribute("data-expand-link");
-    let link = document.createElement("span");
+    const linkText = el.getAttribute("data-expand-link");
+    const link = document.createElement("span");
     link.textContent = linkText;
     link.classList.add("pseudolink");
     link.classList.add("lang_expand_link");
-    let pInsideEl = el.querySelector("p");
+    const pInsideEl = el.querySelector("p");
     pInsideEl.appendChild(link);
     this.link = link;
     this.toExpand = el.parentElement.querySelectorAll(".other_lang_expand");
@@ -13,10 +13,9 @@ class PostExpander {
   }
 
 register() {
-    const _this = this;
-    this.link.addEventListener("click", function () {
-      _this.toExpand.forEach(box => { box.style.display = "block" });
-      _this.link.style.display = "none";
+    this.link.addEventListener("click", () => {
+      this.toExpand.forEach(box => { box.style.display = "block" });
+      this.link.style.display = "none";
     });
   }
 }

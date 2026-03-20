@@ -1,7 +1,7 @@
 import Autocomplete, { highlight } from '../utils/autocomplete';
 
 function initTaxonSuggestField(elements, onSelect) {
-  var inputs = typeof elements === 'string'
+  const inputs = typeof elements === 'string'
     ? document.querySelectorAll(elements)
     : (elements instanceof Element ? [elements] : elements);
   Array.from(inputs).forEach(function (input) {
@@ -15,7 +15,7 @@ function initTaxonSuggestField(elements, onSelect) {
       },
       renderItem(li, item, term) {
         const a = document.createElement('a');
-        a.innerHTML = highlight(item.value, term) + ' <small class="tag tag_' + item.cat + '">' + item.cat + '</small>';
+        a.innerHTML = `${highlight(item.value, term)} <small class="tag tag_${item.cat}">${item.cat}</small>`;
         li.appendChild(a);
       },
       onSelect: onSelect ? function (item) { onSelect(input, item); } : function (item) {

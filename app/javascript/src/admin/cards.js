@@ -32,8 +32,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const combo = selectCombobox(select);
     combo.input.required = true;
     document.querySelectorAll('.fast_locus').forEach(function (el) {
-      el.addEventListener('click', function () {
-        combo.selectByText(this.textContent);
+      el.addEventListener('click', () => {
+        combo.selectByText(el.textContent);
       });
     });
   }
@@ -98,9 +98,9 @@ document.addEventListener('DOMContentLoaded', function () {
       window.scrollTo(0, document.body.scrollHeight);
     });
     document.getElementById('species-quick-add').addEventListener('keydown', function (e) {
-      if (e.keyCode === 13 && !e.ctrlKey) {
+      if (e.key === "Enter" && !e.ctrlKey) {
         e.preventDefault();
-      } else if (e.keyCode === 13 && e.ctrlKey) {
+      } else if (e.key === "Enter" && e.ctrlKey) {
         document.querySelector('.simple_form').submit();
       }
     });

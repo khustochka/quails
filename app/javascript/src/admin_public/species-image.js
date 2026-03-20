@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
     thumbnails.style.border = '2px solid green';
     thumbnails.style.padding = '10px';
 
-    thumbnails.querySelector('.image_thumb[data-image-id="' + currentImageIdField.value + '"]')
+    thumbnails.querySelector(`.image_thumb[data-image-id="${currentImageIdField.value}"]`)
       ?.classList.add('orange_border');
 
     thumbnails.addEventListener('ajax:success', function () {
