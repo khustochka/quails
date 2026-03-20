@@ -1,0 +1,89 @@
+.user-menu {
+  background-color: var(--color-bg-beige);
+}
+
+@media (min-width: 1280px) {
+  .user-menu {
+    position: relative;
+  }
+}
+
+.main-menu {
+  padding-top: 12px;
+  padding-bottom: 11px;
+  border-bottom: 1px solid var(--color-border-gray);
+  text-align: center;
+  line-height: 1.8;
+}
+
+@media (min-width: 1280px) {
+  .main-menu {
+    line-height: 1.5;
+    text-align: left;
+  }
+}
+
+.main-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.main-menu ul li {
+  display: inline-block;
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+}
+
+@media (min-width: 650px) {
+  .main-menu ul li {
+    margin-left: 0;
+  }
+}
+
+@media (min-width: 992px) {
+  .main-menu ul li {
+    margin-right: 1.2rem !important;
+  }
+}
+
+.main-menu a {
+  font-family: Rubik, ui-sans-serif, system-ui, sans-serif;
+  font-weight: 500;
+  font-size: calc(1.1rem + 0.8vw);
+  color: var(--color-blue-menu);
+  border-bottom: none;
+}
+
+@media (min-width: 768px) {
+  .main-menu a {
+    font-size: 1.25rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .main-menu a {
+    font-size: 1.3rem;
+  }
+}
+
+.main-menu a:hover {
+  color: var(--color-blue-menu-hover);
+  border-bottom: 2px solid var(--color-blue-menu-border);
+}
+
+.main-menu .print-only-logo {
+  font-family: Rubik, ui-sans-serif, system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 1.5rem;
+  color: #cccccc;
+}
+
+.main-menu a.translation {
+  color: var(--color-orange-trans);
+}
+
+.main-menu a.translation:hover {
+  color: var(--color-orange-trans-hover);
+  border-bottom: 2px solid var(--color-orange-trans-border);
+}

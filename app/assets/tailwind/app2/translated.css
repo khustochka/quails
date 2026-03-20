@@ -1,0 +1,29 @@
+ul.translated {
+  text-align: right;
+  margin-top: 12px;
+  list-style: none;
+  padding: 0;
+}
+
+ul.translated li {
+  display: inline-block;
+}
+
+ul.translated .translated-link {
+  color: white;
+  background-color: var(--color-orange-badge);
+  text-decoration: none;
+  border: none;
+  padding: 8px 12px 8px 8px;
+  border-radius: 35px;
+  font-size: 1rem;
+  margin-left: 10px;
+}
+
+ul.translated .translated-link:hover {
+  border: none;
+}
+
+ul.translated .translated-link-ru {
+  padding-left: 12px;
+}

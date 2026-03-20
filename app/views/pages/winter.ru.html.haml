@@ -3,41 +3,13 @@
 - @meta_thumbnail = "https://birdwatch.org.ua/photos/waxwings9311.jpg"
 - @meta_description = "Краткое описание птиц, которых можно встретить зимой на территории Украины в районе Киева. Страница была создана в ранний период моего увлечения бердвочингом и с тех пор не обновлялась."
 
-:css
-
-  .winter_photo_table td p img {
-    border: 1px solid #999999;
-  }
-
-  @media (max-width: 575.98px) {
-    .winter_photo_table td {
-      display: block;
-    }
-
-    .winter_photo_table td .flickr_subscr {
-      display: block;
-    }
-
-    .winter_photo_table td:last-child {
-      border-top: none;
-    }
-
-    .winter_photo_table td:first-child {
-      padding-bottom: 0;
-    }
-
-    .winter_photo_table td:first-child p {
-      margin-bottom: 0;
-    }
-  }
-
 .container
   %header.simple-page-header
     %h1 Зимующие птицы Украины
 
-  %div.alert.alert-danger.my-3
-    %h6.alert-heading Архивная страница
-    %p.mb-0
+  %div.winter-alert
+    %h6 Архивная страница
+    %p
       Эта страница была создана, когда я был еще начинающим бердвочером, на основе моих собственных, весьма
       ограниченных наблюдений. Теперь ясно, что информация в ней неполна, а кое в чем может быть даже ошибочна.
       Тем не менее я вижу в ней некоторый исторический интерес. Изменения и уточнения вноситься
@@ -48,7 +20,7 @@
   %p Наконец, даже среди перелетных птиц есть отдельные популяции или отдельные особи которые остаются зимовать,  найдя себе теплое место, часто антропогенного происхождения (например, теплые незамерзающие стоки различных предприятий).
   %p В таблице ниже я попытался собрать информацию о зимующих птицах в районе Киева, основываясь на литературе и собственных наблюдениях.
   %h2 Залетные зимующие виды
-  %table.winter_photo_table.table
+  %table.winter_photo_table
     %tbody
       %tr
         %td
@@ -404,7 +376,7 @@
       %a.sp_link{:href => "/species/Parus_ater"} московок
     = succeed ")" do
       %a.sp_link{:href => "/species/Parus_montanus"} гаичек-пухляков
-  %table.winter_photo_table.table
+  %table.winter_photo_table
     %tbody
       %tr
         %td
@@ -685,7 +657,7 @@
   %p Также на зимовке есть вероятность встретить многих других водоплавающих, как обычных, так и редких.
   %h2 Спорадически зимующие виды
   %p Большинство моих наблюдений спорадически зимующих видов происходило на канале Бортничской станции аэрации (далее – канал БСА).
-  %table.winter_photo_table.table
+  %table.winter_photo_table
     %tbody
       %tr
         %td

@@ -1,3 +1,4 @@
 # Cannot use just PORT because it has a special meaning for foreman.
 web: bin/rails server -b ${BIND_ADDR:-localhost} -p ${BIND_PORT:-3000}
 js: yarn build --watch
+css: bin/rails tailwindcss:watch
