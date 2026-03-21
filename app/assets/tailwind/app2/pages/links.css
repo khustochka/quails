@@ -1,6 +1,7 @@
 .links-list {
-  list-style: none;
-  padding-left: 0;
+  padding-left: 1.25rem;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .links-list li {
@@ -9,10 +10,13 @@
 
 li.starred {
   list-style: none;
+  margin-left: -1.25rem;
+  padding-left: 1.25rem;
 }
 
 li.starred::before {
   content: "\2605";
   color: #f0ad4e;
+  margin-left: -1.25rem;
   margin-right: 0.25rem;
 }

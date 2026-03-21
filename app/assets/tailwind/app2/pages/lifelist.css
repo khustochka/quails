@@ -1,7 +1,35 @@
 .top5-list-header {
+  font-family: Rubik, ui-sans-serif, system-ui, sans-serif;
   margin-bottom: 0.5rem;
 }
 
 .lifers_list {
   padding-left: 2rem;
+  font-size: 0.85rem;
+  color: rgba(0, 0, 0, 0.5);
+  margin-bottom: 1.5rem;
+}
+
+.lifers_list li.lifer_row {
+  padding-left: 10px;
+  margin-bottom: 0.5rem;
+}
+
+.lifers_list .sp_link_long {
+  font-size: 0.95rem;
+}
+
+.lifers_list .sp_link_long i.sci_name {
+  white-space: nowrap;
+}
+
+.lifers_list .lifer_date {
+  white-space: nowrap;
+  display: block;
+  font-size: 0.75rem;
+  color: var(--color-gray-600);
+}
+
+.lifers_list .lifer_date i {
+  color: #212529;
 }

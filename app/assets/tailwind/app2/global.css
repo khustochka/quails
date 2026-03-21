@@ -38,12 +38,10 @@
   }
 
   ol {
-    list-style: decimal;
     padding-left: 2rem;
   }
 
   ul {
-    list-style: disc;
     padding-left: 2rem;
   }
 
@@ -60,6 +58,11 @@
     border-bottom: 1px solid var(--color-green-link-border-hover);
   }
 }
+
+/* List styles — outside @layer so they override Tailwind preflight */
+
+ol { list-style-type: decimal; }
+ul { list-style-type: disc; }
 
 /* Heading styles — outside @layer so they override Tailwind preflight */
 
@@ -106,7 +109,7 @@ h6 { font-size: 1rem; color: var(--color-gray-600); }
 
 /* Layout */
 
-.container {
+.page-container {
   width: 100%;
   max-width: 1140px;
   margin-left: auto;
@@ -157,10 +160,6 @@ h6 { font-size: 1rem; color: var(--color-gray-600); }
   color: var(--color-gray-600);
 }
 
-.mb-2 {
-  margin-bottom: 0.5rem;
-}
-
 /* Utility classes */
 
 .not-green {
@@ -180,18 +179,6 @@ h6 { font-size: 1rem; color: var(--color-gray-600); }
   color: inherit;
   text-decoration: underline;
   border-bottom: none;
-}
-
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0;
 }
 
 .badge {
