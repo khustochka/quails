@@ -42,7 +42,7 @@
 
       -#   = render partial: "top5list", object: @list_prev_year
 
-      .mb-2.order-first-sm
+      .mb-2.order-first.sm:order-none
         %h2.top5-list-header
           = link_to(t('lifelist.title.canada'), list_path(locus: 'canada'))
         = render partial: "top5list", object: @list_canada

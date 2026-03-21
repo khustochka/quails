@@ -130,15 +130,6 @@ h6 { font-size: 1rem; color: var(--color-gray-600); }
   }
 }
 
-.order-first-sm {
-  order: -1;
-}
-
-@media (min-width: 640px) {
-  .order-first-sm {
-    order: 0;
-  }
-}
 
 /* Bootstrap-compatible text classes */
 
