@@ -117,19 +117,6 @@ h6 { font-size: 1rem; color: var(--color-gray-600); }
   padding-right: 0.75rem;
 }
 
-.two-col {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 0 2rem;
-}
-
-@media (min-width: 768px) {
-  .two-col {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-
 /* Bootstrap-compatible text classes */
 
 .text-muted {

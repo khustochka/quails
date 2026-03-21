@@ -25,63 +25,37 @@
     %header.simple-page-header
       %h1= @page_title
 
-    .two-col
-      .mb-2
-        %h2.top5-list-header= link_to('Lifelist', lifelist_path)
+    .grid.grid-cols-1.md:grid-cols-2.gap-x-8
+      %div
+        %h2.top5-list-header= link_to("Lifelist", lifelist_path)
         = render partial: "top5list", object: @list_life
 
-      .mb-2
-        %h2.top5-list-header= link_to(t('lifelist.title.yearlist', year: Settings.current_year), list_path(year: Settings.current_year))
+      %div
+        %h2.top5-list-header= link_to(t("lifelist.title.yearlist", year: Settings.current_year), list_path(year: Settings.current_year))
         = render partial: "top5list", object: @list_current_year
 
-    .two-col
-      -# .mb-2
-
-      -#   %h2.top5-list-header
-      -#     = link_to(t('lifelist.title.yearlist', year: Settings.current_year - 1), list_path(year: Settings.current_year - 1))
-
-      -#   = render partial: "top5list", object: @list_prev_year
-
-      .mb-2.order-first.sm:order-none
+      %div
         %h2.top5-list-header
-          = link_to(t('lifelist.title.canada'), list_path(locus: 'canada'))
+          = link_to(t("lifelist.title.canada"), list_path(locus: "canada"))
         = render partial: "top5list", object: @list_canada
 
       %div
         %h2.top5-list-header
-          = link_to(t('lifelist.title.ukraine'), list_path(locus: 'ukraine'))
+          = link_to(t("lifelist.title.ukraine"), list_path(locus: "ukraine"))
         = render partial: "top5list", object: @list_ukraine
 
-    .two-col
-      -# .mb-2
-
-      -#   %h2.top5-list-header
-      -#     = link_to(t('lifelist.title.ukraine'), list_path(locus: 'ukraine'))
-      -#     (#{@list_ukraine.total_count})
-
-      .mb-2
+    .grid.grid-cols-1.md:grid-cols-2.gap-x-8
+      %div
         %h2.top5-list-header
-          = link_to(t('lifelist.title.usa'), list_path(locus: 'usa'))
+          = link_to(t("lifelist.title.usa"), list_path(locus: "usa"))
           (#{@list_usa.total_count})
 
-        -# .two-col
-        -#   .mb-2
-
+      %div.md:order-last
         %h2.top5-list-header
-          = link_to(t('lifelist.title.gb'), list_path(locus: 'united_kingdom'))
+          = link_to(t("lifelist.title.gb"), list_path(locus: "united_kingdom"))
           (#{@list_uk.total_count})
 
-      -# .two-col
-      .mb-2
+      %div
         %h2.top5-list-header
-          = link_to(t('lifelist.title.poland'), list_path(locus: 'poland'))
+          = link_to(t("lifelist.title.poland"), list_path(locus: "poland"))
           (#{@list_pl.total_count})
-
-
-    -# %div
-    -#
-    -# %div
-    -#
-    -#    %h2.h4.top5-list-header
-    -#      = link_to('eBird/Clements Lifelist', lifelist_ebird_path)
-    -#      (#{ebird_lifelist.count})
