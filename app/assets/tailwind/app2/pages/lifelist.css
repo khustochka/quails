@@ -1,5 +1,5 @@
 .top5-list-header {
-  font-family: Rubik, ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-rubik);
   margin-bottom: 0.5rem;
 }
 

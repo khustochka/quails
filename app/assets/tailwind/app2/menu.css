@@ -48,7 +48,7 @@
 }
 
 .main-menu a {
-  font-family: Rubik, ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-rubik);
   font-weight: 500;
   font-size: calc(1.1rem + 0.8vw);
   color: var(--color-blue-menu);
@@ -73,7 +73,7 @@
 }
 
 .main-menu .print-only-logo {
-  font-family: Rubik, ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-rubik);
   font-weight: 500;
   font-size: 1.5rem;
   color: #cccccc;

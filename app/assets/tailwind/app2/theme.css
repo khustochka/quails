@@ -1,4 +1,6 @@
 @theme {
+  --font-admin: Helvetica, Arial, sans-serif;
+  --font-rubik: Rubik, ui-sans-serif, system-ui, sans-serif;
   --color-green-link: #27834e;
   --color-green-link-border: rgba(39, 131, 78, 0.45);
   --color-green-link-border-hover: rgba(39, 131, 78, 1);

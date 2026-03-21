@@ -1,33 +1,30 @@
 -# frozen_string_literal: true
+
 - if current_user.admin?
-  %nav.admin-menu
-    %ul.admin-menu-list
-      %li.adder= link_to '+Post', new_post_path
-      %li.adder= link_to '+Card', new_card_path
-      %li.adder= link_to '+Image', new_image_path
-      %li= link_to 'Drafts', hidden_posts_path
-      %li= link_to 'Species', admin_species_index_path
-      %li= link_to 'Cards', cards_path
-      %li= link_to 'eBird', ebird_imports_path
-      %li= link_to 'Comments', comments_path
-      %li= link_to 'Locations', loci_path
-      %li= link_to 'Videos', videos_path
-      %li= link_to 'Reports', reports_path
-      %li= link_to 'Map Edit', edit_map_path
-      %li
-        = link_to 'Jobs', "/jobs", target: "_blank", rel: :noopener
+  %nav{class: %w[w-full px-3 py-1 bg-neutral-800 text-neutral-300 font-admin font-bold text-sm text-center]}
+    %ul.list-none.p-0.m-0
+      = admin_menu_item "+Post", new_post_path, adder: true
+      = admin_menu_item "+Card", new_card_path, adder: true
+      = admin_menu_item "+Image", new_image_path, adder: true
+      = admin_menu_item "Drafts", hidden_posts_path
+      = admin_menu_item "Species", admin_species_index_path
+      = admin_menu_item "Cards", cards_path
+      = admin_menu_item "eBird", ebird_imports_path
+      = admin_menu_item "Comments", comments_path
+      = admin_menu_item "Locations", loci_path
+      = admin_menu_item "Videos", videos_path
+      = admin_menu_item "Reports", reports_path
+      = admin_menu_item "Map Edit", edit_map_path
+      %li.inline-block.mr-2
+        = link_to "Jobs", "/jobs", target: "_blank", rel: :noopener, class: App2Helper::ADMIN_LINK_CLASSES
         = render "app2/admin/failing_jobs_badge"
-
-      %li= "|"
-
-      %li= link_to 'Photostream', images_path
-      %li= link_to 'Stats', reports_stats_path
-      %li= link_to t('menu.lifelist'), advanced_list_path(locale: nil)
-
-      %li= link_to "Logout", logout_path, class: "logout_btn"
+      %li.inline-block.mr-2= "|"
+      = admin_menu_item "Photostream", images_path
+      = admin_menu_item "Stats", reports_stats_path
+      = admin_menu_item t("menu.lifelist"), advanced_list_path(locale: nil)
+      = admin_menu_logout logout_path
 
 - elsif has_trust_cookie?
-  %nav.admin-menu
-    %ul.admin-menu-list
-      %li
-        = link_to 'Login', login_path
+  %nav{class: admin_nav_classes}
+    %ul.list-none.p-0.m-0
+      = admin_menu_item "Login", login_path
