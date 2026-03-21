@@ -113,38 +113,6 @@ footer.page_footer {
   text-align: left;
 }
 
-.ebird_banner {
-  background-color: white;
-  text-align: center;
-}
-
-.ebird_banner a,
-.ebird_banner a:hover {
-  display: block;
-  width: 100%;
-  height: 100%;
-  padding-top: 4px;
-  color: #333333;
-  font-family: "Times New Roman", serif;
-  font-size: 18px;
-  text-decoration: none;
-}
-
-.ebird_banner img {
-  width: 45%;
-}
-
-.ebird_banner .inner {
-  margin: 5px;
-}
-
-.ebird_banner .inner > span {
-  display: block;
-  line-height: 15px;
-  letter-spacing: 0.5px;
-  margin-left: 6px;
-}
-
 .flickr_banner {
   background-color: white;
 }

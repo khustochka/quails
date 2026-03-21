@@ -1,3 +1,3 @@
 -# frozen_string_literal: true
-%ol.lifers_list
+%ol.lifers_list{class: %w[pl-8 text-[0.85rem] text-black/50 mb-6]}
   = render partial: 'new_lifer', collection: top5list.top(5), locals: {total_count: top5list.total_count}
