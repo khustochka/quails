@@ -1,12 +1,12 @@
 -# frozen_string_literal: true
 %nav.main-menu
-  .container
+  .page-container
     %ul
 
-      %li.d-none.d-print-block.print-only-logo
+      %li.screen-hidden.print-only-logo
         birdwatch.org.ua
 
-      %li.d-print-none
+      %li.print-hidden
         = link_to blog_path, class: "home-link" do
           %i.fas.fa-house-chimney
           .sr-only= t('menu.home-sr-only')

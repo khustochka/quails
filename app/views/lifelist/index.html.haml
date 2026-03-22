@@ -18,82 +18,43 @@
 -#       = link_to t('.records_and_stats'), lifelist_stats_path
 
 - cache(key: Quails::CacheKey.lifelist) do
-  .container
+  .page-container
 
     = content_for :translated
 
-    %header.simple-page-header
-      %h1= @page_title
+    = simple_page_header(@page_title)
 
-    .row
-
-      .col-sm-12.col-md-6.mb-2
-
-        %h2.h2.top5-list-header= link_to('Lifelist', lifelist_path)
-
+    .grid.grid-cols-1.md:grid-cols-2.gap-x-8
+      %div
+        %h2.top5-list-header= link_to("Lifelist", lifelist_path)
         = render partial: "top5list", object: @list_life
 
-      .col-sm-12.col-md-6.mb-2
-
-        %h2.h2.top5-list-header= link_to(t('lifelist.title.yearlist', year: Settings.current_year), list_path(year: Settings.current_year))
-
+      %div
+        %h2.top5-list-header= link_to(t("lifelist.title.yearlist", year: Settings.current_year), list_path(year: Settings.current_year))
         = render partial: "top5list", object: @list_current_year
 
-    .row
-
-      -# .col-sm-12.col-md-6.mb-2
-
-      -#   %h2.h2.top5-list-header
-      -#     = link_to(t('lifelist.title.yearlist', year: Settings.current_year - 1), list_path(year: Settings.current_year - 1))
-
-      -#   = render partial: "top5list", object: @list_prev_year
-
-      .col-sm-12.col-md-6.mb-2.order-sm-first
-
-        %h2.h2.top5-list-header
-          = link_to(t('lifelist.title.canada'), list_path(locus: 'canada'))
-
+      %div
+        %h2.top5-list-header
+          = link_to(t("lifelist.title.canada"), list_path(locus: "canada"))
         = render partial: "top5list", object: @list_canada
 
-      .col-sm-12.col-md-6
-
-        %h2.h2.top5-list-header
-          = link_to(t('lifelist.title.ukraine'), list_path(locus: 'ukraine'))
-
+      %div
+        %h2.top5-list-header
+          = link_to(t("lifelist.title.ukraine"), list_path(locus: "ukraine"))
         = render partial: "top5list", object: @list_ukraine
 
-    .row
-      -# .col-sm-12.col-md-6.mb-2
-
-      -#   %h2.h2.top5-list-header
-      -#     = link_to(t('lifelist.title.ukraine'), list_path(locus: 'ukraine'))
-      -#     (#{@list_ukraine.total_count})
-
-      .col-sm-12.col-md-6.mb-2
-
-        %h2.h2.top5-list-header
-          = link_to(t('lifelist.title.usa'), list_path(locus: 'usa'))
+    .grid.grid-cols-1.md:grid-cols-2.gap-x-8
+      %div
+        %h2.top5-list-header
+          = link_to(t("lifelist.title.usa"), list_path(locus: "usa"))
           (#{@list_usa.total_count})
 
-        -# .row
-        -#   .col-sm-12.col-md-6.mb-2
-
-        %h2.h2.top5-list-header
-          = link_to(t('lifelist.title.gb'), list_path(locus: 'united_kingdom'))
+      %div.md:order-last
+        %h2.top5-list-header
+          = link_to(t("lifelist.title.gb"), list_path(locus: "united_kingdom"))
           (#{@list_uk.total_count})
 
-      -# .row
-      .col-sm-12.col-md-6.mb-2
-
-        %h2.h2.top5-list-header
-          = link_to(t('lifelist.title.poland'), list_path(locus: 'poland'))
+      %div
+        %h2.top5-list-header
+          = link_to(t("lifelist.title.poland"), list_path(locus: "poland"))
           (#{@list_pl.total_count})
-
-
-    -# %div
-    -#
-    -# %div
-    -#
-    -#    %h2.h4.top5-list-header
-    -#      = link_to('eBird/Clements Lifelist', lifelist_ebird_path)
-    -#      (#{ebird_lifelist.count})

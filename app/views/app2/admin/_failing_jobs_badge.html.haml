@@ -3,4 +3,4 @@
 - failed_jobs = GoodJob::Job.discarded.count
 
 - if failed_jobs > 0
-  = link_to failed_jobs, "/jobs/jobs?locale=en&state=discarded", target: "_blank", class: "failing_jobs_badge", rel: :noopener
+  = link_to failed_jobs, "/jobs/jobs?locale=en&state=discarded", target: "_blank", rel: :noopener, class: %w[text-white text-xs inline-block px-2 py-1 font-bold leading-none bg-[#dc3545] border-0 hover:border-b-0]

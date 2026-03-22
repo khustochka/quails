@@ -8,13 +8,13 @@
 - content_for :translated do
   = render 'app2/shared/translated'
 
-.container
+.page-container
   = content_for :translated
 
-  %header.simple-page-header
-    %h1 Ссылки
-  .row
-    .col-md
+  = simple_page_header("Ссылки")
+
+  .grid.grid-cols-1.md:grid-cols-2.gap-x-8
+    %div
       %h2.h4 Сообщества, наблюдения
       %ul.links-list
         %li
@@ -39,7 +39,7 @@
           — Крупнейший международный форум бердвочеров
           %small.text-muted (English)
 
-    .col-md
+    %div
       %h2.h4 Личные блоги, галереи
       %ul.links-list
         %li.starred{title: "Recommended"}
@@ -66,8 +66,8 @@
         -# — Этимология научных названий птиц
         -# %small.text-muted (English)
 
-  .row
-    .col-md
+  .grid.grid-cols-1.md:grid-cols-2.gap-x-8
+    %div
       %h2.h4 Определители, ресурсы
       %ul.links-list
         %li
@@ -86,7 +86,7 @@
           — Всемирная библиотека голосов птиц
           %small.text-muted (English)
 
-    .col-md
+    %div
       %h2.h4 Мои страницы
       %ul.links-list
         %li

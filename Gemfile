@@ -89,6 +89,7 @@ gem "jquery-rails"
 gem "sassc-rails"
 gem "premailer-rails"
 gem "font-awesome-sass", "~> 6.7.2"
+gem "tailwindcss-rails", "~> 4.4"
 
 # gem "uglifier", ">= 1.3.0"
 

@@ -65,8 +65,8 @@ COPY Gemfile* ./
 RUN bundle install && rm -rf vendor/bundle/ruby/*/cache
 
 # Remove unnecessary musl build
-RUN rm -rf /app/vendor/bundle/ruby/3.4.0/gems/libdatadog-*-linux/vendor/libdatadog-*/*-linux-musl/
-RUN rm -rf /app/vendor/bundle/ruby/3.4.0/gems/libdatadog-*-linux/vendor/libdatadog-*/*-linux/libdatadog-*-unknown-linux-gnu/LICENSE-3rdparty.yml
+RUN rm -rf /app/vendor/bundle/ruby/4.0.0/gems/libdatadog-*-linux/vendor/libdatadog-*/*-linux-musl/
+RUN rm -rf /app/vendor/bundle/ruby/4.0.0/gems/libdatadog-*-linux/vendor/libdatadog-*/*-linux/libdatadog-*-unknown-linux-gnu/LICENSE-3rdparty.yml
 
 #######################################################################
 
@@ -93,6 +93,8 @@ ENV NODE_ENV=production
 
 ARG BUILD_COMMAND="bin/rails assets:precompile"
 RUN ${BUILD_COMMAND} && rm -rf /app/tmp/cache/assets
+
+RUN rm -rf /app/vendor/bundle/ruby/4.0.0/gems/tailwindcss-ruby-*/exe/*/tailwindcss
 
 #######################################################################
 
@@ -136,8 +138,9 @@ ENV LD_PRELOAD="libjemalloc.so.2"
 ENV MALLOC_CONF="dirty_decay_ms:1000,narenas:2,background_thread:true,stats_print:false"
 ENV RUBY_YJIT_ENABLE="1"
 
-# copy with installed gems (in vendor folder)
-COPY --from=gems /app/vendor/bundle /app/vendor/bundle
+# copy with installed gems (in vendor folder). use assets image, since it does not have 
+# the heavy tailwindcss executable
+COPY --from=assets /app/vendor/bundle /app/vendor/bundle
 # commented out after switch from fullstaq. Explore if this is needed.
 # COPY --from=gems /usr/local/bin/ruby /usr/local/bin/ruby
 # COPY --from=gems /usr/local/bundle /usr/local/bundle

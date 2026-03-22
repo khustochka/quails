@@ -12,3 +12,6 @@ Rails.application.config.assets.version = "1.0"
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
 # Rails.application.config.assets.precompile += %w( admin.js admin.css )
+
+# Disable SassC CSS compressor (incompatible with Tailwind's modern CSS)
+Rails.application.config.assets.css_compressor = nil

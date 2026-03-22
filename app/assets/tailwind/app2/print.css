@@ -1,0 +1,13 @@
+@media print {
+  a {
+    border: none !important;
+    text-decoration: underline !important;
+  }
+
+  .admin-menu,
+  .search-section,
+  ul.translated,
+  .footer_banners {
+    display: none !important;
+  }
+}
