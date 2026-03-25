@@ -7,9 +7,9 @@ module Quails
         @app = app
       end
 
-      # There is a number of requests coming in from supposedly serach engines, using the old
-      # imagemagick format of image variation (probably saved in their cache). This causes the app
-      # to download the image from S3 and then fail trying to transform it. I intercept these
+      # There is a number of requests coming in from search engines, using the old
+      # imagemagick format of image variation (probably saved in their cache). This makes the app
+      # download the image from S3 and then fail trying to transform it. We intercept these
       # requests and, if the format is "old style", return status 410 Gone, saving time and resources.
       def call(env)
         path = env["REQUEST_PATH"]
@@ -22,7 +22,7 @@ module Quails
             variation = JSON.parse(Base64.decode64(path_match[1]))
 
             if variation.dig("_rails", "data", "resize").is_a?(String)
-              # Cache response for 1 hour (in case we are blocking good requests). Increase after test.
+              # Cache response for 1 hour.
               return [410, { "cache-control" => "max-age=3600" }, ["Gone"]]
             elsif (message = variation.dig("_rails", "message"))
               decoded_message = Base64.decode64(message)
@@ -32,7 +32,7 @@ module Quails
               end
             end
           rescue
-            # decoding error? just ignore, in case it is something legitimate
+            # decoding error? just let it pass, in case it is something legitimate
           end
         end
 
