@@ -4,7 +4,6 @@
 - @no_viewport = true
 
 - stylesheet 'forms'
-- @js_features = [:wikiFields]
 
 - @page_title = @card.persisted? ? "Edit: #{link_to l(@card.observ_date, format: :long), day_path(@card.observ_date)}, #{@card.locus.decorated.short_full_name}".html_safe : "New card"
 
