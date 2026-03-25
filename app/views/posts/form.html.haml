@@ -32,7 +32,7 @@
     = form.input :lang, as: :select, collection: I18n.available_locales, include_blank: false
   %div
     = form.input :title, input_html: {class: 'long', required: false}
-  = form.input :body, label: false, input_html: {rows: 20, class: 'wiki_field'}
+  = form.input :body, label: false, input_html: {rows: 20, class: "wiki_field", data: {wiki_field: true}}
   %div
     = form.input :topic, collection: Post::TOPICS, input_html: {size: '3'}, include_blank: false
     = form.input :status, collection: Post::STATES, input_html: {size: '3'}, include_blank: false

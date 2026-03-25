@@ -1,7 +1,7 @@
 import Autocomplete, { highlight } from "../utils/autocomplete";
 
 document.addEventListener("DOMContentLoaded", function () {
-  const textarea = document.querySelector(".wiki_field");
+  const textarea = document.querySelector("[data-wiki-field]");
   if (!textarea) return;
 
   const toolbar = document.createElement("div");

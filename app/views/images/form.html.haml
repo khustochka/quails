@@ -70,7 +70,7 @@
   = render partial: 'media/obs_selector', locals: {media: @image}
 
   %div
-    = form.input :description, input_html: {rows: 7, class: 'wiki_field'}
+    = form.input :description, input_html: {rows: 7, class: "wiki_field", data: {wiki_field: true}}
     = form.input :index_num, input_html: { size: 10, type: :text }
     = form.input :status, collection: Image::STATES, input_html: {size: '5'}, include_blank: false
   .buttons

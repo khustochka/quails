@@ -105,6 +105,16 @@ bin/rails db:seed
 - Use concerns for shared behavior (`AdministrativeConcern`, `LocalizationConcern`)
 - Use decorators for view-specific logic
 
+### CSS
+
+- In CSS/SASS files, use `url(filename.png)` — just the bare filename, not full paths like `/assets/filename.png`. Sprockets resolves the path and adds a digest hash for cache busting.
+
+### JavaScript
+
+- Use `data-` attributes (not CSS classes) to detect whether a JS feature should initialize on a page
+- esbuild modules self-initialize via `DOMContentLoaded`, guarded by `document.querySelector("[data-feature-name]")`
+- Add corresponding `data: {feature_name: true}` to the Haml view element
+
 ### Testing
 
 - Use FactoryBot for test data

@@ -16,7 +16,7 @@
     = f2.input :email, label: 'Email:',
                 hint: @comment.persisted? ? nil : t('posts.post.if_you_wish_to_receive_notification')
 
-  = form.input :body, label: false, input_html: {rows: 10, class: 'wiki_field'},
+  = form.input :body, label: false, input_html: {rows: 10, class: "wiki_field", data: {wiki_field: true}},
                 hint: t('posts.post.some_html_allowed')
 
   - if @comment.persisted?

@@ -21,7 +21,7 @@
 
   = render partial: 'media/obs_selector', locals: {media: @video}
 
-  = f.input :description, input_html: {rows: 7, class: 'wiki_field'}
+  = f.input :description, input_html: {rows: 7, class: "wiki_field", data: {wiki_field: true}}
 
   .buttons
     = default_submit_button(f, class: 'submit_with_obs')
