@@ -8,6 +8,7 @@ import './src/admin/observation-form';
 import './src/admin/cards';
 import './src/admin/flickr-search';
 import './src/admin/obs-selector';
+import './src/admin/image-form';
 
 // Keypress
 import {keypress} from "keypress.js";
