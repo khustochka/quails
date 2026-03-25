@@ -189,32 +189,51 @@ div.obs-row
   width: $main-width
 
 // Images
-table.with_search
-  td
-    padding: 0 10px
-    border: 1px solid #888
-  .observation_list, .observation_options
-    width: 362px
-    height: 268px
-    vertical-align: top
+.obs-selector
+  border: 1px solid #888
+  padding: 5px 0
+  margin: 15px 0
+  .observation_search
+    text-align: right
+    border-bottom: 1px solid #ccc
+    padding: 8px 10px
+    button
+      vertical-align: -19px
+      width: 100px
+  .selected-obs, .search-results
+    padding: 8px 10px
+    h5
+      font-size: 14px
+      font-weight: normal
+      color: #555
+      margin: 0 0 6px 0
     h5, .restore
       @include inline-block
     .restore
       float: right
-      margin-top: 3px
-  .observation_search
-    text-align: right
-  .observation_search, .flickr_search
+  .selected-obs
+    border-bottom: 1px solid #ccc
+    background-color: #edf7ed
+    li
+      background-color: white
+    .add
+      display: none
+  .search-results
+    .add
+      display: inline
+    .remove
+      display: none
+    li.incompatible
+      opacity: 0.4
+
+table.flickr_search_table
+  td
+    padding: 0 10px
+    border: 1px solid #888
+  .flickr_search
     button
       vertical-align: -19px
       width: 100px
-  ul.found-obs
-    li
-      background-color: #eeffee
-    .remove
-      display: none
-
-table.flickr_search_table
   width: 1000px
   td.found_pictures
     height: 200px
@@ -236,6 +255,12 @@ ul.obs-list
     .remove
       float: right
       color: red
+    .add
+      display: none
+      float: right
+      color: green
+      cursor: pointer
+      margin-left: 5px
     div
       // To work around line wrap because of 'remove' icon
       margin-bottom: 1px

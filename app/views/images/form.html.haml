@@ -1,7 +1,7 @@
 -# frozen_string_literal: true
 - stylesheet 'forms'
 - @js_controller = :imageForm
-- @js_features = [:observDragger, :wikiFields]
+- @js_features = [:obsSelector, :wikiFields]
 
 - @page_title = "#{new_or_edit_label(@image)} image"
 
@@ -69,7 +69,7 @@
         %label
           %b Multiple species
 
-  = render partial: 'media/obs_draggable', locals: {media: @image}
+  = render partial: 'media/obs_selector', locals: {media: @image}
 
   %div
     = form.input :description, input_html: {rows: 7, class: 'wiki_field'}

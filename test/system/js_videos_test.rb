@@ -53,7 +53,9 @@ class JSVideosTest < ApplicationSystemTestCase
       click_button "Search"
     end
 
-    find(:xpath, "//ul[contains(@class,'found-obs')]/li[1]").drag_to find(".observation_list")
+    within(:xpath, "//ul[contains(@class,'found-obs')]/li[1]") do
+      click_icon_link(".add")
+    end
 
     assert_difference("Video.count", 1) { save_and_check }
     video = Video.find_by(slug: "test-video-capybara")
@@ -74,7 +76,9 @@ class JSVideosTest < ApplicationSystemTestCase
       click_button "Search"
     end
 
-    find(:xpath, "//ul[contains(@class,'found-obs')]/li[div[contains(text(),'Hirundo rustica')]]").drag_to find(".observation_list")
+    within(:xpath, "//ul[contains(@class,'found-obs')]/li[div[contains(text(),'Hirundo rustica')]]") do
+      click_icon_link(".add")
+    end
 
     assert_difference("Video.count", 1) { save_and_check }
     video = Video.find_by(slug: "test-video-capybara")

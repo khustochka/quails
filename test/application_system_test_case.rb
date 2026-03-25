@@ -67,13 +67,6 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     assert_selector ".obs-row", minimum: prev_count + 1
   end
 
-  # Scroll source into view before dragging to prevent scroll_into_view_if_needed
-  # inside drag_to from shifting page coordinates between mouse.down and mouse.move.
-  def drag_and_drop(source, target)
-    source.scroll_to source
-    source.drag_to target
-  end
-
   # This is required for clicking font-awesome icon links (like .remove)
   def click_icon_link(selector)
     find(:css, selector).click
