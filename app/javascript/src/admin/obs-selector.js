@@ -1,10 +1,11 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const currentObs = document.querySelector(".current-obs");
-  if (!currentObs) return;
+  const root = document.querySelector("[data-obs-selector]");
+  if (!root) return;
 
-  const foundObs = document.querySelector(".found-obs");
-  const selectedSection = document.querySelector(".selected-obs");
-  const searchResults = document.querySelector(".search-results");
+  const currentObs = root.querySelector(".current-obs");
+  const foundObs = root.querySelector(".found-obs");
+  const selectedSection = root.querySelector(".selected-obs");
+  const searchResults = root.querySelector(".search-results");
   const saveButton = document.getElementById("save_button");
   const originalObservations = currentObs.innerHTML;
 
@@ -47,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function searchForObservations() {
     foundObs.innerHTML = "";
     searchResults.classList.add("loading");
-    const inputs = document.querySelectorAll(".observation_search input[name], .observation_search select[name]");
+    const inputs = root.querySelectorAll(".observation_search input[name], .observation_search select[name]");
     const params = new URLSearchParams();
     inputs.forEach(function (input) {
       if (input.name && input.value) params.append(input.name, input.value);
@@ -87,7 +88,7 @@ document.addEventListener("DOMContentLoaded", function () {
     refreshObservList();
   });
 
-  const restoreLink = document.querySelector(".restore");
+  const restoreLink = root.querySelector(".restore");
   if (restoreLink) {
     restoreLink.addEventListener("click", function () {
       currentObs.innerHTML = originalObservations;
@@ -95,12 +96,12 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  document.querySelector(".obs_search_btn").addEventListener("click", searchForObservations);
+  root.querySelector(".obs_search_btn").addEventListener("click", searchForObservations);
 
-  const form = document.querySelector("form.with_observations");
+  const form = root.closest("form.with_observations");
   if (form) {
     form.addEventListener("submit", function () {
-      document.querySelectorAll(".observation_search input, .observation_search select, .observation_search button").forEach(function (el) {
+      root.querySelectorAll(".observation_search input, .observation_search select, .observation_search button").forEach(function (el) {
         el.disabled = true;
       });
       foundObs.innerHTML = "";

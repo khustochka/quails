@@ -1,5 +1,5 @@
 -# frozen_string_literal: true
-.obs-selector
+.obs-selector{data: {obs_selector: true}}
   .observation_search
     = simple_fields_for media.search_applicable_observations(date: params[:exif_date]) do |form2|
       = form2.input :observ_date, label: "Date:", as: :string,
