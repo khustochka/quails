@@ -10,7 +10,7 @@ import './src/admin/flickr-search';
 import './src/admin/obs-selector';
 import './src/admin/image-form';
 import './src/admin/wiki-fields';
-
+import './src/admin/motorless';
 // Keypress
 import {keypress} from "keypress.js";
 window.keypress = keypress;

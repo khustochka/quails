@@ -1,4 +1,4 @@
-$(function() {
+document.addEventListener("DOMContentLoaded", function() {
   document.querySelectorAll("a.mark_motorless").forEach(function(el) {
     el.addEventListener("ajax:success", function() {
       var b = document.createElement("b");
