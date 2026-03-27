@@ -1,8 +1,6 @@
 -# frozen_string_literal: true
 - @page_title = "#{new_or_edit_label(@post)} post"
 
-- javascript 'post_form'
-
 - stylesheet 'forms'
 
 %h1= page_header
@@ -49,11 +47,11 @@
 
   %h3#card_attach Attach cards
 
-  = simple_form_for @observation_search, url: cards_path, method: :get, remote: true, html: {class: 'search'} do |form|
+  = simple_form_for @observation_search, url: cards_path, method: :get, remote: true, html: {class: "search", data: {cards_search: true}} do |form|
     = render 'observations/search_fields', form: form
     = hidden_field_tag("new_post_id", @post.id)
 
-  %ul.cards_list#search-results
+  %ul.cards_list#search-results{data: {cards_search_results: true}}
 
   %h3 Livejournal
   %ul

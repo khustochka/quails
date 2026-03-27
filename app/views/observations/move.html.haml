@@ -1,6 +1,5 @@
 -# frozen_string_literal: true
 - stylesheet 'forms'
-- javascript 'observation_move'
 
 - @page_title = "Move observations"
 
@@ -17,9 +16,9 @@
 
 %h3 To another card:
 
-= simple_form_for @observation_search, url: cards_path, method: :get, remote: true, html: {class: 'search'} do |form|
+= simple_form_for @observation_search, url: cards_path, method: :get, remote: true, html: {class: "search", data: {cards_search: true}} do |form|
   = render 'observations/search_fields', form: form
   - @observations.each do |obs|
     = hidden_field_tag('obs[]', obs.id)
 
-%ul.cards_list#search-results
+%ul.cards_list#search-results{data: {cards_search_results: true}}

@@ -11,6 +11,8 @@ import './src/admin/obs-selector';
 import './src/admin/image-form';
 import './src/admin/wiki-fields';
 import './src/admin/motorless';
+import './src/admin/post-form';
+import './src/admin/observation-move';
 // Keypress
 import {keypress} from "keypress.js";
 window.keypress = keypress;
