@@ -1,13 +1,13 @@
 function initInstantSearch(container) {
-  const dataUrl = container.dataset.url;
+  const dataUrl = container.dataset.instantSearchUrl;
   const resultSelector = container.dataset.resultContainer;
   const resultContainer = (resultSelector && document.querySelector(resultSelector)) ||
-                          container.querySelector(".instant_search_results") ||
+                          container.querySelector("[data-instant-search-results]") ||
                           container.nextElementSibling;
   let requestTimeout = null;
 
   container.addEventListener("input", (e) => {
-    if (!e.target.matches(".instant_search_input")) return;
+    if (!e.target.matches("[data-instant-search-input]")) return;
     const value = e.target.value;
     if (requestTimeout) clearTimeout(requestTimeout);
     requestTimeout = setTimeout(() => {
@@ -19,5 +19,5 @@ function initInstantSearch(container) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  document.querySelectorAll(".instant_search_container").forEach(initInstantSearch);
+  document.querySelectorAll("[data-instant-search]").forEach(initInstantSearch);
 });

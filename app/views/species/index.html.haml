@@ -18,5 +18,5 @@
 
 = render partial: "partials/admin_instant_search", locals: {url: admin_species_index_path}
 
-.instant_search_results
+.instant_search_results{data: {instant_search_results: true}}
   = render "species/table"

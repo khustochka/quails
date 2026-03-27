@@ -6,11 +6,17 @@
 
 = render "admin/shortcuts" if current_user.admin?
 
+%div.instant_search_container
+  Filter:
+  %input.instant_search_input{type: "text", data: {loci_filter: true}, autofocus: true}
+
 %div.table_like
   %ul.drag_locs.other{data: {loci_sortable: true}}
     - @locs_other.each do |loc|
-      %li{"data-loc-id" => loc.id}= loc.name
+      %li{"data-loc-id" => loc.id}= loc.name_en
 
   %ul.drag_locs.public{data: {loci_sortable: true, loci_public: true}}
     - @locs_public.each do |loc|
-      %li{"data-loc-id" => loc.id}= loc.name
+      %li{"data-loc-id" => loc.id}
+        = loc.name_en
+        %span.remove{data: {loci_remove: true}} ×

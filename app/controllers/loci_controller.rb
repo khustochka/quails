@@ -70,7 +70,18 @@ class LociController < ApplicationController
 
   def public
     @locs_public = Locus.locs_for_lifelist
-    @locs_other = Locus.sort_by_ancestry(Locus.where(public_index: nil))
+    typed = Locus.where(public_index: nil).where.not(loc_type: nil)
+    ids = typed.flat_map { |l| [l.id] + l.ancestor_ids }.uniq
+    @locs_other = Locus.sort_by_ancestry(Locus.where(public_index: nil, id: ids))
+
+    if params.key?(:term)
+      locs = if params[:term].present?
+        Search::LociSearch.new(Locus.where(public_index: nil), params[:term]).find
+      else
+        @locs_other
+      end
+      render json: locs.map { |l| { id: l.id, name: l.name_en } }
+    end
   end
 
   def save_order

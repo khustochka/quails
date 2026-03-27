@@ -1,6 +1,6 @@
 -# frozen_string_literal: true
-%div.instant_search_container{data: {url: url}}
+%div.instant_search_container{data: {instant_search: true, instant_search_url: url}}
   Search:
-  %input.instant_search_input{type: "text"}
+  %input.instant_search_input{type: "text", data: {instant_search_input: true}}
 
   = content_for(:instant_search_results)
