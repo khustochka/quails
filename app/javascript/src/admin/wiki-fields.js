@@ -1,4 +1,5 @@
 import Autocomplete, { highlight } from "../utils/autocomplete";
+import { keypress } from "keypress.js";
 
 document.addEventListener("DOMContentLoaded", function () {
   const textarea = document.querySelector("[data-wiki-field]");
@@ -128,9 +129,7 @@ document.addEventListener("DOMContentLoaded", function () {
   postBtn.addEventListener("click", function () { insertTags("{{#", "|}}", "post"); });
 
   // Keyboard shortcuts
-  if (window.keypress) {
-    var kp = new window.keypress.Listener();
-    kp.simple_combo("alt s", openSpeciesSearch);
-    kp.simple_combo("alt p", function () { insertTags("{{#", "|}}", "post"); });
-  }
+  var kp = new keypress.Listener();
+  kp.simple_combo("alt s", openSpeciesSearch);
+  kp.simple_combo("alt p", function () { insertTags("{{#", "|}}", "post"); });
 });

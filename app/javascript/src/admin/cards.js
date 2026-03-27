@@ -1,6 +1,7 @@
 import { initTaxonSuggestField } from './taxa_autosuggest';
 import { selectCombobox } from '../utils/select-combobox';
 import { inlineDatepicker } from '../utils/inline-datepicker';
+import { keypress } from "keypress.js";
 
 document.addEventListener('DOMContentLoaded', function () {
   if (!document.querySelector('form[data-card-form]')) return;
@@ -107,7 +108,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function initMarkAsVoice() {
-    const kp = new window.keypress.Listener();
+    const kp = new keypress.Listener();
     kp.simple_combo('alt v', function () {
       const focused = document.activeElement;
       let row = focused.closest('.obs-row');
