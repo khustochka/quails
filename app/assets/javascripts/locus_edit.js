@@ -19,8 +19,8 @@ $(function () {
     document.getElementById('locus_lon').value = latLng.lng();
   }
 
-  function addMarker(map, latLng) {
-    $(map).gmap3({
+  function addMarker(mapEl, latLng) {
+    $(mapEl).gmap3({
       marker: {
         latLng: latLng,
         options: {
@@ -45,12 +45,15 @@ $(function () {
   if (window.mapEnabled) {
     $(theMap).gmap3({
       map: {
+        options: {
+          draggableCursor: 'pointer'
+        },
         events: {
           click: function (map, event) {
             var latLng = event.latLng,
               marker = $(theMap).gmap3({ get: "marker" });
             if (typeof (marker) != 'undefined') marker.setMap(null);
-            addMarker(map, latLng);
+            addMarker(theMap, latLng);
             updateGeoFields(latLng);
           }
         }
