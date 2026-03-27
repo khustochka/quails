@@ -14,7 +14,9 @@ class Image < Media
     attachable.variant :large, ImageRepresenter.variant_format(:large)
   end
 
-  validates :external_id, uniqueness: true, allow_nil: true, exclusion: { in: [""] }
+  normalizes :external_id, with: ->(v) { v.presence }
+
+  validates :external_id, uniqueness: true, allow_nil: true
   validates :status, inclusion: STATES, presence: true, length: { maximum: 16 }
 
   validate :has_attached_image

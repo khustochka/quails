@@ -4,8 +4,7 @@ class Card < ApplicationRecord
   class UnsplittableCard < StandardError
   end
 
-  attribute :ebird_id, :nullable_string
-  attribute :start_time, :nullable_string
+  normalizes :ebird_id, :start_time, with: ->(v) { v.presence }
 
   EFFORT_TYPES = %w(INCIDENTAL STATIONARY TRAVEL AREA HISTORICAL)
   NON_INCIDENTAL = EFFORT_TYPES - %w(INCIDENTAL HISTORICAL)

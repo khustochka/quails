@@ -10,6 +10,8 @@ class Species < ApplicationRecord
 
   localized_attr :name
 
+  normalizes :code, :legacy_code, with: ->(v) { v.presence }
+
   validates :order, presence: true
   validates :family, presence: true
   validates :name_sci, presence: true, format: /\A[A-Z][a-z]+ [a-z]+\Z/, uniqueness: true
@@ -79,14 +81,6 @@ class Species < ApplicationRecord
 
   def to_label
     name_sci
-  end
-
-  def code=(val)
-    super(val.presence)
-  end
-
-  def legacy_code=(val)
-    super(val.presence)
   end
 
   # Methods
