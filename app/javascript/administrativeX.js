@@ -14,6 +14,7 @@ import './src/admin/motorless';
 import './src/admin/post-form';
 import './src/admin/observation-move';
 import './src/admin/image-flickr';
+import './src/admin/loci-order';
 // Keypress
 import {keypress} from "keypress.js";
 window.keypress = keypress;

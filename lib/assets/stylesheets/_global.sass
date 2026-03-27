@@ -1,4 +1,4 @@
-@import 'mixins', 'reusable', 'header', 'admin_menu', 'jquery-ui', 'autocomplete', 'autocomplete_search'
+@import 'mixins', 'reusable', 'header', 'admin_menu', 'autocomplete', 'autocomplete_search'
 // Very global styles
 
 p
@@ -46,7 +46,7 @@ div.footer
     right: -1em
   padding: 0 20px 5px 20px
 
-// Override normalize.css & jquery-ui
+// Override normalize.css
 body
   margin: 0 !important
   font-family: Arial, sans-serif
@@ -67,9 +67,6 @@ body
   ul, ol
     li
       margin-bottom: 3px
-
-  .ui-widget
-    font-family: Arial, sans-serif
 
 // 100% height
 $footer-margin: 145px
@@ -440,17 +437,3 @@ div.thumbs_strip
   position: absolute
   width: 1px
 
-// ui menu overrides
-
-.ui-menu .ui-menu-item a
-  display: block
-  text-decoration: none
-  padding: 2px .4em
-  line-height: 1.5
-  min-height: 0
-  font-weight: normal
-  &.ui-state-active
-    background: #ccd232 image-url("ui-bg_diagonals-small_75_ccd232_40x40.png") 50% 50% repeat
-    border: none
-    margin: 0
-    color: black

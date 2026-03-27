@@ -1,17 +1,16 @@
 -# frozen_string_literal: true
-- javascript 'loci_order'
 
-- @page_title = 'Order public locations'
+- @page_title = "Order public locations"
 
 %h1= page_header
 
-= render 'admin/shortcuts' if current_user.admin?
+= render "admin/shortcuts" if current_user.admin?
 
 %div.table_like
-  %ul.drag_locs.other
+  %ul.drag_locs.other{data: {loci_sortable: true}}
     - @locs_other.each do |loc|
-      %li{'data-loc-id' => loc.id}= loc.name
+      %li{"data-loc-id" => loc.id}= loc.name
 
-  %ul.drag_locs.public
+  %ul.drag_locs.public{data: {loci_sortable: true, loci_public: true}}
     - @locs_public.each do |loc|
-      %li{'data-loc-id' => loc.id}= loc.name
+      %li{"data-loc-id" => loc.id}= loc.name
