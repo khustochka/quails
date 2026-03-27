@@ -132,4 +132,9 @@ class LocusTest < ActiveSupport::TestCase
       assert_equal "Ukraine", ua.decorated.short_full_name
     end
   end
+
+  test "blank loc_type is normalized to nil" do
+    loc = create(:locus, loc_type: "")
+    assert_nil loc.loc_type
+  end
 end

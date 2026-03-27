@@ -29,6 +29,7 @@ class Locus < ApplicationRecord
   after_initialize :prepopulate, unless: :persisted?
   before_validation :generate_slug
   before_validation :set_country
+  normalizes :loc_type, with: ->(v) { v.presence }
 
   TYPES = %w(continent country region raion city)
 
