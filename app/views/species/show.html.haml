@@ -7,7 +7,7 @@
 - @meta_description = t(".meta_description", name: @species.name, name_sci: @species.name_sci)
 
 - if current_user.admin?
-  - javascript 'admin_public'
+  - javascript "admin-public"
   - content_for :add_shortcuts do
     %li
       Code:
