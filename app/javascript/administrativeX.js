@@ -13,6 +13,7 @@ import './src/admin/wiki-fields';
 import './src/admin/motorless';
 import './src/admin/post-form';
 import './src/admin/observation-move';
+import './src/admin/image-flickr';
 // Keypress
 import {keypress} from "keypress.js";
 window.keypress = keypress;

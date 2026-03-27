@@ -1,6 +1,5 @@
 -# frozen_string_literal: true
 - stylesheet 'forms'
-- javascript 'image_flickr'
 
 - @page_title = [@image.on_flickr? ? 'Flickred' : 'Unflickred', @image.decorated.title].join(": ")
 
@@ -47,14 +46,14 @@
 
 %h3 Find a picture:
 
-%table.with_search.flickr_search_table
+%table.with_search.flickr_search_table{data: {flickr_search_table: true}}
   %tr
     %td{rowspan: 2, valign: 'top'}
       = image_tag(@image.thumbnail_variant, class: 'image_pic')
-      = form_tag flickr_photos_path(format: :json), class: "flickr_edit", remote: true do
+      = form_tag flickr_photos_path(format: :json), class: "flickr_edit", remote: true, data: {flickr_edit: true} do
         = hidden_field_tag("id", @image.slug)
-        = hidden_field_tag("flickr_id")
-    %td.flickr_search
+        = hidden_field_tag("flickr_id", nil, data: {flickr_id: true})
+    %td.flickr_search{data: {flickr_photo_search: true}}
       - if _FlickrClient.valid?
         %input.string.short#user_id{name: 'user_id', type: 'hidden', value: flickr_admin.user_id}
         %div.input.string
@@ -63,11 +62,11 @@
         %div.input.string
           %label.string Date:
           %input.string.short#flickr_date{name: 'flickr_date', maxlength: '10', type: 'date', value: @image.observ_date}
-        %button.flickr_search_btn{type: 'button'} Search
+        %button.flickr_search_btn{type: "button", data: {flickr_search_btn: true}} Search
       - else
         %div.errors No Flickr API key or secret defined!
   %tr
-    %td.found_pictures
-      %div.flickr_result
+    %td.found_pictures{data: {flickr_pictures: true}}
+      %div.flickr_result{data: {flickr_result: true}}
 
-= link_to("Next unflickred image >>", flickr_photo_path(@next), class: 'next_unflickred') if @next
+= link_to("Next unflickred image >>", flickr_photo_path(@next), class: "next_unflickred", data: {next_unflickred: true}) if @next
