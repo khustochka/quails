@@ -51,14 +51,11 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
   def select_suggestion(value, hash)
     fill_in hash[:from], with: value
-    if page.document.has_css?(".ac-dropdown a", text: value, wait: 2)
-      page.execute_script <<~JS
-        const dropdown = Array.from(document.querySelectorAll('.ac-dropdown')).find(el => el.style.display !== 'none');
-        Array.from(dropdown.querySelectorAll('a')).find(a => a.textContent.includes(#{value.to_json})).click();
-      JS
-    else
-      page.execute_script "$('.ui-menu-item a:contains(\"#{value}\"):first').trigger('mouseenter').click();"
-    end
+    page.document.assert_selector(".ac-dropdown a", text: value, wait: 2)
+    page.execute_script <<~JS
+      const dropdown = Array.from(document.querySelectorAll('.ac-dropdown')).find(el => el.style.display !== 'none');
+      Array.from(dropdown.querySelectorAll('a')).find(a => a.textContent.includes(#{value.to_json})).click();
+    JS
   end
 
   def click_add_new_row
