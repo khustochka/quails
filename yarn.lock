@@ -292,6 +292,11 @@ ilyabirman-likely@^3.2.0:
   resolved "https://registry.yarnpkg.com/ilyabirman-likely/-/ilyabirman-likely-3.2.0.tgz#ab6d3d2abd4a7aba5561eef88258ae845a92c240"
   integrity sha512-uCk/fo1CpExHeHrZNa9hymRd0ztHeYsqrx9LTTyUm/1RsOVq62hRSlUYsbJZy3AdPdHQS63mk8GdUW9eULA7sQ==
 
+jquery@3.7.1:
+  version "3.7.1"
+  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.7.1.tgz#083ef98927c9a6a74d05a6af02806566d16274de"
+  integrity sha512-m4avr8yL8kmFN8psrbFFFmB/If14iN5o9nw/NgnnM+kybDJpRsAynV2BsfpTYrTRysYUdADVD7CkUUizgkpLfg==
+
 json-nd@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/json-nd/-/json-nd-1.0.0.tgz#e52283b7ee3f5e6f9920f668c94044bda912120c"

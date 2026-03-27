@@ -15,3 +15,8 @@ import './src/admin/post-form';
 import './src/admin/observation-move';
 import './src/admin/image-flickr';
 import './src/admin/loci-order';
+
+// jQuery is only used on map-related pages
+import jquery from 'jquery';
+window.jQuery = jquery;
+window.$ = jquery;
