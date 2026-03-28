@@ -1,4 +1,4 @@
-import { createMap, autofitMarkers, setDefaultView, panToLocus, csrfToken, GRAY_ICON, RED_ICON, createMarkerStore } from "./map-init";
+import { createMap, autofitMarkers, setDefaultView, panToLocus, csrfToken, GRAY, RED, markerIcon, createMarkerStore } from "./map-init";
 
 export function initMapEdit(mapEl) {
   var mapEnabled = "mapEnabled" in mapEl.dataset;
@@ -125,7 +125,7 @@ export function initMapEdit(mapEl) {
       position: opts.latLng,
       map: map,
       draggable: true,
-      icon: opts.icon || GRAY_ICON,
+      icon: markerIcon(opts.color || GRAY),
       title: opts.title
     });
 
@@ -199,12 +199,12 @@ export function initMapEdit(mapEl) {
 
     var currentObs = document.querySelector(".selected_obs");
     if (currentObs) {
-      if (mapEnabled) store.highlight(currentObs.dataset.obsId, GRAY_ICON);
+      if (mapEnabled) store.highlight(currentObs.dataset.obsId, GRAY);
       currentObs.classList.remove("selected_obs");
     }
 
     li.classList.add("selected_obs");
-    if (mapEnabled) store.highlight(li.dataset.obsId, RED_ICON);
+    if (mapEnabled) store.highlight(li.dataset.obsId, RED);
   }
 
   // --- Spot AJAX handlers ---
@@ -223,7 +223,7 @@ export function initMapEdit(mapEl) {
           data: { id: data.id },
           title: selectedObs ? selectedObs.querySelector("div").textContent : ""
         });
-        if (selectedObs) store.highlight(selectedObs.dataset.obsId, RED_ICON);
+        if (selectedObs) store.highlight(selectedObs.dataset.obsId, RED);
       }
 
       if (selectedObs) {

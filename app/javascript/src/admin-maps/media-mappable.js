@@ -1,4 +1,4 @@
-import { createMap, autofitMarkers, setDefaultView, csrfToken, GRAY_ICON, RED_ICON, createMarkerStore } from "./map-init";
+import { createMap, autofitMarkers, setDefaultView, csrfToken, GRAY, RED, markerIcon, createMarkerStore } from "./map-init";
 
 export function initMediaMappable(mapEl) {
   var spotFormTemplate = document.querySelector(".spot_form_container");
@@ -51,7 +51,7 @@ export function initMediaMappable(mapEl) {
       position: opts.latLng,
       map: map,
       draggable: opts.draggable || false,
-      icon: opts.icon || GRAY_ICON,
+      icon: markerIcon(opts.color || GRAY),
       title: opts.title
     });
 
@@ -70,9 +70,9 @@ export function initMediaMappable(mapEl) {
       headers: { "X-CSRF-Token": csrfToken() },
       body: payload
     }).then(function () {
-      if (selectedSpot) store.highlight(selectedSpot, GRAY_ICON);
+      if (selectedSpot) store.highlight(selectedSpot, GRAY);
       selectedSpot = data.id;
-      store.highlight(selectedSpot, RED_ICON);
+      store.highlight(selectedSpot, RED);
     });
   }
 
@@ -165,6 +165,6 @@ export function initMediaMappable(mapEl) {
 
   // Highlight selected spot
   if (selectedSpot) {
-    store.highlight(selectedSpot, RED_ICON);
+    store.highlight(selectedSpot, RED);
   }
 }

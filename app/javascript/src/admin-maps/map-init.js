@@ -57,8 +57,19 @@ export function autofitMarkers(map, markers, maxZoom) {
   }
 }
 
-export var GRAY_ICON = "https://maps.google.com/mapfiles/marker_white.png";
-export var RED_ICON = "https://maps.google.com/mapfiles/marker.png";
+export var GRAY = "#999999";
+export var RED = "#e53935";
+
+export function markerIcon(color) {
+  return {
+    path: google.maps.SymbolPath.CIRCLE,
+    fillOpacity: 1,
+    fillColor: color,
+    strokeColor: "white",
+    strokeWeight: 1.5,
+    scale: 7
+  };
+}
 
 export function createMarkerStore() {
   var all = [];
@@ -92,12 +103,12 @@ export function createMarkerStore() {
       return all.length;
     },
 
-    highlight: function (tag, icon) {
+    highlight: function (tag, color) {
       var markers = byTag[tag];
       if (!markers) return;
       markers.forEach(function (m) {
-        m.setIcon(icon);
-        if (icon === RED_ICON) {
+        m.setIcon(markerIcon(color));
+        if (color === RED) {
           if (!origZIndex.has(m)) origZIndex.set(m, m.getZIndex() || 0);
           m.setZIndex(google.maps.Marker.MAX_ZINDEX);
         } else {
