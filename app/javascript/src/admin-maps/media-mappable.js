@@ -1,7 +1,33 @@
 import { createMap, autofitMarkers, setDefaultView, csrfToken, GRAY_ICON, RED_ICON, createMarkerStore } from "./map-init";
 
 export function initMediaMappable(mapEl) {
+  var spotFormTemplate = document.querySelector(".spot_form_container");
+  if (spotFormTemplate) spotFormTemplate.style.display = "none";
+
   var mapContainer = document.querySelector(".mapContainer");
+
+  // Layout
+  function adjustSizes() {
+    var clientHeight = window.innerHeight,
+        clientWidth = window.innerWidth,
+        header = document.getElementById("header"),
+        sidePanel = document.querySelector(".map-side-panel");
+
+    var upper = header ? header.offsetHeight : 0;
+    var leftmost = sidePanel ? sidePanel.offsetWidth : 0;
+
+    if (sidePanel) sidePanel.style.height = (clientHeight - upper - 2) + "px";
+    mapContainer.style.height = (clientHeight - upper) + "px";
+    mapContainer.style.width = (clientWidth - leftmost) + "px";
+    mapContainer.style.top = upper + "px";
+    mapContainer.style.left = leftmost + "px";
+  }
+
+  adjustSizes();
+  window.addEventListener("resize", adjustSizes);
+
+  if (!("mapEnabled" in mapEl.dataset)) return;
+
   var patchUrl = mapContainer.dataset.patchUrl,
       mediaType = mapContainer.dataset.mediaType,
       maxZoom = parseInt(mapContainer.dataset.maxZoom) || 15,
@@ -51,8 +77,6 @@ export function initMediaMappable(mapEl) {
   }
 
   // Spot form
-  var spotFormTemplate = document.querySelector(".spot_form_container");
-  if (spotFormTemplate) spotFormTemplate.style.display = "none";
 
   function cloneSpotForm(overrides) {
     var clone = spotFormTemplate.cloneNode(true);
@@ -75,26 +99,6 @@ export function initMediaMappable(mapEl) {
 
     return clone;
   }
-
-  // Layout
-  function adjustSizes() {
-    var clientHeight = window.innerHeight,
-        clientWidth = window.innerWidth,
-        header = document.getElementById("header"),
-        sidePanel = document.querySelector(".map-side-panel");
-
-    var upper = header ? header.offsetHeight : 0;
-    var leftmost = sidePanel ? sidePanel.offsetWidth : 0;
-
-    if (sidePanel) sidePanel.style.height = (clientHeight - upper - 2) + "px";
-    mapContainer.style.height = (clientHeight - upper) + "px";
-    mapContainer.style.width = (clientWidth - leftmost) + "px";
-    mapContainer.style.top = upper + "px";
-    mapContainer.style.left = leftmost + "px";
-  }
-
-  adjustSizes();
-  window.addEventListener("resize", adjustSizes);
 
   var map = createMap(mapEl, { draggableCursor: "pointer" });
 

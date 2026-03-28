@@ -1,4 +1,4 @@
-import { loadGoogleMaps, isMapEnabled } from "./src/admin-maps/map-init";
+import { loadGoogleMaps } from "./src/admin-maps/map-init";
 import { initLocusEdit } from "./src/admin-maps/locus-edit";
 import { initMapEdit } from "./src/admin-maps/map-edit";
 import { initMapGlobal } from "./src/admin-maps/map-global";
@@ -13,12 +13,16 @@ var modes = {
 
 document.addEventListener("DOMContentLoaded", function () {
   var mapEl = document.getElementById("googleMap");
-  if (!mapEl || !("mapEnabled" in mapEl.dataset)) return;
+  if (!mapEl) return;
 
   var init = modes[mapEl.dataset.mapMode];
   if (!init) return;
 
-  loadGoogleMaps().then(function () {
+  if ("mapEnabled" in mapEl.dataset) {
+    loadGoogleMaps().then(function () {
+      init(mapEl);
+    });
+  } else {
     init(mapEl);
-  });
+  }
 });

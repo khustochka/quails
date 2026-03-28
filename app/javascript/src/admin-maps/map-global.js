@@ -1,6 +1,8 @@
 import { createMap, autofitMarkers } from "./map-init";
 
 export function initMapGlobal(mapEl) {
+  if (!("mapEnabled" in mapEl.dataset)) return;
+
   var map = null;
 
   function outerHeight(el) {

@@ -1,6 +1,8 @@
 import { createMap, autofitMarkers, panToLocus, setDefaultView } from "./map-init";
 
 export function initLocusEdit(mapEl) {
+  if (!("mapEnabled" in mapEl.dataset)) return;
+
   var latField = document.getElementById("locus_lat");
   var lngField = document.getElementById("locus_lon");
   var currentMarker = null;

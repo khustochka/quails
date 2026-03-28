@@ -1,13 +1,14 @@
 import { createMap, autofitMarkers, setDefaultView, panToLocus, csrfToken, GRAY_ICON, RED_ICON, createMarkerStore } from "./map-init";
 
 export function initMapEdit(mapEl) {
+  var mapEnabled = "mapEnabled" in mapEl.dataset;
   var searchForm = document.querySelector("form.search");
   var obsList = document.querySelector("ul.obs-list");
   var card_kml = mapEl.dataset.cardKml;
 
   var map = null;
-  var infoWindow = new google.maps.InfoWindow();
-  var store = createMarkerStore();
+  var infoWindow = null;
+  var store = null;
   var observCollection = {};
   var spotsStore = {};
   var defaultPublicity = true;
@@ -141,8 +142,10 @@ export function initMapEdit(mapEl) {
   function buildObservations(data) {
     observCollection = {};
     spotsStore = {};
-    store.clear();
-    infoWindow.close();
+    if (mapEnabled) {
+      store.clear();
+      infoWindow.close();
+    }
 
     if (!data.length) return;
 
@@ -156,19 +159,23 @@ export function initMapEdit(mapEl) {
 
       obs.spots.forEach(function (spot) {
         spotsStore[spot.id] = spot;
-        createObsMarker({
-          latLng: { lat: spot.lat, lng: spot.lng },
-          tag: spot.observation_id,
-          data: { id: spot.id },
-          title: hoverText
-        });
+        if (mapEnabled) {
+          createObsMarker({
+            latLng: { lat: spot.lat, lng: spot.lng },
+            tag: spot.observation_id,
+            data: { id: spot.id },
+            title: hoverText
+          });
+        }
       });
     });
 
-    if (store.count() > 0) {
-      autofitMarkers(map, store.markers());
-    } else {
-      panToLocusOrDefault();
+    if (mapEnabled) {
+      if (store.count() > 0) {
+        autofitMarkers(map, store.markers());
+      } else {
+        panToLocusOrDefault();
+      }
     }
   }
 
@@ -188,16 +195,16 @@ export function initMapEdit(mapEl) {
     var li = e.target.closest("li");
     if (!li) return;
 
-    infoWindow.close();
+    if (mapEnabled) infoWindow.close();
 
     var currentObs = document.querySelector(".selected_obs");
     if (currentObs) {
-      store.highlight(currentObs.dataset.obsId, GRAY_ICON);
+      if (mapEnabled) store.highlight(currentObs.dataset.obsId, GRAY_ICON);
       currentObs.classList.remove("selected_obs");
     }
 
     li.classList.add("selected_obs");
-    store.highlight(li.dataset.obsId, RED_ICON);
+    if (mapEnabled) store.highlight(li.dataset.obsId, RED_ICON);
   }
 
   // --- Spot AJAX handlers ---
@@ -209,13 +216,15 @@ export function initMapEdit(mapEl) {
 
     var isNew = !spotsStore[data.id];
     if (isNew) {
-      createObsMarker({
-        latLng: { lat: data.lat, lng: data.lng },
-        tag: selectedObs ? selectedObs.dataset.obsId : null,
-        data: { id: data.id },
-        title: selectedObs ? selectedObs.querySelector("div").textContent : ""
-      });
-      if (selectedObs) store.highlight(selectedObs.dataset.obsId, RED_ICON);
+      if (mapEnabled) {
+        createObsMarker({
+          latLng: { lat: data.lat, lng: data.lng },
+          tag: selectedObs ? selectedObs.dataset.obsId : null,
+          data: { id: data.id },
+          title: selectedObs ? selectedObs.querySelector("div").textContent : ""
+        });
+        if (selectedObs) store.highlight(selectedObs.dataset.obsId, RED_ICON);
+      }
 
       if (selectedObs) {
         var count = parseInt(selectedObs.dataset.obsCount || 0) + 1;
@@ -226,15 +235,17 @@ export function initMapEdit(mapEl) {
     }
 
     spotsStore[data.id] = data;
-    infoWindow.close();
+    if (mapEnabled) infoWindow.close();
   }
 
   function onSpotDestroyed(e) {
     if (!e.target.matches(".spot-form .destroy")) return;
-    infoWindow.close();
-    if (theLastMarker) {
-      theLastMarker.setMap(null);
-      theLastMarker = null;
+    if (mapEnabled) {
+      infoWindow.close();
+      if (theLastMarker) {
+        theLastMarker.setMap(null);
+        theLastMarker = null;
+      }
     }
 
     var selectedObs = document.querySelector("li.selected_obs");
@@ -306,45 +317,49 @@ export function initMapEdit(mapEl) {
   adjustSizes();
   window.addEventListener("resize", adjustSizes);
 
-  // Map
-  map = createMap(mapEl, { draggableCursor: "pointer" });
-  setDefaultView(map);
+  if (mapEnabled) {
+    map = createMap(mapEl, { draggableCursor: "pointer" });
+    infoWindow = new google.maps.InfoWindow();
+    store = createMarkerStore();
+    setDefaultView(map);
 
-  // Panel
-  var panelDiv = document.createElement("div");
-  panelDiv.className = "map-panel";
-  panelDiv.innerHTML = "<span class='pseudolink load_kml'>Load KML</span> &nbsp; " +
-      "<span class='pseudolink clear_kml'>clear KML</span>" +
-      (card_kml ? " &nbsp; <span class='pseudolink card_kml'><b>Card KML</b></span>" : "");
-  map.controls[google.maps.ControlPosition.TOP_LEFT].push(panelDiv);
-  setupKML(panelDiv);
+    // Panel
+    var panelDiv = document.createElement("div");
+    panelDiv.className = "map-panel";
+    panelDiv.innerHTML = "<span class='pseudolink load_kml'>Load KML</span> &nbsp; " +
+        "<span class='pseudolink clear_kml'>clear KML</span>" +
+        (card_kml ? " &nbsp; <span class='pseudolink card_kml'><b>Card KML</b></span>" : "");
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(panelDiv);
+    setupKML(panelDiv);
 
-  // Map click
-  map.addListener("click", function (e) {
-    var selectedObs = document.querySelector("li.selected_obs");
-    infoWindow.close();
+    // Map click
+    map.addListener("click", function (e) {
+      var selectedObs = document.querySelector("li.selected_obs");
+      infoWindow.close();
 
-    if (!selectedObs) {
-      infoWindow.setContent("<p>No observation selected</p>");
-    } else {
-      infoWindow.setContent(cloneSpotForm({
-        lat: e.latLng.lat(),
-        lng: e.latLng.lng(),
-        zoom: map.getZoom(),
-        exactness: 1,
-        observation_id: selectedObs.dataset.obsId,
-        isPublic: defaultPublicity
-      }));
-    }
-    infoWindow.setPosition(e.latLng);
-    infoWindow.open(map);
-  });
+      if (!selectedObs) {
+        infoWindow.setContent("<p>No observation selected</p>");
+      } else {
+        infoWindow.setContent(cloneSpotForm({
+          lat: e.latLng.lat(),
+          lng: e.latLng.lng(),
+          zoom: map.getZoom(),
+          exactness: 1,
+          observation_id: selectedObs.dataset.obsId,
+          isPublic: defaultPublicity
+        }));
+      }
+      infoWindow.setPosition(e.latLng);
+      infoWindow.open(map);
+    });
+
+    document.addEventListener("change", function (e) {
+      if (e.target.id === "spot_public") defaultPublicity = e.target.checked;
+    });
+  }
 
   // Event listeners
   obsList.addEventListener("click", onObsClick);
-  document.addEventListener("change", function (e) {
-    if (e.target.id === "spot_public") defaultPublicity = e.target.checked;
-  });
   document.addEventListener("ajax:success", onSpotCreated);
   document.addEventListener("ajax:success", onSpotDestroyed);
   document.addEventListener("ajax:error", onSpotError);
