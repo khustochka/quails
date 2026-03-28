@@ -16,6 +16,11 @@ export function initMapEdit(mapEl) {
   var spotFormTemplate = document.querySelector(".spot_form_container");
   if (spotFormTemplate) spotFormTemplate.style.display = "none";
 
+  function updateIndicator(li, count) {
+    var indicator = li.querySelector(".mapped_indicator");
+    if (indicator) indicator.textContent = count > 0 ? count : "";
+  }
+
   // --- Spot form content ---
 
   function cloneSpotForm(overrides) {
@@ -198,12 +203,12 @@ export function initMapEdit(mapEl) {
   // --- Spot AJAX handlers ---
 
   function onSpotCreated(e) {
-    if (!e.target.matches("#new_spot")) return;
+    if (!e.target.matches(".spot-form")) return;
     var data = e.detail[0];
     var selectedObs = document.querySelector("li.selected_obs");
 
-    var spotIdField = document.querySelector("#new_spot #spot_id");
-    if (spotIdField && spotIdField.value === "") {
+    var isNew = !spotsStore[data.id];
+    if (isNew) {
       createObsMarker({
         latLng: { lat: data.lat, lng: data.lng },
         tag: selectedObs ? selectedObs.dataset.obsId : null,
@@ -211,11 +216,13 @@ export function initMapEdit(mapEl) {
         title: selectedObs ? selectedObs.querySelector("div").textContent : ""
       });
       if (selectedObs) store.highlight(selectedObs.dataset.obsId, RED_ICON);
-    }
 
-    if (selectedObs) {
-      selectedObs.classList.add("is_mapped");
-      selectedObs.dataset.obsCount = parseInt(selectedObs.dataset.obsCount || 0) + 1;
+      if (selectedObs) {
+        var count = parseInt(selectedObs.dataset.obsCount || 0) + 1;
+        selectedObs.dataset.obsCount = count;
+        selectedObs.classList.add("is_mapped");
+        updateIndicator(selectedObs, count);
+      }
     }
 
     spotsStore[data.id] = data;
@@ -223,21 +230,25 @@ export function initMapEdit(mapEl) {
   }
 
   function onSpotDestroyed(e) {
-    if (!e.target.matches("#new_spot .destroy")) return;
-    if (theLastMarker) theLastMarker.setMap(null);
+    if (!e.target.matches(".spot-form .destroy")) return;
     infoWindow.close();
+    if (theLastMarker) {
+      theLastMarker.setMap(null);
+      theLastMarker = null;
+    }
 
     var selectedObs = document.querySelector("li.selected_obs");
     if (selectedObs) {
       var count = parseInt(selectedObs.dataset.obsCount || 0) - 1;
       selectedObs.dataset.obsCount = count;
       selectedObs.classList.toggle("is_mapped", count > 0);
+      updateIndicator(selectedObs, count);
     }
     e.stopPropagation();
   }
 
   function onSpotError(e) {
-    if (e.target.matches("#new_spot")) alert("Error submitting form");
+    if (e.target.matches(".spot-form")) alert("Error submitting form");
   }
 
   // --- Layout ---

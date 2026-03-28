@@ -114,7 +114,7 @@ export function initMediaMappable(mapEl) {
 
   // Ajax handlers for spot form
   document.addEventListener("ajax:success", function (e) {
-    if (!e.target.matches("#new_spot")) return;
+    if (!e.target.matches(".spot-form")) return;
     var data = e.detail[0];
 
     infoWindow.close();
@@ -133,7 +133,7 @@ export function initMediaMappable(mapEl) {
   });
 
   document.addEventListener("ajax:error", function (e) {
-    if (e.target.matches("#new_spot")) alert("Error submitting form");
+    if (e.target.matches(".spot-form")) alert("Error submitting form");
   });
 
   // Create markers from data
