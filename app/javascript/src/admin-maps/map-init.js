@@ -98,11 +98,11 @@ export function createMarkerStore() {
       markers.forEach(function (m) {
         m.setIcon(icon);
         if (icon === RED_ICON) {
-          if (!origZIndex.has(m)) origZIndex.set(m, m.getZIndex());
+          if (!origZIndex.has(m)) origZIndex.set(m, m.getZIndex() || 0);
           m.setZIndex(google.maps.Marker.MAX_ZINDEX);
         } else {
           var oz = origZIndex.get(m);
-          if (oz != null) m.setZIndex(oz);
+          m.setZIndex(oz != null ? oz : 0);
           origZIndex.delete(m);
         }
       });
