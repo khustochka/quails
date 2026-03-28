@@ -7,6 +7,7 @@
     "@canvasjs/charts": "^3.15.14",
     "@csstools/normalize.css": "^12.0.0",
     "@googlemaps/js-api-loader": "^2.0.2",
+    "@googlemaps/markerclusterer": "^2.6.2",
     "@honeybadger-io/js": "^6.12.3",
     "@rails/actioncable": "^8.1.300",
     "@rails/ujs": "^7.1.3-4",

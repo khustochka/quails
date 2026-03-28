@@ -85,7 +85,6 @@ gem "image_processing"
 # Assets
 gem "jsbundling-rails"
 gem "sprockets-rails", "~> 3.2", ">= 3.2.2"
-gem "jquery-rails"
 gem "sassc-rails"
 gem "premailer-rails"
 gem "font-awesome-sass", "~> 6.7.2"

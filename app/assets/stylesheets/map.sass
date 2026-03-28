@@ -47,74 +47,47 @@ body.map-page
 
 $base-cluster-size: 35px
 
-.marker-cluster-small
-  background-color: rgb(110, 204, 57)
-  //background-color: rgba(110, 204, 57, 0.8)
-  width: $base-cluster-size - 10
-  height: $base-cluster-size - 10
-  span
-    line-height: $base-cluster-size - 10
-  //&.active-cluster:before
-  //  width: $base-cluster-size - 5
-  //  height: $base-cluster-size - 5
-
-
-.marker-cluster-medium
-  background-color: rgb(240, 194, 12)
-  //background-color: rgba(240, 194, 12, 0.8)
-  width: $base-cluster-size - 5
-  height: $base-cluster-size - 5
-  span
-    line-height: $base-cluster-size - 5
-  //&.active-cluster:before
-  //  width: $base-cluster-size
-  //  height: $base-cluster-size
-
-.marker-cluster-large
-  background-color: rgb(241, 128, 23)
-  //background-color: rgba(241, 128, 23, 0.8)
-  width: $base-cluster-size
-  height: $base-cluster-size
-  span
-    line-height: $base-cluster-size
-  //&.active-cluster:before
-  //  width: $base-cluster-size + 5
-  //  height: $base-cluster-size + 5
-
 .marker-cluster
   cursor: pointer
+  outline: none
   background-clip: padding-box
   border-radius: 20px
   overflow: hidden
   text-align: center
   box-shadow: 5px 5px 10px 0px rgb(0, 0, 0)
-  div, span, a
-    cursor: pointer
-    font-size: 14px
-    font-family: "Helvetica Neue", Arial, Helvetica, sans-serif
-    font-weight: bold
-    color: #fcfcfc
-    text-shadow: #333333 1px 1px 0px
+  border: 2px solid transparent
+  color: #fcfcfc
+  font-size: 14px
+  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif
+  font-weight: bold
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7)
+  span
+    display: block
+
+.marker-cluster-small
+  background-color: rgb(110, 204, 57)
+  width: $base-cluster-size - 10
+  height: $base-cluster-size - 10
+  span
+    line-height: $base-cluster-size - 10
+
+.marker-cluster-medium
+  background-color: rgb(240, 194, 12)
+  width: $base-cluster-size - 5
+  height: $base-cluster-size - 5
+  span
+    line-height: $base-cluster-size - 5
+
+.marker-cluster-large
+  background-color: rgb(241, 128, 23)
+  width: $base-cluster-size
+  height: $base-cluster-size
+  span
+    line-height: $base-cluster-size
 
 .marker-cluster.active-cluster
-  color: palegoldenrod
-  border: 2px solid palegoldenrod
+  border-color: palegoldenrod
   box-shadow: 5px 5px 14px 0px rgb(0, 0, 0)
-//  box-shadow: none
-//  //border-radius: 0
-//  &:before
-//    background-color: crimson
-//    content: ""
-//    z-index: -1
-//    position: absolute
-//    left: -2px
-//    top: -2px
-//    box-shadow: 5px 5px 10px 0px black
-//    -webkit-transform: rotate(45deg)
-//    -moz-transform: rotate(45deg)
-//    -ms-transform: rotate(45deg)
-//    -o-transform: rotate(45deg)
-//    tranform: rotate(45deg)
 
 div.thumbs_strip
   width: 100%
