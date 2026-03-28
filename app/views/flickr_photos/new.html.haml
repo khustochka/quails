@@ -29,8 +29,8 @@
 %div.flickr_result
 
 :javascript
-  $(function () {
-
-    $('.flickr_result').load('/flickr/unused?top=12');
-
-  });
+  fetch("/flickr/unused?top=12")
+    .then(function (r) { return r.text(); })
+    .then(function (html) {
+      document.querySelector(".flickr_result").innerHTML = html;
+    });
