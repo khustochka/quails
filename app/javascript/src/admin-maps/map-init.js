@@ -57,6 +57,64 @@ export function autofitMarkers(map, markers, maxZoom) {
   }
 }
 
+export var GRAY_ICON = "https://maps.google.com/mapfiles/marker_white.png";
+export var RED_ICON = "https://maps.google.com/mapfiles/marker.png";
+
+export function createMarkerStore() {
+  var all = [];
+  var byTag = {};
+  var origZIndex = new WeakMap();
+
+  return {
+    add: function (marker, tag, data) {
+      if (tag != null) {
+        if (!byTag[tag]) byTag[tag] = [];
+        byTag[tag].push(marker);
+      }
+      all.push({ marker: marker, tag: tag, data: data });
+    },
+
+    clear: function () {
+      all.forEach(function (e) { e.marker.setMap(null); });
+      all = [];
+      byTag = {};
+    },
+
+    markers: function () {
+      return all.map(function (e) { return e.marker; });
+    },
+
+    getByTag: function (tag) {
+      return byTag[tag] || [];
+    },
+
+    count: function () {
+      return all.length;
+    },
+
+    highlight: function (tag, icon) {
+      var markers = byTag[tag];
+      if (!markers) return;
+      markers.forEach(function (m) {
+        m.setIcon(icon);
+        if (icon === RED_ICON) {
+          if (!origZIndex.has(m)) origZIndex.set(m, m.getZIndex());
+          m.setZIndex(google.maps.Marker.MAX_ZINDEX);
+        } else {
+          var oz = origZIndex.get(m);
+          if (oz != null) m.setZIndex(oz);
+          origZIndex.delete(m);
+        }
+      });
+    }
+  };
+}
+
+export function csrfToken() {
+  var meta = document.querySelector("meta[name='csrf-token']");
+  return meta ? meta.content : "";
+}
+
 export function panToLocus(map, locId) {
   return fetch("/loci/" + locId + ".json")
     .then(function (r) { return r.ok ? r.json() : null; })

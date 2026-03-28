@@ -1,4 +1,4 @@
-import { createMap, autofitMarkers, setDefaultView } from "./map-init";
+import { createMap, autofitMarkers, setDefaultView, csrfToken, GRAY_ICON, RED_ICON, createMarkerStore } from "./map-init";
 
 export function initMediaMappable(mapEl) {
   var mapContainer = document.querySelector(".mapContainer");
@@ -17,13 +17,8 @@ export function initMediaMappable(mapEl) {
   var firstObserv = document.querySelector(".obs-list li input");
   firstObserv = firstObserv ? firstObserv.value : null;
 
-  var GRAY_ICON = "https://maps.google.com/mapfiles/marker_white.png",
-      RED_ICON = "https://maps.google.com/mapfiles/marker.png";
-
   var infoWindow = new google.maps.InfoWindow();
-  var allMarkers = [];
-  var markersByTag = {};
-  var origZIndex = new WeakMap();
+  var store = createMarkerStore();
 
   function addMarker(map, opts) {
     var marker = new google.maps.Marker({
@@ -33,22 +28,11 @@ export function initMediaMappable(mapEl) {
       icon: opts.icon || GRAY_ICON,
       title: opts.title
     });
-    var tag = opts.tag;
-    var data = opts.data;
 
-    if (tag != null) {
-      if (!markersByTag[tag]) markersByTag[tag] = [];
-      markersByTag[tag].push(marker);
-    }
-    allMarkers.push({ marker: marker, tag: tag, data: data });
+    store.add(marker, opts.tag, opts.data);
 
-    if (opts.onClick) marker.addListener("click", function () { opts.onClick(marker, data); });
+    if (opts.onClick) marker.addListener("click", function () { opts.onClick(marker, opts.data); });
     return marker;
-  }
-
-  function csrfToken() {
-    var meta = document.querySelector("meta[name='csrf-token']");
-    return meta ? meta.content : "";
   }
 
   function bindImageToMarker(marker, data) {
@@ -60,27 +44,37 @@ export function initMediaMappable(mapEl) {
       headers: { "X-CSRF-Token": csrfToken() },
       body: payload
     }).then(function () {
-      var prev = markersByTag[selectedSpot];
-      if (prev) {
-        prev.forEach(function (m) {
-          m.setIcon(GRAY_ICON);
-          var oz = origZIndex.get(m);
-          if (oz != null) m.setZIndex(oz);
-        });
-      }
-
+      if (selectedSpot) store.highlight(selectedSpot, GRAY_ICON);
       selectedSpot = data.id;
-
-      marker.setIcon(RED_ICON);
-      origZIndex.set(marker, marker.getZIndex());
-      marker.setZIndex(google.maps.Marker.MAX_ZINDEX);
+      store.highlight(selectedSpot, RED_ICON);
     });
   }
 
   // Spot form
-  var spotFormContainer = document.querySelector(".spot_form_container");
-  var spotFormHTML = spotFormContainer ? spotFormContainer.innerHTML : "";
-  if (spotFormContainer) spotFormContainer.remove();
+  var spotFormTemplate = document.querySelector(".spot_form_container");
+  if (spotFormTemplate) spotFormTemplate.style.display = "none";
+
+  function cloneSpotForm(overrides) {
+    var clone = spotFormTemplate.cloneNode(true);
+    clone.style.display = "";
+
+    var setVal = function (id, val) {
+      var el = clone.querySelector("#" + id);
+      if (el && val != null) el.value = val;
+    };
+
+    setVal("spot_lat", overrides.lat);
+    setVal("spot_lng", overrides.lng);
+    setVal("spot_zoom", overrides.zoom);
+    setVal("spot_observation_id", overrides.observation_id);
+
+    if (overrides.exactness != null) {
+      var radio = clone.querySelector("#spot_exactness_" + overrides.exactness);
+      if (radio) radio.checked = true;
+    }
+
+    return clone;
+  }
 
   // Layout
   function adjustSizes() {
@@ -105,16 +99,15 @@ export function initMediaMappable(mapEl) {
   var map = createMap(mapEl, { draggableCursor: "pointer" });
 
   map.addListener("click", function (e) {
-    var formClone = spotFormHTML;
     infoWindow.close();
 
-    formClone = formClone.replace(/id="spot_lat"[^>]*/, '$& value="' + e.latLng.lat() + '"');
-    formClone = formClone.replace(/id="spot_lng"[^>]*/, '$& value="' + e.latLng.lng() + '"');
-    formClone = formClone.replace(/id="spot_zoom"[^>]*/, '$& value="' + map.getZoom() + '"');
-    formClone = formClone.replace(/id="spot_exactness_1"/, '$& checked');
-    formClone = formClone.replace(/id="spot_observation_id"[^>]*/, '$& value="' + firstObserv + '"');
-
-    infoWindow.setContent(formClone);
+    infoWindow.setContent(cloneSpotForm({
+      lat: e.latLng.lat(),
+      lng: e.latLng.lng(),
+      zoom: map.getZoom(),
+      exactness: 1,
+      observation_id: firstObserv
+    }));
     infoWindow.setPosition(e.latLng);
     infoWindow.open(map);
   });
@@ -157,9 +150,8 @@ export function initMediaMappable(mapEl) {
   });
 
   // Fit / center
-  var justMarkers = allMarkers.map(function (e) { return e.marker; });
-  if (justMarkers.length > 0) {
-    autofitMarkers(map, justMarkers, maxZoom);
+  if (store.count() > 0) {
+    autofitMarkers(map, store.markers(), maxZoom);
   } else if (locusLatLng) {
     map.setCenter(locusLatLng);
     map.setZoom(13);
@@ -169,13 +161,6 @@ export function initMediaMappable(mapEl) {
 
   // Highlight selected spot
   if (selectedSpot) {
-    var selected = markersByTag[selectedSpot];
-    if (selected) {
-      selected.forEach(function (m) {
-        m.setIcon(RED_ICON);
-        origZIndex.set(m, m.getZIndex());
-        m.setZIndex(google.maps.Marker.MAX_ZINDEX);
-      });
-    }
+    store.highlight(selectedSpot, RED_ICON);
   }
 }
