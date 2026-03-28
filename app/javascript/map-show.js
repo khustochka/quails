@@ -191,7 +191,7 @@ document.addEventListener("DOMContentLoaded", function () {
         new MarkerClusterer({
           map: map,
           markers: markers,
-          algorithm: new SuperClusterAlgorithm({ radius: 80 }),
+          algorithm: new SuperClusterAlgorithm({ radius: 70 }),
           renderer: { render: clusterRenderer },
           onClusterClick: function (event, cluster) {
             showPhotos(cluster, map);
