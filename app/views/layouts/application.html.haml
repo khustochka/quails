@@ -78,6 +78,8 @@
 
     -# csfr meta
     = csrf_meta_tags
+    - if ENV["quails_google_maps_api_key"]
+      = tag.meta name: "google-maps-api-key", content: ENV["quails_google_maps_api_key"]
 
     = render 'partials/css_and_js'
 

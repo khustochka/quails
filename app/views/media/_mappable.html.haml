@@ -1,6 +1,6 @@
 -# frozen_string_literal: true
 
-- javascript AssetsHelper::GMAP_API_URL, 'media_mappable'
+- javascript "admin-maps"
 - @body_class = 'map-page'
 - stylesheet 'map_edit'
 
@@ -36,4 +36,4 @@
                 locus_coords: mappable.locus.to_json(only: [:lat, :lon]),
                 }
               }
-  #googleMap{data: {map_enabled: map_enabled}}
+  #googleMap{data: {map_enabled: map_enabled, map_mode: "media-mappable"}}

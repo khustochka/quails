@@ -142,6 +142,13 @@
   resolved "https://registry.yarnpkg.com/@esbuild/win32-x64/-/win32-x64-0.27.4.tgz#1f7ba71a3d6155d44a6faa8dbe249c62ab3e408c"
   integrity sha512-+knoa0BDoeXgkNvvV1vvbZX4+hizelrkwmGJBdT17t8FNPwG2lKemmuMZlmaNQ3ws3DKKCxpb4zRZEIp3UxFCg==
 
+"@googlemaps/js-api-loader@^2.0.2":
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/@googlemaps/js-api-loader/-/js-api-loader-2.0.2.tgz#09d8b2029e71bfeb3951747b1ca951e5f8fcb14f"
+  integrity sha512-bKVuTqatS8Jven5aFqVB7rCHF1VFEzpzyi0ruzO0GUR+A7m9oMqMgtnmpANj7kMYEvvhty8Fk7TnJ1MKjWHu+Q==
+  dependencies:
+    "@types/google.maps" "^3.53.1"
+
 "@honeybadger-io/core@^6.7.2":
   version "6.7.2"
   resolved "https://registry.yarnpkg.com/@honeybadger-io/core/-/core-6.7.2.tgz#fdc120206dbff0382b7d21bd26dd34d5051975fe"
@@ -212,6 +219,11 @@
     "@types/body-parser" "*"
     "@types/express-serve-static-core" "^5.0.0"
     "@types/serve-static" "^2"
+
+"@types/google.maps@^3.53.1":
+  version "3.58.1"
+  resolved "https://registry.yarnpkg.com/@types/google.maps/-/google.maps-3.58.1.tgz#71ce3dec44de1452f56641d2c87c7dd8ea964b4d"
+  integrity sha512-X9QTSvGJ0nCfMzYOnaVs/k6/4L+7F5uCS+4iUmkLEls6J9S/Phv+m/i3mDeyc49ZBgwab3EFO1HEoBY7k98EGQ==
 
 "@types/http-errors@*":
   version "2.0.5"
@@ -291,11 +303,6 @@ ilyabirman-likely@^3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/ilyabirman-likely/-/ilyabirman-likely-3.2.0.tgz#ab6d3d2abd4a7aba5561eef88258ae845a92c240"
   integrity sha512-uCk/fo1CpExHeHrZNa9hymRd0ztHeYsqrx9LTTyUm/1RsOVq62hRSlUYsbJZy3AdPdHQS63mk8GdUW9eULA7sQ==
-
-jquery@3.7.1:
-  version "3.7.1"
-  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.7.1.tgz#083ef98927c9a6a74d05a6af02806566d16274de"
-  integrity sha512-m4avr8yL8kmFN8psrbFFFmB/If14iN5o9nw/NgnnM+kybDJpRsAynV2BsfpTYrTRysYUdADVD7CkUUizgkpLfg==
 
 json-nd@^1.0.0:
   version "1.0.0"

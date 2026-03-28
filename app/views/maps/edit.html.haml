@@ -1,5 +1,5 @@
 -# frozen_string_literal: true
-- javascript AssetsHelper::GMAP_API_URL, 'map_edit'
+- javascript "admin-maps"
 - @body_class = 'map-page'
 -# no_viewport is for very wide pages, e.g. with table
 - @no_viewport = true
@@ -20,4 +20,4 @@
     -# = render :partial => 'observations/obs_item', :collection => @observations
 
 .mapContainer
-  #googleMap{data: {map_enabled: map_enabled, card_kml: @observation_search.load_card&.kml_url}}
+  #googleMap{data: {map_enabled: map_enabled, map_mode: "map-edit", card_kml: @observation_search.load_card&.kml_url}}

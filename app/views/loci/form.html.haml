@@ -1,6 +1,6 @@
 -# frozen_string_literal: true
 - stylesheet 'forms'
-- javascript AssetsHelper::GMAP_API_URL, 'locus_edit'
+- javascript "admin-maps"
 
 - @page_title = "#{new_or_edit_label(@locus)} location"
 
@@ -48,7 +48,7 @@
     = form.input :ebird_location_id, label: 'eBird Location', collection: EBirdLocation.all,
           input_html: {class: 'suggest-combo'}
 
-  %div#googleMap{data: {map_enabled: map_enabled}}
+  %div#googleMap{data: {map_enabled: map_enabled, map_mode: "locus-edit"}}
 
   .buttons
     = default_submit_button(form)
