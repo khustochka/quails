@@ -74,16 +74,16 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     # Field is required to have id!
     if chrome_driver?
       f = find(:fillable_field, field)
-      execute_script("$('##{f[:id]}').attr('type', 'text')")
+      execute_script("document.getElementById('#{f[:id]}').type = 'text'")
     end
     fill_in(field, with: date)
   end
 
   # Standard capybara attach_file make_visible option does not work for me
-  def with_element_visible(jquery_selector)
-    page.execute_script "$('#{jquery_selector}').show();"
+  def with_element_visible(css_selector)
+    page.execute_script "document.querySelector('#{css_selector}').style.display = 'block';"
     yield
-    page.execute_script "$('#{jquery_selector}').hide();"
+    page.execute_script "document.querySelector('#{css_selector}').style.display = 'none';"
   end
 
   def chrome_driver?

@@ -1,6 +1,6 @@
 -# frozen_string_literal: true
 .spot_form_container
-  = simple_form_for @spot, url: save_spots_path, remote: true do |form|
+  = simple_form_for @spot, url: save_spots_path, remote: true, html: {class: "spot-form"} do |form|
     = form.input :id, as: :hidden
     = form.input :lat, as: :hidden
     = form.input :lng, as: :hidden

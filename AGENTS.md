@@ -11,9 +11,9 @@ Quails is a Ruby on Rails application for tracking and sharing birdwatching acti
 - **Database**: PostgreSQL (required, some queries are PG-specific)
 - **Cache**: Redis (production)
 - **Background Jobs**: GoodJob
-- **Frontend**: Sprockets + jsbundling-rails, jQuery, Bootstrap, HAML templates
+- **Frontend**: Sprockets (CSS only) + jsbundling-rails (esbuild), HAML templates
 - **Testing**: Minitest, Capybara, Playwright (system tests)
-- **Styling**: SCSS (some use SASS)
+- **Styling**: SCSS (some use SASS), Tailwind CSS (`application2` layout)
 
 ## Project Structure
 

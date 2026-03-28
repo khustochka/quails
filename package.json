@@ -6,12 +6,13 @@
   "dependencies": {
     "@canvasjs/charts": "^3.15.14",
     "@csstools/normalize.css": "^12.0.0",
+    "@googlemaps/js-api-loader": "^2.0.2",
+    "@googlemaps/markerclusterer": "^2.6.2",
     "@honeybadger-io/js": "^6.12.3",
     "@rails/actioncable": "^8.1.300",
     "@rails/ujs": "^7.1.3-4",
     "esbuild": "^0.27.4",
     "ilyabirman-likely": "^3.2.0",
-    "jquery": "3.7.1",
     "keypress.js": "^2.1.5",
     "tippy.js": "^6.3.7"
   },

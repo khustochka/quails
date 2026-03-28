@@ -4,7 +4,7 @@
 - @special_styling = true
 -# no_viewport is for very wide pages, e.g. with table
 -# @no_viewport = true
-- javascript AssetsHelper::GMAP_API_URL, 'map_global'
+- javascript "admin-maps"
 
 -# @page_title = t(".title")
 
@@ -16,7 +16,7 @@
 -# = render partial: 'partials/translated'
 
 .mapContainer
-  #googleMap{data: {map_enabled: map_enabled}}
+  #googleMap{data: {map_enabled: map_enabled, map_mode: "map-global"}}
 
 -# .gallery_window{data: {strip_url: media_strip_path}}
 -# .wnd_close
