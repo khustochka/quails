@@ -21,6 +21,14 @@ export function loadGoogleMaps() {
   return mapsPromise;
 }
 
+var DEFAULT_CENTER = { lat: 52, lng: -35 };
+var DEFAULT_ZOOM = 2;
+
+export function setDefaultView(map) {
+  map.setCenter(DEFAULT_CENTER);
+  map.setZoom(DEFAULT_ZOOM);
+}
+
 var MAP_DEFAULTS = {
   mapTypeId: "hybrid",
   streetViewControl: false,
@@ -50,12 +58,14 @@ export function autofitMarkers(map, markers, maxZoom) {
 }
 
 export function panToLocus(map, locId) {
-  fetch("/loci/" + locId + ".json")
+  return fetch("/loci/" + locId + ".json")
     .then(function (r) { return r.json(); })
     .then(function (data) {
       if (data.lat != null && data.lon != null) {
         map.setCenter(new google.maps.LatLng(data.lat, data.lon));
         map.setZoom(13);
+        return true;
       }
+      return false;
     });
 }

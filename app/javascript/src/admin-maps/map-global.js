@@ -1,4 +1,4 @@
-import { createMap } from "./map-init";
+import { createMap, autofitMarkers } from "./map-init";
 
 export function initMapGlobal(mapEl) {
   var map = null;
@@ -36,11 +36,13 @@ export function initMapGlobal(mapEl) {
   fetch("/map/loci")
     .then(function (r) { return r.json(); })
     .then(function (rdata) {
+      var markers = [];
       for (var latLng in rdata) {
-        new google.maps.Marker({
+        markers.push(new google.maps.Marker({
           position: { lat: rdata[latLng][0], lng: rdata[latLng][1] },
           map: map
-        });
+        }));
       }
+      autofitMarkers(map, markers);
     });
 }

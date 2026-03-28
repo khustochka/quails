@@ -1,4 +1,4 @@
-import { createMap, autofitMarkers } from "./map-init";
+import { createMap, autofitMarkers, setDefaultView } from "./map-init";
 
 export function initMapEdit(mapEl) {
   var searchForm = document.querySelector("form.search");
@@ -241,8 +241,12 @@ export function initMapEdit(mapEl) {
             if (locData.lat != null && locData.lon != null) {
               map.setCenter(new google.maps.LatLng(locData.lat, locData.lon));
               map.setZoom(13);
+            } else {
+              setDefaultView(map);
             }
           });
+      } else {
+        setDefaultView(map);
       }
     }
   }
@@ -285,10 +289,9 @@ export function initMapEdit(mapEl) {
       (card_kml ? " &nbsp; <span class='pseudolink card_kml'><b>Card KML</b></span>" : "");
 
   map = createMap(mapEl, {
-    draggableCursor: "pointer",
-    center: { lat: 48.2837, lng: 31.62962 },
-    zoom: 6
+    draggableCursor: "pointer"
   });
+  setDefaultView(map);
 
   map.controls[google.maps.ControlPosition.TOP_LEFT].push(panelDiv);
 

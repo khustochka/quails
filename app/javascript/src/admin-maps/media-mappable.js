@@ -1,4 +1,4 @@
-import { createMap, autofitMarkers } from "./map-init";
+import { createMap, autofitMarkers, setDefaultView } from "./map-init";
 
 export function initMediaMappable(mapEl) {
   var mapContainer = document.querySelector(".mapContainer");
@@ -163,6 +163,8 @@ export function initMediaMappable(mapEl) {
   } else if (locusLatLng) {
     map.setCenter(locusLatLng);
     map.setZoom(13);
+  } else {
+    setDefaultView(map);
   }
 
   // Highlight selected spot

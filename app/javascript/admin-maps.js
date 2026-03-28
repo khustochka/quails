@@ -1,4 +1,4 @@
-import { loadGoogleMaps } from "./src/admin-maps/map-init";
+import { loadGoogleMaps, isMapEnabled } from "./src/admin-maps/map-init";
 import { initLocusEdit } from "./src/admin-maps/locus-edit";
 import { initMapEdit } from "./src/admin-maps/map-edit";
 import { initMapGlobal } from "./src/admin-maps/map-global";
@@ -20,7 +20,5 @@ document.addEventListener("DOMContentLoaded", function () {
 
   loadGoogleMaps().then(function () {
     init(mapEl);
-  }).catch(function (e) {
-    console.error("admin-maps:", e);
   });
 });

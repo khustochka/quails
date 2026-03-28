@@ -1,4 +1,4 @@
-import { createMap, autofitMarkers, panToLocus } from "./map-init";
+import { createMap, autofitMarkers, panToLocus, setDefaultView } from "./map-init";
 
 export function initLocusEdit(mapEl) {
   var latField = document.getElementById("locus_lat");
@@ -38,7 +38,13 @@ export function initLocusEdit(mapEl) {
     autofitMarkers(map, [currentMarker], 13);
   } else {
     var parentSelect = document.querySelector("select[name='locus[parent_id]']");
-    if (parentSelect.value) panToLocus(map, parentSelect.value);
+    if (parentSelect.value) {
+      panToLocus(map, parentSelect.value).then(function (ok) {
+        if (!ok) setDefaultView(map);
+      });
+    } else {
+      setDefaultView(map);
+    }
   }
 
   document.querySelector("select[name='locus[parent_id]']").addEventListener("change", function () {
