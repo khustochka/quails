@@ -59,9 +59,9 @@ export function autofitMarkers(map, markers, maxZoom) {
 
 export function panToLocus(map, locId) {
   return fetch("/loci/" + locId + ".json")
-    .then(function (r) { return r.json(); })
+    .then(function (r) { return r.ok ? r.json() : null; })
     .then(function (data) {
-      if (data.lat != null && data.lon != null) {
+      if (data && data.lat != null && data.lon != null) {
         map.setCenter(new google.maps.LatLng(data.lat, data.lon));
         map.setZoom(13);
         return true;

@@ -38,13 +38,12 @@ export function initLocusEdit(mapEl) {
     autofitMarkers(map, [currentMarker], 13);
   } else {
     var parentSelect = document.querySelector("select[name='locus[parent_id]']");
-    if (parentSelect.value) {
-      panToLocus(map, parentSelect.value).then(function (ok) {
-        if (!ok) setDefaultView(map);
-      });
-    } else {
-      setDefaultView(map);
-    }
+    (parentSelect.value
+      ? panToLocus(map, parentSelect.value)
+      : Promise.resolve(false)
+    ).then(function (ok) {
+      if (!ok) setDefaultView(map);
+    });
   }
 
   document.querySelector("select[name='locus[parent_id]']").addEventListener("change", function () {

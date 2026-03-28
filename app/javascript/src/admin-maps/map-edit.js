@@ -1,4 +1,4 @@
-import { createMap, autofitMarkers, setDefaultView } from "./map-init";
+import { createMap, autofitMarkers, panToLocus, setDefaultView } from "./map-init";
 
 export function initMapEdit(mapEl) {
   var searchForm = document.querySelector("form.search");
@@ -233,21 +233,13 @@ export function initMapEdit(mapEl) {
       });
       autofitMarkers(map, allMarkers.map(function (e) { return e.marker; }));
     } else {
-      var locusSelect = document.getElementById("q_locus_id");
-      if (locusSelect && locusSelect.value) {
-        fetch("/loci/" + locusSelect.value + ".json")
-          .then(function (r) { return r.json(); })
-          .then(function (locData) {
-            if (locData.lat != null && locData.lon != null) {
-              map.setCenter(new google.maps.LatLng(locData.lat, locData.lon));
-              map.setZoom(13);
-            } else {
-              setDefaultView(map);
-            }
-          });
-      } else {
-        setDefaultView(map);
-      }
+      var locusSelect = searchForm.querySelector("select[name='q[locus_id]']");
+      (locusSelect && locusSelect.value
+        ? panToLocus(map, locusSelect.value)
+        : Promise.resolve(false)
+      ).then(function (ok) {
+        if (!ok) setDefaultView(map);
+      });
     }
   }
 
