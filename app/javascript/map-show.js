@@ -139,10 +139,19 @@ document.addEventListener("DOMContentLoaded", function () {
     window.addEventListener("resize", function () { adjustSizes(map); });
 
     // Close gallery
-    document.querySelector("span.close").addEventListener("click", function () {
+    function closeGallery() {
+      if (galleryWindow.style.display === "none") return;
       if (activeClusterEl) activeClusterEl.classList.remove("active-cluster");
       activeClusterEl = null;
       galleryWindow.style.display = "none";
+    }
+
+    document.querySelector("span.close").addEventListener("click", closeGallery);
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") {
+        closeGallery();
+        document.activeElement.blur();
+      }
     });
 
     // Region panning
