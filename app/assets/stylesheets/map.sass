@@ -150,6 +150,8 @@ div.thumbs_strip
   white-space: nowrap
   overflow-x: auto
   overflow-y: hidden
+  // Prevent macOS back/forward swipe gesture when scrolling past the edge
+  overscroll-behavior-x: contain
 
 .gallery_container.loading
   background-size: 32px auto
