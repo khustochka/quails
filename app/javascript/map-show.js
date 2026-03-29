@@ -70,17 +70,21 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  function fetchStrip(ids, append) {
-    if (ids.length === 0) return Promise.resolve();
+  // Send ALL IDs every request; server sorts chronologically and paginates via offset/limit.
+  // IDs come from cluster markers grouped by location, so the client cannot sort by date.
+  function fetchStrip(append) {
+    if (allMediaIds.length === 0 || loadedCount >= allMediaIds.length) return Promise.resolve();
     loadingMore = true;
 
-    return fetch(stripUrl, {
+    var url = stripUrl + "?offset=" + loadedCount + "&limit=" + PAGE_SIZE;
+
+    return fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json; charset=utf-8",
         "X-CSRF-Token": csrfToken()
       },
-      body: JSON.stringify(ids)
+      body: JSON.stringify(allMediaIds)
     })
       .then(function (r) { return r.ok ? r.text() : Promise.reject(); })
       .then(function (html) {
@@ -102,7 +106,7 @@ document.addEventListener("DOMContentLoaded", function () {
         } else {
           galleryContainer.innerHTML = html;
         }
-        loadedCount += ids.length;
+        loadedCount += PAGE_SIZE;
         updateSpinner();
         loadingMore = false;
       })
@@ -115,8 +119,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function loadMore() {
     if (loadingMore || loadedCount >= allMediaIds.length) return;
-    var nextIds = allMediaIds.slice(loadedCount, loadedCount + PAGE_SIZE);
-    fetchStrip(nextIds, true);
+    fetchStrip(true);
   }
 
   galleryContainer.addEventListener("scroll", function () {
@@ -146,8 +149,7 @@ document.addEventListener("DOMContentLoaded", function () {
       activeClusterEl = markerContent;
     }
 
-    var firstPage = allMediaIds.slice(0, PAGE_SIZE);
-    fetchStrip(firstPage, false);
+    fetchStrip(false);
   }
 
   // Init
