@@ -15,7 +15,7 @@
 - cache amended_params(admin: current_user.admin?, key: Quails::CacheKey.lifelist, locale: I18n.locale) do
   %h1= page_header
 
-  %div{data: {turbolinks: "true"}}
+  %div
     = render "lifelist/menus"
 
     - if @lifelist.present?

@@ -39,7 +39,7 @@
 - cache_unless do_not_cache, amended_params(admin: current_user.admin?, key: Quails::CacheKey.lifelist, locale: I18n.locale) do
   %h1= page_header
 
-  %div{data: {turbolinks: "true"}}
+  %div
 
     = render "lifelist/menus"
 
@@ -55,7 +55,7 @@
     %p= t('lifelist.basic.no_species')
   - else
     %table.neat_table.advanced#lifelist
-      %thead{data: {turbolinks: "true"}}
+      %thead
         %tr
           %th.empty_cell &nbsp;
           %th

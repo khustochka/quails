@@ -55,5 +55,5 @@
             %br
             = button_to 'Release Email', release_email_comment_path(comment, page: params[:page]), method: :post
 
-%div{data: {turbolinks: "true"}}
+%div
   = paginate @comments unless params[:sort] == 'by_post'

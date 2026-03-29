@@ -12,5 +12,5 @@
 %div.thumbnails
   = render_justified @images.map {|im| Thumbnail.new(flickr_photo_path(im), im.decorated.title, im)}
 
-%div{data: {turbolinks: "true"}}
+%div
   = paginate @images
