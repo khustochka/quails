@@ -11,8 +11,8 @@ document.addEventListener("DOMContentLoaded", function () {
   var activeClusterEl = null;
 
   var bounds = {
-    ukraine: { south: 44.386, west: 22.137, north: 52.380, east: 40.229 },
-    north_america: { south: 29.2, west: -113, north: 50.5, east: -71.06 },
+    europe: { south: 44, west: -7, north: 58, east: 37 },
+    north_america: { south: 27.5, west: -125, north: 55, east: -71 },
     world: { south: 29.2, west: -99, north: 52.380, east: 40.229 }
   };
 
