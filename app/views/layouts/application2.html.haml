@@ -53,12 +53,14 @@
     = stylesheet_link_tag "app2", media: "all"
     = stylesheet_link_tag "tailwind", media: "all"
 
+    = content_for(:head) if content_for?(:head)
+
     -# Template Dependency: partials/ga_code
     = include_google_analytics
 
     %title= page_title
 
-  %body{data: {turbolinks: "false"}}
+  %body{class: @body_class, data: {turbolinks: "false"}}
 
     = render partial: 'app2/header'
 

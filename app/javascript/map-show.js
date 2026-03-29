@@ -16,35 +16,6 @@ document.addEventListener("DOMContentLoaded", function () {
     world: { south: 29.2, west: -99, north: 52.380, east: 40.229 }
   };
 
-  function outerHeight(el) {
-    if (!el || el.offsetParent === null) return 0;
-    var style = getComputedStyle(el);
-    return el.offsetHeight + parseInt(style.marginTop) + parseInt(style.marginBottom);
-  }
-
-  function adjustSizes(map) {
-    var clientHeight = window.innerHeight,
-        clientWidth = window.innerWidth,
-        header = document.getElementById("header"),
-        mapPanel = document.querySelector(".map-panel"),
-        footer = document.querySelector("div.footer"),
-        container = document.querySelector("div.mapContainer");
-
-    var upper = outerHeight(header)
-        + (mapPanel && getComputedStyle(mapPanel).position === "static" ? outerHeight(mapPanel) : 0);
-    var lower = (footer && footer.offsetParent !== null) ? footer.offsetHeight : 0;
-
-    container.style.height = (clientHeight - upper - lower) + "px";
-    container.style.width = clientWidth + "px";
-    container.style.top = upper + "px";
-
-    if (galleryWindow.style.display !== "none") {
-      galleryWindow.style.bottom = lower + "px";
-    }
-
-    if (map) google.maps.event.trigger(map, "resize");
-  }
-
   function csrfToken() {
     var meta = document.querySelector("meta[name='csrf-token']");
     return meta ? meta.content : "";
@@ -163,9 +134,6 @@ document.addEventListener("DOMContentLoaded", function () {
       if (ids) allMediaIds = allMediaIds.concat(ids);
     });
 
-    var footer = document.querySelector("div.footer");
-    var lower = (footer && footer.offsetParent !== null) ? footer.offsetHeight : 0;
-    galleryWindow.style.bottom = lower + "px";
     galleryWindow.style.display = "block";
     galleryContainer.innerHTML = "";
     galleryContainer.scrollLeft = 0;
@@ -197,9 +165,6 @@ document.addEventListener("DOMContentLoaded", function () {
       gestureHandling: "greedy",
       mapId: "public-map"
     });
-
-    adjustSizes(map);
-    window.addEventListener("resize", function () { adjustSizes(map); });
 
     // Close gallery
     function closeGallery() {

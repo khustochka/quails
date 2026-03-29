@@ -148,6 +148,15 @@ h6 { font-size: 1rem; color: var(--color-gray-600); }
   border-bottom: none;
 }
 
+.pseudolink, .pseudolink:hover {
+  padding: 0 1px;
+  background-color: inherit;
+  cursor: pointer;
+  text-decoration: none;
+  color: #55a;
+  border-bottom: 1px dashed #55a;
+}
+
 .badge {
   border-radius: 0.375rem;
 }

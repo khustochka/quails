@@ -1,46 +1,37 @@
 body.map-page
-  padding: 0
+  display: flex
+  flex-direction: column
+  height: 100vh
+  overflow: hidden
+  main
+    flex: 1
+    position: relative
+    overflow: hidden
+  footer.page_footer
+    margin-top: 0
+    border-top-color: black
 
-  #header
-    margin: 0
-
-  .main
-    padding: 0
-    max-width: 100%
-
-  div.footer
-    margin:
-      left: 0
-      right: 0
-      top: 0
+  ul.translated
+    border-top: 0px none
     position: absolute
-    bottom: 0
-    left: 0
-    right: 0
-    font-size: 12px
-    padding: 7px
-    p
-      font-size: 12px
-      margin:
-        top: 5px
-        bottom: 5px
-
-  @media only all and (max-height: 580px)
-    div.footer
-      display: none
-
-  .winter-banner
-    display: none
+    left: 490px
+    z-index: 999
+    margin-top: 4px
+    margin-left: 20px
+    .translated-link
+      border-radius: 0
+      padding: 8px 10px
+      border-bottom-left-radius: 4px
+      border-bottom-right-radius: 4px
+      box-shadow: 5px 5px 10px 0px rgb(0, 0, 0)
 
 .mapContainer
-  position: absolute
-  left: 0
-  top: 0
+  width: 100%
+  height: 100%
 
 #googleMap
   width: 100%
   height: 100%
-  // margin-right: 15px
   a, a:hover
     background-color: transparent
     padding: 0
@@ -53,30 +44,26 @@ $base-cluster-size: 35px
   background-clip: padding-box
   border-radius: 20px
   overflow: hidden
-  text-align: center
+  display: flex
+  align-items: center
+  justify-content: center
   box-shadow: 5px 5px 10px 0px rgb(0, 0, 0)
   border: 2px solid transparent
   color: #fcfcfc
-  font-size: 14px
+  font-size: 13px
   font-family: "Helvetica Neue", Arial, Helvetica, sans-serif
   font-weight: bold
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7)
-  span
-    display: block
 
 .marker-cluster-small
   background-color: rgb(110, 204, 57)
   width: $base-cluster-size - 10
   height: $base-cluster-size - 10
-  span
-    line-height: $base-cluster-size - 10
 
 .marker-cluster-medium
   background-color: rgb(240, 194, 12)
   width: $base-cluster-size - 5
   height: $base-cluster-size - 5
-  span
-    line-height: $base-cluster-size - 5
 
 .marker-cluster-large
   background-color: rgb(241, 128, 23)
@@ -93,7 +80,37 @@ div.thumbs_strip
   width: 100%
   padding: 5px 20px 15px 15px
   .image_thumb
+    display: inline-block
+    position: relative
+    margin: 0 6px 6px 0
+    border: 1px solid #eeeeee
+    height: 218px
     max-width: none
+    vertical-align: top
+    img
+      height: 100%
+      width: auto
+      max-width: none
+    figcaption.imagetitle
+      display: inline-block
+      font-size: 13px
+      position: absolute
+      bottom: -1px
+      left: 0
+      right: 0
+      text-align: left
+      white-space: normal
+      background: rgba(0, 0, 0, 0.5)
+      padding: 10px
+      a
+        color: #cfcfcf
+        font-weight: bold
+        text-shadow: rgb(0, 0, 0) 1px 1px 0px
+        text-decoration: none
+        border-bottom: none
+      a:hover
+        color: white
+        border-bottom: 1px solid white
   .strip-load-more
     display: inline-block
     vertical-align: top
@@ -118,12 +135,11 @@ div.thumbs_strip
 
 .gallery_window
   position: absolute
-  bottom: 100px
+  bottom: 0
   left: 0
   display: none
   width: 100%
   background-color: #fff
-  // should be more than ul.translated
   z-index: 1001
   border:
     top: 1px dashed #333333
@@ -170,14 +186,7 @@ div.thumbs_strip
     font-weight: bold
     margin: 5px
 
-.map-page ul.translated
-  border-top: 0px none
-  position: absolute
-  left: 490px
-  z-index: 999
-  margin-top: 5px
-
-@media only all and (max-width: 580px)
+@media only all and (max-width: 768px)
 
   .map-panel
     //padding: 5px 10px
@@ -187,14 +196,25 @@ div.thumbs_strip
     box-shadow: none
     position: static
 
-  .map-page ul.translated
-    left: 190px
-    border: none
+  body.map-page ul.translated
+    display: flex
+    list-style: none
+    position: static
+    margin: 0
     padding: 0
-    margin-top: 5px
-    a, a:hover
-      padding: 3px 5px
-      font-size: 14px
+    border: none
+    left: auto
+    margin-left: 0
+    gap: 10px
+    li
+      flex: 1
+      display: flex
+      .translated-link
+        flex: 1
+        text-align: center
+        box-shadow: none
+        border-radius: 0
+        margin-left: 0
 
 // Hide search for small horizontal screen
 @media only all and (max-height: 580px)

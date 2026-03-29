@@ -1,19 +1,23 @@
 -# frozen_string_literal: true
-- stylesheet 'map'
-- @body_class = 'map-page'
-- @special_styling = true
--# no_viewport is for very wide pages, e.g. with table
--# @no_viewport = true
-- javascript "map-show"
-
+- @body_class = "map-page"
 - @page_title = t(".title")
 
-%div.map-panel
-  %a.pseudolink.pan(href="#world")= t(".world")
-  %a.pseudolink.pan(href="#ukraine")= t(".ukraine")
-  %a.pseudolink.pan(href="#north_america")= t(".north_america")
+- content_for :head do
+  - if ENV["quails_google_maps_api_key"]
+    = tag.meta name: "google-maps-api-key", content: ENV["quails_google_maps_api_key"]
 
-= render partial: 'partials/translated'
+  = stylesheet_link_tag "map", media: "all"
+  = javascript_include_tag "map-show"
+
+- content_for :translated do
+  = render "app2/shared/translated"
+
+= content_for :translated
+
+%div.map-panel
+  %a.pseudolink.pan{href: "#world"}= t(".world")
+  %a.pseudolink.pan{href: "#ukraine"}= t(".ukraine")
+  %a.pseudolink.pan{href: "#north_america"}= t(".north_america")
 
 .mapContainer
   #googleMap{data: {map_enabled: map_enabled}}

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class MapsController < ApplicationController
+  layout "application2", only: [:show]
+
   administrative except: [:show, :media]
   localized only: [:show, :media]
 
