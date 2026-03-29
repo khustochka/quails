@@ -1,5 +1,5 @@
-import consumer from "../../channels/consumer"
-import { selectCombobox } from '../utils/select-combobox';
+import consumer from "../../../channels/consumer"
+import { selectCombobox } from '../../utils/select-combobox';
 
 document.addEventListener('DOMContentLoaded', function () {
 

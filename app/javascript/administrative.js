@@ -1,17 +1,24 @@
 import "./channels";
 
-import './src/admin/ebird-importer';
-import './src/admin/ebird-transitions';
-import './src/admin/instant-search';
-import './src/admin/suggest-combo';
-import './src/admin/observation-form';
-import './src/admin/cards';
-import './src/admin/flickr-search';
-import './src/admin/obs-selector';
-import './src/admin/image-form';
-import './src/admin/wiki-fields';
-import './src/admin/motorless';
-import './src/admin/post-form';
-import './src/admin/observation-move';
-import './src/admin/image-flickr';
-import './src/admin/loci-order';
+import './src/admin/shared/instant-search';
+import './src/admin/shared/suggest-combo';
+import './src/admin/shared/obs-selector';
+import './src/admin/shared/wiki-fields';
+
+import './src/admin/cards/form';
+import './src/admin/cards/motorless';
+
+import './src/admin/ebird/importer';
+import './src/admin/ebird/submissions';
+
+import './src/admin/flickr/search';
+import './src/admin/flickr/photo-match';
+
+import './src/admin/images/form';
+
+import './src/admin/loci/public-order';
+
+import './src/admin/observations/form';
+import './src/admin/observations/move';
+
+import './src/admin/posts/form';

@@ -1,4 +1,4 @@
-import Autocomplete, { highlight } from "../utils/autocomplete";
+import Autocomplete, { highlight } from "../../utils/autocomplete";
 import { keypress } from "keypress.js";
 
 document.addEventListener("DOMContentLoaded", function () {

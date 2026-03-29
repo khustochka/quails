@@ -1,6 +1,6 @@
-import { initTaxonSuggestField } from './taxa_autosuggest';
-import { selectCombobox } from '../utils/select-combobox';
-import { inlineDatepicker } from '../utils/inline-datepicker';
+import { initTaxonSuggestField } from '../shared/taxa-autosuggest';
+import { selectCombobox } from '../../utils/select-combobox';
+import { inlineDatepicker } from '../../utils/inline-datepicker';
 import { keypress } from "keypress.js";
 
 document.addEventListener('DOMContentLoaded', function () {

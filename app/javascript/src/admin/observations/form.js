@@ -1,4 +1,4 @@
-import { initTaxonSuggestField } from './taxa_autosuggest';
+import { initTaxonSuggestField } from '../shared/taxa-autosuggest';
 
 document.addEventListener('DOMContentLoaded', function () {
   const inputs = document.querySelectorAll('[data-taxon-autosuggest]');

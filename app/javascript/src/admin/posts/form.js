@@ -1,5 +1,5 @@
 // Attach/detach cards on post form page
-import "./cards-search";
+import "../shared/cards-search";
 
 document.addEventListener("DOMContentLoaded", function() {
 

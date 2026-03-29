@@ -1,5 +1,5 @@
 // Drag-and-drop ordering for public locations
-import Sortable from "../utils/sortable";
+import Sortable from "../../utils/sortable";
 
 document.addEventListener("DOMContentLoaded", function() {
   var publicList = document.querySelector("[data-loci-public]");
