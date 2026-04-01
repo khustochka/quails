@@ -77,7 +77,7 @@ jobs:
       - name: Docker meta (for image tag)
         if: ${{ inputs.image_tag == '' }}
         id: meta
-        uses: docker/metadata-action@v5
+        uses: docker/metadata-action@v6
         with:
           images: |
             ${{ env.REGISTRY_IMAGE }}
