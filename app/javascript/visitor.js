@@ -9,9 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {Likely.initiate()});
 
 import './src/visitor/post-expand';
 
-import VideoResize from "./src/visitor/video-resize"
-// Resize the video to these dimensions after it is started
-VideoResize.init(853, 480)
+import './src/visitor/video-expand';
 
 import Comments from './src/visitor/comments';
 Comments.init();

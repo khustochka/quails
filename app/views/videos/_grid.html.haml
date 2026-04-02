@@ -1,0 +1,37 @@
+-# frozen_string_literal: true
+%ul.video-grid
+  - videos.each do |video|
+    %li.video-grid-item{data: {video_id: video.slug}}
+      %div.video-grid-thumb
+        = image_tag video.small_thumbnail_url, alt: video.decorated.title, width: 320, height: 180, loading: "lazy"
+        %span.video-grid-play
+      %div.video-grid-info
+        %div.video-grid-title= video.decorated.title
+        - species_names = video.species.map(&:name).join(", ")
+        - if species_names != video.decorated.title
+          %div.video-grid-species= species_names
+        %div.video-grid-meta
+          %div= l(video.observ_date, format: :long)
+          %div= video.decorated.public_locus_full_name
+
+%div.video-overlay{data: {video_overlay: true}}
+  %div.video-overlay-backdrop
+  %div.video-overlay-dialog
+    %button.video-overlay-close{type: "button", "aria-label" => "Close"} ✕
+    - videos.each do |video|
+      - yt = video.large
+      %div.video-overlay-content{id: "overlay-#{video.slug}"}
+        %div.video-overlay-player{data: {video_url: yt.url, video_title: yt.title}}
+        %div.video-overlay-details
+          %div
+            %h3= link_to video.decorated.title, localize_path(video)
+            %div.video-overlay-meta
+              %div
+                %i<
+                  %time{datetime: video.observ_date.iso8601}= l(video.observ_date, format: :long)
+              %div= video.decorated.public_locus_full_name
+          %span.yt_link
+            = link_to yt.direct_url, target: "_blank", rel: "nofollow noopener", class: "not-green" do
+              = t("videos.watch_on_youtube")
+              %b
+                %i.fab.fa-youtube

@@ -12,7 +12,7 @@ class VideosController < ApplicationController
       redirect_to page: nil
     else
       page = (params[:page] || 1).to_i
-      @videos = Video.preload(:species).order(created_at: :desc).page(page).per(10)
+      @videos = Video.preload(:species).order(created_at: :desc).page(page).per(24)
       # @feed = 'photos'
       if @videos.empty? && page != 1
         raise ActiveRecord::RecordNotFound

@@ -107,7 +107,7 @@
   %a{name: 'videos'}
   %div.videos
     %h3= t('.sections.videos')
-    = render videos.map(&:small), video_resizable: true
+    = render "videos/grid", videos: videos
 
 - if !@species.observations.empty?
   %a{name: 'observations'}
