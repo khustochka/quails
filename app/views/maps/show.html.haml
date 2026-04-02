@@ -6,7 +6,6 @@
   - if ENV["quails_google_maps_api_key"]
     = tag.meta name: "google-maps-api-key", content: ENV["quails_google_maps_api_key"]
 
-  = stylesheet_link_tag "map", media: "all"
   = javascript_include_tag "map-show"
 
 - content_for :translated do
@@ -22,9 +21,9 @@
 .mapContainer
   #googleMap{data: {map_enabled: map_enabled}}
 
-.gallery_window{data: {strip_url: media_strip_path}}
-  .wnd_close
-    %span.close
-      %span.fas.fa-times.fa-2x
+.gallery_window{class: "absolute bottom-0 left-0 hidden w-full bg-white z-[1001] border-t border-dashed border-t-neutral-700", data: {strip_url: media_strip_path}}
+  %div{class: "mx-4 pt-0 pb-1 pl-0 border-b border-b-gray-300 text-right"}
+    %span.close{class: "cursor-pointer"}
+      %span.fas.fa-times.fa-2x{class: "text-red-600 font-bold align-[-15%]"}
       %span.pseudolink= t(".close")
-  .gallery_container
+  .gallery_container{class: "relative h-[235px] whitespace-nowrap overflow-x-auto overflow-y-hidden overscroll-x-contain"}

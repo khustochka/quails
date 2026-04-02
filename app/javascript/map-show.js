@@ -114,9 +114,9 @@ document.addEventListener("DOMContentLoaded", function () {
         galleryContainer.classList.remove("loading");
         if (!append) {
           galleryContainer.innerHTML =
-            "<div class='gallery-error'>" +
-              "<p>Failed to load images</p>" +
-              "<button class='gallery-retry'>Retry</button>" +
+            "<div class='flex flex-col items-center justify-center h-full whitespace-normal text-gray-400'>" +
+              "<p class='mb-3 text-sm'>Failed to load images</p>" +
+              "<button class='gallery-retry px-4 py-1.5 text-sm text-gray-300 bg-gray-700 border border-gray-500 rounded cursor-pointer hover:bg-gray-600'>Retry</button>" +
             "</div>";
           galleryContainer.querySelector(".gallery-retry").addEventListener("click", function () {
             galleryContainer.innerHTML = "";
