@@ -175,7 +175,7 @@ document.addEventListener("DOMContentLoaded", function () {
       mapTypeId: "hybrid",
       streetViewControl: false,
       zoomControl: true,
-      gestureHandling: "greedy",
+      // gestureHandling: "greedy",
       mapId: "public-map"
     });
 
