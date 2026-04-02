@@ -1,6 +1,5 @@
 @import 'forms'
 
-
 div.footer
   display: none
 
@@ -13,8 +12,12 @@ form.search
     top: none
     bottom: 1px solid #aaa
   margin: 0
+  width: 100%
+  flex-shrink: 0
+  align-self: flex-start
 
 .map-side-panel
+  flex-shrink: 0
   overflow-y: scroll
   width: 380px
   border-right: 1px solid #555
