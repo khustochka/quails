@@ -112,7 +112,18 @@ document.addEventListener("DOMContentLoaded", function () {
       })
       .catch(function () {
         galleryContainer.classList.remove("loading");
-        if (!append) galleryContainer.innerHTML = "<h2>Error :(</h2>";
+        if (!append) {
+          galleryContainer.innerHTML =
+            "<div class='gallery-error'>" +
+              "<p>Failed to load images</p>" +
+              "<button class='gallery-retry'>Retry</button>" +
+            "</div>";
+          galleryContainer.querySelector(".gallery-retry").addEventListener("click", function () {
+            galleryContainer.innerHTML = "";
+            galleryContainer.classList.add("loading");
+            fetchStrip(false);
+          });
+        }
         loadingMore = false;
       });
   }
