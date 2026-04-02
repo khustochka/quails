@@ -15,7 +15,7 @@
   - else
     - img_class << size_class
   - img_attrs = {alt: t('images.alt_photo'), class: img_class}
-  - if @strip && !thumbnail.dummy_dimensions?
+  - unless thumbnail.dummy_dimensions?
     - img_attrs[:width] = thumbnail.width
     - img_attrs[:height] = thumbnail.height
   - url_object = thumbnail.image.image? ? thumbnail.image.thumbnail_variant : thumbnail.asset_url
