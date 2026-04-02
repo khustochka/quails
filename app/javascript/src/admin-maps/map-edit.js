@@ -371,5 +371,7 @@ export function initMapEdit(mapEl) {
     obsList.innerHTML = data.html;
     buildObservations(data.json);
   });
-  searchForm.requestSubmit();
+  // Auto-submit only when URL has query params (e.g. ?q[card_id]=..);
+  // on plain /map/edit the date is pre-filled but search waits for user.
+  if (window.location.search) searchForm.requestSubmit();
 }

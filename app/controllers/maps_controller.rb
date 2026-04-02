@@ -12,7 +12,12 @@ class MapsController < ApplicationController
 
   # GET "/map/edit"
   def edit
-    @observation_search = ObservationSearch.new(params[:q])
+    search_params = params[:q]
+    unless search_params&.values&.any?(&:present?)
+      latest_date = Card.maximum(:observ_date)
+      search_params = { observ_date: latest_date } if latest_date
+    end
+    @observation_search = ObservationSearch.new(search_params)
     @spot = Spot.new(public: true)
   end
 
