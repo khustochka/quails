@@ -1,5 +1,5 @@
 -# frozen_string_literal: true
--# @body_class = 'wider'
+- @body_class = 'wider'
 
 - @page_title = t(".window_title")
 - @page_header = t(".title")
@@ -21,7 +21,6 @@
   %h3
     %i= t('images.index.last_updated', date: l(@videos.first.created_at.to_date, format: :long))
 
-%div
-  = render @videos
+= render "videos/grid", videos: @videos
 
 = paginate @videos

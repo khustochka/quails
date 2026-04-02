@@ -51,6 +51,10 @@ class Video < Media
     false
   end
 
+  def small_thumbnail_url
+    "https://img.youtube.com/vi/#{youtube_id}/mqdefault.jpg"
+  end
+
   private
 
   def update_thumbnail
