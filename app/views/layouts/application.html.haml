@@ -9,7 +9,7 @@
     -# encoding
     -# CACHEABLE (depends on facebook_app_id)
     - cache ["html_head", facebook_app_id] do
-      %meta{ :content => "text/html; charset=UTF-8", "http-equiv" => "content-type" }
+      %meta{ charset: "utf-8" }
 
       - if facebook_app_id
         %meta{ property: "fb:app_id", content: facebook_app_id }

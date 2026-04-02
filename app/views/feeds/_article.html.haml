@@ -2,9 +2,8 @@
 !!!
 %html{:lang => post.lang, :prefix => "op: http://media.facebook.com/op#"}
   %head
-    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{charset: "utf-8"}/
     %title= post.decorated.title
-    %meta{:charset => "utf-8"}/
     %link{:href => default_public_post_url(post).to_s, :rel => "canonical"}/
     %meta{:content => "v1.0", :property => "op:markup_version"}/
   %body
