@@ -204,15 +204,13 @@ p img, video
   border-radius: 6px
   max-width: 900px
   width: 95%
-  max-height: 95vh
-  overflow-y: auto
   margin: auto
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4)
   iframe
     display: block
-    width: 100%
+    width: unquote("min(100%, 80vh * 853 / 480)")
     aspect-ratio: 853 / 480
-    max-height: 60vh
+    margin: 0 auto
     border: none
 
 .video-overlay-close
