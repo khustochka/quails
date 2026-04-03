@@ -7,13 +7,7 @@
         birdwatch.org.ua
 
       %li.print-hidden
-        = link_to blog_path, class: "home-link" do
-          %i.fas.fa-house-chimney
-          .sr-only= t('menu.home-sr-only')
-
-      %li
-        = link_to blog_path do
-          %span= t('menu.blog')
+        = link_to t('menu.blog'), blog_path
 
       %li= link_to t('menu.birds_ukraine'), country_path(country: 'ukraine')
 
