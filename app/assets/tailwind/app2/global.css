@@ -15,10 +15,6 @@
     flex-shrink: 0;
   }
 
-  * {
-    text-decoration-skip-ink: none !important;
-  }
-
   body a {
     color: var(--color-green-link);
     text-decoration: none;
@@ -27,6 +23,10 @@
 
   body a:hover {
     border-bottom: 1px solid var(--color-green-link-border-hover);
+  }
+
+  * {
+    text-decoration-skip-ink: none !important;
   }
 
   p {
@@ -54,6 +54,7 @@
   h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
     border-bottom: none;
   }
+
   h1 a:hover, h2 a:hover, h3 a:hover, h4 a:hover, h5 a:hover, h6 a:hover {
     border-bottom: 1px solid var(--color-green-link-border-hover);
   }
@@ -71,12 +72,12 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.2;
 }
 
-h1 { font-size: calc(1.375rem + 1.5vw); color: var(--color-gray-700); }
-h2 { font-size: calc(1.325rem + 0.9vw); color: var(--color-gray-700); }
-h3 { font-size: calc(1.3rem + 0.6vw); color: var(--color-gray-700); }
-h4 { font-size: calc(1.275rem + 0.3vw); color: var(--color-gray-600); }
-h5 { font-size: 1.25rem; color: var(--color-gray-600); }
-h6 { font-size: 1rem; color: var(--color-gray-600); }
+h1 { font-size: calc(1.375rem + 1.5vw); color: var(--color-zinc-600); }
+h2 { font-size: calc(1.325rem + 0.9vw); color: var(--color-zinc-600); }
+h3 { font-size: calc(1.3rem + 0.6vw); color: var(--color-zinc-600); }
+h4 { font-size: calc(1.275rem + 0.3vw); color: var(--color-gray-500); }
+h5 { font-size: 1.25rem; color: var(--color-gray-500); }
+h6 { font-size: 1rem; color: var(--color-gray-500); }
 
 @media (min-width: 1200px) {
   h1 { font-size: 2.5rem; }
@@ -94,7 +95,6 @@ h6 { font-size: 1rem; color: var(--color-gray-600); }
 .print-hidden {
   display: inline-block;
 }
-
 
 @media print {
   .screen-hidden {
@@ -120,21 +120,21 @@ h6 { font-size: 1rem; color: var(--color-gray-600); }
 /* Bootstrap-compatible text classes */
 
 .text-muted {
-  color: var(--color-gray-600);
+  color: var(--color-gray-500);
 }
 
 .h4 {
   font-size: 1.5rem;
   font-weight: 500;
   line-height: 1.2;
-  color: var(--color-gray-600);
+  color: var(--color-gray-500);
 }
 
 .h5 {
   font-size: 1.25rem;
   font-weight: 500;
   line-height: 1.2;
-  color: var(--color-gray-600);
+  color: var(--color-gray-500);
 }
 
 /* Utility classes */
@@ -148,7 +148,8 @@ h6 { font-size: 1rem; color: var(--color-gray-600); }
   border-bottom: none;
 }
 
-.pseudolink, .pseudolink:hover {
+.pseudolink,
+.pseudolink:hover {
   padding: 0 1px;
   background-color: inherit;
   cursor: pointer;
@@ -162,6 +163,6 @@ h6 { font-size: 1rem; color: var(--color-gray-600); }
 }
 
 .flickr_subscr {
-  color: var(--color-gray-600);
+  color: var(--color-gray-500);
   font-size: 0.875rem;
 }

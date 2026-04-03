@@ -1,0 +1,76 @@
+.user-menu {
+  background-color: var(--color-bg-beige);
+
+  @media (min-width: 1280px) {
+    position: relative;
+  }
+}
+
+.main-menu {
+  padding-top: 12px;
+  padding-bottom: 11px;
+  border-bottom: 1px solid var(--color-border-gray);
+  text-align: center;
+  line-height: 1.8;
+
+  @media (min-width: 1280px) {
+    line-height: 1.5;
+    text-align: left;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      display: inline-block;
+      margin-right: 0.5rem;
+      margin-left: 0.5rem;
+
+      @media (min-width: 650px) {
+        margin-left: 0;
+      }
+
+      @media (min-width: 992px) {
+        margin-right: 1.2rem !important;
+      }
+    }
+  }
+
+  a {
+    font-family: var(--font-rubik);
+    font-weight: 500;
+    font-size: calc(1.1rem + 0.8vw);
+    color: var(--color-blue-menu);
+    border-bottom: none;
+
+    @media (min-width: 768px) {
+      font-size: 1.25rem;
+    }
+
+    @media (min-width: 1280px) {
+      font-size: 1.3rem;
+    }
+
+    &:hover {
+      color: var(--color-blue-menu-hover);
+      border-bottom: 2px solid var(--color-blue-menu-border);
+    }
+
+    &.translation {
+      color: var(--color-orange-trans);
+
+      &:hover {
+        color: var(--color-orange-trans-hover);
+        border-bottom: 2px solid var(--color-orange-trans-border);
+      }
+    }
+  }
+
+  .print-only-logo {
+    font-weight: 500;
+    font-size: 1.5rem;
+    color: #cccccc;
+  }
+}

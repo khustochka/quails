@@ -26,35 +26,35 @@
 
     .grid.grid-cols-1.md:grid-cols-2.gap-x-8
       %div
-        %h2.top5-list-header= link_to("Lifelist", lifelist_path)
+        %h2.top5-list-header.font-rubik= link_to("Lifelist", lifelist_path)
         = render partial: "top5list", object: @list_life
 
       %div
-        %h2.top5-list-header= link_to(t("lifelist.title.yearlist", year: Settings.current_year), list_path(year: Settings.current_year))
+        %h2.top5-list-header.font-rubik= link_to(t("lifelist.title.yearlist", year: Settings.current_year), list_path(year: Settings.current_year))
         = render partial: "top5list", object: @list_current_year
 
       %div
-        %h2.top5-list-header
+        %h2.top5-list-header.font-rubik
           = link_to(t("lifelist.title.canada"), list_path(locus: "canada"))
         = render partial: "top5list", object: @list_canada
 
       %div
-        %h2.top5-list-header
+        %h2.top5-list-header.font-rubik
           = link_to(t("lifelist.title.ukraine"), list_path(locus: "ukraine"))
         = render partial: "top5list", object: @list_ukraine
 
     .grid.grid-cols-1.md:grid-cols-2.gap-x-8
       %div
-        %h2.top5-list-header
+        %h2.top5-list-header.font-rubik
           = link_to(t("lifelist.title.usa"), list_path(locus: "usa"))
           (#{@list_usa.total_count})
 
       %div.md:order-last
-        %h2.top5-list-header
+        %h2.top5-list-header.font-rubik
           = link_to(t("lifelist.title.gb"), list_path(locus: "united_kingdom"))
           (#{@list_uk.total_count})
 
       %div
-        %h2.top5-list-header
+        %h2.top5-list-header.font-rubik
           = link_to(t("lifelist.title.poland"), list_path(locus: "poland"))
           (#{@list_pl.total_count})
