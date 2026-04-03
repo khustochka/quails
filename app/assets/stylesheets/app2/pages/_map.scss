@@ -5,6 +5,10 @@ body.map-page {
     position: relative;
   }
 
+  footer.page_footer {
+    margin-top: 0;
+  }
+
   @media (min-width: 769px) {
     display: flex;
     flex-direction: column;
@@ -17,7 +21,6 @@ body.map-page {
     }
 
     footer.page_footer {
-      margin-top: 0;
       border-top-color: black;
     }
 
