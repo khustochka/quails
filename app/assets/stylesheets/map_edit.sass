@@ -1,12 +1,34 @@
 @import 'forms'
 
-.mapContainer
-  position: absolute
-  left: 0
-  top: 0
-
 div.footer
   display: none
+
+body.map-page
+  display: flex
+  flex-direction: column
+  height: 100dvh
+  overflow: hidden
+
+  #above-footer
+    flex: 1
+    display: flex
+    flex-direction: column
+    min-height: 0
+    min-width: 0
+
+  .main
+    flex: 1
+    display: flex
+    flex-direction: column
+    min-height: 0
+    width: 100%
+    margin: 0
+    padding: 0
+
+.map-content
+  flex: 1
+  display: flex
+  min-height: 0
 
 form.search
   display: block
@@ -19,7 +41,6 @@ form.search
   margin: 0
   width: 100%
   flex-shrink: 0
-  align-self: flex-start
 
 .map-side-panel
   flex-shrink: 0
@@ -34,6 +55,10 @@ form.search
       position: relative
       .remove
         display: none
+
+.mapContainer
+  flex: 1
+  position: relative
 
 li.selected_obs
   background-color: #AAAAEE

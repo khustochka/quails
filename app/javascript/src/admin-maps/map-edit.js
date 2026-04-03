@@ -262,29 +262,6 @@ export function initMapEdit(mapEl) {
     if (e.target.matches(".spot-form")) alert("Error submitting form");
   }
 
-  // --- Layout ---
-
-  function adjustSizes() {
-    var clientHeight = window.innerHeight,
-        clientWidth = window.innerWidth,
-        header = document.getElementById("header"),
-        sidePanel = document.querySelector(".map-side-panel"),
-        container = document.querySelector("div.mapContainer");
-
-    var upper = (header ? header.offsetHeight : 0) + searchForm.offsetHeight;
-    var leftmost = sidePanel ? sidePanel.offsetWidth : 0;
-
-    if (sidePanel) sidePanel.style.height = (clientHeight - upper - 2) + "px";
-    container.style.height = (clientHeight - upper) + "px";
-    container.style.width = (clientWidth - leftmost) + "px";
-    container.style.top = upper + "px";
-    container.style.left = leftmost + "px";
-
-    if (map) {
-      try { google.maps.event.trigger(map, "resize"); } catch (e) {}
-    }
-  }
-
   // --- KML ---
 
   function setupKML(panelDiv) {
@@ -313,9 +290,6 @@ export function initMapEdit(mapEl) {
   }
 
   // --- Init ---
-
-  adjustSizes();
-  window.addEventListener("resize", adjustSizes);
 
   if (mapEnabled) {
     map = createMap(mapEl, { draggableCursor: "pointer" });
