@@ -19,12 +19,12 @@ body.map-page {
     }
   }
 
-  footer.page_footer {
+  body.map-page footer.page_footer {
     margin-top: 0;
     border-top-color: black;
   }
 
-  ul.translated {
+  body.map-page ul.translated {
     border-top: 0px none;
     position: absolute;
     left: 490px;
