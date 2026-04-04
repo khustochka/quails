@@ -98,6 +98,8 @@ bin/rails db:seed
 - Validations go at the top of the model
 - Use `acts_as_list` for orderable items
 - Use `ancestry` for hierarchical data (Locus)
+- `Locus` has denormalized cached ancestor fields (`cached_parent`, `cached_city`, `cached_subdivision`, `cached_country`) used **for building display names only** (e.g. `short_name` shows `cached_parent - name` for patch loci). They are NOT a general parent reference — `cached_parent_id` can be null even when the actual parent exists and is public (e.g. for countries/regions whose parent is already captured in a typed cached field). Never use these as a substitute for the real `parent` association or ancestry traversal.
+- `cached_public_locus` is a separate denormalized field pointing to the nearest non-private ancestor (or self, if already public). It exists to avoid N+1 queries when rendering lifelists — the view calls `locus.public_locus` for every observation, which would otherwise walk up the ancestry chain per record. It is maintained automatically via callbacks (`before_update`, `after_create`, `after_save` cascade to descendants).
 
 ### Controllers
 

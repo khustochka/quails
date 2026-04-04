@@ -14,6 +14,7 @@ class Locus < ApplicationRecord
   belongs_to :cached_city, class_name: "Locus", optional: true
   belongs_to :cached_subdivision, class_name: "Locus", optional: true
   belongs_to :cached_country, class_name: "Locus", optional: true
+  belongs_to :cached_public_locus, class_name: "Locus", optional: true
 
   has_many :cards, dependent: :restrict_with_exception
   has_many :observations, through: :cards
@@ -29,6 +30,9 @@ class Locus < ApplicationRecord
   after_initialize :prepopulate, unless: :persisted?
   before_validation :generate_slug
   before_validation :set_country
+  after_create :set_and_save_cached_public_locus
+  before_update :set_cached_public_locus, if: -> { will_save_change_to_private_loc? || will_save_change_to_ancestry? }
+  after_save :update_descendants_public_locus, if: -> { saved_change_to_private_loc? || saved_change_to_ancestry? }
   normalizes :loc_type, with: ->(v) { v.presence }
 
   TYPES = %w(continent country region raion city)
@@ -47,7 +51,7 @@ class Locus < ApplicationRecord
 
   # Scopes
 
-  scope :cached_ancestry_preload, -> { preload(:cached_parent, :cached_city, :cached_subdivision, :cached_country) }
+  scope :cached_ancestry_preload, -> { preload(:cached_parent, :cached_city, :cached_subdivision, :cached_country, :cached_public_locus) }
 
   def self.suggestion_order
     sort_by_ancestry(all.cached_ancestry_preload).reverse
@@ -93,15 +97,7 @@ class Locus < ApplicationRecord
   end
 
   def public_locus
-    if !private_loc
-      self
-    else
-      if !parent.private_loc
-        parent
-      else
-        parent.public_locus
-      end
-    end
+    cached_public_locus
   end
 
   def short_name
@@ -114,6 +110,14 @@ class Locus < ApplicationRecord
 
   def country?
     loc_type == "country"
+  end
+
+  def compute_cached_public_locus_id
+    if private_loc
+      ancestors.to_a.rfind { |l| !l.private_loc }&.id
+    else
+      id
+    end
   end
 
   private
@@ -153,6 +157,25 @@ class Locus < ApplicationRecord
       generate_lat_lon
       name_ru.presence || (self.name_ru = name_en)
       name_uk.presence || (self.name_uk = name_en)
+    end
+  end
+
+  # Used by before_update: id already exists, so we can set the value in the same UPDATE statement.
+  def set_cached_public_locus
+    self.cached_public_locus_id = compute_cached_public_locus_id
+  end
+
+  # Used by after_create: id is not yet assigned at before_save time (for public loci cached_public_locus_id = id),
+  # so we need a separate UPDATE after the INSERT.
+  def set_and_save_cached_public_locus
+    update_column(:cached_public_locus_id, compute_cached_public_locus_id)
+  end
+
+  # Used by after_save: when private_loc or ancestry changes, descendants' nearest public ancestor may change too.
+  # Runs after self is already saved so its own cached_public_locus_id is correct.
+  def update_descendants_public_locus
+    descendants.each do |desc|
+      desc.update_column(:cached_public_locus_id, desc.compute_cached_public_locus_id)
     end
   end
 

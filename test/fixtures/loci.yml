@@ -10,6 +10,7 @@
     private_loc: false
     loc_type: country
     ancestry:
+    cached_public_locus_id: 1
 
 - kiev_obl:
     id: 2
@@ -25,6 +26,7 @@
     loc_type: oblast
     ancestry: 1
     cached_country_id: 1
+    cached_public_locus_id: 2
 
 - brovary:
     id: 3
@@ -41,6 +43,7 @@
     ancestry: 1/2
     cached_subdivision_id: 2
     cached_country_id: 1
+    cached_public_locus_id: 3
 
 - kyiv:
     id: 7
@@ -56,6 +59,7 @@
     loc_type: city
     ancestry: 1/2
     cached_country_id: 1
+    cached_public_locus_id: 7
 
 - usa:
     id: 4
@@ -70,6 +74,7 @@
     private_loc: false
     loc_type: country
     ancestry:
+    cached_public_locus_id: 4
 
 - new_york:
     id: 5
@@ -85,6 +90,7 @@
     loc_type: state
     ancestry: 4
     cached_country_id: 4
+    cached_public_locus_id: 5
 
 - nyc:
     id: 6
@@ -101,3 +107,4 @@
     ancestry: 4/5
     cached_country_id: 4
     cached_subdivision_id: 5
+    cached_public_locus_id: 6

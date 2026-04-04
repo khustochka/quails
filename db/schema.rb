@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_29_035106) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_04_175429) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -262,6 +262,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_29_035106) do
     t.bigint "cached_city_id"
     t.bigint "cached_country_id"
     t.bigint "cached_parent_id"
+    t.bigint "cached_public_locus_id"
     t.bigint "cached_subdivision_id"
     t.integer "ebird_location_id"
     t.boolean "five_mile_radius", default: false, null: false
@@ -277,6 +278,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_29_035106) do
     t.integer "public_index"
     t.string "slug", limit: 32, null: false
     t.index ["ancestry"], name: "index_loci_on_ancestry"
+    t.index ["cached_public_locus_id"], name: "index_loci_on_cached_public_locus_id"
     t.index ["slug"], name: "index_loci_on_slug", unique: true
   end
 
@@ -445,6 +447,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_29_035106) do
   add_foreign_key "ebird_taxa", "taxa", on_delete: :nullify
   add_foreign_key "local_species", "loci", on_delete: :cascade
   add_foreign_key "local_species", "species", on_delete: :cascade
+  add_foreign_key "loci", "loci", column: "cached_public_locus_id"
   add_foreign_key "media", "spots", on_delete: :nullify
   add_foreign_key "media_observations", "media", on_delete: :cascade
   add_foreign_key "media_observations", "observations", on_delete: :restrict

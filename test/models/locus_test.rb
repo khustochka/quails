@@ -83,6 +83,58 @@ class LocusTest < ActiveSupport::TestCase
     assert_equal brvr, brvr.public_locus
   end
 
+  # cached_public_locus_id maintenance
+
+  test "cached_public_locus set to self on create for public locus" do
+    loc = create(:locus, private_loc: false)
+    assert_equal loc, loc.cached_public_locus
+  end
+
+  test "cached_public_locus set to nearest public ancestor on create for private locus" do
+    brvr = loci(:brovary)
+    loc = create(:locus, parent_id: brvr.id, private_loc: true)
+    assert_equal brvr, loc.cached_public_locus
+  end
+
+  test "cached_public_locus updated when locus becomes private" do
+    brvr = loci(:brovary)
+    loc = create(:locus, parent_id: brvr.id, private_loc: false)
+    assert_equal loc, loc.cached_public_locus
+
+    loc.update!(private_loc: true)
+    assert_equal brvr, loc.reload.cached_public_locus
+  end
+
+  test "cached_public_locus updated when locus becomes public" do
+    brvr = loci(:brovary)
+    loc = create(:locus, parent_id: brvr.id, private_loc: true)
+    assert_equal brvr, loc.cached_public_locus
+
+    loc.update!(private_loc: false)
+    assert_equal loc, loc.reload.cached_public_locus
+  end
+
+  test "descendants cached_public_locus updated when ancestor becomes private" do
+    brvr = loci(:brovary)
+    parent = create(:locus, parent_id: brvr.id, private_loc: false)
+    child = create(:locus, parent_id: parent.id, private_loc: true)
+    assert_equal parent, child.reload.cached_public_locus
+
+    parent.update!(private_loc: true)
+    assert_equal brvr, child.reload.cached_public_locus
+  end
+
+  test "descendants cached_public_locus updated when ancestry changes" do
+    brvr = loci(:brovary)
+    kyiv = loci(:kyiv)
+    parent = create(:locus, parent_id: brvr.id, private_loc: false)
+    child = create(:locus, parent_id: parent.id, private_loc: true)
+    assert_equal parent, child.reload.cached_public_locus
+
+    parent.update!(parent: kyiv)
+    assert_equal parent, child.reload.cached_public_locus
+  end
+
   test "#country" do
     brvr = loci(:brovary)
     assert_equal "ukraine", brvr.country.slug
