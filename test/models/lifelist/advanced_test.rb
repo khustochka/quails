@@ -56,6 +56,42 @@ module Lifelist
       assert_equal post, list.first.first_seen.main_post
     end
 
+    test "first_seen locus is preloaded without extra queries" do
+      FactoryBot.create(:observation)
+
+      list = Lifelist::Advanced.over({}).sort(nil)
+      recs = list.to_a
+
+      assert_queries_count(0) do
+        recs.each { |r| r.first_seen.locus }
+      end
+    end
+
+    test "last_seen locus is preloaded without extra queries" do
+      card1 = FactoryBot.create(:card, observ_date: Date.new(2020, 1, 1))
+      card2 = FactoryBot.create(:card, observ_date: Date.new(2020, 2, 1))
+      FactoryBot.create(:observation, card: card1)
+      FactoryBot.create(:observation, card: card2)
+
+      list = Lifelist::Advanced.over({}).sort(nil)
+      recs = list.to_a
+
+      assert_queries_count(0) do
+        recs.each { |r| r.last_seen.locus }
+      end
+    end
+
+    test "public_locus is preloaded without extra queries" do
+      FactoryBot.create(:observation)
+
+      list = Lifelist::Advanced.over({}).sort(nil)
+      recs = list.to_a
+
+      assert_queries_count(0) do
+        recs.each { |r| r.first_seen.locus.public_locus }
+      end
+    end
+
     test "lifelist with seen species only" do
       obs = FactoryBot.create(:observation, taxon: taxa(:pasdom))
       obs2 = FactoryBot.create(:observation, taxon: taxa(:jyntor), voice: true)

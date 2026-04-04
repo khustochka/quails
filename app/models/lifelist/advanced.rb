@@ -73,7 +73,7 @@ module Lifelist
 
     def secondary_list(key)
       @secondary_list ||= {}
-      @secondary_list[key] ||= all_lists(key).short_to_a.index_by(&:species_id)
+      @secondary_list[key] ||= all_lists(key).secondary_observations.index_by(&:species_id)
     end
   end
 end

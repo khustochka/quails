@@ -47,8 +47,12 @@ module Lifelist
         .where(id: preselected_observations)
     end
 
-    def short_to_a
-      records = bare_relation.includes(:card).to_a
+    # Lightweight load used by Lifelist::Advanced to build the secondary values
+    # (last_seen, obs_count) indexed by species. Skips the taxa/species joins
+    # that build_relation requires, but still preloads card and locus so
+    # the view can call observation.locus.public_locus without extra queries.
+    def secondary_observations
+      records = bare_relation.preload(card: :locus).to_a
       preload_posts(records)
       records
     end

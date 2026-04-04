@@ -13,7 +13,7 @@ module Lifelist
       records
     end
 
-    def short_to_a
+    def secondary_observations
       bare_relation.to_a
     end
 

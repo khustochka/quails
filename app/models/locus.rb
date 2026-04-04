@@ -51,7 +51,10 @@ class Locus < ApplicationRecord
 
   # Scopes
 
-  scope :cached_ancestry_preload, -> { preload(:cached_parent, :cached_city, :cached_subdivision, :cached_country, :cached_public_locus) }
+  scope :cached_ancestry_preload, -> {
+    preload(:cached_parent, :cached_city, :cached_subdivision, :cached_country,
+      cached_public_locus: [:cached_parent, :cached_city, :cached_subdivision, :cached_country])
+  }
 
   def self.suggestion_order
     sort_by_ancestry(all.cached_ancestry_preload).reverse
