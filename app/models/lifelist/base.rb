@@ -27,7 +27,7 @@ module Lifelist
     end
 
     def base
-      MyObservation.merge(observation_scope).refine(normalized_filter).joins(:card)
+      Observation.merge(observation_scope).where.not(species_id: nil).refine(normalized_filter).joins(:card)
     end
 
     def ordering
@@ -42,8 +42,8 @@ module Lifelist
     end
 
     def bare_relation
-      MyObservation
-        .select("observations.*, species_id")
+      Observation.identified
+        .select("observations.*")
         .where(id: preselected_observations)
     end
 
@@ -60,11 +60,11 @@ module Lifelist
     private
 
     def build_relation
-      # FIXME: Do not join on species when not on taxonomy sorting
-      bare_relation
-        .joins(:taxon, :card)
-        .preload({ taxon: :species }, { card: :locus })
+      rel = bare_relation.joins(:card).preload(:species, { card: :locus })
       # NOTE: Do not use .includes(:taxon), it breaks species preloading, use .preload
+      # taxa join is only needed for taxonomy sort (index_num column lives on taxa)
+      rel = rel.joins(:taxon) if @sorting == "class"
+      rel
     end
 
     def preselected_observations

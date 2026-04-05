@@ -6,7 +6,7 @@ class Media < ApplicationRecord
   serialize :assets_cache, coder: ImageAssetsArray
 
   has_many :taxa, through: :observations
-  has_many :species, through: :taxa
+  has_many :species, through: :observations
 
   # FIXME: try to make it 'card', because image should belong to observations of the same card
   has_many :cards, -> { distinct }, through: :observations, inverse_of: :images

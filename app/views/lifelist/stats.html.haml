@@ -62,7 +62,7 @@
 
     %tr.total
       %td.year= t('.total')
-      %td.count_sp= link_to MyObservation.count_distinct_species, lifelist_path
+      %td.count_sp= link_to Observation.identified.count_distinct_species, lifelist_path
       %td
       %td.countries
         %ul

@@ -21,6 +21,23 @@ class ObservationTest < ActiveSupport::TestCase
     assert_equal [video], @observation.videos.to_a
   end
 
+  test "species_id is set on create" do
+    assert_equal @observation.taxon.species_id, @observation.species_id
+  end
+
+  test "species_id updates when taxon changes" do
+    new_taxon = taxa(:hirrus)
+    @observation.update!(taxon: new_taxon)
+    assert_equal new_taxon.species_id, @observation.reload.species_id
+  end
+
+  test "species_id is nil for taxon without species" do
+    taxon = taxa(:pasdom)
+    taxon.update_column(:species_id, nil)
+    obs = create(:observation, taxon: taxon)
+    assert_nil obs.species_id
+  end
+
   test "updating observation touches card" do
     before = @observation.card.updated_at
     @observation.update_attribute(:taxon_id, taxa("hirrus").id)

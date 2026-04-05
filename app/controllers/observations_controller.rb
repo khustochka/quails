@@ -63,7 +63,7 @@ class ObservationsController < ApplicationController
   end
 
   def move
-    @observations = Observation.where(id: params[:obs]).preload(taxon: :species)
+    @observations = Observation.where(id: params[:obs]).preload(:taxon)
     raise ActiveRecord::RecordNotFound, "No observations found" if @observations.empty?
 
     @card = @observations.first.card

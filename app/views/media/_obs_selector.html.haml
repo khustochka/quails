@@ -16,7 +16,7 @@
       %span.restore.pseudolink Restore original
     %ul.obs-list.current-obs
       -# Collection defined in such a way so that it works for unsaved images (unlike media.observations)
-      = render partial: "observations/obs_item", collection: Observation.where(id: media.observation_ids).preload(:taxon => :species, :card => :locus)
+      = render partial: "observations/obs_item", collection: Observation.where(id: media.observation_ids).preload(:taxon, :card => :locus)
   .search-results
     %h5 Search results
     %ul.obs-list.found-obs

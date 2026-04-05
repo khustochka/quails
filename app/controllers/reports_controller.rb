@@ -34,7 +34,7 @@ class ReportsController < ApplicationController
     sort_val = params[:sort].try(:to_sym)
     if @period >= 30
       sort_col = sort_val || :date2
-      query = MyObservation.joins(:card).select("species_id, observ_date").order(:observ_date).to_sql
+      query = Observation.identified.joins(:card).select("species_id, observ_date").order(:observ_date).to_sql
       @list = Observation.connection.select_rows(query).group_by(&:first).each_with_object([]) do |obsdata, collection|
         sp, obss = obsdata
         obs = obss.map(&:second).each_cons(2).select do |ob1, ob2|
@@ -59,11 +59,11 @@ class ReportsController < ApplicationController
   end
 
   def topicture
-    @species_with_media = Media.joins(:observations, :taxa).count("DISTINCT species_id")
+    @species_with_media = Media.joins(:observations).merge(Observation.identified).count("DISTINCT species_id")
 
-    unpic_rel = MyObservation.select("species_id, COUNT(observations.id) AS cnt").where(
+    unpic_rel = Observation.identified.select("species_id, COUNT(observations.id) AS cnt").where(
       "species_id NOT IN (%s)" %
-        MyObservation.select("DISTINCT species_id")
+        Observation.identified.select("DISTINCT species_id")
           .joins("INNER JOIN media_observations as im on (observations.id = im.observation_id)").to_sql
     ).group(:species_id)
 
@@ -71,12 +71,12 @@ class ReportsController < ApplicationController
       .joins("INNER JOIN (#{unpic_rel.to_sql}) AS obs ON species.id=obs.species_id").order(cnt: :desc)
       .where("cnt > 1")
 
-    new_pic = MyObservation.joins(:images).select("species_id, MIN(media.created_at) as add_date")
+    new_pic = Observation.identified.joins(:images).select("species_id, MIN(media.created_at) as add_date")
       .group(:species_id)
     @new_pics = Species.select("*").joins("INNER JOIN (#{new_pic.to_sql}) AS obs ON species.id=obs.species_id")
       .limit(15).order(add_date: :desc)
 
-    long_rel = MyObservation.joins(:images, :card).select("species_id, MAX(observ_date) as lastphoto")
+    long_rel = Observation.identified.joins(:images, :card).select("species_id, MAX(observ_date) as lastphoto")
       .group(:species_id).having("MAX(observ_date) < (now() - interval '3 years')")
 
     @long_time = Species.select("*")
@@ -85,7 +85,7 @@ class ReportsController < ApplicationController
     sort_col = :date2
 
     @recent_2yrs =
-      Image.joins(:observations).order(:created_at).preload(:species).merge(MyObservation.all)
+      Image.joins(:observations).order(:created_at).preload(:species).merge(Observation.identified.all)
         .group_by { |i| i.species.first }
         .each_with_object([]) do |imgdata, collection|
           sp, imgs = imgdata
@@ -164,7 +164,7 @@ class ReportsController < ApplicationController
         Card.all
       end
 
-      prespecies = Species.short.select('species."order", species.family').distinct.joins(:cards).merge(Taxon.listable)
+      prespecies = Species.short.select('species."order", species.family').distinct.joins(:cards)
 
       @species = prespecies.merge(observations_source).ordered_by_taxonomy.extend(SpeciesArray)
 
@@ -185,7 +185,6 @@ class ReportsController < ApplicationController
     countries.each do |cnt|
       list = Species
         .joins(:cards)
-        .merge(Taxon.listable)
         .where("cards.locus_id" => cnt.subregion_ids)
         .distinct
         .ids
@@ -216,7 +215,6 @@ class ReportsController < ApplicationController
       observations_filtered = observations_filtered.where("cards.locus_id" => loc_filter)
     end
     identified_observations = observations_filtered.identified
-    obs_with_taxon = observations_filtered.joins(:taxon)
     lifelist_filtered = LiferObservation.all
     lifelist_filtered = lifelist_filtered.for_year(params[:year]) if params[:year]
     if params[:locus]
@@ -224,7 +222,7 @@ class ReportsController < ApplicationController
       lifelist_filtered = lifelist_filtered.where(subquery: { locus_id: loc_filter })
     end
 
-    @year_data = obs_with_taxon.select('EXTRACT(year FROM observ_date)::integer as year,
+    @year_data = observations_filtered.select('EXTRACT(year FROM observ_date)::integer as year,
                                       COUNT(observations.id) as count_obs,
                                       COUNT(DISTINCT observ_date) as count_days,
                                       COUNT(DISTINCT species_id) as count_species')
@@ -233,7 +231,7 @@ class ReportsController < ApplicationController
     @first_sp_by_year =
       lifelist_filtered.group("EXTRACT(year FROM observ_date)::integer").count(:all)
 
-    @month_data = obs_with_taxon
+    @month_data = observations_filtered
       .select("EXTRACT(month FROM observ_date)::integer AS month, COUNT(observations.id) as count_obs, COUNT(DISTINCT species_id) as count_species")
       .group("EXTRACT(month FROM observ_date)::integer")
       .index_by(&:month)
@@ -265,9 +263,9 @@ class ReportsController < ApplicationController
     @preloaded_locs = Locus.where(id: locs).preload(:cached_parent).index_by(&:id)
 
     @day_by_new_species = lifelist_filtered
-      .except(:select).select("observ_date, COUNT(species_id) as count_species")
+      .except(:select).select("observ_date, COUNT(*) as count_species")
       .group("observ_date").except(:order)
-      .order(Arel.sql("COUNT(species_id) DESC, observ_date ASC")).limit(10)
+      .order(Arel.sql("COUNT(*) DESC, observ_date ASC")).limit(10)
 
     # FIXME: wrong locus may be shown if lifer is on several cards a day
     dates = @day_by_new_species.except(:select).select(:observ_date)
@@ -282,9 +280,9 @@ class ReportsController < ApplicationController
 
   def voices
     @exclude_low_num = params[:exclude_low_num]
-    base = Observation.joins(:taxon).where.not(taxa: { species_id: nil }).group("species_id")
-    voiceful = base.select("taxa.species_id, COUNT(observations.id) as voicenum").where(voice: true)
-    total = base.select("taxa.species_id, count(observations.id) as totalnum")
+    base = Observation.identified.group(:species_id)
+    voiceful = base.select("species_id, COUNT(observations.id) as voicenum").where(voice: true)
+    total = base.select("species_id, count(observations.id) as totalnum")
     @species = Species.find_by_sql("WITH voiceful AS (#{voiceful.to_sql}), total AS (#{total.to_sql})
                 SELECT species.*, voicenum, totalnum, 100.00 * voicenum / totalnum as percentage
                 FROM voiceful NATURAL JOIN total JOIN species on total.species_id = species.id
@@ -306,7 +304,7 @@ class ReportsController < ApplicationController
   def charts
     @locations = Country.all
 
-    observations_filtered = MyObservation.joins(:card)
+    observations_filtered = Observation.identified.joins(:card)
     if params[:locus]
       loc_filter = Locus.find_by!(slug: params[:locus]).subregion_ids
       observations_filtered = observations_filtered.where("cards.locus_id" => loc_filter)
@@ -351,15 +349,15 @@ class ReportsController < ApplicationController
     # Put prev & next months into [1..12] interval
     @prev_and_next = [@month - 1, @month + 1].map { |n| (n - 1) % 12 + 1 }
     species_of_this_month = obs_base
-      .select("DISTINCT taxa.species_id")
-      .joins(:taxon, :card)
+      .identified
+      .select("DISTINCT species_id")
+      .joins(:card)
       .where("EXTRACT(month from observ_date) = ?", @month)
-      .where.not(taxa: { species_id: nil })
     species_of_adjacent_months = obs_base
+      .identified
       .select("species_id")
-      .joins(:taxon, :card)
+      .joins(:card)
       .where("EXTRACT(month from observ_date) IN (?)", @prev_and_next)
-      .where.not(taxa: { species_id: nil })
     @species = Species
       .where(id: species_of_adjacent_months)
       .where.not(species: { id: species_of_this_month })

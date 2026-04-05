@@ -21,7 +21,7 @@ class Card < ApplicationRecord
   has_many :mapped_observations, -> { joins(:spots).distinct }, class_name: "Observation", inverse_of: :card, dependent: nil
 
   has_many :taxa, through: :observations
-  has_many :species, through: :taxa
+  has_many :species, through: :observations
   has_many :images, through: :observations, inverse_of: :cards
   has_many :videos, through: :observations, inverse_of: :cards
   has_many :spots, through: :observations, inverse_of: :cards
@@ -94,9 +94,8 @@ class Card < ApplicationRecord
         select obs.id
         from observations obs
         join cards c on obs.card_id = c.id
-        join taxa tt ON obs.taxon_id = tt.id
-        where taxa.species_id = tt.species_id and
-        (#{quoted_date} > c.observ_date
+        where obs.species_id = observations.species_id
+        and (#{quoted_date} > c.observ_date
          #{time_clause})"
     @lifer_species_ids ||= observations
       .identified

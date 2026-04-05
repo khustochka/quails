@@ -3,7 +3,7 @@
 module Lifelist
   class Count < Base
     def bare_relation
-      base.select("species_id, COUNT(DISTINCT observations.id) AS obs_count").group("species_id")
+      base.select("species_id, COUNT(DISTINCT observations.id) AS obs_count").group(:species_id)
     end
 
     def load_records

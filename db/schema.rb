@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_04_175429) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_05_040757) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -315,11 +315,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_04_175429) do
     t.integer "post_id"
     t.string "private_notes", limit: 255, default: "", null: false
     t.string "quantity", limit: 255
+    t.integer "species_id"
     t.integer "taxon_id", null: false
     t.datetime "updated_at", precision: nil
     t.boolean "voice", default: false, null: false
     t.index ["card_id"], name: "index_observations_on_card_id"
     t.index ["post_id"], name: "index_observations_on_post_id"
+    t.index ["species_id", "card_id"], name: "index_observations_on_species_id_and_card_id", where: "(species_id IS NOT NULL)"
     t.index ["taxon_id"], name: "index_observations_on_taxon_id"
   end
 
@@ -453,6 +455,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_04_175429) do
   add_foreign_key "media_observations", "observations", on_delete: :restrict
   add_foreign_key "observations", "cards", on_delete: :restrict
   add_foreign_key "observations", "posts", on_delete: :nullify
+  add_foreign_key "observations", "species"
   add_foreign_key "observations", "taxa", on_delete: :restrict
   add_foreign_key "species_images", "media", column: "image_id", on_delete: :cascade
   add_foreign_key "species_images", "species", on_delete: :cascade

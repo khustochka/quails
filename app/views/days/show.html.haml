@@ -42,5 +42,5 @@
     = surround "(", ")" do
       = @day.observations.size
   %ol
-    - observations.preload(:taxon => :species).find_each do |obs|
+    - observations.preload(:taxon).find_each do |obs|
       = render 'cards/observation_row', obs: obs

@@ -81,6 +81,17 @@ module Lifelist
       end
     end
 
+    test "species is preloaded without extra queries" do
+      FactoryBot.create(:observation)
+
+      list = Lifelist::Advanced.over({}).sort(nil)
+      recs = list.to_a
+
+      assert_queries_count(0) do
+        recs.each { |r| r.first_seen.species }
+      end
+    end
+
     test "public_locus is preloaded without extra queries" do
       FactoryBot.create(:observation)
 

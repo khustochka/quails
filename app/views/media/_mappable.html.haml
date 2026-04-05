@@ -26,7 +26,7 @@
       %p.errors Not yet mapped!
 
     %ul.obs-list
-      = render partial: 'observations/obs_item', collection: mappable.observations.preload(:taxon => :species, :card => :locus)
+      = render partial: 'observations/obs_item', collection: mappable.observations.preload(:taxon, :card => :locus)
 
   .mapContainer{data: {
                   marks: mappable.spots.to_json(only: [:lat, :lng, :id]),

@@ -16,13 +16,13 @@ module YearBaseCell
   end
 
   def lifers
-    @lifers ||= LiferObservation.for_year(year).canonical_order(:asc).preload(taxon: :species)
+    @lifers ||= LiferObservation.for_year(year).canonical_order(:asc).preload(:species)
   end
 
   private
 
   def observations
-    MyObservation.joins(:card).refine(@observation_filter)
+    Observation.identified.joins(:card).refine(@observation_filter)
   end
 
   def list_query

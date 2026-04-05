@@ -33,10 +33,9 @@ class Day
       select obs.id
           from observations obs
           join cards c on obs.card_id = c.id
-          join taxa tt ON obs.taxon_id = tt.id
-          where taxa.species_id = tt.species_id
+          where obs.species_id = observations.species_id
           and cards.observ_date > c.observ_date"
-    @lifer_species_ids ||= MyObservation
+    @lifer_species_ids ||= Observation.identified
       .joins(:card)
       .merge(cards)
       .where("NOT EXISTS(#{subquery})")

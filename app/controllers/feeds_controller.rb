@@ -23,7 +23,7 @@ class FeedsController < ApplicationController
     @posts = Post.indexable.select("slug, lang, face_date, updated_at")
     @images = Image.unscoped.where(media_type: "photo").indexable.select("id, slug, updated_at")
     @videos = Video.select("id, slug, updated_at")
-    @species = Species.where(id: Observation.joins(:taxon).select(:species_id)).select("id, name_sci")
+    @species = Species.where(id: Observation.identified.select(:species_id)).select("id, name_sci")
 
     @root_lastmod = Post.public_posts.order(updated_at: :desc).first&.updated_at&.iso8601
   end

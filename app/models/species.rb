@@ -29,7 +29,7 @@ class Species < ApplicationRecord
 
   has_many :taxa, dependent: :nullify, inverse_of: :species
   has_many :high_level_taxa, -> { where(taxa: { category: "species" }) }, class_name: "Taxon", dependent: nil, inverse_of: :species
-  has_many :observations, through: :taxa
+  has_many :observations, dependent: :nullify, inverse_of: :species
 
   has_many :cards, through: :observations
   has_many :loci, through: :cards

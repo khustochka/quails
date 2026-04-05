@@ -8,14 +8,12 @@ class Observation < ApplicationRecord
   belongs_to :card, touch: true, inverse_of: :observations
 
   belongs_to :taxon
+  # species_id is denormalized from taxon.species_id for query performance.
+  # Kept in sync via sync_species_id callback. Use taxon.species when you need
+  # the full taxon context; use this association for filtering/joining.
+  belongs_to :species, optional: true
 
-  # FIXME: do not use this!! (See MyObservation for more comments)
-  # belongs_to :species
-  # NOTE: Do not use .includes(:taxon), it breaks species preloading, use .preload
-
-  def species
-    taxon.species
-  end
+  before_save :sync_species_id, if: :will_save_change_to_taxon_id?
 
   belongs_to :post, -> { short_form }, touch: true, optional: true, inverse_of: :observations
   has_and_belongs_to_many :media
@@ -34,7 +32,7 @@ class Observation < ApplicationRecord
 
   # Scopes
 
-  scope :identified, lambda { joins(:taxon).merge(Taxon.listable) }
+  scope :identified, -> { where.not(species_id: nil) }
 
   scope :not_hidden, -> { where(hidden: false) }
 
@@ -88,5 +86,11 @@ class Observation < ApplicationRecord
     else
       self
     end
+  end
+
+  private
+
+  def sync_species_id
+    self.species_id = taxon&.species_id
   end
 end
