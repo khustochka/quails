@@ -328,6 +328,7 @@ Rails.application.routes.draw do
         post :refresh
       end
     end
+    get "alerts" => "alerts#show", as: :alerts
   end
 
   # GoodJob web UI

@@ -141,3 +141,59 @@ form.spot-form
   background-color: #ffffcd
   padding: 5px
   margin: 0
+
+.alerts-panel-header
+  padding: 12px 12px 8px
+  border-bottom: 1px solid #ccc
+  h3
+    margin: 0 0 4px
+  p
+    margin: 0
+    font-size: 12px
+
+.alerts-species-list
+  list-style: none
+  margin: 0
+  padding: 0
+  li
+    display: flex
+    align-items: center
+    gap: 6px
+    padding: 8px 12px
+    cursor: pointer
+    border-bottom: 1px solid #eee
+    font-size: 13px
+    &:hover
+      background-color: #f0f4ff
+    &.is-active
+      background-color: #c8d8ff
+  .alerts-species-names
+    flex: 1
+  .alerts-species-name
+    font-weight: bold
+    margin-right: 4px
+  .alerts-species-sci
+    color: #777
+    font-style: italic
+    font-size: 11px
+  .alerts-species-count
+    color: #444
+    font-size: 11px
+    white-space: nowrap
+    &::before
+      content: "×"
+
+.alerts-popup
+  max-width: 400px
+  font-size: 13px
+  ul
+    margin: 6px 0 0
+    padding-left: 16px
+  li
+    margin-bottom: 4px
+  .alerts-popup-species
+    font-weight: bold
+  a
+    color: #1a6900
+    &:hover
+      color: #1a6900
