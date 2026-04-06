@@ -143,20 +143,58 @@ form.spot-form
   margin: 0
 
 .alerts-panel-header
-  padding: 12px 12px 8px
   border-bottom: 1px solid #ccc
   h3
     margin: 0 0 4px
-  p
-    margin: 0 0 6px
-    font-size: 12px
+    padding: 12px 12px 8px
 
-.alerts-panel-meta
-  display: flex
-  align-items: center
-  gap: 8px
-  font-size: 11px
-  color: #666
+.alerts-list
+  list-style: none
+  margin: 0
+  padding: 0
+  border-top: 1px solid #eee
+  li
+    padding: 6px 12px
+    margin: 0
+    border-top: 1px solid #eee
+    &:first-child
+      border-top: none
+    &.is-active
+      background-color: #e8f0fe
+    &.is-active .alerts-list-name a:first-child
+      font-weight: bold
+  .alerts-list-name
+    display: flex
+    align-items: center
+    gap: 6px
+    font-size: 16px
+  .alerts-list-ebird-link
+    font-size: 11px
+    color: #aaa
+    text-decoration: none
+    &:hover
+      color: #555
+  .alerts-list-meta
+    display: flex
+    align-items: center
+    gap: 4px
+    font-size: 10px
+    color: #888
+  .alerts-refresh-btn
+    font-size: 16px
+    color: #888
+    text-decoration: none
+    &:hover
+      color: #333
+    &.is-loading
+      animation: spin 1s linear infinite
+      pointer-events: none
+
+@keyframes spin
+  from
+    transform: rotate(0deg)
+  to
+    transform: rotate(360deg)
 
 .alerts-last-preload
   flex: 1
@@ -170,6 +208,7 @@ form.spot-form
     align-items: center
     gap: 6px
     padding: 8px 12px
+    margin: 0
     cursor: pointer
     border-bottom: 1px solid #eee
     font-size: 13px

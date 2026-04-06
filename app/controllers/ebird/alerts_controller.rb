@@ -7,11 +7,15 @@ module EBird
     administrative
 
     def index
-      @sid = params[:sid].presence || ENV["EBIRD_ALERT_SID"].presence
-      unless @sid
+      @alerts = configured_alerts
+      if @alerts.empty?
         @missing_sid = true
         return
       end
+
+      @sid = params[:sid].presence || @alerts.first[:sid]
+      # Ensure the requested sid is actually configured
+      @sid = @alerts.first[:sid] unless @alerts.any? { |a| a[:sid] == @sid }
 
       @last_preload = Rails.cache.read("ebird/alert_last_preload/#{@sid}")
       locations = Rails.cache.read("ebird/alert_locations/#{@sid}")
@@ -21,12 +25,8 @@ module EBird
         locations = []
       end
 
-      # Collect unique species codes
       codes = locations.flat_map { |loc| loc[:observations].map(&:species_code) }.uniq.compact
-
-      # Load EBird taxa ordered taxonomically; fall back to scraped name if not found
       ebird_taxa = EBirdTaxon.where(ebird_code: codes).order(:index_num).index_by(&:ebird_code)
-
       obs_counts = locations.flat_map { |loc| loc[:observations].map(&:species_code) }.tally
 
       @locations_json = locations.map do |loc|
@@ -60,12 +60,25 @@ module EBird
     end
 
     def refresh
-      sid = params[:sid].presence || ENV["EBIRD_ALERT_SID"].presence
-      if sid
-        EBird::AlertPreloadJob.perform_later(sid)
-        render json: { sid: sid }
-      else
-        render json: { error: "No alert SID configured." }, status: :unprocessable_content
+      sid = params[:sid].presence
+      unless sid && configured_alerts.any? { |a| a[:sid] == sid }
+        render json: { error: "Unknown or missing alert SID." }, status: :unprocessable_content
+        return
+      end
+      EBird::AlertPreloadJob.perform_later(sid)
+      render json: { sid: sid }
+    end
+
+    private
+
+    # Parses "Name,SID;Name2,SID2" from EBIRD_ALERTS env var.
+    def configured_alerts
+      raw = ENV["EBIRD_ALERTS"].presence
+      return [] unless raw
+
+      raw.split(";").filter_map do |entry|
+        name, sid = entry.strip.split(",", 2).map(&:strip)
+        { name: name, sid: sid } if name.present? && sid.present?
       end
     end
   end

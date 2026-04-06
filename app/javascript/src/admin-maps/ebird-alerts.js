@@ -145,17 +145,24 @@ function escHtml(str) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  var form = document.getElementById("ebird_alerts_refresh_form");
-  if (!form) return;
+  var currentSid = new URLSearchParams(window.location.search).get("sid");
 
-  form.addEventListener("ajax:success", function () {
-    form.querySelector("button,input[type=submit]").disabled = true;
+  document.querySelectorAll(".alerts-refresh-btn").forEach(function (link) {
+    link.addEventListener("ajax:success", function () {
+      var linkSid = link.dataset.sid;
+      link.classList.add("is-loading");
 
-    var sub = consumer.subscriptions.create({ channel: "EBirdAlertsChannel" }, {
-      received: function () {
-        sub.unsubscribe();
-        window.location.reload();
-      }
+      var sub = consumer.subscriptions.create({ channel: "EBirdAlertsChannel" }, {
+        received: function (data) {
+          if (data && data.sid && data.sid !== linkSid) return;
+          sub.unsubscribe();
+          if (link.closest("li.is-active")) {
+            window.location.reload();
+          } else {
+            window.location.href = window.location.pathname + "?sid=" + encodeURIComponent(linkSid);
+          }
+        }
+      });
     });
   });
 });

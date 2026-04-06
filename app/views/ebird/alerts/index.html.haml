@@ -4,9 +4,11 @@
 - if @missing_sid
   %h1= page_header
   %p
-    No alert configured. Set the
-    %code EBIRD_ALERT_SID
-    environment variable to your eBird alert ID.
+    No alerts configured. Set the
+    %code EBIRD_ALERTS
+    environment variable (e.g.
+    %code Name,SID;Name2,SID2
+    ).
 - else
   - @body_class = "map-page"
   - @no_viewport = true
@@ -16,17 +18,24 @@
     .map-side-panel
       .alerts-panel-header
         %h3 eBird Alerts
-        %p
-          = link_to "Alert #{@sid}", "https://ebird.org/alert/summary?sid=#{@sid}", target: "_blank", rel: "noopener"
-        .alerts-panel-meta
-          %span.alerts-last-preload
-            - if @not_loaded
-              No data loaded
-            - elsif @last_preload
-              Updated
-              = I18n.with_locale(:en) { time_ago_in_words(@last_preload) }
-              ago
-          = button_to "Refresh", ebird_alerts_refresh_path, method: :post, remote: true, class: "button button--small", form: {id: "ebird_alerts_refresh_form"}
+        %ul.alerts-list
+          - @alerts.each do |alert|
+            - active = alert[:sid] == @sid
+            - last_preload = Rails.cache.read("ebird/alert_last_preload/#{alert[:sid]}")
+            %li{class: active ? "is-active" : nil}
+              .alerts-list-name
+                = link_to alert[:name], ebird_alerts_path(sid: alert[:sid])
+                = link_to "https://ebird.org/alert/summary?sid=#{alert[:sid]}", target: "_blank", rel: "noopener", class: "alerts-list-ebird-link not-green" do
+                  %i.fas.fa-external-link-alt
+              .alerts-list-meta
+                %span.alerts-last-preload
+                  - if last_preload
+                    = I18n.with_locale(:en) { time_ago_in_words(last_preload) }
+                    ago
+                  - else
+                    No data
+                = link_to ebird_alerts_refresh_path(sid: alert[:sid]), method: :post, remote: true, class: "alerts-refresh-btn not-green", data: {sid: alert[:sid]} do
+                  %i.fas.fa-arrows-rotate
       %ul.alerts-species-list
         - @species&.each do |sp|
           %li{data: {species_code: sp[:code]}}
