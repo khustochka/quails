@@ -1,4 +1,5 @@
 import { createMap, autofitMarkers } from "./map-init";
+import consumer from "../../channels/consumer";
 
 var MARKER_DEFAULT = "#1a73e8";
 var MARKER_HIGHLIGHT = "#1a73e8";
@@ -142,3 +143,19 @@ function escHtml(str) {
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;");
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+  var form = document.getElementById("ebird_alerts_refresh_form");
+  if (!form) return;
+
+  form.addEventListener("ajax:success", function () {
+    form.querySelector("button,input[type=submit]").disabled = true;
+
+    var sub = consumer.subscriptions.create({ channel: "EBirdAlertsChannel" }, {
+      received: function () {
+        sub.unsubscribe();
+        window.location.reload();
+      }
+    });
+  });
+});

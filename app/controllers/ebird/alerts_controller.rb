@@ -6,13 +6,20 @@ module EBird
   class AlertsController < ApplicationController
     administrative
 
-    def show
-      sid = params[:sid].presence || ENV["EBIRD_ALERT_SID"].presence
-      unless sid
+    def index
+      @sid = params[:sid].presence || ENV["EBIRD_ALERT_SID"].presence
+      unless @sid
         @missing_sid = true
         return
       end
-      locations = EBird::Alert.fetch(sid)
+
+      @last_preload = Rails.cache.read("ebird/alert_last_preload/#{@sid}")
+      locations = Rails.cache.read("ebird/alert_locations/#{@sid}")
+
+      if locations.blank?
+        @not_loaded = true
+        locations = []
+      end
 
       # Collect unique species codes
       codes = locations.flat_map { |loc| loc[:observations].map(&:species_code) }.uniq.compact
@@ -20,12 +27,8 @@ module EBird
       # Load EBird taxa ordered taxonomically; fall back to scraped name if not found
       ebird_taxa = EBirdTaxon.where(ebird_code: codes).order(:index_num).index_by(&:ebird_code)
 
-      obs_counts = Hash.new(0)
-      locations.each do |loc|
-        loc[:observations].each { |obs| obs_counts[obs.species_code] += 1 }
-      end
+      obs_counts = locations.flat_map { |loc| loc[:observations].map(&:species_code) }.tally
 
-      @sid = sid
       @locations_json = locations.map do |loc|
         {
           name: loc[:location].name,
@@ -38,9 +41,9 @@ module EBird
               species_code: obs.species_code,
               count: obs.count,
               date: obs.date,
-              checklist_id: obs.checklist_id
+              checklist_id: obs.checklist_id,
             }
-          end
+          end,
         }
       end.to_json
 
@@ -51,8 +54,18 @@ module EBird
           name: taxon&.name_en || first_obs&.species_name,
           sci: taxon&.name_sci || first_obs&.species_sci,
           code: code,
-          total_obs: obs_counts[code]
+          total_obs: obs_counts[code],
         }
+      end
+    end
+
+    def refresh
+      sid = params[:sid].presence || ENV["EBIRD_ALERT_SID"].presence
+      if sid
+        EBird::AlertPreloadJob.perform_later(sid)
+        render json: { sid: sid }
+      else
+        render json: { error: "No alert SID configured." }, status: :unprocessable_content
       end
     end
   end
