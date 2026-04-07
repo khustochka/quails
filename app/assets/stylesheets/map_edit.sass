@@ -141,3 +141,188 @@ form.spot-form
   background-color: #ffffcd
   padding: 5px
   margin: 0
+
+.alerts-panel-header
+  border-bottom: 1px solid #ccc
+  h3
+    margin: 0 0 4px
+    padding: 12px 12px 8px
+
+.alerts-list
+  list-style: none
+  margin: 0
+  padding: 0
+  border-top: 1px solid #eee
+  li
+    padding: 6px 12px
+    margin: 0
+    border-top: 1px solid #eee
+    &:first-child
+      border-top: none
+    &.is-active
+      background-color: #e8f0fe
+    &.is-active .alerts-list-name a:first-child
+      font-weight: bold
+  .alerts-list-name
+    display: flex
+    align-items: center
+    gap: 6px
+    font-size: 16px
+  .alerts-list-ebird-link
+    font-size: 11px
+    color: #aaa
+    text-decoration: none
+    &:hover
+      color: #555
+  .alerts-list-meta
+    display: flex
+    align-items: center
+    gap: 4px
+    font-size: 10px
+    color: #888
+  .alerts-refresh-btn
+    font-size: 16px
+    color: #888
+    text-decoration: none
+    &:hover
+      color: #333
+    &.is-loading
+      animation: spin 1s linear infinite
+      pointer-events: none
+
+@keyframes spin
+  from
+    transform: rotate(0deg)
+  to
+    transform: rotate(360deg)
+
+.alerts-last-preload
+  flex: 1
+
+.alerts-species-list
+  list-style: none
+  margin: 0
+  padding: 0
+  li
+    display: flex
+    align-items: center
+    gap: 6px
+    padding: 8px 12px
+    margin: 0
+    cursor: pointer
+    border-bottom: 1px solid #eee
+    font-size: 13px
+    &:hover
+      background-color: #f0f4ff
+    &.is-active
+      background-color: #c8d8ff
+  .alerts-species-names
+    flex: 1
+  .alerts-species-name
+    font-weight: bold
+    margin-right: 4px
+  .alerts-species-sci
+    color: #777
+    font-style: italic
+    font-size: 11px
+  .alerts-species-count
+    color: #444
+    font-size: 11px
+    white-space: nowrap
+    &::before
+      content: "×"
+
+// Desktop: sheet acts as the static side panel
+.alerts-bottom-sheet
+  order: -1
+  flex-shrink: 0
+  overflow-y: scroll
+  width: 380px
+  border-right: 1px solid #555
+  margin: 0
+  padding: 1px
+
+.alerts-bottom-sheet-handle
+  display: none
+
+.alerts-bottom-sheet-body
+  // no special styles needed on desktop
+
+@media (max-width: 768px)
+  .map-content
+    position: relative
+
+  .alerts-bottom-sheet
+    display: block
+    width: auto
+    border-right: none
+    overflow-y: visible
+    padding: 0
+    position: absolute
+    bottom: 0
+    left: 0
+    right: 0
+    z-index: 10
+    background: white
+    border-radius: 12px 12px 0 0
+    box-shadow: 0 -2px 12px rgba(0,0,0,0.15)
+    transition: transform 0.3s ease
+    transform: translateY(calc(100% - 52px))
+    &.is-expanded
+      transform: translateY(0)
+
+  .alerts-bottom-sheet-handle
+    display: flex
+    padding: 10px 16px 8px
+    cursor: pointer
+    user-select: none
+    display: flex
+    flex-direction: column
+    align-items: center
+    gap: 6px
+
+  .alerts-bottom-sheet-bar
+    width: 36px
+    height: 4px
+    background: #ccc
+    border-radius: 2px
+    flex-shrink: 0
+
+  .alerts-bottom-sheet-summary
+    width: 100%
+    display: flex
+    align-items: center
+    gap: 8px
+    font-size: 14px
+
+  .alerts-sheet-name
+    font-weight: bold
+
+  .alerts-sheet-species
+    color: #1a73e8
+    font-size: 12px
+    font-style: italic
+    flex: 1
+
+  .alerts-sheet-count
+    color: #888
+    font-size: 12px
+
+  .alerts-bottom-sheet-body
+    overflow-y: auto
+    max-height: calc(60dvh - 52px)
+
+.alerts-popup
+  max-width: 400px
+  font-size: 13px
+  ul
+    margin: 6px 0 0
+    padding-left: 16px
+  li
+    margin-bottom: 4px
+  .alerts-popup-species
+    font-weight: bold
+  a
+    color: #1a6900
+    &:hover
+      color: #1a6900
