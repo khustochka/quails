@@ -232,6 +232,86 @@ form.spot-form
     &::before
       content: "×"
 
+// Desktop: sheet acts as the static side panel
+.alerts-bottom-sheet
+  order: -1
+  flex-shrink: 0
+  overflow-y: scroll
+  width: 380px
+  border-right: 1px solid #555
+  margin: 0
+  padding: 1px
+
+.alerts-bottom-sheet-handle
+  display: none
+
+.alerts-bottom-sheet-body
+  // no special styles needed on desktop
+
+@media (max-width: 768px)
+  .map-content
+    position: relative
+
+  .alerts-bottom-sheet
+    display: block
+    width: auto
+    border-right: none
+    overflow-y: visible
+    padding: 0
+    position: absolute
+    bottom: 0
+    left: 0
+    right: 0
+    z-index: 10
+    background: white
+    border-radius: 12px 12px 0 0
+    box-shadow: 0 -2px 12px rgba(0,0,0,0.15)
+    transition: transform 0.3s ease
+    transform: translateY(calc(100% - 52px))
+    &.is-expanded
+      transform: translateY(0)
+
+  .alerts-bottom-sheet-handle
+    display: flex
+    padding: 10px 16px 8px
+    cursor: pointer
+    user-select: none
+    display: flex
+    flex-direction: column
+    align-items: center
+    gap: 6px
+
+  .alerts-bottom-sheet-bar
+    width: 36px
+    height: 4px
+    background: #ccc
+    border-radius: 2px
+    flex-shrink: 0
+
+  .alerts-bottom-sheet-summary
+    width: 100%
+    display: flex
+    align-items: center
+    gap: 8px
+    font-size: 14px
+
+  .alerts-sheet-name
+    font-weight: bold
+
+  .alerts-sheet-species
+    color: #1a73e8
+    font-size: 12px
+    font-style: italic
+    flex: 1
+
+  .alerts-sheet-count
+    color: #888
+    font-size: 12px
+
+  .alerts-bottom-sheet-body
+    overflow-y: auto
+    max-height: calc(60dvh - 52px)
+
 .alerts-popup
   max-width: 400px
   font-size: 13px

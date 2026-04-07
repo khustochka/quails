@@ -56,6 +56,13 @@ export function initEbirdAlerts(mapEl) {
   var speciesItems = document.querySelectorAll(".alerts-species-list li");
   var activeCode = null;
 
+  var sheetSpeciesEl = document.querySelector(".alerts-sheet-species");
+
+  function setSheetSpecies(name) {
+    if (!sheetSpeciesEl) return;
+    sheetSpeciesEl.textContent = name || "";
+  }
+
   speciesItems.forEach(function (li) {
     li.addEventListener("click", function () {
       var code = li.dataset.speciesCode;
@@ -64,6 +71,7 @@ export function initEbirdAlerts(mapEl) {
       if (activeCode === code) {
         activeCode = null;
         speciesItems.forEach(function (el) { el.classList.remove("is-active"); });
+        setSheetSpecies(null);
         markers.forEach(function (m) {
           m.marker.setMap(map);
           m.marker.setIcon(circleIcon(MARKER_DEFAULT));
@@ -74,6 +82,11 @@ export function initEbirdAlerts(mapEl) {
       activeCode = code;
       speciesItems.forEach(function (el) { el.classList.remove("is-active"); });
       li.classList.add("is-active");
+      var name = li.querySelector(".alerts-species-name");
+      setSheetSpecies(name ? name.textContent : code);
+
+      var bottomSheet = document.querySelector(".alerts-bottom-sheet");
+      if (bottomSheet) bottomSheet.classList.remove("is-expanded");
 
       var highlighted = speciesMarkers[code] || [];
       markers.forEach(function (m, i) {
@@ -145,6 +158,15 @@ function escHtml(str) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+  // Bottom sheet (mobile)
+  var sheet = document.querySelector(".alerts-bottom-sheet");
+  if (sheet) {
+    var handle = sheet.querySelector(".alerts-bottom-sheet-handle");
+    handle.addEventListener("click", function () {
+      sheet.classList.toggle("is-expanded");
+    });
+  }
+
   var currentSid = new URLSearchParams(window.location.search).get("sid");
 
   document.querySelectorAll(".alerts-refresh-btn").forEach(function (link) {
