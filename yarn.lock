@@ -3,9 +3,9 @@
 
 
 "@canvasjs/charts@^3.15.15":
-  version "3.15.15"
-  resolved "https://registry.yarnpkg.com/@canvasjs/charts/-/charts-3.15.15.tgz#fd52f927d48ab789d4413a5eab2c9cebb8e43b22"
-  integrity sha512-LbDOEpemi48VWXDshypx/lB7a0/ondj3UL2yeHeIEJXIBuCK+SvfDN5toJsfVOSZEoU+9FmLQ+3o1Bl/XeFV8g==
+  version "3.15.16"
+  resolved "https://registry.yarnpkg.com/@canvasjs/charts/-/charts-3.15.16.tgz#db0fdbf34be009fe668abf7bfbab058260f16b30"
+  integrity sha512-xdL+1BFrHk0+Ovik17arXXNFKXxH6LVhOpQQFITeEwhXTgaMmiwDjdeXAAS5fqK/sGcEE6wMxue/dnURKCmXng==
 
 "@csstools/normalize.css@^12.0.0":
   version "12.1.1"
