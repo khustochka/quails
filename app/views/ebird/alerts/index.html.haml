@@ -31,7 +31,7 @@
           %ul.alerts-list
             - @alerts.each do |alert|
               - active = alert[:sid] == @sid
-              - last_preload = Rails.cache.read("ebird/alert_last_preload/#{alert[:sid]}")
+              - last_preload = @last_preloads[alert[:sid]]
               %li{class: active ? "is-active" : nil}
                 .alerts-list-name
                   = link_to alert[:name], ebird_alerts_path(sid: alert[:sid])

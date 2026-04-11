@@ -17,7 +17,9 @@ module EBird
       # Ensure the requested sid is actually configured
       @sid = @alerts.first[:sid] unless @alerts.any? { |a| a[:sid] == @sid }
 
-      @last_preload = Rails.cache.read("ebird/alert_last_preload/#{@sid}")
+      preload_keys = @alerts.map { |a| "ebird/alert_last_preload/#{a[:sid]}" }
+      preloads = Rails.cache.read_multi(*preload_keys)
+      @last_preloads = @alerts.to_h { |a| [a[:sid], preloads["ebird/alert_last_preload/#{a[:sid]}"]] }
       locations = Rails.cache.read("ebird/alert_locations/#{@sid}")
 
       if locations.blank?
