@@ -15,12 +15,11 @@ export function initEbirdAlerts(mapEl) {
   var speciesMarkers = {};
 
   locations.forEach(function (loc, i) {
-    var speciesCodes = [];
+    var codeSet = new Set();
     loc.observations.forEach(function (obs) {
-      if (obs.species_code && speciesCodes.indexOf(obs.species_code) === -1) {
-        speciesCodes.push(obs.species_code);
-      }
+      if (obs.species_code) codeSet.add(obs.species_code);
     });
+    var speciesCodes = Array.from(codeSet);
 
     var label = String(speciesCodes.length);
 
@@ -166,8 +165,6 @@ document.addEventListener("DOMContentLoaded", function () {
       sheet.classList.toggle("is-expanded");
     });
   }
-
-  var currentSid = new URLSearchParams(window.location.search).get("sid");
 
   document.querySelectorAll(".alerts-refresh-btn").forEach(function (link) {
     link.addEventListener("ajax:success", function () {
