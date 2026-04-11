@@ -25,9 +25,13 @@ module EBird
         locations = []
       end
 
-      codes = locations.flat_map { |loc| loc[:observations].map(&:species_code) }.uniq.compact
+      all_observations = locations.flat_map { |loc| loc[:observations] }
+      obs_counts = all_observations.each_with_object(Hash.new(0)) { |obs, h| h[obs.species_code] += 1 if obs.species_code }
+      first_obs_by_code = all_observations.each_with_object({}) do |obs, h|
+        h[obs.species_code] ||= obs if obs.species_code
+      end
+      codes = obs_counts.keys
       ebird_taxa = EBirdTaxon.where(ebird_code: codes).order(:index_num).index_by(&:ebird_code)
-      obs_counts = locations.flat_map { |loc| loc[:observations].map(&:species_code) }.tally
 
       @locations_json = locations.map do |loc|
         {
@@ -49,7 +53,7 @@ module EBird
 
       @species = codes.sort_by { |code| ebird_taxa[code]&.index_num || Float::INFINITY }.map do |code|
         taxon = ebird_taxa[code]
-        first_obs = locations.flat_map { |l| l[:observations] }.find { |o| o.species_code == code }
+        first_obs = first_obs_by_code[code]
         {
           name: taxon&.name_en || first_obs&.species_name,
           sci: taxon&.name_sci || first_obs&.species_sci,
