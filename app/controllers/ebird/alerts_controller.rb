@@ -71,15 +71,8 @@ module EBird
 
     private
 
-    # Parses "Name,SID;Name2,SID2" from EBIRD_ALERTS env var.
     def configured_alerts
-      raw = ENV["EBIRD_ALERTS"].presence
-      return [] unless raw
-
-      raw.split(";").filter_map do |entry|
-        name, sid = entry.strip.split(",", 2).map(&:strip)
-        { name: name, sid: sid } if name.present? && sid.present?
-      end
+      EBird::Alert.configured
     end
   end
 end

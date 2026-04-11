@@ -7,6 +7,17 @@ module EBird
     Location = Data.define(:name, :lat, :lng)
     Observation = Data.define(:species_name, :species_sci, :species_code, :count, :date, :checklist_id, :observer)
 
+    # Parses "Name,SID;Name2,SID2" from EBIRD_ALERTS env var.
+    def self.configured
+      raw = ENV["EBIRD_ALERTS"].presence
+      return [] unless raw
+
+      raw.split(";").filter_map do |entry|
+        name, sid = entry.strip.split(",", 2).map(&:strip)
+        { name: name, sid: sid } if name.present? && sid.present?
+      end
+    end
+
     def self.fetch(sid)
       client = EBird::Client.new
       client.authenticate
