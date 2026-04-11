@@ -38,11 +38,30 @@ class SpeciesController < ApplicationController
         redirect_to @species, status: :moved_permanently
         # TODO: maybe show as a page but set different canonical, NOINDEX. Or redirect but show "redirected from" Like Wikipedia.
       else
-        if @species.observations.any?
+        @observations_count = @species.observations.count
+        if @observations_count.positive?
           @posts = @species.posts.limit(10).merge(current_user.available_posts)
           countries = Country.select(:id, :slug, :ancestry).to_a
-          @months = countries.to_h do |country|
-            [country.slug, @species.cards.except(:order).where(locus_id: country.subregion_ids).distinct.pluck(Arel.sql("EXTRACT(month FROM observ_date)::integer"))]
+          subregion_ids_by_country = countries.index_with { |c| c.subregion_ids.to_set }
+          country_for_locus_id = {}
+          countries.each do |country|
+            subregion_ids_by_country[country].each { |lid| country_for_locus_id[lid] = country }
+          end
+
+          # Single query: distinct (locus_id, month) pairs for this species.
+          locus_months = @species.cards.except(:order)
+            .distinct
+            .pluck(:locus_id, Arel.sql("EXTRACT(month FROM observ_date)::integer"))
+
+          months_by_country = Hash.new { |h, k| h[k] = Set.new }
+          locus_months.each do |locus_id, month|
+            country = country_for_locus_id[locus_id]
+            months_by_country[country.slug] << month if country
+          end
+          @months = countries.to_h { |c| [c.slug, months_by_country[c.slug].to_a] }
+
+          @grouped_loci = @species.loci.distinct.to_a.group_by do |locus|
+            country_for_locus_id[locus.id]&.slug
           end
         else
           @robots = "NOINDEX"

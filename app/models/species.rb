@@ -107,14 +107,6 @@ class Species < ApplicationRecord
     all.map(&:to_thumbnail)
   end
 
-  def grouped_loci
-    countries = Country.select(:id, :slug, :ancestry).to_a
-    subregions = countries.index_with(&:subregion_ids)
-    loci.distinct.group_by do |locus|
-      countries.find { |c| locus.id.in?(subregions[c]) }&.slug
-    end
-  end
-
   def main_taxon
     taxa.where(category: "species").first
   end
