@@ -65,7 +65,7 @@ module EBird
         render json: { error: "Unknown or missing alert SID." }, status: :unprocessable_content
         return
       end
-      EBird::AlertPreloadJob.perform_later(sid)
+      EBird::AlertPreloadJob.set(priority: 100).perform_later(sid)
       render json: { sid: sid }
     end
 

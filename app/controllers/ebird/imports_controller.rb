@@ -19,7 +19,7 @@ module EBird
         GoodJob::Batch.enqueue do
           checklists.each do |cl|
             if cl[:locus_id].present?
-              EBird::ChecklistImportJob.perform_later(cl[:ebird_id], cl[:locus_id])
+              EBird::ChecklistImportJob.set(priority: 0).perform_later(cl[:ebird_id], cl[:locus_id])
               preloaded.delete_if {|el| el.ebird_id == cl[:ebird_id]}
             end
           end
@@ -40,7 +40,7 @@ module EBird
     end
 
     def refresh
-      EBird::ChecklistPreloadJob.perform_later
+      EBird::ChecklistPreloadJob.set(priority: 100).perform_later
       if request.xhr?
         render json: {}
       else

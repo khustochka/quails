@@ -17,7 +17,7 @@ module EBird
       card.resolved = true
       card.save!
       if fix_checklists?
-        EBird::ChecklistFixJob.set(priority: 100).perform_later(ebird_id)
+        EBird::ChecklistFixJob.set(priority: 300).perform_later(ebird_id)
       end
     end
 

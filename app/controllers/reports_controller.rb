@@ -376,7 +376,7 @@ class ReportsController < ApplicationController
   end
 
   def clear_cache
-    ClearCacheJob.perform_later
+    ClearCacheJob.set(priority: 0).perform_later
     redirect_to reports_path
   end
 

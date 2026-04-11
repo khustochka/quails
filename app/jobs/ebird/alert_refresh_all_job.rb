@@ -8,7 +8,7 @@ module EBird
 
     def perform
       EBird::Alert.configured.each do |alert|
-        EBird::AlertPreloadJob.perform_later(alert[:sid])
+        EBird::AlertPreloadJob.set(priority: 200).perform_later(alert[:sid])
       end
     end
   end
