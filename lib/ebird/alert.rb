@@ -19,10 +19,7 @@ module EBird
     end
 
     def self.fetch(sid)
-      client = EBird::Client.new
-      client.authenticate
-      agent = client.instance_variable_get(:@agent)
-      page = agent.get("https://ebird.org/alert/summary?sid=#{sid}")
+      page = EBird::Client.new.get("https://ebird.org/alert/summary?sid=#{sid}")
       parse(page)
     end
 
