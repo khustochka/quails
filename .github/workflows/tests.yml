@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-24.04
     services:
       postgres:
-        image: postgres:18.0-trixie
+        image: postgres:18.3-trixie
         ports:
           - "5432:5432"
         options: >-
@@ -64,7 +64,7 @@ jobs:
     #         js_browser: firefox
     services:
       postgres:
-        image: postgres:18.0-trixie
+        image: postgres:18.3-trixie
         ports:
           - "5432:5432"
         options: >-
