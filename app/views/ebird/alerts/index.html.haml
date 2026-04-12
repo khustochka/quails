@@ -32,7 +32,7 @@
             - @alerts.each do |alert|
               - active = alert[:sid] == @sid
               - last_preload = @last_preloads[alert[:sid]]
-              %li{class: active ? "is-active" : nil}
+              %li{class: active ? "is-active" : nil, data: {link: ebird_alerts_path(sid: alert[:sid])}}
                 .alerts-list-name
                   = link_to alert[:name], ebird_alerts_path(sid: alert[:sid])
                   = link_to "https://ebird.org/alert/summary?sid=#{alert[:sid]}", target: "_blank", rel: "noopener", class: "alerts-list-ebird-link not-green" do

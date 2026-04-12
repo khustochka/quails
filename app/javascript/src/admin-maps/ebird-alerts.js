@@ -166,6 +166,16 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  document.querySelector(".alerts-list").addEventListener('click', e => {
+    const card = e.target.closest('li[data-link');
+    if (!card) return;
+
+    // If user clicked a real link, do nothing
+    if (e.target.closest('a')) return;
+
+    window.location = card.dataset.link;
+  });
+
   document.querySelectorAll(".alerts-refresh-btn").forEach(function (link) {
     link.addEventListener("ajax:success", function () {
       var linkSid = link.dataset.sid;
