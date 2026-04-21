@@ -157,10 +157,10 @@ GEM
     css_parser (2.0.0)
       addressable
     csv (3.3.5)
-    datadog (2.30.0)
+    datadog (2.31.0)
       cgi
       datadog-ruby_core_source (~> 3.5, >= 3.5.2)
-      libdatadog (~> 29.0.0.1.0)
+      libdatadog (~> 30.0.0.1.0)
       libddwaf (~> 1.30.0.0.0)
       logger
       msgpack
@@ -202,7 +202,7 @@ GEM
       dry-inflector (~> 1.0)
       dry-logic (~> 1.4)
       zeitwerk (~> 2.6)
-    erb (6.0.3)
+    erb (6.0.4)
     erubi (1.13.1)
     et-orbi (1.4.0)
       tzinfo
@@ -263,7 +263,7 @@ GEM
       logger
       ostruct
     htmlentities (4.4.2)
-    http-cookie (1.1.4)
+    http-cookie (1.1.6)
       domain_name (~> 0.5)
     i18n (1.14.8)
       concurrent-ruby (~> 1.0)
@@ -279,7 +279,7 @@ GEM
     jmespath (1.6.2)
     jsbundling-rails (1.3.1)
       railties (>= 6.0.0)
-    json (2.19.3)
+    json (2.19.4)
     kaminari (1.2.2)
       activesupport (>= 4.1.0)
       kaminari-actionview (= 1.2.2)
@@ -304,9 +304,9 @@ GEM
       letter_opener (~> 1.9)
       railties (>= 6.1)
       rexml
-    libdatadog (29.0.0.1.0-aarch64-linux)
-    libdatadog (29.0.0.1.0-arm64-darwin)
-    libdatadog (29.0.0.1.0-x86_64-linux)
+    libdatadog (30.0.0.1.0-aarch64-linux)
+    libdatadog (30.0.0.1.0-arm64-darwin)
+    libdatadog (30.0.0.1.0-x86_64-linux)
     libddwaf (1.30.0.0.2-aarch64-linux)
       ffi (~> 1.0)
     libddwaf (1.30.0.0.2-arm64-darwin)
@@ -356,7 +356,7 @@ GEM
     mini_magick (5.3.1)
       logger
     mini_mime (1.1.5)
-    minitest (6.0.4)
+    minitest (6.0.5)
       drb (~> 2.0)
       prism (~> 1.5)
     minitest-reporters (1.8.0)
@@ -759,7 +759,7 @@ CHECKSUMS
   crass (1.0.6) sha256=dc516022a56e7b3b156099abc81b6d2b08ea1ed12676ac7a5657617f012bd45d
   css_parser (2.0.0) sha256=af5c759a127b125b635006a6c6c2e05b96a1ebdeec21b3c415fd5f09ec714a0a
   csv (3.3.5) sha256=6e5134ac3383ef728b7f02725d9872934f523cb40b961479f69cf3afa6c8e73f
-  datadog (2.30.0) sha256=f476c66d175d16ac3d8e92035603a29abbb5f43a62f26315829bedc8b61485c1
+  datadog (2.31.0) sha256=649316866d784495dee38131e4131596bd66d9714fb757e4eb69a15f1211afbf
   datadog-ruby_core_source (3.5.2) sha256=c379c012eca11d6c58b112d716a986d051fb566a436d58f46cde7cfec43cb299
   date (3.5.1) sha256=750d06384d7b9c15d562c76291407d89e368dda4d4fff957eb94962d325a0dc0
   debug (1.11.1) sha256=2e0b0ac6119f2207a6f8ac7d4a73ca8eb4e440f64da0a3136c30343146e952b6
@@ -774,7 +774,7 @@ CHECKSUMS
   dry-logic (1.6.0) sha256=da6fedbc0f90fc41f9b0cc7e6f05f5d529d1efaef6c8dcc8e0733f685745cea2
   dry-schema (1.16.0) sha256=cd3aaeabc0f1af66ec82a29096d4c4fb92a0a58b9dae29a22b1bbceb78985727
   dry-types (1.9.1) sha256=baebeecdb9f8395d6c9d227b62011279440943e3ef2468fe8ccc1ba11467f178
-  erb (6.0.3) sha256=e43685a8a0a0ea6a924871b2162e8953ef73147ce46b75b36d1f6774fd286e91
+  erb (6.0.4) sha256=38e3803694be357fe2bfe312487c74beaf9fb4e5beb3e22498952fe1645b95d9
   erubi (1.13.1) sha256=a082103b0885dbc5ecf1172fede897f9ebdb745a4b97a5e8dc63953db1ee4ad9
   et-orbi (1.4.0) sha256=6c7e3c90779821f9e3b324c5e96fda9767f72995d6ae435b96678a4f3e2de8bc
   factory_bot (6.5.6) sha256=12beb373214dccc086a7a63763d6718c49769d5606f0501e0a4442676917e077
@@ -799,14 +799,14 @@ CHECKSUMS
   hiredis-client (0.28.0) sha256=0f0cb7db49c350d97d38f6591c9f7033b53ef97dc07ff09436c547c9e520f29d
   honeybadger (6.5.5) sha256=bb42c7da748f72961520056ef49ab63abd886d62fd3e7bc45f095c15f7094ca7
   htmlentities (4.4.2) sha256=bbafbdf69f2eca9262be4efef7e43e6a1de54c95eb600f26984f71d2fe96c5c3
-  http-cookie (1.1.4) sha256=8dd8011dedcae5f91af2671b7ba878c4a9e89f0f6384790c1f4cdd176f5e3ada
+  http-cookie (1.1.6) sha256=ba4b82be64de61dc281243dac70e3c382c45142f20268ed9276a3670c93feaa9
   i18n (1.14.8) sha256=285778639134865c5e0f6269e0b818256017e8cde89993fdfcbfb64d088824a5
   image_processing (1.14.0) sha256=754cc169c9c262980889bec6bfd325ed1dafad34f85242b5a07b60af004742fb
   io-console (0.8.2) sha256=d6e3ae7a7cc7574f4b8893b4fca2162e57a825b223a177b7afa236c5ef9814cc
   irb (1.17.0) sha256=168c4ddb93d8a361a045c41d92b2952c7a118fa73f23fe14e55609eb7a863aae
   jmespath (1.6.2) sha256=238d774a58723d6c090494c8879b5e9918c19485f7e840f2c1c7532cf84ebcb1
   jsbundling-rails (1.3.1) sha256=0fa03f6d051c694cbf55a022d8be53399879f2c4cf38b2968f86379c62b1c2ca
-  json (2.19.3) sha256=289b0bb53052a1fa8c34ab33cc750b659ba14a5c45f3fcf4b18762dc67c78646
+  json (2.19.4) sha256=670a7d333fb3b18ca5b29cb255eb7bef099e40d88c02c80bd42a3f30fe5239ac
   kaminari (1.2.2) sha256=c4076ff9adccc6109408333f87b5c4abbda5e39dc464bd4c66d06d9f73442a3e
   kaminari-actionview (1.2.2) sha256=1330f6fc8b59a4a4ef6a549ff8a224797289ebf7a3a503e8c1652535287cc909
   kaminari-activerecord (1.2.2) sha256=0dd3a67bab356a356f36b3b7236bcb81cef313095365befe8e98057dd2472430
@@ -815,9 +815,9 @@ CHECKSUMS
   launchy (3.1.1) sha256=72b847b5cc961589dde2c395af0108c86ff0119f42d4648d25b5440ebb10059e
   letter_opener (1.10.0) sha256=2ff33f2e3b5c3c26d1959be54b395c086ca6d44826e8bf41a14ff96fdf1bdbb2
   letter_opener_web (3.0.0) sha256=3f391efe0e8b9b24becfab5537dfb17a5cf5eb532038f947daab58cb4b749860
-  libdatadog (29.0.0.1.0-aarch64-linux) sha256=e3416554a2db2dfb8ab8d7e7c5afcbf8e584a4716775225e79c4693e72b926ca
-  libdatadog (29.0.0.1.0-arm64-darwin) sha256=bdc6cce3790c60ff1b2766424817915df14981166bd9004dad9706d0be5dd3cf
-  libdatadog (29.0.0.1.0-x86_64-linux) sha256=33968ad89c3c9fde7b323fd94b6f954b57d06c6126c70fcc5742f397f8d0ef3a
+  libdatadog (30.0.0.1.0-aarch64-linux) sha256=d446f79fb4471d94e5ba12ec7d94b66becf83e2f53e433fc33ab384bc29b0623
+  libdatadog (30.0.0.1.0-arm64-darwin) sha256=252d1afdd0a23246984f6d66cb284af04c5c906fa43703e938083f3ca51efe37
+  libdatadog (30.0.0.1.0-x86_64-linux) sha256=be005fe6f79403abcc4de04f0650a10be2ae1ddc2e22069e1a956439065a8df1
   libddwaf (1.30.0.0.2-aarch64-linux) sha256=f4d8498cce66cb30d81f46bb046b11c3a2202e21ca73c9edb80c3a37939a3dc2
   libddwaf (1.30.0.0.2-arm64-darwin) sha256=cbbec7eee8fe7dbdc6c11bf1429fcfc217fad84e822fc6f252cb1c45daf663cc
   libddwaf (1.30.0.0.2-x86_64-linux) sha256=d6f628bfb91a7f89a4ef702c3fce3991ec0678c50031128b70799fde8362111d
@@ -835,7 +835,7 @@ CHECKSUMS
   mime-types-data (3.2026.0414) sha256=461c4c655373a44bd6c5fe54bcf5b7776026ea96e808144b1ec465c4b99148cc
   mini_magick (5.3.1) sha256=29395dfd76badcabb6403ee5aff6f681e867074f8f28ce08d78661e9e4a351c4
   mini_mime (1.1.5) sha256=8681b7e2e4215f2a159f9400b5816d85e9d8c6c6b491e96a12797e798f8bccef
-  minitest (6.0.4) sha256=df1304664589d40f46089247fdc451f866b0ce0d7cae1457a15fc1eb7d48dca1
+  minitest (6.0.5) sha256=f007d7246bf4feea549502842cd7c6aba8851cdc9c90ba06de9c476c0d01155c
   minitest-reporters (1.8.0) sha256=8ce5280fb73ad3178ae525454df169b6f28c1b38b1d088ea91815d3a370ba384
   msgpack (1.8.0) sha256=e64ce0212000d016809f5048b48eb3a65ffb169db22238fb4b72472fecb2d732
   net-http-digest_auth (1.4.1) sha256=4b8ad50ed8d180a58db5d6c49449b987dd0466fe01e24037945bc007562a08db
