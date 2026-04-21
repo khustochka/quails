@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_21_144232) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_21_154238) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -91,6 +91,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_21_144232) do
     t.string "unsubscribe_token", limit: 25
     t.datetime "updated_at", precision: nil, null: false
     t.string "url", limit: 255
+    t.index ["commenter_id"], name: "index_comments_on_commenter_id", where: "(commenter_id IS NOT NULL)"
+    t.index ["parent_id"], name: "index_comments_on_parent_id"
     t.index ["post_id"], name: "index_comments_on_post_id"
   end
 
