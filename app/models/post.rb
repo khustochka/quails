@@ -196,9 +196,7 @@ class Post < ApplicationRecord
 
   def sibling_post(source: Post.public_posts)
     sibling_langs = cyrillic? ? "en" : COMPATIBLE_LANGUAGES[:uk]
-    scoped = source.where(lang: sibling_langs)
-    @sibling_post = scoped.find_by(slug: slug) ||
-      scoped.find_by(legacy_slug: slug)
+    @sibling_post = source.where(lang: sibling_langs).find_by(slug: slug)
   end
 
   def observation_post
@@ -215,21 +213,18 @@ class Post < ApplicationRecord
   end
 
   def localized_versions(source: Post.public_posts)
-    en_post = find_for_lang("en", source)
-    uk_post = find_for_lang("uk", source) || find_for_lang("ru", source)
-    ru_post = find_for_lang("ru", source) || find_for_lang("uk", source)
+    siblings = source.select(:id, :slug, :lang, :face_date, :status)
+      .where(slug: slug).index_by(&:lang)
+    siblings[lang] = self
 
-    { en: en_post, uk: uk_post, ru: ru_post }
+    {
+      en: siblings["en"],
+      uk: siblings["uk"] || siblings["ru"],
+      ru: siblings["ru"] || siblings["uk"],
+    }
   end
 
   private
-
-  def find_for_lang(target_lang, source)
-    return self if lang == target_lang
-
-    scoped = source.where(lang: target_lang)
-    scoped.find_by(slug: slug) || scoped.find_by(legacy_slug: slug)
-  end
 
   def set_face_date
     if self[:face_date].blank?

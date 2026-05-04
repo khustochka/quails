@@ -87,13 +87,6 @@ class PostTest < ActiveSupport::TestCase
     assert_equal uk_post, versions[:ru]
   end
 
-  test "sibling_post finds legacy English translation by legacy_slug" do
-    uk_post = create(:post, slug: "kyiv-trip", lang: "uk")
-    en_post = create(:post, slug: "kyiv-trip", legacy_slug: "kyiv-trip-en", lang: "en")
-    # Sibling slug is "kyiv-trip" — finds by slug directly
-    assert_equal en_post, uk_post.sibling_post
-  end
-
   test "slug cannot contain space" do
     blogpost = build(:post, slug: "kyiv observations")
     assert_not_predicate blogpost, :valid?
