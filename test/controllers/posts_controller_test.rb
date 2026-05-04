@@ -108,7 +108,7 @@ class PostsControllerTest < ActionController::TestCase
     post_attr = blogpost.attributes.except("lj_data")
     post_attr["slug"] = ""
     login_as_admin
-    put :update, params: { id: blogpost.slug, post: post_attr }
+    put :update, params: { id: blogpost.to_param, post: post_attr }
     assert_template :form
     assert_select "form[action='#{post_path(blogpost)}']"
   end
@@ -120,6 +120,36 @@ class PostsControllerTest < ActionController::TestCase
       delete :destroy, params: { id: blogpost.to_param }
     end
     assert_redirected_to blog_url
+  end
+
+  test "edit picks the right post by id when slug is shared across languages" do
+    uk_post = create(:post, lang: "uk", slug: "shared-slug", title: "UK title")
+    en_post = create(:post, lang: "en", slug: "shared-slug", title: "EN title")
+    login_as_admin
+    get :edit, params: { id: en_post.to_param }
+    assert_response :success
+    assert_equal en_post, assigns(:post)
+    assert_not_equal uk_post, assigns(:post)
+  end
+
+  test "update affects only the post matching the id when slug is shared" do
+    uk_post = create(:post, lang: "uk", slug: "shared-slug", title: "UK title")
+    en_post = create(:post, lang: "en", slug: "shared-slug", title: "EN title")
+    login_as_admin
+    put :update, params: { id: en_post.to_param, post: { title: "EN updated" } }
+    assert_equal "EN updated", en_post.reload.title
+    assert_equal "UK title", uk_post.reload.title
+  end
+
+  test "destroy removes only the post matching the id when slug is shared" do
+    uk_post = create(:post, lang: "uk", slug: "shared-slug")
+    en_post = create(:post, lang: "en", slug: "shared-slug")
+    login_as_admin
+    assert_difference("Post.count", -1) do
+      delete :destroy, params: { id: en_post.to_param }
+    end
+    assert_not Post.exists?(en_post.id)
+    assert Post.exists?(uk_post.id)
   end
 
   test "redirect post to correct URL if year and month are incorrect" do

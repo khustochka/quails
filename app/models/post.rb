@@ -60,12 +60,6 @@ class Post < ApplicationRecord
     Time.zone.parse(read_attribute(:face_date).strftime("%F %T"))
   end
 
-  # Parameters
-
-  def to_param
-    slug_was
-  end
-
   def to_partial_path
     if shout?
       "posts/shout"
@@ -166,7 +160,7 @@ class Post < ApplicationRecord
   end
 
   def to_url_params
-    { id: slug, year: year, month: month }
+    { id: slug_was, year: year, month: month }
   end
 
   def lj_url

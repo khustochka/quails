@@ -138,13 +138,13 @@ Rails.application.routes.draw do
   end
 
   direct :public_post do |blogpost, options|
-    route_for(:show_post, options.merge(year: blogpost.year, month: blogpost.month, id: blogpost.to_param))
+    route_for(:show_post, options.merge(blogpost.to_url_params))
   end
 
   direct :public_comment do |comment, options|
     # Using `comment.post` breaks Brakeman (post is an http verb)
     comment.public_send(:post).yield_self do |blogpost| # rubocop:disable Style/SendWithLiteralMethodName
-      route_for(:show_post, options.merge(year: blogpost.year, month: blogpost.month, id: blogpost.to_param, anchor: "comment#{comment.id}"))
+      route_for(:show_post, options.merge(blogpost.to_url_params).merge(anchor: "comment#{comment.id}"))
     end
   end
 
