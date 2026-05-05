@@ -32,6 +32,15 @@ class Observation < ApplicationRecord
     end
   end
 
+  validate :post_must_be_canonical, if: :post_id_changed?
+
+  def post_must_be_canonical
+    return if post_id.blank?
+    return if post&.canonical_for_observations?
+
+    errors.add(:post, "must be the canonical post for its slug")
+  end
+
   # Scopes
 
   scope :identified, lambda { joins(:taxon).merge(Taxon.listable) }

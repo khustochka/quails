@@ -70,7 +70,7 @@ class Post < ApplicationRecord
   scope :public_posts, lambda { where("posts.status <> 'PRIV'") }
   scope :hidden, lambda { where(status: "PRIV") }
   scope :indexable, lambda { public_posts.where("status NOT IN ('NIDX', 'SHOT')") }
-  scope :short_form, -> { select(:id, :slug, :face_date, :title, :status) }
+  scope :short_form, -> { select(:id, :slug, :face_date, :title, :status, :canonical_for_observations) }
   scope :facebook_publishable, -> { public_posts.where(publish_to_facebook: true) }
 
   def self.for_locale(locale)

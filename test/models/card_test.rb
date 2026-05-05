@@ -91,4 +91,18 @@ class CardTest < ActiveSupport::TestCase
     p.destroy
     assert_nil card.reload.post_id
   end
+
+  test "card cannot be attached to a non-canonical post" do
+    create(:post, slug: "kyiv-trip", lang: "uk")
+    en_post = create(:post, slug: "kyiv-trip", lang: "en")
+    card = build(:card, post: en_post)
+    assert_not_predicate card, :valid?
+    assert_includes card.errors[:post], "must be the canonical post for its slug"
+  end
+
+  test "card can be attached to a canonical post" do
+    canonical = create(:post, slug: "kyiv-trip", lang: "uk")
+    card = build(:card, post: canonical)
+    assert_predicate card, :valid?
+  end
 end

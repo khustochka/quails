@@ -39,6 +39,7 @@ class Card < ApplicationRecord
   validates :start_time, :duration_minutes, :area_acres, presence: true, on: :area
   validates :start_time, :duration_minutes, presence: true, on: :stationary
   validates :ebird_id, uniqueness: true, allow_blank: true
+  validate :post_must_be_canonical, if: :post_id_changed?
 
   accepts_nested_attributes_for :observations,
     reject_if: proc { |attrs| attrs.all? { |k, v| v.blank? || k.in?(%w(voice hidden)) } }
@@ -117,6 +118,13 @@ class Card < ApplicationRecord
   # HISTORICAL is neither incidental, nor non-incidental
   def incidental?
     effort_type == "INCIDENTAL"
+  end
+
+  def post_must_be_canonical
+    return if post_id.blank?
+    return if post&.canonical_for_observations?
+
+    errors.add(:post, "must be the canonical post for its slug")
   end
 
   class << self
