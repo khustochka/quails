@@ -41,17 +41,11 @@ class Post < ApplicationRecord
   #  },
   #           through: :observations
 
-  after_initialize do
-    set_face_date
-  end
-
-  before_validation do
-    set_face_date
-  end
+  before_validation :set_face_date_if_blank
 
   before_validation do
     if shout? && slug.blank?
-      self.slug = "shout-#{face_date.strftime("%Y%m%d%H%M")}"
+      self.slug = "shout-#{face_date.strftime("%Y%m%d")}-#{SecureRandom.hex(3)}"
     end
   end
 
@@ -230,10 +224,11 @@ class Post < ApplicationRecord
 
   private
 
-  def set_face_date
-    if self[:face_date].blank?
-      self.face_date = Time.current.strftime("%F %T")
-    end
+  def set_face_date_if_blank
+    return unless has_attribute?(:face_date)
+    return if self[:face_date].present?
+
+    self.face_date = Time.current.strftime("%F %T")
   end
 
   def check_cover_image_slug_or_url

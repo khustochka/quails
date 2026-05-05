@@ -72,7 +72,8 @@ class PostsController < ApplicationController
 
   # GET /posts/new
   def new
-    @post = Post.new({ topic: "OBSR", status: "PRIV" }.merge(params[:post] || {}))
+    defaults = { topic: "OBSR", status: "PRIV", face_date: Time.current.strftime("%F %T") }
+    @post = Post.new(defaults.merge(params[:post] || {}))
     render "form"
   end
 
