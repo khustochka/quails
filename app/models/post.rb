@@ -29,6 +29,7 @@ class Post < ApplicationRecord
   validates :status, inclusion: STATES, presence: true, length: { maximum: 4 }
 
   validate :check_cover_image_slug_or_url
+  validate :only_one_canonical_per_slug, if: -> { canonical_for_observations? && (new_record? || slug_changed? || canonical_for_observations_changed?) }
 
   has_many :comments, dependent: :destroy
   has_many :cards, -> { order(:observ_date, :locus_id) }, dependent: :nullify, inverse_of: :post
@@ -48,6 +49,8 @@ class Post < ApplicationRecord
       self.slug = "shout-#{face_date.strftime("%Y%m%d")}-#{SecureRandom.hex(3)}"
     end
   end
+
+  before_validation :assign_canonical_for_observations, on: :create
 
   # Convert "timezone-less" face_date to local time zone because AR treats it as UTC (especially necessary for feed updated time)
   def face_date
@@ -192,11 +195,11 @@ class Post < ApplicationRecord
     return @observation_post if defined?(@observation_post)
 
     @observation_post =
-      if cyrillic?
+      if canonical_for_observations?
         self
       else
-        Post.where(lang: COMPATIBLE_LANGUAGES[:uk], slug: slug)
-          .order(Arel.sql("lang = 'uk' DESC")).first || self
+        Post.find_by(slug: slug, canonical_for_observations: true) ||
+          raise("Post #{id} (slug=#{slug}) has no canonical sibling")
       end
   end
 
@@ -229,6 +232,20 @@ class Post < ApplicationRecord
     return if self[:face_date].present?
 
     self.face_date = Time.current.strftime("%F %T")
+  end
+
+  def assign_canonical_for_observations
+    return unless canonical_for_observations.nil?
+
+    self.canonical_for_observations = !Post.exists?(slug: slug, canonical_for_observations: true)
+  end
+
+  def only_one_canonical_per_slug
+    scope = Post.where(slug: slug, canonical_for_observations: true)
+    scope = scope.where.not(id: id) if persisted?
+    if scope.exists?
+      errors.add(:canonical_for_observations, "another post with this slug is already canonical")
+    end
   end
 
   def check_cover_image_slug_or_url

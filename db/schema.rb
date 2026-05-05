@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_21_154238) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_05_024409) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -349,6 +349,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_21_154238) do
 
   create_table "posts", id: :serial, force: :cascade do |t|
     t.text "body", null: false
+    t.boolean "canonical_for_observations", null: false
     t.datetime "commented_at", precision: nil
     t.string "cover_image_slug"
     t.datetime "face_date", precision: nil, null: false
@@ -364,6 +365,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_21_154238) do
     t.index ["face_date"], name: "index_posts_on_face_date"
     t.index ["legacy_slug"], name: "index_posts_on_legacy_slug", unique: true, where: "(legacy_slug IS NOT NULL)"
     t.index ["slug", "lang"], name: "index_posts_on_slug_and_lang", unique: true
+    t.index ["slug"], name: "index_posts_on_canonical_slug", unique: true, where: "canonical_for_observations"
   end
 
   create_table "settings", force: :cascade do |t|

@@ -37,33 +37,40 @@ class PostTest < ActiveSupport::TestCase
     assert_predicate blogpost, :valid?
   end
 
-  test "observation_post returns self for cyrillic post" do
+  test "first post in a slug-group is auto-marked canonical" do
+    uk_post = create(:post, slug: "kyiv-trip", lang: "uk")
+    assert_predicate uk_post, :canonical_for_observations?
+  end
+
+  test "subsequent posts in a slug-group are not auto-canonical" do
+    create(:post, slug: "kyiv-trip", lang: "uk")
+    en_post = create(:post, slug: "kyiv-trip", lang: "en")
+    assert_not_predicate en_post, :canonical_for_observations?
+  end
+
+  test "observation_post returns self for canonical post" do
     uk_post = create(:post, slug: "kyiv-trip", lang: "uk")
     assert_equal uk_post, uk_post.observation_post
   end
 
-  test "observation_post for English post returns the cyrillic sibling" do
-    en_post = create(:post, slug: "kyiv-trip", lang: "en")
+  test "observation_post returns the canonical sibling for non-canonical post" do
     uk_post = create(:post, slug: "kyiv-trip", lang: "uk")
+    en_post = create(:post, slug: "kyiv-trip", lang: "en")
     assert_equal uk_post, en_post.observation_post
   end
 
-  test "observation_post for English post prefers uk over ru when both exist" do
-    ru_post = create(:post, slug: "kyiv-trip", lang: "ru")
-    en_post = create(:post, slug: "kyiv-trip", lang: "en")
-    uk_post = create(:post, slug: "kyiv-trip", lang: "uk")
-    assert_equal uk_post, en_post.observation_post
+  test "observation_post raises for non-canonical post with no canonical sibling" do
+    canonical = create(:post, slug: "kyiv-trip", lang: "uk")
+    orphan = create(:post, slug: "kyiv-trip", lang: "en")
+    canonical.update_column(:canonical_for_observations, false)
+    assert_raises(RuntimeError) { orphan.observation_post }
   end
 
-  test "observation_post for English post falls back to ru when no uk exists" do
-    ru_post = create(:post, slug: "kyiv-trip", lang: "ru")
-    en_post = create(:post, slug: "kyiv-trip", lang: "en")
-    assert_equal ru_post, en_post.observation_post
-  end
-
-  test "observation_post returns self for English post when no translation exists" do
-    en_post = create(:post, slug: "kyiv-trip", lang: "en")
-    assert_equal en_post, en_post.observation_post
+  test "cannot create a second canonical post with the same slug" do
+    create(:post, slug: "kyiv-trip", lang: "uk")
+    duplicate = build(:post, slug: "kyiv-trip", lang: "en", canonical_for_observations: true)
+    assert_not_predicate duplicate, :valid?
+    assert_predicate duplicate.errors[:canonical_for_observations], :any?
   end
 
   test "localized_versions does not include self as sibling" do
