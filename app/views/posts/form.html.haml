@@ -13,6 +13,13 @@
       %li= link_to 'Edit this one', edit_post_path(@post)
     - if controller.respond_to?(:new)
       %li= link_to 'Create new', action: :new
+    - if @localized_versions
+      - @localized_versions.each do |loc, sibling|
+        - next if sibling.nil? || sibling == @post || sibling.lang != loc.to_s
+        %li= link_to "Edit #{loc.upcase}", edit_post_path(sibling)
+      - [:en, :uk].each do |loc|
+        - next if @localized_versions[loc]&.lang == loc.to_s
+        %li= link_to "Clone to #{loc.upcase}", new_post_path(post: @post.clone_attrs_for_sibling(lang: loc))
     = yield :add_shortcuts
     - if correcting?
       %li= link_to 'Correction', @correction

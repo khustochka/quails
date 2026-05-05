@@ -72,7 +72,7 @@ class PostsController < ApplicationController
 
   # GET /posts/new
   def new
-    @post = Post.new(topic: "OBSR", status: "PRIV")
+    @post = Post.new({ topic: "OBSR", status: "PRIV" }.merge(params[:post] || {}))
     render "form"
   end
 
@@ -81,6 +81,7 @@ class PostsController < ApplicationController
     set_correction_flash(@post)
     @extra_params = @post.to_url_params
     @observation_search = ObservationSearch.new
+    @localized_versions = @post.localized_versions(source: current_user.available_posts)
     render "form"
   end
 

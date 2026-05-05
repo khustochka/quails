@@ -152,6 +152,80 @@ class PostsControllerTest < ActionController::TestCase
     assert Post.exists?(uk_post.id)
   end
 
+  test "edit shows links to existing siblings in other languages" do
+    uk_post = create(:post, lang: "uk", slug: "shared-slug")
+    en_post = create(:post, lang: "en", slug: "shared-slug")
+    login_as_admin
+    get :edit, params: { id: uk_post.to_param }
+    assert_response :success
+    assert_select "ul.admin-shortcuts a[href='#{edit_post_path(en_post)}']", text: /Edit EN/
+  end
+
+  test "edit does not show sibling link for fallback (uk shown when only ru exists)" do
+    ru_post = create(:post, lang: "ru", slug: "shared-slug")
+    login_as_admin
+    get :edit, params: { id: ru_post.to_param }
+    assert_response :success
+    # ru's localized_versions[:uk] falls back to ru itself — no sibling edit link should appear
+    assert_select "ul.admin-shortcuts a", text: /Edit UK/, count: 0
+    assert_select "ul.admin-shortcuts a", text: /Edit RU/, count: 0
+  end
+
+  test "edit shows Create en link with seed params when en sibling missing" do
+    uk_post = create(:post, lang: "uk", slug: "shared-slug", topic: "NEWS")
+    login_as_admin
+    get :edit, params: { id: uk_post.to_param }
+    assert_response :success
+    expected = new_post_path(post: {
+      lang: :en,
+      slug: "shared-slug",
+      face_date: uk_post.face_date.strftime("%F %T"),
+      cover_image_slug: uk_post.cover_image_slug,
+      topic: "NEWS",
+    })
+    assert_select "ul.admin-shortcuts a[href='#{expected}']", text: /Clone to EN/
+  end
+
+  test "edit shows Create uk link when only en exists, but never Create ru" do
+    en_post = create(:post, lang: "en", slug: "shared-slug")
+    login_as_admin
+    get :edit, params: { id: en_post.to_param }
+    assert_response :success
+    assert_select "ul.admin-shortcuts a", text: /Clone to UK/, count: 1
+    assert_select "ul.admin-shortcuts a", text: /Clone to RU/, count: 0
+  end
+
+  test "edit does not show Create link for language that already exists" do
+    uk_post = create(:post, lang: "uk", slug: "shared-slug")
+    create(:post, lang: "en", slug: "shared-slug")
+    login_as_admin
+    get :edit, params: { id: uk_post.to_param }
+    assert_response :success
+    assert_select "ul.admin-shortcuts a", text: /Clone to EN/, count: 0
+    assert_select "ul.admin-shortcuts a", text: /Clone to UK/, count: 0
+  end
+
+  test "edit considers private siblings (uses available_posts)" do
+    uk_post = create(:post, lang: "uk", slug: "shared-slug", status: "PRIV")
+    en_post = create(:post, lang: "en", slug: "shared-slug", status: "PRIV")
+    login_as_admin
+    get :edit, params: { id: uk_post.to_param }
+    assert_response :success
+    assert_select "ul.admin-shortcuts a[href='#{edit_post_path(en_post)}']", text: /Edit EN/
+  end
+
+  test "new pre-fills form fields from seed params" do
+    login_as_admin
+    get :new, params: { post: { lang: "en", slug: "kyiv-trip", cover_image_slug: "cover-img" } }
+    assert_response :success
+    post = assigns(:post)
+    assert_equal "en", post.lang
+    assert_equal "kyiv-trip", post.slug
+    assert_equal "cover-img", post.cover_image_slug
+    assert_equal "PRIV", post.status
+    assert_equal "OBSR", post.topic
+  end
+
   test "redirect post to correct URL if year and month are incorrect" do
     blogpost = create(:post, face_date: "2007-12-06 13:14:15")
     get :show, params: { id: blogpost.slug, year: 2010, month: "01" }

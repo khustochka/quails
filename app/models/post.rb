@@ -212,6 +212,16 @@ class Post < ApplicationRecord
     @observation_post = main_sibling_post || self
   end
 
+  def clone_attrs_for_sibling(lang:)
+    {
+      lang: lang,
+      slug: slug,
+      face_date: face_date.strftime("%F %T"),
+      cover_image_slug: cover_image_slug,
+      topic: topic,
+    }
+  end
+
   def localized_versions(source: Post.public_posts)
     siblings = source.select(:id, :slug, :lang, :face_date, :status)
       .where(slug: slug).index_by(&:lang)
