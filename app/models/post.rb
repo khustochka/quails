@@ -194,22 +194,16 @@ class Post < ApplicationRecord
       .pluck(:species_id)
   end
 
-  def sibling_post(source: Post.public_posts)
-    sibling_langs = cyrillic? ? "en" : COMPATIBLE_LANGUAGES[:uk]
-    @sibling_post = source.where(lang: sibling_langs).find_by(slug: slug)
-  end
-
   def observation_post
     return @observation_post if defined?(@observation_post)
 
-    if cyrillic?
-      @observation_post = self
-      return @observation_post
-    end
-
-    main_sibling_post = sibling_post(source: Post.all)
-
-    @observation_post = main_sibling_post || self
+    @observation_post =
+      if cyrillic?
+        self
+      else
+        Post.where(lang: COMPATIBLE_LANGUAGES[:uk], slug: slug)
+          .order(Arel.sql("lang = 'uk' DESC")).first || self
+      end
   end
 
   def clone_attrs_for_sibling(lang:)

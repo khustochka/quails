@@ -41,20 +41,33 @@ class PostTest < ActiveSupport::TestCase
     assert_predicate blogpost, :valid?
   end
 
-  test "sibling_post finds translation by matching slug" do
+  test "observation_post returns self for cyrillic post" do
     uk_post = create(:post, slug: "kyiv-trip", lang: "uk")
-    en_post = create(:post, slug: "kyiv-trip", lang: "en")
-    assert_equal en_post, uk_post.sibling_post
+    assert_equal uk_post, uk_post.observation_post
   end
 
-  test "sibling_post returns nil when no translation exists (cyrillic post)" do
+  test "observation_post for English post returns the cyrillic sibling" do
+    en_post = create(:post, slug: "kyiv-trip", lang: "en")
     uk_post = create(:post, slug: "kyiv-trip", lang: "uk")
-    assert_nil uk_post.sibling_post
+    assert_equal uk_post, en_post.observation_post
   end
 
-  test "sibling_post returns nil when no translation exists (English post)" do
+  test "observation_post for English post prefers uk over ru when both exist" do
+    ru_post = create(:post, slug: "kyiv-trip", lang: "ru")
     en_post = create(:post, slug: "kyiv-trip", lang: "en")
-    assert_nil en_post.sibling_post
+    uk_post = create(:post, slug: "kyiv-trip", lang: "uk")
+    assert_equal uk_post, en_post.observation_post
+  end
+
+  test "observation_post for English post falls back to ru when no uk exists" do
+    ru_post = create(:post, slug: "kyiv-trip", lang: "ru")
+    en_post = create(:post, slug: "kyiv-trip", lang: "en")
+    assert_equal ru_post, en_post.observation_post
+  end
+
+  test "observation_post returns self for English post when no translation exists" do
+    en_post = create(:post, slug: "kyiv-trip", lang: "en")
+    assert_equal en_post, en_post.observation_post
   end
 
   test "localized_versions does not include self as sibling" do
