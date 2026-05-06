@@ -9,7 +9,7 @@ class PostsController < ApplicationController
   administrative except: [:show]
   localized only: [:show]
 
-  before_action :find_post, only: [:edit, :update, :destroy, :for_lj, :lj_post]
+  before_action :find_post, only: [:edit, :update, :destroy, :for_lj, :lj_post, :promote_to_canonical]
 
   after_action :cache_expire, only: [:create, :update, :destroy]
 
@@ -114,6 +114,12 @@ class PostsController < ApplicationController
   def destroy
     @post.destroy
     redirect_to(blog_url)
+  end
+
+  # POST /posts/1/promote_to_canonical
+  def promote_to_canonical
+    @post.promote_to_canonical!
+    redirect_to(edit_post_path(@post), notice: "Post is now canonical for its slug.")
   end
 
   ALLOWED_COUNTRY_TAGS = %w(usa canada)

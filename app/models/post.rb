@@ -52,6 +52,8 @@ class Post < ApplicationRecord
 
   before_validation :assign_canonical_for_observations, on: :create
 
+  before_destroy :promote_sibling_if_canonical, prepend: true
+
   # Convert "timezone-less" face_date to local time zone because AR treats it as UTC (especially necessary for feed updated time)
   def face_date
     Time.zone.parse(read_attribute(:face_date).strftime("%F %T"))
@@ -205,6 +207,20 @@ class Post < ApplicationRecord
     Post.find_by(slug: slug, canonical_for_observations: true)
   end
 
+  def promote_to_canonical!
+    return if canonical_for_observations?
+
+    transaction do
+      previous = canonical_sibling
+      if previous
+        previous.update_columns(canonical_for_observations: false)
+        Card.where(post_id: previous.id).update_all(post_id: id)
+        Observation.where(post_id: previous.id).update_all(post_id: id)
+      end
+      update_columns(canonical_for_observations: true)
+    end
+  end
+
   def clone_attrs_for_sibling(lang:)
     {
       lang: lang,
@@ -240,6 +256,21 @@ class Post < ApplicationRecord
     return unless canonical_for_observations.nil?
 
     self.canonical_for_observations = !Post.exists?(slug: slug, canonical_for_observations: true)
+  end
+
+  def promote_sibling_if_canonical
+    return unless canonical_for_observations?
+
+    lang_priority = Arel.sql(<<~SQL.squish)
+      CASE lang
+        WHEN 'uk' THEN 1
+        WHEN 'en' THEN 2
+        WHEN 'ru' THEN 3
+        ELSE 4
+      END
+    SQL
+    successor = Post.where(slug: slug).where.not(id: id).order(lang_priority, :id).first
+    successor&.promote_to_canonical!
   end
 
   def only_one_canonical_per_slug

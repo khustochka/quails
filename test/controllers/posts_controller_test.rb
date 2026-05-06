@@ -180,6 +180,16 @@ class PostsControllerTest < ActionController::TestCase
     assert_select "h3#card_attach", count: 0
   end
 
+  test "promote_to_canonical flips canonical and redirects to edit" do
+    uk_post = create(:post, lang: "uk", slug: "shared-slug")
+    en_post = create(:post, lang: "en", slug: "shared-slug")
+    login_as_admin
+    post :promote_to_canonical, params: { id: en_post.to_param }
+    assert_redirected_to edit_post_path(en_post)
+    assert_predicate en_post.reload, :canonical_for_observations?
+    assert_not_predicate uk_post.reload, :canonical_for_observations?
+  end
+
   test "edit does not show sibling link for fallback (uk shown when only ru exists)" do
     ru_post = create(:post, lang: "ru", slug: "shared-slug")
     login_as_admin

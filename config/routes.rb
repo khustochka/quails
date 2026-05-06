@@ -201,10 +201,9 @@ Rails.application.routes.draw do
       get :hidden
       get :facebook
     end
-    # member do
-    #   get :for_lj
-    #   post :lj_post
-    # end
+    member do
+      post :promote_to_canonical
+    end
   end
 
   resources :cards do

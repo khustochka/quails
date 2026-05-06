@@ -59,17 +59,17 @@ class PostTest < ActiveSupport::TestCase
     assert_equal uk_post, en_post.observation_post
   end
 
-  test "observation_post returns nil when canonical sibling has been deleted" do
+  test "observation_post returns nil for non-canonical post with no canonical sibling" do
     canonical = create(:post, slug: "kyiv-trip", lang: "uk")
     orphan = create(:post, slug: "kyiv-trip", lang: "en")
-    canonical.destroy!
+    canonical.update_columns(canonical_for_observations: false)
     assert_nil orphan.observation_post
   end
 
   test "species, images, observations, lifer_species_ids return empty when no canonical exists" do
     canonical = create(:post, slug: "kyiv-trip", lang: "uk")
     orphan = create(:post, slug: "kyiv-trip", lang: "en")
-    canonical.destroy!
+    canonical.update_columns(canonical_for_observations: false)
     assert_empty orphan.species
     assert_empty orphan.images
     assert_empty orphan.observations
@@ -92,6 +92,54 @@ class PostTest < ActiveSupport::TestCase
   test "canonical_sibling returns nil for canonical post" do
     canonical = create(:post, slug: "kyiv-trip", lang: "uk")
     assert_nil canonical.canonical_sibling
+  end
+
+  test "promote_to_canonical! flips flag and moves cards/observations" do
+    old_canonical = create(:post, slug: "kyiv-trip", lang: "uk")
+    new_canonical = create(:post, slug: "kyiv-trip", lang: "en")
+    card = create(:card, post: old_canonical)
+    obs = create(:observation, post: old_canonical)
+
+    new_canonical.promote_to_canonical!
+
+    assert_predicate new_canonical.reload, :canonical_for_observations?
+    assert_not_predicate old_canonical.reload, :canonical_for_observations?
+    assert_equal new_canonical.id, card.reload.post_id
+    assert_equal new_canonical.id, obs.reload.post_id
+  end
+
+  test "promote_to_canonical! is a no-op when already canonical" do
+    canonical = create(:post, slug: "kyiv-trip", lang: "uk")
+    canonical.promote_to_canonical!
+    assert_predicate canonical.reload, :canonical_for_observations?
+  end
+
+  test "destroying canonical promotes oldest sibling and reassigns cards/observations" do
+    canonical = create(:post, slug: "kyiv-trip", lang: "uk")
+    en_post = create(:post, slug: "kyiv-trip", lang: "en")
+    card = create(:card, post: canonical)
+    obs = create(:observation, post: canonical)
+
+    canonical.destroy!
+
+    assert_predicate en_post.reload, :canonical_for_observations?
+    assert_equal en_post.id, card.reload.post_id
+    assert_equal en_post.id, obs.reload.post_id
+  end
+
+  test "destroying canonical prefers uk over en over ru when promoting" do
+    en_canonical = create(:post, slug: "kyiv-trip", lang: "en")
+    create(:post, slug: "kyiv-trip", lang: "ru")
+    uk_post = create(:post, slug: "kyiv-trip", lang: "uk")
+    en_canonical.destroy!
+    assert_predicate uk_post.reload, :canonical_for_observations?
+  end
+
+  test "destroying canonical with no siblings leaves slug-group empty and nullifies obs" do
+    canonical = create(:post, slug: "kyiv-trip", lang: "uk")
+    obs = create(:observation, post: canonical)
+    canonical.destroy!
+    assert_nil obs.reload.post_id
   end
 
   test "localized_versions does not include self as sibling" do

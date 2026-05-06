@@ -31,16 +31,18 @@
   %p.errors= alert
 
 - if @post.persisted?
-  %p.canonical-status
+  .canonical-status
     - if @post.canonical_for_observations?
       Canonical post for this slug — observations and cards live here.
     - elsif (canonical = @post.canonical_sibling)
       This is a translation. Observations live on
       = link_to("the canonical post", edit_post_path(canonical))
       \.
+      = link_to("Make this canonical", promote_to_canonical_post_path(@post), method: :post, data: { confirm: "This will move all cards and observations from #{canonical.slug} (#{canonical.lang}) to this post. Continue?" })
     - else
       %strong This post has no canonical sibling.
       Observations cannot be attached until one is promoted.
+      = link_to("Make this canonical", promote_to_canonical_post_path(@post), method: :post)
 
 = simple_form_for @post do |form|
   %div
