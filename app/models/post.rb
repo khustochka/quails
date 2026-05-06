@@ -15,7 +15,7 @@ class Post < ApplicationRecord
   STATES = %w(OPEN PRIV SHOT NIDX)
 
   COMPATIBLE_LANGUAGES = {
-    en: "en",
+    en: %w(en),
     uk: %w(uk ru),
     ru: %w(uk ru),
   }
@@ -77,6 +77,25 @@ class Post < ApplicationRecord
 
   def self.for_locale(locale)
     where(lang: COMPATIBLE_LANGUAGES[locale])
+  end
+
+  # Given canonical posts, returns { canonical_id => localized_sibling } for the given locale,
+  # picking the first sibling whose lang appears earliest in COMPATIBLE_LANGUAGES[locale].
+  # Canonicals with no sibling in any compatible language are absent from the result.
+  def self.localized_for(canonical_posts, locale, scope: Post.public_posts)
+    return {} if canonical_posts.blank?
+
+    preferred = COMPATIBLE_LANGUAGES[locale] || []
+    return {} if preferred.empty?
+
+    slugs = canonical_posts.map(&:slug).uniq
+    siblings = scope.where(slug: slugs, lang: preferred).group_by(&:slug)
+
+    canonical_posts.each_with_object({}) do |canonical, result|
+      candidates = siblings[canonical.slug] || []
+      pick = preferred.lazy.filter_map { |lang| candidates.find { |p| p.lang == lang } }.first
+      result[canonical.id] = pick if pick
+    end
   end
 
   def self.year(year)

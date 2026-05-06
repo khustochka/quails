@@ -25,13 +25,34 @@ class LifelistPostsTest < ActionController::TestCase
     assert_select "a[href*='#{public_post_path(@obs[1].post)}']"
   end
 
-  test "do not show non-English post link in English locale" do
+  test "do not show non-English post link in English locale when no English sibling exists" do
     @obs[1].post = create(:post)
     @obs[1].save!
     get :basic, params: { locale: :en }
     assert_response :success
     lifers = assigns(:lifelist)
     assert_nil lifers.to_a.find {|s| s.species.code == "hirrus"}.main_post
+  end
+
+  test "show English sibling post link in English locale when one exists" do
+    canonical = create(:post, slug: "kyiv-trip", lang: "uk")
+    en_post = create(:post, slug: "kyiv-trip", lang: "en")
+    @obs[1].post = canonical
+    @obs[1].save!
+    get :basic, params: { locale: :en }
+    assert_response :success
+    lifers = assigns(:lifelist)
+    assert_equal en_post, lifers.to_a.find {|s| s.species.code == "hirrus"}.main_post
+  end
+
+  test "fall back to ru post in uk locale when no uk sibling exists" do
+    ru_only = create(:post, slug: "kyiv-trip", lang: "ru")
+    @obs[1].post = ru_only
+    @obs[1].save!
+    get :basic, params: { locale: :uk }
+    assert_response :success
+    lifers = assigns(:lifelist)
+    assert_equal ru_only, lifers.to_a.find {|s| s.species.code == "hirrus"}.main_post
   end
 
   test "show post link on lifelist ordered by taxonomy if post is associated" do

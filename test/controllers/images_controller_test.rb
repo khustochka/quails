@@ -117,6 +117,23 @@ class ImagesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "image page shows en sibling post link in en locale" do
+    canonical = create(:post, slug: "kyiv-trip", lang: "uk")
+    en_post = create(:post, slug: "kyiv-trip", lang: "en")
+    @obs.update!(post: canonical)
+    get :show, params: { id: @image.to_param, locale: :en }
+    assert_response :success
+    assert_select "a[href*='#{public_post_path(en_post, locale: :en)}']"
+  end
+
+  test "image page hides post link in en locale when no en sibling" do
+    canonical = create(:post, slug: "kyiv-trip", lang: "uk")
+    @obs.update!(post: canonical)
+    get :show, params: { id: @image.to_param, locale: :en }
+    assert_response :success
+    assert_select "a[href*='#{public_post_path(canonical)}']", count: 0
+  end
+
   test "respond with JPG image" do
     get :show, params: { id: @image.to_param, format: :jpg }
     assert_response :redirect

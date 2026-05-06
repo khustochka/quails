@@ -38,6 +38,21 @@ module Lifelist
       assert_nil list.first.main_post
     end
 
+    test "resolves localized sibling for every lifer when multiple lifers share the same card" do
+      I18n.with_locale(:en) do
+        canonical = FactoryBot.create(:post, slug: "trip", lang: "uk")
+        en_sibling = FactoryBot.create(:post, slug: "trip", lang: "en")
+        card = FactoryBot.create(:card, post: canonical)
+        FactoryBot.create(:observation, card: card, taxon: taxa(:hirrus))
+        FactoryBot.create(:observation, card: card, taxon: taxa(:saxola))
+        list = Lifelist::FirstSeen.full
+        list.posts_scope = Post.public_posts
+        main_posts = list.to_a.map(&:main_post)
+        assert_equal [en_sibling, en_sibling], main_posts,
+          "expected both lifers sharing one card to resolve to the EN sibling"
+      end
+    end
+
     test "should take into account start time when ordering lifers (diff species)" do
       card1 = FactoryBot.create(:card, start_time: "9:00")
       card2 = FactoryBot.create(:card, start_time: "13:00")

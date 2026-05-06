@@ -45,10 +45,7 @@ class LifelistController < ApplicationController
       .sort(sort_override)
 
     @lifelist.observation_scope = current_user.available_obs
-
-    unless helpers.blogless_locale?
-      @lifelist.posts_scope = current_user.available_posts
-    end
+    @lifelist.posts_scope = current_user.available_posts
   end
 
   def advanced
@@ -65,10 +62,7 @@ class LifelistController < ApplicationController
       .sort(params[:sort])
 
     @lifelist.observation_scope = current_user.available_obs
-
-    unless helpers.blogless_locale?
-      @lifelist.posts_scope = current_user.available_posts
-    end
+    @lifelist.posts_scope = current_user.available_posts
   end
 
   def winter
@@ -85,10 +79,7 @@ class LifelistController < ApplicationController
       .sort(params[:sort])
 
     @lifelist.observation_scope = current_user.available_obs
-
-    unless helpers.blogless_locale?
-      @lifelist.posts_scope = current_user.available_posts
-    end
+    @lifelist.posts_scope = current_user.available_posts
 
     render "advanced"
   end

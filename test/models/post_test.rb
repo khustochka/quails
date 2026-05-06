@@ -180,6 +180,49 @@ class PostTest < ActiveSupport::TestCase
     assert_equal uk_post, versions[:ru]
   end
 
+  test "localized_for returns en sibling for en locale when it exists" do
+    canonical = create(:post, slug: "kyiv-trip", lang: "uk")
+    en_post = create(:post, slug: "kyiv-trip", lang: "en")
+    result = Post.localized_for([canonical], :en)
+    assert_equal en_post, result[canonical.id]
+  end
+
+  test "localized_for returns nil for en locale when no en sibling exists" do
+    canonical = create(:post, slug: "kyiv-trip", lang: "uk")
+    result = Post.localized_for([canonical], :en)
+    assert_nil result[canonical.id]
+  end
+
+  test "localized_for prefers uk over ru for uk locale" do
+    canonical = create(:post, slug: "kyiv-trip", lang: "uk")
+    create(:post, slug: "kyiv-trip", lang: "ru")
+    result = Post.localized_for([canonical], :uk)
+    assert_equal canonical, result[canonical.id]
+  end
+
+  test "localized_for falls back to ru for uk locale when no uk sibling exists" do
+    canonical = create(:post, slug: "kyiv-trip", lang: "ru")
+    result = Post.localized_for([canonical], :uk)
+    assert_equal canonical, result[canonical.id]
+  end
+
+  test "localized_for falls back to uk for ru locale when no ru sibling exists" do
+    canonical = create(:post, slug: "kyiv-trip", lang: "uk")
+    result = Post.localized_for([canonical], :ru)
+    assert_equal canonical, result[canonical.id]
+  end
+
+  test "localized_for excludes posts outside the given scope" do
+    canonical = create(:post, slug: "kyiv-trip", lang: "uk")
+    create(:post, slug: "kyiv-trip", lang: "en", status: "PRIV")
+    result = Post.localized_for([canonical], :en, scope: Post.public_posts)
+    assert_nil result[canonical.id]
+  end
+
+  test "localized_for handles empty input" do
+    assert_equal({}, Post.localized_for([], :en))
+  end
+
   test "slug cannot contain space" do
     blogpost = build(:post, slug: "kyiv observations")
     assert_not_predicate blogpost, :valid?

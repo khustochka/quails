@@ -129,8 +129,8 @@
               - month_class, tag = @months[country].include?(m) ? ["seen_this_month", :strong] : [nil, :span]
               %td{class: month_class, title: t('date.month_names')[m]}= content_tag(tag, RomanNumerals.to_roman(m))
 
-- unless blogless_locale?
-  - @posts.if_present do |posts|
+  - localized_posts = @posts.filter_map { |canonical| @localized_posts[canonical.id] }
+  - localized_posts.if_present do |posts|
     %h3= t('.sections.posts')
     %ul
       - posts.each do |post|

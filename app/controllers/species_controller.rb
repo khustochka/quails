@@ -40,7 +40,8 @@ class SpeciesController < ApplicationController
       else
         @observations_count = @species.observations.count
         if @observations_count.positive?
-          @posts = @species.posts.limit(10).merge(current_user.available_posts)
+          @posts = @species.posts.limit(10).merge(current_user.available_posts).to_a
+          @localized_posts = Post.localized_for(@posts, I18n.locale, scope: current_user.available_posts)
           countries = Country.select(:id, :slug, :ancestry).to_a
           subregion_ids_by_country = countries.index_with { |c| c.subregion_ids.to_set }
           country_for_locus_id = {}
