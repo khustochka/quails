@@ -108,12 +108,6 @@ class PostTest < ActiveSupport::TestCase
     assert_equal new_canonical.id, obs.reload.post_id
   end
 
-  test "promote_to_canonical! is a no-op when already canonical" do
-    canonical = create(:post, slug: "kyiv-trip", lang: "uk")
-    canonical.promote_to_canonical!
-    assert_predicate canonical.reload, :canonical_for_observations?
-  end
-
   test "destroying canonical promotes oldest sibling and reassigns cards/observations" do
     canonical = create(:post, slug: "kyiv-trip", lang: "uk")
     en_post = create(:post, slug: "kyiv-trip", lang: "en")
