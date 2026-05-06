@@ -30,6 +30,18 @@
 - if alert
   %p.errors= alert
 
+- if @post.persisted?
+  %p.canonical-status
+    - if @post.canonical_for_observations?
+      Canonical post for this slug — observations and cards live here.
+    - elsif (canonical = @post.canonical_sibling)
+      This is a translation. Observations live on
+      = link_to("the canonical post", edit_post_path(canonical))
+      \.
+    - else
+      %strong This post has no canonical sibling.
+      Observations cannot be attached until one is promoted.
+
 = simple_form_for @post do |form|
   %div
     = form.input :slug, required: false
@@ -52,13 +64,14 @@
 
   %p= default_destroy_button
 
-  %h3#card_attach Attach cards
+  - if @post.canonical_for_observations?
+    %h3#card_attach Attach cards
 
-  = simple_form_for @observation_search, url: cards_path, method: :get, remote: true, html: {class: "search", data: {cards_search: true}} do |form|
-    = render 'observations/search_fields', form: form
-    = hidden_field_tag("new_post_id", @post.id)
+    = simple_form_for @observation_search, url: cards_path, method: :get, remote: true, html: {class: "search", data: {cards_search: true}} do |form|
+      = render 'observations/search_fields', form: form
+      = hidden_field_tag("new_post_id", @post.id)
 
-  %ul.cards_list#search-results{data: {cards_search_results: true}}
+    %ul.cards_list#search-results{data: {cards_search_results: true}}
 
   %h3 Livejournal
   %ul

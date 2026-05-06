@@ -59,11 +59,21 @@ class PostTest < ActiveSupport::TestCase
     assert_equal uk_post, en_post.observation_post
   end
 
-  test "observation_post raises for non-canonical post with no canonical sibling" do
+  test "observation_post returns nil when canonical sibling has been deleted" do
     canonical = create(:post, slug: "kyiv-trip", lang: "uk")
     orphan = create(:post, slug: "kyiv-trip", lang: "en")
-    canonical.update_column(:canonical_for_observations, false)
-    assert_raises(RuntimeError) { orphan.observation_post }
+    canonical.destroy!
+    assert_nil orphan.observation_post
+  end
+
+  test "species, images, observations, lifer_species_ids return empty when no canonical exists" do
+    canonical = create(:post, slug: "kyiv-trip", lang: "uk")
+    orphan = create(:post, slug: "kyiv-trip", lang: "en")
+    canonical.destroy!
+    assert_empty orphan.species
+    assert_empty orphan.images
+    assert_empty orphan.observations
+    assert_empty orphan.lifer_species_ids
   end
 
   test "cannot create a second canonical post with the same slug" do
@@ -71,6 +81,17 @@ class PostTest < ActiveSupport::TestCase
     duplicate = build(:post, slug: "kyiv-trip", lang: "en", canonical_for_observations: true)
     assert_not_predicate duplicate, :valid?
     assert_predicate duplicate.errors[:canonical_for_observations], :any?
+  end
+
+  test "canonical_sibling returns the canonical post in the slug-group" do
+    canonical = create(:post, slug: "kyiv-trip", lang: "uk")
+    en_post = create(:post, slug: "kyiv-trip", lang: "en")
+    assert_equal canonical, en_post.canonical_sibling
+  end
+
+  test "canonical_sibling returns nil for canonical post" do
+    canonical = create(:post, slug: "kyiv-trip", lang: "uk")
+    assert_nil canonical.canonical_sibling
   end
 
   test "localized_versions does not include self as sibling" do

@@ -104,18 +104,18 @@ class Post < ApplicationRecord
   # Associations
 
   def species
+    return Species.none unless observation_post
+
     Species.distinct.joins(:cards).where("cards.post_id = ? OR observations.post_id = ?", observation_post.id, observation_post.id)
       .order(:index_num)
   end
 
   def images
+    return Image.none unless observation_post
+
     Image.joins(:observations, :cards).includes(:cards, :taxa).where("cards.post_id = ? OR observations.post_id = ?", observation_post.id, observation_post.id)
       .merge(Card.default_cards_order("ASC"))
       .order("media.index_num, taxa.index_num").preload(:species)
-  end
-
-  def observations
-    observation_post.association(:observations).target
   end
 
   # Instance methods
@@ -176,6 +176,8 @@ class Post < ApplicationRecord
 
   # List of lifer species
   def lifer_species_ids
+    return @lifer_species_ids = [] unless observation_post
+
     subquery = "
       select obs.id
           from observations obs
@@ -194,13 +196,13 @@ class Post < ApplicationRecord
   def observation_post
     return @observation_post if defined?(@observation_post)
 
-    @observation_post =
-      if canonical_for_observations?
-        self
-      else
-        Post.find_by(slug: slug, canonical_for_observations: true) ||
-          raise("Post #{id} (slug=#{slug}) has no canonical sibling")
-      end
+    @observation_post = canonical_for_observations? ? self : canonical_sibling
+  end
+
+  def canonical_sibling
+    return nil if canonical_for_observations?
+
+    Post.find_by(slug: slug, canonical_for_observations: true)
   end
 
   def clone_attrs_for_sibling(lang:)

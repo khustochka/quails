@@ -161,6 +161,25 @@ class PostsControllerTest < ActionController::TestCase
     assert_select "ul.admin-shortcuts a[href='#{edit_post_path(en_post)}']", text: /Edit EN/
   end
 
+  test "edit shows canonical status and Attach cards for canonical post" do
+    uk_post = create(:post, lang: "uk", slug: "shared-slug")
+    login_as_admin
+    get :edit, params: { id: uk_post.to_param }
+    assert_response :success
+    assert_select ".canonical-status", text: /Canonical/
+    assert_select "h3#card_attach"
+  end
+
+  test "edit on non-canonical post links to canonical and hides Attach cards" do
+    uk_post = create(:post, lang: "uk", slug: "shared-slug")
+    en_post = create(:post, lang: "en", slug: "shared-slug")
+    login_as_admin
+    get :edit, params: { id: en_post.to_param }
+    assert_response :success
+    assert_select ".canonical-status a[href='#{edit_post_path(uk_post)}']"
+    assert_select "h3#card_attach", count: 0
+  end
+
   test "edit does not show sibling link for fallback (uk shown when only ru exists)" do
     ru_post = create(:post, lang: "ru", slug: "shared-slug")
     login_as_admin
