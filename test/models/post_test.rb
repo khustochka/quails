@@ -108,6 +108,20 @@ class PostTest < ActiveSupport::TestCase
     assert_equal new_canonical.id, obs.reload.post_id
   end
 
+  test "promote_to_canonical! invalidates the lifelist cache" do
+    old_canonical = create(:post, slug: "kyiv-trip", lang: "uk")
+    new_canonical = create(:post, slug: "kyiv-trip", lang: "en")
+    invalidated = false
+    spy = ->(*) { invalidated = true }
+    Quails::CacheKey.lifelist.singleton_class.define_method(:invalidate, &spy)
+    begin
+      new_canonical.promote_to_canonical!
+    ensure
+      Quails::CacheKey.lifelist.singleton_class.remove_method(:invalidate)
+    end
+    assert invalidated
+  end
+
   test "destroying canonical promotes oldest sibling and reassigns cards/observations" do
     canonical = create(:post, slug: "kyiv-trip", lang: "uk")
     en_post = create(:post, slug: "kyiv-trip", lang: "en")

@@ -216,6 +216,7 @@ class Post < ApplicationRecord
         previous.update_columns(canonical_for_observations: false)
         Card.where(post_id: previous.id).update_all(post_id: id)
         Observation.where(post_id: previous.id).update_all(post_id: id)
+        Quails::CacheKey.lifelist.invalidate
       end
       update_columns(canonical_for_observations: true)
     end
@@ -246,7 +247,6 @@ class Post < ApplicationRecord
   private
 
   def set_face_date_if_blank
-    return unless has_attribute?(:face_date)
     return if self[:face_date].present?
 
     self.face_date = Time.current.strftime("%F %T")
