@@ -47,6 +47,7 @@
     = form.input :patch
     = form.input :ebird_location_id, label: 'eBird Location', collection: EBirdLocation.all,
           input_html: {class: 'suggest-combo'}
+    = inject_correction_field
 
   %div#googleMap{data: {map_enabled: map_enabled, map_mode: "locus-edit"}}
 
