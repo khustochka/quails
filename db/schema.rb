@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_05_024409) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_07_155114) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+  enable_extension "pg_stat_statements"
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.bigint "blob_id", null: false
@@ -284,7 +285,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_05_024409) do
     t.string "name_en", limit: 255
     t.string "name_ru", limit: 255
     t.string "name_uk", limit: 255
-    t.boolean "patch", default: false, null: false
     t.boolean "private_loc", default: false, null: false
     t.integer "public_index"
     t.string "slug", limit: 32, null: false
