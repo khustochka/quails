@@ -170,6 +170,10 @@ Rails/SkipsModelValidations:
 Rails/ActionControllerTestCase:
   Enabled: false
 
+# Straightforward conversion does not work. Disable until I figure out.
+Rails/StrongParametersExpect:    
+  Enabled: false
+
 Rails/Output:
   Enabled: true
   Exclude:
