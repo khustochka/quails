@@ -342,6 +342,17 @@ class PostsControllerTest < ActionController::TestCase
     assert_not_includes ids, obsr.post_core_id
   end
 
+  test "index filters by shout" do
+    shout = create(:post, post_core: create(:post_core, shout: true))
+    regular = create(:post, post_core: create(:post_core, shout: false))
+    login_as_admin
+
+    get :index, params: { shout: "1" }
+    ids = assigns(:cores).map(&:id)
+    assert_includes ids, shout.post_core_id
+    assert_not_includes ids, regular.post_core_id
+  end
+
   test "index filters by lang_present" do
     en = create(:post, lang: "en")
     uk = create(:post, lang: "uk")

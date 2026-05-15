@@ -13,7 +13,7 @@ class PostsController < ApplicationController
 
   after_action :cache_expire, only: [:create, :update, :destroy]
 
-  FILTER_KEYS = [:topic, :status, :lang_present, :lang_missing, :year, :month].freeze
+  FILTER_KEYS = [:topic, :shout, :status, :lang_present, :lang_missing, :year, :month].freeze
 
   POST_ATTRS = [:title, :body, :face_date, :status, :lang, :lj_data, :post_core_id].freeze
   private_constant :POST_ATTRS
@@ -49,6 +49,7 @@ class PostsController < ApplicationController
     join_type = posts_filtered ? "INNER JOIN" : "LEFT JOIN"
     cores = PostCore.joins(Arel.sql("#{join_type} (#{agg_sql}) agg ON agg.post_core_id = post_cores.id"))
     cores = cores.where(topic: filters[:topic]) if filters[:topic].present?
+    cores = cores.where(shout: true) if filters[:shout].present?
     if filters[:lang_missing].present?
       cores = cores.where.not(
         id: Post.where(lang: filters[:lang_missing]).select(:post_core_id)

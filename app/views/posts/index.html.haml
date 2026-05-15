@@ -16,6 +16,9 @@
     = f.label :topic
     = f.select :topic, PostCore::TOPICS, include_blank: "(any)", selected: @filters[:topic]
   %div.input
+    = f.label :shout, "Shouts only"
+    = f.check_box :shout, { checked: @filters[:shout].present? }, "1", ""
+  %div.input
     = f.label :status
     = f.select :status, Post::STATES, include_blank: "(any)", selected: @filters[:status]
   %div.input
