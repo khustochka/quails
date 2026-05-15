@@ -8,28 +8,39 @@ class UIPostsTest < ActionDispatch::IntegrationTest
 
   test "Adding post" do
     login_as_admin
-    visit new_post_path
+    visit new_post_core_path
     fill_in("Slug", with: "new-post")
+    select("OBSR", from: "Topic")
+    click_button("Save")
+    core = PostCore.find_by!(slug: "new-post")
+    assert_current_path new_post_path(post: { post_core_id: core.id, lang: I18n.locale })
     fill_in("Title", with: "Test post")
     fill_in("post_body", with: "Post text.")
     select("OPEN", from: "Status")
-    select("OBSR", from: "Topic")
     click_button("Save")
-    blogpost = Post.joins(:post_core).find_by(post_cores: { slug: "new-post" })
+    blogpost = core.posts.first
     assert_current_path show_post_path(blogpost.to_url_params)
   end
 
-  test "Editing post" do
+  test "Editing post translation" do
     blogpost = create(:post)
     login_as_admin
     visit edit_post_path(blogpost)
-    fill_in("Slug", with: "changed-post")
     fill_in("Title", with: "Test post edited")
     fill_in("post_body", with: "Post text edited.")
     fill_in("Post date", with: "2009-07-27")
     click_button("Save")
-    blogpost = Post.joins(:post_core).find_by(post_cores: { slug: "changed-post" })
-    assert_current_path show_post_path(blogpost.to_url_params)
+    assert_current_path show_post_path(blogpost.reload.to_url_params)
+    assert_equal "Test post edited", blogpost.title
+  end
+
+  test "Editing shared fields via post core" do
+    blogpost = create(:post)
+    login_as_admin
+    visit edit_post_core_path(blogpost.post_core)
+    fill_in("Slug", with: "changed-slug")
+    click_button("Save")
+    assert_equal "changed-slug", blogpost.post_core.reload.slug
   end
 
   test "Navigation via Edit this and Show this links" do

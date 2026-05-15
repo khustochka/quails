@@ -1,0 +1,40 @@
+-# frozen_string_literal: true
+- @page_title = "#{new_or_edit_label(@post_core)} post core"
+
+- stylesheet "forms"
+
+%h1= page_header
+
+%ul.horiz-list.admin-shortcuts
+  %li= link_to "All posts", posts_path
+  - if @post_core.persisted? && controller.respond_to?(:new)
+    %li= link_to "Create new", new_post_core_path
+
+- if @post_core.persisted?
+  %h3 Translations
+  %ul.horiz-list.admin-shortcuts
+    - %w(uk ru en).each do |lang|
+      - existing = @post_core.posts.find { |p| p.lang == lang }
+      %li
+        - if existing
+          = link_to "Edit #{lang.upcase}", edit_post_path(existing)
+        - else
+          = link_to "Create #{lang.upcase}", new_post_path(post: { post_core_id: @post_core.id, lang: lang })
+
+- if notice
+  %p#notice= notice
+
+- if alert
+  %p.errors= alert
+
+= simple_form_for @post_core do |form|
+  = form.input :slug
+  = form.input :topic, collection: PostCore::TOPICS, include_blank: false
+  = form.input :cover_image_slug
+  = form.input :publish_to_facebook, label: "Publish to Facebook Instant Articles"
+
+  .buttons
+    = default_submit_button(form)
+
+- if @post_core.persisted?
+  %p= default_destroy_button

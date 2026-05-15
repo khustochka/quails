@@ -21,17 +21,30 @@ class PostsController < ApplicationController
     @filters = filters
 
     posts_scope = current_user.available_posts
-    posts_scope = posts_scope.where(status: filters[:status]) if filters[:status].present?
-    posts_scope = posts_scope.where(lang: filters[:lang_present]) if filters[:lang_present].present?
+    posts_filtered = false
+    if filters[:status].present?
+      posts_scope = posts_scope.where(status: filters[:status])
+      posts_filtered = true
+    end
+    if filters[:lang_present].present?
+      posts_scope = posts_scope.where(lang: filters[:lang_present])
+      posts_filtered = true
+    end
     if filters[:year].present?
       posts_scope = posts_scope.where("EXTRACT(year FROM face_date)::integer = ?", filters[:year].to_i)
+      posts_filtered = true
     end
     if filters[:month].present?
       posts_scope = posts_scope.where("EXTRACT(month FROM face_date)::integer = ?", filters[:month].to_i)
+      posts_filtered = true
     end
 
+    # When any post-level filter is active, an INNER JOIN against the aggregate
+    # keeps only cores with a matching translation. Without filters, use a LEFT
+    # JOIN so empty cores (no translations yet) still appear in the listing.
     agg_sql = posts_scope.group(:post_core_id).select("post_core_id, MAX(face_date) AS max_face_date").to_sql
-    cores = PostCore.joins(Arel.sql("INNER JOIN (#{agg_sql}) agg ON agg.post_core_id = post_cores.id"))
+    join_type = posts_filtered ? "INNER JOIN" : "LEFT JOIN"
+    cores = PostCore.joins(Arel.sql("#{join_type} (#{agg_sql}) agg ON agg.post_core_id = post_cores.id"))
     cores = cores.where(topic: filters[:topic]) if filters[:topic].present?
     if filters[:lang_missing].present?
       cores = cores.where.not(
@@ -39,7 +52,7 @@ class PostsController < ApplicationController
       )
     end
 
-    @cores = cores.order(Arel.sql("agg.max_face_date DESC"))
+    @cores = cores.order(Arel.sql("agg.max_face_date DESC NULLS FIRST"))
       .preload(:posts)
       .page(params[:page]).per(25)
   end
@@ -111,8 +124,12 @@ class PostsController < ApplicationController
 
   # GET /posts/new
   def new
-    defaults = { topic: "OBSR", status: "PRIV", face_date: Time.current.strftime("%F %T") }
+    defaults = { status: "PRIV", face_date: Time.current.strftime("%F %T") }
     @post = Post.new(defaults.merge(params[:post] || {}))
+    if @post.post_core_id.blank?
+      redirect_to new_post_core_path
+      return
+    end
     render "form"
   end
 
@@ -139,8 +156,11 @@ class PostsController < ApplicationController
   # PUT /posts/1
   def update
     @extra_params = @post.to_url_params
+    # post_core_id is locked once a translation is created; rebinding goes
+    # through PostCoresController, not here.
+    update_params = (params[:post] || {}).except(:post_core_id)
     process_correction_options(@post) do
-      if @post.update(params[:post])
+      if @post.update(update_params)
         redirect_to(redirect_after_update_path(@post))
       else
         @observation_search = ObservationSearch.new

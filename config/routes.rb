@@ -203,6 +203,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :post_cores, except: [:show, :index]
+
   resources :cards do
     member do
       post :attach

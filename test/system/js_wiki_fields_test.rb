@@ -3,9 +3,14 @@
 require "application_system_test_case"
 
 class JSWikiFieldsTest < ApplicationSystemTestCase
+  def new_translation_path
+    core = create(:post_core)
+    new_post_path(post: { post_core_id: core.id, lang: "uk" })
+  end
+
   test "Wiki toolbar buttons are rendered" do
     login_as_admin
-    visit new_post_path
+    visit new_translation_path
     assert_selector ".edit_tools #insert_sp_tag"
     assert_selector ".edit_tools #insert_img_tag"
     assert_selector ".edit_tools #insert_video_tag"
@@ -14,14 +19,14 @@ class JSWikiFieldsTest < ApplicationSystemTestCase
 
   test "Insert image tag into textarea" do
     login_as_admin
-    visit new_post_path
+    visit new_translation_path
     find_by_id("insert_img_tag").click
     assert_equal "{{^image}}", find(".wiki_field").value
   end
 
   test "Insert species via autocomplete" do
     login_as_admin
-    visit new_post_path
+    visit new_translation_path
     find_by_id("insert_sp_tag").click
     assert_selector ".insert_species_dialog"
 

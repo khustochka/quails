@@ -6,6 +6,9 @@
 
 %h1= page_header
 
+- content_for :add_shortcuts do
+  %li= link_to "Drafts", hidden_posts_path
+
 = render "admin/shortcuts"
 
 = form_with url: posts_path, method: :get, local: true, class: "search posts-filters" do |f|
@@ -41,10 +44,10 @@
     - languages = %w(uk ru en)
     - @cores.each do |core|
       - posts_by_lang = core.posts.index_by(&:lang)
-      - latest = core.posts.max_by(&:face_date)
+      - earliest = core.posts.min_by(&:face_date)
       %tr
         %td.date-cell
-          %nobr= latest&.face_date&.strftime("%Y-%m-%d")
+          %nobr= earliest&.face_date&.strftime("%b %Y")
           %div.topic-wrap
             %span.tag.topic= core.topic
         %td
@@ -55,7 +58,12 @@
               %li
                 %span.lang= lang.upcase
                 - if (p = posts_by_lang[lang])
-                  %span.title= link_to(p.title.presence || "(untitled)", edit_post_path(p), class: ("grayout" unless p.public?))
+                  %span.date= p.face_date.strftime("%Y-%m-%d")
+                  %span.title= link_to(p.title.presence || "(untitled)", localized_public_post_path(p), class: ("grayout" unless p.public?))
+                  %span.actions
+                    \[
+                    = link_to "edit", edit_post_path(p)
+                    \]
                   - unless p.public?
                     %span.tag.draft= p.status
                 - else

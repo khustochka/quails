@@ -3,9 +3,16 @@
 require "test_helper"
 
 class PostsControllerTest < ActionController::TestCase
-  test "get new" do
+  test "new without post_core_id redirects to step 1 (post_cores#new)" do
     login_as_admin
     get :new
+    assert_redirected_to new_post_core_path
+  end
+
+  test "new with post_core_id renders form" do
+    core = create(:post_core)
+    login_as_admin
+    get :new, params: { post: { post_core_id: core.id, lang: "uk" } }
     assert_response :success
   end
 
@@ -95,6 +102,19 @@ class PostsControllerTest < ActionController::TestCase
     assert_redirected_to public_post_path(assigns(:post))
   end
 
+  test "panel after failed update shows the persisted sibling, not the rejected post" do
+    core = create(:post_core, slug: "shared")
+    uk_post = create(:post, post_core: core, lang: "uk", title: "UK title")
+    en_post = create(:post, post_core: core, lang: "en", title: "EN title")
+    login_as_admin
+    # Try to flip en_post to "uk" (conflicts with uk_post). Update fails.
+    put :update, params: { id: en_post.to_param, post: { lang: "uk" } }
+    assert_template :form
+    # Panel must show UK row pointing at the persisted uk_post, not the rejected en_post.
+    assert_select ".core-translations a[href='#{edit_post_path(uk_post)}']", text: "edit"
+    assert_select ".core-translations", text: /UK\s+#{uk_post.face_date.strftime("%Y-%m-%d")}\s+UK title/
+  end
+
   test "do not update post with invalid attribute" do
     blogpost = create(:post)
     blogpost.title = ""
@@ -152,13 +172,26 @@ class PostsControllerTest < ActionController::TestCase
     assert Post.exists?(uk_post.id)
   end
 
-  test "edit shows links to existing siblings in other languages" do
+  test "edit panel links to existing siblings in other languages" do
     uk_post = create(:post, lang: "uk", slug: "shared-slug")
     en_post = create(:post, lang: "en", slug: "shared-slug")
     login_as_admin
     get :edit, params: { id: uk_post.to_param }
     assert_response :success
-    assert_select "ul.admin-shortcuts a[href='#{edit_post_path(en_post)}']", text: /Edit EN/
+    assert_select ".core-translations a[href='#{edit_post_path(en_post)}']", text: "edit"
+  end
+
+  test "edit panel view links use the sibling's locale so UK and RU don't collide" do
+    core = create(:post_core, slug: "shared-slug")
+    uk_post = create(:post, post_core: core, lang: "uk")
+    ru_post = create(:post, post_core: core, lang: "ru")
+    login_as_admin
+    get :edit, params: { id: uk_post.to_param }
+    assert_response :success
+    # UK is the default — no locale prefix.
+    assert_select ".core-translations a[href='#{public_post_path(uk_post, locale: nil)}']", text: "view"
+    # RU must use /ru.
+    assert_select ".core-translations a[href='#{public_post_path(ru_post, locale: :ru)}']", text: "view"
   end
 
   test "edit shows Attach cards for any translation" do
@@ -169,65 +202,40 @@ class PostsControllerTest < ActionController::TestCase
     assert_select "h3#card_attach"
   end
 
-  test "edit does not show sibling link for fallback (uk shown when only ru exists)" do
-    ru_post = create(:post, lang: "ru", slug: "shared-slug")
-    login_as_admin
-    get :edit, params: { id: ru_post.to_param }
-    assert_response :success
-    # ru's localized_versions[:uk] falls back to ru itself — no sibling edit link should appear
-    assert_select "ul.admin-shortcuts a", text: /Edit UK/, count: 0
-    assert_select "ul.admin-shortcuts a", text: /Edit RU/, count: 0
-  end
-
-  test "edit shows Create translation link with post_core_id when sibling missing" do
+  test "edit panel shows Create pseudolink with post_core_id when sibling missing" do
     uk_post = create(:post, lang: "uk", slug: "shared-slug", topic: "NEWS")
     login_as_admin
     get :edit, params: { id: uk_post.to_param }
     assert_response :success
-    expected = new_post_path(post: {
-      post_core_id: uk_post.post_core_id,
-      lang: :en,
-    })
-    assert_select "ul.admin-shortcuts a[href='#{expected}']", text: /Create translation in EN/
+    expected = new_post_path(post: { post_core_id: uk_post.post_core_id, lang: "en" })
+    assert_select ".core-translations a.pseudolink[href='#{expected}']", text: "Create"
   end
 
-  test "edit shows Create translation in UK when only en exists, but never RU" do
-    en_post = create(:post, lang: "en", slug: "shared-slug")
-    login_as_admin
-    get :edit, params: { id: en_post.to_param }
-    assert_response :success
-    assert_select "ul.admin-shortcuts a", text: /Create translation in UK/, count: 1
-    assert_select "ul.admin-shortcuts a", text: /Create translation in RU/, count: 0
-  end
-
-  test "edit does not show Create translation link for language that already exists" do
+  test "edit panel shows Create only for languages that don't have a translation" do
     uk_post = create(:post, lang: "uk", slug: "shared-slug")
     create(:post, lang: "en", slug: "shared-slug")
     login_as_admin
     get :edit, params: { id: uk_post.to_param }
     assert_response :success
-    assert_select "ul.admin-shortcuts a", text: /Create translation in EN/, count: 0
-    assert_select "ul.admin-shortcuts a", text: /Create translation in UK/, count: 0
+    # UK and EN exist; only RU should have a Create link.
+    assert_select ".core-translations a.pseudolink", text: "Create", count: 1
+    expected = new_post_path(post: { post_core_id: uk_post.post_core_id, lang: "ru" })
+    assert_select ".core-translations a.pseudolink[href='#{expected}']"
   end
 
-  test "edit considers private siblings (uses available_posts)" do
+  test "edit panel includes private siblings" do
     uk_post = create(:post, lang: "uk", slug: "shared-slug", status: "PRIV")
     en_post = create(:post, lang: "en", slug: "shared-slug", status: "PRIV")
     login_as_admin
     get :edit, params: { id: uk_post.to_param }
     assert_response :success
-    assert_select "ul.admin-shortcuts a[href='#{edit_post_path(en_post)}']", text: /Edit EN/
+    assert_select ".core-translations a[href='#{edit_post_path(en_post)}']", text: "edit"
   end
 
-  test "new pre-fills form fields from seed params (new core)" do
+  test "new requires post_core_id, otherwise sends user to step 1" do
     login_as_admin
     get :new, params: { post: { lang: "en", slug: "kyiv-trip" } }
-    assert_response :success
-    post = assigns(:post)
-    assert_equal "en", post.lang
-    assert_equal "kyiv-trip", post.slug
-    assert_equal "PRIV", post.status
-    assert_equal "OBSR", post.topic
+    assert_redirected_to new_post_core_path
   end
 
   test "new with post_core_id seeds translation against existing core" do
@@ -293,6 +301,24 @@ class PostsControllerTest < ActionController::TestCase
     assert_response :success
     ids = assigns(:cores).map(&:id)
     assert_equal [newer.post_core_id, older.post_core_id], ids & [newer.post_core_id, older.post_core_id]
+  end
+
+  test "index includes cores with no translations yet" do
+    empty_core = create(:post_core, slug: "empty-core")
+    login_as_admin
+    get :index
+    ids = assigns(:cores).map(&:id)
+    assert_includes ids, empty_core.id
+  end
+
+  test "index hides empty cores when filtered by a post-level field" do
+    empty_core = create(:post_core, slug: "empty-core")
+    with_post = create(:post, slug: "with-post", status: "PRIV")
+    login_as_admin
+    get :index, params: { status: "PRIV" }
+    ids = assigns(:cores).map(&:id)
+    assert_includes ids, with_post.post_core_id
+    assert_not_includes ids, empty_core.id
   end
 
   test "index collapses sibling translations into a single core row" do
