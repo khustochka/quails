@@ -11,7 +11,7 @@ class JSPostsTest < ApplicationSystemTestCase
 
   test "Detach card from post show page updates UI without reloading" do
     post = create(:post)
-    card = create(:card, post: post)
+    card = create(:card, post_core: post.post_core)
 
     login_as_admin
     visit show_post_path(post.to_url_params)

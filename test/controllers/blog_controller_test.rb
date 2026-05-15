@@ -36,7 +36,7 @@ class BlogControllerTest < ActionDispatch::IntegrationTest
 
   test "get home page with images" do
     blogpost = create(:post)
-    create(:image, observations: [create(:observation, card: create(:card, post: blogpost))])
+    create(:image, observations: [create(:observation, card: create(:card, post_core: blogpost.post_core))])
     get blog_path
     assert_response :success
   end

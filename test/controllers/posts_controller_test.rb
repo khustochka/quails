@@ -34,7 +34,7 @@ class PostsControllerTest < ActionController::TestCase
 
   test "show post with images (and species, which is new)" do
     blogpost = create(:post)
-    create(:image, observations: [create(:observation, card: create(:card, post: blogpost))])
+    create(:image, observations: [create(:observation, card: create(:card, post_core: blogpost.post_core))])
     get :show, params: blogpost.to_url_params
     assert_response :success
   end
@@ -81,8 +81,8 @@ class PostsControllerTest < ActionController::TestCase
     sp2.update(index_num: min_index)
 
     blogpost = create(:post)
-    create(:observation, taxon: sp2.main_taxon, post: blogpost)
-    create(:observation, taxon: sp1.main_taxon, post: blogpost)
+    create(:observation, taxon: sp2.main_taxon, post_core: blogpost.post_core)
+    create(:observation, taxon: sp1.main_taxon, post_core: blogpost.post_core)
 
     get :show, params: blogpost.to_url_params
     assert_equal [sp2, sp1], assigns(:post).species
@@ -135,8 +135,9 @@ class PostsControllerTest < ActionController::TestCase
   end
 
   test "edit picks the right post by id when slug is shared across languages" do
-    uk_post = create(:post, lang: "uk", slug: "shared-slug", title: "UK title")
-    en_post = create(:post, lang: "en", slug: "shared-slug", title: "EN title")
+    core = create(:post_core)
+    uk_post = create(:post, post_core: core, lang: "uk", title: "UK title")
+    en_post = create(:post, post_core: core, lang: "en", title: "EN title")
     login_as_admin
     get :edit, params: { id: en_post.to_param }
     assert_response :success
@@ -145,8 +146,9 @@ class PostsControllerTest < ActionController::TestCase
   end
 
   test "update affects only the post matching the id when slug is shared" do
-    uk_post = create(:post, lang: "uk", slug: "shared-slug", title: "UK title")
-    en_post = create(:post, lang: "en", slug: "shared-slug", title: "EN title")
+    core = create(:post_core)
+    uk_post = create(:post, post_core: core, lang: "uk", title: "UK title")
+    en_post = create(:post, post_core: core, lang: "en", title: "EN title")
     login_as_admin
     put :update, params: { id: en_post.to_param, post: { title: "EN updated" } }
     assert_equal "EN updated", en_post.reload.title
@@ -154,8 +156,9 @@ class PostsControllerTest < ActionController::TestCase
   end
 
   test "destroy removes only the post matching the id when slug is shared" do
-    uk_post = create(:post, lang: "uk", slug: "shared-slug")
-    en_post = create(:post, lang: "en", slug: "shared-slug")
+    core = create(:post_core)
+    uk_post = create(:post, post_core: core, lang: "uk")
+    en_post = create(:post, post_core: core, lang: "en")
     login_as_admin
     assert_difference("Post.count", -1) do
       delete :destroy, params: { id: en_post.to_param }
@@ -165,8 +168,9 @@ class PostsControllerTest < ActionController::TestCase
   end
 
   test "edit panel links to existing siblings in other languages" do
-    uk_post = create(:post, lang: "uk", slug: "shared-slug")
-    en_post = create(:post, lang: "en", slug: "shared-slug")
+    core = create(:post_core)
+    uk_post = create(:post, post_core: core, lang: "uk")
+    en_post = create(:post, post_core: core, lang: "en")
     login_as_admin
     get :edit, params: { id: uk_post.to_param }
     assert_response :success
@@ -187,7 +191,7 @@ class PostsControllerTest < ActionController::TestCase
   end
 
   test "edit links to the post core for managing attached cards" do
-    uk_post = create(:post, lang: "uk", slug: "shared-slug")
+    uk_post = create(:post, lang: "uk")
     login_as_admin
     get :edit, params: { id: uk_post.to_param }
     assert_response :success
@@ -197,7 +201,7 @@ class PostsControllerTest < ActionController::TestCase
   end
 
   test "edit panel shows Create pseudolink with post_core_id when sibling missing" do
-    uk_post = create(:post, lang: "uk", slug: "shared-slug", topic: "NEWS")
+    uk_post = create(:post, post_core: create(:post_core, topic: "NEWS"), lang: "uk")
     login_as_admin
     get :edit, params: { id: uk_post.to_param }
     assert_response :success
@@ -206,8 +210,9 @@ class PostsControllerTest < ActionController::TestCase
   end
 
   test "edit panel shows Create only for languages that don't have a translation" do
-    uk_post = create(:post, lang: "uk", slug: "shared-slug")
-    create(:post, lang: "en", slug: "shared-slug")
+    core = create(:post_core)
+    uk_post = create(:post, post_core: core, lang: "uk")
+    create(:post, post_core: core, lang: "en")
     login_as_admin
     get :edit, params: { id: uk_post.to_param }
     assert_response :success
@@ -218,8 +223,9 @@ class PostsControllerTest < ActionController::TestCase
   end
 
   test "edit panel includes private siblings" do
-    uk_post = create(:post, lang: "uk", slug: "shared-slug", status: "PRIV")
-    en_post = create(:post, lang: "en", slug: "shared-slug", status: "PRIV")
+    core = create(:post_core)
+    uk_post = create(:post, post_core: core, lang: "uk", status: "PRIV")
+    en_post = create(:post, post_core: core, lang: "en", status: "PRIV")
     login_as_admin
     get :edit, params: { id: uk_post.to_param }
     assert_response :success
@@ -228,12 +234,12 @@ class PostsControllerTest < ActionController::TestCase
 
   test "new requires post_core_id, otherwise sends user to step 1" do
     login_as_admin
-    get :new, params: { post: { lang: "en", slug: "kyiv-trip" } }
+    get :new, params: { post: { lang: "en" } }
     assert_redirected_to new_post_core_path
   end
 
   test "new with post_core_id seeds translation against existing core" do
-    existing = create(:post, lang: "uk", slug: "shared-slug", topic: "NEWS")
+    existing = create(:post, post_core: create(:post_core, slug: "shared-slug", topic: "NEWS"), lang: "uk")
     login_as_admin
     get :new, params: { post: { lang: "en", post_core_id: existing.post_core_id } }
     assert_response :success
@@ -288,8 +294,8 @@ class PostsControllerTest < ActionController::TestCase
   end
 
   test "index renders one row per PostCore ordered by latest face_date desc" do
-    older = create(:post, face_date: "2020-01-01 12:00:00", slug: "older")
-    newer = create(:post, face_date: "2024-06-01 12:00:00", slug: "newer")
+    older = create(:post, face_date: "2020-01-01 12:00:00")
+    newer = create(:post, face_date: "2024-06-01 12:00:00")
     login_as_admin
     get :index
     assert_response :success
@@ -307,7 +313,7 @@ class PostsControllerTest < ActionController::TestCase
 
   test "index hides empty cores when filtered by a post-level field" do
     empty_core = create(:post_core, slug: "empty-core")
-    with_post = create(:post, slug: "with-post", status: "PRIV")
+    with_post = create(:post, status: "PRIV")
     login_as_admin
     get :index, params: { status: "PRIV" }
     ids = assigns(:cores).map(&:id)
@@ -316,8 +322,9 @@ class PostsControllerTest < ActionController::TestCase
   end
 
   test "index collapses sibling translations into a single core row" do
-    uk_post = create(:post, lang: "uk", slug: "shared")
-    create(:post, lang: "en", slug: "shared")
+    core = create(:post_core)
+    uk_post = create(:post, post_core: core, lang: "uk")
+    create(:post, post_core: core, lang: "en")
     login_as_admin
     get :index
     assert_response :success
@@ -326,8 +333,8 @@ class PostsControllerTest < ActionController::TestCase
   end
 
   test "index filters by topic" do
-    obsr = create(:post, slug: "trip", topic: "OBSR")
-    news = create(:post, slug: "news", topic: "NEWS")
+    obsr = create(:post, post_core: create(:post_core, topic: "OBSR"))
+    news = create(:post, post_core: create(:post_core, topic: "NEWS"))
     login_as_admin
     get :index, params: { topic: "NEWS" }
     ids = assigns(:cores).map(&:id)
@@ -336,8 +343,8 @@ class PostsControllerTest < ActionController::TestCase
   end
 
   test "index filters by lang_present" do
-    en = create(:post, lang: "en", slug: "en-only")
-    uk = create(:post, lang: "uk", slug: "uk-only")
+    en = create(:post, lang: "en")
+    uk = create(:post, lang: "uk")
     login_as_admin
     get :index, params: { lang_present: "en" }
     ids = assigns(:cores).map(&:id)
@@ -346,9 +353,10 @@ class PostsControllerTest < ActionController::TestCase
   end
 
   test "index filters by lang_missing" do
-    uk_only = create(:post, lang: "uk", slug: "uk-only")
-    paired = create(:post, lang: "uk", slug: "paired")
-    create(:post, lang: "en", slug: "paired")
+    uk_only = create(:post, lang: "uk")
+    paired_core = create(:post_core)
+    paired = create(:post, post_core: paired_core, lang: "uk")
+    create(:post, post_core: paired_core, lang: "en")
     login_as_admin
     get :index, params: { lang_missing: "en" }
     ids = assigns(:cores).map(&:id)
@@ -357,8 +365,8 @@ class PostsControllerTest < ActionController::TestCase
   end
 
   test "index filters by year" do
-    in2020 = create(:post, slug: "in2020", face_date: "2020-04-01 12:00:00")
-    in2024 = create(:post, slug: "in2024", face_date: "2024-04-01 12:00:00")
+    in2020 = create(:post, face_date: "2020-04-01 12:00:00")
+    in2024 = create(:post, face_date: "2024-04-01 12:00:00")
     login_as_admin
     get :index, params: { year: "2020" }
     ids = assigns(:cores).map(&:id)
@@ -367,7 +375,7 @@ class PostsControllerTest < ActionController::TestCase
   end
 
   test "index renders a Create link to new post for missing translation" do
-    uk = create(:post, lang: "uk", slug: "uk-only")
+    uk = create(:post, lang: "uk")
     login_as_admin
     get :index
     assert_response :success
@@ -443,7 +451,7 @@ class PostsControllerTest < ActionController::TestCase
   end
 
   test "correct species link in post body (English locale)" do
-    blogpost = create(:post, slug: "some-post", status: "NIDX", body: "{{House Sparrow|Passer domesticus}}", lang: "en")
+    blogpost = create(:post, status: "NIDX", body: "{{House Sparrow|Passer domesticus}}", lang: "en")
     get :show, params: blogpost.to_url_params.merge(locale: :en)
     html = response.parsed_body
     link = html.css("a.sp_link").first
@@ -451,27 +459,30 @@ class PostsControllerTest < ActionController::TestCase
   end
 
   test "redirect legacy -en slug to canonical slug with 301" do
-    blogpost = create(:post, slug: "kyiv-trip", legacy_slug: "kyiv-trip-en", lang: "en")
+    core = create(:post_core, slug: "kyiv-trip", legacy_slug: "kyiv-trip-en")
+    blogpost = create(:post, post_core: core, lang: "en")
     get :show, params: { id: "kyiv-trip-en", year: blogpost.year, month: blogpost.month, locale: :en }
     assert_redirected_to public_post_path(blogpost)
     assert_response :moved_permanently
   end
 
   test "show post by canonical slug when legacy slug also exists" do
-    blogpost = create(:post, slug: "kyiv-trip", legacy_slug: "kyiv-trip-en", lang: "en")
+    core = create(:post_core, legacy_slug: "kyiv-trip-en")
+    blogpost = create(:post, post_core: core, lang: "en")
     get :show, params: blogpost.to_url_params.merge(locale: :en)
     assert_response :success
   end
 
   test "show dedicated uk post when uk locale requested" do
-    uk_post = create(:post, slug: "kyiv-trip", lang: "uk")
-    ru_post = create(:post, slug: "kyiv-trip", lang: "ru")
+    core = create(:post_core)
+    uk_post = create(:post, post_core: core, lang: "uk")
+    create(:post, post_core: core, lang: "ru")
     get :show, params: uk_post.to_url_params.merge(locale: :uk)
     assert_equal uk_post, assigns(:post)
   end
 
   test "fall back to ru post when uk locale requested but only ru exists" do
-    ru_post = create(:post, slug: "kyiv-trip", lang: "ru")
+    ru_post = create(:post, lang: "ru")
     get :show, params: ru_post.to_url_params
     assert_equal ru_post, assigns(:post)
   end

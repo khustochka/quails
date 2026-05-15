@@ -51,13 +51,13 @@ class SpeciesTest < ActiveSupport::TestCase
   test "Species post_cores" do
     blogpost1 = create(:post)
     blogpost2 = create(:post)
-    card = create(:card, post: blogpost1)
+    card = create(:card, post_core: blogpost1.post_core)
     obs1 = create(:observation, card: card)
     # Add more to test uniqueness
     create(:observation, card: card)
     create(:observation, card: card)
     create(:observation, card: card)
-    create(:observation, post: blogpost2)
+    create(:observation, post_core: blogpost2.post_core)
 
     cores = obs1.species.post_cores.to_a
 

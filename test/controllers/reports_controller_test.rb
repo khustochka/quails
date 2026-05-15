@@ -17,7 +17,7 @@ class ReportsControllerTest < ActionController::TestCase
 
   test "admin sees reports/this_day" do
     p = create(:post)
-    o = create(:observation, card: create(:card, observ_date: Time.current, post: p))
+    o = create(:observation, card: create(:card, observ_date: Time.current, post_core: p.post_core))
     create(:image, observations: [o])
 
     login_as_admin

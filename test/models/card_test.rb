@@ -93,9 +93,10 @@ class CardTest < ActiveSupport::TestCase
   end
 
   test "card can be attached to any translation's core" do
-    uk_post = create(:post, slug: "kyiv-trip", lang: "uk")
-    en_post = create(:post, slug: "kyiv-trip", lang: "en")
-    card = build(:card, post: en_post)
+    core = create(:post_core)
+    uk_post = create(:post, post_core: core, lang: "uk")
+    create(:post, post_core: core, lang: "en")
+    card = build(:card, post_core: core)
     assert_predicate card, :valid?
     assert_equal uk_post.post_core_id, card.post_core_id
   end

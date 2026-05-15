@@ -35,9 +35,10 @@ class LifelistPostsTest < ActionController::TestCase
   end
 
   test "show English sibling post link in English locale when one exists" do
-    uk_post = create(:post, slug: "kyiv-trip", lang: "uk")
-    en_post = create(:post, slug: "kyiv-trip", lang: "en")
-    @obs[1].post_core = uk_post.post_core
+    core = create(:post_core)
+    create(:post, post_core: core, lang: "uk")
+    en_post = create(:post, post_core: core, lang: "en")
+    @obs[1].post_core = core
     @obs[1].save!
     get :basic, params: { locale: :en }
     assert_response :success
@@ -46,7 +47,7 @@ class LifelistPostsTest < ActionController::TestCase
   end
 
   test "fall back to ru post in uk locale when no uk sibling exists" do
-    ru_only = create(:post, slug: "kyiv-trip", lang: "ru")
+    ru_only = create(:post, lang: "ru")
     @obs[1].post_core = ru_only.post_core
     @obs[1].save!
     get :basic, params: { locale: :uk }

@@ -32,7 +32,7 @@ class FormattersTest < ActionDispatch::IntegrationTest
   end
 
   test "Post with link to another post" do
-    post1 = create(:post, slug: "post_for_link")
+    post1 = create(:post, post_core: create(:post_core, slug: "post_for_link"))
     post = build(:post, body: "This is a {{#post|post_for_link}}")
     assert_equal "<p>This is a <a href=\"/#{post1.year}/#{post1.month}/post_for_link\">post</a></p>",
       post.decorated.for_site.body
@@ -81,7 +81,7 @@ class FormattersTest < ActionDispatch::IntegrationTest
     Settings.create(key: "lj_user", value: { name: "stonechat" })
     url = "https://stonechat.livejournal.com/1111.html"
     post1 = create(:post,
-      slug: "post_for_link",
+      post_core: create(:post_core, slug: "post_for_link"),
       lj_data: Post::LJData.new("1111", "https://stonechat.livejournal.com/1111.html"))
     post = build(:post, body: "This is a {{#post|post_for_link}}")
     assert_equal "<p>This is a <a href=\"#{url}\">post</a></p>",
@@ -89,7 +89,7 @@ class FormattersTest < ActionDispatch::IntegrationTest
   end
 
   test "LJ Post with link to another post out of LJ" do
-    post1 = build(:post, slug: "post_for_link")
+    post1 = build(:post, post_core: build(:post_core, slug: "post_for_link"))
     post = build(:post, body: "This is a {{#post|post_for_link}}")
     assert_equal "<p>This is a post</p>",
       post.decorated.for_lj.body

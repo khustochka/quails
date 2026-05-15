@@ -118,16 +118,17 @@ class ImagesControllerTest < ActionController::TestCase
   end
 
   test "image page shows en sibling post link in en locale" do
-    uk_post = create(:post, slug: "kyiv-trip", lang: "uk")
-    en_post = create(:post, slug: "kyiv-trip", lang: "en")
-    @obs.update!(post_core: uk_post.post_core)
+    core = create(:post_core)
+    create(:post, post_core: core, lang: "uk")
+    en_post = create(:post, post_core: core, lang: "en")
+    @obs.update!(post_core: core)
     get :show, params: { id: @image.to_param, locale: :en }
     assert_response :success
     assert_select "a[href*='#{public_post_path(en_post, locale: :en)}']"
   end
 
   test "image page hides post link in en locale when no en sibling" do
-    uk_post = create(:post, slug: "kyiv-trip", lang: "uk")
+    uk_post = create(:post, lang: "uk")
     @obs.update!(post_core: uk_post.post_core)
     get :show, params: { id: @image.to_param, locale: :en }
     assert_response :success
