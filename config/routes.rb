@@ -196,7 +196,7 @@ Rails.application.routes.draw do
 
   # ADMINISTRATIVE PAGES
 
-  resources :posts, except: [:index, :show] do
+  resources :posts, except: [:show] do
     collection do
       get :hidden
       get :facebook

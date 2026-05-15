@@ -1,0 +1,64 @@
+-# frozen_string_literal: true
+- stylesheet "forms"
+
+- @page_title = "Posts"
+- @body_class = "wider"
+
+%h1= page_header
+
+= render "admin/shortcuts"
+
+= form_with url: posts_path, method: :get, local: true, class: "search posts-filters" do |f|
+  %div.input
+    = f.label :topic
+    = f.select :topic, PostCore::TOPICS, include_blank: "(any)", selected: @filters[:topic]
+  %div.input
+    = f.label :status
+    = f.select :status, Post::STATES, include_blank: "(any)", selected: @filters[:status]
+  %div.input
+    = f.label :lang_present, "Has translation"
+    = f.select :lang_present, %w(uk ru en), include_blank: "(any)", selected: @filters[:lang_present]
+  %div.input
+    = f.label :lang_missing, "Missing translation"
+    = f.select :lang_missing, %w(uk ru en), include_blank: "(any)", selected: @filters[:lang_missing]
+  %div.input
+    = f.label :year
+    = f.text_field :year, value: @filters[:year], size: 6
+  %div.input
+    = f.label :month
+    = f.text_field :month, value: @filters[:month], size: 4
+  %div.buttons
+    = f.submit "Filter"
+    = link_to "Reset", posts_path
+
+%table.neat_table.posts-index
+  %thead
+    %tr
+      %th Date
+      %th Slug
+      %th Translations
+  %tbody
+    - languages = %w(uk ru en)
+    - @cores.each do |core|
+      - posts_by_lang = core.posts.index_by(&:lang)
+      - latest = core.posts.max_by(&:face_date)
+      %tr
+        %td.date-cell
+          %nobr= latest&.face_date&.strftime("%Y-%m-%d")
+          %div.topic-wrap
+            %span.tag.topic= core.topic
+        %td
+          %code= core.slug
+        %td.translations
+          %ul
+            - languages.each do |lang|
+              %li
+                %span.lang= lang.upcase
+                - if (p = posts_by_lang[lang])
+                  %span.title= link_to(p.title.presence || "(untitled)", edit_post_path(p), class: ("grayout" unless p.public?))
+                  - unless p.public?
+                    %span.tag.draft= p.status
+                - else
+                  %span.title= link_to "Create", new_post_path(post: { post_core_id: core.id, lang: lang }), class: "pseudolink"
+
+= paginate @cores

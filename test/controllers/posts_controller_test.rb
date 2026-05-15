@@ -285,13 +285,90 @@ class PostsControllerTest < ActionController::TestCase
     assert_equal show_post_path(blogpost.to_url_params.merge({ anchor: "comments" })), public_post_path(blogpost, anchor: "comments")
   end
 
-  test "show draft posts page to admin" do
+  test "index renders one row per PostCore ordered by latest face_date desc" do
+    older = create(:post, face_date: "2020-01-01 12:00:00", slug: "older")
+    newer = create(:post, face_date: "2024-06-01 12:00:00", slug: "newer")
+    login_as_admin
+    get :index
+    assert_response :success
+    ids = assigns(:cores).map(&:id)
+    assert_equal [newer.post_core_id, older.post_core_id], ids & [newer.post_core_id, older.post_core_id]
+  end
+
+  test "index collapses sibling translations into a single core row" do
+    uk_post = create(:post, lang: "uk", slug: "shared")
+    create(:post, lang: "en", slug: "shared")
+    login_as_admin
+    get :index
+    assert_response :success
+    ids = assigns(:cores).map(&:id)
+    assert_equal 1, ids.count(uk_post.post_core_id)
+  end
+
+  test "index filters by topic" do
+    obsr = create(:post, slug: "trip", topic: "OBSR")
+    news = create(:post, slug: "news", topic: "NEWS")
+    login_as_admin
+    get :index, params: { topic: "NEWS" }
+    ids = assigns(:cores).map(&:id)
+    assert_includes ids, news.post_core_id
+    assert_not_includes ids, obsr.post_core_id
+  end
+
+  test "index filters by lang_present" do
+    en = create(:post, lang: "en", slug: "en-only")
+    uk = create(:post, lang: "uk", slug: "uk-only")
+    login_as_admin
+    get :index, params: { lang_present: "en" }
+    ids = assigns(:cores).map(&:id)
+    assert_includes ids, en.post_core_id
+    assert_not_includes ids, uk.post_core_id
+  end
+
+  test "index filters by lang_missing" do
+    uk_only = create(:post, lang: "uk", slug: "uk-only")
+    paired = create(:post, lang: "uk", slug: "paired")
+    create(:post, lang: "en", slug: "paired")
+    login_as_admin
+    get :index, params: { lang_missing: "en" }
+    ids = assigns(:cores).map(&:id)
+    assert_includes ids, uk_only.post_core_id
+    assert_not_includes ids, paired.post_core_id
+  end
+
+  test "index filters by year" do
+    in2020 = create(:post, slug: "in2020", face_date: "2020-04-01 12:00:00")
+    in2024 = create(:post, slug: "in2024", face_date: "2024-04-01 12:00:00")
+    login_as_admin
+    get :index, params: { year: "2020" }
+    ids = assigns(:cores).map(&:id)
+    assert_includes ids, in2020.post_core_id
+    assert_not_includes ids, in2024.post_core_id
+  end
+
+  test "index renders a Create link to new post for missing translation" do
+    uk = create(:post, lang: "uk", slug: "uk-only")
+    login_as_admin
+    get :index
+    assert_response :success
+    expected = new_post_path(post: { post_core_id: uk.post_core_id, lang: "en" })
+    assert_select "a[href=\"#{expected}\"]"
+  end
+
+  test "hidden redirects to index filtered to PRIV status" do
+    login_as_admin
+    get :hidden
+    assert_redirected_to posts_path(status: "PRIV")
+  end
+
+  test "show draft posts via filtered index" do
     blogpost1 = create(:post, face_date: "2007-12-06 13:14:15", status: "PRIV")
     blogpost2 = create(:post, face_date: "2008-11-06 13:14:15")
     login_as_admin
-    get :hidden
-    assert_includes(assigns(:posts), blogpost1)
-    assert_not_includes(assigns(:posts), blogpost2)
+    get :index, params: { status: "PRIV" }
+    core_ids = assigns(:cores).map(&:id)
+    assert_includes(core_ids, blogpost1.post_core_id)
+    assert_not_includes(core_ids, blogpost2.post_core_id)
   end
 
   test "show hidden post to admin" do
@@ -301,9 +378,11 @@ class PostsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "do not show draft posts page to user" do
-    blogpost1 = create(:post, face_date: "2007-12-06 13:14:15", status: "PRIV")
-    blogpost2 = create(:post, face_date: "2008-11-06 13:14:15")
+  test "do not show admin index to anonymous user" do
+    assert_raise(ActionController::RoutingError) { get :index }
+  end
+
+  test "do not show drafts redirect to anonymous user" do
     assert_raise(ActionController::RoutingError) { get :hidden }
   end
 
@@ -312,11 +391,11 @@ class PostsControllerTest < ActionController::TestCase
     assert_raise(ActiveRecord::RecordNotFound) { get :show, params: blogpost1.to_url_params }
   end
 
-  test "do not show NOINDEX post on drafts page" do
+  test "do not show NOINDEX post on drafts filter" do
     blogpost = create(:post, status: "NIDX")
     login_as_admin
-    get :hidden
-    assert_not_includes(assigns(:posts), blogpost)
+    get :index, params: { status: "PRIV" }
+    assert_not_includes(assigns(:cores).map(&:id), blogpost.post_core_id)
   end
 
   test "show NOINDEX post page to user" do

@@ -13,10 +13,40 @@ class PostsController < ApplicationController
 
   after_action :cache_expire, only: [:create, :update, :destroy]
 
-  # This is rendered in public layout, just raising exception when no posts are found (the case for regular user)
+  FILTER_KEYS = [:topic, :status, :lang_present, :lang_missing, :year, :month].freeze
+
+  # GET /posts — admin index, one row per PostCore.
+  def index
+    filters = params.permit(*FILTER_KEYS).to_h.symbolize_keys
+    @filters = filters
+
+    posts_scope = current_user.available_posts
+    posts_scope = posts_scope.where(status: filters[:status]) if filters[:status].present?
+    posts_scope = posts_scope.where(lang: filters[:lang_present]) if filters[:lang_present].present?
+    if filters[:year].present?
+      posts_scope = posts_scope.where("EXTRACT(year FROM face_date)::integer = ?", filters[:year].to_i)
+    end
+    if filters[:month].present?
+      posts_scope = posts_scope.where("EXTRACT(month FROM face_date)::integer = ?", filters[:month].to_i)
+    end
+
+    agg_sql = posts_scope.group(:post_core_id).select("post_core_id, MAX(face_date) AS max_face_date").to_sql
+    cores = PostCore.joins(Arel.sql("INNER JOIN (#{agg_sql}) agg ON agg.post_core_id = post_cores.id"))
+    cores = cores.where(topic: filters[:topic]) if filters[:topic].present?
+    if filters[:lang_missing].present?
+      cores = cores.where.not(
+        id: Post.where(lang: filters[:lang_missing]).select(:post_core_id)
+      )
+    end
+
+    @cores = cores.order(Arel.sql("agg.max_face_date DESC"))
+      .preload(:posts)
+      .page(params[:page]).per(25)
+  end
+
+  # Legacy admin path — redirects to filtered index.
   def hidden
-    @admin_layout = false
-    @posts = Post.hidden.order(face_date: :desc).page(params[:page]).per(20)
+    redirect_to posts_path(status: "PRIV", page: params[:page])
   end
 
   def facebook
