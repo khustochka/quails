@@ -5,7 +5,7 @@ class Post < ApplicationRecord
 
   self.skip_time_zone_conversion_for_attributes = [:face_date]
 
-  STATES = %w(OPEN PRIV SHOT NIDX)
+  STATES = %w(OPEN PRIV NIDX)
 
   class LJData < Struct.new(:post_id, :url)
     def blank?
@@ -32,9 +32,8 @@ class Post < ApplicationRecord
   validates :lang, presence: true, uniqueness: { scope: :post_core_id }
 
   before_validation :set_face_date_if_blank
-  before_validation :assign_shout_slug, if: :shout?
 
-  delegate :slug, :legacy_slug, :topic, :cover_image_slug, :publish_to_facebook,
+  delegate :slug, :legacy_slug, :topic, :cover_image_slug, :publish_to_facebook, :shout?,
     to: :post_core, allow_nil: true
 
   def lj_url
@@ -58,7 +57,7 @@ class Post < ApplicationRecord
 
   scope :public_posts, lambda { where("posts.status <> 'PRIV'") }
   scope :hidden, lambda { where(status: "PRIV") }
-  scope :indexable, lambda { public_posts.where("status NOT IN ('NIDX', 'SHOT')") }
+  scope :indexable, lambda { public_posts.where.not(status: "NIDX").joins(:post_core).where(post_cores: { shout: false }) }
   scope :short_form, -> { select(:id, :post_core_id, :face_date, :title, :status, :lang).includes(:post_core) }
   scope :facebook_publishable, -> { public_posts.joins(:post_core).where(post_cores: { publish_to_facebook: true }) }
 
@@ -155,10 +154,6 @@ class Post < ApplicationRecord
     status != "PRIV"
   end
 
-  def shout?
-    status == "SHOT"
-  end
-
   def year
     face_date.year.to_s
   end
@@ -236,12 +231,5 @@ class Post < ApplicationRecord
     return if self[:face_date].present?
 
     self.face_date = Time.current.strftime("%F %T")
-  end
-
-  def assign_shout_slug
-    return if post_core&.slug.present?
-
-    core = post_core || build_post_core(topic: "OBSR")
-    core.slug = "shout-#{face_date.strftime("%Y%m%d")}-#{SecureRandom.hex(3)}"
   end
 end

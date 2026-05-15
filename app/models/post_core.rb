@@ -13,7 +13,14 @@ class PostCore < ApplicationRecord
 
   validate :check_cover_image_slug_or_url
 
+  before_validation :assign_shout_slug, if: -> { shout? && slug.blank? }
+
   private
+
+  def assign_shout_slug
+    face_date = posts.first&.face_date || Time.current
+    self.slug = "shout-#{face_date.strftime("%Y%m%d")}-#{SecureRandom.hex(3)}"
+  end
 
   def check_cover_image_slug_or_url
     return if cover_image_slug.blank?

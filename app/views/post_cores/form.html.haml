@@ -28,8 +28,9 @@
   %p.errors= alert
 
 = simple_form_for @post_core do |form|
-  = form.input :slug
+  = form.input :slug, required: false
   = form.input :topic, collection: PostCore::TOPICS, include_blank: false
+  = form.input :shout
   = form.input :cover_image_slug
   = form.input :publish_to_facebook, label: "Publish to Facebook Instant Articles"
 
