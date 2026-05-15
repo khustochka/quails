@@ -9,7 +9,7 @@ class PostsController < ApplicationController
   administrative except: [:show]
   localized only: [:show]
 
-  before_action :find_post, only: [:edit, :update, :destroy, :for_lj, :lj_post, :promote_to_canonical]
+  before_action :find_post, only: [:edit, :update, :destroy, :for_lj, :lj_post]
 
   after_action :cache_expire, only: [:create, :update, :destroy]
 
@@ -32,13 +32,22 @@ class PostsController < ApplicationController
       exact = fallback = current_user.available_posts.where(lang: "en")
     end
 
-    @post = exact.find_by(slug: params[:id]) ||
-      fallback.find_by(slug: params[:id])
+    core = PostCore.find_by(slug: params[:id])
+
+    @post = (core && exact.find_by(post_core_id: core.id)) ||
+      (core && fallback.find_by(post_core_id: core.id))
 
     if @post.nil?
-      legacy_post = fallback.find_by!(legacy_slug: params[:id])
-      redirect_to public_post_path(legacy_post), status: :moved_permanently
-      return
+      # Legacy slugs are only used for a handful of historical English posts;
+      # all of them end in "-en". Only attempt the legacy lookup in that case.
+      if params[:id].to_s.end_with?("-en")
+        legacy_core = PostCore.find_by!(legacy_slug: params[:id])
+        legacy_post = fallback.find_by!(post_core_id: legacy_core.id)
+        redirect_to public_post_path(legacy_post), status: :moved_permanently
+        return
+      else
+        raise ActiveRecord::RecordNotFound
+      end
     end
 
     if @post.month != params[:month].to_s || @post.year != params[:year].to_s
@@ -114,12 +123,6 @@ class PostsController < ApplicationController
   def destroy
     @post.destroy
     redirect_to(blog_url)
-  end
-
-  # POST /posts/1/promote_to_canonical
-  def promote_to_canonical
-    @post.promote_to_canonical!
-    redirect_to(edit_post_path(@post), notice: "Post is now canonical for its slug.")
   end
 
   ALLOWED_COUNTRY_TAGS = %w(usa canada)

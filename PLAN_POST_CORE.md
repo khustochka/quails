@@ -77,8 +77,10 @@ What the author likely got overwhelmed by (and what we need to plan for):
 4. Tests — factories had to change shape; many model/controller/system tests
    touch slug/post pairs.
 
-This plan keeps the destination the same but breaks the work into smaller,
-independently shippable steps so we don't have one mega-PR again.
+This plan keeps the destination the same but addresses each pain point
+head-on: cards/observations move to `post_core_id` in the same migration,
+the form is split into a two-step flow, and `format_strategy/base.rb` is
+in the explicit reader audit (Phase 2).
 
 ## Note on `legacy_slug`
 
@@ -106,6 +108,8 @@ It moves to `post_cores` along with the other core attributes, but:
   non-English slug colliding with the historical English-suffix
   redirect.
 
+## End state
+
 - `post_cores` table owns: `slug`, `legacy_slug`, `topic`,
   `cover_image_slug`, `lj_data`, `publish_to_facebook`, timestamps.
 - `posts` table owns: `post_core_id`, `lang`, `title`, `body`, `face_date`,
@@ -124,143 +128,110 @@ It moves to `post_cores` along with the other core attributes, but:
 
 ## Phased migration
 
-Each phase is one PR. **Preserve the existing structure as long as
-possible** — every phase up to the final sweep should leave the old
-columns, associations, methods, and routes in place so that a phase can be
-reverted by toggling readers back, without a destructive schema rollback.
-Deletions (columns, models, routes, UI) happen only in the final phase,
-once the new path has been live and stable.
+Everything ships in **one deployment**. Phases below are an ordering for
+the development work — they should land on the branch in order, but only
+Phase 2 (end) and later are required to keep the test suite green;
+Phases 1 and 2 are tightly coupled (schema change forces reader updates)
+and may land together. No dual-write, no deprecation phase, no
+incremental rollback story.
 
-Concretely:
+Working assumption: data consistency check (already done) shows that
+`legacy_slug` is the only attribute that diverges across sibling posts,
+and it diverges only because exactly one sibling in each pair has the
+`-en` value. All other core attributes are already identical across
+siblings. Backfill is straightforward.
 
-- **No `DROP COLUMN` migrations before Phase 6.** Phases 2 and 4 add new
-  columns and switch readers/writers, but the old columns
-  (`posts.slug`, `posts.topic`, …, `cards.post_id`, `canonical_for_observations`,
-  etc.) stay populated by dual-write until Phase 6.
-- **No model method or route deletions before Phase 6.** Old methods
-  (`canonical_sibling`, `promote_to_canonical!`,
-  `localized_versions` in its current shape, `clone_attrs_for_sibling`,
-  the `promote_to_canonical` route) remain alongside their replacements.
-  Mark them `# DEPRECATED: remove in Phase 6` so the sweep is mechanical.
-- **No "Make Canonical" UI removal before Phase 6.** Hide it from the
-  admin form if it becomes confusing, but the route/action stays.
-- **Dual-write in both directions.** When Phase 2 adds
-  `cards.post_core_id`, also keep writing `cards.post_id` (and vice versa
-  for any writer that touches one column, set the other). Same for the
-  attributes mirrored between `posts` and `post_cores` in Phase 1.
-- **Each phase ships behind verifiable invariants.** Add tests that assert
-  `post.slug == post.post_core.slug`, `card.post_id` and
-  `card.post_core_id` resolve to the same thing, etc. Keep these
-  invariants until Phase 6.
+Decisions baked into this plan (previously open questions):
 
-If a phase needs to be rolled back, the revert is: revert the code
-commit. The data is still consistent because the old columns/associations
-were never abandoned.
+- **`publish_to_facebook` belongs on `PostCore`.** It's per-post-of-writing,
+  not per-translation — production data has it identical across siblings.
+- **`status`, `commented_at`, `title`, `body`, `face_date`, `lang`** stay
+  on `posts`. Per-translation.
+- **`slug`, `legacy_slug`, `topic`, `cover_image_slug`, `lj_data`,
+  `publish_to_facebook`** move to `post_cores`. `legacy_slug` is NOT
+  exposed on any form (see note above).
+- **No "Make Canonical" UI in the end state.** Canonicality goes away
+  entirely; cards/observations point at `post_core` directly.
+- **Two-step create flow.** New `post_core` first, then new `post` for it.
+  No nested attributes.
 
-### Phase 1 — Introduce `PostCore`, backfill, dual-write (no behavior change)
+### Phase 1 — Schema and models
 
-- Migration: create `post_cores`, populate from `posts` (one row per distinct
-  slug, taking attributes from the canonical post for that slug to break
-  ties — not the first-created post like the prior attempt; canonical is the
-  authoritative source now).
-- Migration: add `posts.post_core_id` (nullable initially), backfill, then
-  `null: false`.
-- `Post belongs_to :post_core` (do **not** delegate slug yet — both columns
-  live in parallel).
-- Add a model-level invariant test that `post.slug == post.post_core.slug`,
-  `post.topic == post.post_core.topic`, etc., for every fixture/factory.
-- Update `Post`'s after-save to mirror writes to `post_core` for now (and
-  vice versa) — temporary dual-write so we can land this without breaking
-  anything else. Audit which attributes are even writable per-post in
-  practice; `topic`/`cover_image_slug`/`legacy_slug` are rarely changed.
-- Ship and bake. No reader changes.
+Single migration:
 
-### Phase 2 — Add `post_core_id` to cards/observations; dual-write
+- Create `post_cores` with `slug` (unique), `legacy_slug` (unique where
+  not null), `topic`, `cover_image_slug`, `lj_data`, `publish_to_facebook`,
+  timestamps.
+- Populate from `posts`: one row per distinct slug, taking attributes from
+  the canonical post for that slug. `legacy_slug` coalesced from whichever
+  sibling has it set.
+- Add `posts.post_core_id` (not null, backfilled).
+- Add `cards.post_core_id` and `observations.post_core_id`, backfilled from
+  `posts.post_core_id` via the existing `post_id` link.
+- Drop the moved columns from `posts`: `slug`, `legacy_slug`, `topic`,
+  `cover_image_slug`, `lj_data`, `publish_to_facebook`,
+  `canonical_for_observations`, and their indexes.
+- Drop `cards.post_id` and `observations.post_id` (and FKs/indexes).
 
-This is the most invasive change and deserves its own PR. **Additive
-only** — `post_id` stays.
+Models:
 
-- Migration: add `cards.post_core_id` and `observations.post_core_id`
-  (nullable initially), backfill from the canonical post's
-  `post_core_id`:
-  `cards.post_core_id = posts.post_core_id WHERE posts.id = cards.post_id`.
-  Then `null: false` once backfill is verified.
-- `Card` and `Observation` `belongs_to :post_core` *in addition to*
-  `belongs_to :post`. Both stay live.
-- Dual-write: any writer that sets `card.post_id = post.id` also sets
-  `card.post_core_id = post.post_core_id`, and vice versa (callback). The
-  old "must be canonical" validation stays in place so that `post_id`
-  remains pointing at the canonical translation.
-- **Readers stay on `post_id` for now.** `Post#cards`/`Post#observations`
-  /`Post#species`/`Post#images`/`Post#lifer_species_ids` are unchanged.
-  This phase just establishes and proves the new column.
-- Add an invariant test: for every card/observation,
-  `post_core_id == post.post_core_id`.
-- **Do not** drop `posts.canonical_for_observations` or
-  `cards.post_id`/`observations.post_id` here — that's Phase 6.
-- **Watch out**: `Card.post_id_changed?` callbacks and any uniqueness
-  constraints referencing `post_id` — they keep working untouched.
+- `PostCore`: validations for slug/legacy_slug/topic/cover_image_slug;
+  `has_many :posts, :cards, :observations`; lifts `LJData` struct and
+  `cover_image_slug` URL validation.
+- `Post`: `belongs_to :post_core`, delegates `slug`/`topic`/etc. to it.
+  Drop `canonical_for_observations?`, `canonical_sibling`,
+  `promote_to_canonical!`, `promote_sibling_if_canonical`,
+  `only_one_canonical_per_slug`, `observation_post`,
+  `clone_attrs_for_sibling`, and the matching validations/callbacks.
+  Drop the `cover_image_slug` URL validation (moved to core).
+- `Card`, `Observation`: `belongs_to :post_core` instead of `:post`.
+  Drop `post_must_be_canonical` validation.
+- `Post#cards`, `#observations`, `#species`, `#images`,
+  `#lifer_species_ids`: query via `post_core_id`, no `observation_post`
+  indirection.
+- `Post.localized_versions` / `Post.localized_for` / `Post.for_locale` /
+  `Post.year` / `Post.month`: rewrite around `post_core` as the natural
+  query root. Keep the method names so callers don't churn.
+- `Post#cache_key`: include `post_core.updated_at` so core edits bust
+  per-translation caches.
+- `Post#to_url_params` / `to_param`: read slug via the core.
 
-### Phase 3 — Switch readers to `post_core` (old columns stay)
+Tests:
 
-- Audit every reader of `post.slug`, `post.topic`, `post.cover_image_slug`,
-  `post.legacy_slug`, `post.lj_data`, `post.publish_to_facebook`, and
-  every reader of `card.post_id` / `observation.post_id`:
-  - Controllers: `posts_controller#show` (slug lookup → join post_cores);
-    `feeds_controller` (already partially in prior attempt).
-  - Formatters: `format_strategy/base.rb` `Post.find_by(slug:)` →
-    `PostCore.find_by(slug:)` + pick a translation for the current locale.
-    `format_strategy/live_journal.rb` / `site.rb` iterate `@posts` keyed by
-    slug — verify the key is still meaningful.
-  - Views: `_other_lang_notice`, `_other_lang_expand`, `form.html.haml`,
-    posts list partials, sitemap/feed templates.
-  - Models: `Post#cards`/`Post#observations`/`Post#species`/`Post#images`/
-    `Post#lifer_species_ids` switch from
-    `WHERE cards.post_id = observation_post.id` to
-    `WHERE cards.post_core_id = post_core_id`. The `observation_post`
-    indirection disappears at the call site, but the method stays
-    (returns `self` or `canonical_sibling`) and is marked deprecated.
-- Switch `Post` to `delegate :slug, :topic, ... to: :post_core` for
-  *reads*. Writes still go to both via the dual-write callback from
-  Phase 1; the underlying columns on `posts` are not yet removed.
-- Update `to_param` / URL helpers: `to_url_params` uses `slug_was`; this has
-  to become `post_core.slug_was`.
-- Update `Post.localized_versions` / `Post.localized_for` / `Post.for_locale`
-  / `Post.year` / `Post.month` to query via `post_core` association
-  (`PostCore` becomes the natural query root for "find the post for slug X
-  in locale Y"). Keep the old method signatures so callers don't change.
-- Update factories so building a `Post` either accepts an existing core or
-  builds one; factory for "two siblings sharing a slug" becomes
-  `create(:post_core, ...)` then `create(:post, post_core:, lang: ...)`
-  twice. Keep existing factories for compatibility where reasonable.
-- **Do not delete** `canonical_for_observations?`, `canonical_sibling`,
-  `promote_to_canonical!`, `observation_post`, etc. They still work and
-  are still exercised by their existing tests.
-- Tests, rubocop, haml-lint.
+- Update `test/factories/posts.rb`; add `test/factories/post_cores.rb`.
+  Factory builds a fresh `post_core` by default; tests for "two siblings
+  sharing a slug" create the core once and two posts on it.
+- Drop tests that exercised the canonical-promotion machinery (and the
+  related controller action — see Phase 3).
 
-### Phase 4 — Reserved (formerly "drop redundant columns")
+### Phase 2 — Readers and URL paths
 
-Column drops are deferred to Phase 6. Use this slot for any post-Phase-3
-read-path cleanup that doesn't require schema changes — for example,
-inlining `observation_post` callers, simplifying `Post#cards` once the
-join is via `post_core`, etc. Old methods stay in place; this is just
-where their call sites get rewired.
+Anywhere code reads `post.slug` / `post.topic` / `card.post_id` etc.,
+make sure it now resolves through `post_core`. Most of this is automatic
+via delegation; the explicit lookups are:
 
-If nothing remains, skip this phase entirely.
+- `posts_controller#show`: slug lookup becomes
+  `PostCore.find_by(slug: …)` + pick translation. **Legacy slug lookup
+  guarded to only fire when `params[:id]` ends with `-en`** (see note
+  above).
+- `formatters/format_strategy/base.rb`:
+  `Post.find_by(slug:)` → `PostCore.find_by(slug:)` and resolve a
+  translation for the current locale.
+- `formatters/format_strategy/site.rb`, `live_journal.rb`: verify the
+  `@posts` slug-keyed hash still makes sense.
+- `feeds_controller`: any slug-based queries.
+- `_other_lang_notice`, `_other_lang_expand`, `posts/show`, posts list
+  partials, sitemap/feed templates: rendering still works (delegation
+  makes most of this transparent).
+- `lifelist/base.rb`: `preload_posts` rewrites — fetch `PostCore` records
+  by `post_core_id`, pick a localized sibling per core.
 
-### Phase 4.5 — Admin posts index (built against pre-refactor schema)
+### Phase 3 — Admin posts index
 
-Today there is no general admin index for posts — only `/posts/hidden`
-(drafts) and `/posts/facebook`. Building one now, *before* the form
-refactor, gives us:
+New admin landing page at `GET /posts` (admin only — public blog lives on
+`/`).
 
-1. An admin landing page for posts independent of the refactor.
-2. A place to force the design decisions phase 5 needs (filters, sort,
-   how translations are surfaced).
-3. A view that swaps cleanly to `PostCore` as the query root in phase 5
-   without the template changing much.
-
-Shape: one row per slug (= per future `PostCore`), with per-language chips:
+Shape: one row per `PostCore` with per-language chips.
 
 ```
 slug             | date       | topic | translations         | status
@@ -269,128 +240,66 @@ my-spring-trip   | 2026-04-10 | OBSR  | [UK ✓] [EN ✓] [+RU]  | OPEN/OPEN
 shout-20260301-… | 2026-03-01 | NEWS  | [UK ✓] [+EN] [+RU]   | OPEN
 ```
 
-- Existing `[UK ✓]` chip links to that translation's edit page.
-- `[+EN]` chip creates a new sibling translation (today: clone-by-slug;
-  after phase 5: create-under-core).
-- Filters: topic, status, lang present/missing, year/month, FB-publishable.
-  `/hidden` and `/facebook` become filter presets — keep their URLs as
-  redirects to the filtered index.
-- Implementation against current schema: group `Post` by `slug` in the
-  controller (`Post.group_by(&:slug)` after an ordered fetch, or a window-
-  function query). It's throwaway grouping code; in phase 5 it becomes
-  `PostCore.includes(:posts).order(...)`.
-- Route: `GET /posts` for admin (the current root `/` is the public blog).
-  Be careful — `resources :posts` may already define this; check
-  `config/routes.rb`.
+- `[LANG ✓]` chip links to the translation's edit page.
+- `[+LANG]` chip starts step 2 of the create flow (Phase 4) for the
+  chosen core + lang.
+- Filters: topic, status, lang-present/lang-missing, year/month,
+  FB-publishable.
+- `/posts/hidden` and `/posts/facebook` redirect to the filtered index.
+- Controller: `PostCore.includes(:posts).order(face_date_via_join: :desc)`
+  — date sort comes from a join against `posts`. A SQL `MAX(face_date)`
+  or `EXISTS` clause for filters.
+- Remove the `promote_to_canonical` route and `posts#promote_to_canonical`
+  action — covered here because the admin form no longer has that button.
 
-### Phase 5 — Form & UI cleanup
+### Phase 4 — Two-step create / edit flow
 
-The prior attempt punted on this and the plan explicitly avoids a single
-combined form. Two-step flow:
+- **Step 1 — `post_cores#new` / `#create`.** Core-only fields: slug,
+  topic, cover_image_slug, publish_to_facebook. (`legacy_slug` not
+  exposed.) On save, redirect to step 2.
+- **Step 2 — `posts#new` / `#create`.** Requires `post_core_id` (link
+  from step 1 or from the index's `[+LANG]` chip). Per-translation fields
+  only: title, body, face_date, lang, status.
+- **`post_cores#edit`.** Edits shared attributes. Listed alongside its
+  translations.
+- **`posts#edit`.** Per-translation only. Shows a core summary at top
+  with an "Edit shared fields" link and chips to other translations or
+  `[+LANG]` to create one.
+- The unified form (`posts/form.html.haml`) gets split into
+  `post_cores/_form.html.haml` and `posts/_form.html.haml`. The shared
+  "attach cards" section stays under `post_cores/show` (or the edit page,
+  since cards belong to the core now).
+- `clone_attrs_for_sibling` deleted — `[+LANG]` link just carries
+  `post_core_id`.
+- Tests for both create paths; system test for the index → core → new
+  translation flow.
 
-- **Step 1: create a `PostCore`.** Dedicated `post_cores#new` form with
-  core fields only (slug, topic, cover_image_slug, publish_to_facebook).
-  On save, redirect to step 2.
-- **Step 2: create a `Post` (translation) from a core.** Existing
-  `posts#new`, but it now requires `post_core_id` (or finds the core via
-  slug). Form contains only per-translation fields (title, body, face_date,
-  lang, status). The core's slug/topic/etc. are shown read-only at the top
-  with a link to edit the core separately.
-- Edit:
-  - `post_cores#edit` — edits shared attributes only.
-  - `posts#edit` — edits the translation only; shows the core summary +
-    "Edit shared fields" link + chips to other existing translations + a
-    "Create translation in X" button (a new `Post` under the same core).
-- Admin index from phase 4.5 becomes the entry point for everything: each
-  row links to the core (slug header), each chip links to its translation,
-  `+LANG` chip starts step 2 with the core preselected.
-- The two-step flow is added *alongside* the existing single-form flow.
-  The existing form keeps working until Phase 6. Hide the "Make Canonical"
-  button from the form once the new flow is in place, but leave the route
-  and action live.
-- `clone_attrs_for_sibling` stays — the new "Create translation" button
-  uses `post_core_id` instead, but the old code path remains as a
-  fallback.
+### Phase 5 — Sweep
 
-### Phase 6 — Final sweep (the only destructive phase)
+- Drop any remaining `# DEPRECATED` markers that snuck in.
+- Update CLAUDE.md / AGENTS.md notes about post structure.
+- Ensure `db/schema.rb` is regenerated and committed.
+- Final `bin/rails test:all` + `rubocop` + `haml-lint`.
 
-Run only after the new path has been live and stable, and after a final
-audit confirms no readers/writers touch the deprecated columns or methods.
+## Risks remaining
 
-- Schema:
-  - Drop `posts.slug`, `posts.legacy_slug`, `posts.topic`,
-    `posts.cover_image_slug`, `posts.lj_data`, `posts.publish_to_facebook`
-    and their indexes.
-  - Drop `posts.canonical_for_observations` and its partial index.
-  - Drop `cards.post_id` and `observations.post_id` and their FKs/indexes.
-- Models:
-  - Remove dual-write callbacks from Phase 1 and Phase 2.
-  - Remove `Card#post_must_be_canonical` / `Observation#post_must_be_canonical`.
-  - Remove `Post#canonical_for_observations?`, `canonical_sibling`,
-    `promote_to_canonical!`, `promote_sibling_if_canonical`,
-    `only_one_canonical_per_slug`, `observation_post`,
-    `clone_attrs_for_sibling`. Inline any remaining callers.
-  - Remove the temporary `belongs_to :post` on `Card`/`Observation` if it
-    has no remaining readers.
-- Routes/UI:
-  - Remove `POST /posts/:id/promote_to_canonical` route and the
-    controller action.
-  - Remove the single-form create flow if Phase 5's two-step flow has
-    fully replaced it. (Or keep the unified `edit` for a translation
-    and only retire `new`.)
-  - Remove `_other_lang_*` partials that are superseded, if any.
-- Tests: delete tests that exercised the removed methods/routes.
-- Docs: update CLAUDE.md / AGENTS.md notes on Post / multilingual
-  structure.
-
-This is the only commit that is hard to revert. Everything before it
-should be revertable by code-only rollback.
-
-## Risks & open questions
-
-1. **Slug ownership during transition.** Phase 1 dual-writes both ways.
-   What happens if someone edits the slug on the non-canonical sibling?
-   Either disallow editing slug on non-canonical until phase 3, or accept
-   that a slug edit on any sibling rewrites the shared core (which is
-   actually the correct end-state semantics — fine to enable early).
-2. **`legacy_slug` uniqueness.** Currently `unique where legacy_slug IS NOT
-   NULL` on `posts`. After the move, this is on `post_cores`. Verify no
-   sibling pair currently has different `legacy_slug` values (data check
-   before phase 1 migration).
-3. **`publish_to_facebook`.** Today this is per-post-row. Is it actually
-   per-language or per-piece-of-writing? If we publish only one translation
-   to Facebook, this stays on `posts`, not `post_cores`. Decide before
-   phase 1: it's listed under `post_cores` in the prior attempt but that
-   may be wrong.
-4. **`commented_at`.** Per-post (comments are per-translation). Stays on
-   `posts`. Already correct.
-5. **`status`.** Per-post (a translation can be `PRIV` while its sibling is
-   `OPEN`). Stays on `posts`. Already correct.
-6. **Cache keys.** `Post#cache_key` mixes `id` and `updated_at`. After the
-   slug moves, `post_core.updated_at` is a new dimension — bumping core
-   should bust caches for all translations. Easy to handle but worth a
-   line in the cache_key.
-7. **Feed URLs / canonical link tags.** Make sure the cross-language
-   canonical `<link rel="canonical">` still resolves; the `_other_lang_*`
-   partials currently rely on `localized_versions` keyed by `lang`.
-8. **`Post.year` / `Post.month` / `Post.years`.** These query
-   `posts.face_date` — still per-post, no change beyond the join for slug.
-
-## Suggested order of execution
-
-1. Land phase 1 (dual-write) — small, mechanical, low risk.
-2. **Pause** to confirm production data is consistent (no slug drift across
-   siblings, `legacy_slug` not divergent, `publish_to_facebook` not
-   divergent — or decide it stays on `posts`).
-3. Land phase 2 (cards/observations → post_core) — biggest payoff, removes
-   the canonical machinery.
-4. Land phase 3 (readers) and phase 4 (drop columns) together or back to
-   back.
-5. Land phase 4.5 (admin index) — can also slip earlier as a standalone
-   change against today's schema if useful sooner. The grouping logic is
-   throwaway either way.
-6. Phase 5 (UI two-step flow) — design first, code second.
-7. Phase 6 — sweep.
+1. **Cache invalidation.** `Post#cache_key` must include
+   `post_core.updated_at`; otherwise fragment caches won't bust when a
+   slug or cover image changes via the core form. Add a test for this.
+2. **Feed canonical link tags.** The `<link rel="canonical">` for
+   cross-language siblings used to rely on slug equality. After the move,
+   it should resolve via the shared `post_core`. Verify in feed
+   templates.
+3. **`post_core_id` exposure in params.** Mass-assignment whitelists need
+   to allow `post_core_id` on `Post` (for the step-2 create), but the
+   step-1 → step-2 transition should not let an arbitrary user
+   re-parent an existing post by editing the param. Guard at the
+   controller level: `post_core_id` only writable on `posts#new`/`create`,
+   not on `update`.
+4. **Routes for `/posts`.** The current `resources :posts` exposes the
+   admin actions. Adding an admin index at `GET /posts` may conflict —
+   check `config/routes.rb` for a constraint like
+   `administrative only: …`.
 
 ## Files most likely to need attention (reference)
 

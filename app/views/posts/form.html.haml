@@ -19,7 +19,7 @@
         %li= link_to "Edit #{loc.upcase}", edit_post_path(sibling)
       - [:en, :uk].each do |loc|
         - next if @localized_versions[loc]&.lang == loc.to_s
-        %li= link_to "Clone to #{loc.upcase}", new_post_path(post: @post.clone_attrs_for_sibling(lang: loc))
+        %li= link_to "Create translation in #{loc.upcase}", new_post_path(post: { post_core_id: @post.post_core_id, lang: loc })
     = yield :add_shortcuts
     - if correcting?
       %li= link_to 'Correction', @correction
@@ -30,20 +30,6 @@
 - if alert
   %p.errors= alert
 
-- if @post.persisted?
-  .canonical-status
-    - if @post.canonical_for_observations?
-      Canonical post for this slug — observations and cards live here.
-    - elsif (canonical = @post.canonical_sibling)
-      This is a translation. Observations live on
-      = link_to("the canonical post", edit_post_path(canonical))
-      \.
-      = link_to("Make this canonical", promote_to_canonical_post_path(@post), method: :post, data: { confirm: "This will move all cards and observations from #{canonical.slug} (#{canonical.lang}) to this post. Continue?" })
-    - else
-      %strong This post has no canonical sibling.
-      Observations cannot be attached until one is promoted.
-      = link_to("Make this canonical", promote_to_canonical_post_path(@post), method: :post)
-
 = simple_form_for @post do |form|
   %div
     = form.input :slug, required: false
@@ -53,7 +39,7 @@
     = form.input :title, input_html: {class: 'long', required: false}
   = form.input :body, label: false, input_html: {rows: 20, class: "wiki_field", data: {wiki_field: true}}
   %div
-    = form.input :topic, collection: Post::TOPICS, input_html: {size: '3'}, include_blank: false
+    = form.input :topic, collection: PostCore::TOPICS, input_html: {size: '3'}, include_blank: false
     = form.input :status, collection: Post::STATES, input_html: {size: '3'}, include_blank: false
     = form.input :cover_image_slug
     = form.input :publish_to_facebook, label: "Publish to Facebook Instant Articles"
@@ -66,14 +52,13 @@
 
   %p= default_destroy_button
 
-  - if @post.canonical_for_observations?
-    %h3#card_attach Attach cards
+  %h3#card_attach Attach cards
 
-    = simple_form_for @observation_search, url: cards_path, method: :get, remote: true, html: {class: "search", data: {cards_search: true}} do |form|
-      = render 'observations/search_fields', form: form
-      = hidden_field_tag("new_post_id", @post.id)
+  = simple_form_for @observation_search, url: cards_path, method: :get, remote: true, html: {class: "search", data: {cards_search: true}} do |form|
+    = render 'observations/search_fields', form: form
+    = hidden_field_tag("new_post_id", @post.id)
 
-    %ul.cards_list#search-results{data: {cards_search_results: true}}
+  %ul.cards_list#search-results{data: {cards_search_results: true}}
 
   %h3 Livejournal
   %ul

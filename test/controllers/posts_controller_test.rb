@@ -161,33 +161,12 @@ class PostsControllerTest < ActionController::TestCase
     assert_select "ul.admin-shortcuts a[href='#{edit_post_path(en_post)}']", text: /Edit EN/
   end
 
-  test "edit shows canonical status and Attach cards for canonical post" do
+  test "edit shows Attach cards for any translation" do
     uk_post = create(:post, lang: "uk", slug: "shared-slug")
     login_as_admin
     get :edit, params: { id: uk_post.to_param }
     assert_response :success
-    assert_select ".canonical-status", text: /Canonical/
     assert_select "h3#card_attach"
-  end
-
-  test "edit on non-canonical post links to canonical and hides Attach cards" do
-    uk_post = create(:post, lang: "uk", slug: "shared-slug")
-    en_post = create(:post, lang: "en", slug: "shared-slug")
-    login_as_admin
-    get :edit, params: { id: en_post.to_param }
-    assert_response :success
-    assert_select ".canonical-status a[href='#{edit_post_path(uk_post)}']"
-    assert_select "h3#card_attach", count: 0
-  end
-
-  test "promote_to_canonical flips canonical and redirects to edit" do
-    uk_post = create(:post, lang: "uk", slug: "shared-slug")
-    en_post = create(:post, lang: "en", slug: "shared-slug")
-    login_as_admin
-    post :promote_to_canonical, params: { id: en_post.to_param }
-    assert_redirected_to edit_post_path(en_post)
-    assert_predicate en_post.reload, :canonical_for_observations?
-    assert_not_predicate uk_post.reload, :canonical_for_observations?
   end
 
   test "edit does not show sibling link for fallback (uk shown when only ru exists)" do
@@ -200,38 +179,35 @@ class PostsControllerTest < ActionController::TestCase
     assert_select "ul.admin-shortcuts a", text: /Edit RU/, count: 0
   end
 
-  test "edit shows Create en link with seed params when en sibling missing" do
+  test "edit shows Create translation link with post_core_id when sibling missing" do
     uk_post = create(:post, lang: "uk", slug: "shared-slug", topic: "NEWS")
     login_as_admin
     get :edit, params: { id: uk_post.to_param }
     assert_response :success
     expected = new_post_path(post: {
+      post_core_id: uk_post.post_core_id,
       lang: :en,
-      slug: "shared-slug",
-      face_date: uk_post.face_date.strftime("%F %T"),
-      cover_image_slug: uk_post.cover_image_slug,
-      topic: "NEWS",
     })
-    assert_select "ul.admin-shortcuts a[href='#{expected}']", text: /Clone to EN/
+    assert_select "ul.admin-shortcuts a[href='#{expected}']", text: /Create translation in EN/
   end
 
-  test "edit shows Create uk link when only en exists, but never Create ru" do
+  test "edit shows Create translation in UK when only en exists, but never RU" do
     en_post = create(:post, lang: "en", slug: "shared-slug")
     login_as_admin
     get :edit, params: { id: en_post.to_param }
     assert_response :success
-    assert_select "ul.admin-shortcuts a", text: /Clone to UK/, count: 1
-    assert_select "ul.admin-shortcuts a", text: /Clone to RU/, count: 0
+    assert_select "ul.admin-shortcuts a", text: /Create translation in UK/, count: 1
+    assert_select "ul.admin-shortcuts a", text: /Create translation in RU/, count: 0
   end
 
-  test "edit does not show Create link for language that already exists" do
+  test "edit does not show Create translation link for language that already exists" do
     uk_post = create(:post, lang: "uk", slug: "shared-slug")
     create(:post, lang: "en", slug: "shared-slug")
     login_as_admin
     get :edit, params: { id: uk_post.to_param }
     assert_response :success
-    assert_select "ul.admin-shortcuts a", text: /Clone to EN/, count: 0
-    assert_select "ul.admin-shortcuts a", text: /Clone to UK/, count: 0
+    assert_select "ul.admin-shortcuts a", text: /Create translation in EN/, count: 0
+    assert_select "ul.admin-shortcuts a", text: /Create translation in UK/, count: 0
   end
 
   test "edit considers private siblings (uses available_posts)" do
@@ -243,16 +219,26 @@ class PostsControllerTest < ActionController::TestCase
     assert_select "ul.admin-shortcuts a[href='#{edit_post_path(en_post)}']", text: /Edit EN/
   end
 
-  test "new pre-fills form fields from seed params" do
+  test "new pre-fills form fields from seed params (new core)" do
     login_as_admin
-    get :new, params: { post: { lang: "en", slug: "kyiv-trip", cover_image_slug: "cover-img" } }
+    get :new, params: { post: { lang: "en", slug: "kyiv-trip" } }
     assert_response :success
     post = assigns(:post)
     assert_equal "en", post.lang
     assert_equal "kyiv-trip", post.slug
-    assert_equal "cover-img", post.cover_image_slug
     assert_equal "PRIV", post.status
     assert_equal "OBSR", post.topic
+  end
+
+  test "new with post_core_id seeds translation against existing core" do
+    existing = create(:post, lang: "uk", slug: "shared-slug", topic: "NEWS")
+    login_as_admin
+    get :new, params: { post: { lang: "en", post_core_id: existing.post_core_id } }
+    assert_response :success
+    post = assigns(:post)
+    assert_equal existing.post_core_id, post.post_core_id
+    assert_equal "shared-slug", post.slug
+    assert_equal "NEWS", post.topic
   end
 
   test "redirect post to correct URL if year and month are incorrect" do

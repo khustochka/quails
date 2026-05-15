@@ -50,9 +50,15 @@ class Day
       .order("media.index_num, taxa.index_num").preload(:species)
   end
 
-  def posts
-    posts_id = cards.where.not(post_id: nil).distinct.pluck(:post_id) +
-      observations.where.not(observations: { post_id: nil }).distinct.pluck(:post_id)
-    Post.distinct.where(id: posts_id)
+  def post_cores
+    core_ids = cards.where.not(post_core_id: nil).distinct.pluck(:post_core_id) +
+      observations.where.not(observations: { post_core_id: nil }).distinct.pluck(:post_core_id)
+    PostCore.distinct.where(id: core_ids)
+  end
+
+  def localized_posts(locale: I18n.locale, scope: Post.public_posts)
+    cores = post_cores.to_a
+    localized = Post.localized_for(cores, locale, scope: scope)
+    cores.filter_map { |core| localized[core.id] }
   end
 end

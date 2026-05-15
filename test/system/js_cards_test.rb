@@ -218,7 +218,7 @@ class JSCardsTest < ApplicationSystemTestCase
 
     select_suggestion("Brovary", from: "Location")
     select_date("2011-04-09")
-    uncheck("card_post_id")
+    uncheck("card_post_core_id")
 
     click_add_new_row
 
@@ -254,11 +254,11 @@ class JSCardsTest < ApplicationSystemTestCase
     assert_not_empty blogpost.cards
     card = blogpost.cards[0]
 
-    uncheck("card_post_id")
+    uncheck("card_post_core_id")
     save_and_check
 
     assert_empty blogpost.reload.cards
-    assert_nil card.reload.post_id
+    assert_nil card.reload.post_core_id
   end
 
   test "Attach card to the post" do

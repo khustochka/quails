@@ -13,7 +13,7 @@ class CardsController < ApplicationController
     @observation_search = ObservationSearch.new(params[:q])
 
     @cards = @observation_search.cards
-      .default_cards_order(:desc).preload(:locus, :post)
+      .default_cards_order(:desc).preload(:locus, post_core: :posts)
 
     @cards = if !request.xhr?
       @cards.page(params[:page]).per(10)

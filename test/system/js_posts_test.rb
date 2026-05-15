@@ -24,6 +24,6 @@ class JSPostsTest < ApplicationSystemTestCase
 
     assert_current_path show_post_path(post.to_url_params)
     assert_no_css "li.observ_card"
-    assert_nil card.reload.post_id
+    assert_nil card.reload.post_core_id
   end
 end

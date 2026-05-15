@@ -31,123 +31,29 @@ class PostTest < ActiveSupport::TestCase
     assert_not_predicate blogpost, :valid?
   end
 
-  test "allow same slug in different languages" do
-    create(:post, slug: "kyiv-observations", lang: "uk")
-    blogpost = build(:post, slug: "kyiv-observations", lang: "en")
-    assert_predicate blogpost, :valid?
+  test "allow same slug in different languages — they share one PostCore" do
+    uk_post = create(:post, slug: "kyiv-observations", lang: "uk")
+    en_post = create(:post, slug: "kyiv-observations", lang: "en")
+    assert_predicate en_post, :valid?
+    assert_equal uk_post.post_core_id, en_post.post_core_id
   end
 
-  test "first post in a slug-group is auto-marked canonical" do
-    uk_post = create(:post, slug: "kyiv-trip", lang: "uk")
-    assert_predicate uk_post, :canonical_for_observations?
-  end
-
-  test "subsequent posts in a slug-group are not auto-canonical" do
-    create(:post, slug: "kyiv-trip", lang: "uk")
-    en_post = create(:post, slug: "kyiv-trip", lang: "en")
-    assert_not_predicate en_post, :canonical_for_observations?
-  end
-
-  test "observation_post returns self for canonical post" do
-    uk_post = create(:post, slug: "kyiv-trip", lang: "uk")
-    assert_equal uk_post, uk_post.observation_post
-  end
-
-  test "observation_post returns the canonical sibling for non-canonical post" do
+  test "destroying one translation leaves the core and its siblings intact" do
     uk_post = create(:post, slug: "kyiv-trip", lang: "uk")
     en_post = create(:post, slug: "kyiv-trip", lang: "en")
-    assert_equal uk_post, en_post.observation_post
+    uk_post.destroy!
+    assert PostCore.exists?(en_post.post_core_id)
+    assert en_post.reload
   end
 
-  test "observation_post returns nil for non-canonical post with no canonical sibling" do
-    canonical = create(:post, slug: "kyiv-trip", lang: "uk")
-    orphan = create(:post, slug: "kyiv-trip", lang: "en")
-    canonical.update_columns(canonical_for_observations: false)
-    assert_nil orphan.observation_post
-  end
-
-  test "species, images, observations, lifer_species_ids return empty when no canonical exists" do
-    canonical = create(:post, slug: "kyiv-trip", lang: "uk")
-    orphan = create(:post, slug: "kyiv-trip", lang: "en")
-    canonical.update_columns(canonical_for_observations: false)
-    assert_empty orphan.species
-    assert_empty orphan.images
-    assert_empty orphan.observations
-    assert_empty orphan.lifer_species_ids
-  end
-
-  test "cannot create a second canonical post with the same slug" do
-    create(:post, slug: "kyiv-trip", lang: "uk")
-    duplicate = build(:post, slug: "kyiv-trip", lang: "en", canonical_for_observations: true)
-    assert_not_predicate duplicate, :valid?
-    assert_predicate duplicate.errors[:canonical_for_observations], :any?
-  end
-
-  test "canonical_sibling returns the canonical post in the slug-group" do
-    canonical = create(:post, slug: "kyiv-trip", lang: "uk")
-    en_post = create(:post, slug: "kyiv-trip", lang: "en")
-    assert_equal canonical, en_post.canonical_sibling
-  end
-
-  test "canonical_sibling returns nil for canonical post" do
-    canonical = create(:post, slug: "kyiv-trip", lang: "uk")
-    assert_nil canonical.canonical_sibling
-  end
-
-  test "promote_to_canonical! flips flag and moves cards/observations" do
-    old_canonical = create(:post, slug: "kyiv-trip", lang: "uk")
-    new_canonical = create(:post, slug: "kyiv-trip", lang: "en")
-    card = create(:card, post: old_canonical)
-    obs = create(:observation, post: old_canonical)
-
-    new_canonical.promote_to_canonical!
-
-    assert_predicate new_canonical.reload, :canonical_for_observations?
-    assert_not_predicate old_canonical.reload, :canonical_for_observations?
-    assert_equal new_canonical.id, card.reload.post_id
-    assert_equal new_canonical.id, obs.reload.post_id
-  end
-
-  test "promote_to_canonical! invalidates the lifelist cache" do
-    old_canonical = create(:post, slug: "kyiv-trip", lang: "uk")
-    new_canonical = create(:post, slug: "kyiv-trip", lang: "en")
-    invalidated = false
-    spy = ->(*) { invalidated = true }
-    Quails::CacheKey.lifelist.singleton_class.define_method(:invalidate, &spy)
-    begin
-      new_canonical.promote_to_canonical!
-    ensure
-      Quails::CacheKey.lifelist.singleton_class.remove_method(:invalidate)
-    end
-    assert invalidated
-  end
-
-  test "destroying canonical promotes oldest sibling and reassigns cards/observations" do
-    canonical = create(:post, slug: "kyiv-trip", lang: "uk")
-    en_post = create(:post, slug: "kyiv-trip", lang: "en")
-    card = create(:card, post: canonical)
-    obs = create(:observation, post: canonical)
-
-    canonical.destroy!
-
-    assert_predicate en_post.reload, :canonical_for_observations?
-    assert_equal en_post.id, card.reload.post_id
-    assert_equal en_post.id, obs.reload.post_id
-  end
-
-  test "destroying canonical prefers uk over en over ru when promoting" do
-    en_canonical = create(:post, slug: "kyiv-trip", lang: "en")
-    create(:post, slug: "kyiv-trip", lang: "ru")
+  test "destroying one translation does not affect cards/observations on the core" do
     uk_post = create(:post, slug: "kyiv-trip", lang: "uk")
-    en_canonical.destroy!
-    assert_predicate uk_post.reload, :canonical_for_observations?
-  end
-
-  test "destroying canonical with no siblings leaves slug-group empty and nullifies obs" do
-    canonical = create(:post, slug: "kyiv-trip", lang: "uk")
-    obs = create(:observation, post: canonical)
-    canonical.destroy!
-    assert_nil obs.reload.post_id
+    en_post = create(:post, slug: "kyiv-trip", lang: "en")
+    card = create(:card, post: uk_post)
+    obs = create(:observation, post: uk_post)
+    uk_post.destroy!
+    assert_equal en_post.post_core_id, card.reload.post_core_id
+    assert_equal en_post.post_core_id, obs.reload.post_core_id
   end
 
   test "localized_versions does not include self as sibling" do
@@ -181,42 +87,42 @@ class PostTest < ActiveSupport::TestCase
   end
 
   test "localized_for returns en sibling for en locale when it exists" do
-    canonical = create(:post, slug: "kyiv-trip", lang: "uk")
+    uk_post = create(:post, slug: "kyiv-trip", lang: "uk")
     en_post = create(:post, slug: "kyiv-trip", lang: "en")
-    result = Post.localized_for([canonical], :en)
-    assert_equal en_post, result[canonical.id]
+    result = Post.localized_for([uk_post.post_core], :en)
+    assert_equal en_post, result[uk_post.post_core_id]
   end
 
   test "localized_for returns nil for en locale when no en sibling exists" do
-    canonical = create(:post, slug: "kyiv-trip", lang: "uk")
-    result = Post.localized_for([canonical], :en)
-    assert_nil result[canonical.id]
+    uk_post = create(:post, slug: "kyiv-trip", lang: "uk")
+    result = Post.localized_for([uk_post.post_core], :en)
+    assert_nil result[uk_post.post_core_id]
   end
 
   test "localized_for prefers uk over ru for uk locale" do
-    canonical = create(:post, slug: "kyiv-trip", lang: "uk")
+    uk_post = create(:post, slug: "kyiv-trip", lang: "uk")
     create(:post, slug: "kyiv-trip", lang: "ru")
-    result = Post.localized_for([canonical], :uk)
-    assert_equal canonical, result[canonical.id]
+    result = Post.localized_for([uk_post.post_core], :uk)
+    assert_equal uk_post, result[uk_post.post_core_id]
   end
 
   test "localized_for falls back to ru for uk locale when no uk sibling exists" do
-    canonical = create(:post, slug: "kyiv-trip", lang: "ru")
-    result = Post.localized_for([canonical], :uk)
-    assert_equal canonical, result[canonical.id]
+    ru_post = create(:post, slug: "kyiv-trip", lang: "ru")
+    result = Post.localized_for([ru_post.post_core], :uk)
+    assert_equal ru_post, result[ru_post.post_core_id]
   end
 
   test "localized_for falls back to uk for ru locale when no ru sibling exists" do
-    canonical = create(:post, slug: "kyiv-trip", lang: "uk")
-    result = Post.localized_for([canonical], :ru)
-    assert_equal canonical, result[canonical.id]
+    uk_post = create(:post, slug: "kyiv-trip", lang: "uk")
+    result = Post.localized_for([uk_post.post_core], :ru)
+    assert_equal uk_post, result[uk_post.post_core_id]
   end
 
   test "localized_for excludes posts outside the given scope" do
-    canonical = create(:post, slug: "kyiv-trip", lang: "uk")
+    uk_post = create(:post, slug: "kyiv-trip", lang: "uk")
     create(:post, slug: "kyiv-trip", lang: "en", status: "PRIV")
-    result = Post.localized_for([canonical], :en, scope: Post.public_posts)
-    assert_nil result[canonical.id]
+    result = Post.localized_for([uk_post.post_core], :en, scope: Post.public_posts)
+    assert_nil result[uk_post.post_core_id]
   end
 
   test "localized_for handles empty input" do
@@ -257,9 +163,9 @@ class PostTest < ActiveSupport::TestCase
   end
 
   test "calculate previous month correctly (one having posts) even for month with no posts" do
-    blogpost1 = create(:post, face_date: "2010-02-06 13:14:15")
-    blogpost2 = create(:post, face_date: "2009-11-06 13:14:15")
-    blogpost3 = create(:post, face_date: "2009-10-06 13:14:15")
+    create(:post, face_date: "2010-02-06 13:14:15")
+    create(:post, face_date: "2009-11-06 13:14:15")
+    create(:post, face_date: "2009-10-06 13:14:15")
     assert_nil Post.prev_month("2009", "10")
     assert_equal({ month: "11", year: "2009" }, Post.prev_month("2009", "12"))
     assert_equal({ month: "11", year: "2009" }, Post.prev_month("2010", "01"))
@@ -267,22 +173,22 @@ class PostTest < ActiveSupport::TestCase
   end
 
   test "calculate next month correctly (one having posts) even for month with no posts" do
-    blogpost1 = create(:post, face_date: "2010-02-06 13:14:15")
-    blogpost2 = create(:post, face_date: "2009-11-06 13:14:15")
-    blogpost1 = create(:post, face_date: "2010-03-06 13:14:15")
+    create(:post, face_date: "2010-02-06 13:14:15")
+    create(:post, face_date: "2009-11-06 13:14:15")
+    create(:post, face_date: "2010-03-06 13:14:15")
     assert_equal({ month: "02", year: "2010" }, Post.next_month("2009", "11"))
     assert_equal({ month: "02", year: "2010" }, Post.next_month("2009", "12"))
     assert_equal({ month: "02", year: "2010" }, Post.next_month("2010", "01"))
     assert_nil Post.next_month("2010", "03")
   end
 
-  test "do not delete associated observations on post destroy" do
+  test "destroying a post does not delete its observations; they remain attached to its core" do
     blogpost = create(:post, face_date: "2010-02-06 13:14:15")
     observation = create(:observation, post: blogpost)
+    core_id = blogpost.post_core_id
     blogpost.destroy
     assert observation.reload
-    assert_nil observation.post_id
-    assert_nil observation.post
+    assert_equal core_id, observation.post_core_id
   end
 
   test "face date is treated as timezone-less" do
@@ -300,45 +206,24 @@ class PostTest < ActiveSupport::TestCase
     assert_equal({ month: "01", year: "2011" }, Post.prev_month("2011", "02"))
   end
 
-  test "adding image to post should touch posts`s updated_at" do
+  test "adding image to post should touch posts`s updated_at via post_core" do
     p = create(:post)
-    saved_date = p.updated_at
+    saved_date = p.post_core.updated_at
 
     travel 1.minute do
       @obs = create(:observation, post: p)
     end
 
     travel 2.minutes do
-      i = create(:image, observation_ids: [@obs.id])
-      p.reload
-      assert p.updated_at.to_i > saved_date.to_i
+      create(:image, observation_ids: [@obs.id])
+      p.post_core.reload
+      assert p.post_core.updated_at.to_i > saved_date.to_i
     end
   end
 
-  # FIXME: the NEW post is touched if it exists, but not the OLD!
-  # FIXME: crazy unstable test!!!
-  # test 'moving image to another observation of another card should touch posts`s updated_at' do
-  #   p = create(:post)
-  #   saved_date = p.updated_at
-  #
-  #   o = create(:observation, post: p)
-  #   i = create(:image, observations: [o])
-  #
-  #   o2 = create(:observation)
-  #
-  #   sleep 2
-  #
-  #   i.update({observation_ids: [o2.id]})
-  #
-  #   p.reload
-  #   assert p.updated_at.to_i > saved_date.to_i
-  #
-  # end
-
-  # !
-  test "moving image to another observation of the same card should touch posts`s updated_at" do
+  test "moving image to another observation of the same card should touch post_core's updated_at" do
     p = create(:post)
-    saved_date = p.updated_at
+    saved_date = p.post_core.updated_at
     card = create(:card, post: p)
 
     o = create(:observation, card: card)
@@ -352,52 +237,48 @@ class PostTest < ActiveSupport::TestCase
 
       img.update({ observation_ids: [o2.id] })
 
-      p.reload
-      assert p.updated_at.to_i > saved_date.to_i
+      p.post_core.reload
+      assert p.post_core.updated_at.to_i > saved_date.to_i
     end
   end
 
-  test "destroying image should touch posts`s updated_at" do
+  test "destroying image should touch post_core's updated_at" do
     p = create(:post)
-    saved_date = p.updated_at
+    saved_date = p.post_core.updated_at
     card = create(:card, post: p)
 
     o = create(:observation, card: card)
     i = create(:image, observations: [o])
 
     travel 1.minute do
-      # Have to refind it to clear association cache
       img = Image.find(i.id)
-
       img.destroy
 
-      p.reload
-      assert p.updated_at.to_i > saved_date.to_i
+      p.post_core.reload
+      assert p.post_core.updated_at.to_i > saved_date.to_i
     end
   end
 
-  # !
-  test "moving card out of the post should touch post" do
+  test "moving card out of the post should touch post_core" do
     p = create(:post)
-    saved_date = p.updated_at
+    saved_date = p.post_core.updated_at
     card = create(:card, post: p)
 
     travel 1.minute do
-      # Have to refind it to clear association cache
       c = Card.find card.id
       c.post = nil
       c.save!
 
-      p.reload
-      assert p.updated_at.to_i > saved_date.to_i
+      p.post_core.reload
+      assert p.post_core.updated_at.to_i > saved_date.to_i
     end
   end
 
   test "proper post species list for observations attached to post" do
     p = create(:post)
     c = create(:card, post: p)
-    o = create(:observation, card: c, taxon: taxa(:hirrus))
-    o2 = create(:observation, post_id: p.id, taxon: taxa(:pasdom))
+    create(:observation, card: c, taxon: taxa(:hirrus))
+    create(:observation, post_core: p.post_core, taxon: taxa(:pasdom))
 
     assert_equal 2, p.species.to_a.size
   end
@@ -406,7 +287,7 @@ class PostTest < ActiveSupport::TestCase
     p = create(:post)
     c = create(:card, post: p)
     o = create(:observation, card: c, taxon: taxa(:hirrus))
-    o2 = create(:observation, post_id: p.id, taxon: taxa(:pasdom))
+    o2 = create(:observation, post_core: p.post_core, taxon: taxa(:pasdom))
     create(:image, observations: [o])
     create(:image, observations: [o2])
 
@@ -420,7 +301,7 @@ class PostTest < ActiveSupport::TestCase
     card = create(:card, observ_date: "2008-07-01", post: p)
     obs1 = create(:observation, taxon: tx1, card: card)
     obs2 = create(:observation, taxon: tx2, card: card)
-    img = create(:image, slug: "picture-of-the-shrike-and-the-wryneck", observations: [obs1, obs2])
+    create(:image, slug: "picture-of-the-shrike-and-the-wryneck", observations: [obs1, obs2])
 
     assert_equal 1, p.images.to_a.size
   end
@@ -428,9 +309,9 @@ class PostTest < ActiveSupport::TestCase
   test "new species count should not be duplicated if new species was seen twice in a day" do
     p = create(:post)
     card1 = create(:card, observ_date: "2015-04-27", post: p)
-    obs1 = create(:observation, taxon: taxa(:hirrus), card: card1)
+    create(:observation, taxon: taxa(:hirrus), card: card1)
     card2 = create(:card, observ_date: "2015-04-27", post: p)
-    obs2 = create(:observation, taxon: taxa(:hirrus), card: card2)
+    create(:observation, taxon: taxa(:hirrus), card: card2)
     assert_equal 1, p.lifer_species_ids.size
   end
 
@@ -441,8 +322,8 @@ class PostTest < ActiveSupport::TestCase
     card = create(:card, post: p)
     obs1 = create(:observation, taxon: tx1, card: card)
     obs2 = create(:observation, taxon: tx2, card: card)
-    img1 = create(:image, observations: [obs1], slug: "image1")
-    img2 = create(:image, observations: [obs2], slug: "image2")
+    create(:image, observations: [obs1], slug: "image1")
+    create(:image, observations: [obs2], slug: "image2")
 
     assert_equal 1, p.decorated.the_rest_of_images.size
     assert_equal "image2", p.decorated.the_rest_of_images[0].slug
@@ -465,7 +346,17 @@ class PostTest < ActiveSupport::TestCase
   test "cache key is changed after commenting on post" do
     p = create(:post, body: "Text")
     key1 = p.cache_key
-    comment = create(:comment, post: p)
+    create(:comment, post: p)
     assert_not_equal p.reload.cache_key, key1
+  end
+
+  test "cache key changes when post_core is updated" do
+    p = create(:post, body: "Text")
+    key1 = p.cache_key
+    travel 1.minute do
+      p.post_core.update!(cover_image_slug: nil, topic: "NEWS")
+      p.reload
+      assert_not_equal key1, p.cache_key
+    end
   end
 end

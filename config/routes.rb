@@ -201,9 +201,6 @@ Rails.application.routes.draw do
       get :hidden
       get :facebook
     end
-    member do
-      post :promote_to_canonical
-    end
   end
 
   resources :cards do

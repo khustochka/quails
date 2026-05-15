@@ -18,17 +18,20 @@
 - if @card.motorless
   %h3 &bull; Motorless
 
-- if @card.post || @card.secondary_posts.present?
+- if @card.main_post || @card.secondary_post_cores.present?
   %h3 Posts
   %ul
-    - @card.post.if_present do |post|
+    - @card.main_post.if_present do |post|
       %li
         %big
           %b= post_link(post.decorated.title, post)
 
-    - @card.secondary_posts.if_present do |ps|
-      - ps.each do |p|
-        %li= post_link(p.decorated.title, p)
+    - @card.secondary_post_cores.if_present do |cores|
+      - localized = Post.localized_for(cores, I18n.locale, scope: current_user.available_posts)
+      - cores.each do |core|
+        - p = localized[core.id]
+        - if p
+          %li= post_link(p.decorated.title, p)
 
 
 - @card.images.if_present do |images|

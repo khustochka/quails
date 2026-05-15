@@ -37,8 +37,8 @@
         = default_destroy_link(card)
   %ul.card_cell
     %li
-      - if card.post
-        %small= post_link(card.post.decorated.title, card.post)
+      - if card.main_post
+        %small= post_link(card.main_post.decorated.title, card.main_post)
       - else
         %i.less-important.grayout No post
     - if @post

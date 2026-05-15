@@ -16,7 +16,7 @@ class Card < ApplicationRecord
   invalidates Quails::CacheKey.lifelist
 
   belongs_to :locus, -> { cached_ancestry_preload }, inverse_of: :cards
-  belongs_to :post, -> { short_form }, touch: true, optional: true, inverse_of: :cards
+  belongs_to :post_core, touch: true, optional: true, inverse_of: :cards
   has_many :observations, -> { order("observations.id") }, dependent: :restrict_with_exception, inverse_of: :card
   has_many :mapped_observations, -> { joins(:spots).distinct }, class_name: "Observation", inverse_of: :card, dependent: nil
 
@@ -39,7 +39,6 @@ class Card < ApplicationRecord
   validates :start_time, :duration_minutes, :area_acres, presence: true, on: :area
   validates :start_time, :duration_minutes, presence: true, on: :stationary
   validates :ebird_id, uniqueness: true, allow_blank: true
-  validate :post_must_be_canonical, if: :post_id_changed?
 
   accepts_nested_attributes_for :observations,
     reject_if: proc { |attrs| attrs.all? { |k, v| v.blank? || k.in?(%w(voice hidden)) } }
@@ -59,8 +58,30 @@ class Card < ApplicationRecord
       .order(Arel.sql("to_timestamp(start_time, 'HH24:MI') #{asc_or_desc} NULLS LAST"))
   }
 
-  def secondary_posts
-    Post.distinct.joins(:observations).where("observations.card_id = ? AND observations.post_id <> ?", id, post_id)
+  def secondary_post_cores
+    PostCore.distinct.joins(:observations).where("observations.card_id = ? AND observations.post_core_id <> ?", id, post_core_id)
+  end
+
+  # Returns a single Post translation appropriate for views.
+  # Lifelist preloader replaces this with a locale-correct sibling
+  # (may explicitly set nil to hide private siblings).
+  def main_post
+    return @main_post if defined?(@main_post)
+
+    @main_post = post_core&.posts&.first
+  end
+
+  attr_writer :main_post
+
+  # Bridge: many tests and call sites still pass `post: a_post` when they
+  # really mean "attach to that post's core". Translate transparently.
+  # TODO: remove in Phase 4 once callers are updated.
+  def post=(blogpost)
+    self.post_core = blogpost&.post_core
+  end
+
+  def post
+    main_post
   end
 
   def mapped?
@@ -118,13 +139,6 @@ class Card < ApplicationRecord
   # HISTORICAL is neither incidental, nor non-incidental
   def incidental?
     effort_type == "INCIDENTAL"
-  end
-
-  def post_must_be_canonical
-    return if post_id.blank?
-    return if post&.canonical_for_observations?
-
-    errors.add(:post, "must be the canonical post for its slug")
   end
 
   class << self

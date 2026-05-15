@@ -50,7 +50,13 @@ module FormatStrategy
 
     def prepare
       @posts = Hash.new do |hash, term|
-        hash[term] = Post.find_by(slug: term.downcase)
+        core = PostCore.find_by(slug: term.downcase)
+        pick = if core
+          preferred_langs = Post::COMPATIBLE_LANGUAGES[locale.to_sym] || [locale.to_s]
+          siblings = core.posts.where(lang: preferred_langs).index_by(&:lang)
+          preferred_langs.lazy.filter_map { |lang| siblings[lang.to_s] }.first || core.posts.first
+        end
+        hash[term] = pick
       end
 
       sp_codes = @text.scan(SPECIES_CODES_REGEX).map do |word, term|
@@ -81,6 +87,10 @@ module FormatStrategy
     def preprocess(text)
       # Having \r breaks matching /^..$/
       text.gsub("\r\n", "\n")
+    end
+
+    def locale
+      @metadata[:locale] || I18n.locale
     end
   end
 end

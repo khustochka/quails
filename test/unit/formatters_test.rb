@@ -82,7 +82,7 @@ class FormattersTest < ActionDispatch::IntegrationTest
     url = "https://stonechat.livejournal.com/1111.html"
     post1 = create(:post,
       slug: "post_for_link",
-      lj_data: Post::LJData.new("1111", "https://stonechat.livejournal.com/1111.html"))
+      lj_data: PostCore::LJData.new("1111", "https://stonechat.livejournal.com/1111.html"))
     post = build(:post, body: "This is a {{#post|post_for_link}}")
     assert_equal "<p>This is a <a href=\"#{url}\">post</a></p>",
       post.decorated.for_lj.body
@@ -116,7 +116,7 @@ class FormattersTest < ActionDispatch::IntegrationTest
   test "LJ Post with images" do
     p = create(:post, body: "AAA")
     image = create(:image)
-    image.card.update_column(:post_id, p.id)
+    image.card.update_column(:post_core_id, p.post_core_id)
     assert_includes p.decorated({ host: "localhost", port: 3011 }).for_lj.body,
       "<img src=\"https://localhost:3011/photos/#{image.slug}.jpg\" title=\"[photo]\" alt=\"[photo]\" />"
     assert_includes p.decorated({ host: "localhost", port: 3011 }).for_lj.body,

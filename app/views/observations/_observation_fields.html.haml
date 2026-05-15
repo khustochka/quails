@@ -18,8 +18,8 @@
       %br
       = default_destroy_link(obs)
     %div
-      - if obs.post_id
-        = post_link('post', obs.post)
+      - if obs.post_core_id
+        = post_link("post", obs.main_post)
   - else
     %div.align-center
       %span.remove{title: 'Remove row'}

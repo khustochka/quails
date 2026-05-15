@@ -85,24 +85,20 @@ class CardTest < ActiveSupport::TestCase
     assert_not_includes card2.lifer_species_ids, species.id
   end
 
-  test "card is unlinked from post when post is destroyed" do
+  test "card is unlinked from its core when the core is destroyed" do
     p = create(:post)
-    card = create(:card, post_id: p.id)
+    core = p.post_core
+    card = create(:card, post_core: core)
     p.destroy
-    assert_nil card.reload.post_id
+    core.destroy
+    assert_nil card.reload.post_core_id
   end
 
-  test "card cannot be attached to a non-canonical post" do
-    create(:post, slug: "kyiv-trip", lang: "uk")
+  test "card can be attached to any translation's core" do
+    uk_post = create(:post, slug: "kyiv-trip", lang: "uk")
     en_post = create(:post, slug: "kyiv-trip", lang: "en")
     card = build(:card, post: en_post)
-    assert_not_predicate card, :valid?
-    assert_includes card.errors[:post], "must be the canonical post for its slug"
-  end
-
-  test "card can be attached to a canonical post" do
-    canonical = create(:post, slug: "kyiv-trip", lang: "uk")
-    card = build(:card, post: canonical)
     assert_predicate card, :valid?
+    assert_equal uk_post.post_core_id, card.post_core_id
   end
 end

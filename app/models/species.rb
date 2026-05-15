@@ -56,11 +56,11 @@ class Species < ApplicationRecord
     images.observed_order
   end
 
-  def posts
-    p1 = observations.select(:post_id)
-    p2 = cards.select(:post_id)
+  def post_cores
+    c1 = observations.select(:post_core_id)
+    c2 = cards.select(:post_core_id)
 
-    Post.short_form.distinct.where("posts.id IN (?) OR posts.id IN (?)", p1, p2).order(face_date: :desc)
+    PostCore.distinct.where("post_cores.id IN (?) OR post_cores.id IN (?)", c1, c2)
   end
 
   def high_level_taxon

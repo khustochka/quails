@@ -33,7 +33,7 @@ class ImagesAssociationsTest < ActiveSupport::TestCase
 
     assert_equal [@image], blogpost.images
     @image.reload
-    assert_equal [blogpost], @image.posts
+    assert_equal [blogpost.post_core], @image.post_cores.to_a
   end
 
   test "properly unlink observations when image destroyed" do

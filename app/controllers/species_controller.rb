@@ -40,8 +40,12 @@ class SpeciesController < ApplicationController
       else
         @observations_count = @species.observations.count
         if @observations_count.positive?
-          @posts = @species.posts.limit(10).merge(current_user.available_posts).to_a
-          @localized_posts = Post.localized_for(@posts, I18n.locale, scope: current_user.available_posts)
+          available_core_ids = current_user.available_posts.where(post_core_id: @species.post_cores).distinct.pluck(:post_core_id)
+          ordered_core_ids = Post.where(post_core_id: available_core_ids)
+            .group(:post_core_id).order(Arel.sql("MAX(posts.face_date) DESC")).limit(10).pluck(:post_core_id)
+          cores_by_id = PostCore.where(id: ordered_core_ids).index_by(&:id)
+          @post_cores = ordered_core_ids.filter_map { |id| cores_by_id[id] }
+          @localized_posts = Post.localized_for(@post_cores, I18n.locale, scope: current_user.available_posts)
           countries = Country.select(:id, :slug, :ancestry).to_a
           subregion_ids_by_country = countries.index_with { |c| c.subregion_ids.to_set }
           country_for_locus_id = {}

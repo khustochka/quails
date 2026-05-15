@@ -17,7 +17,7 @@ class Observation < ApplicationRecord
     taxon.species
   end
 
-  belongs_to :post, -> { short_form }, touch: true, optional: true, inverse_of: :observations
+  belongs_to :post_core, touch: true, optional: true, inverse_of: :observations
   has_and_belongs_to_many :media
   has_and_belongs_to_many :images, class_name: "Image", association_foreign_key: :media_id
   has_and_belongs_to_many :videos, class_name: "Video", association_foreign_key: :media_id
@@ -30,15 +30,6 @@ class Observation < ApplicationRecord
     if videos.present?
       raise ActiveRecord::DeleteRestrictionError, self.class.reflections[:videos]
     end
-  end
-
-  validate :post_must_be_canonical, if: :post_id_changed?
-
-  def post_must_be_canonical
-    return if post_id.blank?
-    return if post&.canonical_for_observations?
-
-    errors.add(:post, "must be the canonical post for its slug")
   end
 
   # Scopes
@@ -86,8 +77,38 @@ class Observation < ApplicationRecord
     card.locus
   end
 
+  # Returns a Post (single translation) for views that need to link to a blog
+  # post. Lifelist preloader replaces this with the locale-correct sibling
+  # (may explicitly set nil to hide private siblings).
+  #
+  # Resolution order:
+  #   1. explicitly-set @main_post (e.g. from Lifelist preloader)
+  #   2. main_post_core's first translation (own core, or card's core)
+  #   3. card.main_post (in case the card was preloaded but obs.post_core is unset)
   def main_post
-    post || card.post
+    return @main_post if defined?(@main_post)
+
+    @main_post = if post_core
+      post_core.posts.first
+    else
+      card&.main_post
+    end
+  end
+
+  attr_writer :main_post
+
+  def main_post_core
+    post_core || card.post_core
+  end
+
+  # Bridge: same as Card#post=. Translates `post: a_post` into "attach to
+  # that post's core". TODO: remove in Phase 4.
+  def post=(blogpost)
+    self.post_core = blogpost&.post_core
+  end
+
+  def post
+    main_post
   end
 
   def significant_value_for_lifelist

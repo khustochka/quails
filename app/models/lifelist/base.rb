@@ -93,22 +93,25 @@ module Lifelist
         .to_sql
     end
 
-    # Resolves each record's canonical post to a localized sibling for the current locale.
-    # The assigned `post` may differ from the underlying association (or be nil if the post is
-    # private, or if no sibling exists in a compatible language).
+    # Resolves each record's PostCore to a localized translation for the
+    # current locale. The assigned `main_post` may be nil if the post is
+    # private or if no sibling exists in a compatible language.
     def preload_posts(records)
       cards = records.map(&:card)
-      post_ids = (records.map(&:post_id) + cards.map(&:post_id)).compact.uniq
-      return if post_ids.empty?
+      core_ids = (records.map(&:post_core_id) + cards.map(&:post_core_id)).compact.uniq
+      return if core_ids.empty?
 
-      canonical = posts_scope.where(id: post_ids).to_a
-      localized = Post.localized_for(canonical, I18n.locale, scope: posts_scope)
+      cores = PostCore.where(id: core_ids).to_a
+      localized = Post.localized_for(cores, I18n.locale, scope: posts_scope)
 
-      # Snapshot post_id before assignment: assigning `card.post = sibling` mutates `card.post_id`,
-      # which would clobber subsequent lookups when multiple records share the same Card object.
-      records.each { |rec| rec.post = localized[rec.post_id] }
       cards.uniq.each do |card|
-        card.post = localized[card.post_id]
+        card.main_post = localized[card.post_core_id]
+      end
+      # Observation's own core takes precedence over its card's core.
+      # When the observation has no core of its own, defer to the card's
+      # main_post (set above) — leave @main_post unset.
+      records.each do |rec|
+        rec.main_post = localized[rec.post_core_id] if rec.post_core_id
       end
     end
 

@@ -39,17 +39,11 @@ class ObservationTest < ActiveSupport::TestCase
     end
   end
 
-  test "observation cannot be attached to a non-canonical post" do
-    create(:post, slug: "kyiv-trip", lang: "uk")
+  test "observation can be attached to any translation's core" do
+    uk_post = create(:post, slug: "kyiv-trip", lang: "uk")
     en_post = create(:post, slug: "kyiv-trip", lang: "en")
     observation = build(:observation, post: en_post)
-    assert_not_predicate observation, :valid?
-    assert_includes observation.errors[:post], "must be the canonical post for its slug"
-  end
-
-  test "observation can be attached to a canonical post" do
-    canonical = create(:post, slug: "kyiv-trip", lang: "uk")
-    observation = build(:observation, post: canonical)
     assert_predicate observation, :valid?
+    assert_equal uk_post.post_core_id, observation.post_core_id
   end
 end

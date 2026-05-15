@@ -1,7 +1,8 @@
 -# frozen_string_literal: true
-- canonical_posts = media.posts.merge(current_user.available_posts).to_a
-- localized_posts_map = Post.localized_for(canonical_posts, I18n.locale, scope: current_user.available_posts)
-- localized_posts = canonical_posts.filter_map { |canonical| localized_posts_map[canonical.id] }
+- core_ids_with_available_posts = current_user.available_posts.where(post_core_id: media.post_cores).distinct.pluck(:post_core_id)
+- cores = PostCore.where(id: core_ids_with_available_posts)
+- localized_posts_map = Post.localized_for(cores, I18n.locale, scope: current_user.available_posts)
+- localized_posts = cores.filter_map { |core| localized_posts_map[core.id] }
 
 %p
   %div
