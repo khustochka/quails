@@ -103,9 +103,9 @@ class SpeciesControllerTest < ActionController::TestCase
 
   test "species page shows en sibling post link in en locale" do
     tx = taxa(:jyntor)
-    canonical = create(:post, slug: "kyiv-trip", lang: "uk")
+    uk_post = create(:post, slug: "kyiv-trip", lang: "uk")
     en_post = create(:post, slug: "kyiv-trip", lang: "en")
-    create(:observation, taxon: tx, post: canonical)
+    create(:observation, taxon: tx, post: uk_post)
     get :show, params: { id: tx.species.to_param, locale: :en }
     assert_response :success
     assert_select "a[href*='#{public_post_path(en_post, locale: :en)}']"
@@ -113,11 +113,11 @@ class SpeciesControllerTest < ActionController::TestCase
 
   test "species page hides post link in en locale when no en sibling exists" do
     tx = taxa(:jyntor)
-    canonical = create(:post, slug: "kyiv-trip", lang: "uk")
-    create(:observation, taxon: tx, post: canonical)
+    uk_post = create(:post, slug: "kyiv-trip", lang: "uk")
+    create(:observation, taxon: tx, post: uk_post)
     get :show, params: { id: tx.species.to_param, locale: :en }
     assert_response :success
-    assert_select "a[href*='#{public_post_path(canonical)}']", count: 0
+    assert_select "a[href*='#{public_post_path(uk_post)}']", count: 0
   end
 
   test "species page falls back to ru post in uk locale when no uk sibling" do

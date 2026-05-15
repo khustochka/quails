@@ -101,12 +101,6 @@ class Observation < ApplicationRecord
     post_core || card.post_core
   end
 
-  # Bridge: same as Card#post=. Translates `post: a_post` into "attach to
-  # that post's core". TODO: remove in Phase 4.
-  def post=(blogpost)
-    self.post_core = blogpost&.post_core
-  end
-
   def post
     main_post
   end

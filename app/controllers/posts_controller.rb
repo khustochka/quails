@@ -15,6 +15,9 @@ class PostsController < ApplicationController
 
   FILTER_KEYS = [:topic, :status, :lang_present, :lang_missing, :year, :month].freeze
 
+  POST_ATTRS = [:title, :body, :face_date, :status, :lang, :lj_data, :post_core_id].freeze
+  private_constant :POST_ATTRS
+
   # GET /posts — admin index, one row per PostCore.
   def index
     filters = params.permit(*FILTER_KEYS).to_h.symbolize_keys
@@ -126,7 +129,7 @@ class PostsController < ApplicationController
   # GET /posts/new
   def new
     defaults = { status: "PRIV", face_date: Time.current.strftime("%F %T") }
-    @post = Post.new(defaults.merge(params[:post] || {}))
+    @post = Post.new(defaults.merge(post_attrs))
     if @post.post_core_id.blank?
       redirect_to new_post_core_path
       return
@@ -144,7 +147,7 @@ class PostsController < ApplicationController
 
   # POST /posts
   def create
-    @post = Post.new(params[:post])
+    @post = Post.new(post_attrs)
 
     if @post.save
       redirect_to(universal_public_post_path(@post))
@@ -158,7 +161,7 @@ class PostsController < ApplicationController
     @extra_params = @post.to_url_params
     # post_core_id is locked once a translation is created; rebinding goes
     # through PostCoresController, not here.
-    update_params = (params[:post] || {}).except(:post_core_id)
+    update_params = post_attrs.except(:post_core_id)
     process_correction_options(@post) do
       if @post.update(update_params)
         redirect_to(redirect_after_update_path(@post))
@@ -241,6 +244,12 @@ class PostsController < ApplicationController
   end
 
   private
+
+  def post_attrs
+    raw = params[:post] || ActionController::Parameters.new
+    raw = ActionController::Parameters.new(raw) unless raw.is_a?(ActionController::Parameters)
+    raw.permit(*POST_ATTRS).to_h.symbolize_keys
+  end
 
   def find_post
     @post = current_user.available_posts.find(params[:id])

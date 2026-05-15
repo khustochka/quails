@@ -21,9 +21,7 @@ class Post < ApplicationRecord
     ru: %w(uk ru),
   }
 
-  CORE_ATTRIBUTES = %w(slug legacy_slug topic cover_image_slug publish_to_facebook).freeze
-
-  belongs_to :post_core, inverse_of: :posts, autosave: true
+  belongs_to :post_core, inverse_of: :posts
   validates_associated :post_core
 
   has_many :comments, dependent: :destroy
@@ -35,34 +33,12 @@ class Post < ApplicationRecord
 
   before_validation :set_face_date_if_blank
   before_validation :assign_shout_slug, if: :shout?
-  before_validation :ensure_post_core
 
   delegate :slug, :legacy_slug, :topic, :cover_image_slug, :publish_to_facebook,
     to: :post_core, allow_nil: true
 
   def lj_url
     @lj_url ||= lj_data&.url
-  end
-
-  # Writers that resolve (or build) the right PostCore, then write through to it.
-  # This is a bridge so the existing form (params[:post][:slug] = ...) keeps
-  # working until the two-step flow lands in Phase 4.
-  def slug=(value)
-    core = if value.present? && (existing = PostCore.find_by(slug: value)) && existing != post_core
-      existing
-    else
-      post_core || build_post_core
-    end
-    core.slug = value
-    self.post_core = core
-  end
-
-  CORE_ATTRIBUTES.each do |attr|
-    next if attr == "slug"
-
-    define_method("#{attr}=") do |value|
-      (post_core || build_post_core).public_send("#{attr}=", value)
-    end
   end
 
   # Convert "timezone-less" face_date to local time zone because AR treats it as UTC (especially necessary for feed updated time)
@@ -158,21 +134,11 @@ class Post < ApplicationRecord
     post_core.cards
   end
 
-  def cards=(records)
-    core = post_core || build_post_core
-    core.cards = records
-  end
-
   # Observations attached directly to this post's core.
   def observations
     return Observation.none unless post_core_id
 
     post_core.observations
-  end
-
-  def observations=(records)
-    core = post_core || build_post_core
-    core.observations = records
   end
 
   # Instance methods
@@ -275,14 +241,7 @@ class Post < ApplicationRecord
   def assign_shout_slug
     return if post_core&.slug.present?
 
-    self.slug = "shout-#{face_date.strftime("%Y%m%d")}-#{SecureRandom.hex(3)}"
-  end
-
-  # Make sure the autosave-bound post_core exists even when the caller didn't
-  # touch any core attribute (e.g. an update that only changes body).
-  def ensure_post_core
-    return if post_core
-
-    self.post_core = build_post_core
+    core = post_core || build_post_core(topic: "OBSR")
+    core.slug = "shout-#{face_date.strftime("%Y%m%d")}-#{SecureRandom.hex(3)}"
   end
 end

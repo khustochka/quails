@@ -73,13 +73,6 @@ class Card < ApplicationRecord
 
   attr_writer :main_post
 
-  # Bridge: many tests and call sites still pass `post: a_post` when they
-  # really mean "attach to that post's core". Translate transparently.
-  # TODO: remove in Phase 4 once callers are updated.
-  def post=(blogpost)
-    self.post_core = blogpost&.post_core
-  end
-
   def post
     main_post
   end

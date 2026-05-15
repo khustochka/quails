@@ -29,7 +29,8 @@ class ImagesAssociationsTest < ActiveSupport::TestCase
   end
 
   test "properly link image and post" do
-    blogpost = create(:post, observations: [@obs])
+    blogpost = create(:post)
+    @obs.update!(post_core: blogpost.post_core)
 
     assert_equal [@image], blogpost.images
     @image.reload

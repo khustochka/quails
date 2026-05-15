@@ -40,9 +40,9 @@ module Lifelist
 
     test "resolves localized sibling for every lifer when multiple lifers share the same card" do
       I18n.with_locale(:en) do
-        canonical = FactoryBot.create(:post, slug: "trip", lang: "uk")
+        uk_post = FactoryBot.create(:post, slug: "trip", lang: "uk")
         en_sibling = FactoryBot.create(:post, slug: "trip", lang: "en")
-        card = FactoryBot.create(:card, post: canonical)
+        card = FactoryBot.create(:card, post: uk_post)
         FactoryBot.create(:observation, card: card, taxon: taxa(:hirrus))
         FactoryBot.create(:observation, card: card, taxon: taxa(:saxola))
         list = Lifelist::FirstSeen.full

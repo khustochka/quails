@@ -279,7 +279,7 @@ class PostTest < ActiveSupport::TestCase
 
     travel 1.minute do
       c = Card.find card.id
-      c.post = nil
+      c.post_core = nil
       c.save!
 
       p.post_core.reload

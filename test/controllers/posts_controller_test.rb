@@ -17,9 +17,11 @@ class PostsControllerTest < ActionController::TestCase
   end
 
   test "create post" do
+    core = create(:post_core)
+    attrs = attributes_for(:post).except(:post_core).merge(post_core_id: core.id)
     assert_difference("Post.count") do
       login_as_admin
-      post :create, params: { post: attributes_for(:post) }
+      post :create, params: { post: attrs }
     end
     assert_redirected_to public_post_path(assigns(:post))
   end
@@ -121,16 +123,6 @@ class PostsControllerTest < ActionController::TestCase
     login_as_admin
     put :update, params: { id: blogpost.to_param, post: blogpost.attributes.except("lj_data") }
     assert_template :form
-  end
-
-  test "do not update post with invalid slug" do
-    blogpost = create(:post)
-    post_attr = blogpost.attributes.except("lj_data")
-    post_attr["slug"] = ""
-    login_as_admin
-    put :update, params: { id: blogpost.to_param, post: post_attr }
-    assert_template :form
-    assert_select "form[action='#{post_path(blogpost)}']"
   end
 
   test "destroy post" do
