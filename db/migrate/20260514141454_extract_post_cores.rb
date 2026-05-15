@@ -2,13 +2,13 @@
 
 class ExtractPostCores < ActiveRecord::Migration[8.1]
   def up
-    # 1. Create post_cores table.
+    # 1. Create post_cores table. lj_data stays on posts (per-translation —
+    #    each LJ entry has its own post_id and url).
     create_table :post_cores do |t|
       t.string :slug, limit: 64, null: false
       t.string :legacy_slug, limit: 64
       t.string :topic, limit: 4, null: false
       t.string :cover_image_slug
-      t.text :lj_data
       t.boolean :publish_to_facebook, default: false, null: false
       t.timestamps null: false
     end
@@ -20,13 +20,12 @@ class ExtractPostCores < ActiveRecord::Migration[8.1]
     #    from the canonical post. legacy_slug coalesced from whichever
     #    sibling has it set (only one ever does).
     execute <<~SQL
-      INSERT INTO post_cores (slug, legacy_slug, topic, cover_image_slug, lj_data, publish_to_facebook, created_at, updated_at)
+      INSERT INTO post_cores (slug, legacy_slug, topic, cover_image_slug, publish_to_facebook, created_at, updated_at)
       SELECT
         canonical.slug,
         legacy.legacy_slug,
         canonical.topic,
         canonical.cover_image_slug,
-        canonical.lj_data,
         canonical.publish_to_facebook,
         canonical.updated_at,
         canonical.updated_at
@@ -84,7 +83,6 @@ class ExtractPostCores < ActiveRecord::Migration[8.1]
     remove_column :posts, :legacy_slug
     remove_column :posts, :topic
     remove_column :posts, :cover_image_slug
-    remove_column :posts, :lj_data
     remove_column :posts, :publish_to_facebook
     remove_column :posts, :canonical_for_observations
 

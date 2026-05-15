@@ -82,7 +82,7 @@ class FormattersTest < ActionDispatch::IntegrationTest
     url = "https://stonechat.livejournal.com/1111.html"
     post1 = create(:post,
       slug: "post_for_link",
-      lj_data: PostCore::LJData.new("1111", "https://stonechat.livejournal.com/1111.html"))
+      lj_data: Post::LJData.new("1111", "https://stonechat.livejournal.com/1111.html"))
     post = build(:post, body: "This is a {{#post|post_for_link}}")
     assert_equal "<p>This is a <a href=\"#{url}\">post</a></p>",
       post.decorated.for_lj.body

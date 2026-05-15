@@ -1,15 +1,7 @@
 # frozen_string_literal: true
 
 class PostCore < ApplicationRecord
-  class LJData < Struct.new(:post_id, :url)
-    def blank?
-      post_id.blank? || url.blank?
-    end
-  end
-
   TOPICS = %w(OBSR NEWS SITE)
-
-  serialize :lj_data, type: LJData, coder: YAML
 
   has_many :posts, dependent: :restrict_with_error, inverse_of: :post_core
   has_many :cards, -> { order(:observ_date, :locus_id) }, dependent: :nullify, inverse_of: :post_core
@@ -20,10 +12,6 @@ class PostCore < ApplicationRecord
   validates :topic, inclusion: TOPICS, presence: true, length: { maximum: 4 }
 
   validate :check_cover_image_slug_or_url
-
-  def lj_url
-    @lj_url ||= lj_data.url
-  end
 
   private
 

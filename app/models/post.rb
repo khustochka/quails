@@ -7,13 +7,21 @@ class Post < ApplicationRecord
 
   STATES = %w(OPEN PRIV SHOT NIDX)
 
+  class LJData < Struct.new(:post_id, :url)
+    def blank?
+      post_id.blank? || url.blank?
+    end
+  end
+
+  serialize :lj_data, type: LJData, coder: YAML
+
   COMPATIBLE_LANGUAGES = {
     en: %w(en),
     uk: %w(uk ru),
     ru: %w(uk ru),
   }
 
-  CORE_ATTRIBUTES = %w(slug legacy_slug topic cover_image_slug lj_data publish_to_facebook).freeze
+  CORE_ATTRIBUTES = %w(slug legacy_slug topic cover_image_slug publish_to_facebook).freeze
 
   belongs_to :post_core, inverse_of: :posts, autosave: true
   validates_associated :post_core
@@ -29,8 +37,12 @@ class Post < ApplicationRecord
   before_validation :assign_shout_slug, if: :shout?
   before_validation :ensure_post_core
 
-  delegate :slug, :legacy_slug, :topic, :cover_image_slug, :lj_data, :lj_url, :publish_to_facebook,
+  delegate :slug, :legacy_slug, :topic, :cover_image_slug, :publish_to_facebook,
     to: :post_core, allow_nil: true
+
+  def lj_url
+    @lj_url ||= lj_data&.url
+  end
 
   # Writers that resolve (or build) the right PostCore, then write through to it.
   # This is a bridge so the existing form (params[:post][:slug] = ...) keeps

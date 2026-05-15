@@ -338,7 +338,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_14_141454) do
     t.string "cover_image_slug"
     t.datetime "created_at", null: false
     t.string "legacy_slug", limit: 64
-    t.text "lj_data"
     t.boolean "publish_to_facebook", default: false, null: false
     t.string "slug", limit: 64, null: false
     t.string "topic", limit: 4, null: false
@@ -352,6 +351,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_14_141454) do
     t.datetime "commented_at", precision: nil
     t.datetime "face_date", precision: nil, null: false
     t.string "lang", limit: 2, null: false
+    t.text "lj_data"
     t.bigint "post_core_id", null: false
     t.string "status", limit: 4
     t.string "title", limit: 255, null: false

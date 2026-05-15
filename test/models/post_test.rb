@@ -8,6 +8,19 @@ class PostTest < ActiveSupport::TestCase
     assert_predicate create(:post), :valid?
   end
 
+  test "legacy Post::LJData YAML in posts.lj_data deserializes" do
+    yaml = "--- !ruby/struct:Post::LJData\npost_id: '42'\nurl: https://example.com/42.html\n"
+    blogpost = create(:post)
+    Post.connection.exec_update(
+      "UPDATE posts SET lj_data = $1 WHERE id = $2",
+      "raw lj_data",
+      [yaml, blogpost.id]
+    )
+    blogpost.reload
+    assert_equal "42", blogpost.lj_data.post_id
+    assert_equal "https://example.com/42.html", blogpost.lj_url
+  end
+
   test "do not save post with empty slug" do
     blogpost = build(:post, slug: "")
     assert_not_predicate blogpost, :valid?
