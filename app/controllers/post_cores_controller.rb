@@ -32,8 +32,11 @@ class PostCoresController < ApplicationController
   end
 
   def destroy
-    @post_core.destroy
-    redirect_to posts_path
+    if @post_core.destroy
+      redirect_to posts_path
+    else
+      redirect_to edit_post_core_path(@post_core), alert: @post_core.errors.full_messages.to_sentence
+    end
   end
 
   private

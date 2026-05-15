@@ -11,7 +11,7 @@ class PostCore < ApplicationRecord
 
   serialize :lj_data, type: LJData, coder: YAML
 
-  has_many :posts, dependent: :destroy, inverse_of: :post_core
+  has_many :posts, dependent: :restrict_with_error, inverse_of: :post_core
   has_many :cards, -> { order(:observ_date, :locus_id) }, dependent: :nullify, inverse_of: :post_core
   has_many :observations, dependent: :nullify, inverse_of: :post_core
 

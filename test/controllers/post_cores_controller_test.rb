@@ -66,15 +66,25 @@ class PostCoresControllerTest < ActionController::TestCase
     assert_equal "valid-slug", core.reload.slug
   end
 
-  test "destroy removes the core and its translations" do
+  test "destroy removes an empty core" do
+    core = create(:post_core)
+    login_as_admin
+    assert_difference("PostCore.count", -1) do
+      delete :destroy, params: { id: core.id }
+    end
+    assert_redirected_to posts_path
+  end
+
+  test "destroy is prevented when translations exist" do
     core = create(:post_core)
     create(:post, post_core: core, lang: "uk")
     login_as_admin
-    assert_difference("PostCore.count", -1) do
-      assert_difference("Post.count", -1) do
+    assert_no_difference("PostCore.count") do
+      assert_no_difference("Post.count") do
         delete :destroy, params: { id: core.id }
       end
     end
-    assert_redirected_to posts_path
+    assert_redirected_to edit_post_core_path(core)
+    assert_match(/posts/i, flash[:alert].to_s)
   end
 end

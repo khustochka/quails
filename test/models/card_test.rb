@@ -86,10 +86,8 @@ class CardTest < ActiveSupport::TestCase
   end
 
   test "card is unlinked from its core when the core is destroyed" do
-    p = create(:post)
-    core = p.post_core
+    core = create(:post_core)
     card = create(:card, post_core: core)
-    p.destroy
     core.destroy
     assert_nil card.reload.post_core_id
   end

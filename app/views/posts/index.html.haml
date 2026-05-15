@@ -51,7 +51,8 @@
           %div.topic-wrap
             %span.tag.topic= core.topic
         %td
-          %code= core.slug
+          = link_to edit_post_core_path(core) do
+            %code= core.slug
         %td.translations
           %ul
             - languages.each do |lang|
