@@ -194,12 +194,14 @@ class PostsControllerTest < ActionController::TestCase
     assert_select ".core-translations a[href='#{public_post_path(ru_post, locale: :ru)}']", text: "view"
   end
 
-  test "edit shows Attach cards for any translation" do
+  test "edit links to the post core for managing attached cards" do
     uk_post = create(:post, lang: "uk", slug: "shared-slug")
     login_as_admin
     get :edit, params: { id: uk_post.to_param }
     assert_response :success
-    assert_select "h3#card_attach"
+    # Attach UI lives on the core; translation form just links to it.
+    assert_select "h3#card_attach", count: 0
+    assert_select "a[href*='#{edit_post_core_path(uk_post.post_core)}']"
   end
 
   test "edit panel shows Create pseudolink with post_core_id when sibling missing" do

@@ -38,6 +38,25 @@ class PostCoresControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "edit shows the Attach cards UI" do
+    core = create(:post_core)
+    login_as_admin
+    get :edit, params: { id: core.id }
+    assert_response :success
+    assert_select "h3#card_attach"
+    assert_select "form[data-cards-search]"
+    assert_select "input[name=new_post_core_id][value='#{core.id}']", count: 1, visible: false
+  end
+
+  test "edit lists attached cards" do
+    core = create(:post_core)
+    card = create(:card, post_core: core, observ_date: "2024-04-01")
+    login_as_admin
+    get :edit, params: { id: core.id }
+    assert_response :success
+    assert_select "ul.cards_list li.observ_card[data-id='#{card.id}']"
+  end
+
   test "edit lists existing translations and create links for missing ones" do
     core = create(:post_core, slug: "shared")
     uk_post = create(:post, post_core: core, lang: "uk")

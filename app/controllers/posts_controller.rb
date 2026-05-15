@@ -98,6 +98,7 @@ class PostsController < ApplicationController
     end
 
     @localized_versions = @post.localized_versions(source: current_user.available_posts)
+    @attach_core_id = @post.post_core_id if current_user.admin?
     @robots = "NOINDEX" if @post.status == "NIDX"
     @comments = current_user.available_comments(@post).group_by(&:parent_id)
 
@@ -137,7 +138,6 @@ class PostsController < ApplicationController
   def edit
     set_correction_flash(@post)
     @extra_params = @post.to_url_params
-    @observation_search = ObservationSearch.new
     @localized_versions = @post.localized_versions(source: current_user.available_posts)
     render "form"
   end
@@ -163,7 +163,6 @@ class PostsController < ApplicationController
       if @post.update(update_params)
         redirect_to(redirect_after_update_path(@post))
       else
-        @observation_search = ObservationSearch.new
         render "form"
       end
     end

@@ -11,6 +11,7 @@ class PostCoresController < ApplicationController
   end
 
   def edit
+    set_attach_ui
     render "form"
   end
 
@@ -27,6 +28,7 @@ class PostCoresController < ApplicationController
     if @post_core.update(params[:post_core])
       redirect_to posts_path
     else
+      set_attach_ui
       render "form"
     end
   end
@@ -43,5 +45,10 @@ class PostCoresController < ApplicationController
 
   def find_post_core
     @post_core = PostCore.find(params[:id])
+  end
+
+  def set_attach_ui
+    @observation_search = ObservationSearch.new
+    @attach_core_id = @post_core.id
   end
 end

@@ -1,5 +1,5 @@
 -# frozen_string_literal: true
-%li.observ_card{data: {id: card.id}}
+%li.observ_card{class: ("attached-to-core" if @attach_core_id && card.post_core_id == @attach_core_id), data: {id: card.id}}
   %ul.card_cell
     %li
       = hidden_field_tag("card_id[]", card.id)
@@ -41,8 +41,8 @@
         %small= post_link(card.main_post.decorated.title, card.main_post)
       - else
         %i.less-important.grayout No post
-    - if @post
-      %li= post_attach_detach_link(card, @post)
+    - if @attach_core_id
+      %li= post_attach_detach_link(card, @attach_core_id)
   %ul.card_cell
     %li
 
@@ -62,7 +62,7 @@
         %b= observers
     - if card.motorless?
       %b Motorless
-    - elsif !@post
+    - elsif !@attach_core_id
       -# So that the link does not show on post page
       = link_to 'Mark motorless',
                 card_path(card.id, {card: {motorless: true}, format: :json}),

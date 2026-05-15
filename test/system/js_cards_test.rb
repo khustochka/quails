@@ -261,13 +261,13 @@ class JSCardsTest < ApplicationSystemTestCase
     assert_nil card.reload.post_core_id
   end
 
-  test "Attach card to the post" do
+  test "Attach card to the post core" do
     create(:card, observ_date: "2010-06-18")
 
     p = create(:post)
 
     login_as_admin
-    visit edit_post_path(p)
+    visit edit_post_core_path(p.post_core)
     fill_in_date("Date:", "2010-06-18")
 
     click_button("Search")
@@ -279,7 +279,7 @@ class JSCardsTest < ApplicationSystemTestCase
     end
 
     assert_no_css ".loading"
-    assert_current_path edit_post_path(p)
+    assert_current_path edit_post_core_path(p.post_core)
     assert_css "li.observ_card a", text: "Detach from this post"
 
     assert_equal 1, p.reload.cards.size

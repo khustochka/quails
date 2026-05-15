@@ -38,3 +38,27 @@
 
 - if @post_core.persisted?
   %p= default_destroy_button
+
+  %div{data: {attached_list: true, attached_url: edit_post_core_path(@post_core)}}
+    %h3#attached_cards Attached cards and observations
+    - attached_cards = @post_core.cards.preload(:locus, post_core: :posts).default_cards_order(:asc)
+    - if attached_cards.any?
+      %ul.cards_list
+        = render attached_cards
+    - else
+      %p.less-important No cards attached.
+
+    - solo_obs = @post_core.observations.where.not(card_id: attached_cards.select(:id))
+    - if solo_obs.any?
+      %h4 Standalone observations
+      %ul
+        - solo_obs.each do |obs|
+          = render "cards/observation_row", obs: obs
+
+  %h3#card_attach Attach cards
+
+  = simple_form_for @observation_search, url: cards_path, method: :get, remote: true, html: {class: "search", data: {cards_search: true}} do |form|
+    = render "observations/search_fields", form: form
+    = hidden_field_tag("new_post_core_id", @post_core.id)
+
+  %ul.cards_list#search-results{data: {cards_search_results: true}}

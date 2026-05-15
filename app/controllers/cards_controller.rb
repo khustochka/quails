@@ -21,7 +21,7 @@ class CardsController < ApplicationController
       @cards.limit(30)
     end
 
-    @post = Post.where(id: params[:new_post_id]).first
+    @attach_core_id = params[:new_post_core_id].presence&.to_i
 
     respond_to do |format|
       format.html {

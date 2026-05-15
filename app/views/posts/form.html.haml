@@ -76,13 +76,10 @@
 
   %p= default_destroy_button
 
-  %h3#card_attach Attach cards
-
-  = simple_form_for @observation_search, url: cards_path, method: :get, remote: true, html: {class: "search", data: {cards_search: true}} do |form|
-    = render 'observations/search_fields', form: form
-    = hidden_field_tag("new_post_id", @post.id)
-
-  %ul.cards_list#search-results{data: {cards_search_results: true}}
+  - if @post.post_core
+    %p
+      Cards and observations attach to the post core.
+      = link_to "Manage attached cards", edit_post_core_path(@post.post_core, anchor: "attached_cards")
 
   %h3 Livejournal
   %ul

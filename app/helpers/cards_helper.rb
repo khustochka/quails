@@ -4,9 +4,8 @@ module CardsHelper
   # FAST_LOCI = %w(geologorozvidka kyiv brovary les_i_pole)
   FAST_LOCI = %w(harbourview_south winnipeg_regent terracon_pl dugald_rd winnipeg)
 
-  # item: Card or observation. `post` is a Post (we attach to its core).
-  def post_attach_detach_link(item, post)
-    core_id = post.post_core_id
+  # item: Card or observation. core_id: id of the PostCore to attach/detach.
+  def post_attach_detach_link(item, core_id)
     if core_id == item.post_core_id
       text = "Detach from this post"
       target_core_id = nil
