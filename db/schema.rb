@@ -334,19 +334,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_07_155114) do
     t.index ["taxon_id"], name: "index_observations_on_taxon_id"
   end
 
-  create_table "post_cores", force: :cascade do |t|
-    t.string "cover_image_slug"
-    t.datetime "created_at", null: false
-    t.string "legacy_slug", limit: 64
-    t.text "lj_data"
-    t.boolean "publish_to_facebook", default: false, null: false
-    t.string "slug", limit: 64, null: false
-    t.string "topic", limit: 4
-    t.datetime "updated_at", null: false
-    t.index ["legacy_slug"], name: "index_post_cores_on_legacy_slug", unique: true, where: "(legacy_slug IS NOT NULL)"
-    t.index ["slug"], name: "index_post_cores_on_slug", unique: true
-  end
-
   create_table "posts", id: :serial, force: :cascade do |t|
     t.text "body", null: false
     t.boolean "canonical_for_observations", null: false
