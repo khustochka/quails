@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_07_155114) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_15_191623) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
@@ -343,7 +343,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_07_155114) do
     t.string "lang", limit: 2, null: false
     t.string "legacy_slug", limit: 64
     t.text "lj_data"
-    t.boolean "publish_to_facebook", default: false, null: false
     t.string "slug", limit: 64
     t.string "status", limit: 4
     t.string "title", limit: 255, null: false
