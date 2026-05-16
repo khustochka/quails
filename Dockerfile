@@ -11,7 +11,7 @@
 
 #######################################################################
 
-ARG RUBY_VERSION=4.0.3
+ARG RUBY_VERSION=4.0.4
 ARG VARIANT=slim-trixie
 FROM ruby:${RUBY_VERSION}-${VARIANT} AS base
 
