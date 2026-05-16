@@ -15,11 +15,6 @@ class PostDecorator < ModelDecorator
     self
   end
 
-  def for_instant_articles
-    @formatting_method = :for_instant_articles
-    self
-  end
-
   def for_lj
     @formatting_method = :for_lj
     self

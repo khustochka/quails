@@ -19,10 +19,6 @@ class PostsController < ApplicationController
     @posts = Post.hidden.order(face_date: :desc).page(params[:page]).per(20)
   end
 
-  def facebook
-    @posts = Post.facebook_publishable.order(face_date: :desc).page(params[:page]).per(20)
-  end
-
   # GET /posts/1
   def show
     if helpers.cyrillic_locale?
@@ -196,7 +192,6 @@ class PostsController < ApplicationController
 
   def cache_expire
     expire_page controller: :feeds, action: :blog, format: "xml"
-    expire_page controller: :feeds, action: :instant_articles, format: "xml"
     expire_photo_feeds
     expire_page controller: :feeds, action: :sitemap, format: "xml"
   end
