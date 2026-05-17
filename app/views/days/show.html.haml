@@ -24,7 +24,7 @@
     %div.thumbnails
       = render_justified images.map(&:to_thumbnail)
 
-- @day.localized_posts(scope: current_user.available_posts).if_present do |posts|
+- @day.posts(scope: current_user.available_posts).if_present do |posts|
   %h3 Posts
   %ul
     - posts.each do |post|

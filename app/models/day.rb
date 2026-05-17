@@ -51,14 +51,11 @@ class Day
   end
 
   def post_cores
-    core_ids = cards.where.not(post_core_id: nil).distinct.pluck(:post_core_id) +
-      observations.where.not(observations: { post_core_id: nil }).distinct.pluck(:post_core_id)
-    PostCore.distinct.where(id: core_ids)
+    PostCore.where(id: cards.where.not(post_core_id: nil).select(:post_core_id))
+      .or(PostCore.where(id: observations.where.not(observations: { post_core_id: nil }).select(:post_core_id)))
   end
 
-  def localized_posts(locale: I18n.locale, scope: Post.public_posts)
-    cores = post_cores.to_a
-    localized = Post.localized_for(cores, locale, scope: scope)
-    cores.filter_map { |core| localized[core.id] }
+  def posts(scope: Post.public_posts)
+    scope.where(post_core_id: post_cores).order(:post_core_id, :lang)
   end
 end
