@@ -38,6 +38,26 @@ class FormattersTest < ActionDispatch::IntegrationTest
       post.decorated.for_site.body
   end
 
+  test "Post with link to nonexistent post slug renders word as plain text" do
+    post = build(:post, body: "This is a {{#post|nonexistent_slug}}")
+    assert_equal "<p>This is a post</p>",
+      post.decorated.for_site.body
+  end
+
+  test "Post with link to PostCore that has no translations renders word as plain text" do
+    create(:post_core, slug: "empty_core")
+    post = build(:post, body: "This is a {{#post|empty_core}}")
+    assert_equal "<p>This is a post</p>",
+      post.decorated.for_site.body
+  end
+
+  test "EN post does not link to UK-only translation of target PostCore" do
+    create(:post, lang: "uk", post_core: create(:post_core, slug: "uk_only"))
+    post = build(:post, lang: "en", body: "This is a {{#post|uk_only}}")
+    assert_equal "<p>This is a post</p>",
+      post.decorated.for_site.body
+  end
+
   test "Post with photo by slug" do
     image = create(:image)
     post = build(:post, body: "{{^#{image.slug}}}")
