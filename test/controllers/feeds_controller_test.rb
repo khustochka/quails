@@ -131,40 +131,4 @@ class FeedsControllerTest < ActionController::TestCase
     links = response.body.scan(%r{\w+="/[^"]+"})
     assert_empty links, "Relative links found: #{links.join(", ")}"
   end
-
-  test "instant articles feed" do
-    create(:post, post_core: create(:post_core, publish_to_facebook: true))
-    create(:post, post_core: create(:post_core, publish_to_facebook: true))
-    get :instant_articles, format: :xml
-    assert_response :success
-    assert_equal Mime[:xml], response.media_type
-  end
-
-  test "instant articles feed does not contain relative links" do
-    create(:post, post_core: create(:post_core, publish_to_facebook: true))
-    create(:post, post_core: create(:post_core, publish_to_facebook: true))
-    get :instant_articles, format: :xml
-    assert_response :success
-    links = response.body.scan(%r{\w+="/[^"]+"})
-    assert_empty links, "Relative links found: #{links.join(", ")}"
-  end
-
-  test "instant article feed with images" do
-    create(:post, post_core: create(:post_core, publish_to_facebook: true))
-    create(:post, post_core: create(:post_core, publish_to_facebook: true))
-    create(:image, observations: [create(:observation, card: create(:card, post_core: create(:post_core)))])
-    get :instant_articles, format: :xml
-    assert_response :success
-    assert_equal Mime[:xml], response.media_type
-  end
-
-  test "instant article feed with embedded images" do
-    post1 = create(:post, post_core: create(:post_core, publish_to_facebook: true))
-    create(:post, post_core: create(:post_core, publish_to_facebook: true))
-    img = create(:image, observations: [create(:observation, card: create(:card, post_core: create(:post_core)))])
-    post1.update(body: post1.body + "\n{{^#{img.slug}}}\n")
-    get :instant_articles, format: :xml
-    assert_response :success
-    assert_equal Mime[:xml], response.media_type
-  end
 end

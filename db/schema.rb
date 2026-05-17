@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_15_120000) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_15_191623) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
@@ -338,7 +338,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_15_120000) do
     t.string "cover_image_slug"
     t.datetime "created_at", null: false
     t.string "legacy_slug", limit: 64
-    t.boolean "publish_to_facebook", default: false, null: false
     t.boolean "shout", default: false, null: false
     t.string "slug", limit: 64, null: false
     t.string "topic", limit: 4, null: false

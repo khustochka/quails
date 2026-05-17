@@ -184,7 +184,6 @@ Rails.application.routes.draw do
 
   # Feeds and sitemap
   get "/blog.:format" => "feeds#blog", constraints: { format: "xml" }
-  get "/instant_articles(.:dev).:format" => "feeds#instant_articles", constraints: { format: "xml", dev: "dev" }
   scope "(:locale)", locale: /en|ru/ do
     get "/photos.:format" => "feeds#photos", constraints: { format: "xml" }
   end
@@ -199,7 +198,6 @@ Rails.application.routes.draw do
   resources :posts, except: [:show] do
     collection do
       get :hidden
-      get :facebook
     end
   end
 
