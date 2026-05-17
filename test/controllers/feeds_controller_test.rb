@@ -12,7 +12,7 @@ class FeedsControllerTest < ActionController::TestCase
   test "get blog atom feed with images" do
     create(:post)
     create(:post)
-    create(:image, observations: [create(:observation, card: create(:card, post: create(:post)))])
+    create(:image, observations: [create(:observation, card: create(:card, post_core: create(:post_core)))])
     get :blog, format: :xml
     assert_response :success
     assert_equal Mime[:xml], response.media_type
@@ -37,7 +37,7 @@ class FeedsControllerTest < ActionController::TestCase
   test "blog feed does not contain relative links" do
     create(:post)
     create(:post)
-    create(:image, observations: [create(:observation, card: create(:card, post: create(:post)))])
+    create(:image, observations: [create(:observation, card: create(:card, post_core: create(:post_core)))])
     get :blog, format: :xml
     links = response.body.scan(%r{\w+="/[^"]+"})
     assert_empty links, "Relative links found: #{links.join(", ")}"

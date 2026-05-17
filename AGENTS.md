@@ -51,7 +51,8 @@ test/
 - **Species**: Bird species with taxonomy
 - **Taxon**: Taxonomic classification
 - **Locus**: Geographic location (hierarchical via ancestry gem)
-- **Post**: Blog posts about birding (multilingual — `uk`/`ru` and `en` versions share the same slug, scoped unique by `[slug, lang]`
+- **PostCore**: Language-agnostic blog post (slug, topic, cover image). Owns `cards.post_core_id` and `observations.post_core_id` for attachment.
+- **Post**: Per-language translation of a PostCore (title, body, face_date, status, lang, lj_data). Unique by `[post_core_id, lang]`. Admin create/edit is two-step: PostCore first via `/post_cores/new`, then translation via `/posts/new?post[post_core_id]=…&post[lang]=…`.
 - **Image/Video/Media**: Attached media files
 - **EbirdTaxon**: eBird taxonomy integration
 

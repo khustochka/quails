@@ -11,18 +11,45 @@
       %li= link_to 'Show this one', universal_public_post_path(@post)
     - if action_name.in?(%w{show}) && controller.respond_to?(:edit)
       %li= link_to 'Edit this one', edit_post_path(@post)
-    - if controller.respond_to?(:new)
-      %li= link_to 'Create new', action: :new
-    - if @localized_versions
-      - @localized_versions.each do |loc, sibling|
-        - next if sibling.nil? || sibling == @post || sibling.lang != loc.to_s
-        %li= link_to "Edit #{loc.upcase}", edit_post_path(sibling)
-      - [:en, :uk].each do |loc|
-        - next if @localized_versions[loc]&.lang == loc.to_s
-        %li= link_to "Clone to #{loc.upcase}", new_post_path(post: @post.clone_attrs_for_sibling(lang: loc))
+    %li= link_to "All posts", posts_path
     = yield :add_shortcuts
     - if correcting?
       %li= link_to 'Correction', @correction
+
+- if (core = @post.post_core)
+  %div.post-core-summary
+    %div.core-body
+      %div.core-meta
+        %b Slug:
+        = link_to core.slug, edit_post_core_path(core), target: "_blank", rel: "noopener"
+        %span.sep —
+        %b Topic:
+        = core.topic
+      -# Re-query siblings fresh from DB so an unsaved/failed-update @post doesn't
+      -# masquerade as a different language than what's actually persisted.
+      - other_siblings = Post.where(post_core_id: core.id).where.not(id: @post.id).index_by(&:lang)
+      %ul.core-translations
+        - %w(uk ru en).each do |lang|
+          - is_current = @post.persisted? && @post.lang == lang && other_siblings[lang].nil?
+          - sibling = is_current ? @post : other_siblings[lang]
+          %li
+            %span.lang= lang.upcase
+            - if sibling
+              %span.date= sibling.face_date.strftime("%Y-%m-%d")
+              %span.title= sibling.title.presence || "(untitled)"
+              %span.actions
+                = link_to "view", localized_public_post_path(sibling), target: "_blank", rel: "noopener"
+                \|
+                - if is_current
+                  %span.current (this one)
+                - else
+                  = link_to "edit", edit_post_path(sibling), target: "_blank", rel: "noopener"
+            - else
+              %span.title= link_to "Create", new_post_path(post: { post_core_id: core.id, lang: lang }), class: "pseudolink"
+    - cover_url = post_cover_image_url(core)
+    - if cover_url
+      %div.core-cover
+        = image_tag(cover_url, alt: "Cover")
 
 - if notice
   %p#notice= notice
@@ -30,33 +57,17 @@
 - if alert
   %p.errors= alert
 
-- if @post.persisted?
-  .canonical-status
-    - if @post.canonical_for_observations?
-      Canonical post for this slug — observations and cards live here.
-    - elsif (canonical = @post.canonical_sibling)
-      This is a translation. Observations live on
-      = link_to("the canonical post", edit_post_path(canonical))
-      \.
-      = link_to("Make this canonical", promote_to_canonical_post_path(@post), method: :post, data: { confirm: "This will move all cards and observations from #{canonical.slug} (#{canonical.lang}) to this post. Continue?" })
-    - else
-      %strong This post has no canonical sibling.
-      Observations cannot be attached until one is promoted.
-      = link_to("Make this canonical", promote_to_canonical_post_path(@post), method: :post)
-
 = simple_form_for @post do |form|
+  - if @post.new_record?
+    = form.hidden_field :post_core_id
   %div
-    = form.input :slug, required: false
     = form.input :face_date, label: 'Post date', input_html: {value: @post.face_date.strftime("%F %T")}, as: :string
     = form.input :lang, as: :select, collection: I18n.available_locales, include_blank: false
+    = form.input :status, collection: Post::STATES, input_html: {size: '3'}, include_blank: false
   %div
     = form.input :title, input_html: {class: 'long', required: false}
   = form.input :body, label: false, input_html: {rows: 20, class: "wiki_field", data: {wiki_field: true}}
-  %div
-    = form.input :topic, collection: Post::TOPICS, input_html: {size: '3'}, include_blank: false
-    = form.input :status, collection: Post::STATES, input_html: {size: '3'}, include_blank: false
-    = form.input :cover_image_slug
-    = inject_correction_field
+  = inject_correction_field
 
   .buttons
     = default_submit_button(form)
@@ -65,14 +76,10 @@
 
   %p= default_destroy_button
 
-  - if @post.canonical_for_observations?
-    %h3#card_attach Attach cards
-
-    = simple_form_for @observation_search, url: cards_path, method: :get, remote: true, html: {class: "search", data: {cards_search: true}} do |form|
-      = render 'observations/search_fields', form: form
-      = hidden_field_tag("new_post_id", @post.id)
-
-    %ul.cards_list#search-results{data: {cards_search_results: true}}
+  - if @post.post_core
+    %p
+      Cards and observations attach to the post core.
+      = link_to "Manage attached cards", edit_post_core_path(@post.post_core, anchor: "attached_cards")
 
   %h3 Livejournal
   %ul

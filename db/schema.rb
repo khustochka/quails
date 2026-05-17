@@ -58,7 +58,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_15_191623) do
     t.text "notes", default: "", null: false
     t.date "observ_date", null: false
     t.string "observers", limit: 255
-    t.integer "post_id"
+    t.bigint "post_core_id"
     t.boolean "resolved", default: false, null: false
     t.string "start_time", limit: 5
     t.datetime "updated_at", precision: nil, null: false
@@ -66,7 +66,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_15_191623) do
     t.index ["ebird_id"], name: "index_cards_on_ebird_id", unique: true, where: "(ebird_id IS NOT NULL)"
     t.index ["locus_id"], name: "index_cards_on_locus_id"
     t.index ["observ_date"], name: "index_cards_on_observ_date"
-    t.index ["post_id"], name: "index_cards_on_post_id"
+    t.index ["post_core_id"], name: "index_cards_on_post_core_id"
   end
 
   create_table "commenters", id: :serial, force: :cascade do |t|
@@ -323,35 +323,42 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_15_191623) do
     t.string "ebird_obs_id"
     t.boolean "hidden", default: false, null: false
     t.string "notes", default: "", null: false
-    t.integer "post_id"
+    t.bigint "post_core_id"
     t.string "private_notes", limit: 255, default: "", null: false
     t.string "quantity", limit: 255
     t.integer "taxon_id", null: false
     t.datetime "updated_at", precision: nil
     t.boolean "voice", default: false, null: false
     t.index ["card_id"], name: "index_observations_on_card_id"
-    t.index ["post_id"], name: "index_observations_on_post_id"
+    t.index ["post_core_id"], name: "index_observations_on_post_core_id"
     t.index ["taxon_id"], name: "index_observations_on_taxon_id"
+  end
+
+  create_table "post_cores", force: :cascade do |t|
+    t.string "cover_image_slug"
+    t.datetime "created_at", null: false
+    t.string "legacy_slug", limit: 64
+    t.boolean "shout", default: false, null: false
+    t.string "slug", limit: 64, null: false
+    t.string "topic", limit: 4, null: false
+    t.datetime "updated_at", null: false
+    t.index ["legacy_slug"], name: "index_post_cores_on_legacy_slug", unique: true, where: "(legacy_slug IS NOT NULL)"
+    t.index ["slug"], name: "index_post_cores_on_slug", unique: true
   end
 
   create_table "posts", id: :serial, force: :cascade do |t|
     t.text "body", null: false
-    t.boolean "canonical_for_observations", null: false
     t.datetime "commented_at", precision: nil
-    t.string "cover_image_slug"
     t.datetime "face_date", precision: nil, null: false
     t.string "lang", limit: 2, null: false
-    t.string "legacy_slug", limit: 64
     t.text "lj_data"
-    t.string "slug", limit: 64
+    t.bigint "post_core_id", null: false
     t.string "status", limit: 4
     t.string "title", limit: 255, null: false
-    t.string "topic", limit: 4
     t.datetime "updated_at", precision: nil, null: false
     t.index ["face_date"], name: "index_posts_on_face_date"
-    t.index ["legacy_slug"], name: "index_posts_on_legacy_slug", unique: true, where: "(legacy_slug IS NOT NULL)"
-    t.index ["slug", "lang"], name: "index_posts_on_slug_and_lang", unique: true
-    t.index ["slug"], name: "index_posts_on_canonical_slug", unique: true, where: "canonical_for_observations"
+    t.index ["post_core_id", "lang"], name: "index_posts_on_post_core_id_and_lang", unique: true
+    t.index ["post_core_id"], name: "index_posts_on_post_core_id"
   end
 
   create_table "settings", force: :cascade do |t|
@@ -436,7 +443,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_15_191623) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "cards", "loci", on_delete: :restrict
-  add_foreign_key "cards", "posts", on_delete: :nullify
+  add_foreign_key "cards", "post_cores", on_delete: :nullify
   add_foreign_key "comments", "commenters", on_delete: :restrict
   add_foreign_key "comments", "comments", column: "parent_id", on_delete: :cascade
   add_foreign_key "comments", "posts", on_delete: :cascade
@@ -451,8 +458,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_15_191623) do
   add_foreign_key "media_observations", "media", on_delete: :cascade
   add_foreign_key "media_observations", "observations", on_delete: :restrict
   add_foreign_key "observations", "cards", on_delete: :restrict
-  add_foreign_key "observations", "posts", on_delete: :nullify
+  add_foreign_key "observations", "post_cores", on_delete: :nullify
   add_foreign_key "observations", "taxa", on_delete: :restrict
+  add_foreign_key "posts", "post_cores"
   add_foreign_key "species_images", "media", column: "image_id", on_delete: :cascade
   add_foreign_key "species_images", "species", on_delete: :cascade
   add_foreign_key "species_splits", "species", column: "subspecies_id", on_delete: :cascade

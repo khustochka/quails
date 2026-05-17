@@ -29,11 +29,12 @@ class ImagesAssociationsTest < ActiveSupport::TestCase
   end
 
   test "properly link image and post" do
-    blogpost = create(:post, observations: [@obs])
+    blogpost = create(:post)
+    @obs.update!(post_core: blogpost.post_core)
 
     assert_equal [@image], blogpost.images
     @image.reload
-    assert_equal [blogpost], @image.posts
+    assert_equal [blogpost.post_core], @image.post_cores.to_a
   end
 
   test "properly unlink observations when image destroyed" do

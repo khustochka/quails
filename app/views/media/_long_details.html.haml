@@ -1,7 +1,5 @@
 -# frozen_string_literal: true
-- canonical_posts = media.posts.merge(current_user.available_posts).to_a
-- localized_posts_map = Post.localized_for(canonical_posts, I18n.locale, scope: current_user.available_posts)
-- localized_posts = canonical_posts.filter_map { |canonical| localized_posts_map[canonical.id] }
+- localized_posts = media.localized_posts(scope: current_user.available_posts)
 
 %p
   %div

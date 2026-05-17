@@ -3,15 +3,15 @@
 require "application_system_test_case"
 
 class JSPostsTest < ApplicationSystemTestCase
-  test "Visit new post page" do
+  test "Visit new post core page" do
     login_as_admin
-    visit new_post_path
-    assert_predicate find(:xpath, "//h1[text()='New post']"), :present?
+    visit new_post_core_path
+    assert_predicate find(:xpath, "//h1[text()='New post core']"), :present?
   end
 
   test "Detach card from post show page updates UI without reloading" do
     post = create(:post)
-    card = create(:card, post: post)
+    card = create(:card, post_core: post.post_core)
 
     login_as_admin
     visit show_post_path(post.to_url_params)
@@ -24,6 +24,6 @@ class JSPostsTest < ApplicationSystemTestCase
 
     assert_current_path show_post_path(post.to_url_params)
     assert_no_css "li.observ_card"
-    assert_nil card.reload.post_id
+    assert_nil card.reload.post_core_id
   end
 end

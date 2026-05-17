@@ -32,9 +32,29 @@ class FormattersTest < ActionDispatch::IntegrationTest
   end
 
   test "Post with link to another post" do
-    post1 = create(:post, slug: "post_for_link")
+    post1 = create(:post, post_core: create(:post_core, slug: "post_for_link"))
     post = build(:post, body: "This is a {{#post|post_for_link}}")
     assert_equal "<p>This is a <a href=\"/#{post1.year}/#{post1.month}/post_for_link\">post</a></p>",
+      post.decorated.for_site.body
+  end
+
+  test "Post with link to nonexistent post slug renders word as plain text" do
+    post = build(:post, body: "This is a {{#post|nonexistent_slug}}")
+    assert_equal "<p>This is a post</p>",
+      post.decorated.for_site.body
+  end
+
+  test "Post with link to PostCore that has no translations renders word as plain text" do
+    create(:post_core, slug: "empty_core")
+    post = build(:post, body: "This is a {{#post|empty_core}}")
+    assert_equal "<p>This is a post</p>",
+      post.decorated.for_site.body
+  end
+
+  test "EN post does not link to UK-only translation of target PostCore" do
+    create(:post, lang: "uk", post_core: create(:post_core, slug: "uk_only"))
+    post = build(:post, lang: "en", body: "This is a {{#post|uk_only}}")
+    assert_equal "<p>This is a post</p>",
       post.decorated.for_site.body
   end
 
@@ -81,7 +101,7 @@ class FormattersTest < ActionDispatch::IntegrationTest
     Settings.create(key: "lj_user", value: { name: "stonechat" })
     url = "https://stonechat.livejournal.com/1111.html"
     post1 = create(:post,
-      slug: "post_for_link",
+      post_core: create(:post_core, slug: "post_for_link"),
       lj_data: Post::LJData.new("1111", "https://stonechat.livejournal.com/1111.html"))
     post = build(:post, body: "This is a {{#post|post_for_link}}")
     assert_equal "<p>This is a <a href=\"#{url}\">post</a></p>",
@@ -89,7 +109,7 @@ class FormattersTest < ActionDispatch::IntegrationTest
   end
 
   test "LJ Post with link to another post out of LJ" do
-    post1 = build(:post, slug: "post_for_link")
+    post1 = build(:post, post_core: build(:post_core, slug: "post_for_link"))
     post = build(:post, body: "This is a {{#post|post_for_link}}")
     assert_equal "<p>This is a post</p>",
       post.decorated.for_lj.body
@@ -116,7 +136,7 @@ class FormattersTest < ActionDispatch::IntegrationTest
   test "LJ Post with images" do
     p = create(:post, body: "AAA")
     image = create(:image)
-    image.card.update_column(:post_id, p.id)
+    image.card.update_column(:post_core_id, p.post_core_id)
     assert_includes p.decorated({ host: "localhost", port: 3011 }).for_lj.body,
       "<img src=\"https://localhost:3011/photos/#{image.slug}.jpg\" title=\"[photo]\" alt=\"[photo]\" />"
     assert_includes p.decorated({ host: "localhost", port: 3011 }).for_lj.body,

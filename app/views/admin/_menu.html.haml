@@ -1,10 +1,10 @@
 -# frozen_string_literal: true
 - if current_user.admin?
   %ul.admin_menu
-    %li.adder= link_to '+ Post', new_post_path
+    %li.adder= link_to '+ Post', new_post_core_path
     %li.adder= link_to '+ Card', new_card_path
     %li.adder= link_to '+ Image', new_image_path
-    %li= link_to 'Drafts', hidden_posts_path
+    %li= link_to 'Posts', posts_path
     %li= link_to 'Species', admin_species_index_path
     %li= link_to 'Cards', cards_path
     %li= link_to 'eBird', ebird_imports_path

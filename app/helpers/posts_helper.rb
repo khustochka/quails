@@ -61,4 +61,12 @@ module PostsHelper
       public_post_path(post, { locale: post.lang }.merge!(opts))
     end
   end
+
+  # Returns the URL for the post in its own language's section of the site.
+  # The site's default locale has no URL prefix; other langs do.
+  # Unlike default_public_post_path, this distinguishes UK and RU.
+  def localized_public_post_path(post, opts = {})
+    locale = post.lang.to_sym == I18n.default_locale ? nil : post.lang.to_sym
+    public_post_path(post, { locale: locale }.merge!(opts))
+  end
 end

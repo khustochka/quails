@@ -4,20 +4,20 @@ module CardsHelper
   # FAST_LOCI = %w(geologorozvidka kyiv brovary les_i_pole)
   FAST_LOCI = %w(harbourview_south winnipeg_regent terracon_pl dugald_rd winnipeg)
 
-  # item: Card or observation
-  def post_attach_detach_link(item, post)
-    if post.id == item.post_id
+  # item: Card or observation. core_id: id of the PostCore to attach/detach.
+  def post_attach_detach_link(item, core_id)
+    if core_id == item.post_core_id
       text = "Detach from this post"
-      post_id = nil
+      target_core_id = nil
     else
       text = "Attach to this post"
-      post_id = post.id
+      target_core_id = core_id
     end
 
     url = url_for(controller: item.class.model_name.route_key, action: :update, id: item.id, format: :json)
 
     link_to text, url, class: "card_post_op pseudolink", remote: true,
-      method: :put, data: { confirm: "Are you sure?", params: "#{item.class.model_name.param_key}[post_id]=#{post_id}" }
+      method: :put, data: { confirm: "Are you sure?", params: "#{item.class.model_name.param_key}[post_core_id]=#{target_core_id}" }
   end
 
   def suggested_dates(card)
