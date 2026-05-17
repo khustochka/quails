@@ -195,11 +195,7 @@ Rails.application.routes.draw do
 
   # ADMINISTRATIVE PAGES
 
-  resources :posts, except: [:show] do
-    collection do
-      get :hidden
-    end
-  end
+  resources :posts, except: [:show]
 
   resources :post_cores, except: [:show, :index]
 

@@ -20,50 +20,14 @@ class PostsController < ApplicationController
 
   # GET /posts — admin index, one row per PostCore.
   def index
-    filters = params.permit(*FILTER_KEYS).to_h.symbolize_keys
-    @filters = filters
+    @filters = params.permit(*FILTER_KEYS).to_h.symbolize_keys
 
-    posts_scope = current_user.available_posts
-    posts_filtered = false
-    if filters[:status].present?
-      posts_scope = posts_scope.where(status: filters[:status])
-      posts_filtered = true
-    end
-    if filters[:lang_present].present?
-      posts_scope = posts_scope.where(lang: filters[:lang_present])
-      posts_filtered = true
-    end
-    if filters[:year].present?
-      posts_scope = posts_scope.where("EXTRACT(year FROM face_date)::integer = ?", filters[:year].to_i)
-      posts_filtered = true
-    end
-    if filters[:month].present?
-      posts_scope = posts_scope.where("EXTRACT(month FROM face_date)::integer = ?", filters[:month].to_i)
-      posts_filtered = true
-    end
-
-    # When any post-level filter is active, an INNER JOIN against the aggregate
-    # keeps only cores with a matching translation. Without filters, use a LEFT
-    # JOIN so empty cores (no translations yet) still appear in the listing.
-    agg_sql = posts_scope.group(:post_core_id).select("post_core_id, MAX(face_date) AS max_face_date").to_sql
-    join_type = posts_filtered ? "INNER JOIN" : "LEFT JOIN"
-    cores = PostCore.joins(Arel.sql("#{join_type} (#{agg_sql}) agg ON agg.post_core_id = post_cores.id"))
-    cores = cores.where(topic: filters[:topic]) if filters[:topic].present?
-    cores = cores.where(shout: true) if filters[:shout].present?
-    if filters[:lang_missing].present?
-      cores = cores.where.not(
-        id: Post.where(lang: filters[:lang_missing]).select(:post_core_id)
-      )
-    end
+    posts_scope, posts_filtered = filtered_posts_scope(@filters)
+    cores = filtered_cores_scope(@filters, posts_scope, posts_filtered)
 
     @cores = cores.order(Arel.sql("agg.max_face_date DESC NULLS FIRST"))
       .preload(:posts)
       .page(params[:page]).per(25)
-  end
-
-  # Legacy admin path — redirects to filtered index.
-  def hidden
-    redirect_to posts_path(status: "PRIV", page: params[:page])
   end
 
   # GET /posts/1
@@ -82,8 +46,10 @@ class PostsController < ApplicationController
 
     if @post.nil?
       # Legacy slugs are only used for a handful of historical English posts;
-      # all of them end in "-en". Only attempt the legacy lookup in that case.
-      if params[:id].to_s.end_with?("-en")
+      # all of them end in "-en". Only attempt the legacy lookup under the en
+      # locale.
+      # TODO: Potentially implement redirect table
+      if I18n.locale == :en && params[:id].to_s.end_with?("-en")
         legacy_core = PostCore.find_by!(legacy_slug: params[:id])
         legacy_post = fallback.find_by!(post_core_id: legacy_core.id)
         redirect_to public_post_path(legacy_post), status: :moved_permanently
@@ -241,6 +207,45 @@ class PostsController < ApplicationController
   end
 
   private
+
+  def filtered_posts_scope(filters)
+    scope = current_user.available_posts
+    filtered = false
+    if filters[:status].present?
+      scope = scope.where(status: filters[:status])
+      filtered = true
+    end
+    if filters[:lang_present].present?
+      scope = scope.where(lang: filters[:lang_present])
+      filtered = true
+    end
+    if filters[:year].present?
+      scope = scope.where("EXTRACT(year FROM face_date)::integer = ?", filters[:year].to_i)
+      filtered = true
+    end
+    if filters[:month].present?
+      scope = scope.where("EXTRACT(month FROM face_date)::integer = ?", filters[:month].to_i)
+      filtered = true
+    end
+    [scope, filtered]
+  end
+
+  def filtered_cores_scope(filters, posts_scope, posts_filtered)
+    # When any post-level filter is active, an INNER JOIN against the aggregate
+    # keeps only cores with a matching translation. Without filters, use a LEFT
+    # JOIN so empty cores (no translations yet) still appear in the listing.
+    agg_sql = posts_scope.group(:post_core_id).select("post_core_id, MAX(face_date) AS max_face_date").to_sql
+    join_type = posts_filtered ? "INNER JOIN" : "LEFT JOIN"
+    cores = PostCore.joins(Arel.sql("#{join_type} (#{agg_sql}) agg ON agg.post_core_id = post_cores.id"))
+    cores = cores.where(topic: filters[:topic]) if filters[:topic].present?
+    cores = cores.where(shout: true) if filters[:shout].present?
+    if filters[:lang_missing].present?
+      cores = cores.where.not(
+        id: Post.where(lang: filters[:lang_missing]).select(:post_core_id)
+      )
+    end
+    cores
+  end
 
   def post_attrs
     raw = params[:post] || ActionController::Parameters.new

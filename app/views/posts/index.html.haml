@@ -7,7 +7,7 @@
 %h1= page_header
 
 - content_for :add_shortcuts do
-  %li= link_to "Drafts", hidden_posts_path
+  %li= link_to "Unpublished", posts_path(status: "PRIV")
 
 = render "admin/shortcuts"
 

@@ -394,12 +394,6 @@ class PostsControllerTest < ActionController::TestCase
     assert_select "a[href=\"#{expected}\"]"
   end
 
-  test "hidden redirects to index filtered to PRIV status" do
-    login_as_admin
-    get :hidden
-    assert_redirected_to posts_path(status: "PRIV")
-  end
-
   test "show draft posts via filtered index" do
     blogpost1 = create(:post, face_date: "2007-12-06 13:14:15", status: "PRIV")
     blogpost2 = create(:post, face_date: "2008-11-06 13:14:15")
@@ -419,10 +413,6 @@ class PostsControllerTest < ActionController::TestCase
 
   test "do not show admin index to anonymous user" do
     assert_raise(ActionController::RoutingError) { get :index }
-  end
-
-  test "do not show drafts redirect to anonymous user" do
-    assert_raise(ActionController::RoutingError) { get :hidden }
   end
 
   test "do not show hidden post to user" do
@@ -482,6 +472,14 @@ class PostsControllerTest < ActionController::TestCase
     blogpost = create(:post, post_core: core, lang: "en")
     get :show, params: blogpost.to_url_params.merge(locale: :en)
     assert_response :success
+  end
+
+  test "do not follow legacy -en slug under non-en locale" do
+    core = create(:post_core, slug: "kyiv-trip", legacy_slug: "kyiv-trip-en")
+    blogpost = create(:post, post_core: core, lang: "en")
+    assert_raise(ActiveRecord::RecordNotFound) do
+      get :show, params: { id: "kyiv-trip-en", year: blogpost.year, month: blogpost.month, locale: :uk }
+    end
   end
 
   test "show dedicated uk post when uk locale requested" do
