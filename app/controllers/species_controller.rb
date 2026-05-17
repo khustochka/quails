@@ -40,12 +40,18 @@ class SpeciesController < ApplicationController
       else
         @observations_count = @species.observations.count
         if @observations_count.positive?
-          available_core_ids = current_user.available_posts.where(post_core_id: @species.post_cores).distinct.pluck(:post_core_id)
-          ordered_core_ids = Post.where(post_core_id: available_core_ids)
-            .group(:post_core_id).order(Arel.sql("MAX(posts.face_date) DESC")).limit(10).pluck(:post_core_id)
+          available_posts = current_user.available_posts
+            .where(post_core_id: @species.post_cores)
+            .where(lang: Post::COMPATIBLE_LANGUAGES[I18n.locale] || [])
+          ordered_core_ids = available_posts.group(:post_core_id)
+            .order(Arel.sql("MAX(posts.face_date) DESC")).limit(10).pluck(:post_core_id)
           cores_by_id = PostCore.where(id: ordered_core_ids).index_by(&:id)
-          @post_cores = ordered_core_ids.filter_map { |id| cores_by_id[id] }
-          @localized_posts = Post.localized_for(@post_cores, I18n.locale, scope: current_user.available_posts)
+          localized_by_core = Post.localized_for(cores_by_id.values, I18n.locale, scope: current_user.available_posts)
+          @posts = ordered_core_ids.filter_map do |id|
+            post = localized_by_core[id]
+            post.post_core = cores_by_id[id] if post
+            post
+          end
           countries = Country.select(:id, :slug, :ancestry).to_a
           subregion_ids_by_country = countries.index_with { |c| c.subregion_ids.to_set }
           country_for_locus_id = {}
