@@ -121,6 +121,12 @@ class Media < ApplicationRecord
     PostCore.where(id: core_ids)
   end
 
+  def localized_posts(scope:, locale: I18n.locale)
+    cores = PostCore.where(id: scope.where(post_core_id: post_cores).select(:post_core_id))
+    localized_map = Post.localized_for(cores, locale, scope: scope)
+    cores.filter_map { |core| localized_map[core.id] }
+  end
+
   def image?
     media_type == "photo"
   end
