@@ -20,7 +20,7 @@ jobs:
     needs:
       - tests
       - rubocop
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/heads/image-bump/')
 
   deploy:
     name: "Deploy"
@@ -34,6 +34,7 @@ jobs:
       DEPLOY_SCRIPTS_REPO: ${{ secrets.DEPLOY_SCRIPTS_REPO }}
     needs:
       - build_image
+    if: github.ref == 'refs/heads/main'
 #  lint:
 #    runs-on: ubuntu-24.04
 #    steps:
