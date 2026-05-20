@@ -35,9 +35,9 @@ RUN bundle config set deployment true
 
 #######################################################################
 
-# install gems
+# Shared setup for build-time stages: toolchain image + app env/workdir/bundle config.
 
-FROM ${BUILD_IMAGE} AS gems
+FROM ${BUILD_IMAGE} AS build_base
 
 ARG RAILS_ENV=production
 ENV RAILS_ENV=${RAILS_ENV}
@@ -51,6 +51,12 @@ RUN mkdir /app
 WORKDIR /app
 
 RUN bundle config set deployment true
+
+#######################################################################
+
+# install gems
+
+FROM build_base AS gems
 
 # Create this directory because it is is not created when the rubygems version is the latest
 RUN mkdir -p /usr/local/bundle
