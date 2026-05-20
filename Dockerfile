@@ -1,23 +1,21 @@
 # syntax = docker/dockerfile:experimental
 
 # Dockerfile used to build a deployable image for a Rails application.
-# Adjust as required.
 #
-# Common adjustments you may need to make over time:
-#  * Modify version numbers for Ruby, Bundler, and other products.
-#  * Add library packages needed at build time for your gems, node modules.
-#  * Add deployment packages needed by your application
-#  * Add (often fake) secrets needed to compile your assets
+# Toolchain and OS packages live in prebuilt images:
+#   public.ecr.aws/m7x1i1o0/quails-base   - ruby + runtime packages
+#   public.ecr.aws/m7x1i1o0/quails-build  - quails-base + build toolchain + node + yarn
+# Built from https://github.com/khustochka/vk-build-images
+# To bump Ruby/Node, rebuild those images and update the tags below.
 
 #######################################################################
 
-ARG RUBY_VERSION=4.0.4
-ARG VARIANT=slim-trixie
-FROM ruby:${RUBY_VERSION}-${VARIANT} AS base
+ARG BASE_IMAGE=public.ecr.aws/m7x1i1o0/quails-base:ruby4.0.4-20260520-200944
+ARG BUILD_IMAGE=public.ecr.aws/m7x1i1o0/quails-build:ruby4.0.4-node24.11.0-20260520-200944
 
-ARG NODE_VERSION=24.15.0
-ARG YARN_VERSION=1.22.19
-# ARG BUNDLER_VERSION=2.3.25
+#######################################################################
+
+FROM ${BASE_IMAGE} AS base
 
 ARG RAILS_ENV=production
 ENV RAILS_ENV=${RAILS_ENV}
@@ -33,30 +31,26 @@ ENV BUNDLE_WITHOUT=${BUNDLE_WITHOUT}
 RUN mkdir /app
 WORKDIR /app
 
-RUN gem update --system --no-document 
 RUN bundle config set deployment true
-# gem install -N bundler -v ${BUNDLER_VERSION}
-
-#######################################################################
-
-# install packages only needed at build time
-
-FROM base AS build_deps
-
-ARG BUILD_PACKAGES="git build-essential libpq-dev wget curl gzip xz-utils libsqlite3-dev libssl-dev libyaml-dev"
-ENV BUILD_PACKAGES=${BUILD_PACKAGES}
-
-RUN --mount=type=cache,id=dev-apt-cache,sharing=locked,target=/var/cache/apt \
-    --mount=type=cache,id=dev-apt-lib,sharing=locked,target=/var/lib/apt \
-    apt-get update -qq && \
-    apt-get install --no-install-recommends -y ${BUILD_PACKAGES} \
-    && rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 #######################################################################
 
 # install gems
 
-FROM build_deps AS gems
+FROM ${BUILD_IMAGE} AS gems
+
+ARG RAILS_ENV=production
+ENV RAILS_ENV=${RAILS_ENV}
+
+ARG BUNDLE_WITHOUT=development:test
+ARG BUNDLE_PATH=vendor/bundle
+ENV BUNDLE_PATH=${BUNDLE_PATH}
+ENV BUNDLE_WITHOUT=${BUNDLE_WITHOUT}
+
+RUN mkdir /app
+WORKDIR /app
+
+RUN bundle config set deployment true
 
 # Create this directory because it is is not created when the rubygems version is the latest
 RUN mkdir -p /usr/local/bundle
@@ -74,20 +68,13 @@ RUN rm -rf /app/vendor/bundle/ruby/4.0.0/gems/libdatadog-*-linux/vendor/libdatad
 
 FROM gems AS assets
 
-RUN  --mount=type=cache,id=dev-apt-cache,sharing=locked,target=/var/cache/apt \
-    --mount=type=cache,id=dev-apt-lib,sharing=locked,target=/var/lib/apt \
-    curl -fsSL https://deb.nodesource.com/setup_24.x | bash - && \
-    apt-get install --no-install-recommends -y  nodejs \
-    && rm -rf /var/lib/apt/lists /var/cache/apt/archives
-RUN npm install --global yarn    
-
 COPY package*json ./
 COPY yarn.* ./
 RUN yarn install --check-files --frozen-lockfile --production
 
 COPY . .
 
-# The following enable assets to precompile on the build server. 
+# The following enable assets to precompile on the build server.
 ENV SECRET_KEY_BASE=1
 ENV NODE_ENV=production
 
@@ -98,11 +85,11 @@ RUN rm -rf /app/vendor/bundle/ruby/4.0.0/gems/tailwindcss-ruby-*/exe/*/tailwindc
 
 #######################################################################
 
-# install deployment packages
+# Deployable image
 
 FROM base
 
-# Labels 
+# Labels
 ARG GIT_REVISION=unspecified
 ARG GIT_REPOSITORY_URL=unspecified
 LABEL org.opencontainers.image.title="quails"
@@ -115,30 +102,15 @@ ENV GIT_REPOSITORY_URL=${GIT_REPOSITORY_URL}
 # Datadog expects repo URL without protocol.
 ENV DD_TAGS="git.repository_url:github.com/khustochka/quails git.commit.sha:${GIT_REVISION}"
 
-# Whether to install debug packages
-ARG DEBUG=false
-# ARG DEPLOY_PACKAGES="postgresql-client file vim curl gzip bzip2 htop net-tools bind9-dnsutils"
-# May need to add libpq5 for new Ruby version if not yet supported by the pg gem.
-ARG DEPLOY_PACKAGES="libvips42 libjpeg62-turbo-dev libjemalloc2 file curl gzip bzip2"
-ARG DEBUG_PACKAGES="postgresql-client net-tools netcat-openbsd bind9-dnsutils procps"
-# ENV DEPLOY_PACKAGES=${DEPLOY_PACKAGES}
-
 RUN set -x \
     && groupadd --system --gid 101 quails \
     && useradd --system --gid quails --no-create-home --home /nonexistent --comment "quails user" --shell /bin/false --uid 101 quails
-    
-RUN --mount=type=cache,id=prod-apt-cache,sharing=locked,target=/var/cache/apt \
-    --mount=type=cache,id=prod-apt-lib,sharing=locked,target=/var/lib/apt \
-    apt-get update -qq && \
-    apt-get install --no-install-recommends -y \
-    ${DEPLOY_PACKAGES} $(if [ "${DEBUG:-}" = "true" ]; then echo ${DEBUG_PACKAGES}; else echo ""; fi) \
-    && rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 ENV LD_PRELOAD="libjemalloc.so.2"
 ENV MALLOC_CONF="dirty_decay_ms:1000,narenas:2,background_thread:true,stats_print:false"
 ENV RUBY_YJIT_ENABLE="1"
 
-# copy with installed gems (in vendor folder). use assets image, since it does not have 
+# copy with installed gems (in vendor folder). use assets image, since it does not have
 # the heavy tailwindcss executable
 COPY --from=assets /app/vendor/bundle /app/vendor/bundle
 # commented out after switch from fullstaq. Explore if this is needed.
@@ -184,9 +156,9 @@ VOLUME ["/app/storage"]
 VOLUME ["/app/tmp"]
 VOLUME ["/app/public_static"]
 
-# Adopted from bitnami/nginx image 
+# Adopted from bitnami/nginx image
 # Left for compatibility
-RUN chmod -R g+rwX /app/tmp   
+RUN chmod -R g+rwX /app/tmp
 # RUN chmod g+rwX /app/tmp/pids
 RUN chmod -R g+rwX /app/storage
 RUN find / -perm /6000 -type f -exec chmod a-s {} \; || true
