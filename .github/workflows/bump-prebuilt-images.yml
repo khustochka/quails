@@ -87,5 +87,4 @@ jobs:
             --title "${TITLE}" \
             --body "${body}" \
             --head "${BRANCH}" \
-            --base use-prebuilt-images
-            # --base main
+            --base main
