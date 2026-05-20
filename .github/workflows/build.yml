@@ -10,9 +10,7 @@ on:
         type: string
         default: public.ecr.aws
     secrets:
-      DOCKER_AWS_ACCESS_KEY_ID:
-        required: true
-      DOCKER_AWS_SECRET_ACCESS_KEY:
+      AWS_ROLE_ARN:
         required: true
     outputs:
       image_tag:
@@ -68,15 +66,17 @@ jobs:
         uses: docker/setup-qemu-action@v4
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v4
+      - name: Configure AWS credentials
+        if: ${{ inputs.image_registry == 'public.ecr.aws' }}
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: us-east-1
       - name: Login to AWS ECR Registry
         if: ${{ inputs.image_registry == 'public.ecr.aws' }}
-        uses: docker/login-action@v4
+        uses: aws-actions/amazon-ecr-login@v2
         with:
-          registry: public.ecr.aws
-          username: ${{ secrets.DOCKER_AWS_ACCESS_KEY_ID }}
-          password: ${{ secrets.DOCKER_AWS_SECRET_ACCESS_KEY }}
-        env:
-          AWS_REGION: us-east-1
+          registry-type: public
       - name: Login to Github Package Registry
         if: ${{ inputs.image_registry == 'ghcr.io' }}
         uses: docker/login-action@v4
@@ -123,6 +123,10 @@ jobs:
     runs-on: ubuntu-latest
     needs:
       - build
+    permissions:
+      packages: write
+      contents: read
+      id-token: write
     outputs:
       image_tag: ${{ steps.result.outputs.image_tag }}
     steps:
@@ -134,15 +138,17 @@ jobs:
           merge-multiple: true
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v4
+      - name: Configure AWS credentials
+        if: ${{ inputs.image_registry == 'public.ecr.aws' }}
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: us-east-1
       - name: Login to AWS ECR Registry
         if: ${{ inputs.image_registry == 'public.ecr.aws' }}
-        uses: docker/login-action@v4
+        uses: aws-actions/amazon-ecr-login@v2
         with:
-          registry: public.ecr.aws
-          username: ${{ secrets.DOCKER_AWS_ACCESS_KEY_ID }}
-          password: ${{ secrets.DOCKER_AWS_SECRET_ACCESS_KEY }}
-        env:
-          AWS_REGION: us-east-1
+          registry-type: public
       - name: Login to Github Package Registry
         if: ${{ inputs.image_registry == 'ghcr.io' }}
         uses: docker/login-action@v4
