@@ -10,8 +10,8 @@
 
 #######################################################################
 
-ARG BASE_IMAGE=public.ecr.aws/m7x1i1o0/quails-base:ruby4.0.4-20260520-200944
-ARG BUILD_IMAGE=public.ecr.aws/m7x1i1o0/quails-build:ruby4.0.4-node24.11.0-20260520-200944
+ARG BASE_IMAGE=public.ecr.aws/m7x1i1o0/quails-base:ruby4.0.4-20260520-204435
+ARG BUILD_IMAGE=public.ecr.aws/m7x1i1o0/quails-build:ruby4.0.4-node24.11.0-20260520-204435
 
 #######################################################################
 
