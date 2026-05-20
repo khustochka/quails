@@ -13,7 +13,8 @@ permissions:
   pull-requests: write
 
 jobs:
-  bump:
+  bump_prebuilt_images:
+    name: "Bump prebuilt images"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
