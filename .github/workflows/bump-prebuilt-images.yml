@@ -1,0 +1,90 @@
+name: "Bump prebuilt images"
+
+# Triggered by vk-build-images after a new prebuilt image pair is published.
+# Opens a PR that updates the BASE_IMAGE and BUILD_IMAGE ARGs in Dockerfile
+# so quails CI can validate the new images against this repo.
+
+on:
+  repository_dispatch:
+    types: [build-images-published]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  bump:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Compute branch and PR metadata
+        id: meta
+        env:
+          RUBY: ${{ github.event.client_payload.ruby_version }}
+          NODE: ${{ github.event.client_payload.node_version }}
+          TS: ${{ github.event.client_payload.timestamp }}
+        run: |
+          slug="ruby${RUBY}-node${NODE}-${TS}"
+          {
+            echo "slug=${slug}"
+            echo "branch=image-bump/${slug}"
+            echo "title=Bump prebuilt images to ${slug}"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Update Dockerfile ARGs
+        env:
+          BASE_IMAGE: ${{ github.event.client_payload.base_image }}
+          BUILD_IMAGE: ${{ github.event.client_payload.build_image }}
+        run: |
+          # Replace the full value after `ARG BASE_IMAGE=` / `ARG BUILD_IMAGE=`.
+          # Use a delimiter that won't appear in image refs.
+          sed -i -E "s|^ARG BASE_IMAGE=.*|ARG BASE_IMAGE=${BASE_IMAGE}|" Dockerfile
+          sed -i -E "s|^ARG BUILD_IMAGE=.*|ARG BUILD_IMAGE=${BUILD_IMAGE}|" Dockerfile
+          echo "--- Dockerfile diff ---"
+          git --no-pager diff Dockerfile
+
+      - name: Create branch, commit, push
+        id: commit
+        env:
+          BRANCH: ${{ steps.meta.outputs.branch }}
+          TITLE: ${{ steps.meta.outputs.title }}
+        run: |
+          if git diff --quiet Dockerfile; then
+            echo "No changes to Dockerfile; skipping PR."
+            echo "skipped=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "${BRANCH}"
+          git add Dockerfile
+          git commit -m "${TITLE}."
+          git push -u origin "${BRANCH}"
+          echo "skipped=false" >> "$GITHUB_OUTPUT"
+
+      - name: Open PR
+        if: steps.commit.outputs.skipped != 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: ${{ steps.meta.outputs.branch }}
+          TITLE: ${{ steps.meta.outputs.title }}
+          BASE_IMAGE: ${{ github.event.client_payload.base_image }}
+          BUILD_IMAGE: ${{ github.event.client_payload.build_image }}
+          SOURCE_RUN_URL: ${{ github.event.client_payload.source_run_url }}
+        run: |
+          body=$(cat <<EOF
+          Automated PR from vk-build-images.
+
+          New prebuilt images:
+          - \`${BASE_IMAGE}\`
+          - \`${BUILD_IMAGE}\`
+
+          Source build: ${SOURCE_RUN_URL}
+          EOF
+          )
+          gh pr create \
+            --title "${TITLE}" \
+            --body "${body}" \
+            --head "${BRANCH}" \
+            --base main
