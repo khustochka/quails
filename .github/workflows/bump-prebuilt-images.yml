@@ -18,6 +18,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.BUMP_PR_TOKEN }}
 
       - name: Compute branch and PR metadata
         id: meta
@@ -56,8 +58,8 @@ jobs:
             echo "skipped=true" >> "$GITHUB_OUTPUT"
             exit 0
           fi
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name "${{ github.actor }}"
+          git config user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
           git checkout -b "${BRANCH}"
           git add Dockerfile
           git commit -m "${TITLE}."
@@ -67,7 +69,7 @@ jobs:
       - name: Open PR
         if: steps.commit.outputs.skipped != 'true'
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.BUMP_PR_TOKEN }}
           BRANCH: ${{ steps.meta.outputs.branch }}
           TITLE: ${{ steps.meta.outputs.title }}
           BASE_IMAGE: ${{ github.event.client_payload.base_image }}
