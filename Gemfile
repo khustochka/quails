@@ -81,6 +81,7 @@ gem "rails-pg-extras"
 
 # Image processing
 gem "image_processing"
+gem "ruby-vips", "~> 2.3"
 
 # Assets
 gem "jsbundling-rails"

@@ -27,6 +27,11 @@ runs:
       run: |
         bin/yarn install --frozen-lockfile
       shell: bash
+    - name: Install libvips
+      uses: awalsh128/cache-apt-pkgs-action@v1.4.3
+      with:
+        packages: libvips42t64
+        version: 1.0
     - name: Install Ruby and gems
       uses: ruby/setup-ruby@v1
       with:
@@ -39,8 +44,3 @@ runs:
     - name: Set up database schema
       run: bin/rails db:schema:load
       shell: bash
-    - name: Install libvips
-      uses: awalsh128/cache-apt-pkgs-action@v1.4.3
-      with:
-        packages: libvips42t64
-        version: 1.0
