@@ -16,7 +16,7 @@ module EBird
       "Historical" => "HISTORICAL",
     }
 
-    DURATION_REGEX = /^Duration: (?:(\d+) hour\(s\)(?:, )?)?(?:(\d+) minute\(s\))?$/
+    DURATION_REGEX = /^Duration:\s*(?:(\d+) hour\(s\)(?:, )?)?(?:(\d+) minute\(s\))?$/
 
     def initialize(ebird_id)
       @ebird_id = ebird_id
@@ -89,7 +89,7 @@ module EBird
 
       distance = page.at_xpath("//span[contains(@title, 'Distance:')]")&.attr(:title)
 
-      dm = distance&.match(/^Distance: ([\d.]+) (.*)$/)
+      dm = distance&.match(/^Distance:\s*([\d.]+) (.*)$/)
       if dm
         val = dm[1].to_f
         if dm[2] == "mile(s)"
@@ -99,13 +99,13 @@ module EBird
         self.distance_kms = val
       end
 
-      area = page.css("div.Observation-meta-item").text.match(/Area:\s+([\d.]+) ac/)
+      area = page.css("div.Observation-meta-item").text.match(/Area:\s*([\d.]+) ac/)
       if area
         self.area_acres = area[1]
       end
       observers = page.at_xpath("//span[contains(@title, 'Observers:')]")
       if observers
-        party = observers[:title].match(/^Observers: (\d+)$/)[1]
+        party = observers[:title].match(/^Observers:\s*(\d+)$/)[1]
         if party != "1"
           self.observers = party
           # self.observers = page.xpath("//dl[dt[text()='Observers:']]/dd").text. TODO: beautify the text
