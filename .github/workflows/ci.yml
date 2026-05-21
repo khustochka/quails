@@ -2,17 +2,20 @@ name: "CI Pipeline"
 on:
   - push
 
-concurrency:
-  group: ci-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
-  cancel-in-progress: true
 jobs:
   tests:
     name: "Tests"
     uses: ./.github/workflows/tests.yml
+    concurrency:
+      group: ci-tests-${{ github.event.pull_request.number || github.ref }}
+      cancel-in-progress: true
 
   rubocop:
     name: "Rubocop"
     uses: ./.github/workflows/rubocop.yml
+    concurrency:
+      group: ci-rubocop-${{ github.event.pull_request.number || github.ref }}
+      cancel-in-progress: true
 
   build_image:
     name: "Docker image"
@@ -25,6 +28,9 @@ jobs:
       - tests
       - rubocop
     if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/heads/image-bump/')
+    concurrency:
+      group: ci-build-${{ github.event.pull_request.number || github.ref }}
+      cancel-in-progress: true
 
   deploy:
     name: "Deploy"
