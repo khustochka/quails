@@ -94,6 +94,7 @@ jobs:
             GIT_REVISION=${{ github.sha }}
             GIT_REPOSITORY_URL=${{ format('{0}/{1}', github.server_url, github.repository) }}
           push: true
+          tags: ${{ env.REGISTRY_IMAGE }}
           cache-from: type=gha,scope=${{ matrix.arch.name }}
           cache-to: type=gha,mode=max,scope=${{ matrix.arch.name }}
           outputs: type=image,push-by-digest=true,name-canonical=true,push=true
