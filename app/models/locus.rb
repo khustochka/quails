@@ -99,6 +99,20 @@ class Locus < ApplicationRecord
     path.where(loc_type: "country").first
   end
 
+  # Maps each locus in +loci_scope+ to the slug of the country on its ancestry
+  # path (or itself, if it is the country). Returns { locus_id => country_slug }
+  # in a single query, letting Postgres match the country id against the loci's
+  # ancestry path instead of fetching each country's subtree (an N+1).
+  def self.country_slug_by_id(loci_scope)
+    sql = <<~SQL.squish
+      SELECT l.id AS locus_id, c.slug AS country_slug
+      FROM (#{loci_scope.reselect(:id, :ancestry).to_sql}) l
+      LEFT JOIN loci c ON c.loc_type = 'country'
+        AND (c.id = l.id OR c.id = ANY (string_to_array(l.ancestry, '/')::int[]))
+    SQL
+    connection.select_rows(sql).to_h
+  end
+
   def public_locus
     cached_public_locus
   end
