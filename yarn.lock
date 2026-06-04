@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@canvasjs/charts@^3.15.22":
-  version "3.15.22"
-  resolved "https://registry.yarnpkg.com/@canvasjs/charts/-/charts-3.15.22.tgz#edd86133e5ef71630cd29765197380c5b2ed9e8f"
-  integrity sha512-8gDyK3MUMJjqIrh4s0FM1eIhNmo9OT0oVKoh+2FSNPrY+2I3e7cAfhxvr81hDAk5p+wIba9eazjwOGYQZBdWnw==
+"@canvasjs/charts@^3.15.23":
+  version "3.15.23"
+  resolved "https://registry.yarnpkg.com/@canvasjs/charts/-/charts-3.15.23.tgz#6aeea25aab1e4dcafa64103f5b59bfd312bc68ee"
+  integrity sha512-zgSt0ry0WHiayAQJq+6FaxVihHhLiwhG0elsgne8+wrC7wpIaJhbqeeG75Uy2KDIFqCpkiSTFqGzVq2YdNZE5A==
 
 "@csstools/normalize.css@^12.0.0":
   version "12.1.1"
@@ -142,10 +142,10 @@
   resolved "https://registry.yarnpkg.com/@esbuild/win32-x64/-/win32-x64-0.28.0.tgz#04d90d5752b4ce65d2b6ac25eba08ff7624fe07c"
   integrity sha512-pEl1bO9mfAmIC+tW5btTmrKaujg3zGtUmWNdCw/xs70FBjwAL3o9OEKNHvNmnyylD6ubxUERiEhdsL0xBQ9efw==
 
-"@googlemaps/js-api-loader@^2.0.2":
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/@googlemaps/js-api-loader/-/js-api-loader-2.0.2.tgz#09d8b2029e71bfeb3951747b1ca951e5f8fcb14f"
-  integrity sha512-bKVuTqatS8Jven5aFqVB7rCHF1VFEzpzyi0ruzO0GUR+A7m9oMqMgtnmpANj7kMYEvvhty8Fk7TnJ1MKjWHu+Q==
+"@googlemaps/js-api-loader@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@googlemaps/js-api-loader/-/js-api-loader-2.1.0.tgz#c0e308533df28896d75f607524bbafc767a7e10a"
+  integrity sha512-aZii781WEfncmJAFk1UPv6bdwT1mgRZzY8IWmpmx9mGAMCt97JZrXpn95LTsYinj7E4tC+LJv3FE8k2xRAsYgg==
   dependencies:
     "@types/google.maps" "^3.53.1"
 
@@ -235,9 +235,9 @@
   integrity sha512-6C8nqWur3j98U6+lXDfTUWIfgvZU+EumvpHKcYjujKH7woYyLj2sUmff0tRhrqM7BohUw7Pz3ZB1jj2gW9Fvmg==
 
 "@types/google.maps@^3.53.1":
-  version "3.64.1"
-  resolved "https://registry.yarnpkg.com/@types/google.maps/-/google.maps-3.64.1.tgz#95bd9b53e7598232f78b9132f2c41f8970ccd809"
-  integrity sha512-nEBoa6iDNipICtxJ5VlrOgPNZQ6ixIg5nuv8iryFj0Z/1NLgxyg3pQCVegPuCzGCyTQwQI/N3uZvLUysqAzaaw==
+  version "3.65.0"
+  resolved "https://registry.yarnpkg.com/@types/google.maps/-/google.maps-3.65.0.tgz#408b37cb7347ed1493dff9bd3a101f00b06503fd"
+  integrity sha512-u4SHiRC3m27lPa4vDBxh2AI7mDcHcheX6GSHn1Mwi0Gap8/uhM2kFppiFTnWASXLHZO+1ahHciLeEIV+Sjqk/A==
 
 "@types/http-errors@*":
   version "2.0.5"
