@@ -44,9 +44,9 @@ class Day
   end
 
   def images
-    Image.joins(:observations, :cards).includes(:cards, :taxa).merge(cards)
+    Image.joins(:observations, :cards, :species).includes(:cards).merge(cards)
       .merge(Card.default_cards_order("ASC"))
-      .order("media.index_num, taxa.index_num").preload(:species)
+      .order("media.index_num, species.index_num").preload(:species)
   end
 
   def post_cores

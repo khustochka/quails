@@ -120,9 +120,9 @@ class Post < ApplicationRecord
   def images
     return Image.none unless post_core_id
 
-    Image.joins(:observations, :cards).includes(:cards, :taxa).where("cards.post_core_id = ? OR observations.post_core_id = ?", post_core_id, post_core_id)
+    Image.joins(:observations, :cards, :species).includes(:cards).where("cards.post_core_id = ? OR observations.post_core_id = ?", post_core_id, post_core_id)
       .merge(Card.default_cards_order("ASC"))
-      .order("media.index_num, taxa.index_num").preload(:species)
+      .order("media.index_num, species.index_num").preload(:species)
   end
 
   # Cards attached to this post's core.

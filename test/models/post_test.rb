@@ -342,6 +342,19 @@ class PostTest < ActiveSupport::TestCase
     assert_equal [img1.id, img2.id], p.images.map(&:id)
   end
 
+  test "sorts post images on the same card by species taxonomy" do
+    p = create(:post, body: "Text")
+    card = create(:card, post_core: p.post_core)
+    # hirrus (index_num 50) sorts before pasdom (index_num 100)
+    obs_pasdom = create(:observation, taxon: taxa(:pasdom), card: card)
+    obs_hirrus = create(:observation, taxon: taxa(:hirrus), card: card)
+    # Same media.index_num so species.index_num is the tiebreaker.
+    img_pasdom = create(:image, observations: [obs_pasdom], slug: "image-pasdom", index_num: 1)
+    img_hirrus = create(:image, observations: [obs_hirrus], slug: "image-hirrus", index_num: 1)
+
+    assert_equal [img_hirrus.id, img_pasdom.id], p.images.map(&:id)
+  end
+
   test "cache key is changed after commenting on post" do
     p = create(:post, body: "Text")
     key1 = p.cache_key
