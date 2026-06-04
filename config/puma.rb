@@ -67,3 +67,8 @@ pidfile ENV["PIDFILE"] if ENV["PIDFILE"]
 
 # Do not raise error when restarted
 raise_exception_on_sigterm false
+
+# For Datadog
+if ENV["PUMA_CONTROL_TOKEN"]
+  activate_control_app "tcp://127.0.0.1:9293", { auth_token: ENV["PUMA_CONTROL_TOKEN"] }
+end
