@@ -18,6 +18,10 @@ module Lifelist
 
     def load_records
       records = relation.to_a
+      # Taxonomy sort orders by species.index_num. Rather than join species into
+      # the main query just for the ORDER BY, we sort the already-preloaded
+      # species in Ruby (the list is one page of species, never large).
+      records = records.sort_by { |r| r.species.index_num } if @sorting == "class"
       preload_posts(records)
       records
     end
@@ -30,14 +34,16 @@ module Lifelist
       Observation.merge(observation_scope).where.not(species_id: nil).refine(normalized_filter).joins(:card)
     end
 
+    DATE_ORDERING = "observ_date DESC, to_timestamp(start_time, 'HH24:MI') DESC NULLS LAST, created_at DESC"
+
     def ordering
       case @sorting
-      when "class"
-        "index_num ASC"
       when "count"
         "obs_count DESC"
       else
-        "observ_date DESC, to_timestamp(start_time, 'HH24:MI') DESC NULLS LAST, created_at DESC"
+        # "class" (taxonomy) sort is applied in Ruby in load_records, since the
+        # species table isn't joined here; fall back to a deterministic SQL order.
+        DATE_ORDERING
       end
     end
 
@@ -60,11 +66,8 @@ module Lifelist
     private
 
     def build_relation
-      rel = bare_relation.joins(:card).preload(:species, { card: :locus })
-      # NOTE: Do not use .includes(:taxon), it breaks species preloading, use .preload
-      # taxa join is only needed for taxonomy sort (index_num column lives on taxa)
-      rel = rel.joins(:taxon) if @sorting == "class"
-      rel
+      bare_relation.joins(:card).preload(:species, { card: :locus })
+      # NOTE: Do not use .includes(:species), it breaks species preloading, use .preload
     end
 
     def preselected_observations
