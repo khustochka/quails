@@ -148,6 +148,25 @@ class SpeciesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "show species groups loci by country and marks observed months" do
+    tx = taxa(:jyntor)
+    brovary = create(:card, locus_id: loci(:brovary).id, observ_date: "2010-03-18")
+    nyc = create(:card, locus_id: loci(:nyc).id, observ_date: "2010-07-04")
+    create(:observation, taxon: tx, card: brovary)
+    create(:observation, taxon: tx, card: nyc)
+
+    get :show, params: { id: tx.species.to_param }
+    assert_response :success
+
+    grouped = assigns(:grouped_loci)
+    assert_equal [loci(:brovary)], grouped["ukraine"]
+    assert_equal [loci(:nyc)], grouped["usa"]
+
+    months = assigns(:months)
+    assert_equal [3], months["ukraine"]
+    assert_equal [7], months["usa"]
+  end
+
   test "get edit" do
     species = species(:jyntor)
     login_as_admin

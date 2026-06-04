@@ -5,7 +5,7 @@
 CI.run do
   ENV["CI"] = "true"
 
-  # step "Setup", "bin/setup --skip-server"
+  step "Setup", "bin/setup --skip-server"
 
   step "Style: Ruby", "bin/rubocop"
 

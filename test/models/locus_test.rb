@@ -39,6 +39,23 @@ class LocusTest < ActiveSupport::TestCase
     assert_empty not_expected & actual, "Some unexpected values are included"
   end
 
+  test "country_slug_by_id maps loci to their country via ancestry" do
+    ids = [loci(:ukraine), loci(:brovary), loci(:kyiv), loci(:usa), loci(:nyc)].map(&:id)
+    result = Locus.country_slug_by_id(Locus.where(id: ids))
+
+    assert_equal "ukraine", result[loci(:ukraine).id], "country maps to itself"
+    assert_equal "ukraine", result[loci(:brovary).id]
+    assert_equal "ukraine", result[loci(:kyiv).id]
+    assert_equal "usa", result[loci(:usa).id]
+    assert_equal "usa", result[loci(:nyc).id]
+  end
+
+  test "country_slug_by_id leaves loci without a country unmapped" do
+    continent = create(:locus, slug: :europe, loc_type: "continent")
+    result = Locus.country_slug_by_id(Locus.where(id: continent.id))
+    assert_nil result[continent.id]
+  end
+
   test "subregions of the Arabat Spit" do
     loc = create(:locus, slug: :arabat_spit, parent: loci("ukraine"))
     loc1 = create(:locus, slug: :arabat_spit_kherson, parent: loci("ukraine"))
