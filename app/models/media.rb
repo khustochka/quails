@@ -53,7 +53,7 @@ class Media < ApplicationRecord
   end
 
   def self.half_mapped
-    preload(taxa: :species).joins(:observations)
+    preload(:species).joins(:observations)
       .where(spot_id: nil).where("observation_id in (select observation_id from spots)")
       .order(created_at: :asc)
   end
@@ -96,7 +96,7 @@ class Media < ApplicationRecord
   delegate :observ_date, :locus, :locus_id, to: :card
 
   def species
-    taxa.filter_map(&:species).uniq
+    super.uniq
   end
 
   def card
