@@ -70,5 +70,5 @@ raise_exception_on_sigterm false
 
 # For Datadog
 if ENV["PUMA_CONTROL_TOKEN"]
-  activate_control_app "tcp://127.0.0.1:9293", { auth_token: ENV["PUMA_CONTROL_TOKEN"] }
+  activate_control_app "tcp://0.0.0.0:9293", { auth_token: ENV["PUMA_CONTROL_TOKEN"] }
 end
