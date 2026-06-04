@@ -55,4 +55,13 @@ class ObservationTest < ActiveSupport::TestCase
       assert_includes img_slugs, img.slug
     end
   end
+
+  test "observation can be attached to any translation's core" do
+    core = create(:post_core)
+    uk_post = create(:post, post_core: core, lang: "uk")
+    create(:post, post_core: core, lang: "en")
+    observation = build(:observation, post_core: core)
+    assert_predicate observation, :valid?
+    assert_equal uk_post.post_core_id, observation.post_core_id
+  end
 end

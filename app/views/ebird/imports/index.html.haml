@@ -5,6 +5,7 @@
 
 - content_for :add_shortcuts do
   %li= link_to "eBird Exports", ebird_submissions_path
+  %li= link_to "Alerts Map", ebird_alerts_path
 
 = render 'admin/shortcuts' if current_user.admin?
 

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class LociController < ApplicationController
+  include CorrectableConcern
+
   administrative
 
   find_record by: :slug, before: [:edit, :update, :destroy]
@@ -39,6 +41,7 @@ class LociController < ApplicationController
 
   # GET /locus/1/edit
   def edit
+    set_correction_flash(@locus)
     render :form
   end
 
@@ -54,10 +57,13 @@ class LociController < ApplicationController
 
   # PUT /locus/1
   def update
-    if @locus.update(params[:locus])
-      redirect_to(edit_locus_path(@locus), notice: "Locus was successfully updated.")
-    else
-      render :form
+    process_correction_options(@locus) do
+      if @locus.update(params[:locus])
+        flash[:notice] = "Locus was successfully updated." unless correcting?
+        redirect_to(redirect_after_update_path(@locus))
+      else
+        render :form
+      end
     end
   end
 
@@ -103,5 +109,9 @@ class LociController < ApplicationController
     loci.each do |loc|
       loc.__send__(:set_parent, parents[loc.parent_id])
     end
+  end
+
+  def default_redirect_path(record)
+    edit_locus_path(record)
   end
 end

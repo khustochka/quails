@@ -1,6 +1,13 @@
 # frozen_string_literal: true
 
 class CountriesController < ApplicationController
+  GALLERY_THUMBNAILS = {
+    "ukraine" => "https://bwua-static.s3.eu-central-1.amazonaws.com/cuckoo-thumb.jpg",
+    "usa" => "https://bwua-static.s3.eu-central-1.amazonaws.com/cardinal-thumb.jpg",
+    "united_kingdom" => "https://bwua-static.s3.eu-central-1.amazonaws.com/gannet-thumb.jpg",
+    "canada" => "https://bwua-static.s3.eu-central-1.amazonaws.com/meadowlark-thumb.jpg",
+  }.freeze
+
   localized only: [:gallery]
 
   def gallery

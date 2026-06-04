@@ -1,5 +1,5 @@
 -# frozen_string_literal: true
-- posts = media.posts.merge(current_user.available_posts)
+- localized_posts = media.localized_posts(scope: current_user.available_posts)
 
 %p
   %div
@@ -11,8 +11,8 @@
 - unless blogless_locale?
   = media.decorated.description
 
-  - if posts.present?
-    %h3= t(".blog_posts")
-    %ul
-      - posts.each do |post|
-        %li= post_link(post.decorated.title, post, true)
+- if localized_posts.present?
+  %h3= t(".blog_posts")
+  %ul
+    - localized_posts.each do |post|
+      %li= post_link(post.decorated.title, post, true)

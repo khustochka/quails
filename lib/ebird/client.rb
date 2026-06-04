@@ -88,6 +88,11 @@ module EBird
       @agent.get(checklist.url)
     end
 
+    def get(url)
+      authenticate unless @authenticated
+      @agent.get(url)
+    end
+
     def fix_checklist(checklist)
       authenticate unless @authenticated
       page = @agent.get(checklist.edit_url)

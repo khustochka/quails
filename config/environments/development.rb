@@ -17,26 +17,26 @@ Rails.application.configure do
   # Enable server timing.
   config.server_timing = true
 
+  # Setup cache store in dev, it should be used by default for eBird preloads
+  config.cache_store = if ENV["REDIS_CACHE_URL"]
+    RailsBrotliCache::Store.new(
+      ActiveSupport::Cache::RedisCacheStore.new(url: ENV["REDIS_CACHE_URL"])
+    )
+  else
+    :memory_store
+  end
+
   # Enable/disable Action Controller caching. By default Action Controller caching is disabled.
   # Run rails dev:cache to toggle Action Controller caching.
   if Rails.root.join("tmp/caching-dev.txt").exist? || ENV["DEV_CACHING"]
     config.action_controller.perform_caching = true
     config.action_controller.enable_fragment_cache_logging = true
 
-    config.cache_store = if ENV["REDIS_CACHE_URL"]
-      config.cache_store = RailsBrotliCache::Store.new(
-        ActiveSupport::Cache::RedisCacheStore.new(url: ENV["REDIS_CACHE_URL"])
-      )
-    else
-      :memory_store
-    end
     config.public_file_server.headers = {
       "Cache-Control" => "public, max-age=#{2.days.to_i}",
     }
   else
     config.action_controller.perform_caching = false
-
-    config.cache_store = :null_store
   end
 
   config.active_job.queue_adapter = :good_job

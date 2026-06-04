@@ -116,10 +116,15 @@ class Media < ApplicationRecord
     locus.public_locus
   end
 
-  def posts
-    # TODO: implement preload_posts
-    posts_id = observations.map(&:post_id).append(cards.first.post_id).uniq.compact
-    Post.where(id: posts_id)
+  def post_cores
+    core_ids = observations.map(&:post_core_id).append(cards.first.post_core_id).uniq.compact
+    PostCore.where(id: core_ids)
+  end
+
+  def localized_posts(scope:, locale: I18n.locale)
+    cores = PostCore.where(id: scope.where(post_core_id: post_cores).select(:post_core_id))
+    localized_map = Post.localized_for(cores, locale, scope: scope)
+    cores.filter_map { |core| localized_map[core.id] }
   end
 
   def image?

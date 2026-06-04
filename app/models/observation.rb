@@ -15,7 +15,7 @@ class Observation < ApplicationRecord
 
   before_save :sync_species_id, if: :will_save_change_to_taxon_id?
 
-  belongs_to :post, -> { short_form }, touch: true, optional: true, inverse_of: :observations
+  belongs_to :post_core, touch: true, optional: true, inverse_of: :observations
   has_and_belongs_to_many :media
   has_and_belongs_to_many :images, class_name: "Image", association_foreign_key: :media_id
   has_and_belongs_to_many :videos, class_name: "Video", association_foreign_key: :media_id
@@ -75,8 +75,32 @@ class Observation < ApplicationRecord
     card.locus
   end
 
+  # Returns a Post (single translation) for views that need to link to a blog
+  # post. Lifelist preloader replaces this with the locale-correct sibling
+  # (may explicitly set nil to hide private siblings).
+  #
+  # Resolution order:
+  #   1. explicitly-set @main_post (e.g. from Lifelist preloader)
+  #   2. main_post_core's first translation (own core, or card's core)
+  #   3. card.main_post (in case the card was preloaded but obs.post_core is unset)
   def main_post
-    post || card.post
+    return @main_post if defined?(@main_post)
+
+    @main_post = if post_core
+      post_core.posts.first
+    else
+      card&.main_post
+    end
+  end
+
+  attr_writer :main_post
+
+  def main_post_core
+    post_core || card.post_core
+  end
+
+  def post
+    main_post
   end
 
   def significant_value_for_lifelist

@@ -10,8 +10,8 @@
   = obs.notes
   (#{obs.private_notes})
   %b= post_link('POST >>', obs.post)
-  - if @post
-    %span= post_attach_detach_link(obs, @post)
+  - if @attach_core_id
+    %span= post_attach_detach_link(obs, @attach_core_id)
   - if obs.voice
     %small.voice.tag voice
   - if obs.hidden

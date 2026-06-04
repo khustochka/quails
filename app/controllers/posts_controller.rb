@@ -13,14 +13,21 @@ class PostsController < ApplicationController
 
   after_action :cache_expire, only: [:create, :update, :destroy]
 
-  # This is rendered in public layout, just raising exception when no posts are found (the case for regular user)
-  def hidden
-    @admin_layout = false
-    @posts = Post.hidden.order(face_date: :desc).page(params[:page]).per(20)
-  end
+  FILTER_KEYS = [:topic, :shout, :status, :lang_present, :lang_missing, :year, :month].freeze
 
-  def facebook
-    @posts = Post.facebook_publishable.order(face_date: :desc).page(params[:page]).per(20)
+  POST_ATTRS = [:title, :body, :face_date, :status, :lang, :lj_data, :post_core_id].freeze
+  private_constant :POST_ATTRS
+
+  # GET /posts — admin index, one row per PostCore.
+  def index
+    @filters = params.permit(*FILTER_KEYS).to_h.symbolize_keys
+
+    posts_scope, posts_filtered = filtered_posts_scope(@filters)
+    cores = filtered_cores_scope(@filters, posts_scope, posts_filtered)
+
+    @cores = cores.order(Arel.sql("agg.max_face_date DESC NULLS FIRST"))
+      .preload(:posts)
+      .page(params[:page]).per(25)
   end
 
   # GET /posts/1
@@ -32,13 +39,24 @@ class PostsController < ApplicationController
       exact = fallback = current_user.available_posts.where(lang: "en")
     end
 
-    @post = exact.find_by(slug: params[:id]) ||
-      fallback.find_by(slug: params[:id])
+    core = PostCore.find_by(slug: params[:id])
+
+    @post = (core && exact.find_by(post_core_id: core.id)) ||
+      (core && fallback.find_by(post_core_id: core.id))
 
     if @post.nil?
-      legacy_post = fallback.find_by!(legacy_slug: params[:id])
-      redirect_to public_post_path(legacy_post), status: :moved_permanently
-      return
+      # Legacy slugs are only used for a handful of historical English posts;
+      # all of them end in "-en". Only attempt the legacy lookup under the en
+      # locale.
+      # TODO: Potentially implement redirect table
+      if I18n.locale == :en && params[:id].to_s.end_with?("-en")
+        legacy_core = PostCore.find_by!(legacy_slug: params[:id])
+        legacy_post = fallback.find_by!(post_core_id: legacy_core.id)
+        redirect_to public_post_path(legacy_post), status: :moved_permanently
+        return
+      else
+        raise ActiveRecord::RecordNotFound
+      end
     end
 
     if @post.month != params[:month].to_s || @post.year != params[:year].to_s
@@ -46,6 +64,7 @@ class PostsController < ApplicationController
     end
 
     @localized_versions = @post.localized_versions(source: current_user.available_posts)
+    @attach_core_id = @post.post_core_id if current_user.admin?
     @robots = "NOINDEX" if @post.status == "NIDX"
     @comments = current_user.available_comments(@post).group_by(&:parent_id)
 
@@ -72,7 +91,12 @@ class PostsController < ApplicationController
 
   # GET /posts/new
   def new
-    @post = Post.new(topic: "OBSR", status: "PRIV")
+    defaults = { status: "PRIV", face_date: Time.current.strftime("%F %T") }
+    @post = Post.new(defaults.merge(post_attrs))
+    if @post.post_core_id.blank?
+      redirect_to new_post_core_path
+      return
+    end
     render "form"
   end
 
@@ -80,13 +104,13 @@ class PostsController < ApplicationController
   def edit
     set_correction_flash(@post)
     @extra_params = @post.to_url_params
-    @observation_search = ObservationSearch.new
+    @localized_versions = @post.localized_versions(source: current_user.available_posts)
     render "form"
   end
 
   # POST /posts
   def create
-    @post = Post.new(params[:post])
+    @post = Post.new(post_attrs)
 
     if @post.save
       redirect_to(universal_public_post_path(@post))
@@ -98,11 +122,13 @@ class PostsController < ApplicationController
   # PUT /posts/1
   def update
     @extra_params = @post.to_url_params
+    # post_core_id is locked once a translation is created; rebinding goes
+    # through PostCoresController, not here.
+    update_params = post_attrs.except(:post_core_id)
     process_correction_options(@post) do
-      if @post.update(params[:post])
+      if @post.update(update_params)
         redirect_to(redirect_after_update_path(@post))
       else
-        @observation_search = ObservationSearch.new
         render "form"
       end
     end
@@ -182,13 +208,57 @@ class PostsController < ApplicationController
 
   private
 
+  def filtered_posts_scope(filters)
+    scope = current_user.available_posts
+    filtered = false
+    if filters[:status].present?
+      scope = scope.where(status: filters[:status])
+      filtered = true
+    end
+    if filters[:lang_present].present?
+      scope = scope.where(lang: filters[:lang_present])
+      filtered = true
+    end
+    if filters[:year].present?
+      scope = scope.where("EXTRACT(year FROM face_date)::integer = ?", filters[:year].to_i)
+      filtered = true
+    end
+    if filters[:month].present?
+      scope = scope.where("EXTRACT(month FROM face_date)::integer = ?", filters[:month].to_i)
+      filtered = true
+    end
+    [scope, filtered]
+  end
+
+  def filtered_cores_scope(filters, posts_scope, posts_filtered)
+    # When any post-level filter is active, an INNER JOIN against the aggregate
+    # keeps only cores with a matching translation. Without filters, use a LEFT
+    # JOIN so empty cores (no translations yet) still appear in the listing.
+    agg_sql = posts_scope.group(:post_core_id).select("post_core_id, MAX(face_date) AS max_face_date").to_sql
+    join_type = posts_filtered ? "INNER JOIN" : "LEFT JOIN"
+    cores = PostCore.joins(Arel.sql("#{join_type} (#{agg_sql}) agg ON agg.post_core_id = post_cores.id"))
+    cores = cores.where(topic: filters[:topic]) if filters[:topic].present?
+    cores = cores.where(shout: true) if filters[:shout].present?
+    if filters[:lang_missing].present?
+      cores = cores.where.not(
+        id: Post.where(lang: filters[:lang_missing]).select(:post_core_id)
+      )
+    end
+    cores
+  end
+
+  def post_attrs
+    raw = params[:post] || ActionController::Parameters.new
+    raw = ActionController::Parameters.new(raw) unless raw.is_a?(ActionController::Parameters)
+    raw.permit(*POST_ATTRS).to_h.symbolize_keys
+  end
+
   def find_post
-    @post = current_user.available_posts.find_by!(slug: params[:id])
+    @post = current_user.available_posts.find(params[:id])
   end
 
   def cache_expire
     expire_page controller: :feeds, action: :blog, format: "xml"
-    expire_page controller: :feeds, action: :instant_articles, format: "xml"
     expire_photo_feeds
     expire_page controller: :feeds, action: :sitemap, format: "xml"
   end

@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 class Correction < ApplicationRecord
-  # To add a model you need to modify the controller and form
-  CORRECTABLE_MODELS = %w(Post)
+  # To add a model you need to include CorrectableConcern in the controller
+  # and add `inject_correction_field` to its form.
+  CORRECTABLE_MODELS = %w(Post Locus)
 
   DANGEROUS_SQL_PATTERN = /;\s*\b(DROP|DELETE|TRUNCATE|ALTER|UPDATE|INSERT|CREATE|GRANT|REVOKE)\b/i
 

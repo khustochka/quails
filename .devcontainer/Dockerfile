@@ -1,4 +1,4 @@
-ARG RUBY_VERSION=4.0.2
+ARG RUBY_VERSION=4.0.5
 ARG VARIANT=slim-trixie
 FROM ruby:${RUBY_VERSION}-${VARIANT} AS base
 
@@ -26,8 +26,8 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 # [Optional] Uncomment this line to install global node packages.
 # RUN su vscode -c "source /usr/local/share/nvm/nvm.sh && npm install -g <your-package-here>" 2>&1
 
-# ARG NODE_VERSION=24.11.0
-# ARG YARN_VERSION=1.22.19
+# ARG NODE_VERSION=24.15.0
+# ARG YARN_VERSION=1.22.22
 
 # RUN  --mount=type=cache,id=dev-apt-cache,sharing=locked,target=/var/cache/apt \
 #      --mount=type=cache,id=dev-apt-lib,sharing=locked,target=/var/lib/apt \

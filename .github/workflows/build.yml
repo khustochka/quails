@@ -10,9 +10,7 @@ on:
         type: string
         default: public.ecr.aws
     secrets:
-      DOCKER_AWS_ACCESS_KEY_ID:
-        required: true
-      DOCKER_AWS_SECRET_ACCESS_KEY:
+      AWS_ROLE_ARN:
         required: true
     outputs:
       image_tag:
@@ -33,7 +31,12 @@ on:
           - public.ecr.aws
           - ghcr.io
 env:
-  REGISTRY_IMAGE: ${{ inputs.image_registry == 'ghcr.io' &&  'ghcr.io/khustochka/quails' || 'public.ecr.aws/m7x1i1o0/quails' }}
+  REGISTRY_IMAGE: ${{ inputs.image_registry == 'ghcr.io' && 'ghcr.io/khustochka/quails' || 'public.ecr.aws/m7x1i1o0/quails' }}
+  AWS_REGION: us-east-1
+  TAG_SUFFIX: ${{ inputs.debug && '-debug' || '' }}
+concurrency:
+  group: build-${{ github.ref }}-${{ inputs.image_registry }}
+  cancel-in-progress: false
 jobs:
   build:
     name: "Build and push"
@@ -54,41 +57,41 @@ jobs:
       attestations: write
       id-token: write
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
       - name: Prepare
         run: |
           platform=${{ matrix.arch.platform }}
           echo "PLATFORM_PAIR=${platform//\//-}" >> $GITHUB_ENV
       - name: Docker meta
         id: meta
-        uses: docker/metadata-action@v5
+        uses: docker/metadata-action@v6
         with:
           images: |
             ${{ env.REGISTRY_IMAGE }}
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+        uses: docker/setup-buildx-action@v4
+      - name: Configure AWS credentials
+        if: ${{ inputs.image_registry == 'public.ecr.aws' }}
+        uses: aws-actions/configure-aws-credentials@v6
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
       - name: Login to AWS ECR Registry
         if: ${{ inputs.image_registry == 'public.ecr.aws' }}
-        uses: docker/login-action@v3
+        uses: aws-actions/amazon-ecr-login@v2
         with:
-          registry: public.ecr.aws
-          username: ${{ secrets.DOCKER_AWS_ACCESS_KEY_ID }}
-          password: ${{ secrets.DOCKER_AWS_SECRET_ACCESS_KEY }}
-        env:
-          AWS_REGION: us-east-1
+          registry-type: public
       - name: Login to Github Package Registry
         if: ${{ inputs.image_registry == 'ghcr.io' }}
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Checkout code
-        uses: actions/checkout@v6
       - name: Build and push
         id: push
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           # Path context is required for .dockerignore to work.
           context: .
@@ -100,6 +103,8 @@ jobs:
           tags: ${{ env.REGISTRY_IMAGE }}
           labels: ${{ steps.meta.outputs.labels }}
           annotations: ${{ steps.meta.outputs.annotations }}
+          cache-from: type=gha,scope=${{ matrix.arch.name }}
+          cache-to: type=gha,mode=max,scope=${{ matrix.arch.name }}
           outputs: type=image,push-by-digest=true,name-canonical=true,push=true
       - name: Generate artifact attestation
         uses: actions/attest-build-provenance@v4
@@ -123,6 +128,10 @@ jobs:
     runs-on: ubuntu-latest
     needs:
       - build
+    permissions:
+      packages: write
+      contents: read
+      id-token: write
     outputs:
       image_tag: ${{ steps.result.outputs.image_tag }}
     steps:
@@ -132,34 +141,34 @@ jobs:
           path: ${{ runner.temp }}/digests
           pattern: digests-*
           merge-multiple: true
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+      - name: Configure AWS credentials
+        if: ${{ inputs.image_registry == 'public.ecr.aws' }}
+        uses: aws-actions/configure-aws-credentials@v6
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
       - name: Login to AWS ECR Registry
         if: ${{ inputs.image_registry == 'public.ecr.aws' }}
-        uses: docker/login-action@v3
+        uses: aws-actions/amazon-ecr-login@v2
         with:
-          registry: public.ecr.aws
-          username: ${{ secrets.DOCKER_AWS_ACCESS_KEY_ID }}
-          password: ${{ secrets.DOCKER_AWS_SECRET_ACCESS_KEY }}
-        env:
-          AWS_REGION: us-east-1
+          registry-type: public
       - name: Login to Github Package Registry
         if: ${{ inputs.image_registry == 'ghcr.io' }}
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Docker meta
         id: meta
-        uses: docker/metadata-action@v5
+        uses: docker/metadata-action@v6
         with:
           images: |
             ${{ env.REGISTRY_IMAGE }}
           tags: |
-            type=raw,value=latest,suffix=${{inputs.debug && '-debug' || ''}},enable=${{ github.ref == format('refs/heads/{0}', 'main') }}
-            type=raw,priority=1000,value={{tag}},suffix=${{inputs.debug && '-debug' || ''}},enable=${{ startsWith(github.ref, 'refs/tags/') }}
-            type=sha,priority=800,prefix={{branch}}-,suffix=${{inputs.debug && '-debug' || ''}},enable=${{ startsWith(github.ref, 'refs/heads/') }}
+            type=raw,value=latest,suffix=${{ env.TAG_SUFFIX }},enable=${{ github.ref == format('refs/heads/{0}', 'main') }}
+            type=raw,priority=1000,value={{tag}},suffix=${{ env.TAG_SUFFIX }},enable=${{ startsWith(github.ref, 'refs/tags/') }}
+            type=sha,priority=800,prefix={{branch}}-,suffix=${{ env.TAG_SUFFIX }},enable=${{ startsWith(github.ref, 'refs/heads/') }}
       - name: Create manifest list and push
         working-directory: ${{ runner.temp }}/digests
         run: |

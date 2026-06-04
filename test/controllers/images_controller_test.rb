@@ -117,6 +117,24 @@ class ImagesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "image page shows en sibling post link in en locale" do
+    core = create(:post_core)
+    create(:post, post_core: core, lang: "uk")
+    en_post = create(:post, post_core: core, lang: "en")
+    @obs.update!(post_core: core)
+    get :show, params: { id: @image.to_param, locale: :en }
+    assert_response :success
+    assert_select "a[href*='#{public_post_path(en_post, locale: :en)}']"
+  end
+
+  test "image page hides post link in en locale when no en sibling" do
+    uk_post = create(:post, lang: "uk")
+    @obs.update!(post_core: uk_post.post_core)
+    get :show, params: { id: @image.to_param, locale: :en }
+    assert_response :success
+    assert_select "a[href*='#{public_post_path(uk_post)}']", count: 0
+  end
+
   test "respond with JPG image" do
     get :show, params: { id: @image.to_param, format: :jpg }
     assert_response :redirect
@@ -221,7 +239,7 @@ class ImagesControllerTest < ActionController::TestCase
 
   test "do not show link to private post to public user on image page" do
     blogpost = create(:post, status: "PRIV")
-    @obs.post = blogpost
+    @obs.post_core = blogpost.post_core
     @obs.save!
     get :show, params: { id: @image }
     assert_select "a[href='#{public_post_path(blogpost)}']", false
@@ -229,7 +247,7 @@ class ImagesControllerTest < ActionController::TestCase
 
   test "show link to public post to public user on image page" do
     blogpost = create(:post)
-    @obs.post = blogpost
+    @obs.post_core = blogpost.post_core
     @obs.save!
     get :show, params: { id: @image.to_param }
     assert_select "a[href*='#{public_post_path(blogpost)}']"

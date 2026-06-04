@@ -13,7 +13,7 @@ class CardsController < ApplicationController
     @observation_search = ObservationSearch.new(params[:q])
 
     @cards = @observation_search.cards
-      .default_cards_order(:desc).preload(:locus, :post)
+      .default_cards_order(:desc).preload(:locus, post_core: :posts)
 
     @cards = if !request.xhr?
       @cards.page(params[:page]).per(10)
@@ -21,7 +21,7 @@ class CardsController < ApplicationController
       @cards.limit(30)
     end
 
-    @post = Post.where(id: params[:new_post_id]).first
+    @attach_core_id = params[:new_post_core_id].presence&.to_i
 
     respond_to do |format|
       format.html {
@@ -146,6 +146,5 @@ class CardsController < ApplicationController
   def cache_expire
     expire_photo_feeds
     expire_page controller: :feeds, action: :blog, format: "xml"
-    expire_page controller: :feeds, action: :instant_articles, format: "xml"
   end
 end

@@ -49,9 +49,12 @@ class Day
       .order("media.index_num, taxa.index_num").preload(:species)
   end
 
-  def posts
-    posts_id = cards.where.not(post_id: nil).distinct.pluck(:post_id) +
-      observations.where.not(observations: { post_id: nil }).distinct.pluck(:post_id)
-    Post.distinct.where(id: posts_id)
+  def post_cores
+    PostCore.where(id: cards.where.not(post_core_id: nil).select(:post_core_id))
+      .or(PostCore.where(id: observations.where.not(observations: { post_core_id: nil }).select(:post_core_id)))
+  end
+
+  def posts(scope: Post.public_posts)
+    scope.where(post_core_id: post_cores).order(:post_core_id, :lang)
   end
 end

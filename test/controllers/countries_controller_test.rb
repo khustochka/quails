@@ -17,6 +17,30 @@ class CountriesControllerTest < ActionController::TestCase
     assert_select "a[href='#{species_path(@obs.species)}']"
   end
 
+  test "og:image meta tag is present for gallery page on cached response" do
+    LocalSpecies.create(locus: loci(:ukraine), species: species(:pasdom), status: "")
+
+    # Enable caching to reproduce the bug: @meta_thumbnail was set inside a cache block,
+    # so on cache hit the variable was never assigned and og:image disappeared.
+    @controller.perform_caching = true
+    cache_store = ActiveSupport::Cache::MemoryStore.new
+    ActionController::Base.cache_store = cache_store
+
+    # First request populates the cache
+    get :gallery, params: { country: "ukraine" }
+    assert_select "meta[property='og:image']" do |elements|
+      assert_includes elements.first["content"], "cuckoo-thumb"
+    end
+    # Second request hits the cache — og:image must still be present
+    get :gallery, params: { country: "ukraine" }
+    assert_select "meta[property='og:image']" do |elements|
+      assert_includes elements.first["content"], "cuckoo-thumb"
+    end
+  ensure
+    @controller.perform_caching = false
+    ActionController::Base.cache_store = :null_store
+  end
+
   test "Birds of USA" do
     obs = create(:observation, card: create(:card, locus: loci(:nyc)))
     img = create(:image, observations: [obs])

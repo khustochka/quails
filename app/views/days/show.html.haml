@@ -24,7 +24,7 @@
     %div.thumbnails
       = render_justified images.map(&:to_thumbnail)
 
-- @day.posts.if_present do |posts|
+- @day.posts(scope: current_user.available_posts).if_present do |posts|
   %h3 Posts
   %ul
     - posts.each do |post|
@@ -34,7 +34,7 @@
   %h3 Cards
   %ul.cards_list
     -# Template Dependency: cards/card
-    = render cards.default_cards_order(:asc).preload(:post, :locus)
+    = render cards.default_cards_order(:asc).preload(:locus, post_core: :posts)
 
 - @day.observations.load.if_present do |observations|
   %h3

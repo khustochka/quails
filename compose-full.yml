@@ -49,7 +49,7 @@ services:
       - rails_app_storage:/app/storage
 
   database:
-    image: postgres:18.0-trixie
+    image: postgres:18.3-trixie
     environment:
       POSTGRES_USER: quails
       POSTGRES_PASSWORD: quails
@@ -60,7 +60,7 @@ services:
       - db_data:/var/lib/postgresql
 
   redis-cache:
-    image: redis:8.2.2-bookworm
+    image: redis:8.6.2-trixie
     # This is cache
     command: redis-server --maxmemory 25mb --maxmemory-policy allkeys-lru --save 120 1
     # It is beneficial to preserve cache between deploys, but it can be cleared

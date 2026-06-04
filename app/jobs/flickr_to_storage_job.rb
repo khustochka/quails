@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class FlickrToStorageJob < ApplicationJob
-  queue_as :default
+  queue_as :storage
 
   def perform(image)
     # Only performed by admin. Will be removed in the future.

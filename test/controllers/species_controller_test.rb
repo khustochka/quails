@@ -101,6 +101,46 @@ class SpeciesControllerTest < ActionController::TestCase
     assert_select "a[href='/en/photos/#{img.slug}']"
   end
 
+  test "species page shows en sibling post link in en locale" do
+    tx = taxa(:jyntor)
+    core = create(:post_core)
+    create(:post, post_core: core, lang: "uk")
+    en_post = create(:post, post_core: core, lang: "en")
+    create(:observation, taxon: tx, post_core: core)
+    get :show, params: { id: tx.species.to_param, locale: :en }
+    assert_response :success
+    assert_select "a[href*='#{public_post_path(en_post, locale: :en)}']"
+  end
+
+  test "species page hides post link in en locale when no en sibling exists" do
+    tx = taxa(:jyntor)
+    uk_post = create(:post, lang: "uk")
+    create(:observation, taxon: tx, post_core: uk_post.post_core)
+    get :show, params: { id: tx.species.to_param, locale: :en }
+    assert_response :success
+    assert_select "a[href*='#{public_post_path(uk_post)}']", count: 0
+  end
+
+  test "species page in en locale skips newer uk-only cores when picking top 10" do
+    tx = taxa(:jyntor)
+    newer_uk_only = create(:post, lang: "uk", face_date: "2025-01-01")
+    create(:observation, taxon: tx, post_core: newer_uk_only.post_core)
+    older_en = create(:post, lang: "en", face_date: "2020-01-01")
+    create(:observation, taxon: tx, post_core: older_en.post_core)
+    get :show, params: { id: tx.species.to_param, locale: :en }
+    assert_response :success
+    assert_select "a[href*='#{public_post_path(older_en, locale: :en)}']"
+  end
+
+  test "species page falls back to ru post in uk locale when no uk sibling" do
+    tx = taxa(:jyntor)
+    ru_only = create(:post, lang: "ru")
+    create(:observation, taxon: tx, post_core: ru_only.post_core)
+    get :show, params: { id: tx.species.to_param, locale: :uk }
+    assert_response :success
+    assert_select "a[href*='#{public_post_path(ru_only)}']"
+  end
+
   test "show species with video" do
     tx = taxa(:jyntor)
     create(:video, observations: [create(:observation, taxon: tx)])

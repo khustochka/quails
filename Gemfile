@@ -25,7 +25,7 @@ gem "brotli"
 gem "good_job", "~> 4.0"
 
 # Deployment
-gem "puma", "< 8"
+gem "puma", "< 9"
 gem "dotenv", "~> 3.0"
 # For puma systemd integration
 # gem "sd_notify"
@@ -81,6 +81,7 @@ gem "rails-pg-extras"
 
 # Image processing
 gem "image_processing"
+gem "ruby-vips", "~> 2.3"
 
 # Assets
 gem "jsbundling-rails"

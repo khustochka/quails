@@ -1,8 +1,10 @@
 -# frozen_string_literal: true
 - @body_class = 'wider'
--# This is rquired to be outside of cache
+-# This is required to be outside of cache
 - @canonical = country_url
 - @og_type = 'website'
+- @meta_description = t(".#{@country.slug}.meta_description")
+- @meta_thumbnail = CountriesController::GALLERY_THUMBNAILS[@country.slug]
 
 - @page_title = t(".title.#{@country.slug}")
 

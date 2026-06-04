@@ -27,14 +27,14 @@ class CardsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "new card should accept locus, date, and post" do
+  test "new card should accept locus, date, and post_core" do
     p = create(:post)
-    get :new, params: { card: { locus_id: loci(:brovary).id, observ_date: "2013-04-26", post_id: p.id } }
+    get :new, params: { card: { locus_id: loci(:brovary).id, observ_date: "2013-04-26", post_core_id: p.post_core_id } }
     assert_response :success
     card = assigns(:card)
     assert_equal loci(:brovary), card.locus
     assert_equal "2013-04-26", card.observ_date.iso8601
-    assert_equal p, card.post
+    assert_equal p.post_core_id, card.post_core_id
   end
 
   test "new card page should not explode if one of fast loci does not exist" do

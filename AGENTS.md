@@ -51,7 +51,8 @@ test/
 - **Species**: Bird species with taxonomy
 - **Taxon**: Taxonomic classification
 - **Locus**: Geographic location (hierarchical via ancestry gem)
-- **Post**: Blog posts about birding (multilingual — `uk`/`ru` and `en` versions share the same slug, scoped unique by `[slug, lang]`
+- **PostCore**: Language-agnostic blog post (slug, topic, cover image). Owns `cards.post_core_id` and `observations.post_core_id` for attachment.
+- **Post**: Per-language translation of a PostCore (title, body, face_date, status, lang, lj_data). Unique by `[post_core_id, lang]`. Admin create/edit is two-step: PostCore first via `/post_cores/new`, then translation via `/posts/new?post[post_core_id]=…&post[lang]=…`.
 - **Image/Video/Media**: Attached media files
 - **EbirdTaxon**: eBird taxonomy integration
 
@@ -135,6 +136,7 @@ bin/rails db:seed
 ## Environment Variables
 
 Key variables (see `.env.TEMPLATE`):
+
 - Database configuration
 - Redis URL
 - AWS credentials (S3)
@@ -153,6 +155,7 @@ Key variables (see `.env.TEMPLATE`):
 ## Common Patterns
 
 ### Decorators
+
 ```ruby
 # Instead of helpers, use decorators for model presentation
 class CardDecorator < ModelDecorator
@@ -163,6 +166,7 @@ end
 ```
 
 ### Lifelists
+
 ```ruby
 # Various lifelist strategies in app/models/lifelist/
 Lifelist::Advanced
@@ -171,10 +175,16 @@ Lifelist::Advanced
 ```
 
 ### Search
+
 ```ruby
 # Search classes in app/models/search/
 Search::SpeciesSearch.new(query).find
 ```
+
+## Agent instructions
+
+- Always create/modify tests for the new or changed functionality. But also verify that there are no redundant or duplicate tests.
+- Run and fix the tests and rubocop before declaring the change ready.
 
 ## File Locations
 

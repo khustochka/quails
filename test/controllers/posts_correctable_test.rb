@@ -2,7 +2,7 @@
 
 require "test_helper"
 
-class CorrectableTest < ActionController::TestCase
+class PostsCorrectableTest < ActionController::TestCase
   tests PostsController
 
   setup do

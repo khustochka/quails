@@ -68,16 +68,10 @@ jobs:
           cd deploy-scripts
           git sparse-checkout set --no-cone /quails
           git checkout
-      - name: Set image tag from input
-        if: ${{ inputs.image_tag }}
-        shell: bash
-        run: |
-          echo "IMAGE_TAG=${{ inputs.image_tag }}" >> $GITHUB_ENV
-
       - name: Docker meta (for image tag)
         if: ${{ inputs.image_tag == '' }}
         id: meta
-        uses: docker/metadata-action@v5
+        uses: docker/metadata-action@v6
         with:
           images: |
             ${{ env.REGISTRY_IMAGE }}
@@ -85,11 +79,9 @@ jobs:
             type=raw,priority=1000,value={{tag}},suffix=,enable=${{ startsWith(github.ref, 'refs/tags/') }}
             type=sha,priority=800,prefix={{branch}}-,suffix=,enable=${{ startsWith(github.ref, 'refs/heads/') }}
 
-      - name: Set image tag from meta
-        if: ${{ inputs.image_tag == '' }}
+      - name: Resolve image tag
         shell: bash
-        run: |
-          echo "IMAGE_TAG=${{ fromJSON(steps.meta.outputs.json).tags[0] }}" >> $GITHUB_ENV
+        run: echo "IMAGE_TAG=${{ inputs.image_tag || fromJSON(steps.meta.outputs.json).tags[0] }}" >> $GITHUB_ENV
 
       - name: Run deployment script
         shell: bash

@@ -152,17 +152,6 @@ class LocusTest < ActiveSupport::TestCase
     end
   end
 
-  test "locus full name for patch should prepend it with parent name" do
-    ohm = create(:locus,
-      slug: "ohm", name_en: "Oak Hammock Marsh")
-    centre = FactoryBot.create(:locus,
-      slug: "centre", name_en: "Interpretive Centre", patch: true,
-      parent: ohm, cached_parent: ohm)
-    I18n.with_locale(:en) do
-      assert_equal "Oak Hammock Marsh - Interpretive Centre", centre.decorated.full_name
-    end
-  end
-
   test "short name should strip everything after city" do
     kyiv = loci(:kyiv)
     troeshina = FactoryBot.create(:locus, slug: "troya", name_en: "Troya", parent: kyiv, cached_city: kyiv, cached_country: loci(:ukraine))

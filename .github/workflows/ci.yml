@@ -1,14 +1,21 @@
 name: "CI Pipeline"
 on:
   - push
+
 jobs:
   tests:
     name: "Tests"
     uses: ./.github/workflows/tests.yml
+    concurrency:
+      group: ci-tests-${{ github.event.pull_request.number || github.ref }}
+      cancel-in-progress: true
 
   rubocop:
     name: "Rubocop"
     uses: ./.github/workflows/rubocop.yml
+    concurrency:
+      group: ci-rubocop-${{ github.event.pull_request.number || github.ref }}
+      cancel-in-progress: true
 
   build_image:
     name: "Docker image"
@@ -16,12 +23,14 @@ jobs:
     with:
       debug: false
     secrets:
-      DOCKER_AWS_ACCESS_KEY_ID: ${{ secrets.DOCKER_AWS_ACCESS_KEY_ID }}
-      DOCKER_AWS_SECRET_ACCESS_KEY: ${{ secrets.DOCKER_AWS_SECRET_ACCESS_KEY }}
+      AWS_ROLE_ARN: ${{ secrets.AWS_ROLE_ARN }}
     needs:
       - tests
       - rubocop
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/heads/image-bump/')
+    concurrency:
+      group: ci-build-${{ github.event.pull_request.number || github.ref }}
+      cancel-in-progress: true
 
   deploy:
     name: "Deploy"
@@ -35,6 +44,7 @@ jobs:
       DEPLOY_SCRIPTS_REPO: ${{ secrets.DEPLOY_SCRIPTS_REPO }}
     needs:
       - build_image
+    if: github.ref == 'refs/heads/main'
 #  lint:
 #    runs-on: ubuntu-24.04
 #    steps:

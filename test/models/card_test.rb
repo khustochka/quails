@@ -85,10 +85,19 @@ class CardTest < ActiveSupport::TestCase
     assert_not_includes card2.lifer_species_ids, species.id
   end
 
-  test "card is unlinked from post when post is destroyed" do
-    p = create(:post)
-    card = create(:card, post_id: p.id)
-    p.destroy
-    assert_nil card.reload.post_id
+  test "card is unlinked from its core when the core is destroyed" do
+    core = create(:post_core)
+    card = create(:card, post_core: core)
+    core.destroy
+    assert_nil card.reload.post_core_id
+  end
+
+  test "card can be attached to any translation's core" do
+    core = create(:post_core)
+    uk_post = create(:post, post_core: core, lang: "uk")
+    create(:post, post_core: core, lang: "en")
+    card = build(:card, post_core: core)
+    assert_predicate card, :valid?
+    assert_equal uk_post.post_core_id, card.post_core_id
   end
 end

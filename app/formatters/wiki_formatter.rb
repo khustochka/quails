@@ -16,11 +16,6 @@ class WikiFormatter
     apply.html_safe # rubocop:disable Rails/OutputSafety
   end
 
-  def for_instant_articles
-    @strategy = FormatStrategy::InstantArticle.new(@text, @metadata)
-    apply.html_safe # rubocop:disable Rails/OutputSafety
-  end
-
   def for_lj
     @strategy = FormatStrategy::LiveJournal.new(@text, @metadata)
     apply

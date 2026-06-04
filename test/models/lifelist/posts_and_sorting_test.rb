@@ -6,7 +6,7 @@ module Lifelist
   class PostsAndSortingTest < ActiveSupport::TestCase
     test "Properly associate card post with lifer" do
       post = FactoryBot.create(:post)
-      card = FactoryBot.create(:card, post: post)
+      card = FactoryBot.create(:card, post_core: post.post_core)
       obs = FactoryBot.create(:observation, card: card)
       list = Lifelist::FirstSeen.full
       list.posts_scope = Post.public_posts
@@ -15,7 +15,7 @@ module Lifelist
 
     test "Properly associate observation post with lifer" do
       post = FactoryBot.create(:post)
-      obs = FactoryBot.create(:observation, post: post)
+      obs = FactoryBot.create(:observation, post_core: post.post_core)
       list = Lifelist::FirstSeen.full
       list.posts_scope = Post.public_posts
       assert_equal post, list.first.main_post
@@ -23,7 +23,7 @@ module Lifelist
 
     test "should not include hidden posts (from observation)" do
       post = FactoryBot.create(:post, status: "PRIV")
-      obs = FactoryBot.create(:observation, post: post)
+      obs = FactoryBot.create(:observation, post_core: post.post_core)
       list = Lifelist::FirstSeen.full
       list.posts_scope = Post.public_posts
       assert_nil list.first.main_post
@@ -31,11 +31,27 @@ module Lifelist
 
     test "should not include hidden posts (from card)" do
       post = FactoryBot.create(:post, status: "PRIV")
-      card = FactoryBot.create(:card, post: post)
+      card = FactoryBot.create(:card, post_core: post.post_core)
       obs = FactoryBot.create(:observation, card: card)
       list = Lifelist::FirstSeen.full
       list.posts_scope = Post.public_posts
       assert_nil list.first.main_post
+    end
+
+    test "resolves localized sibling for every lifer when multiple lifers share the same card" do
+      I18n.with_locale(:en) do
+        core = FactoryBot.create(:post_core)
+        FactoryBot.create(:post, post_core: core, lang: "uk")
+        en_sibling = FactoryBot.create(:post, post_core: core, lang: "en")
+        card = FactoryBot.create(:card, post_core: core)
+        FactoryBot.create(:observation, card: card, taxon: taxa(:hirrus))
+        FactoryBot.create(:observation, card: card, taxon: taxa(:saxola))
+        list = Lifelist::FirstSeen.full
+        list.posts_scope = Post.public_posts
+        main_posts = list.to_a.map(&:main_post)
+        assert_equal [en_sibling, en_sibling], main_posts,
+          "expected both lifers sharing one card to resolve to the EN sibling"
+      end
     end
 
     test "should take into account start time when ordering lifers (diff species)" do

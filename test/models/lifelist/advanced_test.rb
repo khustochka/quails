@@ -41,7 +41,7 @@ module Lifelist
 
     test "Properly associate card post with lifer" do
       post = FactoryBot.create(:post)
-      card = FactoryBot.create(:card, post: post)
+      card = FactoryBot.create(:card, post_core: post.post_core)
       obs = FactoryBot.create(:observation, card: card)
       list = Lifelist::Advanced.full
       list.posts_scope = Post.public_posts
@@ -50,7 +50,7 @@ module Lifelist
 
     test "Properly associate observation post with lifer" do
       post = FactoryBot.create(:post)
-      obs = FactoryBot.create(:observation, post: post)
+      obs = FactoryBot.create(:observation, post_core: post.post_core)
       list = Lifelist::Advanced.full
       list.posts_scope = Post.public_posts
       assert_equal post, list.first.first_seen.main_post

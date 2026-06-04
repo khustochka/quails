@@ -2,7 +2,6 @@
 
 class FeedsController < ApplicationController
   caches_page :blog, :photos, :sitemap, gzip: true
-  caches_page :instant_articles, gzip: true, unless: -> { params[:dev] }
 
   localized only: [:photos]
 
@@ -10,17 +9,14 @@ class FeedsController < ApplicationController
     @posts = Post.public_posts.order(face_date: :desc).limit(10)
   end
 
-  def instant_articles
-    @dev = params[:dev]
-    @posts = Post.facebook_publishable.order(face_date: :desc).limit(15)
-  end
-
   def photos
     @media = Media.order(created_at: :desc).preload(:species, :cards, observations: { card: :locus }).limit(15)
   end
 
   def sitemap
-    @posts = Post.indexable.select("slug, lang, face_date, updated_at")
+    @posts = Post.indexable
+      .select(:id, :post_core_id, :lang, :face_date, :updated_at)
+      .preload(:post_core)
     @images = Image.unscoped.where(media_type: "photo").indexable.select("id, slug, updated_at")
     @videos = Video.select("id, slug, updated_at")
     @species = Species.where(id: Observation.identified.select(:species_id)).select("id, name_sci")

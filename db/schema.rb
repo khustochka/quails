@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_05_040757) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_15_191623) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+  enable_extension "pg_stat_statements"
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.bigint "blob_id", null: false
@@ -57,7 +58,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_05_040757) do
     t.text "notes", default: "", null: false
     t.date "observ_date", null: false
     t.string "observers", limit: 255
-    t.integer "post_id"
+    t.bigint "post_core_id"
     t.boolean "resolved", default: false, null: false
     t.string "start_time", limit: 5
     t.datetime "updated_at", precision: nil, null: false
@@ -65,7 +66,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_05_040757) do
     t.index ["ebird_id"], name: "index_cards_on_ebird_id", unique: true, where: "(ebird_id IS NOT NULL)"
     t.index ["locus_id"], name: "index_cards_on_locus_id"
     t.index ["observ_date"], name: "index_cards_on_observ_date"
-    t.index ["post_id"], name: "index_cards_on_post_id"
+    t.index ["post_core_id"], name: "index_cards_on_post_core_id"
   end
 
   create_table "commenters", id: :serial, force: :cascade do |t|
@@ -91,6 +92,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_05_040757) do
     t.string "unsubscribe_token", limit: 25
     t.datetime "updated_at", precision: nil, null: false
     t.string "url", limit: 255
+    t.index ["commenter_id"], name: "index_comments_on_commenter_id", where: "(commenter_id IS NOT NULL)"
+    t.index ["parent_id"], name: "index_comments_on_parent_id"
     t.index ["post_id"], name: "index_comments_on_post_id"
   end
 
@@ -206,6 +209,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_05_040757) do
     t.boolean "is_discrete"
     t.text "job_class"
     t.text "labels", array: true
+    t.integer "lock_type", limit: 2
     t.datetime "locked_at"
     t.uuid "locked_by_id"
     t.datetime "performed_at"
@@ -220,16 +224,24 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_05_040757) do
     t.index ["batch_id"], name: "index_good_jobs_on_batch_id", where: "(batch_id IS NOT NULL)"
     t.index ["concurrency_key", "created_at"], name: "index_good_jobs_on_concurrency_key_and_created_at"
     t.index ["concurrency_key"], name: "index_good_jobs_on_concurrency_key_when_unfinished", where: "(finished_at IS NULL)"
+    t.index ["created_at"], name: "index_good_jobs_on_created_at"
     t.index ["cron_key", "created_at"], name: "index_good_jobs_on_cron_key_and_created_at_cond", where: "(cron_key IS NOT NULL)"
     t.index ["cron_key", "cron_at"], name: "index_good_jobs_on_cron_key_and_cron_at_cond", unique: true, where: "(cron_key IS NOT NULL)"
     t.index ["finished_at"], name: "index_good_jobs_jobs_on_finished_at_only", where: "(finished_at IS NOT NULL)"
+    t.index ["finished_at"], name: "index_good_jobs_on_discarded", order: :desc, where: "((finished_at IS NOT NULL) AND (error IS NOT NULL))"
+    t.index ["id"], name: "index_good_jobs_on_unfinished_or_errored", where: "((finished_at IS NULL) OR (error IS NOT NULL))"
     t.index ["job_class"], name: "index_good_jobs_on_job_class"
     t.index ["labels"], name: "index_good_jobs_on_labels", where: "(labels IS NOT NULL)", using: :gin
     t.index ["locked_by_id"], name: "index_good_jobs_on_locked_by_id", where: "(locked_by_id IS NOT NULL)"
     t.index ["priority", "created_at"], name: "index_good_job_jobs_for_candidate_lookup", where: "(finished_at IS NULL)"
     t.index ["priority", "created_at"], name: "index_good_jobs_jobs_on_priority_created_at_when_unfinished", order: { priority: "DESC NULLS LAST" }, where: "(finished_at IS NULL)"
+    t.index ["priority", "scheduled_at", "id"], name: "index_good_jobs_for_candidate_dequeue_unlocked", where: "((finished_at IS NULL) AND (locked_by_id IS NULL))"
+    t.index ["priority", "scheduled_at", "id"], name: "index_good_jobs_on_priority_scheduled_at_unfinished", where: "(finished_at IS NULL)"
     t.index ["priority", "scheduled_at"], name: "index_good_jobs_on_priority_scheduled_at_unfinished_unlocked", where: "((finished_at IS NULL) AND (locked_by_id IS NULL))"
+    t.index ["queue_name", "scheduled_at", "id"], name: "index_good_jobs_on_queue_name_priority_scheduled_at_unfinished", where: "(finished_at IS NULL)"
     t.index ["queue_name", "scheduled_at"], name: "index_good_jobs_on_queue_name_and_scheduled_at", where: "(finished_at IS NULL)"
+    t.index ["queue_name"], name: "index_good_jobs_on_queue_name"
+    t.index ["scheduled_at", "queue_name"], name: "index_good_jobs_on_scheduled_at_and_queue_name"
     t.index ["scheduled_at"], name: "index_good_jobs_on_scheduled_at", where: "(finished_at IS NULL)"
   end
 
@@ -273,7 +285,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_05_040757) do
     t.string "name_en", limit: 255
     t.string "name_ru", limit: 255
     t.string "name_uk", limit: 255
-    t.boolean "patch", default: false, null: false
     t.boolean "private_loc", default: false, null: false
     t.integer "public_index"
     t.string "slug", limit: 32, null: false
@@ -312,7 +323,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_05_040757) do
     t.string "ebird_obs_id"
     t.boolean "hidden", default: false, null: false
     t.string "notes", default: "", null: false
-    t.integer "post_id"
+    t.bigint "post_core_id"
     t.string "private_notes", limit: 255, default: "", null: false
     t.string "quantity", limit: 255
     t.integer "species_id"
@@ -320,7 +331,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_05_040757) do
     t.datetime "updated_at", precision: nil
     t.boolean "voice", default: false, null: false
     t.index ["card_id"], name: "index_observations_on_card_id"
-    t.index ["post_id"], name: "index_observations_on_post_id"
+    t.index ["post_core_id"], name: "index_observations_on_post_core_id"
     t.index ["species_id", "card_id"], name: "index_observations_on_species_id_and_card_id", where: "(species_id IS NOT NULL)"
     t.index ["taxon_id"], name: "index_observations_on_taxon_id"
   end
@@ -329,10 +340,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_05_040757) do
     t.string "cover_image_slug"
     t.datetime "created_at", null: false
     t.string "legacy_slug", limit: 64
-    t.text "lj_data"
-    t.boolean "publish_to_facebook", default: false, null: false
+    t.boolean "shout", default: false, null: false
     t.string "slug", limit: 64, null: false
-    t.string "topic", limit: 4
+    t.string "topic", limit: 4, null: false
     t.datetime "updated_at", null: false
     t.index ["legacy_slug"], name: "index_post_cores_on_legacy_slug", unique: true, where: "(legacy_slug IS NOT NULL)"
     t.index ["slug"], name: "index_post_cores_on_slug", unique: true
@@ -341,20 +351,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_05_040757) do
   create_table "posts", id: :serial, force: :cascade do |t|
     t.text "body", null: false
     t.datetime "commented_at", precision: nil
-    t.string "cover_image_slug"
     t.datetime "face_date", precision: nil, null: false
     t.string "lang", limit: 2, null: false
-    t.string "legacy_slug", limit: 64
     t.text "lj_data"
-    t.boolean "publish_to_facebook", default: false, null: false
-    t.string "slug", limit: 64
+    t.bigint "post_core_id", null: false
     t.string "status", limit: 4
     t.string "title", limit: 255, null: false
-    t.string "topic", limit: 4
     t.datetime "updated_at", precision: nil, null: false
     t.index ["face_date"], name: "index_posts_on_face_date"
-    t.index ["legacy_slug"], name: "index_posts_on_legacy_slug", unique: true, where: "(legacy_slug IS NOT NULL)"
-    t.index ["slug", "lang"], name: "index_posts_on_slug_and_lang", unique: true
+    t.index ["post_core_id", "lang"], name: "index_posts_on_post_core_id_and_lang", unique: true
+    t.index ["post_core_id"], name: "index_posts_on_post_core_id"
   end
 
   create_table "settings", force: :cascade do |t|
@@ -439,7 +445,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_05_040757) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "cards", "loci", on_delete: :restrict
-  add_foreign_key "cards", "posts", on_delete: :nullify
+  add_foreign_key "cards", "post_cores", on_delete: :nullify
   add_foreign_key "comments", "commenters", on_delete: :restrict
   add_foreign_key "comments", "comments", column: "parent_id", on_delete: :cascade
   add_foreign_key "comments", "posts", on_delete: :cascade
@@ -454,9 +460,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_05_040757) do
   add_foreign_key "media_observations", "media", on_delete: :cascade
   add_foreign_key "media_observations", "observations", on_delete: :restrict
   add_foreign_key "observations", "cards", on_delete: :restrict
-  add_foreign_key "observations", "posts", on_delete: :nullify
+  add_foreign_key "observations", "post_cores", on_delete: :nullify
   add_foreign_key "observations", "species"
   add_foreign_key "observations", "taxa", on_delete: :restrict
+  add_foreign_key "posts", "post_cores"
   add_foreign_key "species_images", "media", column: "image_id", on_delete: :cascade
   add_foreign_key "species_images", "species", on_delete: :cascade
   add_foreign_key "species_splits", "species", column: "subspecies_id", on_delete: :cascade

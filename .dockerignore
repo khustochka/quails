@@ -37,3 +37,6 @@ public/packs-test
 public/*.bak
 yarn-error.log
 doc
+
+CLAUDE.md
+AGENTS.md

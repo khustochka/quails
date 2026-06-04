@@ -48,21 +48,21 @@ class SpeciesTest < ActiveSupport::TestCase
     sp.save!
   end
 
-  test "Species posts" do
+  test "Species post_cores" do
     blogpost1 = create(:post)
     blogpost2 = create(:post)
-    card = create(:card, post: blogpost1)
+    card = create(:card, post_core: blogpost1.post_core)
     obs1 = create(:observation, card: card)
     # Add more to test uniqueness
     create(:observation, card: card)
     create(:observation, card: card)
     create(:observation, card: card)
-    obs2 = create(:observation, post: blogpost2)
+    create(:observation, post_core: blogpost2.post_core)
 
-    posts = obs1.species.posts.to_a
+    cores = obs1.species.post_cores.to_a
 
-    assert_equal 2, posts.size
-    assert_includes posts, blogpost1
-    assert_includes posts, blogpost2
+    assert_equal 2, cores.size
+    assert_includes cores, blogpost1.post_core
+    assert_includes cores, blogpost2.post_core
   end
 end

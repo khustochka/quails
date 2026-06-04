@@ -104,11 +104,7 @@ class Locus < ApplicationRecord
   end
 
   def short_name
-    if patch
-      [cached_parent, self].compact.uniq.map(&:name).join(" - ")
-    else
-      name
-    end
+    name
   end
 
   def country?

@@ -34,8 +34,8 @@ class Image < Media
 
   # FIXME: the NEW post is touched if it exists, but not the OLD!
   after_save do
-    cards.preload(:post).map(&:post).uniq.each { |p| p.try(:touch) }
-    observations.preload(:post).map(&:post).uniq.each { |p| p.try(:touch) }
+    cards.preload(:post_core).map(&:post_core).uniq.each { |c| c.try(:touch) }
+    observations.preload(:post_core).map(&:post_core).uniq.each { |c| c.try(:touch) }
   end
 
   before_destroy do
@@ -48,11 +48,11 @@ class Image < Media
     species = Species.where(id: base_obs.select(:species_id).distinct)
     species.each(&:update_image)
 
-    cards = Card.where(id: base_obs.select(:card_id)).preload(:post)
-    cards.map(&:post).uniq.each { |p| p.try(:touch) }
+    cards = Card.where(id: base_obs.select(:card_id)).preload(:post_core)
+    cards.map(&:post_core).uniq.each { |c| c.try(:touch) }
 
-    observations = base_obs.preload(:post)
-    observations.map(&:post).uniq.each { |p| p.try(:touch) }
+    observations = base_obs.preload(:post_core)
+    observations.map(&:post_core).uniq.each { |c| c.try(:touch) }
   end
 
   # Scopes

@@ -16,7 +16,7 @@ class Card < ApplicationRecord
   invalidates Quails::CacheKey.lifelist
 
   belongs_to :locus, -> { cached_ancestry_preload }, inverse_of: :cards
-  belongs_to :post, -> { short_form }, touch: true, optional: true, inverse_of: :cards
+  belongs_to :post_core, touch: true, optional: true, inverse_of: :cards
   has_many :observations, -> { order("observations.id") }, dependent: :restrict_with_exception, inverse_of: :card
   has_many :mapped_observations, -> { joins(:spots).distinct }, class_name: "Observation", inverse_of: :card, dependent: nil
 
@@ -58,8 +58,23 @@ class Card < ApplicationRecord
       .order(Arel.sql("to_timestamp(start_time, 'HH24:MI') #{asc_or_desc} NULLS LAST"))
   }
 
-  def secondary_posts
-    Post.distinct.joins(:observations).where("observations.card_id = ? AND observations.post_id <> ?", id, post_id)
+  def secondary_post_cores
+    PostCore.distinct.joins(:observations).where("observations.card_id = ? AND observations.post_core_id <> ?", id, post_core_id)
+  end
+
+  # Returns a single Post translation appropriate for views.
+  # Lifelist preloader replaces this with a locale-correct sibling
+  # (may explicitly set nil to hide private siblings).
+  def main_post
+    return @main_post if defined?(@main_post)
+
+    @main_post = post_core&.posts&.first
+  end
+
+  attr_writer :main_post
+
+  def post
+    main_post
   end
 
   def mapped?

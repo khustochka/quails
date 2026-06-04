@@ -74,7 +74,7 @@ class WikiFilterTest < ActionDispatch::IntegrationTest
   # Posts
 
   test "properly parse post by code {{#see this|some-post}}" do
-    blogpost = create(:post, slug: "some-post")
+    blogpost = create(:post, post_core: create(:post_core, slug: "some-post"))
     assert_equal "\"see this\":some-post\n\n[some-post]#{public_post_path(blogpost)}",
       transform("{{#see this|some-post}}")
   end

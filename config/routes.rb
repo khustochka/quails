@@ -138,13 +138,13 @@ Rails.application.routes.draw do
   end
 
   direct :public_post do |blogpost, options|
-    route_for(:show_post, options.merge(year: blogpost.year, month: blogpost.month, id: blogpost.to_param))
+    route_for(:show_post, options.merge(blogpost.to_url_params))
   end
 
   direct :public_comment do |comment, options|
     # Using `comment.post` breaks Brakeman (post is an http verb)
     comment.public_send(:post).yield_self do |blogpost| # rubocop:disable Style/SendWithLiteralMethodName
-      route_for(:show_post, options.merge(year: blogpost.year, month: blogpost.month, id: blogpost.to_param, anchor: "comment#{comment.id}"))
+      route_for(:show_post, options.merge(blogpost.to_url_params).merge(anchor: "comment#{comment.id}"))
     end
   end
 
@@ -184,7 +184,6 @@ Rails.application.routes.draw do
 
   # Feeds and sitemap
   get "/blog.:format" => "feeds#blog", constraints: { format: "xml" }
-  get "/instant_articles(.:dev).:format" => "feeds#instant_articles", constraints: { format: "xml", dev: "dev" }
   scope "(:locale)", locale: /en|ru/ do
     get "/photos.:format" => "feeds#photos", constraints: { format: "xml" }
   end
@@ -196,16 +195,9 @@ Rails.application.routes.draw do
 
   # ADMINISTRATIVE PAGES
 
-  resources :posts, except: [:index, :show] do
-    collection do
-      get :hidden
-      get :facebook
-    end
-    # member do
-    #   get :for_lj
-    #   post :lj_post
-    # end
-  end
+  resources :posts, except: [:show]
+
+  resources :post_cores, except: [:show, :index]
 
   resources :cards do
     member do
@@ -328,6 +320,8 @@ Rails.application.routes.draw do
         post :refresh
       end
     end
+    get "alerts" => "alerts#index", as: :alerts
+    post "alerts/refresh" => "alerts#refresh", as: :alerts_refresh
   end
 
   # GoodJob web UI

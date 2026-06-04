@@ -93,22 +93,25 @@ module Lifelist
         .to_sql
     end
 
-    # FIXME: it is not good that we assign values to `post` that may be different from the original post assoc.
-    # (in this case nil if post is private and user is not admin). Better solution would be to maintain some
-    # kind of identity map for posts.
-    # Also, Rails preloader with scope is not working the way we need since Rails 6.
+    # Resolves each record's PostCore to a localized translation for the
+    # current locale. The assigned `main_post` may be nil if the post is
+    # private or if no sibling exists in a compatible language.
     def preload_posts(records)
       cards = records.map(&:card)
-      post_ids = records.map(&:post_id)
-      card_post_ids = cards.map(&:post_id)
+      core_ids = (records.map(&:post_core_id) + cards.map(&:post_core_id)).compact.uniq
+      return if core_ids.empty?
 
-      posts = posts_scope.where(id: (post_ids + card_post_ids)).index_by(&:id)
-      records.each do |rec|
-        rec.post = posts[rec.post_id]
+      cores = PostCore.where(id: core_ids).to_a
+      localized = Post.localized_for(cores, I18n.locale, scope: posts_scope)
+
+      cards.uniq.each do |card|
+        card.main_post = localized[card.post_core_id]
       end
-
-      cards.each do |card|
-        card.post = posts[card.post_id]
+      # Observation's own core takes precedence over its card's core.
+      # When the observation has no core of its own, defer to the card's
+      # main_post (set above) — leave @main_post unset.
+      records.each do |rec|
+        rec.main_post = localized[rec.post_core_id] if rec.post_core_id
       end
     end
 
