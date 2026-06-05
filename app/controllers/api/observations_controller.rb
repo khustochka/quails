@@ -5,7 +5,12 @@ module API
     DEFAULT_PER_PAGE = 1000
 
     def index
-      obs_sql = Observation.select("observations.*, taxa.ebird_code").joins(:taxon).order(:id).page(params[:page]).per(params[:per_page] || DEFAULT_PER_PAGE)
+      obs_sql = Observation
+        .select("observations.*, taxa.ebird_code")
+        .joins(:taxon)
+        .order(:id)
+        .page(params[:page])
+        .per(params[:per_page] || DEFAULT_PER_PAGE)
       obs = ActiveRecord::Base.connection.select_all(obs_sql)
 
       respond_to do |format|
