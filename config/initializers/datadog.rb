@@ -25,4 +25,11 @@ if ENV["DD_ENABLED"].in?(["true", "1"])
 
     c.tracing.enabled = Datadog::Core::Environment::VariableHelpers.env_to_bool("DD_TRACE_ENABLED")
   end
+
+  Datadog::Tracing.before_flush(
+    Datadog::Tracing::Pipeline::SpanFilter.new do |span|
+      span.name == "rack.request" &&
+        span.resource == "HealthCheckRb::HealthCheckController#index"
+    end
+  )
 end
