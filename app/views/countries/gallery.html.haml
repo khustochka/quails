@@ -1,7 +1,7 @@
 -# frozen_string_literal: true
 - @body_class = 'wider'
 -# This is required to be outside of cache
-- @canonical = country_url
+- @canonical = country_url(page: params[:page])
 - @og_type = 'website'
 - @meta_description = t(".#{@country.slug}.meta_description")
 - @meta_thumbnail = CountriesController::GALLERY_THUMBNAILS[@country.slug]
@@ -11,7 +11,7 @@
 - content_for :translated do
   = render 'partials/translated'
 
-- cache(admin: current_user.admin?, key: Quails::CacheKey.gallery) do
+- cache(admin: current_user.admin?, page: params[:page], key: Quails::CacheKey.gallery) do
   %div.header-with-subheader
     %h1= page_header
     = render "countries/gallery/subheader/#{@country.slug}"

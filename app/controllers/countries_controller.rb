@@ -8,6 +8,8 @@ class CountriesController < ApplicationController
     "canada" => "https://bwua-static.s3.eu-central-1.amazonaws.com/meadowlark-thumb.jpg",
   }.freeze
 
+  PER_PAGE = 24
+
   localized only: [:gallery]
 
   def gallery
@@ -26,6 +28,7 @@ class CountriesController < ApplicationController
           .where("cards.locus_id" => @country.subregion_ids)
           .preload(:species)
           .order("cards.observ_date").basic_order
+          .page(params[:page]).per(PER_PAGE)
       else
         raise ActiveRecord::RecordNotFound
       end

@@ -60,4 +60,19 @@ class CountriesControllerTest < ActionController::TestCase
     assert_predicate assigns(:thumbs), :present?
     assert_select "a[href='#{image_path(img)}']"
   end
+
+  test "USA gallery is paginated" do
+    obs = create(:observation, card: create(:card, locus: loci(:nyc)))
+    create(:image, observations: [obs])
+
+    get :gallery, params: { country: "usa" }
+    assert_response :success
+    assert_respond_to assigns(:thumbs), :current_page
+    assert_equal 1, assigns(:thumbs).current_page
+    assert_equal CountriesController::PER_PAGE, assigns(:thumbs).limit_value
+
+    get :gallery, params: { country: "usa", page: 2 }
+    assert_response :success
+    assert_equal 2, assigns(:thumbs).current_page
+  end
 end

@@ -68,7 +68,7 @@ Rails.application.routes.draw do
     get "/:country/checklist/edit" => "checklist#edit"
     post "/:country/checklist/edit" => "checklist#save"
     scope "(:locale)", locale: /en|ru/ do
-      get "/:country" => "countries#gallery", as: "country"
+      get "/:country(/page/:page)" => "countries#gallery", page: /[^0]\d*/, as: "country"
       get "/:country/checklist" => "checklist#show", as: "checklist"
     end
   end
