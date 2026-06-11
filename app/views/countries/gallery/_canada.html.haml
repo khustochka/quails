@@ -1,8 +1,0 @@
--# frozen_string_literal: true
-= render 'social/buttons'
-
-%div.thumbnails
-  = render_justified @thumbs.map(&:to_thumbnail)
-
-%div
-  = paginate @thumbs

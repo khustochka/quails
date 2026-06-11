@@ -1,7 +1,6 @@
 "uk":
   images:
-
-    alt_photo: '[фото]'
+    alt_photo: "[фото]"
 
     index:
       window_title: Найновіші фотографії
@@ -10,12 +9,24 @@
       species_gallery: Галерея видів
       last_updated: ! "Останнє оновлення: %{date}."
 
+    country:
+      title:
+        usa: Фотографії птахів США
+        canada: Фотографії птахів Канади
+        united_kingdom: Фотографії птахів Великої Британії
+        poland: Фотографії птахів Польщі
+      meta_description:
+        usa: Фотографії птахів США
+        canada: Фотографії птахів Канади
+        united_kingdom: Фотографії птахів Великої Британії
+        poland: Фотографії птахів Польщі
+
     multiple_species:
       title: Кілька видів на одному фото
 
     show:
-      prev: 'поперед.'
-      next: 'наступ.'
+      prev: "поперед."
+      next: "наступ."
       prev_image: "<< Попереднє фото"
       next_image: "Наступне фото >>"
       more_photos_of_multiple_species: Більше фото кількох видів

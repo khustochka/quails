@@ -51,6 +51,46 @@ class ImagesControllerTest < ActionController::TestCase
     assert_select "a[href='#{image_path(img)}']"
   end
 
+  test "Birds of USA" do
+    obs = create(:observation, card: create(:card, locus: loci(:nyc)))
+    img = create(:image, observations: [obs])
+    get :country, params: { country: "usa" }
+    assert_response :success
+    assert_predicate assigns(:thumbs), :present?, "Thumbnails must be present, were not."
+    assert_select "a[href='#{image_path(img)}']"
+  end
+
+  test "Birds of UK" do
+    uk = create(:locus, loc_type: "country", slug: "united_kingdom")
+    london = create(:locus, parent: uk, slug: "london")
+    obs = create(:observation, card: create(:card, locus: london))
+    img = create(:image, observations: [obs])
+    get :country, params: { country: "united_kingdom" }
+    assert_response :success
+    assert_predicate assigns(:thumbs), :present?
+    assert_select "a[href='#{image_path(img)}']"
+  end
+
+  test "country gallery is paginated" do
+    obs = create(:observation, card: create(:card, locus: loci(:nyc)))
+    create(:image, observations: [obs])
+
+    get :country, params: { country: "usa" }
+    assert_response :success
+    assert_respond_to assigns(:thumbs), :current_page
+    assert_equal 1, assigns(:thumbs).current_page
+    assert_equal ImagesController::PHOTOS_PER_PAGE, assigns(:thumbs).limit_value
+
+    get :country, params: { country: "usa", page: 2 }
+    assert_response :success
+    assert_equal 2, assigns(:thumbs).current_page
+  end
+
+  test "country gallery redirects page 1 to unpaginated url" do
+    get :country, params: { country: "usa", page: 1 }
+    assert_redirected_to country_images_path(country: "usa")
+  end
+
   test "get new" do
     login_as_admin
     get :new

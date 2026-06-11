@@ -17,4 +17,12 @@ class PhotosRoutingTest < ActionDispatch::IntegrationTest
     visit "/ru/photos.xml"
     assert_current_path "/ru/photos.xml"
   end
+
+  test "legacy country urls redirect to photo galleries" do
+    get "/usa"
+    assert_redirected_to "/photos/usa"
+
+    get "/en/united_kingdom"
+    assert_redirected_to "/photos/united_kingdom"
+  end
 end

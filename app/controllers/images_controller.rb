@@ -8,8 +8,18 @@ class ImagesController < ApplicationController
   ACCEPTED_PARAMS = [:slug, :title, :description, :index_num, :status, :stored_image]
   private_constant :ACCEPTED_PARAMS
 
-  administrative except: [:index, :multiple_species, :show]
-  localized only: [:index, :multiple_species, :show]
+  PHOTOS_PER_PAGE = 24
+
+  COUNTRY_THUMBNAILS = {
+    "usa" => "https://bwua-static.s3.eu-central-1.amazonaws.com/cardinal-thumb.jpg",
+    "united_kingdom" => "https://bwua-static.s3.eu-central-1.amazonaws.com/gannet-thumb.jpg",
+    "canada" => "https://bwua-static.s3.eu-central-1.amazonaws.com/meadowlark-thumb.jpg",
+    "poland" => "https://birdwatchorgua.s3.amazonaws.com/merganser_gull322264-voahaz1f2ifx.jpg",
+    # TODO: change Canada, Poland
+  }.freeze
+
+  administrative except: [:index, :country, :multiple_species, :show]
+  localized only: [:index, :country, :multiple_species, :show]
 
   find_record by: :slug, before: [:edit, :map_edit, :update, :patch, :destroy]
 
@@ -21,13 +31,30 @@ class ImagesController < ApplicationController
       redirect_to page: nil
     else
       page = (params[:page] || 1).to_i
-      @images = Image.preload(:species, cards: :locus).order(created_at: :desc).page(page).per(24)
+      @images = Image.preload(:species, cards: :locus).order(created_at: :desc).page(page).per(PHOTOS_PER_PAGE)
       @feed = "photos"
       if @images.empty? && page != 1
         raise ActiveRecord::RecordNotFound
       else
         render :index
       end
+    end
+  end
+
+  # Country
+  def country
+    if params[:page].to_i == 1
+      redirect_to page: nil
+    else
+      @country = Country.find_by!(slug: params[:country])
+
+      @thumbs =
+        Image.joins(observations: :card)
+          .select("DISTINCT media.*, cards.observ_date")
+          .where("cards.locus_id" => @country.subregion_ids)
+          .preload(:species)
+          .order("cards.observ_date").basic_order
+          .page(params[:page]).per(PHOTOS_PER_PAGE)
     end
   end
 

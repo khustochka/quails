@@ -64,11 +64,18 @@ Rails.application.routes.draw do
     root to: "blog#home", as: "blog"
   end
 
+  # Legacy redirects. Do not add Ukraine or new countries here
+  constraints country: /usa|united_kingdom|canada/ do
+    scope "(:locale)", locale: /en|ru/ do
+      get "/:country", to: redirect("/photos/%{country}")
+    end
+  end
+
   constraints country: /ukraine|usa|united_kingdom|canada|manitoba/ do
     get "/:country/checklist/edit" => "checklist#edit"
     post "/:country/checklist/edit" => "checklist#save"
     scope "(:locale)", locale: /en|ru/ do
-      get "/:country(/page/:page)" => "countries#gallery", page: /[^0]\d*/, as: "country"
+      get "/:country" => "countries#gallery", as: "country", constraints: { country: "ukraine" }
       get "/:country/checklist" => "checklist#show", as: "checklist"
     end
   end
@@ -115,6 +122,12 @@ Rails.application.routes.draw do
   scope "(:locale)", locale: /en|ru/ do
     get "/photos(/page/:page)" => "images#index", page: /[^0]\d*/,
       constraints: { format: "html" }
+  end
+
+  scope "(:locale)", locale: /en|ru/ do
+    get "/photos/:country" => "images#country", page: /[^0]\d*/,
+      constraints: { format: "html", country: /usa|united_kingdom|canada|poland/ },
+      as: "country_images"
   end
 
   scope "(:locale)", locale: /en|ru/ do

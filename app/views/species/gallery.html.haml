@@ -13,12 +13,12 @@
     %h1.over-header
       = page_header
     %ul.subheader-menu
-      %li= link_to(t("countries.gallery.title.ukraine"), country_path(country: 'ukraine'))
-      %li= link_to(t("countries.gallery.title.united_kingdom"), country_path(country: 'united_kingdom'))
-      %li= link_to(t("countries.gallery.title.usa"), country_path(country: 'usa'))
-      %li= link_to(t("countries.gallery.title.canada"), country_path(country: 'canada'))
-      %li= link_to t('menu.videos'), {action: 'index', controller: 'videos'}
+      -#   %li= link_to(t("countries.gallery.title.ukraine"), country_path(country: 'ukraine'))
+      -#   %li= link_to(t("countries.gallery.title.united_kingdom"), country_path(country: 'united_kingdom'))
+      -#   %li= link_to(t("countries.gallery.title.usa"), country_path(country: 'usa'))
+      -#   %li= link_to(t("countries.gallery.title.canada"), country_path(country: 'canada'))
       %li= link_to t('menu.photos'), {action: 'index', controller: 'images'}
+      %li= link_to t('menu.videos'), {action: 'index', controller: 'videos'}
       = render "partials/feed_list_item"
 
   - thumbnails = @species.thumbnails

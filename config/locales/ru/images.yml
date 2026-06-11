@@ -1,7 +1,6 @@
-'ru':
+"ru":
   images:
-
-    alt_photo: '[фото]'
+    alt_photo: "[фото]"
 
     index:
       window_title: Последние добавленные фотографии
@@ -10,12 +9,24 @@
       species_gallery: Галерея видов
       last_updated: ! "Последнее обновление: %{date}."
 
+    country:
+      title:
+        usa: Фотографии птиц США
+        canada: Фотографии птиц Канады
+        united_kingdom: Фотографии птиц США
+        poland: Фотографии птиц Польши
+      meta_description:
+        usa: Фотографии птиц США
+        canada: Фотографии птиц Канады
+        united_kingdom: Фотографии птиц США
+        poland: Фотографии птиц Польши
+
     multiple_species:
       title: Разные виды на одном фото
 
     show:
-      prev: 'пред.'
-      next: 'след.'
+      prev: "пред."
+      next: "след."
       prev_image: "<< Предыдущее фото"
       next_image: "Следующее фото >>"
       more_photos_of_multiple_species: Еще фото нескольких видов

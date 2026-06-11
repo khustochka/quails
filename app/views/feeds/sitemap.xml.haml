@@ -11,14 +11,10 @@
   -# English home page
   %url
     %loc= blog_url(locale: :en)
-    -# TODO: %lastmod=
-    -# %changefreq weekly
 
   -# Birds of Ukraine page
   %url
     %loc= country_url(country: 'ukraine')
-    -# TODO: %lastmod=
-    -# %changefreq weekly
 
   %url
     %loc= country_url(country: 'ukraine', locale: :en)
@@ -26,38 +22,33 @@
   -# Ukraine checklist page
   %url
     %loc= checklist_url(country: 'ukraine')
-    -# TODO: %lastmod=
-    -# %changefreq weekly
 
   %url
     %loc= checklist_url(country: 'ukraine', locale: :en)
 
-  -# Birds of USA page
+  -# Country galleries
   %url
-    %loc= country_url(country: 'usa')
-    -# TODO: %lastmod=
-    -# %changefreq weekly
+    %loc= country_images_url(country: 'usa')
+  %url
+    %loc= country_images_url(country: 'usa', locale: :en)
+  %url
+    %loc= country_images_url(country: 'united_kingdom')
+  %url
+    %loc= country_images_url(country: 'united_kingdom', locale: :en)
+  %url
+    %loc= country_images_url(country: 'canada')
+  %url
+    %loc= country_images_url(country: 'canada', locale: :en)
+  %url
+    %loc= country_images_url(country: 'poland')
+  %url
+    %loc= country_images_url(country: 'poland', locale: :en)
 
+  -# Photostream
   %url
-    %loc= country_url(country: 'usa', locale: :en)
-
-  -# Birds of UK page
+    %loc= images_url
   %url
-    %loc= country_url(country: 'united_kingdom')
-    -# TODO: %lastmod=
-    -# %changefreq weekly
-
-  %url
-    %loc= country_url(country: 'united_kingdom', locale: :en)
-
-  -# Birds of Canada page
-  %url
-    %loc= country_url(country: 'canada')
-    -# TODO: %lastmod=
-    -# %changefreq weekly
-
-  %url
-    %loc= country_url(country: 'canada', locale: :en)
+    %loc= images_url(locale: :en)
 
   -# species gallery page
   %url

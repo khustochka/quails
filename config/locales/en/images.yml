@@ -1,21 +1,32 @@
-'en':
+"en":
   images:
-
-    alt_photo: '[photo]'
+    alt_photo: "[photo]"
 
     index:
-      window_title: Birdwatching in Ukraine and beyond
-      title: Bird photos
-      meta_description: "Latest bird photos and birding statistics"
+      window_title: Latest bird photos
+      title: Latest bird photos
+      meta_description: "Bird photographs"
       species_gallery: Species gallery
       last_updated: ! "Last updated: %{date}."
+
+    country:
+      title:
+        usa: Birds of the USA
+        canada: Birds of Canada
+        united_kingdom: Birds of the United Kingdom
+        poland: Birds of Poland
+      meta_description:
+        usa: Photographs of the birds of the United States
+        united_kingdom: Photographs of the birds of Great Britain
+        canada: Photographs of the birds of Canada
+        poland: Photographs of the birds of Poland
 
     multiple_species:
       title: Photos of multiple species
 
     show:
-      prev: 'prev'
-      next: 'next'
+      prev: "prev"
+      next: "next"
       prev_image: "<< Previous image"
       next_image: "Next image >>"
       more_photos_of_multiple_species: More photos of multiple species

@@ -1,9 +1,9 @@
 "uk":
   species:
     gallery:
-      title: Фотографії птахів
-      window_title: Фотографії птахів
-      meta_description: Галерея знімків птахів
+      title: Фотографії птахів за видами
+      window_title: Фотографії птахів за видами
+      meta_description: Галерея видів птахів
 
     show:
       meta_description: "Опис виду птаха '%{name}' (%{name_sci})"

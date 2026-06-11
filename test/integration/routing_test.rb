@@ -88,10 +88,16 @@ class RoutingTest < ActionDispatch::IntegrationTest
     assert_routing "/en", { controller: "blog", action: "home", locale: "en" }
   end
 
-  test "English Birds of Ukraine, USA, checklist routing" do
+  test "English Birds of Ukraine, checklist routing" do
     assert_routing "/en/ukraine", { controller: "countries", action: "gallery", locale: "en", country: "ukraine" }
     assert_routing "/en/ukraine/checklist", { controller: "checklist", action: "show", locale: "en", country: "ukraine" }
-    assert_routing "/en/usa", { controller: "countries", action: "gallery", locale: "en", country: "usa" }
+  end
+
+  test "route country photo galleries correctly" do
+    assert_routing "/photos/usa", { controller: "images", action: "country", country: "usa" }
+    assert_routing "/photos/united_kingdom", { controller: "images", action: "country", country: "united_kingdom" }
+    assert_routing "/photos/canada", { controller: "images", action: "country", country: "canada" }
+    assert_routing "/en/photos/usa", { controller: "images", action: "country", locale: "en", country: "usa" }
   end
 
   test "English species gallery routing" do

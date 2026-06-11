@@ -1,11 +1,8 @@
-'en':
+"en":
   countries:
     gallery:
       title:
         ukraine: Birds of Ukraine
-        usa: Birds of the USA
-        canada: Birds of Canada
-        united_kingdom: Birds of the United Kingdom
 
       ukraine:
         intro: >
@@ -13,12 +10,3 @@
           For a comprehensive list see **"checklist of the birds of Ukraine":%{url}**.
         not_common: Rare or Vagrant
         meta_description: Photographs of the birds of Ukraine
-
-      usa:
-        meta_description: Photographs of the birds of the United States
-
-      united_kingdom:
-        meta_description: Photographs of the birds of Great Britain
-
-      canada:
-        meta_description: Photographs of the birds of Canada

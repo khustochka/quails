@@ -1,9 +1,9 @@
 'ru':
   species:
     gallery:
-      title: Фотографии птиц
-      window_title: Фотографии птиц
-      meta_description: Галерея снимков птиц
+      title: Фотографии птиц по видам
+      window_title: Фотографии птиц по видам
+      meta_description: Галерея видов птиц
 
     show:
       meta_description: "Описание вида птицы '%{name}' (%{name_sci})"

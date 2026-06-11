@@ -3,9 +3,6 @@
     gallery:
       title:
         ukraine: Птахи України
-        usa: Птахи США
-        canada: Птахи Канади
-        united_kingdom: Птахи Великої Британії
 
       ukraine:
         intro: >
@@ -13,12 +10,3 @@
           Дивіться також "повний список птахів України":%{url}.
         not_common: Рідкісні
         meta_description: Птахи України з фотографіями
-
-      usa:
-        meta_description: Фотографії птахів США
-
-      united_kingdom:
-        meta_description: Фотографии птахів Великої Британії
-
-      canada:
-        meta_description: Фотографии птахів Канади
