@@ -79,6 +79,26 @@ class WikiFilterTest < ActionDispatch::IntegrationTest
       transform("{{#see this|some-post}}")
   end
 
+  # Images
+
+  test "render image by slug {{^slug}}" do
+    image = create(:image)
+    result = transform("{{^#{image.slug}}}")
+    assert_includes result, '<figure class="imageholder">'
+    assert_includes result, image.decorated.title
+  end
+
+  test "render two images by slug in one text" do
+    image1 = create(:image)
+    image2 = create(:image)
+    result = transform("{{^#{image1.slug}}} and {{^#{image2.slug}}}")
+    assert_equal 2, result.scan('<figure class="imageholder">').size
+  end
+
+  test "ignore unknown image slug" do
+    assert_equal "", transform("{{^no-such-image}}")
+  end
+
   # Allowed fallbacks
 
   test "ignore unknown species code (name provided)" do

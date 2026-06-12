@@ -18,6 +18,19 @@ class FeedsControllerTest < ActionController::TestCase
     assert_equal Mime[:xml], response.media_type
   end
 
+  test "blog feed renders inline wiki images in post body" do
+    image = create(:image)
+    create(:post, body: "Look at this bird:\n\n{{^#{image.slug}}}")
+
+    get :blog, format: :xml
+    assert_response :success
+    doc = Nokogiri::XML(response.body)
+    html = Nokogiri::HTML(doc.css("entry content").text)
+    figcaption = html.css("figure.imageholder figcaption").first
+    assert_not_nil figcaption
+    assert_includes figcaption.text, image.decorated.title
+  end
+
   test "feed updated time should be correct (in local TZ)" do
     create(:post)
     create(:post)

@@ -24,7 +24,7 @@ module FormatStrategy
     end
 
     def img_tag(term)
-      if (image = Image.find_by(slug: term))
+      if (image = @images[term])
         img_url = localized_image_url(id: image, locale: current_locale_prefix)
         %Q(<figure class="imageholder">
         "!#{jpg_url(image)}([photo])!":#{img_url}

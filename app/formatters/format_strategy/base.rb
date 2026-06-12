@@ -49,7 +49,9 @@ module FormatStrategy
     private
 
     def prepare
-      post_terms = @text.scan(WIKI_TAGS_REGEX).filter_map do |tag, _word, term, _en|
+      wiki_tags = @text.scan(WIKI_TAGS_REGEX)
+
+      post_terms = wiki_tags.filter_map do |tag, _word, term, _en|
         term if tag == "#"
       end.uniq
 
@@ -67,6 +69,11 @@ module FormatStrategy
       else
         {}
       end
+
+      image_slugs = wiki_tags.filter_map do |tag, _word, term, _en|
+        term if tag == "^"
+      end.uniq
+      @images = image_slugs.any? ? Image.preload(:species).where(slug: image_slugs).index_by(&:slug) : {}
 
       sp_codes = @text.scan(SPECIES_CODES_REGEX).map do |word, term|
         if term && term != "en"

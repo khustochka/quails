@@ -6,7 +6,7 @@ class FeedsController < ApplicationController
   localized only: [:photos]
 
   def blog
-    @posts = Post.public_posts.order(face_date: :desc).limit(10)
+    @posts = Post.public_posts.preload(:post_core).order(face_date: :desc).limit(10)
   end
 
   def photos
