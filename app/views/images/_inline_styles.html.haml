@@ -7,5 +7,12 @@
     @media (min-width: 767.98px) and (max-width: #{max_width + 46}px) {
     - inline_styles.map {|t| [t.width, t.height]}.uniq.each do |w, h|
       - ww = 100.0 * w / max_width
-      = ".thumb_#{w}x#{h} {width: #{ww - 0.13}%;height: auto; border: none !important;}"
+      = ".thumb_#{w}x#{h} {width: #{ww - 0.13}%;height: auto;aspect-ratio: #{w} / #{h}; border: none !important;}"
+    }
+    @media (max-width: 767.98px) {
+    - inline_styles.map {|t| [t.width, t.height]}.uniq.each do |w, h|
+      - if h > w
+        = "figure.image_thumb.thumb_#{w}x#{h} {width: auto;height: 97vh;max-width: 100%;aspect-ratio: #{w} / #{h};}"
+      - else
+        = "figure.image_thumb.thumb_#{w}x#{h} {width: 100%;height: auto;aspect-ratio: #{w} / #{h};}"
     }
