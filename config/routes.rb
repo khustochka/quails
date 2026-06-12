@@ -375,6 +375,7 @@ Rails.application.routes.draw do
     resources :loci, only: [:index]
     resources :cards, only: [:index]
     resources :observations, only: [:index]
+    resources :images, only: [:index]
   end
 
   post "/csp-violation-report-endpoint" => "content_security#report"
