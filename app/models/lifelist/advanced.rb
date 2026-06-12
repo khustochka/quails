@@ -11,7 +11,7 @@ module Lifelist
     delegate :each, :size, :blank?, to: :to_a
 
     def to_a
-      primary_list.map do |obs|
+      @to_a ||= primary_list.map do |obs|
         species = obs.species
         result = FullLifer.new(species)
 

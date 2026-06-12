@@ -103,6 +103,28 @@ module Lifelist
       end
     end
 
+    test "to_a is memoized" do
+      FactoryBot.create(:observation)
+
+      list = Lifelist::Advanced.over({}).sort(nil)
+
+      assert_same list.to_a, list.to_a
+    end
+
+    test "main_post link params need no extra queries" do
+      post = FactoryBot.create(:post)
+      card = FactoryBot.create(:card, post_core: post.post_core)
+      FactoryBot.create(:observation, card: card)
+
+      list = Lifelist::Advanced.full
+      list.posts_scope = Post.public_posts
+      recs = list.to_a
+
+      assert_queries_count(0) do
+        recs.each { |r| r.first_seen.main_post&.to_url_params }
+      end
+    end
+
     test "lifelist with seen species only" do
       obs = FactoryBot.create(:observation, taxon: taxa(:pasdom))
       obs2 = FactoryBot.create(:observation, taxon: taxa(:jyntor), voice: true)

@@ -126,6 +126,17 @@ class PostTest < ActiveSupport::TestCase
     assert_equal uk_post, result[uk_post.post_core_id]
   end
 
+  test "localized_for attaches the passed core so post_core needs no extra query" do
+    core = create(:post_core)
+    create(:post, post_core: core, lang: "en")
+    result = Post.localized_for([core], :en)
+    post = result[core.id]
+    assert_queries_count(0) do
+      assert_equal core, post.post_core
+      post.to_url_params
+    end
+  end
+
   test "localized_for excludes posts outside the given scope" do
     core = create(:post_core)
     uk_post = create(:post, post_core: core, lang: "uk")

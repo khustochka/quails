@@ -79,7 +79,12 @@ class Post < ApplicationRecord
     cores.each_with_object({}) do |core, result|
       candidates = siblings[core.id] || []
       pick = preferred.lazy.filter_map { |lang| candidates.find { |p| p.lang == lang } }.first
-      result[core.id] = pick if pick
+      next unless pick
+
+      # Attach the already-loaded core so views can call post.post_core
+      # (to_url_params, cache_key) without an N+1.
+      pick.association(:post_core).target = core
+      result[core.id] = pick
     end
   end
 
