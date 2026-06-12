@@ -44,6 +44,10 @@
 
     feed: Підписка
 
+    page: "Сторінка %{n}"
+
+    see_also: "Див. також:"
+
   translated:
     en: English
     ru: Russian

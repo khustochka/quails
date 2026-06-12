@@ -7,19 +7,24 @@
       title: Последние добавленные фотографии
       meta_description: "Новые фотографии птиц"
       species_gallery: Галерея видов
-      last_updated: ! "Последнее обновление: %{date}."
+      last_updated: ! "Последнее обновление: %{date}"
 
     country:
       title:
         usa: Фотографии птиц США
         canada: Фотографии птиц Канады
-        united_kingdom: Фотографии птиц США
+        united_kingdom: Фотографии птиц Великобритании
         poland: Фотографии птиц Польши
       meta_description:
         usa: Фотографии птиц США
         canada: Фотографии птиц Канады
-        united_kingdom: Фотографии птиц США
+        united_kingdom: Фотографии птиц Великобритании
         poland: Фотографии птиц Польши
+      link_text:
+        usa: Птицы США
+        canada: Птицы Канады
+        united_kingdom: Птицы Великобритании
+        poland: Птицы Польши
 
     multiple_species:
       title: Разные виды на одном фото

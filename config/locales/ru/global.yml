@@ -44,6 +44,10 @@
 
     feed: Подписка
 
+    page: "Страница %{n}"
+
+    see_also: "См. также:"
+
   translated:
     en: English
     uk: Українська

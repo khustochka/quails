@@ -14,12 +14,17 @@
   %h1.over-header
     = page_header
   %ul.subheader-menu
-    %li= link_to t('menu.gallery'), gallery_path
+    %li= link_to t('menu.photos'), {action: 'index', controller: 'images'}
+    %li= link_to t('images.index.species_gallery'), gallery_path
     = render "partials/feed_list_item"
 
 - unless params[:page] || @videos.empty?
   %h3
     %i= t('images.index.last_updated', date: l(@videos.first.created_at.to_date, format: :long))
+
+- if params[:page]
+  %h3
+    %i= t('misc.page', n: params[:page])
 
 = render "videos/grid", videos: @videos
 

@@ -183,6 +183,7 @@ Rails/OutputSafety:
   Enabled: true
   Exclude:
     - app/views/**/*.*.haml
+    - app/helpers/**/*.rb
 
 Lint/MissingCopEnableDirective:
   Enabled: true

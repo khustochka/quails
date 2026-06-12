@@ -17,9 +17,14 @@
 - cache_unless(do_not_cache, admin: current_user.admin?, key: Quails::CacheKey.gallery) do
   %div.header-with-subheader
     %h1= page_header
-    -# = render "countries/gallery/subheader/#{@country.slug}"
+    %ul.subheader-menu
+      %li= link_to t('menu.photos'), {action: 'index', controller: 'images'}
+      - (ImagesController::COUNTRIES - [@country.slug]).map do |country|
+        %li= link_to t("images.country.link_text.#{country}"), country_images_path(country: country)
 
-  = render 'social/buttons'
+  - if params[:page]
+    %h3
+      %i= t('misc.page', n: params[:page])
 
   %div.thumbnails
     = render_justified @thumbs.map(&:to_thumbnail)

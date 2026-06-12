@@ -7,7 +7,7 @@
       title: Найновіші фотографії
       meta_description: "Нові фотографії птахів"
       species_gallery: Галерея видів
-      last_updated: ! "Останнє оновлення: %{date}."
+      last_updated: ! "Останнє оновлення: %{date}"
 
     country:
       title:
@@ -20,6 +20,11 @@
         canada: Фотографії птахів Канади
         united_kingdom: Фотографії птахів Великої Британії
         poland: Фотографії птахів Польщі
+      link_text:  
+        usa: Птахи США
+        canada: Птахи Канади
+        united_kingdom: Птахи Великої Британії
+        poland: Птахи Польщі
 
     multiple_species:
       title: Кілька видів на одному фото

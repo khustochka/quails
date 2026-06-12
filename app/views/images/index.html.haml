@@ -19,10 +19,18 @@
       %li= link_to t('.species_gallery'), gallery_path
       %li= link_to t('menu.videos'), {action: 'index', controller: 'videos'}
       = render "partials/feed_list_item"
+    %p
+      %i.see_also= t("misc.see_also")
+      = country_photo_links
 
   - unless params[:page] || @images.empty?
     %h3
       %i= t('.last_updated', date: l(@images.unscope(:includes).first.created_at.to_date, format: :long))
+
+  - if params[:page]
+    %h3
+      %i= t('misc.page', n: params[:page])
+
 
   %div.thumbnails
     = render_justified @images.map(&:to_thumbnail)

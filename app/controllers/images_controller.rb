@@ -10,6 +10,8 @@ class ImagesController < ApplicationController
 
   PHOTOS_PER_PAGE = 24
 
+  COUNTRIES = ["usa", "canada", "united_kingdom", "poland"]
+
   COUNTRY_THUMBNAILS = {
     "usa" => "https://bwua-static.s3.eu-central-1.amazonaws.com/cardinal-thumb.jpg",
     "united_kingdom" => "https://bwua-static.s3.eu-central-1.amazonaws.com/gannet-thumb.jpg",
@@ -45,6 +47,8 @@ class ImagesController < ApplicationController
   def country
     if params[:page].to_i == 1
       redirect_to page: nil
+    elsif !params[:country].in?(COUNTRIES)
+      raise ActiveRecord::RecordNotFound
     else
       @country = Country.find_by!(slug: params[:country])
 
