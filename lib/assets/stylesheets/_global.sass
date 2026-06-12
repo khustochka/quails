@@ -430,10 +430,62 @@ nav
   //@include arial-font
   a
     @include deep-bordered-link($link-color)
-  .page
-    @include inline-block
-    width: 30px
-    line-height: 1.7em
+
+// Pagination (Kaminari)
+
+.pagination
+  display: flex
+  flex-wrap: wrap
+  align-items: stretch
+  gap: 8px
+  margin: 24px 0
+  font-weight: bold
+  // Wrapper spans (.page, .first, .prev, .next, .last) shrink-wrap their
+  // inner <a>; the inner <a> is the sized box. The current page is itself a
+  // bare span and gets sized directly. This keeps every cell the same size so
+  // the flex gap is even everywhere.
+  > span
+    display: inline-flex
+  // The visible box: every link, plus the current-page span and the gap.
+  a, .page.current, .gap
+    display: inline-flex
+    align-items: center
+    justify-content: center
+    min-width: 38px
+    height: 38px
+    padding: 0 10px
+    border: 1px solid transparent
+    border-radius: 4px
+    line-height: 1
+    box-sizing: border-box
+  a
+    color: $link-color
+    text-decoration: none
+    border-color: rgba($link-color, 0.35)
+    transition: background-color 0.12s, border-color 0.12s, color 0.12s
+    white-space: nowrap
+    &:hover
+      background-color: $link-color
+      border-color: $link-color
+      color: #ffffff
+  // current page
+  .page.current
+    color: #ffffff
+    background-color: $link-color
+    border-color: $link-color
+  // gap (the "…")
+  .gap
+    color: #999999
+    border-color: transparent
+
+@media only all and (max-width: 580px)
+  .pagination
+    gap: 6px
+    a, .page.current, .gap
+      min-width: 34px
+      height: 34px
+      padding: 0 7px
+      font-size: 14px
 
 // Translated pages
 ul.translated
