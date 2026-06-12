@@ -5,7 +5,7 @@ require "quails/cache_key"
 class ApplicationController < ActionController::Base
   if Rails.application.config.x.features.rack_profiler
     before_action do
-      if current_user.admin?
+      if Rails.env.development? || current_user.admin?
         Rack::MiniProfiler.authorize_request
       end
     end
