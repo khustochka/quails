@@ -12,7 +12,7 @@
     @media (max-width: 767.98px) {
     - inline_styles.map {|t| [t.width, t.height]}.uniq.each do |w, h|
       - if h > w
-        = "figure.image_thumb.thumb_#{w}x#{h} {width: auto;height: 97vh;max-width: 100%;aspect-ratio: #{w} / #{h};}"
+        = "figure.image_thumb.thumb_#{w}x#{h} {width: min(100%, calc(97vh * #{w} / #{h}));height: auto;aspect-ratio: #{w} / #{h};}"
       - else
         = "figure.image_thumb.thumb_#{w}x#{h} {width: 100%;height: auto;aspect-ratio: #{w} / #{h};}"
     }

@@ -88,13 +88,15 @@ figure.imageholder figcaption
   figure.image_thumb
     border: 1px solid #eeeeee
     @include auto-width
+    // Per-thumb inline styles (images/_inline_styles.html.haml) size figures
+    // full-width on mobile; the img must stretch to fill them even beyond its
+    // natural width, so don't reset it to width: auto here.
     img:not(.map_strip_img)
-      @include auto-width
+      width: 100%
+      height: auto
     img
       max-width: 100%
       height: auto
-      *width: auto
-      width: auto\9
 
 
 .flickr_badge
