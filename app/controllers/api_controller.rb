@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class APIController < ActionController::Base # rubocop:disable Rails/ApplicationController
+  include ActiveStorage::SetCurrent
+
   before_action :authenticate
 
   private
