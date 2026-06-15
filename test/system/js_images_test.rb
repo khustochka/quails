@@ -131,6 +131,7 @@ class JSImagesTest < ApplicationSystemTestCase
   private
 
   def save_and_check
+    sleep 0.1
     click_button("Save")
     # save_and_open_page
     assert_text "Image was successfully"
