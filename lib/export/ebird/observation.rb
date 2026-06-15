@@ -113,7 +113,11 @@ module Export
       end
 
       def all_observations?
-        card.incidental? ? "N" : "Y"
+        if card.ebird_complete.nil?
+          card.incidental? ? "N" : "Y"
+        else
+          card.ebird_complete ? "Y" : "N"
+        end
       end
 
       def distance_miles

@@ -16,10 +16,6 @@ module Export
       new(EBird::Strategy.new(cards), filename, cards, storage)
     end
 
-    # def self.rubirds(filename:, cards:, storage:)
-    #   new(RubirdsStrategy.new(cards), filename, cards, storage)
-    # end
-
     def export
       if @filename.present? && @cards.present?
         unless Rails.env.test?
