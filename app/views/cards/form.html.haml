@@ -71,6 +71,11 @@
     = form.input :weather
     = form.input :kml_url, input_html: {class: 'medium'}
     = form.input :ebird_id, label: "eBird Checklist Id", input_html: {class: 'short'}
+    %div.optional.ebird_complete_radio_group
+      %small eBird Complete:
+      = form.collection_radio_buttons :ebird_complete,
+          [["", "Unset"], [true, "Complete"], [false, "Incomplete"]],
+          :first, :last, include_hidden: false
 
   %div.obs-block
     %div.fast-species

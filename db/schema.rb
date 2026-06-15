@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_15_191623) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_15_151200) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
@@ -50,6 +50,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_15_191623) do
     t.datetime "created_at", precision: nil, null: false
     t.float "distance_kms"
     t.integer "duration_minutes"
+    t.boolean "ebird_complete"
     t.string "ebird_id"
     t.string "effort_type", limit: 255, default: "INCIDENTAL", null: false
     t.string "kml_url", limit: 255, default: "", null: false
