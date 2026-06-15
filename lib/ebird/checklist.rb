@@ -6,7 +6,7 @@ module EBird
   class Checklist
     attr_reader :ebird_id
     attr_accessor :observ_date, :start_time, :effort_type, :duration_minutes, :distance_kms, :area_acres,
-      :notes, :observers, :location_string, :observations
+      :notes, :observers, :location_string, :observations, :complete
 
     PROTOCOL_TO_EFFORT = {
       "Traveling" => "TRAVEL",
@@ -61,7 +61,8 @@ module EBird
         notes: notes || "",
         # locus: locus,
         motorless: ml,
-        observations: observations.map {|obs| Observation.new(obs)}
+        observations: observations.map {|obs| Observation.new(obs)},
+        ebird_complete: complete
       )
     end
 
@@ -117,6 +118,15 @@ module EBird
       unless comments == "N/A"
         self.notes = comments
       end
+
+      complete_text = page.at_xpath("//*[@aria-controls='status-info']/span[contains(@class, 'Badge-label')]")&.text
+
+      self.complete =
+        if complete_text == "Complete"
+          true
+        elsif complete_text == "Incomplete"
+          false
+        end
 
       self.location_string = page.at_xpath("//div[@data-locationname]").text
 
