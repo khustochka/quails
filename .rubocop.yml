@@ -194,7 +194,7 @@ Lint/MissingCopEnableDirective:
   #   a = 1
   #   # rubocop:enable SomeCop
   # .inf for any size
-  MaximumRangeSize: 4
+  MaxRangeSize: 4
 
 Minitest/MultipleAssertions:
   Enabled: false
