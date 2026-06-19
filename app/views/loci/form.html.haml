@@ -26,7 +26,8 @@
           %li
             = link_to ancestor.name_en, edit_locus_path(ancestor), target: :_blank, rel: :noopener
             - if ancestor.new_type.present?
-              %span.badge= ancestor.new_type
+              %small
+                %span.tag{class: ancestor.new_type}= ancestor.new_type
   %div
     .less-important These fields are presentational, they should be modified separately from ancestry
     = form.input :cached_parent_id, collection: Locus.where.not(id: @locus).suggestion_order,

@@ -60,8 +60,8 @@ class LociControllerTest < ActionController::TestCase
     assert_select "ul.locus-ancestry" do
       assert_select "a[href=?]", edit_locus_path(loci(:ukraine)), text: "Ukraine"
       assert_select "a[href=?]", edit_locus_path(loci(:kiev_obl)), text: "Kyiv oblast"
-      assert_select "span.badge", text: "country"
-      assert_select "span.badge", text: "subdivision1"
+      assert_select "span.tag", text: "country"
+      assert_select "span.tag", text: "subdivision1"
     end
   end
 
