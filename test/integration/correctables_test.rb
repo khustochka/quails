@@ -42,4 +42,13 @@ class CorrectablesTest < ActionDispatch::IntegrationTest
     @post3.reload
     assert_equal "Test post edited", @post3.title
   end
+
+  test "Save and next is the first submit button so it is the Enter default" do
+    login_as_admin
+    visit edit_post_path(@post3, correction: @correction.id)
+    within("form.edit_post") do
+      first_submit = first("input[type=submit], button[type=submit]")
+      assert_equal "Save and next >>", first_submit.value
+    end
+  end
 end

@@ -7,10 +7,14 @@ module CrudHelper
 
   def default_submit_button(form, options = {})
     if correcting?
-      capture do
-        concat form.button(:submit, value: CorrectableConcern::SKIP_VALUE, data: { disable_with: "Skipping..." })
-        concat form.button(:submit, value: CorrectableConcern::SAVE_VALUE, data: { disable_with: "Saving..." })
-        concat form.button(:submit, value: CorrectableConcern::SAVE_AND_NEXT_VALUE, data: { disable_with: "Saving..." })
+      # The browser submits a form on Enter using the first submit button in DOM
+      # order. We want SAVE_AND_NEXT to be that default, so it is placed first in
+      # the source and reordered visually via flexbox `order` to keep the layout
+      # Skip / Save / Save and next.
+      tag.div(style: "display: flex") do
+        concat form.button(:submit, value: CorrectableConcern::SAVE_AND_NEXT_VALUE, style: "order: 3", data: { disable_with: "Saving..." })
+        concat form.button(:submit, value: CorrectableConcern::SAVE_VALUE, style: "order: 2", data: { disable_with: "Saving..." })
+        concat form.button(:submit, value: CorrectableConcern::SKIP_VALUE, style: "order: 1", data: { disable_with: "Skipping..." })
       end
     else
       default_value = options.delete(:value) || t(".save_button", default: "Save")
