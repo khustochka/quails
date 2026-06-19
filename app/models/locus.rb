@@ -9,6 +9,9 @@ class Locus < ApplicationRecord
 
   has_ancestry orphan_strategy: :restrict
 
+  TYPES = %w(continent country region raion city)
+  NEW_TYPES = %w(country subdivision1 subdivision2 city site section special)
+
   # NOTE: These methods are purely for presentation. They are not updated automatically if ancestry is updated!
   belongs_to :cached_parent, class_name: "Locus", optional: true
   belongs_to :cached_city, class_name: "Locus", optional: true
@@ -26,6 +29,8 @@ class Locus < ApplicationRecord
   validates :slug, format: /\A[a-z_0-9]+\Z/i, uniqueness: true, presence: true, length: { maximum: 32 }
   validates :name_en, :name_ru, :name_uk, uniqueness: true
   validates :cached_country, presence: true, if: ->(loc) { loc.path.where(loc_type: "country").any? && loc.cached_country_id.nil? }
+  validates :loc_type, inclusion: { in: TYPES }, allow_nil: true
+  validates :new_type, inclusion: { in: NEW_TYPES }, allow_nil: true
 
   after_initialize :prepopulate, unless: :persisted?
   before_validation :generate_slug
@@ -37,9 +42,6 @@ class Locus < ApplicationRecord
   normalizes :iso_code, with: ->(v) { v.presence }
   normalizes :loc_type, with: ->(v) { v.presence }
   normalizes :new_type, with: ->(v) { v.presence }
-
-  TYPES = %w(continent country region raion city)
-  NEW_TYPES = %w(country subdivision1 subdivision2 city site section special)
 
   # Parameters
 

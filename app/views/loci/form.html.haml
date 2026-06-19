@@ -20,6 +20,13 @@
   %div
     = form.input :loc_type, label: 'Locus type', as: :select, collection: Locus::TYPES, input_html: {size: 6}
     = form.input :new_type, label: 'New type', as: :select, collection: Locus::NEW_TYPES, input_html: {size: 8}
+    - if @locus.persisted?
+      %ul.locus-ancestry
+        - @locus.ancestors.each do |ancestor|
+          %li
+            = link_to ancestor.name_en, edit_locus_path(ancestor), target: :_blank, rel: :noopener
+            - if ancestor.new_type.present?
+              %span.badge= ancestor.new_type
   %div
     .less-important These fields are presentational, they should be modified separately from ancestry
     = form.input :cached_parent_id, collection: Locus.where.not(id: @locus).suggestion_order,

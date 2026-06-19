@@ -9,6 +9,7 @@
     iso_code: UA
     private_loc: false
     loc_type: country
+    new_type: country
     ancestry:
     cached_public_locus_id: 1
 
@@ -24,6 +25,7 @@
     iso_code: '32'
     private_loc: false
     loc_type: oblast
+    new_type: subdivision1
     ancestry: 1
     cached_country_id: 1
     cached_public_locus_id: 2
