@@ -33,9 +33,13 @@ class Locus < ApplicationRecord
   after_create :set_and_save_cached_public_locus
   before_update :set_cached_public_locus, if: -> { will_save_change_to_private_loc? || will_save_change_to_ancestry? }
   after_save :update_descendants_public_locus, if: -> { saved_change_to_private_loc? || saved_change_to_ancestry? }
+
+  normalizes :iso_code, with: ->(v) { v.presence }
   normalizes :loc_type, with: ->(v) { v.presence }
+  normalizes :new_type, with: ->(v) { v.presence }
 
   TYPES = %w(continent country region raion city)
+  NEW_TYPES = %w(country subdivision1 subdivision2 city site section special)
 
   # Parameters
 

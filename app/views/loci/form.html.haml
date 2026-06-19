@@ -18,7 +18,8 @@
           input_html: {class: 'suggest-combo'}
     = form.input :iso_code, label: 'ISO code'
   %div
-    = form.input :loc_type, label: 'Locus type', as: :select, collection: Locus::TYPES
+    = form.input :loc_type, label: 'Locus type', as: :select, collection: Locus::TYPES, input_html: {size: 6}
+    = form.input :new_type, label: 'New type', as: :select, collection: Locus::NEW_TYPES, input_html: {size: 8}
   %div
     .less-important These fields are presentational, they should be modified separately from ancestry
     = form.input :cached_parent_id, collection: Locus.where.not(id: @locus).suggestion_order,
