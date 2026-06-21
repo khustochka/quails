@@ -37,7 +37,7 @@ class JSCommentsTest < ApplicationSystemTestCase
   test "Reply from reply page - JS on" do
     comment = create(:comment)
     blogpost = comment.post
-    visit reply_comment_path(comment)
+    visit reply_comment_path(id: comment)
     within("form#new_comment") do
       fill_in(CommentsHelper::REAL_NAME_FIELD, with: "Vasya")
       fill_in("comment_body", with: "Some text")

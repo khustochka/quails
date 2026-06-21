@@ -28,6 +28,10 @@ class CommentsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:comments)
   end
 
+  test "admin index path is not localized" do
+    assert_equal "/comments", admin_comments_path
+  end
+
   test "create comment" do
     assert_difference("Comment.count") do
       post :create, params: valid_comment_params
@@ -77,6 +81,13 @@ class CommentsControllerTest < ActionController::TestCase
   test "get reply comment page" do
     get :reply, params: { id: @comment.to_param }
     assert_response :success
+    assert_equal :uk, I18n.locale
+  end
+
+  test "get reply comment page in another locale" do
+    get :reply, params: { id: @comment.to_param, locale: "en" }
+    assert_response :success
+    assert_equal :en, I18n.locale
   end
 
   test "get edit" do
@@ -214,7 +225,7 @@ class CommentsControllerTest < ActionController::TestCase
 
     post :release_email, params: { id: comment.to_param }
 
-    assert_redirected_to comments_path
+    assert_redirected_to admin_comments_path
     comment.reload
     assert_not comment.needs_email_release
   end
@@ -227,7 +238,7 @@ class CommentsControllerTest < ActionController::TestCase
 
     post :release_email, params: { id: comment.to_param }
 
-    assert_redirected_to comments_path
+    assert_redirected_to admin_comments_path
     comment.reload
     assert comment.needs_email_release
   end
@@ -248,6 +259,6 @@ class CommentsControllerTest < ActionController::TestCase
 
     post :release_email, params: { id: comment.to_param, page: 3 }
 
-    assert_redirected_to comments_path(page: 3)
+    assert_redirected_to admin_comments_path(page: 3)
   end
 end

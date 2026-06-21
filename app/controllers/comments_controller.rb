@@ -11,8 +11,8 @@ class CommentsController < ApplicationController
   before_action :check_enabled, only: [:create, :reply]
 
   administrative except: [:create, :reply, :unsubscribe_request, :unsubscribe_submit]
-  # FIXME: not yet localized but should be!
-  # localized locales: [:uk, :ru], only: [:reply, :unsubscribe_request, :unsubscribe_submit]
+
+  localized only: [:reply]
 
   find_record before: [:show, :edit, :update, :destroy, :reply, :release_email]
 
@@ -175,7 +175,7 @@ class CommentsController < ApplicationController
       mailer.notify_parent_author.deliver_later
       @comment.update!(needs_email_release: false)
     end
-    redirect_to comments_path(page: params[:page]), notice: "Email released."
+    redirect_to admin_comments_path(page: params[:page]), notice: "Email released."
   end
 
   def unsubscribe_request

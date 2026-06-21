@@ -19,7 +19,7 @@
   - if action_name != 'reply' && !Settings.disable_comments
     %ul.reply
       %li
-        = link_to(t('.reply_link'), reply_comment_path(comment), data: {comment_id: comment.id}, rel: :nofollow)
+        = link_to(t('.reply_link'), reply_comment_path(id: comment), data: {comment_id: comment.id}, rel: :nofollow)
 
 - subcomments = @comments&.dig(comment.id)
 

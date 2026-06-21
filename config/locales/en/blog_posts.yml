@@ -53,7 +53,8 @@
     form:
       save_button: Post comment
     reply:
-      title: Replying to comment
+      reply_title: Reply to a comment on the post
+      comment_title: Reply to the post
 
   simple_form:
     labels:

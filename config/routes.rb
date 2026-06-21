@@ -252,11 +252,13 @@ Rails.application.routes.draw do
 
   scope "(:locale)", locale: /en|ru/ do
     resources :comments, only: :create
+    get "comments/:id/reply" => "comments#reply", as: :reply_comment
   end
 
-  resources :comments, except: [:new, :create] do
+  get "comments" => "comments#index", as: :admin_comments
+
+  resources :comments, except: [:new, :create, :index] do
     member do
-      get :reply
       post :release_email
     end
     collection do
