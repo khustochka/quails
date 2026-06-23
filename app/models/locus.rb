@@ -123,6 +123,24 @@ class Locus < ApplicationRecord
     cached_public_locus
   end
 
+  # Promotes all direct children one level up, re-parenting them to this locus's
+  # own parent so they become siblings of this locus instead of its children.
+  # (If this locus is a root, the children become roots too.) The children's
+  # denormalized cached_* fields are adjusted to keep display names sensible
+  # (see #adjust_cached_for_promotion). Returns the number of children moved.
+  def promote_children!
+    moved = children.to_a
+    new_parent = parent
+    transaction do
+      moved.each do |child|
+        child.parent = new_parent
+        child.__send__(:adjust_cached_for_promotion, self, new_parent)
+        child.save!
+      end
+    end
+    moved.size
+  end
+
   def short_name
     name
   end
@@ -195,6 +213,27 @@ class Locus < ApplicationRecord
   def update_descendants_public_locus
     descendants.each do |desc|
       desc.update_column(:cached_public_locus_id, desc.compute_cached_public_locus_id)
+    end
+  end
+
+  # Called on a child being promoted from +old_parent+ (the locus whose children
+  # are being promoted) up to +new_parent+. Keeps the denormalized cached_* chain
+  # sensible:
+  #   * If cached_parent pointed at the old parent, it is no longer an ancestor, so clear it.
+  #   * If the new parent is not already represented anywhere in the cached chain,
+  #     record it: as cached_city when it is a city, otherwise as cached_parent.
+  def adjust_cached_for_promotion(old_parent, new_parent)
+    self.cached_parent_id = nil if cached_parent_id == old_parent.id
+
+    return if new_parent.nil?
+
+    cached_chain = [cached_parent_id, cached_city_id, cached_subdivision_id, cached_country_id]
+    return if cached_chain.include?(new_parent.id)
+
+    if new_parent.loc_type == "city"
+      self.cached_city_id = new_parent.id
+    else
+      self.cached_parent_id = new_parent.id
     end
   end
 

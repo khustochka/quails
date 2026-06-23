@@ -54,8 +54,8 @@ class LociControllerTest < ActionController::TestCase
       assert_select "a[href=?]", locus_path(loci(:brovary)), text: "Brovary"
       assert_select "a[href=?]", locus_path(loci(:kyiv)), text: "Kyiv City"
     end
-    # Lifelist link in the admin shortcuts row
-    assert_select "ul.admin-shortcuts a[href=?]", advanced_list_path(locus: "kiev_obl"), text: "Lifelist"
+    assert_select "ul.admin-shortcuts a[href=?][target=_blank]",
+      advanced_list_path(locus: "kiev_obl"), text: "Lifelist"
   end
 
   test "show locus links coordinates to Google Maps" do
@@ -124,6 +124,48 @@ class LociControllerTest < ActionController::TestCase
     assert_redirected_to loci_path
   end
 
+  test "promote_children re-parents children to the parent and redirects to show" do
+    login_as_admin
+    ukraine = loci(:ukraine)
+    post :promote_children, params: { id: "kiev_obl" }
+    assert_redirected_to locus_path(loci(:kiev_obl))
+    assert_equal ukraine, loci(:brovary).reload.parent
+    assert_equal ukraine, loci(:kyiv).reload.parent
+    assert_empty loci(:kiev_obl).reload.children
+  end
+
+  test "show page shows public full name when public locus differs from self" do
+    login_as_admin
+    private_locus = create(:locus, parent: loci(:brovary), private_loc: true)
+    get :show, params: { id: private_locus.to_param }
+    assert_response :success
+    assert_select "table.locus-details th", text: "Public full name"
+    assert_select "table.locus-details td", text: private_locus.public_locus.decorated.full_name
+  end
+
+  test "show page omits public full name when locus is its own public locus" do
+    login_as_admin
+    get :show, params: { id: "brovary" }
+    assert_response :success
+    assert_select "table.locus-details th", text: "Public full name", count: 0
+  end
+
+  test "show page renders promote-children button when there are children" do
+    login_as_admin
+    get :show, params: { id: "kiev_obl" }
+    assert_response :success
+    assert_select "form[action=?]", promote_children_locus_path(loci(:kiev_obl)) do
+      assert_select "button", text: /Promote children/
+    end
+  end
+
+  test "show page hides promote-children button when there are no children" do
+    login_as_admin
+    get :show, params: { id: "brovary" }
+    assert_response :success
+    assert_select "form[action=?]", promote_children_locus_path(loci(:brovary)), count: 0
+  end
+
   test "show page to order public locations" do
     login_as_admin
     get :public
@@ -173,6 +215,11 @@ class LociControllerTest < ActionController::TestCase
 
   test "protect destroy with authentication" do
     assert_raise(ActionController::RoutingError) { delete :destroy, params: { id: "krym" } }
+    # assert_response 404
+  end
+
+  test "protect promote_children with authentication" do
+    assert_raise(ActionController::RoutingError) { post :promote_children, params: { id: "kiev_obl" } }
     # assert_response 404
   end
 end

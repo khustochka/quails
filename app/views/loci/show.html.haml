@@ -17,7 +17,7 @@
         %span.tag.region 5MR
 
   - content_for :add_shortcuts do
-    %li= link_to "Lifelist", advanced_list_path(locus: @locus.slug)
+    %li= link_to "Lifelist", advanced_list_path(locus: @locus.slug), target: :_blank, rel: :noopener
   = render "admin/shortcuts" if current_user.admin?
 
   - if notice
@@ -51,6 +51,10 @@
           %tr
             %th Full name
             %td= @locus.decorated.full_name
+          - if @locus.public_locus && @locus.public_locus != @locus
+            %tr
+              %th Public full name
+              %td= @locus.public_locus.decorated.full_name
           %tr
             %th Coordinates
             %td= latlon_link(@locus)
@@ -74,5 +78,11 @@
               = link_to child.name_en, child
               - if child.new_type.present?
                 %span.tag{class: child.new_type}= child.new_type
+        - parent_label = @locus.parent ? @locus.parent.name_en : "the top level"
+        .locus-promote
+          = button_to "Promote children to #{parent_label}", promote_children_locus_path(@locus.slug),
+              method: :post,
+              data: {confirm: "Move all #{children.size} children of #{@locus.name_en} up to #{parent_label}, making them siblings of #{@locus.name_en}?"}
+          %p.less-important Re-parents every direct child to this locus's parent.
       - else
         %p.empty No children.

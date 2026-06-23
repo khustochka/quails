@@ -152,6 +152,104 @@ class LocusTest < ActiveSupport::TestCase
     assert_equal parent, child.reload.cached_public_locus
   end
 
+  test "promote_children! re-parents children to the locus's parent" do
+    grandparent = create(:locus)
+    locus = create(:locus, parent: grandparent)
+    child_a = create(:locus, parent: locus)
+    child_b = create(:locus, parent: locus)
+
+    assert_equal 2, locus.promote_children!
+
+    assert_equal grandparent, child_a.reload.parent
+    assert_equal grandparent, child_b.reload.parent
+    assert_empty locus.reload.children
+    assert_equal [child_a, child_b].map(&:id).sort,
+      grandparent.children.where(id: [child_a, child_b]).pluck(:id).sort
+  end
+
+  test "promote_children! makes children roots when locus is a root" do
+    locus = create(:locus)
+    child = create(:locus, parent: locus)
+
+    assert_equal 1, locus.promote_children!
+
+    assert_nil child.reload.parent
+    assert_predicate child, :is_root?
+  end
+
+  test "promote_children! returns zero and changes nothing when there are no children" do
+    locus = create(:locus, parent: create(:locus))
+
+    assert_equal 0, locus.promote_children!
+  end
+
+  test "promote_children! updates descendants cached_public_locus" do
+    grandparent = create(:locus, private_loc: false)
+    locus = create(:locus, parent: grandparent, private_loc: true)
+    child = create(:locus, parent: locus, private_loc: false)
+    assert_equal child, child.reload.cached_public_locus
+
+    locus.promote_children!
+
+    # Child is now public directly under grandparent; nearest public is itself.
+    assert_equal child, child.reload.cached_public_locus
+    assert_equal grandparent, child.reload.parent
+  end
+
+  test "promote_children! clears cached_parent pointing at the old parent" do
+    grandparent = create(:locus)
+    locus = create(:locus, parent: grandparent)
+    child = create(:locus, parent: locus, cached_parent: locus)
+
+    locus.promote_children!
+
+    # New parent (grandparent) becomes the cached_parent; the stale old-parent ref is gone.
+    assert_equal grandparent, child.reload.cached_parent
+  end
+
+  test "promote_children! sets the new parent as cached_parent when not in the chain" do
+    grandparent = create(:locus)
+    locus = create(:locus, parent: grandparent)
+    child = create(:locus, parent: locus)
+
+    locus.promote_children!
+
+    assert_equal grandparent, child.reload.cached_parent
+  end
+
+  test "promote_children! sets the new parent as cached_city when it is a city" do
+    grandparent = create(:locus, loc_type: "city")
+    locus = create(:locus, parent: grandparent)
+    child = create(:locus, parent: locus)
+
+    locus.promote_children!
+
+    assert_equal grandparent, child.reload.cached_city
+    assert_nil child.cached_parent
+  end
+
+  test "promote_children! does not duplicate the new parent already in the cached chain" do
+    grandparent = create(:locus)
+    locus = create(:locus, parent: grandparent)
+    child = create(:locus, parent: locus, cached_subdivision: grandparent)
+
+    locus.promote_children!
+
+    child.reload
+    assert_equal grandparent, child.cached_subdivision
+    assert_nil child.cached_parent
+    assert_nil child.cached_city
+  end
+
+  test "promote_children! clears old-parent cached_parent even when locus is a root" do
+    locus = create(:locus)
+    child = create(:locus, parent: locus, cached_parent: locus)
+
+    locus.promote_children!
+
+    assert_nil child.reload.cached_parent
+  end
+
   test "#country" do
     brvr = loci(:brovary)
     assert_equal "ukraine", brvr.country.slug

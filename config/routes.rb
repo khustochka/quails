@@ -244,6 +244,9 @@ Rails.application.routes.draw do
   end
 
   resources :loci do
+    member do
+      post :promote_children
+    end
     collection do
       get :public
       post :save_order

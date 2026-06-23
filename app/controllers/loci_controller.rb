@@ -5,7 +5,7 @@ class LociController < ApplicationController
 
   administrative
 
-  find_record by: :slug, before: [:edit, :update, :destroy]
+  find_record by: :slug, before: [:edit, :update, :destroy, :promote_children]
 
   # GET /locus
   def index
@@ -72,6 +72,13 @@ class LociController < ApplicationController
     @locus.destroy
     # TODO: rescue ActiveRecord::DeleteRestrictionError showing a notice and later - options for substitution
     redirect_to(loci_url)
+  end
+
+  # POST /locus/1/promote_children
+  # Re-parents all direct children to this locus's parent, making them siblings.
+  def promote_children
+    count = @locus.promote_children!
+    redirect_to(locus_path(@locus), notice: "Promoted #{count} #{"child".pluralize(count)} to the parent level.")
   end
 
   def public
