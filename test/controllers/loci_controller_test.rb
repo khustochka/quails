@@ -13,6 +13,14 @@ class LociControllerTest < ActionController::TestCase
     assert_not_nil assigns(:loci)
   end
 
+  test "index links slug to show page with a separate edit link" do
+    login_as_admin
+    get :index
+    assert_response :success
+    assert_select "a[href=?]", locus_path(loci(:brovary)), text: "brovary"
+    assert_select "a.pseudolink[href=?]", edit_locus_path(loci(:brovary)), text: "edit"
+  end
+
   test "get new" do
     login_as_admin
     get :new
@@ -31,6 +39,40 @@ class LociControllerTest < ActionController::TestCase
     login_as_admin
     get :show, params: { id: "brovary" }
     assert_response :success
+  end
+
+  test "show locus lists parent link, breadcrumb and children" do
+    login_as_admin
+    get :show, params: { id: "kiev_obl" }
+    assert_response :success
+    # Parent link in the details table
+    assert_select "table.locus-details a[href=?]", locus_path(loci(:ukraine)), text: "Ukraine"
+    # Breadcrumb to ancestors
+    assert_select "nav.locus-breadcrumb a[href=?]", locus_path(loci(:ukraine)), text: "Ukraine"
+    # Children list
+    assert_select "ul.locus-children" do
+      assert_select "a[href=?]", locus_path(loci(:brovary)), text: "Brovary"
+      assert_select "a[href=?]", locus_path(loci(:kyiv)), text: "Kyiv City"
+    end
+    # Lifelist link in the admin shortcuts row
+    assert_select "ul.admin-shortcuts a[href=?]", advanced_list_path(locus: "kiev_obl"), text: "Lifelist"
+  end
+
+  test "show locus links coordinates to Google Maps" do
+    login_as_admin
+    get :show, params: { id: "brovary" }
+    assert_response :success
+    locus = loci(:brovary)
+    assert_select "a[href=?]", "https://www.google.com/maps?q=#{locus.lat},#{locus.lon}",
+      text: "50.5100;30.7900"
+  end
+
+  test "show locus with no children shows empty message" do
+    login_as_admin
+    get :show, params: { id: "brovary" }
+    assert_response :success
+    assert_select "ul.locus-children", count: 0
+    assert_select ".empty", text: "No children."
   end
 
   test "get locus in JSON" do

@@ -1,28 +1,78 @@
 -# frozen_string_literal: true
 - @page_title = @locus.slug
 
-%h1= @locus.slug
+.locus-show
+  .locus-header
+    %h1
+      = @locus.name_en
+      - if @locus.new_type.present?
+        %span.tag{class: @locus.new_type}= @locus.new_type
+      - if @locus.loc_type.present?
+        %span.tag{class: @locus.loc_type}= @locus.loc_type
+    .locus-header-meta
+      %code= @locus.slug
+      - if @locus.private_loc?
+        %span.tag.special private
+      - if @locus.five_mile_radius?
+        %span.tag.region 5MR
 
-= render 'admin/shortcuts' if current_user.admin?
+  - content_for :add_shortcuts do
+    %li= link_to "Lifelist", advanced_list_path(locus: @locus.slug)
+  = render "admin/shortcuts" if current_user.admin?
 
-- if notice
-  %p#notice= notice
+  - if notice
+    %p#notice= notice
 
-%p
-  %b Parent:
-  = @locus.parent.nil? ? '-' : (link_to @locus.parent.slug, @locus.parent)
-%p
-  %b English name:
-  = @locus.name_en
-%p
-  %b Russian name:
-  = @locus.name_ru
-%p
-  %b Ukrainian name:
-  = @locus.name_uk
-%p
-  %b LatLon:
-  = latlon(@locus)
-%p
-  %b Public index #:
-  = @locus.public_index
+  - ancestors = @locus.ancestors.to_a
+  - if ancestors.any?
+    %nav.locus-breadcrumb
+      - ancestors.each do |ancestor|
+        = link_to ancestor.name_en, ancestor
+        %span.sep ›
+      %span.current= @locus.name_en
+
+  .locus-columns
+    .locus-card
+      %h2 Details
+      %table.neat_table.locus-details
+        %tbody
+          %tr
+            %th Parent
+            %td= @locus.parent.nil? ? "—" : link_to(@locus.parent.name_en, @locus.parent)
+          %tr
+            %th English name
+            %td= @locus.name_en
+          %tr
+            %th Russian name
+            %td= @locus.name_ru
+          %tr
+            %th Ukrainian name
+            %td= @locus.name_uk
+          %tr
+            %th Full name
+            %td= @locus.decorated.full_name
+          %tr
+            %th Coordinates
+            %td= latlon_link(@locus)
+          - if @locus.iso_code.present?
+            %tr
+              %th ISO code
+              %td= @locus.iso_code
+          %tr
+            %th Public index
+            %td= @locus.public_index || "—"
+
+    .locus-card
+      %h2
+        Children
+        %span.count= @locus.children.size
+      - children = @locus.children.order(:name_en)
+      - if children.any?
+        %ul.locus-children
+          - children.each do |child|
+            %li
+              = link_to child.name_en, child
+              - if child.new_type.present?
+                %span.tag{class: child.new_type}= child.new_type
+      - else
+        %p.empty No children.

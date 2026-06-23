@@ -185,3 +185,92 @@ table.neat_table.statistics
     img
       max-width: 100%
       border: 1px solid #cccccc
+
+// Locus show page
+.locus-show
+  max-width: 900px
+
+  .locus-header
+    margin-bottom: 12px
+    h1
+      margin: 0 0 4px 0
+      .tag
+        font-size: 13px
+        vertical-align: middle
+        margin-left: 6px
+    .locus-header-meta
+      color: #888
+      code
+        font-size: 13px
+        background-color: #f5f5f5
+        padding: 1px 6px
+        border-radius: 4px
+      .tag
+        font-size: 11px
+        margin-left: 6px
+
+  .locus-breadcrumb
+    margin: 0 0 18px 0
+    font-size: 14px
+    color: #777
+    .sep
+      margin: 0 6px
+      color: #bbb
+    .current
+      color: #555
+
+  .locus-columns
+    display: flex
+    flex-wrap: wrap
+    gap: 24px
+    align-items: flex-start
+
+  .locus-card
+    flex: 1 1 320px
+    min-width: 280px
+    border: 1px solid #e2e2e2
+    border-radius: 6px
+    padding: 14px 18px
+    background-color: #fafafa
+    h2
+      margin: 0 0 10px 0
+      font-size: 18px
+      .count
+        display: inline-block
+        margin-left: 6px
+        padding: 0 8px
+        border-radius: 10px
+        background-color: #5555aa
+        color: white
+        font-size: 12px
+        vertical-align: middle
+
+  table.neat_table.locus-details
+    width: 100%
+    border-top: none
+    th
+      width: 40%
+      background-color: transparent
+      color: #777
+      font-weight: normal
+      vertical-align: top
+    td
+      vertical-align: top
+
+  ul.locus-children
+    margin: 0
+    padding: 0
+    list-style: none
+    column-width: 220px
+    column-gap: 24px
+    li
+      margin: 0 0 6px 0
+      line-height: 1.4
+      break-inside: avoid
+      .tag
+        font-size: 10px
+        margin-left: 6px
+
+  .empty
+    color: #999
+    margin: 0

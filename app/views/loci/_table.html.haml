@@ -13,11 +13,12 @@
       %td
         = locus.id
       %td
-        = link_to locus.slug, edit_locus_path(locus.slug)
+        %b= link_to locus.slug, locus_path(locus.slug)
         - if locus.iso_code.present?
           (<b>#{locus.iso_code}</b>)
         - if locus.loc_type.present?
           %small.tag{class: locus.loc_type}= locus.loc_type
+        [#{link_to "edit", edit_locus_path(locus.slug), class: "pseudolink"}]
       %td
         - LocaleHelper::NAMING_LOCALE_PRIORITY.each do |lang|
           %div
