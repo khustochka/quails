@@ -9,5 +9,6 @@ FactoryBot.define do
     sequence(:name_uk) {|n| "Назва #{(n % 26 + 65).chr}" }
     lat { 0 }
     lon { 0 }
+    new_type { "site" }
   end
 end

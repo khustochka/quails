@@ -30,7 +30,7 @@ class Locus < ApplicationRecord
   validates :name_en, :name_ru, :name_uk, uniqueness: true
   validates :cached_country, presence: true, if: ->(loc) { loc.path.where(loc_type: "country").any? && loc.cached_country_id.nil? }
   validates :loc_type, inclusion: { in: TYPES }, allow_nil: true
-  validates :new_type, inclusion: { in: NEW_TYPES }, allow_nil: true
+  validates :new_type, inclusion: { in: NEW_TYPES }, presence: true
 
   after_initialize :prepopulate, unless: :persisted?
   before_validation :generate_slug
@@ -189,6 +189,7 @@ class Locus < ApplicationRecord
   end
 
   def prepopulate
+    self.new_type ||= "site"
     if name_en.present?
       generate_slug
       generate_lat_lon

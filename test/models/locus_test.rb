@@ -293,4 +293,15 @@ class LocusTest < ActiveSupport::TestCase
     loc = create(:locus, loc_type: "")
     assert_nil loc.loc_type
   end
+
+  test "new_type is required" do
+    loc = build(:locus)
+    loc.new_type = nil
+    assert_not loc.valid?
+    assert_predicate loc.errors[:new_type], :any?
+  end
+
+  test "new_type defaults to site for new records" do
+    assert_equal "site", Locus.new.new_type
+  end
 end
