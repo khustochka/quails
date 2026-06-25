@@ -67,7 +67,10 @@ Rails.application.routes.draw do
   # Legacy redirects. Do not add Ukraine or new countries here
   constraints country: /usa|united_kingdom|canada/ do
     scope "(:locale)", locale: /en|ru/ do
-      get "/:country", to: redirect("/photos/%{country}")
+      get "/:country", to: redirect { |params, _req|
+        prefix = "/#{params[:locale]}" if params[:locale]
+        "#{prefix}/photos/#{params[:country]}"
+      }
     end
   end
 

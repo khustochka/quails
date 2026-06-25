@@ -23,6 +23,6 @@ class PhotosRoutingTest < ActionDispatch::IntegrationTest
     assert_redirected_to "/photos/usa"
 
     get "/en/united_kingdom"
-    assert_redirected_to "/photos/united_kingdom"
+    assert_redirected_to "/en/photos/united_kingdom"
   end
 end
