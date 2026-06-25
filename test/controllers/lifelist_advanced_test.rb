@@ -57,6 +57,16 @@ class LifelistAdvancedTest < ActionController::TestCase
     assert_equal 3, lifers.size
   end
 
+  test "reject invalid param with bad request" do
+    get :advanced, params: { year: "885186414" }
+    assert_response :bad_request
+  end
+
+  test "reject multiple invalid params without double render" do
+    get :advanced, params: { locus: "usa", month: "885186414", sort: "last", year: "328396057" }
+    assert_response :bad_request
+  end
+
   test "show lifelist filtered by year and location" do
     get :advanced, params: { locus: "usa", year: 2009 }
     assert_response :success

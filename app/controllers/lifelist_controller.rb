@@ -133,13 +133,13 @@ class LifelistController < ApplicationController
       sort: /\A(class|last|count)?\z/,
     }
 
-    allowed_params.each do |param, regex|
+    invalid = allowed_params.any? do |param, regex|
       value = params[param]
-      next if value.blank?
+      next false if value.blank?
 
-      if !(value.is_a?(String) && value =~ regex)
-        render plain: "", status: :bad_request
-      end
+      !(value.is_a?(String) && value =~ regex)
     end
+
+    render plain: "", status: :bad_request if invalid
   end
 end
