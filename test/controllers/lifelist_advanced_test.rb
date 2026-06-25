@@ -60,6 +60,7 @@ class LifelistAdvancedTest < ActionController::TestCase
   test "reject invalid param with bad request" do
     get :advanced, params: { year: "885186414" }
     assert_response :bad_request
+    assert_not_empty response.body, "400 response should render the error page, not an empty body"
   end
 
   test "reject multiple invalid params without double render" do

@@ -140,6 +140,6 @@ class LifelistController < ApplicationController
       !(value.is_a?(String) && value =~ regex)
     end
 
-    render plain: "", status: :bad_request if invalid
+    render file: Rails.public_path.join("400.html"), status: :bad_request, layout: false if invalid
   end
 end
