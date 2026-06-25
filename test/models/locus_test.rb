@@ -51,7 +51,7 @@ class LocusTest < ActiveSupport::TestCase
   end
 
   test "country_slug_by_id leaves loci without a country unmapped" do
-    continent = create(:locus, slug: :europe, loc_type: "continent")
+    continent = create(:locus, slug: :europe, loc_type: "special")
     result = Locus.country_slug_by_id(Locus.where(id: continent.id))
     assert_nil result[continent.id]
   end
@@ -289,19 +289,14 @@ class LocusTest < ActiveSupport::TestCase
     end
   end
 
-  test "blank loc_type is normalized to nil" do
-    loc = create(:locus, loc_type: "")
-    assert_nil loc.loc_type
-  end
-
-  test "new_type is required" do
+  test "loc_type is required" do
     loc = build(:locus)
-    loc.new_type = nil
+    loc.loc_type = nil
     assert_not loc.valid?
-    assert_predicate loc.errors[:new_type], :any?
+    assert_predicate loc.errors[:loc_type], :any?
   end
 
-  test "new_type defaults to site for new records" do
-    assert_equal "site", Locus.new.new_type
+  test "loc_type defaults to site for new records" do
+    assert_equal "site", Locus.new.loc_type
   end
 end

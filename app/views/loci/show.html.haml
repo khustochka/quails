@@ -5,8 +5,6 @@
   .locus-header
     %h1
       = @locus.name_en
-      - if @locus.new_type.present?
-        %span.tag{class: @locus.new_type}= @locus.new_type
       - if @locus.loc_type.present?
         %span.tag{class: @locus.loc_type}= @locus.loc_type
     .locus-header-meta
@@ -76,8 +74,8 @@
           - children.each do |child|
             %li
               = link_to child.name_en, child
-              - if child.new_type.present?
-                %span.tag{class: child.new_type}= child.new_type
+              - if child.loc_type.present?
+                %span.tag{class: child.loc_type}= child.loc_type
         - parent_label = @locus.parent ? @locus.parent.name_en : "the top level"
         .locus-promote
           = button_to "Promote children to #{parent_label}", promote_children_locus_path(@locus.slug),

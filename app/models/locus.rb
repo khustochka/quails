@@ -9,8 +9,7 @@ class Locus < ApplicationRecord
 
   has_ancestry orphan_strategy: :restrict
 
-  TYPES = %w(continent country region raion city)
-  NEW_TYPES = %w(country subdivision1 subdivision2 city site section special)
+  TYPES = %w(country subdivision1 subdivision2 city site section special)
 
   # NOTE: These methods are purely for presentation. They are not updated automatically if ancestry is updated!
   belongs_to :cached_parent, class_name: "Locus", optional: true
@@ -29,8 +28,7 @@ class Locus < ApplicationRecord
   validates :slug, format: /\A[a-z_0-9]+\Z/i, uniqueness: true, presence: true, length: { maximum: 32 }
   validates :name_en, :name_ru, :name_uk, uniqueness: true
   validates :cached_country, presence: true, if: ->(loc) { loc.path.where(loc_type: "country").any? && loc.cached_country_id.nil? }
-  validates :loc_type, inclusion: { in: TYPES }, allow_nil: true
-  validates :new_type, inclusion: { in: NEW_TYPES }, presence: true
+  validates :loc_type, inclusion: { in: TYPES }, presence: true
 
   after_initialize :prepopulate, unless: :persisted?
   before_validation :generate_slug
@@ -41,7 +39,6 @@ class Locus < ApplicationRecord
 
   normalizes :iso_code, with: ->(v) { v.presence }
   normalizes :loc_type, with: ->(v) { v.presence }
-  normalizes :new_type, with: ->(v) { v.presence }
 
   # Parameters
 
@@ -189,7 +186,7 @@ class Locus < ApplicationRecord
   end
 
   def prepopulate
-    self.new_type ||= "site"
+    self.loc_type ||= "site"
     if name_en.present?
       generate_slug
       generate_lat_lon
@@ -242,7 +239,7 @@ class Locus < ApplicationRecord
   def cache_parent_loci
     anc = ancestors.to_a
     cnt_id = anc.find { |l| l.loc_type == "country" && !l.private_loc }&.id
-    sub_id = anc.find { |l| l.loc_type == "region" && !l.private_loc }&.id
+    sub_id = anc.find { |l| l.loc_type == "subdivision1" && !l.private_loc }&.id
     city_id = anc.find { |l| l.loc_type == "city" && !l.private_loc }&.id
     self.cached_parent_id = parent_id unless parent_id.in?([cnt_id, sub_id, city_id]) || parent.private_loc
     self.cached_city_id = city_id

@@ -18,16 +18,15 @@
           input_html: {class: 'suggest-combo'}
     = form.input :iso_code, label: 'ISO code'
   %div
-    = form.input :loc_type, label: 'Locus type', as: :select, collection: Locus::TYPES, input_html: {size: 6}
-    = form.input :new_type, label: 'New type', as: :select, collection: Locus::NEW_TYPES, input_html: {size: 8}
+    = form.input :loc_type, label: 'Locus type', as: :select, collection: Locus::TYPES, input_html: {size: 8}
     - if @locus.persisted?
       %ul.locus-ancestry
         - @locus.ancestors.each do |ancestor|
           %li
             = link_to ancestor.name_en, edit_locus_path(ancestor), target: :_blank, rel: :noopener
-            - if ancestor.new_type.present?
+            - if ancestor.loc_type.present?
               %small
-                %span.tag{class: ancestor.new_type}= ancestor.new_type
+                %span.tag{class: ancestor.loc_type}= ancestor.loc_type
   %div
     .less-important These fields are presentational, they should be modified separately from ancestry
     = form.input :cached_parent_id, collection: Locus.where.not(id: @locus).suggestion_order,

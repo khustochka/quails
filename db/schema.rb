@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_19_030223) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_25_000000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
@@ -281,12 +281,12 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_19_030223) do
     t.boolean "five_mile_radius", default: false, null: false
     t.string "iso_code", limit: 3
     t.float "lat"
-    t.string "loc_type", limit: 255
+    t.string "legacy_type", limit: 255
+    t.string "loc_type"
     t.float "lon"
     t.string "name_en", limit: 255
     t.string "name_ru", limit: 255
     t.string "name_uk", limit: 255
-    t.string "new_type"
     t.boolean "private_loc", default: false, null: false
     t.integer "public_index"
     t.string "slug", limit: 32, null: false
