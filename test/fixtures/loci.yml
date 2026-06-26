@@ -8,8 +8,8 @@
     public_index: 1
     iso_code: UA
     private_loc: false
+    legacy_type: country
     loc_type: country
-    new_type: country
     ancestry:
     cached_public_locus_id: 1
 
@@ -24,8 +24,8 @@
     public_index: 2
     iso_code: '32'
     private_loc: false
-    loc_type: oblast
-    new_type: subdivision1
+    legacy_type: oblast
+    loc_type: subdivision1
     ancestry: 1
     cached_country_id: 1
     cached_public_locus_id: 2
@@ -41,8 +41,8 @@
     public_index: 3
     iso_code: ''
     private_loc: false
-    loc_type:
-    new_type: city
+    legacy_type:
+    loc_type: city
     ancestry: 1/2
     cached_subdivision_id: 2
     cached_country_id: 1
@@ -59,8 +59,8 @@
     public_index: 2
     iso_code: '30'
     private_loc: false
+    legacy_type: city
     loc_type: city
-    new_type: city
     ancestry: 1/2
     cached_country_id: 1
     cached_public_locus_id: 7
@@ -76,8 +76,8 @@
     public_index: 17
     iso_code: US
     private_loc: false
+    legacy_type: country
     loc_type: country
-    new_type: country
     ancestry:
     cached_public_locus_id: 4
 
@@ -92,8 +92,8 @@
     public_index:
     iso_code: NY
     private_loc: false
-    loc_type: state
-    new_type: subdivision1
+    legacy_type: state
+    loc_type: subdivision1
     ancestry: 4
     cached_country_id: 4
     cached_public_locus_id: 5
@@ -109,8 +109,8 @@
     public_index:
     iso_code: ''
     private_loc: false
+    legacy_type: city
     loc_type: city
-    new_type: city
     ancestry: 4/5
     cached_country_id: 4
     cached_subdivision_id: 5

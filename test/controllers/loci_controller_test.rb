@@ -95,7 +95,7 @@ class LociControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "edit shows ancestry list with edit links and new_type badges" do
+  test "edit shows ancestry list with edit links and loc_type badges" do
     login_as_admin
     get :edit, params: { id: "brovary" }
     assert_response :success
@@ -170,6 +170,21 @@ class LociControllerTest < ActionController::TestCase
     login_as_admin
     get :public
     assert_response :success
+  end
+
+  test "public lists typed loci but excludes site and section" do
+    typed = create(:locus, slug: "krym", name_en: "Krym", parent: loci(:ukraine), loc_type: "subdivision1")
+    site = create(:locus, slug: "some_park", name_en: "Some Park", parent: loci(:ukraine), loc_type: "site")
+    section = create(:locus, slug: "some_trail", name_en: "Some Trail", parent: loci(:ukraine), loc_type: "section")
+
+    login_as_admin
+    get :public
+    assert_response :success
+
+    other_ids = assigns(:locs_other).map(&:id)
+    assert_includes other_ids, typed.id
+    assert_not_includes other_ids, site.id
+    assert_not_includes other_ids, section.id
   end
 
   test "save order properly" do

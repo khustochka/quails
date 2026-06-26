@@ -31,11 +31,8 @@
         - if locus.parent_id
           = link_to locus.parent.name_en, edit_locus_path(locus.parent.slug)
       %td.align-center
-        - if locus.lat
-          %div
-            %small= latlon(locus)
-        %div
-          = link_to "List", advanced_list_path(locus: locus.slug)
+        = link_to "Lifelist", advanced_list_path(locus: locus.slug)
+        = google_maps_link(locus)
       %td.align-right
         = locus.public_index
         - if locus.private_loc

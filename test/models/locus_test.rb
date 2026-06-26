@@ -24,6 +24,20 @@ class LocusTest < ActiveSupport::TestCase
     assert_nil loc.cached_country
   end
 
+  test "country is valid without a cached_country even though it is in its own path" do
+    # A country sits on its own ancestry path, but it must not be required to
+    # reference itself as cached_country.
+    country = build(:locus, slug: "peru", loc_type: "country")
+    assert_nil country.cached_country
+    assert_predicate country, :valid?
+
+    # The same holds for a country nested under a non-country parent.
+    special = create(:locus, slug: "continent", loc_type: "special")
+    nested_country = build(:locus, slug: "chile", loc_type: "country", parent: special)
+    assert_nil nested_country.cached_country
+    assert_predicate nested_country, :valid?
+  end
+
   test "cached country is required if there is a country in the ancestry" do
     peru = create(:locus, slug: "peru", loc_type: "country")
     loc = create(:locus, slug: "lima", parent: peru)
@@ -51,14 +65,14 @@ class LocusTest < ActiveSupport::TestCase
   end
 
   test "country_slug_by_id leaves loci without a country unmapped" do
-    continent = create(:locus, slug: :europe, loc_type: "continent")
+    continent = create(:locus, slug: :europe, loc_type: "special")
     result = Locus.country_slug_by_id(Locus.where(id: continent.id))
     assert_nil result[continent.id]
   end
 
   test "subregions of the Arabat Spit" do
     loc = create(:locus, slug: :arabat_spit, parent: loci("ukraine"))
-    loc1 = create(:locus, slug: :arabat_spit_kherson, parent: loci("ukraine"))
+    loc1 = create(:locus, slug: :arabat_spit_kherson, loc_type: "city", parent: loci("ukraine"))
     loc2 = create(:locus, slug: :arabat_spit_krym, parent: loci("ukraine"))
     loc3 = create(:locus, slug: :hen_horka, parent: loc1)
     actual = loc.subregion_ids
@@ -90,8 +104,8 @@ class LocusTest < ActiveSupport::TestCase
 
   test "proper public parent for a private locus" do
     brvr = loci(:brovary)
-    loc = create(:locus, parent_id: brvr.id, private_loc: true)
-    loc2 = create(:locus, parent_id: loc.id, private_loc: true)
+    loc = create(:locus, loc_type: "site", parent_id: brvr.id, private_loc: true)
+    loc2 = create(:locus, loc_type: "section", parent_id: loc.id, private_loc: true)
     assert_equal brvr, loc2.public_locus
   end
 
@@ -133,8 +147,8 @@ class LocusTest < ActiveSupport::TestCase
 
   test "descendants cached_public_locus updated when ancestor becomes private" do
     brvr = loci(:brovary)
-    parent = create(:locus, parent_id: brvr.id, private_loc: false)
-    child = create(:locus, parent_id: parent.id, private_loc: true)
+    parent = create(:locus, loc_type: "site", parent_id: brvr.id, private_loc: false)
+    child = create(:locus, loc_type: "section", parent_id: parent.id, private_loc: true)
     assert_equal parent, child.reload.cached_public_locus
 
     parent.update!(private_loc: true)
@@ -144,8 +158,8 @@ class LocusTest < ActiveSupport::TestCase
   test "descendants cached_public_locus updated when ancestry changes" do
     brvr = loci(:brovary)
     kyiv = loci(:kyiv)
-    parent = create(:locus, parent_id: brvr.id, private_loc: false)
-    child = create(:locus, parent_id: parent.id, private_loc: true)
+    parent = create(:locus, loc_type: "site", parent_id: brvr.id, private_loc: false)
+    child = create(:locus, loc_type: "section", parent_id: parent.id, private_loc: true)
     assert_equal parent, child.reload.cached_public_locus
 
     parent.update!(parent: kyiv)
@@ -153,8 +167,8 @@ class LocusTest < ActiveSupport::TestCase
   end
 
   test "promote_children! re-parents children to the locus's parent" do
-    grandparent = create(:locus)
-    locus = create(:locus, parent: grandparent)
+    grandparent = create(:locus, loc_type: "country")
+    locus = create(:locus, loc_type: "city", parent: grandparent)
     child_a = create(:locus, parent: locus)
     child_b = create(:locus, parent: locus)
 
@@ -168,7 +182,7 @@ class LocusTest < ActiveSupport::TestCase
   end
 
   test "promote_children! makes children roots when locus is a root" do
-    locus = create(:locus)
+    locus = create(:locus, loc_type: "city")
     child = create(:locus, parent: locus)
 
     assert_equal 1, locus.promote_children!
@@ -178,14 +192,14 @@ class LocusTest < ActiveSupport::TestCase
   end
 
   test "promote_children! returns zero and changes nothing when there are no children" do
-    locus = create(:locus, parent: create(:locus))
+    locus = create(:locus, parent: create(:locus, loc_type: "city"))
 
     assert_equal 0, locus.promote_children!
   end
 
   test "promote_children! updates descendants cached_public_locus" do
-    grandparent = create(:locus, private_loc: false)
-    locus = create(:locus, parent: grandparent, private_loc: true)
+    grandparent = create(:locus, loc_type: "country", private_loc: false)
+    locus = create(:locus, loc_type: "city", parent: grandparent, private_loc: true)
     child = create(:locus, parent: locus, private_loc: false)
     assert_equal child, child.reload.cached_public_locus
 
@@ -197,8 +211,8 @@ class LocusTest < ActiveSupport::TestCase
   end
 
   test "promote_children! clears cached_parent pointing at the old parent" do
-    grandparent = create(:locus)
-    locus = create(:locus, parent: grandparent)
+    grandparent = create(:locus, loc_type: "subdivision1")
+    locus = create(:locus, loc_type: "city", parent: grandparent)
     child = create(:locus, parent: locus, cached_parent: locus)
 
     locus.promote_children!
@@ -208,8 +222,8 @@ class LocusTest < ActiveSupport::TestCase
   end
 
   test "promote_children! sets the new parent as cached_parent when not in the chain" do
-    grandparent = create(:locus)
-    locus = create(:locus, parent: grandparent)
+    grandparent = create(:locus, loc_type: "subdivision1")
+    locus = create(:locus, loc_type: "city", parent: grandparent)
     child = create(:locus, parent: locus)
 
     locus.promote_children!
@@ -219,8 +233,8 @@ class LocusTest < ActiveSupport::TestCase
 
   test "promote_children! sets the new parent as cached_city when it is a city" do
     grandparent = create(:locus, loc_type: "city")
-    locus = create(:locus, parent: grandparent)
-    child = create(:locus, parent: locus)
+    locus = create(:locus, loc_type: "site", parent: grandparent)
+    child = create(:locus, loc_type: "section", parent: locus)
 
     locus.promote_children!
 
@@ -229,8 +243,8 @@ class LocusTest < ActiveSupport::TestCase
   end
 
   test "promote_children! does not duplicate the new parent already in the cached chain" do
-    grandparent = create(:locus)
-    locus = create(:locus, parent: grandparent)
+    grandparent = create(:locus, loc_type: "country")
+    locus = create(:locus, loc_type: "city", parent: grandparent)
     child = create(:locus, parent: locus, cached_subdivision: grandparent)
 
     locus.promote_children!
@@ -242,7 +256,7 @@ class LocusTest < ActiveSupport::TestCase
   end
 
   test "promote_children! clears old-parent cached_parent even when locus is a root" do
-    locus = create(:locus)
+    locus = create(:locus, loc_type: "city")
     child = create(:locus, parent: locus, cached_parent: locus)
 
     locus.promote_children!
@@ -289,19 +303,147 @@ class LocusTest < ActiveSupport::TestCase
     end
   end
 
-  test "blank loc_type is normalized to nil" do
-    loc = create(:locus, loc_type: "")
-    assert_nil loc.loc_type
-  end
-
-  test "new_type is required" do
+  test "loc_type is required" do
     loc = build(:locus)
-    loc.new_type = nil
+    loc.loc_type = nil
     assert_not loc.valid?
-    assert_predicate loc.errors[:new_type], :any?
+    assert_predicate loc.errors[:loc_type], :any?
   end
 
-  test "new_type defaults to site for new records" do
-    assert_equal "site", Locus.new.new_type
+  test "loc_type defaults to site for new records" do
+    assert_equal "site", Locus.new.loc_type
+  end
+
+  # loc_type hierarchy
+
+  test "valid descending hierarchy: city below country and subdivision" do
+    country = create(:locus, slug: "peru", loc_type: "country")
+    subdiv = create(:locus, slug: "lima_region", loc_type: "subdivision1", parent: country)
+    city = build(:locus, slug: "lima_city", loc_type: "city", parent: subdiv)
+    assert_predicate city, :valid?
+  end
+
+  test "valid hierarchy may skip ranks: city directly below country" do
+    country = create(:locus, slug: "peru", loc_type: "country")
+    city = build(:locus, slug: "lima_city", loc_type: "city", parent: country)
+    assert_predicate city, :valid?
+  end
+
+  test "invalid hierarchy: same rank repeated (city below city)" do
+    country = create(:locus, slug: "peru", loc_type: "country")
+    city = create(:locus, slug: "lima_city", loc_type: "city", parent: country)
+    district = build(:locus, slug: "miraflores", loc_type: "city", parent: city)
+    assert_not district.valid?
+    assert_predicate district.errors[:loc_type], :any?
+  end
+
+  test "invalid hierarchy: higher rank below lower rank (country below city)" do
+    country = create(:locus, slug: "peru", loc_type: "country")
+    city = create(:locus, slug: "lima_city", loc_type: "city", parent: country)
+    nested_country = build(:locus, slug: "nested", loc_type: "country", parent: city)
+    assert_not nested_country.valid?
+    assert_predicate nested_country.errors[:loc_type], :any?
+  end
+
+  test "special loci may be interspersed without affecting the hierarchy" do
+    country = create(:locus, slug: "peru", loc_type: "country")
+    special = create(:locus, slug: "andes", loc_type: "special", parent: country)
+    city = build(:locus, slug: "lima_city", loc_type: "city", parent: special)
+    assert_predicate city, :valid?
+  end
+
+  test "special loci may repeat anywhere in the hierarchy" do
+    country = create(:locus, slug: "peru", loc_type: "country")
+    special1 = create(:locus, slug: "andes", loc_type: "special", parent: country)
+    special2 = build(:locus, slug: "andes2", loc_type: "special", parent: special1)
+    assert_predicate special2, :valid?
+  end
+
+  test "special locus below a city does not break a deeper ranked descendant" do
+    country = create(:locus, slug: "peru", loc_type: "country")
+    city = create(:locus, slug: "lima_city", loc_type: "city", parent: country)
+    special = create(:locus, slug: "park", loc_type: "special", parent: city)
+    site = build(:locus, slug: "feeder", loc_type: "site", parent: special)
+    assert_predicate site, :valid?
+  end
+
+  test "root locus of any rank is valid" do
+    assert_predicate build(:locus, slug: "lone_city", loc_type: "city"), :valid?
+  end
+
+  test "re-parenting an existing locus under an invalid ancestor is rejected" do
+    country = create(:locus, slug: "peru", loc_type: "country")
+    city = create(:locus, slug: "lima_city", loc_type: "city", parent: country)
+    other_country = create(:locus, slug: "chile", loc_type: "country")
+
+    other_country.parent = city
+    assert_not other_country.valid?
+    assert_predicate other_country.errors[:loc_type], :any?
+  end
+
+  # subtree validation when this locus's own type or position changes
+
+  test "changing a locus type that would strand a descendant is rejected" do
+    country = create(:locus, slug: "peru", loc_type: "country")
+    subdiv = create(:locus, slug: "lima_region", loc_type: "subdivision1", parent: country)
+    create(:locus, slug: "lima_city", loc_type: "city", parent: subdiv)
+
+    # Demoting the subdivision to a city would put a city below another city.
+    subdiv.loc_type = "city"
+    assert_not subdiv.valid?
+    assert_predicate subdiv.errors[:base], :any?
+  end
+
+  test "changing a locus type that keeps descendants valid is allowed" do
+    country = create(:locus, slug: "peru", loc_type: "country")
+    subdiv = create(:locus, slug: "lima_region", loc_type: "subdivision1", parent: country)
+    create(:locus, slug: "lima_city", loc_type: "city", parent: subdiv)
+
+    # subdivision1 -> subdivision2 still sits above the city: still valid.
+    subdiv.loc_type = "subdivision2"
+    assert_predicate subdiv, :valid?
+  end
+
+  test "deeper descendants are validated when a locus type changes" do
+    country = create(:locus, slug: "peru", loc_type: "country")
+    subdiv = create(:locus, slug: "lima_region", loc_type: "subdivision1", parent: country)
+    city = create(:locus, slug: "lima_city", loc_type: "city", parent: subdiv)
+    create(:locus, slug: "feeder", loc_type: "site", parent: city)
+
+    # Demoting subdivision to site collides with the deeper site descendant.
+    subdiv.loc_type = "site"
+    assert_not subdiv.valid?
+    assert_predicate subdiv.errors[:base], :any?
+  end
+
+  test "moving a subtree under an invalid ancestor is rejected via a descendant" do
+    country = create(:locus, slug: "peru", loc_type: "country")
+    city = create(:locus, slug: "lima_city", loc_type: "city", parent: country)
+    # A standalone subdivision with a city of its own.
+    subdiv = create(:locus, slug: "region", loc_type: "subdivision1")
+    create(:locus, slug: "town", loc_type: "city", parent: subdiv)
+
+    # Moving the subdivision under a city makes its child city sit below a city.
+    subdiv.parent = city
+    assert_not subdiv.valid?
+    assert_predicate subdiv.errors[:base], :any?
+  end
+
+  test "moving a subtree under a valid ancestor is allowed" do
+    country = create(:locus, slug: "peru", loc_type: "country")
+    subdiv = create(:locus, slug: "region", loc_type: "subdivision1")
+    create(:locus, slug: "town", loc_type: "city", parent: subdiv)
+
+    subdiv.parent = country
+    assert_predicate subdiv, :valid?
+  end
+
+  test "special descendants are ignored when a locus type changes" do
+    country = create(:locus, slug: "peru", loc_type: "country")
+    subdiv = create(:locus, slug: "lima_region", loc_type: "subdivision1", parent: country)
+    create(:locus, slug: "park", loc_type: "special", parent: subdiv)
+
+    subdiv.loc_type = "city"
+    assert_predicate subdiv, :valid?
   end
 end

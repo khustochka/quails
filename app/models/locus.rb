@@ -9,8 +9,14 @@ class Locus < ApplicationRecord
 
   has_ancestry orphan_strategy: :restrict
 
-  TYPES = %w(continent country region raion city)
-  NEW_TYPES = %w(country subdivision1 subdivision2 city site section special)
+  TYPES = %w(country subdivision1 subdivision2 city site section special)
+
+  # +special+ loci may appear anywhere in the hierarchy and repeat freely.
+  SPECIAL_TYPE = "special"
+
+  # Ranked types, ordered from highest (country) to lowest (section). Each may
+  # appear at most once on an ancestry path and only below higher-ranked ones.
+  RANKED_TYPES = (TYPES - [SPECIAL_TYPE]).freeze
 
   # NOTE: These methods are purely for presentation. They are not updated automatically if ancestry is updated!
   belongs_to :cached_parent, class_name: "Locus", optional: true
@@ -28,9 +34,11 @@ class Locus < ApplicationRecord
 
   validates :slug, format: /\A[a-z_0-9]+\Z/i, uniqueness: true, presence: true, length: { maximum: 32 }
   validates :name_en, :name_ru, :name_uk, uniqueness: true
-  validates :cached_country, presence: true, if: ->(loc) { loc.path.where(loc_type: "country").any? && loc.cached_country_id.nil? }
-  validates :loc_type, inclusion: { in: TYPES }, allow_nil: true
-  validates :new_type, inclusion: { in: NEW_TYPES }, presence: true
+  validates :cached_country, presence: true, if: ->(loc) { loc.ancestors.where(loc_type: "country").any? && loc.cached_country_id.nil? }
+  validates :loc_type, inclusion: { in: TYPES }, presence: true
+  validate :loc_type_hierarchy_valid
+  validate :descendants_loc_type_hierarchy_valid,
+    if: -> { persisted? && (will_save_change_to_loc_type? || will_save_change_to_ancestry?) }
 
   after_initialize :prepopulate, unless: :persisted?
   before_validation :generate_slug
@@ -41,7 +49,6 @@ class Locus < ApplicationRecord
 
   normalizes :iso_code, with: ->(v) { v.presence }
   normalizes :loc_type, with: ->(v) { v.presence }
-  normalizes :new_type, with: ->(v) { v.presence }
 
   # Parameters
 
@@ -178,6 +185,68 @@ class Locus < ApplicationRecord
     end
   end
 
+  # Each ranked (non-special) loc_type must appear at most once on the ancestry
+  # path and only below higher-ranked types: e.g. a city may sit below a country
+  # or subdivision, but not below another city or a site. +special+ loci are
+  # exempt and may be interspersed anywhere. Enforced by requiring the ranked
+  # types along the path (ancestors first, self last) to strictly descend in
+  # RANKED_TYPES order.
+  def loc_type_hierarchy_valid
+    conflict = hierarchy_conflict_for(loc_type, ancestors)
+    return unless conflict
+
+    errors.add(:loc_type,
+      "#{loc_type} cannot be placed below #{conflict.loc_type} (#{conflict.slug})")
+  end
+
+  # When this locus's own type or position changes, descendants that were valid
+  # may no longer be (e.g. demoting a country to a site can leave a city stranded
+  # above a higher-ranked ancestor, or repeat a rank). Re-validate each descendant
+  # against the ancestry it will have after the save.
+  #
+  # Descendant +ancestry+ columns are only rewritten in an after_update callback,
+  # so at validation time a descendant's own #ancestors still reflects the old
+  # tree. We rebuild each descendant's pending path as: this locus's new path
+  # (its fresh ancestors + itself, carrying the pending loc_type) followed by the
+  # unchanged chain between this locus and the descendant.
+  def descendants_loc_type_hierarchy_valid
+    own_new_path = ancestors.to_a + [self]
+
+    subtree = descendants.to_a
+    by_id = subtree.index_by(&:id)
+
+    subtree.each do |descendant|
+      # The chain strictly between this locus and the descendant, taken from the
+      # (still old, but intra-subtree-stable) ancestry path and resolved against
+      # the loci we already loaded — no per-descendant query.
+      below_self = descendant.ancestor_ids.drop_while { |aid| aid != id }.drop(1).map { |aid| by_id[aid] }
+      conflict = hierarchy_conflict_for(descendant.loc_type, own_new_path + below_self)
+      next unless conflict
+
+      errors.add(:base,
+        "#{descendant.loc_type} #{descendant.slug} cannot be placed below " \
+          "#{conflict.loc_type} (#{conflict.slug})")
+    end
+  end
+
+  # Returns the first ancestor in +path+ (root-first order) that a locus of
+  # +type+ may not sit below — i.e. a ranked ancestor of equal or higher rank.
+  # Returns nil when +type+ is blank, special, or unranked, or when no ancestor
+  # conflicts. +path+ is an enumerable of Locus records.
+  def hierarchy_conflict_for(type, path)
+    return if type.blank? || type == SPECIAL_TYPE
+
+    own_rank = RANKED_TYPES.index(type)
+    return if own_rank.nil?
+
+    # special or unranked ancestors are skipped; a same-or-higher ranked
+    # ancestor means this type would repeat or sit above a higher rank.
+    path.find do |ancestor|
+      ancestor_rank = RANKED_TYPES.index(ancestor.loc_type)
+      ancestor_rank && ancestor_rank >= own_rank
+    end
+  end
+
   def generate_lat_lon
     unless lat && lon
       num = /-?\d+(?:\.\d+)?/
@@ -189,7 +258,7 @@ class Locus < ApplicationRecord
   end
 
   def prepopulate
-    self.new_type ||= "site"
+    self.loc_type ||= "site"
     if name_en.present?
       generate_slug
       generate_lat_lon
@@ -242,7 +311,7 @@ class Locus < ApplicationRecord
   def cache_parent_loci
     anc = ancestors.to_a
     cnt_id = anc.find { |l| l.loc_type == "country" && !l.private_loc }&.id
-    sub_id = anc.find { |l| l.loc_type == "region" && !l.private_loc }&.id
+    sub_id = anc.find { |l| l.loc_type == "subdivision1" && !l.private_loc }&.id
     city_id = anc.find { |l| l.loc_type == "city" && !l.private_loc }&.id
     self.cached_parent_id = parent_id unless parent_id.in?([cnt_id, sub_id, city_id]) || parent.private_loc
     self.cached_city_id = city_id
