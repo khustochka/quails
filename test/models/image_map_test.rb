@@ -8,8 +8,8 @@ class ImageMapTest < ActiveSupport::TestCase
     @private_spot = FactoryBot.create(:spot, public: false, lat: 2)
 
     @country = loci(:ukraine)
-    @overlocus = FactoryBot.create(:locus, private_loc: false, lat: 3, parent: @country)
-    @overlocus_no_geo = FactoryBot.create(:locus, private_loc: false, lat: nil, lon: nil, parent: @country)
+    @overlocus = FactoryBot.create(:locus, loc_type: "city", private_loc: false, lat: 3, parent: @country)
+    @overlocus_no_geo = FactoryBot.create(:locus, loc_type: "city", private_loc: false, lat: nil, lon: nil, parent: @country)
 
     @public_locus = FactoryBot.create(:locus, private_loc: false, lat: 4, parent: @overlocus)
     @private_locus = FactoryBot.create(:locus, private_loc: true, lat: 5, parent: @overlocus)
