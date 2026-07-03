@@ -74,7 +74,13 @@ Rails.application.configure do
 
   # Log to STDOUT with the current request id as a default log tag.
   # rails_semantic_logger installs the actual logger and STDOUT appender.
-  config.log_tags = [ :request_id ]
+  #
+  # Use a Hash (not an Array) so datadog's Rails log-injection skips appending
+  # its flat "dd.trace_id=…" log_tags: it only touches log_tags when they are
+  # nil or Array-like (see datadog rails/log_injection.rb). The SemanticLogger
+  # integration still injects the nested `dd={…}` correlation object, which is
+  # the shape Datadog ingests — so we keep exactly one copy, not two.
+  config.log_tags = { request_id: :request_id }
 
   # logfmt "key=value" line, or JSON when QUAILS_LOG_JSON is set.
   config.rails_semantic_logger.appenders do |appenders|
