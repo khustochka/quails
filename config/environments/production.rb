@@ -73,9 +73,14 @@ Rails.application.configure do
   config.colorize_logging = false
 
   # Log to STDOUT with the current request id as a default log tag.
+  # rails_semantic_logger installs the actual logger and STDOUT appender.
   config.log_tags = [ :request_id ]
-  # Log to STDOUT by default, no tagged logging
-  config.logger = ActiveSupport::Logger.new($stdout)
+
+  # logfmt "key=value" line, or JSON when QUAILS_LOG_JSON is set.
+  config.rails_semantic_logger.appenders do |appenders|
+    formatter = ENV["QUAILS_LOG_JSON"].in?(%w(true 1)) ? :json : :logfmt
+    appenders.add(io: $stdout, formatter: formatter)
+  end
 
   # Change to "debug" to log everything (including potentially personally-identifiable information!)
   config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "info")

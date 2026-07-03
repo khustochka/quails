@@ -87,6 +87,14 @@ Rails.application.configure do
   # Suppress logger output for asset requests.
   config.assets.quiet = true
 
+  # Keep Rails' familiar multi-line request log (Started/Processing/Rendered/
+  # Completed) instead of the single dense semantic line. With semantic off the
+  # gem leaves Rails::Rack::Logger in place, so tidewave needs no override.
+  config.rails_semantic_logger.semantic   = false
+  config.rails_semantic_logger.started    = true
+  config.rails_semantic_logger.processing = true
+  config.rails_semantic_logger.rendered   = true
+
   # Raises error for missing translations.
   config.i18n.raise_on_missing_translations = true
 

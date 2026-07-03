@@ -14,6 +14,7 @@ if ENV["QUAILS_DD_ENABLED"].in?(["true", "1"])
     c.tracing.instrument :active_record, service_name: "quails-postgres"
     c.tracing.instrument :active_support, cache_service: "quails-rails-cache"
     c.tracing.instrument :aws # Autodetected
+    c.tracing.instrument :semantic_logger
 
     if defined?(Rake)
       c.tracing.instrument :rake, tasks: TRACED_TASKS

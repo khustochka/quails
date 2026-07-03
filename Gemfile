@@ -75,7 +75,7 @@ gem "csv"
 # Monitoring
 gem "datadog", require: false
 gem "honeybadger", "~> 6.0"
-gem "lograge"
+gem "rails_semantic_logger"
 gem "rails-pg-extras"
 # gem "airbrake"
 
