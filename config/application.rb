@@ -73,5 +73,8 @@ module Quails
     end
 
     config.middleware.use Quails::Middleware::RejectOldImageVariations
+
+    # Name the app in structured (JSON) log output
+    config.semantic_logger.application = "quails"
   end
 end
