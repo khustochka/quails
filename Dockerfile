@@ -172,7 +172,10 @@ RUN find / -perm /6000 -type f -exec chmod a-s {} \; || true
 USER 101
 
 ENV PORT=3000
-# Port is not exposed, and the command is not `rails server`, because this image can be used
-# for background job workers etc
+# Port is not exposed because this image is also reused for background job workers etc,
+# which override the command below.
 
-CMD ["/bin/bash"]
+# Entrypoint prepares the database (only when the command is `./bin/rails server`).
+ENTRYPOINT ["/app/bin/docker-entrypoint"]
+
+CMD ["./bin/rails", "server"]
