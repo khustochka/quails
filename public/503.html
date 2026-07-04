@@ -1,68 +1,141 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta content="text/html; charset=UTF-8" http-equiv="content-type">
-    <title>Service temporarily unavailable</title>
-    <style>
-        body
-        {
-            background-color: #efefef;
-            color: #2E2F30;
-            text-align: center;
-            font-family: arial,sans-serif;
-        }
-        div.dialog
-        {
-            width: 25em;
-            margin: 4em auto 0 auto;
-            border: 1px solid #CCC;
-            border-right-color: #999;
-            border-left-color: #999;
-            border-bottom-color: #BBB;
-            border-top: #B00100 solid 4px;
-            border-top-left-radius: 9px;
-            border-top-right-radius: 9px;
-            background-color: white;
-            padding: 7px 4em 0 4em;
-        }
-        h1{
-            font-size: 100%;
-            color: #730E15;
-            line-height: 1.5em;
-        }
-        h2{
-            font-size: 90%;
-            color: #730E15;
-            line-height: 1.5em;
-        }
-        div.message
-        {
-            width: 33em;
-            margin: 0 auto 1em;
-            background-color: #f7f7f7;
-            border: 1px solid #CCC;
-            border-right-color: #999;
-            border-bottom-color: #999;
-            border-bottom-left-radius: 4px;
-            border-bottom-right-radius: 4px;
-            border-top-color: #DADADA;
-            color: #666;
-            box-shadow: 0 3px 8px rgba(50,50,50,0.17);
-        }
-    </style>
-</head>
+<!doctype html>
 
-<body>
-<!-- This file lives in public/503.html -->
-<div class="dialog">
-    <h1>Site is temporarily unavailable</h1>
-    <h2>Сайт тимчасово недосяжний</h2>
-    <h2>Сайт временно недоступен</h2>
-</div>
-<div class="message">
-    <p>This may be due to maintenance or error. Please check in several minutes.</p>
-    <p>Можливо, відбувається оновлення сайта або сталася помилка. Будь ласка, спробуйте через кілька хвилин.</p>
-    <p>Возможно, производится обновление сайта или произошел сбой. Пожалуйста, попробуйте через несколько минут.</p>
-</div>
-</body>
+<html lang="en">
+
+  <head>
+
+    <title>Service temporarily unavailable (503 Service Unavailable)</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, width=device-width">
+    <meta name="robots" content="noindex, nofollow">
+
+    <style>
+
+      *, *::before, *::after {
+        box-sizing: border-box;
+      }
+
+      * {
+        margin: 0;
+      }
+
+      html {
+        font-size: 16px;
+      }
+
+      body {
+        background: #FFF;
+        color: #261B23;
+        display: grid;
+        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Aptos, Roboto, "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+        font-size: clamp(1rem, 2.5vw, 2rem);
+        -webkit-font-smoothing: antialiased;
+        font-style: normal;
+        font-weight: 400;
+        letter-spacing: -0.0025em;
+        line-height: 1.4;
+        min-height: 100dvh;
+        place-items: center;
+        text-rendering: optimizeLegibility;
+        -webkit-text-size-adjust: 100%;
+      }
+
+      #error-description {
+        fill: #d30001;
+      }
+
+      #error-id {
+        fill: #f0eff0;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        body {
+          background: #101010;
+          color: #e0e0e0;
+        }
+
+        #error-description {
+          fill: #FF6161;
+        }
+
+        #error-id {
+          fill: #2c2c2c;
+        }
+      }
+
+      a {
+        color: inherit;
+        font-weight: 700;
+        text-decoration: underline;
+        text-underline-offset: 0.0925em;
+      }
+
+      b, strong {
+        font-weight: 700;
+      }
+
+      i, em {
+        font-style: italic;
+      }
+
+      main {
+        display: grid;
+        gap: 1em;
+        padding: 2em;
+        place-items: center;
+        text-align: center;
+      }
+
+      main header {
+        width: min(100%, 12em);
+      }
+
+      main header svg {
+        height: auto;
+        max-width: 100%;
+        width: 100%;
+      }
+
+      main article {
+        width: min(100%, 30em);
+      }
+
+      main article p {
+        font-size: 75%;
+      }
+
+      main article p + p {
+        margin-top: 0.75em;
+      }
+
+      main article br {
+        display: none;
+
+        @media(min-width: 48em) {
+          display: inline;
+        }
+      }
+
+    </style>
+
+  </head>
+
+  <body>
+
+    <!-- This file lives in public/503.html -->
+
+    <main>
+      <header>
+        <svg height="172" viewBox="0 0 480 172" width="480" xmlns="http://www.w3.org/2000/svg"><text id="error-id" x="240" y="139" text-anchor="middle" font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Aptos, Roboto, &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif" font-size="196" font-weight="800" letter-spacing="-6">503</text><text id="error-description" x="240" y="97" text-anchor="middle" font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Aptos, Roboto, &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif" font-size="36" font-weight="700" letter-spacing="-1">Service unavailable</text></svg>
+      </header>
+      <article>
+        <p><strong>The site is temporarily unavailable.</strong> It may be undergoing maintenance, or a temporary error has occurred. Please try again in a few minutes.</p>
+        <p><strong>Сайт тимчасово недоступний.</strong> Можливо, триває оновлення сайту або сталася тимчасова помилка. Будь ласка, спробуйте ще раз за кілька хвилин.</p>
+        <p><strong>Сайт временно недоступен.</strong> Возможно, идёт обновление сайта или произошёл временный сбой. Пожалуйста, попробуйте ещё раз через несколько минут.</p>
+      </article>
+    </main>
+
+  </body>
+
 </html>
