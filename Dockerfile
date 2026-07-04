@@ -144,24 +144,11 @@ COPY --from=assets /app/public/assets /app/public/assets
 # Deploy your application
 COPY . .
 
-# # Adjust binstubs to run on Linux and set current working directory
-# # This seems unnecessary
-# # RUN chmod +x /app/bin/* && \
-# #     sed -i 's/ruby.exe/ruby/' /app/bin/* && \
-# #     sed -i '/^#!/aDir.chdir File.expand_path("..", __dir__)' /app/bin/*
-
-
-# TODO: maybe remove, used primarily for static page cache, which is being removed
-RUN mkdir -p /app/public_static
-
 RUN chown -R 101:101 /app/storage
 RUN chown -R 101:101 /app/tmp
-RUN chown -R 101:101 /app/public
-RUN chown -R 101:101 /app/public_static
 
 VOLUME ["/app/storage"]
 VOLUME ["/app/tmp"]
-VOLUME ["/app/public_static"]
 
 # Adopted from bitnami/nginx image
 # Left for compatibility
@@ -173,8 +160,8 @@ RUN find / -perm /6000 -type f -exec chmod a-s {} \; || true
 USER 101
 
 ENV PORT=3000
-# Port is not exposed because this image is also reused for background job workers etc,
-# which override the command below.
+# Port is not exposed because this image is also reused for background job workers,
+# that override the command below.
 
 # Entrypoint prepares the database (only when the command is `./bin/rails server`).
 ENTRYPOINT ["/app/bin/docker-entrypoint"]
