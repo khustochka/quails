@@ -7,8 +7,6 @@ class FlickrPhotosController < ApplicationController
 
   before_action :find_image, only: [:show, :create, :edit, :update, :destroy, :push_to_storage]
 
-  after_action :cache_expire, only: [:create, :destroy]
-
   def show
     @next = Image.unflickred.where(created_at: ...@image.created_at).order(created_at: :desc).first
   end
@@ -107,11 +105,5 @@ class FlickrPhotosController < ApplicationController
   def find_image
     @image = Image.find_by(slug: params[:id])
     @photo = FlickrPhoto.new(@image)
-  end
-
-  def cache_expire
-    # TODO: maybe expire the regular cache
-    # expire_page controller: :feeds, action: :blog, format: "xml"
-    # expire_photo_feeds
   end
 end

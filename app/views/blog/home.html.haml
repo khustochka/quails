@@ -21,7 +21,7 @@
 
 = render partial: "year_summaries", locals: { new_year_mode: Settings.new_year_mode }
 
-- cache [@posts, admin: current_user.admin?, locale: I18n.locale] do
+- cache [@posts, admin: current_user.admin?, locale: I18n.locale, key: Quails::CacheKey.gallery] do
   %h2= t(".blog")
 
   = render @posts

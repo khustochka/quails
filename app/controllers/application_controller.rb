@@ -26,13 +26,6 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def expire_photo_feeds
-    # TODO: maybe expire the regular cache
-    # expire_page controller: :feeds, action: :photos, format: "xml"
-    # expire_page controller: :feeds, action: :photos, format: "xml", locale: "en"
-    # expire_page controller: :feeds, action: :photos, format: "xml", locale: "ru"
-  end
-
   # Report a rescued error
   def report_error(exception)
     # TODO: properly notify?

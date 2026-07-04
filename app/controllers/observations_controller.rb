@@ -5,8 +5,6 @@ class ObservationsController < ApplicationController
 
   find_record before: [:show, :update, :destroy]
 
-  after_action :cache_expire, only: [:update, :destroy, :extract]
-
   # GET /observations/1
   def show
   end
@@ -68,13 +66,5 @@ class ObservationsController < ApplicationController
 
     @card = @observations.first.card
     @observation_search = ObservationSearch.new(observ_date: @card.observ_date, locus_id: @card.locus_id)
-  end
-
-  private
-
-  def cache_expire
-    # TODO: maybe expire the regular cache
-    # expire_photo_feeds
-    # expire_page controller: :feeds, action: :blog, format: "xml"
   end
 end

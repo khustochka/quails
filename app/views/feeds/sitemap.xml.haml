@@ -2,112 +2,113 @@
 !!! XML
 %urlset{:xmlns => "https://www.sitemaps.org/schemas/sitemap/0.9"}
 
-  -# home page
-  %url
-    %loc= root_url
-    %lastmod= @root_lastmod
-    %changefreq daily
-
-  -# English home page
-  %url
-    %loc= blog_url(locale: :en)
-
-  -# Birds of Ukraine page
-  %url
-    %loc= country_url(country: 'ukraine')
-
-  %url
-    %loc= country_url(country: 'ukraine', locale: :en)
-
-  -# Ukraine checklist page
-  %url
-    %loc= checklist_url(country: 'ukraine')
-
-  %url
-    %loc= checklist_url(country: 'ukraine', locale: :en)
-
-  -# Country galleries
-  %url
-    %loc= country_images_url(country: 'usa')
-  %url
-    %loc= country_images_url(country: 'usa', locale: :en)
-  %url
-    %loc= country_images_url(country: 'united_kingdom')
-  %url
-    %loc= country_images_url(country: 'united_kingdom', locale: :en)
-  %url
-    %loc= country_images_url(country: 'canada')
-  %url
-    %loc= country_images_url(country: 'canada', locale: :en)
-  %url
-    %loc= country_images_url(country: 'poland')
-  %url
-    %loc= country_images_url(country: 'poland', locale: :en)
-
-  -# Photostream
-  %url
-    %loc= images_url
-  %url
-    %loc= images_url(locale: :en)
-
-  -# species gallery page
-  %url
-    %loc= gallery_url
-    -# TODO: %lastmod=
-    -# %changefreq weekly
-
-  %url
-    %loc= gallery_url(locale: :en)
-    -# TODO: %lastmod=
-    -# %changefreq weekly
-
-  -# Links page
-  %url
-    %loc= links_url
-
-  -# Winter page
-  %url
-    %loc= winter_url
-
-  -# posts
-  - @posts.each do |post|
+  - cache([@posts, @images, @videos, @species]) do
+    -# home page
     %url
-      %loc= default_public_post_url(post)
-      %lastmod= post.updated_at.iso8601
-      %changefreq yearly
+      %loc= root_url
+      %lastmod= @root_lastmod
+      %changefreq daily
 
-  -# images
-  - @images.each do |img|
+    -# English home page
     %url
-      %loc= localize_url(img, locale: nil)
-      %lastmod= img.updated_at.iso8601
-      %changefreq yearly
+      %loc= blog_url(locale: :en)
+
+    -# Birds of Ukraine page
+    %url
+      %loc= country_url(country: 'ukraine')
 
     %url
-      %loc= localize_url(img, locale: :en)
-      %lastmod= img.updated_at.iso8601
-      %changefreq yearly
+      %loc= country_url(country: 'ukraine', locale: :en)
 
-  -# videos
-  - @videos.each do |vid|
+    -# Ukraine checklist page
     %url
-      %loc= localize_url(vid, locale: nil)
-      %lastmod= vid.updated_at.iso8601
-      %changefreq yearly
+      %loc= checklist_url(country: 'ukraine')
 
     %url
-      %loc= localize_url(vid, locale: :en)
-      %lastmod= vid.updated_at.iso8601
-      %changefreq yearly
+      %loc= checklist_url(country: 'ukraine', locale: :en)
 
-  -# species
-  - @species.each do |sp|
+    -# Country galleries
     %url
-      %loc= localize_url(sp, locale: nil)
-      -# %lastmod=
-      %changefreq monthly
+      %loc= country_images_url(country: 'usa')
+    %url
+      %loc= country_images_url(country: 'usa', locale: :en)
+    %url
+      %loc= country_images_url(country: 'united_kingdom')
+    %url
+      %loc= country_images_url(country: 'united_kingdom', locale: :en)
+    %url
+      %loc= country_images_url(country: 'canada')
+    %url
+      %loc= country_images_url(country: 'canada', locale: :en)
+    %url
+      %loc= country_images_url(country: 'poland')
+    %url
+      %loc= country_images_url(country: 'poland', locale: :en)
+
+    -# Photostream
+    %url
+      %loc= images_url
+    %url
+      %loc= images_url(locale: :en)
+
+    -# species gallery page
+    %url
+      %loc= gallery_url
+      -# TODO: %lastmod=
+      -# %changefreq weekly
 
     %url
-      %loc= localize_url(sp, locale: :en)
-      -# %lastmod=
-      %changefreq monthly
+      %loc= gallery_url(locale: :en)
+      -# TODO: %lastmod=
+      -# %changefreq weekly
+
+    -# Links page
+    %url
+      %loc= links_url
+
+    -# Winter page
+    %url
+      %loc= winter_url
+
+    -# posts
+    - @posts.each do |post|
+      %url
+        %loc= default_public_post_url(post)
+        %lastmod= post.updated_at.iso8601
+        %changefreq yearly
+
+    -# images
+    - @images.each do |img|
+      %url
+        %loc= localize_url(img, locale: nil)
+        %lastmod= img.updated_at.iso8601
+        %changefreq yearly
+
+      %url
+        %loc= localize_url(img, locale: :en)
+        %lastmod= img.updated_at.iso8601
+        %changefreq yearly
+
+    -# videos
+    - @videos.each do |vid|
+      %url
+        %loc= localize_url(vid, locale: nil)
+        %lastmod= vid.updated_at.iso8601
+        %changefreq yearly
+
+      %url
+        %loc= localize_url(vid, locale: :en)
+        %lastmod= vid.updated_at.iso8601
+        %changefreq yearly
+
+    -# species
+    - @species.each do |sp|
+      %url
+        %loc= localize_url(sp, locale: nil)
+        -# %lastmod=
+        %changefreq monthly
+
+      %url
+        %loc= localize_url(sp, locale: :en)
+        -# %lastmod=
+        %changefreq monthly

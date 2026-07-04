@@ -11,8 +11,6 @@ class PostsController < ApplicationController
 
   before_action :find_post, only: [:edit, :update, :destroy, :for_lj, :lj_post]
 
-  after_action :cache_expire, only: [:create, :update, :destroy]
-
   FILTER_KEYS = [:topic, :shout, :status, :lang_present, :lang_missing, :year, :month].freeze
 
   POST_ATTRS = [:title, :body, :face_date, :status, :lang, :lj_data, :post_core_id].freeze
@@ -255,13 +253,6 @@ class PostsController < ApplicationController
 
   def find_post
     @post = current_user.available_posts.find(params[:id])
-  end
-
-  def cache_expire
-    # TODO: maybe expire the regular cache
-    # expire_page controller: :feeds, action: :blog, format: "xml"
-    # expire_photo_feeds
-    # expire_page controller: :feeds, action: :sitemap, format: "xml"
   end
 
   def default_redirect_path(record)

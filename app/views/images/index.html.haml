@@ -11,7 +11,7 @@
   = render 'partials/translated'
 
 - do_not_cache = params[:page]
-- cache_unless(do_not_cache, admin: current_user.admin?, key: Quails::CacheKey.gallery) do
+- cache_unless(do_not_cache, ["photos#index", locale: I18n.locale, admin: current_user.admin?, key: Quails::CacheKey.gallery]) do
   %div.header-with-subheader
     %h1
       = page_header

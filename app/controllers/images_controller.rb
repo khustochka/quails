@@ -25,8 +25,6 @@ class ImagesController < ApplicationController
 
   find_record by: :slug, before: [:edit, :map_edit, :update, :patch, :destroy]
 
-  after_action :cache_expire, only: [:create, :update, :destroy]
-
   # Latest additions
   def index
     if params[:page].to_i == 1
@@ -198,12 +196,5 @@ class ImagesController < ApplicationController
 
   def image_params
     @image_params ||= params.expect(image: [*ACCEPTED_PARAMS]).merge(observation_ids: params[:obs] || [])
-  end
-
-  def cache_expire
-    # TODO: maybe expire the regular cache
-    # expire_page controller: :feeds, action: :blog, format: "xml"
-    # expire_photo_feeds
-    # expire_page controller: :feeds, action: :sitemap, format: "xml"
   end
 end

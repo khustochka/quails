@@ -5,8 +5,6 @@ require "ebird/checklist"
 class CardsController < ApplicationController
   administrative
 
-  after_action :cache_expire, only: [:create, :update, :destroy, :attach]
-
   # GET /cards
   # GET /cards.json
   def index
@@ -139,13 +137,5 @@ class CardsController < ApplicationController
     end
 
     render "form"
-  end
-
-  private
-
-  def cache_expire
-    # TODO: maybe expire the regular cache
-    expire_photo_feeds
-    # expire_page controller: :feeds, action: :blog, format: "xml"
   end
 end
