@@ -36,9 +36,6 @@ gem "bcrypt", "~> 3.1.7"
 # Translations
 gem "rails-i18n"
 
-# Old rails functionality
-gem "actionpack-page_caching"
-
 # AR utils
 gem "ancestry", ">= 3.2.1"
 gem "acts_as_list"

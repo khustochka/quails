@@ -150,7 +150,6 @@ Key variables (see `.env.TEMPLATE`):
 3. **Modular Rails**: Individual Rails components are loaded separately (not the full `rails` gem)
 4. **Localization**: App supports multiple locales (see `config/locales/`)
 5. **Image Processing**: Uses `image_processing` gem for variants
-6. **Page Caching**: Uses `actionpack-page_caching` for static pages
 
 ## Common Patterns
 

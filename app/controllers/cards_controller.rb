@@ -144,7 +144,8 @@ class CardsController < ApplicationController
   private
 
   def cache_expire
+    # TODO: maybe expire the regular cache
     expire_photo_feeds
-    expire_page controller: :feeds, action: :blog, format: "xml"
+    # expire_page controller: :feeds, action: :blog, format: "xml"
   end
 end

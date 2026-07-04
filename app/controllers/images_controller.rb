@@ -201,8 +201,9 @@ class ImagesController < ApplicationController
   end
 
   def cache_expire
-    expire_page controller: :feeds, action: :blog, format: "xml"
-    expire_photo_feeds
-    expire_page controller: :feeds, action: :sitemap, format: "xml"
+    # TODO: maybe expire the regular cache
+    # expire_page controller: :feeds, action: :blog, format: "xml"
+    # expire_photo_feeds
+    # expire_page controller: :feeds, action: :sitemap, format: "xml"
   end
 end

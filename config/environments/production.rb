@@ -162,13 +162,4 @@ Rails.application.configure do
   # Route error pages through custom middleware
   require "quails/public_exceptions"
   config.exceptions_app = Quails::PublicExceptions.new(Rails.public_path)
-
-  # Alternative location for page caching
-  # App user should be able to write to this location, but we do not want it to write to 'public'
-  # To fully benefit from this, web server should be configured to serve cached pages from this location.
-  ENV["CACHED_PAGES_PATH"].yield_self do |path|
-    if path.present?
-      config.action_controller.page_cache_directory = path
-    end
-  end
 end

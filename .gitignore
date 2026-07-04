@@ -74,15 +74,3 @@ definitions.rb
 
 /app/assets/builds/*
 !/app/assets/builds/.keep
-
-# These files may be created if you run prod env locally
-404.html
-404.html.gz
-500.html
-500.html.gz
-sitemap.xml
-sitemap.xml.gz
-blog.xml
-blog.xml.gz
-photos.xml
-photos.xml.gz

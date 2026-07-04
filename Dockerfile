@@ -151,6 +151,7 @@ COPY . .
 # #     sed -i '/^#!/aDir.chdir File.expand_path("..", __dir__)' /app/bin/*
 
 
+# TODO: maybe remove, used primarily for static page cache, which is being removed
 RUN mkdir -p /app/public_static
 
 RUN chown -R 101:101 /app/storage
