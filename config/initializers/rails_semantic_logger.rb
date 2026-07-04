@@ -15,6 +15,16 @@
 # JSON.generate (which does not html-escape) yields a valid, quoted logfmt value
 # like: params="{\"locus\":\"canada\"}". Skipped in JSON mode, where params stay
 # a real nested object.
+
+Rails.application.configure do
+  config.rails_semantic_logger.action_message_format =
+    lambda do |_message, payload|
+      location = [payload[:method], payload[:path]].compact.join(" ")
+      action   = "#{payload[:controller]}##{payload[:action]}"
+      [location.presence, action].compact.join(" - ")
+    end
+end
+
 unless ENV["QUAILS_LOG_JSON"].in?(%w(true 1))
   # #to_json returns the JSON-quoted string without html-escaping, so the
   # formatter emits it as one properly quoted logfmt field.
