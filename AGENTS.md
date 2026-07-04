@@ -181,10 +181,18 @@ Lifelist::Advanced
 Search::SpeciesSearch.new(query).find
 ```
 
-## Agent instructions
+## Agents Instructions
 
-- Always create/modify tests for the new or changed functionality. But also verify that there are no redundant or duplicate tests.
-- Run and fix the tests and rubocop before declaring the change ready.
+- Add and update tests for all new and changed code before committing.
+- Check for tests verifying the same functionality.
+- Keep documentation and comment concise. Don't explain what's obvious from the code (e.g. don't write 'Returns `true` if...'), and don't describe the change you made or how the code used to work.
+- Before committing, run and fix rubocop and the tests.
+- Avoid adding utility functions unrelated to a class or module's topic.
+- When designing frontend, always make it responsive (check on smaller screen sizes).
+- Be mindful of how it will present on text-based browsers (e.g. lynx) and for screen readers.
+- When creating a bunch of homogenous elements, implement them using `<ul>` and `<li>`, even if they are not rendered visually as a list.
+- Do not overuse icons.
+- Don't truncate text unless explicitly asked.
 
 ## File Locations
 
