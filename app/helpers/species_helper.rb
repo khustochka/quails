@@ -86,7 +86,7 @@ module SpeciesHelper
         zoom = nil
       end
     end
-    image_tag("https://maps.googleapis.com/maps/api/staticmap?key=#{ENV["quails_google_maps_api_key"]}&zoom=#{zoom}&size=443x300&#{center}&markers=#{markers}",
+    image_tag("https://maps.googleapis.com/maps/api/staticmap?key=#{ENV["GOOGLE_MAPS_API_KEY"]}&zoom=#{zoom}&size=443x300&#{center}&markers=#{markers}",
       alt: "#{country} map", size: "443x300")
   end
 
