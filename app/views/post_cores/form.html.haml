@@ -49,12 +49,12 @@
     - else
       %p.less-important No cards attached.
 
-    - solo_obs = @post_core.observations.where.not(card_id: attached_cards.select(:id))
+    - solo_obs = @post_core.observations.where.not(card_id: attached_cards.select(:id)).preload(card: :locus)
     - if solo_obs.any?
       %h4 Standalone observations
       %ul
         - solo_obs.each do |obs|
-          = render "cards/observation_row", obs: obs
+          = render "cards/observation_row", obs: obs, show_card: true
 
   %h3#card_attach Attach cards
 

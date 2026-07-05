@@ -65,6 +65,17 @@ class PostCoresControllerTest < ActionController::TestCase
     assert_select "ul.cards_list li.observ_card[data-id='#{card.id}']"
   end
 
+  test "edit shows card details for standalone observations" do
+    core = create(:post_core)
+    card = create(:card, observ_date: "2024-04-01")
+    create(:observation, card: card, post_core: core)
+    login_as_admin
+    get :edit, params: { id: core.id }
+    assert_response :success
+    assert_select "a[href='#{edit_card_path(card)}']", text: card.id.to_s
+    assert_select "a[href='#{day_path(card.observ_date)}']", text: "2024-04-01"
+  end
+
   test "edit lists existing translations and create links for missing ones" do
     core = create(:post_core, slug: "shared")
     uk_post = create(:post, post_core: core, lang: "uk")

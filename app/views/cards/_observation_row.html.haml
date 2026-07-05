@@ -16,3 +16,10 @@
     %small.voice.tag voice
   - if obs.hidden
     = tag.span(class: %w(fas fa-eye-slash), title: "Hidden")
+  - if local_assigns[:show_card]
+    %div
+      %small
+        = surround("[", "]") do
+          = link_to obs.card_id, edit_card_path(obs.card)
+        = link_to obs.card.observ_date, day_path(obs.card.observ_date)
+        %i= obs.card.locus.decorated.short_full_name
