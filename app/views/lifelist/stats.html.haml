@@ -21,7 +21,7 @@
     %li= link_to(t('lifelist.title.gb'), list_path(locus: 'united_kingdom'))
     %li= link_to(t('lifelist.title.canada'), list_path(locus: 'canada'))
 
-- cache(key: Quails::CacheKey.lifelist) do
+- cache(key: Quails::CacheKey.lifelist, admin: current_user.admin?, locale: I18n.locale) do
   - first_sp_by_year = @first_sp_by_year.count(:all)
   - year_country_counts = grouped_by_year_and_country.count_distinct_species
   - country_counts = grouped_by_country.count_distinct_species
@@ -62,7 +62,7 @@
 
     %tr.total
       %td.year= t('.total')
-      %td.count_sp= link_to Observation.identified.count_distinct_species, lifelist_path
+      %td.count_sp= link_to total_species_count, lifelist_path
       %td
       %td.countries
         %ul

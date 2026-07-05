@@ -22,16 +22,57 @@ class LifelistControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "index hides hidden observations from visitors" do
+    %w(united_kingdom canada).each do |sl|
+      create(:locus, slug: sl, loc_type: "country")
+    end
+    create(:observation, taxon: taxa(:motfel), hidden: true,
+      card: create(:card, observ_date: "2011-06-20", locus: loci(:nyc)))
+    get :index
+    assert_select ".sp_link_long", text: /Black-headed Wagtail/, count: 0
+  end
+
+  test "index shows hidden observations to admin" do
+    %w(united_kingdom canada).each do |sl|
+      create(:locus, slug: sl, loc_type: "country")
+    end
+    create(:observation, taxon: taxa(:motfel), hidden: true,
+      card: create(:card, observ_date: "2011-06-20", locus: loci(:nyc)))
+    login_as_admin
+    get :index
+    assert_select ".sp_link_long", text: /Black-headed Wagtail/, count: 1
+  end
+
   test "shows My Statistics page" do
     get :stats
     assert_response :success
     # 2009: bomgar in the USA, jyntor in Ukraine
     assert_select "td.count_sp a[href=?]", list_path(year: 2009), text: "2"
+    assert_select "td.count_new a[href=?]", advanced_list_path(anchor: "first_seen_2009"), text: "2"
     assert_select "li.ukraine .count a[href=?]", list_path(year: 2009, locus: "ukraine"), text: "1"
     assert_select "li.usa .count a[href=?]", list_path(year: 2009, locus: "usa"), text: "1"
     assert_select "tr.total td.count_sp a[href=?]", lifelist_path, text: "5"
     assert_select "tr.total li.usa .count a[href=?]", list_path(locus: "usa"), text: "3"
     assert_select "tr.total li.ukraine .count a[href=?]", list_path(locus: "ukraine"), text: "2"
+  end
+
+  test "stats excludes hidden observations for visitors" do
+    create(:observation, taxon: taxa(:motfel), hidden: true,
+      card: create(:card, observ_date: "2009-08-09", locus: loci(:nyc)))
+    get :stats
+    assert_select "tr.total td.count_sp a[href=?]", lifelist_path, text: "5"
+    assert_select "td.count_sp a[href=?]", list_path(year: 2009), text: "2"
+    assert_select "tr.total li.usa .count a[href=?]", list_path(locus: "usa"), text: "3"
+  end
+
+  test "stats includes hidden observations for admin" do
+    create(:observation, taxon: taxa(:motfel), hidden: true,
+      card: create(:card, observ_date: "2009-08-09", locus: loci(:nyc)))
+    login_as_admin
+    get :stats
+    assert_select "tr.total td.count_sp a[href=?]", lifelist_path, text: "6"
+    assert_select "td.count_sp a[href=?]", list_path(year: 2009), text: "3"
+    assert_select "tr.total li.usa .count a[href=?]", list_path(locus: "usa"), text: "4"
   end
 
   test "eBird Lifelist page" do

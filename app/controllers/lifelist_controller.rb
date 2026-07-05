@@ -9,7 +9,7 @@ class LifelistController < ApplicationController
 
   localized
 
-  helper_method :grouped_by_country, :grouped_by_year_and_country
+  helper_method :grouped_by_country, :grouped_by_year_and_country, :total_species_count
 
   def index
     @list_life = Lifelist::FirstSeen.full
@@ -22,6 +22,11 @@ class LifelistController < ApplicationController
     @list_usa = Lifelist::FirstSeen.over(locus: "usa")
     @list_uk = Lifelist::FirstSeen.over(locus: "united_kingdom")
     @list_pl = Lifelist::FirstSeen.over(locus: "poland")
+
+    [@list_life, @list_current_year, @list_prev_year,
+      @list_canada, @list_ukraine, @list_usa, @list_uk, @list_pl,].each do |list|
+      list.observation_scope = current_user.available_obs
+    end
   end
 
   def basic
@@ -96,13 +101,12 @@ class LifelistController < ApplicationController
   end
 
   def stats
-    identified_observations = Observation.joins(:card).identified
-
     @year_data = identified_observations.group("EXTRACT(year FROM observ_date)::integer")
       .order(Arel.sql("EXTRACT(year FROM observ_date)::integer"))
 
-    @first_sp_by_year = LiferObservation.group("EXTRACT(year FROM observ_date)::integer")
-      .except(:order)
+    first_dates = identified_observations.group(:species_id).select("MIN(observ_date) AS first_seen")
+    @first_sp_by_year = Observation.from(first_dates, :first_dates)
+      .group("EXTRACT(year FROM first_seen)::integer")
 
     @countries = Country.all
   end
@@ -116,13 +120,20 @@ class LifelistController < ApplicationController
 
   private
 
+  def identified_observations
+    current_user.available_obs.identified.joins(:card)
+  end
+
+  def total_species_count
+    identified_observations.count_distinct_species
+  end
+
   def grouped_by_country
-    Observation.joins(:card).identified.group(country_case_sql)
+    identified_observations.group(country_case_sql)
   end
 
   def grouped_by_year_and_country
-    Observation.joins(:card).identified
-      .group("EXTRACT(year FROM observ_date)::integer", country_case_sql)
+    identified_observations.group("EXTRACT(year FROM observ_date)::integer", country_case_sql)
   end
 
   # Runs a subtree query per country, so it must stay out of the `stats`
