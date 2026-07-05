@@ -62,7 +62,8 @@ class FormattersTest < ActionDispatch::IntegrationTest
     image = create(:image)
     post = build(:post, body: "{{^#{image.slug}}}")
     assert_includes post.decorated.for_site.body,
-      "<a href=\"/photos/#{image.slug}\"><img src=\"#{jpg_url(image)}\" title=\"[photo]\" alt=\"[photo]\" /></a>"
+      "<a href=\"/photos/#{image.slug}\"><img src=\"#{jpg_url(image)}\" title=\"[photo]\" alt=\"[photo]\" " \
+        "width=\"800\" height=\"600\" style=\"max-width: min(100%, calc(max(97vh, 700px) * 800 / 600))\" /></a>"
     assert_includes post.decorated.for_site.body,
       "<figcaption class=\"imagetitle\"><a href=\"/photos/#{image.slug}\" class=\"not-green\">House Sparrow</a></figcaption>"
   end

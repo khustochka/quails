@@ -288,12 +288,18 @@ $image-info-pane-width: 300px
   img
     vertical-align: top
     display: block
-    @include auto-width
-    // fit the viewport height, but don't shrink in short-wide windows
-    // (unquote: libsass can't evaluate CSS max() with mixed units)
-    max-height: unquote("max(95vh, 700px)")
-    @media (max-width: 900px)
-      max-height: 580px
+    // no width: auto here — it would override the width/height attributes
+    // that reserve layout space while the image loads
+    max-width: 100%
+    height: auto
+    // Images with width/height attributes carry the height cap as an inline
+    // max-width (see ImagesHelper#dimension_attrs); max-height would squish them.
+    &:not([width])
+      // fit the viewport height, but don't shrink in short-wide windows
+      // (unquote: libsass can't evaluate CSS max() with mixed units)
+      max-height: unquote("max(95vh, 700px)")
+      @media (max-width: 900px)
+        max-height: 580px
 
 table.image_nav
   max-width: 100%

@@ -37,7 +37,7 @@
     %div.two_thirds
       %div.image_canvas
         = link_to localized_image_path(id: @species.image) do
-          = image_tag(jpg_url(@species.image), alt: @species.name)
+          = image_tag(jpg_url(@species.image), {alt: @species.name}.merge(dimension_attrs(jpg_dimensions(@species.image), cap: ImagesHelper::CANVAS_IMG_HEIGHT_CAP)))
 
   %div{class: @species.image ? "one_third" : nil}
     %dl.sp_translations

@@ -86,6 +86,15 @@ class WikiFilterTest < ActionDispatch::IntegrationTest
     result = transform("{{^#{image.slug}}}")
     assert_includes result, '<figure class="imageholder">'
     assert_includes result, image.decorated.title
+    assert_includes result, 'width="800" height="600"'
+    assert_includes result, 'style="max-width: min(100%, calc(max(97vh, 700px) * 800 / 600))"'
+  end
+
+  test "render image with unknown dimensions without width/height attributes" do
+    image = create(:image, assets_cache: ImageAssetsArray.new([ImageAssetItem.new(:local, 0, 0, "/photos/no-dims.jpg")]))
+    result = transform("{{^#{image.slug}}}")
+    assert_includes result, "<img src="
+    assert_not_includes result, "width="
   end
 
   test "render two images by slug in one text" do

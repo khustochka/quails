@@ -25,11 +25,29 @@ class ImageRepresenter
     if image.on_storage?
       variant(:medium)
     else
-      relevant_assets_cache.select { |item| item.width <= 1200 }.max_by(&:width).url
+      large_asset.url
     end
   end
 
-  # For large images they usually take whole almost viewport
+  # Natural dimensions of the large representation (nil if unknown), for
+  # width/height img attributes reserving layout space before load.
+  def dimensions
+    if image.on_storage?
+      width, height = image.stored_image.metadata.values_at(:width, :height)
+      return unless width && height
+
+      limit = NAME_TO_WIDTH[:medium]
+      if width > limit
+        height = (height * limit / width.to_f).round
+        width = limit
+      end
+      { width: width, height: height }
+    elsif (asset = large_asset) && !asset.dummy_dimensions?
+      { width: asset.width, height: asset.height }
+    end
+  end
+
+  # For large images they usually take almost entire viewport
   def fullscreen_sizes
     "(min-width: #{fullscreen_max_width}px) #{fullscreen_max_width}px, 100vw"
   end
@@ -90,6 +108,10 @@ class ImageRepresenter
   end
 
   private
+
+  def large_asset
+    relevant_assets_cache.select { |item| item.width <= 1200 }.max_by(&:width)
+  end
 
   def relevant_assets_cache
     key = image.on_flickr? ? :externals : :locals

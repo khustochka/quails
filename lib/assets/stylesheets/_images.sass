@@ -16,7 +16,9 @@ figure.image_thumb, figure.imageholder
 figure.image_thumb a img
   max-height: 97vh
 
-figure.imageholder a img
+// Images with width/height attributes carry the height cap as an inline
+// max-width (see ImagesHelper#dimension_attrs); max-height would squish them.
+figure.imageholder a img:not([width])
   // fit the viewport height, but don't shrink in short-wide windows
   // (unquote: libsass can't evaluate CSS max() with mixed units)
   max-height: unquote("max(97vh, 700px)")
@@ -44,7 +46,10 @@ figure.image_thumb
 figure.imageholder
   @include auto-width
   img
-    @include auto-width
+    // no width: auto here — it would override the width/height attributes
+    // that reserve layout space while the image loads
+    max-width: 100%
+    height: auto
 
 figcaption.imagetitle
   @include inline-block

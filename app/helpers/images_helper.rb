@@ -16,6 +16,35 @@ module ImagesHelper
     end
   end
 
+  # Dimensions of the asset that jpg_url points to (nil if unknown),
+  # for width/height img attributes reserving layout space before load.
+  def jpg_dimensions(img)
+    if img.on_storage?
+      width, height = img.stored_image.metadata.values_at(:width, :height)
+      { width: width, height: height } if width && height
+    else
+      asset = img.assets_cache.public_send(img.on_flickr? ? :externals : :locals).main_image
+      { width: asset.width, height: asset.height } if asset && !asset.dummy_dimensions?
+    end
+  end
+
+  # Fit the viewport height, but don't shrink in short-wide windows
+  POST_IMG_HEIGHT_CAP = "max(97vh, 700px)"
+  CANVAS_IMG_HEIGHT_CAP = "max(95vh, 700px)"
+
+  # width/height attributes reserving layout space before load, plus the
+  # viewport-height cap expressed as a width cap: the width attribute pins the
+  # layout width, so a CSS max-height would squish the image instead of
+  # scaling it down.
+  def dimension_attrs(dims, cap: POST_IMG_HEIGHT_CAP)
+    return {} unless dims
+
+    {
+      width: dims[:width], height: dims[:height],
+      style: "max-width: min(100%, calc(#{cap} * #{dims[:width]} / #{dims[:height]}))",
+    }
+  end
+
   def static_jpg_url(img, options = {})
     image_url(img, options.merge({ format: :jpg }))
   end

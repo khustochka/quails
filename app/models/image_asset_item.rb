@@ -33,7 +33,8 @@ class ImageAssetItem < Struct.new(:type, :width, :height, :url)
     super || 400
   end
 
+  # Unknown dimensions serialize as nil or 0 depending on the era of the record
   def dummy_dimensions?
-    !self[:width] || !self[:height]
+    !self[:width]&.positive? || !self[:height]&.positive?
   end
 end
