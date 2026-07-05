@@ -92,7 +92,10 @@ Rails.application.configure do
   config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "info")
 
   # Prevent health checks from clogging up the logs.
-  config.silence_healthcheck_path = "/up"
+  config.silence_healthcheck_path = nil
+
+  config.middleware.insert_before(Rails::Rack::Logger, Rails::Rack::SilenceRequest, path: "/up")
+  config.middleware.insert_before(Rails::Rack::Logger, Rails::Rack::SilenceRequest, path: "/healthy")
 
   # Don't log any deprecations.
   config.active_support.report_deprecations = false
