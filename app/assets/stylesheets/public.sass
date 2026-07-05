@@ -289,7 +289,9 @@ $image-info-pane-width: 300px
     vertical-align: top
     display: block
     @include auto-width
-    max-height: 100vh
+    // fit the viewport height, but don't shrink in short-wide windows
+    // (unquote: libsass can't evaluate CSS max() with mixed units)
+    max-height: unquote("max(95vh, 700px)")
     @media (max-width: 900px)
       max-height: 580px
 

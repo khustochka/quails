@@ -12,7 +12,14 @@ figure.image_thumb, figure.imageholder
     margin-bottom: 0
     // to remove 1px high line above image in Firefox
     display: block
-    max-height: 97vh
+
+figure.image_thumb a img
+  max-height: 97vh
+
+figure.imageholder a img
+  // fit the viewport height, but don't shrink in short-wide windows
+  // (unquote: libsass can't evaluate CSS max() with mixed units)
+  max-height: unquote("max(97vh, 700px)")
 
 figure.imageholder
   border: 1px solid #eeeeee
