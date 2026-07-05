@@ -8,6 +8,12 @@ module Lifelist
       base.count("DISTINCT species_id")
     end
 
+    # Cheap emptiness check (`SELECT 1 ... LIMIT 1`), unlike `blank?` which
+    # loads the whole list.
+    def has_species?
+      base.exists?
+    end
+
     def to_a
       @records ||= load_records
     end

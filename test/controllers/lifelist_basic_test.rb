@@ -88,6 +88,7 @@ class LifelistBasicTest < ActionController::TestCase
 
   test "empty lifelist shows no list" do
     get :basic, params: { year: 1899 }
+    assert_response :not_found
     assert_select ".main" do
       assert_select "ol", false
       assert_select "li", I18n.t("lifelist.basic.no_species"), "No proper message found (saying no species in the list)"

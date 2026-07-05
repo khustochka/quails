@@ -88,6 +88,30 @@ class LifelistAdvancedTest < ActionController::TestCase
     assert_select "a", { text: taxa(:saxola).species.name, count: 0 }, "Heard only species should not be shown"
   end
 
+  test "empty lifelist renders the page with 404" do
+    get :advanced, params: { year: 1899 }
+    assert_response :not_found
+    assert_select ".main" do
+      assert_select "p", I18n.t("lifelist.basic.no_species")
+    end
+  end
+
+  test "empty lifelist ordered by count renders the page with 404" do
+    get :advanced, params: { year: 1899, sort: "count" }
+    assert_response :not_found
+  end
+
+  test "show winter list" do
+    create(:observation, taxon: taxa(:pasdom), card: create(:card, observ_date: "2009-01-15"))
+    get :winter
+    assert_response :success
+  end
+
+  test "empty winter list renders the page with 404" do
+    get :winter
+    assert_response :not_found
+  end
+
   test "do not include hidden observations into public lifelist" do
     create(:observation, taxon: taxa(:larheu), card: create(:card), hidden: true)
     get :advanced

@@ -30,13 +30,18 @@ module Lifelist
       end
     end
 
+    # Cheap emptiness check, unlike `blank?` which loads the whole list.
+    def has_species?
+      list_for(primary_key).has_species?
+    end
+
     # Behave as species array for taxonomy sorting. FullLifer should respond to order, family
     include SpeciesArray
 
     private
 
     def primary_list
-      @primary_list ||= all_lists(primary_key).sort(@sorting)
+      @primary_list ||= list_for(primary_key).sort(@sorting)
     end
 
     def primary_key
@@ -53,27 +58,27 @@ module Lifelist
         end
     end
 
-    def all_lists(key)
-      @all_lists ||= {}
-      return @all_lists[key] if @all_lists[key]
-
-      list =
-        case key
-        when :first_seen
-          Lifelist::FirstSeen.over(@filter)
-        when :last_seen
-          Lifelist::LastSeen.over(@filter)
-        when :obs_count
-          Lifelist::Count.over(@filter)
-        end
-      list.posts_scope = @posts_scope
-      list.observation_scope = @observation_scope
-      list
+    def list_for(key)
+      @lists ||= {}
+      @lists[key] ||= begin
+        list =
+          case key
+          when :first_seen
+            Lifelist::FirstSeen.over(@filter)
+          when :last_seen
+            Lifelist::LastSeen.over(@filter)
+          when :obs_count
+            Lifelist::Count.over(@filter)
+          end
+        list.posts_scope = @posts_scope
+        list.observation_scope = @observation_scope
+        list
+      end
     end
 
     def secondary_list(key)
       @secondary_list ||= {}
-      @secondary_list[key] ||= all_lists(key).secondary_observations.index_by(&:species_id)
+      @secondary_list[key] ||= list_for(key).secondary_observations.index_by(&:species_id)
     end
   end
 end

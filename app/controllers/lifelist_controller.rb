@@ -46,6 +46,8 @@ class LifelistController < ApplicationController
 
     @lifelist.observation_scope = current_user.available_obs
     @lifelist.posts_scope = current_user.available_posts
+
+    render status: :not_found unless @lifelist.has_species?
   end
 
   def advanced
@@ -63,6 +65,8 @@ class LifelistController < ApplicationController
 
     @lifelist.observation_scope = current_user.available_obs
     @lifelist.posts_scope = current_user.available_posts
+
+    render status: :not_found unless @lifelist.has_species?
   end
 
   def winter
@@ -81,7 +85,7 @@ class LifelistController < ApplicationController
     @lifelist.observation_scope = current_user.available_obs
     @lifelist.posts_scope = current_user.available_posts
 
-    render "advanced"
+    render "advanced", status: @lifelist.has_species? ? :ok : :not_found
   end
 
   def ebird
