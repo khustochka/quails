@@ -1,6 +1,4 @@
 -# frozen_string_literal: true
-- javascript "admin-public" if current_user.admin?
-
 - @canonical = default_public_post_url(@post)
 - @og_type = 'article'
 
@@ -62,19 +60,3 @@
   = render partial: 'species/flat_section', object: @post
 
 = render 'posts/sections/comments'
-
-- if current_user.admin?
-
-  %hr
-
-  %p= link_to("Add new card", new_card_path(card: { post_core_id: @post.post_core_id }))
-
-  %p= link_to("Attach existing cards / observations", edit_post_core_path(@post.post_core, anchor: "card_attach"))
-
-  %ul.cards_list
-    -# Template Dependency: cards/card
-    = render @post.cards.default_cards_order(:asc).preload(:locus, post_core: :posts)
-
-    %ul
-      - @post.observations.each do |obs|
-        = render 'cards/observation_row', obs: obs

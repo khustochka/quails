@@ -65,7 +65,6 @@ class PostsController < ApplicationController
     end
 
     @localized_versions = @post.localized_versions(source: current_user.available_posts)
-    @attach_core_id = @post.post_core_id if current_user.admin?
     @robots = "NOINDEX" if @post.status == "NIDX"
     @comments = current_user.available_comments(@post).group_by(&:parent_id)
 

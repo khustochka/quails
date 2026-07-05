@@ -9,12 +9,12 @@ class JSPostsTest < ApplicationSystemTestCase
     assert_predicate find(:xpath, "//h1[text()='New post core']"), :present?
   end
 
-  test "Detach card from post show page updates UI without reloading" do
+  test "Detach card from post core edit page updates UI without reloading" do
     post = create(:post)
     card = create(:card, post_core: post.post_core)
 
     login_as_admin
-    visit show_post_path(post.to_url_params)
+    visit edit_post_core_path(post.post_core)
 
     assert_css "li.observ_card"
 
@@ -22,8 +22,8 @@ class JSPostsTest < ApplicationSystemTestCase
       find("li.observ_card").click_link("Detach from this post")
     end
 
-    assert_current_path show_post_path(post.to_url_params)
-    assert_no_css "li.observ_card"
+    assert_current_path edit_post_core_path(post.post_core)
+    assert_no_css "[data-attached-list] li.observ_card"
     assert_nil card.reload.post_core_id
   end
 end

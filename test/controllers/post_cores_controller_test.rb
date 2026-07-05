@@ -48,6 +48,14 @@ class PostCoresControllerTest < ActionController::TestCase
     assert_select "input[name=new_post_core_id][value='#{core.id}']", count: 1, visible: false
   end
 
+  test "edit links to the new card form for this core" do
+    core = create(:post_core)
+    login_as_admin
+    get :edit, params: { id: core.id }
+    assert_response :success
+    assert_select "a[href='#{new_card_path(card: { post_core_id: core.id })}']", text: "Add new card"
+  end
+
   test "edit lists attached cards" do
     core = create(:post_core)
     card = create(:card, post_core: core, observ_date: "2024-04-01")

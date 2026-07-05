@@ -181,7 +181,7 @@ class JSCardsTest < ApplicationSystemTestCase
     blogpost = create(:post)
     login_as_admin
 
-    visit show_post_path(blogpost.to_url_params)
+    visit edit_post_core_path(blogpost.post_core)
     click_link "Add new card"
 
     assert_css "label a", text: blogpost.title
@@ -211,7 +211,7 @@ class JSCardsTest < ApplicationSystemTestCase
     blogpost = create(:post)
     login_as_admin
 
-    visit show_post_path(blogpost.to_url_params)
+    visit edit_post_core_path(blogpost.post_core)
     click_link "Add new card"
 
     assert_css "label a", text: blogpost.title
@@ -235,7 +235,7 @@ class JSCardsTest < ApplicationSystemTestCase
     blogpost = create(:post)
     login_as_admin
 
-    visit show_post_path(blogpost.to_url_params)
+    visit edit_post_core_path(blogpost.post_core)
     click_link "Add new card"
 
     assert_css "label a", text: blogpost.title

@@ -41,6 +41,7 @@
 
   %div{data: {attached_list: true, attached_url: edit_post_core_path(@post_core)}}
     %h3#attached_cards Attached cards and observations
+    %p= link_to "Add new card", new_card_path(card: {post_core_id: @post_core.id})
     - attached_cards = @post_core.cards.preload(:locus, post_core: :posts).default_cards_order(:asc)
     - if attached_cards.any?
       %ul.cards_list
