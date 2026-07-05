@@ -186,6 +186,7 @@ Search::SpeciesSearch.new(query).find
 - Check for tests verifying the same functionality.
 - Keep documentation and comment concise. Don't explain what's obvious from the code (e.g. don't write 'Returns `true` if...'), and don't describe the change you made or how the code used to work.
 - Before committing, run and fix rubocop and the tests.
+- Do not run haml-lint unless specifically instructed.
 - Avoid adding utility functions unrelated to a class or module's topic.
 - When designing frontend, always make it responsive (check on smaller screen sizes).
 - Be mindful of how it will present on text-based browsers (e.g. lynx) and for screen readers.
