@@ -39,6 +39,30 @@ class PostsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "show sets meta thumbnail from cover image slug" do
+    img = create(:image)
+    blogpost = create(:post)
+    blogpost.post_core.update!(cover_image_slug: img.slug)
+    get :show, params: blogpost.to_url_params
+    assert_response :success
+    assert_equal image_url(img, format: :jpg), assigns(:meta_thumbnail)
+  end
+
+  test "show sets meta thumbnail from external cover URL" do
+    blogpost = create(:post)
+    blogpost.post_core.update!(cover_image_slug: "https://example.com/cover.jpg")
+    get :show, params: blogpost.to_url_params
+    assert_response :success
+    assert_equal "https://example.com/cover.jpg", assigns(:meta_thumbnail)
+  end
+
+  test "show attaches the loaded post core so delegates don't reload it" do
+    blogpost = create(:post)
+    get :show, params: blogpost.to_url_params
+    assert_response :success
+    assert_predicate assigns(:post).association(:post_core), :loaded?
+  end
+
   test "show approved comment in the post" do
     comment = create(:comment)
     get :show, params: comment.post.to_url_params

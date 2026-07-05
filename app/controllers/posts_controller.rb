@@ -57,6 +57,9 @@ class PostsController < ApplicationController
       end
     end
 
+    # Attach the already-loaded core so post_core delegates don't reload it.
+    @post.association(:post_core).target = core
+
     if @post.month != params[:month].to_s || @post.year != params[:year].to_s
       redirect_to public_post_path(@post), status: :moved_permanently
     end
@@ -72,6 +75,10 @@ class PostsController < ApplicationController
 
     @meta_description = cache([@post, I18n.locale, :meta_description]) do
       truncate(strip_tags(@post_body), length: 150, separator: " ").gsub(/\s+/, " ")
+    end
+
+    @meta_thumbnail = cache([@post, :cover_image_url]) do
+      helpers.post_cover_image_url(@post)
     end
 
     screened = session[:screened]
