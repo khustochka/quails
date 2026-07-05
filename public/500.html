@@ -109,6 +109,30 @@
         margin-top: 0.75em;
       }
 
+      main article nav {
+        margin-top: 1.25em;
+      }
+
+      main article nav ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5em 1em;
+        justify-content: center;
+        list-style: none;
+        padding: 0;
+      }
+
+      main article nav a {
+        color: #d30001;
+        font-size: 75%;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        main article nav a {
+          color: #FF6161;
+        }
+      }
+
       main article br {
         display: none;
 
@@ -132,6 +156,12 @@
       <article>
         <p><strong>We're sorry, but something went wrong.</strong> We are already working to fix the problem.</p>
         <p><strong>Вибачте, але щось пішло не так.</strong> Ми вже працюємо над усуненням проблеми.</p>
+        <nav aria-label="Home page">
+          <ul>
+            <li><a href="/">Головна сторінка</a></li>
+            <li><a href="/en">Home page</a></li>
+          </ul>
+        </nav>
       </article>
     </main>
 
