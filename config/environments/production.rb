@@ -158,8 +158,4 @@ Rails.application.configure do
     exclude: ->(request) { request.path.include?("/healthy") || request.path.include?("/up") },
     response_app: ->(_) { [403, {}, ["Incorrect host name"]] },
   }
-
-  # Route error pages through custom middleware
-  require "quails/public_exceptions"
-  config.exceptions_app = Quails::PublicExceptions.new(Rails.public_path)
 end
