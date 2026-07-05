@@ -325,6 +325,44 @@ class PostTest < ActiveSupport::TestCase
     assert_equal 1, p.lifer_species_ids.size
   end
 
+  test "lifer_species_ids excludes species seen on an earlier date outside the post" do
+    p = create(:post)
+    earlier_card = create(:card, observ_date: "2015-04-20")
+    create(:observation, taxon: taxa(:hirrus), card: earlier_card)
+    card = create(:card, observ_date: "2015-04-27", post_core: p.post_core)
+    obs = create(:observation, taxon: taxa(:hirrus), card: card)
+
+    assert_not_includes p.lifer_species_ids, obs.species_id
+  end
+
+  test "lifer_species_ids includes species seen again after the post" do
+    p = create(:post)
+    card = create(:card, observ_date: "2015-04-27", post_core: p.post_core)
+    obs = create(:observation, taxon: taxa(:hirrus), card: card)
+    later_card = create(:card, observ_date: "2015-05-01")
+    create(:observation, taxon: taxa(:hirrus), card: later_card)
+
+    assert_includes p.lifer_species_ids, obs.species_id
+  end
+
+  test "lifer_species_ids keeps species seen the same date outside the post" do
+    p = create(:post)
+    same_day_card = create(:card, observ_date: "2015-04-27")
+    create(:observation, taxon: taxa(:hirrus), card: same_day_card)
+    card = create(:card, observ_date: "2015-04-27", post_core: p.post_core)
+    obs = create(:observation, taxon: taxa(:hirrus), card: card)
+
+    assert_includes p.lifer_species_ids, obs.species_id
+  end
+
+  test "lifer_species_ids counts observations attached directly to the post core" do
+    p = create(:post)
+    card = create(:card, observ_date: "2015-04-27")
+    obs = create(:observation, taxon: taxa(:hirrus), card: card, post_core: p.post_core)
+
+    assert_includes p.lifer_species_ids, obs.species_id
+  end
+
   test "do not show on homepage the images that are already in post body" do
     p = create(:post, body: "First paragraph\n\n{{^image1}}\n\nLast paragraph")
     tx1 = taxa(:pasdom)

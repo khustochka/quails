@@ -28,19 +28,18 @@ class Day
       Species.distinct.joins(:cards).merge(cards).order(:index_num)
   end
 
+  # List of lifer species: those with no observation before this date.
   def lifer_species_ids
-    subquery = "
-      select obs.id
-          from observations obs
-          join cards c on obs.card_id = c.id
-          where obs.species_id = observations.species_id
-          and cards.observ_date > c.observ_date"
-    @lifer_species_ids ||= Observation.identified
-      .joins(:card)
-      .merge(cards)
-      .where("NOT EXISTS(#{subquery})")
-      .distinct
-      .pluck(:species_id)
+    @lifer_species_ids ||= begin
+      day_species_ids = Observation.identified.joins(:card).merge(cards).distinct.pluck(:species_id)
+
+      seen_earlier = Observation.joins(:card)
+        .where(species_id: day_species_ids)
+        .where(cards: { observ_date: ...date })
+        .distinct.pluck(:species_id)
+
+      day_species_ids - seen_earlier
+    end
   end
 
   def images

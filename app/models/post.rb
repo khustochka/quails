@@ -194,22 +194,27 @@ class Post < ApplicationRecord
     "#{self.class.model_name.cache_key}-#{id}-#{date}"
   end
 
-  # List of lifer species
+  # List of lifer species. A species is a lifer here when its first-ever
+  # observation date equals its first date within the post (a same-date
+  # observation elsewhere does not disqualify it). Two grouped queries instead
+  # of an anti-join so the DB only touches observations of this post's species.
   def lifer_species_ids
     return @lifer_species_ids = [] unless post_core_id
 
-    subquery = "
-      select obs.id
-          from observations obs
-          join cards c on obs.card_id = c.id
-          where obs.species_id = observations.species_id
-          and cards.observ_date > c.observ_date"
-    @lifer_species_ids ||= Observation.identified
-      .joins(:card)
-      .where("observations.post_core_id = ? or cards.post_core_id = ?", post_core_id, post_core_id)
-      .where("NOT EXISTS(#{subquery})")
-      .distinct
-      .pluck(:species_id)
+    @lifer_species_ids ||= begin
+      post_observations = Observation.identified.merge(
+        Observation.where(post_core_id: post_core_id)
+          .or(Observation.where(card_id: Card.where(post_core_id: post_core_id).select(:id)))
+      )
+      first_dates_in_post = post_observations.joins(:card).group(:species_id).minimum("cards.observ_date")
+
+      first_dates_ever = Observation.joins(:card)
+        .where(species_id: first_dates_in_post.keys)
+        .group(:species_id)
+        .minimum("cards.observ_date")
+
+      first_dates_in_post.filter_map { |species_id, date| species_id if first_dates_ever[species_id] == date }
+    end
   end
 
   # Return the sibling translation for this post in the given locale,

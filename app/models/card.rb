@@ -85,37 +85,32 @@ class Card < ApplicationRecord
     number_to_percentage(mapped_observations.size * 100.0 / observations.size, precision: 0)
   end
 
-  # List of lifer species
+  # List of lifer species: those with no observation on any earlier card.
+  # A card on the same date counts as earlier when it has a start time and
+  # this card does not, when both have start times and its one is earlier,
+  # or when neither has one and its id is lower.
   def lifer_species_ids
-    quoted_date = self.class.connection.quote(observ_date)
-    quoted_id = self.class.connection.quote(id)
+    @lifer_species_ids ||= begin
+      card_species_ids = observations.identified.reorder(nil).distinct.pluck(:species_id)
 
-    time_clause = if start_time.blank?
-      "OR (#{quoted_date} = c.observ_date
-            AND c.start_time IS NOT NULL
-            )
-      OR (#{quoted_date} = c.observ_date
-            AND c.start_time IS NULL
-            AND c.id < #{quoted_id}
-            )"
-    else
-      quoted_time = self.class.connection.quote(start_time)
-      "OR (#{quoted_date} = c.observ_date
-            AND to_timestamp(#{quoted_time}, 'HH24:MI') > to_timestamp(c.start_time, 'HH24:MI')
-            )"
+      # Positional binds: ":MI" in the time format would parse as a named bind.
+      earlier_cards = if start_time.blank?
+        Card.where("cards.observ_date < ?
+          OR (cards.observ_date = ? AND (cards.start_time IS NOT NULL OR cards.id < ?))",
+          observ_date, observ_date, id)
+      else
+        Card.where("cards.observ_date < ?
+          OR (cards.observ_date = ?
+              AND to_timestamp(cards.start_time, 'HH24:MI') < to_timestamp(?, 'HH24:MI'))",
+          observ_date, observ_date, start_time)
+      end
+
+      seen_earlier = Observation.joins(:card).merge(earlier_cards)
+        .where(species_id: card_species_ids)
+        .distinct.pluck(:species_id)
+
+      card_species_ids - seen_earlier
     end
-
-    subquery = "
-        select obs.id
-        from observations obs
-        join cards c on obs.card_id = c.id
-        where obs.species_id = observations.species_id
-        and (#{quoted_date} > c.observ_date
-         #{time_clause})"
-    @lifer_species_ids ||= observations
-      .identified
-      .where("NOT EXISTS(#{subquery})")
-      .pluck(:species_id)
   end
 
   def check_effort
