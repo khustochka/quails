@@ -25,6 +25,13 @@ class LifelistControllerTest < ActionController::TestCase
   test "shows My Statistics page" do
     get :stats
     assert_response :success
+    # 2009: bomgar in the USA, jyntor in Ukraine
+    assert_select "td.count_sp a[href=?]", list_path(year: 2009), text: "2"
+    assert_select "li.ukraine .count a[href=?]", list_path(year: 2009, locus: "ukraine"), text: "1"
+    assert_select "li.usa .count a[href=?]", list_path(year: 2009, locus: "usa"), text: "1"
+    assert_select "tr.total td.count_sp a[href=?]", lifelist_path, text: "5"
+    assert_select "tr.total li.usa .count a[href=?]", list_path(locus: "usa"), text: "3"
+    assert_select "tr.total li.ukraine .count a[href=?]", list_path(locus: "ukraine"), text: "2"
   end
 
   test "eBird Lifelist page" do

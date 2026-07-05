@@ -23,8 +23,8 @@
 
 - cache(key: Quails::CacheKey.lifelist) do
   - first_sp_by_year = @first_sp_by_year.count(:all)
-  - grouped_by_year_and_country = @grouped_by_year_and_country.count_distinct_species
-  - grouped_by_country = @grouped_by_country.count_distinct_species
+  - year_country_counts = grouped_by_year_and_country.count_distinct_species
+  - country_counts = grouped_by_country.count_distinct_species
 
   %table.nice_stats
     %tr
@@ -53,7 +53,7 @@
         %td.countries
           %ul
             - @countries.each do |c|
-              - count = grouped_by_year_and_country[[year, c.id]]
+              - count = year_country_counts[[year, c.id]]
               - if count
                 %li{class: c.slug}
                   = succeed ':' do
@@ -67,7 +67,7 @@
       %td.countries
         %ul
           - @countries.each do |c|
-            - count = grouped_by_country[c.id]
+            - count = country_counts[c.id]
             - if count
               %li{class: c.slug}
                 = succeed ':' do

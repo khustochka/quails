@@ -9,6 +9,8 @@ class LifelistController < ApplicationController
 
   localized
 
+  helper_method :grouped_by_country, :grouped_by_year_and_country
+
   def index
     @list_life = Lifelist::FirstSeen.full
     @list_current_year = Lifelist::FirstSeen.over(year: Settings.current_year)
@@ -94,27 +96,15 @@ class LifelistController < ApplicationController
   end
 
   def stats
-    observations_filtered = Observation.joins(:card)
-    identified_observations = observations_filtered.identified
-    lifelist_filtered = LiferObservation.all
+    identified_observations = Observation.joins(:card).identified
 
     @year_data = identified_observations.group("EXTRACT(year FROM observ_date)::integer")
       .order(Arel.sql("EXTRACT(year FROM observ_date)::integer"))
 
-    @first_sp_by_year = lifelist_filtered.group("EXTRACT(year FROM observ_date)::integer")
+    @first_sp_by_year = LiferObservation.group("EXTRACT(year FROM observ_date)::integer")
       .except(:order)
 
     @countries = Country.all
-
-    country_mapper = @countries.map do |c|
-      " WHEN locus_id IN (#{c.subregion_ids.join(", ")}) THEN #{c.id} "
-    end.join
-    country_sql = "(CASE #{country_mapper} END)"
-
-    @grouped_by_country = identified_observations.group(country_sql)
-
-    @grouped_by_year_and_country = identified_observations
-      .group("EXTRACT(year FROM observ_date)::integer", country_sql)
   end
 
   def chart
@@ -125,6 +115,27 @@ class LifelistController < ApplicationController
   end
 
   private
+
+  def grouped_by_country
+    Observation.joins(:card).identified.group(country_case_sql)
+  end
+
+  def grouped_by_year_and_country
+    Observation.joins(:card).identified
+      .group("EXTRACT(year FROM observ_date)::integer", country_case_sql)
+  end
+
+  # Runs a subtree query per country, so it must stay out of the `stats`
+  # action itself — it should only execute (via the helpers above) inside
+  # the view's fragment cache block, not on every request.
+  def country_case_sql
+    @country_case_sql ||= begin
+      country_mapper = @countries.map do |c|
+        " WHEN locus_id IN (#{c.subregion_ids.join(", ")}) THEN #{c.id} "
+      end.join
+      "(CASE #{country_mapper} END)"
+    end
+  end
 
   def validate_params
     allowed_params = {
