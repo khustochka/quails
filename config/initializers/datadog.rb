@@ -25,14 +25,13 @@ if ENV["QUAILS_DD_ENABLED"].in?(["true", "1"])
     c.tracing.report_hostname = true
   end
 
-  # Drop the trace for successful "/up" health checks so they don't clutter
-  # Datadog. Non-2xx health checks are kept so failures stay visible, and other
-  # actions on the same controller (e.g. "/healthy") are not affected.
+  # Drop the trace for successful health checks so they don't clutter
+  # Datadog. Non-2xx health checks are kept so failures stay visible.
   Datadog::Tracing.before_flush(
     Datadog::Tracing::Pipeline::SpanFilter.new do |span|
       span.name == "rack.request" &&
-      span.status == "success" &&
-        URI.parse(span.get_tag("http.url").to_s).path == "/up"
+      span.resource == "HealthCheckRb::HealthCheckController#index" &&
+      span.status == 0 # success
     end
   )
 end
