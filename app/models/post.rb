@@ -122,12 +122,41 @@ class Post < ApplicationRecord
       .order(:index_num)
   end
 
+  # Images attached (via observations/cards) to this post's core.
+  #
+  # Joining Image straight to :observations, :cards and :species (each declared
+  # `through: :observations` on Media) re-joins media_observations+observations
+  # once per hop, so an image with N observations fans out to N^3 rows. Instead,
+  # join observations once and hang cards/species off it directly; ordering
+  # still needs one row per image, so we resolve the order in a subquery
+  # (grouped by image, taking the earliest/lowest values) and join that back
+  # to a plain, ungrouped Image relation.
   def images
     return Image.none unless post_core_id
 
-    Image.joins(:observations, :cards, :species).includes(:cards).where("cards.post_core_id = ? OR observations.post_core_id = ?", post_core_id, post_core_id)
-      .merge(Card.default_cards_order("ASC"))
-      .order("media.index_num, species.index_num").preload(:species)
+    # Query Media (not Image) here: Image's default scope pulls in
+    # with_attached_stored_image, which would add attachment/blob joins this
+    # ordering-only subquery has no use for.
+    ordering = Media.where(media_type: "photo")
+      .select(
+        "media.id AS media_id",
+        "MIN(cards.observ_date) AS min_observ_date",
+        "MIN(to_timestamp(cards.start_time, 'HH24:MI')) AS min_start_time",
+        "media.index_num AS media_index_num",
+        "MIN(species.index_num) AS min_species_index_num"
+      )
+      .joins(:observations)
+      .joins("INNER JOIN cards ON cards.id = observations.card_id")
+      .joins("INNER JOIN species ON species.id = observations.species_id")
+      .where("cards.post_core_id = ? OR observations.post_core_id = ?", post_core_id, post_core_id)
+      .group("media.id")
+
+    Image.joins("INNER JOIN (#{ordering.to_sql}) AS post_images_order ON post_images_order.media_id = media.id")
+      .includes(:cards)
+      .order(Arel.sql(
+        "post_images_order.min_observ_date ASC, post_images_order.min_start_time ASC NULLS LAST, "\
+          "post_images_order.media_index_num, post_images_order.min_species_index_num"
+      )).preload(:species)
   end
 
   # Cards attached to this post's core.
