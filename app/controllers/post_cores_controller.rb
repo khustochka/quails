@@ -18,7 +18,7 @@ class PostCoresController < ApplicationController
   def create
     @post_core = PostCore.new(params[:post_core])
     if @post_core.save
-      redirect_to new_post_path(post: { post_core_id: @post_core.id, lang: I18n.locale })
+      redirect_to new_post_path(post: { post_core_id: @post_core.id, lang: I18n.default_locale })
     else
       render "form"
     end

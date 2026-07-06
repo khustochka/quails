@@ -13,7 +13,7 @@ class UIPostsTest < ActionDispatch::IntegrationTest
     select("OBSR", from: "Topic")
     click_button("Save")
     core = PostCore.find_by!(slug: "new-post")
-    assert_current_path new_post_path(post: { post_core_id: core.id, lang: I18n.locale })
+    assert_current_path new_post_path(post: { post_core_id: core.id, lang: I18n.default_locale })
     fill_in("Title", with: "Test post")
     fill_in("post_body", with: "Post text.")
     select("OPEN", from: "Status")

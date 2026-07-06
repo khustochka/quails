@@ -19,7 +19,7 @@ class PostCoresControllerTest < ActionController::TestCase
       post :create, params: { post_core: { slug: "kyiv-trip", topic: "OBSR" } }
     end
     core = PostCore.find_by(slug: "kyiv-trip")
-    assert_redirected_to new_post_path(post: { post_core_id: core.id, lang: I18n.locale })
+    assert_redirected_to new_post_path(post: { post_core_id: core.id, lang: I18n.default_locale })
   end
 
   test "create rejects duplicate slug" do

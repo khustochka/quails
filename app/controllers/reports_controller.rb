@@ -5,11 +5,6 @@ class ReportsController < ApplicationController
 
   TWO_YEARS = 365 * 2 * 24 * 60 * 60
 
-  before_action do
-    I18n.locale = :en
-    @main_menu_locale = :uk
-  end
-
   def environ
     # @env = ENV
     @collate = ActiveRecord::Base.connection.execute("SELECT datcollate, datctype FROM pg_database WHERE datname = current_database()").to_a.first

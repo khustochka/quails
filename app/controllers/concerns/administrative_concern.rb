@@ -22,6 +22,8 @@ module AdministrativeConcern
       before_action options do
         @administrative = true
         @admin_layout = true
+        I18n.locale = :en
+        @main_menu_locale = I18n.default_locale
         params.permit!
       end
     end
