@@ -3,6 +3,7 @@
   = render partial: 'app2/admin/menu'
   = render "shared/banner"
   .user-menu
-    - cache [:google_search, locale: I18n.locale] do
+    - I18n.with_locale(@main_menu_locale || I18n.locale) do
       = render partial: 'app2/search'
-    = render partial: 'app2/menu'
+
+      = render partial: 'app2/menu'

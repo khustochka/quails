@@ -7,26 +7,9 @@
 
   #userheader
 
-    -# Template Dependency: partials/search
-    = include_google_search
+    - I18n.with_locale(@main_menu_locale || I18n.locale) do
+      -# Template Dependency: partials/search
+      = include_google_search
 
-    #menucontainer
-
-      - cache [:navigation_header, locale: I18n.locale] do
-        -# = link_to(image_tag('/img/logo.png'), root_path, :id => 'site_cap')
-
-        %ul.horiz-list#site_menu(role="menubar")
-          %li(role="menuitem")= link_to t('menu.blog'), blog_path
-
-          %li(role="menuitem")= link_to t('menu.birds_ukraine'), country_path(country: 'ukraine')
-
-          %li(role="menuitem")= link_to t('menu.gallery'), images_path
-
-          %li(role="menuitem")= link_to t('menu.map'), map_path
-
-          %li(role="menuitem")= link_to t('menu.lifelist'), lists_overview_path
-
-          %li(role="menuitem")= link_to t('menu.links'), links_path
-
-          %li(role="menuitem" class="trans-menu")
-            = link_to t('menu.english'), root_path(locale: :en), lang: :en, hreflang: :en
+      #menucontainer
+        = render "partials/user_menu"

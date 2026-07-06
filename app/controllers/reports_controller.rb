@@ -7,6 +7,7 @@ class ReportsController < ApplicationController
 
   before_action do
     I18n.locale = :en
+    @main_menu_locale = :uk
   end
 
   def environ
