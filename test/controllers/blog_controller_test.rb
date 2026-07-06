@@ -2,28 +2,28 @@
 
 require "test_helper"
 
-class BlogControllerTest < ActionDispatch::IntegrationTest
+class BlogControllerTest < ActionController::TestCase
   # Front page
 
   test "get home page" do
     blogpost1 = create(:post, face_date: "2007-12-06 13:14:15")
     blogpost2 = create(:post, face_date: "2008-11-06 13:14:15")
     create(:comment)
-    get blog_path
+    get :home
     assert_response :success
     assert_includes(assigns(:posts), blogpost1)
     assert_includes(assigns(:posts), blogpost2)
   end
 
   test "get English home page" do
-    get blog_path(locale: "en")
+    get :home, params: { locale: "en" }
     assert_response :success
     assert_select "h1", "Birdwatching blog"
   end
 
   test "home shows correct localized links" do
     blogpost1 = create(:post, face_date: "2007-12-06 13:14:15")
-    get blog_path
+    get :home
     assert_select "ul.translated a[href='#{blog_path(locale: :ru)}']"
     assert_select "ul.translated a[href='#{blog_path(locale: :en)}']"
   end
@@ -37,19 +37,42 @@ class BlogControllerTest < ActionDispatch::IntegrationTest
   test "get home page with images" do
     blogpost = create(:post)
     create(:image, observations: [create(:observation, card: create(:card, post_core: blogpost.post_core))])
-    get blog_path
+    get :home
     assert_response :success
+  end
+
+  test "home page shows approved comment count" do
+    blogpost = create(:post)
+    create(:comment, post: blogpost, approved: true)
+    create(:comment, post: blogpost, approved: true)
+    get :home
+    assert_response :success
+    assert_select "li.num_comments a", text: /2/
+  end
+
+  test "home page shows hidden comment count to admins only" do
+    blogpost = create(:post)
+    create(:comment, post: blogpost, approved: false)
+
+    get :home
+    assert_response :success
+    assert_select "li.num_comments", text: /hidden comment/, count: 0
+
+    login_as_admin
+    get :home
+    assert_response :success
+    assert_select "li.num_comments", text: /hidden comment/, count: 1
   end
 
   test "get archive" do
     blogpost1 = create(:post, face_date: "2007-12-06 13:14:15")
     blogpost2 = create(:post, face_date: "2008-11-06 13:14:15")
-    get archive_path
+    get :archive
     assert_response :success
   end
 
   test "archive should show a link to English locale" do
-    get archive_path
+    get :archive
     assert_response :success
     assert_select "a[href='#{archive_path(locale: :en)}']"
   end
@@ -57,14 +80,14 @@ class BlogControllerTest < ActionDispatch::IntegrationTest
   test "do not show hidden posts on front page" do
     blogpost1 = create(:post, face_date: "2007-12-06 13:14:15", status: "PRIV")
     blogpost2 = create(:post, face_date: "2008-11-06 13:14:15")
-    get blog_path
+    get :home
     assert_includes(assigns(:posts), blogpost2)
     assert_not_includes(assigns(:posts), blogpost1)
   end
 
   test "show NOINDEX post on front page" do
     blogpost = create(:post, status: "NIDX")
-    get blog_path
+    get :home
     assert_response :success
     assert_includes(assigns(:posts), blogpost)
   end
@@ -78,7 +101,7 @@ class BlogControllerTest < ActionDispatch::IntegrationTest
       create(:post, face_date: "2007-10-03 13:14:15"),
       create(:post, face_date: "2007-09-03 13:14:15"),
     ]
-    get blog_path
+    get :home
     assert_response :success
     assert_equal 5, assigns(:posts).size
     assert_equal blogposts[0..4], assigns(:posts)
@@ -90,7 +113,7 @@ class BlogControllerTest < ActionDispatch::IntegrationTest
   test "get posts list for a year" do
     blogpost1 = create(:post, face_date: "2007-12-06 13:14:15")
     blogpost2 = create(:post, face_date: "2008-11-06 13:14:15")
-    get year_path(year: 2007)
+    get :year, params: { year: 2007 }
     assert_response :success
     assert_includes(assigns(:posts), blogpost1)
     assert_not_includes(assigns(:posts), blogpost2)
@@ -100,7 +123,7 @@ class BlogControllerTest < ActionDispatch::IntegrationTest
   test "year view shows a link to English locale" do
     blogpost1 = create(:post, face_date: "2007-12-06 13:14:15")
     blogpost2 = create(:post, face_date: "2008-11-06 13:14:15")
-    get year_path(year: 2007)
+    get :year, params: { year: 2007 }
     assert_select "a[href='#{year_path(year: 2007, locale: :en)}']"
   end
 
@@ -109,7 +132,7 @@ class BlogControllerTest < ActionDispatch::IntegrationTest
   test "get posts list for a month" do
     blogpost1 = create(:post, face_date: "2007-12-06 13:14:15")
     blogpost2 = create(:post, face_date: "2007-11-06 13:14:15")
-    get month_path(year: 2007, month: 12)
+    get :month, params: { year: 2007, month: 12 }
     assert_response :success
     assert_includes(assigns(:posts), blogpost1)
     assert_not_includes(assigns(:posts), blogpost2)
@@ -118,16 +141,16 @@ class BlogControllerTest < ActionDispatch::IntegrationTest
   test "render month properly if there is no previous or next month" do
     blogpost1 = create(:post, face_date: "2007-12-06 13:14:15")
     blogpost2 = create(:post, face_date: "2008-11-06 13:14:15")
-    get month_path(year: 2007, month: 12)
+    get :month, params: { year: 2007, month: 12 }
     assert_response :success
-    get month_path(year: 2007, month: 11)
+    get :month, params: { year: 2007, month: 11 }
     assert_response :success
   end
 
   test "month view shows a link to English locale" do
     blogpost1 = create(:post, face_date: "2007-12-06 13:14:15")
     blogpost2 = create(:post, face_date: "2007-11-06 13:14:15")
-    get month_path(year: 2007, month: 12)
+    get :month, params: { year: 2007, month: 12 }
     assert_select "a[href='#{month_path(year: 2007, month: 12, locale: :en)}']"
   end
 
@@ -135,7 +158,7 @@ class BlogControllerTest < ActionDispatch::IntegrationTest
     Settings.create(key: "new_year_mode", value: "0")
 
     travel_to Date.new(Settings.current_year, 10, 11) do
-      get blog_path
+      get :home
       assert_response :success
 
       assert_kind_of(YearProgressCell, assigns(:year_progress_cell))
@@ -146,7 +169,7 @@ class BlogControllerTest < ActionDispatch::IntegrationTest
     Settings.create(key: "new_year_mode", value: "0")
 
     travel_to Date.new(Settings.current_year + 1, 1, 10) do
-      get blog_path
+      get :home
       assert_response :success
 
       assert_kind_of(YearSummaryCell, assigns(:year_progress_cell))
@@ -157,7 +180,7 @@ class BlogControllerTest < ActionDispatch::IntegrationTest
     Settings.create(key: "new_year_mode", value: "1")
 
     travel_to Date.new(Settings.current_year, 1, 10) do
-      get blog_path
+      get :home
       assert_response :success
 
       assert_kind_of(YearProgressCell, assigns(:year_progress_cell))
@@ -167,14 +190,14 @@ class BlogControllerTest < ActionDispatch::IntegrationTest
 
   test "rendering year summaries not in new year mode" do
     Settings.create(key: "new_year_mode", value: "0")
-    get blog_path
+    get :home
 
     assert_dom ".year-summary", 1
   end
 
   test "rendering year summaries in new year mode" do
     Settings.create(key: "new_year_mode", value: "1")
-    get blog_path
+    get :home
 
     assert_dom ".year-summary", 2
   end

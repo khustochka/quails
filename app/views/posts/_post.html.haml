@@ -1,32 +1,33 @@
 -# frozen_string_literal: true
-- cache ['blog', post, admin: current_user.admin?, locale: I18n.locale] do
-  %div.post-box{id: "post-#{post.slug}"}
-    %div.post{class: post_lang_classes(post), lang: post.lang}
-      %div.header-with-subheader
-        %h2= link_to(post.decorated.title, universal_public_post_path(post))
-        %i
-          %time{datetime: post.face_date.iso8601}= l(post.face_date, format: :long)
-        - unless post.public?
-          %span.tag.draft Draft
+%div.post-box{id: "post-#{post.slug}"}
+  %div.post{class: post_lang_classes(post), lang: post.lang}
+    %div.header-with-subheader
+      %h2= link_to(post.decorated.title, universal_public_post_path(post))
+      %i
+        %time{datetime: post.face_date.iso8601}= l(post.face_date, format: :long)
+      - unless post.public?
+        %span.tag.draft Draft
 
-      = render partial: "posts/other_lang_expand", locals: {post: post}
+    = render partial: "posts/other_lang_expand", locals: {post: post}
 
+    - cache [post, I18n.locale, :post_body, key: Quails::CacheKey.gallery] do
       %div{class: other_lang_unwrap(post)}
         = post.decorated(locale: I18n.locale).for_site.body
 
+    - cache [post, I18n.locale, :post_images, key: Quails::CacheKey.gallery] do
       - post.decorated.the_rest_of_images.if_present do |images|
         %div.thumbnails
           = render_justified images.map(&:to_thumbnail)
 
-    - cache ['comment', post, post.comments.size, admin: current_user.admin?, locale: I18n.locale] do
-      %ul.comment_links
-        - post.comments.approved.size.yield_self do |cmt_count|
-          - if cmt_count > 0
-            %li.num_comments= link_to t('.comments', count: cmt_count), public_post_path(post, anchor: 'comments')
-        - if current_user.admin?
-          - post.comments.unapproved.size.yield_self do |cmt_count|
-            - if cmt_count > 0
-              %li.num_comments
-                = link_to "#{cmt_count} hidden comment(s)", public_post_path(post, anchor: 'comments'), class: "tag draft"
-        - if !Settings.disable_comments
-          %li.add_comment= link_to t('.add_comment'), public_post_path(post, anchor: 'add_comment')
+  - comment_counts = post.comments.group(:approved).count
+  %ul.comment_links
+    - comment_counts[true].to_i.yield_self do |cmt_count|
+      - if cmt_count > 0
+        %li.num_comments= link_to t('.comments', count: cmt_count), public_post_path(post, anchor: 'comments')
+    - if current_user.admin?
+      - comment_counts[false].to_i.yield_self do |cmt_count|
+        - if cmt_count > 0
+          %li.num_comments
+            = link_to "#{cmt_count} hidden comment(s)", public_post_path(post, anchor: 'comments'), class: "tag draft"
+    - if !Settings.disable_comments
+      %li.add_comment= link_to t('.add_comment'), public_post_path(post, anchor: 'add_comment')

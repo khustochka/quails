@@ -10,7 +10,8 @@
 
 %h1.over-header<= page_header
 
-= render @posts
+- cache [@posts.to_a, admin: current_user.admin?, locale: I18n.locale, key: Quails::CacheKey.gallery] do
+  = render @posts
 
 %nav.month-navigation
   = link_to "<< #{t(".previous")}", month_path(@prev_month) if @prev_month

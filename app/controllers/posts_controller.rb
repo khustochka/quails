@@ -68,17 +68,12 @@ class PostsController < ApplicationController
     @robots = "NOINDEX" if @post.status == "NIDX"
     @comments = current_user.available_comments(@post).group_by(&:parent_id)
 
-    @post_body = cache([@post, I18n.locale, :post_body]) do
+    @post_body = cache([@post, I18n.locale, :post_body, key: Quails::CacheKey.gallery]) do
       @post.decorated(locale: I18n.locale).for_site.body
     end
 
-    @meta_description = cache([@post, I18n.locale, :meta_description]) do
-      truncate(strip_tags(@post_body), length: 150, separator: " ").gsub(/\s+/, " ")
-    end
-
-    @meta_thumbnail = cache([@post, :cover_image_url]) do
-      helpers.post_cover_image_url(@post)
-    end
+    @meta_description = truncate(strip_tags(@post_body), length: 150, separator: " ").gsub(/\s+/, " ")
+    @meta_thumbnail = helpers.post_cover_image_url(@post)
 
     screened = session[:screened]
     if screened
