@@ -1,16 +1,15 @@
 -# frozen_string_literal: true
 - unless hide_banners?
-  - cache [:banners_footer, admin: current_user.admin?] do
-    %div.footer_banners
-      .banner-group
-        %div.banner_holder.birdingtop_holder
-          -# Template Dependency: partials/birdingtop_code
-          = include_birdingtop_button
-        %div.banner_holder.fb_banner
-          = link_to "https://www.facebook.com/birdwatch.org.ua/", class: "img", target: "_blank", rel: "nofollow noopener" do
-            %span.inner
-              facebook page
-        %div.banner_holder.flickr_banner
-          = link_to "https://www.flickr.com/photos/phenolog/", class: "img", target: "_blank", rel: "me nofollow noopener" do
-            %span.inner
-              My Flickr
+  %div.footer_banners
+    .banner-group
+      %div.banner_holder.birdingtop_holder
+        -# Template Dependency: partials/birdingtop_code
+        = include_birdingtop_button
+      %div.banner_holder.fb_banner
+        = link_to "https://www.facebook.com/birdwatch.org.ua/", class: "img", target: "_blank", rel: "nofollow noopener" do
+          %span.inner
+            facebook page
+      %div.banner_holder.flickr_banner
+        = link_to "https://www.flickr.com/photos/phenolog/", class: "img", target: "_blank", rel: "me nofollow noopener" do
+          %span.inner
+            My Flickr

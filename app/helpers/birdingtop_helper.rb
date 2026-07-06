@@ -2,11 +2,7 @@
 
 module BirdingtopHelper
   def include_birdingtop_button
-    cache [:birdingtop, hide_birdingtop?] do
-      concat(
-        render(partial: "partials/birdingtop_code")
-      )
-    end
+    render(partial: "partials/birdingtop_code")
   end
 
   def hide_birdingtop?
