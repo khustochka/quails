@@ -14,12 +14,24 @@ class Correction < ApplicationRecord
   validate :query_is_not_destructive
 
   def results
-    # Adding id sorting for strict order
-    records.order(sort_column, :id)
+    if query_valid?
+      # Adding id sorting for strict order
+      records.order(sort_column, :id)
+    else
+      model_class.none
+    end
+  end
+
+  # Maybe invalid on creation, or later, when a column is removed, for example
+  def query_valid?
+    records.first
+    true
+  rescue ActiveRecord::StatementInvalid, PG::Error
+    false
   end
 
   def count
-    records.count
+    results.count
   end
 
   def after(record)
@@ -48,9 +60,10 @@ class Correction < ApplicationRecord
     [table, sort_column].join(".")
   end
 
+  # Cannot reuse query_valid? because we need to extract error message
   def query_validity
-    results.first
-  rescue ActiveRecord::StatementInvalid => e
+    records.first
+  rescue ActiveRecord::StatementInvalid, PG::Error => e
     errors.add(:base, "Resulting query is invalid: #{e.message}")
   end
 

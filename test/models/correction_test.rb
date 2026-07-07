@@ -25,4 +25,41 @@ class CorrectionTest < ActiveSupport::TestCase
     # This checks that there is no exception raised
     assert_not correction.save
   end
+
+  test "#query_valid? is true for a working query" do
+    correction = create(:correction)
+    assert_predicate correction, :query_valid?
+  end
+
+  test "#query_valid? is true for a valid query matching no records" do
+    correction = create(:correction)
+    assert_predicate correction, :query_valid?
+  end
+
+  test "#query_valid? is false when the query became invalid after creation" do
+    correction = create(:correction)
+    # Simulate a query that broke later (e.g. a column was removed),
+    # bypassing validation by writing the column directly.
+    correction.update_column(:query, "posts.nonexistent_column = 1")
+    assert_not_predicate correction, :query_valid?
+  end
+
+  test "#results returns an empty relation for an invalid query" do
+    correction = create(:correction)
+    correction.update_column(:query, "posts.nonexistent_column = 1")
+    assert_empty correction.results
+  end
+
+  test "#count returns 0 for an invalid query" do
+    correction = create(:correction)
+    correction.update_column(:query, "posts.nonexistent_column = 1")
+    assert_equal 0, correction.count
+  end
+
+  test "#count returns the number of matching records" do
+    correction = create(:correction)
+    create(:post, body: "Link http://google.com")
+    create(:post, body: "Link https://google.com")
+    assert_equal 1, correction.count
+  end
 end

@@ -28,10 +28,15 @@
         %td= correction.query
         %td
           %i= correction.sort_column
-        %td
-          = correction.count
-        %td
-          %b= link_to 'Start >>', start_correction_path(correction)
+        - if correction.query_valid?
+          %td
+            = correction.count
+          %td
+            %b= link_to 'Start >>', start_correction_path(correction)
+        - else
+          %td.simple_alert{colspan: 2}
+            %span.fas.fa-circle-exclamation
+            Invalid query
         %td
           = link_to 'Edit', edit_correction_path(correction)
         %td

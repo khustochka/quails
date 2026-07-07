@@ -16,6 +16,14 @@ class CorrectionsTest < ActionDispatch::IntegrationTest
     assert_selector "h1", text: "Bulk review and correct"
   end
 
+  test "index shows an alert for a correction whose query became invalid" do
+    @correction.update_column(:query, "posts.nonexistent_column = 1")
+    login_as_admin
+    visit corrections_url
+    assert_selector ".simple_alert", text: "Invalid query"
+    assert_no_link "Start >>"
+  end
+
   test "should create correction" do
     login_as_admin
     visit corrections_url
