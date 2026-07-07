@@ -8,7 +8,7 @@
       species_met: 'Видов'
       lifers_met: "новых"
 
-      records: 'Рекорды:'
+      records: 'Рекорды'
 
       new_count_species:
         one: 'новый вид'

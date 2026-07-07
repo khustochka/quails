@@ -1,0 +1,204 @@
+// Lifelist stats page (lifelist#stats)
+
+.stats-page {
+  .stats-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 1.5rem;
+  }
+
+  h2 {
+    font-size: 1.375rem;
+    margin-bottom: 0.75rem;
+  }
+}
+
+.record-days {
+  margin: 1.5rem 0 2.5rem;
+
+  > ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+
+    @media (min-width: 768px) {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  > ul > li {
+    border: 1px solid var(--color-border-gray);
+    border-radius: 0.5rem;
+    padding: 1.25rem 1.5rem;
+  }
+
+  .record-count {
+    font-family: Rubik, ui-sans-serif, system-ui, sans-serif;
+    font-weight: 500;
+    font-size: 3rem;
+    line-height: 1.1;
+  }
+
+  li.record-species .record-count {
+    color: var(--color-green-link);
+  }
+
+  li.record-lifers .record-count {
+    color: var(--color-red-lifers);
+  }
+
+  .record-unit {
+    color: #6b7280;
+    margin-bottom: 0.5rem;
+  }
+
+  .record-place {
+    color: #6b7280;
+    font-size: 0.875rem;
+    margin-top: 0.125rem;
+  }
+}
+
+.stats-years {
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 2.5rem;
+  }
+
+  th,
+  td {
+    padding: 0.625rem 0.75rem;
+    text-align: left;
+    vertical-align: baseline;
+
+    &:first-child {
+      padding-left: 0;
+    }
+
+    &:last-child {
+      padding-right: 0;
+    }
+  }
+
+  thead th {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #6b7280;
+  }
+
+  tbody tr,
+  tfoot tr {
+    border-top: 1px solid #e5e7eb;
+  }
+
+  tfoot tr {
+    border-top-width: 2px;
+    border-top-color: #d4d4d4;
+  }
+
+  th.year {
+    font-family: Rubik, ui-sans-serif, system-ui, sans-serif;
+    font-weight: 500;
+    color: #52525b;
+    white-space: nowrap;
+  }
+
+  td.species,
+  td.lifers {
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  td.species {
+    width: 26%;
+    min-width: 6rem;
+  }
+
+  td.species .bar {
+    height: 4px;
+    margin-top: 3px;
+  }
+
+  td.species .bar-fill {
+    height: 100%;
+    min-width: 1px;
+    border-radius: 2px;
+    background-color: var(--color-green-link);
+  }
+
+  tfoot td.species {
+    font-weight: 600;
+  }
+
+  td.species.year-max > a,
+  td.lifers.year-max > a {
+    font-weight: 700;
+    padding: 0 0.375rem;
+    margin-left: -0.375rem;
+    border-radius: 0.25rem;
+  }
+
+  td.species.year-max > a {
+    background-color: rgba(39, 131, 78, 0.12);
+  }
+
+  td.species.year-max .bar {
+    height: 6px;
+  }
+
+  td.lifers.year-max > a {
+    background-color: rgba(208, 59, 59, 0.1);
+  }
+
+  td.lifers a {
+    color: var(--color-red-lifers);
+    border-bottom-color: rgba(208, 59, 59, 0.45);
+
+    &:hover {
+      border-bottom-color: rgba(208, 59, 59, 1);
+    }
+  }
+
+  td.countries ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem 0.5rem;
+  }
+
+  td.countries a {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.375rem;
+    padding: 0.125rem 0.625rem;
+    border-radius: 9999px;
+    border-bottom: none;
+    background-color: var(--color-bg-beige);
+
+    &:hover {
+      border-bottom: none;
+      background-color: #ececdf;
+    }
+  }
+
+  td.countries .dot {
+    width: 0.625rem;
+    height: 0.625rem;
+    border-radius: 50%;
+    align-self: center;
+    flex: none;
+  }
+
+  td.countries .count {
+    font-weight: 600;
+  }
+}

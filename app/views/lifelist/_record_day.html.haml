@@ -1,0 +1,7 @@
+-# frozen_string_literal: true
+%li{class: css_class}
+  .record-count= count_text
+  .record-unit= unit_text
+  .record-date
+    = post_link(tag.time(l(record.date, format: :long), datetime: record.date.iso8601), record.post(I18n.locale, scope: current_user.available_posts), true)
+  .record-place= record_day_place(record)

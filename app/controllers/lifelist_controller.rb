@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class LifelistController < ApplicationController
-  layout "application2", only: [:index]
+  layout "application2", only: [:index, :stats]
 
   administrative only: [:chart]
 
@@ -9,7 +9,8 @@ class LifelistController < ApplicationController
 
   localized
 
-  helper_method :grouped_by_country, :grouped_by_year_and_country, :total_species_count
+  helper_method :grouped_by_country, :grouped_by_year_and_country, :total_species_count,
+    :record_species_day, :record_lifers_day
 
   def index
     @list_life = Lifelist::FirstSeen.full
@@ -126,6 +127,16 @@ class LifelistController < ApplicationController
 
   def total_species_count
     identified_observations.count_distinct_species
+  end
+
+  # Like country_case_sql, these should only execute inside the stats view's
+  # fragment cache block, not on every request.
+  def record_species_day
+    @record_species_day ||= Lifelist::RecordDay.most_species(identified_observations)
+  end
+
+  def record_lifers_day
+    @record_lifers_day ||= Lifelist::RecordDay.most_lifers(identified_observations)
   end
 
   def grouped_by_country

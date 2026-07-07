@@ -8,7 +8,7 @@
       species_met: 'Species'
       lifers_met: "Lifers"
 
-      records: 'Best days:'
+      records: 'Best days'
 
       new_count_species:
         one: 'lifer'

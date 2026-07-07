@@ -47,22 +47,53 @@ class LifelistControllerTest < ActionController::TestCase
     get :stats
     assert_response :success
     # 2009: bomgar in the USA, jyntor in Ukraine
-    assert_select "td.count_sp a[href=?]", list_path(year: 2009), text: "2"
-    assert_select "td.count_new a[href=?]", advanced_list_path(anchor: "first_seen_2009"), text: "2"
-    assert_select "li.ukraine .count a[href=?]", list_path(year: 2009, locus: "ukraine"), text: "1"
-    assert_select "li.usa .count a[href=?]", list_path(year: 2009, locus: "usa"), text: "1"
-    assert_select "tr.total td.count_sp a[href=?]", lifelist_path, text: "5"
-    assert_select "tr.total li.usa .count a[href=?]", list_path(locus: "usa"), text: "3"
-    assert_select "tr.total li.ukraine .count a[href=?]", list_path(locus: "ukraine"), text: "2"
+    assert_select "td.species a[href=?]", list_path(year: 2009), text: "2"
+    assert_select "td.lifers a[href=?]", advanced_list_path(anchor: "first_seen_2009"), text: "+2"
+    assert_select "li.ukraine a[href=?] .count", list_path(year: 2009, locus: "ukraine"), text: "1"
+    assert_select "li.usa a[href=?] .count", list_path(year: 2009, locus: "usa"), text: "1"
+    assert_select "tfoot tr.total td.species a[href=?]", lifelist_path, text: "5"
+    assert_select "tfoot tr.total li.usa a[href=?] .count", list_path(locus: "usa"), text: "3"
+    assert_select "tfoot tr.total li.ukraine a[href=?] .count", list_path(locus: "ukraine"), text: "2"
+    # 2009 and 2010 tie for most species (2) and most lifers (2); 2007 is highlighted in neither
+    assert_select "td.species.year-max a[href=?]", list_path(year: 2009), text: "2"
+    assert_select "td.species.year-max", 2
+    assert_select "td.lifers.year-max a[href=?]", advanced_list_path(anchor: "first_seen_2010"), text: "+2"
+    assert_select "td.lifers.year-max", 2
+  end
+
+  test "stats orders countries by first visit" do
+    get :stats
+    # 2009 row (second year): the USA (June) was visited before Ukraine (August)
+    assert_select "tbody tr:nth-child(2) td.countries li:first-child.usa"
+    assert_select "tbody tr:nth-child(2) td.countries li:last-child.ukraine"
+    # Total row: Ukraine (2007) comes before the USA (2009)
+    assert_select "tfoot td.countries li:first-child.ukraine"
+  end
+
+  test "stats shows record days derived from observations" do
+    # A second (new) species on 2010-06-18 makes it both the most-species
+    # and the most-lifers day.
+    create(:observation, taxon: taxa(:motfel),
+      card: create(:card, observ_date: "2010-06-18", locus: loci(:nyc)))
+    get :stats
+    assert_select ".record-days li.record-species" do
+      assert_select ".record-count", text: "2"
+      assert_select "time[datetime=?]", "2010-06-18"
+      assert_select ".record-place", text: "Нью-Йорк — шт. Нью-Йорк — США"
+    end
+    assert_select ".record-days li.record-lifers" do
+      assert_select ".record-count", text: "+2"
+      assert_select "time[datetime=?]", "2010-06-18"
+    end
   end
 
   test "stats excludes hidden observations for visitors" do
     create(:observation, taxon: taxa(:motfel), hidden: true,
       card: create(:card, observ_date: "2009-08-09", locus: loci(:nyc)))
     get :stats
-    assert_select "tr.total td.count_sp a[href=?]", lifelist_path, text: "5"
-    assert_select "td.count_sp a[href=?]", list_path(year: 2009), text: "2"
-    assert_select "tr.total li.usa .count a[href=?]", list_path(locus: "usa"), text: "3"
+    assert_select "tfoot tr.total td.species a[href=?]", lifelist_path, text: "5"
+    assert_select "td.species a[href=?]", list_path(year: 2009), text: "2"
+    assert_select "tfoot tr.total li.usa a[href=?] .count", list_path(locus: "usa"), text: "3"
   end
 
   test "stats includes hidden observations for admin" do
@@ -70,9 +101,9 @@ class LifelistControllerTest < ActionController::TestCase
       card: create(:card, observ_date: "2009-08-09", locus: loci(:nyc)))
     login_as_admin
     get :stats
-    assert_select "tr.total td.count_sp a[href=?]", lifelist_path, text: "6"
-    assert_select "td.count_sp a[href=?]", list_path(year: 2009), text: "3"
-    assert_select "tr.total li.usa .count a[href=?]", list_path(locus: "usa"), text: "4"
+    assert_select "tfoot tr.total td.species a[href=?]", lifelist_path, text: "6"
+    assert_select "td.species a[href=?]", list_path(year: 2009), text: "3"
+    assert_select "tfoot tr.total li.usa a[href=?] .count", list_path(locus: "usa"), text: "4"
   end
 
   test "eBird Lifelist page" do

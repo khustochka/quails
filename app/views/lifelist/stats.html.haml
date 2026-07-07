@@ -1,107 +1,88 @@
 -# frozen_string_literal: true
--# no_viewport is for very wide pages, e.g. with table
-- @no_viewport = true
+- @page_title = t(".title")
 
-- @special_styling = true
-
-- @page_title = t('.title')
-
-- @robots = 'NOINDEX'
+- @robots = "NOINDEX"
 
 - content_for :translated do
-  = render 'partials/translated'
-
-%div.header-with-subheader
-  %h1= @page_title
-
-  %ul.subheader-menu
-    %li= link_to('Lifelist', lifelist_path)
-    %li= link_to(t('lifelist.title.ukraine'), list_path(locus: 'ukraine'))
-    %li= link_to(t('lifelist.title.usa'), list_path(locus: 'usa'))
-    %li= link_to(t('lifelist.title.gb'), list_path(locus: 'united_kingdom'))
-    %li= link_to(t('lifelist.title.canada'), list_path(locus: 'canada'))
+  = render "app2/shared/translated"
 
 - cache(key: Quails::CacheKey.lifelist, admin: current_user.admin?, locale: I18n.locale) do
-  - first_sp_by_year = @first_sp_by_year.count(:all)
-  - year_country_counts = grouped_by_year_and_country.count_distinct_species
-  - country_counts = grouped_by_country.count_distinct_species
+  .page-container.stats-page
 
-  %table.nice_stats
-    %tr
-      %th &nbsp;
-      %th.count_sp
-        = t('.species_met')
-      %th.count_new
-        = t('.lifers_met')
-      %th &nbsp;
+    = content_for :translated
 
-    - @year_data.count_distinct_species.each do |year, count_species|
-      %tr
-        %td.year= year
+    = simple_page_header(@page_title)
 
-        %td.count_sp
-          = link_to count_species, list_path(year: year)
+    %nav.stats-nav
+      %ul
+        %li= link_to("Lifelist", lifelist_path)
+        %li= link_to(t("lifelist.title.ukraine"), list_path(locus: "ukraine"))
+        %li= link_to(t("lifelist.title.usa"), list_path(locus: "usa"))
+        %li= link_to(t("lifelist.title.gb"), list_path(locus: "united_kingdom"))
+        %li= link_to(t("lifelist.title.canada"), list_path(locus: "canada"))
 
-        %td.count_new<>
-          - new_sp = first_sp_by_year[year.to_i]
-          - if new_sp && new_sp > 0
-            -# \/
-            %small<>
-              = link_to advanced_list_path(anchor: "first_seen_#{year}") do
-                =  new_sp
-
-        %td.countries
-          %ul
-            - @countries.each do |c|
-              - count = year_country_counts[[year, c.id]]
-              - if count
-                %li{class: c.slug}
-                  = succeed ':' do
-                    = c.name
-                  %span.count= link_to count, list_path(year: year, locus: c.slug)
-
-    %tr.total
-      %td.year= t('.total')
-      %td.count_sp= link_to total_species_count, lifelist_path
-      %td
-      %td.countries
+    - if record_species_day || record_lifers_day
+      %section.record-days
+        %h2.font-rubik= t(".records")
         %ul
-          - @countries.each do |c|
-            - count = country_counts[c.id]
-            - if count
-              %li{class: c.slug}
-                = succeed ':' do
-                  = c.name
-                %span.count= link_to count, list_path(locus: c.slug)
+          - if (record = record_species_day)
+            = render "record_day", record: record, css_class: "record-species",
+              count_text: record.count, unit_text: t("misc.species_count", count: record.count)
+          - if (record = record_lifers_day)
+            = render "record_day", record: record, css_class: "record-lifers",
+              count_text: "+#{record.count}", unit_text: t(".new_count_species", count: record.count)
 
-  -# TODO: these post links are hard-coded and only render for cyrillic locales (via blogless_locale?).
-  -# When EN versions of these posts exist, switch to Post.localized_for so the link follows the visitor's locale.
-  - day_with_max_species = Date.new(2020, 7, 4)
-  - max_species_for_day = 92
-  - post_for_day_with_max_species = show_post_path(year: 2021, month: "04", id: "second-western-trip-day-1")
+    %section.stats-years
+      - first_sp_by_year = @first_sp_by_year.count(:all)
+      - year_country_counts = grouped_by_year_and_country.count_distinct_species
+      - country_counts = grouped_by_country.count_distinct_species
+      - year_country_first_dates = grouped_by_year_and_country.minimum("cards.observ_date")
+      - country_first_dates = grouped_by_country.minimum("cards.observ_date")
+      - year_species_counts = @year_data.count_distinct_species
+      - max_year_count = year_species_counts.values.max
+      - max_lifers_count = first_sp_by_year.values.max
 
-  - day_with_max_lifers = Date.new(2010, 8, 14)
-  - max_lifers_for_day = 15
-  - post_for_day_with_max_lifers = show_post_path(year: 2010, month: "08", id: "jamaica-bay-herons-et-al")
-
-  %table.nice_stats.records
-    %tr
-      %th{colspan: 4}
-        %h2= t('.records')
-
-    %tr
-      %td.day
-        %nobr= link_to_unless blogless_locale? && post_for_day_with_max_species, l(day_with_max_species, format: :long), post_for_day_with_max_species
-      %td.place
-        Winnipeg, Cypress River, Manitoba SW Corner, Saskatchewan SE Corner, Whitewater Lake,
-        Duck Mountain Provincial Park &ndash; Canada
-      %td.count_sp= max_species_for_day
-      %td.count_sp_label= t('misc.species_count', count: max_species_for_day)
-
-    %tr
-      %td.day
-        %nobr= link_to_unless blogless_locale?, l(day_with_max_lifers, format: :long), post_for_day_with_max_lifers
-      %td.place Jamaica Bay Wildlife Refuge, New York City, USA
-      %td.count_new_big= max_lifers_for_day
-      %td.count_new_label
-        = t('lifelist.stats.new_count_species', count: max_lifers_for_day)
+      %table
+        %thead
+          %tr
+            %th.year
+            %th.species= t(".species_met")
+            %th.lifers= t(".lifers_met")
+            %th.countries
+        %tbody
+          - year_species_counts.each do |year, count_species|
+            %tr
+              %th.year{scope: "row"}= year
+              - new_sp = first_sp_by_year[year.to_i]
+              %td.species{class: ("year-max" if count_species == max_year_count)}
+                = link_to(count_species, list_path(year: year))
+                .bar{aria: {hidden: true}}
+                  .bar-fill{style: "width: #{(count_species * 100.0 / max_year_count).round(1)}%"}
+              %td.lifers{class: ("year-max" if new_sp && new_sp == max_lifers_count)}
+                - if new_sp && new_sp > 0
+                  = link_to("+#{new_sp}", advanced_list_path(anchor: "first_seen_#{year}"))
+              %td.countries
+                %ul
+                  - visited = @countries.select { |c| year_country_counts[[year, c.id]] }
+                  - visited.sort_by! { |c| [year_country_first_dates[[year, c.id]], @countries.index(c)] }
+                  - visited.each do |c|
+                    %li{class: c.slug}
+                      = link_to(list_path(year: year, locus: c.slug)) do
+                        %span.dot{aria: {hidden: true}, style: "background-color: #{country_dot_color(c.slug)}"}
+                        = c.name
+                        %span.count= year_country_counts[[year, c.id]]
+        %tfoot
+          %tr.total
+            %th.year{scope: "row"}= t(".total")
+            %td.species= link_to(total_species_count, lifelist_path)
+            %td.lifers
+            %td.countries
+              %ul
+                - visited = @countries.select { |c| country_counts[c.id] }
+                - visited.sort_by! { |c| [country_first_dates[c.id], @countries.index(c)] }
+                - visited.each do |c|
+                  %li{class: c.slug}
+                    = link_to(list_path(locus: c.slug)) do
+                      %span.dot{aria: {hidden: true}, style: "background-color: #{country_dot_color(c.slug)}"}
+                      = c.name
+                      %span.count= country_counts[c.id]
