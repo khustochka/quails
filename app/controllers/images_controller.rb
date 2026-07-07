@@ -13,11 +13,10 @@ class ImagesController < ApplicationController
   COUNTRIES = ["usa", "canada", "united_kingdom", "poland"]
 
   COUNTRY_THUMBNAILS = {
-    "usa" => "https://bwua-static.s3.eu-central-1.amazonaws.com/cardinal-thumb.jpg",
-    "united_kingdom" => "https://bwua-static.s3.eu-central-1.amazonaws.com/gannet-thumb.jpg",
-    "canada" => "https://bwua-static.s3.eu-central-1.amazonaws.com/meadowlark-thumb.jpg",
-    "poland" => "https://birdwatchorgua.s3.amazonaws.com/merganser_gull322264-voahaz1f2ifx.jpg",
-    # TODO: change Canada, Poland
+    "usa" => "https://bwua-static.s3.eu-central-1.amazonaws.com/countries/cardinal-thumb.jpg",
+    "united_kingdom" => "https://bwua-static.s3.eu-central-1.amazonaws.com/countries/gannet-thumb.jpg",
+    "canada" => "https://bwua-static.s3.eu-central-1.amazonaws.com/countries/rosebreastedgrosbeak350023-thumb.jpg",
+    "poland" => "https://bwua-static.s3.eu-central-1.amazonaws.com/countries/herringgull321379-thumb.jpg",
   }.freeze
 
   administrative except: [:index, :country, :multiple_species, :show]
