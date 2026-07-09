@@ -43,6 +43,8 @@ gem "acts_as_list"
 # Templating
 gem "haml", "~> 7.0"
 gem "haml-rails", "~> 3.0"
+# This version fixes bug with ARM platform:
+# https://github.com/jgarber/redcloth/issues/91
 gem "RedCloth", git: "https://github.com/moneybird/redcloth.git", ref: "ae8d6a91826734ad0a24dfed649e4c6c05283a59"
 gem "rinku"
 
