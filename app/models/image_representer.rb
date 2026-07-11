@@ -23,7 +23,7 @@ class ImageRepresenter
   # Large is an image representation with maximum width 1200px
   def large
     if image.on_storage?
-      variant(:medium)
+      variant_source(:medium)
     else
       large_asset.url
     end
@@ -86,13 +86,20 @@ class ImageRepresenter
     # P.S. If width is unknown (test or identification failure) - we just request variants
     new_sizes = WIDTH_TO_NAME.keys
     new_sizes = new_sizes.select { |size| size < max_width } if max_width
-    srcset = new_sizes.map { |size| [variant(WIDTH_TO_NAME[size]), "#{size}w"] }
-    srcset << [image.stored_image, "#{max_width}w"] if max_width
+    srcset = new_sizes.map { |size| [variant_source(WIDTH_TO_NAME[size]), "#{size}w"] }
+    srcset << [blob_source, "#{max_width}w"] if max_width
     srcset
   end
 
   def variant(name)
     image.stored_image.variant(name)
+  end
+
+  # Direct storage URL when the variant is already processed (nil otherwise),
+  # or the variant itself, which renders as the lazily-generating redirect route.
+  def variant_source(name)
+    source = variant(name)
+    (source.url if Quails.direct_variant_urls?) || source
   end
 
   def self.variant_format(name)
@@ -108,6 +115,10 @@ class ImageRepresenter
   end
 
   private
+
+  def blob_source
+    (image.stored_image.url if Quails.direct_variant_urls?) || image.stored_image
+  end
 
   def large_asset
     relevant_assets_cache.select { |item| item.width <= 1200 }.max_by(&:width)

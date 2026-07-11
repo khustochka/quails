@@ -30,4 +30,36 @@ class ImageRepresenterTest < ActiveSupport::TestCase
     image.stored_image.blob.update!(metadata: {})
     assert_nil image.representer.dimensions
   end
+
+  test "srcset returns variants when the flag is off" do
+    image = create(:image_on_storage)
+    image.representer.srcset.each do |source, _width|
+      assert_kind_of ActiveStorage::VariantWithRecord, source
+    end
+  end
+
+  test "srcset returns direct urls for processed variants and keeps redirect for the rest" do
+    with_direct_variant_urls do
+      image = create(:image_on_storage)
+      srcset = image.representer.srcset.to_h { |source, width| [width, source] }
+      # :small is preprocessed on attach, :medium is not
+      assert_match %r{/rails/active_storage/disk/}, srcset["640w"]
+      assert_kind_of ActiveStorage::VariantWithRecord, srcset["1200w"]
+    end
+  end
+
+  test "large returns a direct url for a processed medium variant" do
+    with_direct_variant_urls do
+      image = create(:image_on_storage)
+      image.stored_image.variant(:medium).processed
+      assert_match %r{/rails/active_storage/disk/}, image.representer.large
+    end
+  end
+
+  test "large returns the variant when the medium variant is not processed" do
+    with_direct_variant_urls do
+      image = create(:image_on_storage)
+      assert_kind_of ActiveStorage::VariantWithRecord, image.representer.large
+    end
+  end
 end

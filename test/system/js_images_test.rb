@@ -128,6 +128,20 @@ class JSImagesTest < ApplicationSystemTestCase
     assert_equal 2, all(".current-obs li").size
   end
 
+  test "broken direct thumbnail src falls back to the redirect route" do
+    img = create(:image_on_storage)
+    variant_blob = img.thumbnail_variant.processed.image.blob
+
+    with_direct_variant_urls do
+      visit images_path
+      assert_selector "figure.image_thumb img[src*='/rails/active_storage/disk/']"
+
+      variant_blob.service.delete(variant_blob.key)
+      visit images_path
+      assert_selector "figure.image_thumb img[src*='/rails/active_storage/representations/redirect/']"
+    end
+  end
+
   private
 
   def save_and_check

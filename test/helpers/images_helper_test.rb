@@ -33,4 +33,31 @@ class ImagesHelperTest < ActionView::TestCase
   test "dimension_attrs is empty without dimensions" do
     assert_equal({}, dimension_attrs(nil))
   end
+
+  test "variant_src_with_fallback returns the variant when the flag is off" do
+    variant = create(:image_on_storage).thumbnail_variant
+    assert_equal [variant, {}], variant_src_with_fallback(variant)
+  end
+
+  test "variant_src_with_fallback returns a direct url with a redirect fallback for a processed variant" do
+    with_direct_variant_urls do
+      variant = create(:image_on_storage).thumbnail_variant
+      src, attrs = variant_src_with_fallback(variant)
+      assert_match %r{/rails/active_storage/disk/}, src
+      assert_match %r{/rails/active_storage/representations/redirect/}, attrs[:data][:fallback_src]
+    end
+  end
+
+  test "variant_src_with_fallback returns an unprocessed variant unchanged" do
+    with_direct_variant_urls do
+      variant = create(:image_on_storage).stored_image.variant(:medium)
+      assert_equal [variant, {}], variant_src_with_fallback(variant)
+    end
+  end
+
+  test "variant_src_with_fallback passes through plain urls" do
+    with_direct_variant_urls do
+      assert_equal ["/photos/x.jpg", {}], variant_src_with_fallback("/photos/x.jpg")
+    end
+  end
 end

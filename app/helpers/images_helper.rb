@@ -51,6 +51,20 @@ module ImagesHelper
 
   THUMBNAIL_HEIGHT = 280
 
+  # [src, extra img attributes] for an image source that may be a variant.
+  # With Quails.direct_variant_urls? and a processed variant it returns the
+  # direct storage URL, keeping the redirect route in data-fallback-src so JS
+  # can recover if the direct URL goes stale (see image-fallback.js).
+  def variant_src_with_fallback(source)
+    if Quails.direct_variant_urls? &&
+        source.is_a?(ActiveStorage::VariantWithRecord) &&
+        (direct_url = source.url)
+      [direct_url, { data: { fallback_src: url_for(source) } }]
+    else
+      [source, {}]
+    end
+  end
+
   def thumbnail_item(img)
     if img.on_storage?
       img.stored_image_to_asset_item

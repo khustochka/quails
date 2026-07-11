@@ -8,5 +8,6 @@ Rails.start();
 
 // import './src/setup/airbrake-js-setup';
 import './src/setup/honeybadger-js-setup';
+import './src/setup/image-fallback';
 import './src/visitor/tooltips';
 import './src/visitor/search';

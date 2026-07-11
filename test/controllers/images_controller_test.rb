@@ -30,6 +30,27 @@ class ImagesControllerTest < ActionController::TestCase
     assert_select "figcaption", text: @image.species[0].name_en
   end
 
+  test "index thumbnails use direct urls with a redirect fallback when the flag is on" do
+    image = create(:image_on_storage)
+    image.thumbnail_variant.processed
+    with_direct_variant_urls do
+      get :index
+      assert_response :success
+      assert_select "figure.image_thumb " \
+        "img[src*='/rails/active_storage/disk/']" \
+        "[data-fallback-src*='/rails/active_storage/representations/redirect/']"
+    end
+  end
+
+  test "index thumbnails use redirect urls when the flag is off" do
+    image = create(:image_on_storage)
+    image.thumbnail_variant.processed
+    get :index
+    assert_response :success
+    assert_select "figure.image_thumb img[src*='/rails/active_storage/representations/redirect/']"
+    assert_select "figure.image_thumb img[data-fallback-src]", count: 0
+  end
+
   test "too big page number should return 404" do
     assert_raise ActiveRecord::RecordNotFound do
       get :index, params: { page: 7262 }

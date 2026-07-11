@@ -55,6 +55,15 @@ module ActiveSupport
       @request.session[:admin] = true
     end
 
+    def with_direct_variant_urls
+      ENV["QUAILS_DIRECT_VARIANT_URLS"] = "true"
+      # Required by the Disk service to generate direct urls outside a request
+      ActiveStorage::Current.url_options ||= { host: "www.example.com" }
+      yield
+    ensure
+      ENV.delete("QUAILS_DIRECT_VARIANT_URLS")
+    end
+
     # current path that preserves arguments after ? and # (unlike current_path)
     def current_path_info
       current_url.sub(%r{.*?://}, "")[%r{[/\?\#].*}] || "/"
