@@ -44,15 +44,15 @@
     -# Fonts preconnect
     %link{rel: "preconnect", href: "https://fonts.gstatic.com"}
 
-    -# Scripts
-    = javascript_include_tag "common"
-    = javascript_include_tag "visitor"
-
     -# Stylesheets
     = stylesheet_link_tag "https://fonts.googleapis.com/css2?family=Rubik:wght@500&display=swap", media: "all"
     = stylesheet_link_tag "visitor", media: "all"
     = stylesheet_link_tag "tailwind", media: "all"
     = stylesheet_link_tag "app2", media: "all"
+
+    -# Scripts
+    = javascript_include_tag "common", defer: true
+    = javascript_include_tag "visitor", defer: true
 
     = content_for(:head) if content_for?(:head)
 

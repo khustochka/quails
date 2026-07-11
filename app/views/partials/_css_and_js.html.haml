@@ -1,15 +1,15 @@
 -# frozen_string_literal: true
 
-= javascript_include_tag "common"
-- if admin_layout?
-  = javascript_include_tag "administrative"
-- else
-  = javascript_include_tag "visitor"
-= javascript_include_tag(*@scripts&.compact || [])
-
 -# stylesheets
 - stylesheet admin_layout? ? "admin" : "public"
 
 -# Visitor should be first, because some styles can use bootstrap classes
 = stylesheet_link_tag "visitor", media: "all"
 = stylesheet_link_tag(*@stylesheets.compact, media: "all") if @stylesheets.present?
+
+= javascript_include_tag "common", defer: true
+- if admin_layout?
+  = javascript_include_tag "administrative", defer: true
+- else
+  = javascript_include_tag "visitor", defer: true
+= javascript_include_tag(*@scripts&.compact || [], defer: true)
