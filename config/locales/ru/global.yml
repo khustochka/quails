@@ -54,15 +54,15 @@
 
   languages:
     en: по-английски
-    ru: по-русски
     uk: по-украински
+    ru: по-русски
     fr: по-французски
 
-  in_lang_names:
-    en: английском
-    ru: русском
-    uk: украинском
-    fr: французском
+  nominative_lang_names:
+    en: английский
+    uk: украинский
+    ru: русский
+    fr: французский
 
   errors:
     template:

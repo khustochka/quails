@@ -58,7 +58,7 @@
     fr: in French
     ru: in Russian
 
-  in_lang_names:
+  nominative_lang_names:
     en: English
     ru: Russian
     uk: Ukrainian

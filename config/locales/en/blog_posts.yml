@@ -43,9 +43,7 @@
     show:
       meta_description: "Blog post '%{title}', published %{date}"
     other_lang_notice:
-      notice_text: This is a post in the %{in_language} language.
-    other_lang_expand:
-      expand: Expand
+      notice_text: "%{in_language} language"
 
   comments:
     comment:

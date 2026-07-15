@@ -32,12 +32,6 @@ module PostsHelper
     end
   end
 
-  def other_lang_unwrap(post)
-    if post.lang.to_sym != I18n.locale
-      :other_lang_expand
-    end
-  end
-
   def universal_public_post_path(post)
     if administrative?
       default_public_post_path(post)

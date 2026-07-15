@@ -1,18 +1,16 @@
 -# frozen_string_literal: true
 %div.post-box{id: "post-#{post.slug}"}
   %div.post{class: post_lang_classes(post), lang: post.lang}
-    %div.header-with-subheader
+    = render partial: "posts/other_lang_notice", locals: {post: post}
+    %div.post-header
       %h2= link_to(post.decorated.title, universal_public_post_path(post))
       %i
         %time{datetime: post.face_date.iso8601}= l(post.face_date, format: :long)
       - unless post.public?
         %span.tag.draft Draft
 
-    = render partial: "posts/other_lang_expand", locals: {post: post}
-
     - cache [post, I18n.locale, :post_body, key: Quails::CacheKey.gallery] do
-      %div{class: other_lang_unwrap(post)}
-        = post.decorated(locale: I18n.locale).for_site.body
+      = post.decorated(locale: I18n.locale).for_site.body
 
     - cache [post, I18n.locale, :post_images, key: Quails::CacheKey.gallery] do
       - post.decorated.the_rest_of_images.if_present do |images|

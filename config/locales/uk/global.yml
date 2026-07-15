@@ -58,11 +58,11 @@
     uk: українською
     fr: французькою
 
-  in_lang_names:
-    en: англійською
-    ru: російською
-    uk: українською
-    fr: французькою
+  nominative_lang_names:
+    en: англійська
+    ru: російська
+    uk: українська
+    fr: французька
 
   errors:
     template:
