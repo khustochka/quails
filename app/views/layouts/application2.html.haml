@@ -25,6 +25,10 @@
     -# We do not cache this yet, because of the old application layout
     %meta{ name: 'viewport', content: 'width=device-width'}
 
+    -# robots
+    - if @robots
+      %meta{ name: 'robots', content: @robots}
+
     - if @canonical
       %link{href: @canonical, rel: "canonical"}
       %meta{content: @canonical, property: "og:url"}

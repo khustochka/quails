@@ -6,7 +6,8 @@
 - @meta_description = t(".meta_description.#{@country.slug}")
 - @meta_thumbnail = ImagesController::COUNTRY_THUMBNAILS[@country.slug]
 
-- @robots = params[:page] ? 'NOINDEX' : nil
+- if params[:page]
+  - @robots = 'NOINDEX'
 
 - @page_title = t(".title.#{@country.slug}")
 

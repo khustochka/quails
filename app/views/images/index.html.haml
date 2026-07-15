@@ -5,7 +5,8 @@
 - @page_header = t(".title")
 - @meta_description = t(".meta_description")
 
-- @robots = params[:page] ? 'NOINDEX' : nil
+- if params[:page]
+  - @robots = 'NOINDEX'
 
 - content_for :translated do
   = render 'partials/translated'
