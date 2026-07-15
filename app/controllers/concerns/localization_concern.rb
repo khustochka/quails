@@ -14,7 +14,7 @@ module LocalizationConcern
       locales = opts.delete(:locales)
       before_action(opts) do
         @localized = true
-        @all_locales = locales || I18n.available_locales
+        @all_locales = locales || [:en, :uk]
       end
     end
   end

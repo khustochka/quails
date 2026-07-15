@@ -7,10 +7,10 @@ class PagesController < ApplicationController
   before_action only: [:show] do
     @localized = true
     @all_locales = case params[:id]
-    when "winter" then [] # Means it has locale, but not translated
-    when "links" then [:uk, :ru]
-    when "about" then I18n.available_locales
-    else I18n.available_locales
+    when "winter" then [:uk]
+    when "links" then [:uk]
+    when "about" then [:en, :uk]
+    else [:en, :uk]
     end
   end
 end

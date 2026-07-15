@@ -11,8 +11,8 @@
 - content_for :jumbo_side do
   %ul.subheader-menu
     %li= link_to(t('menu.gallery'), country_path(country: @country.slug))
-    - if russian_locale? && @country.slug == "ukraine"
-      %li= link_to("Зимующие птицы", winter_path)
+    - if cyrillic_locale? && @country.slug == "ukraine"
+      %li{lang: "ru", hreflang: "ru"}= link_to("Зимующие птицы", winter_path)
 
 = render 'checklist'
 

@@ -366,13 +366,12 @@ Rails.application.routes.draw do
       format: false,
       id: "about"
   end
+
   scope "(:locale)", locale: /ru/ do
     get "links" => "pages#show",
       as: :links,
       format: false,
       id: "links"
-  end
-  scope "ru", locale: "ru" do
     get "winter" => "pages#show",
       as: :winter,
       format: false,
