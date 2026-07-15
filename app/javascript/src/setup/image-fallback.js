@@ -26,8 +26,10 @@ document.addEventListener(
   true
 );
 
-// Sweep up images that already failed before the listener was attached
-document.addEventListener("DOMContentLoaded", () => {
+// Sweep up images that failed before the listener was attached. Runs on load,
+// not DOMContentLoaded: img.complete is also true for an image whose fetch has
+// not started yet, which at DOMContentLoaded is every image below the fold.
+window.addEventListener("load", () => {
   document.querySelectorAll("img[data-fallback-src]").forEach((img) => {
     if (img.complete && img.naturalWidth === 0) applyFallback(img);
   });

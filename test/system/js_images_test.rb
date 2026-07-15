@@ -142,6 +142,19 @@ class JSImagesTest < ApplicationSystemTestCase
     end
   end
 
+  test "intact direct thumbnail src is kept" do
+    create(:image_on_storage)
+
+    with_direct_variant_urls do
+      visit localized_images_path
+      assert_selector "figure.image_thumb img[src*='/rails/active_storage/disk/']"
+
+      # The sweep must not mistake a not-yet-fetched image for a failed one.
+      assert_no_selector "figure.image_thumb img[src*='/rails/active_storage/representations/redirect/']"
+      assert_selector "figure.image_thumb img[data-fallback-src]"
+    end
+  end
+
   private
 
   def save_and_check
