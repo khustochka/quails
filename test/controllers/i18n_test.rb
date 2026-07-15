@@ -27,4 +27,16 @@ class I18NTest < ActionDispatch::IntegrationTest
     get show_post_path(blogpost.to_url_params)
     assert_select "time", /^9 січня 2011/
   end
+
+  test "Gallery menu link keeps the current locale prefix" do
+    { "en" => "/en/photos", "ru" => "/ru/photos" }.each do |locale, expected|
+      get "/#{locale}/photos"
+      assert_select "#menucontainer a[href=?]", expected
+    end
+  end
+
+  test "Gallery menu link has no locale prefix in the default locale" do
+    get "/photos"
+    assert_select "#menucontainer a[href=?]", "/photos"
+  end
 end

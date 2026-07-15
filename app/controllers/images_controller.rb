@@ -188,7 +188,7 @@ class ImagesController < ApplicationController
   # DELETE /photos/1
   def destroy
     @image.destroy
-    redirect_to(images_url)
+    redirect_to(localized_images_url)
   end
 
   private

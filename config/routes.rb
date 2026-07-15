@@ -124,7 +124,7 @@ Rails.application.routes.draw do
 
   scope "(:locale)", locale: /en|ru/ do
     get "/photos(/page/:page)" => "images#index", page: /[^0]\d*/,
-      constraints: { format: "html" }
+      constraints: { format: "html" }, as: "localized_images"
   end
 
   scope "(:locale)", locale: /en|ru/ do

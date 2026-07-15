@@ -289,7 +289,7 @@ class ImagesControllerTest < ActionController::TestCase
       delete :destroy, params: { id: @image.to_param }
     end
 
-    assert_redirected_to images_path
+    assert_redirected_to localized_images_path
   end
 
   test "Image page can be shown for spuhs as well" do

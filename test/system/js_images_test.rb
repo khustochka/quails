@@ -133,11 +133,11 @@ class JSImagesTest < ApplicationSystemTestCase
     variant_blob = img.thumbnail_variant.processed.image.blob
 
     with_direct_variant_urls do
-      visit images_path
+      visit localized_images_path
       assert_selector "figure.image_thumb img[src*='/rails/active_storage/disk/']"
 
       variant_blob.service.delete(variant_blob.key)
-      visit images_path
+      visit localized_images_path
       assert_selector "figure.image_thumb img[src*='/rails/active_storage/representations/redirect/']"
     end
   end

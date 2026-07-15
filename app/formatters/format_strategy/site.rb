@@ -9,7 +9,6 @@ module FormatStrategy
     include PostsHelper
     include ActionView::Helpers::TagHelper
     include ActionView::Helpers::UrlHelper
-    include PublicRoutesHelper
     include LocaleHelper
 
     def lj_user(user)
