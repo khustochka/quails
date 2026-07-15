@@ -2,7 +2,7 @@
 - @body_class = 'wider'
 - stylesheet 'public'
 
-- @robots = 'NOINDEX'
+- @robots ||= "NOINDEX"
 
 - @page_title = capture do
   - if action_name == "winter"

@@ -70,7 +70,7 @@ class ImagesController < ApplicationController
     respond_to do |format|
       format.html do
         @image = Image.find_by!(slug: slug)
-        @robots = "NOINDEX" if @image.status == "NOINDEX"
+        @robots ||= "NOINDEX" if @image.status == "NOINDEX"
       end
       format.jpeg do
         @image = Image.find_by(slug: slug)

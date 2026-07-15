@@ -28,6 +28,10 @@ module LocalizationConcern
     else
       I18n.default_locale
     end
+
+    if I18n.locale == :ru
+      @robots = "NOINDEX,NOFOLLOW"
+    end
   end
 
   def localized?

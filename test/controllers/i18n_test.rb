@@ -27,4 +27,22 @@ class I18NTest < ActionDispatch::IntegrationTest
     get show_post_path(blogpost.to_url_params)
     assert_select "time", /^9 січня 2011/
   end
+
+  test "Hide RU pages from search engines" do
+    get gallery_path(locale: "ru")
+    assert_response :success
+    assert_select "meta[name='robots'][content='NOINDEX,NOFOLLOW']"
+  end
+
+  test "Do not hide EN pages from search engines" do
+    get gallery_path(locale: "en")
+    assert_response :success
+    assert_select "meta[name='robots']", false
+  end
+
+  test "Do not hide default locale pages from search engines" do
+    get gallery_path
+    assert_response :success
+    assert_select "meta[name='robots']", false
+  end
 end
