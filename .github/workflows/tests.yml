@@ -34,7 +34,7 @@ jobs:
       RAILS_ENV: test
       DATABASE_URL: "postgres://quails:quails@localhost:5432/quails_test"
       MINITEST_REPORTER: Minitest::Reporters::SpecReporter
-      COVERAGE: 1
+      # COVERAGE: 1
       PARALLEL_WORKERS: 1
     steps:
       - name: Checkout code
@@ -45,11 +45,11 @@ jobs:
           ruby: ${{ inputs.ruby }}
       - name: Run tests
         run: bin/rails test
-      - name: Code coverage results
-        uses: actions/upload-artifact@v7
-        with:
-          name: Coverage
-          path: coverage/
+      # - name: Code coverage results
+      #   uses: actions/upload-artifact@v7
+      #   with:
+      #     name: Coverage
+      #     path: coverage/
 
   system_test:
     name: ${{ matrix.driver.name }} system tests
