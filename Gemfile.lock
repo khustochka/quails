@@ -139,9 +139,9 @@ GEM
       addressable
       ssrf_filter (~> 1.5)
     csv (3.3.5)
-    datadog (2.37.0)
+    datadog (2.38.0)
       cgi
-      datadog-ruby_core_source (~> 3.5, >= 3.5.2)
+      datadog-ruby_core_source (~> 3.5, >= 3.5.3)
       libdatadog (~> 36.0.0.1.0)
       libddwaf (~> 1.30.0.0.0)
       logger
@@ -204,7 +204,7 @@ GEM
     high_voltage (5.0.0)
     hiredis-client (0.30.0)
       redis-client (= 0.30.0)
-    honeybadger (6.9.0)
+    honeybadger (6.9.1)
       logger
       ostruct
     htmlentities (4.4.2)
@@ -324,7 +324,7 @@ GEM
     observer (0.1.2)
     ostruct (0.6.3)
     parallel (2.1.0)
-    parser (3.3.11.1)
+    parser (3.3.12.0)
       ast (~> 2.4.1)
       racc
     pg (1.6.3-aarch64-linux)
@@ -374,8 +374,8 @@ GEM
       activesupport (>= 5.0.0)
       minitest
       nokogiri (>= 1.6)
-    rails-html-sanitizer (1.7.0)
-      loofah (~> 2.25)
+    rails-html-sanitizer (1.7.1)
+      loofah (~> 2.25, >= 2.25.2)
       nokogiri (>= 1.15.7, != 1.16.7, != 1.16.6, != 1.16.5, != 1.16.4, != 1.16.3, != 1.16.2, != 1.16.1, != 1.16.0.rc1, != 1.16.0)
     rails-i18n (8.1.0)
       i18n (>= 0.7, < 2)
@@ -680,7 +680,7 @@ CHECKSUMS
   crass (1.0.7) sha256=94868719948664c89ddcaf0a37c65048413dfcb1c869470a5f7a7ceb5390b295
   css_parser (3.0.0) sha256=eaf0e9283fd581d06e815235ceef4f0910c0b394c606355dbc69f93e84443885
   csv (3.3.5) sha256=6e5134ac3383ef728b7f02725d9872934f523cb40b961479f69cf3afa6c8e73f
-  datadog (2.37.0) sha256=6c84b5358084ad36d82433d1056542dfd1b00d49c69875fbe78de9be35a98cfb
+  datadog (2.38.0) sha256=0eaa04e043ec1dbc62a0360902014e4e2bacf2ea48204482618f0f0786f05aa7
   datadog-ruby_core_source (3.5.3) sha256=5636592e73664c6c1efedf6645f2a882c4d04902088f847f6a5ddb765340cc9b
   date (3.5.1) sha256=750d06384d7b9c15d562c76291407d89e368dda4d4fff957eb94962d325a0dc0
   debug (1.11.1) sha256=2e0b0ac6119f2207a6f8ac7d4a73ca8eb4e440f64da0a3136c30343146e952b6
@@ -709,7 +709,7 @@ CHECKSUMS
   health_check_rb (4.0.1.pre.main)
   high_voltage (5.0.0) sha256=fbdd1a861af30d51d6a9f710b37709ab489211402685972945cd5eac6a4c0b23
   hiredis-client (0.30.0) sha256=dfc0203e1cb5c47109dd6c803a05c4a19ff13b57203c0af9570e742ab3583cf9
-  honeybadger (6.9.0) sha256=f90b4f0dd37b8bfb1decb40f17349459828f6fd6933ef8cf1b1881dbc4a9eb75
+  honeybadger (6.9.1) sha256=3e79543ab171f810306bd152b3f470ce2b905b1a27f766f3138568949078cf68
   htmlentities (4.4.2) sha256=bbafbdf69f2eca9262be4efef7e43e6a1de54c95eb600f26984f71d2fe96c5c3
   http-cookie (1.1.6) sha256=ba4b82be64de61dc281243dac70e3c382c45142f20268ed9276a3670c93feaa9
   i18n (1.15.2) sha256=00f9eb62412fe593b2a65a97daa75300d37abb8f7202ec748e94b6d46a9dd1b5
@@ -762,7 +762,7 @@ CHECKSUMS
   observer (0.1.2) sha256=d8a3107131ba661138d748e7be3dbafc0d82e732fffba9fccb3d7829880950ac
   ostruct (0.6.3) sha256=95a2ed4a4bd1d190784e666b47b2d3f078e4a9efda2fccf18f84ddc6538ed912
   parallel (2.1.0) sha256=b35258865c2e31134c5ecb708beaaf6772adf9d5efae28e93e99260877b09356
-  parser (3.3.11.1) sha256=d17ace7aabe3e72c3cc94043714be27cc6f852f104d81aa284c2281aecc65d54
+  parser (3.3.12.0) sha256=21a6d7f755d5a24dfbdc6e6b772e4e879a52e7631a88bc5a3a134606052c9828
   pg (1.6.3-aarch64-linux) sha256=0698ad563e02383c27510b76bf7d4cd2de19cd1d16a5013f375dd473e4be72ea
   pg (1.6.3-arm64-darwin) sha256=7240330b572e6355d7c75a7de535edb5dfcbd6295d9c7777df4d9dddfb8c0e5f
   pg (1.6.3-x86_64-linux) sha256=5d9e188c8f7a0295d162b7b88a768d8452a899977d44f3274d1946d67920ae8d
@@ -785,7 +785,7 @@ CHECKSUMS
   rails-brotli-cache (0.6.3) sha256=346288ba9e960fbd2c4dd801ac2c696fd244c6c9c6cf604fc6b961a36666e248
   rails-controller-testing (1.0.5) sha256=741448db59366073e86fc965ba403f881c636b79a2c39a48d0486f2607182e94
   rails-dom-testing (2.3.0) sha256=8acc7953a7b911ca44588bf08737bc16719f431a1cc3091a292bca7317925c1d
-  rails-html-sanitizer (1.7.0) sha256=28b145cceaf9cc214a9874feaa183c3acba036c9592b19886e0e45efc62b1e89
+  rails-html-sanitizer (1.7.1) sha256=e797a7c9b01e567307e317c576b49ab4168017e63eea4dba9ce3cb587e2f22c2
   rails-i18n (8.1.0) sha256=52d5fd6c0abef28d84223cc05647f6ae0fd552637a1ede92deee9545755b6cf3
   rails-pg-extras (5.7.0) sha256=9e16d43d32bb293d206f07eb80cd51bfaf0d6aad0a168cea1066660c7370021a
   rails_semantic_logger (5.0.0) sha256=0ac433d4acab1fd7c36b5b810caced6204bbaca3b52827ab7a236931869c74fc
@@ -859,4 +859,4 @@ RUBY VERSION
   ruby 4.0.5
 
 BUNDLED WITH
-  4.0.15
+  4.0.16
