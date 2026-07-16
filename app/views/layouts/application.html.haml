@@ -64,9 +64,10 @@
 
       -# rel canonical, self, alternate etc
 
-      - if @canonical
-        %link{href: @canonical, rel: "canonical"}
-        %meta{content: @canonical, property: "og:url"}
+      - canonical = canonical_url
+      - if canonical
+        %link{href: canonical, rel: "canonical"}
+        %meta{content: canonical, property: "og:url"}
 
       -# rss feeds
       - if @feed

@@ -7,10 +7,10 @@ class PagesController < ApplicationController
   before_action only: [:show] do
     @localized = true
     @all_locales = case params[:id]
-    when "winter" then [:uk]
-    when "links" then [:uk]
-    when "about" then [:en, :uk]
-    else [:en, :uk]
+    when "winter" then Quails.enabled_locales - [:en]
+    when "links" then Quails.enabled_locales - [:en]
+    when "about" then Quails.enabled_locales
+    else Quails.enabled_locales
     end
   end
 end

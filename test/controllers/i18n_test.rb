@@ -34,6 +34,42 @@ class I18NTest < ActionDispatch::IntegrationTest
     assert_select "meta[name='robots'][content='NOINDEX,NOFOLLOW']"
   end
 
+  test "Rewrite canonical of hidden locale pages to the default locale URL" do
+    get gallery_path(locale: "ru")
+    assert_response :success
+    assert_select "link[rel='canonical'][href='http://www.example.com/species']"
+    assert_select "meta[property='og:url'][content='http://www.example.com/species']"
+  end
+
+  test "Hidden locale canonical overrides the view-provided canonical" do
+    species = Species.first
+    get localized_species_path(species, locale: "ru")
+    assert_response :success
+    assert_select "link[rel='canonical'][href='http://www.example.com/species/#{species.to_param}']"
+  end
+
+  test "Hidden locale canonical preserves the query string" do
+    get gallery_path(locale: "ru", letter: "A")
+    assert_response :success
+    assert_select "link[rel='canonical'][href='http://www.example.com/species?letter=A']"
+  end
+
+  test "Hidden locale canonical of the root page" do
+    get blog_path(locale: "ru")
+    assert_response :success
+    assert_select "link[rel='canonical'][href='http://www.example.com/']"
+  end
+
+  test "Locales enabled via ENABLED_LOCALES are not hidden" do
+    ENV["ENABLED_LOCALES"] = "uk,en,ru"
+    get gallery_path(locale: "ru")
+    assert_response :success
+    assert_select "meta[name='robots']", false
+    assert_select "link[rel='canonical']", false
+  ensure
+    ENV.delete("ENABLED_LOCALES")
+  end
+
   test "Do not hide EN pages from search engines" do
     get gallery_path(locale: "en")
     assert_response :success

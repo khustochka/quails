@@ -14,7 +14,7 @@ module LocalizationConcern
       locales = opts.delete(:locales)
       before_action(opts) do
         @localized = true
-        @all_locales = locales || [:en, :uk]
+        @all_locales = locales || Quails.enabled_locales
       end
     end
   end
@@ -29,7 +29,7 @@ module LocalizationConcern
       I18n.default_locale
     end
 
-    if I18n.locale == :ru
+    if I18n.locale.in?(Quails.hidden_locales)
       @robots = "NOINDEX,NOFOLLOW"
     end
   end
