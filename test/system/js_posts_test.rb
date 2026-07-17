@@ -3,10 +3,28 @@
 require "application_system_test_case"
 
 class JSPostsTest < ApplicationSystemTestCase
-  test "Visit new post core page" do
+  test "Attach card to the post core" do
+    create(:card, observ_date: "2010-06-18")
+
+    p = create(:post)
+
     login_as_admin
-    visit new_post_core_path
-    assert_predicate find(:xpath, "//h1[text()='New post core']"), :present?
+    visit edit_post_core_path(p.post_core)
+    fill_in_date("Date:", "2010-06-18")
+
+    click_button("Search")
+
+    assert_css "li.observ_card"
+
+    accept_confirm do
+      page.find("li.observ_card").click_link("Attach to this post")
+    end
+
+    assert_no_css ".loading"
+    assert_current_path edit_post_core_path(p.post_core)
+    assert_css "li.observ_card a", text: "Detach from this post"
+
+    assert_equal 1, p.reload.cards.size
   end
 
   test "Detach card from post core edit page updates UI without reloading" do
