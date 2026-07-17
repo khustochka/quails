@@ -11,6 +11,14 @@ class EBird::SubmissionsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "should show an ebird file" do
+    obs = FactoryBot.create(:observation)
+    file = FactoryBot.create(:ebird_file, cards: [obs.card])
+    login_as_admin
+    get :show, params: { id: file.id }
+    assert_response :success
+  end
+
   test "new ebird action" do
     login_as_admin
     get :new

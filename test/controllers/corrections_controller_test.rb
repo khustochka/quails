@@ -25,6 +25,12 @@ class CorrectionsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "show redirects to edit" do
+    login_as_admin
+    get :show, params: { id: @correction.id }
+    assert_redirected_to edit_correction_url(@correction)
+  end
+
   test "should create correction" do
     login_as_admin
     assert_difference("Correction.count") do

@@ -22,6 +22,19 @@ class FlickrPhotosControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "#new" do
+    login_as_admin
+    get :new
+    assert_response :success
+  end
+
+  test "#edit" do
+    img1 = create(:image)
+    login_as_admin
+    get :edit, params: { id: img1.slug }
+    assert_response :success
+  end
+
   test "#show for unflickred image" do
     img1 = create(:image)
 

@@ -15,6 +15,14 @@ class MapsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "returns loci coordinates as JSON" do
+    login_as_admin
+    create(:card, locus: create(:locus, lat: 50.0, lon: 30.0))
+    get :loci, format: :json
+    assert_response :success
+    assert_equal Mime[:json], response.media_type
+  end
+
   test "properly find observations with spots" do
     obs1 = create(:observation, card: create(:card, observ_date: "2010-07-24"))
     obs2 = create(:observation, card: create(:card, observ_date: "2011-07-24"))
