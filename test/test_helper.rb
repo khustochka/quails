@@ -26,6 +26,12 @@ if %w(true 1).include?(ENV["COVERAGE"])
     skip "app/jobs/flickr_to_storage_job.rb"
     skip "app/jobs/flickr_upload_job.rb"
 
+    # These are tested, but cannot be measured: they load during boot, before the
+    # parallel workers fork, so a worker never re-executes them. See PAPERCUTS.md.
+    skip "lib/quails.rb"
+    skip "lib/quails/env.rb"
+    skip "lib/core_ext"
+
     if ENV["TEAMCITY_VERSION"]
       at_exit do
         SimpleCov::Formatter::TeamcitySummaryFormatter.new.format(SimpleCov.result)

@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "test_helper"
-require "quails/env"
 
 class EnvTest < ActiveSupport::TestCase
   # QUAILS_ENV is read when Quails::Env is built, but DYNO and PWD are read on every call,
