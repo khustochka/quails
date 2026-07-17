@@ -35,26 +35,26 @@
 
       %div
         %h2.top5-list-header.font-rubik
-          = link_to(t("lifelist.title.canada"), list_path(locus: "canada"))
+          = link_to(t("lifelist.title.country.canada"), list_path(locus: "canada"))
         = render partial: "top5list", object: @list_canada
 
       %div
         %h2.top5-list-header.font-rubik
-          = link_to(t("lifelist.title.ukraine"), list_path(locus: "ukraine"))
+          = link_to(t("lifelist.title.country.ukraine"), list_path(locus: "ukraine"))
         = render partial: "top5list", object: @list_ukraine
 
     .grid.grid-cols-1.md:grid-cols-2.gap-x-8
       %div
         %h2.top5-list-header.font-rubik
-          = link_to(t("lifelist.title.usa"), list_path(locus: "usa"))
+          = link_to(t("lifelist.title.country.usa"), list_path(locus: "usa"))
           (#{@list_usa.total_count})
 
       %div.md:order-last
         %h2.top5-list-header.font-rubik
-          = link_to(t("lifelist.title.gb"), list_path(locus: "united_kingdom"))
+          = link_to(t("lifelist.title.country.united_kingdom"), list_path(locus: "united_kingdom"))
           (#{@list_uk.total_count})
 
       %div
         %h2.top5-list-header.font-rubik
-          = link_to(t("lifelist.title.poland"), list_path(locus: "poland"))
+          = link_to(t("lifelist.title.country.poland"), list_path(locus: "poland"))
           (#{@list_pl.total_count})

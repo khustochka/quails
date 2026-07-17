@@ -28,9 +28,14 @@ module Lifelist
     end
 
     def locus
-      @locus ||= if @filter[:locus]
-        Locus.find_by(slug: @filter[:locus])
-      end
+      return @locus if defined?(@locus)
+
+      slug = @filter[:locus]
+      @locus =
+        if slug
+          Locus.find_by(slug: slug) ||
+            (PlaceholderCountry.new(slug) if PlaceholderCountry.hardcoded?(slug))
+        end
     end
 
     def normalized_filter

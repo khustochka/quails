@@ -43,14 +43,15 @@ class LifelistController < ApplicationController
         raise ActionController::RoutingError, "Illegal argument sort=#{params[:sort]}"
       end
 
-    locus = params[:locus]
     @locations = Country.all
-
-    raise ActiveRecord::RecordNotFound if locus && !locus.in?(@locations.map(&:slug))
 
     @lifelist = Lifelist::FirstSeen
       .over(params.permit(:year, :locus))
       .sort(sort_override)
+
+    # A locus param resolves to nil only when it is neither a real country nor a
+    # hardcoded one (PlaceholderCountry); such an unknown slug is a 404.
+    raise ActiveRecord::RecordNotFound if params[:locus] && @lifelist.locus.nil?
 
     @lifelist.observation_scope = current_user.available_obs
     @lifelist.posts_scope = current_user.available_posts

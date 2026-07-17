@@ -76,6 +76,22 @@ class LifelistBasicTest < ActionController::TestCase
     # assert_response :not_found
   end
 
+  test "hardcoded country with no locus row renders an empty placeholder page" do
+    # Canada is a hardcoded country (has a lifelist title) but has no Locus fixture.
+    get :basic, params: { locus: "canada", locale: "en" }
+    assert_response :not_found
+    assert_kind_of PlaceholderCountry, assigns(:lifelist).locus
+    assert_empty assigns(:lifelist).to_a
+    assert_select "h1", text: "Canada List"
+    assert_select "li", I18n.t("lifelist.basic.no_species")
+  end
+
+  test "hardcoded country does not fall back to the unfiltered global list" do
+    # A missing locus row must yield an empty list, not every species.
+    get :basic, params: { locus: "poland" }
+    assert_empty assigns(:lifelist).to_a
+  end
+
   test "lifelist links filter out invalid parameters" do
     get :basic, params: { sort: "by_taxonomy", year: 2009, zzz: "ooo" }
     assert_response :success

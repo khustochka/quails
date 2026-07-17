@@ -55,7 +55,9 @@ class Observation < ApplicationRecord
       rel = rel.joins(:card).where("EXTRACT(month from cards.observ_date)::integer = ?", options[:month]) if options[:month].present?
       rel = rel.joins(:card).where("EXTRACT(day from cards.observ_date)::integer = ?", options[:day]) unless options[:day].blank? || options[:month].blank?
     end
-    rel = rel.joins(:card).where(cards: { locus_id: options[:locus] }) if options[:locus].present?
+    # An explicit empty locus list (e.g. a hardcoded country with no DB row)
+    # must filter to nothing, not be treated as "no locus filter".
+    rel = rel.joins(:card).where(cards: { locus_id: options[:locus] }) unless options[:locus].nil?
     rel = rel.joins(:card).where(cards: { motorless: true }) if options[:motorless]
     rel = rel.joins(:card).where(voice: false) if options[:exclude_heard_only]
     rel

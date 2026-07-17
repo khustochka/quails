@@ -9,11 +9,12 @@
       countrylist: 'Список страны: %{country}'
       locationlist: 'Местный список: %{location}'
       winter_list: 'Зимний список'
-      ukraine: Список Украины
-      canada: Список Канады
-      usa: Список США
-      gb: Список Великобритании
-      poland: Список Польши
+      country:
+        ukraine: Список Украины
+        canada: Список Канады
+        usa: Список США
+        united_kingdom: Список Великобритании
+        poland: Список Польши
 
     index:
       title: Списки

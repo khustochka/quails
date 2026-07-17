@@ -16,10 +16,11 @@
     %nav.stats-nav
       %ul
         %li= link_to("Lifelist", lifelist_path)
-        %li= link_to(t("lifelist.title.ukraine"), list_path(locus: "ukraine"))
-        %li= link_to(t("lifelist.title.usa"), list_path(locus: "usa"))
-        %li= link_to(t("lifelist.title.gb"), list_path(locus: "united_kingdom"))
-        %li= link_to(t("lifelist.title.canada"), list_path(locus: "canada"))
+        %li= link_to(t("lifelist.title.country.ukraine"), list_path(locus: "ukraine"))
+        %li= link_to(t("lifelist.title.country.usa"), list_path(locus: "usa"))
+        %li= link_to(t("lifelist.title.country.united_kingdom"), list_path(locus: "united_kingdom"))
+        %li= link_to(t("lifelist.title.country.canada"), list_path(locus: "canada"))
+        %li= link_to(t("lifelist.title.country.poland"), list_path(locus: "poland"))
 
     - if record_species_day || record_lifers_day
       %section.record-days

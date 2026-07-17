@@ -9,11 +9,12 @@
       countrylist: '%{country} Life List'
       locationlist: '%{location} Life List'
       winter_list: 'Winter list'
-      ukraine: Ukraine List
-      canada: Canada List
-      usa: United States List
-      gb: UK List
-      poland: Poland List
+      country:
+        ukraine: Ukraine List
+        canada: Canada List
+        usa: United States List
+        united_kingdom: UK List
+        poland: Poland List
 
     index:
       title: The Lists

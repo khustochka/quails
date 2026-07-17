@@ -31,6 +31,18 @@ class LifelistControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "index shows an empty list for a hardcoded country with no locus row" do
+    # Canada has observations here but no Locus row; the placeholder must keep
+    # its list empty instead of falling back to the unfiltered global list.
+    create(:observation, taxon: taxa(:pasdom),
+      card: create(:card, observ_date: "2010-06-20", locus: loci(:nyc)))
+    create(:locus, slug: "united_kingdom", loc_type: "country")
+    get :index
+    assert_response :success
+    assert_kind_of PlaceholderCountry, assigns(:list_canada).locus
+    assert_equal 0, assigns(:list_canada).total_count
+  end
+
   test "index hides hidden observations from visitors" do
     %w(united_kingdom canada).each do |sl|
       create(:locus, slug: sl, loc_type: "country")
