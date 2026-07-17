@@ -99,6 +99,53 @@ export function initEbirdAlerts(mapEl) {
 
     });
   });
+
+  initAlertsUi();
+}
+
+function initAlertsUi() {
+  // Bottom sheet (mobile)
+  var sheet = document.querySelector(".alerts-bottom-sheet");
+  if (sheet) {
+    var handle = sheet.querySelector(".alerts-bottom-sheet-handle");
+    if (handle) {
+      handle.addEventListener("click", function () {
+        sheet.classList.toggle("is-expanded");
+      });
+    }
+  }
+
+  var alertsList = document.querySelector(".alerts-list");
+  if (alertsList) {
+    alertsList.addEventListener("click", function (e) {
+      var card = e.target.closest("li[data-link]");
+      if (!card) return;
+
+      // If user clicked a real link, do nothing
+      if (e.target.closest("a")) return;
+
+      window.location = card.dataset.link;
+    });
+  }
+
+  document.querySelectorAll(".alerts-refresh-btn").forEach(function (link) {
+    link.addEventListener("ajax:success", function () {
+      var linkSid = link.dataset.sid;
+      link.classList.add("is-loading");
+
+      var sub = consumer.subscriptions.create({ channel: "EBirdAlertsChannel" }, {
+        received: function (data) {
+          if (data && data.sid && data.sid !== linkSid) return;
+          sub.unsubscribe();
+          if (link.closest("li.is-active")) {
+            window.location.reload();
+          } else {
+            window.location.href = window.location.pathname + "?sid=" + encodeURIComponent(linkSid);
+          }
+        }
+      });
+    });
+  });
 }
 
 function circleIcon(color) {
@@ -155,43 +202,3 @@ function escHtml(str) {
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;");
 }
-
-document.addEventListener("DOMContentLoaded", function () {
-  // Bottom sheet (mobile)
-  var sheet = document.querySelector(".alerts-bottom-sheet");
-  if (sheet) {
-    var handle = sheet.querySelector(".alerts-bottom-sheet-handle");
-    handle.addEventListener("click", function () {
-      sheet.classList.toggle("is-expanded");
-    });
-  }
-
-  document.querySelector(".alerts-list").addEventListener('click', e => {
-    const card = e.target.closest('li[data-link');
-    if (!card) return;
-
-    // If user clicked a real link, do nothing
-    if (e.target.closest('a')) return;
-
-    window.location = card.dataset.link;
-  });
-
-  document.querySelectorAll(".alerts-refresh-btn").forEach(function (link) {
-    link.addEventListener("ajax:success", function () {
-      var linkSid = link.dataset.sid;
-      link.classList.add("is-loading");
-
-      var sub = consumer.subscriptions.create({ channel: "EBirdAlertsChannel" }, {
-        received: function (data) {
-          if (data && data.sid && data.sid !== linkSid) return;
-          sub.unsubscribe();
-          if (link.closest("li.is-active")) {
-            window.location.reload();
-          } else {
-            window.location.href = window.location.pathname + "?sid=" + encodeURIComponent(linkSid);
-          }
-        }
-      });
-    });
-  });
-});
