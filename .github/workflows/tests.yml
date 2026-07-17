@@ -44,10 +44,20 @@ jobs:
           ruby: ${{ inputs.ruby }}
       - name: Run tests
         run: bin/rails test
+      - name: Coverage summary
+        if: always()
+        run: |
+          if [ -f coverage/.last_run.json ]; then
+            line=$(ruby -rjson -e 'puts JSON.parse(File.read("coverage/.last_run.json"))["result"]["line"]')
+            echo "## Coverage: ${line}%" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "## Coverage: not available" >> "$GITHUB_STEP_SUMMARY"
+            echo "SimpleCov only writes \`.last_run.json\` when the suite passes." >> "$GITHUB_STEP_SUMMARY"
+          fi
       - name: Code coverage results
         uses: actions/upload-artifact@v7
         with:
-          name: Coverage
+          name: coverage
           path: coverage/
 
   system_test:
