@@ -131,6 +131,15 @@ class ImagesControllerTest < ActionController::TestCase
     assert_empty assigns(:thumbs)
   end
 
+  test "country gallery renders when the country row is missing" do
+    # Poland has no Locus fixture, so the page relies on the placeholder.
+    get :country, params: { country: "poland", locale: "en" }
+    assert_response :success
+    assert_empty assigns(:thumbs)
+    assert_kind_of PlaceholderCountry, assigns(:country)
+    assert_select "h1", text: "Birds of Poland"
+  end
+
   test "get new" do
     login_as_admin
     get :new

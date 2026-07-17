@@ -8,7 +8,7 @@ class CountriesController < ApplicationController
   localized only: [:gallery]
 
   def gallery
-    @country = Country.find_by!(slug: params[:country])
+    @country = Country.find_by(slug: params[:country]) || PlaceholderCountry.new(params[:country])
 
     @thumbs = @country.checklist([:image])
   end

@@ -27,16 +27,17 @@ class ChecklistController < ApplicationController
   private
 
   def fetch_checklist
-    @country = if params[:country] == "manitoba"
-      Locus.find_by!(slug: "manitoba")
-    else
-      Country.find_by!(slug: params[:country])
+    unless params[:country].in? %w(ukraine manitoba)
+      raise ActiveRecord::RecordNotFound, "Checklist not allowed for #{params[:country]}"
     end
 
-    if @country.slug.in? %w(ukraine manitoba)
-      @checklist = @country.checklist
-    else
-      raise ActiveRecord::RecordNotFound, "Checklist not allowed for #{@country.name_en}"
-    end
+    @country =
+      if params[:country] == "manitoba"
+        Locus.find_by(slug: "manitoba")
+      else
+        Country.find_by(slug: params[:country])
+      end || PlaceholderCountry.new(params[:country])
+
+    @checklist = @country.checklist
   end
 end

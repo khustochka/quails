@@ -47,7 +47,7 @@ class ImagesController < ApplicationController
     elsif !params[:country].in?(COUNTRIES)
       raise ActiveRecord::RecordNotFound
     else
-      @country = Country.find_by!(slug: params[:country])
+      @country = Country.find_by(slug: params[:country]) || PlaceholderCountry.new(params[:country])
 
       @thumbs =
         Image.joins(observations: :card)

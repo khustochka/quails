@@ -23,6 +23,16 @@ class CountriesControllerTest < ActionController::TestCase
     assert_empty assigns(:thumbs)
   end
 
+  test "gallery renders for Ukraine when the country row is missing" do
+    loci(:ukraine).delete
+    get :gallery, params: { country: "ukraine" }
+    assert_response :success
+    assert_empty assigns(:thumbs)
+    assert_select "meta[property='og:image']" do |elements|
+      assert_includes elements.first["content"], "cuckoo-thumb"
+    end
+  end
+
   test "og:image meta tag is present for gallery page on cached response" do
     LocalSpecies.create(locus: loci(:ukraine), species: species(:pasdom), status: "")
 
