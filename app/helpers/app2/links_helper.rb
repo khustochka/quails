@@ -5,13 +5,8 @@ module App2
     # FIXME: This method is not exactly compatible with link_to. No block argument!
     def external_link(name = nil, options = nil, html_options = nil)
       html_options2 = (html_options.dup || {}).stringify_keys!
-      klass = html_options2["class"]
-      case klass
-      when String, Array
-        html_options2["class"] << -" external"
-      when NilClass
-        html_options2["class"] = -"external"
-      end
+      # dup is shallow, so build a new class value instead of appending to the caller's one.
+      html_options2["class"] = (Array(html_options2["class"]) + ["external"]).join(" ")
 
       nofollow = true
       if html_options2.has_key?(-"nofollow")

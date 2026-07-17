@@ -7,6 +7,41 @@ class YearContestTest < ActiveSupport::TestCase
     @contest = YearContest.new
   end
 
+  # The contest looks for the longest chain of species seen on consecutive days, so only species
+  # observed on the day following the previous pick can extend the result.
+  test "run builds the chain from the year's observations in the database" do
+    sp1 = taxa(:saxola)
+    sp2 = taxa(:jyntor)
+    create(:observation, taxon: sp1, card: create(:card, observ_date: "2011-01-01"))
+    create(:observation, taxon: sp2, card: create(:card, observ_date: "2011-01-02"))
+    create(:observation, taxon: taxa(:hirrus), card: create(:card, observ_date: "2012-03-03"))
+
+    result = YearContest.new(year: 2011).run
+
+    assert_equal [sp1.species_id, sp2.species_id], result
+  end
+
+  test "run only considers observations of the requested year" do
+    create(:observation, taxon: taxa(:saxola), card: create(:card, observ_date: "2011-01-01"))
+    create(:observation, taxon: taxa(:jyntor), card: create(:card, observ_date: "2012-01-01"))
+
+    result = YearContest.new(year: 2011).run
+
+    assert_equal [taxa(:saxola).species_id], result
+  end
+
+  test "run ignores observations not identified to species" do
+    create(:observation, taxon: taxa(:aves_sp), card: create(:card, observ_date: "2011-01-01"))
+
+    assert_empty YearContest.new(year: 2011).run
+  end
+
+  test "run returns nothing for a year without observations" do
+    create(:observation, card: create(:card, observ_date: "2011-01-01"))
+
+    assert_empty YearContest.new(year: 2012).run
+  end
+
   test "empty list" do
     result = @contest.run_on([])
     assert_equal [], result

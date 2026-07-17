@@ -19,6 +19,34 @@ class LocusTest < ActiveSupport::TestCase
     assert_not loc.valid?
   end
 
+  test "coordinates are taken from the English name of a new locus" do
+    loc = Locus.new(name_en: "Some place 50.51, 30.79", lat: nil, lon: nil)
+
+    assert_in_delta 50.51, loc.lat
+    assert_in_delta 30.79, loc.lon
+  end
+
+  test "coordinates in the name may be separated by a semicolon and be negative" do
+    loc = Locus.new(name_en: "Some place -40.1; -73.94", lat: nil, lon: nil)
+
+    assert_in_delta(-40.1, loc.lat)
+    assert_in_delta(-73.94, loc.lon)
+  end
+
+  test "coordinates already set are not overwritten by the name" do
+    loc = Locus.new(name_en: "Some place 50.51, 30.79", lat: 1.0, lon: 2.0)
+
+    assert_in_delta 1.0, loc.lat
+    assert_in_delta 2.0, loc.lon
+  end
+
+  test "coordinates stay empty when the name has none" do
+    loc = Locus.new(name_en: "Some place", lat: nil, lon: nil)
+
+    assert_nil loc.lat
+    assert_nil loc.lon
+  end
+
   test "cached country not set when there are no country in the ancestry" do
     loc = create(:locus, slug: "peru", loc_type: "country")
     assert_nil loc.cached_country
