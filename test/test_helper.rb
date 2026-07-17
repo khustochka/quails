@@ -20,6 +20,7 @@ if %w(true 1).include?(ENV["COVERAGE"])
     skip "app/controllers/content_security_controller.rb"
     skip "app/controllers/ebird/alerts_controller.rb"
     skip "app/controllers/flickr_controller.rb"
+    skip "app/channels/"
 
     # Jobs that only do eBird/Flickr round trips.
     skip "app/jobs/ebird/alert_preload_job.rb"
@@ -28,12 +29,20 @@ if %w(true 1).include?(ENV["COVERAGE"])
     skip "app/jobs/ebird/checklist_import_job.rb"
     skip "app/jobs/flickr_to_storage_job.rb"
     skip "app/jobs/flickr_upload_job.rb"
+    skip "lib/ebird/checklist.rb"
+    skip "lib/ebird/client.rb"
+    skip "lib/ebird/alert.rb"
+    skip "lib/ebird/service.rb"
+    skip "lib/flickr/client.rb"
 
     # These are tested, but cannot be measured: they load during boot, before the
     # parallel workers fork, so a worker never re-executes them. See PAPERCUTS.md.
     skip "lib/quails.rb"
     skip "lib/quails/env.rb"
+    skip "lib/quails/revision.rb"
     skip "lib/core_ext"
+
+    skip "lib/quails/middleware/reject_old_image_variations.rb"
 
     if ENV["TEAMCITY_VERSION"]
       at_exit do
