@@ -262,4 +262,13 @@ class SpeciesControllerTest < ActionController::TestCase
     assert_equal Mime[:json], response.media_type
     assert_equal "[]", response.body
   end
+
+  test "admin_search" do
+    login_as_admin
+    create(:observation, taxon: taxa(:bomgar))
+    get :admin_search, params: { term: "gar" }, format: :json
+    assert_response :success
+    assert_equal Mime[:json], response.media_type
+    assert_includes response.body, "garrulus"
+  end
 end

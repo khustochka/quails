@@ -61,6 +61,18 @@ class PostTest < ActiveSupport::TestCase
     assert_equal en_post.post_core_id, obs.reload.post_core_id
   end
 
+  test "cards delegates to the post core" do
+    core = create(:post_core)
+    post = create(:post, post_core: core)
+    card = create(:card, post_core: core)
+    assert_equal [card], post.cards.to_a
+  end
+
+  test "cards is empty when there is no post core" do
+    post = build(:post, post_core: nil)
+    assert_equal Card.none, post.cards
+  end
+
   test "localized_versions does not include self as sibling" do
     uk_post = create(:post, lang: "uk")
     versions = uk_post.localized_versions

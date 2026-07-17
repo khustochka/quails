@@ -7,6 +7,9 @@ require "vips"
 # Rails is not loaded yet here, so ActiveSupport's `in?` or `present?` is not available.
 if %w(true 1).include?(ENV["COVERAGE"])
   require "simplecov"
+  # Allows running a suite into its own coverage dir (e.g. to compare system vs
+  # non-system coverage) instead of merging into the default one.
+  SimpleCov.coverage_dir(ENV["COVERAGE_DIR"]) if ENV["COVERAGE_DIR"]
   SimpleCov.start "rails" do
     # Excluded from the report so the percentage reflects code we intend to test:
     # obsolete analytics, and code that cannot be exercised without a third-party service.
