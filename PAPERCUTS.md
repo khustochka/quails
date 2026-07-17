@@ -1,6 +1,6 @@
 # Papercuts
 
-Small frictions hit while working — retried tool calls, undocumented setup steps, flaky commands, stale caches, misleading errors, non-obvious gotchas. Append an entry as you hit them (see AGENTS.md → "Log papercuts"). One or two sentences each: what you were doing → what got in the way (a guess at cause/fix is a bonus).
+Small frictions hit while working — retried tool calls, undocumented setup steps, flaky commands, stale caches, misleading errors, non-obvious gotchas. Append an entry as you hit them (see AGENTS.md → "Log papercuts"). One or two sentences each: what you were doing → what got in the way (a guess at cause/fix is a bonus). Do not add issues that you have fixed or are fixing.
 
 - `bin/rails test` uses the `:good_job` queue adapter (not `:test`), so `assert_enqueued_with` / `assert_enqueued_jobs` are unavailable and fail with a confusing `undefined method` error. Assert on `GoodJob::Job.where(job_class: "…")` instead. A note in AGENTS.md would save the detour.
 

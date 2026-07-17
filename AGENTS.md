@@ -196,7 +196,7 @@ Search::SpeciesSearch.new(query).find
 
 ### Log papercuts
 
-When you hit a small friction while working — a tool call that missed and had to be retried, a confusing or undocumented setup step, a flaky command, a stale cache, a misleading error, a non-obvious gotcha — log it to `PAPERCUTS.md` by appending an entry. One or two sentences: what you were doing → what got in the way (a guess at the cause/fix is a bonus). Do this proactively, in the moment, even though none of these are blocking — logged together they show where the repo needs sanding down. This is distinct from what you accomplished and from tracked bugs.
+When you hit a small friction while working — a tool call that missed and had to be retried, a confusing or undocumented setup step, a flaky command, a stale cache, a misleading error, a non-obvious gotcha — log it to `PAPERCUTS.md` by appending an entry. One or two sentences: what you were doing → what got in the way (a guess at the cause/fix is a bonus). Do this proactively, in the moment, even though none of these are blocking — logged together they show where the repo needs sanding down. This is distinct from what you accomplished and from tracked bugs. Do not add issues that you have fixed or are fixing.
 
 ## File Locations
 
