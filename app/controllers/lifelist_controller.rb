@@ -56,7 +56,10 @@ class LifelistController < ApplicationController
     @lifelist.observation_scope = current_user.available_obs
     @lifelist.posts_scope = current_user.available_posts
 
-    render status: :not_found unless @lifelist.has_species?
+    # The base lifelist and a country page (real or hardcoded) are valid even
+    # when empty (e.g. an empty database). Only a year-narrowed view that ends
+    # up empty is a soft 404.
+    render status: :not_found if params[:year] && !@lifelist.has_species?
   end
 
   def advanced

@@ -79,7 +79,7 @@ class LifelistBasicTest < ActionController::TestCase
   test "hardcoded country with no locus row renders an empty placeholder page" do
     # Canada is a hardcoded country (has a lifelist title) but has no Locus fixture.
     get :basic, params: { locus: "canada", locale: "en" }
-    assert_response :not_found
+    assert_response :success
     assert_kind_of PlaceholderCountry, assigns(:lifelist).locus
     assert_empty assigns(:lifelist).to_a
     assert_select "h1", text: "Canada List"
@@ -100,6 +100,24 @@ class LifelistBasicTest < ActionController::TestCase
       assert_select "a[href='#{url_for(sort: :by_taxonomy, year: 2009, only_path: true)}']", false
       assert_select "a[href='#{url_for(sort: :by_taxonomy, year: 2010, only_path: true)}']"
     end
+  end
+
+  test "base lifelist renders on an empty database" do
+    Observation.destroy_all
+    Card.delete_all
+    Locus.delete_all
+    get :basic
+    assert_response :success
+    assert_select "li", I18n.t("lifelist.basic.no_species")
+  end
+
+  test "hardcoded country lifelist renders on an empty database" do
+    Observation.destroy_all
+    Card.delete_all
+    Locus.delete_all
+    get :basic, params: { locus: "canada" }
+    assert_response :success
+    assert_kind_of PlaceholderCountry, assigns(:lifelist).locus
   end
 
   test "empty lifelist shows no list" do
