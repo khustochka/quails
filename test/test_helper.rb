@@ -4,10 +4,28 @@
 # See https://github.com/libvips/ruby-vips/issues/155
 require "vips"
 
-# In some situations Rails is not yet loaded here, so present? will not work.
-if ENV["COVERAGE"] && ENV["COVERAGE"] != ""
+# Rails is not loaded yet here, so ActiveSupport's `in?` or `present?` is not available.
+if %w(true 1).include?(ENV["COVERAGE"])
   require "simplecov"
   SimpleCov.start "rails" do
+    # Excluded from the report so the percentage reflects code we intend to test:
+    # obsolete analytics, and code that cannot be exercised without a third-party service.
+    skip "app/helpers/shynet_helper.rb"
+    skip "app/helpers/google_analytics_helper.rb"
+    skip "app/models/ioc_taxon.rb"
+    skip "app/models/flickr_upload.rb"
+    skip "app/controllers/content_security_controller.rb"
+    skip "app/controllers/ebird/alerts_controller.rb"
+    skip "app/controllers/flickr_controller.rb"
+
+    # Jobs that only do eBird/Flickr round trips.
+    skip "app/jobs/ebird/alert_preload_job.rb"
+    skip "app/jobs/ebird/alert_refresh_all_job.rb"
+    skip "app/jobs/ebird/checklist_fix_job.rb"
+    skip "app/jobs/ebird/checklist_import_job.rb"
+    skip "app/jobs/flickr_to_storage_job.rb"
+    skip "app/jobs/flickr_upload_job.rb"
+
     if ENV["TEAMCITY_VERSION"]
       at_exit do
         SimpleCov::Formatter::TeamcitySummaryFormatter.new.format(SimpleCov.result)
