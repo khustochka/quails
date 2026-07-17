@@ -17,6 +17,12 @@ class CountriesControllerTest < ActionController::TestCase
     assert_select "a[href='#{species_path(@obs.species)}']"
   end
 
+  test "gallery renders for Ukraine with no local species" do
+    get :gallery, params: { country: "ukraine" }
+    assert_response :success
+    assert_empty assigns(:thumbs)
+  end
+
   test "og:image meta tag is present for gallery page on cached response" do
     LocalSpecies.create(locus: loci(:ukraine), species: species(:pasdom), status: "")
 

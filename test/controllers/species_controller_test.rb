@@ -37,6 +37,12 @@ class SpeciesControllerTest < ActionController::TestCase
     assert_select "a[href='#{species_path(@obs.species)}']"
   end
 
+  test "gallery renders with no species images" do
+    get :gallery
+    assert_response :success
+    assert_empty assigns(:species)
+  end
+
   test "show link to multiple species on gallery" do
     # Setup main image for species
     @image = create(:image)

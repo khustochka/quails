@@ -22,6 +22,15 @@ class LifelistControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "index renders with no observations" do
+    Observation.destroy_all
+    %w(united_kingdom canada).each do |sl|
+      create(:locus, slug: sl, loc_type: "country")
+    end
+    get :index
+    assert_response :success
+  end
+
   test "index hides hidden observations from visitors" do
     %w(united_kingdom canada).each do |sl|
       create(:locus, slug: sl, loc_type: "country")
@@ -59,6 +68,14 @@ class LifelistControllerTest < ActionController::TestCase
     assert_select "td.species.year-max", 2
     assert_select "td.lifers.year-max a[href=?]", advanced_list_path(anchor: "first_seen_2010"), text: "+2"
     assert_select "td.lifers.year-max", 2
+  end
+
+  test "stats renders with no observations" do
+    Observation.destroy_all
+    get :stats
+    assert_response :success
+    # No record-setting days when there are no observations.
+    assert_select ".record-days", count: 0
   end
 
   test "stats orders countries by first visit" do

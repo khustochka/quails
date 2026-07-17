@@ -57,6 +57,13 @@ class ImagesControllerTest < ActionController::TestCase
     end
   end
 
+  test "index renders with no images" do
+    Image.destroy_all
+    get :index
+    assert_response :success
+    assert_empty assigns(:images)
+  end
+
   test "show photos of multiple species" do
     tx1 = taxa(:pasdom)
     tx2 = taxa(:hirrus)
@@ -70,6 +77,12 @@ class ImagesControllerTest < ActionController::TestCase
     assert_not_empty assigns(:images)
 
     assert_select "a[href='#{image_path(img)}']"
+  end
+
+  test "multiple_species renders with no multi-species photos" do
+    get :multiple_species
+    assert_response :success
+    assert_empty assigns(:images)
   end
 
   test "Birds of USA" do
@@ -110,6 +123,12 @@ class ImagesControllerTest < ActionController::TestCase
   test "country gallery redirects page 1 to unpaginated url" do
     get :country, params: { country: "usa", page: 1 }
     assert_redirected_to country_images_path(country: "usa")
+  end
+
+  test "country gallery renders with no photos" do
+    get :country, params: { country: "usa" }
+    assert_response :success
+    assert_empty assigns(:thumbs)
   end
 
   test "get new" do

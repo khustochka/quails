@@ -11,6 +11,12 @@ class ChecklistControllerTest < ActionController::TestCase
     assert_select "a[href*='#{species_path(species(:pasdom))}']"
   end
 
+  test "shows checklist for Ukraine with no local species" do
+    get :show, params: { country: "ukraine" }
+    assert_response :success
+    assert_empty assigns(:checklist)
+  end
+
   test "edit checklist for Ukraine" do
     login_as_admin
     LocalSpecies.create(locus: loci(:ukraine), species: species(:pasdom))

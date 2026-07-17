@@ -22,6 +22,13 @@ class VideosControllerTest < ActionController::TestCase
     end
   end
 
+  test "index renders with no videos" do
+    Video.destroy_all
+    get :index
+    assert_response :success
+    assert_empty assigns(:videos)
+  end
+
   # test "show videos of multiple species" do
   #   sp1 = species(:saxola)
   #   sp2 = species(:jyntor)
