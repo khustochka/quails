@@ -90,6 +90,17 @@ class LifelistControllerTest < ActionController::TestCase
     assert_select ".record-days", count: 0
   end
 
+  test "stats renders on an empty database with no countries" do
+    # Empty DB: no observations and no countries. country_case_sql must not
+    # build an empty CASE, which is a PG syntax error.
+    Observation.destroy_all
+    Card.delete_all
+    Locus.delete_all
+    assert_empty Country.all
+    get :stats
+    assert_response :success
+  end
+
   test "stats orders countries by first visit" do
     get :stats
     # 2009 row (second year): the USA (June) was visited before Ukraine (August)

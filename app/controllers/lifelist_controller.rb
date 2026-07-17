@@ -152,12 +152,17 @@ class LifelistController < ApplicationController
   # action itself — it should only execute (via the helpers above) inside
   # the view's fragment cache block, not on every request.
   def country_case_sql
-    @country_case_sql ||= begin
-      country_mapper = @countries.map do |c|
-        " WHEN locus_id IN (#{c.subregion_ids.join(", ")}) THEN #{c.id} "
-      end.join
-      "(CASE #{country_mapper} END)"
-    end
+    @country_case_sql ||=
+      if @countries.empty?
+        # An empty CASE (no WHEN branches) is a syntax error, so with no
+        # countries group everything into a single "no country" bucket.
+        "CAST(NULL AS integer)"
+      else
+        country_mapper = @countries.map do |c|
+          " WHEN locus_id IN (#{c.subregion_ids.join(", ")}) THEN #{c.id} "
+        end.join
+        "(CASE #{country_mapper} END)"
+      end
   end
 
   def validate_params
