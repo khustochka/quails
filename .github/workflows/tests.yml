@@ -35,7 +35,6 @@ jobs:
       DATABASE_URL: "postgres://quails:quails@localhost:5432/quails_test"
       MINITEST_REPORTER: Minitest::Reporters::SpecReporter
       COVERAGE: 1
-      PARALLEL_WORKERS: 1
     steps:
       - name: Checkout code
         uses: actions/checkout@v7

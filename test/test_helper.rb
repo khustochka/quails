@@ -38,10 +38,6 @@ Capybara.server = :puma, { Silent: true }
 
 module ActiveSupport
   class TestCase
-    # Run tests in parallel with specified workers.
-    # PARALLEL_WORKERS (e.g. from .env.test.local) overrides the workers: argument, so force it
-    # to 1 under coverage to avoid forked workers losing SimpleCov results.
-    ENV["PARALLEL_WORKERS"] = "1" if ENV["COVERAGE"].present?
     parallelize(workers: :number_of_processors, threshold: 30)
 
     # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
