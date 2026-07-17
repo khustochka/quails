@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "test_helper"
+require "core_ext"
 
 class CoreExtTest < ActiveSupport::TestCase
   test "get common values of the hash" do

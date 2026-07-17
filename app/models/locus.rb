@@ -306,16 +306,4 @@ class Locus < ApplicationRecord
       self.cached_parent_id = new_parent.id
     end
   end
-
-  # Use when necessary
-  def cache_parent_loci
-    anc = ancestors.to_a
-    cnt_id = anc.find { |l| l.loc_type == "country" && !l.private_loc }&.id
-    sub_id = anc.find { |l| l.loc_type == "subdivision1" && !l.private_loc }&.id
-    city_id = anc.find { |l| l.loc_type == "city" && !l.private_loc }&.id
-    self.cached_parent_id = parent_id unless parent_id.in?([cnt_id, sub_id, city_id]) || parent.private_loc
-    self.cached_city_id = city_id
-    self.cached_subdivision_id = sub_id
-    self.cached_country_id = cnt_id
-  end
 end
