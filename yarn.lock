@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@canvasjs/charts@^3.16.1":
-  version "3.16.1"
-  resolved "https://registry.yarnpkg.com/@canvasjs/charts/-/charts-3.16.1.tgz#168a56b7d65d3b9ee0032c609365577634d74247"
-  integrity sha512-eoBnw651N2gMUotYjRt1qAefaLOMtb19gWRZAGpQo2prHmMNYoAmTSUcUu3jpQKVyI2IG3wvF18e2z+F3YqyfA==
+"@canvasjs/charts@^3.16.5":
+  version "3.16.5"
+  resolved "https://registry.yarnpkg.com/@canvasjs/charts/-/charts-3.16.5.tgz#139214a81e65e64901de3d6a2c93e028ca5ba3f1"
+  integrity sha512-cy8wSd5EZr9GbcPqici2iOhhrXHeSw4nMr9Pggm6W27X9rtSACfzzISLdpclg6xa8sJkHwzwlZ5nGbTLYJh1sg==
 
 "@csstools/normalize.css@^12.0.0":
   version "12.1.1"
@@ -158,20 +158,20 @@
     fast-equals "^5.2.2"
     supercluster "^8.0.1"
 
-"@honeybadger-io/core@^6.9.0":
-  version "6.9.0"
-  resolved "https://registry.yarnpkg.com/@honeybadger-io/core/-/core-6.9.0.tgz#3edd9851cf7f2ef83873e76021dcd1be290ecbd7"
-  integrity sha512-nHkTigMgqABQ6XuhZ4/2cVIArwImctdWfmu/ckWLoF5E4JlATe9WUL3hMRL8UZPmu/ThmbojxkLwDgHts1LyUA==
+"@honeybadger-io/core@^6.10.2":
+  version "6.10.2"
+  resolved "https://registry.yarnpkg.com/@honeybadger-io/core/-/core-6.10.2.tgz#bea842a653fb907397185f72a2af22124f3f47be"
+  integrity sha512-iLj5fmz6v5+ry3+Guv2WFTxZ9Bz1KJUhBYme/uwQfSKguNH4ylgzOnvvoBX8uGDcGaOGSBu3L9OedP6fi1yGYg==
   dependencies:
     json-nd "^1.0.0"
     stacktrace-parser "^0.1.10"
 
-"@honeybadger-io/js@^6.14.0":
-  version "6.14.0"
-  resolved "https://registry.yarnpkg.com/@honeybadger-io/js/-/js-6.14.0.tgz#bc4f6601eb47dcdc6c0df758b9f1c7d83d030004"
-  integrity sha512-ZQGop/Ik7vyRJzW/wzE1CL4611fz9+5arrMdS0ivrzDmm/4BQeK4OKZlwfMZqEZtODwfnl32ngh0ayW/jahoSg==
+"@honeybadger-io/js@^6.15.3":
+  version "6.15.3"
+  resolved "https://registry.yarnpkg.com/@honeybadger-io/js/-/js-6.15.3.tgz#61d3fab9598b68b60ed1a2bbeb716e066b2ef227"
+  integrity sha512-SQxuR9JAAqxQx6uglT6NICIxMGiCw7KmP1ULmUsRKEWQ1yykY+LlMW14DarH591+AEjAehp8EPiBwBH6l4xu8g==
   dependencies:
-    "@honeybadger-io/core" "^6.9.0"
+    "@honeybadger-io/core" "^6.10.2"
     "@types/aws-lambda" "^8.10.89"
     "@types/express" "^5.0.3"
 
@@ -211,9 +211,9 @@
     "@types/node" "*"
 
 "@types/express-serve-static-core@^5.0.0":
-  version "5.1.1"
-  resolved "https://registry.yarnpkg.com/@types/express-serve-static-core/-/express-serve-static-core-5.1.1.tgz#1a77faffee9572d39124933259be2523837d7eaa"
-  integrity sha512-v4zIMr/cX7/d2BpAEX3KNKL/JrT1s43s96lLvvdTmza1oEvDudCqK9aF/djc/SWgy8Yh0h30TZx5VpzqFCxk5A==
+  version "5.1.2"
+  resolved "https://registry.yarnpkg.com/@types/express-serve-static-core/-/express-serve-static-core-5.1.2.tgz#19afe821c79f18d05946892bbd5b924b96c8a4f6"
+  integrity sha512-d3KvEXBSo/lOAMc2u6fkyDHBvetBHeqD7wm/AcXfLpSOQwlmG9D/aQ0SFswVjv05p7ullQS7Mjohj6/VdbZuTg==
   dependencies:
     "@types/node" "*"
     "@types/qs" "*"
@@ -245,9 +245,9 @@
   integrity sha512-r8Tayk8HJnX0FztbZN7oVqGccWgw98T/0neJphO91KkmOzug1KkofZURD4UaD5uH8AqcFLfdPErnBod0u71/qg==
 
 "@types/node@*":
-  version "26.0.1"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-26.0.1.tgz#4a60e2c7a6d68bd261e265f8983bfe1601263ce3"
-  integrity sha512-fc3KiUoBt6kie0N9bIW3E47vZsuaMf0PM2AaUpLCLT0s/LvX1nxAim6Fc049cNxODPpGm6qRAuUOB86SkRuPQw==
+  version "26.1.1"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-26.1.1.tgz#bad758d601e97d6cf457d204ee76a35fce7bd119"
+  integrity sha512-nxAkRSVkN1Y0JC1W8ky/fTfkGsMmcrRsbx+3XoZE+rMOX71kLYTV7fLXpqud1GpbpP5TuffXFqfX7fH2GgZREw==
   dependencies:
     undici-types "~8.3.0"
 
@@ -316,9 +316,9 @@ esbuild@^0.28.1:
     "@esbuild/win32-x64" "0.28.1"
 
 fast-equals@^5.2.2:
-  version "5.4.0"
-  resolved "https://registry.yarnpkg.com/fast-equals/-/fast-equals-5.4.0.tgz#b60073b8764f27029598447f05773c7534ba7f1e"
-  integrity sha512-jt2DW/aNFNwke7AUd+Z+e6pz39KO5rzdbbFCg2sGafS4mk13MI7Z8O5z9cADNn5lhGODIgLwug6TZO2ctf7kcw==
+  version "5.4.1"
+  resolved "https://registry.yarnpkg.com/fast-equals/-/fast-equals-5.4.1.tgz#a9174b03eece5307dbd675be6d6d42f7fa1d00ed"
+  integrity sha512-DjlFSM5Pk9cGcL0q5QXl66eGzx0N6szNgaswwc5ZphlBohjTVJSnGgI+rJVOgOi65qUoQnDZN4nDqi33udtydQ==
 
 fsevents@2.3.2:
   version "2.3.2"
