@@ -9,11 +9,11 @@ function applyFallback(img) {
   const fallback = img.dataset.fallbackSrc;
   if (!fallback) return;
   delete img.dataset.fallbackSrc;
-  console.warn(`Direct image URL failed to load, swapping to the redirect route: ${img.currentSrc || img.src}`);
-  Honeybadger.notify("Direct image URL failed to load, swapped to the redirect route", {
-    name: "ImageFallback",
-    context: { src: img.currentSrc || img.src, fallback: fallback, page: window.location.href },
-  });
+  // console.warn(`Direct image URL failed to load, swapping to the redirect route: ${img.currentSrc || img.src}`);
+  // Honeybadger.notify("Direct image URL failed to load, swapped to the redirect route", {
+  //   name: "ImageFallback",
+  //   context: { src: img.currentSrc || img.src, fallback: fallback, page: window.location.href },
+  // });
   img.src = fallback;
 }
 
