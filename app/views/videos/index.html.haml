@@ -4,7 +4,7 @@
 - @page_title = t(".window_title")
 - @page_header = t(".title")
 
-- @robots = 'NOINDEX'
+- @robots ||= "NOINDEX"
 - @feed = :photos
 
 - content_for :translated do

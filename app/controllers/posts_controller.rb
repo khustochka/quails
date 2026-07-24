@@ -65,7 +65,7 @@ class PostsController < ApplicationController
     end
 
     @localized_versions = @post.localized_versions(source: current_user.available_posts)
-    @robots = "NOINDEX" if @post.status == "NIDX"
+    @robots ||= "NOINDEX" if @post.status == "NIDX"
     @comments = current_user.available_comments(@post).group_by(&:parent_id)
 
     @post_body = cache([@post, I18n.locale, :post_body, key: Quails::CacheKey.gallery]) do

@@ -6,7 +6,7 @@
 - @meta_description = t(".meta_description")
 
 - if params[:page]
-  - @robots = 'NOINDEX'
+  - @robots ||= "NOINDEX"
 
 - content_for :translated do
   = render 'partials/translated'

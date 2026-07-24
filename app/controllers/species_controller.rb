@@ -75,7 +75,7 @@ class SpeciesController < ApplicationController
             country_slug_for_locus_id[locus.id]
           end
         else
-          @robots = "NOINDEX"
+          @robots ||= "NOINDEX"
         end
       end
     else

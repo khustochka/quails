@@ -20,6 +20,21 @@ module LocaleHelper
     I18n.locale.in?(CYRILLIC_LOCALES)
   end
 
+  def hidden_locale?
+    I18n.locale.in?(Quails.hidden_locales)
+  end
+
+  # For hidden locales the canonical always points to the same page under the
+  # default locale (same URL with the locale prefix stripped), overriding any
+  # view-provided @canonical.
+  def canonical_url
+    return @canonical unless hidden_locale?
+
+    path = request.fullpath.sub(%r{\A/#{I18n.locale}(?=[/?]|\z)}, "")
+    path = "/#{path}" unless path.start_with?("/")
+    request.base_url + path
+  end
+
   def blogless_locale?
     I18n.locale.in?(BLOGLESS_LOCALES)
   end

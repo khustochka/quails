@@ -1,7 +1,7 @@
 -# frozen_string_literal: true
 - @page_title = "#{t(".year")} #{@year}"
 
-- @robots = 'NOINDEX'
+- @robots ||= "NOINDEX"
 
 - content_for :translated do
   = render partial: 'partials/translated', locals: { blog: true }

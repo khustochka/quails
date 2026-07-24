@@ -24,7 +24,6 @@ class BlogControllerTest < ActionController::TestCase
   test "home shows correct localized links" do
     blogpost1 = create(:post, face_date: "2007-12-06 13:14:15")
     get :home
-    assert_select "ul.translated a[href='#{blog_path(locale: :ru)}']"
     assert_select "ul.translated a[href='#{blog_path(locale: :en)}']"
   end
 

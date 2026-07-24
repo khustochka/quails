@@ -17,6 +17,18 @@ module Quails
     ENV["QUAILS_DIRECT_VARIANT_URLS"].in?(%w(true 1))
   end
 
+  # Locales promoted to visitors and search engines. Locales that are in
+  # I18n.available_locales but not listed here are hidden: their routes and
+  # pages still work, but they are not linked to, get NOINDEX,NOFOLLOW and
+  # a canonical URL pointing to the default-locale page.
+  def self.enabled_locales
+    ENV.fetch("ENABLED_LOCALES", "uk,en").split(",").map { |locale| locale.strip.to_sym }
+  end
+
+  def self.hidden_locales
+    I18n.available_locales - enabled_locales
+  end
+
   def self.revision
     @revision ||= Revision.get
   end

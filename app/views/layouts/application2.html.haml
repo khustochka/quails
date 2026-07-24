@@ -29,9 +29,10 @@
     - if @robots
       %meta{ name: 'robots', content: @robots}
 
-    - if @canonical
-      %link{href: @canonical, rel: "canonical"}
-      %meta{content: @canonical, property: "og:url"}
+    - canonical = canonical_url
+    - if canonical
+      %link{href: canonical, rel: "canonical"}
+      %meta{content: canonical, property: "og:url"}
 
     - if @meta_thumbnail
       %meta{ property: "og:image", content: @meta_thumbnail }

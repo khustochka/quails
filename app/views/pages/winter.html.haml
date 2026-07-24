@@ -4,7 +4,11 @@
 - @meta_description = "Краткое описание птиц, которых можно встретить зимой на территории Украины в районе Киева. Страница была создана в ранний период моего увлечения бердвочингом и с тех пор не обновлялась."
 - @canonical = winter_url
 
-.page-container
+- content_for :translated do
+  = render 'app2/shared/translated'
+
+.page-container{lang: "ru"}
+  = content_for :translated
   = simple_page_header("Зимующие птицы Украины")
 
   %div.winter-alert

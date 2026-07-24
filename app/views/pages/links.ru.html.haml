@@ -3,7 +3,7 @@
 - @meta_thumbnail = "https://birdwatch.org.ua/photos/crestedtit6592.jpg"
 - @meta_description = "Ссылки на ресурсы посвященные птицам: определители, справочники, литература, организации, сообщества, форумы, блоги, личные страницы. Рекомендации создателя сайта birdwatch.org.ua."
 
--# @robots = 'NOINDEX'
+-# @robots ||= "NOINDEX"
 
 - content_for :translated do
   = render 'app2/shared/translated'
