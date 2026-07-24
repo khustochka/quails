@@ -28,7 +28,7 @@ class I18NTest < ActionDispatch::IntegrationTest
     assert_select "time", /^9 січня 2011/
   end
 
-  test "Hide RU pages from search engines" do
+  test "Hide not enabled locale pages from search engines" do
     get gallery_path(locale: "ru")
     assert_response :success
     assert_select "meta[name='robots'][content='NOINDEX,NOFOLLOW']"
