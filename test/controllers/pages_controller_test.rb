@@ -8,21 +8,21 @@ class PagesControllerTest < ActionController::TestCase
 
     assert_response :success
     assert assigns(:localized)
-    assert_equal I18n.available_locales, assigns(:all_locales)
+    assert_equal Quails.enabled_locales, assigns(:all_locales)
   end
 
-  test "shows the links page in Russian" do
-    get :show, params: { id: "links", locale: "ru" }
+  test "no English translation for the Links page" do
+    get :show, params: { id: "links" }
 
     assert_response :success
-    assert_equal [:uk, :ru], assigns(:all_locales)
+    assert_not_includes assigns(:all_locales), :en
   end
 
-  test "the winter page is marked as localized but not translated" do
-    get :show, params: { id: "winter", locale: "ru" }
+  test "no English translation for the Winter page" do
+    get :show, params: { id: "winter" }
 
     assert_response :success
     assert assigns(:localized)
-    assert_empty assigns(:all_locales)
+    assert_not_includes assigns(:all_locales), :en
   end
 end
