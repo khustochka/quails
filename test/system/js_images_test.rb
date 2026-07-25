@@ -132,6 +132,9 @@ class JSImagesTest < ApplicationSystemTestCase
     img = create(:image_on_storage)
     variant_blob = img.thumbnail_variant.processed.image.blob
 
+    # The deleted variant is requested on purpose to trigger the fallback.
+    allow_js_errors("404 (Not Found)")
+
     with_direct_variant_urls do
       visit localized_images_path
       assert_selector "figure.image_thumb img[src*='/rails/active_storage/disk/']"

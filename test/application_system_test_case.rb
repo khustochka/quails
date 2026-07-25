@@ -47,6 +47,25 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     "The source list for the Content Security Policy directive 'script-src' contains an invalid source: ''nonce-''. It will be ignored.",
   ]
 
+  # Set FAIL_ON_JS_ERRORS=1 to turn collected browser errors into test failures.
+  FAIL_ON_JS_ERRORS = ENV["FAIL_ON_JS_ERRORS"].present?
+
+  setup do
+    @js_errors = []
+    @allowed_js_errors = []
+    collect_js_errors
+  end
+
+  # For tests that provoke browser errors on purpose (e.g. requesting a missing asset
+  # to exercise a fallback). Matches as a substring.
+  def allow_js_errors(*patterns)
+    @allowed_js_errors.concat(patterns)
+  end
+
+  teardown do
+    check_js_errors
+  end
+
   def login_as_admin
     visit "/login"
     fill_in "username", with: TEST_CREDENTIALS[:username]
@@ -95,18 +114,25 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     $js_browser.to_s.include?("chrome")
   end
 
-  def check_js_errors
-    # browser = page.driver.browser
-    # if browser.respond_to?(:logs)
-    #   errors = browser.logs.get(:browser)
-    #   errors.each do |error|
-    #     severe_error = error.level == "SEVERE" && IGNORED_JS_ERRORS.none? {|line| error.message.include?(line)}
-    #     assert_not(severe_error, error.message)
-    #   end
-    # end
+  # Attaches Playwright listeners for uncaught exceptions and console errors. Must run before
+  # the first `visit`: `with_playwright_page` builds the page that the whole test then reuses.
+  def collect_js_errors
+    return unless page.driver.respond_to?(:with_playwright_page)
+
+    page.driver.with_playwright_page do |pw_page|
+      pw_page.on("pageerror", ->(error) { @js_errors << "#{error.name}: #{error.message}\n#{error.stack}" })
+      pw_page.on("console", lambda { |message|
+        @js_errors << "console.#{message.type}: #{message.text}" if message.type == "error"
+      })
+    end
   end
 
-  # teardown do
-  #   check_js_errors
-  # end
+  def check_js_errors
+    ignored = IGNORED_JS_ERRORS + @allowed_js_errors
+    errors = @js_errors.reject { |error| ignored.any? { |line| error.match?(Regexp.escape(line)) } }
+    return if errors.empty?
+
+    report = "#{errors.size} JavaScript error(s) in #{name}:\n#{errors.join("\n---\n")}"
+    FAIL_ON_JS_ERRORS ? flunk(report) : warn(report)
+  end
 end
