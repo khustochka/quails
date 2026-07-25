@@ -23,6 +23,11 @@ Capybara.register_driver :playwright_test do |app|
   )
 end
 
+# Parallel workers share one Puma and one Postgres, so a form submit plus page load
+# can occasionally exceed the 2s default. The driver derives Playwright's navigation
+# timeout from this value, and waits end as soon as the condition holds.
+Capybara.default_max_wait_time = 5
+
 puts("Using driver: #{$js_driver}" + ($js_browser ? ", browser: #{$js_browser}" : ""))
 
 # Selenium::WebDriver.logger.info("Using driver: #{$js_driver}" + ($js_browser ? ", browser: #{$js_browser}" : ""))
