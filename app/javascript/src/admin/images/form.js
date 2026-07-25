@@ -20,6 +20,11 @@ document.addEventListener("DOMContentLoaded", function () {
       slugInput.value = newSlug;
   }
 
+  function uploadFailed() {
+    form.classList.remove("is-uploading");
+    form.classList.add("upload-error");
+  }
+
   function startUpload(file) {
     if (!file || form.classList.contains("is-uploading")) return false;
 
@@ -30,9 +35,15 @@ document.addEventListener("DOMContentLoaded", function () {
     const formData = new FormData();
     formData.append("stored_image", file);
 
-    const csrfToken = document.querySelector("meta[name=csrf-token]").content;
+    // Without a token the upload cannot be authorized; the file input still holds
+    // the file, so submitting the form attaches it the plain multipart way.
+    const csrfMeta = document.querySelector("meta[name=csrf-token]");
+    if (!csrfMeta) {
+      uploadFailed();
+      return false;
+    }
 
-    fetch("/blobs", { method: "POST", body: formData, headers: { "X-CSRF-Token": csrfToken } })
+    fetch("/blobs", { method: "POST", body: formData, headers: { "X-CSRF-Token": csrfMeta.content } })
       .then(function (r) {
         if (!r.ok) throw new Error("Upload failed");
         return r.json();
@@ -41,10 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
         form.classList.remove("is-uploading");
         uploadFinished(data);
       })
-      .catch(function () {
-        form.classList.remove("is-uploading");
-        form.classList.add("upload-error");
-      });
+      .catch(uploadFailed);
   }
 
   function uploadFinished(blob) {

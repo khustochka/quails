@@ -50,8 +50,10 @@
       .drop__preview
       .drop__uploading Uploading&hellip;
       .drop__analyzing Analyzing&hellip;
-      .drop__success Success
-      .drop__error Error
+      .drop__success
+        %b File uploaded.
+      .drop__error{role: "alert"}
+        %b File attached.
 
   %div
     = form.input :slug
