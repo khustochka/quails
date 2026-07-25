@@ -2,7 +2,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const form = document.querySelector("[data-image-form]");
   if (!form) return;
 
-  const fileInput = document.getElementById("image_stored_image");
+  // A persisted image renders no upload UI, only a hidden field reusing the same id.
+  const fileInput = document.querySelector("input[type=file]#image_stored_image");
+  if (!fileInput) return;
+
   const droparea = document.querySelector(".droparea");
   const slugInput = document.getElementById("image_slug");
 
