@@ -11,7 +11,8 @@ module EBird
 
     def authenticate
       page = @agent.get("https://ebird.org/home")
-      page = page.link_with(text: "Sign In").click
+      link = page.link_with(text: "Sign In")
+      link&.click
       form = page.form
       form.username = Settings.ebird_user.name
       form.password = Settings.ebird_user.password
