@@ -37,7 +37,7 @@
     %div.two_thirds
       - sp_image_dims = jpg_dimensions(@species.image)
       %div.image_canvas{image_frame_attrs(sp_image_dims, cap: ImagesHelper::CANVAS_IMG_HEIGHT_CAP)}
-        = link_to localized_image_path(id: @species.image) do
+        = link_to localized_image_path(id: @species.image), class: "not-green" do
           = image_tag(jpg_url(@species.image), {alt: @species.name}.merge(dimension_attrs(sp_image_dims)))
 
   %div{class: @species.image ? "one_third" : nil}
