@@ -67,14 +67,15 @@ body.map-page {
 .marker-cluster {
   cursor: pointer;
   outline: none;
-  background-clip: padding-box;
-  border-radius: 20px;
+  border-radius: 50%;
+  // Sizes below are the intended diameter, so the ring sits inside them.
+  box-sizing: border-box;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 5px 5px 10px 0px rgb(0, 0, 0);
-  border: 2px solid transparent;
+  box-shadow: 2px 2px 9px 2px rgba(0, 0, 0, 0.8);
+  border: 1px solid #ffffff;
   color: #fcfcfc;
   font-size: 13px;
   font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
@@ -103,9 +104,88 @@ body.map-page {
     }
   }
 
+  // Thicker than the resting 1px ring so the selected marker still stands out.
   &.active-cluster {
-    border-color: palegoldenrod;
-    box-shadow: 5px 5px 14px 0px rgb(0, 0, 0);
+    border: 3px solid palegoldenrod;
+    box-shadow: 2px 2px 12px 3px rgba(0, 0, 0, 0.85);
+  }
+}
+
+/* Global map: intensity bubbles, legend and info window */
+
+// Individual loci and clusters share one look, so a locus reads as a cluster of
+// one. Size and colour are set inline per bubble; only shared chrome lives here.
+.birding-cluster {
+  cursor: pointer;
+  outline: none;
+  border-radius: 50%;
+  // The JS sets width/height to the intended diameter, so the ring sits inside.
+  box-sizing: border-box;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 2px 2px 9px 2px rgba(0, 0, 0, 0.8);
+  border: 1px solid #ffffff;
+  color: #fcfcfc;
+  font-size: 13px;
+  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+}
+
+.map-locus-info {
+  color: #222222;
+  font-size: 13px;
+  line-height: 1.4;
+
+  p {
+    margin: 4px 0;
+  }
+}
+
+.map-legend {
+  position: absolute;
+  right: 10px;
+  bottom: 28px;
+  z-index: 2;
+  padding: 8px 10px;
+  background-color: rgba(255, 255, 255, 0.92);
+  border-radius: 4px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+  color: #222222;
+  font-size: 12px;
+
+  h2 {
+    margin: 0 0 5px;
+    font-size: 12px;
+    font-weight: bold;
+  }
+
+  ul {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.9);
+  }
+
+  .map-legend-scale {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 3px;
+  }
+
+  @media (max-width: 480px) {
+    display: none;
   }
 }
 

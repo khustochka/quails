@@ -15,12 +15,55 @@ class MapsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "returns loci coordinates as JSON" do
+  test "returns loci birding stats as JSON" do
     login_as_admin
-    create(:card, locus: create(:locus, lat: 50.0, lon: 30.0))
+    locus = create(:locus, lat: 50.0, lon: 30.0)
+    create(:observation, card: create(:card, locus: locus), taxon: taxa(:pasdom))
+
     get :loci, format: :json
     assert_response :success
     assert_equal Mime[:json], response.media_type
+
+    body = response.parsed_body
+    assert_operator body["speciesIndexSize"], :>, Species.maximum(:index_num)
+
+    entry = body["loci"].find { |l| l["id"] == locus.id }
+    assert_in_delta(50.0, entry["lat"])
+    assert_equal 1, entry["cards"]
+    assert_equal [species(:pasdom).index_num], entry["species"]
+  end
+
+  test "admin sees global map" do
+    login_as_admin
+    get :global
+    assert_response :success
+  end
+
+  test "global map passes one intensity ramp to both legend and markers" do
+    login_as_admin
+    get :global
+
+    ramp = MapHelper::INTENSITY_RAMP
+    assert_select "#googleMap[data-ramp=?]", ramp.join(",")
+    assert_select ".map-legend li", count: ramp.size
+  end
+
+  test "global map links loci to the advanced lifelist" do
+    login_as_admin
+    get :global
+    assert_select "#googleMap[data-lifelist-url=?]", advanced_list_path
+  end
+
+  test "loci JSON keeps private loci out of the payload" do
+    login_as_admin
+    city = create(:locus, lat: 50.0, lon: 30.0, loc_type: "city")
+    site = create(:locus, lat: 50.5, lon: 30.5, parent: city, private_loc: true, loc_type: "site")
+    create(:observation, card: create(:card, locus: site), taxon: taxa(:pasdom))
+
+    get :loci, format: :json
+    slugs = response.parsed_body["loci"].pluck("slug")
+    assert_includes slugs, city.slug
+    assert_not_includes slugs, site.slug
   end
 
   test "properly find observations with spots" do

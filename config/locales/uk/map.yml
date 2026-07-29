@@ -10,3 +10,11 @@
       north_america: Півн. Америка
 
       close: Закрити
+
+    global:
+      title: Інтенсивність спостережень
+      legend_title: Списки
+      legend_fewer: Менше
+      legend_more: Більше
+      summary: "%{species} видів у %{cards} списках"
+      lifelist: Список видів

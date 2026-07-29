@@ -10,3 +10,11 @@
       north_america: Сев. Америка
 
       close: Закрыть
+
+    global:
+      title: Интенсивность наблюдений
+      legend_title: Списки
+      legend_fewer: Меньше
+      legend_more: Больше
+      summary: "%{species} видов в %{cards} списках"
+      lifelist: Список видов

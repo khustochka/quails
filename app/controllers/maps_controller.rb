@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class MapsController < ApplicationController
-  layout "application2", only: [:show]
+  layout "application2", only: [:show, :global]
 
   administrative except: [:show, :media]
   localized only: [:show, :media]
@@ -54,6 +54,6 @@ class MapsController < ApplicationController
   end
 
   def loci
-    render json: Card.joins(:locus).where.not(loci: { lat: nil }).distinct.pluck(:lat, :lon)
+    render json: { speciesIndexSize: LocusBirdingStats.species_index_size, loci: LocusBirdingStats.all }
   end
 end

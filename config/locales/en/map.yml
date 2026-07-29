@@ -10,3 +10,11 @@
       north_america: North America
 
       close: Close
+
+    global:
+      title: Birding intensity
+      legend_title: Checklists
+      legend_fewer: Fewer
+      legend_more: More
+      summary: "%{species} species over %{cards} checklists"
+      lifelist: Lifelist

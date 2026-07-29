@@ -1,25 +1,26 @@
 -# frozen_string_literal: true
-- @body_class = 'map-page'
-- @special_styling = true
--# no_viewport is for very wide pages, e.g. with table
--# @no_viewport = true
-- javascript "admin-maps"
+- @body_class = "map-page"
+- @page_title = t(".title")
 
--# @page_title = t(".title")
+- content_for :head do
+  - if ENV["GOOGLE_MAPS_API_KEY"]
+    = tag.meta name: "google-maps-api-key", content: ENV["GOOGLE_MAPS_API_KEY"]
 
--# %div.map-panel
--# %a.pseudolink.pan(href="#world")= t(".world")
--# %a.pseudolink.pan(href="#ukraine")= t(".ukraine")
--# %a.pseudolink.pan(href="#north_america")= t(".north_america")
--#
--# = render partial: 'partials/translated'
+  = javascript_include_tag "admin-maps", defer: true
+
+- ramp = MapHelper::INTENSITY_RAMP
 
 .mapContainer
-  #googleMap{data: {map_enabled: map_enabled, map_mode: "map-global"}}
-
--# .gallery_window{data: {strip_url: media_strip_path}}
--# .wnd_close
--#    %span.close
--#      %span.fas.fa-times.fa-2x
--#      %span.pseudolink= t(".close")
--# .gallery_container
+  #googleMap{data: {map_enabled: map_enabled, map_mode: "map-global",
+                    summary_label: t(".summary", species: "%{species}", cards: "%{cards}"),
+                    lifelist_label: t(".lifelist"),
+                    lifelist_url: advanced_list_path,
+                    ramp: ramp.join(",")}}
+  .map-legend
+    %h2= t(".legend_title")
+    %ul
+      - ramp.each do |color|
+        %li{style: "background-color: #{color}"}
+    .map-legend-scale
+      %span= t(".legend_fewer")
+      %span= t(".legend_more")

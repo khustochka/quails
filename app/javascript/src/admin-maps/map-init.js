@@ -1,25 +1,6 @@
-import { setOptions, importLibrary } from "@googlemaps/js-api-loader";
-
-var mapsPromise = null;
-
-export function loadGoogleMaps() {
-  if (mapsPromise) return mapsPromise;
-
-  var meta = document.querySelector("meta[name='google-maps-api-key']");
-  if (!meta) {
-    return Promise.reject(new Error("Missing meta[name='google-maps-api-key']"));
-  }
-
-  setOptions({
-    key: meta.content
-  });
-
-  mapsPromise = importLibrary("maps").then(function () {
-    return google.maps;
-  });
-
-  return mapsPromise;
-}
+// Bootstrapping now lives in src/maps/setup.js, shared with the visitor map
+// bundle; re-exported here so the admin maps keep one import site.
+export { loadGoogleMaps, createMap, isMapEnabled } from "../maps/setup";
 
 var DEFAULT_CENTER = { lat: 52, lng: -35 };
 var DEFAULT_ZOOM = 2;
@@ -27,22 +8,6 @@ var DEFAULT_ZOOM = 2;
 export function setDefaultView(map) {
   map.setCenter(DEFAULT_CENTER);
   map.setZoom(DEFAULT_ZOOM);
-}
-
-var MAP_DEFAULTS = {
-  mapTypeId: "hybrid",
-  streetViewControl: false,
-  zoomControl: true,
-  gestureHandling: "greedy"
-};
-
-export function isMapEnabled() {
-  return !!document.querySelector("#googleMap[data-map-enabled]");
-}
-
-export function createMap(element, extraOptions) {
-  var opts = Object.assign({}, MAP_DEFAULTS, extraOptions || {});
-  return new google.maps.Map(element, opts);
 }
 
 export function autofitMarkers(map, markers, maxZoom) {

@@ -1,5 +1,6 @@
-import { setOptions, importLibrary } from "@googlemaps/js-api-loader";
-import { MarkerClusterer, SuperClusterAlgorithm } from "@googlemaps/markerclusterer";
+import { MAP_ID, loadAdvancedMarkers } from "./src/maps/advanced-markers";
+import { loadGoogleMaps, createMap } from "./src/maps/setup";
+import { clusterMarkers } from "./src/maps/clusters";
 
 document.addEventListener("DOMContentLoaded", function () {
   var mapEl = document.getElementById("googleMap");
@@ -34,19 +35,8 @@ document.addEventListener("DOMContentLoaded", function () {
     return div;
   }
 
-  function clusterRenderer(cluster, stats, map) {
-    var count = 0;
-    cluster.markers.forEach(function (m) {
-      count += (m._mediaIds ? m._mediaIds.length : 1);
-    });
-
-    var el = createClusterElement(count);
-
-    return new google.maps.marker.AdvancedMarkerElement({
-      position: cluster.position,
-      content: el,
-      zIndex: 1000 + count
-    });
+  function mediaCount(marker) {
+    return marker._mediaIds ? marker._mediaIds.length : 1;
   }
 
   var PAGE_SIZE = 30;
@@ -165,19 +155,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Init
 
-  var meta = document.querySelector("meta[name='google-maps-api-key']");
-  if (!meta) return;
-
-  setOptions({ key: meta.content });
-
-  Promise.all([importLibrary("maps"), importLibrary("marker")]).then(function () {
-    var map = new google.maps.Map(mapEl, {
-      mapTypeId: "hybrid",
-      streetViewControl: false,
-      zoomControl: true,
-      // gestureHandling: "greedy",
-      mapId: "public-map"
-    });
+  Promise.all([loadGoogleMaps(), loadAdvancedMarkers()]).then(function () {
+    // gestureHandling stays at the API default here, unlike the admin maps.
+    var map = createMap(mapEl, { mapId: MAP_ID, gestureHandling: "auto" });
 
     // Close gallery
     function closeGallery() {
@@ -229,11 +209,9 @@ document.addEventListener("DOMContentLoaded", function () {
           markers.push(marker);
         }
 
-        new MarkerClusterer({
-          map: map,
-          markers: markers,
-          algorithm: new SuperClusterAlgorithm({ radius: 70 }),
-          renderer: { render: clusterRenderer },
+        clusterMarkers(map, markers, {
+          buildContent: createClusterElement,
+          weigh: mediaCount,
           onClusterClick: function (event, cluster) {
             showPhotos(cluster, map);
           }
