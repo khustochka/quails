@@ -74,9 +74,15 @@ module SpeciesHelper
     text.present? ? content_tag(:span, text, title: name_sci) : content_tag(:i, name_sci, class: "sci_name")
   end
 
+  # Rounded to ~1 km, which is under one pixel on a country-scale static map,
+  # and deduplicated to keep the URL well below Google's 16384-character limit.
+  MAP_MARKER_PRECISION = 2
+
   def species_map(country, loci)
     center = "center=#{STATIC_MAP_CENTER[country]}"
-    markers = loci.filter_map { |l| l.lat && "#{l.lat},#{l.lon}" }.join("|")
+    markers = loci.filter_map do |l|
+      l.lat && "#{l.lat.round(MAP_MARKER_PRECISION)},#{l.lon.round(MAP_MARKER_PRECISION)}"
+    end.uniq.join("|")
     zoom = 5
     if !country.in?(STATIC_MAP_CENTER.keys)
       lats = loci.filter_map(&:lat).compact

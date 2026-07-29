@@ -46,4 +46,27 @@ class SpeciesHelperTest < ActionView::TestCase
   test "term highlight leaves a non-matching string alone" do
     assert_equal "House Sparrow", term_highlight("House Sparrow", "Eagle")
   end
+
+  class MapLocus < Struct.new(:lat, :lon); end
+
+  test "species map rounds marker coordinates and drops the ones without a position" do
+    result = species_map("ukraine", [MapLocus.new(50.451234, 30.523456), MapLocus.new(nil, nil)])
+
+    assert_includes result, "markers=50.45,30.52"
+  end
+
+  test "species map collapses loci that round to the same point" do
+    loci = [MapLocus.new(50.4512, 30.5234), MapLocus.new(50.4531, 30.5249), MapLocus.new(49.99, 36.23)]
+
+    result = species_map("ukraine", loci)
+
+    assert_includes result, "markers=50.45,30.52|49.99,36.23"
+  end
+
+  test "species map zooms out automatically when the loci are far apart" do
+    loci = [MapLocus.new(10.0, 10.0), MapLocus.new(40.0, 60.0)]
+
+    assert_includes species_map("canada", loci), "zoom=&"
+    assert_includes species_map("canada", [MapLocus.new(10.0, 10.0)]), "zoom=5"
+  end
 end
