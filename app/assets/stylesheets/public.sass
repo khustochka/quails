@@ -281,16 +281,21 @@ $image-info-pane-width: 300px
 .image_canvas
   @include auto-width
   @include inline-block
+  box-sizing: border-box
   border: 1px solid #cccccc
+  // block so the image below can fill the canvas' inline width
+  > a
+    display: block
   img
     vertical-align: top
     display: block
-    // no width: auto here — it would override the width/height attributes
-    // that reserve layout space while the image loads
+    // The canvas carries the width (inline, from ImagesHelper#image_frame_attrs);
+    // the image just fills it. See the writeup above that helper for why the
+    // cap can't live on the image itself.
     max-width: 100%
+    width: 100%
     height: auto
-    // Images with width/height attributes carry the height cap as an inline
-    // max-width (see ImagesHelper#dimension_attrs); max-height would squish them.
+    // Fallback for images with unknown dimensions, which get no inline width.
     &:not([width])
       // fit the viewport height, but don't shrink in short-wide windows
       // (unquote: libsass can't evaluate CSS max() with mixed units)

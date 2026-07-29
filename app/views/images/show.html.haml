@@ -30,9 +30,9 @@
 
   %div.image_canvas_container
 
-    %div.image_canvas
-      - @image.representer.yield_self do |rep|
-        = image_tag(rep.large, {sizes: rep.fullscreen_sizes, srcset: srcset_convert_urls(rep.srcset), alt: t(".main_img_alt", title: @image.decorated.title)}.merge(dimension_attrs(rep.dimensions, cap: ImagesHelper::CANVAS_IMG_HEIGHT_CAP)))
+    - @image.representer.yield_self do |rep|
+      %div.image_canvas{image_frame_attrs(rep.dimensions, cap: ImagesHelper::CANVAS_IMG_HEIGHT_CAP)}
+        = image_tag(rep.large, {sizes: rep.fullscreen_sizes, srcset: srcset_convert_urls(rep.srcset), alt: t(".main_img_alt", title: @image.decorated.title)}.merge(dimension_attrs(rep.dimensions)))
 
   %div.image_info_pane
 

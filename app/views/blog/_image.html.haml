@@ -1,7 +1,8 @@
 -# frozen_string_literal: true
-%figure.imageholder
+- dims = jpg_dimensions(image)
+%figure.imageholder{image_frame_attrs(dims)}
   = link_to localized_image_url(image, locale: locale || nil) do
-    = image_tag(jpg_url(image), dimension_attrs(jpg_dimensions(image)))
+    = image_tag(jpg_url(image), dimension_attrs(dims))
   %figcaption.imagetitle
     = link_to localized_image_url(image, locale: locale || nil), class: "not-green" do
       = image.decorated.title

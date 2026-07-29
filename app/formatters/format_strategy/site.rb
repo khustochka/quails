@@ -25,8 +25,10 @@ module FormatStrategy
     def img_tag(term)
       if (image = @images[term])
         img_url = localized_image_url(id: image, locale: current_locale_prefix)
-        dim_attrs = dimension_attrs(jpg_dimensions(image)).map { |k, v| %Q( #{k}="#{v}") }.join
-        %Q(<figure class="imageholder">
+        dims = jpg_dimensions(image)
+        dim_attrs = dimension_attrs(dims).map { |k, v| %Q( #{k}="#{v}") }.join
+        frame_attrs = image_frame_attrs(dims).map { |k, v| %Q( #{k}="#{v}") }.join
+        %Q(<figure class="imageholder"#{frame_attrs}>
         <a href="#{img_url}"><img src="#{jpg_url(image)}" title="[photo]" alt="[photo]"#{dim_attrs} /></a>
           <figcaption class="imagetitle"><a href="#{img_url}" class="not-green">#{image.decorated.title}</a></figcaption>
           </figure>

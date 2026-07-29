@@ -84,10 +84,10 @@ class WikiFilterTest < ActionDispatch::IntegrationTest
   test "render image by slug {{^slug}}" do
     image = create(:image)
     result = transform("{{^#{image.slug}}}")
-    assert_includes result, '<figure class="imageholder">'
+    assert_includes result, '<figure class="imageholder"'
     assert_includes result, image.decorated.title
-    assert_includes result, 'width="800" height="600"'
-    assert_includes result, 'style="max-width: min(100%, calc(max(97vh, 700px) * 800 / 600))"'
+    assert_includes result, 'width="800" height="600" style="aspect-ratio: 800 / 600"'
+    assert_includes result, 'style="width: min(100%, 800px, calc(max(97vh, 700px) * 800 / 600))"'
   end
 
   test "render image with unknown dimensions without width/height attributes" do
@@ -101,7 +101,7 @@ class WikiFilterTest < ActionDispatch::IntegrationTest
     image1 = create(:image)
     image2 = create(:image)
     result = transform("{{^#{image1.slug}}} and {{^#{image2.slug}}}")
-    assert_equal 2, result.scan('<figure class="imageholder">').size
+    assert_equal 2, result.scan('<figure class="imageholder"').size
   end
 
   test "ignore unknown image slug" do

@@ -16,8 +16,9 @@ figure.image_thumb, figure.imageholder
 figure.image_thumb a img
   max-height: 97vh
 
-// Images with width/height attributes carry the height cap as an inline
-// max-width (see ImagesHelper#dimension_attrs); max-height would squish them.
+// Images with known dimensions get the height cap as an inline width on the
+// figure itself (see ImagesHelper#image_frame_attrs); the rest fall back to a
+// max-height here.
 figure.imageholder a img:not([width])
   // fit the viewport height, but don't shrink in short-wide windows
   // (unquote: libsass can't evaluate CSS max() with mixed units)
@@ -45,10 +46,16 @@ figure.image_thumb
 
 figure.imageholder
   @include auto-width
+  box-sizing: border-box
+  // block so the image below can fill the figure's inline width
+  > a
+    display: block
   img
-    // no width: auto here — it would override the width/height attributes
-    // that reserve layout space while the image loads
+    // The figure carries the width (inline, from ImagesHelper#image_frame_attrs);
+    // the image just fills it. See the writeup above that helper for why the
+    // cap can't live on the image itself.
     max-width: 100%
+    width: 100%
     height: auto
 
 figcaption.imagetitle
