@@ -25,7 +25,7 @@ class SpeciesController < ApplicationController
 
   # GET /species
   def gallery
-    @species = Species.joins(:image).includes(:image).ordered_by_taxonomy
+    @species = Species.joins(:image).includes(image: Image::VARIANT_PRELOAD).ordered_by_taxonomy
     @feed = "photos"
   end
 

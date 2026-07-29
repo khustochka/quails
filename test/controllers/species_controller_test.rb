@@ -37,6 +37,26 @@ class SpeciesControllerTest < ActionController::TestCase
     assert_select "a[href='#{species_path(@obs.species)}']"
   end
 
+  test "gallery preloads the variant chain behind thumbnail urls" do
+    [taxa(:saxola), taxa(:jyntor)].each_with_index do |taxon, n|
+      image = create(:image_on_storage, slug: "stored_image_#{n}",
+        observations: [create(:observation, taxon: taxon)])
+      image.species.each(&:update_image!)
+    end
+
+    # Rendering the gallery resolves a thumbnail url per species. Without the
+    # ActiveStorage chain preloaded, each one costs three extra queries
+    # (attachment, variant record, variant blob), so the query count grows with
+    # the number of species rather than staying flat.
+    queries = count_queries { get :gallery }
+    assert_response :success
+
+    create(:image_on_storage, slug: "stored_image_2",
+      observations: [create(:observation, taxon: taxa(:hirrus))]).species.each(&:update_image!)
+
+    assert_equal queries, count_queries { get :gallery }
+  end
+
   test "gallery renders with no species images" do
     get :gallery
     assert_response :success
@@ -270,5 +290,14 @@ class SpeciesControllerTest < ActionController::TestCase
     assert_response :success
     assert_equal Mime[:json], response.media_type
     assert_includes response.body, "garrulus"
+  end
+
+  private
+
+  def count_queries(&block)
+    count = 0
+    counter = ->(*, payload) { count += 1 unless payload[:name] == "SCHEMA" || payload[:cached] }
+    ActiveSupport::Notifications.subscribed(counter, "sql.active_record", &block)
+    count
   end
 end

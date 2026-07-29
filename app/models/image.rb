@@ -7,6 +7,14 @@ class Image < Media
 
   STATES = %w(PUBLIC NOINDEX POST_ONLY EBIRD_ONLY PRIVATE)
 
+  # The association chain behind `stored_image.variant(...).url`. Querying Image
+  # directly gets this from the default scope's `with_attached_stored_image`, but
+  # eager-loading *through* another association does not apply Image's default
+  # scope — so nest this under the association instead (e.g.
+  # `includes(image: Image::VARIANT_PRELOAD)`). Without it each `.url` call costs
+  # three queries: attachment, variant record, variant blob.
+  VARIANT_PRELOAD = { stored_image_attachment: { blob: { variant_records: { image_attachment: :blob } } } }.freeze
+
   has_one_attached :stored_image do |attachable|
     attachable.variant :small, ImageRepresenter.variant_format(:small).merge(preprocessed: true)
     attachable.variant :thumbnail, ImageRepresenter.variant_format(:thumbnail).merge(preprocessed: true)
