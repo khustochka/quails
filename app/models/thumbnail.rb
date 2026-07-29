@@ -44,6 +44,16 @@ class Thumbnail
     image_asset.dummy_dimensions?
   end
 
+  # Width/height of the asset actually served, before justification rounds the
+  # box dimensions to integers. `aspect-ratio` has to come from these: the img
+  # renders at its own natural ratio, so a box built from the rounded values
+  # ends up a fraction taller than the image and leaves a gap under it.
+  def natural_dimensions
+    return nil if dummy_dimensions?
+
+    [image_asset.width, image_asset.height]
+  end
+
   def force_width(value)
     @width = value
     @height = nil

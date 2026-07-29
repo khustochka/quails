@@ -45,6 +45,34 @@ class ImagesHelperTest < ActionView::TestCase
     assert_equal({}, image_frame_attrs(nil))
   end
 
+  # Justification rounds the box to integers; the img keeps rendering at the
+  # asset's own ratio, so the rule has to use the latter or the box ends up
+  # taller than the image it wraps.
+  test "thumbnail_size_rules uses the natural ratio, not the rounded box" do
+    thumb = create(:image, assets_cache: asset(467, 600)).to_thumbnail
+    thumb.force_dimensions(width: 200, height: 259)
+
+    assert_equal({ [200, 259] => "467 / 600" }, thumbnail_size_rules([thumb]))
+  end
+
+  test "thumbnail_size_rules falls back to the box when dimensions are unknown" do
+    thumb = create(:image, assets_cache: asset(0, 0)).to_thumbnail
+    thumb.force_dimensions(width: 200, height: 259)
+
+    assert_equal({ [200, 259] => "200 / 259" }, thumbnail_size_rules([thumb]))
+  end
+
+  test "thumbnail_size_rules emits one entry per distinct box size" do
+    thumbs = [[467, 600], [467, 600], [800, 600]].map do |w, h|
+      create(:image, assets_cache: asset(w, h)).to_thumbnail.tap do |t|
+        t.force_dimensions(width: h > w ? 200 : 351, height: h > w ? 259 : 273)
+      end
+    end
+
+    assert_equal({ [200, 259] => "467 / 600", [351, 273] => "800 / 600" },
+      thumbnail_size_rules(thumbs))
+  end
+
   test "variant_src_with_fallback returns the variant when the flag is off" do
     variant = create(:image_on_storage).thumbnail_variant
     assert_equal [variant, {}], variant_src_with_fallback(variant)
@@ -70,5 +98,11 @@ class ImagesHelperTest < ActionView::TestCase
     with_direct_variant_urls do
       assert_equal ["/photos/x.jpg", {}], variant_src_with_fallback("/photos/x.jpg")
     end
+  end
+
+  private
+
+  def asset(width, height)
+    ImageAssetsArray.new([ImageAssetItem.new(:local, width, height, "/photos/x.jpg")])
   end
 end

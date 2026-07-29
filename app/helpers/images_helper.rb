@@ -99,6 +99,20 @@ module ImagesHelper
     { style: "width: min(100%, #{dims[:width]}px, #{cap_width})" }
   end
 
+  # Maps each distinct justified box size to the `aspect-ratio` value its rule
+  # should use. Sizes with known natural dimensions get the served asset's
+  # ratio, so the box matches the image exactly instead of the rounded box
+  # dimensions; the rest fall back to the box itself.
+  def thumbnail_size_rules(thumbnails)
+    thumbnails.each_with_object({}) do |thumb, rules|
+      key = [thumb.width, thumb.height]
+      next if rules.key?(key)
+
+      natural = thumb.natural_dimensions
+      rules[key] = "#{natural ? natural[0] : key[0]} / #{natural ? natural[1] : key[1]}"
+    end
+  end
+
   def static_jpg_url(img, options = {})
     image_url(img, options.merge({ format: :jpg }))
   end

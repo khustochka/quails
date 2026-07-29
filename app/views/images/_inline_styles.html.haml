@@ -1,18 +1,21 @@
 -# frozen_string_literal: true
 - if inline_styles&.any?
-  - max_width = @body_class == 'wider' ? 1120 : 896
+  - max_width = @body_class == "wider" ? 1120 : 896
+  -# Box size comes from the justified (rounded) dimensions, but the ratio comes
+  -# from the served asset — see Thumbnail#natural_dimensions.
+  - sizes = thumbnail_size_rules(inline_styles)
   %style
-    - inline_styles.map {|t| [t.width, t.height]}.uniq.each do |w, h|
+    - sizes.each do |(w, h), _ratio|
       = ".thumb_#{w}x#{h} {width: #{w}px;height: #{h}px;}"
     @media (min-width: 767.98px) and (max-width: #{max_width + 46}px) {
-    - inline_styles.map {|t| [t.width, t.height]}.uniq.each do |w, h|
+    - sizes.each do |(w, h), ratio|
       - ww = 100.0 * w / max_width
-      = ".thumb_#{w}x#{h} {width: #{ww - 0.13}%;height: auto;aspect-ratio: #{w} / #{h}; border: none !important;}"
+      = ".thumb_#{w}x#{h} {width: #{ww - 0.13}%;height: auto;aspect-ratio: #{ratio};border: none !important;}"
     }
     @media (max-width: 767.98px) {
-    - inline_styles.map {|t| [t.width, t.height]}.uniq.each do |w, h|
+    - sizes.each do |(w, h), ratio|
       - if h > w
-        = "figure.image_thumb.thumb_#{w}x#{h} {width: min(100%, calc(97vh * #{w} / #{h}));height: auto;aspect-ratio: #{w} / #{h};}"
+        = "figure.image_thumb.thumb_#{w}x#{h} {width: min(100%, calc(97vh * #{w} / #{h}));height: auto;aspect-ratio: #{ratio};}"
       - else
-        = "figure.image_thumb.thumb_#{w}x#{h} {width: 100%;height: auto;aspect-ratio: #{w} / #{h};}"
+        = "figure.image_thumb.thumb_#{w}x#{h} {width: 100%;height: auto;aspect-ratio: #{ratio};}"
     }
