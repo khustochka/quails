@@ -1,15 +1,15 @@
 -# frozen_string_literal: true
-%footer.page_footer
+%footer.page_footer{role: "contentinfo"}
   -# Text browsers draw this rule where CSS gives sighted users the border-top.
   %hr.footer-rule{"aria-hidden" => "true"}
   .footer-inner
     - unless hide_footer_links?
       %h2#footer-nav-heading.sr-only= t("footer.nav_label")
-      = render "app2/footer/links"
+      = render "shared/footer/links"
     .footer-text
       %p.footer-attribution
         = succeed "," do
-          = t('author.name')
+          = t("author.name")
         2007&ndash;#{Quails::LICENSE_YEAR}
       %p.footer-license
         = t("license.text", link: "https://creativecommons.org/licenses/by-nc-sa/4.0/").html_safe

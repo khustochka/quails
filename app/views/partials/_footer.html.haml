@@ -1,9 +1,0 @@
--# frozen_string_literal: true
-%div.footer(role="contentinfo")
-  = render "partials/banners_footer"
-  %p
-    = succeed "," do
-      %b= t('author.name')
-    2007&ndash;#{Quails::LICENSE_YEAR}
-    %br
-    %em= t("license.text", link: "https://creativecommons.org/licenses/by-nc-sa/4.0/").html_safe

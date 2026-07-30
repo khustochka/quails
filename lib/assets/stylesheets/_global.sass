@@ -40,11 +40,9 @@ body.full_width
 
 // Footer
 
-div.footer
-  margin:
-    left: -1em
-    right: -1em
-  padding: 0 20px 5px 20px
+footer.page_footer
+  margin-left: -1em
+  margin-right: -1em
 
 // Override normalize.css
 body
@@ -68,18 +66,24 @@ body
     li
       margin-bottom: 3px
 
-// 100% height
-$footer-margin: 145px
-
-html, body
+// Keep the footer below the fold on short pages without pinning it to a fixed
+// height — the link columns make the footer's height content-dependent.
+html
   height: 100%
-#above-footer
+
+body
+  display: flex
+  flex-direction: column
   min-height: 100%
 
+#above-footer
+  flex: 1 0 auto
+
+.page_footer
+  flex-shrink: 0
+
 .main
-  padding-bottom: ($footer-margin + 40px)
-div.footer
-  margin-top: -$footer-margin
+  padding-bottom: 40px
 
 /* For small screens */
 // p is added to exclude thumbnails
@@ -293,7 +297,7 @@ h3
   color: lighten($base-header-color, 20%)
 
 // Links
-.green_links, .footer
+.green_links
   a:not(.likely__widget, .not-green, .img, .pseudolink, .maps-icon)
     &, &:hover
       text-decoration: none
@@ -315,18 +319,9 @@ h3
     &:hover
       border-bottom-color: $link-color
 
-// Footer
+// Footer — shared styles live in app/assets/stylesheets/_footer.scss (visitor.scss).
 
-div.footer
-  border-top: 1px dotted #407FBF
-  background-color: #fdfdff
-  color: #333366
-  p
-    margin:
-      top: 1em
-      bottom: 0.5em
-    @include arial-font
-    font-size: 13px
+// Banners are no longer rendered; styles kept for the partials in app/views/partials.
 
 .banners_footer
   text-align: center
@@ -422,8 +417,9 @@ div.footer
     text-align: left
 
 // Nav
+// :not(.footer-links) — the footer brings its own link styling (_footer.scss).
 
-nav
+nav:not(.footer-links)
   margin-top: 10px
   font-weight: bold
   color: #555555

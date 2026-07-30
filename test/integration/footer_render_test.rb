@@ -13,6 +13,15 @@ class FooterRenderTest < ActionDispatch::IntegrationTest
     assert_select ".footer-links a", text: I18n.t("menu.english", locale: :en), count: 0
   end
 
+  test "renders the same footer under the legacy application layout" do
+    get blog_path
+    assert_response :success
+
+    assert_select "footer.page_footer .footer-links .footer-column", 4
+    assert_select ".footer-text .footer-attribution"
+    assert_select ".footer-text .footer-license"
+  end
+
   test "omits footer links but keeps attribution where hide_footer_links? applies" do
     get map_path
     assert_response :success
