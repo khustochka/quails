@@ -35,9 +35,31 @@ class LifelistBasicTest < ActionController::TestCase
     get :basic
     assert_response :success
     assert_select ".lifelist-page" do
-      #      assert_select 'h5' # should show "First time seen in..."
       assert_select "a[href='#{lifelist_path}']", false
       assert_select "a[href='#{url_for(sort: :by_taxonomy, only_path: true)}']"
+    end
+  end
+
+  test "date-sorted lifelist groups species under a heading per year" do
+    get :basic, params: { locale: "en" }
+    assert_response :success
+    assert_select ".lifelist-page" do
+      assert_select "h2", text: I18n.t("lifelist.by_date.seen_in.first", year: 2010, locale: "en")
+      assert_select "h2", text: I18n.t("lifelist.by_date.seen_in.first", year: 2009, locale: "en")
+      assert_select "h2", text: I18n.t("lifelist.by_date.seen_in.first", year: 2007, locale: "en")
+    end
+    # Anchors match the scheme the stats page links to.
+    assert_select "h2#first_seen_2010"
+    assert_select "h2#first_seen_2009"
+    assert_select "h2#first_seen_2007"
+  end
+
+  test "date-sorted lifelist numbers species continuously across years" do
+    get :basic
+    assert_response :success
+    # Numbering counts down from the total across all year sections.
+    assert_select ".lifelist-entries li" do |items|
+      assert_equal (1..5).to_a.reverse, items.map { |li| li["value"].to_i }
     end
   end
 

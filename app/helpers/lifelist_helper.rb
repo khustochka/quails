@@ -9,10 +9,15 @@ module LifelistHelper
     border-t border-[#f0f0ec] first:border-t-0
   ].freeze
 
-  FILTER_LABEL_CLASSES = %w[
-    flex-none text-[0.8125rem] font-semibold tracking-[0.03em] uppercase text-[#8a8a80]
-    md:w-38 md:pt-1
+  # Small uppercase muted label. Shared with the by-date year headings, so that
+  # the two kinds of section label on the page read the same. Size, weight and
+  # color are `!` because the year label is an `h2`, and the `h1`-`h6` rules in
+  # app2/global.css sit outside `@layer`, beating unmodified utilities.
+  SECTION_LABEL_CLASSES = %w[
+    text-[0.8125rem]! font-semibold! tracking-[0.03em] uppercase text-[#8a8a80]!
   ].freeze
+
+  FILTER_LABEL_CLASSES = (SECTION_LABEL_CLASSES + %w[flex-none md:w-38 md:pt-1]).freeze
 
   # No `list-none` here: bullets are suppressed by `.lifelist-filters ul` in
   # app2/pages/_lifelist.scss, which the utility cannot override.

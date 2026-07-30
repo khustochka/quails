@@ -61,7 +61,7 @@
                   .bar-fill{style: "width: #{(count_species * 100.0 / max_year_count).round(1)}%"}
               %td.lifers{class: ("year-max" if new_sp && new_sp == max_lifers_count)}
                 - if new_sp && new_sp > 0
-                  = link_to("+#{new_sp}", advanced_list_path(anchor: "first_seen_#{year}"))
+                  = link_to("+#{new_sp}", list_path(anchor: "first_seen_#{year}"))
               %td.countries
                 %ul
                   - visited = @countries.select { |c| year_country_counts[[year, c.id]] }

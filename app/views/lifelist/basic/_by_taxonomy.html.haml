@@ -4,8 +4,8 @@
 
 - chunked.each do |(order, family), species_list|
   %section{class: "[&+section]:mt-10"}
-    %h2{class: "text-xl mb-0.5"}= render partial: "species/taxonomy", locals: {rank: :order, value: order}
-    %h3{class: "text-base font-medium text-gray-500 mb-3"}= render partial: "species/taxonomy", locals: {rank: :family, value: family}
+    %h2{class: "text-2xl! mb-0.5"}= render partial: "species/taxonomy", locals: {rank: :order, value: order}
+    %h3{class: "text-lg! font-medium text-gray-500 mb-3"}= render partial: "species/taxonomy", locals: {rank: :family, value: family}
     %ol.lifelist-entries{start: count_reached}
       = render partial: "lifer", collection: species_list, locals: {count_reached: count_reached}
   - count_reached += species_list.size

@@ -69,7 +69,7 @@ class LifelistControllerTest < ActionController::TestCase
     assert_response :success
     # 2009: bomgar in the USA, jyntor in Ukraine
     assert_select "td.species a[href=?]", list_path(year: 2009), text: "2"
-    assert_select "td.lifers a[href=?]", advanced_list_path(anchor: "first_seen_2009"), text: "+2"
+    assert_select "td.lifers a[href=?]", list_path(anchor: "first_seen_2009"), text: "+2"
     assert_select "li.ukraine a[href=?] .count", list_path(year: 2009, locus: "ukraine"), text: "1"
     assert_select "li.usa a[href=?] .count", list_path(year: 2009, locus: "usa"), text: "1"
     assert_select "tfoot tr.total td.species a[href=?]", lifelist_path, text: "5"
@@ -78,7 +78,7 @@ class LifelistControllerTest < ActionController::TestCase
     # 2009 and 2010 tie for most species (2) and most lifers (2); 2007 is highlighted in neither
     assert_select "td.species.year-max a[href=?]", list_path(year: 2009), text: "2"
     assert_select "td.species.year-max", 2
-    assert_select "td.lifers.year-max a[href=?]", advanced_list_path(anchor: "first_seen_2010"), text: "+2"
+    assert_select "td.lifers.year-max a[href=?]", list_path(anchor: "first_seen_2010"), text: "+2"
     assert_select "td.lifers.year-max", 2
   end
 
