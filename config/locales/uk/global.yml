@@ -25,6 +25,21 @@
       search_button: Знайти
       fallback_text: Знайти більше...
 
+  footer:
+    nav_label: Навігація по сайту
+    sections:
+      site: Сайт
+      birds: Птахи
+      explore: Спостереження
+      elsewhere: Більше
+    latest_photos: Найновіші фото
+    lifelist_overview: Найновіші види
+    full_lifelist: Повний lifelist
+    blog_feed: RSS блогу
+    photos_feed: RSS фотографій
+    facebook: Facebook
+    flickr: Flickr
+
   author:
     name: Віталій Хусточка
 
@@ -32,7 +47,7 @@
     text: >
             Всі фотографії і текст розповсюджуються під ліцензією
             <a href="%{link}" rel="nofollow license" class="license-link">CC BY-NC-SA</a>:
-            дозволене використання з некомерційною метою і за умови вказівки авторства (посилання на сайт).
+            дозволене використання з некомерційною метою із зазначенням авторства (посиланням на сайт).
 
   misc:
     all: Всі

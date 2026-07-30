@@ -25,6 +25,21 @@
       search_button: Найти
       fallback_text: Найти больше...
 
+  footer:
+    nav_label: Навигация по сайту
+    sections:
+      site: Сайт
+      birds: Птицы
+      explore: Наблюдения
+      elsewhere: Больше
+    latest_photos: Последние фото
+    lifelist_overview: Последние виды
+    full_lifelist: Полный lifelist
+    blog_feed: RSS блога
+    photos_feed: RSS фотографий
+    facebook: Facebook
+    flickr: Flickr
+
   author:
     name: Виталий Хусточка
 
@@ -32,7 +47,7 @@
     text: >
             Все фотографии и текст распространяются под лицензией
             <a href="%{link}" rel="nofollow license" class="license-link">CC BY-NC-SA</a>:
-            разрешено использование с некоммерческой целью и указанием авторства (ссылкой на сайт).
+            разрешено использование с некоммерческой целью c указанием авторства (ссылкой на сайт).
 
   misc:
     all: Все

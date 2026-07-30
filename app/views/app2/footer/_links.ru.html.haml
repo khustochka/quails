@@ -1,0 +1,36 @@
+-# frozen_string_literal: true
+%nav.footer-links{"aria-labelledby" => "footer-nav-heading"}
+  %ul.footer-columns
+    %li.footer-column
+      %h2= t("footer.sections.site")
+      %ul
+        %li= link_to t("menu.blog"), blog_path
+        %li= link_to t("menu.archive"), archive_path
+        %li= link_to t("footer.blog_feed"), blog_feed_path(format: :xml), rel: "alternate", type: "application/atom+xml"
+        %li= link_to t("menu.birds_ukraine"), country_path(country: "ukraine")
+
+    %li.footer-column
+      %h2= t("footer.sections.birds")
+      %ul
+        %li= link_to t("images.index.species_gallery"), gallery_path
+        %li= link_to t("footer.latest_photos"), localized_images_path
+        %li= link_to t("menu.videos"), localized_videos_path
+        %li= link_to t("footer.photos_feed"), photos_feed_path(format: :xml), rel: "alternate", type: "application/atom+xml"
+
+    %li.footer-column
+      %h2= t("footer.sections.explore")
+      %ul
+        %li= link_to t("footer.lifelist_overview"), lists_overview_path
+        %li= link_to t("footer.full_lifelist"), lifelist_path
+        %li= link_to t("lifelist.index.records_and_stats"), lifelist_stats_path
+        %li= link_to t("menu.map"), map_path
+
+    %li.footer-column
+      %h2= t("footer.sections.elsewhere")
+      %ul
+        %li= link_to t("footer.facebook"), "https://www.facebook.com/birdwatch.org.ua/", target: "_blank", rel: "nofollow noopener"
+        %li= link_to t("footer.flickr"), "https://www.flickr.com/photos/phenolog/", target: "_blank", rel: "me nofollow noopener"
+        %li= link_to t("menu.links"), links_path
+        %li.footer-translations
+          = link_to t("menu.english"), root_path(locale: :en), lang: :en, hreflang: :en, class: "translation"
+          = link_to t("menu.ukrainian"), root_path(locale: nil), lang: :uk, hreflang: :uk, class: "translation"

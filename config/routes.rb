@@ -137,7 +137,7 @@ Rails.application.routes.draw do
     get "/photos/multiple_species" => "images#multiple_species"
     get "photos/:id" => "images#show", as: "localized_image"
     get "/videos(/page/:page)" => "videos#index", page: /[^0]\d*/,
-      constraints: { format: "html" }
+      as: "localized_videos", constraints: { format: "html" }
     get "videos/:id" => "videos#show", as: "localized_video"
     post "media/strip" => "media#strip"
   end
@@ -199,9 +199,9 @@ Rails.application.routes.draw do
   end
 
   # Feeds and sitemap
-  get "/blog.:format" => "feeds#blog", constraints: { format: "xml" }
+  get "/blog.:format" => "feeds#blog", as: "blog_feed", constraints: { format: "xml" }
   scope "(:locale)", locale: /en|ru/ do
-    get "/photos.:format" => "feeds#photos", constraints: { format: "xml" }
+    get "/photos.:format" => "feeds#photos", as: "photos_feed", constraints: { format: "xml" }
   end
   get "/sitemap.:format" => "feeds#sitemap", constraints: { format: "xml" }
 

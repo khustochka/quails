@@ -28,6 +28,21 @@
       search_button: Search
       fallback_text: Find more
 
+  footer:
+    nav_label: Site navigation
+    sections:
+      site: Site
+      birds: Birds
+      explore: Observations
+      elsewhere: Elsewhere
+    latest_photos: Latest photos
+    lifelist_overview: Latest lifers
+    full_lifelist: Full lifelist
+    blog_feed: Blog RSS
+    photos_feed: Photos RSS
+    facebook: Facebook
+    flickr: Flickr
+
   author:
     name: Vitalii Khustochka
 
