@@ -1,15 +1,42 @@
+// Bulleted link menu sitting directly under a page header.
+// Pulled up towards the header, which carries a large bottom margin.
+.subheader-nav {
+  margin-top: -0.75rem;
+  margin-bottom: 2rem;
+
+  @media (min-width: 768px) {
+    margin-top: -2rem;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.25rem 1.25rem;
+  }
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    &::before {
+      content: "•" / "";
+      color: #9ca3af;
+      font-size: 2em;
+      line-height: 1;
+      position: relative;
+      top: -0.05em;
+    }
+  }
+}
+
 // Lifelist stats page (lifelist#stats)
 
 .stats-page {
-  .stats-nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 1rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.25rem 1.5rem;
-  }
-
   h2 {
     font-size: 1.375rem;
     margin-bottom: 0.75rem;
@@ -196,6 +223,7 @@
     border-radius: 50%;
     align-self: center;
     flex: none;
+    background-color: currentcolor;
   }
 
   td.countries .count {

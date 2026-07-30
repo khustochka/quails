@@ -13,7 +13,7 @@
 
     = simple_page_header(@page_title)
 
-    %nav.stats-nav
+    %nav.subheader-nav
       %ul
         %li= link_to("Lifelist", lifelist_path)
         %li= link_to(t("lifelist.title.country.ukraine"), list_path(locus: "ukraine"))
@@ -68,8 +68,8 @@
                   - visited.sort_by! { |c| [year_country_first_dates[[year, c.id]], @countries.index(c)] }
                   - visited.each do |c|
                     %li{class: c.slug}
-                      = link_to(list_path(year: year, locus: c.slug)) do
-                        %span.dot{aria: {hidden: true}, style: "background-color: #{country_dot_color(c.slug)}"}
+                      = link_to(list_path(year: year, locus: c.slug), style: "color: #{country_text_color(c.slug)}") do
+                        %span.dot{aria: {hidden: true}}
                         = c.name
                         %span.count= year_country_counts[[year, c.id]]
         %tfoot
@@ -83,7 +83,7 @@
                 - visited.sort_by! { |c| [country_first_dates[c.id], @countries.index(c)] }
                 - visited.each do |c|
                   %li{class: c.slug}
-                    = link_to(list_path(locus: c.slug)) do
-                      %span.dot{aria: {hidden: true}, style: "background-color: #{country_dot_color(c.slug)}"}
+                    = link_to(list_path(locus: c.slug), style: "color: #{country_text_color(c.slug)}") do
+                      %span.dot{aria: {hidden: true}}
                       = c.name
                       %span.count= country_counts[c.id]

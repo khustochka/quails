@@ -1,20 +1,21 @@
 # frozen_string_literal: true
 
 module LifelistHelper
-  # CVD-safe categorical palette; keys preserve the historical country hues.
-  COUNTRY_DOT_COLORS = {
-    "ukraine" => "#008300",
-    "united_kingdom" => "#2a78d6",
+  # CVD-safe categorical palette, kept distinct from the green link color.
+  # Dark enough to carry the country name as text on the beige pill background.
+  COUNTRY_TEXT_COLORS = {
+    "ukraine" => "#00706b",
+    "united_kingdom" => "#1a5fb4",
     "poland" => "#4a3aa7",
-    "germany" => "#eb6834",
-    "netherlands" => "#eda100",
-    "usa" => "#e34948",
-    "canada" => "#e87ba4",
+    "germany" => "#b8460f",
+    "netherlands" => "#8a5a00",
+    "usa" => "#c22f2f",
+    "canada" => "#a83b68",
   }.freeze
 
-  def country_dot_color(slug)
-    COUNTRY_DOT_COLORS[slug] ||
-      COUNTRY_DOT_COLORS.values[slug.sum % COUNTRY_DOT_COLORS.size]
+  def country_text_color(slug)
+    COUNTRY_TEXT_COLORS[slug] ||
+      COUNTRY_TEXT_COLORS.values[slug.sum % COUNTRY_TEXT_COLORS.size]
   end
 
   # "Winnipeg, Adam Lake — Manitoba; Gainsborough Creek — Saskatchewan — Canada"
