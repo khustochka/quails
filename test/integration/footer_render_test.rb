@@ -20,6 +20,7 @@ class FooterRenderTest < ActionDispatch::IntegrationTest
     assert_select "footer.page_footer .footer-links .footer-column", 4
     assert_select ".footer-text .footer-attribution"
     assert_select ".footer-text .footer-license"
+    assert_select ".footer-text .footer-banner a[href=?]", "https://www.birdingtop500.com/"
   end
 
   test "omits footer links but keeps attribution where hide_footer_links? applies" do

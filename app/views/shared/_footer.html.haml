@@ -7,9 +7,12 @@
       %h2#footer-nav-heading.sr-only= t("footer.nav_label")
       = render "shared/footer/links"
     .footer-text
-      %p.footer-attribution
-        = succeed "," do
-          = t("author.name")
-        2007&ndash;#{Quails::LICENSE_YEAR}
-      %p.footer-license
-        = t("license.text", link: "https://creativecommons.org/licenses/by-nc-sa/4.0/").html_safe
+      .footer-credits
+        %p.footer-attribution
+          = succeed "," do
+            = t("author.name")
+          2007&ndash;#{Quails::LICENSE_YEAR}
+        %p.footer-license
+          = t("license.text", link: "https://creativecommons.org/licenses/by-nc-sa/4.0/").html_safe
+      -# Template Dependency: partials/birdingtop_code
+      .footer-banner= include_birdingtop_button

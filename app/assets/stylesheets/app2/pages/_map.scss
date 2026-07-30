@@ -20,6 +20,10 @@ body.map-page {
     padding-top: 0;
   }
 
+  .footer-banner {
+    display: none;
+  }
+
   @media (min-width: 769px) {
     display: flex;
     flex-direction: column;

@@ -98,11 +98,51 @@ footer.page_footer {
 .footer-text {
   border-top: 1px solid $footer-border;
   padding-top: 0.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1.5rem;
 
   // app1's global `body p` sets a large top margin; reset it so both layouts
   // render the footer text identically.
   p {
     margin: 0 0 0.15rem;
+  }
+}
+
+.footer-credits {
+  flex: 1 1 20rem;
+}
+
+.footer-banner {
+  flex: 0 0 auto;
+  // Once the banner wraps below the text it would otherwise sit flush left.
+  margin-left: auto;
+
+  // Sized on the link so the placeholder keeps the image's footprint.
+  a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: content-box;
+    width: 105px;
+    aspect-ratio: 140 / 56;
+    border: 1px solid $footer-border;
+  }
+
+  // Overrides the width/height attributes on the remote button image.
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .birdingtop_placeholder {
+    font-size: 1rem;
+    font-weight: 700;
+    color: $footer-heading;
+    text-shadow: none;
+    padding-top: 0;
   }
 }
 

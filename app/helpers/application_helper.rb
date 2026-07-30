@@ -50,10 +50,6 @@ module ApplicationHelper
     end
   end
 
-  def hide_banners?
-    admin_layout? || controller_name == "maps"
-  end
-
   # The map pins the footer to the viewport bottom, leaving no room for a link list.
   def hide_footer_links?
     admin_layout? || controller_name == "maps"
