@@ -40,15 +40,15 @@ class RoutingTest < ActionDispatch::IntegrationTest
   test "route lifelist correctly" do
     assert_routing "/lifelist", { controller: "lifelist", action: "basic" }
     assert_routing "/lifelist/advanced", { controller: "lifelist", action: "advanced" }
-    assert_routing "/lifelist/by_taxonomy", { controller: "lifelist", action: "basic", sort: "by_taxonomy" }
     assert_routing "/lifelist/2008", { controller: "lifelist", action: "basic", year: "2008" }
-    assert_routing "/lifelist/2008/by_taxonomy", { controller: "lifelist", action: "basic", sort: "by_taxonomy", year: "2008" }
     assert_routing "/lifelist/kyiv/2010", { controller: "lifelist", action: "basic", year: "2010", locus: "kyiv" }
     assert_routing "/lifelist/kherson_obl", { controller: "lifelist", action: "basic", locus: "kherson_obl" }
-    assert_routing "/lifelist/kherson_obl/by_taxonomy", { controller: "lifelist", action: "basic", sort: "by_taxonomy", locus: "kherson_obl" }
-    assert_routing "/lifelist/kyiv/2010/by_taxonomy", { controller: "lifelist", action: "basic", sort: "by_taxonomy", year: "2010", locus: "kyiv" }
-    # have 'by_' inside locus
-    assert_routing "/lifelist/druzhby_obl/by_taxonomy", { controller: "lifelist", action: "basic", sort: "by_taxonomy", locus: "druzhby_obl" }
+    # The sort is a query param, not a path segment.
+    assert_generates "/lifelist", { controller: "lifelist", action: "basic", sort: "taxonomy" },
+      {}, { sort: "taxonomy" }
+    assert_generates "/lifelist/kyiv/2010",
+      { controller: "lifelist", action: "basic", sort: "taxonomy", year: "2010", locus: "kyiv" },
+      {}, { sort: "taxonomy" }
   end
 
   test "route images correctly" do

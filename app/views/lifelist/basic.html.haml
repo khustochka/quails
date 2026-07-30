@@ -27,5 +27,7 @@
     - if @lifelist.blank?
       %ul.lifelist-empty.p-0.m-0.text-gray-500
         %li= t("lifelist.basic.no_species")
+    - elsif params[:sort] == "taxonomy"
+      = render "lifelist/basic/taxonomy"
     - else
-      = render "lifelist/basic/#{params[:sort] || "by_date"}"
+      = render "lifelist/basic/date"

@@ -36,6 +36,23 @@ module LifelistHelper
     end
   end
 
+  # One filter pill: a link, or plain text when it is the option already in
+  # effect. This compares the parameter itself rather than using
+  # `link_to_or_span`, whose `current_page?` check is unreliable once `sort`
+  # lives in the query string — it ignores the current request's query string
+  # when the candidate URL has none, and vice versa.
+  def lifelist_filter_option(label, param, value)
+    if params[param].presence == value.presence&.to_s
+      tag.span(label)
+    else
+      link_to(label, amended_params(param => value))
+    end
+  end
+
+  def lifelist_sort_option(sort)
+    lifelist_filter_option(t("lifelist.menus.sort_option.by_#{sort || :date}"), :sort, sort)
+  end
+
   # CVD-safe categorical palette, kept distinct from the green link color.
   # Dark enough to carry the country name as text on the beige pill background.
   COUNTRY_TEXT_COLORS = {

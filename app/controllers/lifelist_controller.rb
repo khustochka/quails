@@ -37,7 +37,7 @@ class LifelistController < ApplicationController
       case params[:sort]
       when nil
         nil
-      when "by_taxonomy"
+      when "taxonomy"
         "class"
       else
         raise ActionController::RoutingError, "Illegal argument sort=#{params[:sort]}"
