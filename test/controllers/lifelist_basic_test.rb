@@ -18,7 +18,7 @@ class LifelistBasicTest < ActionController::TestCase
   test "show lifelist ordered by taxonomy" do
     get :basic, params: { sort: "by_taxonomy" }
     assert_response :success
-    assert_select ".main" do
+    assert_select ".lifelist-page" do
       assert_select "h3"
       assert_select "a[href='#{lifelist_path}']"
       assert_select "a[href='#{url_for(sort: :by_taxonomy, only_path: true)}']", false
@@ -34,7 +34,7 @@ class LifelistBasicTest < ActionController::TestCase
   test "show default lifelist" do
     get :basic
     assert_response :success
-    assert_select ".main" do
+    assert_select ".lifelist-page" do
       #      assert_select 'h5' # should show "First time seen in..."
       assert_select "a[href='#{lifelist_path}']", false
       assert_select "a[href='#{url_for(sort: :by_taxonomy, only_path: true)}']"
@@ -46,7 +46,7 @@ class LifelistBasicTest < ActionController::TestCase
     assert_response :success
     lifers = assigns(:lifelist)
     assert_equal [2009], lifers.to_a.map { |s| s.card.observ_date.year }.uniq
-    assert_select ".main" do
+    assert_select ".lifelist-page" do
       assert_select "h5", false # should not show "First time seen in..."
       assert_select "a[href='#{list_path(year: 2009)}']", false
       assert_select "a[href='#{url_for(sort: :by_taxonomy, year: 2009, only_path: true)}']"
@@ -58,7 +58,7 @@ class LifelistBasicTest < ActionController::TestCase
     assert_response :success
     lifers = assigns(:lifelist)
     assert_equal [2009], lifers.to_a.map { |s| s.card.observ_date.year }.uniq
-    assert_select ".main" do
+    assert_select ".lifelist-page" do
       assert_select "h3" # should show order/family headings
       assert_select "a[href='#{list_path(year: 2009)}']"
       assert_select "a[href='#{url_for(sort: :by_taxonomy, year: 2009, only_path: true)}']", false
@@ -95,7 +95,7 @@ class LifelistBasicTest < ActionController::TestCase
   test "lifelist links filter out invalid parameters" do
     get :basic, params: { sort: "by_taxonomy", year: 2009, zzz: "ooo" }
     assert_response :success
-    assert_select ".main" do
+    assert_select ".lifelist-page" do
       assert_select "a[href='#{list_path(year: 2009)}']"
       assert_select "a[href='#{url_for(sort: :by_taxonomy, year: 2009, only_path: true)}']", false
       assert_select "a[href='#{url_for(sort: :by_taxonomy, year: 2010, only_path: true)}']"
@@ -123,7 +123,7 @@ class LifelistBasicTest < ActionController::TestCase
   test "empty lifelist shows no list" do
     get :basic, params: { year: 1899 }
     assert_response :not_found
-    assert_select ".main" do
+    assert_select ".lifelist-page" do
       assert_select "ol", false
       assert_select "li", I18n.t("lifelist.basic.no_species"), "No proper message found (saying no species in the list)"
     end

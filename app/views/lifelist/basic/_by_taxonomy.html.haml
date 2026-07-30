@@ -1,15 +1,12 @@
 -# frozen_string_literal: true
 - count_reached = 1
+- chunked = @lifelist.to_a.chunk { |obs| [obs.species.order, obs.species.family] }
 
-- chunked = @lifelist.to_a.chunk {|obs| [obs.species.order, obs.species.family] }
-
-%table.neat_table.lifelist_table
-
+.lifelist-taxonomy
   - chunked.each do |(order, family), species_list|
-    %tr.family_row
-      %td &nbsp;
-      %td{colspan: 2}
-        %h2.order= render partial: 'species/taxonomy', locals: {rank: :order, value: order}
-        %h3.family= render partial: 'species/taxonomy', locals: {rank: :family, value: family}
-    = render partial: 'lifer', collection: species_list, locals: {count_reached: count_reached}
+    %section.taxon-group
+      %h2.order= render partial: "species/taxonomy", locals: {rank: :order, value: order}
+      %h3.family= render partial: "species/taxonomy", locals: {rank: :family, value: family}
+      %ol.lifelist-entries{start: count_reached}
+        = render partial: "lifer", collection: species_list, locals: {count_reached: count_reached}
     - count_reached += species_list.size

@@ -11,3 +11,215 @@
     }
   }
 }
+
+// Basic lifelist (lifelist#basic)
+
+// Filter bar: one row per facet, label followed by a row of option pills.
+.lifelist-filters {
+  margin-top: -0.5rem;
+  margin-bottom: 2.5rem;
+
+  @media (min-width: 768px) {
+    margin-top: -1.5rem;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  // Below 768px the label sits on its own line above the pills; from 768px up
+  // it shares the line, with every row's pills starting at the same offset.
+  .filter-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem 0.875rem;
+    padding: 0.625rem 0;
+
+    @media (min-width: 768px) {
+      flex-wrap: nowrap;
+    }
+
+    & + .filter-row {
+      border-top: 1px solid #f0f0ec;
+    }
+  }
+
+  .filter-label {
+    flex: none;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: #8a8a80;
+
+    @media (min-width: 768px) {
+      // Wide enough for the longest label ("Sorting:" in uk/ru) on one line.
+      width: 9.5rem;
+      padding-top: 0.3125rem;
+    }
+  }
+
+  .filter-options {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.375rem;
+
+    @media (min-width: 768px) {
+      flex: 1;
+      min-width: 0;
+    }
+  }
+
+  .filter-options a,
+  .filter-options span {
+    display: inline-block;
+    padding: 0.1875rem 0.6875rem;
+    border-radius: 9999px;
+    line-height: 1.4;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .filter-options a {
+    color: var(--color-green-link);
+    background-color: var(--color-bg-beige);
+    border: 1px solid transparent;
+
+    &:hover {
+      color: var(--color-green-link);
+      background-color: #ececdf;
+    }
+  }
+
+  // The active value renders as a plain span instead of a link.
+  .filter-options span {
+    font-weight: 600;
+    color: #2f6647;
+    background-color: #dde8e0;
+    border: 1px solid #dde8e0;
+  }
+
+  // "Advanced options" leaves the facet set, so it reads as an ordinary link
+  // rather than a pill: strip the pill box and keep only the global underline
+  // that Tailwind's base `body a` rule already provides.
+  .filter-advanced {
+    margin-left: 0.25rem;
+
+    a {
+      padding: 0;
+      border-radius: 0;
+      border-top: none;
+      border-right: none;
+      border-left: none;
+      background-color: transparent;
+      font-weight: 600;
+      // The pill rule above sets a dark text color; restore the link green.
+      color: var(--color-green-link);
+      border-bottom: 1px solid var(--color-green-link-border);
+
+      &:hover {
+        background-color: transparent;
+        color: var(--color-green-link);
+        border-bottom-color: var(--color-green-link-border-hover);
+      }
+    }
+  }
+}
+
+.lifelist-entries {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid #ececec;
+
+  > li {
+    display: grid;
+    grid-template-columns: 3.25rem minmax(0, 1fr);
+    gap: 0.25rem 0.75rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid #ececec;
+
+    @media (min-width: 768px) {
+      grid-template-columns: 3.75rem minmax(0, 1.25fr) minmax(0, 1fr);
+      gap: 0 1.5rem;
+      padding: 1.125rem 0;
+    }
+
+    // The ordinal, taken from each item's `value` attribute.
+    &::before {
+      content: counter(list-item) ".";
+      color: #555;
+      font-variant-numeric: tabular-nums;
+      font-size: 0.9375rem;
+      text-align: center;
+    }
+  }
+
+  .lifer-species {
+    line-height: 1.45;
+
+    .sp_link {
+      font-weight: 600;
+      margin-right: 0.1rem;
+    }
+  }
+
+  .sci_name {
+    white-space: nowrap;
+    color: #808080;
+  }
+
+  .lifer_en {
+    display: block;
+    font-size: 0.875rem;
+    margin-top: 0.125rem;
+    color: #333;
+  }
+
+  .lifer_locus {
+    display: block;
+    font-size: 0.875rem;
+    margin-top: 0.125rem;
+    font-style: italic;
+    color: #555;
+  }
+
+  .lifer-place {
+    grid-column: 2;
+    font-size: 0.9375rem;
+    line-height: 1.45;
+    text-align: right;
+
+    @media (min-width: 768px) {
+      grid-column: 3;
+    }
+  }
+}
+
+.lifelist-taxonomy {
+  .taxon-group + .taxon-group {
+    margin-top: 2.5rem;
+  }
+
+  h2.order {
+    font-size: 1.25rem;
+    margin-bottom: 0.125rem;
+  }
+
+  h3.family {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #6b7280;
+    margin-bottom: 0.75rem;
+  }
+}
+
+.lifelist-empty {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  color: #6b7280;
+}

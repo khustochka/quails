@@ -1,19 +1,18 @@
 -# frozen_string_literal: true
+-# `total_count` counts down from the total (newest first); `count_reached`
+-# counts up within a taxonomic group.
 - if defined?(total_count)
   - i = total_count - lifer_counter
 
 - if defined?(count_reached)
   - i = count_reached + lifer_counter
 
-%tr
-  %td
-    = i
-  %td
-    %b= species_link(lifer.species)
+%li{value: i}
+  .lifer-species
+    = species_link(lifer.species)
     = name_sci(lifer.species)
     - if lifer.species.name != lifer.species.name_en
-      %span.lifer_en
-        = lifer.species.name_en
-  %td.place_td
-    = post_link(content_tag(:time, l(lifer.card.observ_date, :format => :long), {datetime: lifer.card.observ_date.iso8601}), lifer.main_post, true)
+      %span.lifer_en= lifer.species.name_en
+  .lifer-place
+    = post_link(tag.time(l(lifer.card.observ_date, format: :long), datetime: lifer.card.observ_date.iso8601), lifer.main_post, true)
     %span.lifer_locus= lifer.locus.public_locus.decorated.full_name
