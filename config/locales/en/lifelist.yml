@@ -2,10 +2,11 @@
   lifelist:
     title:
       lifelist: Lifelist
-      yearlist: '%{year} Year List'
-      monthlist: 'List for %{month}'
-      daylist: 'List for %{day} %{month}'
-      yearsublist: '%{year}'
+      yearlist: 'Year %{year} List'
+      monthlist: '%{month} List'
+      yearmonthlist: '%{month} %{year} List'
+      daylist: '%{day} %{month} List'
+      yeardaylist: '%{day} %{month} %{year} List'
       countrylist: '%{country} Life List'
       locationlist: '%{location} Life List'
       winter_list: 'Winter list'
@@ -28,6 +29,8 @@
 
       filter:
         places: 'Countries:'
+        month: 'Month:'
+        region: 'Region:'
         sort_by: 'Order by:'
       no_species: 'No species'
 

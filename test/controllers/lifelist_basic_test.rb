@@ -93,6 +93,59 @@ class LifelistBasicTest < ActionController::TestCase
     assert_equal 2, lifers.size
   end
 
+  test "show lifelist filtered by month" do
+    get :basic, params: { month: 8, locale: "en" }
+    assert_response :success
+    # Only hirrus was first seen in August.
+    assert_equal ["hirrus"], assigns(:lifelist).to_a.map { |s| s.species.code }
+    assert_select "h1", text: "August List"
+  end
+
+  test "month filter combines with year and locus" do
+    get :basic, params: { month: 6, year: 2010, locus: "usa", locale: "en" }
+    assert_response :success
+    assert_equal %w(jyntor pasdom), assigns(:lifelist).to_a.map { |s| s.species.code }.sort
+    # Year and month share one phrase, rather than the year being appended.
+    assert_select "h1", text: "June 2010 List (USA)"
+  end
+
+  test "month filter narrows the year options" do
+    get :basic, params: { month: 8 }
+    assert_response :success
+    # August observations exist only in 2009.
+    assert_select ".lifelist-filters" do
+      assert_select "a[href='#{url_for(month: 8, year: 2009, only_path: true)}']"
+      assert_select "a[href='#{url_for(month: 8, year: 2010, only_path: true)}']", false
+    end
+  end
+
+  test "current month renders as plain text, others as links" do
+    get :basic, params: { month: 6, locale: "en" }
+    assert_response :success
+    assert_select ".lifelist-filters" do
+      assert_select "a[href='#{url_for(month: 7, only_path: true)}']", text: "Jul"
+      assert_select "a[href='#{url_for(month: 6, only_path: true)}']", false
+    end
+  end
+
+  test "advanced link keeps the month filter" do
+    get :basic, params: { month: 6, year: 2010 }
+    assert_response :success
+    assert_select "a.advanced[href='#{advanced_list_path(month: 6, year: 2010)}']"
+  end
+
+  test "empty month list is a soft 404" do
+    get :basic, params: { month: 1 }
+    assert_response :not_found
+    assert_select "li", I18n.t("lifelist.basic.no_species")
+  end
+
+  test "lifelist fails on out of range month" do
+    assert_raise ActionController::RoutingError do
+      get :basic, params: { month: 13 }
+    end
+  end
+
   test "not allowed locus fails" do
     assert_raise(ActiveRecord::RecordNotFound) { get :basic, params: { locus: "sumy_obl" } }
     # assert_response :not_found

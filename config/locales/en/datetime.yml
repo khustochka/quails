@@ -8,6 +8,8 @@ en:
       long: ! '%B %-d, %Y'
       short: ! '%b %-d'
 
+    common_month_names: [~, January, February, March, April, May, June, July, August, September, October, November, December]
+
   time:
     formats:
       default: ! '%a, %d %b %Y %H:%M:%S %z'

@@ -9,7 +9,12 @@
           -# A nil year is the "all years" entry.
           %li= lifelist_filter_option(year || t("misc.all"), :year, year)
 
-    = lifelist_filter_row(t("lifelist.menus.filter.places")) do
+    = lifelist_filter_row(t("lifelist.basic.filter.month")) do
+      %li= lifelist_filter_option(t("misc.all"), :month, nil)
+      - 1.upto(12) do |month|
+        %li= lifelist_filter_option(t("date.abbr_month_names")[month], :month, month)
+
+    = lifelist_filter_row(t("lifelist.basic.filter.region")) do
       %li= lifelist_filter_option(t("misc.all"), :locus, nil)
       - @locations.each do |loc|
         %li= lifelist_filter_option(loc.name, :locus, loc.slug)
@@ -18,5 +23,5 @@
       = lifelist_filter_row(t("lifelist.basic.filter.sort_by")) do
         - [nil, :taxonomy].each do |sort|
           %li= lifelist_sort_option(sort)
-        - advanced_url = significant_params.slice(:year, :locus).merge(action: :advanced)
+        - advanced_url = significant_params.slice(:year, :month, :locus).merge(action: :advanced)
         %li.filter-advanced.ml-1= link_to(t("lifelist.menus.advanced"), advanced_url, class: "advanced")

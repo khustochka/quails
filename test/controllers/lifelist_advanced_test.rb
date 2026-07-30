@@ -50,6 +50,18 @@ class LifelistAdvancedTest < ActionController::TestCase
     end
   end
 
+  test "year and month share one title phrase" do
+    get :advanced, params: { month: 6, year: 2010, locale: "en" }
+    assert_response :success
+    assert_select "h1", text: "June 2010 List"
+  end
+
+  test "year, month and day share one title phrase" do
+    get :advanced, params: { month: 6, day: 20, year: 2010, locale: "en" }
+    assert_response :success
+    assert_select "h1", text: "20 June 2010 List"
+  end
+
   test "show location list" do
     get :advanced, params: { locus: "usa" }
     assert_response :success

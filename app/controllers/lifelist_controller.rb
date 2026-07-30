@@ -31,7 +31,7 @@ class LifelistController < ApplicationController
   end
 
   def basic
-    allow_params(:year, :locus, :sort)
+    allow_params(:year, :month, :locus, :sort)
 
     sort_override =
       case params[:sort]
@@ -43,10 +43,13 @@ class LifelistController < ApplicationController
         raise ActionController::RoutingError, "Illegal argument sort=#{params[:sort]}"
       end
 
+    raise ActionController::RoutingError, "Illegal argument month=#{params[:month]}" unless
+      params[:month].nil? || params[:month].to_s =~ /\A(0?[1-9]|1[0-2])\z/
+
     @locations = Country.all
 
     @lifelist = Lifelist::FirstSeen
-      .over(params.permit(:year, :locus))
+      .over(params.permit(:year, :month, :locus))
       .sort(sort_override)
 
     # A locus param resolves to nil only when it is neither a real country nor a
@@ -57,9 +60,9 @@ class LifelistController < ApplicationController
     @lifelist.posts_scope = current_user.available_posts
 
     # The base lifelist and a country page (real or hardcoded) are valid even
-    # when empty (e.g. an empty database). Only a year-narrowed view that ends
+    # when empty (e.g. an empty database). Only a date-narrowed view that ends
     # up empty is a soft 404.
-    render status: :not_found if params[:year] && !@lifelist.has_species?
+    render status: :not_found if (params[:year] || params[:month]) && !@lifelist.has_species?
   end
 
   def advanced

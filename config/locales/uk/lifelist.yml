@@ -3,9 +3,10 @@
     title:
       lifelist: Мій список (lifelist)
       yearlist: Список %{year} року
-      monthlist: Список за %{month}
-      daylist: Список за %{day} %{month}
-      yearsublist: '%{year} року'
+      monthlist: Список %{month}
+      yearmonthlist: Список %{month} %{year} року
+      daylist: Список %{day} %{month}
+      yeardaylist: Список %{day} %{month} %{year} року
       countrylist: 'Список країни: %{country}'
       locationlist: 'Список місцевості: %{location}'
       winter_list: 'Зимовий список'
@@ -30,6 +31,8 @@
 
       filter:
         places: 'Країни:'
+        month: 'Місяць:'
+        region: 'Регіон:'
         sort_by: 'Сортування:'
       no_species: 'Немає видів'
 
