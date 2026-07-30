@@ -1,27 +1,22 @@
 -# frozen_string_literal: true
 -# Year / region / sort filter bar for the basic lifelist (app2 layout).
-%nav.lifelist-filters
-  %ul
+-# Pulled up towards the page header, which carries a large bottom margin.
+%nav.lifelist-filters.-mt-2.md:-mt-6.mb-10
+  %ul.p-0.m-0
     - if @lifelist.years.present?
-      %li.filter-row
-        %span.filter-label= t("filters.years.years")
-        %ul.filter-options
-          - @lifelist.years.each do |year|
-            -# A nil year is the "all years" entry.
-            %li= year ? link_to_or_span(year, amended_params(year: year)) : filtering_link_to_all(:year)
+      = lifelist_filter_row(t("filters.years.years")) do
+        - @lifelist.years.each do |year|
+          -# A nil year is the "all years" entry.
+          %li= year ? link_to_or_span(year, amended_params(year: year)) : filtering_link_to_all(:year)
 
-    %li.filter-row
-      %span.filter-label= t("lifelist.menus.filter.places")
-      %ul.filter-options
-        %li= filtering_link_to_all(:locus)
-        - @locations.each do |loc|
-          %li= link_to_or_span(loc.name, amended_params(locus: loc.slug))
+    = lifelist_filter_row(t("lifelist.menus.filter.places")) do
+      %li= filtering_link_to_all(:locus)
+      - @locations.each do |loc|
+        %li= link_to_or_span(loc.name, amended_params(locus: loc.slug))
 
     - if @lifelist.present?
-      %li.filter-row
-        %span.filter-label= t("lifelist.basic.filter.sort_by")
-        %ul.filter-options
-          - [nil, :by_taxonomy].each do |sort|
-            %li= link_to_or_span(t(sort || :by_date, scope: "lifelist.menus.sort_option"), amended_params(sort: sort))
-          - advanced_url = significant_params.slice(:year, :locus).merge(action: :advanced)
-          %li.filter-advanced= link_to(t("lifelist.menus.advanced"), advanced_url, class: "advanced")
+      = lifelist_filter_row(t("lifelist.basic.filter.sort_by")) do
+        - [nil, :by_taxonomy].each do |sort|
+          %li= link_to_or_span(t(sort || :by_date, scope: "lifelist.menus.sort_option"), amended_params(sort: sort))
+        - advanced_url = significant_params.slice(:year, :locus).merge(action: :advanced)
+        %li.filter-advanced.ml-1= link_to(t("lifelist.menus.advanced"), advanced_url, class: "advanced")

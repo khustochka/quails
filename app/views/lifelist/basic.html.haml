@@ -25,7 +25,7 @@
     = render "lifelist/basic/filters"
 
     - if @lifelist.blank?
-      %ul.lifelist-empty
+      %ul.lifelist-empty.p-0.m-0.text-gray-500
         %li= t("lifelist.basic.no_species")
     - else
       = render "lifelist/basic/#{params[:sort] || "by_date"}"

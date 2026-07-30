@@ -8,11 +8,11 @@
   - i = count_reached + lifer_counter
 
 %li{value: i}
-  .lifer-species
+  .leading-snug
     = species_link(lifer.species)
     = name_sci(lifer.species)
     - if lifer.species.name != lifer.species.name_en
-      %span.lifer_en= lifer.species.name_en
-  .lifer-place
+      %span{class: "block text-sm mt-0.5 text-neutral-700"}= lifer.species.name_en
+  .lifer-place{class: "col-start-2 md:col-start-3 text-[0.9375rem] leading-snug text-right"}
     = post_link(tag.time(l(lifer.card.observ_date, format: :long), datetime: lifer.card.observ_date.iso8601), lifer.main_post, true)
-    %span.lifer_locus= lifer.locus.public_locus.decorated.full_name
+    %span{class: "block text-sm mt-0.5 italic text-neutral-600"}= lifer.locus.public_locus.decorated.full_name
