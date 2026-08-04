@@ -27,6 +27,16 @@ footer.page_footer {
   padding: 1.25rem 1rem 2rem;
 }
 
+// Without the link columns, .footer-text's separator would be a stray rule.
+.footer-inner-compact {
+  padding: 0.5rem 1rem;
+
+  .footer-text {
+    border-top: 0;
+    padding-top: 0;
+  }
+}
+
 .footer-columns {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));

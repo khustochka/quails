@@ -9,21 +9,6 @@ body.map-page {
     margin-top: 0;
   }
 
-  // The link columns are hidden here, so .footer-text's separator would be a
-  // stray rule under the map.
-  .footer-inner {
-    padding: 0.5rem 1rem;
-  }
-
-  .footer-text {
-    border-top: 0;
-    padding-top: 0;
-  }
-
-  .footer-banner {
-    display: none;
-  }
-
   @media (min-width: 769px) {
     display: flex;
     flex-direction: column;
