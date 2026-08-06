@@ -10,7 +10,7 @@ module FlickrConcern
   private
 
   def _FlickrClient # rubocop:disable Naming/MethodName
-    @flickr_client ||= ::Flickr::Client.new
+    @flickr_client ||= Flickr::Client.new
   end
 
   def flickr_admin

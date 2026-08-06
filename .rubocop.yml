@@ -26,6 +26,7 @@ AllCops:
     - "lib/tasks/one-off/**/*"
     - config.ru
     - config/boot.rb
+    - lib/tasks/benchmark.rake
 
 # FIXME: revisit and fix!
 Style/MethodCallWithArgsParentheses:
