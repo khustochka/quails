@@ -33,6 +33,7 @@
         places: 'Страны:'
         month: 'Месяц:'
         region: 'Регион:'
+        more_regions: 'Больше…'
         sort_by: 'Сортировка:'
       no_species: 'Нет видов'
 

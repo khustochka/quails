@@ -16,8 +16,19 @@
 
     = lifelist_filter_row(t("lifelist.basic.filter.region")) do
       %li= lifelist_filter_option(t("misc.all"), :locus, nil)
-      - @locations.each do |loc|
+      - @countries.each do |loc|
         %li= lifelist_filter_option(loc.name, :locus, loc.slug)
+      - if @regions.present?
+        -# `details` is collapsed by default, and stays open while one of the
+        -# regions inside it is the active filter. Text browsers that do not
+        -# support it simply show every region.
+        %li.filter-more
+          %details{open: @regions.any? { |loc| loc.slug == params[:locus] }}
+            %summary
+              %span= t("lifelist.basic.filter.more_regions")
+            %ul.filter-options{class: LifelistHelper::FILTER_OPTIONS_CLASSES}
+              - @regions.each do |loc|
+                %li= lifelist_filter_option(loc.name, :locus, loc.slug)
 
     - if @lifelist.present?
       = lifelist_filter_row(t("lifelist.basic.filter.sort_by")) do

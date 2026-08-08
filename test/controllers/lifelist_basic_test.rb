@@ -128,6 +128,38 @@ class LifelistBasicTest < ActionController::TestCase
     end
   end
 
+  test "region filter shows countries directly and other public loci behind a disclosure" do
+    get :basic, params: { locale: "en" }
+    assert_response :success
+    assert_select ".lifelist-filters" do
+      # Countries are always visible.
+      assert_select "details a[href='#{list_path(locus: "ukraine")}']", false
+      assert_select "a[href='#{list_path(locus: "ukraine")}']", text: "Ukraine"
+      # Publicly indexed non-countries are inside the disclosure, collapsed.
+      assert_select "details:not([open])" do
+        assert_select "a[href='#{list_path(locus: "kiev_obl")}']", text: "Kyiv oblast"
+        assert_select "a[href='#{list_path(locus: "brovary")}']", text: "Brovary"
+      end
+      # Loci without a public index are not offered at all.
+      assert_select "a[href='#{list_path(locus: "new_york")}']", false
+    end
+  end
+
+  test "region disclosure stays open when one of its regions is the active filter" do
+    get :basic, params: { locus: "brovary", locale: "en" }
+    assert_response :success
+    assert_select ".lifelist-filters details[open]" do
+      # The active option renders as plain text rather than a link.
+      assert_select "span", text: "Brovary"
+    end
+  end
+
+  test "region disclosure is closed when a country is the active filter" do
+    get :basic, params: { locus: "ukraine" }
+    assert_response :success
+    assert_select ".lifelist-filters details:not([open])"
+  end
+
   test "advanced link keeps the month filter" do
     get :basic, params: { month: 6, year: 2010 }
     assert_response :success

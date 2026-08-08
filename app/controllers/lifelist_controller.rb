@@ -46,14 +46,16 @@ class LifelistController < ApplicationController
     raise ActionController::RoutingError, "Illegal argument month=#{params[:month]}" unless
       params[:month].nil? || params[:month].to_s =~ /\A(0?[1-9]|1[0-2])\z/
 
-    @locations = Country.all
+    # Countries are the default region filter; the rest of the publicly indexed
+    # loci sit behind a disclosure in the filter bar.
+    @countries, @regions = Locus.locs_for_lifelist.partition { |loc| loc.loc_type == "country" }
 
     @lifelist = Lifelist::FirstSeen
       .over(params.permit(:year, :month, :locus))
       .sort(sort_override)
 
-    # A locus param resolves to nil only when it is neither a real country nor a
-    # hardcoded one (PlaceholderCountry); such an unknown slug is a 404.
+    # A locus param resolves to nil only when it is neither a real locus nor a
+    # hardcoded country (PlaceholderCountry); such an unknown slug is a 404.
     raise ActiveRecord::RecordNotFound if params[:locus] && @lifelist.locus.nil?
 
     @lifelist.observation_scope = current_user.available_obs

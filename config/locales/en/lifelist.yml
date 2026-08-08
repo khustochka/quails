@@ -31,6 +31,7 @@
         places: 'Countries:'
         month: 'Month:'
         region: 'Region:'
+        more_regions: 'More…'
         sort_by: 'Order by:'
       no_species: 'No species'
 
