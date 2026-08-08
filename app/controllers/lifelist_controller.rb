@@ -58,6 +58,11 @@ class LifelistController < ApplicationController
     # hardcoded country (PlaceholderCountry); such an unknown slug is a 404.
     raise ActiveRecord::RecordNotFound if params[:locus] && @lifelist.locus.nil?
 
+    # A PlaceholderCountry has no row to check, and hardcoded countries are
+    # always public.
+    raise ActiveRecord::RecordNotFound if @lifelist.locus.is_a?(Locus) &&
+      !current_user.available_loci.exists?(id: @lifelist.locus.id)
+
     @lifelist.observation_scope = current_user.available_obs
     @lifelist.posts_scope = current_user.available_posts
 
@@ -74,7 +79,7 @@ class LifelistController < ApplicationController
 
     locus = params[:locus]
 
-    raise ActiveRecord::RecordNotFound if locus && !locus.in?(current_user.available_loci.map(&:slug))
+    raise ActiveRecord::RecordNotFound if locus && !current_user.available_loci.exists?(slug: locus)
 
     @lifelist = Lifelist::Advanced
       .over(params.permit(:year, :month, :day, :locus, :motorless, :exclude_heard_only))
@@ -93,7 +98,7 @@ class LifelistController < ApplicationController
 
     locus = params[:locus]
 
-    raise ActiveRecord::RecordNotFound if locus && !locus.in?(current_user.available_loci.map(&:slug))
+    raise ActiveRecord::RecordNotFound if locus && !current_user.available_loci.exists?(slug: locus)
 
     @lifelist = Lifelist::Advanced
       .over(params.permit(:year, :locus, :motorless, :exclude_heard_only).merge({ winter: true }))

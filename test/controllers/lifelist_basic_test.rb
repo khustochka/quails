@@ -183,6 +183,29 @@ class LifelistBasicTest < ActionController::TestCase
     # assert_response :not_found
   end
 
+  test "private locus is hidden from a visitor" do
+    locus = create(:locus, slug: "secret_patch", parent: loci(:brovary), private_loc: true)
+    create(:observation, taxon: taxa(:pasdom), card: create(:card, observ_date: "2010-06-20", locus: locus))
+
+    assert_raise(ActiveRecord::RecordNotFound) { get :basic, params: { locus: "secret_patch" } }
+  end
+
+  test "private locus is shown to admin" do
+    locus = create(:locus, slug: "secret_patch", parent: loci(:brovary), private_loc: true)
+    create(:observation, taxon: taxa(:pasdom), card: create(:card, observ_date: "2010-06-20", locus: locus))
+    login_as_admin
+
+    get :basic, params: { locus: "secret_patch" }
+    assert_response :success
+  end
+
+  test "non-private locus without a public index is shown to a visitor" do
+    # new_york has no public_index, so it is not offered in the filters, but it
+    # is public and remains reachable by URL.
+    get :basic, params: { locus: "new_york" }
+    assert_response :success
+  end
+
   test "hardcoded country with no locus row renders an empty placeholder page" do
     # Canada is a hardcoded country (has a lifelist title) but has no Locus fixture.
     get :basic, params: { locus: "canada", locale: "en" }
