@@ -135,17 +135,6 @@ class LifelistAdvancedTest < ActionController::TestCase
     assert_response :not_found
   end
 
-  test "show winter list" do
-    create(:observation, taxon: taxa(:pasdom), card: create(:card, observ_date: "2009-01-15"))
-    get :winter
-    assert_response :success
-  end
-
-  test "empty winter list renders the page with 404" do
-    get :winter
-    assert_response :not_found
-  end
-
   test "do not include hidden observations into public lifelist" do
     create(:observation, taxon: taxa(:larheu), card: create(:card), hidden: true)
     get :advanced

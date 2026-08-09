@@ -1,0 +1,29 @@
+-# frozen_string_literal: true
+- @robots ||= "NOINDEX"
+
+- @page_title = capture do
+  = t("lifelist.title.winter_list")
+  - if params[:year]
+    = winter_season_label(params[:year])
+  - if params[:locus]
+    = "(#{@lifelist.locus.name})"
+
+- content_for :translated do
+  = render "app2/shared/translated"
+
+- cache(amended_params(admin: current_user.admin?, key: Quails::CacheKey.lifelist, locale: I18n.locale)) do
+  .page-container.lifelist-page
+
+    = content_for :translated
+
+    = simple_page_header(page_header)
+
+    = render "lifelist/basic/filters", winter: true
+
+    - if @lifelist.blank?
+      %ul.lifelist-empty.p-0.m-0.text-gray-500
+        %li= t("lifelist.basic.no_species")
+    - elsif params[:sort] == "taxonomy"
+      = render "lifelist/basic/taxonomy"
+    - else
+      = render "lifelist/basic/date", winter: true

@@ -10,6 +10,7 @@
       countrylist: '%{country} Life List'
       locationlist: '%{location} Life List'
       winter_list: 'Winter list'
+      full_list: 'Full list'
       country:
         ukraine: Ukraine List
         canada: Canada List
@@ -30,6 +31,7 @@
       filter:
         places: 'Countries:'
         month: 'Month:'
+        season: 'Season:'
         region: 'Region:'
         more_regions: 'More…'
         sort_by: 'Order by:'
@@ -44,6 +46,7 @@
     by_date:
       seen_in:
         first: 'First encounter in %{year}:'
+        first_winter: 'First encounter in winter %{season}:'
         last: 'Last encounter in %{year}:'
 
     menus:

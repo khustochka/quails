@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 class LifelistController < ApplicationController
-  layout "application2", only: [:index, :stats, :basic]
+  layout "application2", only: [:index, :stats, :basic, :winter]
 
   administrative only: [:chart]
 
-  before_action :validate_params, only: [:advanced, :winter]
+  before_action :validate_params, only: [:advanced]
 
   localized
 
@@ -33,38 +33,10 @@ class LifelistController < ApplicationController
   def basic
     allow_params(:year, :month, :locus, :sort)
 
-    sort_override =
-      case params[:sort]
-      when nil
-        nil
-      when "taxonomy"
-        "class"
-      else
-        raise ActionController::RoutingError, "Illegal argument sort=#{params[:sort]}"
-      end
-
     raise ActionController::RoutingError, "Illegal argument month=#{params[:month]}" unless
       params[:month].nil? || params[:month].to_s =~ /\A(0?[1-9]|1[0-2])\z/
 
-    # Countries are the default region filter; the rest of the publicly indexed
-    # loci sit behind a disclosure in the filter bar.
-    @countries, @regions = Locus.locs_for_lifelist.partition { |loc| loc.loc_type == "country" }
-
-    @lifelist = Lifelist::FirstSeen
-      .over(params.permit(:year, :month, :locus))
-      .sort(sort_override)
-
-    # A locus param resolves to nil only when it is neither a real locus nor a
-    # hardcoded country (PlaceholderCountry); such an unknown slug is a 404.
-    raise ActiveRecord::RecordNotFound if params[:locus] && @lifelist.locus.nil?
-
-    # A PlaceholderCountry has no row to check, and hardcoded countries are
-    # always public.
-    raise ActiveRecord::RecordNotFound if @lifelist.locus.is_a?(Locus) &&
-      !current_user.available_loci.exists?(id: @lifelist.locus.id)
-
-    @lifelist.observation_scope = current_user.available_obs
-    @lifelist.posts_scope = current_user.available_posts
+    build_basic_lifelist(params.permit(:year, :month, :locus))
 
     # The base lifelist and a country page (real or hardcoded) are valid even
     # when empty (e.g. an empty database). Only a date-narrowed view that ends
@@ -92,22 +64,11 @@ class LifelistController < ApplicationController
   end
 
   def winter
-    allow_params(:year, :locus, :sort, :motorless, :exclude_heard_only)
+    allow_params(:year, :locus, :sort)
 
-    @locations = Locus.locs_for_lifelist
+    build_basic_lifelist(params.permit(:year, :locus).merge(winter: true))
 
-    locus = params[:locus]
-
-    raise ActiveRecord::RecordNotFound if locus && !current_user.available_loci.exists?(slug: locus)
-
-    @lifelist = Lifelist::Advanced
-      .over(params.permit(:year, :locus, :motorless, :exclude_heard_only).merge({ winter: true }))
-      .sort(params[:sort])
-
-    @lifelist.observation_scope = current_user.available_obs
-    @lifelist.posts_scope = current_user.available_posts
-
-    render "advanced", status: @lifelist.has_species? ? :ok : :not_found
+    render status: :not_found unless @lifelist.has_species?
   end
 
   def ebird
@@ -134,6 +95,43 @@ class LifelistController < ApplicationController
   end
 
   private
+
+  # Shared by the basic lifelist and its winter variant: both render the app2
+  # filter bar over a Lifelist::FirstSeen.
+  def build_basic_lifelist(filter)
+    # An out-of-range year reaches Date.new via Observation.refine's winter
+    # branch and would raise there, so reject it up front.
+    raise ActionController::RoutingError, "Illegal argument year=#{params[:year]}" unless
+      params[:year].nil? || params[:year].to_s =~ /\A\d{4}\z/
+
+    sort_override =
+      case params[:sort]
+      when nil
+        nil
+      when "taxonomy"
+        "class"
+      else
+        raise ActionController::RoutingError, "Illegal argument sort=#{params[:sort]}"
+      end
+
+    # Countries are the default region filter; the rest of the publicly indexed
+    # loci sit behind a disclosure in the filter bar.
+    @countries, @regions = Locus.locs_for_lifelist.partition { |loc| loc.loc_type == "country" }
+
+    @lifelist = Lifelist::FirstSeen.over(filter).sort(sort_override)
+
+    # A locus param resolves to nil only when it is neither a real locus nor a
+    # hardcoded country (PlaceholderCountry); such an unknown slug is a 404.
+    raise ActiveRecord::RecordNotFound if params[:locus] && @lifelist.locus.nil?
+
+    # A PlaceholderCountry has no row to check, and hardcoded countries are
+    # always public.
+    raise ActiveRecord::RecordNotFound if @lifelist.locus.is_a?(Locus) &&
+      !current_user.available_loci.exists?(id: @lifelist.locus.id)
+
+    @lifelist.observation_scope = current_user.available_obs
+    @lifelist.posts_scope = current_user.available_posts
+  end
 
   def identified_observations
     current_user.available_obs.identified.joins(:card)

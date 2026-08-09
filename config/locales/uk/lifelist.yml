@@ -10,6 +10,7 @@
       countrylist: 'Список країни: %{country}'
       locationlist: 'Список місцевості: %{location}'
       winter_list: 'Зимовий список'
+      full_list: 'Повний список'
       country:
         ukraine: Список України
         canada: Список Канади
@@ -32,6 +33,7 @@
       filter:
         places: 'Країни:'
         month: 'Місяць:'
+        season: 'Сезон:'
         region: 'Регіон:'
         more_regions: 'Більше…'
         sort_by: 'Сортування:'
@@ -46,6 +48,7 @@
     by_date:
       seen_in:
         first: 'Перша зустріч %{year} року:'
+        first_winter: 'Перша зустріч взимку %{season}:'
         last: 'Остання зустріч %{year} року:'
 
 

@@ -24,7 +24,11 @@ module Lifelist
     end
 
     def years
-      @years ||= [nil] + Observation.identified.refine(normalized_filter.merge({ year: nil, motorless: nil, exclude_heard_only: nil })).years
+      @years ||= begin
+        scope = Observation.identified
+          .refine(normalized_filter.merge({ year: nil, motorless: nil, exclude_heard_only: nil }))
+        [nil] + (@filter[:winter] ? scope.winter_seasons : scope.years)
+      end
     end
 
     def locus

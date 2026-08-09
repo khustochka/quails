@@ -1,18 +1,32 @@
 -# frozen_string_literal: true
 -# Year / region / sort filter bar for the basic lifelist (app2 layout).
 -# Pulled up towards the page header, which carries a large bottom margin.
+-# `winter` labels years as seasons ("2021/22") and drops the month row, since
+-# the winter list already fixes the months to December–February.
+- winter = local_assigns.fetch(:winter, false)
 %nav.lifelist-filters.-mt-2.md:-mt-6.mb-10
   %ul.p-0.m-0
     - if @lifelist.years.present?
-      = lifelist_filter_row(t("filters.years.years")) do
+      = lifelist_filter_row(t(winter ? "lifelist.basic.filter.season" : "filters.years.years")) do
         - @lifelist.years.each do |year|
           -# A nil year is the "all years" entry.
-          %li= lifelist_filter_option(year || t("misc.all"), :year, year)
+          - label = year.nil? ? t("misc.all") : (winter ? winter_season_label(year) : year)
+          %li= lifelist_filter_option(label, :year, year)
+        -# Each list is the other's counterpart, so they cross-link from the
+        -# row whose meaning they change: calendar years vs winter seasons.
+        -# Region and sort carry over; the year cannot, since the two lists
+        -# number their periods differently.
+        - counterpart = significant_params.slice(:locus, :sort)
+        - if winter
+          %li.filter-advanced.ml-1= link_to(t("lifelist.title.full_list"), counterpart.merge(action: :basic), class: "advanced")
+        - else
+          %li.filter-advanced.ml-1= link_to(t("lifelist.title.winter_list"), counterpart.merge(action: :winter), class: "advanced")
 
-    = lifelist_filter_row(t("lifelist.basic.filter.month")) do
-      %li= lifelist_filter_option(t("misc.all"), :month, nil)
-      - 1.upto(12) do |month|
-        %li= lifelist_filter_option(t("date.abbr_month_names")[month], :month, month)
+    - unless winter
+      = lifelist_filter_row(t("lifelist.basic.filter.month")) do
+        %li= lifelist_filter_option(t("misc.all"), :month, nil)
+        - 1.upto(12) do |month|
+          %li= lifelist_filter_option(t("date.abbr_month_names")[month], :month, month)
 
     = lifelist_filter_row(t("lifelist.basic.filter.region")) do
       %li= lifelist_filter_option(t("misc.all"), :locus, nil)
@@ -34,5 +48,6 @@
       = lifelist_filter_row(t("lifelist.basic.filter.sort_by")) do
         - [nil, :taxonomy].each do |sort|
           %li= lifelist_sort_option(sort)
-        - advanced_url = significant_params.slice(:year, :month, :locus).merge(action: :advanced)
-        %li.filter-advanced.ml-1= link_to(t("lifelist.menus.advanced"), advanced_url, class: "advanced")
+        - unless winter
+          - advanced_url = significant_params.slice(:year, :month, :locus).merge(action: :advanced)
+          %li.filter-advanced.ml-1= link_to(t("lifelist.menus.advanced"), advanced_url, class: "advanced")

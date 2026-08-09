@@ -67,6 +67,15 @@ class Observation < ApplicationRecord
     joins(:card).order(:year).distinct.pluck(Arel.sql("EXTRACT(year from observ_date)::integer AS year"))
   end
 
+  # A winter season is named after the December it starts in, so January and
+  # February observations belong to the previous calendar year's season.
+  WINTER_SEASON_SQL = "EXTRACT(year from observ_date)::integer -
+    (CASE WHEN EXTRACT(month from observ_date)::integer IN (1, 2) THEN 1 ELSE 0 END)"
+
+  def self.winter_seasons
+    joins(:card).order(:year).distinct.pluck(Arel.sql("#{WINTER_SEASON_SQL} AS year"))
+  end
+
   # Species
 
   def observ_date

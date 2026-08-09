@@ -49,6 +49,17 @@ module LifelistHelper
     end
   end
 
+  # A winter season is named after the December it starts in: "2021–22".
+  def winter_season_label(year)
+    "#{year}–#{format("%02d", (year.to_i + 1) % 100)}"
+  end
+
+  # The calendar year of a date's winter season (January and February belong to
+  # the season that started the previous December).
+  def winter_season_of(date)
+    date.month <= 2 ? date.year - 1 : date.year
+  end
+
   def lifelist_sort_option(sort)
     lifelist_filter_option(t("lifelist.menus.sort_option.by_#{sort || :date}"), :sort, sort)
   end

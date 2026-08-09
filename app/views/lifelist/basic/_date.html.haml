@@ -1,11 +1,15 @@
 -# frozen_string_literal: true
+-# `winter` groups by winter season rather than calendar year, so that one
+-# season (December–February) stays a single section.
+- winter = local_assigns.fetch(:winter, false)
 - total_count = @lifelist.size
 - remaining = total_count
 
-- @lifelist.to_a.chunk { |lifer| lifer.card.observ_date.year }.each do |year, species_list|
+- @lifelist.to_a.chunk { |lifer| winter ? winter_season_of(lifer.card.observ_date) : lifer.card.observ_date.year }.each do |year, species_list|
   %section{class: "[&+section]:mt-10"}
     - if params[:year].blank?
-      %h2{id: "first_seen_#{year}", class: LifelistHelper::SECTION_LABEL_CLASSES + ["mb-3"]}= t("lifelist.by_date.seen_in.first", year: year)
+      - heading = winter ? t("lifelist.by_date.seen_in.first_winter", season: winter_season_label(year)) : t("lifelist.by_date.seen_in.first", year: year)
+      %h2{id: "first_seen_#{year}", class: LifelistHelper::SECTION_LABEL_CLASSES + ["mb-3"]}= heading
     %ol.lifelist-entries{reversed: true, start: remaining}
       = render partial: "lifer", collection: species_list, locals: {total_count: remaining}
   - remaining -= species_list.size
