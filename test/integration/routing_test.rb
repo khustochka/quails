@@ -43,6 +43,9 @@ class RoutingTest < ActionDispatch::IntegrationTest
     assert_routing "/lifelist/2008", { controller: "lifelist", action: "basic", year: "2008" }
     assert_routing "/lifelist/kyiv/2010", { controller: "lifelist", action: "basic", year: "2010", locus: "kyiv" }
     assert_routing "/lifelist/kherson_obl", { controller: "lifelist", action: "basic", locus: "kherson_obl" }
+    # Digit-leading slugs are valid loci and must not be mistaken for years.
+    assert_routing "/lifelist/5mr", { controller: "lifelist", action: "basic", locus: "5mr" }
+    assert_routing "/lifelist/5mr/2010", { controller: "lifelist", action: "basic", locus: "5mr", year: "2010" }
     # The sort is a query param, not a path segment.
     assert_generates "/lifelist", { controller: "lifelist", action: "basic", sort: "taxonomy" },
       {}, { sort: "taxonomy" }

@@ -192,8 +192,10 @@ Rails.application.routes.draw do
 
     get "/lifelist" => "lifelist#basic", as: :lifelist
 
+    # A locus slug must contain at least one non-digit, otherwise it would be
+    # indistinguishable from a year. All-digit slugs cannot be routed here.
     get "/lifelist(/:locus)(/:year)" => "lifelist#basic", as: :list,
-      locus: %r{\D[^/]+},
+      locus: /\d*[a-zA-Z_][a-zA-Z_\d]*/,
       year: /\d{4}/
   end
 

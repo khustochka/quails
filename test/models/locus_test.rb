@@ -19,6 +19,18 @@ class LocusTest < ActiveSupport::TestCase
     assert_not loc.valid?
   end
 
+  test "reject slug consisting only of digits" do
+    loc = build(:locus, slug: "2008")
+    assert_not loc.valid?
+    assert_predicate loc.errors[:slug], :any?
+  end
+
+  test "accept slug with digits alongside letters" do
+    assert_predicate build(:locus, slug: "5mr"), :valid?
+    assert_predicate build(:locus, slug: "area51"), :valid?
+    assert_predicate build(:locus, slug: "10k_patch"), :valid?
+  end
+
   test "coordinates are taken from the English name of a new locus" do
     loc = Locus.new(name_en: "Some place 50.51, 30.79", lat: nil, lon: nil)
 

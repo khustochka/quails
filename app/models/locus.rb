@@ -32,7 +32,7 @@ class Locus < ApplicationRecord
 
   belongs_to :ebird_location, optional: true
 
-  validates :slug, format: /\A[a-z_0-9]+\Z/i, uniqueness: true, presence: true, length: { maximum: 32 }
+  validates :slug, format: /\A\d*[a-z_][a-z_\d]*\z/i, uniqueness: true, presence: true, length: { maximum: 32 }
   validates :name_en, :name_ru, :name_uk, uniqueness: true
   validates :cached_country, presence: true, if: ->(loc) { loc.ancestors.where(loc_type: "country").any? && loc.cached_country_id.nil? }
   validates :loc_type, inclusion: { in: TYPES }, presence: true
