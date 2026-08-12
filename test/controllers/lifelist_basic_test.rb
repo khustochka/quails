@@ -160,6 +160,18 @@ class LifelistBasicTest < ActionController::TestCase
     assert_select ".lifelist-filters details:not([open])"
   end
 
+  test "country filter titles the list as a country list" do
+    get :basic, params: { locus: "ukraine", locale: "uk" }
+    assert_response :success
+    assert_select "h1", text: I18n.t("lifelist.title.countrylist", country: "Україна", locale: "uk")
+  end
+
+  test "non-country filter titles the list as a location list" do
+    get :basic, params: { locus: "kiev_obl", locale: "uk" }
+    assert_response :success
+    assert_select "h1", text: I18n.t("lifelist.title.locationlist", location: "Київська обл.", locale: "uk")
+  end
+
   test "advanced link keeps the month filter" do
     get :basic, params: { month: 6, year: 2010 }
     assert_response :success

@@ -12,7 +12,10 @@
     -# No DB row for this hardcoded country: its name is already the full title phrase.
     = @lifelist.locus.name
   - elsif params[:locus]
-    = t("lifelist.title.countrylist", country: @lifelist.locus.name)
+    - if @lifelist.locus.country?
+      = t("lifelist.title.countrylist", country: @lifelist.locus.name)
+    - else
+      = t("lifelist.title.locationlist", location: @lifelist.locus.name)
   - else
     = t("lifelist.title.lifelist")
 
