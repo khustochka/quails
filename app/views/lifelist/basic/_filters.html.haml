@@ -44,10 +44,14 @@
               - @regions.each do |loc|
                 %li= lifelist_filter_option(loc.name, :locus, loc.slug)
 
+    = lifelist_filter_row(t("lifelist.basic.filter.options")) do
+      - LifelistController::BOOLEAN_FILTERS.each do |name|
+        %li= lifelist_toggle_option(name)
+
     - if @lifelist.present?
       = lifelist_filter_row(t("lifelist.basic.filter.sort_by")) do
         - [nil, :taxonomy].each do |sort|
           %li= lifelist_sort_option(sort)
         - unless winter
-          - advanced_url = significant_params.slice(:year, :month, :locus).merge(action: :advanced)
+          - advanced_url = significant_params.slice(:year, :month, :locus, *LifelistController::BOOLEAN_FILTERS).merge(action: :advanced)
           %li.filter-advanced.ml-1= link_to(t("lifelist.menus.advanced"), advanced_url, class: "advanced")

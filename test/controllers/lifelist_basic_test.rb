@@ -270,4 +270,109 @@ class LifelistBasicTest < ActionController::TestCase
       assert_select "li", I18n.t("lifelist.basic.no_species"), "No proper message found (saying no species in the list)"
     end
   end
+
+  test "exclude_heard_only drops species that were only heard" do
+    create(:observation, taxon: taxa(:larheu),
+      card: create(:card, observ_date: "2011-05-05"), voice: true)
+    get :basic, params: { exclude_heard_only: "true" }
+    assert_response :success
+    assert_not_includes assigns(:lifelist).map { |l| l.species.id }, taxa(:larheu).species.id
+    assert_equal 5, assigns(:lifelist).size
+  end
+
+  test "motorless keeps only species seen on motorless cards" do
+    create(:observation, taxon: taxa(:larheu),
+      card: create(:card, observ_date: "2011-05-05", motorless: true))
+    get :basic, params: { motorless: "true" }
+    assert_response :success
+    assert_equal [taxa(:larheu).species.id], assigns(:lifelist).map { |l| l.species.id }
+  end
+
+  test "a boolean filter accepts 1 as a legacy alias for true" do
+    create(:observation, taxon: taxa(:larheu),
+      card: create(:card, observ_date: "2011-05-05", motorless: true))
+    get :basic, params: { motorless: "1" }
+    assert_response :success
+    assert_equal [taxa(:larheu).species.id], assigns(:lifelist).map { |l| l.species.id }
+  end
+
+  test "boolean filters combine with the other facets" do
+    create(:observation, taxon: taxa(:larheu),
+      card: create(:card, observ_date: "2011-05-05", motorless: true))
+    create(:observation, taxon: taxa(:motfel),
+      card: create(:card, observ_date: "2012-05-05", motorless: true))
+    get :basic, params: { motorless: "true", year: 2011 }
+    assert_response :success
+    assert_equal [taxa(:larheu).species.id], assigns(:lifelist).map { |l| l.species.id }
+  end
+
+  test "an active boolean filter links back to its own removal" do
+    create(:observation, taxon: taxa(:larheu),
+      card: create(:card, observ_date: "2011-05-05", motorless: true))
+    get :basic, params: { motorless: "true" }
+    assert_response :success
+    assert_select ".lifelist-filters" do
+      assert_select "a.toggle-on[href='#{lifelist_path}']"
+      assert_select "a[href='#{url_for(motorless: "true", exclude_heard_only: "true", only_path: true)}']"
+    end
+  end
+
+  test "an inactive boolean filter links to turning it on" do
+    get :basic
+    assert_response :success
+    assert_select ".lifelist-filters" do
+      assert_select "a[href='#{url_for(motorless: "true", only_path: true)}']"
+      assert_select "a.toggle-on", false
+    end
+  end
+
+  test "boolean filters render a checkbox marker that is checked only when on" do
+    create(:observation, taxon: taxa(:larheu),
+      card: create(:card, observ_date: "2011-05-05", motorless: true))
+    get :basic, params: { motorless: "true" }
+    assert_response :success
+    assert_select ".lifelist-filters" do
+      # Both toggles carry the box; only the active one carries the checkmark.
+      assert_select "a.filter-toggle svg.toggle-marker[aria-hidden=true]", 2
+      assert_select "a.filter-toggle svg path", 1
+      assert_select "a.toggle-on svg path", 1
+    end
+  end
+
+  test "boolean filters appear in the page title" do
+    create(:observation, taxon: taxa(:larheu),
+      card: create(:card, observ_date: "2011-05-05", motorless: true))
+    get :basic, params: { motorless: "true", exclude_heard_only: "true", locale: "en" }
+    assert_response :success
+    assert_select "h1", text: /Motorless.*Seen/
+  end
+
+  test "a boolean filter that matches nothing is a soft 404" do
+    get :basic, params: { motorless: "true" }
+    assert_response :not_found
+    assert_select "li", I18n.t("lifelist.basic.no_species")
+  end
+
+  test "an unrecognised boolean filter value leaves the filter off" do
+    create(:observation, taxon: taxa(:larheu),
+      card: create(:card, observ_date: "2011-05-05", motorless: true))
+    get :basic
+    unfiltered = assigns(:lifelist).map { |l| l.species.id }.sort
+
+    ["false", "0", "yes", ""].each do |value|
+      get :basic, params: { motorless: value }
+      assert_response :success, "motorless=#{value.inspect} should render the unfiltered list"
+      assert_equal unfiltered, assigns(:lifelist).map { |l| l.species.id }.sort,
+        "motorless=#{value.inspect} should not filter"
+    end
+  end
+
+  test "an unrecognised boolean filter value is dropped from generated links" do
+    get :basic, params: { motorless: "false" }
+    assert_response :success
+    assert_select ".lifelist-filters" do
+      assert_select "a.toggle-on", false
+      assert_select "a[href='#{url_for(motorless: "true", only_path: true)}']"
+    end
+  end
 end

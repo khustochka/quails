@@ -108,6 +108,14 @@ class LifelistWinterTest < ActionController::TestCase
     assert_equal 3, assigns(:lifelist).size
   end
 
+  test "winter list applies the boolean filters" do
+    create(:observation, taxon: taxa(:larheu),
+      card: create(:card, observ_date: "2010-02-02", motorless: true))
+    get :winter, params: { motorless: "true" }
+    assert_response :success
+    assert_equal [taxa(:larheu).species.id], assigns(:lifelist).map { |lifer| lifer.species.id }
+  end
+
   private
 
   def assigns_species(action)

@@ -49,6 +49,53 @@ module LifelistHelper
     end
   end
 
+  def lifelist_filters_active?
+    boolean_filters.any?
+  end
+
+  # " – Motorless – Seen" for whichever boolean filters are in effect, so that
+  # filtered pages do not all share one title. Empty when none are.
+  def lifelist_filter_title_suffix
+    boolean_filters.keys.map { |name| " – #{t("lifelist.basic.filter.#{name}")}" }.join
+  end
+
+  # A boolean filter pill. Unlike the facet options it is always a link, since
+  # an active filter links back to its own removal. No `aria-pressed`: this
+  # navigates rather than toggling in place, so the role it implies would be
+  # wrong; the "on" state is carried by the visible label instead.
+  #
+  # The checkbox marker is an inline SVG rather than a text glyph, so that it
+  # keeps its shape in both states without the width shift a glyph swap causes,
+  # and stays invisible to screen readers (which get the "(remove filter)" text
+  # instead) and to text browsers.
+  def lifelist_toggle_option(name)
+    active = boolean_filters[name]
+    label = t("lifelist.basic.filter.#{name}")
+    classes = ["filter-toggle", ("toggle-on" if active)]
+
+    link_to(amended_params(name => active ? nil : "true"), class: classes) do
+      safe_join([
+        lifelist_toggle_marker(active),
+        label,
+        (tag.span(t("lifelist.basic.filter.remove"), class: "sr-only") if active),
+      ].compact)
+    end
+  end
+
+  # Rounded square, with a checkmark when the filter is on. `currentColor` lets
+  # it follow the pill's own text colour in either state.
+  def lifelist_toggle_marker(active)
+    tag.svg(class: "toggle-marker", viewBox: "0 0 16 16", fill: "none",
+      "aria-hidden": true, focusable: false) do
+      concat tag.rect(x: 1.5, y: 1.5, width: 13, height: 13, rx: 3.5,
+        stroke: "currentColor", "stroke-width": 1.5)
+      if active
+        concat tag.path(d: "M4.75 8.25 7 10.5l4.25-4.5", stroke: "currentColor",
+          "stroke-width": 2, "stroke-linecap": "round", "stroke-linejoin": "round")
+      end
+    end
+  end
+
   # A winter season is named after the December it starts in: "2021–22".
   def winter_season_label(year)
     "#{year}–#{format("%02d", (year.to_i + 1) % 100)}"

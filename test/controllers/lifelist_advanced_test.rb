@@ -122,6 +122,13 @@ class LifelistAdvancedTest < ActionController::TestCase
     assert_select "a", { text: taxa(:saxola).species.name, count: 0 }, "Heard only species should not be shown"
   end
 
+  test "a boolean filter set to false does not enable it" do
+    get :advanced, params: { exclude_heard_only: "false" }
+    assert_response :success
+    assert_select "a", { text: taxa(:saxola).species.name, count: 1 },
+      "Heard only species should still be shown when the filter is off"
+  end
+
   test "empty lifelist renders the page with 404" do
     get :advanced, params: { year: 1899 }
     assert_response :not_found

@@ -7,6 +7,7 @@
     = winter_season_label(params[:year])
   - if params[:locus]
     = "(#{@lifelist.locus.name})"
+  = lifelist_filter_title_suffix
 
 - content_for :translated do
   = render "app2/shared/translated"

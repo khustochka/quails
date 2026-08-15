@@ -19,9 +19,9 @@
     = t('lifelist.title.locationlist', location: @lifelist.locus.name)
   - else
     = t('lifelist.title.lifelist')
-  - if params[:motorless]
+  - if boolean_filters[:motorless]
     – Motorless
-  - if params[:exclude_heard_only]
+  - if boolean_filters[:exclude_heard_only]
     – Exclude heard only
 
 - content_for :translated do

@@ -1,16 +1,24 @@
 # frozen_string_literal: true
 
 class LifelistController < ApplicationController
+  BOOLEAN_FILTERS = [:motorless, :exclude_heard_only].freeze
+
+  # "true" is canonical; "1" stays accepted for older links. `Observation.refine`
+  # tests these options for truthiness, so a raw value must never reach it — the
+  # string "false" would read as on.
+  BOOLEAN_FILTER_ON = ["true", "1"].freeze
+
   layout "application2", only: [:index, :stats, :basic, :winter]
 
   administrative only: [:chart]
 
+  before_action :normalize_boolean_filters
   before_action :validate_params, only: [:advanced]
 
   localized
 
   helper_method :grouped_by_country, :grouped_by_year_and_country, :total_species_count,
-    :record_species_day, :record_lifers_day
+    :record_species_day, :record_lifers_day, :boolean_filters
 
   def index
     @list_life = Lifelist::FirstSeen.full
@@ -31,17 +39,18 @@ class LifelistController < ApplicationController
   end
 
   def basic
-    allow_params(:year, :month, :locus, :sort)
+    allow_params(:year, :month, :locus, :sort, *BOOLEAN_FILTERS)
 
     raise ActionController::RoutingError, "Illegal argument month=#{params[:month]}" unless
       params[:month].nil? || params[:month].to_s =~ /\A(0?[1-9]|1[0-2])\z/
 
-    build_basic_lifelist(params.permit(:year, :month, :locus))
+    build_basic_lifelist(params.permit(:year, :month, :locus).merge(boolean_filters))
 
     # The base lifelist and a country page (real or hardcoded) are valid even
-    # when empty (e.g. an empty database). Only a date-narrowed view that ends
-    # up empty is a soft 404.
-    render status: :not_found if (params[:year] || params[:month]) && !@lifelist.has_species?
+    # when empty (e.g. an empty database). Only a narrowed view that ends up
+    # empty is a soft 404.
+    narrowed = params[:year] || params[:month] || boolean_filters.any?
+    render status: :not_found if narrowed && !@lifelist.has_species?
   end
 
   def advanced
@@ -54,7 +63,7 @@ class LifelistController < ApplicationController
     raise ActiveRecord::RecordNotFound if locus && !current_user.available_loci.exists?(slug: locus)
 
     @lifelist = Lifelist::Advanced
-      .over(params.permit(:year, :month, :day, :locus, :motorless, :exclude_heard_only))
+      .over(params.permit(:year, :month, :day, :locus).merge(boolean_filters))
       .sort(params[:sort])
 
     @lifelist.observation_scope = current_user.available_obs
@@ -64,9 +73,9 @@ class LifelistController < ApplicationController
   end
 
   def winter
-    allow_params(:year, :locus, :sort)
+    allow_params(:year, :locus, :sort, *BOOLEAN_FILTERS)
 
-    build_basic_lifelist(params.permit(:year, :locus).merge(winter: true))
+    build_basic_lifelist(params.permit(:year, :locus).merge(boolean_filters).merge(winter: true))
 
     render status: :not_found unless @lifelist.has_species?
   end
@@ -95,6 +104,25 @@ class LifelistController < ApplicationController
   end
 
   private
+
+  # Rewrites each filter to "true" or drops it, so that everything downstream —
+  # `significant_params` and the links built from it, the page title, the filter
+  # bar — sees one canonical value and never an unparsed one. An unrecognised
+  # value is dropped rather than rejected: these are shareable URLs, where a
+  # stray value should degrade to the unfiltered page.
+  def normalize_boolean_filters
+    BOOLEAN_FILTERS.each do |name|
+      if BOOLEAN_FILTER_ON.include?(params[name])
+        params[name] = "true"
+      else
+        params.delete(name)
+      end
+    end
+  end
+
+  def boolean_filters
+    BOOLEAN_FILTERS.select { |name| params[name] }.index_with(true)
+  end
 
   # Shared by the basic lifelist and its winter variant: both render the app2
   # filter bar over a Lifelist::FirstSeen.
@@ -181,8 +209,6 @@ class LifelistController < ApplicationController
       year: /\A\d{4}\z/,
       month: /\A(0?[1-9]|1[0-2])\z/,
       day: /\A(0?[1-9]|[12][0-9]|3[01])\z/,
-      motorless: /\A(0|1|true|false)\z/,
-      exclude_heard_only: /\A(0|1|true|false)\z/,
       locus: /\A[a-z0-9_\-]+\z/,
       sort: /\A(class|last|count)?\z/,
     }

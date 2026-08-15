@@ -35,6 +35,10 @@
         region: 'Region:'
         more_regions: 'More…'
         sort_by: 'Order by:'
+        options: 'Only:'
+        motorless: 'Motorless'
+        exclude_heard_only: 'Seen'
+        remove: ' (remove filter)'
       no_species: 'No species'
 
     sorting:

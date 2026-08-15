@@ -57,6 +57,48 @@
     border: 1px solid #dde8e0;
   }
 
+  // Boolean filters are independent on/off switches, unlike the facet rows
+  // where exactly one value is selected, so they carry a checkbox marker to
+  // tell the two kinds of pill apart. The outlined (off) state keeps the pill
+  // reading as actionable rather than as an already-selected value.
+  a.filter-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    background-color: transparent;
+    border-color: #d8d8cc;
+
+    &:hover {
+      background-color: var(--color-bg-beige);
+      border-color: #c4c4b4;
+    }
+  }
+
+  .toggle-marker {
+    width: 0.875em;
+    height: 0.875em;
+    flex: none;
+    // Optically centres the box against lowercase text, which sits above the
+    // element box's vertical middle.
+    margin-top: -0.0625em;
+  }
+
+  // A boolean filter that is on. It stays a link (clicking it turns the filter
+  // back off), so it needs the active pill's colours applied to the `a` rather
+  // than inheriting the inactive link style above.
+  a.toggle-on {
+    font-weight: 600;
+    color: #2f6647;
+    background-color: #dde8e0;
+    border-color: #cddbd2;
+
+    &:hover {
+      color: #2f6647;
+      background-color: #cfe0d4;
+      border-color: #bccec3;
+    }
+  }
+
   // "Advanced options" leaves the facet set, so it reads as an ordinary link
   // rather than a pill: strip the pill box and keep only the global underline
   // that Tailwind's base `body a` rule already provides.

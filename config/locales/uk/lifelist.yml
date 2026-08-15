@@ -37,6 +37,10 @@
         region: 'Регіон:'
         more_regions: 'Більше…'
         sort_by: 'Сортування:'
+        options: 'Тільки:'
+        motorless: 'Без транспорту'
+        exclude_heard_only: 'Побачені'
+        remove: ' (зняти фільтр)'
       no_species: 'Немає видів'
 
     sorting:
