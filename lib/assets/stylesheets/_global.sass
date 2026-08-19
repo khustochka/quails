@@ -378,6 +378,10 @@ nav:not(.footer-links)
   .gap
     color: #999999
     border-color: transparent
+  // First/Prev/Next/Last carry text labels, so they need more breathing room
+  // than the numeric pages.
+  .first a, .prev a, .next a, .last a
+    padding: 0 16px
 
 @media only all and (max-width: 580px)
   .pagination
@@ -387,6 +391,8 @@ nav:not(.footer-links)
       height: 34px
       padding: 0 7px
       font-size: 14px
+    .first a, .prev a, .next a, .last a
+      padding: 0 11px
 
 // Translated pages
 ul.translated
