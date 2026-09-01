@@ -13,7 +13,10 @@ export function loadGoogleMaps() {
     return Promise.reject(new Error("Missing meta[name='google-maps-api-key']"));
   }
 
-  setOptions({ key: meta.content });
+  setOptions({ 
+    key: meta.content,
+    region: "CA"
+  });
 
   mapsPromise = importLibrary("maps").then(function () {
     return google.maps;
