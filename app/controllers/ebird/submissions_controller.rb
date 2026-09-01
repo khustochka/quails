@@ -95,10 +95,9 @@ module EBird
       end
 
       if result
-        # rubocop:disable Rails/OutputSafety
+        # rubocop:disable-next Rails/OutputSafety
         flash.notice =
           "Successfully created CSV file #{helpers.link_to(@file.full_name, ebird_submission_path(id: @file.name, format: :csv))}".html_safe
-        # rubocop:enable Rails/OutputSafety
         redirect_to ebird_submission_url(@file.id)
       else
         @file.destroy if @file.persisted?
