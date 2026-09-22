@@ -4,7 +4,7 @@
   "private": true,
   "version": "0.1.0",
   "dependencies": {
-    "@canvasjs/charts": "^3.17.2",
+    "@canvasjs/charts": "^3.17.3",
     "@csstools/normalize.css": "^12.0.0",
     "@googlemaps/js-api-loader": "^2.1.1",
     "@googlemaps/markerclusterer": "^2.6.2",

@@ -610,9 +610,6 @@ Style/DocumentDynamicEvalDefinition:
 Style/Documentation:
   Enabled: false
 
-Style/DoubleCopDisableDirective:
-  Enabled: false
-
 Style/DoubleNegation:
   Enabled: false
 
