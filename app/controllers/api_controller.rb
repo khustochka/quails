@@ -3,6 +3,8 @@
 class APIController < ActionController::Base # rubocop:disable Rails/ApplicationController
   include ActiveStorage::SetCurrent
 
+  skip_forgery_protection
+
   before_action :authenticate
 
   private
