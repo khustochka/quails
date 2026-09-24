@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_25_000000) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_23_205503) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
@@ -144,6 +144,21 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_25_000000) do
     t.index ["index_num"], name: "index_ebird_taxa_on_index_num"
     t.index ["parent_id"], name: "index_ebird_taxa_on_parent_id"
     t.index ["taxon_id"], name: "index_ebird_taxa_on_taxon_id"
+  end
+
+  create_table "external_checklists", force: :cascade do |t|
+    t.string "county"
+    t.datetime "created_at", null: false
+    t.text "error"
+    t.string "external_id", null: false
+    t.string "location"
+    t.bigint "locus_id"
+    t.string "state_prov"
+    t.string "status", default: "pending", null: false
+    t.string "time"
+    t.datetime "updated_at", null: false
+    t.index ["external_id"], name: "index_external_checklists_on_external_id", unique: true
+    t.index ["locus_id"], name: "index_external_checklists_on_locus_id"
   end
 
   create_table "good_job_batches", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -455,6 +470,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_25_000000) do
   add_foreign_key "ebird_submissions", "ebird_files", on_delete: :cascade
   add_foreign_key "ebird_taxa", "ebird_taxa", column: "parent_id", on_delete: :restrict
   add_foreign_key "ebird_taxa", "taxa", on_delete: :nullify
+  add_foreign_key "external_checklists", "loci", on_delete: :nullify
   add_foreign_key "local_species", "loci", on_delete: :cascade
   add_foreign_key "local_species", "species", on_delete: :cascade
   add_foreign_key "loci", "loci", column: "cached_public_locus_id"
