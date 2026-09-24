@@ -51,4 +51,20 @@ class ExternalChecklistTest < ActiveSupport::TestCase
     assert_equal 1, ExternalChecklist.upsert_preloads([{ external_id: "" }, { external_id: "S1", status: "imported" }])
     assert_predicate ExternalChecklist.find_by(external_id: "S1"), :pending?
   end
+
+  test "suggests locus by location name and parent by county or state" do
+    locus = create(:locus, name_en: "Cordite Trail")
+    county = create(:locus, name_en: "Winnipeg")
+    checklist = build(:external_checklist, location: "Cordite Trail", county: "Winnipeg")
+
+    assert_equal locus.id, checklist.suggested_locus_id
+    assert_equal county.id, checklist.suggested_parent_id
+  end
+
+  test "suggests parent by state when county is missing" do
+    state = create(:locus, name_en: "Manitoba")
+    checklist = build(:external_checklist, county: nil, state_prov: "Manitoba")
+
+    assert_equal state.id, checklist.suggested_parent_id
+  end
 end

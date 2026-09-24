@@ -332,6 +332,10 @@ Rails.application.routes.draw do
   get "/flickr" => "flickr#index"
   get "/flickr/auth" => "flickr#auth"
 
+  resources :external_checklists, only: [:index] do
+    patch :bulk_update, on: :collection
+  end
+
   namespace :ebird do
     get "/" => "portal#index"
     resources :submissions, except: [:edit] do

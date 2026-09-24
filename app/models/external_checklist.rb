@@ -24,4 +24,12 @@ class ExternalChecklist < ApplicationRecord
     upsert_all(rows, unique_by: :external_id, update_only: PRELOAD_ATTRIBUTES - ["external_id"])
     rows.size
   end
+
+  def suggested_locus_id
+    Locus.find_by(name_en: location)&.id
+  end
+
+  def suggested_parent_id
+    Locus.find_by(name_en: county || state_prov)&.id
+  end
 end

@@ -38,6 +38,7 @@ class EBird::ImportsControllerTest < ActionController::TestCase
     assert_response :success
     assert_nil assigns(:checklists)
     assert_nil assigns(:last_preload)
+    assert_select "a[href=?]", external_checklists_path
   end
 
   test "admin sees the preloaded checklists" do
