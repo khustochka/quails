@@ -1,0 +1,79 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# Mock Birdnik service for manual testing of the external checklists flow. See doc/birdnik.md.
+#
+#   bin/mock_birdnik               # listens on port 3100
+#   MOCK_BIRDNIK_ERROR=1 bin/mock_birdnik  # pushes an error instead of checklists
+#
+# Env: MOCK_BIRDNIK_PORT (3100), MOCK_BIRDNIK_DELAY seconds before pushing (2),
+# BIRDNIK_API_TOKEN expected from Quails, API_TOKEN sent to Quails (both read from .env.development).
+
+require "bundler/setup"
+require "dotenv"
+require "json"
+require "net/http"
+require "rackup"
+require "securerandom"
+require "webrick"
+
+Dotenv.load(".env.development.local", ".env.development")
+
+PORT = Integer(ENV.fetch("MOCK_BIRDNIK_PORT", 3100))
+DELAY = Float(ENV.fetch("MOCK_BIRDNIK_DELAY", 2))
+EXPECTED_TOKEN = ENV.fetch("BIRDNIK_API_TOKEN", "")
+QUAILS_TOKEN = ENV.fetch("API_TOKEN", "")
+
+FIXED_CHECKLISTS = [
+  { external_id: "S999000101", time: "19 Sep 2026 7:05 AM", location: "Wilkes Ave Sewage Lagoons",
+    county: "Winnipeg", state_prov: "Manitoba, CA", },
+  { external_id: "S999000102", time: "20 Sep 2026 8:40 AM", location: "Assiniboine Park--Duck Pond",
+    county: "Winnipeg", state_prov: "Manitoba, CA", },
+  { external_id: "S999000103", time: "21 Sep 2026 6:50 PM", location: "Kyiv--Hydropark",
+    county: "Kyiv", state_prov: "Kyiv, UA", },
+]
+
+def log(message)
+  warn "[mock birdnik] #{message}"
+end
+
+# A new checklist on every preload, so repeated preloads show new rows.
+def checklists
+  now = Time.now.getlocal
+  FIXED_CHECKLISTS + [{ external_id: "S999#{SecureRandom.random_number(10**6).to_s.rjust(6, "0")}",
+                        time: now.strftime("%-d %b %Y %-l:%M %p"), location: "Mock location #{now.strftime("%H:%M:%S")}",
+                        county: nil, state_prov: "Manitoba, CA", }]
+end
+
+def push(callback_url, body)
+  uri = URI(callback_url)
+  request = Net::HTTP::Post.new(uri, "Content-Type" => "application/json", "Authorization" => "Bearer #{QUAILS_TOKEN}")
+  request.body = body.to_json
+  response = Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == "https") { |http| http.request(request) }
+  log "pushed to #{callback_url}: #{response.code} #{response.body}"
+rescue StandardError => e
+  log "push to #{callback_url} failed: #{e.class}: #{e.message}"
+end
+
+def json(status, body)
+  [status, { "content-type" => "application/json" }, [body.to_json]]
+end
+
+app = lambda do |env|
+  request = Rack::Request.new(env)
+  next json(404, error: "not found") unless request.post? && request.path == "/preloads"
+  next json(401, error: "unauthorized") unless env["HTTP_AUTHORIZATION"] == "Bearer #{EXPECTED_TOKEN}"
+
+  callback_url = JSON.parse(request.body.read)["callback_url"]
+  next json(422, error: "callback_url is required") unless callback_url
+
+  log "preload requested, pushing to #{callback_url} in #{DELAY}s"
+  Thread.new do
+    sleep DELAY
+    push(callback_url, ENV["MOCK_BIRDNIK_ERROR"] ? { error: "Mock failure." } : { checklists: checklists })
+  end
+  json(202, {})
+end
+
+log "listening on http://localhost:#{PORT}"
+Rackup::Handler::WEBrick.run(app, Port: PORT, AccessLog: [], Logger: WEBrick::Log.new($stderr, WEBrick::Log::WARN))

@@ -11,6 +11,8 @@ import './src/admin/cards/motorless';
 import './src/admin/ebird/importer';
 import './src/admin/ebird/submissions';
 
+import './src/admin/external-checklists';
+
 import './src/admin/flickr/search';
 import './src/admin/flickr/photo-match';
 

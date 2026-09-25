@@ -1,0 +1,35 @@
+-# frozen_string_literal: true
+
+- if checklists.empty?
+  %p No checklists to review.
+- else
+  = form_tag bulk_update_external_checklists_path, method: :patch do
+    %table.neat_table
+      %tr
+        %th ID
+        %th Date/time
+        %th Location
+        %th County
+        %th State/Prov
+        %th Status
+        %th Select locus
+
+      - checklists.each do |checklist|
+        %tr
+          %td= checklist.external_id
+          %td
+            %nobr= checklist.time
+          %td= checklist.location
+          %td= checklist.county
+          %td= checklist.state_prov
+          %td
+            = checklist.status
+            - if checklist.error.present?
+              %br
+              = checklist.error
+          %td.locus-select-td
+            = select_tag "c[#{checklist.id}][locus_id]",
+                  options_from_collection_for_select(loci, :id, :to_label, checklist.locus_id || checklist.suggested_locus_id),
+                  include_blank: true, class: "locus_select", "aria-label": "Locus for #{checklist.external_id}"
+            = link_to "Create new", new_locus_path(locus: {name_en: checklist.location, parent_id: checklist.suggested_parent_id}), target: :_blank, rel: :noopener
+    = submit_tag "Import"

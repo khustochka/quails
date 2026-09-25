@@ -78,4 +78,54 @@ class ExternalChecklistsControllerTest < ActionController::TestCase
     end
     assert_nil checklist.reload.locus
   end
+
+  def with_birdnik_url(url = "http://birdnik.test")
+    original = ENV["BIRDNIK_API_URL"]
+    ENV["BIRDNIK_API_URL"] = url
+    yield
+  ensure
+    ENV["BIRDNIK_API_URL"] = original
+  end
+
+  test "admin requests preload with API callback url" do
+    stub = stub_request(:post, "http://birdnik.test/preloads")
+      .with(body: { callback_url: api_external_checklists_url }.to_json).to_return(status: 202)
+
+    login_as_admin
+    with_birdnik_url { post :preload, xhr: true }
+
+    assert_response :accepted
+    assert_requested stub
+  end
+
+  test "preload reports Birdnik failure" do
+    stub_request(:post, "http://birdnik.test/preloads").to_return(status: 503)
+
+    login_as_admin
+    with_birdnik_url { post :preload, xhr: true }
+
+    assert_response :bad_gateway
+    assert_equal "Birdnik responded with 503.", response.parsed_body["message"]
+  end
+
+  test "preload reports missing configuration" do
+    login_as_admin
+    with_birdnik_url(nil) { post :preload, xhr: true }
+
+    assert_response :bad_gateway
+  end
+
+  test "preload without JS redirects back with notice" do
+    stub_request(:post, "http://birdnik.test/preloads").to_return(status: 202)
+
+    login_as_admin
+    with_birdnik_url { post :preload }
+
+    assert_redirected_to external_checklists_path
+    assert_equal "Preload requested.", flash[:notice]
+  end
+
+  test "user cannot request preload" do
+    assert_raise(ActionController::RoutingError) { post :preload }
+  end
 end

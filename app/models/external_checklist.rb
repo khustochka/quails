@@ -11,6 +11,8 @@ class ExternalChecklist < ApplicationRecord
 
   validates :external_id, presence: true, uniqueness: true
 
+  scope :reviewable, -> { where.not(status: "imported").order(id: :desc) }
+
   # Upserts preload rows, skipping those already imported as cards. Review state (locus, status)
   # of existing rows is kept. Result is the number of upserted rows.
   def self.upsert_preloads(rows)
