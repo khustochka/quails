@@ -139,7 +139,7 @@ class Card < ApplicationRecord
 
     def unebirded
       ebirded = Card.select(:id).joins(:ebird_files).where("ebird_files.status IN ('NEW', 'POSTED')")
-      where("id NOT IN (#{ebirded.to_sql})").where(ebird_id: nil)
+      where("cards.id NOT IN (#{ebirded.to_sql})").where(ebird_id: nil)
     end
   end
 end
