@@ -51,7 +51,7 @@ class ObservationSearch
   # and resets their conditions.
   def hide_observation_fields
     @observation_fields_hidden = true
-    self.voice = "all"
+    self.voice = nil
     self.only_hidden = nil
     self
   end

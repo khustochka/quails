@@ -24,6 +24,16 @@ class CardsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:cards)
   end
 
+  test "voice radio labels point to their inputs" do
+    get :index
+    inputs = css_select(".voice_radio_group input[type=radio]")
+    assert_equal 3, inputs.size
+    inputs.each do |input|
+      assert_select ".voice_radio_group label[for=?]", input["id"]
+    end
+    assert_select "input#q_voice_all[value='']"
+  end
+
   test "should get new" do
     get :new
     assert_response :success

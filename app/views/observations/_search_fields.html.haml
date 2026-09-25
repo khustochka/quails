@@ -17,11 +17,11 @@
 - unless form.object.observation_fields_hidden?
   %div.input
     %div.optional.voice_radio_group
-      -# Previously the value for the the All option was "", but since Rails 8.1.4
-      -# this produces mismatch in ids: the field gets "q_voice_" id,
-      -# but the label gets for="q_voice"
-      = form.collection_radio_buttons :voice, [["all", "All"], [false, "Seen"], [true, "Heard only"]], :first, :last,
-                                      include_hidden: false
+      = form.collection_radio_buttons :voice, [["", "All"], [false, "Seen"], [true, "Heard only"]], :first, :last,
+                                      include_hidden: false do |b|
+        -# Explicit ids: for the blank value Rails 8.1.4 generates mismatched input id and label for.
+        - id = "q_voice_#{b.value.to_s.presence || "all"}"
+        = b.radio_button(id: id) + b.label(for: id, class: "collection_radio_buttons")
     %hr
     %div
       %label
