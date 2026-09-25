@@ -18,7 +18,7 @@ gem "actioncable",   VERSION
 gem "railties",      VERSION
 
 gem "pg"
-gem "redis", "~> 5.4.1"
+gem "redis"
 gem "hiredis-client"
 gem "rails-brotli-cache"
 gem "brotli"
