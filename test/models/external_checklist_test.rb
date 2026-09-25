@@ -129,4 +129,56 @@ class ExternalChecklistTest < ActiveSupport::TestCase
     assert_predicate checklist.reload, :imported?
     assert_nil checklist.error
   end
+
+  def with_birdnik_url(url = "http://birdnik.test")
+    original = ENV["BIRDNIK_API_URL"]
+    ENV["BIRDNIK_API_URL"] = url
+    yield
+  ensure
+    ENV["BIRDNIK_API_URL"] = original
+  end
+
+  test "request_import requests reviewable checklists with locus" do
+    locus = Locus.find_by!(slug: "brovary")
+    pending = create(:external_checklist, locus: locus)
+    failed = create(:external_checklist, locus: locus, status: "failed", error: "Boom")
+    no_locus = create(:external_checklist)
+    create(:external_checklist, locus: locus, status: "imported")
+    stub = stub_request(:post, "http://birdnik.test/fetches")
+      .with { |req| JSON.parse(req.body)["external_ids"].sort == [pending, failed].map(&:external_id).sort }
+      .to_return(status: 202)
+
+    requested = with_birdnik_url { ExternalChecklist.request_import(callback_url: "http://cb") }
+
+    assert_requested stub
+    assert_equal [pending, failed], requested.sort_by(&:id)
+    assert_predicate pending.reload, :requested?
+    assert_predicate failed.reload, :requested?
+    assert_nil failed.error
+    assert_predicate no_locus.reload, :pending?
+  end
+
+  test "request_import marks checklists failed when Birdnik fails" do
+    checklist = create(:external_checklist, locus: Locus.find_by!(slug: "brovary"))
+    stub_request(:post, "http://birdnik.test/fetches").to_return(status: 500)
+
+    assert_raises(Birdnik::Client::Error) do
+      with_birdnik_url { ExternalChecklist.request_import(callback_url: "http://cb") }
+    end
+    assert_predicate checklist.reload, :failed?
+    assert_equal "Birdnik responded with 500.", checklist.error
+  end
+
+  test "request_import keeps checklists imported before Birdnik failed to respond" do
+    checklist = create(:external_checklist, locus: Locus.find_by!(slug: "brovary"))
+    stub_request(:post, "http://birdnik.test/fetches").to_return do
+      checklist.update!(status: "imported")
+      raise Net::ReadTimeout
+    end
+
+    assert_raises(Birdnik::Client::Error) do
+      with_birdnik_url { ExternalChecklist.request_import(callback_url: "http://cb") }
+    end
+    assert_predicate checklist.reload, :imported?
+  end
 end

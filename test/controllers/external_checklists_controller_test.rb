@@ -26,7 +26,7 @@ class ExternalChecklistsControllerTest < ActionController::TestCase
     get :index
 
     assert_response :success
-    assert_select "form[action=?]", bulk_update_external_checklists_path, false
+    assert_select "form[action=?]", import_external_checklists_path, false
     assert_select "p", "No checklists to review."
   end
 
@@ -51,30 +51,63 @@ class ExternalChecklistsControllerTest < ActionController::TestCase
     assert_select "select.locus_select option[selected][value=?]", suggested.id.to_s
   end
 
-  test "admin saves selected loci" do
+  test "import saves selected loci and requests checklists with locus" do
     locus = Locus.find_by!(slug: "brovary")
     to_set = create(:external_checklist)
     to_clear = create(:external_checklist, locus: locus)
     imported = create(:external_checklist, status: "imported")
 
+    stub = stub_request(:post, "http://birdnik.test/fetches")
+      .with(body: { external_ids: [to_set.external_id], callback_url: import_api_external_checklists_url }.to_json)
+      .to_return(status: 202)
+
     login_as_admin
-    patch :bulk_update, params: { c: {
-      to_set.id => { locus_id: locus.id },
-      to_clear.id => { locus_id: "" },
-      imported.id => { locus_id: locus.id },
-    } }
+    with_birdnik_url do
+      post :import, params: { c: {
+        to_set.id => { locus_id: locus.id },
+        to_clear.id => { locus_id: "" },
+        imported.id => { locus_id: locus.id },
+      } }
+    end
 
     assert_redirected_to external_checklists_path
+    assert_equal "Import of 1 checklists requested.", flash[:notice]
+    assert_requested stub
     assert_equal locus, to_set.reload.locus
+    assert_predicate to_set, :requested?
     assert_nil to_clear.reload.locus
+    assert_predicate to_clear, :pending?
     assert_nil imported.reload.locus
   end
 
-  test "user cannot save loci" do
+  test "import without any locus does not call Birdnik" do
+    checklist = create(:external_checklist)
+
+    login_as_admin
+    post :import, params: { c: { checklist.id => { locus_id: "" } } }
+
+    assert_redirected_to external_checklists_path
+    assert_equal "No checklists with a locus to import.", flash[:notice]
+    assert_predicate checklist.reload, :pending?
+  end
+
+  test "import reports Birdnik failure" do
+    checklist = create(:external_checklist, locus: Locus.find_by!(slug: "brovary"))
+    stub_request(:post, "http://birdnik.test/fetches").to_return(status: 503)
+
+    login_as_admin
+    with_birdnik_url { post :import }
+
+    assert_redirected_to external_checklists_path
+    assert_equal "Import request failed: Birdnik responded with 503.", flash[:alert]
+    assert_predicate checklist.reload, :failed?
+  end
+
+  test "user cannot import" do
     checklist = create(:external_checklist)
 
     assert_raise(ActionController::RoutingError) do
-      patch :bulk_update, params: { c: { checklist.id => { locus_id: Locus.find_by!(slug: "brovary").id } } }
+      post :import, params: { c: { checklist.id => { locus_id: Locus.find_by!(slug: "brovary").id } } }
     end
     assert_nil checklist.reload.locus
   end

@@ -11,7 +11,7 @@ class ExternalChecklistsChannel < ApplicationCable::Channel
     # rack.session is needed for the form to include the authenticity token input; the page replaces its value.
     renderer = ExternalChecklistsController.renderer.new("rack.session" => {})
     html = renderer.render(partial: "external_checklists/list",
-      locals: { checklists: ExternalChecklist.reviewable, loci: Locus.suggestion_order })
+      locals: { checklists: ExternalChecklist.reviewable.newest_first, loci: Locus.suggestion_order })
     broadcast_to(:external_checklists, { html: html, upserted: upserted })
   end
 

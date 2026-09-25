@@ -3,7 +3,7 @@
 - if checklists.empty?
   %p No checklists to review.
 - else
-  = form_tag bulk_update_external_checklists_path, method: :patch do
+  = form_tag import_external_checklists_path do
     %table.neat_table
       %tr
         %th ID

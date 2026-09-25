@@ -24,6 +24,11 @@ module Birdnik
       post("/preloads", callback_url: callback_url)
     end
 
+    # Asks Birdnik to fetch checklists and push each one to +callback_url+.
+    def request_fetch(external_ids:, callback_url:)
+      post("/fetches", external_ids: external_ids, callback_url: callback_url)
+    end
+
     private
 
     def post(path, body)

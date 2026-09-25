@@ -9,6 +9,8 @@
 
 - if notice
   %p= notice
+- if alert
+  %p= alert
 
 = button_to "Request preload", preload_external_checklists_path,
             method: :post, remote: true, class: "button",

@@ -334,7 +334,7 @@ Rails.application.routes.draw do
 
   resources :external_checklists, only: [:index] do
     collection do
-      patch :bulk_update
+      post :import
       post :preload
     end
   end

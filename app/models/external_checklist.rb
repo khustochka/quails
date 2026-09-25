@@ -11,7 +11,8 @@ class ExternalChecklist < ApplicationRecord
 
   validates :external_id, presence: true, uniqueness: true
 
-  scope :reviewable, -> { where.not(status: "imported").order(id: :desc) }
+  scope :reviewable, -> { where.not(status: "imported") }
+  scope :newest_first, -> { order(id: :desc) }
 
   # Upserts preload rows, skipping those already imported as cards. Review state (locus, status)
   # of existing rows is kept. Result is the number of upserted rows.
@@ -33,6 +34,21 @@ class ExternalChecklist < ApplicationRecord
 
   def suggested_parent_id
     Locus.find_by(name_en: county || state_prov)&.id
+  end
+
+  # Asks Birdnik to fetch reviewable checklists that have a locus selected; Birdnik pushes them to
+  # +callback_url+. Result is the requested checklists.
+  def self.request_import(callback_url:)
+    checklists = reviewable.where.not(locus_id: nil).to_a
+    return [] if checklists.empty?
+
+    # Marked before the request, as Birdnik may push results before responding.
+    where(id: checklists).update_all(status: "requested", error: nil, updated_at: Time.current)
+    Birdnik::Client.new.request_fetch(external_ids: checklists.map(&:external_id), callback_url: callback_url)
+    checklists
+  rescue Birdnik::Client::Error => e
+    where(id: checklists, status: "requested").update_all(status: "failed", error: e.message, updated_at: Time.current)
+    raise
   end
 
   # Imports checklist +data+ (see doc/birdnik.md) as a Card at the selected locus.

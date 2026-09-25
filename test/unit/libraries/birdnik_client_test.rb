@@ -19,6 +19,16 @@ class BirdnikClientTest < ActiveSupport::TestCase
     assert_requested stub
   end
 
+  test "requests fetch of checklists" do
+    stub = stub_request(:post, "http://birdnik.test/fetches")
+      .with(body: { external_ids: %w(S1 S2), callback_url: CALLBACK }.to_json, headers: { "Authorization" => "Bearer secret" })
+      .to_return(status: 202)
+
+    client.request_fetch(external_ids: %w(S1 S2), callback_url: CALLBACK)
+
+    assert_requested stub
+  end
+
   test "raises on error response" do
     stub_request(:post, "http://birdnik.test/preloads").to_return(status: 500)
 

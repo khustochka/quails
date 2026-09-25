@@ -4,9 +4,10 @@
 # Mock Birdnik service for manual testing of the external checklists flow. See doc/birdnik.md.
 #
 #   bin/mock_birdnik               # listens on port 3100
-#   MOCK_BIRDNIK_ERROR=1 bin/mock_birdnik  # pushes an error instead of checklists
+#   MOCK_BIRDNIK_ERROR=1 bin/mock_birdnik  # pushes errors instead of checklists
 #
-# Env: MOCK_BIRDNIK_PORT (3100), MOCK_BIRDNIK_DELAY seconds before pushing (2),
+# Preloads push a few fake checklists; fetches push a fake checklist for each requested ID.
+# Env: MOCK_BIRDNIK_PORT (3100), MOCK_BIRDNIK_DELAY seconds before each push (2),
 # BIRDNIK_API_TOKEN expected from Quails, API_TOKEN sent to Quails (both read from .env.development).
 
 require "bundler/setup"
@@ -45,6 +46,18 @@ def checklists
                         county: nil, state_prov: "Manitoba, CA", }]
 end
 
+SPECIES = [["Canada Goose", "cangoo"], ["Mallard", "mallar3"], ["Blue Jay", "blujay"],
+  ["Black-capped Chickadee", "bkcchi"], ["House Sparrow", "houspa"],]
+
+def fetched_checklist
+  observations = SPECIES.sample(3).map do |name, code|
+    { name: name, species_code: code, count: rand(4).zero? ? "X" : rand(1..20).to_s, comments: rand(3).zero? ? "V" : "",
+      obs_id: "OBS#{SecureRandom.random_number(10**9)}", }
+  end
+  { observ_date: Time.now.getlocal.strftime("%F"), start_time: "07:05", protocol: "Traveling", duration_minutes: 60,
+    distance_kms: 2.5, observers: 1, notes: "Fetched by mock Birdnik.", complete: true, observations: observations, }
+end
+
 def push(callback_url, body)
   uri = URI(callback_url)
   request = Net::HTTP::Post.new(uri, "Content-Type" => "application/json", "Authorization" => "Bearer #{QUAILS_TOKEN}")
@@ -59,19 +72,34 @@ def json(status, body)
   [status, { "content-type" => "application/json" }, [body.to_json]]
 end
 
+def preload(callback_url, _body)
+  log "preload requested, pushing to #{callback_url} in #{DELAY}s"
+  sleep DELAY
+  push(callback_url, ENV["MOCK_BIRDNIK_ERROR"] ? { error: "Mock failure." } : { checklists: checklists })
+end
+
+def fetch(callback_url, body)
+  ids = Array(body["external_ids"])
+  log "fetch of #{ids.size} checklists requested, pushing each to #{callback_url} every #{DELAY}s"
+  ids.each do |id|
+    sleep DELAY
+    push(callback_url, ENV["MOCK_BIRDNIK_ERROR"] ? { external_id: id, error: "Mock failure." } : { external_id: id, checklist: fetched_checklist })
+  end
+end
+
+HANDLERS = { "/preloads" => method(:preload), "/fetches" => method(:fetch) }.freeze
+
 app = lambda do |env|
   request = Rack::Request.new(env)
-  next json(404, error: "not found") unless request.post? && request.path == "/preloads"
+  handler = HANDLERS[request.path]
+  next json(404, error: "not found") unless request.post? && handler
   next json(401, error: "unauthorized") unless env["HTTP_AUTHORIZATION"] == "Bearer #{EXPECTED_TOKEN}"
 
-  callback_url = JSON.parse(request.body.read)["callback_url"]
+  body = JSON.parse(request.body.read)
+  callback_url = body["callback_url"]
   next json(422, error: "callback_url is required") unless callback_url
 
-  log "preload requested, pushing to #{callback_url} in #{DELAY}s"
-  Thread.new do
-    sleep DELAY
-    push(callback_url, ENV["MOCK_BIRDNIK_ERROR"] ? { error: "Mock failure." } : { checklists: checklists })
-  end
+  Thread.new { handler.call(callback_url, body) }
   json(202, {})
 end
 
