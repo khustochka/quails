@@ -31,10 +31,11 @@ ActionCable (`ExternalChecklistsChannel`).
    ]}
    ```
 
-   `checklists` may be empty. On failure Birdnik sends `{"error": "message"}` instead.
+   `checklists` is the complete list of unsubmitted checklists, possibly empty. On failure Birdnik sends
+   `{"error": "message"}` instead.
 
    Quails skips checklists already imported as cards and upserts the rest, keeping the review state
-   (locus, status) of existing ones. Responds `{"upserted": N}`; `400` if neither key is present.
+   (locus, status) of existing ones. Pending checklists missing from the list are removed. Responds `{"upserted": N}`; `400` if neither key is present.
 
 ## Import
 

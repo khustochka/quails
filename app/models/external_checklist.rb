@@ -24,17 +24,21 @@ class ExternalChecklist < ApplicationRecord
     Rails.cache.write(LAST_PRELOAD_CACHE_KEY, Time.current)
   end
 
-  # Upserts preload rows, skipping those already imported as cards. Review state (locus, status)
-  # of existing rows is kept. Result is the number of upserted rows.
-  def self.upsert_preloads(rows)
+  # Applies a preload: +rows+ is the complete list of unsubmitted checklists. Upserts them, skipping
+  # those already imported as cards and keeping review state (locus, status) of existing ones, and
+  # removes pending checklists missing from the list. Result is the number of upserted rows.
+  def self.apply_preload(rows)
     rows = rows.map { |row| PRELOAD_ATTRIBUTES.index_with(nil).merge(row.to_h.stringify_keys.slice(*PRELOAD_ATTRIBUTES)) }
       .select { |row| row["external_id"].present? }
       .uniq { |row| row["external_id"] }
-    imported_ids = Card.where(ebird_id: rows.pluck("external_id")).pluck(:ebird_id)
+    pushed_ids = rows.pluck("external_id")
+    imported_ids = Card.where(ebird_id: pushed_ids).pluck(:ebird_id)
     rows.reject! { |row| row["external_id"].in?(imported_ids) }
-    return 0 if rows.empty?
 
-    upsert_all(rows, unique_by: :external_id, update_only: PRELOAD_ATTRIBUTES - ["external_id"])
+    transaction do
+      pending.where.not(external_id: pushed_ids).delete_all
+      upsert_all(rows, unique_by: :external_id, update_only: PRELOAD_ATTRIBUTES - ["external_id"]) if rows.any?
+    end
     rows.size
   end
 

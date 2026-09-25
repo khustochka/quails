@@ -25,26 +25,26 @@ class ExternalChecklistTest < ActiveSupport::TestCase
     assert_not_predicate build(:external_checklist, status: "bogus"), :valid?
   end
 
-  test "upsert_preloads creates new pending checklists" do
-    count = ExternalChecklist.upsert_preloads([{ external_id: "S1", location: "Brovary" }, { "external_id" => "S2" }])
+  test "apply_preload creates new pending checklists" do
+    count = ExternalChecklist.apply_preload([{ external_id: "S1", location: "Brovary" }, { "external_id" => "S2" }])
 
     assert_equal 2, count
     assert_equal %w(S1 S2), ExternalChecklist.order(:external_id).pluck(:external_id)
     assert ExternalChecklist.all.all?(&:pending?)
   end
 
-  test "upsert_preloads skips checklists already imported as cards" do
+  test "apply_preload skips checklists already imported as cards" do
     create(:card, ebird_id: "S1")
 
-    assert_equal 1, ExternalChecklist.upsert_preloads([{ external_id: "S1" }, { external_id: "S2" }])
+    assert_equal 1, ExternalChecklist.apply_preload([{ external_id: "S1" }, { external_id: "S2" }])
     assert_equal ["S2"], ExternalChecklist.pluck(:external_id)
   end
 
-  test "upsert_preloads updates metadata but keeps review state" do
+  test "apply_preload updates metadata but keeps review state" do
     locus = Locus.find_by!(slug: "brovary")
     checklist = create(:external_checklist, external_id: "S1", location: "Old", locus: locus, status: "failed")
 
-    ExternalChecklist.upsert_preloads([{ external_id: "S1", location: "New" }])
+    ExternalChecklist.apply_preload([{ external_id: "S1", location: "New" }])
 
     checklist.reload
     assert_equal "New", checklist.location
@@ -52,8 +52,38 @@ class ExternalChecklistTest < ActiveSupport::TestCase
     assert_predicate checklist, :failed?
   end
 
-  test "upsert_preloads ignores rows without id and unknown attributes" do
-    assert_equal 1, ExternalChecklist.upsert_preloads([{ external_id: "" }, { external_id: "S1", status: "imported" }])
+  test "apply_preload removes pending checklists missing from the list" do
+    stale = create(:external_checklist, external_id: "S1")
+    requested = create(:external_checklist, status: "requested")
+    failed = create(:external_checklist, status: "failed")
+    imported = create(:external_checklist, status: "imported")
+
+    ExternalChecklist.apply_preload([{ external_id: "S2" }])
+
+    assert_not ExternalChecklist.exists?(stale.id)
+    assert ExternalChecklist.exists?(requested.id)
+    assert ExternalChecklist.exists?(failed.id)
+    assert ExternalChecklist.exists?(imported.id)
+    assert ExternalChecklist.exists?(external_id: "S2")
+  end
+
+  test "apply_preload keeps pending checklists present in the list" do
+    kept = create(:external_checklist, external_id: "S1", locus: Locus.find_by!(slug: "brovary"))
+
+    ExternalChecklist.apply_preload([{ external_id: "S1" }])
+
+    assert_equal kept.locus, kept.reload.locus
+  end
+
+  test "empty preload removes all pending checklists" do
+    create(:external_checklist)
+
+    assert_equal 0, ExternalChecklist.apply_preload([])
+    assert_empty ExternalChecklist.pending
+  end
+
+  test "apply_preload ignores rows without id and unknown attributes" do
+    assert_equal 1, ExternalChecklist.apply_preload([{ external_id: "" }, { external_id: "S1", status: "imported" }])
     assert_predicate ExternalChecklist.find_by(external_id: "S1"), :pending?
   end
 

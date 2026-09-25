@@ -17,7 +17,7 @@ module API
       rows = params.permit(checklists: ExternalChecklist::PRELOAD_ATTRIBUTES)[:checklists]
       return render json: { error: "checklists or error is required" }, status: :bad_request if rows.nil?
 
-      count = ExternalChecklist.upsert_preloads(rows)
+      count = ExternalChecklist.apply_preload(rows)
       ExternalChecklist.record_preload
       ExternalChecklistsChannel.broadcast_list(upserted: count)
 
