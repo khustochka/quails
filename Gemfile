@@ -114,8 +114,6 @@ gem "shellwords"
 gem "drb"
 gem "observer"
 
-gem "json", "~> 2.21"
-
 group :development do
   gem "listen" # required for tracking file changes in development
   gem "benchmark"
