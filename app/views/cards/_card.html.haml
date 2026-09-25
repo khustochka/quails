@@ -83,4 +83,4 @@
 - if @observation_search.try(:observation_filtered?)
   %ul
     - card.observations.each do |obs|
-      = render 'observation_row', obs: obs
+      = render 'cards/observation_row', obs: obs
