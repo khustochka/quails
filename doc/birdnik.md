@@ -69,9 +69,3 @@ ActionCable (`ExternalChecklistsChannel`).
    Quails creates a card at the locus selected for the checklist and marks it imported, or marks it failed
    with the error. Responds `{"status": "imported"}`, or `422` with `{"status": "failed", "error": "…"}`;
    `404` for an unknown `external_id`, `409` if already imported.
-
-## Manual testing
-
-`bin/mock_birdnik` runs a mock Birdnik on port 3100, matching `BIRDNIK_API_URL` in `.env.development`.
-It accepts preloads and fetches and pushes fake checklists to the callback, one every 2 seconds
-(`MOCK_BIRDNIK_ERROR=1` pushes errors instead).
