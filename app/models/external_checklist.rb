@@ -14,6 +14,16 @@ class ExternalChecklist < ApplicationRecord
   scope :reviewable, -> { where.not(status: "imported") }
   scope :newest_first, -> { order(id: :desc) }
 
+  LAST_PRELOAD_CACHE_KEY = "external_checklists/last_preload"
+
+  def self.last_preload_at
+    Rails.cache.read(LAST_PRELOAD_CACHE_KEY)
+  end
+
+  def self.record_preload
+    Rails.cache.write(LAST_PRELOAD_CACHE_KEY, Time.current)
+  end
+
   # Upserts preload rows, skipping those already imported as cards. Review state (locus, status)
   # of existing rows is kept. Result is the number of upserted rows.
   def self.upsert_preloads(rows)
@@ -44,11 +54,18 @@ class ExternalChecklist < ApplicationRecord
 
     # Marked before the request, as Birdnik may push results before responding.
     where(id: checklists).update_all(status: "requested", error: nil, updated_at: Time.current)
+    broadcast_statuses(checklists)
     Birdnik::Client.new.request_fetch(external_ids: checklists.map(&:external_id), callback_url: callback_url)
     checklists
   rescue Birdnik::Client::Error => e
-    where(id: checklists, status: "requested").update_all(status: "failed", error: e.message, updated_at: Time.current)
+    failed_ids = where(id: checklists, status: "requested").ids
+    where(id: failed_ids).update_all(status: "failed", error: e.message, updated_at: Time.current)
+    broadcast_statuses(failed_ids)
     raise
+  end
+
+  def self.broadcast_statuses(checklists)
+    where(id: checklists).find_each(&:broadcast_status)
   end
 
   # Imports checklist +data+ (see doc/birdnik.md) as a Card at the selected locus.
@@ -63,6 +80,7 @@ class ExternalChecklist < ApplicationRecord
       card.save!
       update!(status: "imported", error: nil)
     end
+    broadcast_status
     card
   rescue CardBuilder::Error, ActiveRecord::RecordInvalid => e
     fail_with(e.message)
@@ -72,6 +90,11 @@ class ExternalChecklist < ApplicationRecord
 
   def fail_with(error)
     update!(status: "failed", error: error)
+    broadcast_status
     nil
+  end
+
+  def broadcast_status
+    ExternalChecklistsChannel.broadcast_status(self)
   end
 end

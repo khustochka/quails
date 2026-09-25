@@ -46,6 +46,19 @@ module API
       end
     end
 
+    test "records preload time" do
+      original = Rails.cache
+      Rails.cache = ActiveSupport::Cache::MemoryStore.new
+
+      freeze_time do
+        post api_external_checklists_url, params: { checklists: [] }, as: :json, headers: AUTH
+
+        assert_equal Time.current, ExternalChecklist.last_preload_at
+      end
+    ensure
+      Rails.cache = original
+    end
+
     test "accepts empty checklists" do
       post api_external_checklists_url, params: { checklists: [] }, as: :json, headers: AUTH
 

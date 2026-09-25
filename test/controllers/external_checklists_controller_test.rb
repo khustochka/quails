@@ -161,4 +161,75 @@ class ExternalChecklistsControllerTest < ActionController::TestCase
   test "user cannot request preload" do
     assert_raise(ActionController::RoutingError) { post :preload }
   end
+
+  test "rows are marked for live status updates" do
+    checklist = create(:external_checklist)
+
+    login_as_admin
+    get :index
+
+    assert_select "form[data-external-checklists-import]"
+    assert_select "tr[data-external-checklist-id=?]", checklist.id.to_s do
+      assert_select "td[data-external-checklist-status] .checklist-status-pending", "pending" do
+        assert_select ".fas.fa-clock[aria-hidden=true]"
+      end
+      assert_select "td[data-external-checklist-locus] select.locus_select"
+    end
+  end
+
+  test "import via XHR responds with message" do
+    create(:external_checklist, locus: Locus.find_by!(slug: "brovary"))
+    stub_request(:post, "http://birdnik.test/fetches").to_return(status: 202)
+
+    login_as_admin
+    with_birdnik_url { post :import, xhr: true }
+
+    assert_response :success
+    assert_equal "Import of 1 checklists requested.", response.parsed_body["message"]
+  end
+
+  test "failed import via XHR responds with error" do
+    create(:external_checklist, locus: Locus.find_by!(slug: "brovary"))
+    stub_request(:post, "http://birdnik.test/fetches").to_return(status: 503)
+
+    login_as_admin
+    with_birdnik_url { post :import, xhr: true }
+
+    assert_response :bad_gateway
+    assert_equal "Import request failed: Birdnik responded with 503.", response.parsed_body["message"]
+  end
+
+  test "import permits only locus selections" do
+    checklist = create(:external_checklist)
+    original = ActionController::Parameters.action_on_unpermitted_parameters
+    ActionController::Parameters.action_on_unpermitted_parameters = :raise
+
+    login_as_admin
+    post :import, params: { commit: "Import", authenticity_token: "token", c: { checklist.id => { locus_id: "" } } }
+
+    assert_redirected_to external_checklists_path
+  ensure
+    ActionController::Parameters.action_on_unpermitted_parameters = original
+  end
+
+  test "shows when checklists were never preloaded" do
+    login_as_admin
+    get :index
+
+    assert_select "p", /Last preloaded at:\s+never/
+  end
+
+  test "shows last preload time" do
+    original = Rails.cache
+    Rails.cache = ActiveSupport::Cache::MemoryStore.new
+    time = Time.zone.parse("2026-09-24 07:15")
+    travel_to(time) { ExternalChecklist.record_preload }
+
+    login_as_admin
+    get :index
+
+    assert_select "p", /Last preloaded at:\s+#{Regexp.escape(time.to_s)}/
+  ensure
+    Rails.cache = original
+  end
 end

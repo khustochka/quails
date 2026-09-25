@@ -19,4 +19,4 @@
 %p{data: {external_checklists_status: true}, "aria-live": "polite"}
 
 %div{data: {external_checklists: true}}
-  = render "list", checklists: @checklists, loci: @loci
+  = render "list", checklists: @checklists, loci: @loci, last_preload_at: @last_preload_at

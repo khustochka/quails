@@ -1,9 +1,12 @@
 -# frozen_string_literal: true
+%p
+  Last preloaded at:
+  = last_preload_at&.in_time_zone || "never"
 
 - if checklists.empty?
   %p No checklists to review.
 - else
-  = form_tag import_external_checklists_path do
+  = form_tag import_external_checklists_path, remote: true, data: {external_checklists_import: true} do
     %table.neat_table
       %tr
         %th ID
@@ -11,23 +14,20 @@
         %th Location
         %th County
         %th State/Prov
-        %th Status
+        %th.checklist-status-td Status
         %th Select locus
 
       - checklists.each do |checklist|
-        %tr
+        %tr{data: {external_checklist_id: checklist.id}}
           %td= checklist.external_id
           %td
             %nobr= checklist.time
           %td= checklist.location
           %td= checklist.county
           %td= checklist.state_prov
-          %td
-            = checklist.status
-            - if checklist.error.present?
-              %br
-              = checklist.error
-          %td.locus-select-td
+          %td.checklist-status-td{data: {external_checklist_status: true}}
+            = render "external_checklists/status", checklist: checklist
+          %td.locus-select-td{data: {external_checklist_locus: true}}
             = select_tag "c[#{checklist.id}][locus_id]",
                   options_from_collection_for_select(loci, :id, :to_label, checklist.locus_id || checklist.suggested_locus_id),
                   include_blank: true, class: "locus_select", "aria-label": "Locus for #{checklist.external_id}"

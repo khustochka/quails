@@ -3,6 +3,11 @@
 require "test_helper"
 
 class ExternalChecklistTest < ActiveSupport::TestCase
+  include ActionCable::TestHelper
+
+  def status_broadcasts
+    broadcasts(ExternalChecklistsChannel.broadcasting_for(:external_checklists)).map { |msg| JSON.parse(msg)["checklist"] }
+  end
   test "defaults to pending status" do
     assert_predicate create(:external_checklist), :pending?
   end
@@ -180,5 +185,42 @@ class ExternalChecklistTest < ActiveSupport::TestCase
       with_birdnik_url { ExternalChecklist.request_import(callback_url: "http://cb") }
     end
     assert_predicate checklist.reload, :imported?
+  end
+
+  test "import broadcasts status" do
+    checklist = create(:external_checklist, locus: Locus.find_by!(slug: "brovary"))
+
+    checklist.import(checklist_data)
+
+    assert_equal ["imported"], status_broadcasts.pluck("status")
+  end
+
+  test "failed import broadcasts status" do
+    checklist = create(:external_checklist)
+
+    checklist.import(checklist_data)
+
+    data = status_broadcasts.sole
+    assert_equal "failed", data["status"]
+    assert_includes data["status_html"], "No locus selected."
+  end
+
+  test "request_import broadcasts requested statuses" do
+    create_list(:external_checklist, 2, locus: Locus.find_by!(slug: "brovary"))
+    stub_request(:post, "http://birdnik.test/fetches").to_return(status: 202)
+
+    with_birdnik_url { ExternalChecklist.request_import(callback_url: "http://cb") }
+
+    assert_equal %w(requested requested), status_broadcasts.pluck("status")
+  end
+
+  test "failed request_import broadcasts failed statuses" do
+    create(:external_checklist, locus: Locus.find_by!(slug: "brovary"))
+    stub_request(:post, "http://birdnik.test/fetches").to_return(status: 500)
+
+    assert_raises(Birdnik::Client::Error) do
+      with_birdnik_url { ExternalChecklist.request_import(callback_url: "http://cb") }
+    end
+    assert_equal %w(requested failed), status_broadcasts.pluck("status")
   end
 end

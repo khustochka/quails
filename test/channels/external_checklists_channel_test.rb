@@ -28,4 +28,33 @@ class ExternalChecklistsChannelTest < ActionCable::Channel::TestCase
     assert_includes data["html"], "S777"
     assert_includes data["html"], "locus_select"
   end
+
+  def broadcast_data
+    broadcasts(ExternalChecklistsChannel.broadcasting_for(:external_checklists)).map { |msg| JSON.parse(msg) }
+  end
+
+  test "broadcasts imported checklist status with card url" do
+    card = create(:card, ebird_id: "S777")
+    checklist = create(:external_checklist, external_id: "S777", status: "imported")
+
+    ExternalChecklistsChannel.broadcast_status(checklist)
+
+    data = broadcast_data.sole["checklist"]
+    assert_equal checklist.id, data["id"]
+    assert_equal "imported", data["status"]
+    assert_equal "/cards/#{card.id}", data["card_url"]
+    assert_includes data["status_html"], "fa-circle-check"
+  end
+
+  test "broadcasts failed checklist status with error" do
+    checklist = create(:external_checklist, status: "failed", error: "Boom")
+
+    ExternalChecklistsChannel.broadcast_status(checklist)
+
+    data = broadcast_data.sole["checklist"]
+    assert_equal "failed", data["status"]
+    assert_nil data["card_url"]
+    assert_includes data["status_html"], "fa-circle-exclamation"
+    assert_includes data["status_html"], "Boom"
+  end
 end

@@ -1,0 +1,7 @@
+-# frozen_string_literal: true
+%span{class: "checklist-status checklist-status-#{checklist.status}"}
+  = external_checklist_status_icon(checklist.status)
+  = checklist.status
+- if checklist.error.present?
+  %br
+  = checklist.error
