@@ -36,6 +36,29 @@ ActionCable (`ExternalChecklistsChannel`).
    Quails skips checklists already imported as cards and upserts the rest, keeping the review state
    (locus, status) of existing ones. Responds `{"upserted": N}`; `400` if neither key is present.
 
+## Checklist push
+
+Birdnik → Quails: `POST /api/external_checklists/import`, one request per checklist.
+
+```json
+{"external_id": "S123456789",
+ "checklist": {
+   "observ_date": "2026-09-19", "start_time": "07:05", "protocol": "Traveling",
+   "duration_minutes": 95, "distance_kms": 3.2, "area_acres": null, "observers": 2,
+   "notes": "Checklist comments", "complete": true,
+   "observations": [
+     {"name": "Mallard", "species_code": "mallar3", "count": "12", "comments": "", "obs_id": "OBS123"}
+   ]}}
+```
+
+Values are as shown on the eBird checklist page: `protocol` is the eBird protocol name, `observers` is the
+party size, `count` is `"X"` when not counted, `start_time` is null when not recorded. `distance_kms` is in
+kilometers. If the checklist cannot be fetched, Birdnik sends `{"external_id": "…", "error": "message"}`.
+
+Quails creates a card at the locus selected for the checklist and marks it imported, or marks it failed
+with the error. Responds `{"status": "imported"}`, or `422` with `{"status": "failed", "error": "…"}`;
+`404` for an unknown `external_id`, `409` if already imported.
+
 ## Manual testing
 
 `bin/mock_birdnik` runs a mock Birdnik on port 3100, matching `BIRDNIK_API_URL` in `.env.development`.

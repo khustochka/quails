@@ -391,7 +391,9 @@ Rails.application.routes.draw do
     resources :cards, only: [:index]
     resources :observations, only: [:index]
     resources :images, only: [:index]
-    resources :external_checklists, only: [:create]
+    resources :external_checklists, only: [:create] do
+      post :import, on: :collection
+    end
   end
 
   post "/csp-violation-report-endpoint" => "content_security#report"

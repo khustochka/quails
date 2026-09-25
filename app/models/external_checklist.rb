@@ -34,4 +34,28 @@ class ExternalChecklist < ApplicationRecord
   def suggested_parent_id
     Locus.find_by(name_en: county || state_prov)&.id
   end
+
+  # Imports checklist +data+ (see doc/birdnik.md) as a Card at the selected locus.
+  # On failure the checklist is marked failed and nil is returned.
+  def import(data)
+    return fail_with("No locus selected.") unless locus
+
+    card = CardBuilder.new(external_id, data).card
+    card.locus = locus
+    card.resolved = true
+    transaction do
+      card.save!
+      update!(status: "imported", error: nil)
+    end
+    card
+  rescue CardBuilder::Error, ActiveRecord::RecordInvalid => e
+    fail_with(e.message)
+  rescue ActiveRecord::RecordNotUnique
+    fail_with("A card with this ID already exists.")
+  end
+
+  def fail_with(error)
+    update!(status: "failed", error: error)
+    nil
+  end
 end

@@ -67,4 +67,66 @@ class ExternalChecklistTest < ActiveSupport::TestCase
 
     assert_equal state.id, checklist.suggested_parent_id
   end
+
+  def checklist_data(**overrides)
+    { observ_date: "2026-09-19", protocol: "Incidental",
+      observations: [{ name: "House Sparrow", species_code: "houspa", count: "5" }], }.merge(overrides)
+  end
+
+  test "import creates card at selected locus" do
+    locus = Locus.find_by!(slug: "brovary")
+    checklist = create(:external_checklist, external_id: "S123", locus: locus, status: "requested")
+
+    card = checklist.import(checklist_data)
+
+    assert_predicate card, :persisted?
+    assert_equal locus, card.locus
+    assert_equal "S123", card.ebird_id
+    assert_predicate card, :resolved?
+    assert_equal 1, card.observations.count
+    assert_predicate checklist.reload, :imported?
+  end
+
+  test "import fails without locus" do
+    checklist = create(:external_checklist)
+
+    assert_nil checklist.import(checklist_data)
+    assert_predicate checklist.reload, :failed?
+    assert_equal "No locus selected.", checklist.error
+  end
+
+  test "import fails on unknown taxon without creating card" do
+    checklist = create(:external_checklist, locus: Locus.find_by!(slug: "brovary"))
+
+    assert_no_difference "Card.count" do
+      assert_nil checklist.import(checklist_data(observations: [{ name: "Dodo", count: "1" }]))
+    end
+    assert_predicate checklist.reload, :failed?
+    assert_match(/Unknown taxon/, checklist.error)
+  end
+
+  test "import fails on invalid card" do
+    checklist = create(:external_checklist, locus: Locus.find_by!(slug: "brovary"))
+
+    assert_nil checklist.import(checklist_data(protocol: "Nocturnal Flight Call Count"))
+    assert_predicate checklist.reload, :failed?
+    assert_match(/Effort type/, checklist.error)
+  end
+
+  test "import fails when card with the same ID exists" do
+    create(:card, ebird_id: "S123")
+    checklist = create(:external_checklist, external_id: "S123", locus: Locus.find_by!(slug: "brovary"))
+
+    assert_nil checklist.import(checklist_data)
+    assert_predicate checklist.reload, :failed?
+  end
+
+  test "successful import clears previous error" do
+    checklist = create(:external_checklist, locus: Locus.find_by!(slug: "brovary"), status: "failed", error: "Boom")
+
+    checklist.import(checklist_data)
+
+    assert_predicate checklist.reload, :imported?
+    assert_nil checklist.error
+  end
 end

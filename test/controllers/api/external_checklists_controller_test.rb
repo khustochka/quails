@@ -67,5 +67,59 @@ module API
 
       assert_response :bad_request
     end
+
+    test "imports pushed checklist" do
+      create(:external_checklist, external_id: "S5", locus: Locus.find_by!(slug: "brovary"), status: "requested")
+      checklist = { observ_date: "2026-09-19", start_time: "07:05", protocol: "Stationary", duration_minutes: 30,
+                    observations: [{ name: "House Sparrow", species_code: "houspa", count: "5", comments: "V", obs_id: "OBS1" }], }
+
+      assert_difference "Card.count" do
+        post import_api_external_checklists_url, params: { external_id: "S5", checklist: checklist }, as: :json, headers: AUTH
+      end
+
+      assert_response :success
+      assert_equal "imported", response.parsed_body[:status]
+      obs = Card.find_by!(ebird_id: "S5").observations.sole
+      assert obs.voice
+      assert_equal "OBS1", obs.ebird_obs_id
+    end
+
+    test "reports failed import" do
+      create(:external_checklist, external_id: "S5")
+
+      post import_api_external_checklists_url, params: { external_id: "S5", checklist: { observ_date: "2026-09-19" } },
+        as: :json, headers: AUTH
+
+      assert_response :unprocessable_content
+      assert_equal "No locus selected.", response.parsed_body[:error]
+    end
+
+    test "records error pushed for checklist" do
+      checklist = create(:external_checklist, external_id: "S5", status: "requested")
+
+      post import_api_external_checklists_url, params: { external_id: "S5", error: "Checklist not found on eBird" },
+        as: :json, headers: AUTH
+
+      assert_response :unprocessable_content
+      assert_predicate checklist.reload, :failed?
+      assert_equal "Checklist not found on eBird", checklist.error
+    end
+
+    test "rejects unknown checklist" do
+      post import_api_external_checklists_url, params: { external_id: "S404", checklist: {} }, as: :json, headers: AUTH
+
+      assert_response :not_found
+    end
+
+    test "rejects already imported checklist" do
+      create(:external_checklist, external_id: "S5", status: "imported")
+
+      assert_no_difference "Card.count" do
+        post import_api_external_checklists_url, params: { external_id: "S5", checklist: { observ_date: "2026-09-19" } },
+          as: :json, headers: AUTH
+      end
+
+      assert_response :conflict
+    end
   end
 end

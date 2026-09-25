@@ -5,16 +5,8 @@ require "ebird/client"
 module EBird
   class Checklist
     attr_reader :ebird_id
-    attr_accessor :observ_date, :start_time, :effort_type, :duration_minutes, :distance_kms, :area_acres,
+    attr_accessor :observ_date, :start_time, :protocol, :duration_minutes, :distance_kms, :area_acres,
       :notes, :observers, :location_string, :observations, :complete
-
-    PROTOCOL_TO_EFFORT = {
-      "Traveling" => "TRAVEL",
-      "Incidental" => "INCIDENTAL",
-      "Stationary" => "STATIONARY",
-      "Area" => "AREA",
-      "Historical" => "HISTORICAL",
-    }
 
     DURATION_REGEX = /^Duration:\s*(?:(\d+) hour\(s\)(?:, )?)?(?:(\d+) minute\(s\))?$/
 
@@ -45,25 +37,12 @@ module EBird
     end
 
     def to_card
-      ml = notes.to_s.match?(/^ML/i)
-      if /\AML\s*\Z/.match?(notes)
-        self.notes = ""
-      end
-      Card.new(
-        ebird_id: ebird_id,
-        observ_date: observ_date,
-        start_time: start_time,
-        effort_type: effort_type,
-        duration_minutes: duration_minutes,
-        distance_kms: distance_kms,
-        area_acres: area_acres,
-        observers: observers,
-        notes: notes || "",
-        # locus: locus,
-        motorless: ml,
-        observations: observations.map {|obs| Observation.new(obs)},
-        ebird_complete: complete
-      )
+      ExternalChecklist::CardBuilder.new(ebird_id, to_h).card
+    end
+
+    def to_h
+      { observ_date:, start_time:, protocol:, duration_minutes:, distance_kms:, area_acres:,
+        observers:, notes:, complete:, observations:, }
     end
 
     private
@@ -77,9 +56,7 @@ module EBird
         self.start_time = dt.strftime("%R") # = %H:%M
       end
 
-      protocol = page.at_xpath("//div[contains(@title, 'Protocol:')]/span[2]").text
-
-      self.effort_type = PROTOCOL_TO_EFFORT[protocol]
+      self.protocol = page.at_xpath("//div[contains(@title, 'Protocol:')]/span[2]").text
 
       duration = page.at_xpath("//span[contains(@title, 'Duration:')]")&.attr(:title)
       if duration.present?
@@ -133,31 +110,13 @@ module EBird
       self.observations = []
 
       page.css("main ol li[data-observation]").each do |row|
-        count = row.css("div.Observation-numberObserved span span")[1].text
-        count = nil if count == "X"
-
-        taxon_name = row.at_css("section .Observation-species .Heading .Heading-main").text&.strip
-        # This id is always a species code, even for subspecies, so we rely on name first
-        taxon_id = row.at_css("section")[:id]
-        ebird_taxon = EBirdTaxon.find_by(name_en: taxon_name) || EBirdTaxon.find_by(ebird_code: taxon_id)
-
-        tx = ebird_taxon.find_or_promote_to_taxon
-
-        voice = false
-
-        comments = row.at_css("div.Observation-comments")
-        notes = ""
-        if comments
-          notes = comments.at_css("p").text&.strip
-          if notes.casecmp?("v") || notes.casecmp?("heard") || notes.downcase.start_with?("heard only")
-            voice = true
-            notes.gsub!(/^\s*V\s*$\n*/i, "") # Remove V if it is the single letter in a line
-          end
-        end
-
-        ebird_obs_id = row.at_css("button.Observation-tools-item")["data-obsid"]
-
-        observations << { taxon: tx, quantity: count, notes: notes, voice: voice, ebird_obs_id: ebird_obs_id }
+        observations << {
+          name: row.at_css("section .Observation-species .Heading .Heading-main").text&.strip,
+          species_code: row.at_css("section")[:id],
+          count: row.css("div.Observation-numberObserved span span")[1].text,
+          comments: row.at_css("div.Observation-comments p")&.text,
+          obs_id: row.at_css("button.Observation-tools-item")["data-obsid"],
+        }
       end
 
       self
