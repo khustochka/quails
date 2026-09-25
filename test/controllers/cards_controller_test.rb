@@ -14,6 +14,8 @@ class CardsControllerTest < ActionController::TestCase
     get :index
     assert_response :success
     assert_not_nil assigns(:cards)
+    assert_select "input[name='q[voice]']"
+    assert_select "input[name='q[only_hidden]']"
   end
 
   test "should get index (xhr)" do

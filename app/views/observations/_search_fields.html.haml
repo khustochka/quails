@@ -14,13 +14,19 @@
   %label
     = form.input_field :include_subregions, as: :boolean, unchecked_value: nil
     Include subregions
-%div.input
-  = render partial: form.object.voice_fieldset, locals: {form: form}
-  %hr
-  %div
-    %label
-      = form.input_field :only_hidden, as: :boolean, unchecked_value: nil
-      Hidden obs
+- unless form.object.observation_fields_hidden?
+  %div.input
+    %div.optional.voice_radio_group
+      -# Previously the value for the the All option was "", but since Rails 8.1.4
+      -# this produces mismatch in ids: the field gets "q_voice_" id,
+      -# but the label gets for="q_voice"
+      = form.collection_radio_buttons :voice, [["all", "All"], [false, "Seen"], [true, "Heard only"]], :first, :last,
+                                      include_hidden: false
+    %hr
+    %div
+      %label
+        = form.input_field :only_hidden, as: :boolean, unchecked_value: nil
+        Hidden obs
 - form.object.card_id.if_present do |card_id|
   %div.input.optional
     = form.input :card_id, as: :boolean, label: link_to("Card #{card_id}", card_path(card_id)),
