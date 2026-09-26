@@ -1,9 +1,6 @@
 -# frozen_string_literal: true
 - @page_title = 'eBird Submissions'
 
-- content_for :add_shortcuts do
-  %li= link_to "eBird Imports", ebird_imports_path
-
 %h1= page_header
 
 = render 'admin/shortcuts' if current_user.admin?

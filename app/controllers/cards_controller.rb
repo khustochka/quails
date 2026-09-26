@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "ebird/checklist"
-
 class CardsController < ApplicationController
   administrative
 
@@ -117,25 +115,5 @@ class CardsController < ApplicationController
     card.observations << observations
 
     redirect_to card, notice: "#{observations.size} observations successfully moved"
-  end
-
-  def import
-    ebird_id = params[:ebird_id]
-
-    @card = Card.new
-
-    if ebird_id.present?
-
-      checklist = EBird::Checklist.new(ebird_id).fetch!
-
-      @card = checklist.to_card
-
-      @ebird_location = checklist.location_string
-
-    else
-      flash.now[:alert] = "Missing ebird checklist id."
-    end
-
-    render "form"
   end
 end

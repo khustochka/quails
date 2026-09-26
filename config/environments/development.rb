@@ -17,7 +17,7 @@ Rails.application.configure do
   # Enable server timing.
   config.server_timing = true
 
-  # Setup cache store in dev, it should be used by default for eBird preloads
+  # Setup cache store in dev, it can be used directly even if caching is disabled
   config.cache_store = if ENV["REDIS_CACHE_URL"]
     RailsBrotliCache::Store.new(
       ActiveSupport::Cache::RedisCacheStore.new(url: ENV["REDIS_CACHE_URL"])

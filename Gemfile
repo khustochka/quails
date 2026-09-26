@@ -92,9 +92,6 @@ gem "tailwindcss-rails", "~> 4.4"
 
 # gem "uglifier", ">= 1.3.0"
 
-# HTTP client
-gem "mechanize"
-
 # Profiling
 gem "rack-mini-profiler", require: false # false is required to be able to disable
 

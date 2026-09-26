@@ -22,11 +22,6 @@
   %b Create new card:
   - suggested_dates(@card).each do |date, words|
     = link_to words.join(", "), new_card_path(card: {observ_date: date}), class: 'suggest-date'
-  \|
-  %b Import from ebird:
-  = form_tag import_cards_path, method: :get, class: "ebird_import_form" do
-    = text_field_tag :ebird_id
-    = submit_tag "Submit", name: nil
 
 - if alert
   %p.errors= alert
@@ -46,9 +41,6 @@
       %div.fast-locus-container
         - CardsHelper::FAST_LOCI.filter_map {|slug| fast_loci[slug]}.each do |loc|
           %span.pseudolink.fast_locus= loc.name_en
-    - if @ebird_location
-      %br
-      %b= @ebird_location
 
     - @card.main_post.if_present do |blogpost|
       = form.input :post_core_id, label: post_link(blogpost.decorated.title, blogpost),

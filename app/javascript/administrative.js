@@ -8,7 +8,6 @@ import './src/admin/shared/wiki-fields';
 import './src/admin/cards/form';
 import './src/admin/cards/motorless';
 
-import './src/admin/ebird/importer';
 import './src/admin/ebird/submissions';
 
 import './src/admin/flickr/search';

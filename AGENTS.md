@@ -20,7 +20,7 @@ Quails is a Ruby on Rails application for tracking and sharing birdwatching acti
 ```
 app/
   cells/           # View components (year progress, summary)
-  channels/        # ActionCable channels (eBird imports)
+  channels/        # ActionCable channels
   controllers/     # Standard Rails + API namespace
   decorators/      # Decorator pattern for models
   formatters/      # Text formatting (wiki, paragraphs)
@@ -31,7 +31,6 @@ app/
   views/           # HAML templates
 
 lib/
-  ebird/           # eBird integration
   export/          # Data export utilities
   quails/          # Core application modules
   tasks/           # Rake tasks
@@ -128,7 +127,7 @@ bin/rails db:seed
 ## External Integrations
 
 - **Flickr**: Photo management (`flickraw-cached`)
-- **eBird**: Observation import/export
+- **eBird**: Observation export (CSV)
 - **LiveJournal**: Blog cross-posting
 - **AWS S3**: File storage (ActiveStorage)
 - **Honeybadger**: Error monitoring
