@@ -56,6 +56,13 @@ class ObservationSearchTest < ActiveSupport::TestCase
     assert_not_includes ObservationSearch.new(voice: false).observations, ob3
   end
 
+  test "voice and hidden conditions are ignored when these filters are disabled" do
+    ob3 = create(:observation, voice: true)
+    search = ObservationSearch.new(voice: false, only_hidden: true).hide_observation_fields
+    assert_predicate search, :observation_fields_hidden?
+    assert_includes search.observations, ob3
+  end
+
   test "search cards by locus exclusive" do
     assert_equal 2, ObservationSearch.new(locus_id: loci(:kyiv).id).cards.to_a.size
   end

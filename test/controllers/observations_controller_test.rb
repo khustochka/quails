@@ -65,6 +65,8 @@ class ObservationsControllerTest < ActionController::TestCase
     login_as_admin
     get :move, params: { obs: [obs1.id, obs2.id] }
     assert_response :success
+    assert_select "input[name='q[voice]']", false
+    assert_select "input[name='q[only_hidden]']", false
   end
 
   # auth tests

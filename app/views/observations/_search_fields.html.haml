@@ -14,13 +14,19 @@
   %label
     = form.input_field :include_subregions, as: :boolean, unchecked_value: nil
     Include subregions
-%div.input
-  = render partial: form.object.voice_fieldset, locals: {form: form}
-  %hr
-  %div
-    %label
-      = form.input_field :only_hidden, as: :boolean, unchecked_value: nil
-      Hidden obs
+- unless form.object.observation_fields_hidden?
+  %div.input
+    %div.optional.voice_radio_group
+      = form.collection_radio_buttons :voice, [["", "All"], [false, "Seen"], [true, "Heard only"]], :first, :last,
+                                      include_hidden: false do |b|
+        -# Explicit ids: for the blank value Rails 8.1.4 generates mismatched input id and label for.
+        - id = "q_voice_#{b.value.to_s.presence || "all"}"
+        = b.radio_button(id: id) + b.label(for: id, class: "collection_radio_buttons")
+    %hr
+    %div
+      %label
+        = form.input_field :only_hidden, as: :boolean, unchecked_value: nil
+        Hidden obs
 - form.object.card_id.if_present do |card_id|
   %div.input.optional
     = form.input :card_id, as: :boolean, label: link_to("Card #{card_id}", card_path(card_id)),

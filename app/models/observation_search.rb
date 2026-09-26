@@ -35,6 +35,7 @@ class ObservationSearch
     conditions2 = conditions.to_h
     all_conditions = conditions2.slice(*ALL_ATTRIBUTES).select { |_, v| v.meaningful? }
 
+    @observation_fields_hidden = false
     super(all_conditions)
     extend_attributes
   end
@@ -46,7 +47,20 @@ class ObservationSearch
     end
   end
 
+  # Hides voice and hidden-obs fields where they are irrelevant (e.g. choosing a card)
+  # and resets their conditions.
+  def hide_observation_fields
+    @observation_fields_hidden = true
+    self.voice = nil
+    self.only_hidden = nil
+    self
+  end
+
   # Properties
+  def observation_fields_hidden?
+    @observation_fields_hidden
+  end
+
   def observation_filtered?
     OBSERVATION_ATTRIBUTES.any? { |key| public_send(key).meaningful? }
   end
@@ -73,10 +87,6 @@ class ObservationSearch
 
   def dates_fieldset
     SimplePartial.new("observations/search/dates_fieldset")
-  end
-
-  def voice_fieldset
-    SimplePartial.new("observations/search/voice_fieldset")
   end
 
   def load_card

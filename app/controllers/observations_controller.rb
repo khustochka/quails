@@ -66,5 +66,6 @@ class ObservationsController < ApplicationController
 
     @card = @observations.first.card
     @observation_search = ObservationSearch.new(observ_date: @card.observ_date, locus_id: @card.locus_id)
+      .hide_observation_fields
   end
 end

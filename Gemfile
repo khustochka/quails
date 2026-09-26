@@ -4,7 +4,7 @@ source "https://gem.coop"
 
 ruby ">= 3.2"
 
-VERSION = "8.1.3.1"
+VERSION = "8.1.4"
 # gem "rails", VERSION
 gem "activemodel",   VERSION
 gem "activejob",     VERSION
@@ -18,7 +18,7 @@ gem "actioncable",   VERSION
 gem "railties",      VERSION
 
 gem "pg"
-gem "redis", "~> 5.4.1"
+gem "redis"
 gem "hiredis-client"
 gem "rails-brotli-cache"
 gem "brotli"
@@ -110,8 +110,6 @@ gem "shellwords"
 # drb references observer but does not list it as a dependency.
 gem "drb"
 gem "observer"
-
-gem "json", "~> 2.21"
 
 group :development do
   gem "listen" # required for tracking file changes in development
