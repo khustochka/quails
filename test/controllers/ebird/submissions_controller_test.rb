@@ -24,6 +24,8 @@ class EBird::SubmissionsControllerTest < ActionController::TestCase
     get :new
     assert assigns(:file)
     assert_response :success
+    assert_select "input[name='q[voice]']", false
+    assert_select "input[name='q[only_hidden]']", false
   end
 
   test "new ebird with search" do

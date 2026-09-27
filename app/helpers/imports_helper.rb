@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module ExternalChecklistsHelper
+module ImportsHelper
   STATUS_ICONS = {
     "pending" => "fa-clock",
     "requested" => "fa-spinner fa-spin",

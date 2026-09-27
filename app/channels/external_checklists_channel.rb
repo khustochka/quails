@@ -9,8 +9,8 @@ class ExternalChecklistsChannel < ApplicationCable::Channel
 
   def self.broadcast_list(upserted:)
     # rack.session is needed for the form to include the authenticity token input; the page replaces its value.
-    renderer = ExternalChecklistsController.renderer.new("rack.session" => {})
-    html = renderer.render(partial: "external_checklists/list",
+    renderer = ImportsController.renderer.new("rack.session" => {})
+    html = renderer.render(partial: "imports/list",
       locals: { checklists: ExternalChecklist.reviewable.newest_first, loci: Locus.suggestion_order,
                 last_preload_at: ExternalChecklist.last_preload_at, })
     broadcast_to(:external_checklists, { html: html, upserted: upserted })
@@ -18,7 +18,7 @@ class ExternalChecklistsChannel < ApplicationCable::Channel
 
   def self.broadcast_status(checklist)
     card = Card.find_by(ebird_id: checklist.external_id) if checklist.imported?
-    status_html = ExternalChecklistsController.render(partial: "external_checklists/status", locals: { checklist: checklist })
+    status_html = ImportsController.render(partial: "imports/status", locals: { checklist: checklist })
     broadcast_to(:external_checklists, { checklist: {
       id: checklist.id, status: checklist.status, status_html: status_html,
       card_url: card && Rails.application.routes.url_helpers.card_path(card),

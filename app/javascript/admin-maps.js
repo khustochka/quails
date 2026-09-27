@@ -3,14 +3,12 @@ import { initLocusEdit } from "./src/admin-maps/locus-edit";
 import { initMapEdit } from "./src/admin-maps/map-edit";
 import { initMapGlobal } from "./src/admin-maps/map-global";
 import { initMediaMappable } from "./src/admin-maps/media-mappable";
-import { initEbirdAlerts } from "./src/admin-maps/ebird-alerts";
 
 var modes = {
   "locus-edit": initLocusEdit,
   "map-edit": initMapEdit,
   "map-global": initMapGlobal,
-  "media-mappable": initMediaMappable,
-  "ebird-alerts": initEbirdAlerts
+  "media-mappable": initMediaMappable
 };
 
 document.addEventListener("DOMContentLoaded", function () {

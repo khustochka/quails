@@ -14,12 +14,24 @@ class CardsControllerTest < ActionController::TestCase
     get :index
     assert_response :success
     assert_not_nil assigns(:cards)
+    assert_select "input[name='q[voice]']"
+    assert_select "input[name='q[only_hidden]']"
   end
 
   test "should get index (xhr)" do
     get :index, xhr: true
     assert_response :success
     assert_not_nil assigns(:cards)
+  end
+
+  test "voice radio labels point to their inputs" do
+    get :index
+    inputs = css_select(".voice_radio_group input[type=radio]")
+    assert_equal 3, inputs.size
+    inputs.each do |input|
+      assert_select ".voice_radio_group label[for=?]", input["id"]
+    end
+    assert_select "input#q_voice_all[value='']"
   end
 
   test "should get new" do

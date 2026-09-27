@@ -220,9 +220,6 @@ Rails.application.routes.draw do
     member do
       post :attach
     end
-    collection do
-      get :import
-    end
   end
 
   resources :days, only: [:index, :show]
@@ -332,7 +329,7 @@ Rails.application.routes.draw do
   get "/flickr" => "flickr#index"
   get "/flickr/auth" => "flickr#auth"
 
-  resources :external_checklists, only: [:index] do
+  resources :imports, only: [:index] do
     collection do
       post :import
       post :preload
@@ -344,13 +341,6 @@ Rails.application.routes.draw do
     resources :submissions, except: [:edit] do
       post :regenerate, on: :member
     end
-    resources :imports, only: [:index, :create] do
-      collection do
-        post :refresh
-      end
-    end
-    get "alerts" => "alerts#index", as: :alerts
-    post "alerts/refresh" => "alerts#refresh", as: :alerts_refresh
   end
 
   # GoodJob web UI

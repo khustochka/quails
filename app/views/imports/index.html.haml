@@ -1,18 +1,21 @@
 -# frozen_string_literal: true
 - stylesheet "forms"
 
-- @page_title = "External Checklists"
-
-= render "admin/shortcuts"
+- @page_title = "Import checklists"
 
 %h1= page_header
+
+- provide :add_shortcuts do
+  %li= link_to "Export to eBird", ebird_submissions_path
+
+= render "admin/shortcuts"
 
 - if notice
   %p= notice
 - if alert
   %p= alert
 
-= button_to "Request preload", preload_external_checklists_path,
+= button_to "Request preload", preload_imports_path,
             method: :post, remote: true, class: "button",
             form: {data: {external_checklists_preload: true}}
 

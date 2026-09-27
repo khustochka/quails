@@ -2,7 +2,7 @@
 
 require "test_helper"
 
-class ExternalChecklistsControllerTest < ActionController::TestCase
+class ImportsControllerTest < ActionController::TestCase
   test "user does not see the review page" do
     assert_raise(ActionController::RoutingError) { get :index }
   end
@@ -19,6 +19,7 @@ class ExternalChecklistsControllerTest < ActionController::TestCase
     assert_equal [failed, old], assigns(:checklists).to_a
     assert_select "select.locus_select", 2
     assert_select "td", text: /Boom/
+    assert_select "a[href=?]", ebird_submissions_path
   end
 
   test "checklist links to provided URL or to eBird" do
@@ -37,7 +38,7 @@ class ExternalChecklistsControllerTest < ActionController::TestCase
     get :index
 
     assert_response :success
-    assert_select "form[action=?]", import_external_checklists_path, false
+    assert_select "form[action=?]", import_imports_path, false
     assert_select "p", "No checklists to review."
   end
 
@@ -81,7 +82,7 @@ class ExternalChecklistsControllerTest < ActionController::TestCase
       } }
     end
 
-    assert_redirected_to external_checklists_path
+    assert_redirected_to imports_path
     assert_equal "Import of 1 checklists requested.", flash[:notice]
     assert_requested stub
     assert_equal locus, to_set.reload.locus
@@ -97,7 +98,7 @@ class ExternalChecklistsControllerTest < ActionController::TestCase
     login_as_admin
     post :import, params: { c: { checklist.id => { locus_id: "" } } }
 
-    assert_redirected_to external_checklists_path
+    assert_redirected_to imports_path
     assert_equal "No checklists with a locus to import.", flash[:notice]
     assert_predicate checklist.reload, :pending?
   end
@@ -109,7 +110,7 @@ class ExternalChecklistsControllerTest < ActionController::TestCase
     login_as_admin
     with_birdnik_url { post :import }
 
-    assert_redirected_to external_checklists_path
+    assert_redirected_to imports_path
     assert_equal "Import request failed: Birdnik responded with 503.", flash[:alert]
     assert_predicate checklist.reload, :failed?
   end
@@ -165,7 +166,7 @@ class ExternalChecklistsControllerTest < ActionController::TestCase
     login_as_admin
     with_birdnik_url { post :preload }
 
-    assert_redirected_to external_checklists_path
+    assert_redirected_to imports_path
     assert_equal "Preload requested.", flash[:notice]
   end
 
@@ -218,7 +219,7 @@ class ExternalChecklistsControllerTest < ActionController::TestCase
     login_as_admin
     post :import, params: { commit: "Import", authenticity_token: "token", c: { checklist.id => { locus_id: "" } } }
 
-    assert_redirected_to external_checklists_path
+    assert_redirected_to imports_path
   ensure
     ActionController::Parameters.action_on_unpermitted_parameters = original
   end

@@ -6,7 +6,7 @@
 - if checklists.empty?
   %p No checklists to review.
 - else
-  = form_tag import_external_checklists_path, remote: true, autocomplete: "off", data: {external_checklists_import: true} do
+  = form_tag import_imports_path, remote: true, autocomplete: "off", data: {external_checklists_import: true} do
     %table.neat_table
       %tr
         %th ID
@@ -26,7 +26,7 @@
           %td= checklist.county
           %td= checklist.state_prov
           %td.checklist-status-td{data: {external_checklist_status: true}}
-            = render "external_checklists/status", checklist: checklist
+            = render "imports/status", checklist: checklist
           %td.locus-select-td{data: {external_checklist_locus: true}}
             = select_tag "c[#{checklist.id}][locus_id]",
                   options_from_collection_for_select(loci, :id, :to_label, checklist.locus_id || checklist.suggested_locus_id),

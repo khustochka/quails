@@ -3,7 +3,7 @@
 if ENV["QUAILS_DD_ENABLED"].in?(["true", "1"])
   require "datadog/auto_instrument"
 
-  TRACED_TASKS = ["quails:five_mr:refresh", "quails:ebird:checklists_preload", "quails:email:test"]
+  TRACED_TASKS = ["quails:five_mr:refresh", "quails:email:test"]
 
   Datadog.configure do |c|
     if Dir.pwd =~ %r{releases/(\d{14})$}

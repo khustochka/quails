@@ -46,4 +46,4 @@
 
 %ol
   - @card.observations.preload(:taxon).find_each do |obs|
-    = render 'observation_row', obs: obs
+    = render 'cards/observation_row', obs: obs

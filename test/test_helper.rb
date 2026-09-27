@@ -18,21 +18,12 @@ if %w(true 1).include?(ENV["COVERAGE"])
     skip "app/models/ioc_taxon.rb"
     skip "app/models/flickr_upload.rb"
     skip "app/controllers/content_security_controller.rb"
-    skip "app/controllers/ebird/alerts_controller.rb"
     skip "app/controllers/flickr_controller.rb"
     skip "app/channels/"
 
-    # Jobs that only do eBird/Flickr round trips.
-    skip "app/jobs/ebird/alert_preload_job.rb"
-    skip "app/jobs/ebird/alert_refresh_all_job.rb"
-    skip "app/jobs/ebird/checklist_fix_job.rb"
-    skip "app/jobs/ebird/checklist_import_job.rb"
+    # Jobs that only do Flickr round trips.
     skip "app/jobs/flickr_to_storage_job.rb"
     skip "app/jobs/flickr_upload_job.rb"
-    skip "lib/ebird/checklist.rb"
-    skip "lib/ebird/client.rb"
-    skip "lib/ebird/alert.rb"
-    skip "lib/ebird/service.rb"
     skip "lib/flickr/client.rb"
 
     # These are tested, but cannot be measured: they load during boot, before the

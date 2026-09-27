@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Review of checklists preloaded from Birdnik: assigning loci and requesting import.
-class ExternalChecklistsController < ApplicationController
+class ImportsController < ApplicationController
   administrative
 
   def index
@@ -42,7 +42,7 @@ class ExternalChecklistsController < ApplicationController
     if request.xhr?
       render json: { message: message }, status: status
     else
-      redirect_to external_checklists_path, flash_type => message
+      redirect_to imports_path, flash_type => message
     end
   end
 end

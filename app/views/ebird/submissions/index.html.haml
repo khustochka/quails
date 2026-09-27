@@ -1,9 +1,6 @@
 -# frozen_string_literal: true
 - @page_title = 'eBird Submissions'
 
-- content_for :add_shortcuts do
-  %li= link_to "eBird Imports", ebird_imports_path
-
 %h1= page_header
 
 = render 'admin/shortcuts' if current_user.admin?
@@ -39,8 +36,8 @@
       %td.status-line
         = render partial: 'status_line', locals: {file: file}
       %td
-        = link_to(tag.span(class: "fas fa-times-circle destroy-icon fa-lg", title: 'Destroy', alt: 'Destroy'),
+        = link_to(tag.span(class: "fas fa-times-circle fa-lg", title: 'Destroy', alt: 'Destroy'),
               ebird_submission_path(file.id), data: {confirm: 'Object will be DESTROYED!'},
-              method: :delete, class: 'destroy')
+              method: :delete, class: 'not-green destroy')
 
 = paginate @files
