@@ -6,7 +6,7 @@
 - if checklists.empty?
   %p No checklists to review.
 - else
-  = form_tag import_external_checklists_path, remote: true, data: {external_checklists_import: true} do
+  = form_tag import_external_checklists_path, remote: true, autocomplete: "off", data: {external_checklists_import: true} do
     %table.neat_table
       %tr
         %th ID
