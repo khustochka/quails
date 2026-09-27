@@ -21,6 +21,17 @@ class ExternalChecklistsControllerTest < ActionController::TestCase
     assert_select "td", text: /Boom/
   end
 
+  test "checklist links to provided URL or to eBird" do
+    with_url = create(:external_checklist, url: "https://birdnik.example/checklists/S1")
+    without_url = create(:external_checklist)
+
+    login_as_admin
+    get :index
+
+    assert_select "a[href=?]", "https://birdnik.example/checklists/S1", with_url.external_id
+    assert_select "a[href=?]", "https://ebird.org/checklist/#{without_url.external_id}", without_url.external_id
+  end
+
   test "admin sees a message when there is nothing to review" do
     login_as_admin
     get :index

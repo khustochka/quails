@@ -3,7 +3,7 @@
 # Checklist preloaded from Birdnik, awaiting review and import as a Card.
 class ExternalChecklist < ApplicationRecord
   STATUSES = %w(pending requested imported failed)
-  PRELOAD_ATTRIBUTES = %w(external_id time location county state_prov)
+  PRELOAD_ATTRIBUTES = %w(external_id time location county state_prov url)
 
   enum :status, STATUSES.index_by(&:itself), default: "pending", validate: true
 
@@ -40,6 +40,11 @@ class ExternalChecklist < ApplicationRecord
       upsert_all(rows, unique_by: :external_id, update_only: PRELOAD_ATTRIBUTES - ["external_id"]) if rows.any?
     end
     rows.size
+  end
+
+  # Birdnik-provided URL, falling back to the eBird checklist page.
+  def link_url
+    url.presence || "https://ebird.org/checklist/#{external_id}"
   end
 
   def suggested_locus_id

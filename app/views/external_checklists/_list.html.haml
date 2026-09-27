@@ -19,7 +19,7 @@
 
       - checklists.each do |checklist|
         %tr{data: {external_checklist_id: checklist.id}}
-          %td= checklist.external_id
+          %td= link_to checklist.external_id, checklist.link_url, target: :_blank, rel: :noopener, tabindex: -1
           %td
             %nobr= checklist.time
           %td= checklist.location
@@ -31,5 +31,5 @@
             = select_tag "c[#{checklist.id}][locus_id]",
                   options_from_collection_for_select(loci, :id, :to_label, checklist.locus_id || checklist.suggested_locus_id),
                   include_blank: true, class: "locus_select", "aria-label": "Locus for #{checklist.external_id}"
-            = link_to "Create new", new_locus_path(locus: {name_en: checklist.location, parent_id: checklist.suggested_parent_id}), target: :_blank, rel: :noopener
+            = link_to "Create new", new_locus_path(locus: {name_en: checklist.location, parent_id: checklist.suggested_parent_id}), target: :_blank, rel: :noopener, tabindex: -1
     = submit_tag "Import"

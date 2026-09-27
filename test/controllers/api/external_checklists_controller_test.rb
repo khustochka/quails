@@ -12,7 +12,8 @@ module API
       create(:card, ebird_id: "S1")
       checklists = [
         { external_id: "S1", location: "Brovary" },
-        { external_id: "S2", time: "23 Sep 2026 7:15 AM", location: "Brovary", county: "Brovarskyi", state_prov: "Kyiv, Ukraine" },
+        { external_id: "S2", time: "23 Sep 2026 7:15 AM", location: "Brovary", county: "Brovarskyi", state_prov: "Kyiv, Ukraine",
+          url: "https://birdnik.example/checklists/S2", },
       ]
       post api_external_checklists_url, params: { checklists: checklists }, as: :json, headers: AUTH
 
@@ -21,6 +22,7 @@ module API
       checklist = ExternalChecklist.sole
       assert_equal "S2", checklist.external_id
       assert_equal "Kyiv, Ukraine", checklist.state_prov
+      assert_equal "https://birdnik.example/checklists/S2", checklist.url
     end
 
     test "accepts token-authenticated request with forgery protection enabled" do

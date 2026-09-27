@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_23_205503) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_27_151531) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
@@ -157,6 +157,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_23_205503) do
     t.string "status", default: "pending", null: false
     t.string "time"
     t.datetime "updated_at", null: false
+    t.string "url"
     t.index ["external_id"], name: "index_external_checklists_on_external_id", unique: true
     t.index ["locus_id"], name: "index_external_checklists_on_locus_id"
   end
