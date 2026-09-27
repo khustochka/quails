@@ -11,8 +11,14 @@ document.addEventListener("DOMContentLoaded", function () {
   const status = document.querySelector("[data-external-checklists-status]");
   let awaitingPreload = false;
 
-  function showStatus(text) {
+  function showStatus(text, { busy = false } = {}) {
     status.textContent = text;
+    if (busy) {
+      const spinner = document.createElement("span");
+      spinner.className = "fas fa-spinner fa-spin checklists-status-spinner";
+      spinner.setAttribute("aria-hidden", "true");
+      status.prepend(spinner);
+    }
   }
 
   function replaceList(html) {
@@ -57,7 +63,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // Set on send, not on success: Birdnik may push before the request's response arrives.
   preloadForm.addEventListener("ajax:send", function () {
     awaitingPreload = true;
-    showStatus("Waiting for Birdnik to preload the checklists…");
+    showStatus("Waiting for Birdnik to preload the checklists…", { busy: true });
   });
 
   preloadForm.addEventListener("ajax:error", function (e) {
