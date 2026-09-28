@@ -21,9 +21,13 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+  function enhanceLocusSelects() {
+    container.querySelectorAll("select.locus_select").forEach(sel => selectCombobox(sel));
+  }
+
   function replaceList(html) {
     container.innerHTML = html;
-    container.querySelectorAll("select.locus_select").forEach(sel => selectCombobox(sel));
+    enhanceLocusSelects();
     const paramName = document.querySelector("meta[name=csrf-param]")?.content;
     const tokenInput = paramName && container.querySelector(`input[name="${paramName}"]`);
     if (tokenInput) tokenInput.value = document.querySelector("meta[name=csrf-token]").content;
@@ -42,6 +46,8 @@ document.addEventListener("DOMContentLoaded", function () {
       row.querySelector("[data-external-checklist-locus]").replaceChildren(link);
     }
   }
+
+  enhanceLocusSelects();
 
   consumer.subscriptions.create({ channel: "ExternalChecklistsChannel" }, {
     received(data) {
