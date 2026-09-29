@@ -9,6 +9,9 @@ on:
       image_registry:
         type: string
         default: public.ecr.aws
+      platforms:
+        type: string
+        default: amd64
     secrets:
       AWS_ROLE_ARN:
         required: true
@@ -30,6 +33,13 @@ on:
         options:
           - public.ecr.aws
           - ghcr.io
+      platforms:
+        description: Platforms
+        type: choice
+        default: amd64
+        options:
+          - amd64
+          - amd64+arm64
 env:
   REGISTRY_IMAGE: ${{ inputs.image_registry == 'ghcr.io' && 'ghcr.io/khustochka/quails' || 'public.ecr.aws/m7x1i1o0/quails' }}
   AWS_REGION: us-east-1
@@ -43,13 +53,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        arch:
-          - name: "AMD64"
-            platform: linux/amd64
-            runner: ubuntu-24.04
-          - name: "ARM64"
-            platform: linux/arm64
-            runner: ubuntu-24.04-arm
+        arch: >-
+          ${{ fromJSON(inputs.platforms == 'amd64+arm64'
+            && '[{"name":"AMD64","platform":"linux/amd64","runner":"ubuntu-24.04"},{"name":"ARM64","platform":"linux/arm64","runner":"ubuntu-24.04-arm"}]'
+            || '[{"name":"AMD64","platform":"linux/amd64","runner":"ubuntu-24.04"}]') }}
     runs-on: ${{ matrix.arch.runner }}
     permissions:
       packages: write
