@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module API
-  # Receives checklist preloads and fetched checklists pushed by Birdnik. See doc/birdnik.md.
+  # Receives checklist preloads and fetched checklists pushed by Birdnik.
   class ExternalChecklistsController < APIController
     CHECKLIST_ATTRIBUTES = [
       :observ_date, :start_time, :protocol, :duration_minutes, :distance_kms, :area_acres, :observers, :notes, :complete,

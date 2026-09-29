@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ExternalChecklist
-  # Builds an unsaved Card from raw checklist data (eBird format, see doc/birdnik.md),
+  # Builds an unsaved Card from raw checklist data,
   # interpreting protocol, taxa and "heard only" comments.
   class CardBuilder
     class Error < StandardError

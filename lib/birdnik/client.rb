@@ -5,7 +5,6 @@ require "net/http"
 module Birdnik
   # HTTP client for Birdnik, the service that provides external checklists for importing.
   # Birdnik acknowledges requests immediately and pushes results to the given callback URL.
-  # See doc/birdnik.md.
   class Client
     class Error < StandardError
     end

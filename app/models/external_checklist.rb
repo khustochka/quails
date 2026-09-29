@@ -77,7 +77,7 @@ class ExternalChecklist < ApplicationRecord
     where(id: checklists).find_each(&:broadcast_status)
   end
 
-  # Imports checklist +data+ (see doc/birdnik.md) as a Card at the selected locus.
+  # Imports checklist +data+ as a Card at the selected locus.
   # On failure the checklist is marked failed and nil is returned.
   def import(data)
     return fail_with("No locus selected.") unless locus
