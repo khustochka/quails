@@ -33,6 +33,25 @@ class ImportsControllerTest < ActionController::TestCase
     assert_select "a[href=?]", "https://ebird.org/checklist/#{without_url.external_id}", without_url.external_id
   end
 
+  test "admin menu shows the number of pending imports" do
+    create_list(:external_checklist, 2)
+    create(:external_checklist, status: "failed")
+
+    login_as_admin
+    get :index
+
+    assert_select ".admin_menu a[href=?]", imports_path, "Imports (2)"
+  end
+
+  test "admin menu shows no count when there are no pending imports" do
+    create(:external_checklist, status: "imported")
+
+    login_as_admin
+    get :index
+
+    assert_select ".admin_menu a[href=?]", imports_path, "Imports"
+  end
+
   test "admin sees a message when there is nothing to review" do
     login_as_admin
     get :index

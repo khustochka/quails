@@ -7,7 +7,13 @@
     %li= link_to 'Posts', posts_path
     %li= link_to 'Species', admin_species_index_path
     %li= link_to 'Cards', cards_path
-    %li= link_to 'Imports', imports_path
+    %li
+      - pending_imports = ExternalChecklist.pending.count
+      = link_to imports_path do
+        Imports
+        - if pending_imports.positive?
+          = surround "(", ")" do
+            = pending_imports
     %li= link_to 'Comments', admin_comments_path
     %li= link_to 'Locations', loci_path
     %li= link_to 'Reports', reports_path
