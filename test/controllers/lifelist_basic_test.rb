@@ -31,6 +31,19 @@ class LifelistBasicTest < ActionController::TestCase
     end
   end
 
+  test "admin sees card links next to lifer dates" do
+    login_as_admin
+    get :basic
+    assert_response :success
+    assert_select ".lifer-place a[href='#{card_path(@obs.first.card)}']"
+  end
+
+  test "visitor does not see card links" do
+    get :basic
+    assert_response :success
+    assert_select ".lifer-place a[href='#{card_path(@obs.first.card)}']", false
+  end
+
   test "show default lifelist" do
     get :basic
     assert_response :success

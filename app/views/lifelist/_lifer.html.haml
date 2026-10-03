@@ -15,4 +15,6 @@
       %span{class: "block text-sm mt-0.5 text-neutral-700"}= lifer.species.name_en
   .lifer-place{class: "col-start-2 md:col-start-3 text-[0.9375rem] leading-snug text-right"}
     = post_link(tag.time(l(lifer.card.observ_date, format: :long), datetime: lifer.card.observ_date.iso8601), lifer.main_post, true)
+    - if current_user.admin?
+      %a.far.fa-file-alt.not-green{href: card_path(lifer.card), title: "Card", "aria-label": "Card"}
     %span{class: "block text-sm mt-0.5 italic text-neutral-600"}= lifer.locus.public_locus.decorated.full_name
