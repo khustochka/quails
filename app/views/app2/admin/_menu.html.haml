@@ -11,7 +11,8 @@
       = admin_menu_item "Posts", posts_path
       = admin_menu_item "Species", admin_species_index_path
       = admin_menu_item "Cards", cards_path
-      = admin_menu_item "eBird", ebird_path
+      - pending_imports = ExternalChecklist.pending.count
+      = admin_menu_item pending_imports.positive? ? "Imports (#{pending_imports})" : "Imports", imports_path
       = admin_menu_item "Comments", admin_comments_path
       = admin_menu_item "Locations", loci_path
       = admin_menu_item "Reports", reports_path
