@@ -200,10 +200,11 @@ document.addEventListener("DOMContentLoaded", function () {
           var el = createClusterElement(ids.length);
           var marker = new google.maps.marker.AdvancedMarkerElement({
             position: { lat: parseFloat(parts[0]), lng: parseFloat(parts[1]) },
-            content: el
+            content: el,
+            gmpClickable: true
           });
           marker._mediaIds = ids;
-          marker.addListener("gmp-click", function () {
+          marker.addEventListener("gmp-click", function () {
             showPhotos({ markers: [this], marker: this }, map);
           });
           markers.push(marker);

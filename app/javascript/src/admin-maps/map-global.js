@@ -93,13 +93,14 @@ export function initMapGlobal(mapEl) {
         var marker = new google.maps.marker.AdvancedMarkerElement({
           position: { lat: locus.lat, lng: locus.lon },
           content: el,
-          zIndex: locus.cards
+          zIndex: locus.cards,
+          gmpClickable: true
         });
 
         marker._bits = bitmaps.build(locus.species);
         marker._cards = locus.cards;
 
-        marker.addListener("gmp-click", function () {
+        marker.addEventListener("gmp-click", function () {
           var content = document.createElement("div");
           content.className = "map-locus-info";
 
