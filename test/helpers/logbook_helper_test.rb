@@ -44,6 +44,12 @@ class LogbookHelperTest < ActionView::TestCase
     assert_nil Nokogiri::HTML.fragment(logbook_species(area_lifer)).at("strong")
   end
 
+  test "World lifer entries have a star" do
+    assert Nokogiri::HTML.fragment(logbook_entry_label(entry(type: :life))).at(".fa-star[aria-hidden=true]")
+    assert_nil Nokogiri::HTML.fragment(logbook_entry_label(entry(type: :life, locus: loci(:ukraine)))).at(".fa-star")
+    assert_nil Nokogiri::HTML.fragment(logbook_entry_label(entry(type: :year, year: 2024))).at(".fa-star")
+  end
+
   test "totals link to species anchors in lifelists" do
     html = Nokogiri::HTML.fragment(logbook_entry_label(entry(type: :year, locus: loci(:ukraine), year: 2024)))
 

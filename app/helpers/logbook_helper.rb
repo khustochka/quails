@@ -9,7 +9,8 @@ module LogbookHelper
     covered = entry.covered.map do |locus, total|
       safe_join([", new species in #{locus.name_en} ", logbook_total_link(total, locus)])
     end
-    safe_join([label, *covered])
+    star = logbook_star if entry.type == :life && entry.locus.nil?
+    safe_join([star, label, *covered].compact)
   end
 
   # Species of a Logbook::Entry; World lifers are emphasized.
@@ -23,6 +24,10 @@ module LogbookHelper
   end
 
   private
+
+  def logbook_star
+    tag.span(class: "fas fa-star logbook-star", "aria-hidden": "true")
+  end
 
   def logbook_list_title(entry)
     count = entry.observations.size
