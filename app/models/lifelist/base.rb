@@ -40,7 +40,7 @@ module Lifelist
       Observation.merge(observation_scope).where.not(species_id: nil).refine(normalized_filter).joins(:card)
     end
 
-    DATE_ORDERING = "observ_date DESC, to_timestamp(start_time, 'HH24:MI') DESC NULLS LAST, created_at DESC"
+    DATE_ORDERING = "observ_date DESC, to_timestamp(start_time, 'HH24:MI') DESC NULLS LAST, created_at DESC, id DESC"
 
     def ordering
       case @sorting

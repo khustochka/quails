@@ -22,10 +22,10 @@
 - else
   %dl.logbook
     - @entries.each do |date, entries|
-      %dt= link_to(tag.time(l(date, format: "%-d %b %Y"), datetime: date.iso8601), day_path(date))
+      %dt= link_to(tag.time(l(date, format: "%-d %b %Y"), datetime: date.iso8601), day_path(date), class: "not-green")
       %dd
         %ul
           - entries.each do |entry|
             %li
-              = safe_join([logbook_entry_label(entry), ": ",
-                safe_join(entry.observations.map { |obs| species_link(obs.species) }, ", ")])
+              %span.logbook-label= safe_join([logbook_entry_label(entry), ":"])
+              = logbook_species(entry)

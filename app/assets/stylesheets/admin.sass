@@ -305,46 +305,93 @@ table.neat_table.statistics
       margin: 6px 0 0 0
       font-size: 12px
 
-table.neat_table.logbook-settings
+table.logbook-settings
+  border-collapse: collapse
+  margin: 1em 0
+  width: 100%
+  max-width: 32em
+  th, td
+    padding: 0.45em 0.6em
+    border-bottom: 1px solid #e7e5e4
+  thead th
+    border-bottom: 2px solid #d6d3d1
+    color: #57534e
+    font-weight: 600
+    text-align: center
+    &:first-child
+      text-align: left
   th[scope="row"]
     text-align: left
     font-weight: normal
     &.nested
       padding-left: 2em
+      color: #57534e
   td
     text-align: center
+    width: 5em
+  tbody tr:hover
+    background-color: #fafaf9
 
 ul.logbook-years
   list-style: none
   padding-left: 0
-  li
+  margin: 1.2em 0 1.5em
+  display: flex
+  flex-wrap: wrap
+  gap: 0.4em
+  li > *
     display: inline-block
-    margin: 0 0.6em 0.4em 0
-  span
-    font-weight: bold
+    padding: 0.15em 0.75em
+    border: 1px solid #d6d3d1
+    border-radius: 999px
+    font-size: 0.9em
+  li > span
+    background-color: #44403c
+    border-color: #44403c
+    color: white
+    font-weight: 600
 
 dl.logbook
+  margin: 1.5em 0
   dt
-    font-weight: bold
-    margin-top: 1em
+    color: #a8a29e
+    font-weight: normal
+    font-size: 0.92em
+    line-height: 1.6
+    padding-top: 0.1em
+    white-space: nowrap
+    margin-bottom: 0.3em
+    a
+      color: inherit
+      text-decoration: none
+      &:hover
+        color: #57534e
   dd
-    margin-left: 0
+    margin: 0 0 1.4em
     ul
-      margin: 0.3em 0 0
-      padding-left: 1.2em
+      list-style: none
+      margin: 0
+      padding: 0
     li
-      margin-bottom: 0.3em
+      line-height: 1.6
+      margin-bottom: 0.5em
+  .logbook-label
+    color: #57534e
   .logbook-total
-    color: #888
-    font-size: 0.9em
+    color: #a8a29e
+    font-size: 0.85em
+    a
+      color: inherit
+      text-decoration: underline
+      text-underline-offset: 2px
+      &:hover
+        color: #57534e
   @media (min-width: 700px)
     display: grid
     grid-template-columns: auto 1fr
-    column-gap: 2em
+    column-gap: 2.5em
     dt
       text-align: right
-      margin-top: 0.3em
+      margin-bottom: 0
     dd
-      margin-top: 0.3em
-      ul
-        margin-top: 0
+      margin-bottom: 1em

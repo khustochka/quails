@@ -2,14 +2,24 @@
 
 module LogbookHelper
   # Describes the list a Logbook::Entry was added to, e.g. "New for Manitoba 2025 (123)",
-  # followed by the covered life lists. List totals link to the corresponding lifelists.
+  # followed by the covered life lists. List totals link to the species' anchors in the
+  # corresponding lifelists.
   def logbook_entry_label(entry)
     label = safe_join([logbook_list_title(entry), " ", logbook_total_link(entry.list_total, entry.locus, entry.year)])
-    label = tag.strong(label) if entry.type == :life && entry.locus.nil?
     covered = entry.covered.map do |locus, total|
       safe_join([", new species in #{locus.name_en} ", logbook_total_link(total, locus)])
     end
     safe_join([label, *covered])
+  end
+
+  # Species of a Logbook::Entry; World lifers are emphasized.
+  def logbook_species(entry)
+    lifer = entry.type == :life && entry.locus.nil?
+    links = entry.observations.map do |obs|
+      link = species_link(obs.species)
+      lifer ? tag.strong(link) : link
+    end
+    safe_join(links, ", ")
   end
 
   private
@@ -36,7 +46,7 @@ module LogbookHelper
 
   def logbook_total_link(total, locus, year = nil)
     tag.span(class: "logbook-total") do
-      safe_join(["(", link_to(total, advanced_list_path(locus: locus&.slug, year: year, locale: nil)), ")"])
+      safe_join(["(", link_to(total, list_path(locus: locus&.slug, year: year, anchor: "lifer-#{total}"), class: "not-green"), ")"])
     end
   end
 end

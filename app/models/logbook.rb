@@ -123,11 +123,14 @@ class Logbook
     world = @settings.any? { |s| s.locus_id.nil? }
 
     base = @observation_scope.identified.joins(:card).select(
-      "observations.id AS obs_id, observations.species_id, cards.observ_date, cards.locus_id,
+      "observations.id AS obs_id, observations.created_at AS obs_created_at, observations.species_id,
+      cards.observ_date, cards.locus_id,
       to_timestamp(cards.start_time, 'HH24:MI') AS start_ts,
       EXTRACT(year FROM cards.observ_date)::integer AS obs_year"
     )
     order = "observ_date, start_ts NULLS LAST, obs_id"
+    # Matches the numbering of the lifelist (Lifelist::Base::DATE_ORDERING reversed).
+    list_order = "observ_date, start_ts NULLS FIRST, obs_created_at NULLS LAST, obs_id"
 
     sql = <<~SQL.squish
       WITH base AS (#{base.to_sql}),
@@ -147,7 +150,7 @@ class Logbook
           FROM scoped ORDER BY species_id, scope_id, obs_year, #{order})
       ),
       counted AS (
-        SELECT *, COUNT(*) OVER (PARTITION BY scope_id, year_scope ORDER BY #{order}) AS list_total
+        SELECT *, COUNT(*) OVER (PARTITION BY scope_id, year_scope ORDER BY #{list_order}) AS list_total
         FROM firsts
       )
       SELECT obs_id, species_id, observ_date, scope_id, year_scope, list_total

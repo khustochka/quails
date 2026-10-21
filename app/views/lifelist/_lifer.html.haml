@@ -7,7 +7,7 @@
 - if defined?(count_reached)
   - i = count_reached + lifer_counter
 
-%li{value: i}
+%li{value: i, id: ("lifer-#{i}" if defined?(total_count))}
   .leading-snug
     = species_link(lifer.species)
     = name_sci(lifer.species)

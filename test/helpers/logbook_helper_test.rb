@@ -3,6 +3,8 @@
 require "test_helper"
 
 class LogbookHelperTest < ActionView::TestCase
+  helper SpeciesHelper
+
   def entry(type:, locus: nil, year: nil, count: 1, covered: [])
     Logbook::Entry.new(type: type, locus: locus, year: year, observations: Array.new(count) { Observation.new },
       list_total: 10, covered: covered)
@@ -32,9 +34,19 @@ class LogbookHelperTest < ActionView::TestCase
       label(type: :life, covered: [[loci(:ukraine), 3], [loci(:kiev_obl), 2]])
   end
 
-  test "totals link to lifelists" do
+  test "World lifer species are emphasized" do
+    species = taxa(:pasdom).species
+    lifer = Logbook::Entry.new(type: :life, observations: [Observation.new(species: species)], covered: [])
+    area_lifer = Logbook::Entry.new(type: :life, locus: loci(:ukraine), observations: [Observation.new(species: species)],
+      covered: [])
+
+    assert Nokogiri::HTML.fragment(logbook_species(lifer)).at("strong a.sp_link")
+    assert_nil Nokogiri::HTML.fragment(logbook_species(area_lifer)).at("strong")
+  end
+
+  test "totals link to species anchors in lifelists" do
     html = Nokogiri::HTML.fragment(logbook_entry_label(entry(type: :year, locus: loci(:ukraine), year: 2024)))
 
-    assert_equal advanced_list_path(locus: "ukraine", year: 2024, locale: nil), html.at("a")["href"]
+    assert_equal "/lifelist/ukraine/2024#lifer-10", html.at("a")["href"]
   end
 end

@@ -25,6 +25,17 @@ class LifelistBasicTest < ActionController::TestCase
     end
   end
 
+  test "lifers in date order have numbered anchors" do
+    get :basic
+    assert_select "li#lifer-5", text: /#{@obs[0].species.name_en}/
+    assert_select "li#lifer-1", text: /#{@obs[3].species.name_en}/
+  end
+
+  test "lifers in taxonomy order have no numbered anchors" do
+    get :basic, params: { sort: "taxonomy" }
+    assert_select "li[id^=lifer-]", false
+  end
+
   test "lifelist fails on invalid sort option" do
     assert_raise ActionController::RoutingError do
       get :basic, params: { sort: "by_moon_phase" }

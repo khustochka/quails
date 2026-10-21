@@ -100,6 +100,23 @@ class LogbookTest < ActiveSupport::TestCase
     assert_equal "kyiv", entry.observations.first.card.locus.slug
   end
 
+  test "species are ordered and counted as numbered in the lifelist" do
+    enable(nil)
+    timed = create(:observation, taxon: taxa(:pasdom),
+      card: create(:card, observ_date: "2024-05-01", start_time: "08:00"))
+    untimed1 = observe(:hirrus, "2024-05-01")
+    untimed2 = observe(:jyntor, "2024-05-01")
+    observe(:bomgar, "2024-04-01")
+
+    lifelist = Lifelist::FirstSeen.full.to_a
+    numbers = lifelist.each_with_index.to_h { |obs, i| [obs.species_id, lifelist.size - i] }
+    entry = Logbook.new.for_year(2024).assoc(Date.new(2024, 5, 1)).last.first
+
+    assert_equal [untimed1, untimed2, timed], entry.observations
+    assert_equal [2, 3, 4], entry.observations.map { |obs| numbers[obs.species_id] }
+    assert_equal 4, entry.list_total
+  end
+
   test "recent lists dates newest first, limited and cut off" do
     enable(nil)
     observe(:pasdom, 10.days.ago.to_date)
