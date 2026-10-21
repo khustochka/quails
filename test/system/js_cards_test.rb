@@ -76,7 +76,7 @@ class JSCardsTest < ApplicationSystemTestCase
 
     assert_equal "Passer domesticus - House Sparrow", field.value
 
-    assert_equal taxa(:pasdom).id.to_s, field.find(:xpath, "./following-sibling::input", visible: false).value
+    assert_equal taxa(:pasdom).id.to_s, field.find(:xpath, "./following-sibling::input", visible: :hidden).value
   end
 
   test "Remove row" do
@@ -195,12 +195,12 @@ class JSCardsTest < ApplicationSystemTestCase
 
     within(:xpath, "//div[contains(@class,'obs-row')][1]") do
       select_suggestion("Passer domesticus", from: "Taxon")
-      assert_equal taxa(:pasdom).id.to_s, find(:css, ".card_observations_taxon input.hidden", visible: false).value.to_s, "Taxon not selected properly"
+      assert_equal taxa(:pasdom).id.to_s, find(:css, ".card_observations_taxon input.hidden", visible: :hidden).value.to_s, "Taxon not selected properly"
     end
 
     within(:xpath, "//div[contains(@class,'obs-row')][2]") do
       select_suggestion("Hirundo rustica", from: "Taxon")
-      assert_equal taxa(:hirrus).id.to_s, find(:css, ".card_observations_taxon input.hidden", visible: false).value.to_s, "Taxon not selected properly"
+      assert_equal taxa(:hirrus).id.to_s, find(:css, ".card_observations_taxon input.hidden", visible: :hidden).value.to_s, "Taxon not selected properly"
     end
     assert_difference("Observation.count", 2) { save_and_check }
 

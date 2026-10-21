@@ -45,7 +45,7 @@ class PostCoresControllerTest < ActionController::TestCase
     assert_response :success
     assert_select "h3#card_attach"
     assert_select "form[data-cards-search]"
-    assert_select "input[name=new_post_core_id][value='#{core.id}']", count: 1, visible: false
+    assert_select "input[name=new_post_core_id][value='#{core.id}']", count: 1, visible: :hidden
   end
 
   test "edit links to the new card form for this core" do
