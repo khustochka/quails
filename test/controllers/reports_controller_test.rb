@@ -8,6 +8,7 @@ class ReportsControllerTest < ActionController::TestCase
     get :index
     assert_response :success
     assert_template "index"
+    assert_select "a[href='/logbook']"
   end
 
   test "user does not see reports/index" do
@@ -65,6 +66,7 @@ class ReportsControllerTest < ActionController::TestCase
     login_as_admin
     get :stats
     assert_response :success
+    assert_select ".admin-shortcuts a[href='/logbook']"
   end
 
   test "admin sees reports/stats filtered by location" do

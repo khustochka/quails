@@ -313,3 +313,38 @@ table.neat_table.logbook-settings
       padding-left: 2em
   td
     text-align: center
+
+ul.logbook-years
+  list-style: none
+  padding-left: 0
+  li
+    display: inline-block
+    margin: 0 0.6em 0.4em 0
+  span
+    font-weight: bold
+
+dl.logbook
+  dt
+    font-weight: bold
+    margin-top: 1em
+  dd
+    margin-left: 0
+    ul
+      margin: 0.3em 0 0
+      padding-left: 1.2em
+    li
+      margin-bottom: 0.3em
+  .logbook-total
+    color: #888
+    font-size: 0.9em
+  @media (min-width: 700px)
+    display: grid
+    grid-template-columns: auto 1fr
+    column-gap: 2em
+    dt
+      text-align: right
+      margin-top: 0.3em
+    dd
+      margin-top: 0.3em
+      ul
+        margin-top: 0

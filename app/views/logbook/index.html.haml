@@ -1,0 +1,31 @@
+-# frozen_string_literal: true
+- @page_title = ["Birding logbook", @year].compact.join(" – ")
+
+%h1= page_header
+
+- content_for :add_shortcuts do
+  %li= link_to "Logbook settings", logbook_settings_path
+
+= render "admin/shortcuts"
+
+%ul.horiz-list.logbook-years{"aria-label": "Year"}
+  %li= link_to_unless(@year.nil?, "Latest", logbook_path) { tag.span("Latest") }
+  - @years.each do |year|
+    %li= link_to_unless(@year == year, year, logbook_path(year: year)) { tag.span(year) }
+
+- if !@logbook_enabled
+  %p
+    No lists are selected for the logbook.
+    = link_to "Enable some in settings.", logbook_settings_path
+- elsif @entries.empty?
+  %p No additions.
+- else
+  %dl.logbook
+    - @entries.each do |date, entries|
+      %dt= link_to(tag.time(l(date, format: "%-d %b %Y"), datetime: date.iso8601), day_path(date))
+      %dd
+        %ul
+          - entries.each do |entry|
+            %li
+              = safe_join([logbook_entry_label(entry), ": ",
+                safe_join(entry.observations.map { |obs| species_link(obs.species) }, ", ")])

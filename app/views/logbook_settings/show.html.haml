@@ -4,6 +4,7 @@
 %h1= page_header
 
 - content_for :add_shortcuts do
+  %li= link_to "Logbook", logbook_path
   %li= link_to "All settings", settings_path
 
 = render "admin/shortcuts"

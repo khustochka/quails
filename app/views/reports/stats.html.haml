@@ -6,6 +6,9 @@
 
 %h1= reports_page_header
 
+%ul.horiz-list.admin-shortcuts
+  %li= link_to "Logbook", logbook_path
+
 = render 'filters/years'
 
 = render partial: 'filters/loci', locals: {loci_filter_label: 'Countries:'}
