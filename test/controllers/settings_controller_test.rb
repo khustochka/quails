@@ -7,6 +7,7 @@ class SettingsControllerTest < ActionController::TestCase
     login_as_admin
     get :index
     assert_template "index"
+    assert_select ".admin-shortcuts a[href='/settings/logbook']"
   end
 
   test "create new setting as a string" do

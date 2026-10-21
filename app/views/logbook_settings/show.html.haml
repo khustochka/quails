@@ -1,0 +1,37 @@
+-# frozen_string_literal: true
+- @page_title = "Logbook settings"
+
+%h1= page_header
+
+- content_for :add_shortcuts do
+  %li= link_to "All settings", settings_path
+
+= render "admin/shortcuts"
+
+- if notice
+  %p#notice= notice
+
+%p Choose which lists are reported in the logbook.
+
+= form_tag(logbook_settings_path, method: :patch) do
+  %table.neat_table.logbook-settings
+    %thead
+      %tr
+        %th{scope: "col"} Location
+        %th{scope: "col"} Life
+        %th{scope: "col"} Year
+    %tbody
+      - rows = [[nil, "World", false]] + @loci.map { |loc, nested| [loc.id, loc.name_en, nested] }
+      - rows.each do |locus_id, name, nested|
+        - key = locus_id || LogbookSettingsController::WORLD_KEY
+        - setting = @settings[locus_id]
+        %tr
+          %th{scope: "row", class: ("nested" if nested)}= name
+          - [:life, :year].each do |list|
+            %td
+              = hidden_field_tag("settings[#{key}][#{list}]", "0", id: nil)
+              = check_box_tag("settings[#{key}][#{list}]", "1", setting&.public_send(list),
+                id: "logbook_#{key}_#{list}", "aria-label": "#{name}: #{list} list")
+
+  %div.buttons
+    = submit_tag("Save", class: "button")

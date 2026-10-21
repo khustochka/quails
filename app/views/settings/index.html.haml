@@ -5,6 +5,11 @@
 
 %h1= page_header
 
+- content_for :add_shortcuts do
+  %li= link_to "Logbook settings", logbook_settings_path
+
+= render "admin/shortcuts"
+
 - if notice
   %p#notice= notice
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_10_154760) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_20_214331) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
@@ -329,6 +329,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_10_154760) do
     t.index ["slug"], name: "index_loci_on_slug", unique: true
   end
 
+  create_table "logbook_settings", force: :cascade do |t|
+    t.boolean "life", default: false, null: false
+    t.bigint "locus_id"
+    t.boolean "year", default: false, null: false
+    t.index ["locus_id"], name: "index_logbook_settings_on_locus_id", nulls_not_distinct: true, unique: true
+  end
+
   create_table "media", id: :serial, force: :cascade do |t|
     t.text "assets_cache", default: ""
     t.datetime "created_at", precision: nil
@@ -493,6 +500,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_10_154760) do
   add_foreign_key "local_species", "loci", on_delete: :cascade
   add_foreign_key "local_species", "species", on_delete: :cascade
   add_foreign_key "loci", "loci", column: "cached_public_locus_id"
+  add_foreign_key "logbook_settings", "loci", on_delete: :cascade
   add_foreign_key "media", "spots", on_delete: :nullify
   add_foreign_key "media_observations", "media", on_delete: :cascade
   add_foreign_key "media_observations", "observations", on_delete: :restrict

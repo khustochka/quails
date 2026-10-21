@@ -299,6 +299,8 @@ Rails.application.routes.draw do
   get "/settings" => "settings#index"
   post "/settings/save" => "settings#save"
 
+  resource :logbook_settings, path: "/settings/logbook", only: [:show, :update]
+
   scope "/media" do
     get "unmapped" => "media#unmapped"
   end
