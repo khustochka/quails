@@ -5,6 +5,8 @@
 class LogbookSetting < ApplicationRecord
   validates :locus_id, uniqueness: true
 
+  invalidates Quails::CacheKey.lifelist
+
   belongs_to :locus, optional: true
 
   scope :enabled, -> { where(life: true).or(where(year: true)) }
@@ -19,7 +21,7 @@ class LogbookSetting < ApplicationRecord
         if life || year
           find_or_initialize_by(locus_id: locus_id).update!(life: life, year: year)
         else
-          where(locus_id: locus_id).delete_all
+          where(locus_id: locus_id).destroy_all
         end
       end
     end

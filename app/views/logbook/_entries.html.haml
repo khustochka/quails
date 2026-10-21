@@ -1,0 +1,14 @@
+-# frozen_string_literal: true
+-# Logbook entries as returned by Logbook#recent or Logbook#for_year.
+-# `private` adds admin-only links (day pages).
+- private = local_assigns.fetch(:private, false)
+%dl.logbook
+  - entries.each do |date, date_entries|
+    - time = tag.time(l(date, format: "%-d %b %Y"), datetime: date.iso8601)
+    %dt= private ? link_to(time, day_path(date), class: "not-green") : time
+    %dd
+      %ul
+        - date_entries.each do |entry|
+          %li
+            %span.logbook-label= safe_join([logbook_entry_label(entry), ":"])
+            = logbook_species(entry)

@@ -10,15 +10,15 @@ class LogbookHelperTest < ActionView::TestCase
       list_total: 10, covered: covered)
   end
 
-  def label(**)
-    Nokogiri::HTML.fragment(logbook_entry_label(entry(**))).text
+  def label(locale: :en, **)
+    I18n.with_locale(locale) { Nokogiri::HTML.fragment(logbook_entry_label(entry(**))).text }
   end
 
   test "single species labels" do
     assert_equal "New lifer (10)", label(type: :life)
     assert_equal "New species in Ukraine (10)", label(type: :life, locus: loci(:ukraine))
     assert_equal "New species for 2024 (10)", label(type: :year, year: 2024)
-    assert_equal "New for Ukraine 2024 (10)", label(type: :year, locus: loci(:ukraine), year: 2024)
+    assert_equal "New species for Ukraine 2024 (10)", label(type: :year, locus: loci(:ukraine), year: 2024)
   end
 
   test "multiple species labels" do
@@ -32,6 +32,13 @@ class LogbookHelperTest < ActionView::TestCase
   test "covered areas are appended" do
     assert_equal "New lifer (10), new species in Ukraine (3), new species in Kyiv oblast (2)",
       label(type: :life, covered: [[loci(:ukraine), 3], [loci(:kiev_obl), 2]])
+  end
+
+  test "labels are translated with localized area names" do
+    assert_equal "Новий вид — Україна (10)", label(locale: :uk, type: :life, locus: loci(:ukraine))
+    assert_equal "Додано 2 нові види у 2024 році (10)", label(locale: :uk, type: :year, year: 2024, count: 2)
+    assert_equal "Додано 5 нових лайферів (10), новий вид — Україна (3)",
+      label(locale: :uk, type: :life, count: 5, covered: [[loci(:ukraine), 3]])
   end
 
   test "World lifer species are emphasized" do

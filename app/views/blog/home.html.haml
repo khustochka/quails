@@ -19,6 +19,14 @@
     %li= link_to(t("menu.archive"), action: :archive)
     = render "partials/feed_list_item"
 
+-# Recent entries depend on the current date.
+- cache [:logbook, Date.current, admin: current_user.admin?, locale: I18n.locale, key: Quails::CacheKey.lifelist] do
+  - logbook_entries = @logbook.recent
+  - if logbook_entries.any?
+    %h2= t(".logbook")
+    .logbook-panel
+      = render "logbook/entries", entries: logbook_entries
+
 = render partial: "year_summaries", locals: { new_year_mode: Settings.new_year_mode }
 
 - cache [@posts, admin: current_user.admin?, locale: I18n.locale, key: Quails::CacheKey.gallery] do

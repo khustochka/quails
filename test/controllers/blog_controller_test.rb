@@ -21,6 +21,28 @@ class BlogControllerTest < ActionController::TestCase
     assert_select "h1", "Birdwatching blog"
   end
 
+  test "home page shows recent logbook entries without day links" do
+    LogbookSetting.create!(locus: nil, life: true, year: true)
+    obs = create(:observation, card: create(:card, observ_date: 3.days.ago.to_date))
+
+    get :home, params: { locale: "en" }
+
+    assert_select "h2", "Recent additions"
+    assert_select "dl.logbook dt time[datetime='#{3.days.ago.to_date.iso8601}']"
+    assert_select "dl.logbook dt a", false
+    assert_select "dl.logbook .logbook-total a[href='/en/lifelist#lifer-1']"
+    assert_select "dl.logbook dd li", text: "New lifer (1): #{obs.species.name_en}"
+  end
+
+  test "home page logbook excludes hidden observations" do
+    LogbookSetting.create!(locus: nil, life: true, year: true)
+    create(:observation, hidden: true, card: create(:card, observ_date: 3.days.ago.to_date))
+
+    get :home
+
+    assert_select "dl.logbook", false
+  end
+
   test "home shows correct localized links" do
     blogpost1 = create(:post, face_date: "2007-12-06 13:14:15")
     get :home

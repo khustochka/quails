@@ -1,0 +1,20 @@
+ru:
+  logbook:
+    one_lifer: Новый лайфер
+    added_lifers:
+      one: Добавлен %{count} новый лайфер
+      few: Добавлено %{count} новых лайфера
+      many: Добавлено %{count} новых лайферов
+      other: Добавлено %{count} нового лайфера
+    one_species: Новый вид
+    added_species:
+      one: Добавлен %{count} новый вид
+      few: Добавлено %{count} новых вида
+      many: Добавлено %{count} новых видов
+      other: Добавлено %{count} нового вида
+    list:
+      life_world: "%{what}"
+      life_area: "%{what} — %{area}"
+      year_world: "%{what} в %{year} году"
+      year_area: "%{what} — %{area} %{year}"
+    covered: ", новый вид — %{area}"

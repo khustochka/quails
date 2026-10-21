@@ -32,6 +32,7 @@ class BlogController < ApplicationController
     end
 
     @year_progress_cell = YearProgressCell.new(year: Settings.current_year, offset: 8.hours)
+    @logbook = Logbook.new(observation_scope: current_user.available_obs)
     if Settings.new_year_mode
       @year_summary_cell = YearSummaryCell.new(year: Settings.current_year - 1)
     end

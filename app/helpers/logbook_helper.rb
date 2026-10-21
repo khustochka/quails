@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 module LogbookHelper
-  # Describes the list a Logbook::Entry was added to, e.g. "New for Manitoba 2025 (123)",
+  # Describes the list a Logbook::Entry was added to, e.g. "New species for Manitoba 2025 (123)",
   # followed by the covered life lists. List totals link to the species' anchors in the
   # corresponding lifelists.
   def logbook_entry_label(entry)
     label = safe_join([logbook_list_title(entry), " ", logbook_total_link(entry.list_total, entry.locus, entry.year)])
     covered = entry.covered.map do |locus, total|
-      safe_join([", new species in #{locus.name_en} ", logbook_total_link(total, locus)])
+      safe_join([t("logbook.covered", area: locus.name), " ", logbook_total_link(total, locus)])
     end
     star = logbook_star if entry.type == :life && entry.locus.nil?
     safe_join([star, label, *covered].compact)
@@ -31,22 +31,15 @@ module LogbookHelper
 
   def logbook_list_title(entry)
     count = entry.observations.size
-    area = entry.locus&.name_en
-    if count == 1
-      case [entry.type, area.nil?]
-      in [:life, true] then "New lifer"
-      in [:life, false] then "New species in #{area}"
-      in [:year, true] then "New species for #{entry.year}"
-      in [:year, false] then "New for #{area} #{entry.year}"
+    lifers = entry.type == :life && entry.locus.nil?
+    what =
+      if count == 1
+        t(lifers ? "logbook.one_lifer" : "logbook.one_species")
+      else
+        t(lifers ? "logbook.added_lifers" : "logbook.added_species", count: count)
       end
-    else
-      case [entry.type, area.nil?]
-      in [:life, true] then "Added #{count} new lifers"
-      in [:life, false] then "Added #{count} new species in #{area}"
-      in [:year, true] then "Added #{count} new species for #{entry.year}"
-      in [:year, false] then "Added #{count} new species for #{area} #{entry.year}"
-      end
-    end
+    kind = "#{entry.type}_#{entry.locus ? "area" : "world"}"
+    t("logbook.list.#{kind}", what: what, area: entry.locus&.name, year: entry.year)
   end
 
   def logbook_total_link(total, locus, year = nil)

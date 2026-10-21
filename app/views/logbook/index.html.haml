@@ -20,12 +20,4 @@
 - elsif @entries.empty?
   %p No additions.
 - else
-  %dl.logbook
-    - @entries.each do |date, entries|
-      %dt= link_to(tag.time(l(date, format: "%-d %b %Y"), datetime: date.iso8601), day_path(date), class: "not-green")
-      %dd
-        %ul
-          - entries.each do |entry|
-            %li
-              %span.logbook-label= safe_join([logbook_entry_label(entry), ":"])
-              = logbook_species(entry)
+  = render "logbook/entries", entries: @entries, private: true

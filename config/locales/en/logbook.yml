@@ -1,0 +1,12 @@
+en:
+  logbook:
+    one_lifer: New lifer
+    added_lifers: Added %{count} new lifers
+    one_species: New species
+    added_species: Added %{count} new species
+    list:
+      life_world: "%{what}"
+      life_area: "%{what} in %{area}"
+      year_world: "%{what} for %{year}"
+      year_area: "%{what} for %{area} %{year}"
+    covered: ", new species in %{area}"
