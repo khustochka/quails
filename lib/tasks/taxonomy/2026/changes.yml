@@ -1,0 +1,197 @@
+# Draft taxonomy changes for 2026, generated from eBird_Taxonomy_v2026-october-2026.csv.
+# Review each entry and set status to ok or skip.
+---
+entries:
+- type: split
+  status: draft
+  code: willet1
+  species: Tringa semipalmata
+  observation_count: 38
+  by_country:
+    canada: 36
+    usa: 2
+  daughters:
+  - code: willet2
+    name_sci: Tringa semipalmata
+    name_en: Saltmarsh Willet
+    matched_by: children
+  - code: willet3
+    name_sci: Tringa inornata
+    name_en: Prairie Willet
+    matched_by: children
+  survivor: willet2
+  observations: {}
+  local_species: {}
+- type: rename
+  status: draft
+  code: impeag1
+  species: Aquila heliaca
+  observation_count: 0
+  name_en:
+    old: Imperial Eagle
+    new: Eastern Imperial Eagle
+    accept: true
+- type: split
+  status: draft
+  code: grhowl
+  species: Bubo virginianus
+  observation_count: 112
+  by_country:
+    canada: 112
+  daughters:
+  - code: grhowl
+    name_sci: Bubo virginianus
+    name_en: Great Horned Owl
+    matched_by: code
+  - code: grhowl13
+    name_sci: Bubo nigrescens
+    name_en: Paramo Horned Owl
+    matched_by: children
+  - code: grhowl19
+    name_sci: Bubo nacurutu
+    name_en: Tropical Horned Owl
+    matched_by: children
+  survivor: grhowl
+  observations: {}
+  local_species: {}
+- type: rename
+  status: draft
+  code: winwre4
+  species: Troglodytes troglodytes
+  observation_count: 30
+  name_sci:
+    old: Troglodytes troglodytes
+    new: Nannus troglodytes
+- type: rename
+  status: draft
+  code: pacwre1
+  species: Troglodytes pacificus
+  observation_count: 3
+  name_sci:
+    old: Troglodytes pacificus
+    new: Nannus pacificus
+- type: rename
+  status: draft
+  code: winwre3
+  species: Troglodytes hiemalis
+  observation_count: 19
+  name_sci:
+    old: Troglodytes hiemalis
+    new: Nannus hiemalis
+- type: split
+  status: draft
+  code: marwre
+  species: Cistothorus palustris
+  observation_count: 152
+  by_country:
+    canada: 152
+  daughters:
+  - code: marwre1
+    name_sci: Cistothorus paludicola
+    name_en: Western Marsh Wren
+    matched_by: children
+  - code: eamwre1
+    name_sci: Cistothorus palustris
+    name_en: Eastern Marsh Wren
+    matched_by: children
+  survivor: eamwre1
+  observations: {}
+  local_species: {}
+- type: split
+  status: draft
+  code: spofly1
+  species: Muscicapa striata
+  observation_count: 73
+  by_country:
+    ukraine: 73
+  daughters:
+  - code: spofly2
+    name_sci: Muscicapa striata
+    name_en: Spotted Flycatcher
+    matched_by: children
+  - code: spofly3
+    name_sci: Muscicapa tyrrhenica
+    name_en: Mediterranean Flycatcher
+    matched_by: children
+  survivor: spofly2
+  observations: {}
+  local_species: {}
+- type: split
+  status: draft
+  code: eurrob1
+  species: Erithacus rubecula
+  observation_count: 130
+  by_country:
+    ukraine: 105
+    united_kingdom: 20
+    poland: 5
+  daughters:
+  - code: eurrob1
+    name_sci: Erithacus rubecula
+    name_en: European Robin
+    matched_by: code
+  - code: cairob1
+    name_sci: Erithacus superbus
+    name_en: Canary Islands Robin
+    matched_by: slash
+  survivor: eurrob1
+  observations: {}
+  local_species: {}
+- type: rename
+  status: draft
+  code: blhbun1
+  species: Emberiza melanocephala
+  observation_count: 0
+  name_sci:
+    old: Emberiza melanocephala
+    new: Melophus melanocephalus
+- type: rename
+  status: draft
+  code: reebun
+  species: Emberiza schoeniclus
+  observation_count: 12
+  name_sci:
+    old: Emberiza schoeniclus
+    new: Schoeniclus schoeniclus
+- type: rename
+  status: draft
+  code: yebbun
+  species: Emberiza aureola
+  observation_count: 0
+  name_sci:
+    old: Emberiza aureola
+    new: Schoeniclus aureolus
+- type: rename
+  status: draft
+  code: litbun
+  species: Emberiza pusilla
+  observation_count: 0
+  name_sci:
+    old: Emberiza pusilla
+    new: Schoeniclus pusillus
+- type: rename
+  status: draft
+  code: rusbun
+  species: Emberiza rustica
+  observation_count: 0
+  name_sci:
+    old: Emberiza rustica
+    new: Schoeniclus rusticus
+- type: rename
+  status: draft
+  code: yebbun1
+  species: Emberiza chrysophrys
+  observation_count: 0
+  name_sci:
+    old: Emberiza chrysophrys
+    new: Schoeniclus chrysophrys
+- type: rename
+  status: draft
+  code: paired
+  species: Myioborus pictus
+  observation_count: 1
+  name_en:
+    old: Painted Redstart
+    new: Painted Whitestart
+    accept: true
+removed_unused: []
