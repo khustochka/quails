@@ -27,6 +27,8 @@ class Taxon < ApplicationRecord
   has_many :observations, dependent: :restrict_with_exception
   has_many :images, through: :observations
 
+  after_update :sync_observations_species_id, if: :saved_change_to_species_id?
+
   scope :category_species, -> { where(category: "species") }
   scope :listable, -> { where.not(species_id: nil) }
 
@@ -114,5 +116,12 @@ class Taxon < ApplicationRecord
   def attach_species(sp)
     children.each { |tx| tx.update!(species_id: sp.id) }
     update!(species_id: sp.id)
+  end
+
+  private
+
+  # Keeps the denormalized observations.species_id in step with taxa.species_id.
+  def sync_observations_species_id
+    observations.update_all(species_id: species_id)
   end
 end

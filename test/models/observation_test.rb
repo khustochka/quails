@@ -38,6 +38,14 @@ class ObservationTest < ActiveSupport::TestCase
     assert_nil obs.species_id
   end
 
+  test "resync_species_ids! repairs stale species_id" do
+    @observation.update_column(:species_id, species(:hirrus).id)
+
+    Observation.resync_species_ids!
+
+    assert_equal @observation.taxon.species_id, @observation.reload.species_id
+  end
+
   test "updating observation touches card" do
     before = @observation.card.updated_at
     @observation.update_attribute(:taxon_id, taxa("hirrus").id)

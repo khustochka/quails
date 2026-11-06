@@ -9,7 +9,8 @@ class Observation < ApplicationRecord
 
   belongs_to :taxon
   # species_id is denormalized from taxon.species_id for query performance.
-  # Kept in sync via sync_species_id callback. Use taxon.species when you need
+  # Kept in sync via sync_species_id callback and Taxon#sync_observations_species_id;
+  # resync_species_ids! repairs it in bulk. Use taxon.species when you need
   # the full taxon context; use this association for filtering/joining.
   belongs_to :species, optional: true
 
@@ -35,6 +36,12 @@ class Observation < ApplicationRecord
   scope :identified, -> { where.not(species_id: nil) }
 
   scope :not_hidden, -> { where(hidden: false) }
+
+  def self.resync_species_ids!
+    joins(:taxon)
+      .where("observations.species_id IS DISTINCT FROM taxa.species_id")
+      .update_all("species_id = taxa.species_id")
+  end
 
   def self.count_distinct_species
     count("DISTINCT species_id")
