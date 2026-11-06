@@ -4,7 +4,7 @@ source "https://gem.coop"
 
 ruby ">= 3.2"
 
-VERSION = "8.1.4"
+VERSION = "8.1.4.1"
 # gem "rails", VERSION
 gem "activemodel",   VERSION
 gem "activejob",     VERSION
