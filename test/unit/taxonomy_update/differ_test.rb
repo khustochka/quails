@@ -1,18 +1,13 @@
 # frozen_string_literal: true
 
 require "test_helper"
+require_relative "taxonomy_csv_helper"
 
 class Quails::TaxonomyUpdate::DifferTest < ActiveSupport::TestCase
-  HEADER = "taxon_order,category,species_code,bio_concept_code,primary_com_name,sci_name,order1,family,sparse_report_as"
+  include TaxonomyCsvHelper
 
   setup do
-    @rows = EBirdTaxon.order(:index_num).preload(:parent).to_h do |et|
-      [et.ebird_code, {
-        "taxon_order" => et.index_num, "category" => et.category, "species_code" => et.ebird_code,
-        "bio_concept_code" => et.taxon_concept_id, "primary_com_name" => et.name_en, "sci_name" => et.name_sci,
-        "order1" => et.order, "family" => et.family, "sparse_report_as" => et.parent&.ebird_code,
-      },]
-    end
+    @rows = current_ebird_rows
   end
 
   test "no entries when nothing changed" do
@@ -128,15 +123,10 @@ class Quails::TaxonomyUpdate::DifferTest < ActiveSupport::TestCase
   private
 
   def add_row(code, category, name_sci, concept: nil)
-    @rows[code] = { "taxon_order" => 99_999, "category" => category, "species_code" => code,
-                    "bio_concept_code" => concept, "primary_com_name" => code, "sci_name" => name_sci, }
+    @rows[code] = ebird_row(code, category, name_sci, concept: concept)
   end
 
   def diff
-    csv = CSV.generate do |out|
-      out << HEADER.split(",")
-      @rows.each_value { |row| out << HEADER.split(",").map { |h| row[h] } }
-    end
-    Quails::TaxonomyUpdate::Differ.new(Quails::TaxonomyUpdate::Source.new(csv))
+    Quails::TaxonomyUpdate::Differ.new(taxonomy_source(@rows))
   end
 end
