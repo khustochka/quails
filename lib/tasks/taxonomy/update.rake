@@ -17,7 +17,7 @@ namespace :taxonomy do
       source: Quails::TaxonomyUpdate::Source.read(find_csv.call(year)),
       manifest: Quails::TaxonomyUpdate::Manifest.load(manifest),
       version: year,
-      overrides: YAML.safe_load_file(Rails.root.join("lib/tasks/taxonomy/overrides.yml")),
+      overrides: YAML.safe_load_file(Rails.root.join("lib/tasks/taxonomy/overrides.yml")) || [],
       dry_run: ENV["DRY_RUN"].present?
     ).run
   rescue Quails::TaxonomyUpdate::Applier::Error => e

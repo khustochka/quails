@@ -1,5 +1,3 @@
-# Taxa I keep at a different rank or name than eBird (here: species that eBird treats
-# as subspecies). Taxonomy re-sync only updates their order, family and position.
-- weywag6 # Motacilla feldegg
-- lbbgul4 # Larus heuglini
-- bewswa1 # Cygnus bewickii
+# eBird codes of taxa I keep at a different rank or name than eBird (e.g. species that eBird
+# treats as subspecies). Taxonomy re-sync only updates their order, family and position.
+[]

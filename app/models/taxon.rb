@@ -57,7 +57,7 @@ class Taxon < ApplicationRecord
 
   # 1. This is mostly used when promoting ebird taxon to taxon (and further to species)
   # 2. But it also can be called separately to create a species after taxon category is
-  # manually changed to species (like Motacilla feldegg).
+  # manually changed to species.
   # 3. It also contains additional logic to fix an existing species relation after taxonomy update,
   # when lump or split occurred:
   #     a. Lump: Species is linked to a nominative subspecies(taxon-issf) that was formerly a species. It should be
