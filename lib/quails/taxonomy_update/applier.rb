@@ -11,7 +11,7 @@ module Quails
     #   5. remove taxa and eBird taxa that left the taxonomy
     #   6. re-order species
     #   7. resync observations.species_id
-    #   8. check invariants
+    #   8. check invariants (Verifier#errors)
     #
     # A dry run, or any failure, rolls everything back.
     class Applier
@@ -158,15 +158,7 @@ module Quails
       end
 
       def check!
-        problems = []
-        [Taxon, Species].each do |model|
-          count = model.count
-          unless model.distinct.count(:index_num) == count && model.maximum(:index_num) == count
-            problems << "#{model.name} index_num is not 1..#{count}"
-          end
-        end
-        orphans = Species.where.not(id: Taxon.category_species.where.not(species_id: nil).select(:species_id)).pluck(:name_sci)
-        problems << "Species without a species-rank taxon: #{orphans.join(", ")}" if orphans.any?
+        problems = Verifier.new.errors
         raise Error, problems.join("\n") if problems.any?
       end
 

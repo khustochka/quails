@@ -24,6 +24,19 @@ namespace :taxonomy do
     abort e.message
   end
 
+  desc "Check taxa, species and observations; with YEAR also list texts linking to that year's splits."
+  task :verify, [:year] => :environment do |_, args|
+    path = Rails.root.join("lib/tasks/taxonomy/#{args[:year]}/changes.yml")
+    manifest = Quails::TaxonomyUpdate::Manifest.load(path) if args[:year].present? && path.exist?
+    verifier = Quails::TaxonomyUpdate::Verifier.new(manifest: manifest)
+
+    errors = verifier.errors
+    { "Errors" => errors, "Warnings" => verifier.warnings, "Review" => verifier.review }.each do |title, items|
+      puts "== #{title}", *items.map { |item| "  #{item}" }, ""
+    end
+    abort "#{errors.size} errors." if errors.any?
+  end
+
   desc "Draft lib/tasks/taxonomy/YEAR/changes.yml from data/eBird_Taxonomy_vYEAR*.csv (or CSV=path). FORCE=1 overwrites."
   task :diff, [:year] => :environment do |_, args|
     year = args[:year].presence || abort("Usage: bin/rails taxonomy:diff[2026]")
