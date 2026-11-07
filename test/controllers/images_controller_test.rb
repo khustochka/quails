@@ -206,6 +206,17 @@ class ImagesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "image page names the subspecies the bird was observed as" do
+    @obs.update!(taxon: taxa(:gargla_eurasian))
+    get :show, params: { id: @image.to_param }
+    assert_select ".image_nav .subspecies", text: "Garrulus glandarius [glandarius Group]"
+  end
+
+  test "image page names no subspecies for a species-rank observation" do
+    get :show, params: { id: @image.to_param }
+    assert_select ".image_nav i.sci_name", count: 1
+  end
+
   test "image page shows en sibling post link in en locale" do
     core = create(:post_core)
     create(:post, post_core: core, lang: "uk")

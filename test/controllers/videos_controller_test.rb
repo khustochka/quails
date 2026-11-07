@@ -117,6 +117,12 @@ class VideosControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "video page names the subspecies the bird was observed as" do
+    @obs.update!(taxon: taxa(:gargla_eurasian))
+    get :show, params: { id: @video.to_param }
+    assert_select ".species_under_video .subspecies", text: "Garrulus glandarius [glandarius Group]"
+  end
+
   test "show: invalid video slug should return 404" do
     assert_raise ActiveRecord::RecordNotFound do
       get :show, params: { id: "zzzzz" }

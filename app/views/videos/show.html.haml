@@ -26,6 +26,8 @@
     %li
       %b= species_link(sp)
       = name_sci(sp)
+      - @video.taxa_below_species(sp).each do |tx|
+        %div.subspecies= name_sci(tx)
 
 = render @video.large
 

@@ -99,6 +99,11 @@ class Media < ApplicationRecord
     super.uniq
   end
 
+  # Subspecies, forms and other taxa below species rank that +species+ is observed as here.
+  def taxa_below_species(species)
+    taxa.select { |tx| tx.species_id == species.id && !tx.full_species? }.uniq
+  end
+
   def card
     cards.first
   end

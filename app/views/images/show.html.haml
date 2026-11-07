@@ -61,6 +61,8 @@
             %b= species_link(sp)
             %br
             = name_sci(sp)
+            - @image.taxa_below_species(sp).each do |tx|
+              %div.subspecies= name_sci(tx)
 
           %td
             - if (next_image = @image.next_by_species(sp))
