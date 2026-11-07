@@ -3,7 +3,7 @@
 ---
 entries:
 - type: split
-  status: draft
+  status: ok
   code: willet1
   species: Tringa semipalmata
   observation_count: 38
@@ -20,10 +20,10 @@ entries:
     name_en: Prairie Willet
     matched_by: children
   survivor: willet2
-  observations: {}
-  local_species: {}
+  observations: {all: willet3}
+  local_species: {manitoba: willet3}
 - type: rename
-  status: draft
+  status: ok
   code: impeag1
   species: Aquila heliaca
   observation_count: 0
@@ -32,7 +32,7 @@ entries:
     new: Eastern Imperial Eagle
     accept: true
 - type: split
-  status: draft
+  status: ok
   code: grhowl
   species: Bubo virginianus
   observation_count: 112
@@ -52,10 +52,10 @@ entries:
     name_en: Tropical Horned Owl
     matched_by: children
   survivor: grhowl
-  observations: {}
-  local_species: {}
+  observations: {all: grhowl}
+  local_species: {manitoba: grhowl}
 - type: rename
-  status: draft
+  status: ok
   code: winwre4
   species: Troglodytes troglodytes
   observation_count: 30
@@ -63,7 +63,7 @@ entries:
     old: Troglodytes troglodytes
     new: Nannus troglodytes
 - type: rename
-  status: draft
+  status: ok
   code: pacwre1
   species: Troglodytes pacificus
   observation_count: 3
@@ -71,7 +71,7 @@ entries:
     old: Troglodytes pacificus
     new: Nannus pacificus
 - type: rename
-  status: draft
+  status: ok
   code: winwre3
   species: Troglodytes hiemalis
   observation_count: 19
@@ -79,7 +79,7 @@ entries:
     old: Troglodytes hiemalis
     new: Nannus hiemalis
 - type: split
-  status: draft
+  status: ok
   code: marwre
   species: Cistothorus palustris
   observation_count: 152
@@ -95,10 +95,10 @@ entries:
     name_en: Eastern Marsh Wren
     matched_by: children
   survivor: eamwre1
-  observations: {}
-  local_species: {}
+  observations: {all: marwre1}
+  local_species: {manitoba: marwre1}
 - type: split
-  status: draft
+  status: ok
   code: spofly1
   species: Muscicapa striata
   observation_count: 73
@@ -114,10 +114,10 @@ entries:
     name_en: Mediterranean Flycatcher
     matched_by: children
   survivor: spofly2
-  observations: {}
-  local_species: {}
+  observations: {all: spofly2}
+  local_species: {ukraine: spofly2}
 - type: split
-  status: draft
+  status: ok
   code: eurrob1
   species: Erithacus rubecula
   observation_count: 130
@@ -135,10 +135,10 @@ entries:
     name_en: Canary Islands Robin
     matched_by: slash
   survivor: eurrob1
-  observations: {}
-  local_species: {}
+  observations: {all: eurrob1}
+  local_species: {ukraine: eurrob1}
 - type: rename
-  status: draft
+  status: ok
   code: blhbun1
   species: Emberiza melanocephala
   observation_count: 0
@@ -146,7 +146,7 @@ entries:
     old: Emberiza melanocephala
     new: Melophus melanocephalus
 - type: rename
-  status: draft
+  status: ok
   code: reebun
   species: Emberiza schoeniclus
   observation_count: 12
@@ -154,7 +154,7 @@ entries:
     old: Emberiza schoeniclus
     new: Schoeniclus schoeniclus
 - type: rename
-  status: draft
+  status: ok
   code: yebbun
   species: Emberiza aureola
   observation_count: 0
@@ -162,7 +162,7 @@ entries:
     old: Emberiza aureola
     new: Schoeniclus aureolus
 - type: rename
-  status: draft
+  status: ok
   code: litbun
   species: Emberiza pusilla
   observation_count: 0
@@ -170,7 +170,7 @@ entries:
     old: Emberiza pusilla
     new: Schoeniclus pusillus
 - type: rename
-  status: draft
+  status: ok
   code: rusbun
   species: Emberiza rustica
   observation_count: 0
@@ -178,7 +178,7 @@ entries:
     old: Emberiza rustica
     new: Schoeniclus rusticus
 - type: rename
-  status: draft
+  status: ok
   code: yebbun1
   species: Emberiza chrysophrys
   observation_count: 0
@@ -186,7 +186,7 @@ entries:
     old: Emberiza chrysophrys
     new: Schoeniclus chrysophrys
 - type: rename
-  status: draft
+  status: ok
   code: paired
   species: Myioborus pictus
   observation_count: 1
