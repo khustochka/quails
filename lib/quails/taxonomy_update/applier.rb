@@ -7,7 +7,7 @@ module Quails
     #   1. import eBird taxa (upsert by code, new version and order)
     #   2. handlers#prepare
     #   3. re-sync taxa from their eBird taxa (overrides keep names, rank and parent)
-    #   4. handlers#apply
+    #   4. handlers#apply, then taxa without a species inherit their parent's
     #   5. remove taxa and eBird taxa that left the taxonomy
     #   6. re-order species
     #   7. resync observations.species_id
@@ -19,6 +19,10 @@ module Quails
 
       HANDLERS = {
         "concept_change" => Handler,
+        "rename" => Handlers::Rename,
+        "code_change" => Handlers::CodeChange,
+        "split" => Handlers::Split,
+        "lump" => Handlers::Lump,
       }.freeze
 
       attr_reader :source, :version
@@ -44,6 +48,7 @@ module Quails
           step("Preparing #{handlers.size} entries") { handlers.each(&:prepare) }
           step("Re-syncing taxa") { sync_taxa }
           step("Applying entries") { handlers.each(&:apply) }
+          step("Linking new subspecies") { inherit_species }
           step("Removing obsolete taxa") { remove_obsolete }
           step("Re-ordering species") { order_species }
           step("Resyncing observation species") { Observation.resync_species_ids! }
@@ -89,7 +94,7 @@ module Quails
       end
 
       def sync_taxa
-        ids = {}
+        ids = Taxon.pluck(:ebird_code, :id).to_h
         Taxon.acts_as_list_no_update do
           current = Taxon.joins(:ebird_taxon).merge(EBirdTaxon.where(ebird_version: version))
             .preload(ebird_taxon: :parent).order("ebird_taxa.index_num")
@@ -103,9 +108,15 @@ module Quails
             end
             taxon.assign_attributes(order: ebtx.order, family: ebtx.family, index_num: idx + 1)
             taxon.save! if taxon.changed?
-            ids[taxon.ebird_code] = taxon.id
           end
         end
+      end
+
+      def inherit_species
+        Taxon.connection.update(<<~SQL.squish)
+          UPDATE taxa SET species_id = parents.species_id FROM taxa parents
+          WHERE taxa.parent_id = parents.id AND taxa.species_id IS NULL AND parents.species_id IS NOT NULL
+        SQL
       end
 
       # Taxa whose code left eBird must have been re-homed by a handler unless they are unused.

@@ -8,8 +8,7 @@ class Quails::TaxonomyUpdate::ApplierTest < ActiveSupport::TestCase
 
   setup do
     @rows = current_ebird_rows
-    # The passan fixture species has no taxon, which the applier's checks reject.
-    create(:taxon, name_sci: "Passerculus sandwichensis", ebird_code: "savspa", species: species(:passan), index_num: 1000)
+    give_passan_a_taxon
   end
 
   test "applies an unchanged taxonomy" do
@@ -93,10 +92,6 @@ class Quails::TaxonomyUpdate::ApplierTest < ActiveSupport::TestCase
   private
 
   def apply(entries: [], dry_run: false)
-    Quails::TaxonomyUpdate::Applier.new(
-      source: taxonomy_source(@rows),
-      manifest: Quails::TaxonomyUpdate::Manifest.new("entries" => entries),
-      version: 2026, overrides: %w[weywag6], dry_run: dry_run, io: StringIO.new
-    ).run
+    run_update(@rows, entries: entries, dry_run: dry_run)
   end
 end

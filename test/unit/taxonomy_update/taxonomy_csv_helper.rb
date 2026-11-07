@@ -19,6 +19,19 @@ module TaxonomyCsvHelper
       "primary_com_name" => code, "sci_name" => name_sci, "sparse_report_as" => parent, }
   end
 
+  # The passan fixture species has no taxon, which the applier's checks reject.
+  def give_passan_a_taxon
+    create(:taxon, name_sci: "Passerculus sandwichensis", ebird_code: "savspa", species: species(:passan), index_num: 1000)
+  end
+
+  def run_update(rows, entries: [], dry_run: false)
+    Quails::TaxonomyUpdate::Applier.new(
+      source: taxonomy_source(rows),
+      manifest: Quails::TaxonomyUpdate::Manifest.new("entries" => entries),
+      version: 2026, overrides: %w[weywag6], dry_run: dry_run, io: StringIO.new
+    ).run
+  end
+
   # Rows are written in hash order, which becomes the taxonomic order.
   def taxonomy_source(rows)
     csv = CSV.generate do |out|

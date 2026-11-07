@@ -95,8 +95,8 @@ entries:
     name_en: Eastern Marsh Wren
     matched_by: children
   survivor: eamwre1
-  observations: {all: marwre1}
-  local_species: {manitoba: marwre1}
+  observations: {all: eamwre1}
+  local_species: {manitoba: eamwre1}
 - type: split
   status: ok
   code: spofly1
