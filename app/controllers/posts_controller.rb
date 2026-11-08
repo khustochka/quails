@@ -74,6 +74,7 @@ class PostsController < ApplicationController
 
     @meta_description = truncate(strip_tags(@post_body), length: 150, separator: " ").gsub(/\s+/, " ")
     @meta_thumbnail = helpers.post_cover_image_url(@post)
+    @meta_thumbnail_dimensions = helpers.post_cover_image_dimensions(@post)
 
     screened = session[:screened]
     if screened

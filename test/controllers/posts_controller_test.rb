@@ -48,12 +48,22 @@ class PostsControllerTest < ActionController::TestCase
     assert_equal image_url(img, format: :jpg), assigns(:meta_thumbnail)
   end
 
+  test "show sets og:image dimensions for cover image" do
+    img = create(:image)
+    blogpost = create(:post)
+    blogpost.post_core.update!(cover_image_slug: img.slug)
+    get :show, params: blogpost.to_url_params
+    assert_select "meta[property='og:image:width'][content='800']"
+    assert_select "meta[property='og:image:height'][content='600']"
+  end
+
   test "show sets meta thumbnail from external cover URL" do
     blogpost = create(:post)
     blogpost.post_core.update!(cover_image_slug: "https://example.com/cover.jpg")
     get :show, params: blogpost.to_url_params
     assert_response :success
     assert_equal "https://example.com/cover.jpg", assigns(:meta_thumbnail)
+    assert_select "meta[property='og:image:width']", false
   end
 
   test "show attaches the loaded post core so delegates don't reload it" do

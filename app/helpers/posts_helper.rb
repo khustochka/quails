@@ -17,13 +17,17 @@ module PostsHelper
   end
 
   def post_cover_image_url(post)
-    if post.cover_image_slug.present?
-      if %r{\Ahttps?://}.match?(post.cover_image_slug)
-        post.cover_image_slug
-      elsif (img = Image.find_by(slug: post.cover_image_slug))
-        static_jpg_url(img, { only_path: false })
-      end
+    if external_cover_image?(post)
+      post.cover_image_slug
+    elsif (img = post_cover_image(post))
+      static_jpg_url(img, { only_path: false })
     end
+  end
+
+  # nil for external cover URLs, whose dimensions are unknown
+  def post_cover_image_dimensions(post)
+    img = post_cover_image(post)
+    jpg_dimensions(img) if img
   end
 
   def post_lang_classes(post)
@@ -62,5 +66,16 @@ module PostsHelper
   def localized_public_post_path(post, opts = {})
     locale = post.lang.to_sym == I18n.default_locale ? nil : post.lang.to_sym
     public_post_path(post, { locale: locale }.merge!(opts))
+  end
+
+  private
+
+  def external_cover_image?(post)
+    %r{\Ahttps?://}.match?(post.cover_image_slug)
+  end
+
+  def post_cover_image(post)
+    slug = post.cover_image_slug
+    Image.find_by(slug: slug) if slug.present? && !external_cover_image?(post)
   end
 end

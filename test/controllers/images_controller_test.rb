@@ -206,6 +206,12 @@ class ImagesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "show image sets og:image dimensions" do
+    get :show, params: { id: @image.to_param }
+    assert_select "meta[property='og:image:width'][content='800']"
+    assert_select "meta[property='og:image:height'][content='600']"
+  end
+
   test "image page names the subspecies the bird was observed as" do
     @obs.update!(taxon: taxa(:gargla_eurasian))
     get :show, params: { id: @image.to_param }
