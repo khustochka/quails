@@ -37,6 +37,28 @@ class JSImagesTest < ApplicationSystemTestCase
     assert_equal 2, img.observations.size
   end
 
+  test "Replace image reveals upload area and swaps the stored file" do
+    img = create(:image_on_storage)
+    old_blob_id = img.stored_image.blob.id
+
+    login_as_admin
+    visit edit_image_path(img)
+    # Matches the filename, so no confirm about replacing the slug.
+    fill_in("Slug", with: "tules")
+
+    assert_no_selector ".droparea"
+    click_button("Replace image")
+    assert_selector ".droparea"
+    assert_no_button("Replace image")
+
+    with_element_visible("form.has-advanced-upload div.input.image_stored_image") do
+      attach_file("Stored image", Rails.root.join("test/fixtures/files/tules.jpg"))
+    end
+
+    assert_difference("Image.count", 0) { save_and_check }
+    assert_not_equal old_blob_id, img.reload.stored_image.blob.id
+  end
+
   test "Adding new image" do
     create(:observation, card: create(:card, observ_date: "2008-07-01"))
     create(:observation, card: create(:card, observ_date: "2008-07-01"))

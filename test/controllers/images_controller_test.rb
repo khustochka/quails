@@ -266,6 +266,32 @@ class ImagesControllerTest < ActionController::TestCase
     assert_redirected_to edit_map_image_path(assigns(:image))
   end
 
+  test "edit form hides upload behind Replace for image on storage" do
+    login_as_admin
+    image = create(:image_on_storage)
+    get :edit, params: { id: image.to_param }
+    assert_select "button[data-replace-image][aria-controls=image_upload]"
+    assert_select "#image_upload[hidden] input[type=file]#image_stored_image"
+    assert_select "input[type=hidden][name='image[stored_image]']:not([id])"
+  end
+
+  test "replacing stored image creates a new blob and purges the old one" do
+    login_as_admin
+    image = create(:image_on_storage)
+    old_blob = image.stored_image.blob
+    new_blob = ActiveStorage::Blob.create_and_upload!(
+      io: file_fixture("tules.jpg").open, filename: "tules.jpg", key: "tules-replacement.jpg"
+    )
+
+    put :update, params: { id: image.to_param, image: { stored_image: new_blob.signed_id }, obs: image.observation_ids }
+
+    assert_equal new_blob, image.reload.stored_image.blob
+    assert_not_equal old_blob.key, new_blob.key
+    purged = GoodJob::Job.where(job_class: "ActiveStorage::PurgeJob")
+      .map { |job| job.serialized_params.dig("arguments", 0, "_aj_globalid") }
+    assert_includes purged, old_blob.to_global_id.to_s
+  end
+
   test "remove spot_id when changing image observation" do
     login_as_admin
     spot = create(:spot, observation_id: @image.observation_ids.first)

@@ -2,9 +2,18 @@ document.addEventListener("DOMContentLoaded", function () {
   const form = document.querySelector("[data-image-form]");
   if (!form) return;
 
-  // A persisted image renders no upload UI, only a hidden field reusing the same id.
   const fileInput = document.querySelector("input[type=file]#image_stored_image");
   if (!fileInput) return;
+
+  // An image with a stored file keeps the upload UI hidden until Replace is clicked.
+  const replaceButton = form.querySelector("[data-replace-image]");
+  if (replaceButton) {
+    replaceButton.addEventListener("click", function () {
+      document.getElementById(replaceButton.getAttribute("aria-controls")).hidden = false;
+      replaceButton.setAttribute("aria-expanded", "true");
+      replaceButton.hidden = true;
+    });
+  }
 
   const droparea = document.querySelector(".droparea");
   const slugInput = document.getElementById("image_slug");
@@ -67,11 +76,10 @@ document.addEventListener("DOMContentLoaded", function () {
     preview.appendChild(img);
 
     fileInput.value = "";
-    let hiddenInput = form.querySelector("input[type=hidden]#image_stored_image");
+    let hiddenInput = form.querySelector("input[type=hidden][name='image[stored_image]']");
     if (!hiddenInput) {
       hiddenInput = document.createElement("input");
       hiddenInput.type = "hidden";
-      hiddenInput.id = "image_stored_image";
       hiddenInput.name = "image[stored_image]";
       form.appendChild(hiddenInput);
     }

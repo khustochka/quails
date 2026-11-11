@@ -36,24 +36,28 @@
   %p#notice Date taken from EXIF, may be incorrect
 
 = simple_form_for @image, html: {class: 'image with_observations', data: {image_form: true}} do |form|
-  - if @image.persisted? || (@image.on_storage? && @image.stored_image.persisted?)
-    %p= image_tag(@image.thumbnail_variant, class: 'image_pic')
-    - if @image.on_storage?
-      = form.input :stored_image, as: :hidden, input_html: {value: @image.stored_image.blob.signed_id}
-  - else
-    = form.input :stored_image
-    .dropsection
-      .droparea
-        %span.drop__text
-          Drop a file or <label for="image_stored_image" class="pseudolink dropfallback">select from dialog</label>.
+  - has_image = @image.persisted? || (@image.on_storage? && @image.stored_image.persisted?)
+  - if has_image
+    .current-image
+      %p= image_tag(@image.thumbnail_variant, class: 'image_pic')
+      - if @image.on_storage?
+        = form.hidden_field :stored_image, id: nil, value: @image.stored_image.blob.signed_id
+        %button.replace-image{type: "button", aria: {expanded: "false", controls: "image_upload"}, data: {replace_image: true}} Replace image
+  - if !has_image || @image.on_storage?
+    #image_upload{hidden: has_image}
+      = form.input :stored_image
+      .dropsection
+        .droparea
+          %span.drop__text
+            Drop a file or <label for="image_stored_image" class="pseudolink dropfallback">select from dialog</label>.
 
-      .drop__preview
-      .drop__uploading Uploading&hellip;
-      .drop__analyzing Analyzing&hellip;
-      .drop__success
-        %b File uploaded.
-      .drop__error{role: "alert"}
-        %b File attached.
+        .drop__preview
+        .drop__uploading Uploading&hellip;
+        .drop__analyzing Analyzing&hellip;
+        .drop__success
+          %b File uploaded.
+        .drop__error{role: "alert"}
+          %b File attached.
 
   %div
     = form.input :slug
